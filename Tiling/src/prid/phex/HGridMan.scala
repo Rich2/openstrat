@@ -21,11 +21,6 @@ trait HGridMan
   /** The number of tiles in the Hex grid this manager class is managing. */
   def numTiles: Int = grid.numTiles
 
-  /** Tile steps from a hex within this managers grid to other grids. */
-  final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
-
-  /** Tile steps from a hex within this managers grid to other grids. */
-  def outSteps(r: Int, c: Int): HStepCenArr
 
   /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
   def sideArrIndex(r: Int, c : Int): Int
@@ -39,18 +34,7 @@ trait HGridMan
    * outer sides, as some of the girds outer sides will link to hexes in other grids within the [HGridSys]] grid system. */
   def outerSidesForeach(f: HSide => Unit): Unit
 
-  def numSides: Int = sidesFold((acc, _) => acc + 1)
   def sidesForeach(f: HSide => Unit): Unit
-
-  def sidesFold[A](init: A)(f: (A, HSide) => A): A =
-  { var acc: A = init
-    sidesForeach{hs => acc = f(acc, hs) }
-    acc
-  }
-
-  def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
-
-  def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** The offet is used in the implementation of the flatHCoordToPt2(hCoord: HCoord) method in [[HGridMulti]] where it is added to the [[Pt2]] value
    * given by the [[HGrid]]. */
@@ -59,17 +43,5 @@ trait HGridMan
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCenArr = grid.adjTilesOfTile(tile)
 
-  def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
-    if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
 
-  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
-  { val r1 = grid.findStepEnd(startHC, step)
-    if(r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
-  }
-
-  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
-
-  def sideTile1(hSide: HSide): HCen = grid.sideTile1(hSide)
-
-  def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
 }

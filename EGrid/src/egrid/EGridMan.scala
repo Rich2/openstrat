@@ -7,10 +7,39 @@ trait EGridMan extends HGridMan
   /** The multi grid system that contains the grid that this is managing. */
   def sys: EGridMulti
   override def grid: EGrid
+
+  /** Tile steps from a hex within this managers grid to other grids. */
+  final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
+
+  /** Tile steps from a hex within this managers grid to other grids. */
+  def outSteps(r: Int, c: Int): HStepCenArr
+
+  def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
+    if (grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
+
+  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = {
+    val r1 = grid.findStepEnd(startHC, step)
+    if (r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
+  }
+  def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
+
   def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit
   final def linksForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowInnerSidesForeach(r)(f))
 
   lazy val sideIndexStart: Int =
     ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
 
+
+  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
+  def sideTile1(hSide: HSide): HCen = grid.sideTile1(hSide)
+  def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
+
+  def sidesFold[A](init: A)(f: (A, HSide) => A): A = {
+    var acc: A = init
+    sidesForeach { hs => acc = f(acc, hs) }
+    acc
+  }
+
+  def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
+  def numSides: Int = sidesFold((acc, _) => acc + 1)
 }
