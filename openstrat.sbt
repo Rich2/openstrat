@@ -79,7 +79,7 @@ lazy val UtilJs = jsProj("Util").settings(
 )
 
 lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(
-  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcParse").map{ str => moduleDir.value / str },
+  Compile/unmanagedSourceDirectories ++= List("srcRArr", "srcParse").map{ str => moduleDir.value / str },
 )
 
 def geomSett = List(
