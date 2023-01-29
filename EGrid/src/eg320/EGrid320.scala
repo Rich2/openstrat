@@ -69,7 +69,7 @@ object EGrid320
 
   def scen10: EScenBasic =
   { val grid: EGridLongFull = Terr320W60.grid
-    EScenBasic(grid, Terr320W60.terrs, Terr320E60.sTerrs, Terr320W60.corners, "320km 60W")
+    EScenBasic(grid, Terr320W60.terrs, Terr320W60.sTerrs, Terr320W60.corners, "320km 60W")
   }
 
   def scen11: EScenBasic =

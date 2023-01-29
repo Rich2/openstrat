@@ -2,6 +2,7 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
+/** 320 km terrain for 120 west. */
 object Terr320W120 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.w120(128)
@@ -29,6 +30,7 @@ object Terr320W120 extends Long320Terrs
     wr(128, sea * 4, hillDesert * 2, desert, hillDesert)
     res
   }
+
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 155,8707,  155,8709,  157,8701,  158,8704,  158,8712)

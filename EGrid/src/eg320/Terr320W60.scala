@@ -2,6 +2,7 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
+/** 320km terrain for 60 west. */
 object Terr320W60 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.w60(128)
@@ -27,16 +28,19 @@ object Terr320W60 extends Long320Terrs
     wr(132, sea * 7)
     res
   }
-  override val sTerrs: HSideOptLayer[WSide] = {
-    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+
+  override val sTerrs: HSideOptLayer[WSide] =
+  { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 141,10755,  148,10746)
     res
   }
-  /*override val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
 
+  override val corners: HCornerLayer =
+  { val res = grid.newHVertOffsetLayer
+
+    res.setMouth4(142, 10758)
+    res.setMouth1(140, 10752)
     res
-  }*/
 
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  }
 }
