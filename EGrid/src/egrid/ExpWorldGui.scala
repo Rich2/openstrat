@@ -23,7 +23,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match
-  { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
+  { case hgm: EGridMulti => s"grid0: ${hgm.grids(0).numSides}"
     case _ => "Single grid"
   }
 

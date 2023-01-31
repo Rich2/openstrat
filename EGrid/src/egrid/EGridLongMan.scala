@@ -7,6 +7,7 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
 {
   final override def grid: EGridLong = sys.grids(thisInd)
 
+  override def adjTilesOfTile(tile: HCen) = ???
   final override def offset: Vec2 = Vec2((sys.gridsXSpacing - sys.hcDelta) * thisInd, 0)
 
   final override def indexStart: Int = grid.numTiles * thisInd

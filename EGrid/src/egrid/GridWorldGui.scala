@@ -22,7 +22,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
 
   val g0Str: String = gridSys match
-  { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
+  { case hgm: EGridMulti => s"grid0: ${hgm.grids(0).numSides}"
     case _ => "Single grid"
   }
 
