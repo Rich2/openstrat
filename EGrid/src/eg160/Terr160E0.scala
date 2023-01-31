@@ -2,6 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._, egrid._
 
+/** 160km terrain for 0 degrees eat. */
 object Terr160E0 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.e0(272)
@@ -23,7 +24,7 @@ object Terr160E0 extends Long160Terrs
     wr(292, sea * 3, hills * 2, sea * 5, plain)
     wr(290, sea * 2, hills * 2, sea * 4, plain * 3)
     wr(288, sea * 2, plain, hills, plain, sea * 4, plain, sea)
-    wr(286, sea * 2, plain, sea , plain* 2, sea * 3, plain * 3)
+    wr(286, sea * 2, plain * 4, sea * 3, plain * 3)
     wr(284, sea, plain * 2, hills, plain * 2, sea, plain * 5)
     wr(282, sea * 4, hills, plain * 4, hills * 2, plain * 2)
     wr(280, sea * 4, hills, sea * 2, plain, hills * 5)
@@ -36,22 +37,35 @@ object Terr160E0 extends Long160Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 279,505,  281,515,  282,516,  284,502,  288,502,  289,501,  289,529,  290,528,  290,532,  291,531)
+    res.setSomeInts(Sea, 279,505,  281,515,  282,516,  284,502,  285,503,  286,504,  287,503,  288,502,  289,501,  289,529,  290,528,  290,532,  291,531)
     res
   }
 
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer =
+  { val res = grid.newHVertOffsetLayer
+
+    res.setMouth2(290, 498)//Northern Ireland north
+    res.setVert1In(288, 500)
+    res.setVert4In(288, 504)
+    res.setVert1In(286, 502)
+    res.setVert2In(286, 502)
+    res.setVert5In(284, 504)
+    res.setMouth0(282, 502)
+
+    res
+  }
 }
 
+/** 16okm terrain scenario for Britain */
 object Brit160
 { def britTerrs: HCenLayer[WTile] = EGrid160.britGrid.hCenLayerSpawn(Terr160E0.grid, Terr160E0.terrs)
-
   def britSTerrs: HSideOptLayer[WSide] = EGrid160.britGrid.sideOptLayerSpawn(Terr160E0.grid, Terr160E0.sTerrs)
+  def britCorners: HCornerLayer = EGrid160.britGrid.cornerLayerSpawn(Terr160E0.grid, Terr160E0.corners)
 
-  def britScen: EScenBasic = new EScenBasic {
-    override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
+  def britScen: EScenBasic = new EScenBasic
+  { override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
     override val terrs: HCenLayer[WTile] = britTerrs
     override val sTerrs: HSideOptLayer[WSide] = britSTerrs
-    override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+    override val corners: HCornerLayer = britCorners
   }
 }
