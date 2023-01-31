@@ -11,7 +11,7 @@ object Terr320W90 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
-    wr(160, sea * 2)
+    wr(160, tundra, sea)
     wr(158, tundra * 3)
     wr(156, sea, tundra * 2)
     wr(154, tundra * 3, sea)
@@ -32,13 +32,20 @@ object Terr320W90 extends Long320Terrs
   }
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 142,9736,  143,9735,  144,9734,  152,9730,  152,9734,  153,9731,  155, 9731,  156,9730,  157,9729,  158,9724,  158,9728,  159,9725)
-    res.setSomeInts(Lake,  136,9730, 137,9727,  137, 9733)
+    res.setSomeInts(Sea, 159,9729)
+    res.setSomeInts(Sea, 142,9736,  143,9735,  144,9734,  152,9730,  152,9734,  153,9731,  155, 9731,  156,9730,  157,9729,  158,9724,  158,9728,  159,9725,  159,9727)
+    res.setSomeInts(Lake,  135,9731,  135,9741,  135, 9737,  136,9730,  137,9733)
     res
   }
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
+
+    res.setMouth4(160, 9732)
+    res.setVert4In(158, 9730)
+    res.setVert1In(156, 9728)
+    res.setVert4In(156, 9732)
+    res.setMouth5(154, 9734)//Baffin west
 
     res.setMouth4(154, 9734)//Southampton Island west
     res.setVert5In(152, 9732)//Southampton Island west
@@ -48,6 +55,16 @@ object Terr320W90 extends Long320Terrs
     res.setVert4In(144, 9736)//James Bay
     res.setVert1In(142, 9734)//James Bay
     res.setMouth0(140, 9736)
+
+    res.setMouth3(138, 9730)//Lake Michigan north
+    res.setVert4In(136, 9732)//Lake Michigan
+    res.setMouth5(134, 9734)//Lake Michigan south
+
+    res.setMouth2(138, 9730)//Lake Superior west
+    res.setMouth5(136, 9736)//Lake Huron north west
+
+    res.setMouth1(134, 9738)//Lake Ontario east
+
     res
   }
 }

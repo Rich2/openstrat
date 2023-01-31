@@ -2,20 +2,8 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, LatLong._, WTile._
 
-object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
-{ val mouthNorth: LatLong = 45.84 ll -84.75
-  val north: LatLong = 46.10 ll -85.42
-  val northWest: LatLong = 45.91 ll -86.97
-  val west: LatLong = 43.04 ll -87.89
-  val south: LatLong = 41.62 ll -87.25
-  val pointBetsie: LatLong = 44.69 ll -86.26
-  val mouthSouth: LatLong = 45.78 ll -84.75
-
-  val coast: LinePathLL = LinePathLL(mouthNorth, north, northWest, west, south, pointBetsie, mouthSouth)
-
-  override def polygonLL: PolygonLL = coast.reverseClose
-}
-
+/** Graphical object for the east of the United States. Dependant on [[UsaWest]], [[SouthWestCanada]], [[EastCanada]], [[LakeSuperior]],
+ *  [[LakeMichigan]], [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
 object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 { val p10 = 42.41 ll -71.00
   val chatham = 41.67 ll -69.95
@@ -34,6 +22,7 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
     (EastCanada.maineE, p10, chatham, stattenS, stumpyPoint, NAtlanticSW, seFlorida, swFlorida, nwFlorida, UsaWest.galveston, UsaWest.rockyPoint)
 }
 
+/** Graphical object for the east of the United States. Dependant on [[SouthWestCanada]]. */
 object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
 { val sanDiego = 32.57 ll -117.11
   val humboldt = 40.44 ll -124.40

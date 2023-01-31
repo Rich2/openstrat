@@ -11,6 +11,7 @@ object Terr320W60 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
+
     gs(160, 10756, ice)
     gs(158, 10754, ice * 2)
     gs(156, 10748, tundra, sea, ice)
@@ -26,6 +27,7 @@ object Terr320W60 extends Long320Terrs
     wr(136, hillTaiga, taiga * 2, sea * 4)
     wr(134, hillForest, sea * 6)
     wr(132, sea * 7)
+
     res
   }
 
@@ -38,8 +40,11 @@ object Terr320W60 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    res.setMouth4(142, 10758)
-    res.setMouth1(140, 10752)
+    res.setMouth3(150, 10746)//Ungava Bay north
+    res.setMouth0(146, 10746)//Ungava Bay south
+
+    res.setMouth4(142, 10758)//Newfoundland Gulf of St Lawrence north
+    res.setMouth1(140, 10752)//Newfoundland Gulf of St Lawrence
     res
 
   }

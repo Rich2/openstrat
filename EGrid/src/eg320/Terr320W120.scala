@@ -39,6 +39,9 @@ object Terr320W120 extends Long320Terrs
 
   override val corners: HCornerLayer =
   { val res =grid.newHVertOffsetLayer
+
+    res.setMouth3(160, 8704)
+    res.setMouth0(156, 8704)
    // res.setMouth2(158, 7686)
     res
   }
