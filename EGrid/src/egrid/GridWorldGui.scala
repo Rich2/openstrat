@@ -31,8 +31,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
 
   def frame: RArr[GraphicElem] =
   {
-    def irrFills: GraphicElems = proj match {
-      case ep: HSysProjectionEarth => ep.irrFills
+    def irrFills: GraphicElems = proj match
+    { case ep: HSysProjectionEarth => ep.irrFills
       case _ => RArr()
     }
 

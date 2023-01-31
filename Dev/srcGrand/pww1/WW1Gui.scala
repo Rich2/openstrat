@@ -2,6 +2,7 @@
 package ostrat; package pww1
 import geom._, pEarth._, prid._, phex._, pgui._
 
+/** 2D graphics class for [[WW1Scen]] games or descriptions. */
 case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW1 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
@@ -18,7 +19,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def actives: RArr[PolygonActive] = proj.tileActives
   def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
-  def lines = proj.linkLineSegsOptMap { (hs, ls) =>
+  def lines: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
     else {
       val t1 = terrs(hs.tile1)
