@@ -71,7 +71,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
     val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-    pStrat.UnitCounters.infantry(proj.pixTileScale * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+    pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
   }
 
   override def frame: GraphicElems = tiles2 ++ actives ++ straits3 ++ lines4 ++ hexStrs2 ++ units

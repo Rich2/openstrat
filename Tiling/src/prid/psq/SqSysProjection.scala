@@ -24,24 +24,24 @@ trait SqSysProjection extends TSysProjection
 case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
 {
   type GridT = SqGridSys
-  var pixCScale: Double = parent.fullDisplayScale(panel.width, panel.height)
-  override def pixTileScale: Double = pixCScale * 2
-  override def pixRScale: Double = pixCScale
-  var focus: Vec2 = parent.defaultView(pixCScale).vec
+  var pixelsPerC: Double = parent.fullDisplayScale(panel.width, panel.height)
+  override def pixelsPerTile: Double = pixelsPerC * 2
+  override def pixelsPerR: Double = pixelsPerC
+  var focus: Vec2 = parent.defaultView(pixelsPerC).vec
   override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
   var gChild: SqGridSys = getGChild
   def getGChild: SqGridSys = parent
   def setGChild: Unit = gChild = getGChild
-  override def transCoord(sc: SqCoord): Pt2 = (parent.flatSqCoordToPt2(sc) - focus).scale(pixCScale)
-  override def transOptCoord(sc: SqCoord): Option[Pt2] = Some(parent.flatSqCoordToPt2(sc).slate(-focus).scale(pixCScale))
-  override def tilePolygons: PolygonArr = gChild.map(_.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale))
+  override def transCoord(sc: SqCoord): Pt2 = (parent.flatSqCoordToPt2(sc) - focus).scale(pixelsPerC)
+  override def transOptCoord(sc: SqCoord): Option[Pt2] = Some(parent.flatSqCoordToPt2(sc).slate(-focus).scale(pixelsPerC))
+  override def tilePolygons: PolygonArr = gChild.map(_.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixelsPerC))
 
   override def tileActives: RArr[PolygonActive] =
-    gChild.map(hc => hc.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
+    gChild.map(hc => hc.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixelsPerC).active(hc))
 
   /** The visible hex sides. */
-  override def sideLines: LineSegArr = gChild.sideLines.slate(-focus).scale(pixCScale)//LineSegArr()
+  override def sideLines: LineSegArr = gChild.sideLines.slate(-focus).scale(pixelsPerC)//LineSegArr()
     //gChild.sideLineSegSqCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
   /** The visible inner hex sides. */

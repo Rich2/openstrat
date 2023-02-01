@@ -13,6 +13,9 @@ trait TSysProjection
   /** The panel this projection outputs to. */
   def panel: Panel
 
+  /** The number of pixels per tile from side to opposite side. */
+  def pixelsPerTile: Double
+
   /** Gives the projector access to the scenarios tile graphic creation. */
   var getFrame: () => GraphicElems = () => RArr()
 

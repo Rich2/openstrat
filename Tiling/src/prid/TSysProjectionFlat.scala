@@ -5,30 +5,27 @@ import geom._, pgui._
 trait TSysProjectionFlat extends TSysProjection
 {
   /** The number of pixels per tile grid column unit. */
-  var pixCScale: Double
+  var pixelsPerC: Double
 
   /** The number of pixels per tile grid row unit. */
-  def pixRScale: Double
-
-  /** The number of pixels per tile from side to opposite side. */
-  def pixTileScale: Double
+  def pixelsPerR: Double
 
   var focus: Vec2
   def setGChild: Unit
 
-  def pixTileScaleStr = s"scale = ${pixTileScale.str2} pixels per tile"
+  def pixTileScaleStr = s"scale = ${pixelsPerTile.str2} pixels per tile"
 
   final override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
-    pixCScale *= 1.1
+    pixelsPerC *= 1.1
     setGChild
     panel.repaint(getFrame())
     setStatusText(pixTileScaleStr)
   }
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
-    pixCScale /= 1.1
+    pixelsPerC /= 1.1
     setGChild
     panel.repaint(getFrame())
     setStatusText(pixTileScaleStr)
@@ -36,7 +33,7 @@ trait TSysProjectionFlat extends TSysProjection
 
   def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr) { butt =>
     val delta = butt(1, 10, 100, 0)
-    focus = f(focus, pixCScale * delta / 40)
+    focus = f(focus, pixelsPerC * delta / 40)
     setGChild
     panel.repaint(getFrame())
     setStatusText(focus.strSemi(2, 2))
