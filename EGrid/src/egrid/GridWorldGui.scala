@@ -10,7 +10,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
 
-  var scale: Length = gridSys.cScale / viewIn.cPScale
+  var scale: Length = gridSys.cScale / viewIn.pixelsPerC
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
@@ -66,7 +66,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
       case _ => RArr()
     }
 
-    def seas: GraphicElems = ifGlobe{ep => RArr(earth2DEllipse(ep.scale).fill(LightBlue)) }
+    def seas: GraphicElems = ifGlobe{ep => RArr(earth2DEllipse(ep.metresPerPixel).fill(LightBlue)) }
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 

@@ -1,9 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._
 
-/** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels/dx scale. */
-class HGView(val r: Int, val c: Int, val cPScale: Double) extends Show2[HCoord, Double]
+/** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels per delta Cs scale. */
+class HGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Show2[HCoord, Double]
 { def hCoord: HCoord = HCoord(r, c)
   def vec: Vec2 = hCoord.toVecReg
   def pt2: Pt2 = hCoord.toPt2Reg
@@ -11,7 +11,7 @@ class HGView(val r: Int, val c: Int, val cPScale: Double) extends Show2[HCoord, 
   override def name1: String = "hCoord"
   inline override def show1: HCoord = hCoord
   override def name2: String = "cPScale"
-  inline override def show2: Double = cPScale
+  inline override def show2: Double = pixelsPerC
   override implicit def showT1: ShowT[HCoord] = HCoord.persistImplicit
   override implicit def showT2: ShowT[Double] = ShowT.doublePersistEv
   override def syntaxDepth: Int = 3

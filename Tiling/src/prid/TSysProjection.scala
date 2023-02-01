@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._, pgui._
 
@@ -13,6 +13,8 @@ trait TSysProjection
   /** The panel this projection outputs to. */
   def panel: Panel
 
+  var pixelsPerC: Double = 80
+
   /** The number of pixels per tile from side to opposite side. */
   def pixelsPerTile: Double
 
@@ -23,6 +25,7 @@ trait TSysProjection
   def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems
 
   var setStatusText: String => Unit = s => {}
+
   val buttons: RArr[PolygonCompound]
 
   /** Projected [[Polygon]]s of the tiles. */

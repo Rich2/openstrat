@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 
@@ -6,14 +6,16 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 {
   override type GridT = EGridSys
   var focus: LatLong = 0 ll 0
-  var scale: Length = 4.km
-  def gScale: Double = parent.cScale / scale
-  override def pixelsPerTile: Double = gScale * 4
+  def metresPerPixel: Length = parent.cScale / pixelsPerC//  4.km
+
+  def setMetresPerPixel(value: Length): Unit = pixelsPerC = parent.cScale / value
+
+  override def pixelsPerTile: Double = pixelsPerC * 4
   override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixelsPerTile >= minScale, elems, RArr[GraphicElem]())
 
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
-      scale = parent.cScale / hv.cPScale
+      pixelsPerC = hv.pixelsPerC
       focus = parent.hCoordLL(hv.hCoord)
     }
     //case d: Double => cPScale = d
@@ -25,21 +27,13 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def setGChid: HGridSys = parent
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
-    scale *= 1.1
+    pixelsPerC *= 1.1
     panel.repaint(getFrame())
-    //setStatusText(tilePScaleStr)
-    //panel.repaint(frame)
-    //statusText = tilePScaleStr
-    //thisTop()
   }
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
-    scale /= 1.1
+    pixelsPerC /= 1.1
     panel.repaint(getFrame())
-    //setStatusText(tilePScaleStr)
-    //panel.repaint(frame)
-    //statusText = tilePScaleStr
-    //thisTop()
   }
 
 
@@ -110,26 +104,26 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
   { val rotated = inp.fromLatLongFocus(focus)
     val visible = rotated.filter(_.zsPos)
-    visible.map(_.xyLineSeg(scale))
+    visible.map(_.xyLineSeg(metresPerPixel))
   }
 
   override def transOptCoord(hc: HCoord): Option[Pt2] =
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zPos, Some(rotated.xy), None)
-    opt.map(_ / scale)
+    opt.map(_ / metresPerPixel)
   }
 
   override def transCoord(hc: HCoord): Pt2 = {
     val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
-    rotated.xy / scale
+    rotated.xy / metresPerPixel
   }
 
   override def transTile(hc: HCen): Option[Polygon] =
   { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
     val opt = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
-    opt.map(_.map(_ / scale))
+    opt.map(_.map(_ / metresPerPixel))
   }
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
@@ -144,16 +138,16 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
       case w: Water => BlueViolet
       case _ => Colour.LightPink
     }
-    p.map(_ / scale).fill(col)
+    p.map(_ / metresPerPixel).fill(col)
   }
 
-  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / scale).draw(Violet) }
+  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / metresPerPixel).draw(Violet) }
 
   def irrLines2: GraphicElems = ifTileScale(8, irrLines)
 
   def irrNames: RArr[TextGraphic] = irr1.map { pair =>
     val (d, _) = pair
-    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
+    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / metresPerPixel
     TextGraphic(d.name, 12, posn, d.colour.contrastBW)
   }
 

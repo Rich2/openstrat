@@ -8,7 +8,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def terrs: HCenLayer[Terr] = scen.terrs
   var history: RArr[ThreeScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
-  cPScale = viewIn.cPScale
+  cPScale = viewIn.pixelsPerC
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)

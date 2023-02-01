@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, pgui._
 
@@ -24,7 +24,7 @@ trait SqSysProjection extends TSysProjection
 case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
 {
   type GridT = SqGridSys
-  var pixelsPerC: Double = parent.fullDisplayScale(panel.width, panel.height)
+  pixelsPerC = parent.fullDisplayScale(panel.width, panel.height)
   override def pixelsPerTile: Double = pixelsPerC * 2
   override def pixelsPerR: Double = pixelsPerC
   var focus: Vec2 = parent.defaultView(pixelsPerC).vec
