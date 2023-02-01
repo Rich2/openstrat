@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, pgui._, collection.mutable.ArrayBuffer
 
@@ -73,7 +73,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     }
   }
 
-  override def tilePolygons: PolygonArr = gChild.map(_.hVertPolygon.map(transCoord(_)))//.slate(-focus).scale(pixCScale))
+  override def tilePolygons: PolygonArr = gChild.map(_.hVertPolygon.map(transCoord(_)))
 
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))

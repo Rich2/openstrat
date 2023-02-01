@@ -26,9 +26,11 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
     }
   }
 
-  def lines2: GraphicElems = proj.ifTileScale(50, lines1)
+  def lines2: GraphicElems = proj.ifTileScale(40, lines1)
 
-  def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
+  def hexStrs1: GraphicElems = proj.hCenSizedMap(15){ (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
+
+  def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -57,7 +59,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs
+  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

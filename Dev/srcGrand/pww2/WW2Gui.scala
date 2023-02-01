@@ -2,7 +2,7 @@
 package ostrat; package pww2
 import geom._, pEarth._, prid._, phex._, pgui._
 
-case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW1 Gui")
+case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW2 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   def terrs: HCenLayer[WTile] = scen.terrs

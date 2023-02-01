@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._, Colour._
 
@@ -22,12 +22,12 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 
   /**  repaints the top command bar */
   def reTop(commands: RArr[GraphicBounded]): Unit =
-  {
-    val a = displayRowGraphics(topBar.cenLeft, commands)
+  { val a = displayRowGraphics(topBar.cenLeft, commands)
     val sp = ife(a.empty, topBar.cenLeft,a.last.boundingRect.cen.addX(80))
     val st = TextGraphic(statusText, 15, sp, Black, LeftAlign)
     topBar.repaint(a +% st)
   }
+
   def mainMouseUp: (MouseButton, AnyArr, Pt2) => Unit = mainPanel.mouseUp
   def mainMouseUp_= (f: (MouseButton, AnyArr, Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
   var selected: AnyArr = AnyArr()
