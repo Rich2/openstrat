@@ -4,7 +4,7 @@ import geom._, pgui._, collection.mutable.ArrayBuffer
 
 /** Projects [[HGridSys]] on to a flat surface for 2D graphics. Like all projections attempts to remove tiles that can't be seen. */
 final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSysProjection with TSysProjectionFlat
-{ type GridT = HGridSys
+{ type SysT = HGridSys
   pixelsPerC = parent.fullDisplayScale(panel.width, panel.height)
   override def pixelsPerR: Double = pixelsPerC * Sqrt3
   override def pixelsPerTile: Double = pixelsPerC * 4

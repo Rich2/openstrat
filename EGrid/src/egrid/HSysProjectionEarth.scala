@@ -4,16 +4,17 @@ import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 
 case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProjection
 {
-  override type GridT = EGridSys
+  override type SysT = EGridSys
   var focus: LatLong = 0 ll 0
-  def metresPerPixel: Length = parent.cScale / pixelsPerC//  4.km
+  def metresPerPixel: Length = parent.cScale / pixelsPerC
 
   def setMetresPerPixel(value: Length): Unit = pixelsPerC = parent.cScale / value
 
   override def pixelsPerTile: Double = pixelsPerC * 4
   override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixelsPerTile >= minScale, elems, RArr[GraphicElem]())
 
-  override def setView(view: Any): Unit = view match {
+  override def setView(view: Any): Unit = view match
+  {
     case hv: HGView => {
       pixelsPerC = hv.pixelsPerC
       focus = parent.hCoordLL(hv.hCoord)
@@ -24,18 +25,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   var gChild: HGridSys = parent
 
-  def setGChid: HGridSys = parent
-
-  def zoomOut: PolygonCompound = clickButton("-") { _ =>
-    pixelsPerC *= 1.1
-    panel.repaint(getFrame())
-  }
-
-  def zoomIn: PolygonCompound = clickButton("+") { _ =>
-    pixelsPerC /= 1.1
-    panel.repaint(getFrame())
-  }
-
+  def setGChild: Unit = { gChild = parent }
 
   def goDirn(str: String)(f: Double => Unit): PolygonCompound = clickButton(str) { b =>
     val delta: Int = b.apply(1, 10, 60, 0)

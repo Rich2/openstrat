@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._, pgui._
 
 trait SqSysProjection extends TSysProjection
-{ type GridT <: SqGridSys
+{ type SysT <: SqGridSys
   var gChild: SqGridSys
   def foreach(f: SqCen => Unit): Unit = gChild.foreach(f)
 
@@ -23,7 +23,7 @@ trait SqSysProjection extends TSysProjection
 
 case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
 {
-  type GridT = SqGridSys
+  type SysT = SqGridSys
   pixelsPerC = parent.fullDisplayScale(panel.width, panel.height)
   override def pixelsPerTile: Double = pixelsPerC * 2
   override def pixelsPerR: Double = pixelsPerC

@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag
 
 /** Hex grid system graphics projection. */
 trait HSysProjection extends TSysProjection
-{ type GridT <: HGridSys
+{ type SysT <: HGridSys
 
   var gChild: HGridSys
   def hCensMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)

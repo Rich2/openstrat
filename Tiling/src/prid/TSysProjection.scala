@@ -5,18 +5,22 @@ import geom._, pgui._
 /** Tile system graphical projection. */
 trait TSysProjection
 { /** The type of the grid system this projects from. */
-  type GridT <: TGridSys
+  type SysT <: TGridSys
 
   /** The parent grid system of the scenario, from which the this projection projects from. */
-  def parent: GridT
+  def parent: SysT
 
   /** The panel this projection outputs to. */
   def panel: Panel
+
+  def setGChild: Unit
 
   var pixelsPerC: Double = 80
 
   /** The number of pixels per tile from side to opposite side. */
   def pixelsPerTile: Double
+
+  def pixTileScaleStr = s"scale = ${pixelsPerTile.str2} pixels per tile"
 
   /** Gives the projector access to the scenarios tile graphic creation. */
   var getFrame: () => GraphicElems = () => RArr()
@@ -25,6 +29,20 @@ trait TSysProjection
   def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems
 
   var setStatusText: String => Unit = s => {}
+
+  def zoomIn: PolygonCompound = clickButton("+") { _ =>
+    pixelsPerC *= 1.1
+    setGChild
+    panel.repaint(getFrame())
+    setStatusText(pixTileScaleStr)
+  }
+
+  def zoomOut: PolygonCompound = clickButton("-") { _ =>
+    pixelsPerC /= 1.1
+    setGChild
+    panel.repaint(getFrame())
+    setStatusText(pixTileScaleStr)
+  }
 
   val buttons: RArr[PolygonCompound]
 
