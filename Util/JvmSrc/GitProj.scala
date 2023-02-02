@@ -35,7 +35,7 @@ case class GitProj(path: String, projName: String)
       |println("Hello from $projName")
       |}""".stripMargin
 
-  def mainWrite: Unit = fileWrite(fullPath -/- "src",projName + "App.scala", mainStr)
+  def mainWrite: Unit = fileWrite(fullPath -/- "src", projName + "App.scala", mainStr)
 
   def millStr: String =
     s"""// build.sc

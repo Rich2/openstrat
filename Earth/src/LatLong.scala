@@ -1,10 +1,10 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong /*private*/(val dbl1: Double, val dbl2: Double) extends LatLongBase with ShowDbl2 with PointDbl2 with ApproxDbl
+final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with ShowDbl2 with PointDbl2 with ApproxDbl
 { override type ThisT = LatLong
   override type LineSegT = LineSegLL
   override def typeStr: String = "LatLong"
