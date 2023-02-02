@@ -14,7 +14,6 @@ trait TSysProjectionFlat extends TSysProjection
 
   final override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 
-
   def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr) { butt =>
     val delta = butt(1, 10, 100, 0)
     focus = f(focus, pixelsPerC * delta / 40)

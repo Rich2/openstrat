@@ -6,6 +6,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 {
   override type SysT = EGridSys
   var focus: LatLong = 0 ll 0
+  var northUp: Boolean = true
   def metresPerPixel: Length = parent.cScale / pixelsPerC
 
   def setMetresPerPixel(value: Length): Unit = pixelsPerC = parent.cScale / value
@@ -35,14 +36,14 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   }
 
   def goNorth: PolygonCompound = goDirn("\u2191") { delta =>
-    val newLat: Double = focus.latDegs + ife(true/* northUp */, delta, -delta)
-    focus = ife(true/* northUp */, focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
+    val newLat: Double = focus.latDegs + ife(northUp, delta, -delta)
+    focus = ife(northUp, focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
     // northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
 
   def goSouth: PolygonCompound = goDirn("\u2193") { delta =>
-    val newLat: Double = focus.latDegs + ife(true/* northUp */, -delta, delta)
-    focus = ife(true/* northUp */, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
+    val newLat: Double = focus.latDegs + ife(northUp, -delta, delta)
+    focus = ife(northUp, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
     //northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
 
