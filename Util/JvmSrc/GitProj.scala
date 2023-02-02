@@ -5,7 +5,7 @@ import pjvm._
 /** A class for creating simple one module git projects, with Sbt Mill and hello world files. */
 case class GitProj(path: String, projName: String)
 {
-  def fullPath = path / projName
+  def fullPath = path -/- projName
   def scalaVersionStr: String = "\"3.1.0\""
 
   def ignoreStr =
@@ -35,7 +35,7 @@ case class GitProj(path: String, projName: String)
       |println("Hello from $projName")
       |}""".stripMargin
 
-  def mainWrite: Unit = fileWrite(fullPath / "src",projName + "App.scala", mainStr)
+  def mainWrite: Unit = fileWrite(fullPath -/- "src",projName + "App.scala", mainStr)
 
   def millStr: String =
     s"""// build.sc

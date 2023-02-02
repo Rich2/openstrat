@@ -17,6 +17,8 @@ final class LatLong /*private*/(val dbl1: Double, val dbl2: Double) extends LatL
   def latVec: AngleVec = latDegs.degsVec
   def longVec: AngleVec = longDegs.degsVec
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
+
+  override def str: String = latDegStr appendCommas(longDegStr)
   def persistName = "LatLong"
   def persistMems: Seq[Double] = Seq(latRadians, longRadians)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]

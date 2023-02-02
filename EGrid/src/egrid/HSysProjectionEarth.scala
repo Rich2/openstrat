@@ -30,9 +30,8 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def goDirn(str: String)(f: Double => Unit): PolygonCompound = clickButton(str) { b =>
     val delta: Int = b.apply(1, 10, 60, 0)
     f(delta)
-    panel.repaint(getFrame())//repaint()
-    setStatusText(s"focus $focus")
-    //thisTop()
+    panel.repaint(getFrame())
+    setStatusText(s"focus ${focus.str}")
   }
 
   def goNorth: PolygonCompound = goDirn("\u2191") { delta =>
@@ -51,23 +50,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
   override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
-//  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
-//
-//  def sides1: LineSegM3Arr = sides0.map {
-//    _.map(_.toMetres3)
-//  }
-//
-//  def sides2: LineSegM3Arr = sides1.map {
-//    _.map(_.fromLatLongFocus(focus))
-//  }
-//
-//  def sides3: LineSegM3Arr = sides2.filter(_.zsPos)
-//
-//  def sides4: LineSegArr = sides3.map {
-//    _.map(_.xy / scale)
-//  }
 
-  //def sides: GraphicElems = sides4.map { ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
   override def tilePolygons: PolygonArr = ???
 
   override def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems = gChild.map{ hc => f(hc, transCoord(hc)) }

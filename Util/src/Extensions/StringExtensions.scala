@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -114,9 +114,6 @@ class StringImplicit(val thisString: String) extends AnyVal
   
   /** Concatenates a newline special character followed by spaces to this string. */
   def nli(indent: Int): String = thisString + "\n" + indent.spaces
-
-  /** Concatenates a space and then the other String. */
-  def / (operand: String): String = thisString + "/" + operand
   
   /** prepends a newline special character and spaces to this string */
   def preNl(indent: Int): String = thisString + "\n" + indent.spaces
