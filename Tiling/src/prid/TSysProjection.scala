@@ -30,15 +30,21 @@ trait TSysProjection
 
   var setStatusText: String => Unit = s => {}
 
-  def zoomIn: PolygonCompound = clickButton("+") { _ =>
-    pixelsPerC *= 1.1
+  def zoomFactor(button: MouseButton): Double = button match
+  { case MiddleButton => 1.4
+    case RightButton => 2.0
+    case _ => 1.1
+  }
+
+  def zoomIn: PolygonCompound = clickButton("+") { b =>
+    pixelsPerC *= zoomFactor(b)
     setGChild
     panel.repaint(getFrame())
     setStatusText(pixTileScaleStr)
   }
 
-  def zoomOut: PolygonCompound = clickButton("-") { _ =>
-    pixelsPerC /= 1.1
+  def zoomOut: PolygonCompound = clickButton("-") { b =>
+    pixelsPerC /= zoomFactor(b)
     setGChild
     panel.repaint(getFrame())
     setStatusText(pixTileScaleStr)

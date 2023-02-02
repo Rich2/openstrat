@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._, pgui._
 
@@ -11,9 +11,6 @@ trait TSysProjectionFlat extends TSysProjection
   def pixelsPerR: Double
 
   var focus: Vec2
-
-
-
 
   final override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 
