@@ -21,8 +21,8 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
 
   def lines: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
-    else {
-      val t1 = terrs(hs.tile1)
+    else
+    { val t1 = terrs(hs.tile1)
       val t2 = terrs(hs.tile2)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
     }

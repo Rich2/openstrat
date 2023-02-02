@@ -17,7 +17,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   def actives: RArr[PolygonActive] = proj.tileActives
   def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
-  def lines = proj.linkLineSegsOptMap { (hs, ls) =>
+  def lines: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
     else {
       val t1 = terrs(hs.tile1)

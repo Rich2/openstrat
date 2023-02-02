@@ -2,9 +2,9 @@
 package ostrat; package prid
 import geom._, pgui._
 
+/** Produces a flat 2D graphical representation of tile grid system. */
 trait TSysProjectionFlat extends TSysProjection
-{
-  /** The number of pixels per tile grid column unit. */
+{ /** The number of pixels per tile grid column unit. */
   var pixelsPerC: Double
 
   /** The number of pixels per tile grid row unit. */

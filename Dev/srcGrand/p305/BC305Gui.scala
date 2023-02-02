@@ -17,7 +17,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
 
   def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
-  def lines1 = proj.linkLineSegsOptMap { (hs, ls) =>
+  def lines1: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
     else {
       val t1 = terrs(hs.tile1)
