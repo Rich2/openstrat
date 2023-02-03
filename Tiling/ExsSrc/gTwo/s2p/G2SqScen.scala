@@ -2,12 +2,12 @@
 package ostrat; package gTwo; package s2p
 import prid._, psq._, gPlay._
 
-//case class PlayerState(player: Player, steps: SqDirnArr)
+case class PlayerState(player: Player, steps: SqDirnArr)
 
-/*object PlayerState
+object PlayerState
 {
-  def apply(player: Player, steps: HDirn*): PlayerState = PlayerState(player, HDirnArr(steps: _*))
-}*/
+  //def apply(player: Player, steps: SqDirn*): PlayerState = new PlayerState(player, SqDirnArr(steps: _*))
+}
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 /*trait G2SqScen extends SqGridScen
