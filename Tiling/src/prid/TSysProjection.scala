@@ -50,6 +50,14 @@ trait TSysProjection
     setStatusText(pixTileScaleStr)
   }
 
+  panel.onScroll = { b =>
+    pixelsPerC = ife(b, pixelsPerC * 1.1, pixelsPerC / 1.1)
+    setGChild
+    panel.repaint(getFrame())
+    setStatusText(pixTileScaleStr)
+  }
+
+
   val buttons: RArr[PolygonCompound]
 
   /** Projected [[Polygon]]s of the tiles. */

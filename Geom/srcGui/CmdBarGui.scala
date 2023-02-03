@@ -28,6 +28,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
     topBar.repaint(a +% st)
   }
 
+  canv.onScroll = b => mainPanel.onScroll(b)
   def mainMouseUp: (MouseButton, AnyArr, Pt2) => Unit = mainPanel.mouseUp
   def mainMouseUp_= (f: (MouseButton, AnyArr, Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
   var selected: AnyArr = AnyArr()

@@ -22,7 +22,7 @@ trait CanvasPlatform extends RectCenlign
   var mouseDragged: (Pt2, MouseButton) => Unit = (v, b) => {}
   var keyDown: (String) => Unit = (s) => {}
   var keyUp: (String) => Unit = (s) => {}
-  var onScroll: Boolean => Unit = b => {}
+  var onScroll: Boolean => Unit = { b => }
   var resize: () => Unit = () => {}
   def clip(pts: Polygon): Unit
 
