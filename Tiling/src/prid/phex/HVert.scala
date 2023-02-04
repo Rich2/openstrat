@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A hex tile vertex coordinate. */
-class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
+class HVert protected(val bLong: Long) extends /* AnyVal with */ HCoord with TCoord
 { @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
   override def typeStr: String = "HVert"
@@ -44,6 +44,17 @@ object HVert
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)
+  }
+}
+
+/** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
+class HVertHigh(bLong: Long) extends HVert(bLong)
+{ override def hexIsUp: Boolean = false
+  override def hexIsDown: Boolean = true
+
+  override def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match {
+    case HVUR | HVDn | HVUL => true
+    case _ => false
   }
 }
 
