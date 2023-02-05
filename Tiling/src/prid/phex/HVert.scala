@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A hex tile vertex coordinate. */
-trait HVert extends Any with HCoord with TCoord
+sealed trait HVert extends Any with HCoord with TCoord
 { def bLong: Long
   @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
@@ -65,6 +65,16 @@ class HVertHigh(val bLong: Long) extends AnyVal with HVert
   }
 }
 
+object HVertHigh
+{
+  def unapply(inp: HCoord): Option[(Int, Int)] = inp.r %% 4 match
+  {
+    case 1 if inp.c.div4Rem0 => Some((inp.r, inp.c))
+    case 3 if inp.c.div4Rem2 => Some((inp.r, inp.c))
+    case _ => None
+  }
+}
+
 /** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
 class HVertLow(val bLong: Long) extends AnyVal with  HVert
 { override def hexIsUp: Boolean = true
@@ -73,6 +83,16 @@ class HVertLow(val bLong: Long) extends AnyVal with  HVert
   override def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match
   { case HVUp | HVDL | HVDR if hexIsUp => true
     case _ => false
+  }
+}
+
+object HVertLow
+{
+  def unapply(inp: HCoord): Option[(Int, Int)] = inp.r %% 4 match
+  {
+    case 1 if inp.c.div4Rem2 => Some((inp.r, inp.c))
+    case 3 if inp.c.div4Rem0 => Some((inp.r, inp.c))
+    case _ => None
   }
 }
 

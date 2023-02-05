@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
@@ -11,7 +11,7 @@ abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Length
   /** The central line of longitude of the full grid. This is a multiple of 30 degrees. 0E, 30E ... 180E, 150W ... 30W. */
   def cenLong: Longitude = Longitude.degs(longGridIndex * 30)
 
-  /** The latitude and longitude [[LatLong]] of an [[HCoord]] excluding the distorted east and west extrems of the grid. */
+  /** The latitude and longitude [[LatLong]] of an [[HCoord]] excluding the distorted east and west extremes of the grid. */
   def hCoordMiddleLL(hc: HCoord): LatLong = EGridLong.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
 
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] within the grid. */

@@ -3,28 +3,28 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** An earth grid covering a full 30 degree longitude range for the non polar regions. */
-abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, cScale: Length, rOffset: Int) extends
-  EGridLong(rBottomCen, longGridIndex, cScale, rOffset,
-    EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (longGridIndex %% 12) * 1024 + 512, cScale))
+abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, cScale: Length, rOffset: Int) extends EGridLong(rBottomCen,
+  longGridIndex, cScale, rOffset, EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (longGridIndex %% 12) * 1024 + 512, cScale))
 {
-  override def hCoordLL(hc: HCoord): LatLong = hc.c match
+  override def hCoordLL(hc: HCoord): LatLong = hc match
   {
-    case _ if hc.isCen => hCoordMiddleLL(hc)
-
+    case hc: HCen => hCoordMiddleLL(hc)
+    case HVertHigh(r, _) if r == topSideR => hCoordMiddleLL(hc)
+    case HVertLow(r, _) if r == bottomSideR => hCoordMiddleLL(hc)
     //case c if hc.r.div4Rem3 & c.div4Rem2 => hCoordMiddleLL(hc)
 
-    case c if c == rowRightCoordC(hc.r, c) =>
+    case cx if hc.c == rowRightCoordC(hc.r, hc.c) =>
     { val rt = hCoordMiddleLL(hc)
-      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))
+      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, hc.c)))
       val rtLong = rt.longMilliSecs
       val ltLong = (lt.long + 30.east).milliSecs
       val longMilliSecs = rtLong aver ltLong
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
     }
 
-    case c if c == rowLeftCoordC(hc.r, c) =>
+    case cx if hc.c == rowLeftCoordC(hc.r, hc.c) =>
     { val lt = hCoordMiddleLL(hc)
-      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))
+      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, hc.c)))
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
       val longMilliSecs = ltLong aver rtLong
