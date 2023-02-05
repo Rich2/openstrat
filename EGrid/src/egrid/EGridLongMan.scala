@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, prid._, phex._
 
 /** Manages an [[EGridLong]]. */
-case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
+final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
 {
   final override def grid: EGridLong = sys.grids(thisInd)
 
