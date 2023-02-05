@@ -3,8 +3,9 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A hex tile vertex coordinate. */
-class HVert protected(val bLong: Long) extends /* AnyVal with */ HCoord with TCoord
-{ @inline def r: Int = bLong.>>(32).toInt
+trait HVert extends Any with HCoord with TCoord
+{ def bLong: Long
+  @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
   override def typeStr: String = "HVert"
   override def canEqual(that: Any): Boolean = ???
@@ -34,10 +35,16 @@ class HVert protected(val bLong: Long) extends /* AnyVal with */ HCoord with TCo
 
 object HVert
 {
-  def apply(r: Int, c: Int): HVert = if (r.isOdd & c.isEven)
-    new HVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
-    else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
-
+  def apply(r: Int, c: Int): HVert =
+  { def value: Long = r.toLong.<<(32) | (c & 0xFFFFFFFFL)
+    r %% 4 match {
+      case 3 if c.div4Rem2 => new HVertHigh(value)
+      case 1 if c.div4Rem0 => new HVertHigh(value)
+      case 3 if c.div4Rem0 => new HVertLow(value)
+      case 1 if c.div4Rem2 => new HVertLow(value)
+      case _ => excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
+    }
+  }
  // implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", "c", apply)
 
   implicit val hVertsBuildImplicit: Int2ArrMapBuilder[HVert, HVertArr] = new Int2ArrMapBuilder[HVert, HVertArr]
@@ -48,12 +55,23 @@ object HVert
 }
 
 /** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
-class HVertHigh(bLong: Long) extends HVert(bLong)
+class HVertHigh(val bLong: Long) extends AnyVal with HVert
 { override def hexIsUp: Boolean = false
   override def hexIsDown: Boolean = true
 
   override def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match {
     case HVUR | HVDn | HVUL => true
+    case _ => false
+  }
+}
+
+/** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
+class HVertLow(val bLong: Long) extends AnyVal with  HVert
+{ override def hexIsUp: Boolean = true
+  override def hexIsDown: Boolean = false
+
+  override def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match
+  { case HVUp | HVDL | HVDR if hexIsUp => true
     case _ => false
   }
 }

@@ -183,7 +183,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
 
   def div4Rem3: Boolean = thisInt %% 4 == 3
    
-  def isDivBy8: Boolean = thisInt % 8 == 0
+  def isDivBy8: Boolean = thisInt %% 8 == 0
   def div8Rem2: Boolean = thisInt %% 8 == 2
   def div8Rem4: Boolean = thisInt %% 8 == 4
   def div8Rem6: Boolean = thisInt %% 8 == 6
