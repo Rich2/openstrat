@@ -89,3 +89,12 @@ object HSide
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
   }
 }
+
+/** A hex side that goes down from left to right. */
+class HSideDown(r: Int, c: Int) extends HSide(r, c)
+
+/** A vertical hexside. */
+class HSideVert(r: Int, c: Int) extends HSide(r, c)
+
+/** A hex side that goes up from left to right. */
+class HSideUp(r: Int, c: Int) extends HSide(r, c)
