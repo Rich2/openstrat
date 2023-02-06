@@ -19,16 +19,6 @@ trait HSide extends HCenOrSide with TSide
     case _ => excep(s"$r, $c is an invalid HSide coordinate.")
   }
 
-  def fHSide[B](fUR: (Int, Int) => B)(fRt: (Int, Int) => B)(fDR: (Int, Int) => B): B = r %% 4 match {
-    case 1 if c.div4Rem1 => fUR(r, c)
-    case 3 if c.div4Rem3 => fUR(r, c)
-    case 0 if c.div4Rem2 => fRt(r, c)
-    case 2 if c.div4Rem0 => fRt(r, c)
-    case 1 if c.div4Rem3 => fDR(r, c)
-    case 3 if c.div4Rem1 => fDR(r, c)
-    case _ => excep(s"$r, $c is an invalid HSide coordinate.")
-  }
-
   def istypeB: Boolean = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
 
   /** Returns the hex coordinate Line segment for this Hex Side. */
@@ -41,12 +31,15 @@ trait HSide extends HCenOrSide with TSide
   def vert2: HVert
 
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
-  def unsafeTiles: (HCen, HCen) = fHSide{ (r, c) => (HCen(r - 1, c - 1), HCen(r + 1, c + 1)) }{ (r, c) => (HCen(r, c - 2), HCen(r, c + 2)) }{ (r, c) => (HCen(r + 1, c - 1), HCen(r - 1, c + 1)) }
+  def unsafeTiles: (HCen, HCen)
 
   def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
   def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
 
+  /** Not precisely sure what this method is doing. */
   def tile1AndVert: (HCen, Int)
+
+  /** Not precisely sure what this method is doing. */
   def tile2AndVert: (HCen, Int)
 
   def tile1Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile1Opt(this)
@@ -54,10 +47,10 @@ trait HSide extends HCenOrSide with TSide
   def tile2Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile2Opt(this)
 
   /** Tile 1 if the side is a link / inner side of an [[HGrid]]. */
-  def tile1Reg: HCen = fHSide{ (r, c) => HCen(r - 1, c - 1) }{ (r, c) => HCen(r, c - 2) }{ (r, c) => HCen(r + 1, c - 1) }
+  def tile1Reg: HCen
 
   /** Tile 2 if the side is a link  / inner side of an [[HGrid]]. */
-  def tile2Reg: HCen = fHSide{ (r, c) => HCen(r + 1, c + 1) }{ (r, c) => HCen(r, c + 2) }{ (r, c) => HCen(r - 1, c + 1) }
+  def tile2Reg: HCen
 
   def corners(implicit sys: HGridSys): (HCen, Int, Int) =
   { val t1 = tile1
@@ -99,9 +92,12 @@ class HSideA(val r: Int, val c: Int) extends HSide
 {
   override def vert1: HVert = HVert(r, c - 1)
   override def vert2: HVert = HVert(r, c + 1)
+  override def tile1Reg: HCen = HCen(r - 1, c - 1)
+  override def tile2Reg: HCen = HCen(r + 1, c + 1)
   override def tile1AndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
   override def tile2AndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
   override def lineSegHC: LineSegHC = LineSegHC(r, c - 1, r, c + 1)
+  override def unsafeTiles: (HCen, HCen) = (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
 }
 
 /** A hex side that slants straight down. */
@@ -109,9 +105,12 @@ class HSideB(val r: Int, val c: Int) extends HSide
 {
   override def vert1: HVert = HVert(r + 1, c)
   override def vert2: HVert = HVert(r - 1, c)
+  override def tile1Reg: HCen = HCen(r, c - 2)
+  override def tile2Reg: HCen = HCen(r, c + 2)
   override def tile1AndVert: (HCen, Int) = (HCen(r, c - 2), 1)
   override def tile2AndVert: (HCen, Int) = (HCen(r, c + 2), 5)
   override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)
+  override def unsafeTiles: (HCen, HCen) = (HCen(r, c - 2), HCen(r, c + 2))
 }
 
 /** A hex side that slants down form top right to bottom left. */
@@ -119,7 +118,10 @@ class HSideC(val r: Int, val c: Int) extends HSide
 {
   override def vert1: HVert = HVert(r, c + 1)
   override def vert2: HVert = HVert(r, c - 1)
+  override def tile1Reg: HCen = HCen(r + 1, c - 1)
+  override def tile2Reg: HCen = HCen(r - 1, c + 1)
   override def tile1AndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
   override def tile2AndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
   override def lineSegHC: LineSegHC = LineSegHC(r, c + 1, r, c - 1)
+  override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
 }
