@@ -125,5 +125,28 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
+  def sideTile1Alt(hSide: HSide): HCen = {
+    val hCen1 = hSide.tile1Reg
+    if (grid.hCenExists(hCen1)) hCen1
+    else {
+      val gi = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
+      val sc = hSide.c
+      val gr = sys.grids(gi)
+      val sr = hSide.r
+      //val lhc: Int = gr.rowRightCenC(r)
+      /*val c = hSide match {
+        case HSideA(r, c)
+      }*/
+      val cenR = hSide.r match {
+        case sr if sr.isEven => sr
+        case sr if (sr.div4Rem3 & sc.div4Rem1) | (sr.div4Rem1 & sc.div4Rem3) => sr + 1 //These are up and to the left
+        case sr => sr - 1 //These are down and to the left.
+      }
+
+      val c = ife(cenR > grid.topCenR | cenR < grid.bottomCenR, 0, sys.grids(gi).rowRightCenC(cenR))
+      HCen(cenR, c)
+    }
+  }
+
   override def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
 }
