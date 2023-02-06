@@ -14,6 +14,10 @@ trait EGridMan
   /** The tile data array index start for this grid manager. */
   def indexStart: Int
 
+  def hCenExists(r: Int, c: Int): Boolean
+
+  final def hCenExists(hCen: HCen): Boolean = hCenExists(hCen.r, hCen.c)
+
   /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
   def sideArrIndex(r: Int, c: Int): Int
 

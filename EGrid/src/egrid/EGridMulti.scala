@@ -42,7 +42,6 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   def gridMansFlatMap[AA <: Arr[_]](f: ManT => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
 
-
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
 
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
@@ -58,10 +57,9 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
-
   override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
 
-  final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.grid.hCenExists(r, c))
+  final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.hCenExists(r, c))
 
   override def sideTile1(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile1(hSide))
 

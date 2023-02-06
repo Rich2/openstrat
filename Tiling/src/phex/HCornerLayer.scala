@@ -277,6 +277,10 @@ class HCornerLayer(val unsafeArray: Array[Int])
       }
     }
   }
+
+  def sideVertsAlt(hs: HSide)(implicit gridSys: HGridSys): Unit ={
+
+  }
 }
 
 object HCornerLayer

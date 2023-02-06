@@ -14,6 +14,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
 
   override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
 
+  override def hCenExists(r: Int, c: Int): Boolean = grid.hCenExists(r, c)
 
   def rowSidesForeach(r: Int)(f: HSide => Unit): Unit = r match
   { case r if r == grid.topSideR | r ==grid.bottomSideR => grid.rowForeachSide(r)(f)
