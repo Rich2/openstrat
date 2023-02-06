@@ -35,10 +35,10 @@ trait HSide extends HCenOrSide with TSide
   def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
 
   /** Returns the upper vertex of this hex side. */
-  def vert1: HVert = vSide(HVert(r, c - 1), HVert(r + 1, c), HVert(r, c + 1))
+  def vert1: HVert
 
   /** Returns the lower vertex of this hex side. */
-  def vert2: HVert = vSide(HVert(r, c + 1), HVert(r - 1, c), HVert(r, c - 1))
+  def vert2: HVert
 
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen) = fHSide{ (r, c) => (HCen(r - 1, c - 1), HCen(r + 1, c + 1)) }{ (r, c) => (HCen(r, c - 2), HCen(r, c + 2)) }{ (r, c) => (HCen(r + 1, c - 1), HCen(r - 1, c + 1)) }
@@ -46,8 +46,8 @@ trait HSide extends HCenOrSide with TSide
   def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
   def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
 
-  def tile1AndVert: (HCen, Int)// = vSide((HCen(r - 1, c - 1), 0), (HCen(r, c - 2), 1), (HCen(r + 1, c - 1), 2))
-  def tile2AndVert: (HCen, Int)// = vSide((HCen(r + 1, c + 1), 4), (HCen(r, c + 2), 5), (HCen(r - 1, c + 1), 0))
+  def tile1AndVert: (HCen, Int)
+  def tile2AndVert: (HCen, Int)
 
   def tile1Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile1Opt(this)
 
@@ -97,6 +97,8 @@ object HSide
 /** A hex side that slants down from left to right. */
 class HSideA(val r: Int, val c: Int) extends HSide
 {
+  override def vert1: HVert = HVert(r, c - 1)
+  override def vert2: HVert = HVert(r, c + 1)
   override def tile1AndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
   override def tile2AndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
 }
@@ -104,6 +106,8 @@ class HSideA(val r: Int, val c: Int) extends HSide
 /** A hex side that slants straight down. */
 class HSideB(val r: Int, val c: Int) extends HSide
 {
+  override def vert1: HVert = HVert(r + 1, c)
+  override def vert2: HVert = HVert(r - 1, c)
   override def tile1AndVert: (HCen, Int) = (HCen(r, c - 2), 1)
   override def tile2AndVert: (HCen, Int) = (HCen(r, c + 2), 5)
 }
@@ -111,6 +115,8 @@ class HSideB(val r: Int, val c: Int) extends HSide
 /** A hex side that slants down form top right to bottom left. */
 class HSideC(val r: Int, val c: Int) extends HSide
 {
+  override def vert1: HVert = HVert(r, c + 1)
+  override def vert2: HVert = HVert(r, c - 1)
   override def tile1AndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
   override def tile2AndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
 }
