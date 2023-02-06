@@ -55,10 +55,13 @@ object HCoord
    *  r and c. */
   def apply(r: Int, c: Int): HCoord = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
-    case 0 if c.div4Rem2 => new HSide(r, c)
-    case 2 if c.div4Rem0 => new HSide(r, c)
+    case 1 if c.div4Rem1 => new HSideA(r, c)
+    case 3 if c.div4Rem3 => new HSideA(r, c)
+    case 0 if c.div4Rem2 => new HSideB(r, c)
+    case 2 if c.div4Rem0 => new HSideB(r, c)
+    case 1 if c.div4Rem3 => new HSideC(r, c)
+    case 3 if c.div4Rem1 => new HSideC(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
-    case 1 | 3 if c.isOdd => new HSide(r, c)
     case 1 | 3 => HVert(r, c)
     case _ => new HCoordOther(r, c)
   }
@@ -126,9 +129,12 @@ object HCenOrSide
   def apply(r: Int, c: Int): HCenOrSide = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
-    case 0 if c.div4Rem2 => new HSide(r, c)
-    case 1 | 3 if c.isOdd => new HSide(r, c)
-    case 2 if c.div4Rem0 => new HSide(r, c)
+    case 1 if c.div4Rem1 => new HSideA(r, c)
+    case 3 if c.div4Rem3 => new HSideA(r, c)
+    case 0 if c.div4Rem2 => new HSideB(r, c)
+    case 2 if c.div4Rem0 => new HSideB(r, c)
+    case 1 if c.div4Rem3 => new HSideC(r, c)
+    case 3 if c.div4Rem1 => new HSideC(r, c)
     case _ => excep(s"$r, $c is not a valid HCenOrSide hex grid coordinate.")
   }
 
