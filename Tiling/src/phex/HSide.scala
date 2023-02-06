@@ -32,7 +32,7 @@ trait HSide extends HCenOrSide with TSide
   def istypeB: Boolean = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
 
   /** Returns the hex coordinate Line segment for this Hex Side. */
-  def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
+  def lineSegHC: LineSegHC
 
   /** Returns the upper vertex of this hex side. */
   def vert1: HVert
@@ -101,6 +101,7 @@ class HSideA(val r: Int, val c: Int) extends HSide
   override def vert2: HVert = HVert(r, c + 1)
   override def tile1AndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
   override def tile2AndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
+  override def lineSegHC: LineSegHC = LineSegHC(r, c - 1, r, c + 1)
 }
 
 /** A hex side that slants straight down. */
@@ -110,6 +111,7 @@ class HSideB(val r: Int, val c: Int) extends HSide
   override def vert2: HVert = HVert(r - 1, c)
   override def tile1AndVert: (HCen, Int) = (HCen(r, c - 2), 1)
   override def tile2AndVert: (HCen, Int) = (HCen(r, c + 2), 5)
+  override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)
 }
 
 /** A hex side that slants down form top right to bottom left. */
@@ -119,4 +121,5 @@ class HSideC(val r: Int, val c: Int) extends HSide
   override def vert2: HVert = HVert(r, c - 1)
   override def tile1AndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
   override def tile2AndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
+  override def lineSegHC: LineSegHC = LineSegHC(r, c + 1, r, c - 1)
 }
