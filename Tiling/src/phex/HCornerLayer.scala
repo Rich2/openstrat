@@ -259,7 +259,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
         PolygonHVAndOffset(p1, p2, p3, p4)
       }
 
-      case Some(h2) if hs.isVertical => {
+      case Some(h2) if hs.istypeB => {
         val (h2, vi) = hs.tile2AndVert
         val ps1 = cornerForSideSpecial(h2, vi)
         val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)

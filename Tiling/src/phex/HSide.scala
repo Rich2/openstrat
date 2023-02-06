@@ -29,7 +29,7 @@ trait HSide extends HCenOrSide with TSide
     case _ => excep(s"$r, $c is an invalid HSide coordinate.")
   }
 
-  def isVertical: Boolean = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
+  def istypeB: Boolean = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
 
   /** Returns the hex coordinate Line segment for this Hex Side. */
   def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
@@ -46,8 +46,8 @@ trait HSide extends HCenOrSide with TSide
   def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
   def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
 
-  def tile1AndVert: (HCen, Int) = vSide((HCen(r - 1, c - 1), 0), (HCen(r, c - 2), 1), (HCen(r + 1, c - 1), 2))
-  def tile2AndVert: (HCen, Int) = vSide((HCen(r + 1, c + 1), 4), (HCen(r, c + 2), 5), (HCen(r - 1, c + 1), 0))
+  def tile1AndVert: (HCen, Int)// = vSide((HCen(r - 1, c - 1), 0), (HCen(r, c - 2), 1), (HCen(r + 1, c - 1), 2))
+  def tile2AndVert: (HCen, Int)// = vSide((HCen(r + 1, c + 1), 4), (HCen(r, c + 2), 5), (HCen(r - 1, c + 1), 0))
 
   def tile1Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile1Opt(this)
 
@@ -96,9 +96,21 @@ object HSide
 
 /** A hex side that slants down from left to right. */
 class HSideA(val r: Int, val c: Int) extends HSide
+{
+  override def tile1AndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
+  override def tile2AndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
+}
 
 /** A hex side that slants straight down. */
 class HSideB(val r: Int, val c: Int) extends HSide
+{
+  override def tile1AndVert: (HCen, Int) = (HCen(r, c - 2), 1)
+  override def tile2AndVert: (HCen, Int) = (HCen(r, c + 2), 5)
+}
 
 /** A hex side that slants down form top right to bottom left. */
 class HSideC(val r: Int, val c: Int) extends HSide
+{
+  override def tile1AndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
+  override def tile2AndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
+}
