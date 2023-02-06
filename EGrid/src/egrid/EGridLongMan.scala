@@ -108,7 +108,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   /** Returns a c of 0, if the row doesn't exist. */
-  override def sideTile1(hSide: HSide): HCen =
+  /*override def sideTile1(hSide: HSide): HCen =
   { val hCen1 = hSide.tile1Reg
     if (grid.hCenExists(hCen1)) hCen1
     else {
@@ -123,28 +123,22 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       val c = ife(cenR > grid.topCenR | cenR < grid.bottomCenR, 0, sys.grids(gi).rowRightCenC(cenR))
       HCen(cenR, c)
     }
-  }
+  }*/
 
-  def sideTile1Alt(hSide: HSide): HCen = {
-    val hCen1 = hSide.tile1Reg
+  override def sideTile1(hSide: HSide): HCen =
+  { val hCen1 = hSide.tile1Reg
     if (grid.hCenExists(hCen1)) hCen1
     else {
-      val gi = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
-      val sc = hSide.c
-      val gr = sys.grids(gi)
-      val sr = hSide.r
-      //val lhc: Int = gr.rowRightCenC(r)
-      /*val c = hSide match {
-        case HSideA(r, c)
-      }*/
-      val cenR = hSide.r match {
-        case sr if sr.isEven => sr
-        case sr if (sr.div4Rem3 & sc.div4Rem1) | (sr.div4Rem1 & sc.div4Rem3) => sr + 1 //These are up and to the left
-        case sr => sr - 1 //These are down and to the left.
+      val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
+      val gr = sys.grids(gridIndex)
+      hSide match {
+        case HSideA(r, c) if r <= gr.bottomSideR => {deb(s"Bottom, $r, $c, returning ${hSide.tile2Reg}"); hSide.tile2Reg }
+        case HSideA(r, _) => if(gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2) HCen(r - 1, gr.rowRightCenC(r - 1)) else HCen(r + 1, gr.rowRightCenC(r + 1))
+        case HSideB(r, _) => HCen(r, gr.rowRightCenC(r))
+        case HSideC(r, _) if r >= gr.topSideR => { deb("Top"); hSide.tile2Reg }
+        case HSideC(r, _) => if(gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2) HCen(r + 1, gr.rowRightCenC(r + 1))
+          else HCen(r - 1, gr.rowRightCenC(r - 1))
       }
-
-      val c = ife(cenR > grid.topCenR | cenR < grid.bottomCenR, 0, sys.grids(gi).rowRightCenC(cenR))
-      HCen(cenR, c)
     }
   }
 
