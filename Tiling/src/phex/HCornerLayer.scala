@@ -236,7 +236,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Returns the [[PolygonHVAndOffset]] [[PolygonLike]] for the given [[HSide]]. */
-  def sideVerts(hs: HSide)(implicit gridSys: HGridSys): PolygonHVAndOffset = hs.tile1Opt match
+  def sideVertsAlt(hs: HSide)(implicit gridSys: HGridSys): PolygonHVAndOffset = hs.tile1Opt match
   {
     case None =>
     { val (h2, vi) = hs.tile2AndVert
@@ -278,7 +278,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
     }
   }
 
-  def sideVertsAlt(hs: HSide)(implicit gridSys: HGridSys) =
+  def sideVerts(hs: HSide)(implicit gridSys: HGridSys) =
   {
     val h2s = hs.tile2Opt match
     { case None =>
@@ -320,6 +320,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
 
         case _ =>
         { val (h1, vi) = hs.tile1AndVert
+          if(!gridSys.hCenExists(h1)) excep("What")
           val p3 = cornerV1(h1, (vi + 1) %% 6)
           val p4 = cornerV1(h1, vi)
           HVAndOffsetArr(p3, p4)
