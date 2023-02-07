@@ -278,8 +278,55 @@ class HCornerLayer(val unsafeArray: Array[Int])
     }
   }
 
-  def sideVertsAlt(hs: HSide)(implicit gridSys: HGridSys): Unit ={
+  def sideVertsAlt(hs: HSide)(implicit gridSys: HGridSys) =
+  {
+    val h2s = hs.tile2Opt match
+    { case None =>
+      { val p1 = hs.vert1.noOffset
+        val p2 = hs.vert2.noOffset
+        HVAndOffsetArr(p1, p2)
+      }
 
+      case Some(h2) if hs.istypeB =>
+      { val (h2, vi) = hs.tile2AndVert
+        val ps1 = cornerForSideSpecial(h2, vi)
+        val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)
+        ps1 ++ ps2
+      }
+
+      case Some(h2) =>
+      { val (h2, vi) = hs.tile2AndVert
+        val p1 = cornerV1(h2, vi)
+        val p2 = cornerV1(h2, (vi - 1) %% 6)
+        HVAndOffsetArr(p1, p2)
+      }
+    }
+
+    val h1s = hs.tile1Opt match
+    { case None =>
+      { val p3 = hs.vert2.noOffset
+        val p4 = hs.vert1.noOffset
+        HVAndOffsetArr(p3, p4)
+      }
+
+      case Some(h1) => hs.tile2Opt match
+      {
+        case Some(h2) if hs.istypeB =>
+        { val (h2, vi) = hs.tile2AndVert
+          val ps3 = cornerForSideSpecial(h1, (vi - 3) %% 6)
+          val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
+          ps3 ++ ps4
+        }
+
+        case _ =>
+        { val (h1, vi) = hs.tile1AndVert
+          val p3 = cornerV1(h1, (vi + 1) %% 6)
+          val p4 = cornerV1(h1, vi)
+          HVAndOffsetArr(p3, p4)
+        }
+      }
+    }
+    (h2s ++ h1s).toPolygon
   }
 }
 
