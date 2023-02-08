@@ -87,12 +87,12 @@ trait HGridSys extends Any with TGridSys
   def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
 
   def sideTile1Opt(hSide: HSide): Option[HCen] =
-  { val ot = sideTile1(hSide)
+  { val ot: HCen = sideTile1(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
   def sideTile2Opt(hSide: HSide): Option[HCen] =
-  { val ot = sideTile2(hSide)
+  { val ot: HCen = sideTile2(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 

@@ -319,8 +319,8 @@ class HCornerLayer(val unsafeArray: Array[Int])
         }
 
         case _ =>
-        { val (h1, vi) = hs.tile1AndVert
-          if(!gridSys.hCenExists(h1)) excep("What")
+        { val (h1Other, vi) = hs.tile1AndVert
+          if(!gridSys.hCenExists(h1)) deb(s"$h1Other; $vi Tile doesn't exist")
           val p3 = cornerV1(h1, (vi + 1) %% 6)
           val p4 = cornerV1(h1, vi)
           HVAndOffsetArr(p3, p4)
