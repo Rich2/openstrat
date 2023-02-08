@@ -60,16 +60,16 @@ trait EGridMan
     ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
 
   /** This method should only be used when you know both side tiles exist. */
-  def unsafeSideTiles(hSide: HSide): (HCen, HCen) = (unSafeSideTile1(hSide), unsafeSideTile2(hSide))
+  def unsafeSideTiles(hSide: HSide): (HCen, HCen) = (sideTile1Unsafe(hSide), sideTile2Unsafe(hSide))
 
   /** This method should only be used when you know the side tile exists. */
-  def unSafeSideTile1(hSide: HSide): HCen
+  def sideTile1Unsafe(hSide: HSide): HCen
 
   /** This method should only be used when you know the side tile exists. */
-  def unsafeSideTile2(hSide: HSide): HCen
+  def sideTile2Unsafe(hSide: HSide): HCen
 
-  def sidesFold[A](init: A)(f: (A, HSide) => A): A = {
-    var acc: A = init
+  def sidesFold[A](init: A)(f: (A, HSide) => A): A =
+  { var acc: A = init
     sidesForeach { hs => acc = f(acc, hs) }
     acc
   }
