@@ -126,14 +126,14 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }*/
 
-  override def sideTile1(hSide: HSide): HCen =
+  override def unSafeSideTile1(hSide: HSide): HCen =
   { val hCen1 = hSide.tile1Reg
     if (grid.hCenExists(hCen1)) hCen1
     else {
       val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
       val gr = sys.grids(gridIndex)
       hSide match {
-        case HSideA(r, c) if r <= gr.bottomSideR => {deb(s"Bottom, $r, $c, returning ${hSide.tile2Reg}"); hSide.tile2Reg }
+        case HSideA(r, c) if r <= gr.bottomSideR => {excep(s"Bottom, $r, $c, returning ${hSide.tile2Reg}"); hSide.tile2Reg }
         case HSideA(r, _) => if(gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2) HCen(r - 1, gr.rowRightCenC(r - 1)) else HCen(r + 1, gr.rowRightCenC(r + 1))
         case HSideB(r, _) => HCen(r, gr.rowRightCenC(r))
         case HSideC(r, _) if r >= gr.topSideR => { deb("Top"); hSide.tile2Reg }
@@ -143,5 +143,5 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
+  override def unsafeSideTile2(hSide: HSide): HCen = grid.unsafeSideTile2(hSide)
 }

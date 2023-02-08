@@ -84,20 +84,23 @@ trait HGridSys extends Any with TGridSys
 
   def adjTilesOfTile(tile: HCen): HCenArr
 
-  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
+  def sideTiles(hSide: HSide): (HCen, HCen) = (unsafeSideTile1(hSide), unsafeSideTile2(hSide))
 
-  def sideTile1Opt(hSide: HSide): Option[HCen] =
-  { val ot: HCen = sideTile1(hSide)
+  def sideTile1Opt(hSide: HSide): Option[HCen] //=
+  /*{ val ot: HCen = unsafeSideTile1(hSide)
     ife(hCenExists(ot), Some(ot), None)
-  }
+  }*/
 
   def sideTile2Opt(hSide: HSide): Option[HCen] =
-  { val ot: HCen = sideTile2(hSide)
+  { val ot: HCen = unsafeSideTile2(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
-  def sideTile1(hSide: HSide): HCen
-  def sideTile2(hSide: HSide): HCen
+  /** This method should only be used when you know the side tile exists. */
+  def unsafeSideTile1(hSide: HSide): HCen
+
+  /** This method should only be used when you know the side tile exists. */
+  def unsafeSideTile2(hSide: HSide): HCen
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)

@@ -272,9 +272,9 @@ trait HGrid extends Any with TGrid with HGridSys
   /** Not correct yet. */
   override def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = Some(hs.tile1Reg, hs.tile2Reg)
 
-  override def sideTile1(hSide: HSide): HCen = hSide.tile1Reg
+  override def unsafeSideTile1(hSide: HSide): HCen = hSide.tile1Reg
 
-  override def sideTile2(hSide: HSide): HCen = hSide.tile2Reg
+  override def unsafeSideTile2(hSide: HSide): HCen = hSide.tile2Reg
 }
 
 /** Hex grid path finding node. */

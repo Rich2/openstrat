@@ -59,9 +59,14 @@ trait EGridMan
   lazy val sideIndexStart: Int =
     ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
 
-  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
-  def sideTile1(hSide: HSide): HCen = grid.sideTile1(hSide)
-  def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
+  /** This method should only be used when you know both side tiles exist. */
+  def unsafeSideTiles(hSide: HSide): (HCen, HCen) = (unSafeSideTile1(hSide), unsafeSideTile2(hSide))
+
+  /** This method should only be used when you know the side tile exists. */
+  def unSafeSideTile1(hSide: HSide): HCen
+
+  /** This method should only be used when you know the side tile exists. */
+  def unsafeSideTile2(hSide: HSide): HCen
 
   def sidesFold[A](init: A)(f: (A, HSide) => A): A = {
     var acc: A = init

@@ -29,4 +29,6 @@ trait EGridLongMulti extends EGridSys with EGridMulti
     val i = (c  / hcDelta - headGridInt) %% 12
     ife(i < 0 | i >= gridMans.length, None, Some(gridMans(i)))
   }
+
+  override def sideTile1Opt(hSide: HSide): Option[HCen] = ??? // getMan(hSide).fold(None)()
 }

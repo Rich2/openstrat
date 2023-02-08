@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
@@ -8,6 +8,10 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 
+  override def sideTile1Opt(hSide: HSide): Option[HCen] = {
+    val ot: HCen = unsafeSideTile1(hSide)
+    ife(hCenExists(ot), Some(ot), None)
+  }
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
   def leftrem2CenC: Int = leftCenC.roundUpTo(_.div4Rem2)

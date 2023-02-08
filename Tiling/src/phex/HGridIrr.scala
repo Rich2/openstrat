@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
@@ -10,6 +10,11 @@ package ostrat; package prid; package phex
 class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
+
+  override def sideTile1Opt(hSide: HSide): Option[HCen] =
+  { val ot: HCen = unsafeSideTile1(hSide)
+    ife(hCenExists(ot), Some(ot), None)
+  }
 
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 
