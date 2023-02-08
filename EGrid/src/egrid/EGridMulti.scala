@@ -6,7 +6,7 @@ import geom._, pglobe._, prid._, phex._, reflect.ClassTag
 trait EGridMulti extends EGridSys  with TGridMulti
 { ThisMulti =>
   override type GridT = EGrid
-  type ManT = EGridMan
+  type ManT <: EGridMan
 
   def gridMans: RArr[ManT]
 
