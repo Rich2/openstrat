@@ -1,7 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
+/** 2D Graphical representation of the Orkney's */
 object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, plain)
 {
    val north = 59.38 ll -2.88

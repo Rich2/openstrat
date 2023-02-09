@@ -35,7 +35,7 @@ object Terr80E0 extends Long80Terrs
     gs(482, 494, hills * 3, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
     gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
-    gs(476, 488, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 2)//Looks like theres extra sea at end
+    gs(476, 488, plain * 2, hills * 3, sea * 8, plain * 3, sea * 2)//Looks like theres extra sea at end
     gs(474, 482, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)
     gs(472, 480, plain * 3, sea * 3, plain * 2, sea * 7, plain * 6)
     gs(470, 482, plain * 3, sea, hills * 2, plain * 2, sea * 5, plain * 8)
@@ -55,11 +55,19 @@ object Terr80E0 extends Long80Terrs
   }
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551,  487,503)
+    res.setSomeInts(Sea, 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
+    res.setSomeInts(Sea, 477,545,  478,544,  478,552,  479,545,  479,551)
     res
   }
 
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer =
+  { val res: HCornerLayer = grid.newHVertOffsetLayer
+
+    res.setMouth2(478, 490)//North Ireland -Scotland north West
+    res.setVert1In(476, 492)//North Ireland -Scotland
+    res.setMouth0(474, 494)//North Ireland -Scotland
+    res
+  }
 }
 
 /** Object for scenarios covering the western front at 80km. */
