@@ -8,13 +8,13 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 
-  override def sideTile1Opt(hSide: HSide): Option[HCen] = {
-    val ot: HCen = unsafeSideTile1(hSide)
+  override def sideTileLtOpt(hSide: HSide): Option[HCen] = {
+    val ot: HCen = sideTileLtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
   /** Needs reimplementing. */
-  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tileLtAndVert
+  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tileLtAndVert
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */

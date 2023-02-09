@@ -11,12 +11,12 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
-  override def sideTile1Opt(hSide: HSide): Option[HCen] =
-  { val ot: HCen = unsafeSideTile1(hSide)
+  override def sideTileLtOpt(hSide: HSide): Option[HCen] =
+  { val ot: HCen = sideTileLtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
-  override def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tileLtAndVert
+  override def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tileLtAndVert
 
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 

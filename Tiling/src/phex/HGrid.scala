@@ -270,11 +270,11 @@ trait HGrid extends Any with TGrid with HGridSys
   }
 
   /** Not correct yet. */
-  override def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = Some(hs.tile1Reg, hs.tile2Reg)
+  override def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = Some(hs.tileLtReg, hs.tileRtReg)
 
-  override def unsafeSideTile1(hSide: HSide): HCen = hSide.tile1Reg
+  override def sideTileLtUnsafe(hSide: HSide): HCen = hSide.tileLtReg
 
-  override def unsafeSideTile2(hSide: HSide): HCen = hSide.tile2Reg
+  override def sideTileRtUnsafe(hSide: HSide): HCen = hSide.tileRtReg
 }
 
 /** Hex grid path finding node. */

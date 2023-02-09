@@ -84,26 +84,23 @@ trait HGridSys extends Any with TGridSys
 
   def adjTilesOfTile(tile: HCen): HCenArr
 
-  def sideTiles(hSide: HSide): (HCen, HCen) = (unsafeSideTile1(hSide), unsafeSideTile2(hSide))
+  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTileLtUnsafe(hSide), sideTileRtUnsafe(hSide))
 
-  def sideTile1Opt(hSide: HSide): Option[HCen] //=
-  /*{ val ot: HCen = unsafeSideTile1(hSide)
-    ife(hCenExists(ot), Some(ot), None)
-  }*/
+  def sideTileLtOpt(hSide: HSide): Option[HCen]
 
-  def sideTile2Opt(hSide: HSide): Option[HCen] =
-  { val ot: HCen = unsafeSideTile2(hSide)
+  def sideTileRtOpt(hSide: HSide): Option[HCen] =
+  { val ot: HCen = sideTileRtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
   /** This method should only be used when you know the side tile exists. */
-  def unsafeSideTile1(hSide: HSide): HCen
+  def sideTileLtUnsafe(hSide: HSide): HCen
 
   /** This method should only be used when you know the side tile exists. */
-  def unsafeSideTile2(hSide: HSide): HCen
+  def sideTileRtUnsafe(hSide: HSide): HCen
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
-  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int)
+  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)
 
@@ -307,7 +304,7 @@ trait HGridSys extends Any with TGridSys
   /** The [[HSide]] hex side coordinates. */
   final def sides: HSideArr = sidesMap(hs => hs)
 
-  def ifSideExists(hs: HSide): Boolean = hCenExists(hs.tile1Reg) | hCenExists(hs.tile2Reg)
+  def ifSideExists(hs: HSide): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
