@@ -135,11 +135,11 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       hSide match {
         case HSideA(r, c) if r <= gr.bottomSideR => None
         case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 => Some((HCen(r - 1, gr.rowRightCenC(r - 1)), 0))
-        case HSideA(r, _) => Some((HCen(r + 1, gr.rowRightCenC(r + 1)), 0))
+        case HSideA(r, _) => Some((HCen(r + 1, gr.rowRightCenC(r + 1)), 3))
         case HSideB(r, _) => Some((HCen(r, gr.rowRightCenC(r)), 1))
         case HSideC(r, _) if r >= gr.topSideR => None
         case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 => Some((HCen(r + 1, gr.rowRightCenC(r + 1)), 2))
-        case HSideC(r, _) => Some((HCen(r - 1, gr.rowRightCenC(r - 1)), 2))
+        case HSideC(r, _) => Some((HCen(r - 1, gr.rowRightCenC(r - 1)), 0))
       }
     }
   }
@@ -151,13 +151,13 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     else {
       val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
       val gr = sys.grids(gridIndex)
-      hSide match {
-        case HSideA(r, c) if r <= gr.bottomSideR => excep("HCen below bottom.")
-        case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 =>{deb("Unspecial A"); (HCen(r - 1, gr.rowRightCenC(r - 1)), 2) }
-        case HSideA(r, _) => (HCen(r + 1, gr.rowRightCenC(r + 1)), 0)
+      hSide match
+      { case HSideA(r, c) if r <= gr.bottomSideR => excep("HCen below bottom.")
+        case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 => (HCen(r - 1, gr.rowRightCenC(r - 1)), 0)
+        case HSideA(r, _) => (HCen(r + 1, gr.rowRightCenC(r + 1)), 3)
         case HSideB(r, _) => (HCen(r, gr.rowRightCenC(r)), 1)
         case HSideC(r, _) if r >= gr.topSideR => excep("HCen above top.")
-        case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 =>{deb("Unspecial C");  (HCen(r + 1, gr.rowRightCenC(r + 1)), 2) }
+        case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 => (HCen(r + 1, gr.rowRightCenC(r + 1)), 2)
         case HSideC(r, _) => ((HCen(r - 1, gr.rowRightCenC(r - 1)), 0))
       }
     }
@@ -169,13 +169,14 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     else {
       val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
       val gr = sys.grids(gridIndex)
-      hSide match {
-        case HSideA(r, c) if r <= gr.bottomSideR => {excep(s"Bottom, $r, $c, returning ${hSide.tile2Reg}"); hSide.tile2Reg }
-        case HSideA(r, _) => if(gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2) HCen(r - 1, gr.rowRightCenC(r - 1)) else HCen(r + 1, gr.rowRightCenC(r + 1))
+      hSide match
+      { case HSideA(r, c) if r <= gr.bottomSideR => {excep(s"Bottom, $r, $c, returning ${hSide.tile2Reg}"); hSide.tile2Reg }
+        case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 =>  HCen(r - 1, gr.rowRightCenC(r - 1))
+        case HSideA(r, _) => HCen(r + 1, gr.rowRightCenC(r + 1))
         case HSideB(r, _) => HCen(r, gr.rowRightCenC(r))
         case HSideC(r, _) if r >= gr.topSideR => { deb("Top"); hSide.tile2Reg }
-        case HSideC(r, _) => if(gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2) HCen(r + 1, gr.rowRightCenC(r + 1))
-          else HCen(r - 1, gr.rowRightCenC(r - 1))
+        case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 => HCen(r + 1, gr.rowRightCenC(r + 1))
+        case HSideC(r, _) => HCen(r - 1, gr.rowRightCenC(r - 1))
       }
     }
   }

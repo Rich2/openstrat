@@ -33,7 +33,7 @@ object Terr320W120 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 155,8707,  155,8709,  157,8701,  158,8704,  158,8712)
+    res.setSomeInts(Sea, 155,8707,  155,8709,  157,8701,  158,8704,  158,8712,  159,8711)
     res
   }
 
@@ -41,6 +41,10 @@ object Terr320W120 extends Long320Terrs
   { val res =grid.newHVertOffsetLayer
 
     res.setMouth3(160, 8704)
+
+    res.setMouth2(156, 8704)//Victoria Island - Canada West
+    res.setVert3In(156, 8708)//Victoria Island - Canada
+
     res.setMouth0(156, 8704)
    // res.setMouth2(158, 7686)
     res

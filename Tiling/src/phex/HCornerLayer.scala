@@ -313,6 +313,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
       {
         case Some(h2) if hs.isTypeB =>
         { val (h2, vi) = hs.tile2AndVert
+          val (h1U, viU) =  gridSys.sideTile1AndVertUnsafe(hs)
           val ps3 = cornerForSideSpecial(h1, (vi - 3) %% 6)
           val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
           ps3 ++ ps4
@@ -322,24 +323,25 @@ class HCornerLayer(val unsafeArray: Array[Int])
           val (h1b, vi) = hs.tile1AndVert
           if (h1b.r == hs.r - 1) deb(s"$h1b C Side")
           val (h1U, viU) = gridSys.sideTile1AndVertUnsafe(hs)
-          if (h1U.r == hs.r - 1){
+          //if (h1U.r == hs.r - 1){
             //deb(s"HSideC $hs gives $h1U, $viU or $h1b, $vi")
             val p3 = cornerV1(h1U, (viU + 1) %% 6)
             val p4 = cornerV1(h1U, viU)
             HVAndOffsetArr(p3, p4)
-          }
+          /*}
           else
           { val p3 = cornerV1(h1, (vi + 1) %% 6)
             val p4 = cornerV1(h1, vi)
             HVAndOffsetArr(p3, p4)
-          }
+          }*/
         }
 
         case _ =>
         { val (h1Other, vi) = hs.tile1AndVert
+          val (h1U, viU) =  gridSys.sideTile1AndVertUnsafe(hs)
           if(!gridSys.hCenExists(h1)) deb(s"$h1Other; $vi Tile doesn't exist")
-          val p3 = cornerV1(h1, (vi + 1) %% 6)
-          val p4 = cornerV1(h1, vi)
+          val p3 = cornerV1(h1U, (viU + 1) %% 6)
+          val p4 = cornerV1(h1U, viU)
           HVAndOffsetArr(p3, p4)
         }
       }
