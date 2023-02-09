@@ -44,13 +44,20 @@ object Terr160E0 extends Long160Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    res.setMouth2(290, 498)//Northern Ireland north
-    res.setVert1In(288, 500)
-    res.setVert4In(288, 504)
-    res.setVert1In(286, 502)
-    res.setVert2In(286, 502)
-    res.setVert5In(284, 504)
-    res.setMouth0(282, 502)
+    res.setMouth2(290, 498)//Northern Ireland -Scotland north west
+    res.setVert1In(288, 500)//Northern Ireland - Scotland
+    res.setVert4In(288, 504)//Northern Ireland - Scotland
+    res.setVert1In(286, 502)//Ireland - England
+    res.setVert2In(286, 502)//Ireland - Anglesey
+    res.setVert5In(284, 504)//Ireland - Wales
+    res.setMouth0(282, 502)//Ireland - Wales south
+
+    res.setMouth1(278, 502)//Cornwall - Britany
+    res.setMouth4(280, 508)//Britany - Devon
+
+    res.setMouth1(280, 512)//Straits of Dover south west
+    res.setVert2In(282, 514)//Straits of Dover
+    res.setMouth3(284, 516)//Straits of Dover north east
 
     res
   }
