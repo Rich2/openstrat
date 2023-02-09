@@ -103,6 +103,8 @@ trait HGridSys extends Any with TGridSys
   def unsafeSideTile2(hSide: HSide): HCen
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
+  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int)
+
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)
 
   /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */

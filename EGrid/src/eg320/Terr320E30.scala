@@ -36,7 +36,7 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(Lake, 149, 1537)
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(Sea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
-    res.setSomeInts(Lake,  131,1521)
+    res.setSomeInts(Sea, 131,1521)
     res
   }
 
@@ -81,6 +81,11 @@ object Terr320E30 extends Long320Terrs
     res.setVert2In(132, 1532)//Dardanelles
     res.setVert5In(132, 1536)//Sea of Marmara
     res.setMouth4(134, 1538)//Constantinople
+
+    res.setCorner(132, 1524, 4, HVDR)
+    res.setCorner(130, 1522, 0, HVDR)
+    res.setCornerIn(130, 1522, 5)//Sicily Italy
+    res.setCornerIn(130, 1522, 4)//Sicily Italy south
 
     res
   }

@@ -41,7 +41,7 @@ object Terr320E0 extends Long320Terrs
 
     res.setSomeInts(Sea, 133,521,  134,524,  135,521,  135,523)
 
-    res.setSomeInts(Lake, 130,528)
+    res.setSomeInts(Sea, 130,528)
 
     res.setSomeInts(Sea, 129,507,  129,509,  129,511,  129,525,  131,527,  134,528,  135,527,  136,526)
     res
@@ -80,9 +80,11 @@ object Terr320E0 extends Long320Terrs
     res.setCornerIn(134, 526, 1)//Adriatic
     res.setCorner(134, 526, 2, HVDL)//Adriatic
 
-    //res.setCorner(132, 524, 2, HVUL)
-    res.setCornerIn(130, 526, 2)
-    res.setCorner2(128, 528, 0, HVUL, HVUR)
+    res.setCornerPair(132, 524, 2, HVDR, HVUL)//Sicily Italy
+    res.setCorner(130, 526, 0, HVUL)//Sicily Italy
+    res.setCornerIn(130, 526, 1)//Sicily Italy
+    res.setCornerIn(130, 526, 2)//Sicily Italy
+    res.setCornerPair(128, 528, 0, HVUL, HVUR)//Sicily Italy south mouth
 
 
     res.setMouth1(128, 504)//Gibraltar

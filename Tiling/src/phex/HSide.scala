@@ -9,7 +9,9 @@ import collection.mutable.ArrayBuffer
 trait HSide extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
-  def istypeB: Boolean = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
+  def isTypeA: Boolean
+  def isTypeB: Boolean// = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
+  def isTypeC: Boolean
 
   /** Returns the hex coordinate Line segment for this Hex Side. */
   def lineSegHC: LineSegHC
@@ -28,6 +30,7 @@ trait HSide extends HCenOrSide with TSide
 
   /** Not precisely sure what this method is doing. */
   def tile1AndVert: (HCen, Int)
+  def tile1AndVertUnsafe(implicit gSys: HGridSys) = gSys.sideTile1AndVertUnsafe(this)
 
   /** Not precisely sure what this method is doing. */
   def tile2AndVert: (HCen, Int)
@@ -73,7 +76,10 @@ object HSide
 
 /** A hex side that slants down from left to right. */
 class HSideA(val r: Int, val c: Int) extends HSide
-{ override def vert1: HVert = HVert(r, c - 1)
+{ override def isTypeA: Boolean = true
+  override def isTypeB: Boolean = false
+  override def isTypeC: Boolean = false
+  override def vert1: HVert = HVert(r, c - 1)
   override def vert2: HVert = HVert(r, c + 1)
   override def tile1Reg: HCen = HCen(r - 1, c - 1)
   override def tile2Reg: HCen = HCen(r + 1, c + 1)
@@ -94,7 +100,10 @@ object HSideA
 
 /** A hex side that slants straight down. */
 class HSideB(val r: Int, val c: Int) extends HSide
-{ override def vert1: HVert = HVert(r + 1, c)
+{ override def isTypeA: Boolean = false
+  override def isTypeB: Boolean = true
+  override def isTypeC: Boolean = false
+  override def vert1: HVert = HVert(r + 1, c)
   override def vert2: HVert = HVert(r - 1, c)
   override def tile1Reg: HCen = HCen(r, c - 2)
   override def tile2Reg: HCen = HCen(r, c + 2)
@@ -114,7 +123,10 @@ object HSideB
 
 /** A hex side that slants down form top right to bottom left. */
 class HSideC(val r: Int, val c: Int) extends HSide
-{ override def vert1: HVert = HVert(r, c + 1)
+{ override def isTypeA: Boolean = false
+  override def isTypeB: Boolean = false
+  override def isTypeC: Boolean = true
+  override def vert1: HVert = HVert(r, c + 1)
   override def vert2: HVert = HVert(r, c - 1)
   override def tile1Reg: HCen = HCen(r + 1, c - 1)
   override def tile2Reg: HCen = HCen(r - 1, c + 1)

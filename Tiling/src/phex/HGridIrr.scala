@@ -16,6 +16,8 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     ife(hCenExists(ot), Some(ot), None)
   }
 
+  override def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tile1AndVert
+
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 
   /** Combine adjacent tiles of the same value. */
