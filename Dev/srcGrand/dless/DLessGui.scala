@@ -32,8 +32,8 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def lines: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
     else {
-      val t1 = terrs(hs.tile1)
-      val t2 = terrs(hs.tile2)
+      val t1 = terrs(hs.tileLt)
+      val t2 = terrs(hs.tileRt)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
     }
   }
@@ -41,11 +41,11 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
 
   def lines3: GraphicElems = proj.linksOptMap { hs =>
-    val hc1 = hs.tile1
-    val hc2 = hs.tile2
+    val hc1 = hs.tileLt
+    val hc2 = hs.tileRt
     val t1 = terrs(hc1)
 
-    def t2 = terrs(hs.tile2)
+    def t2 = terrs(hs.tileRt)
 
     if (sTerrs(hs).nonEmpty | t1 != t2) None
     else {

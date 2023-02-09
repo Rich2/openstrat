@@ -126,9 +126,9 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  def sideTile1AndVertFind(hSide: HSide): Option[(HCen, Int)] =
+  def sideTileLtAndVertFind(hSide: HSide): Option[(HCen, Int)] =
   { val hCen1 = hSide.tile1Reg
-    if (grid.hCenExists(hCen1)) Some(hSide.tile1AndVert)
+    if (grid.hCenExists(hCen1)) Some(hSide.tileLtAndVert)
     else {
       val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
       val gr = sys.grids(gridIndex)
@@ -145,9 +145,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   /** Vert nums incorrect. */
-  def sideTile2AndVertFind(hSide: HSide): Option[(HCen, Int)] =
-  {
-    val hCen2 = hSide.tile2Reg
+  def sideTileRtAndVertFind(hSide: HSide): Option[(HCen, Int)] =
+  { val hCen2 = hSide.tile2Reg
     if (grid.hCenExists(hCen2)) Some(hSide.tile2AndVert)
     else {
       val gridIndex = ife(thisInd >= sys.numGrids - 1, 0, thisInd + 1)
@@ -164,12 +163,11 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) =
-  {
-    val hCen1 = hSide.tile1Reg
-    if (grid.hCenExists(hCen1)) hSide.tile1AndVert
-    else {
-      val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
+  override def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) =
+  { val hCen1 = hSide.tile1Reg
+    if (grid.hCenExists(hCen1)) hSide.tileLtAndVert
+    else
+    { val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
       val gr = sys.grids(gridIndex)
       hSide match
       { case HSideA(r, c) if r <= gr.bottomSideR => excep("HCen below bottom.")

@@ -14,7 +14,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   }
 
   /** Needs reimplementing. */
-  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tile1AndVert
+  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tileLtAndVert
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */

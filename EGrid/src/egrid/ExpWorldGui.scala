@@ -53,10 +53,10 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     }
 
     def lines1: GraphicElems = proj.linksOptMap{ hs =>
-      val hc1 = hs.tile1
-      val hc2 = hs.tile2
+      val hc1 = hs.tileLt
+      val hc2 = hs.tileRt
       val t1 = terrs(hc1)
-      def t2 = terrs(hs.tile2)
+      def t2 = terrs(hs.tileRt)
       if (sTerrs(hs).nonEmpty | t1 != t2) None
       else
       { val cs: (HCen, Int, Int) = hs.corners

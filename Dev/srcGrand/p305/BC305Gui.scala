@@ -20,8 +20,8 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   def lines1: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
     else {
-      val t1 = terrs(hs.tile1)
-      val t2 = terrs(hs.tile2)
+      val t1 = terrs(hs.tileLt)
+      val t2 = terrs(hs.tileRt)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
     }
   }

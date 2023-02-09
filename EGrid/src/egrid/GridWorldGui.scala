@@ -52,8 +52,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def lines = proj.linkLineSegsOptMap{ (hs, ls) =>
       if (sTerrs(hs).nonEmpty) None
       else {
-        val t1 = terrs(hs.tile1)
-        val t2 = terrs(hs.tile2)
+        val t1 = terrs(hs.tileLt)
+        val t2 = terrs(hs.tileRt)
         ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
       }
     }

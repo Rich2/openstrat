@@ -17,7 +17,8 @@ trait EGridMan
   def hCenExists(r: Int, c: Int): Boolean
 
   final def hCenExists(hCen: HCen): Boolean = hCenExists(hCen.r, hCen.c)
-  def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int)
+  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int)
+
   /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
   def sideArrIndex(r: Int, c: Int): Int
 
@@ -27,7 +28,7 @@ trait EGridMan
 
   def sidesForeach(f: HSide => Unit): Unit
 
-  /** The offet is used in the implementation of the flatHCoordToPt2(hCoord: HCoord) method in [[HGridMulti]] where it is added to the [[Pt2]] value
+  /** The offset is used in the implementation of the flatHCoordToPt2(hCoord: HCoord) method in [[HGridMulti]] where it is added to the [[Pt2]] value
    * given by the [[HGrid]]. */
   def offset: Vec2
   /** The number of tiles in the Hex grid this manager class is managing. */

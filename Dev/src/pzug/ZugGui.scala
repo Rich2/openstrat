@@ -33,10 +33,10 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   }
 
   def lines1: GraphicElems = proj.linksOptMap { hs =>
-    val hc1 = hs.tile1
+    val hc1 = hs.tileLt
     val t1 = terrs(hc1)
 
-    def t2 = terrs(hs.tile2)
+    def t2 = terrs(hs.tileRt)
 
     if (sTerrs(hs) | t1 != t2) None
     else {

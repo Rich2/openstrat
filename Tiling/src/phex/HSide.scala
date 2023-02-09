@@ -10,7 +10,7 @@ trait HSide extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
   def isTypeA: Boolean
-  def isTypeB: Boolean// = r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0
+  def isTypeB: Boolean
   def isTypeC: Boolean
 
   /** Returns the hex coordinate Line segment for this Hex Side. */
@@ -25,12 +25,12 @@ trait HSide extends HCenOrSide with TSide
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen)
 
-  def tile1(implicit sys: HGridSys): HCen = sys.unsafeSideTile1(this)
-  def tile2(implicit sys: HGridSys): HCen = sys.unsafeSideTile2(this)
+  def tileLt(implicit sys: HGridSys): HCen = sys.unsafeSideTile1(this)
+  def tileRt(implicit sys: HGridSys): HCen = sys.unsafeSideTile2(this)
 
   /** Not precisely sure what this method is doing. */
-  def tile1AndVert: (HCen, Int)
-  def tile1AndVertUnsafe(implicit gSys: HGridSys) = gSys.sideTile1AndVertUnsafe(this)
+  def tileLtAndVert: (HCen, Int)
+  def tileLtAndVertUnsafe(implicit gSys: HGridSys) = gSys.sideTile1AndVertUnsafe(this)
 
   /** Not precisely sure what this method is doing. */
   def tile2AndVert: (HCen, Int)
@@ -74,7 +74,7 @@ object HSide
   }
 }
 
-/** A hex side that slants down from left to right. */
+/** A hex side that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
 class HSideA(val r: Int, val c: Int) extends HSide
 { override def isTypeA: Boolean = true
   override def isTypeB: Boolean = false
@@ -83,11 +83,11 @@ class HSideA(val r: Int, val c: Int) extends HSide
   override def vert2: HVert = HVert(r, c + 1)
   override def tile1Reg: HCen = HCen(r - 1, c - 1)
   override def tile2Reg: HCen = HCen(r + 1, c + 1)
-  override def tile1AndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
+  override def tileLtAndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
   override def tile2AndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
   override def lineSegHC: LineSegHC = LineSegHC(r, c - 1, r, c + 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) =  ife(sys.hCenExists(tile1), (tile1, 0, 1), (tile2, 3, 4))
+  override def corners(implicit sys: HGridSys): (HCen, Int, Int) =  ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
 }
 
 object HSideA
@@ -98,7 +98,7 @@ object HSideA
   }
 }
 
-/** A hex side that slants straight down. */
+/** A hex side that slants straight down. r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0 */
 class HSideB(val r: Int, val c: Int) extends HSide
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = true
@@ -107,12 +107,13 @@ class HSideB(val r: Int, val c: Int) extends HSide
   override def vert2: HVert = HVert(r - 1, c)
   override def tile1Reg: HCen = HCen(r, c - 2)
   override def tile2Reg: HCen = HCen(r, c + 2)
-  override def tile1AndVert: (HCen, Int) = (HCen(r, c - 2), 1)
+  override def tileLtAndVert: (HCen, Int) = (HCen(r, c - 2), 1)
   override def tile2AndVert: (HCen, Int) = (HCen(r, c + 2), 5)
   override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)
   override def unsafeTiles: (HCen, HCen) = (HCen(r, c - 2), HCen(r, c + 2))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tile1), (tile1, 1, 2), (tile2, 4, 5))
+  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 1, 2), (tileRt, 4, 5))
 }
+
 object HSideB
 {
   def unapply(inp: Any): Option[(Int, Int)] = inp match
@@ -121,7 +122,7 @@ object HSideB
   }
 }
 
-/** A hex side that slants down form top right to bottom left. */
+/** A hex side that slants down from top right to bottom left. r.div4Rem1 & c.div4Rem3 | r.div4Rem3 & c.div4Rem1 */
 class HSideC(val r: Int, val c: Int) extends HSide
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = false
@@ -130,11 +131,11 @@ class HSideC(val r: Int, val c: Int) extends HSide
   override def vert2: HVert = HVert(r, c - 1)
   override def tile1Reg: HCen = HCen(r + 1, c - 1)
   override def tile2Reg: HCen = HCen(r - 1, c + 1)
-  override def tile1AndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
+  override def tileLtAndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)
   override def tile2AndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
   override def lineSegHC: LineSegHC = LineSegHC(r, c + 1, r, c - 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tile1), (tile1, 2, 3), (tile2, 5, 0))
+  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 2, 3), (tileRt, 5, 0))
 }
 
 object HSideC
