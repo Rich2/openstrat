@@ -144,6 +144,26 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
+  /** Implementation incorrect after first HSideA match. */
+  def sideTile2AndVertFind(hSide: HSide): Option[(HCen, Int)] =
+  {
+    val hCen2 = hSide.tile2Reg
+    if (grid.hCenExists(hCen2)) Some(hSide.tile2AndVert)
+    else {
+      val gridIndex = ife(thisInd >= sys.numGrids - 1, 0, thisInd + 1)
+      val gr = sys.grids(gridIndex)
+      hSide match {
+        case HSideA(r, c) if r >= gr.topSideR => None
+        case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 => Some((HCen(r - 1, gr.rowRightCenC(r - 1)), 0))
+        case HSideA(r, _) => Some((HCen(r + 1, gr.rowRightCenC(r + 1)), 3))
+        case HSideB(r, _) => Some((HCen(r, gr.rowRightCenC(r)), 1))
+        case HSideC(r, _) if r >= gr.topSideR => None
+        case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 => Some((HCen(r + 1, gr.rowRightCenC(r + 1)), 2))
+        case HSideC(r, _) => Some((HCen(r - 1, gr.rowRightCenC(r - 1)), 0))
+      }
+    }
+  }
+
   def sideTile1AndVertUnsafe(hSide: HSide): (HCen, Int) =
   {
     val hCen1 = hSide.tile1Reg
