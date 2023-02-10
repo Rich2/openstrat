@@ -73,7 +73,7 @@ object Zug1 extends ZugScenStart
   lunits.set(10, 46, Squad(Britain))
   lunits.set(6, 18, Squad(Germany, Fire(4 hc 32)))
   lunits.set(10, 18, Squad(Germany, Fire(4 hc 32)))
-  setSquadMove(6, 10, Germany, HStepUL, HexRt, HexRt)
+  setSquadMove(6, 10, Germany, HexUL, HexRt, HexRt)
 }
 
 /** ZugFuhrer scenario 2. */

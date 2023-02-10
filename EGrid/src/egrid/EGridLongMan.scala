@@ -216,7 +216,43 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
         Some(hc)
       }
 
-      case _ => None
+      case HexRt if tc <= grid.rowRightCenC(r0) => Some(std)
+      case HexRt if isRightMan => None
+      case HexRt => Some(HCen(r0, rtGrid.rowLeftCenC(r0)))
+
+      case HexDR if tr < grid.bottomCenR => None
+      case HexDR if tc <= grid.rowRightCenC(tr) => Some(std)
+      case HexDR if isRightMan => None
+      case HexDR => {
+        val c1 = rtGrid.rowLeftCenC(tr)
+        val c0 = rtGrid.rowLeftCenC(r0)
+        val hc = ife(c1 < c0, HCen(tr, c1), HCen(r0, c0))
+        Some(hc)
+      }
+
+      case HexDL if tr < grid.bottomCenR => None
+      case HexDL if tc >= grid.rowLeftCenC(tr) => Some(std)
+      case HexDL if isLeftMan => None
+      case HexDL => {
+        val c1 = ltGrid.rowRightCenC(tr)
+        val c0 = ltGrid.rowRightCenC(r0)
+        val hc = ife(c1 > c0, HCen(tr, c1), HCen(r0, c0))
+        Some(hc)
+      }
+
+      case HexLt if tc >= grid.rowLeftCenC(r0) => Some(std)
+      case HexLt if isLeftMan => None
+      case HexLt => Some(HCen(r0, rtGrid.rowLeftCenC(r0)))
+
+      case HexUL if tr > grid.topCenR => None
+      case HexUL if tc >= grid.rowLeftCenC(tr) => Some(std)
+      case HexUL if isLeftMan => None
+      case HexUL =>
+      { val c1 = ltGrid.rowRightCenC(tr)
+        val c0 = ltGrid.rowRightCenC(r0)
+        val hc = ife(c1 > c0, HCen(tr, c1), HCen(r0, c0))
+        Some(hc)
+      }
     }
   }
 }

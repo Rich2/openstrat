@@ -13,7 +13,7 @@ object HStepOpt
     case 3 => HexDR
     case 4 => HexDL
     case 5 => HexLt
-    case 6 => HStepUL
+    case 6 => HexUL
     case n => HStepNone
   }
 }
@@ -38,11 +38,11 @@ object HStep
     case 3 => HexDR
     case 4 => HexDL
     case 5 => HexLt
-    case 6 => HStepUL
+    case 6 => HexUL
     case n => excep(s"$n is not a valid HStep")
   }
 
-  def full: HStepArr = HStepArr(HexUR, HexRt, HexDR, HexDL, HexLt, HStepUL)
+  def full: HStepArr = HStepArr(HexUR, HexRt, HexDR, HexDL, HexLt, HexUL)
 
   implicit val arrMapBuildEv: Int1ArrMapBuilder[HStep, HStepArr] = new Int1ArrMapBuilder[HStep, HStepArr]
   { override type BuffT = HStepBuff
@@ -72,7 +72,7 @@ case object HexDR extends HStep
 { def sr: Int = -1
   def sc: Int = 1
   def int1 = 3
-  override def reverse: HStep = HStepUL
+  override def reverse: HStep = HexUL
 }
 
 /** A step downleft on a hex tile grid [[HGrid]]. */
@@ -92,7 +92,7 @@ case object HexLt extends HStep
 }
 
 /** A step upleft on a hex tile grid [[HGrid]]. */
-case object HStepUL extends HStep
+case object HexUL extends HStep
 { def sr: Int = 1
   def sc: Int = -1
   def int1 = 6
