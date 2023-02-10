@@ -56,9 +56,9 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def outerSidesForeach(f: HSide => Unit): Unit = thisInd match
+  override def outerSidesForeach(f: HSide => Unit): Unit = None match
   {
-    case 0 if sys.grids.length != 12 =>
+    case _ if isLeftMan =>
     { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
         case r if r.isEven => f(HSide(r, grid.rowLeftCenC(r) -2))
@@ -73,7 +73,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
     }
 
-    case n if n == sys.grids.length - 1 & sys.grids.length != 12 =>
+    case _ if isRightMan =>
     { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
         case r if r.isEven => f(HSide(r, grid.rowRightCenC(r) + 2))
@@ -95,7 +95,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   override def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit =
-    if (thisInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
+    if (isLeftMan) grid.innerRowForeachInnerSide(r)(f)
     else r match
     {
       case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) - 2, 4){ c => f(HSide(r, c)) }
