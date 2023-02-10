@@ -19,6 +19,9 @@ trait TDirnSided extends TDirn
   /** Tile half step c column coordinate delta. The c delta to the tile side. */
   def sc: Int
 
+  /** The delta in r for the target tile. */
   inline final override def tr: Int = sr * 2
+
+  /** The delta in c for the target tile. */
   inline final override def tc: Int = sc * 2
 }

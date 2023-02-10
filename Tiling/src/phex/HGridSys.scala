@@ -49,8 +49,6 @@ trait HGridSys extends Any with TGridSys
 
   def unsafeStepEnd(startCen: HCen, step: HStep): HCen
 
-  //def stepEnd(startCen: HCen, step: HStep): Option[HCen]
-
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   final def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = findStep(HCen(startR, startC), HCen(endR, endC))
 

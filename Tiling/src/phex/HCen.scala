@@ -32,8 +32,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def active(id: AnyRef = this): PolygonActive = polygonReg.active(id)
   override def typeStr: String = "HCen"
 
-  /** Step to adjacent hex tile. Will throw exception on illegal value. */
-  def unsafeStep(st: HStep)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
+  /** This method needs removal. Step to adjacent hex tile. Will throw exception on illegal value. */
+  def unsafeStepDepr(st: HStep)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
   def stepOpt(st: HStep)(implicit grider: HGridSys): Option[HCen] = grider.findStepEnd(this, st)
@@ -43,6 +43,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 
   /** Returns the [[LineSegHC]], a line segment specified in [[HCoord]]s, given by the step. */
   def segStepTo(st: HStep): LineSegHC = new LineSegHC(r, c, r + st.tr, c + st.tc)
+
+  def stepToUnsafe(step: HStep): HCen = new HCen(r + step.tr, c + step.tc)
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 

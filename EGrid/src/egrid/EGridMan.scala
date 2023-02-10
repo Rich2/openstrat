@@ -45,10 +45,11 @@ trait EGridMan
   def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
     if (grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
 
-  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = {
-    val r1 = grid.findStepEnd(startHC, step)
+  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
+  { val r1 = grid.findStepEnd(startHC, step)
     if (r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
   }
+
   def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit

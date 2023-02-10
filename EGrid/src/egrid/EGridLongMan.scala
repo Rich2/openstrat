@@ -6,6 +6,14 @@ import geom._, prid._, phex._
 final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
 {
   final override def grid: EGridLong = sys.grids(thisInd)
+  def isStartLong: Boolean = thisInd == 0 & sys.grids.length != 12
+  def isEndLong: Boolean = thisInd == sys.grids.length - 1 & sys.grids.length != 12
+  def ltGrid: EGridLong = thisInd match{
+    case 0 if sys.grids.length != 12 =>excep("No left grid")
+    case 0 => sys.grids(11)
+    case n => sys.grids(n - 1)
+  }
+  def rtGrid: EGridLong = ife(isEndLong, excep("No right grid"), sys.grids((thisInd + 1) %% 12))
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
   final override def offset: Vec2 = Vec2((sys.gridsXSpacing - sys.hcDelta) * thisInd, 0)
@@ -166,18 +174,14 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   override def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) =
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) hSide.tileLtAndVert
-    else
-    { val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
-      val gr = sys.grids(gridIndex)
-      hSide match
-      { case HSideA(r, c) if r <= gr.bottomSideR => excep("HCen below bottom.")
-        case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 => (HCen(r - 1, gr.rowRightCenC(r - 1)), 0)
-        case HSideA(r, _) => (HCen(r + 1, gr.rowRightCenC(r + 1)), 3)
-        case HSideB(r, _) => (HCen(r, gr.rowRightCenC(r)), 1)
-        case HSideC(r, _) if r >= gr.topSideR => excep("HCen above top.")
-        case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 => (HCen(r + 1, gr.rowRightCenC(r + 1)), 2)
-        case HSideC(r, _) => ((HCen(r - 1, gr.rowRightCenC(r - 1)), 0))
-      }
+    else hSide match
+    { case HSideA(r, c) if r <= ltGrid.bottomSideR => excep("HCen below bottom.")
+      case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => (HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0)
+      case HSideA(r, _) => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3)
+      case HSideB(r, _) => (HCen(r, ltGrid.rowRightCenC(r)), 1)
+      case HSideC(r, _) if r >= ltGrid.topSideR => excep("HCen above top.")
+      case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 2)
+      case HSideC(r, _) => ((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
     }
   }
 
@@ -200,4 +204,16 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   override def sideTile2Unsafe(hSide: HSide): HCen = grid.sideTileRtUnsafe(hSide)
+
+  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
+  { val tr = startHC.r + step.tr
+    val tc = startHC.c + step.tc
+    def std: HCen = startHC.stepToUnsafe(step)
+    step match {
+      case HexUR if tr > grid.topCenR => None
+      case HexUR if tc <= grid.rowRightCenC(tr) => Some(std)
+      case HexUR if isEndLong => None
+      case _ => None
+    }
+  }
 }
