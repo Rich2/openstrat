@@ -201,13 +201,21 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   override def sideTile2Unsafe(hSide: HSide): HCen = grid.sideTileRtUnsafe(hSide)
 
   override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
-  { val tr = startHC.r + step.tr
+  { val r0 = startHC.r
+    val tr = r0 + step.tr
     val tc = startHC.c + step.tc
     def std: HCen = startHC.stepToUnsafe(step)
-    step match {
-      case HexUR if tr > grid.topCenR => None
+    step match
+    { case HexUR if tr > grid.topCenR => None
       case HexUR if tc <= grid.rowRightCenC(tr) => Some(std)
-      case HexUR if isRightMan => None
+      case HexRt if isRightMan => None
+      case HexUR =>
+      { val c1 = rtGrid.rowLeftCenC(tr)
+        val c0 = rtGrid.rowLeftCenC(r0)
+        val hc = ife(c1 < c0, HCen(tr, c1), HCen(r0, c0))
+        Some(hc)
+      }
+
       case _ => None
     }
   }

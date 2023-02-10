@@ -319,21 +319,13 @@ class HCornerLayer(val unsafeArray: Array[Int])
           ps3 ++ ps4
         }
 
-        case Some(_) if hs.isTypeC => {
-          val (h1b, vi) = hs.tileLtAndVert
+        case Some(_) if hs.isTypeC =>
+        { val (h1b, vi) = hs.tileLtAndVert
           if (h1b.r == hs.r - 1) deb(s"$h1b C Side")
           val (h1U, viU) = gridSys.sideTileLtAndVertUnsafe(hs)
-          //if (h1U.r == hs.r - 1){
-            //deb(s"HSideC $hs gives $h1U, $viU or $h1b, $vi")
-            val p3 = cornerV1(h1U, (viU + 1) %% 6)
-            val p4 = cornerV1(h1U, viU)
-            HVAndOffsetArr(p3, p4)
-          /*}
-          else
-          { val p3 = cornerV1(h1, (vi + 1) %% 6)
-            val p4 = cornerV1(h1, vi)
-            HVAndOffsetArr(p3, p4)
-          }*/
+          val p3 = cornerV1(h1U, (viU + 1) %% 6)
+          val p4 = cornerV1(h1U, viU)
+          HVAndOffsetArr(p3, p4)
         }
 
         case _ =>

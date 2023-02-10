@@ -46,6 +46,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 
   def stepToUnsafe(step: HStep): HCen = new HCen(r + step.tr, c + step.tc)
 
+  /** I don't like this method,at least with this operator. */
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
  // def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
