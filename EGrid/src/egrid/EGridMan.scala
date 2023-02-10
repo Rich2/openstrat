@@ -6,6 +6,7 @@ trait EGridMan
 { /** The multi grid system that contains the grid that this is managing. */
   def sys: EGridMulti
 
+  /** The grid that this manages. */
   def grid: EGrid
 
   /** The position of this grid manager and grid within the grid sequence of the [[HGridMulti]]. */

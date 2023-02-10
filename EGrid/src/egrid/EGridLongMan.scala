@@ -4,16 +4,27 @@ import geom._, prid._, phex._
 
 /** Manages an [[EGridLong]]. */
 final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
-{
-  final override def grid: EGridLong = sys.grids(thisInd)
-  def isStartLong: Boolean = thisInd == 0 & sys.grids.length != 12
-  def isEndLong: Boolean = thisInd == sys.grids.length - 1 & sys.grids.length != 12
-  def ltGrid: EGridLong = thisInd match{
-    case 0 if sys.grids.length != 12 =>excep("No left grid")
+{ final override def grid: EGridLong = sys.grids(thisInd)
+
+  /** This manages the left or west most grid. System does not cover all longitudes. */
+  def isLeftMan: Boolean = thisInd == 0 & sys.grids.length != 12
+
+  /** This manages the right or east most grid. System does not cover all longitudes. */
+  def isRightMan: Boolean = thisInd == sys.grids.length - 1 & sys.grids.length != 12
+
+  /** The grid to the left or west of the grid this manages. */
+  def ltGrid: EGridLong = thisInd match
+  { case 0 if sys.grids.length != 12 =>excep("No left grid")
     case 0 => sys.grids(11)
     case n => sys.grids(n - 1)
   }
-  def rtGrid: EGridLong = ife(isEndLong, excep("No right grid"), sys.grids((thisInd + 1) %% 12))
+
+  /** The grid to the right or east of the grid this manages. */
+  def rtGrid: EGridLong = thisInd match
+  { case _ if isRightMan => excep("No right grid")
+    case 12 => sys.grids(0)
+    case n => sys.grids(n + 1)
+  }
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
   final override def offset: Vec2 = Vec2((sys.gridsXSpacing - sys.hcDelta) * thisInd, 0)
@@ -25,14 +36,14 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   override def hCenExists(r: Int, c: Int): Boolean = grid.hCenExists(r, c)
 
   def rowSidesForeach(r: Int)(f: HSide => Unit): Unit = r match
-  { case r if r == grid.topSideR | r ==grid.bottomSideR => grid.rowForeachSide(r)(f)
+  { case r if r == grid.topSideR | r == grid.bottomSideR => grid.rowForeachSide(r)(f)
 
     case r if r.isEven & (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
       iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
 
     case r if r.isEven => iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) - 2, 4){c => f(HSide(r, c)) }
 
-    case r  if (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
+    case r if isRightMan =>
     { val ls: Int = grid.rowLeftSideC(r)
       val rs: Int = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
       iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
@@ -116,21 +127,17 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     array
   }
 
-  def sideTileLtFind(hSide: HSide): Option[HCen] = {
-    val hCen1 = hSide.tileLtReg
+  def sideTileLtFind(hSide: HSide): Option[HCen] =
+  { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) Some(hCen1)
-    else {
-      val gridIndex = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
-      val gr = sys.grids(gridIndex)
-      hSide match {
-        case HSideA(r, c) if r <= gr.bottomSideR => None
-        case HSideA(r, _) if gr.rowRightCenC(r - 1) == gr.rowRightCenC(r + 1) + 2 => Some(HCen(r - 1, gr.rowRightCenC(r - 1)))
-        case HSideA(r, _) => Some(HCen(r + 1, gr.rowRightCenC(r + 1)))
-        case HSideB(r, _) => Some(HCen(r, gr.rowRightCenC(r)))
-        case HSideC(r, _) if r >= gr.topSideR => None
-        case HSideC(r, _) if gr.rowRightCenC(r + 1) == gr.rowRightCenC(r - 1) + 2 => Some(HCen(r + 1, gr.rowRightCenC(r + 1)))
-        case HSideC(r, _) => Some(HCen(r - 1, gr.rowRightCenC(r - 1)))
-      }
+    else hSide match
+    { case HSideA(r, c) if r <=ltGrid.bottomSideR => None
+      case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
+      case HSideA(r, _) => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
+      case HSideB(r, _) => Some(HCen(r, ltGrid.rowRightCenC(r)))
+      case HSideC(r, _) if r >= ltGrid.topSideR => None
+      case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
+      case HSideC(r, _) => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
     }
   }
 
@@ -200,7 +207,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     step match {
       case HexUR if tr > grid.topCenR => None
       case HexUR if tc <= grid.rowRightCenC(tr) => Some(std)
-      case HexUR if isEndLong => None
+      case HexUR if isRightMan => None
       case _ => None
     }
   }
