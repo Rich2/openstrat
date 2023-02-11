@@ -275,6 +275,11 @@ trait HGrid extends Any with TGrid with HGridSys
   override def sideTileLtUnsafe(hSide: HSide): HCen = hSide.tileLtReg
 
   override def sideTileRtUnsafe(hSide: HSide): HCen = hSide.tileRtReg
+
+  override def sideTileRtOpt(hSide: HSide): Option[HCen] =
+  { val ot: HCen = sideTileRtUnsafe(hSide)
+    ife(hCenExists(ot), Some(ot), None)
+  }
 }
 
 /** Hex grid path finding node. */

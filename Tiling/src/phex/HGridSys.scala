@@ -86,10 +86,10 @@ trait HGridSys extends Any with TGridSys
 
   def sideTileLtOpt(hSide: HSide): Option[HCen]
 
-  def sideTileRtOpt(hSide: HSide): Option[HCen] =
-  { val ot: HCen = sideTileRtUnsafe(hSide)
+  def sideTileRtOpt(hSide: HSide): Option[HCen]// =
+  /*{ val ot: HCen = sideTileRtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
-  }
+  }*/
 
   /** This method should only be used when you know the side tile exists. */
   def sideTileLtUnsafe(hSide: HSide): HCen
@@ -293,8 +293,8 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** OptMaps over each inner hex Side's coordinate [[HSide]]. */
-  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
-    val buff = build.newBuff()
+  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
     linksForeach { hs => f(hs).foreach(build.buffGrow(buff, _)) }
     build.buffToSeqLike(buff)
   }

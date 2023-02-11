@@ -137,13 +137,29 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) Some(hCen1)
     else hSide match
-    { case HSideA(r, c) if r <=ltGrid.bottomSideR => None
+    { case _ if isLeftMan => None
+      case HSideA(r, c) if r <=ltGrid.bottomSideR => None
       case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
       case HSideA(r, _) => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
       case HSideB(r, _) => Some(HCen(r, ltGrid.rowRightCenC(r)))
       case HSideC(r, _) if r >= ltGrid.topSideR => None
       case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
       case HSideC(r, _) => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
+    }
+  }
+
+  def sideTileRtFind(hSide: HSide): Option[HCen] =
+  { val hCen1 = hSide.tileRtReg
+    if (grid.hCenExists(hCen1)) Some(hCen1)
+    else hSide match
+    { case _ if isRightMan => None
+      case HSideA(r, c) if r >= rtGrid.topSideR => None
+      case HSideA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
+      case HSideA(r, _) => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
+      case HSideB(r, _) => Some(HCen(r, rtGrid.rowLeftCenC(r)))
+      case HSideC(r, _) if r <= rtGrid.bottomSideR => None
+      case HSideC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
+      case HSideC(r, _) => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
     }
   }
 

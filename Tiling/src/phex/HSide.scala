@@ -111,7 +111,7 @@ class HSideB(val r: Int, val c: Int) extends HSide
   override def tileRtAndVert: (HCen, Int) = (HCen(r, c + 2), 5)
   override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)
   override def unsafeTiles: (HCen, HCen) = (HCen(r, c - 2), HCen(r, c + 2))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 1, 2), (tileRt, 4, 5))
+  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt), (tileRt, 4, 5), (tileLt, 1, 2))
 }
 
 object HSideB
@@ -135,7 +135,7 @@ class HSideC(val r: Int, val c: Int) extends HSide
   override def tileRtAndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
   override def lineSegHC: LineSegHC = LineSegHC(r, c + 1, r, c - 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 2, 3), (tileRt, 5, 0))
+  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt),(tileRt, 5, 0),  (tileLt, 2, 3))
 }
 
 object HSideC
