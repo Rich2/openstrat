@@ -61,9 +61,9 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.hCenExists(r, c))
 
-  override def sideTileLtUnsafe(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile1Unsafe(hSide))
+  override def sideTileLtUnsafe(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
 
-  override def sideTileRtUnsafe(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile2Unsafe(hSide))
+  override def sideTileRtUnsafe(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
 
   def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = unsafeGetManFunc(hSide)(_.sideTileLtAndVertUnsafe(hSide))
 

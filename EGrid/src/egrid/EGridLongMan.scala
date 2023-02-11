@@ -33,7 +33,13 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
 
   override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
 
-  override def hCenExists(r: Int, c: Int): Boolean = grid.hCenExists(r, c)
+  override def hCenExists(r: Int, c: Int): Boolean = None match { //grid.hCenExists(r, c)
+    case _ if r > grid.topCenR => false
+    case _ if r < grid.bottomCenR => false
+    case _ if isLeftMan & c < grid.leftCenC => false
+    case _ if isRightMan & c > grid.rightCenC => false
+    case _ => true
+  }
 
   def rowSidesForeach(r: Int)(f: HSide => Unit): Unit = r match
   { case r if r == grid.topSideR | r == grid.bottomSideR => grid.rowForeachSide(r)(f)
@@ -184,11 +190,11 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def sideTile1Unsafe(hSide: HSide): HCen =
+  override def sideTileLtUnsafe(hSide: HSide): HCen =
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) hCen1
     else hSide match
-    { case HSideA(r, c) if r <= ltGrid.bottomSideR => {excep(s"Bottom, $r, $c, returning ${hSide.tileRtReg}"); hSide.tileRtReg }
+    { case HSideA(r, c) if r <= ltGrid.bottomSideR => excep(s"Bottom, $r, $c, returning ${hSide.tileRtReg}")
       case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 =>  HCen(r - 1, ltGrid.rowRightCenC(r - 1))
       case HSideA(r, _) => HCen(r + 1, ltGrid.rowRightCenC(r + 1))
       case HSideB(r, _) => HCen(r, ltGrid.rowRightCenC(r))
@@ -198,7 +204,23 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def sideTile2Unsafe(hSide: HSide): HCen = grid.sideTileRtUnsafe(hSide)
+  override def sideTileRtUnsafe(hSide: HSide): HCen =
+  { val hCen1 = hSide.tileRtReg
+    if (grid.hCenExists(hCen1)) hCen1
+    else hSide match {
+      case HSideA(r, c) if r >= rtGrid.topSideR => {
+        excep(s"Top, $r, $c, returning ${hSide.tileLtReg}"); hSide.tileLtReg
+      }
+      case HSideA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => HCen(r + 1, ltGrid.rowLeftCenC(r + 1))
+      case HSideA(r, _) => HCen(r - 1, rtGrid.rowLeftCenC(r - 1))
+      case HSideB(r, _) => HCen(r, rtGrid.rowLeftCenC(r))
+      case HSideC(r, _) if r <= rtGrid.bottomSideR => {
+        deb("Bottom"); hSide.tileLtReg
+      }
+      case HSideC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => HCen(r - 1, ltGrid.rowRightCenC(r - 1))
+      case HSideC(r, _) => HCen(r + 1, rtGrid.rowLeftCenC(r + 1))
+    }
+  }
 
   override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
   { val r0 = startHC.r

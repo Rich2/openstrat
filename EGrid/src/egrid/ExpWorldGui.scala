@@ -56,7 +56,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       val hc1 = hs.tileLt
       val hc2 = hs.tileRt
       val t1 = terrs(hc1)
-      def t2 = terrs(hs.tileRt)
+      val t2 = terrs(hc2)
       if (sTerrs(hs).nonEmpty | t1 != t2) None
       else
       { val cs: (HCen, Int, Int) = hs.corners
