@@ -30,8 +30,8 @@ class PolygonHVAndOffset(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike
     }
   }
 
-  def toPolygon(f: HCoord => Pt2)(implicit sys: HGridSys): Polygon = map(_.toPt2Reg(f))
-  def project(proj: HSysProjection): Polygon = map{ _.toPt2Reg(proj.transCoord(_))(proj.parent) }
+  def toPolygon(f: HCoord => Pt2)(implicit sys: HGridSys): Polygon = map(_.toPt2Incorrect(f))
+  def project(proj: HSysProjection): Polygon = map{ _.toPt2Incorrect(proj.transCoord(_))(proj.parent) }
 }
 
 object PolygonHVAndOffset extends Int3SeqLikeCompanion[HVAndOffset, PolygonHVAndOffset]

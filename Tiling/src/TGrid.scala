@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
 
@@ -26,7 +26,7 @@ trait TGrid extends Any with TGridSys
   /** The bottom or lowest tile centre row, r coordinate. */
   def bottomCenR: Int
 
-  /** The top of highest tile centre row, r coordinate. */
+  /** The top or highest tile centre row, r coordinate. */
   def topCenR: Int
 
   /** The top or highest centre row, r coordinate. */

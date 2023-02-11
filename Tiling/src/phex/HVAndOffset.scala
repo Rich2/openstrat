@@ -20,9 +20,9 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
   def hvDirn: HVDirnOpt = hvOffset.hvDirn
 
-  def hCen2 = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
-  def hVert2 = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
-  def hVert3 = HVert(r - hvDirn.dVertR, c - hvDirn.dVertC)
+  def hCen2: HCen = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
+  def hVert2: HVert = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
+  def hVert3: HVert = HVert(r - hvDirn.dVertR, c - hvDirn.dVertC)
 
   def isCenDirn: Boolean = hvDirn match {
     case HVUp | HVDR | HVDL if r.div4Rem3 & c.div4Rem0 => true
@@ -32,8 +32,8 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case _ => false
   }
 
-  /** Not sure why this is called regular. */
-  def toPt2Reg(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
+  /** The implementation for this method is not yet fully correct. */
+  def toPt2Incorrect(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
   {
     val p1 = f(vert)
     isCenDirn match
