@@ -18,19 +18,19 @@ trait EGridLongMulti extends EGridSys with EGridMulti
   /** The Delta in c from Grid to Grid. */
   final def hcDelta: Int = 1024
 
-  override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
+  override def hCoordLL(hc: HCoord): LatLong = manMapex(hc)(_.grid.hCoordLL(hc))
   def top: Double = grids(0).top
   def bottom: Double = grids(0).bottom
   def left: Double = grids(0).left
   def right: Double = grids.last.right
-  override def unsafeGetMan(r: Int, c: Int): EGridLongMan = gridMans((c  / hcDelta - headGridInt) %% 12)
+  override def manGetex(r: Int, c: Int): EGridLongMan = gridMans((c  / hcDelta - headGridInt) %% 12)
 
-  def getMan(r: Int, c: Int): Option[EGridLongMan] = {
+  def manFind(r: Int, c: Int): Option[EGridLongMan] = {
     val i = (c  / hcDelta - headGridInt) %% 12
     ife(i < 0 | i >= gridMans.length, None, Some(gridMans(i)))
   }
 
-  override def sideTileLtOpt(hSide: HSide): Option[HCen] = getMan(hSide).flatMap(_.sideTileLtFind(hSide))
+  override def sideTileLtOpt(hSide: HSide): Option[HCen] = manFind(hSide).flatMap(_.sideTileLtFind(hSide))
 
-  override def sideTileRtOpt(hSide: HSide): Option[HCen] = getMan(hSide).flatMap(_.sideTileRtFind(hSide))
+  override def sideTileRtOpt(hSide: HSide): Option[HCen] = manFind(hSide).flatMap(_.sideTileRtFind(hSide))
 }

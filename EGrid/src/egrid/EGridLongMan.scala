@@ -293,4 +293,6 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       }
     }
   }
+
+  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
 }

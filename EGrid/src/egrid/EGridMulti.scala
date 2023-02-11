@@ -13,30 +13,43 @@ trait EGridMulti extends EGridSys  with TGridMulti
   def numGrids: Int = gridMans.length
 
   /** Finds the most appropriate [[HGridMan]] for the [[HCoord]] or returns [[None]]. */
-  def getMan(hc: HCoord): Option[ManT] = getMan(hc.r, hc.c)
+  def manFind(hc: HCoord): Option[ManT] = manFind(hc.r, hc.c)
 
   /** Finds the most appropriate [[HGridMan]] for the [[HCoord]] or returns [[None]]. */
-  def getMan(r: Int, c: Int): Option[ManT]
+  def manFind(r: Int, c: Int): Option[ManT]
 
-  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
-  final def unsafeGetMan(hc: HCoord): ManT = unsafeGetMan(hc.r, hc.c)
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws
+   *  if [[HCoord]] doesn't exist. */
+  final def manGetex(hc: HCoord): ManT = manGetex(hc.r, hc.c)
 
-  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
-  def unsafeGetMan(r: Int, c: Int): ManT
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]].ex abbreviation for [[Exception]]. Throws
+   *  if [[HCoord]] doesn't exist. */
+  def manGetex(r: Int, c: Int): ManT
 
-  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
-  def unsafeGetGrid(r: Int, c: Int): GridT = unsafeGetMan(r, c).grid.asInstanceOf[GridT]
+  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws if
+   *  [[HCoord]] doesn't exist. */
+  def gridGetex(r: Int, c: Int): GridT = manGetex(r, c).grid
 
-  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
-  final def unsafeGetGrid(hc: HCoord): GridT = unsafeGetMan(hc.r, hc.c).grid.asInstanceOf[GridT]
+  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. ex abbreviation for [[Exception]] Throws if
+   *  [[HCoord]] doesn't exist. */
+  final def gridGetex(hc: HCoord): GridT = manGetex(hc.r, hc.c).grid
 
-  def unsafeGetManFunc[A](hc: HCoord)(f: ManT => A): A = f(unsafeGetMan(hc))
+  /** Maps the appropriate [[EGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
+  def manMapex[A](hc: HCoord)(f: ManT => A): A = f(manGetex(hc))
 
-  def unsafeGetManFunc[A](r: Int, c: Int)(f: ManT => A): A = f(unsafeGetMan(r, c))
+  /** Maps the appropriate [[EGridMan]] for the [[HCoord]]. ex abbreviation for [[Exception]].Throws
+   *  if [[HCoord]] doesn't exist. */
+  def manMapex[A](r: Int, c: Int)(f: ManT => A): A = f(manGetex(r, c))
+
+  /** OptMaps the appropriate [[EGridMan]] for the [[HCoord]] to [[Option]] of A. */
+  def manOptMap[A](hc: HCoord)(f: ManT => Option[A]): Option[A] = manOptMap(hc)(f)
+
+  /** OptMaps the appropriate [[EGridMan]] for the [[HCoord]] to [[Option]] of A. */
+  def manOptMap[A](r: Int, c: Int)(f: ManT => Option[A]): Option[A] = manOptMap(r, c)(f)
 
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(numGrids)(f)
 
-  def gridMansForeach(f: ManT => Unit) = gridMans.foreach(f)
+  def gridMansForeach(f: ManT => Unit): Unit = gridMans.foreach(f)
 
   def gridMansMap[A, AA <: Arr[A]](f: ManT => A)(implicit build: ArrMapBuilder[A, AA]): AA = gridMans.map(f)
 
@@ -46,30 +59,31 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
 
-  override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit = {
-    var count = init
+  override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit =
+  { var count = init
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
 
   override def unsafeStepEnd(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
 
-  def hCenSteps(hCen: HCen): HStepArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
+  def hCenSteps(hCen: HCen): HStepArr = manMapex(hCen)(_.hCenSteps(hCen))
 
-  final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
+  final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = manOptMap(startHC)(_.findStep(startHC, endHC))
 
-  override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
+  override def hCoordLL(hc: HCoord): LatLong = manMapex(hc)(_.grid.hCoordLL(hc))
 
-  final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.hCenExists(r, c))
+  final override def hCenExists(r: Int, c: Int): Boolean = manFind(r, c).fold(false)(_.hCenExists(r, c))
 
-  override def sideTileLtUnsafe(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
+  override def sideTileLtUnsafe(hSide: HSide): HCen = manMapex(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
 
-  override def sideTileRtUnsafe(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
+  override def sideTileRtUnsafe(hSide: HSide): HCen = manMapex(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
 
-  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = unsafeGetManFunc(hSide)(_.sideTileLtAndVertUnsafe(hSide))
+  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = manMapex(hSide)(_.sideTileLtAndVertUnsafe(hSide))
 
-  override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
-  override def layerArrayIndex(r: Int, c: Int): Int = {
-    val ind = unsafeGetManFunc(r, c) { man => man.indexStart + man.grid.layerArrayIndex(r, c) }
+  override def adjTilesOfTile(tile: HCen): HCenArr = manMapex(tile)(_.adjTilesOfTile(tile))
+
+  override def layerArrayIndex(r: Int, c: Int): Int =
+  { val ind = manMapex(r, c) { man => man.indexStart + man.grid.layerArrayIndex(r, c) }
     if (ind < 0) {
       deb(s"r = $r, c = $c gives an array index of $ind, substiuting 0.")
       0
@@ -77,8 +91,8 @@ trait EGridMulti extends EGridSys  with TGridMulti
     else ind
   }
 
-  def sideOptsFromPairsSpawn[A <: AnyRef](sidePairs: RArr[(HGrid, HSideOptLayer[A])])(implicit ct: ClassTag[A]): HSideOptLayer[A] = {
-    val res = newSideOpts[A]
+  def sideOptsFromPairsSpawn[A <: AnyRef](sidePairs: RArr[(HGrid, HSideOptLayer[A])])(implicit ct: ClassTag[A]): HSideOptLayer[A] =
+  { val res = newSideOpts[A]
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
@@ -91,8 +105,8 @@ trait EGridMulti extends EGridSys  with TGridMulti
     res
   }
 
-  def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer = {
-    val res = newSideBools
+  def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer =
+  { val res = newSideBools
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
@@ -107,12 +121,12 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   override def coordCen: HCoord = grids(numGrids / 2).coordCen
 
-  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = unsafeGetManFunc(hCoord){m => m.grid.flatHCoordToPt2(hCoord) + m.offset }
+  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = manMapex(hCoord){m => m.grid.flatHCoordToPt2(hCoord) + m.offset }
 
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
+  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = manMapex(startHC)(_.findStepEnd(startHC, step))
 
   override def defaultView(pxScale: Double = 30): HGView = grids(grids.length / 2).defaultView(pxScale)
 
@@ -120,8 +134,8 @@ trait EGridMulti extends EGridSys  with TGridMulti
   override final def linksForeach(f: HSide => Unit): Unit = gridMans.foreach(_.linksForeach(f))
   override final def edgesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
-  def sideBoolsFromGrids[A <: AnyRef](sideLayers: RArr[HSideBoolLayer]): HSideBoolLayer = {
-    val res = newSideBools
+  def sideBoolsFromGrids[A <: AnyRef](sideLayers: RArr[HSideBoolLayer]): HSideBoolLayer =
+  { val res = newSideBools
     gridMansForeach { m =>
       m.sidesForeach { hs =>
         val dGrid: HSideBoolLayer = sideLayers(m.thisInd)
@@ -133,8 +147,8 @@ trait EGridMulti extends EGridSys  with TGridMulti
   }
 
   /** Temporary implementation. */
-  final override def sideLayerArrayIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c) { man => man.sideIndexStart + man.sideArrIndex(r, c) }
+  final override def sideLayerArrayIndex(r: Int, c: Int): Int = manMapex(r, c) { man => man.sideIndexStart + man.sideArrIndex(r, c) }
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
-  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
+  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = manOptMap(hCen)(_.vertToCoordFind(hCen, vertNum, dirn))
 }
