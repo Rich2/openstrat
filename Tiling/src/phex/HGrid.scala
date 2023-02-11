@@ -223,8 +223,8 @@ trait HGrid extends Any with TGrid with HGridSys
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 
-  def rowNumSides(r:Int): Int = {
-    var i = 0
+  def rowNumSides(r:Int): Int =
+  { var i = 0
     rowForeachSide(r){_ => i += 1}
     i
   }
@@ -280,6 +280,9 @@ trait HGrid extends Any with TGrid with HGridSys
   { val ot: HCen = sideTileRtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
+
+  /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
+  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
 }
 
 /** Hex grid path finding node. */

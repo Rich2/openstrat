@@ -134,4 +134,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   /** Temporary implementation. */
   final override def sideLayerArrayIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c) { man => man.sideIndexStart + man.sideArrIndex(r, c) }
+
+  /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
+  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
 }
