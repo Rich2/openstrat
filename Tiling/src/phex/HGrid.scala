@@ -116,10 +116,21 @@ trait HGrid extends Any with TGrid with HGridSys
     case _ => rowLeftCenC(row - 1) min (rowLeftCenC(row + 1) - 2)
   }
 
+  def hCoordExists(hCoord: HCoord): Boolean = hCoordExists(hCoord.r, hCoord.c)
+  def hCoordExists(r: Int, c: Int): Boolean = None match
+  { case _ if r > topSideR => false
+    case _ if r < bottomSideR => false
+    case _ if r.isEven & c > rowRightCenC(r) + 2 => false
+    case _ if r.isEven & c < rowLeftCenC(r) - 2 => false
+    case _ if c > rowRightCenC(r -1).max(rowRightCenC(r + 1)) + 2 => false
+    case _ if c < rowLeftCenC(r -1).min(rowLeftCenC(r - 1)) - 2 => false
+    case _ => true
+  }
+
   override def hCenSteps(hCen: HCen): HStepArr = HStep.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 
-  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen ={
-    val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
+  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen =
+  { val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
 
@@ -282,7 +293,7 @@ trait HGrid extends Any with TGrid with HGridSys
   }
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
-  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
+  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ifSome(hCoordExists(hCen), hCen.verts(vertNum))
 }
 
 /** Hex grid path finding node. */
