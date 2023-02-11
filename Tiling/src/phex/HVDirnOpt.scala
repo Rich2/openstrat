@@ -66,7 +66,8 @@ trait HVDirn extends HVDirnOpt
   }
 }
 
-object HVDirn{
+object HVDirn
+{
   def fromInt(inp: Int): HVDirn = inp match
   { case 1 => HVUR
     case 2 => HVDR

@@ -20,8 +20,13 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
   def hvDirn: HVDirnOpt = hvOffset.hvDirn
 
-  def hCen2: HCen = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
+  /** The [[HCen]] the [[HVDirn]] points to if it is coming from the correct type of [[HVert]]. */
+  def hCen: HCen = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
+
+  /** Not sure wha this is. */
   def hVert2: HVert = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
+
+  /** Not sure wha this is. */
   def hVert3: HVert = HVert(r - hvDirn.dVertR, c - hvDirn.dVertC)
 
   def isCenDirn: Boolean = hvDirn match {
@@ -39,8 +44,8 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     isCenDirn match
     { case _ if hvDirn == HVExact => p1
 
-      case true if hSys.hCenExists(hCen2) =>
-      { val p2 = f(hCen2)
+      case true if hSys.hCenExists(hCen) =>
+      { val p2 = f(hCen)
         val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
         val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
         Pt2(x, y)
