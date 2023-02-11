@@ -31,6 +31,16 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   def target: HCoord = hvDirn match
   { case HVUp if vHigh => HVertLow(r + 2, c)
     case HVUp => HCen(r + 1, c)
+    case HVUR if vHigh => HCen(r + 1, c + 2)
+    case HVUR => HVertHigh(r, c + 2)
+    case HVDR if vHigh => HVertLow(r, c + 2)
+    case HVDR => HCen(r - 1, c + 2)
+    case HVDn if vHigh => HCen(r - 1, c)
+    case HVDn => HVertHigh(r - 2, c)
+    case HVDL if vHigh => HVertLow(r, c - 2)
+    case HVDL => HCen(r - 1, c - 2)
+    case HVUL if vHigh => HCen(r + 1, c - 2)
+    case HVUL => HVertHigh(r, c - 2)
   }
 
   /** The [[HCen]] the [[HVDirn]] points to if it is coming from the correct type of [[HVert]]. */
