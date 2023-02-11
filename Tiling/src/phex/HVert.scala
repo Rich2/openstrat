@@ -67,6 +67,12 @@ class HVertHigh(val bLong: Long) extends AnyVal with HVert
 
 object HVertHigh
 {
+  def apply(r: Int, c: Int): HVertLow = r %% 4 match {
+    case 1 if c.div4Rem0 => new HVertLow(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
+    case 3 if c.div4Rem2 => new HVertLow(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
+    case _ => excep("Invalid values for HVertLow")
+  }
+
   def unapply(inp: HCoord): Option[(Int, Int)] = inp.r %% 4 match
   {
     case 1 if inp.c.div4Rem0 => Some((inp.r, inp.c))
@@ -88,9 +94,14 @@ class HVertLow(val bLong: Long) extends AnyVal with  HVert
 
 object HVertLow
 {
+  def apply(r: Int, c: Int): HVertLow = r %% 4 match
+  { case 1 if c.div4Rem2 => new HVertLow(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
+    case 3 if c.div4Rem0 => new HVertLow(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
+    case _ => excep("Invalid values for HVertLow")
+  }
+
   def unapply(inp: HCoord): Option[(Int, Int)] = inp.r %% 4 match
-  {
-    case 1 if inp.c.div4Rem2 => Some((inp.r, inp.c))
+  { case 1 if inp.c.div4Rem2 => Some((inp.r, inp.c))
     case 3 if inp.c.div4Rem0 => Some((inp.r, inp.c))
     case _ => None
   }

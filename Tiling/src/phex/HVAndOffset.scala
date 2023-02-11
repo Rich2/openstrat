@@ -20,13 +20,26 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
   def hvDirn: HVDirnOpt = hvOffset.hvDirn
 
+  def vHigh: Boolean = None match
+  { case _ if r.div4Rem1 & c.div4Rem0 => true
+    case _ if r.div4Rem3 & c.div4Rem2 => true
+    case _ if r.div4Rem1 & c.div4Rem2 => false
+    case _ if r.div4Rem3 & c.div4Rem0 => false
+    case _ => excep(s"r = $r, c = $c Invalid valuse for HVert.")
+  }
+
+  def target: HCoord = hvDirn match
+  { case HVUp if vHigh => HVertLow(r + 2, c)
+    case HVUp => HCen(r + 1, c)
+  }
+
   /** The [[HCen]] the [[HVDirn]] points to if it is coming from the correct type of [[HVert]]. */
   def hCen: HCen = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
 
-  /** Not sure wha this is. */
+  /** Not sure what this is. */
   def hVert2: HVert = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
 
-  /** Not sure wha this is. */
+  /** Not sure what this is. */
   def hVert3: HVert = HVert(r - hvDirn.dVertR, c - hvDirn.dVertC)
 
   def isCenDirn: Boolean = hvDirn match {
