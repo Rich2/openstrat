@@ -80,5 +80,7 @@ trait EGridMan
   def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
   def numSides: Int = sidesFold((acc, _) => acc + 1)
 
-  def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord]
+  final def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = vertToCoordFind(hCen.r, hCen.c, vertNum, dirn)
+
+  def vertToCoordFind(r: Int, c:Int, vertNum: Int, dirn: HVDirn): Option[HCoord]
 }

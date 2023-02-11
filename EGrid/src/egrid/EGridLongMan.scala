@@ -33,8 +33,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
 
   override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
 
-  override def hCenExists(r: Int, c: Int): Boolean = None match { //grid.hCenExists(r, c)
-    case _ if r > grid.topCenR => false
+  override def hCenExists(r: Int, c: Int): Boolean = None match
+  { case _ if r > grid.topCenR => false
     case _ if r < grid.bottomCenR => false
     case _ if isLeftMan & c < grid.leftCenC => false
     case _ if isRightMan & c > grid.rightCenC => false
@@ -115,7 +115,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       }
   }
 
-  override def sideArrIndex(r: Int, c : Int): Int = sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.rowLeftSideC(r)) / 4,(c - grid.rowLeftSideC(r)) / 2)
+  override def sideArrIndex(r: Int, c : Int): Int =
+    sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.rowLeftSideC(r)) / 4,(c - grid.rowLeftSideC(r)) / 2)
 
   final override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
 
@@ -294,5 +295,5 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
+  override def vertToCoordFind(r: Int, c: Int, vertNum: Int, dirn: HVDirn): Option[HCoord] = ???
 }
