@@ -61,7 +61,7 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   }
 
   /** The implementation for this method is not yet fully correct. */
-  def toPt2Incorrect(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
+  def toPt2Incorrecta(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
   {
     val p1 = f(vert)
     isCenDirn match
@@ -89,9 +89,22 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
       }
     }
   }
+
+  def toPt2Incorrect(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 = hvDirn match
+  { case HVExact => f(vert)
+    case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match
+    { case Some(hc2) =>
+      { val p2 = f(hc2)
+        val x = ((16 - magnitude) * f(vert).x + magnitude * p2.x) / 16
+        val y = ((16 - magnitude) * f(vert).y + magnitude * p2.y) / 16
+        Pt2(x, y)
+      }
+      case _ => f(vert)
+    }
+  }
 }
 
-/** Companion object for [[HVAndOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor
+  /** Companion object for [[HVAndOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor
  * directly. */
 object HVAndOffset
 {

@@ -42,10 +42,10 @@ trait EGridMulti extends EGridSys  with TGridMulti
   def manMapex[A](r: Int, c: Int)(f: ManT => A): A = f(manGetex(r, c))
 
   /** OptMaps the appropriate [[EGridMan]] for the [[HCoord]] to [[Option]] of A. */
-  def manOptMap[A](hc: HCoord)(f: ManT => Option[A]): Option[A] = manOptMap(hc)(f)
+  def manOptMap[A](hc: HCoord)(f: ManT => Option[A]): Option[A] = manFind(hc).flatMap(f)
 
   /** OptMaps the appropriate [[EGridMan]] for the [[HCoord]] to [[Option]] of A. */
-  def manOptMap[A](r: Int, c: Int)(f: ManT => Option[A]): Option[A] = manOptMap(r, c)(f)
+  def manOptMap[A](r: Int, c: Int)(f: ManT => Option[A]): Option[A] = manFind(r, c).flatMap(f)
 
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(numGrids)(f)
 

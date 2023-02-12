@@ -120,8 +120,7 @@ trait HGrid extends Any with TGrid with HGridSys
   def hCoordExists(r: Int, c: Int): Boolean = None match
   { case _ if r > topSideR => false
     case _ if r < bottomSideR => false
-    case _ if r.isEven & c > rowRightCenC(r) + 2 => false
-    case _ if r.isEven & c < rowLeftCenC(r) - 2 => false
+    case _ if r.isEven => (c <= rowRightCenC(r) + 2) & (c >= rowLeftCenC(r) - 2)
     case _ if c > rowRightCenC(r -1).max(rowRightCenC(r + 1)) + 2 => false
     case _ if c < rowLeftCenC(r -1).min(rowLeftCenC(r - 1)) - 2 => false
     case _ => true
