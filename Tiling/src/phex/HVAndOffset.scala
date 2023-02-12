@@ -60,37 +60,8 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case _ => false
   }
 
-  /** The implementation for this method is not yet fully correct. */
-  def toPt2Incorrecta(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
-  {
-    val p1 = f(vert)
-    isCenDirn match
-    { case _ if hvDirn == HVExact => p1
-
-      case true if hSys.hCenExists(hCen) =>
-      { val p2 = f(hCen)
-        val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
-        val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
-        Pt2(x, y)
-      }
-
-      case true =>
-      { val p2 = f(hVert3)
-        val x = ((16 + magnitude) * p1.x - magnitude * p2.x) / 16
-        val y = ((16 + magnitude) * p1.y - magnitude * p2.y) / 16
-        Pt2(x, y)
-      }
-
-      case _ =>
-      { val p2 = f(hVert2)
-        val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
-        val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
-        Pt2(x, y)
-      }
-    }
-  }
-
-  def toPt2Incorrect(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 = hvDirn match
+  /** Converts this offset [[HVert]] to [[Pt2]]. */
+  def toPt2(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 = hvDirn match
   { case HVExact => f(vert)
     case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match
     { case Some(hc2) =>

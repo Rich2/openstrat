@@ -17,7 +17,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   //def tiles: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
 
   def tiles2: RArr[PolygonFill] = gridSys.map { hc =>
-    corners.tilePoly(hc).map { hvo => hvo.toPt2Incorrect(proj.transCoord(_)) }.fill(terrs(hc).colour)
+    corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
   }
 
   def actives: RArr[PolygonActive] = proj.tileActives
@@ -51,7 +51,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     else {
       val cs: (HCen, Int, Int) = hs.corners
       val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
-      val ls2 = ls1.map(hva => hva.toPt2Incorrect(proj.transCoord(_)))
+      val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
       Some(ls2.draw(t1.contrastBW))
     }
   }

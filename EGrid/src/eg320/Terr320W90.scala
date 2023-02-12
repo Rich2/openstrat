@@ -41,6 +41,10 @@ object Terr320W90 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
+    //res.setCorner(154, 9722, 0, HVDL) //Victoria Island - Canada east
+    //res.setCorner(154, 9722, 5, HVDL) //Victoria Island - Canada east
+    res.setCornerPair(156, 9724, 4, HVExact, HVUL)
+
     res.setMouth4(160, 9732)
     res.setVert4In(158, 9730)
     res.setVert1In(156, 9728)
