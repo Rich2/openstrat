@@ -296,9 +296,16 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   override def vertToCoordFind(r: Int, c: Int, dirn: HVDirn): Option[HCoord] =
-  { val hc = HVert(r, c).dirnTo(dirn)
-    if (grid.hCoordExists(hc)) Some(hc)
-    else dirn match {
+  { val hv1 = HVert(r, c)
+    val hc = hv1.dirnTo(dirn)
+    val vUp = hv1.hexIsDown
+    dirn match {
+      case _ if grid.hCoordExists(hc) => Some(hc)
+      case HVUp | HVUR | HVUL if r == grid.topSideR => None
+      case HVDR | HVDn | HVDL if r == grid.bottomSideR => None
+      case HVUR | HVDR if isRightMan => None
+      case HVDL | HVUL if isLeftMan => None
+      case HVUp if vUp => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)).verts(5))
       case d => None
     }
   }
