@@ -305,7 +305,15 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVDR | HVDn | HVDL if r == grid.bottomSideR => None
       case HVUR | HVDR if isRightMan => None
       case HVDL | HVUL if isLeftMan => None
-      case HVUp if vUp => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)).verts(5))
+      case HVUp if vUp => Some(HVertLow(r + 2, rtGrid.rowLeftCenC(r + 1) - 2))
+      case HVUp =>{
+        val hc1 = rtGrid.rowLeftCenC(r + 1)
+        val hc0 = rtGrid.rowLeftCenC(r - 1)
+        val value = ife(hc1 < hc0, HCen(r + 1, hc1), HVertHigh(r, hc0))
+        Some(value)
+      }
+      case HVUR if vUp => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
+      case HVUR => Some(HVertHigh(r, rtGrid.rowLeftCenC(r - 1)))
       case d => None
     }
   }
