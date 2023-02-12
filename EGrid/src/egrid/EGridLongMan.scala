@@ -295,7 +295,11 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def vertToCoordFind(r: Int, c: Int, vertNum: Int, dirn: HVDirn): Option[HCoord] = dirn match {
-    case d => None
+  override def vertToCoordFind(r: Int, c: Int, dirn: HVDirn): Option[HCoord] =
+  { val hc = HVert(r, c).dirnTo(dirn)
+    if (grid.hCoordExists(hc)) Some(hc)
+    else dirn match {
+      case d => None
+    }
   }
 }

@@ -293,7 +293,10 @@ trait HGrid extends Any with TGrid with HGridSys
   }
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
-  override def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord] = ifSome(hCoordExists(hCen), hCen.verts(vertNum))
+  override def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord] =
+  { val hc2 = hVert.dirnTo(dirn)
+    ifSome(hCoordExists(hc2), hc2)
+  }
 }
 
 /** Hex grid path finding node. */

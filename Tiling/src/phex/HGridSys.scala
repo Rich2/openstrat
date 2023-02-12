@@ -330,5 +330,5 @@ trait HGridSys extends Any with TGridSys
   def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = ???
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
-  def vertToCoordFind(hCen: HCen, vertNum: Int, dirn: HVDirn): Option[HCoord]// = ???
+  def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord]
 }

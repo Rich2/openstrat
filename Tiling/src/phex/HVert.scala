@@ -31,6 +31,8 @@ sealed trait HVert extends Any with HCoord with TCoord
   }
 
   def noOffset: HVAndOffset = HVAndOffset.none(this)
+
+  def dirnTo(hvDirn: HVDirn): HCoord
 }
 
 object HVert
@@ -55,13 +57,22 @@ object HVert
 }
 
 /** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
-class HVertHigh(val bLong: Long) extends AnyVal with HVert
+final class HVertHigh(val bLong: Long) extends AnyVal with HVert
 { override def hexIsUp: Boolean = false
   override def hexIsDown: Boolean = true
 
   override def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match {
     case HVUR | HVDn | HVUL => true
     case _ => false
+  }
+
+  override def dirnTo(hvDirn: HVDirn): HCoord = hvDirn match
+  { case HVUp => HVertLow(r + 2, c)
+    case HVUR => HCen(r + 1, c + 2)
+    case HVDR => HVertLow(r, c + 2)
+    case HVDn => HCen(r - 1, c)
+    case HVDL => HVertLow(r, c - 2)
+    case HVUL => HCen(r + 1, c - 2)
   }
 }
 
@@ -82,13 +93,22 @@ object HVertHigh
 }
 
 /** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
-class HVertLow(val bLong: Long) extends AnyVal with  HVert
+final class HVertLow(val bLong: Long) extends AnyVal with  HVert
 { override def hexIsUp: Boolean = true
   override def hexIsDown: Boolean = false
 
   override def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match
   { case HVUp | HVDL | HVDR if hexIsUp => true
     case _ => false
+  }
+
+  override def dirnTo(hvDirn: HVDirn): HCoord = hvDirn match
+  { case HVUp => HCen(r + 1, c)
+    case HVUR => HVertHigh(r, c + 2)
+    case HVDR => HCen(r - 1, c + 2)
+    case HVDn => HVertHigh(r - 2, c)
+    case HVDL => HCen(r - 1, c - 2)
+    case HVUL => HVertHigh(r, c - 2)
   }
 }
 
