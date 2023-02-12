@@ -300,8 +300,9 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   { val hv1 = HVert(r, c)
     val hc = hv1.dirnTo(dirn)
     val vUp = hv1.hexIsDown
-    dirn match {
-      case _ if grid.hCoordExists(hc) => Some(hc)
+
+    dirn match
+    { case _ if grid.hCoordExists(hc) => Some(hc)
       case HVUp | HVUR | HVUL if r == grid.topSideR => None
       case HVDR | HVDn | HVDL if r == grid.bottomSideR => None
       case HVUR | HVDR if isRightMan => None

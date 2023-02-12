@@ -168,6 +168,10 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c - 2, 3, HVUp, magnitude)
   }
 
+  /** [[HVUR]] and [[HVDn]]. Sets the end of a side terrain at vertex for one tile. For example the the mouth of Straits the given [[HCen]] is the sea
+   *  tile, for a wall it would be the hex tile looking at the end of the wall. The vertex for this tile would be 2. */
+  def setMouth2Corner(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = setCornerPair(r, c, 2, HVUR, HVDn, magnitude, magnitude)
+
   /** Sets the end of a side terrain at vertex for one tile. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 3. */
   def setMouth3Corner(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = setCornerPair(r, c, 3, HVDR, HVDL, magnitude, magnitude)
