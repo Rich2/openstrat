@@ -34,16 +34,21 @@ object Terr320W90 extends Long320Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 159,9729)
     res.setSomeInts(Sea, 142,9736,  143,9735,  144,9734,  152,9730,  152,9734,  153,9731,  155, 9731,  156,9730,  157,9729,  158,9724,  158,9728,  159,9725,  159,9727)
-    res.setSomeInts(Lake,  135,9731,  135,9741,  135, 9737,  136,9730,  137,9733)
+    res.setSomeInts(Lake, 135,9731,  135,9741,  135, 9737,  136,9730,  137,9733)
     res
   }
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    //res.setCorner(154, 9722, 0, HVDL) //Victoria Island - Canada east
+    res.setCornerIn(160, 9728, 4)//Devon and Cornwallis Islands
+    res.setCornerIn(158, 9726, 0)//Somerset Island
+    res.setCornerIn(158, 9726, 5)
+    res.setTUp(159, 9728)//Somerset Island - Devon Island - Baffin Island
+
+    //res.setCorner(154, 9722, 0, HVDn, 1) //Victoria Island - Canada east
     //res.setCorner(154, 9722, 5, HVDL) //Victoria Island - Canada east
-    res.setCornerPair(156, 9724, 4, HVExact, HVUL)
+    res.setCornerPair(156, 9724, 4, HVDL, HVUL)
 
     res.setMouth4(160, 9732)
     res.setVert4In(158, 9730)
