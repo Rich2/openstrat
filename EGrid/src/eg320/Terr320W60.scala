@@ -45,6 +45,8 @@ object Terr320W60 extends Long320Terrs
 
     res.setMouth4(142, 10758)//Newfoundland Gulf of St Lawrence north
     res.setMouth1(140, 10752)//Newfoundland Gulf of St Lawrence
+
+    res.setMouth4Corner(136, 10740)//Lake Ontario east
     res
 
   }

@@ -43,18 +43,22 @@ object Terr320W90 extends Long320Terrs
 
     res.setCornerIn(160, 9728, 4)//Devon and Cornwallis Islands
     res.setCornerIn(158, 9726, 0)//Somerset Island
-    res.setCornerIn(158, 9726, 5)
+    res.setCornerIn(158, 9726, 5)//Prince of Wales Island
+    res.setCornerIn(158, 9726, 4)//Prince of Wales Island south
+    res.setMouth0Corner(156, 9724)//Victoria Island - Prince of Wales Island south
     res.setTUp(159, 9728)//Somerset Island - Devon Island - Baffin Island
 
     //res.setCorner(154, 9722, 0, HVDn, 1) //Victoria Island - Canada east
     //res.setCorner(154, 9722, 5, HVDL) //Victoria Island - Canada east
     res.setCornerPair(156, 9724, 4, HVDL, HVUL)
 
-    res.setMouth4(160, 9732)
-    res.setVert4In(158, 9730)
-    res.setVert1In(156, 9728)
-    res.setVert4In(156, 9732)
-    res.setMouth5(154, 9734)//Baffin west
+    res.setMouth4(160, 9732)//Bylot Island - Devon Island east
+    res.setVert4In(158, 9730)//Baffin Island - Canada
+    res.setVert1In(156, 9728)//Canada - Baffin Island
+    res.setVert4In(156, 9732)//Baffin Island - Canada
+    res.setMouth5(154, 9734)//Baffin Island - Canada
+    res.setMouth3(154, 9734)//Southampton Island - Newfoundland north
+    res.setMouth0(150, 9734)//Southampton Island - Newfoundland south
 
     res.setMouth4(154, 9734)//Southampton Island west
     res.setVert5In(152, 9732)//Southampton Island west
@@ -63,7 +67,7 @@ object Terr320W90 extends Long320Terrs
     res.setMouth3(146, 9734)//James Bay mouth
     res.setVert4In(144, 9736)//James Bay
     res.setVert1In(142, 9734)//James Bay
-    res.setMouth0(140, 9736)
+    res.setMouth0(140, 9736)//James Bay head
 
     res.setMouth3(138, 9730)//Lake Michigan north
     res.setVert4In(136, 9732)//Lake Michigan
@@ -72,7 +76,9 @@ object Terr320W90 extends Long320Terrs
     res.setMouth2(138, 9730)//Lake Superior west
     res.setMouth5(136, 9736)//Lake Huron north west
 
-    res.setMouth1(134, 9738)//Lake Ontario east
+    res.setMouth1(134, 9738)//Lake Ontario west
+    res.setCornerIn(136, 9740, 2)//Lake Ontario east
+    res.setCornerIn(134, 9742, 0)//Lake Ontario east
 
     res
   }

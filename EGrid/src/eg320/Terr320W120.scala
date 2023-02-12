@@ -43,7 +43,9 @@ object Terr320W120 extends Long320Terrs
     res.setMouth3(160, 8704)//Banks Island - Victoria Island north
     res.setMouth0(156, 8704)//Banks Island - Victoria Island south
 
+    res.setCornerPair(160, 8708, 2, HVUR, HVDR)
     res.setCorner(158, 8710, 0, HVDL)//Victoria Island - Prince of Wales Island north
+    //res.setSideCorner2(158, 8710, 0, HVDL, HVUR)
     res.setCornerIn(158, 8710, 1)//Victoria Island - Prince of Wales
     res.setCornerIn(158, 8710, 2)//Victoria Island - Prince of Wales south
 
