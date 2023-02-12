@@ -80,7 +80,7 @@ object Terr320E0 extends Long320Terrs
     res.setCornerIn(134, 526, 1)//Adriatic
     res.setCorner(134, 526, 2, HVDL)//Adriatic
 
-    res.setCornerPair(132, 524, 2, HVDR, HVUL)//Sicily Italy
+    res.setCornerPair(132, 524, 2, HVUR, HVUL)//Sicily Italy
     res.setCorner(130, 526, 0, HVUL)//Sicily Italy
     res.setCornerIn(130, 526, 1)//Sicily Italy
     res.setCornerIn(130, 526, 2)//Sicily Italy

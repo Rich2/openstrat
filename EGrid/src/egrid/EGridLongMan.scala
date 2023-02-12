@@ -307,17 +307,17 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVUR | HVDR if isRightMan => None
       case HVDL | HVUL if isLeftMan => None
 
-      case HVUp if vUp & (c < grid.rowLeftCenC(r + 1 )) => Some(HVertLow(r + 2, ltGrid.rowRightCenC(r + 1) + 2))
-      case HVUp if vUp => Some(HVertLow(r + 2, rtGrid.rowLeftCenC(r + 1) - 2))
-
-      case HVUp if c < grid.rowLeftCenC(r + 1 ) =>
-      { val hc1 = ltGrid.rowRightCenC(r + 1)
+      case HVUp if (c < grid.rowLeftCenC(r + 1 )) & vUp => Some(HVertLow(r + 2, ltGrid.rowRightCenC(r + 1) + 2))
+      case HVUp if c < grid.rowLeftCenC(r + 1) => {
+        val hc1 = ltGrid.rowRightCenC(r + 1)
         val hc0 = ltGrid.rowRightCenC(r - 1)
         val value = ife(hc1 > hc0, HCen(r + 1, hc1), HVertHigh(r, hc0))
         Some(value)
       }
-      case HVUp =>{
-        val hc1 = rtGrid.rowLeftCenC(r + 1)
+
+      case HVUp if vUp => Some(HVertLow(r + 2, rtGrid.rowLeftCenC(r + 1) - 2))
+      case HVUp =>
+      { val hc1 = rtGrid.rowLeftCenC(r + 1)
         val hc0 = rtGrid.rowLeftCenC(r - 1)
         val value = ife(hc1 < hc0, HCen(r + 1, hc1), HVertHigh(r, hc0))
         Some(value)
@@ -329,12 +329,16 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVDR if vUp => Some(HVertLow(r, rtGrid.rowLeftCenC(r - 1) - 2))
       case HVDR => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
 
-      case HVDn if vUp => {
-        val hc1 = rtGrid.rowLeftCenC(r - 1)
+      case HVDn if (c > grid.rowLeftCenC(r - 1 )) & vUp => Some(HCen(r - 1, rtGrid.rowRightCenC(r - 1)))
+      case HVDn if c > grid.rowLeftCenC(r - 1) => Some(HVertHigh(r - 2, ltGrid.rowRightCenC(r - 1) - 2))
+
+      case HVDn if vUp =>
+      { val hc1 = rtGrid.rowLeftCenC(r - 1)
         val hc0 = rtGrid.rowLeftCenC(r + 1)
         val value = ife(hc1 < hc0, HCen(r - 1, hc1), HVertHigh(r, hc0))
         Some(value)
       }
+
       case HVDn => Some(HVertHigh(r - 2, rtGrid.rowLeftCenC(r - 1) - 2))
 
       case HVDL if vUp => Some(HVertLow(r, ltGrid.rowRightCenC(r - 1) + 2))

@@ -82,8 +82,8 @@ object Terr320E30 extends Long320Terrs
     res.setVert5In(132, 1536)//Sea of Marmara
     res.setMouth4(134, 1538)//Constantinople
 
-    res.setCorner(132, 1524, 4, HVDR)
-    res.setCorner(130, 1522, 0, HVDR)
+    res.setCorner(132, 1524, 4, HVUR)//Sicily - Italy north, has to be upright rather than down right because the end rows are 132,524 and 130,526
+    res.setCorner(130, 1522, 0, HVUR)//Sicily - Italy north, has to be upright rather than down right because the end rows are 132,524 and 130,526
     res.setCornerIn(130, 1522, 5)//Sicily Italy
     res.setCornerIn(130, 1522, 4)//Sicily Italy south
 
