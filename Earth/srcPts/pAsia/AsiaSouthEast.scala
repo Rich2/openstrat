@@ -12,8 +12,12 @@ object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
   override val polygonLL = PolygonLL(north, northEast, south, west, p10)
 }
 
+/** [[PolygonLL]] graphic for south east Asia */
 object seAsia extends EArea2("SEAsia", 26.0 ll 104.0, plain)
-{
+{ val p5 = 38.15 ll 118.81
+  val jiolaiMouth = 37.11 ll 119.57
+  val p10 = 37.82 ll 120.75
+  val p12 = 36.90 ll 122.52
   val rongcheng = degs(37.39, 122.69)
   val haitzhou = degs(34.95, 119.20)
   val putuo = degs(29.9, 122.34)
@@ -39,7 +43,7 @@ object seAsia extends EArea2("SEAsia", 26.0 ll 104.0, plain)
   val chittagong = degs(22.74, 91.54)
   val seAsiaNE = India.mianiLat * neVietnamLong
 
-  override val polygonLL = PolygonLL(CEAsia.binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth, neVietnam,
+  override val polygonLL = PolygonLL(CEAsia.binhai, p5, jiolaiMouth, p10, rongcheng, p12, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth, neVietnam,
     dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong, India.magdhara,
     India.indiaNE,  CentralAsia.southEast)
 }

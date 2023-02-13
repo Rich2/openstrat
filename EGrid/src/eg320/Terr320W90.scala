@@ -46,7 +46,7 @@ object Terr320W90 extends Long320Terrs
     res.setCornerIn(158, 9726, 5)//Prince of Wales Island
     res.setCornerIn(158, 9726, 4)//Prince of Wales Island south
     res.setMouth0Corner(156, 9724)//Victoria Island - Prince of Wales Island south
-    res.setTUp(159, 9728)//Somerset Island - Devon Island - Baffin Island
+    res.setTJunction(159, 9728)//Somerset Island - Devon Island - Baffin Island
 
     //res.setCorner(154, 9722, 0, HVDn, 1) //Victoria Island - Canada east
     //res.setCorner(154, 9722, 5, HVDL) //Victoria Island - Canada east

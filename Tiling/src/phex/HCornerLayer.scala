@@ -228,11 +228,20 @@ class HCornerLayer(val unsafeArray: Array[Int])
     unsafeArray(index) = corner.unsafeInt
   }
 
-  /** Creates an up right T junction of Straits or other terrain. */
-  def setTUp(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = {
-    setSideCorner2(r - 1, c - 2, 1, HVDL, HVUp, magnitude, magnitude)
-    setCornerIn(r + 1, c, 3)
-    setCornerIn(r - 1, c + 2, 5)
+  /** Creates a T junction of Straits or other terrain. */
+  def setTJunction(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = None match
+  { case _ if (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2) =>
+    { setSideCorner2(r + 1, c + 2, 4, HVUR, HVDn, magnitude, magnitude)
+      setCornerIn(r + 1, c - 2, 2)
+      setCornerIn(r - 1, c, 0)
+    }
+    case _ if (r.div4Rem1 & c.div4Rem2) | (r.div4Rem3 & c.div4Rem0) =>
+    { setSideCorner2(r - 1, c - 2, 1, HVDL, HVUp, magnitude, magnitude)
+      setCornerIn(r + 1, c, 3)
+      setCornerIn(r - 1, c + 2, 5)
+    }
+
+    case _ => excep(s"r = $r, c = $c are  not valid coordinates for an HVert.")
   }
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */

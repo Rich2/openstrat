@@ -25,7 +25,7 @@ object Terr320E120 extends Long320Terrs
     wr(138, desert * 2, plain, hills, plain, taiga * 2)
     wr(136, plain * 7)
     wr(134, plain * 6, sea)
-    wr(132, plain * 3, sea, hills * 2, sea)
+    wr(132, plain * 3, hills * 3, sea)
     wr(130, desert, plain * 4, hills * 2, sea)
     wr(128, plain * 3, sea * 2, hills, sea, hills)
     wr(126, mtain, hills, plain * 2, sea * 3, hills)
@@ -33,13 +33,27 @@ object Terr320E120 extends Long320Terrs
   }
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+
+    res.setSomeInts(Sea, 131,4607,  131,4609,  132,4610,  131,4611,  130,4612)
     res
   }
-  /*override val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
-    res.setTruesInts(130,4612,  131,4611)
-    res
-  }*/
 
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer =
+  { val res = grid.newHVertOffsetLayer
+    res.setMouth2(132, 4604)//Yellow Sea Tianjin
+    res.setVert3In(132, 4608)//Yellow Sea
+    res.setMouth3(134, 4610)//Yellow Sea north
+
+    res.setTJunction(131, 4610)
+//    res.setSideCorner2(132, 4612, 4, HVUR, HVDn)//Yellow Sea Dalian
+//    res.setCornerIn(132, 4608, 2)//Yellow Sea Dalian
+//    res.setCornerIn(130, 4610, 0)//Yellow Sea Dalian
+
+    res.setVert1In(130, 4610)//Yellow Sea
+    res.setMouth0(128, 4612)//YellowSea
+
+    res.setMouth2Corner(134, 4622)
+
+    res
+  }
 }

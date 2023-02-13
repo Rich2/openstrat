@@ -58,7 +58,7 @@ object Terr320E30 extends Long320Terrs
 
     res.setMouth0(134, 1542)//Kerch straits
 
-    res.setTUp(137, 1542)
+    res.setTJunction(137, 1542)
 //    res.setSideCorner2(136, 1540, 1, HVDL, HVUp)//Azov T
 //    res.setCornerIn(138, 1542, 3)//Azov T
 //    res.setCornerIn(136, 1544, 5)//Azov T
