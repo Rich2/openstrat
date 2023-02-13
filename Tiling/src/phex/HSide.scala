@@ -58,7 +58,7 @@ object HSide
     case 2 if c.div4Rem0 => new HSideB(r, c)
     case 1 if c.div4Rem3 => new HSideC(r, c)
     case 3 if c.div4Rem1 => new HSideC(r, c)
-    case _ => excep(s"$r, $c is not a valid Hex edge tile coordinate.")
+    case _ => excep(s"$r, $c is not a valid hex side tile coordinate.")
   }
 
   def unapply(inp: Any): Option[(Int, Int)] = inp match{

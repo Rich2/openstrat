@@ -31,7 +31,7 @@ object Terr80E0 extends Long80Terrs
     gs(490, 530, taiga * 3, sea, taiga * 3)
     wr(488, sea * 8, hills, sea * 6, taiga * 2, sea * 2, taiga * 2)
     wr(486, sea * 7, hills * 2, sea * 7, taiga, sea * 2, plain * 3)
-    gs(484, 492, hills * 4, sea * 10, plain * 3)
+    gs(484, 492, hills * 4, sea * 9, plain * 4)
     gs(482, 494, hills * 3, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
     gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
@@ -53,22 +53,42 @@ object Terr80E0 extends Long80Terrs
     gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
     res
   }
+
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
-    res.setSomeInts(Sea, 477,545,  478,544,  478,552,  479,545,  479,551)
+    res.setSomeInts(Sea, 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551,  485,545,  484,546)
     res
   }
 
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
-    res.setMouth2(478, 490)//North Ireland -Scotland north West
-    res.setVert1In(476, 492)//North Ireland -Scotland
-    res.setMouth0(474, 494)//North Ireland -Scotland
+    res.setMouth2(478, 490)//North Ireland - Scotland north West
+    res.setVert1In(476, 492)//North Ireland - Scotland
+    res.setMouth0(474, 494)//North Ireland - Scotland
 
     res.setMouth1(462, 514)//Straits of Dover north west
     res.setMouth4(464, 520)//Straits of Dover south east
+
+    res.setMouth2(486, 542)//Denmark - Sweden
+    res.setVert1In(484, 544)//Denmark - Sweden
+    res.setMouth0(482, 546)//Denmark - Sweden
+
+    res.setMouth4(480, 548)//Jutland - Funen north
+    res.setVert5In(478, 546)//Funen - Jutland
+    res.setVert4In(478, 546)//Funen - Jutland
+    res.setTJunction(477, 546)//Funen - Jutland - Zealand
+
+    res.setVert4In(476, 548)//Jutland - Zealand
+    res.setMouth5(474, 550)//Jutland - Zealand south
+    res.setMouth3(480, 548)//Funen -Zealand north
+    res.setVert2In(478, 546)//Funen -Zealand
+
+    res.setMouth2(480, 548)//Zealand - Sweden north
+    res.setVert1In(478, 550)//Zealand - Sweden
+    res.setMouth0(476, 552)//Zealand - Sweden south
+
     res
   }
 }
