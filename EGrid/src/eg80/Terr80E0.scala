@@ -35,11 +35,11 @@ object Terr80E0 extends Long80Terrs
     gs(482, 494, hills * 3, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
     gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
-    gs(476, 488, plain * 2, hills * 3, sea * 8, plain * 3, sea * 2)//Looks like theres extra sea at end
-    gs(474, 482, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)
-    gs(472, 480, plain * 3, sea * 3, plain * 2, sea * 7, plain * 6)
-    gs(470, 482, plain * 3, sea, hills * 2, plain * 2, sea * 5, plain * 8)
-    gs(468, 480, plain * 3, sea, hills * 3, plain * 3, sea * 3, plain * 8)
+    gs(476, 488, hills, plain, hills * 3, plain, sea * 7, plain * 3, sea * 2)
+    gs(474, 482, plain * 3, sea * 2, hills, plain, hills, sea * 7, plain * 2, sea * 3)
+    gs(472, 480, plain * 3, sea * 3, plain, hills, plain, sea * 6, plain * 6)
+    gs(470, 482, plain * 3, sea, hills * 2, plain * 2, sea * 4, plain * 9)
+    gs(468, 480, plain * 3, sea * 2, hills * 2, plain * 3, sea * 2, plain * 9)
     gs(466, 482, plain, sea * 3, hills * 2, plain * 3, sea * 2, plain * 4, hills * 2, plain * 4)
     gs(464, 500, plain * 5, sea, plain * 2, hills * 7, plain, hills)
     gs(462, 494, hills * 3, sea * 3, plain * 4, hills * 8)
@@ -66,6 +66,9 @@ object Terr80E0 extends Long80Terrs
     res.setMouth2(478, 490)//North Ireland -Scotland north West
     res.setVert1In(476, 492)//North Ireland -Scotland
     res.setMouth0(474, 494)//North Ireland -Scotland
+
+    res.setMouth1(462, 514)//Straits of Dover north west
+    res.setMouth4(464, 520)//Straits of Dover south east
     res
   }
 }
