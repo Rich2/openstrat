@@ -4,9 +4,10 @@ import geom._, collection.mutable.ArrayBuffer
 
 /** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
 class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
-{
+{ /** The r or row component of the [[HVert]]. */
   inline def r: Int = int1
 
+  /** The c or column component of the [[HVert]]. */
   inline def c: Int = int2
 
   override def toString: String = "HVAndOffset".appendParenthSemis(int1.str, int2.str, hvDirn.toString, magnitude.toString)
@@ -41,6 +42,7 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case HVDL => HCen(r - 1, c - 2)
     case HVUL if vHigh => HCen(r + 1, c - 2)
     case HVUL => HVertHigh(r, c - 2)
+    case HVExact => vert
   }
 
   /** The [[HCen]] the [[HVDirn]] points to if it is coming from the correct type of [[HVert]]. */

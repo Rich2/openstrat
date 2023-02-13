@@ -54,7 +54,7 @@ object HVExact extends HVDirnOpt
   override def toString: String = "HVExact"
 }
 
-trait HVDirn extends HVDirnOpt
+sealed trait HVDirn extends HVDirnOpt
 { override def opposite: HVDirn
 
   override def clock(steps: Int): HVDirn =

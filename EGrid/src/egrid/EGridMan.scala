@@ -2,6 +2,7 @@
 package ostrat; package egrid
 import geom._, prid._, phex._
 
+/** Manages an [[EGrid]]'s connections to its neigbhouring [[Egrid]]s.. */
 trait EGridMan
 { /** The multi grid system that contains the grid that this is managing. */
   def sys: EGridMulti
