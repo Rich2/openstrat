@@ -7,30 +7,37 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  val corners = scen.corners
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
-  def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
-  def actives: RArr[PolygonActive] = proj.tileActives
+  override def frame: GraphicElems =
+  {
+    def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
 
-  def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
+    def actives: RArr[PolygonActive] = proj.tileActives
 
-  def lines1: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
-    if (sTerrs(hs).nonEmpty) None
-    else {
-      val t1 = terrs(hs.tileLt)
-      val t2 = terrs(hs.tileRt)
-      ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+    def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap { (st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
+
+    def lines1: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
+      if (sTerrs(hs).nonEmpty) None
+      else {
+        val t1 = terrs(hs.tileLt)
+        val t2 = terrs(hs.tileRt)
+        ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+      }
     }
+
+    def lines2: GraphicElems = proj.ifTileScale(40, lines1)
+
+    def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
+
+    def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
+
+    polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2
   }
-
-  def lines2: GraphicElems = proj.ifTileScale(40, lines1)
-
-  def hexStrs1: GraphicElems = proj.hCenSizedMap(15){ (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
-
-  def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -59,7 +66,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2
+
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
