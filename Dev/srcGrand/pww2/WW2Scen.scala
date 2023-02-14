@@ -2,6 +2,7 @@
 package ostrat; package pww2
 import prid._, phex._, egrid._, eg320._, pEarth._
 
+/** Scenario for World War 2 grand strategy game. */
 trait WW2Scen extends EScenBasic with HSysTurnScen
 {
   //override def gridSys: EGrid320Sys
@@ -39,4 +40,5 @@ object WW2Scen2 extends WW2Scen
 
   val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
   WW2Scen.sa0(armies)
+  armies.unsafeSetSames(Japan.ar, 136,5624)
 }

@@ -51,5 +51,4 @@ object Terr320E60 extends Long320Terrs
     res.setMouth4(138, 2554)//Caspian Sea north east
     res
   }
-
 }

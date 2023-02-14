@@ -56,8 +56,9 @@ object Terr80E30  extends Long80Terrs
     gs(446, 1136 + 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
     res
   }
-  override val sTerrs: HSideOptLayer[WSide] = {
-    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+
+  override val sTerrs: HSideOptLayer[WSide] =
+  { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 505,1553)
       res
   }
