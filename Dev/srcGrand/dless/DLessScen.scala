@@ -31,7 +31,7 @@ object DLessScen1 extends DLessScen
   armies.unsafeSetSames(Britain, 142,510,  144,508)
   armies.unsafeSetSames(Germany, 142,518)
   armies.unsafeSetSames(France, 138,514)
-  armies.unsafeSetSames(Russia, 142, 1534)
+  armies.unsafeSetSames(Russia, 142,1534,  148,1536)
   armies.unsafeSetSames(Italy, 134, 526)
   armies.unsafeSetSames(Austria, 138, 1526)
   armies.unsafeSetSames(Ottoman, 132, 1532)

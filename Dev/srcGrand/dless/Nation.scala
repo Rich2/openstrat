@@ -1,9 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package dless
 import Colour._
+
 trait Nation
 { val name: String
   val colour: Colour
+  override def toString: String = name
 }
 
 object Britain extends Nation
