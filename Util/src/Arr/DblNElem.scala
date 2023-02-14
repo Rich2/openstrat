@@ -26,7 +26,7 @@ trait DblNSeqSpec[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNSeqS
 
   override def ssReverse: ThisT =
   { val res: ThisT = unsafeSameSize(ssLength)
-    ssIForeach({ (i, el) => res.unsafeSetElem(ssLength - 1 - i, el)})
+    ssIForeach({ (i, el) => res.setElemUnsafe(ssLength - 1 - i, el)})
     res
   }
 
@@ -58,7 +58,7 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
 
   final def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(length)
-    iForeach({(i, el) => res.unsafeSetElem(length - 1 - i, el)})
+    iForeach({(i, el) => res.setElemUnsafe(length - 1 - i, el)})
     res
   }
 

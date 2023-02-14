@@ -19,7 +19,7 @@ trait Dbl3Elem extends Any with DblNElem
 trait Dbl3SeqLike[A <: Dbl3Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize = 3
 
-  override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(3 * index) = newElem.dbl1; unsafeArray(3 * index + 1) = newElem.dbl2
+  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(3 * index) = newElem.dbl1; unsafeArray(3 * index + 1) = newElem.dbl2
     unsafeArray(3 * index + 2) = newElem.dbl3 }
 
   override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
@@ -119,7 +119,7 @@ trait Dbl3Buff[A <: Dbl3Elem] extends Any with DblNBuff[A]
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }
   def apply(index: Int): A = newElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
 
-  override def unsafeSetElem(i: Int, newElem: A): Unit =
+  override def setElemUnsafe(i: Int, newElem: A): Unit =
   { unsafeBuffer(i * 4) = newElem.dbl1; unsafeBuffer(i * 4 + 1) = newElem.dbl2; unsafeBuffer(i * 4 + 2) = newElem.dbl3
   }
 }

@@ -58,7 +58,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     val res = builder.uninitialised(length)
     while (i < length) {
       val newB = f(a1Index(i), a2Index(i))
-      res.unsafeSetElem(i, newB)
+      res.setElemUnsafe(i, newB)
       i += 1
     }
     res

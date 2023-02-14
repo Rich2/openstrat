@@ -137,7 +137,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
     val res = build.uninitialised(segsNum)
     var count = 0
     segHCsForeach(startR, startC) { s =>
-      res.unsafeSetElem(count, f(s))
+      res.setElemUnsafe(count, f(s))
       count += 1
     }
     res
@@ -150,7 +150,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
     var count = 0
     segHCsForeach(startR, startC) { lh =>
       val ols = proj.transOptLineSeg(lh)
-      ols.foreach(res.unsafeSetElem(count, _))
+      ols.foreach(res.setElemUnsafe(count, _))
       count += 1
     }
     res

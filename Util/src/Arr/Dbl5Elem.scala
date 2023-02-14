@@ -16,7 +16,7 @@ trait Dbl5Elem extends Any with DblNElem
 trait Dbl5SeqLike[A <: Dbl5Elem] extends Any with DblNSeqLike[A]
 { def elemProdSize: Int = 5
 
-  final override def unsafeSetElem(index: Int, newElem: A): Unit =
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
   { unsafeArray(5 * index) = newElem.dbl1; unsafeArray(5 * index + 1) = newElem.dbl2; unsafeArray(5 * index + 2) = newElem.dbl3
     unsafeArray(5 * index + 3) = newElem.dbl4; unsafeArray(5 * index + 4) = newElem.dbl5
   }
@@ -125,7 +125,7 @@ trait Dbl5Buff[A <: Dbl5Elem] extends Any with DblNBuff[A]
   override def apply(index: Int): A = newElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2),
     unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
 
-  override def unsafeSetElem(i: Int, newElem: A): Unit =
+  override def setElemUnsafe(i: Int, newElem: A): Unit =
   { unsafeBuffer(i * 5) = newElem.dbl1; unsafeBuffer(i * 5 + 1) = newElem.dbl2; unsafeBuffer(i * 5 + 2) = newElem.dbl3
     unsafeBuffer(i * 5 + 3) = newElem.dbl4; unsafeBuffer(i * 5 + 3) = newElem.dbl5
   }

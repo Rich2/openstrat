@@ -43,7 +43,7 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
     new RPairArr(newA1Array, newA2Array)
   }
 
-  override def unsafeSetElem(i: Int, newElem: RPairElem[A1, A2]): Unit = { a1Array(i) = newElem.a1; a2Array(i) = newElem.a2 }
+  override def setElemUnsafe(i: Int, newElem: RPairElem[A1, A2]): Unit = { a1Array(i) = newElem.a1; a2Array(i) = newElem.a2 }
   override def fElemStr: RPairElem[A1, A2] => String = _.toString
 
   def init(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] = dropRight(1)
@@ -92,7 +92,7 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
   override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1); b2Buffer.append(b2) }
   override def grow(newElem: RPairElem[B1, B2]): Unit = { b1Buffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
   override def apply(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
-  override def unsafeSetElem(i: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(i) = newElem.a1; b2Buffer(i) = newElem.a2 }
+  override def setElemUnsafe(i: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(i) = newElem.a1; b2Buffer(i) = newElem.a2 }
 }
 
 object RPairBuff

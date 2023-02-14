@@ -14,7 +14,7 @@ trait Int1PairArr[A1 <: Int1Elem, ArrA1 <: Int1Arr[A1], A2, A <: Int1PairElem[A1
 
   override final def apply(index: Int): A = newPair(a1ArrayInt(index), a2Array(index))
 
-  override final def unsafeSetElem(i: Int, newElem: A): Unit ={ a1ArrayInt(i) = newElem.a1Int1; a2Array(i) = newElem.a2 }
+  override final def setElemUnsafe(i: Int, newElem: A): Unit ={ a1ArrayInt(i) = newElem.a1Int1; a2Array(i) = newElem.a2 }
 
   def newA1(int1: Int): A1
 
@@ -44,7 +44,7 @@ trait Int1PairBuff[A1 <: Int1Elem, A2, A <: Int1PairElem[A1, A2]] extends IntNPa
 
   def grow(newA1: A1, newA2: A2): Unit = { b1IntBuffer.append(newA1.int1); b2Buffer.append(newA2) }
 
-  override final def unsafeSetElem(i: Int, newElem: A): Unit = { b1IntBuffer(i) = newElem.a1Int1; b2Buffer(i) = newElem.a2 }
+  override final def setElemUnsafe(i: Int, newElem: A): Unit = { b1IntBuffer(i) = newElem.a1Int1; b2Buffer(i) = newElem.a2 }
 }
 
 trait Int1PairArrMapBuilder[B1 <: Int1Elem, ArrB1 <: Int1Arr[B1], B2, B <: Int1PairElem[B1, B2], ArrB <: Int1PairArr[B1, ArrB1, B2, B]] extends

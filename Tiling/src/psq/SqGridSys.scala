@@ -26,7 +26,7 @@ trait SqGridSys extends Any with TGridSys
   final def map[B, ArrB <: Arr[B]](f: SqCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val res = build.uninitialised(numTiles)
     var i = 0
-    foreach { sqCen => res.unsafeSetElem(i, f(sqCen)); i += 1 }
+    foreach { sqCen => res.setElemUnsafe(i, f(sqCen)); i += 1 }
     res
   }
 

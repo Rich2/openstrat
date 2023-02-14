@@ -19,7 +19,7 @@ trait Dbl6SeqLike[A <: Dbl6Elem] extends Any with DblNSeqLike[A]
 {
   def elemProdSize: Int = 6
 
-  def unsafeSetElem(index: Int, newElem: A): Unit =
+  def setElemUnsafe(index: Int, newElem: A): Unit =
   { val offset = index * 6
     unsafeArray(offset) = newElem.dbl1; unsafeArray(offset + 1) = newElem.dbl2; unsafeArray(offset + 2) = newElem.dbl3; unsafeArray(offset + 3) = newElem.dbl4
     unsafeArray(offset + 4) = newElem.dbl5; unsafeArray(offset + 5) = newElem.dbl6
@@ -132,7 +132,7 @@ trait Dbl6Buff[A <: Dbl6Elem] extends Any with DblNBuff[A]
   override def apply(index: Int): A = newElem(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
-  override def unsafeSetElem(i: Int, newElem: A): Unit =
+  override def setElemUnsafe(i: Int, newElem: A): Unit =
   { unsafeBuffer(i * 6) = newElem.dbl1; unsafeBuffer(i * 6 + 1) = newElem.dbl2; unsafeBuffer(i * 6 + 2) = newElem.dbl3;
     unsafeBuffer(i * 6 + 3) = newElem.dbl4; unsafeBuffer(i * 6 + 3) = newElem.dbl5;
   }

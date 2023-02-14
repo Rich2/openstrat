@@ -25,7 +25,7 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     new StrPairArr[A2](new Array[String](length), new Array[A2](length))
 
   override def apply(index: Int): StrPair[A2] = new StrPair[A2](a1Array(index), a2Array(index))
-  override def unsafeSetElem(i: Int, newElem: StrPair[A2]): Unit = { a1Array(i) = newElem.a1; a2Array(i) = newElem.a2 }
+  override def setElemUnsafe(i: Int, newElem: StrPair[A2]): Unit = { a1Array(i) = newElem.a1; a2Array(i) = newElem.a2 }
 
   override def fElemStr: StrPair[A2] => String = _.toString
 

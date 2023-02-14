@@ -14,7 +14,7 @@ trait Dbl2Elem extends Any with DblNElem
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
 trait Dbl2SeqLike[A <: Dbl2Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 2
-  override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(2 * index) = newElem.dbl1; unsafeArray(2 * index + 1) = newElem.dbl2 }
+  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(2 * index) = newElem.dbl1; unsafeArray(2 * index + 1) = newElem.dbl2 }
   override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2) }
 }
 
@@ -163,6 +163,6 @@ trait Dbl2Buff[B <: Dbl2Elem] extends Any with DblNBuff[B]
   final override def grow(newElem: B): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
 
   override def apply(index: Int): B = newElem(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  final override def unsafeSetElem(i: Int, newElem: B): Unit = { unsafeBuffer(i * 2) = newElem.dbl1; unsafeBuffer(i * 2 + 1) = newElem.dbl2 }
+  final override def setElemUnsafe(i: Int, newElem: B): Unit = { unsafeBuffer(i * 2) = newElem.dbl1; unsafeBuffer(i * 2 + 1) = newElem.dbl2 }
   override def fElemStr: B => String = _.toString
 }

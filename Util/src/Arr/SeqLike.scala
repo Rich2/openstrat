@@ -15,10 +15,10 @@ trait SeqLike[+A] extends Any
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
-  def unsafeSetElem(i: Int, newElem: A @uncheckedVariance): Unit
+  def setElemUnsafe(i: Int, newElem: A @uncheckedVariance): Unit
 
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
-  def unsafeSetElems(index: Int, elems: A @uncheckedVariance*): Unit = elems.iForeach(index) { (i, a) => unsafeSetElem(i, a) }
+  def setElemsUnsafe(index: Int, elems: A @uncheckedVariance*): Unit = elems.iForeach(index) { (i, a) => setElemUnsafe(i, a) }
 
   def fElemStr: A@uncheckedVariance => String
 

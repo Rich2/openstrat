@@ -24,7 +24,7 @@ trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1
   final override def apply(index: Int): A =
     newPair(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))
 
-  override final def unsafeSetElem(i: Int, newElem: A): Unit = { setA1Unsafe(i, newElem.a1);  a2Array(i) = newElem.a2 }
+  override final def setElemUnsafe(i: Int, newElem: A): Unit = { setA1Unsafe(i, newElem.a1);  a2Array(i) = newElem.a2 }
 
   final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayInt(index * 4) = value.int1; a1ArrayInt(index * 4 + 1) = value.int2
     a1ArrayInt(index * 4 + 2) = value.int3; a1ArrayInt(index * 4 + 2) = value.int3 }
@@ -60,7 +60,7 @@ trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends IntNPa
     b2Buffer.append(newElem.a2)
   }
 
-  override final def unsafeSetElem(i: Int, newElem: B): Unit =
+  override final def setElemUnsafe(i: Int, newElem: B): Unit =
   { b1IntBuffer(i * 4) = newElem.a1Int1
     b1IntBuffer(i * 4 + 1) = newElem.a1Int2
     b1IntBuffer(i * 4 + 2) = newElem.a1Int3

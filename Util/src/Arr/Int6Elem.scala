@@ -19,7 +19,7 @@ trait Int6SeqLike[A <: Int6Elem] extends Any with IntNSeqLike[A]
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
 
-  override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(6 * index) = newElem.int1; unsafeArray(6 * index + 1) = newElem.int2
+  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(6 * index) = newElem.int1; unsafeArray(6 * index + 1) = newElem.int2
     unsafeArray(6 * index + 2) = newElem.int3; unsafeArray(6 * index + 3) = newElem.int4;
     unsafeArray(6 * index + 5) = newElem.int6  }
 
@@ -82,7 +82,7 @@ trait Int6Buff[A <: Int6Elem] extends Any with IntNBuff[A]
   final override def apply(index: Int): A = newElem(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
-  final override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 6) = newElem.int1; unsafeBuffer(i * 6 + 1) = newElem.int2
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 6) = newElem.int1; unsafeBuffer(i * 6 + 1) = newElem.int2
     unsafeBuffer(i * 6 + 2) = newElem.int3; unsafeBuffer(i * 6 + 3) = newElem.int4; unsafeBuffer(i * 6 + 4) = newElem.int5
     unsafeBuffer(i * 6 + 5) = newElem.int6 }
 }

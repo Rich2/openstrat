@@ -24,7 +24,7 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1
   final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayDbl(index * 3) = value.dbl1; a1ArrayDbl(index * 3 + 1) = value.dbl2
     a1ArrayDbl(index * 3 + 2) = value.dbl3 }
 
-  final override def unsafeSetElem(i: Int, newElem: A): Unit = { a1ArrayDbl(i * 3) = newElem.a1Dbl1; a1ArrayDbl(i * 3 + 1) = newElem.a1Dbl2
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayDbl(i * 3) = newElem.a1Dbl1; a1ArrayDbl(i * 3 + 1) = newElem.a1Dbl2
     a1ArrayDbl(i * 3 + 2) = newElem.a1Dbl3
     a2Array(i) = newElem.a2
   }
@@ -57,7 +57,7 @@ trait Dbl3PairBuff[B1 <: Dbl3Elem, B2, B <: Dbl3PairElem[B1, B2]] extends DblNPa
     b2Buffer.append(newElem.a2)
   }
 
-  override final def unsafeSetElem(i: Int, newElem: B): Unit =
+  override final def setElemUnsafe(i: Int, newElem: B): Unit =
   { b1DblBuffer(i * 3) = newElem.a1Dbl1
     b1DblBuffer(i * 3 + 1) = newElem.a1Dbl2
     b1DblBuffer(i * 3 + 2) = newElem.a1Dbl3

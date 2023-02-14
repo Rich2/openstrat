@@ -17,7 +17,7 @@ trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(4 * index) = newElem.int1; unsafeArray(4 * index + 1) = newElem.int2
+  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(4 * index) = newElem.int1; unsafeArray(4 * index + 1) = newElem.int2
     unsafeArray(4 * index + 2) = newElem.int3; unsafeArray(4 * index + 3) = newElem.int4 }
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
@@ -71,7 +71,7 @@ trait Int4Buff[A <: Int4Elem] extends Any with IntNBuff[A]
   final override def apply(index: Int): A = newElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2),
     unsafeBuffer(index * 4 + 3))
 
-  final override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 4) = newElem.int1; unsafeBuffer(i * 4 + 1) = newElem.int2
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 4) = newElem.int1; unsafeBuffer(i * 4 + 1) = newElem.int2
     unsafeBuffer(i * 4 + 2) = newElem.int3; unsafeBuffer(i * 4 + 3) = newElem.int4 }
 }
 

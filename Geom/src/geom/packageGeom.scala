@@ -157,7 +157,7 @@ package object geom
     {
       val len = thisIter.size
       val res = builder.uninitialised(len)
-      thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
+      thisIter.iForeach((i, a) => res.setElemUnsafe(i, a))
       res
     }
 
@@ -165,7 +165,7 @@ package object geom
     def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonLikeMapBuilder[A, AA]): AA =
     { val len = thisIter.size
       val res = builder.uninitialised(len)
-      thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
+      thisIter.iForeach((i, a) => res.setElemUnsafe(i, a))
       res
     }
   }

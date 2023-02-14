@@ -55,7 +55,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   def toPolygon(f: SqCoord => Pt2): Polygon =
   {
     val res = PolygonGen.uninitialised(ssLength)
-    ssIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
+    ssIForeach((i, hv) => res.setElemUnsafe(i, f(hv)))
     res
   }
 
@@ -87,7 +87,7 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[Polyg
 { override type ThisT = PolygonSqCArr
   override def typeStr: String = "PolygonSqCArr"
   override def length: Int = unsafeArrayOfArrays.length
-  override def unsafeSetElem(i: Int, newElem: PolygonSqC): Unit = unsafeArrayOfArrays(i) = newElem.unsafeArray
+  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeArrayOfArrays(i) = newElem.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeArrayOfArrays(index))
 }
@@ -95,7 +95,7 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[Polyg
 class PolygonSqCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonSqC]
 { override type ThisT = PolygonSqCBuff
   override def typeStr: String = "PolygonSqCBuff"
-  override def unsafeSetElem(i: Int, newElem: PolygonSqC): Unit = unsafeBuffer(i) = newElem.unsafeArray
+  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeBuffer(i) = newElem.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString
   override def fromArrayInt(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 }

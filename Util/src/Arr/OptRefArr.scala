@@ -7,7 +7,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 final class OptRefArr[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with Arr[Option[A]]
 { override type ThisT = OptRefArr[A]
   override def typeStr: String = "OptRefArr"
-  override def unsafeSetElem(i: Int, newElem: Option[A]): Unit = ???
+  override def setElemUnsafe(i: Int, newElem: Option[A]): Unit = ???
   @inline def length: Int = unsafeArray.length
   override def fElemStr: Option[A] => String = ???
   def apply(index: Int): Option[A] = unsafeApply(index)

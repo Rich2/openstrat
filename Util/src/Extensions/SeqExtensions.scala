@@ -70,7 +70,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
     var count: Int = 0
     thisSeq.foreach { orig =>
       val newValue: B = f(orig)
-      res.unsafeSetElem(count, newValue)
+      res.setElemUnsafe(count, newValue)
       count += 1         
     }
     res
@@ -80,7 +80,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
   def valueProducts[AA <: Arr[A]](implicit ev: ArrMapBuilder[A, AA]): AA =
   { val res = ev.uninitialised(thisSeq.length)
     var count: Int = 0
-    thisSeq.foreach { orig => res.unsafeSetElem(count, orig); count += 1 }
+    thisSeq.foreach { orig => res.setElemUnsafe(count, orig); count += 1 }
     res
   }
   

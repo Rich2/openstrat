@@ -548,7 +548,7 @@ package object ostrat
       var count: Int = 0
       range.foreach { orig =>
         val newValue: B = f(orig)
-        res.unsafeSetElem(count, newValue)
+        res.setElemUnsafe(count, newValue)
         count += 1
       }
       res

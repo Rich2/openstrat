@@ -124,7 +124,7 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
   def mapTo[B, BB <: SeqLike[B]](build: SeqLikeMapBuilder[B, BB])(f: A => B): BB =
   { val res = build.uninitialised(length)
     var i = 0
-    foreach{ el => res.unsafeSetElem(i, f(el)); i += 1 }
+    foreach{ el => res.setElemUnsafe(i, f(el)); i += 1 }
     res
   }
 
@@ -145,7 +145,7 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
   def indexMapTo[B, BB <: SeqLike[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(implicit build: SeqLikeMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(length)
     var ti = 0
-    indexToForeach(iFrom, iTo, iStep) { el => res.unsafeSetElem(ti, f(el)); ti += 1 }
+    indexToForeach(iFrom, iTo, iStep) { el => res.setElemUnsafe(ti, f(el)); ti += 1 }
     res
   }
 
@@ -261,7 +261,7 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
     var accC: C = initC
     iForeach({ (i, a) =>
           val (newB, newC) = f(accC, a)
-          res.unsafeSetElem(i, newB)
+          res.setElemUnsafe(i, newB)
           accC = newC
         })
     res

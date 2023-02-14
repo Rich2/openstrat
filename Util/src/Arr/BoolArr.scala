@@ -9,7 +9,7 @@ trait BoolSeqLike extends Any with SeqLike[Boolean]
   /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
   def fromArray(array: Array[Boolean]): ThisT
 
-  override final def unsafeSetElem(i: Int, newElem: Boolean): Unit = unsafeArray(i) = newElem
+  override final def setElemUnsafe(i: Int, newElem: Boolean): Unit = unsafeArray(i) = newElem
 
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
@@ -78,7 +78,7 @@ class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Bu
   override def typeStr: String = "BooleanBuff"
   override def apply(index: Int): Boolean = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, newElem: Boolean): Unit = unsafeBuffer(i) = newElem
+  override def setElemUnsafe(i: Int, newElem: Boolean): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: Boolean => String = _.toString
   override def grow(newElem: Boolean): Unit = unsafeBuffer.append(newElem)
 }

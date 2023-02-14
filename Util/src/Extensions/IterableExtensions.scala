@@ -25,7 +25,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toArr[AA <: Arr[A]](implicit builder: ArrMapBuilder[A, AA]): AA =
   { val len = thisIter.size
     val res = builder.uninitialised(len)
-    iForeach((i, a) => res.unsafeSetElem(i, a))
+    iForeach((i, a) => res.setElemUnsafe(i, a))
     res
   }
 
@@ -171,7 +171,7 @@ class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) e
     var count: Int = 0
     thisIter.foreach { orig =>
       val newValue: B = f(orig)
-      res.unsafeSetElem(count, newValue)
+      res.setElemUnsafe(count, newValue)
       count += 1
     }
     res
@@ -183,7 +183,7 @@ class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) e
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>
-      res.unsafeSetElem(count, orig)
+      res.setElemUnsafe(count, orig)
       count += 1
     }
     res

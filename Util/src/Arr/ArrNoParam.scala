@@ -32,8 +32,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   { case -1 => returnThis
     case n => {
       val newArr = unsafeSameSize(length - 1)
-      iUntilForeach(n)(i => newArr.unsafeSetElem(i, apply(i)))
-      iUntilForeach(n + 1, length)(i => newArr.unsafeSetElem(i - 1, apply(i)))
+      iUntilForeach(n)(i => newArr.setElemUnsafe(i, apply(i)))
+      iUntilForeach(n + 1, length)(i => newArr.setElemUnsafe(i - 1, apply(i)))
       newArr
     }
   }
@@ -46,7 +46,7 @@ trait ArrNoParam[A] extends Any with Arr[A]
     while (count < length) {
       val orig = apply(count)
       val finalVal = ife(orig == oldValue, newValue, orig)
-      newArr.unsafeSetElem(count, finalVal)
+      newArr.setElemUnsafe(count, finalVal)
       count += 1
     }
     newArr
@@ -60,7 +60,7 @@ trait ArrNoParam[A] extends Any with Arr[A]
     while (count < length) {
       val orig = apply(count)
       val finalVal = ife(pred(orig), newValue, orig)
-      newArr.unsafeSetElem(count, finalVal)
+      newArr.setElemUnsafe(count, finalVal)
       count += 1
     }
     newArr
@@ -74,7 +74,7 @@ trait ArrNoParam[A] extends Any with Arr[A]
     while (count < length) {
       val orig = apply(count)
       val finalVal = ife(pred(orig), fNewValue(orig), orig)
-      newArr.unsafeSetElem(count, finalVal)
+      newArr.setElemUnsafe(count, finalVal)
       count += 1
     }
     newArr

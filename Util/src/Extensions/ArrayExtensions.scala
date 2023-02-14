@@ -11,7 +11,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   /** maps to a [[Arr]] of B. */
   def mapArr[B, BB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, BB]): BB ={
     val res = ev.uninitialised(thisArray.length)
-    iForeach{(a, i) => res.unsafeSetElem(i, f(a)) }
+    iForeach{(a, i) => res.setElemUnsafe(i, f(a)) }
     res
   }
 
@@ -44,7 +44,7 @@ class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extend
     val valProds = factory(length)
     var count = 0
     while (count < length) {
-      valProds.unsafeSetElem(count, thisArray(count))
+      valProds.setElemUnsafe(count, thisArray(count))
       count += 1
     }
     valProds

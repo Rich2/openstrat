@@ -171,7 +171,7 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
     val res = build.uninitialised(segsNum)
     var count = 0
     segSqCsForeach(startR, startC) { s =>
-      res.unsafeSetElem(count, f(s))
+      res.setElemUnsafe(count, f(s))
       count += 1
     }
     res
@@ -184,7 +184,7 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
     var count = 0
     segSqCsForeach(startR, startC) { lh =>
       val ols = proj.transOptLineSeg(lh)
-      ols.foreach(res.unsafeSetElem(count, _))
+      ols.foreach(res.setElemUnsafe(count, _))
       count += 1
     }
     res

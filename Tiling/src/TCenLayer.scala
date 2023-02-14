@@ -23,7 +23,7 @@ trait TCenLayer[A <: AnyRef] extends Any with RefsSeqLike[A]
   def map[B, BB <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(length)
     var count = 0
-    foreach{a => res.unsafeSetElem(count, f(a)); count += 1 }
+    foreach{a => res.setElemUnsafe(count, f(a)); count += 1 }
     res
   }
 }

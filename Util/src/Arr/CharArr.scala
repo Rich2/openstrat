@@ -13,7 +13,7 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
   override def unsafeSameSize(length: Int): CharArr = new CharArr(new Array[Char](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Char = unsafeArray(index)
-  override def unsafeSetElem(i: Int, newElem: Char): Unit = unsafeArray(i) = newElem
+  override def setElemUnsafe(i: Int, newElem: Char): Unit = unsafeArray(i) = newElem
   override def fElemStr: Char => String = _.toString
 
   /** append. Appends operand [[Char]] to this [[CharArr]]. */

@@ -22,7 +22,7 @@ trait TGridSys extends Any
   final def mapRows[B, BB <: Arr[B]](f: Int => B)(implicit build: ArrMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(numTileRows)
     var index = 0
-    foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
+    foreachRow{r => res.setElemUnsafe(index, f(r)); index += 1 }
     res
   }
 

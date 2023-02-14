@@ -90,8 +90,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
 
   def dropVert(v: Int): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum - 1)
-    iUntilForeach(v){i => res.unsafeSetElem(i, vert(i)) }
-    iUntilForeach(v + 1, vertsNum){i => res.unsafeSetElem(i - 1, vert(i)) }
+    iUntilForeach(v){i => res.setElemUnsafe(i, vert(i)) }
+    iUntilForeach(v + 1, vertsNum){i => res.setElemUnsafe(i - 1, vert(i)) }
     res
   }
 
@@ -117,7 +117,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   { var count = 0
     val res = build.uninitialised(vertsNum)
     while (count < vertsNum)
-    { res.unsafeSetElem(count, f(side(count + 1)))
+    { res.setElemUnsafe(count, f(side(count + 1)))
       count += 1
     }
     res
@@ -128,7 +128,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   { var count = 0
     val res = build.uninitialised(vertsNum)
     while (count < vertsNum)
-    { res.unsafeSetElem(count, f(side(count + 1), count + initCount))
+    { res.setElemUnsafe(count, f(side(count + 1), count + initCount))
       count += 1
     }
     res
@@ -287,18 +287,18 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + 1)
-    iUntilForeach(insertionPoint - 1){ i => res.unsafeSetElem(i, vert(i)) }
-    res.unsafeSetElem(insertionPoint, newVec)
-    iUntilForeach(insertionPoint, vertsNum){ i => res.unsafeSetElem(i + 1, vert(i)) }
+    iUntilForeach(insertionPoint - 1){ i => res.setElemUnsafe(i, vert(i)) }
+    res.setElemUnsafe(insertionPoint, newVec)
+    iUntilForeach(insertionPoint, vertsNum){ i => res.setElemUnsafe(i + 1, vert(i)) }
     res
   }
 
   /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + newVecs.length)
-    iUntilForeach(insertionPoint){ i => res.unsafeSetElem(i, vert(i)) }
-    newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i, elem))
-    iUntilForeach(insertionPoint, vertsNum){ i => res.unsafeSetElem(i + newVecs.length, vert(i)) }
+    iUntilForeach(insertionPoint){ i => res.setElemUnsafe(i, vert(i)) }
+    newVecs.iForeach((i, elem) => res.setElemUnsafe(insertionPoint + i, elem))
+    iUntilForeach(insertionPoint, vertsNum){ i => res.setElemUnsafe(i + newVecs.length, vert(i)) }
     res
   }
 

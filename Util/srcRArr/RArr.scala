@@ -8,7 +8,7 @@ trait RefsSeqLike[+A] extends Any with SeqLike[A]
   def unsafeArray: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
   override final def fElemStr: A @uncheckedVariance => String = _.toString
-  override final def unsafeSetElem(i: Int, newElem: A @uncheckedVariance) : Unit = unsafeArray(i) = newElem
+  override final def setElemUnsafe(i: Int, newElem: A @uncheckedVariance) : Unit = unsafeArray(i) = newElem
 }
 
 /** The immutable Array based class for types without there own specialised [[Arr]] collection classes. It inherits the standard foreach, map,
@@ -112,8 +112,8 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     case -1 => returnThis
     case n => {
       val newArr = unsafeSameSize(length - 1)
-      iUntilForeach(n)(i => newArr.unsafeSetElem(i, apply(i)))
-      iUntilForeach(n + 1, length)(i => newArr.unsafeSetElem(i - 1, apply(i)))
+      iUntilForeach(n)(i => newArr.setElemUnsafe(i, apply(i)))
+      iUntilForeach(n + 1, length)(i => newArr.setElemUnsafe(i - 1, apply(i)))
       newArr
     }
   }
@@ -143,7 +143,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
-    while(i < length){unsafeSetElem(i, value); i += 1}
+    while(i < length){setElemUnsafe(i, value); i += 1}
   }
 
   def mapToCurlySyntax: String = ???
@@ -212,7 +212,7 @@ final class RBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem
+  override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: A => String = _.toString
   override def grow(newElem: A): Unit = unsafeBuffer.append(newElem)
 }

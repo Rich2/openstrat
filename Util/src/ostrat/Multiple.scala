@@ -20,7 +20,7 @@ case class Multiple[+A](value: A, num: Int)
 
   def toArr[ArrA <: Arr[A]@uncheckedVariance](implicit build: ArrMapBuilder[A, ArrA]@uncheckedVariance): ArrA =
   { val res: ArrA = build.uninitialised(num)
-    iUntilForeach(num){i => res.unsafeSetElem(i, value)}
+    iUntilForeach(num){i => res.setElemUnsafe(i, value)}
     res
   }
 }
@@ -50,13 +50,13 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
   def toSinglesArr[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA =
   { val res = build.uninitialised(numSingles)
     var i = 0
-    foreach{ m => iUntilForeach(m.num){ _ => res.unsafeSetElem(i, m.value); i += 1 } }
+    foreach{ m => iUntilForeach(m.num){ _ => res.setElemUnsafe(i, m.value); i += 1 } }
     res
   }
 
   override def length: Int = arrayInt.length
   override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
-  override def unsafeSetElem(i: Int, newElem: Multiple[A]): Unit = { values(i) = newElem.value; arrayInt(i) =newElem.num }
+  override def setElemUnsafe(i: Int, newElem: Multiple[A]): Unit = { values(i) = newElem.value; arrayInt(i) =newElem.num }
   override def fElemStr: Multiple[A] => String = _.toString
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
 }
@@ -70,7 +70,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   def toSinglesArr[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA =
   { val res = build.uninitialised(numSingles)
     var i = 0
-    thisSeq.foreach { m => iUntilForeach(m.num) { _ => res.unsafeSetElem(i, m.value); i += 1 } }
+    thisSeq.foreach { m => iUntilForeach(m.num) { _ => res.setElemUnsafe(i, m.value); i += 1 } }
     res
   }
 
@@ -87,7 +87,7 @@ class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBu
   override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }
   override def length: Int = numBuffer.length
   override def apply(index: Int): Multiple[A] = new Multiple[A](valuesBuffer(index), numBuffer(index))
-  override def unsafeSetElem(i: Int, newElem: Multiple[A]): Unit = { numBuffer(i) = newElem.num; valuesBuffer(i) = newElem.value }
+  override def setElemUnsafe(i: Int, newElem: Multiple[A]): Unit = { numBuffer(i) = newElem.num; valuesBuffer(i) = newElem.value }
   override def fElemStr: Multiple[A] => String = _.toString
 }
 
@@ -99,7 +99,7 @@ class MultipleArrMapBuilder[A](implicit ct: ClassTag[A]) extends ArrMapBuilder[M
 { override type BuffT = MultipleBuff[A]
   override def buffGrow(buff: MultipleBuff[A], newElem: Multiple[A]): Unit = buff.grow(newElem)
   override def uninitialised(length: Int): MultipleArr[A] = new MultipleArr[A](new Array[Int](length), new Array[A](length))
-  override def indexSet(seqLike: MultipleArr[A], index: Int, elem: Multiple[A]): Unit = { seqLike.unsafeSetElem(index, elem) }
+  override def indexSet(seqLike: MultipleArr[A], index: Int, elem: Multiple[A]): Unit = { seqLike.setElemUnsafe(index, elem) }
   override def newBuff(length: Int): MultipleBuff[A] = MultipleBuff(length)
   override def buffToSeqLike(buff: MultipleBuff[A]): MultipleArr[A] = new MultipleArr[A](buff.numBuffer.toArray, buff.valuesBuffer.toArray)
 }

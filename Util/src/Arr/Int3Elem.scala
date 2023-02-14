@@ -17,7 +17,7 @@ trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
 
   override def elemProdSize: Int = 3
 
-  final override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(3 * index) = newElem.int1; unsafeArray(3 * index + 1) = newElem.int2
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(3 * index) = newElem.int1; unsafeArray(3 * index + 1) = newElem.int2
     unsafeArray(3 * index + 2) = newElem.int3 }
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
@@ -61,7 +61,7 @@ trait Int3Buff[A <: Int3Elem] extends Any with IntNBuff[A]
   final override def length: Int = unsafeBuffer.length / 3
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3); () }
   override def apply(index: Int): A = newElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
-  override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 3) = newElem.int1; unsafeBuffer(i * 3 + 1) = newElem.int2; unsafeBuffer(i * 3 + 2) = newElem.int3 }
+  override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 3) = newElem.int1; unsafeBuffer(i * 3 + 1) = newElem.int2; unsafeBuffer(i * 3 + 2) = newElem.int3 }
 }
 
 trait Int3SeqLikeCommonBuilder[BB <: Int3SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]

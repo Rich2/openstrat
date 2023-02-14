@@ -63,7 +63,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
       val a: A = unsafeArray(gridSys.arrIndex(sc))
       if(a != null)
       { val newVal = f(sc, a)
-        res.unsafeSetElem(i, newVal)
+        res.setElemUnsafe(i, newVal)
         i += 1
       }
 
@@ -82,7 +82,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
       val a: A = unsafeArray(gridSys.arrIndex(sc))
       if (a != null) {
         val new1 = f1(sc, a)
-        res1.unsafeSetElem(i, new1)
+        res1.setElemUnsafe(i, new1)
         res2(i) = f2(sc, a)
         i += 1
       }

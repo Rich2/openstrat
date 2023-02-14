@@ -39,7 +39,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   { val res = build.uninitialised(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(hc, apply(hc))
-      res.unsafeSetElem(i, newElem)
+      res.setElemUnsafe(i, newElem)
     }
     res
   }
