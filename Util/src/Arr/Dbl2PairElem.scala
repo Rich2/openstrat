@@ -21,7 +21,7 @@ trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1], A2, A <: Dbl2PairElem[A1
   def newA1(dbl1: Double, dbl2: Double): A1
   final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1))
   final override def a1NumDbl: Int = 2
-  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbl(index * 2) = value.dbl1; a1ArrayDbl(index * 2 + 1) = value.dbl2 }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayDbl(index * 2) = value.dbl1; a1ArrayDbl(index * 2 + 1) = value.dbl2 }
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 

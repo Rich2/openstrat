@@ -28,7 +28,7 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
   override def a1NumInt: Int = 3
 
-  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 3) = value.int1; a1ArrayInt(index * 3 + 1) = value.int2
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayInt(index * 3) = value.int1; a1ArrayInt(index * 3 + 1) = value.int2
     a1ArrayInt(index * 3 + 2) = value.int3 }
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)

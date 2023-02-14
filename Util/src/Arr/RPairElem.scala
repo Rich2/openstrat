@@ -13,7 +13,7 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
   override def typeStr: String = "GenPairArr"
   override def a1Arr: RArr[A1] = new RArr[A1](a1Array)
   override def a1Index(index: Int): A1 = a1Array(index)
-  override def unsafeSetA1(index: Int, value: A1): Unit = a1Array(index) = value
+  override def setA1Unsafe(index: Int, value: A1): Unit = a1Array(index) = value
   override def apply(index: Int): RPairElem[A1, A2] = new RPairElem[A1, A2](a1Array(index), a2Array(index))
 
   def replaceA1byA2(key: A2, newValue: A1)(implicit ct1: ClassTag[A1]): RPairArr[A1, A2] =

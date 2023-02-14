@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -158,7 +158,9 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
-  def unsafeSetA1(index: Int, value: A1): Unit
+  def setA1Unsafe(index: Int, value: A1): Unit
+
+  final def setA2Unsafe(index: Int, value: A2): Unit = a2Array(index) = value
 
   def a2Exists(key: A2): Boolean = {
     var res = false

@@ -21,7 +21,7 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1
   final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
   override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
 
-  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbl(index * 3) = value.dbl1; a1ArrayDbl(index * 3 + 1) = value.dbl2
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayDbl(index * 3) = value.dbl1; a1ArrayDbl(index * 3 + 1) = value.dbl2
     a1ArrayDbl(index * 3 + 2) = value.dbl3 }
 
   final override def unsafeSetElem(i: Int, newElem: A): Unit = { a1ArrayDbl(i * 3) = newElem.a1Dbl1; a1ArrayDbl(i * 3 + 1) = newElem.a1Dbl2

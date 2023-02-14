@@ -20,7 +20,7 @@ trait Int1PairArr[A1 <: Int1Elem, ArrA1 <: Int1Arr[A1], A2, A <: Int1PairElem[A1
 
   final override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index))
   final override def a1NumInt: Int = 1
-  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index) = value.int1 }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayInt(index) = value.int1 }
 
   @targetName("append") final override def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 

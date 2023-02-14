@@ -9,7 +9,7 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
   override def typeStr: String = "StringPairArr"
   override def a1Arr: StrArr = new StrArr(a1Array)
   override def a1Index(index: Int): String = a1Array(index)
-  override def unsafeSetA1(index: Int, value: String): Unit = a1Array(index) = value
+  override def setA1Unsafe(index: Int, value: String): Unit = a1Array(index) = value
 
   override def replaceA1byA2(key: A2, newValue: String): StrPairArr[A2] =
   { val newA1s = new Array[String](length)

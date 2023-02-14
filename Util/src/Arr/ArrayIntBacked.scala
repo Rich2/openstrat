@@ -79,7 +79,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   /** Returns a new uninitialised [[PairNoA1PramArr]] of the same final type. */
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
-  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInts(index) = value.unsafeArray }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayInts(index) = value.unsafeArray }
 
   override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Array[Int]](length)
@@ -87,7 +87,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
     val res = newFromArrays(newA1s, a2Array)
     var i = 0
     while (i < length) {
-      if (key == a2Index(i)) res.unsafeSetA1(i, newValue);
+      if (key == a2Index(i)) res.setA1Unsafe(i, newValue);
       i += 1
     }
     res

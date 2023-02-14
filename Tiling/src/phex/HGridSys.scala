@@ -172,6 +172,15 @@ trait HGridSys extends Any with TGridSys
     build.buffToSeqLike(buff)
   }
 
+  def mapPair[B2](f2: HCen => B2)(implicit build: HCenPairArrMapBuilder[B2]): HCenPairArr[B2] =
+  { val res = build.uninitialised(numTiles)
+    iForeach{ (hc, i) =>
+      res.setA1Unsafe(i, hc)
+      res.setA2Unsafe(i, f2(hc))
+    }
+    res
+  }
+
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
   final def flatMap[ArrT <: Arr[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =

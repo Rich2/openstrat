@@ -22,7 +22,7 @@ trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1
     a1ArrayDbl.copyToArray(newA1s)
     val res = newFromArrays(newA1s, a2Array)
     var i = 0
-    while(i < length){ if (key == a2Index(i)) res.unsafeSetA1(i, newValue); i += 1 }
+    while(i < length){ if (key == a2Index(i)) res.setA1Unsafe(i, newValue); i += 1 }
     res
   }
 
