@@ -84,10 +84,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   override def layerArrayIndex(r: Int, c: Int): Int =
   { val ind = manMapex(r, c) { man => man.indexStart + man.grid.layerArrayIndex(r, c) }
-    if (ind < 0) {
-      deb(s"r = $r, c = $c gives an array index of $ind, substiuting 0.")
-      0
-    }
+    if (ind < 0) excep(s"r = $r, c = $c gives an array index of $ind, substiuting 0.")
     else ind
   }
 

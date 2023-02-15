@@ -43,13 +43,14 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
 
-    def polys = proj.hCenPolygons(corners)
+    def polys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
-    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
+    /*def tileFills2: RArr[PolygonFill] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
-    }
+    }*/
 
-    def tileFills2: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+    def tileFills: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+    def tileActives: RArr[PolygonActive] = polys.pairMap{ (hc, poly) => poly.active(hc) }
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
@@ -83,8 +84,19 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFills  ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
+
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+    case (LeftButton, _, cl) =>
+    { selected = cl
+      statusText = selected.headFoldToString("Nothing Selected")
+      thisTop()
+    }
+
+    case (_, _, h) => deb("Other; " + h.toString)
+  }
+
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
 
