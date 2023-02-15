@@ -42,27 +42,30 @@ object EGridLaunch extends GuiLaunchMore
       case 19 => ScenNCanada
 
       case 20 => EGrid220.scen0
+      case 21 => EGrid220.scen1
 
-      case 30 => EGrid160.scen0
-      case 31 => EGrid160.scen1
+      case 32 => Scen220s0e1
 
-      case 34 => EGrid160.scen4
-      case 35 => EGrid160.scen5
+      case 50 => EGrid160.scen0
+      case 51 => EGrid160.scen1
 
-      case 38 => EGrid160.scen8
-      case 39 => EGrid160.scen9
-      case 40 => EGrid160.scen10
-      case 41 => EGrid160.scen11
+      case 54 => EGrid160.scen4
+      case 55 => EGrid160.scen5
 
-      case 42 => Scen160S0E1
-      case 43 => Scen160s11e1
-      case 44 => Scen160S4E5
-      case 45 => Brit160.britScen
+      case 58 => EGrid160.scen8
+      case 59 => EGrid160.scen9
+      case 60 => EGrid160.scen10
+      case 61 => EGrid160.scen11
 
-      case 60 => EGrid80.scen0
-      case 61 => EGrid80.scen1
-      case 72 => Scen80s0s1
-      case 73 => WesternFront.wFrontScen
+      case 62 => Scen160S0E1
+      case 63 => Scen160s11e1
+      case 64 => Scen160S4E5
+      case 65 => Brit160.britScen
+
+      case 80 => EGrid80.scen0
+      case 81 => EGrid80.scen1
+      case 92 => Scen80s0s1
+      case 93 => WesternFront.wFrontScen
 
       case _ => Scen320S0E11
     }

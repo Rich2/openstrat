@@ -11,7 +11,7 @@ object EGrid220
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 55Km or hex scale 220km. */
   def e0(rBottomCen: Int, rTopCen: Int = 188): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 0)
 
-//  def e30(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen,  1)
+  def e30(rBottomCen: Int, rTopCen: Int = 188): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen,  1)
 //  def e60(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 2)
 //  def e90(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 3)
 //  def e120(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 4)
@@ -24,8 +24,8 @@ object EGrid220
 //  def w30(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen,11)
 //
   def scen0: EScenBasic = EScenBasic(Terr220E0.grid, Terr220E0.terrs, Terr220E0.sTerrs, Terr220E0.corners, "220km 0E")
-//
-//  def scen1: EScenBasic = EScenBasic(Terr220E30.grid, Terr220E30.terrs, Terr220E30.sTerrs, Terr220E30.corners, "220km 30E")
+
+  def scen1: EScenBasic = EScenBasic(Terr220E30.grid, Terr220E30.terrs, Terr220E30.sTerrs, Terr220E30.corners, "220km 30E")
 //
 //  def scen2: EScenBasic =
 //  { val grid: EGridLongFull = Terr220E60.grid
