@@ -11,8 +11,15 @@ object Terr220E30 extends Long220Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
+    wr(182, hillTundra * 2, sea * 3)
+    wr(180, hillTundra, taiga, tundra, hillTundra, sea)
+    wr(178, taiga * 4, tundra)
+    wr(176, taiga, taiga * 3, taiga * 2)
+    wr(174, taiga, taiga * 5)
+    wr(172, taiga, taiga * 6)
+    wr(170, sea, taiga * 6)
     wr(168, plain, plain, plain * 5)
-    wr(166, plain, plain * 7)
+    wr(166, sea, plain * 7)
     wr(164, plain * 8)
     wr(162, plain * 9)
     wr(160, plain * 9)
@@ -39,7 +46,9 @@ object Terr220E30 extends Long220Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    //res.setSomeInts(Sea, 153,1537,  153,1543,  154,1544,  155,1543)
+
+    res.setSomeInts(Sea, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
+    res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529)
    // res.setSomeInts(Lake, 149, 1537)
 
     res
