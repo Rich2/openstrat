@@ -34,7 +34,7 @@ object Terr320E30 extends Long320Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 153,1537,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(Lake, 149, 1537)
-    res.setSomeInts(Sea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530)//Baltic
+    res.setSomeInts(Sea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(Sea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
     res.setSomeInts(Sea, 131,1521)
@@ -56,6 +56,19 @@ object Terr320E30 extends Long320Terrs
     res.setMouth5(148, 1540)//Leke Ladoga south east
 
     //res.setMouth5Corner(144, 1528)
+    res.setCorner(144, 1528, 5, HVDn)//Baltic west
+    res.setCorner(144, 1528, 0, HVDR)//Baltic west
+    res.setCorner(146, 1530, 4, HVDR)//Baltic
+    res.setCorner(146, 1530, 5, HVDR)//Baltic
+    res.setCorner(148, 1528, 3, HVUL)//Baltic
+    res.setTJunction(147, 1530)//Baltic - Gulf of Finland - Gulf of bothnia
+    res.setVert3In(148, 1532)//Helsinki - Tallinn
+    res.setMouth4(148, 1536)//St Petersburg
+    res.setVert5In(148, 1532)//Gulf of Bothnia
+    res.setVert2In(150, 1532)//Gulf of Bothnia
+    res.setVert5In(150, 1534)//Gulf of Bothnia
+    res.setVert2In(152, 1532)//Gulf of Bothnia
+    res.setMouth3(154, 1534)//Gulf of Bothnia north
 
     res.setMouth0(134, 1542)//Kerch straits
 
