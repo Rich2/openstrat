@@ -16,8 +16,9 @@ object BcLaunch extends GuiLaunchMore
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: BCScen = num match
-    { case 2 => BCScen2
-      case _ => BCScen2
+    { case 1 => BCScen1
+      case 2 => BCScen2
+      case _ => BCScen1
     }
 
     (BC305Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " BC305 " + ife(isFlat, "Flat", "Globe") + " JavaFx")

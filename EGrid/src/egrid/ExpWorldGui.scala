@@ -31,19 +31,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
   def frame: RArr[GraphicElem] =
-  {
-    def irrFills: GraphicElems = proj match { case ep: HSysProjectionEarth => ep.irrFills; case _ => RArr() }
-
-    def rcTexts1 = terrs.hcOptFlatMap{ (hc, terr) =>
-      proj.transOptCoord(hc).map{ pt =>
-        val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
-        TextGraphic.lines(strs, 12, pt, terr.contrastBW)
-      }
-    }
-
-    def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
-
-    def polys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
+  { val polys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
     /*def tileFills2: RArr[PolygonFill] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
@@ -75,12 +63,22 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 
+    def rcTexts1 = terrs.hcOptFlatMap { (hc, terr) =>
+      proj.transOptCoord(hc).map { pt =>
+        val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
+        TextGraphic.lines(strs, 12, pt, terr.contrastBW)
+      }
+    }
+
+    def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
+
     def ifGlobe(f: HSysProjectionEarth => GraphicElems): GraphicElems = proj match
     { case ep: HSysProjectionEarth => f(ep)
       case _ => RArr()
     }
 
     def seas: GraphicElems = ifGlobe{ep => RArr(earth2DEllipse(ep.metresPerPixel).fill(LightBlue)) }
+    def irrFills: GraphicElems = proj match { case ep: HSysProjectionEarth => ep.irrFills; case _ => RArr() }
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
