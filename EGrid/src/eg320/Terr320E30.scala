@@ -11,12 +11,12 @@ object Terr320E30 extends Long320Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     gs(156, 1532, taiga * 2, sea)
-    gs(154, 1530, taiga * 4)
-    gs(152, 1536, taiga, sea, taiga)
-    gs(150, 1534, taiga * 3)
-    gs(148, 1528, taiga, sea, taiga * 3)
-    gs(146, 1534, taiga * 4)
-    gs(144, 1532, plain * 4)
+    gs(154, 1530, hillTaiga, taiga * 3)
+    wr(152, taiga, taiga, sea, taiga)
+    wr(150, taiga, taiga * 3)
+    wr(148, taiga * 2, taiga * 3)
+    wr(146, plain, taiga * 4)
+    wr(144, plain * 5)
     gs(142, 1526, plain * 6)
     gs(140, 1528, plain * 6)
     gs(138, 1526, mtain * 2, hills, plain * 3, desert)
@@ -34,6 +34,7 @@ object Terr320E30 extends Long320Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 153,1537,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(Lake, 149, 1537)
+    res.setSomeInts(Sea, 145,1527)//Baltic
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(Sea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
     res.setSomeInts(Sea, 131,1521)

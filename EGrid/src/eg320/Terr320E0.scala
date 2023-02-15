@@ -16,8 +16,8 @@ object Terr320E0 extends Long320Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     wr(156, sea * 3)
     wr(154, sea * 4)
-    wr(152,  sea * 3, taiga)
-    wr(150, sea * 3, taiga)
+    wr(152,  sea * 3, hillTaiga)
+    wr(150, sea * 3, hillTaiga)
     wr(148, sea * 3, hillTaiga, taiga)
     wr(146, sea, hillForest, sea, plain * 2)
     gs(144, 508, plain, sea * 2, plain)
@@ -36,7 +36,7 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 143,507,  145,521,  146,520,  147,517,  147,519)
+    res.setSomeInts(Sea, 143,507,  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)
     res.setSomeInts(Sea, 139,509,  140,510,  141,507,  141,511,  142,508)
 
     res.setSomeInts(Sea, 133,521,  134,524,  135,521,  135,523)
