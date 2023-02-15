@@ -20,8 +20,8 @@ object Terr320E0 extends Long320Terrs
     wr(150, sea * 3, hillTaiga)
     wr(148, sea * 3, hillTaiga, taiga)
     wr(146, sea, hillForest, sea, plain * 2)
-    gs(144, 508, plain, sea * 2, plain)
-    gs(142, 506, plain, plain, sea, plain * 2)
+    wr(144, sea, plain, sea * 2, plain)
+    gs(142, 506, plain, plain * 2, plain * 2)
     wr(140, sea, hills, plain * 4)
     gs(138, 460 + 50, plain * 2, hills, mtain * 2)
     gs(136, 512, plain, hills, mtain, plain)
@@ -36,14 +36,10 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 143,507,  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)
-    res.setSomeInts(Sea, 139,509,  140,510,  141,507,  141,511,  142,508)
-
-    res.setSomeInts(Sea, 133,521,  134,524,  135,521,  135,523)
-
-    res.setSomeInts(Sea, 130,528)
-
-    res.setSomeInts(Sea, 129,507,  129,509,  129,511,  129,525,  131,527,  134,528,  135,527,  136,526)
+    res.setSomeInts(Sea,  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
+    res.setSomeInts(Sea, 139,509,  140,510,  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
+    res.setSomeInts(Sea, 133,521,  134,524,  135,521,  135,523)//Corsica
+    res.setSomeInts(Sea, 129,507,  129,509,  129,511,  129,525, 130,528,  131,527,  134,528,  135,527,  136,526)//Mediterranean
     res
   }
 
@@ -51,10 +47,13 @@ object Terr320E0 extends Long320Terrs
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
     res.setMouth1(146, 514)//Skagerrack west
-    res.setVert0In(146, 518)//Oslo    /
+    res.setVert0In(146, 518)//Oslo
     res.setVert1In(146, 518)//Gothenberg
     res.setVert4In(146, 522)//Copenhagen
-    res.setMouth5OffGrid(144, 524)//Stralsund - Ystad
+    res.setCorner(146, 522, 3, HVUp)//Stralsund - Ystad
+    res.setCorner(144, 520, 1, HVDn)//Stralsund - Ystad
+    res.setCorner(146, 522, 2, HVUL)
+    res.setCorner(146, 522, 1, HVUL)
 
     res.setMouth1(140, 504)// St Georges Chanel
     res.setVert2In(142, 506)//Bristol
@@ -63,8 +62,11 @@ object Terr320E0 extends Long320Terrs
 
     res.setMouth1(138, 506)// English Channel Atlantic end
     res.setVert2In(140, 508)//Le Mont St Michelle
-    res.setVert5In(140, 512)// Southampton Le Havre
-    res.setMouth4(142, 514)// English Channel Dover
+    res.setVert5In(140, 512)//Exmouth - Cherbourg
+    res.setVert0In(140, 512)//Le Havre - Portsmouth
+    res.setVert3In(142, 514)//Dover - Calais
+    res.setVert2In(142, 514)//Margate - Antwerp
+    res.setMouth3(144, 516)//English Channel north east
 
     res.setMouth1(134, 518)//Sardinia
     res.setVert0In(134, 522)

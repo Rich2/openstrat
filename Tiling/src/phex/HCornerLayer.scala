@@ -4,7 +4,7 @@ import geom._
 
 /** [[HGridSys]] data layer class that allows the hex tile vertices to be shifted by a small amount to create more pleasing terrain and to feature
  *  islands, straits and other tile side features. Every [[HCen]] hex tile in the [[HGridSys]] has 6 vertex entries. */
-class HCornerLayer(val unsafeArray: Array[Int])
+final class HCornerLayer(val unsafeArray: Array[Int])
 { /** The number of corners stored / specified in this [[HCornerLayer]] object. This will be 6 for every tile in the associated [[HGridSys]]. */
   def numCorners: Int = unsafeArray.length
 
@@ -192,7 +192,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
   def setMouth5Corner(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
 
-  /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. */
+  /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. Would like to make this protected and possibly remove altogether. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val i = vertNum %% 6
     val dirn = i match
@@ -256,15 +256,6 @@ class HCornerLayer(val unsafeArray: Array[Int])
       case m => m
     }
     hVert.adjHCenCorners.foreach{pair => setCorner(pair._1, pair._2, dirn2, mag3)}
-  }
-
-  /** Incomplete needs design adjustment. */
-  def setVertAllIn(hVertR: Int, hVertC: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit ={
-    if (HVert(hVertR, hVertC).hexIsUp)
-      { setCornerIn(hVertR - 1, hVertC - 2, 1, magnitude)
-        setCornerIn(hVertR + 1, hVertC + 2, 3, magnitude)
-        setCornerIn(hVertR - 1, hVertC - 2, 1, magnitude)
-      }
   }
 
   /** Returns the [[PolygonHVAndOffset]] [[PolygonLike]] for the given [[HSide]]. */

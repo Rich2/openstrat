@@ -34,7 +34,7 @@ object Terr320E30 extends Long320Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 153,1537,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(Lake, 149, 1537)
-    res.setSomeInts(Sea, 145,1527)//Baltic
+    res.setSomeInts(Sea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530)//Baltic
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(Sea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
     res.setSomeInts(Sea, 131,1521)
@@ -55,16 +55,13 @@ object Terr320E30 extends Long320Terrs
     res.setMouth2(150, 1534)//Lake Ladoga north west
     res.setMouth5(148, 1540)//Leke Ladoga south east
 
-    res.setMouth5Corner(144, 1528)
+    //res.setMouth5Corner(144, 1528)
 
     res.setMouth0(134, 1542)//Kerch straits
 
-    res.setTJunction(137, 1542)
-//    res.setSideCorner2(136, 1540, 1, HVDL, HVUp)//Azov T
-//    res.setCornerIn(138, 1542, 3)//Azov T
-//    res.setCornerIn(136, 1544, 5)//Azov T
+    res.setTJunction(137, 1542)//Azov Sea
     res.setMouth4(138, 1546)//Rostov north west Azov sea
-    res.setMouth2(138, 1538)
+    res.setMouth2(138, 1538)//Azov Sea north east
 
     res.setCornerIn(136, 1524, 5)//Adriatic head
     res.setCornerIn(136, 1524, 4)//Adriatic San Marino
