@@ -25,6 +25,11 @@ exp = false;
 18 = HGView(142, 9730; 21);//320km North America 4 grids 150W - 60W
 19 = HGView(157, 8711; 32);//320km North Canada only 2 rows, 120W - 90W
 
+20 = HGView(156, 512; 22.5);//220Km 0E
+21 = HGView(156, 1536; 22.5);//220Km 30E
+
+32 = HGView(156, 1524; 22.5);//220km 0E - 30E
+
 50 = HGView(286, 512; 25);//160km 0E
 51 = HGView(286, 1536; 25);//160km 30E
 
