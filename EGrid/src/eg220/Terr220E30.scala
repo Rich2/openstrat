@@ -26,7 +26,7 @@ object Terr220E30 extends Long220Terrs
     wr(158, plain * 9)
     wr(156, plain * 10)
     wr(154, plain * 7, sea, plain * 2)
-    wr(152, plain * 4, sea * 3, plain * 3)
+    wr(152, plain * 4, sea * 2, plain, plain * 3)
     wr(150, plain * 4, sea * 5, plain * 2)
     wr(148, hills, hills * 10)
     wr(146, hills, hills * 4, plain * 4, plain * 2)
@@ -48,7 +48,8 @@ object Terr220E30 extends Long220Terrs
     res.setSomeInts(Lake, 171,1537,  172,1542,  173,1541)//Lakes near St Petersburg
     res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
     res.setSomeInts(Sea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
-    res.setSomeInts(Sea, 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)
+    res.setSomeInts(Sea, 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
+    res.setSomeInts(Sea, 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
     res
   }
 
@@ -96,6 +97,20 @@ object Terr220E30 extends Long220Terrs
     res.setCorner(144, 1516, 5, HVDR)//Italy - Sicily north
     res.setCorner(144, 1516, 4, HVUR)//Italy - Sicily
     res.setMouth0(142, 1514)
+
+    res.setMouth1(144, 1520)//Peloponnese - Greece west
+    res.setMouth4(146, 1526)//Peloponnese - Greece
+    res.setMouth1(146, 1522)//Thessaloniki - Aegean
+    res.setVert0In(146, 1526)//Thrace - Aegean
+    res.setTJunction(147, 1528)//Aegean - Dardanelles
+    res.setMouth0(144, 1528)//Thrace - Aegean
+    res.setVert0In(146, 1530)//Dardanelles
+    res.setVert3In(148, 1532)//Sea of Marmara
+    res.setVert2In(148, 1532)//Constantinople
+    res.setMouth3(150, 1534)//Sea of Marmara north
+
+    res.setMouth3(154, 1546)//Kerch Straits north
+    res.setMouth0(150, 1546)//Kerch Straits south
 
     res
   }
