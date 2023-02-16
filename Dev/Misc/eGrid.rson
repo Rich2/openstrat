@@ -47,6 +47,7 @@ exp = false;
 55 = HGView(288, 508; 28);//160km Britain
 
 60 = HGView(338, 512; 25);//120km 0E
+61 = HGView(285, 1536; 25);//120km 30E
 
 72 = HGView(354, 1524; 24);//120km 0E - 30E
 
