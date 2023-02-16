@@ -45,21 +45,28 @@ object Terr220E0 extends Long220Terrs
     res.setSomeInts(Sea,  157,507,  159,513,  160,514,  164,506,  165,505)//British Isles
     res.setSomeInts(Sea, 167,521,  167,523,  166,524,  165,525)//Denmark
 
+    res.setSomeInts(Sea, 141, 503)//Mediterranean
+
     res
   }
 
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
-//    res.setMouth1(146, 514)//Skagerrack west
-//    res.setVert0In(146, 518)//Oslo
-//    res.setVert1In(146, 518)//Gothenberg
-//    res.setVert4In(146, 522)//Copenhagen
-//    res.setCorner(146, 522, 3, HVUp)//Stralsund - Ystad
-//    res.setCorner(144, 520, 1, HVDn)//Stralsund - Ystad
-//    res.setCorner(146, 522, 2, HVUL)
-//    res.setCorner(146, 522, 1, HVUL)
+    res.setMouth2(166, 502)//Ireland - Scotland north west
+    res.setVert1In(164, 504)//Ireland - Scotland
+    res.setMouth0(162, 506)//Ireland - Scotland south east
+    res.setMouth1(156, 504)//English Channel west
+    res.setMouth4(158, 510)//Devon - Brittany
+    res.setMouth1(158, 510)//Portsmouth Le Havre
+    res.setVert2In(160, 512)//Dover Calais
+    res.setMouth3(162, 514)//English Channel north east
 
+    res.setMouth1(166, 518)//Denmark - Norway west
+    res.setVert0In(166, 522)//Denmark Oslo
+    res.setVert1In(166, 522)//Greaa - Halmstad
+    res.setVert4In(166, 526)//Zealand - Sweden north
+    res.setMouth5(164, 528)//Zealand - Sweden south east
 
     res
   }

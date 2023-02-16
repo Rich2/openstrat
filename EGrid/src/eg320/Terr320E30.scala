@@ -61,7 +61,7 @@ object Terr320E30 extends Long320Terrs
     res.setCorner(146, 1530, 4, HVDR)//Baltic
     res.setCorner(146, 1530, 5, HVDR)//Baltic
     res.setCorner(148, 1528, 3, HVUL)//Baltic
-    res.setTJunction(147, 1530)//Baltic - Gulf of Finland - Gulf of bothnia
+    res.setTJunction(147, 1530)//Baltic - Gulf of Finland - Gulf of Bothnia
     res.setVert3In(148, 1532)//Helsinki - Tallinn
     res.setMouth4(148, 1536)//St Petersburg
     res.setVert5In(148, 1532)//Gulf of Bothnia

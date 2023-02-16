@@ -48,14 +48,37 @@ object Terr220E30 extends Long220Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
 
     res.setSomeInts(Sea, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
-    res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529)
-   // res.setSomeInts(Lake, 149, 1537)
-
+    res.setSomeInts(Lake, 171,1537,  172,1542,  173,1541)
+    res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1531,  169,1533,  169,1535)//Baltic
+    res.setSomeInts(Sea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
     res
   }
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
+
+    res.setMouth1(170, 1534)//Lake Lagoda West
+    res.setMouth4(172, 1540)//Lake Lagoda north east
+    res.setMouth2(174, 1538)//Lake Onega north
+    res.setVert1In(172, 1540)//Lake Onega
+    res.setMouth0(170, 1542)//Lake Onega south
+
+    res.setMouth3(178, 1530)//Gulf of Bothnia north
+    res.setVert2In(176, 1528)//Gulf of Bothnia
+    res.setVert5In(174, 1530)//Gulf of Bothnia
+    res.setVert2In(174, 1526)//Gulf of Bothnia
+    res.setVert5In(172, 1528)//Gulf of Bothnia
+    res.setMouth0(170, 1526)//Gulf of Bothnia south
+
+    res.setMouth1(166, 1522)//Lativa - Baltic Sea
+    res.setTJunction(167, 1526)//Baltic Sea - Gulf of Riga
+    res.setMouth3(170, 1526)//Baltic
+    res.setVert3In(168, 1528)//Riga
+    res.setVert2In(168, 1528)//Parnu
+    res.setVert5In(168, 1532)//Tallinn
+    res.setVert0In(168, 1532)//Gulf of Finland
+    res.setVert3In(170, 1534)//Gulf of Finland
+    res.setMouth4(170, 1538)//St Petersburg Gulf of Finland
 
     res
   }
