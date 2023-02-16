@@ -50,6 +50,7 @@ object Terr220E30 extends Long220Terrs
     res.setSomeInts(Sea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
     res.setSomeInts(Sea, 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
     res.setSomeInts(Sea, 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
+    res.setSomeInts(Sea, 134, 1540,  133,1541,  134,1544)
     res
   }
 
@@ -111,6 +112,12 @@ object Terr220E30 extends Long220Terrs
 
     res.setMouth3(154, 1546)//Kerch Straits north
     res.setMouth0(150, 1546)//Kerch Straits south
+
+    res.setMouth3(136, 1540)//Suez Gulf of Suez north
+    res.setVert4In(134, 1542)//Gulf of Suez
+    res.setMouth5(132, 1544)//Gulf of Suez south
+    res.setMouth0(132, 1544)//Gulf of Arabia south
+    res.setMouth3(136, 1544)//Gulf of Arabia north
 
     res
   }
