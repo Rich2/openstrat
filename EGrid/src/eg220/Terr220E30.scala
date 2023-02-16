@@ -45,10 +45,10 @@ object Terr220E30 extends Long220Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
 
     res.setSomeInts(Sea,  175,1543, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
-    res.setSomeInts(Lake, 171,1537,  172,1542,  173,1541)
+    res.setSomeInts(Lake, 171,1537,  172,1542,  173,1541)//Lakes near St Petersburg
     res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
     res.setSomeInts(Sea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
-    res.setSomeInts(Sea, 144, 1514)
+    res.setSomeInts(Sea, 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)
     res
   }
 
@@ -85,6 +85,17 @@ object Terr220E30 extends Long220Terrs
     res.setVert0In(168, 1532)//Gulf of Finland
     res.setVert3In(170, 1534)//Gulf of Finland
     res.setMouth4(170, 1538)//St Petersburg Gulf of Finland
+
+    res.setCorner(148, 1516, 0, HVDn)//Adriatic
+    res.setCorner(150, 1518, 4, HVUR)//Adriatic
+    res.setVert1In(148, 1516)//Adriatic
+    res.setVert4In(148, 1520)//Adriatic
+    res.setVert1In(146, 1518)//Adriatic
+    res.setMouth0(144, 1520)//Adriatic south
+
+    res.setCorner(144, 1516, 5, HVDR)//Italy - Sicily north
+    res.setCorner(144, 1516, 4, HVUR)//Italy - Sicily
+    res.setMouth0(142, 1514)
 
     res
   }

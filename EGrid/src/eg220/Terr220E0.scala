@@ -49,7 +49,7 @@ object Terr220E0 extends Long220Terrs
     res.setSomeInts(Sea,  157,507,  159,513,  160,514,  164,506,  165,505)//British Isles
     res.setSomeInts(Sea, 167,521,  167,523,  166,524,  165,525)//Denmark
 
-    res.setSomeInts(Sea, 141,503,  143,531,  144,534)//Mediterranean
+    res.setSomeInts(Sea, 141,503,  143,531,  144,534,  151,531,  152,530)//Mediterranean
 
     res
   }
@@ -72,11 +72,18 @@ object Terr220E0 extends Long220Terrs
     res.setVert4In(166, 526)//Zealand - Sweden north
     res.setMouth5(164, 528)//Zealand - Sweden south east
 
+    res.setMouth3(154, 530)//Adriatic north
+    res.setVert4In(152, 532)//Adriatic
+    res.setMouth5(150, 534)//Adriatic
+    res.setMouth2Corner(150, 534)
+
     res.setMouth1(140, 500)//Straits of Gibraltar west
     res.setMouth4(142, 506)//Straits of Gibraltar east
     res.setMouth2(144, 528)//Tunis Sicily north west
     res.setMouth5(142, 534)//Tunis Sicily north west
-    res.setMouth3(146, 534)
+    res.setMouth3Corner(146, 534)//Sicily - Italy north
+    res.setCorner(144, 532, 2, HVUL)//Sicily - Italy south
+    res.setMouth0Corner(142, 534)//Sicily - Italy south
 
     res
   }
