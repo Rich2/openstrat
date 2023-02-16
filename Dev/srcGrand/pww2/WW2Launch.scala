@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import geom._, prid._, phex._, pParse._, pgui._
+import prid._, phex._, pParse._, pgui._
 
 /** Object for launching WW2 app. */
 object WW2Launch extends GuiLaunchMore
@@ -20,8 +20,7 @@ object WW2Launch extends GuiLaunchMore
       case 2 => WW2Scen2
       case _ => WW2Scen1
     }
-
-    //(cv => WWIIGuiOld(cv, WW1940Old, scale, latLong.toOption), "World War II")
+    debvar(scen)
     (WW2Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " WW2 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

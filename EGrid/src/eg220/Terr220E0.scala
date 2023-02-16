@@ -8,7 +8,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
  *  area it must be assigned to France  */
 object Terr220E0 extends Long220Terrs
 {
-  override implicit val grid: EGrid220LongFull = EGrid220.e0(140)
+  override implicit val grid: EGrid220LongFull = EGrid220.e0(134)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -33,8 +33,11 @@ object Terr220E0 extends Long220Terrs
     wr(148, sea * 2, plain * 4, sea * 4, hills)
     wr(146, sea, plain * 4, sea * 3, hills, sea * 2)
     wr(144, sea * 2, plain * 3, sea * 5, hills)
-    wr(142, sea * 3, hills, sea * 3, desert * 4, sea)
-    wr(140, sea * 3, desert * 7, sea * 2)
+    wr(142, sea * 3, hills, sea * 3, hills * 4, sea)
+    wr(140, sea * 3, hills, hillDesert * 2, desert * 2, hillDesert * 2, sea * 2)
+    wr(138, sea * 3, desert, hillDesert, desert * 7)
+    wr(136, sea * 3, mtain * 2, desert * 8)
+    wr(134, sea, hillDesert * 2, desert * 10)
 
     res
   }
@@ -45,7 +48,7 @@ object Terr220E0 extends Long220Terrs
     res.setSomeInts(Sea,  157,507,  159,513,  160,514,  164,506,  165,505)//British Isles
     res.setSomeInts(Sea, 167,521,  167,523,  166,524,  165,525)//Denmark
 
-    res.setSomeInts(Sea, 141, 503)//Mediterranean
+    res.setSomeInts(Sea, 141,503,  143,531,  144,534)//Mediterranean
 
     res
   }
@@ -67,6 +70,12 @@ object Terr220E0 extends Long220Terrs
     res.setVert1In(166, 522)//Greaa - Halmstad
     res.setVert4In(166, 526)//Zealand - Sweden north
     res.setMouth5(164, 528)//Zealand - Sweden south east
+
+    res.setMouth1(140, 500)//Straits of Gibraltar west
+    res.setMouth4(142, 506)//Straits of Gibraltar east
+    res.setMouth2(144, 528)//Tunis Sicily north west
+    res.setMouth5(142, 534)//Tunis Sicily north west
+    res.setMouth3(146, 534)
 
     res
   }

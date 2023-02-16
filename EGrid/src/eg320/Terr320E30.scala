@@ -10,9 +10,9 @@ object Terr320E30 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
-    gs(156, 1532, taiga * 2, sea)
-    gs(154, 1530, hillTaiga, taiga * 3)
-    wr(152, taiga, taiga, sea, taiga)
+    gs(156, 1532, hillTundra * 2, sea)
+    gs(154, 1530, hillTaiga, taiga * 2, tundra)
+    wr(152, taiga, taiga, taiga, taiga)
     wr(150, taiga, taiga * 3)
     wr(148, taiga * 2, taiga * 3)
     wr(146, plain, taiga * 4)
@@ -32,7 +32,7 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 153,1537,  153,1543,  154,1544,  155,1543)
+    res.setSomeInts(Sea, 151,1539,  152,1538,  153,1537,  153,1539,  153,1541,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(Lake, 149, 1537)
     res.setSomeInts(Sea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
@@ -45,12 +45,15 @@ object Terr320E30 extends Long320Terrs
   { val res = grid.newHVertOffsetLayer
 
     res.setMouth2(154, 1534)//White Sea north West
-    res.setMouth5(152, 1540)//White Sea
-    res.setMouth1(152, 1540)//White Sea
+    res.setVert3In(154, 1542)//White Sea
+    res.setVert0In(152, 1540)//White Sea
     res.setCorner(152, 1544, 0, HVDR)//White Sea
     res.setCorner(154, 1542, 2, HVUL)//White Sea
     res.setCorner(154, 1542, 1, HVDL)//White Sea
     res.setCorner(154, 1542, 0, HVDL)//White Sea
+    res.setTJunction(153, 1538)//White Sea
+    res.setVert4In(152, 1540)//White Sea
+    res.setMouth5(150, 1542)//White Sea
 
     res.setMouth2(150, 1534)//Lake Ladoga north west
     res.setMouth5(148, 1540)//Leke Ladoga south east

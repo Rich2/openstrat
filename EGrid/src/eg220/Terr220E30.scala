@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._
 
 object Terr220E30 extends Long220Terrs
 {
-  override implicit val grid: EGrid220LongFull = EGrid220.e30(140)
+  override implicit val grid: EGrid220LongFull = EGrid220.e30(138)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -47,15 +47,23 @@ object Terr220E30 extends Long220Terrs
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
 
-    res.setSomeInts(Sea, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
+    res.setSomeInts(Sea,  175,1543, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
     res.setSomeInts(Lake, 171,1537,  172,1542,  173,1541)
-    res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1531,  169,1533,  169,1535)//Baltic
+    res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
     res.setSomeInts(Sea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
+    res.setSomeInts(Sea, 144, 1514)
     res
   }
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
+
+    res.setMouth5(174, 1546)//White Sea south
+    res.setVert4In(176, 1544)//White Sea
+    res.setTJunction(177, 1542)//White Sea
+    res.setMouth2(178, 1538)//White Sea north west
+    res.setVert2In(178, 1542)//White Sea
+    res.setMouth3(180, 1544)//White Sea north
 
     res.setMouth1(170, 1534)//Lake Lagoda West
     res.setMouth4(172, 1540)//Lake Lagoda north east
@@ -75,7 +83,8 @@ object Terr220E30 extends Long220Terrs
     res.setMouth3(170, 1526)//Baltic
     res.setVert3In(168, 1528)//Riga
     res.setVert2In(168, 1528)//Parnu
-    res.setVert5In(168, 1532)//Tallinn
+    res.setMouth2(170, 1526)//Baltic Sea - Gulf of Finland
+    res.setTJunction(169, 1530)//Baltic Sea - Gulf of Finland
     res.setVert0In(168, 1532)//Gulf of Finland
     res.setVert3In(170, 1534)//Gulf of Finland
     res.setMouth4(170, 1538)//St Petersburg Gulf of Finland
