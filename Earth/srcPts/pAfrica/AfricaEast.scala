@@ -43,16 +43,19 @@ object Peloponnese extends EArea2("Peloponnese", 37.56 ll 23.18, hills)
   val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
 }
 
+/** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaWest]] and [[pAsia.Sinai]]. */
 object SaharaEast extends EArea2("Sahara\neast", 24 ll 25, desert)
 { val elAgheila = 30.12 ll 19.08
-  val benghazi = degs(32.12, 20.05)
-  val derna = degs(32.93, 22.15)
-  val alamein = 30.3 ll 29.4
-  val portSaid = 31.09 ll 32.12
-  val suez = 29.38 ll 32.22
+  val benghazi = 32.12 ll 20.05
+  val derna = 32.93 ll 22.15
+  val p90 = 30.82 ll 29.09
+  val baltim = 31.60 ll 31.01
+
+  val p5 = 29.59 ll 32.34
   val southEast = 17 ll 39.4
 
-  val polygonLL: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, alamein, portSaid, suez, southEast)
+  val polygonLL: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, p90, baltim, pAsia.Sinai.portSaid, pAsia.Sinai.suez, p5,
+    southEast)
 }
 
 object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, plain)

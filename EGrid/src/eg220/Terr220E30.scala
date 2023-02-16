@@ -34,9 +34,9 @@ object Terr220E30 extends Long220Terrs
     wr(142, sea * 8, plain * 4)
     wr(140, sea * 3, hills, sea * 4, plain * 4)
     wr(138, sea * 2, desert, sea * 5, desert * 4)
-    wr(136, desert, sea, desert * 4, sea, desert * 6)
-    wr(134, desert * 7, desert, desert * 5)
-    wr(132, desert * 8, sea, desert * 4)
+    wr(136, desert, sea, desert * 4, plain, desert * 6)
+    wr(134, desert * 6, plain, desert, desert * 5)
+    wr(132, desert * 6, plain, desert, sea, desert * 4)
 
     res
   }

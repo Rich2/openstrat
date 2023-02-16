@@ -77,7 +77,7 @@ object MarmaraSea extends EArea2("Marmara", 40.73 ll 28.21, sea)
   override val polygonLL: PolygonLL = PolygonLL(Balkans.istanbul, Anatolia.darica, Anatolia.bandirama, Balkans.dardanellesE, Balkans.marmaraN)
 }
 
-object Anatolia extends EArea2("AsiaMinor", 39.46 ll 33.07, hills)
+object Anatolia extends EArea2("Anatolia", 39.46 ll 33.07, hills)
 { val sinopeN = 42.09 ll 34.99
   val bodrum = 37.06 ll 27.35
   val darica = 40.76 ll 28.36
@@ -86,13 +86,10 @@ object Anatolia extends EArea2("AsiaMinor", 39.46 ll 33.07, hills)
   val surmene = 40.91 ll 40.12
   val cizre = 37.30 ll 42.15
   val damascus = 33.51 ll 36.82
-  val eilat = 29.54 ll 34.98
-  val sSinai = 27.73 ll 34.25
 
-  val eGaza = 31.32 ll 34.22
   val yukanbumaz = 36.94 ll 36.04
-  val polygonLL: PolygonLL = PolygonLL( Balkans.istanbul, Balkans.bosphorusN, sinopeN, surmene, cizre, damascus, eilat, sSinai, SaharaEast.suez,
-    SaharaEast.portSaid, eGaza, yukanbumaz, bodrum, Balkans.seddElBahr, Balkans.dardanellesE, bandirama, darica)
+  val polygonLL: PolygonLL = PolygonLL( Balkans.istanbul, Balkans.bosphorusN, sinopeN, surmene, cizre, damascus, pAsia.Sinai.eilat,
+    pAsia.Sinai.eGaza, yukanbumaz, bodrum, Balkans.seddElBahr, Balkans.dardanellesE, bandirama, darica)
 }
 
 object Caucasus extends EArea2("Caucasus", 42.0 ll 45.0, hills)
