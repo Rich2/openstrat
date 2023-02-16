@@ -8,7 +8,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
  *  area it must be assigned to France  */
 object Terr220E0 extends Long220Terrs
 {
-  override implicit val grid: EGrid220LongFull = EGrid220.e0(134)
+  override implicit val grid: EGrid220LongFull = EGrid220.e0(132)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -38,6 +38,7 @@ object Terr220E0 extends Long220Terrs
     wr(138, sea * 3, desert, hillDesert, desert * 7)
     wr(136, sea * 3, mtain * 2, desert * 8)
     wr(134, sea, hillDesert * 2, desert * 10)
+    wr(132, sea, desert * 12)
 
     res
   }
