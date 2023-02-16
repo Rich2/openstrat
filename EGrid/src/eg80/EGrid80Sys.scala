@@ -30,10 +30,7 @@ object EGrid80
     EScenBasic(grid, Terr80E0.terrs, Terr80E0.sTerrs, Terr80E0.corners, "80km 0E")
   }
 
-  def scen1: EScenBasic =
-  { val grid: EGrid80LongFull = e30(446)
-    EScenBasic(grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners)
-  }
+  def scen1: EScenBasic = EScenBasic(Terr80E30.grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners)
 }
 
 trait EGrid80LongMulti extends EGridLongMulti with EGrid80Sys
