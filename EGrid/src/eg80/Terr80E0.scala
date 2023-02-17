@@ -6,7 +6,7 @@ import pEarth._,prid._, phex._, WTile._, egrid._
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object Terr80E0 extends Long80Terrs
 {
-  implicit val grid: EGrid80LongFull = EGrid80.e0(446)
+  implicit val grid: EGrid80LongFull = EGrid80.e0(440)
 
   override val terrs: HCenLayer[WTile] =
   {
@@ -51,11 +51,14 @@ object Terr80E0 extends Long80Terrs
     gs(450, 506, plain * 7, hills, mtain * 8)
     gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
     gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
+    wr(444, sea * 13, plain * 14, sea, plain)
+    wr(442, sea * 12, plain * 11, plain * 4, sea * 2)
+    wr(440, sea * 13, plain * 10, sea * 2, plain * 3, sea * 2)
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] = {
-    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+  override val sTerrs: HSideOptLayer[WSide] =
+  { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
     res.setSomeInts(Sea, 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551,  485,545,  484,546)
     res
