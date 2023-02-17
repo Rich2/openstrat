@@ -8,7 +8,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
  *  area it must be assigned to France  */
 object Terr120E0 extends Long120Terrs
 {
-  override implicit val grid: EGrid120LongFull = EGrid120.e0(302)
+  override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -19,10 +19,10 @@ object Terr120E0 extends Long120Terrs
     gs(342, 534, mtain)
     gs(340, 532, mtain)
     gs(338, 530, hillTundra * 2)
-    gs(336, 528, taiga * 3)
-    gs(334, 526, taiga * 3)
-    wr(332, sea * 3, hills, sea * 5, taiga * 4)
-    wr(330, sea * 5, hills, sea * 2, mtain * 2, hillTaiga * 3)
+    gs(336, 528, hillTaiga * 2, taiga)
+    gs(334, 522, mtain, hillTaiga * 3)
+    wr(332, sea * 3, hills, sea * 4, mtain * 2, hillTaiga, taiga * 2)
+    wr(330, sea * 5, hills, sea * 2, mtain * 4, hillTaiga)
     wr(328, sea * 6, sea * 3, mtain, hillTaiga * 3)
     wr(326, sea * 5, hills, sea * 3, hillTaiga * 2, taiga * 3)
     wr(324, sea * 3, plain, hills, sea * 4, hillTaiga * 2, sea, plain * 2)
@@ -34,23 +34,30 @@ object Terr120E0 extends Long120Terrs
     wr(312, sea * 2, plain * 2, sea, hills, plain * 3, sea, plain * 6)
     wr(310, sea * 2, plain, sea * 2, hills, plain * 3, sea, plain * 7)
     wr(308, sea * 5, hills * 2, plain * 2, plain * 8)
-    wr(306, sea * 8, plain * 10)
+    wr(306, sea * 8, plain * 4, hills * 6)
     wr(304, sea * 6, plain * 12)
     wr(302, sea * 6, plain * 12)
+    wr(300, sea * 8, plain * 4, hills * 2, mtain * 4, hills)
 
     res
   }
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-
-
+    res.setSomeInts(Sea, 319,499,  318,500,  317,501,  316,502,  315,501,  314,500,  321,499,  322,500,  323,501,  324,502,  325,505)//Britain
+    res.setSomeInts(Sea, 307,509,  307,511,  307,513,  308,514,  309,515)//English Channel
     res
   }
 
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
+    res.setMouth1(306, 506)//English Channel Cherbourg
+    res.setVert0In(306, 510)//English Channel
+    res.setVert3In(308, 512)//English Channel
+    res.setVert2In(308, 512)//English Channel
+    res.setVert5In(308, 516)//English Channel
+    res.setMouth4(310, 518)//English Channel Dover - Calais
     res
   }
 }

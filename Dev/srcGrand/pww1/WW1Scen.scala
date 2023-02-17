@@ -15,8 +15,8 @@ object WW1Scen1 extends WW1Scen
   override val sTerrs: HSideOptLayer[WSide] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
-  //armies.unsafeSetSome(280, 516, Army(Britain))
-  //armies.unsafeSetSome(280, 524, Army(Germany))
+  armies.unsafeSetSome(310, 514, Army(Britain))
+  armies.unsafeSetSome(308, 528, Army(Germany))
 
 }
 object WW1Scen2 extends WW1Scen
