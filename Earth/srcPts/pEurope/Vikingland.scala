@@ -1,10 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
 object Jutland extends EArea2("Jutland", 56.29 ll 9.33, plain)
-{
-  val swJutland = 53.89 ll 8.96
+{ val swJutland = 53.89 ll 8.96
   val sanktPeterOrding = 54.32 ll 8.59
   val blavandshuk = 55.56 ll 8.07
   val ferring = 56.52 ll 8.11
@@ -148,7 +147,8 @@ object Oland extends EArea2("Faroe", 56.77 ll 16.67, plain)
   override val polygonLL = PolygonLL(north, p10, p20, south, p30, p40, p50)
 }
 
-object Faroe extends EArea2("Faroe", 62.14 ll -6.91, taiga)
+/** [[PolygonLL]] graphic for the FaroeIslands. */
+object Faroe extends EArea2("Faroe", 62.14 ll -6.91, hills)
 { val sSuduroy = 61.39 ll -6.68
   val wValgar = 62.3 ll -7.46
   val nEysturoy = 62.34 ll -6.98

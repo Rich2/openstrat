@@ -24,9 +24,9 @@ object Terr80E0 extends Long80Terrs
     gs(504, 536, taiga * 4)
     gs(502, 530, taiga * 5)
     gs(500, 528, taiga * 6)
-    gs(498, 494, taiga, sea * 7, taiga * 7)
+    gs(498, 494, hills, sea * 7, taiga * 7)
     gs(496, 528, taiga * 7)
-    gs(494, 510, taiga, sea * 3, taiga * 7)
+    gs(494, 510, hills, sea * 3, taiga * 7)
     gs(492, 528, taiga * 7)
     gs(490, 530, taiga * 3, sea, taiga * 3)
     wr(488, sea * 8, hills, sea * 6, taiga * 2, sea * 2, taiga * 2)
@@ -63,6 +63,9 @@ object Terr80E0 extends Long80Terrs
 
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
+
+    res.setMouth2(488, 500)
+    res.setMouth5(486, 506)
 
     res.setMouth2(478, 490)//North Ireland - Scotland north West
     res.setVert1In(476, 492)//North Ireland - Scotland
