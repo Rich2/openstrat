@@ -20,7 +20,7 @@ object Terr120E30 extends Long120Terrs
     wr(280, sea * 4, hills * 2, sea * 2, hills * 14)
     wr(278, sea * 5, hills, sea * 9, hills * 7)
     wr(276, sea * 6, hills * 2, sea * 7, hills * 7)
-    wr(274, sea * 8, sea * 7, hills * 7)
+    wr(274, sea * 8, sea * 5, hills, sea, hills * 7)
 
     res
   }

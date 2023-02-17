@@ -88,32 +88,3 @@ object Italy extends EArea2("Italy", 42.25 ll 13.39, plain)
                bagnaraCalabra, lamezia, licosa, diProcida, gaeta, santaMarinella, puntaAla,
                livorno, forteDeiMarmi, palmaria, recco, genoa, voltri)   
 }
-
-object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
-{   
-   val nCorsica = 43.00 ll 9.42
-   val bastia = 42.70 ll 9.45
-   val olmuccia = 41.69 ll 9.40
-   val sCorsica = 41.37 ll 9.21
-   val swCorsica = 41.56 ll 8.79
-   val scandola = 42.37 ll 8.54
-   val nwCalvi = 42.57 ll 8.71
-   val pointeMignola = 42.73 ll 9.16
-   val fromontica = 42.67 ll 9.29
-   
-   val polygonLL = PolygonLL(nCorsica, bastia, olmuccia, sCorsica, swCorsica, scandola, nwCalvi, pointeMignola, fromontica)
-}
-
-object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hills)
-{
-   val calaCaterina = 39.10 ll 9.51
-   val perdaLonga = 38.87 ll 8.84
-   val capoTeulada = 38.86 ll 8.64
-   val portscuso = 39.21 ll 8.36
-   val capoFalcone = 40.97 ll 8.20
-   val platamona = 40.81 ll 8.46
-   val north = 41.25 ll 9.23   
-   val east = 40.52 ll 9.82
-   
-   val polygonLL = PolygonLL(calaCaterina, perdaLonga, capoTeulada, portscuso, capoFalcone, platamona, north, east)
-}
