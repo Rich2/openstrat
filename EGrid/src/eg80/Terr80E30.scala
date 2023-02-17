@@ -55,6 +55,10 @@ object Terr80E30  extends Long80Terrs
     gs(448, 1136 + 348, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7)
     gs(446, 1136 + 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
 
+    wr(432, hills, sea * 4, hills * 10, hills * 16)
+    wr(430, hills, plain, sea * 2, hills * 8, sea, hills * 13, hills * 5)
+    wr(428, hills, sea, plain, sea, hills * 4, sea * 3, hills * 16, hills * 4)
+    wr(426, sea, hills, sea * 3, hills * 4, sea * 3, hills * 16, hills * 4)
     wr(424, hills * 2, sea * 3, hills * 4, sea * 3, hills * 16, hills * 4)
     wr(422, hills, sea * 5, hills * 4, sea * 2, hills * 17, hills * 3)
     wr(420, Sea * 7, hills * 2, sea * 4, hills * 17, hills * 3)
