@@ -37,8 +37,8 @@ object Kazak extends EArea2 ("Kazak", 47 ll 60, plain)
   val mangystau = degs(45.48, 52.78)
   val volodarsky = degs(46.39, 49.03)
 
-  override val polygonLL: PolygonLL = PolygonLL(RusNorth.kazakNE, Persia.persiaNE, Caspian.persiaN, kendirliBay, bautino, mangystau,
-  Caspian.northEast, Caspian.north, volodarsky, pEurope.Ukraine.caspianW, pEurope.Baltland.southEast)
+  override val polygonLL: PolygonLL = PolygonLL(RusNorth.kazakNE, middleEast.Persia.persiaNE, middleEast.Caspian.persiaN, kendirliBay, bautino, mangystau,
+    middleEast.Caspian.northEast, middleEast.Caspian.north, volodarsky, pEurope.Ukraine.caspianW, pEurope.Baltland.southEast)
 }
 
 /** Visual display of Severny Island north of Russia. */

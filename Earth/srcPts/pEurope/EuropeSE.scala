@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
@@ -38,18 +38,6 @@ object Balkans extends EArea2("Balkans", 43.9 ll 22.1, plain)
     shengjin, dubrovnik, paleniOtoci, puntaPlanka, b1, zadar, matulji, pula, basanija, trieste)
 }
 
-object Crete extends EArea2("Crete", 35.23 ll 24.92, hills)
-{
-  val northEast = 35.32 ll 26.31
-  val southEast = 35.02 ll 26.19
-  val p10 = 34.92 ll 24.73
-  val p15 = 35.09 ll 24.72
-  val p20 = 35.23 ll 23.59
-  val p30 = 35.29 ll 23.52
-  val capeGramvousa = 35.62 ll 23.60
-  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
-}
-
 object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
 { val henichesk = 46.17 ll 34.82
   val kerch = 45.39 ll 36.63
@@ -72,33 +60,24 @@ object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
      Balkans.odessa, Polandia.cenEast)
 }
 
+object Peloponnese extends EArea2("Peloponnese", 37.56 ll 23.18, hills)
+{ val ePeninsular = 38.04 ll 23.56
+  val kechries = 37.88 ll 22.99
+  val p1 = 37.44 ll 23.51
+  val neaKios = 37.58 ll 22.74
+  val voia =  36.44 ll 23.17
+  val eElos = 36.79 ll 22.78
+  val wElos = 36.80 ll 22.61
+  val sGreece = 36.38 ll 22.48
+  val koroni = 36.73 ll 21.87
+  val kyllini = 37.93 ll 21.13
+  val rioPio = 38.30 ll 21.77
+  val corinth = 37.94 ll 22.93
+  val nPeninsular = 38.15 ll 23.22
+  val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
+}
+
 object MarmaraSea extends EArea2("Marmara", 40.73 ll 28.21, sea)
 {
-  override val polygonLL: PolygonLL = PolygonLL(Balkans.istanbul, Anatolia.darica, Anatolia.bandirama, Balkans.dardanellesE, Balkans.marmaraN)
-}
-
-object Anatolia extends EArea2("Anatolia", 39.46 ll 33.07, hills)
-{ val sinopeN = 42.09 ll 34.99
-  val bodrum = 37.06 ll 27.35
-  val darica = 40.76 ll 28.36
-  val bandirama = 40.35 ll 27.96
-
-  val surmene = 40.91 ll 40.12
-  val cizre = 37.30 ll 42.15
-  val damascus = 33.51 ll 36.82
-
-  val yukanbumaz = 36.94 ll 36.04
-  val polygonLL: PolygonLL = PolygonLL( Balkans.istanbul, Balkans.bosphorusN, sinopeN, surmene, cizre, damascus, pAsia.Sinai.eilat,
-    pAsia.Sinai.eGaza, yukanbumaz, bodrum, Balkans.seddElBahr, Balkans.dardanellesE, bandirama, darica)
-}
-
-object Caucasus extends EArea2("Caucasus", 42.0 ll 45.0, hills)
-{ val blackSeaE = 41.84 ll 41.77
-  val sumqayit = 40.64 ll 49.55
-  val baku = 40.44 ll 50.21
-  val sangachal = 40.18 ll 49.47
-  val asiaMinorE = 50.03.east
-
-  val polygonLL: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, Ukraine.asiaMinorNM, Ukraine.caspianW, sumqayit, baku, sangachal, pAsia.Caspian.southWest,
-     Anatolia.cizre)
+  override val polygonLL: PolygonLL = PolygonLL(Balkans.istanbul, middleEast.Anatolia.darica, middleEast.Anatolia.bandirama, Balkans.dardanellesE, Balkans.marmaraN)
 }

@@ -87,7 +87,6 @@ object NeAsia extends EArea2("NEAsia", degs (64, 113), taiga)
   val dunayNorth = 73.93 ll 124.68
   val bulunsky20 = 73.08 ll 129.27
 
-  //val farAsiaW = 141.6.east
   val bukhta = 70.70 ll 131.07
   val sakha20 = 71.94 ll 132.77
   val sakha30 = 71.36 ll 134.38
@@ -113,7 +112,7 @@ object CEAsia extends EArea2("CEAsia", degs (47, 115), plain)
   val qinhuangdao = 39.92 ll 119.61
   val luanheMouth = 39.43 ll 119.30
   val huituo = 39.19 ll 118.98
-  val binhai = Persia.persiaN ll 117.66
+  val binhai = middleEast.Persia.persiaN ll 117.66
 
   override val polygonLL = PolygonLL(NeAsia.khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka,
   vladivostok, Korea.northEast, Korea.liaoheMouth, jinzhou, qinhuangdao, luanheMouth, huituo, binhai, CentralAsia.southEast, RusNorth.cAsiaNE)

@@ -28,7 +28,7 @@ object Terr220E0 extends Long220Terrs
     wr(158, sea * 2, hills, sea, plain, hills * 4)
     wr(156, sea * 3, plain * 3, hills * 2, plain, hills)
     wr(154, sea * 4, plain * 2, hills, mtain * 3)
-    wr(152, sea * 4, plain, hills, mtain, hills, plain * 2)
+    wr(152, sea * 4, plain, hills, mtain, hills, plain, hills)
     wr(150, sea, hills * 5, sea * 3, hills, sea)
     wr(148, sea * 2, plain * 4, sea * 4, hills)
     wr(146, sea, plain * 4, sea * 3, hills, sea * 2)
