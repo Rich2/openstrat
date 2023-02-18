@@ -19,6 +19,7 @@ object WW1Scen1 extends WW1Scen
   armies.unsafeSetSome(308, 528, Army(Germany))
 
 }
+
 object WW1Scen2 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E30.grid
