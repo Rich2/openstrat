@@ -12,7 +12,7 @@ object Kurdistan extends EArea2("Kurdistan", 39.36 ll 41.75, forest)
   override val polygonLL: PolygonLL = PolygonLL(p70, surmene, cizre, delicaymouth, Anatolia.yukanbumaz, Anatolia.northEast)
 }
 
-/** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.Balkans]]. */
+/** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
 object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
 { val northEast = 41.27 ll 37.01
   val bandirama = 40.35 ll 27.96
@@ -28,10 +28,11 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
   val p85 = 42.01 ll 33.33
   val sinopeN = 42.09 ll 34.99
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, anamurFeneri, p50, bodrum, babakale, pEurope.Balkans.seddElBahr,
-    pEurope.Balkans.dardanellesE, bandirama, darica, pEurope.Balkans.istanbul, pEurope.Balkans.bosphorusN, p70, p75, p77, p85, sinopeN)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, anamurFeneri, p50, bodrum, babakale, pEurope.BalkansEast.seddElBahr,
+    pEurope.BalkansEast.dardanellesE, bandirama, darica, pEurope.BalkansEast.istanbul, pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
 }
 
+/** [[PolygonLL]] graphic for the Caucasus, depends on [[Kurdistan]] and [[pEurope.Ukraine]]. */
 object Caucasus extends EArea2("Caucasus", 42.0 ll 45.0, hills)
 { val blackSeaE = 41.84 ll 41.77
   val p60 = 42.74 ll 41.44
