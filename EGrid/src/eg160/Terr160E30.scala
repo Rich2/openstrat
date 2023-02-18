@@ -34,6 +34,11 @@ object Terr160E30 extends Long160Terrs
     wr(280, hills, plain * 12)
     wr(278, hills * 3, plain * 10)
     wr(276, plain, hills, plain * 12)
+    wr(274, hills * 2, plain, hills * 3, plain, sea * 7)
+    wr(272, hills, plain, hills * 2, sea * 10)
+    wr(270, hills, sea * 14)
+    wr(268, sea, hills, sea * 13)
+    wr(266, sea, mtain, sea * 13)
 
     wr(264, hills * 2, hills * 2, sea, hills * 10)
     wr(262, hills, sea * 2, hills * 2, sea, hills * 10)
