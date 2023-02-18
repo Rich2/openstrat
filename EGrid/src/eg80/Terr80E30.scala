@@ -53,10 +53,12 @@ object Terr80E30  extends Long80Terrs
     gs(452, 1136 + 348, mtain, plain * 6, hills, mtain * 2, hills * 3, plain * 15)
     gs(450, 1136 + 346, hills, plain * 5, hills * 3, mtain *2, hills * 3, plain * 7, sea, plain * 6)
     gs(448, 1136 + 348, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7)
-    gs(446, 1136 + 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
+    gs(446, 1136 + 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)//Checked to here
 
-    wr(432, hills, sea * 4, hills * 10, hills * 16)
-    wr(430, hills, plain, sea * 2, hills * 8, sea, hills * 13, hills * 5)
+    wr(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea, sea * 13, sea * 4)//Checked till Sea
+    wr(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8)//Checked till here
+
+    wr(430, hills, plain, sea * 2, hills * 8, sea, hills * 13, hills * 5)//Nothing checked below this is just crude land and sea
     wr(428, hills, sea, plain, sea, hills * 4, sea * 3, hills * 16, hills * 4)
     wr(426, sea, hills, sea * 3, hills * 4, sea * 3, hills * 16, hills * 4)
     wr(424, hills * 2, sea * 3, hills * 4, sea * 3, hills * 16, hills * 4)

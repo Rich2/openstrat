@@ -13,11 +13,19 @@ object Sinai extends EArea2 ("Sinai", 29.88 ll 33.75, desert)
   override val polygonLL: PolygonLL = PolygonLL(eGaza, eilat, south, suez, portSaid)
 }
 
-/** Displays Arabian Peninsular. Depends on [[Anatolia]]. */
+/** [[PolygonLL]] graphic for the Levant depends on [[Kurdistan]] and [[Sinai]]. */
+object Levant extends EArea2 ("Levant", 33 ll 35.5, hills)
+{ val damascus = 33.51 ll 36.82
+  val haifa = 32.83 ll 34.98
+  val p50 = 35.58 ll 35.72
+  val p60 = 36.32 ll 35.78
+  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, Sinai.eilat, Sinai.eGaza, haifa, p50, p60,
+    Kurdistan.delicaymouth)
+}
+
+/** [[PolygonLL]] graphic for Arabian Peninsular. Depends on [[Levant]]. */
 object Arabia extends EArea2 ("Arabia", degs (25, 45.0), desert)
-{
-  /** South West Turkey */
-  val salwa = 24.71 ll 50.77
+{ val salwa = 24.71 ll 50.77
   val nQatar = 26.15 ll 51.26
   val doha = 25.25 ll 51.61
   val alGharbia = degs(23.97, 51.94)
@@ -36,12 +44,21 @@ object Arabia extends EArea2 ("Arabia", degs (25, 45.0), desert)
     dhahawnMouth, haswayn, sYemen, sharmas, Sinai.eilat)
 }
 
-/** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
-object Levant extends EArea2 ("Levant", 33 ll 35.5, hills)
-{ val damascus = 33.51 ll 36.82
-  val haifa = 32.83 ll 34.98
-  val p50 = 35.58 ll 35.72
-  val p60 = 36.32 ll 35.78
-  override val polygonLL: PolygonLL = PolygonLL(Anatolia.cizre, damascus, Sinai.eilat, Sinai.eGaza, haifa, p50, p60,
-    Anatolia.delicaymouth)
+/** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
+object Persia extends EArea2("Persia", 32.4 ll 60, hills)
+{
+  /** 38.86N */
+  val persiaN = 38.86.north
+
+  val mahshahr = 30.22.north * Caucasus.asiaMinorE
+
+  val persiaNE = persiaN * pAsia.India.wAsiaE
+
+  val seIran = degs(25.37, 61.67)
+  val kuhmobarak = 25.80 ll 57.30
+  val nHormuz = 27.17 ll 56.47
+  val nwHormuz = 26.49 ll 54.79
+  val zeydan = 27.88 ll 51.50
+  override val polygonLL: PolygonLL = PolygonLL(mahshahr, Caspian.southWest, Caspian.southEast, Caspian.persiaN, persiaNE, pAsia.India.mianiHor,
+    seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)
 }

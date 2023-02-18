@@ -54,3 +54,57 @@ object Iberia extends EArea2("Iberia", 41 ll -3.5, hills)
   override val polygonLL = PolygonLL(neSpain, begur, barcelona, valencia, xabia, almeriaEast,malaga, p10, bistroPoint, tarifa, chipiona, heulva,
     swPortugal, estoril, espinho, escaselas, malipica, carino, fozMouth, santander, p80, laNivelleMouth, laMassaneMouth)
 }
+
+/** [[PolygonLL]] graphic for Italy depends on [[ItalySouth]]. */
+object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, hills)
+{ val venice = 45.42 ll 12.21
+  val ven1 = 44.96 ll 12.55
+  val cervia = 44.25 ll 12.35
+  val ancona = 43.62 ll 13.51
+  val guilianova = 42.76 ll 13.96
+  val vasto = 42.10 ll 14.71
+  val campomarina = 41.92 ll 15.13
+  val vieste = 41.88 ll 16.17
+
+
+  val gaeta = 41.20 ll 13.57
+  val santaMarinella = 42.03 ll 11.83
+  val puntaAla = 42.80 ll 10.73
+  val livorno = 43.54 ll 10.29
+  val forteDeiMarmi = 43.96 ll 10.16
+  val palmaria = 44.03 ll 9.84
+  val recco = 44.35 ll 9.14
+  val genoa = 44.39 ll 8.94
+  val voltri = 44.42 ll 8.75
+
+  override val polygonLL = PolygonLL(venice, ven1, cervia, ancona, guilianova, vasto, campomarina, vieste, ItalySouth.siponto, ItalySouth.diProcida,
+    gaeta, santaMarinella, puntaAla, livorno, forteDeiMarmi, palmaria, recco, genoa, voltri)
+}
+
+/** [[PolygonLL]] graphic for Italy depends on nothing. */
+object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hills)
+{ val siponto = 41.60 ll 15.89
+  val barletta = 41.32 ll 16.28
+  val brindisi = 40.65 ll 17.97
+  val otranto = 40.12 ll 18.45
+  val leuca = 39.79 ll 18.34
+  val puntaPizzo = 40.00 ll 17.99
+  val p40 = 40.05 ll 17.97
+  val p42 = 40.21 ll 17.86
+
+  val taranto = 40.52 ll 17.09
+  val bruscata = 39.76 ll 16.48
+  val mirto = 39.62 ll 16.77
+  val capoColonna = 39.02 ll 17.20
+
+  val palizzi = 37.95 ll 16.03
+  val riaciCapo = 37.95 ll 15.67
+  val giovanni = 38.23 ll 15.63
+  val bagnaraCalabra = 38.28 ll 15.79
+  val lamezia = 38.89 ll 16.22
+  val licosa = 40.25 ll 14.91
+  val diProcida = 40.79 ll 14.04
+
+  val polygonLL = PolygonLL(siponto, barletta, brindisi, otranto, leuca, puntaPizzo, p40, p42, taranto, bruscata, mirto, capoColonna, palizzi, riaciCapo,
+    giovanni, bagnaraCalabra, lamezia, licosa, diProcida)
+}
