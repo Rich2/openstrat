@@ -11,7 +11,7 @@ object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 
 object EuropeEast extends EArea1("EuropeEast", 60 ll 60)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
+  override val a2Arr: RArr[EArea2] = RArr(Greece, Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 
 object EuropeSW extends EArea1("EuropeSw", 20 ll 0)

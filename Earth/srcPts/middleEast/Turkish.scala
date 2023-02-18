@@ -21,12 +21,19 @@ object Anatolia extends EArea2("Anatolia", 39.46 ll 33.07, hills)
 
 object Caucasus extends EArea2("Caucasus", 42.0 ll 45.0, hills)
 { val blackSeaE = 41.84 ll 41.77
+  val p60 = 42.74 ll 41.44
+  val p70 = 44.53 ll 38.09
+  val p72 = 44.95 ll 37.29
+  val p75 = 45.11 ll 36.73
+  val p77 = 45.20 ll 36.60
+  val llich = 45.41 ll 36.76
+
   val sumqayit = 40.64 ll 49.55
   val baku = 40.44 ll 50.21
   val sangachal = 40.18 ll 49.47
   val asiaMinorE = 50.03.east
 
-  override val polygonLL: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, pEurope.Ukraine.asiaMinorNM, pEurope.Ukraine.caspianW, sumqayit, baku,
+  override val polygonLL: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, p60, p70, p72, p75, p77, llich, pEurope.Ukraine.rostov, pEurope.Ukraine.caspianW, sumqayit, baku,
     sangachal, Caspian.southWest, Anatolia.cizre)
 }
 

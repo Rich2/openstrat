@@ -2,9 +2,29 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-/** Balkans polygon depends on [[Alpsland]] and [[Peloponnese]]. */
+/** [[PolygonLL]] graphic depends on [[Peloponnese]]. */
+object Greece extends EArea2("Greece", 39.54 ll 21.62, hills)
+{ val northEast = 40.46 ll 22.59
+  val nEuboea = 39.03 ll 23.31
+  val sEuboea = 37.95 ll 24.51
+  val sAttica = 37.64 ll 24.02
+  val monstrika = 38.40 ll 21.92
+  val oxia = 38.31 ll 21.15
+  val seLefkada = 38.56 ll 20.54
+  val wCorfu = 39.75 ll 19.64
+  val vlore = 40.30 ll 19.38
+  val northWest = 40.67 ll 19.32
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, nEuboea, sEuboea, sAttica,Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika,
+    oxia, seLefkada, wCorfu, vlore, northWest)
+}
+
+/** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */
 object Balkans extends EArea2("Balkans", 43.9 ll 22.1, plain)
 { val odessa = 46.48 ll 30.74
+  val p10 = 44.84 ll 29.59
+  val capekaliakra = 43.36 ll 28.47
+  val p20 = 43.38 ll 28.10
   val burgas = 42.51 ll 27.58
   val bosphorusN = 41.22 ll 29.13
   val istanbul = 41.00 ll 29.00
@@ -12,16 +32,7 @@ object Balkans extends EArea2("Balkans", 43.9 ll 22.1, plain)
   val dardanellesE = 40.23 ll 26.74
   val seddElBahr = 40.06 ll 26.18
   val thessalonika = 40.65 ll 22.9
-  val nEuboea = 39.03 ll 23.31
-  val sEuboea = 37.95 ll 24.51
-  val sAttica = 37.64 ll 24.02
 
-  val monstrika = 38.40 ll 21.92
-
-  val oxia = 38.31 ll 21.15
-  val seLefkada = 38.56 ll 20.54
-  val wCorfu = 39.75 ll 19.64
-  val vlore = 40.30 ll 19.38
   val shengjin = 41.80 ll 19.59
   val dubrovnik = 42.65 ll 18.06
   val paleniOtoci = 43.16 ll 16.33
@@ -33,34 +44,40 @@ object Balkans extends EArea2("Balkans", 43.9 ll 22.1, plain)
   val basanija = 45.48 ll 13.48
   val trieste = 45.70 ll 13.73
 
-  override val polygonLL: PolygonLL = PolygonLL(Alpsland.monfalcone, Alpsland.zagreb, odessa, burgas, bosphorusN, istanbul, marmaraN, dardanellesE,
-    seddElBahr, thessalonika, nEuboea, sEuboea, sAttica, Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika, oxia,seLefkada, wCorfu, vlore,
-    shengjin, dubrovnik, paleniOtoci, puntaPlanka, b1, zadar, matulji, pula, basanija, trieste)
+  override val polygonLL: PolygonLL = PolygonLL(odessa, p10, capekaliakra, p20, burgas, bosphorusN, istanbul, marmaraN, dardanellesE,
+    seddElBahr, thessalonika, Greece.northEast, Greece.northWest, shengjin, dubrovnik, paleniOtoci, puntaPlanka, b1, zadar, matulji, pula, basanija,
+    trieste, Alpsland.monfalcone, Alpsland.zagreb)
 }
 
 object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
 { val henichesk = 46.17 ll 34.82
+  val kamyanske = 45.28 ll 35.53
   val kerch = 45.39 ll 36.63
-  val crimeaS = 44.39 ll 33.74
-  val crimeaW = 45.40 ll 32.48
-  val crimeaNW = 45.93 ll 33.76
-  val polygonLL: PolygonLL = PolygonLL(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
+  val southEast = 45.10 ll 36.45
+  val p40 = 44.79 ll 35.08
+  val south = 44.39 ll 33.74
+  val p60 = 44.58 ll 33.38
+  val west = 45.40 ll 32.48
+  val p80 = 45.93 ll 33.76
+  val northWest = 46.16 ll 33.59
+  val polygonLL: PolygonLL = PolygonLL(henichesk, kamyanske, kerch, southEast, p40, south, p60, west, p80, northWest)
 }
 
 object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
-{ val caspianWLat = 44.53.north
-  val asiaMinorNM = caspianWLat ll 38.09
-  val caspianW = caspianWLat ll 46.65
-  val llich = 45.41 ll 36.76
+{ //val caspianWLat = 44.53.north
+
+  val caspianW = 44.53 ll 46.65
+
   val rostov = 47.17 ll 39.29
 
   val koblev = 46.63 ll 31.18
 
-  override val polygonLL: PolygonLL = PolygonLL(Baltland.southEast, caspianW, asiaMinorNM, llich, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev,
+  override val polygonLL: PolygonLL = PolygonLL(Baltland.southEast, caspianW, rostov, Crimea.henichesk, Crimea.northWest, koblev,
      Balkans.odessa, Polandia.cenEast)
 }
 
-object Peloponnese extends EArea2("Peloponnese", 37.56 ll 23.18, hills)
+/** [[PolygonLL]] graphic depends on nothing. */
+object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hills)
 { val ePeninsular = 38.04 ll 23.56
   val kechries = 37.88 ll 22.99
   val p1 = 37.44 ll 23.51
