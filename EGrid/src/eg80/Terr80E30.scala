@@ -93,7 +93,7 @@ object Terr80E30  extends Long80Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 505,1553)
     res.setSomeInts(Lake, 424,1550)
-    res.setSomeInts(Sea, 423,1497,  423,1499,  423,1501, 423,1503,  422,1504)
+    res.setSomeInts(Sea, 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553)
     res
   }
 
@@ -109,6 +109,12 @@ object Terr80E30  extends Long80Terrs
     res.setVert1In(422, 1502)//Peloponnese - Greece
     res.setMouth0(420, 1504)//Peloponnese - Greece
 
+    res.setMouth1(416, 1524)//Rhodes - Turkey west
+    res.setVert0In(416, 1528)//Rhodes - Turkey
+    res.setMouth5(416, 1532)//Rhodes - Turkey east
+
+    res.setMouth1(414, 1550)//Cyprus - Turkey west
+    res.setMouth4(416, 1556)//Cyprus - Turkey east
     res
   }
 }
