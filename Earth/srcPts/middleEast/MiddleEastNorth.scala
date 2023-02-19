@@ -35,6 +35,17 @@ object LakeVan extends EArea2("LakeVan", 38.62 ll 42.90, lake)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, west, northWest, p80, p85)
 }
 
+/** [[PolygonLL]] graphic for Lake Van depends on nothing. Sit on top of [[Anatolia]] */
+object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, lake)
+{ val northEast = 39.12 ll 33.34
+  val p10 = 38.99 ll 33.46
+  val southEast = 38.60 ll 33.49
+  val south = 38.58 ll 33.40
+  val southWest = 38.63 ll 33.29
+  val west = 38.80 ll 33.18
+  override val polygonLL: PolygonLL = PolygonLL(northEast, p10, southEast, south, southWest, west)
+}
+
 /** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
 object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
 { val northEast: LatLong = 41.27 ll 37.01
@@ -55,6 +66,8 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
     pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica, pEurope.MarmaraSea.istanbul,
     pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
 }
+
+
 
 
 object Caspian extends EArea2("CaspianSea", degs (42.10, 50.64), sea)
