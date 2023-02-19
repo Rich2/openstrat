@@ -40,7 +40,7 @@ object Arabia extends EArea2 ("Arabia", degs (25, 45.0), desert)
   val sharmas = degs(28.03, 35.23)
   val alFaw = degs(29.93, 48.47)
 
-  override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar, alKhaburah, eOman, mirbat,
+  override val polygonLL: PolygonLL = PolygonLL(alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar, alKhaburah, eOman, mirbat,
     dhahawnMouth, haswayn, sYemen, sharmas, Sinai.eilat)
 }
 
@@ -50,7 +50,7 @@ object Persia extends EArea2("Persia", 32.4 ll 60, hills)
   /** 38.86N */
   val persiaN = 38.86.north
 
-  val mahshahr = 30.22.north * Caucasus.asiaMinorE
+  val mahshahr = 30.22.north * Armenia.asiaMinorE
 
   val persiaNE = persiaN * pAsia.India.wAsiaE
 

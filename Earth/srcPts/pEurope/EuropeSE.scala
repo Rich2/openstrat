@@ -67,31 +67,6 @@ object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, plain)
     p66, p70, p80, p85, thessalonika, Greece.northEast)
 }
 
-/** [[PolygonLL]] graphic for Crimea depends on nothing. */
-object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
-{ val henichesk = 46.17 ll 34.82
-  val kamyanske = 45.28 ll 35.53
-  val kerch = 45.39 ll 36.63
-  val southEast = 45.10 ll 36.45
-  val p40 = 44.79 ll 35.08
-  val south = 44.39 ll 33.74
-  val p60 = 44.58 ll 33.38
-  val west = 45.40 ll 32.48
-  val p80 = 45.93 ll 33.76
-  val northWest = 46.16 ll 33.59
-  val polygonLL: PolygonLL = PolygonLL(henichesk, kamyanske, kerch, southEast, p40, south, p60, west, p80, northWest)
-}
-
-/** [[PolygonLL]] graphic for Ukraine depends on [[Baltland]], [[Crimea]] [[BalkansEast]] and [[Polandia]]. */
-object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
-{ val caspianW = 44.53 ll 46.65
-  val rostov = 47.17 ll 39.29
-  val koblev = 46.63 ll 31.18
-
-  override val polygonLL: PolygonLL = PolygonLL(Baltland.southEast, caspianW, rostov, Crimea.henichesk, Crimea.northWest, koblev,
-     BalkansEast.odessa, Polandia.cenEast)
-}
-
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
 object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hills)
 { val ePeninsular = 38.04 ll 23.56

@@ -98,7 +98,7 @@ object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, plain)
   val polygonLL = PolygonLL(west, north, sarve, southEast, southWest)
 }
 
-object Finlandia extends EArea2("Scandanavia", 65.56 ll 29.95, taiga)
+object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, taiga)
 { val lisyNos = 60.01 ll 29.96
   val laskovyy = 60.15 ll 29.92
   val ozerki = 60.18 ll 29.01

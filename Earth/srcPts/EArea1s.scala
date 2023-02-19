@@ -11,7 +11,7 @@ object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 
 object EuropeEast extends EArea1("EuropeEast", 60 ll 60)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(Greece, BalkansWest, BalkansEast, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
+  override val a2Arr: RArr[EArea2] = RArr(RussiaSouth, Greece, BalkansWest, BalkansEast, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 
 object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
@@ -38,7 +38,7 @@ object AfricaSouth extends EArea1("AfricanSouth", -16.14 ll 24.36)
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object MiddleEast  extends EArea1("MiddleEast", 20.18 ll -0.65)
 { import middleEast._
-  override val a2Arr = RArr(Sinai, Anatolia, Kurdistan, Caucasus, Levant, Arabia, Persia, Iraq)
+  override val a2Arr = RArr(Sinai, Anatolia, Kurdistan, LakeVan, Armenia, Levant, Arabia, Persia, Iraq)
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)
