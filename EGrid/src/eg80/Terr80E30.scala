@@ -93,13 +93,22 @@ object Terr80E30  extends Long80Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 505,1553)
     res.setSomeInts(Lake, 424,1550)
+    res.setSomeInts(Sea, 423,1497,  423,1499,  423,1501, 423,1503,  422,1504)
     res
   }
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
-    res.setMouth3(426, 1550)
-    res.setMouth0(422, 1550)
+
+    res.setMouth3(426, 1550)//Lake Van north
+    res.setMouth0(422, 1550)//Lake Van south
+    res.setMouth1(422, 1494)//Peloponnese - Greece - west
+    res.setVert0In(422, 1498)//Peloponnese - Greece
+    res.setVert3In(424, 1500)//Peloponnese - Greece
+    res.setVert0In(422, 1502)//Peloponnese - Greece
+    res.setVert1In(422, 1502)//Peloponnese - Greece
+    res.setMouth0(420, 1504)//Peloponnese - Greece
+
     res
   }
 }
