@@ -94,6 +94,7 @@ object Terr80E30  extends Long80Terrs
     res.setSomeInts(Sea, 505,1553)
     res.setSomeInts(Lake, 424,1550)
     res.setSomeInts(Sea, 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553)
+    res.setSomeInts(Sea, 429,1521,  429,1523,  431,1529,  432,1530)
     res
   }
 
@@ -115,6 +116,13 @@ object Terr80E30  extends Long80Terrs
 
     res.setMouth1(414, 1550)//Cyprus - Turkey west
     res.setMouth4(416, 1556)//Cyprus - Turkey east
+
+    res.setMouth2(430, 1518)
+    res.setVert3In(430, 1522)
+    res.setMouth4(430, 1526)
+    res.setMouth1(430, 1526)
+    res.setVert2In(432, 1528)
+    res.setMouth3(434, 1530)
     res
   }
 }
