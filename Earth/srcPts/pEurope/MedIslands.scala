@@ -64,6 +64,19 @@ object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, hills)
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p30, pontiBaba, korucamBurnu)
 }
 
+/** [[PolygonLL]] graphic for Rhodes depends on nothing. */
+object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hills)
+{ val north = 36.46 ll 28.22
+  val akraLindos = 36.05 ll 28.09
+  val p40 = 35.93 ll 27.86
+  val south = 35.88 ll 27.76
+  val p50 = 35.94 ll 27.72
+  val p65 = 36.15 ll 27.69
+  val p70 = 36.27 ll 27.81
+
+  override val polygonLL: PolygonLL = PolygonLL(north, akraLindos, p40, south, p50, p65, p70)
+}
+
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
 object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
 { val nCorsica = 43.00 ll 9.42

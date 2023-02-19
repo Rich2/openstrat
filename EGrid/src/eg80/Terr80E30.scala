@@ -75,15 +75,16 @@ object Terr80E30  extends Long80Terrs
       hillDesert, mtain)
 
     wr(422, hills, sea * 5, hills, mtain, hills * 2, sea * 2, hills * 7, desert, hillDesert, desert, mtain, hills, hillDesert, mtain, plain * 2,
-      hillDesert, mtain * 2, hillDesert)//Checked HCens to here
+      hillDesert, mtain * 2, hillDesert)
 
-    wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills, sea * 8, sea * 3)
+    wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills  * 2, mtain, hills * 2, plain * 2, desert * 4,
+      mtain)//Checked HCens to here
 
-    wr(418, sea * 7, hills, sea * 14, sea * 7, sea * 4)
-    wr(416, sea * 10, sea * 13, hills * 5, desert * 5)
+    wr(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, plain, sea * 7, sea * 4)
 
-    wr(414, sea * 9, hills, sea * 10, hills, sea, hills * 5, desert * 6)
-    wr(412, sea * 10, hills * 2, sea * 7, hills, plain, sea, hills * 5, desert * 7)
+    wr(416, sea * 10, sea * 13, sea * 5, sea * 5)
+    wr(414, sea * 9, hills, sea * 10, hills, sea, sea * 5, sea * 6)
+    wr(412, sea * 10, hills * 2, sea * 7, hills, plain, sea, sea * 5, sea * 7)
     wr(410, sea * 11, sea * 12, hills * 3, desert * 8)
 
     res

@@ -21,7 +21,7 @@ object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
 
 object Mediterreanean extends EArea1("Mediterranean", 35.78 ll 18.73)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(Canarias, Sicily, Majorca, Crete, Cyprus, Sardina, Corsica)
+  override val a2Arr: RArr[EArea2] = RArr(Canarias, Sicily, Rhodes, Majorca, Crete, Cyprus, Sardina, Corsica)
 }
 
 object AfricaNorth extends EArea1("AfricaNorth", 18.19 ll 15)

@@ -51,8 +51,14 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
 { val northEast: LatLong = 41.27 ll 37.01
 
   val yukanbumaz: LatLong = 36.94 ll 36.04
+  val p20 = 36.27 ll 33.98
   val anamurFeneri: LatLong = 36.02 ll 32.80
+  val alanya = 36.54 ll 31.99
+  val p42 = 36.84 ll 30.61
+  val p44 = 36.23 ll 30.42
   val p50: LatLong = 36.17 ll 29.69
+  val p53 = 36.70 ll 28.63
+  val p55 = 36.58 ll 27.99
   val bodrum: LatLong = 37.06 ll 27.35
   val babakale: LatLong = 39.48 ll 26.06
 
@@ -62,9 +68,9 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
   val p85: LatLong = 42.01 ll 33.33
   val sinopeN: LatLong = 42.09 ll 34.99
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, anamurFeneri, p50, bodrum, babakale, pEurope.BalkansEast.seddElBahr,
-    pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica, pEurope.MarmaraSea.istanbul,
-    pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, p20, anamurFeneri, alanya, p42, p44, p50, p53, p55, bodrum, babakale,
+    pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
+    pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
 }
 
 
