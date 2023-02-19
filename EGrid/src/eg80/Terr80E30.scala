@@ -62,7 +62,8 @@ object Terr80E30  extends Long80Terrs
     wr(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain, hills * 2)
     wr(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8)//Checked HCens to here
 
-    wr(430, hills, plain, sea * 2, hills, mtain, sea * 6, sea, sea * 13, sea * 5)//Nothing checked below this is just crude land and sea
+    wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills, sea * 5, sea * 5)//Nothing checked below this is just crude land and sea
+
     wr(428, hills, sea, plain, sea, hills * 4, sea * 3, sea * 16, hills * 4)
     wr(426, sea, hills, sea * 3, hills * 4, sea * 3, sea * 16, hills * 4)
     wr(424, hills * 2, sea * 3, hills * 4, sea * 3, sea * 16, hills * 4)

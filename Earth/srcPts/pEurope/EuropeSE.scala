@@ -49,18 +49,25 @@ object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, plain)
   val burgas = 42.51 ll 27.58
   val p25 = 41.60 ll 28.13
   val bosphorusN = 41.22 ll 29.13
-
-  val istanbul = 41.00 ll 29.00
-  val marmaraN = 41.08 ll 28.23
-  val dardanellesE = 40.23 ll 26.74
   val seddElBahr = 40.06 ll 26.18
+  val p40 = 40.32 ll 26.22
+  val p47 = 40.66 ll 26.79
+  val p50 = 40.61 ll 26.13
+  val p55 = 40.84 ll 25.96
+  val thasosS = 40.57 ll 24.64
+  val p62 = 40.74 ll 24.06
+  val p66 = 40.53 ll 23.91
+  val p70 = 40.14 ll 24.40
+  val p80 = 39.12 ll 23.74
+  val p85 = 40.48 ll 22.82
   val thessalonika = 40.65 ll 22.9
 
   override val polygonLL: PolygonLL = PolygonLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN,
-    istanbul, marmaraN, dardanellesE, seddElBahr, thessalonika, Greece.northEast)
+    MarmaraSea.istanbul, MarmaraSea.north, MarmaraSea.tekirdag, MarmaraSea.p70, MarmaraSea.dardanellesE, seddElBahr, p40, p47, p50, p55, thasosS, p62,
+    p66, p70, p80, p85, thessalonika, Greece.northEast)
 }
 
-/** [[PolygonLL]] grahic for Crimea depends on nothing. */
+/** [[PolygonLL]] graphic for Crimea depends on nothing. */
 object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
 { val henichesk = 46.17 ll 34.82
   val kamyanske = 45.28 ll 35.53
@@ -75,20 +82,17 @@ object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
   val polygonLL: PolygonLL = PolygonLL(henichesk, kamyanske, kerch, southEast, p40, south, p60, west, p80, northWest)
 }
 
+/** [[PolygonLL]] graphic for Ukraine depends on [[Baltland]], [[Crimea]] [[BalkansEast]] and [[Polandia]]. */
 object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
-{ //val caspianWLat = 44.53.north
-
-  val caspianW = 44.53 ll 46.65
-
+{ val caspianW = 44.53 ll 46.65
   val rostov = 47.17 ll 39.29
-
   val koblev = 46.63 ll 31.18
 
   override val polygonLL: PolygonLL = PolygonLL(Baltland.southEast, caspianW, rostov, Crimea.henichesk, Crimea.northWest, koblev,
      BalkansEast.odessa, Polandia.cenEast)
 }
 
-/** [[PolygonLL]] graphic depends on nothing. */
+/** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
 object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hills)
 { val ePeninsular = 38.04 ll 23.56
   val kechries = 37.88 ll 22.99
@@ -106,7 +110,15 @@ object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hills)
   val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
 }
 
+/** [[PolygonLL]] graphic for Marmara Sea, depends on nothing. */
 object MarmaraSea extends EArea2("Marmara", 40.73 ll 28.21, sea)
-{
-  override val polygonLL: PolygonLL = PolygonLL(BalkansEast.istanbul, middleEast.Anatolia.darica, middleEast.Anatolia.bandirama, BalkansEast.dardanellesE, BalkansEast.marmaraN)
+{ val istanbul = 41.00 ll 29.00
+  val darica = 40.76 ll 28.36
+  val bandirama = 40.35 ll 27.96
+  val dardanellesE = 40.23 ll 26.74
+  val p70 = 40.85 ll 27.45
+  val tekirdag = 40.97 ll 27.51
+  val north = 41.08 ll 28.23
+
+  override val polygonLL: PolygonLL = PolygonLL(istanbul, darica, bandirama, dardanellesE, p70, tekirdag, north)
 }

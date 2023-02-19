@@ -30,9 +30,9 @@ object Terr80E0 extends Long80Terrs
     gs(492, 528, taiga * 7)
     gs(490, 530, taiga * 3, sea, taiga * 3)
     wr(488, sea * 8, hills, sea * 6, taiga * 2, sea * 2, taiga * 2)
-    wr(486, sea * 7, hills * 2, sea * 7, taiga, sea * 2, plain * 3)
-    gs(484, 492, hills * 4, sea * 9, plain * 4)
-    gs(482, 494, hills * 3, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
+    wr(486, sea * 7, mtain, hills * 1, sea * 7, taiga, sea * 2, plain * 3)
+    gs(484, 492, hills, mtain, hills * 2, sea * 9, plain * 4)
+    gs(482, 494, mtain * 2, hills, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
     gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
     gs(476, 488, hills, plain, hills * 3, plain, sea * 7, plain * 3, sea * 2)
