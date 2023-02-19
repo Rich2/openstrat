@@ -60,11 +60,10 @@ object Terr80E30  extends Long80Terrs
     wr(438, sea, mtain * 5, hills, mtain * 2, hills * 4, sea * 13, mtain * 3, plain)
     wr(436, Sea * 2, mtain * 2, hills * 2, mtain * 2, hills * 2, plain * 2, sea * 14, plain, hills, mtain * 2)
     wr(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain, hills * 2)
-    wr(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8)//Checked HCens to here
+    wr(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8)
+    wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3, mtain)
+    wr(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, hillDesert * 2, hills * 4, hillDesert * 2, hills * 3, plain)//Checked HCens to here
 
-    wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills, sea * 5, sea * 5)//Nothing checked below this is just crude land and sea
-
-    wr(428, hills, sea, plain, sea, hills * 4, sea * 3, sea * 16, hills * 4)
     wr(426, sea, hills, sea * 3, hills * 4, sea * 3, sea * 16, hills * 4)
     wr(424, hills * 2, sea * 3, hills * 4, sea * 3, sea * 16, hills * 4)
     wr(422, hills, sea * 5, hills * 4, sea * 2, sea * 17, hills * 3)

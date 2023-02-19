@@ -96,15 +96,17 @@ object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hills)
   val bruscata = 39.76 ll 16.48
   val mirto = 39.62 ll 16.77
   val capoColonna = 39.02 ll 17.20
+  val stilaroMouth = 38.43 ll 16.57
 
   val palizzi = 37.95 ll 16.03
   val riaciCapo = 37.95 ll 15.67
   val giovanni = 38.23 ll 15.63
   val bagnaraCalabra = 38.28 ll 15.79
   val lamezia = 38.89 ll 16.22
+  val p70 = 39.99 ll 15.42
   val licosa = 40.25 ll 14.91
   val diProcida = 40.79 ll 14.04
 
-  val polygonLL = PolygonLL(siponto, barletta, brindisi, otranto, leuca, puntaPizzo, p40, p42, taranto, bruscata, mirto, capoColonna, palizzi, riaciCapo,
-    giovanni, bagnaraCalabra, lamezia, licosa, diProcida)
+  val polygonLL = PolygonLL(siponto, barletta, brindisi, otranto, leuca, puntaPizzo, p40, p42, taranto, bruscata, mirto, capoColonna, stilaroMouth, palizzi, riaciCapo,
+    giovanni, bagnaraCalabra, lamezia, p70, licosa, diProcida)
 }

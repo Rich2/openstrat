@@ -58,7 +58,7 @@ object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, plain)
   val p62 = 40.74 ll 24.06
   val p66 = 40.53 ll 23.91
   val p70 = 40.14 ll 24.40
-  val p80 = 39.12 ll 23.74
+  val p80 = 39.91 ll 23.74
   val p85 = 40.48 ll 22.82
   val thessalonika = 40.65 ll 22.9
 
