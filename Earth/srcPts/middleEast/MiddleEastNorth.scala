@@ -3,7 +3,7 @@ package ostrat; package pEarth; package middleEast
 import geom._, pglobe._, LatLong._, WTile._
 
 /** [[PolygonLL]] graphic for Kurdistan depends on [[Anatolia]]. */
-object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, forest)
+object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, hills)
 { val p70: LatLong = 41.10 ll 39.42
   val surmene: LatLong = 40.91 ll 40.12
   val cizre: LatLong = 37.30 ll 42.15
@@ -49,8 +49,9 @@ object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, lake)
 /** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
 object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
 { val northEast: LatLong = 41.27 ll 37.01
-
   val yukanbumaz: LatLong = 36.94 ll 36.04
+  val p10 = 36.54 ll 35.34
+  val delicayMouth = 36.81 ll 34.72
   val p20 = 36.27 ll 33.98
   val anamurFeneri: LatLong = 36.02 ll 32.80
   val alanya = 36.54 ll 31.99
@@ -68,13 +69,10 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
   val p85: LatLong = 42.01 ll 33.33
   val sinopeN: LatLong = 42.09 ll 34.99
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, p20, anamurFeneri, alanya, p42, p44, p50, p53, p55, bodrum, babakale,
+  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, p10, delicayMouth, p20, anamurFeneri, alanya, p42, p44, p50, p53, p55, bodrum, babakale,
     pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
     pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
 }
-
-
-
 
 object Caspian extends EArea2("CaspianSea", degs (42.10, 50.64), sea)
 {
