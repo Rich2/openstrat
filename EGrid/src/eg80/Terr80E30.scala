@@ -62,13 +62,14 @@ object Terr80E30  extends Long80Terrs
     wr(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain, hills * 2)
     wr(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8)
     wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3, mtain)
-    wr(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, hillDesert * 2, hills * 4, hillDesert * 2, hills * 3, plain)//Checked HCens to here
+    wr(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, hillDesert * 2, hills * 4, hillDesert * 2, hills * 3, plain)
+    wr(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, hillDesert * 7, mtain * 2, hills, hillDesert * 2, mtain, hillDesert)//Checked HCens to here
 
-    wr(426, sea, hills, sea * 3, hills * 4, sea * 3, sea * 16, hills * 4)
-    wr(424, hills * 2, sea * 3, hills * 4, sea * 3, sea * 16, hills * 4)
-    wr(422, hills, sea * 5, hills * 4, sea * 2, sea * 17, hills * 3)
-    wr(420, Sea * 7, hills * 2, sea * 4, sea * 17, hills * 3)
-    wr(418, sea * 7, hills, sea * 14, hills * 7, desert * 4)
+    wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, hillDesert, desert * 2, hillDesert * 6, mtain * 2, hillDesert, sea * 3)
+
+    wr(422, hills, sea * 5, hills * 4, sea * 2, sea * 17, sea * 3)
+    wr(420, Sea * 7, hills * 2, sea * 4, sea * 17, sea * 3)
+    wr(418, sea * 7, hills, sea * 14, sea * 7, sea * 4)
     wr(416, sea * 10, sea * 13, hills * 5, desert * 5)
 
     wr(414, sea * 9, hills, sea * 10, hills, sea, hills * 5, desert * 6)
