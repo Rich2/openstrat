@@ -1,12 +1,25 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import egrid._
+import egrid._, prid.phex._
 
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
 object EGrid320
 { /** Returns an [[RArr]] sequence of 320km full earth grids. */
   def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 160): RArr[EGrid320LongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGrid320LongFull(rBottomCen, rTopCen, i %% 12) }
+
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 160): EGrid320LongMulti = new EGrid320LongMulti
+  { ThisSys =>
+    override val grids: RArr[EGridLongFull] = EGrid320.grids(numGridsIn, headInt, bottomR, topR)
+
+    override def headGridInt: Int = headInt
+
+    override def gridsXSpacing: Double = 40
+
+    override val gridMans: RArr[EGridLongMan] = iUntilMap(numGridsIn)(EGridLongMan(_, ThisSys))
+
+    override def adjTilesOfTile(tile: HCen): HCenArr = ???
+  }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def e0(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 0)
