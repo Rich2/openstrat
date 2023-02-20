@@ -54,5 +54,6 @@ exp = false;
 80 = HGView(458, 524; 22);//80km 0E
 81 = HGView(480, 1538; 25);//80km 30E
 
-92 = HGView(477, 560; 22.5);//80km 0E - 30E
+92 = HGView(445, 562; 24.5);//80km 0E - 30E
+
 93 = HGView(454, 522; 26.5);//80km Western Front
