@@ -6,7 +6,7 @@ object Grids80s0e1 extends EGrid80LongMulti
 { ThisSys =>
 
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = RArr(EGrid80.e0(446), EGrid80.e30(446))
+  override val grids: RArr[EGridLongFull] = EGrid80.grids(2, 0, 438)//RArr(EGrid80.e0(438), EGrid80.e30(438))
   override def headGridInt: Int = 0
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
 

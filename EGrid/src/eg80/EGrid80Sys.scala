@@ -17,16 +17,8 @@ class EGrid80LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) exte
   override def hCoordLL(hc: HCoord): LatLong = hCoordMiddleLL(hc)
 }
 
-/** object for creating 80km hex scale earth grids. */
-object EGrid80
-{ /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def e0(rBottomCen: Int, rTopCen: Int = 540): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 0)
-
-  /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 80km. */
-  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 1)
-
-  def scen0: EScenBasic = EScenBasic(Terr80E0.grid, Terr80E0.terrs, Terr80E0.sTerrs, Terr80E0.corners, "80km 0E")
-  def scen1: EScenBasic = EScenBasic(Terr80E30.grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners)
+object EGrid80LongFull {
+  def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid80LongFull(rBottomCen, rTopCen, cenLongInt)
 }
 
 trait EGrid80LongMulti extends EGridLongMulti with EGrid80Sys

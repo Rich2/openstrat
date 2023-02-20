@@ -51,10 +51,11 @@ object Terr80E0 extends Long80Terrs
     gs(450, 506, plain * 7, hills, mtain * 8)
     gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
     gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
-    wr(444, sea * 13, plain * 14, sea, plain)
-    wr(442, sea * 12, plain * 11, plain * 4, sea * 2)
-    wr(440, sea * 13, plain * 10, sea * 2, plain * 3, sea * 2)
-    wr(438, sea * 5, hills * 3, sea * 10, sea * 8, sea * 3, sea)
+    wr(444, sea * 13, plain * 2, hills * 5, mtain * 2, hills * 2, plain * 3, sea, plain)
+    wr(442, sea * 12, plain * 2, hills * 3, mtain, hills, mtain * 2, hills, mtain * 3, hills, plain, sea * 2)
+    wr(440, sea * 13, plain * 3, hills, mtain, hills * 3, mtain * 2, sea * 2, hills, mtain, hills, sea * 2)
+    wr(438, sea * 5, hills * 3, mtain * 3, hills, mtain * 2, hills * 4, sea * 2, hills * 2, sea * 4, hills * 3, sea)
+
     res
   }
 
