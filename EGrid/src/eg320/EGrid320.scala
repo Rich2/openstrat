@@ -6,7 +6,7 @@ import egrid._
 object EGrid320
 { /** Returns an [[RArr]] sequence of 320km full earth grids. */
   def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 160): RArr[EGrid320LongFull] =
-    iUntilMap(startIndex, startIndex + num){ i => EGrid320LongFull(rBottomCen, rTopCen, i %% 12)}
+    iUntilMap(startIndex, startIndex + num){ i => EGrid320LongFull(rBottomCen, rTopCen, i %% 12) }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def e0(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 0)
