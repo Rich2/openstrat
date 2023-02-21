@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
-import geom._, Colour._
+import Colour._
 
 trait Polity extends ShowSimple
 { override def typeStr: String = "Polity"
@@ -15,4 +15,9 @@ object Rome extends Polity
 object Macedon extends Polity
 { def str: String = "Macedon"
   def colour = Blue
+}
+
+object Sparta extends Polity
+{ def str: String = "Sparta"
+  def colour = Gold
 }

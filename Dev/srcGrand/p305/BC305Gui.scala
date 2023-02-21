@@ -8,6 +8,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
   val corners = scen.corners
+  def armies: HCenOptLayer[Polity] = scen.armies
 
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -47,7 +48,12 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
 
     def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
-    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2
+    def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
+      val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
+      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+    }
+
+    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2 ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

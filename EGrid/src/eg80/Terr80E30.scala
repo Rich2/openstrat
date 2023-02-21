@@ -74,7 +74,7 @@ object Terr80E30  extends Long80Terrs
     wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desHill, desert * 2, desHill * 6, mtain * 2, desHill, lake,
       desHill, mtain)
 
-    wr(422, hills, sea * 5, hills, mtain, hills * 2, sea * 2, hills * 7, desert, desHill, desert, mtain, hills, desHill, mtain, plain * 2,
+    wr(422, mtain, sea * 5, hills, mtain, hills * 2, sea * 2, hills * 7, desert, desHill, desert, mtain, hills, desHill, mtain, plain * 2,
       desHill, mtain * 2, desHill)
 
     wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills  * 2, mtain, hills * 2, plain * 2, desert * 4,
@@ -94,7 +94,7 @@ object Terr80E30  extends Long80Terrs
     res.setSomeInts(Sea, 505,1553)
     res.setSomeInts(Lake, 424,1550)
     res.setSomeInts(Sea, 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553,  444, 1562)
-    res.setSomeInts(Sea, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
+    res.setSomeInts(Sea,  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
     res
   }
 
@@ -126,6 +126,10 @@ object Terr80E30  extends Long80Terrs
 
     res.setMouth3(446, 1562)//Kerch Straits north
     res.setMouth0(442, 1562)//Kerch Straits south
+
+    res.setCornerIn(422, 1474, 5)//Sicily - Italy north
+    res.setCornerIn(422, 1474, 4)//Sicily - Italy
+    res.setMouth0Corner(420, 1472)//Sicily - Italy south
 
     res
   }

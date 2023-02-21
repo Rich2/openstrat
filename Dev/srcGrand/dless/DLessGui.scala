@@ -9,6 +9,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
   val corners = scen.corners
   def armies: HCenOptLayer[Nation] = scen.armies
+
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))

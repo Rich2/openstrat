@@ -7,7 +7,7 @@ object BcLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "bc305"
 
-  override def default: (CanvasPlatform => Any, String) = (BC305Gui(_, BCScen2, BCScen2.defaultView()), "JavaFx BC305")
+  override def default: (CanvasPlatform => Any, String) = (BC305Gui(_, BCScen1, BCScen1.defaultView()), "JavaFx BC305")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
