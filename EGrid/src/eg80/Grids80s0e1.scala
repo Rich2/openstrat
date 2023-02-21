@@ -6,7 +6,7 @@ object Grids80s0e1 extends EGrid80LongMulti
 { ThisSys =>
 
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = EGrid80.grids(2, 0, 434)
+  override val grids: RArr[EGridLongFull] = EGrid80.grids(2, 0, 432)
   override def headGridInt: Int = 0
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
 
@@ -15,7 +15,7 @@ object Grids80s0e1 extends EGrid80LongMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object Scen80s0s1 extends EScenLongMulti//Depr
+object Scen80s0s1 extends EScenLongMulti
 { override implicit val gridSys: EGrid80LongMulti = Grids80s0e1
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn

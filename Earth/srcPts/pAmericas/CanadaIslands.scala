@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, WTile._
 
-object DevonIsland extends EArea2("Devon Island", 73.12 ll -121.13, hillTundra)
+object DevonIsland extends EArea2("Devon Island", 73.12 ll -121.13, tunHill)
 {
   val p10 = 75.77 ll -81.09
   val p20 = 75.46 ll -79.62
@@ -26,7 +26,7 @@ object BanksIsland extends EArea2("Banks Island", 75.15 ll -87.1, tundra)
   override val polygonLL: PolygonLL = PolygonLL(p0, p10, p18, p30, south, southWest, northWest, north)
 }
 
-object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, hillTundra)
+object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, tunHill)
 {
   val north = 76.83 ll -108.75
   val northWest = 75.86 ll -105.44
@@ -53,7 +53,7 @@ object VictoriaIsland extends EArea2("Victoria Island", 70.65 ll -109.36, tundra
   override val polygonLL: PolygonLL = PolygonLL(stefanssonN, vic5, vic10, southEast, southWest, vic30, pointCaen, vic40, northWest, p10)
 }
 
-object PrinceWalesIsland extends EArea2("Prince of Wales Island", 72.87 ll -99.13, hillTundra)
+object PrinceWalesIsland extends EArea2("Prince of Wales Island", 72.87 ll -99.13, tunHill)
 {
   val northEast = 73.86 ll -97.20
   val east = 72.43 ll -96.28

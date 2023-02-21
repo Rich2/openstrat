@@ -10,8 +10,8 @@ object Terr320E30 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
-    gs(156, 1532, hillTundra * 2, sea)
-    gs(154, 1530, hillTaiga, taiga * 2, tundra)
+    gs(156, 1532, tunHill * 2, sea)
+    gs(154, 1530, taigaHill, taiga * 2, tundra)
     wr(152, taiga, taiga, taiga, taiga)
     wr(150, taiga, taiga * 3)
     wr(148, taiga * 2, taiga * 3)

@@ -65,26 +65,26 @@ object Terr80E30  extends Long80Terrs
     wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3,
       mtain)
 
-    wr(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, hillDesert * 2, hills * 4, hillDesert * 2,
+    wr(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, desHill * 2, hills * 4, desHill * 2,
       hills * 3, plain)
 
-    wr(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, hillDesert * 7, mtain * 2, hills,
-      hillDesert * 2, mtain, hillDesert)
+    wr(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, desHill * 7, mtain * 2, hills,
+      desHill * 2, mtain, desHill)
 
-    wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, hillDesert, desert * 2, hillDesert * 6, mtain * 2, hillDesert, lake,
-      hillDesert, mtain)
+    wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desHill, desert * 2, desHill * 6, mtain * 2, desHill, lake,
+      desHill, mtain)
 
-    wr(422, hills, sea * 5, hills, mtain, hills * 2, sea * 2, hills * 7, desert, hillDesert, desert, mtain, hills, hillDesert, mtain, plain * 2,
-      hillDesert, mtain * 2, hillDesert)
+    wr(422, hills, sea * 5, hills, mtain, hills * 2, sea * 2, hills * 7, desert, desHill, desert, mtain, hills, desHill, mtain, plain * 2,
+      desHill, mtain * 2, desHill)
 
     wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills  * 2, mtain, hills * 2, plain * 2, desert * 4,
       mtain)
 
-    wr(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, plain * 2, hills, desert * 2, plain, desert * 3, hillDesert * 2, mtain)
-    wr(416, sea * 10, sea * 4, hills, sea, mtain, sea * 2, mtain * 2, sea * 2, hills, plain, desert * 7, hillDesert)
-    wr(414, sea * 9, hills, sea * 10, hills, sea, hills * 2, desert * 8, hillDesert)
+    wr(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, plain * 2, hills, desert * 2, plain, desert * 3, desHill * 2, mtain)
+    wr(416, sea * 10, sea * 4, hills, sea, mtain, sea * 2, mtain * 2, sea * 2, hills, plain, desert * 7, desHill)
+    wr(414, sea * 9, hills, sea * 10, hills, sea, hills * 2, desert * 8, desHill)
     wr(412, sea * 10, hills * 2, sea * 7, hills, plain, sea * 2, hills, desert * 10)
-    wr(410, sea * 11, sea * 12, hills, hillDesert, desert * 9)//Checked HCens to here
+    wr(410, sea * 11, sea * 12, hills, desHill, desert * 9)//Checked HCens to here
 
     res
   }

@@ -11,7 +11,7 @@ object Terr120E30 extends Long120Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
-    wr(350, sea, mtain, hillTundra * 2, sea * 5)
+    wr(350, sea, mtain, tunHill * 2, sea * 5)
     wr(348, mtain * 2, tundra * 4, sea * 3)
 
     wr(286, hills, plain, hills * 3, sea, hills * 2, hills * 13)

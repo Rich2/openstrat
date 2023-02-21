@@ -12,7 +12,7 @@ object Terr160E120 extends Long160Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
 
-    wr(272, desert * 3, hillDesert * 3, hills, desert, plain * 2, hills * 2, plain, hillForest)
+    wr(272, desert * 3, desHill * 3, hills, desert, plain * 2, hills * 2, plain, forHill)
     wr(270, plain * 14, sea)
     wr(268, plain * 13, sea * 2)
     wr(266, plain * 12, sea * 3)
