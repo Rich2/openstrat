@@ -9,10 +9,7 @@ trait EGrid120Sys extends EGridSys
 
 /** Grid systems for 120km [[EGrid]]s. */
 trait EGrid120LongMulti extends EGridLongMulti with EGrid120Sys
-{ override def adjTilesOfTile(tile: HCen): HCenArr = ???
-
-  //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
-
+{
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of the tile of
    * departure and the tile of arrival. */
   final override def getHCost(startCen: HCen, endCen: HCen): Int = ???

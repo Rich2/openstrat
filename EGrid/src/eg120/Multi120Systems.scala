@@ -9,7 +9,6 @@ object Grids120S0E1 extends EGrid120LongMulti
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 55
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
 /** Scenario for 2 Grid system for 0E and 30E */

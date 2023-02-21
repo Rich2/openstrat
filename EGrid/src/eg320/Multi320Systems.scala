@@ -9,7 +9,6 @@ object Grids320S0E1 extends EGrid320LongMulti
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
 /** Scenario for 2 Grid system for 0E and 30E */
@@ -27,7 +26,6 @@ object Grids320ChinaJapan extends EGrid320LongMulti
   override def headGridInt: Int = 3
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, this))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */
@@ -116,7 +114,6 @@ object GridsNCanada extends EGrid320LongMulti
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, this))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
 /** Scenario for 2 320km grid system for Northern Canada 120W and 90W. */

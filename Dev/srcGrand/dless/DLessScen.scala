@@ -21,7 +21,6 @@ object DLessScen1 extends DLessScen
     override def headGridInt: Int = 0
     override def gridsXSpacing: Double = 40
     override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-    override def adjTilesOfTile(tile: HCen): HCenArr = ???
   }
 
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn

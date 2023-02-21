@@ -9,7 +9,6 @@ object Grids160S0E1 extends EGrid160LongMulti
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    * departure and the tile of arrival. */
@@ -32,7 +31,6 @@ object Grids160S11E1 extends EGrid160LongMulti
   override def headGridInt: Int = 11
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, ThisSys))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
@@ -53,7 +51,6 @@ object Grids160S4E5 extends EGrid160LongMulti
   override def headGridInt: Int = 4
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    * departure and the tile of arrival. */

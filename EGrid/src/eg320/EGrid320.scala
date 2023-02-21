@@ -17,8 +17,6 @@ object EGrid320
     override def gridsXSpacing: Double = 40
 
     override val gridMans: RArr[EGridLongMan] = iUntilMap(numGridsIn)(EGridLongMan(_, ThisSys))
-
-    override def adjTilesOfTile(tile: HCen): HCenArr = ???
   }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
