@@ -6,7 +6,7 @@ import pEarth._,prid._, phex._, WTile._, egrid._
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object Terr80E0 extends Long80Terrs
 {
-  implicit val grid: EGrid80LongFull = EGrid80.e0(428)
+  implicit val grid: EGrid80LongFull = EGrid80.e0(426)
 
   override val terrs: HCenLayer[WTile] =
   {
@@ -51,15 +51,16 @@ object Terr80E0 extends Long80Terrs
     gs(450, 506, plain * 7, hills, mtain * 8)
     gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
     gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
-    wr(444, sea * 13, plain * 2, hills * 5, mtain * 2, hills * 2, plain * 3, sea, plain)
-    wr(442, sea * 12, plain * 2, hills * 3, mtain, hills, mtain * 2, hills, mtain * 3, hills, plain, sea * 2)
+    wr(444, sea * 13, forest, plain, hills * 5, mtain * 2, hills * 2, plain * 3, sea, plain)
+    wr(442, sea * 12, plain, forest, hills * 3, mtain, hills, mtain * 2, hills, mtain * 3, hills, plain, sea * 2)
     wr(440, sea * 13, plain * 3, hills, mtain, hills * 3, mtain * 2, sea * 2, hills, mtain, hills, sea * 2)
-    wr(438, sea * 5, hills * 3, mtain * 3, hills, mtain * 2, hills * 4, sea * 2, hills * 2, sea * 4, hills * 3, sea)
+    wr(438, sea * 5, hills * 3, mtain * 3, hills, mtain * 2, hills * 4, sea * 2, forHill * 2, sea * 4, hills * 3, sea)
     wr(436, sea * 5, hills * 3, plain * 3, desert * 2, hills, mtain * 4, sea * 5, hills, sea * 2, hills * 2, mtain, hills)
     wr(434, sea * 6, hills * 2, plain, desert, desHill, plain, hills, plain * 2, hills * 3, sea * 6, hills, sea * 2, hills * 2, mtain, hills)
     wr(432, sea * 6, hills * 3, plain, desert, hills * 3, desert, plain, hills * 2, sea * 7, hills, sea * 3, hills * 2)
     wr(430, sea * 5, plain, hills * 5, desert, hills, desHill, mtain, plain, sea * 8, hills * 2, sea * 4, hills)
     wr(428, sea * 6, hills * 2, plain * 3, desert * 2, hills * 3, sea * 8, hills * 2, sea * 5)
+    wr(426, sea * 6, hills, plain * 3, hills * 2, desert * 2, hills, plain, sea * 3, plain, sea * 5, hills, sea * 6)
     res
   }
 

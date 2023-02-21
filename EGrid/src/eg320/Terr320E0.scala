@@ -12,22 +12,22 @@ object Terr320E0 extends Long320Terrs
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
+
     wr(156, sea * 3)
     wr(154, sea * 4)
     wr(152,  sea * 3, taigaHill)
     wr(150, sea * 3, taigaHill)
     wr(148, sea * 3, taigaHill, taiga)
-    wr(146, sea, forHill, sea, plain * 2)
+    wr(146, sea, hills, sea, plain, forest)
     wr(144, sea, plain, sea * 2, plain)
-    gs(142, 506, plain, plain * 2, plain * 2)
+    wr(142, sea, plain, plain * 2, plain * 2)
     wr(140, sea, hills, plain * 4)
-    gs(138, 460 + 50, plain * 2, hills, mtain * 2)
-    gs(136, 512, plain, hills, mtain, plain)
-    gs(134, 506, hills * 3, sea, hills * 2)
-    gs(132, 504, hills, plain * 2, sea, hills, sea)
-    gs(130, 506, plain, hills, sea * 3, hills)
+    wr(138, sea * 2, plain * 2, hills, mtain * 2)
+    wr(136, sea * 3, plain, hills, mtain, plain)
+    wr(134, sea, hills * 3, sea, hills * 2)
+    wr(132, sea, hills, plain * 2, sea, hills, sea)
+    wr(130, sea, plain, hills * 2, sea * 3, hills)
     wr(128, sea * 2, hills * 5, sea)
     wr(126, sea * 2, mtain, desHill, desert * 4)
     wr(124, sea * 2, hills, desert * 6)
