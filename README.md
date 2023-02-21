@@ -11,8 +11,8 @@
 ![Docs](https://github.com/Rich2/openstrat/workflows/Docs/badge.svg)
 [![Actions Panel](https://img.shields.io/badge/actionspanel-enabled-brightgreen)](https://www.actionspanel.app/app/w0d/openstrat)
 <h3>Full documentation at <a href="https://richstrat.com/">https://richstrat.com/</a></h3>
-<h3>Scala Docs for Jvm at <a href="https://richstrat.com/api/ostrat/index.html">https://richstrat.com/api/ostrat/index.html</a></h3>
-<h3>Scala Docs for Js <a href="https://richstrat.com/apiJs/ostrat/index.html">https://richstrat.com/apiJs/ostrat/index.html</a></h3>
+<h3>Scala Docs for Jvm at <a href="https://richstrat.com/api/index.html">https://richstrat.com/ostrat/index.html</a></h3>
+<h3>Scala Docs for Js <a href="https://richstrat.com/apiJs/index.html">https://richstrat.com/apiJs/index.html</a></h3>
 
 <h3>A functional Geometry and Vector Graphics library</h3>
 
