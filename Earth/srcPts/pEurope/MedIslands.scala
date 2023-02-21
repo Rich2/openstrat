@@ -55,53 +55,59 @@ object Crete extends EArea2("Crete", 35.23 ll 24.92, hills)
 
 /** [[PolygonLL]] graphic for Cyprus depends on nothing. */
 object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, hills)
-{ val northEast = 35.69 ll 34.58
-  val southEast = 34.96 ll 34.09
-  val p30 = 34.57 ll 33.04
-  val pontiBaba = 35.10 ll 32.28
-  val korucamBurnu = 35.40 ll 32.92
+{ val northEast: LatLong = 35.69 ll 34.58
+  val southEast: LatLong = 34.96 ll 34.09
+  val p30: LatLong = 34.57 ll 33.04
+  val pontiBaba: LatLong = 35.10 ll 32.28
+  val korucamBurnu: LatLong = 35.40 ll 32.92
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p30, pontiBaba, korucamBurnu)
 }
 
 /** [[PolygonLL]] graphic for Rhodes depends on nothing. */
 object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hills)
-{ val north = 36.46 ll 28.22
-  val akraLindos = 36.05 ll 28.09
-  val p40 = 35.93 ll 27.86
-  val south = 35.88 ll 27.76
-  val p50 = 35.94 ll 27.72
-  val p65 = 36.15 ll 27.69
-  val p70 = 36.27 ll 27.81
+{ val north: LatLong = 36.46 ll 28.22
+  val akraLindos: LatLong = 36.05 ll 28.09
+  val p40: LatLong = 35.93 ll 27.86
+  val south: LatLong = 35.88 ll 27.76
+  val p50: LatLong = 35.94 ll 27.72
+  val p65: LatLong = 36.15 ll 27.69
+  val p70: LatLong = 36.27 ll 27.81
 
   override val polygonLL: PolygonLL = PolygonLL(north, akraLindos, p40, south, p50, p65, p70)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
 object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
-{ val nCorsica = 43.00 ll 9.42
-  val bastia = 42.70 ll 9.45
-  val olmuccia = 41.69 ll 9.40
-  val sCorsica = 41.37 ll 9.21
-  val swCorsica = 41.56 ll 8.79
-  val scandola = 42.37 ll 8.54
-  val nwCalvi = 42.57 ll 8.71
-  val pointeMignola = 42.73 ll 9.16
-  val fromontica = 42.67 ll 9.29
+{ val nCorsica: LatLong = 43.00 ll 9.42
+  val bastia: LatLong = 42.70 ll 9.45
+  val p10: LatLong = 42.57 ll 9.53
+  val olmuccia: LatLong = 41.69 ll 9.40
+  val sCorsica: LatLong = 41.37 ll 9.21
+  val swCorsica: LatLong = 41.56 ll 8.79
+  val scandola: LatLong = 42.37 ll 8.54
+  val nwCalvi: LatLong = 42.57 ll 8.71
+  val pointeMignola: LatLong = 42.73 ll 9.16
+  val fromontica: LatLong = 42.67 ll 9.29
 
-  val polygonLL = PolygonLL(nCorsica, bastia, olmuccia, sCorsica, swCorsica, scandola, nwCalvi, pointeMignola, fromontica)
+  override val polygonLL = PolygonLL(nCorsica, bastia, p10, olmuccia, sCorsica, swCorsica, scandola, nwCalvi, pointeMignola, fromontica)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
 object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hills)
-{ val calaCaterina = 39.10 ll 9.51
-  val perdaLonga = 38.87 ll 8.84
-  val capoTeulada = 38.86 ll 8.64
-  val portscuso = 39.21 ll 8.36
-  val capoFalcone = 40.97 ll 8.20
-  val platamona = 40.81 ll 8.46
-  val north = 41.25 ll 9.23
-  val east = 40.52 ll 9.82
+{ val north: LatLong = 41.25 ll 9.23
+  val east: LatLong = 40.52 ll 9.82
+  val p20: LatLong = 40.24 ll 9.62
+  val capoMonteSanto: LatLong = 40.08 ll 9.74
+  val calaCaterina: LatLong = 39.10 ll 9.51
+  val perdaLonga: LatLong = 38.87 ll 8.84
+  val capoTeulada: LatLong = 38.86 ll 8.64
+  val portscuso: LatLong = 39.21 ll 8.36
+  val alghero: LatLong = 40.56 ll 8.31
+  val capoCaccia: LatLong = 40.56 ll 8.16
+  val capoFalcone: LatLong = 40.97 ll 8.20
+  val platamona: LatLong = 40.81 ll 8.46
 
-  val polygonLL = PolygonLL(calaCaterina, perdaLonga, capoTeulada, portscuso, capoFalcone, platamona, north, east)
+  override val polygonLL = PolygonLL(north, east, p20, capoMonteSanto, calaCaterina, perdaLonga, capoTeulada, portscuso, alghero, capoCaccia,
+    capoFalcone, platamona)
 }

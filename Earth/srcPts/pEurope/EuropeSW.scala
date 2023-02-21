@@ -24,6 +24,7 @@ object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, plain)
 object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, plain)
 { val valencia = 39.45 ll -0.32
   val xabia = 38.74 ll 0.22
+  val p15 = 38.43 ll -0.39
   val capePalos = 37.63 ll -0.70
   val p20 = 36.93 ll -1.90
   val southEast = 36.74 ll -2.13
@@ -35,11 +36,13 @@ object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, plain)
   val chipiona = 36.3 ll -6.19
   val heulva = 37 ll -7
   val swPortugal = 37.06 ll -8.34
+  val comporta = 38.38 ll -8.80
   val estoril = 38.71 ll -9.48
-  val p85 = 38.76 ll -9.03
+  val p85 = 38.75 ll -9.47
+  val p87 = 38.77 ll -9.50
   val mondegoMouth = 40.15 ll -8.87
-  override val polygonLL = PolygonLL(valencia, xabia, capePalos, p20, southEast, malaga, p10, bistroPoint, tarifa, chipiona, heulva, swPortugal,
-    estoril, p85, mondegoMouth)
+  override val polygonLL = PolygonLL(valencia, xabia, p15, capePalos, p20, southEast, malaga, p10, bistroPoint, tarifa, chipiona, heulva, swPortugal,
+    comporta, estoril, p85, p87, mondegoMouth)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */
@@ -47,6 +50,7 @@ object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hills)
 { val laMassaneMouth = 42.54 ll 3.05
   val neSpain = 42.18 ll 3.06
   val begur = 41.95 ll 3.22
+
   val barcelona = 41.31 ll 2.12
   val cambrills = 41.07 ll 1.06
   val ebroMouth = 40.72 ll 0.87
@@ -56,6 +60,8 @@ object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hills)
 
   val p50 = 40.19 ll -8.91
   val espinho = 41.02 ll -8.64
+  val p55 = 42.11 ll -8.90
+  val p62 = 42.52 ll -9.04
   val escaselas = 42.92 ll -9.29
   val malipica = 43.34 ll -8.83
   val carino = 43.76 ll -7.86
@@ -65,7 +71,7 @@ object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hills)
   val laNivelleMouth = 43.39 ll -1.67
 
   override val polygonLL = PolygonLL(neSpain, begur, barcelona, cambrills, ebroMouth, p37, p40, p42, IberiaSouth.valencia, IberiaSouth.mondegoMouth,
-    p50, espinho, escaselas, malipica, carino, fozMouth, santander, p80, laNivelleMouth, laMassaneMouth)
+    p50, espinho, p55, p62, escaselas, malipica, carino, fozMouth, santander, p80, laNivelleMouth, laMassaneMouth)
 }
 
 /** [[PolygonLL]] graphic for Italy depends on [[ItalySouth]]. */
@@ -81,6 +87,8 @@ object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, hills)
 
 
   val gaeta = 41.20 ll 13.57
+  val p55 = 41.23 ll 13.04
+  val anzio = 41.45 ll 12.62
   val santaMarinella = 42.03 ll 11.83
   val puntaAla = 42.80 ll 10.73
   val livorno = 43.54 ll 10.29
@@ -91,7 +99,7 @@ object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, hills)
   val voltri = 44.42 ll 8.75
 
   override val polygonLL = PolygonLL(venice, ven1, cervia, ancona, guilianova, vasto, campomarina, vieste, ItalySouth.siponto, ItalySouth.diProcida,
-    gaeta, santaMarinella, puntaAla, livorno, forteDeiMarmi, palmaria, recco, genoa, voltri)
+    gaeta, p55, anzio, santaMarinella, puntaAla, livorno, forteDeiMarmi, palmaria, recco, genoa, voltri)
 }
 
 /** [[PolygonLL]] graphic for Italy depends on nothing. */
