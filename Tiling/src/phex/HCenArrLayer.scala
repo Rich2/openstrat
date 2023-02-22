@@ -69,4 +69,19 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
     }
     build.buffToSeqLike(buff)
   }
+
+  def projEmptyHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projEmptyHcPtMap(proj)(f)
+
+  def projEmptyHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    proj.gChild.foreach { hc =>
+      val array = unsafeArray(proj.parent.layerArrayIndex(hc))
+      if (array.length == 0) {
+        val res = f(hc, proj.transCoord(hc))
+        build.buffGrow(buff, res)
+      }
+    }
+    build.buffToSeqLike(buff)
+  }
 }
