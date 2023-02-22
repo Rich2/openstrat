@@ -4,12 +4,13 @@ import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
-case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) extends HGridSysGui("Game One Gui")
-{
+case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) extends HGridSysGui("Game One Gui") {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: RArr[G1HScen] = RArr(scen)
+
   implicit def gridSys: HGridSys = scen.gridSys
+
   def players: HCenOptLayer[Player] = scen.oPlayers
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
@@ -19,34 +20,39 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) exte
   def NoMoves: HCenStepPairArr[Player] = HCenStepPairArr[Player]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
-   *  moves. This data is state for the Gui. */
+   * moves. This data is state for the Gui. */
   var moves: HCenStepPairArr[Player] = NoMoves
 
   val urect = Rect(1.4, 1)
 
-  def units: GraphicElems = players.projSomeHcPtMap { (p, hc, pt) =>
-    val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-    urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+  def frame: GraphicElems =
+  {
+    def units: GraphicElems = players.projSomeHcPtMap { (p, hc, pt) =>
+      val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
+      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+    }
+
+    /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
+    def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.strComma, 20) }
+
+    def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
+
+    /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
+    val actives: RArr[PolygonActive] = proj.tileActives
+
+    /** Draws the tiles sides (or edges). */
+    def innerSidesDraw: LinesDraw = proj.innerSidesDraw()
+
+    /** Draws the tiles sides (or edges). */
+    def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
+
+    def moveSegPairs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
+
+    /** This is the graphical display of the planned move orders. */
+    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
+
+    actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs2
   }
-
-  /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.strComma, 20) }
-
-  def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
-
-  /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val actives: RArr[PolygonActive] = proj.tileActives
-
-  /** Draws the tiles sides (or edges). */
-  def innerSidesDraw: LinesDraw = proj.innerSidesDraw()
-
-  /** Draws the tiles sides (or edges). */
-  def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
-
-  def moveSegPairs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
-
-  /** This is the graphical display of the planned move orders. */
-  def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
@@ -77,7 +83,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) exte
   }
   thisTop()
 
-  def frame: GraphicElems = (actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs2)
+
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

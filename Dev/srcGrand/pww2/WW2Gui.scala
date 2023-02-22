@@ -15,6 +15,9 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
+  def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
+  var moves: HCenStepPairArr[Army] = NoMoves
+
   override def frame: GraphicElems =
   {
     def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
@@ -25,23 +28,10 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
     def actives: RArr[PolygonActive] = proj.tileActives
 
-    //def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap { (st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
-
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
       sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
     }
-
-    /*def lines: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
-      if (sTerrs(hs).nonEmpty) None
-      else {
-        val t1 = terrs(hs.tileLt)
-        val t2 = terrs(hs.tileRt)
-        ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
-      }
-    }
-
-    def lines2: GraphicElems = proj.ifTileScale(50, lines)*/
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1 = hs.tileLt
