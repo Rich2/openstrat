@@ -4,12 +4,38 @@ import prid._, phex._, egrid._, eg320._, pEarth._
 
 /** Scenario trait for Diceless. */
 trait DLessScen extends HSysTurnScen
-{ def title: String = "DLessScen"
+{ ThisScen =>
+  def title: String = "DLessScen"
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide]
   val corners: HCornerLayer
   val armies: HCenOptLayer[Nation]
+
+  def endTurn(orderList: HCenStepPairArr[Nation]): DLessScen =
+  { val playersKey: Map[Nation, HCen] = armies.SomesKeyMap
+    val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
+
+    orderList.foreach { pair =>
+      val hc1: HCen = playersKey(pair.a2)
+      val optTarget: Option[HCen] = hc1.stepOpt(pair.step)
+      optTarget.foreach { target => targets.appendAt(target, pair.a1) }
+    }
+
+    val armiesNew: HCenOptLayer[Nation] = armies.clone
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.unsafeMove(stCenStep.startHC, hc2)) }
+
+    new DLessScen
+    { override implicit def gridSys: HGridSys = ThisScen.gridSys
+      override val terrs: HCenLayer[WTile] = ThisScen.terrs
+      override val sTerrs: HSideOptLayer[WSide] = ThisScen.sTerrs
+      override val corners: HCornerLayer = ThisScen.corners
+      override val armies: HCenOptLayer[Nation] = armiesNew
+      override def turn: Int = ThisScen.turn + 1
+    }
+  }
 }
+
+
 
 /** The main scenario for Diceless. */
 object DLessScen1 extends DLessScen
