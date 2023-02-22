@@ -12,7 +12,7 @@ object G1HLaunch extends GuiLaunchMore
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
     
-    val scen: H1Scen = num match
+    val scen: G1HScen = num match
     { case 1 => G1HScen1
       case 2 => G1HScen2
       case 3 => G1HScen3

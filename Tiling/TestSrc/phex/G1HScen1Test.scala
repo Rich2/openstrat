@@ -6,7 +6,7 @@ object G1HScen1Test  extends TestSuite
 {
   val os1: G1HScen1.type = G1HScen1
   val g1: HGridReg = os1.gridSys
-  val os2: H1Scen = os1.endTurn(HCenStepPairArr())
+  val os2: G1HScen = os1.endTurn(HCenStepPairArr())
   val g2: HGridSys = os2.gridSys
 //  val os3 = os1.endTurn(HCenStepPairArr.reverse((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HexLt)))
 //  val g3: HGridSys = os3.gridSys

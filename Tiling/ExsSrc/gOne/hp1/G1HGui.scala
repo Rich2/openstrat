@@ -4,11 +4,11 @@ import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
-case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) extends HGridSysGui("Game One Gui")
+case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) extends HGridSysGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
-  var history: RArr[H1Scen] = RArr(scen)
+  var history: RArr[G1HScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptLayer[Player] = scen.oPlayers
 
@@ -16,11 +16,11 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   proj.setView(viewIn)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves2: HCenStepPairArr[Player] = HCenStepPairArr[Player]()
+  def NoMoves: HCenStepPairArr[Player] = HCenStepPairArr[Player]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves2 = NoMoves2
+  var moves: HCenStepPairArr[Player] = NoMoves
 
   val urect = Rect(1.4, 1)
 
@@ -43,15 +43,15 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   /** Draws the tiles sides (or edges). */
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
 
-  def moveSegPairs: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
+  def moveSegPairs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    scen = scen.endTurn(moves2)
-    moves2 = NoMoves2
+    scen = scen.endTurn(moves)
+    moves = NoMoves
     repaint()
     thisTop()
   }
@@ -69,7 +69,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
 
     case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
-      newM.foreach{ d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+      newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
     }
 
