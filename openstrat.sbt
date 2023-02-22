@@ -152,12 +152,15 @@ def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugi
   ),
 )
 
+lazy val DiceLessJs = jsApp("DiceLess").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/DiceLessApp")
+lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/Bc305App")
 lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/GlApp")
 lazy val ZugJs = jsApp("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/ZugApp")
 lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/WW2App")
 lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/Y1783App")
-lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/Bc305App")
+
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/PlanetsApp")
+
 
 val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid", "Dev")
 val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Earth/srcPts", "Dev/srcGrand")
