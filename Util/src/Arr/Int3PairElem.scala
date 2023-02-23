@@ -16,29 +16,22 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1
 
   override final def apply(index: Int): A = newPair(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2), a2Array(index))
 
-  override final def setElemUnsafe(i: Int, newElem: A): Unit =
-  { a1ArrayInt(i * 3) = newElem.a1Int1;
-    a1ArrayInt(i * 3 + 1) = newElem.a1Int2
-    a1ArrayInt(i * 3 + 2) = newElem.a1Int3
-    a2Array(i) = newElem.a2
-  }
+  override final def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayInt.setIndex3(i, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)
+    a2Array(i) = newElem.a2 }
 
   def newA1(int1: Int, int2: Int, int3: Int): A1
 
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
   override def a1NumInt: Int = 3
 
-  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayInt(index * 3) = value.int1; a1ArrayInt(index * 3 + 1) = value.int2
-    a1ArrayInt(index * 3 + 2) = value.int3 }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayInt.setIndex3(index, value.int1, value.int2, value.int3)
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 
   final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
   { val newA1Array = new Array[Int](a1ArrayLength + 3)
     a1ArrayInt.copyToArray(newA1Array)
-    newA1Array(a1ArrayLength) = a1.int1
-    newA1Array(a1ArrayLength + 1) = a1.int2
-    newA1Array(a1ArrayLength + 2) = a1.int3
+    newA1Array.setIndex3(length, a1.int1, a1.int2, a1.int3)
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
@@ -53,16 +46,12 @@ trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends IntNPa
   inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 3), b1IntBuffer(index * 3 + 1), b1IntBuffer(index * 3 + 2), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
-  { b1IntBuffer.append(newElem.a1Int1)
-    b1IntBuffer.append(newElem.a1Int2)
-    b1IntBuffer.append(newElem.a1Int3)
+  { b1IntBuffer.append3(newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)
     b2Buffer.append(newElem.a2)
   }
 
   override final def setElemUnsafe(i: Int, newElem: A): Unit =
-  { b1IntBuffer(i * 3) = newElem.a1Int1
-    b1IntBuffer(i * 3 + 1) = newElem.a1Int2
-    b1IntBuffer(i * 3 + 2) = newElem.a1Int3
+  { b1IntBuffer.setIndex3(i, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)
     b2Buffer(i) = newElem.a2
   }
 }
@@ -73,12 +62,8 @@ trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: Int3Arr[B1], B2, B <: Int3P
 
   final override def a1IntNum: Int = 3
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
-    seqLike.a1ArrayInt(index * 3) = elem.a1Int1
-    seqLike.a1ArrayInt(index * 3 + 1) = elem.a1Int2
-    seqLike.a1ArrayInt(index * 3 + 2) = elem.a1Int3
-    seqLike.a2Array(index) = elem.a2
-  }
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.a1ArrayInt.setIndex3(index, elem.a1Int1, elem.a1Int2, elem.a1Int3)
+    seqLike.a2Array(index) = elem.a2 }
 }
 
 trait Int3PairArrCompanion[A1 <: Int3Elem]
@@ -88,9 +73,7 @@ trait Int3PairArrCompanion[A1 <: Int3Elem]
     val a2Array = new Array[A2](pairs.length)
     var i = 0
     pairs.foreach{p =>
-      intsArray(i * 3) = p.a1Int1
-      intsArray(i * 3 + 1) = p.a1Int2
-      intsArray(i * 3 + 2) = p.a1Int3
+      intsArray.setIndex3(i, p.a1Int1, p.a1Int2, p.a1Int3)
       a2Array(i) = p.a2
       i += 1
     }
@@ -102,23 +85,21 @@ trait Int3PairArrCompanion[A1 <: Int3Elem]
     val a2Array = new Array[A2](pairs.length)
     var i = 0
     pairs.foreach { p =>
-      intsArray(i * 3) = p._1.int1
-      intsArray(i * 3 + 1) = p._1.int2
-      intsArray(i * 3 + 2) = p._1.int3
+      intsArray.setIndex3(i, p._1.int1, p._1.int2, p._1.int3)
       a2Array(i) = p._2
       i += 1
     }
     (intsArray, a2Array)
   }
 
-  def reverseTuplesToArrays[A2](pairs: Seq[(A2, Int3Elem)])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) = {
+  /** Not sure about the implementation of this method. */
+  def reverseTuplesToArrays[A2](pairs: Seq[(A2, Int3Elem)])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  { deb("Not sure about the imlementation of reverseTuplesToArrays method.")
     val intsArray = new Array[Int](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
     pairs.foreach { p =>
-      intsArray(i * 3) = p._2.int1
-      intsArray(i * 3 + 1) = p._2.int2
-      intsArray(i * 3 + 2) = p._2.int3
+      intsArray.setIndex3(i, p._2.int1, p._2.int2, p._2.int3)
       a2Array(i) = p._1
       i += 1
     }

@@ -17,8 +17,7 @@ trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
 
   override def elemProdSize: Int = 3
 
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(3 * index) = newElem.int1; unsafeArray(3 * index + 1) = newElem.int2
-    unsafeArray(3 * index + 2) = newElem.int3 }
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
     buffer.append(elem.int3) }
@@ -43,9 +42,7 @@ trait Int3Arr[A <: Int3Elem] extends Any with IntNArr[A] with Int3SeqLike[A]
   @targetName("append") final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](unsafeLength + 3)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.int1
-    newArray(unsafeLength + 1) = operand.int2
-    newArray(unsafeLength + 2) = operand.int3
+    newArray.setIndex3(length, operand.int1, operand.int2, operand.int3)
     fromArray(newArray)
   }
 }
@@ -59,9 +56,9 @@ trait Int3Buff[A <: Int3Elem] extends Any with IntNBuff[A]
 
   override def elemProdSize: Int = 3
   final override def length: Int = unsafeBuffer.length / 3
-  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3); () }
+  override def grow(newElem: A): Unit = unsafeBuffer.append3(newElem.int1, newElem.int2, newElem.int3)
   override def apply(index: Int): A = newElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
-  override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 3) = newElem.int1; unsafeBuffer(i * 3 + 1) = newElem.int2; unsafeBuffer(i * 3 + 2) = newElem.int3 }
+  override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex3(i, newElem.int1, newElem.int2, newElem.int3)
 }
 
 trait Int3SeqLikeCommonBuilder[BB <: Int3SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
@@ -71,18 +68,11 @@ trait Int3SeqLikeCommonBuilder[BB <: Int3SeqLike[_]] extends IntNSeqLikeCommonBu
 
 trait Int3SeqLikeMapBuilder[B <: Int3Elem, BB <: Int3SeqLike[B]] extends Int3SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int3Buff[B]
-
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 3) = elem.int1
-    seqLike.unsafeArray(index * 3 + 1) = elem.int2; seqLike.unsafeArray(index * 3 + 2) = elem.int3 }
-
-  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2)
-    buff.unsafeBuffer.append(newElem.int3); () }
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex3(index, elem.int1, elem.int2, elem.int3)
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append3(newElem.int1, newElem.int2, newElem.int3)
 }
 
 trait Int3SeqLikeFlatBuilder[BB <: Int3SeqLike[_]] extends Int3SeqLikeCommonBuilder[BB] with IntNSeqLikeFlatBuilder[BB]
-{ type BuffT <: Int3Buff[_]
-  //def buffGrowArr(buff: BuffT, seqLike: Int3SeqLike[_]): Unit = seqLike.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
-}
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,
@@ -103,15 +93,11 @@ abstract class Int3SeqLikeCompanion[A <: Int3Elem, ArrA <: Int3SeqLike[A]] exten
   final def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length * 3
     val res = uninitialised(elems.length)
-    var count: Int = 0
+    var i: Int = 0
 
-    while (count < arrLen)
-    { res.unsafeArray(count) = elems(count / 3).int1
-      count += 1
-      res.unsafeArray(count) = elems(count / 3).int2
-      count += 1
-      res.unsafeArray(count) = elems(count / 3).int3
-      count += 1
+    while (i < elems.length)
+    { res.unsafeArray.setIndex3(i, elems(i).int1, elems(i).int2, elems(i).int3)
+      i += 1
     }
     res
   }

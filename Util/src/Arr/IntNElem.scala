@@ -19,7 +19,8 @@ trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayInt
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 
-  /** Utility method to append element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. */
+  /** Utility method to append element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful for methods likw
+   * filter. */
   def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit
 }
 

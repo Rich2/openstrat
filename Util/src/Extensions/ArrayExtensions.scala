@@ -54,6 +54,10 @@ class ArrayIntExtensions(thisArray: Array[Int])
 { /** sets 2 elements at 2i and 2i + 1. */
   def setIndex2(index: Int, i1: Int, i2: Int): Unit = { thisArray(index * 2) = i1; thisArray(index * 2 + 1) = i2 }
 
+  /** sets 3 elements at 3i, 3i + 1, 3i + 2. */
+  def setIndex3(index: Int, i1: Int, i2: Int, i3: Int): Unit = { thisArray(index * 3) = i1; thisArray(index * 3 + 1) = i2
+    thisArray(index * 3 + 2) = i3 }
+
   /** Copies this Array from the given start index to the destination array. Optional parameters for
    * the start index for the destination Array and the number of elements to be copied. */
   def copyTailToArray(sourceStart: Int, dest: Array[Int], destStart: Int = 0, numElems: Int = -8): Unit =
@@ -65,7 +69,16 @@ class ArrayBufferIntExtensions(thisBuffer: ArrayBuffer[Int])
   /** sets 2 elements at 2i and 2i + 1. */
   @inline def setIndex2(index: Int, i1: Int, i2: Int): Unit = { thisBuffer(index * 2) = i1; thisBuffer(index * 2 + 1) = i2 }
 
+  /** sets 3 elements at 3i, 3i + 1, 3i + 2. */
+  def setIndex3(index: Int, i1: Int, i2: Int, i3: Int): Unit = { thisBuffer(index * 3) = i1; thisBuffer(index * 3 + 1) = i2
+    thisBuffer(index * 3 + 2) = i3
+  }
+
+  /** Appends 2 [[Int]] elements to this [[ArrayBuffer]][Int]. */
   @inline def append2(int1: Int, int2: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2) }
+
+  /** Appends 3 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  @inline def append3(int1: Int, int2: Int, int3: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2); thisBuffer.append(int3) }
 }
 
 class ArrayBufferDoubleExtensions(thisBuffer: ArrayBuffer[Double]) {
