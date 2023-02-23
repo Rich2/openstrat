@@ -51,9 +51,7 @@ class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extend
 
 class ArrayIntExtensions(thisArray: Array[Int])
 { /** sets 2 elements at 2i and 2i + 1. */
-  def setIndex2(index: Int, i1: Int, i2: Int): Unit = {
-    thisArray(index * 2) = i1; thisArray(index * 2 + 1) = i2
-  }
+  def setIndex2(index: Int, i1: Int, i2: Int): Unit = { thisArray(index * 2) = i1; thisArray(index * 2 + 1) = i2 }
 
   /** Copies this Array from the given start index to the destination array. Optional parameters for
    * the start index for the destination Array and the number of elements to be copied. */

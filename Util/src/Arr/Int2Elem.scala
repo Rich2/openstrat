@@ -11,7 +11,7 @@ trait Int2Elem extends Any with IntNElem
 
 trait Int2SeqLike[A <: Int2Elem] extends Any with IntNSeqLike[A]
 { override def elemProdSize: Int = 2
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(2 * index) = newElem.int1; unsafeArray(2 * index + 1) = newElem.int2 }
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.int1, newElem.int2)
   def newElem(i1: Int, i2: Int): A
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1); buffer.append(elem.int2) }
 }
@@ -33,8 +33,7 @@ trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A] with Int2SeqLike[A]
   @targetName("append") final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](unsafeLength + 2)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.int1
-    newArray(unsafeLength + 1) = operand.int2
+    newArray.setIndex2(length, operand.int1, operand.int2)
     fromArray(newArray)
   }
 }
@@ -43,12 +42,11 @@ trait Int2SeqLikeCommonBuilder[BB <: SeqLike[_]] extends IntNSeqLikeCommonBuilde
 { type BuffT <: Int2Buff[_]
   final override def elemProdSize: Int = 2
 }
+
 trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: Int2SeqLike[B]] extends Int2SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int2Buff[B]
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
-  { seqLike.unsafeArray(index * 2) = elem.int1;
-    seqLike.unsafeArray(index * 2 + 1) = elem.int2
-  }
+
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.int1, elem.int2)
 
   final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2); () }
 }
@@ -88,13 +86,11 @@ trait Int2SeqLikeCompanion[A <: Int2Elem, ArrA <: Int2SeqLike[A]] extends IntNSe
   def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length * 2
     val res = uninitialised(elems.length)
-    var count: Int = 0
+    var i: Int = 0
 
-    while (count < arrLen)
-    { res.unsafeArray(count) = elems(count / 2).int1
-      count += 1
-      res.unsafeArray(count) = elems(count / 2).int2
-      count += 1
+    while (i < elems.length)
+    { res.unsafeArray.setIndex2(i, elems(i).int1, elems(i).int2)
+      i += 1
     }
     res
   }
