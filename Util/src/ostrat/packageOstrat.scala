@@ -555,9 +555,12 @@ package object ostrat
     }
   }
 
-  implicit class ArrayIntExtension(array: Array[Int])
+  implicit class ArrayIntExtension(thisArray: Array[Int])
   {
-    def set2Elems(index: Int, i1: Int, i2: Int): Unit = { array(index * 2) = i1; array(index * 2 + 1) = i2 }
+    def set2Elems(index: Int, i1: Int, i2: Int): Unit = { thisArray(index * 2) = i1; thisArray(index * 2 + 1) = i2 }
+
+    def copyTailToArray(sourceStart: Int, dest: Array[Int], destStart: Int = 0, numElems: Int = -8): Unit =
+      System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
   }
 
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
