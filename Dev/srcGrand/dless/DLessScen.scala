@@ -12,11 +12,11 @@ trait DLessScen extends HSysTurnScen
   val armies: HCenOptLayer[Nation]
 
   def endTurn(orderList: HCenStepPairArr[Nation]): DLessScen =
-  { val playersKey: Map[Nation, HCen] = armies.SomesKeyMap
+  { val playersKey = armies.somePairArr
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
-      val hc1: HCen = playersKey(pair.a2)
+      val hc1: HCen = playersKey.a2GetA1(pair.a2)
       val optTarget: Option[HCen] = hc1.stepOpt(pair.step)
       optTarget.foreach { target => targets.appendAt(target, pair.a1) }
     }

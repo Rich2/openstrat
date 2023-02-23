@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
 import prid._, phex._, Colour._
 
-/** Example Game four scenario trait. */
+/** Example Game three scenario trait. */
 abstract class ThreeScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenLayer[Terr]
@@ -13,7 +13,7 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(orderList: HDirnPathPairArr[Lunit]): ThreeScen =
   {
-    val playersKey: Map[Lunit, HCen] = units.SomesKeyMap
+    //val playersKey = units.SomesKeyMapDepr
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenBuffLayer[HStep] = gridSys.newHCenArrOfBuff

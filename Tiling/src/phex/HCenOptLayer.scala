@@ -248,11 +248,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToSeqLike(buff)
   }
 
-  def SomesKeyMap(implicit grider: HGridSys): Map[A, HCen] =
+  /** Needs removing. */
+  /*def SomesKeyMapDepr(implicit grider: HGridSys): Map[A, HCen] =
   { val build = Map.newBuilder[A, HCen]
     someHCForeach((p, hc) => build.addOne(p, hc))
     build.result
-  }
+  }*/
 
   /** Returns an [[HCenPairArr]] of the Some values. */
   def somePairArr(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =

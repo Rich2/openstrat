@@ -115,13 +115,16 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   final override def length: Int = a2Array.length
 
-  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. */
-  def a2KeyGetA1(key: A2): A1 = a2KeyFindA1(key) match
+  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you
+   * are uncertain whether this pair sequence contains the A2 key, use the safe a2FindA1 method. */
+  def a2GetA1(key: A2): A1 = a2FindA1(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  def a2KeyFindA1(key: A2): Option[A1] =
+  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that
+   *  this pair sequence contains the A2 key, use the a2GetA1 method. */
+  def a2FindA1(key: A2): Option[A1] =
   { var i = 0
     var res: Option[A1] = None
     while (i < length & res == None)
@@ -131,13 +134,16 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
-  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. */
-  def a1KeyGetA2(key: A1): A2 = a1KeyFindA2(key) match
+  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you
+   * are uncertain whether this pair sequence contains the A1 key value, use the safe a1FindA2 method.*/
+  def a1GetA2(key: A1): A2 = a1FindA2(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  def a1KeyFindA2(key: A1): Option[A2] =
+  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that
+   * this pair sequence contains the A1 key, use the a1GetA2 method. */
+  def a1FindA2(key: A1): Option[A2] =
   { var i = 0
     var res: Option[A2] = None
     while (i < length & res == None)
@@ -147,12 +153,10 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
+  def a2IndexGet(value: A2): Int = a2IndexFind(value).get
 
-
-  def getA2Index(key: A2): Int = findA2Index(key).get
-
-  def findA2Index(key: A2): Option[Int] = {
-    var i = 0
+  def a2IndexFind(key: A2): Option[Int] =
+  { var i = 0
     var res: Option[Int] = None
     while (res == None & i < length) if (key == a2Array(i)) res = Some(i) else i += 1
     res
@@ -162,10 +166,10 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   final def setA2Unsafe(index: Int, value: A2): Unit = a2Array(index) = value
 
-  def a2Exists(key: A2): Boolean = {
-    var res = false
+  def a2Exists(value: A2): Boolean =
+  { var res = false
     var i = 0
-    while (!res & i < length) if (key == a2Array(i)) res = true else i += 1
+    while (!res & i < length) if (value == a2Array(i)) res = true else i += 1
     res
   }
 }
