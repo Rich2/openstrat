@@ -555,18 +555,11 @@ package object ostrat
     }
   }
 
-  implicit class ArrayIntExtension(thisArray: Array[Int])
-  {
-    def set2Elems(index: Int, i1: Int, i2: Int): Unit = { thisArray(index * 2) = i1; thisArray(index * 2 + 1) = i2 }
-
-    def copyTailToArray(sourceStart: Int, dest: Array[Int], destStart: Int = 0, numElems: Int = -8): Unit =
-      System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
-  }
-
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def AnyRefTypeToExtensions[T <: AnyRef](thisT: T): AnyRefTypeExtensions[T] = new AnyRefTypeExtensions[T](thisT)
-  implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](arr)
-  implicit def arrayValueNElemToExtensions[A <: ValueNElem](arr: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](arr)
+  implicit def arrayToExtensions[A](array: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](array)
+  implicit def arrayValueNElemToExtensions[A <: ValueNElem](array: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](array)
+  implicit def arrayIntToExtensions(array: Array[Int]): ArrayIntExtensions = new ArrayIntExtensions(array)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)

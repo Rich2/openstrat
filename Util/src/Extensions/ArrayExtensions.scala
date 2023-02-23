@@ -1,6 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.immutable.ArraySeq
 
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
@@ -33,14 +32,13 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
   def toStr: String = "Arr" + toStrsSemiParenth()
-  def toArraySeq: ArraySeq[A] = ArraySeq.unsafeWrapArray(thisArray)
 }
 
 /** Extension methods for Array[A <: ValueNElem] class */
 class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extends AnyVal
 {
-  def valueProducts[B <: ValueNArr[A]](implicit factory: Int => B): B = {
-    val length = thisArray.length
+  def valueProducts[B <: ValueNArr[A]](implicit factory: Int => B): B =
+  { val length = thisArray.length
     val valProds = factory(length)
     var count = 0
     while (count < length) {
@@ -49,4 +47,16 @@ class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extend
     }
     valProds
   }
+}
+
+class ArrayIntExtensions(thisArray: Array[Int])
+{ /** sets 2 elements at 2i and 2i + 1. */
+  def setIndex2(index: Int, i1: Int, i2: Int): Unit = {
+    thisArray(index * 2) = i1; thisArray(index * 2 + 1) = i2
+  }
+
+  /** Copies this Array from the given start index to the destination array. Optional parameters for
+   * the start index for the destination Array and the number of elements to be copied. */
+  def copyTailToArray(sourceStart: Int, dest: Array[Int], destStart: Int = 0, numElems: Int = -8): Unit =
+    System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
 }

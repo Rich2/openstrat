@@ -11,20 +11,20 @@ class HCenRow(val r: Int, val c: Int, val num: Int)
   /** Creates the backing Array[Int] of [[HVert]]s for this HCenRow. This same array can be used inside an [[HVertArr]] or a [[PolygonHC]] class. */
   def setHVertArray: Array[Int] =
   { val res = new Array[Int]((num * 4 + 2) * 2)
-    res.set2Elems(0, r + 1, c + 2)
+    res.setIndex2(0, r + 1, c + 2)
     iToForeach(2, num ){ i =>
-      res.set2Elems(i * 2 - 3, r + 1, c + i * 4 - 4)
-      res.set2Elems(i * 2 - 2, r + 1, c + i * 4 - 2)
+      res.setIndex2(i * 2 - 3, r + 1, c + i * 4 - 4)
+      res.setIndex2(i * 2 - 2, r + 1, c + i * 4 - 2)
     }
     iToForeach(num, 2, - 1) { i =>
-      res.set2Elems(num * 4 - i * 2 - 1, r - 1, c + i * 4 - 2)
-      res.set2Elems(num * 4 - i * 2,     r - 1, c + i * 4 - 4)
+      res.setIndex2(num * 4 - i * 2 - 1, r - 1, c + i * 4 - 2)
+      res.setIndex2(num * 4 - i * 2,     r - 1, c + i * 4 - 4)
     }
-    res.set2Elems(num * 4 - 3, r - 1, c + 2)
-    res.set2Elems(num * 4 - 2, r - 1, c)
-    res.set2Elems(num * 4 - 1, r - 1, c - 2)
-    res.set2Elems(num * 4,     r + 1, c - 2)
-    res.set2Elems(num * 4 + 1, r + 1, c)
+    res.setIndex2(num * 4 - 3, r - 1, c + 2)
+    res.setIndex2(num * 4 - 2, r - 1, c)
+    res.setIndex2(num * 4 - 1, r - 1, c - 2)
+    res.setIndex2(num * 4,     r + 1, c - 2)
+    res.setIndex2(num * 4 + 1, r + 1, c)
     res
   }
 }
