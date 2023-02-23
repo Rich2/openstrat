@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -55,8 +55,7 @@ trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends IntNPa
   }
 
   override final def setElemUnsafe(i: Int, newElem: A): Unit =
-  { b1IntBuffer(i * 2) = newElem.a1Int1
-    b1IntBuffer(i * 2 + 1) = newElem.a1Int2
+  { b1IntBuffer.setIndex2(i, newElem.a1Int1, newElem.a1Int2)
     b2Buffer(i) = newElem.a2
   }
 }

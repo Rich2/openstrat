@@ -1,5 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
@@ -57,4 +58,17 @@ class ArrayIntExtensions(thisArray: Array[Int])
    * the start index for the destination Array and the number of elements to be copied. */
   def copyTailToArray(sourceStart: Int, dest: Array[Int], destStart: Int = 0, numElems: Int = -8): Unit =
     System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
+}
+
+class ArrayBufferIntExtensions(thisBuffer: ArrayBuffer[Int])
+{
+  /** sets 2 elements at 2i and 2i + 1. */
+  @inline def setIndex2(index: Int, i1: Int, i2: Int): Unit = { thisBuffer(index * 2) = i1; thisBuffer(index * 2 + 1) = i2 }
+
+  @inline def append2(int1: Int, int2: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2) }
+}
+
+class ArrayBufferDoubleExtensions(thisBuffer: ArrayBuffer[Double]) {
+
+  @inline def append2(newElem: Dbl2Elem): Unit = { thisBuffer.append(newElem.dbl1); thisBuffer.append(newElem.dbl2) }
 }

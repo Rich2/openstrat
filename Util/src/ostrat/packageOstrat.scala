@@ -483,10 +483,6 @@ package object ostrat
     }
   }
 
-  implicit class ArrayBufferDoubleExtensions(thisBuff: ArrayBuffer[Double])
-  { def app2(prod: Dbl2Elem): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
-  }
-
   /* This needs to be removed. */
   implicit class FunitRichImp(fu: () => Unit)
   { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()}
@@ -560,6 +556,7 @@ package object ostrat
   implicit def arrayToExtensions[A](array: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](array)
   implicit def arrayValueNElemToExtensions[A <: ValueNElem](array: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](array)
   implicit def arrayIntToExtensions(array: Array[Int]): ArrayIntExtensions = new ArrayIntExtensions(array)
+  implicit def bufferIntToExtensions(array: ArrayBuffer[Int]): ArrayBufferIntExtensions = new ArrayBufferIntExtensions(array)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
