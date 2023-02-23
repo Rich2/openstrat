@@ -101,8 +101,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     }
   }
 
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, will return nulls for [[None]] values, throws exception if tile centre
+   *  does not exist. */
+  def getex(r: Int, c: Int)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(r, c))
+
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def unSafeApply(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(hc))
+  def getex(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(hc))
 
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
   def tileNone(hc: HCen)(implicit grider: HGridSys): Boolean = unsafeArray(grider.layerArrayIndex(hc)) == null
@@ -248,15 +252,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToSeqLike(buff)
   }
 
-  /** Needs removing. */
-  /*def SomesKeyMapDepr(implicit grider: HGridSys): Map[A, HCen] =
-  { val build = Map.newBuilder[A, HCen]
-    someHCForeach((p, hc) => build.addOne(p, hc))
-    build.result
-  }*/
-
   /** Returns an [[HCenPairArr]] of the Some values. */
-  def somePairArr(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
+  def somePairs(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
   { val buff = build.newBuff()
     someHCForeach((p, hc) => buff.grow(hc, p))
     build.buffToSeqLike(buff)
@@ -269,4 +266,10 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 
   def get(value: A)(implicit grider: HGridSys): HCen = find(value).get
+
+  def findHCen(value: A)(implicit grider: HGridSys): Option[HCen] =
+  { var res: Option[HCen] = None
+    grider.foreach{hc => res.replaceNone(ife(value == getex(hc), Some(hc), None)) }
+    res
+  }
 }

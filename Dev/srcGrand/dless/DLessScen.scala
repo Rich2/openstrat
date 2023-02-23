@@ -12,7 +12,7 @@ trait DLessScen extends HSysTurnScen
   val armies: HCenOptLayer[Nation]
 
   def endTurn(orderList: HCenStepPairArr[Nation]): DLessScen =
-  { val playersKey = armies.somePairArr
+  { val playersKey = armies.somePairs
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
@@ -34,8 +34,6 @@ trait DLessScen extends HSysTurnScen
     }
   }
 }
-
-
 
 /** The main scenario for Diceless. */
 object DLessScen1 extends DLessScen

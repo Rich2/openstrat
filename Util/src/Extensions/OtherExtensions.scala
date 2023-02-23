@@ -49,14 +49,14 @@ class OptionExtensions[A](thisOption: Option[A])
 
   /** safe get. Seeks an implicit value for the [[GefaultValue]] type class for the type of the option. Returns the value if a some else returns the
    * default value. */
-  def sget(implicit ev: DefaultValue[A]): A = thisOption match
+  def getSafe(implicit ev: DefaultValue[A]): A = thisOption match
   { case Some(a) => a
     case None => ev.default
   }
 
   /** An alternative fold extension method for [[Option]] where it searches for an implicit instance of [[DefaultValue]][B] and uses the default value
    *  in the case of None' */
-  def dFold[B](fSome: A => B)(implicit ev: DefaultValue[B]): B = thisOption match
+  def defaultFold[B](fSome: A => B)(implicit ev: DefaultValue[B]): B = thisOption match
   { case None => ev.default
     case Some(a) => fSome(a)
   }
@@ -82,5 +82,11 @@ class OptionExtensions[A](thisOption: Option[A])
   def toEMon: EMon[A] = thisOption match
   { case Some(a) => Good(a)
     case None => Bad(StrArr())
+  }
+
+  /** Keeps the same value if [[Some]], lazily takes the parameter value if [[None]]. */
+  def replaceNone(newOption: => Option[A]) = thisOption match
+  { case None => newOption
+    case _ => this
   }
 }
