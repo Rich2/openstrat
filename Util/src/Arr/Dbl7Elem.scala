@@ -20,13 +20,10 @@ trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with DblNSeqLike[A]
 { def elemProdSize: Int = 7
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
-  { val offset = 7 * index;
-    unsafeArray(offset) = newElem.dbl1; unsafeArray(offset + 1) = newElem.dbl2; unsafeArray(offset + 2) = newElem.dbl3; unsafeArray(offset + 3) = newElem.dbl4
-    unsafeArray(offset + 4) = newElem.dbl5; unsafeArray(offset + 5) = newElem.dbl6; unsafeArray(offset + 6) = newElem.dbl7
-  }
+    unsafeArray.setIndex7(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
 
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
-    buffer.append(elem.dbl3); buffer.append(elem.dbl4); buffer.append(elem.dbl5); buffer.append(elem.dbl6); }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit =
+    buffer.appends(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5, elem.dbl6, elem.dbl7)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
@@ -65,9 +62,7 @@ trait Dbl7Arr[A <: Dbl7Elem] extends Any with DblNArr[A] with Dbl7SeqLike[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](unsafeLength + 7)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.dbl1; newArray(unsafeLength + 1) = operand.dbl2; newArray(unsafeLength + 2) = operand.dbl3
-    newArray(unsafeLength + 3) = operand.dbl4; newArray(unsafeLength + 4) = operand.dbl5; newArray(unsafeLength + 5) = operand.dbl6
-    newArray(unsafeLength + 6) = operand.dbl7
+    newArray.setIndex7(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4, operand.dbl5, operand.dbl6, operand.dbl7)
     fromArray(newArray)
   }
 }
@@ -80,14 +75,10 @@ abstract class Dbl7SeqDefCompanion[A <: Dbl7Elem, ArrA <: Dbl7SeqLike[A]] extend
   def apply(elems: A*): ArrA =
   { val length = elems.length
     val res = uninitialised(length)
-    var count: Int = 0
-
-    while (count < length)
-    { val offset = count * 7
-      res.unsafeArray(offset) = elems(count).dbl1; res.unsafeArray(offset + 1) = elems(count).dbl2; res.unsafeArray(offset + 2) = elems(count).dbl3
-      res.unsafeArray(offset + 3) = elems(count).dbl4; res.unsafeArray(offset + 4) = elems(count).dbl5
-      res.unsafeArray(offset + 5) = elems(count).dbl6; res.unsafeArray(offset + 6) = elems(count).dbl7
-      count += 1
+    var i: Int = 0
+    while (i < length)
+    { res.unsafeArray.setIndex7(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4, elems(i).dbl5, elems(i).dbl6, elems(i).dbl7)
+      i += 1
     }
     res
   }

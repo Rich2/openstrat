@@ -138,6 +138,12 @@ class ArrayDblExtensions(thisArray: Array[Double])
   { thisArray(index * 6) = d1; thisArray(index * 6 + 1) = d2; thisArray(index * 6 + 2) = d3; thisArray(index * 6 + 3) = d4
     thisArray(index * 6 + 4) = d5; thisArray(index * 6 + 5) = d6
   }
+
+  /** sets 7 elements at 7i and 7i + 1, 7i + 2, 7i + 3, 7i + 4, 7i + 5, 7i + 6. */
+  def setIndex7(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): Unit =
+  { thisArray(index * 7) = d1; thisArray(index * 7 + 1) = d2; thisArray(index * 7 + 2) = d3; thisArray(index * 7 + 3) = d4
+    thisArray(index * 7 + 4) = d5; thisArray(index * 7 + 5) = d6; thisArray(index * 7 + 6) = d7
+  }
 }
 
 class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
@@ -162,14 +168,17 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
     thisBuffer(index * 6 + 4) = d5; thisBuffer(index * 6 + 5) = d6
   }
 
-  /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
-  @inline def append2(dbl1: Double, dbl2: Double): Unit = {
-    thisBuffer.append(dbl1); thisBuffer.append(dbl2)
+  /** sets 7 elements at 7i and 7i + 1, 7i + 2, 7i + 3, 7i + 4, 7i + 5, 7i + 6. */
+  def setIndex7(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): Unit =
+  { thisBuffer(index * 7) = d1; thisBuffer(index * 7 + 1) = d2; thisBuffer(index * 7 + 2) = d3; thisBuffer(index * 7 + 3) = d4
+    thisBuffer(index * 7 + 4) = d5; thisBuffer(index * 7 + 5) = d6; thisBuffer(index * 7 + 6) = d6
   }
 
+  /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  @inline def append2(dbl1: Double, dbl2: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2) }
+
   /** Appends 3 [[Double]] elements to this [[ArrayBuffer]][Double]. */
-  @inline def append3(dbl1: Double, dbl2: Double, dbl3: Double): Unit = { thisBuffer.append(dbl1)
-    thisBuffer.append(dbl2); thisBuffer.append(dbl3) }
+  @inline def append3(dbl1: Double, dbl2: Double, dbl3: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2); thisBuffer.append(dbl3) }
 
   /** Appends 4 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append4(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
@@ -182,6 +191,8 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
   /** Appends 6 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append6(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double, dbl6: Double): Unit = { thisBuffer.append(dbl1)
     thisBuffer.append(dbl2); thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5); thisBuffer.append(dbl6) }
+
+  def appends(dbls: Double *): Unit = dbls.foreach(thisBuffer.append(_))
 }
 
 /** Needs Changing. */
