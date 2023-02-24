@@ -19,12 +19,11 @@ trait Int6SeqLike[A <: Int6Elem] extends Any with IntNSeqLike[A]
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
 
-  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(6 * index) = newElem.int1; unsafeArray(6 * index + 1) = newElem.int2
-    unsafeArray(6 * index + 2) = newElem.int3; unsafeArray(6 * index + 3) = newElem.int4;
-    unsafeArray(6 * index + 5) = newElem.int6  }
+  override def setElemUnsafe(index: Int, newElem: A): Unit =
+    unsafeArray.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
-    buffer.append(elem.int3); buffer.append(elem.int4); buffer.append(elem.int5); buffer.append(elem.int6) }
+  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit =
+    buffer.append6(elem.int1, elem.int2, elem.int3, elem.int4, elem.int5, elem.int6)
 }
 
 trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNSeqSpec[A]
@@ -56,12 +55,7 @@ trait Int6Arr[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNArr[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](unsafeLength + 6)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.int1
-    newArray(unsafeLength + 1) = operand.int2
-    newArray(unsafeLength + 2) = operand.int3
-    newArray(unsafeLength + 3) = operand.int4
-    newArray(unsafeLength + 4) = operand.int5
-    newArray(unsafeLength + 5) = operand.int6
+    newArray.setIndex6(length, operand.int1, operand.int2, operand.int3, operand.int4, operand.int5, operand.int6)
     fromArray(newArray)
   }
 }
@@ -76,15 +70,13 @@ trait Int6Buff[A <: Int6Elem] extends Any with IntNBuff[A]
   final override def elemProdSize: Int = 6
   final override def length: Int = unsafeBuffer.length / 6
 
-  final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4).
-    append(newElem.int5).append(newElem.int6); () }
+  final override def grow(newElem: A): Unit = unsafeBuffer.append6(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 
   final override def apply(index: Int): A = newElem(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 6) = newElem.int1; unsafeBuffer(i * 6 + 1) = newElem.int2
-    unsafeBuffer(i * 6 + 2) = newElem.int3; unsafeBuffer(i * 6 + 3) = newElem.int4; unsafeBuffer(i * 6 + 4) = newElem.int5
-    unsafeBuffer(i * 6 + 5) = newElem.int6 }
+  final override def setElemUnsafe(i: Int, newElem: A): Unit =
+    unsafeBuffer.setIndex6(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
 trait Int6SeqLikeCommonBuilder[BB <: Int6SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
@@ -95,14 +87,11 @@ trait Int6SeqLikeCommonBuilder[BB <: Int6SeqLike[_]] extends IntNSeqLikeCommonBu
 trait Int6SeqLikeMapBuilder[B <: Int6Elem, BB <: Int6SeqLike[B]] extends Int6SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int6Buff[B]
 
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 6) = elem.int1
-    seqLike.unsafeArray(index * 6 + 1) = elem.int2; seqLike.unsafeArray(index * 6 + 2) = elem.int3; seqLike.unsafeArray(index * 6 + 3) = elem.int4
-    seqLike.unsafeArray(index * 6 + 4) = elem.int5; seqLike.unsafeArray(index * 6 + 5) = elem.int6
-  }
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
+    seqLike.unsafeArray.setIndex6(index, elem.int1, elem.int2, elem.int3, elem.int4, elem.int5, elem.int6)
 
-  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2)
-    buff.unsafeBuffer.append(newElem.int3); buff.unsafeBuffer.append(newElem.int4); buff.unsafeBuffer.append(newElem.int5)
-    buff.unsafeBuffer.append(newElem.int6); () }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit =
+    buff.unsafeBuffer.append6(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[ArrMapBuilder]] type
@@ -121,21 +110,10 @@ abstract class Int6ArrCompanion[A <: Int6Elem, M <: Int6Arr[A]] extends IntNSeqL
   final def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 6
     val res = uninitialised(elems.length)
-    var count: Int = 0
-    while (count < arrLen)
-    {
-      res.unsafeArray(count) = elems(count / 6).int1
-      count += 1
-      res.unsafeArray(count) = elems(count / 6).int2
-      count += 1
-      res.unsafeArray(count) = elems(count / 6).int3
-      count += 1
-      res.unsafeArray(count) = elems(count / 6).int4
-      count += 1
-      res.unsafeArray(count) = elems(count / 6).int5
-      count += 1
-      res.unsafeArray(count) = elems(count / 6).int6
-      count += 1
+    var i: Int = 0
+    while (i < elems.length)
+    { res.unsafeArray.setIndex6(i, elems(i).int1, elems(i).int2, elems(i).int3, elems(i).int4, elems(i).int5, elems(i).int6)
+      i += 1
     }
     res
   }
