@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -21,11 +21,10 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1
   final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
   override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
 
-  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayDbl(index * 3) = value.dbl1; a1ArrayDbl(index * 3 + 1) = value.dbl2
-    a1ArrayDbl(index * 3 + 2) = value.dbl3 }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = a1ArrayDbl.setIndex3(index, value.dbl1, value.dbl2, value.dbl3)
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayDbl(i * 3) = newElem.a1Dbl1; a1ArrayDbl(i * 3 + 1) = newElem.a1Dbl2
-    a1ArrayDbl(i * 3 + 2) = newElem.a1Dbl3
+  final override def setElemUnsafe(i: Int, newElem: A): Unit =
+  { a1ArrayDbl.setIndex3(i, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3)
     a2Array(i) = newElem.a2
   }
 
@@ -34,9 +33,7 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1
   final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
   { val newA1Array = new Array[Double](a1ArrayLength + 3)
     a1ArrayDbl.copyToArray(newA1Array)
-    newA1Array(a1ArrayLength) = a1.dbl1
-    newA1Array(a1ArrayLength + 1) = a1.dbl2
-    newA1Array(a1ArrayLength + 2) = a1.dbl3
+    newA1Array.setIndex3(length, a1.dbl1, a1.dbl2, a1.dbl3)
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
@@ -51,16 +48,12 @@ trait Dbl3PairBuff[B1 <: Dbl3Elem, B2, B <: Dbl3PairElem[B1, B2]] extends DblNPa
   inline final override def apply(index: Int): B = newElem(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
 
   override final def grow(newElem: B): Unit =
-  { b1DblBuffer.append(newElem.a1Dbl1)
-    b1DblBuffer.append(newElem.a1Dbl2)
-    b1DblBuffer.append(newElem.a1Dbl3)
+  { b1DblBuffer.append3(newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3)
     b2Buffer.append(newElem.a2)
   }
 
   override final def setElemUnsafe(i: Int, newElem: B): Unit =
-  { b1DblBuffer(i * 3) = newElem.a1Dbl1
-    b1DblBuffer(i * 3 + 1) = newElem.a1Dbl2
-    b1DblBuffer(i * 3 + 2) = newElem.a1Dbl3
+  { b1DblBuffer.setIndex3(i, newElem.a1Dbl1, newElem.a1Dbl2, newElem.a1Dbl3)
     b2Buffer(i) = newElem.a2
   }
 }
@@ -71,10 +64,8 @@ trait Dbl3PairArrMapBuilder[B1 <: Dbl3Elem, ArrB1 <: Dbl3Arr[B1], B2, B <: Dbl3P
   override type B1BuffT <: Dbl3Buff[B1]
   final override def a1DblNum: Int = 3
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
-    seqLike.a1ArrayDbl(index * 3) = elem.a1Dbl1
-    seqLike.a1ArrayDbl(index * 3 + 1) = elem.a1Dbl2
-    seqLike.a1ArrayDbl(index * 3 + 2) = elem.a1Dbl3
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
+  { seqLike.a1ArrayDbl.setIndex3(index, elem.a1Dbl1, elem.a1Dbl2, elem.a1Dbl3)
     seqLike.a2Array(index) = elem.a2
   }
 }
@@ -88,9 +79,7 @@ trait Dbl3PairArrCompanion[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1]] extends DblNPai
     val a2Array = new Array[A2](pairs.length)
     var i = 0
     pairs.foreach{p =>
-      dblsArray(i * 3) = p.a1Dbl1
-      dblsArray(i * 3 + 1) = p.a1Dbl2
-      dblsArray(i * 3 + 2) = p.a1Dbl3
+      dblsArray.setIndex3(i, p.a1Dbl1, p.a1Dbl2, p.a1Dbl3)
       a2Array(i) = p.a2
       i += 1
     }

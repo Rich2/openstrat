@@ -48,8 +48,8 @@ trait Dbl2SeqSpec[A <: Dbl2Elem] extends Any with Dbl2SeqLike[A] with DblNSeqSpe
   }
 
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
-  def unsafeMap(f: A => A): Array[Double] = {
-    val newArray: Array[Double] = new Array[Double](unsafeArray.length)
+  def unsafeMap(f: A => A): Array[Double] =
+  { val newArray: Array[Double] = new Array[Double](unsafeArray.length)
     iUntilForeach(0, unsafeLength, 2){ i =>
       val newElem = f(ssElem(unsafeArray(i), unsafeArray(i + 1)))
       newArray(i) = newElem.dbl1

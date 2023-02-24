@@ -119,14 +119,25 @@ class BufferIntExtensions(thisBuffer: ArrayBuffer[Int])
 class ArrayDblExtensions(thisArray: Array[Double])
 { /** sets 2 elements at 2i and 2i + 1. */
   def setIndex2(index: Int, d1: Double, d2: Double): Unit = { thisArray(index * 2) = d1; thisArray(index * 2 + 1) = d2 }
+
+  /** sets 3 elements at 3i and 3i + 1, 3i + 2. */
+  def setIndex3(index: Int, d1: Double, d2: Double, d3: Double): Unit = { thisArray(index * 3) = d1; thisArray(index * 3 + 1) = d2
+    thisArray(index * 3 + 2) = d3 }
 }
 
 class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
 { /** sets 2 [[Double]] elements at 2i and 2i + 1. */
   @inline def setIndex2(index: Int, d1: Double, d2: Double): Unit = { thisBuffer(index * 2) = d1; thisBuffer(index * 2 + 1) = d2 }
 
+  /** sets 3 [[Double]] elements at 3i and 3i + 1, 3i + 2. */
+  @inline def setIndex3(index: Int, d1: Double, d2: Double, d3: Double): Unit = { thisBuffer(index * 3) = d1; thisBuffer(index * 3 + 1) = d2
+    thisBuffer(index * 3 + 2) = d3 }
+
   /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append2(dbl1: Double, dbl2: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2) }
+
+  /** Appends 3 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  @inline def append3(dbl1: Double, dbl2: Double, dbl3: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2); thisBuffer.append(dbl3) }
 }
 
 /** Needs Changing. */
