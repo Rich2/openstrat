@@ -60,7 +60,11 @@ class ArrayIntExtensions(thisArray: Array[Int])
 
   /** sets 4 elements at 4i, 4i + 1, 4i + 2, 4i + 3. */
   def setIndex4(index: Int, i1: Int, i2: Int, i3: Int, i4: Int): Unit = { thisArray(index * 4) = i1; thisArray(index * 4 + 1) = i2
-    thisArray(index * 4 + 2) = i3; thisArray(index * 4 + 2) = i4 }
+    thisArray(index * 4 + 2) = i3; thisArray(index * 4 + 3) = i4 }
+
+  /** sets 5 elements at 5i, 5i + 1, 5i + 2, 5i + 3, 5i + 4. */
+  def setIndex5(index: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): Unit = { thisArray(index * 5) = i1; thisArray(index * 5 + 1) = i2
+    thisArray(index * 5 + 2) = i3; thisArray(index * 5 + 3) = i4; thisArray(index * 5 + 4) = i5 }
 
   /** Copies this Array from the given start index to the destination array. Optional parameters for
    * the start index for the destination Array and the number of elements to be copied. */
@@ -80,8 +84,11 @@ class ArrayBufferIntExtensions(thisBuffer: ArrayBuffer[Int])
 
   /** sets 4 elements at 4i, 4i + 1, 4i + 2, 4i + 3. */
   def setIndex4(index: Int, i1: Int, i2: Int, i3: Int, i4: Int): Unit = { thisBuffer(index * 4) = i1; thisBuffer(index * 4 + 1) = i2
-    thisBuffer(index * 4 + 2) = i3; thisBuffer(index * 4 + 3) = i4
-  }
+    thisBuffer(index * 4 + 2) = i3; thisBuffer(index * 4 + 3) = i4 }
+
+  /** sets 5 elements at 5i, 5i + 1, 5i + 2, 5i + 3, 5i + 4. */
+  def setIndex5(index: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): Unit = { thisBuffer(index * 5) = i1; thisBuffer(index * 5 + 1) = i2
+    thisBuffer(index * 5 + 2) = i3; thisBuffer(index * 5 + 3) = i4; thisBuffer(index * 5 + 4) = i5 }
 
   /** Appends 2 [[Int]] elements to this [[ArrayBuffer]][Int]. */
   @inline def append2(int1: Int, int2: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2) }
@@ -92,9 +99,13 @@ class ArrayBufferIntExtensions(thisBuffer: ArrayBuffer[Int])
   /** Appends 4 [[Int]] elements to this [[ArrayBuffer]][Int]. */
   @inline def append4(int1: Int, int2: Int, int3: Int, int4: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2); thisBuffer.append(int3)
     thisBuffer.append(int4) }
+
+  /** Appends 5 [[Int]] elements to this [[ArrayBuffer]][Int]. */
+  @inline def append5(int1: Int, int2: Int, int3: Int, int4: Int, int5: Int): Unit = { thisBuffer.append(int1); thisBuffer.append(int2);
+    thisBuffer.append(int3); thisBuffer.append(int4); thisBuffer.append(int5) }
 }
 
-class ArrayBufferDoubleExtensions(thisBuffer: ArrayBuffer[Double]) {
-
+class ArrayBufferDoubleExtensions(thisBuffer: ArrayBuffer[Double])
+{
   @inline def append2(newElem: Dbl2Elem): Unit = { thisBuffer.append(newElem.dbl1); thisBuffer.append(newElem.dbl2) }
 }

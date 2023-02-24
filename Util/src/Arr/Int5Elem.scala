@@ -18,8 +18,8 @@ trait Int5SeqLike[A <: Int5Elem] extends Any with IntNSeqLike[A]
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
-  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(5 * index) = newElem.int1; unsafeArray(5 * index + 1) = newElem.int2
-    unsafeArray(5 * index + 2) = newElem.int3; unsafeArray(5 * index + 3) = newElem.int4; unsafeArray(5 * index + 4) = newElem.int5 }
+  override def setElemUnsafe(index: Int, newElem: A): Unit =
+    unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
     buffer.append(elem.int3); buffer.append(elem.int4); buffer.append(elem.int5) }
@@ -52,11 +52,7 @@ trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with IntNArr[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](unsafeLength + 5)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.int1
-    newArray(unsafeLength + 1) = operand.int2
-    newArray(unsafeLength + 2) = operand.int3
-    newArray(unsafeLength + 3) = operand.int4
-    newArray(unsafeLength + 4) = operand.int5
+    newArray.setIndex5(length, operand.int1, operand.int2, operand.int3, operand.int4, operand.int5)
     fromArray(newArray)
   }
 }
@@ -70,15 +66,13 @@ trait Int5Buff[A <: Int5Elem] extends Any with IntNBuff[A]
 
   override def elemProdSize: Int = 5
   final override def length: Int = unsafeBuffer.length / 5
-
-  final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4).
-    append(newElem.int5); () }
+  final override def grow(newElem: A): Unit = unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 
   final override def apply(index: Int): A =
     newElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2), unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 5) = newElem.int1; unsafeBuffer(i * 5 + 1) = newElem.int2
-    unsafeBuffer(i * 5 + 2) = newElem.int3; unsafeBuffer(i * 5 + 3) = newElem.int4; unsafeBuffer(i * 5 + 4) = newElem.int5 }
+  final override def setElemUnsafe(i: Int, newElem: A): Unit =
+    unsafeBuffer.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
@@ -89,13 +83,11 @@ trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends IntNSeqLikeCommonBu
 trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int5Buff[B]
 
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 5) = elem.int1
-    seqLike.unsafeArray(index * 5 + 1) = elem.int2; seqLike.unsafeArray(index * 5 + 2) = elem.int3; seqLike.unsafeArray(index * 5 + 3) = elem.int4
-    seqLike.unsafeArray(index * 5 + 4) = elem.int5
-  }
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
+    seqLike.unsafeArray.setIndex5(index, elem.int1, elem.int2, elem.int3, elem.int4, elem.int5)
 
-  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2)
-    buff.unsafeBuffer.append(newElem.int3); buff.unsafeBuffer.append(newElem.int4); buff.unsafeBuffer.append(newElem.int5); () }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit =
+    buff.unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[ArrMapBuilder]] type
@@ -112,21 +104,11 @@ abstract class Int5ArrCompanion[A <: Int5Elem, M <: Int5Arr[A]] extends IntNSeqL
   def buff(initialSize: Int): Int5Buff[A]
 
   final def apply(elems: A*): M =
-  { val arrLen: Int = elems.length * 5
-    val res = uninitialised(elems.length)
-    var count: Int = 0
-    while (count < arrLen)
-    {
-      res.unsafeArray(count) = elems(count / 5).int1
-      count += 1
-      res.unsafeArray(count) = elems(count / 5).int2
-      count += 1
-      res.unsafeArray(count) = elems(count / 5).int3
-      count += 1
-      res.unsafeArray(count) = elems(count / 5).int4
-      count += 1
-      res.unsafeArray(count) = elems(count / 5).int5
-      count += 1
+  { val res = uninitialised(elems.length)
+    var i: Int = 0
+    while (i < elems.length)
+    { res.unsafeArray.setIndex5(i, elems(i).int1, elems(i).int2, elems(i).int3, elems(i).int4, elems(i / 5).int5)
+      i += 1
     }
     res
   }
