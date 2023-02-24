@@ -15,11 +15,10 @@ trait Dbl4Elem extends Any with DblNElem
 trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 4
 
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(4 * index) = newElem.dbl1; unsafeArray(4 * index + 1) = newElem.dbl2
-    unsafeArray(4 * index + 2) = newElem.dbl3; unsafeArray(4 * index + 3) = newElem.dbl4 }
+  final override def setElemUnsafe(index: Int, newElem: A): Unit =
+    unsafeArray.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
-    buffer.append(elem.dbl3); buffer.append(elem.dbl4) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = buffer.append4(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
@@ -50,10 +49,7 @@ trait Dbl4Arr[A <: Dbl4Elem] extends Any with DblNArr[A] with Dbl4SeqLike[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](unsafeLength + 4)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.dbl1
-    newArray(unsafeLength + 1) = operand.dbl2
-    newArray(unsafeLength + 2) = operand.dbl3
-    newArray(unsafeLength + 3) = operand.dbl4
+    newArray.setIndex4(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4)
     fromArray(newArray)
   }
 }
@@ -69,8 +65,8 @@ trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB
 trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl4Buff[B]
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 4) = elem.dbl1; seqLike.unsafeArray(index * 4 + 1) = elem.dbl2
-    seqLike.unsafeArray(index * 4 + 2) = elem.dbl3; seqLike.unsafeArray(index * 4 + 3) = elem.dbl4 }
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
+    seqLike.unsafeArray.setIndex4(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4)
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
@@ -84,12 +80,10 @@ abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends
   final def apply(elems: A*): AA =
   { val length = elems.length
     val res = uninitialised(length)
-    var count: Int = 0
-
-    while (count < length)
-    { res.unsafeArray(count * 4) = elems(count).dbl1; res.unsafeArray(count * 4 + 1) = elems(count).dbl2
-      res.unsafeArray(count * 4 + 2) = elems(count).dbl3; res.unsafeArray(count * 4 + 3) = elems(count).dbl4
-      count += 1
+    var i: Int = 0
+    while (i < length)
+    { res.unsafeArray.setIndex4(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4)
+      i += 1
     }
      res
    }
@@ -98,11 +92,8 @@ abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
-abstract class Dbl4SeqLikePersist[A <: Dbl4Elem, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3; buf += value.dbl4 }
-
+abstract class Dbl4SeqLikePersist[A <: Dbl4Elem, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]{
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = buf.append4(value.dbl1, value.dbl2, value.dbl3, value.dbl4)
   override def syntaxDepthT(obj: ArrA): Int = 3
 }
 
@@ -112,12 +103,10 @@ trait Dbl4Buff[A <: Dbl4Elem] extends Any with DblNBuff[A]
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
   override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
-  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
+  override def grow(newElem: A): Unit = unsafeBuffer.append4(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 
   override def apply(index: Int): A =
     newElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
-  override def setElemUnsafe(i: Int, newElem: A): Unit =
-  { unsafeBuffer(i * 4) = newElem.dbl1; unsafeBuffer(i * 4 + 1) = newElem.dbl2; unsafeBuffer(i * 4 + 2) = newElem.dbl3; unsafeBuffer(i * 4 + 3) = newElem.dbl4
-  }
+  override def setElemUnsafe(i: Int, newElem: A): Unit =unsafeBuffer.setIndex4(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
