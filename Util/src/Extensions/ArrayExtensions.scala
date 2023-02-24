@@ -132,10 +132,16 @@ class ArrayDblExtensions(thisArray: Array[Double])
   /** sets 5 elements at 5i and 5i + 1, 5i + 2, 5i + 3, 5i + 4. */
   def setIndex5(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): Unit = { thisArray(index * 5) = d1
     thisArray(index * 5 + 1) = d2; thisArray(index * 5 + 2) = d3; thisArray(index * 5 + 3) = d4; thisArray(index * 5 + 4) = d5 }
+
+  /** sets 6 elements at 6i and 6i + 1, 6i + 2, 6i + 3, 6i + 4, 6i + 5. */
+  def setIndex6(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): Unit =
+  { thisArray(index * 6) = d1; thisArray(index * 6 + 1) = d2; thisArray(index * 6 + 2) = d3; thisArray(index * 6 + 3) = d4
+    thisArray(index * 6 + 4) = d5; thisArray(index * 6 + 5) = d6
+  }
 }
 
-class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
-{ /** sets 2 [[Double]] elements at 2i and 2i + 1. */
+class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
+  /** sets 2 [[Double]] elements at 2i and 2i + 1. */
   @inline def setIndex2(index: Int, d1: Double, d2: Double): Unit = { thisBuffer(index * 2) = d1; thisBuffer(index * 2 + 1) = d2 }
 
   /** sets 3 [[Double]] elements at 3i and 3i + 1, 3i + 2. */
@@ -148,14 +154,22 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
 
   /** sets 5 [[Double]] elements at 5i and 5i + 1, 5i + 2, 5i + 3. 5i + 4. */
   @inline def setIndex5(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): Unit = { thisBuffer(index * 5) = d1
-    thisBuffer(index * 5 + 1) = d2; thisBuffer(index * 5 + 2) = d3; thisBuffer(index * 5 + 3) = d4; thisBuffer(index * 5 + 4) = d5
+    thisBuffer(index * 5 + 1) = d2; thisBuffer(index * 5 + 2) = d3; thisBuffer(index * 5 + 3) = d4; thisBuffer(index * 5 + 4) = d5 }
+
+  /** sets 6 elements at 6i and 6i + 1, 6i + 2, 6i + 3, 6i + 4, 6i + 5. */
+  def setIndex6(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): Unit =
+  { thisBuffer(index * 6) = d1; thisBuffer(index * 6 + 1) = d2; thisBuffer(index * 6 + 2) = d3; thisBuffer(index * 6 + 3) = d4
+    thisBuffer(index * 6 + 4) = d5; thisBuffer(index * 6 + 5) = d6
   }
 
   /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
-  @inline def append2(dbl1: Double, dbl2: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2) }
+  @inline def append2(dbl1: Double, dbl2: Double): Unit = {
+    thisBuffer.append(dbl1); thisBuffer.append(dbl2)
+  }
 
   /** Appends 3 [[Double]] elements to this [[ArrayBuffer]][Double]. */
-  @inline def append3(dbl1: Double, dbl2: Double, dbl3: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2); thisBuffer.append(dbl3) }
+  @inline def append3(dbl1: Double, dbl2: Double, dbl3: Double): Unit = { thisBuffer.append(dbl1)
+    thisBuffer.append(dbl2); thisBuffer.append(dbl3) }
 
   /** Appends 4 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append4(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
@@ -164,6 +178,10 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
   /** Appends 5 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append5(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
     thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5) }
+
+  /** Appends 6 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  @inline def append6(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double, dbl6: Double): Unit = { thisBuffer.append(dbl1)
+    thisBuffer.append(dbl2); thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5); thisBuffer.append(dbl6) }
 }
 
 /** Needs Changing. */
@@ -173,13 +191,13 @@ class BufferRefExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
 
   def goodRefs(implicit ct: ClassTag[A]): Good[RArr[A]] = Good(new RArr(thisBuff.toArray))
 
-  def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] = {
-    val len = thisBuff.length
+  def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] =
+  {  val len = thisBuff.length
     val acc: Array[A] = new Array[A](len)
     var count = 0
 
-    while (count < len) {
-      acc(count) = thisBuff(len - 1 - count)
+    while (count < len)
+    { acc(count) = thisBuff(len - 1 - count)
       count += 1
     }
     new RArr(acc)
