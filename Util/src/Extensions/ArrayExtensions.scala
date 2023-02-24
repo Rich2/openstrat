@@ -128,6 +128,10 @@ class ArrayDblExtensions(thisArray: Array[Double])
   def setIndex4(index: Int, d1: Double, d2: Double, d3: Double, d4: Double): Unit = { thisArray(index * 4) = d1; thisArray(index * 4 + 1) = d2
     thisArray(index * 4 + 2) = d3; thisArray(index * 4 + 3) = d4
   }
+
+  /** sets 5 elements at 5i and 5i + 1, 5i + 2, 5i + 3, 5i + 4. */
+  def setIndex5(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): Unit = { thisArray(index * 5) = d1
+    thisArray(index * 5 + 1) = d2; thisArray(index * 5 + 2) = d3; thisArray(index * 5 + 3) = d4; thisArray(index * 5 + 4) = d5 }
 }
 
 class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
@@ -142,6 +146,11 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
   @inline def setIndex4(index: Int, d1: Double, d2: Double, d3: Double, d4: Double): Unit = { thisBuffer(index * 4) = d1
     thisBuffer(index * 4 + 1) = d2; thisBuffer(index * 4 + 2) = d3; thisBuffer(index * 4 + 3) = d4 }
 
+  /** sets 5 [[Double]] elements at 5i and 5i + 1, 5i + 2, 5i + 3. 5i + 4. */
+  @inline def setIndex5(index: Int, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): Unit = { thisBuffer(index * 5) = d1
+    thisBuffer(index * 5 + 1) = d2; thisBuffer(index * 5 + 2) = d3; thisBuffer(index * 5 + 3) = d4; thisBuffer(index * 5 + 4) = d5
+  }
+
   /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append2(dbl1: Double, dbl2: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2) }
 
@@ -150,7 +159,11 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
 
   /** Appends 4 [[Double]] elements to this [[ArrayBuffer]][Double]. */
   @inline def append4(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
-    thisBuffer.append(dbl3); thisBuffer.append(dbl3) }
+    thisBuffer.append(dbl3); thisBuffer.append(dbl4) }
+
+  /** Appends 5 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  @inline def append5(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, dbl5: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2)
+    thisBuffer.append(dbl3); thisBuffer.append(dbl4); thisBuffer.append(dbl5) }
 }
 
 /** Needs Changing. */

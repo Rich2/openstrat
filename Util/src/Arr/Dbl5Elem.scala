@@ -17,12 +17,9 @@ trait Dbl5SeqLike[A <: Dbl5Elem] extends Any with DblNSeqLike[A]
 { def elemProdSize: Int = 5
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
-  { unsafeArray(5 * index) = newElem.dbl1; unsafeArray(5 * index + 1) = newElem.dbl2; unsafeArray(5 * index + 2) = newElem.dbl3
-    unsafeArray(5 * index + 3) = newElem.dbl4; unsafeArray(5 * index + 4) = newElem.dbl5
-  }
+    unsafeArray.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
-    buffer.append(elem.dbl3); buffer.append(elem.dbl4); buffer.append(elem.dbl5) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = buffer.append5(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
@@ -30,7 +27,6 @@ trait Dbl5SeqSpec[A <: Dbl5Elem] extends Any with Dbl5SeqLike[A] with DblNSeqSpe
 {  /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the
    * sequence. */
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-
 
   def ssIndex(index: Int): A = ssElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
     unsafeArray(5 * index + 4))
@@ -54,16 +50,13 @@ trait Dbl5Arr[A <: Dbl5Elem] extends Any with DblNArr[A] with Dbl5SeqLike[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](unsafeLength + 5)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.dbl1; newArray(unsafeLength + 1) = operand.dbl2; newArray(unsafeLength + 2) = operand.dbl3
-    newArray(unsafeLength + 3) = operand.dbl4; newArray(unsafeLength + 4) = operand.dbl5
+    newArray.setIndex5(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4, operand.dbl5)
     fromArray(newArray)
   }
 }
 
 trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]
-{
-  type BuffT <: Dbl5Buff[_]
-
+{ type BuffT <: Dbl5Buff[_]
   final override def elemProdSize: Int = 5
 }
 
@@ -74,10 +67,9 @@ trait Dbl5ArrMapBuilder[B <: Dbl5Elem, ArrB <: Dbl5Arr[B]] extends Dbl5SeqLikeCo
 { type BuffT <: Dbl5Buff[B]
 
   override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
-  { seqLike.unsafeArray(index * 5) = elem.dbl1; seqLike.unsafeArray(index * 5 + 1) = elem.dbl2; seqLike.unsafeArray(index * 5 + 2) = elem.dbl3
-    seqLike.unsafeArray(index * 5 + 3) = elem.dbl4;  seqLike.unsafeArray(index * 5 + 4) = elem.dbl5
-  }
+    seqLike.unsafeArray.setIndex5(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5)
 }
+
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
@@ -91,14 +83,11 @@ abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] exten
   def apply(elems: A*): ArrA =
   { val length = elems.length
     val array = new Array[Double](length)
-    var count: Int = 0
-
-    while (count < length)
-    { array(count * 5) = elems(count).dbl1; array(count * 5 + 1) = elems(count).dbl2; array(count * 5 + 2) = elems(count).dbl3
-      array(count * 5 + 3) = elems(count).dbl4; array(count * 5 + 4) = elems(count).dbl5
-      count += 1
+    var i: Int = 0
+    while (i < length)
+    { array.setIndex5(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4, elems(i).dbl5)
+      i += 1
     }
-
     fromArray(array)
   }
 }
@@ -106,8 +95,8 @@ abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] exten
 /** Both Persists and Builds [[Dbl5Arr]] Collection classes. */
 abstract class DataDbl5sPersist[A <: Dbl5Elem, ArrA <: Dbl5SeqSpec[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3; buf += value.dbl4
-    buf += value.dbl5 }
+  override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit =
+    buffer.append5(value.dbl1, value.dbl2, value.dbl3, value.dbl4, value.dbl5)
 
   override def syntaxDepthT(obj: ArrA): Int = 3
 }
@@ -118,15 +107,11 @@ trait Dbl5Buff[A <: Dbl5Elem] extends Any with DblNBuff[A]
   override def elemProdSize: Int = 5
   final override def length: Int = unsafeBuffer.length / 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-
-  override def grow(newElem: A): Unit =
-  { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4).append(newElem.dbl5); () }
+  override def grow(newElem: A): Unit = unsafeBuffer.append5(newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 
   override def apply(index: Int): A = newElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2),
     unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
 
   override def setElemUnsafe(i: Int, newElem: A): Unit =
-  { unsafeBuffer(i * 5) = newElem.dbl1; unsafeBuffer(i * 5 + 1) = newElem.dbl2; unsafeBuffer(i * 5 + 2) = newElem.dbl3
-    unsafeBuffer(i * 5 + 3) = newElem.dbl4; unsafeBuffer(i * 5 + 3) = newElem.dbl5
-  }
+    unsafeBuffer.setIndex5(i, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
