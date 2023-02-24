@@ -14,8 +14,8 @@ trait Dbl2Elem extends Any with DblNElem
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
 trait Dbl2SeqLike[A <: Dbl2Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 2
-  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(2 * index) = newElem.dbl1; unsafeArray(2 * index + 1) = newElem.dbl2 }
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2) }
+  override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.dbl1, newElem.dbl2)
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = buffer.append2(elem.dbl1, elem.dbl2)
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
@@ -95,8 +95,7 @@ trait Dbl2Arr[A <: Dbl2Elem] extends Any with DblNArr[A] with Dbl2SeqLike[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](unsafeLength + 2)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.dbl1
-    newArray(unsafeLength + 1) = operand.dbl2
+    newArray.setIndex2(length, operand.dbl1, operand.dbl2)
     fromArray(newArray)
   }
 
@@ -112,7 +111,7 @@ trait Dbl2SeqLikeCommonBuilder[BB <: Dbl2SeqLike[_]] extends DblNSeqLikeCommonBu
 
 trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with DblNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Dbl2Buff[B]
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 2) = elem.dbl1; seqLike.unsafeArray(index * 2 + 1) = elem.dbl2}
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.dbl1, elem.dbl2)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
@@ -133,12 +132,10 @@ trait Dbl2SeqLikeCompanion[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends DblNSeqL
   def apply(elems: A*): AA =
   { val length = elems.length
     val res = uninitialised(length)
-    var count: Int = 0
-
-    while (count < length)
-    { res.unsafeArray(count * 2) = elems(count).dbl1
-      res.unsafeArray(count * 2 + 1) = elems(count).dbl2
-      count += 1
+    var i: Int = 0
+    while (i < length)
+    { res.unsafeArray.setIndex2(i, elems(i).dbl1, elems(i).dbl2)
+      i += 1
     }
     res
   }
@@ -160,9 +157,9 @@ trait Dbl2Buff[B <: Dbl2Elem] extends Any with DblNBuff[B]
 
   final override def length: Int = unsafeBuffer.length / 2
   final override def elemProdSize: Int = 2
-  final override def grow(newElem: B): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
+  final override def grow(newElem: B): Unit = unsafeBuffer.append2(newElem.dbl1, newElem.dbl2)
 
   override def apply(index: Int): B = newElem(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  final override def setElemUnsafe(i: Int, newElem: B): Unit = { unsafeBuffer(i * 2) = newElem.dbl1; unsafeBuffer(i * 2 + 1) = newElem.dbl2 }
+  final override def setElemUnsafe(i: Int, newElem: B): Unit = unsafeBuffer.setIndex2(i, newElem.dbl1, newElem.dbl2)
   override def fElemStr: B => String = _.toString
 }

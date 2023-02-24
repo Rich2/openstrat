@@ -510,26 +510,6 @@ package object ostrat
     /** tests if operand is approximately not equal. */
     def !=~(operand: T, precision: D = ev.precisionDefault): Boolean = !ev.approxT(thisT, operand, precision)
   }
-
-  /** Needs Changing. */
-  implicit class RefBufferExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
-  { /** Converts this ArrayBuffer straight to an [[RArr]]. */
-    @inline def toArr(implicit ct: ClassTag[A]): RArr[A] = new RArr[A](thisBuff.toArray[A])
-
-    def goodRefs(implicit ct: ClassTag[A]): Good[RArr[A]] = Good(new RArr(thisBuff.toArray))
-
-    def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] =
-    { val len = thisBuff.length
-      val acc: Array[A] = new Array[A](len)
-      var count = 0
-
-      while (count < len)
-      { acc(count) = thisBuff(len - 1 - count)
-        count += 1
-      }
-      new RArr(acc)
-    }
-  }
   
   implicit class ArrayBufferExtensions[A](thisBuff: ArrayBuffer[A])(implicit ct: ClassTag[A])
   { /** If length of this ArrayBuffer is one, perform side effecting function on the sole element. */
@@ -556,7 +536,10 @@ package object ostrat
   implicit def arrayToExtensions[A](array: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](array)
   implicit def arrayValueNElemToExtensions[A <: ValueNElem](array: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](array)
   implicit def arrayIntToExtensions(array: Array[Int]): ArrayIntExtensions = new ArrayIntExtensions(array)
-  implicit def bufferIntToExtensions(array: ArrayBuffer[Int]): ArrayBufferIntExtensions = new ArrayBufferIntExtensions(array)
+  implicit def bufferIntToExtensions(array: ArrayBuffer[Int]): BufferIntExtensions = new BufferIntExtensions(array)
+  implicit def arrayDblToExtensions(array: Array[Double]): ArrayDblExtensions = new ArrayDblExtensions(array)
+  implicit def bufferDblToExtensions(array: ArrayBuffer[Double]): BufferDblExtensions = new BufferDblExtensions(array)
+  implicit def bufferRefToExtensions[A <: AnyRef](array: ArrayBuffer[A]): BufferRefExtensions[A] = new BufferRefExtensions(array)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
@@ -76,9 +76,8 @@ class ArrayIntExtensions(thisArray: Array[Int])
     System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
 }
 
-class ArrayBufferIntExtensions(thisBuffer: ArrayBuffer[Int])
-{
-  /** sets 2 elements at 2i and 2i + 1. */
+class BufferIntExtensions(thisBuffer: ArrayBuffer[Int])
+{ /** sets 2 elements at 2i and 2i + 1. */
   @inline def setIndex2(index: Int, i1: Int, i2: Int): Unit = { thisBuffer(index * 2) = i1; thisBuffer(index * 2 + 1) = i2 }
 
   /** sets 3 elements at 3i, 3i + 1, 3i + 2. */
@@ -117,7 +116,35 @@ class ArrayBufferIntExtensions(thisBuffer: ArrayBuffer[Int])
     thisBuffer.append(int3); thisBuffer.append(int4); thisBuffer.append(int5); thisBuffer.append(int6) }
 }
 
-class ArrayBufferDoubleExtensions(thisBuffer: ArrayBuffer[Double])
-{
-  @inline def append2(newElem: Dbl2Elem): Unit = { thisBuffer.append(newElem.dbl1); thisBuffer.append(newElem.dbl2) }
+class ArrayDblExtensions(thisArray: Array[Double])
+{ /** sets 2 elements at 2i and 2i + 1. */
+  def setIndex2(index: Int, d1: Double, d2: Double): Unit = { thisArray(index * 2) = d1; thisArray(index * 2 + 1) = d2 }
+}
+
+class BufferDblExtensions(thisBuffer: ArrayBuffer[Double])
+{ /** sets 2 [[Double]] elements at 2i and 2i + 1. */
+  @inline def setIndex2(index: Int, d1: Double, d2: Double): Unit = { thisBuffer(index * 2) = d1; thisBuffer(index * 2 + 1) = d2 }
+
+  /** Appends 2 [[Double]] elements to this [[ArrayBuffer]][Double]. */
+  @inline def append2(dbl1: Double, dbl2: Double): Unit = { thisBuffer.append(dbl1); thisBuffer.append(dbl2) }
+}
+
+/** Needs Changing. */
+class BufferRefExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
+{ /** Converts this ArrayBuffer straight to an [[RArr]]. */
+  @inline def toArr(implicit ct: ClassTag[A]): RArr[A] = new RArr[A](thisBuff.toArray[A])
+
+  def goodRefs(implicit ct: ClassTag[A]): Good[RArr[A]] = Good(new RArr(thisBuff.toArray))
+
+  def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] = {
+    val len = thisBuff.length
+    val acc: Array[A] = new Array[A](len)
+    var count = 0
+
+    while (count < len) {
+      acc(count) = thisBuff(len - 1 - count)
+      count += 1
+    }
+    new RArr(acc)
+  }
 }
