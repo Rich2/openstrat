@@ -17,8 +17,7 @@ trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(4 * index) = newElem.int1; unsafeArray(4 * index + 1) = newElem.int2
-    unsafeArray(4 * index + 2) = newElem.int3; unsafeArray(4 * index + 3) = newElem.int4 }
+  override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
     buffer.append(elem.int3); buffer.append(elem.int4) }
@@ -49,10 +48,7 @@ trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNArr[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](unsafeLength + 4)
     unsafeArray.copyToArray(newArray)
-    newArray(unsafeLength) = operand.int1
-    newArray(unsafeLength + 1) = operand.int2
-    newArray(unsafeLength + 2) = operand.int3
-    newArray(unsafeLength + 3) = operand.int4
+    newArray.setIndex4(length, operand.int1, operand.int2, operand.int3, operand.int4)
     fromArray(newArray)
   }
 }
@@ -66,13 +62,12 @@ trait Int4Buff[A <: Int4Elem] extends Any with IntNBuff[A]
 
   override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
-  final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
+  final override def grow(newElem: A): Unit = unsafeBuffer.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 
   final override def apply(index: Int): A = newElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2),
     unsafeBuffer(index * 4 + 3))
 
-  final override def setElemUnsafe(i: Int, newElem: A): Unit = { unsafeBuffer(i * 4) = newElem.int1; unsafeBuffer(i * 4 + 1) = newElem.int2
-    unsafeBuffer(i * 4 + 2) = newElem.int3; unsafeBuffer(i * 4 + 3) = newElem.int4 }
+  final override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 trait Int4SeqLikeCommonBuilder[BB <: Int4SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
@@ -83,12 +78,10 @@ trait Int4SeqLikeCommonBuilder[BB <: Int4SeqLike[_]] extends IntNSeqLikeCommonBu
 trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: Int4SeqLike[B]] extends Int4SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int4Buff[B]
 
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 4) = elem.int1
-    seqLike.unsafeArray(index * 4 + 1) = elem.int2; seqLike.unsafeArray(index * 4 + 2) = elem.int3; seqLike.unsafeArray(index * 4 + 3) = elem.int4
-  }
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
+    seqLike.unsafeArray.setIndex4(index, elem.int1, elem.int2, elem.int3, elem.int4)
 
-  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2)
-    buff.unsafeBuffer.append(newElem.int3); buff.unsafeBuffer.append(newElem.int4); () }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
@@ -107,17 +100,10 @@ abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends IntNSeqL
   final def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
     val res = uninitialised(elems.length)
-    var count: Int = 0
-    while (count < arrLen)
-    {
-      res.unsafeArray(count) = elems(count / 4).int1
-      count += 1
-      res.unsafeArray(count) = elems(count / 4).int2
-      count += 1
-      res.unsafeArray(count) = elems(count / 4).int3
-      count += 1
-      res.unsafeArray(count) = elems(count / 4).int4
-      count += 1
+    var i: Int = 0
+    while (i < elems.length)
+    { res.unsafeArray.setIndex4(i, elems(i).int1, elems(i).int2, elems(i).int3, elems(i).int4)
+      i += 1
     }
     res
   }
@@ -126,5 +112,5 @@ abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends IntNSeqL
 /**  Class to persist specialised flat Array[Int] based [[Int4Arr]] collection classes. */
 abstract class Int4SeqLikePersist[B <: Int4Elem, ArrB <: Int4Arr[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
 { override def syntaxDepthT(obj: ArrB): Int = 3
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit = { buf += value.int1; buf += value.int2; buf += value.int3; buf += value.int4 }
+  override def appendtoBuffer(buffer: ArrayBuffer[Int], value: B): Unit = buffer.append4(value.int1, value.int2, value.int3, value.int4)
 }
