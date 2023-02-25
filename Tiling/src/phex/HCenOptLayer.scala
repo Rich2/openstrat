@@ -33,6 +33,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   def unsafeSetAll(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
 
+
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptLayer[A] =
   { val newArr = unsafeArray.clone()

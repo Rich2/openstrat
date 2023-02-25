@@ -6,6 +6,7 @@ trait Nation
 { val name: String
   val colour: Colour
   override def toString: String = name
+  def ar(num: Int) = Army(this, num)
 }
 
 object Britain extends Nation
