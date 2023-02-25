@@ -10,6 +10,9 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   val corners = scen.corners
   def armies: HCenOptLayer[Army] = scen.armies
 
+  def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
+  var moves: HCenStepPairArr[Army] = NoMoves
+
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -80,8 +83,8 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     }
 
     /*case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
-      newM.foreach { d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
     }*/
 
