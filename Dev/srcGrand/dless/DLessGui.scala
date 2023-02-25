@@ -89,7 +89,11 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
       thisTop()
     }
     case (RightButton, AnyArrHead(HCenPair(hc1, pl: Army)), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
+      val newM: Option[HStep] = {
+        val ost = gridSys.findStep(hc1, hc2)
+        debvar(ost)
+        ost
+      }
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
     }

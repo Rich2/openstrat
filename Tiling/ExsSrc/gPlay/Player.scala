@@ -25,6 +25,7 @@ object Player
 { /* Implicit [[ShowT]] instance / evidence for [[Player]]. */
   implicit val showTEv: Show2T[Char, Colour, Player] = ShowShow2T[Char, Colour, Player]("Player", "char", "colour")
 }
+
 object PlayerA extends Player('A', Red)
 object PlayerB extends Player('B', Orange)
 object PlayerC extends Player('C', Pink)

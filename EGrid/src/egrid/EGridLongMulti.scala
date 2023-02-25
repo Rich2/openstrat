@@ -25,8 +25,8 @@ trait EGridLongMulti extends EGridSys with EGridMulti
   def right: Double = grids.last.right
   override def manGetex(r: Int, c: Int): EGridLongMan = gridMans((c  / hcDelta - headGridInt) %% 12)
 
-  def manFind(r: Int, c: Int): Option[EGridLongMan] = {
-    val i = (c  / hcDelta - headGridInt) %% 12
+  def manFind(r: Int, c: Int): Option[EGridLongMan] =
+  { val i = (c  / hcDelta - headGridInt) %% 12
     ife(i < 0 | i >= gridMans.length, None, Some(gridMans(i)))
   }
 
