@@ -61,18 +61,25 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
     def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
       val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, HCenPair(hc, army), army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    tiles ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ units
+    def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
+
+    /** This is the graphical display of the planned move orders. */
+    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
+
+    tiles ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
-    //scen = scen.endTurn()
+    scen = scen.endTurn(moves)
+    moves = NoMoves
     repaint()
     thisTop()
   }
+
   statusText = "Welcome to Diceless"
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
@@ -81,12 +88,11 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
-
-    /*case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, AnyArrHead(HCenPair(hc1, pl: Army)), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
-    }*/
+    }
 
     case (_, _, h) => deb("Other; " + h.toString)
   }

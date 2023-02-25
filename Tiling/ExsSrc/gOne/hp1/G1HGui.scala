@@ -29,7 +29,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) exte
   {
     def units: GraphicElems = players.projSomeHcPtMap { (p, hc, pt) =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HCenPair(hc, p), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -73,7 +73,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) exte
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, AnyArrHead(HCenPair(hc1, pl: Player)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
       newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()

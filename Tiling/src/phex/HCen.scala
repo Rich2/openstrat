@@ -135,10 +135,16 @@ object HCenBuff
 
 class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2]
 { override def a1: HCen = HCen(a1Int1, a1Int2)
+
+  override def toString: String = s"$a2; $a1Int1, $a1Int2"
 }
 
 object HCenPair
 { def apply[A2](hc: HCen, a2: A2): HCenPair[A2] = new HCenPair[A2](hc.int1, hc.int2, a2)
+  def unapply(inp: Any): Option[(HCen, Any)] = inp match{
+    case hcp: HCenPair[_] => Some((hcp.a1, hcp.a2))
+    case _ => None
+  }
 }
 
 class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[HCen, HCenArr, A2, HCenPair[A2]]
