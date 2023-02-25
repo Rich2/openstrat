@@ -21,7 +21,20 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 
   /** Combine adjacent tiles of the same value. */
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
+  override def adjTilesOfTile(origR: Int, origC: Int): HCenArr =
+  { val buff = HCenBuff()
+    val r = origR
+    val c = origC
+    if (r < topCenR) if ((c + 2 >= rowLeftCenC(r + 2)) & (c + 2 <= rowRightCenC(r + 2)) ) buff.growInts(r + 2, c + 2)
+    if (c + 4 <= rowRightCenC(r)) buff.growInts(r, c + 4)
+    if (r > bottomCenR) {
+      if ((c + 2 >= rowLeftCenC(r - 2)) & (c + 2 <= rowRightCenC(r - 2))) buff.growInts(r - 2, c + 2)
+      if ((c - 2 >= rowLeftCenC(r - 2)) & (c - 2 <= rowRightCenC(r - 2))) buff.growInts(r - 2, c - 2)
+    }
+    if (c - 4 >= rowLeftCenC(r)) buff.growInts(r, c - 4)
+    if (r < topCenR) if ((c - 2 >= rowLeftCenC(r + 2)) & (c - 2 <= rowRightCenC(r + 2)) ) buff.growInts(r + 2, c - 2)
+    HCenArr.fromBuff(buff)
+  }
 
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)

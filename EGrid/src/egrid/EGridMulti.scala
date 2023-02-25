@@ -80,7 +80,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = manMapex(hSide)(_.sideTileLtAndVertUnsafe(hSide))
 
-  final override def adjTilesOfTile(tile: HCen): HCenArr = manMapex(tile)(_.adjTilesOfTile(tile))
+  final override def adjTilesOfTile(origR: Int, origC: Int): HCenArr = manMapex(origR, origC)(_.adjTilesOfTile(origR, origC))
 
   override def layerArrayIndex(r: Int, c: Int): Int =
   { val ind = manMapex(r, c) { man => man.indexStart + man.grid.layerArrayIndex(r, c) }

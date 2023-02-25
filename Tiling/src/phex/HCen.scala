@@ -100,6 +100,8 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
   override def typeStr: String = "HCens"
   override def fElemStr: HCen => String = _.toString
 
+  def ===(operand: HCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
+
   /** Converts a sequence of adjacent hex tiles to hex directions. Only call this method if you are certain the tiles are adjacent. */
   def unsafeToHDirns(implicit grider: HGridSys): HStepArr = ???
 }

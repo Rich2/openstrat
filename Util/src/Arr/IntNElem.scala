@@ -136,6 +136,11 @@ trait IntNSeqLikeCompanion[A <: IntNElem, AA <: IntNSeqLike[A]]
 
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
   def uninitialised(length: Int): AA = fromArray(new Array[Int](length * elemNumInts))
+
+  def ints(inp: Int*): AA =
+  { if (inp.length %% elemNumInts != 0) excep(s"Wrong number of Ints, ${inp.length} is not divisible by $elemNumInts.")
+    fromArray(inp.toArray)
+  }
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */

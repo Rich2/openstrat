@@ -80,7 +80,11 @@ trait HGridSys extends Any with TGridSys
   /** For each row combine data layer into RArr[HCenRowPair]. May be superceded */
   def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
 
-  def adjTilesOfTile(tile: HCen): HCenArr
+  /** Returns a clockwise sequence of adjacent tiles. */
+  def adjTilesOfTile(origR: Int, origC: Int): HCenArr
+
+  /** Returns a clockwise sequence of adjacent tiles. */
+  final def adjTilesOfTile(origin: HCen): HCenArr = adjTilesOfTile(origin.r, origin.c)
 
   def sideTiles(hSide: HSide): (HCen, HCen) = (sideTileLtUnsafe(hSide), sideTileRtUnsafe(hSide))
 

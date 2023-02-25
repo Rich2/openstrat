@@ -2,15 +2,6 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, pEarth._
 
-/** 2 Grid system for 0E and 30E */
-object Grids320S0E1 extends EGrid320LongMulti
-{ ThisSys =>
-  override val grids: RArr[EGridLongFull] =  EGrid320.grids(2, 0, 124)
-  override def headGridInt: Int = 0
-  override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-}
-
 /** Scenario for 2 Grid system for 0E and 30E */
 object Scen320s0e1 extends EScenLongMulti
 { override val title: String = "320km 0E - 30E"

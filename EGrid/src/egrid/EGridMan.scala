@@ -36,7 +36,8 @@ trait EGridMan
   /** The number of tiles in the Hex grid this manager class is managing. */
   def numTiles: Int = grid.numTiles
 
-  def adjTilesOfTile(tile: HCen): HCenArr
+  def adjTilesOfTile(origR: Int, OrigC: Int): HCenArr
+  final def adjTilesOfTile(origin: HCen): HCenArr = adjTilesOfTile(origin.r, origin.c)
 
   /** Tile steps from a hex within this managers grid to other grids. */
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)

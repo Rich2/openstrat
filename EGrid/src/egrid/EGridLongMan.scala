@@ -6,6 +6,9 @@ import geom._, prid._, phex._
 final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
 { final override def grid: EGridLong = sys.grids(thisInd)
 
+  override def adjTilesOfTile(origR: Int, origC: Int): HCenArr = grid.adjTilesOfTile(origR, origC)
+  //override def adjTilesOfTile(origin: HCen): HCenArr = grid.adjTilesOfTile(origin)
+
   /** This manages the left or west most grid. System does not cover all longitudes. */
   def isLeftMan: Boolean = thisInd == 0 & sys.grids.length != 12
 
@@ -26,7 +29,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     case n => sys.grids(n + 1)
   }
 
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
+
   final override def offset: Vec2 = Vec2((sys.gridsXSpacing - sys.hcDelta) * thisInd, 0)
 
   final override def indexStart: Int = grid.numTiles * thisInd

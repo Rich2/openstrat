@@ -40,12 +40,7 @@ object DLessScen1 extends DLessScen
 {
   override def turn: Int = 0
 
-  override implicit val gridSys: EGrid320LongMulti = new EGrid320LongMulti { ThisSys =>
-    override val grids: RArr[EGridLongFull] = EGrid320.grids(2, 0, 124)
-    override def headGridInt: Int = 0
-    override def gridsXSpacing: Double = 40
-    override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-  }
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124)
 
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
