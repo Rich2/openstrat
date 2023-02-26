@@ -24,10 +24,14 @@ object EGridTest extends TestSuite
     }
 
     test("findStepEnd")
-    { sys.gridMans(0).findStepEnd(138, 526, HexRt) ==> Some(HCen(138, 1526))
-      sys.grids(1).findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
-      sys.findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
+    { sys.findStepEnd(138, 526, HexRt) ==> Some(HCen(138, 1526))
       sys.findStepEnd(142, 1526, HexLt) ==> Some(HCen(142, 522))
+      sys.findStepEnd(140, 524, HexUR) ==> Some(HCen(142, 1526))
+      sys.findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
+      sys.findStepEnd(144, 1528, HexUL) ==> Some(HCen(146, 522))
+      sys.findStepEnd(134, 526, HexDR) ==> Some(HCen(132, 1524))
+      sys.findStepEnd(136, 1524, HexDL) ==> Some(HCen(134, 526))
+
       sys.findStepEnd(140, 524, HexUR) ==> Some(HCen(142, 1526))
       sys.findStepEnd(142, 1526, HexRt)==> Some(HCen(142, 1530))
     }
