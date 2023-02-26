@@ -21,6 +21,7 @@ object EGridTest extends TestSuite
       sys.findStep(144, 1528, 146, 522) ==> Some(HexUL)
       sys.findStep(134, 526, 132, 1524) ==> Some(HexDR)
       sys.findStep(136, 1524, 134, 526) ==> Some(HexDL)
+      sys.findStep(144, 1528, 142, 1526) ==> Some(HexDL)
     }
 
     test("findStepEnd")
@@ -31,6 +32,7 @@ object EGridTest extends TestSuite
       sys.findStepEnd(144, 1528, HexUL) ==> Some(HCen(146, 522))
       sys.findStepEnd(134, 526, HexDR) ==> Some(HCen(132, 1524))
       sys.findStepEnd(136, 1524, HexDL) ==> Some(HCen(134, 526))
+      sys.findStepEnd(144, 1528, HexDL) ==> Some(HCen(142, 1526))
 
       sys.findStepEnd(140, 524, HexUR) ==> Some(HCen(142, 1526))
       sys.findStepEnd(142, 1526, HexRt)==> Some(HCen(142, 1530))

@@ -66,10 +66,12 @@ object HCenStepBuff
 { def apply(initLen: Int = 4) = new HCenStepBuff(new ArrayBuffer[Int](initLen * 3))
 }
 
+/** A pair where a1 is an [[HCenStep]] hex grid step representing the starting [[HCen]] of the step as well as the [[HStep]] singleton object itself. */
 class HCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2: A2) extends Int3PairElem[HCenStep, A2]
 { inline def r1: Int = a1Int1
   inline def c1: Int = a1Int2
   inline def stepInt: Int = a1Int3
+  def startHC: HCen = HCen(r1, c1)
   override def a1: HCenStep = new HCenStep(a1Int1, a1Int2, a1Int3)
   def step: HStep = HStep.fromInt(a1Int3)
 }
