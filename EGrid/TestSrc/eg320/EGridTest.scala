@@ -14,6 +14,8 @@ object EGridTest extends TestSuite
       sys.adjTilesOfTile(142, 1546) === HCenArr.ints(140,1548,  140,1544,  142,1542,  144,1544) ==> true
     }
     test("Steps"){
+      sys.findStep(138, 526, 138, 1526).nonEmpty ==> true
+      sys.gridMans(0).findStepEnd(138, 526, HexRt).nonEmpty ==> true
       sys.grids(1).findStepEnd(142, 1534, HexRt).nonEmpty ==> true
       sys.gridMans(1).findStepEnd(142, 1534, HexRt).nonEmpty ==> true
     }
