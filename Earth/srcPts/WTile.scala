@@ -9,6 +9,8 @@ trait WSide extends Coloured with ShowSimple
  * and other land hexs.  */
 trait WTile extends Coloured with ShowSimple
 { override def typeStr: String = "WTile"
+  def isLand: Boolean
+  def isWater: Boolean
 }
 
 object WTile
@@ -48,6 +50,9 @@ object WTile
 
 /** Currently a common trait for Ocean and Lake. */
 trait Water extends WTile
+{ override def isLand: Boolean = false
+  override def isWater: Boolean = true
+}
 
 case object Sea extends Water with WSide
 { override def str = "Ocean"
@@ -62,6 +67,8 @@ case object Lake extends Water with WSide
 object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
+  override def isLand: Boolean = false
+  override def isWater: Boolean = false
 }
 
 class Land(val terr: Terrain, val biome: Biome) extends WTile
@@ -84,6 +91,9 @@ class Land(val terr: Terrain, val biome: Biome) extends WTile
     }
     case Mountains => Gray
   }
+
+  override def isLand: Boolean = true
+  override def isWater: Boolean = false
 }
 
 object Land
@@ -145,6 +155,8 @@ object IceCap extends Biome
 object SeaIce extends WTile
 { override def str = "SeaIce" 
   override def colour = White
+  override def isLand: Boolean = false
+  override def isWater: Boolean = false
 }
 
 case object Taiga extends Biome
