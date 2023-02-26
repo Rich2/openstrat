@@ -33,6 +33,26 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
 
   final override def indexStart: Int = grid.numTiles * thisInd
 
+  override def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] =
+  { def rc = endR - startR
+    def dc = endC - startC
+
+    sys.manFind(endR, endC) match
+    { case Some(man) if man == this => grid.findStep(startR, startC, endR, endC)
+      case Some(man) if man.isRightMan => rc match {
+        case 0 if (startC == grid.rowRightCenC(startR)) & (endC == man.grid.rowLeftCenC(endR)) => Some(HexRt)
+        case _ => None
+      }
+      case Some(man) if man.isLeftMan => rc match {
+        case 0 if (startC == grid.rowLeftCenC(startR)) & (endC == man.grid.rowRightCenC(endR)) => Some(HexLt)
+        case _ => None
+      }
+
+      case _ => None
+    }
+
+  }
+
   override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
 
   override def hCenExists(r: Int, c: Int): Boolean = None match
@@ -282,7 +302,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
 
       case HexLt if tc >= grid.rowLeftCenC(r0) => Some(std)
       case HexLt if isLeftMan => None
-      case HexLt => Some(HCen(r0, rtGrid.rowLeftCenC(r0)))
+      case HexLt => Some(HCen(r0, ltGrid.rowRightCenC(r0)))
 
       case HexUL if tr > grid.topCenR => None
       case HexUL if tc >= grid.rowLeftCenC(tr) => Some(std)
