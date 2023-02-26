@@ -45,16 +45,19 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case Some(man) if man.isRightMan => rc match
       { case 0 if (startC == grid.rowRightCenC(startR)) & (endC == man.grid.rowLeftCenC(endR)) => Some(HexRt)
         case 2 if (endC >= man.grid.rowLeftCenC(endR)) & (endC == man.grid.rowLeftCenC(startR) - 2) => Some(HexUR)
+        case -2 if (endC >= man.grid.rowLeftCenC(endR)) & (endC == man.grid.rowLeftCenC(startR) - 2) => Some(HexDR)
         case _ => None
       }
-      case Some(man) if man.isLeftMan => rc match {
-        case 0 if (startC == grid.rowLeftCenC(startR)) & (endC == man.grid.rowRightCenC(endR)) => Some(HexLt)
+
+      case Some(man) if man.isLeftMan => rc match
+      { case 0 if (startC == grid.rowLeftCenC(startR)) & (endC == man.grid.rowRightCenC(endR)) => Some(HexLt)
+        case 2 if (endC <= man.grid.rowRightCenC(endR)) & (endC == man.grid.rowRightCenC(startR) + 2) => Some(HexUL)
+        case -2 if (endC <= man.grid.rowRightCenC(endR)) & (endC == man.grid.rowRightCenC(startR) + 2) => Some(HexDL)
         case _ => None
       }
 
       case _ => None
     }
-
   }
 
   override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))

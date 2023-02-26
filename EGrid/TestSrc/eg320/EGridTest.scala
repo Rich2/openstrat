@@ -18,6 +18,9 @@ object EGridTest extends TestSuite
       sys.findStep(142, 1526, 142, 522) ==> Some(HexLt)
       sys.findStep(140, 524, 142, 1526) ==> Some(HexUR)
       sys.findStep(142, 1526, 142, 1530) ==> Some(HexRt)
+      sys.findStep(144, 1528, 146, 522) ==> Some(HexUL)
+      sys.findStep(134, 526, 132, 1524) ==> Some(HexDR)
+      sys.findStep(136, 1524, 134, 526) ==> Some(HexDL)
     }
 
     test("findStepEnd")
