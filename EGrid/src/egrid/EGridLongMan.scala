@@ -29,7 +29,6 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     case n => sys.grids(n + 1)
   }
 
-
   final override def offset: Vec2 = Vec2((sys.gridsXSpacing - sys.hcDelta) * thisInd, 0)
 
   final override def indexStart: Int = grid.numTiles * thisInd
