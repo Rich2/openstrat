@@ -250,7 +250,6 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     step match
     { case HexUR if tr > grid.topCenR => None
       case HexUR if tc <= grid.rowRightCenC(tr) => Some(std)
-      case HexRt if isRightMan => None
       case HexUR =>
       { val c1 = rtGrid.rowLeftCenC(tr)
         val c0 = rtGrid.rowLeftCenC(r0)

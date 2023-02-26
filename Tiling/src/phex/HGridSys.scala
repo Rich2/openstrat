@@ -58,6 +58,8 @@ trait HGridSys extends Any with TGridSys
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def findStepEnd(startHC: HCen, step: HStep): Option[HCen]
 
+  def findStepEnd(r: Int, c: Int, step: HStep): Option[HCen] = findStepEnd(HCen(r, c), step)
+
   def findStepEnd(cenStep: HCenStep): Option[HCen] = findStepEnd(cenStep.startHC, cenStep.step)
 
   /** Gives a flat projection of [[HCoord]]s to [[Pt2]]s. For a simple singular [[HGrid]] system this is all that is required to translate between
