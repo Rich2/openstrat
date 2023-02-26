@@ -16,12 +16,14 @@ object EGridTest extends TestSuite
     test("findStep")
     { sys.findStep(138, 526, 138, 1526) ==> Some(HexRt)
       sys.findStep(142, 1526, 142, 522) ==> Some(HexLt)
+      sys.findStep(140, 524, 142, 1526) ==> Some(HexUR)
     }
 
     test("findStepEnd")
     { sys.gridMans(0).findStepEnd(138, 526, HexRt) ==> Some(HCen(138, 1526))
       sys.grids(1).findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
-      sys.gridMans(1).findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
+      sys.findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
+      sys.findStepEnd(142, 1526, HexLt) ==> Some(HCen(142, 522))
     }
   }
 }
