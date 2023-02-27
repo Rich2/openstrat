@@ -20,11 +20,10 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   override def frame: GraphicElems =
   {
-    def tiles: RArr[PolygonFill] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
-    }
+    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
+      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour) }
 
-    def actives: RArr[PolygonActive] = proj.hCensMap { hc =>
+    def tileActives: RArr[PolygonActive] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.active(hc) }
 
     def straits: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
@@ -69,7 +68,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tiles ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
+    tileFills ++ tileActives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
