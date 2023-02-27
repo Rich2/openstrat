@@ -46,6 +46,7 @@ object Terr120E0 extends Long120Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(Sea, 319,499,  318,500,  317,501,  316,502,  315,501,  314,500,  321,499,  322,500,  323,501,  324,502,  325,505)//Britain
     res.setSomeInts(Sea, 307,509,  307,511,  307,513,  308,514,  309,515)//English Channel
+    res.setSomeInts(Sea, 323,529,  317,533,  318,532,  318,536,  319,533,  319,539)//Denmark
     res
   }
 
@@ -53,12 +54,12 @@ object Terr120E0 extends Long120Terrs
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
     res.setMouth2(320, 496)//Scotland - Ireland north west
-    res.setVert1In(318, 498)//Scotland - Ireland
-    res.setVert4In(318, 502)
-    res.setVert1In(316, 500)
-    res.setVert2In(316, 500)
-    res.setVert5In(314, 502)
-    res.setMouth0(312, 500)
+    res.setVert1In(318, 498)//Ireland - Scotland
+    res.setVert4In(318, 502)//Scotland - Ireland
+    res.setVert1In(316, 500)//Irish Sea
+    res.setVert2In(316, 500)//Irish Sea
+    res.setVert5In(314, 502)//Irish Sea
+    res.setMouth0(312, 500)//Irish Sea
 
     res.setMouth1(306, 506)//English Channel Cherbourg
     res.setVert0In(306, 510)//English Channel
