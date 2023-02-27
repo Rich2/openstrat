@@ -67,6 +67,15 @@ object Terr120E0 extends Long120Terrs
     res.setVert2In(308, 512)//English Channel
     res.setVert5In(308, 516)//English Channel
     res.setMouth4(310, 518)//English Channel Dover - Calais
+
+    res.setMouth4(320, 536)
+    res.setVert5In(318, 534)
+    res.setVert4In(318, 534)
+    res.setMouth5(316, 536)
+    res.setMouth3(320, 536)
+    res.setMouth0(316, 536)
+    res.setMouth2(320, 536)
+    res.setMouth5(318, 542)
     res
   }
 }
