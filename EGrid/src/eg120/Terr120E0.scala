@@ -52,6 +52,14 @@ object Terr120E0 extends Long120Terrs
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
+    res.setMouth2(320, 496)//Scotland - Ireland north west
+    res.setVert1In(318, 498)//Scotland - Ireland
+    res.setVert4In(318, 502)
+    res.setVert1In(316, 500)
+    res.setVert2In(316, 500)
+    res.setVert5In(314, 502)
+    res.setMouth0(312, 500)
+
     res.setMouth1(306, 506)//English Channel Cherbourg
     res.setVert0In(306, 510)//English Channel
     res.setVert3In(308, 512)//English Channel

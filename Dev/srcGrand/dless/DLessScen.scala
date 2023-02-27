@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package dless
-import prid._, phex._, egrid._, eg320._, pEarth._
+import prid._, phex._, eg320._, pEarth._
 
 /** Scenario trait for Diceless. */
 trait DLessScen extends HSysTurnScen
