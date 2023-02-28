@@ -13,7 +13,7 @@ object BCScen1 extends BCScen
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   override val armies: HCenOptLayer[Polity] = gridSys.newHCenOptLayer
-  armies.unsafeSetSames(Rome, 434,562)
+  armies.unsafeSetSames(Rome, 434,562, 434,566)
   armies.unsafeSetSames(Sparta, 418,1502)
 }
 
