@@ -41,6 +41,7 @@ object WW1Scen1 extends WW1Scen
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
   armies.unsafeSetSome(310, 514, Army(Britain))
   armies.unsafeSetSome(308, 528, Army(Germany))
+  armies.unsafeSetSome(306, 518, Army(France))
 }
 
 object WW1Scen2 extends WW1Scen
