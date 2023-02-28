@@ -15,12 +15,12 @@ object Terr220E0 extends Long220Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
-    wr(178, sea * 4, taigaHill)
-    wr(176, sea * 5, taigaHill)
-    wr(174, sea * 5, taigaHill)
-    wr(172, sea * 5, taigaHill, taiga)
-    wr(170, sea * 4, taigaHill, taiga * 2)
-    wr(168, sea * 2, hills, sea * 2, taigaHill, taiga)
+    wr(178, sea * 4, taigaHills)
+    wr(176, sea * 5, taigaHills)
+    wr(174, sea * 5, taigaHills)
+    wr(172, sea * 5, taigaHills, taiga)
+    wr(170, sea * 4, taigaHills, taiga * 2)
+    wr(168, sea * 2, hills, sea * 2, taigaHills, taiga)
     wr(166, sea * 2, hills, sea * 3, plain, plain)
     wr(164, sea, plain, hills, sea * 3, plain, sea)
     wr(162, sea, plain, sea, plain, sea, plain * 4)
@@ -34,10 +34,10 @@ object Terr220E0 extends Long220Terrs
     wr(146, sea, plain * 4, sea * 3, hills, sea * 2)
     wr(144, sea * 2, plain * 3, sea * 5, hills)
     wr(142, sea * 3, hills, sea * 3, hills * 4, sea)
-    wr(140, sea * 3, hills, desHill * 2, desert * 2, desHill * 2, sea * 2)
-    wr(138, sea * 3, desert, desHill, desert * 7)
+    wr(140, sea * 3, hills, desertHills * 2, desert * 2, desertHills * 2, sea * 2)
+    wr(138, sea * 3, desert, desertHills, desert * 7)
     wr(136, sea * 3, mtain * 2, desert * 8)
-    wr(134, sea, desHill * 2, desert * 10)
+    wr(134, sea, desertHills * 2, desert * 10)
     wr(132, sea, desert * 12)
 
     res

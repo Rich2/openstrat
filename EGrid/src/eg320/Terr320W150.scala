@@ -11,12 +11,12 @@ object Terr320W150 extends Long320Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
     wr(156, tundra * 2, sea)
-    wr(154, taigaHill * 3, taiga)
-    wr(152, taiga * 3, taigaHill)
-    wr(150, tunHill, mtain * 2, taiga)
-    wr(148, taigaHill * 2, sea * 2, mtain)
-    wr(146, tunHill, sea * 3, mtain)
-    wr(144, taigaHill, sea * 4)
+    wr(154, taigaHills * 3, taiga)
+    wr(152, taiga * 3, taigaHills)
+    wr(150, tundraHills, mtain * 2, taiga)
+    wr(148, taigaHills * 2, sea * 2, mtain)
+    wr(146, tundraHills, sea * 3, mtain)
+    wr(144, taigaHills, sea * 4)
     res
   }
 

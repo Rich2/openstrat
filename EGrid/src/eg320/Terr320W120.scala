@@ -17,17 +17,17 @@ object Terr320W120 extends Long320Terrs
     wr(154, tundra * 4)
     wr(152, taiga * 3, tundra)
     wr(150, mtain, taiga * 3)
-    wr(148, taigaHill * 2, taiga * 3)
+    wr(148, taigaHills * 2, taiga * 3)
     wr(146, mtain, taiga * 4)
     wr(144, mtain, taiga * 4)
     wr(142, sea ,mtain * 2, plain * 3)
     wr(140, sea, mtain * 2, plain * 3)
     wr(138, sea * 2, mtain * 2, plain * 3)
-    wr(136, sea * 2, forHill, hills, mtain * 2, desHill)
-    wr(134, sea * 2, hills, desHill, desert, desHill *2)
-    wr(132, sea * 2, hills * 2, desHill * 2, mtain)
-    wr(130, sea * 4, hills, desHill * 2, mtain)
-    wr(128, sea * 4, desHill * 2, desert, desHill)
+    wr(136, sea * 2, forestHills, hills, mtain * 2, desertHills)
+    wr(134, sea * 2, hills, desertHills, desert, desertHills *2)
+    wr(132, sea * 2, hills * 2, desertHills * 2, mtain)
+    wr(130, sea * 4, hills, desertHills * 2, mtain)
+    wr(128, sea * 4, desertHills * 2, desert, desertHills)
     res
   }
 

@@ -16,10 +16,10 @@ object Terr160E0 extends Long160Terrs
     wr(308, sea * 7, mtain)
     wr(306, sea * 7, mtain)
     wr(304, sea * 7, mtain)
-    wr(302, sea * 7, taigaHill, taiga)
-    wr(300, sea * 6, mtain, taigaHill * 2)
-    wr(298, sea * 6, mtain * 2, taigaHill * 2)
-    wr(296, sea * 6, taigaHill * 2, taiga * 2)
+    wr(302, sea * 7, taigaHills, taiga)
+    wr(300, sea * 6, mtain, taigaHills * 2)
+    wr(298, sea * 6, mtain * 2, taigaHills * 2)
+    wr(296, sea * 6, taigaHills * 2, taiga * 2)
     wr(294, sea * 3, hills, sea * 3, hills, sea, taiga)
     wr(292, sea * 3, hills * 2, sea * 5, plain)
     wr(290, sea * 2, hills * 2, sea * 4, plain * 3)
@@ -33,8 +33,8 @@ object Terr160E0 extends Long160Terrs
     wr(274, sea * 6, plain * 3, hills, mtain * 4)
     wr(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills)
     wr(270, sea * 2, plain, hills * 3, plain * 2, hills * 2, mtain, sea, hills * 2, sea)
-    wr(268, sea * 3, hills, plain, desHill * 2, mtain * 2, sea * 3, hills, hills * 2)
-    wr(266, sea * 2, hills * 2, desert, desHill * 2, hills, sea * 3, hills, sea * 2, hills)
+    wr(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, hills, hills * 2)
+    wr(266, sea * 2, hills * 2, desert, desertHills * 2, hills, sea * 3, hills, sea * 2, hills)
     res
   }
 

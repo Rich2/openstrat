@@ -25,7 +25,7 @@ object Terr320E60 extends Long320Terrs
     wr(134, sea, desert * 5, mtain)
     wr(132, mtain, sea, desert * 3, mtain * 2)
     wr(130, mtain, sea, desert * 4, mtain * 2)
-    wr(128, desHill, desert * 5, mtain * 2)
+    wr(128, desertHills, desert * 5, mtain * 2)
     wr(126, desert, mtain, desert * 5, plain)
     wr(124, desert, plain, mtain, desert * 4, plain * 2)
     wr(122, desert, sea, mtain, desert * 3, plain, desert * 2)
