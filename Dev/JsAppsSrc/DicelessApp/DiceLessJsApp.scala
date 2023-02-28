@@ -2,8 +2,8 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, dless._, prid.phex._
 
-@JSExportTopLevel("DiceLessJsApp")
-object DiceLessJsApp
+@JSExportTopLevel("DicelessJsApp")
+object DicelessJsApp
 {   
   @JSExport def main(): Unit = DLessGui(CanvasJs, DLessScen1, HGView(141, 524, 20))
 } 
