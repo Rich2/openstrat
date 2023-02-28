@@ -8,7 +8,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
   val corners = scen.corners
-  def armies: HCenOptLayer[Polity] = scen.armies
+  def armies: HCenOptLayer[Legion] = scen.armies
 
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)

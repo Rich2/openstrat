@@ -3,7 +3,7 @@ package ostrat; package p305
 import prid._, phex._, egrid._, eg80._, pEarth._
 
 trait BCScen extends EScenBasic with HSysTurnScen
-{val armies: HCenOptLayer[Polity]
+{val armies: HCenOptLayer[Legion]
 }
 
 object BCScen1 extends BCScen
@@ -12,9 +12,10 @@ object BCScen1 extends BCScen
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override val armies: HCenOptLayer[Polity] = gridSys.newHCenOptLayer
-  armies.unsafeSetSames(Rome, 434,562, 434,566)
-  armies.unsafeSetSames(Sparta, 418,1502)
+  override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
+  armies.unsafeSetSome(434,562, Rome.lg(1) )
+  armies.unsafeSetSome(434,566, Rome.lg(2))
+  armies.unsafeSetSome(418,1502, Sparta.lg(1))
 }
 
 object BCScen2 extends BCScen
@@ -23,5 +24,5 @@ object BCScen2 extends BCScen
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
   override val sTerrs: HSideOptLayer[WSide] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
-  override val armies: HCenOptLayer[Polity] = gridSys.newHCenOptLayer
+  override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
 }

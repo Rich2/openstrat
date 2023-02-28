@@ -5,6 +5,7 @@ import Colour._
 trait Polity extends ShowSimple
 { override def typeStr: String = "Polity"
   def colour: Colour
+  def lg(num: Int): Legion = Legion(this, num)
 }
 
 object Rome extends Polity
