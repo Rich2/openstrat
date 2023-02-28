@@ -1,10 +1,11 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package sp1
 import prid._, psq._, gPlay._
 
 /** Scenario trait for Game Two. */
 trait G1SqScen extends SqGridScen
-{ /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
+{  override def title: String = "Game 1 Squares scen."
+  /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def oPlayers: SqCenOptLayer[Player]
 
   def endTurn(orderList: SqCenStepPairArr[Player]): G1SqScen =

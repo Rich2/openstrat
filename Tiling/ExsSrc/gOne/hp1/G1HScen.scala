@@ -4,7 +4,9 @@ import prid._, phex._, gPlay._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait G1HScen extends HSysTurnScen
-{ /** An optional player can occupy each tile. This is the only tile data in the game. */
+{ override def title: String = "Game 1 hex Scen"
+
+  /** An optional player can occupy each tile. This is the only tile data in the game. */
   def players: HCenOptLayer[Player]
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative

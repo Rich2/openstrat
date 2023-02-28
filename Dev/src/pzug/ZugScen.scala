@@ -6,6 +6,8 @@ import prid._, phex._
 trait ZugScen extends HSysTurnScen
 { origSelf =>
 
+  override def title: String = "Zugfuhrer scenario"
+
   /** tile terrain. */
   val terrs: HCenLayer[ZugTerr]
 

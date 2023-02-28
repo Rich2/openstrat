@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
@@ -11,7 +11,9 @@ object PlayerState
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait G2HScen extends HSysTurnScen
-{ /** An optional player can occupy each tile. This is the only tile data in the game. */
+{ override def title: String = "Game 2 hex scenario"
+
+  /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenOptLayer[Player]
 
   def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()

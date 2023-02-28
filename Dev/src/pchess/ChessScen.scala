@@ -1,11 +1,13 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess
 import prid._, psq._
 
 object ChessBoard extends SqGrid(2, 16, 2, 16)
 
 trait ChessLikeScen extends SqGridScen
-{ def turn: Int
+{ override def title: String = "Chess"
+
+  def turn: Int
   implicit val gSys: ChessBoard.type = ChessBoard
   def playerSeg: Player = ife(turn.isOdd, PWhite, PBlack)
 }
