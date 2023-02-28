@@ -10,6 +10,9 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   val corners = scen.corners
   def armies: HCenOptLayer[Legion] = scen.armies
 
+  def NoMoves: HCenStepPairArr[Legion] = HCenStepPairArr[Legion]()
+  var moves: HCenStepPairArr[Legion] = NoMoves
+
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -48,34 +51,41 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
 
     def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
-    def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
-      val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+    def units: GraphicElems = armies.projSomeHcPtMap { (legion, hc, pt) =>
+      val str = ptScale.scaledStr(170, legion.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, legion.toString)
+      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, HCenPair(hc, legion), legion.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2 ++ units
+    def moveSegPairs: LineSegPairArr[Legion] = moves.optMapOnA1(_.projLineSeg)
+
+    /** This is the graphical display of the planned move orders. */
+    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
+
+    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
-    //scen = scen.endTurn()
+    scen = scen.endTurn(moves)
+    moves = NoMoves
     repaint()
     thisTop()
   }
   statusText = "Welcome to BC305"
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      selected = cl
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  {
+    case (LeftButton, _, cl) =>
+    { selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
 
-    /*case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
-      newM.foreach { d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+    case (RightButton, AnyArrHead(HCenPair(hc1, pl: Legion)), hits) => hits.findHCenForEach { hc2 =>
+      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
-    }*/
+    }
 
     case (_, _, h) => deb("Other; " + h.toString)
   }
@@ -83,7 +93,6 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
