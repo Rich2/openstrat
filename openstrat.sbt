@@ -87,7 +87,8 @@ lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(uti
 )
 
 def geomSett = List(
-  Compile/unmanagedSourceDirectories ++= List("srcPolygon", "src3d", "srcWeb", "srcGui").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
+  Compile/unmanagedSourceDirectories ++=
+    List("srcLines", "srcPolygon", "src3d", "srcWeb", "srcGui").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
 )
 
 lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
