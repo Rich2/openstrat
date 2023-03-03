@@ -8,9 +8,9 @@ val scalaMinor = "2"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, Geom, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).aggregate(Dev, WW2Js).settings(  
+lazy val root = (project in file(".")).aggregate(Util, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).aggregate(Dev, WW2Js).settings(
   publish/skip := true,
-  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util, Geom),
+  ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util),
   ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
 )
 
@@ -62,12 +62,14 @@ def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNati
 )
 
 def utilSett = List(
-  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcPersist", "srcParse").map(s => (ThisBuild/baseDirectory).value / "Util" / s),
+  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcPersist", "srcParse", "srcGeom", "srcLines", "srcShapes", "src3d", "srcTrans", "srcWeb",
+   "srcGui").map(s => (ThisBuild/baseDirectory).value / "Util" / s),
 )
 
 lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
 )
 
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
@@ -86,41 +88,27 @@ lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(uti
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
 )
 
-def geomSett = List(
-  Compile/unmanagedSourceDirectories ++=
-    List("srcColour", "srcLines", "srcShapes", "src3d", "srcTrans", "srcWeb", "srcGui").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
-)
-
-lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
-)
-
-lazy val GeomExs = exsJvmProj("Geom").dependsOn(Geom).settings(
+lazy val UtilExs = exsJvmProj("Util").dependsOn(Util).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
-lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
-)
-
-lazy val Earth = mainJvmProj("Earth").dependsOn(Geom).settings(
+lazy val Earth = mainJvmProj("Earth").dependsOn(Util).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcPts",
 )
 lazy val EarthExs = exsJvmProj("Earth").dependsOn(Earth)
 
-lazy val EarthJs = jsProj("Earth").dependsOn(GeomJs).settings(
+lazy val EarthJs = jsProj("Earth").dependsOn(UtilJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcPts",
 )
 
-lazy val EarthNat = natProj("Earth").dependsOn(GeomNat).settings(
+lazy val EarthNat = natProj("Earth").dependsOn(UtilNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Geom)
+lazy val Tiling = mainJvmProj("Tiling").dependsOn(Util)
 lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
-lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs)
-lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat)
+lazy val TilingJs = jsProj("Tiling").dependsOn(UtilJs)
+lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat)
 
 lazy val EGrid = mainJvmProj("EGrid").dependsOn(Earth, Tiling)
 lazy val EGridJs = jsProj("EGrid").dependsOn(EarthJs, TilingJs)
@@ -131,9 +119,9 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, EarthExs, TilingExs, EGrid).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, EarthExs, TilingExs, EGrid).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcGrand", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
-    List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
+    List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
