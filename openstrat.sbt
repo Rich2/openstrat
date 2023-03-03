@@ -61,14 +61,17 @@ def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNati
   Compile/resourceDirectories := List("res", "NatRes").map(moduleDir.value / _),
 )
 
-lazy val Util = mainJvmProj("Util").settings(
-  name := "RUtil",
-  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcRArr", "srcParse").map{ str => moduleDir.value / str },
+def utilSett = List(
+  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcPersist", "srcParse").map(s => (ThisBuild/baseDirectory).value / "Util" / s),
 )
 
-lazy val UtilJs = jsProj("Util").settings(
+lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcParse").map{ str => moduleDir.value / str },
+  Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
+)
+
+lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
+  name := "RUtil",
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
@@ -79,8 +82,8 @@ lazy val UtilJs = jsProj("Util").settings(
   }.taskValue,
 )
 
-lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(
-  Compile/unmanagedSourceDirectories ++= List("srcRArr", "srcParse").map{ str => moduleDir.value / str },
+lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(utilSett).settings(
+  Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
 )
 
 def geomSett = List(
