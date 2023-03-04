@@ -4,6 +4,7 @@ displayX = 0;
 displayY = 0;//Some operating systems will not allow a positive y value that pushes the window bottom below the bottom of the display viewport.
 // displayWidth = 1920;
 // displayHeight = 1080;
+//projPath = "path_to_openstrat";
 lessons = A1;
 dless = { scen = 1; flat = false; 1 = HGView(138, 526; 20); };
 ww1 = { scen = 1; flat = false; 1 = HGView(310, 520; 24); 2 = HGView(300, 1536; 20); };
