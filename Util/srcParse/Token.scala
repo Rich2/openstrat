@@ -79,20 +79,16 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ClauseMem
 }
 
 /** An Operator token. */
-//trait OperatorToken extends ClauseMemberToken
-case class OperatorToken(startPosn: TextPosn, srcStr: String) extends ClauseMemExprToken
-{ override def exprName: String = "OtherOperatorToken"
+trait OperatorToken extends ClauseMemExprToken
+
+case class OperatorGenToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
+{ override def exprName: String = "OperatorGenToken"
 }
 
-/** A + or - infix Operator token */
-/*case class PlusInToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def tokenTypeStr: String = "PlusInToken"
+case class SlashToken(startPosn: TextPosn) extends OperatorToken
+{ override def exprName: String = "SlashToken"
+  override def srcStr: String = "/"
 }
-
-/** A + or - Prefix Operator token */
-case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def tokenTypeStr: String = "PlusPreToken"
-}*/
 
 case class AsignToken(startPosn: TextPosn) extends BlockMemToken with StatementMem
 { def srcStr = "="

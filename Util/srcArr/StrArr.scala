@@ -108,6 +108,7 @@ class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff
   override def setElemUnsafe(i: Int, newElem: String): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: String => String = s => s
   override def grow(newElem: String): Unit = unsafeBuffer.append(newElem)
+  def array: Array[String] = unsafeBuffer.toArray
 }
 
 object StringBuff

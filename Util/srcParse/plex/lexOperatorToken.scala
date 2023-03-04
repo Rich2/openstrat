@@ -4,7 +4,7 @@ package ostrat; package pParse; package plex
 /** Function object to parse operator token. */
 object lexOperatorToken
 {
-  /** Not sure if this is fully fixed. Parses an operator. Operators can have multiple charachters in RSON. */
+  /** Not sure if this is fully fixed. Parses an operator. Operators can have multiple characters in RSON. */
   def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
   {
     var acc: String = ""
@@ -16,10 +16,10 @@ object lexOperatorToken
     }
 
     def sort: Token = acc.last match
-    {
-      case '=' => AsignToken(tp)
+    { case '=' => AsignToken(tp)
       case ':' => ColonToken(tp)
-      case _ => OperatorToken(tp, acc)
+      case _ if acc == "/" => SlashToken(tp)
+      case _ => OperatorGenToken(tp, acc)
     }
     loop(remOff, tp)
   }
