@@ -5,7 +5,7 @@ import pjvm._, pWeb._
 object DevHtmlApp extends App
 {
   val sett = findDevSettingT[String]("projPath")
-  println(sett)
-  sett.forGood{ path => fileWrite(path -/- "Dev/SbtDir/DicelessJs/target", "hello.html", HtmlPage.titleOnly("Hello there", "bodyContent").out) }
-  println("Hello HTML")
+
+  def make(title: String): Unit = sett.forGood{path => fileWrite(path -/- "Dev/SbtDir", title.toLowerCase() + "app.html", HtmlPage.titleOnly(title, "bodyContent").out) }
+  make("Diceless")
 }
