@@ -5,7 +5,13 @@ import pjvm._, pWeb._, pParse._
 object DevHtmlApp extends App
 {
   val sett = findDevSettingT[DirPathAbs]("projPath")
-
-  def make(title: String): Unit = sett.forGood{path => fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", HtmlPage.titleOnly(title, "bodyContent").out) }
+  deb("Dev")
+  def make(title: String): Unit = sett.forGood{ path =>
+    val head = HtmlHead.titleCss(title, "only.css")
+    val body = HtmlBody("bodyContent")
+    val content = HtmlPage(head, body)
+    val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)
+    debvar(res)
+  }
   make("Diceless")
 }
