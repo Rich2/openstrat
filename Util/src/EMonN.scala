@@ -25,16 +25,19 @@ final case class Bad2[A1, A2](val errs: StrArr) extends EMon2[A1, A2]
 /** Specialised [[EMon]] for values of 3 types, instead of using EMon[(A, B, C)]. */
 sealed trait EMon3[+A1, +A2, +A3]
 { def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B]
+  def flatMap3[B1, B2, B3](f: (A1, A2, A3) => EMon3[B1, B2, B3]): EMon3[B1, B2, B3]
 }
 
 /** Specialised [[Good]] for values of 3 types, instead of using Good[(A, B, C)]. */
 final case class Good3[+A1, +A2, +A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = f(a1, a2, a3)
+  override def flatMap3[B1, B2, B3](f: (A1, A2, A3) => EMon3[B1, B2, B3]): EMon3[B1, B2, B3] = f(a1, a2, a3)
 }
 
 /** Specialised [[Bad]] for values of 3 types, instead of using Bad[(A, B, C)]. */
 final class Bad3[A1, A2, A3](val errs: StrArr) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = Bad[B](errs)
+  override def flatMap3[B1, B2, B3](f: (A1, A2, A3) => EMon3[B1, B2, B3]): EMon3[B1, B2, B3] = Bad3[B1, B2, B3](errs)
 }
 
 /** Companion object for the [[Bad3]] trait, contains factory apply and unapply methods. */

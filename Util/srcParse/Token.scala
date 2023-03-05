@@ -110,3 +110,13 @@ case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with Stat
   override def exprName: String = "EmptyClauseExpr"
   // override def tokenTypeStr: String = "Underscore"
 }
+
+case class PathToken(val startPosn: TextPosn, val arrayUnsafe: Array[String]) extends ClauseMemExprToken{
+  override def exprName: String = "PathTokenExpr"
+
+  override def srcStr: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
+}
+
+object PathToken{
+  //def apply(startPosn: TextPosn, arrayUnsafe: Array[String]): PathToken = new PathToken(startPosn,  arrayUnsafe)
+}

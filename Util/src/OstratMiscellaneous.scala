@@ -27,7 +27,7 @@ class DirPathAbs(val arrayUnsafe: Array[String])
 object DirPathAbs
 {
   implicit val persistImplicit: Persist[DirPathAbs] = new Persist[DirPathAbs]
-  {
+  {  override def typeStr: String = "DirnPathAbs"
     /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
      * rather than a method on the object being shown. */
     override def strT(obj: DirPathAbs): String = ???
@@ -40,23 +40,10 @@ object DirPathAbs
 
     /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be
      * implemented by all instances. */
-    override def fromExpr(expr: Expr): EMon[DirPathAbs] =
-    {
-      var buff = StringBuff()
-      def loop(inp: Expr): EMon[DirPathAbs] = inp match
-      {
-        case PreOpExpr(SlashToken(_), IdentifierToken(str)) =>{ buff.grow(str); Good(new DirPathAbs(buff.array)) }
-        case expr => expr.startPosn.bad("Not an absolute path")
-      }
-      expr match{
-        case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
-        case PreOpExpr(SlashToken(_), _) => loop(expr)
-        case expr => expr.startPosn.bad("Not an absolute path")
-      }
+    override def fromExpr(expr: Expr): EMon[DirPathAbs] = expr match
+    { case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
+      case PathToken(_, array) => Good(new DirPathAbs(array))
+      case expr => expr.startPosn.bad("Not an absolute path")
     }
-
-    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
-     * Show. */
-    override def typeStr: String = ???
   }
 }

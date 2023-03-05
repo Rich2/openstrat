@@ -69,7 +69,7 @@ object lexSrc
       case CharsOffHead2('0', 'y') => Nat0yToken.parse(rem, tp).appendLoop
       case CharsOff1Tail(DigitChar(d), tail) => lexRawNumberToken(tail, tp, d.toString, false).appendLoop
       case CharsOff2Tail('-', DigitChar(d), tail) => lexRawNumberToken(tail, tp, d.toString, true).appendLoop
-
+      case CharsOffHead2('/', LetterOrUnderscoreChar(_) ) => lexPathToken(rem, tp).appendLoop
       case CharsOffHead(c) if isOperator(c) => lexOperatorToken(rem, tp).appendLoop
       case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }

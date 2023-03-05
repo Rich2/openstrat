@@ -4,11 +4,8 @@ import pjvm._, pWeb._, pParse._
 
 object DevHtmlApp extends App
 {
-  val sett = findDevSettingT[String]("projPath")
+  val sett = findDevSettingT[DirPathAbs]("projPath")
 
-  def make(title: String): Unit = sett.forGood{path => fileWrite(path -/- "Dev/SbtDir", title.toLowerCase() + "app.html", HtmlPage.titleOnly(title, "bodyContent").out) }
-  //make("Diceless")
-
-  val res = "/Sudo/hello".parseExpr//.asType[DirPathAbs]
-  println(res)
+  def make(title: String): Unit = sett.forGood{path => fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", HtmlPage.titleOnly(title, "bodyContent").out) }
+  make("Diceless")
 }

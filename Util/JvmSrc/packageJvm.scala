@@ -48,16 +48,18 @@ package object pjvm
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
+  def fileWrite(path: DirPathAbs, fileName: String, content: String): EMon[String] = fileWrite(path.str, fileName, content)
+
   /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on
    * success. */
-  def fileWrite(path: String, fileName: String, str: String): EMon[String] =
+  def fileWrite(path: String, fileName: String, content: String): EMon[String] =
   { import java.io._
     var eStr: String = ""
     var opw: Option[FileWriter] = None
     try {
       new File(path).mkdir()
       opw = Some(new FileWriter(new File(path -/- fileName)))
-      opw.get.write(str)
+      opw.get.write(content)
     }
 
     catch { case e: Throwable => eStr = e.toString }
