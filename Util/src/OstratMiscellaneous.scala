@@ -18,7 +18,7 @@ object IsType
 
 /** Directory path absolute. */
 class DirPathAbs(val arrayUnsafe: Array[String])
-{
+{ /** The path as a string with the slash characters inserted */
   def str: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
 
   override def toString: String = "DirPathAbs" + str.enParenth
@@ -27,19 +27,14 @@ class DirPathAbs(val arrayUnsafe: Array[String])
 object DirPathAbs
 {
   implicit val persistImplicit: Persist[DirPathAbs] = new Persist[DirPathAbs]
-  {  override def typeStr: String = "DirnPathAbs"
-    /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
-     * rather than a method on the object being shown. */
-    override def strT(obj: DirPathAbs): String = ???
+  { override def typeStr: String = "DirnPathAbs"
+    override def strT(obj: DirPathAbs): String = obj.str
+    override def syntaxDepthT(obj: DirPathAbs): Int = 1
+    override def showDecT(obj: DirPathAbs, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
+      case ShowTyped | ShowStdTypedFields => typeStr + obj.str.enParenth
+      case _ => obj.str
+    }
 
-    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-     * should always be determined at compile time or if sometimes it should be determined at runtime. */
-    override def syntaxDepthT(obj: DirPathAbs): Int = ???
-
-    override def showDecT(obj: DirPathAbs, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-
-    /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be
-     * implemented by all instances. */
     override def fromExpr(expr: Expr): EMon[DirPathAbs] = expr match
     { case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
       case PathToken(_, array) => Good(new DirPathAbs(array))

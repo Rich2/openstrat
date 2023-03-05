@@ -108,15 +108,10 @@ case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ClauseMem
 case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMem
 { def srcStr = "_"
   override def exprName: String = "EmptyClauseExpr"
-  // override def tokenTypeStr: String = "Underscore"
 }
 
-case class PathToken(val startPosn: TextPosn, val arrayUnsafe: Array[String]) extends ClauseMemExprToken{
-  override def exprName: String = "PathTokenExpr"
-
+/** File path token. */
+case class PathToken(startPosn: TextPosn, arrayUnsafe: Array[String]) extends ClauseMemExprToken
+{ override def exprName: String = "PathTokenExpr"
   override def srcStr: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
-}
-
-object PathToken{
-  //def apply(startPosn: TextPosn, arrayUnsafe: Array[String]): PathToken = new PathToken(startPosn,  arrayUnsafe)
 }
