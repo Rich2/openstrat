@@ -30,3 +30,7 @@ object XANumeric
     override def value: Double = valueIn    
   }
 }
+
+case class idAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "id"
+}

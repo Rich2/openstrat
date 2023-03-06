@@ -13,6 +13,12 @@ trait HtmlUnvoid extends HtmlElem
   def openTag2: String = openTag + "\n\n"
 }
 
+/** An HTML element that is not void, but has no content. */
+trait HtmlEmpty extends HtmlUnvoid
+{ override def out(indent: Int, maxLineLen: Int = 150): String = openUnclosed + closeTag
+  override def contents: RArr[XCon] = RArr()
+}
+
 /** An HTML page, contains a head and a body element */
 case class HtmlPage(head: HtmlHead, body: HtmlBody)
 { def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 150)
@@ -53,4 +59,10 @@ case class HtmlCode(contentStr: String, attribs: RArr[XmlAtt] = RArr()) extends 
   override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
 
-//case class HtmlH1(strIn: String) extends Html
+case class HtmlCanvas(attribs: RArr[XmlAtt] = RArr()) extends HtmlEmpty
+{ override def tag: String = "canvas"
+}
+
+object HtmlCanvas
+{ def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(idAtt(idStr)))
+}

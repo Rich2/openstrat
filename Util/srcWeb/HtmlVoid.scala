@@ -28,7 +28,7 @@ object HtmlViewDevWidth extends HtmlMeta
 
 class HtmlCssLink(val fullFileName: String) extends HtmlVoid
 { override def tag: String = "link"
-  override def attribs: RArr[XmlAtt] = RArr(XmlAtt("rel", "stylesheet"), XmlAtt("href", fullFileName))
+  override def attribs: RArr[XmlAtt] = RArr(XmlAtt("rel", "stylesheet"), XmlAtt("type", "text/css"), XmlAtt("href", fullFileName))
 }
 
 object HtmlCssLink

@@ -449,7 +449,7 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
   def foldStr(f: A => String, seperator: String = ""): String =
   { var acc: String = ""
     var start = true
-    foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a)}
+    foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a) }
     acc
   }
 

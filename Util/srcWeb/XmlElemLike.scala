@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** An XML or an HTML element */
@@ -8,20 +8,18 @@ trait XmlElemLike extends XCon
   def attribs: RArr[XmlAtt]
   def contents: RArr[XCon]
 
-  def attribsOut: String = ife(attribs.empty, "", " " + attribs.foldStr(_.str, " ") + " ")
+  def attribsOut: String = ife(attribs.empty, "", " " + attribs.foldStr(_.str, " "))
   def openAtts: String = "<" + tag + attribsOut
   def openUnclosed: String = openAtts + ">"
 
   def closeTag: String = "</" + tag + ">"
   def n1CloseTag: String = "\n" + closeTag
   def n2CloseTag: String = "\n\n" + closeTag
-  //def openVoid: String
 }
 
 /** An XML element. */
 trait XmlElem extends XmlElemLike
 {
- // override def openVoid: String = openAtts + "/>"
   override def out(indent: Int = 0, maxLineLen: Int = 150): String = if (contents.empty) openAtts + "/>"
     else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pjvm._, pWeb._, pParse._
+import pjvm._, pWeb._
 
 object DevHtmlApp extends App
 {
@@ -8,7 +8,7 @@ object DevHtmlApp extends App
   deb("Dev")
   def make(title: String): Unit = sett.forGood{ path =>
     val head = HtmlHead.titleCss(title, "only.css")
-    val body = HtmlBody("bodyContent")
+    val body = HtmlBody(HtmlCanvas.id("scanv").out(2))
     val content = HtmlPage(head, body)
     val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)
     debvar(res)
