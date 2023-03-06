@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** HTML element. */
@@ -64,5 +64,12 @@ case class HtmlCanvas(attribs: RArr[XmlAtt] = RArr()) extends HtmlEmpty
 }
 
 object HtmlCanvas
-{ def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(idAtt(idStr)))
+{ def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
+}
+
+case class HtlmA(link: String, label: String = "") extends HtmlUnvoid
+{ override def tag: String = "a"
+  override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
+  override def contents: RArr[XCon] = RArr(label.xCon)
+  override def out(indent: Int, maxLineLen: Int): String = ???
 }

@@ -31,6 +31,10 @@ object XANumeric
   }
 }
 
-case class idAtt(valueStr: String) extends XmlAtt
+case class IdAtt(valueStr: String) extends XmlAtt
 { override def name: String = "id"
+}
+
+case class HrefAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "href"
 }
