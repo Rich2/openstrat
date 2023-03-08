@@ -19,6 +19,12 @@ trait HtmlEmpty extends HtmlUnvoid
   override def contents: RArr[XCon] = RArr()
 }
 
+trait HtmlInline extends HtmlUnvoid
+{ def str: String
+  override def contents: RArr[XCon] = ???
+  override def out(indent: Int, maxLineLen: Int): String = str
+}
+
 /** An HTML page, contains a head and a body element */
 case class HtmlPage(head: HtmlHead, body: HtmlBody)
 { def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 150)
@@ -27,7 +33,7 @@ case class HtmlPage(head: HtmlHead, body: HtmlBody)
 /** Companion object for the [[HtmlHead]] class. */
 object HtmlPage
 { /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
-  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead.title(title), HtmlBody(title.h1Str ---- bodyContent))
+  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead.title(title), HtmlBody.elems(HtmlH1(title), bodyContent.xCon))
 }
 
 /** HTML title element. */
@@ -45,11 +51,16 @@ case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XmlAtt] = RArr
 }
 
 /** The HTML body element. */
-case class HtmlBody(contentStr: String) extends HtmlUnvoid
+case class HtmlBody(contents: RArr[XCon]) extends HtmlUnvoid
 { override def tag: String = "body"
-  override def contents: RArr[XCon] = RArr(contentStr.xCon)
+  //override def  = RArr(contentStr.xCon)
   def out(indent: Int, maxLineLen: Int): String = openTag1 + contents.foldStr(_.out(0, 150), "\n") + n1CloseTag
   override def attribs: RArr[XmlAtt] = RArr()
+}
+
+object HtmlBody{
+  def apply(str: String): HtmlBody = new HtmlBody(RArr(str.xCon))
+  def elems(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
 }
 
 /** An HTML code element. */
@@ -72,4 +83,16 @@ case class HtlmA(link: String, label: String = "") extends HtmlUnvoid
   override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
   override def contents: RArr[XCon] = RArr(label.xCon)
   override def out(indent: Int, maxLineLen: Int): String = ???
+}
+
+case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+{ override def tag = "h1"
+}
+
+case class HtmlH2(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+{ def tag = "h2"
+}
+
+case class HtmlH3(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+{ def tag = "h3"
 }

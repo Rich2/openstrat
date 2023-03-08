@@ -4,9 +4,7 @@ package ostrat; package pWeb
 sealed trait HSimple extends HNotVoid with XmlSimple
 
 case class TabTitle(str: String) extends HSimple { def tag = "title" }
-case class HtmlH1(str : String) extends HSimple { def tag = "h1" }
-case class HtmlH2(str : String) extends HSimple { def tag = "h2" }
-case class HtmlH3(str : String) extends HSimple { def tag = "h3" }
+
 case class HLItem(str: String) extends HSimple { def tag = "li" }
 
 object HNoScript extends HSimple
