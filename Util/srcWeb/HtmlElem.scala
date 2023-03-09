@@ -21,8 +21,8 @@ trait HtmlEmpty extends HtmlUnvoid
 
 trait HtmlInline extends HtmlUnvoid
 { def str: String
-  override def contents: RArr[XCon] = ???
-  override def out(indent: Int, maxLineLen: Int): String = str
+  override def contents: RArr[XCon] = RArr(str.xCon)
+  override def out(indent: Int, maxLineLen: Int): String = openTag + str + closeTag
 }
 
 /** An HTML page, contains a head and a body element */
@@ -78,11 +78,11 @@ object HtmlCanvas
 { def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
 }
 
-case class HtlmA(link: String, label: String = "") extends HtmlUnvoid
+case class HtlmA(link: String, label: String = "") extends HtmlInline
 { override def tag: String = "a"
   override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
   override def contents: RArr[XCon] = RArr(label.xCon)
-  override def out(indent: Int, maxLineLen: Int): String = ???
+  inline override def str: String = label
 }
 
 case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
