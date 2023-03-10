@@ -58,8 +58,8 @@ case class HtmlBody(contents: RArr[XCon]) extends HtmlUnvoid
   override def attribs: RArr[XmlAtt] = RArr()
 }
 
-object HtmlBody{
-  def apply(str: String): HtmlBody = new HtmlBody(RArr(str.xCon))
+object HtmlBody
+{ def apply(str: String): HtmlBody = new HtmlBody(RArr(str.xCon))
   def elems(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
 }
 
@@ -83,6 +83,13 @@ case class HtlmA(link: String, label: String = "") extends HtmlInline
   override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
   override def contents: RArr[XCon] = RArr(label.xCon)
   inline override def str: String = label
+}
+
+case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
+{ override def tag: String = "li"
+
+  /** Returns the XML source code, formatted according to the input. */
+  override def out(indent: Int, maxLineLen: Int): String = ???
 }
 
 case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
