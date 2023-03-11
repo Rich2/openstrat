@@ -27,14 +27,21 @@ trait XmlElem extends XmlElemLike
 /** Content for XML and HTML elements. */
 trait XCon
 { /** Returns the XML source code, formatted according to the input. */
-  def out(indent: Int, maxLineLen: Int): String
+  def out(indent: Int = 0, maxLineLen: Int = 150): String
+  def outEither(indent: Int = 0, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
 }
 
 /** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
 case class XConStr(value: String) extends XCon
 { override def out(indent: Int, maxLineLen: Int): String = value
+  override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
 }
 
 object XConStr
 { implicit def StringToXConStr(value: String): XConStr = new XConStr(value)
+}
+
+/** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
+case class XConStrLines(value: String) extends XCon
+{ override def out(indent: Int, maxLineLen: Int): String = value
 }

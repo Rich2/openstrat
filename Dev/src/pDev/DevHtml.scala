@@ -8,7 +8,8 @@ object DevHtmlApp extends App
   deb("Dev")
   def make(title: String): Unit = sett.forGood{ path =>
     val head = HtmlHead.titleCss(title, "only.css")
-    val body = HtmlBody.elems(HtlmA("index.html", "Home"), HtmlCanvas.id("scanv"))
+    val item = HtmlLi.a("index.html", "Home")
+    val body = HtmlBody.elems(item, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)
     val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)
     debvar(res)

@@ -19,10 +19,33 @@ trait HtmlEmpty extends HtmlUnvoid
   override def contents: RArr[XCon] = RArr()
 }
 
+trait HtmlOutline extends HtmlUnvoid
+{
+  override def out(indent: Int, maxLineLen: Int): String =
+  { val cons = contents.map(_.outEither(indent, maxLineLen))
+    val middle = cons.foldLeft("") { (acc, el) => acc --- ife(el._1, "", (indent + 2).spaces) + el._2 } + "\n"
+
+    openTag + middle + closeTag
+  }
+}
+
 trait HtmlInline extends HtmlUnvoid
+{
+  override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
+
+  override def out(indent: Int, maxLineLen: Int): String =
+  { val cons = contents.map(_.outEither(indent, maxLineLen))
+    val middle = cons.length match {
+      case 1 if cons.head._1 => cons.head._2
+      case n => cons.foldLeft("") { (acc, el) => acc --- el._2 } + "\n"
+    }
+    openTag + middle + closeTag
+  }
+}
+
+trait HtmlStr extends HtmlInline
 { def str: String
   override def contents: RArr[XCon] = RArr(str.xCon)
-  override def out(indent: Int, maxLineLen: Int): String = openTag + str + closeTag
 }
 
 /** An HTML page, contains a head and a body element */
@@ -47,14 +70,13 @@ case class HtmlTitle(str: String, attribs: RArr[XmlAtt] = RArr()) extends HtmlUn
 case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { def tag: String = "html"
   override def contents = RArr(head, body)
-  def out(indent: Int, maxLineLen: Int): String = openTag2 + head.out(0, 150) + "\n\n" + body.out(0, 150) + n2CloseTag
+  def out(indent: Int, maxLineLen: Int): String = openTag2 + head.out() + "\n\n" + body.out(0, 150) + n2CloseTag
 }
 
 /** The HTML body element. */
 case class HtmlBody(contents: RArr[XCon]) extends HtmlUnvoid
 { override def tag: String = "body"
-  //override def  = RArr(contentStr.xCon)
-  def out(indent: Int, maxLineLen: Int): String = openTag1 + contents.foldStr(_.out(0, 150), "\n") + n1CloseTag
+  def out(indent: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.foldStr(_.out(0, 150), "\n") + n1CloseTag
   override def attribs: RArr[XmlAtt] = RArr()
 }
 
@@ -78,28 +100,31 @@ object HtmlCanvas
 { def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
 }
 
-case class HtlmA(link: String, label: String = "") extends HtmlInline
+case class HtmlA(link: String, contents: RArr[XCon]) extends HtmlInline
 { override def tag: String = "a"
   override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
-  override def contents: RArr[XCon] = RArr(label.xCon)
-  inline override def str: String = label
 }
 
-case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
+object HtmlA
+{ def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
+}
+
+case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "li"
-
-  /** Returns the XML source code, formatted according to the input. */
-  override def out(indent: Int, maxLineLen: Int): String = ???
 }
 
-case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+object HtmlLi{
+  def a(link: String, label: String): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))))
+}
+
+case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { override def tag = "h1"
 }
 
-case class HtmlH2(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+case class HtmlH2(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h2"
 }
 
-case class HtmlH3(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+case class HtmlH3(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h3"
 }
