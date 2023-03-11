@@ -100,6 +100,7 @@ object HtmlCanvas
 { def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
 }
 
+/** HTML anchor. */
 case class HtmlA(link: String, contents: RArr[XCon]) extends HtmlInline
 { override def tag: String = "a"
   override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
