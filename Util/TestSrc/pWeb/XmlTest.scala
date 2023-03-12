@@ -9,7 +9,7 @@ object XmlTest extends TestSuite
   { override def tag: String = "City"
   }
 
-  case class Cities(contents: RArr[XCon]) extends XmlNoAtts
+  case class Cities(contents: RArr[XCon]) extends XmlMultiNoAtts
   { override def tag: String = "Cities"
   }
 

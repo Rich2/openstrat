@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb._
 
 /** An SVG element. */
-trait SvgElem extends XmlElem
+trait SvgElem extends XmlMulti
 
 case class SvgSvgElem(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends SvgElem
 { override def tag: String = "svg"  

@@ -34,6 +34,13 @@ trait XmlElemLike extends XCon
   def n2CloseTag: String = "\n\n" + closeTag
 }
 
+trait XmlLikeMulti extends XmlElemLike
+{
+  override def out(indent: Int = 0, maxLineLen: Int = 150): String =
+    if (contents.empty) openAtts + "/>"
+    else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+}
+
 trait XmlLikeInline extends XmlElemLike
 {
   override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
