@@ -31,20 +31,8 @@ trait HtmlOutline extends HtmlUnvoid
 
 /** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
 trait HtmlInline extends HtmlUnvoid with XmlLikeInline
-{
-  /*override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
 
-  override def out(indent: Int, maxLineLen: Int): String =
-  { val cons = contents.map(_.outEither(indent, maxLineLen))
-    val middle = cons.length match {
-      case 1 if cons.head._1 => cons.head._2
-      case n => cons.foldLeft("") { (acc, el) => acc --- el._2 } + "\n"
-    }
-    openTag + middle + closeTag
-  }*/
-}
-
-/** An HTLM whose contents can be represented by a [[String]]. */
+/** An HTML whose contents can be represented by a [[String]]. */
 trait HtmlStr extends HtmlInline
 { def str: String
   override def contents: RArr[XCon] = RArr(str.xCon)

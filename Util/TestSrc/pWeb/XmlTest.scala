@@ -20,8 +20,13 @@ object XmlTest extends TestSuite
 
   val cities0 = Cities(RArr())
   val cities0Out =
+    """<Cities/>""".stripMargin
+
+  val cities1 = Cities(RArr(wash))
+  val cities1Out =
     """<Cities>
-    |</Cities>""".stripMargin
+      |  <City>Washington</City>
+      |</Cities>""".stripMargin
 
   val cities2Out =
     """<Cities>
@@ -32,12 +37,9 @@ object XmlTest extends TestSuite
   val tests = Tests {
     "Test1" - {
       wash.out() ==> "<City>Washington</City>"
-      //cities0.out() ==> cities0Out
-    }
-
-    "Test 2" -
-    {
-
+      cities0.out() ==> cities0Out
+      cities1.out() ==> cities1Out
+      cities2.out() ==> cities2Out
     }
   }
 

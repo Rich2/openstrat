@@ -5,12 +5,18 @@ import pjvm._, pWeb._
 object DevHtmlApp extends App
 {
   val sett = findDevSettingT[DirPathAbs]("projPath")
-  deb("Dev")
+
   def make(title: String): Unit = sett.forGood{ path =>
     val head = HtmlHead.titleCss(title, "only.css")
     val item = HtmlLi.a("index.html", "Home")
     val body = HtmlBody.elems(item, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)
+
+    case class Cities(contents: RArr[XCon]) extends XmlNoAtts
+    { override def tag: String = "Cities"
+    }
+
+    println(Cities(RArr()).out())
     val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)
     debvar(res)
   }
