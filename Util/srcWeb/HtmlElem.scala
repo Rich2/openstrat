@@ -44,6 +44,7 @@ trait HtmlInline extends HtmlUnvoid
   }
 }
 
+/** An HTLM whose contents can be represented by a [[String]]. */
 trait HtmlStr extends HtmlInline
 { def str: String
   override def contents: RArr[XCon] = RArr(str.xCon)
