@@ -8,7 +8,7 @@ trait HtmlElem extends XmlElemLike
 
 /** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
-{ def openTag: String = openAtts + ">"
+{ //def openTag: String = openAtts + ">"
   def openTag1: String = openTag + "\n"
   def openTag2: String = openTag + "\n\n"
 }
@@ -30,9 +30,9 @@ trait HtmlOutline extends HtmlUnvoid
 }
 
 /** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
-trait HtmlInline extends HtmlUnvoid
+trait HtmlInline extends HtmlUnvoid with XmlLikeInline
 {
-  override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
+  /*override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
 
   override def out(indent: Int, maxLineLen: Int): String =
   { val cons = contents.map(_.outEither(indent, maxLineLen))
@@ -41,7 +41,7 @@ trait HtmlInline extends HtmlUnvoid
       case n => cons.foldLeft("") { (acc, el) => acc --- el._2 } + "\n"
     }
     openTag + middle + closeTag
-  }
+  }*/
 }
 
 /** An HTLM whose contents can be represented by a [[String]]. */
@@ -94,6 +94,7 @@ case class HtmlCode(contentStr: String, attribs: RArr[XmlAtt] = RArr()) extends 
   override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
 
+/** An HTML Canvas element. */
 case class HtmlCanvas(attribs: RArr[XmlAtt] = RArr()) extends HtmlEmpty
 { override def tag: String = "canvas"
 }
