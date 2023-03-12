@@ -12,11 +12,6 @@ object DevHtmlApp extends App
     val body = HtmlBody.elems(item, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)
 
-    case class Cities(contents: RArr[XCon]) extends XmlNoAtts
-    { override def tag: String = "Cities"
-    }
-
-    println(Cities(RArr()).out())
     val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)
     debvar(res)
   }
