@@ -29,6 +29,7 @@ trait HtmlOutline extends HtmlUnvoid
   }
 }
 
+/** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
 trait HtmlInline extends HtmlUnvoid
 {
   override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
