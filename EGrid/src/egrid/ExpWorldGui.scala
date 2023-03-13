@@ -54,8 +54,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       }
     }
 
-    debvar(islands.length)
-
     def tileActives: RArr[PolygonActive] = polys.pairMap{ (hc, poly) => poly.active(hc) }
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>

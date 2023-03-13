@@ -2,7 +2,7 @@
 package ostrat; package pEarth
 import Colour._
 
-/** Not sure about this trait at all but will leave for time being. */
+/** This trait describes terrain that can be used for sides. */
 trait WSide extends Coloured with ShowSimple
 
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
@@ -25,8 +25,7 @@ object WTile
   implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
   implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
-  {
-    def strT(obj: WTile): String = obj.str
+  { def strT(obj: WTile): String = obj.str
     def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
   }
 
