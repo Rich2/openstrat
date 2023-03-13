@@ -28,6 +28,23 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   /** The polygon of this hex tile if it is part of a regular grid. */
   def polygonReg: Polygon = verts.mapPolygon(_.toPt2Reg)
 
+  def v0Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c, dirn, magnitude)
+  def v1Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c + 2, dirn, magnitude)
+  def v2Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c + 2, dirn, magnitude)
+  def v3Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c, dirn, magnitude)
+  def v4Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c - 2, dirn, magnitude)
+  def v5Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c - 2, dirn, magnitude)
+
+  def v0In(magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c, HVDn, magnitude)
+  def v1In(magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c + 2, HVDL, magnitude)
+  def v2In(magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c + 2, HVUL, magnitude)
+  def v3In(magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c, HVUp, magnitude)
+  def v4In(magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c - 2, HVUR, magnitude)
+  def v5In(magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c - 2, HVDR, magnitude)
+
+  def vertsIn(magnitude: Int): PolygonHVAndOffset =
+    PolygonHVAndOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
+
   def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
   def active(id: AnyRef = this): PolygonActive = polygonReg.active(id)
   override def typeStr: String = "HCen"

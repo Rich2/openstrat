@@ -2,15 +2,16 @@
 package ostrat; package pEarth
 import Colour._
 
-trait WSide extends Coloured with ShowSimple
+/** This trait describes terrain that can be used for sides. */
+//trait WSide extends Coloured with ShowSimple
 
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
  * and other land hexs.  */
 trait WTile extends Coloured with ShowSimple
 { override def typeStr: String = "WTile"
-  def isLand: Boolean
-  def isWater: Boolean
+  def hasLand: Boolean
+  def hasWater: Boolean
 }
 
 object WTile
@@ -24,8 +25,7 @@ object WTile
   implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
   implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
-  {
-    def strT(obj: WTile): String = obj.str
+  { def strT(obj: WTile): String = obj.str
     def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
   }
 
@@ -48,57 +48,99 @@ object WTile
   val mtain: WTile = Land(Mountains)
 }
 
-/** Currently a common trait for Ocean and Lake. */
-trait Water extends WTile
-{ override def isLand: Boolean = false
-  override def isWater: Boolean = true
+/** A common trait for water and Island hexs. */
+trait WaterHas extends WTile
+{ override def hasWater: Boolean = true
 }
 
-case object Sea extends Water with WSide
+/** A common trait for Ocean and Lake. */
+trait Water extends WaterHas
+{ override def hasLand: Boolean = false
+
+}
+
+/** A common trait for sea and sea island tiles. */
+trait SeaHas extends WaterHas
+{ override def colour = DarkBlue
+}
+
+/** Sea. This is an object as currently has no other variables such as depth, current or climate. */
+case object Sea extends Water with SeaHas with ShowSimple//WSide
 { override def str = "Ocean"
-  def colour = DarkBlue
 }
 
-case object Lake extends Water with WSide
+/** A common trait for sea and sea island tiles. */
+trait LakeHas extends WaterHas
+{ override def colour = Blue
+}
+
+case object Lake extends Water with LakeHas with ShowSimple// WSide
 { override def str = "Lake"
-  def colour = Blue
 }
 
 object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
-  override def isLand: Boolean = false
-  override def isWater: Boolean = false
+  override def hasLand: Boolean = false
+  override def hasWater: Boolean = false
 }
 
-class Land(val terr: Terrain, val biome: Biome) extends WTile
-{ override def toString: String = "Land" + str.enParenth
+/** Common trait for land and Islands. */
+trait LandHas extends WTile
+{ def terr: Terrain
+  def biome: Biome
 
-  override def str = terr match
-  { case Plains => biome.toString //-- str
-    case t => t.str
-  }
+  def landColour: Colour = terr match {
+    case Plains => biome.colour
 
-  def colour: Colour = terr match
-  { case Plains => biome.colour
-
-    case Hilly => biome match
-    { case Tundra => Chocolate.average(Tundra.colour)
+    case Hilly => biome match {
+      case Tundra => Chocolate.average(Tundra.colour)
       case Taiga => Chocolate.average(Taiga.colour)
       case Forest => Chocolate.average(Forest.colour)
-      case Desert => Chocolate.average(Desert.colour)//DarkKhaki
+      case Desert => Chocolate.average(Desert.colour)
       case _ => Chocolate
     }
     case Mountains => Gray
   }
+}
 
-  override def isLand: Boolean = true
-  override def isWater: Boolean = false
+class Land(val terr: Terrain, val biome: Biome) extends LandHas
+{ override def toString: String = "Land" + str.enParenth
+
+  override def str = terr match
+  { case Plains => biome.toString
+    case t => t.str
+  }
+
+  override def colour: Colour = landColour
+  override def hasLand: Boolean = true
+  override def hasWater: Boolean = false
 }
 
 object Land
 { /** Factory apply method for land. */
   def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
+}
+
+trait Island extends WaterHas with LandHas
+{ override def hasLand: Boolean = true
+  override def hasWater: Boolean = true
+}
+
+object Island
+{
+  def unapply(inp: Any): Option[(Terrain, Biome)] = inp match
+  { case isl: Island => Some(isl.terr, isl.biome)
+    case _ => None
+  }
+}
+
+case class SeaIsland(terr: Terrain, biome: Biome) extends Island with SeaHas
+{ override def str: String = "SeaIsland"
+}
+
+class LakeIsland(val terr: Terrain, val biome: Biome) extends Island with LakeHas
+{ override def str: String = "SeaIsland"
 }
 
 trait Terrain
@@ -153,10 +195,10 @@ object IceCap extends Biome
 }
 
 object SeaIce extends WTile
-{ override def str = "SeaIce" 
+{ override def str = "SeaIce"
   override def colour = White
-  override def isLand: Boolean = false
-  override def isWater: Boolean = false
+  override def hasLand: Boolean = false
+  override def hasWater: Boolean = false
 }
 
 case object Taiga extends Biome

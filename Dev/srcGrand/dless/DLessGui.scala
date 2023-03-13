@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package dless
-import geom._, pEarth._, prid._, phex._, pgui._
+import geom._, pEarth._, prid._, phex._, pgui._, egrid._
 
 case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("Diceless Gui")
 { var scen = scenIn

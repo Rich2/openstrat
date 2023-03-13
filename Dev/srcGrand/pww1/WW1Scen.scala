@@ -15,7 +15,7 @@ trait WW1Scen extends HSysTurnScen
 
     orderList.foreach { pair =>
       val optTarget: Option[HCen] = pair.startHC.stepOpt(pair.step)
-      optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
+      optTarget.foreach { target => if (terrs(target).hasLand) targets.appendAt(target, pair.a1) }
     }
 
     val armiesNew: HCenOptLayer[Army] = armies.clone

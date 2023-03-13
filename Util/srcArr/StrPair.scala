@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -69,5 +69,24 @@ object StrPairArr
     val a2Array = new Array[A2](len)
     pairs.iForeach{ (i, p) => a1Array(i) = p._1; a2Array(i) = p._2 }
     new StrPairArr[A2](a1Array, a2Array)
+  }
+}
+
+class StrStrPair(a1: String, a2: String) extends StrPair[String](a1, a2)
+
+class StrStrPairArr(a1Array: Array[String], a2Array: Array[String]) extends StrPairArr[String](a1Array, a2Array)
+
+object StrStrPairArr
+{
+  def apply(strings: String *): StrStrPairArr =
+  { if(strings.length.isOdd) excep("Odd number of Strings for StrStrPaiArr factory apply method.")
+    val len = strings.length / 2
+    val array1 = new Array[String](len)
+    val array2 = new Array[String](len)
+    iUntilForeach(0, len){ i =>
+      array1(i) = strings(i * 2)
+      array2(i) = strings(i * 2 + 1)
+    }
+    new StrStrPairArr(array1, array2)
   }
 }

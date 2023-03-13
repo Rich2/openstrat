@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E90 extends Long320Terrs
 {
@@ -34,11 +34,6 @@ object Terr320E90 extends Long320Terrs
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res
   }
-  /*override val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
-    res.setTruesInts()
-    res
-  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

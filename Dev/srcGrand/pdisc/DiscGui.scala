@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pdisc
-import geom._, pEarth._, prid._, phex._, pgui._
+import geom._, pEarth._, prid._, phex._, pgui._, egrid._
 
 case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("AD1492 Gui")
 { var scen = scenIn

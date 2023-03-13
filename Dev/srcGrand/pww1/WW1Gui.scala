@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
-import geom._, pEarth._, prid._, phex._, pgui._
+import geom._, pEarth._, prid._, phex._, pgui._, egrid._
 
 /** 2D graphics class for [[WW1Scen]] games or descriptions. */
 case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW1 Gui") {

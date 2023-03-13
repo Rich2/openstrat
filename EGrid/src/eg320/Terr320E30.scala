@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E30 extends Long320Terrs
 {
@@ -24,7 +24,7 @@ object Terr320E30 extends Long320Terrs
     gs(134, 1526, hills * 3, sea * 3, mtain)
     gs(132, 1524, hills * 7)
     wr(130, hills * 2, sea, hills * 5)
-    gs(128, 1544, hills, desert * 2)
+    wr(128, sea * 2, SeaIsland(Hilly, OpenTerrain), sea, SeaIsland(Hilly, OpenTerrain), hills, desert * 2)
     wr(126, sea, desert, sea * 3, hills, desert * 2)
     wr(124, desert * 4, plain, desert * 4)
     res
@@ -32,12 +32,12 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 151,1539,  152,1538,  153,1537,  153,1539,  153,1541,  153,1543,  154,1544,  155,1543)
-    res.setSomeInts(Lake, 149, 1537)
-    res.setSomeInts(Sea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
-    res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
-    res.setSomeInts(Sea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
-    res.setSomeInts(Sea, 131,1521)
+    res.setSomeInts(SCSea, 151,1539,  152,1538,  153,1537,  153,1539,  153,1541,  153,1543,  154,1544,  155,1543)
+    res.setSomeInts(SCLake, 149, 1537)
+    res.setSomeInts(SCSea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
+    res.setSomeInts(SCSea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
+    res.setSomeInts(SCSea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
+    res.setSomeInts(SCSea, 131,1521)
     res
   }
 

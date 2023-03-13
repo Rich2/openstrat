@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pEarth._, prid.phex._
+import pEarth._, prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. */
+/** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. An area of 49883.06325798366km. */
 package object eg320
 {
   val fullTerrs: RArr[Long320Terrs] = RArr(Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150,Terr320E180,

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package dless
-import prid._, phex._, eg320._, pEarth._
+import prid._, phex._, eg320._, pEarth._, egrid._
 
 /** Scenario trait for Diceless. */
 trait DLessScen extends HSysTurnScen
@@ -16,7 +16,7 @@ trait DLessScen extends HSysTurnScen
 
     orderList.foreach { pair =>
       val optTarget: Option[HCen] = pair.startHC.stepOpt(pair.step)
-      optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
+      optTarget.foreach { target => if (terrs(target).hasLand) targets.appendAt(target, pair.a1) }
     }
 
     val armiesNew: HCenOptLayer[Army] = armies.clone

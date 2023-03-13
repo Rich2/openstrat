@@ -87,6 +87,8 @@ object HexReg
 
   def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
 
+  def areaFromShortRadius(sr: Double): Double = sr * sr * 9 * 3.sqrt / 8
+
   implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
