@@ -13,6 +13,11 @@ object DevHtmlApp extends App
     val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)
 
+    val a320 = geom.HexReg.areaFromShortRadius(160)
+    debvar(a320)
+    val a220 = geom.HexReg.areaFromShortRadius(110)
+    debvar(a220)
+
     val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)
     debvar(res)
   }
