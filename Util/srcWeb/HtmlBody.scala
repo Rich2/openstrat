@@ -48,7 +48,7 @@ object HtmlLi
   def a(link: String, label: String): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))))
 }
 
-class HtlmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlOutline
+class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlOutline
 { override def tag: String = "ul"
 }
 

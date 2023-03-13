@@ -8,8 +8,9 @@ object DevHtmlApp extends App
 
   def make(title: String): Unit = sett.forGood{ path =>
     val head = HtmlHead.titleCss(title, "only.css")
-    val item = HtmlLi.a("index.html", "Home")
-    val body = HtmlBody.elems(item, HtmlCanvas.id("scanv"))
+    val pairs = StrStrPairArr("index", "Home", "diceless", "Diceless", "bc305", "BC305", "planets", "Planets")
+    val list = HtmlUl(pairs.pairMap{ (s1, s2) => HtmlLi.a(s1 + ".html", s2) })
+    val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)
 
     val res = fileWrite(path.str -/- "Dev/SbtDir", title.toLowerCase() + "app.html", content.out)

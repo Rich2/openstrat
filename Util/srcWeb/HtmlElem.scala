@@ -22,8 +22,8 @@ trait HtmlEmpty extends HtmlUnvoid
 trait HtmlOutline extends HtmlUnvoid
 {
   override def out(indent: Int, maxLineLen: Int): String =
-  { val cons = contents.map(_.outEither(indent, maxLineLen))
-    val middle = cons.foldLeft("") { (acc, el) => acc --- ife(el._1, "", (indent + 2).spaces) + el._2 } + "\n"
+  { val cons = contents.map(_.outEither(indent + 2, maxLineLen))
+    val middle = cons.foldLeft("") { (acc, el) => acc --- ife(el._1, (indent + 2).spaces, "") + el._2 } + "\n"
     openTag + middle + closeTag
   }
 }
