@@ -25,8 +25,8 @@ object Terr320E0 extends Long320Terrs
     wr(140, sea, hills, plain * 4)
     wr(138, sea * 2, plain * 2, hills, mtain * 2)
     wr(136, sea * 3, plain, hills, mtain, plain)
-    wr(134, sea, hills * 3, sea, hills * 2)
-    wr(132, sea, hills, plain * 2, sea, hills, sea)
+    wr(134, sea, hills * 3, sea, SeaIsland(Hilly, OpenTerrain), hills)
+    wr(132, sea, hills, plain * 2, sea, SeaIsland(Hilly, OpenTerrain), sea)
     wr(130, sea, plain, hills * 2, sea * 3, hills)
     wr(128, sea * 2, hills * 5, sea)
     wr(126, sea * 2, mtain, desertHills, desert * 4)
@@ -38,7 +38,9 @@ object Terr320E0 extends Long320Terrs
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(SCSea,  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
     res.setSomeInts(SCSea, 139,509,  140,510,  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
-    res.setSomeInts(SCSea, 133,521,  134,524,  135,521,  135,523)//Corsica
+    res.setSomeInts(SISea, 133,521)//Sardinia - Corsica
+    res.setSomeInts(SLSea, 135,523)//Corsica
+    res.setSomeInts(SRSea, 135,521,  134,524)//Corsica
     res.setSomeInts(SCSea, 129,507,  129,509,  129,511,  129,525, 130,528,  131,527,  134,528,  135,527,  136,526)//Mediterranean
     res
   }
@@ -67,13 +69,6 @@ object Terr320E0 extends Long320Terrs
     res.setVert3In(142, 514)//Dover - Calais
     res.setVert2In(142, 514)//Margate - Antwerp
     res.setMouth3(144, 516)//English Channel north east
-
-    res.setMouth1(134, 518)//Sardinia
-    res.setVert0In(134, 522)
-    res.setVert1In(134, 522)
-    res.setMouth0(132, 524)
-    res.setMouth2(134, 518)//Corsica
-   res.setMouth5(132, 524)//Corsica
 
     res.setMouth3Corner(138, 526)//Adriatic head
     res.setCornerIn(136, 524, 1)//Adriatic head

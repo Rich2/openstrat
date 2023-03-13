@@ -58,7 +58,11 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
+      val sTerr2 = sTerr.flatMap {
+        case s: WSideLands => Some(s)
+        case _ => None
+      }
+      sTerr2.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
     }
 
     def lines1: GraphicElems = proj.linksOptMap{ hs =>
