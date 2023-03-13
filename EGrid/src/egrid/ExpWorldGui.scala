@@ -39,16 +39,10 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def tileFills: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
-    val islands: GraphicElems = terrs.hcOptMap{ (tile, hc) =>
-      tile match{
-        case island: Island =>{
-          val r0 = hc.r
-          val c0 = hc.c
-          val m = 7
-          val poly = PolygonHVAndOffset(HVAndOffset(r0 + 1, c0, HVDn, m), HVAndOffset(r0 + 1, c0 + 2, HVDL, m), HVAndOffset(r0 - 1, c0 + 2, HVUL, m),
-            HVAndOffset(r0 - 1, c0, HVUp, m), HVAndOffset(r0 - 1, c0 - 2, HVUR, m), HVAndOffset(r0 + 1, c0 - 2, HVDR, m))
-          val poly2 = poly.map(hv => hv.toPt2(proj.transCoord))
-          Some(poly2.fill(island.landColour))
+    val islands: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
+      {  case island: Island =>
+        { val poly = hc.vertsIn(7).map(hv => hv.toPt2(proj.transCoord))
+          Some(poly.fill(island.landColour))
         }
         case _ => None
       }
@@ -58,7 +52,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
-      val sTerr2 = sTerr.flatMap {
+      val sTerr2 = sTerr.flatMap{
         case s: WSideLands => Some(s)
         case _ => None
       }
