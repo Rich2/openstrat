@@ -2,20 +2,20 @@
 package ostrat; package egrid
 import Colour._
 
-trait WSidea extends Coloured// with ShowSimple
+trait WSide extends Coloured// with ShowSimple
 {
 
 }
 
-trait WSideCentral extends WSidea
+trait WSideCentral extends WSide
 
-trait SideSea extends WSidea
+trait SideSea extends WSide
 { override def colour = DarkBlue
 }
 
-trait SideLake extends WSidea
+trait SideLake extends WSide
 { override def colour = Blue
 }
 
-object SCSea extends WSidea with SideSea
-object SCLake extends WSidea with SideLake
+object SCSea extends WSideCentral with SideSea
+object SCLake extends WSide with SideLake

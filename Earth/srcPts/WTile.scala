@@ -3,7 +3,7 @@ package ostrat; package pEarth
 import Colour._
 
 /** This trait describes terrain that can be used for sides. */
-trait WSide extends Coloured with ShowSimple
+//trait WSide extends Coloured with ShowSimple
 
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
@@ -65,7 +65,7 @@ trait SeaHas extends WaterHas
 }
 
 /** Sea. This is an object as currently has no other variables such as depth, current or climate. */
-case object Sea extends Water with SeaHas with WSide
+case object Sea extends Water with SeaHas with ShowSimple//WSide
 { override def str = "Ocean"
 }
 
@@ -74,7 +74,7 @@ trait LakeHas extends WaterHas
 { override def colour = Blue
 }
 
-case object Lake extends Water with LakeHas with WSide
+case object Lake extends Water with LakeHas with ShowSimple// WSide
 { override def str = "Lake"
 }
 

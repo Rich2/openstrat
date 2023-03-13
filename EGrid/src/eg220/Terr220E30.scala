@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg220
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr220E30 extends Long220Terrs
 {
@@ -44,13 +44,13 @@ object Terr220E30 extends Long220Terrs
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
 
-    res.setSomeInts(Sea,  175,1543, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
-    res.setSomeInts(Lake, 171,1537,  172,1542,  173,1541)//Lakes near St Petersburg
-    res.setSomeInts(Sea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
-    res.setSomeInts(Sea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
-    res.setSomeInts(Sea, 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
-    res.setSomeInts(Sea, 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
-    res.setSomeInts(Sea, 134, 1540,  133,1541,  134,1544)
+    res.setSomeInts(SCSea,  175,1543, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
+    res.setSomeInts(SCLake, 171,1537,  172,1542,  173,1541)//Lakes near St Petersburg
+    res.setSomeInts(SCSea, 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
+    res.setSomeInts(SCSea,  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
+    res.setSomeInts(SCSea, 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
+    res.setSomeInts(SCSea, 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
+    res.setSomeInts(SCSea, 134, 1540,  133,1541,  134,1544)
     res
   }
 

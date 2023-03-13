@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
 /** Terrain for 30km 129 degrees east. */
 object Terr320E120 extends Long320Terrs
@@ -34,7 +34,7 @@ object Terr320E120 extends Long320Terrs
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
 
-    res.setSomeInts(Sea, 131,4607,  131,4609,  132,4610,  131,4611,  130,4612)
+    res.setSomeInts(SCSea, 131,4607,  131,4609,  132,4610,  131,4611,  130,4612)
     res
   }
 
