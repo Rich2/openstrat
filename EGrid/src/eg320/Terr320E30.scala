@@ -24,7 +24,7 @@ object Terr320E30 extends Long320Terrs
     gs(134, 1526, hills * 3, sea * 3, mtain)
     gs(132, 1524, hills * 7)
     wr(130, hills * 2, sea, hills * 5)
-    gs(128, 1544, hills, desert * 2)
+    wr(128, sea * 2, SeaIsland(Hilly, OpenTerrain), sea, SeaIsland(Hilly, OpenTerrain), hills, desert * 2)
     wr(126, sea, desert, sea * 3, hills, desert * 2)
     wr(124, desert * 4, plain, desert * 4)
     res
