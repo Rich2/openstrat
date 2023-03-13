@@ -5,7 +5,7 @@ package ostrat; package pWeb
 trait XmlAtt
 { def name: String
   def valueStr: String
-  def str: String = name + "=" + valueStr.enquote
+  def str: String = name + "=" + valueStr.enquote1
 }
 
 /** Companion object for the XML attribute [[XmlAtt]] trait. */
