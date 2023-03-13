@@ -15,7 +15,7 @@ object AstTest extends TestSuite
  // deb(w1.toString)
 
   val tests = Tests {
-    "Test1" -
+    test("Test1")
     {
       //t1 ==> Good(t3)
 

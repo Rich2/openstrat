@@ -25,7 +25,7 @@ object HexaTokenTest extends TestSuite
   val r3 = lexSrc.str("0xCG3")
 
   val tests = Tests {
-    "Parse" -
+    test("Parse")
     { assertMatch(r1){ case GoodArr1(Ht1) => }
       Ht1.asHexaInt ==> 0x123
       Ht1.getIntStd ==> rr1
@@ -39,7 +39,7 @@ object HexaTokenTest extends TestSuite
     val ht2 = Nat0xToken(Sp44, "1A")
     val ht3 = Nat0xToken(Sp2, "7FFFFFFF")
 
-    "Nat0xToken" -
+    test("Nat0xToken")
     { ht1.getIntStd ==> 10
       ht1.getNatStd ==> 10
       ht2.getIntStd ==> 26
@@ -47,7 +47,7 @@ object HexaTokenTest extends TestSuite
       ht3.getNatStd ==> 2147483647
     }
 
-    "Raw Test" -
+    test("Raw Test")
     { "10".asHexaInt ==> Good(16)
       "1A".asHexaNat ==> Good(26)
       "-5A".asHexaInt ==> Good(-90)
