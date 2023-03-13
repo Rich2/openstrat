@@ -17,9 +17,8 @@ object DoubleTokenTest extends TestSuite
   val s51 = "51.1"
 
   val tests = Tests {
-    "Test1" - {
-      4 ==> 4
-      assertMatch("4.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
+    test("Test1")
+    { assertMatch("4.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
       assertMatch("0.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "0", "5", ""))) => }
       "0.4".asDbl ==> Good(0.4)
       "543.012".asDbl ==> Good(543.012)
@@ -37,9 +36,8 @@ object DoubleTokenTest extends TestSuite
       assertMatch("4.5 4.5".parseTokens){ case Good(Arr2(DeciFracPosToken(Sp1, "4", "5", ""), DeciFracPosToken(sp5, "4", "5", ""))) => }
     }
 
-    "Test 2" -
-    {
-      assertMatch(xSts) { case Good(Arr1(_)) => }
+    test("Test 2")
+    { assertMatch(xSts) { case Good(Arr1(_)) => }
       assertMatch(xDbl) { case Good(0.4) => }
     }
   }

@@ -15,9 +15,8 @@ object IdentifierTokenTest extends TestSuite
   val r3: EMon3[CharsOff, TextPosn, Token] = lexIdentifierToken(o1, p1)(e1.toChars)
 
   val tests = Tests {
-    "Parse" -
-    {
-      assertMatch(r1){ case Good3(CharsOff(3), StrPosn(1, 4), IdentUpperToken(_, _)) => }
+    test("Parse")
+    { assertMatch(r1){ case Good3(CharsOff(3), StrPosn(1, 4), IdentUpperToken(_, _)) => }
       assertMatch(r2){ case Good3(CharsOff(3), StrPosn(1, 4), IdentLowerToken(_, _)) => }
       assertMatch(r3){ case Good3(CharsOff(3), StrPosn(1, 4), IdentLowerToken( _, _)) => }
     }

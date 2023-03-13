@@ -14,12 +14,12 @@ object IntTokenTest extends TestSuite
     val it1 = NatDeciToken(Sp1, "13")
     val it2 = NatDeciToken(Sp44, "2147483647")
 
-    "IntDeciToken" -
+    test("IntDeciToken")
     { it1.getIntStd ==> 13
       it2.getIntStd ==> 2147483647
     }
 
-    "General" -
+    test("General")
     { assertMatch("4".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
       assertMatch("4A".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(74))) => }
@@ -44,7 +44,7 @@ object IntTokenTest extends TestSuite
       "25;".asInt.isBad ==> true
     }
 
-    "Negative" -
+    test("Negative")
     { assertMatch("-4".parseTokens){ case Good(Arr1(NegDeciToken(Sp1, "4"))) => }
       "-4".asInt ==> Good(-4)
       "-4".asNat.isBad ==> true

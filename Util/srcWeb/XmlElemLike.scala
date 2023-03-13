@@ -45,7 +45,7 @@ trait XmlLikeInline extends XmlElemLike
 {
   override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
 
-  override def out(indent: Int, maxLineLen: Int): String =
+  override def out(indent: Int = 0, maxLineLen: Int = 150): String =
   { val cons = contents.map(_.outEither(indent, maxLineLen))
     val middle = cons.length match {
       case 1 if cons.head._1 => cons.head._2

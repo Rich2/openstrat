@@ -9,7 +9,7 @@ object srcToETokensTest extends TestSuite
     val Sp2 = StrPosn(1, 2)
     val Sp4 = StrPosn(1, 4)
 
-    "Single" -
+    test("Single")
     { Sp1 ==> StrPosn(1, 1)
 
       assertMatch("\'a\'".parseTokens){ case Good(Arr1(CharToken(_, 'a'))) => }
@@ -41,7 +41,7 @@ object srcToETokensTest extends TestSuite
     val et1 = st1.parseTokens
     val r1: Tokens = et1.get
 
-    "Multiple" -
+    test("Multiple")
     {
       assertMatch(";;".parseTokens){ case Good(Arr2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
       assertMatch(" ; .".parseTokens){ case Good(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
@@ -61,7 +61,7 @@ object srcToETokensTest extends TestSuite
     implicit val r5: RArr[Token] = et5.get
     val ro6: ArrOff[Token] = r5.offset(4)
 
-    "Settings" -
+    test("Settings")
     { assertMatch(st2.parseTokens){ case Good(Arr0()) => }
       assertMatch(et3){case Good(_) => }
       r3.length ==> 12

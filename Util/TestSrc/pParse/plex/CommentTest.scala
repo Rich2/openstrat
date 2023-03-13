@@ -17,7 +17,7 @@ object CommentTest extends TestSuite
 
     //val t = 11
 
-    "Test1" -
+    test("Test1")
     { assertMatch(s1){ case Good(Arr0()) => }
       assertMatch(s2){ case Good(Arr3(_, _, _)) => }
       assertMatch(s3){ case Good(Arr3(_, _, _)) => }

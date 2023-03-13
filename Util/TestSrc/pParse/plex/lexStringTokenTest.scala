@@ -20,9 +20,8 @@ object lexStringTokenTest extends TestSuite
   val r3 =  lexStringToken(chs0.offsetter(4), StrPosn(1, 5))(chs3)
 
   val tests = Tests {
-    "Test1" -
-    {
-      assertMatch(r0){case Good3(CharsOff(2), StrPosn(1, 3), StringToken(p1, s0)) => }
+    test("Test1")
+    { assertMatch(r0){case Good3(CharsOff(2), StrPosn(1, 3), StringToken(p1, s0)) => }
       assertMatch(r1){case Good3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
       assertMatch(r2){case Good3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
       assertMatch(r3){case Good3(CharsOff(13), StrPosn(1, 14), StringToken(StrPosn(1, 5), s3)) => }
@@ -32,7 +31,7 @@ object lexStringTokenTest extends TestSuite
     //val chs4 = s4.toChars
     //val r4 = parseStringToken(chs4.offsetter0, StrPosn())(chs4)
 
-    "Test2" -
+    test("Test2")
     {
      // assertMatch(r4){case Bad1("String 1, 1: Unclosed String") => }
     }
