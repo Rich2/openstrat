@@ -19,14 +19,29 @@ object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, Deserts)
   val ceuta = 35.88 ll -5.31
   val alHoceima = 35.15 ll -4.38
   val biharaPlage = 35.07 ll -2.01
+  val p10 = 35.77 ll -0.80
+  val capCarbon = 35.91 ll -0.34
+  val sidiMansour = 35.79 ll -0.10
+  val p15 = 36.12 ll 0.24
+  val p20 = 36.51 ll 1.18
+  val p22 = 36.92 ll 3.89
+  val lePointNoir = 37.09 ll 6.42
+  val p25 = 37.35 ll 9.76
+  val capTarf = 37.18 ll 10.28
   val tunis = 37.08 ll 10.20
+  val p27 = 36.71 ll 10.41
   val neTunis = 37.07 ll 11.04
+  val p28 = 36.87 ll 11.14
+  val p30 = 36.46 ll 10.81
+  val p32 = 36.17 ll 10.44
+  val chebba = 35.23 ll 11.16
   val sTunis = 33.30 ll 10.08
   val misrata = 32.37 ll 15.03
   val southEast = southLine * eastLine
-   
+
   val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima,
-    biharaPlage, tunis, neTunis, sTunis, misrata, northEast, southEast)
+    biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22, lePointNoir, p25, capTarf, tunis, p27, neTunis, p28, p30, p32, chebba, sTunis, misrata,
+    northEast, southEast)
 }
 
 object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, Plain)
