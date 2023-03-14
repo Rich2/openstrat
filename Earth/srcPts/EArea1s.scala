@@ -19,14 +19,19 @@ object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
   override val a2Arr: RArr[EArea2] = RArr(FranceSouth, IberiaNorth, IberiaSouth, Italy, ItalySouth)
 }
 
-object Mediterreanean extends EArea1("Mediterranean", 35.78 ll 18.73)
-{ import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(Canarias, Sicily, Rhodes, Majorca, Crete, Cyprus, Sardina, Corsica)
+object MediterreaneanWest extends EArea1("Mediterranean West", 35.78 ll 18.73)
+{ import pMed._
+  override val a2Arr: RArr[EArea2] = RArr(SaharaWest, Canarias, Sicily, Majorca, Sardina, Corsica)
+}
+
+object MediterraneanEast extends EArea1("Mediterranean East", 35.78 ll 18.73)
+{ import pMed._
+  override val a2Arr: RArr[EArea2] = RArr(SaharaEast, Sinai, Crete, Cyprus, Rhodes)
 }
 
 object AfricaNorth extends EArea1("AfricaNorth", 18.19 ll 15)
 { import pAfrica._
-  override val a2Arr: RArr[EArea2] = RArr(SaharaEast, EastAfricaSouth, SaharaWest, WestAfricaSouth)
+  override val a2Arr: RArr[EArea2] = RArr(EastAfricaSouth, WestAfricaSouth)
 }
 
 /** The southern part of Africa below approximately 5 degrees north, roughly triangular in shape. */
@@ -38,7 +43,7 @@ object AfricaSouth extends EArea1("AfricanSouth", -16.14 ll 24.36)
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object MiddleEast  extends EArea1("MiddleEast", 20.18 ll -0.65)
 { import middleEast._
-  override val a2Arr = RArr(Sinai, Anatolia, Kurdistan, LakeVan, Armenia, Levant, Arabia, Persia, Iraq, LakeTuz)
+  override val a2Arr = RArr(Anatolia, Kurdistan, LakeVan, Armenia, Levant, Arabia, Persia, Iraq, LakeTuz)
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)

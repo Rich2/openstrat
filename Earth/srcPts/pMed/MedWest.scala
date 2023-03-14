@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pEurope
+package ostrat; package pEarth; package pMed
 import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
@@ -41,41 +41,6 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, Plain)
   val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
 
-/** [[PolygonLL]] graphic for Crete depends on nothing. */
-object Crete extends EArea2("Crete", 35.23 ll 24.92, Hill)
-{ val northEast = 35.32 ll 26.31
-  val southEast = 35.02 ll 26.19
-  val p10 = 34.92 ll 24.73
-  val p15 = 35.09 ll 24.72
-  val p20 = 35.23 ll 23.59
-  val p30 = 35.29 ll 23.52
-  val capeGramvousa = 35.62 ll 23.60
-  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
-}
-
-/** [[PolygonLL]] graphic for Cyprus depends on nothing. */
-object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, Hill)
-{ val northEast: LatLong = 35.69 ll 34.58
-  val southEast: LatLong = 34.96 ll 34.09
-  val p30: LatLong = 34.57 ll 33.04
-  val pontiBaba: LatLong = 35.10 ll 32.28
-  val korucamBurnu: LatLong = 35.40 ll 32.92
-
-  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p30, pontiBaba, korucamBurnu)
-}
-
-/** [[PolygonLL]] graphic for Rhodes depends on nothing. */
-object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, Hill)
-{ val north: LatLong = 36.46 ll 28.22
-  val akraLindos: LatLong = 36.05 ll 28.09
-  val p40: LatLong = 35.93 ll 27.86
-  val south: LatLong = 35.88 ll 27.76
-  val p50: LatLong = 35.94 ll 27.72
-  val p65: LatLong = 36.15 ll 27.69
-  val p70: LatLong = 36.27 ll 27.81
-
-  override val polygonLL: PolygonLL = PolygonLL(north, akraLindos, p40, south, p50, p65, p70)
-}
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
 object Corsica extends EArea2("Corsica", 42.18 ll 9.17, Hill)
@@ -110,4 +75,49 @@ object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hill)
 
   override val polygonLL = PolygonLL(north, east, p20, capoMonteSanto, calaCaterina, perdaLonga, capoTeulada, portscuso, alghero, capoCaccia,
     capoFalcone, platamona)
+}
+
+object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, Deserts)
+{ val southLine = 17.north
+  val eastLine = 16.75.east
+  val northEast = 31.2.north *  eastLine
+
+  val southWest = southLine * 16.27.west
+  val nouakchott = 18.078 ll -16.02
+  val nouadhibouBay = 21.28 ll -16.90
+  val nouadhibou = 20.77 ll -17.05
+  val nou2 = 21.27 ll -17.04
+  val boujdour = 26.13 ll -14.50
+  val agadir = 30.16 ll -9.24
+  val rabat = 34.03 ll -6.83
+  val tangierW = 35.79 ll -5.92
+  val ceuta = 35.88 ll -5.31
+  val alHoceima = 35.15 ll -4.38
+  val biharaPlage = 35.07 ll -2.01
+  val p10 = 35.77 ll -0.80
+  val capCarbon = 35.91 ll -0.34
+  val sidiMansour = 35.79 ll -0.10
+  val p15 = 36.12 ll 0.24
+  val p20 = 36.51 ll 1.18
+  val p22 = 36.92 ll 3.89
+  val plageLota = 36.64 ll 5.30
+  val capAlAouna = 36.78 ll 5.59
+  val lePointNoir = 37.09 ll 6.42
+  val capSerat = 37.24 ll 9.21
+  val p25 = 37.35 ll 9.76
+  val capTarf = 37.18 ll 10.28
+  val tunis = 37.08 ll 10.20
+  val p27 = 36.71 ll 10.41
+  val neTunis = 37.07 ll 11.04
+  val p28 = 36.87 ll 11.14
+  val p30 = 36.46 ll 10.81
+  val p32 = 36.17 ll 10.44
+  val chebba = 35.23 ll 11.16
+  val sTunis = 33.30 ll 10.08
+  val misrata = 32.37 ll 15.03
+  val southEast = southLine * eastLine
+
+  val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima,
+    biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22, plageLota, capAlAouna, lePointNoir, capSerat, p25, capTarf, tunis, p27, neTunis, p28, p30, p32,
+    chebba, sTunis, misrata, northEast, southEast)
 }

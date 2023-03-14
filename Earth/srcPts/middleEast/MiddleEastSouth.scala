@@ -2,24 +2,13 @@
 package ostrat; package pEarth;package middleEast
 import geom._, pglobe._, LatLong._
 
-/** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
-object Sinai extends EArea2("Sinai", 29.88 ll 33.75, Deserts)
-{ val eGaza = 31.32 ll 34.22
-  val eilat = 29.54 ll 34.98
-  val south = 27.73 ll 34.25
-  val suez = 29.93 ll 32.56
-  val portSaid = 31.27 ll 32.32
-
-  override val polygonLL: PolygonLL = PolygonLL(eGaza, eilat, south, suez, portSaid)
-}
-
 /** [[PolygonLL]] graphic for the Levant depends on [[Kurdistan]] and [[Sinai]]. */
 object Levant extends EArea2("Levant", 33 ll 35.5, Hill)
 { val damascus = 33.51 ll 36.82
   val haifa = 32.83 ll 34.98
   val p50 = 35.58 ll 35.72
   val p60 = 36.32 ll 35.78
-  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, Sinai.eilat, Sinai.eGaza, haifa, p50, p60,
+  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, pMed.Sinai.eilat, pMed.Sinai.eGaza, haifa, p50, p60,
     Kurdistan.delicaymouth)
 }
 
@@ -41,7 +30,7 @@ object Arabia extends EArea2("Arabia", degs (25, 45.0), Deserts)
   val alFaw = degs(29.93, 48.47)
 
   override val polygonLL: PolygonLL = PolygonLL(alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar, alKhaburah, eOman, mirbat,
-    dhahawnMouth, haswayn, sYemen, sharmas, Sinai.eilat)
+    dhahawnMouth, haswayn, sYemen, sharmas, pMed.Sinai.eilat)
 }
 
 /** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */

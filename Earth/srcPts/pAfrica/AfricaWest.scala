@@ -2,47 +2,6 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._
 
-object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, Deserts)
-{ val southLine = 17.north
-  val eastLine = 16.75.east
-  val northEast = 31.2.north *  eastLine
-   
-  val southWest = southLine * 16.27.west
-  val nouakchott = 18.078 ll -16.02
-  val nouadhibouBay = 21.28 ll -16.90
-  val nouadhibou = 20.77 ll -17.05
-  val nou2 = 21.27 ll -17.04
-  val boujdour = 26.13 ll -14.50
-  val agadir = 30.16 ll -9.24
-  val rabat = 34.03 ll -6.83
-  val tangierW = 35.79 ll -5.92
-  val ceuta = 35.88 ll -5.31
-  val alHoceima = 35.15 ll -4.38
-  val biharaPlage = 35.07 ll -2.01
-  val p10 = 35.77 ll -0.80
-  val capCarbon = 35.91 ll -0.34
-  val sidiMansour = 35.79 ll -0.10
-  val p15 = 36.12 ll 0.24
-  val p20 = 36.51 ll 1.18
-  val p22 = 36.92 ll 3.89
-  val lePointNoir = 37.09 ll 6.42
-  val p25 = 37.35 ll 9.76
-  val capTarf = 37.18 ll 10.28
-  val tunis = 37.08 ll 10.20
-  val p27 = 36.71 ll 10.41
-  val neTunis = 37.07 ll 11.04
-  val p28 = 36.87 ll 11.14
-  val p30 = 36.46 ll 10.81
-  val p32 = 36.17 ll 10.44
-  val chebba = 35.23 ll 11.16
-  val sTunis = 33.30 ll 10.08
-  val misrata = 32.37 ll 15.03
-  val southEast = southLine * eastLine
-
-  val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima,
-    biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22, lePointNoir, p25, capTarf, tunis, p27, neTunis, p28, p30, p32, chebba, sTunis, misrata,
-    northEast, southEast)
-}
 
 object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, Plain)
 { val cAfricaN = 4.53.north
@@ -56,10 +15,10 @@ object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, Plain)
   val keurMassene = 16.7 ll -16.38
 
   /** The south east corner of West Africa. */
-  val westAfricaPtSE =  cAfricaN * SaharaWest.eastLine
+  val westAfricaPtSE =  cAfricaN * pMed.SaharaWest.eastLine
 
   val westAfricaSouthCoast = LinePathLL(sangana, aiyetoro, capeThreePoints, liberia)
 
-  override val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene, SaharaWest.southWest,
-    SaharaWest.southEast, westAfricaPtSE, cAfricaNW)
+  override val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene,
+    pMed.SaharaWest.southWest, pMed.SaharaWest.southEast, westAfricaPtSE, cAfricaNW)
 }
