@@ -3,6 +3,11 @@ package ostrat; package pnorm
 import prid.phex._
 
 trait NormScen
-{
-  val grid: HGrid
+{ implicit val grid: HGrid
+  val terrs: HCenLayer[Terr]
+}
+
+class NormScen1 extends NormScen
+{ override implicit val grid  = HGridReg(2, 6, 2, 10)
+  override val terrs = grid.newHCenLayer[Terr](Sea)
 }
