@@ -3,7 +3,7 @@ package ostrat; package dless
 import geom._, prid._, phex._, pgui._, egrid._
 
 case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("Diceless Gui")
-{ var scen = scenIn
+{ var scen: DLessScen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
