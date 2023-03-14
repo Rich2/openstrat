@@ -3,9 +3,6 @@ package ostrat; package egrid
 import Colour._
 
 trait WSide extends Coloured// with ShowSimple
-{
-
-}
 
 /** A Side between 2 lands. */
 trait WSideLands extends WSide

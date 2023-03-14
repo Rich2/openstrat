@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package dless
-import geom._, pEarth._, prid._, phex._, pgui._, egrid._
+import geom._, prid._, phex._, pgui._, egrid._
 
 case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("Diceless Gui")
 { var scen = scenIn
@@ -23,22 +23,33 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour) }
 
+    val islands: GraphicElems = terrs.hcOptMap { (tile, hc) =>
+      tile match {
+        case island: Island => {
+          val poly = hc.vertsIn(7).map(hv => hv.toPt2(proj.transCoord))
+          Some(poly.fill(island.landColour))
+        }
+        case _ => None
+      }
+    }
     def tileActives: RArr[PolygonActive] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.active(hc) }
 
     def straits: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
+      val sTerr2 = sTerr.flatMap {
+        case s: WSideLands => Some(s)
+        case _ => None
+      }
+      sTerr2.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
     }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1 = hs.tileLt
-      val hc2 = hs.tileRt
       val t1 = terrs(hc1)
+      def t2: WTile = terrs(hs.tileRt)
 
-      def t2 = terrs(hs.tileRt)
-
-      if (sTerrs(hs).nonEmpty | t1 != t2) None
+      if (sTerrs(hs).nonEmpty | t1.colour != t2.colour) None
       else
       { val cs: (HCen, Int, Int) = hs.corners
         val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
@@ -68,7 +79,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tileFills ++ tileActives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
+    tileFills ++ islands ++ tileActives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

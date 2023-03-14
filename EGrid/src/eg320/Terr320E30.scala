@@ -36,8 +36,8 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(SCLake, 149, 1537)
     res.setSomeInts(SCSea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
     res.setSomeInts(SCSea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
-    res.setSomeInts(SCSea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
-    res.setSomeInts(SCSea, 131,1521)
+    res.setSomeInts(SCSea,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
+    res.setSomeInts(SLSea, 130,1520, 131,1521)//Sicily - Italy
     res
   }
 
@@ -97,11 +97,6 @@ object Terr320E30 extends Long320Terrs
     res.setVert2In(132, 1532)//Dardanelles
     res.setVert5In(132, 1536)//Sea of Marmara
     res.setMouth4(134, 1538)//Constantinople
-
-    res.setCorner(132, 1524, 4, HVUR)//Sicily - Italy north, has to be upright rather than down right because the end rows are 132,524 and 130,526
-    res.setCorner(130, 1522, 0, HVUR)//Sicily - Italy north, has to be upright rather than down right because the end rows are 132,524 and 130,526
-    res.setCornerIn(130, 1522, 5)//Sicily Italy
-    res.setCornerIn(130, 1522, 4)//Sicily Italy south
 
     res
   }

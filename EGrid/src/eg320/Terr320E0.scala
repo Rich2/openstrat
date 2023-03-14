@@ -16,7 +16,7 @@ object Terr320E0 extends Long320Terrs
 
     wr(156, sea * 3)
     wr(154, sea * 4)
-    wr(152,  sea * 3, taigaHills)
+    wr(152, sea * 3, taigaHills)
     wr(150, sea * 3, taigaHills)
     wr(148, sea * 3, taigaHills, taiga)
     wr(146, sea, hills, sea, plain, forest)
@@ -27,7 +27,7 @@ object Terr320E0 extends Long320Terrs
     wr(136, sea * 3, plain, hills, mtain, plain)
     wr(134, sea, hills * 3, sea, SeaIsland(Hilly, OpenTerrain), hills)
     wr(132, sea, hills, plain * 2, sea, SeaIsland(Hilly, OpenTerrain), sea)
-    wr(130, sea, plain, hills * 2, sea * 3, hills)
+    wr(130, sea, plain, hills * 2, sea * 2, hills, SeaIsland(Hilly, OpenTerrain))
     wr(128, sea * 2, hills * 5, sea)
     wr(126, sea * 2, mtain, desertHills, desert * 4)
     wr(124, sea * 2, hills, desert * 6)
@@ -41,7 +41,9 @@ object Terr320E0 extends Long320Terrs
     res.setSomeInts(SISea, 133,521)//Sardinia - Corsica
     res.setSomeInts(SLSea, 135,523)//Corsica
     res.setSomeInts(SRSea, 135,521,  134,524)//Corsica
-    res.setSomeInts(SCSea, 129,507,  129,509,  129,511,  129,525, 130,528,  131,527,  134,528,  135,527,  136,526)//Mediterranean
+    res.setSomeInts(SCSea, 129,507,  129,509,  129,511,  134,528,  135,527,  136,526)//Mediterranean
+    res.setSomeInts(SRSea, 129,525)//Sicily - Tunis
+    res.setSomeInts(SLSea, 130,528,  131,527)//Sicily - Italy
     res
   }
 
@@ -77,20 +79,10 @@ object Terr320E0 extends Long320Terrs
     res.setCornerIn(134, 526, 1)//Adriatic
     res.setCorner(134, 526, 2, HVDL)//Adriatic
 
-    res.setCornerPair(132, 524, 2, HVUR, HVUL)//Sicily Italy
-    res.setCorner(130, 526, 0, HVUL)//Sicily Italy
-    res.setCornerIn(130, 526, 1)//Sicily Italy
-    res.setCornerIn(130, 526, 2)//Sicily Italy
-    res.setCornerPair(128, 528, 0, HVUL, HVUR)//Sicily Italy south mouth
-
-
     res.setMouth1(128, 504)//Gibraltar
     res.setVert0In(128, 508)//South Spain
     res.setVert3In(130, 510)//South Spain
     res.setMouth4(130, 514)//East end of Gibraltar Straits
-
-    res.setMouth2(130, 522) //Tunis Sicily west
-    res.setMouth5(128, 528) //Tunis Sicily east
 
     res
   }
