@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
-object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, desert)
+object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, Deserts)
 { val southLine = 17.north
   val eastLine = 16.75.east
   val northEast = 31.2.north *  eastLine
@@ -29,7 +29,7 @@ object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, desert)
     biharaPlage, tunis, neTunis, sTunis, misrata, northEast, southEast)
 }
 
-object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, plain)
+object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, Plain)
 { val cAfricaN = 4.53.north
   val cAfricaNW = cAfricaN * 8.89.east
   val sangana = 4.31 ll 5.99

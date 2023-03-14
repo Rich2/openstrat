@@ -1,10 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._
 
-object SouthAmericaSouth extends EArea2("South America\nsouth", degs (- 27.0, - 56.0), plain)
-{
-  val swArgentine = -54.28 ll -65.06
+object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -56.0, Plain)
+{ val swArgentine = -54.28 ll -65.06
   val sChile = -55.26 ll -69.48
   val islaEsmeralda = -48.86 ll -75.62
   val puntaLavapie = -37.15 ll -73.59
@@ -21,9 +20,8 @@ object SouthAmericaSouth extends EArea2("South America\nsouth", degs (- 27.0, - 
   override val polygonLL: PolygonLL = PolygonLL(sChile, islaEsmeralda, puntaLavapie, sSAmericaNW, nwSAmericaES, sSAmericaNE, saoPaulo, puntaDelEste, buenosAires, sBuenos, cabotBlanco, swArgentine)
 }
 
-object SouthAmericaWest extends EArea2("South America\nwest", degs (- 5.0, - 70.0), jungle)
-{
-  val nChile = -18 ll -70
+object SouthAmericaWest extends EArea2("South America\nwest", -5.0 ll -70.0, Jungles)
+{ val nChile = -18 ll -70
   val nPeru = -5 ll -81
   val bahiaSolano10 = 6.55 ll -77.32
 
@@ -33,7 +31,7 @@ object SouthAmericaWest extends EArea2("South America\nwest", degs (- 5.0, - 70.
   override val polygonLL: PolygonLL = PolygonLL(SouthAmericaSouth.sSAmericaNW, nChile, nPeru, bahiaSolano10, CentralAmerica.sePanama, CentralAmerica.nePanama, nColumbia, caracas, nwSAmericaEN, SouthAmericaSouth.nwSAmericaES)
 }
 
-object SouthAmericaEast extends EArea2("South America\neast", degs (- 10.04, - 45.81), jungle)
+object SouthAmericaEast extends EArea2("South America\neast", -10.04 ll -45.81, Jungles)
 { val nAmapa = 4.39 ll -51.51
   val amazonMouthS = -0.18 ll -49.3
   val paraiba = -7.15 ll -34.82

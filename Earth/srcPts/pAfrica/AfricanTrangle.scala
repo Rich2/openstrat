@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
 /** Lake Victoria. */
-object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, lake)
+object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lakes)
 { val southEast = -2.23 ll 33.84
   val katongaMouth =  -0.14 ll 31.94
   val east = -0.39 ll 34.26
@@ -14,7 +14,7 @@ object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, lake)
 }
 
 /** Lake Tanganyika. */
-object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, lake)
+object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lakes)
 { val northEast: LatLong = -3.36 ll 29.34
   val northWest: LatLong = -3.36 ll 29.16
   val kalemie: LatLong = -5.91 ll 29.20
@@ -32,7 +32,7 @@ object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, lake)
 }
 
 /** [[PolygonLL]] graphic object. */
-object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, jungle)
+object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, Jungles)
 {  val wAfricaEquator = 0.0 ll 9.13
   val baiaFarta = -12.81 ll 13.01
   val luanda = -8.35 ll 13.15
@@ -43,7 +43,7 @@ object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, jungle
     LakeTanganyika.westCoast +! SouthAfrica.cAfricaSE
 }
 
-object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, plain)
+object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, Plain)
 { val seNacala = -14.4 ll 40.3
   val eAfricaEquator = 0.0 ll 42.4
   val mombassa = -4.03 ll 39.28
@@ -52,16 +52,17 @@ object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, 
     (EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa, seNacala, SouthAfrica.sAfricaNE)
 }
 
-object Madagascar extends EArea2("Madagascar", degs(-19.42, 46.57), plain)
+object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, Plain)
 { val madagascarN = degs(-11.95, 49.26)
   val madagascarE = degs(-15.33, 50.48)
   val madagascarSE = degs(-25.03, 46.99)
   val madagascarS = degs(-25.60, 45.16)
   val tambohorano = degs(-17.51, 43.93)
+
   override def polygonLL: PolygonLL = PolygonLL(madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
 }
 
-object SouthAfrica extends EArea2("South Africa", -25 ll 24, plain)
+object SouthAfrica extends EArea2("South Africa", -25 ll 24, Plain)
 { val sAfricaN = 17.south
 
   val sAfricaNW = - 17 ll 11.76

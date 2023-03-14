@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
 /** Polygon display for Korea. */
-object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
+object Korea extends EArea2("Korea", 37.77 ll 127.55, Hill)
 { val northEast = 41.49 ll 129.65
   val kaima = 40.84 ll 129.71
   val chongpyong = 39.74 ll 127.46
@@ -20,9 +20,8 @@ object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
   override val polygonLL = PolygonLL(northEast, kaima, chongpyong, koreaE, busan, jindo, ryongyon, taeryongMouth, dalianSouth, p10, xianshuiMouth, liaoheMouth)
 }
 
-object FeAsia extends EArea2 ("FEAsia", degs (66.22, 159.68), taiga)
-{
-  val farAsiaW = 141.6.east
+object FeAsia extends EArea2("FEAsia", degs (66.22, 159.68), Taigas)
+{ val farAsiaW = 141.6.east
 
   val ustYansky = 72.81.north * farAsiaW
   val sakha43 = 72.11 ll 149.64
@@ -74,9 +73,8 @@ object FeAsia extends EArea2 ("FEAsia", degs (66.22, 159.68), taiga)
   wKamchatka, kamchatka40, kamchatka50, penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
 }
 
-object NeAsia extends EArea2("NEAsia", degs (64, 113), taiga)
-{
-  val krasnoyarsk = 77.43 ll 103.99
+object NeAsia extends EArea2("NEAsia", degs (64, 113), Taigas)
+{ val krasnoyarsk = 77.43 ll 103.99
   val kras10 = 76.62 ll 112.46
   val kras20 = 75.38 ll 113.69
   val khatangaMouth = 73.21 ll 106.23
@@ -97,9 +95,8 @@ object NeAsia extends EArea2("NEAsia", degs (64, 113), taiga)
   bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, RusNorth.cAsiaNE, RusNorth.nRusNE)
 }
 
-object CEAsia extends EArea2("CEAsia", degs (47, 115), plain)
-{
-  val udaMouth = 54.72 ll 135.28
+object CEAsia extends EArea2("CEAsia", degs (47, 115), Plain)
+{ val udaMouth = 54.72 ll 135.28
   val khab10 = 54.64 ll 136.81
   val khab15 = 54.28 ll 139.75
   val khab20 = 53.29 ll 141.42

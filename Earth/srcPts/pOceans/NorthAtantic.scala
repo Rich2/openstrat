@@ -1,13 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
-/** The North Atlantic. The seas and the land of the north Atlantic. */
-object NorthAtantic extends EArea1("NAtlantic", 60 ll -30)
-{ override val a2Arr: RArr[EArea2] = RArr(Iceland)
-}
-
-object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)
+object Iceland extends EArea2("Iceland", 64.78 ll -18.07, Taigas)
 { val reykjavik = 64.17 ll -21.75
   val w1 = 64.75 ll -22.30
   val wIceland = 64.87 ll -24.04
@@ -24,6 +19,6 @@ object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)
   val sIceland = 63.40 ll -18.73
   val swIceland = 63.8 ll -22.70
 
-  val polygonLL: PolygonLL = PolygonLL(reykjavik, w1, wIceland, kleifar, breidavik, homstrandir, n1, hrutafjodur, n2, nIceland, n3, eIceland, vattames,
-     sIceland, swIceland)
+  val polygonLL: PolygonLL = PolygonLL(reykjavik, w1, wIceland, kleifar, breidavik, homstrandir, n1, hrutafjodur, n2, nIceland, n3, eIceland,
+    vattames, sIceland, swIceland)
 }

@@ -1,9 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** Alsace Lorraine, no map dependencies. */
-object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hills)
+object Alsace extends EArea2("Alsace", 48.75 ll 7.42, Hill)
 {
   val northWest = 49.50 ll 5.89
   val luxSE = 49.46 ll 6.37
@@ -18,7 +18,7 @@ object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hills)
 }
 
 /** Blegium andLuxembourg. Depends on Alsace. */
-object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, plain)
+object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, Plain)
 { val northWest = 51.09 ll 2.54
   val coastEast = 51.36 ll 3.37
   val north = 51.49 ll 5.04
@@ -29,7 +29,7 @@ object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, plain)
 }
 
 /** Displays most of France. Depends on [[Alsace]] and [[BelgLux]]. */
-object Frankia extends EArea2("Frankia", 47.28 ll 1.93, plain)
+object Frankia extends EArea2("Frankia", 47.28 ll 1.93, Plain)
 {
   val southWest = divN45 ll -1.29
   val southEast = divN45 ll 5.53

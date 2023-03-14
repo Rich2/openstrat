@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphical representation of the Orkney's */
-object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, plain)
+object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, Plain)
 { val north: LatLong = 59.38 ll -2.88
   val stronsayE: LatLong = 59.09 ll -2.53
   val south: LatLong = 58.73 ll -2.96
@@ -14,7 +14,7 @@ object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, plain)
 }
 
 /** [[polygonLL]] graphical representation of Outer Hebrides. Depends on nothing. */
-object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, plain)
+object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, Plain)
 { val nLewis: LatLong = 58.51 ll -6.26
   val swLewis: LatLong = 57.94 ll -6.47
   val sHarris: LatLong = 57.73 ll -6.97
@@ -26,7 +26,7 @@ object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, plain)
 }
 
 /** [[polygonLL]] Graphical representation of Ireland. Depends on nothing. */
-object Ireland extends EArea2("Ireland", 53.36 ll -7.63, plain)
+object Ireland extends EArea2("Ireland", 53.36 ll -7.63, Plain)
 { val north: LatLong = 55.38 ll -7.37
   val torHead: LatLong = 55.19 ll -6.06
   val nIrelandE: LatLong = 54.48 ll -5.43
@@ -44,7 +44,7 @@ object Ireland extends EArea2("Ireland", 53.36 ll -7.63, plain)
 }
 
 /** [[polygonLL]] Graphical representation of Shetland. Depends on nothing. */
-object Shetland extends EArea2("Shetland", 60.34 ll -1.23, plain)
+object Shetland extends EArea2("Shetland", 60.34 ll -1.23, Plain)
 { val south = 59.85 ll -1.27
   val sSoundsound = 60.20 ll -1.34
   val sSilwick = 60.14 ll -1.46

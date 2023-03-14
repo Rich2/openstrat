@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphic depends on [[Peloponnese]]. */
-object Greece extends EArea2("Greece", 39.54 ll 21.62, hills)
+object Greece extends EArea2("Greece", 39.54 ll 21.62, Hill)
 { val northEast = 40.46 ll 22.59
   val nEuboea = 39.03 ll 23.31
   val sEuboea = 37.95 ll 24.51
@@ -20,7 +20,7 @@ object Greece extends EArea2("Greece", 39.54 ll 21.62, hills)
 }
 
 /** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */
-object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, hills)
+object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, Hill)
 { val northEast = 46.0 ll 22.59
   val shengjin = 41.80 ll 19.59
   val dubrovnik = 42.65 ll 18.06
@@ -39,7 +39,7 @@ object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, hills)
 }
 
 /** [[PolygonLL]] graphic for east Balkans depends on [[BalkansWest]], [[Alpsland]] and [[Greece]]. */
-object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, plain)
+object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, Plain)
 { val odessa = 46.48 ll 30.74
   val ochakivskeMouth = 45.46 ll 29.78
   val p10 = 44.84 ll 29.59
@@ -68,7 +68,7 @@ object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, plain)
 }
 
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
-object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hills)
+object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, Hill)
 { val ePeninsular = 38.04 ll 23.56
   val kechries = 37.88 ll 22.99
   val p1 = 37.44 ll 23.51
@@ -86,7 +86,7 @@ object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hills)
 }
 
 /** [[PolygonLL]] graphic for Marmara Sea, depends on nothing. */
-object MarmaraSea extends EArea2("Marmara", 40.73 ll 28.21, sea)
+object MarmaraSea extends EArea2("Marmara", 40.73 ll 28.21, Seas)
 { val istanbul = 41.00 ll 29.00
   val darica = 40.76 ll 28.36
   val bandirama = 40.35 ll 27.96

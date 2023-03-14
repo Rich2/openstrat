@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
-object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
+object Alaska extends EArea2("Alaska", 66.33 ll -151.16, Taigas)
 {  val northEast = 69.45 ll -141
   val yakut10: LatLong = 59.93 ll -141.03
   val susitnaMouth = 61.25 ll -150.61
@@ -26,7 +26,7 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
   override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, susitnaMouth, p20, nikolski, portHeiden, kvichakMouth, capeNewenham, p30, p33, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
 }
 
-object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taiga)
+object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taigas)
 { val yakut50 = 60 ll -139.60
   val yakut10 = 68.90 ll -136.53
   val inuvik10 = 70.56 ll -128.00
@@ -70,7 +70,7 @@ object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taig
     nunavut65, nunavut67, nunavut70, nunavut80, nunavut83, nunavut85, nunavut87, nunavut88, navut20, naujaat10, naujaat12, nunavut90, naujaat20, nunavut92, naujaat15, naujaat17, hudsonBay60W)
 }
 
-object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, taiga)
+object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, Taigas)
 { val wUsaNE = 50 ll -98
   val w49th: LatLong = 49 ll -125.66
   val vancouverNW = 50.77 ll -128.38
@@ -83,7 +83,7 @@ object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, taiga)
   override def polygonLL: PolygonLL = PolygonLL(wUsaNE, w49th, vancouverNW, p50, NorthWestCanada.yakut50, NorthWestCanada.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth)
 }
 
-object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, taiga)
+object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, Taigas)
 { val manitoba20 = 57.26 ll -90.89
   val jamesBayNW: LatLong = 55.07 ll -82.31
   val attapiskatMouth = 52.97 ll -82.26
@@ -94,8 +94,7 @@ object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, taiga)
     LakeHuron.centralCanadaCoast ++! LakeSuperior.canadaCoast
 }
 
-
-object EastCanada extends EArea2("East Canada", 53.71 ll-70, taiga)
+object EastCanada extends EArea2("East Canada", 53.71 ll-70, Taigas)
 { val eastMainMouth = 52.24 ll -78.56
   val jamesBayMouthEast = 54.63 ll -79.74
   val hudsonBayEast = 56.46 ll -76.52
@@ -130,9 +129,8 @@ object EastCanada extends EArea2("East Canada", 53.71 ll-70, taiga)
     LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
 }
 
-object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, taiga)
-{
-  val north = 51.63 ll -55.43
+object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, Taigas)
+{ val north = 51.63 ll -55.43
   val pollardsPoint = 49.75 ll -56.92
   val p10 = 50.15 ll -56.16
   val p20 = 49.25 ll -53.47

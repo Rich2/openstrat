@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
-object Artic extends EArea2("Artic", 89.9 ll 0, ice)
+object Artic extends EArea2("Artic", 89.9 ll 0, Icy)
 { val long0 = 82 ll 0
   val long15 = 82 ll 15
   val long30 = 82 ll 30
@@ -27,9 +27,8 @@ object Artic extends EArea2("Artic", 89.9 ll 0, ice)
     long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland, Greenland.neGreenland)
 }
 
-object Greenland extends EArea2("Greenland", degs(75, -42), ice){
-
-  val sGreenland = degs(59.87, -43.95)
+object Greenland extends EArea2("Greenland", 75 ll -42, Icy)
+{ val sGreenland = degs(59.87, -43.95)
   val swGreenland = degs(60.82, -48.07)
   val aasiaat = 68.68 ll -53.00
   val pt1 = 75.73 ll -58.98
@@ -44,7 +43,7 @@ object Greenland extends EArea2("Greenland", degs(75, -42), ice){
     nGreenland, neGreenland, semersooq, kulusuk)
 }
 
-object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
+object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, Icy)
 { val south = 76.59 ll 16.70
   val wSpitsbergen = 79.54 ll 10.64
   val nSpitzbergen = 79.87 ll 13.75
@@ -56,7 +55,7 @@ object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
   val polygonLL: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
 }      
 
-object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, ice)
+object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, Icy)
 { val south = 79.22 ll 23.61
   val southWest = 79.36 ll 20.76
   val northWest = 80.13 ll 17.72

@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** Simple graphic for Lake Superior. No dependencies */
-object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
+object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lakes)
 { val east: LatLong = 46.52 ll -84.61
   val michipicoten: LatLong = 47.96 ll -84.86
   val north: LatLong = 48.80 ll -87.31
@@ -22,7 +22,7 @@ object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
 }
 
 /** Graphical display for Lake Huron. No dependencies. */
-object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, lake)
+object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, Lakes)
 { val northEast: LatLong = 45.89 ll -80.75
   val killarney: LatLong = 45.99 ll -81.43
   val fitzwilliam: LatLong = 45.45 ll -81.79
@@ -51,7 +51,7 @@ object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, lake)
 }
 
 /** Graphical display for Lake Erie. No dependencies. */
-object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, lake)
+object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, Lakes)
 { val niagraMouth: LatLong = 42.89 ll -78.91
   val longPoint: LatLong = 42.58 ll -80.44
   val portStanley: LatLong = 42.66 ll -81.24
@@ -69,7 +69,7 @@ object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, lake)
   override def polygonLL: PolygonLL = eastCanadaCoast.reverse +/--! usCoast
 }
 /** Graphical display for Lake Ontario. No dependencies. */
-object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, lake)
+object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, Lakes)
 { val wolfeSW: LatLong = 44.10 ll -76.44
   val northEast: LatLong = 44.20 ll -76.51
   val frenchmansBay: LatLong = 43.81 ll -79.09
@@ -87,7 +87,7 @@ object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, lake)
 }
 
 /** Graphical display for Lake Michigan. No dependencies. */
-object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
+object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, Lakes)
 { val mouthNorth: LatLong = 45.84 ll -84.75
   val north: LatLong = 46.10 ll -85.42
   val northWest: LatLong = 45.91 ll -86.97

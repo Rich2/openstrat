@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphic depends on [[IberiaNorth]] and [[Frankia]]. */
-object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, plain)
+object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, Plain)
 { val montelimar = 44.55 ll 4.71
   val orangeCrossing = 44.07 ll 4.76
 
@@ -21,7 +21,7 @@ object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, plain)
 }
 
 /** [[PolygonLL]] graphic depends on nothing. */
-object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, plain)
+object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, Plain)
 { val valencia = 39.45 ll -0.32
   val xabia = 38.74 ll 0.22
   val p15 = 38.43 ll -0.39
@@ -46,7 +46,7 @@ object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, plain)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */
-object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hills)
+object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, Hill)
 { val laMassaneMouth = 42.54 ll 3.05
   val neSpain = 42.18 ll 3.06
   val begur = 41.95 ll 3.22
@@ -75,7 +75,7 @@ object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hills)
 }
 
 /** [[PolygonLL]] graphic for Italy depends on [[ItalySouth]]. */
-object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, hills)
+object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, Hill)
 { val venice = 45.42 ll 12.21
   val ven1 = 44.96 ll 12.55
   val cervia = 44.25 ll 12.35
@@ -103,7 +103,7 @@ object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, hills)
 }
 
 /** [[PolygonLL]] graphic for Italy depends on nothing. */
-object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hills)
+object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, Hill)
 { val siponto = 41.60 ll 15.89
   val barletta = 41.32 ll 16.28
   val brindisi = 40.65 ll 17.97

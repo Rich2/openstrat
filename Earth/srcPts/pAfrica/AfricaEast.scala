@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaWest]] and [[Sinai]]. */
-object SaharaEast extends EArea2("Sahara\neast", 24 ll 25, desert)
+object SaharaEast extends EArea2("Sahara\neast", 24 ll 25, Deserts)
 { val elAgheila = 30.12 ll 19.08
   val benghazi = 32.12 ll 20.05
   val derna = 32.93 ll 22.15
@@ -17,7 +17,7 @@ object SaharaEast extends EArea2("Sahara\neast", 24 ll 25, desert)
     middleEast.Sinai.suez, p5, southEast)
 }
 
-object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, plain)
+object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, Plain)
 { val dankalia = 14 ll 41.66// eAfricaN
   val berbera = 10 ll 44
   val hornAfrica = 12 ll 51

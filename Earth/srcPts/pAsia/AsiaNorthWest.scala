@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
-object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
+object RusNorth extends EArea2("NRus", 61 ll 54, Taigas)
 {
   val indiaE = 91.5.east
    
@@ -30,7 +30,7 @@ object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
      shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, nRusNE, cAsiaNE, kazakNE, pEurope.Baltland.southEast)
 }
 
-object Kazak extends EArea2 ("Kazak", 47 ll 60, plain)
+object Kazak extends EArea2("Kazak", 47 ll 60, Plain)
 {
   val bautino = degs(44.53, 50.24)
   val kendirliBay = degs(42.73, 52.74)
@@ -42,7 +42,7 @@ object Kazak extends EArea2 ("Kazak", 47 ll 60, plain)
 }
 
 /** Visual display of Severny Island north of Russia. */
-object SevernyIsland extends EArea2("Severny", 74.38 ll 57.29, ice)
+object SevernyIsland extends EArea2("Severny", 74.38 ll 57.29, Icy)
 { val wSeverny = 71.81 ll 51.49
   val severny1 = 75.37 ll 57.03
   val severnyN = 76.99 ll 67.91

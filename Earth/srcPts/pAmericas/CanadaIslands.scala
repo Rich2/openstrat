@@ -1,10 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
-object DevonIsland extends EArea2("Devon Island", 73.12 ll -121.13, tundraHills)
-{
-  val p10 = 75.77 ll -81.09
+object DevonIsland extends EArea2("Devon Island", 73.12 ll -121.13, Tundras)
+{ val p10 = 75.77 ll -81.09
   val p20 = 75.46 ll -79.62
   val p30 = 74.60 ll -80.30
   val p40 = 74.77 ll -91.96
@@ -14,7 +13,7 @@ object DevonIsland extends EArea2("Devon Island", 73.12 ll -121.13, tundraHills)
   override val polygonLL: PolygonLL = PolygonLL(p10, p20, p30, p40, p50, p60)
 }
 
-object BanksIsland extends EArea2("Banks Island", 75.15 ll -87.1, tundra)
+object BanksIsland extends EArea2("Banks Island", 75.15 ll -87.1, Tundras)
 { val p0 = 74.28 ll -118
   val p10 = 73.54 ll -115.34
   val p18 = 72.66 ll -119.15
@@ -26,9 +25,8 @@ object BanksIsland extends EArea2("Banks Island", 75.15 ll -87.1, tundra)
   override val polygonLL: PolygonLL = PolygonLL(p0, p10, p18, p30, south, southWest, northWest, north)
 }
 
-object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, tundraHills)
-{
-  val north = 76.83 ll -108.75
+object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, Tundras)
+{ val north = 76.83 ll -108.75
   val northWest = 75.86 ll -105.44
   val southWest = 75.06 ll -105.99
   val south = 74.41 ll -113.00
@@ -38,7 +36,7 @@ object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, tundra
   override val polygonLL: PolygonLL = PolygonLL(north, northWest, southWest, south, patricSouthWest, patricNorthWest)
 }
 
-object VictoriaIsland extends EArea2("Victoria Island", 70.65 ll -109.36, tundra)
+object VictoriaIsland extends EArea2("Victoria Island", 70.65 ll -109.36, Tundras)
 { val stefanssonN = 73.75 ll -105.29
   val vic5 = 71.12 ll -104.60
   val vic10 = 70.21 ll -101.34
@@ -53,7 +51,7 @@ object VictoriaIsland extends EArea2("Victoria Island", 70.65 ll -109.36, tundra
   override val polygonLL: PolygonLL = PolygonLL(stefanssonN, vic5, vic10, southEast, southWest, vic30, pointCaen, vic40, northWest, p10)
 }
 
-object PrinceWalesIsland extends EArea2("Prince of Wales Island", 72.87 ll -99.13, tundraHills)
+object PrinceWalesIsland extends EArea2("Prince of Wales Island", 72.87 ll -99.13, Tundras)
 {
   val northEast = 73.86 ll -97.20
   val east = 72.43 ll -96.28
@@ -63,7 +61,7 @@ object PrinceWalesIsland extends EArea2("Prince of Wales Island", 72.87 ll -99.1
   override val polygonLL: PolygonLL = PolygonLL(northEast, east, south, west, p10)
 }
 
-object SouthamptonIsland extends EArea2("Southampton Island", 64.5 ll -84.35, tundra)
+object SouthamptonIsland extends EArea2("Southampton Island", 64.5 ll -84.35, Tundras)
 { val north = 66.02 ll -85.08
   val p20 = 65.27 ll -84.26
   val east = 63.78 ll -80.16
@@ -77,7 +75,7 @@ object SouthamptonIsland extends EArea2("Southampton Island", 64.5 ll -84.35, tu
   override val polygonLL: PolygonLL = PolygonLL(north, p20, east, p30, p32, south, southEast, p52, p80)
 }
 
-object BaffinIsland extends EArea2("Baffin Island", 69.55 ll -72.64, tundra)
+object BaffinIsland extends EArea2("Baffin Island", 69.55 ll -72.64, Tundras)
 {
   val p3 = 73.75 ll -84.94
   val p4 = 72.65 ll -86.70

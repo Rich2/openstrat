@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
-object India extends EArea2 ("India", 20.85 ll 78.68, jungle)
+object India extends EArea2("India", 20.85 ll 78.68, Jungles)
 {
   val mianiLat: Latitude = 25.39.north
   val wAsiaE: Longitude = 66.52.east
@@ -36,7 +36,7 @@ object India extends EArea2 ("India", 20.85 ll 78.68, jungle)
   manapad, sIndia, kovalam, karnataka1, karnataka2, tarapur, khambat, girSomnath, varvala, kutchMouth, bhada, karachi)
 }
 
-object SriLanka extends EArea2("SriLanka", 7.47 ll 80.78, jungle)
+object SriLanka extends EArea2("SriLanka", 7.47 ll 80.78, Jungles)
 { val dodanduwa = 6.10 ll 80.12
   val wSriLanka = 8.2 ll 79.69
   val nwSrilanka = 9.75 ll 79.86

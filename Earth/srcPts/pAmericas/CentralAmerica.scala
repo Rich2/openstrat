@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
 /** Will be split up. Dependant on [[UsaWest]] and [[UsaEast]]. */
-object CentralAmerica extends EArea2("CAmerica", degs (17.31, - 94.16), jungle)
+object CentralAmerica extends EArea2("CAmerica", 17.31 ll -94.16, Jungles)
 { val brownsville = degs(25.98, -97.26)
   val coatz = degs(18.13, -94.5)
   val champeton = degs(19.36, -90.71)
@@ -28,16 +28,16 @@ object CentralAmerica extends EArea2("CAmerica", degs (17.31, - 94.16), jungle)
     stIsabel, stIgnacio, nePanama, sePanama, mariato, quebrada, swGuatemala, pochutala, manzanillo, cAmericaNW, UsaWest.rockyPoint)
 }
 
-object Baja extends EArea2("Baja", 27.80 ll -113.31, plain){
-  val cabotPulmo = 23.37 ll -109.44
+object Baja extends EArea2("Baja", 27.80 ll -113.31, Plain)
+{ val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
   val wBaja = 27.84 ll -115.07
 
   override def polygonLL: PolygonLL = PolygonLL(UsaWest.sanDiego, UsaWest.montague, cabotPulmo, sanLucas, wBaja)
 }
 
-object Cuba extends EArea2("Cuba", 21.97 ll -78.96, jungle){
-  val wCuba = 21.86 ll -84.95
+object Cuba extends EArea2("Cuba", 21.97 ll -78.96, Jungles)
+{ val wCuba = 21.86 ll -84.95
   val havana = 23.14 ll -82.39
   val eCuba = 20.22 ll -74.13
   val cabotCruz = 19.84 ll -77.73

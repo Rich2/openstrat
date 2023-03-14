@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
-object Ssumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
+object Ssumatra extends EArea2("Sumatra", -0.02 ll 101.63, Jungles)
 {  val nSumatra = 5.65 ll 95.43
   val neSumatra = 5.24 ll 97.49
   val eSumatra = -3.22 ll 106.09
@@ -12,7 +12,7 @@ object Ssumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
   override val polygonLL = PolygonLL(nSumatra, neSumatra, eSumatra, seSumatra, hutan)
 }
 
-object Australia extends EArea2("Australia", -24.45 ll 134.47, desert)
+object Australia extends EArea2("Australia", -24.45 ll 134.47, Deserts)
 { val capeLeeuwin = degs(-34.36, 115.13)
   val wAustralia = degs(-22.58, 113.95)
   val eightyMile = degs(-19.41, 121.24)
@@ -56,7 +56,7 @@ object Australia extends EArea2("Australia", -24.45 ll 134.47, desert)
     nuytsland2, windyHarbour)
 }
 
-object NewZealandNIsland extends EArea2 ("NewZealandNIsland", - 38.66 ll 176, plain)
+object NewZealandNIsland extends EArea2("NewZealandNIsland", - 38.66 ll 176, Plain)
 { val capeReinga = -34.42 ll 172.68
   val teHapua = -34.41 ll 173.05
   val aukland = -36.83 ll 174.81
@@ -69,7 +69,7 @@ object NewZealandNIsland extends EArea2 ("NewZealandNIsland", - 38.66 ll 176, pl
   override val polygonLL = PolygonLL(capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
 }
 
-object NewZealandSIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, plain)
+object NewZealandSIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, Plain)
 { val swNewZealand = -45.98 ll 166.47
   val puponga = -40.51 ll 172.72
   val capeCambell = -41.73 ll 174.27
@@ -78,7 +78,7 @@ object NewZealandSIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, p
   override val polygonLL = PolygonLL(swNewZealand, puponga, capeCambell, slopePoint)
 }
 
-object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
+object Borneo extends EArea2("Borneo", 0.63 ll 114.132, Jungles)
 { val nBorneo = 6.99 ll 117.12
   val seBorneo = -4.03 ll 116.09
   val swBorneo = -2.96 ll 110.29
@@ -87,7 +87,7 @@ object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
   override val polygonLL = PolygonLL(nBorneo,seBorneo, swBorneo, nwSarawak)
 }
 
-object Sulawesi extends EArea2 ("Sulawesi", - 2.16 ll 120.58, jungle)
+object Sulawesi extends EArea2("Sulawesi", - 2.16 ll 120.58, Jungles)
 {
   val seSulawesi = -5.41 ll 119.38
   val nwSulawesi = 0.72 ll 120.06
@@ -101,7 +101,7 @@ object Sulawesi extends EArea2 ("Sulawesi", - 2.16 ll 120.58, jungle)
   override val polygonLL = PolygonLL(seSulawesi, nwSulawesi, neSulawesi, ambesia, poso, teku, swSulawesi, nGulfBoni)
 }
 
-object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
+object javaIsland extends EArea2("Java", -7.39 ll 110.03, Jungles)
 { val swJava = -6.83 ll 105.24
   val nwJava = -5.88 ll 106.04
   val ePulauMadura = -6.96 ll 114.11
@@ -109,7 +109,7 @@ object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
   override val polygonLL = PolygonLL(swJava, nwJava, ePulauMadura, seJava)
 }
 
-object NewGuinea extends EArea2 ("NewGuinea", - 5.19 ll 141.03, jungle)
+object NewGuinea extends EArea2("NewGuinea", - 5.19 ll 141.03, Jungles)
 { val wNewGuinea = -0.82 ll 130.45
   val manokwari = -0.73 ll 133.98
   val sCenderawasih = -3.39 ll 135.33

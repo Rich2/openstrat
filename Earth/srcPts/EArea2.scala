@@ -1,9 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._
 
 /** A second level area of the Earth. */
-abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
+abstract class EArea2(val name: String, val cen: LatLong, val terr: ATerr) extends GeographicSymbolKey
 {
   override def toString = name.appendCommas(terr.toString)
   def aStrs: StrArr = StrArr(name)
@@ -55,11 +55,11 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) exten
 
 object EArea2
 {
-  def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EArea2(symName, cen, terr)
+  def apply(symName: String, cen: LatLong, terr: ATerr, latLongArgs: LatLong*) = new EArea2(symName, cen, terr)
   { val polygonLL = PolygonLL(latLongArgs: _*)
   }
 
-  def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EArea2(symName, cen, terr)
+  def apply(symName: String, cen: LatLong, terr: ATerr, polygonIn: PolygonLL) = new EArea2(symName, cen, terr)
   { val polygonLL = polygonIn
   }
 }

@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
-object Polandia extends EArea2("Polandia", 50.07 ll 20.13, plain)
+object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
 { val mielno: LatLong = 54.26 ll 16.06
   val jaroslawiec: LatLong = 54.54 ll 16.53
   val jastrzebia: LatLong = 54.83 ll 18.33
@@ -20,7 +20,7 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, plain)
     BalkansEast.odessa, BalkansWest.northEast, Alpsland.zagreb, Alpsland.vienna)
 }
 
-object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, plain)
+object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
 { val klaipeda = 55.73 ll 21.08
   val ziemupe = 56.83 ll 21.06
   val ovsi = 57.57 ll 21.71
@@ -66,7 +66,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, plain)
      Polandia.cenEast)
 }
 
-object Gotland extends EArea2("Gotland", 57.46 ll 18.47, plain)
+object Gotland extends EArea2("Gotland", 57.46 ll 18.47, Plain)
 { val southWest = 56.90 ll 18.12
   val west = 57.26 ll 18.09
   val tofta = 57.53 ll 18.10
@@ -76,7 +76,7 @@ object Gotland extends EArea2("Gotland", 57.46 ll 18.47, plain)
   val polygonLL = PolygonLL(southWest, west, tofta, hallshuk, east)
 }
 
-object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, plain)
+object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, Plain)
 { val south = 57.91 ll 22.03
   val uudibe = 58.15 ll 22.21
   val west = 58.03 ll 21.82
@@ -89,7 +89,7 @@ object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, plain)
   val polygonLL = PolygonLL(south, uudibe, west, northWest, nommkula, loetsa, east, tehumardi)
 }
 
-object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, plain)
+object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, Plain)
 { val west = 58.92 ll 22.04
   val north = 59.08 ll 22.65
   val sarve = 58.83 ll 23.05
@@ -98,7 +98,7 @@ object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, plain)
   val polygonLL = PolygonLL(west, north, sarve, southEast, southWest)
 }
 
-object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, taiga)
+object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, Taigas)
 { val lisyNos = 60.01 ll 29.96
   val laskovyy = 60.15 ll 29.92
   val ozerki = 60.18 ll 29.01

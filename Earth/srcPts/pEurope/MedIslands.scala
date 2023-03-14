@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
+object Majorca extends EArea2("Majorca", 39.59 ll 3.01, Plain)
 { val south = 39.26 ll 3.05
   val palma = 39.56 ll 2.63
   val portalsVells = 39.45 ll 2.51
@@ -15,7 +15,7 @@ object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
+object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, Plain)
 { val sSicily = 36.66 ll 15.08
   val kartibubbo = 37.56 ll 12.67
   val marsala = 37.80 ll 12.42
@@ -31,7 +31,7 @@ object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
 }
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
-object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
+object Canarias extends EArea2("Canarias", 27.96 ll -15.60, Plain)
 { val elHierro = 27.72 ll -18.15
   val laPalma = 28.85 ll -17.92
   val lanzarote = 29.24 ll -13.47
@@ -42,7 +42,7 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
 }
 
 /** [[PolygonLL]] graphic for Crete depends on nothing. */
-object Crete extends EArea2("Crete", 35.23 ll 24.92, hills)
+object Crete extends EArea2("Crete", 35.23 ll 24.92, Hill)
 { val northEast = 35.32 ll 26.31
   val southEast = 35.02 ll 26.19
   val p10 = 34.92 ll 24.73
@@ -54,7 +54,7 @@ object Crete extends EArea2("Crete", 35.23 ll 24.92, hills)
 }
 
 /** [[PolygonLL]] graphic for Cyprus depends on nothing. */
-object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, hills)
+object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, Hill)
 { val northEast: LatLong = 35.69 ll 34.58
   val southEast: LatLong = 34.96 ll 34.09
   val p30: LatLong = 34.57 ll 33.04
@@ -65,7 +65,7 @@ object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, hills)
 }
 
 /** [[PolygonLL]] graphic for Rhodes depends on nothing. */
-object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hills)
+object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, Hill)
 { val north: LatLong = 36.46 ll 28.22
   val akraLindos: LatLong = 36.05 ll 28.09
   val p40: LatLong = 35.93 ll 27.86
@@ -78,7 +78,7 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hills)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
+object Corsica extends EArea2("Corsica", 42.18 ll 9.17, Hill)
 { val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
   val p10: LatLong = 42.57 ll 9.53
@@ -94,7 +94,7 @@ object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hills)
+object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hill)
 { val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62

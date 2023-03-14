@@ -1,10 +1,10 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
 /** Graphical object for the east of the United States. Dependant on [[UsaWest]], [[SouthWestCanada]], [[EastCanada]], [[LakeSuperior]],
  *  [[LakeMichigan]], [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
-object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
+object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), Plain)
 { val p10 = 42.41 ll -71.00
   val chatham = 41.67 ll -69.95
   val stattenS = 40.50 ll -74.25
@@ -23,7 +23,7 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 }
 
 /** Graphical object for the east of the United States. Dependant on [[SouthWestCanada]]. */
-object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
+object UsaWest extends EArea2("United States\nwest", 40.0 ll - 108.0, Deserts)
 { val sanDiego = 32.57 ll -117.11
   val humboldt = 40.44 ll -124.40
   val capeBlanco = 42.84 ll -124.56

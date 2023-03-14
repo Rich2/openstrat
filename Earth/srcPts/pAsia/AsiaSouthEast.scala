@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._
 
-object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
+object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, Hill)
 { val north = 25.29 ll 121.57
   val northEast = 25.01 ll 122.01
   val south = 21.90 ll 120.86
@@ -13,7 +13,7 @@ object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
 }
 
 /** [[PolygonLL]] graphic for south east Asia */
-object seAsia extends EArea2("SEAsia", 26.0 ll 104.0, plain)
+object seAsia extends EArea2("SEAsia", 26.0 ll 104.0, Plain)
 { val p5 = 38.15 ll 118.81
   val jiolaiMouth = 37.11 ll 119.57
   val p10 = 37.82 ll 120.75

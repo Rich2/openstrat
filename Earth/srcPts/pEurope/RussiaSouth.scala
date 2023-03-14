@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, WTile._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for Crimea depends on nothing. */
-object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
+object Crimea extends EArea2("Crimea", 45.33 ll 34.15, Plain)
 { val henichesk = 46.17 ll 34.82
   val kamyanske = 45.28 ll 35.53
   val kerch = 45.39 ll 36.63
@@ -18,7 +18,7 @@ object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
 }
 
 /** [[PolygonLL]] graphic for Ukraine depends on [[Baltland]], [[Crimea]] [[BalkansEast]] and [[Polandia]]. */
-object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
+object Ukraine extends EArea2("Ukraine", 49 ll 34, Plain)
 { val caspianW = 44.53 ll 46.65
   val rostov = 47.17 ll 39.29
   val koblev = 46.63 ll 31.18
@@ -28,7 +28,7 @@ object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
 }
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[Ukraine]]. */
-object RussiaSouth extends EArea2("RussiaSouth", 45.00 ll 42.57, desert)
+object RussiaSouth extends EArea2("RussiaSouth", 45.00 ll 42.57, Deserts)
 { val p10 = 43.87 ll 47.44
   val sumqayit = 40.64 ll 49.55
   val blackSeaE = 41.84 ll 41.77
@@ -39,6 +39,5 @@ object RussiaSouth extends EArea2("RussiaSouth", 45.00 ll 42.57, desert)
   val p75 = 45.11 ll 36.73
   val llich = 45.41 ll 36.76
 
-  override val polygonLL: PolygonLL = PolygonLL(Ukraine.rostov, Ukraine.caspianW, p10, sumqayit, blackSeaE, p60, p70, p72, p75, p77, llich
-  )
+  override val polygonLL: PolygonLL = PolygonLL(Ukraine.rostov, Ukraine.caspianW, p10, sumqayit, blackSeaE, p60, p70, p72, p75, p77, llich)
 }
