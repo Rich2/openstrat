@@ -3,6 +3,17 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for Crete depends on nothing. */
+object Cephalonia extends EArea2("Cephalonia", 38.22 ll 20.59, Hill)
+{
+  val north  = 38.50 ll 20.66
+  val southEast = 38.11 ll 20.82
+  val southWest = 38.18 ll 20.34
+  val northWest = 38.36 ll 20.40
+
+  override val polygonLL: PolygonLL = PolygonLL(north, southEast, southWest, northWest)
+}
+
+  /** [[PolygonLL]] graphic for Crete depends on nothing. */
 object Crete extends EArea2("Crete", 35.23 ll 24.92, Hill)
 { val northEast = 35.32 ll 26.31
   val southEast = 35.02 ll 26.19
