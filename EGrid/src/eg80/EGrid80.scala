@@ -24,7 +24,6 @@ object EGrid80
     override def getHCost(startCen: HCen, endCen: HCen): Int = ???
   }
 
-
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def e0(rBottomCen: Int, rTopCen: Int = 540): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 0)
 

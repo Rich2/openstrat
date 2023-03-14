@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pEarth._, prid.phex._, egrid._
+import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 100km, a C scale of 40km. */
 package object eg160

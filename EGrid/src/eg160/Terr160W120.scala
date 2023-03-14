@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import pEarth._, prid._, phex._, WTile._, egrid._
+import prid._, phex._, egrid._, WTile._
 
 /** Terrain for 160km 120 west. */
 object Terr160W120 extends Long160Terrs

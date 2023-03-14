@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import pEarth._, prid._, phex._, WTile._, egrid._
+import prid._, phex._, egrid._, WTile._
 
 /** The 80 Km grid centred on 30E for 15E to 45E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current y offset is 300 for
  *  the equator. The Old c offset was 400 so a diff of 1136. */

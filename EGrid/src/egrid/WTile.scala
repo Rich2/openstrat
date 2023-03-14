@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
+package ostrat; package egrid
 import Colour._
 
 /** This trait describes terrain that can be used for sides. */

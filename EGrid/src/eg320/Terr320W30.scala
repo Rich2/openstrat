@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._, egrid._
+import prid._, phex._, egrid._, WTile._
 
 /** 320km hex terrain centred on 30 west. */
 object Terr320W30 extends Long320Terrs
