@@ -105,10 +105,13 @@ lazy val EarthNat = natProj("Earth").dependsOn(UtilNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Util)
+def tilingSett = List(
+  Compile/unmanagedSourceDirectories ++= List("srcHex", "srcSq").map(s => (ThisBuild/baseDirectory).value / "Tiling" / s),
+)
+lazy val Tiling = mainJvmProj("Tiling").dependsOn(Util).settings(tilingSett)
 lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
-lazy val TilingJs = jsProj("Tiling").dependsOn(UtilJs)
-lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat)
+lazy val TilingJs = jsProj("Tiling").dependsOn(UtilJs).settings(tilingSett)
+lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat).settings(tilingSett)
 
 lazy val EGrid = mainJvmProj("EGrid").dependsOn(Earth, Tiling)
 lazy val EGridJs = jsProj("EGrid").dependsOn(EarthJs, TilingJs)
