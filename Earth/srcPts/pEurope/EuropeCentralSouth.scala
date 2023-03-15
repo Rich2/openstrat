@@ -5,18 +5,23 @@ import geom._, pglobe._
 /** [[PolygonLL]] graphic depends on [[Peloponnese]]. */
 object Greece extends EArea2("Greece", 39.54 ll 21.62, Hill)
 { val northEast = 40.46 ll 22.59
+  val p20 = 39.19 ll 23.35
   val nEuboea = 39.03 ll 23.31
+  val p25 = 38.65 ll 24.15
+  val capeKafireas = 38.16 ll 24.60
   val sEuboea = 37.95 ll 24.51
+  val p30 = 38.00 ll 24.03
   val sAttica = 37.64 ll 24.02
   val monstrika = 38.40 ll 21.92
   val oxia = 38.31 ll 21.15
+  val p70 = 38.50 ll 21.03
   val seLefkada = 38.56 ll 20.54
   val wCorfu = 39.75 ll 19.64
   val vlore = 40.30 ll 19.38
   val northWest = 40.67 ll 19.32
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, nEuboea, sEuboea, sAttica,Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika,
-    oxia, seLefkada, wCorfu, vlore, northWest)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, p20, nEuboea, p25, capeKafireas, sEuboea, p30, sAttica,Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika,
+    oxia, p70, seLefkada, wCorfu, vlore, northWest)
 }
 
 /** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */

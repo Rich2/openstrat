@@ -4,25 +4,38 @@ import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for Crete depends on nothing. */
 object Cephalonia extends EArea2("Cephalonia", 38.22 ll 20.59, Hill)
-{
-  val north  = 38.50 ll 20.66
-  val southEast = 38.11 ll 20.82
-  val southWest = 38.18 ll 20.34
-  val northWest = 38.36 ll 20.40
+{ val north: LatLong = 38.50 ll 20.66
+  val southEast: LatLong = 38.11 ll 20.82
+  val southWest: LatLong = 38.18 ll 20.34
+  val northWest: LatLong = 38.36 ll 20.40
 
   override val polygonLL: PolygonLL = PolygonLL(north, southEast, southWest, northWest)
 }
 
-  /** [[PolygonLL]] graphic for Crete depends on nothing. */
+/** [[PolygonLL]] graphic for Crete depends on nothing. */
 object Crete extends EArea2("Crete", 35.23 ll 24.92, Hill)
-{ val northEast = 35.32 ll 26.31
-  val southEast = 35.02 ll 26.19
-  val p10 = 34.92 ll 24.73
-  val p15 = 35.09 ll 24.72
-  val p20 = 35.23 ll 23.59
-  val p30 = 35.29 ll 23.52
-  val capeGramvousa = 35.62 ll 23.60
+{ val northEast: LatLong = 35.32 ll 26.31
+  val southEast: LatLong = 35.02 ll 26.19
+  val p10: LatLong = 34.92 ll 24.73
+  val p15: LatLong = 35.09 ll 24.72
+  val p20: LatLong = 35.23 ll 23.59
+  val p30: LatLong = 35.29 ll 23.52
+  val capeGramvousa: LatLong = 35.62 ll 23.60
+
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
+}
+
+/** [[PolygonLL]] graphic for Crete depends on nothing. */
+object Lesbos extends EArea2("Lesbos", 38.19 ll 26.30, Hill)
+{ val north: LatLong = 39.39 ll 26.34
+  val northEast: LatLong = 39.34 ll 26.42
+  val southEast: LatLong = 39.02 ll 26.61
+  val south: LatLong = 38.96 ll 26.40
+  val p70: LatLong = 39.19 ll 25.83
+  val p75: LatLong = 39.26 ll 25.86
+  val poseidonsLungs: LatLong = 39.37 ll 26.17
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, p70, p75, poseidonsLungs)
 }
 
 /** [[PolygonLL]] graphic for Cyprus depends on nothing. */
@@ -51,25 +64,24 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, Hill)
 
 /** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
 object Sinai extends EArea2("Sinai", 29.88 ll 33.75, Deserts)
-{ val eGaza = 31.32 ll 34.22
-  val eilat = 29.54 ll 34.98
-  val south = 27.73 ll 34.25
-  val suez = 29.93 ll 32.56
-  val portSaid = 31.27 ll 32.32
+{ val eGaza: LatLong = 31.32 ll 34.22
+  val eilat: LatLong = 29.54 ll 34.98
+  val south: LatLong = 27.73 ll 34.25
+  val suez: LatLong = 29.93 ll 32.56
+  val portSaid: LatLong = 31.27 ll 32.32
 
   override val polygonLL: PolygonLL = PolygonLL(eGaza, eilat, south, suez, portSaid)
 }
 
 /** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaWest]] and [[Sinai]]. */
 object SaharaEast extends EArea2("Sahara\neast", 24 ll 25, Deserts)
-{ val elAgheila = 30.12 ll 19.08
-  val benghazi = 32.12 ll 20.05
-  val derna = 32.93 ll 22.15
-  val p90 = 30.82 ll 29.09
-  val baltim = 31.60 ll 31.01
-
-  val p5 = 29.59 ll 32.34
-  val southEast = 17 ll 39.4
+{ val elAgheila: LatLong = 30.12 ll 19.08
+  val benghazi: LatLong = 32.12 ll 20.05
+  val derna: LatLong = 32.93 ll 22.15
+  val p90: LatLong = 30.82 ll 29.09
+  val baltim: LatLong = 31.60 ll 31.01
+  val p5: LatLong = 29.59 ll 32.34
+  val southEast: LatLong = 17 ll 39.4
 
   val polygonLL: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, p90, baltim, Sinai.portSaid,
     Sinai.suez, p5, southEast)
