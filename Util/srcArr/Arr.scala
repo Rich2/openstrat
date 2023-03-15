@@ -26,3 +26,14 @@ class ArrShowT[A, R <: Arr[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     typeStr + evA.typeStr.enSquare + obj.map(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }
+
+case class ArrCounters[A](arr: Arr[A])
+{ val counters: Array[Int] = new Array[Int](arr.length)
+
+  def iter(el: A): Int =
+  { val  i = arr.indexOf(el)
+    val res = counters(i) + 1
+    counters(i) = res
+    res
+  }
+}

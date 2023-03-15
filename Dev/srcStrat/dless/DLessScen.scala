@@ -20,7 +20,7 @@ trait DLessScen extends HSysTurnScen
     }
 
     val armiesNew: HCenOptLayer[Army] = armies.clone
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.unsafeMove(stCenStep.startHC, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new DLessScen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
@@ -44,22 +44,23 @@ object DLessScen1 extends DLessScen
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   implicit val nations: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
+
   override val armies: HCenOptLayer[Army] =
   { val res = gridSys.newHCenOptLayer[Army]
-    res.unsafeSetSome(142, 510, Britain.ar(1))
-    res.unsafeSetSome(144, 508, Britain.ar(2))
-    res.unsafeSetSome(140, 520, Germany.ar(1))
-    res.unsafeSetSome(144, 1528, Germany.ar(2))
-    res.unsafeSetSome(144, 520, Germany.ar(3))
-    res.unsafeSetSome(142, 1526, Germany.ar(4))
-    res.unsafeSetSome(138, 514, France.ar(1))
-    res.unsafeSetSome(142, 1534, Russia.ar(1))
-    res.unsafeSetSome(148, 1536, Russia.ar(2))
-    res.unsafeSetSome(134, 526, Italy.ar(1))
-    res.unsafeSetSome(136, 1528, Austria.ar(1))
-    res.unsafeSetSome(138, 526, Austria.ar(2))
-    res.unsafeSetSome(132, 1532, Ottoman.ar(1))
-    res.unsafeSetSome(132, 508, Spain.ar(1))
+    res.setSomeMut(142, 510, Britain.ar(1))
+    res.setSomeMut(144, 508, Britain.ar(2))
+    res.setSomeMut(140, 520, Germany.ar(1))
+    res.setSomeMut(144, 1528, Germany.ar(2))
+    res.setSomeMut(144, 520, Germany.ar(3))
+    res.setSomeMut(142, 1526, Germany.ar(4))
+    res.setSomeMut(138, 514, France.ar(1))
+    res.setSomeMut(142, 1534, Russia.ar(1))
+    res.setSomeMut(148, 1536, Russia.ar(2))
+    res.setSomeMut(134, 526, Italy.ar(1))
+    res.setSomeMut(136, 1528, Austria.ar(1))
+    res.setSomeMut(138, 526, Austria.ar(2))
+    res.setSomeMut(132, 1532, Ottoman.ar(1))
+    res.setSomeMut(132, 508, Spain.ar(1))
     res
   }
 }

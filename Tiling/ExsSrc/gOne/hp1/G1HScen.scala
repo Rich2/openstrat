@@ -24,7 +24,7 @@ trait G1HScen extends HSysTurnScen
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val playersNew: HCenOptLayer[Player] = players.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (players.tileNone(hc2)) playersNew.unsafeMove(stCenStep.startHC , hc2)) }
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (players.tileNone(hc2)) playersNew.moveMut(stCenStep.startHC , hc2)) }
 
     G1HScen(turn + 1, gridSys, playersNew)
   }

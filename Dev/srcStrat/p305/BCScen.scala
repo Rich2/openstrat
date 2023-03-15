@@ -21,7 +21,7 @@ trait BCScen extends HSysTurnScen
     }
 
     val armiesNew: HCenOptLayer[Legion] = armies.clone
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.unsafeMove(stCenStep.startHC, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new BCScen {
       override implicit def gridSys: HGridSys = ThisScen.gridSys
@@ -43,9 +43,9 @@ object BCScen1 extends BCScen
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
-  armies.unsafeSetSome(434,562, Rome.lg(1) )
-  armies.unsafeSetSome(434,566, Rome.lg(2))
-  armies.unsafeSetSome(418,1502, Sparta.lg(1))
+  armies.setSomeMut(434,562, Rome.lg(1) )
+  armies.setSomeMut(434,566, Rome.lg(2))
+  armies.setSomeMut(418,1502, Sparta.lg(1))
 }
 
 object BCScen2 extends BCScen

@@ -17,22 +17,32 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   def clone: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
 
-  /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSome(r: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(r, c)) = value
+  /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
+  def setSomeMut(r: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(r, c)) = value
 
-  /** Sets the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
-  def unsafeSetSome(hc: HCen, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = value
+  /** Sets / the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
+  def setSomeMut(hc: HCen, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = value
 
-  /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grider: HGridSys): Unit = triples.foreach(t => unsafeArray(grider.layerArrayIndex(t._1, t._2)) = t._3)
+  /** Sets / mutates the Some values of the hex tile data at the specified row and column coordinate values. */
+  def setSomesMut(triples: (Int, Int, A)*)(implicit grider: HGridSys): Unit =
+    triples.foreach(t => unsafeArray(grider.layerArrayIndex(t._1, t._2)) = t._3)
 
-  def unsafeSetSames(value: A, hCens: Int*)(implicit grider: HGridSys): Unit = iUntilForeach(hCens.length / 2){ i => unsafeSetSome(hCens(i * 2), hCens(i * 2 + 1), value) }
+  /** Sets / mutates the given hex tiles to the given value. */
+  def setSamesUnsafe(value: A, hCens: Int*)(implicit grider: HGridSys): Unit =
+    iUntilForeach(hCens.length / 2){ i => setSomeMut(hCens(i * 2), hCens(i * 2 + 1), value) }
 
-  /** Mutates the value ot the specified location to None. */
-  def unsafeSetNone(hc: HCen)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = null.asInstanceOf[A]
+  /** Sets / mutates the value ot the specified location to None. */
+  def setNoneMut(hc: HCen)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = null.asInstanceOf[A]
 
-  def unsafeSetAll(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
+  /** Sets / mutates every element to the given value. */
+  def setAllMut(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
 
+  def setWithCounter(f: Int => A, hCens: Int*)(implicit counters: ArrCounters[A]): Unit =
+  { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
+    iUntilForeach(0, hCens.length, 2){i =>
+      val count = ???
+    }
+  }
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptLayer[A] =
@@ -49,13 +59,14 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
-   *  None. */
-  def unsafeMove(hc1: HCen, hc2: HCen)(implicit grider: HGridSys): Unit =
+   *  None. This mutates the data layer. */
+  def moveMut(hc1: HCen, hc2: HCen)(implicit grider: HGridSys): Unit =
   { unsafeArray(grider.layerArrayIndex(hc2)) = unsafeArray(grider.layerArrayIndex(hc1))
     unsafeArray(grider.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }
 
-  def unsafeMoveMod(hc1: HCen, hc2: HCen)(f: A => A)(implicit grider: HGridSys): Unit =
+  /** Not sure if this is still needed. */
+  def MoveModifyMut(hc1: HCen, hc2: HCen)(f: A => A)(implicit grider: HGridSys): Unit =
   { unsafeArray(grider.layerArrayIndex(hc2)) = f(unsafeArray(grider.layerArrayIndex(hc1)))
     unsafeArray(grider.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }

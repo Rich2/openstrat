@@ -17,8 +17,8 @@ object NapScen1 extends NapScen
   override val corners: HCornerLayer = Terr80E0.corners
 
   override val corps: HCenOptLayer[Corps] = gridSys.newHCenOptLayer[Corps]
-  corps.unsafeSetSome(464, 516, Corps(Britain))
-  corps.unsafeSetSome(456, 516, Corps(France))
+  corps.setSomeMut(464, 516, Corps(Britain))
+  corps.setSomeMut(456, 516, Corps(France))
 }
 
 object NapScen2 extends NapScen

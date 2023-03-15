@@ -19,7 +19,7 @@ trait WW1Scen extends HSysTurnScen
     }
 
     val armiesNew: HCenOptLayer[Army] = armies.clone
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.unsafeMove(stCenStep.startHC, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new WW1Scen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
@@ -39,9 +39,9 @@ object WW1Scen1 extends WW1Scen
   override val sTerrs: HSideOptLayer[WSide] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
-  armies.unsafeSetSome(310, 514, Army(Britain))
-  armies.unsafeSetSome(308, 528, Army(Germany))
-  armies.unsafeSetSome(306, 518, Army(France))
+  armies.setSomeMut(310, 514, Army(Britain))
+  armies.setSomeMut(308, 528, Army(Germany))
+  armies.setSomeMut(306, 518, Army(France))
 }
 
 object WW1Scen2 extends WW1Scen

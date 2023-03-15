@@ -40,7 +40,7 @@ trait G2HScen extends HSysTurnScen
      * isolates mutation to within this method. */
     val oPlayersNew: HCenOptLayer[Player] = oPlayers.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (oPlayers.tileNone(hc2))
-        { oPlayersNew.unsafeMove(pathPlayer.path.startCen, hc2)
+        { oPlayersNew.moveMut(pathPlayer.path.startCen, hc2)
           newOrders = newOrders.replaceA1byA2(pathPlayer.a2, pathPlayer.tail(hc2))
         }
       }

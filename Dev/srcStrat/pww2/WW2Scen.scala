@@ -12,9 +12,9 @@ trait WW2Scen extends EScenBasic with HSysTurnScen
 object WW2Scen
 {
   def sa0(layer: HCenOptLayer[Army])(implicit sys: HGridSys): Unit =
-  {  layer.unsafeSetSames(Germany.ar, 162,522,  160,520,  158,518,  156,520)
-    layer.unsafeSetSames(France.ar, 156,518, 154,518)
-    layer.unsafeSetSames(Britain.ar, 160,512,  158,514)
+  {  layer.setSamesUnsafe(Germany.ar, 162,522,  160,520,  158,518,  156,520)
+    layer.setSamesUnsafe(France.ar, 156,518, 154,518)
+    layer.setSamesUnsafe(Britain.ar, 160,512,  158,514)
   }
 }
 

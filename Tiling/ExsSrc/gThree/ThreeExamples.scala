@@ -10,8 +10,8 @@ object ThreeScen1 extends ThreeScen(0)
 
   srp(4, 4, 2, Woods)
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
-  units.unsafeSetSome(4, 4, Lunit(TeamA, HexDR))
-  units.unsafeSetSomes((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
+  units.setSomeMut(4, 4, Lunit(TeamA, HexDR))
+  units.setSomesMut((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
 }
 
 object ThreeScen2 extends ThreeScen(0)
@@ -21,8 +21,8 @@ object ThreeScen2 extends ThreeScen(0)
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
-  units.unsafeSetSome(4, 4, Lunit(TeamA, HexDR))
-  units.unsafeSetSomes((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
+  units.setSomeMut(4, 4, Lunit(TeamA, HexDR))
+  units.setSomesMut((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
 }
 
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
@@ -38,7 +38,7 @@ object ThreeScen3 extends ThreeScen(0)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
-  units.unsafeSetSome(4, 4, Lunit(TeamA))
+  units.setSomeMut(4, 4, Lunit(TeamA))
 
 }
 
