@@ -74,7 +74,7 @@ object Terr80E30  extends Long80Terrs
     wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desertHills, desert * 2, desertHills * 6, mtain * 2, desertHills, lake,
       desertHills, mtain)
 
-    wr(422, mtain, sea * 5, hills, mtain, hills * 2, sea * 2, hills * 7, desert, desertHills, desert, mtain, hills, desertHills, mtain, plain * 2,
+    wr(422, mtain, sea * 4, SeaIsland(Hilly, OpenTerrain), hills, mtain, hills * 2, sea * 2, hills * 7, desert, desertHills, desert, mtain, hills, desertHills, mtain, plain * 2,
       desertHills, mtain * 2, desertHills)
 
     wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills  * 2, mtain, hills * 2, plain * 2, desert * 4,
@@ -95,6 +95,7 @@ object Terr80E30  extends Long80Terrs
     res.setSomeInts(SCLake, 424,1550)
     res.setSomeInts(SCSea, 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553,  444, 1562)
     res.setSomeInts(SCSea,  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
+    res.setSomeInts(SLSea, 423,1495,  422,1496)//Kefalonia - Greece
     res
   }
 

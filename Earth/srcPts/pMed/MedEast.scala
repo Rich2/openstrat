@@ -25,7 +25,21 @@ object Crete extends EArea2("Crete", 35.23 ll 24.92, Hill)
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
 }
 
-/** [[PolygonLL]] graphic for Crete depends on nothing. */
+/** [[PolygonLL]] graphic for Corfu depends on nothing. */
+object Corfu extends EArea2("Corfu", 39.63 ll 19.82, Hill)
+{ val north = 39.82 ll 19.85
+  val northEast = 39.78 ll 19.96
+  val gouvia  = 39.65 ll 19.84
+  val southEast = 39.38 ll 20.12
+  val south = 39.36 ll 20.11
+  val p65 = 39.46 ll 19.87
+  val capeKefali = 39.75 ll 19.63
+  val capeDrastis = 39.78 ll 19.67
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, gouvia, southEast, south, p65, capeKefali, capeDrastis)
+}
+
+/** [[PolygonLL]] graphic for Lesbos depends on nothing. */
 object Lesbos extends EArea2("Lesbos", 39.19 ll 26.30, Hill)
 { val north: LatLong = 39.39 ll 26.34
   val northEast: LatLong = 39.34 ll 26.42
@@ -38,7 +52,7 @@ object Lesbos extends EArea2("Lesbos", 39.19 ll 26.30, Hill)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, p70, p75, poseidonsLungs)
 }
 
-/** [[PolygonLL]] graphic for Crete depends on nothing. */
+/** [[PolygonLL]] graphic for Chios depends on nothing. */
 object Chios extends EArea2("Chios", 38.19 ll 26.30, Hill)
 { val north = 38.60 ll 26.00
   val northEast = 38.55 ll 26.16

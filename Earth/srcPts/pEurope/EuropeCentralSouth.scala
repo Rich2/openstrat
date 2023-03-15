@@ -15,13 +15,19 @@ object Greece extends EArea2("Greece", 39.54 ll 21.62, Hill)
   val monstrika = 38.40 ll 21.92
   val oxia = 38.31 ll 21.15
   val p70 = 38.50 ll 21.03
-  val seLefkada = 38.56 ll 20.54
-  val wCorfu = 39.75 ll 19.64
+
+  val lefkadaSE = 38.56 ll 20.54
+  val lefkadaNE = 38.83 ll 20.65
+  val p71 = 38.86 ll 20.79
+  val kanali = 39.07 ll 20.69
+  val p73 = 39.54 ll 20.15
+  val p75 = 39.69 ll 19.98
+  val p77 = 39.87 ll 20.01
   val vlore = 40.30 ll 19.38
   val northWest = 40.67 ll 19.32
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, p20, nEuboea, p25, capeKafireas, sEuboea, p30, sAttica,Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika,
-    oxia, p70, seLefkada, wCorfu, vlore, northWest)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, p20, nEuboea, p25, capeKafireas, sEuboea, p30, sAttica,Peloponnese.ePeninsular,
+    Peloponnese.nPeninsular, monstrika, oxia, p70, lefkadaSE, lefkadaNE, p71, kanali, p73, p75, p77, vlore, northWest)
 }
 
 /** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */
