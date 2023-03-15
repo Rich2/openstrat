@@ -61,7 +61,8 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, Hill)
   val p53 = 36.70 ll 28.63
   val p55 = 36.58 ll 27.99
   val bodrum: LatLong = 37.06 ll 27.35
-  val p59 = 38.58 ll 25.85
+  val p57 = 38.27 ll 26.23
+  val p58 = 38.66 ll 26.36
   val p60 = 38.76 ll 26.94
   val p65 = 39.27 ll 26.60
   val akcay = 39.58 ll 26.92
@@ -75,7 +76,7 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, Hill)
   val sinopeN: LatLong = 42.09 ll 34.99
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, p10, delicayMouth, p20, anamurFeneri, alanya, p42, p44, p50, p53, p55, bodrum,
-    p59, p60, p65, akcay, babakale, pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
+    p57, p58, p60, p65, akcay, babakale, pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
     pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
 }
 
