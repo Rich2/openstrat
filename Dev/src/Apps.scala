@@ -22,6 +22,7 @@ object Apps
     ("W2", pww2.WW2Launch),
     ("DI", pdisc.DiscLaunch),
     ("CV", pCiv.CivLaunch),
+    ("NM", pnorm.NormLaunch),
     ("Go", pgo.GoLaunch),
     ("CH", pchess.ChessLaunch),
   )

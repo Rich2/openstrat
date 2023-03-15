@@ -3,13 +3,15 @@ package ostrat; package pnorm
 import prid.phex._
 
 trait NormScen
-{ implicit val grid: HGrid
+{ def title = "Normandy 1944"
+  implicit val grid: HGrid
   val terrs: HCenLayer[Terr]
   val corners: HCornerLayer
 }
 
-class NormScen1 extends NormScen
+object NormScen1 extends NormScen
 { override implicit val grid  = HGridReg(2, 6, 2, 10)
+  debvar(grid.numTiles)
   override val terrs = grid.newHCenLayer[Terr](Sea)
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

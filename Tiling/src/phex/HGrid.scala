@@ -242,7 +242,7 @@ trait HGrid extends Any with TGrid with HGridSys
   }
 
   val sideIndexArr: Array[Int] =
-  { val array = new Array[Int](topSideR - bottomSideR + 1)
+  { val array = new Array[Int]((topSideR - bottomSideR + 1).max(2))
     array(0) = 0
     var i = 0
     var acc = 0
