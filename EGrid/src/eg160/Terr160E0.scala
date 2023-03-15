@@ -10,7 +10,7 @@ object Terr160E0 extends Long160Terrs
   /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
     wr(310, sea * 6, mtain)
     wr(308, sea * 7, mtain)

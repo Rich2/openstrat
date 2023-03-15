@@ -79,7 +79,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
-  final def toEndRow(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  final def setRowEnd(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
@@ -90,7 +90,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Fills in the whole given row. An exception is thrown if the tile values don't match with the
    *  end of the row. */
-  final def completeRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  final def setRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
     val cStart: Int = grid.rowLeftCenC(row)
     val endValues = cStart + numTiles * 4 - 4
@@ -99,6 +99,13 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
+
+  /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed explicitly as the first
+   *  paremter. */
+  inline def setRowSame(row: Int, value: A)(implicit grid: HGrid): Unit = setRowSame(grid, row, value)
+
+  /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed implicitly. */
+  def setRowSame(grid: HGrid, row: Int, value: A): Unit =  grid.rowForeach(row){hc => unsafeArray(grid.layerArrayIndex(hc)) = value}
 
   /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens
    * overflows the row end. */

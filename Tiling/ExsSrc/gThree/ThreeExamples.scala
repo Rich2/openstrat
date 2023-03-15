@@ -48,6 +48,6 @@ object ThreeScen4 extends ThreeScen(0)
   override implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
   override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
 
-  import terrs.{toEndRow => sr}
+  import terrs.{setRowEnd => sr}
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
 }
