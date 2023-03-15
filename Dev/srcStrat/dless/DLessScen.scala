@@ -47,20 +47,15 @@ object DLessScen1 extends DLessScen
 
   override val armies: HCenOptLayer[Army] =
   { val res = gridSys.newHCenOptLayer[Army]
-    res.setSomeMut(142, 510, Britain.ar(1))
-    res.setSomeMut(144, 508, Britain.ar(2))
-    res.setSomeMut(140, 520, Germany.ar(1))
-    res.setSomeMut(144, 1528, Germany.ar(2))
-    res.setSomeMut(144, 520, Germany.ar(3))
-    res.setSomeMut(142, 1526, Germany.ar(4))
-    res.setSomeMut(138, 514, France.ar(1))
-    res.setSomeMut(142, 1534, Russia.ar(1))
-    res.setSomeMut(148, 1536, Russia.ar(2))
-    res.setSomeMut(134, 526, Italy.ar(1))
-    res.setSomeMut(136, 1528, Austria.ar(1))
-    res.setSomeMut(138, 526, Austria.ar(2))
-    res.setSomeMut(132, 1532, Ottoman.ar(1))
-    res.setSomeMut(132, 508, Spain.ar(1))
+    implicit val counters = ArrCounters(nations)
+    res.setFSomesMut(Britain.armyNext, 142,510,  144,508)
+    res.setFSomesMut(Germany.armyNext, 140,520,  144,1528,  144,520,  142,1526)
+    res.setFSomesMut(France.armyNext, 138,514,  140,516)
+    res.setFSomesMut(Russia.armyNext, 142,1534,  148,1536)
+    res.setFSomesMut(Italy.armyNext, 134,526,  136,524)
+    res.setFSomesMut(Austria.armyNext, 136,1528,  138,526)
+    res.setFSomesMut(Ottoman.armyNext, 132,1532, 132,1548)
+    res.setFSomesMut(Spain.armyNext, 132,508,  130,510)
     res
   }
 }

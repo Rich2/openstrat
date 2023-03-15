@@ -30,7 +30,7 @@ class ArrShowT[A, R <: Arr[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 case class ArrCounters[A](arr: Arr[A])
 { val counters: Array[Int] = new Array[Int](arr.length)
 
-  def iter(el: A): Int =
+  def apply(el: A): Int =
   { val  i = arr.indexOf(el)
     val res = counters(i) + 1
     counters(i) = res
