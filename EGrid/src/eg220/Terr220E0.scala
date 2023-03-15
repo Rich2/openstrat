@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
  *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
  *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
- *  area it must be assigned to France  */
+ *  area it must be assigned to France. Majorca is still just too small in area at this scale.  */
 object Terr220E0 extends Long220Terrs
 {
   override implicit val grid: EGrid220LongFull = EGrid220.e0(132)
@@ -29,7 +29,7 @@ object Terr220E0 extends Long220Terrs
     wr(156, sea * 3, plain * 3, hills * 2, plain, hills)
     wr(154, sea * 4, plain * 2, hills, mtain * 3)
     wr(152, sea * 4, plain, hills, mtain, hills, plain, hills)
-    wr(150, sea, hills * 5, sea * 3, hills, sea)
+    wr(150, sea, hills * 5, sea * 2, SeaIsland(Hilly, OpenTerrain), hills, sea)
     wr(148, sea * 2, plain * 4, sea * 4, hills)
     wr(146, sea, plain * 4, sea * 3, hills, sea * 2)
     wr(144, sea * 2, plain * 3, sea * 5, hills)
@@ -50,6 +50,8 @@ object Terr220E0 extends Long220Terrs
     res.setSomeInts(SCSea, 167,521,  167,523,  166,524,  165,525)//Denmark
 
     res.setSomeInts(SCSea, 141,503,  143,531,  144,534,  151,531,  152,530)//Mediterranean
+    res.setSomeInts(SRSea, 151,525)//Corsica north west
+    res.setSomeInts(SLSea, 151,527,  150,528)
 
     res
   }
