@@ -35,8 +35,9 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(SCSea, 151,1539,  152,1538,  153,1537,  153,1539,  153,1541,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(SCLake, 149, 1537)
     res.setSomeInts(SCSea, 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
-    res.setSomeInts(SCSea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
-    res.setSomeInts(SCSea,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
+    res.setSomeInts(SCSea, 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
+    res.setSomeInts(SCSea, 130,1524,  131,1525,  132,1526,  132,1530)
+    res.setSomeInts(SCSea, 133,1531,  133,1533,  133,1535)//Boshphorus
     res.setSomeInts(SLSea, 130,1520, 131,1521)//Sicily - Italy
     res
   }
@@ -90,12 +91,11 @@ object Terr320E30 extends Long320Terrs
     res.setVert5In(130, 1526)//Adriatic
     res.setMouth0(128, 1524)//Greece Italy
 
-    res.setMouth3(134, 1530)//Aegean north head
-    res.setMouth0(130, 1530)//Aegean north
 
-    res.setMouth1(130, 1530)//Gallipoli
-    res.setVert2In(132, 1532)//Dardanelles
-    res.setVert5In(132, 1536)//Sea of Marmara
+    res.setMouth0(130, 1530)//Aegean
+    res.setVert5In(132, 1532)//Aegean north
+    res.setVert0In(132, 1532)//Gallipoli
+    res.setVert3In(134, 1534)//Sea of Marmara
     res.setMouth4(134, 1538)//Constantinople
 
     res

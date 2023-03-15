@@ -43,21 +43,25 @@ object DLessScen1 extends DLessScen
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
-  armies.unsafeSetSome(142, 510, Britain.ar(1))
-  armies.unsafeSetSome(144, 508, Britain.ar(2))
-  armies.unsafeSetSome(140, 520, Germany.ar(1))
-  armies.unsafeSetSome(144, 1528, Germany.ar(2))
-  armies.unsafeSetSome(144, 520, Germany.ar(3))
-  armies.unsafeSetSome(142, 1526, Germany.ar(4))
-  armies.unsafeSetSome(138, 514, France.ar(1))
-  armies.unsafeSetSome(142, 1534, Russia.ar(1))
-  armies.unsafeSetSome(148, 1536, Russia.ar(2))
-  armies.unsafeSetSome(134, 526, Italy.ar(1))
-  armies.unsafeSetSome(136, 1528, Austria.ar(1))
-  armies.unsafeSetSome(138, 526, Austria.ar(2))
-  armies.unsafeSetSome(132, 1532, Ottoman.ar(1))
-  armies.unsafeSetSome(132, 508, Spain.ar(1))
+  implicit val nations: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
+  override val armies: HCenOptLayer[Army] =
+  { val res = gridSys.newHCenOptLayer[Army]
+    res.unsafeSetSome(142, 510, Britain.ar(1))
+    res.unsafeSetSome(144, 508, Britain.ar(2))
+    res.unsafeSetSome(140, 520, Germany.ar(1))
+    res.unsafeSetSome(144, 1528, Germany.ar(2))
+    res.unsafeSetSome(144, 520, Germany.ar(3))
+    res.unsafeSetSome(142, 1526, Germany.ar(4))
+    res.unsafeSetSome(138, 514, France.ar(1))
+    res.unsafeSetSome(142, 1534, Russia.ar(1))
+    res.unsafeSetSome(148, 1536, Russia.ar(2))
+    res.unsafeSetSome(134, 526, Italy.ar(1))
+    res.unsafeSetSome(136, 1528, Austria.ar(1))
+    res.unsafeSetSome(138, 526, Austria.ar(2))
+    res.unsafeSetSome(132, 1532, Ottoman.ar(1))
+    res.unsafeSetSome(132, 508, Spain.ar(1))
+    res
+  }
 }
 
 /** 2nd scenario for Diceless. Might have some use. */
