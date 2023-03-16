@@ -14,10 +14,3 @@ object Sea extends Terr
 object Plain extends Terr
 { override def colour: Colour = LightGreen
 }
-
-object Island extends Terr with HIslandColoured[Sea.type, Plain.type]
-{
-  override def outer: Sea.type = Sea
-
-  override def inner: Plain.type = Plain
-}
