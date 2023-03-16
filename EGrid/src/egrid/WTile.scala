@@ -2,9 +2,6 @@
 package ostrat; package egrid
 import Colour._
 
-/** This trait describes terrain that can be used for sides. */
-//trait WSide extends Coloured with ShowSimple
-
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
  * and other land hexs.  */
@@ -164,61 +161,3 @@ case object Mountains extends Terrain
 { override def str = "Mountain"
   override def colour = Gray
 }
-
-trait Biome
-{ def colour: Colour
-  def str: String
-  override def toString: String = str
-}
-
-case object OpenTerrain extends Biome
-{ def colour: Colour = LightGreen
-  def str = "Open Ground"
-}
-
-case object Forest extends Biome
-{ override def str = "Forest"
-  override def colour = ForestGreen
-}
-
-case object Desert extends Biome
-{ override def str = "Desert"
-  override def colour = LemonChiffon
-}
-
-object Jungle extends Biome
-{ override def str = "Jungle"
-  override def colour = DarkGreen
-}
-
-object IceCap extends Biome
-{ override def str = "IceCap"
-  override def colour = White
-}
-
-object SeaIce extends WTile
-{ override def str = "SeaIce"
-  override def colour = White
-  override def hasLand: Boolean = false
-  override def hasWater: Boolean = false
-}
-
-case object Taiga extends Biome
-{ override def str = "Taiga"
-  override def colour = DarkCyan
-}
-
-case object Tundra extends Biome
-{ override def str = "Tundra"
-  override def colour = LightCyan
-}
-
-/*class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
-object Coastal
-{
-  def apply(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,
-    upLt: BVert = HVertReg): Coastal = new Coastal(HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
-}*/
-
-//class StraitsDnLt(ltVal: Int, rtVal: Int) extends HVDnLt2(ltVal, rtVal)
-//object StraitsDnLt{ def apply(ltVal: Int, rtVal: Int) = new StraitsDnLt(ltVal, rtVal) }
