@@ -122,10 +122,12 @@ object Land
   def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
 }
 
-trait Island extends WaterHas with LandHas
+trait Coastal extends WaterHas with LandHas
 { override def hasLand: Boolean = true
   override def hasWater: Boolean = true
 }
+
+trait Island extends Coastal
 
 object Island
 {

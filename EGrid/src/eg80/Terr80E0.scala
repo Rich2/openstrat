@@ -63,8 +63,8 @@ object Terr80E0 extends Long80Terrs
     wr(424, sea * 5, plain * 5, hills * 6, sea * 16)
     wr(422, sea * 6, plain * 2, hills * 4, desertHills, hills, desertHills, plain, sea * 14, hills, mtain)
     wr(420, sea * 7, hills, plain * 3, desertHills, hills * 4, sea * 14, hills * 3)
-    wr(418, sea * 8, plain, hills * 2, mtain * 2, desertHills, sea * 5, hills, mtain, sea * 2, sea * 9, hills)
-    wr(416, sea * 9, hills * 2, sea * 6, mtain, hills * 2, sea * 9, sea * 4)
+    wr(418, sea * 8, plain, hills * 2, mtain * 2, desertHills, sea * 5, hills, mtain, sea, mtain * 2, hills, mtain, hills * 2, sea * 4, hills)
+    wr(416, sea * 9, hills * 2, sea * 6, mtain, hills * 7, mtain, hills * 2, desertHills, sea * 4)
     res
   }
 
