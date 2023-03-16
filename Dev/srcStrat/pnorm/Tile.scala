@@ -18,3 +18,8 @@ object Sea extends Tile
 object Plain extends Tile
 { override def colour: Colour = LightGreen
 }
+
+case class Head1Land(outSideNum: Int) extends Tile with HInner5
+{
+  override def colour: Colour = Pink
+}

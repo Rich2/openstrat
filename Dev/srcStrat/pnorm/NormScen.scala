@@ -10,10 +10,11 @@ trait NormScen
 }
 
 object NormScen1 extends NormScen
-{ override implicit val grid  = HGridReg(2, 8, 2, 14)
+{ override implicit val grid  = HGridReg(2, 10, 2, 18)
   debvar(grid.numTiles)
   override val terrs = grid.newHCenLayer[Tile](Sea)
   terrs.setRowSame(2, Plain)
   terrs.set(6, 6, Island)
+  terrs.set(6, 10, Head1Land(1))
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

@@ -140,8 +140,12 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap{hc =>
     val terr = apply(hc)(proj.parent)
-    val poly1: PolygonHVAndOffset = terr match {
-      case _: HInner6 => hc.vertsIn(7)
+    val poly1: PolygonHVAndOffset = terr match
+    { case _: HInner6 => hc.vertsIn(7)
+      case _: HInner5 =>{
+
+        PolygonHVAndOffset(hc.v0Offset(HVUL, 0), hc.v1Offset(HVUL, 0), hc.v2Offset(HVUL, 4))
+      }
       case _ => corners.tilePoly(hc)(proj.parent)
     }
     val poly2: Polygon = proj.transPolygonHVAndOffset(poly1)
