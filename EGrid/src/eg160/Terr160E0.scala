@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** 160km terrain for 0 degrees eat. */
 object Terr160E0 extends Long160Terrs
 {
-  override implicit val grid: EGrid160LongFull = EGrid160.e0(266)
+  override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
 
   /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
   override val terrs: HCenLayer[WTile] =
@@ -33,14 +33,16 @@ object Terr160E0 extends Long160Terrs
     wr(274, sea * 6, plain * 3, hills, mtain * 4)
     wr(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills)
     wr(270, sea * 2, plain, hills * 3, plain * 2, hills * 2, mtain, sea, hills * 2, sea)
-    wr(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, hills, hills * 2)
+    wr(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, SeaIsland(Hilly, OpenTerrain), hills * 2)
     wr(266, sea * 2, hills * 2, desert, desertHills * 2, hills, sea * 3, hills, sea * 2, hills)
+    wr(264, sea * 3, sea * 5, sea, sea, sea * 2, hills, sea * 2)
     res
   }
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setSomeInts(SCSea, 279,505,  281,515,  282,516,  284,502,  285,503,  286,504,  287,503,  288,502,  289,501,  289,529,  290,528,  290,532,  291,531)
+    res.setSomeInts(SLSea, 269,533,  268,534)
     res
   }
 
