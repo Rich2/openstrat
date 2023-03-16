@@ -45,7 +45,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   }
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
-   * [[Arr]] will be between 0 and the lengthof this [[HCenLayer]]. */
+   * [[Arr]] will be between 0 and the length of this [[HCenLayer]]. */
   def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (hc, i) =>
@@ -137,6 +137,16 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    *  first parameter  list. The other name overload takes it as an implicit parameter.In practice this method may be of limited utility. It may be better to use the the [[HSysProjection]] or another class as the dispatching object and access these
    * data layer elements by the [[HCen]] apply methods. */
   def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => GraphicElem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(hc, pt2, apply(hc)(proj.gChild)) }
+
+  def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap{hc =>
+    val terr = apply(hc)(proj.parent)
+    val poly1: PolygonHVAndOffset = terr match {
+      case _: HInner6 => hc.vertsIn(7)
+      case _ => corners.tilePoly(hc)(proj.parent)
+    }
+    val poly2: Polygon = proj.transPolygonHVAndOffset(poly1)
+    f(poly2, terr)
+  }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex

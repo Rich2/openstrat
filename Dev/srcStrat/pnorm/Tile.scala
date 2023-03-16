@@ -2,15 +2,19 @@
 package ostrat; package pnorm
 import prid.phex._, Colour._
 
-trait Terr extends Coloured
+trait Tile extends Coloured
 {
 
 }
 
-object Sea extends Terr
+object Island extends Tile with HInner6
+{ override def colour: Colour = LightGreen
+}
+
+object Sea extends Tile
 { override def colour: Colour = Blue
 }
 
-object Plain extends Terr
+object Plain extends Tile
 { override def colour: Colour = LightGreen
 }

@@ -5,7 +5,7 @@ import geom._, prid._, phex._, pgui._
 case class NormGui(canv: CanvasPlatform, scenIn: NormScen, viewIn: HGView) extends HGridSysGui("Normandy Gui") {
   var scen: NormScen = scenIn
   implicit val gridSys: HGridSys = scen.grid
-  val terrs: HCenLayer[Terr] = scen.terrs
+  val terrs: HCenLayer[Tile] = scen.terrs
   val corners: HCornerLayer = scen.corners
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
@@ -16,6 +16,7 @@ case class NormGui(canv: CanvasPlatform, scenIn: NormScen, viewIn: HGView) exten
     def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }
+    def tileFills2 = terrs.projPolyMap(proj, corners){(poly, t) => poly.fill(t.colour) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1 = hs.tileLt
@@ -34,7 +35,7 @@ case class NormGui(canv: CanvasPlatform, scenIn: NormScen, viewIn: HGView) exten
 
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
-    tileFills ++ lines2
+    tileFills2 ++ lines2
   }
 
   def thisTop(): Unit = reTop(proj.buttons)
