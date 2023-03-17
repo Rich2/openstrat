@@ -39,8 +39,8 @@ object Civ2 extends CivScenStart
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Sea)
   terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
   terrs.setRow(10, Land(), Head3Land(2), Sea * 4, Island() * 2, Sea)
-  terrs.setRow(8, Land(Plain) * 4, Head1Land(4), Sea * 5)
-  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head2Land(2, Mountain), Sea * 3)
+  terrs.setRow(8, Land(Plain) * 4, Head1Land(4), Sea * 3, Land(), Sea)
+  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head2Land(2, Mountain), Sea, Head4Land(0), Land())
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))

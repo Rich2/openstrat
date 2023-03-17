@@ -29,6 +29,7 @@ case class Island(terr: LandTerr = Plain) extends LandLike with HInner6
 case class Head1Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner5
 case class Head2Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner4
 case class Head3Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner3
+case class Head4Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner2
 
 object Plain extends LandTerr
 { override def colour: Colour = LightGreen

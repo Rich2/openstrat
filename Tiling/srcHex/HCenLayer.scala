@@ -181,6 +181,8 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       case hi: HInner3 =>
         iUntilPolygonLikeMap(6) { i => ife((i - 4) %% 6 == hi.outSideNum | (i - 5) %% 6 == hi.outSideNum, hc.vIn(i, 7), hc.vExact(i)) }
 
+      case hi: HInner2 => iUntilPolygonLikeMap(6) { i => ife((i - 5) %% 6 == hi.outSideNum, hc.vIn(i, 7), hc.vExact(i)) }
+
       case _ => corners.tilePoly(hc)(proj.parent)
     }
     proj.transPolygonHVAndOffset(poly1)
