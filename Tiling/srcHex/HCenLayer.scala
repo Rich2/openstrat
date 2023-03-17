@@ -169,6 +169,17 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     f(poly2, terr)
   }
 
+  def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap { hc =>
+    val terr = apply(hc)(proj.parent)
+    val poly1: PolygonHVAndOffset = terr match {
+      case _: HInner6 => hc.vertsIn(7)
+      case hi: HInner5 => iUntilPolygonLikeMap(6) { i => ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
+      case _ => corners.tilePoly(hc)(proj.parent)
+    }
+    val poly2: Polygon = proj.transPolygonHVAndOffset(poly1)
+    f(hc, poly2, terr)
+  }
+
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */

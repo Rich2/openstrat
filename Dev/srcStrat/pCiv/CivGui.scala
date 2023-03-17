@@ -16,9 +16,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   //def view: HGView()
   //proj.setView(viewIn)
   def frame: GraphicElems =
-  {  val tiles = gridSys.map { hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }
-
-    def tileFills2: GraphicElems = terrs.projPolyMap(proj, corners) { (poly, t) => poly.fill(t.colour) }
+  {  def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16 ) }
 
     val sls = proj.sidesDraw()
 
@@ -28,6 +26,23 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
     tileFills2 ++ unitFills +% sls
   }
+
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+    case (LeftButton, _, cl) => {
+      selected = cl
+      statusText = selected.headFoldToString("Nothing Selected")
+      thisTop()
+    }
+
+    /*case (RightButton, AnyArrHead(HCenPair(hc1, army: Army)), hits) => hits.findHCenForEach { hc2 =>
+      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
+      repaint()
+    }*/
+
+    case (_, _, h) => deb("Other; " + h.toString)
+  }
+
 
   def thisTop(): Unit = reTop(proj.buttons)
 
