@@ -1,13 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
-import prid._, phex._, pgui._, egrid._
+import prid._, phex._, pgui._
 
 /** A Civ scenario turn state. */
 trait CivScen  extends HSysTurnScen
 { override def title: String = "Civ Scenario"
 
   /** tile terrain. */
-  def terrs: HCenLayer[Terrain]
+  def terrs: HCenLayer[VTile]
+  val corners: HCornerLayer
   val lunits: HCenArrLayer[Warrior]
 }
 
@@ -33,21 +34,25 @@ object CivLaunch extends GuiLaunchStd
 object Civ1 extends CivScenStart
 {
   override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 40)
-  val terrs: HCenLayer[Terrain] = gridSys.newHCenLayer[Terrain](Plains)
-  terrs.setRowEnd(12, 20, Hilly, Mountains * 2, Plains * 3)
-  terrs.setRowEnd(4, 4, Hilly * 3, Plains * 7)
+  val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
+  terrs.setRowEnd(12, 20, Land(Hill), Land(Mountain) * 2, Land() * 3)
+  terrs.setRowEnd(4, 4, Land(Hill) * 3, Land(Plain) * 7)
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
+
+  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** Civ scenario 2. */
 object Civ2 extends CivScenStart
 {
   override implicit val gridSys: HGrid = HGridReg(2, 8, 4, 20)
-  val terrs: HCenLayer[Terrain] = gridSys.newHCenLayer[Terrain](Plains)
-  terrs.setRowEnd(4, 4, Mountains * 3, Plains * 2)
+  val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
+  terrs.setRowEnd(4, 4, Land(Mountain) * 3, Land(Plain) * 2)
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
+
+  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 }
