@@ -160,34 +160,30 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap{hc =>
     val terr = apply(hc)(proj.parent)
-    val poly1: PolygonHVAndOffset = terr match
-    { case _: HInner6 => hc.vertsIn(7)
-      case hi: HInner5 => iUntilPolygonLikeMap(6){i => ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
-
-      case hi: HInner4 => iUntilPolygonLikeMap(6){i => deb("inner 4")
-        ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum | (i - 2) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
-
-      case _ => corners.tilePoly(hc)(proj.parent)
-    }
-    val poly2: Polygon = proj.transPolygonHVAndOffset(poly1)
+    val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(poly2, terr)
   }
 
-
-
   def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap { hc =>
     val terr = apply(hc)(proj.parent)
-    val poly1: PolygonHVAndOffset = terr match {
+    val poly2: Polygon = getPoly(hc, terr, corners, proj)
+    f(hc, poly2, terr)
+  }
+
+  def getPoly(hc: HCen, terr : Any, corners: HCornerLayer, proj: HSysProjection): Polygon =
+  { val poly1 = terr match {
       case _: HInner6 => hc.vertsIn(7)
       case hi: HInner5 => iUntilPolygonLikeMap(6) { i => ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
+
       case hi: HInner4 => iUntilPolygonLikeMap(6) { i =>
-        deb("inner 4")
-        ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum | (i - 2) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7))
-      }
+        ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum | (i - 2) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
+
+      case hi: HInner3 =>
+        iUntilPolygonLikeMap(6) { i => ife((i - 4) %% 6 == hi.outSideNum | (i - 5) %% 6 == hi.outSideNum, hc.vIn(i, 7), hc.vExact(i)) }
+
       case _ => corners.tilePoly(hc)(proj.parent)
     }
-    val poly2: Polygon = proj.transPolygonHVAndOffset(poly1)
-    f(hc, poly2, terr)
+    proj.transPolygonHVAndOffset(poly1)
   }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
