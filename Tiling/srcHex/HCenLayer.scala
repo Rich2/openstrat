@@ -109,11 +109,21 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens
    * overflows the row end. */
-  final def setRowPart(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
+  final def setRowPartSame(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
   { val rightC = cStart + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
     iToForeach(cStart, rightC, 4) { c => unsafeArray(grid.layerArrayIndex(row, c)) = tileValue }
+    HCen(row, rightC)
+  }
+
+  /** Sets the given row from the start of the row, for the given number of tile centre values. An exception is thrown if the numOfCens overflows the
+   *  row end. */
+  final def setRowStartSame(row: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
+  { val rightC = grid.rowLeftCenC(row) + numOfCens * 4 - 4
+    val rowEnd = grid.rowRightCenC(row)
+    if (rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
+    iToForeach(grid.rowLeftCenC(row), rightC, 4) { c => unsafeArray(grid.layerArrayIndex(row, c)) = tileValue }
     HCen(row, rightC)
   }
 

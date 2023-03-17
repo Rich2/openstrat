@@ -5,7 +5,7 @@ import prid._, phex._, gOne.hp1.GSys
 object ThreeScen1 extends ThreeScen(0)
 { override implicit val gridSys: HGridReg = GSys.g1
   override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
-  import terrs.{setRowPart => srp}
+  import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
 
   srp(4, 4, 2, Woods)
@@ -17,7 +17,7 @@ object ThreeScen1 extends ThreeScen(0)
 object ThreeScen2 extends ThreeScen(0)
 { override implicit val gridSys: HGrid = HGridReg(2, 8, 2, 18)
   override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
-  import terrs.{setRowPart => srp}
+  import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
@@ -29,7 +29,7 @@ object ThreeScen2 extends ThreeScen(0)
 object ThreeScen3 extends ThreeScen(0)
 { override implicit val gridSys: HGrid = HGridReg(2, 20, 4, 60)
   override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
-  import terrs.{setRowPart => sr}
+  import terrs.{setRowPartSame => sr}
   sr(6,6, 4, Water)
   sr(8,4, 5, Water)
   sr(10, 6, 4, Water)

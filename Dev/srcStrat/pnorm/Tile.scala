@@ -3,23 +3,31 @@ package ostrat; package pnorm
 import prid.phex._, Colour._
 
 trait Tile extends Coloured
-{
-
-}
-
-object Island extends Tile with HInner6
-{ override def colour: Colour = LightGreen
-}
 
 object Sea extends Tile
 { override def colour: Colour = Blue
 }
 
-object Plain extends Tile
+trait LandTerr extends Coloured
+{
+  def colour: Colour
+}
+
+trait LandLike extends Tile
+{ def terr: LandTerr
+  override def colour: Colour = terr.colour
+}
+
+case class Land(terr: LandTerr = Plain) extends LandLike
+
+case class Island(terr: LandTerr = Plain) extends LandLike with HInner6
+
+case class Head1Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner5
+
+object Plain extends LandTerr
 { override def colour: Colour = LightGreen
 }
 
-case class Head1Land(outSideNum: Int) extends Tile with HInner5
-{
-  override def colour: Colour = Pink
+object Hill extends LandTerr
+{ override def colour: Colour = Brown
 }
