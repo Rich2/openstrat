@@ -17,18 +17,6 @@ trait CivScenStart extends CivScen
 { override def turn: Int = 0
 }
 
-object CivLaunch extends GuiLaunchStd
-{
-  override def settingStr: String = "civ"
-
-  override def default: (CanvasPlatform => Any, String) = (CivGui(_, Civ1), "JavaFx Civ")
-
-  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match
-  { case 1 => (CivGui(_, Civ1), "JavaFx Civ")
-    case 2 => (CivGui(_, Civ2), "JavaFx Civ")
-    case _ => (CivGui(_, Civ1), "JavaFx Civ")
-  }
-}
 
 /** Civ scenario 1. */
 object Civ1 extends CivScenStart
@@ -46,7 +34,7 @@ object Civ1 extends CivScenStart
 
 /** Civ scenario 2. */
 object Civ2 extends CivScenStart
-{
+{ override val title: String = "CivRise Scen 2"
   override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
   terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
