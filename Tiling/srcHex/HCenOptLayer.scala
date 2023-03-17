@@ -239,8 +239,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Drops the [[None]] values flatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Seqimut]]. */
   def someHCFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
+  { val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArray(grider.layerArrayIndex(hc))
       if(a != null)

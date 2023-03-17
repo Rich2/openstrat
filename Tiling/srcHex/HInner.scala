@@ -7,6 +7,9 @@ trait HInner
 trait HInner6 extends HInner
 
 trait HInner5 extends HInner
-{
-  def outSideNum: Int
+{ def outSideNum: Int
+}
+
+trait HInner4 extends HInner
+{ def outSideNum: Int
 }

@@ -38,8 +38,8 @@ object Civ2 extends CivScenStart
   override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Sea)
   terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
-  terrs.setRow(8, Land(Plain) * 4, Head1Land(2), Sea * 5)
-  terrs.setRow(6, Land(Plain) * 3, Sea * 6)
+  terrs.setRow(8, Land(Plain) * 4, Head1Land(4), Sea * 5)
+  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head2Land(2, Mountain), Sea * 3)
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
