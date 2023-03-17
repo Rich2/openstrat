@@ -5,7 +5,11 @@ import prid.phex._, Colour._
 trait VTile extends Coloured
 
 object Sea extends VTile
-{ override def colour: Colour = Blue
+{ override def colour: Colour = DarkBlue
+}
+
+object Lake extends VTile
+{ override def colour: Colour = Colour.SeaGreen
 }
 
 trait LandTerr extends Coloured

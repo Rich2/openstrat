@@ -88,6 +88,16 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
+  final def setRowEndUnchecked(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen = {
+    val numTiles = tileMultis.numSingles
+    val cStart = grid.rowRightCenC(row) - numTiles * 4 + 4
+    val endValues = cStart + numTiles * 4 - 4
+    val rowEnd = grid.rowRightCenC(row)
+    if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
+    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
+    HCen(row, cStart + (numTiles - 1) * 4)
+  }
+
   /** Fills in the whole given row. An exception is thrown if the tile values don't match with the
    *  end of the row. */
   final def setRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =

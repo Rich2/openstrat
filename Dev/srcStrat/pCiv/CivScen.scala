@@ -33,7 +33,7 @@ object CivLaunch extends GuiLaunchStd
 /** Civ scenario 1. */
 object Civ1 extends CivScenStart
 {
-  override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 40)
+  override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
   terrs.setRowEnd(12, 20, Land(Hill), Land(Mountain) * 2, Land() * 3)
   terrs.setRowEnd(4, 4, Land(Hill) * 3, Land(Plain) * 7)
@@ -47,9 +47,9 @@ object Civ1 extends CivScenStart
 /** Civ scenario 2. */
 object Civ2 extends CivScenStart
 {
-  override implicit val gridSys: HGrid = HGridReg(2, 8, 4, 20)
+  override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
-  terrs.setRowEnd(4, 4, Land(Mountain) * 3, Land(Plain) * 2)
+  terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
