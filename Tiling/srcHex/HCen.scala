@@ -28,12 +28,12 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   /** The polygon of this hex tile if it is part of a regular grid. */
   def polygonReg: Polygon = verts.mapPolygon(_.toPt2Reg)
 
-  def v0Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c, dirn, magnitude)
-  def v1Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c + 2, dirn, magnitude)
-  def v2Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c + 2, dirn, magnitude)
-  def v3Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c, dirn, magnitude)
-  def v4Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c - 2, dirn, magnitude)
-  def v5Offset(dirn: HVDirn, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c - 2, dirn, magnitude)
+  def v0Offset(dirn: HVDirnOpt, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c, dirn, magnitude)
+  def v1Offset(dirn: HVDirnOpt, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c + 2, dirn, magnitude)
+  def v2Offset(dirn: HVDirnOpt, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c + 2, dirn, magnitude)
+  def v3Offset(dirn: HVDirnOpt, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c, dirn, magnitude)
+  def v4Offset(dirn: HVDirnOpt, magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c - 2, dirn, magnitude)
+  def v5Offset(dirn: HVDirnOpt, magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c - 2, dirn, magnitude)
 
   def v0In(magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c, HVDn, magnitude)
   def v1In(magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c + 2, HVDL, magnitude)
@@ -41,6 +41,31 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def v3In(magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c, HVUp, magnitude)
   def v4In(magnitude: Int): HVAndOffset = HVAndOffset(r - 1, c - 2, HVUR, magnitude)
   def v5In(magnitude: Int): HVAndOffset = HVAndOffset(r + 1, c - 2, HVDR, magnitude)
+
+  def vIn(vert: Int, magnitude: Int): HVAndOffset = vert %% 6 match
+  { case 0 => v0In(magnitude)
+    case 1 => v1In(magnitude)
+    case 2 => v2In(magnitude)
+    case 3 => v3In(magnitude)
+    case 4 => v4In(magnitude)
+    case 5 => v5In(magnitude)
+  }
+
+  def v0Exact: HVAndOffset = HVAndOffset(r + 1, c, HVExact, 0)
+  def v1Exact: HVAndOffset = HVAndOffset(r + 1, c + 2, HVExact, 0)
+  def v2Exact: HVAndOffset = HVAndOffset(r - 1, c + 2, HVExact, 0)
+  def v3Exact: HVAndOffset = HVAndOffset(r - 1, c, HVExact, 0)
+  def v4Exact: HVAndOffset = HVAndOffset(r - 1, c - 2, HVExact, 0)
+  def v5Exact: HVAndOffset = HVAndOffset(r + 1, c - 2, HVExact, 0)
+
+  def vExact(vert: Int): HVAndOffset = vert %% 6 match
+  { case 0 => v0Exact
+    case 1 => v1Exact
+    case 2 => v2Exact
+    case 3 => v3Exact
+    case 4 => v4Exact
+    case 5 => v5Exact
+  }
 
   def vertsIn(magnitude: Int): PolygonHVAndOffset =
     PolygonHVAndOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))

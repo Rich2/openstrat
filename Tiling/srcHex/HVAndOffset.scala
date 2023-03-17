@@ -108,6 +108,12 @@ object HVAndOffset
   def none(r: Int, c: Int) = new HVAndOffset(r, c, 0)
   def none(hVert: HVert) = new HVAndOffset(hVert.r, hVert.c, 0)
 
+  implicit val sarrMapBuilderImplicit: Int3ArrMapBuilder[HVAndOffset, HVAndOffsetArr]  = new Int3ArrMapBuilder[HVAndOffset, HVAndOffsetArr]
+  { type BuffT = HVAndOffsetBuff
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVAndOffsetBuff = new HVAndOffsetBuff(buffer)
+    override def fromIntArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
+  }
+
   /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonHVAndOffsetMapBuilder = new PolygonHVAndOffsetMapBuilder
 

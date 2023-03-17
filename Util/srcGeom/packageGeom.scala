@@ -273,4 +273,45 @@ package object geom
     //textCells.mapWithAcc(leftPt.x + margin)((head, x) => (Vec2(x + head.textStr.length / 2, leftPt.y), x + head.textStr.length + margin))
     acc.toArr
   }
+
+  /** Maps a range of Ints to [[PolygonLike]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non termination. Method
+   * name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
+  def iUntilPolygonLikeMap[A, AA <: PolygonLike[A]](iUntil: Int)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA = {
+    val iLen = (iUntil).max(0)
+    val res: AA = ev.uninitialised(iLen)
+    var index = 0
+    iUntilForeach(iUntil) { count => ev.indexSet(res, index, f(count)); index += 1 }
+    res
+  }
+
+  /** Maps a range of Ints to a [[PolygonLike]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws
+   * on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
+  def iUntilpolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA =
+  { val iLen = (iUntil - iFrom).max(0) / iStep
+    val res: AA = ev.uninitialised(iLen)
+    var index = 0
+    iUntilForeach(iFrom, iUntil, iStep) { count => ev.indexSet(res, index, f(count)); index += 1 }
+    res
+  }
+
+  /** Maps over a range of Ints to a [[PolygonLike]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step
+   *  value is 1.Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and
+   * iStep is 1. */
+  def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA =
+  { val iLen = (iTo - iFrom + iStep).max(0) / iStep
+    val res: AA = ev.uninitialised(iLen)
+    var index = 0
+    iToForeach(iFrom, iTo, iStep) { count => ev.indexSet(res, index, f(count)); index += 1 }
+    res
+  }
+
+  /** Maps over a range of Ints to a [[PolygonLike]][A]. From 0 to to the iTo value in steps of 1. Throws on non termination. Method name over loaded
+   *  with a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
+  def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iTo: Int)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA = {
+    val iLen = (iTo + 1).max(0)
+    val res: AA = ev.uninitialised(iLen)
+    var index = 0
+    iToForeach(iTo) { count => ev.indexSet(res, index, f(count)); index += 1 }
+    res
+  }
 }
