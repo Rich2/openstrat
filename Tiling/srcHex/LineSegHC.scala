@@ -16,7 +16,7 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4
   def endPt: HCoord = HCoord(r2, c2)
 
   /** Uses the implicit [[HGridSysFlat]] parameter to convert from [[HCen]]s to [[Pt2]]s. */
-  def lineSeg(implicit grider: HGridSys): LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
+  def lineSeg(implicit proj: HSysProjection): LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
 
   def transLineSeg(scale: Double, rOrigin: Int, cOrigin: Int): LineSeg = transLineSeg(scale, HCoord(rOrigin, cOrigin))
 
