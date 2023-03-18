@@ -24,7 +24,7 @@ object Civ1 extends CivScenStart
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
   terrs.setRowEnd(12, 20, Land(Hill), Land(Mountain) * 2, Land() * 3)
   terrs.setRowEnd(4, 4, Land(Hill) * 3, Land(Plain) * 7)
-  override val sTerrs: HSideOptLayer[VSideSome] = gridSys.newSideOpts[VSideSome]
+  override val sTerrs: HSideOptLayer[VSideSome] = gridSys.newSideOptLayer[VSideSome]
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
@@ -45,7 +45,7 @@ object Civ2 extends CivScenStart
   terrs.setRowSame(2, Land())
 
   override val sTerrs: HSideOptLayer[VSideSome] =
-  { val res = gridSys.newSideOpts[VSideSome]
+  { val res = gridSys.newSideOptLayer[VSideSome]
     res.setSomeInts(VSideCen(River), 3, 39, 4, 38, 5, 39, 6, 40)
     res.setSomeInts(VSideCen(), 4, 30)
     res.setSomeInts(VSideLt(), 7,27,  6,28,  9,21,  8,22,  7,21)

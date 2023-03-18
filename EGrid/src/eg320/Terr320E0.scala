@@ -35,7 +35,7 @@ object Terr320E0 extends Long320Terrs
   }
 
   override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
     res.setSomeInts(SCSea,  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
     res.setSomeInts(SCSea, 139,509,  140,510,  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
     res.setSomeInts(SISea, 133,521)//Sardinia - Corsica

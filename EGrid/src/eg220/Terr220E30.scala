@@ -42,7 +42,7 @@ object Terr220E30 extends Long220Terrs
   }
 
   override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
 
     res.setSomeInts(SCSea,  175,1543, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
     res.setSomeInts(SCLake, 171,1537,  172,1542,  173,1541)//Lakes near St Petersburg

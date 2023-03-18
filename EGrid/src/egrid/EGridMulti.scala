@@ -89,7 +89,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
   }
 
   def sideOptsFromPairsSpawn[A <: AnyRef](sidePairs: RArr[(HGrid, HSideOptLayer[A])])(implicit ct: ClassTag[A]): HSideOptLayer[A] =
-  { val res = newSideOpts[A]
+  { val res = newSideOptLayer[A]
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
@@ -103,7 +103,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
   }
 
   def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer =
-  { val res = newSideBools
+  { val res = newSideBoolLayer
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
@@ -132,7 +132,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
   override final def edgesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
   def sideBoolsFromGrids[A <: AnyRef](sideLayers: RArr[HSideBoolLayer]): HSideBoolLayer =
-  { val res = newSideBools
+  { val res = newSideBoolLayer
     gridMansForeach { m =>
       m.sidesForeach { hs =>
         val dGrid: HSideBoolLayer = sideLayers(m.thisInd)
