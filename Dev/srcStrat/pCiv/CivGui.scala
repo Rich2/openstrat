@@ -7,7 +7,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 { statusText = "Welcome to Civ Rise."
   implicit val gridSys: HGridSys = scen.gridSys
   val terrs: HCenLayer[VTile] = scen.terrs
-  val sTerrs: HSideOptLayer[VSide] = scen.sTerrs
+  val sTerrs: HSideOptLayer[VSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   val lunits: HCenArrLayer[Warrior] = scen.lunits
 
@@ -20,8 +20,11 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   {  def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16, t.contrastBW) }
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[VSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
+      val sTerr: Option[VSideSome] = sTerrs(hs)
+      sTerr.map{
+        case st: VSideCen => corners.sideVerts(hs).project(proj).fill(st.colour)
+        case st => corners.sideVerts(hs).project(proj).fill(st.colour)
+      }
     }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
