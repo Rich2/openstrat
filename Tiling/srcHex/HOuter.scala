@@ -43,8 +43,14 @@ trait HOuter2 extends HOuter5Minus
 }
 
 trait HSideGeom
+{
+  def nonEmpty: Boolean = true
+}
 
 trait HSideNone extends HSideGeom
+{
+  override def nonEmpty: Boolean = false
+}
 
 trait HSideSome extends HSideGeom
 

@@ -19,8 +19,8 @@ trait HSideLayerAny[A]
   }
 
   /** Swts the [[HSide]]s specified by their Int parameters to rhe given value. */
-  def setSomeInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit = {
-    val len = hSideInts.length / 2
+  def setSomeInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit =
+  {  val len = hSideInts.length / 2
     iUntilForeach(0, len * 2, 2) { i =>
       val r = hSideInts(i)
       val c = hSideInts(i + 1)
