@@ -35,16 +35,32 @@ object Civ1 extends CivScenStart
 /** Civ scenario 2. */
 object Civ2 extends CivScenStart
 { override val title: String = "CivRise Scen 2"
-  override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
+  override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 42)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Sea)
-  override val sTerrs: HSideOptLayer[VSide] = gridSys.newSideOpts[VSide]
-  terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
-  terrs.setRow(10, Land(), Head3Land(2), Sea * 4, Island() * 2, Sea)
+
+  terrs.setRow(10, Land(), Head3Land(2), Sea * 4, Island() * 2, Sea * 2)
   terrs.setRow(8, Land(Plain) * 4, Head1Land(4), Sea * 3, Land(), Sea)
-  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head2Land(2, Mountain), Sea, Head4Land(0), Land())
+  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head2Land(2, Mountain), Sea, Head4Land(0), Land() * 2)
+  terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
+  terrs.setRowSame(2, Land())
+
+  override val sTerrs: HSideOptLayer[VSide] =
+  { val res = gridSys.newSideOpts[VSide]
+    res.setSomeInts(River, 3, 39, 4, 38, 5, 39, 6, 40)
+    res
+  }
+
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
 
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer =
+  { val res = gridSys.newHVertOffsetLayer
+    res.setMouth3(8, 40)
+    res.setVert2In(6, 38)
+    res.setVert5In(4, 40)
+    res.setVert4In(4, 40)
+    res.setMouth5(2, 42)
+    res
+  }
 }

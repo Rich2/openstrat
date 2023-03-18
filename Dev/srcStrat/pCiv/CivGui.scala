@@ -17,15 +17,32 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   //def view: HGView()
   //proj.setView(viewIn)
   def frame: GraphicElems =
-  {  def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16 ) }
+  {  def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16, t.contrastBW) }
 
-    val sls = proj.sidesDraw()
+    def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
+      val sTerr: Option[VSide] = sTerrs(hs)
+      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
+    }
+
+    def lines1: GraphicElems = proj.linksOptMap { hs =>
+      val hc1 = hs.tileLt
+      val hc2 = hs.tileRt
+      val t1 = terrs(hc1)
+      val t2 = terrs(hc2)
+      if (sTerrs(hs).nonEmpty | t1.colour != t2.colour) None
+      else {
+        val cs: (HCen, Int, Int) = hs.corners
+        val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
+        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
+        Some(ls2.draw(t1.contrastBW))
+      }
+    }
 
     def unitFills: RArr[PolyCurveParentFull] = lunits.gridHeadsMap { (hc, lu) =>
       Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
     }
 
-    tileFills2 ++ unitFills +% sls
+    tileFills2 ++ unitFills ++ sides1 ++ lines1
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {

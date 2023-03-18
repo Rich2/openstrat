@@ -6,5 +6,5 @@ trait VSide extends Coloured
 
 object River extends VSide
 {
-  override def colour: Colour = SeaGreen
+  override def colour: Colour = Blue
 }
