@@ -46,8 +46,9 @@ object Civ2 extends CivScenStart
 
   override val sTerrs: HSideOptLayer[VSide] =
   { val res = gridSys.newSideOpts[VSide]
-    res.setSomeInts(River, 3, 39, 4, 38, 5, 39, 6, 40)
-    res.setSomeInts(Straits, 4, 30)
+    res.setSomeInts(VSideCen(River), 3, 39, 4, 38, 5, 39, 6, 40)
+    res.setSomeInts(VSideCen(), 4, 30)
+    res.setSomeInts(VSideLt(), 7,27,  6,28,  9,21,  8,22,  7,21)
     res
   }
 

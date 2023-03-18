@@ -4,7 +4,7 @@ import prid.phex._, Colour._
 
 trait VTile extends Coloured
 
-object Sea extends VTile
+object Sea extends VTile with VSTerr
 { override def colour: Colour = DarkBlue
 }
 
