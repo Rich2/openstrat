@@ -172,16 +172,16 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   def getPoly(hc: HCen, terr : Any, corners: HCornerLayer, proj: HSysProjection): Polygon =
   { val poly1 = terr match {
-      case _: HInner6 => hc.vertsIn(7)
-      case hi: HInner5 => iUntilPolygonLikeMap(6) { i => ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
+      case _: HOuter6 => hc.vertsIn(7)
+      case hi: HOuter5 => iUntilPolygonLikeMap(6) { i => ife(i == hi.indentStartIndex | (i + 1) %% 6 == hi.indentStartIndex, hc.vExact(i), hc.vIn(i, 7)) }
 
-      case hi: HInner4 => iUntilPolygonLikeMap(6) { i =>
-        ife(i == hi.outSideNum | (i - 1) %% 6 == hi.outSideNum | (i - 2) %% 6 == hi.outSideNum, hc.vExact(i), hc.vIn(i, 7)) }
+      case hi: HOuter4 => iUntilPolygonLikeMap(6) { i =>
+        ife(i == hi.indentStartIndex | (i + 1) %% 6 == hi.indentStartIndex | (i + 2) %% 6 == hi.indentStartIndex, hc.vExact(i), hc.vIn(i, 7)) }
 
-      case hi: HInner3 =>
-        iUntilPolygonLikeMap(6) { i => ife((i - 4) %% 6 == hi.outSideNum | (i - 5) %% 6 == hi.outSideNum, hc.vIn(i, 7), hc.vExact(i)) }
+      case hi: HOuter3 =>
+        iUntilPolygonLikeMap(6) { i => ife((i + 4) %% 6 == hi.indentStartIndex | (i + 5) %% 6 == hi.indentStartIndex, hc.vIn(i, 7), hc.vExact(i)) }
 
-      case hi: HInner2 => iUntilPolygonLikeMap(6) { i => ife((i - 5) %% 6 == hi.outSideNum, hc.vIn(i, 7), hc.vExact(i)) }
+      case hi: HOuter2 => iUntilPolygonLikeMap(6) { i => ife((i + 5) %% 6 == hi.indentStartIndex, hc.vIn(i, 7), hc.vExact(i)) }
 
       case _ => corners.tilePoly(hc)(proj.parent)
     }

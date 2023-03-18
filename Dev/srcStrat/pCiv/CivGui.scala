@@ -45,7 +45,8 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
     tileFills2 ++ unitFills ++ sides1 ++ lines1
   }
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  {
     case (LeftButton, _, cl) => {
       selected = cl
       statusText = selected.headFoldToString("Nothing Selected")

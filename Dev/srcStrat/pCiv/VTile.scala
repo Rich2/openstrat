@@ -24,12 +24,12 @@ trait LandLike extends VTile
 
 case class Land(terr: LandTerr = Plain) extends LandLike
 
-case class Island(terr: LandTerr = Plain) extends LandLike with HInner6
+case class Island(terr: LandTerr = Plain) extends LandLike with HOuter6
 
-case class Head1Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner5
-case class Head2Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner4
-case class Head3Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner3
-case class Head4Land(outSideNum: Int, terr: LandTerr = Plain) extends LandLike with HInner2
+case class Head5Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HOuter5
+case class Head4Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HOuter4
+case class Head3Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HOuter3
+case class Head2Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HOuter2
 
 object Plain extends LandTerr
 { override def colour: Colour = LightGreen
