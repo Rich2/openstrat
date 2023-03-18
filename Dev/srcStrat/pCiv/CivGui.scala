@@ -7,6 +7,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 { statusText = "Welcome to Civ Rise."
   implicit val gridSys: HGridSys = scen.gridSys
   val terrs: HCenLayer[VTile] = scen.terrs
+  val sTerrs: HSideOptLayer[VSide] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   val lunits: HCenArrLayer[Warrior] = scen.lunits
 
@@ -20,7 +21,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
     val sls = proj.sidesDraw()
 
-    def unitFills = lunits.gridHeadsMap { (hc, lu) =>
+    def unitFills: RArr[PolyCurveParentFull] = lunits.gridHeadsMap { (hc, lu) =>
       Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
     }
 
@@ -43,7 +44,6 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
     case (_, _, h) => deb("Other; " + h.toString)
   }
 
-
   def thisTop(): Unit = reTop(proj.buttons)
 
   proj.getFrame = () => frame
@@ -53,6 +53,5 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   }
 
   thisTop()
-
   repaint()
 }
