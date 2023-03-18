@@ -4,7 +4,10 @@ import prid.phex._, Colour._
 
 trait VSide extends Coloured
 
+object Straits extends VSide with Coloured
+{ override def colour: Colour = DarkBlue
+}
+
 object River extends VSide
-{
-  override def colour: Colour = Blue
+{ override def colour: Colour = Blue
 }
