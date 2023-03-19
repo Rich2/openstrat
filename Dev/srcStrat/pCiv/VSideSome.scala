@@ -4,7 +4,7 @@ import prid.phex._, Colour._
 
 trait VSide extends HSideGeom
 
-object VSideNone extends VSide with HSideNone
+case object VSideNone extends VSide with HSideNone
 
 trait VSideSome extends VSide with HSideSome with Coloured
 { def terr: VSTerr

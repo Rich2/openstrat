@@ -30,20 +30,19 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: VSide = sTerrs(hs)
-      sTerr match {
-        case st: VSideMid => Some(corners.sideVerts(hs).project(proj).fill(st.colour))
+      sTerr match
+      { case st: VSideMid => Some(corners.sideVerts(hs).project(proj).fill(st.colour))
         case _ => None
-        //case st => corners.sideVerts(hs).project(proj).fill(st.colour)
       }
     }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1: HCen = hs.tileLt
       val hc2: HCen = hs.tileRt
-      val t1 = terrs(hc1)
-      val t2 = terrs(hc2)
+      def t1 = terrs(hc1)
+      def t2 = terrs(hc2)
       sTerrs(hs) match
-      { case _: HSideNone if t1.colour == t2.colour =>
+      { case VSideNone if t1.colour == t2.colour =>
         { val cs: (HCen, Int, Int) = hs.corners
           val ls1: LineSegHVAndOffset = corners.sideLine(cs._1, cs._2, cs._3)
           val ls2: LineSeg = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
