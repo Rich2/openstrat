@@ -39,8 +39,9 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1: HCen = hs.tileLt
       val hc2: HCen = hs.tileRt
-      def t1 = terrs(hc1)
-      def t2 = terrs(hc2)
+
+      def t1: VTile = terrs(hc1)
+      def t2: VTile = terrs(hc2)
       sTerrs(hs) match
       { case VSideNone if t1.colour == t2.colour =>
         { val cs: (HCen, Int, Int) = hs.corners

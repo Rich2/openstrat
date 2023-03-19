@@ -2,19 +2,19 @@
 package ostrat; package pCiv
 import prid.phex._, Colour._
 
-trait VSide extends HSideGeom
+trait VSide// extends HSideGeom
 
-case object VSideNone extends VSide with HSideNone
+case object VSideNone extends VSide //with HSideNone
 
-trait VSideSome extends VSide with HSideSome with Coloured
+trait VSideSome extends VSide /*with HSideSome*/ with Coloured
 { def terr: VSTerr
   override def colour: Colour = terr.colour
 }
 
-case class VSideMid(terr: VSTerr = Sea) extends VSideSome with HSideMid
-case class VSideLt(terr: VSTerr = Sea) extends VSideSome with HSideLeft
-case class VSideRt(terr: VSTerr = Sea) extends VSideSome with HSideRight
-case class VSideLtRt(terr: VSTerr = Sea) extends VSideSome with HSideLeftRight
+case class VSideMid(terr: VSTerr = Sea) extends VSideSome// with HSideMid
+case class VSideLt(terr: VSTerr = Sea) extends VSideSome// with HSideLeft
+case class VSideRt(terr: VSTerr = Sea) extends VSideSome// with HSideRight
+case class VSideLtRt(terr: VSTerr = Sea) extends VSideSome// with HSideLeftRight
 
 trait VSTerr extends Coloured
 
