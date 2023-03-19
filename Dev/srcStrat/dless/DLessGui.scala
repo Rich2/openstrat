@@ -27,7 +27,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
       tile match {
         case island: Island => {
           val poly = hc.vertsIn(7).map(hv => hv.toPt2(proj.transCoord))
-          Some(poly.fill(island.landColour))
+          Some(poly.fill(island.colour))
         }
         case _ => None
       }

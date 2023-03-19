@@ -14,7 +14,7 @@ trait HOuter6 extends HOuter
 }
 
 trait HOuter5Minus extends HOuter
-{ /** Hex sides are numbered from 0 to 5 in a clockwise direction starting at the top right. */
+{ /** Hex sides are numbered from 0 to 5 in a clockwise direction starting at the top right. This is the index of the first indented vertex. */
   def indentStartIndex:Int
 }
 

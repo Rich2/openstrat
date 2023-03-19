@@ -33,16 +33,26 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   def frame: RArr[GraphicElem] =
   { val polys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
+    def tileFills1: GraphicElems = terrs.hcOptMap { (tile, hc) =>
+      tile match {
+        case li: Coastal => {
+          val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
+          Some(res)
+        }
+        case _ => None
+      }
+    }
+
     /*def tileFills2: RArr[PolygonFill] = proj.hCensMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }*/
 
-    def tileFills: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+    def tileFills2: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
     val islands: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
       {  case island: Island =>
         { val poly = hc.vertsIn(7).map(hv => hv.toPt2(proj.transCoord))
-          Some(poly.fill(island.landColour))
+          Some(poly.fill(island.colour))
         }
         case _ => None
       }
@@ -93,7 +103,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFills /*++ islands */++ tileActives ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileFills1 ++ tileFills2 /*++ islands */++ tileActives ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {

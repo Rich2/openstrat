@@ -22,12 +22,12 @@ object Terr320E0 extends Long320Terrs
     wr(146, sea, hills, sea, plain, forest)
     wr(144, sea, plain, sea * 2, plain)
     wr(142, sea, plain, plain * 2, plain * 2)
-    wr(140, sea, hills, plain * 4)
+    wr(140, sea, Head5Land(2, Hilly), plain * 4)
     wr(138, sea * 2, plain * 2, hills, mtain * 2)
     wr(136, sea * 3, plain, hills, mtain, plain)
-    wr(134, sea, hills * 3, sea, SeaIsland(Hilly, OpenTerrain), hills)
-    wr(132, sea, hills, plain * 2, sea, SeaIsland(Hilly, OpenTerrain), sea)
-    wr(130, sea, plain, hills * 2, sea * 2, hills, SeaIsland(Hilly, OpenTerrain))
+    wr(134, sea, hills * 3, sea, Island(Hilly), hills)
+    wr(132, sea, hills, plain * 2, sea, Island(Hilly), sea)
+    wr(130, sea, plain, hills * 2, sea * 2, hills, Island(Hilly))
     wr(128, sea * 2, hills * 5, sea)
     wr(126, sea * 2, mtain, desertHills, desert * 4)
     wr(124, sea * 2, hills, desert * 6)
@@ -37,7 +37,8 @@ object Terr320E0 extends Long320Terrs
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
     res.setSomeInts(SCSea,  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
-    res.setSomeInts(SCSea, 139,509,  140,510,  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
+    res.setSomeInts(SCSea,  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
+    //, 139,509,  140,510
     res.setSomeInts(SISea, 133,521)//Sardinia - Corsica
     res.setSomeInts(SLSea, 135,523)//Corsica
     res.setSomeInts(SRSea, 135,521,  134,524)//Corsica
@@ -64,13 +65,19 @@ object Terr320E0 extends Long320Terrs
     res.setVert1In(142, 506)//Anglesey
     res.setMouth2(144, 504)//Scotland Northern Ireland
 
-    res.setMouth1(138, 506)// English Channel Atlantic end
-    res.setVert2In(140, 508)//Le Mont St Michelle
-    res.setVert5In(140, 512)//Exmouth - Cherbourg
+    res.set4CornersIn(140, 508, 2, 7)
+    res.setMouth1(140, 508)
+
+    //res.setMouth1(138, 506)// English Channel Atlantic end
+    //res.setVert2In(140, 508)//Le Mont St Michelle
+    //res.setVert5In(140, 512)//Exmouth - Cherbourg
     res.setVert0In(140, 512)//Le Havre - Portsmouth
     res.setVert3In(142, 514)//Dover - Calais
     res.setVert2In(142, 514)//Margate - Antwerp
     res.setMouth3(144, 516)//English Channel north east
+
+    res.set6CornersIn(132, 520, 7)//Sardinia
+    res.set6CornersIn(134, 522, 7)//Corsica
 
     res.setMouth3Corner(138, 526)//Adriatic head
     res.setCornerIn(136, 524, 1)//Adriatic head

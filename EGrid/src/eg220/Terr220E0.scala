@@ -29,7 +29,7 @@ object Terr220E0 extends Long220Terrs
     wr(156, sea * 3, plain * 3, hills * 2, plain, hills)
     wr(154, sea * 4, plain * 2, hills, mtain * 3)
     wr(152, sea * 4, plain, hills, mtain, hills, plain, hills)
-    wr(150, sea, hills * 5, sea * 2, SeaIsland(Hilly, OpenTerrain), hills, sea)
+    wr(150, sea, hills * 5, sea * 2, Island(Hilly), hills, sea)
     wr(148, sea * 2, plain * 4, sea * 4, hills)
     wr(146, sea, plain * 4, sea * 3, hills, sea * 2)
     wr(144, sea * 2, plain * 3, sea * 5, hills)

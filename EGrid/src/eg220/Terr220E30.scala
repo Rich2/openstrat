@@ -31,7 +31,7 @@ object Terr220E30 extends Long220Terrs
     wr(148, hills * 4, plain, hills * 4, mtain, hills)
     wr(146, hills, hills * 2, hills * 2, desertHills * 3, mtain, desertHills * 2)
     wr(144, hills, sea, hills, sea, hills * 4, desertHills, plain, mtain)
-    wr(142, sea * 7, SeaIsland(Hilly, OpenTerrain), hills, desert * 3)
+    wr(142, sea * 7, Island(Hilly), hills, desert * 3)
     wr(140, sea * 3, hills, sea * 4, hills, desert * 3)
     wr(138, sea * 2, desert, sea * 5, hills, desert * 3)
     wr(136, desert, sea, desert * 4, plain, desertHills, desert * 5)

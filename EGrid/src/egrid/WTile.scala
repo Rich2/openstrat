@@ -8,7 +8,6 @@ import prid.phex._, Colour._
 trait WTile extends Coloured with ShowSimple
 { override def typeStr: String = "WTile"
   def hasLand: Boolean
-  //def hasWater: Boolean
 }
 
 object WTile
@@ -45,32 +44,20 @@ object WTile
   val mtain: WTile = Land(Mountains)
 }
 
-/** A common trait for water and Island hexs. */
-trait WaterHas extends WTile
-
 /** A common trait for Ocean and Lake. */
-trait Water extends WaterHas
+trait Water extends WTile// WaterHas
 { override def hasLand: Boolean = false
-
-}
-
-/** A common trait for sea and sea island tiles. */
-trait SeaHas extends WaterHas
-{ override def colour = DarkBlue
 }
 
 /** Sea. This is an object as currently has no other variables such as depth, current or climate. */
-case object Sea extends Water with SeaHas with ShowSimple//WSide
+case object Sea extends Water with ShowSimple//WSide
 { override def str = "Ocean"
+  override def colour: Colour = DarkBlue
 }
 
-/** A common trait for sea and sea island tiles. */
-trait LakeHas extends WaterHas
-{ override def colour = Blue
-}
-
-case object Lake extends Water with LakeHas with ShowSimple// WSide
+case object Lake extends Water with ShowSimple// WSide
 { override def str = "Lake"
+  override def colour: Colour = Blue
 }
 
 object TerrainNone extends WTile
@@ -84,7 +71,7 @@ trait LandLike extends WTile
 { def terr: Terrain
   def biome: Biome
 
-  def landColour: Colour = terr match
+  def colour: Colour = terr match
   { case Plains => biome.colour
 
     case Hilly => biome match
@@ -106,7 +93,7 @@ class Land(val terr: Terrain, val biome: Biome) extends LandLike
     case t => t.str
   }
 
-  override def colour: Colour = landColour
+  //override def colour: Colour = landColour
   override def hasLand: Boolean = true
 }
 
@@ -115,12 +102,18 @@ object Land
   def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
 }
 
-trait Coastal extends WaterHas with LandLike
+trait Coastal extends LandLike
 { override def hasLand: Boolean = true
- // override def hasWater: Boolean = true
+  def sideTerrs: Water
+
+  /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
+  override def str: String = "Coastal"
 }
 
-trait Island extends Coastal with HOuter6
+case class Island(terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter6
+{
+
+}
 
 object Island
 {
@@ -130,13 +123,20 @@ object Island
   }
 }
 
-case class SeaIsland(terr: Terrain, biome: Biome) extends Island with SeaHas
+case class Head5Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter5
+case class Head4Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter4
+case class Head3Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter3
+case class Head2Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter2
+
+/*case class SeaIsland(terr: Terrain, biome: Biome) extends Island// with SeaHas
 { override def str: String = "SeaIsland"
+  override def colour: Colour = DarkBlue
 }
 
-class LakeIsland(val terr: Terrain, val biome: Biome) extends Island with LakeHas
+class LakeIsland(val terr: Terrain, val biome: Biome) extends Island// with LakeHas
 { override def str: String = "SeaIsland"
-}
+  override def colour: Colour = Blue
+}*/
 
 trait Terrain
 { def str: String

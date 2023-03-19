@@ -74,7 +74,7 @@ object Terr80E30  extends Long80Terrs
     wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desertHills, desert * 2, desertHills * 6, mtain * 2, desertHills, lake,
       desertHills, mtain)
 
-    wr(422, mtain, sea * 4, SeaIsland(Hilly, OpenTerrain), hills, mtain, hills * 2, sea * 2, hills * 7, desert, desertHills, desert, mtain, hills, desertHills, mtain, plain * 2,
+    wr(422, mtain, sea * 4, Island(Hilly), hills, mtain, hills * 2, sea * 2, hills * 7, desert, desertHills, desert, mtain, hills, desertHills, mtain, plain * 2,
       desertHills, mtain * 2, desertHills)
 
     wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills  * 2, mtain, hills * 2, plain * 2, desert * 4,

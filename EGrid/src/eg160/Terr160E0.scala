@@ -33,7 +33,7 @@ object Terr160E0 extends Long160Terrs
     wr(274, sea * 6, plain * 3, hills, mtain * 4)
     wr(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills)
     wr(270, sea * 2, plain, hills * 3, plain * 2, hills * 2, mtain, sea, hills * 2, sea)
-    wr(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, SeaIsland(Hilly, OpenTerrain), hills * 2)
+    wr(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, Island(Hilly), hills * 2)
     wr(266, sea * 2, hills * 2, desert, desertHills * 2, hills, sea * 3, hills, sea * 2, hills)
     wr(264, sea * 3, hills * 2, desertHills, sea * 2, sea, sea, sea * 2, hills, sea * 2)
     res
