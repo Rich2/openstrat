@@ -29,8 +29,8 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
     }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
-      val hc1 = hs.tileLt
-      val hc2 = hs.tileRt
+      val hc1: HCen = hs.tileLt
+      val hc2: HCen = hs.tileRt
       val t1 = terrs(hc1)
       val t2 = terrs(hc2)
       sTerrs(hs) match
@@ -40,8 +40,8 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
           val ls2: LineSeg = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
           Some(ls2.draw(t1.contrastBW))
         }
-        case _: HSideLeft => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
-        case _: HSideRight => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
+        case vs: VSideLt if vs.terr.colour != t1.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
+        case vs: VSideRt if vs.terr.colour != t2.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
         case _ => None
       }
     }

@@ -14,6 +14,7 @@ trait VSideSome extends VSide with HSideSome with Coloured
 case class VSideCen(terr: VSTerr = Sea) extends VSideSome with HSideMiddle
 case class VSideLt(terr: VSTerr = Sea) extends VSideSome with HSideLeft
 case class VSideRt(terr: VSTerr = Sea) extends VSideSome with HSideRight
+case class VSideLtRt(terr: VSTerr = Sea) extends VSideSome with HSideLeftRight
 
 trait VSTerr extends Coloured
 

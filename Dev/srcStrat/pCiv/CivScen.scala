@@ -46,10 +46,11 @@ object Civ2 extends CivScenStart
 
   override val sTerrs: HSideLayer[VSide] =
   { val res: HSideLayer[VSide] = gridSys.newSideLayer[VSide](VSideNone)
-    res.setSomeInts(VSideCen(River), 3, 39, 4, 38, 5, 39, 6, 40)
+    res.setSomeInts(VSideCen(River), 3,39,  4,38,  5,39,  6,40,  3,37)
     res.setSomeInts(VSideCen(), 4, 30)
-    res.setSomeInts(VSideLt(), 7,27,  6,28,  9,21,  8,22,  7,21,  6,28,  10,12,  11,11,  9,31,  11,31)
-    res.setSomeInts(VSideRt(), 7,19,  9,19,  6,24,  7,25,  11,9,  9,29,  10,28,  11,29)
+    res.setSomeInts(VSideLt(), 7,27,  6,28,  9,21,  8,22,  7,21,  6,28,  10,12,  11,11,  9,31,  11,31,  11,35,  10,36,  9,35)
+    res.setSomeInts(VSideRt(), 7,19,  9,19,  6,24,  7,25,  11,9,  9,29,  10,28,  11,29,  9,33,  11,33,  6,32,  7,33)
+    res.setSomeInts(VSideLtRt(),  10,32)
     res
   }
 
@@ -62,8 +63,9 @@ object Civ2 extends CivScenStart
     res.setMouth3(8, 40)
     res.setVert2In(6, 38)
     res.setVert5In(4, 40)
-    res.setVert4In(4, 40)
     res.setMouth5(2, 42)
+    res.setMouth1(2, 34)
+    res.setTJunction(3, 38)
 
     res.setMouth3(6, 30)
     res.setMouth0(2, 30)
@@ -72,6 +74,8 @@ object Civ2 extends CivScenStart
     res.set3CornersIn(6, 26, 5, 7)
     res.set4CornersIn(8, 20, 0, 7)
     res.set6CornersIn(10, 30, 7)
+    res.set6CornersIn(10, 34, 7)
+    res.setCornerIn(6, 34, 5, 7)
 
     res
   }
