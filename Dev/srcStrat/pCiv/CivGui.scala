@@ -17,12 +17,21 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   //def view: HGView()
   //proj.setView(viewIn)
   def frame: GraphicElems =
-  {  def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16, t.contrastBW) }
+  {
+    def tileFills1: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
+      { case li: LandInner =>
+        { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
+          Some(res)
+        }
+        case _ => None
+      }
+    }
+    def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16, t.contrastBW) }
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: VSide = sTerrs(hs)
       sTerr match {
-        case st: VSideSome => Some(corners.sideVerts(hs).project(proj).fill(st.colour))
+        case st: VSideMid => Some(corners.sideVerts(hs).project(proj).fill(st.colour))
         case _ => None
         //case st => corners.sideVerts(hs).project(proj).fill(st.colour)
       }
@@ -40,8 +49,8 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
           val ls2: LineSeg = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
           Some(ls2.draw(t1.contrastBW))
         }
-        case vs: VSideLt if vs.terr.colour != t1.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
-        case vs: VSideRt if vs.terr.colour != t2.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
+        case vs: VSideLt if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
+        case vs: VSideRt if vs.terr.colour == t1.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
         case _ => None
       }
     }
@@ -50,7 +59,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
       Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
     }
 
-    tileFills2 ++ unitFills ++ sides1 ++ lines1
+    tileFills1 ++ tileFills2 ++ unitFills ++ sides1 ++ lines1
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match

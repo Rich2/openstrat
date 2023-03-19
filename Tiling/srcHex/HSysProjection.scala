@@ -8,6 +8,7 @@ trait HSysProjection extends TSysProjection
 
   var gChild: HGridSys
   def hCensMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)
+  def hCensOptMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.optMap(f)
   def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
 

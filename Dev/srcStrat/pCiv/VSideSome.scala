@@ -11,7 +11,7 @@ trait VSideSome extends VSide with HSideSome with Coloured
   override def colour: Colour = terr.colour
 }
 
-case class VSideCen(terr: VSTerr = Sea) extends VSideSome with HSideMiddle
+case class VSideMid(terr: VSTerr = Sea) extends VSideSome with HSideMid
 case class VSideLt(terr: VSTerr = Sea) extends VSideSome with HSideLeft
 case class VSideRt(terr: VSTerr = Sea) extends VSideSome with HSideRight
 case class VSideLtRt(terr: VSTerr = Sea) extends VSideSome with HSideLeftRight

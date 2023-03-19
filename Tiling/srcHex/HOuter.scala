@@ -54,7 +54,7 @@ trait HSideNone extends HSideGeom
 
 trait HSideSome extends HSideGeom
 
-trait HSideMiddle extends HSideSome
+trait HSideMid extends HSideSome
 
 /** A hex side that has an indent on an [[Houter]] tile to its left. */
 trait HSideLeft extends HSideSome
