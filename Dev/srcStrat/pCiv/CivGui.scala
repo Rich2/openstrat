@@ -26,15 +26,17 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
         case _ => None
       }
     }
-    def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillTextActive(t.colour, hc,hc.strComma, 16, t.contrastBW) }
+    def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillActive(t.colour, hc) }
 
-    def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
+    def sideFills: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: VSide = sTerrs(hs)
       sTerr match
       { case st: VSideMid => Some(corners.sideVerts(hs).project(proj).fill(st.colour))
         case _ => None
       }
     }
+
+    def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners) { (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1: HCen = hs.tileLt
@@ -59,7 +61,9 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
       Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
     }
 
-    tileFills1 ++ tileFills2 ++ unitFills ++ sides1 ++ lines1
+    def texts = lunits.projEmptyHcPtMap(proj){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW)}
+
+    tileFills1 ++ tileFills2 ++ unitFills ++ sideFills ++ sideActives ++ lines1 ++ texts
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match

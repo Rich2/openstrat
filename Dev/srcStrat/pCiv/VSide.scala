@@ -6,7 +6,7 @@ trait VSide// extends HSideGeom
 
 case object VSideNone extends VSide //with HSideNone
 
-trait VSideSome extends VSide /*with HSideSome*/ with Coloured
+trait VSideSome extends VSide with HSideSome with Coloured
 { def terr: VSTerr
   override def colour: Colour = terr.colour
 }

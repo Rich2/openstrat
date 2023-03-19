@@ -42,19 +42,15 @@ trait HOuter2 extends HOuter5Minus
 { override def numIndentedSides: Int = 2
 }
 
-/*
 trait HSideGeom
 {
   def nonEmpty: Boolean = true
 }
 
-trait HSideNone extends HSideGeom
-{
-  override def nonEmpty: Boolean = false
-}
+trait HSideNone //extends HSideGeom
 
-trait HSideSome extends HSideGeom
-
+trait HSideSome //extends HSideGeom
+/*
 trait HSideMid extends HSideSome
 
 /** A hex side that has an indent on an [[Houter]] tile to its left. */
