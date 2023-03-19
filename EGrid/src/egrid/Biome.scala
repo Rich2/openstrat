@@ -37,7 +37,6 @@ object SeaIce extends WTile
 { override def str = "SeaIce"
   override def colour = White
   override def hasLand: Boolean = false
-  override def hasWater: Boolean = false
 }
 
 case object Taiga extends Biome

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import Colour._
+import prid.phex._, Colour._
 
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
@@ -8,7 +8,7 @@ import Colour._
 trait WTile extends Coloured with ShowSimple
 { override def typeStr: String = "WTile"
   def hasLand: Boolean
-  def hasWater: Boolean
+  //def hasWater: Boolean
 }
 
 object WTile
@@ -47,8 +47,6 @@ object WTile
 
 /** A common trait for water and Island hexs. */
 trait WaterHas extends WTile
-{ override def hasWater: Boolean = true
-}
 
 /** A common trait for Ocean and Lake. */
 trait Water extends WaterHas
@@ -79,19 +77,18 @@ object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
   override def hasLand: Boolean = false
-  override def hasWater: Boolean = false
 }
 
 /** Common trait for land and Islands. */
-trait LandHas extends WTile
+trait LandLike extends WTile
 { def terr: Terrain
   def biome: Biome
 
-  def landColour: Colour = terr match {
-    case Plains => biome.colour
+  def landColour: Colour = terr match
+  { case Plains => biome.colour
 
-    case Hilly => biome match {
-      case Tundra => Chocolate.average(Tundra.colour)
+    case Hilly => biome match
+    { case Tundra => Chocolate.average(Tundra.colour)
       case Taiga => Chocolate.average(Taiga.colour)
       case Forest => Chocolate.average(Forest.colour)
       case Desert => Chocolate.average(Desert.colour)
@@ -101,7 +98,7 @@ trait LandHas extends WTile
   }
 }
 
-class Land(val terr: Terrain, val biome: Biome) extends LandHas
+class Land(val terr: Terrain, val biome: Biome) extends LandLike
 { override def toString: String = "Land" + str.enParenth
 
   override def str = terr match
@@ -111,7 +108,6 @@ class Land(val terr: Terrain, val biome: Biome) extends LandHas
 
   override def colour: Colour = landColour
   override def hasLand: Boolean = true
-  override def hasWater: Boolean = false
 }
 
 object Land
@@ -119,12 +115,12 @@ object Land
   def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
 }
 
-trait Coastal extends WaterHas with LandHas
+trait Coastal extends WaterHas with LandLike
 { override def hasLand: Boolean = true
-  override def hasWater: Boolean = true
+ // override def hasWater: Boolean = true
 }
 
-trait Island extends Coastal
+trait Island extends Coastal with HOuter6
 
 object Island
 {

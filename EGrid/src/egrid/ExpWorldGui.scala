@@ -60,16 +60,13 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     }
 
     def lines1: GraphicElems = proj.linksOptMap{ hs =>
-      val hc1 = hs.tileLt
-      val hc2 = hs.tileRt
-      val t1 = terrs(hc1)
-      val t2 = terrs(hc2)
+      val t1 = terrs(hs.tileLt)
+      val t2 = terrs(hs.tileRt)
       if (sTerrs(hs).nonEmpty | t1.colour != t2.colour) None
       else
       { val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
+        val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
+        Some(ls1.draw(t1.contrastBW))
       }
     }
 
@@ -96,7 +93,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFills ++ islands ++ tileActives ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileFills /*++ islands */++ tileActives ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
