@@ -29,8 +29,11 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
 
   /** Produces an [[HSide]]'s line segment specified in [[HVAndOffset]] coordinates. */
-  def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
+  def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
     LineSegHVAndOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
+
+  def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LineSeg =
+    sideLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVAndOffset)
 
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
   def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }

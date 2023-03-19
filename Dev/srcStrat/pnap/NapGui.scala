@@ -50,7 +50,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
       if (sTerrs(hs).nonEmpty | t1 != t2) None
       else {
         val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
+        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
         val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
         Some(ls2.draw(t1.contrastBW))
       }
