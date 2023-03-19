@@ -21,4 +21,16 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
         case _ => None
       }
     }
+
+  def midsPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+    proj.sidesOptMap { hs =>
+      apply(hs) match {
+        case
+          _: HSideMid => {
+          val poly =corners.sideVerts(hs).project(proj)
+          Some(f(poly, apply(hs)))
+        }
+        case _ => None
+      }
+    }
 }

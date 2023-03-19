@@ -26,17 +26,10 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
         case _ => None
       }
     }
-    def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners) { (hc, poly, t) => poly.fillActive(t.colour, hc) }
 
-    def sideFills: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: VSide = sTerrs(hs)
-      sTerr match
-      { case st: VSideMid => Some(corners.sideVerts(hs).project(proj).fill(st.colour))
-        case _ => None
-      }
-    }
-
-    def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners) { (hs, poly) => poly.active(hs) }
+    def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }
+    def sideFills: GraphicElems = sTerrs.midsPolyMap(proj, corners){ (poly, st) => poly.fill(st.colour) }
+    def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1: HCen = hs.tileLt
