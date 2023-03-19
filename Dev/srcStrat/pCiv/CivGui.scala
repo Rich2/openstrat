@@ -33,12 +33,16 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
       val hc2 = hs.tileRt
       val t1 = terrs(hc1)
       val t2 = terrs(hc2)
-      if (sTerrs(hs).nonEmpty | t1.colour != t2.colour) None
-      else {
-        val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
+      sTerrs(hs) match
+      { case _: HSideNone if t1.colour == t2.colour =>
+        { val cs: (HCen, Int, Int) = hs.corners
+          val ls1: LineSegHVAndOffset = corners.sideLine(cs._1, cs._2, cs._3)
+          val ls2: LineSeg = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
+          Some(ls2.draw(t1.contrastBW))
+        }
+        case _: HSideLeft => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
+        case _: HSideRight => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
+        case _ => None
       }
     }
 
