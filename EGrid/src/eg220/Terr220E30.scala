@@ -51,8 +51,8 @@ object Terr220E30 extends Long220Terrs
     res.setSomeInts(WSideMid(), 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
     res.setSomeInts(WSideMid(), 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
     res.setSomeInts(WSideMid(), 134, 1540,  133,1541,  134,1544)
-    res.setSomeInts(SRSea, 143, 1541)//Cyprus north west
-    res.setSomeInts(SLSea, 143,1543,  142,1544)//Cyprus north east and east.
+    res.setSomeInts(WSideRt(), 143, 1541)//Cyprus north west
+    res.setSomeInts(WSideLt(), 143,1543,  142,1544)//Cyprus north east and east.
     res
   }
 

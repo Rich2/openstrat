@@ -20,10 +20,6 @@ case class VSideLtRt(terr: VSTerr = Sea) extends VSideSome// with HSideLeftRight
 
 trait VSTerr extends Coloured
 
-/*object SSea extends VSTerr
-{ override def colour: Colour = DarkBlue
-}*/
-
 object River extends VSTerr
 { override def colour: Colour = Blue
 }

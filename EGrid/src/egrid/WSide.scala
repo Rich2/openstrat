@@ -17,24 +17,12 @@ trait WSideSome extends WSide with HSideSome
 case class WSideMid(terr: WSTerr = Sea) extends WSideSome
 
 /** A Side between 2 islands. */
-trait WSideIslands extends WSide
+case class WSideBoth(terr: WSTerr = Sea) extends WSideSome
 
 /** A Side on the left tile. */
-trait WSideLeft extends WSide
+case class WSideLt(terr: WSTerr = Sea) extends WSideSome
 
 /** A Side on the right tile. */
-trait WSideRight extends WSide
-
-trait SideSea extends WSide
-{ override def colour = DarkBlue
-}
-
-trait SideLake extends WSide
-{ override def colour = Blue
-}
-
-object SLSea extends WSideLeft with SideSea
-object SRSea extends WSideRight with SideSea
-object SISea extends WSideIslands with SideSea
+case class WSideRt(terr: WSTerr = Sea) extends WSideSome
 
 trait WSTerr extends Coloured

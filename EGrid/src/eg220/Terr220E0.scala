@@ -50,8 +50,8 @@ object Terr220E0 extends Long220Terrs
     res.setSomeInts(WSideMid(), 167,521,  167,523,  166,524,  165,525)//Denmark
 
     res.setSomeInts(WSideMid(), 141,503,  143,531,  144,534,  151,531,  152,530)//Mediterranean
-    res.setSomeInts(SRSea, 151,525)//Corsica north west
-    res.setSomeInts(SLSea, 151,527,  150,528)
+    res.setSomeInts(WSideRt(), 151,525)//Corsica north west
+    res.setSomeInts(WSideLt(), 151,527,  150,528)
 
     res
   }

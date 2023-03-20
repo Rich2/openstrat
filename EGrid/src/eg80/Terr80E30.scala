@@ -95,7 +95,7 @@ object Terr80E30  extends Long80Terrs
     res.setSomeInts(WSideMid(Lake), 424,1550)
     res.setSomeInts(WSideMid(), 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553,  444, 1562)
     res.setSomeInts(WSideMid(),  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
-    res.setSomeInts(SLSea, 423,1495,  422,1496)//Kefalonia - Greece
+    res.setSomeInts(WSideLt(), 423,1495,  422,1496)//Kefalonia - Greece
     res
   }
 

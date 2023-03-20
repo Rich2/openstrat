@@ -39,12 +39,12 @@ object Terr320E0 extends Long320Terrs
     res.setSomeInts(WSideMid(),  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
     res.setSomeInts(WSideMid(),  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
     //, 139,509,  140,510
-    res.setSomeInts(SISea, 133,521)//Sardinia - Corsica
-    res.setSomeInts(SLSea, 135,523)//Corsica
-    res.setSomeInts(SRSea, 135,521,  134,524)//Corsica
+    res.setSomeInts(WSideBoth(), 133,521)//Sardinia - Corsica
+    res.setSomeInts(WSideLt(), 135,523)//Corsica
+    res.setSomeInts(WSideRt(), 135,521,  134,524)//Corsica
     res.setSomeInts(WSideMid(), 129,507,  129,509,  129,511,  134,528,  135,527,  136,526)//Mediterranean
-    res.setSomeInts(SRSea, 129,525)//Sicily - Tunis
-    res.setSomeInts(SLSea, 130,528,  131,527)//Sicily - Italy
+    res.setSomeInts(WSideRt(), 129,525)//Sicily - Tunis
+    res.setSomeInts(WSideLt(), 130,528,  131,527)//Sicily - Italy
     res
   }
 

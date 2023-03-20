@@ -38,7 +38,7 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(WSideMid(), 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(WSideMid(), 130,1524,  131,1525,  132,1526,  132,1530)
     res.setSomeInts(WSideMid(), 133,1531,  133,1533,  133,1535)//Boshphorus
-    res.setSomeInts(SLSea, 130,1520, 131,1521)//Sicily - Italy
+    res.setSomeInts(WSideLt(), 130,1520, 131,1521)//Sicily - Italy
     res
   }
 
