@@ -43,20 +43,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       }
     }
 
-    /*def tileFills2: RArr[PolygonFill] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
-    }*/
-
     def tileFills2: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
-
-    val islands: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
-      {  case island: Island =>
-        { val poly = hc.vertsIn(7).map(hv => hv.toPt2(proj.transCoord))
-          Some(poly.fill(island.colour))
-        }
-        case _ => None
-      }
-    }
 
     def tileActives: RArr[PolygonActive] = polys.pairMap{ (hc, poly) => poly.active(hc) }
 
