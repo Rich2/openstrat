@@ -6,6 +6,7 @@ import prid._, phex._, eg320._, pEarth._, egrid._
 trait DLessScen extends HSysTurnScen
 { ThisScen =>
   def title: String = "DLessScen"
+  override implicit val gridSys: EGridSys
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideLayer[WSide]
   val corners: HCornerLayer
@@ -23,7 +24,7 @@ trait DLessScen extends HSysTurnScen
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new DLessScen
-    { override implicit def gridSys: HGridSys = ThisScen.gridSys
+    { override implicit val gridSys: EGridSys = ThisScen.gridSys
       override val terrs: HCenLayer[WTile] = ThisScen.terrs
       override val sTerrs: HSideLayer[WSide] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners

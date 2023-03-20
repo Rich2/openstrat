@@ -2,9 +2,9 @@
 package ostrat; package dless
 import geom._, prid._, phex._, pgui._, egrid._
 
-case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("Diceless Gui")
+case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Diceless Gui")
 { var scen: DLessScen = scenIn
-  override implicit val gridSys: HGridSys = scenIn.gridSys
+  override implicit val gridSys: EGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideLayer[WSide] = scen.sTerrs
   val corners = scen.corners
@@ -81,7 +81,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tileFills ++ islands ++ tileActives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
+    tileBackFills ++ tileFills ++ islands ++ tileActives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
