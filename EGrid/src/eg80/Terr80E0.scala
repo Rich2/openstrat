@@ -70,9 +70,9 @@ object Terr80E0 extends Long80Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
-    res.setSomeInts(SCSea, 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
-    res.setSomeInts(SCSea, 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551,  485,545,  484,546)
-    res.setSomeInts(SCSea, 422,576, 433,551)
+    res.setSomeInts(WSideMid(), 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
+    res.setSomeInts(WSideMid(), 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551,  485,545,  484,546)
+    res.setSomeInts(WSideMid(), 422,576, 433,551)
     res
   }
 

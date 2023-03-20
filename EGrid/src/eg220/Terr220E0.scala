@@ -46,10 +46,10 @@ object Terr220E0 extends Long220Terrs
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
 
-    res.setSomeInts(SCSea,  157,507,  159,513,  160,514,  164,506,  165,505)//British Isles
-    res.setSomeInts(SCSea, 167,521,  167,523,  166,524,  165,525)//Denmark
+    res.setSomeInts(WSideMid(),  157,507,  159,513,  160,514,  164,506,  165,505)//British Isles
+    res.setSomeInts(WSideMid(), 167,521,  167,523,  166,524,  165,525)//Denmark
 
-    res.setSomeInts(SCSea, 141,503,  143,531,  144,534,  151,531,  152,530)//Mediterranean
+    res.setSomeInts(WSideMid(), 141,503,  143,531,  144,534,  151,531,  152,530)//Mediterranean
     res.setSomeInts(SRSea, 151,525)//Corsica north west
     res.setSomeInts(SLSea, 151,527,  150,528)
 

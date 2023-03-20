@@ -7,6 +7,7 @@ trait VSide extends Coloured// extends HSideGeom
 case object VSideNone extends VSide //with HSideNone
 { override val colour: Colour = Black
 }
+
 trait VSideSome extends VSide with HSideSome
 { def terr: VSTerr
   override def colour: Colour = terr.colour

@@ -45,12 +45,12 @@ object WTile
 }
 
 /** A common trait for Ocean and Lake. */
-trait Water extends WTile// WaterHas
+trait Water extends WTile with WSTerr// WaterHas
 { override def hasLand: Boolean = false
 }
 
 /** Sea. This is an object as currently has no other variables such as depth, current or climate. */
-case object Sea extends Water with ShowSimple//WSide
+case object Sea extends Water with  ShowSimple//WSide
 { override def str = "Ocean"
   override def colour: Colour = DarkBlue
 }

@@ -34,7 +34,7 @@ object Terr320E120 extends Long320Terrs
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
 
-    res.setSomeInts(SCSea, 131,4607,  131,4609,  132,4610,  131,4611,  130,4612)
+    res.setSomeInts(WSideMid(), 131,4607,  131,4609,  132,4610,  131,4611,  130,4612)
     res
   }
 

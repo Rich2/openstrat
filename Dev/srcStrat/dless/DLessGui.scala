@@ -38,7 +38,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     def straits: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
       val sTerr2 = sTerr.flatMap {
-        case s: WSideLands => Some(s)
+        case s: WSideMid => Some(s)
         case _ => None
       }
       sTerr2.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
