@@ -110,7 +110,7 @@ trait Coastal extends LandLike
   override def str: String = "Coastal"
 }
 
-case class Island(terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter6
+case class Island(terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent6
 {
 
 }
@@ -123,10 +123,17 @@ object Island
   }
 }
 
-case class Head5Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter5
-case class Head4Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter4
-case class Head3Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter3
-case class Head2Land(indentStartIndex: Int, terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HOuter2
+/** Headland surrounded by [[Water]] on 5 sides. */
+case class Head5Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent4
+
+/** Headland surrounded by [[Water]] on 4 sides. */
+case class Head4Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent3
+
+/** Headland surrounded by [[Water]] on 3 sides. */
+case class Head3Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent2
+
+/** Headland surrounded by [[Water]] on 3 sides. */
+case class Head2Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent1
 
 /*case class SeaIsland(terr: Terrain, biome: Biome) extends Island// with SeaHas
 { override def str: String = "SeaIsland"

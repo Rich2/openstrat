@@ -29,12 +29,12 @@ trait LandInner extends LandLike
   def sideTerrs: VSTerr
 }
 
-case class Island(terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HOuter6
+case class Island(terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent6
 
-case class Head5Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HOuter5
-case class Head4Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HOuter4
-case class Head3Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HOuter3
-case class Head2Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HOuter2
+case class Head5Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent4
+case class Head4Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent3
+case class Head3Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent2
+case class Head2Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent1
 
 object Plain extends LandTerr
 { override def colour: Colour = LightGreen

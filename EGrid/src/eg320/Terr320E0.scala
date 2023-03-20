@@ -21,8 +21,8 @@ object Terr320E0 extends Long320Terrs
     wr(148, sea * 3, taigaHills, taiga)
     wr(146, sea, hills, sea, plain, forest)
     wr(144, sea, plain, sea * 2, plain)
-    wr(142, sea, plain, plain * 2, plain * 2)
-    wr(140, sea, Head5Land(2, Hilly), plain * 4)
+    wr(142, sea, plain, plain, Head5Land(0), plain * 2)
+    wr(140, sea, Head5Land(2, Hilly), Head3Land(5), plain * 3)
     wr(138, sea * 2, plain * 2, hills, mtain * 2)
     wr(136, sea * 3, plain, hills, mtain, plain)
     wr(134, sea, hills * 3, sea, Island(Hilly), hills)
@@ -60,21 +60,18 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(146, 522, 2, HVUL)
     res.setCorner(146, 522, 1, HVUL)
 
-    res.setMouth1(140, 504)// St Georges Chanel
+    //res.setMouth1(140, 504)// St Georges Chanel
     res.setVert2In(142, 506)//Bristol
     res.setVert1In(142, 506)//Anglesey
     res.setMouth2(144, 504)//Scotland Northern Ireland
 
-    res.set4CornersIn(140, 508, 2, 7)
-    res.setMouth1(140, 508)
+    res.set4CornersIn(140, 508, 2, 7)//Devon and Cornwall
+    res.set4CornersIn(142, 514, 0, 7)
+    res.set2CornersIn(140, 512, 5, 7)//Normandy
 
-    //res.setMouth1(138, 506)// English Channel Atlantic end
-    //res.setVert2In(140, 508)//Le Mont St Michelle
-    //res.setVert5In(140, 512)//Exmouth - Cherbourg
-    res.setVert0In(140, 512)//Le Havre - Portsmouth
-    res.setVert3In(142, 514)//Dover - Calais
-    res.setVert2In(142, 514)//Margate - Antwerp
-    res.setMouth3(144, 516)//English Channel north east
+//    res.setVert3In(142, 514)//Dover - Calais
+//    res.setVert2In(142, 514)//Margate - Antwerp
+//    res.setMouth3(144, 516)//English Channel north east
 
     res.set6CornersIn(132, 520, 7)//Sardinia
     res.set6CornersIn(134, 522, 7)//Corsica

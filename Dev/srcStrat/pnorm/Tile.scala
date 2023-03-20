@@ -20,9 +20,9 @@ trait LandLike extends Tile
 
 case class Land(terr: LandTerr = Plain) extends LandLike
 
-case class Island(terr: LandTerr = Plain) extends LandLike with HOuter6
+case class Island(terr: LandTerr = Plain) extends LandLike with HIndent6
 
-case class Head1Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HOuter5
+case class Head1Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HIndent4
 
 object Plain extends LandTerr
 { override def colour: Colour = LightGreen
