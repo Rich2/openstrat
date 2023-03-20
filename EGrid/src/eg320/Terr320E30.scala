@@ -10,8 +10,9 @@ object Terr320E30 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-    gs(156, 1532, tundraHills * 2, sea)
-    gs(154, 1530, taigaHills, taiga * 2, tundra)
+
+    wr(156, Head2Land(5, Hilly, Tundra), Head2Land(0, Hilly, Tundra), sea)
+    wr(154, taigaHills, taiga * 2, tundra)
     wr(152, taiga, taiga, taiga, taiga)
     wr(150, taiga, taiga * 3)
     wr(148, taiga * 2, taiga * 3)
@@ -32,6 +33,10 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+
+    res.setSomeInts(WSideLt(), 157,1533,  157,1537,  156,1538)//North Norway
+    res.setSomeInts(WSideRt(), 156,1530,  157,1531,  157,1535)//North Norway
+
     res.setSomeInts(WSideMid(), 151,1539,  152,1538,  153,1537,  153,1539,  153,1541,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(WSideMid(Lake), 149, 1537)
     res.setSomeInts(WSideMid(), 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
@@ -44,6 +49,9 @@ object Terr320E30 extends Long320Terrs
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
+
+    res.set2CornersIn(156, 1532, 5, 7)//North Norway
+    res.set2CornersIn(156, 1536, 0, 7)//North Norway
 
     res.setMouth2(154, 1534)//White Sea north West
     res.setVert3In(154, 1542)//White Sea

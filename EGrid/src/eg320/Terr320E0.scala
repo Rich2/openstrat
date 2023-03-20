@@ -36,9 +36,11 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+
     res.setSomeInts(WSideMid(),  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
-    res.setSomeInts(WSideMid(),  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
-    //, 139,509,  140,510
+    //res.setSomeInts(WSideMid(),  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
+    res.setSomeInts(WSideRt(), 139,507,  140,506,  141,505,  142,504,  143,505,  144,506,  145,507)//British Isles
+
     res.setSomeInts(WSideBoth(), 133,521)//Sardinia - Corsica
     res.setSomeInts(WSideLt(), 135,523)//Corsica
     res.setSomeInts(WSideRt(), 135,521,  134,524)//Corsica
