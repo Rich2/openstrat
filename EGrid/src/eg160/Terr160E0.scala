@@ -39,8 +39,8 @@ object Terr160E0 extends Long160Terrs
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
+  override val sTerrs: HSideLayer[WSide] =
+  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
     res.setSomeInts(WSideMid(), 279,505,  281,515,  282,516,  284,502,  285,503,  286,504,  287,503,  288,502,  289,501,  289,529,  290,528,  290,532,  291,531)
     res.setSomeInts(WSideLt(), 269,533,  268,534)
     res
@@ -71,13 +71,13 @@ object Terr160E0 extends Long160Terrs
 /** 16okm terrain scenario for Britain */
 object Brit160
 { def britTerrs: HCenLayer[WTile] = EGrid160.britGrid.hCenLayerSpawn(Terr160E0.grid, Terr160E0.terrs)
-  def britSTerrs: HSideOptLayer[WSide] = EGrid160.britGrid.sideOptLayerSpawn(Terr160E0.grid, Terr160E0.sTerrs)
+  def britSTerrs: HSideLayer[WSide] = EGrid160.britGrid.sideLayerSpawn(Terr160E0.grid, Terr160E0.sTerrs)
   def britCorners: HCornerLayer = EGrid160.britGrid.cornerLayerSpawn(Terr160E0.grid, Terr160E0.corners)
 
   def britScen: EScenBasic = new EScenBasic
   { override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
     override val terrs: HCenLayer[WTile] = britTerrs
-    override val sTerrs: HSideOptLayer[WSide] = britSTerrs
+    override val sTerrs: HSideLayer[WSide] = britSTerrs
     override val corners: HCornerLayer = britCorners
   }
 }

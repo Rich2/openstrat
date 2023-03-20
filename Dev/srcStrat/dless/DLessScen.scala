@@ -7,7 +7,7 @@ trait DLessScen extends HSysTurnScen
 { ThisScen =>
   def title: String = "DLessScen"
   val terrs: HCenLayer[WTile]
-  val sTerrs: HSideOptLayer[WSide]
+  val sTerrs: HSideLayer[WSide]
   val corners: HCornerLayer
   val armies: HCenOptLayer[Army]
 
@@ -25,7 +25,7 @@ trait DLessScen extends HSysTurnScen
     new DLessScen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
       override val terrs: HCenLayer[WTile] = ThisScen.terrs
-      override val sTerrs: HSideOptLayer[WSide] = ThisScen.sTerrs
+      override val sTerrs: HSideLayer[WSide] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenOptLayer[Army] = armiesNew
       override def turn: Int = ThisScen.turn + 1
@@ -41,7 +41,7 @@ object DLessScen1 extends DLessScen
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124)
 
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   implicit val nations: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
 
@@ -68,7 +68,7 @@ object DLessScen2 extends DLessScen
   override implicit val gridSys: EGrid320Long = BritReg.britGrid
 
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
-  override val sTerrs: HSideOptLayer[WSide] = BritReg.britSTerrs
+  override val sTerrs: HSideLayer[WSide] = BritReg.britSTerrs
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
 }

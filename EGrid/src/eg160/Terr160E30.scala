@@ -49,8 +49,8 @@ object Terr160E30 extends Long160Terrs
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
+  override val sTerrs: HSideLayer[WSide] =
+  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
     res.setSomeInts(WSideMid(), 293,1525,  293,1527,  303,1543,  304,1542,  304,1546,  305,1545,  305,1547,  306,1548,  307,1549,  308,1550,  309,1549)
     res
   }

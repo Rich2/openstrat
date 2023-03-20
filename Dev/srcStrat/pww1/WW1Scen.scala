@@ -6,7 +6,7 @@ trait WW1Scen extends HSysTurnScen
 { ThisScen =>
   def title: String = "WWI scenario."
   val terrs: HCenLayer[WTile]
-  val sTerrs: HSideOptLayer[WSide]
+  val sTerrs: HSideLayer[WSide]
   val corners: HCornerLayer
   val armies: HCenOptLayer[Army]
 
@@ -24,7 +24,7 @@ trait WW1Scen extends HSysTurnScen
     new WW1Scen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
       override val terrs: HCenLayer[WTile] = ThisScen.terrs
-      override val sTerrs: HSideOptLayer[WSide] = ThisScen.sTerrs
+      override val sTerrs: HSideLayer[WSide] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenOptLayer[Army] = armiesNew
       override def turn: Int = ThisScen.turn + 1
@@ -36,7 +36,7 @@ object WW1Scen1 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E0.grid
   override val terrs: HCenLayer[WTile] = Terr120E0.terrs
-  override val sTerrs: HSideOptLayer[WSide] = Terr120E0.sTerrs
+  override val sTerrs: HSideLayer[WSide] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
   armies.setSomeMut(310, 514, Army(Britain))
@@ -48,7 +48,7 @@ object WW1Scen2 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E30.grid
   override val terrs: HCenLayer[WTile] = Terr120E30.terrs
-  override val sTerrs: HSideOptLayer[WSide] = Terr120E30.sTerrs
+  override val sTerrs: HSideLayer[WSide] = Terr120E30.sTerrs
   override val corners: HCornerLayer = Terr120E30.corners
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
 }

@@ -26,8 +26,8 @@ object Terr160W60 extends Long160Terrs
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
+  override val sTerrs: HSideLayer[WSide] =
+  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
     res
   }
 

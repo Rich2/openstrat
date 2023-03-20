@@ -102,6 +102,20 @@ trait EGridMulti extends EGridSys  with TGridMulti
     res
   }
 
+  def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSideLayer[A])], defaultA: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
+  { val res = newSideLayer[A](defaultA)
+    gridMansForeach { m =>
+      val pair = sidePairs(m.thisInd)
+      val origGrid = pair._1
+      val lay: HSideLayer[A] = pair._2
+      m.sidesForeach { hs =>
+        val value: A = lay(hs)(origGrid)
+        res.set(ThisMulti, hs, value)
+      }
+    }
+    res
+  }
+
   def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer =
   { val res = newSideBoolLayer
     gridMansForeach { m =>

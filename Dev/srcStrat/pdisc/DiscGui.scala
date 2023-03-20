@@ -1,12 +1,12 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pdisc
-import geom._, pEarth._, prid._, phex._, pgui._, egrid._
+import geom._, prid._, phex._, pgui._, egrid._
 
 case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("AD1492 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  val sTerrs: HSideLayer[WSide] = scen.sTerrs
   val corners = scen.corners
 
   focus = gridSys.cenVec
@@ -22,10 +22,11 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
 
     def actives: RArr[PolygonActive] = proj.tileActives
 
-    def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
+    def sides1: GraphicElems = RArr()
+      /*proj.sidesOptMap { (hs: HSide) =>
       val sTerr: Option[WSide] = sTerrs(hs)
       sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
-    }
+    }*/
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1 = hs.tileLt

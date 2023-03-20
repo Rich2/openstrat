@@ -3,14 +3,18 @@ package ostrat; package egrid
 import prid.phex._, Colour._
 
 trait WSide extends Coloured// with ShowSimple
-
+{
+  def nonEmpty: Boolean
+}
 case object WSideNone extends WSide //with HSideNone
 { override val colour: Colour = Black
+  override def nonEmpty: Boolean = false
 }
 
 trait WSideSome extends WSide with HSideSome
 { def terr: WSTerr
   override def colour: Colour = terr.colour
+  override def nonEmpty: Boolean = true
 }
 
 /** A Side between 2 lands. */

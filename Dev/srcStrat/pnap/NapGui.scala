@@ -6,7 +6,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   def terrs: HCenLayer[WTile] = scen.terrs
-  def sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  def sTerrs: HSideLayer[WSide] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def corps: HCenOptLayer[Corps] = scen.corps
   focus = gridSys.cenVec
@@ -27,10 +27,14 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
 
     //def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap { (st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
-    def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[WSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
+    def sides1: GraphicElems = RArr()
+    /*  proj.sidesOptMap { (hs: HSide) =>
+      val sTerr: WSide = sTerrs(hs)
+      sTerr match {
+        case st: WSideNone =>  corners.sideVerts (hs).project (proj).fill (st.colour)
+      }
     }
+    }*/
 
 
     /*def lines = proj.linkLineSegsOptMap { (hs, ls) =>

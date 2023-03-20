@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
-import prid._, phex._, egrid._, eg80._, pEarth._
+import prid._, phex._, egrid._, eg80._
 
 trait BCScen extends HSysTurnScen
 { ThisScen =>
@@ -8,7 +8,7 @@ trait BCScen extends HSysTurnScen
   override def title: String = "BC305 scenario"
 
   val terrs: HCenLayer[WTile]
-  val sTerrs: HSideOptLayer[WSide]
+  val sTerrs: HSideLayer[WSide]
   val corners: HCornerLayer
   val armies: HCenOptLayer[Legion]
 
@@ -23,14 +23,12 @@ trait BCScen extends HSysTurnScen
     val armiesNew: HCenOptLayer[Legion] = armies.clone
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
-    new BCScen {
-      override implicit def gridSys: HGridSys = ThisScen.gridSys
-
+    new BCScen
+    { override implicit def gridSys: HGridSys = ThisScen.gridSys
       override val terrs: HCenLayer[WTile] = ThisScen.terrs
-      override val sTerrs: HSideOptLayer[WSide] = ThisScen.sTerrs
+      override val sTerrs: HSideLayer[WSide] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenOptLayer[Legion] = armiesNew
-
       override def turn: Int = ThisScen.turn + 1
     }
   }
@@ -40,7 +38,7 @@ object BCScen1 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongMulti = EGrid80.multi(2, 0, 418)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
   armies.setSomeMut(434,562, Rome.lg(1) )
@@ -52,7 +50,7 @@ object BCScen2 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
-  override val sTerrs: HSideOptLayer[WSide] = Terr80E0.sTerrs
+  override val sTerrs: HSideLayer[WSide] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
   override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
 }

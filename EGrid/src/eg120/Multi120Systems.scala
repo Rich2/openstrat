@@ -16,7 +16,7 @@ object Scen120s0e1 extends EScenLongMulti
 { override val title: String = "120km 0E - 30E"
   override implicit val gridSys: EGrid120LongMulti = Grids120S0E1
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 //

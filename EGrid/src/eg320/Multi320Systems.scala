@@ -7,7 +7,7 @@ object Scen320s0e1 extends EScenLongMulti
 { override val title: String = "320km 0E - 30E"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124)// Grids320S0E1
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -24,7 +24,7 @@ object Scen320ChinaJapan extends EScenLongMulti
 { override val title: String = "320km 90E - 150E"
   implicit override val gridSys: EGrid320LongMulti = Grids320ChinaJapan
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -42,7 +42,7 @@ object Scen320S11E2 extends EScenLongMulti
 { override val title: String = "320km 30W - 60E"
   override implicit val gridSys: EGrid320LongMulti = Grids320S11E2
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -60,7 +60,7 @@ object Scen320S10E5 extends EScenLongMulti
 { override val title: String = "320km 60W - 150E"
   override implicit val gridSys: EGrid320LongMulti = Grids320S10E5
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -78,7 +78,7 @@ object Scen320S0E11 extends EScenLongMulti
 { override val title: String = "All longitude terrain only scenario."
   override implicit val gridSys: EGrid320LongMulti = Grids320S0E11
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -95,7 +95,7 @@ object Scen320S8E10 extends EScenLongMulti
 { override val title: String = "320km 120W - 90W"
   override implicit val gridSys: EGrid320LongMulti = Grids320S8E10
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -112,6 +112,6 @@ object ScenNCanada extends EScenLongMulti
 { override val title: String = "320km Far North Canada"
   implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

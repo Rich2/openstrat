@@ -1,11 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package sors
-import prid._, phex._, egrid._, eg320._, pEarth._
+import prid._, phex._, egrid._, eg320._
 
 trait SorsScen extends HSysTurnScen
 { def title: String = "DLessScen"
   val terrs: HCenLayer[WTile]
-  val sTerrs: HSideOptLayer[WSide]
+  val sTerrs: HSideLayer[WSide]
   val corners: HCornerLayer
 }
 
@@ -24,6 +24,6 @@ object SorsScen1 extends SorsScen
   }
 
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

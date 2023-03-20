@@ -68,8 +68,8 @@ object Terr80E0 extends Long80Terrs
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
+  override val sTerrs: HSideLayer[WSide] =
+  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
     res.setSomeInts(WSideMid(), 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
     res.setSomeInts(WSideMid(), 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551,  485,545,  484,546)
     res.setSomeInts(WSideMid(), 422,576, 433,551)
@@ -128,7 +128,7 @@ object WesternFront
   }
 
   def wfTerrs: HCenLayer[WTile] = wfGrid.hCenLayerSpawn(Terr80E0.grid, Terr80E0.terrs)
-  def wfSTerrs = wfGrid.sideOptLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
+  def wfSTerrs = wfGrid.sideLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
   def wfCorners: HCornerLayer = wfGrid.cornerLayerSpawn(Terr80E0.grid, Terr80E0.corners)
 
   def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")

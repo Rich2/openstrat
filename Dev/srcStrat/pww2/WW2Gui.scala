@@ -6,7 +6,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  val sTerrs: HSideLayer[WSide] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def armies: HCenOptLayer[Army] = scen.armies
 
@@ -28,10 +28,11 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
     def actives: RArr[PolygonActive] = proj.tileActives
 
-    def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[WSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
-    }
+    def sides1: GraphicElems = RArr()
+      /*proj.sidesOptMap { (hs: HSide) =>
+      val sTerr: WSide = sTerrs(hs)
+      corners.sideVerts(hs).project(proj).fill(sTerr.colour) }
+    }*/
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       val hc1 = hs.tileLt

@@ -19,7 +19,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   proj.setView(viewIn)
 
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  val sTerrs: HSideLayer[WSide] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match
@@ -48,8 +48,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def tileActives: RArr[PolygonActive] = polys.pairMap{ (hc, poly) => poly.active(hc) }
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[WSide] = sTerrs(hs)
-      val sTerr2 = sTerr.flatMap{
+      val sTerr: WSide = sTerrs(hs)
+      val sTerr2 = sTerr match {
         case s: WSideMid => Some(s)
         case _ => None
       }

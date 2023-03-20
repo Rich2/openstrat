@@ -42,8 +42,8 @@ object Terr120E0 extends Long120Terrs
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] =
-  { val res: HSideOptLayer[WSide] = grid.newSideOptLayer[WSide]
+  override val sTerrs: HSideLayer[WSide] =
+  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
     res.setSomeInts(WSideMid(), 319,499,  318,500,  317,501,  316,502,  315,501,  314,500,  321,499,  322,500,  323,501,  324,502,  325,505)//Britain
     res.setSomeInts(WSideMid(), 307,509,  307,511,  307,513,  308,514,  309,515)//English Channel
     res.setSomeInts(WSideMid(), 323,529,  317,533,  318,532,  318,536,  319,533,  319,539)//Denmark
@@ -83,7 +83,7 @@ object Terr120E0 extends Long120Terrs
 object BritReg120
 { def britGrid: EGrid120Long = EGrid120Long.reg(138, 148, 0, 504, 520)
   def britTerrs: HCenLayer[WTile] = britGrid.hCenLayerSpawn(Terr120E0.grid, Terr120E0.terrs)
-  def britSTerrs: HSideOptLayer[WSide] = britGrid.sideOptLayerSpawn(Terr120E0.grid, Terr120E0.sTerrs)
+  def britSTerrs: HSideLayer[WSide] = britGrid.sideLayerSpawn(Terr120E0.grid, Terr120E0.sTerrs)
   def britCorners: HCornerLayer = britGrid.cornerLayerSpawn(Terr120E0.grid, Terr120E0.corners)
 
   def regScen: EScenBasic = new EScenBasic
@@ -92,7 +92,7 @@ object BritReg120
 
     override val terrs: HCenLayer[WTile] = britTerrs
 
-    override val sTerrs: HSideOptLayer[WSide] = britSTerrs
+    override val sTerrs: HSideLayer[WSide] = britSTerrs
 
     //override val sTerrsDepr: HSideBoolLayer = britSTerrsDepr
     override val corners: HCornerLayer = britCorners
