@@ -20,46 +20,6 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   override def frame: GraphicElems =
   {
-    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour) }
-
-    val islands: GraphicElems = terrs.hcOptMap { (tile, hc) =>
-      tile match {
-        case island: Island => {
-          val poly = hc.vertsIn(7).map(hv => hv.toPt2(proj.transCoord))
-          Some(poly.fill(island.colour))
-        }
-        case _ => None
-      }
-    }
-    def tileActives: RArr[PolygonActive] = RArr()
-      /*proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.active(hc) }*/
-
-    def straits: GraphicElems = RArr()
-      /*proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[WSide] = sTerrs(hs)
-      val sTerr2 = sTerr.flatMap {
-        case s: WSideMid => Some(s)
-        case _ => None
-      }
-      sTerr2.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
-    }*/
-
-    def lines1: GraphicElems = proj.linksOptMap { hs =>
-      val hc1 = hs.tileLt
-      val t1 = terrs(hc1)
-      def t2: WTile = terrs(hs.tileRt)
-
-      if (sTerrs(hs).nonEmpty | t1.colour != t2.colour) None
-      else
-      { val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
-      }
-    }
-
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
     def hexStrs: RArr[TextGraphic] = terrs.hcOptFlatMap { (hc, terr) =>
@@ -81,7 +41,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tileBackFills ++ tileFills ++ islands ++ tileActives ++ straits ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
+    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

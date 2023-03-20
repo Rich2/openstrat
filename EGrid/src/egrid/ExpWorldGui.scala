@@ -31,7 +31,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
   def frame: RArr[GraphicElem] =
-  { val polys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
+  { def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
     def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
       tile match
@@ -43,35 +43,17 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       }
     }
 
-    def tileFrontFills: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+    def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
-    def tileActives: RArr[PolygonActive] = polys.pairMap{ (hc, poly) => poly.active(hc) }
+    def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
-    def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: WSide = sTerrs(hs)
-      val sTerr2 = sTerr match {
-        case s: WSideMid => Some(s)
-        case _ => None
-      }
-      sTerr2.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
-    }
+    def sideFills: GraphicElems = sTerrs.midsPolyMap(proj, corners){ (poly, st) => poly.fill(st.colour) }
 
-    /*def lines1: GraphicElems = proj.linksOptMap{ hs =>
-      val t1 = terrs(hs.tileLt)
-      val t2 = terrs(hs.tileRt)
-      if (sTerrs(hs).nonEmpty | t1.colour != t2.colour) None
-      else
-      { val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
-        Some(ls1.draw(t1.contrastBW))
-      }
-    }*/
+    def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       def t1: WTile = terrs(hs.tileLt)
-
       def t2: WTile = terrs(hs.tileRt)
-
       sTerrs(hs) match {
         case WSideNone if t1.colour == t2.colour => {
           val cs: (HCen, Int, Int) = hs.corners
@@ -107,7 +89,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileBackFills ++ tileFrontFills /*++ islands */++ tileActives ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {

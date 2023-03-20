@@ -18,15 +18,15 @@ trait WSideSome extends WSide with HSideSome
 }
 
 /** A Side between 2 lands. */
-case class WSideMid(terr: WSTerr = Sea) extends WSideSome
+case class WSideMid(terr: WSTerr = Sea) extends WSideSome with HSideMid
 
 /** A Side between 2 islands. */
 case class WSideBoth(terr: WSTerr = Sea) extends WSideSome
 
-/** A Side on the left tile. */
+/** A Side on the left tile. The main purpose of this class is that water hexs are lined off from the side terrain. */
 case class WSideLt(terr: WSTerr = Sea) extends WSideSome
 
-/** A Side on the right tile. */
+/** A Side on the right tile. The main purpose of this class is that water hexs are lined off from the side terrain. */
 case class WSideRt(terr: WSTerr = Sea) extends WSideSome
 
 trait WSTerr extends Coloured

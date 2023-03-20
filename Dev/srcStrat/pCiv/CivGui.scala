@@ -27,7 +27,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
       }
     }
 
-    def tileFills2: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }
+    def tileFillActives: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }
     def sideFills: GraphicElems = sTerrs.midsPolyMap(proj, corners){ (poly, st) => poly.fill(st.colour) }
     def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
@@ -52,7 +52,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
     def texts = lunits.projEmptyHcPtMap(proj){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW)}
 
-    tileFills1 ++ tileFills2 ++ unitFills ++ sideFills ++ sideActives ++ lines1 ++ texts
+    tileFills1 ++ tileFillActives ++ unitFills ++ sideFills ++ sideActives ++ lines1 ++ texts
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match

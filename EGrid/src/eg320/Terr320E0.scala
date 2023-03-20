@@ -27,7 +27,7 @@ object Terr320E0 extends Long320Terrs
     wr(136, sea * 3, plain, hills, mtain, plain)
     wr(134, sea, hills * 3, sea, Island(Hilly), hills)
     wr(132, sea, hills, plain * 2, sea, Island(Hilly), sea)
-    wr(130, sea, plain, hills * 2, sea * 2, hills, Island(Hilly))
+    wr(130, sea, Head4Land(3), hills * 2, sea * 2, hills, Island(Hilly))
     wr(128, sea * 2, hills * 5, sea)
     wr(126, sea * 2, mtain, desertHills, desert * 4)
     wr(124, sea * 2, hills, desert * 6)
@@ -38,8 +38,8 @@ object Terr320E0 extends Long320Terrs
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
 
     res.setSomeInts(WSideMid(),  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
-    //res.setSomeInts(WSideMid(),  141,507,  141,511,  141,513,  142,516,  141,515,  142,508, 143,507)//British Isles
     res.setSomeInts(WSideRt(), 139,507,  140,506,  141,505,  142,504,  143,505,  144,506,  145,507)//British Isles
+    res.setSomeInts(WSideLt(), 145,509,  144,510)
 
     res.setSomeInts(WSideBoth(), 133,521)//Sardinia - Corsica
     res.setSomeInts(WSideLt(), 135,523)//Corsica
@@ -59,17 +59,18 @@ object Terr320E0 extends Long320Terrs
     res.setVert4In(146, 522)//Copenhagen
     res.setCorner(146, 522, 3, HVUp)//Stralsund - Ystad
     res.setCorner(144, 520, 1, HVDn)//Stralsund - Ystad
-    res.setCorner(146, 522, 2, HVUL)
-    res.setCorner(146, 522, 1, HVUL)
+    res.setCorner(146, 522, 2, HVUL)//Sweden
+    res.setCorner(146, 522, 1, HVUL)//Sweden
 
     res.set4CornersIn(144, 508, 5, 7)//Northern Ireland
     res.set4CornersIn(142, 506, 2, 7)//Southern Ireland
-    res.setCornerIn(142, 510, 5)//Wales
-
+    res.setCornerIn(142, 510, 5, 7)//Wales
 
     res.set4CornersIn(140, 508, 2, 7)//Devon and Cornwall
     res.set3CornersIn(142, 514, 1, 7)//South east England
     res.set2CornersIn(140, 512, 5, 7)//Normandy
+
+    res.set3CornersIn(130, 502, 3, 7)
 
     res.set6CornersIn(132, 520, 7)//Sardinia
     res.set6CornersIn(134, 522, 7)//Corsica
