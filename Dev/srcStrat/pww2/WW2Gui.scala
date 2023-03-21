@@ -2,7 +2,7 @@
 package ostrat; package pww2
 import geom._, pEarth._, prid._, phex._, pgui._, egrid._
 
-case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW2 Gui")
+case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("WW2 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
@@ -20,34 +20,6 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
   override def frame: GraphicElems =
   {
-    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
-    }
-
-    //def tileFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
-
-    def actives: RArr[PolygonActive] = proj.tileActives
-
-    def sides1: GraphicElems = RArr()
-      /*proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: WSide = sTerrs(hs)
-      corners.sideVerts(hs).project(proj).fill(sTerr.colour) }
-    }*/
-
-    def lines1: GraphicElems = proj.linksOptMap { hs =>
-      val hc1 = hs.tileLt
-      val hc2 = hs.tileRt
-      val t1 = terrs(hc1)
-      val t2 = terrs(hc2)
-      if (sTerrs(hs).nonEmpty | t1 != t2) None
-      else {
-        val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
-      }
-    }
-
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
     def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
@@ -59,7 +31,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
     def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
-    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2 ++ units
+    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ hexStrs2 ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
