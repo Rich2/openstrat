@@ -22,9 +22,9 @@ object Terr320E30 extends Long320Terrs
     gs(140, 1528, plain * 6)
     gs(138, 1526, mtain * 2, hills, plain * 3, desert)
     gs(136, 1524, hills, plain * 2, sea, plain * 3)
-    gs(134, 1526, hills * 3, sea * 3, mtain)
-    gs(132, 1524, hills * 7)
-    wr(130, hills * 2, sea, hills * 5)
+    gs(134, 1526, hills * 2, Head3Land(1, Hilly), sea * 3, mtain)
+    gs(132, 1524, Head2Land(1, Hilly), hills, Head3Land(4, Hilly), hills * 4)
+    wr(130, Head2Land(2, Hilly), Head4Land(3, Hilly), Head3Land(1, Hilly), Head2Land(3, Hilly), hills * 4)
     wr(128, sea * 2, Island(Hilly), sea, Island(Hilly), hills, desert * 2)
     wr(126, sea, desert, sea * 3, hills, desert * 2)
     wr(124, desert * 4, plain, desert * 4)
@@ -40,12 +40,13 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(WSideMid(), 151,1539,  152,1538,  153,1537,  153,1539,  153,1541,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(WSideMid(Lake), 149, 1537)
     res.setSomeInts(WSideMid(), 145,1527,  146,1528,  147,1529,  147,1531, 147,1533,  148,1530,  149,1531,  150,1532,  151,1533,  152,1534)//Baltic
-    res.setSomeInts(WSideMid(), 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
+    res.setSomeInts(WSideMid(), 131, 1527, 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(WSideMid(), 130,1524,  131,1525,  132,1526,  132,1530)
-    res.setSomeInts(WSideMid(), 133,1531,  133,1533,  133,1535)//Boshphorus
+    res.setSomeInts(WSideMid(), 133,1531,  133,1533,  133,1535)//Bosphorus
     res.setSomeInts(WSideLt(), 130,1520, 131,1521)//Sicily - Italy
-    res.setSomeInts(WSideLt(), 129,1541,  128,1542, 127,1541)//East Cyprus
-    res.setSomeInts(WSideRt(), 129,1539,  128,1538, 127,1539)//West Cyprus
+    res.setSomeInts(WSideRt(), 127,1531,  128,1530,  129,1531,  129,1539,  128,1538, 127,1539)//West Crete and Cyprus
+    res.setSomeInts(WSideLt(), 127,1533,  128,1534,  129,1533,  129,1541,  128,1542, 127,1541)//East Crete and Cyprus
+
     res
   }
 
@@ -96,17 +97,17 @@ object Terr320E30 extends Long320Terrs
     res.setCorner(134, 1526, 5, HVUR)//Adriatic
     res.setCornerIn(134, 1526, 4)//Adriatic
     res.setCorner(132, 1524, 0, HVDL)//Adriatic
-    res.setVert1In(132, 1524)//Adriatic
-    res.setVert2In(132, 1524)//Adriatic
-    res.setVert5In(130, 1526)//Adriatic
-    res.setMouth0(128, 1524)//Greece Italy
+    res.set2CornersIn(132, 1524, 1, 7)//Italy Heel
+    res.set2CornersIn(130, 1522, 2, 7)//Italy Toe
 
-    res.set6CornersIn(128, 1540, 7)
-    res.setMouth0(130, 1530)//Aegean
-    res.setVert5In(132, 1532)//Aegean north
-    res.setVert0In(132, 1532)//Gallipoli
-    res.setVert3In(134, 1534)//Sea of Marmara
-    res.setMouth4(134, 1538)//Constantinople
+    res.set6CornersIn(128, 1532, 7)//Crete
+    res.set6CornersIn(128, 1540, 7)//Cyprus
+    res.set3CornersIn(134, 1534, 1, 7)//Thrace
+    res.set4CornersIn(130, 1526, 3, 7)//Peloponnesian Peninsular
+    res.set3CornersIn(130, 1530, 1, 7)//Athens
+    res.setMouth5(130, 1530)
+    res.set3CornersIn(132, 1532, 4, 7)//North east Anatolia
+    res.set2CornersIn(130, 1534, 3, 7)//South east Anatolia
 
     res
   }
