@@ -37,8 +37,6 @@ object Terr220E0 extends Long220Terrs
     wr(140, sea * 3, hills, desertHills * 2, desert * 2, desertHills * 2, sea * 2)
     wr(138, sea * 3, desert, desertHills, desert * 7)
     wr(136, sea * 3, mtain * 2, desert * 8)
-    wr(134, sea, desertHills * 2, desert * 10)
-    wr(132, sea, desert * 12)
 
     res
   }
@@ -89,6 +87,14 @@ object Terr220E0 extends Long220Terrs
 
     res
   }
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
+    override val rowDatas: RArr[TRow] = RArr(
+      TRow(134, sea, Head2Land(5, Hilly, Desert), desertHills, desert * 10),
+      TRow(132, sea, desert * 12)
+    )
+  }
+  help.run
 }
 
 object BritReg220

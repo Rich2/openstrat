@@ -221,6 +221,9 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def set6CornersIn(cenR: Int, cenC: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
     iUntilForeach(6) { i => setCornerIn(cenR, cenC, i, magnitude) }
 
+  def setNCornersIn(cenR: Int, cenC: Int, numIndents: Int, firstVertNum: Int, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+    iUntilForeach(numIndents) { i => setCornerIn(cenR, cenC, (firstVertNum + i) %% 6, magnitude) }
+
   /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
   def setCornerPair(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, dirn2: HVDirnOpt, magnitude1: Int = 3, magnitude2: Int = 3)(
     implicit gridSys: HGridSys): Unit = setCornerPair(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
