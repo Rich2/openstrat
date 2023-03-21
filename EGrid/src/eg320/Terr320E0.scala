@@ -27,8 +27,8 @@ object Terr320E0 extends Long320Terrs
     wr(136, sea * 3, plain, hills, mtain, plain)
     wr(134, sea, hills * 3, sea, Island(Hilly), hills)
     wr(132, sea, hills, plain * 2, sea, Island(Hilly), sea)
-    wr(130, sea, Head4Land(3), hills * 2, sea * 2, hills, Island(Hilly))
-    wr(128, sea * 2, hills * 5, sea)
+    wr(130, sea, Head4Land(3), Head1Land(3, Hilly), Head2Land(2, Hilly), sea * 2, Head3Land(5, Hilly), Head4Land(3, Hilly))
+    wr(128, sea, Head3Land(4, Hilly), Head1Land(0, Hilly), hills * 3, Head1Land(1, Hilly), sea)
     wr(126, sea * 2, mtain, desertHills, desert * 4)
     wr(124, sea * 2, hills, desert * 6)
     res
@@ -41,12 +41,14 @@ object Terr320E0 extends Long320Terrs
     res.setSomeInts(WSideRt(), 139,507,  140,506,  141,505,  142,504,  143,505,  144,506,  145,507)//British Isles
     res.setSomeInts(WSideLt(), 145,509,  144,510)
 
-    res.setSomeInts(WSideBoth(), 133,521)//Sardinia - Corsica
-    res.setSomeInts(WSideLt(), 135,523)//Corsica
-    res.setSomeInts(WSideRt(), 135,521,  134,524)//Corsica
-    res.setSomeInts(WSideMid(), 129,507,  129,509,  129,511,  134,528,  135,527,  136,526)//Mediterranean
-    res.setSomeInts(WSideRt(), 129,525)//Sicily - Tunis
-    res.setSomeInts(WSideLt(), 130,528,  131,527)//Sicily - Italy
+    res.setSomeInts(WSideBoth(), 129,505, 129,507,  129,509,  129,511)//Alboran Sea
+
+    res.setSomeInts(WSideBoth(), 131,521,  133,521,  130,524,  129,525)//Tunis - Sardinia - Corsica
+    res.setSomeInts(WSideLt(), 132,522, 133,523,  134,524,  135,523)//Sardinia, Corsica
+    res.setSomeInts(WSideRt(), 131,519,  132,518,  133,519,  134,520,  134,524,  135,521,  131,525)//Sardiaia, Corsica
+    res.setSomeInts(WSideMid(),  134,528,  135,527,  136,526)//Mediterranean
+    res.setSomeInts(WSideRt(), 130,520,  129,525)//Sicily - Tunis
+    res.setSomeInts(WSideLt(), 130,528,  131,523,  129,527,  131,527)//North Africa, Sicily - Italy
     res
   }
 
@@ -70,7 +72,14 @@ object Terr320E0 extends Long320Terrs
     res.set3CornersIn(142, 514, 1, 7)//South east England
     res.set2CornersIn(140, 512, 5, 7)//Normandy
 
-    res.set3CornersIn(130, 502, 3, 7)
+    res.set3CornersIn(130, 502, 3, 7)//South west Spain
+    res.setCornerIn(130, 506, 3, 7)//Gibraltar
+    res.set2CornersIn(130, 510, 2, 7)//South west Spain
+    res.set3CornersIn(128, 504, 4, 7)//Tangiers
+    res.setCornerIn(128, 508, 0, 7)//East Morocco
+    res.set3CornersIn(130, 522, 5, 7)//Tunisia
+    res.setCornerIn(128, 524, 1, 7)//Tunisia east
+    res.set4CornersIn(130, 526, 3, 7)//Sicilly
 
     res.set6CornersIn(132, 520, 7)//Sardinia
     res.set6CornersIn(134, 522, 7)//Corsica
@@ -81,11 +90,6 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(134, 526, 0, HVDL)//Adriatic San Marino
     res.setCornerIn(134, 526, 1)//Adriatic
     res.setCorner(134, 526, 2, HVDL)//Adriatic
-
-    res.setMouth1(128, 504)//Gibraltar
-    res.setVert0In(128, 508)//South Spain
-    res.setVert3In(130, 510)//South Spain
-    res.setMouth4(130, 514)//East end of Gibraltar Straits
 
     res
   }
