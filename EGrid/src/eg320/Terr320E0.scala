@@ -95,6 +95,14 @@ object Terr320E0 extends Long320Terrs
 
     res
   }
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[TRow] = RArr(
+     // TRow(134, sea, Head2Land(5, Hilly, Desert), desertHills, desert * 10),
+      //TRow(132, sea, desert * 12)
+    )
+  }
+  help.run
+
 }
 
 object BritReg

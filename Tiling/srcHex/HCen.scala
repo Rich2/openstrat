@@ -70,6 +70,33 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def vertsIn(magnitude: Int): PolygonHVAndOffset =
     PolygonHVAndOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
 
+  /** Up right side. From vert 0 to vert 1. */
+  def s0: HSide = HSide(r + 1, c + 1)
+
+  /** Right side. From vert 1 to vert 2. */
+  def s1: HSide = HSide(r, c + 2)
+
+  /** Down right side. From vert 2 to vert 3. */
+  def s2: HSide = HSide(r - 1, c - 1)
+
+  /** Down left side. From vert 3 to vert 4. */
+  def s3: HSide = HSide(r - 1, c - 1)
+
+  /** Left side. From vert 4 to vert 5. */
+  def s4: HSide = HSide(r, c - 2)
+
+  /** Up left side. From vert 5 to vert 0. */
+  def s5: HSide = HSide(r + 1, c - 1)
+
+  def side(index: Int): HSide = (index %% 6) match
+  { case 0 => s0
+    case 1 => s1
+    case 2 => s2
+    case 3 => s3
+    case 4 => s4
+    case 5 => s5
+  }
+
   def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
   def active(id: AnyRef = this): PolygonActive = polygonReg.active(id)
   override def typeStr: String = "HCen"

@@ -1,10 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import prid._
-import phex._
-import egrid._
-import WTile._
-import ostrat.eg220.WTerrSetter
+import prid.phex._, egrid._, WTile._
 
 object Terr320E30 extends Long320Terrs
 {
