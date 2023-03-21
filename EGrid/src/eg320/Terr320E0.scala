@@ -19,7 +19,7 @@ object Terr320E0 extends Long320Terrs
     wr(152, sea * 3, taigaHills)
     wr(150, sea * 3, taigaHills)
     wr(148, sea * 3, taigaHills, taiga)
-    wr(146, sea, hills, sea, plain, forest)
+    wr(146, sea, hills, sea, Head4Land(4), forest)
     wr(144, sea, Head4Land(5), plain, sea, plain)
     wr(142, sea, Head4Land(2), Head1Land(5), Head3Land(1), plain * 2)
     wr(140, sea, Head4Land(2, Hilly), Head2Land(5), plain * 3)
@@ -37,9 +37,12 @@ object Terr320E0 extends Long320Terrs
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
 
-    res.setSomeInts(WSideMid(),  145,521,  145,523,  146,520,  146,524,  147,517,  147,519)//Scandinavia
+    res.setSomeInts(WSideMid(), 146,520,  145,521,  145,523,  146,524)//Scandinavia
+    res.setSomeInts(WSideRt(), 145,517,  146,516,  147,517)//Denmark west
+    res.setSomeInts(WSideLt(), 147,519)//Denmark
+
     res.setSomeInts(WSideRt(), 139,507,  140,506,  141,505,  142,504,  143,505,  144,506,  145,507)//British Isles
-    res.setSomeInts(WSideLt(), 145,509,  144,510)
+    res.setSomeInts(WSideLt(), 145,509,  144,510)//British Isles
 
     res.setSomeInts(WSideBoth(), 129,505, 129,507,  129,509,  129,511)//Alboran Sea
 
@@ -55,9 +58,8 @@ object Terr320E0 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
-    res.setMouth1(146, 514)//Skagerrack west
-    res.setVert0In(146, 518)//Oslo
-    res.setVert1In(146, 518)//Gothenberg
+    res.set4CornersIn(146, 518, 4, 7)
+
     res.setVert4In(146, 522)//Copenhagen
     res.setCorner(146, 522, 3, HVUp)//Stralsund - Ystad
     res.setCorner(144, 520, 1, HVDn)//Stralsund - Ystad

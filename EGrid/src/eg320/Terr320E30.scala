@@ -44,6 +44,8 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(WSideMid(), 130,1524,  131,1525,  132,1526,  132,1530)
     res.setSomeInts(WSideMid(), 133,1531,  133,1533,  133,1535)//Boshphorus
     res.setSomeInts(WSideLt(), 130,1520, 131,1521)//Sicily - Italy
+    res.setSomeInts(WSideLt(), 129,1541,  128,1542, 127,1541)//East Cyprus
+    res.setSomeInts(WSideRt(), 129,1539,  128,1538, 127,1539)//West Cyprus
     res
   }
 
@@ -99,7 +101,7 @@ object Terr320E30 extends Long320Terrs
     res.setVert5In(130, 1526)//Adriatic
     res.setMouth0(128, 1524)//Greece Italy
 
-
+    res.set6CornersIn(128, 1540, 7)
     res.setMouth0(130, 1530)//Aegean
     res.setVert5In(132, 1532)//Aegean north
     res.setVert0In(132, 1532)//Gallipoli
