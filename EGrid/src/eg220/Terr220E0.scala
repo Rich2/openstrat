@@ -33,10 +33,7 @@ object Terr220E0 extends Long220Terrs
     wr(148, sea * 2, plain * 4, sea * 4, hills)
     wr(146, sea, plain * 4, sea * 3, hills, sea * 2)
     wr(144, sea * 2, plain * 3, sea * 5, hills)
-    wr(142, sea * 3, hills, sea * 3, hills * 4, sea)
-    wr(140, sea * 3, hills, desertHills * 2, desert * 2, desertHills * 2, sea * 2)
-    wr(138, sea * 3, desert, desertHills, desert * 7)
-    wr(136, sea * 3, mtain * 2, desert * 8)
+
 
     res
   }
@@ -47,7 +44,7 @@ object Terr220E0 extends Long220Terrs
     res.setSomeInts(WSideMid(),  157,507,  159,513,  160,514,  164,506,  165,505)//British Isles
     res.setSomeInts(WSideMid(), 167,521,  167,523,  166,524,  165,525)//Denmark
 
-    res.setSomeInts(WSideMid(), 141,503,  143,531,  144,534,  151,531,  152,530)//Mediterranean
+    res.setSomeInts(WSideMid(), 144,534,  151,531,  152,530)//Mediterranean
     res.setSomeInts(WSideRt(), 151,525)//Corsica north west
     res.setSomeInts(WSideLt(), 151,527,  150,528)
 
@@ -77,10 +74,6 @@ object Terr220E0 extends Long220Terrs
     res.setMouth5(150, 534)//Adriatic
     res.setMouth2Corner(150, 534)
 
-    res.setMouth1(140, 500)//Straits of Gibraltar west
-    res.setMouth4(142, 506)//Straits of Gibraltar east
-    res.setMouth2(144, 528)//Tunis Sicily north west
-    res.setMouth5(142, 534)//Tunis Sicily north west
     res.setMouth3Corner(146, 534)//Sicily - Italy north
     res.setCorner(144, 532, 2, HVUL)//Sicily - Italy south
     res.setMouth0Corner(142, 534)//Sicily - Italy south
@@ -91,7 +84,11 @@ object Terr220E0 extends Long220Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[TRow] = RArr(
-      TRow(134, sea, Head2Land(5, Hilly, Desert), desertHills, desert * 10),
+      TRow(142, sea * 3, Head3Land(2, Hilly), sea * 2, hills * 4, Head3Land(0, Hilly), sea),
+      TRow(140, sea * 2, Head2Land(5, Hilly), hills, desertHills * 2, desert * 2, desertHills * 2, sea * 2),
+      TRow(138, sea * 2, plain, desert, desertHills, desert * 7),
+      TRow(136, sea * 2, mtain * 3, desert * 8),
+      TRow(134, sea, desertHills * 2, desert * 10),
       TRow(132, sea, desert * 12)
     )
   }

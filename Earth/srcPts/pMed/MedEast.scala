@@ -99,16 +99,15 @@ object Sinai extends EArea2("Sinai", 29.88 ll 33.75, Deserts)
   override val polygonLL: PolygonLL = PolygonLL(eGaza, eilat, south, suez, portSaid)
 }
 
-/** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaWest]] and [[Sinai]]. */
+/** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
 object SaharaEast extends EArea2("Sahara\neast", 24 ll 25, Deserts)
-{ val elAgheila: LatLong = 30.12 ll 19.08
-  val benghazi: LatLong = 32.12 ll 20.05
+{ val benghazi: LatLong = 32.12 ll 20.05
   val derna: LatLong = 32.93 ll 22.15
   val p90: LatLong = 30.82 ll 29.09
   val baltim: LatLong = 31.60 ll 31.01
   val p5: LatLong = 29.59 ll 32.34
   val southEast: LatLong = 17 ll 39.4
 
-  val polygonLL: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, p90, baltim, Sinai.portSaid,
+  override val polygonLL: PolygonLL = PolygonLL(SaharaCentral.southEast, SaharaCentral.elAgheila, benghazi, derna, p90, baltim, Sinai.portSaid,
     Sinai.suez, p5, southEast)
 }

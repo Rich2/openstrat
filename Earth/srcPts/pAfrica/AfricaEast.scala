@@ -13,6 +13,6 @@ object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, Plain)
   val southEast = WestAfricaSouth.cAfricaN * 48.east
   val cAfricaNE = WestAfricaSouth.cAfricaN * 32.east
     
-  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaWest.southEast, pMed.SaharaEast.southEast, dankalia, berbera, hornAfrica, iskushuban1,
+  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, pMed.SaharaEast.southEast, dankalia, berbera, hornAfrica, iskushuban1,
     iskushuban2, rasMacbar, southEast, cAfricaNE)
 }

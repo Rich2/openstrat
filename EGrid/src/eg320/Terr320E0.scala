@@ -28,9 +28,8 @@ object Terr320E0 extends Long320Terrs
     wr(134, sea, hills * 3, sea, Island(Hilly), hills)
     wr(132, sea, hills, plain * 2, sea, Island(Hilly), sea)
     wr(130, sea, Head4Land(3), Head1Land(3, Hilly), Head2Land(2, Hilly), sea * 2, Head3Land(5, Hilly), Head4Land(3, Hilly))
-    wr(128, sea, Head3Land(4, Hilly), Head1Land(0, Hilly), hills * 3, Head1Land(1, Hilly), sea)
-    wr(126, sea * 2, mtain, desertHills, desert * 4)
-    wr(124, sea * 2, hills, desert * 6)
+    wr(128, sea, Head2Land(5, Hilly), Head1Land(0, Hilly), hills * 3, Head1Land(1, Hilly), sea)
+
     res
   }
 
@@ -77,7 +76,7 @@ object Terr320E0 extends Long320Terrs
     res.set3CornersIn(130, 502, 3, 7)//South west Spain
     res.setCornerIn(130, 506, 3, 7)//Gibraltar
     res.set2CornersIn(130, 510, 2, 7)//South west Spain
-    res.set3CornersIn(128, 504, 4, 7)//Tangiers
+    res.set2CornersIn(128, 504, 5, 7)//Tangiers
     res.setCornerIn(128, 508, 0, 7)//East Morocco
     res.set3CornersIn(130, 522, 5, 7)//Tunisia
     res.setCornerIn(128, 524, 1, 7)//Tunisia east
@@ -97,8 +96,9 @@ object Terr320E0 extends Long320Terrs
   }
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[TRow] = RArr(
-     // TRow(134, sea, Head2Land(5, Hilly, Desert), desertHills, desert * 10),
-      //TRow(132, sea, desert * 12)
+      //TRow
+      TRow(126, sea, Head1Land(5), mtain, desertHills, desert * 4),
+      TRow(124, sea, desertHills, hills, desert * 6),
     )
   }
   help.run

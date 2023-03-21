@@ -77,7 +77,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def s1: HSide = HSide(r, c + 2)
 
   /** Down right side. From vert 2 to vert 3. */
-  def s2: HSide = HSide(r - 1, c - 1)
+  def s2: HSide = HSide(r - 1, c + 1)
 
   /** Down left side. From vert 3 to vert 4. */
   def s3: HSide = HSide(r - 1, c - 1)

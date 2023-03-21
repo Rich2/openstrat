@@ -77,19 +77,22 @@ object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hill)
     capoFalcone, platamona)
 }
 
-object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, Deserts)
-{ val southLine = 17.north
-  val eastLine = 16.75.east
-  val northEast = 31.2.north *  eastLine
+/** [[PolygonLL]] graphic for west Sahara depends on nothing. */
+object Maghreb extends EArea2("Maghreb", 33 ll 2.32, Deserts)
+{ val neTunis = 37.07 ll 11.04
+  val p28 = 36.87 ll 11.14
+  val p30 = 36.46 ll 10.81
+  val p32 = 36.17 ll 10.44
+  val chebba = 35.23 ll 11.16
+  val sTunis = 33.30 ll 10.08
+  val southEast = 30.42 ll 10.08
 
-  val southWest = southLine * 16.27.west
-  val nouakchott = 18.078 ll -16.02
-  val nouadhibouBay = 21.28 ll -16.90
-  val nouadhibou = 20.77 ll -17.05
-  val nou2 = 21.27 ll -17.04
-  val boujdour = 26.13 ll -14.50
-  val agadir = 30.16 ll -9.24
-  val rabat = 34.03 ll -6.83
+  val agadir = 30.42 ll -9.61
+  val agadirPort = 30.43 ll -9.65
+  val capSim = 31.39 ll -9.84
+  val capTin = 32.54 ll -9.28
+  val elJadida = 33.26 ll -8.51
+  val rabat = 34.04 ll -6.83
   val tangierW = 35.79 ll -5.92
   val ceuta = 35.88 ll -5.31
   val alHoceima = 35.15 ll -4.38
@@ -108,16 +111,20 @@ object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, Deserts)
   val capTarf = 37.18 ll 10.28
   val tunis = 37.08 ll 10.20
   val p27 = 36.71 ll 10.41
-  val neTunis = 37.07 ll 11.04
-  val p28 = 36.87 ll 11.14
-  val p30 = 36.46 ll 10.81
-  val p32 = 36.17 ll 10.44
-  val chebba = 35.23 ll 11.16
-  val sTunis = 33.30 ll 10.08
-  val misrata = 32.37 ll 15.03
-  val southEast = southLine * eastLine
 
-  val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima,
-    biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22, plageLota, capAlAouna, lePointNoir, capSerat, p25, capTarf, tunis, p27, neTunis, p28, p30, p32,
-    chebba, sTunis, misrata, northEast, southEast)
+  override val polygonLL: PolygonLL = PolygonLL(neTunis, p28, p30, p32,chebba, sTunis, southEast,
+    agadir, agadirPort, capSim, capTin, elJadida, rabat, tangierW, ceuta, alHoceima, biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22, plageLota, capAlAouna,
+    lePointNoir, capSerat, p25, capTarf, tunis, p27)
+}
+
+
+/** [[PolygonLL]] graphic for Canaries depends on [[Maghreb]]. */
+object SaharaCentral extends EArea2("Sahara\nwest", 26 ll 16, Hill)
+{ val misrata: LatLong = 32.37 ll 15.03
+  val p80: LatLong = 31.07 ll 17.39
+  val elAgheila: LatLong = 30.12 ll 19.08
+  val southEast: LatLong = 17 ll 16.75
+  val southWest: LatLong = 17 ll 10.08
+
+  override val polygonLL: PolygonLL = PolygonLL(p80, elAgheila, southEast, southWest, Maghreb.sTunis, misrata)
 }
