@@ -89,7 +89,7 @@ object Terr320E30 extends Long320Terrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(156, Head2Land(5, Hilly, Tundra), Head2Land(0, Hilly, Tundra), sea),
       TRow(154, taigaHills, taiga * 2, Head4Land(0, Plains, Tundra)),
-      VRow(153, MouthDn(1534)),
+      VRow(153, MouthUp(1534)),
       TRow(152, Head1Land(2, Plains, Taiga), taiga, sea, taiga),
       VRow(151, VertInDR(1532)),
       TRow(150, Head1Land(2, Plains, Taiga), taiga * 3),
