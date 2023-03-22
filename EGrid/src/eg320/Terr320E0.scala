@@ -9,29 +9,9 @@ import prid._, phex._, egrid._, WTile._
 object Terr320E0 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.e0(124)
-
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-
-    //res.setSomeInts(WSideBoth(),  130,524,  129,525, 131,521)//,  133,521)//Tunis - Sardinia - Corsica
-
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res: HCornerLayer = grid.newHVertOffsetLayer
-
-    //res.setMouth3Corner(138, 526)//Adriatic head
-    //res.setCornerIn(136, 524, 1)//Adriatic head
-    //res.setCorner(136, 524, 2, HVDL)//Adriatic San Marino
-    //res.setCorner(134, 526, 0, HVDL)//Adriatic San Marino
-    //res.setCornerIn(134, 526, 1)//Adriatic
-   // res.setCorner(134, 526, 2, HVDL)//Adriatic
-
-    res
-  }
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
@@ -48,8 +28,9 @@ object Terr320E0 extends Long320Terrs
       TRow(138, sea * 2, plain * 2, hills, mtain * 2),
       VRow(137, MouthUp(526)),
       TRow(136, sea * 3, plain, hills, mtain, plain),
-      VRow(135, VertInUR(526)),
+      VRow(135, VertInUR(526), VertInDL(528)),
       TRow(134, sea, hills * 3, sea, Island(Hilly), hills),
+      VRow(133, VertInUR(528)),
       TRow(132, sea, hills, plain * 2, sea, Island(Hilly), sea),
       TRow(130, sea, Head3Land(3), Head1Land(3, Hilly), Head2Land(2, Hilly), sea * 2, Head3Land(5, Hilly), Head4Land(3, Hilly)),
       TRow(128, sea, Head2Land(5, Hilly), Head1Land(0, Hilly), hills * 3, Head1Land(1, Hilly), sea),

@@ -15,10 +15,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   /** Creates the head of a strait / river with the head up and the river going down. */
   case class MouthUp(c: Int, st: WSTerr = Sea) extends VRowElem
 
-  case class VertInDR(c: Int, WSTerr: WSTerr = Sea) extends VRowElem
+
   case class VertInUR(c: Int, st1: WSTerr = Sea, st2: WSTerr = Sea) extends VRowElem
-
-
+  case class VertInDR(c: Int, st1: WSTerr = Sea, st2: WSTerr = Sea) extends VRowElem
+  case class VertInDL(c: Int, st1: WSTerr = Sea, st2: WSTerr = Sea) extends VRowElem
   case class VertInUp(c: Int, st1: WSTerr = Sea, st2: WSTerr = Sea) extends VRowElem
 
   val rowDatas: RArr[RowBase]
@@ -60,16 +60,22 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
           sTerrs.set(row - 1, c, WSideMid(st))
         }
 
-        case VertInDR(c, st) =>
-        { corners.setVert5In(row - 1, c + 2)
-          sTerrs.set(row, c + 1, WSideMid(st))
-          sTerrs.set(row - 1, c, WSideMid(st))
-        }
-
         case VertInUR(c, st1, st2) =>
         { corners.setVert4In(row + 1, c + 2)
           sTerrs.setIf(row + 1, c, WSideMid(st1))
           sTerrs.setIf(row, c + 1, WSideMid(st2))
+        }
+
+        case VertInDR(c, st1, st2) => {
+          corners.setVert5In(row - 1, c + 2)
+          sTerrs.set(row, c + 1, WSideMid(st1))
+          sTerrs.set(row - 1, c, WSideMid(st2))
+        }
+
+        case VertInDL(c, st1, st2) => {
+          corners.setVert1In(row - 1, c - 2)
+          sTerrs.set(row, c - 1, WSideMid(st1))
+          sTerrs.set(row - 1, c, WSideMid(st2))
         }
 
         case VertInUp(c, st1, st2) =>
