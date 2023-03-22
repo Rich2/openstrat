@@ -24,6 +24,20 @@ trait HSideLayerAny[A]
     unsafeArray(i) = value
   }
 
+  def setIf(hs: HSide, value: A)(implicit grid: HGrid, ct: ClassTag[A]): Unit =
+  { if(grid.ifSideExists(hs))
+    { val i = grid.sideLayerArrayIndex(hs)
+      unsafeArray(i) = value
+    }
+  }
+
+  def setIf(r: Int, c: Int, value: A)(implicit grid: HGrid, ct: ClassTag[A]): Unit =
+  { if(grid.ifSideExists(r, c))
+    { val i = grid.sideLayerArrayIndex(r, c)
+       unsafeArray(i) = value
+    }
+  }
+
   /** Swts the [[HSide]]s specified by their Int parameters to rhe given value. */
   def setSomeInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit =
   {  val len = hSideInts.length / 2

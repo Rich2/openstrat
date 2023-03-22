@@ -41,25 +41,21 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
 
   /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
-  /*def setCornerIf(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirnOpt, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
-  {
-    val corner = HCorner.single(dirn, magnitude)
-    val index = unsafeIndex(cenR, cenC, vertNum)
-    unsafeArray(index) = corner.unsafeInt
-  }*/
-
-  /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirnOpt, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { val corner = HCorner.single(dirn, magnitude)
-    val index = unsafeIndex(cenR, cenC, vertNum)
-    unsafeArray(index) = corner.unsafeInt
+  { if(grid.hCenExists(cenR, cenC))
+    { val corner = HCorner.single(dirn, magnitude)
+      val index = unsafeIndex(cenR, cenC, vertNum)
+      unsafeArray(index) = corner.unsafeInt
+    }
   }
 
   /** Sets a single [[HCorner]] with 1 [[HVOffset]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setCorner(hCen: HCen, vertNum: Int, dirn: HVDirnOpt, magnitude: Int)(implicit grid: HGrid): Unit =
-  { val corner = HCorner.single(dirn, magnitude)
-    val index = unsafeIndex(hCen, vertNum)
-    unsafeArray(index) = corner.unsafeInt
+  { if(grid.hCenExists(hCen))
+    { val corner = HCorner.single(dirn, magnitude)
+      val index = unsafeIndex(hCen, vertNum)
+      unsafeArray(index) = corner.unsafeInt
+    }
   }
 
   /** Sets the corner inward [[HVDn]] on the 0 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
