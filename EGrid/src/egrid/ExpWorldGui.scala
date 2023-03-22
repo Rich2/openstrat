@@ -35,8 +35,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
       tile match
-      { case li: Coastal => {
-          val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
+      { case li: Coastal =>
+        { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
           Some(res)
         }
         case _ => None
@@ -62,6 +62,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
         }
         case vs: WSideLt if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
         case vs: WSideRt if vs.terr.colour == t1.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
+        //case vs: WSideMid if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
         case _ => None
       }
     }

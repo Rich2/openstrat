@@ -5,10 +5,11 @@ import geom._, pglobe._, LatLong._
 /** [[PolygonLL]] graphic for the Levant depends on [[Kurdistan]] and [[Sinai]]. */
 object Levant extends EArea2("Levant", 33 ll 35.5, Hill)
 { val damascus = 33.51 ll 36.82
+  val ashkelon = 31.68 ll 34.56
   val haifa = 32.83 ll 34.98
   val p50 = 35.58 ll 35.72
   val p60 = 36.32 ll 35.78
-  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, pMed.Sinai.eilat, pMed.Sinai.eGaza, haifa, p50, p60,
+  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, pMed.Sinai.deadSeaSE, pMed.Sinai.eGaza, ashkelon, haifa, p50, p60,
     Kurdistan.delicaymouth)
 }
 
