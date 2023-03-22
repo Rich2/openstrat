@@ -12,9 +12,17 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
   sealed trait VRowElem
 
-  /** Creates the head of a strait / river with the head up and the river going down. */
+  /** Creates the head of a strait / river / etc with the head up and the straits going down. */
   case class MouthUp(c: Int, st: WSTerr = Sea) extends VRowElem
 
+  /** Creates the head of a strait / river with the head up right and the straits going down left. */
+  case class MouthUR(c: Int, st: WSTerr = Sea) extends VRowElem
+
+  /** Creates the head of a strait / river with the head down right and the straits going up left. */
+  case class MouthDR(c: Int, st: WSTerr = Sea) extends VRowElem
+
+  /** Creates the head of a strait / river with the head up left and the straits going down right. */
+  case class MouthUL(c: Int, st: WSTerr = Sea) extends VRowElem
 
   case class VertInUR(c: Int, st1: WSTerr = Sea, st2: WSTerr = Sea) extends VRowElem
   case class VertInDR(c: Int, st1: WSTerr = Sea, st2: WSTerr = Sea) extends VRowElem
@@ -58,6 +66,21 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
         case MouthUp (c, st) =>
         { corners.setMouth3(row + 1, c)
           sTerrs.set(row - 1, c, WSideMid(st))
+        }
+
+        case MouthUR(c, st) => {
+          corners.setMouth4(row + 1, c + 2)
+          sTerrs.set(row, c - 1, WSideMid(st))
+        }
+
+        case MouthDR(c, st) =>
+        { corners.setMouth5(row - 1, c + 2)
+          sTerrs.set(row, c - 1, WSideMid(st))
+        }
+
+        case MouthUL(c, st) => {
+          corners.setMouth2(row + 1, c - 2)
+          sTerrs.set(row, c + 2, WSideMid(st))
         }
 
         case VertInUR(c, st1, st2) =>

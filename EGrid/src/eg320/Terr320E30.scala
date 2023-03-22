@@ -11,9 +11,7 @@ object Terr320E30 extends Long320Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(148, taiga * 2, taiga * 3)
-    wr(146, plain, taiga * 4)
-    wr(144, plain * 5)
+
     gs(142, 1526, plain * 6)
     gs(140, 1528, plain * 6)
     gs(138, 1526, mtain * 2, hills, plain * 3, desert)
@@ -29,9 +27,7 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-
-    //res.setSomeInts(WSideMid(Lake), 149,1537)
-    res.setSomeInts(WSideMid(), 145,1527,  146,1528,  147,1529,  147,1531, 147,1533)//Baltic
+    
     res.setSomeInts(WSideMid(), 131, 1527, 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(WSideMid(), 130,1524,  131,1525,  132,1526,  132,1530)
     res.setSomeInts(WSideMid(), 133,1531,  133,1533,  133,1535)//Bosphorus
@@ -44,18 +40,6 @@ object Terr320E30 extends Long320Terrs
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
-
-   // res.setMouth5(148, 1540)//Leke Ladoga south east
-
-    res.setCorner(144, 1528, 5, HVDn)//Baltic west
-    res.setCorner(144, 1528, 0, HVDR)//Baltic west
-    res.setCorner(146, 1530, 4, HVDR)//Baltic
-    res.setCorner(146, 1530, 5, HVDR)//Baltic
-    //res.setCorner(148, 1528, 3, HVUL)//Baltic
-    res.setTJunction(147, 1530)//Baltic - Gulf of Finland - Gulf of Bothnia
-    //res.setVert3In(148, 1532)//Helsinki - Tallinn
-    //res.setMouth4(148, 1536)//St Petersburg
-    //res.setVert5In(148, 1532)//Gulf of Bothnia
 
     res.setMouth0(134, 1542)//Kerch straits
 
@@ -93,6 +77,12 @@ object Terr320E30 extends Long320Terrs
       TRow(152, Head1Land(2, Plains, Taiga), taiga, sea, taiga),
       VRow(151, VertInDR(1532)),
       TRow(150, Head1Land(2, Plains, Taiga), taiga * 3),
+      VRow(149, MouthUL(1536, Lake), MouthDR(1538, Lake)),
+      VRow(147, MouthUR(1534)),
+      TRow(148, Head1Land(2, Plains, Taiga), Head3Land(3, Plains, Taiga), taiga * 3),
+      TRow(146, Head2Land(5), taiga * 4),
+      TRow(144, plain * 5),
+
     )
   }
 
