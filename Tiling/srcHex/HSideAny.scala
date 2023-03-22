@@ -12,6 +12,12 @@ trait HSideLayerAny[A]
     unsafeArray(i) = value
   }
 
+  def set(r: Int, c: Int, value: A)(implicit grid: HGridSys, ct: ClassTag[A]): Unit = {
+    val i = grid.sideLayerArrayIndex(r, c)
+    if (i >= unsafeArray.length) deb(s"$r, $c")
+    unsafeArray(i) = value
+  }
+
   def set(grid: HGridSys, hs: HSide, value: A)(implicit ct: ClassTag[A]): Unit =
   { val i = grid.sideLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
