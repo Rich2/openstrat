@@ -20,7 +20,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   override def frame: GraphicElems =
   {
-    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
+    //def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
     def hexStrs: RArr[TextGraphic] = terrs.hcOptFlatMap { (hc, terr) =>
       proj.transOptCoord(hc).map { pt =>
@@ -33,7 +33,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
     def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
       val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, HCenPair(hc, army), army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
     def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
@@ -41,7 +41,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
+    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4 ++ hexStrs2 ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

@@ -69,6 +69,19 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
+    def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
+      tile match {
+        case cst: Coastal => cst.indentedSideIndexMap { i =>
+          val p1: HVAndOffset = corners.cornerV1(hc, i)
+          val p2 = hc.vExact(i)
+          LineSegHVAndOffset(p1, p2).map(proj.transHVAndOffset).draw(cst.sideTerrs.contrastBW)
+        }
+        case _ => RArr()
+      }
+    }
+
+    def lines4: GraphicElems = proj.ifTileScale(50, lines3)
+
     def outerLines = proj.outerSidesDraw(3, Gold)
 
     def rcTexts1 = terrs.hcOptFlatMap { (hc, terr) =>
@@ -90,7 +103,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {

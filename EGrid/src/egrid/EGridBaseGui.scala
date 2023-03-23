@@ -41,4 +41,19 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
       case _ => None
     }
   }
+
+  def lines2: GraphicElems = proj.ifTileScale(50, lines1)
+
+  def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
+    tile match {
+      case cst: Coastal => cst.indentedSideIndexMap { i =>
+        val p1: HVAndOffset = corners.cornerV1(hc, i)
+        val p2 = hc.vExact(i)
+        LineSegHVAndOffset(p1, p2).map(proj.transHVAndOffset).draw(cst.sideTerrs.contrastBW)
+      }
+      case _ => RArr()
+    }
+  }
+
+  def lines4: GraphicElems = proj.ifTileScale(50, lines3)
 }

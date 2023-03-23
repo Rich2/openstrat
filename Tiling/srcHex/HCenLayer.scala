@@ -77,6 +77,9 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     build.buffToSeqLike(buff)
   }
 
+  def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit proj: HSysProjection, build: ArrFlatBuilder[BB]): BB =
+    proj.hCensFlatMap{hc => f(hc, apply(hc)(proj.parent)) }
+
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
   final def setRowEnd(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =

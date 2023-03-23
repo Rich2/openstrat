@@ -10,6 +10,12 @@ trait HIndentN
   def indentStartIndex: Int
 
   def indentedSideIndexForeach(f: Int => Unit): Unit
+
+  def indentedSideIndexMap[B, ArrB <: Arr[B]](f: Int => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    indentedSideIndexForeach{ i => buff.grow(f(i)) }
+    build.buffToSeqLike(buff)
+  }
 }
 
 /** Hex tile indented on 6 of its sides, representing an island and its surrounding waters or similarly geometrically structured terrain where the
