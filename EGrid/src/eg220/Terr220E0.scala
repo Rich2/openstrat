@@ -15,11 +15,7 @@ object Terr220E0 extends Long220Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(178, sea * 4, taigaHills)
-    wr(176, sea * 5, taigaHills)
-    wr(174, sea * 5, taigaHills)
-    wr(172, sea * 5, taigaHills, taiga)
-    wr(170, sea * 4, taigaHills, taiga * 2)
+
     wr(168, sea * 2, hills, sea * 2, taigaHills, taiga)
     wr(166, sea * 2, hills, sea * 3, plain, plain)
     wr(164, sea, plain, hills, sea * 3, plain, sea)
@@ -84,6 +80,12 @@ object Terr220E0 extends Long220Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[TRow] = RArr(
+      TRow(178, sea * 4, Head2Land(4, Hilly, Taiga)),
+      TRow(176, sea * 5, taigaHills),
+      TRow(174, sea * 5, taigaHills),
+      TRow(172, sea * 5, taigaHills, taiga),
+      TRow(170, sea * 4, taigaHills, taiga * 2),
+
       TRow(142, sea * 3, Head3Land(2, Hilly), sea * 2, hills * 4, Head3Land(0, Hilly), sea),
       TRow(140, sea * 2, Head2Land(5, Hilly), hills, desertHills * 2, desert * 2, desertHills * 2, sea * 2),
       TRow(138, sea * 2, plain, desert, desertHills, desert * 7),
