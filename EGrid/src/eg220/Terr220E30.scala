@@ -1,6 +1,10 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg220
-import prid._, phex._, egrid._, WTile._
+import prid._
+import phex._
+import egrid._
+import WTile._
+import ostrat.egrid
 
 object Terr220E30 extends Long220Terrs
 {
@@ -8,17 +12,8 @@ object Terr220E30 extends Long220Terrs
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(170, sea, taiga * 6)
-    wr(168, plain, plain, plain, forest * 2, taiga * 2)
-    wr(166, sea, plain * 3, forest * 2, plain, forest)
-    wr(164, plain * 8)
-    wr(162, plain * 9)
-    wr(160, plain * 3, forest, plain * 5)
-    wr(158, hills * 2, plain * 7)
-    wr(156, plain * 2, mtain, plain * 6, desert)
     wr(154, plain * 2, hills * 2, plain * 3, sea, plain * 2)
     wr(152, hills * 2, plain * 2, sea * 2, plain, hills, plain * 2)
     wr(150, hills * 4, sea * 5, mtain, hills)
@@ -38,9 +33,6 @@ object Terr220E30 extends Long220Terrs
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
 
-    //res.setSomeInts(WSideMid(Lake), 171,1537,  172,1542)//Lakes near St Petersburg
-    res.setSomeInts(WSideMid(), 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
-
     res.setSomeInts(WSideMid(), 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
     res.setSomeInts(WSideMid(), 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
     res.setSomeInts(WSideMid(), 134, 1540,  133,1541,  134,1544)
@@ -51,22 +43,6 @@ object Terr220E30 extends Long220Terrs
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
-
-    //res.setMouth1(170, 1534)//Lake Lagoda West
-    //res.setMouth4(172, 1540)//Lake Lagoda north east
-    //res.setVert1In(172, 1540)//Lake Onega
-   // res.setMouth0(170, 1542)//Lake Onega south
-
-    res.setMouth1(166, 1522)//Lativa - Baltic Sea
-    res.setTJunction(167, 1526)//Baltic Sea - Gulf of Riga
-    res.setMouth3(170, 1526)//Baltic
-    res.setVert3In(168, 1528)//Riga
-    res.setVert2In(168, 1528)//Parnu
-    //res.setMouth2(170, 1526)//Baltic Sea - Gulf of Finland
-    res.setTJunction(169, 1530)//Baltic Sea - Gulf of Finland
-    res.setVert0In(168, 1532)//Gulf of Finland
-    res.setVert3In(170, 1534)//Gulf of Finland
-   // res.setMouth4(170, 1538)//St Petersburg Gulf of Finland
 
     res.setCorner(148, 1516, 0, HVDn)//Adriatic
     res.setCorner(150, 1518, 4, HVUR)//Adriatic
@@ -102,8 +78,8 @@ object Terr220E30 extends Long220Terrs
     res
   }
 
-  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
-    override val rowDatas: RArr[RowBase] = RArr(
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
       TRow(182, Head2Land(5, Hilly, Tundra), Head2Land(0, Hilly, Tundra), sea * 3),
       TRow(180, tundraHills, taiga, tundra, Head2Land(0, Hilly, Tundra), sea),
       TRow(178, taiga * 4, Head3Land(5, Plains, Tundra)),
@@ -113,6 +89,16 @@ object Terr220E30 extends Long220Terrs
       TRow(174, Head1Land(2, Plains, Taiga), Head1Land(5, Plains, Taiga), taiga * 4),
       VRow(173, MouthUL(1540, Lake), VertInDL(1542, Lake)),
       TRow(172, Head1Land(2, Plains, Taiga), Head1Land(5, Plains, Taiga), taiga * 5),
+      VRow(171, MouthDL(1536, Lake), MouthUR(1538, Lake), MouthDn(1542, Lake)),
+      TRow(170, sea, Head2Land(3, Plains, Taiga), Head1Land(3, Plains, Taiga), taiga * 4),
+      VRow(169, MouthUR(1536)),
+      TRow(168, Head2Land(1), Head2Land(5), Head1Land(0), forest * 2, taiga * 2),
+      TRow(166, Head2Land(2), Head1Land(5), plain * 2, forest * 2, plain, forest),
+      TRow(164, Head1Land(5), plain * 7),
+      TRow(162, plain * 9),
+      TRow(160, plain * 3, forest, plain * 5),
+      TRow(158, hills * 2, plain * 7),
+      TRow(156, plain * 2, mtain, plain * 6, desert),
     )
   }
   help.run
