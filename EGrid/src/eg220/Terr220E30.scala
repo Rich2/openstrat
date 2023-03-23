@@ -11,11 +11,6 @@ object Terr220E30 extends Long220Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(180, tundraHills, taiga, tundra, tundraHills, sea)
-    wr(178, taiga * 4, tundra)
-    wr(176, taiga, taiga * 3, taiga * 2)
-    wr(174, taiga, taiga * 5)
-    wr(172, taiga, taiga * 6)
     wr(170, sea, taiga * 6)
     wr(168, plain, plain, plain, forest * 2, taiga * 2)
     wr(166, sea, plain * 3, forest * 2, plain, forest)
@@ -43,10 +38,9 @@ object Terr220E30 extends Long220Terrs
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
 
-    res.setSomeInts(WSideMid(),  175,1543, 176,1542,  177,1541,  177,1543,  178,1544)//White Sea
-    res.setSomeInts(WSideMid(Lake), 171,1537,  172,1542,  173,1541)//Lakes near St Petersburg
+    //res.setSomeInts(WSideMid(Lake), 171,1537,  172,1542)//Lakes near St Petersburg
     res.setSomeInts(WSideMid(), 167,1525,  168,1526,  167,1527,  167,1529,  168,1530,  169,1529,  169,1531,  169,1533,  169,1535)//Baltic
-    res.setSomeInts(WSideMid(),  172,1526,  173, 1527,  174,1528,  175,1529,  176,1530)//Gulf of Bothnia
+
     res.setSomeInts(WSideMid(), 144,1514,  146,1520,  147,1519,  148,1518,  149,1517)//Mediterranean
     res.setSomeInts(WSideMid(), 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533,  148,1534,  152,1546)//Greece / Turkey
     res.setSomeInts(WSideMid(), 134, 1540,  133,1541,  134,1544)
@@ -58,36 +52,21 @@ object Terr220E30 extends Long220Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    res.setMouth5(174, 1546)//White Sea south
-    res.setVert4In(176, 1544)//White Sea
-    res.setTJunction(177, 1542)//White Sea
-    res.setMouth2(178, 1538)//White Sea north west
-    res.setVert2In(178, 1542)//White Sea
-    res.setMouth3(180, 1544)//White Sea north
-
-    res.setMouth1(170, 1534)//Lake Lagoda West
-    res.setMouth4(172, 1540)//Lake Lagoda north east
-    res.setMouth2(174, 1538)//Lake Onega north
-    res.setVert1In(172, 1540)//Lake Onega
-    res.setMouth0(170, 1542)//Lake Onega south
-
-    res.setMouth3(178, 1530)//Gulf of Bothnia north
-    res.setVert2In(176, 1528)//Gulf of Bothnia
-    res.setVert5In(174, 1530)//Gulf of Bothnia
-    res.setVert2In(174, 1526)//Gulf of Bothnia
-    res.setVert5In(172, 1528)//Gulf of Bothnia
-    res.setMouth0(170, 1526)//Gulf of Bothnia south
+    //res.setMouth1(170, 1534)//Lake Lagoda West
+    //res.setMouth4(172, 1540)//Lake Lagoda north east
+    //res.setVert1In(172, 1540)//Lake Onega
+   // res.setMouth0(170, 1542)//Lake Onega south
 
     res.setMouth1(166, 1522)//Lativa - Baltic Sea
     res.setTJunction(167, 1526)//Baltic Sea - Gulf of Riga
     res.setMouth3(170, 1526)//Baltic
     res.setVert3In(168, 1528)//Riga
     res.setVert2In(168, 1528)//Parnu
-    res.setMouth2(170, 1526)//Baltic Sea - Gulf of Finland
+    //res.setMouth2(170, 1526)//Baltic Sea - Gulf of Finland
     res.setTJunction(169, 1530)//Baltic Sea - Gulf of Finland
     res.setVert0In(168, 1532)//Gulf of Finland
     res.setVert3In(170, 1534)//Gulf of Finland
-    res.setMouth4(170, 1538)//St Petersburg Gulf of Finland
+   // res.setMouth4(170, 1538)//St Petersburg Gulf of Finland
 
     res.setCorner(148, 1516, 0, HVDn)//Adriatic
     res.setCorner(150, 1518, 4, HVUR)//Adriatic
@@ -124,8 +103,16 @@ object Terr220E30 extends Long220Terrs
   }
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
-    override val rowDatas: RArr[TRow] = RArr(
+    override val rowDatas: RArr[RowBase] = RArr(
       TRow(182, Head2Land(5, Hilly, Tundra), Head2Land(0, Hilly, Tundra), sea * 3),
+      TRow(180, tundraHills, taiga, tundra, Head2Land(0, Hilly, Tundra), sea),
+      TRow(178, taiga * 4, Head3Land(5, Plains, Tundra)),
+      VRow(177, MouthUp(1530), MouthDL(1538), VertInUL(1544)),
+      TRow(176, Head1Land(2, Plains, Taiga), taiga * 2, Head3Land(0, Plains, Taiga), Head2Land(4, Plains, Taiga), taiga),
+      VRow(175, MouthDL(1540), MouthDR(1544)),
+      TRow(174, Head1Land(2, Plains, Taiga), Head1Land(5, Plains, Taiga), taiga * 4),
+      VRow(173, MouthUL(1540, Lake), VertInDL(1542, Lake)),
+      TRow(172, Head1Land(2, Plains, Taiga), Head1Land(5, Plains, Taiga), taiga * 5),
     )
   }
   help.run
