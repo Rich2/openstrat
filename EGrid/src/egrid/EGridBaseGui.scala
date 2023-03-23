@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pglobe._, prid._, phex._, egrid._
+import geom._, prid._, phex._
 
 abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 { implicit val gridSys: HGridSys
@@ -55,5 +55,5 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
     }
   }
 
-  def lines4: GraphicElems = proj.ifTileScale(50, lines3)
+  def lines4: GraphicElems = proj.ifTileScale(150, lines3)
 }
