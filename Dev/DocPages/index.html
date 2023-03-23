@@ -81,17 +81,17 @@
 <p>From within the sbt console run:
   <ul>
   	<li><code class="sbt">~ Dev/reStart</code> To launch a ScalaFx window. The most useful command for development</li>
-  	<li><code class="sbt">~ JsDev/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/SbtFastDev.html</li>
-  	<li><code class="sbt">JsDev/fullOptJS</code> To build a full optimised JavaScript file. Use with Dev/DevPages/SbtFullDev.html</li>
+  	<li><code class="sbt">~ DicelessJsDev/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/SbtFastDev.html</li>
+  	<li><code class="sbt">DicelessJs/fullOptJS</code> To build a full optimised JavaScript file. Use with Dev/DevPages/SbtFullDev.html</li>
   	<li><code class="sbt">~ Util/test</code> Rerun tests on Util module.</li>
-  	<li><code class="sbt">~ Graphic/test</code> Rerun tests on, Graphic module.</li>
-  	<li><code class="sbt">~ Strat/test</code> Rerun tests on, Strat module.</li>
-  	<li><code class="sbt">~ Util/test;  Graphic/test; Strat/test</code> Rerun tests on Util module.</li>
+  	<li><code class="sbt">~ Tiling/test</code> Rerun tests on Tiling module.</li>
+  	<li><code class="sbt">~ Dev/test</code> Rerun tests on, Dev module.</li>
+  	<li><code class="sbt">~ Util/test; Tiling/test; Dev/test</code> Rerun tests on Util module.</li>
   	<li><code class="sbt">DocMain/doc</code> Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in
-  	  <code class="folder">Dev/SbtDir/DocMain/target/scala-3.0.0/api/</code>
+  	  <code class="folder">Dev/SbtDir/DocMain/target/scala-3.2.2/api/</code>
     </li>
   	<li><code class="sbt">DocJs/doc</code> Will produce docs for all the main code in all the modules for the Javascript platform. They can be found
-      in <code class="folder">Dev/SbtDir/DocJstarget/DocMain/target/scala-2.13/api/</code>
+      in <code class="folder">Dev/SbtDir/DocJs/target/DocMain/target/scala-3.2.2/api/</code>
     </li>
     <li><code class="sbt">bothDoc</code> will perform both the above tasks.</li>
   	</ul>
@@ -103,17 +103,6 @@
   DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also
   rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have
   to manually refresh the browser window after the fastOptJS command has finished the rebuild.</p>
-
-<p>So I'm experimenting with Mill from the project root folder run:
-<code>mill run</code> To launch a ScalaFx window.<br>
-<code>mill -w run</code> As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful
-  command for development.<br>
-<code>mill test</code> To run tests.<br>
-<code>mill -w test</code> To recompile and rerun the tests on source code changes.<br>
-<code>mill -w Dev.runMain ostrat.pFx.App3D</code> Temp command<br>
-<code>mill -w jsfast</code> To rebuild the fast optimised Js file. Use with WebPages/MillFastDev.html<br>
-<code>mill jsfull</code> To build the fully optimised Js file. Use with WebPages/MillFullDev.html<br>
-<code>mill mill.scalalib.GenIdea/idea</code> To create an IntelliJ IDEA project.</p>
 
 <p><ul>For IntellliJ useful options:
   <li>File => Editor => General -> Other -> tick "Show quick documentation on mouse move".</li>
