@@ -3,43 +3,10 @@ package ostrat; package eg220
 import prid.phex._, egrid._, WTile._
 
 object Terr220E30 extends Long220Terrs
-{
-  override implicit val grid: EGrid220LongFull = EGrid220.e30(132)
-
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-
-    wr(138, sea * 2, desert, sea * 5, hills, desert * 3)
-    wr(136, desert, sea, desert * 4, plain, desertHills, desert * 5)
-    wr(134, desert * 6, plain, desert, desertHills, desertHills, desert * 3)
-    wr(132, desert * 6, plain, desert, sea, desert * 4)
-
-    res
-  }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-
-    //res.setSomeInts(WSideMid(), 145,1523,  147,1525,  147,1527,  146,1528,  147,1529,  147,1531,  147,1533)//,  148,1534)//,  152,1546)//Greece / Turkey
-    res.setSomeInts(WSideMid(), 134, 1540,  133,1541,  134,1544)
-    //res.setSomeInts(WSideRt(), 143, 1541)//Cyprus north west
-    //res.setSomeInts(WSideLt(), 143,1543,  142,1544)//Cyprus north east and east.
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-
-
-    res.setMouth3(136, 1540)//Suez Gulf of Suez north
-    res.setVert4In(134, 1542)//Gulf of Suez
-    res.setMouth5(132, 1544)//Gulf of Suez south
-    res.setMouth0(132, 1544)//Gulf of Arabia south
-    res.setMouth3(136, 1544)//Gulf of Arabia north
-
-    res
-  }
+{ override implicit val grid: EGrid220LongFull = EGrid220.e30(132)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
@@ -74,7 +41,13 @@ object Terr220E30 extends Long220Terrs
       TRow(144, Head4Land(2, Hilly), sea, hills, sea, hills * 4, desertHills, plain, mtain),
       VRow(143, MouthUp(1544)),
       TRow(142, sea * 5, Head3Land(2, Hilly), sea, Head3Land(2, Hilly), Head1Land(4, Hilly), desert * 3),
-      TRow(140, sea * 3, hills, sea * 2, Island(Hilly), sea, hills, desert * 3),
+      TRow(140, sea * 3, Island(Hilly), sea * 2, Island(Hilly), sea, hills, desert * 3),
+      TRow(138, sea * 2, Head3Land(5, Plains, Desert), sea * 5, hills, desert * 3),
+      TRow(136, desert, sea, desert * 4, plain, desertHills, desert * 5),
+      VRow(135, MouthUp(1540), MouthUp(1544)),
+      TRow(134, desert * 6, plain, desert, desertHills, desertHills, desert * 3),
+      VRow(133, VertInUR(1540), MouthDR(1542), MouthDn(1544)),
+      TRow(132, desert * 6, plain, desert, sea, desert * 4),
     )
   }
   help.run
