@@ -107,7 +107,7 @@ trait Coastal extends LandLike with HIndentN
   override def str: String = "Coastal"
 }
 
-case class Island(terr: Terrain, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent6
+case class Island(terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent6
 
 object Island
 {

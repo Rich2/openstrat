@@ -12,23 +12,6 @@ object Terr160E0 extends Long160Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(310, sea * 6, mtain)
-    wr(308, sea * 7, mtain)
-    wr(306, sea * 7, mtain)
-    wr(304, sea * 7, mtain)
-    wr(302, sea * 7, taigaHills, taiga)
-    wr(300, sea * 6, mtain, taigaHills * 2)
-    wr(298, sea * 6, mtain * 2, taigaHills * 2)
-    wr(296, sea * 6, taigaHills * 2, taiga * 2)
-    wr(294, sea * 3, hills, sea * 3, hills, sea, taiga)
-    wr(292, sea * 3, hills * 2, sea * 5, plain)
-    wr(290, sea * 2, hills * 2, sea * 4, plain * 3)
-    wr(288, sea * 2, plain, hills, plain, sea * 4, plain, sea)
-    wr(286, sea * 2, plain * 4, sea * 3, plain * 3)
-    wr(284, sea, plain * 2, hills, plain * 2, sea, plain * 5)
-    wr(282, sea * 4, hills, plain * 4, hills * 2, plain * 2)
-    wr(280, sea * 4, hills, sea * 2, plain, hills * 5)
-    wr(278, sea * 4, plain * 5, hills, plain * 2, hills)
     wr(276, sea * 5, plain * 4, hills * 2, mtain * 3)
     wr(274, sea * 6, plain * 3, hills, mtain * 4)
     wr(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills)
@@ -41,7 +24,7 @@ object Terr160E0 extends Long160Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 279,505,  281,515,  282,516,  284,502,  285,503,  286,504,  287,503,  288,502,  289,501,  289,529,  290,528,  290,532,  291,531)
+    //res.setSomeInts(WSideMid(), 279,505)//,  281,515,  282,516)//,  284,502)//,  285,503,  286,504)//,  287,503,  288,502,  289,501,  289,529)//,  290,528,  290,532,  291,531)
     res.setSomeInts(WSideLt(), 269,533,  268,534)
     res
   }
@@ -49,23 +32,46 @@ object Terr160E0 extends Long160Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    res.setMouth2(290, 498)//Northern Ireland -Scotland north west
-    res.setVert1In(288, 500)//Northern Ireland - Scotland
-    res.setVert4In(288, 504)//Northern Ireland - Scotland
-    res.setVert1In(286, 502)//Ireland - England
-    res.setVert2In(286, 502)//Ireland - Anglesey
-    res.setVert5In(284, 504)//Ireland - Wales
-    res.setMouth0(282, 502)//Ireland - Wales south
+    //res.setVert1In(288, 500)//Northern Ireland - Scotland
+    //res.setVert4In(288, 504)//Northern Ireland - Scotland
+   // res.setVert1In(286, 502)//Ireland - England
+   // res.setVert2In(286, 502)//Ireland - Anglesey
+    //res.setVert5In(284, 504)//Ireland - Wales
+    //res.setMouth0(282, 502)//Ireland - Wales south
 
-    res.setMouth1(278, 502)//Cornwall - Britany
-    res.setMouth4(280, 508)//Britany - Devon
+    //res.setMouth1(278, 502)//Cornwall - Britany
+   // res.setMouth4(280, 508)//Britany - Devon
 
-    res.setMouth1(280, 512)//Straits of Dover south west
-    res.setVert2In(282, 514)//Straits of Dover
-    res.setMouth3(284, 516)//Straits of Dover north east
+    //res.setMouth1(280, 512)//Straits of Dover south west
+    //res.setVert2In(282, 514)//Straits of Dover
+   // res.setMouth3(284, 516)//Straits of Dover north east
 
     res
   }
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
+      TRow(310, sea * 6, Head3Land(4, Mountains)),
+      TRow(308, sea * 7, mtain),
+      TRow(306, sea * 7, Head2Land(4, Mountains)),
+      TRow(304, sea * 7, mtain),
+      TRow(302, sea * 6, Head2Land(5, Hilly, Taiga), taigaHills, taiga),
+      TRow(300, sea * 6, Head1Land(5,  Mountains), taigaHills * 2),
+      TRow(298, sea * 6, Head2Land(4, Mountains), mtain, taigaHills * 2),
+      TRow(296, sea * 6, taigaHills * 2, taiga * 2),
+      VRow(295, MouthUp(528)),
+      TRow(294, sea * 2, Island(Hilly), Head3Land(5, Hilly), sea * 3, hills, Head2Land(2, Hilly, Taiga), taiga),
+      TRow(292, sea * 3, hills, Head2Land(1, Hilly), sea * 4, Head4Land(5), plain),
+      TRow(290, sea * 2, Head2Land(4, Hilly), hills, sea * 4, plain, Island(), plain),
+      VRow(289, VertInDL(502)),
+      TRow(288, sea * 2, plain, Head2Land(3, Hilly), plain, sea * 4, plain, sea),
+      TRow(286, sea * 2, plain, Head2Land(1), plain * 2, sea * 3, plain * 3),
+      TRow(284, sea, plain * 2, Head2Land(4, Hilly), plain * 2, sea, plain * 5),
+      TRow(282, sea * 4, hills, plain, Head3Land(1), plain * 2, hills * 2, plain * 2),
+      TRow(280, sea * 4, Head4Land(2, Hilly), sea * 2, plain, hills * 5),
+      TRow(278, sea * 4, plain * 5, hills, plain * 2, hills),
+    )
+  }
+  help.run
 }
 
 /** 16okm terrain scenario for Britain */
