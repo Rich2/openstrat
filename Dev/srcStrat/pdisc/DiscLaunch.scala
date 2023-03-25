@@ -2,7 +2,7 @@
 package ostrat; package pdisc
 import pgui._, prid._, phex._, pParse._
 
-/** Scenario selector and launcher for Bc305. */
+/** Scenario selector and launcher for AD1492. */
 object DiscLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "y1492"

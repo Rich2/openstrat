@@ -2,7 +2,7 @@
 package ostrat; package pdisc
 import geom._, prid._, phex._, pgui._, egrid._
 
-case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("AD1492 Gui")
+case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1492 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
@@ -15,40 +15,11 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
   proj.setView(viewIn)
 
   override def frame: GraphicElems =
-  { val polys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
-   // def tileFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
-
-    def tileFills: RArr[PolygonFill] = polys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
-
-    def actives: RArr[PolygonActive] = proj.tileActives
-
-    def sides1: GraphicElems = RArr()
-      /*proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[WSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
-    }*/
-
-    def lines1: GraphicElems = proj.linksOptMap { hs =>
-      val hc1 = hs.tileLt
-      val hc2 = hs.tileRt
-      val t1 = terrs(hc1)
-      val t2 = terrs(hc2)
-      if (sTerrs(hs).nonEmpty | t1 != t2) None
-      else {
-        val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
-      }
-    }
-
-    def lines2: GraphicElems = proj.ifTileScale(40, lines1)
-
-    def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
+  { def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
     def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
-    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs2
+    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4 ++ hexStrs2
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

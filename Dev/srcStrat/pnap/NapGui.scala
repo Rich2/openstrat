@@ -1,8 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pnap
-import geom._, pEarth._, prid._, phex._, pgui._, egrid._
+import geom._, prid._, phex._, pgui._, egrid._
 
-case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("AD1783 Gui")
+case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1783 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   def terrs: HCenLayer[WTile] = scen.terrs
@@ -17,59 +17,13 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
 
   override def frame: GraphicElems =
   {
-    //def tileFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
-
-    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
-    }
-
-    def actives: RArr[PolygonActive] = proj.tileActives
-
-    //def sides1: GraphicElems = sTerrs.projOptsHsLineSegMap { (st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
-
-    def sides1: GraphicElems = RArr()
-    /*  proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: WSide = sTerrs(hs)
-      sTerr match {
-        case st: WSideNone =>  corners.sideVerts (hs).project (proj).fill (st.colour)
-      }
-    }
-    }*/
-
-
-    /*def lines = proj.linkLineSegsOptMap { (hs, ls) =>
-      if (sTerrs(hs).nonEmpty) None
-      else {
-        val t1 = terrs(hs.tileLt)
-        val t2 = terrs(hs.tileRt)
-        ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
-      }
-    }*/
-
-    def lines1: GraphicElems = proj.linksOptMap { hs =>
-      val hc1 = hs.tileLt
-      val hc2 = hs.tileRt
-      val t1 = terrs(hc1)
-      val t2 = terrs(hc2)
-      if (sTerrs(hs).nonEmpty | t1 != t2) None
-      else {
-        val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
-      }
-    }
-
-    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
-
     def hexStrs: GraphicElems = proj.hCenSizedMap(50) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
     def units: GraphicElems = corps.projSomeHcPtMap { (corps, hc, pt) =>
       val str = ptScale.scaledStr(170, corps.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, corps.toString)
       pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
-
-    tileFills ++ actives ++ sides1 ++ lines2 ++ hexStrs ++ units
+    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4 ++ hexStrs ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
