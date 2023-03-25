@@ -23,6 +23,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
       val str = ptScale.scaledStr(170, corps.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, corps.toString)
       pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
+
     tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4 ++ hexStrs ++ units
   }
 

@@ -3,8 +3,8 @@ package ostrat; package pww1
 import geom._, pEarth._, prid._, phex._, pgui._, egrid._
 
 /** 2D graphics class for [[WW1Scen]] games or descriptions. */
-case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW1 Gui") {
-  var scen = scenIn
+case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("WW1 Gui")
+{ var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideLayer[WSide] = scen.sTerrs
@@ -18,38 +18,6 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
 
   override def frame: GraphicElems =
   {
-    //def tileFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
-
-    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
-    }
-
-    def tileActives: RArr[PolygonActive] = proj.hCensMap { hc =>
-      corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.active(hc)
-    }
-
-    def straits: GraphicElems = RArr()
-     /* proj.sidesOptMap { (hs: HSide) =>
-      val sTerr: Option[WSide] = sTerrs(hs)
-      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
-    }*/
-
-    def lines1: GraphicElems = proj.linksOptMap { hs =>
-      val hc1 = hs.tileLt
-      val t1 = terrs(hc1)
-      def t2: WTile = terrs(hs.tileRt)
-
-      if (sTerrs(hs).nonEmpty | t1 != t2) None
-      else
-      { val cs: (HCen, Int, Int) = hs.corners
-        val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
-        val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
-      }
-    }
-
-    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
-
     def hexStrs: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
     def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
@@ -57,7 +25,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
       pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    tileFills ++ tileActives ++ straits ++ lines2 ++ hexStrs ++ units
+    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4 ++ hexStrs ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

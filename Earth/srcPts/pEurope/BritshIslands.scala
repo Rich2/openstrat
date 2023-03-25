@@ -30,17 +30,25 @@ object Ireland extends EArea2("Ireland", 53.36 ll -7.63, Plain)
 { val north: LatLong = 55.38 ll -7.37
   val torHead: LatLong = 55.19 ll -6.06
   val nIrelandE: LatLong = 54.48 ll -5.43
+  val stJohnsPoint = 54.23 ll -5.66
   val dundalk: LatLong = 54.01 ll -6.34
-  val irelandSE: LatLong = 52.17 ll -6.36
+  val p25 = 53.56 ll -6.08
+  val wicklowHead = 52.97 ll -6.00
+  val southEast: LatLong = 52.17 ll -6.36
+  val harryLock: LatLong = 51.99 ll -7.59
   val baltimore: LatLong = 51.47 ll -9.37
   val dunquin: LatLong = 52.11 ll -10.45
-  val oranmore: LatLong = 53.27 ll -8.93
-  val carrowteige: LatLong = 53.32 ll -9.85
+  val loopHead: LatLong = 52.56 ll -9.94
+  val p65 = 52.93 ll -9.47
+  val rockIsland = 53.15 ll -9.86
+  val p70 = 53.41 ll -10.18
   val ardoone: LatLong = 54.30 ll -10.00
   val derkmorePoint: LatLong = 54.27 ll -8.65
   val malinBeg: LatLong = 54.66 ll -8.79
+  val p95 = 55.16 ll -8.28
 
-  val polygonLL = PolygonLL(north, torHead, nIrelandE, dundalk,irelandSE, baltimore, dunquin, oranmore, carrowteige, ardoone, derkmorePoint, malinBeg)
+  override val polygonLL = PolygonLL(north, torHead, nIrelandE, stJohnsPoint, dundalk, p25, wicklowHead, southEast, harryLock, baltimore, dunquin,
+    loopHead, p65, rockIsland, p70, ardoone, derkmorePoint, malinBeg, p95)
 }
 
 /** [[polygonLL]] Graphical representation of Shetland. Depends on nothing. */

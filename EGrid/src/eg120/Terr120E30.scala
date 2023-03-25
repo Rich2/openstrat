@@ -3,37 +3,26 @@ package ostrat; package eg120
 import prid._, phex._, egrid._, WTile._
 
 object Terr120E30 extends Long120Terrs
-{
-  override implicit val grid: EGrid120LongFull = EGrid120.e30(274)
+{ override implicit val grid: EGrid120LongFull = EGrid120.e30(274)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(350, sea, mtain, tundraHills * 2, sea * 5),
+      TRow(348, mtain * 2, tundra * 4, sea * 3),
 
-    wr(350, sea, mtain, tundraHills * 2, sea * 5)
-    wr(348, mtain * 2, tundra * 4, sea * 3)
 
-    wr(286, hills, plain, hills * 3, sea, hills * 2, hills * 13)
-    wr(284, hills, sea * 2, hills * 3, sea * 2, hills * 13)
-    wr(282, hills, sea * 2, hills * 3, sea * 2, hills * 13)
-    wr(280, sea * 4, hills * 2, sea * 2, hills * 14)
-    wr(278, sea * 5, hills, sea * 9, hills * 7)
-    wr(276, sea * 6, hills * 2, sea * 7, hills * 7)
-    wr(274, sea * 8, sea * 5, hills, sea, hills * 7)
-
-    res
+      TRow(286, hills, plain, hills * 3, sea, hills * 2, hills * 13),
+      TRow(284, hills, sea * 2, hills * 3, sea * 2, hills * 13),
+      TRow(282, hills, sea * 2, hills * 3, sea * 2, hills * 13),
+      TRow(280, sea * 4, hills * 2, sea * 2, hills * 14),
+      TRow(278, sea * 5, hills, sea * 9, hills * 7),
+      TRow(276, sea * 6, hills * 2, sea * 7, hills * 7),
+      TRow(274, sea * 8, sea * 5, hills, sea, hills * 7),
+    )
   }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-
-    res
-  }
+  help.run
 }
