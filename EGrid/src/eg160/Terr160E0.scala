@@ -2,52 +2,16 @@
 package ostrat; package eg160
 import prid._, phex._, egrid._, WTile._
 
-/** 160km terrain for 0 degrees eat. */
+/** 160km terrain for 0 degrees east. Majorca is big enough at this scale to qualify as Island. Lesbos is not. */
 object Terr160E0 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
 
   /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
-    wr(276, sea * 5, plain * 4, hills * 2, mtain * 3)
-    wr(274, sea * 6, plain * 3, hills, mtain * 4)
-    wr(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills)
-    wr(270, sea * 2, plain, hills * 3, plain * 2, hills * 2, mtain, sea, hills * 2, sea)
-    wr(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, Island(Hilly), hills * 2)
-    wr(266, sea * 2, hills * 2, desert, desertHills * 2, hills, sea * 3, hills, sea * 2, hills)
-    wr(264, sea * 3, hills * 2, desertHills, sea * 2, sea, sea, sea * 2, hills, sea * 2)
-    res
-  }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    //res.setSomeInts(WSideMid(), 279,505)//,  281,515,  282,516)//,  284,502)//,  285,503,  286,504)//,  287,503,  288,502,  289,501,  289,529)//,  290,528,  290,532,  291,531)
-    res.setSomeInts(WSideLt(), 269,533,  268,534)
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-
-    //res.setVert1In(288, 500)//Northern Ireland - Scotland
-    //res.setVert4In(288, 504)//Northern Ireland - Scotland
-   // res.setVert1In(286, 502)//Ireland - England
-   // res.setVert2In(286, 502)//Ireland - Anglesey
-    //res.setVert5In(284, 504)//Ireland - Wales
-    //res.setMouth0(282, 502)//Ireland - Wales south
-
-    //res.setMouth1(278, 502)//Cornwall - Britany
-   // res.setMouth4(280, 508)//Britany - Devon
-
-    //res.setMouth1(280, 512)//Straits of Dover south west
-    //res.setVert2In(282, 514)//Straits of Dover
-   // res.setMouth3(284, 516)//Straits of Dover north east
-
-    res
-  }
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
       TRow(310, sea * 6, Head3Land(4, Mountains)),
@@ -69,6 +33,17 @@ object Terr160E0 extends Long160Terrs
       TRow(282, sea * 4, hills, plain, Head3Land(1), plain * 2, hills * 2, plain * 2),
       TRow(280, sea * 4, Head4Land(2, Hilly), sea * 2, plain, hills * 5),
       TRow(278, sea * 4, plain * 5, hills, plain * 2, hills),
+      TRow(276, sea * 5, plain * 4, hills * 2, mtain * 3),
+      TRow(274, sea * 6, plain * 3, hills, mtain * 4),
+      VRow(273, MouthUp(538)),
+      TRow(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills),
+      VRow(271, VertInUR(538), MouthDR(540)),
+      TRow(270, sea * 2, Head3Land(4), Head1Land(0, Hilly) * 3, plain * 2, hills * 2, mtain, sea, hills * 2, sea),
+      TRow(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, Island(Hilly), hills * 2),
+      TRow(266, sea * 2, hills * 2, desert, desertHills * 2, hills, sea * 3, hills, sea * 2, hills),
+      VRow(265, MouthUp(514)),
+      TRow(264, sea * 3, hills * 2, desertHills, hills, Head1Land(2, Hilly), sea, Island(Hilly), sea * 2, hills, sea * 2),
+      TRow(262, sea * 3, plain * 2, hills * 3)
     )
   }
   help.run
