@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
  *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
  *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
- *  area it must be assigned to France  */
+ *  area it must be assigned to France. The Faroe Islands and the Shetland Islands are large enough as an island.  */
 object Terr120E0 extends Long120Terrs
 {
   override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
@@ -15,14 +15,6 @@ object Terr120E0 extends Long120Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    gs(344, 532, mtain)
-    gs(342, 534, mtain)
-    gs(340, 532, mtain)
-    gs(338, 530, tundraHills * 2)
-    gs(336, 528, taigaHills * 2, taiga)
-    gs(334, 522, mtain, taigaHills * 3)
-    wr(332, sea * 3, hills, sea * 4, mtain * 2, taigaHills, taiga * 2)
-    wr(330, sea * 5, hills, sea * 2, mtain * 4, taigaHills)
     wr(328, sea * 6, sea * 3, mtain, taigaHills * 3)
     wr(326, sea * 5, hills, sea * 3, taigaHills * 2, taiga * 3)
     wr(324, sea * 3, plain, hills, sea * 4, taigaHills * 2, sea, plain * 2)
@@ -78,6 +70,20 @@ object Terr120E0 extends Long120Terrs
     res.setMouth5(318, 542)
     res
   }
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(344, sea * 9, Head2Land(4, Mountains)),
+      TRow(342, sea * 10, mtain) ,
+      TRow(340, sea * 10, mtain),
+      TRow(338, sea * 9, tundraHills * 2),
+      TRow(336, sea * 9, taigaHills * 2, taiga),
+      TRow(334, sea * 8, Head2Land(5, Mountains), taigaHills * 3),
+      TRow(332, sea * 3, Island(Hilly), sea * 4, Head2Land(4, Mountains), mtain, taigaHills, taiga * 2),
+      TRow(330, sea * 5, Island(Hilly), sea * 2, mtain * 4, taigaHills),
+    )
+  }
+  help.run
 }
 
 object BritReg120
