@@ -1,6 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._
+import geom._
+import pglobe._
 
 /** 20North, 0 East */
 object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
@@ -11,7 +12,7 @@ object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 
 object EuropeEast extends EArea1("EuropeEast", 60 ll 60)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(RussiaSouth, Greece, BalkansWest, BalkansEast, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
+  override val a2Arr: RArr[EArea2] = RArr(RussiaSouth, AzovSea, Greece, BalkansWest, BalkansEast, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 
 object EuropeSW extends EArea1("EuropeSw", 20 ll 0)

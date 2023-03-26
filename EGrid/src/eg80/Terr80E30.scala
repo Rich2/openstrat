@@ -13,40 +13,7 @@ object Terr80E30  extends Long80Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
 
-    gs(498, 1136 + 366, taiga, sea * 2, taiga * 9, Lake, taiga * 6)
-    gs(496, 1136 + 364, taiga, sea * 3, taiga * 6, Lake, taiga * 2, Lake, taiga * 6)
-    gs(494, 1136 + 362, taiga * 2, sea * 2, taiga * 6, Lake * 2, taiga * 8)
-    gs(492, 1136 + 364, taiga * 2, sea * 2, taiga, sea * 4, taiga * 11)
-    gs(490, 1136 + 362, taiga * 2, sea * 4, plain * 15)
-    gs(488, 1136 + 360, taiga, sea * 4, plain * 16)
-    wr(486, plain, sea * 4, plain, sea, plain * 15)
-    wr(484, plain , sea, plain, sea, plain, sea, plain * 16)
-    wr(482, plain, sea * 3, plain * 18)
-    wr(480, plain, sea * 4, plain * 18)
-    gs(478, 1136 + 358, sea * 4, plain * 19)
-    gs(476, 1136 + 356, sea * 4, plain * 19)
-    gs(474, 1136 + 354, sea, plain * 23)
-    gs(472, 1136 + 356, plain * 24)
-    gs(470, 1136 + 354, plain * 25)
-    gs(468, 1136 + 352, plain * 25)
-    gs(466, 1136 + 354, plain * 25)
-    gs(464, 1136 + 352, plain * 26)
-    gs(462, 1136 + 350, hills, plain * 25)
-    gs(460, 1136 + 352, hills, plain * 25)
-    gs(458, 1136 + 350, hills * 3, mtain * 3, plain * 21)
-    gs(456, 1136 + 348, hills, plain, hills * 4, mtain * 2, hills, plain * 18)
-    gs(454, 1136 + 350, plain * 7, mtain * 2, hills * 3, plain * 15)
-    gs(452, 1136 + 348, mtain, plain * 6, hills, mtain * 2, hills * 3, plain * 15)
-    gs(450, 1136 + 346, hills, plain * 5, hills * 3, mtain *2, hills * 3, plain * 7, sea, plain * 6)
-    gs(448, 1136 + 348, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7)
-    gs(446, 1136 + 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
-    wr(444, hills * 3, plain * 3, hills * 4, plain * 4, sea * 3, plain, hills *2, plain, plain * 5, hills, plain * 2)
-    wr(442, mtain * 3, hills * 5, plain * 5, sea * 9, mtain * 2, hills * 2, plain * 3)
-    wr(440, hills, mtain * 4, hills, mtain, plain * 3, hills * 2, plain, sea * 11, mtain * 3, hills, plain * 2)
-    wr(438, sea, mtain * 5, hills, mtain * 2, hills * 4, sea * 13, mtain * 3, plain)
-    wr(436, Sea * 2, mtain * 2, hills * 2, mtain * 2, hills * 2, plain * 2, sea * 14, plain, hills, mtain * 2)
-    wr(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain, hills * 2)
-    wr(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8)
+
 
     wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3,
       mtain)
@@ -77,8 +44,8 @@ object Terr80E30  extends Long80Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553,  444, 1562)
-    res.setSomeInts(WSideMid(),  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
+    res.setSomeInts(WSideMid(), 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553)//,  444, 1562)
+    //res.setSomeInts(WSideMid(),  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
     res.setSomeInts(WSideLt(), 423,1495,  422,1496)//Kefalonia - Greece
     res
   }
@@ -102,15 +69,15 @@ object Terr80E30  extends Long80Terrs
     res.setMouth1(414, 1550)//Cyprus - Turkey west
     res.setMouth4(416, 1556)//Cyprus - Turkey east
 
-    res.setMouth2(430, 1518)
-    res.setVert3In(430, 1522)
-    res.setMouth4(430, 1526)
-    res.setMouth1(430, 1526)
-    res.setVert2In(432, 1528)
-    res.setMouth3(434, 1530)
-
-    res.setMouth3(446, 1562)//Kerch Straits north
-    res.setMouth0(442, 1562)//Kerch Straits south
+//    res.setMouth2(430, 1518)
+//    res.setVert3In(430, 1522)
+//    res.setMouth4(430, 1526)
+//    res.setMouth1(430, 1526)
+//    res.setVert2In(432, 1528)
+//    res.setMouth3(434, 1530)
+//
+//    res.setMouth3(446, 1562)//Kerch Straits north
+//    res.setMouth0(442, 1562)//Kerch Straits south
 
     res.setCornerIn(422, 1474, 5)//Sicily - Italy north
     res.setCornerIn(422, 1474, 4)//Sicily - Italy
@@ -137,6 +104,42 @@ object Terr80E30  extends Long80Terrs
       VRow(505, MouthDR(1554)),
       TRow(502, taiga * 2, sea * 2, taiga * 14),
       TRow(500, taiga * 2, sea * 2, taiga * 15),
+      TRow(498, taiga, sea * 2, taiga * 9, Lake, taiga * 6),
+      TRow(496, taiga, sea * 3, taiga * 6, Lake, taiga * 2, Lake, taiga * 6),
+      TRow(494, taiga * 2, sea * 2, taiga * 6, Lake * 2, taiga * 8),
+      TRow(492, taiga * 2, sea * 2, taiga, sea * 4, taiga * 11),
+      TRow(490, taiga * 2, sea * 4, plain * 15),
+      TRow(488, taiga, sea * 4, plain * 16),
+      TRow(486, plain, sea * 4, plain, sea, plain * 15),
+      TRow(484, plain, sea, plain, sea, plain, sea, plain * 16),
+      TRow(482, plain, sea * 3, plain * 18),
+      TRow(480, plain, sea * 4, plain * 18),
+      TRow(478, sea * 4, plain * 19),
+      TRow(476, sea * 4, plain * 19),
+      TRow(474, sea, plain * 23),
+      TRow(472, plain * 24),
+      TRow(470, plain * 25),
+      TRow(468, plain * 25),
+      TRow(466, plain * 25),
+      TRow(464, plain * 26),
+      TRow(462, hills, plain * 25),
+      TRow(460, hills, plain * 25),
+      TRow(458, hills * 3, mtain * 3, plain * 21),
+      TRow(456, hills, plain, hills * 4, mtain * 2, hills, plain * 18),
+      TRow(454, plain * 7, mtain * 2, hills * 3, plain * 15),
+      TRow(452, mtain, plain * 6, hills, mtain * 2, hills * 3, plain * 15),
+      VRow(451, MouthUR(1570)),
+      TRow(450, hills, plain * 5, hills * 3, mtain * 2, hills * 3, plain * 7, sea, Head1Land(5), plain * 5),
+      TRow(448, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7),
+      TRow(446, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 2, sea * 2, plain * 8),
+      VRow(445, MouthUp(1562)),
+      TRow(444, hills * 3, plain * 3, hills * 4, plain * 4, sea * 4, hills * 2, Head2Land(2), Head2Land(3), plain * 4, hills, plain * 2),
+      TRow(442, mtain * 3, hills * 5, plain * 5, sea * 9, mtain * 2, hills * 2, plain * 3),
+      TRow(440, hills, mtain * 4, hills, mtain, plain * 3, hills * 2, plain, sea * 11, mtain * 3, hills, plain * 2),
+      TRow(438, sea, mtain * 5, hills, mtain * 2, hills * 4, sea * 13, mtain * 3, plain),
+      TRow(436, Sea * 2, mtain * 2, hills * 2, mtain * 2, hills * 2, plain * 2, sea * 14, plain, hills, mtain * 2),
+      TRow(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain, hills * 2),
+      TRow(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8),
     )
   }
   help.run
