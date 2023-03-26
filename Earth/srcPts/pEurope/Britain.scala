@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
-/** [[polygonLL]] Graphical representation of Scotland. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */
 object Scotland extends EArea2("Scotland", 56.82 ll -4.07, Hill)
 { val johnOGroats: LatLong = 58.62 ll -3.08
   val girnigoe: LatLong = 58.47 ll -3.05

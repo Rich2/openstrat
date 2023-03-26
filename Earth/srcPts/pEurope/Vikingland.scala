@@ -33,6 +33,7 @@ object Funen extends EArea2("Funen", 55.27 ll 10.39, Plain)
   val polygonLL = PolygonLL(funenN, nyborg, dovnsKlint, torohuse)
 }
 
+/** [[polygonLL]] graphical representation of Zealand. Depends on nothing. */
 object Zealand extends EArea2("Zealand", 55.58 ll 11.90, Plain)
 { val zealandN = 56.13 ll 12.29
   val helsingor = 56.04 ll 12.62
@@ -42,14 +43,15 @@ object Zealand extends EArea2("Zealand", 55.58 ll 11.90, Plain)
   val nakskov = 54.76 ll 11.00
   val zealandNW = 55.74 ll 10.87
    
-  val polygonLL = PolygonLL(zealandN, helsingor, mikkelborg, copenhagen, gedser, nakskov, zealandNW)
+  override val polygonLL = PolygonLL(zealandN, helsingor, mikkelborg, copenhagen, gedser, nakskov, zealandNW)
 }
 
+/** [[polygonLL]] graphical representation of south Sweden. Depends on nothing. */
 object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, Plain)
 { //South Baltic Coast
-  val gavie = 60.68 ll 17.21
-  val gardskarE = 60.63 ll 17.67
-  val klungstenN = 60.60 ll 17.99
+  val gavie: LatLong = 60.68 ll 17.21
+  val gardskarE: LatLong = 60.63 ll 17.67
+  val klungstenN: LatLong = 60.60 ll 17.99
   val stenskar = 60.36 ll 18.31
   val orskar = 60.53 ll 18.39
   val kappelskar = 59.75 ll 19.08
@@ -71,13 +73,15 @@ object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, Plain)
   val andersberg = 56.65 ll 12.87
   val sTylosand = 56.64 ll 12.72
   val wHono = 57.69 ll 11.60
+  val p95 = 59.07 ll 10.85
+  val rauer = 59.23 ll 10.68
   val oslo = 59.57 ll 10.59
    
-  val polygonLL = PolygonLL(gavie, gardskarE, klungstenN, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn,
-         /* South Baltic */ stenshamn, pukavik, ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg,
-         sTylosand, wHono, oslo)
+  override val polygonLL = PolygonLL(gavie, gardskarE, klungstenN, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn, stenshamn, pukavik,
+    ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg, sTylosand, wHono, p95, rauer, oslo)
 }
 
+/** [[polygonLL]] graphical representation of north Sweden. Depends on [[SwedenSouth]]. */
 object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, Taigas)
 {   
   val haparanda = 65.77 ll 24.17
@@ -124,8 +128,8 @@ object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, Taigas)
   val nordkapp = 71.16 ll 25.78
   val lakselv = 70.05 ll 25.00
    
-  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
-    holick, SwedenSouth.gavie,
+  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand,
+    junibosand, holick, SwedenSouth.gavie,
     /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
     /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
     /* North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)

@@ -13,25 +13,7 @@ object Terr80E0 extends Long80Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
 
-    gs(518, 542, taiga)
-    gs(516, 544, taiga)
-    gs(514, 542, taiga)
-    gs(512, 544, taiga)
-    gs(510, 542, taiga * 2)
-    gs(508, 540, taiga * 2)
-    gs(506, 538, taiga * 3)
-    gs(504, 536, taiga * 4)
-    gs(502, 530, taiga * 5)
-    gs(500, 528, taiga * 6)
-    gs(498, 494, hills, sea * 7, taiga * 7)
-    gs(496, 528, taiga * 7)
-    gs(494, 510, hills, sea * 3, taiga * 7)
-    gs(492, 528, taiga * 7)
-    gs(490, 530, taiga * 3, sea, taiga * 3)
-    wr(488, sea * 8, hills, sea * 6, taiga * 2, sea * 2, taiga * 2)
-    wr(486, sea * 7, mtain, hills * 1, sea * 7, taiga, sea * 2, plain * 3)
-    gs(484, 492, hills, mtain, hills * 2, sea * 9, plain * 4)
-    gs(482, 494, mtain * 2, hills, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
+
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
     gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
     gs(476, 488, hills, plain, hills * 3, plain, sea * 7, plain * 3, sea * 2)
@@ -70,8 +52,8 @@ object Terr80E0 extends Long80Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493,  487,503)//British Isles
-    res.setSomeInts(WSideMid(), 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551,  485,545,  484,546)
+    res.setSomeInts(WSideMid(), 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493)//,  487,503)//British Isles
+    res.setSomeInts(WSideMid(), 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551)//,  485,545,  484,546)
     res.setSomeInts(WSideMid(), 422,576, 433,551)
     res
   }
@@ -79,8 +61,6 @@ object Terr80E0 extends Long80Terrs
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
-    res.setMouth2(488, 500)
-    res.setMouth5(486, 506)
 
     res.setMouth2(478, 490)//North Ireland - Scotland north West
     res.setVert1In(476, 492)//North Ireland - Scotland
@@ -89,11 +69,7 @@ object Terr80E0 extends Long80Terrs
     res.setMouth1(462, 514)//Straits of Dover north west
     res.setMouth4(464, 520)//Straits of Dover south east
 
-    res.setMouth2(486, 542)//Denmark - Sweden
-    res.setVert1In(484, 544)//Denmark - Sweden
-    res.setMouth0(482, 546)//Denmark - Sweden
-
-    res.setMouth4(480, 548)//Jutland - Funen north
+   // res.setMouth4(480, 548)//Jutland - Funen north
     res.setVert5In(478, 546)//Funen - Jutland
     res.setVert4In(478, 546)//Funen - Jutland
     res.setTJunction(477, 546)//Funen - Jutland - Zealand
@@ -117,6 +93,32 @@ object Terr80E0 extends Long80Terrs
 
     res
   }
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(518, sea * 14, taiga),
+      TRow(516, sea * 15, taiga),
+      TRow(514, sea * 15, taiga),
+      TRow(512, sea * 15, taiga),
+      TRow(510, sea * 15, taiga * 2),
+      TRow(508, Head3Land(1, Hilly, Tundra), sea * 14, taiga * 2),
+      TRow(506, sea * 15, taiga * 3),
+      TRow(504, sea * 14, taiga * 4),
+      TRow(502, sea * 13, taiga * 5),
+      TRow(500, sea * 13, taiga * 6),
+      TRow(498, sea * 4, Island(Hilly), sea * 7, taiga * 7),
+      TRow(496, sea * 13, taiga * 7),
+      TRow(494, sea * 9, Head4Land(5, Hilly), sea * 3, taiga * 7),
+      TRow(492, sea * 8, Head4Land(2, Hilly), sea * 4, taiga * 6),
+      TRow(490, sea * 14, taiga * 3, taigaHills, taiga * 3),
+      TRow(488, sea * 7, Head3Land(5, Hilly), Island(Hilly), sea * 6, taiga * 2, sea, Head1Land(4), taiga * 2),
+      TRow(486, sea * 5, Island(Hilly) * 2, mtain, Head2Land(1, Hilly), sea * 7, Head3Land(2, Hilly, Taiga), sea * 2, Head1Land(4), plain * 2),
+      VRow(485, MouthDL(502)),
+      TRow(484, sea * 5, Head3Land(4, Hilly), mtain, forestHills, hills, sea * 9, Head4Land(5), Head1Land(4), plain * 2),
+      TRow(482, sea * 6, mtain * 2, hills, sea * 8, plain * 2, sea, Head1Land(4), plain),
+    )
+  }
+  help.run
 }
 
 /** Object for scenarios covering the western front at 80km. */

@@ -56,7 +56,6 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
 
   thisTop()
 
-
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
     statusText = str
