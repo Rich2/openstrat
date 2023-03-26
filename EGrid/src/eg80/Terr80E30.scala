@@ -13,20 +13,6 @@ object Terr80E30  extends Long80Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
 
-    wr(526, sea * 2, taiga * 4, sea * 7)
-    wr(524, sea, taiga * 5, sea * 8)
-    wr(522, sea, taiga * 8, sea * 5)
-    wr(520, taiga * 11, sea * 4)
-    gs(518, 1136 + 374, taiga * 12, sea * 2, taiga)
-    gs(516, 1136 + 372, taiga * 13, sea * 2, taiga)
-    gs(514, 1136 + 370, taiga * 14, sea * 2)
-    gs(512, 1136 + 372, taiga * 10, sea * 2, taiga, sea, taiga * 2)
-    gs(510, 1136 + 370, taiga * 4, sea, taiga * 6, sea * 3, taiga * 3)
-    gs(508, 1136 + 368, taiga * 3, sea * 3, taiga * 5, sea, taiga, sea, taiga * 3)
-    gs(506, 1136 + 366, taiga * 4, sea, taiga * 7, sea, taiga * 5)
-    gs(504, 1136 + 368, taiga * 2, sea * 2, taiga * 14)
-    gs(502, 1136 + 366, taiga * 2, sea * 2, taiga * 14)
-    gs(500, 1136 + 364, taiga * 2, sea * 2, taiga * 15)
     gs(498, 1136 + 366, taiga, sea * 2, taiga * 9, Lake, taiga * 6)
     gs(496, 1136 + 364, taiga, sea * 3, taiga * 6, Lake, taiga * 2, Lake, taiga * 6)
     gs(494, 1136 + 362, taiga * 2, sea * 2, taiga * 6, Lake * 2, taiga * 8)
@@ -91,8 +77,6 @@ object Terr80E30  extends Long80Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 505,1553)
-    res.setSomeInts(WSideMid(Lake), 424,1550)
     res.setSomeInts(WSideMid(), 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553,  444, 1562)
     res.setSomeInts(WSideMid(),  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
     res.setSomeInts(WSideLt(), 423,1495,  422,1496)//Kefalonia - Greece
@@ -134,4 +118,26 @@ object Terr80E30  extends Long80Terrs
 
     res
   }
+  
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
+      TRow(526, sea * 2, taiga * 4, sea * 7),
+      TRow(524, sea, taiga * 5, sea * 8),
+      TRow(522, sea, taiga * 8, sea * 5),
+      TRow(520, taiga * 11, sea * 4),
+      TRow(518, taiga * 12, sea * 2, taiga),
+      TRow(516, taiga * 13, sea * 2, taiga),
+      TRow(514, taiga * 14, sea * 2),
+      TRow(512, taiga * 10, sea * 2, taiga, sea, taiga * 2),
+      TRow(510, taiga * 4, sea, taiga * 6, sea * 3, taiga * 3),
+      TRow(508, taiga * 3, sea * 3, taiga * 5, sea, taiga, sea, taiga * 3),
+      TRow(506, taiga * 4, sea, taiga * 7, sea, taiga * 5),
+      VRow(505, MouthUL(1552)),
+      TRow(504, taiga * 2, sea * 2, taiga * 14),
+      VRow(505, MouthDR(1554)),
+      TRow(502, taiga * 2, sea * 2, taiga * 14),
+      TRow(500, taiga * 2, sea * 2, taiga * 15),
+    )
+  }
+  help.run
 }
