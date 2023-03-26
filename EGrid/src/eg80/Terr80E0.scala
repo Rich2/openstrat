@@ -5,58 +5,13 @@ import prid._, phex._, egrid._, WTile._
 /** 80 Km tile width grid ventred on the Greenwich meridian, 0E form 15W to 15E. Covers North West Europe. The c or column offset is 512 which is G0
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object Terr80E0 extends Long80Terrs
-{
-  implicit val grid: EGrid80LongFull = EGrid80.e0(416)
+{ implicit val grid: EGrid80LongFull = EGrid80.e0(416)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
-
-    gs(452, 504, plain * 9, hills * 2, mtain * 6)
-    gs(450, 506, plain * 7, hills, mtain * 8)
-    gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
-    gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
-    wr(444, sea * 13, forest, plain, hills * 5, mtain * 2, hills * 2, plain * 3, sea, plain)
-    wr(442, sea * 12, plain, forest, hills * 3, mtain, hills, mtain * 2, hills, mtain * 3, hills, plain, sea * 2)
-    wr(440, sea * 13, plain * 3, hills, mtain, hills * 3, mtain * 2, sea * 2, hills, mtain, hills, sea * 2)
-    wr(438, sea * 5, hills * 3, mtain * 3, hills, mtain * 2, hills * 4, sea * 2, forestHills * 2, sea * 4, hills * 3, sea)
-    wr(436, sea * 5, hills * 3, plain * 3, desert * 2, hills, mtain * 4, sea * 5, hills, sea * 2, hills * 2, mtain, hills)
-    wr(434, sea * 6, hills * 2, plain, desert, desertHills, plain, hills, plain * 2, hills * 3, sea * 6, hills, sea * 2, hills * 2, mtain, hills)
-    wr(432, sea * 6, hills * 3, plain, desert, hills * 3, desert, plain, hills * 2, sea * 7, hills, sea * 3, hills * 2)
-    wr(430, sea * 5, plain, hills * 5, desert, hills, desertHills, mtain, plain, sea * 8, hills * 2, sea * 4, hills)
-    wr(428, sea * 6, hills * 2, plain * 3, desert * 2, hills * 3, sea * 8, hills * 2, sea * 5)
-    wr(426, sea * 6, hills, plain * 3, hills * 2, desert * 2, hills, plain, sea * 3, plain, sea * 5, hills, sea * 6)
-    wr(424, sea * 5, plain * 5, hills * 6, sea * 16)
-    wr(422, sea * 6, plain * 2, hills * 4, desertHills, hills, desertHills, plain, sea * 14, hills, mtain)
-    wr(420, sea * 7, hills, plain * 3, desertHills, hills * 4, sea * 14, hills * 3)
-    wr(418, sea * 8, plain, hills * 2, mtain * 2, desertHills, sea * 5, hills, mtain, sea, mtain * 2, hills, mtain, hills * 2, sea * 4, hills)
-    wr(416, sea * 9, hills * 2, sea * 6, mtain, hills * 7, mtain, hills * 2, desertHills, sea * 4)
-    res
-  }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 422,576, 433,551)
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res: HCornerLayer = grid.newHVertOffsetLayer
-
-    res.setMouth1(432, 548)//Sardinia - Corsica west
-    res.setMouth4(434, 554)//Sardinia - Corsica east
-
-    res.setMouth3Corner(424, 576)//Sicily - Italy north
-    res.setCornerIn(422, 574, 1)//Sicily - Italy north
-    res.setCornerIn(422, 574, 2)//Sicily - Italy south
-    res.setCorner(420, 576, 0, HVUL)//Sicily - Italy south
-
-    res
-  }
-
-  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
-    override val rowDatas: RArr[RowBase] = RArr(
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
       TRow(518, sea * 14, taiga),
       TRow(516, sea * 15, taiga),
       TRow(514, sea * 15, taiga),
@@ -98,6 +53,25 @@ object Terr80E0 extends Long80Terrs
       TRow(456, sea * 9, Head3Land(4), Head2Land(0), Head2Land(5), plain * 7, hills * 3, plain * 3, hills * 2),
       VRow(455, MouthDn(502)),
       TRow(454, sea * 9, plain * 10, forestHills * 2, plain * 4, hills, mtain),
+      TRow(452, sea * 11, plain * 9, hills * 2, mtain * 6),
+      TRow(450, sea * 12, plain * 7, hills, mtain * 8),
+      TRow(448, sea * 12, plain * 4, hills * 2, plain, mtain * 9),
+      TRow(446, sea * 13, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2),
+      TRow(444, sea * 13, forest, plain, hills * 5, mtain * 2, hills * 2, plain * 3, sea, plain),
+      TRow(442, sea * 12, plain, forest, hills * 3, mtain, hills, mtain * 2, hills, mtain * 3, hills, plain, sea * 2),
+      TRow(440, sea * 13, plain * 3, hills, mtain, hills * 3, mtain * 2, sea * 2, hills, mtain, hills, sea * 2),
+      TRow(438, sea * 5, hills * 3, mtain * 3, hills, mtain * 2, hills * 4, sea * 2, forestHills * 2, sea * 4, hills * 3, sea),
+      TRow(436, sea * 5, hills * 3, plain * 3, desert * 2, hills, mtain * 4, sea * 5, hills, sea * 2, hills * 2, mtain, hills),
+      TRow(434, sea * 6, hills * 2, plain, desert, desertHills, plain, hills, plain * 2, hills * 3, sea * 6, hills, sea * 2, hills * 2, mtain, hills),
+      TRow(432, sea * 6, hills * 3, plain, desert, hills * 3, desert, plain, hills * 2, sea * 7, Head3Land(5, Hilly), sea * 3, hills * 2),
+      TRow(430, sea * 5, plain, hills * 5, desert, hills, desertHills, mtain, plain, sea * 8, hills, Head2Land(1, Hilly), sea * 4, hills),
+      TRow(428, sea * 6, hills * 2, plain * 3, desert * 2, hills * 3, sea * 8, hills * 2, sea * 5),
+      TRow(426, sea * 6, hills, plain * 3, hills * 2, desert * 2, hills, plain, sea * 3, plain, sea * 5, hills, sea * 6),
+      TRow(424, sea * 5, plain * 5, hills * 6, sea * 16),
+      TRow(422, sea * 6, plain * 2, hills * 4, desertHills, hills, desertHills, plain, sea * 14, hills, mtain),
+      TRow(420, sea * 7, hills, plain * 3, desertHills, hills * 4, sea * 14, hills * 3),
+      TRow(418, sea * 8, plain, hills * 2, mtain * 2, desertHills, sea * 5, hills, mtain, sea, mtain * 2, hills, mtain, hills * 2, sea * 4, hills),
+      TRow(416, sea * 9, hills * 2, sea * 6, mtain, hills * 7, mtain, hills * 2, desertHills, sea * 4),
     )
   }
   help.run
