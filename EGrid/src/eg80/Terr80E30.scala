@@ -5,86 +5,10 @@ import prid._, phex._, egrid._, WTile._
 /** The 80 Km grid centred on 30E for 15E to 45E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current y offset is 300 for
  *  the equator. The Old c offset was 400 so a diff of 1136. */
 object Terr80E30  extends Long80Terrs
-{
-  override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
-
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
-
-
-
-    wr(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3,
-      mtain)
-
-    wr(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, desertHills * 2, hills * 4, desertHills * 2,
-      hills * 3, plain)
-
-    wr(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, desertHills * 7, mtain * 2, hills,
-      desertHills * 2, mtain, desertHills)
-
-    wr(424, hills, sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desertHills, desert * 2, desertHills * 6, mtain * 2, desertHills, lake,
-      desertHills, mtain)
-
-    wr(422, mtain, sea * 4, Island(Hilly), hills, mtain, hills * 2, sea * 2, hills * 7, desert, desertHills, desert, mtain, hills, desertHills, mtain, plain * 2,
-      desertHills, mtain * 2, desertHills)
-
-    wr(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills  * 2, mtain, hills * 2, plain * 2, desert * 4,
-      mtain)
-
-    wr(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, plain * 2, hills, desert * 2, plain, desert * 3, desertHills * 2, mtain)
-    wr(416, sea * 10, sea * 4, hills, sea, mtain, sea * 2, mtain * 2, sea * 2, hills, plain, desert * 7, desertHills)
-    wr(414, sea * 9, hills, sea * 10, hills, sea, hills * 2, desert * 8, desertHills)
-    wr(412, sea * 10, hills * 2, sea * 7, hills, plain, sea * 2, hills, desert * 10)
-    wr(410, sea * 11, sea * 12, hills, desertHills, desert * 9)//Checked HCens to here
-
-    res
-  }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 423,1497,  423,1499,  423,1501, 423,1503,  422,1504,  417,1527,  417,1529,  415,1553)//,  444, 1562)
-    //res.setSomeInts(WSideMid(),  422,1472, 429,1521,  429,1523,  431,1529,  432,1530)//Greece
-    res.setSomeInts(WSideLt(), 423,1495,  422,1496)//Kefalonia - Greece
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-
-    res.setMouth3(426, 1550)//Lake Van north
-    res.setMouth0(422, 1550)//Lake Van south
-    res.setMouth1(422, 1494)//Peloponnese - Greece - west
-    res.setVert0In(422, 1498)//Peloponnese - Greece
-    res.setVert3In(424, 1500)//Peloponnese - Greece
-    res.setVert0In(422, 1502)//Peloponnese - Greece
-    res.setVert1In(422, 1502)//Peloponnese - Greece
-    res.setMouth0(420, 1504)//Peloponnese - Greece
-
-    res.setMouth1(416, 1524)//Rhodes - Turkey west
-    res.setVert0In(416, 1528)//Rhodes - Turkey
-    res.setMouth5(416, 1532)//Rhodes - Turkey east
-
-    res.setMouth1(414, 1550)//Cyprus - Turkey west
-    res.setMouth4(416, 1556)//Cyprus - Turkey east
-
-//    res.setMouth2(430, 1518)
-//    res.setVert3In(430, 1522)
-//    res.setMouth4(430, 1526)
-//    res.setMouth1(430, 1526)
-//    res.setVert2In(432, 1528)
-//    res.setMouth3(434, 1530)
-//
-//    res.setMouth3(446, 1562)//Kerch Straits north
-//    res.setMouth0(442, 1562)//Kerch Straits south
-
-    res.setCornerIn(422, 1474, 5)//Sicily - Italy north
-    res.setCornerIn(422, 1474, 4)//Sicily - Italy
-    res.setMouth0Corner(420, 1472)//Sicily - Italy south
-
-    res
-  }
+{ override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
   
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
@@ -134,12 +58,48 @@ object Terr80E30  extends Long80Terrs
       TRow(446, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 2, sea * 2, plain * 8),
       VRow(445, MouthUp(1562)),
       TRow(444, hills * 3, plain * 3, hills * 4, plain * 4, sea * 4, hills * 2, Head2Land(2), Head2Land(3), plain * 4, hills, plain * 2),
+      VRow(433, MouthDL(1478)),
       TRow(442, mtain * 3, hills * 5, plain * 5, sea * 9, mtain * 2, hills * 2, plain * 3),
       TRow(440, hills, mtain * 4, hills, mtain, plain * 3, hills * 2, plain, sea * 11, mtain * 3, hills, plain * 2),
-      TRow(438, sea, mtain * 5, hills, mtain * 2, hills * 4, sea * 13, mtain * 3, plain),
-      TRow(436, Sea * 2, mtain * 2, hills * 2, mtain * 2, hills * 2, plain * 2, sea * 14, plain, hills, mtain * 2),
-      TRow(434, hills, sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain, hills * 2),
-      TRow(432, hills, plain, sea * 2, hills, mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8),
+      TRow(438, sea, Head2Land(3, Mountains), mtain * 4, hills, mtain * 2, hills * 4, sea * 13, mtain * 3, plain),
+      TRow(436, Sea * 2, Head2Land(3, Mountains), mtain, hills * 2, mtain * 2, hills * 2, plain * 2, sea * 14, plain, hills, mtain * 2),
+
+      TRow(434, Head2Land(1, Hilly), sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain,
+        hills * 2),
+
+      TRow(432, hills, Head2Land(0), sea * 2, Head2Land(4, Hilly), mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8),
+
+      TRow(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3,
+      mtain),
+
+      TRow(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, desertHills * 2, hills * 4, desertHills * 2,
+      hills * 3, plain),
+
+      TRow(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, desertHills * 7, mtain * 2, hills,
+      desertHills * 2, mtain, desertHills),
+
+      TRow(424, Head1Land(5, Hilly), sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desertHills, desert * 2, desertHills * 6, mtain * 2, desertHills, lake,
+      desertHills, mtain),
+
+      VRow(423, VertInUp(1500)),
+
+      TRow(422, Head4Land(2, Mountains), sea * 4, Island(Hilly), Head3Land(4, Hilly), Head2Land(0, Mountains), hills * 2, sea * 2, hills * 7, desert,
+        desertHills, desert, mtain, hills, desertHills, mtain, plain * 2, desertHills, mtain * 2, desertHills),
+
+      VRow(421, MouthDn(1504)),
+
+      TRow(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills * 2, mtain, hills * 2, plain * 2, desert * 4,
+      mtain),
+
+      TRow(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Head1Land(3) * 2, hills, desert * 2, plain, desert * 3, desertHills * 2, mtain),
+      VRow(417, MouthUR(1564)),
+
+      TRow(416, sea * 10, sea * 4, Island(Hilly), sea, Head3Land(2, Mountains), sea * 2, Head2Land(3, Mountains), Head2Land(2, Mountains), sea * 2, hills, plain,
+        desert * 7, desertHills),
+
+      TRow(414, sea * 9, hills, sea * 10, Head4Land(5, Hilly), sea, hills * 2, desert * 8, desertHills),
+      TRow(412, sea * 10, hills * 2, sea * 7, hills, plain, sea * 2, hills, desert * 10),
+      TRow(410, sea * 11, sea * 12, hills, desertHills, desert * 9), //Checked HCens to here
     )
   }
   help.run
