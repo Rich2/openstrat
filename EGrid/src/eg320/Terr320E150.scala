@@ -3,51 +3,32 @@ package ostrat; package eg320
 import prid._, phex._, egrid._, WTile._
 
 object Terr320E150 extends Long320Terrs
-{
-  override implicit val grid: EGrid320LongFull = EGrid320.e150(126)
+{ override implicit val grid: EGrid320LongFull = EGrid320.e150(126)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-    wr(160, sea * 2)
-    gs(158, 5630, tundra, sea * 2)
-    gs(156, 5628, tundra * 3)
-    gs(154, 5626, tundra * 4)
-    gs (152, 5628, tundra, taiga * 3)
-    gs(150, 5626, taiga * 4)
-    gs(148, 5624, taiga * 3, sea, taiga)
-    gs(146, 5638, taiga, sea)
-    gs(144, 5636, taiga, sea)
-    gs(142, 5622, taiga * 2, sea * 2, taiga, sea)
-    gs(140, 5624, taiga, sea * 5)
-    wr(138, taiga, sea * 6)
-    wr(136, sea, forestHills, sea * 5)
-    wr(134, forestHills * 2, sea * 5)
-    wr(132, hills, sea * 6)
-    wr(130, sea, hills, sea * 6)
-    wr(128, hills, sea * 7)
-    res
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(160, sea * 2),
+      TRow(158, Head3Land(5, Plains, Tundra), sea * 2),
+      TRow(156, tundra * 2, Head2Land(0, Plains, Tundra)),
+      TRow(154, tundra * 4),
+      TRow(152, tundra, taiga * 3),
+      TRow(150, taiga * 4),
+      TRow(148, taiga * 3, sea, taiga),
+      TRow(146, sea * 3, taiga, sea),
+      TRow(144, sea * 3, Head2Land(4, Plains, Taiga), Head2Land(1, Plains, Taiga)),
+      TRow(142, taiga * 2, sea * 2, Head3Land(2, Plains, Taiga), sea),
+      TRow(140, taiga, sea * 5),
+      TRow(138, Head2Land(2, Plains, Taiga), sea * 6),
+      TRow(136, sea, Head3Land(5, Hilly, Forest), sea * 5),
+      TRow(134, Head3Land(3, Hilly, Forest), Head2Land(2, Hilly, Forest), sea * 5),
+      TRow(132, sea, Head3Land(0, Hilly), sea * 5),
+      TRow(130, Head2Land(5, Hilly), Head1Land(2, Hilly), sea * 6),
+      TRow(128, Head2Land(2, Hilly), sea * 7),
+    )
   }
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 133,5621,  137,5623,  142,5624,  141,5625)
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-
-    res.setMouth3(144, 5624)//Manchuria - Sakhalin north
-    res.setVert4In(142, 5626)//Manchuria - Sakhalin
-    res.setMouth5(140, 5628)//Manchuria - Sakhalin
-
-    res.setMouth4(138, 5626)//Manchuria - Hokkaido east
-    res.setMouth1(136, 5620)//Manchuria - Hokkaido west
-
-    res.setCornerIn(134, 5622, 4)//Hokkaido - Japan west
-    res.setCornerIn(132, 5620, 0)//Hokkaido - Japan west
-    res.setMouth5(132, 5624)//Hokkaido - Japan east
-    res
-  }
+  help.run
 }
