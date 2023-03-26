@@ -3,31 +3,20 @@ package ostrat; package eg320
 import prid._, phex._, egrid._, WTile._
 
 /** 320km per hex tile terrain centered on 180 east longitude, covering 30 degrees. */
-object Terr320E180 extends Long320Terrs
-{
+object Terr320E180 extends Long320Terrs{
   override implicit val grid: EGrid320LongFull = EGrid320.e180(128)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-
-    wr(154, tundra * 3, sea)
-    wr(152, tundra, sea, tundra, taiga)
-    wr(150, tundra * 2, sea * 2)
-    wr(148, tundra, sea * 4)
-    res
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(154, tundra * 3, sea),
+      TRow(152, tundra, sea, Head4Land(1, Plains, Tundra), Head2Land(4, Plains, Taiga)),
+      TRow(150, tundra * 2, sea * 2),
+      TRow(148, tundra, sea * 4),
+    )
   }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 152, 6662)
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-    res.setMouth3(154, 6662)//Bearing Straits north
-    res.setMouth0(150, 6662)//Bearing Straits south
-    res
-  }
+  help.run
 }
