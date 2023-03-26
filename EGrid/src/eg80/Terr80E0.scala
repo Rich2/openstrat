@@ -13,21 +13,6 @@ object Terr80E0 extends Long80Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
 
-
-    gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
-    gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
-    gs(476, 488, hills, plain, hills * 3, plain, sea * 7, plain * 3, sea * 2)
-    gs(474, 482, plain * 3, sea * 2, hills, plain, hills, sea * 7, plain * 2, sea * 3)
-    gs(472, 480, plain * 3, sea * 3, plain, hills, plain, sea * 6, plain * 6)
-    gs(470, 482, plain * 3, sea, hills * 2, plain * 2, sea * 4, plain * 9)
-    gs(468, 480, plain * 3, sea * 2, hills * 2, plain * 3, sea * 2, plain * 9)
-    gs(466, 482, plain, sea * 3, hills * 2, plain * 3, sea * 2, plain * 4, hills * 2, plain * 4)
-    gs(464, 500, plain * 5, sea, plain * 2, hills * 7, plain, hills)
-    gs(462, 494, hills * 3, sea * 3, plain * 4, hills * 8)
-    gs(460, 516, plain * 3, hills * 10)
-    gs(458, 506, plain * 8, hills * 3, plain, hills * 3, plain)
-    gs(456, 500, plain, sea, plain * 7, hills * 3, plain * 3, hills * 2)
-    gs(454, 498, plain * 10, forestHills * 2, plain * 4, hills, mtain)
     gs(452, 504, plain * 9, hills * 2, mtain * 6)
     gs(450, 506, plain * 7, hills, mtain * 8)
     gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
@@ -52,36 +37,12 @@ object Terr80E0 extends Long80Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 463,517,  465,499,  465,501,  475,547,  476,546,  476,494,  477,493)//,  487,503)//British Isles
-    res.setSomeInts(WSideMid(), 477,545,  477,547,  478,544,  478,548,  478,552,  479,545,  479,551)//,  485,545,  484,546)
     res.setSomeInts(WSideMid(), 422,576, 433,551)
     res
   }
 
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
-
-
-    res.setMouth2(478, 490)//North Ireland - Scotland north West
-    res.setVert1In(476, 492)//North Ireland - Scotland
-    res.setMouth0(474, 494)//North Ireland - Scotland
-
-    res.setMouth1(462, 514)//Straits of Dover north west
-    res.setMouth4(464, 520)//Straits of Dover south east
-
-   // res.setMouth4(480, 548)//Jutland - Funen north
-    res.setVert5In(478, 546)//Funen - Jutland
-    res.setVert4In(478, 546)//Funen - Jutland
-    res.setTJunction(477, 546)//Funen - Jutland - Zealand
-
-    res.setVert4In(476, 548)//Jutland - Zealand
-    res.setMouth5(474, 550)//Jutland - Zealand south
-    res.setMouth3(480, 548)//Funen -Zealand north
-    res.setVert2In(478, 546)//Funen -Zealand
-
-    res.setMouth2(480, 548)//Zealand - Sweden north
-    res.setVert1In(478, 550)//Zealand - Sweden
-    res.setMouth0(476, 552)//Zealand - Sweden south
 
     res.setMouth1(432, 548)//Sardinia - Corsica west
     res.setMouth4(434, 554)//Sardinia - Corsica east
@@ -116,6 +77,27 @@ object Terr80E0 extends Long80Terrs
       VRow(485, MouthDL(502)),
       TRow(484, sea * 5, Head3Land(4, Hilly), mtain, forestHills, hills, sea * 9, Head4Land(5), Head1Land(4), plain * 2),
       TRow(482, sea * 6, mtain * 2, hills, sea * 8, plain * 2, sea, Head1Land(4), plain),
+      TRow(480, sea * 7, hills * 2, sea * 9, plain * 2, sea, plain * 2),
+      VRow(479, MouthUL(550), VertInDL(552)),
+      TRow(478, sea * 6, Head3Land(3, Hilly), plain * 2, Head2Land(0), sea * 7, plain *2, Head3Land(4), plain * 2, sea),
+      VRow(477, MouthDn(552)),
+      TRow(476, sea * 5, hills, plain, Head3Land(3, Hilly), hills * 2, plain, sea * 7, plain, Head1Land(1), Head3Land(2), sea * 2),
+      TRow(474, sea * 4, Head2Land(5), plain * 2, Head3Land(1, Hilly), sea, hills, plain, hills, sea * 7, plain * 2, sea * 3),
+      VRow(473, MouthUL(492)),
+      TRow(472, sea * 3, plain * 3, Head2Land(1), sea * 2, plain, hills, Head2Land(1), sea * 6, plain * 6),
+      TRow(470, sea * 4, plain * 3, sea, hills * 2, plain * 2, sea * 4, plain * 9),
+      TRow(468, sea * 4, plain * 3, sea * 2, hills * 2, plain * 3, sea * 2, plain * 9),
+      TRow(466, sea * 3, Head3Land(3), plain, Head2Land(2), sea * 2, hills * 2, plain * 3, sea * 2, plain * 4, hills * 2, plain * 4),
+      VRow(465, MouthDL(514), MouthDR(502)),
+      TRow(464, sea * 9, Head2Land(5), plain * 3, Head4Land(0), sea, plain * 2, hills * 7, plain, hills),
+      TRow(462, sea * 8, Head2Land(5, Hilly), hills, Head1Land(3, Hilly), Head1Land(3), Head2Land(2), sea, Head1Land(5), plain * 3, hills * 8),
+      TRow(460, sea * 7, Head4Land(2, Hilly), sea * 5, Head1Land(5), plain * 2, hills * 10),
+      VRow(459, MouthDL(508), MouthDR(512)),
+      TRow(458, sea * 11, Head2Land(4), Head1Land(0), plain * 6, hills * 3, plain, hills * 3, plain),
+      VRow(457, MouthDR(506)),
+      TRow(456, sea * 9, Head3Land(4), Head2Land(0), Head2Land(5), plain * 7, hills * 3, plain * 3, hills * 2),
+      VRow(455, MouthDn(502)),
+      TRow(454, sea * 9, plain * 10, forestHills * 2, plain * 4, hills, mtain),
     )
   }
   help.run
