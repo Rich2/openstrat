@@ -2,6 +2,25 @@
 package ostrat; package eg120
 import prid._, phex._, egrid._, pEarth._
 
+
+/** 2 Grid system for 0E and 30E */
+object Grids120S0E2 extends EGrid120LongMulti
+{ ThisSys =>
+  override val grids: RArr[EGridLongFull] =  EGrid120.grids(3, 0, 300, 314)
+  override def headGridInt: Int = 0
+  override def gridsXSpacing: Double = 55
+  override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, ThisSys))
+}
+
+/** Scenario for 3 Grid system for 0E, 30E and 60E */
+object Scen120S0E2 extends EScenLongMulti
+{ override val title: String = "120km 0E - 60E"
+  override implicit val gridSys: EGrid120LongMulti = Grids120S0E2
+  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
 /** 2 Grid system for 0E and 30E */
 object Grids120S0E1 extends EGrid120LongMulti
 { ThisSys =>
@@ -12,7 +31,7 @@ object Grids120S0E1 extends EGrid120LongMulti
 }
 
 /** Scenario for 2 Grid system for 0E and 30E */
-object Scen120s0e1 extends EScenLongMulti
+object Scen120S0E1 extends EScenLongMulti
 { override val title: String = "120km 0E - 30E"
   override implicit val gridSys: EGrid120LongMulti = Grids120S0E1
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn

@@ -5,8 +5,7 @@ import prid.phex._, egrid._
 /** Hex tile grids for Earth with a hex scale of 120km, a C scale of 40km. A tile area of 7014.805km. A minimum island size of 1169.134km. */
 package object eg120
 {
-  val fullTerrs: RArr[Long120Terrs] = RArr(Terr120E0, Terr120E30, null, null, null, null, null,
-    null, null, null, null, null)
+  val fullTerrs: RArr[Long120Terrs] = RArr(Terr120E0, Terr120E30, Terr120E60, null, null, null, null, null, null, null, null, null)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid120LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
