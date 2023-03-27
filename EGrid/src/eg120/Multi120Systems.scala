@@ -1,9 +1,26 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg120
-import prid._, phex._, egrid._, pEarth._
-
+import prid._, phex._, egrid._
 
 /** 2 Grid system for 0E and 30E */
+object Grids120S0E1 extends EGrid120LongMulti
+{ ThisSys =>
+  override val grids: RArr[EGridLongFull] =  EGrid120.grids(2, 0, 300, 314)
+  override def headGridInt: Int = 0
+  override def gridsXSpacing: Double = 55
+  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
+}
+
+/** Scenario for 23 Grid system for 0E, 30E and 60E */
+object Scen120S0E1 extends EScenLongMulti
+{ override val title: String = "120km 0E - 30E"
+  override implicit val gridSys: EGrid120LongMulti = Grids120S0E1
+  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
+/** 2 Grid system for 0E, 30E and 60E */
 object Grids120S0E2 extends EGrid120LongMulti
 { ThisSys =>
   override val grids: RArr[EGridLongFull] =  EGrid120.grids(3, 0, 300, 314)
@@ -22,7 +39,7 @@ object Scen120S0E2 extends EScenLongMulti
 }
 
 /** 2 Grid system for 0E and 30E */
-object Grids120S0E1 extends EGrid120LongMulti
+object Grids120S0E1North extends EGrid120LongMulti
 { ThisSys =>
   override val grids: RArr[EGridLongFull] =  EGrid120.grids(2, 0, 348)
   override def headGridInt: Int = 0
@@ -31,9 +48,9 @@ object Grids120S0E1 extends EGrid120LongMulti
 }
 
 /** Scenario for 2 Grid system for 0E and 30E */
-object Scen120S0E1 extends EScenLongMulti
+object Scen120S0E1North extends EScenLongMulti
 { override val title: String = "120km 0E - 30E"
-  override implicit val gridSys: EGrid120LongMulti = Grids120S0E1
+  override implicit val gridSys: EGrid120LongMulti = Grids120S0E1North
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

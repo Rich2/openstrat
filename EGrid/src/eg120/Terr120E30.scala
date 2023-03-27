@@ -16,6 +16,7 @@ object Terr120E30 extends Long120Terrs
       TRow(346, mtain),
 
       TRow(314, plain * 10, plain * 6),
+      TRow(312, plain * 10, plain * 6),
 
       TRow(286, hills, plain, hills * 3, sea, hills * 2, hills * 13),
       TRow(284, hills, sea * 2, hills * 3, sea * 2, hills * 13),
