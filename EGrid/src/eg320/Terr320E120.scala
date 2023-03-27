@@ -27,10 +27,10 @@ object Terr320E120 extends Long320Terrs
      TRow(136, plain * 7),
      TRow(134, plain * 6, sea),
      TRow(132, plain * 3, Head2Land(2, Hilly), Head1Land(3, Hilly), hills, sea),
-     TRow(130, desert, plain * 3, Head3Land(0), Head2Land(4,Hilly), Head2Land(1, Hilly), sea),
+     TRow(130, desert, plain * 3, Headland(3, 0), Headland(2, 4,Hilly), Headland(2, 1, Hilly), sea),
      VRow(131, MouthUL(4606)),
-     TRow(130, desert, plain * 3, Head3Land(0), Head2Land(4,Hilly), Head2Land(1, Hilly), sea),
-     TRow(128, plain * 3, Head1Land(2), sea, Head3Land(2, Hilly), sea, hills),
+     TRow(130, desert, plain * 3, Headland(3, 0), Head2Land(4,Hilly), Head2Land(1, Hilly), sea),
+     TRow(128, plain * 3, Head1Land(2), sea, Headland(3, 2, Hilly), sea, hills),
      TRow(126, mtain, hills, plain * 2, sea * 3, Head1Land(2, Hilly)),
     )
   }
