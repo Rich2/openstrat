@@ -117,12 +117,9 @@ object Island
   }
 }
 
+/** Headland surrounded by [[Water]] on 1 to 4 sides. */
 case class Headland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends
   Coastal with HIndent5Minus
-
-
-/** Headland surrounded by [[Water]] on 5 sides. */
-case class Head4Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent4
 
 /** Headland surrounded by [[Water]] on 4 sides. */
 case class Head3Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent3
@@ -132,16 +129,6 @@ case class Head2Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome
 
 /** Headland surrounded by [[Water]] on 3 sides. */
 case class Head1Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent1
-
-/*case class SeaIsland(terr: Terrain, biome: Biome) extends Island// with SeaHas
-{ override def str: String = "SeaIsland"
-  override def colour: Colour = DarkBlue
-}
-
-class LakeIsland(val terr: Terrain, val biome: Biome) extends Island// with LakeHas
-{ override def str: String = "SeaIsland"
-  override def colour: Colour = Blue
-}*/
 
 trait Terrain
 { def str: String

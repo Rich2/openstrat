@@ -10,11 +10,11 @@ object Terr220E30 extends Long220Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
-      TRow(182, Head2Land(5, Hilly, Tundra), Head2Land(0, Hilly, Tundra), sea * 3),
+      TRow(182, Headland(2, 5, Hilly, Tundra), Head2Land(0, Hilly, Tundra), sea * 3),
       TRow(180, tundraHills, taiga, tundra, Head2Land(0, Hilly, Tundra), sea),
       TRow(178, taiga * 4, Head3Land(5, Plains, Tundra)),
       VRow(177, MouthUp(1530), MouthDL(1538), VertInUL(1544)),
-      TRow(176, Head1Land(2, Plains, Taiga), taiga * 2, Head3Land(0, Plains, Taiga), Head2Land(4, Plains, Taiga), taiga),
+      TRow(176, Headland(1, 2, Plains, Taiga), taiga * 2, Headland(3, 0, Plains, Taiga), Head2Land(4, Plains, Taiga), taiga),
       VRow(175, MouthDL(1540), MouthDR(1544)),
       TRow(174, Head1Land(2, Plains, Taiga), Head1Land(5, Plains, Taiga), taiga * 4),
       VRow(173, MouthUL(1540, Lake), VertInDL(1542, Lake, Lake)),
@@ -39,7 +39,7 @@ object Terr220E30 extends Long220Terrs
       VRow(147, MouthUL(1526)),
       TRow(146, Head2Land(1, Hilly), Head1Land(4, Hilly), Head2Land(1, Hilly), hills * 2, desertHills * 3, mtain, desertHills * 2),
       VRow(145, MouthDL(1522), MouthUR(1524)),
-      TRow(144, Head4Land(2, Hilly), sea, hills, sea, hills * 4, desertHills, plain, mtain),
+      TRow(144, Headland(4, 2, Hilly), sea, hills, sea, hills * 4, desertHills, plain, mtain),
       VRow(143, MouthUp(1544)),
       TRow(142, sea * 5, Head3Land(2, Hilly), sea, Head3Land(2, Hilly), Head1Land(4, Hilly), desert * 3),
       TRow(140, sea * 3, Island(Hilly), sea * 2, Island(Hilly), sea, hills, desert * 3),

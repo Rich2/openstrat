@@ -91,15 +91,15 @@ object Terr80E30  extends Long80Terrs
       TRow(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills * 2, mtain, hills * 2, plain * 2, desert * 4,
       mtain),
 
-      TRow(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Head1Land(3) * 2, hills, desert * 2, plain, desert * 3, desertHills * 2, mtain),
+      TRow(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Headland(1, 3) * 2, hills, desert * 2, plain, desert * 3, desertHills * 2, mtain),
       VRow(417, MouthUR(1564)),
 
-      TRow(416, sea * 10, sea * 4, Island(Hilly), sea, Head3Land(2, Mountains), sea * 2, Head2Land(3, Mountains), Head2Land(2, Mountains), sea * 2, hills, plain,
+      TRow(416, sea * 10, sea * 4, Island(Hilly), sea, Head3Land(2, Mountains), sea * 2, Headland(2, 3, Mountains), Headland(2, 2, Mountains), sea * 2, hills, plain,
         desert * 7, desertHills),
 
-      TRow(414, sea * 9, hills, sea * 10, Head4Land(5, Hilly), sea, hills * 2, desert * 8, desertHills),
+      TRow(414, sea * 9, hills, sea * 10, Headland(4, 5, Hilly), sea, hills * 2, desert * 8, desertHills),
       TRow(412, sea * 10, hills * 2, sea * 7, hills, plain, sea * 2, hills, desert * 10),
-      TRow(410, sea * 11, sea * 12, hills, desertHills, desert * 9), //Checked HCens to here
+      TRow(410, sea * 11, sea * 12, hills, desertHills, desert * 9),
     )
   }
   help.run
