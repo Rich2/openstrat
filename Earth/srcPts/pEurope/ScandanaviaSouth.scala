@@ -81,59 +81,6 @@ object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, Plain)
     ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg, sTylosand, wHono, p95, rauer, oslo)
 }
 
-/** [[polygonLL]] graphical representation of north Sweden. Depends on [[SwedenSouth]]. */
-object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, Taigas)
-{   
-  val haparanda = 65.77 ll 24.17
-  val ranea = 65.86 ll 22.36
-   
-  /** Start of West Baltic Coast. */
-  val hertsonEast = 65.53 ll 22.39
-  val ostanbackSouth = 64.82 ll 21.15
-  val eLappviken = 64.44 ll 21.60
-  val skeppsMalen = 63.19 ll 19.03
-  val skeppshamnSouth = 62.38 ll 17.74
-  val spikarna = 62.36 ll 17.53
-  val bredsand = 62.35 ll 17.37
-  val junibosand = 62.23 ll 17.65
-  val holick = 61.62 ll 17.48
-   
-  /** Start of South Coast. */
-  val hvasser = 59.07 ll 10.47
-  val nevlunghavn = 58.96 ll 9.85
-  val lindesnes = 57.98 ll 7.05
-  val flekkeroy = 58.06 ll 8.00
-  val borhag = 58.11 ll 6.55
-   
-  /** Start of West Coast. */
-  val bryne = 58.75 ll 5.49
-  val rennesoy = 59.12 ll 5.56
-  val swKarmoy = 59.14 ll 5.19
-  val ytreSula = 61.04 ll 4.63
-  val bremangerlandet = 61.85 ll 4.82
-  val wRunde = 62.41 ll 5.58
-  val svelllingen = 63.79 ll 8.68
-  val uthaug = 63.72 ll 9.55
-  val bodo = 67.26 ll 14.32
-  val hadseloya = 68.56 ll 14.63
-  val nordskot = 67.82 ll 14.70
-  val baroya = 68.33 ll 16.03
-   
-  /** Start of North Coast */
-  val sorvagen = 67.83 ll 12.82
-  val andenes = 69.32 ll 16.11
-  val gapoyholman = 68.88 ll 16.06
-  val sandsvika = 69.37 ll 16.87
-  val torsvag = 70.28 ll 19.59
-  val nordkapp = 71.16 ll 25.78
-  val lakselv = 70.05 ll 25.00
-   
-  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand,
-    junibosand, holick, SwedenSouth.gavie,
-    /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
-    /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
-    /* North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
-}
 
 object Oland extends EArea2("Faroe", 56.77 ll 16.67, Plain)
 {
