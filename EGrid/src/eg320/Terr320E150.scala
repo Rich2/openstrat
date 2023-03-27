@@ -26,7 +26,7 @@ object Terr320E150 extends Long320Terrs
       TRow(136, sea, Headland(3, 5, Hilly, Forest), sea * 5),
       TRow(134, Headland(3, 3, Hilly, Forest), Headland(2, 2, Hilly, Forest), sea * 5),
       TRow(132, sea, Headland(3, 0, Hilly), sea * 5),
-      TRow(130, Headland(2, 5, Hilly), Head1Land(2, Hilly), sea * 6),
+      TRow(130, Headland(2, 5, Hilly), Headland(1, 2, Hilly), sea * 6),
       TRow(128, Headland(2, 2, Hilly), sea * 7),
     )
   }

@@ -28,7 +28,7 @@ object Terr320E0 extends Long320Terrs
       VRow(137, MouthUp(526)),
       TRow(136, sea * 3, plain, hills, mtain, plain),
       VRow(135, VertInUR(526)),
-      TRow(134, sea, hills * 3, sea, Island(Hilly), Head1Land(1, Hilly)),
+      TRow(134, sea, hills * 3, sea, Island(Hilly), Headland(1, 1, Hilly)),
       TRow(132, sea, hills, plain * 2, sea, Island(Hilly), sea),
       TRow(130, sea, Headland(3, 3), Headland(1, 3, Hilly), Headland(2, 2, Hilly), sea * 2, Headland(3, 5, Hilly), Island(Hilly)),
       TRow(128, sea, Headland(2, 5, Hilly), Headland(1, 0, Hilly), hills * 3, Headland(1, 1, Hilly), sea),
