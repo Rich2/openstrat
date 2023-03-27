@@ -122,9 +122,6 @@ case class Headland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain 
   HIndent5Minus
 
 /** Headland surrounded by [[Water]] on 3 sides. */
-case class Head2Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent2
-
-/** Headland surrounded by [[Water]] on 3 sides. */
 case class Head1Land(indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent1
 
 trait Terrain

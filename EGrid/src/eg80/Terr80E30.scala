@@ -67,7 +67,7 @@ object Terr80E30  extends Long80Terrs
       TRow(434, Headland(2, 1, Hilly), sea * 3, hills, mtain, hills * 2, mtain, hills * 2, plain, hills, sea * 4, hills * 4, sea * 6, hills, mtain,
         hills * 2),
 
-      TRow(432, hills, Headland(2, 0), sea * 2, Head2Land(4, Hilly), mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8),
+      TRow(432, hills, Headland(2, 0), sea * 2, Headland(2, 4, Hilly), mtain, hills * 6, plain * 2, hills, hills * 7, plain, hills * 8),
 
       TRow(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3,
       mtain),
@@ -83,7 +83,7 @@ object Terr80E30  extends Long80Terrs
 
       VRow(423, VertInUp(1500)),
 
-      TRow(422, Headland(4, 2, Mountains), sea * 4, Island(Hilly), Headland(3, 4, Hilly), Head2Land(0, Mountains), hills * 2, sea * 2, hills * 7, desert,
+      TRow(422, Headland(4, 2, Mountains), sea * 4, Island(Hilly), Headland(3, 4, Hilly), Headland(2, 0, Mountains), hills * 2, sea * 2, hills * 7, desert,
         desertHills, desert, mtain, hills, desertHills, mtain, plain * 2, desertHills, mtain * 2, desertHills),
 
       VRow(421, MouthDn(1504)),

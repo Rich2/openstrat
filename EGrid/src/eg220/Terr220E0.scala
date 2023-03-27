@@ -24,7 +24,7 @@ object Terr220E0 extends Long220Terrs
       VRow(167, VertInDn(522), VertInDL(524)),
       TRow(166, sea * 2, hills, Headland(2, 1, Hilly), sea * 2, plain, Headland(2, 3)),
       TRow(164, sea, Headland(4, 5), hills, sea * 3, plain, sea),
-      TRow(162, sea, plain, sea, plain, sea, Head2Land(5), plain * 3),
+      TRow(162, sea, plain, sea, plain, sea, Headland(2, 5), plain * 3),
       TRow(160, sea, Headland(4, 2), sea, plain * 2, Head1Land(5), plain, hills, plain),
       VRow(159, VertInUp(512), VertInUL(514)),
       TRow(158, sea * 2, Headland(4, 2, Hilly), Headland(3, 4), plain, hills * 4),
