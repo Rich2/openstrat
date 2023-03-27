@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, pEarth._
 /** Scenario for 2 Grid system for 0E and 30E */
 object Scen320s0e1 extends EScenLongMulti
 { override val title: String = "320km 0E - 30E"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124)// Grids320S0E1
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124, 162)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -32,7 +32,7 @@ object Scen320ChinaJapan extends EScenLongMulti
 object Grids320S11E2 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 11, 126)
+  override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 11, 126, 164)
   override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, ThisSys))
   override val headGridInt: Int = 11
 }

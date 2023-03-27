@@ -4,21 +4,12 @@ import prid._, phex._, egrid._, WTile._
 
 object Terr320E60 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.e60(120)
+  override implicit val grid: EGrid320LongFull = EGrid320.e60(120, 164)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-    wr(160, tundra, sea)
-    wr(158, tundra, sea, tundra)
-    wr(156, sea * 2, tundra)
-    wr(154, tundra * 4)
-    wr(152, taiga * 4)
-    wr(150, taiga * 4)
-    wr(148, forest, taiga * 4)
-    wr(146, forest * 2, taiga * 3)
-    wr(144, forest * 5)
-    wr(142, plain * 6)
+
     wr(140, plain * 2, desert * 3, plain)
     wr(138, plain, desert * 6)
     wr(136, sea, desert * 6)
@@ -51,4 +42,21 @@ object Terr320E60 extends Long320Terrs
     res.setMouth4(138, 2554)//Caspian Sea north east
     res
   }
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
+      TRow(160, Headland(1, 5, Plains, Tundra), sea),
+      TRow(158, Headland(4, 2, Plains, Tundra), sea, tundra),
+      TRow(156, sea * 2, tundra),
+      TRow(154, tundra * 4),
+      TRow(152, taiga * 4),
+      TRow(150, taiga * 4),
+      TRow(148, forest, taiga * 4),
+      TRow(146, forest * 2, taiga * 3),
+      TRow(144, forest * 5),
+      TRow(142, plain * 6),
+    )
+  }
+
+  help.run
 }

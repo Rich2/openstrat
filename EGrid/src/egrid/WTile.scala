@@ -79,6 +79,7 @@ trait LandLike extends WTile
       case Taiga => Chocolate.average(Taiga.colour)
       case Forest => Chocolate.average(Forest.colour)
       case Desert => Chocolate.average(Desert.colour)
+      case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
       case _ => Chocolate
     }
     case Mountains => Gray

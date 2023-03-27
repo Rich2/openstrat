@@ -4,23 +4,23 @@ import prid._, phex._, egrid._, WTile._
 
 /** 320km hex terrain centred on 30 west. */
 object Terr320W30 extends Long320Terrs
-{
-  override implicit val grid: EGrid320LongFull = EGrid320.w30(124)
-
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
-    gs(160, 11776, ice, sea)
-    gs(158, 11774, ice * 2, sea)
-    gs(156, 11772, ice * 2, sea)
-    gs(154, 11770, ice, tundra, sea * 2)
-    gs(152, 11780, hills * 2)
-    res
-  }
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res
-  }
-
+{ override implicit val grid: EGrid320LongFull = EGrid320.w30(124, 164)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
+      TRow(164, ice),
+      TRow(162, ice * 2),
+      TRow(160, ice, Headland(2, 1, Plains, IceCap)),
+      TRow(158, ice * 2, sea),
+      TRow(156, ice * 2, sea),
+      TRow(154, ice, tundra, sea * 2),
+      TRow(152, Headland(1, 2, Hilly, IceCap), sea, tundraHills * 2),
+      TRow(150, Headland(2, 2, Hilly, IceCap))
+    )
+  }
+
+  help.run
 }
