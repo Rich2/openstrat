@@ -10,13 +10,8 @@ object Terr320W150 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(156, tundra * 2, sea)
-    wr(154, taigaHills * 3, taiga)
-    wr(152, taiga * 3, taigaHills)
-    wr(150, tundraHills, mtain * 2, taiga)
-    wr(148, taigaHills * 2, sea * 2, mtain)
-    wr(146, tundraHills, sea * 3, mtain)
-    wr(144, taigaHills, sea * 4)
+
+
     res
   }
 
@@ -28,13 +23,21 @@ object Terr320W150 extends Long320Terrs
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
-    res.setMouth2Corner(158, 7686)
+   // res.setMouth2Corner(158, 7686)
     res
   }
 
-  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
     override val rowDatas: RArr[RowBase] = RArr(
-
+      TRow(156, tundra * 2, Headland(1, 0, Level, Tundra)),
+      TRow(154, taigaHills * 3, taiga),
+      TRow(152, taiga * 3, taigaHills),
+      TRow(150, tundraHills, mtain * 2, taiga),
+      TRow(148, taigaHills * 2, sea * 2, mtain),
+      VRow(147, MouthUR(7674)),
+      TRow(146, Headland(1, 5, Hilly, Tundra), sea * 3, mtain),
+      TRow(144, Headland(2, 2, Hilly, Taiga), sea * 4),
     )
   }
 

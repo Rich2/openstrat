@@ -12,8 +12,6 @@ object Terr320W120 extends Long320Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
 
-    wr(156, tundra, sea ,tundra)
-    wr(154, tundra * 4)
     wr(152, taiga * 3, tundra)
     wr(150, mtain, taiga * 3)
     wr(148, taigaHills * 2, taiga * 3)
@@ -63,8 +61,10 @@ object Terr320W120 extends Long320Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
       TRow(162, sea, tundra),
-      TRow(160, sea * 2),
-      TRow(158, tundra, Headland(3, 4, Level, Tundra), Headland(2, 0, Level, Tundra)),
+      TRow(160, Headland(4, 5, Level, Tundra), Headland(4, 1, Level, Tundra)),
+      TRow(158, Headland(4, 2, Level, Tundra), Headland(3, 4, Level, Tundra), Headland(2, 0, Level, Tundra)),
+      TRow(156, Headland(1, 0, Level, Tundra), Headland(2, 0, Level, Tundra), Headland(3, 2, Level, Tundra)),
+      TRow(154, tundra * 4),
     )
   }
 

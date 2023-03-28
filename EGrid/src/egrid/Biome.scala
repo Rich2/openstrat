@@ -46,5 +46,5 @@ case object Taiga extends Biome
 
 case object Tundra extends Biome
 { override def str = "Tundra"
-  override def colour = LightCyan
+  override def colour = Lavender
 }
