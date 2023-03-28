@@ -1,6 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._
+import geom._
+import ostrat.pEarth.pAmericas
+import pglobe._
 
 object Alaska extends EArea2("Alaska", 66.33 ll -151.16, Taiga)
 {  val northEast = 69.45 ll -141
@@ -26,18 +28,15 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, Taiga)
   override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, susitnaMouth, p20, nikolski, portHeiden, kvichakMouth, capeNewenham, p30, p33, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
 }
 
-object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taiga)
-{ val yakut50 = 60 ll -139.60
-  val yakut10 = 68.90 ll -136.53
-  val inuvik10 = 70.56 ll -128.00
-  val nunavut10 = 69.00 ll -115.80
-  val raeMouth = 67.92 ll -115.34
-  val nunavut15 = 67.68 ll -101.53
-  val nunavut17 = 68.55 ll -97.80
-  val nunavut25 = 68.05 ll -94.76
-  val nunavut30 = 69.32 ll -94.23
-  val nunavut40 = 71.39 ll -96.17
-  val somersetNW = 73.99 ll -95.28
+/** [[polygonLL]] graphical representation for nunavut territory Canada. Depends on Nothing. */
+object Nunavut extends EArea2("Nunavut", 67.00 ll -96.58, Tundra)
+{ val northWest = 68.27 ll -108.77
+  val nunavut15: LatLong = 67.68 ll -101.53
+  val nunavut17: LatLong = 68.55 ll -97.80
+  val nunavut25: LatLong = 68.05 ll -94.76
+  val nunavut30: LatLong = 69.32 ll -94.23
+  val nunavut40: LatLong = 71.39 ll -96.17
+  val somersetNW: LatLong = 73.99 ll -95.28
   val somersetNE = 73.91 ll -90.18
   val somersetSE = 72.73 ll -92.27
   val nunavut45 = 72.72 ll -93.79
@@ -56,18 +55,30 @@ object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taig
   val nunavut87 = 69.65 ll -82.13
   val nunavut88: LatLong = 69.20 ll -81.35
   val navut20 = 67.45 ll -81.21
-  val naujaat10 = 66.35 ll - 83.41
+  val naujaat10 = 66.35 ll -83.41
   val naujaat12 = 66.18 ll -84.44
   val nunavut90 = 66.27 ll -85.23
-  val naujaat20 = 66.16 ll - 85.86
   val nunavut92 = 66.54 ll -86.76
   val naujaat15 = 66.20 ll -85.90
   val naujaat17 = 64.00 ll -88.76
+  val rockHouseIsland = 63.44 ll -90.63
+
+  override def polygonLL: PolygonLL = PolygonLL(northWest, nunavut15, nunavut17, nunavut25, nunavut30, nunavut40, somersetNW, somersetNE, somersetSE,
+    nunavut45, nunavut47, nunavut49, nunavut54, nunavut56, nunavut60, nunavut65, nunavut67, nunavut70, nunavut80, nunavut83, nunavut85, nunavut87,
+    nunavut88, navut20, naujaat10, naujaat12, nunavut90, nunavut92, naujaat15, naujaat17, rockHouseIsland)
+}
+
+/** [[polygonLL]] graphical representation for north west Canada. Depends on [[Alaska]]. */
+object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taiga)
+{ val yakut50: LatLong = 60 ll -139.60
+  val yakut10: LatLong = 68.90 ll -136.53
+  val inuvik10: LatLong = 70.56 ll -128.00
+  val nunavut10: LatLong = 69.00 ll -115.80
+  val raeMouth: LatLong = 67.92 ll -115.34
   val hudsonBay60W = 60 ll -94.82
 
-  override def polygonLL: PolygonLL = PolygonLL(yakut50, Alaska.yakut10, Alaska.northEast, yakut10, inuvik10, nunavut10, raeMouth, nunavut15,
-    nunavut17, nunavut25, nunavut30, nunavut40, somersetNW, somersetNE, somersetSE, nunavut45, nunavut47, nunavut49, nunavut54, nunavut56, nunavut60,
-    nunavut65, nunavut67, nunavut70, nunavut80, nunavut83, nunavut85, nunavut87, nunavut88, navut20, naujaat10, naujaat12, nunavut90, naujaat20, nunavut92, naujaat15, naujaat17, hudsonBay60W)
+  override def polygonLL: PolygonLL = PolygonLL(yakut50, Alaska.yakut10, Alaska.northEast, yakut10, inuvik10, nunavut10, raeMouth, Nunavut.northWest,
+    Nunavut.rockHouseIsland, hudsonBay60W)
 }
 
 object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, Taiga)

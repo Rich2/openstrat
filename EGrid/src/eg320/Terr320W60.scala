@@ -12,8 +12,6 @@ object Terr320W60 extends Long320Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-
-    wr(148, taiga, mtain, sea * 3)
     wr(146, taiga, taigaHills, sea * 3)
     gs(144, 10744, taiga * 3, sea * 2)
     gs(142, 10742, taiga * 4, sea * 2)
@@ -28,15 +26,12 @@ object Terr320W60 extends Long320Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 141,10755,  148,10746)
+    res.setSomeInts(WSideMid(), 141,10755)//,  148,10746)
     res
   }
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
-
-    res.setMouth3(150, 10746)//Ungava Bay north
-    res.setMouth0(146, 10746)//Ungava Bay south
 
     res.setMouth4(142, 10758)//Newfoundland Gulf of St Lawrence north
     res.setMouth1(140, 10752)//Newfoundland Gulf of St Lawrence
@@ -54,7 +49,8 @@ object Terr320W60 extends Long320Terrs
       TRow(156, tundra, sea, ice),
       TRow(154, tundra * 2, sea, ice),
       TRow(152, tundra, sea * 2, ice),
-      TRow(150, tundra),
+      TRow(150, sea * 3, Headland(2, 4, Level, Tundra)),
+      TRow(148, taiga, Headland(3, 5, Mountains), sea * 2, Headland(2, 3, Level, Tundra)),
     )
   }
 

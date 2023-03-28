@@ -11,9 +11,6 @@ object Terr320W90 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(150, taiga, tundra, sea * 2)
-    wr(148, taiga, tundra, sea * 2, tundra)
-    wr(146, taiga * 2, sea * 2, taiga)
     wr(144, taiga * 5)
     wr(142, taiga * 6)
     wr(140, plain * 2, taiga * 4)
@@ -27,8 +24,7 @@ object Terr320W90 extends Long320Terrs
   }
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    //res.setSomeInts(WSideMid(), 159,9729)
-    res.setSomeInts(WSideMid(), 142,9736,  143,9735,  144,9734)//,  152,9730,  152,9734)//,  153,9731)//,  155, 9731)//,  156,9730)//,  157,9729,
+
     res.setSomeInts(WSideMid(Lake), 135,9731,  135,9741,  135, 9737,  136,9730,  137,9733)
     res
   }
@@ -36,11 +32,7 @@ object Terr320W90 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    //res.setTJunction(159, 9728)//Somerset Island - Devon Island - Baffin Island
 
-
-//    res.setVert1In(156, 9728)//Canada - Baffin Island
-//    res.setVert4In(156, 9732)//Baffin Island - Canada
    // res.setMouth5(154, 9734)//Baffin Island - Canada
    // res.setMouth3(154, 9734)//Southampton Island - Newfoundland north
     //res.setMouth0(150, 9734)//Southampton Island - Newfoundland south
@@ -49,7 +41,7 @@ object Terr320W90 extends Long320Terrs
     //res.setVert5In(152, 9732)//Southampton Island west
     //res.setMouth0(150, 9730)//Southampton Island west
 
-    res.setMouth3(146, 9734)//James Bay mouth
+    //res.setMouth3(146, 9734)//James Bay mouth
     res.setVert4In(144, 9736)//James Bay
     res.setVert1In(142, 9734)//James Bay
     res.setMouth0(140, 9736)//James Bay head
@@ -74,7 +66,10 @@ object Terr320W90 extends Long320Terrs
       TRow(158, Headland(4, 4, Level, Tundra), Headland(1, 4, Level, Tundra), Headland(2, 0, Level, Tundra)),
       TRow(156, sea, Headland(1, 1, Level, Tundra), Headland(2, 3, Level, Tundra)),
       TRow(154, tundra * 3, sea),
-      TRow(152, tundra * 3, Headland(2, 4, Level, Tundra)),
+      TRow(152, tundra * 2, Island(Level, Tundra), Headland(2, 4, Level, Tundra)),
+      TRow(150, taiga, tundra, sea * 2),
+      TRow(148, taiga, tundra, sea * 2, Headland(2, 4, Level, Tundra)),
+      TRow(146, taiga * 2, sea * 2, taiga),
     )
   }
 

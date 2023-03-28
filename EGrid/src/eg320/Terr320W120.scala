@@ -11,8 +11,7 @@ object Terr320W120 extends Long320Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(160, sea * 2)
-    wr(158, tundra * 3)
+
     wr(156, tundra, sea ,tundra)
     wr(154, tundra * 4)
     wr(152, taiga * 3, tundra)
@@ -33,37 +32,39 @@ object Terr320W120 extends Long320Terrs
 
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 155,8707,  155,8709,  157,8701,  158,8704,  158,8712,  159,8711)
+    //res.setSomeInts(WSideMid(), 155,8707,  155,8709,  157,8701)//,  158,8704,  158,8712,  159,8711)
     res
   }
 
   override val corners: HCornerLayer =
   { val res =grid.newHVertOffsetLayer
 
-    res.setMouth3(160, 8704)//Banks Island - Victoria Island north
-    res.setMouth0(156, 8704)//Banks Island - Victoria Island south
-
-    res.setCornerPair(160, 8708, 2, HVUR, HVDR)
-    res.setCorner(158, 8710, 0, HVDL)//Victoria Island - Prince of Wales Island north
-    //res.setSideCorner2(158, 8710, 0, HVDL, HVUR)
-    res.setCornerIn(158, 8710, 1)//Victoria Island - Prince of Wales
-    res.setCornerIn(158, 8710, 2)//Victoria Island - Prince of Wales south
-
-    res.setMouth2(156, 8704)//Victoria Island - Canada west
-    res.setVert3In(156, 8708)//Victoria Island - Canada
-    res.setVert2In(156, 8708)//Victoria Island - Canada east
-    //res.setCorner(154, 8710, 0, HVDL)//Victoria Island - Canada east
-    //res.setCorner(154, 8710, 1, HVDn)//Victoria Island - Canada east
-
-    res.setCornerIn(158, 8702, 4)//Banks Island - Canada west
-    res.setCornerIn(156, 8700, 0)//Canada - Banks Island
-    res.setMouth5(156, 8704)//Banks Island - Canada east
+    //res.setMouth3(160, 8704)//Banks Island - Victoria Island north
+//    res.setMouth0(156, 8704)//Banks Island - Victoria Island south
+//
+//    //res.setCornerPair(160, 8708, 2, HVUR, HVDR)
+//    res.setCorner(158, 8710, 0, HVDL)//Victoria Island - Prince of Wales Island north
+//    //res.setSideCorner2(158, 8710, 0, HVDL, HVUR)
+//    //res.setCornerIn(158, 8710, 1)//Victoria Island - Prince of Wales
+//    //res.setCornerIn(158, 8710, 2)//Victoria Island - Prince of Wales south
+//
+//    res.setMouth2(156, 8704)//Victoria Island - Canada west
+//    res.setVert3In(156, 8708)//Victoria Island - Canada
+//    res.setVert2In(156, 8708)//Victoria Island - Canada east
+//    //res.setCorner(154, 8710, 0, HVDL)//Victoria Island - Canada east
+//    //res.setCorner(154, 8710, 1, HVDn)//Victoria Island - Canada east
+//
+//    //res.setCornerIn(158, 8702, 4)//Banks Island - Canada west
+//    res.setCornerIn(156, 8700, 0)//Canada - Banks Island
+//    res.setMouth5(156, 8704)//Banks Island - Canada east
 
     res
   }
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
-      TRow(162, sea, tundra)
+      TRow(162, sea, tundra),
+      TRow(160, sea * 2),
+      TRow(158, tundra, Headland(3, 4, Level, Tundra), Headland(2, 0, Level, Tundra)),
     )
   }
 
