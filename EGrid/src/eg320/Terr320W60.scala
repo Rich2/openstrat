@@ -4,44 +4,14 @@ import prid._, phex._, egrid._, WTile._
 
 /** 320km terrain for 60 west. */
 object Terr320W60 extends Long320Terrs
-{
-  override implicit val grid: EGrid320LongFull = EGrid320.w60(128, 166)
+{ override implicit val grid: EGrid320LongFull = EGrid320.w60(128, 166)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-
-    wr(146, taiga, taigaHills, sea * 3)
-    gs(144, 10744, taiga * 3, sea * 2)
-    gs(142, 10742, taiga * 4, sea * 2)
-    gs(140, 10744, taiga, sea * 2, taiga, sea * 2)
-    gs(138, 10742, taiga * 2, sea, taiga * 2, sea * 2)
-    wr(136, taigaHills, taiga * 2, sea * 4)
-    wr(134, forestHills, sea * 6)
-    wr(132, sea * 7)
-
-    res
-  }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 141,10755)//,  148,10746)
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-
-    res.setMouth4(142, 10758)//Newfoundland Gulf of St Lawrence north
-    res.setMouth1(140, 10752)//Newfoundland Gulf of St Lawrence
-
-    res.setMouth4Corner(136, 10740)//Lake Ontario east
-    res
-
-  }
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rowDatas: RArr[RowBase] = RArr(
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
       TRow(164, ice),
       TRow(162, Headland(1, 4, Level, IceCap), ice),
       TRow(160, sea, ice),
@@ -51,8 +21,18 @@ object Terr320W60 extends Long320Terrs
       TRow(152, tundra, sea * 2, ice),
       TRow(150, sea * 3, Headland(2, 4, Level, Tundra)),
       TRow(148, taiga, Headland(3, 5, Mountains), sea * 2, Headland(2, 3, Level, Tundra)),
+      VRow(147, MouthDn(10746)),
+      TRow(146, taiga, taigaHills, sea * 3),
+      TRow(144, taiga * 3, sea * 2),
+      TRow(142, taiga * 3, Headland(3, 1, Level, Taiga), sea * 2),
+      TRow(140, taiga, Headland(3, 2, Level, Taiga), sea, Headland(1, 1, Level, Taiga), sea * 2),
+      VRow(139, MouthDL(10744), VertInDn(10746)),
+      TRow(138, taiga * 2, sea, Headland(3, 3, Level, Taiga), Headland(3, 1, Level, Taiga), sea * 2),
+      TRow(136, taigaHills, taiga * 2, sea * 4),
+      VRow(135, MouthUR(10738, Lake)),
+      TRow(134, Headland(2, 2, Hilly, Forest), sea * 6),
+      TRow(132, sea * 7),
     )
   }
-
   help.run
 }

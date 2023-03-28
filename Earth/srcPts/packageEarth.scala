@@ -20,7 +20,7 @@ package object pEarth
    val oldWorldAreas: RArr[EArea1] = RArr(EuropeNW, EuropeSW, EuropeEast, MiddleEast, PolarNorth, MediterreaneanWest, MediterraneanEast, AfricaNorth, Asia, NorthAtantic)
 
    /** The areas discovered from the late 14th century. */
-   val newWorldAreas: RArr[EArea1] = RArr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouth)
+   val newWorldAreas: RArr[EArea1] = RArr(PolarSouth, AmericasFarNorth, AmericasNearNorth, AmericasSouth, Australasia, PacificTop, AfricaSouth)
 
    def earthAllAreas: RArr[EArea1] = oldWorldAreas ++ newWorldAreas
 }
