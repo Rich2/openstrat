@@ -36,7 +36,24 @@ object CanadaNorthEast extends EArea2("CanadaNorthEast", 53.71 ll-70, Tundra)
     ungavaW, koksoakMouth, ungavaS, katavik50,ungavaE, labrador50, labrador60,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
 }
 
-/** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[CanadaNorthEast]]. */
+/** [[polygonLL]] graphical representation for south east Canada. Depends on nothing. */
+object NovaScotia extends EArea2("Nova Scotia", 45.12  ll -63.58, Taiga)
+{ val northWest: LatLong = 46.90 ll -64.72
+  val edwardIIslandNorth: LatLong = 47.06 ll -64.00
+  val edwardIIslandEast: LatLong = 46.45 ll -61.97
+  val capeGeorge = 45.89 ll -61.93
+  val phantomPoint: LatLong = 47.04 ll -60.60
+  val scatarieEast: LatLong = 46.03 ll -59.68
+  val south: LatLong = 43.41 ll -65.62
+  val whipplePoint: LatLong = 44.24 ll -66.39
+  val p75: LatLong = 45.33 ll -64.94
+  val stAndrews: LatLong = 45.02 ll -66.86
+
+  override val polygonLL: PolygonLL = PolygonLL(northWest, edwardIIslandNorth, edwardIIslandEast, capeGeorge, phantomPoint, scatarieEast, south,
+    whipplePoint, p75, stAndrews)
+}
+
+/** [[polygonLL]] graphical representation for south east Canada. Depends on [[NovaScotia]]. */
 object NewBrunswick extends EArea2("New/nBrunswick", 47.2  ll -66.93, Taiga)
 { val east: LatLong = 46.90 ll -70.86
   val p12: LatLong = 47.00 ll -70.58
@@ -44,13 +61,11 @@ object NewBrunswick extends EArea2("New/nBrunswick", 47.2  ll -66.93, Taiga)
   val madeleine: LatLong = 49.25 ll -65.36
   val capRosiers: LatLong = 48.86 ll -64.20
   val gasconsEst: LatLong = 48.21 ll -64.78
-  val scoudoucMouth: LatLong = 46.22 ll -64.55
-  val eNovaScotia: LatLong = 46.16 ll -59.86
-  val novaScotiaS: LatLong = 43.43 ll -65.61
 
   /** 44.87 ll -66.93 */
   val maineE: LatLong = 44.87 ll -66.93
-  override val polygonLL: PolygonLL = PolygonLL(east, p12, grossesRoches, madeleine, capRosiers, gasconsEst, scoudoucMouth, eNovaScotia, novaScotiaS, maineE)
+
+  override val polygonLL: PolygonLL = PolygonLL(east, p12, grossesRoches, madeleine, capRosiers, gasconsEst, NovaScotia.northWest, NovaScotia.stAndrews, maineE)
 }
 
 /** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[CanadaNorthEast]]. */
