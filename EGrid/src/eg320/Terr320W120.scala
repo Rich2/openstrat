@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** 320 km terrain for 120 west. */
 object Terr320W120 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.w120(128, 164)
+  override implicit val grid: EGrid320LongFull = EGrid320.w120(128, 166)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)

@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** Scenario for 2 Grid system for 0E and 30E */
 object Scen320s0e1 extends EScenLongMulti
 { override val title: String = "320km 0E - 30E"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124, 164)
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124, 166)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -14,7 +14,7 @@ object Scen320s0e1 extends EScenLongMulti
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */
 object Scen320ChinaJapan extends EScenLongMulti
 { override val title: String = "320km 90E - 150E"
-  implicit override val gridSys: EGrid320LongMulti = EGrid320.multi(3, 3, 126, 164)
+  implicit override val gridSys: EGrid320LongMulti = EGrid320.multi(3, 3, 126, 166)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -23,7 +23,7 @@ object Scen320ChinaJapan extends EScenLongMulti
 /** Scenario for 4 320km grid system for 30W 0E, 30E and 60E. */
 object Scen320S11E2 extends EScenLongMulti
 { override val title: String = "320km 30W - 60E"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 11, 126, 164)//  Grids320S11E2
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 11, 126, 166)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -65,18 +65,10 @@ object Scen320S0E11 extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** North America 4 Grid system for 150W, 120W, 90W, 60W. */
-object Grids320S8E10 extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 7, 128, 164)
-  override def headGridInt: Int = 7
-  override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, this))
-}
-
 /** Terrain only scenario for North America. 3 320km grid system for 120W, 90W and 60W */
-object Scen320S8E10 extends EScenLongMulti
+object Scen320Americas extends EScenLongMulti
 { override val title: String = "320km 120W - 90W"
-  override implicit val gridSys: EGrid320LongMulti = Grids320S8E10
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 7, 128, 166)// Grids320S8E10
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

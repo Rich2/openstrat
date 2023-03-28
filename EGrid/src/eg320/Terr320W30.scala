@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 /** 320km hex terrain centred on 30 west. */
 object Terr320W30 extends Long320Terrs
-{ override implicit val grid: EGrid320LongFull = EGrid320.w30(124, 164)
+{ override implicit val grid: EGrid320LongFull = EGrid320.w30(124, 166)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
