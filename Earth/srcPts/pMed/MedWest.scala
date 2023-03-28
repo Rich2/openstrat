@@ -43,7 +43,7 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, Plain)
 
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EArea2("Corsica", 42.18 ll 9.17, Hill)
+object Corsica extends EArea2("Corsica", 42.18 ll 9.17, Hilly)
 { val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
   val p10: LatLong = 42.57 ll 9.53
@@ -59,7 +59,7 @@ object Corsica extends EArea2("Corsica", 42.18 ll 9.17, Hill)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hill)
+object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hilly)
 { val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62
@@ -78,7 +78,7 @@ object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hill)
 }
 
 /** [[PolygonLL]] graphic for west Sahara depends on nothing. */
-object Maghreb extends EArea2("Maghreb", 33 ll 2.32, Deserts)
+object Maghreb extends EArea2("Maghreb", 33 ll 2.32, Desert)
 { val neTunis = 37.07 ll 11.04
   val p28 = 36.87 ll 11.14
   val p30 = 36.46 ll 10.81
@@ -121,7 +121,7 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, Deserts)
 
 
 /** [[PolygonLL]] graphic for Canaries depends on [[Maghreb]]. */
-object SaharaCentral extends EArea2("SaharaWest", 26 ll 16, Deserts)
+object SaharaCentral extends EArea2("SaharaWest", 26 ll 16, Desert)
 {
   val p80: LatLong = 31.07 ll 17.39
   val elAgheila: LatLong = 30.12 ll 19.08

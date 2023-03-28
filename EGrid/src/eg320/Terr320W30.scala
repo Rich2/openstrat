@@ -13,7 +13,7 @@ object Terr320W30 extends Long320Terrs
   { override val rowDatas: RArr[RowBase] = RArr(
       TRow(164, ice),
       TRow(162, ice * 2),
-      TRow(160, ice, Headland(2, 1, Plains, IceCap)),
+      TRow(160, ice, Headland(2, 1, Level, IceCap)),
       TRow(158, ice * 2, sea),
       TRow(156, ice * 2, sea),
       TRow(154, ice, tundra, sea * 2),

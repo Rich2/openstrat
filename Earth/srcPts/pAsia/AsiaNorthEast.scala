@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
-object Korea extends EArea2("Korea", 37.77 ll 127.55, Hill)
+object Korea extends EArea2("Korea", 37.77 ll 127.55, Hilly)
 { val northEast: LatLong = 41.49 ll 129.65
   val kaima: LatLong = 40.84 ll 129.71
   val hwaDo: LatLong =39.76 ll 127.54
@@ -26,7 +26,7 @@ object Korea extends EArea2("Korea", 37.77 ll 127.55, Hill)
 }
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
-object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, Taigas)
+object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, Taiga)
 { val farAsiaW = 141.6.east
 
   val ustYansky = 72.81.north * farAsiaW
@@ -79,7 +79,7 @@ object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, Taigas)
   wKamchatka, kamchatka40, kamchatka50, penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
 }
 
-object NeAsia extends EArea2("NEAsia", 64 ll 113, Taigas)
+object NeAsia extends EArea2("NEAsia", 64 ll 113, Taiga)
 { val krasnoyarsk = 77.43 ll 103.99
   val kras10 = 76.62 ll 112.46
   val kras20 = 75.38 ll 113.69

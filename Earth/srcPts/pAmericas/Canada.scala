@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._
 
-object Alaska extends EArea2("Alaska", 66.33 ll -151.16, Taigas)
+object Alaska extends EArea2("Alaska", 66.33 ll -151.16, Taiga)
 {  val northEast = 69.45 ll -141
   val yakut10: LatLong = 59.93 ll -141.03
   val susitnaMouth = 61.25 ll -150.61
@@ -26,7 +26,7 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, Taigas)
   override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, susitnaMouth, p20, nikolski, portHeiden, kvichakMouth, capeNewenham, p30, p33, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
 }
 
-object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taigas)
+object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taiga)
 { val yakut50 = 60 ll -139.60
   val yakut10 = 68.90 ll -136.53
   val inuvik10 = 70.56 ll -128.00
@@ -70,7 +70,7 @@ object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taig
     nunavut65, nunavut67, nunavut70, nunavut80, nunavut83, nunavut85, nunavut87, nunavut88, navut20, naujaat10, naujaat12, nunavut90, naujaat20, nunavut92, naujaat15, naujaat17, hudsonBay60W)
 }
 
-object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, Taigas)
+object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, Taiga)
 { val wUsaNE = 50 ll -98
   val w49th: LatLong = 49 ll -125.66
   val vancouverNW = 50.77 ll -128.38
@@ -83,53 +83,64 @@ object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, Taigas)
   override def polygonLL: PolygonLL = PolygonLL(wUsaNE, w49th, vancouverNW, p50, NorthWestCanada.yakut50, NorthWestCanada.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth)
 }
 
-object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, Taigas)
+object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, Taiga)
 { val manitoba20 = 57.26 ll -90.89
   val jamesBayNW: LatLong = 55.07 ll -82.31
   val attapiskatMouth = 52.97 ll -82.26
   val moosoneeMouth = 51.36 ll -80.40
-  val jamesBayS: LatLong = 51.14 ll -79.79
 
-  override def polygonLL: PolygonLL = LinePathLL(SouthWestCanada.wUsaNE, SouthWestCanada.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth, jamesBayS) ++
+
+  override def polygonLL: PolygonLL = LinePathLL(SouthWestCanada.wUsaNE, SouthWestCanada.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth, CanadaNorthEast.jamesBayS) ++
     LakeHuron.centralCanadaCoast ++! LakeSuperior.canadaCoast
 }
 
-object EastCanada extends EArea2("East Canada", 53.71 ll-70, Taigas)
-{ val eastMainMouth = 52.24 ll -78.56
-  val jamesBayMouthEast = 54.63 ll -79.74
-  val hudsonBayEast = 56.46 ll -76.52
-  val nunavut120 = 58.68 ll -78.69
+/** [[polygonLL]] graphical representation for north east Canada. Depends on nothing. */
+object CanadaNorthEast extends EArea2("CanadaNorthEast", 53.71 ll-70, Tundra)
+{ val jamesBayS: LatLong = 51.14 ll -79.79
+  val eastMainMouth: LatLong = 52.24 ll -78.56
+  val jamesBayMouthEast: LatLong = 54.63 ll -79.74
+  val hudsonBayEast: LatLong = 56.46 ll -76.52
+  val nunavut120: LatLong = 58.68 ll -78.69
   val hudsonBayMouthE: LatLong = 62.57 ll -77.99
   val ungavaW: LatLong = 61.04 ll -69.56
-  val koksoakMouth = 58.90 ll -69.38
+  val koksoakMouth: LatLong = 58.90 ll -69.38
   val ungavaS: LatLong = 58.26 ll -67.45
-  val katavik50 = 58.82 ll -66.44
+  val katavik50: LatLong = 58.82 ll -66.44
   val ungavaE: LatLong = 60.49 ll -64.74
-  val labrador50 = 54.54 ll -57.30
-  val labrador60 = 52.10 ll -55.72
-  val labradorE: LatLong = 52.42 ll -56.05
-  val labrador70 = 50.27 ll -59.91
-  val madeleine = 49.25 ll -65.36
-  val septlles = 50.23 ll -66.37
-  val pointeMonts = 49.32 ll -67.38
-  val capRosiers = 48.86 ll -64.20
-  val gasconsEst = 48.21 ll -64.78
-  val scoudoucMouth = 46.22 ll -64.55
+  val labrador50: LatLong = 54.54 ll -57.30
+  val labrador60: LatLong = 52.10 ll -55.72
+  val labrador70: LatLong = 50.27 ll -59.91
+  val septlles: LatLong = 50.23 ll -66.37
+  val pointeDesMonts: LatLong = 49.31 ll -67.38
+  val quebecCity: LatLong = 47.02 ll -70.80
+
+  override val polygonLL: PolygonLL = PolygonLL(jamesBayS, eastMainMouth, jamesBayMouthEast, hudsonBayEast, nunavut120, hudsonBayMouthE,
+    ungavaW, koksoakMouth, ungavaS, katavik50,ungavaE, labrador50, labrador60,  labrador70, septlles, pointeDesMonts, quebecCity)
+}
+
+/** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[CanadaNorthEast]]. */
+object CanadaSouthEast extends EArea2("CanadaSouthEast", 46.68  ll -77.21, Taiga)
+{ val p10: LatLong = 46.90 ll -70.86
+  val p12: LatLong = 47.00 ll -70.58
+  val grossesRoches: LatLong = 48.94 ll -67.17
+  val madeleine: LatLong = 49.25 ll -65.36
+  val capRosiers: LatLong = 48.86 ll -64.20
+  val gasconsEst: LatLong = 48.21 ll -64.78
+  val scoudoucMouth: LatLong = 46.22 ll -64.55
   val eNovaScotia: LatLong = 46.16 ll -59.86
-  val novaScotiaS = 43.43 ll -65.61
+  val novaScotiaS: LatLong = 43.43 ll -65.61
 
   /** 44.87 ll -66.93 */
   val maineE: LatLong = 44.87 ll -66.93
 
-  val eCanadaCoast = LinePathLL(ungavaE, labrador50, labrador60, labradorE, labrador70, septlles, pointeMonts, madeleine, capRosiers, gasconsEst,
+  val eCanadaCoast: LinePathLL = LinePathLL( madeleine, capRosiers, gasconsEst,
     scoudoucMouth, eNovaScotia, novaScotiaS)
 
-  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CentralCanada.jamesBayS, eastMainMouth, jamesBayMouthEast,
-    hudsonBayEast, nunavut120, hudsonBayMouthE, ungavaW, koksoakMouth, ungavaS, katavik50) ++  eCanadaCoast +% maineE ++
+  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CanadaNorthEast.jamesBayS, CanadaNorthEast.quebecCity, p10, p12, grossesRoches) ++  eCanadaCoast +% maineE ++
     LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
 }
 
-object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, Taigas)
+object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, Taiga)
 { val north = 51.63 ll -55.43
   val pollardsPoint = 49.75 ll -56.92
   val p10 = 50.15 ll -56.16

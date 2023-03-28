@@ -25,19 +25,19 @@ object WTile
     def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
   }
 
-  val plain: WTile = Land(Plains)
+  val plain: WTile = Land(Level)
   val hills: WTile = Land(Hilly)
-  val forest: WTile = Land(Plains, Forest)
+  val forest: WTile = Land(Level, Forest)
   val forestHills = Land(Hilly, Forest)
-  val desert: WTile = Land(Plains, Desert)
+  val desert: WTile = Land(Level, Desert)
   val desertHills: WTile = Land(Hilly, Desert)
-  val jungle: WTile = Land(Plains, Jungle)
-  val jungleHills: WTile = Land(Plains, Jungle)
-  val taiga: WTile = Land(Plains, Taiga)
+  val jungle: WTile = Land(Level, Jungle)
+  val jungleHills: WTile = Land(Level, Jungle)
+  val taiga: WTile = Land(Level, Taiga)
   val taigaHills = Land(Hilly, Taiga)
-  val tundra: WTile = Land(Plains, Tundra)
+  val tundra: WTile = Land(Level, Tundra)
   val tundraHills = Land(Hilly, Tundra)
-  val ice: WTile = Land(Plains, IceCap)
+  val ice: WTile = Land(Level, IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Sea
   val lake: WTile = Lake
@@ -72,7 +72,7 @@ trait LandLike extends WTile
   def biome: Biome
 
   def colour: Colour = terr match
-  { case Plains => biome.colour
+  { case Level => biome.colour
 
     case Hilly => biome match
     { case Tundra => Chocolate.average(Tundra.colour)
@@ -90,7 +90,7 @@ class Land(val terr: Terrain, val biome: Biome) extends LandLike
 { override def toString: String = "Land" + str.enParenth
 
   override def str = terr match
-  { case Plains => biome.toString
+  { case Level => biome.toString
     case t => t.str
   }
 
@@ -99,7 +99,7 @@ class Land(val terr: Terrain, val biome: Biome) extends LandLike
 
 object Land
 { /** Factory apply method for land. */
-  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
+  def apply(terr: Terrain = Level, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
 }
 
 trait Coastal extends LandLike with HIndentN
@@ -108,7 +108,7 @@ trait Coastal extends LandLike with HIndentN
   override def str: String = "Coastal"
 }
 
-case class Island(terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent6
+case class Island(terr: Terrain = Level, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent6
 
 object Island
 {
@@ -119,7 +119,7 @@ object Island
 }
 
 /** Headland surrounded by [[Water]] on 1 to 4 sides. */
-case class Headland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain = Plains, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with
+case class Headland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain = Level, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with
   HIndent5Minus
 
 trait Terrain
@@ -127,8 +127,8 @@ trait Terrain
   def colour: Colour
 }
 
-case object Plains extends Terrain
-{ override def str = "Plains"
+case object Level extends Terrain
+{ override def str = "Level"
   override def colour: Colour = MintCream
 }
 

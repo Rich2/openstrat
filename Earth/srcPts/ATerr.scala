@@ -2,27 +2,25 @@
 package ostrat; package pEarth
 import Colour._
 
-trait ATerr extends Coloured {
-
-}
+trait ATerr extends Coloured
 
 object Plain extends ATerr
 { override def colour: Colour = LightGreen
 }
 
-object Deserts extends ATerr
+object Desert extends ATerr
 { override def colour: Colour = LemonChiffon
 }
 
-object Taigas extends ATerr
+object Taiga extends ATerr
 { override def colour: Colour = DarkCyan
 }
 
-object Tundras extends ATerr
+object Tundra extends ATerr
 { override def colour: Colour = LightCyan
 }
 
-object Hill extends ATerr
+object Hilly extends ATerr
 { override def colour: Colour = Chocolate
 }
 

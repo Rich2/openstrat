@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
 /** [[PolygonLL]] graphic depends on [[Peloponnese]]. */
-object Greece extends EArea2("Greece", 39.54 ll 21.62, Hill)
+object Greece extends EArea2("Greece", 39.54 ll 21.62, Hilly)
 { val northEast = 40.46 ll 22.59
   val p20 = 39.19 ll 23.35
   val nEuboea = 39.03 ll 23.31
@@ -31,7 +31,7 @@ object Greece extends EArea2("Greece", 39.54 ll 21.62, Hill)
 }
 
 /** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */
-object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, Hill)
+object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, Hilly)
 { val northEast = 46.0 ll 22.59
   val shengjin = 41.80 ll 19.59
   val dubrovnik = 42.65 ll 18.06
@@ -79,7 +79,7 @@ object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, Plain)
 }
 
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
-object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, Hill)
+object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, Hilly)
 { val ePeninsular = 38.04 ll 23.56
   val kechries = 37.88 ll 22.99
   val p1 = 37.44 ll 23.51

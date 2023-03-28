@@ -24,7 +24,7 @@ object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, Plain)
 }
 
 /** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.Maghreb]]. */
-object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, Deserts)
+object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, Desert)
 { val southWest: LatLong = 17 ll -16.27
   val nouakchott: LatLong = 18.078 ll -16.02
   val nouadhibouBay: LatLong = 21.28 ll -16.90

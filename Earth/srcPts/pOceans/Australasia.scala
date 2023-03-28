@@ -12,7 +12,7 @@ object Ssumatra extends EArea2("Sumatra", -0.02 ll 101.63, Jungles)
   override val polygonLL = PolygonLL(nSumatra, neSumatra, eSumatra, seSumatra, hutan)
 }
 
-object Australia extends EArea2("Australia", -24.45 ll 134.47, Deserts)
+object Australia extends EArea2("Australia", -24.45 ll 134.47, Desert)
 { val capeLeeuwin = degs(-34.36, 115.13)
   val wAustralia = degs(-22.58, 113.95)
   val eightyMile = degs(-19.41, 121.24)

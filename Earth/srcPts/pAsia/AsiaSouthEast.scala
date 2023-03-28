@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, LatLong._
 
-object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, Hill)
+object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, Hilly)
 { val north = 25.29 ll 121.57
   val northEast = 25.01 ll 122.01
   val south = 21.90 ll 120.86

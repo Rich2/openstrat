@@ -2,7 +2,7 @@
 package ostrat; package pEarth
 import geom._, pglobe._
 
-object Iceland extends EArea2("Iceland", 64.78 ll -18.07, Taigas)
+object Iceland extends EArea2("Iceland", 64.78 ll -18.07, Taiga)
 { val reykjavik = 64.17 ll -21.75
   val w1 = 64.75 ll -22.30
   val wIceland = 64.87 ll -24.04

@@ -20,7 +20,7 @@ object Terr320E0 extends Long320Terrs
       TRow(152, sea * 3, taigaHills),
       TRow(150, sea * 3, taigaHills),
       TRow(148, sea * 3, taigaHills, taiga),
-      TRow(146, sea, hills, sea, Headland(4, 4), Headland(3, 2, Plains, Forest)),
+      TRow(146, sea, hills, sea, Headland(4, 4), Headland(3, 2, Level, Forest)),
       TRow(144, sea, Headland(4, 5), plain, sea, plain),
       TRow(142, sea, Headland(4, 2), Headland(1, 5), Headland(3, 1), plain * 2),
       TRow(140, sea, Headland(4, 2, Hilly), Headland(2, 5), plain * 3),

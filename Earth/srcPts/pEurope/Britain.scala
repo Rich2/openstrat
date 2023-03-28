@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
 /** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */
-object Scotland extends EArea2("Scotland", 56.82 ll -4.07, Hill)
+object Scotland extends EArea2("Scotland", 56.82 ll -4.07, Hilly)
 { val johnOGroats: LatLong = 58.62 ll -3.08
   val girnigoe: LatLong = 58.47 ll -3.05
   val inverness: LatLong = 57.49 ll -4.22
@@ -44,7 +44,7 @@ object Scotland extends EArea2("Scotland", 56.82 ll -4.07, Hill)
 }
 
 /** [[polygonLL]] Graphical representation of Wales. Depends on nothing. */
-object Wales extends EArea2("Wales", 52.40 ll -3.50, Hill)
+object Wales extends EArea2("Wales", 52.40 ll -3.50, Hilly)
 { val liverpool: LatLong = 53.44 ll -3.02
   val chepstow: LatLong = 51.61 ll -2.68
   val nashPoint: LatLong = 51.40 ll -3.56

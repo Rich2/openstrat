@@ -11,18 +11,18 @@ object Terr320E30 extends Long320Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(164, Island(Plains, IceCap)),
+      TRow(164, Island(Level, IceCap)),
       TRow(162, Island(Mountains, IceCap)),
       TRow(156, Headland(2, 5, Hilly, Tundra), Headland(2, 0, Hilly, Tundra), sea),
       VRow(155, MouthDn(1538)),
-      TRow(154, taigaHills, taiga * 2, Headland(4, 0, Plains, Tundra)),
+      TRow(154, taigaHills, taiga * 2, Headland(4, 0, Level, Tundra)),
       VRow(153, MouthUp(1534)),
-      TRow(152, Headland(1, 2, Plains, Taiga), taiga, Headland(2, 1, Plains, Taiga), taiga),
+      TRow(152, Headland(1, 2, Level, Taiga), taiga, Headland(2, 1, Level, Taiga), taiga),
       VRow(151, VertInDR(1532), MouthDL(1540)),
-      TRow(150, Headland(1, 2, Plains, Taiga), taiga * 3),
+      TRow(150, Headland(1, 2, Level, Taiga), taiga * 3),
       VRow(149, MouthUL(1536, Lake), MouthDR(1538, Lake)),
       VRow(147, MouthUR(1534)),
-      TRow(148, Headland(1, 2, Plains, Taiga), Headland(3, 3, Plains, Taiga), taiga * 3),
+      TRow(148, Headland(1, 2, Level, Taiga), Headland(3, 3, Level, Taiga), taiga * 3),
       TRow(146, Headland(2, 5), taiga * 4),
       TRow(144, plain * 5),
       TRow(142, plain * 6),
@@ -39,7 +39,7 @@ object Terr320E30 extends Long320Terrs
       VRow(129, MouthUR(1536)),
       TRow(128, sea * 2, Island(Hilly), sea, Island(Hilly), hills, desert * 2),
       VRow(127, VertInUp(1528)),
-      TRow(126, sea, Headland(2, 5, Plains, Desert), Headland(2, 0, Plains, Desert), sea * 2, Headland(1, 5, Hilly), desert * 2),
+      TRow(126, sea, Headland(2, 5, Level, Desert), Headland(2, 0, Level, Desert), sea * 2, Headland(1, 5, Hilly), desert * 2),
       VRow(125, MouthDn(1524), MouthDn(1532), MouthDn(1540)),
       TRow(124, desert * 4, plain, desert * 4),
     )

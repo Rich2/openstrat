@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, LatLong._
 
-object RusNorth extends EArea2("NRus", 61 ll 54, Taigas)
+object RusNorth extends EArea2("NRus", 61 ll 54, Taiga)
 {
   val indiaE = 91.5.east
    

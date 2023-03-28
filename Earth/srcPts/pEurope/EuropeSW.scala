@@ -46,7 +46,7 @@ object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, Plain)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */
-object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, Hill)
+object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, Hilly)
 { val laMassaneMouth = 42.54 ll 3.05
   val neSpain = 42.18 ll 3.06
   val begur = 41.95 ll 3.22
@@ -75,7 +75,7 @@ object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, Hill)
 }
 
 /** [[PolygonLL]] graphic for Italy depends on [[ItalySouth]]. */
-object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, Hill)
+object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, Hilly)
 { val venice = 45.42 ll 12.21
   val ven1 = 44.96 ll 12.55
   val cervia = 44.25 ll 12.35
@@ -103,7 +103,7 @@ object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, Hill)
 }
 
 /** [[PolygonLL]] graphic for Italy depends on nothing. */
-object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, Hill)
+object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, Hilly)
 { val siponto = 41.60 ll 15.89
   val barletta = 41.32 ll 16.28
   val brindisi = 40.65 ll 17.97

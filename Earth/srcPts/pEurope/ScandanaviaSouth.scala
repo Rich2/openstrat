@@ -96,7 +96,7 @@ object Oland extends EArea2("Faroe", 56.77 ll 16.67, Plain)
 }
 
 /** [[PolygonLL]] graphic for the FaroeIslands. */
-object Faroe extends EArea2("Faroe", 62.14 ll -6.91, Hill)
+object Faroe extends EArea2("Faroe", 62.14 ll -6.91, Hilly)
 { val sSuduroy = 61.39 ll -6.68
   val wValgar = 62.3 ll -7.46
   val nEysturoy = 62.34 ll -6.98
@@ -104,7 +104,7 @@ object Faroe extends EArea2("Faroe", 62.14 ll -6.91, Hill)
   val polygonLL = PolygonLL(sSuduroy, wValgar, nEysturoy, eFugloy)
 }
 
-object JanMayen extends EArea2("JanMayen", 71.02 ll -8.29, Taigas)
+object JanMayen extends EArea2("JanMayen", 71.02 ll -8.29, Taiga)
 { val south = 70.82 ll -9.03
   val west = 70.86 ll -9.07
   val susabu = 71.01 ll -8.46

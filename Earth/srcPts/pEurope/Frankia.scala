@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
 /** Alsace Lorraine, no map dependencies. */
-object Alsace extends EArea2("Alsace", 48.75 ll 7.42, Hill)
+object Alsace extends EArea2("Alsace", 48.75 ll 7.42, Hilly)
 {
   val northWest = 49.50 ll 5.89
   val luxSE = 49.46 ll 6.37
