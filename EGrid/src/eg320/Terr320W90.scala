@@ -5,14 +5,12 @@ import prid._, phex._, egrid._, WTile._
 /** Terrain for 90 degrees west includes grid, tile terrain and straits [[Boolean]]s. */
 object Terr320W90 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.w90(128)
+  override implicit val grid: EGrid320LongFull = EGrid320.w90(128, 164)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
 
-    wr(160, tundra, sea)
-    wr(158, tundra * 3)
     wr(156, sea, tundra * 2)
     wr(154, tundra * 3, sea)
     wr(152, tundra * 4)
@@ -32,8 +30,8 @@ object Terr320W90 extends Long320Terrs
   }
   override val sTerrs: HSideLayer[WSide] =
   { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-    res.setSomeInts(WSideMid(), 159,9729)
-    res.setSomeInts(WSideMid(), 142,9736,  143,9735,  144,9734,  152,9730,  152,9734,  153,9731,  155, 9731,  156,9730,  157,9729,  158,9724,  158,9728,  159,9725,  159,9727)
+    //res.setSomeInts(WSideMid(), 159,9729)
+    res.setSomeInts(WSideMid(), 142,9736,  143,9735,  144,9734,  152,9730,  152,9734,  153,9731,  155, 9731)//,  156,9730)//,  157,9729,  158,9724,  158,9728)//,  159,9725,  159,9727)
     res.setSomeInts(WSideMid(Lake), 135,9731,  135,9741,  135, 9737,  136,9730,  137,9733)
     res
   }
@@ -41,21 +39,21 @@ object Terr320W90 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
-    res.setCornerIn(160, 9728, 4)//Devon and Cornwallis Islands
-    res.setCornerIn(158, 9726, 0)//Somerset Island
-    res.setCornerIn(158, 9726, 5)//Prince of Wales Island
-    res.setCornerIn(158, 9726, 4)//Prince of Wales Island south
-    res.setMouth0Corner(156, 9724)//Victoria Island - Prince of Wales Island south
-    res.setTJunction(159, 9728)//Somerset Island - Devon Island - Baffin Island
+    //res.setCornerIn(160, 9728, 4)//Devon and Cornwallis Islands
+//    res.setCornerIn(158, 9726, 0)//Somerset Island
+//    res.setCornerIn(158, 9726, 5)//Prince of Wales Island
+//    res.setCornerIn(158, 9726, 4)//Prince of Wales Island south
+    //res.setMouth0Corner(156, 9724)//Victoria Island - Prince of Wales Island south
+    //res.setTJunction(159, 9728)//Somerset Island - Devon Island - Baffin Island
 
     //res.setCorner(154, 9722, 0, HVDn, 1) //Victoria Island - Canada east
     //res.setCorner(154, 9722, 5, HVDL) //Victoria Island - Canada east
-    res.setCornerPair(156, 9724, 4, HVDL, HVUL)
+    //res.setCornerPair(156, 9724, 4, HVDL, HVUL)
 
-    res.setMouth4(160, 9732)//Bylot Island - Devon Island east
-    res.setVert4In(158, 9730)//Baffin Island - Canada
-    res.setVert1In(156, 9728)//Canada - Baffin Island
-    res.setVert4In(156, 9732)//Baffin Island - Canada
+    //res.setMouth4(160, 9732)//Bylot Island - Devon Island east
+    //res.setVert4In(158, 9730)//Baffin Island - Canada
+//    res.setVert1In(156, 9728)//Canada - Baffin Island
+//    res.setVert4In(156, 9732)//Baffin Island - Canada
     res.setMouth5(154, 9734)//Baffin Island - Canada
     res.setMouth3(154, 9734)//Southampton Island - Newfoundland north
     res.setMouth0(150, 9734)//Southampton Island - Newfoundland south
@@ -82,4 +80,13 @@ object Terr320W90 extends Long320Terrs
 
     res
   }
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(160, Island(Plains, Tundra), sea),
+      TRow(158, Headland(4, 4, Plains, Tundra), tundra, Headland(2, 0, Plains, Tundra)),
+    )
+  }
+
+  help.run
 }

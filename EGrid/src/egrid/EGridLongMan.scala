@@ -25,7 +25,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   /** The grid to the right or east of the grid this manages. */
   def rtGrid: EGridLong = thisInd match
   { case _ if isRightMan => excep("No right grid")
-    case 12 => sys.grids(0)
+    case 11 => sys.grids(0)
     case n => sys.grids(n + 1)
   }
 

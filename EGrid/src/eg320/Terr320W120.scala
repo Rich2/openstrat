@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** 320 km terrain for 120 west. */
 object Terr320W120 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.w120(128)
+  override implicit val grid: EGrid320LongFull = EGrid320.w120(128, 164)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -59,8 +59,13 @@ object Terr320W120 extends Long320Terrs
     res.setCornerIn(156, 8700, 0)//Canada - Banks Island
     res.setMouth5(156, 8704)//Banks Island - Canada east
 
-
-   // res.setMouth2(158, 7686)
     res
   }
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  { override val rowDatas: RArr[RowBase] = RArr(
+      TRow(162, sea, tundra)
+    )
+  }
+
+  help.run
 }

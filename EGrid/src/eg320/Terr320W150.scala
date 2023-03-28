@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 object Terr320W150 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.w150(128)
+  override implicit val grid: EGrid320LongFull = EGrid320.w150(128, 164)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -31,4 +31,12 @@ object Terr320W150 extends Long320Terrs
     res.setMouth2Corner(158, 7686)
     res
   }
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+    override val rowDatas: RArr[RowBase] = RArr(
+
+    )
+  }
+
+  help.run
 }
