@@ -6,7 +6,7 @@ import prid.phex._, egrid._
 package object eg220
 {
   val fullTerrs: RArr[Long220Terrs] = RArr(Terr220E0, Terr220E30, null, null, null, null, null,
-    null, null, null, null, null)
+    null, null, Terr220W90, Terr220W60, null)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid220LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)

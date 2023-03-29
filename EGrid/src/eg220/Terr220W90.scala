@@ -2,8 +2,9 @@
 package ostrat; package eg220
 import prid.phex._, egrid._, WTile._
 
-object Terr220W60 extends Long220Terrs {
-  override implicit val grid: EGrid220LongFull = EGrid220.w60(154, 162)
+/** 220km terrain for 90 west. */
+object Terr220W90 extends Long220Terrs
+{ override implicit val grid: EGrid220LongFull = EGrid220.w90(154, 162)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
@@ -11,11 +12,11 @@ object Terr220W60 extends Long220Terrs {
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(162, taiga * 5),
-      TRow(160, taiga * 3, taigaHills),
-      TRow(158, taigaHills),
-      TRow(156, taigaHills * 2),
-      TRow(154, plain),
+      TRow(162),
+      TRow(160),
+      TRow(158),
+      TRow(156),
+      TRow(154, plain * 4),
     )
   }
   help.run

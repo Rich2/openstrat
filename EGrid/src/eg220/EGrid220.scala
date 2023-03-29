@@ -8,6 +8,14 @@ object EGrid220
   def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 188): RArr[EGrid220LongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGrid220LongFull(rBottomCen, rTopCen, i %% 12) }
 
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 160): EGrid220LongMulti = new EGrid220LongMulti
+  { ThisSys =>
+    override val grids: RArr[EGridLongFull] = EGrid220.grids(numGridsIn, headInt, bottomR, topR)
+    override def headGridInt: Int = headInt
+    override def gridsXSpacing: Double = 40
+    override val gridMans: RArr[EGridLongMan] = iUntilMap(numGridsIn)(EGridLongMan(_, ThisSys))
+  }
+
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 55Km or hex scale 220km. */
   def e0(rBottomCen: Int, rTopCen: Int = 188): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 0)
 
@@ -19,7 +27,7 @@ object EGrid220
 //  def e180(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 6)
 //  def w150(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 7)
 //  def w120(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 8)
-//  def w90(rBottomCen: Int, rTopCen: Int = 160): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 9)
+  def w90(rBottomCen: Int, rTopCen: Int = 188): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 9)
   def w60(rBottomCen: Int, rTopCen: Int = 188): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int, rTopCen: Int = 188): EGrid220LongFull = EGrid220LongFull(rBottomCen, rTopCen,11)
 

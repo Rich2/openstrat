@@ -41,15 +41,16 @@ object NovaScotia extends EArea2("Nova Scotia", 45.12  ll -63.58, Taiga)
 { val northWest: LatLong = 46.90 ll -64.72
   val edwardIIslandNorth: LatLong = 47.06 ll -64.00
   val edwardIIslandEast: LatLong = 46.45 ll -61.97
-  val capeGeorge = 45.89 ll -61.93
+  val capeGeorge: LatLong = 45.89 ll -61.93
   val phantomPoint: LatLong = 47.04 ll -60.60
+  val capeDauphin: LatLong = 46.34 ll -60.42
   val scatarieEast: LatLong = 46.03 ll -59.68
   val south: LatLong = 43.41 ll -65.62
   val whipplePoint: LatLong = 44.24 ll -66.39
   val p75: LatLong = 45.33 ll -64.94
   val stAndrews: LatLong = 45.02 ll -66.86
 
-  override val polygonLL: PolygonLL = PolygonLL(northWest, edwardIIslandNorth, edwardIIslandEast, capeGeorge, phantomPoint, scatarieEast, south,
+  override val polygonLL: PolygonLL = PolygonLL(northWest, edwardIIslandNorth, edwardIIslandEast, capeGeorge, phantomPoint, capeDauphin, scatarieEast, south,
     whipplePoint, p75, stAndrews)
 }
 
@@ -57,15 +58,23 @@ object NovaScotia extends EArea2("Nova Scotia", 45.12  ll -63.58, Taiga)
 object NewBrunswick extends EArea2("New/nBrunswick", 47.2  ll -66.93, Taiga)
 { val east: LatLong = 46.90 ll -70.86
   val p12: LatLong = 47.00 ll -70.58
+  val grandMetis: LatLong = 48.64 ll -68.15
   val grossesRoches: LatLong = 48.94 ll -67.17
+  val laMartre: LatLong = 49.20 ll -66.17
   val madeleine: LatLong = 49.25 ll -65.36
   val capRosiers: LatLong = 48.86 ll -64.20
+  val newCarlisle: LatLong = 48.00 ll -65.33
+  val restigoucheMouth: LatLong = 48.07 ll -66.28
+  val p60: LatLong = 47.86 ll -65.76
+  val nepisiguitMouth: LatLong = 47.66 ll -65.62
+  val miscouNorth: LatLong = 48.02 ll -64.53
   val gasconsEst: LatLong = 48.21 ll -64.78
 
   /** 44.87 ll -66.93 */
   val maineE: LatLong = 44.87 ll -66.93
 
-  override val polygonLL: PolygonLL = PolygonLL(east, p12, grossesRoches, madeleine, capRosiers, gasconsEst, NovaScotia.northWest, NovaScotia.stAndrews, maineE)
+  override val polygonLL: PolygonLL = PolygonLL(east, p12, grandMetis, grossesRoches, laMartre, madeleine, capRosiers, gasconsEst, newCarlisle,
+    restigoucheMouth, p60, nepisiguitMouth, miscouNorth, NovaScotia.northWest, NovaScotia.stAndrews, maineE)
 }
 
 /** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[CanadaNorthEast]]. */
@@ -75,14 +84,16 @@ object CanadaSouthEast extends EArea2("CanadaSouthEast", 46.68  ll -77.21, Taiga
     LinePathLL(CanadaNorthEast.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
 }
 
+/** [[polygonLL]] graphical representation for Newfoundland. Depends on nothing. */
 object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, Taiga)
-{ val north = 51.63 ll -55.43
-  val pollardsPoint = 49.75 ll -56.92
-  val p10 = 50.15 ll -56.16
-  val p20 = 49.25 ll -53.47
+{ val north: LatLong = 51.63 ll -55.43
+  val pollardsPoint: LatLong = 49.75 ll -56.92
+  val p10: LatLong = 50.15 ll -56.16
+  val p20: LatLong = 49.25 ll -53.47
   val east: LatLong = 47.52 ll -52.64
-  val southWest = 47.62 ll -59.30
-  val capGeorge = 48.46 ll -59.27
-  val savageCove = 51.33 ll -56.70
+  val southWest: LatLong = 47.62 ll -59.30
+  val capGeorge: LatLong = 48.46 ll -59.27
+  val savageCove: LatLong = 51.33 ll -56.70
+
   override def polygonLL: PolygonLL = PolygonLL(north, pollardsPoint, p10, p20, east, southWest, capGeorge, savageCove)
 }
