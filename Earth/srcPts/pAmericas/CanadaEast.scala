@@ -2,16 +2,6 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._
 
-object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, Taiga)
-{ val manitoba20 = 57.26 ll -90.89
-  val jamesBayNW: LatLong = 55.07 ll -82.31
-  val attapiskatMouth = 52.97 ll -82.26
-  val moosoneeMouth = 51.36 ll -80.40
-
-  override def polygonLL: PolygonLL = LinePathLL(SouthWestCanada.wUsaNE, SouthWestCanada.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth, CanadaNorthEast.jamesBayS) ++
-    LakeHuron.centralCanadaCoast ++! LakeSuperior.canadaCoast
-}
-
 /** [[polygonLL]] graphical representation for north east Canada. Depends on [[NewBrunswick]]. */
 object CanadaNorthEast extends EArea2("CanadaNorthEast", 53.71 ll-70, Tundra)
 { val jamesBayS: LatLong = 51.14 ll -79.79

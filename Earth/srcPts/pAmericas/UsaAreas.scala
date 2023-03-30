@@ -17,7 +17,7 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), Plain)
   val swFlorida = 25.19 ll -81.13
   val nwFlorida = 30.14 ll -84.06
 
-  override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, SouthWestCanada.wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
+  override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, LakeWinnipeg.redMouth) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
     LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++ LakeOntario.usCoast ++!
     (NewBrunswick.east, NewBrunswick.maineE, p10, chatham, stattenS, stumpyPoint, NAtlanticSW, seFlorida, swFlorida, nwFlorida, UsaWest.galveston, UsaWest.rockyPoint)
 }
@@ -32,7 +32,7 @@ object UsaWest extends EArea2("United States\nwest", 40.0 ll - 108.0, Desert)
   val rockyPoint = 31.16 ll -113.02
   val montague = 31.70 ll -114.71
 
-  override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, capeBlanco, neahBay, SouthWestCanada.w49th, SouthWestCanada.wUsaNE, galveston, rockyPoint, montague)
+  override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, capeBlanco, neahBay, SouthWestCanada.w49th, LakeWinnipeg.redMouth, galveston, rockyPoint, montague)
 
   val lasVegas = LocationLL("Las Vegas", 36.17, -115.14, 2)
   val denver = LocationLL("Denver", 39.74, -105, 2)

@@ -2,6 +2,30 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._
 
+/** [[polygonLL]] graphical representation for central Canada. Depends on [[CanadaNorthEast]]. */
+object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, Taiga)
+{ val manitoba20 = 57.26 ll -90.89
+  val jamesBayNW: LatLong = 55.07 ll -82.31
+  val attapiskatMouth = 52.97 ll -82.26
+  val moosoneeMouth = 51.36 ll -80.40
+
+  override def polygonLL: PolygonLL = LinePathLL(/*SouthWestCanada.wUsaNE, */ SouthWestCanada.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth, CanadaNorthEast.jamesBayS) ++
+    LakeHuron.centralCanadaCoast ++ LakeSuperior.canadaCoast ++! LinePathLL(LakeWinnipeg.redMouth, LakeWinnipeg.winnipegMouth, LakeWinnipeg.bloodveinMouth, LakeWinnipeg.playGreenMouth, LakeWinnipeg.north, LakeWinnipeg.northWest)
+}
+
+/** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
+object LakeWinnipeg extends EArea2("Lake Winnipeg", 52.78 ll -97.83, Lake)
+{ val north = 53.86 ll -98.46
+  val playGreenMouth = 53.70 ll -97.86
+  val bloodveinMouth = 51.79 ll -96.72
+  val winnipegMouth = 50.63 ll -96.32
+  val redMouth = 50.30 ll -96.86
+  val p75 = 52.16 ll -97.71
+
+  val northWest = 53.87 ll -98.94
+  override def polygonLL: PolygonLL = PolygonLL(north, playGreenMouth, bloodveinMouth, winnipegMouth, redMouth, p75, northWest)
+}
+
 /** Simple graphic for Lake Superior. No dependencies */
 object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
 { val east: LatLong = 46.52 ll -84.61
