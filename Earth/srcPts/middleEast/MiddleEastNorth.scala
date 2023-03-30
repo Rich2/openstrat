@@ -24,7 +24,7 @@ object Armenia extends EArea2("Armenia", 40.0 ll 45.0, Hilly)
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. */
-object LakeVan extends EArea2("LakeVan", 38.62 ll 42.90, Lakes)
+object LakeVan extends EArea2("LakeVan", 38.62 ll 42.90, Lake)
 { val north: LatLong =  39.00 ll 43.39
   val northEast = 38.94 ll 43.65
   val southEast = 38.31 ll 43.12
@@ -36,7 +36,7 @@ object LakeVan extends EArea2("LakeVan", 38.62 ll 42.90, Lakes)
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. Sit on top of [[Anatolia]] */
-object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, Lakes)
+object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, Lake)
 { val northEast = 39.12 ll 33.34
   val p10 = 38.99 ll 33.46
   val southEast = 38.60 ll 33.49

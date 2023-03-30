@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, LatLong._
 
 /** Lake Victoria. */
-object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lakes)
+object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lake)
 { val southEast = -2.23 ll 33.84
   val katongaMouth =  -0.14 ll 31.94
   val east = -0.39 ll 34.26
@@ -14,7 +14,7 @@ object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lakes)
 }
 
 /** Lake Tanganyika. */
-object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lakes)
+object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lake)
 { val northEast: LatLong = -3.36 ll 29.34
   val northWest: LatLong = -3.36 ll 29.16
   val kalemie: LatLong = -5.91 ll 29.20

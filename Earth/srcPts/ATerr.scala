@@ -36,8 +36,8 @@ object Seas extends ATerr
 { override def colour: Colour = DarkBlue
 }
 
-object Lakes extends ATerr
-{ override def colour: Colour = DarkBlue
+object Lake extends ATerr
+{ override def colour: Colour = Blue
 }
 
 object Icy extends ATerr

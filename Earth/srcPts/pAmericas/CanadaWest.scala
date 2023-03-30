@@ -68,6 +68,20 @@ object Nunavut extends EArea2("Nunavut", 67.00 ll -96.58, Tundra)
     nunavut88, navut20, naujaat10, naujaat12, nunavut90, nunavut92, naujaat15, naujaat17, rockHouseIsland)
 }
 
+/** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
+object GreatBearLake extends EArea2("Great Bear\nLake", 66.00 ll -120.25, Lake)
+{ val north = 67.04 ll -119.80
+  val p20 = 66.86 ll -119.45
+  val p30 = 66.40 ll -120.51
+  val p36 = 66.29 ll -117.97
+  val p40 = 65.60 ll -119.92
+  val p55 = 64.93 ll -122.06
+  val p70 = 66.06 ll -121.25
+  val northWest = 66.26 ll -125.87
+
+  override def polygonLL: PolygonLL = PolygonLL(north, p20, p30, p36, p40, p55, p70, northWest)
+}
+
 /** [[polygonLL]] graphical representation for north west Canada. Depends on [[Alaska]]. */
 object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, Taiga)
 { val yakut50: LatLong = 60 ll -139.60
