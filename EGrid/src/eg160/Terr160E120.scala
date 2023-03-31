@@ -2,7 +2,7 @@
 package ostrat; package eg160
 import prid._, phex._, egrid._, WTile._
 
-/** Terrain for 160km 120 west. The terrain here is only very rough firsrt approximation. */
+/** Terrain for 160km 120 west. The terrain here is only very rough first approximation. */
 object Terr160E120 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.e120(252, 272)
@@ -10,7 +10,6 @@ object Terr160E120 extends Long160Terrs
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.setRowEnd(r, cStart, tileValues :_*); () }
 
     wr(272, desert * 3, desertHills * 3, hills, desert, plain * 2, hills * 2, plain, forestHills)
     wr(270, plain * 14, sea)
@@ -33,4 +32,11 @@ object Terr160E120 extends Long160Terrs
   }
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+
+    )
+  }
+  help.run
 }

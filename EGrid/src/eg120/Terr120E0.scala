@@ -1,46 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg120
-import prid._
-import phex._
-import egrid._
-import WTile._
-import ostrat.egrid
+import prid.phex._, egrid._, WTile._
 
 /** [[WTile]] terrain for 15 West to 15 East. The Faroe Islands and the Shetland Islands are large enough to qualify as an island. The Orkney's are
  *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Island]].  */
 object Terr120E0 extends Long120Terrs
-{
-  override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
-
-  override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.setRow(r, tileValues :_*); () }
-
-
-
-    res
-  }
-
-  override val sTerrs: HSideLayer[WSide] =
-  { val res: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
-
-   // res.setSomeInts(WSideMid(), 307,509,  307,511,  307,513,  308,514,  309,515)//English Channel
-    //res.setSomeInts(WSideMid(), 323,529,  317,533,  318,532,  318,536)//,  319,533,  319,539)//Denmark
-    res
-  }
-
-  override val corners: HCornerLayer =
-  { val res: HCornerLayer = grid.newHVertOffsetLayer
-
-   // res.setMouth1(306, 506)//English Channel Cherbourg
-   // res.setVert0In(306, 510)//English Channel
-   // res.setVert3In(308, 512)//English Channel
-    //res.setVert2In(308, 512)//English Channel
-   // res.setVert5In(308, 516)//English Channel
-    //res.setMouth4(310, 518)//English Channel Dover - Calais
-
-    res
-  }
+{ override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
+  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val sTerrs: HSideLayer[WSide] = grid.newSideLayer[WSide](WSideNone)
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
@@ -86,12 +54,8 @@ object BritReg120
   def regScen: EScenBasic = new EScenBasic
   {  override def title: String = "Regular Britain"
     override implicit val gridSys: EGrid120Long = britGrid
-
     override val terrs: HCenLayer[WTile] = britTerrs
-
     override val sTerrs: HSideLayer[WSide] = britSTerrs
-
-    //override val sTerrsDepr: HSideBoolLayer = britSTerrsDepr
     override val corners: HCornerLayer = britCorners
   }
 }
