@@ -33,9 +33,17 @@ object IceCap extends Biome
   override def colour = White
 }
 
+/** Permanent all year round sea ice. */
 object SeaIce extends WTile
 { override def str = "SeaIce"
   override def colour = White
+  override def hasLand: Boolean = false
+}
+
+/** Winter sea ice. */
+object WSeaIce extends WTile
+{ override def str = "WSeaIce"
+  override def colour = LightSkyBlue.average(White).average(White)
   override def hasLand: Boolean = false
 }
 

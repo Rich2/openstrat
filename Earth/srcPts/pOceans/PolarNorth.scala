@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, LatLong._
 
-object Artic extends EArea2("Artic", 89.9 ll 0, Icy)
+case object Artic extends EArea2("Artic", 89.9 ll 0, Icy)
 { val long0 = 82 ll 0
   val long15 = 82 ll 15
   val long30 = 82 ll 30

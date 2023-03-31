@@ -5,10 +5,10 @@ import egrid._
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
 object EGrid320
 { /** Returns an [[RArr]] sequence of 320km full earth grids. */
-  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 160): RArr[EGrid320LongFull] =
+  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 166): RArr[EGrid320LongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGrid320LongFull(rBottomCen, rTopCen, i %% 12) }
 
-  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 160): EGrid320LongMulti = new EGrid320LongMulti
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 166): EGrid320LongMulti = new EGrid320LongMulti
   { ThisSys =>
     override val grids: RArr[EGridLongFull] = EGrid320.grids(numGridsIn, headInt, bottomR, topR)
 
@@ -20,19 +20,19 @@ object EGrid320
   }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def e0(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 0)
+  def e0(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 0)
 
-  def e30(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,  1)
-  def e60(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 2)
-  def e90(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 3)
-  def e120(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 4)
-  def e150(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 5)
-  def e180(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 6)
-  def w150(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 7)
-  def w120(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 8)
-  def w90(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 9)
-  def w60(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 10)
-  def w30(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,11)
+  def e30(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,  1)
+  def e60(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 2)
+  def e90(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 3)
+  def e120(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 4)
+  def e150(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 5)
+  def e180(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 6)
+  def w150(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 7)
+  def w120(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 8)
+  def w90(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 9)
+  def w60(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 10)
+  def w30(rBottomCen: Int, rTopCen: Int = 166): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,11)
 
   def scen0: EScenBasic = EScenBasic(Terr320E0.grid, Terr320E0.terrs, Terr320E0.sTerrs, Terr320E0.corners, "320km 0E")
 
