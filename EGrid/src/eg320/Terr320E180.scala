@@ -10,9 +10,15 @@ object Terr320E180 extends Long320Terrs{
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rowDatas: RArr[RowBase] = RArr(
-      TRow(156, Headland(3, 5, Level, Tundra)),
-      TRow(154, tundra * 2, Headland(2, 0, Level, Tundra), sea),
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(166, sice),
+      TRow(164, WSeaIce),
+      TRow(162, WSeaIce * 2),
+      TRow(160, WSeaIce * 2),
+      TRow(158, WSeaIce * 3),
+      TRow(156, Headland(3, 5, Level, Tundra, WSeaIce), WSeaIce * 2),
+      TRow(154, tundra * 2, Headland(2, 0, Level, Tundra, WSeaIce), WSeaIce),
       TRow(152, tundra, sea, Headland(4, 1, Level, Tundra), Headland(2, 4, Level, Taiga)),
       TRow(150, tundra * 2, sea * 2),
       TRow(148, tundra, sea * 4),

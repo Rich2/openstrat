@@ -41,7 +41,7 @@ object SeaIce extends WTile
 }
 
 /** Winter sea ice. */
-object WSeaIce extends WTile
+object WSeaIce extends Water
 { override def str = "WSeaIce"
   override def colour = LightSkyBlue.average(White).average(White)
   override def hasLand: Boolean = false
