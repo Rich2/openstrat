@@ -19,7 +19,7 @@ object Terr320E180 extends Long320Terrs{
       TRow(158, WSeaIce * 3),
       TRow(156, Headland(3, 5, Level, Tundra, WSeaIce), WSeaIce * 2),
       TRow(154, tundra * 2, Headland(2, 0, Level, Tundra, WSeaIce), WSeaIce),
-      TRow(152, tundra, sea, Headland(4, 1, Level, Tundra), Headland(2, 4, Level, Taiga)),
+      TRow(152, tundra, sea, Headland(4, 1, Level, Tundra, WSeaIce), Headland(2, 4, Level, Taiga, WSeaIce)),
       TRow(150, tundra * 2, sea * 2),
       TRow(148, tundra, sea * 4),
     )
