@@ -8,6 +8,7 @@ case class HtmlBody(contents: RArr[XCon]) extends HtmlUnvoid
   override def attribs: RArr[XmlAtt] = RArr()
 }
 
+/** Companion object for the [[HTMLBody]] class contains factory methods.  */
 object HtmlBody
 { def apply(str: String): HtmlBody = new HtmlBody(RArr(str.xCon))
   def elems(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
