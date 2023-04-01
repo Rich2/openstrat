@@ -32,4 +32,10 @@ object Terr160W60 extends Long160Terrs
   }
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
+
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+    override val rowDatas: RArr[RowBase] = RArr(
+    )
+  }
+  help.run
 }
