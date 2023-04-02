@@ -31,7 +31,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
     def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
-    tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ hexStrs2 ++ units
+    /*tileBackFills ++ */tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ hexStrs2 ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

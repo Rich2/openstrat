@@ -33,15 +33,16 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   def frame: RArr[GraphicElem] =
   { def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
-    def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
+    /*def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
       tile match
-      { case li: Coastal =>
+      {
+        /*case li: Coastal =>
         { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
           Some(res)
-        }
+        }*/
         case _ => None
       }
-    }
+    }*/
 
     def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
@@ -69,7 +70,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
-    def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
+    /*def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
       tile match {
         case cst: Coastal => cst.indentedVertexIndexMap { i =>
           val p1: HVAndOffset = corners.cornerV1(hc, i)
@@ -80,7 +81,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       }
     }
 
-    def lines4: GraphicElems = proj.ifTileScale(50, lines3)
+    def lines4: GraphicElems = proj.ifTileScale(50, lines3)*/
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 
@@ -103,7 +104,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ /* tileBackFills ++ */ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ /* tileBackFills ++ */ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2/* ++ lines4*//* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {

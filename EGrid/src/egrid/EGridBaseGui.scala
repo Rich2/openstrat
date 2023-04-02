@@ -9,7 +9,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def corners: HCornerLayer
   implicit def proj: HSysProjection
 
-  def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
+  /*def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
     tile match
     { case li: Coastal =>
       { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
@@ -17,7 +17,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
       }
       case _ => None
     }
-  }
+  }*/
 
   def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
   def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
@@ -44,16 +44,16 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 
   def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
-  def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
+  /*def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
     tile match {
-      case cst: Coastal => cst.indentedVertexIndexMap { i =>
+      /*case cst: Coastal => cst.indentedVertexIndexMap { i =>
         val p1: HVAndOffset = corners.cornerV1(hc, i)
         val p2 = hc.vExact(i)
         LineSegHVAndOffset(p1, p2).map(proj.transHVAndOffset).draw(cst.sideTerrs.contrastBW)
-      }
+      }*/
       case _ => RArr()
     }
   }
 
-  def lines4: GraphicElems = proj.ifTileScale(150, lines3)
+  def lines4: GraphicElems = proj.ifTileScale(150, lines3)*/
 }

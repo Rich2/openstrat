@@ -104,11 +104,11 @@ object Land
   def apply(terr: Terrain = Level, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
 }
 
-trait Coastal extends LandLike with HIndentN
+/*trait Coastal extends LandLike with HIndentN
 { override def hasLand: Boolean = true
   def sideTerrs: Water
   override def str: String = "Coastal"
-}
+}*/
 
 trait Terrain
 { def str: String

@@ -95,21 +95,21 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   {
     terrs.set(row, c, tile)
 
-    tile match {
-      case ct: Coastal => {
-        corners.setNCornersIn(row, c, ct.numIndentedVerts, ct.indentStartIndex, 7)
-        ct.indentedVertexIndexForeach { i =>
-          corners.setCornerIn(row, c, i, 7)
-
-        }
-
-        ct.indentedSideIndexForeach { i =>
-          val side = HCen(row, c).side(i)
-          sTerrs.set(side, ct.sideTerrs)
-        }
-      }
-      case _ =>
-    }
+//    tile match {
+//      case ct: Coastal => {
+//        corners.setNCornersIn(row, c, ct.numIndentedVerts, ct.indentStartIndex, 7)
+//        ct.indentedVertexIndexForeach { i =>
+//          corners.setCornerIn(row, c, i, 7)
+//
+//        }
+//
+//        ct.indentedSideIndexForeach { i =>
+//          val side = HCen(row, c).side(i)
+//          sTerrs.set(side, ct.sideTerrs)
+//        }
+//      }
+//      case _ =>
+//    }
   }
 
 
