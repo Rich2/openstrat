@@ -11,10 +11,15 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
   trait TRowElem extends WTileHelper
   {
-    //def run (row: Int, c: Int): Unit
+
   }
 
-  case class Isle(terr: Terrain = Level, biome: Biome = OpenTerrain, sTerr: Water = Sea) extends TRowElem
+  trait TRunner extends TRowElem
+  {
+    def run (row: Int, c: Int): Unit
+  }
+
+  case class Isle(terr: Terrain = Level, biome: Biome = OpenTerrain, sTerr: Water = Sea) extends TRunner
   {
     def run (row: Int, c: Int): Unit =
     {
@@ -27,6 +32,25 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
       iUntilForeach(6){ i =>
         val side = HCen(row, c).side(i)
         sTerrs.set(side, sTerr)
+      }
+    }
+  }
+
+  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain = Level, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends TRunner
+  {
+    def run (row: Int, c: Int): Unit =
+    { terrs.set(row, c, Land(terr, biome))
+      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
+
+      iUntilForeach(numIndentedVerts){ i0 =>
+        val i: Int = (indentStartIndex + i0) %% 6
+        corners.setCornerIn(row, c, i, 7)
+      }
+
+      iToForeach(numIndentedVerts + 1){ i0 =>
+        val i: Int =(indentStartIndex + i0 - 1) %% 6
+        val side = HCen(row, c).side(i)
+        sTerrs.set(side, sideTerrs)
       }
     }
   }
@@ -59,7 +83,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
         if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
         help match {
           case wt: WTile => tileRun(row, c, wt)
-          case il: Isle => il.run(row, c)
+          case il: TRunner => il.run(row, c)
           case _ =>
         }
         c += 4
@@ -78,6 +102,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
           corners.setCornerIn(row, c, i, 7)
 
         }
+
         ct.indentedSideIndexForeach { i =>
           val side = HCen(row, c).side(i)
           sTerrs.set(side, ct.sideTerrs)
@@ -94,9 +119,9 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   }
 
   /** Creates the head of a strait / river / etc with the head up and the straits going down. */
-  case class MouthUp(c: Int, st: WSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth3(row + 1, c)
+  case class MouthUp(c: Int, st: WSideSome = Sea) extends VRowElem
+  { override def run(row: Int): Unit =
+    { corners.setMouth3(row + 1, c)
       sTerrs.set(row - 1, c, st)
     }
   }
