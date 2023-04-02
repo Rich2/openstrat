@@ -22,6 +22,7 @@ object Terr320E180 extends Long320Terrs{
       TRow(152, tundra, sea, Headland(4, 1, Level, Tundra, WSeaIce), Headland(2, 4, Level, Taiga, WSeaIce)),
       TRow(150, tundra * 2, sea * 2),
       TRow(148, tundra, sea * 4),
+      VRow(144, SetSide(6646)),
     )
   }
   help.run
