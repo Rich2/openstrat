@@ -47,7 +47,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
-    def sideFills: GraphicElems = sTerrs.midsPolyMap(proj, corners){ (poly, st) => poly.fill(st.colour) }
+    def sideFills: GraphicElems = sTerrs.somesPolyMapAlt(proj, corners){ (hs, poly, st) => poly.fill(st.colour) }
 
     def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
@@ -103,7 +103,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileBackFills ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ /* tileBackFills ++ */ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ lines4/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
