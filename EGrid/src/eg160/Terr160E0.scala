@@ -23,9 +23,9 @@ object Terr160E0 extends Long160Terrs
       TRow(298, sea * 6, Headland(2, 4, Mountains), mtain, taigaHills * 2),
       TRow(296, sea * 6, taigaHills * 2, taiga * 2),
       VRow(295, MouthUp(528)),
-      TRow(294, sea * 2, Island(Hilly), Headland(3, 5, Hilly), sea * 3, hills, Headland(2, 2, Hilly, Taiga), taiga),
+      TRow(294, sea * 2, Isle(Hilly), Headland(3, 5, Hilly), sea * 3, hills, Headland(2, 2, Hilly, Taiga), taiga),
       TRow(292, sea * 3, hills, Headland(2, 1, Hilly), sea * 4, Headland(4, 5), plain),
-      TRow(290, sea * 2, Headland(2, 4, Hilly), hills, sea * 4, plain, Island(), plain),
+      TRow(290, sea * 2, Headland(2, 4, Hilly), hills, sea * 4, plain, Isle(), plain),
       VRow(289, VertInDL(502)),
       TRow(288, sea * 2, plain, Headland(2, 3, Hilly), plain, sea * 4, plain, sea),
       TRow(286, sea * 2, plain, Headland(2, 1), plain * 2, sea * 3, plain * 3),
@@ -39,10 +39,10 @@ object Terr160E0 extends Long160Terrs
       TRow(272, sea * 6, plain, hills * 2, mtain, hills, mtain, plain, hills),
       VRow(271, VertInUR(538), MouthDR(540)),
       TRow(270, sea * 2, Headland(3, 4), Headland(1, 0, Hilly) * 3, plain * 2, hills * 2, mtain, sea, hills * 2, sea),
-      TRow(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, Island(Hilly), hills * 2),
+      TRow(268, sea * 3, hills, plain, desertHills * 2, mtain * 2, sea * 3, Isle(Hilly), hills * 2),
       TRow(266, sea * 2, hills * 2, desert, desertHills * 2, hills, sea * 3, hills, sea * 2, hills),
       VRow(265, MouthUp(514)),
-      TRow(264, sea * 3, hills * 2, desertHills, hills, Headland(1, 2, Hilly), sea, Island(Hilly), sea * 2, hills, sea * 2),
+      TRow(264, sea * 3, hills * 2, desertHills, hills, Headland(1, 2, Hilly), sea, Isle(Hilly), sea * 2, hills, sea * 2),
       TRow(262, sea * 3, plain * 2, hills * 3)
     )
   }

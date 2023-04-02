@@ -3,7 +3,7 @@ package ostrat; package eg120
 import prid.phex._, egrid._, WTile._
 
 /** [[WTile]] terrain for 15 West to 15 East. The Faroe Islands and the Shetland Islands are large enough to qualify as an island. The Orkney's are
- *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Island]].  */
+ *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Isle]].  */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -18,10 +18,10 @@ object Terr120E0 extends Long120Terrs
       TRow(338, sea * 9, tundraHills * 2),
       TRow(336, sea * 9, taigaHills * 2, taiga),
       TRow(334, sea * 8, Headland(2, 5, Mountains), taigaHills * 3),
-      TRow(332, sea * 3, Island(Hilly), sea * 4, Headland(2, 4, Mountains), mtain, taigaHills, taiga * 2),
-      TRow(330, sea * 5, Island(Hilly), sea * 2, mtain * 4, taigaHills),
+      TRow(332, sea * 3, Isle(Hilly), sea * 4, Headland(2, 4, Mountains), mtain, taigaHills, taiga * 2),
+      TRow(330, sea * 5, Isle(Hilly), sea * 2, mtain * 4, taigaHills),
       TRow(328, sea * 6, sea * 3, mtain, taigaHills * 3),
-      TRow(326, sea * 5, Island(Hilly), sea * 3, Headland(2, 4, Hilly, Taiga), taigaHills, taiga * 3),
+      TRow(326, sea * 5, Isle(Hilly), sea * 3, Headland(2, 4, Hilly, Taiga), taigaHills, taiga * 3),
       TRow(324, sea * 3, plain, hills, sea * 4, Headland(2, 3, Hilly, Taiga), Headland(2, 2, Hilly, Taiga), sea, plain * 2),
       TRow(322, sea * 3, hills, hills * 2, sea * 5, plain, sea, plain * 2),
       TRow(320, sea * 4, plain * 2, sea * 5, plain * 2, sea, plain),

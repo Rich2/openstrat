@@ -14,9 +14,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     //def run (row: Int, c: Int): Unit
   }
 
-  case class Isle(terr: Land = Land(), sTerr: Water = Sea) extends TRowElem
+  case class Isle(terr: Terrain = Level, biome: Biome = OpenTerrain, sTerr: Water = Sea) extends TRowElem
   {
-    def run (row: Int, c: Int): Unit = {
+    def run (row: Int, c: Int): Unit =
+    {
+      terrs.set(row, c, Land(terr, biome))
       corners.setNCornersIn(row, c, 6, 0, 7)
       iUntilForeach(6) { i =>
         corners.setCornerIn(row, c, i, 7)
@@ -27,6 +29,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
         sTerrs.set(side, sTerr)
       }
     }
+  }
+
+  /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
+  case class BSide(terr: WSideSome = Sea) extends TRowElem {
+     def run(row: Int, c: Int): Unit = sTerrs.set(row, c, terr)
   }
 
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
@@ -48,10 +55,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   { val row = inp.row
     var c = grid.rowLeftCenC(row)
     inp.mutlis.foreach { multi =>
-      multi.foreach { tile =>
+      multi.foreach { help =>
         if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-        tile match {
+        help match {
           case wt: WTile => tileRun(row, c, wt)
+          case il: Isle => il.run(row, c)
           case _ =>
         }
         c += 4
@@ -81,7 +89,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
-  case class SetSide(c: Int, terr: WSideSome = Sea) extends TRowElem with VRowElem {
+  case class SetSide(c: Int, terr: WSideSome = Sea) extends /*TRowElem with*/ VRowElem {
     override def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
 

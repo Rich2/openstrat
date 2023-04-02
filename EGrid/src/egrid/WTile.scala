@@ -110,16 +110,6 @@ trait Coastal extends LandLike with HIndentN
   override def str: String = "Coastal"
 }
 
-case class Island(terr: Terrain = Level, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with HIndent6
-
-object Island
-{
-  def unapply(inp: Any): Option[(Terrain, Biome)] = inp match
-  { case isl: Island => Some(isl.terr, isl.biome)
-    case _ => None
-  }
-}
-
 /** Headland surrounded by [[Water]] on 1 to 4 sides. */
 case class Headland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain = Level, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends Coastal with
   HIndent5Minus
