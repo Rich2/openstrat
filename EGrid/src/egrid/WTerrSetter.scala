@@ -2,21 +2,83 @@
 package ostrat; package egrid
 import prid._, phex._
 
-trait WTerrSetterBase
+/** Helper class for setting  [[HCenLayer]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
+abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerrs: HSideLayer[WSide], val corners: HCornerLayer)
 {
-  implicit val grid: HGrid
-  def terrs: HCenLayer[WTile]
-  def sTerrs: HSideLayer[WSide]
-  def corners: HCornerLayer
+  implicit val grid: HGrid = gridIn
+
   sealed trait RowBase
-  trait TRowElem
-  def run: Unit
+
+  trait TRowElem extends WTileHelper
+  {
+    //def run (row: Int, c: Int): Unit
+  }
+
+  case class Isle(terr: Land = Land(), sTerr: Water = Sea) extends TRowElem
+  {
+    def run (row: Int, c: Int): Unit = {
+      corners.setNCornersIn(row, c, 6, 0, 7)
+      iUntilForeach(6) { i =>
+        corners.setCornerIn(row, c, i, 7)
+
+      }
+      iUntilForeach(6){ i =>
+        val side = HCen(row, c).side(i)
+        sTerrs.set(side, sTerr)
+      }
+    }
+  }
 
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem
   { def run(row: Int): Unit
   }
+
+  case class TRow(row: Int, mutlis: Multiple[WTileHelper]*) extends RowBase
+
+  val rowDatas: RArr[RowBase]
+
+  def run: Unit = rowDatas.foreach {
+    case data: TRow => tRowRun(data)
+    case data: VRow => data.edits.foreach(_.run(data.row))
+  }
+
+  def tRowRun(inp: TRow): Unit =
+  { val row = inp.row
+    var c = grid.rowLeftCenC(row)
+    inp.mutlis.foreach { multi =>
+      multi.foreach { tile =>
+        if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
+        tile match {
+          case wt: WTile => tileRun(row, c, wt)
+          case _ =>
+        }
+        c += 4
+      }
+    }
+  }
+
+  def tileRun(row: Int, c: Int, tile: WTile): Unit =
+  {
+    terrs.set(row, c, tile)
+
+    tile match {
+      case ct: Coastal => {
+        corners.setNCornersIn(row, c, ct.numIndentedVerts, ct.indentStartIndex, 7)
+        ct.indentedVertexIndexForeach { i =>
+          corners.setCornerIn(row, c, i, 7)
+
+        }
+        ct.indentedSideIndexForeach { i =>
+          val side = HCen(row, c).side(i)
+          sTerrs.set(side, ct.sideTerrs)
+        }
+      }
+      case _ =>
+    }
+  }
+
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
   case class SetSide(c: Int, terr: WSideSome = Sea) extends TRowElem with VRowElem {
@@ -118,48 +180,4 @@ trait WTerrSetterBase
       sTerrs.setIf(row, c + 1, rightSide)
     }
   }
-}
-
-/** Helper class for setting  [[HCenLayer]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerrs: HSideLayer[WSide], val corners: HCornerLayer) extends WTerrSetterBase
-{
-  implicit val grid: HGrid = gridIn
-
-  case class TRow(row: Int, mutlis: Multiple[WTile]*) extends RowBase
-
-  val rowDatas: RArr[RowBase]
-
-  def run: Unit = rowDatas.foreach{
-    case data: TRow => tRowRun(data)
-    case data: VRow => data.edits.foreach(_.run(data.row))
-  }
-
-  def tRowRun(inp: TRow): Unit =
-  { val row = inp.row
-    var c = grid.rowLeftCenC(row)
-    inp.mutlis.foreach { multi =>
-      multi.foreach { tile =>
-        if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-        terrs.set(row, c, tile)
-        tile match {
-          case ct: Coastal => {
-            corners.setNCornersIn(row, c, ct.numIndentedVerts, ct.indentStartIndex, 7)
-            ct.indentedVertexIndexForeach { i =>
-              corners.setCornerIn(row, c, i, 7)
-
-            }
-            ct.indentedSideIndexForeach { i =>
-              val side = HCen(row, c).side(i)
-              sTerrs.set(side, ct.sideTerrs)
-            }
-            //sTerrs.set(side, WSideMid)
-          }
-          case _ =>
-        }
-        c += 4
-      }
-    }
-  }
-
-  def multiTileRun(): Unit = ???
 }
