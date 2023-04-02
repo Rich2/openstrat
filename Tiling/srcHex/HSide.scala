@@ -17,10 +17,10 @@ trait HSide extends HCenOrSide with TSide
   def lineSegHC: LineSegHC
 
   /** Returns the upper vertex of this hex side. */
-  def vert1: HVert
+  def vertUpper: HVert
 
   /** Returns the lower vertex of this hex side. */
-  def vert2: HVert
+  def vertLower: HVert
 
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen)
@@ -30,9 +30,11 @@ trait HSide extends HCenOrSide with TSide
 
   /** Not precisely sure what this method is doing. */
   def tileLtAndVert: (HCen, Int)
+
+  /** Returns the [[HCen]] of the left tile and the index of the lower vertex as it follows the sides in a clockwise direction. */
   def tileLtAndVertUnsafe(implicit gSys: HGridSys) = gSys.sideTileLtAndVertUnsafe(this)
 
-  /** Not precisely sure what this method is doing. */
+  /** Returns the [[HCen]] of the right tile and the index of the upper vertex it follows the sides in clockwise direction. */
   def tileRtAndVert: (HCen, Int)
 
   def tileLtOpt(implicit sys: HGridSys): Option[HCen] = sys.sideTileLtOpt(this)
@@ -79,8 +81,8 @@ class HSideA(val r: Int, val c: Int) extends HSide
 { override def isTypeA: Boolean = true
   override def isTypeB: Boolean = false
   override def isTypeC: Boolean = false
-  override def vert1: HVert = HVert(r, c - 1)
-  override def vert2: HVert = HVert(r, c + 1)
+  override def vertUpper: HVert = HVert(r, c - 1)
+  override def vertLower: HVert = HVert(r, c + 1)
   override def tileLtReg: HCen = HCen(r - 1, c - 1)
   override def tileRtReg: HCen = HCen(r + 1, c + 1)
   override def tileLtAndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
@@ -103,8 +105,8 @@ class HSideB(val r: Int, val c: Int) extends HSide
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = true
   override def isTypeC: Boolean = false
-  override def vert1: HVert = HVert(r + 1, c)
-  override def vert2: HVert = HVert(r - 1, c)
+  override def vertUpper: HVert = HVert(r + 1, c)
+  override def vertLower: HVert = HVert(r - 1, c)
   override def tileLtReg: HCen = HCen(r, c - 2)
   override def tileRtReg: HCen = HCen(r, c + 2)
   override def tileLtAndVert: (HCen, Int) = (HCen(r, c - 2), 1)
@@ -127,8 +129,8 @@ class HSideC(val r: Int, val c: Int) extends HSide
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = false
   override def isTypeC: Boolean = true
-  override def vert1: HVert = HVert(r, c + 1)
-  override def vert2: HVert = HVert(r, c - 1)
+  override def vertUpper: HVert = HVert(r, c + 1)
+  override def vertLower: HVert = HVert(r, c - 1)
   override def tileLtReg: HCen = HCen(r + 1, c - 1)
   override def tileRtReg: HCen = HCen(r - 1, c + 1)
   override def tileLtAndVert: (HCen, Int) = (HCen(r + 1, c - 1), 2)

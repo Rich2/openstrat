@@ -60,8 +60,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(t1.contrastBW))
         }
-        case vs: WSideLt if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
-        case vs: WSideRt if vs.terr.colour == t1.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
+        //case vs: WSideMid if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
+        //case vs: WSideMid if vs.terr.colour == t1.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
         //case vs: WSideMid if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
         case _ => None
       }
@@ -71,7 +71,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
       tile match {
-        case cst: Coastal => cst.indentedSideIndexMap { i =>
+        case cst: Coastal => cst.indentedVertexIndexMap { i =>
           val p1: HVAndOffset = corners.cornerV1(hc, i)
           val p2 = hc.vExact(i)
           LineSegHVAndOffset(p1, p2).map(proj.transHVAndOffset).draw(cst.sideTerrs.contrastBW)

@@ -281,28 +281,29 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Returns the [[PolygonHVAndOffset]] [[PolygonLike]] for the given [[HSide]]. */
-  def sideVertsAlt(hs: HSide)(implicit gridSys: HGridSys): PolygonHVAndOffset = hs.tileLtOpt match
+  def sideVerts(hs: HSide)(implicit gridSys: HGridSys): PolygonHVAndOffset = hs.tileLtOpt match
   {
     case None =>
-    { val (h2, vi) = hs.tileRtAndVert
-      val p1 = cornerV1(h2, vi)
-      val p2 = cornerV1(h2, (vi - 1) %% 6)
-      val p3 = hs.vert2.noOffset
-      val p4 = hs.vert1.noOffset
-      PolygonHVAndOffset(p1, p2, p3, p4)
+    { val (hcRt, vi) = hs.tileRtAndVert
+      val p1 = cornerV1(hcRt, vi)
+      val p2 = cornerV1(hcRt, (vi - 1) %% 6)
+      val p3 = hs.vertLower.noOffset
+      val p4 = hs.vertUpper.noOffset
+      PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, p3, p4)
     }
 
-    case Some(h1) => hs.tileRtOpt match {
-      case None => {
-        val (h1, vi) = hs.tileLtAndVert
-        val p1 = hs.vert1.noOffset
-        val p2 = hs.vert2.noOffset
-        val p3 = cornerV1(h1, (vi + 1) %% 6)
-        val p4 = cornerV1(h1, vi)
-        PolygonHVAndOffset(p1, p2, p3, p4)
+    case Some(hcLt) => hs.tileRtOpt match
+    {
+      case None =>
+      { val (hcLt, vi) = hs.tileLtAndVert
+        val p1 = hs.vertUpper.noOffset
+        val p2 = hs.vertLower.noOffset
+        val p3 = cornerV1(hcLt, (vi + 1) %% 6)
+        val p4 = cornerV1(hcLt, vi)
+        PolygonHVAndOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
       }
 
-      case Some(h2) if hs.isTypeB => {
+      /*case Some(h2) if hs.isTypeB => {
         val (h2, vi) = hs.tileRtAndVert
         val ps1 = cornerForSideSpecial(h2, vi)
         val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)
@@ -310,80 +311,17 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
         val ps = ps1 ++ ps2 ++ ps3 ++ ps4
         ps.toPolygon
-      }
+      }*/
 
-      case Some(h2) => {
-        val (h2, vi) = hs.tileRtAndVert
-        val p1 = cornerV1(h2, vi)
-        val p2 = cornerV1(h2, (vi - 1) %% 6)
-        val p3 = cornerV1(h1, (vi - 3) %% 6)
-        val p4 = cornerV1(h1, (vi + 2) %% 6)
-        PolygonHVAndOffset(p1, p2, p3, p4)
-      }
-    }
-  }
-
-  def sideVerts(hs: HSide)(implicit gridSys: HGridSys) =
-  {
-    val h2s = hs.tileRtOpt match
-    { case None =>
-      { val p1 = hs.vert1.noOffset
-        val p2 = hs.vert2.noOffset
-        HVAndOffsetArr(p1, p2)
-      }
-
-      case Some(h2) if hs.isTypeB =>
-      { val (h2, vi) = hs.tileRtAndVert
-        val ps1 = cornerForSideSpecial(h2, vi)
-        val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)
-        ps1 ++ ps2
-      }
-
-      case Some(h2) =>
-      { val (h2, vi) = hs.tileRtAndVert
-        val p1 = cornerV1(h2, vi)
-        val p2 = cornerV1(h2, (vi - 1) %% 6)
-        HVAndOffsetArr(p1, p2)
+      case Some(_) => {
+        val (hcRt, vi) = hs.tileRtAndVert
+        val p1: HVAndOffset = cornerV1(hcRt, vi)
+        val p2: HVAndOffset = cornerV1(hcRt, (vi - 1) %% 6)
+        val p3: HVAndOffset = cornerV1(hcLt, (vi - 3) %% 6)
+        val p4: HVAndOffset = cornerV1(hcLt, (vi + 2) %% 6)
+        PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcLt.vExact(vi - 3), p3, p4)
       }
     }
-
-    val h1s = hs.tileLtOpt match
-    { case None =>
-      { val p3 = hs.vert2.noOffset
-        val p4 = hs.vert1.noOffset
-        HVAndOffsetArr(p3, p4)
-      }
-
-      case Some(h1) => hs.tileRtOpt match
-      {
-        case Some(h2) if hs.isTypeB =>
-        { val (h2, vi) = hs.tileRtAndVert
-          val (h1U, viU) =  gridSys.sideTileLtAndVertUnsafe(hs)
-          val ps3 = cornerForSideSpecial(h1, (vi - 3) %% 6)
-          val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
-          ps3 ++ ps4
-        }
-
-        case Some(_) if hs.isTypeC =>
-        { val (h1b, vi) = hs.tileLtAndVert
-          if (h1b.r == hs.r - 1) deb(s"$h1b C Side")
-          val (h1U, viU) = gridSys.sideTileLtAndVertUnsafe(hs)
-          val p3 = cornerV1(h1U, (viU + 1) %% 6)
-          val p4 = cornerV1(h1U, viU)
-          HVAndOffsetArr(p3, p4)
-        }
-
-        case _ =>
-        { val (h1Other, vi) = hs.tileLtAndVert
-          val (h1U, viU) =  gridSys.sideTileLtAndVertUnsafe(hs)
-          if(!gridSys.hCenExists(h1)) deb(s"$h1Other; $vi Tile doesn't exist")
-          val p3 = cornerV1(h1U, (viU + 1) %% 6)
-          val p4 = cornerV1(h1U, viU)
-          HVAndOffsetArr(p3, p4)
-        }
-      }
-    }
-    (h2s ++ h1s).toPolygon
   }
 }
 

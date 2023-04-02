@@ -11,22 +11,25 @@ case object WSideNone extends WSide //with HSideNone
   override def nonEmpty: Boolean = false
 }
 
-trait WSideSome extends WSide with HSideSome
+/*trait WSideSome extends WSide with HSideSome
 { def terr: WSTerr
   override def colour: Colour = terr.colour
   override def nonEmpty: Boolean = true
-}
+}*/
 
 /** A Side between 2 lands. */
-case class WSideMid(terr: WSTerr = Sea) extends WSideSome with HSideMid
+//case class WSideMid(terr: WSTerr = Sea) extends WSideSome with HSideMid
 
 /** A Side between 2 islands. */
-case class WSideBoth(terr: WSTerr = Sea) extends WSideSome
+//case class WSideBoth(terr: WSTerr = Sea) extends WSideSome
 
 /** A Side on the left tile. The main purpose of this class is that water hexs are lined off from the side terrain. */
-case class WSideLt(terr: WSTerr = Sea) extends WSideSome
+//case class WSideMid(terr: WSTerr = Sea) extends WSideSome
 
 /** A Side on the right tile. The main purpose of this class is that water hexs are lined off from the side terrain. */
-case class WSideRt(terr: WSTerr = Sea) extends WSideSome
+//case class WSideMid(terr: WSideSome = Sea) extends WSideSome
 
-trait WSTerr extends Coloured
+trait WSideSome extends WSide with HSideSome// Coloured
+{
+  override def nonEmpty: Boolean = true
+}
