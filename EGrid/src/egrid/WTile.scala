@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import prid.phex._, Colour._
+import Colour._
 
 trait WTileHelper
 
@@ -68,12 +68,6 @@ object TerrainNone extends WTile
   override def hasLand: Boolean = false
 }
 
-/** Common trait for land and Islands. */
-/*trait LandLike extends WTile
-{ def terr: Terrain
-  def biome: Biome
-}*/
-
 trait Land extends WTile//LandLike
 {
   def biome: Biome
@@ -106,14 +100,8 @@ object Land
   def apply(biome: Biome = OpenTerrain): Land = Level(biome)
 }
 
-/*trait Terrain
-{ def str: String
-  def colour: Colour
-}*/
-
 case class Level(biome: Biome = OpenTerrain) extends Land
 { override def str = "Level"
-  override def colour: Colour = MintCream
 }
 
 case class Hilly(biome: Biome = OpenTerrain) extends Land
