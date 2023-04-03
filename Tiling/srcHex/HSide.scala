@@ -9,7 +9,9 @@ import collection.mutable.ArrayBuffer
 trait HSide extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
+  /** Is it a side that goes from top left to bottom right. */
   def isTypeA: Boolean
+
   def isTypeB: Boolean
   def isTypeC: Boolean
 
