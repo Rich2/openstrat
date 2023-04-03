@@ -47,7 +47,12 @@ trait HSide extends HCenOrSide with TSide
   /** The right tile in the [[HGrid]]. It may not exist in the [[HGridSys]] but guaranteed to exist if the side is a link / inner side of an [[HGrid]]. */
   def tileRtReg: HCen
 
+  /** Not sure about this method. */
   def corners(implicit sys: HGridSys): (HCen, Int, Int)
+
+  def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset
+
+  def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
@@ -89,7 +94,15 @@ class HSideA(val r: Int, val c: Int) extends HSide
   override def tileRtAndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
   override def lineSegHC: LineSegHC = LineSegHC(r, c - 1, r, c + 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) =  ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
+  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
+
+  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
+    if(sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 0), corners.cornerV1(tileLt, 1))
+    else LineSegHVAndOffset(tileLt.v0Exact, tileLt.v1Exact)
+
+  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
+    if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 3), corners.cornerV1(tileRt, 4))
+    else LineSegHVAndOffset(tileRt.v3Exact, tileRt.v4Exact)
 }
 
 object HSideA
@@ -114,6 +127,14 @@ class HSideB(val r: Int, val c: Int) extends HSide
   override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)
   override def unsafeTiles: (HCen, HCen) = (HCen(r, c - 2), HCen(r, c + 2))
   override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt), (tileRt, 4, 5), (tileLt, 1, 2))
+
+  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
+    if (sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 1), corners.cornerV1(tileLt, 2))
+    else LineSegHVAndOffset(tileLt.v1Exact, tileLt.v2Exact)
+
+  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
+    if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 4), corners.cornerV1(tileRt, 5))
+    else LineSegHVAndOffset(tileRt.v4Exact, tileRt.v5Exact)
 }
 
 object HSideB
@@ -138,6 +159,14 @@ class HSideC(val r: Int, val c: Int) extends HSide
   override def lineSegHC: LineSegHC = LineSegHC(r, c + 1, r, c - 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
   override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt),(tileRt, 5, 0),  (tileLt, 2, 3))
+
+  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
+    if (sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))
+    else LineSegHVAndOffset(tileLt.v2Exact, tileLt.v3Exact)
+
+  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
+    if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 5), corners.cornerV1(tileRt, 0))
+    else LineSegHVAndOffset(tileRt.v5Exact, tileRt.v0Exact)
 }
 
 object HSideC
