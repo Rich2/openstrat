@@ -19,11 +19,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     def run (row: Int, c: Int): Unit
   }
 
-  case class Isle(terr: Terrain = Level, biome: Biome = OpenTerrain, sTerr: Water = Sea) extends TRunner
+  case class Isle(terr: Land = Level(), sTerr: Water = Sea) extends TRunner
   {
     def run (row: Int, c: Int): Unit =
     {
-      terrs.set(row, c, Land(terr, biome))
+      terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, 6, 0, 7)
       iUntilForeach(6) { i =>
         corners.setCornerIn(row, c, i, 7)
@@ -36,10 +36,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     }
   }
 
-  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Terrain = Level, biome: Biome = OpenTerrain, sideTerrs: Water = Sea) extends TRunner
+  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Level(), sideTerrs: Water = Sea) extends TRunner
   {
     def run (row: Int, c: Int): Unit =
-    { terrs.set(row, c, Land(terr, biome))
+    { terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
 
       iUntilForeach(numIndentedVerts){ i0 =>
@@ -56,7 +56,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   }
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
-  case class BSide(terr: WSideSome = Sea) extends TRowElem {
+  case class BSide(terr: WSideSome = Sea) extends TRowElem
+  {
      def run(row: Int, c: Int): Unit = sTerrs.set(row, c, terr)
   }
 
@@ -92,24 +93,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   }
 
   def tileRun(row: Int, c: Int, tile: WTile): Unit =
-  {
-    terrs.set(row, c, tile)
-
-//    tile match {
-//      case ct: Coastal => {
-//        corners.setNCornersIn(row, c, ct.numIndentedVerts, ct.indentStartIndex, 7)
-//        ct.indentedVertexIndexForeach { i =>
-//          corners.setCornerIn(row, c, i, 7)
-//
-//        }
-//
-//        ct.indentedSideIndexForeach { i =>
-//          val side = HCen(row, c).side(i)
-//          sTerrs.set(side, ct.sideTerrs)
-//        }
-//      }
-//      case _ =>
-//    }
+  {  terrs.set(row, c, tile)
   }
 
 

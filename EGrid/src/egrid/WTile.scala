@@ -27,23 +27,23 @@ object WTile
     def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
   }
 
-  val plain: WTile = Land(Level)
-  val hills: WTile = Land(Hilly)
-  val forest: WTile = Land(Level, Forest)
-  val forestHills = Land(Hilly, Forest)
-  val desert: WTile = Land(Level, Desert)
-  val desertHills: WTile = Land(Hilly, Desert)
-  val jungle: WTile = Land(Level, Jungle)
-  val jungleHills: WTile = Land(Level, Jungle)
-  val taiga: WTile = Land(Level, Taiga)
-  val taigaHills = Land(Hilly, Taiga)
-  val tundra: WTile = Land(Level, Tundra)
-  val tundraHills = Land(Hilly, Tundra)
-  val ice: WTile = Land(Level, IceCap)
+  val plain: WTile = Level()
+  val hills: WTile = Hilly()
+  val forest: WTile = Level(Forest)
+  val forestHills = Hilly(Forest)
+  val desert: WTile = Level(Desert)
+  val desertHills: WTile = Hilly(Desert)
+  val jungle: WTile = Level(Jungle)
+  val jungleHills: WTile = Level(Jungle)
+  val taiga: WTile = Level(Taiga)
+  val taigaHills = Hilly(Taiga)
+  val tundra: WTile = Level(Tundra)
+  val tundraHills = Hilly(Tundra)
+  val ice: WTile = Level(IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Sea
   val lake: WTile = Lake
-  val mtain: WTile = Land(Mountains)
+  val mtain: WTile = Mountains()
 }
 
 /** A common trait for Ocean and Lake. */
@@ -69,31 +69,33 @@ object TerrainNone extends WTile
 }
 
 /** Common trait for land and Islands. */
-trait LandLike extends WTile
+/*trait LandLike extends WTile
 { def terr: Terrain
   def biome: Biome
+}*/
 
-  def colour: Colour = terr match
-  { case Level => biome.colour
+trait Land extends WTile//LandLike
+{
+  def biome: Biome
+  override def toString: String = "Land" + str.enParenth
 
-    case Hilly => biome match
-    { case Tundra => Chocolate.average(Tundra.colour)
+  def colour: Colour = this match {
+    case _: Level => biome.colour
+
+    case _: Hilly => biome match {
+      case Tundra => Chocolate.average(Tundra.colour)
       case Taiga => Chocolate.average(Taiga.colour)
       case Forest => Chocolate.average(Forest.colour)
       case Desert => Chocolate.average(Desert.colour)
       case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
       case _ => Chocolate
     }
-    case Mountains => Gray
+    case _: Mountains => Gray
   }
-}
 
-class Land(val terr: Terrain, val biome: Biome) extends LandLike
-{ override def toString: String = "Land" + str.enParenth
-
-  override def str = terr match
-  { case Level => biome.toString
-    case t => t.str
+  override def str = this match
+  { case _: Level => biome.toString
+    case _ => "Other"
   }
 
   override def hasLand: Boolean = true
@@ -101,31 +103,25 @@ class Land(val terr: Terrain, val biome: Biome) extends LandLike
 
 object Land
 { /** Factory apply method for land. */
-  def apply(terr: Terrain = Level, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
+  def apply(biome: Biome = OpenTerrain): Land = Level(biome)
 }
 
-/*trait Coastal extends LandLike with HIndentN
-{ override def hasLand: Boolean = true
-  def sideTerrs: Water
-  override def str: String = "Coastal"
-}*/
-
-trait Terrain
+/*trait Terrain
 { def str: String
   def colour: Colour
-}
+}*/
 
-case object Level extends Terrain
+case class Level(biome: Biome = OpenTerrain) extends Land
 { override def str = "Level"
   override def colour: Colour = MintCream
 }
 
-case object Hilly extends Terrain
+case class Hilly(biome: Biome = OpenTerrain) extends Land
 { override def str = "Hilly"
   override def colour = Chocolate
 }
 
-case object Mountains extends Terrain
+case class Mountains(biome: Biome = OpenTerrain) extends Land
 { override def str = "Mountain"
   override def colour = Gray
 }
