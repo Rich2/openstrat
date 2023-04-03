@@ -9,7 +9,8 @@ trait WTileHelper
  * and other land hexs.  */
 trait WTile extends WTileHelper with Coloured with ShowSimple
 { override def typeStr: String = "WTile"
-  def hasLand: Boolean
+  def isLand: Boolean
+  def isWater: Boolean = !isLand
 }
 
 object WTile
@@ -48,7 +49,7 @@ object WTile
 
 /** A common trait for Ocean and Lake. */
 trait Water extends WTile with WSideSome
-{ override def hasLand: Boolean = false
+{ override def isLand: Boolean = false
 }
 
 /** Sea. This is an object as currently has no other variables such as depth, current or climate. */
@@ -65,7 +66,7 @@ case object Lake extends Water with ShowSimple// WSide
 object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
-  override def hasLand: Boolean = false
+  override def isLand: Boolean = false
 }
 
 trait Land extends WTile//LandLike
@@ -92,7 +93,7 @@ trait Land extends WTile//LandLike
     case _ => "Other"
   }
 
-  override def hasLand: Boolean = true
+  override def isLand: Boolean = true
 }
 
 object Land

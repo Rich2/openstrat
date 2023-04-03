@@ -33,16 +33,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   def frame: RArr[GraphicElem] =
   { def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
-    /*def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
-      tile match
-      {
-        /*case li: Coastal =>
-        { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
-          Some(res)
-        }*/
-        case _ => None
-      }
-    }*/
 
     def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
@@ -61,27 +51,12 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(t1.contrastBW))
         }
-        //case vs: WSideMid if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
-        //case vs: WSideMid if vs.terr.colour == t1.colour => Some(hs.lineSegHC.lineSeg.draw(t1.contrastBW))
-        //case vs: WSideMid if vs.terr.colour == t2.colour => Some(hs.lineSegHC.lineSeg.draw(t2.contrastBW))
+        //case _: WSideSome if t1.isLand =>
         case _ => None
       }
     }
 
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
-
-    /*def lines3: GraphicElems = terrs.projHCenFlatMap { (hc, tile) =>
-      tile match {
-        case cst: Coastal => cst.indentedVertexIndexMap { i =>
-          val p1: HVAndOffset = corners.cornerV1(hc, i)
-          val p2 = hc.vExact(i)
-          LineSegHVAndOffset(p1, p2).map(proj.transHVAndOffset).draw(cst.sideTerrs.contrastBW)
-        }
-        case _ => RArr()
-      }
-    }
-
-    def lines4: GraphicElems = proj.ifTileScale(50, lines3)*/
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 

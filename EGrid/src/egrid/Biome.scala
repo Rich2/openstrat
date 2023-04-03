@@ -37,14 +37,14 @@ object IceCap extends Biome
 object SeaIce extends WTile
 { override def str = "SeaIce"
   override def colour = White
-  override def hasLand: Boolean = false
+  override def isLand: Boolean = false
 }
 
 /** Winter sea ice. */
 object WSeaIce extends Water
 { override def str = "WSeaIce"
   override def colour = LightSkyBlue.average(White).average(White)
-  override def hasLand: Boolean = false
+  override def isLand: Boolean = false
 }
 
 case object Taiga extends Biome
