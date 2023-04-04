@@ -30,8 +30,11 @@ trait HSide extends HCenOrSide with TSide
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen)
 
-  def tileLt(implicit sys: HGridSys): HCen = sys.sideTileLtUnsafe(this)
+  /** Returns the [[HCen]] of the right hand tile needs modification. */
   def tileRt(implicit sys: HGridSys): HCen = sys.sideTileRtUnsafe(this)
+
+  /** Returns the [[HCen]] of the left hand tile needs modification. */
+  def tileLt(implicit sys: HGridSys): HCen = sys.sideTileLtUnsafe(this)
 
   /** Not precisely sure what this method is doing. */
   def tileLtAndVert: (HCen, Int)
