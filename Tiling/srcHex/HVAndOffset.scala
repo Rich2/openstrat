@@ -42,6 +42,10 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case HVDL => HCen(r - 1, c - 2)
     case HVUL if vHigh => HCen(r + 1, c - 2)
     case HVUL => HVertHigh(r, c - 2)
+    case HVRt if vHigh => HCen(r + 1, c - 2)
+    case HVRt => HVertHigh(r, c - 2)
+    case HVLt if vHigh => HCen(r + 1, c - 2)
+    case HVLt => HVertHigh(r, c - 2)
     case HVExact => vert
   }
 

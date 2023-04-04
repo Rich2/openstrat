@@ -151,6 +151,30 @@ object HVUL extends HVDirn
   override def toString: String = "HVUL"
 }
 
+/** Down offset to [[HVert]] hex tile vertex. */
+object HVRt extends HVDirn
+{ def dCenR: Int = 0
+  def dCenC: Int = 4
+  override def int1: Int = 6
+  override def opposite: HVDirn = HVLt
+  override def dVertR: Int = 0
+  override def dVertC: Int = 4
+  override def corner(hv: HVert): Int = 0
+  override def toString: String = "HVDn"
+}
+
+/** Down offset to [[HVert]] hex tile vertex. */
+object HVLt extends HVDirn
+{ def dCenR: Int = 0
+  def dCenC: Int = -4
+  override def int1: Int = 7
+  override def opposite: HVDirn = HVUp
+  override def dVertR: Int = 0
+  override def dVertC: Int = -4
+  override def corner(hv: HVert): Int = 0
+  override def toString: String = "HVDn"
+}
+
 class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirnOpt]
 { override type ThisT = HVDirnArr
   override def typeStr: String = "HDirnArr"

@@ -73,6 +73,8 @@ final class HVertHigh(val bLong: Long) extends AnyVal with HVert
     case HVDn => HCen(r - 1, c)
     case HVDL => HVertLow(r, c - 2)
     case HVUL => HCen(r + 1, c - 2)
+    case HVRt => HVertHigh(r, c + 4)
+    case HVLt => HVertHigh(r, c - 4)
   }
 }
 
@@ -109,6 +111,8 @@ final class HVertLow(val bLong: Long) extends AnyVal with  HVert
     case HVDn => HVertHigh(r - 2, c)
     case HVDL => HCen(r - 1, c - 2)
     case HVUL => HVertHigh(r, c - 2)
+    case HVRt => HVertLow(r, c + 4)
+    case HVLt => HVertLow(r, c - 4)
   }
 }
 
