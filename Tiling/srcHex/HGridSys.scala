@@ -88,20 +88,16 @@ trait HGridSys extends Any with TGridSys
   /** Returns a clockwise sequence of adjacent tiles. */
   final def adjTilesOfTile(origin: HCen): HCenArr = adjTilesOfTile(origin.r, origin.c)
 
-  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTileLtUnsafe(hSide), sideTileRtUnsafe(hSide))
+  def sideTileRtOpt(hSide: HSide): Option[HCen]
+
+  /** This method should only be used when you know the side tile exists. */
+  def sideTileRtUnsafe(hSide: HSide): HCen
 
   def sideTileLtOpt(hSide: HSide): Option[HCen]
-
-  def sideTileRtOpt(hSide: HSide): Option[HCen]// =
-  /*{ val ot: HCen = sideTileRtUnsafe(hSide)
-    ife(hCenExists(ot), Some(ot), None)
-  }*/
 
   /** This method should only be used when you know the side tile exists. */
   def sideTileLtUnsafe(hSide: HSide): HCen
 
-  /** This method should only be used when you know the side tile exists. */
-  def sideTileRtUnsafe(hSide: HSide): HCen
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
   def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int)

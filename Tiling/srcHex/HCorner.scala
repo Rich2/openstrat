@@ -40,13 +40,8 @@ class HCorner(val unsafeInt: Int) extends AnyVal
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 
+  /** Returns the vertices of a side feature, such as a straits or a wall. The vertices are specified as [[HVAndOffset]]. */
   def sideVerts(hVert: HVert): HVAndOffsetArr = HVAndOffsetArr(v1(hVert))
-
-  def sideVertsSpecial(hVert: HVert): HVAndOffsetArr = numVerts match
-  { case 0 | 1 | 2 => HVAndOffsetArr(v1(hVert))
-    case 3 => HVAndOffsetArr(v1(hVert), v2(hVert))
-    case n => excep(s"$n is an invalid value for offsets.")
-  }
 }
 
 /** Companion object for [[HCorner]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */

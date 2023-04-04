@@ -22,8 +22,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the first and possibly only single [[HVAndOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-  def cornerForSide(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffsetArr = corner(hCen, vertNum).sideVerts(hCen.verts(vertNum))
-  def cornerForSideSpecial(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffsetArr = corner(hCen, vertNum).sideVertsSpecial(hCen.verts(vertNum))
+  def cornersForSide(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffsetArr = corner(hCen, vertNum).sideVerts(hCen.verts(vertNum))
 
   /** Returns the last [[HVAndOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))

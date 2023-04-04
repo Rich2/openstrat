@@ -9,10 +9,13 @@ import collection.mutable.ArrayBuffer
 trait HSide extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
-  /** Is it a side that goes from top left to bottom right. */
+  /** Is a side that goes from top left to bottom right. */
   def isTypeA: Boolean
 
+  /** Is a side that is vertical. Sides 4 for the left hand hex and side 1 for the right hand hex */
   def isTypeB: Boolean
+
+  /** Is a side that goes from top right to bottom left. */
   def isTypeC: Boolean
 
   /** Returns the hex coordinate Line segment for this Hex Side. */
