@@ -19,7 +19,7 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
 
     def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
-    /*tileBackFills ++ */ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 /* ++ lines4 */++ hexStrs2
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

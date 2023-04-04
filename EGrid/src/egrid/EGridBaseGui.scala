@@ -9,18 +9,8 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def corners: HCornerLayer
   implicit def proj: HSysProjection
 
-  /*def tileBackFills: GraphicElems = terrs.hcOptMap { (tile, hc) =>
-    tile match
-    { case li: Coastal =>
-      { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
-        Some(res)
-      }
-      case _ => None
-    }
-  }*/
-
   def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
-  def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
+  def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
   def sideFills: GraphicElems = sTerrs.somesPolyMapAlt(proj, corners){ (hs, poly, st) => poly.fill(st.colour) }

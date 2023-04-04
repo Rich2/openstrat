@@ -14,7 +14,6 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
-
   override def frame: GraphicElems =
   {
     def hexStrs: GraphicElems = proj.hCenSizedMap(50) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
@@ -24,7 +23,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
       pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    /*tileBackFills ++*/ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 /* ++ lines4*/ ++ hexStrs ++ units
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

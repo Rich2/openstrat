@@ -25,7 +25,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
       pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    /*tileBackFills ++ */tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 /* ++ lines4 */++ hexStrs ++ units
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2++ hexStrs ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
