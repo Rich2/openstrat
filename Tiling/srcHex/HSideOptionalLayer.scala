@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** Data layer for [[HSide]]s of an [[HGridSys]]. */
-class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
+class HSideOptionalLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
 { /** apply index method returns the data from this layer for the given [[HSide]]. */
   def apply(hs: HSide)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
 
@@ -22,18 +22,19 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
       }
     }
 
-  def somesPolyMapAlt(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def somesPolyMapAlt(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon, SA) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
           a: HSideSome => {
           val poly = corners.sideVerts(hs).project(proj)
-          Some(f(hs, poly, a))
+          Some(f(hs, poly, a.asInstanceOf[SA]))
         }
         case _ => None
       }
     }
-  def midsPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+
+  /*def midsPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
@@ -43,5 +44,5 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
         }
         case _ => None
       }
-    }
+    }*/
 }

@@ -8,7 +8,7 @@ trait CivScen  extends HSysTurnScen
 
   /** tile terrain. */
   val terrs: HCenLayer[VTile]
-  val sTerrs: HSideLayer[VSide]
+  val sTerrs: HSideOptionalLayer[VSide, VSideSome]
   val corners: HCornerLayer
   val lunits: HCenArrLayer[Warrior]
 }
@@ -24,7 +24,7 @@ object Civ1 extends CivScenStart
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
   terrs.setRowEnd(12, 20, Land(Hill), Land(Mountain) * 2, Land() * 3)
   terrs.setRowEnd(4, 4, Land(Hill) * 3, Land(Plain) * 7)
-  override val sTerrs: HSideLayer[VSide] = gridSys.newSideLayer[VSide](VSideNone)
+  override val sTerrs: HSideOptionalLayer[VSide, VSideSome] = gridSys.newSideOptionalLayer[VSide, VSideSome]
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
@@ -44,13 +44,13 @@ object Civ2 extends CivScenStart
   terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
   terrs.setRowSame(2, Land())
 
-  override val sTerrs: HSideLayer[VSide] =
-  { val res: HSideLayer[VSide] = gridSys.newSideLayer[VSide](VSideNone)
-    res.setSomeInts(VSideMid(River), 3,39,  4,38,  5,39,  6,40,  3,37)
-    res.setSomeInts(VSideMid(), 4, 30)
-    res.setSomeInts(VSideLt(), 7,27,  6,28,  9,21,  8,22,  7,21,  6,28,  10,12,  11,11,  9,31,  11,31,  11,35,  10,36,  9,35)
-    res.setSomeInts(VSideRt(), 7,19,  9,19,  6,24,  7,25,  11,9,  9,29,  10,28,  11,29,  9,33,  11,33,  6,32,  7,33)
-    res.setSomeInts(VSideLtRt(),  10,32)
+  override val sTerrs: HSideOptionalLayer[VSide, VSideSome] =
+  { val res: HSideOptionalLayer[VSide, VSideSome] = gridSys.newSideOptionalLayer[VSide, VSideSome]
+    //res.setSomeInts(VSideMid(River), 3,39,  4,38,  5,39,  6,40,  3,37)
+    //res.setSomeInts(VSideMid(), 4, 30)
+    //res.setSomeInts(VSideLt(), 7,27,  6,28,  9,21,  8,22,  7,21,  6,28,  10,12,  11,11,  9,31,  11,31,  11,35,  10,36,  9,35)
+    //res.setSomeInts(VSideRt(), 7,19,  9,19,  6,24,  7,25,  11,9,  9,29,  10,28,  11,29,  9,33,  11,33,  6,32,  7,33)
+    //res.setSomeInts(VSideLtRt(),  10,32)
     res
   }
 

@@ -48,3 +48,8 @@ case object NoInt extends OptInt with NoOpt[Int]
 { override def map(f: Int => Int): OptInt = NoInt
   override def |+| (operand: OptInt): OptInt = NoInt
 }
+
+trait NoneTC[A]
+{
+  def noneValue: A
+}

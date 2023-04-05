@@ -342,6 +342,12 @@ trait HGridSys extends Any with TGridSys
     new HSideLayer[A](newArray)
   }
 
+  def newSideOptionalLayer[A, SA <: HSideSome](implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptionalLayer[A, SA] =
+  { val newArray = new Array[A](numSides)
+    iUntilForeach(numSides)(newArray(_) = noneTC.noneValue)
+    new HSideOptionalLayer[A, SA](newArray)
+  }
+
   def defaultView(pxScale: Double = 30): HGView
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side

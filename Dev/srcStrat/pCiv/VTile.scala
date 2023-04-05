@@ -4,7 +4,7 @@ import prid.phex._, Colour._
 
 trait VTile extends Coloured
 
-object Sea extends VTile with VSTerr
+object Sea extends VTile with VSideSome
 { override def colour: Colour = DarkBlue
 }
 
@@ -13,8 +13,7 @@ object Lake extends VTile
 }
 
 trait LandTerr extends Coloured
-{
-  def colour: Colour
+{ def colour: Colour
 }
 
 trait LandLike extends VTile
@@ -26,15 +25,15 @@ case class Land(terr: LandTerr = Plain) extends LandLike
 
 trait LandInner extends LandLike
 {
-  def sideTerrs: VSTerr
+  def sideTerrs: VSideSome
 }
 
-case class Island(terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent6
+case class Island(terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent6
 
-case class Head4Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent4
-case class Head3Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent3
-case class Head2Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent2
-case class Head1Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSTerr = Sea) extends LandInner with HIndent1
+case class Head4Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent4
+case class Head3Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent3
+case class Head2Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent2
+case class Head1Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent1
 
 object Plain extends LandTerr
 { override def colour: Colour = LightGreen
