@@ -43,5 +43,5 @@ object Apps
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
   )
 
-  def default: (CanvasPlatform => Any, String) = pww2.WW2Launch.default
+  def default: (CanvasPlatform => Any, String) = dless.DLessLaunch.default
 }
