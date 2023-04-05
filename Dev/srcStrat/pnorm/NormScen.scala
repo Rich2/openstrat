@@ -14,8 +14,8 @@ object NormScen1 extends NormScen
   override val terrs = grid.newHCenLayer[Tile](Sea)
 
   terrs.set(6, 6, Island())
-  terrs.set(6, 10, Head1Land(3))
-  terrs.set(6, 14, Head1Land(2))
+//  terrs.set(6, 10, Head1Land(3))
+//  terrs.set(6, 14, Head1Land(2))
   terrs.setRowStartSame(4, 5, Land())
   terrs.setRowEnd(4, 32, Land(Hill) * 2, Land())
   terrs.setRowSame(2, Land())

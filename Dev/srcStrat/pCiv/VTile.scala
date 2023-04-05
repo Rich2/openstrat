@@ -12,38 +12,27 @@ object Lake extends VTile
 { override def colour: Colour = Colour.SeaGreen
 }
 
-trait LandTerr extends Coloured
-{ def colour: Colour
-}
+//trait LandTerr extends Coloured
+//{ def colour: Colour
+//}
 
-trait LandLike extends VTile
+/*trait LandLike extends VTile
 { def terr: LandTerr
   override def colour: Colour = terr.colour
-}
+}*/
 
-case class Land(terr: LandTerr = Plain) extends LandLike
+trait Land extends VTile
 
-trait LandInner extends LandLike
-{
-  def sideTerrs: VSideSome
-}
 
-case class Island(terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent6
-
-case class Head4Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent4
-case class Head3Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent3
-case class Head2Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent2
-case class Head1Land(indentStartIndex: Int, terr: LandTerr = Plain, sideTerrs: VSideSome = Sea) extends LandInner with HIndent1
-
-object Plain extends LandTerr
+object Plain extends Land
 { override def colour: Colour = LightGreen
 }
 
-object Hill extends LandTerr
+object Hill extends Land
 { override def colour: Colour = Brown
 }
 
-case object Mountain extends LandTerr
+case object Mountain extends Land
 { def str = "Mountain"
   override def colour = Gray
 }

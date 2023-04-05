@@ -31,37 +31,6 @@ trait HIndent6 extends HIndentN
   override def indentedSideIndexForeach(f: Int => Unit): Unit = iUntilForeach(6)(f)
 }
 
-/** Hex tile indented on 5 or less of its vertices, representing a headland and its surrounding waters or similarly geometrically structured terrain#
- *  where the main land area of the tile is surrounded by water on a number of its sides */
-trait HIndent5Minus extends HIndentN
-{ override def indentedVertexIndexForeach(f: Int => Unit): Unit = iUntilForeach(numIndentedVerts){ i => f((indentStartIndex + i) %% 6) }
-  override def indentedSideIndexForeach(f: Int => Unit): Unit = iToForeach(numIndentedVerts + 1){ i => f((indentStartIndex + i - 1) %% 6) }
-}
-
-/** Hex tile indented on 4 of its vertices, representing a headland and its surrounding waters or similarly geometrically structured terrain where the
- *  main land area of the tile is surrounded by water on 5 sides. */
-trait HIndent4 extends HIndent5Minus
-{ override def numIndentedVerts: Int = 4
-}
-
-/** Hex tile indented on 3 vertices, representing a headland and its surrounding waters or similarly geometrically structured terrain where the main
- *  land area of the tile is surrounded by water on 4 sides. */
-trait HIndent3 extends HIndent5Minus
-{ override def numIndentedVerts: Int = 3
-}
-
-/** Hex tile indented on 2 vertices, representing a headland and its surrounding waters or similarly geometrically structured terrain where the main
- *  land area of the tile is surrounded by water on 3 sides. */
-trait HIndent2 extends HIndent5Minus
-{ override def numIndentedVerts: Int = 2
-}
-
-/** Hex tile indented on 1 vertex representing a headland and its surrounding waters or similarly geometrically structured terrain where the main land
- *  area of the tile is surrounded by water on 2 sides. */
-trait HIndent1 extends HIndent5Minus
-{ override def numIndentedVerts: Int = 1
-}
-
 trait HSideOpt
 
 trait HSideNone extends HSideOpt

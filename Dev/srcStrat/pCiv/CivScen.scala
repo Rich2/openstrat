@@ -21,9 +21,9 @@ trait CivScenStart extends CivScen
 /** Civ scenario 1. */
 object Civ1 extends CivScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
-  val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Land())
-  terrs.setRowEnd(12, 20, Land(Hill), Land(Mountain) * 2, Land() * 3)
-  terrs.setRowEnd(4, 4, Land(Hill) * 3, Land(Plain) * 7)
+  val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Plain)
+  terrs.setRowEnd(12, 20, Hill, Mountain * 2, Plain * 3)
+  terrs.setRowEnd(4, 4, Hill * 3, Plain * 7)
   override val sTerrs: HSideOptionalLayer[VSide, VSideSome] = gridSys.newSideOptionalLayer[VSide, VSideSome]
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
@@ -38,11 +38,11 @@ object Civ2 extends CivScenStart
   override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 42)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Sea)
 
-  terrs.setRow(10, Land(), Head2Land(5), Sea * 4, Island() * 2, Sea * 2)
-  terrs.setRow(8, Land(Plain) * 4, Head4Land(5), Sea * 3, Land(), Sea)
-  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head3Land(4, Mountain), Sea, Head1Land(4), Land() * 2)
-  terrs.setRowEndUnchecked(4, Land(Mountain) * 3, Land(Plain) * 2)
-  terrs.setRowSame(2, Land())
+//  terrs.setRow(10, Plain, Head2Land(5), Sea * 4, IsPlain * 2, Sea * 2)
+//  terrs.setRow(8, Land(Plain) * 4, Head4Land(5), Sea * 3, Plain, Sea)
+//  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head3Land(4, Mountain), Sea, Head1Land(4), Plain * 2)
+  terrs.setRowEndUnchecked(4, Mountain * 3, Plain * 2)
+  terrs.setRowSame(2, Plain)
 
   override val sTerrs: HSideOptionalLayer[VSide, VSideSome] =
   { val res: HSideOptionalLayer[VSide, VSideSome] = gridSys.newSideOptionalLayer[VSide, VSideSome]

@@ -18,14 +18,14 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   //proj.setView(viewIn)
   def frame: GraphicElems =
   {
-    def tileFills1: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
-      { case li: LandInner =>
-        { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
-          Some(res)
-        }
-        case _ => None
-      }
-    }
+//    def tileFills1: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
+//      { case li: LandInner =>
+//        { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
+//          Some(res)
+//        }
+//        case _ => None
+//      }
+//    }
 
     def tileFillActives: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }
     def sideFills: GraphicElems = sTerrs.somePolyMap(proj, corners){ (st, poly) => poly.fill(st.colour) }
@@ -50,7 +50,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
     def texts = lunits.projEmptyHcPtMap(proj){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW)}
 
-    tileFills1 ++ tileFillActives ++ unitFills ++ sideFills ++ sideActives ++ lines1 ++ texts
+    tileFillActives ++ unitFills ++ sideFills ++ sideActives ++ lines1 ++ texts
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
