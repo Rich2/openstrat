@@ -67,5 +67,3 @@ trait HSideOpt
 trait HSideNone extends HSideOpt
 
 trait HSideSome extends HSideOpt
-
-trait HSideMid extends HSideSome

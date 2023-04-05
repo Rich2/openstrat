@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom._
 
 /** Data layer for [[HSide]]s of an [[HGridSys]]. */
 class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
@@ -29,17 +29,6 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
           a: HSideSome => {
           val poly = corners.sideVerts(hs).project(proj)
           Some(f(hs, poly, a))
-        }
-        case _ => None
-      }
-    }
-  def midsPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
-    proj.sidesOptMap { hs =>
-      apply(hs) match {
-        case
-          _: HSideMid => {
-          val poly =corners.sideVerts(hs).project(proj)
-          Some(f(poly, apply(hs)))
         }
         case _ => None
       }

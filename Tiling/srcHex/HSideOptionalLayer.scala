@@ -22,27 +22,27 @@ class HSideOptionalLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends 
       }
     }
 
-  def somesPolyMapAlt(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon, SA) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def somePolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
-          a: HSideSome => {
+          sa: HSideSome => {
           val poly = corners.sideVerts(hs).project(proj)
-          Some(f(hs, poly, a.asInstanceOf[SA]))
+          Some(f(sa.asInstanceOf[SA], poly))
         }
         case _ => None
       }
     }
 
-  /*def midsPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def someSCPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
-          _: HSideMid => {
-          val poly =corners.sideVerts(hs).project(proj)
-          Some(f(poly, apply(hs)))
+          sa: HSideSome =>
+        { val poly = corners.sideVerts(hs).project(proj)
+          Some(f(sa.asInstanceOf[SA], hs, poly))
         }
         case _ => None
       }
-    }*/
+    }
 }
