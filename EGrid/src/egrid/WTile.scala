@@ -69,7 +69,7 @@ object TerrainNone extends WTile
   override def isLand: Boolean = false
 }
 
-trait Land extends WTile//LandLike
+trait Land extends WTile
 {
   def biome: Biome
   override def toString: String = "Land" + str.enParenth

@@ -19,7 +19,8 @@ object Terr320W30 extends Long320Terrs
       TRow(156, ice * 2, sea),
       TRow(154, ice, tundra, sea * 2),
       TRow(152, Hland(1, 2, Hilly(IceCap)), sea, tundraHills * 2),
-      TRow(150, Hland(2, 2, Hilly(IceCap)))
+      TRow(150, Hland(1, 2, Hilly(IceCap))),
+      TRow(148, Hland(2, 2, Level(Tundra)))
     )
   }
 
