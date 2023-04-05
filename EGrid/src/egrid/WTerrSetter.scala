@@ -10,9 +10,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   sealed trait RowBase
 
   trait TRowElem extends WTileHelper
-  {
-
-  }
 
   trait TRunner extends TRowElem
   {

@@ -1,9 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pzug
-import geom._, Colour._
+import Colour._
+
+trait ZugTerrHelper
 
 /** ZugFuhrer hex terrain. Currently a simple form of terrain. */
-trait ZugTerr extends ShowSimple with Coloured
+trait ZugTerr extends ZugTerrHelper with ShowSimple with Coloured
 {
   override def typeStr: String = "ZugTerr"
   def colour: Colour
