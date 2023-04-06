@@ -19,7 +19,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   proj.setView(viewIn)
 
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideOptionalLayer[WSide, WSideSome] = scen.sTerrs
+  val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
 
   val g0Str: String = gridSys match
   { case hgm: EGridMulti => s"grid0: ${hgm.grids(0).numSides}"

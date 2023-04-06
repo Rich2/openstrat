@@ -6,7 +6,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   def terrs: HCenLayer[WTile] = scen.terrs
-  def sTerrs: HSideOptionalLayer[WSide, WSideSome] = scen.sTerrs
+  def sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def corps: HCenOptLayer[Corps] = scen.corps
   focus = gridSys.cenVec

@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTile._
 object Terr80E0 extends Long80Terrs
 { implicit val grid: EGrid80LongFull = EGrid80.e0(416)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-  override val sTerrs: HSideOptionalLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
+  override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
@@ -86,7 +86,7 @@ object WesternFront
   }
 
   def wfTerrs: HCenLayer[WTile] = wfGrid.hCenLayerSpawn(Terr80E0.grid, Terr80E0.terrs)
-  def wfSTerrs:HSideOptionalLayer[WSide, WSideSome] = wfGrid.sideOptLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
+  def wfSTerrs:HSideOptLayer[WSide, WSideSome] = wfGrid.sideOptLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
   def wfCorners: HCornerLayer = wfGrid.cornerLayerSpawn(Terr80E0.grid, Terr80E0.corners)
   def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")
 }

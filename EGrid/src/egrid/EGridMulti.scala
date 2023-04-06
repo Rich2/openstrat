@@ -88,20 +88,6 @@ trait EGridMulti extends EGridSys  with TGridMulti
     else ind
   }
 
-  def sideOptsFromPairsSpawn[A <: AnyRef](sidePairs: RArr[(HGrid, HSideOptLayer[A])])(implicit ct: ClassTag[A]): HSideOptLayer[A] =
-  { val res = newSideOptLayerOld[A]
-    gridMansForeach { m =>
-      val pair = sidePairs(m.thisInd)
-      val origGrid = pair._1
-      val lay: HSideOptLayer[A] = pair._2
-      m.sidesForeach { hs =>
-        val value: A = lay.unsafeApply(hs)(origGrid)
-        res.set(ThisMulti, hs, value)
-      }
-    }
-    res
-  }
-
   def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSideLayer[A])], defaultA: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
   { val res = newSideLayer[A](defaultA)
     gridMansForeach { m =>
@@ -116,12 +102,13 @@ trait EGridMulti extends EGridSys  with TGridMulti
     res
   }
 
-  def sidesOptionalFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, HSideOptionalLayer[A, SA])])(implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptionalLayer[A, SA] =
+  def sidesOptFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, HSideOptLayer[A, SA])])(implicit ct: ClassTag[A], noneTC: NoneTC[A]):
+  HSideOptLayer[A, SA] =
   { val res = newSideOptLayer[A, SA]
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
-      val lay: HSideOptionalLayer[A, SA] = pair._2
+      val lay: HSideOptLayer[A, SA] = pair._2
       m.sidesForeach { hs =>
         val value: A = lay(hs)(origGrid)
         res.set(ThisMulti, hs, value)

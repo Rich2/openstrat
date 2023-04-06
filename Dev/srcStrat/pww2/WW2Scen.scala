@@ -23,7 +23,7 @@ object WW2Scen1 extends WW2Scen
 
   override implicit def gridSys: EGrid220LongFull = Terr220E0.grid
   override val terrs: HCenLayer[WTile] = Terr220E0.terrs
-  override val sTerrs: HSideOptionalLayer[WSide, WSideSome] = Terr220E0.sTerrs
+  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr220E0.sTerrs
   override val corners: HCornerLayer = Terr220E0.corners
 
   val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
@@ -35,7 +35,7 @@ object WW2Scen2 extends WW2Scen
 
   override implicit def gridSys: Grids220S0E1.type = Grids220S0E1
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptionalLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 
   val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer

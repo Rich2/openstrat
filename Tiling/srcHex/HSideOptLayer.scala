@@ -2,43 +2,50 @@
 package ostrat; package prid; package phex
 import geom._
 
-class HSideOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends HSideLayerAny[A]
-{
-  def apply(hs: HSide)(implicit gridSys: HGridSys): Option[A] =
-  { val res1 = unsafeApply(hs)
-    ife(res1 == null, None, Some(res1))
-  }
+/** Data layer for [[HSide]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
+class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
+{ /** apply index method returns the data from this layer for the given [[HSide]]. */
+  def apply(hs: HSide)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
 
-  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] =
-  { val res1 = unsafeApply(r, c)
-    ife(res1 == null, None, Some(res1))
-  }
+  /** apply index method returns the data from this layer for the given [[HSide]]. */
+  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(r, c))
 
-  /** Value may be null. */
-  def unsafeApply(hs: HSide)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
-
-  def unsafeApply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(r, c))
-
-  /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projOptsLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
-    projOptsLineSegMap(proj)(f)(build)
-
-  /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projOptsLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-    proj.gChild.sidesOptMap { hs =>
-      if (unsafeApply(hs)(proj.parent) != null) proj.transOptLineSeg(hs.lineSegHC).map(f)
-      else None
+  /** Maps over the respective [[HSide]] and [[Polygon]]s of the Some values, but does not use the value's themselves. */
+  def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+    proj.sidesOptMap { hs =>
+      apply(hs) match {
+        case
+          _: HSideSome => {
+          val poly = corners.sideVerts(hs).project(proj)
+          Some(f(hs, poly))
+        }
+        case _ => None
+      }
     }
 
-  /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projOptsHsLineSegMap[B, ArrB <: Arr[B]](f: (A, LineSeg) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
-    projOptsHsLineSegMap(proj)(f)(build)
+  /** Maps over the Some values with their respective [[Polygon]]s. */
+  def somePolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+    proj.sidesOptMap { hs =>
+      apply(hs) match {
+        case
+          sa: HSideSome => {
+          val poly = corners.sideVerts(hs).project(proj)
+          Some(f(sa.asInstanceOf[SA], poly))
+        }
+        case _ => None
+      }
+    }
 
-  /** Maps across all the trues in this Side Layer that exist in the projection. */
-  def projOptsHsLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, LineSeg) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-    proj.gChild.sidesOptMap { hs =>
-      val st = unsafeApply(hs)(proj.parent)
-      if (st != null) proj.transOptLineSeg(hs.lineSegHC).map(ls => f(st, ls))
-      else None
+  /** Maps over the Some values with their respective [[HSide]] and [[Polygon]]s. */
+  def someHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+    proj.sidesOptMap { hs =>
+      apply(hs) match {
+        case
+          sa: HSideSome =>
+        { val poly = corners.sideVerts(hs).project(proj)
+          Some(f(sa.asInstanceOf[SA], hs, poly))
+        }
+        case _ => None
+      }
     }
 }

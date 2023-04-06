@@ -6,7 +6,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 { var scen: WW2Scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideOptionalLayer[WSide, WSideSome] = scen.sTerrs
+  val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def armies: HCenOptLayer[Army] = scen.armies
 
