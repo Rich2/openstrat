@@ -1,25 +1,20 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
-import prid.phex._, Colour._
+import Colour._
 
-trait VTile extends Coloured
+trait VTileHelper
 
-object Sea extends VTile with VSideSome
+trait VTile extends VTileHelper with Coloured
+
+trait Water extends VTile with VSideSome
+
+object Sea extends Water
 { override def colour: Colour = DarkBlue
 }
 
-object Lake extends VTile
+object Lake extends Water
 { override def colour: Colour = Colour.SeaGreen
 }
-
-//trait LandTerr extends Coloured
-//{ def colour: Colour
-//}
-
-/*trait LandLike extends VTile
-{ def terr: LandTerr
-  override def colour: Colour = terr.colour
-}*/
 
 trait Land extends VTile
 

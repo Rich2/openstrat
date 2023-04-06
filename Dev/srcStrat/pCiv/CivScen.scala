@@ -38,9 +38,7 @@ object Civ2 extends CivScenStart
   override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 42)
   val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Sea)
 
-//  terrs.setRow(10, Plain, Head2Land(5), Sea * 4, IsPlain * 2, Sea * 2)
-//  terrs.setRow(8, Land(Plain) * 4, Head4Land(5), Sea * 3, Plain, Sea)
-//  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head3Land(4, Mountain), Sea, Head1Land(4), Plain * 2)
+
   terrs.setRowEndUnchecked(4, Mountain * 3, Plain * 2)
   terrs.setRowSame(2, Plain)
 
@@ -79,4 +77,13 @@ object Civ2 extends CivScenStart
 
     res
   }
+
+  val help = new VTerrSetter(gridSys, terrs, sTerrs, corners) {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(10, Plain, Hland(2, 5), Sea * 4, Isle() * 2, Sea * 2)
+      //  terrs.setRow(8, Land(Plain) * 4, Head4Land(5), Sea * 3, Plain, Sea)
+      //  terrs.setRow(6, Land(Plain) * 3, Sea * 2, Head3Land(4, Mountain), Sea, Head1Land(4), Plain * 2)
+    )
+  }
+  help.run
 }
