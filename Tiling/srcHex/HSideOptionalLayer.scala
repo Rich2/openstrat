@@ -11,7 +11,7 @@ class HSideOptionalLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends 
   def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(r, c))
 
   /** Maps over the respective [[HSide]] and [[Polygon]]s of the Some values, but does not use the value's themselves. */
-  def somesHsPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
@@ -37,7 +37,7 @@ class HSideOptionalLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends 
     }
 
   /** Maps over the Some values with their respective [[HSide]] and [[Polygon]]s. */
-  def someSCPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
+  def someHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (SA, HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case

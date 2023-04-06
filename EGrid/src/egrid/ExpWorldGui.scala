@@ -40,7 +40,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def sideFills: GraphicElems = sTerrs.somePolyMap(proj, corners){ (st, poly) => poly.fill(st.colour) }
 
-    def sideActives: GraphicElems = sTerrs.somesHsPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
+    def sideActives: GraphicElems = sTerrs.someOnlyHSPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       def t1: WTile = terrs(hs.tileLt)
