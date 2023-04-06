@@ -6,6 +6,15 @@ trait WSide extends Coloured// with ShowSimple
 {
   def nonEmpty: Boolean
 }
+
+object WSide
+{
+  implicit val noneImplicit: NoneTC[WSide] = new NoneTC[WSide]
+  {
+    override def noneValue: WSide = WSideNone
+  }
+}
+
 case object WSideNone extends WSide //with HSideNone
 { override val colour: Colour = Black
   override def nonEmpty: Boolean = false

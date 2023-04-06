@@ -6,7 +6,7 @@ trait VSide extends Coloured
 
 object VSide
 {
-  implicit val noneImplict: NoneTC[VSide] = new NoneTC[VSide]
+  implicit val noneImplicit: NoneTC[VSide] = new NoneTC[VSide]
   { override def noneValue: VSide = VSideNone
   }
 }
@@ -17,6 +17,6 @@ case object VSideNone extends VSide with HSideNone
 
 trait VSideSome extends VSide with HSideSome
 
-object River extends VSideSome//Terr
+object River extends VSideSome
 { override def colour: Colour = Blue
 }
