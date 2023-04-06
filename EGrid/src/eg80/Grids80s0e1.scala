@@ -5,6 +5,6 @@ import prid._, phex._, egrid._, pEarth._
 object Scen80s0s1 extends EScenLongMulti
 { override implicit val gridSys: EGrid80LongMulti = EGrid80.multi(2, 0, 416)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideLayer[WSide] = fullTerrsSideLayerSpawn
+  override val sTerrs: HSideOptionalLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

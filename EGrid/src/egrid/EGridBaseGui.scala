@@ -5,7 +5,7 @@ import geom._, prid._, phex._
 abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 { implicit val gridSys: HGridSys
   def terrs: HCenLayer[WTile]
-  def sTerrs: HSideLayer[WSide]
+  def sTerrs: HSideOptionalLayer[WSide, WSideSome]
   def corners: HCornerLayer
   implicit def proj: HSysProjection
 
@@ -13,9 +13,9 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
-  def sideFills: GraphicElems = sTerrs.somesPolyMapAlt(proj, corners){ (hs, poly, st) => poly.fill(st.colour) }
+  def sideFills: GraphicElems = sTerrs.somePolyMap(proj, corners){ (st, poly) => poly.fill(st.colour) }
 
-  def sideActives: GraphicElems = sTerrs.somesPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
+  def sideActives: GraphicElems = sTerrs.somesHsPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
   def lines1: GraphicElems = proj.linksOptMap { hs =>
     def t1: WTile = terrs(hs.tileLt)

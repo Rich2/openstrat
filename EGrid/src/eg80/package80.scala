@@ -13,12 +13,12 @@ package object eg80
     subSys.grids(i).hCenLayerSpawn(ft.grid, ft.terrs)
   }.combine
 
-  def fullTerrsSideLayerSpawn(implicit subSys: EGrid80LongMulti): HSideLayer[WSide] =
+  def fullTerrsSideLayerSpawn(implicit subSys: EGrid80LongMulti): HSideOptionalLayer[WSide, WSideSome] =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
       val ft = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)
     }
-    subSys.sidesFromPairsSpawn(arr, WSideNone)
+    subSys.sidesOptionalFromPairsSpawn(arr)
   }
 
   def fullTerrsCornerLayerSpawn(implicit subSys: EGrid80LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>

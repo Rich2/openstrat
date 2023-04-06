@@ -208,10 +208,10 @@ trait HGridSys extends Any with TGridSys
   def newHVertOffsetLayer: HCornerLayer = new HCornerLayer(new Array[Int](numCorners))
 
   /** Spawns a new [[HSideOptlLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
-  def sideOptLayerSpawn[A <: AnyRef](superGrid: HGridSys, superLayer: HSideOptLayer[A])(implicit ct: ClassTag[A]): HSideOptLayer[A] =
+  def sideOptLayerSpawn[A <: AnyRef, AS <: A with HSideSome](superGrid: HGridSys, superLayer: HSideOptionalLayer[A, AS])(implicit ct: ClassTag[A]): HSideOptionalLayer[A, AS] =
   { val array: Array[A] = new Array[A](numSides)
-    sidesForeach { sc => array(sideLayerArrayIndex(sc)) = superLayer.unsafeApply(sc)(superGrid) }
-    new HSideOptLayer[A](array)
+    sidesForeach { sc => array(sideLayerArrayIndex(sc)) = superLayer(sc)(superGrid) }
+    new HSideOptionalLayer[A, AS](array)
   }
 
   /** Spawns a new [[HSideOptlLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
@@ -334,7 +334,7 @@ trait HGridSys extends Any with TGridSys
 
   def newSideBoolLayer: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
-  def newSideOptLayer[A <: AnyRef](implicit ct: ClassTag[A]): HSideOptLayer[A] = new HSideOptLayer[A](new Array[A](numSides))
+  def newSideOptLayerOld[A <: AnyRef](implicit ct: ClassTag[A]): HSideOptLayer[A] = new HSideOptLayer[A](new Array[A](numSides))
 
   def newSideLayer[A](initial: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
   { val newArray = new Array[A](numSides)
@@ -342,7 +342,7 @@ trait HGridSys extends Any with TGridSys
     new HSideLayer[A](newArray)
   }
 
-  def newSideOptionalLayer[A, SA <: HSideSome](implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptionalLayer[A, SA] =
+  def newSideOptLayer[A, SA <: HSideSome](implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptionalLayer[A, SA] =
   { val newArray = new Array[A](numSides)
     iUntilForeach(numSides)(newArray(_) = noneTC.noneValue)
     new HSideOptionalLayer[A, SA](newArray)

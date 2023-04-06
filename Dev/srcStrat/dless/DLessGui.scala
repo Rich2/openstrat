@@ -6,7 +6,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 { var scen: DLessScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideLayer[WSide] = scen.sTerrs
+  val sTerrs: HSideOptionalLayer[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
   def armies: HCenOptLayer[Army] = scen.armies
 
