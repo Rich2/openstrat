@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** Data layer for [[HSide]]s of an [[HGridSys]]. */
+/** Data layer for [[HSide]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
 class HSideOptionalLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
 { /** apply index method returns the data from this layer for the given [[HSide]]. */
   def apply(hs: HSide)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
