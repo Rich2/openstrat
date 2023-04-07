@@ -66,51 +66,5 @@ HSetter[VTile, VSide, VSideSome]
   /** Creates the head of a strait / river / etc with the head in the given direction and the straits going in the opposite direction. */
   case class Mouth(c: Int, dirn: HVDirn, st: VSideSome = Sea) extends VRowElem with MouthBase
 
-  case class VertInUR(c: Int, upSide: VSideSome = Sea, rightSide: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert4In(row + 1, c + 2)
-      sTerrs.setIf(row + 1, c, upSide)
-      sTerrs.setIf(row, c + 1, rightSide)
-    }
-  }
-
-  case class VertInDR(c: Int, downSide: VSideSome = Sea, rtSide: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert5In(row - 1, c + 2)
-      sTerrs.set(row - 1, c, downSide)
-      sTerrs.set(row, c + 1, rtSide)
-    }
-  }
-
-  case class VertInDn(c: Int, leftSide: VSideSome = Sea, rightSide: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert0In(row - 1, c, 3)
-      sTerrs.setIf(row, c - 1, leftSide)
-      sTerrs.setIf(row, c + 1, rightSide)
-    }
-  }
-
-  case class VertInDL(c: Int, leftSide: VSideSome = Sea, downSide: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert1In(row - 1, c - 2)
-      sTerrs.set(row, c - 1, leftSide)
-      sTerrs.set(row - 1, c, downSide)
-    }
-  }
-
-  case class VertInUL(c: Int, st1: VSideSome = Sea, st2: VSideSome = Sea) extends VRowElem {
-    def run(row: Int): Unit = {
-      corners.setVert2In(row + 1, c - 2)
-      sTerrs.setIf(row + 1, c, st1)
-      sTerrs.setIf(row, c - 1, st2)
-    }
-  }
-
-  case class VertInUp(c: Int, leftSide: VSideSome = Sea, rightSide: VSideSome = Sea) extends VRowElem {
-    def run(row: Int): Unit = {
-      corners.setVert3In(row + 1, c, 3)
-      sTerrs.setIf(row, c - 1, leftSide)
-      sTerrs.setIf(row, c + 1, rightSide)
-    }
-  }
+  case class VertIn(c: Int, dirn: HVDirn, side1: VSideSome = Sea, side2: VSideSome = Sea) extends VRowElem with VertInBase
 }
