@@ -88,6 +88,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
     else ind
   }
 
+  /** Spawns a new [[HSideLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideLayer pairs. */
   def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSideLayer[A])], defaultA: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
   { val res = newSideLayer[A](defaultA)
     gridMansForeach { m =>
@@ -102,6 +103,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
     res
   }
 
+  /** Spawns a new [[HSideOptLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
   def sidesOptFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, HSideOptLayer[A, SA])])(implicit ct: ClassTag[A], noneTC: NoneTC[A]):
   HSideOptLayer[A, SA] =
   { val res = newSideOptLayer[A, SA]
@@ -117,6 +119,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
     res
   }
 
+  /** Spawns a new [[HSideBoolLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
   def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer =
   { val res = newSideBoolLayer
     gridMansForeach { m =>
