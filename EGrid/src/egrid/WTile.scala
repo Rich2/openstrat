@@ -74,20 +74,6 @@ trait Land extends WTile
   def biome: Biome
   override def toString: String = "Land" + str.enParenth
 
-  def colour: Colour = this match {
-    case _: Level => biome.colour
-
-    case _: Hilly => biome match {
-      case Tundra => Chocolate.average(Tundra.colour)
-      case Taiga => Chocolate.average(Taiga.colour)
-      case Forest => Chocolate.average(Forest.colour)
-      case Desert => Chocolate.average(Desert.colour)
-      case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
-      case _ => Chocolate
-    }
-    case _: Mountains => Gray
-  }
-
   override def str = this match
   { case _: Level => biome.toString
     case _ => "Other"
@@ -103,11 +89,19 @@ object Land
 
 case class Level(biome: Biome = OpenTerrain) extends Land
 { override def str = "Level"
+  override def colour: Colour = biome.colour
 }
 
 case class Hilly(biome: Biome = OpenTerrain) extends Land
 { override def str = "Hilly"
-  override def colour = Chocolate
+  override def colour = biome match {
+    case Tundra => Chocolate.average(Tundra.colour)
+    case Taiga => Chocolate.average(Taiga.colour)
+    case Forest => Chocolate.average(Forest.colour)
+    case Desert => Chocolate.average(Desert.colour)
+    case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
+    case _ => Chocolate
+  }
 }
 
 case class Mountains(biome: Biome = OpenTerrain) extends Land
