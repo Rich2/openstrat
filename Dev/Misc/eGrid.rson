@@ -52,7 +52,7 @@ exp = false;
 
 72 = HGView(308, 1524; 24);//120km 0E - 30E
 73 = HGView(308, 1580; 24);//120km 0E - 60E
-74 = HGView(354, 1524; 24);/120km 0E - 30E north
+74 = HGView(354, 1524; 24);//120km 0E - 30E north
 
 80 = HGView(458, 524; 22);//80km 0E
 81 = HGView(480, 1538; 25);//80km 30E
