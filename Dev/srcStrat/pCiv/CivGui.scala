@@ -24,12 +24,11 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       def t1: VTile = terrs(hs.tileLt)
-
       def t2: VTile = terrs(hs.tileRt)
 
-      sTerrs(hs) match {
-        case VSideNone if t1.colour == t2.colour => {
-          val cs: (HCen, Int, Int) = hs.corners
+      sTerrs(hs) match
+      { case VSideNone if t1.colour == t2.colour =>
+        { val cs: (HCen, Int, Int) = hs.corners
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(t1.contrastBW))
         }
@@ -38,11 +37,11 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
         case _ => None
       }
     }
-    def unitFills: RArr[PolyCurveParentFull] = lunits.gridHeadsMap { (hc, lu) =>
-      Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
-    }
 
-    def texts = lunits.projEmptyHcPtMap(proj){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW)}
+    def unitFills: RArr[PolyCurveParentFull] = lunits.gridHeadsMap { (hc, lu) =>
+      Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString) }
+
+    def texts: RArr[TextGraphic] = lunits.projEmptyHcPtMap(proj) { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
 
     tileFillActives ++ unitFills ++ sideFills ++ sideActives ++ lines1 ++ texts
   }
