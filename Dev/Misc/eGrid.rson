@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 //Settings file for EGrids
-scen = 12;
+scen = 48;
 flat = false;
 exp = false;
 0 = HGView(149, 512; 22);//320km 0E
