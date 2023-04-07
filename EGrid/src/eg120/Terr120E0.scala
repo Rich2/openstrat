@@ -25,7 +25,7 @@ object Terr120E0 extends Long120Terrs
       TRow(324, sea * 3, plain, hills, sea * 4, Hland(2, 3, Hilly(Taiga)), Hland(2, 2, Hilly(Taiga)), sea, plain * 2),
       TRow(322, sea * 3, hills, hills * 2, sea * 5, plain, sea, plain * 2),
       TRow(320, sea * 4, plain * 2, sea * 5, plain * 2, sea, plain),
-      VRow(319, MouthUp(536), MouthUL(538), MouthDR(540)),
+      VRow(319, Mouth(536, HVUp), MouthUL(538), MouthDR(540)),
       TRow(318, sea * 3, Hland(3, 5), Hland(1, 4, Hilly()), hills, sea * 5, plain, plain, plain, sea),
       VRow(317, MouthDn(536)),
       TRow(316, sea * 2, Hland(2, 5), plain, Hland(3, 1), Hland(2, 3, Hilly()), plain, sea * 5, plain, sea * 3),

@@ -46,4 +46,45 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
     }
   }
+
+  trait MouthBase
+  {
+    def c: Int
+    def dirn: HVDirn
+    def st: SST
+
+    def run(row: Int): Unit = dirn match
+    { case HVUp =>
+      { corners.setMouth3(row + 1, c)
+        sTerrs.set(row - 1, c, st)
+      }
+
+      case HVUR =>
+      { corners.setMouth4(row + 1, c + 2)
+        sTerrs.set(row, c - 1, st)
+      }
+
+      case HVDR =>
+      { corners.setMouth5(row - 1, c + 2)
+        sTerrs.set(row, c - 1, st)
+      }
+
+      case HVDn =>
+      { corners.setMouth0(row - 1, c)
+        sTerrs.set(row + 1, c, st)
+      }
+
+      case HVDL =>
+      { corners.setMouth1(row - 1, c - 2)
+        sTerrs.set(row, c + 1, st)
+      }
+
+      case HVUL =>
+      { corners.setMouth2(row + 1, c - 2)
+        sTerrs.set(row, c + 2, st)
+      }
+
+      case d => excep("Unimplemented dirn.")
+    }
+  }
 }

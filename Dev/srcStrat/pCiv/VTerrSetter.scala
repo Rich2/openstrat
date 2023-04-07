@@ -59,11 +59,12 @@ HSetter[VTile, VSide, VSideSome]
   {  terrs.set(row, c, tile)
   }
 
-
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
   case class SetSide(c: Int, terr: VSideSome = Sea) extends /*TRowElem with*/ VRowElem {
     override def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
+
+  case class Mouth(c: Int, dirn: HVDirn, st: VSideSome = Sea) extends VRowElem with MouthBase
 
   /** Creates the head of a strait / river / etc with the head up and the straits going down. */
   case class MouthUp(c: Int, st: VSideSome = Sea) extends VRowElem

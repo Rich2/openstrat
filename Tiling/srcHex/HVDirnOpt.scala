@@ -80,7 +80,7 @@ object HVDirn
 }
 
 /** Up offset to [[HVert]] hex tile vertex. */
-object HVUp extends HVDirn
+case object HVUp extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = 0
   override def int1: Int = 6
@@ -92,7 +92,7 @@ object HVUp extends HVDirn
 }
 
 /** Up Right offset to [[HVert]] hex tile vertex. */
-object HVUR extends HVDirn
+case object HVUR extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = 2
   override def int1: Int = 1
@@ -104,7 +104,7 @@ object HVUR extends HVDirn
 }
 
 /** Down right offset to [[HVert]] hex tile vertex. */
-object HVDR extends HVDirn
+case object HVDR extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = 2
   override def int1: Int = 2
@@ -116,7 +116,7 @@ object HVDR extends HVDirn
 }
 
 /** Down offset to [[HVert]] hex tile vertex. */
-object HVDn extends HVDirn
+case object HVDn extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = 0
   override def int1: Int = 3
@@ -128,7 +128,7 @@ object HVDn extends HVDirn
 }
 
 /** Down left offset to [[HVert]] hex tile vertex. */
-object HVDL extends HVDirn
+case object HVDL extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = -2
   override def int1: Int = 4
@@ -140,7 +140,7 @@ object HVDL extends HVDirn
 }
 
 /** Up left offset to [[HVert]] hex tile vertex. */
-object HVUL extends HVDirn
+case object HVUL extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = -2
   override def int1: Int = 5
@@ -152,7 +152,7 @@ object HVUL extends HVDirn
 }
 
 /** Down offset to [[HVert]] hex tile vertex. */
-object HVRt extends HVDirn
+case object HVRt extends HVDirn
 { def dCenR: Int = 0
   def dCenC: Int = 4
   override def int1: Int = 6
@@ -164,7 +164,7 @@ object HVRt extends HVDirn
 }
 
 /** Down offset to [[HVert]] hex tile vertex. */
-object HVLt extends HVDirn
+case object HVLt extends HVDirn
 { def dCenR: Int = 0
   def dCenC: Int = -4
   override def int1: Int = 7
