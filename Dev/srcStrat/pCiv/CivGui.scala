@@ -16,34 +16,28 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //def view: HGView()
   //proj.setView(viewIn)
-  def frame: GraphicElems =
-  {
-//    def tileFills1: GraphicElems = terrs.hcOptMap{ (tile, hc) => tile match
-//      { case li: LandInner =>
-//        { val res = hc.hVertPolygon.toPolygon(proj.transCoord).fill(li.sideTerrs.colour)
-//          Some(res)
-//        }
-//        case _ => None
-//      }
-//    }
 
-    def tileFillActives: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }
+  def frame: GraphicElems =
+  { def tileFillActives: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }
     def sideFills: GraphicElems = sTerrs.somePolyMap(proj, corners){ (st, poly) => poly.fill(st.colour) }
     def sideActives: GraphicElems = sTerrs.someOnlyHSPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       def t1: VTile = terrs(hs.tileLt)
+
       def t2: VTile = terrs(hs.tileRt)
-      sTerrs(hs) match
-      { case VSideNone if t1.colour == t2.colour =>
-        { val cs: (HCen, Int, Int) = hs.corners
+
+      sTerrs(hs) match {
+        case VSideNone if t1.colour == t2.colour => {
+          val cs: (HCen, Int, Int) = hs.corners
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(t1.contrastBW))
         }
+        case _: VSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVAndOffset).draw(t1.contrastBW))
+        case _: VSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVAndOffset).draw(t2.contrastBW))
         case _ => None
       }
     }
-
     def unitFills: RArr[PolyCurveParentFull] = lunits.gridHeadsMap { (hc, lu) =>
       Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
     }

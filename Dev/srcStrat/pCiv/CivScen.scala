@@ -44,13 +44,13 @@ object Civ2 extends CivScenStart
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(10, Plain, Hland(2, 5), Sea * 4, Isle() * 2, Sea * 2),
-      VRow(9, MouthDn(8)),
+      VRow(9, Mouth(8, HVDn)),
       TRow(8, Plain * 4, Hland(4, 0), Sea * 3, Plain, Sea),
-      VRow(7, MouthUp(40, River)),
+      VRow(7, Mouth(28, HVDR), Mouth(40, HVUp, River)),
       TRow(6, Plain * 3, Sea * 2, Hland(3, 4, Mountain), Sea, Plain, Plain * 2),
-      VRow(5, MouthUp(30), VertInDR(38, River, River), VertInUL(40, River, River)),
+      VRow(5, Mouth(30, HVUp), VertInDR(38, River, River), VertInUL(40, River, River)),
       TRow(4, Sea * 5, Mountain * 3, Plain * 2),
-      VRow(3, MouthDn(30), MouthDL(36, River), MouthDR(40, River)),
+      VRow(3, Mouth(30, HVDn), Mouth(36, HVDL, River), Mouth(40, HVDR, River)),
       TRow(2, Plain * 10),
     )
   }

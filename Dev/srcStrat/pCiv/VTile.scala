@@ -5,8 +5,13 @@ import Colour._
 trait VTileHelper
 
 trait VTile extends VTileHelper with Coloured
+{
+  def isWater: Boolean
+}
 
 trait Water extends VTile with VSideSome
+{ override def isWater: Boolean = true
+}
 
 object Sea extends Water
 { override def colour: Colour = DarkBlue
@@ -17,7 +22,8 @@ object Lake extends Water
 }
 
 trait Land extends VTile
-
+{ override def isWater: Boolean = false
+}
 
 object Plain extends Land
 { override def colour: Colour = LightGreen

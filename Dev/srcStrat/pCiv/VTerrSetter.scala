@@ -63,56 +63,8 @@ HSetter[VTile, VSide, VSideSome]
   case class SetSide(c: Int, terr: VSideSome = Sea) extends /*TRowElem with*/ VRowElem {
     override def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
-
+  /** Creates the head of a strait / river / etc with the head in the given direction and the straits going in the opposite direction. */
   case class Mouth(c: Int, dirn: HVDirn, st: VSideSome = Sea) extends VRowElem with MouthBase
-
-  /** Creates the head of a strait / river / etc with the head up and the straits going down. */
-  case class MouthUp(c: Int, st: VSideSome = Sea) extends VRowElem
-  { override def run(row: Int): Unit =
-    { corners.setMouth3(row + 1, c)
-      sTerrs.set(row - 1, c, st)
-    }
-  }
-
-  /** Creates the head of a strait / river with the head up right and the straits going down left. */
-  case class MouthUR(c: Int, st: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth4(row + 1, c + 2)
-      sTerrs.set(row, c - 1, st)
-    }
-  }
-
-  /** Creates the head of a strait / river with the head down right and the straits going up left. */
-  case class MouthDR(c: Int, st: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth5(row - 1, c + 2)
-      sTerrs.set(row, c - 1, st)
-    }
-  }
-
-  /** Creates the head of a strait / river / etc with the head down and the straits going up. */
-  case class MouthDn(c: Int, st: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth0(row - 1, c)
-      sTerrs.set(row + 1, c, st)
-    }
-  }
-
-  /** Creates the head of a strait / river with the head down left and the straits going up right. */
-  case class MouthDL(c: Int, st: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth1(row - 1, c - 2)
-      sTerrs.set(row, c + 1, st)
-    }
-  }
-
-  /** Creates the head of a strait / river with the head up left and the straits going down right. */
-  case class MouthUL(c: Int, st: VSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth2(row + 1, c - 2)
-      sTerrs.set(row, c + 2, st)
-    }
-  }
 
   case class VertInUR(c: Int, upSide: VSideSome = Sea, rightSide: VSideSome = Sea) extends VRowElem {
     override def run(row: Int): Unit = {
