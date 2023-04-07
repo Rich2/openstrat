@@ -3,54 +3,21 @@ package ostrat; package egrid
 import prid._, phex._
 
 /** Helper class for setting  [[HCenLayer]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerrs: HSideOptLayer[WSide, WSideSome], val corners: HCornerLayer)
+abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerrs: HSideOptLayer[WSide, WSideSome], val corners: HCornerLayer) extends
+  HSetter[WTile, WSide, WSideSome]
 {
   implicit val grid: HGrid = gridIn
 
   sealed trait RowBase
-
+  case class TRow(row: Int, mutlis: Multiple[WTileHelper]*) extends RowBase
   trait TRowElem extends WTileHelper
 
   trait TRunner extends TRowElem
-  {
-    def run (row: Int, c: Int): Unit
+  { def run (row: Int, c: Int): Unit
   }
 
-  case class Isle(terr: Land = Level(), sTerr: Water = Sea) extends TRunner
-  {
-    def run (row: Int, c: Int): Unit =
-    {
-      terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, 6, 0, 7)
-      iUntilForeach(6) { i =>
-        corners.setCornerIn(row, c, i, 7)
-
-      }
-      iUntilForeach(6){ i =>
-        val side = HCen(row, c).side(i)
-        sTerrs.set(side, sTerr)
-      }
-    }
-  }
-
-  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Level(), sideTerrs: Water = Sea) extends TRunner
-  {
-    def run (row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
-
-      iUntilForeach(numIndentedVerts){ i0 =>
-        val i: Int = (indentStartIndex + i0) %% 6
-        corners.setCornerIn(row, c, i, 7)
-      }
-
-      iToForeach(numIndentedVerts + 1){ i0 =>
-        val i: Int =(indentStartIndex + i0 - 1) %% 6
-        val side = HCen(row, c).side(i)
-        sTerrs.set(side, sideTerrs)
-      }
-    }
-  }
+  case class Isle(terr: Land = Level(), sTerr: Water = Sea) extends TRunner with IsleBase
+  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Level(), sideTerrs: Water = Sea) extends TRunner with HlandBase
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
   case class BSide(terr: WSideSome = Sea) extends TRowElem
@@ -64,11 +31,9 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   { def run(row: Int): Unit
   }
 
-  case class TRow(row: Int, mutlis: Multiple[WTileHelper]*) extends RowBase
-
   val rowDatas: RArr[RowBase]
 
-  def run: Unit = rowDatas.foreach {
+  def run: Unit = rowDatas.foreach{
     case data: TRow => tRowRun(data)
     case data: VRow => data.edits.foreach(_.run(data.row))
   }
@@ -92,7 +57,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   def tileRun(row: Int, c: Int, tile: WTile): Unit =
   {  terrs.set(row, c, tile)
   }
-
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
   case class SetSide(c: Int, terr: WSideSome = Sea) extends /*TRowElem with*/ VRowElem {
@@ -155,33 +119,34 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     }
   }
 
-  case class VertInDR(c: Int, downSide: WSideSome = Sea, rtSide: WSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert5In(row - 1, c + 2)
+  case class VertInDR(c: Int, downSide: WSideSome = Sea, rtSide: WSideSome = Sea) extends VRowElem
+  { override def run(row: Int): Unit =
+    { corners.setVert5In(row - 1, c + 2)
       sTerrs.set(row - 1, c, downSide)
       sTerrs.set(row, c + 1, rtSide)
     }
   }
 
-  case class VertInDn(c: Int, leftSide: WSideSome = Sea, rightSide: WSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert0In(row - 1, c, 3)
+  case class VertInDn(c: Int, leftSide: WSideSome = Sea, rightSide: WSideSome = Sea) extends VRowElem
+  { override def run(row: Int): Unit =
+    { corners.setVert0In(row - 1, c, 3)
       sTerrs.setIf(row, c - 1, leftSide)
       sTerrs.setIf(row, c + 1, rightSide)
     }
   }
 
-  case class VertInDL(c: Int, leftSide: WSideSome = Sea, downSide: WSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setVert1In(row - 1, c - 2)
+  case class VertInDL(c: Int, leftSide: WSideSome = Sea, downSide: WSideSome = Sea) extends VRowElem
+  { override def run(row: Int): Unit =
+    { corners.setVert1In(row - 1, c - 2)
       sTerrs.set(row, c - 1, leftSide)
       sTerrs.set(row - 1, c, downSide)
     }
   }
 
-  case class VertInUL(c: Int, st1: WSideSome = Sea, st2: WSideSome = Sea) extends VRowElem {
-    def run(row: Int): Unit = {
-      corners.setVert2In(row + 1, c - 2)
+  case class VertInUL(c: Int, st1: WSideSome = Sea, st2: WSideSome = Sea) extends VRowElem
+  {
+    def run(row: Int): Unit =
+    { corners.setVert2In(row + 1, c - 2)
       sTerrs.setIf(row + 1, c, st1)
       sTerrs.setIf(row, c - 1, st2)
     }

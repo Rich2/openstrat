@@ -3,54 +3,20 @@ package ostrat; package pCiv
 import prid._, phex._
 
 /** Helper class for setting  [[HCenLayer]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class VTerrSetter(gridIn: HGrid, val terrs: HCenLayer[VTile], val sTerrs: HSideOptLayer[VSide, VSideSome], val corners: HCornerLayer)
-{
-  implicit val grid: HGrid = gridIn
+abstract class VTerrSetter(gridIn: HGrid, val terrs: HCenLayer[VTile], val sTerrs: HSideOptLayer[VSide, VSideSome], val corners: HCornerLayer) extends
+HSetter[VTile, VSide, VSideSome]
+{ implicit val grid: HGrid = gridIn
 
   sealed trait RowBase
 
   trait TRowElem extends VTileHelper
 
   trait TRunner extends TRowElem
-  {
-    def run (row: Int, c: Int): Unit
+  { def run (row: Int, c: Int): Unit
   }
 
-  case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner
-  {
-    def run (row: Int, c: Int): Unit =
-    {
-      terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, 6, 0, 7)
-      iUntilForeach(6) { i =>
-        corners.setCornerIn(row, c, i, 7)
-
-      }
-      iUntilForeach(6){ i =>
-        val side = HCen(row, c).side(i)
-        sTerrs.set(side, sTerr)
-      }
-    }
-  }
-
-  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea) extends TRunner
-  {
-    def run (row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
-
-      iUntilForeach(numIndentedVerts){ i0 =>
-        val i: Int = (indentStartIndex + i0) %% 6
-        corners.setCornerIn(row, c, i, 7)
-      }
-
-      iToForeach(numIndentedVerts + 1){ i0 =>
-        val i: Int =(indentStartIndex + i0 - 1) %% 6
-        val side = HCen(row, c).side(i)
-        sTerrs.set(side, sideTerrs)
-      }
-    }
-  }
+  case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner with IsleBase
+  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea) extends TRunner with HlandBase
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
   case class BSide(terr: VSideSome = Sea) extends TRowElem
