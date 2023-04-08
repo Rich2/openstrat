@@ -143,21 +143,4 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
       sTerrs.set(row - 1, c, downSide)
     }
   }
-
-  case class VertInUL(c: Int, st1: WSideSome = Sea, st2: WSideSome = Sea) extends VRowElem
-  {
-    def run(row: Int): Unit =
-    { corners.setVert2In(row + 1, c - 2)
-      sTerrs.setIf(row + 1, c, st1)
-      sTerrs.setIf(row, c - 1, st2)
-    }
-  }
-
-  case class VertInUp(c: Int, leftSide: WSideSome = Sea, rightSide: WSideSome = Sea) extends VRowElem {
-    def run(row: Int): Unit = {
-      corners.setVert3In(row + 1, c, 3)
-      sTerrs.setIf(row, c - 1, leftSide)
-      sTerrs.setIf(row, c + 1, rightSide)
-    }
-  }
 }
