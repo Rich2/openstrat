@@ -47,7 +47,15 @@ object HVert
       case _ => excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
     }
   }
- // implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", "c", apply)
+
+  def rcISHigh(r: Int, c: Int): Boolean = r %% 4 match
+  { case 3 if c.div4Rem2 => true
+    case 1 if c.div4Rem0 => true
+    case 3 if c.div4Rem0 => false
+    case 1 if c.div4Rem2 => false
+    case _ => excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
+  }
+
 
   implicit val hVertsBuildImplicit: Int2ArrMapBuilder[HVert, HVertArr] = new Int2ArrMapBuilder[HVert, HVertArr]
   { type BuffT = HVertBuff

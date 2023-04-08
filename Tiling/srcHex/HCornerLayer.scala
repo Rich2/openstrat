@@ -105,6 +105,22 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c - 2, 3, HVUL, magnitude)
   }
 
+  def setVertEqual(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
+  {
+    if (HVert.rcISHigh(r, c))
+    { grid.ifHCenExists(r + 1, c + 2){ setCornerIn(r + 1, c + 2, 4) }
+      grid.ifHCenExists(r - 1, c){ setCornerIn(r - 1, c, 0) }
+      grid.ifHCenExists(r + 1, c - 2){ setCornerIn(r + 1, c - 2, 2) }
+    }
+    else
+    { grid.ifHCenExists(r + 1, c) { setCornerIn(r + 1, c, 3) }
+      grid.ifHCenExists(r - 1, c + 2) { setCornerIn(r - 1, c + 2, 5) }
+      grid.ifHCenExists(r - 1, c - 2) { setCornerIn(r - 1, c -2, 1) }
+    }
+  }
+
+  def setVertEqual(hv: HVert, magnitude: Int)(implicit grid: HGrid): Unit = setVertEqual(HVert(hv.r, hv.c), magnitude)
+
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 0. */
   def setMouth0(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =

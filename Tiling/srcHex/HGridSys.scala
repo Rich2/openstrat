@@ -44,6 +44,10 @@ trait HGridSys extends Any with TGridSys
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
+
+  def ifHCenExists(hc: HCen)(proc: => Unit): Unit = if(hCenExists(hc)) proc
+  def ifHCenExists(r: Int, c: Int)(proc: => Unit): Unit = if(hCenExists(r, c)) proc
+
   def coordCen: HCoord
   def hCenSteps(hCen: HCen): HStepArr
 
@@ -320,8 +324,8 @@ trait HGridSys extends Any with TGridSys
   /** The [[HSide]] hex side coordinates. */
   final def sides: HSideArr = sidesMap(hs => hs)
 
-  def ifSideExists(r: Int, c: Int): Boolean = ifSideExists(HSide(r, c))
-  def ifSideExists(hs: HSide): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
+  def sideExists(r: Int, c: Int): Boolean = sideExists(HSide(r, c))
+  def sideExists(hs: HSide): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)

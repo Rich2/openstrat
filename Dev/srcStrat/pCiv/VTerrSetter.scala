@@ -34,7 +34,7 @@ HSetter[VTile, VSide, VSideSome]
 
   val rowDatas: RArr[RowBase]
 
-  def run: Unit = rowDatas.foreach {
+  def run: Unit = rowDatas.foreach{
     case data: TRow => tRowRun(data)
     case data: VRow => data.edits.foreach(_.run(data.row))
   }
@@ -64,9 +64,10 @@ HSetter[VTile, VSide, VSideSome]
     override def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
 
-  case class ThreeWay(c: Int, st: VSideSome = Sea) extends VRowElem
+  case class ThreeWay(c: Int, st: VSideSome = Sea, magnitude: Int = 3) extends VRowElem
   {
     override def run(row: Int): Unit = {
+      corners.setVertEqual(row, c, magnitude)
       sTerrs.set(row, c + 1, st)
     }
   }
