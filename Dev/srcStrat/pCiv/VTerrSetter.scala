@@ -18,10 +18,10 @@ HSetter[VTile, VSide, VSideSome]
   case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner with IsleBase
   case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea) extends TRunner with HlandBase
 
-  /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
+  /** This is for setting sides on the edge of grids that sit within the hex area of the tile on the neighbouring grid. */
   case class BSide(terr: VSideSome = Sea) extends TRowElem
   {
-     def run(row: Int, c: Int): Unit = sTerrs.set(row, c, terr)
+     def run(row: Int, c: Int): Unit = sTerrs.set(row, c - 2, terr)
   }
 
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
@@ -60,7 +60,7 @@ HSetter[VTile, VSide, VSideSome]
   }
 
   /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
-  case class SetSide(c: Int, terr: VSideSome = Sea) extends /*TRowElem with*/ VRowElem {
+  case class SetSide(c: Int, terr: VSideSome = Sea) extends VRowElem {
     override def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
 
