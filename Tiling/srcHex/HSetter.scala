@@ -144,4 +144,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       sTerrs.set(row, c + 1, st)
     }
   }
+
+  /** This is for setting sides on the edge of grids that sit within the hex area of the tile on the neighbouring
+   *  grid. */
+  trait SetSideBase
+  { def c: Int
+    def terr: SST
+    def run(row: Int): Unit = sTerrs.set(row, c, terr)
+  }
 }
