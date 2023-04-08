@@ -26,7 +26,7 @@ object Terr160E0 extends Long160Terrs
       TRow(294, sea * 2, Isle(Hilly()), Hland(3, 5, Hilly()), sea * 3, hills, Hland(2, 2, Hilly(Taiga)), taiga),
       TRow(292, sea * 3, hills, Hland(2, 1, Hilly()), sea * 4, Hland(4, 5), plain),
       TRow(290, sea * 2, Hland(2, 4, Hilly()), hills, sea * 4, plain, Isle(), plain),
-      VRow(289, VertInDL(502)),
+      VRow(289, VertIn(502, HVDL)),
       TRow(288, sea * 2, plain, Hland(2, 3, Hilly()), plain, sea * 4, plain, sea),
       TRow(286, sea * 2, plain, Hland(2, 1), plain * 2, sea * 3, plain * 3),
       TRow(284, sea, plain * 2, Hland(2, 4, Hilly()), plain * 2, sea, plain * 5),

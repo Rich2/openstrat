@@ -24,7 +24,7 @@ object Terr220E0 extends Long220Terrs
       TRow(172, sea * 5, taigaHills, taiga),
       TRow(170, sea * 4, taigaHills, taiga * 2),
       TRow(168, sea * 2, Hland(3, 5, Hilly()), sea * 2, Hland(2, 3, Hilly(Taiga)), taiga),
-      VRow(167, VertInDn(522), VertInDL(524)),
+      VRow(167, VertIn(522, HVDn), VertIn(524, HVDL)),
       TRow(166, sea * 2, hills, Hland(2, 1, Hilly()), sea * 2, plain, Hland(2, 3)),
       TRow(164, sea, Hland(4, 5), hills, sea * 3, plain, sea),
       TRow(162, sea, plain, sea, plain, sea, Hland(2, 5), plain * 3),

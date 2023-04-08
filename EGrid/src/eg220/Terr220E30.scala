@@ -17,7 +17,7 @@ object Terr220E30 extends Long220Terrs
       TRow(176, Hland(1, 2, Level(Taiga)), taiga * 2, Hland(3, 0, Level(Taiga)), Hland(2, 4, Level(Taiga)), taiga),
       VRow(175, MouthDL(1540), MouthDR(1544)),
       TRow(174, Hland(1, 2, Level(Taiga)), Hland(1, 5, Level(Taiga)), taiga * 4),
-      VRow(173, MouthUL(1540, Lake), VertInDL(1542, Lake, Lake)),
+      VRow(173, Mouth(1540, HVUL, Lake), VertIn(1542, HVDL, Lake)),
       TRow(172, Hland(1, 2, Level(Taiga)), Hland(1, 5, Level(Taiga)), taiga * 5),
       VRow(171, MouthDL(1536, Lake), MouthUR(1538, Lake), MouthDn(1542, Lake)),
       TRow(170, sea, Hland(2, 3, Level(Taiga)), Hland(1, 3, Level(Taiga)), taiga * 4),
