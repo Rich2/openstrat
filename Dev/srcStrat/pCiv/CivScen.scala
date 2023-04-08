@@ -21,15 +21,24 @@ trait CivScenStart extends CivScen
 /** Civ scenario 1. */
 object Civ1 extends CivScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
-  val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Plain)
-  terrs.setRowEnd(12, 20, Hill, Mountain * 2, Plain * 3)
-  terrs.setRowEnd(4, 4, Hill * 3, Plain * 7)
+  override val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Plain)
   override val sTerrs: HSideOptLayer[VSide, VSideSome] = gridSys.newSideOptLayer[VSide, VSideSome]
+  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+
+  val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(12, Plain * 4, Hill, Mountain * 2, Plain * 3),
+      VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River)),
+      VRow(5, Mouth(22, HVDL, River)),
+      TRow(4, Hill * 3, Plain * 7),
+    )
+  }
+  help.run
+
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
-
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** Civ scenario 2. */

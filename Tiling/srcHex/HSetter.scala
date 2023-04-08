@@ -132,4 +132,15 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
     }
   }
+
+  trait ThreeWayBase
+  { def c: Int
+    def st: SST
+    def magnitude: Int
+
+    def run(row: Int): Unit =
+    { corners.setVertEqual(row, c, magnitude)
+      sTerrs.set(row, c + 1, st)
+    }
+  }
 }
