@@ -57,7 +57,7 @@ object Civ2 extends CivScenStart
       TRow(8, Plain * 4, Hland(4, 0), Sea * 3, Plain, Sea),
       VRow(7, Mouth(28, HVDR), Mouth(40, HVUp, River)),
       TRow(6, Plain * 3, Sea * 2, Hland(3, 4, Mountain), Sea, Plain, Plain * 2),
-      VRow(5, Mouth(30, HVUp), VertIn(38, HVDR, River, River), VertIn(40, HVUL, River, River)),
+      VRow(5, Mouth(30, HVUp), VertIn(38, HVDR, River), VertIn(40, HVUL, River)),
       TRow(4, Sea * 5, Mountain * 3, Plain * 2),
       VRow(3, Mouth(30, HVDn), Mouth(36, HVDL, River), ThreeWay(38, River), Mouth(40, HVDR, River)),
       TRow(2, Plain * 10),

@@ -113,7 +113,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     }
   }
 
-  case class VertIn(c: Int, dirn: HVDirn, side1: WSideSome = Sea, side2: WSideSome = Sea) extends VRowElem with VertInBase
+  case class VertIn(c: Int, dirn: HVDirn, terr: WSideSome = Sea) extends VRowElem with VertInBase
 
   case class VertInUR(c: Int, upSide: WSideSome = Sea, rightSide: WSideSome = Sea) extends VRowElem {
     override def run(row: Int): Unit = {

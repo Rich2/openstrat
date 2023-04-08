@@ -69,5 +69,5 @@ HSetter[VTile, VSide, VSideSome]
   /** Creates the head of a strait / river / etc with the head in the given direction and the straits going in the opposite direction. */
   case class Mouth(c: Int, dirn: HVDirn, st: VSideSome = Sea) extends VRowElem with MouthBase
 
-  case class VertIn(c: Int, dirn: HVDirn, side1: VSideSome = Sea, side2: VSideSome = Sea) extends VRowElem with VertInBase
+  case class VertIn(c: Int, dirn: HVDirn, terr: VSideSome = Sea) extends VRowElem with VertInBase
 }

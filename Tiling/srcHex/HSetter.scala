@@ -91,44 +91,44 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   trait VertInBase
   { def c: Int
     def dirn: HVDirn
-    def side1: SST
-    def side2: SST
+    def terr: SST
+    //def side2: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setVert4In(row + 1, c + 2)
-        sTerrs.setIf(row + 1, c, side1)
-        sTerrs.setIf(row, c + 1, side2)
+       // sTerrs.setIf(row + 1, c, side1)
+        sTerrs.setIf(row, c + 1, terr)
       }
 
       case HVDR =>
       { corners.setVert5In(row - 1, c + 2)
-        sTerrs.set(row - 1, c, side1)
-        sTerrs.set(row, c + 1, side2)
+        //sTerrs.set(row - 1, c, side1)
+        sTerrs.set(row, c + 1, terr)
       }
 
       case HVDn =>
       { corners.setVert0In(row - 1, c, 3)
-        sTerrs.setIf(row, c - 1, side1)
-        sTerrs.setIf(row, c + 1, side2)
+       // sTerrs.setIf(row, c - 1, side1)
+        sTerrs.setIf(row, c + 1, terr)
       }
 
       case HVDL =>
       { corners.setVert1In(row - 1, c - 2)
-        sTerrs.set(row, c - 1, side1)
-        sTerrs.set(row - 1, c, side2)
+        sTerrs.set(row, c - 1, terr)
+      //  sTerrs.set(row - 1, c, side2)
       }
 
       case HVUL =>
       { corners.setVert2In(row + 1, c - 2)
-        sTerrs.setIf(row + 1, c, side1)
-        sTerrs.setIf(row, c - 1, side2)
+      //  sTerrs.setIf(row + 1, c, side1)
+        sTerrs.setIf(row, c - 1, terr)
       }
 
       case HVUp =>
       { corners.setVert3In(row + 1, c, 3)
-        sTerrs.setIf(row, c - 1, side1)
-        sTerrs.setIf(row, c + 1, side2)
+      //  sTerrs.setIf(row, c - 1, side1)
+        sTerrs.setIf(row, c + 1, terr)
       }
     }
   }
