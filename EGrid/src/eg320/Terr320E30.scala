@@ -32,7 +32,7 @@ object Terr320E30 extends Long320Terrs
       TRow(138, mtain * 2, hills, plain * 3, desert),
       VRow(137, Mouth(1522, HVUp), Mouth(1540, HVUR), VertIn(1542, HVDR), Mouth(1544, HVUR)),
       TRow(136, hills, plain * 2, Hland(1, 2), Hland(3, 3), Hland(2, 3), plain),
-      VRow(135, VertInUR(1522)),
+      VRow(135, VertIn(1522, HVUR)),
       TRow(134, Hland(1, 4, Hilly()), hills, hills, sea * 3, mtain),
       VRow(133, MouthUp(1530)),
       TRow(132, Hland(2, 1, Hilly()), hills, Hland(1, 4, Hilly()), hills * 4),
