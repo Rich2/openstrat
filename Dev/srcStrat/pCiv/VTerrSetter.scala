@@ -63,6 +63,14 @@ HSetter[VTile, VSide, VSideSome]
   case class SetSide(c: Int, terr: VSideSome = Sea) extends /*TRowElem with*/ VRowElem {
     override def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
+
+  case class ThreeWay(c: Int, st: VSideSome = Sea) extends VRowElem
+  {
+    override def run(row: Int): Unit = {
+      sTerrs.set(row, c + 1, st)
+    }
+  }
+
   /** Creates the head of a strait / river / etc with the head in the given direction and the straits going in the opposite direction. */
   case class Mouth(c: Int, dirn: HVDirn, st: VSideSome = Sea) extends VRowElem with MouthBase
 
