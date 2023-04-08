@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTile._
  *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
  *  area it must be assigned to France. Majorca is still just too small in area at this scale.  */
 object Terr220E0 extends Long220Terrs
-{ override implicit val grid: EGrid220LongFull = EGrid220.e0(132)
+{ override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
