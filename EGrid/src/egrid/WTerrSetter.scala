@@ -119,20 +119,4 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
       sTerrs.setIf(row, c + 1, rightSide)
     }
   }
-
-  case class VertInDR(c: Int, downSide: WSideSome = Sea, rtSide: WSideSome = Sea) extends VRowElem
-  { override def run(row: Int): Unit =
-    { corners.setVert5In(row - 1, c + 2)
-      sTerrs.set(row - 1, c, downSide)
-      sTerrs.set(row, c + 1, rtSide)
-    }
-  }
-
-  case class VertInDn(c: Int, leftSide: WSideSome = Sea, rightSide: WSideSome = Sea) extends VRowElem
-  { override def run(row: Int): Unit =
-    { corners.setVert0In(row - 1, c, 3)
-      sTerrs.setIf(row, c - 1, leftSide)
-      sTerrs.setIf(row, c + 1, rightSide)
-    }
-  }
 }
