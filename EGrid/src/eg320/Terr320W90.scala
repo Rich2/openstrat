@@ -25,7 +25,7 @@ object Terr320W90 extends Long320Terrs
       TRow(148, taiga, tundra, sea * 2, Hland(2, 4, Level(Tundra))),
       TRow(146, taiga * 2, sea * 2, taiga),
       TRow(144, taiga * 3, Hland(2, 0, Level(Taiga)), Hland(2, 4, Level(Taiga))),
-      VRow(143, MouthUp(9720, Lake)),
+      VRow(143, Mouth(9720, HVUp, Lake)),
       TRow(142, taiga * 4, Hland(1, 1, Level(Taiga)), taiga),
       VRow(141, VertIn(9720, HVUR, Lake), Mouth(9722, HVDR, Lake), Mouth(9736, HVDn)),
       TRow(140, plain, taiga * 5),

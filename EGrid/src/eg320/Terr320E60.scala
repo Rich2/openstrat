@@ -27,7 +27,7 @@ object Terr320E60 extends Long320Terrs
       TRow(142, plain * 6),
       TRow(140, plain * 2, desert * 3, plain),
       TRow(138, plain, desert * 6),
-      VRow(137, MouthUR(2552, Lake)),
+      VRow(137, Mouth(2552, HVUR, Lake)),
       TRow(136, Hland(1, 2, Level(OpenTerrain), Lake), Hland(1, 5, Level(Desert), Lake), desert * 5),
       TRow(134, Lake, desert * 5, mtain),
       TRow(132, mtain, Lake, desert * 3, mtain * 2),

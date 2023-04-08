@@ -58,25 +58,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   {  terrs.set(row, c, tile)
   }
 
-
   case class SetSide(c: Int, terr: WSideSome = Sea) extends  VRowElem with SetSideBase
   case class Mouth(c: Int, dirn: HVDirn, st: WSideSome = Sea) extends VRowElem with MouthBase
-
-  /** Creates the head of a strait / river / etc with the head up and the straits going down. */
-  case class MouthUp(c: Int, st: WSideSome = Sea) extends VRowElem
-  { override def run(row: Int): Unit =
-    { corners.setMouth3(row + 1, c)
-      sTerrs.set(row - 1, c, st)
-    }
-  }
-
-  /** Creates the head of a strait / river with the head up right and the straits going down left. */
-  case class MouthUR(c: Int, st: WSideSome = Sea) extends VRowElem {
-    override def run(row: Int): Unit = {
-      corners.setMouth4(row + 1, c + 2)
-      sTerrs.set(row, c - 1, st)
-    }
-  }
-
   case class VertIn(c: Int, dirn: HVDirn, terr: WSideSome = Sea) extends VRowElem with VertInBase
 }

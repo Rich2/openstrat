@@ -40,7 +40,7 @@ object Terr160E30 extends Long160Terrs
       TRow(270, hills * 3, plain * 4, sea * 5, mtain, hills, plain),
       TRow(268, sea, Hland(2, 3, Mountains()), hills * 3, plain * 2, sea * 6, plain, mtain),
       TRow(266, Hland(2, 0), Hland(2, 4, Mountains()), hills * 3, plain * 2, hills * 8),
-      VRow(265, MouthUp(1510)),
+      VRow(265, Mouth(1510, HVUp)),
       TRow(264, hills, Hland(4, 1), hills * 2, sea, Hland(2, 4, Hilly()),  hills * 9),
       TRow(262, hills, sea * 2, hills * 2, sea, hills, hills * 4, hills * 5),
       TRow(260, sea * 3, hills, sea * 2, hills * 10),
