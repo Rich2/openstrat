@@ -9,6 +9,11 @@ object Scen320s0e1 extends EScenLongMulti
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+  val hs = HSide(131, 1521)
+  val lh1 = hs.tileLtOpt
+  debvar(lh1)
+  val lhtv = hs.tileLtAndVertFromRt(130)
+  debvar(lhtv)
 }
 
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */

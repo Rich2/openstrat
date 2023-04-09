@@ -34,7 +34,7 @@ object Terr320E0 extends Long320Terrs
       VRow(135, VertIn(526, HVUR)),
       TRow(134, sea, hills * 3, sea, Isle(Hilly()), Hland(1, 1, Hilly())),
       TRow(132, sea, hills, plain * 2, sea, Isle(Hilly()), sea),
-      TRow(130, sea, Hland(3, 3), Hland(1, 3, Hilly()), Hland(2, 2, Hilly()), sea * 2, Hland(3, 5, Hilly()), Hland(3, 3, Hilly())),
+      TRow(130, sea, Hland(3, 3), Hland(1, 3, Hilly()), Hland(2, 2, Hilly()), sea * 2, Hland(3, 5, Hilly()), Hland(2, 3, Hilly())),
       TRow(128, sea, Hland(2, 5, Hilly()), Hland(1, 0, Hilly()), hills * 3, Hland(1, 1, Hilly()), sea),
       TRow(126, sea, Hland(1, 5), mtain, desertHills, desert * 4),
       TRow(124, sea, desertHills, hills, desert * 6),
@@ -42,7 +42,8 @@ object Terr320E0 extends Long320Terrs
   }
   help.run
 
-  //corners.setCorner(130, 526, 0, HVUL)
+  corners.setCorner(130, 526, 0, HVUL)
+  corners.setCornerPair(132, 524, 2, HVExact, HVUL)
 }
 
 object BritReg

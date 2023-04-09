@@ -330,11 +330,12 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
       case Some(_) => {
         val (hcRt, vi) = hs.tileRtAndVert
+        val (hcLta, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
         val p1: HVAndOffset = cornerV1(hcRt, vi)
         val p2: HVAndOffset = cornerV1(hcRt, (vi - 1) %% 6)
-        val p3: HVAndOffset = cornerV1(hcLt, (vi - 3) %% 6)
-        val p4: HVAndOffset = cornerV1(hcLt, (vi + 2) %% 6)
-        PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcLt.vExact(vi - 3), p3, p4)
+        val p3: HVAndOffset = cornerV1(hcLta, (lvi + 1)/* (vi - 3 )*/ %% 6)
+        val p4: HVAndOffset = cornerV1(hcLta, (lvi) /* (vi + 2 )*/ %% 6)
+        PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), /*hcLt.vExact(vi - 3),*/ p3, p4)
       }
     }
   }

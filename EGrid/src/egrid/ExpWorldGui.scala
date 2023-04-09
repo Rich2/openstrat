@@ -33,7 +33,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   def frame: RArr[GraphicElem] =
   { def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
 
-
     def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
