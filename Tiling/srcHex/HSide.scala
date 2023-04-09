@@ -36,13 +36,10 @@ trait HSide extends HCenOrSide with TSide
   /** Returns the [[HCen]] of the left hand tile needs modification. */
   def tileLt(implicit sys: HGridSys): HCen = sys.sideTileLtUnsafe(this)
 
-  /** Not precisely sure what this method is doing. */
+  /** Returns the tile and upper vertex index for this side. */
   def tileLtAndVert: (HCen, Int)
 
   def tileLtAndVertFromRt(rtCenR: Int)(implicit gSys: HGridSys): (HCen, Int)
-
-  /** Returns the [[HCen]] of the left tile and the index of the lower vertex as it follows the sides in a clockwise direction. */
-  def tileLtAndVertUnsafe(implicit gSys: HGridSys) = gSys.sideTileLtAndVertUnsafe(this)
 
   /** Returns the [[HCen]] of the right tile and the index of the upper vertex it follows the sides in clockwise direction. */
   def tileRtAndVert: (HCen, Int)
@@ -102,12 +99,11 @@ class HSideA(val r: Int, val c: Int) extends HSide
   override def tileRtReg: HCen = HCen(r + 1, c + 1)
   override def tileLtAndVert: (HCen, Int) = (HCen(r - 1, c - 1), 0)
 
-
- override def tileLtAndVertFromRt(rtCenR: Int)(implicit gSys: HGridSys): (HCen, Int) =
- { val hCen = tileLt
-   val i = ife(hCen.r == rtCenR - 2, 0, 2)
-   (hCen, i)
- }
+  override def tileLtAndVertFromRt(rtCenR: Int)(implicit gSys: HGridSys): (HCen, Int) =
+  { val hCen = tileLt
+    val i = ife(hCen.r == rtCenR - 2, 0, 2)
+    (hCen, i)
+  }
 
   override def tileRtAndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
   override def lineSegHC: LineSegHC = LineSegHC(r, c - 1, r, c + 1)
@@ -141,8 +137,7 @@ class HSideB(val r: Int, val c: Int) extends HSide
   override def tileLtReg: HCen = HCen(r, c - 2)
   override def tileRtReg: HCen = HCen(r, c + 2)
   override def tileLtAndVert: (HCen, Int) = (HCen(r, c - 2), 1)
-
-  override def tileLtAndVertFromRt(rtCenR: Int)(implicit gSys: HGridSys): (HCen, Int) = (tileLt/*HCen(r, c - 2)*/, 1)
+  override def tileLtAndVertFromRt(rtCenR: Int)(implicit gSys: HGridSys): (HCen, Int) = (tileLt, 1)
 
   override def tileRtAndVert: (HCen, Int) = (HCen(r, c + 2), 5)
   override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)

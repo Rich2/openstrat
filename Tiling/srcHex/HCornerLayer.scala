@@ -318,24 +318,14 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         PolygonHVAndOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
       }
 
-      /*case Some(h2) if hs.isTypeB => {
-        val (h2, vi) = hs.tileRtAndVert
-        val ps1 = cornerForSideSpecial(h2, vi)
-        val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)
-        val ps3 = cornerForSideSpecial(h1, (vi - 3) %% 6)
-        val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
-        val ps = ps1 ++ ps2 ++ ps3 ++ ps4
-        ps.toPolygon
-      }*/
-
-      case Some(_) => {
-        val (hcRt, vi) = hs.tileRtAndVert
-        val (hcLta, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
+      case Some(_) =>
+      { val (hcRt, vi) = hs.tileRtAndVert
+        val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
         val p1: HVAndOffset = cornerV1(hcRt, vi)
         val p2: HVAndOffset = cornerV1(hcRt, (vi - 1) %% 6)
-        val p3: HVAndOffset = cornerV1(hcLta, (lvi + 1)/* (vi - 3 )*/ %% 6)
-        val p4: HVAndOffset = cornerV1(hcLta, (lvi) /* (vi + 2 )*/ %% 6)
-        PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), /*hcLt.vExact(vi - 3),*/ p3, p4)
+        val p3: HVAndOffset = cornerV1(hcLt, (lvi + 1) %% 6)
+        val p4: HVAndOffset = cornerV1(hcLt, (lvi) %% 6)
+        PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), p3, p4)
       }
     }
   }
