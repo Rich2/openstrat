@@ -41,6 +41,8 @@ object Terr320E0 extends Long320Terrs
     )
   }
   help.run
+
+  //corners.setCorner(130, 526, 0, HVUL)
 }
 
 object BritReg

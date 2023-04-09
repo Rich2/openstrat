@@ -53,12 +53,12 @@ trait Water extends WTile with WSideSome
 }
 
 /** Sea. This is an object as currently has no other variables such as depth, current or climate. */
-case object Sea extends Water with  ShowSimple//WSide
-{ override def str = "Ocean"
+case object Sea extends Water with  ShowSimple
+{ override def str = "Sea"
   override def colour: Colour = DarkBlue
 }
 
-case object Lake extends Water with ShowSimple// WSide
+case object Lake extends Water with ShowSimple
 { override def str = "Lake"
   override def colour: Colour = Blue
 }

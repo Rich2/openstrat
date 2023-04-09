@@ -23,10 +23,16 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   }
 
   trait HlandBase
-  {
+  { /** The number of indented vertices. */
     def numIndentedVerts: Int
+
+    /** The number of the first vertex to be indented. */
     def indentStartIndex: Int
+
+    /** The terrain of the main tile, typically a type of land. */
     def terr: TT
+
+    /** The land of the sides, typically a type of water. */
     def sideTerrs: SST
 
     def run(row: Int, c: Int): Unit =
@@ -39,8 +45,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
         corners.setCornerIn(row, c, i, 7)
       }
 
-      iToForeach(numIndentedVerts + 1) { i0 =>
-        val i: Int = (indentStartIndex + i0 - 1) %% 6
+      iUntilForeach(-1, numIndentedVerts) { i0 =>
+        val i: Int = (indentStartIndex + i0) %% 6
         val side = HCen(row, c).side(i)
         sTerrs.set(side, sideTerrs)
       }
