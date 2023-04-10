@@ -164,7 +164,7 @@ case object HVRt extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = 4
   override def corner(hv: HVert): Int = 0
-  override def toString: String = "HVDn"
+  override def toString: String = "HVRt"
 }
 
 /** Down offset to [[HVert]] hex tile vertex. */
@@ -176,7 +176,7 @@ case object HVLt extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = -4
   override def corner(hv: HVert): Int = 0
-  override def toString: String = "HVDn"
+  override def toString: String = "HVLt"
 }
 
 class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirnOpt]

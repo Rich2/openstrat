@@ -376,7 +376,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVUL if vUp => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
       case HVUL => Some(HVertHigh(r, ltGrid.rowRightCenC(r - 1)))
 
-    case dirn => excep(s"$dirn")
+      //case HVRt Some( r, rtGrid.rowLeftCenC())
+      case dirn => excep(s"$dirn")
     }
   }
 }
