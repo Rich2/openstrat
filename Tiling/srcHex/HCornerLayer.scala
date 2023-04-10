@@ -22,7 +22,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-  def cornersForSide(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffsetArr = corner(hCen, vertNum).sideVerts(hCen.verts(vertNum))
+  def cornersForSide(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetArr = corner(hCen, vertNum).sideVerts(hCen.verts(vertNum))
 
   /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
@@ -32,12 +32,12 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     LineSegHVAndOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
   def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LineSeg =
-    sideLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVAndOffset)
+    sideLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
 
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
   def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }
-  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVAndOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
-  def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
+  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
+  def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVOffset = tilePoly(HCen(cenR, cenC))
 
   /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirnOpt, magnitude: Int = 3)(implicit grid: HGrid): Unit =
@@ -295,8 +295,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     hVert.adjHCenCorners.foreach{pair => setCorner(pair._1, pair._2, dirn2, mag3)}
   }
 
-  /** Returns the [[PolygonHVAndOffset]] [[PolygonLike]] for the given [[HSide]]. */
-  def sideVerts(hs: HSide)(implicit gridSys: HGridSys): PolygonHVAndOffset = hs.tileLtOpt match
+  /** Returns the [[PolygonHVOffset]] [[PolygonLike]] for the given [[HSide]]. */
+  def sideVerts(hs: HSide)(implicit gridSys: HGridSys): PolygonHVOffset = hs.tileLtOpt match
   {
     case None =>
     { val (hcRt, vi) = hs.tileRtAndVert
@@ -304,7 +304,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       val p2 = cornerV1(hcRt, (vi - 1) %% 6)
       val p3 = hs.vertLower.noOffset
       val p4 = hs.vertUpper.noOffset
-      PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, p3, p4)
+      PolygonHVOffset(hcRt.vExact(vi), p1, p2, p3, p4)
     }
 
     case Some(hcLt) => hs.tileRtOpt match
@@ -315,7 +315,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val p2 = hs.vertLower.noOffset
         val p3 = cornerV1(hcLt, (vi + 1) %% 6)
         val p4 = cornerV1(hcLt, vi)
-        PolygonHVAndOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
+        PolygonHVOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
       }
 
       case Some(_) =>
@@ -325,7 +325,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val p2: HVOffset = cornerV1(hcRt, (vi - 1) %% 6)
         val p3: HVOffset = cornerV1(hcLt, (lvi + 1) %% 6)
         val p4: HVOffset = cornerV1(hcLt, (lvi) %% 6)
-        PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), p3, p4)
+        PolygonHVOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), p3, p4)
       }
     }
   }

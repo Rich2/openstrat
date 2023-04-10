@@ -43,7 +43,7 @@ object Terr320E0 extends Long320Terrs
   help.run
 
   corners.setCorner(130, 526, 0, HVLt)
-  corners.setCornerPair(132, 524, 2, HVExact, HVLt)
+  corners.setCornerPair(132, 524, 2, HVDR, HVLt)
 }
 
 object BritReg

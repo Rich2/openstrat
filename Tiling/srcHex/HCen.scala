@@ -67,8 +67,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
     case 5 => v5Exact
   }
 
-  def vertsIn(magnitude: Int): PolygonHVAndOffset =
-    PolygonHVAndOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
+  def vertsIn(magnitude: Int): PolygonHVOffset =
+    PolygonHVOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
 
   /** Up right side. From vert 0 to vert 1. */
   def s0: HSide = HSide(r + 1, c + 1)

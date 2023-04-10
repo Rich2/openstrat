@@ -188,7 +188,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
       case _ => corners.tilePoly(hc)(proj.parent)
     }
-    proj.transPolygonHVAndOffset(poly1)
+    proj.transPolygonHVOffset(poly1)
   }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the

@@ -32,8 +32,8 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(t1.contrastBW))
         }
-        case _: VSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVAndOffset).draw(t1.contrastBW))
-        case _: VSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVAndOffset).draw(t2.contrastBW))
+        case _: VSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVOffset).draw(t1.contrastBW))
+        case _: VSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVOffset).draw(t2.contrastBW))
         case _ => None
       }
     }

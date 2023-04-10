@@ -28,20 +28,20 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   /** Returns the second, going clockwise [[HVOffsetDelta]] of this corner if there is a second [[HVOffsetDelta]] on this [[HCorner]] else returns first. */
   def vLast(hVert: HVert): HVOffset = ife(numVerts == 2, v2(hVert), v1(hVert))
 
-  def verts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match
-  { case 0 => HVAndOffsetArr(HVOffset.none(hVert))
-    case 1 | 3 => HVAndOffsetArr(v1(hVert))
+  def verts(hVert: HVert): HVOffsetArr = unsafeInt %% 4 match
+  { case 0 => HVOffsetArr(HVOffset.none(hVert))
+    case 1 | 3 => HVOffsetArr(v1(hVert))
 
     case 2 =>
     { val r1: HVOffset = v1(hVert)
       val r2: HVOffset = v2(hVert)
-      HVAndOffsetArr(r1, r2)
+      HVOffsetArr(r1, r2)
     }
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 
   /** Returns the vertices of a side feature, such as a straits or a wall. The vertices are specified as [[HVOffset]]. */
-  def sideVerts(hVert: HVert): HVAndOffsetArr = HVAndOffsetArr(v1(hVert))
+  def sideVerts(hVert: HVert): HVOffsetArr = HVOffsetArr(v1(hVert))
 }
 
 /** Companion object for [[HCorner]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */

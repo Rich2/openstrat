@@ -14,12 +14,12 @@ object LineSegHVAndOffset
 }
 
 /** A polygon where the vertices are specified in [[HVOffset]]s. */
-class PolygonHVAndOffset(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike with PolygonLikeInt3[HVOffset]
-{ override type ThisT = PolygonHVAndOffset
+class PolygonHVOffset(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with PolygonLikeInt3[HVOffset]
+{ override type ThisT = PolygonHVOffset
   override type SideT = LineSegHVAndOffset
   override def typeStr: String = "HVAndOffsetPolygon"
 
-  override def fromArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
+  override def fromArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
 
   @inline def side(index: Int): LineSegHVAndOffset = LineSegHVAndOffset(vert(index), ife(index == vertsNum - 1, vert(0), vert(index + 1)))
 
@@ -34,17 +34,17 @@ class PolygonHVAndOffset(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike
   def project(proj: HSysProjection): Polygon = map{ _.toPt2(proj.transCoord(_))(proj.parent) }
 }
 
-object PolygonHVAndOffset extends Int3SeqLikeCompanion[HVOffset, PolygonHVAndOffset]
+object PolygonHVOffset extends Int3SeqLikeCompanion[HVOffset, PolygonHVOffset]
 {
-  override def fromArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
+  override def fromArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
 }
 
-trait PolgonHVAndOffsetCommonBuilder extends Int3SeqLikeCommonBuilder[PolygonHVAndOffset]
-{ override type BuffT = HVAndOffsetBuff
-  override def fromIntArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
-  override def fromIntBuffer(inp: ArrayBuffer[Int]): HVAndOffsetBuff = new HVAndOffsetBuff(inp)
+trait PolgonHVAndOffsetCommonBuilder extends Int3SeqLikeCommonBuilder[PolygonHVOffset]
+{ override type BuffT = HVOffsetBuff
+  override def fromIntArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
+  override def fromIntBuffer(inp: ArrayBuffer[Int]): HVOffsetBuff = new HVOffsetBuff(inp)
 }
 
-class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3MapBuilder[HVOffset, PolygonHVAndOffset]
+class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3MapBuilder[HVOffset, PolygonHVOffset]
 
-class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3FlatBuilder[HVOffset, PolygonHVAndOffset]
+class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3FlatBuilder[HVOffset, PolygonHVOffset]
