@@ -30,7 +30,7 @@ sealed trait HVert extends Any with HCoord with TCoord
     case _ => false
   }
 
-  def noOffset: HVAndOffset = HVAndOffset.none(this)
+  def noOffset: HVOffset = HVOffset.none(this)
 
   def dirnTo(hvDirn: HVDirn): HCoord
 }
@@ -39,8 +39,8 @@ object HVert
 {
   def apply(r: Int, c: Int): HVert =
   { def value: Long = r.toLong.<<(32) | (c & 0xFFFFFFFFL)
-    r %% 4 match {
-      case 3 if c.div4Rem2 => new HVertHigh(value)
+    r %% 4 match
+    { case 3 if c.div4Rem2 => new HVertHigh(value)
       case 1 if c.div4Rem0 => new HVertHigh(value)
       case 3 if c.div4Rem0 => new HVertLow(value)
       case 1 if c.div4Rem2 => new HVertLow(value)

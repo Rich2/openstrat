@@ -333,8 +333,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     { case _ if grid.hCoordExists(hc) => Some(hc)
       case HVUp | HVUR | HVUL if r == grid.topSideR => None
       case HVDR | HVDn | HVDL if r == grid.bottomSideR => None
-      case HVUR | HVDR if isRightMan => None
-      case HVDL | HVUL if isLeftMan => None
+      case HVUR | HVRt | HVDR if isRightMan => None
+      case HVDL | HVLt | HVUL if isLeftMan => None
 
       case HVUp if (c < grid.rowLeftCenC(r + 1 )) & vUp => Some(HVertLow(r + 2, ltGrid.rowRightCenC(r + 1) + 2))
       case HVUp if c < grid.rowLeftCenC(r + 1) => {
@@ -375,6 +375,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
 
       case HVUL if vUp => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
       case HVUL => Some(HVertHigh(r, ltGrid.rowRightCenC(r - 1)))
+
+    case dirn => excep(s"$dirn")
     }
   }
 }

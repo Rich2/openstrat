@@ -12,22 +12,22 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
   def unsafeIndex(cenR: Int, cenC: Int, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(cenR, cenC) * 6 + vertNum
 
-  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVAndOffset]]s. */
+  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVOffset]]s. */
   def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(unsafeIndex(hCen, vertNum)))
 
-  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVAndOffset]]s. */
+  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVOffset]]s. */
   def corner(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HCorner =
     new HCorner(unsafeArray(gridSys.layerArrayIndex(hCenR, hCenC) * 6 + vertNum))
 
-  /** Returns the first and possibly only single [[HVAndOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
-  def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
+  /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
+  def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
   def cornersForSide(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffsetArr = corner(hCen, vertNum).sideVerts(hCen.verts(vertNum))
 
-  /** Returns the last [[HVAndOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
-  def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVAndOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
+  /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
+  def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
 
-  /** Produces an [[HSide]]'s line segment specified in [[HVAndOffset]] coordinates. */
+  /** Produces an [[HSide]]'s line segment specified in [[HVOffset]] coordinates. */
   def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
     LineSegHVAndOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
@@ -48,7 +48,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     }
   }
 
-  /** Sets a single [[HCorner]] with 1 [[HVOffset]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
+  /** Sets a single [[HCorner]] with 1 [[HVOffsetDelta]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setCorner(hCen: HCen, vertNum: Int, dirn: HVDirnOpt, magnitude: Int)(implicit grid: HGrid): Unit =
   { if(grid.hCenExists(hCen))
     { val corner = HCorner.single(dirn, magnitude)
@@ -214,7 +214,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
   def setMouth5Corner(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
 
-  /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. Would like to make this protected and possibly remove altogether. */
+  /** Sets the corner in towards the [[HCen]] with a single [[HVOffsetDelta]]. Would like to make this protected and possibly remove altogether. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   { val i = vertNum %% 6
     val dirn = i match
@@ -243,22 +243,22 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setNCornersIn(cenR: Int, cenC: Int, numIndents: Int, firstVertNum: Int, magnitude: Int)(implicit grid: HGrid): Unit =
     iUntilForeach(numIndents) { i => setCornerIn(cenR, cenC, (firstVertNum + i) %% 6, magnitude) }
 
-  /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
+  /** Sets a single [[HCorner]] corner with 2 [[HVOffsetDelta]]s. */
   def setCornerPair(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, dirn2: HVDirnOpt, magnitude1: Int = 3, magnitude2: Int = 3)(
     implicit grid: HGrid): Unit = setCornerPair(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
 
-  /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
+  /** Sets a single [[HCorner]] corner with 2 [[HVOffsetDelta]]s. */
   def setCornerPair(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int)(implicit grid: HGrid): Unit =
   { val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }
 
-  /** Sets a single [[HCorner]] corner with 1 [[HVOffset]] for the tile 2 for the [[hSide]]. */
+  /** Sets a single [[HCorner]] corner with 1 [[HVOffsetDelta]] for the tile 2 for the [[hSide]]. */
   def setSideCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, dirn2: HVDirnOpt, magnitude1: Int = 3, magnitude2: Int = 3)(
     implicit grid: HGrid): Unit = setSideCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
 
-  /** Sets a single [[HCorner]] corner with [[HVOffset]] for the tile 2 for the HSide. */
+  /** Sets a single [[HCorner]] corner with [[HVOffsetDelta]] for the tile 2 for the HSide. */
   def setSideCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int)(implicit grid: HGrid): Unit =
   { val corner = HCorner.sideDouble(dirn1, magnitude1, dirn2, magnitude2)
     val index = unsafeIndex(hCen, vertNum)
@@ -321,10 +321,10 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       case Some(_) =>
       { val (hcRt, vi) = hs.tileRtAndVert
         val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
-        val p1: HVAndOffset = cornerV1(hcRt, vi)
-        val p2: HVAndOffset = cornerV1(hcRt, (vi - 1) %% 6)
-        val p3: HVAndOffset = cornerV1(hcLt, (lvi + 1) %% 6)
-        val p4: HVAndOffset = cornerV1(hcLt, (lvi) %% 6)
+        val p1: HVOffset = cornerV1(hcRt, vi)
+        val p2: HVOffset = cornerV1(hcRt, (vi - 1) %% 6)
+        val p3: HVOffset = cornerV1(hcLt, (lvi + 1) %% 6)
+        val p4: HVOffset = cornerV1(hcLt, (lvi) %% 6)
         PolygonHVAndOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), p3, p4)
       }
     }

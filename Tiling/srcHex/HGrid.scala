@@ -295,12 +295,12 @@ trait HGrid extends Any with TGrid with HGridSys
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
   override def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord] =
-  { val hc2 = hVert.dirnTo(dirn)
+  { val hc2: HCoord = hVert.dirnTo(dirn)
     ifSome(hCoordExists(hc2), hc2)
   }
 }
 
 /** Hex grid path finding node. */
 case class HNode(val tile: HCen, var gCost: Int, var hCost: Int, var parent: OptRef[HNode])
-{ def fCost = gCost + hCost
+{ def fCost: Int = gCost + hCost
 }

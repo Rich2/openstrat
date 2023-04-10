@@ -37,6 +37,8 @@ object HVDirnOpt
     case 4 => HVDL
     case 5 => HVUL
     case 6 => HVUp
+    case 7 => HVRt
+    case 8 => HVLt
     case n => excep(s"$n is an invalid Int value for an HVDirnOpt.")
   }
 }
@@ -76,7 +78,8 @@ object HVDirn
     case 5 => HVUL
     case 6 => HVUp
     case 7 => HVRt
-        case n => excep(s"$n is an invalid Int value for an HVDirn.")
+    case 8 => HVLt
+    case n => excep(s"$n is an invalid Int value for an HVDirn.")
   }
 }
 
@@ -156,7 +159,7 @@ case object HVUL extends HVDirn
 case object HVRt extends HVDirn
 { def dCenR: Int = 0
   def dCenC: Int = 4
-  override def int1: Int = 6
+  override def int1: Int = 7
   override def opposite: HVDirn = HVLt
   override def dVertR: Int = 0
   override def dVertC: Int = 4
@@ -168,7 +171,7 @@ case object HVRt extends HVDirn
 case object HVLt extends HVDirn
 { def dCenR: Int = 0
   def dCenC: Int = -4
-  override def int1: Int = 7
+  override def int1: Int = 8
   override def opposite: HVDirn = HVUp
   override def dVertR: Int = 0
   override def dVertC: Int = -4

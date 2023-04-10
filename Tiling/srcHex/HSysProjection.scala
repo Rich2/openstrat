@@ -24,7 +24,7 @@ trait HSysProjection extends TSysProjection
 
   /** only use for projection's known [[HCoord]]s. */
   def transCoord(hc: HCoord): Pt2
-  def transHVAndOffset(hvo: HVAndOffset): Pt2 = hvo.toPt2(transCoord)(parent)
+  def transHVAndOffset(hvo: HVOffset): Pt2 = hvo.toPt2(transCoord)(parent)
   def transPolygonHVAndOffset(inp: PolygonHVAndOffset): Polygon = inp.toPolygon(transCoord)(parent)
 
 
