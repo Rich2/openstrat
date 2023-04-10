@@ -47,7 +47,7 @@ object Terr220E30 extends Long220Terrs
       TRow(136, desert, sea, desert * 4, plain, desertHills, desert * 5),
       VRow(135, Mouth(1540, HVUp), Mouth(1544, HVUp)),
       TRow(134, desert * 6, plain, desert, desertHills, desertHills, desert * 3),
-      VRow(133, VertIn(1540, HVDR), Mouth(1542, HVDR), Mouth(1544, HVDn)),
+      VRow(133, VertIn(1540, HVUR), Mouth(1542, HVDR), Mouth(1544, HVDn)),
       TRow(132, desert * 6, plain, desert, sea, desert * 4),
     )
   }
