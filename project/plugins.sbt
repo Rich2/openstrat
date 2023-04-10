@@ -1,5 +1,5 @@
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.13.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.13.1")
 addSbtPlugin("org.scala-native" % "sbt-scala-native" % "0.4.9")
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.1.0")
 addSbtPlugin("com.github.sbt" % "sbt-unidoc" % "0.5.0")
