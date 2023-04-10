@@ -75,7 +75,8 @@ object HVDirn
     case 4 => HVDL
     case 5 => HVUL
     case 6 => HVUp
-    case n => excep(s"$n is an invalid Int value for an HVDirn.")
+    case 7 => HVRt
+        case n => excep(s"$n is an invalid Int value for an HVDirn.")
   }
 }
 
