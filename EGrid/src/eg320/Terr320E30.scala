@@ -3,7 +3,7 @@ package ostrat; package eg320
 import prid.phex._, egrid._, WTile._
 
 object Terr320E30 extends Long320Terrs
-{ override implicit val grid: EGrid320LongFull = EGrid320.e30(124, 166)
+{ override implicit val grid: EGrid320LongFull = EGrid320.e30(120, 166)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
@@ -44,7 +44,11 @@ object Terr320E30 extends Long320Terrs
       TRow(126, sea, Hland(2, 5, Level(Desert)), Hland(2, 0, Level(Desert)), sea * 2, Hland(1, 5, Hilly()), desert * 2),
       VRow(125, Mouth(1524, HVDn), Mouth(1532, HVDn), Mouth(1540, HVDn)),
       TRow(124, desert * 4, plain, desert * 4),
+      VRow(123, Mouth(1538, HVUL), Mouth(1540, HVDR)),
+      TRow(122, desert * 4, plain, sea, desert * 3),
+      TRow(120, desert * 6, Hland(3, 3, Hilly(Desert)), desert * 2),
     )
   }
   help.run
+
 }

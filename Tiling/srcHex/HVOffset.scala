@@ -80,7 +80,7 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
         val y = ((frac - magnitude) * f(vert).y + magnitude * p2.y) / frac
         Pt2(x, y)
       }
-      case _ => {debvar(hd); f(vert) }
+      case _ => f(vert)
     }
   }
 }
