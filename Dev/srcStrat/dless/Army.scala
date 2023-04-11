@@ -2,6 +2,5 @@
 package ostrat; package dless
 
 case class Army(nation: Nation, num: Int) extends Coloured
-{
-  override def colour: Colour = nation.colour
+{ override def colour: Colour = nation.colour
 }

@@ -1,10 +1,15 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
 import Colour._
+
 trait Polity extends ShowSimple
 { override def typeStr: String = "Polity"
   def colour: Colour
-  def ar: Army = Army(this)
+  //def ar: Army = Army(this)
+
+  def army(num: Int): Army = Army(this, num)
+
+  def armyNext()(implicit counters: ArrCounters[Polity]): Army = army(counters(this))
 }
 
 object Polity

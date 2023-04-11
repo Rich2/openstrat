@@ -39,9 +39,11 @@ trait WW2Scen extends HSysTurnScen
 object WW2Scen
 {
   def sa0(layer: HCenOptLayer[Army])(implicit sys: HGridSys): Unit =
-  {  layer.setSamesUnsafe(Germany.ar, 162,522,  160,520,  158,518,  156,520)
-    layer.setSamesUnsafe(France.ar, 156,518, 154,518)
-    layer.setSamesUnsafe(Britain.ar, 160,512,  158,514)
+  { val polities: RArr[Polity] = RArr(Britain, France, Germany)
+    implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
+    layer.setFSomesMut(Germany.armyNext, 162,522,  160,520,  158,518,  156,520)
+    layer.setFSomesMut(France.armyNext, 156,518, 154,518)
+    layer.setFSomesMut(Britain.armyNext, 160,512,  158,514)
   }
 }
 
