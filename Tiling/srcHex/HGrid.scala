@@ -128,6 +128,39 @@ trait HGrid extends Any with TGrid with HGridSys
     case _ => true
   }
 
+  def rowVertHighLeftC(r: Int): Int = {
+    val rUp = r + 1
+    val rUpHC = rowLeftCenC(rUp)
+    val rDn = r - 1
+    val rDnHC = rowLeftCenC(rDn)
+    ife(rUp %% 4 == 0, (rUpHC - 2).min(rDnHC), rUpHC.min(rDnHC - 2))
+  }
+
+  def rowVertLowLeftC (r: Int): Int =
+  { val rUp = r + 1
+    val rUpHC = rowLeftCenC(rUp)
+    val rDn = r - 1
+    val rDnHC = rowLeftCenC(rDn)
+    ife(rUp %% 4 == 0, rUpHC.min(rDnHC - 2), (rUpHC - 2).min(rDnHC))
+  }
+
+  def rowVertHighRightC(r: Int): Int = {
+    val rUp = r + 1
+    val rUpHC = rowRightCenC(rUp)
+    val rDn = r - 1
+    val rDnHC = rowRightCenC(rDn)
+    ife(rUp %% 4 == 0, (rUpHC + 2).max(rDnHC), rUpHC.min(rDnHC + 2))
+  }
+
+  def rowVertLowRightC(r: Int): Int =
+  { val rUp = r + 1
+    val rUpHC = rowRightCenC(rUp)
+    val rDn = r - 1
+    val rDnHC = rowRightCenC(rDn)
+    ife(rUp %% 4 == 0, rUpHC.min(rDnHC + 2), (rUpHC + 2).min(rDnHC))
+  }
+
+
   override def hCenSteps(hCen: HCen): HStepArr = HStep.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 
   override def unsafeStepEnd(startCen: HCen, step: HStep): HCen =
