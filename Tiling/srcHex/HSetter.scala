@@ -161,4 +161,40 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     def terr: SST
     def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
+
+  /** Used for setting the a vertex on the left edge of a grid. Sets the vetex to the right on both hex tiles. */
+  trait VertRightsRightBase
+  { /** The c coordinate of the vertex. */
+    def c: Int
+
+    /** The magnitude of the offset. */
+    def magnitude: Int
+
+    def run(row: Int): Unit = if (HVert.rcISHigh(row, c)){
+      corners.setCorner(row + 1, c + 2, 4, HVRt, magnitude)
+      corners.setCorner(row - 1, c, 0, HVRt, magnitude)
+    }
+    else{
+      corners.setCorner(row + 1, c, 3, HVRt, magnitude)
+      corners.setCorner(row - 1, c + 2, 5, HVRt, magnitude)
+    }
+  }
+
+  /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
+  trait VertLeftsLeftBase
+  { /** The c coordinate of the vertex. */
+    def c: Int
+
+    /** The magnitude of the offset. */
+    def magnitude: Int
+
+    def run(row: Int): Unit = if (HVert.rcISHigh(row, c))
+    { corners.setCorner(row + 1, c - 2, 2, HVLt, magnitude)
+      corners.setCorner(row - 1, c, 0, HVLt, magnitude)
+    }
+    else
+    { corners.setCorner(row + 1, c, 3, HVLt, magnitude)
+      corners.setCorner(row - 1, c - 2, 1, HVLt, magnitude)
+    }
+  }
 }

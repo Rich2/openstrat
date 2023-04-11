@@ -61,4 +61,5 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   case class SetSide(c: Int, terr: WSideSome = Sea) extends  VRowElem with SetSideBase
   case class Mouth(c: Int, dirn: HVDirn, st: WSideSome = Sea) extends VRowElem with MouthBase
   case class VertIn(c: Int, dirn: HVDirn, terr: WSideSome = Sea) extends VRowElem with VertInBase
+  case class VertRightsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsRightBase
 }
