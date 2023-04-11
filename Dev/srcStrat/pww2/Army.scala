@@ -6,8 +6,8 @@ case class Army(polity: Polity, num: Int) extends Coloured
   def colour = polity.colour
   override def toString = "Army" + polity.toString.enParenth
 
-  override def equals(other: Any): Boolean = other match
+  /*override def equals(other: Any): Boolean = other match
   { case that: Army => polity == that.polity
     case _ => false
-  }
+  }*/
 }
