@@ -83,12 +83,14 @@ object HVDirn
   }
 }
 
+sealed trait HVDirnPrimary extends HVDirn
+
 /** Up offset to [[HVert]] hex tile vertex. */
-case object HVUp extends HVDirn
+case object HVUp extends HVDirnPrimary
 { def dCenR: Int = 1
   def dCenC: Int = 0
   override def int1: Int = 6
-  override def opposite: HVDirn = HVDn
+  override def opposite: HVDirnPrimary = HVDn
   override def dVertR: Int = 2
   override def dVertC: Int = 0
   override def corner(hv: HVert): Int = 3
@@ -96,11 +98,11 @@ case object HVUp extends HVDirn
 }
 
 /** Up Right offset to [[HVert]] hex tile vertex. */
-case object HVUR extends HVDirn
+case object HVUR extends HVDirnPrimary
 { def dCenR: Int = 1
   def dCenC: Int = 2
   override def int1: Int = 1
-  override def opposite: HVDirn = HVDL
+  override def opposite: HVDirnPrimary = HVDL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
   override def corner(hv: HVert): Int = 4
@@ -108,11 +110,11 @@ case object HVUR extends HVDirn
 }
 
 /** Down right offset to [[HVert]] hex tile vertex. */
-case object HVDR extends HVDirn
+case object HVDR extends HVDirnPrimary
 { def dCenR: Int = -1
   def dCenC: Int = 2
   override def int1: Int = 2
-  override def opposite: HVDirn = HVUL
+  override def opposite: HVDirnPrimary = HVUL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
   override def corner(hv: HVert): Int = 5
@@ -120,11 +122,11 @@ case object HVDR extends HVDirn
 }
 
 /** Down offset to [[HVert]] hex tile vertex. */
-case object HVDn extends HVDirn
+case object HVDn extends HVDirnPrimary
 { def dCenR: Int = -1
   def dCenC: Int = 0
   override def int1: Int = 3
-  override def opposite: HVDirn = HVUp
+  override def opposite: HVDirnPrimary = HVUp
   override def dVertR: Int = -2
   override def dVertC: Int = 0
   override def corner(hv: HVert): Int = 0
@@ -132,11 +134,11 @@ case object HVDn extends HVDirn
 }
 
 /** Down left offset to [[HVert]] hex tile vertex. */
-case object HVDL extends HVDirn
+case object HVDL extends HVDirnPrimary
 { def dCenR: Int = -1
   def dCenC: Int = -2
   override def int1: Int = 4
-  override def opposite: HVDirn = HVUR
+  override def opposite: HVDirnPrimary = HVUR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
   override def corner(hv: HVert): Int = 1
@@ -144,11 +146,11 @@ case object HVDL extends HVDirn
 }
 
 /** Up left offset to [[HVert]] hex tile vertex. */
-case object HVUL extends HVDirn
+case object HVUL extends HVDirnPrimary
 { def dCenR: Int = 1
   def dCenC: Int = -2
   override def int1: Int = 5
-  override def opposite: HVDirn = HVDR
+  override def opposite: HVDirnPrimary = HVDR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
   override def corner(hv: HVert): Int = 2

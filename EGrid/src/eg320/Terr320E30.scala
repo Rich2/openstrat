@@ -47,7 +47,4 @@ object Terr320E30 extends Long320Terrs
     )
   }
   help.run
-
-  //corners.setCorner(132, 1524, 4, HVRt)
-  //corners.setCorner(130, 1522, 0, HVRt)
 }

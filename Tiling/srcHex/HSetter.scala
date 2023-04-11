@@ -62,7 +62,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     def c: Int
 
     /** The direction of the mouth. */
-    def dirn: HVDirn
+    def dirn: HVDirnPrimary
 
     /** The magnitude of the offsets. */
     def magnitude: Int
@@ -100,10 +100,74 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       { corners.setMouth2(row + 1, c - 2, magnitude)
         sTerrs.set(row, c + 2, terr)
       }
-
-      case d => excep("Unimplemented dirn.")
     }
   }
+
+  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  trait MouthSpecBase
+  { /** The C coordinate of the vertex. */
+    def c: Int
+
+    /** The direction of the mouth. */
+    def mouthDirn: HVDirnPrimary
+
+    def dirn1: HVDirn
+
+    def dirn2: HVDirn
+
+    /** The magnitude of the 1st offset of the mouth. */
+    def magnitude1: Int
+
+    def magnitude2: Int
+
+    /** The terrain of the left most side of the junction. */
+    def terr: SST
+
+    def run(row: Int): Unit = mouthDirn match
+    { case HVUp =>
+      { corners.setCorner(row - 1, c + 2, 5, dirn1, magnitude1)
+        corners.setCorner(row - 1, c - 2, 1, dirn2, magnitude2)
+        corners.setCornerPair(row + 1, c, 3, dirn1, dirn2, magnitude1, magnitude2)
+        sTerrs.set(row - 1, c, terr)
+      }
+
+      case HVUR =>
+      { corners.setCorner(row - 1, c, 0, dirn1, magnitude1)
+        corners.setCorner(row + 1, c - 2, 2, dirn2, magnitude2)
+        corners.setCornerPair(row + 1, c + 2, 4, dirn1, dirn2, magnitude1, magnitude2)
+        sTerrs.set(row, c - 1, terr)
+      }
+
+      case HVDR =>
+      { corners.setCorner(row - 1, c - 2, 1, dirn1, magnitude1)
+        corners.setCorner(row + 1, c, 3, dirn2, magnitude2)
+        corners.setCornerPair(row - 1, c + 2, 5, dirn1, dirn2, magnitude1, magnitude2)
+        sTerrs.set(row, c - 1, terr)
+      }
+
+      case HVDn =>
+      { corners.setCorner(row + 1, c - 2, 2, dirn1, magnitude1)
+        corners.setCorner(row + 1, c + 2, 4, dirn2, magnitude2)
+        corners.setCornerPair(row - 1, c, 0, dirn1, dirn2, magnitude1, magnitude2)
+        sTerrs.set(row + 1, c, terr)
+      }
+
+      case HVDL =>
+      { corners.setCorner(row + 1, c, 3, dirn1, magnitude1)
+        corners.setCorner(row - 1, c + 2, 5, dirn2, magnitude2)
+        corners.setCornerPair(row - 1, c - 2, 1, dirn1, dirn2, magnitude1, magnitude2)
+        sTerrs.set(row, c + 1, terr)
+      }
+
+      case HVUL =>
+      { corners.setCorner(row + 1, c + 2, 4, dirn1, magnitude1)
+        corners.setCorner(row - 1, c, 0, dirn2, magnitude2)
+        corners.setCornerPair(row + 1, c - 2, 2, dirn1, dirn2, magnitude1, magnitude2)
+        sTerrs.set(row, c + 2, terr)
+      }
+    }
+  }
+
 
   /** Sets the Vert in for a side terrain, eg Straits / River / Wall and sets the left most of the sides.  */
   trait VertInBase
