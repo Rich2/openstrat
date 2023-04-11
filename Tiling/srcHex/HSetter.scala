@@ -58,41 +58,47 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
   /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
   trait MouthBase
-  {
+  { /** The C coordinate of the vertex. */
     def c: Int
+
+    /** The direction of the mouth. */
     def dirn: HVDirn
+
+    /** The magnitude of the offsets. */
     def magnitude: Int
-    def st: SST
+
+    /** The terrain of the left most side of the junction. */
+    def terr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, magnitude)
-        sTerrs.set(row - 1, c, st)
+        sTerrs.set(row - 1, c, terr)
       }
 
       case HVUR =>
       { corners.setMouth4(row + 1, c + 2, magnitude)
-        sTerrs.set(row, c - 1, st)
+        sTerrs.set(row, c - 1, terr)
       }
 
       case HVDR =>
       { corners.setMouth5(row - 1, c + 2, magnitude)
-        sTerrs.set(row, c - 1, st)
+        sTerrs.set(row, c - 1, terr)
       }
 
       case HVDn =>
       { corners.setMouth0(row - 1, c, magnitude)
-        sTerrs.set(row + 1, c, st)
+        sTerrs.set(row + 1, c, terr)
       }
 
       case HVDL =>
       { corners.setMouth1(row - 1, c - 2, magnitude)
-        sTerrs.set(row, c + 1, st)
+        sTerrs.set(row, c + 1, terr)
       }
 
       case HVUL =>
       { corners.setMouth2(row + 1, c - 2, magnitude)
-        sTerrs.set(row, c + 2, st)
+        sTerrs.set(row, c + 2, terr)
       }
 
       case d => excep("Unimplemented dirn.")
