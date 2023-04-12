@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth;package middleEast
-import geom._, pglobe._, LatLong._
+import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for the Levant depends on [[Kurdistan]] and [[Sinai]]. */
 object Levant extends EArea2("Levant", 33 ll 35.5, Hilly)
@@ -14,15 +14,15 @@ object Levant extends EArea2("Levant", 33 ll 35.5, Hilly)
 }
 
 /** [[PolygonLL]] graphic for Arabian Peninsular. Depends on [[Levant]]. */
-object Arabia extends EArea2("Arabia", degs (25, 45.0), Desert)
+object Arabia extends EArea2("Arabia", 25 ll 45.0, Desert)
 { val salwa = 24.71 ll 50.77
   val nQatar = 26.15 ll 51.26
   val doha = 25.25 ll 51.61
   val alGharbia: LatLong = 23.97 ll 51.94
   val icad: LatLong = 24.30 ll 54.44
   val kumzar: LatLong = 26.36 ll 56.38
-  val alKhaburah = 23.98 ll 57.10
-  val eOman = 22.48 ll 59.72
+  val alKhaburah: LatLong = 23.98 ll 57.10
+  val eOman: LatLong = 22.48 ll 59.72
   val mirbat = 16.94 ll 54.80
   val dhahawnMouth = 16.20 ll 52.23
   val haswayn = 15.63 ll 52.22
@@ -45,11 +45,12 @@ object Persia extends EArea2("Persia", 32.4 ll 60, Hilly)
 
   val persiaNE = persiaN * pAsia.India.wAsiaE
 
-  val seIran = degs(25.37, 61.67)
+  val seIran = 25.37 ll 61.67
   val kuhmobarak = 25.80 ll 57.30
   val nHormuz = 27.17 ll 56.47
   val nwHormuz = 26.49 ll 54.79
   val zeydan = 27.88 ll 51.50
+
   override val polygonLL: PolygonLL = PolygonLL(mahshahr, Caspian.southWest, Caspian.southEast, Caspian.persiaN, persiaNE, pAsia.India.mianiHor,
     seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)
 }
