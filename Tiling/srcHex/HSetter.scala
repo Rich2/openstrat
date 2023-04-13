@@ -3,19 +3,23 @@ package ostrat; package prid; package phex
 
 /** Helper trait for setting an [[HCenLayer]], [[HSideLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
  *  terrain to be laid out in systematic row order. */
-trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
-{
+trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
   implicit def grid: HGrid
+
   def terrs: HCenLayer[TT]
+
   def sTerrs: HSideOptLayer[ST, SST]
+
   def corners: HCornerLayer
 
-  trait IsleBase
-  {
+  /** Sets the side terrain and corners for an Island. */
+  trait IsleBase {
     def terr: TT
+
     def sTerr: SST
-    def run(row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
+
+    def run(row: Int, c: Int): Unit = {
+      terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, 6, 0, 7)
       iUntilForeach(6) { i => corners.setCornerIn(row, c, i, 7) }
       iUntilForeach(6) { i =>
@@ -24,6 +28,15 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
     }
   }
+
+  /** Sets the side terrain and corners for an Island. */
+  trait LeftSideBase
+  {
+    def sTerr: SST
+
+    def run(row: Int, c: Int): Unit = sTerrs.set(row, c - 2, sTerr)
+  }
+
 
   trait HlandBase
   { /** The number of indented vertices. */
@@ -243,12 +256,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     /** The magnitude of the offset. */
     def magnitude: Int
 
-    def run(row: Int): Unit = if (HVert.rcISHigh(row, c)){
-      corners.setCorner(row + 1, c + 2, 4, HVRt, magnitude)
+    def run(row: Int): Unit = if (HVert.rcISHigh(row, c))
+    { corners.setCorner(row + 1, c + 2, 4, HVRt, magnitude)
       corners.setCorner(row - 1, c, 0, HVRt, magnitude)
     }
-    else{
-      corners.setCorner(row + 1, c, 3, HVRt, magnitude)
+    else
+    { corners.setCorner(row + 1, c, 3, HVRt, magnitude)
       corners.setCorner(row - 1, c + 2, 5, HVRt, magnitude)
     }
   }
