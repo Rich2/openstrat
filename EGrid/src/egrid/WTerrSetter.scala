@@ -18,13 +18,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
   case class Isle(terr: Land = Level(), sTerr: Water = Sea) extends TRunner with IsleBase
   case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Level(), sideTerrs: Water = Sea) extends TRunner with HlandBase
-
-  /** This is for setting sides on the edge of grids that sit within the heex area of the tile on the neighbouring grid. */
-  case class BSide(terr: WSideSome = Sea) extends TRowElem
-  {
-     def run(row: Int, c: Int): Unit = sTerrs.set(row, c, terr)
-  }
-
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem
@@ -45,17 +38,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
       multi.foreach { help =>
         if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
         help match {
-          case wt: WTile => tileRun(row, c, wt)
+          case wt: WTile =>terrs.set(row, c, wt)
           case il: TRunner => il.run(row, c)
           case _ =>
         }
         c += 4
       }
     }
-  }
-
-  def tileRun(row: Int, c: Int, tile: WTile): Unit =
-  {  terrs.set(row, c, tile)
   }
 
   case class SetSide(c: Int, terr: WSideSome = Sea) extends  VRowElem with SetSideBase
