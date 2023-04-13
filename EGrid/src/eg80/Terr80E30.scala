@@ -52,7 +52,7 @@ object Terr80E30  extends Long80Terrs
       TRow(456, hills, plain, hills * 4, mtain * 2, hills, plain * 18),
       TRow(454, plain * 7, mtain * 2, hills * 3, plain * 15),
       TRow(452, mtain, plain * 6, hills, mtain * 2, hills * 3, plain * 15),
-      VRow(451, Mouth(1570, HVDR)),
+      VRow(451, Mouth(1570, HVUR)),
       TRow(450, hills, plain * 5, hills * 3, mtain * 2, hills * 3, plain * 7, sea, Hland(1, 5), plain * 5),
       TRow(448, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7),
       TRow(446, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 2, sea * 2, plain * 8),
@@ -91,7 +91,8 @@ object Terr80E30  extends Long80Terrs
       TRow(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills * 2, mtain, hills * 2, plain * 2, desert * 4,
       mtain),
 
-      TRow(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Hland(1, 3) * 2, hills, desert * 2, plain, desert * 3, hillyDesert * 2, mtain),
+      VRow(419, SetSide(1471)),
+      TRow(418, LeftSide(), sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Hland(1, 3) * 2, hills, desert * 2, plain, desert * 3, hillyDesert * 2, mtain),
       VRow(417, Mouth(1564, HVUR)),
 
       TRow(416, sea * 10, sea * 4, Isle(Hilly()), sea, Hland(3, 2, Mountains()), sea * 2, Hland(2, 3, Mountains()), Hland(2, 2, Mountains()), sea * 2, hills, plain,
