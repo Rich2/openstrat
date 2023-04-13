@@ -2,6 +2,7 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._
 
+/** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
 object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, Plain)
 { val dankalia = 14 ll 41.66// eAfricaN
   val berbera = 10 ll 44

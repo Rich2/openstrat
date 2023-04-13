@@ -3,7 +3,7 @@ package ostrat; package eg320
 import prid.phex._, egrid._, WTile._
 
 object Terr320E30 extends Long320Terrs
-{ override implicit val grid: EGrid320LongFull = EGrid320.e30(120, 166)
+{ override implicit val grid: EGrid320LongFull = EGrid320.e30(118)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
@@ -16,7 +16,7 @@ object Terr320E30 extends Long320Terrs
       TRow(162, Hland(2, 2, Mountains(IceCap))),
       TRow(156, Hland(2, 5, Hilly(Tundra)), Hland(2, 0, Hilly(Tundra)), sea),
       VRow(155, Mouth(1538, HVDn)),
-      TRow(154, taigaHills, taiga * 2, Hland(4, 0, Level(Tundra))),
+      TRow(154, hillyTaiga, taiga * 2, Hland(4, 0, Level(Tundra))),
       VRow(153, Mouth(1534, HVUp)),
       TRow(152, Hland(1, 2, Level(Taiga)), taiga, Hland(2, 1, Level(Taiga)), taiga),
       VRow(151, VertIn(1532, HVDR), Mouth(1540, HVDL)),
@@ -46,7 +46,8 @@ object Terr320E30 extends Long320Terrs
       TRow(124, desert * 4, plain, desert * 4),
       VRow(123, Mouth(1538, HVUL), Mouth(1540, HVDR)),
       TRow(122, desert * 4, plain, sea, desert * 3),
-      TRow(120, desert * 6, Hland(3, 3, Hilly(Desert)), desert * 2),
+      TRow(120, desert * 6, sea, desert * 2),
+      TRow(118, desert * 5, hillyDesert, sea, hillyDesert, desert),
     )
   }
   help.run

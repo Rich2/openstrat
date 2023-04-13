@@ -72,34 +72,34 @@ object Terr80E30  extends Long80Terrs
       TRow(430, hills, plain, sea * 2, hills, mtain, hills, plain, hills * 2, sea, hills, sea, hills * 2, mtain * 5, hills * 3, mtain * 4, hills * 3,
       mtain),
 
-      TRow(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, desertHills * 2, hills * 4, desertHills * 2,
+      TRow(428, hills, sea, plain, sea, mtain * 2, hills * 2, hills * 2, sea, hills * 3, mtain, hills * 4, hillyDesert * 2, hills * 4, hillyDesert * 2,
       hills * 3, plain),
 
-      TRow(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, desertHills * 7, mtain * 2, hills,
-      desertHills * 2, mtain, desertHills),
+      TRow(426, sea, hills, sea * 3, hills, mtain, plain, hills, sea * 3, hills * 2, mtain, hills * 2, desert, hillyDesert * 7, mtain * 2, hills,
+      hillyDesert * 2, mtain, hillyDesert),
 
-      TRow(424, Hland(1, 5, Hilly()), sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, desertHills, desert * 2, desertHills * 6, mtain * 2, desertHills, lake,
-      desertHills, mtain),
+      TRow(424, Hland(1, 5, Hilly()), sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, hillyDesert, desert * 2, hillyDesert * 6, mtain * 2, hillyDesert, lake,
+      hillyDesert, mtain),
 
       VRow(423, VertIn(1500, HVUp)),
 
       TRow(422, Hland(4, 2, Mountains()), sea * 4, Isle(Hilly()), Hland(3, 4, Hilly()), Hland(2, 0, Mountains()), hills * 2, sea * 2, hills * 7, desert,
-        desertHills, desert, mtain, hills, desertHills, mtain, plain * 2, desertHills, mtain * 2, desertHills),
+        hillyDesert, desert, mtain, hills, hillyDesert, mtain, plain * 2, hillyDesert, mtain * 2, hillyDesert),
 
       VRow(421, Mouth(1504, HVDn)),
 
       TRow(420, sea * 7, hills * 2, sea * 4, hills, mtain, hills * 2, mtain, hills, plain, desert, hills * 2, mtain, hills * 2, plain * 2, desert * 4,
       mtain),
 
-      TRow(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Hland(1, 3) * 2, hills, desert * 2, plain, desert * 3, desertHills * 2, mtain),
+      TRow(418, sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Hland(1, 3) * 2, hills, desert * 2, plain, desert * 3, hillyDesert * 2, mtain),
       VRow(417, Mouth(1564, HVUR)),
 
       TRow(416, sea * 10, sea * 4, Isle(Hilly()), sea, Hland(3, 2, Mountains()), sea * 2, Hland(2, 3, Mountains()), Hland(2, 2, Mountains()), sea * 2, hills, plain,
-        desert * 7, desertHills),
+        desert * 7, hillyDesert),
 
-      TRow(414, sea * 9, hills, sea * 10, Hland(4, 5, Hilly()), sea, hills * 2, desert * 8, desertHills),
+      TRow(414, sea * 9, hills, sea * 10, Hland(4, 5, Hilly()), sea, hills * 2, desert * 8, hillyDesert),
       TRow(412, sea * 10, hills * 2, sea * 7, hills, plain, sea * 2, hills, desert * 10),
-      TRow(410, sea * 11, sea * 12, hills, desertHills, desert * 9),
+      TRow(410, sea * 11, sea * 12, hills, hillyDesert, desert * 9),
     )
   }
   help.run

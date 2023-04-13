@@ -34,8 +34,8 @@ object Terr320W90 extends Long320Terrs
       VRow(137, Mouth(9728, HVDn, Lake), VertIn(9730, HVDR, Lake), Mouth(9732, HVUR, Lake)),
       TRow(136, plain * 5, lake, taiga),
       VRow(135, VertIn(9730, HVUR, Lake), Mouth(9732, HVDR, Lake), Mouth(9740, HVDL, Lake), Mouth(9742, HVUR, Lake)),
-      TRow(134, plain * 6, forestHills),
-      TRow(132, desert, plain * 4, forestHills, hills),
+      TRow(134, plain * 6, hillyForest),
+      TRow(132, desert, plain * 4, hillyForest, hills),
       TRow(130, desert, plain * 5, hills, plain),
       TRow(128, desert, plain * 3, hills * 2, plain, sea),
     )

@@ -22,9 +22,9 @@ object Terr320E0 extends Long320Terrs
       TRow(160, WSeaIce * 2),
       TRow(156, sea * 3),
       TRow(154, sea * 4),
-      TRow(152, sea * 3, taigaHills),
-      TRow(150, sea * 3, taigaHills),
-      TRow(148, sea * 3, taigaHills, taiga),
+      TRow(152, sea * 3, hillyTaiga),
+      TRow(150, sea * 3, hillyTaiga),
+      TRow(148, sea * 3, hillyTaiga, taiga),
       TRow(146, sea, hills, sea, Hland(4, 4), Hland(3, 2, Level(Forest))),
       TRow(144, sea, Hland(4, 5), plain, sea, plain),
       TRow(142, sea, Hland(4, 2), Hland(1, 5), Hland(3, 1), plain * 2),
@@ -38,10 +38,10 @@ object Terr320E0 extends Long320Terrs
       VRow(131, MouthSpec(526, HVUL, HVRt, HVLt)),
       TRow(130, sea, Hland(3, 3), Hland(1, 3, Hilly()), Hland(2, 2, Hilly()), sea * 2, Hland(3, 5, Hilly()), Hland(2, 3, Hilly())),
       TRow(128, sea, Hland(2, 5, Hilly()), Hland(1, 0, Hilly()), hills * 3, Hland(1, 1, Hilly()), sea),
-      TRow(126, sea, Hland(1, 5), mtain, desertHills, desert * 4),
-      TRow(124, sea, desertHills, hills, desert * 6),
+      TRow(126, sea, Hland(1, 5), mtain, hillyDesert, desert * 4),
+      TRow(124, sea, hillyDesert, hills, desert * 6),
       TRow(122, desert * 9),
-      TRow(120, desert * 5, desertHills * 2, desert * 2),
+      TRow(120, desert * 5, hillyDesert * 2, desert * 2),
     )
   }
   help.run

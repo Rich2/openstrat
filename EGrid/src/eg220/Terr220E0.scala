@@ -19,10 +19,10 @@ object Terr220E0 extends Long220Terrs
       TRow(200, sice),
       TRow(198, sice),
       TRow(178, sea * 4, Hland(2, 4, Hilly(Taiga))),
-      TRow(176, sea * 5, taigaHills),
-      TRow(174, sea * 5, taigaHills),
-      TRow(172, sea * 5, taigaHills, taiga),
-      TRow(170, sea * 4, taigaHills, taiga * 2),
+      TRow(176, sea * 5, hillyTaiga),
+      TRow(174, sea * 5, hillyTaiga),
+      TRow(172, sea * 5, hillyTaiga, taiga),
+      TRow(170, sea * 4, hillyTaiga, taiga * 2),
       TRow(168, sea * 2, Hland(3, 5, Hilly()), sea * 2, Hland(2, 3, Hilly(Taiga)), taiga),
       VRow(167, VertIn(522, HVDn), VertIn(524, HVDL)),
       TRow(166, sea * 2, hills, Hland(2, 1, Hilly()), sea * 2, plain, Hland(2, 3)),
@@ -42,10 +42,10 @@ object Terr220E0 extends Long220Terrs
       TRow(146, sea, plain * 4, sea * 3, Hland(4, 1, Hilly()), sea * 2),
       TRow(144, sea * 2, plain * 3, sea * 5, hills),
       TRow(142, sea * 3, Hland(3, 2, Hilly()), sea * 2, hills * 4, Hland(3, 0, Hilly()), sea),
-      TRow(140, sea * 2, Hland(2, 5, Hilly()), hills, desertHills * 2, desert * 2, desertHills * 2, sea * 2),
-      TRow(138, sea * 2, plain, desert, desertHills, desert * 7),
+      TRow(140, sea * 2, Hland(2, 5, Hilly()), hills, hillyDesert * 2, desert * 2, hillyDesert * 2, sea * 2),
+      TRow(138, sea * 2, plain, desert, hillyDesert, desert * 7),
       TRow(136, sea * 2, mtain * 3, desert * 8),
-      TRow(134, sea, desertHills * 2, desert * 10),
+      TRow(134, sea, hillyDesert * 2, desert * 10),
       TRow(132, sea, desert * 12)
     )
   }

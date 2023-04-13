@@ -23,17 +23,17 @@ object Terr320W120 extends Long320Terrs
       VRow(151, Mouth(8708, HVUp, Lake)),
       TRow(150, mtain, taiga * 3),
       VRow(149, Mouth(8706, HVDL, Lake), VertIn(8708, HVUL, Lake)),
-      TRow(148, taigaHills * 2, taiga * 3),
+      TRow(148, hillyTaiga * 2, taiga * 3),
       TRow(146, mtain, taiga * 4),
       TRow(144, mtain, taiga * 4),
       TRow(142, sea, mtain * 2, plain * 3),
       TRow(140, sea, mtain * 2, plain * 3),
       TRow(138, sea * 2, mtain * 2, plain * 3),
-      TRow(136, sea * 2, forestHills, hills, mtain * 2, desertHills),
-      TRow(134, sea * 2, hills, desertHills, desert, desertHills * 2),
-      TRow(132, sea * 2, hills * 2, desertHills * 2, mtain),
-      TRow(130, sea * 4, hills, desertHills * 2, mtain),
-      TRow(128, sea * 4, desertHills * 2, desert, desertHills),
+      TRow(136, sea * 2, hillyForest, hills, mtain * 2, hillyDesert),
+      TRow(134, sea * 2, hills, hillyDesert, desert, hillyDesert * 2),
+      TRow(132, sea * 2, hills * 2, hillyDesert * 2, mtain),
+      TRow(130, sea * 4, hills, hillyDesert * 2, mtain),
+      TRow(128, sea * 4, hillyDesert * 2, desert, hillyDesert),
     )
   }
 
