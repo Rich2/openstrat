@@ -40,7 +40,10 @@ object Terr320E0 extends Long320Terrs
       TRow(128, sea, Hland(2, 5, Hilly()), Hland(1, 0, Hilly()), hills * 3, Hland(1, 1, Hilly()), sea),
       TRow(126, sea, Hland(1, 5), mtain, hillyDesert, desert * 4),
       TRow(124, sea, hillyDesert, hills, desert * 6),
+      VRow(123, SetSide(495)),
+      VRow(122, SetSide(496)),
       TRow(122, desert * 9),
+      VRow(121, SetSide(495)),
       TRow(120, desert * 5, hillyDesert * 2, desert * 2),
     )
   }

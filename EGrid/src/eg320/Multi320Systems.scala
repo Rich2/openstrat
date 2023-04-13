@@ -23,7 +23,7 @@ object Scen320ChinaJapan extends EScenLongMulti
 /** Scenario for 4 320km grid system for 30W 0E, 30E and 60E. */
 object Scen320S11E2 extends EScenLongMulti
 { override val title: String = "320km 30W - 60E"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 11, 126, 166)
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 11, 120)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

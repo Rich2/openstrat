@@ -228,8 +228,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** This is for setting sides on the edge of grids that sit within the hex area of the tile on the neighbouring
-   *  grid. */
+  /** This is for setting sides on the edge of grids that sit within the hex area of the tile on the neighbouring grid. */
   trait SetSideBase
   { def c: Int
     def terr: SST
