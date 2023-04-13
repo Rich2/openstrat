@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTile._
  *  area it must be assigned to France  */
 object Terr320E0 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.e0(120, 166)
+  override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
@@ -45,6 +45,7 @@ object Terr320E0 extends Long320Terrs
       TRow(122, desert * 9),
       VRow(121, SetSide(495)),
       TRow(120, desert * 5, hillyDesert * 2, desert * 2),
+      TRow(118, desert * 9),
     )
   }
   help.run
