@@ -80,6 +80,18 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     res
   }
 
+  /** Gives adjective [[String]] "1st", "2nd", "3rd", "4th", etc. */
+  def adjective: String ={
+    val endStr = thisInt % 100 match {
+      case 11 | 12 | 13 => "th"
+      case n if n % 10 == 1 => "st"
+      case n if n % 10 == 2 => "nd"
+      case n if n % 10 == 3 => "rd"
+      case _ => "th"
+    }
+    thisInt.toString + endStr
+  }
+
   def scaledStr(i1: Int, s1: String, i2:Int, s2: String, i3: Int, s3: String, pairs: (Int, String)*): String =
     scaledStr(List((i1, s1), (i2, s2), (i3, s3)) ++: pairs :_*)
 

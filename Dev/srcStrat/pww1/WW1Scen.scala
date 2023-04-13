@@ -8,7 +8,7 @@ trait WW1Scen extends HSysTurnScen
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
-  val armies: HCenOptLayer[Army]
+  val lunits: HCenOptLayer[Lunit]
 
   def endTurn(orderList: HCenStepPairArr[Army]): WW1Scen =
   {  val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
@@ -18,15 +18,15 @@ trait WW1Scen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Army] = armies.clone
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
+    val armiesNew: HCenOptLayer[Lunit] = lunits.clone
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (lunits.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new WW1Scen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
       override val terrs: HCenLayer[WTile] = ThisScen.terrs
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
-      override val armies: HCenOptLayer[Army] = armiesNew
+      override val lunits: HCenOptLayer[Lunit] = armiesNew
       override def turn: Int = ThisScen.turn + 1
     }
   }
@@ -38,10 +38,10 @@ object WW1Scen1 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr120E0.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
-  override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
-  armies.setSomeMut(310, 514, Army(Britain))
-  armies.setSomeMut(308, 528, Army(Germany))
-  armies.setSomeMut(306, 518, Army(France))
+  override val lunits: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer[Lunit]
+  lunits.setSomeMut(310, 514, Army(Britain, 1))
+  lunits.setSomeMut(308, 528, Army(Germany, 1))
+  lunits.setSomeMut(306, 518, Army(France, 1))
 }
 
 object WW1Scen2 extends WW1Scen
@@ -50,5 +50,5 @@ object WW1Scen2 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr120E30.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E30.sTerrs
   override val corners: HCornerLayer = Terr120E30.corners
-  override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
+  override val lunits: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer[Lunit]
 }
