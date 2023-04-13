@@ -2,8 +2,8 @@
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
-/** Experimental Gui. Displays grids on world as well as land mass outlines. */
-class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
+/** Displays grids on world as well as land mass outlines. */
+class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
 {
   val scen: EScenBasic = scenIn
   deb(scen.title)
@@ -104,6 +104,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   repaint()
 }
 
-object ExpWorldGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean): ExpWorldGui = new ExpWorldGui(canv,grid, view, isFlat)
+object EGSphereGui
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean): EGSphereGui = new EGSphereGui(canv,grid, view, isFlat)
 }

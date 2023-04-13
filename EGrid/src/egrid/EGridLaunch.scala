@@ -8,12 +8,12 @@ object EGridLaunch extends GuiLaunchMore
   override def settingStr: String = "eGrid"
 
   override def default: (CanvasPlatform => Any, String) =
-    (cv => GridWorldGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view(), false), "JavaFx Eath 80KM Grid")
+    (cv => EGSphereGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view(), false), "JavaFx Eath 80KM Grid")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val scenNum: Int = sts.findSettingElse("scen",1)
     val isFlat: Boolean = sts.findSettingElse("flat",false)
-    val isExp: Boolean = sts.findSettingElse("exp",false)
+    //val isExp: Boolean = sts.findSettingElse("exp",false)
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](scenNum)
 
@@ -81,7 +81,6 @@ object EGridLaunch extends GuiLaunchMore
 
       case _ => Scen320S0E11
     }
-    if (isExp) (ExpWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
-    else (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
+    (EGSphereGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
   }
 }
