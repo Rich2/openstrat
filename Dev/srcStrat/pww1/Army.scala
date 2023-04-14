@@ -1,9 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
+import pStrat._
 
 /** Unit Category */
 trait UnitCat
 { def str: String
+  def counter: UnitCounter
 }
 
 /** Land unit. */
@@ -12,6 +14,7 @@ trait Lunit extends Coloured
   def cat: UnitCat
   def num: Int
   def colour = polity.colour
+  def counter = cat.counter
 
   override def equals(other: Any): Boolean = other match
   { case that: Lunit => polity == that.polity & num == that.num
@@ -25,16 +28,16 @@ case class Army(polity: Polity, num: Int) extends Lunit
 }
 
 object Army extends UnitCat
-{
-  override def str: String = "Army"
+{ override def str: String = "Army"
+  override def counter: UnitCounter = InfantryCounter
 }
 
 case class CavalryCorps(polity: Polity, num: Int) extends Lunit
-{ override def cat: UnitCat = Army
-  override def toString = "Army".appendParenth(polity.toString -- num.adjective)
+{ override def cat: UnitCat = CavalryCorps
+  override def toString = "Cavalry Corps".appendParenth(polity.toString -- num.adjective)
 }
 
 object CavalryCorps extends UnitCat
-{
-  override def str: String = "Cavalry Corps"
+{ override def str: String = "Cavalry Corps"
+  override def counter: UnitCounter = CavalryCounter
 }

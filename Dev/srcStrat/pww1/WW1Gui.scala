@@ -20,9 +20,9 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   {
     def hexStrs: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
-    def units: GraphicElems = lunits.projSomeHcPtMap { (army, hc, pt) =>
-      val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.UnitCounters.infantry(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+    def units: GraphicElems = lunits.projSomeHcPtMap { (lunit, hc, pt) =>
+      val str = ptScale.scaledStr(170, lunit.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, lunit.toString)
+      lunit.counter(proj.pixelsPerTile * 0.6, lunit, lunit.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
     tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2++ hexStrs ++ units

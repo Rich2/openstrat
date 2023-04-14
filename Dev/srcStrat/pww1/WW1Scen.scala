@@ -41,6 +41,7 @@ object WW1Scen1 extends WW1Scen
   override val lunits: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer[Lunit]
   lunits.setSomeMut(310, 514, Army(Britain, 1))
   lunits.setSomeMut(308, 528, Army(Germany, 1))
+  lunits.setSomeMut(306, 526, CavalryCorps(Germany, 1))
   lunits.setSomeMut(306, 518, Army(France, 1))
 }
 
