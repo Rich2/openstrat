@@ -70,6 +70,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** multiplies this Int by a quadrillion and returns the result as [[Long]]. */
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
 
+  /** Returns a [[String]] of of the given number of space characters. */
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
 
   def scaledStr(pairs: (Int, String)*): String = {

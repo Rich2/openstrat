@@ -2,9 +2,18 @@
 package ostrat; package dless
 import Colour._
 
-trait Nation
+trait NationOpt extends Coloured
+{ def altColour: Colour = colour
+}
+
+object NationLess extends NationOpt
+{
+  override val colour: Colour = DarkBlue
+}
+
+trait Nation extends NationOpt
 { val name: String
-  val colour: Colour
+
   override def toString: String = name
   def army(num: Int): Army = Army(this, num)
   def armyNext()(implicit counters: ArrCounters[Nation]): Army = army(counters(this))
@@ -18,6 +27,7 @@ object Britain extends Nation
 object France extends Nation
 { override val name: String = "France"
   override val colour: Colour = DarkBlue
+  override def altColour: Colour = LightBlue
 }
 
 object Germany extends Nation
@@ -48,4 +58,9 @@ object Ottoman extends Nation
 object Spain extends Nation
 { override val name: String = "Spain"
   override val colour: Colour = Orange
+}
+
+object Neutral extends Nation
+{ override val name: String = "Neutral"
+  override val colour: Colour = Gray
 }

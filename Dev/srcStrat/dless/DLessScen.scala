@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package dless
-import prid._, phex._, eg320._, pEarth._, egrid._
+import prid._, phex._, eg320._, egrid._
 
 /** Scenario trait for Diceless. */
 trait DLessScen extends HSysTurnScen
@@ -59,6 +59,10 @@ object DLessScen1 extends DLessScen
     res.setFSomesMut(Spain.armyNext, 132,508,  130,510)
     res
   }
+
+  val nationMap = gridSys.newHCenLayer[NationOpt](NationLess)
+  terrs.hcForeach{ (hc, terr) => if(terr.isLand) nationMap.set(hc, Neutral) }
+  //nationMap.setRowPartSame(138, 510, 3, France)
 }
 
 /** 2nd scenario for Diceless. Might have some use. */
