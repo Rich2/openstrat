@@ -13,8 +13,8 @@ trait Lunit extends Coloured
 { def polity: Polity
   def cat: UnitCat
   def num: Int
-  def colour = polity.colour
-  def counter = cat.counter
+  def colour: Colour = polity.colour
+  def counter: UnitCounter = cat.counter
 
   override def equals(other: Any): Boolean = other match
   { case that: Lunit => polity == that.polity & num == that.num
@@ -24,7 +24,7 @@ trait Lunit extends Coloured
 
 case class Army(polity: Polity, num: Int) extends Lunit
 { override def cat: UnitCat = Army
-  override def toString = "Army".appendParenth(polity.toString -- num.adjective)
+  override def toString: String = "Army".appendParenth(polity.toString -- num.adjective)
 }
 
 object Army extends UnitCat
@@ -34,7 +34,7 @@ object Army extends UnitCat
 
 case class CavalryCorps(polity: Polity, num: Int) extends Lunit
 { override def cat: UnitCat = CavalryCorps
-  override def toString = "Cavalry Corps".appendParenth(polity.toString -- num.adjective)
+  override def toString: String = "Cavalry Corps".appendParenth(polity.toString -- num.adjective)
 }
 
 object CavalryCorps extends UnitCat
