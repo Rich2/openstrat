@@ -323,7 +323,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  /** This method is not yet fully correct. */
+  /** Finds the [[HCoord]] from the [[HVert]] in the given [[HVDirn]] if it exists in the [[EGridSys]], else returns None. */
   override def vertToCoordFind(r: Int, c: Int, dirn: HVDirn): Option[HCoord] =
   { val hv1 = HVert(r, c)
     val hc = hv1.dirnTo(dirn)
@@ -334,8 +334,9 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVUp | HVUR | HVUL if r == grid.topSideR => None
       case HVDR | HVDn | HVDL if r == grid.bottomSideR => None
       case HVUR | HVRt | HVDR if isRightMan => None
-      case HVDL | HVLt | HVUL if isLeftMan => None
+      case HVDL | HVLt | HVUL  if isLeftMan => None
 
+      case HVUp if c < grid.rowLeftCenC(r + 1) & isRightMan => None
       case HVUp if (c < grid.rowLeftCenC(r + 1 )) & vUp => Some(HVertLow(r + 2, ltGrid.rowRightCenC(r + 1) + 2))
       case HVUp if c < grid.rowLeftCenC(r + 1) => {
         val hc1 = ltGrid.rowRightCenC(r + 1)
@@ -358,6 +359,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVDR if vUp => Some(HVertLow(r, rtGrid.rowLeftCenC(r - 1) - 2))
       case HVDR => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
 
+      case HVDn if c < grid.rowLeftCenC(r - 1)  & isLeftMan => None
       case HVDn if (c < grid.rowLeftCenC(r - 1 )) & vUp => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
       case HVDn if c < grid.rowLeftCenC(r - 1) => Some(HVertHigh(r - 2, ltGrid.rowRightCenC(r - 1) - 2))
 
@@ -368,6 +370,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
         Some(value)
       }
 
+      case HVDn if isRightMan => None
       case HVDn => Some(HVertHigh(r - 2, rtGrid.rowLeftCenC(r - 1) - 2))
 
       case HVDL if vUp => Some(HVertLow(r, ltGrid.rowRightCenC(r - 1) + 2))
@@ -380,8 +383,6 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HVRt => Some(HVertLow(r, rtGrid.rowVertLowLeftC(r) + 4))
       case HVLt if HVert.rcISHigh(r, c) => Some(HVertHigh(r, rtGrid.rowVertHighRightC(r) - 4))
       case HVLt => Some(HVertLow(r, rtGrid.rowVertLowRightC(r) - 4))
-
-      case dirn => excep(s"$dirn")
     }
   }
 }
