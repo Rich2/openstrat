@@ -2,15 +2,16 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTile._
 
-/** 320 km terrain for 120 west. */
+/** 320km terrain for 120 west. */
 object Terr320W120 extends Long320Terrs
-{ override implicit val grid: EGrid320LongFull = EGrid320.w120(128, 166)
+{ override implicit val grid: EGrid320LongFull = EGrid320.w120(126)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rowDatas: RArr[RowBase] = RArr(
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
       TRow(166, sice),
       TRow(164, WSeaIce),
       TRow(162, WSeaIce, tundra),
@@ -32,8 +33,9 @@ object Terr320W120 extends Long320Terrs
       TRow(136, sea * 2, hillyForest, hills, mtain * 2, hillyDesert),
       TRow(134, sea * 2, hills, hillyDesert, desert, hillyDesert * 2),
       TRow(132, sea * 2, hills * 2, hillyDesert * 2, mtain),
-      TRow(130, sea * 4, hills, hillyDesert * 2, mtain),
-      TRow(128, sea * 4, hillyDesert * 2, desert, hillyDesert),
+      TRow(130, sea * 3, hills, hills, hillyDesert * 2, mtain),
+      TRow(128, sea * 3, hills, hillyDesert * 2, desert, hillyDesert),
+      TRow(126, sea * 5, hills, hillyDesert, desert),
     )
   }
 

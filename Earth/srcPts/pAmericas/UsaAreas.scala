@@ -24,19 +24,25 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), Plain)
 
 /** Graphical object for the east of the United States. Dependant on [[SouthWestCanada]]. */
 object UsaWest extends EArea2("United States\nwest", 40.0 ll - 108.0, Desert)
-{ val sanDiego = 32.57 ll -117.11
-  val humboldt = 40.44 ll -124.40
-  val capeBlanco = 42.84 ll -124.56
-  val neahBay = 48.37 ll -124.67
-  val galveston = 29.31 ll -94.77
-  val rockyPoint = 31.16 ll -113.02
-  val montague = 31.70 ll -114.71
+{ val sanDiego: LatLong = 32.57 ll -117.11
+  val carlsbad: LatLong = 33.16 ll -117.36
+  val pointVicente: LatLong = 33.74 ll -118.41
+  val conceptionPoint: LatLong = 34.45 ll -120.47
+  val pointReyes: LatLong = 38.00 ll -123.02
+  val pointArena: LatLong = 38.95 ll -123.74
+  val humboldt: LatLong = 40.44 ll -124.40
+  val capeBlanco: LatLong = 42.84 ll -124.56
+  val neahBay: LatLong = 48.37 ll -124.67
+  val galveston: LatLong = 29.31 ll -94.77
+  val rockyPoint: LatLong = 31.16 ll -113.02
+  val montague: LatLong = 31.70 ll -114.71
 
-  override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, capeBlanco, neahBay, SouthWestCanada.w49th, LakeWinnipeg.redMouth, galveston, rockyPoint, montague)
+  override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, pointReyes, pointArena, humboldt, capeBlanco,
+    neahBay, SouthWestCanada.w49th, LakeWinnipeg.redMouth, galveston, rockyPoint, montague)
 
-  val lasVegas = LocationLL("Las Vegas", 36.17, -115.14, 2)
-  val denver = LocationLL("Denver", 39.74, -105, 2)
-  val losAngeles = LocationLL("Los Angeles", 34.05, -118.24, 1)
+  val lasVegas: LocationLL = LocationLL("Las Vegas", 36.17, -115.14, 2)
+  val denver: LocationLL = LocationLL("Denver", 39.74, -105, 2)
+  val losAngeles: LocationLL = LocationLL("Los Angeles", 34.05, -118.24, 1)
 
   override val places: LocationLLArr = LocationLLArr(lasVegas, denver, losAngeles)
 }
