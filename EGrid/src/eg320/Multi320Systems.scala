@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** Scenario for 2 Grid system for 0E and 30E */
 object Scen320s0e1 extends EScenLongMulti
 { override val title: String = "320km 0E - 30E"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 120, 166)
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 120)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -14,7 +14,7 @@ object Scen320s0e1 extends EScenLongMulti
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */
 object Scen320ChinaJapan extends EScenLongMulti
 { override val title: String = "320km 90E - 150E"
-  implicit override val gridSys: EGrid320LongMulti = EGrid320.multi(3, 3, 126, 166)
+  implicit override val gridSys: EGrid320LongMulti = EGrid320.multi(3, 3, 126)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -47,19 +47,10 @@ object Scen320S10E5 extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** All longitudes grid system. */
-object Grids320S0E11 extends EGrid320LongMulti
-{ ThisSys =>
-  override val gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = EGrid320.grids(12, 0, 126)
-  override val gridMans: RArr[EGridLongMan] = iUntilMap(12)(EGridLongMan(_, ThisSys))
-  override val headGridInt: Int = 0
-}
-
 /** Just terrain scenario for all longitudes grid system. */
-object Scen320S0E11 extends EScenLongMulti
+object Scen320All extends EScenLongMulti
 { override val title: String = "All longitude terrain only scenario."
-  override implicit val gridSys: EGrid320LongMulti = Grids320S0E11
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(12, 0, 126)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

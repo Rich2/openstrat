@@ -36,7 +36,7 @@ object EGridLaunch extends GuiLaunchMore
       case 13 => Scen320ChinaJapan
       case 14 => Scen320S11E2
       case 15 => Scen320S10E5
-      case 16 => Scen320S0E11
+      case 16 => Scen320All
       case 17 => BritReg220.regScen
       case 18 => Scen320Americas
       case 19 => ScenNCanada
@@ -79,7 +79,7 @@ object EGridLaunch extends GuiLaunchMore
       case 92 => Scen80s0s1
       case 93 => WesternFront.wFrontScen
 
-      case _ => Scen320S0E11
+      case _ => Scen320All
     }
     (EGSphereGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
   }
