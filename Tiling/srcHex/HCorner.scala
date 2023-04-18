@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** Hex tile corner. A corner encodes 1 or 2 [[HVOffsetDelta]]s. An [[HVert]] is shared between 3 hex tiles and 3 [[HSide]]s. An [[HCoroner]] only applies
- *  to a single hex tile. Hence unless it is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This class
- *  encodes a single or two [[HVertoffset]]s. */
+/** Hex tile corner. A corner encodes 1 or 2 [[HVOffsetDelta]]s. An [[HVert]] is shared between 3 hex tiles and 3 [[HSide]]s. An [[HCoroner]] only
+ *  applies to a single hex tile. Hence unless it is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This
+ *  class encodes a single or two [[HVertoffset]]s. */
 class HCorner(val unsafeInt: Int) extends AnyVal
 {
   def numVerts: Int = unsafeInt %% 4
@@ -41,7 +41,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   }
 
   /** Returns the vertices of a side feature, such as a straits or a wall. The vertices are specified as [[HVOffset]]. */
-  def sideVerts(hVert: HVert): HVOffsetArr = HVOffsetArr(v1(hVert))
+  def sideVertsFirst(hVert: HVert): HVOffsetArr = ife(numVerts == 3, HVOffsetArr(hVert.noOffset, v1(hVert)), HVOffsetArr(v1(hVert)))
 }
 
 /** Companion object for [[HCorner]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */
@@ -56,9 +56,8 @@ object HCorner
     new HCorner(2 + v1 + v2 * 2048)
   }
 
-  def sideDouble(dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int): HCorner =
+  def sideSpecial(dirn1: HVDirnOpt, magnitude1: Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 64
-    val v2 = dirn2.int1 + magnitude2 * 16
-    new HCorner(3 + v1 + v2 * 2048)
+    new HCorner(3 + v1)
   }
 }

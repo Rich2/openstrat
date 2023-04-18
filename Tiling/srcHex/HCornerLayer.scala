@@ -22,7 +22,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-  def cornersForSide(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetArr = corner(hCen, vertNum).sideVerts(hCen.verts(vertNum))
+  def sideCornerFirst(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetArr = corner(hCen, vertNum).sideVertsFirst(hCen.verts(vertNum))
 
   /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
@@ -124,49 +124,49 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 0. */
   def setMouth0(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 0, HVUL, HVUR, magnitude, magnitude)
-    setCorner(r + 2, c - 2, 2, HVUL, magnitude)
-    setCorner(r + 2, c + 2, 4, HVUR, magnitude)
+  { setCornerPair(r, c, 0, HVDL, HVDR, magnitude, magnitude)
+    setCorner(r + 2, c - 2, 2, HVDL, magnitude)
+    setCorner(r + 2, c + 2, 4, HVDR, magnitude)
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 1. */
   def setMouth1(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 1, HVUp, HVDR, magnitude, magnitude)
-    setCorner(r + 2, c + 2, 3, HVUp, magnitude)
-    setCorner(r, c + 4, 5, HVDR, magnitude)
+  { setCornerPair(r, c, 1, HVUL, HVDn, magnitude, magnitude)
+    setCorner(r + 2, c + 2, 3, HVUL, magnitude)
+    setCorner(r, c + 4, 5, HVDn, magnitude)
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 2. */
   def setMouth2(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 2, HVUR, HVDn, magnitude, magnitude)
-    setCorner(r, c + 4, 4, HVUR, magnitude)
-    setCorner(r - 2, c + 2, 0, HVDn, magnitude)
+  { setCornerPair(r, c, 2, HVUp, HVDL, magnitude, magnitude)
+    setCorner(r, c + 4, 4, HVUp, magnitude)
+    setCorner(r - 2, c + 2, 0, HVDL, magnitude)
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 3. */
   def setMouth3(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 3, HVDR, HVDL, magnitude, magnitude)
-    setCorner(r - 2, c + 2, 5, HVDR, magnitude)
-    setCorner(r - 2, c - 2, 1, HVDL, magnitude)
+  { setCornerPair(r, c, 3, HVUR, HVUL, magnitude, magnitude)
+    setCorner(r - 2, c + 2, 5, HVUR, magnitude)
+    setCorner(r - 2, c - 2, 1, HVUL, magnitude)
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 4. */
   def setMouth4(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 4, HVDn, HVUL, magnitude, magnitude)
-    setCorner(r - 2, c - 2, 0, HVDn, magnitude)
-    setCorner(r, c - 4, 2, HVUL, magnitude)
+  { setCornerPair(r, c, 4, HVDR, HVUp, magnitude, magnitude)
+    setCorner(r - 2, c - 2, 0, HVDR, magnitude)
+    setCorner(r, c - 4, 2, HVUp, magnitude)
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
   def setMouth5(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
-    setCorner(r, c - 4, 1, HVDL, magnitude)
-    setCorner(r + 2, c - 2, 3, HVUp, magnitude)
+  { setCornerPair(r, c, 5, HVDn, HVUR, magnitude, magnitude)
+    setCorner(r, c - 4, 1, HVDn, magnitude)
+    setCorner(r + 2, c - 2, 3, HVUR, magnitude)
   }
 
   /** Sets the end of a side terrain from off the [[HGrid]] at what would have been vertex 3 for the other 2 tiles. For example the the mouth of
@@ -216,15 +216,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   /** Sets the corner in towards the [[HCen]] with a single [[HVOffsetDelta]]. Would like to make this protected and possibly remove altogether. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { val i = vertNum %% 6
-    val dirn = i match
-    { case 0 => HVDn
-      case 1 => HVDL
-      case 2 => HVUL
-      case 3 => HVUp
-      case 4 => HVUR
-      case 5 => HVDR
-    }
+  { val dirn = HVDirn.inFromVertIndex(vertNum)
     setCorner(cenR, cenC, vertNum, dirn, magnitude)
   }
 
@@ -255,18 +247,18 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Sets a single [[HCorner]] corner with 1 [[HVOffsetDelta]] for the tile 2 for the [[hSide]]. */
-  def setSideCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, dirn2: HVDirnOpt, magnitude1: Int = 3, magnitude2: Int = 3)(
-    implicit grid: HGrid): Unit = setSideCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
+  def setSideCornerSpecial(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int = 3)(
+    implicit grid: HGrid): Unit = setSideSpecial(HCen(cenR, cenC), vertNum, dirn1, magnitude1)
 
   /** Sets a single [[HCorner]] corner with [[HVOffsetDelta]] for the tile 2 for the HSide. */
-  def setSideCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int)(implicit grid: HGrid): Unit =
-  { val corner = HCorner.sideDouble(dirn1, magnitude1, dirn2, magnitude2)
+  def setSideSpecial(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int)(implicit grid: HGrid): Unit =
+  { val corner = HCorner.sideSpecial(dirn1, magnitude1)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }
 
   /** Creates a T junction of Straits or other terrain. */
-  def setTJunction(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = None match
+  /*def setTJunction(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = None match
   { case _ if (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2) =>
     { setSideCorner2(r + 1, c + 2, 4, HVUR, HVDn, magnitude, magnitude)
       setCornerIn(r + 1, c - 2, 2)
@@ -279,7 +271,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     }
 
     case _ => excep(s"r = $r, c = $c are  not valid coordinates for an HVert.")
-  }
+  }*/
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
   def setVertSingle(r: Int, c: Int, dirn: HVDirnOpt, magnitude: Int)(implicit grid: HGrid): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
@@ -321,11 +313,13 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       case Some(_) =>
       { val (hcRt, vi) = hs.tileRtAndVert
         val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
-        val p1: HVOffset = cornerV1(hcRt, vi)
+        val p1 = sideCornerFirst(hcRt, vi)// cornerV1(hcRt, vi)
         val p2: HVOffset = cornerV1(hcRt, (vi - 1) %% 6)
         val p3: HVOffset = cornerV1(hcLt, (lvi + 1) %% 6)
         val p4: HVOffset = cornerV1(hcLt, (lvi) %% 6)
-        PolygonHVOffset(hcRt.vExact(vi), p1, p2, hcRt.vExact(vi - 1), p3, p4)
+        val arr = p1 ++ HVOffsetArr(p2, p3, p4)
+        arr.toPolygon
+        //PolygonHVOffset(p1, p2, p3, p4)
       }
     }
   }

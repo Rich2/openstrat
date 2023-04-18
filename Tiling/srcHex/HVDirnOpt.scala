@@ -81,6 +81,15 @@ object HVDirn
     case 8 => HVLt
     case n => excep(s"$n is an invalid Int value for an HVDirn.")
   }
+
+  def inFromVertIndex(inp: Int): HVDirn = inp %% 6 match {
+    case 0 => HVDn
+    case 1 => HVDL
+    case 2 => HVUL
+    case 3 => HVUp
+    case 4 => HVUR
+    case 5 => HVDR
+  }
 }
 
 sealed trait HVDirnPrimary extends HVDirn
