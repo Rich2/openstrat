@@ -30,7 +30,10 @@ object Civ1 extends CivScenStart
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(12, Plain * 4, Hill, Mountain * 2, Plain * 3),
       VRow(9, Mouth(26, HVUp, River)),
-      VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River), ThreeWay(26, River)),
+
+      VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River), ThreeWay(26, River), VertIn(28, HVUp, River), VertIn(30, HVDn, River),
+        VertIn(32, HVUp, River), VertIn(34, HVDn, River), VertIn(36, HVUp, River), VertIn(38, HVDn, River)),
+
       TRow(6, Plain * 5, SideB(River)),
       VRow(5, Mouth(22, HVDL, River), VertIn(24, HVUL, River)),
       TRow(4, Hill * 3, Plain * 7),
