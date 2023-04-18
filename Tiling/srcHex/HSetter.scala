@@ -13,8 +13,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
   def corners: HCornerLayer
 
   /** Sets the side terrain and corners for an Island. */
-  trait IsleBase {
-    def terr: TT
+  trait IsleBase
+  { def terr: TT
 
     def sTerr: SST
 

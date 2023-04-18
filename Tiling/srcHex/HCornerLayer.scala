@@ -22,10 +22,12 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-  def sideCornerFirst(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetArr = corner(hCen, vertNum).sideVertsFirst(hCen.verts(vertNum))
+//  def sideCornerFirst(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetArr = corner(hCen, vertNum).sideVertsFirst(hCen.verts(vertNum))
 
   /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
+
+  def isSpecial(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).isSpecial
 
   /** Produces an [[HSide]]'s line segment specified in [[HVOffset]] coordinates. */
   def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
@@ -215,9 +217,19 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setMouth5Corner(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
 
   /** Sets the corner in towards the [[HCen]] with a single [[HVOffsetDelta]]. Would like to make this protected and possibly remove altogether. */
-  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
+  /*def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   { val dirn = HVDirn.inFromVertIndex(vertNum)
     setCorner(cenR, cenC, vertNum, dirn, magnitude)
+  }*/
+
+  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = {
+    val dirn = HVDirn.inFromVertIndex(vertNum)
+
+    if (grid.hCenExists(cenR, cenC)) {
+      val corner = HCorner.sideSpecial(dirn, magnitude)
+      val index = unsafeIndex(cenR, cenC, vertNum)
+      unsafeArray(index) = corner.unsafeInt
+    }
   }
 
   def set2CornersIn(cenR: Int, cenC: Int, firstVertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
@@ -313,13 +325,16 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       case Some(_) =>
       { val (hcRt, vi) = hs.tileRtAndVert
         val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
-        val p1 = sideCornerFirst(hcRt, vi)// cornerV1(hcRt, vi)
-        val p2: HVOffset = cornerV1(hcRt, (vi - 1) %% 6)
-        val p3: HVOffset = cornerV1(hcLt, (lvi + 1) %% 6)
-        val p4: HVOffset = cornerV1(hcLt, (lvi) %% 6)
-        val arr = p1 ++ HVOffsetArr(p2, p3, p4)
-        arr.toPolygon
-        //PolygonHVOffset(p1, p2, p3, p4)
+        val p1 = cornerV1(hcRt, vi)
+        val vi2 = (vi - 1) %% 6
+        val p2: HVOffset = cornerV1(hcRt, vi2)
+        val vi3 = (lvi + 1) %% 6
+        val p3: HVOffset = cornerV1(hcLt, vi3)
+        val vi4 = lvi %% 6
+        val p4: HVOffset = cornerV1(hcLt, vi4)
+        val arr1: HVOffsetArr = ife(isSpecial(hcRt, vi) & isSpecial(hcLt, vi4), HVOffsetArr(hcRt.vExact(vi), p1, p2), HVOffsetArr(p1, p2))
+        val arr2: HVOffsetArr = ife(isSpecial(hcRt, vi2) & isSpecial(hcLt, vi3), HVOffsetArr(hcRt.vExact(vi2), p3, p4), HVOffsetArr(p3, p4))
+        (arr1 ++ arr2).toPolygon
       }
     }
   }
