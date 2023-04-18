@@ -1,7 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._
+import geom._, pglobe._
 
+/** [[PolygonLL]] graphic for Taiwan depends on nothing. */
 object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, Hilly)
 { val north = 25.29 ll 121.57
   val northEast = 25.01 ll 122.01
@@ -12,38 +13,41 @@ object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, Hilly)
   override val polygonLL = PolygonLL(north, northEast, south, west, p10)
 }
 
-/** [[PolygonLL]] graphic for south east Asia */
-object seAsia extends EArea2("SEAsia", 26.0 ll 104.0, Plain)
-{ val p5 = 38.15 ll 118.81
-  val jiolaiMouth = 37.11 ll 119.57
-  val p10 = 37.82 ll 120.75
-  val p12 = 36.90 ll 122.52
-  val rongcheng = degs(37.39, 122.69)
-  val haitzhou = degs(34.95, 119.20)
-  val putuo = degs(29.9, 122.34)
-  val longhai = degs(24.26, 118.14)
-  val hongKong = degs(22.44, 114.16)
-  val xuwen = degs(20.24, 110.18)
-  val yingzaiMouth = degs(21.45, 109.90)
+/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
+object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, Plain)
+{ val p5: LatLong = 38.15 ll 118.81
+  val jiolaiMouth: LatLong = 37.11 ll 119.57
+  val p10: LatLong = 37.82 ll 120.75
+  val p12: LatLong = 36.90 ll 122.52
+  val rongcheng: LatLong = 37.39 ll 122.69
+  val haitzhou: LatLong = 34.95 ll 119.20
+  val p15: LatLong = 34.30 ll 120.28
+  val p18 : LatLong = 31.71 ll 121.98
+  val putuo: LatLong = 29.9 ll 122.34
+  val longhai: LatLong = 24.26 ll 118.14
+  val hongKong: LatLong = 22.44 ll 114.16
+  val xuwen: LatLong = 20.24 ll 110.18
+  val yingzaiMouth: LatLong = 21.45 ll 109.90
 
-  val neVietnamLong = 108.east
-  val neVietnam = 21.54.north * neVietnamLong
+  override val polygonLL = PolygonLL(CEAsia.binhai, p5, jiolaiMouth, p10, rongcheng, p12, haitzhou, p15, p18, putuo, longhai, hongKong, xuwen,
+    yingzaiMouth, IndoChina.beilunMouth, IndoChina.chittagong, India.magdhara, India.indiaNE,  CentralAsia.southEast)
+}
 
-  val eVietnam = degs(12.93, 109.37)
-  val dienChau = degs(18.99, 105.56)
-  val sVietnam = degs(8.68, 104.92)
-  val bankok = degs(13.59, 100.39)
-  val seMalaysia = degs(1.39, 104.25)
-  val swMalaysia = degs(1.32, 103.47)
-  val selekoh = degs(3.89, 100.73)
-  val neMalayPen = degs(13.48, 98.45)
-  val sittangMouth = degs(17.36, 96.89)
-  val pathein = degs(16.17, 94.31)
+/** [[PolygonLL]] graphic for IndoChina depends on nothing. */
+object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, Jungles)
+{ val beilunMouth: LatLong = 21.50 ll 108.08
+  val eVietnam: LatLong = 12.93 ll 109.37
+  val dienChau: LatLong = 18.99 ll 105.56
+  val sVietnam: LatLong = 8.68 ll 104.92
+  val bankok: LatLong = 13.59 ll 100.39
+  val seMalaysia: LatLong = 1.39 ll 104.25
+  val swMalaysia: LatLong = 1.32 ll 103.47
+  val selekoh: LatLong = 3.89 ll 100.73
+  val neMalayPen: LatLong = 13.48 ll 98.45
+  val sittangMouth: LatLong = 17.36 ll 96.89
+  val pathein: LatLong = 16.17 ll 94.31
+  val chittagong: LatLong = 22.74 ll 91.54
 
-  val chittagong = degs(22.74, 91.54)
-  val seAsiaNE = India.mianiLat * neVietnamLong
-
-  override val polygonLL = PolygonLL(CEAsia.binhai, p5, jiolaiMouth, p10, rongcheng, p12, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth, neVietnam,
-    dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong, India.magdhara,
-    India.indiaNE,  CentralAsia.southEast)
+  override val polygonLL = PolygonLL(beilunMouth, dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth,
+    pathein, chittagong)
 }

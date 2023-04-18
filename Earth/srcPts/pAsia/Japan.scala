@@ -24,7 +24,7 @@ object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, Hilly)
   override val polygonLL = PolygonLL(north, p10, east, southEast, capeChikyu, south, p90)
 }
 
-object japan extends EArea2("Japan", degs(36.28, 138.71), Hilly)
+object Honshu extends EArea2("Honshu", 36.28 ll 138.71, Hilly)
 { val oma = 41.49 ll 140.94
   val p5 = 41.43 ll 141.46
   val p10 = 39.55 ll 142.06
@@ -38,11 +38,11 @@ object japan extends EArea2("Japan", degs(36.28, 138.71), Hilly)
   val p22 = 34.61 ll 138.84
   val p24 = 34.28 ll 136.90
   val p25 = 34.18 ll 136.33
-  val sKyshu = 31.08 ll 130.75
-  val capeKute = 33.44 ll 135.76
-  val p30 = 32.80 ll 131.97
 
-  val neKyushu = 33.34 ll 129.45
+  val capeKute = 33.44 ll 135.76
+  val capeAhizuri = 32.72 ll 133.02
+  val p45 = 33.93 ll 131.27
+
   val p60 = 35.42 ll 132.63
   val p65 = 35.78 ll 135.22
   val p68 = 35.60 ll 135.46
@@ -53,6 +53,15 @@ object japan extends EArea2("Japan", degs(36.28, 138.71), Hilly)
   val p90 = 40.62 ll 139.89
   val capeTappi = 41.26 ll 140.34
 
-  override val polygonLL = PolygonLL(oma, p5, p10, p15, naruseMouth, takaseMouth, p16, choshi, p18, p22, p24, p25, capeKute, p30,
-    sKyshu, neKyushu, p60, p65, p68, p70, p72, kashiwazaki, p85, p90, capeTappi)
+  override val polygonLL = PolygonLL(oma, p5, p10, p15, naruseMouth, takaseMouth, p16, choshi, p18, p22, p24, p25, capeKute, capeAhizuri, p45, p60, p65, p68, p70, p72, kashiwazaki, p85, p90, capeTappi)
+}
+
+object Kyshu extends EArea2("Kyushu", 32.80 ll 131.02, Hilly)
+{ val north = 33.95 ll 130.83
+  val northWest = 33.69 ll 131.59
+  val sKyshu = 31.08 ll 130.75
+  val p30 = 32.80 ll 131.97
+  val neKyushu = 33.34 ll 129.45
+
+  override val polygonLL = PolygonLL(north, northWest, p30, sKyshu, neKyushu)
 }

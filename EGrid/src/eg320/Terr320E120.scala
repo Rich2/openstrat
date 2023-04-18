@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 /** Terrain for 30km 150 degrees east. */
 object Terr320E120 extends Long320Terrs
-{ override implicit val grid: EGrid320LongFull = EGrid320.e120(126)
+{ override implicit val grid: EGrid320LongFull = EGrid320.e120(124)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
@@ -32,10 +32,13 @@ object Terr320E120 extends Long320Terrs
       VRow(133, Mouth(4610, HVUp)),
       TRow(132, plain * 3, Hland(2, 2, Hilly()), Hland(1, 3, Hilly()), hills, sea),
       TRow(130, desert, plain * 3, Hland(3, 0), Hland(2, 4,Hilly()), Hland(2, 1, Hilly()), sea),
-      VRow(131, Mouth(4606, HVUL)),
+      VRow(131, Mouth(4606, HVUL), Mouth(4614, HVUR)),
       TRow(130, desert, plain * 3, Hland(3, 0), Hland(2, 4,Hilly()), Hland(2, 1, Hilly()), sea),
       TRow(128, plain * 3, Hland(1, 2), sea, Hland(3, 2, Hilly()), sea, hills),
-      TRow(126, mtain, hills, plain * 2, sea * 3, hills),
+      VRow(127, Mouth(4608, HVDL)),
+      TRow(126, mtain, hills, plain * 2, Hland(2, 0), sea * 2, hills),
+      VRow(125, Mouth(4612, HVDn)),
+      TRow(124, hills, mtain, plain, hills * 2),
     )
   }
   help.run
