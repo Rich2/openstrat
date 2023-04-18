@@ -32,7 +32,7 @@ object Civ1 extends CivScenStart
       VRow(9, Mouth(26, HVUp, River)),
 
       VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River), ThreeWay(26, River), VertIn(28, HVUp, River), VertIn(30, HVDn, River),
-        VertIn(32, HVUp, River), VertIn(34, HVDn, River), VertIn(36, HVUp, River), VertIn(38, HVDn, River)),
+        VertIn(32, HVUp, River), VertIn(34, HVDn, River), VertIn(36, HVUp, River), VertIn(38, HVDn, River), Mouth(40, HVDR, River)),
 
       TRow(6, Plain * 5, SideB(River)),
       VRow(5, Mouth(22, HVDL, River), VertIn(24, HVUL, River)),
@@ -57,12 +57,13 @@ object Civ2 extends CivScenStart
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
+      VRow(11, Mouth(12, HVDR)),
       TRow(10, Plain, Hland(2, 5), Sea * 4, Isle() * 2, Sea * 2),
-      VRow(9, Mouth(8, HVDn)),
+      VRow(9, Mouth(8, HVDn), Mouth(18, HVDL)),
       TRow(8, Plain * 4, Hland(4, 0), Sea * 3, Plain, Sea),
-      VRow(7, Mouth(28, HVDR), Mouth(40, HVUp, River)),
-      TRow(6, Plain * 3, Sea * 2, Hland(3, 4, Mountain), Sea, Plain, Plain * 2),
-      VRow(5, Mouth(30, HVUp), VertIn(38, HVDR, River), VertIn(40, HVUL, River)),
+      VRow(7, Mouth(18, HVUL), Mouth(28, HVDR), Mouth(40, HVUp, River)),
+      TRow(6, Plain * 3, Sea * 2, Hland(2, 5, Mountain), Sea, Plain, Plain * 2),
+      VRow(5, Mouth(24, HVDn), Mouth(30, HVUp), VertIn(38, HVDR, River), VertIn(40, HVUL, River)),
       TRow(4, Sea * 5, Mountain * 3, Plain * 2),
       VRow(3, Mouth(30, HVDn), Mouth(36, HVDL, River), ThreeWay(38, River), Mouth(40, HVDR, River)),
       TRow(2, Plain * 10),

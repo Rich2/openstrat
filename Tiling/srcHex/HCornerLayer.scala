@@ -22,8 +22,6 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-//  def sideCornerFirst(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetArr = corner(hCen, vertNum).sideVertsFirst(hCen.verts(vertNum))
-
   /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
 
@@ -253,10 +251,11 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   /** Sets a single [[HCorner]] corner with 2 [[HVOffsetDelta]]s. */
   def setCornerPair(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int)(implicit grid: HGrid): Unit =
-  { val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
-    val index = unsafeIndex(hCen, vertNum)
-    unsafeArray(index) = corner.unsafeInt
-  }
+    if(grid.hCenExists(hCen))
+    { val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
+      val index = unsafeIndex(hCen, vertNum)
+      unsafeArray(index) = corner.unsafeInt
+    }
 
   /** Sets a single [[HCorner]] corner with 1 [[HVOffsetDelta]] for the tile 2 for the [[hSide]]. */
   def setSideCornerSpecial(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int = 3)(
@@ -264,10 +263,11 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   /** Sets a single [[HCorner]] corner with [[HVOffsetDelta]] for the tile 2 for the HSide. */
   def setSideSpecial(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int)(implicit grid: HGrid): Unit =
-  { val corner = HCorner.sideSpecial(dirn1, magnitude1)
-    val index = unsafeIndex(hCen, vertNum)
-    unsafeArray(index) = corner.unsafeInt
-  }
+    if(grid.hCenExists(hCen))
+    { val corner = HCorner.sideSpecial(dirn1, magnitude1)
+      val index = unsafeIndex(hCen, vertNum)
+      unsafeArray(index) = corner.unsafeInt
+    }
 
   /** Creates a T junction of Straits or other terrain. */
   /*def setTJunction(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = None match
