@@ -29,8 +29,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
-  /** Sets the side terrain and corners for an Island. */
-  trait LeftSideBase
+  /** Sets a side in the tile row. This is type B side. */
+  trait SideBBase
   {
     def sTerr: SST
 
@@ -237,7 +237,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
 
     def run(row: Int): Unit =
     { corners.setVertEqual(row, c, magnitude)
-      sTerrs.set(row, c + 1, st)
+      sTerrs.set(row, c - 1, st)
     }
   }
 
