@@ -2,10 +2,20 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, LatLong._
 
-/** Will be split up. Dependant on [[UsaWest]] and [[UsaEast]]. */
-object CentralAmerica extends EArea2("CAmerica", 17.31 ll -94.16, Jungles)
-{ val brownsville = degs(25.98, -97.26)
-  val coatz = degs(18.13, -94.5)
+/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaWest]], [[UsaEast]] and [[AmericasCentral]]. */
+object Mexico extends EArea2("Mexico", 24 ll -102.4, Hilly)
+{ val brownsville = 25.98 ll -97.26
+  val pochutala = 15.76 ll -96.50
+  val manzanillo = 19.15 ll -104
+  val cAmericaNW= 22.8 ll -105.97
+
+  override def polygonLL: PolygonLL = PolygonLL(UsaWest.galveston, brownsville, AmericasCentral.coatzacoalcosMouth, AmericasCentral.tehuantepecMouth,
+    pochutala, manzanillo, cAmericaNW, UsaWest.rockyPoint)
+}
+
+/** [[polygonLL]] graphical representation for central America not including most of Mexico. Depends on nothing. */
+object AmericasCentral extends EArea2("CAmerica", 14.62 ll -86.84, Jungles)
+{ val coatzacoalcosMouth: LatLong = 18.16 ll -94.41
   val champeton = degs(19.36, -90.71)
   val nwYucatan = degs(21.01, -90.3)
   val neYucatan = degs(21.48, -86.97)
@@ -18,24 +28,14 @@ object CentralAmerica extends EArea2("CAmerica", 17.31 ll -94.16, Jungles)
 
   val sePanama = degs(7.26, -77.9)
   val mariato = degs(7.22, -80.88)
-  val quebrada = degs(8.04, -82.88)
   val swGuatemala = degs(14.55, -92.21)
-  val pochutala = degs(15.76, -96.50)
-  val manzanillo = degs(19.15, -104)
-  val cAmericaNW= 22.8 ll -105.97
+  val tehuantepecMouth: LatLong = 16.19 ll -95.15
 
-  override def polygonLL: PolygonLL = PolygonLL(UsaWest.galveston, brownsville, coatz, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin,
-    stIsabel, stIgnacio, nePanama, sePanama, mariato, quebrada, swGuatemala, pochutala, manzanillo, cAmericaNW, UsaWest.rockyPoint)
+  override def polygonLL: PolygonLL = PolygonLL(coatzacoalcosMouth, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin, stIsabel,
+    stIgnacio, nePanama, sePanama, mariato, swGuatemala, tehuantepecMouth)
 }
 
-object Baja extends EArea2("Baja", 27.80 ll -113.31, Plain)
-{ val cabotPulmo = 23.37 ll -109.44
-  val sanLucas = 22.87 ll -109.91
-  val wBaja = 27.84 ll -115.07
-
-  override def polygonLL: PolygonLL = PolygonLL(UsaWest.sanDiego, UsaWest.montague, cabotPulmo, sanLucas, wBaja)
-}
-
+/** [[polygonLL]] graphical representation for Cuba. Depends on nothing. */
 object Cuba extends EArea2("Cuba", 21.97 ll -78.96, Jungles)
 { val wCuba = 21.86 ll -84.95
   val havana = 23.14 ll -82.39

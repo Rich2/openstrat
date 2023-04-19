@@ -27,6 +27,5 @@ object Terr320W150 extends Long320Terrs
       TRow(144, Hland(2, 2, Hilly(Taiga)), sea * 4),
     )
   }
-
   help.run
 }

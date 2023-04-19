@@ -35,6 +35,5 @@ object Terr320E90 extends Long320Terrs
       TRow(124, plain, mtain, hillyDesert * 2, mtain * 4, hills),
     )
   }
-
   help.run
 }
