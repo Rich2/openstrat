@@ -1,13 +1,15 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
 /** A latitude-longitude line path. A quasi line path where the points are stored as points of latitude and longitude.Once the points are converted into a
  *  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create line paths that span an arc of greater than 90
  *  degrees as this may break the algorithms. */
-class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSpec with LinePathDbl2[LatLong]
+final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSpec with LinePathDbl2[LatLong]
 { override type ThisT = LinePathLL
-  override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
+  override type PolygonT = PolygonLL
   override def typeStr: String = "LinePathLL"
+  override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
+  override def polygonFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
   /** Alias for concatElem. Concatenate [[LatLong]] element, returning a new [[LinePathLL]]. An immutable append. */
   inline def +% (newElem: LatLong): LinePathLL = concatElem(newElem)
@@ -28,28 +30,6 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
   { val res = LinePathLL.uninitialised(ssLength + 1)
     res.setElemUnsafe(0, newElem)
     ssIForeach{ (i, ll) => res.setElemUnsafe(i + 1, ll) }
-    res
-  }
-
-  /** Aliased by concat. Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. */
-  //inline def ++ (operand: LinePathLL): LinePathLL = concat(operand)
-
-  /** Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
-  def concat (operand: LinePathLL): LinePathLL =
-  { val res = LinePathLL.uninitialised(ssLength + operand.ssLength)
-    ssIForeach{ (i, ll) => res.setElemUnsafe(i, ll) }
-    operand.ssIForeach(ssLength) { (i, ll) => res.setElemUnsafe(i, ll) }
-    res
-  }
-
-  /** Alias for concat. Concatenate repeat [[LatLong]] elements, returning a new [[LinePathLL]]. An immutable append. */
-  inline def ++ (elems: LatLong *): LinePathLL = concat(elems :_*)
-
-  /** Concatenate repeat [[LatLong]] elements returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
-  def concat (elems: LatLong *): LinePathLL =
-  { val res = LinePathLL.uninitialised(ssLength + elems.length)
-    ssIForeach{ (i, ll) => res.setElemUnsafe(i, ll) }
-    elems.iForeach(ssLength){ (i, ll) => res.setElemUnsafe(i, ll) }
     res
   }
 
@@ -93,9 +73,6 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
     ssIForeach{ (i, ll) => res.setElemUnsafe(i + 1, ll) }
     res
   }
-
-  /** Alias for concatClose. Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
-  inline def ++!(newElems: LatLong*): PolygonLL = concatClose(newElems :_*)
 
   /** Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
   def concatClose(newElems: LatLong*): PolygonLL =

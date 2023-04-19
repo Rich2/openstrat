@@ -3,10 +3,12 @@ package ostrat; package prid; package phex
 import geom._
 
 /** A trait for classes of line paths specified by [[[HCoord]] hex grid tile coordinates. */
-class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec with LinePathInt2[HCoord]
+final class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec with LinePathInt2[HCoord]
 { override type ThisT = LinePathHC
+  override type PolygonT = PolygonHC
   override def typeStr: String = "LinePathHC"
   override def fromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
+  override def polygonFromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }
 
 object LinePathHC extends Int2SeqLikeCompanion[HCoord, LinePathHC]

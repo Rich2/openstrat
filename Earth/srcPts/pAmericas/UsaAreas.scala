@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, LatLong._
+import geom._, pglobe._
 
 /** [polygonLL]] Graphical object for the east of the United States. Dependant on [[UsaWest]], [[SouthWestCanada]], [[CanadaSouthEast]],
  *  [[LakeSuperior]], [[LakeMichigan]], [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
@@ -13,12 +13,9 @@ object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, Plain)
   /** Camden County Georgia USA */
   val NAtlanticSW: LatLong = 31 ll  -81.47
 
-
-  //val nwFlorida: LatLong = 30.14 ll -84.06
-
-  override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, LakeWinnipeg.redMouth) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++
-    LakeMichigan.coast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast ++!
-    (NewBrunswick.east, NewBrunswick.maineE, p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, UsaWest.galveston, UsaWest.rockyPoint)
+  override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, LakeWinnipeg.redMouth) ++ LakeSuperior.usCoast +% LakeHuron.pineMouth ++
+    LakeMichigan.coast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
+    p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, UsaWest.galveston, UsaWest.rockyPoint)
 }
 
 object Florida extends EArea2("Florida", 28.29 ll -81.59, Jungles)

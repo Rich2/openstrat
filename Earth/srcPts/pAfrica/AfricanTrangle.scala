@@ -48,8 +48,8 @@ object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, 
   val eAfricaEquator = 0.0 ll 42.4
   val mombassa = -4.03 ll 39.28
 
-  override def polygonLL: PolygonLL = SouthAfrica.cAfricaSE %: LakeTanganyika.eastCoast ++ LakeVictoria.southEastAfrica ++!
-    (EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa, seNacala, SouthAfrica.sAfricaNE)
+  override def polygonLL: PolygonLL = SouthAfrica.cAfricaSE %: LakeTanganyika.eastCoast ++ LakeVictoria.southEastAfrica |++|
+    LinePathLL(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa, seNacala, SouthAfrica.sAfricaNE)
 }
 
 object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, Plain)

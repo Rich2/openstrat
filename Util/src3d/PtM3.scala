@@ -116,9 +116,9 @@ object PtM3
    * where PtM3 is the type B parameter. */
   implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
-  implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtM3, LinePathMetre3] = new LinePathDbl3MapBuilder[PtM3, LinePathMetre3]
+  implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtM3, LinePathM3] = new LinePathDbl3MapBuilder[PtM3, LinePathM3]
   { override type BuffT = PtM3Buff
-    override def fromDblArray(array: Array[Double]): LinePathMetre3 = new LinePathMetre3(array)
+    override def fromDblArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 

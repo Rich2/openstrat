@@ -1,48 +1,95 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._
 
 /** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
-trait LinePathLike[A] extends Any with SeqSpec[A]
-{ type ThisT <: LinePathLike[A]
+trait LinePathLike[VT] extends Any with SeqSpec[VT]
+{ type ThisT <: LinePathLike[VT]
+  type PolygonT <: PolygonLike[VT]
 
   /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
-  def map[B <: ValueNElem, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  def map[B <: ValueNElem, BB <: LinePathLike[B]](f: VT => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(ssLength)
     ssIForeach((i, p) => res.setElemUnsafe(i, f(p)))
     res
   }
 
+  /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
 
+  /** Appends a single vertex of type A. Returns a new extended [[LinePathLike]]. */
+  @targetName("appendVert") def +%[AA >: VT](op: VT): ThisT
+
+  /** Appends another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. */
+  @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
 }
 
-trait LinePathDblN[A <: DblNElem] extends  Any with LinePathLike[A] with DblNSeqSpec[A]
-{ type ThisT <: LinePathDblN[A]
+trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNSeqSpec[VT]
+{ type ThisT <: LinePathDblN[VT]
+  type PolygonT <: PolygonLikeDblN[VT]
 
-  @targetName("append") final override def ++(operand: ThisT): ThisT =
-  {  val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
+  /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
+  def polygonFromArray(array: Array[Double]): PolygonT
+
+  @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
+ /* {  val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
     fromArray(newArray)
-  }
-}
+  }*/
 
-trait LinePathDbl2[A <: Dbl2Elem] extends Any with LinePathDblN[A] with Dbl2SeqSpec[A]
-trait LinePathDbl3[A <: Dbl3Elem] extends Any with LinePathDblN[A] with Dbl3SeqSpec[A]
-
-trait LinePathIntN[A <: IntNElem] extends  Any with LinePathLike[A] with IntNSeqSpec[A]
-{ type ThisT <: LinePathIntN[A]
-
-  @targetName("append") override def ++(operand: ThisT): ThisT =
-  { val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
+  @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
+  { val newArray = new Array[Double](unsafeLength + elemProdSize)
     unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, unsafeLength)
+    var i = unsafeLength
+    op.dblForeach { d =>
+      newArray(i) = d
+      i += 1
+    }
     fromArray(newArray)
   }
+
+  /** Appends another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. */
+  @targetName("appendToPolygon") override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
 }
 
-trait LinePathInt2[A <: Int2Elem] extends Any with LinePathIntN[A] with Int2SeqSpec[A]
+trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with Dbl2SeqSpec[VT]
+{ type ThisT <: LinePathDbl2[VT]
+  type PolygonT <: PolygonLikeDbl2[VT]
+}
+
+trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with Dbl3SeqSpec[VT]
+{ type ThisT <: LinePathDbl3[VT]
+  type PolygonT <: PolygonLikeDbl3[VT]
+}
+
+trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNSeqSpec[VT]
+{ type ThisT <: LinePathIntN[VT]
+  type PolygonT <: PolygonLikeIntN[VT]
+
+  /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Int]. */
+  def polygonFromArray(array: Array[Int]): PolygonT
+
+  @targetName("append") override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
+
+  @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
+  { val newArray = new Array[Int](unsafeLength + elemProdSize)
+    unsafeArray.copyToArray(newArray)
+    var i = unsafeLength
+    op.intForeach { ii =>
+      newArray(i) = ii
+      i += 1
+    }
+    fromArray(newArray)
+  }
+
+  @targetName("appendToPolygon") override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+}
+
+trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2SeqSpec[VT]
+{ type ThisT <: LinePathInt2[VT]
+  type PolygonT <: PolygonLikeInt2[VT]
+}
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
  * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into
