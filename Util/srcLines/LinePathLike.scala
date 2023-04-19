@@ -11,6 +11,19 @@ trait LinePathLike[A] extends Any with SeqSpec[A]
   }
 }
 
+object LinePathLike
+{
+  implicit class LinePathLikeExtension[A](thisLinePath: LinePathLike[A])
+  {
+    def appendToPolygon[AA <: PolygonLike[A]](operand: LinePathLike[A])(implicit build: PolygonLikeMapBuilder[A, AA]): AA =
+    { val newLen = thisLinePath.ssLength + operand.ssLength
+      val res = build.uninitialised(newLen)
+      var i2 = 0
+      ???
+    }
+  }
+}
+
 trait LinePathDblN[A <: DblNElem] extends  Any with LinePathLike[A] with DblNSeqSpec[A]
 trait LinePathDbl2[A <: Dbl2Elem] extends Any with LinePathDblN[A] with Dbl2SeqSpec[A]
 trait LinePathDbl3[A <: Dbl3Elem] extends Any with LinePathDblN[A] with Dbl3SeqSpec[A]
