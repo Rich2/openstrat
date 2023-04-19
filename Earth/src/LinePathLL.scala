@@ -32,7 +32,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
   }
 
   /** Aliased by concat. Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. */
-  inline def ++ (operand: LinePathLL): LinePathLL = concat(operand)
+  //inline def ++ (operand: LinePathLL): LinePathLL = concat(operand)
 
   /** Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
   def concat (operand: LinePathLL): LinePathLL =

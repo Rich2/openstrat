@@ -1,34 +1,47 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import annotation._
 
 /** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
 trait LinePathLike[A] extends Any with SeqSpec[A]
-{ /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
+{ type ThisT <: LinePathLike[A]
+
+  /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
   def map[B <: ValueNElem, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(ssLength)
     ssIForeach((i, p) => res.setElemUnsafe(i, f(p)))
     res
   }
-}
 
-object LinePathLike
-{
-  implicit class LinePathLikeExtension[A](thisLinePath: LinePathLike[A])
-  {
-    def appendToPolygon[AA <: PolygonLike[A]](operand: LinePathLike[A])(implicit build: PolygonLikeMapBuilder[A, AA]): AA =
-    { val newLen = thisLinePath.ssLength + operand.ssLength
-      val res = build.uninitialised(newLen)
-      var i2 = 0
-      ???
-    }
-  }
+  @targetName("append") def ++ (operand: ThisT): ThisT
+
 }
 
 trait LinePathDblN[A <: DblNElem] extends  Any with LinePathLike[A] with DblNSeqSpec[A]
+{ type ThisT <: LinePathDblN[A]
+
+  @targetName("append") final override def ++(operand: ThisT): ThisT =
+  {  val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
+    unsafeArray.copyToArray(newArray)
+    operand.unsafeArray.copyToArray(newArray, unsafeLength)
+    fromArray(newArray)
+  }
+}
+
 trait LinePathDbl2[A <: Dbl2Elem] extends Any with LinePathDblN[A] with Dbl2SeqSpec[A]
 trait LinePathDbl3[A <: Dbl3Elem] extends Any with LinePathDblN[A] with Dbl3SeqSpec[A]
 
 trait LinePathIntN[A <: IntNElem] extends  Any with LinePathLike[A] with IntNSeqSpec[A]
+{ type ThisT <: LinePathIntN[A]
+
+  @targetName("append") override def ++(operand: ThisT): ThisT =
+  { val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
+    unsafeArray.copyToArray(newArray)
+    operand.unsafeArray.copyToArray(newArray, unsafeLength)
+    fromArray(newArray)
+  }
+}
+
 trait LinePathInt2[A <: Int2Elem] extends Any with LinePathIntN[A] with Int2SeqSpec[A]
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
