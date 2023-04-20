@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package sors
-import prid._, phex._, egrid._, eg320._
+import prid._, phex._, egrid._, eg220._
 
 trait SorsScen extends HSysTurnScen
 { def title: String = "DLessScen"
@@ -13,8 +13,8 @@ trait SorsScen extends HSysTurnScen
 object SorsScen1 extends SorsScen
  { override def turn: Int = 0
 
-   override implicit val gridSys: EGrid320LongMulti = new EGrid320LongMulti { ThisSys =>
-   override val grids: RArr[EGridLongFull] = EGrid320.grids(2, 0, 124)
+   override implicit val gridSys: EGrid220LongMulti = new EGrid220LongMulti { ThisSys =>
+   override val grids: RArr[EGridLongFull] = EGrid220.grids(2, 0, 140)
 
    override def headGridInt: Int = 0
 

@@ -7,6 +7,7 @@ displayY = 0;//Some operating systems will not allow a positive y value that pus
 //projPath = "path_to_openstrat";
 lessons = A1;
 dless = { scen = 1; flat = false; 1 = HGView(138, 526; 20); };
+ww2 = { scen = 1; 1 = HGView(140, 1528; 22); 2 = HGView(160, 520; 27); };
 ww1 = { scen = 1; flat = false; 1 = HGView(310, 520; 24); 2 = HGView(300, 1536; 20); };
 bc305 = { scen = 2; flat = false; 1 = HGView(460, 520; 16); 2 = HGView(460, 520; 16); };
 earth = { scale = 12; latitude = 0; longitude = 0; };
@@ -17,7 +18,6 @@ g1Sq = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = SqGridView(9, 11; 40); };
 g2Hex = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 gThree = { scen = 1; };
 zugFuhrer = 1;
-//ww2 = { scen = 2; flat = false; 1 = HGView(176, 520; 24); 2 = HGView(156, 524; 23) };
 normandy = { scen = 1; 1 = HGView(7, 20; 40); };
 civ = 1;
 chess = {scen = 1 };
