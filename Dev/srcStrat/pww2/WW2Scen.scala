@@ -52,10 +52,10 @@ object WW2Scen1 extends WW2Scen
   override val corners: HCornerLayer = Scen320All.corners
 
   val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
-  val polities: RArr[Polity] = RArr(Britain, France, Germany)
+  val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany)
   implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
-  armies.setFSomesMut(Germany.armyNext, 146,1534,  144,1532,  142,1534,  140,1536)
-  //    layer.setFSomesMut(France.armyNext, 156,518, 154,518)
+  armies.setFSomesMut(Germany.armyNext, 146,1534,  144,1536,  142,1534,  140,1536)
+  armies.setFSomesMut(Soviet.armyNext, 148,1536,  146,1538,  144,1540)
   armies.setFSomesMut(Britain.armyNext, 142,514)
 
   //WW2Scen.sa0(armies)

@@ -42,3 +42,8 @@ object Japan extends Polity
 { def str: String = "Japan"
   def colour = Colour.fromInts(188, 0, 45)
 }
+
+object Soviet extends Polity
+{ override def str: String = "Soviet Union"
+  override def colour: Colour = Red
+}
