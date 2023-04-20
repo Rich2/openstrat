@@ -20,23 +20,17 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
   override def frame: GraphicElems =
   {
-    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
-
     def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
       val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
     }
-
-    def hexStrs: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
-
-    def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
     def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ hexStrs2 ++ units ++ moveGraphics
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ hexStrs2(armies.tileNone(_)) ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

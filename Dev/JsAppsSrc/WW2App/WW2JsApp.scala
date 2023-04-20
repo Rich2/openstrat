@@ -5,5 +5,5 @@ import scalajs.js.annotation._, pww2._, prid.phex._
 @JSExportTopLevel("WW2JsApp")
 object WW2JsApp
 {
-  @JSExport def main(): Unit = { WW2Gui(CanvasJs, WW2Scen2, HGView(155, 526, 20)); () }
+  @JSExport def main(): Unit = { WW2Gui(CanvasJs, WW2Scen1, HGView(148, 1528, 22)); () }
 } 
