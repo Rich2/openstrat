@@ -7,15 +7,29 @@ trait HSysProjection extends TSysProjection
 { type SysT <: HGridSys
 
   var gChild: HGridSys
+
+  /** Maps the [[HCen]]s of this projection. */
   def hCenMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)
+
+  /** OptMaps the [[HCen]]s visible in this projection. */
   def hCenOptMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.optMap(f)
+
+  /** IfMaps the [[HCen]]s visible in this projection. The mapping function is only applied if the first function condition is true. */
   def hCenIfMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.ifMap(f1)(f2)
+
+  /** FlatMaps the [[HCen]]s visible in this projection. */
   def hCenFlatMap[ArrB <: Arr[_]](f: HCen => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB = gChild.flatMap(f)
+
+  /** Maps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. */
   def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
+  /** IfMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The mapping function is only applied if the first
+   * function condition is true. */
   def hCensIfPtMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
     gChild.ifMap(f1)(hc => f2(hc, transCoord(hc)))
 
+  /** IfFlatMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The flatMapping function is only applied if the
+   *  first function condition is true */
   def hCenIfPtFlatMap[ArrB <: Arr[_]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
     gChild.ifFlatMap(f1)(hc => f2(hc, transCoord(hc)))
 

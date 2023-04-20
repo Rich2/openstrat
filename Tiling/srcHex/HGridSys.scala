@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag, pgui._
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
-{
+{ /** Returns the most appropriate [[HSysProjection]] for this HGridSys. */
   def projection: Panel => HSysProjection = HSysProjectionFlat(this, _)
 
   final override lazy val numTiles: Int =
@@ -13,6 +13,7 @@ trait HGridSys extends Any with TGridSys
     i
   }
 
+  /** The number of [[HCorner]]s in this [[HGridSys]], 6 for each [[HCen]]. */
   def numCorners: Int = numTiles * 6
 
   /** The number of sides in the hex grid system. */
@@ -204,6 +205,8 @@ trait HGridSys extends Any with TGridSys
     build.buffToSeqLike(buff)
   }
 
+  /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The normal flatMap functions is only applied if the condtion of the first
+   * function is true. */
   final def ifFlatMap[ArrT <: Arr[_]](f1: HCen => Boolean)(f2: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach { hCen => if(f1(hCen)) build.buffGrowArr(buff, f2(hCen)) }
@@ -224,6 +227,7 @@ trait HGridSys extends Any with TGridSys
     new HCenLayer(array)
   }
 
+  /** Returns a new [[HCornerLayer]] for this [[HGridSys]]. Initialised to no offsets. */
   def newHVertOffsetLayer: HCornerLayer = new HCornerLayer(new Array[Int](numCorners))
 
   /** Spawns a new [[HSideOptlLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
