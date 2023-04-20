@@ -7,10 +7,18 @@ trait HSysProjection extends TSysProjection
 { type SysT <: HGridSys
 
   var gChild: HGridSys
-  def hCensMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)
-  def hCensOptMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.optMap(f)
-  def hCensFlatMap[ArrB <: Arr[_]](f: HCen => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB = gChild.flatMap(f)
+  def hCenMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)
+  def hCenOptMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.optMap(f)
+  def hCenIfMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.ifMap(f1)(f2)
+  def hCenFlatMap[ArrB <: Arr[_]](f: HCen => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB = gChild.flatMap(f)
   def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
+
+  def hCensIfPtMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+    gChild.ifMap(f1)(hc => f2(hc, transCoord(hc)))
+
+  def hCenIfPtFlatMap[ArrB <: Arr[_]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+    gChild.ifFlatMap(f1)(hc => f2(hc, transCoord(hc)))
+
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
   def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] =

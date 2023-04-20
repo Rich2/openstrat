@@ -13,7 +13,7 @@ case class NormGui(canv: CanvasPlatform, scenIn: NormScen, viewIn: HGView) exten
 
   override def frame: GraphicElems =
   {
-    def tileFills: RArr[PolygonFill] = proj.hCensMap { hc =>
+    def tileFills: RArr[PolygonFill] = proj.hCenMap { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }
     def tileFills2 = terrs.projPolyMap(proj, corners){(poly, t) => poly.fill(t.colour) }

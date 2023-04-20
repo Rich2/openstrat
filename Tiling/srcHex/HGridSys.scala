@@ -175,9 +175,15 @@ trait HGridSys extends Any with TGridSys
 
   /** Maps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    * TileGrid structure is lost in the flatMap operation. */
-  final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
-    val buff = build.newBuff(numTiles)
+  final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff(numTiles)
     foreach { hCen => f(hCen).foreach(build.buffGrow(buff, _)) }
+    build.buffToSeqLike(buff)
+  }
+
+  final def ifMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff(numTiles)
+    foreach { hCen => if(f1(hCen)) build.buffGrow(buff, f2(hCen)) }
     build.buffToSeqLike(buff)
   }
 
@@ -195,6 +201,12 @@ trait HGridSys extends Any with TGridSys
   final def flatMap[ArrT <: Arr[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
+    build.buffToSeqLike(buff)
+  }
+
+  final def ifFlatMap[ArrT <: Arr[_]](f1: HCen => Boolean)(f2: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  { val buff = build.newBuff(numTiles)
+    foreach { hCen => if(f1(hCen)) build.buffGrowArr(buff, f2(hCen)) }
     build.buffToSeqLike(buff)
   }
 

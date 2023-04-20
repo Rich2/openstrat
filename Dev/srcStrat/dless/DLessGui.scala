@@ -20,11 +20,9 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   override def frame: GraphicElems =
   {
-    def hexStrs: RArr[TextGraphic] = terrs.hcOptFlatMap { (hc, terr) => if (armies(hc).nonEmpty) None
-    else  proj.transOptCoord(hc).map { pt =>
-        val strs: StrArr = StrArr(hc.rcStr32) /*.appendOption(proj.hCoordOptStr(hc))*/ +% hc.strComma
-        TextGraphic.lines(strs, 12, pt, terr.contrastBW)
-      }
+    def hexStrs: RArr[TextGraphic] = proj.hCenIfPtFlatMap(armies.tileNone(_)){ (hc, pt) =>
+      val strs: StrArr = StrArr(hc.rcStr32) +% hc.strComma
+      TextGraphic.lines(strs, 12, pt, terrs(hc).contrastBW)
     }
 
     def hexStrs2: GraphicElems = proj.ifTileScale(72, hexStrs)

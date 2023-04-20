@@ -78,7 +78,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   }
 
   def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit proj: HSysProjection, build: ArrFlatBuilder[BB]): BB =
-    proj.hCensFlatMap{hc => f(hc, apply(hc)(proj.parent)) }
+    proj.hCenFlatMap{hc => f(hc, apply(hc)(proj.parent)) }
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
@@ -161,13 +161,13 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    * data layer elements by the [[HCen]] apply methods. */
   def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => GraphicElem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(hc, pt2, apply(hc)(proj.gChild)) }
 
-  def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap{hc =>
+  def projPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (Polygon, A) => GraphicElem): GraphicElems = proj.hCenMap{hc =>
     val terr = apply(hc)(proj.parent)
     val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(poly2, terr)
   }
 
-  def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => GraphicElem): GraphicElems = proj.hCensMap { hc =>
+  def projHCenPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HCen, Polygon, A) => GraphicElem): GraphicElems = proj.hCenMap { hc =>
     val terr = apply(hc)(proj.parent)
     val poly2: Polygon = getPoly(hc, terr, corners, proj)
     f(hc, poly2, terr)
