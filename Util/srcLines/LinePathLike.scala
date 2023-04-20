@@ -22,6 +22,9 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
 
   /** Appends another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. */
   @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
+
+  /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
+  @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
 }
 
 trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNSeqSpec[VT]
@@ -32,11 +35,6 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
   def polygonFromArray(array: Array[Double]): PolygonT
 
   @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
- /* {  val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
-    unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, unsafeLength)
-    fromArray(newArray)
-  }*/
 
   @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
   { val newArray = new Array[Double](unsafeLength + elemProdSize)
@@ -49,8 +47,18 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
     fromArray(newArray)
   }
 
-  /** Appends another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. */
-  @targetName("appendToPolygon") override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+  @targetName("appendToPolygon") final override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+
+  @targetName("appendVertToPolygon") final override def |+|[AA >: VT](op: VT): PolygonT =
+  { val newArray = new Array[Double](unsafeLength + elemProdSize)
+    unsafeArray.copyToArray(newArray)
+    var i = unsafeLength
+    op.dblForeach { d =>
+      newArray(i) = d
+      i += 1
+    }
+    polygonFromArray(newArray)
+  }
 }
 
 trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with Dbl2SeqSpec[VT]
@@ -70,7 +78,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Int]. */
   def polygonFromArray(array: Array[Int]): PolygonT
 
-  @targetName("append") override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
+  @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
 
   @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
   { val newArray = new Array[Int](unsafeLength + elemProdSize)
@@ -84,6 +92,17 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
   }
 
   @targetName("appendToPolygon") override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+
+  @targetName("appendVertToPolygon") override def |+|[AA >: VT](op: VT): PolygonT =
+  { val newArray = new Array[Int](unsafeLength + elemProdSize)
+    unsafeArray.copyToArray(newArray)
+    var i = unsafeLength
+    op.intForeach { ii =>
+      newArray(i) = ii
+      i += 1
+    }
+    polygonFromArray(newArray)
+  }
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2SeqSpec[VT]

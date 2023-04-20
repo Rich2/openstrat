@@ -71,7 +71,7 @@ object NewBrunswick extends EArea2("New/nBrunswick", 47.2  ll -66.93, Taiga)
 object CanadaSouthEast extends EArea2("CanadaSouthEast", 46.68  ll -77.21, Taiga)
 {
   override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++
-    LinePathLL(CanadaNorthEast.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
+    LinePathLL(CanadaNorthEast.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast |++| LakeErie.eastCanadaCoast
 }
 
 /** [[polygonLL]] graphical representation for Newfoundland. Depends on nothing. */

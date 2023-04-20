@@ -52,47 +52,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
   /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
   @inline def close: PolygonLL = new PolygonLL(unsafeArray)
 
-  /** Alias for concatClose. Concatenates the operand [[LatLong]] and closes into a PolyonLL. */
-  inline def +!(newElem: LatLong): PolygonLL = concatClose(newElem)
-
-  /** Concatenates the operand [[LatLong]] and closes into a [[PolyonLL]]. */
-  def concatClose(newElem: LatLong): PolygonLL =
-  { val res = PolygonLL.uninitialised(ssLength + 1)
-    unsafeArray.copyToArray(res.unsafeArray)
-    res.setElemUnsafe(ssLength, newElem)
-    res
-  }
-
-  /** Alias for prependClose. Prepend the left hand operand element and close into a [[PolygonLL]].  */
-  inline def +!:(newElem: LatLong): PolygonLL = prependClose(newElem)
-
-  /** Prepend the left hand operand element and close into a [[PolygonLL]].  */
-  def prependClose(newElem: LatLong): PolygonLL =
-  { val res = PolygonLL.uninitialised(ssLength + 1)
-    res.setElemUnsafe(0, newElem)
-    ssIForeach{ (i, ll) => res.setElemUnsafe(i + 1, ll) }
-    res
-  }
-
-  /** Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
-  def concatClose(newElems: LatLong*): PolygonLL =
-  { val res = PolygonLL.uninitialised(ssLength + newElems.length)
-    unsafeArray.copyToArray(res.unsafeArray)
-    newElems.iForeach((i, ll) => res.setElemUnsafe(ssLength + i, ll))
-    res
-  }
-
-  /** Alias for concatClose. Concatenate the operand [[LinePathLL]] and close into a [[PolyognLL]]. */
-  inline def ++!(operand: LinePathLL): PolygonLL = concatClose(operand)
-
-  /** Concatenate the operand [[LinePathLL]] and closes the line path into a [[PolyognLL]]. */
-  def concatClose(operand: LinePathLL): PolygonLL =
-  { val res = PolygonLL.uninitialised(ssLength + operand.ssLength)
-    unsafeArray.copyToArray(res.unsafeArray)
-    operand.vertsIForeach{ (i, ll) => res.setElemUnsafe(ssLength + i, ll) }
-    res
-  }
-
   /** Reverses the line path so its end point becomes its start point. */
   def reverse: LinePathLL = ssReverse
 

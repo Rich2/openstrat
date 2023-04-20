@@ -40,7 +40,7 @@ object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, Jungle
 
   override def polygonLL: PolygonLL = LinePathLL(SouthAfrica.sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, WestAfricaSouth.cAfricaNW,
     WestAfricaSouth.westAfricaPtSE, EastAfricaSouth.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++
-    LakeTanganyika.westCoast +! SouthAfrica.cAfricaSE
+    LakeTanganyika.westCoast |+| SouthAfrica.cAfricaSE
 }
 
 object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, Plain)
