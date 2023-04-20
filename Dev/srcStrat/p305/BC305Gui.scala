@@ -19,10 +19,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   proj.setView(viewIn)
 
   override def frame: GraphicElems =
-  { def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
-
-    def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
-
+  {
     def units: GraphicElems = armies.projSomeHcPtMap { (legion, hc, pt) =>
       val str = ptScale.scaledStr(170, legion.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, legion.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, HCenPair(hc, legion), legion.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
@@ -33,7 +30,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2 ++ units ++ moveGraphics
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(armies.tileNone(_)) ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

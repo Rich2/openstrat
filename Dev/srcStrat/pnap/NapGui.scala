@@ -16,14 +16,12 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
 
   override def frame: GraphicElems =
   {
-    def hexStrs: GraphicElems = proj.hCenSizedMap(50) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
-
     def units: GraphicElems = corps.projSomeHcPtMap { (corps, hc, pt) =>
       val str = ptScale.scaledStr(170, corps.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, corps.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs ++ units
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(corps.tileNone(_)) ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
