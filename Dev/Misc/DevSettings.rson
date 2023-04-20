@@ -17,7 +17,7 @@ g1Sq = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = SqGridView(9, 11; 40); };
 g2Hex = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 gThree = { scen = 1; };
 zugFuhrer = 1;
-ww2 = { scen = 2; flat = false; 1 = HGView(176, 520; 24); 2 = HGView(156, 524; 23) };
+//ww2 = { scen = 2; flat = false; 1 = HGView(176, 520; 24); 2 = HGView(156, 524; 23) };
 normandy = { scen = 1; 1 = HGView(7, 20; 40); };
 civ = 1;
 chess = {scen = 1 };
