@@ -2,13 +2,9 @@
 package ostrat; package pww2
 import Colour._
 
-trait Polity extends ShowSimple
+trait Polity extends ShowSimple with Coloured
 { override def typeStr: String = "Polity"
-  def colour: Colour
-  //def ar: Army = Army(this)
-
   def army(num: Int): Army = Army(this, num)
-
   def armyNext()(implicit counters: ArrCounters[Polity]): Army = army(counters(this))
 }
 
@@ -21,21 +17,18 @@ object Polity
 
 object Germany extends Polity
 { def str: String = "Germany"
-  def colour = Colour.fromInts(128, 177, 179)//CadetBlue 60% shade
-
-
+  /** CadetBlue 60% shade. */
+  def colour = Colour.fromInts(128, 177, 179)
 }
 
 object Britain extends Polity
 { def str: String = "Britain"
   def colour = Colour.fromInts(255, 232, 184)
-
 }
 
 object France extends Polity
 { def str: String = "France"
   def colour = Colour.fromInts(125, 255, 255)
-
 }
 
 object Japan extends Polity

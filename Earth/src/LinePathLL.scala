@@ -52,21 +52,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
   /** Reverses this [[LinePathLL]] and closes it returning a [[PolygonLL]] */
   def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
 
-  /** Alias for concatTailInit. Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. Immutable
-   * operation returns a new [[LinePathLL]]. */
-  def +--(operand: LinePathLL): LinePathLL = new LinePathLL(arrayAppendTailInit(operand))
-
-  /** Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. */
-  def concatTailInit(operand: LinePathLL): LinePathLL = new LinePathLL(arrayAppendTailInit(operand))
-
-  /** Alias for concatTailInitClose. Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. And
-   *  then closes into a [[PolygonLL]]. */
-  def +--!(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand))
-
-  /** Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. And then closes into a
-   *  [[PolygonLL]]. */
-  def concatTailInitClose(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand))
-
   /** Alias for concatReverseTailInitClose. Concatenates the reversed elements of the operand [[LinePathLL]] minus the head and the last element of
    *  the operand. And then closes into a [[PolygonLL]]. */
   def +/--!(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand.reverse))
