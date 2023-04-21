@@ -43,7 +43,7 @@ object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
 
   val usCoast = LinePathLL(west48, west, p10, montrealMouth, highRock, chocolayMouth, east)
 
-  override def polygonLL: PolygonLL = canadaCoast.reverse |++<| usCoast.innerVerts
+  override def polygonLL: PolygonLL = canadaCoast.reverse |++<| usCoast.inner
 }
 
 /** Graphical display for Lake Huron. No dependencies. */
@@ -72,7 +72,7 @@ object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, Lake)
   val usCoastSouth: LinePathLL = LinePathLL(pesqueIsle, tobicoLagoon, turnipRock, south)
 
   override def polygonLL: PolygonLL = usCoastSouth.reverse ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++<
-    centralCanadaCoast |++<| eastCanadaCoast.innerVerts
+    centralCanadaCoast |++<| eastCanadaCoast.inner
 }
 
 /** Graphical display for Lake Erie. No dependencies. */
@@ -91,7 +91,7 @@ object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, Lake)
 
   val usCoast: LinePathLL = LinePathLL(detroitMouth, maumeeMouth, south, east, niagraMouth)
 
-  override def polygonLL: PolygonLL = eastCanadaCoast.reverse |++<| usCoast.innerVerts
+  override def polygonLL: PolygonLL = eastCanadaCoast.reverse |++<| usCoast.inner
 }
 /** Graphical display for Lake Ontario. No dependencies. */
 object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, Lake)
@@ -108,7 +108,7 @@ object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, Lake)
 
   val usCoast: LinePathLL = LinePathLL(niagraMouth, southEast, tibbettsPoint, wolfeSW)
 
-  override def polygonLL: PolygonLL = canadaCoast.reverse |++<| usCoast.innerVerts
+  override def polygonLL: PolygonLL = canadaCoast.reverse |++<| usCoast.inner
 }
 
 /** Graphical display for Lake Michigan. No dependencies. */

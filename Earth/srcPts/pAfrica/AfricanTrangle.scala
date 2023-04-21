@@ -29,7 +29,7 @@ object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lake)
 
   val eastCoast: LinePathLL = LinePathLL(south, mahaleSE, muhela, mahaleNE, northEast)
 
-  override def polygonLL: PolygonLL = westCoast.reverse |++<| eastCoast.innerVerts
+  override def polygonLL: PolygonLL = westCoast.reverse |++<| eastCoast.inner
 }
 
 /** [[PolygonLL]] graphic object. */

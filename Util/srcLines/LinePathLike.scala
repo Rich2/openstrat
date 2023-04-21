@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._
 
-/** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
+/** A generalisation of a line path where the type of the vertices is not restricted to [[Pt2]]. */
 trait LinePathLike[VT] extends Any with SeqSpec[VT]
 { type ThisT <: LinePathLike[VT]
   type PolygonT <: PolygonLike[VT]
@@ -13,6 +13,8 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
     ssIForeach((i, p) => res.setElemUnsafe(i, f(p)))
     res
   }
+
+  def inner: ThisT
 
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
@@ -48,7 +50,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
   def polygonFromArray(array: Array[Double]): PolygonT
 
-  def innerVerts: ThisT =
+  override def inner: ThisT =
   { val newArrayLen = (numVerts - 2).max0 * elemProdSize
     val newArray = new Array[Double](newArrayLen)
     val res = fromArray(newArray)
@@ -125,6 +127,15 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Int]. */
   def polygonFromArray(array: Array[Int]): PolygonT
+
+  override def inner: ThisT =
+  { val newArrayLen = (numVerts - 2).max0 * elemProdSize
+    val newArray = new Array[Int](newArrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    ssInnerForeach { el => res.setElemUnsafe(i, el); i += 1 }
+    res
+  }
 
   @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
 
