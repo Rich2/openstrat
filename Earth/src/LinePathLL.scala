@@ -10,24 +10,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
   override def typeStr: String = "LinePathLL"
   override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def polygonFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
-
-  /** Alias for concatReverseTailInitClose. Concatenates the reversed elements of the operand [[LinePathLL]] minus the head and the last element of
-   *  the operand. And then closes into a [[PolygonLL]]. */
-  def +/--!(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand.reverse))
-
-  /** Creates a new backing Array[Double] with the elements of this [[LinePathLL]], with the elements of the operand
-   * minus the head and last element of the operand. */
-  def arrayAppendTailInit(operand: LinePathLL): Array[Double] =
-  { val array = new Array[Double]((ssLength + (operand.ssLength - 2).max(0)) * 2)
-    unsafeArray.copyToArray(array)
-    iUntilForeach(2, operand.unsafeLength - 2) { i => array(ssLength * 2 + i - 2) = operand.unsafeArray(i) }
-    array
-  }
-
-  /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
-  def vertsForeach[U](f: LatLong => U): Unit = ssForeach(f)
-
-  def vertsIForeach[U](f: (Int, LatLong) => U): Unit = ssIForeach(f)
 }
 
 object LinePathLL extends Dbl2SeqLikeCompanion[LatLong, LinePathLL]

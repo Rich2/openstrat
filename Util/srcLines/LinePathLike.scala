@@ -33,7 +33,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
 
   /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
-  @targetName("appendReverseToPolygon") def |++<|(operand: ThisT): ThisT
+  @targetName("appendReverseToPolygon") def |++<|(operand: ThisT): PolygonT
 
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
   def toPolygon: PolygonT
@@ -47,6 +47,15 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
   def polygonFromArray(array: Array[Double]): PolygonT
+
+  def innerVerts: ThisT =
+  { val newArrayLen = (numVerts - 2).max0 * elemProdSize
+    val newArray = new Array[Double](newArrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    ssInnerForeach{el => res.setElemUnsafe(i, el); i += 1}
+    res
+  }
 
   @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
 
@@ -88,8 +97,8 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
 
   override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
 
-  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): ThisT =
-    fromArray((this ++< operand).unsafeArray)
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
+    polygonFromArray((this ++< operand).unsafeArray)
 
   @targetName("prependVert") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](unsafeLength + elemProdSize)
@@ -164,8 +173,8 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
     polygonFromArray(newArray)
   }
 
-  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): ThisT =
-    fromArray((this ++< operand).unsafeArray)
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
+    polygonFromArray((this ++< operand).unsafeArray)
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2SeqSpec[VT]

@@ -26,9 +26,20 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Foreachs over the tail of the specifying sequence. Performs a side effecting function on each element of the tail of the specifying sequence in
    *  order. */
   def ssTailForeach[U](f: A => U): Unit =
-  { var count = 1
-    while (count < ssLength) {
-      f(ssIndex(count)); count += 1
+  { var i = 1
+    while (i < ssLength)
+    { f(ssIndex(i))
+      i += 1
+    }
+  }
+
+  /** Foreachs over the inner of the specifying sequence, excludes the first and last element. Performs a side effecting function on each element of
+   *  the tail of the specifying sequence in order. */
+  def ssInnerForeach[U](f: A => U): Unit =
+  { var i = 1
+    while (i < ssLength - 1)
+    { f(ssIndex(i));
+      i += 1
     }
   }
 
@@ -78,10 +89,11 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Performs a side effecting function on each element of the specifying-sequence in reverse order. The function may return Unit. If it does return a
    *  non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
    *  users. */
-  def ssReverseForeach[U](f: A => U): Unit = {
-    var count = ssLength
-    while (count > 0) {
-      count -= 1; f(ssIndex(count))
+  def ssReverseForeach[U](f: A => U): Unit =
+  { var i = ssLength
+    while (i > 0)
+    { i -= 1
+      f(ssIndex(i))
     }
   }
 
