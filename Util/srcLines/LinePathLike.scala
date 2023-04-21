@@ -17,8 +17,11 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
 
-  /** Appends a single vertex of type A. Returns a new extended [[LinePathLike]]. */
+  /** Appends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
   @targetName("appendVert") def +%[AA >: VT](op: VT): ThisT
+
+  /** Prepends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
+  @targetName("prependVert") def %:(operand: VT): ThisT
 
   /** Appends another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. */
   @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
@@ -26,6 +29,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
 
+  /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
   def toPolygon: PolygonT
 }
 
@@ -64,7 +68,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
 
   override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
 
-  @targetName("prepend") @inline def %: (operand: VT): ThisT =
+  @targetName("prependVert") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](unsafeLength + elemProdSize)
     Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
     var i = 0
@@ -114,6 +118,14 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
       i += 1
     }
     polygonFromArray(newArray)
+  }
+
+  @targetName("prependVert") @inline final override def %:(operand: VT): ThisT = {
+    val newArray = new Array[Int](unsafeLength + elemProdSize)
+    Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
+    var i = 0
+    operand.intForeach { j => newArray(i) = j; i += 1 }
+    fromArray(newArray)
   }
 
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] with a line Segment from the last point to the first point. */
