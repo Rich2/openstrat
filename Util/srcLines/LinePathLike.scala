@@ -66,6 +66,18 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
     polygonFromArray(newArray)
   }
 
+  def ++<(operand: ThisT): ThisT =
+  { val newArray = new Array[Double](unsafeLength + operand.unsafeLength)
+    unsafeArray.copyToArray(newArray)
+    val res = fromArray(newArray)
+    var i = ssLength
+    operand.ssReverseForeach{vt =>
+      res.setElemUnsafe(i, vt)
+      i += 1
+    }
+    res
+  }
+
   override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
 
   @targetName("prependVert") @inline final override def %: (operand: VT): ThisT =

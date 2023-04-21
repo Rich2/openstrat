@@ -71,8 +71,7 @@ object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, Lake)
 
   val usCoastSouth: LinePathLL = LinePathLL(pesqueIsle, tobicoLagoon, turnipRock, south)
 
-  override def polygonLL: PolygonLL = usCoastSouth.reverse ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++/
-    centralCanadaCoast +/--! eastCanadaCoast
+  override def polygonLL: PolygonLL = usCoastSouth.reverse ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++< centralCanadaCoast +/--! eastCanadaCoast
 }
 
 /** Graphical display for Lake Erie. No dependencies. */

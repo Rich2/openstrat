@@ -9,7 +9,7 @@ final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with
   override def typeStr: String = "LinePath"
   def fromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def polygonFromArray(array: Array[Double]): Polygon = new PolygonGen(array)
-  @inline def lengthFull: Int = unsafeArray.length / 2
+  @inline def numVerts: Int = unsafeArray.length / 2
   @inline def xStart: Double = unsafeArray(0)
   @inline def yStart: Double = unsafeArray(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
@@ -18,7 +18,7 @@ final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with
 
   def vertsTailForeach(f: (Double, Double) => Unit): Unit =
   { var count = 1
-    while (count < lengthFull)
+    while (count < numVerts)
     { f(unsafeArray(count *2), unsafeArray( count * 2 + 1))
       count += 1      
     }
