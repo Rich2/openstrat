@@ -11,9 +11,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
   override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def polygonFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
-  /** Reverses this [[LinePathLL]] and closes it returning a [[PolygonLL]] */
-  def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
-
   /** Alias for concatReverseTailInitClose. Concatenates the reversed elements of the operand [[LinePathLL]] minus the head and the last element of
    *  the operand. And then closes into a [[PolygonLL]]. */
   def +/--!(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand.reverse))

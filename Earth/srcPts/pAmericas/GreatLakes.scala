@@ -122,5 +122,5 @@ object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, Lake)
 
   val coast: LinePathLL = LinePathLL(mouthNorth, north, northWest, west, south, pointBetsie, mouthSouth)
 
-  override def polygonLL: PolygonLL = coast.reverseClose
+  override def polygonLL: PolygonLL = coast.reverse.toPolygon
 }

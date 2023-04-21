@@ -5,7 +5,7 @@ import geom._, pglobe._, pgui._, Colour._
 /** Basic map of the Earth using irregular areas / tiles. */
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
 { statusText = "Welcome to world map, constructed from irregular areas."
-  debvar(viewIn)
+
   /** Scale in km / pixel */
   var scale: Length = viewIn.scale
 

@@ -32,6 +32,9 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
 
+  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
+  @targetName("appendReverseToPolygon") def |++<|(operand: ThisT): ThisT
+
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
   def toPolygon: PolygonT
 
@@ -85,6 +88,9 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
 
   override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
 
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): ThisT =
+    fromArray((this ++< operand).unsafeArray)
+
   @targetName("prependVert") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](unsafeLength + elemProdSize)
     Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
@@ -124,6 +130,14 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
     fromArray(newArray)
   }
 
+  @targetName("prependVert") @inline final override def %:(operand: VT): ThisT = {
+    val newArray = new Array[Int](unsafeLength + elemProdSize)
+    Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
+    var i = 0
+    operand.intForeach { j => newArray(i) = j; i += 1 }
+    fromArray(newArray)
+  }
+
   @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT = {
     val newArray = new Array[Int](unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
@@ -136,7 +150,8 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
     res
   }
 
-  @targetName("appendToPolygon") override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+  @inline override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
+  @targetName("appendToPolygon") @inline override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
 
   @targetName("appendVertToPolygon") override def |+|[AA >: VT](op: VT): PolygonT =
   { val newArray = new Array[Int](unsafeLength + elemProdSize)
@@ -149,16 +164,8 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
     polygonFromArray(newArray)
   }
 
-  @targetName("prependVert") @inline final override def %:(operand: VT): ThisT = {
-    val newArray = new Array[Int](unsafeLength + elemProdSize)
-    Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
-    var i = 0
-    operand.intForeach { j => newArray(i) = j; i += 1 }
-    fromArray(newArray)
-  }
-
-  /** Closes this [[LinePathLike]] into a [[PolygonLike]] with a line Segment from the last point to the first point. */
-  @inline override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): ThisT =
+    fromArray((this ++< operand).unsafeArray)
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2SeqSpec[VT]
