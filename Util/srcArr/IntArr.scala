@@ -62,12 +62,13 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
     new IntArr(newArray)
   }
 
-  def take(n: Int): IntArr = if (n >= length) this
-  else {
-    val newArray = new Array[Int](n)
-    unsafeArray.copyToArray(newArray)
-    new IntArr(newArray)
-  }
+  def take(n: Int): IntArr =
+    if (n >= length) this
+    else
+    { val newArray = new Array[Int](n)
+      unsafeArray.copyToArray(newArray)
+      new IntArr(newArray)
+    }
 }
 
 /** Companion object for the [[IntArr]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and

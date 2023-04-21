@@ -27,7 +27,7 @@ trait ValueNSeqSpec[A <: ValueNElem] extends Any with ValueNSeqLike[A] with SeqS
   def ssElemEq(a1: A, a2: A): Boolean
 
   /** Reverses the order of the elements of the specifying sequence. */
-  def ssReverse: ThisT
+  def reverse: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   override def ssLength: Int = unsafeLength / elemProdSize

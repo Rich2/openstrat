@@ -25,6 +25,8 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
 
   /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
+
+  def toPolygon: PolygonT
 }
 
 trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNSeqSpec[VT]
@@ -59,6 +61,8 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
     }
     polygonFromArray(newArray)
   }
+
+  override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
 }
 
 trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with Dbl2SeqSpec[VT]
@@ -103,6 +107,9 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with IntNS
     }
     polygonFromArray(newArray)
   }
+
+  /** Closes this [[LinePathLike]] into a [[PolygonLike]] with a line Segment from the last point to the first point. */
+  @inline override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2SeqSpec[VT]

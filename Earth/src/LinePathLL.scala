@@ -49,12 +49,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
     res
   }
 
-  /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
-  @inline def close: PolygonLL = new PolygonLL(unsafeArray)
-
-  /** Reverses the line path so its end point becomes its start point. */
-  def reverse: LinePathLL = ssReverse
-
   /** Reverses this [[LinePathLL]] and closes it returning a [[PolygonLL]] */
   def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
 

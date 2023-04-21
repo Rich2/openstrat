@@ -27,7 +27,7 @@ trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayInt
 trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
 { type ThisT <: IntNSeqSpec[A]
 
-  override def ssReverse: ThisT =
+  override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(ssLength)
     ssIForeach({ (i, el) => res.setElemUnsafe(ssLength - 1 - i, el)})
     res
