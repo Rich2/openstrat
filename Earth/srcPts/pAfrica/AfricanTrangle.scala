@@ -1,20 +1,20 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, LatLong._
+import geom._, pglobe._
 
-/** Lake Victoria. */
+/** [[PolygonLL]] graphic object for Lake Victoria. Depends on nothing. */
 object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lake)
-{ val southEast = -2.23 ll 33.84
-  val katongaMouth =  -0.14 ll 31.94
-  val east = -0.39 ll 34.26
-  val north = 0.34 ll 33.34
-  val southWest = -2.64 ll 31.76
-  val southEastAfrica = LinePathLL(southWest, southEast, east, north, katongaMouth)
+{ val southEast: LatLong = -2.23 ll 33.84
+  val katongaMouth: LatLong =  -0.14 ll 31.94
+  val east: LatLong = -0.39 ll 34.26
+  val north: LatLong = 0.34 ll 33.34
+  val southWest: LatLong = -2.64 ll 31.76
+  val southEastAfrica: LinePathLL = LinePathLL(southWest, southEast, east, north, katongaMouth)
 
   override def polygonLL: PolygonLL = southEastAfrica.reverse.toPolygon
 }
 
-/** Lake Tanganyika. */
+/** [[PolygonLL]] graphic object for Lake Tanganyika depends on nothing. */
 object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lake)
 { val northEast: LatLong = -3.36 ll 29.34
   val northWest: LatLong = -3.36 ll 29.16
@@ -32,7 +32,8 @@ object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lake)
   override def polygonLL: PolygonLL = westCoast.reverse |++<| eastCoast.inner
 }
 
-/** [[PolygonLL]] graphic object. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and [[LakeVictoria]]. */
+/** [[PolygonLL]] graphic object for the west of cnetral Africa. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
+ *  [[LakeVictoria]]. */
 object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, Jungles)
 { val wAfricaEquator: LatLong = 0.0 ll 9.13
   val baiaFarta: LatLong = -12.81 ll 13.01
@@ -44,6 +45,7 @@ object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, Jungle
     LakeTanganyika.westCoast |+| SouthAfrica.cAfricaSE
 }
 
+/** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
 object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, Plain)
 { val seNacala: LatLong = -14.4 ll 40.3
   val eAfricaEquator: LatLong = 0.0 ll 42.4
@@ -53,6 +55,7 @@ object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, 
     LinePathLL(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa, seNacala, SouthAfrica.sAfricaNE)
 }
 
+/** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
 object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, Plain)
 { val north: LatLong = -11.95 ll 49.26
   val east: LatLong = -15.33 ll 50.48
@@ -63,20 +66,21 @@ object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, Plain)
   override def polygonLL: PolygonLL = PolygonLL(north, east, southEast, south, tambohorano)
 }
 
+/** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
 object SouthAfrica extends EArea2("South Africa", -25 ll 24, Plain)
-{ val sAfricaN = 17.south
+{ val sAfricaN: Latitude = 17.south
 
   val sAfricaNW: LatLong = - 17 ll 11.76
   val cAfricaSE: LatLong = sAfricaN * 31.east
   val sAfricaNE: LatLong = -17 ll 39.06
-  val agulhas = degs(-34.83, 20.00)
-  val capeTown = degs(-34, 19)
-  val nNamibia = -17.12 ll 11.3
-  val beira = -19.35 ll 34.3
-  val inhambane = -23.38 ll 35.2
-  val maputo = -25.4 ll 32.2
-  val richardsBay = degs(-29, 32)
-  val portLiz = degs(-34, 26)
+  val agulhas: LatLong = -34.83 ll 20.00
+  val capeTown: LatLong = -34 ll 19
+  val nNamibia: LatLong = -17.12 ll 11.3
+  val beira: LatLong = -19.35 ll 34.3
+  val inhambane: LatLong = -23.38 ll 35.2
+  val maputo: LatLong = -25.4 ll 32.2
+  val richardsBay: LatLong = -29 ll 32
+  val portLiz: LatLong = -34 ll 26
 
   override def polygonLL: PolygonLL = PolygonLL(agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane, maputo, richardsBay,
     portLiz)
