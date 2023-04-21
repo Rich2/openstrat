@@ -9,7 +9,6 @@ final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with
   override def typeStr: String = "LinePath"
   def fromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def polygonFromArray(array: Array[Double]): Polygon = new PolygonGen(array)
-  @inline def numVerts: Int = unsafeArray.length / 2
   @inline def xStart: Double = unsafeArray(0)
   @inline def yStart: Double = unsafeArray(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)

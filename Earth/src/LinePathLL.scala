@@ -27,8 +27,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
     array
   }
 
-  def numVerts: Int = ssLength
-
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
   def vertsForeach[U](f: LatLong => U): Unit = ssForeach(f)
 
