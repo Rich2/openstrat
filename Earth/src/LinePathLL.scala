@@ -11,28 +11,6 @@ final class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLo
   override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def polygonFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
-  /** Alias for concatElem. Concatenate [[LatLong]] element, returning a new [[LinePathLL]]. An immutable append. */
-  inline def +% (newElem: LatLong): LinePathLL = concatElem(newElem)
-
-  /** Concatenate [[LatLong]] element returning a new [[LinePathLL]]. An immutable append. Aliased by +% operator. */
-  def concatElem (newElem: LatLong): LinePathLL =
-  { val res = LinePathLL.uninitialised(ssLength + 1)
-    ssIForeach{ (i, ll) => res.setElemUnsafe(i, ll) }
-    res.setElemUnsafe(ssLength, newElem)
-    res
-  }
-
-  /** Alias for prepend. Prepends element, returning a new [[LatLong]]. */
-  inline def %: (newElem: LatLong): LinePathLL = prepend(newElem)
-
-  /** Prepends element, returning a new [[LatLong]]. Aliased by %: operator. */
-  def prepend (newElem: LatLong): LinePathLL =
-  { val res = LinePathLL.uninitialised(ssLength + 1)
-    res.setElemUnsafe(0, newElem)
-    ssIForeach{ (i, ll) => res.setElemUnsafe(i + 1, ll) }
-    res
-  }
-
   /** Aliased by concatReverse. Concatenate the reversed elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable
    *  reverse append. The ++ characters indicate concatenate multiple elements. The / character indicates a reverse operation. The purpose of the
    *  concatenate reversed methods is for [[PolygonLL]]s with shared [[LinePathLL]]s. To allow both polygons to keep their points with the clockwise

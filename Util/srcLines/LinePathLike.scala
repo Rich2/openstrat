@@ -63,6 +63,14 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNS
   }
 
   override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
+
+  @targetName("prepend") @inline def %: (operand: VT): ThisT =
+  { val newArray = new Array[Double](unsafeLength + elemProdSize)
+    Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
+    var i = 0
+    operand.dblForeach{d => newArray(i) = d; i += 1 }
+    fromArray(newArray)
+  }
 }
 
 trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with Dbl2SeqSpec[VT]

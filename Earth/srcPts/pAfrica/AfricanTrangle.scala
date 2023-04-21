@@ -9,7 +9,8 @@ object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lake)
   val east = -0.39 ll 34.26
   val north = 0.34 ll 33.34
   val southWest = -2.64 ll 31.76
-  val southEastAfrica = LinePathLL(southWest, southEast, east, north, katongaMouth )
+  val southEastAfrica = LinePathLL(southWest, southEast, east, north, katongaMouth)
+
   override def polygonLL: PolygonLL = southEastAfrica.reverseClose
 }
 
