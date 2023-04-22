@@ -36,6 +36,7 @@ object Terr320W120 extends Long320Terrs
       TRow(130, sea * 3, hills, hills, hillyDesert * 2, mtain),
       TRow(128, sea * 3, hills, hillyDesert * 2, desert, hillyDesert),
       TRow(126, sea * 5, hills, hillyDesert, desert),
+      TRow(124, sea * 6, hills, hills, hillyDesert),
     )
   }
 

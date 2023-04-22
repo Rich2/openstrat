@@ -55,13 +55,13 @@ object AmericasFarNorth extends EArea1("Far North\nAmerica", 61 ll -109)
 
   val lakes: RArr[EArea2] = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
   override val a2Arr: RArr[EArea2] = lakes ++
-    RArr(Alaska, NorthWestCanada, NorthWestCanada, EllesmereIsland, GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut, SouthWestCanada, CentralCanada, BanksIsland, MelvilleIsland, VictoriaIsland, PrinceWalesIsland,
+    RArr(Alaska, CanadaNorthWest, CanadaNorthWest, EllesmereIsland, GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut, CanadaSouthWest, CanadaCentral, BanksIsland, MelvilleIsland, VictoriaIsland, PrinceWalesIsland,
       SouthamptonIsland, CanadaSouthEast, NewBrunswick, NovaScotia, CanadaNorthEast, DevonIsland, BaffinIsland, NewFoundland)
 }
 
 object AmericasNearNorth extends EArea1("North America", 49 ll -100)
 { import pAmericas._
-  override val a2Arr: RArr[EArea2] = RArr(UsaWest, UsaEast, Florida, Baja, Mexico, AmericasCentral, Cuba)
+  override val a2Arr: RArr[EArea2] = RArr(UsaWest, UsaMid, UsaEast, Florida, Baja, Mexico, AmericasCentral, Cuba)
 }
 
 /** Asia East. North of 25.4N degs East of 66.3E west of 141.6E 33.3N */

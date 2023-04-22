@@ -14,6 +14,8 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
     res
   }
 
+  /** This line path with the first and last vertex's removed. This can be useful for borders where the end points may show up in multiple line paths
+   * and therefore sometimes need to be excluded when appending. */
   def inner: ThisT
 
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */

@@ -9,8 +9,8 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, Hilly)
   val manzanillo = 19.15 ll -104
   val cAmericaNW= 22.8 ll -105.97
 
-  override def polygonLL: PolygonLL = PolygonLL(UsaWest.galveston, brownsville, AmericasCentral.coatzacoalcosMouth, AmericasCentral.tehuantepecMouth,
-    pochutala, manzanillo, cAmericaNW, UsaWest.rockyPoint)
+  override def polygonLL: PolygonLL = PolygonLL(UsaMid.galveston, brownsville, AmericasCentral.coatzacoalcosMouth, AmericasCentral.tehuantepecMouth,
+    pochutala, manzanillo, cAmericaNW, UsaWest.rockyPoint, UsaWest.southEast)
 }
 
 /** [[polygonLL]] graphical representation for central America not including most of Mexico. Depends on nothing. */

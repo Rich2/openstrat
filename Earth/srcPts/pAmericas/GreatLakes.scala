@@ -3,14 +3,14 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._
 
 /** [[polygonLL]] graphical representation for central Canada. Depends on [[CanadaNorthEast]]. */
-object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, Taiga)
+object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, Taiga)
 { val manitoba20: LatLong = 57.26 ll -90.89
   val jamesBayNW: LatLong = 55.07 ll -82.31
   val attapiskatMouth: LatLong = 52.97 ll -82.26
   val moosoneeMouth: LatLong = 51.36 ll -80.40
 
-  override def polygonLL: PolygonLL = LinePathLL(SouthWestCanada.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
-    CanadaNorthEast.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.canadaCoast |++| LinePathLL(LakeWinnipeg.redMouth,
+  override def polygonLL: PolygonLL = LinePathLL(CanadaSouthWest.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
+    CanadaNorthEast.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast |++| LinePathLL(LakeWinnipeg.redMouth,
     LakeWinnipeg.winnipegMouth, LakeWinnipeg.bloodveinMouth, LakeWinnipeg.playGreenMouth, LakeWinnipeg.north, LakeWinnipeg.northWest)
 }
 
@@ -33,17 +33,17 @@ object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
   val michipicoten: LatLong = 47.96 ll -84.86
   val north: LatLong = 48.80 ll -87.31
   val west48: LatLong = 48.00 ll -89.57
-  val canadaCoast = LinePathLL(east, michipicoten, north, west48)
-
   val west: LatLong = 46.77 ll -92.11
+  val northCoast = LinePathLL(east, michipicoten, north, west48, west)
+
   val p10 = 46.96 ll -90.86
   val montrealMouth: LatLong = 46.57 ll -90.42
   val highRock : LatLong = 47.42 ll -87.71
   val chocolayMouth: LatLong = 46.50 ll -87.35
 
-  val usCoast = LinePathLL(west48, west, p10, montrealMouth, highRock, chocolayMouth, east)
+  val southCoast = LinePathLL(west, p10, montrealMouth, highRock, chocolayMouth, east)
 
-  override def polygonLL: PolygonLL = canadaCoast.reverse |++<| usCoast.inner
+  override def polygonLL: PolygonLL = northCoast.reverse |++<| southCoast.inner
 }
 
 /** Graphical display for Lake Huron. No dependencies. */

@@ -2,8 +2,18 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._
 
-/** [polygonLL]] Graphical object for the east of the United States. Dependant on [[UsaWest]], [[SouthWestCanada]], [[CanadaSouthEast]],
- *  [[LakeSuperior]], [[LakeMichigan]], [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
+object Florida extends EArea2("Florida", 28.29 ll -81.59, Jungles)
+{ val stJohnsMouth = 30.40 ll -81.40
+  val seFlorida: LatLong = 25.34 ll -80.39
+  val swFlorida: LatLong = 25.19 ll -81.13
+
+  val wakullaMouth = 30.09 ll -83.99
+  override def polygonLL: PolygonLL = PolygonLL(stJohnsMouth, seFlorida, swFlorida, wakullaMouth)
+}
+
+
+/** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthEast]], [[LakeSuperior]], [[LakeMichigan]],
+ *  [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
 object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, Plain)
 { val p10: LatLong = 42.41 ll -71.00
   val chatham: LatLong = 41.67 ll -69.95
@@ -13,22 +23,27 @@ object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, Plain)
   /** Camden County Georgia USA */
   val NAtlanticSW: LatLong = 31 ll  -81.47
 
-  override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, LakeWinnipeg.redMouth) ++ LakeSuperior.usCoast +% LakeHuron.pineMouth ++
+  val capeSanBlas = 29.67 ll -85.35
+  val p70 = 30.39 ll -86.65
+  val gulfPort = 30.37 ll -89.08
+
+  override def polygonLL: PolygonLL = LakeSuperior.southCoast +% LakeHuron.pineMouth ++
     LakeMichigan.coast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
-    p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, UsaWest.galveston, UsaWest.rockyPoint)
+    p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, capeSanBlas, p70, gulfPort)
 }
 
-object Florida extends EArea2("Florida", 28.29 ll -81.59, Jungles)
-{
-  val stJohnsMouth = 30.40 ll -81.40
-  val seFlorida: LatLong = 25.34 ll -80.39
-  val swFlorida: LatLong = 25.19 ll -81.13
+/** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaWest]], [[CanadaSouthWest]], [[LakeWinnipeg]], [[CanadaCentral]],
+ *  [[LakeSuperior]] and [[UsaEast]]. */
+object UsaMid extends EArea2("United States\nmid", 40 ll - 97.0, Plain)
+{ val newOrleansSE: LatLong = 29.38 ll -89.57
+  val calcasieuMouth = 29.76 ll -93.34
+  val galveston: LatLong = 29.31 ll -94.77
 
-  val wakullaMouth = 30.09 ll -83.99
-  override def polygonLL: PolygonLL = PolygonLL(stJohnsMouth, seFlorida, swFlorida, wakullaMouth)
+  override def polygonLL: PolygonLL = PolygonLL(LakeSuperior.west, UsaEast.gulfPort, newOrleansSE, calcasieuMouth, galveston, UsaWest.southEast,
+    CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
 }
 
-/** [polygonLL]] Graphical object for the east of the United States. Dependant on [[SouthWestCanada]]. */
+/** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthWest]] and [[Baja]]. */
 object UsaWest extends EArea2("United States\nwest", 40.0 ll - 108.0, Desert)
 { val sanDiego: LatLong = 32.57 ll -117.11
   val carlsbad: LatLong = 33.16 ll -117.36
@@ -39,11 +54,12 @@ object UsaWest extends EArea2("United States\nwest", 40.0 ll - 108.0, Desert)
   val humboldt: LatLong = 40.44 ll -124.40
   val capeBlanco: LatLong = 42.84 ll -124.56
   val neahBay: LatLong = 48.37 ll -124.67
-  val galveston: LatLong = 29.31 ll -94.77
+
+  val southEast = 29.31 ll -104
   val rockyPoint: LatLong = 31.16 ll -113.02
 
   override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, pointReyes, pointArena, humboldt, capeBlanco,
-    neahBay, SouthWestCanada.w49th, LakeWinnipeg.redMouth, galveston, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
+    neahBay, CanadaSouthWest.w49th, CanadaSouthWest.montanaNE, southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
 
   val lasVegas: LocationLL = LocationLL("Las Vegas", 36.17, -115.14, 2)
   val denver: LocationLL = LocationLL("Denver", 39.74, -105, 2)

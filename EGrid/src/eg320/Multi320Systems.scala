@@ -41,7 +41,7 @@ object Scen320S10E5 extends EScenLongMulti
 /** Just terrain scenario for all longitudes grid system. */
 object Scen320All extends EScenLongMulti
 { override val title: String = "All longitude terrain only scenario."
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(12, 0, 126)
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(12, 0, 124)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -50,7 +50,7 @@ object Scen320All extends EScenLongMulti
 /** Terrain only scenario for North America. 3 320km grid system for 150W, 120W, 90W and 60W */
 object Scen320Americas extends EScenLongMulti
 { override val title: String = "320km 150W - 60W"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 7, 126)
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 7, 124)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

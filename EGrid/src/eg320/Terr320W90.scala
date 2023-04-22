@@ -4,7 +4,7 @@ import prid.phex._, egrid._, WTile._
 
 /** Terrain for 90 degrees west includes grid, tile terrain and straits [[Boolean]]s. */
 object Terr320W90 extends Long320Terrs
-{ override implicit val grid: EGrid320LongFull = EGrid320.w90(126)
+{ override implicit val grid: EGrid320LongFull = EGrid320.w90(124)
   override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
@@ -39,6 +39,7 @@ object Terr320W90 extends Long320Terrs
       TRow(130, desert, plain * 5, hills, plain),
       TRow(128, desert, plain * 3, hills * 2, plain, sea),
       TRow(126, desert, plain * 6, sea),
+      TRow(124, desert, plain * 5, jungle, sea * 2),
     )
   }
   help.run
