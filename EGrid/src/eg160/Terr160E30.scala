@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked. */
 object Terr160E30 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e30(256)
-  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 

@@ -6,7 +6,7 @@ import prid.phex._, egrid._, WTile._
  *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Isle]].  */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
-  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 

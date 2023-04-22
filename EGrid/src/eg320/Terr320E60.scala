@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTile._
 /** 320km terrain for 60 east. */
 object Terr320E60 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e60(118)
-  override val terrs: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 

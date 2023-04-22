@@ -11,7 +11,7 @@ trait NormScen
 
 object NormScen1 extends NormScen
 { override implicit val grid  = HGridReg(2, 12, 2, 40)
-  override val terrs = grid.newHCenLayer[Tile](Sea)
+  override val terrs = HCenLayer[Tile](Sea)
 
   terrs.set(6, 6, Island())
 //  terrs.set(6, 10, Head1Land(3))

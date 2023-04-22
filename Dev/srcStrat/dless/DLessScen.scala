@@ -60,7 +60,7 @@ object DLessScen1 extends DLessScen
     res
   }
 
-  val nationMap = gridSys.newHCenLayer[NationOpt](NationLess)
+  val nationMap: HCenLayer[NationOpt] = HCenLayer[NationOpt](NationLess)
   terrs.hcForeach{ (hc, terr) => if(terr.isLand) nationMap.set(hc, Neutral) }
   //nationMap.setRowPartSame(138, 510, 3, France)
 }

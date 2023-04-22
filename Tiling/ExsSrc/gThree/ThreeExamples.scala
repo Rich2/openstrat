@@ -4,7 +4,7 @@ import prid._, phex._, gOne.hp1.GSys
 
 object ThreeScen1 extends ThreeScen(0)
 { override implicit val gridSys: HGridReg = GSys.g1
-  override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
+  override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
 
@@ -16,7 +16,7 @@ object ThreeScen1 extends ThreeScen(0)
 
 object ThreeScen2 extends ThreeScen(0)
 { override implicit val gridSys: HGrid = HGridReg(2, 8, 2, 18)
-  override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
+  override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
@@ -28,7 +28,7 @@ object ThreeScen2 extends ThreeScen(0)
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
 object ThreeScen3 extends ThreeScen(0)
 { override implicit val gridSys: HGrid = HGridReg(2, 20, 4, 60)
-  override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
+  override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
   import terrs.{setRowPartSame => sr}
   sr(6,6, 4, Water)
   sr(8,4, 5, Water)
@@ -46,7 +46,7 @@ object ThreeScen3 extends ThreeScen(0)
 object ThreeScen4 extends ThreeScen(0)
 {
   override implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
-  override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
+  override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
 
   import terrs.{setRowEnd => sr}
   val units: HCenOptLayer[Lunit] = HCenOptLayer()

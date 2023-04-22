@@ -21,7 +21,7 @@ trait CivScenStart extends CivScen
 /** Civ scenario 1. */
 object Civ1 extends CivScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
-  override val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Plain)
+  override val terrs: HCenLayer[VTile] = HCenLayer[VTile](Plain)
   override val sTerrs: HSideOptLayer[VSide, VSideSome] = gridSys.newSideOptLayer[VSide, VSideSome]
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 
@@ -50,7 +50,7 @@ object Civ1 extends CivScenStart
 object Civ2 extends CivScenStart
 { override val title: String = "CivRise Scen 2"
   override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 42)
-  val terrs: HCenLayer[VTile] = gridSys.newHCenLayer[VTile](Sea)
+  val terrs: HCenLayer[VTile] = HCenLayer[VTile](Sea)
   override val sTerrs: HSideOptLayer[VSide, VSideSome] = gridSys.newSideOptLayer[VSide, VSideSome]
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 

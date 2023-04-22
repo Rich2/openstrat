@@ -291,8 +291,15 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
 /** Companion object for [[HCenLayer]], contains an apply factory method. */
 object HCenLayer
-{ /** Apply factory method for [[HCenLayer]]s. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenLayer[A] = new HCenLayer[A](new Array[A](length))
+{ /** Apply factory method for [[HCenLayer]]. */
+  def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGridSys): HCenLayer[A] = apply(gridSys, value)(ct)
+
+  /** Apply factory method for [[HCenLayer]]. */
+  def apply[A <: AnyRef](gridSys: HGridSys, value: A)(implicit ct: ClassTag[A]): HCenLayer[A] =
+  { val newArray = new Array[A](gridSys.numTiles)
+    iUntilForeach(gridSys.numTiles)(i => newArray(i) = value)
+    new HCenLayer[A](newArray)
+  }
 
   implicit class RArrHCenLayerExtension[A <: AnyRef](val thisArr: RArr[HCenLayer[A]])
   { /** Combines by appending the data grids to produce a single layer. */

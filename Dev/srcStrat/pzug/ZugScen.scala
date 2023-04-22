@@ -39,7 +39,7 @@ trait ZugScenStart extends ZugScen
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 14, 2, 48)
-  val terrs: HCenLayer[ZugTerr] = gridSys.newHCenLayer[ZugTerr](Plain)
+  val terrs: HCenLayer[ZugTerr] = HCenLayer[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues :_*)(gridSys)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
   cr(10, 2, WheatField * 2, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
@@ -82,7 +82,7 @@ object Zug1 extends ZugScenStart
 object Zug2 extends ZugScenStart
 {
   override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
-  val terrs = gridSys.newHCenLayer[ZugTerr](Lake)
+  val terrs = HCenLayer[ZugTerr](Lake)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues :_*)(gridSys)
   gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
   gs(8, 4 , Plain * 4, Lake * 2, Plain * 3 )
@@ -98,7 +98,7 @@ object Zug2 extends ZugScenStart
 /** ZugFuhrer scenario 3. */
 object Zug3 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
-  val terrs = gridSys.newHCenLayer[ZugTerr](Plain)
+  val terrs = HCenLayer[ZugTerr](Plain)
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 

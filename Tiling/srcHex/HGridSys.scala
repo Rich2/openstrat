@@ -213,13 +213,6 @@ trait HGridSys extends Any with TGridSys
     build.buffToSeqLike(buff)
   }
 
-  /** New hex tile data layer. */
-  final def newHCenLayer[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenLayer[A] =
-  { val res: HCenLayer[A] = HCenLayer[A](numTiles)
-    res.mutSetAll(value)
-    res
-  }
-
   /** Spawns a new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
   def hCenLayerSpawn[A <: AnyRef](superGrid: HGridSys, superLayer: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] =
   { val array: Array[A] = new Array[A](numTiles)
