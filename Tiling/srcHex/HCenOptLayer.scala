@@ -282,4 +282,6 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     grider.foreach{hc => res.replaceNone(ife(value == getex(hc), Some(hc), None)) }
     res
   }
+
+  def accMap[B](f: A => (HCen, B))(implicit grider: HGridSys): HCenArrLayer[B] = ???
 }

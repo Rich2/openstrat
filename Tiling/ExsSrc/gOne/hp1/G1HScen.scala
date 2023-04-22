@@ -28,6 +28,10 @@ trait G1HScen extends HSysTurnScen
 
     G1HScen(turn + 1, gridSys, playersNew)
   }
+
+  def resolve(actions: HCenOptLayer[(Player, HStep)]): Unit = {
+
+  }
 }
 
 /** Companion object for OneScen trait, contains factory apply method. */
