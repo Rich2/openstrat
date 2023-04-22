@@ -8,15 +8,18 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
   def apply(hc: HCen)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.layerArrayIndex(hc)))
   def apply(r: Int, c: Int)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.layerArrayIndex(r, c)))
 
-  def set(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = set(HCen(r, c), value)
+  def empty(r: Int, c: Int)(implicit grider: HGridSys): Boolean = apply(r, c).length == 0
+  def empty(hc: HCen)(implicit grider: HGridSys): Boolean = apply(hc).length == 0
 
-  def set(hc: HCen, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
+  def set1(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = setSeq(HCen(r, c), value)
+
+  def setSeq(hc: HCen, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
     unsafeArray(grider.layerArrayIndex(hc)) = newElem
   }
 
-  def setSame(value: A, hcs: HCen*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = hcs.foreach{ hc => set(hc, value) }
+  def setSame(value: A, hcs: HCen*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = hcs.foreach{ hc => setSeq(hc, value) }
 
   def prepend(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = prepend(HCen(r, c), value)
 
@@ -83,5 +86,16 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
       }
     }
     build.buffToSeqLike(buff)
+  }
+
+  def setFSomesMut(f: () => A, hCens: Int*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = {
+    if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
+    iUntilForeach(0, hCens.length, 2) { i => prepend(hCens(i), hCens(i + 1), f())
+//      val r = hCens(i)
+//      val c = hCens(i + 1)
+//      val oldArrA: RArr[A] = apply(r, c)
+//      val newArrA: RArr[A] = oldArrA +% f()
+//      set1(r, c, newArrA)// unsafeArray(grider.layerArrayIndex(hCens(i), hCens(i + 1))) = f()
+    }
   }
 }

@@ -42,8 +42,8 @@ object Civ1 extends CivScenStart
   help.run
 
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
-  lunits.set(10, 18, Warrior(Uruk))
-  lunits.set(6, 10, Warrior(Eridu))
+  lunits.set1(10, 18, Warrior(Uruk))
+  lunits.set1(6, 10, Warrior(Eridu))
 }
 
 /** Civ scenario 2. */
@@ -72,6 +72,6 @@ object Civ2 extends CivScenStart
   help.run
 
   val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
-  lunits.set(8, 16, Warrior(Uruk))
-  lunits.set(6, 10, Warrior(Eridu))
+  lunits.set1(8, 16, Warrior(Uruk))
+  lunits.set1(6, 10, Warrior(Eridu))
 }

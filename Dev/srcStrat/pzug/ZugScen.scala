@@ -14,7 +14,7 @@ trait ZugScen extends HSysTurnScen
   val sTerrs: HSideBoolLayer
   val corners: HCornerLayer
   val lunits: HCenArrLayer[Squad]
-  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set(r, c, Squad(polity, Move(HStepArr(steps:_*))))
+  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set1(r, c, Squad(polity, Move(HStepArr(steps:_*))))
 
   def endTurn(): ZugScen = new ZugScen
   {
@@ -68,13 +68,13 @@ object Zug1 extends ZugScenStart
 
   val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrLayer[Squad]
   setSquadMove(2, 30, Britain, HexLt, HexLt)
-  lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
+  lunits.set1(10, 38, Squad(Britain, Fire(6 hc 18)))
   setSquadMove(4, 32, Britain, HexLt, HexLt)
   setSquadMove(6, 46, Britain, HexLt)
   setSquadMove(14, 46, Britain, HexLt, HexLt, HexDL)
-  lunits.set(10, 46, Squad(Britain))
-  lunits.set(6, 18, Squad(Germany, Fire(4 hc 32)))
-  lunits.set(10, 18, Squad(Germany, Fire(4 hc 32)))
+  lunits.set1(10, 46, Squad(Britain))
+  lunits.set1(6, 18, Squad(Germany, Fire(4 hc 32)))
+  lunits.set1(10, 18, Squad(Germany, Fire(4 hc 32)))
   setSquadMove(6, 10, Germany, HexUL, HexRt, HexRt)
 }
 

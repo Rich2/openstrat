@@ -10,7 +10,7 @@ trait DLessScen extends HSysTurnScen
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
-  val armies: HCenOptLayer[Army]
+  val armies: HCenArrLayer[Army]
 
   def endTurn(orderList: HCenStepPairArr[Army]): DLessScen =
   { val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
@@ -20,15 +20,15 @@ trait DLessScen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Army] = armies.clone
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
+    val armiesNew: HCenArrLayer[Army] = armies// armies.clone
+    //targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new DLessScen
     { override implicit val gridSys: EGridSys = ThisScen.gridSys
       override val terrs: HCenLayer[WTile] = ThisScen.terrs
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
-      override val armies: HCenOptLayer[Army] = armiesNew
+      override val armies: HCenArrLayer[Army] = armiesNew
       override def turn: Int = ThisScen.turn + 1
     }
   }
@@ -46,8 +46,8 @@ object DLessScen1 extends DLessScen
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   implicit val nations: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
 
-  override val armies: HCenOptLayer[Army] =
-  { val res = gridSys.newHCenOptLayer[Army]
+  override val armies: HCenArrLayer[Army] =
+  { val res = gridSys.newHCenArrLayer[Army]
     implicit val counters: ArrCounters[Nation] = ArrCounters(nations)
     res.setFSomesMut(Britain.armyNext, 142,514,  144,508)
     res.setFSomesMut(Germany.armyNext, 140,520,  144,1528,  144,520,  142,1526)
@@ -75,5 +75,5 @@ object DLessScen2 extends DLessScen
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg.britSTerrs
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
-  override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
+  override val armies: HCenArrLayer[Army] = gridSys.newHCenArrLayer
 }
