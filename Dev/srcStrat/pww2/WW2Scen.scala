@@ -49,14 +49,13 @@ object WW2Scen1 extends WW2Scen
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen320All.sTerrs
   override val corners: HCornerLayer = Scen320All.corners
 
-  val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
+  val armies: HCenOptLayer[Army] = HCenOptLayer()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
   armies.setFSomesMut(Germany.armyNext, 146,1534,  144,1536,  142,1538,  140,1540,  138,1542,  136,1540)
   armies.setFSomesMut(Soviet.armyNext, 148,1536,  146,1538,  144,1540,  142,1542,  140,1544,  138,1546,  136,1544)
   armies.setFSomesMut(Britain.armyNext, 142,514)
   armies.setFSomesMut(Japan.armyNext, 128,4624)
-  //WW2Scen.sa0(armies)
 }
 
 object WW2Scen2 extends WW2Scen
@@ -66,7 +65,6 @@ object WW2Scen2 extends WW2Scen
   override val terrs: HCenLayer[WTile] = Terr320E0.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr320E0.sTerrs
   override val corners: HCornerLayer = Terr320E0.corners
-
-  val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
+  val armies: HCenOptLayer[Army] = HCenOptLayer()
 
 }

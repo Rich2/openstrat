@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pnap
-import prid._, phex._, egrid._, eg80._, pEarth._
+import prid._, phex._, egrid._, eg80._
 
 trait NapScen extends EScenBasic with HSysTurnScen
 {
@@ -16,7 +16,7 @@ object NapScen1 extends NapScen
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
 
-  override val corps: HCenOptLayer[Corps] = gridSys.newHCenOptLayer[Corps]
+  override val corps: HCenOptLayer[Corps] = HCenOptLayer()
   corps.setSomeMut(464, 516, Corps(Britain))
   corps.setSomeMut(456, 516, Corps(France))
 }
@@ -29,5 +29,5 @@ object NapScen2 extends NapScen
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
 
-  override val corps: HCenOptLayer[Corps] = gridSys.newHCenOptLayer[Corps]
+  override val corps: HCenOptLayer[Corps] = HCenOptLayer()
 }

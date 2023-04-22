@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
-import prid._, phex._, egrid._, eg120._, pEarth._
+import prid._, phex._, egrid._, eg120._
 
 trait WW1Scen extends HSysTurnScen
 { ThisScen =>
@@ -38,7 +38,7 @@ object WW1Scen1 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr120E0.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
-  override val lunits: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer[Lunit]
+  override val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
   lunits.setSomeMut(310, 514, Army(Britain, 1))
   lunits.setSomeMut(308, 528, Army(Germany, 1))
   lunits.setSomeMut(306, 526, CavalryCorps(Germany, 1))
@@ -51,5 +51,5 @@ object WW1Scen2 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr120E30.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E30.sTerrs
   override val corners: HCornerLayer = Terr120E30.corners
-  override val lunits: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer[Lunit]
+  override val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
 }

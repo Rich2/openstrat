@@ -12,8 +12,8 @@ trait BCScen extends HSysTurnScen
   val corners: HCornerLayer
   val armies: HCenOptLayer[Legion]
 
-  def endTurn(orderList: HCenStepPairArr[Legion]): BCScen = {
-    val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
+  def endTurn(orderList: HCenStepPairArr[Legion]): BCScen =
+  { val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
       val optTarget: Option[HCen] = pair.startHC.stepOpt(pair.step)
@@ -40,7 +40,7 @@ object BCScen1 extends BCScen
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
+  override val armies: HCenOptLayer[Legion] = HCenOptLayer()
   armies.setSomeMut(434,562, Rome.lg(1) )
   armies.setSomeMut(434,566, Rome.lg(2))
   armies.setSomeMut(418,1502, Sparta.lg(1))
@@ -52,5 +52,5 @@ object BCScen2 extends BCScen
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
-  override val armies: HCenOptLayer[Legion] = gridSys.newHCenOptLayer
+  override val armies: HCenOptLayer[Legion] = HCenOptLayer()
 }
