@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
+import geom._, reflect.ClassTag
 
 /** Data layer for [[HSide]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
 class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
@@ -48,4 +48,16 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
         case _ => None
       }
     }
+}
+
+object HSideOptLayer
+{
+  def apply[A, SA <: HSideSome]()(implicit ct: ClassTag[A], noneTC: NoneTC[A], gridSys: HGridSys): HSideOptLayer[A, SA] =
+    apply[A, SA](gridSys, noneTC)(ct)
+
+  def apply[A, SA <: HSideSome](gridSys: HGridSys, noneTC: NoneTC[A])(implicit ct: ClassTag[A]): HSideOptLayer[A, SA] =
+  { val newArray = new Array[A](gridSys.numSides)
+    iUntilForeach(gridSys.numSides)(newArray(_) = noneTC.noneValue)
+    new HSideOptLayer[A, SA](newArray)
+  }
 }

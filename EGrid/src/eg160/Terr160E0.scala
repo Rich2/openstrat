@@ -9,7 +9,7 @@ object Terr160E0 extends Long160Terrs
   /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
 
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = grid.newSideOptLayer[WSide, WSideSome]
+  override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
