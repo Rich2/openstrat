@@ -85,7 +85,7 @@ object WesternFront
     new EGrid80LongPart(446, 0, array)
   }
 
-  def wfTerrs: HCenLayer[WTile] = wfGrid.hCenLayerSpawn(Terr80E0.grid, Terr80E0.terrs)
+  def wfTerrs: HCenLayer[WTile] = Terr80E0.terrs.spawn(Terr80E0.grid, wfGrid)
   def wfSTerrs:HSideOptLayer[WSide, WSideSome] = wfGrid.sideOptLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
   def wfCorners: HCornerLayer = wfGrid.cornerLayerSpawn(Terr80E0.grid, Terr80E0.corners)
   def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")

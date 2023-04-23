@@ -10,7 +10,7 @@ package object eg80
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid80LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
-    subSys.grids(i).hCenLayerSpawn(ft.grid, ft.terrs)
+    ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine
 
   def fullTerrsSideLayerSpawn(implicit subSys: EGrid80LongMulti): HSideOptLayer[WSide, WSideSome] =

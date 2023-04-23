@@ -51,7 +51,7 @@ object Terr160E0 extends Long160Terrs
 
 /** 16okm terrain scenario for Britain */
 object Brit160
-{ def britTerrs: HCenLayer[WTile] = EGrid160.britGrid.hCenLayerSpawn(Terr160E0.grid, Terr160E0.terrs)
+{ def britTerrs: HCenLayer[WTile] = Terr160E0.terrs.spawn(Terr160E0.grid, EGrid160.britGrid)
   def britSTerrs: HSideOptLayer[WSide, WSideSome] = EGrid160.britGrid.sideOptLayerSpawn(Terr160E0.grid, Terr160E0.sTerrs)
   def britCorners: HCornerLayer = EGrid160.britGrid.cornerLayerSpawn(Terr160E0.grid, Terr160E0.corners)
 

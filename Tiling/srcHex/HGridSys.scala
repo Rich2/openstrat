@@ -213,13 +213,6 @@ trait HGridSys extends Any with TGridSys
     build.buffToSeqLike(buff)
   }
 
-  /** Spawns a new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
-  def hCenLayerSpawn[A <: AnyRef](superGrid: HGridSys, superLayer: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] =
-  { val array: Array[A] = new Array[A](numTiles)
-    foreach{hc => array(layerArrayIndex(hc)) = superLayer(hc)(superGrid)}
-    new HCenLayer(array)
-  }
-
   /** Spawns a new [[HSideOptlLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def sideOptLayerSpawn[A <: AnyRef, AS <: A with HSideSome](superGrid: HGridSys, superLayer: HSideOptLayer[A, AS])(implicit ct: ClassTag[A]): HSideOptLayer[A, AS] =
   { val array: Array[A] = new Array[A](numSides)

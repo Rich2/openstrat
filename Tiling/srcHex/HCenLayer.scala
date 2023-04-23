@@ -191,9 +191,12 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     proj.transPolygonHVOffset(poly1)
   }
 
+  /** Spawns a new [[HCenLayer]] data layer from this [[HCenLayer]]'s [[HGridSys]] to the child [[HGridSys]], passed as implicit parameter. There is a
+   * name overload for this method that passes the child [[HGridSys]] explicitly. */
   def spawn(parentGridSys: HGridSys)(implicit ct: ClassTag[A], childGridSys: HGridSys): HCenLayer[A] = spawn(parentGridSys, childGridSys)(ct)
 
-  /** Spawns a new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
+  /** Spawns a new [[HCenLayer]] data layer from this [[HCenLayer]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
+   *  that passes the child [[HGridSys]] implicitly. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HCenLayer[A] =
   { val array: Array[A] = new Array[A](childGridSys.numTiles)
     childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(hc)(parentGridSys) }
