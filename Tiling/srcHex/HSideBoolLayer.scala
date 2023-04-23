@@ -126,5 +126,6 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 }
 
 object HSideBoolLayer
-{ def uniinitialised(length: Int) = new HSideBoolLayer(new Array[Boolean](length))
+{ /** Factory apply method for [[HSideBoolean]] takes an [[HGridSys]] as an implicit parameter. */
+  def apply()(implicit gridSys: HGridSys): HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](gridSys.numSides))
 }

@@ -337,21 +337,11 @@ trait HGridSys extends Any with TGridSys
   /** The line segments of the outer sides defined in [[HCoord]] vertices. */
   def outerSideLineSegHCs: LineSegHCArr = edgesMap(_.lineSegHC)
 
-  def newSideBoolLayer: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
-
-  //def newSideOptLayerOld[A <: AnyRef](implicit ct: ClassTag[A]): HSideOptLayer[A] = new HSideOptLayer[A](new Array[A](numSides))
-
   def newSideLayer[A](initial: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
   { val newArray = new Array[A](numSides)
     iUntilForeach(numSides)(newArray(_) = initial)
     new HSideLayer[A](newArray)
   }
-
-  /*def newSideOptLayer[A, SA <: HSideSome](implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptLayer[A, SA] =
-  { val newArray = new Array[A](numSides)
-    iUntilForeach(numSides)(newArray(_) = noneTC.noneValue)
-    new HSideOptLayer[A, SA](newArray)
-  }*/
 
   def defaultView(pxScale: Double = 30): HGView
 
