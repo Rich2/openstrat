@@ -253,14 +253,6 @@ trait HGridSys extends Any with TGridSys
     new HCornerLayer(array)
   }
 
-  /** New hex tile data layer of [[RArr]][A]. */
-  final def newHCenArrLayer[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrLayer[A] =
-  { val newArray = new Array[Array[A]](numTiles)
-    val init: Array[A] = Array()
-    iUntilForeach(numTiles)(newArray(_) = init)
-    new HCenArrLayer[A](newArray)
-  }
-
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
   @inline final def sideLayerArrayIndex(hc: HSide): Int = sideLayerArrayIndex(hc.r, hc.c)

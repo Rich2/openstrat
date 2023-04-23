@@ -88,14 +88,24 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
     build.buffToSeqLike(buff)
   }
 
-  def setFSomesMut(f: () => A, hCens: Int*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = {
-    if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
-    iUntilForeach(0, hCens.length, 2) { i => prepend(hCens(i), hCens(i + 1), f())
-//      val r = hCens(i)
-//      val c = hCens(i + 1)
-//      val oldArrA: RArr[A] = apply(r, c)
-//      val newArrA: RArr[A] = oldArrA +% f()
-//      set1(r, c, newArrA)// unsafeArray(grider.layerArrayIndex(hCens(i), hCens(i + 1))) = f()
-    }
+  def setFSomesMut(f: () => A, hCens: Int*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
+  { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
+    iUntilForeach(0, hCens.length, 2) { i => prepend(hCens(i), hCens(i + 1), f()) }
+  }
+}
+
+/** Companion object for the [[HCenArrLayer]] class, contains factory apply methods that take the [[HGridSys]] implicitly or explicitly. */
+object HCenArrLayer
+{  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is
+   * passed explicitly as the sole paramter of the first parameter list. */
+  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGridSys): HCenArrLayer[A] = apply(gridSys)(ct)
+
+  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is
+   * passed implicitly. */
+  def apply[A <: AnyRef](gridSys: HGridSys)(implicit ct: ClassTag[A]): HCenArrLayer[A] =
+  { val newArray = new Array[Array[A]](gridSys.numTiles)
+    val init: Array[A] = Array()
+    iUntilForeach(gridSys.numTiles)(newArray(_) = init)
+    new HCenArrLayer[A](newArray)
   }
 }

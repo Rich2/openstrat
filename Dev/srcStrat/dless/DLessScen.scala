@@ -47,7 +47,7 @@ object DLessScen1 extends DLessScen
   implicit val nations: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
 
   override val armies: HCenArrLayer[Army] =
-  { val res = gridSys.newHCenArrLayer[Army]
+  { val res = HCenArrLayer[Army]()
     implicit val counters: ArrCounters[Nation] = ArrCounters(nations)
     res.setFSomesMut(Britain.armyNext, 142,514,  144,508)
     res.setFSomesMut(Germany.armyNext, 140,520,  144,1528,  144,520,  142,1526)
@@ -75,5 +75,5 @@ object DLessScen2 extends DLessScen
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg.britSTerrs
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
-  override val armies: HCenArrLayer[Army] = gridSys.newHCenArrLayer
+  override val armies: HCenArrLayer[Army] = HCenArrLayer()
 }

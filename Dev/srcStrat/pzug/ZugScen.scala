@@ -66,7 +66,7 @@ object Zug1 extends ZugScenStart
   corners.setVert3In(10, 46, 1)
   corners.setMouth4OffGrid(10, 50, 1)
 
-  val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrLayer[Squad]
+  val lunits: HCenArrLayer[Squad] = HCenArrLayer[Squad]()
   setSquadMove(2, 30, Britain, HexLt, HexLt)
   lunits.set1(10, 38, Squad(Britain, Fire(6 hc 18)))
   setSquadMove(4, 32, Britain, HexLt, HexLt)
@@ -92,7 +92,7 @@ object Zug2 extends ZugScenStart
 
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
-  val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrLayer[Squad]
+  val lunits: HCenArrLayer[Squad] = HCenArrLayer[Squad]()
 }
 
 /** ZugFuhrer scenario 3. */
@@ -102,7 +102,7 @@ object Zug3 extends ZugScenStart
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 
-  override val lunits = gridSys.newHCenArrLayer[Squad]
+  override val lunits = HCenArrLayer[Squad]()
   lunits.setSame(Squad( Germany), 6 hc 18, 6 hc 30)
   lunits.setSame(Squad(France), 10 hc 14, 10 hc 22, 10 hc 30)
 }

@@ -41,7 +41,7 @@ object Civ1 extends CivScenStart
   }
   help.run
 
-  val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
+  val lunits: HCenArrLayer[Warrior] = HCenArrLayer[Warrior]()
   lunits.set1(10, 18, Warrior(Uruk))
   lunits.set1(6, 10, Warrior(Eridu))
 }
@@ -71,7 +71,7 @@ object Civ2 extends CivScenStart
   }
   help.run
 
-  val lunits: HCenArrLayer[Warrior] = gridSys.newHCenArrLayer[Warrior]
+  val lunits: HCenArrLayer[Warrior] = HCenArrLayer[Warrior]()
   lunits.set1(8, 16, Warrior(Uruk))
   lunits.set1(6, 10, Warrior(Eridu))
 }
