@@ -337,12 +337,6 @@ trait HGridSys extends Any with TGridSys
   /** The line segments of the outer sides defined in [[HCoord]] vertices. */
   def outerSideLineSegHCs: LineSegHCArr = edgesMap(_.lineSegHC)
 
-  def newSideLayer[A](initial: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
-  { val newArray = new Array[A](numSides)
-    iUntilForeach(numSides)(newArray(_) = initial)
-    new HSideLayer[A](newArray)
-  }
-
   def defaultView(pxScale: Double = 30): HGView
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side
