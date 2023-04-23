@@ -220,9 +220,6 @@ trait HGridSys extends Any with TGridSys
     new HCenLayer(array)
   }
 
-  /** Returns a new [[HCornerLayer]] for this [[HGridSys]]. Initialised to no offsets. */
-  //def newHVertOffsetLayer: HCornerLayer = new HCornerLayer(new Array[Int](numCorners))
-
   /** Spawns a new [[HSideOptlLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def sideOptLayerSpawn[A <: AnyRef, AS <: A with HSideSome](superGrid: HGridSys, superLayer: HSideOptLayer[A, AS])(implicit ct: ClassTag[A]): HSideOptLayer[A, AS] =
   { val array: Array[A] = new Array[A](numSides)

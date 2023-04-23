@@ -191,6 +191,15 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     proj.transPolygonHVOffset(poly1)
   }
 
+  def spawn(parentGridSys: HGridSys)(implicit ct: ClassTag[A], childGridSys: HGridSys): HCenLayer[A] = spawn(parentGridSys, childGridSys)(ct)
+
+  /** Spawns a new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HCenLayer[A] =
+  { val array: Array[A] = new Array[A](childGridSys.numTiles)
+    childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(hc)(parentGridSys) }
+    new HCenLayer[A](array)
+  }
+
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
