@@ -347,11 +347,11 @@ trait HGridSys extends Any with TGridSys
     new HSideLayer[A](newArray)
   }
 
-  def newSideOptLayer[A, SA <: HSideSome](implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptLayer[A, SA] =
+  /*def newSideOptLayer[A, SA <: HSideSome](implicit ct: ClassTag[A], noneTC: NoneTC[A]): HSideOptLayer[A, SA] =
   { val newArray = new Array[A](numSides)
     iUntilForeach(numSides)(newArray(_) = noneTC.noneValue)
     new HSideOptLayer[A, SA](newArray)
-  }
+  }*/
 
   def defaultView(pxScale: Double = 30): HGView
 
