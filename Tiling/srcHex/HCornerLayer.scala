@@ -342,6 +342,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
 object HCornerLayer
 {
+  def apply()(implicit gridSys: HGridSys): HCornerLayer = new HCornerLayer(new Array[Int](gridSys.numCorners))
+
   implicit class RArrHCornerLayerExtension(val thisArr: RArr[HCornerLayer])
   {
     /** Combines by appending the data grids to produce a single layer. */

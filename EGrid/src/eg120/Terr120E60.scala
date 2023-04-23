@@ -6,7 +6,7 @@ object Terr120E60 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e60(300, 314)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

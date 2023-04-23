@@ -23,7 +23,7 @@ object Civ1 extends CivScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 12, 4, 40)
   override val terrs: HCenLayer[VTile] = HCenLayer[VTile](Plain)
   override val sTerrs: HSideOptLayer[VSide, VSideSome] = HSideOptLayer[VSide, VSideSome]()
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
   {
@@ -52,7 +52,7 @@ object Civ2 extends CivScenStart
   override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 42)
   val terrs: HCenLayer[VTile] = HCenLayer[VTile](Sea)
   override val sTerrs: HSideOptLayer[VSide, VSideSome] = HSideOptLayer[VSide, VSideSome]()
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
   {

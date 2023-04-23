@@ -19,5 +19,5 @@ object NormScen1 extends NormScen
   terrs.setRowStartSame(4, 5, Land())
   terrs.setRowEnd(4, 32, Land(Hill) * 2, Land())
   terrs.setRowSame(2, Land())
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
 }

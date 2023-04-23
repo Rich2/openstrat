@@ -74,6 +74,6 @@ object DLessScen2 extends DLessScen
 
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg.britSTerrs
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
   override val armies: HCenArrLayer[Army] = HCenArrLayer()
 }

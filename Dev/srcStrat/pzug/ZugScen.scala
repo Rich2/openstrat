@@ -49,7 +49,7 @@ object Zug1 extends ZugScenStart
   cr(2, 2, WheatField * 2, Plain * 10)
 
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
 
   sTerrs.setTruesInts(14,36,  13,35,  12,34,  11,35,  10,36,  9,37,  9,39,  9,41,  9,43,  9,45,  9,47)
 
@@ -91,7 +91,7 @@ object Zug2 extends ZugScenStart
   gs(2, 6, Plain * 2, Lake * 2, Hill, Plain * 4)
 
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
   val lunits: HCenArrLayer[Squad] = HCenArrLayer[Squad]()
 }
 
@@ -100,7 +100,7 @@ object Zug3 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
   val terrs = HCenLayer[ZugTerr](Plain)
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
-  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = HCornerLayer()
 
   override val lunits = HCenArrLayer[Squad]()
   lunits.setSame(Squad( Germany), 6 hc 18, 6 hc 30)
