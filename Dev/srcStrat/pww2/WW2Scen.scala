@@ -6,6 +6,7 @@ import prid._, phex._, egrid._, eg320._
 trait WW2Scen extends HSysTurnScen
 {  ThisScen =>
   def title: String = "WW2Scen"
+  override def toString = title
   override implicit val gridSys: EGridSys
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
