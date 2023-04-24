@@ -33,6 +33,13 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
         case _ => None
       }
     }
+
+  /** Spawns a new [[HSideLayer]] data layer for the child [[HGridSys]] from this [[HSideLayer]]. */
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HSideLayer[A] =
+  { val array: Array[A] = new Array[A](childGridSys.numSides)
+    childGridSys.sidesForeach { sc => array(childGridSys.sideLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
+    new HSideLayer[A](array)
+  }
 }
 
 object HSideLayer
