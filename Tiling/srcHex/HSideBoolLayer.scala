@@ -123,6 +123,13 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
       unsafeArray(index) = true
     }
   }
+
+  /** Spawns a new [[HSideBoolLayer]] data layer for the child [[HGridSys]]. */
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys): HSideBoolLayer =
+  { val array: Array[Boolean] = new Array[Boolean](childGridSys.numSides)
+    childGridSys.sidesForeach { sc => array(childGridSys.sideLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
+    new HSideBoolLayer(array)
+  }
 }
 
 object HSideBoolLayer

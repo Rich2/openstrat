@@ -227,13 +227,6 @@ trait HGridSys extends Any with TGridSys
     new HSideLayer[A](array)
   }
 
-  /** Spawns a new [[HSideBoolLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
-  def sideBoolLayerSpawn(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
-  { val array: Array[Boolean] = new Array[Boolean](numSides)
-    sidesForeach { sc => array(sideLayerArrayIndex(sc)) = superLayer(sc)(superGrid) }
-    new HSideBoolLayer(array)
-  }
-
   /** Spawns a new [[HCornerLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def cornerLayerSpawn(superGrid: HGridSys, superLayer:  HCornerLayer):  HCornerLayer = {
     val array: Array[Int] = new Array[Int](numCorners)
