@@ -53,7 +53,7 @@ object Terr160E0 extends Long160Terrs
 object Brit160
 { def britTerrs: HCenLayer[WTile] = Terr160E0.terrs.spawn(Terr160E0.grid, EGrid160.britGrid)
   def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr160E0.sTerrs.spawn(Terr160E0.grid, EGrid160.britGrid)
-  def britCorners: HCornerLayer = EGrid160.britGrid.cornerLayerSpawn(Terr160E0.grid, Terr160E0.corners)
+  def britCorners: HCornerLayer = Terr160E0.corners.spawn(Terr160E0.grid, EGrid160.britGrid)
 
   def britScen: EScenBasic = new EScenBasic
   { override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
