@@ -48,8 +48,8 @@ object Terr120E0 extends Long120Terrs
 object BritReg120
 { implicit def britGrid: EGrid120Long = EGrid120Long.reg(138, 148, 0, 504, 520)
   def britTerrs: HCenLayer[WTile] = Terr120E0.terrs.spawn(Terr120E0.grid)
-  def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr120E0.sTerrs.spawn(Terr120E0.grid, britGrid)
-  def britCorners: HCornerLayer = britGrid.cornerLayerSpawn(Terr120E0.grid, Terr120E0.corners)
+  def britSTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E0.sTerrs.spawn(Terr120E0.grid, britGrid)
+  def britCorners: HCornerLayer = Terr120E0.corners.spawn(Terr120E0.grid, britGrid)
 
   def regScen: EScenBasic = new EScenBasic
   {  override def title: String = "Regular Britain"

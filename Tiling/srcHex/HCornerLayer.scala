@@ -338,6 +338,15 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       }
     }
   }
+
+  /** Spawns a new [[HCornerLayer]] data layer for the child [[HGridSys]]. */
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys): HCornerLayer =
+  { val array: Array[Int] = new Array[Int](numCorners)
+    childGridSys.foreach { hc =>
+      iUntilForeach(6) { i => array(childGridSys.cornerLayerArrayIndex(hc, i)) = unsafeArray(parentGridSys.cornerLayerArrayIndex(hc, i)) }
+    }
+    new HCornerLayer(array)
+  }
 }
 
 object HCornerLayer
