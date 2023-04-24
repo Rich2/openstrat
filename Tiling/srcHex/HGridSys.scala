@@ -212,15 +212,6 @@ trait HGridSys extends Any with TGridSys
     foreach { hCen => if(f1(hCen)) build.buffGrowArr(buff, f2(hCen)) }
     build.buffToSeqLike(buff)
   }
-  
-  /** Spawns a new [[HCornerLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
-  def cornerLayerSpawn(superGrid: HGridSys, superLayer:  HCornerLayer):  HCornerLayer = {
-    val array: Array[Int] = new Array[Int](numCorners)
-    foreach { hc =>
-      iUntilForeach(6){ i => array(cornerLayerArrayIndex(hc, i)) = superLayer.unsafeArray(superGrid.cornerLayerArrayIndex(hc, i)) }
-    }
-    new HCornerLayer(array)
-  }
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */

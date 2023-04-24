@@ -22,6 +22,6 @@ package object eg160
 
   def fullTerrsCornerLayerSpawn(implicit subSys: EGrid160LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
-    subSys.grids(i).cornerLayerSpawn(ft.grid, ft.corners)
+    ft.corners.spawn(ft.grid, subSys.grids(i))
   }.combine
 }

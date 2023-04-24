@@ -56,17 +56,13 @@ object BritReg
 { def britGrid: EGrid320Long = EGrid320Long.reg(138, 148, 0, 504, 520)
   def britTerrs: HCenLayer[WTile] = Terr320E0.terrs.spawn(Terr320E0.grid, britGrid)
   def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr320E0.sTerrs.spawn(Terr320E0.grid, britGrid)
-  def britCorners: HCornerLayer = britGrid.cornerLayerSpawn(Terr320E0.grid, Terr320E0.corners)
+  def britCorners: HCornerLayer =Terr320E0.corners.spawn(Terr320E0.grid, britGrid)
 
   def regScen: EScenBasic = new EScenBasic
   {  override def title: String = "Regular Britain"
     override implicit val gridSys: EGrid320Long = britGrid
-
     override val terrs: HCenLayer[WTile] = britTerrs
-
     override val sTerrs: HSideOptLayer[WSide, WSideSome] = britSTerrs
-
-    //override val sTerrsDepr: HSideBoolLayer = britSTerrsDepr
     override val corners: HCornerLayer = britCorners
   }
 }

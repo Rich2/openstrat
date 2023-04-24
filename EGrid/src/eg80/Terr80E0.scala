@@ -87,6 +87,6 @@ object WesternFront
 
   def wfTerrs: HCenLayer[WTile] = Terr80E0.terrs.spawn(Terr80E0.grid, wfGrid)
   def wfSTerrs:HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs.spawn(Terr80E0.grid, wfGrid)
-  def wfCorners: HCornerLayer = wfGrid.cornerLayerSpawn(Terr80E0.grid, Terr80E0.corners)
+  def wfCorners: HCornerLayer = Terr80E0.corners.spawn(Terr80E0.grid,wfGrid )
   def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")
 }
