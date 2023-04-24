@@ -7,7 +7,7 @@ class HStepPair[A2](val a1Int1: Int, val a2: A2) extends Int1PairElem[HStep, A2]
 { override def a1: HStep = HStep.fromInt(a1Int1)
 }
 
-/** A specialialised [[Arr]] class for [[HStepPair]]s. */
+/** A specialised [[Arr]] class for [[HStepPair]]s. */
 class HStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int1PairArr[HStep, HStepArr, A2, HStepPair[A2]]
 { override type ThisT = HStepPairArr[A2]
   override def typeStr: String = "HDirnPairArr"
