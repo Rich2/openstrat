@@ -228,6 +228,15 @@ class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
   override def fElemStr: HCenPair[A2] => String = _.toString
 }
 
+object HCenPairArr1
+{
+  def unapply[A](inp: Any): Option[(HCen, A)] = inp match{
+    case ha: HCenPairArr[_] if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0).asInstanceOf[A]))
+    case _ => None
+  }
+}
+
+
 class HCenPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends Int2PairBuff[HCen, B2, HCenPair[B2]]
 { override type ThisT = HCenPairBuff[B2]
   override def typeStr: String = "HCenPairBuff"

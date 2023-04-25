@@ -18,6 +18,13 @@ class HStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) exten
   override def fElemStr: HStepPair[A2] => String = _.toString
 }
 
+object HStepPairArr1{
+  def unapply[A](inp: Any): Option[(HStep, A)] = inp match{
+    case ha: HStepPairArr[_] if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0).asInstanceOf[A]))
+    case _ => None
+  }
+}
+
 /** A [[Buff]] class for [[HStepPair]]s.  */
 class HStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends Int1PairBuff[HStep, A2, HStepPair[A2]]
 { override type ThisT = HStepPairBuff[A2]

@@ -29,8 +29,15 @@ trait G1HScen extends HSysTurnScen
     G1HScen(turn + 1, gridSys, playersNew)
   }
 
-  def resolve(actions: HCenOptLayer[(Player, HStep)]): Unit = {
-
+  def resolve(actions: HCenOptHStepLayer[Player]): HCenOptLayer[Player] =
+  {
+    val playersNew: HCenOptLayer[Player] = players.clone
+    actions.mapAcc.foreach{ (target, arr) => arr match
+      { case HCenPairArr1(orig, player) if players(target).isEmpty => playersNew.moveMut(orig, target)
+        case _ =>
+      }
+    }
+    playersNew
   }
 }
 

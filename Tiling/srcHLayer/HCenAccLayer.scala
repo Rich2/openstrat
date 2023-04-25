@@ -7,7 +7,7 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
   def numCens: Int = arrayA.length
   def step(hc: HCen)(implicit gSys: HGridSys): HStepOpt = HStepOpt.fromInt(arrayInt(gSys.layerArrayIndex(hc)))
 
-  def mapAcc(implicit ct: ClassTag[A], gSys: HGridSys): Unit =
+  def mapAcc(implicit ct: ClassTag[A], gSys: HGridSys): HCenAccLayer[A] =
   {
     val acc = HCenAccLayer[A]()
     gSys.foreach{origin =>
@@ -18,6 +18,7 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
         optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
       }
     }
+    acc
   }
 }
 
