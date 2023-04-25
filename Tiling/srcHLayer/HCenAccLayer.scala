@@ -20,7 +20,22 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
   }
 }
 
-class HCenAccLayer[A](val origins: Array[ArrayBuffer[Int]], val actions: Array[ArrayBuffer[A]])
+class HCenAccLayer[A](val origins: Array[ArrayBuffer[Int]], val actions: Array[ArrayBuffer[A]], gSysIn: HGridSys)
 {
+  implicit val gSys: HGridSys = gSysIn
+}
 
+object HCenAccLayer
+{
+  def apply[A]()(implicit gSys: HGridSys): HCenAccLayer[A] =
+  {
+    val numCens: Int = gSys.numTiles
+    val origBuff = new Array[ArrayBuffer[Int]](numCens)
+    val actionBuff = new Array[ArrayBuffer[A]](numCens)
+    iUntilForeach(numCens){ i =>
+      origBuff(i) = new ArrayBuffer[Int](0)
+      actionBuff(i) = new ArrayBuffer[A](0)
+    }
+    new HCenAccLayer[A](origBuff, actionBuff, gSys)
+  }
 }
