@@ -7,7 +7,7 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
   def numCens: Int = arrayA.length
   def step(hc: HCen)(implicit gSys: HGridSys): HStepOpt = HStepOpt.fromInt(arrayInt(gSys.layerArrayIndex(hc)))
 
-  def mapAcc(implicit gSys: HGridSys): Unit =
+  def mapAcc(implicit ct: ClassTag[A], gSys: HGridSys): Unit =
   {
     val acc = HCenAccLayer[A]()
     gSys.foreach{origin =>
@@ -21,23 +21,33 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
   }
 }
 
-class HCenAccLayer[A](val origins: Array[ArrayBuffer[Int]], val actions: Array[ArrayBuffer[A]], gSysIn: HGridSys)
+class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: HGridSys)(implicit val ct: ClassTag[A])
 {
   implicit val gSys: HGridSys = gSysIn
   def index(hc: HCen): Int = gSys.layerArrayIndex(hc)
 
   def append(target: HCen, origin: HCen, action: A): Unit =
-  { origins(index(target)).append(origin.r)
-    origins(index(target)).append(origin.c)
-    actions(index(target)).append(action)
+  { originsBuffer(index(target)).append(origin.r)
+    originsBuffer(index(target)).append(origin.c)
+    actionsBuffer(index(target)).append(action)
   }
+
+  def originActions(target: HCen): HCenPairArr[A] =
+  { val i = index(target)
+    val hCens = originsBuffer(i).toArray
+    val actions: Array[A] = actionsBuffer(i).toArray
+    new HCenPairArr[A](hCens, actions)
+  }
+
+  def foreach(f: (HCen, HCenPairArr[A]) => Unit): Unit = gSys.foreach{hc => f(hc, originActions(hc)) }
 }
 
 object HCenAccLayer
 {
-  def apply[A]()(implicit gSys: HGridSys): HCenAccLayer[A] =
-  {
-    val numCens: Int = gSys.numTiles
+  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenAccLayer[A] =apply[A](gSys)(ct)
+
+  def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenAccLayer[A] =
+  { val numCens: Int = gSys.numTiles
     val origBuff = new Array[ArrayBuffer[Int]](numCens)
     val actionBuff = new Array[ArrayBuffer[A]](numCens)
     iUntilForeach(numCens){ i =>
