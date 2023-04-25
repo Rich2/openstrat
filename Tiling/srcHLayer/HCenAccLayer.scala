@@ -1,26 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
-{
-  def numCens: Int = arrayA.length
-  def step(hc: HCen)(implicit gSys: HGridSys): HStepOpt = HStepOpt.fromInt(arrayInt(gSys.layerArrayIndex(hc)))
-
-  def mapAcc(implicit ct: ClassTag[A], gSys: HGridSys): HCenAccLayer[A] =
-  {
-    val acc = HCenAccLayer[A]()
-    gSys.foreach{origin =>
-      val index = gSys.layerArrayIndex(origin)
-      val optA = arrayA(index)
-      if (optA != null)
-      { val optTarget: Option[HCen] = gSys.findOptStepEnd(origin, step(origin))
-        optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
-      }
-    }
-    acc
-  }
-}
 
 class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: HGridSys)(implicit val ct: ClassTag[A])
 {

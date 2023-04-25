@@ -12,7 +12,8 @@ trait G1HScen extends HSysTurnScen
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orders: HCenStepPairArr[Player]): G1HScen =
-  { val psKey = players.somePairs
+  {
+    val psKey = players.somePairs
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orders.foreach { pair =>
