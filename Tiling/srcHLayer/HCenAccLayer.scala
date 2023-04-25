@@ -9,12 +9,13 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
 
   def mapAcc(implicit gSys: HGridSys): Unit =
   {
-    val origBuff = new Array[ArrayBuffer[Int]](numCens * 2)
-    val actionBuff = new Array[ArrayBuffer[A]](numCens)
-    gSys.foreach{hc =>
-      val optA = arrayA(gSys.layerArrayIndex(hc))
-      if (optA != null) {
-        val oEnd: Option[HCen] = gSys.findOptStepEnd(hc, step(hc))
+    val acc = HCenAccLayer[A]()
+    gSys.foreach{origin =>
+      val index = gSys.layerArrayIndex(origin)
+      val optA = arrayA(index)
+      if (optA != null)
+      { val optTarget: Option[HCen] = gSys.findOptStepEnd(origin, step(origin))
+        optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
       }
     }
   }
@@ -23,6 +24,13 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])
 class HCenAccLayer[A](val origins: Array[ArrayBuffer[Int]], val actions: Array[ArrayBuffer[A]], gSysIn: HGridSys)
 {
   implicit val gSys: HGridSys = gSysIn
+  def index(hc: HCen): Int = gSys.layerArrayIndex(hc)
+
+  def append(target: HCen, origin: HCen, action: A): Unit =
+  { origins(index(target)).append(origin.r)
+    origins(index(target)).append(origin.c)
+    actions(index(target)).append(action)
+  }
 }
 
 object HCenAccLayer
