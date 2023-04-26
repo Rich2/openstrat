@@ -14,7 +14,7 @@ trait G2HScen extends HSysTurnScen
 { override def title: String = "Game 2 hex scenario"
 
   /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def oPlayers: HCenOptLayer[Player]
+  def players: HCenOptLayer[Player]
 
   def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
 
@@ -38,15 +38,15 @@ trait G2HScen extends HSysTurnScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within this method. */
-    val oPlayersNew: HCenOptLayer[Player] = oPlayers.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (oPlayers.tileNone(hc2))
-        { oPlayersNew.moveMut(pathPlayer.path.startCen, hc2)
+    val playersNew: HCenOptLayer[Player] = players.clone
+    targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (players.tileNone(hc2))
+        { playersNew.moveMut(pathPlayer.path.startCen, hc2)
           newOrders = newOrders.replaceA1byA2(pathPlayer.a2, pathPlayer.tail(hc2))
         }
       }
     }
 
-    G2HScen(turn + 1, gridSys, oPlayersNew, newOrders)
+    G2HScen(turn + 1, gridSys, playersNew, newOrders)
   }
 }
 
@@ -56,7 +56,7 @@ object G2HScen
   def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[Player], newData: HDirnPathPairArr[Player]): G2HScen = new G2HScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def oPlayers: HCenOptLayer[Player] = opIn
+    override def players: HCenOptLayer[Player] = opIn
     override def playerOrders: HDirnPathPairArr[Player] = newData
   }
 }

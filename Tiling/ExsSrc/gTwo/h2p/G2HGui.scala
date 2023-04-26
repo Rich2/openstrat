@@ -10,7 +10,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  def players: HCenOptLayer[Player] = scen.oPlayers
+  def players: HCenOptLayer[Player] = scen.players
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
