@@ -26,7 +26,7 @@ class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuf
 
 object HCenAccLayer
 {
-  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenAccLayer[A] =apply[A](gSys)(ct)
+  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenAccLayer[A] = apply[A](gSys)(ct)
 
   def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenAccLayer[A] =
   { val numCens: Int = gSys.numTiles

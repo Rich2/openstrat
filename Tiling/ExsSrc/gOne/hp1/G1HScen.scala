@@ -12,35 +12,17 @@ trait G1HScen extends HSysTurnScen
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orders: HCenStepPairArr[Player]): G1HScen =
-  {
-    val psKey = players.somePairs
-    val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
-
-    orders.foreach { pair =>
-      val hc1 = psKey.a2GetA1(pair.a2)
-      val optTarget: Option[HCen] = hc1.stepOpt(pair.step)
-      optTarget.foreach { target => targets.appendAt(target, pair.a1) }
-    }
-
-    /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
-     * isolates mutation to within the method. */
-    val playersNew: HCenOptLayer[Player] = players.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (players.tileNone(hc2)) playersNew.moveMut(stCenStep.startHC , hc2)) }
-
-//    val res1 = HCenOptHStepLayer[Player]()
-//    orders.pairForeach{ (st, pl) =>  }
-//    val playersNew = resolve(res1)
+  { val res1 = HCenOptHStepLayer[Player]()
+    orders.pairForeach{ (hcst, pl) =>  res1.setSome(hcst.startHC, hcst.step, pl) }
+    val playersNew = resolve(res1)
     G1HScen(turn + 1, gridSys, playersNew)
   }
 
+  /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
+   *  method. */
   def resolve(actions: HCenOptHStepLayer[Player]): HCenOptLayer[Player] =
-  {
-    val playersNew: HCenOptLayer[Player] = players.clone
-    actions.mapAcc.foreach{ (target, arr) => arr match
-      { case HCenPairArr1(orig, player) if players(target).isEmpty => playersNew.moveMut(orig, target)
-        case _ =>
-      }
-    }
+  { val playersNew: HCenOptLayer[Player] = players.clone
+    actions.mapAcc.foreach{ (target, arr) => if(arr.length == 1 & players(target).isEmpty) playersNew.moveMut(arr.headHCen, target) }
     playersNew
   }
 }

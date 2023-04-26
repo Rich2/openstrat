@@ -226,6 +226,8 @@ class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
   override def newA1(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def a1Arr: HCenArr = new HCenArr(a1ArrayInt)
   override def fElemStr: HCenPair[A2] => String = _.toString
+  def hCenArr: HCenArr = new HCenArr(a1ArrayInt)
+  def headHCen: HCen = HCen(a1ArrayInt(0), a1ArrayInt(1))
 }
 
 object HCenPairArr1

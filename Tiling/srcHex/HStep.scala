@@ -18,9 +18,9 @@ object HStepOpt
   }
 }
 
+/** The no step value of [[HStepOpt]] */
 case object HStepNone extends HStepOpt
-{
-  override val int1: Int = 0
+{ override val int1: Int = 0
 }
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. These should not be confused with
@@ -109,7 +109,6 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
   override def newElem(intValue: Int): HStep = HStep.fromInt(intValue)
   override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
   override def fElemStr: HStep => String = _.toString
-
   def segsNum: Int = unsafeArray.length
 
   def segHCsForeach(start: HCen)(f: LineSegHC => Unit): Unit = segHCsForeach(start.r, start.c)(f)
