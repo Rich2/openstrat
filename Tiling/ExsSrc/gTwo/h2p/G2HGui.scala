@@ -10,26 +10,27 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  def players: HCenOptLayer[Player] = scen.players
+  def playerStates: HCenOptLayer[PlayerState] = scen.playerStates
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */
-  var moves: HDirnPathPairArr[Player] = scen.playerOrders
+//  var moves: HDirnPathPairArr[Player] = scen.playerOrders
 
   val urect = Rect(1.4, 1)
 
   def frame: GraphicElems =
   {
-    def units: GraphicElems = players.projSomeHcPtMap { (p, hc, pt) =>
-      val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+    def units: GraphicElems = playerStates.projSomeHcPtMap { (ps, hc, pt) =>
+      val player = ps.player
+      val str = ptScale.scaledStr(170, player.toString + "\n" + hc.strComma, 150, player.charStr + "\n" + hc.strComma, 60, player.charStr)
+      urect.scale(80).slate(pt).fillDrawTextActive(player.colour, HPlayer(hc, player), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-    def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap { (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
+    def hexStrs: RArr[TextGraphic] = playerStates.projNoneHcPtMap { (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
 
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
@@ -38,30 +39,30 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: RArr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
-      val lps1 = moves.flatMapOnA1 { path => path.segHCs }
-      val lps2 = proj.transLineSegPairs(lps1)
-      lps2.pairMap((ls, p) => ls.draw(p.colour))
-    }
+//    def moveGraphics: RArr[LineSegDraw] = playerStates.someHCFlatMap { (p, hc) =>
+//      val lps1 = moves.flatMapOnA1 { path => path.segHCs }
+//      val lps2 = proj.transLineSegPairs(lps1)
+//      lps2.pairMap((ls, p) => ls.draw(p.colour))
+//    }
+//
+//    def moves2: RPairArr[LineSegHCArr, Player] = moves.mapOnA1(_.segHCs)
+//
+//    def moves3: RPairArr[LineSegHCArr, Player] = moves2.mapOnA1(_.init)
+//
+//    def moves3a: LineSegHCPairArr[Player] = moves3.flatMapOnA1(lsa => lsa)
+//
+//    def moveGraphics3 = proj.transLineSegPairs(moves3a).pairMap((ls, p) => ls.draw(p.colour))
+//
+//    def moves4: LineSegHCPairArr[Player] = moves2.optMapOnA1(_.lastOpt)
+//
+//    def moveGraphics4 = proj.transLineSegPairs(moves4).pairFlatMap((ls, p) => ls.draw(p.colour).arrow)
 
-    def moves2: RPairArr[LineSegHCArr, Player] = moves.mapOnA1(_.segHCs)
-
-    def moves3: RPairArr[LineSegHCArr, Player] = moves2.mapOnA1(_.init)
-
-    def moves3a: LineSegHCPairArr[Player] = moves3.flatMapOnA1(lsa => lsa)
-
-    def moveGraphics3 = proj.transLineSegPairs(moves3a).pairMap((ls, p) => ls.draw(p.colour))
-
-    def moves4: LineSegHCPairArr[Player] = moves2.optMapOnA1(_.lastOpt)
-
-    def moveGraphics4 = proj.transLineSegPairs(moves4).pairFlatMap((ls, p) => ls.draw(p.colour).arrow)
-
-    actives ++ units ++ hexStrs +% sidesDraw ++ moveGraphics3 ++ moveGraphics4
+    actives ++ units ++ hexStrs +% sidesDraw// ++ moveGraphics3 ++ moveGraphics4
 }
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    scen = scen.endTurn(moves)
-    moves = scen.playerOrders
+    //scen = scen.endTurn(moves)
+    //moves = scen.playerOrders
     repaint()
     thisTop()
   }
@@ -78,7 +79,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
     case (RightButton, AnyArrHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
-      newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceA1byA2(p, HStepPath(hc1)) } { m => moves = moves.replaceA1byA2(p, HStepPath(hc1, m)) }
+     // newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceA1byA2(p, HStepPath(hc1)) } { m => moves = moves.replaceA1byA2(p, HStepPath(hc1, m)) }
       repaint()
     }
 

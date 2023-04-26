@@ -2,6 +2,7 @@
 package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
+/** The Player and its intentions. I'm thinking that a game entity and its state should generally be stored in the same layer. */
 case class PlayerState(player: Player, steps: HStepArr)
 
 object PlayerState
@@ -14,9 +15,9 @@ trait G2HScen extends HSysTurnScen
 { override def title: String = "Game 2 hex scenario"
 
   /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def players: HCenOptLayer[Player]
+  def playerStates: HCenOptLayer[PlayerState]
 
-  def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
+  //def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
@@ -38,25 +39,25 @@ trait G2HScen extends HSysTurnScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within this method. */
-    val playersNew: HCenOptLayer[Player] = players.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (players.tileNone(hc2))
+    val playersNew: HCenOptLayer[PlayerState] = playerStates.clone
+    targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (playerStates.tileNone(hc2))
         { playersNew.moveMut(pathPlayer.path.startCen, hc2)
           newOrders = newOrders.replaceA1byA2(pathPlayer.a2, pathPlayer.tail(hc2))
         }
       }
     }
 
-    G2HScen(turn + 1, gridSys, playersNew, newOrders)
+    G2HScen(turn + 1, gridSys, playersNew)
   }
 }
 
 /** Companion object for OneScen trait, contains factory apply method. */
 object G2HScen
 { /** Factory apply method for [[G2HScen]] trait. */
-  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[Player], newData: HDirnPathPairArr[Player]): G2HScen = new G2HScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[PlayerState]): G2HScen = new G2HScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def players: HCenOptLayer[Player] = opIn
-    override def playerOrders: HDirnPathPairArr[Player] = newData
+    override def playerStates: HCenOptLayer[PlayerState] = opIn
+    //override def playerOrders: HDirnPathPairArr[Player] = newData
   }
 }
