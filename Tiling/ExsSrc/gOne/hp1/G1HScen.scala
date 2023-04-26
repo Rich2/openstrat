@@ -27,6 +27,9 @@ trait G1HScen extends HSysTurnScen
     val playersNew: HCenOptLayer[Player] = players.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (players.tileNone(hc2)) playersNew.moveMut(stCenStep.startHC , hc2)) }
 
+//    val res1 = HCenOptHStepLayer[Player]()
+//    orders.pairForeach{ (st, pl) =>  }
+//    val playersNew = resolve(res1)
     G1HScen(turn + 1, gridSys, playersNew)
   }
 

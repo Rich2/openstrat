@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
-sealed trait HStepOpt
+sealed trait HStepOpt extends Int1Elem
 
 object HStepOpt
 {
@@ -19,10 +19,13 @@ object HStepOpt
 }
 
 case object HStepNone extends HStepOpt
+{
+  override val int1: Int = 0
+}
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. These should not be confused with
  * [[HVDirnOpt]]s which fo from an [[HVert]] to an [[HCen]]. */
-sealed trait HStep extends TDirnSided with Int1Elem with HStepOpt
+sealed trait HStep extends TDirnSided with HStepOpt
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)
   def int1: Int
