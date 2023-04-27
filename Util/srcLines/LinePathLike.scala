@@ -6,6 +6,8 @@ import annotation._
 trait LinePathLike[VT] extends Any with SeqSpec[VT]
 { type ThisT <: LinePathLike[VT]
   type PolygonT <: PolygonLike[VT]
+  type LineSegT <: LineSegLike[VT]
+  type LineSegArrT <: Arr[LineSegT]
 
   /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
   def map[B <: ValueNElem, BB <: LinePathLike[B]](f: VT => B)(implicit build: LinePathBuilder[B, BB]): BB =

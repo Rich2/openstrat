@@ -7,9 +7,9 @@ object G2HScen1 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = GSys.g1
   val playerStates: HCenOptLayer[PlayerState] = HCenOptLayer()
-  playerStates.setSomeMut(6, 2, PlayerState(PlayerA, HexDR))
+  playerStates.setSomeMut(6, 2, PlayerState(PlayerA, HexDR, HexDL))
 //  playerStates.setSomeMut(4, 4, PlayerA)
-  playerStates.setSomesMut((4, 8, PlayerState(PlayerB)), (6, 10, PlayerState(PlayerC)))
+  playerStates.setSomesMut((4, 8, PlayerState(PlayerB, HexDR)), (6, 10, PlayerState(PlayerC, HexDL, HexDL)))
 
 //  override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(6, 2, HexDR, HexUL), PlayerA.hPath(4, 4, HexDR, HexLt),
 //    PlayerB.hPath(4, 8, HexDL, HexRt), PlayerC.hPath(6, 10, HexLt, HexDR, HexDL))
