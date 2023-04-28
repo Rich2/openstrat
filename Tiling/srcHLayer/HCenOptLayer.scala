@@ -71,19 +71,43 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 
   /** Drops the [[None]] values. Foreach value of the [[Some]] with the corresponding [[HCen]] applies the side effecting parameter function. */
-  def someHCForeach(f: (A, HCen) => Unit)(implicit grider: HGridSys): Unit = grider.foreach { hc =>
+  def somesHcForeach(f: (A, HCen) => Unit)(implicit grider: HGridSys): Unit = grider.foreach { hc =>
     val a = unsafeArray(grider.layerArrayIndex(hc))
     if (a != null) f(a, hc)
   }
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def hcMap[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  def hcMapArr[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArray(grider.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a, hc))
-      else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
+      else
+      { val newVal = fNone(hc)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
+  def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  { val buff = build.newBuff()
+    grider.foreach { hc =>
+      val a = unsafeArray(grider.layerArrayIndex(hc))
+      if (a != null) build.buffGrow(buff, f(a, hc))
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
+  def somesHcPairMap[B1, B1Arr <: Arr[B1], B2, B <: PairElem[B1, B2], ArrT <: PairArr[B1, B1Arr, B2, B]](f: (A, HCen) => B)(implicit grider: HGridSys,
+    build: PairArrMapBuilder[B1, B1Arr, B2, B, ArrT]): ArrT =
+  { val buff = build.newBuff()
+    grider.foreach { hc =>
+      val a = unsafeArray(grider.layerArrayIndex(hc))
+      if (a != null) build. buffGrow(buff, f(a, hc))
     }
     build.buffToSeqLike(buff)
   }
@@ -265,13 +289,13 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   /** Returns an [[HCenPairArr]] of the Some values. */
   def somePairs(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
   { val buff = build.newBuff()
-    someHCForeach((p, hc) => buff.grow(hc, p))
+    somesHcForeach((p, hc) => buff.grow(hc, p))
     build.buffToSeqLike(buff)
   }
 
   def find(value: A)(implicit grider: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
-    someHCForeach{ (a, hc) => if (value == a) res = Some(hc)}
+    somesHcForeach{ (a, hc) => if (value == a) res = Some(hc)}
     res
   }
 

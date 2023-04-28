@@ -7,11 +7,11 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenLayer[Terr]
   def units: HCenOptLayer[Lunit]
-  def playerOrders: HDirnPathPairArr[Lunit] = HDirnPathPairArr()
+  def playerOrders: HStepPathPairArr[Lunit] = HStepPathPairArr()
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: HDirnPathPairArr[Lunit]): ThreeScen =
+  def endTurn(orderList: HStepPathPairArr[Lunit]): ThreeScen =
   {
     //val playersKey = units.SomesKeyMapDepr
 

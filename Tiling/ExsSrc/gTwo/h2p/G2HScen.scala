@@ -21,7 +21,7 @@ trait G2HScen extends HSysTurnScen
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: HDirnPathPairArr[Player]): G2HScen =
+  def endTurn(orderList: HStepPathPairArr[Player]): G2HScen =
   {
     val targets: HCenBuffLayer[HDirnPathPair[Player]] = gridSys.newHCenArrOfBuff
 
@@ -35,7 +35,7 @@ trait G2HScen extends HSysTurnScen
       }
     }
 
-    var newOrders: HDirnPathPairArr[Player] = orderList
+    var newOrders: HStepPathPairArr[Player] = orderList
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within this method. */

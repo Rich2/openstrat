@@ -35,9 +35,8 @@ trait TCenOptLayer[A <: AnyRef] extends Any
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
-  def mapSomes[B, ArrT <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
+  def somesMapArr[B, ArrT <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
+  { val buff = build.newBuff()
     unsafeArray.foreach { a =>
       if(a != null)
       { val newVal = f(a)
