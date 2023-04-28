@@ -39,26 +39,17 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: RArr[LineSegDraw] = playerStates.someHCFlatMap { (ps, hc) =>
-      val lps1: LinePathHC = ps.steps.pathHC(hc)// moves.flatMapOnA1 { path => path.segHCs }
-      val lps2 = lps1.lineSegArr
-      val lps3 = lps2.optMap(lh => proj.transOptLineSeg(lh))
-      lps3.map(ls => ls.draw(ps.player.colour))
+    def moveGraphics: GraphicElems = playerStates.someHCFlatMap { (ps, hc) =>
+      val lps1: LinePathHC = ps.steps.pathHC(hc)
+      val lps2: LineSegHCArr = lps1.lineSegArr
+      val lps2a = lps2.init
+      val lps2b = lps2.lastOpt
+      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(ps.player.colour))
+      val lps3b = lps2b.flatMap(proj.transOptLineSeg(_)).map(_.draw(ps.player.colour).arrow)
+      lps3a.concatsOption(lps3b)
     }
-//
-//    def moves2: RPairArr[LineSegHCArr, Player] = moves.mapOnA1(_.segHCs)
-//
-//    def moves3: RPairArr[LineSegHCArr, Player] = moves2.mapOnA1(_.init)
-//
-//    def moves3a: LineSegHCPairArr[Player] = moves3.flatMapOnA1(lsa => lsa)
-//
-//    def moveGraphics3 = proj.transLineSegPairs(moves3a).pairMap((ls, p) => ls.draw(p.colour))
-//
-//    def moves4: LineSegHCPairArr[Player] = moves2.optMapOnA1(_.lastOpt)
-//
-//    def moveGraphics4 = proj.transLineSegPairs(moves4).pairFlatMap((ls, p) => ls.draw(p.colour).arrow)
 
-    actives ++ units ++ hexStrs +% sidesDraw ++ moveGraphics// ++ moveGraphics3 ++ moveGraphics4
+    actives ++ hexStrs +% sidesDraw ++ moveGraphics ++ units
 }
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
