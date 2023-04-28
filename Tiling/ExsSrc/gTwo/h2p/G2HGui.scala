@@ -43,10 +43,10 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
       val lps1: LinePathHC = ps.steps.pathHC(hc)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init
-      val lps2b = lps2.lastOpt
+      val lps2b = lps2.lasts
       val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(ps.player.colour))
-      val lps3b = lps2b.flatMap(proj.transOptLineSeg(_)).map(_.draw(ps.player.colour).arrow)
-      lps3a.concatsOption(lps3b)
+      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(ps.player.colour).arrow)
+      lps3a ++ lps3b
     }
 
     actives ++ hexStrs +% sidesDraw ++ moveGraphics ++ units

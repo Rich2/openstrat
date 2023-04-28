@@ -74,6 +74,18 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
     foreach { a => if (f(a)) intBufferAppend(buff, a) }
     fromArray(buff.toArray)
   }
+
+  /** Returns an empty [[Arr]] if this is empty else returns an [[Arr]] containing only the last element. */
+  def lasts: ThisT =
+  { val array: Array[Int] =
+      if(length == 0) new Array[Int](0)
+      else
+      { val array = new Array[Int](elemProdSize)
+        iUntilForeach(elemProdSize){i => array(i) = unsafeArray(unsafeLength - elemProdSize + i) }
+        array
+      }
+    fromArray(array)
+  }
 }
 
 trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]
