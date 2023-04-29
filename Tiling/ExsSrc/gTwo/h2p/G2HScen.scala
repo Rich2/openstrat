@@ -4,6 +4,9 @@ import prid._, phex._, gPlay._
 
 /** The Player and its intentions. I'm thinking that a game entity and its state should generally be stored in the same layer. */
 case class PlayerState(player: Player, steps: HStepArr)
+{
+  def takeStep: PlayerState = PlayerState(player, steps.tail)
+}
 
 object PlayerState
 {
@@ -52,15 +55,20 @@ trait G2HScen extends HSysTurnScen
 
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
-    oldStates.somesHcForeach{(ps, origin) =>
-      val target: HCen = ps.steps match{
-        case steps if steps.length == 0 => origin
-        case steps => gridSys.stepEndOrStart(origin, steps.head)
-      }
+    oldStates.somesHcForeach{ (ps, origin) =>
+      val steps = ps.steps
+      val target: HCen = if(steps.length == 0) origin else gridSys.stepEndOrStart(origin, steps.head)
       acc.append(target, origin, ps)
     }
     val newStates = oldStates.clone
-
+    acc.foreach{ (target, pairArr) => pairArr match
+      { case HCenPairArr1(origin, ps: PlayerState) if origin != target =>
+        { newStates.setSomeMut(target, ps.takeStep)
+          newStates.setNoneMut(origin)
+        }
+        case _ =>
+      }
+    }
     newStates
   }
 }

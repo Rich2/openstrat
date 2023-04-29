@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to
- *  as an [[HCen]] to destingush it form [[HSide]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
+ *  as an [[HCen]] to distinguish it from [[HSide]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
  *  as the first parameter for example  f: (HCen, Pt2) => B. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 {
@@ -232,8 +232,8 @@ class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
 
 object HCenPairArr1
 {
-  def unapply[A](inp: Any): Option[(HCen, A)] = inp match{
-    case ha: HCenPairArr[_] if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0).asInstanceOf[A]))
+  def unapply[A](inp: Any): Option[(HCen, Any)] = inp match{
+    case ha: HCenPairArr[_] if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0)))
     case _ => None
   }
 }
