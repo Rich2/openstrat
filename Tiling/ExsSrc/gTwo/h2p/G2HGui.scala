@@ -53,8 +53,8 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 }
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    //scen = scen.endTurn(moves)
-    //moves = scen.playerOrders
+    scen = scen.turnUnchecked(moves)
+    moves = scen.playerStates
     repaint()
     thisTop()
   }

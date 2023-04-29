@@ -10,7 +10,7 @@ trait G1HScen extends HSysTurnScen
   def players: HCenOptLayer[Player]
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
+   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(orders: HCenStepPairArr[Player]): G1HScen =
   { val res1 = HCenOptHStepLayer[Player]()
     orders.pairForeach{ (hcst, pl) =>  res1.setSome(hcst.startHC, hcst.step, pl) }

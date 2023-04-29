@@ -24,34 +24,7 @@ trait G2HScen extends HSysTurnScen
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: HStepPathPairArr[Player]): G2HScen =
-  {
-    val targets: HCenBuffLayer[HDirnPathPair[Player]] = gridSys.newHCenArrOfBuff
-
-    orderList.foreach { pr =>
-      val path = pr.path
-      if (path.length > 0) {
-      val hc1: HCen = path.startCen
-      val step = path.getHead
-      val optTarget: Option[HCen] = hc1.stepOpt(step)
-       optTarget.foreach{ target => targets.appendAt(target, pr) }// HCenStep(hc1, step)) }
-      }
-    }
-
-    var newOrders: HStepPathPairArr[Player] = orderList
-
-    /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
-     * isolates mutation to within this method. */
-    val playersNew: HCenOptLayer[PlayerState] = playerStates.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (playerStates.tileNone(hc2))
-        { playersNew.moveMut(pathPlayer.path.startCen, hc2)
-          newOrders = newOrders.replaceA1byA2(pathPlayer.a2, pathPlayer.tail(hc2))
-        }
-      }
-    }
-
-    G2HScen(turn + 1, gridSys, playersNew)
-  }
+  def turnUnchecked(oldStates: HCenOptLayer[PlayerState]): G2HScen = G2HScen(turn + 1, gridSys, resolve(oldStates))
 
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
