@@ -2,18 +2,21 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
-
-class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: HGridSys)(implicit val ct: ClassTag[A])
+/** This is a helper class for turn / segment resolution. It accumulates all actions along with the origin of the action, upon a hex tile. */
+class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuffer: Array[ArrayBuffer[A]], gSysIn: HGridSys)(implicit
+  val ct: ClassTag[A])
 {
   implicit val gSys: HGridSys = gSysIn
   def index(hc: HCen): Int = gSys.layerArrayIndex(hc)
 
+  /** Appends an origin-action pair to this given target hex's accumulator. */
   def append(target: HCen, origin: HCen, action: A): Unit =
   { originsBuffer(index(target)).append(origin.r)
     originsBuffer(index(target)).append(origin.c)
     actionsBuffer(index(target)).append(action)
   }
 
+  /** This produces the collection of origin-action pairs upon the given hex tile. */
   def originActions(target: HCen): HCenPairArr[A] =
   { val i = index(target)
     val hCens = originsBuffer(i).toArray
@@ -21,6 +24,7 @@ class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuf
     new HCenPairArr[A](hCens, actions)
   }
 
+  /** Side effecting function for initalising new game state layers. */
   def foreach(f: (HCen, HCenPairArr[A]) => Unit): Unit = gSys.foreach{hc => f(hc, originActions(hc)) }
 }
 

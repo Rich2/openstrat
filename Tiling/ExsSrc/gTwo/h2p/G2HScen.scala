@@ -49,6 +49,10 @@ trait G2HScen extends HSysTurnScen
 
     G2HScen(turn + 1, gridSys, playersNew)
   }
+
+  def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] = {
+    ???
+  }
 }
 
 /** Companion object for OneScen trait, contains factory apply method. */
