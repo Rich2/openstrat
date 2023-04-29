@@ -70,6 +70,9 @@ trait HGridSys extends Any with TGridSys
 
   def findStepEnd(cenStep: HCenStep): Option[HCen] = findStepEnd(cenStep.startHC, cenStep.step)
 
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
+  def stepEndOrStart(startHC: HCen, step: HStep): HCen = findStepEnd(startHC, step).getOrElse(startHC)
+
   def findOptStepEnd(startHC: HCen, optStep: HStepOpt): Option[HCen] = optStep match{
     case HStepNone => Some(startHC)
     case hs: HStep => findStepEnd(startHC, hs)
