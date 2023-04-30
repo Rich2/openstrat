@@ -1,33 +1,45 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
-{ statusText = "Welcome to Game Three."
+case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui") {
+  statusText = "Welcome to Game Three."
   val scen = scenStart
+
   def terrs: HCenLayer[Terr] = scen.terrs
+
+  def lunits: HCenOptLayer[Lunit] = scen.lunits
+
   var history: RArr[ThreeScen] = RArr(scen)
+
   implicit def gridSys: HGridSys = scen.gridSys
+
   cPScale = viewIn.pixelsPerC
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
-  def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map{ pt => pt.a1.fill(pt.a2.colour) }
-  debvar(terrPolys.length)
+  def frame: GraphicElems =
+  {
+    def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def actives: RArr[PolygonActive] = proj.tileActives
+    def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
 
-  def units: HCenOptLayer[Lunit] = scen.units
+    debvar(terrPolys.length)
 
-  def unitGraphics: RArr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
-    Rect(160, 120, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
+    /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
+    def actives: RArr[PolygonActive] = proj.tileActives
 
-  def texts: RArr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
+    def unitGraphics: RArr[PolygonCompound] = lunits.projSomeHcPtMap { (p, hc, pt) =>
+      Rect(160, 120, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0)
+  }
 
-  def moveGraphics: GraphicElems = units.someHCMapArr{ (u, hc) => LineSegHC(hc, hc.unsafeStepDepr(u.cmds(0))).lineSeg.draw(units.getex(hc).colour)}
+  def texts: RArr[TextGraphic] = lunits.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
+
+  def moveGraphics: GraphicElems = lunits.someHCMapArr { (u, hc) => LineSegHC(hc, hc.unsafeStepDepr(u.cmds(0))).lineSeg.draw(lunits.getex(hc).colour) }
+
+  terrPolys ++ actives ++ lines ++ unitGraphics ++ texts
+  }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
@@ -58,8 +70,6 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   statusText = s"Game Three. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
-
-  def frame: GraphicElems = terrPolys ++ actives ++ lines ++ unitGraphics ++ texts
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

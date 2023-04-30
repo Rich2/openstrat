@@ -9,9 +9,9 @@ object ThreeScen1 extends ThreeScen(0)
   srp(6, 2, 2, Water)
 
   srp(4, 4, 2, Woods)
-  val units: HCenOptLayer[Lunit] = HCenOptLayer()
-  units.setSomeMut(4, 4, Lunit(TeamA, HexDR))
-  units.setSomesMut((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
+  val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
+  lunits.setSomeMut(4, 4, Lunit(TeamA, HexDR))
+  lunits.setSomesMut((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
 }
 
 object ThreeScen2 extends ThreeScen(0)
@@ -20,9 +20,9 @@ object ThreeScen2 extends ThreeScen(0)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
-  val units: HCenOptLayer[Lunit] = HCenOptLayer()
-  units.setSomeMut(4, 4, Lunit(TeamA, HexDR))
-  units.setSomesMut((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
+  val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
+  lunits.setSomeMut(4, 4, Lunit(TeamA, HexDR))
+  lunits.setSomesMut((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
 }
 
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
@@ -37,8 +37,8 @@ object ThreeScen3 extends ThreeScen(0)
   sr(14, 42, 3, Woods)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
-  val units: HCenOptLayer[Lunit] = HCenOptLayer()
-  units.setSomeMut(4, 4, Lunit(TeamA))
+  val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
+  lunits.setSomeMut(4, 4, Lunit(TeamA))
 
 }
 
@@ -49,5 +49,5 @@ object ThreeScen4 extends ThreeScen(0)
   override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
 
   import terrs.{setRowEnd => sr}
-  val units: HCenOptLayer[Lunit] = HCenOptLayer()
+  val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
 }

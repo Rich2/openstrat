@@ -6,7 +6,8 @@ import prid._, phex._, Colour._
 abstract class ThreeScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenLayer[Terr]
-  def units: HCenOptLayer[Lunit]
+  
+  def lunits: HCenOptLayer[Lunit]
   def playerOrders: HStepPathPairArr[Lunit] = HStepPathPairArr()
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
@@ -27,8 +28,8 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: HCenOptLayer[Lunit] = units.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.emptyTile(hc2)) oPlayersNew.moveMut(hc2.unsafeStepDepr(backStep), hc2)) }
+    val oPlayersNew: HCenOptLayer[Lunit] = lunits.clone
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (lunits.emptyTile(hc2)) oPlayersNew.moveMut(hc2.unsafeStepDepr(backStep), hc2)) }
 
     ThreeScen(turn + 1, gridSys, terrs, oPlayersNew)
   }
@@ -40,7 +41,7 @@ object ThreeScen
     /** tile terrain. */
     override def terrs: HCenLayer[Terr] = terrsIn
 
-    override def units: HCenOptLayer[Lunit] = unitsIn
+    override def lunits: HCenOptLayer[Lunit] = unitsIn
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */

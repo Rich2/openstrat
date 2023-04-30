@@ -1,10 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._
 
-/** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this
- * trait have no type parameters. The primary motivation of this trait is to allow common
- * extractors. */
+/** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this trait have no type parameters. The primary
+ *  motivation of this trait is to allow common extractors. */
 trait ArrNoParam[A] extends Any with Arr[A]
 { type ThisT <: ArrNoParam[A]
 
