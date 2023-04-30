@@ -7,12 +7,12 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenLayer[Terr]
   
-  def lunits: HCenOptLayer[Lunit]
-  def playerOrders: HStepPathPairArr[Lunit] = HStepPathPairArr()
+  def lunits: HCenOptLayer[LunitState]
+  def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: HStepPathPairArr[Lunit]): ThreeScen =
+  def endTurn(orderList: HStepPathPairArr[LunitState]): ThreeScen =
   {
     //val playersKey = units.SomesKeyMapDepr
 
@@ -28,7 +28,7 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: HCenOptLayer[Lunit] = lunits.clone
+    val oPlayersNew: HCenOptLayer[LunitState] = lunits.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (lunits.emptyTile(hc2)) oPlayersNew.moveMut(hc2.unsafeStepDepr(backStep), hc2)) }
 
     ThreeScen(turn + 1, gridSys, terrs, oPlayersNew)
@@ -37,11 +37,11 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
 
 object ThreeScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenOptLayer[Lunit]): ThreeScen = new ThreeScen(turnNum) {
+  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenOptLayer[LunitState]): ThreeScen = new ThreeScen(turnNum) {
     /** tile terrain. */
     override def terrs: HCenLayer[Terr] = terrsIn
 
-    override def lunits: HCenOptLayer[Lunit] = unitsIn
+    override def lunits: HCenOptLayer[LunitState] = unitsIn
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */

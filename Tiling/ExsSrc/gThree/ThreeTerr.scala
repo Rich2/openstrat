@@ -10,15 +10,28 @@ object Plain extends Terr { def colour = Wheat }
 case class Hold(turns: Int)
 //type Command = HStep | Hold
 case class Team(name: String, colour: Colour) extends Coloured
+{
+  override def toString: String = name
+}
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)
 
-class Lunit(val team: Team, val cmds: HStepArr = HStepArr()) extends Coloured
-{ def colour = team.colour
-  override def toString: String = team.toString
+class Lunit(val team: Team, val num: Int) extends Coloured
+{ override def colour: Colour = team.colour
+  override def toString: String = team.toString -- num.adjective
 }
 
 object Lunit
-{ def apply(team: Team, cmds: HStep *): Lunit = new Lunit(team, cmds.toArr)
-  def apply(team: Team, cmds: HStepArr): Lunit = new Lunit(team, cmds)
+{ def apply(team: Team, num: Int): Lunit = new Lunit(team, num)
+}
+
+class LunitState(lunit: Lunit, val cmds: HStepArr = HStepArr()) extends Coloured
+{ def colour: Colour = lunit.colour
+  def team: Team = lunit.team
+  override def toString: String = lunit.toString
+}
+
+object LunitState
+{ def apply(lunit: Lunit, cmds: HStep *): LunitState = new LunitState(lunit, cmds.toArr)
+  def apply(lunit: Lunit, cmds: HStepArr): LunitState = new LunitState(lunit, cmds)
 }
