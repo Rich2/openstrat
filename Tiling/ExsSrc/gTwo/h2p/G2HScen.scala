@@ -4,7 +4,7 @@ import prid._, phex._, gPlay._
 
 /** The Player and its intentions. I'm thinking that a game entity and its state should generally be stored in the same layer. */
 case class PlayerState(player: Player, steps: HStepArr)
-{
+{ /** Returns the PlayerState with the tail of the steps." */
   def takeStep: PlayerState = PlayerState(player, steps.tail)
 }
 
@@ -20,13 +20,11 @@ trait G2HScen extends HSysTurnScen
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def playerStates: HCenOptLayer[PlayerState]
 
-  //def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
-
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def turnUnchecked(oldStates: HCenOptLayer[PlayerState]): G2HScen = G2HScen(turn + 1, gridSys, resolve(oldStates))
 
-  /** Resolution currently incorect. */
+  /** Resolution currently incorrect. */
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
