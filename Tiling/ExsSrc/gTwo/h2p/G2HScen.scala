@@ -26,6 +26,7 @@ trait G2HScen extends HSysTurnScen
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def turnUnchecked(oldStates: HCenOptLayer[PlayerState]): G2HScen = G2HScen(turn + 1, gridSys, resolve(oldStates))
 
+  /** Resolution currently incorect. */
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
     oldStates.somesHcForeach{ (ps, origin) =>

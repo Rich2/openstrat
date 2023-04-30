@@ -69,9 +69,9 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
-      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
-     // newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceA1byA2(p, HStepPath(hc1)) } { m => moves = moves.replaceA1byA2(p, HStepPath(hc1, m)) }
+    case (RightButton, AnyArrHead(HPlayer(hc1, player)), hits) => hits.findHCenForEach{ hc2 =>
+      if (hc1 == hc2) moves.setSomeMut(hc1, PlayerState(player))
+      else gridSys.findStep(hc1, hc2).foreach{ step => moves.setSomeMut(hc1, PlayerState(player, step)) }
       repaint()
     }
 
