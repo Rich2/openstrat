@@ -20,7 +20,7 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
       val index = gSys.layerArrayIndex(origin)
       val optA = arrayA(index)
       if (optA != null)
-      { val optTarget: Option[HCen] = gSys.findOptStepEnd(origin, step(origin))
+      { val optTarget: Option[HCen] = gSys.stepOptEndFind(origin, step(origin))
         optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
       }
     }

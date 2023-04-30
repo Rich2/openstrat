@@ -163,7 +163,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   override def hCenSteps(hCen: HCen): HStepArr = HStep.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 
-  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen =
+  override def stepEndGet(startCen: HCen, step: HStep): HCen =
   { val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
@@ -173,7 +173,7 @@ trait HGrid extends Any with TGrid with HGridSys
     if (hCenExists(startHC) & hCenExists(endHC)) Some(endHC) else None
   }
 
-  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ife(hCenExists(startHC) & hCenExists(endHC), hcSteps.optFind(_.hCenDelta == endHC - startHC), None)
+  override def stepFind(startHC: HCen, endHC: HCen): Option[HStep] = ife(hCenExists(startHC) & hCenExists(endHC), hcSteps.optFind(_.hCenDelta == endHC - startHC), None)
 
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    *  departure and the tile of arrival. */

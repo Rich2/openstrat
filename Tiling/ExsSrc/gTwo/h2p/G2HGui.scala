@@ -71,7 +71,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
     case (RightButton, AnyArrHead(HPlayer(hc1, player)), hits) => hits.findHCenForEach{ hc2 =>
       if (hc1 == hc2) moves.setSomeMut(hc1, PlayerState(player))
-      else gridSys.findStep(hc1, hc2).foreach{ step => moves.setSomeMut(hc1, PlayerState(player, step)) }
+      else gridSys.stepFind(hc1, hc2).foreach{ step => moves.setSomeMut(hc1, PlayerState(player, step)) }
       repaint()
     }
 

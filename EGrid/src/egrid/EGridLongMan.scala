@@ -40,7 +40,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     sys.manFind(endR, endC) match
     { case _ if endR > grid.topCenR => None
       case _ if endR < grid.bottomCenR => None
-      case Some(man) if man == this => grid.findStep(startR, startC, endR, endC)
+      case Some(man) if man == this => grid.stepFind(startR, startC, endR, endC)
 
       case Some(man) if man.isRightMan => rc match
       { case 0 if (startC == grid.rowRightCenC(startR)) & (endC == man.grid.rowLeftCenC(endR)) => Some(HexRt)

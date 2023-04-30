@@ -14,14 +14,14 @@ object EGridTest extends TestSuite
       sys.adjTilesOfTile(142, 1546) === HCenArr.ints(140,1548,  140,1544,  142,1542,  144,1544) ==> true
     }
     test("findStep")
-    { sys.findStep(138, 526, 138, 1526) ==> Some(HexRt)
-      sys.findStep(142, 1526, 142, 522) ==> Some(HexLt)
-      sys.findStep(140, 524, 142, 1526) ==> Some(HexUR)
-      sys.findStep(142, 1526, 142, 1530) ==> Some(HexRt)
-      sys.findStep(144, 1528, 146, 522) ==> Some(HexUL)
-      sys.findStep(134, 526, 132, 1524) ==> Some(HexDR)
-      sys.findStep(136, 1524, 134, 526) ==> Some(HexDL)
-      sys.findStep(144, 1528, 142, 1526) ==> Some(HexDL)
+    { sys.stepFind(138, 526, 138, 1526) ==> Some(HexRt)
+      sys.stepFind(142, 1526, 142, 522) ==> Some(HexLt)
+      sys.stepFind(140, 524, 142, 1526) ==> Some(HexUR)
+      sys.stepFind(142, 1526, 142, 1530) ==> Some(HexRt)
+      sys.stepFind(144, 1528, 146, 522) ==> Some(HexUL)
+      sys.stepFind(134, 526, 132, 1524) ==> Some(HexDR)
+      sys.stepFind(136, 1524, 134, 526) ==> Some(HexDL)
+      sys.stepFind(144, 1528, 142, 1526) ==> Some(HexDL)
     }
 
     test("findStepEnd")

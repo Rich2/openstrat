@@ -48,7 +48,7 @@ trait EGridMan
   final def findStep(startHC: HCen, endHC: HCen): Option[HStep] = findStep(startHC.r, startHC.c, endHC.r, endHC.c)
 
   def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] =
-    if (grid.hCenExists(endR, endC)) grid.findStep(startR, startC, endR, endC) else outSteps(startR, startC).find(_.endHC == HCen(endR, endC)).map(_.step)
+    if (grid.hCenExists(endR, endC)) grid.stepFind(startR, startC, endR, endC) else outSteps(startR, startC).find(_.endHC == HCen(endR, endC)).map(_.step)
 
   def findStepEnd(r: Int, c: Int, step: HStep): Option[HCen] = findStepEnd(HCen(r, c), step)
 

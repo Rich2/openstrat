@@ -50,7 +50,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
     }
 
     case (RightButton, AnyArrHead(HCenPair(hc1, army: Army)), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
+      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
       repaint()
     }

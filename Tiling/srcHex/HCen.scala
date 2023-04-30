@@ -102,7 +102,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   override def typeStr: String = "HCen"
 
   /** This method needs removal. Step to adjacent hex tile. Will throw exception on illegal value. */
-  def unsafeStepDepr(st: HStep)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
+  def unsafeStepDepr(st: HStep)(implicit grider: HGridSys): HCen = grider.stepEndGet(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
   def stepOpt(st: HStep)(implicit grider: HGridSys): Option[HCen] = grider.stepEndFind(this, st)

@@ -47,21 +47,22 @@ trait HGridSys extends Any with TGridSys
   def hCenExists(r: Int, c:Int): Boolean
 
   /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
-  def ifHCenExists(hc: HCen)(proc: => Unit): Unit = if(hCenExists(hc)) proc
+  def hCenExistsIfDo(hc: HCen)(proc: => Unit): Unit = if(hCenExists(hc)) proc
 
   /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
-  def ifHCenExists(r: Int, c: Int)(proc: => Unit): Unit = if(hCenExists(r, c)) proc
+  def hCenExistsIfDo(r: Int, c: Int)(proc: => Unit): Unit = if(hCenExists(r, c)) proc
 
   def coordCen: HCoord
   def hCenSteps(hCen: HCen): HStepArr
 
-  def unsafeStepEnd(startCen: HCen, step: HStep): HCen
+  /** Unsafe. Gets the destination [[HCen]] from the [[HStep]]. Throws exception if no end point, */
+  def stepEndGet(startCen: HCen, step: HStep): HCen
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  final def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = findStep(HCen(startR, startC), HCen(endR, endC))
+  final def stepFind(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = stepFind(HCen(startR, startC), HCen(endR, endC))
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def findStep(startHC: HCen, endHC: HCen): Option[HStep]
+  def stepFind(startHC: HCen, endHC: HCen): Option[HStep]
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def stepEndFind(startHC: HCen, step: HStep): Option[HCen]
@@ -69,13 +70,14 @@ trait HGridSys extends Any with TGridSys
   /** Optionally returns the destination of an [[HStep]] if the destination exists in the [[HGridSys]]. */
   def stepEndFind(r: Int, c: Int, step: HStep): Option[HCen] = stepEndFind(HCen(r, c), step)
 
-  def findStepEnd(cenStep: HCenStep): Option[HCen] = stepEndFind(cenStep.startHC, cenStep.step)
+  def stepEndFind(cenStep: HCenStep): Option[HCen] = stepEndFind(cenStep.startHC, cenStep.step)
 
   /** Finds step from Start [[HCen]] to target from [[HCen]] if end hex exists, else returns start hex. */
   def stepEndOrStart(startHC: HCen, step: HStep): HCen = stepEndFind(startHC, step).getOrElse(startHC)
 
-  def findOptStepEnd(startHC: HCen, optStep: HStepOpt): Option[HCen] = optStep match{
-    case HStepNone => Some(startHC)
+  /** Finds the end from an [[HStepOpt]]. */
+  def stepOptEndFind(startHC: HCen, optStep: HStepOpt): Option[HCen] = optStep match
+  { case HStepNone => Some(startHC)
     case hs: HStep => stepEndFind(startHC, hs)
   }
 

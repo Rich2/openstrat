@@ -108,14 +108,14 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setVertEqual(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   {
     if (HVert.rcISHigh(r, c))
-    { grid.ifHCenExists(r + 1, c + 2){ setCornerIn(r + 1, c + 2, 4) }
-      grid.ifHCenExists(r - 1, c){ setCornerIn(r - 1, c, 0) }
-      grid.ifHCenExists(r + 1, c - 2){ setCornerIn(r + 1, c - 2, 2) }
+    { grid.hCenExistsIfDo(r + 1, c + 2){ setCornerIn(r + 1, c + 2, 4) }
+      grid.hCenExistsIfDo(r - 1, c){ setCornerIn(r - 1, c, 0) }
+      grid.hCenExistsIfDo(r + 1, c - 2){ setCornerIn(r + 1, c - 2, 2) }
     }
     else
-    { grid.ifHCenExists(r + 1, c) { setCornerIn(r + 1, c, 3) }
-      grid.ifHCenExists(r - 1, c + 2) { setCornerIn(r - 1, c + 2, 5) }
-      grid.ifHCenExists(r - 1, c - 2) { setCornerIn(r - 1, c -2, 1) }
+    { grid.hCenExistsIfDo(r + 1, c) { setCornerIn(r + 1, c, 3) }
+      grid.hCenExistsIfDo(r - 1, c + 2) { setCornerIn(r - 1, c + 2, 5) }
+      grid.hCenExistsIfDo(r - 1, c - 2) { setCornerIn(r - 1, c -2, 1) }
     }
   }
 

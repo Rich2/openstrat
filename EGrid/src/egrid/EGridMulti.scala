@@ -64,11 +64,11 @@ trait EGridMulti extends EGridSys  with TGridMulti
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
 
-  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
+  override def stepEndGet(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
 
   def hCenSteps(hCen: HCen): HStepArr = manMapex(hCen)(_.hCenSteps(hCen))
 
-  final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = manOptMap(startHC)(_.findStep(startHC, endHC))
+  final override def stepFind(startHC: HCen, endHC: HCen): Option[HStep] = manOptMap(startHC)(_.findStep(startHC, endHC))
 
   override def hCoordLL(hc: HCoord): LatLong = manMapex(hc)(_.grid.hCoordLL(hc))
 

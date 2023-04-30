@@ -9,10 +9,10 @@ object HGridTest extends TestSuite
 
   val tests = Tests {
     test("test1") {
-      g1.findStep(2, 2, 4, 4) ==> Some(HexUR)
-      g1.findStep(2, 2, 2, 6) ==> Some(HexRt)
-      g1.findStep(2, 2, 4, 0) ==> None
-      g1.findStep(2, 2, 0, 4) ==> None
+      g1.stepFind(2, 2, 4, 4) ==> Some(HexUR)
+      g1.stepFind(2, 2, 2, 6) ==> Some(HexRt)
+      g1.stepFind(2, 2, 4, 0) ==> None
+      g1.stepFind(2, 2, 0, 4) ==> None
     }
 
     test("test2") {
