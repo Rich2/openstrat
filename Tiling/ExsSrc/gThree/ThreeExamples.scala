@@ -9,9 +9,9 @@ object ThreeScen1 extends ThreeScen(0)
   srp(6, 2, 2, Water)
 
   srp(4, 4, 2, Woods)
-  val lunits: HCenOptLayer[LunitState] = HCenOptLayer()
-  lunits.setSomeMut(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
-  lunits.setSomesMut((4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL)), (6, 10, LunitState(Lunit(TeamA, 2))))
+  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
+ // lunits.setSomeMut(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
+//  lunits.setSomesMut((4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL)), (6, 10, LunitState(Lunit(TeamA, 2))))
 }
 
 object ThreeScen2 extends ThreeScen(0)
@@ -20,7 +20,7 @@ object ThreeScen2 extends ThreeScen(0)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
-  val lunits: HCenOptLayer[LunitState] = HCenOptLayer()
+  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
   //lunits.setSomeMut(4, 4, LunitState(TeamA, HexDR))
  // lunits.setSomesMut((4, 8, LunitState(TeamB, HexLt, HexDL)), (6, 10, LunitState(TeamA)))
 }
@@ -37,7 +37,7 @@ object ThreeScen3 extends ThreeScen(0)
   sr(14, 42, 3, Woods)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
-  val lunits: HCenOptLayer[LunitState] = HCenOptLayer()
+  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
  // lunits.setSomeMut(4, 4, LunitState(TeamA))
 
 }
@@ -49,5 +49,5 @@ object ThreeScen4 extends ThreeScen(0)
   override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
 
   import terrs.{setRowEnd => sr}
-  val lunits: HCenOptLayer[LunitState] = HCenOptLayer()
+  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
 }

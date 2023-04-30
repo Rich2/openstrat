@@ -8,7 +8,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   def terrs: HCenLayer[Terr] = scen.terrs
 
-  def lunits: HCenOptLayer[LunitState] = scen.lunits
+  def lunits: HCenArrLayer[LunitState] = scen.lunits
 
   var history: RArr[ThreeScen] = RArr(scen)
 
@@ -32,11 +32,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
       Rect(160, 120, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, 24, 2.0)
   }
 
-  def texts: RArr[TextGraphic] = lunits.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
+//  def texts: RArr[TextGraphic] = lunits.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
 
-  def moveGraphics: GraphicElems = lunits.someHCMapArr { (u, hc) => LineSegHC(hc, hc.unsafeStepDepr(u.cmds(0))).lineSeg.draw(lunits.getex(hc).colour) }
+ // def moveGraphics: GraphicElems = lunits.someHCMapArr { (u, hc) => LineSegHC(hc, hc.unsafeStepDepr(u.cmds(0))).lineSeg.draw(lunits.getex(hc).colour) }
 
-  terrPolys ++ actives ++ lines ++ unitGraphics ++ texts
+  terrPolys ++ actives ++ lines ++ unitGraphics// ++ texts
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
