@@ -21,7 +21,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(corps.tileNone(_)) ++ units
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(corps.emptyTile(_)) ++ units
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

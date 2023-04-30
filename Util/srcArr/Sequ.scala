@@ -25,10 +25,14 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** The first element of this sequence. */
   @inline def head: A = apply(0)
 
+  /** Returns the [[Some]] of the first element unless the sequence is empty in which case it returns [[None]]. */
+  def headFind: Option[A] = ife(length > 0, Some(apply(0)), None)
+
   /** The last element of this sequence. */
   @inline def last: A = apply(length - 1)
 
-  def lastOpt: Option[A] = ife(length > 0, Some(last), None)
+  /** Returns the [[Some]] of the last element unless the sequence is empty in which case it returns [[None]]. */
+  def lastFind: Option[A] = ife(length > 0, Some(last), None)
 
   /** Is this sequence empty? */
   @inline def empty: Boolean = length <= 0

@@ -144,7 +144,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   def getex(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(hc))
 
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
-  def tileNone(hc: HCen)(implicit grider: HGridSys): Boolean = unsafeArray(grider.layerArrayIndex(hc)) == null
+  def emptyTile(hc: HCen)(implicit grider: HGridSys): Boolean = unsafeArray(grider.layerArrayIndex(hc)) == null
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
    * 0 and the length of this [[HCenOptLayer]]. */
