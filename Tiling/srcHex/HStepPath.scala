@@ -30,7 +30,7 @@ class HStepPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
 
     while (i < length & o2.nonEmpty)
     {
-      o2 = gSys.findStepEnd(hc1, index(i))
+      o2 = gSys.stepEndFind(hc1, index(i))
       o2.foreach { hc2 =>
         val hls = LineSegHC(hc1, hc2)
         f(hls)

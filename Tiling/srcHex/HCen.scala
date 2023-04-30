@@ -105,7 +105,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def unsafeStepDepr(st: HStep)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: HStep)(implicit grider: HGridSys): Option[HCen] = grider.findStepEnd(this, st)
+  def stepOpt(st: HStep)(implicit grider: HGridSys): Option[HCen] = grider.stepEndFind(this, st)
 
   /** HCenStep for this [[HCen]] and the parameter [[HStep]]. */
   def andStep(step: HStep): HCenStep = HCenStep(r, c, step)

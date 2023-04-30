@@ -30,7 +30,7 @@ trait G2HScen extends HSysTurnScen
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
-      val steps = ps.steps
+      val steps: HStepArr = ps.steps
       val target: HCen = if(steps.length == 0) origin else gridSys.stepEndOrStart(origin, steps.head)
       acc.append(target, origin, ps)
     }

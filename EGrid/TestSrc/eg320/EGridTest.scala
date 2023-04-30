@@ -25,17 +25,17 @@ object EGridTest extends TestSuite
     }
 
     test("findStepEnd")
-    { sys.findStepEnd(138, 526, HexRt) ==> Some(HCen(138, 1526))
-      sys.findStepEnd(142, 1526, HexLt) ==> Some(HCen(142, 522))
-      sys.findStepEnd(140, 524, HexUR) ==> Some(HCen(142, 1526))
-      sys.findStepEnd(142, 1534, HexRt) ==> Some(HCen(142, 1538))
-      sys.findStepEnd(144, 1528, HexUL) ==> Some(HCen(146, 522))
-      sys.findStepEnd(134, 526, HexDR) ==> Some(HCen(132, 1524))
-      sys.findStepEnd(136, 1524, HexDL) ==> Some(HCen(134, 526))
-      sys.findStepEnd(144, 1528, HexDL) ==> Some(HCen(142, 1526))
+    { sys.stepEndFind(138, 526, HexRt) ==> Some(HCen(138, 1526))
+      sys.stepEndFind(142, 1526, HexLt) ==> Some(HCen(142, 522))
+      sys.stepEndFind(140, 524, HexUR) ==> Some(HCen(142, 1526))
+      sys.stepEndFind(142, 1534, HexRt) ==> Some(HCen(142, 1538))
+      sys.stepEndFind(144, 1528, HexUL) ==> Some(HCen(146, 522))
+      sys.stepEndFind(134, 526, HexDR) ==> Some(HCen(132, 1524))
+      sys.stepEndFind(136, 1524, HexDL) ==> Some(HCen(134, 526))
+      sys.stepEndFind(144, 1528, HexDL) ==> Some(HCen(142, 1526))
 
-      sys.findStepEnd(140, 524, HexUR) ==> Some(HCen(142, 1526))
-      sys.findStepEnd(142, 1526, HexRt)==> Some(HCen(142, 1530))
+      sys.stepEndFind(140, 524, HexUR) ==> Some(HCen(142, 1526))
+      sys.stepEndFind(142, 1526, HexRt)==> Some(HCen(142, 1530))
     }
   }
 }

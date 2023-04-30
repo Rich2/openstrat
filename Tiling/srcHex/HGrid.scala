@@ -168,7 +168,7 @@ trait HGrid extends Any with TGrid with HGridSys
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
 
-  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
+  override def stepEndFind(startHC: HCen, step: HStep): Option[HCen] =
   { val endHC = HCen(startHC.r + step.tr, startHC.c + step.tc)
     if (hCenExists(startHC) & hCenExists(endHC)) Some(endHC) else None
   }

@@ -141,7 +141,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = manMapex(startHC)(_.findStepEnd(startHC, step))
+  override def stepEndFind(startHC: HCen, step: HStep): Option[HCen] = manMapex(startHC)(_.findStepEnd(startHC, step))
 
   override def defaultView(pxScale: Double = 30): HGView = grids(grids.length / 2).defaultView(pxScale)
 

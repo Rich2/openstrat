@@ -53,7 +53,7 @@ trait EGridMan
   def findStepEnd(r: Int, c: Int, step: HStep): Option[HCen] = findStepEnd(HCen(r, c), step)
 
   def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
-  { val r1 = grid.findStepEnd(startHC, step)
+  { val r1 = grid.stepEndFind(startHC, step)
     if (r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
   }
 
