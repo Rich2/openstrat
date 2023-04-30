@@ -29,7 +29,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     def actives: RArr[PolygonActive] = proj.tileActives
 
     def unitGraphics: RArr[PolygonCompound] = lunits.projSomeHcPtMap { (ls, hc, pt) =>
-      Rect(160, 120, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, 24, 2.0)
+      Rect(proj.pixelsPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, 24, 2.0)
   }
 
 //  def texts: RArr[TextGraphic] = lunits.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
