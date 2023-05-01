@@ -3,8 +3,8 @@ package ostrat; package pDung
 import pgui._, prid._, psq._, geom._
 
 /** This uses the new Gui. */
-case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")
-{
+case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
+{ override def title: String = "Dungeon Gui"
   statusText = "Welcome to Dungeon Gui"
   implicit def gSys: SqGridSys = scen.gSys
   val scale: Double = gSys.fullDisplayScale(mainWidth, mainHeight)

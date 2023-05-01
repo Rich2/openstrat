@@ -2,7 +2,7 @@
 package ostrat; package prid
 import geom._, pgui._
 
-abstract class TGridSysGui(title: String) extends CmdBarGui(title)
+abstract class TGridSysGui(val title: String) extends CmdBarGui//(title)
 { /** Tile grid system this gui displays. */
   def gridSys: TGridSys
 

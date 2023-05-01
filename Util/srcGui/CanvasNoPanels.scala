@@ -1,9 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._
 
 /** A canvas that is not divided up into panels. A panel is a portion of the canvas that has its own origin and is clipped. */
-abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with PanelLike
+abstract class CanvasNoPanels(val title: String) extends CanvasUser with PanelLike
 {
   override def width = canv.width
   override def height = canv.height

@@ -1,9 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import ostrat.pgui._
 
-abstract class GlobeGui(title: String) extends CmdBarGui(title)
-{
+abstract class GlobeGui(val title: String) extends CmdBarGui{
   var focus: LatLong
 
   /** The length normally shown in kms per pixel. */

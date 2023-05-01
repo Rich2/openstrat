@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._, collection.mutable.ArrayBuffer
 
 /** So the descendant classes need to set the canv.mouseup field to use the mouse and its equivalents. */
-abstract class CanvasUser(val title: String)
-{
+trait CanvasUser
+{ def title: String
   val canv: CanvasPlatform
 
   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */

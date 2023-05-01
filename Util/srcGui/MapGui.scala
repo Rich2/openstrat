@@ -5,7 +5,7 @@ import geom._, Colour._
 /** A MapGui uses a CanvMulti. It has a main map panel and a top control panel. In addition translates between 2d game coordinates and 2d coordinates
  *  on the canvas. Allowing the canvas to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the
  *  y coordinate increases from bottom to top. */
-abstract class MapGui(title: String) extends CanvasPanelled(title)
+abstract class MapGui(val title: String) extends CanvasPanelled
 {
   val barWidth = 30
   val topPan: Panel = addPanel(Rect.tl(canv.width, barWidth, canv.topLeft), true)

@@ -3,8 +3,8 @@ package learn
 import ostrat._, geom._, pgui._
 
 /** E Series lessons deal with games. E1 is a super simple single player turn game.  */
-case class LsE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
-{
+case class LsE1(canv: CanvasPlatform) extends CmdBarGui
+{ override def title: String = "Lesson E1"
   import e1._
   var state: GameState = GameState.start
   var cmd: TurnCmd = NoMove

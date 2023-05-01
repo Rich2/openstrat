@@ -3,7 +3,7 @@ package ostrat; package pgui
 import geom._
 
 /** A canvas divided up into panels. Each panel is clipped and has its own origin. */
-abstract class CanvasPanelled(title: String) extends CanvasUser(title)
+trait CanvasPanelled extends CanvasUser
 {
   var panels: RArr[Panel] = RArr()
   

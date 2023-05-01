@@ -2,8 +2,11 @@
 package ostrat; package pchess
 import geom._, pgui._, Colour._, prid._, psq._
 
-case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Chess")
-{ implicit val grid: SqGrid = scen.gSys
+case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui//("Chess")
+{
+  override def title: String = "Chess"
+
+  implicit val grid: SqGrid = scen.gSys
   statusText = "Welcome to Chess Gui"
   //val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
   val darkSquareColour = DarkGreen

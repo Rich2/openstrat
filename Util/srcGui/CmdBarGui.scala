@@ -3,9 +3,8 @@ package ostrat; package pgui
 import geom._, Colour._
 
 /** A simple 2 panel display, a man panel and a command bar. */
-abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
-{
-  val barThickness = 30
+trait CmdBarGui extends CanvasPanelled
+{ val barThickness = 30
   val topBar = addPanel(Rect.tl(canv.width, barThickness, canv.topLeft), true)
   topBar.backColour = Colour.Cornsilk
 
