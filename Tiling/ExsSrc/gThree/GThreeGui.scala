@@ -2,8 +2,8 @@
 package ostrat; package gThree
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui") {
-  statusText = "Welcome to Game Three."
+case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
+{ statusText = "Welcome to Game Three."
   val scen = scenStart
 
   def terrs: HCenLayer[Terr] = scen.terrs
@@ -28,7 +28,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
 
-    def unitGraphics: RArr[PolygonCompound] = lunits.projSomeHcPtMap { (ls, hc, pt) =>
+    def unitGraphics: RArr[PolygonCompound] = lunits.projHeadsHcPtMap { (ls, hc, pt) =>
       Rect(proj.pixelsPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, 24, 2.0)
   }
 

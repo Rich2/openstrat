@@ -61,7 +61,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
       actions +% uc
     }*/
 
-    def lunits2: GraphicElems = squads.projSomeHcPtMap { (army, hc, pt) =>
+    def lunits2: GraphicElems = squads.projHeadsHcPtMap { (army, hc, pt) =>
       val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }

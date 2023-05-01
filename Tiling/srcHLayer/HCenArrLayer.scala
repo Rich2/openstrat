@@ -56,17 +56,17 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
 
   /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
-    projSomeHcPtMap(proj)(f)
+  def projHeadsHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projHeadsHcPtMap(proj)(f)
 
   /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
-    val buff = build.newBuff()
+  def projHeadsHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val array = unsafeArray(proj.parent.layerArrayIndex(hc))
-      if (array.length > 0) {
-        val res = f(array(0), hc, proj.transCoord(hc))
+      if (array.length > 0)
+      { val res = f(array(0), hc, proj.transCoord(hc))
         build.buffGrow(buff, res)
       }
     }
