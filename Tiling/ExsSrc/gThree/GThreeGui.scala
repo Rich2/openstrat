@@ -18,6 +18,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
+  def pixPerTile: Double = proj.pixelsPerTile
 
   def frame: GraphicElems =
   {
@@ -29,7 +30,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     def actives: RArr[PolygonActive] = proj.tileActives
 
     def unitGraphics: RArr[PolygonCompound] = lunits.projHeadsHcPtMap { (ls, hc, pt) =>
-      Rect(proj.pixelsPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, 24, 2.0)
+      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0)
   }
 
 //  def texts: RArr[TextGraphic] = lunits.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
