@@ -11,7 +11,7 @@ object ThreeScen1 extends ThreeScen(0)
   srp(4, 4, 2, Woods)
   val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
   lunits.set1(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
-//  lunits.setSomesMut((4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL)), (6, 10, LunitState(Lunit(TeamA, 2))))
+  lunits.setSeq(4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL), LunitState(Lunit(TeamB, 2), HexLt))//, (6, 10, LunitState(Lunit(TeamA, 2))))
 }
 
 object ThreeScen2 extends ThreeScen(0)

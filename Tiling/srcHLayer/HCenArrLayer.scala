@@ -19,6 +19,11 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
     unsafeArray(grider.layerArrayIndex(hc)) = newElem
   }
 
+  def setSeq(r: Int, c: Int, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = {
+    val newElem: Array[A] = new Array[A](values.length)
+    values.iForeach((i, v) => newElem(i) = v)
+    unsafeArray(grider.layerArrayIndex(r, c)) = newElem
+  }
   def setSame(value: A, hcs: HCen*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = hcs.foreach{ hc => setSeq(hc, value) }
 
   def prepend(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = prepend(HCen(r, c), value)
