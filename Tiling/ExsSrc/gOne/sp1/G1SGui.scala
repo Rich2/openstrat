@@ -9,7 +9,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
   var scen = scenStart
   implicit def gridSys: SqGridSys = scen.gSys
   def players: SqCenOptLayer[Player] = scen.oPlayers
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = viewIn.vec
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
 

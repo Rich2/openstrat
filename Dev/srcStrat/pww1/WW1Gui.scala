@@ -12,7 +12,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def lunits: HCenOptLayer[Lunit] = scen.lunits
 
   focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

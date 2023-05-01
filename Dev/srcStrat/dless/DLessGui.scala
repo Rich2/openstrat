@@ -14,7 +14,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   var moves: HCenStepPairArr[Army] = NoMoves
 
   focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

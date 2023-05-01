@@ -10,7 +10,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
   val corners: HCornerLayer = scen.corners
   def corps: HCenOptLayer[Corps] = scen.corps
   focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

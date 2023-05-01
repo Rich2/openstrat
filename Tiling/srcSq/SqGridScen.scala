@@ -3,17 +3,17 @@ package ostrat; package prid; package psq
 import geom._, pgui._
 
 abstract class SqSysGui(title: String) extends TGridSysGui(title)
-{ override def ptScale: Double = cPScale * 2
+{ override def ptScale: Double = pixPerC * 2
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
-    cPScale *= 1.1
+    pixPerC *= 1.1
     repaint()
     statusText = tilePScaleStr
     thisTop()
   }
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
-    cPScale /= 1.1
+    pixPerC /= 1.1
     repaint()
     statusText = tilePScaleStr
     thisTop()
@@ -21,7 +21,7 @@ abstract class SqSysGui(title: String) extends TGridSysGui(title)
 
   def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr) { butt =>
     val delta = butt(1, 10, 100, 0)
-    focus = f(focus, cPScale * delta / 40)
+    focus = f(focus, pixPerC * delta / 40)
     repaint()
     statusText = focus.strSemi(2, 2)
     thisTop()

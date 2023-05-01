@@ -12,7 +12,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   val lunits: HCenArrLayer[Warrior] = scen.lunits
 
   focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //def view: HGView()
   //proj.setView(viewIn)

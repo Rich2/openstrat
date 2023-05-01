@@ -10,7 +10,7 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
   val corners = scen.corners
 
   focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

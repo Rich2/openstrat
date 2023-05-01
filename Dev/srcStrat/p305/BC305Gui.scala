@@ -14,7 +14,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   var moves: HCenStepPairArr[Legion] = NoMoves
 
   focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

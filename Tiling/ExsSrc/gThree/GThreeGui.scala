@@ -14,7 +14,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  cPScale = viewIn.pixelsPerC
+  pixPerC = viewIn.pixelsPerC
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
