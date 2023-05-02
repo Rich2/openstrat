@@ -8,8 +8,8 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
   def apply(hc: HCen)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.layerArrayIndex(hc)))
   def apply(r: Int, c: Int)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.layerArrayIndex(r, c)))
 
-  def empty(r: Int, c: Int)(implicit grider: HGridSys): Boolean = apply(r, c).length == 0
-  def empty(hc: HCen)(implicit grider: HGridSys): Boolean = apply(hc).length == 0
+  def emptyTile(r: Int, c: Int)(implicit grider: HGridSys): Boolean = apply(r, c).length == 0
+  def emptyTile(hc: HCen)(implicit grider: HGridSys): Boolean = apply(hc).length == 0
 
   def set1(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = setSeq(HCen(r, c), value)
 
