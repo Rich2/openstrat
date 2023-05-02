@@ -36,7 +36,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: GraphicElems = moves.headsHcFlatMap { (ps, hc) =>
+    def moveGraphics: GraphicElems = moves.elemsHcFlatMap { (ps, hc) =>
       val lps1: LinePathHC = ps.cmds.pathHC(hc)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init

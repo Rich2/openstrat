@@ -67,12 +67,24 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
     build.buffToSeqLike(buff)
   }
 
-  /** Drops the [[None]] values flatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Seqimut]]. */
-  def headsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT = {
-    val buff = build.newBuff()
+  /** FlatMaps the head values of the [[Arr]], if the [[Arr]] is none empty, with the corresponding [[HCen]] to a [[Seqimut]]. */
+  def headsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
+  { val buff = build.newBuff()
     grider.foreach { hc =>
       if (noneEmptyTile(hc)) {
         val newVal = f(tileHeadGet(hc), hc)
+        build.buffGrowArr(buff, newVal)
+      }
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** FlatMaps the elements of each [[Arr]] with the corresponding [[HCen]] to a [[Seqimut]]. */
+  def elemsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
+  { val buff = build.newBuff()
+    grider.foreach { hc =>
+      apply(hc).foreach { a =>
+        val newVal = f(a, hc)
         build.buffGrowArr(buff, newVal)
       }
     }
