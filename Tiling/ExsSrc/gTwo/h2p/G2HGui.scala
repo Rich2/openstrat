@@ -39,7 +39,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: GraphicElems = moves.someHCFlatMap { (ps, hc) =>
+    def moveGraphics: GraphicElems = moves.somesHcFlatMap { (ps, hc) =>
       val lps1: LinePathHC = ps.steps.pathHC(hc)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init

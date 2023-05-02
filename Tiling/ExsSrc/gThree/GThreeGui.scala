@@ -34,9 +34,19 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
       Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0) }
 
     def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
- // def moveGraphics: GraphicElems = lunits.someHCMapArr { (u, hc) => LineSegHC(hc, hc.unsafeStepDepr(u.cmds(0))).lineSeg.draw(lunits.getex(hc).colour) }
 
-  terrPolys ++ actives ++ lines ++ unitGraphics ++ texts
+    /** This is the graphical display of the planned move orders. */
+    def moveGraphics: GraphicElems = moves.headsHcFlatMap { (ps, hc) =>
+      val lps1: LinePathHC = ps.cmds.pathHC(hc)
+      val lps2: LineSegHCArr = lps1.lineSegArr
+      val lps2a: LineSegHCArr = lps2.init
+      val lps2b = lps2.lasts
+      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(ps.colour))
+      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(ps.colour).arrow)
+      lps3a ++ lps3b
+    }
+
+  terrPolys ++ actives ++ lines ++ unitGraphics ++ texts ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
