@@ -21,8 +21,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def pixPerTile: Double = proj.pixelsPerTile
 
   def frame: GraphicElems =
-  {
-    def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+  { def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
     def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
 
@@ -30,14 +29,12 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     def actives: RArr[PolygonActive] = proj.tileActives
 
     def unitGraphics: RArr[PolygonCompound] = lunits.projHeadsHcPtMap { (ls, hc, pt) =>
-      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0)
-  }
+      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0) }
 
-//  def texts: RArr[TextGraphic] = lunits.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
-
+    def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
  // def moveGraphics: GraphicElems = lunits.someHCMapArr { (u, hc) => LineSegHC(hc, hc.unsafeStepDepr(u.cmds(0))).lineSeg.draw(lunits.getex(hc).colour) }
 
-  terrPolys ++ actives ++ lines ++ unitGraphics// ++ texts
+  terrPolys ++ actives ++ lines ++ unitGraphics ++ texts
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
