@@ -17,7 +17,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */
-  var moves: HCenOptLayer[PlayerState] = playerStates.clone//somesHcPairMap{ (ps, hc) => HDirnPathPair(ps.player, hc, ps.steps)}
+  var moves: HCenOptLayer[PlayerState] = playerStates.copy
 
   val urect = Rect(1.4, 1)
 

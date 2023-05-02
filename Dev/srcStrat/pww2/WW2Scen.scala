@@ -22,7 +22,7 @@ trait WW2Scen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Army] = armies.clone
+    val armiesNew: HCenOptLayer[Army] = armies.copy
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new WW2Scen

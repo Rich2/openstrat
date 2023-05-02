@@ -15,7 +15,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
-  def clone: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
+  def copy: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
 
   /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
   def setSomeMut(r: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(r, c)) = value

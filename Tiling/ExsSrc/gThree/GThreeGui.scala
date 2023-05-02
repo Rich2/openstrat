@@ -10,6 +10,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   def lunits: HCenArrLayer[LunitState] = scen.lunits
 
+  var moves: HCenArrLayer[LunitState] = lunits.copy
+
   var history: RArr[ThreeScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys

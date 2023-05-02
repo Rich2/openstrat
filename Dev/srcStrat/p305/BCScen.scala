@@ -20,7 +20,7 @@ trait BCScen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Legion] = armies.clone
+    val armiesNew: HCenOptLayer[Legion] = armies.copy
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new BCScen

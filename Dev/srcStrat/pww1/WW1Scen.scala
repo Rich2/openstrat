@@ -18,7 +18,7 @@ trait WW1Scen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Lunit] = lunits.clone
+    val armiesNew: HCenOptLayer[Lunit] = lunits.copy
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (lunits.emptyTile(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new WW1Scen
