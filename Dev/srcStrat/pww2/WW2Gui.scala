@@ -2,6 +2,7 @@
 package ostrat; package pww2
 import geom._, prid._, phex._, pgui._, egrid._
 
+/** Graphical user interface for WW2 game. */
 case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("WW2 Gui")
 { var scen: WW2Scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
@@ -59,9 +60,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   }
 
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
-
   thisTop()
-
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

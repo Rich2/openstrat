@@ -2,6 +2,7 @@
 package ostrat; package p305
 import prid._, phex._, egrid._, eg80._
 
+/** Game scario for BC305. */
 trait BCScen extends HSysTurnScen
 { ThisScen =>
 
@@ -34,6 +35,7 @@ trait BCScen extends HSysTurnScen
   }
 }
 
+/** Scenario 1 for BC305. This scenario will bedeveloped into the main game. */
 object BCScen1 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongMulti = EGrid80.multi(2, 0, 418)

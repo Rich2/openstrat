@@ -37,10 +37,6 @@ trait WW2Scen extends HSysTurnScen
   }
 }
 
-object WW2Scen
-{
-}
-
 /** Initial main scenario for World War 2. Scenario will start March 1 1942. Turns will be 3 months. Segments may initially be a month or 2 weeks. */
 object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
@@ -67,5 +63,4 @@ object WW2Scen2 extends WW2Scen
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr320E0.sTerrs
   override val corners: HCornerLayer = Terr320E0.corners
   val armies: HCenOptLayer[Army] = HCenOptLayer()
-
 }

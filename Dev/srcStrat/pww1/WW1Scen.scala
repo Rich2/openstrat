@@ -2,6 +2,7 @@
 package ostrat; package pww1
 import prid._, phex._, egrid._, eg120._
 
+/** Scenario for WW1 game. */
 trait WW1Scen extends HSysTurnScen
 { ThisScen =>
   def title: String = "WWI scenario."

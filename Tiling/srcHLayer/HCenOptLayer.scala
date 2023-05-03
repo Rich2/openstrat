@@ -8,6 +8,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 { override type ThisT = HCenOptLayer[A]
   override def typeStr: String = "HCenOptLayer"
 
+  /** Maps this [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. The [[HGridSys]] that encodes the layer is not required for this operation. */
   def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] =
   { val newArray = new Array[B](flatLength)
     var i = 0
@@ -15,6 +16,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
+  /** Creates a ashallow copy of this [[HCenOptLayer]]. */
   def copy: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
 
   /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
