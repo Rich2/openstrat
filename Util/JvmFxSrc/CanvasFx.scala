@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
 import geom._, pgui._, pjvm._, javafx._, scene._
 
@@ -29,8 +29,14 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   canvFx.setOnMouseMoved((e: input.MouseEvent) => mouseMovedTopLeft(e.getX(), e.getY(), getButton(e))) 
   canvFx.setOnMouseDragged((e: input.MouseEvent) => mouseDraggedTopLeft(e.getX(), e.getY(), getButton(e))) 
   
-  theScene.setOnKeyReleased{(e: input.KeyEvent) => keyUp(e.getText) }
-  theScene.setOnKeyPressed{(e: input.KeyEvent) => keyDown(e.getText) }
+  theScene.setOnKeyReleased{(e: input.KeyEvent) =>
+    shiftDown = e.isShiftDown()
+    keyUp(e.getText)
+  }
+  theScene.setOnKeyPressed{(e: input.KeyEvent) =>
+    shiftDown = e.isShiftDown()
+    keyDown(e.getText)
+  }
 
   canvFx.setOnScroll((e: input.ScrollEvent) => e.getDeltaY match
   { case 0 => //("scroll delta 0")

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
 import geom._, pgui._, math.Pi, org.scalajs.dom._
 
@@ -41,12 +41,14 @@ object CanvasJs extends CanvasTopLeft
   }
 
   can.onmouseup = (e: MouseEvent) =>
-  { val rect: DOMRect = DOMRect()
+  { shiftDown = e.shiftDown()
+    val rect: DOMRect = DOMRect()
     mouseUpTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
 
-  can.onmousedown = (e: MouseEvent) => 
-  { val rect = can.getBoundingClientRect()
+  can.onmousedown = (e: MouseEvent) =>
+  { shiftDown = e.shiftDown()
+    val rect = can.getBoundingClientRect()
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
   

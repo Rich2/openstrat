@@ -22,6 +22,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   proj.setView(viewIn)
   def pixPerTile: Double = proj.pixelsPerTile
 
+  canv.keyDown = s => deb("Key down" -- s)
+
   def frame: GraphicElems =
   { def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
@@ -60,6 +62,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
+      deb(canv.shiftDown.toString)
       selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()

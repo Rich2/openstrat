@@ -18,6 +18,9 @@ trait CanvasPlatform extends RectCenlign
   /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command. */
   var mouseDown: (Pt2, MouseButton) => Unit = (v, b) => {}
 
+  /** returns true if the shift key isdepressed. */
+  var shiftDown: Boolean = false
+
   var mouseMoved: (Pt2, MouseButton) => Unit = (v, b) => {}
   var mouseDragged: (Pt2, MouseButton) => Unit = (v, b) => {}
   var keyDown: String => Unit = _ => {}
