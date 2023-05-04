@@ -28,9 +28,9 @@ trait G2HScen extends HSysTurnScen
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
       val steps: HStepArr = ps.steps
-      if(steps.length > 0) {
-        gridSys.stepEndFind(origin, steps.head) match {
-          case Some(target) if playerStates.emptyTile(target) => acc.append (target, origin, ps)
+      if(steps.length > 0)
+      { gridSys.stepEndFind(origin, steps.head) match
+        { case Some(target) if playerStates.emptyTile(target) => acc.append (target, origin, ps)
           case _ =>
         }
       }

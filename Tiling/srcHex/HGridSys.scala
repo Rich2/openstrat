@@ -70,7 +70,18 @@ trait HGridSys extends Any with TGridSys
   /** Optionally returns the destination of an [[HStep]] if the destination exists in the [[HGridSys]]. */
   def stepEndFind(r: Int, c: Int, step: HStep): Option[HCen] = stepEndFind(HCen(r, c), step)
 
-  def stepEndFind(cenStep: HCenStep): Option[HCen] = stepEndFind(cenStep.startHC, cenStep.step)
+  final def cenStepEndFind(cenStep: HCenStep): Option[HCen] = stepEndFind(cenStep.startHC, cenStep.step)
+
+  def stepsEndFind(startCen: HCen, steps: HStepArr): Option[HCen] =
+  {
+    def loop(currCen: HCen, i: Int): Option[HCen] =
+      if (i >= steps.length) Some(currCen)
+      else stepEndFind(currCen, steps(i)) match
+      { case None => None
+        case Some(target) => loop(target, i + 1)
+      }
+    loop(startCen, 0)
+  }
 
   /** Finds step from Start [[HCen]] to target from [[HCen]] if end hex exists, else returns start hex. */
   def stepEndOrStart(startHC: HCen, step: HStep): HCen = stepEndFind(startHC, step).getOrElse(startHC)
