@@ -5,7 +5,7 @@ import prid._, phex._, Colour._
 /** Example Game three scenario trait. */
 abstract class ThreeScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
-  def terrs: HCenLayer[Terr]
+  //def terrs: HCenLayer[Terr]
   
   def lunits: HCenArrLayer[LunitState]
   def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
@@ -41,7 +41,7 @@ object ThreeScen
   def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenArrLayer[LunitState]): ThreeScen = new ThreeScen(turnNum)
   {
     /** tile terrain. */
-    override def terrs: HCenLayer[Terr] = terrsIn
+    //override def terrs: HCenLayer[Terr] = terrsIn
 
     override def lunits: HCenArrLayer[LunitState] = unitsIn
 

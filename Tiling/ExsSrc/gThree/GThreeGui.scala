@@ -6,7 +6,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 { statusText = "Welcome to Game Three."
   val scen = scenStart
 
-  def terrs: HCenLayer[Terr] = scen.terrs
+//  def terrs: HCenLayer[Terr] = scen.terrs
 
   def lunits: HCenArrLayer[LunitState] = scen.lunits
 
@@ -25,17 +25,20 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   canv.keyDown = s => deb("Key down" -- s)
 
   def frame: GraphicElems =
-  { def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+  { //def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-    def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
+ //   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
 
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
 
+    /** Draws the tiles sides (or edges). */
+    def sidesDraw: LinesDraw = proj.sidesDraw()
+
     def unitGraphics: RArr[PolygonCompound] = lunits.projHeadsHcPtMap { (ls, hc, pt) =>
       Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0) }
 
-    def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
+    def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moves.elemsHcFlatMap { (ps, hc) =>
@@ -48,7 +51,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
       lps3a ++ lps3b
     }
 
-  terrPolys ++ actives ++ lines ++ moveGraphics ++ unitGraphics ++ texts
+    actives +% sidesDraw ++ moveGraphics ++ unitGraphics ++ texts
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

@@ -63,8 +63,8 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons)
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) =>
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) =>
     { selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
