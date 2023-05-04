@@ -46,8 +46,8 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
-    { selected = pointerHits
-      statusText = selected.headFoldToString("Nothing Selected")
+    { selected = pointerHits.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

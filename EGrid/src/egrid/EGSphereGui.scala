@@ -85,7 +85,7 @@ class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) =>
     { selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+      statusText = selectedStr
       thisTop()
     }
 

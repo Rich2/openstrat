@@ -24,8 +24,8 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match {
     case (LeftButton, _, pointerHits) => {
-      selected = pointerHits
-      statusText = selected.headFoldToString("Nothing Selected")
+      selected = pointerHits.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

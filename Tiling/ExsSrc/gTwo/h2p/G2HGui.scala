@@ -65,20 +65,22 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
-    { selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HPlayer(hc1, player)), hits) => hits.findHCenForEach{ hc2 =>
-      if (hc1 == hc2) moves.setSomeMut(hc1, PlayerState(player))
+    case (RightButton, HPlayer(hc1, player), hits) => hits.findHCenForEach{ hc2 =>
+
       if(canv.shiftDown)
       { val oldState: PlayerState = moves.applyUnsafe(hc1)
         val oldSteps = oldState.steps
         val oldEnd: Option[HCen] = gridSys.stepsEndFind(hc1, oldSteps)
         oldEnd.flatMap(currEnd => gridSys.stepFind(currEnd, hc2)).foreach{newStep => moves.setSomeMut(hc1, PlayerState(player, oldSteps +% newStep)) }
       }
-      else gridSys.stepFind(hc1, hc2).foreach{ step => moves.setSomeMut(hc1, PlayerState(player, step)) }
+      else gridSys.stepFind(hc1, hc2).foreach{ step =>
+        if (hc1 == hc2) moves.setSomeMut(hc1, PlayerState(player))
+        else moves.setSomeMut(hc1, PlayerState(player, step)) }
       repaint()
     }
 

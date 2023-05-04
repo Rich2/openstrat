@@ -32,10 +32,10 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
   }
   statusText = "Welcome to AD1783"
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) =>
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

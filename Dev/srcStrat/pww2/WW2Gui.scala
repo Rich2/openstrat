@@ -45,8 +45,8 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
-    { selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

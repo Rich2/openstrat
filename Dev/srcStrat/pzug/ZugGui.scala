@@ -72,8 +72,8 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList
-      statusText = selected.headFoldToString("Nothing Clicked")
+    { selected = clickList.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

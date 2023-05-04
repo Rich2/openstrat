@@ -30,10 +30,10 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
   }
   statusText = "Welcome to DISC305"
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) =>
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

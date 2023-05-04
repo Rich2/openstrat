@@ -45,12 +45,12 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   {
     case (LeftButton, _, cl) =>
-    { selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HCenPair(hc1, pl: Legion)), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, HCenPair(hc1, pl: Legion), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()

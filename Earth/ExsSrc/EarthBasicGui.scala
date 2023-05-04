@@ -77,8 +77,8 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
-      selected = cl
-      statusText = selected.headFoldToString("Nothing Selected").newLinesToSpaces
+      selected = cl.headOrNone
+      statusText = selectedStr.newLinesToSpaces
       thisTop()
     }
 

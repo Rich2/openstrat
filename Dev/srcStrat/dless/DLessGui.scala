@@ -46,8 +46,8 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   {
     case (LeftButton, _, cl) =>
-    { selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 

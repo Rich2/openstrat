@@ -17,6 +17,8 @@ trait Arr[+A] extends Any with Sequ[A]
   def unsafeSetLast(value: A @uncheckedVariance): Unit = setElemUnsafe(length -1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => setElemUnsafe(i, a) }
+
+  def headOrNone: Any = ife(length ==0, None, apply(0))
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */

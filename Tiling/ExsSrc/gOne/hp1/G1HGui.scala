@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package hp1
 import pgui._, geom._, prid._, phex._, gPlay._
 
@@ -66,14 +66,13 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) exte
   def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
-  {
-    case (LeftButton, _, cl) =>
-    { selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+  { case (LeftButton, _, cl) =>
+    { selected = cl.headOrNone
+      statusText = selectedStr
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HCenPair(hc1, pl: Player)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, HCenPair(hc1, pl: Player), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
