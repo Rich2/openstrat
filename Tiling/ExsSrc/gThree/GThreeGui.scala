@@ -61,9 +61,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      deb(canv.shiftDown.toString)
-      selected = cl
+    case (LeftButton, _, cl) =>
+    { selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }

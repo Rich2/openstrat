@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
 import pgui._, geom._, prid._, phex._, gPlay._
 
@@ -63,8 +63,8 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
   def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      selected = cl
+    case (LeftButton, _, cl) =>
+    { selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
@@ -84,7 +84,6 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
     case (_, _, h) => deb("Other; " + h.toString)
   }
   thisTop()
-
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

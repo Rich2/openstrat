@@ -138,7 +138,11 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     }
   }
 
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
   def applyUnsafe(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(hc))
+
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
+  def applyUnsafe(r: Int, c: Int)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(r, c))
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, will return nulls for [[None]] values, throws exception if tile centre
    *  does not exist. */
