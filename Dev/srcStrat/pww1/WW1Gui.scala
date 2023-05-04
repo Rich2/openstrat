@@ -36,8 +36,8 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   }
   statusText = "Welcome to WW1"
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) => {
       selected = cl.headOrNone
       statusText = selectedStr
       thisTop()

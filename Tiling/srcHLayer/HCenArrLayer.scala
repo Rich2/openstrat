@@ -19,23 +19,25 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
 
   def copy: HCenArrLayer[A] = new HCenArrLayer[A](arrayOuterUnsafe.clone)
 
-  def set1(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = setSeq(HCen(r, c), value)
+  def set1(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = setArr(HCen(r, c), value)
 
-  def setSeq(hc: HCen, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
+  def setArr(hc: HCen, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
     arrayOuterUnsafe(grider.layerArrayIndex(hc)) = newElem
   }
 
-  def setSeq(r: Int, c: Int, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = {
-    val newElem: Array[A] = new Array[A](values.length)
+  def setArr(r: Int, c: Int, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
+  { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
     arrayOuterUnsafe(grider.layerArrayIndex(r, c)) = newElem
   }
-  def setSame(value: A, hcs: HCen*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = hcs.foreach{ hc => setSeq(hc, value) }
+  def setSame(value: A, hcs: HCen*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = hcs.foreach{ hc => setArr(hc, value) }
 
+  /** Prepends to tile's [[Arr]]. */
   def prepend(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = prepend(HCen(r, c), value)
 
+  /** Prepends to tile's [[Arr]]. */
   def prepend(hc: HCen, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
   { val oldElem =  arrayOuterUnsafe(grider.layerArrayIndex(hc))
     val newElem: Array[A] = new Array[A](oldElem.length + 1)
@@ -43,12 +45,10 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
     oldElem.copyToArray(newElem, 1)
     arrayOuterUnsafe(grider.layerArrayIndex(hc)) = newElem
   }
-  //    def prepends(value : A, roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
-  /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def gridHeadsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, BB]): BB =
-  {
-    val buff = build.newBuff()
+  /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
+  def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, BB]): BB =
+  { val buff = build.newBuff()
     grider.foreach { r =>
       val el:RArr[A] = apply(r)
       if (el.length >= 1) build. buffGrow(buff, f(r, el(0)))
@@ -57,9 +57,8 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def gridHeadsFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grider: HGridSys, build: ArrFlatBuilder[BB]): BB =
-  {
-    val buff = build.newBuff()
+  def headsFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grider: HGridSys, build: ArrFlatBuilder[BB]): BB =
+  { val buff = build.newBuff()
     grider.foreach { r =>
       val el:RArr[A] = apply(r)
       if (el.length >= 1) build.buffGrowArr(buff, f(r, el(0)))

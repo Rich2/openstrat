@@ -38,7 +38,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
       }
     }
 
-    def unitFills: RArr[PolyCurveParentFull] = lunits.gridHeadsMap { (hc, lu) =>
+    def unitFills: RArr[PolyCurveParentFull] = lunits.headsMap { (hc, lu) =>
       Rectangle.curvedCornersCentred(120, 80, 3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString) }
 
     def texts: RArr[TextGraphic] = lunits.projEmptyHcPtMap(proj) { (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
