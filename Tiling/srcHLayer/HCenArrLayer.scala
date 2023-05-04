@@ -109,6 +109,25 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
     build.buffToSeqLike(buff)
   }
 
+  def projNonEmptiesHcPtMap[B, ArrB <: Arr[B]](f: (RArr[A], HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projNonEmptiesHcPtMap(proj)(f)
+
+  /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+   * most cases B will be a [[GraphicElem]] or a subtype. */
+  def projNonEmptiesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    proj.gChild.foreach { hc =>
+      val arr = apply(hc)(proj.parent)
+      if (arr.length > 0)
+      { val res = f(arr, hc, proj.transCoord(hc))
+        build.buffGrow(buff, res)
+      }
+    }
+    build.buffToSeqLike(buff)
+  }
+
+
+
   def projEmptyHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projEmptyHcPtMap(proj)(f)
 
