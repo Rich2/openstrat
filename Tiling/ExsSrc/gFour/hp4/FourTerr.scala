@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
+package ostrat; package gFour
 import prid._, phex._, Colour._
 
 sealed trait Terr extends Coloured

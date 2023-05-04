@@ -5,16 +5,10 @@ import pgui._, prid._, phex._, geom._, gPlay._
 case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
-
-//  def terrs: HCenLayer[Terr] = scen.terrs
-
-  def lunits: HCenArrLayer[LunitState] = scen.lunits
-
-  var moves: HCenArrLayer[LunitState] = lunits.copy
-
-  var history: RArr[ThreeScen] = RArr(scen)
-
   implicit def gridSys: HGridSys = scen.gridSys
+  def lunits: HCenArrLayer[LunitState] = scen.lunits
+  var moves: HCenArrLayer[LunitState] = lunits.copy
+  var history: RArr[ThreeScen] = RArr(scen)
 
   pixPerC = viewIn.pixelsPerC
   focus = viewIn.vec
@@ -25,11 +19,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   canv.keyDown = s => deb("Key down" -- s)
 
   def frame: GraphicElems =
-  { //def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap { (ls, t1, t2) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
-
- //   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
-
-    /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
+  { /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
 
     /** Draws the tiles sides (or edges). */
