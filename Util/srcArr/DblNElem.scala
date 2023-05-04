@@ -68,10 +68,11 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
     fromArray(buff.toArray)
   }
 
-  final override def drop(n: Int): ThisT =
-  { val nn = n.max0
-    val newArray = new Array[Double]((unsafeLength - elemProdSize * nn).max0)
-    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i) = unsafeArray(i + elemProdSize * nn) }
+  final override def drop(n: Int): ThisT = {
+    val nn = n.max0.min(length)
+    val newLen = (unsafeLength - elemProdSize * nn)
+    val newArray = new Array[Double](newLen)
+    unsafeArray.copyDropToArray(nn * elemProdSize, newArray)
     fromArray(newArray)
   }
 

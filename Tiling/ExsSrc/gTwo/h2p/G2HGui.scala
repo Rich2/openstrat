@@ -71,8 +71,8 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
     case (RightButton, AnyArrHead(HPlayer(hc1, player)), hits) => hits.findHCenForEach{ hc2 =>
       if (hc1 == hc2) moves.setSomeMut(hc1, PlayerState(player))
-      if(canv.shiftDown){
-        val oldState: PlayerState = moves(hc1).get
+      if(canv.shiftDown)
+      { val oldState: PlayerState = moves.applyUnsafe(hc1)
         val oldSteps = oldState.steps
         val oldEnd: Option[HCen] = gridSys.stepsEndFind(hc1, oldSteps)
         oldEnd.flatMap(currEnd => gridSys.stepFind(currEnd, hc2)).foreach{newStep => moves.setSomeMut(hc1, PlayerState(player, oldSteps +% newStep)) }

@@ -70,8 +70,8 @@ class ArrayIntExtensions(thisArray: Array[Int])
   def setIndex6(index: Int, i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): Unit = { thisArray(index * 6) = i1; thisArray(index * 6 + 1) = i2
     thisArray(index * 6 + 2) = i3; thisArray(index * 6 + 3) = i4; thisArray(index * 6 + 4) = i5; thisArray(index * 6 + 5) = i6 }
 
-  /** Copies this Array from the given start index to the destination array. Optional parameters for
-   * the start index for the destination Array and the number of elements to be copied. */
+  /** Copies this Array from the given start index to the destination array. Optional parameters for the start index for the destination Array and the
+   *  number of elements to be copied. */
   def copyDropToArray(sourceStart: Int, dest: Array[Int], destStart: Int = 0, numElems: Int = -8): Unit =
     System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
 }
@@ -144,6 +144,11 @@ class ArrayDblExtensions(thisArray: Array[Double])
   { thisArray(index * 7) = d1; thisArray(index * 7 + 1) = d2; thisArray(index * 7 + 2) = d3; thisArray(index * 7 + 3) = d4
     thisArray(index * 7 + 4) = d5; thisArray(index * 7 + 5) = d6; thisArray(index * 7 + 6) = d7
   }
+
+  /** Copies this Array from the given start index to the destination array. Optional parameters for the start index for the destination Array and the
+   *  number of elements to be copied. */
+  def copyDropToArray(sourceStart: Int, dest: Array[Double], destStart: Int = 0, numElems: Int = -8): Unit =
+    System.arraycopy(thisArray, sourceStart, dest, destStart, ife(numElems == -8, dest.length, numElems))
 }
 
 class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
