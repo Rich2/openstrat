@@ -48,7 +48,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
       lps3a ++ lps3b
     }
 
-  terrPolys ++ actives ++ lines ++ unitGraphics ++ texts ++ moveGraphics
+  terrPolys ++ actives ++ lines ++ moveGraphics ++ unitGraphics ++ texts
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
@@ -60,8 +60,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     thisTop()
   }
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) =>
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) =>
     { selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()

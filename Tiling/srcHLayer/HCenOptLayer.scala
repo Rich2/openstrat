@@ -39,6 +39,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   /** Sets / mutates every element to the given value. */
   def setAllMut(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
 
+  /** Sets multiple [[HCen]] locations to [[Some]] values. */
   def setFSomesMut(f: () => A, hCens: Int*)(implicit grider: HGridSys): Unit =
   { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
     iUntilForeach(0, hCens.length, 2){i => unsafeArray(grider.layerArrayIndex(hCens(i), hCens(i + 1))) = f()

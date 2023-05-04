@@ -15,7 +15,7 @@ object ThreeScen1 extends ThreeScen(0)
 }
 
 object ThreeScen2 extends ThreeScen(0)
-{ override implicit val gridSys: HGrid = HGridReg(2, 8, 2, 18)
+{ override implicit val gridSys: HGrid = HGridReg(2, 8, 2, 22)
   override val terrs: HCenLayer[Terr] = HCenLayer[Terr](Plain)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
