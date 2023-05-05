@@ -41,13 +41,13 @@ object CanvasJs extends CanvasTopLeft
   }
 
   can.onmouseup = (e: MouseEvent) =>
-  { shiftDown = e.shiftDown()
+  { shiftDown = e.shiftKey
     val rect: DOMRect = DOMRect()
     mouseUpTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
 
   can.onmousedown = (e: MouseEvent) =>
-  { shiftDown = e.shiftDown()
+  { shiftDown = e.shiftKey
     val rect = can.getBoundingClientRect()
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
