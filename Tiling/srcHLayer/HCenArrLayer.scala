@@ -8,6 +8,10 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
   def apply(hc: HCen)(implicit grider: HGridSys): RArr[A] = new RArr(arrayOuterUnsafe(grider.layerArrayIndex(hc)))
   def apply(r: Int, c: Int)(implicit grider: HGridSys): RArr[A] = new RArr(arrayOuterUnsafe(grider.layerArrayIndex(r, c)))
 
+  def applyUnsafe(hc: HCen)(implicit grider: HGridSys): Array[A] = arrayOuterUnsafe(grider.layerArrayIndex(hc))
+
+  def applyUnsafe(r: Int, c: Int)(implicit grider: HGridSys): Array[A] = arrayOuterUnsafe(grider.layerArrayIndex(r, c))
+
   def emptyTile(r: Int, c: Int)(implicit grider: HGridSys): Boolean = apply(r, c).length == 0
   def emptyTile(hc: HCen)(implicit grider: HGridSys): Boolean = apply(hc).length == 0
 
@@ -46,10 +50,13 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
     arrayOuterUnsafe(grider.layerArrayIndex(hc)) = newElem
   }
 
+  /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
+  def elemsHcForeach(f: (A, HCen) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(a, hc)) }
+
   /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, BB]): BB =
+  def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val buff = build.newBuff()
-    grider.foreach { r =>
+    gSys.foreach { r =>
       val el:RArr[A] = apply(r)
       if (el.length >= 1) build. buffGrow(buff, f(r, el(0)))
     }

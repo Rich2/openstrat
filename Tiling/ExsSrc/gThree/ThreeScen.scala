@@ -34,6 +34,31 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
     //ThreeScen(turn + 1, gridSys, terrs, oPlayersNew)
     ???
   }
+
+  def resolve(oldStates: HCenArrLayer[LunitState]): HCenArrLayer[LunitState] =
+  {
+    val acc: HCenAccLayer[LunitState] = HCenAccLayer()
+    oldStates.elemsHcForeach { (ls, origin) =>
+      val steps: HStepArr = ls.cmds
+      if (steps.length > 0) {
+        gridSys.stepEndFind(origin, steps.head) match
+        { case Some(target) if lunits.emptyTile(target) => acc.append(target, origin, ls)
+          case _ =>
+        }
+      }
+    }
+    val newStates = oldStates.copy
+    acc.foreach { (target, pairArr) =>
+      pairArr match {
+        case HCenPairArr1(origin, ps: LunitState) if origin != target => {
+         // newStates.setSomeMut(target, ps.takeStep)
+         // newStates.setNoneMut(origin)
+        }
+        case _ =>
+      }
+    }
+    newStates
+  }
 }
 
 object ThreeScen
