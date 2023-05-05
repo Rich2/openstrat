@@ -8,13 +8,33 @@
 <body>
   <h1>Tiling Module</h1>
   <div class ="main">
-    <h2>Contents</h2>
-    <ul>   
-      <ul>
-      <li>Abstract regular tile geometry.</li>
+    <div>
+      <h2>Contents</h2>
+      <ul>   
+        <li>Abstract regular tile geometry.</li>
         <li>Square and hex tile grid geometry.</li>
         <li>OfTile classes for the display of tiles.</li>
-    </ul>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Turn Resolution</h2>
+      <ul>
+        <li>Verify directives from Players and set them as intentions</li>
+        <li>Aggregate Intentions.</li>
+        <li>Resolve Segment
+          <ol>
+            <li>Accumulate. Aggregate the intentions towards each tile for each tile.</li>
+            <li>Ajudicate. Determine the outcome of the intentions and processes.</li>
+            <li>Distribute. Distribute the effects upon the new state for the effected tiles.</li>
+          </ol>
+        </li>
+        <li>Repeat Resolve Segement till the given number of segments has been repeated.</li>
+        <li>Inform the players, human and AI, of the Turn resolution.</li>
+      </ul>
+    </div>
+  </div>
+
 
 </body>
 </html>
