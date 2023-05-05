@@ -22,17 +22,20 @@
     <div>
       <h2>Game Terminology</h2>
       <ol>
-        <li><b>InWorld</b> The game or production universe.</li>
-        <li><b>OutWorld</b> Anything outside of the game universe. Entities within the game universe have no knowledge of entities in the
-         OutWorld</li>
-        <li><b>Player</b> An OutWorld entity. Maybe a human, an AI or a script.</li>
-        <li><b>PlayerControl</b>Assignment of an InWorld entity to a Player's control.</li>
+        <li><b>InWorld</b> The game or production universe. Entities within the game universe have no knowledge of entities in the PlayerWorld or the
+         OutWorld<</li>
+        <li><b>PlayerWorld</b> The assignment of PlayerControl. The time dead lines and time credits for submission of turn Directives. Rules on
+         credits from InGame achievements or role-playering accreditation on future assignment of InWorld entities. Rules on Player communication.
+       </li>
+        <li><b>OutWorld</b> Anything outside of the Player universe. This can include servers, security, payement etc.</li>
+        <li><b>Player</b> A PlayerWorld entity. Maybe a human, an AI or a script.</li>
+        <li><b>PlayerControl</b> Assignment of an InWorld entity to a Player's control.</li>
         <li><b>Directive</b> A player directive given by a player to an InWorld entity at the begining of a turn.</li>
         <li><b>ControlHeirarchy</b> The precedence order of PlayerControl for Directives if multiple players are given control of an InGame
          entity.</li>
-        <li><b>Intention</b>Intention to make an effect by an InGame object.</li>
-        <li><b>SourceTile</b>The location of an entity making an Intention.</li>
-        <li><b>TargetTile</b>The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a non
+        <li><b>Intention</b> Intention to make an effect by an InGame object.</li>
+        <li><b>SourceTile</b> The location of an entity making an Intention.</li>
+        <li><b>TargetTile</b> The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a non
           adjacent tile.</li>
       </ol>
     </div>
