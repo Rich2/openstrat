@@ -25,8 +25,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     /** Draws the tiles sides (or edges). */
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
-    def unitGraphics: RArr[PolygonCompound] = lunits.projHeadsHcPtMap { (ls, hc, pt) =>
-      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0) }
+    def unitGraphics: RArr[PolygonCompound] = lunits.projNonEmptiesHcPtMap { (ls, hc, pt) =>
+      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.head.colour, ls.head, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0) }
 
     def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
 

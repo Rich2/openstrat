@@ -38,7 +38,7 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
 
 object ThreeScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenArrLayer[LunitState]): ThreeScen = new ThreeScen(turnNum)
+  def apply(turnNum: Int, gridIn: HGrid, unitsIn: HCenArrLayer[LunitState]): ThreeScen = new ThreeScen(turnNum)
   {
     /** tile terrain. */
     //override def terrs: HCenLayer[Terr] = terrsIn

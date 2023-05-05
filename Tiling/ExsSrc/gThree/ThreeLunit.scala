@@ -2,16 +2,10 @@
 package ostrat; package gThree
 import prid._, phex._, Colour._
 
-sealed trait Terr extends Coloured
-object Water extends Terr { def colour = DarkBlue }
-object Woods extends Terr { def colour = Green }
-object Plain extends Terr { def colour = Wheat }
-
 case class Hold(turns: Int)
 //type Command = HStep | Hold
 case class Team(name: String, colour: Colour) extends Coloured
-{
-  override def toString: String = name
+{ override def toString: String = name
 }
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)
@@ -34,4 +28,5 @@ class LunitState(lunit: Lunit, val cmds: HStepArr = HStepArr()) extends Coloured
 object LunitState
 { def apply(lunit: Lunit, cmds: HStep *): LunitState = new LunitState(lunit, cmds.toArr)
   def apply(lunit: Lunit, cmds: HStepArr): LunitState = new LunitState(lunit, cmds)
+  def apply(team: Team, unitNum: Int, cmds: HStep *): LunitState = new LunitState(Lunit(team, unitNum), cmds.toArr)
 }

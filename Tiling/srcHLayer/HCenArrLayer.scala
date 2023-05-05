@@ -126,8 +126,6 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
     build.buffToSeqLike(buff)
   }
 
-
-
   def projEmptyHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projEmptyHcPtMap(proj)(f)
 
