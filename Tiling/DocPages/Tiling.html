@@ -8,30 +8,52 @@
 <body>
   <h1>Tiling Module</h1>
   <div class ="main">
+    <p>A Module for tiling on hex and square grids and grid systems combining multiple grids. And for using those grid systems in, multi,
+     simultaneous, homogenious segment simultaneous turn games and productions.</p>
     <div>
       <h2>Contents</h2>
       <ul>   
-        <li>Abstract regular tile geometry.</li>
-        <li>Square and hex tile grid geometry.</li>
-        <li>OfTile classes for the display of tiles.</li>
+        <li>Tile geometry.</li>
+        <li>Game Terminology.</li>
+        <li>Turn Resolution.</li>
       </ul>
     </div>
 
     <div>
+      <h2>Game Terminology</h2>
+      <ol>
+        <li><b>InWorld</b> The game or production universe.</li>
+        <li><b>OutWorld</b> Anything outside of the game universe. Entities within the game universe have no knowledge of entities in the
+         OutWorld</li>
+        <li><b>Player</b> An OutWorld entity. Maybe a human, an AI or a script.</li>
+        <li><b>PlayerControl</b>Assignment of an InWorld entity to a Player's control.</li>
+        <li><b>Directive</b> A player directive given by a player to an InWorld entity at the begining of a turn.</li>
+        <li><b>ControlHeirarchy</b> The precedence order of PlayerControl for Directives if multiple players are given control of an InGame
+         entity.</li>
+        <li><b>Intention</b>Intention to make an effect by an InGame object.</li>
+        <li><b>SourceTile</b>The location of an entity making an Intention.</li>
+        <li><b>TargetTile</b>The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a non
+          adjacent tile.</li>
+      </ol>
+    </div>
+
+    <div>
       <h2>Turn Resolution</h2>
-      <ul>
-        <li>Verify directives from Players and set them as intentions</li>
+      <ol>
+        <li>Verify directives from Players are valid and under the PlayerControl</li>
+        <li>Resolve ControlHeirarchy</li>
+        <li>Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects.</li>
         <li>Aggregate Intentions.</li>
         <li>Resolve Segment
-          <ol>
-            <li>Accumulate. Aggregate the intentions towards each tile for each tile.</li>
-            <li>Ajudicate. Determine the outcome of the intentions and processes.</li>
-            <li>Distribute. Distribute the effects upon the new state for the effected tiles.</li>
-          </ol>
+          <ul>
+            <li>Accumulate. Aggregate the intentions in their TargetTiles.</li>
+            <li>Ajudicate. Determine the outcome of the Intentions and processes.</li>
+            <li>Distribute. Distribute the effects of the resolution of the TargetTiles on the SourceTiles of the Directives.</li>
+          </ul>
         </li>
         <li>Repeat Resolve Segement till the given number of segments has been repeated.</li>
         <li>Inform the players, human and AI, of the Turn resolution.</li>
-      </ul>
+      </ol>
     </div>
   </div>
 
