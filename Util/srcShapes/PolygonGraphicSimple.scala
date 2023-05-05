@@ -62,7 +62,7 @@ object PolygonGraphicSimple
 }
 
 /** A pointable polygon without visual. */
-case class PolygonActive(shape: Polygon, pointerId: AnyRef) extends GraphicAffineElem with GraphicClickable with PolygonGraphicSimple
+case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphicSimple
 { override type ThisT = PolygonActive
   override def ptsTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.vertsTrans(f), pointerId)
   override def boundingRect = shape.boundingRect
