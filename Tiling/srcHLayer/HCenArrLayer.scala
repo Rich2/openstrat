@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
-class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)
+class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit val ct: ClassTag[A])
 {
   def apply(hc: HCen): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(hc)))
   def apply(r: Int, c: Int): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(r, c)))
@@ -23,26 +23,28 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
 
   def copy: HCenArrLayer[A] = new HCenArrLayer[A](arrayOuterUnsafe.clone, gridSys)
 
-  def set1(r: Int, c: Int, value: A)(implicit ct: ClassTag[A]): Unit = setArr(HCen(r, c), value)
+  def set1(r: Int, c: Int, value: A): Unit = setArr(HCen(r, c), value)
 
-  def setArr(hc: HCen, values: A*)(implicit ct: ClassTag[A]): Unit =
+  def setArray(hc: HCen, newArray: Array[A]): Unit = arrayOuterUnsafe(gridSys.layerArrayIndex(hc)) = newArray
+
+  def setArr(hc: HCen, values: A*): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
     arrayOuterUnsafe(gridSys.layerArrayIndex(hc)) = newElem
   }
 
-  def setArr(r: Int, c: Int, values: A*)(implicit ct: ClassTag[A]): Unit =
+  def setArr(r: Int, c: Int, values: A*): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
     arrayOuterUnsafe(gridSys.layerArrayIndex(r, c)) = newElem
   }
-  def setSame(value: A, hcs: HCen*)(implicit ct: ClassTag[A]): Unit = hcs.foreach{ hc => setArr(hc, value) }
+  def setSame(value: A, hcs: HCen*): Unit = hcs.foreach{ hc => setArr(hc, value) }
 
   /** Prepends to tile's [[Arr]]. */
-  def prepend(r: Int, c: Int, value: A)(implicit ct: ClassTag[A]): Unit = prepend(HCen(r, c), value)
+  def prepend(r: Int, c: Int, value: A): Unit = prepend(HCen(r, c), value)
 
   /** Prepends to tile's [[Arr]]. */
-  def prepend(hc: HCen, value: A)(implicit ct: ClassTag[A]): Unit =
+  def prepend(hc: HCen, value: A): Unit =
   { val oldElem =  arrayOuterUnsafe(gridSys.layerArrayIndex(hc))
     val newElem: Array[A] = new Array[A](oldElem.length + 1)
     newElem(0) = value
@@ -154,11 +156,11 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
   }
 
   def moveUnsafe(hc1: HCen, hc2: HCen, pred: A => Boolean): Unit =
-  {
-    val array1 = applyUnsafe(hc1)
+  { val array1 = applyUnsafe(hc1)
     val i1: Int = array1.indexWhere(pred)
     val a = array1(i1)
-    //val newArray1 = array1.filterNot(a)
+    val newArray1 = array1.removeAt(i1)
+    setArray(hc1, newArray1)
   }
 }
 
@@ -174,6 +176,6 @@ object HCenArrLayer
   { val newArray = new Array[Array[A]](gridSys.numTiles)
     val init: Array[A] = Array()
     iUntilForeach(gridSys.numTiles)(newArray(_) = init)
-    new HCenArrLayer[A](newArray, gridSys)
+    new HCenArrLayer[A](newArray, gridSys)(ct)
   }
 }
