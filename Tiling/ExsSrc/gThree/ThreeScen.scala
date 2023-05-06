@@ -47,10 +47,10 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
         }
       }
     }
-    val newStates = oldStates.copy
+    val newStates: HCenArrLayer[LunitState] = oldStates.copy
     acc.foreach { (target, pairArr) =>
       pairArr match {
-        case HCenPairArr1(origin, ps: LunitState) if origin != target => {
+        case HCenPairArr1(origin, ps) if origin != target => {
          // newStates.setSomeMut(target, ps.takeStep)
          // newStates.setNoneMut(origin)
         }

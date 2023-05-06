@@ -37,7 +37,7 @@ trait G2HScen extends HSysTurnScen
     }
     val newStates = oldStates.copy
     acc.foreach{ (target, pairArr) => pairArr match
-      { case HCenPairArr1(origin, ps: PlayerState) if origin != target =>
+      { case HCenPairArr1(origin, ps) if origin != target =>
         { newStates.setSomeMut(target, ps.takeStep)
           newStates.setNoneMut(origin)
         }

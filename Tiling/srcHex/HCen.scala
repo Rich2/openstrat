@@ -232,8 +232,8 @@ class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
 
 object HCenPairArr1
 {
-  def unapply[A](inp: Any): Option[(HCen, Any)] = inp match{
-    case ha: HCenPairArr[_] if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0)))
+  def unapply[A](inp: HCenPairArr[A]): Option[(HCen, A)] = inp match{
+    case ha if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0)))
     case _ => None
   }
 }

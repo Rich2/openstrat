@@ -152,6 +152,10 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
   { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
     iUntilForeach(0, hCens.length, 2) { i => prepend(hCens(i), hCens(i + 1), f()) }
   }
+
+  def moveUnsafe(hc: HCen, value: A): Unit = {
+    
+  }
 }
 
 /** Companion object for the [[HCenArrLayer]] class, contains factory apply methods that take the [[HGridSys]] implicitly or explicitly. */
