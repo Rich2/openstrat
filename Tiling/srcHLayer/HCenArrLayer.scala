@@ -155,7 +155,10 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
 
   def moveUnsafe(hc1: HCen, hc2: HCen, pred: A => Boolean): Unit =
   {
-    val array1 = apply(hc1)
+    val array1 = applyUnsafe(hc1)
+    val i1: Int = array1.indexWhere(pred)
+    val a = array1(i1)
+    //val newArray1 = array1.filterNot(a)
   }
 }
 

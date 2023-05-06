@@ -33,6 +33,17 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
   def toStr: String = "Arr" + toStrsSemiParenth()
+
+  /** Extension method. Removes element at given index and returns a new Array.  */
+  def removeAt(i: Int)(implicit ct: ClassTag[A]): Array[A] =
+  { val oldLength = thisArray.length
+    ifExcep(i >= oldLength | i < 0, s"$i index is out or range for this Array")
+    val newLength = (oldLength - 1).max0
+    val newArray = new Array[A](newLength)
+    iUntilForeach(i){j => newArray(j) = thisArray(j)}
+    iUntilForeach(i + 1, oldLength){j => newArray(j - 1) = thisArray(j)}
+    newArray
+  }
 }
 
 /** Extension methods for Array[A <: ValueNElem] class */

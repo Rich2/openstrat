@@ -2,11 +2,11 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gSys: HGridSys)
+class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
 {
   def numCens: Int = arrayA.length
-  def step(hc: HCen)(implicit gSys: HGridSys): HStepOpt = HStepOpt.fromInt(arrayInt(gSys.layerArrayIndex(hc)))
-  def index(hc: HCen): Int = gSys.layerArrayIndex(hc)
+  def step(hc: HCen): HStepOpt = HStepOpt.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
+  def index(hc: HCen): Int = gridSys.layerArrayIndex(hc)
 
   def setSome(hc: HCen, step: HStepOpt, value: A): Unit =
   { arrayInt(index(hc)) = step.int1
@@ -16,11 +16,11 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
   def mapAcc: HCenAccLayer[A] =
   {
     val acc = HCenAccLayer[A]()
-    gSys.foreach{origin =>
-      val index = gSys.layerArrayIndex(origin)
+    gridSys.foreach{origin =>
+      val index = gridSys.layerArrayIndex(origin)
       val optA = arrayA(index)
       if (optA != null)
-      { val optTarget: Option[HCen] = gSys.stepOptEndFind(origin, step(origin))
+      { val optTarget: Option[HCen] = gridSys.stepOptEndFind(origin, step(origin))
         optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
       }
     }
