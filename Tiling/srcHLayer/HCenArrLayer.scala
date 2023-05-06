@@ -148,13 +148,14 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]])
     build.buffToSeqLike(buff)
   }
 
-  def setFSomesMut(f: () => A, hCens: Int*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
+  def setFSomesMut(f: () => A, hCens: Int*)(implicit gridSys: HGridSys, ct: ClassTag[A]): Unit =
   { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
     iUntilForeach(0, hCens.length, 2) { i => prepend(hCens(i), hCens(i + 1), f()) }
   }
 
-  def moveUnsafe(hc: HCen, value: A): Unit = {
-    
+  def moveUnsafe(hc1: HCen, hc2: HCen, pred: A => Boolean)(implicit gridSys: HGridSys): Unit =
+  {
+    val array1 = apply(hc1)
   }
 }
 
