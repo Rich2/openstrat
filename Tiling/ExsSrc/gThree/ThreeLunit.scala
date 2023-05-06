@@ -23,6 +23,7 @@ class LunitState(val lunit: Lunit, val cmds: HStepArr = HStepArr()) extends Colo
 { def colour: Colour = lunit.colour
   def team: Team = lunit.team
   override def toString: String = lunit.toString
+  def cmdsTail: LunitState = new LunitState(lunit, cmds.tail)
 }
 
 object LunitState

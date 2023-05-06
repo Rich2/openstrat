@@ -155,12 +155,28 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
     iUntilForeach(0, hCens.length, 2) { i => prepend(hCens(i), hCens(i + 1), f()) }
   }
 
-  def moveUnsafe(hc1: HCen, hc2: HCen, pred: A => Boolean): Unit =
-  { val array1 = applyUnsafe(hc1)
-    val i1: Int = array1.indexWhere(pred)
-    val a = array1(i1)
-    val newArray1 = array1.removeAt(i1)
-    setArray(hc1, newArray1)
+  /** Takes an element from one tile location and appends it to the Array at the target location. */
+  def moveUnsafe(origCen: HCen, targetCen: HCen, pred: A => Boolean): Unit =
+  { val origArray = applyUnsafe(origCen)
+    val origIndex: Int = origArray.indexWhere(pred)
+    val a = origArray(origIndex)
+    val newOrigArray = origArray.removeAt(origIndex)
+    setArray(origCen, newOrigArray)
+    val targetArray = applyUnsafe(targetCen)
+    val newTargetArray = targetArray :+ a
+    setArray(targetCen, newTargetArray)
+  }
+
+  /** Takes an element from one tile location, mutates it and then appends it to target location. */
+  def mutateMoveUnsafe(origCen: HCen, targetCen: HCen, pred: A => Boolean)(f: A => A): Unit =
+  { val origArray = applyUnsafe(origCen)
+    val origIndex: Int = origArray.indexWhere(pred)
+    val a = origArray(origIndex)
+    val newOrigArray = origArray.removeAt(origIndex)
+    setArray(origCen, newOrigArray)
+    val targetArray = applyUnsafe(targetCen)
+    val newTargetArray = targetArray :+ f(a)
+    setArray(targetCen, newTargetArray)
   }
 }
 
