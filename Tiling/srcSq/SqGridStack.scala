@@ -9,8 +9,8 @@ class SqGridStack(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val 
   /** The grids of this tile grid system. */
   override val grids: RArr[SqGrid] = iUntilMap(0, numLevels)(l => new SqGrid(rOffset + bottomCenR, rOffset + topCenR, leftCenC, rightCenC))
 
-  override def arrIndex(sc: SqCen): Int = ???
-  override def arrIndex(r: Int, c: Int): Int = ???
+  override def layerArrayIndex(sc: SqCen): Int = ???
+  override def layerArrayIndex(r: Int, c: Int): Int = ???
 
   /** The top most point in the grid where the value of y is maximum. */
   override def top: Double = ???

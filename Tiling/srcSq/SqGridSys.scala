@@ -6,8 +6,12 @@ import geom._, pgui._, reflect.ClassTag, Colour.Black
 trait SqGridSys extends Any with TGridSys
 {
   def projection: Panel => SqSysProjection = SqSysProjectionFlat(this, _)
-  def arrIndex(sc: SqCen): Int
-  def arrIndex(r: Int, c: Int): Int
+
+  /** Gives the index into the backing [[Array]] for the given [[SqCen]]. */
+  def layerArrayIndex(sc: SqCen): Int
+
+  /** Gives the index into the backing [[Array]] for the given [[SqCen]]. */
+  def layerArrayIndex(r: Int, c: Int): Int
 
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].*/
   def findStepEnd(startSC: SqCen, step: SqStep): Option[SqCen]// = ???

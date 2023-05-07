@@ -5,6 +5,22 @@ import geom._, collection.mutable.ArrayBuffer
 /** Common trait for [[SqStep]] and [[SqStepStay]]. */
 trait SqStepLike extends TStepLike
 
+object SqStepLike
+{
+  def fromInt(int1: Int): SqStepLike = int1 match
+  { case 0 => SqStepStay
+    case 1 => SqUR
+    case 2 => SqRt
+    case 3 => SqDR
+    case 4 => SqDn
+    case 5 => SqDL
+    case 6 => SqLt
+    case 7 => SqUL
+    case 8 => SqUp
+    case _ => SqStepStay
+  }
+}
+
 /** The no step value of [[HStepLike]]. */
 case object SqStepStay extends SqStepLike
 { override val int1: Int = 0

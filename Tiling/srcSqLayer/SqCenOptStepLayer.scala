@@ -6,10 +6,10 @@ import reflect.ClassTag
 class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: SqGridSys)
 {
   def numCens: Int = arrayA.length
-//  def step(hc: SqCen): HStepOpt = HStepOpt.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
- // def index(hc: SqCen): Int = gridSys.layerArrayIndex(hc)
+  def step(hc: SqCen): SqStepLike = SqStepLike.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
+  def index(hc: SqCen): Int = gridSys.layerArrayIndex(hc)
 
-  /*def setSome(hc: SqCen, step: HStepOpt, value: A): Unit =
+  /*def setSome(hc: SqCen, step: SqStepLike, value: A): Unit =
   { arrayInt(index(hc)) = step.int1
     arrayA(index(hc)) = value
   }*/

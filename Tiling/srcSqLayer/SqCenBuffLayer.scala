@@ -8,10 +8,10 @@ class SqCenBuffLayer[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
   def appendAt(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = appendAt(SqCen(r, c), value)
 
   /** Appends value to the array buffer at the given [[SqCen]] location. */
-  def appendAt(sqCen: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArr(gridSys.arrIndex(sqCen)).append(value)
+  def appendAt(sqCen: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArr(gridSys.layerArrayIndex(sqCen)).append(value)
 
   /** Foreach's over the [[sqCen]] and the corresponding [[ArrayBuffer]] value. */
-  def foreach(f: (SqCen, RBuff[A]) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach{ r => f(r, new RBuff( unsafeArr(gridSys.arrIndex(r)))) }
+  def foreach(f: (SqCen, RBuff[A]) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach{ r => f(r, new RBuff( unsafeArr(gridSys.layerArrayIndex(r)))) }
 }
 
 /** Companion object for the square (centres) grid Array of [[ArrayBuffer]] classes. */

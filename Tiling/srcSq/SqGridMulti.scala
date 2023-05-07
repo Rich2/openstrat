@@ -35,8 +35,8 @@ final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, v
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
   //override def gridMans: Arr[SqGridMan] = Arr()
 
-  override def arrIndex(sc: SqCen): Int = ???
-  override def arrIndex(r: Int, c: Int): Int = ???
+  override def layerArrayIndex(sc: SqCen): Int = ???
+  override def layerArrayIndex(r: Int, c: Int): Int = ???
 
   /** The grids of this tile grid system. */
   override def grids: RArr[SqGrid] = RArr(grid1, grid2)
