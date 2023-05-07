@@ -7,7 +7,7 @@ import pgui._, prid._, psq._, geom._, gPlay._
 case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
-  implicit def gridSys: SqGridSys = scen.gSys
+  implicit def gridSys: SqGridSys = scen.gridSys
   def players: SqCenOptLayer[Player] = scen.players
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = viewIn.vec

@@ -54,7 +54,7 @@ trait SqGridScen extends GridTurnScen
 {
   /** This gives the structure of the square grid. It contains no data about the elements of the grid. But it allows the scenario to create and
    *  operate on flat arrays of data. */
-  implicit val gSys: SqGridSys
+  implicit val gridSys: SqGridSys
 
-  def defaultView(pxScale: Double = 50): SqGridView = gSys.defaultView(pxScale)
+  def defaultView(pxScale: Double = 50): SqGridView = gridSys.defaultView(pxScale)
 }

@@ -17,6 +17,6 @@ object G1SLaunch extends GuiLaunchMore
       case _ => G1S1Scen1
     }
     val oview: EMon[SqGridView] = sts.findKeySetting[Int, SqGridView](num)
-    (G1SGui(_, scen, oview.getElse(scen.gSys.defaultView())), "JavaFx Game Two")
+    (G1SGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Two")
   }
 }

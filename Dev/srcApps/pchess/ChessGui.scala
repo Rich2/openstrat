@@ -6,7 +6,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui//("
 {
   override def title: String = "Chess"
 
-  implicit val grid: SqGrid = scen.gSys
+  implicit val grid: SqGrid = scen.gridSys
   statusText = "Welcome to Chess Gui"
   //val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
   val darkSquareColour = DarkGreen

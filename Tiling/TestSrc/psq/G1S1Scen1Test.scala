@@ -4,7 +4,7 @@ import utest._, gOne.sp1._
 
 object G1S1Scen1Test  extends TestSuite
 {
-  val g: SqGrid = G1S1Scen1.gSys
+  val g: SqGrid = G1S1Scen1.gridSys
   val tests = Tests {
     "test1" -
     {
