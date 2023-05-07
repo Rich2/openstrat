@@ -20,11 +20,12 @@ trait G1SqScen extends SqGridScen
    * method. */
   def resolve(actions: SqCenOptStepLayer[Player]): SqCenOptLayer[Player] =
   { val playersNew: SqCenOptLayer[Player] = players.copy
-    val acc: SqCenAccLayer[Player] = actions.mapAcc
+    val acc: SqCenAccLayer[SqStep] = actions.mapAcc
     acc.foreach { (target, arr) =>
       if (arr.length == 1 & players(target).isEmpty) playersNew.moveUnsafe(arr.headSqCen, target)
-      else{
-        //arr.filterOnA1(a1 =>  )
+      else
+      { val arr2: SqCenPairArr[SqStep] = arr.filterOnA2(a2 => a2.isPerp)
+        if (arr2.length == 1 & players.emptyTile(target)) playersNew.moveUnsafe(arr2.headSqCen, target)
       }
     }
     playersNew

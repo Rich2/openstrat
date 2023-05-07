@@ -14,6 +14,7 @@ class HCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implic
     arrayA(index(hc)) = value
   }
 
+  /** Needs changing. */
   def mapAcc: HCenAccLayer[A] =
   {
     val acc = HCenAccLayer[A]()

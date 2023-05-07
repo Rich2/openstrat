@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag
+import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 trait Int2PairElem[A1 <: Int2Elem, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
@@ -34,6 +34,20 @@ trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
     newFromArrays(newA1Array, newA2Array)
+  }
+
+  override def filterOnA2(f: A2 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  { val a1Buffer = new ArrayBuffer[Int]()
+    val a2Buffer = new ArrayBuffer[A2]()
+    iUntilForeach(length){ i =>
+      val a2 = a2Array(i)
+      if (f(a2)) {
+        a1Buffer.append(a1ArrayInt(i * 2))
+        a1Buffer.append(a1ArrayInt(i * 2 + 1))
+        a2Buffer.append(a2)
+      }
+    }
+    newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
   }
 }
 

@@ -14,7 +14,7 @@ class LineSegSCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
   override def a1Arr: LineSegSCArr = new LineSegSCArr(a1ArrayInt)
   override def newPair(int1: Int, int2: Int, int3: Int, int4: Int, a2: A2): LineSegSCPair[A2] = new LineSegSCPair[A2](int1, int2, int3, int4, a2)
   override def newA1(int1: Int, int2: Int, int3: Int, int4: Int): LineSegSC = new LineSegSC(int1, int2, int3, int4)
-  override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): LineSegSCPairArr[A2] = new LineSegSCPairArr[A2](a1Array, a2Array)
+  override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): LineSegSCPairArr[A2] = new LineSegSCPairArr[A2](newA1Array, newA2Array)
   override def fElemStr: LineSegSCPair[A2] => String = _.toString
 }
 

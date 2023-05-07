@@ -18,7 +18,7 @@ trait IntNPairArr[A1 <: IntNElem, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
 
   final def a1ArrayLength: Int = a1ArrayInt.length
 
-  def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): ThisT
+  def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): ThisT
 
   def filterOnA1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
   { val a1Buffer = new ArrayBuffer[Int]()
@@ -35,10 +35,10 @@ trait IntNPairArr[A1 <: IntNElem, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
   def filterOnA2(f: A2 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
   { val a1Buffer = new ArrayBuffer[Int]()
     val a2Buffer = new ArrayBuffer[A2]()
-    foreach { p =>
-      if (f(p.a2)) {
-        p.a1.intForeach(a1Buffer.append(_))
-        a2Buffer.append(p.a2)
+    pairForeach { (a1, a2) =>
+      if (f(a2)) {
+        a1.intForeach(a1Buffer.append(_))
+        a2Buffer.append(a2)
       }
     }
     newFromArrays(a1Buffer.toArray, a2Buffer.toArray)

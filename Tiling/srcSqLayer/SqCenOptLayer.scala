@@ -60,7 +60,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   }
 
   /** The tile is a None at the given hex grid centre coordinate [[SqCen]]. */
-  def tileNone(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(sc)) == null
+  def emptyTile(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(sc)) == null
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
   def unSafeApply(sc: SqCen)(implicit gridSys: SqGridSys): A = unsafeArray(gridSys.layerArrayIndex(sc))

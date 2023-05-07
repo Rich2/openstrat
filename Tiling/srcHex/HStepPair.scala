@@ -13,7 +13,7 @@ class HStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) exten
   override def typeStr: String = "HDirnPairArr"
   override def newPair(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
   override def newA1(int1: Int): HStep = HStep.fromInt(int1)
-  override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): HStepPairArr[A2] = new HStepPairArr[A2](a1ArrayInt, a2Array)
+  override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HStepPairArr[A2] = new HStepPairArr[A2](a1ArrayInt, newA2Array)
   override def a1Arr: HStepArr = new HStepArr(a1ArrayInt)
   override def fElemStr: HStepPair[A2] => String = _.toString
 }

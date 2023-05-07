@@ -81,7 +81,7 @@ class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) ex
   override def typeStr: String = "HCenStepArr"
   override def newPair(int1: Int, int2: Int, int3: Int, a2: A2): HCenStepPair[A2] = new HCenStepPair[A2](int1, int2, int3, a2)
   override def newA1(int1: Int, int2: Int, int3: Int): HCenStep = new HCenStep(int1, int2, int3)
-  override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): HCenStepPairArr[A2] = new HCenStepPairArr[A2](a1Array, a2Array)
+  override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HCenStepPairArr[A2] = new HCenStepPairArr[A2](newA1Array, newA2Array)
   override def a1Arr: HCenStepArr = new HCenStepArr(a1ArrayInt)
   override def fElemStr: HCenStepPair[A2] => String = _.toString
 }

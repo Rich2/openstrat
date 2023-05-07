@@ -217,7 +217,7 @@ object HCenPair
 class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[HCen, HCenArr, A2, HCenPair[A2]]
 { override type ThisT = HCenPairArr[A2]
   override def typeStr: String = "HCenPairArr"
-  override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): HCenPairArr[A2] = new HCenPairArr[A2](a1ArrayInt, a2Array)
+  override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HCenPairArr[A2] = new HCenPairArr[A2](newA1Array, newA2Array)
   override def newPair(int1: Int, int2: Int, a2: A2): HCenPair[A2] = new HCenPair[A2](int1, int2, a2)
   override def newA1(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def a1Arr: HCenArr = new HCenArr(a1ArrayInt)

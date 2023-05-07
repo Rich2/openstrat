@@ -15,15 +15,15 @@ class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
   }
 
   /** This is not right loses SqStep. */
-  def mapAcc: SqCenAccLayer[A] =
+  def mapAcc: SqCenAccLayer[SqStep] =
   {
-    val acc = SqCenAccLayer[A]()
+    val acc = SqCenAccLayer[SqStep]()
     gridSys.foreach{origin =>
       val index = gridSys.layerArrayIndex(origin)
       val optA = arrayA(index)
       if (optA != null)
       { val optTarget: Option[SqCen] = gridSys.stepLikeEndFind(origin, step(origin))
-        optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
+        optTarget.foreach{ target => acc.append(target, origin, SqStep.fromInt(arrayInt(index))) }
       }
     }
     acc

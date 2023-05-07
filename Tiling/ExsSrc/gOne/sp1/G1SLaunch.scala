@@ -4,19 +4,20 @@ import pgui._, pParse._, prid._, psq._
 
 object G1SLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "g2Sq"
+  override def settingStr: String = "g1Sq"
 
-  override def default: (CanvasPlatform => Any, String) = (G1SGui(_, G1S1Scen1, G1S1Scen1.defaultView()), "JavaFx Game Two")
+  override def default: (CanvasPlatform => Any, String) = (G1SGui(_, G1S1Scen1, G1S1Scen1.defaultView()), "JavaFx Game One Squares")
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
     val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
 
-    val scen: G1SqScen = num match {
-      case 1 => G1S1Scen1
+    val scen: G1SqScen = num match
+    { case 1 => G1S1Scen1
       case 2 => G1S1Scen2
+      case 3 => G1S1Scen3
       case _ => G1S1Scen1
     }
     val oview: EMon[SqGridView] = sts.findKeySetting[Int, SqGridView](num)
-    (G1SGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Two")
+    (G1SGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx One Squares")
   }
 }

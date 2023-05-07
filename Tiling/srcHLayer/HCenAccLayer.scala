@@ -24,7 +24,7 @@ class HCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBuf
     new HCenPairArr[A](hCens, actions)
   }
 
-  /** Side effecting function for initalising new game state layers. */
+  /** Side effecting function for initialising new game state layers. */
   def foreach(f: (HCen, HCenPairArr[A]) => Unit): Unit = gSys.foreach{hc => f(hc, originActions(hc)) }
 }
 
