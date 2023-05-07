@@ -2,6 +2,7 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
+/** Optional data layer for Hex grid systems. */
 class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
 {
   def numCens: Int = arrayA.length
@@ -29,7 +30,9 @@ class HCenOptHStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
 }
 
 object HCenOptHStepLayer
-{
+{ /** Factory apply method for [[HCenOptHStepLayer]]. */
   def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptHStepLayer[A] = new HCenOptHStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
+
+  /** Factory apply method for [[HCenOptHStepLayer]]. */
   def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptHStepLayer[A] = new HCenOptHStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 }

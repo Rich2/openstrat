@@ -2,6 +2,7 @@
 package ostrat; package prid; package psq
 import reflect.ClassTag
 
+/** Optional layer for Square tile grids. */
 class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: SqGridSys)
 {
   def numCens: Int = arrayA.length

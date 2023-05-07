@@ -22,8 +22,8 @@ sealed trait SqDirn extends TDirn
   def int1: Int
 }
 
-object SqDirn {
-  def fromInt(int1: Int): SqDirn = int1 match
+object SqDirn
+{ def fromInt(int1: Int): SqDirn = int1 match
   { case 1 => SqUR
     case 2 => SqRt
     case 3 => SqDR
