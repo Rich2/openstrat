@@ -1,18 +1,18 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
-import prid._, phex._, Colour._
+package ostrat; package gThree; package h3p
+import prid._, phex._
 
 /** Example Game three scenario trait. */
-abstract class ThreeScen(val turn: Int) extends HGridScen
+abstract class G3HScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   //def terrs: HCenLayer[Terr]
-  
+
   def lunits: HCenArrLayer[LunitState]
   def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: HStepPathPairArr[LunitState]): ThreeScen =
+  def endTurn(orderList: HStepPathPairArr[LunitState]): G3HScen =
   {
     //val playersKey = units.SomesKeyMapDepr
 
@@ -57,9 +57,9 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
   }
 }
 
-object ThreeScen
+object G3HScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, unitsIn: HCenArrLayer[LunitState]): ThreeScen = new ThreeScen(turnNum)
+  def apply(turnNum: Int, gridIn: HGrid, unitsIn: HCenArrLayer[LunitState]): G3HScen = new G3HScen(turnNum)
   {
     /** tile terrain. */
     //override def terrs: HCenLayer[Terr] = terrsIn

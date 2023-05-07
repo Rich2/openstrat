@@ -1,14 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
+package ostrat; package gThree; package h3p
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
+case class G3HGui(canv: CanvasPlatform, scenStart: G3HScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
   implicit def gridSys: HGridSys = scen.gridSys
   def lunits: HCenArrLayer[LunitState] = scen.lunits
   var moves: HCenArrLayer[LunitState] = lunits.copy
-  var history: RArr[ThreeScen] = RArr(scen)
+  var history: RArr[G3HScen] = RArr(scen)
 
   pixPerC = viewIn.pixelsPerC
   focus = viewIn.vec
