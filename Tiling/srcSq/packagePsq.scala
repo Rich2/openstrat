@@ -5,7 +5,7 @@ package ostrat; package prid
 package object psq
 {
   /** The square centre step values. */
-  val scSteps: RArr[SqDirn] = RArr(SqUp, SqUR, SqRt, SqDR, SqDn, SqDL, SqLt, SqUL)
+  val scSteps: RArr[SqStep] = RArr(SqUp, SqUR, SqRt, SqDR, SqDn, SqDL, SqLt, SqUL)
 
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct [[SqCen]] notation. */

@@ -22,7 +22,7 @@ trait SqGridMulti extends SqGridSys with TGridMulti
   override def foreach(f: SqCen => Unit): Unit = grids.foreach(_.foreach(f))
 
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].  */
-  override def findStepEnd(startSC: SqCen, step: SqDirn): Option[SqCen] = ???
+  override def findStepEnd(startSC: SqCen, step: SqStep): Option[SqCen] = ???
 }
 
 /** A system of [[SqGrid]]s in a flat 2D plane. Trait has no metods at the moment, unlike the corresponding [[HGridMulti]]. */

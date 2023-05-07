@@ -2,13 +2,13 @@
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A hex grid step representing the starting [[SqCen]] of the step as well as the [[SqDirn]] singleton object itself. */
+/** A hex grid step representing the starting [[SqCen]] of the step as well as the [[SqStep]] singleton object itself. */
 class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 { /** The Starting square centre coordinate. */
   def startSC: SqCen = SqCen(r1, c1)
 
-  /** The [[SqDirn]] singleton object. */
-  def step: SqDirn = SqDirn.fromInt(stepInt)
+  /** The [[SqStep]] singleton object. */
+  def step: SqStep = SqStep.fromInt(stepInt)
 
   /** Returns the destination [[SqCen]] if one exists within the [[SqGridSys]]. */
   def endSqC(implicit gridSys: SqGridSys): Option[SqCen] = gridSys.findStepEnd(this)
@@ -27,8 +27,8 @@ class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 }
 
 object SqCenStep
-{ def apply(hCen: SqCen, step: SqDirn): SqCenStep = new SqCenStep(hCen.r, hCen.c, step.int1)
-  def apply(r: Int, c: Int, step: SqDirn): SqCenStep = new SqCenStep(r, c, step.int1)
+{ def apply(hCen: SqCen, step: SqStep): SqCenStep = new SqCenStep(hCen.r, hCen.c, step.int1)
+  def apply(r: Int, c: Int, step: SqStep): SqCenStep = new SqCenStep(r, c, step.int1)
 
   implicit val arrMapBuilderEv: Int3ArrMapBuilder[SqCenStep, SqCenStepArr] = new Int3ArrMapBuilder[SqCenStep, SqCenStepArr]{
     override type BuffT = SqCenStepBuff
@@ -71,7 +71,7 @@ class SqCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a
   inline def c1: Int = a1Int2
   inline def stepInt: Int = a1Int3
   override def a1: SqCenStep = new SqCenStep(a1Int1, a1Int2, a1Int3)
-  def step: SqDirn = SqDirn.fromInt(a1Int3)
+  def step: SqStep = SqStep.fromInt(a1Int3)
 }
 
 class SqCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int3PairArr[SqCenStep, SqCenStepArr, A2, SqCenStepPair[A2]]

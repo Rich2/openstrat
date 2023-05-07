@@ -7,7 +7,7 @@ trait DungeonScen
 { implicit def gSys: SqGridSys
   def terrs: SqCenLayer[DungTerr]
   def characs: SqCenOptLayer[CharacState]
-  def posn(charac: Character, r: Int, c: Int, face: SqDirn): Unit = characs.unsafeSetSome(r, c, CharacState(charac, face))
+  def posn(charac: Character, r: Int, c: Int, face: SqStep): Unit = characs.unsafeSetSome(r, c, CharacState(charac, face))
 }
 
 /** Scenario 1 example for Dungeon game. */

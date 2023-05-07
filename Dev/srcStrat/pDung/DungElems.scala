@@ -25,4 +25,4 @@ object CharacB extends Character('B', Fact1)
 object CharacY extends Character('Y', Fact2)
 object CharacZ extends Character('Z', Fact2)
 
-case class CharacState(charac: Character, facing: SqDirn)
+case class CharacState(charac: Character, facing: SqStep)

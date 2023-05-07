@@ -65,9 +65,9 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
 
   def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumnDown(startCen.c, startCen.r, tileValues: _*)(grid)
 
-  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqDirnPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns:_*)
+  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns:_*)
 
-  def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqDirnPerp]*)(implicit grid: SqGrid): SqCen =
+  def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen =
   {
     var curr = startCen
 

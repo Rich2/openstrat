@@ -52,7 +52,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
     }
 
     case (RightButton, AnyArrHead(SPlayer(pl, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
-      val newM: Option[SqDirn] = sc1.findStep(sc2)
+      val newM: Option[SqStep] = sc1.findStep(sc2)
       newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, sc1.andStep(d)) }
       repaint()
     }

@@ -18,18 +18,18 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
   def sqVertPolygon: PolygonSqC = verts.toPolygon
 
   /** Needs replcing as doesn't take [[SqGridSys]]. Returns the [[LineSegSC]], a line segment specified in [[SqCoord]]s, given by the step. */
-  def segStepToOld(st: SqDirn): LineSegSC = new LineSegSC(r, c, r + st.tr, c + st.tc)
+  def segStepToOld(st: SqStep): LineSegSC = new LineSegSC(r, c, r + st.tr, c + st.tc)
 
-  /** [[SqCenStep]] for this [[HCen]] and the parameter [[SqDirn]]. */
-  def andStep(dirn: SqDirn): SqCenStep = SqCenStep(r, c, dirn)
+  /** [[SqCenStep]] for this [[HCen]] and the parameter [[SqStep]]. */
+  def andStep(dirn: SqStep): SqCenStep = SqCenStep(r, c, dirn)
 
   /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen else returns the safe null value. */
-  def findStep(operand: SqCen): Option[SqDirn] = scSteps.optFind(_.sqCen == operand - this)
+  def findStep(operand: SqCen): Option[SqStep] = scSteps.optFind(_.sqCen == operand - this)
 
   def -(operand: SqCen): SqCen = SqCen(r - operand.r, c - operand.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: SqDirn)(implicit gridSys: SqGridSys): Option[SqCen] = {
+  def stepOpt(st: SqStep)(implicit gridSys: SqGridSys): Option[SqCen] = {
     val target = SqCen(r + st.tr, c + st.tc)
     ife(gridSys.sqCenExists(target), Some(target), None)
   }

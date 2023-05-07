@@ -12,7 +12,7 @@ trait G1SqScen extends SqGridScen
   {
     val playersKey: Map[Player, SqCen] = players.keyMap
 
-    /** A mutable grid of data. The tile data is an Array buffer of [[SqDirn]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
+    /** A mutable grid of data. The tile data is an Array buffer of [[SqStep]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
     val targets: SqCenBuffLayer[SqCenStep] = gSys.newSqCenBuffLayer
 
     orderList.foreach { pair =>

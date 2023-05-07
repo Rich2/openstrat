@@ -1,14 +1,23 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
+/** Common trait for [[SqStep]] and [[SqStepStay]]. */
+trait SqStepLike extends TStepLike
+
+/** The no step value of [[HStepLike]]. */
+case object SqStepStay extends SqStepLike
+{ override val int1: Int = 0
+  override def tr: Int = 0
+  override def tc: Int = 0
+}
 /** A square tile direction can take 8 values. This can be used for square grid steps or quantums. */
-sealed trait SqDirn extends TDirn
+sealed trait SqStep extends SqStepLike
 { /** The SqCen that this step would point to if it departed from SqCen(0, 0). */
   def sqCen: SqCen = SqCen(tr, tc)
 
   /** the step that foes in the opposite direct to this step. */
-  def reverse: SqDirn
+  def reverse: SqStep
 
   /** Is perpendicular or non diagonal an Up / Right / Down / Left square tile direction or step */
   def isPerp: Boolean
@@ -22,8 +31,8 @@ sealed trait SqDirn extends TDirn
   def int1: Int
 }
 
-object SqDirn
-{ def fromInt(int1: Int): SqDirn = int1 match
+object SqStep
+{ def fromInt(int1: Int): SqStep = int1 match
   { case 1 => SqUR
     case 2 => SqRt
     case 3 => SqDR
@@ -35,7 +44,7 @@ object SqDirn
     case _ => SqRt
   }
 
-  implicit val buildEv: Int1ArrMapBuilder[SqDirn, SqDirnArr] = new Int1ArrMapBuilder[SqDirn, SqDirnArr] {
+  implicit val buildEv: Int1ArrMapBuilder[SqStep, SqDirnArr] = new Int1ArrMapBuilder[SqStep, SqDirnArr] {
     override type BuffT = SqDirnBuff
 
     override def fromIntArray(array: Array[Int]): SqDirnArr = new SqDirnArr(array)
@@ -45,101 +54,101 @@ object SqDirn
 }
 
 /** A perpendicular or non-diagonal square tile direction or step can take 4 values. */
-sealed trait SqDirnPerp extends SqDirn with TDirnSided
+sealed trait SqStepPerp extends SqStep with TStepSided
 { override def isPerp: Boolean = true
   override def isDiag: Boolean = false
 }
 
 /** An upward step / move addition of one square tile in a square tile grid. Increases the row coordinate by 2. */
-case object SqUp extends SqDirnPerp
+case object SqUp extends SqStepPerp
 { override def sr: Int = 1
   override def sc: Int = 0
-  override def reverse: SqDirn = SqDn
+  override def reverse: SqStep = SqDn
   override def angle: Angle = 90.degs
   override def int1: Int = 8
 }
 
 /** An rightward step / move / addition of one square tile in a square tile grid. Increases the column coordinate by 2 */
-case object SqRt extends SqDirnPerp
+case object SqRt extends SqStepPerp
 { def sr: Int = 0
   def sc: Int = 1
-  override def reverse: SqDirn = SqLt
+  override def reverse: SqStep = SqLt
   override def angle: Angle = 0.degs
   override def int1: Int = 2
 }
 
 /** An downward step / move / addition of one square tile in a square tile grid. */
-case object SqDn extends SqDirnPerp
+case object SqDn extends SqStepPerp
 { def sr: Int = -1
   def sc: Int = 0
-  override def reverse: SqDirn = SqUp
+  override def reverse: SqStep = SqUp
   override def angle: Angle = -90.degs
   override def int1: Int = 4
 }
 
 /** An upward of one square tile in a square tile grid. */
-case object SqLt extends SqDirnPerp
+case object SqLt extends SqStepPerp
 { def sr: Int = 0
   def sc: Int = -1
-  override def reverse: SqDirn = SqRt
+  override def reverse: SqStep = SqRt
   override def angle: Angle = 180.degs
   override def int1: Int = 6
 }
 
 /** A non-diagonal square tile Step can take 4 values. */
-sealed trait SqDirnDiag extends SqDirn
+sealed trait SqStepDiag extends SqStep
 { override def isPerp: Boolean = false
   override def isDiag: Boolean = true
 }
 
 /** Up Right square tile step. */
-case object SqUR extends SqDirnDiag
+case object SqUR extends SqStepDiag
 { def tr: Int = 2
   def tc: Int = 2
-  override def reverse: SqDirn = SqDR
+  override def reverse: SqStep = SqDR
   override def angle: Angle = 45.degs
   override def int1: Int = 1
 }
 
 /** Down Right square tile step. */
-case object SqDR extends SqDirnDiag
+case object SqDR extends SqStepDiag
 { def tr: Int = -2
   def tc: Int = 2
-  override def reverse: SqDirn = SqUL
+  override def reverse: SqStep = SqUL
   override def angle: Angle = -45.degs
   override def int1: Int = 3
 }
 
 /** Down Left square tile step. */
-case object SqDL extends SqDirnDiag
+case object SqDL extends SqStepDiag
 { def tr: Int = -2
   def tc: Int = -2
-  override def reverse: SqDirn = SqUR
+  override def reverse: SqStep = SqUR
   override def angle: Angle = -135.degs
   override def int1: Int = 5
 }
 
 /** Up Left square tile step. */
-case object SqUL extends SqDirnDiag
+case object SqUL extends SqStepDiag
 { def tr: Int = 2
   def tc: Int = -2
-  override def reverse: SqDirn = SqDR
+  override def reverse: SqStep = SqDR
   override def angle: Angle = 135.degs
   override def int1: Int = 7
 }
 
-case class SqAndStep(r1: Int, c1: Int, step: SqDirn)
+case class SqAndStep(r1: Int, c1: Int, step: SqStep)
 { def sc1: SqCen = SqCen(r1, c1)
   def sc2: SqCen = SqCen(r1 + step.tr, c1 + step.tc)
 }
 
 /** An Arr of hex step directions. */
-class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
+class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqStep]
 { override type ThisT = SqDirnArr
   override def typeStr: String = "SqSteps"
-  override def newElem(intValue: Int): SqDirn = SqDirn.fromInt(intValue)
+  override def newElem(intValue: Int): SqStep = SqStep.fromInt(intValue)
   override def fromArray(array: Array[Int]): SqDirnArr = new SqDirnArr(array)
-  override def fElemStr: SqDirn => String = _.toString
+  override def fElemStr: SqStep => String = _.toString
 
   def segsNum: Int = unsafeArray.length
 
@@ -153,7 +162,7 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
     var c2: Int = 0
 
     while (count < segsNum)
-    { val step = SqDirn.fromInt(unsafeArray(count))
+    { val step = SqStep.fromInt(unsafeArray(count))
       r2 = r1 + step.tr
       c2 = c1 + step.tc
       val hls = LineSegSC(r1, c1, r2, c2)
@@ -209,9 +218,9 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
 
 
 /** ArrayBuffer based buffer class for Colours. */
-class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[SqDirn]
+class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[SqStep]
 { override def typeStr: String = "SqDirnBuff"
-  def newElem(i1: Int): SqDirn = SqDirn.fromInt(i1)
+  def newElem(i1: Int): SqStep = SqStep.fromInt(i1)
 }
 
 object SqDirnBuff
