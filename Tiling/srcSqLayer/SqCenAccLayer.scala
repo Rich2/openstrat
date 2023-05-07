@@ -17,15 +17,15 @@ class SqCenAccLayer[A](val originsBuffer: Array[ArrayBuffer[Int]], val actionsBu
   }
 
   /** This produces the collection of origin-action pairs upon the given hex tile. */
- /* def originActions(target: SqCen): SqCenPairArr[A] =
+  def originActions(target: SqCen): SqCenPairArr[A] =
   { val i = index(target)
     val SqCens = originsBuffer(i).toArray
     val actions: Array[A] = actionsBuffer(i).toArray
     new SqCenPairArr[A](SqCens, actions)
-  }*/
+  }
 
   /** Side effecting function for initalising new game state layers. */
- // def foreach(f: (SqCen, SqCenPairArr[A]) => Unit): Unit = gSys.foreach{hc => f(hc, originActions(hc)) }
+  def foreach(f: (SqCen, SqCenPairArr[A]) => Unit): Unit = gSys.foreach{hc => f(hc, originActions(hc)) }
 }
 
 object SqCenAccLayer

@@ -7,6 +7,30 @@ import geom._
 class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenOptLayer[A]
 {override type ThisT = SqCenOptLayer[A]
   override def typeStr: String = "SqCenOptLayer"
+
+  /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, either passed as an [[SqCen]] or as row and column [[Int values]]. */
+  def apply(hc: SqCen)(implicit gridSys: SqGridSys): Option[A] =
+  { if (!gridSys.sqCenExists(hc)) None
+    else
+    { val elem = unsafeArray(gridSys.layerArrayIndex(hc))
+      if (elem == null) None else Some(elem)
+    }
+  }
+
+  /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, either passed as an [[SqCen]] or as row and column [[Int values]]. */
+  def apply(r: Int, c: Int)(implicit gridSys: SqGridSys): Option[A] =
+  { if (!gridSys.sqCenExists(r, c)) None else {
+      val elem = unsafeArray(gridSys.layerArrayIndex(r, c))
+      if (elem == null) None else Some(elem)
+    }
+  }
+  /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
+  def applyUnsafe(hc: SqCen)(implicit gridSys: SqGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
+
+  /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
+  def applyUnsafe(r: Int, c: Int)(implicit gridSys: SqGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
+
+
   def copy: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArray.clone)
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
@@ -35,7 +59,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     new SqCenOptLayer[A](newArr)
   }
 
-  /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
+  /** The tile is a None at the given hex grid centre coordinate [[SqCen]]. */
   def tileNone(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(sc)) == null
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
@@ -90,13 +114,13 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     build.arrFromArrAndArray(res1, res2)
   }
 
-  /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
+  /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[SqCen]] to an [[option]] of a [[Arr]], collects only the
    * [[Some]]'s values returned by the function. */
-  def someSCOptFlatMap[ArrB <: Arr[_]](f: (A, SqCen) => Option[ArrB])(implicit grider: SqGridSys, build: ArrFlatBuilder[ArrB]): ArrB = {
+  def someSCOptFlatMap[ArrB <: Arr[_]](f: (A, SqCen) => Option[ArrB])(implicit gridSys: SqGridSys, build: ArrFlatBuilder[ArrB]): ArrB = {
     val buff = build.newBuff()
 
-    grider.foreach { hc =>
-      val a: A = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) {
         f(a, hc).foreach(build.buffGrowArr(buff, _))
       }
@@ -153,8 +177,8 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
-  def mutMove(s1: SqCen, s2: SqCen)(implicit gridSys: SqGridSys): Unit =
+  /** Moves the object in the array location given by SqCen1 to SqCen2, by setting s2 to the value of s1 and setting s1 to null. */
+  def moveUnsafe(s1: SqCen, s2: SqCen)(implicit gridSys: SqGridSys): Unit =
   { unsafeArray(gridSys.layerArrayIndex(s2)) = unsafeArray(gridSys.layerArrayIndex(s1))
     unsafeArray(gridSys.layerArrayIndex(s1)) = null.asInstanceOf[A]
   }
@@ -166,7 +190,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     if (a != null) f(sc, a)
   }
 
-  /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second [[SqCenOptLayer]]. Returns an immutable Array based collection of type
+  /** Maps the Somes of this [[SqCenArrOpt]] and the Some values of a second [[SqCenOptLayer]]. Returns an immutable Array based collection of type
    *  ArrC, the second type parameter. */
   def some2sMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: SqCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: SqGridSys, build: ArrMapBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()

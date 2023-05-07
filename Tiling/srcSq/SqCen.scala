@@ -53,15 +53,56 @@ object SqCen
 
   val vertsOfSq00: SqVertArr = SqVertArr(s00v1, s00v2, s00v3, s00v4)
 
-  /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[SqCen]] and [[SqCens]]. */
-  implicit val buildEv: Int2ArrMapBuilder[SqCen, SqCens] = new Int2ArrMapBuilder[SqCen, SqCens]
+  /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[SqCen]] and [[SqCenArr]]. */
+  implicit val buildEv: Int2ArrMapBuilder[SqCen, SqCenArr] = new Int2ArrMapBuilder[SqCen, SqCenArr]
   { type BuffT = SqCenBuff
-    override def fromIntArray(array: Array[Int]): SqCens = new SqCens(array)
+    override def fromIntArray(array: Array[Int]): SqCenArr = new SqCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenBuff = new SqCenBuff(buffer)
   }
 }
 
-trait SqMem[A]
-{ val sc: SqCen
-  val value: A
+/** An efficient array[Int] based collection for [[SqCen]]s hex grid centre coordinates. */
+class SqCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
+{ type ThisT = SqCenArr
+  override def newElem(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
+  override def fromArray(array: Array[Int]): SqCenArr = new SqCenArr(array)
+  override def typeStr: String = "SqCens"
+  override def fElemStr: SqCen => String = _.toString
+
+  def ===(operand: SqCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
+}
+
+class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[SqCen]
+{ type ArrT = SqCenArr
+  override def typeStr: String = "SqCenBuff"
+  override def newElem(i1: Int, i2: Int): SqCen = SqCen(i1, i2)
+}
+
+object SqCenBuff
+{ def apply(length: Int = 4): SqCenBuff = new SqCenBuff(new ArrayBuffer[Int](length * 2))
+}
+
+class SqCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[SqCen, A2]
+{ override def a1: SqCen = SqCen(a1Int1, a1Int2)
+  override def toString: String = s"$a2; $a1Int1, $a1Int2"
+}
+
+object SqCenPair
+{ def apply[A2](hc: SqCen, a2: A2): SqCenPair[A2] = new SqCenPair[A2](hc.int1, hc.int2, a2)
+  def unapply(inp: Any): Option[(SqCen, Any)] = inp match{
+    case hcp: SqCenPair[_] => Some((hcp.a1, hcp.a2))
+    case _ => None
+  }
+}
+
+class SqCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[SqCen, SqCenArr, A2, SqCenPair[A2]]
+{ override type ThisT = SqCenPairArr[A2]
+  override def typeStr: String = "SqCenPairArr"
+  override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): SqCenPairArr[A2] = new SqCenPairArr[A2](a1ArrayInt, a2Array)
+  override def newPair(int1: Int, int2: Int, a2: A2): SqCenPair[A2] = new SqCenPair[A2](int1, int2, a2)
+  override def newA1(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
+  override def a1Arr: SqCenArr = new SqCenArr(a1ArrayInt)
+  override def fElemStr: SqCenPair[A2] => String = _.toString
+  def SqCenArr: SqCenArr = new SqCenArr(a1ArrayInt)
+  def headSqCen: SqCen = SqCen(a1ArrayInt(0), a1ArrayInt(1))
 }

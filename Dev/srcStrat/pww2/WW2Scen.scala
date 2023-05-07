@@ -23,7 +23,7 @@ trait WW2Scen extends HSysTurnScen
     }
 
     val armiesNew: HCenOptLayer[Army] = armies.copy
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveUnsafe(stCenStep.startHC, hc2)) }
 
     new WW2Scen
     { override implicit val gridSys: EGridSys = ThisScen.gridSys

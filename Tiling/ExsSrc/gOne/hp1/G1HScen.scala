@@ -23,7 +23,7 @@ trait G1HScen extends HSysTurnScen
   def resolve(actions: HCenOptStepLayer[Player]): HCenOptLayer[Player] =
   { val playersNew: HCenOptLayer[Player] = players.copy
     val acc: HCenAccLayer[Player] = actions.mapAcc
-    acc.foreach{ (target, arr) => if(arr.length == 1 & players(target).isEmpty) playersNew.moveMut(arr.headHCen, target) }
+    acc.foreach{ (target, arr) => if(arr.length == 1 & players(target).isEmpty) playersNew.moveUnsafe(arr.headHCen, target) }
     playersNew
   }
 }

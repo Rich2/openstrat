@@ -62,7 +62,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
    *  None. This mutates the data layer. */
-  def moveMut(hc1: HCen, hc2: HCen)(implicit grider: HGridSys): Unit =
+  def moveUnsafe(hc1: HCen, hc2: HCen)(implicit grider: HGridSys): Unit =
   { unsafeArray(grider.layerArrayIndex(hc2)) = unsafeArray(grider.layerArrayIndex(hc1))
     unsafeArray(grider.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }
@@ -124,44 +124,44 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     }
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-  def apply(hc: HCen)(implicit grider: HGridSys): Option[A] =
-  { if (!grider.hCenExists(hc)) None else
-      { val elem = unsafeArray(grider.layerArrayIndex(hc))
+  def apply(hc: HCen)(implicit gridSys: HGridSys): Option[A] =
+  { if (!gridSys.hCenExists(hc)) None else
+      { val elem = unsafeArray(gridSys.layerArrayIndex(hc))
         if (elem == null) None else Some(elem)
       }
   }
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-  def apply(r: Int, c: Int)(implicit grider: HGridSys): Option[A] = {
-    if (!grider.hCenExists(r, c)) None else {
-      val elem = unsafeArray(grider.layerArrayIndex(r, c))
+  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] = {
+    if (!gridSys.hCenExists(r, c)) None else {
+      val elem = unsafeArray(gridSys.layerArrayIndex(r, c))
       if (elem == null) None else Some(elem)
     }
   }
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
-  def applyUnsafe(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(hc))
+  def applyUnsafe(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
-  def applyUnsafe(r: Int, c: Int)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(r, c))
+  def applyUnsafe(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, will return nulls for [[None]] values, throws exception if tile centre
    *  does not exist. */
-  def getex(r: Int, c: Int)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(r, c))
+  def getex(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def getex(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.layerArrayIndex(hc))
+  def getex(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
 
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
-  def emptyTile(hc: HCen)(implicit grider: HGridSys): Boolean = unsafeArray(grider.layerArrayIndex(hc)) == null
+  def emptyTile(hc: HCen)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(hc)) == null
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
    * 0 and the length of this [[HCenOptLayer]]. */
-  def someHCMapArr[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
+  def someHCMapArr[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
-    grider.foreach { hc =>
-      val a: A = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
       if(a != null)
       { val newVal = f(a, hc)
         build.buffGrow(buff, newVal)
@@ -226,12 +226,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   /** Uses this and a second [[HCenOptLayer]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
    * to a value of type C. Returns a [[Arr]] with a length between 0 and the length of the original [[HCenOptDGtid]] data grids. */
   def zipSomesHCMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B, HCen) => C)(
-    implicit grider: HGridSys, build: ArrMapBuilder[C, ArrC]): ArrC =
+    implicit gridSys: HGridSys, build: ArrMapBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
-    grider.foreach { hc =>
-      val a: A = unsafeArray(grider.layerArrayIndex(hc))
-      val b: B = optArrB.unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
+      val b: B = optArrB.unsafeArray(gridSys.layerArrayIndex(hc))
       if(a != null)
       { val newVal = f(a, b, hc)
         build.buffGrow(buff, newVal)
@@ -242,11 +242,11 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to type B. Returns
    *  a [[Arr]] of length between 0 and the length of this [[HCenOptLayer]]. */
-  def noneHCMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
+  def noneHCMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit gridSys: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
-    grider.foreach { r =>
-      val a: A = unsafeArray(grider.layerArrayIndex(r))
+    gridSys.foreach { r =>
+      val a: A = unsafeArray(gridSys.layerArrayIndex(r))
       if(a == null)
       { val newVal = f(r)
         build.buffGrow(buff, newVal)
@@ -271,10 +271,10 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 
   /** Drops the [[None]] values flatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Seqimut]]. */
-  def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
+  def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a = unsafeArray(gridSys.layerArrayIndex(hc))
       if(a != null)
       { val newVal = f(a, hc)
         build.buffGrowArr(buff, newVal)
@@ -285,34 +285,34 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
    *  [[Some]]'s values returned by the function. */
-  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit grider: HGridSys, build: ArrFlatBuilder[ArrB]): ArrB =
+  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit gridSys: HGridSys, build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff = build.newBuff()
 
-    grider.foreach { hc =>
-      val a: A = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) { f(a, hc).foreach(build.buffGrowArr(buff, _)) }
     }
     build.buffToSeqLike(buff)
   }
 
   /** Returns an [[HCenPairArr]] of the Some values. */
-  def somePairs(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
+  def somePairs(implicit gridSys: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
   { val buff = build.newBuff()
     somesHcForeach((p, hc) => buff.grow(hc, p))
     build.buffToSeqLike(buff)
   }
 
-  def find(value: A)(implicit grider: HGridSys): Option[HCen] =
+  def find(value: A)(implicit gridSys: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
     somesHcForeach{ (a, hc) => if (value == a) res = Some(hc)}
     res
   }
 
-  def get(value: A)(implicit grider: HGridSys): HCen = find(value).get
+  def get(value: A)(implicit gridSys: HGridSys): HCen = find(value).get
 
-  def findHCen(value: A)(implicit grider: HGridSys): Option[HCen] =
+  def findHCen(value: A)(implicit gridSys: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
-    grider.foreach{hc => res.replaceNone(ife(value == getex(hc), Some(hc), None)) }
+    gridSys.foreach{hc => res.replaceNone(ife(value == getex(hc), Some(hc), None)) }
     res
   }
 }

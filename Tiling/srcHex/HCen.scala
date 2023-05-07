@@ -170,9 +170,6 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
   override def fElemStr: HCen => String = _.toString
 
   def ===(operand: HCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
-
-  /** Converts a sequence of adjacent hex tiles to hex directions. Only call this method if you are certain the tiles are adjacent. */
-  def unsafeToHDirns(implicit grider: HGridSys): HStepArr = ???
 }
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
@@ -206,7 +203,6 @@ object HCenBuff
 
 class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2]
 { override def a1: HCen = HCen(a1Int1, a1Int2)
-
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
 }
 

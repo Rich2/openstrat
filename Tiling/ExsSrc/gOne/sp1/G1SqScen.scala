@@ -40,7 +40,7 @@ trait G1SqScen extends SqGridScen
   def resolve(actions: SqCenOptStepLayer[Player]): SqCenOptLayer[Player] =
   { val playersNew: SqCenOptLayer[Player] = players.copy
     val acc: SqCenAccLayer[Player] = actions.mapAcc
-    //acc.foreach { (target, arr) => if (arr.length == 1 & players(target).isEmpty) playersNew.moveMut(arr.headHCen, target) }
+    acc.foreach { (target, arr) => if (arr.length == 1 & players(target).isEmpty) playersNew.moveUnsafe(arr.headSqCen, target) }
     playersNew
   }
 }
@@ -61,4 +61,4 @@ trait G1SqScenStart extends G1SqScen
 }
 
 /** A class identifying a Player and a hex coordinate position. */
-case class SPlayer(value: Player, sc: SqCen) extends SqMem[Player]
+case class SPlayer(value: Player, sc: SqCen)

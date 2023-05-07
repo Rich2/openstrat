@@ -22,7 +22,7 @@ trait BCScen extends HSysTurnScen
     }
 
     val armiesNew: HCenOptLayer[Legion] = armies.copy
-    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveUnsafe(stCenStep.startHC, hc2)) }
 
     new BCScen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
