@@ -13,6 +13,12 @@ trait SqGridSys extends Any with TGridSys
   /** Gives the index into the backing [[Array]] for the given [[SqCen]]. */
   def layerArrayIndex(r: Int, c: Int): Int
 
+  /** Finds step from Start [[SqCen]] to target from [[SqCen]]. */
+  final def stepFind(startR: Int, startC: Int, endR: Int, endC: Int): Option[SqStep] = stepFind(SqCen(startR, startC), SqCen(endR, endC))
+
+  /** Finds step from Start [[SqCen]] to target from [[SqCen]]. */
+  def stepFind(startHC: SqCen, endHC: SqCen): Option[SqStep]
+
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].*/
   def stepEndFind(startSC: SqCen, step: SqStep): Option[SqCen]
 
@@ -32,7 +38,7 @@ trait SqGridSys extends Any with TGridSys
 
   def foreach(f: SqCen => Unit): Unit
 
-  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
+  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from SqCen => B,
    * corresponding to the standard Scala map function of A => B. */
   final def map[B, ArrB <: Arr[B]](f: SqCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val res = build.uninitialised(numTiles)
@@ -59,7 +65,7 @@ trait SqGridSys extends Any with TGridSys
     i
   }
 
-  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
+  /** Boolean. True if the [[SqCen]] hex centre exists in this hex grid. */
   final def sqCenExists(sc: SqCen): Boolean = sqCenExists(sc.r, sc.c)
 
   def sqCenExists(r: Int, c: Int): Boolean

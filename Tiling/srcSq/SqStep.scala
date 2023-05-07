@@ -30,7 +30,7 @@ case object SqStepStay extends SqStepLike
 /** A square tile direction can take 8 values. This can be used for square grid steps or quantums. */
 sealed trait SqStep extends SqStepLike
 { /** The SqCen that this step would point to if it departed from SqCen(0, 0). */
-  def sqCen: SqCen = SqCen(tr, tc)
+  def sqCenDelta: SqCen = SqCen(tr, tc)
 
   /** the step that foes in the opposite direct to this step. */
   def reverse: SqStep

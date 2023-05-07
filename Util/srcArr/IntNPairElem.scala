@@ -32,6 +32,18 @@ trait IntNPairArr[A1 <: IntNElem, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
     newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
   }
 
+  def filterOnA2(f: A2 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  { val a1Buffer = new ArrayBuffer[Int]()
+    val a2Buffer = new ArrayBuffer[A2]()
+    foreach { p =>
+      if (f(p.a2)) {
+        p.a1.intForeach(a1Buffer.append(_))
+        a2Buffer.append(p.a2)
+      }
+    }
+    newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
+  }
+
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Int](length *a1NumInt), new Array[A2](length))
 
   override def replaceA1byA2(key: A2, newValue: A1): ThisT =

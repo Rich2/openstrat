@@ -62,7 +62,7 @@ trait HGridSys extends Any with TGridSys
   final def stepFind(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = stepFind(HCen(startR, startC), HCen(endR, endC))
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def stepFind(startHC: HCen, endHC: HCen): Option[HStep]
+  def stepFind(startCen: HCen, endCen: HCen): Option[HStep]
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def stepEndFind(startHC: HCen, step: HStep): Option[HCen]
