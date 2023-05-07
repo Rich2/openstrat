@@ -2,30 +2,31 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
-sealed trait HStepOpt extends Int1Elem
+/** Common trait for [[HStep]] and [[HStepStay]]. */
+sealed trait HStepLike extends Int1Elem
 
-object HStepOpt
-{
-  def fromInt(inp: Int): HStepOpt = inp match
-  { case 0 => HStepNone
+object HStepLike
+{ /** Constructs [[HStepLike]] from its int1 value. */
+  def fromInt(inp: Int): HStepLike = inp match
+  { case 0 => HStepStay
     case 1 => HexUR
     case 2 => HexRt
     case 3 => HexDR
     case 4 => HexDL
     case 5 => HexLt
     case 6 => HexUL
-    case n => HStepNone
+    case _ => HStepStay
   }
 }
 
-/** The no step value of [[HStepOpt]] */
-case object HStepNone extends HStepOpt
+/** The no step value of [[HStepLike]] */
+case object HStepStay extends HStepLike
 { override val int1: Int = 0
 }
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. These should not be confused with
  * [[HVDirnOpt]]s which fo from an [[HVert]] to an [[HCen]]. */
-sealed trait HStep extends TDirnSided with HStepOpt
+sealed trait HStep extends TDirnSided with HStepLike
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)
   def int1: Int
@@ -34,7 +35,7 @@ sealed trait HStep extends TDirnSided with HStepOpt
 }
 
 object HStep
-{
+{ /** Constructs [[HStep]] from its int1 value. */
   def fromInt(inp: Int): HStep = inp match
   { case 1 => HexUR
     case 2 => HexRt

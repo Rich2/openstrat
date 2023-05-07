@@ -86,9 +86,9 @@ trait HGridSys extends Any with TGridSys
   /** Finds step from Start [[HCen]] to target from [[HCen]] if end hex exists, else returns start hex. */
   def stepEndOrStart(startHC: HCen, step: HStep): HCen = stepEndFind(startHC, step).getOrElse(startHC)
 
-  /** Finds the end from an [[HStepOpt]]. */
-  def stepOptEndFind(startHC: HCen, optStep: HStepOpt): Option[HCen] = optStep match
-  { case HStepNone => Some(startHC)
+  /** Finds the end from an [[HStepLike]]. */
+  def stepOptEndFind(startHC: HCen, optStep: HStepLike): Option[HCen] = optStep match
+  { case HStepStay => Some(startHC)
     case hs: HStep => stepEndFind(startHC, hs)
   }
 
