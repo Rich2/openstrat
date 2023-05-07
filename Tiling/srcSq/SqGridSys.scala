@@ -14,9 +14,16 @@ trait SqGridSys extends Any with TGridSys
   def layerArrayIndex(r: Int, c: Int): Int
 
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].*/
-  def findStepEnd(startSC: SqCen, step: SqStep): Option[SqCen]// = ???
+  def stepEndFind(startSC: SqCen, step: SqStep): Option[SqCen]
 
-  def findStepEnd(cenStep: SqCenStep): Option[SqCen] = findStepEnd(cenStep.startSC, cenStep.step)
+  def stepEndFind(cenStep: SqCenStep): Option[SqCen] = stepEndFind(cenStep.startSC, cenStep.step)
+
+  /** Finds the end from an [[SqStepLike]]. */
+  def stepLikeEndFind(startHC: SqCen, stepLike: SqStepLike): Option[SqCen] = stepLike match
+  { case SqStepStay => Some(startHC)
+    case hs: SqStep => stepEndFind(startHC, hs)
+  }
+
   /** Gives a flat projection of [[SqCoord]]s to [[Pt2]]s. For a simple singular [[SqGrid]] system this is all that is required to translate between
    * grid coordinates and standard 2 dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
    * more complex projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile

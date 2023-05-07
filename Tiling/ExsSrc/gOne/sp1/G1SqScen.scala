@@ -23,26 +23,26 @@ trait G1SqScen extends SqGridScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: SqCenOptLayer[Player] = players.clone
+    val playersNew: SqCenOptLayer[Player] = players.copy
     targets.foreach{ (sc2, buff) => buff.partition(_.step.isPerp) match
       { case _ if !(players.tileNone(sc2)) =>
-        case (Arr1(scs), _) => oPlayersNew.unsafeMove(scs.startSC, sc2)
-        case (Arr0(), Arr1(scs)) => oPlayersNew.unsafeMove(scs.startSC, sc2)
+        case (Arr1(scs), _) => playersNew.unsafeMove(scs.startSC, sc2)
+        case (Arr0(), Arr1(scs)) => playersNew.unsafeMove(scs.startSC, sc2)
         case _ =>
       }
     }
 
-    G1SqScen(turn + 1, gSys, oPlayersNew)
+    G1SqScen(turn + 1, gSys, playersNew)
   }
 
   /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
    * method. */
-  def resolve(/*actions: HCenOptHStepLayer[Player]*/): SqCenOptLayer[Player] = ???
-  /*{ val playersNew: SqCenOptLayer[Player] = players.copy
-    val acc: HCenAccLayer[Player] = actions.mapAcc
-    acc.foreach { (target, arr) => if (arr.length == 1 & players(target).isEmpty) playersNew.moveMut(arr.headHCen, target) }
+  def resolve(actions: SqCenOptStepLayer[Player]): SqCenOptLayer[Player] =
+  { val playersNew: SqCenOptLayer[Player] = players.copy
+    val acc: SqCenAccLayer[Player] = actions.mapAcc
+    //acc.foreach { (target, arr) => if (arr.length == 1 & players(target).isEmpty) playersNew.moveMut(arr.headHCen, target) }
     playersNew
-  }*/
+  }
 }
 
 /** Companion object for TwoScen trait, contains factory apply method. */

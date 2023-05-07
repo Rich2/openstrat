@@ -66,7 +66,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenR & c >= leftCenC & c <= rightCenC
 
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].  */
-  override def findStepEnd(startSC: SqCen, step: SqStep): Option[SqCen] ={
+  override def stepEndFind(startSC: SqCen, step: SqStep): Option[SqCen] ={
     val newCen = SqCen(startSC.r + step.tr, startSC.c + step.tc)
     Some(newCen)
   }

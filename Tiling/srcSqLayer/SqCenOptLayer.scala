@@ -7,7 +7,7 @@ import geom._
 class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenOptLayer[A]
 {override type ThisT = SqCenOptLayer[A]
   override def typeStr: String = "SqCenOptLayer"
-  def clone: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArray.clone)
+  def copy: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArray.clone)
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def unsafeSetSome(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value

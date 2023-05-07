@@ -21,9 +21,8 @@ class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
       val index = gridSys.layerArrayIndex(origin)
       val optA = arrayA(index)
       if (optA != null)
-      {
-        //val optTarget: Option[SqCen] = gridSys.stepLikeEndFind(origin, step(origin))
-        //optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
+      { val optTarget: Option[SqCen] = gridSys.stepLikeEndFind(origin, step(origin))
+        optTarget.foreach{ target => acc.append(target, origin, arrayA(index)) }
       }
     }
     acc
