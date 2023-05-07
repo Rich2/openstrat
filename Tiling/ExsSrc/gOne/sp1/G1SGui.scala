@@ -8,7 +8,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def gridSys: SqGridSys = scen.gSys
-  def players: SqCenOptLayer[Player] = scen.oPlayers
+  def players: SqCenOptLayer[Player] = scen.players
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = viewIn.vec
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
