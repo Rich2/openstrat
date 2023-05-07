@@ -9,10 +9,10 @@ class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
   def step(hc: SqCen): SqStepLike = SqStepLike.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
   def index(hc: SqCen): Int = gridSys.layerArrayIndex(hc)
 
-  /*def setSome(hc: SqCen, step: SqStepLike, value: A): Unit =
+  def setSome(hc: SqCen, step: SqStepLike, value: A): Unit =
   { arrayInt(index(hc)) = step.int1
     arrayA(index(hc)) = value
-  }*/
+  }
 
   /*def mapAcc: SqCenAccLayer[A] =
   {
@@ -31,6 +31,6 @@ class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
 
 object SqCenOptStepLayer
 {
- // def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): SqCenOptHStepLayer[A] = new SqCenOptHStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
- // def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): SqCenOptHStepLayer[A] = new SqCenOptHStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
+  def apply[A](gSys: SqGridSys)(implicit ct: ClassTag[A]): SqCenOptStepLayer[A] = new SqCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
+  def apply[A]()(implicit ct: ClassTag[A], gSys: SqGridSys): SqCenOptStepLayer[A] = new SqCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 }
