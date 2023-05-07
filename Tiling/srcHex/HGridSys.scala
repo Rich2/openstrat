@@ -87,7 +87,7 @@ trait HGridSys extends Any with TGridSys
   def stepEndOrStart(startHC: HCen, step: HStep): HCen = stepEndFind(startHC, step).getOrElse(startHC)
 
   /** Finds the end from an [[HStepLike]]. */
-  def stepOptEndFind(startHC: HCen, optStep: HStepLike): Option[HCen] = optStep match
+  def stepLikeEndFind(startHC: HCen, stepLike: HStepLike): Option[HCen] = stepLike match
   { case HStepStay => Some(startHC)
     case hs: HStep => stepEndFind(startHC, hs)
   }
