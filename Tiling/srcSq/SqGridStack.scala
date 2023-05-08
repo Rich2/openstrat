@@ -1,10 +1,13 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import ostrat.geom.{LineSegArr, Pt2}
+import ostrat.geom._
 
 class SqGridStack(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int, val numLevels: Int, val rOffset: Int) extends SqGridMulti
 {
  // override def gridMans: Arr[SqGridMan] = ???
+
+  /** Finds step from Start [[SqCen]] to target from [[SqCen]]. */
+  override def stepFind(startHC: SqCen, endHC: SqCen): Option[SqStep] = ???
 
   /** The grids of this tile grid system. */
   override val grids: RArr[SqGrid] = iUntilMap(0, numLevels)(l => new SqGrid(rOffset + bottomCenR, rOffset + topCenR, leftCenC, rightCenC))

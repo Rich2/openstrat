@@ -60,10 +60,10 @@ object SqStep
     case _ => SqRt
   }
 
-  implicit val buildEv: Int1ArrMapBuilder[SqStep, SqDirnArr] = new Int1ArrMapBuilder[SqStep, SqDirnArr] {
+  implicit val buildEv: Int1ArrMapBuilder[SqStep, SqStepArr] = new Int1ArrMapBuilder[SqStep, SqStepArr] {
     override type BuffT = SqDirnBuff
 
-    override def fromIntArray(array: Array[Int]): SqDirnArr = new SqDirnArr(array)
+    override def fromIntArray(array: Array[Int]): SqStepArr = new SqStepArr(array)
 
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqDirnBuff = new SqDirnBuff(buffer)
   }
@@ -159,11 +159,11 @@ case class SqAndStep(r1: Int, c1: Int, step: SqStep)
 }
 
 /** An Arr of hex step directions. */
-class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqStep]
-{ override type ThisT = SqDirnArr
+class SqStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqStep]
+{ override type ThisT = SqStepArr
   override def typeStr: String = "SqSteps"
   override def newElem(intValue: Int): SqStep = SqStep.fromInt(intValue)
-  override def fromArray(array: Array[Int]): SqDirnArr = new SqDirnArr(array)
+  override def fromArray(array: Array[Int]): SqStepArr = new SqStepArr(array)
   override def fElemStr: SqStep => String = _.toString
 
   def segsNum: Int = unsafeArray.length
@@ -232,6 +232,14 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqStep]
   }*/
 }
 
+object SqStepArr
+{
+  def apply(inp: SqStep *): SqStepArr ={
+    val array = new Array[Int](inp.length)
+    inp.iForeach((i, st) => array(i) = st.int1)
+    new SqStepArr(array)
+  }
+}
 
 /** ArrayBuffer based buffer class for Colours. */
 class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[SqStep]

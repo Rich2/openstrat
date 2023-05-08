@@ -14,7 +14,7 @@ class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
     arrayA(index(hc)) = value
   }
 
-  /** This is not right loses SqStep. */
+  /** Not full sure what to do with this method. */
   def mapAcc: SqCenAccLayer[SqStep] =
   {
     val acc = SqCenAccLayer[SqStep]()
@@ -31,7 +31,6 @@ class SqCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(impli
 }
 
 object SqCenOptStepLayer
-{
-  def apply[A](gSys: SqGridSys)(implicit ct: ClassTag[A]): SqCenOptStepLayer[A] = new SqCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
+{ def apply[A](gSys: SqGridSys)(implicit ct: ClassTag[A]): SqCenOptStepLayer[A] = new SqCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
   def apply[A]()(implicit ct: ClassTag[A], gSys: SqGridSys): SqCenOptStepLayer[A] = new SqCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 }

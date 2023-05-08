@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import ostrat.geom.{LineSegArr, Pt2}
+import geom._
 
 /** Square grid manager to be used n cojunction with the [[SqGridMulti]] trait. */
 case class SqGridMan(grid: SqGrid, arrIndex: Int)
@@ -34,6 +34,9 @@ final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, v
   val grid1 = SqGrid(minCenR, maxCenR, minC1, maxC1)
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
   //override def gridMans: Arr[SqGridMan] = Arr()
+
+  /** Finds step from Start [[SqCen]] to target from [[SqCen]]. */
+  override def stepFind(startHC: SqCen, endHC: SqCen): Option[SqStep] = ???
 
   override def layerArrayIndex(sc: SqCen): Int = ???
   override def layerArrayIndex(r: Int, c: Int): Int = ???
