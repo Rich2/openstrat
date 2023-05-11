@@ -22,9 +22,15 @@ sealed trait Statement extends TextSpan
   final def errGet[A](implicit ev: Unshow[A]): EMon[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExpr(settingName: String): EMon[AssignMemExpr] = this match {
-    case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
+  def settingExpr(settingName: String): EMon[AssignMemExpr] = this match
+  { case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
     case _ => startPosn.bad(settingName -- "not found.")
+  }
+
+  /** Returns the right expression if this Statement is an IntSetting of the given name. */
+  def intSettingExpr(settingNum: Int): EMon[AssignMemExpr] = this match
+  { case NonEmptyStatement(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Good(rightExpr)
+    case _ => startPosn.bad(settingNum.str -- "not found.")
   }
 }
 
@@ -45,6 +51,17 @@ object Statement
       { case Arr1(t) => t
         case Arr0() => sts.startPosn.bad(settingStr -- "Setting not found.")
         case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "not found.")
+      }
+    }
+
+    /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
+    def findIntSettingExpr(settingNum: Int): EMon[AssignMemExpr] = statements match {
+      case Arr0() => TextPosn.emptyError("No Statements")
+      case Arr1(st1) => st1.intSettingExpr(settingNum)
+      case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g@Good(_) => g } match {
+        case Arr1(t) => t
+        case Arr0() => sts.startPosn.bad(settingNum.str -- "Setting not found.")
+        case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
       }
     }
 

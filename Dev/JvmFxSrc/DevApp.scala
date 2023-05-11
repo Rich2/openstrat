@@ -26,15 +26,13 @@ class AppStart extends application.Application
     {
       case Good(it: IdentifierToken) => Apps.launchs.findChars(it.srcStr) match {
         case Some(launch) => {
-          val fSett = fileStatementsFromResource(launch.settingStr + ".rson")
-          val eSett = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
+          val fSett: EMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+          val eSett: EMon[AssignMemExpr] = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
           eSett.fold(launch.default)(launch(_))
         }
-        case _ => Apps.ids.a1FindA2(it.srcStr) match {
-          case Some(pair) => pair
-          case _ => {
-            deb(it.str + ": Identifier"); Apps.default
-          }
+        case _ => Apps.ids.a1FindA2(it.srcStr) match
+        { case Some(pair) => pair
+          case _ => deb(it.str + ": Identifier"); Apps.default
         }
       }
       case Good(expr) => { debvar(expr); Apps.default }
