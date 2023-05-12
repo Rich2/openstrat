@@ -77,8 +77,6 @@ package object ostrat
   /** Gives the average of the supplied values. */
   def average(d1: Double, tail: Double *): Double = (d1 + tail.sum) / (tail.length + 1)
 
-  def NoRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
-
   /** onlyIf-do. Only if the condition is true, perform the effect. */
   inline def onlyIf[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue else ()
 

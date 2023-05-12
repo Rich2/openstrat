@@ -335,6 +335,6 @@ trait HGrid extends Any with TGrid with HGridSys
 }
 
 /** Hex grid path finding node. */
-case class HNode(val tile: HCen, var gCost: Int, var hCost: Int, var parent: OptRef[HNode])
+case class HNode(val tile: HCen, var gCost: Int, var hCost: Int, var parent: Option[HNode])
 { def fCost: Int = gCost + hCost
 }

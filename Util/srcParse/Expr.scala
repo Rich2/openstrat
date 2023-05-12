@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
@@ -52,8 +52,8 @@ trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
 
 trait BlockRaw
 { def statements: RArr[Statement]
-  def startMem = statements.head
-  def endMem = statements.last
+  def startMem: Statement = statements.head
+  def endMem: Statement = statements.last
 }
 
 trait BlockStatements extends ExprSeqNonEmpty
@@ -73,33 +73,33 @@ case class StringStatements(statements: RArr[Statement]) extends BlockStatements
 
 case class ClausesExpr(clauses: RArr[Clause]) extends ExprSeqNonEmpty
 { override def exprs: RArr[ClauseMemExpr] = clauses.map(_.expr)
-  def startMem = exprs.head
-  def endMem = exprs.last
+  def startMem: ClauseMemExpr = exprs.head
+  def endMem: ClauseMemExpr = exprs.last
   override def exprName: String = "Claused Expr"
 }
 
 case class UnimplementedExpr(bMems: RArr[BlockMem]) extends CompoundClauseMemExpr
-{ def startMem = bMems.head
-  def endMem = bMems.last
+{ def startMem: BlockMem = bMems.head
+  def endMem: BlockMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
 
 case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStatements]) extends CompoundClauseMemExpr
-{ def startMem = name
-  def endMem = blocks.last
+{ def startMem: IdentifierToken = name
+  def endMem: BracketedStatements = blocks.last
   override def exprName: String = "AlphaBracketExpr"
 }
 
 case class PreOpExpr(op: OperatorToken, right: AssignMemExpr) extends CompoundClauseMemExpr
-{ override def startMem = op
-  override def endMem = right
+{ override def startMem: OperatorToken = op
+  override def endMem: AssignMemExpr = right
   override def exprName: String = "PreOpExpr"
   def opStr = op.srcStr
 }
 
 case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMemExpr) extends CompoundExpr
-{ override def startMem = left
-  override def endMem = right
+{ override def startMem: AssignMemExpr = left
+  override def endMem: AssignMemExpr = right
   override def exprName: String = "AsignExpr"
 }
 

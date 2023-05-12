@@ -137,7 +137,7 @@ trait HGridSys extends Any with TGridSys
   /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */
   def findPathList(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
   {
-    var open: List[HNode] = HNode(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
+    var open: List[HNode] = HNode(startCen, 0, getHCost(startCen, endCen), None) :: Nil
     var closed: List[HNode] = Nil
     var found: Option[HNode] = None
 
@@ -155,10 +155,10 @@ trait HGridSys extends Any with TGridSys
             val newGCost = nc + curr.gCost
 
             open.find(_.tile == tile) match {
-              case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
+              case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = Some(curr)
               case Some(_) =>
               case None =>
-              { val newNode = HNode(tile, newGCost, getHCost(tile, endCen), OptRef(curr))
+              { val newNode = HNode(tile, newGCost, getHCost(tile, endCen), Some(curr))
                 open ::= newNode
                 if (tile == endCen) found = Some(newNode)
               }

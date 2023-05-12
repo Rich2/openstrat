@@ -16,11 +16,11 @@ object parse7Clauses
 
       case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => parse8ClauseMem(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parse8ClauseMem(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, None)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
       case ArrOff1Tail(ct: CommaToken, tail) => parse8ClauseMem(subAcc.toArr).flatMap{ expr =>
-        acc.append(Clause(expr, OptRef(ct)))
+        acc.append(Clause(expr, Some(ct)))
         subAcc = Buffer()
         loop(tail)
       }
