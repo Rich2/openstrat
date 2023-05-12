@@ -13,7 +13,7 @@ object parse4Statement
     val acc: ArrayBuffer[StatementMem] = Buffer()
 
     def loop(rem: ArrOff[StatementMem]): EMon[Statement] =
-      rem.headFold(parse5AssignExpr(acc.toArr).map(g => NonEmptyStatement(g, optSemi))){ (em, tail) =>
+      rem.headFold(parse5AssignExpr(acc.toArr).map(g => StatementNoneEmpty(g, optSemi))){ (em, tail) =>
         acc.append(em)
         loop(tail)
       }

@@ -27,9 +27,10 @@ object G1HLaunch extends GuiLaunchMore
     }
 
     val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
-    debvar(oSetts)
+    val sts2 = oSetts.map(_.toStatements)
+    sts2.forGood(_.foreach(debvar(_)))
     
-    val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
-    (G1HGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game One")
+    val view: HGView = sts.findKeySettingElse(num, scen.gridSys.defaultView())
+    (G1HGui(_, scen, view), "JavaFx Game One")
   }
 }

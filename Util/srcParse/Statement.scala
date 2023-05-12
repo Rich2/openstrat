@@ -23,13 +23,13 @@ sealed trait Statement extends TextSpan
 
   /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): EMon[AssignMemExpr] = this match
-  { case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
+  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
     case _ => startPosn.bad(settingName -- "not found.")
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
   def intSettingExpr(settingNum: Int): EMon[AssignMemExpr] = this match
-  { case NonEmptyStatement(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Good(rightExpr)
+  { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Good(rightExpr)
     case _ => startPosn.bad(settingNum.str -- "not found.")
   }
 }
@@ -77,6 +77,10 @@ object Statement
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
     def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMon[VT] = ev.keySettingFromStatements(statements, key)
+
+    /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
+    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
+      ev.keySettingFromStatements(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = findSetting[T](settingStr).goodOrOther(findUniqueT)
@@ -139,13 +143,13 @@ object Statement
 }
 
 /** An un-claused Statement that is not the empty statement. */
-case class NonEmptyStatement(expr: Expr, optSemi: Option[SemicolonToken]) extends Statement with TextSpanCompound
+case class StatementNoneEmpty(expr: Expr, optSemi: Option[SemicolonToken] = None) extends Statement with TextSpanCompound
 { def startMem: TextSpan = expr
   def endMem: TextSpan = optSemi.fld(expr, sc => sc)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
-case class EmptyStatement(st: SemicolonToken) extends Statement with TextSpanCompound
+case class StatementEmpty(st: SemicolonToken) extends Statement with TextSpanCompound
 { override def expr: ColonMemExpr = st
   override def optSemi: Option[SemicolonToken] = Some(st)
   override def startMem: TextSpan = st
@@ -153,6 +157,6 @@ case class EmptyStatement(st: SemicolonToken) extends Statement with TextSpanCom
   def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
 }
 
-object EmptyStatement
-{ def apply(st: SemicolonToken): EmptyStatement = new EmptyStatement(st)
+object StatementEmpty
+{ def apply(st: SemicolonToken): StatementEmpty = new StatementEmpty(st)
 }

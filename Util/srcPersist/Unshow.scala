@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, annotation.unchecked.uncheckedVariance
 
@@ -38,13 +38,13 @@ trait Unshow[+T] extends TypeStr
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
   def settingTFromStatement(settingStr: String, st: Statement): EMon[T] = st match
-  { case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
+  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
   def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): EMon[T] = st match
-  { case NonEmptyStatement(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Good(settingCode) => fromExpr(rightExpr)
+  { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Good(settingCode) => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
 

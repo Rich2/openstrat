@@ -11,7 +11,11 @@ trait Expr extends BlockMem with StatementMem
 /** An expression that is a member of the right oe left side of an assignment expression. */
 trait AssignMemExpr extends Expr with AssignMem
 {
-
+  def toStatements: RArr[Statement] = this match{
+    case es: ExprSeq => es.exprs.map{expr => StatementNoneEmpty(expr) }
+    case st: Statement => RArr(st)
+    case expr => RArr(StatementNoneEmpty(expr))
+  }
 }
 
 /** An expression that can be a member of a Colon expression operand. */
