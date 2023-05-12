@@ -140,6 +140,17 @@ object Statement
      *  resolve to Expr[Boolean]. */
     def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.booleanPersistImplicit.settingFromStatements(statements, settingStr)
   }
+
+  /** Extension class for EMon[Arr[Statement]]. */
+  implicit class eMonArrImplicit(eMon: EMon[RArr[Statement]]){
+    /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
+    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
+      eMon.fold(elseValue){statements => ev.keySettingFromStatements(statements, key).getElse(elseValue) }
+
+    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
+     * use elseValue. */
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findUniqueT[A].getElse(elseValue))
+  }
 }
 
 /** An un-claused Statement that is not the empty statement. */

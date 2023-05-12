@@ -9,6 +9,8 @@ trait G1HScen extends HSysTurnScen
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def players: HCenOptLayer[Player]
 
+  def playerSet: RArr[Player] = players.somesMap(p => p)
+
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(orders: HCenStepPairArr[Player]): G1HScen =

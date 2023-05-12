@@ -94,6 +94,15 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToSeqLike(buff)
   }
 
+  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  { val buff = build.newBuff()
+    grider.foreach { hc =>
+      val a = unsafeArray(grider.layerArrayIndex(hc))
+      if (a != null) build.buffGrow(buff, fSome(a))
+    }
+    build.buffToSeqLike(buff)
+  }
+
   /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
   def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
