@@ -41,7 +41,7 @@ package object pParse
   /** Tries to parse a sequence of block members [[BlockMem]]s to a squence of [[Statement]]s. */
   def blockMemsToStatements(inp: RArr[BlockMem]): EArr[Statement] = pAST.parse3Statements(inp).map{
     case StringStatements(sts) => sts
-    case e => RArr(NonEmptyStatement(e, NoRef))
+    case e => RArr(NonEmptyStatement(e, None))
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */

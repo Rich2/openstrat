@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer
 object parse4Statement
 {
   /** Tries to parse a sequence of [[StatementMem]]s into a Statement. Statement members are either nonBracketTokens or parsed BracketBlocks.  */
-  def apply(memsIn: RArr[StatementMem], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
+  def apply(memsIn: RArr[StatementMem], optSemi: Option[SemicolonToken]): EMon[Statement] =
   {
     implicit val inp = memsIn
     val acc: ArrayBuffer[StatementMem] = Buffer()

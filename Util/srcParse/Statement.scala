@@ -10,13 +10,13 @@ sealed trait Statement extends TextSpan
   def expr: Expr
 
   /** The opt semicolon token. */
-  def optSemi: OptRef[SemicolonToken]
+  def optSemi: Option[SemicolonToken]
 
   /** The statement has semicolon as end */
   def hasSemi: Boolean = optSemi.nonEmpty
 
   /** The statement has no semicolon at end. */
-  def noSemi: Boolean = optSemi.empty
+  def noSemi: Boolean = optSemi.isEmpty
 
   /** Not sure what this is meant to be doing, or whether it can be removed. */
   final def errGet[A](implicit ev: Unshow[A]): EMon[A] = ???
@@ -37,6 +37,13 @@ sealed trait Statement extends TextSpan
 /** Companion object for the [[Statement]] trait, contains implicit extension class for List[Statement]. */
 object Statement
 {
+  def apply(inp: Expr): Statement = new Statement
+  { override def expr: Expr = inp
+    override def optSemi: Option[SemicolonToken] = None
+    override def startPosn: TextPosn = expr.startPosn
+    override def endPosn: TextPosn = expr.endPosn
+  }
+
   /** Extension class for Arr[Statement]. */
   implicit class arrImplicit(statements: RArr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
@@ -132,7 +139,7 @@ object Statement
 }
 
 /** An un-claused Statement that is not the empty statement. */
-case class NonEmptyStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
+case class NonEmptyStatement(expr: Expr, optSemi: Option[SemicolonToken]) extends Statement with TextSpanCompound
 { def startMem: TextSpan = expr
   def endMem: TextSpan = optSemi.fld(expr, sc => sc)
 }
@@ -140,7 +147,7 @@ case class NonEmptyStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extend
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends Statement with TextSpanCompound
 { override def expr: ColonMemExpr = st
-  override def optSemi: OptRef[SemicolonToken] = OptRef(st)
+  override def optSemi: Option[SemicolonToken] = Some(st)
   override def startMem: TextSpan = st
   override def endMem: TextSpan = st
   def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
