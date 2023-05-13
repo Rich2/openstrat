@@ -4,7 +4,7 @@ import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
-case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) extends HGridSysGui("Game One Gui") {
+case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui") {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: RArr[G1HScen] = RArr(scen)
@@ -14,7 +14,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, viewIn: HGView) exte
   def players: HCenOptLayer[Player] = scen.players
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
-  proj.setView(viewIn)
+  proj.setView(settings.view)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenStepPairArr[Player] = HCenStepPairArr[Player]()

@@ -95,6 +95,8 @@ object Statement
       case expr => badNone("Not an identifier.")
     }
 
+    //def findSettingIdentifierArrElse(settingStr: String, elseValue:): EMon[StrArr]
+
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
     def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMon[VT] = ev.keySettingFromStatements(statements, key)
 

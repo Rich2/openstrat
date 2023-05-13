@@ -1,12 +1,14 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package hp1
-import pgui._, pParse._, prid._, phex._
+import pgui._, pParse._, prid._, phex._, gPlay._
+
+case class G1HGuiSettings(view: HGView, players: RArr[Player])
 
 object G1HLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "g1Hex"
 
-  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HScen1, G1HScen1.defaultView()), "JavaFx Game One Hex")
+  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HScen1, G1HGuiSettings(G1HScen1.defaultView(), G1HScen1.playerSet)), "JavaFx Game One Hex")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
@@ -28,9 +30,13 @@ object G1HLaunch extends GuiLaunchMore
 
     val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
     val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
-    val pl = sts2.findSettingIdentifierArr("players")
-    debvar(pl)
+    val pls1 = sts2.findSettingIdentifierArr("players")
+    val plAll = scen.playerSet
+    val pls2 = pls1.map{arrA => arrA.optMap(st => plAll.find(_.charStr == st))}
+    val pls3 = pls2.getElse(plAll)
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
-    (G1HGui(_, scen, view), "JavaFx Game One")
+    debvar(pls3)
+    val settings = G1HGuiSettings(view, pls3)
+    (G1HGui(_, scen, settings), "JavaFx Game One")
   }
 }

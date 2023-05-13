@@ -128,8 +128,8 @@ trait HGrid extends Any with TGrid with HGridSys
     case _ => true
   }
 
-  def rowVertHighLeftC(r: Int): Int = {
-    val rUp = r + 1
+  def rowVertHighLeftC(r: Int): Int =
+  { val rUp = r + 1
     val rUpHC = rowLeftCenC(rUp)
     val rDn = r - 1
     val rDnHC = rowLeftCenC(rDn)
@@ -144,8 +144,8 @@ trait HGrid extends Any with TGrid with HGridSys
     ife(rUp %% 4 == 0, rUpHC.min(rDnHC - 2), (rUpHC - 2).min(rDnHC))
   }
 
-  def rowVertHighRightC(r: Int): Int = {
-    val rUp = r + 1
+  def rowVertHighRightC(r: Int): Int =
+  { val rUp = r + 1
     val rUpHC = rowRightCenC(rUp)
     val rDn = r - 1
     val rDnHC = rowRightCenC(rDn)
