@@ -12,6 +12,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   implicit def gridSys: HGridSys = scen.gridSys
 
   def players: HCenOptLayer[Player] = scen.players
+  def playerSet = settings.playerSet
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
@@ -74,7 +75,8 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
     case (RightButton, HCenPair(hc1, pl: Player), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+      newM.foreach{ d => if(playerSet.exists(_ == pl)) moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d))
+        else { statusText = s"Illegal move You don't have control of $pl"; thisTop()} }
       repaint()
     }
 

@@ -170,8 +170,6 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     }
     new RArr[A](newArray)
   }
-
-
 }
 
 /** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A

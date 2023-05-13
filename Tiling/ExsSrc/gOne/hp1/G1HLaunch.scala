@@ -2,7 +2,7 @@
 package ostrat; package gOne; package hp1
 import pgui._, pParse._, prid._, phex._, gPlay._
 
-case class G1HGuiSettings(view: HGView, players: RArr[Player])
+case class G1HGuiSettings(view: HGView, playerSet: RArr[Player])
 
 object G1HLaunch extends GuiLaunchMore
 {
