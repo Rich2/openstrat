@@ -3,9 +3,9 @@ package ostrat; package gOne; package hp1
 import prid._, phex._, gPlay._
 
 /** Game manager for G1HScen. */
-class G1HGame(startScen: G1HScen)
+class G1HGame(var scen: G1HScen, guiPlayers: RArr[Player])
 {
-  var scen: G1HScen = startScen
+ // var scen: G1HScen = startScen
   implicit val gridSys: HGridSys = scen.gridSys
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
@@ -14,6 +14,13 @@ class G1HGame(startScen: G1HScen)
   { val res1 = HCenOptStepLayer[Player]()
     orders.pairForeach { (hcst, pl) => res1.setSome(hcst.startHC, hcst.step, pl) }
     val playersNew = scen.resolve(res1)
-    G1HScen(scen.turn + 1, scen.gridSys, playersNew)
+    val newScen = G1HScen(scen.turn + 1, scen.gridSys, playersNew)
+    scen = newScen
+    scen
   }
+}
+
+object G1HGame
+{
+  def apply(startScen: G1HScen, guiPlayers: RArr[Player]): G1HGame = new G1HGame(startScen, guiPlayers)
 }

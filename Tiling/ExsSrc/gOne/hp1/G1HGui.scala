@@ -4,9 +4,9 @@ import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
-case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui") {
+case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui") {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
-  var scen = scenStart
+  var scen = game.scen
   var history: RArr[G1HScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys
@@ -56,7 +56,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: G1HScen, settings: G1HGuiSett
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    scen = scen.endTurn(moves)
+    scen = game.endTurn(moves)
     moves = NoMoves
     repaint()
     thisTop()

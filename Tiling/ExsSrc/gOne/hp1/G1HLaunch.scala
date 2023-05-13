@@ -8,7 +8,7 @@ object G1HLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "g1Hex"
 
-  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HScen1, G1HGuiSettings(G1HScen1.defaultView(), G1HScen1.playerSet)), "JavaFx Game One Hex")
+  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HGame(G1HScen1, G1HScen1.playerSet), G1HGuiSettings(G1HScen1.defaultView(), G1HScen1.playerSet)), "JavaFx Game One Hex")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
@@ -37,6 +37,7 @@ object G1HLaunch extends GuiLaunchMore
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
     debvar(pls3)
     val settings = G1HGuiSettings(view, pls3)
-    (G1HGui(_, scen, settings), "JavaFx Game One")
+    val game = G1HGame(scen, pls3)
+    (G1HGui(_, game, settings), "JavaFx Game One")
   }
 }
