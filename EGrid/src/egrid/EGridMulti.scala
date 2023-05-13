@@ -104,7 +104,7 @@ trait EGridMulti extends EGridSys  with TGridMulti
   }
 
   /** Spawns a new [[HSideOptLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
-  def sidesOptFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, HSideOptLayer[A, SA])])(implicit ct: ClassTag[A], noneTC: NoneTC[A]):
+  def sidesOptFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, HSideOptLayer[A, SA])])(implicit ct: ClassTag[A], noneTC: DefaultValue[A]):
   HSideOptLayer[A, SA] =
   { val res = HSideOptLayer[A, SA](this, noneTC)
     gridMansForeach { m =>

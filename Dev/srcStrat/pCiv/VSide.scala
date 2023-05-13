@@ -6,8 +6,8 @@ trait VSide extends Coloured
 
 object VSide
 {
-  implicit val noneImplicit: NoneTC[VSide] = new NoneTC[VSide]
-  { override def noneValue: VSide = VSideNone
+  implicit val defaultValueEv: DefaultValue[VSide] = new DefaultValue[VSide]
+  { override def default: VSide = VSideNone
   }
 }
 

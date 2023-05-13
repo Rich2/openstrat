@@ -1,8 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Type class for default values. */
-trait DefaultValue[T] {
+trait DefaultValue[T]
+{ /** The actual value of the default for the [[DefaultValue]] type class. */
   def default: T
 }
 

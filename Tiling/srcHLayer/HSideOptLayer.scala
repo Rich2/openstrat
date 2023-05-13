@@ -59,12 +59,12 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
 
 object HSideOptLayer
 {
-  def apply[A, SA <: HSideSome]()(implicit ct: ClassTag[A], noneTC: NoneTC[A], gridSys: HGridSys): HSideOptLayer[A, SA] =
-    apply[A, SA](gridSys, noneTC)(ct)
+  def apply[A, SA <: HSideSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): HSideOptLayer[A, SA] =
+    apply[A, SA](gridSys, defaultValue)(ct)
 
-  def apply[A, SA <: HSideSome](gridSys: HGridSys, noneTC: NoneTC[A])(implicit ct: ClassTag[A]): HSideOptLayer[A, SA] =
+  def apply[A, SA <: HSideSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): HSideOptLayer[A, SA] =
   { val newArray = new Array[A](gridSys.numSides)
-    iUntilForeach(gridSys.numSides)(newArray(_) = noneTC.noneValue)
+    iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
     new HSideOptLayer[A, SA](newArray)
   }
 }

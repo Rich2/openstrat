@@ -34,7 +34,8 @@ case object NoInt extends OptInt with NoOpt[Int]
   override def |+| (operand: OptInt): OptInt = NoInt
 }
 
-trait NoneTC[A]
+/*
+trait DefaultValue[A]
 {
-  def noneValue: A
-}
+  def default: A
+}*/
