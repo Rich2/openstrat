@@ -108,6 +108,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
+  /** Takes a map function from A to Option[B] but only returns the [[Arr] of B if all the elements map to a [[Some]]. Hence the ArrB if returned will
+   *  be the same length as this sequence. */
   def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): Option[ArrB] =
   { val res = build.uninitialised(length)
     var good = true
