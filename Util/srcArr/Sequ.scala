@@ -108,6 +108,17 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
+  def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): Option[ArrB] =
+  { val res = build.uninitialised(length)
+    var good = true
+    var i = 0
+    while(i < length & good) f(apply(i)) match
+    { case Some(b) => { build.indexSet (res, i, b); i += 1 }
+      case None => good = false
+    }
+    ife(good, Some(res), None)
+  }
+
   /** Specialised opt map to an immutable [[Arr]] of B. Applies the supplied function to every element of this sequence. */
   def optMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
@@ -115,7 +126,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     build.buffToSeqLike(buff)
   }
 
-  /** A map operation where the return type of the [[SeqLike]] is explicitly given by the the first parameter. */
+  /** A map operation where the return type of the [[SeqLike]] is explicitly given by the the second type parameter. */
   def mapTo[B, BB <: SeqLike[B]](build: SeqLikeMapBuilder[B, BB])(f: A => B): BB =
   { val res = build.uninitialised(length)
     var i = 0

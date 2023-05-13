@@ -81,6 +81,20 @@ object Statement
       case expr => badNone("Not an identifier.")
     }
 
+    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
+    def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = findSettingExpr(settingStr).flatMap {
+      case IdentifierToken(str) => Good(StrArr(str))
+      case exprSeq: ExprSeq =>
+      { val opt = exprSeq.exprs.optAllMap{expr => expr match
+          { case IdentifierToken(str) => Some(str)
+            case _ => None
+          }
+        }
+        opt.toEMon
+      }
+      case expr => badNone("Not an identifier.")
+    }
+
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
     def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMon[VT] = ev.keySettingFromStatements(statements, key)
 
@@ -148,21 +162,24 @@ object Statement
   }
 
   /** Extension class for EMon[Arr[Statement]]. */
-  implicit class eMonArrImplicit(eMon: EMon[RArr[Statement]]){
+  implicit class eMonArrImplicit(eMon: EMon[RArr[Statement]]) {
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      eMon.fold(elseValue){statements => ev.keySettingFromStatements(statements, key).getElse(elseValue) }
+      eMon.fold(elseValue) { statements => ev.keySettingFromStatements(statements, key).getElse(elseValue) }
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findUniqueT[A].getElse(elseValue))
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): EMon[String] = eMon.flatMap { _.findSettingExpr(settingStr).flatMap {
+    def findSettingIdentifier(settingStr: String): EMon[String] = eMon.flatMap {
+      _.findSettingExpr(settingStr).flatMap {
         case IdentifierToken(str) => Good(str)
         case expr => badNone("Not an identifier.")
       }
     }
+
+    def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = eMon.flatMap {_.findSettingIdentifierArr(settingStr) }
   }
 }
 
