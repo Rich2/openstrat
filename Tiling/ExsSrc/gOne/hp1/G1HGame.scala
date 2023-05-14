@@ -2,10 +2,9 @@
 package ostrat; package gOne; package hp1
 import prid._, phex._, gPlay._
 
-/** Game manager for G1HScen. */
+/** Game manager for [[G1HScen]]. */
 class G1HGame(var scen: G1HScen, val guiPlayers: RArr[Player])
 {
- // var scen: G1HScen = startScen
   implicit val gridSys: HGridSys = scen.gridSys
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
