@@ -21,7 +21,7 @@ trait G2HScen extends HSysTurnScen
   def playerStates: HCenOptLayer[PlayerState]
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
+   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def turnUnchecked(oldStates: HCenOptLayer[PlayerState]): G2HScen = G2HScen(turn + 1, gridSys, resolve(oldStates))
 
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
@@ -48,7 +48,7 @@ trait G2HScen extends HSysTurnScen
   }
 }
 
-/** Companion object for OneScen trait, contains factory apply method. */
+/** Companion object for [[G2HScen]] trait, contains factory apply method. */
 object G2HScen
 { /** Factory apply method for [[G2HScen]] trait. */
   def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[PlayerState]): G2HScen = new G2HScen
