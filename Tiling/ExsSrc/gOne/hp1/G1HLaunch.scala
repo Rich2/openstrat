@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package hp1
 import pgui._, pParse._, prid._, phex._, gPlay._
 
@@ -8,7 +8,8 @@ object G1HLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "g1Hex"
 
-  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HGame(G1HScen1, G1HScen1.playerSet), G1HGuiSettings(G1HScen1.defaultView(), G1HScen1.playerSet)), "JavaFx Game One Hex")
+  override def default: (CanvasPlatform => Any, String) =
+    (G1HGui(_, G1HGame(G1HScen1, G1HScen1.playerSet), G1HGuiSettings(G1HScen1.defaultView(), G1HScen1.playerSet)), "JavaFx Game One Hex")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")

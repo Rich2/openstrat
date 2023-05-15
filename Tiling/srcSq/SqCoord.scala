@@ -7,7 +7,7 @@ trait SqCoord extends Any with TCoord
 { override type ThisT = SqCoord
   override type LineSegT = LineSegSC
 
-  def view(pxScale: Double = 50): SqGridView = SqGridView(r, c, pxScale)
+  def view(pxScale: Double = 50): SGView = SGView(r, c, pxScale)
   override def toVecReg: Vec2 = Vec2(c, r)
   override def toPt2Reg: Pt2 = Pt2(c, r)
 

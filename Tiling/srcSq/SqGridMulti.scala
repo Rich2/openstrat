@@ -17,7 +17,7 @@ trait SqGridMulti extends SqGridSys with TGridMulti
 { final type GridT = SqGrid
   //def gridMans: Arr[SqGridMan]
   //final lazy val grids: Arr[SqGridAlt] = gridMans.map(_.grid)
-  override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
+  override def defaultView(pxScale: Double = 50): SGView = grids(0).defaultView(pxScale)
 
   override def foreach(f: SqCen => Unit): Unit = grids.foreach(_.foreach(f))
 

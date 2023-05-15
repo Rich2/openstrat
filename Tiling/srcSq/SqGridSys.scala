@@ -57,7 +57,7 @@ trait SqGridSys extends Any with TGridSys
   final def newSCenOptDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenOptLayer[A] = new SqCenOptLayer(new Array[A](numTiles))
 
   /** Gives the default view in terms of [[SqCoord]] focus and scaling of this square grid system. */
-  def defaultView(pxScale: Double = 50): SqGridView
+  def defaultView(pxScale: Double = 50): SGView
 
   override final lazy val numTiles: Int =
   { var i = 0

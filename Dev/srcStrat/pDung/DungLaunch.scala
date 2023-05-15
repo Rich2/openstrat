@@ -16,7 +16,7 @@ object DungLaunch extends GuiLaunchMore
       case 2 => Dungeon1
       case _ => Dungeon1
     }
-    val oview: EMon[SqGridView] = sts.findKeySetting[Int, SqGridView](num)
+    val oview: EMon[SGView] = sts.findKeySetting[Int, SGView](num)
     (DungeonGui(_, scen/*, oview.getElse(scen.grid.defaultView())*/), "JavaFx Game Two")
   }
 }

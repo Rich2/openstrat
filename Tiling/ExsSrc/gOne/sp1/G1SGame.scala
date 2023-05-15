@@ -2,7 +2,7 @@
 package ostrat; package gOne; package sp1
 import prid._, psq._, gPlay._
 
-class G1SGame(var scen: G1SqScen, val guiPlayers: RArr[Player])
+case class G1SGame(var scen: G1SqScen, guiPlayers: RArr[Player])
 {
   implicit val gridSys: SqGridSys = scen.gridSys
 

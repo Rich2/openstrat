@@ -56,5 +56,5 @@ trait SqGridScen extends GridTurnScen
    *  operate on flat arrays of data. */
   implicit val gridSys: SqGridSys
 
-  def defaultView(pxScale: Double = 50): SqGridView = gridSys.defaultView(pxScale)
+  def defaultView(pxScale: Double = 50): SGView = gridSys.defaultView(pxScale)
 }

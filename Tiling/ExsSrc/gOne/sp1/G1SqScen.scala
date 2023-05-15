@@ -9,13 +9,8 @@ trait G1SqScen extends SqGridScen
   /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def players: SqCenOptLayer[Player]
 
-  def endTurn(orders: SqCenStepPairArr[Player]): G1SqScen =
-  { val res1 = SqCenOptStepLayer[Player]()
-    orders.pairForeach { (hcst, pl) => res1.setSome(hcst.startSC, hcst.step, pl) }
-    val playersNew = resolve(res1)
-    G1SqScen(turn + 1, gridSys, playersNew)
-  }
-
+  def playerSet: RArr[Player] = players.somesMap(p => p)
+  
   /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
    * method. */
   def resolve(actions: SqCenOptStepLayer[Player]): SqCenOptLayer[Player] =

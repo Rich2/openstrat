@@ -4,16 +4,16 @@ import pgui._, prid._, psq._, geom._, gPlay._
 
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid
  * and adjacent moves take priority over diagonal tile steps. */
-case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView) extends SqSysGui("Game one Square")
+case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings) extends SqSysGui("Game one Square")
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
-  var scen = scenStart
+  var scen = game.scen
 
   implicit def gridSys: SqGridSys = scen.gridSys
 
   def players: SqCenOptLayer[Player] = scen.players
 
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  focus = viewIn.vec
+  focus = settings.view.vec
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
 
   def NoMoves: SqCenStepPairArr[Player] = SqCenStepPairArr[Player]()
@@ -45,7 +45,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
-    scen = scen.endTurn(moves)
+    scen = game.endTurn(moves)
     moves = NoMoves
     repaint()
     thisTop()
@@ -74,8 +74,6 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
-
-
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

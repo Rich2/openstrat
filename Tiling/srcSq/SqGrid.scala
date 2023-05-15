@@ -57,7 +57,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
     count
   }
 
-  override def defaultView(pxScale: Double = 50): SqGridView = coordCen.view(pxScale)
+  override def defaultView(pxScale: Double = 50): SGView = coordCen.view(pxScale)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
