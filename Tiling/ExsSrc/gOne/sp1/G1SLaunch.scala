@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package sp1
 import pgui._, pParse._, prid._, psq._, gPlay._
 
@@ -31,8 +31,5 @@ object G1SLaunch extends GuiLaunchMore
     val settings = G1SGuiSettings(view, pls3)
     val game = G1SGame(scen, pls3)
     (G1SGui(_, game, settings), "JavaFx Game One")
-
-  //  val oview: EMon[SGView] = sts.findKeySetting[Int, SGView](num)
-   // (G1SGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx One Squares")
   }
 }

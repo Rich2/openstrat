@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
-import pgui._, pParse._, prid._, phex._
+import pgui._, pParse._, prid._, phex._, gPlay._
+
+case class G2HGuiSettings(view: HGView, playerSet: RArr[Player])
 
 object G2HLaunch extends GuiLaunchMore
 {
