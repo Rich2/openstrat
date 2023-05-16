@@ -3,7 +3,7 @@ package ostrat; package gOne; package hp1
 import prid._, phex._, gPlay._
 
 /** Game manager for [[G1HScen]]. */
-class G1HGame(var scen: G1HScen, val guiPlayers: RArr[Counter])
+class G1HGame(var scen: G1HScen, val guiCounters: RArr[Counter])
 {
   implicit val gridSys: HGridSys = scen.gridSys
 
@@ -11,7 +11,7 @@ class G1HGame(var scen: G1HScen, val guiPlayers: RArr[Counter])
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(orders: HCenStepPairArr[Counter]): G1HScen =
   { val res1 = HCenOptStepLayer[Counter]()
-    orders.pairForeach { (hcst, pl) => if (guiPlayers.exists(_ == pl)) res1.setSome(hcst.startHC, hcst.step, pl) }
+    orders.pairForeach { (hcst, pl) => if (guiCounters.exists(_ == pl)) res1.setSome(hcst.startHC, hcst.step, pl) }
     val playersNew = scen.resolve(res1)
     val newScen = G1HScen(scen.turn + 1, scen.gridSys, playersNew)
     scen = newScen

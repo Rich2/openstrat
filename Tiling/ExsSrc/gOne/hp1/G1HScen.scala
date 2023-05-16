@@ -7,16 +7,16 @@ trait G1HScen extends HSysTurnScen
 { override def title: String = "Game 1 hex Scen"
 
   /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def players: HCenOptLayer[Counter]
+  def counters: HCenOptLayer[Counter]
 
-  def playerSet: RArr[Counter] = players.somesMap(p => p)
+  def counterSet: RArr[Counter] = counters.somesMap(p => p)
 
     /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
    *  method. */
   def resolve(actions: HCenOptStepLayer[Counter]): HCenOptLayer[Counter] =
-  { val playersNew: HCenOptLayer[Counter] = players.copy
+  { val playersNew: HCenOptLayer[Counter] = counters.copy
     val acc: HCenAccLayer[Counter] = actions.mapAcc
-    acc.foreach{ (target, arr) => if(arr.length == 1 & players.emptyTile(target)) playersNew.moveUnsafe(arr.headHCen, target) }
+    acc.foreach{ (target, arr) => if(arr.length == 1 & counters.emptyTile(target)) playersNew.moveUnsafe(arr.headHCen, target) }
     playersNew
   }
 }
@@ -27,6 +27,6 @@ object G1HScen
   def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[Counter]): G1HScen = new G1HScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def players: HCenOptLayer[Counter] = opIn
+    override def counters: HCenOptLayer[Counter] = opIn
   }
 }

@@ -5,14 +5,14 @@ import pgui._, geom._, prid._, phex._, gPlay._
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
 case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui") {
-  statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
+  statusText = "Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen = game.scen
   var history: RArr[G1HScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  def players: HCenOptLayer[Counter] = scen.players
-  def playerSet = settings.playerSet
+  def counters: HCenOptLayer[Counter] = scen.counters
+  def counterSet: RArr[Counter] = settings.counterSet
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
@@ -28,13 +28,13 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
   def frame: GraphicElems =
   {
-    def units: GraphicElems = players.projSomeHcPtMap { (p, hc, pt) =>
+    def units: GraphicElems = counters.projSomeHcPtMap { (p, hc, pt) =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
       urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HCenPair(hc, p), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-    def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.strComma, 20) }
+    def hexStrs: RArr[TextGraphic] = counters.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.strComma, 20) }
 
     def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
@@ -75,7 +75,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
     case (RightButton, HCenPair(hc1, pl: Counter), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      newM.foreach{ d => if(playerSet.exists(_ == pl)) moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d))
+      newM.foreach{ d => if(counterSet.exists(_ == pl)) moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d))
         else { statusText = s"Illegal move You don't have control of $pl"; thisTop()} }
       repaint()
     }
