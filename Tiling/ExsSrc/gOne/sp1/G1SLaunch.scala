@@ -2,7 +2,7 @@
 package ostrat; package gOne; package sp1
 import pgui._, pParse._, prid._, psq._, gPlay._
 
-case class G1SGuiSettings(view: SGView, playerSet: RArr[Player])
+case class G1SGuiSettings(view: SGView, playerSet: RArr[Counter])
 
 object G1SLaunch extends GuiLaunchMore
 {

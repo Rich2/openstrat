@@ -10,17 +10,17 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
 
   implicit def gridSys: SqGridSys = scen.gridSys
 
-  def players: SqCenOptLayer[Player] = scen.players
+  def players: SqCenOptLayer[Counter] = scen.players
 
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = settings.view.vec
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
 
-  def NoMoves: SqCenStepPairArr[Player] = SqCenStepPairArr[Player]()
+  def NoMoves: SqCenStepPairArr[Counter] = SqCenStepPairArr[Counter]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    * those moves. This data is state for the Gui. */
-  var moves: SqCenStepPairArr[Player] = NoMoves
+  var moves: SqCenStepPairArr[Counter] = NoMoves
 
   def frame: GraphicElems =
   {
@@ -36,7 +36,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
     def css: RArr[TextGraphic] = players.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
 
 
-    def moveSegPairs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
@@ -61,7 +61,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
       thisTop()
     }
 
-    case (RightButton, SqCenPair(sc1, pl: Player), hits) => hits.sqCenForFirst{ sc2 =>
+    case (RightButton, SqCenPair(sc1, pl: Counter), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqStep] = gridSys.stepFind(sc1, sc2)
       newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, sc1.andStep(d)) }
       repaint()

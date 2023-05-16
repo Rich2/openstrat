@@ -3,7 +3,8 @@ package ostrat
 
 /** This is the package for the second example of simple simultaneous turn tile based games. It introduces multi segment / turn intentions and state
  * for the objects that populate the game universe. That state is simply the intentions which are updated when an intention is completed. The
- * resolution rules for Game Two are the same as Game One.  */
+ * resolution rules for Game Two are the same as Game One. At the Game level it introudces different scenarios for different players. At this simple
+ * level, this is simply withholding the intentions of the counters the player doesn't control. */
 package object gTwo
 {
   /**  This is just a dummy method as empty package objects can cause problems. */

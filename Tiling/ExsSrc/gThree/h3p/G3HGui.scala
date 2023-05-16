@@ -2,7 +2,15 @@
 package ostrat; package gThree; package h3p
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class G3HGui(canv: CanvasPlatform, scenStart: G3HScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
+/** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */
+case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
+{ override def typeStr: String = "HCounter"
+  override def name2: String = "counter"
+  override implicit def showT2: ShowT[Counter] = Counter.showTEv
+  override def syntaxDepth: Int = 2
+}
+
+case class G3HGui(canv: CanvasPlatform, scenStart: G3HScen, viewIn: HGView) extends HGridSysGui("Game Three Hex Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
   implicit def gridSys: HGridSys = scen.gridSys
@@ -61,7 +69,7 @@ case class G3HGui(canv: CanvasPlatform, scenStart: G3HScen, viewIn: HGView) exte
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, AnyArrHead(HCounter(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

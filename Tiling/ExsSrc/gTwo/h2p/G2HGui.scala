@@ -2,6 +2,14 @@
 package ostrat; package gTwo; package h2p
 import pgui._, geom._, prid._, phex._, gPlay._
 
+/** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */
+case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
+{ override def typeStr: String = "HCounter"
+  override def name2: String = "counter"
+  override implicit def showT2: ShowT[Counter] = Counter.showTEv
+  override def syntaxDepth: Int = 2
+}
+
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) extends HGridSysGui("Game Two Hex Gui") {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
@@ -26,7 +34,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
     def units: GraphicElems = playerStates.projSomeHcPtMap { (ps, hc, pt) =>
       val player = ps.player
       val str = ptScale.scaledStr(170, player.toString + "\n" + hc.strComma, 150, player.charStr + "\n" + hc.strComma, 60, player.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(player.colour, HPlayer(hc, player), str, 24, 2.0)
+      urect.scale(80).slate(pt).fillDrawTextActive(player.colour, HCounter(hc, player), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -70,7 +78,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
       thisTop()
     }
 
-    case (RightButton, HPlayer(hc1, player), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, HCounter(hc1, player), hits) => hits.findHCenForEach{ hc2 =>
 
       if(canv.shiftDown)
       { val oldState: PlayerState = moves.applyUnsafe(hc1)

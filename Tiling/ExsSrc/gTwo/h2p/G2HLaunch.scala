@@ -2,7 +2,7 @@
 package ostrat; package gTwo; package h2p
 import pgui._, pParse._, prid._, phex._, gPlay._
 
-case class G2HGuiSettings(view: HGView, playerSet: RArr[Player])
+case class G2HGuiSettings(view: HGView, playerSet: RArr[Counter])
 
 object G2HLaunch extends GuiLaunchMore
 {

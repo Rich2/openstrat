@@ -2,20 +2,20 @@
 package ostrat; package gTwo; package s2p
 import prid._, psq._, gPlay._
 
-case class PlayerState(player: Player, steps: SqStepArr)
+case class PlayerState(player: Counter, steps: SqStepArr)
 { /** Returns the PlayerState with the tail of the steps. */
   def takeStep: PlayerState = PlayerState(player, steps.tail)
 }
 
 object PlayerState
 {
-  def apply(player: Player, steps: SqStep*): PlayerState = new PlayerState(player, SqStepArr(steps: _*))
+  def apply(player: Counter, steps: SqStep*): PlayerState = new PlayerState(player, SqStepArr(steps: _*))
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait G2SqScen extends SqGridScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def players: SqCenOptLayer[Player]
+  def players: SqCenOptLayer[Counter]
 
  // def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
 //  lazy val playersKey: HCenPairArr[Player] = oPlayers.somePairArr

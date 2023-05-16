@@ -3,14 +3,14 @@ package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
 /** The Player and its intentions. I'm thinking that a game entity and its state should generally be stored in the same layer. */
-case class PlayerState(player: Player, steps: HStepArr)
+case class PlayerState(player: Counter, steps: HStepArr)
 { /** Returns the PlayerState with the tail of the steps." */
   def takeStep: PlayerState = PlayerState(player, steps.tail)
 }
 
 object PlayerState
 {
-  def apply(player: Player, steps: HStep*): PlayerState = PlayerState(player, HStepArr(steps: _*))
+  def apply(player: Counter, steps: HStep*): PlayerState = PlayerState(player, HStepArr(steps: _*))
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */

@@ -7,14 +7,14 @@ trait G1SqScen extends SqGridScen
 {  override def title: String = "Game 1 Squares scen."
   
   /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
-  def players: SqCenOptLayer[Player]
+  def players: SqCenOptLayer[Counter]
 
-  def playerSet: RArr[Player] = players.somesMap(p => p)
+  def playerSet: RArr[Counter] = players.somesMap(p => p)
   
   /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
    * method. */
-  def resolve(actions: SqCenOptStepLayer[Player]): SqCenOptLayer[Player] =
-  { val playersNew: SqCenOptLayer[Player] = players.copy
+  def resolve(actions: SqCenOptStepLayer[Counter]): SqCenOptLayer[Counter] =
+  { val playersNew: SqCenOptLayer[Counter] = players.copy
     val acc: SqCenAccLayer[SqStep] = actions.mapAcc
     acc.foreach { (target, arr) =>
       if (arr.length == 1 & players(target).isEmpty) playersNew.moveUnsafe(arr.headSqCen, target)
@@ -30,10 +30,10 @@ trait G1SqScen extends SqGridScen
 /** Companion object for TwoScen trait, contains factory apply method. */
 object G1SqScen
 { /** Apply factory method for TwoScen game. */
-  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Player]): G1SqScen = new G1SqScen
+  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Counter]): G1SqScen = new G1SqScen
   { override val turn = turnIn
     override implicit val gridSys: SqGridSys = gSysIn
-    override def players: SqCenOptLayer[Player] = opIn
+    override def players: SqCenOptLayer[Counter] = opIn
   }
 }
 

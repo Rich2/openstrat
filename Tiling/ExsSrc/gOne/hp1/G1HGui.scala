@@ -11,18 +11,18 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  def players: HCenOptLayer[Player] = scen.players
+  def players: HCenOptLayer[Counter] = scen.players
   def playerSet = settings.playerSet
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenStepPairArr[Player] = HCenStepPairArr[Player]()
+  def NoMoves: HCenStepPairArr[Counter] = HCenStepPairArr[Counter]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */
-  var moves: HCenStepPairArr[Player] = NoMoves
+  var moves: HCenStepPairArr[Counter] = NoMoves
 
   val urect = Rect(1.4, 1)
 
@@ -47,7 +47,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
     /** Draws the tiles sides (or edges). */
     def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
 
-    def moveSegPairs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
@@ -73,7 +73,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
       thisTop()
     }
 
-    case (RightButton, HCenPair(hc1, pl: Player), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, HCenPair(hc1, pl: Counter), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach{ d => if(playerSet.exists(_ == pl)) moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d))
         else { statusText = s"Illegal move You don't have control of $pl"; thisTop()} }
