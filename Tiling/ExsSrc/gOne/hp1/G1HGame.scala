@@ -2,7 +2,7 @@
 package ostrat; package gOne; package hp1
 import prid._, phex._, gPlay._
 
-/** Game manager for [[G1HScen]]. */
+/** Game manager for [[G1HScen]]. Contains the Scenario and sequence of counters controled by the single GUI player. */
 class G1HGame(var scen: G1HScen, val guiCounters: RArr[Counter])
 {
   implicit val gridSys: HGridSys = scen.gridSys
@@ -21,5 +21,5 @@ class G1HGame(var scen: G1HScen, val guiCounters: RArr[Counter])
 
 object G1HGame
 {
-  def apply(startScen: G1HScen, guiPlayers: RArr[Counter]): G1HGame = new G1HGame(startScen, guiPlayers)
+  def apply(startScen: G1HScen, guiCounters: RArr[Counter]): G1HGame = new G1HGame(startScen, guiCounters)
 }

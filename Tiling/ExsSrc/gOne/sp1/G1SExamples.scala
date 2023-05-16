@@ -4,21 +4,21 @@ import prid._, psq._, gPlay._
 
 object G1SScen1 extends G1SqScenStart
 { implicit val gridSys: SqGrid = SqGrid(2, 6, 2, 8)
-  val players: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
-  players.unsafeSetSome(4, 4, CounterA)
-  players.unsafeSetSomes((4, 6, CounterB), (6, 8, CounterC))
+  val counters: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
+  counters.unsafeSetSome(4, 4, CounterA)
+  counters.unsafeSetSomes((4, 6, CounterB), (6, 8, CounterC))
 }
 
 object G1SScen2 extends G1SqScenStart
 { implicit val gridSys: SqGrid = SqGrid(2, 14, 2, 22)
-  val players: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
-  players.unsafeSetSome(14, 18, CounterA)
-  players.unsafeSetSomes((10, 18, CounterB), (10, 22, CounterC), (12, 22, CounterD))
+  val counters: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
+  counters.unsafeSetSome(14, 18, CounterA)
+  counters.unsafeSetSomes((10, 18, CounterB), (10, 22, CounterC), (12, 22, CounterD))
 }
 
 object G1SScen3 extends G1SqScenStart
 { implicit val gridSys: SqGrid = SqGrid(2, 32, 2, 40)
-  val players: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
-  players.unsafeSetSome(4, 4, CounterA)
-  players.unsafeSetSomes((4, 6, CounterB), (6, 8, CounterC))
+  val counters: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
+  counters.unsafeSetSome(4, 4, CounterA)
+  counters.unsafeSetSomes((4, 6, CounterB), (6, 8, CounterC))
 }

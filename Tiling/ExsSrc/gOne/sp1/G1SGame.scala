@@ -2,7 +2,8 @@
 package ostrat; package gOne; package sp1
 import prid._, psq._, gPlay._
 
-case class G1SGame(var scen: G1SqScen, guiPlayers: RArr[Counter])
+/** Simple Game manager for [[G2HScen]]. Contains the Scenario and sequence of counters controlled by the single GUI player */
+case class G1SGame(var scen: G1SqScen, guiCounters: RArr[Counter])
 {
   implicit val gridSys: SqGridSys = scen.gridSys
 

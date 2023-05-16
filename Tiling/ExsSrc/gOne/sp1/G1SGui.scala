@@ -1,16 +1,16 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package sp1
 import pgui._, prid._, psq._, geom._, gPlay._
 
-/** Graphical user interface for Game Two. It differs from the first in that it is on a square grid
- * and adjacent moves take priority over diagonal tile steps. */
+/** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal
+ *  tile steps. */
 case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings) extends SqSysGui("Game one Square")
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = game.scen
 
   implicit def gridSys: SqGridSys = scen.gridSys
 
-  def players: SqCenOptLayer[Counter] = scen.players
+  def counters: SqCenOptLayer[Counter] = scen.counters
 
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = settings.view.vec
@@ -18,8 +18,8 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
 
   def NoMoves: SqCenStepPairArr[Counter] = SqCenStepPairArr[Counter]()
 
-  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
-   * those moves. This data is state for the Gui. */
+  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of* those
+   *  moves. This data is state for the Gui. */
   var moves: SqCenStepPairArr[Counter] = NoMoves
 
   def frame: GraphicElems =
@@ -27,13 +27,13 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
 
-    def lunits: RArr[PolygonCompound] = players.projSomeScPtMap { (pl, sc, pt) =>
+    def lunits: RArr[PolygonCompound] = counters.projSomeScPtMap { (pl, sc, pt) =>
       val str = ptScale.scaledStr(170, pl.toString + "\n" + sc.strComma, 150, pl.charStr + "\n" + sc.strComma, 60, pl.charStr)
       Rect(120, 90, pt).fillDrawTextActive(pl.colour, SqCenPair(sc, pl), str, 24, 2.0)
     }
 
     /** Not sure why this is called css. */
-    def css: RArr[TextGraphic] = players.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
+    def css: RArr[TextGraphic] = counters.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
 
 
     def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)

@@ -9,7 +9,7 @@ object G1SLaunch extends GuiLaunchMore
   override def settingStr: String = "g1Sq"
 
   override def default: (CanvasPlatform => Any, String) =
-    (G1SGui(_, G1SGame(G1SScen1, G1SScen1.playerSet), G1SGuiSettings(G1SScen1.defaultView(), G1SScen1.playerSet)), "JavaFx Game One Squares")
+    (G1SGui(_, G1SGame(G1SScen1, G1SScen1.counterSet), G1SGuiSettings(G1SScen1.defaultView(), G1SScen1.counterSet)), "JavaFx Game One Squares")
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
     val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
@@ -23,7 +23,7 @@ object G1SLaunch extends GuiLaunchMore
     val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
     val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("players")
-    val plAll = scen.playerSet
+    val plAll = scen.counterSet
     val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
     val pls3 = pls2.getElse(plAll)
     val view: SGView = sts2.findTypeElse(scen.gridSys.defaultView())

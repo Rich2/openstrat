@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._
 
@@ -59,14 +59,15 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     new SqCenOptLayer[A](newArr)
   }
 
-  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit grider: SqGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit gridSys: SqGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a))
     }
     build.buffToSeqLike(buff)
   }
+
   /** The tile is a None at the given hex grid centre coordinate [[SqCen]]. */
   def emptyTile(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(sc)) == null
 

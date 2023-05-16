@@ -13,7 +13,7 @@ case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class G2HGui(canv: CanvasPlatform, game: G2HGame, viewIn: HGView) extends HGridSysGui("Game Two Hex Gui") {
   statusText = "Left click on Counter to select. Right click on adjacent Hex to set move. Right click with shift to extend move."
-  var scen = game.scen
+  var scen: G2HScen = game.getScen
   var history: RArr[G2HScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys
