@@ -20,10 +20,6 @@ trait G2HScen extends HSysTurnScen
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def playerStates: HCenOptLayer[PlayerState]
 
-  /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def turnUnchecked(oldStates: HCenOptLayer[PlayerState]): G2HScen = G2HScen(turn + 1, gridSys, resolve(oldStates))
-
   def resolve(oldStates: HCenOptLayer[PlayerState]): HCenOptLayer[PlayerState] =
   { val acc: HCenAccLayer[PlayerState] = HCenAccLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
@@ -35,6 +31,7 @@ trait G2HScen extends HSysTurnScen
         }
       }
     }
+
     val newStates = oldStates.copy
     acc.foreach{ (target, pairArr) => pairArr match
       { case HCenPairArr1(origin, ps) if origin != target =>
@@ -55,6 +52,5 @@ object G2HScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
     override def playerStates: HCenOptLayer[PlayerState] = opIn
-    //override def playerOrders: HDirnPathPairArr[Player] = newData
   }
 }
