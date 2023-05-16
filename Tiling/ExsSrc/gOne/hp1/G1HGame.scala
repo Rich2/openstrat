@@ -7,8 +7,8 @@ class G1HGame(var scen: G1HScen, val guiCounters: RArr[Counter])
 {
   implicit val gridSys: HGridSys = scen.gridSys
 
-  /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
+  /** Resolves turn. Takes an [[HStepPairArr]] of [[Counter]]s. The directives are passed in as relative moves. This is in accordance with the
+   *  principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(directives: HCenStepPairArr[Counter]): G1HScen =
   { val res1 = HCenOptStepLayer[Counter]()
     directives.pairForeach { (hcst, ct) => if (guiCounters.contains(ct)) res1.setSome(hcst.startHC, hcst.step, ct) }
