@@ -11,7 +11,7 @@ case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
 }
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
-case class G2HGui(canv: CanvasPlatform, game: G2HGame, viewIn: HGView) extends HGridSysGui("Game Two Hex Gui") {
+case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings) extends HGridSysGui("Game Two Hex Gui") {
   statusText = "Left click on Counter to select. Right click on adjacent Hex to set move. Right click with shift to extend move."
   var scen: G2HScen = game.getScen
   var history: RArr[G2HScen] = RArr(scen)
@@ -21,7 +21,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, viewIn: HGView) extends H
   def counterStates: HCenOptLayer[CounterState] = scen.counterStates
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
-  proj.setView(viewIn)
+  proj.setView(settings.view)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */

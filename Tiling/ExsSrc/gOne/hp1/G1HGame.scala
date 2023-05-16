@@ -9,9 +9,9 @@ class G1HGame(var scen: G1HScen, val guiCounters: RArr[Counter])
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orders: HCenStepPairArr[Counter]): G1HScen =
+  def endTurn(directives: HCenStepPairArr[Counter]): G1HScen =
   { val res1 = HCenOptStepLayer[Counter]()
-    orders.pairForeach { (hcst, pl) => if (guiCounters.exists(_ == pl)) res1.setSome(hcst.startHC, hcst.step, pl) }
+    directives.pairForeach { (hcst, ct) => if (guiCounters.contains(ct)) res1.setSome(hcst.startHC, hcst.step, ct) }
     val playersNew = scen.resolve(res1)
     val newScen = G1HScen(scen.turn + 1, scen.gridSys, playersNew)
     scen = newScen

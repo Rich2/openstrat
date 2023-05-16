@@ -31,7 +31,7 @@ object G1HLaunch extends GuiLaunchMore
 
     val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
     val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1 = sts2.findSettingIdentifierArr("players")
+    val pls1 = sts2.findSettingIdentifierArr("counters")
     val plAll = scen.counterSet
     val pls2 = pls1.map{arrA => arrA.optMap(st => plAll.find(_.charStr == st))}
     val pls3 = pls2.getElse(plAll)
