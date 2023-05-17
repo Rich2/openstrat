@@ -275,8 +275,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   PolygonCompound = PolygonCompound(this, RArr(fillColour, TextFacet(str, textColour)), RArr())
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Double = 24, lineWidth: Double, lineColour: Colour = Black,
-    align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
-    RArr(TextGraphic(str, fontSize, cenDefault, Black, align), PolygonActive(this, pointerID)))
+    textColour: Colour = Black, align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
+    RArr(TextGraphic(str, fontSize, cenDefault, textColour, align), PolygonActive(this, pointerID)))
 
   def fillText(fillColour: Colour, str: String, fontSize: Double = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
     PolygonCompound(this, RArr(fillColour), RArr(TextGraphic(str, fontSize, cenDefault, textColour)))

@@ -13,7 +13,7 @@ object G1SScen2 extends G1SqScenStart
 { implicit val gridSys: SqGrid = SqGrid(2, 14, 2, 22)
   val counters: SqCenOptLayer[Counter] = gridSys.newSCenOptDGrider
   counters.unsafeSetSome(14, 18, CounterA)
-  counters.unsafeSetSomes((10, 18, CounterB), (10, 22, CounterC), (12, 22, CounterD))
+  counters.unsafeSetSomes((10, 18, CounterB), (10, 22, CounterC), (12, 22, CounterD), (6, 6, CounterE))
 }
 
 object G1SScen3 extends G1SqScenStart

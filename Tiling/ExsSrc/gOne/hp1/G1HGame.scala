@@ -12,8 +12,8 @@ class G1HGame(var scen: G1HScen, val guiCounters: RArr[Counter])
   def endTurn(directives: HCenStepPairArr[Counter]): G1HScen =
   { val res1 = HCenOptStepLayer[Counter]()
     directives.pairForeach { (hcst, ct) => if (guiCounters.contains(ct)) res1.setSome(hcst.startHC, hcst.step, ct) }
-    val playersNew = scen.resolve(res1)
-    val newScen = G1HScen(scen.turn + 1, scen.gridSys, playersNew)
+    val countersNew = scen.resolve(res1)
+    val newScen = G1HScen(scen.turn + 1, scen.gridSys, countersNew)
     scen = newScen
     scen
   }

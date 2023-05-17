@@ -9,7 +9,7 @@ trait G1HScen extends HSysTurnScen
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def counters: HCenOptLayer[Counter]
 
-  def counterSet: RArr[Counter] = counters.somesMap(p => p)
+  def counterSet: RArr[Counter] = counters.somesMap(c => c)
 
     /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
    *  method. */

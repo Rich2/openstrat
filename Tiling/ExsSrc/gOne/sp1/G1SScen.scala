@@ -2,14 +2,14 @@
 package ostrat; package gOne; package sp1
 import prid._, psq._, gPlay._
 
-/** Scenario trait for Game Two. */
-trait G1SqScen extends SqGridScen
+/** Scenario trait for Game Two with Square tiles. */
+trait G1SScen extends SqGridScen
 {  override def title: String = "Game 1 Squares scen."
-  
+
   /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def counters: SqCenOptLayer[Counter]
 
-  def counterSet: RArr[Counter] = counters.somesMap(p => p)
+  def counterSet: RArr[Counter] = counters.somesMap(c => c)
 
   /** Contains the resolution logic. The actions are presumed to be correct. Combining and checking of actions should be done before calling this
    * method. */
@@ -28,9 +28,9 @@ trait G1SqScen extends SqGridScen
 }
 
 /** Companion object for TwoScen trait, contains factory apply method. */
-object G1SqScen
+object G1SScen
 { /** Apply factory method for TwoScen game. */
-  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Counter]): G1SqScen = new G1SqScen
+  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Counter]): G1SScen = new G1SScen
   { override val turn = turnIn
     override implicit val gridSys: SqGridSys = gSysIn
     override def counters: SqCenOptLayer[Counter] = opIn
@@ -38,6 +38,6 @@ object G1SqScen
 }
 
 /** This trait just puts the value 0 in for the turn. */
-trait G1SqScenStart extends G1SqScen
+trait G1SqScenStart extends G1SScen
 { override val turn: Int = 0
 }

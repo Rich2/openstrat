@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package sp1
-import pgui._, prid._, psq._, geom._, gPlay._
+import pgui._, prid._, psq._, geom._, gPlay._, Colour.Black
 
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal
  *  tile steps. */
@@ -11,6 +11,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
   implicit def gridSys: SqGridSys = scen.gridSys
 
   def counters: SqCenOptLayer[Counter] = scen.counters
+  val counterSet = settings.counterSet
 
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = settings.view.vec
@@ -27,9 +28,9 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
 
-    def lunits: RArr[PolygonCompound] = counters.projSomeScPtMap { (pl, sc, pt) =>
-      val str = ptScale.scaledStr(170, pl.toString + "\n" + sc.strComma, 150, pl.charStr + "\n" + sc.strComma, 60, pl.charStr)
-      Rect(120, 90, pt).fillDrawTextActive(pl.colour, SqCenPair(sc, pl), str, 24, 2.0)
+    def lunits: RArr[PolygonCompound] = counters.projSomeScPtMap { (counter, sc, pt) =>
+      val str = ptScale.scaledStr(170, counter.toString + "\n" + sc.strComma, 150, counter.charStr + "\n" + sc.strComma, 60, counter.charStr)
+      Rect(120, 90, pt).fillDrawTextActive(counter.colour, SqCenPair(sc, counter), str, 24, 2.0, Black, counter.contrastBW)
     }
 
     /** Not sure why this is called css. */
@@ -61,9 +62,12 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
       thisTop()
     }
 
-    case (RightButton, SqCenPair(sc1, pl: Counter), hits) => hits.sqCenForFirst{ sc2 =>
+    case (RightButton, SqCenPair(sc1, selectedCounter: Counter), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqStep] = gridSys.stepFind(sc1, sc2)
-      newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, sc1.andStep(d)) }
+      newM.foreach{ d =>
+        if(counterSet.contains(selectedCounter)) moves = moves.replaceA1byA2OrAppend(selectedCounter, sc1.andStep(d))
+        else { statusText = s"Illegal move You don't have control of $selectedCounter"; thisTop()}
+      }
       repaint()
     }
 

@@ -14,7 +14,7 @@ earth = { scale = 12; latitude = 0; longitude = 0; };
 ad1783 = { scen = 1; flat = false; 1 = HGView(432, 512; 18); 2 = HGView(464, 512; 22); };
 eGrid = { scen = 1; flat = false; };
 g1Hex = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 52); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
-g1Sq = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = SqGridView(9, 11; 40); };
+g1Sq = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = { SqGridView(9, 11; 40); counters = A, B, C, D}; };
 g2Hex = { scen = 1; 1 = { HGView(4, 9; 80); counters = A, B, C }; 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 g3Hex = { scen = 1; 1 = HGView(4, 4; 80); 2 = HGView(5, 11; 60); };
 zugFuhrer = 1;

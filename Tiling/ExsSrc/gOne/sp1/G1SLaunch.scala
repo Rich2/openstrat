@@ -2,7 +2,7 @@
 package ostrat; package gOne; package sp1
 import pgui._, pParse._, prid._, psq._, gPlay._
 
-case class G1SGuiSettings(view: SGView, playerSet: RArr[Counter])
+case class G1SGuiSettings(view: SGView, counterSet: RArr[Counter])
 
 object G1SLaunch extends GuiLaunchMore
 {
@@ -15,7 +15,7 @@ object G1SLaunch extends GuiLaunchMore
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
 
-    val scen: G1SqScen = num match
+    val scen: G1SScen = num match
     { case 1 => G1SScen1
       case 2 => G1SScen2
       case 3 => G1SScen3
