@@ -68,6 +68,11 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
+  /** Drops the [[None]] values. Foreach value of the [[Some]] with the corresponding [[SqCen]] applies the side effecting parameter function. */
+  def somesScForeach(f: (A, SqCen) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { hc =>
+    val a = unsafeArray(gridSys.layerArrayIndex(hc))
+    if (a != null) f(a, hc)
+  }
   /** The tile is a None at the given hex grid centre coordinate [[SqCen]]. */
   def emptyTile(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(sc)) == null
 

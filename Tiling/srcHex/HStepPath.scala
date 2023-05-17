@@ -133,12 +133,12 @@ object HDirnPathPair
 }
 
 /** A [[PairNoA1PramArr]] where the first element is an [[HStepPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HStepPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HStepPath, HStepPathArr, A2, HDirnPathPair[A2]]
+class HStepPathPairArr[A2](val a1ArrayArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HStepPath, HStepPathArr, A2, HDirnPathPair[A2]]
 { override type ThisT = HStepPathPairArr[A2]
   override def typeStr: String = "HDirnPathPairArr"
-  inline override def a1FromArrayInt(array: Array[Int]): HStepPath = new HStepPath(array)
+  inline override def a1FromArrayArrayInt(array: Array[Int]): HStepPath = new HStepPath(array)
   inline override def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): HStepPathPairArr[A2] = new HStepPathPairArr(array1, array2)
-  inline override def a1Arr: HStepPathArr = new HStepPathArr(a1ArrayInts)
+  inline override def a1Arr: HStepPathArr = new HStepPathArr(a1ArrayArrayInts)
   override def fElemStr: HDirnPathPair[A2] => String = _.toString
   override def elemFromComponents(a1: Array[Int], a2: A2): HDirnPathPair[A2] = new HDirnPathPair(a1, a2)
 }

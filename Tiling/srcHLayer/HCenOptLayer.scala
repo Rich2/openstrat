@@ -40,71 +40,71 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   def copy: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
 
   /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
-  def setSomeMut(r: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(r, c)) = value
+  def setSomeMut(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value
 
   /** Sets / the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
-  def setSomeMut(hc: HCen, value: A)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = value
+  def setSomeMut(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = value
 
   /** Sets / mutates the Some values of the hex tile data at the specified row and column coordinate values. */
-  def setSomesMut(triples: (Int, Int, A)*)(implicit grider: HGridSys): Unit =
-    triples.foreach(t => unsafeArray(grider.layerArrayIndex(t._1, t._2)) = t._3)
+  def setSomesMut(triples: (Int, Int, A)*)(implicit gridSys: HGridSys): Unit =
+    triples.foreach(t => unsafeArray(gridSys.layerArrayIndex(t._1, t._2)) = t._3)
 
   /** Sets / mutates the given hex tiles to the given value. */
-  def setSamesUnsafe(value: A, hCens: Int*)(implicit grider: HGridSys): Unit =
+  def setSamesUnsafe(value: A, hCens: Int*)(implicit gridSys: HGridSys): Unit =
     iUntilForeach(hCens.length / 2){ i => setSomeMut(hCens(i * 2), hCens(i * 2 + 1), value) }
 
   /** Sets / mutates the value ot the specified location to None. */
-  def setNoneMut(hc: HCen)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = null.asInstanceOf[A]
+  def setNoneMut(hc: HCen)(implicit gridSys: HGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
 
   /** Sets / mutates every element to the given value. */
   def setAllMut(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
 
   /** Sets multiple [[HCen]] locations to [[Some]] values. */
-  def setFSomesMut(f: () => A, hCens: Int*)(implicit grider: HGridSys): Unit =
+  def setFSomesMut(f: () => A, hCens: Int*)(implicit gridSys: HGridSys): Unit =
   { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
-    iUntilForeach(0, hCens.length, 2){i => unsafeArray(grider.layerArrayIndex(hCens(i), hCens(i + 1))) = f()
+    iUntilForeach(0, hCens.length, 2){i => unsafeArray(gridSys.layerArrayIndex(hCens(i), hCens(i + 1))) = f()
     }
   }
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
-  def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptLayer[A] =
+  def setSome(hc: HCen, value: A)(implicit gridSys: HGridSys): HCenOptLayer[A] =
   { val newArr = unsafeArray.clone()
-    newArr(grider.layerArrayIndex(hc)) = value
+    newArr(gridSys.layerArrayIndex(hc)) = value
     new HCenOptLayer[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
-  def setNone(hc: HCen)(implicit grider: HGridSys): HCenOptLayer[A] =
+  def setNone(hc: HCen)(implicit gridSys: HGridSys): HCenOptLayer[A] =
   { val newArr = unsafeArray.clone()
-    newArr(grider.layerArrayIndex(hc)) = null.asInstanceOf[A]
+    newArr(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
     new HCenOptLayer[A](newArr)
   }
 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
    *  None. This mutates the data layer. */
-  def moveUnsafe(hc1: HCen, hc2: HCen)(implicit grider: HGridSys): Unit =
-  { unsafeArray(grider.layerArrayIndex(hc2)) = unsafeArray(grider.layerArrayIndex(hc1))
-    unsafeArray(grider.layerArrayIndex(hc1)) = null.asInstanceOf[A]
+  def moveUnsafe(hc1: HCen, hc2: HCen)(implicit gridSys: HGridSys): Unit =
+  { unsafeArray(gridSys.layerArrayIndex(hc2)) = unsafeArray(gridSys.layerArrayIndex(hc1))
+    unsafeArray(gridSys.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }
 
   /** Not sure if this is still needed. */
-  def MoveModifyMut(hc1: HCen, hc2: HCen)(f: A => A)(implicit grider: HGridSys): Unit =
-  { unsafeArray(grider.layerArrayIndex(hc2)) = f(unsafeArray(grider.layerArrayIndex(hc1)))
-    unsafeArray(grider.layerArrayIndex(hc1)) = null.asInstanceOf[A]
+  def MoveModifyMut(hc1: HCen, hc2: HCen)(f: A => A)(implicit gridSys: HGridSys): Unit =
+  { unsafeArray(gridSys.layerArrayIndex(hc2)) = f(unsafeArray(gridSys.layerArrayIndex(hc1)))
+    unsafeArray(gridSys.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }
 
   /** Drops the [[None]] values. Foreach value of the [[Some]] with the corresponding [[HCen]] applies the side effecting parameter function. */
-  def somesHcForeach(f: (A, HCen) => Unit)(implicit grider: HGridSys): Unit = grider.foreach { hc =>
-    val a = unsafeArray(grider.layerArrayIndex(hc))
+  def somesHcForeach(f: (A, HCen) => Unit)(implicit gridSys: HGridSys): Unit = gridSys.foreach { hc =>
+    val a = unsafeArray(gridSys.layerArrayIndex(hc))
     if (a != null) f(a, hc)
   }
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def hcMapArr[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  def hcMapArr[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit gridSys: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a, hc))
       else
       { val newVal = fNone(hc)
@@ -115,31 +115,31 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 
   /** Maps from the [[Some]] values to an [[Arr]]. */
-  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit gridSys: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a))
     }
     build.buffToSeqLike(buff)
   }
 
   /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
-  def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
+  def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, f(a, hc))
     }
     build.buffToSeqLike(buff)
   }
 
   /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
-  def somesHcPairMap[B1, B1Arr <: Arr[B1], B2, B <: PairElem[B1, B2], ArrT <: PairArr[B1, B1Arr, B2, B]](f: (A, HCen) => B)(implicit grider: HGridSys,
+  def somesHcPairMap[B1, B1Arr <: Arr[B1], B2, B <: PairElem[B1, B2], ArrT <: PairArr[B1, B1Arr, B2, B]](f: (A, HCen) => B)(implicit gridSys: HGridSys,
     build: PairArrMapBuilder[B1, B1Arr, B2, B, ArrT]): ArrT =
   { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArray(grider.layerArrayIndex(hc))
+    gridSys.foreach { hc =>
+      val a = unsafeArray(gridSys.layerArrayIndex(hc))
       if (a != null) build. buffGrow(buff, f(a, hc))
     }
     build.buffToSeqLike(buff)

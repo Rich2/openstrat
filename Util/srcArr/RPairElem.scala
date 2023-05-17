@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -8,9 +8,9 @@ final class RPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
 
 /** R for stored by reference. The generalised default [[PAirArr]] for types that do not have there own specialised classes. Note although they are
  *  named as reference [[PairArr]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */
-final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends PairArr[A1, RArr[A1], A2, RPairElem[A1, A2]]
+class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends PairArr[A1, RArr[A1], A2, RPairElem[A1, A2]]
 { override type ThisT = RPairArr[A1, A2]
-  override def typeStr: String = "GenPairArr"
+  override def typeStr: String = "RPairArr"
   override def a1Arr: RArr[A1] = new RArr[A1](a1Array)
   override def a1Index(index: Int): A1 = a1Array(index)
   override def setA1Unsafe(index: Int, value: A1): Unit = a1Array(index) = value

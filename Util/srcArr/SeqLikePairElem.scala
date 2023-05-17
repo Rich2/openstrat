@@ -105,7 +105,7 @@ trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: IntNSeqLike[B1E], B2, B <: SeqL
 { def b1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
 
-  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1ArrayInts.foreach(b1Buffer.append(_))
+  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1ArrayArrayInts.foreach(b1Buffer.append(_))
     newPairArr.a2Array.foreach(b2Buffer.append(_)) }
 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.unsafeArray); b2Buffer.append(b2) }

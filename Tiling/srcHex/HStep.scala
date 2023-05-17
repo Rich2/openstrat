@@ -197,3 +197,25 @@ class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff
 object HStepBuff
 { def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new ArrayBuffer[Int](initLen))
 }
+
+class HStepArrArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntBackedArr[HStepArr]
+{ override type ThisT = HStepArrArr
+  override def typeStr: String = "HStepArrArr"
+  override def apply(index: Int): HStepArr = new HStepArr(unsafeArrayOfArrays(index))
+  override def unsafeFromArrayArray(array: Array[Array[Int]]): HStepArrArr = new HStepArrArr(array)
+  override def fElemStr: HStepArr => String = ???
+}
+
+class HStepArrPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HStepArr, A2]
+{ override def a1: HStepArr = new HStepArr(a1ArrayInt)
+}
+
+class HStepArrPairArr[A2](val a1ArrayArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HStepArr, HStepArrArr, A2, HStepArrPair[A2]]
+{ override type ThisT = HStepArrPairArr[A2]
+  override def typeStr: String = "HStepArrPairArr"
+  override def a1FromArrayArrayInt(array: Array[Int]): HStepArr = new HStepArr(array)
+  override def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): HStepArrPairArr[A2] = new HStepArrPairArr[A2](array1, array2)
+  override def elemFromComponents(a1: Array[Int], a2: A2): HStepArrPair[A2] = new HStepArrPair[A2](a1, a2)
+  override def a1Arr: HStepArrArr = new HStepArrArr(a1ArrayArrayInts)
+  override def fElemStr: HStepArrPair[A2] => String = ???
+}

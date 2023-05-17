@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length of these elements they can be be stored as and
  * reconstructed from a single Array[Int] of primitive values. */
