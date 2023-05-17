@@ -8,7 +8,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 { override type ThisT = HCenOptLayer[A]
   override def typeStr: String = "HCenOptLayer"
 
-  /** Maps this [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. The [[HGridSys]] that encodes the layer is not required for this operation. */
+  /** Maps this [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. None values are just mapped to Nones. The [[HGridSys]] that encodes the layer is
+   *  not required for this operation. */
   def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] =
   { val newArray = new Array[B](flatLength)
     var i = 0
@@ -16,6 +17,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
+  /** Maps the corresponding [[HCen]]s with the [[Some]] values to a new [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. None values are just
+   * mapped to Nones. */
   def hcMap[B <: AnyRef](f: (HCen, A) => B)(implicit ct: ClassTag[B], gridSys: HGridSys): HCenOptLayer[B] = {
     val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>

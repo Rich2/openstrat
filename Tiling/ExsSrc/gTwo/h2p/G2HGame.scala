@@ -33,6 +33,6 @@ class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
 }
 
 object G2HGame
-{
+{ /** Factory apply method for [[G2HGame]] trait. */
   def apply(scenStart: G2HScen, guiCounters: RArr[Counter]): G2HGame = new G2HGame(scenStart, guiCounters)
 }

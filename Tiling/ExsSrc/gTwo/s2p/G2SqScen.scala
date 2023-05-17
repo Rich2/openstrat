@@ -14,7 +14,7 @@ object CounterState
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait G2SqScen extends SqGridScen
-{
+{ override def title: String = "Game 2 square scenario"
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def counterStates: SqCenOptLayer[CounterState]
 
@@ -49,10 +49,9 @@ trait G2SqScen extends SqGridScen
 /** Companion object for [[G2SqScen]] trait, contains factory apply method. */
 object G2SqScen
 { /** Factory apply method for [[G2SqScen]] trait. */
-  /*def apply(turnIn: Int, gridIn: SqGridSys, opIn: SqCenOptLayer[Player], newData: HDirnPathPairArr[Player]): G2SqScen = new G2SqScen
+  def apply(turnIn: Int, gridIn: SqGridSys, opIn: SqCenOptLayer[CounterState]): G2SqScen = new G2SqScen
   { override val turn = turnIn
-    override implicit val gridSys: HGridSys = gridIn
-    override def oPlayers: HCenOptLayer[Player] = opIn
-    override def playerOrders: HDirnPathPairArr[Player] = newData
-  }*/
+    override implicit val gridSys: SqGridSys = gridIn
+    override def counterStates: SqCenOptLayer[CounterState] = opIn
+  }
 }

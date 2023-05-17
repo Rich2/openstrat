@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._
+import geom._, reflect.ClassTag
 
 /** A layer of immutable optional [[SqCen]] data for a [[SqGridSys]] square grid system, This is specialised for OptRef[A]. The tileGrid can map the
  *  [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGridSys]] square grid system parameter. */
@@ -97,6 +97,28 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { var res = 0
     unsafeArray.foreach(a => if (a != null) res += 1)
     res
+  }
+
+  /** Maps this [[SqCenOptLayer]] to a new [[SqCenOptLayer]] of type B. The None values are just mapped to Nones. The [[SqGridSys]] that encodes the
+   *  layer is not required for this operation. */
+  def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): SqCenOptLayer[B] =
+  { val newArray = new Array[B](flatLength)
+    var i = 0
+    while (i < flatLength) {
+      if (unsafeArray(i) != null) newArray(i) = f(unsafeArray(i)); i += 1
+    }
+    new SqCenOptLayer[B](newArray)
+  }
+
+  /** Maps the [[SqCen]]s with the corresponding Some values to a new [[SqCenOptLayer]] of type B. The None values are just mapped to Nones. */
+  def scMap[B <: AnyRef](f: (SqCen, A) => B)(implicit ct: ClassTag[B], gridSys: SqGridSys): SqCenOptLayer[B] =
+  { val newArray = new Array[B](flatLength)
+    gridSys.foreach { hc =>
+      val i = gridSys.layerArrayIndex(hc)
+      val aUnsafe = unsafeArray(i)
+      if (aUnsafe != null) newArray(i) = f(hc, aUnsafe)
+    }
+    new SqCenOptLayer[B](newArray)
   }
 
   /** [[SqCen]] with Some map. Maps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type B, the first type
