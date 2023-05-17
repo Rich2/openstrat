@@ -33,15 +33,15 @@ trait G2SqScen extends SqGridScen
     }
 
     val newStates = oldStates.copy
-    /*acc.foreach { (target, pairArr) =>
-      pairArr match {
-        case SqCenPairArr1(origin, ps) if origin != target => {
-          newStates.setSomeMut(target, ps.takeStep)
+    acc.foreach { (target, pairArr) =>
+      pairArr match
+      { case SqCenPairArr1(origin, ps) if origin != target =>
+        { newStates.setSomeMut(target, ps.takeStep)
           newStates.setNoneMut(origin)
         }
         case _ =>
       }
-    }*/
+    }
     newStates
   }
 }

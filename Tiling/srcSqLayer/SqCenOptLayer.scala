@@ -33,6 +33,15 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
 
   def copy: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArray.clone)
 
+  /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
+  def setSomeMut(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value
+
+  /** Sets / the Some value of the hex tile data at the specified [[SqCen]] coordinate. This is an imperative mutating operation. */
+  def setSomeMut(hc: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = value
+
+  /** Sets / mutates the value ot the specified location to None. */
+  def setNoneMut(hc: SqCen)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
+
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def unsafeSetSome(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value
 

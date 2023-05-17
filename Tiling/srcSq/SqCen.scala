@@ -72,6 +72,13 @@ class SqCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
   def ===(operand: SqCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
 }
 
+object SqCenPairArr1
+{
+  def unapply[A](inp: SqCenPairArr[A]): Option[(SqCen, A)] = inp match{
+    case ha if ha.length == 1 => Some((ha.a1Index(0), ha.a2Index(0)))
+    case _ => None
+  }
+}
 class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[SqCen]
 { type ArrT = SqCenArr
   override def typeStr: String = "SqCenBuff"
