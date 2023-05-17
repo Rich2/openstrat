@@ -2,7 +2,7 @@
 package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
-/** Simple game manager for [[G2HScen]]. Contains the scenario and the set of [[Counter]]s controled by the single GUI player. */
+/** Simple game manager for [[G2HScen]]. Contains the scenario and the set of [[Counter]]s controlled by the single GUI player. */
 class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
 {
   protected var scen: G2HScen = scenIn
