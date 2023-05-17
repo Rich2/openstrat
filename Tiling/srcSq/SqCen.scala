@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
@@ -44,7 +44,7 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
 
 object SqCen
 {
-  implicit val persistImplicit: Persist[SqCen] = new PersistShowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
+  implicit val persistEv: Persist[SqCen] = new PersistShowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
 
   val s00v1: SqVert = SqVert(1, 1)
   val s00v2: SqVert = SqVert(-1, 1)
