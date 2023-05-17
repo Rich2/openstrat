@@ -4,8 +4,8 @@ import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
-case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui") {
-  statusText = "Left click on Counter to select. Right click on adjacent Hex to set move."
+case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui")
+{ statusText = "Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen = game.scen
   var history: RArr[G1HScen] = RArr(scen)
 
@@ -73,10 +73,10 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
       thisTop()
     }
 
-    case (RightButton, HCenPair(hc1, pl: Counter), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, HCenPair(hc1, selectedCounter: Counter), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      newM.foreach{ d => if(counterSet.exists(_ == pl)) moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d))
-        else { statusText = s"Illegal move You don't have control of $pl"; thisTop()} }
+      newM.foreach{ d => if(counterSet.contains(selectedCounter)) moves = moves.replaceA1byA2OrAppend(selectedCounter, hc1.andStep(d))
+        else { statusText = s"Illegal move You don't have control of $selectedCounter"; thisTop()} }
       repaint()
     }
 

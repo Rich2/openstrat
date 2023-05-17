@@ -1,18 +1,26 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
-import prid._, phex._, gPlay._, gOne.hp1.GSys
+import prid._, phex._, gPlay._
 
+/** Simple game manager for [[G2HScen]]. Contains the scenario and the set of [[Counter]]s controled by the single GUI player. */
 class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
 {
   protected var scen: G2HScen = scenIn
-  val gridSys = scen.gridSys
+  implicit val gridSys: HGridSys = scen.gridSys
 
   def getScen: G2HScen = restrict(scen)
 
-  /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def turnUnchecked(oldStates: HCenOptLayer[CounterState]): G2HScen =
-  { val newScen = G2HScen(scen.turn + 1, gridSys, scen.resolve(oldStates))
+  /** Resolves turn. Takes in the directives from the single GUI player and sets the valid directives as intentions. The command is passed in as a
+   *  relative move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real
+   *  location. */
+  def resolveTurn(directives: HCenOptLayer[CounterState]): G2HScen =
+  {
+    val intentions = scen.counterStates.hcMap{(hc, currentState) => directives(hc) match
+      { case Some(directiveState) if guiCounters.contains(currentState.counter) & directiveState.counter == currentState.counter => directiveState
+        case _ => currentState
+      }
+    }
+    val newScen = G2HScen(scen.turn + 1, gridSys, scen.resolve(intentions))
     scen = newScen
     restrict(scen)
   }

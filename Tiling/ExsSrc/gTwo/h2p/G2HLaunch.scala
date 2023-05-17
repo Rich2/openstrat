@@ -1,8 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
 import pgui._, pParse._, prid._, phex._, gPlay._
 
-case class G2HGuiSettings(view: HGView, playerSet: RArr[Counter])
+/** Settings for the sole GUI player. */
+case class G2HGuiSettings(view: HGView, counterSet: RArr[Counter])
 
 object G2HLaunch extends GuiLaunchMore
 {

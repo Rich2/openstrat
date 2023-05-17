@@ -16,6 +16,26 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
+  def hcMap[B <: AnyRef](f: (HCen, A) => B)(implicit ct: ClassTag[B], gridSys: HGridSys): HCenOptLayer[B] = {
+    val newArray = new Array[B](flatLength)
+    gridSys.foreach { hc =>
+      val i = gridSys.layerArrayIndex(hc)
+      val aUnsafe = unsafeArray(i)
+      if (aUnsafe != null) newArray(i) = f(hc, aUnsafe)
+    }
+    new HCenOptLayer[B](newArray)
+  }
+
+  def indexMap[B <: AnyRef](f: (Int, A) => B)(implicit ct: ClassTag[B], gridSys: HGridSys): HCenOptLayer[B] =
+  { val newArray = new Array[B](flatLength)
+    gridSys.foreach { hc =>
+      val i = gridSys.layerArrayIndex(hc)
+      val aUnsafe = unsafeArray(i)
+      if (aUnsafe != null) newArray(i) = f(i, aUnsafe)
+    }
+    new HCenOptLayer[B](newArray)
+  }
+
   /** Creates a ashallow copy of this [[HCenOptLayer]]. */
   def copy: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
 

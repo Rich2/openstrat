@@ -11,14 +11,15 @@ case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
 }
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
-case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings) extends HGridSysGui("Game Two Hex Gui") {
-  statusText = "Left click on Counter to select. Right click on adjacent Hex to set move. Right click with shift to extend move."
+case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings) extends HGridSysGui("Game Two Hex Gui")
+{ statusText = "Left click on Counter to select. Right click on adjacent Hex to set move. Right click with shift to extend move."
   var scen: G2HScen = game.getScen
   var history: RArr[G2HScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
   def counterStates: HCenOptLayer[CounterState] = scen.counterStates
+  val counterSet = settings.counterSet
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
@@ -62,7 +63,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    scen = game.turnUnchecked(moves)
+    scen = game.resolveTurn(moves)
     moves = scen.counterStates
     repaint()
     thisTop()
@@ -72,24 +73,30 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
   def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
-  { case (LeftButton, _, cl) =>
+  {
+    case (LeftButton, _, cl) =>
     { selected = cl.headOrNone
       statusText = selectedStr
       thisTop()
     }
 
-    case (RightButton, HCounter(hc1, player), hits) => hits.findHCenForEach{ hc2 =>
-
+    case (RightButton, HCounter(hc1, selectedCounter), hits) if counterSet.contains(selectedCounter) => hits.findHCenForEach{ hc2 =>
       if(canv.shiftDown)
       { val oldState: CounterState = moves.applyUnsafe(hc1)
         val oldSteps = oldState.steps
         val oldEnd: Option[HCen] = gridSys.stepsEndFind(hc1, oldSteps)
-        oldEnd.flatMap(currEnd => gridSys.stepFind(currEnd, hc2)).foreach{newStep => moves.setSomeMut(hc1, CounterState(player, oldSteps +% newStep)) }
+        val optNewStep = oldEnd.flatMap(currEnd => gridSys.stepFind(currEnd, hc2))
+        optNewStep.foreach{ newStep => moves.setSomeMut(hc1, CounterState(selectedCounter, oldSteps +% newStep)) }
       }
       else gridSys.stepFind(hc1, hc2).foreach{ step =>
-        if (hc1 == hc2) moves.setSomeMut(hc1, CounterState(player))
-        else moves.setSomeMut(hc1, CounterState(player, step)) }
+        if (hc1 == hc2) moves.setSomeMut(hc1, CounterState(selectedCounter))
+        else moves.setSomeMut(hc1, CounterState(selectedCounter, step)) }
       repaint()
+    }
+
+    case (RightButton, HCounter(_, selectedCounter), _) =>
+    { statusText = s"Illegal move You don't have control of $selectedCounter"
+      thisTop()
     }
 
     case (_, _, h) => deb("Other; " + h.toString)
