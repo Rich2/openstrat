@@ -5,13 +5,12 @@ import pgui._, pParse._, prid._, psq._, gPlay._
 /** Settings for the sole GUI player. */
 case class G2SGuiSettings(view: SGView, counterSet: RArr[Counter])
 
-/*
-object G2SLaunch extends GuiLaunchMore
+/*object G2SLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "G2Sex"
+  override def settingStr: String = "G2Sq"
 
   override def default: (CanvasPlatform => Any, String) =
-    (G2SGui(_, G2SGame(G2SScen1, G2SScen1.counterSet), G2SGuiSettings(G2SScen1.defaultView(), G2SScen1.counterSet)), "JavaFx Game Two Hex")
+    (G2SqGui(_, G2SGame(G2SScen1, G2SScen1.counterSet), G2SGuiSettings(G2SScen1.defaultView(), G2SScen1.counterSet)), "JavaFx Game Two Hex")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")

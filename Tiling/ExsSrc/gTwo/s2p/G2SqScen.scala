@@ -55,3 +55,8 @@ object G2SqScen
     override def counterStates: SqCenOptLayer[CounterState] = opIn
   }
 }
+
+/** This trait just puts the value 0 in for the turn. */
+trait G2SqScenStart extends G2SqScen
+{ override val turn: Int = 0
+}
