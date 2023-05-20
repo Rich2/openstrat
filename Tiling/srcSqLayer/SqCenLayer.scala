@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import reflect.ClassTag
 
@@ -6,7 +6,7 @@ import reflect.ClassTag
  * parameter. */
 class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenLayer[A]
 { override type ThisT = SqCenLayer[A]
-  override def typeStr: String = "SqCenDGrid"
+  override def typeStr: String = "SqCenLayer"
   override def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
   def apply(sc: SqCen)(implicit gSys: SqGridSys): A = unsafeArray(gSys.layerArrayIndex(sc))
 
