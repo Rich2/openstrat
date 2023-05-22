@@ -3,7 +3,7 @@ package ostrat; package gTwo; package s2p
 import pgui._, geom._, prid._, psq._, gPlay._
 
 /** Class may not be needed. A class identifying a [[Counter]] and an [[SqCen]] hex coordinate position. */
-case class SqCounter(hc: SqCen, value: Counter) extends SqMemShow[Counter]
+case class SqCounter(sqCen: SqCen, value: Counter) extends SqMemShow[Counter]
 { override def typeStr: String = "SqCounter"
   override def name2: String = "counter"
   override implicit def showT2: ShowT[Counter] = Counter.showTEv
@@ -33,9 +33,9 @@ case class G2SGui(canv: CanvasPlatform, game: G2SGame, settings: G2SGuiSettings)
   def frame: GraphicElems =
   {
     def units: GraphicElems = counterStates.projSomeScPtMap { (ps, hc, pt) =>
-      val player = ps.counter
-      val str = ptScale.scaledStr(170, player.toString + "\n" + hc.strComma, 150, player.charStr + "\n" + hc.strComma, 60, player.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(player.colour, SqCounter(hc, player), str, 24, 2.0)
+      val counter = ps.counter
+      val str = ptScale.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
+      urect.scale(80).slate(pt).fillDrawTextActive(counter.colour, SqCounter(hc, counter), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[SqCen]] coordinate in the tiles that have no unit counters. */
@@ -58,7 +58,7 @@ case class G2SGui(canv: CanvasPlatform, game: G2SGame, settings: G2SGuiSettings)
       lps3a ++ lps3b
     }*/
 
-    actives ++ hexStrs +% sidesDraw //++ moveGraphics ++ units
+    actives ++ hexStrs +% sidesDraw ++ units//++ moveGraphics ++ units
 }
 
   /** Creates the turn button and the action to commit on mouse click. */

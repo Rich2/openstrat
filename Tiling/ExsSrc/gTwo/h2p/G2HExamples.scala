@@ -10,9 +10,6 @@ object G2HScen1 extends G2HScen
   counterStates.setSomeMut(6, 2, CounterState(CounterA, HexDR, HexDL))
   counterStates.setSomeMut(4, 16, CounterState(CounterD, HexDL, HexLt))
   counterStates.setSomesMut((4, 8, CounterState(CounterB, HexDR)), (6, 10, CounterState(CounterC, HexDL, HexDL)))
-
-//  override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(6, 2, HexDR, HexUL), PlayerA.hPath(4, 4, HexDR, HexLt),
-//    PlayerB.hPath(4, 8, HexDL, HexRt), PlayerC.hPath(6, 10, HexLt, HexDR, HexDL))
 }
 
 /** 2nd example Turn 0 scenario state for Game Three. */

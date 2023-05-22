@@ -5,7 +5,7 @@ import prid._, psq._, gPlay._
 object G2SScen1 extends G2SqScenStart
 { implicit val gridSys: SqGrid = SqGrid(2, 6, 2, 8)
   val counterStates: SqCenOptLayer[CounterState] = gridSys.newSCenOptDGrider
-//  counters.unsafeSetSome(4, 4, CounterA)
+  counterStates.setSomeMut(4, 4, CounterState(CounterA))
   //counters.unsafeSetSomes((4, 6, CounterB), (6, 8, CounterC))
 }
 
