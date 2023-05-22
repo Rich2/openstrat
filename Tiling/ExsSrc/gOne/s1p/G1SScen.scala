@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne; package sp1
+package ostrat; package gOne; package s1p
 import prid._, psq._, gPlay._
 
 /** Scenario trait for Game Two with Square tiles. */

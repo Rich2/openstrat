@@ -3,7 +3,7 @@ package ostrat; package gTwo; package s2p
 import prid._, psq._, gPlay._
 
 /** Simple game manager for [[G2SqScen]]. Contains the scenario and the set of [[Counter]]s controlled by the single GUI player. */
-class G2SqGame(scenIn: G2SqScen, val guiCounters: RArr[Counter])
+class G2SGame(scenIn: G2SqScen, val guiCounters: RArr[Counter])
 {
   protected var scen: G2SqScen = scenIn
   implicit val gridSys: SqGridSys = scen.gridSys
@@ -32,7 +32,7 @@ class G2SqGame(scenIn: G2SqScen, val guiCounters: RArr[Counter])
   }
 }
 
-object G2SqGame
-{ /** Factory apply method for [[G2SqGame]] trait. */
-  def apply(scenStart: G2SqScen, guiCounters: RArr[Counter]): G2SqGame = new G2SqGame(scenStart, guiCounters)
+object G2SGame
+{ /** Factory apply method for [[G2SGame]] trait. */
+  def apply(scenStart: G2SqScen, guiCounters: RArr[Counter]): G2SGame = new G2SGame(scenStart, guiCounters)
 }

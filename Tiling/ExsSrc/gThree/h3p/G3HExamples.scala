@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import prid._, phex._, gOne.hp1.GSys
+import prid._, phex._, gOne.h1p.GSys
 
 object G3HScen1 extends G3HScen(0)
 { override implicit val gridSys: HGridReg = GSys.g1

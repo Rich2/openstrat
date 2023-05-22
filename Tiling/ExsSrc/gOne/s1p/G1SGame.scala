@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne; package sp1
+package ostrat; package gOne; package s1p
 import prid._, psq._, gPlay._
 
 /** Simple Game manager for [[G2HScen]]. Contains the Scenario and sequence of counters controlled by the single GUI player */

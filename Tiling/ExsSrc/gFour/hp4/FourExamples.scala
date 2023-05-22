@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gFour; package hp4
-import prid._, phex._, gOne.hp1.GSys
+import prid._, phex._, gOne.h1p.GSys
 
 object FourScen1 extends FourScen(0)
 { override implicit val gridSys: HGridReg = GSys.g1

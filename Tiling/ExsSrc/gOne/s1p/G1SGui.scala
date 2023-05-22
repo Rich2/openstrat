@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne; package sp1
+package ostrat; package gOne; package s1p
 import pgui._, prid._, psq._, geom._, gPlay._, Colour.Black
 
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal

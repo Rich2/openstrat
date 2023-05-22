@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne; package hp1
+package ostrat; package gOne; package h1p
 import pgui._, pParse._, prid._, phex._, gPlay._
 
 case class G1HGuiSettings(view: HGView, counterSet: RArr[Counter])
