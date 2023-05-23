@@ -29,7 +29,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
     def actives: RArr[PolygonActive] = proj.tileActives
 
     def lunits: RArr[PolygonCompound] = counters.projSomeScPtMap { (counter, sc, pt) =>
-      val str = ptScale.scaledStr(170, counter.toString + "\n" + sc.strComma, 150, counter.charStr + "\n" + sc.strComma, 60, counter.charStr)
+      val str = pixPerTile.scaledStr(170, counter.toString + "\n" + sc.strComma, 150, counter.charStr + "\n" + sc.strComma, 60, counter.charStr)
       Rect(120, 90, pt).fillDrawTextActive(counter.colour, SqCenPair(sc, counter), str, 24, 2.0, Black, counter.contrastBW)
     }
 

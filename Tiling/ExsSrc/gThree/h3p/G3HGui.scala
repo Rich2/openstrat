@@ -22,7 +22,7 @@ case class G3HGui(canv: CanvasPlatform, scenStart: G3HScen, viewIn: HGView) exte
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
-  def pixPerTile: Double = proj.pixelsPerTile
+//  override def pixPerTile: Double = proj.pixelsPerTile
 
   canv.keyDown = s => deb("Key down" -- s)
 

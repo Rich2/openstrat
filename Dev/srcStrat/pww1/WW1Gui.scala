@@ -21,7 +21,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
     def hexStrs: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
     def units: GraphicElems = lunits.projSomeHcPtMap { (lunit, hc, pt) =>
-      val str = ptScale.scaledStr(170, lunit.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, lunit.toString)
+      val str = pixPerTile.scaledStr(170, lunit.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, lunit.toString)
       lunit.counter(proj.pixelsPerTile * 0.6, lunit, lunit.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 

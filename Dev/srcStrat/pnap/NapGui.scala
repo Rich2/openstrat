@@ -17,7 +17,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
   override def frame: GraphicElems =
   {
     def units: GraphicElems = corps.projSomeHcPtMap { (corps, hc, pt) =>
-      val str = ptScale.scaledStr(170, corps.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, corps.toString)
+      val str = pixPerTile.scaledStr(170, corps.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, corps.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 

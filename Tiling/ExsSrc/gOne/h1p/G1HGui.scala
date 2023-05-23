@@ -29,8 +29,8 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   def frame: GraphicElems =
   {
     def units: GraphicElems = counters.projSomeHcPtMap { (counter, hc, pt) =>
-      val str = ptScale.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0)
+      val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
+      urect.scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */

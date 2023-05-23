@@ -16,9 +16,9 @@ abstract class TGridSysGui(val title: String) extends CmdBarGui//(title)
   var pixPerC: Double = 40
 
   /** Pixels per Tile. The number of pixels from a side of a tile to the opposite side of the tile. */
-  def ptScale: Double
+  def pixPerTile: Double
 
   var focus: Vec2 = Vec2(0, 0)
 
-  def tilePScaleStr = s"scale = ${ptScale.str2} pixels per tile"
+  def tilePScaleStr = s"scale = ${pixPerTile.str2} pixels per tile"
 }

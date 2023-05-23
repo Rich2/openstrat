@@ -34,7 +34,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
   {
     def units: GraphicElems = counterStates.projSomeHcPtMap { (cs, hc, pt) =>
       val counter = cs.counter
-      val str = ptScale.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
+      val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
       urect.scale(80).slate(pt).fillDrawTextActive(counter.colour, HCounter(hc, counter), str, 24, 2.0)
     }
 

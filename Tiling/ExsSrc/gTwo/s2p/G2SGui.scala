@@ -34,7 +34,7 @@ case class G2SGui(canv: CanvasPlatform, game: G2SGame, settings: G2SGuiSettings)
   {
     def units: GraphicElems = counterStates.projSomeScPtMap { (ps, hc, pt) =>
       val counter = ps.counter
-      val str = ptScale.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
+      val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
       urect.scale(80).slate(pt).fillDrawTextActive(counter.colour, SqCounter(hc, counter), str, 24, 2.0)
     }
 

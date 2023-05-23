@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._, pgui._
 
 abstract class SqSysGui(title: String) extends TGridSysGui(title)
-{ override def ptScale: Double = pixPerC * 2
+{ override def pixPerTile: Double = pixPerC * 2
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     pixPerC *= 1.1
