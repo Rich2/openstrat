@@ -24,13 +24,11 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
    * moves. This data is state for the Gui. */
   var moves: HCenStepPairArr[Counter] = NoMoves
 
-  val urect = Rect(1.4, 1)
-
   def frame: GraphicElems =
   {
     def units: GraphicElems = counters.projSomeHcPtMap { (counter, hc, pt) =>
       val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
-      urect.scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0)
+      Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */

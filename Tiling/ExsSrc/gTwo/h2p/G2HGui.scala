@@ -28,14 +28,12 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
    * moves. This data is state for the Gui. */
   var moves: HCenOptLayer[CounterState] = counterStates.copy
 
-  val urect = Rect(1.4, 1)
-
   def frame: GraphicElems =
   {
     def units: GraphicElems = counterStates.projSomeHcPtMap { (cs, hc, pt) =>
       val counter = cs.counter
       val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(counter.colour, HCounter(hc, counter), str, 24, 2.0)
+      Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCounter(hc, counter), str, 24, 2.0)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */

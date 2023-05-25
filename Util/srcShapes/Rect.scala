@@ -38,8 +38,12 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
 object Rect
-{
-  def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): Rect = RectImp(width, height, cen.x, cen.y)
+{ /** Factory apply method for a rectangle aligned with the X and Y axes. Default height is 1 and default cebtre point is at x = 0, y = 0. There is a
+   *  name overload that takes the X and Y centre coordinates as [[Double]]s. */
+  def apply(width: Double, height: Double = 1, cen: Pt2 = Pt2Z): Rect = RectImp(width, height, cen.x, cen.y)
+
+  /** Factory apply method for a rectangle aligned with the X and Y axes. There is a name overload that has a default height of 1 and takes a [[Pt2]]
+   *  centre point paremeter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = RectImp(width, height, xCen, cenY)
   def fromArray(array: Array[Double]): Rect = new RectImp(array)
 
