@@ -4,7 +4,7 @@ import prid._, phex._, pgui._, pParse._
 
 object G3HLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "g3hex"
+  override def settingStr: String = "g3Hex"
 
   override def default: (CanvasPlatform => Any, String) = (G3HGui(_, G3HScen1, G3HScen1.defaultView()), "JavaFx Game Three")
 
@@ -18,6 +18,16 @@ object G3HLaunch extends GuiLaunchMore
       case _ => G3HScen1
     }
 
+   /* val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1 = sts2.findSettingIdentifierArr("counters")
+    val plAll = scen.counterSet
+    val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
+    val pls3 = pls2.getElse(plAll)
+    val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
+    val settings = G2HGuiSettings(view, pls3)
+    val game = G3HGame(scen, pls3)
+    (G3HGui(_, game, settings), "JavaFx Game Three Hexs")*/
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
     (G3HGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Three")
   }

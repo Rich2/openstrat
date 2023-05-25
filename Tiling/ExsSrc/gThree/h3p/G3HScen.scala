@@ -8,6 +8,7 @@ abstract class G3HScen(val turn: Int) extends HGridScen
   //def terrs: HCenLayer[Terr]
 
   def lunits: HCenArrLayer[LunitState]
+  def teamSet: RArr[Team]
   def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
@@ -59,7 +60,7 @@ abstract class G3HScen(val turn: Int) extends HGridScen
 
 object G3HScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, unitsIn: HCenArrLayer[LunitState]): G3HScen = new G3HScen(turnNum)
+  def apply(turnNum: Int, gridIn: HGrid, unitsIn: HCenArrLayer[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
   {
     /** tile terrain. */
     //override def terrs: HCenLayer[Terr] = terrsIn
@@ -69,5 +70,7 @@ object G3HScen
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */
     override implicit val gridSys: HGrid = gridIn
+
+    override val teamSet: RArr[Team] = teamSetIn
   }
 }
