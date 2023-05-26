@@ -6,6 +6,8 @@ case class Hold(turns: Int)
 //type Command = HStep | Hold
 case class Team(name: String, colour: Colour) extends Coloured
 { override def toString: String = name
+  def charStr: String = ???//char.toString
+
 }
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)

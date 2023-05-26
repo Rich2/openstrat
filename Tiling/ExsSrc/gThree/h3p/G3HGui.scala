@@ -10,18 +10,18 @@ case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
   override def syntaxDepth: Int = 2
 }
 
-case class G3HGui(canv: CanvasPlatform, scenStart: G3HScen, viewIn: HGView) extends HGridSysGui("Game Three Hex Gui")
+case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings) extends HGridSysGui("Game Three Hex Gui")
 { statusText = "Welcome to Game Three."
-  val scen = scenStart
+  val scen: G3HScen = game.getScen
   implicit def gridSys: HGridSys = scen.gridSys
   def lunits: HCenArrLayer[LunitState] = scen.lunits
   var moves: HCenArrLayer[LunitState] = lunits.copy
   var history: RArr[G3HScen] = RArr(scen)
 
-  pixPerC = viewIn.pixelsPerC
-  focus = viewIn.vec
+  pixPerC = ???//viewIn.pixelsPerC
+  focus = ???//viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
-  proj.setView(viewIn)
+  proj.setView(settings.view)
 //  override def pixPerTile: Double = proj.pixelsPerTile
 
   canv.keyDown = s => deb("Key down" -- s)
