@@ -55,6 +55,11 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
   /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
   def elemsHcForeach(f: (A, HCen) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(a, hc)) }
 
+  def map[B](f: RArr[A] => Array[B]): HCenArrLayer[B] = {
+    val newBack: Array[Array[B]] = new Array[Array[B]](arrayOuterUnsafe.length)
+    ???
+  }
+
   /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
   def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val buff = build.newBuff()
