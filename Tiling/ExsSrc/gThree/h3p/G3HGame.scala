@@ -8,7 +8,7 @@ class G3HGame(scenIn: G3HScen, val guiTeams: RArr[Team])
   protected var scen: G3HScen = scenIn
   implicit val gridSys: HGridSys = scen.gridSys
 
-  def getScen: G3HScen = ???// restrict(scen)
+  def getScen: G3HScen = restrict(scen)
 
   /** Resolves turn. Takes in the directives from the single GUI player and sets the valid directives as intentions. The command is passed in as a
    *  relative move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real
@@ -26,10 +26,10 @@ class G3HGame(scenIn: G3HScen, val guiTeams: RArr[Team])
   }*/
 
   /** Restricts intentions to the counters controled by the player. */
-  /*def restrict(inp: G3HScen): G3HScen =
-  { val newStates = inp.counterStates.map{ cs => ife(guiCounters.contains(cs.counter), cs, CounterState(cs.counter, HStepArr())) }
-    G3HScen(inp.turn, gridSys, newStates)
-  }*/
+  def restrict(inp: G3HScen): G3HScen =
+  { val newStates = inp.lunits//.map{ cs => ife(guiTeams.contains(cs.counter), cs, CounterState(cs.counter, HStepArr())) }
+    G3HScen(inp.turn, gridSys, newStates, inp.teamSet)
+  }
 }
 
 object G3HGame

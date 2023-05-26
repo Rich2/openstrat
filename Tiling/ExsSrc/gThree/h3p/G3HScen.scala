@@ -3,7 +3,7 @@ package ostrat; package gThree; package h3p
 import prid._, phex._
 
 /** Example Game three scenario trait. */
-abstract class G3HScen(val turn: Int) extends HGridScen
+abstract class G3HScen(val turn: Int) extends HSysScen
 { /** tile terrain. */
   //def terrs: HCenLayer[Terr]
 
@@ -40,7 +40,7 @@ abstract class G3HScen(val turn: Int) extends HGridScen
   {
     val acc: HCenAccLayer[LunitState] = HCenAccLayer()
     oldStates.elemsHcForeach { (ls, origin) =>
-      val steps: HStepArr = ls.cmds
+      val steps: HStepArr = ls.intentions
       if (steps.length > 0) {
         gridSys.stepEndFind(origin, steps.head) match
         { case Some(target) if lunits.emptyTile(target) => acc.append(target, origin, ls)
@@ -60,7 +60,7 @@ abstract class G3HScen(val turn: Int) extends HGridScen
 
 object G3HScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, unitsIn: HCenArrLayer[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
+  def apply(turnNum: Int, gridIn: HGridSys, unitsIn: HCenArrLayer[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
   {
     /** tile terrain. */
     //override def terrs: HCenLayer[Terr] = terrsIn
@@ -69,7 +69,7 @@ object G3HScen
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */
-    override implicit val gridSys: HGrid = gridIn
+    override implicit val gridSys: HGridSys = gridIn
 
     override val teamSet: RArr[Team] = teamSetIn
   }

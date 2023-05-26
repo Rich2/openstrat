@@ -18,8 +18,8 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
   var moves: HCenArrLayer[LunitState] = lunits.copy
   var history: RArr[G3HScen] = RArr(scen)
 
-  pixPerC = ???//viewIn.pixelsPerC
-  focus = ???//viewIn.vec
+//  pixPerC = ???//viewIn.pixelsPerC
+  //focus = ???//viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
 //  override def pixPerTile: Double = proj.pixelsPerTile
@@ -41,7 +41,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moves.elemsHcFlatMap { (ps, hc) =>
-      val lps1: LinePathHC = ps.cmds.pathHC(hc)
+      val lps1: LinePathHC = ps.intentions.pathHC(hc)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init
       val lps2b = lps2.lasts

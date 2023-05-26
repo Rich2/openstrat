@@ -21,11 +21,11 @@ object Lunit
 { def apply(team: Team, num: Int): Lunit = new Lunit(team, num)
 }
 
-class LunitState(val lunit: Lunit, val cmds: HStepArr = HStepArr()) extends Coloured
+class LunitState(val lunit: Lunit, val intentions: HStepArr = HStepArr()) extends Coloured
 { def colour: Colour = lunit.colour
   def team: Team = lunit.team
   override def toString: String = lunit.toString
-  def cmdsTail: LunitState = new LunitState(lunit, cmds.tail)
+  def cmdsTail: LunitState = new LunitState(lunit, intentions.tail)
 }
 
 object LunitState

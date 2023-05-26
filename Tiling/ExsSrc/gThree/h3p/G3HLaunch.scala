@@ -31,7 +31,5 @@ object G3HLaunch extends GuiLaunchMore
     val settings = G3HGuiSettings(view, pls3)
     val game = G3HGame(scen, pls3)
     (G3HGui(_, game, settings), "JavaFx Game Three Hexs")
-    //val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
-    //(G3HGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Three")
   }
 }
