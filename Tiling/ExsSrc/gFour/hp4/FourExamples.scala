@@ -9,7 +9,7 @@ object FourScen1 extends FourScen(0)
   srp(6, 2, 2, Water)
 
   srp(4, 4, 2, Woods)
-  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
+  val lunits: HCenRArrLayer[LunitState] = HCenRArrLayer()
   lunits.set1(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
   lunits.setArr(4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL), LunitState(Lunit(TeamB, 2), HexLt))//, (6, 10, LunitState(Lunit(TeamA, 2))))
 }
@@ -20,7 +20,7 @@ object FourScen2 extends FourScen(0)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
-  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
+  val lunits: HCenRArrLayer[LunitState] = HCenRArrLayer()
   lunits.setArr(4, 12, LunitState(Lunit(TeamA, 1), HexDR), LunitState(Lunit(TeamA, 2), HexRt), LunitState(Lunit(TeamA, 3), HexUR))
   //lunits.setSomesMut((4, 8, LunitState(TeamB, HexLt, HexDL)), (6, 10, LunitState(TeamA)))
 }
@@ -37,7 +37,7 @@ object FourScen3 extends FourScen(0)
   sr(14, 42, 3, Woods)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
-  val lunits: HCenArrLayer[LunitState] = HCenArrLayer()
+  val lunits: HCenRArrLayer[LunitState] = HCenRArrLayer()
  // lunits.setSomeMut(4, 4, LunitState(TeamA))
 
 }

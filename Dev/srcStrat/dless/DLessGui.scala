@@ -8,7 +8,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
-  def armies: HCenArrLayer[Army] = scen.armies
+  def armies: HCenRArrLayer[Army] = scen.armies
 
   def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
   var moves: HCenStepPairArr[Army] = NoMoves

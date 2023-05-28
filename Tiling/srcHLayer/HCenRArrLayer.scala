@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
-class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit val ct: ClassTag[A])
+class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit val ct: ClassTag[A]) extends HCenArrLayer[A, RArr[A]]
 {
   def apply(hc: HCen): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(hc)))
   def apply(r: Int, c: Int): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(r, c)))
@@ -21,7 +21,7 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
 
   def tileHeadGet(hCen: HCen): A = arrayOuterUnsafe(gridSys.layerArrayIndex(hCen)).head
 
-  def copy: HCenArrLayer[A] = new HCenArrLayer[A](arrayOuterUnsafe.clone, gridSys)
+  def copy: HCenRArrLayer[A] = new HCenRArrLayer[A](arrayOuterUnsafe.clone, gridSys)
 
   def set1(r: Int, c: Int, value: A): Unit = setArr(HCen(r, c), value)
 
@@ -55,9 +55,14 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
   /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
   def elemsHcForeach(f: (A, HCen) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(a, hc)) }
 
-  def map[B](f: RArr[A] => Array[B]): HCenArrLayer[B] = {
-    val newBack: Array[Array[B]] = new Array[Array[B]](arrayOuterUnsafe.length)
-    ???
+  def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: RArr[A] => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB,LayerT]): LayerT =
+  { val res = builder.uninitialised(gridSys)
+    var i = 0
+    while (i < gridSys.numTiles) {
+      builder.iSet(res, i, f(new RArr(arrayOuterUnsafe(i))))
+      i += 1
+    }
+    res
   }
 
   /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
@@ -185,18 +190,18 @@ class HCenArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridS
   }
 }
 
-/** Companion object for the [[HCenArrLayer]] class, contains factory apply methods that take the [[HGridSys]] implicitly or explicitly. */
-object HCenArrLayer
+/** Companion object for the [[HCenRArrLayer]] class, contains factory apply methods that take the [[HGridSys]] implicitly or explicitly. */
+object HCenRArrLayer
 {  /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is
    * passed explicitly as the sole paramter of the first parameter list. */
-  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGridSys): HCenArrLayer[A] = apply(gridSys)(ct)
+  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGridSys): HCenRArrLayer[A] = apply(gridSys)(ct)
 
   /** Factory apply method for an [[HGridSys]] [[HCen]] data layer of [[RArr]]s. There is a name overload of this method where the [[HGridSys]] is
    * passed implicitly. */
-  def apply[A <: AnyRef](gridSys: HGridSys)(implicit ct: ClassTag[A]): HCenArrLayer[A] =
+  def apply[A <: AnyRef](gridSys: HGridSys)(implicit ct: ClassTag[A]): HCenRArrLayer[A] =
   { val newArray = new Array[Array[A]](gridSys.numTiles)
     val init: Array[A] = Array()
     iUntilForeach(gridSys.numTiles)(newArray(_) = init)
-    new HCenArrLayer[A](newArray, gridSys)(ct)
+    new HCenRArrLayer[A](newArray, gridSys)(ct)
   }
 }

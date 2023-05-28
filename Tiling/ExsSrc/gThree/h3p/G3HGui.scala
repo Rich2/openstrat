@@ -14,8 +14,8 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
 { statusText = "Welcome to Game Three."
   val scen: G3HScen = game.getScen
   implicit def gridSys: HGridSys = scen.gridSys
-  def lunits: HCenArrLayer[LunitState] = scen.lunits
-  var moves: HCenArrLayer[LunitState] = lunits.copy
+  def lunits: HCenRArrLayer[LunitState] = scen.lunits
+  var moves: HCenRArrLayer[LunitState] = lunits.copy
   var history: RArr[G3HScen] = RArr(scen)
 
 //  pixPerC = ???//viewIn.pixelsPerC

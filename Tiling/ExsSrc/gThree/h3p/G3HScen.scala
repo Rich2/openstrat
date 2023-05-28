@@ -7,7 +7,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
 { /** tile terrain. */
   //def terrs: HCenLayer[Terr]
 
-  def lunits: HCenArrLayer[LunitState]
+  def lunits: HCenRArrLayer[LunitState]
   def teamSet: RArr[Team]
   def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 
@@ -36,7 +36,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
     ???
   }
 
-  def resolve(oldStates: HCenArrLayer[LunitState]): HCenArrLayer[LunitState] =
+  def resolve(oldStates: HCenRArrLayer[LunitState]): HCenRArrLayer[LunitState] =
   {
     val acc: HCenAccLayer[LunitState] = HCenAccLayer()
     oldStates.elemsHcForeach { (ls, origin) =>
@@ -48,7 +48,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
         }
       }
     }
-    val newStates: HCenArrLayer[LunitState] = oldStates.copy
+    val newStates: HCenRArrLayer[LunitState] = oldStates.copy
     acc.foreach { (target, pairArr) => pairArr match
       { case HCenPairArr1(origin, ps) if origin != target => newStates.mutateMoveUnsafe(origin, target, _ == ps)(_.cmdsTail)
         case _ =>
@@ -60,12 +60,12 @@ abstract class G3HScen(val turn: Int) extends HSysScen
 
 object G3HScen
 {
-  def apply(turnNum: Int, gridIn: HGridSys, unitsIn: HCenArrLayer[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
+  def apply(turnNum: Int, gridIn: HGridSys, unitsIn: HCenRArrLayer[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
   {
     /** tile terrain. */
     //override def terrs: HCenLayer[Terr] = terrsIn
 
-    override def lunits: HCenArrLayer[LunitState] = unitsIn
+    override def lunits: HCenRArrLayer[LunitState] = unitsIn
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */

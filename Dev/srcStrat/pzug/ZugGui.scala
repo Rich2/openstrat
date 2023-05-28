@@ -9,7 +9,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   val terrs: HCenLayer[ZugTerr] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
   val corners = scen.corners
-  def squads: HCenArrLayer[Squad] = scen.lunits
+  def squads: HCenRArrLayer[Squad] = scen.lunits
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
