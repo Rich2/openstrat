@@ -27,7 +27,8 @@ class G3HGame(scenIn: G3HScen, val guiTeams: RArr[Team])
 
   /** Restricts intentions to the counters controled by the player. */
   def restrict(inp: G3HScen): G3HScen =
-  { val newStates = inp.lunits//.map{ cs => ife(guiTeams.contains(cs.counter), cs, CounterState(cs.counter, HStepArr())) }
+  { val ias: HCenIntNArrLayer[HCen, HCenArr] = inp.lunits.map{hf => HCenArr()}
+    val newStates = inp.lunits//.map{ cs => ife(guiTeams.contains(cs.counter), cs, CounterState(cs.counter, HStepArr())) }
     G3HScen(inp.turn, gridSys, newStates, inp.teamSet)
   }
 }
