@@ -16,20 +16,20 @@ trait HCenArrLayerBuilder[A, ArrT <: Arr[A], LayerT <: HCenArrLayer[A, ArrT]]
 
 object HCenArrLayer extends HCenArrLayerLowPrioity
 {
-  implicit def intNEv[A <: IntNElem, ArrT <: IntNArr[A]](implicit intNArrMapBuilder: IntNArrMapBuilder[A, ArrT]): HCenArrLayerBuilder[A, ArrT, HCenIntNArrLayer[A, ArrT]] =
-    new HCenArrLayerBuilder[A, ArrT, HCenIntNArrLayer[A, ArrT]]
-    { val mapBuilder: IntNArrMapBuilder[A, ArrT] = intNArrMapBuilder
-      override def uninitialised(gridSys: HGridSys): HCenIntNArrLayer[A, ArrT] =
-        new HCenIntNArrLayer[A, ArrT](new Array[Array[Int]](gridSys.numTiles), gridSys)
-      override def iSet(layer: HCenIntNArrLayer[A, ArrT], i: Int, arr: ArrT): Unit = layer.arrayArrayInt(i) = arr.unsafeArray
-    }
+  implicit def intNBuilderEv[B <: IntNElem, ArrB <: IntNArr[B]](implicit intNArrMapBuilder: IntNArrMapBuilder[B, ArrB]):
+  HCenArrLayerBuilder[B, ArrB, HCenIntNArrLayer[B, ArrB]] = new HCenArrLayerBuilder[B, ArrB, HCenIntNArrLayer[B, ArrB]]
+  { val arrBuilder: IntNArrMapBuilder[B, ArrB] = intNArrMapBuilder
+    override def uninitialised(gridSys: HGridSys): HCenIntNArrLayer[B, ArrB] =
+      new HCenIntNArrLayer[B, ArrB](new Array[Array[Int]](gridSys.numTiles), gridSys)
+    override def iSet(layer: HCenIntNArrLayer[B, ArrB], i: Int, arr: ArrB): Unit = layer.arrayArrayInt(i) = arr.unsafeArray
+  }
 }
 
 trait HCenArrLayerLowPrioity
 {
-  implicit def RArrEv[A]: HCenArrLayerBuilder[A, RArr[A], HCenRArrLayer[A]] = new HCenArrLayerBuilder[A, RArr[A], HCenRArrLayer[A]]{
-    override def uninitialised(gridSys: HGridSys): HCenRArrLayer[A] = ???
+  implicit def RArrBuilderEv[B]: HCenArrLayerBuilder[B, RArr[B], HCenRArrLayer[B]] = new HCenArrLayerBuilder[B, RArr[B], HCenRArrLayer[B]]{
+    override def uninitialised(gridSys: HGridSys): HCenRArrLayer[B] = ???
 
-    override def iSet(layer: HCenRArrLayer[A], i: Int, arr: RArr[A]): Unit = ???
+    override def iSet(layer: HCenRArrLayer[B], i: Int, arr: RArr[B]): Unit = ???
   }
 }
