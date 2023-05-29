@@ -28,8 +28,8 @@ trait HCenArrLayerLowPrioity
 {
   implicit def RArrBuilderEv[B](implicit ct: ClassTag[B]): HCenArrLayerBuilder[B, RArr[B], HCenRArrLayer[B]] = new HCenArrLayerBuilder[B, RArr[B], HCenRArrLayer[B]]
   { override val arrBBuild: ArrMapBuilder[B, RArr[B]] = ArrMapBuilder.rMapImplicit
-    override def uninitialised(gridSys: HGridSys): HCenRArrLayer[B] = ???
-    override def iSet(layer: HCenRArrLayer[B], i: Int, arr: RArr[B]): Unit = ???
+    override def uninitialised(gridSys: HGridSys): HCenRArrLayer[B] = new HCenRArrLayer(new Array[Array[B]](gridSys.numTiles), gridSys)
+    override def iSet(layer: HCenRArrLayer[B], i: Int, arr: RArr[B]): Unit = layer.arrayOuterUnsafe(i) = arr.unsafeArray
   }
 }
 
