@@ -55,11 +55,29 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
   /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
   def elemsHcForeach(f: (A, HCen) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(a, hc)) }
 
-  def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: RArr[A] => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB,LayerT]): LayerT =
+  override def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: RArr[A] => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB,LayerT]): LayerT =
   { val res = builder.uninitialised(gridSys)
     var i = 0
     while (i < numTiles)
     { builder.iSet(res, i, f(new RArr(arrayOuterUnsafe(i))))
+      i += 1
+    }
+    res
+  }
+
+  def mapMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: A => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = layerBBuild.uninitialised(gridSys)
+    var i = 0
+    val arrBBuid = layerBBuild.arrBBuild
+    while (i < numTiles)
+    { val arrA = arrayOuterUnsafe(i)
+      val arrB = arrBBuid.uninitialised(arrA.length)
+      var j = 0
+      while(j < arrA.length)
+      { arrBBuid.indexSet(arrB, j, f(arrA(j)))
+        j +=1
+      }
+      layerBBuild.iSet(res, i, arrB)
       i += 1
     }
     res
