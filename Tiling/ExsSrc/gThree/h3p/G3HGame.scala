@@ -13,22 +13,22 @@ class G3HGame(scenIn: G3HScen, val guiTeams: RArr[Team])
   /** Resolves turn. Takes in the directives from the single GUI player and sets the valid directives as intentions. The command is passed in as a
    *  relative move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real
    *  location. */
-  /*def resolveTurn(directives: HCenOptLayer[CounterState]): G2HScen =
-  {
-    val intentions = scen.counterStates.hcMap{(hc, currentState) => directives(hc) match
-      { case Some(directiveState) if guiCounters.contains(currentState.counter) & directiveState.counter == currentState.counter => directiveState
+  /*def resolveTurn(directives: HCenRArrLayer[LunitState]): G3HScen = {
+    val intentions = scen.lunitStates.hcMap { (hc, currentState) =>
+      directives(hc) match {
+        case Some(directiveState) if guiCounters.contains(currentState.counter) & directiveState.counter == currentState.counter => directiveState
         case _ => currentState
       }
     }
-    val newScen = G2HScen(scen.turn + 1, gridSys, scen.resolve(intentions))
+    val newScen = G3HScen(scen.turn + 1, gridSys, scen.resolve(intentions))
     scen = newScen
     restrict(scen)
   }*/
 
   /** Restricts intentions to the counters controled by the player. */
   def restrict(inp: G3HScen): G3HScen =
-  { val ias: HCenIntNArrLayer[HCen, HCenArr] = inp.lunits.map{hf => HCenArr()}
-    val oldStates: HCenRArrLayer[LunitState]= inp.lunits
+  { val ias: HCenIntNArrLayer[HCen, HCenArr] = inp.lunitStates.map{ hf => HCenArr()}
+    val oldStates: HCenRArrLayer[LunitState]= inp.lunitStates
     val newStates = oldStates.mapMap{ cs => ife(guiTeams.contains(cs.team), cs, LunitState(cs.lunit, HStepArr())) }
     G3HScen(inp.turn, gridSys, newStates, inp.teamSet)
   }

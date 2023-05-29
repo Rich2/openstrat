@@ -7,7 +7,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
 { /** tile terrain. */
   //def terrs: HCenLayer[Terr]
 
-  def lunits: HCenRArrLayer[LunitState]
+  def lunitStates: HCenRArrLayer[LunitState]
   def teamSet: RArr[Team]
   def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 
@@ -43,7 +43,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
       val steps: HStepArr = ls.intentions
       if (steps.length > 0) {
         gridSys.stepEndFind(origin, steps.head) match
-        { case Some(target) if lunits.emptyTile(target) => acc.append(target, origin, ls)
+        { case Some(target) if lunitStates.emptyTile(target) => acc.append(target, origin, ls)
           case _ =>
         }
       }
@@ -65,7 +65,7 @@ object G3HScen
     /** tile terrain. */
     //override def terrs: HCenLayer[Terr] = terrsIn
 
-    override def lunits: HCenRArrLayer[LunitState] = unitsIn
+    override def lunitStates: HCenRArrLayer[LunitState] = unitsIn
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */
