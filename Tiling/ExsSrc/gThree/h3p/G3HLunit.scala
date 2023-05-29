@@ -29,7 +29,7 @@ class LunitState(val lunit: Lunit, val intentions: HStepArr = HStepArr()) extend
 }
 
 object LunitState
-{ def apply(lunit: Lunit, cmds: HStep *): LunitState = new LunitState(lunit, cmds.toArr)
-  def apply(lunit: Lunit, cmds: HStepArr): LunitState = new LunitState(lunit, cmds)
+{ def apply(lunit: Lunit, intentions: HStep *): LunitState = new LunitState(lunit, intentions.toArr)
+  def apply(lunit: Lunit, inentions: HStepArr): LunitState = new LunitState(lunit, inentions)
   def apply(team: Team, unitNum: Int, cmds: HStep *): LunitState = new LunitState(Lunit(team, unitNum), cmds.toArr)
 }

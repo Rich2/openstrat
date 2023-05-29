@@ -3,12 +3,12 @@ package ostrat; package gThree; package h3p
 import prid._, phex._, gOne.h1p.GSys
 
 object G3HScen1 extends G3HScen(0)
-{ override implicit val gridSys: HGridReg = GSys.g1
+{ override implicit val gridSys: HGridReg = HGridReg(2, 8, 2, 16)
   val lunits: HCenRArrLayer[LunitState] = HCenRArrLayer()
   lunits.set1(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
   lunits.setArr(4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL), LunitState(Lunit(TeamB, 2), HexLt))
-
-  override val teamSet: RArr[Team] = RArr()
+  //lunits
+  override val teamSet: RArr[Team] = RArr(TeamA, TeamB)
 }
 
 object G3HScen2 extends G3HScen(0)

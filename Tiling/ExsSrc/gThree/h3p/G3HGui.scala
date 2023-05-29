@@ -18,11 +18,8 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
   var moves: HCenRArrLayer[LunitState] = lunits.copy
   var history: RArr[G3HScen] = RArr(scen)
 
-//  pixPerC = ???//viewIn.pixelsPerC
-  //focus = ???//viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
-//  override def pixPerTile: Double = proj.pixelsPerTile
 
   canv.keyDown = s => deb("Key down" -- s)
 

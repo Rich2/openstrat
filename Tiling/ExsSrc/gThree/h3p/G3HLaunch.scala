@@ -11,9 +11,8 @@ object G3HLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) =
     (G3HGui(_, G3HGame(G3HScen1, G3HScen1.teamSet), G3HGuiSettings(G3HScen1.defaultView(), G3HScen1.teamSet)), "JavaFx Game Three")
 
-  override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
-    val oScen: EMon[Int] = sts.findSetting[Int]("scen")
-    val num: Int = oScen.getElse(1)
+  override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
+  { val num: Int = sts.findSettingElse[Int]("scen", 1)
 
     val scen: G3HScen = num match
     { case 1 => G3HScen1
