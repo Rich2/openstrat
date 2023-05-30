@@ -25,7 +25,7 @@ class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
     restrict(scen)
   }
 
-  /** Restricts intentions to the counters controled by the player. */
+  /** Restricts intentions to the counters controlled by the player. */
   def restrict(inp: G2HScen): G2HScen =
   { val newStates = inp.counterStates.map{ cs => ife(guiCounters.contains(cs.counter), cs, CounterState(cs.counter, HStepArr())) }
     G2HScen(inp.turn, gridSys, newStates)

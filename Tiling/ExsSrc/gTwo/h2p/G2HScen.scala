@@ -19,6 +19,7 @@ trait G2HScen extends HSysTurnScen
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def counterStates: HCenOptLayer[CounterState]
   def counterSet: RArr[Counter] = counterStates.somesMap(cs => cs.counter)
+
   def resolve(oldStates: HCenOptLayer[CounterState]): HCenOptLayer[CounterState] =
   { val acc: HCenAccLayer[CounterState] = HCenAccLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
