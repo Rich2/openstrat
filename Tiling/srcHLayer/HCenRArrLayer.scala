@@ -65,15 +65,15 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
     res
   }
 
-  /*def hcMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, RArr[A]) => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT = {
-    val res = builder.uninitialised(gridSys)
-    var i = 0
-    while (i < numTiles) {
-      builder.iSet(res, i, f(new RArr(arrayOuterUnsafe(i))))
-      i += 1
+  /** Maps each tile's [[Rarr]] to a new [[Arr]]. */
+  def hcMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, RArr[A]) => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = builder.uninitialised(gridSys)
+    gridSys.foreach{ hc =>
+      val i = gridSys.layerArrayIndex(hc)
+      builder.iSet(res, i, f(hc, new RArr(arrayOuterUnsafe(i))))
     }
     res
-  }*/
+  }
 
   def mapMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: A => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
   { val res = layerBBuild.uninitialised(gridSys)

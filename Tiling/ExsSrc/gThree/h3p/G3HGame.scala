@@ -16,7 +16,7 @@ class G3HGame(scenIn: G3HScen, val guiTeams: RArr[Team])
   /*def resolveTurn(directives: HCenRArrLayer[LunitState]): G3HScen = {
     val intentions = scen.lunitStates.hcMap { (hc, currentState) =>
       directives(hc) match {
-        case Some(directiveState) if guiCounters.contains(currentState.counter) & directiveState.counter == currentState.counter => directiveState
+        case Some(directiveState) if guiTeams.contains(currentState.team) & directiveState.counter == currentState.counter => directiveState
         case _ => currentState
       }
     }

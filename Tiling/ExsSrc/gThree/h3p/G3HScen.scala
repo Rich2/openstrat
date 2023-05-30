@@ -15,8 +15,6 @@ abstract class G3HScen(val turn: Int) extends HSysScen
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(orderList: HStepPathPairArr[LunitState]): G3HScen =
   {
-    //val playersKey = units.SomesKeyMapDepr
-
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenBuffLayer[HStep] = gridSys.newHCenArrOfBuff
 
