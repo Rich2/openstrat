@@ -93,6 +93,23 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
     res
   }
 
+  def mapHCMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, A) => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = layerBBuild.uninitialised(gridSys)
+    val arrBBuid = layerBBuild.arrBBuild
+    gridSys.foreach { hc =>
+      val i = gridSys.layerArrayIndex(hc)
+      val arrA = arrayOuterUnsafe(i)
+      val arrB = arrBBuid.uninitialised(arrA.length)
+      var j = 0
+      while (j < arrA.length) {
+        arrBBuid.indexSet(arrB, j, f(hc, arrA(j)))
+        j += 1
+      }
+      layerBBuild.iSet(res, i, arrB)
+    }
+    res
+  }
+
   /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
   def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val buff = build.newBuff()
