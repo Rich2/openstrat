@@ -3,14 +3,13 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
-class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit ct: ClassTag[A]) extends HCenArrLayer[A, RArr[A]]
-{
-  def apply(hc: HCen): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(hc)))
-  def apply(r: Int, c: Int): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(r, c)))
+class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit ct: ClassTag[A]) extends HCenArrLayer[A, RArr[A]]
+{ def apply(hc: HCen): RArr[A] = new RArr(outerArrayUnsafe(gridSys.layerArrayIndex(hc)))
+  def apply(r: Int, c: Int): RArr[A] = new RArr(outerArrayUnsafe(gridSys.layerArrayIndex(r, c)))
+  override def iApply(index: Int): RArr[A] = new RArr(outerArrayUnsafe(index))
+  def applyUnsafe(hc: HCen): Array[A] = outerArrayUnsafe(gridSys.layerArrayIndex(hc))
 
-  def applyUnsafe(hc: HCen): Array[A] = arrayOuterUnsafe(gridSys.layerArrayIndex(hc))
-
-  def applyUnsafe(r: Int, c: Int): Array[A] = arrayOuterUnsafe(gridSys.layerArrayIndex(r, c))
+  def applyUnsafe(r: Int, c: Int): Array[A] = outerArrayUnsafe(gridSys.layerArrayIndex(r, c))
 
   def emptyTile(r: Int, c: Int): Boolean = apply(r, c).length == 0
   def emptyTile(hc: HCen): Boolean = apply(hc).length == 0
@@ -19,24 +18,24 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
 
   def noneEmptyTile(hc: HCen): Boolean = apply(hc).length > 0
 
-  def tileHeadGet(hCen: HCen): A = arrayOuterUnsafe(gridSys.layerArrayIndex(hCen)).head
+  def tileHeadGet(hCen: HCen): A = outerArrayUnsafe(gridSys.layerArrayIndex(hCen)).head
 
-  def copy: HCenRArrLayer[A] = new HCenRArrLayer[A](arrayOuterUnsafe.clone, gridSys)
+  def copy: HCenRArrLayer[A] = new HCenRArrLayer[A](outerArrayUnsafe.clone, gridSys)
 
   def set1(r: Int, c: Int, value: A): Unit = setArr(HCen(r, c), value)
 
-  def setArray(hc: HCen, newArray: Array[A]): Unit = arrayOuterUnsafe(gridSys.layerArrayIndex(hc)) = newArray
+  def setArray(hc: HCen, newArray: Array[A]): Unit = outerArrayUnsafe(gridSys.layerArrayIndex(hc)) = newArray
 
   def setArr(hc: HCen, values: A*): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
-    arrayOuterUnsafe(gridSys.layerArrayIndex(hc)) = newElem
+    outerArrayUnsafe(gridSys.layerArrayIndex(hc)) = newElem
   }
 
   def setArr(r: Int, c: Int, values: A*): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
-    arrayOuterUnsafe(gridSys.layerArrayIndex(r, c)) = newElem
+    outerArrayUnsafe(gridSys.layerArrayIndex(r, c)) = newElem
   }
   def setSame(value: A, hcs: HCen*): Unit = hcs.foreach{ hc => setArr(hc, value) }
 
@@ -45,11 +44,11 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
 
   /** Prepends to tile's [[Arr]]. */
   def prepend(hc: HCen, value: A): Unit =
-  { val oldElem =  arrayOuterUnsafe(gridSys.layerArrayIndex(hc))
+  { val oldElem =  outerArrayUnsafe(gridSys.layerArrayIndex(hc))
     val newElem: Array[A] = new Array[A](oldElem.length + 1)
     newElem(0) = value
     oldElem.copyToArray(newElem, 1)
-    arrayOuterUnsafe(gridSys.layerArrayIndex(hc)) = newElem
+    outerArrayUnsafe(gridSys.layerArrayIndex(hc)) = newElem
   }
 
   /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
@@ -57,7 +56,7 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
 
   override def foreach(f: RArr[A] => Unit): Unit =
   { var i = 0
-    arrayOuterUnsafe.foreach{ array =>
+    outerArrayUnsafe.foreach{ array =>
       f(new RArr(array))
       i += 1
     }
@@ -65,28 +64,19 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
 
   override def iForeach(f: (Int, RArr[A]) => Unit): Unit =
   { var i = 0
-    arrayOuterUnsafe.foreach { array =>
+    outerArrayUnsafe.foreach { array =>
       f(i, new RArr(array))
       i += 1
     }
   }
 
-  /** Maps each tile's [[Rarr]] to a new [[Arr]]. */
-  def hcMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, RArr[A]) => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
-  { val res = builder.uninitialised(gridSys)
-    gridSys.foreach{ hc =>
-      val i = gridSys.layerArrayIndex(hc)
-      builder.iSet(res, i, f(hc, new RArr(arrayOuterUnsafe(i))))
-    }
-    res
-  }
 
   def mapMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: A => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
   { val res = layerBBuild.uninitialised(gridSys)
     var i = 0
     val arrBBuid = layerBBuild.arrBBuild
     while (i < numTiles)
-    { val arrA = arrayOuterUnsafe(i)
+    { val arrA = outerArrayUnsafe(i)
       val arrB = arrBBuid.uninitialised(arrA.length)
       var j = 0
       while(j < arrA.length)
@@ -104,7 +94,7 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
     val arrBBuid = layerBBuild.arrBBuild
     gridSys.foreach { hc =>
       val i = gridSys.layerArrayIndex(hc)
-      val arrA = arrayOuterUnsafe(i)
+      val arrA = outerArrayUnsafe(i)
       val arrB = arrBBuid.uninitialised(arrA.length)
       var j = 0
       while (j < arrA.length) {
@@ -170,7 +160,7 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
   def projHeadsHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
-      val array = arrayOuterUnsafe(proj.parent.layerArrayIndex(hc))
+      val array = outerArrayUnsafe(proj.parent.layerArrayIndex(hc))
       if (array.length > 0)
       { val res = f(array(0), hc, proj.transCoord(hc))
         build.buffGrow(buff, res)
@@ -202,7 +192,7 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
   def projEmptyHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
-      val array = arrayOuterUnsafe(proj.parent.layerArrayIndex(hc))
+      val array = outerArrayUnsafe(proj.parent.layerArrayIndex(hc))
       if (array.length == 0) {
         val res = f(hc, proj.transCoord(hc))
         build.buffGrow(buff, res)

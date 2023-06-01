@@ -10,6 +10,8 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
   /** Foreachs over each tile's [[Arr]]. */
   def foreach(f: ArrA => Unit): Unit
 
+  def iApply(index: Int): ArrA
+
   /** The number of tile's in this data layer. */
   def numTiles: Int = gridSys.numTiles
 
@@ -22,6 +24,14 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
 
   /** Foreachs over an index and each tile's [[Arr]]. */
   def iForeach(f: (Int, ArrA) => Unit): Unit
+
+
+  /** Maps each tile's [[HCen]] with its respective [[Arr]] to a new [[Arr]]. */
+  final def hcMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, ArrA) => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = builder.uninitialised(gridSys)
+    gridSys.iForeach { (hc, i) => builder.iSet(res, i, f(hc, iApply(i))) }
+    res
+  }
 }
 
 object HCenArrLayer extends HCenArrLayerLowPrioity
@@ -40,7 +50,7 @@ trait HCenArrLayerLowPrioity
   implicit def RArrBuilderEv[B](implicit ct: ClassTag[B]): HCenArrLayerBuilder[B, RArr[B], HCenRArrLayer[B]] = new HCenArrLayerBuilder[B, RArr[B], HCenRArrLayer[B]]
   { override val arrBBuild: ArrMapBuilder[B, RArr[B]] = ArrMapBuilder.rMapImplicit
     override def uninitialised(gridSys: HGridSys): HCenRArrLayer[B] = new HCenRArrLayer(new Array[Array[B]](gridSys.numTiles), gridSys)
-    override def iSet(layer: HCenRArrLayer[B], i: Int, arr: RArr[B]): Unit = layer.arrayOuterUnsafe(i) = arr.unsafeArray
+    override def iSet(layer: HCenRArrLayer[B], i: Int, arr: RArr[B]): Unit = layer.outerArrayUnsafe(i) = arr.unsafeArray
   }
 }
 
