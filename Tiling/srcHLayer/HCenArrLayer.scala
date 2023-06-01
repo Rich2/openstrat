@@ -6,12 +6,23 @@ import reflect.ClassTag
 trait HCenArrLayer[A, ArrA <: Arr[A]]
 {
   def gridSys: HGridSys
+
+  /** Foreachs over each tile's [[Arr]]. */
+  def foreach(f: ArrA => Unit): Unit
+
+  /** The number of tile's in this data layer. */
   def numTiles: Int = gridSys.numTiles
 
   /** Maps from this [[HCenArrLayer]] to an [[HCenArrLayer]] type ArrB. */
-  def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: ArrA => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB,LayerT]): LayerT
-}
+  final def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: ArrA => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT = {
+    val res = builder.uninitialised(gridSys)
+    iForeach { (i, a) => builder.iSet(res, i, f(a)) }
+    res
+  }
 
+  /** Foreachs over an index and each tile's [[Arr]]. */
+  def iForeach(f: (Int, ArrA) => Unit): Unit
+}
 
 object HCenArrLayer extends HCenArrLayerLowPrioity
 {
@@ -20,7 +31,7 @@ object HCenArrLayer extends HCenArrLayerLowPrioity
   { override val arrBBuild: IntNArrMapBuilder[B, ArrB] = intNArrMapBuilder
     override def uninitialised(gridSys: HGridSys): HCenIntNArrLayer[B, ArrB] =
       new HCenIntNArrLayer[B, ArrB](new Array[Array[Int]](gridSys.numTiles), gridSys)
-    override def iSet(layer: HCenIntNArrLayer[B, ArrB], i: Int, arr: ArrB): Unit = layer.arrayArrayInt(i) = arr.unsafeArray
+    override def iSet(layer: HCenIntNArrLayer[B, ArrB], i: Int, arr: ArrB): Unit = layer.outerArrayUnsafe(i) = arr.unsafeArray
   }
 }
 

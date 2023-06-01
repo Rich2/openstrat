@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
-class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit val ct: ClassTag[A]) extends HCenArrLayer[A, RArr[A]]
+class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit ct: ClassTag[A]) extends HCenArrLayer[A, RArr[A]]
 {
   def apply(hc: HCen): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(hc)))
   def apply(r: Int, c: Int): RArr[A] = new RArr(arrayOuterUnsafe(gridSys.layerArrayIndex(r, c)))
@@ -55,14 +55,20 @@ class HCenRArrLayer[A](val arrayOuterUnsafe: Array[Array[A]], val gridSys: HGrid
   /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
   def elemsHcForeach(f: (A, HCen) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(a, hc)) }
 
-  override def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: RArr[A] => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB,LayerT]): LayerT =
-  { val res = builder.uninitialised(gridSys)
-    var i = 0
-    while (i < numTiles)
-    { builder.iSet(res, i, f(new RArr(arrayOuterUnsafe(i))))
+  override def foreach(f: RArr[A] => Unit): Unit =
+  { var i = 0
+    arrayOuterUnsafe.foreach{ array =>
+      f(new RArr(array))
       i += 1
     }
-    res
+  }
+
+  override def iForeach(f: (Int, RArr[A]) => Unit): Unit =
+  { var i = 0
+    arrayOuterUnsafe.foreach { array =>
+      f(i, new RArr(array))
+      i += 1
+    }
   }
 
   /** Maps each tile's [[Rarr]] to a new [[Arr]]. */

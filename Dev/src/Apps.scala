@@ -16,7 +16,7 @@ object Apps
     ("G1s", gOne.s1p.G1SLaunch),
     ("G2h", gTwo.h2p.G2HLaunch),
     ("G2s", gTwo.s2p.G2SLaunch),
-    ("G3", gThree.h3p.G3HLaunch),
+    ("G3h", gThree.h3p.G3HLaunch),
     ("Z", pzug.ZugLaunch),
     ("DG", pDung.DungLaunch),
     ("NA", pnap.NapLaunch),

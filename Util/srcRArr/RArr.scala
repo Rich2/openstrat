@@ -178,7 +178,7 @@ object RArr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
   implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[RArr[A]] = ArrShowT[A, RArr[A]](evA)
 
-  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
+  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
   { var i = 0
     var res = true
     while(i < arr1.length & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
