@@ -16,8 +16,8 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
   def numTiles: Int = gridSys.numTiles
 
   /** Maps from this [[HCenArrLayer]] to an [[HCenArrLayer]] type ArrB. */
-  final def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: ArrA => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT = {
-    val res = builder.uninitialised(gridSys)
+  final def map[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: ArrA => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = builder.uninitialised(gridSys)
     iForeach { (i, a) => builder.iSet(res, i, f(a)) }
     res
   }
@@ -34,6 +34,45 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
     gridSys.iForeach { (i, hc) => builder.iSet(res, i, f(hc, iApply(i))) }
     res
   }
+
+  /** Maps from ArrA to ArrBs by mapping each element A to an element B. */
+  def mapMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: A => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = layerBBuild.uninitialised(gridSys)
+    var i = 0
+    val arrBBuid = layerBBuild.arrBBuild
+    while (i < numTiles)
+    { val arrA = iApply(i)
+      val arrB = arrBBuid.uninitialised(arrA.length)
+      var j = 0
+      while (j < arrA.length) {
+        arrBBuid.indexSet(arrB, j, f(arrA(j)))
+        j += 1
+      }
+      layerBBuild.iSet(res, i, arrB)
+      i += 1
+    }
+    res
+  }
+
+  /** Maps from ArrA to ArrBs by mapping each element A, with the respective [[HCen]] to an element B. */
+  def mapHCMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, A) => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
+  { val res = layerBBuild.uninitialised(gridSys)
+    val arrBBuid = layerBBuild.arrBBuild
+    gridSys.foreach { hc =>
+      val i = gridSys.layerArrayIndex(hc)
+      val arrA = iApply(i)
+      val arrB = arrBBuid.uninitialised(arrA.length)
+      var j = 0
+      while (j < arrA.length)
+      { arrBBuid.indexSet(arrB, j, f(hc, arrA(j)))
+        j += 1
+      }
+      layerBBuild.iSet(res, i, arrB)
+    }
+    res
+  }
+
+
 }
 
 object HCenArrLayer extends HCenArrLayerLowPrioity

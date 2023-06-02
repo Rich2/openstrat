@@ -70,42 +70,6 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
     }
   }
 
-
-  def mapMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: A => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
-  { val res = layerBBuild.uninitialised(gridSys)
-    var i = 0
-    val arrBBuid = layerBBuild.arrBBuild
-    while (i < numTiles)
-    { val arrA = outerArrayUnsafe(i)
-      val arrB = arrBBuid.uninitialised(arrA.length)
-      var j = 0
-      while(j < arrA.length)
-      { arrBBuid.indexSet(arrB, j, f(arrA(j)))
-        j +=1
-      }
-      layerBBuild.iSet(res, i, arrB)
-      i += 1
-    }
-    res
-  }
-
-  def mapHCMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, A) => B)(implicit layerBBuild: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
-  { val res = layerBBuild.uninitialised(gridSys)
-    val arrBBuid = layerBBuild.arrBBuild
-    gridSys.foreach { hc =>
-      val i = gridSys.layerArrayIndex(hc)
-      val arrA = outerArrayUnsafe(i)
-      val arrB = arrBBuid.uninitialised(arrA.length)
-      var j = 0
-      while (j < arrA.length) {
-        arrBBuid.indexSet(arrB, j, f(hc, arrA(j)))
-        j += 1
-      }
-      layerBBuild.iSet(res, i, arrB)
-    }
-    res
-  }
-
   /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
   def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val buff = build.newBuff()
@@ -139,7 +103,7 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
   }
 
   /** FlatMaps the elements of each [[Arr]] with the corresponding [[HCen]] to a [[Seqimut]]. */
-  def elemsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  def mapHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       apply(hc).foreach { a =>

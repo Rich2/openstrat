@@ -37,7 +37,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
     def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: GraphicElems = moves.elemsHcFlatMap { (ps, hc) =>
+    def moveGraphics: GraphicElems = moves.mapHcFlatMap { (ps, hc) =>
       val lps1: LinePathHC = ps.intentions.pathHC(hc)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init
