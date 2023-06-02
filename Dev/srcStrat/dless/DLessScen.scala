@@ -20,7 +20,7 @@ trait DLessScen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenRArrLayer[Army] = armies// armies.clone
+    val armiesNew: HCenRArrLayer[Army] = armies.copy
     //targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
 
     new DLessScen

@@ -82,9 +82,21 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
     res
   }
 
+  /** FlatMaps the elements of each [[Arr]] with the corresponding [[HCen]] to a [[Arr]]. */
+  def mapHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT = {
+    val buff = build.newBuff()
+    gridSys.foreach { hc =>
+      apply(hc).foreach { a =>
+        val newVal = f(a, hc)
+        build.buffGrowArr(buff, newVal)
+      }
+    }
+    build.buffToSeqLike(buff)
+  }
 
 }
 
+/** Companion object for [[HCenArrLayer]] trait contains implicit builder instances. */
 object HCenArrLayer extends HCenArrLayerLowPrioity
 {
   implicit def intNBuilderEv[B <: IntNElem, ArrB <: IntNArr[B]](implicit intNArrMapBuilder: IntNArrMapBuilder[B, ArrB]):

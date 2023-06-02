@@ -102,18 +102,6 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
     build.buffToSeqLike(buff)
   }
 
-  /** FlatMaps the elements of each [[Arr]] with the corresponding [[HCen]] to a [[Seqimut]]. */
-  def mapHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
-  { val buff = build.newBuff()
-    gridSys.foreach { hc =>
-      apply(hc).foreach { a =>
-        val newVal = f(a, hc)
-        build.buffGrowArr(buff, newVal)
-      }
-    }
-    build.buffToSeqLike(buff)
-  }
-
   /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
   def projHeadsHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
