@@ -30,14 +30,14 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature.  */
-  def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HGridSys): Unit = gSys.iForeach{ (hc, i) => f(hc, unsafeArray(i)); () }
+  def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HGridSys): Unit = gSys.iForeach{ (i, hc) => f(hc, unsafeArray(i)); () }
 
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
   def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(length)
-    grid.iForeach{ (hc, i) =>
+    grid.iForeach{ (i, hc) =>
       val newElem = f(hc, apply(hc))
       res.setElemUnsafe(i, newElem)
     }
@@ -48,7 +48,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    * [[Arr]] will be between 0 and the length of this [[HCenLayer]]. */
   def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   { val buff = build.newBuff()
-    grid.iForeach { (hc, i) =>
+    grid.iForeach { (i, hc) =>
       f(apply(hc), hc).foreach(build.buffGrow(buff, _))
     }
     build.buffToSeqLike(buff)
@@ -59,7 +59,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    *  element) => B signature. */
   def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
   { val buff = build.newBuff()
-    grid.iForeach{ (hc, i) =>
+    grid.iForeach{ (i, hc) =>
       val newElems = f(hc, apply(hc))
       build.buffGrowArr(buff, newElems)
     }
@@ -71,7 +71,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    * element) => B signature. */
   def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB = {
     val buff = build.newBuff()
-    grid.iForeach { (hc, i) =>
+    grid.iForeach { (i, hc) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
     }
     build.buffToSeqLike(buff)

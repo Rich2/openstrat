@@ -9,7 +9,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
 
   def resolve(oldStates: HCenRArrLayer[LunitState]): HCenRArrLayer[LunitState] =
   { val acc: HCenAccLayer[LunitState] = HCenAccLayer()
-    oldStates.elemsHcForeach { (ls, origin) =>
+    oldStates.foreachHcForeach{(origin, ls) =>
       val steps: HStepArr = ls.intentions
       if (steps.length > 0) {
         gridSys.stepEndFind(origin, steps.head) match

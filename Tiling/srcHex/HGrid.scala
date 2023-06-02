@@ -42,15 +42,15 @@ trait HGrid extends Any with TGrid with HGridSys
   final override def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
-  final override def iForeach(f: (HCen, Int) => Unit): Unit =
+  final override def iForeach(f: (Int, HCen) => Unit): Unit =
   { var i: Int = 0
-    foreachRow(r => rowForeach(r){hc => f(hc, i); i += 1 })
+    foreachRow(r => rowForeach(r){hc => f(i, hc); i += 1 })
   }
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
-  final override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit =
+  final override def iForeach(init: Int)(f: (Int, HCen) => Unit): Unit =
   { var i: Int = init
-    foreachRow(r => rowForeach(r){hc => f(hc, i); i += 1 })
+    foreachRow(r => rowForeach(r){hc => f(i, hc); i += 1 })
   }
 
   /** Is the specified tile centre row empty? */

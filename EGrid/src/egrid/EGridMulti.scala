@@ -57,9 +57,9 @@ trait EGridMulti extends EGridSys  with TGridMulti
 
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
 
-  override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
+  override def iForeach(f: (Int, HCen) => Unit): Unit = iForeach(0)(f)
 
-  override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit =
+  override def iForeach(init: Int)(f: (Int, HCen) => Unit): Unit =
   { var count = init
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }

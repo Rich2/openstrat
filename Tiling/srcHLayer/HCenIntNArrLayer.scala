@@ -20,4 +20,6 @@ implicit val arrBuilder: IntNArrMapBuilder[A, ArrA]) extends HCenArrLayer[A, Arr
       i += 1
     }
   }
+
+  override def foreachHcForeach(f: (HCen, A) => Unit)(implicit gSys: HGridSys): Unit = gSys.iForeach { (i, hc) => iApply(i).foreach(a => f(hc, a)) }
 }

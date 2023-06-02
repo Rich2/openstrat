@@ -20,7 +20,7 @@ ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 def sett3 = List(
   scalaVersion := scalaMajor + "." + scalaMinor,
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions"/*, "-language:strictEquality"*/, "-explain", "-noindent", "-deprecation",
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation",
     "-encoding", "UTF-8"),
 )
 

@@ -52,7 +52,7 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
   }
 
   /** Foreach's over the element of the  arrays with their respective [[HCen]]s. Applying the side effecting function. */
-  def elemsHcForeach(f: (A, HCen) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(a, hc)) }
+  override def foreachHcForeach(f: (HCen, A) => Unit)(implicit gSys: HGridSys): Unit = gSys.foreach{ hc => applyUnsafe(hc).foreach(a => f(hc, a)) }
 
   override def foreach(f: RArr[A] => Unit): Unit =
   { var i = 0

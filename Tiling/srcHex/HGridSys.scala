@@ -180,10 +180,10 @@ trait HGridSys extends Any with TGridSys
   def foreach(f: HCen => Unit): Unit
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
-  def iForeach(f: (HCen, Int) => Unit): Unit
+  def iForeach(f: (Int, HCen) => Unit): Unit
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
-  def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit
+  def iForeach(init: Int)(f: (Int, HCen) => Unit): Unit
 
   /** Creates a new [[HCenBuffLayer]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenBuffLayer[A] = HCenBuffLayer(numTiles)
@@ -192,7 +192,7 @@ trait HGridSys extends Any with TGridSys
    *  corresponding to the standard Scala map function of A => B. */
   final def map[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = build.uninitialised(numTiles)
-    iForeach((hCen, i) => res.setElemUnsafe(i, f(hCen)))
+    iForeach((i, hCen) => res.setElemUnsafe(i, f(hCen)))
     res
   }
 
@@ -212,7 +212,7 @@ trait HGridSys extends Any with TGridSys
 
   def mapPair[B2](f2: HCen => B2)(implicit build: HCenPairArrMapBuilder[B2]): HCenPairArr[B2] =
   { val res = build.uninitialised(numTiles)
-    iForeach{ (hc, i) =>
+    iForeach{ (i, hc) =>
       res.setA1Unsafe(i, hc)
       res.setA2Unsafe(i, f2(hc))
     }

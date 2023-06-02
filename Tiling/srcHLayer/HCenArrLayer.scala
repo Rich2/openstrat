@@ -4,7 +4,7 @@ import reflect.ClassTag
 
 /** A data layer for an [[HGridSys]] where each tile's data is an [[Arr]] of the specified type. */
 trait HCenArrLayer[A, ArrA <: Arr[A]]
-{
+{ /** The [[HGridSys]] hex grid system that is the key to this tile data layer */
   def gridSys: HGridSys
 
   /** Foreachs over each tile's [[Arr]]. */
@@ -22,14 +22,16 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
     res
   }
 
-  /** Foreachs over an index and each tile's [[Arr]]. */
+  /** Foreachs over each tile's [[Arr]] with a preceding index. */
   def iForeach(f: (Int, ArrA) => Unit): Unit
 
+  /** Foreachs over each element of the respective [[Arr]]s with a preceding [[HCen]]. Applying the side effecting function. */
+  def foreachHcForeach(f: (HCen, A) => Unit)(implicit gSys: HGridSys): Unit
 
   /** Maps each tile's [[HCen]] with its respective [[Arr]] to a new [[Arr]]. */
   final def hcMap[B, ArrB <: Arr[B], LayerT <: HCenArrLayer[B, ArrB]](f: (HCen, ArrA) => ArrB)(implicit builder: HCenArrLayerBuilder[B, ArrB, LayerT]): LayerT =
   { val res = builder.uninitialised(gridSys)
-    gridSys.iForeach { (hc, i) => builder.iSet(res, i, f(hc, iApply(i))) }
+    gridSys.iForeach { (i, hc) => builder.iSet(res, i, f(hc, iApply(i))) }
     res
   }
 }
