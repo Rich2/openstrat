@@ -10,7 +10,17 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
   /** Foreachs over each tile's [[Arr]]. */
   def foreach(f: ArrA => Unit): Unit
 
+  /** Returns the [[Arr]] at the given integer index. This method is called iApply rather than apply as end users should have to use it, preferring
+   * instead the apply methods referencing the tile data by the [[HCen]]. */
   def iApply(index: Int): ArrA
+
+  /** Returns the [[Arr]] data for the given [[HCen]] coordinate. There is a name over load of this method that takes the integer R and C components
+   * as parameters. */
+  def apply(hCen: HCen): ArrA = iApply(gridSys.layerArrayIndex(hCen))
+
+  /** Returns the [[Arr]] data for the given [[HCen]] coordinate. There is a name over load of this method that takes the [[HCen]] class as a
+   * parameter. */
+  def apply(r: Int, c: Int): ArrA = iApply(gridSys.layerArrayIndex(r, c))
 
   /** The number of tile's in this data layer. */
   def numTiles: Int = gridSys.numTiles

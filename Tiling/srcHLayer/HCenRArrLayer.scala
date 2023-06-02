@@ -4,8 +4,8 @@ import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
 class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSys)(implicit ct: ClassTag[A]) extends HCenArrLayer[A, RArr[A]]
-{ def apply(hc: HCen): RArr[A] = new RArr(outerArrayUnsafe(gridSys.layerArrayIndex(hc)))
-  def apply(r: Int, c: Int): RArr[A] = new RArr(outerArrayUnsafe(gridSys.layerArrayIndex(r, c)))
+{ override def apply(hc: HCen): RArr[A] = new RArr(outerArrayUnsafe(gridSys.layerArrayIndex(hc)))
+  override def apply(r: Int, c: Int): RArr[A] = new RArr(outerArrayUnsafe(gridSys.layerArrayIndex(r, c)))
   override def iApply(index: Int): RArr[A] = new RArr(outerArrayUnsafe(index))
   def applyUnsafe(hc: HCen): Array[A] = outerArrayUnsafe(gridSys.layerArrayIndex(hc))
 
