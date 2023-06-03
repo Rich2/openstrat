@@ -11,7 +11,10 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
 
   def applyUnsafe(r: Int, c: Int): Array[A] = outerArrayUnsafe(gridSys.layerArrayIndex(r, c))
 
+  /** Checks if the [[Arr]] is empty for the given [[HCen]]. */
   def emptyTile(r: Int, c: Int): Boolean = apply(r, c).length == 0
+
+  /** Checks if the [[Arr]] is empty for the given [[HCen]]. */
   def emptyTile(hc: HCen): Boolean = apply(hc).length == 0
 
   def nonEmptyTile(r: Int, c: Int): Boolean = apply(r, c).length > 0
