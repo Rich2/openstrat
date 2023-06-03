@@ -11,6 +11,7 @@ case class Team(name: String, colour: Colour) extends Coloured
 }
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)
+object TeamC extends Team("TeamC" , Colour.Turquoise)
 
 class Lunit(val team: Team, val num: Int) extends Coloured
 { override def colour: Colour = team.colour

@@ -7,8 +7,8 @@ object G3HScen1 extends G3HScen(0)
   val lunitStates: HCenRArrLayer[LunitState] = HCenRArrLayer()
   lunitStates.set1(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
   lunitStates.setArr(4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL), LunitState(Lunit(TeamB, 2), HexLt))
-  //lunits
-  override val teamSet: RArr[Team] = RArr(TeamA, TeamB)
+  lunitStates.set1(8, 16, LunitState(Lunit(TeamC, 1)))
+  override val teamSet: RArr[Team] = RArr(TeamA, TeamB, TeamC)
 }
 
 object G3HScen2 extends G3HScen(0)
