@@ -16,7 +16,7 @@ object EarthBasicLaunch extends GuiLaunchMore
       val long: Double = sts.findSettingElse("longitude", 10)
       EarthView(lat ll long, scale * 1.km, true)
     }
-    val view = sts.findUniqueT[EarthView].getElse(multisett)
+    val view = sts.findType[EarthView].getElse(multisett)
     (cv => EarthBasicGui(cv, view), "JavaFx Earth")
   }
 }

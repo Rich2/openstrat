@@ -120,7 +120,7 @@ package object geom
     import pParse.{ stringToStatements => stss}
 
     /** Find unique [[Pt2]] expression from this String parsing it as an Sequence of RSON statements. */
-    def findPt2: EMon[Pt2] = stss(thisString).flatMap(_.findUniqueT[Pt2])
+    def findPt2: EMon[Pt2] = stss(thisString).flatMap(_.findType[Pt2])
 
     /** Find unique [[Pt2]] expression from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
     def findPt2Else(elseValue: => Pt2) = findPt2.getElse(elseValue)

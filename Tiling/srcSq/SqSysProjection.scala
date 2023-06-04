@@ -19,6 +19,9 @@ trait SqSysProjection extends TSysProjection
   def transCoord(sc: SqCoord): Pt2
   def transOptCoord(sc: SqCoord): Option[Pt2] = ???
   def transOptLineSeg(seg: LineSegSC): Option[LineSeg] = ???
+
+  /** Set the perspective, The position of the view. the rotation and the scale. */
+  def setView(view: Any): Unit
 }
 
 case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
@@ -52,4 +55,14 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
 
   override def transOptLineSeg(seg: LineSegSC): Option[LineSeg] =
     transOptCoord(seg.startPt).map2(transOptCoord(seg.endPt)) { (p1, p2) => LineSeg(p1, p2) }
+
+  override def setView(view: Any): Unit = view match {
+    case hv: SGView => {
+      pixelsPerC = hv.pixelsPerC
+      focus = hv.vec
+      gChild = getGChild
+    }
+    case d: Double => pixelsPerC = d
+    case _ =>
+  }
 }

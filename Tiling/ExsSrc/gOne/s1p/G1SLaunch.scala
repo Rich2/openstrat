@@ -27,6 +27,8 @@ object G1SLaunch extends GuiLaunchMore
     val plAll = scen.counterSet
     val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
     val pls3 = pls2.getElse(plAll)
+    val ov = sts2.findType[SGView]
+    debvar(ov)
     val view: SGView = sts2.findTypeElse(scen.gridSys.defaultView())
     debvar(pls3)
     val settings = G1SGuiSettings(view, pls3)

@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._
 
 /** A view of a square grid, currently representing the [[SqCoord]] focus and the pixels/dx scale. */
-class SGView(val r: Int, val c: Int, val pxScale: Double) extends Show2[SqCoord, Double]
+class SGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Show2[SqCoord, Double]
 { def hCoord: SqCoord = SqCoord(r, c)
   def vec: Vec2 = hCoord.toVecReg
   def pt2: Pt2 = hCoord.toPt2Reg
@@ -11,7 +11,7 @@ class SGView(val r: Int, val c: Int, val pxScale: Double) extends Show2[SqCoord,
   override def name1: String = "hCoord"
   inline override def show1: SqCoord = hCoord
   override def name2: String = "pxScale"
-  inline override def show2: Double = pxScale
+  inline override def show2: Double = pixelsPerC
   override implicit def showT1: ShowT[SqCoord] = SqCoord.persistImplicit
   override implicit def showT2: ShowT[Double] = ShowT.doublePersistEv
   override def syntaxDepth: Int = 3

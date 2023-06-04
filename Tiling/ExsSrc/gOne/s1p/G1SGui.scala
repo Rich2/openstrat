@@ -13,9 +13,10 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
   def counters: SqCenOptLayer[Counter] = scen.counters
   val counterSet = settings.counterSet
 
-  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  focus = settings.view.vec
+  //pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  //focus = settings.view.vec
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
+  proj.setView(settings.view)
 
   def NoMoves: SqCenStepPairArr[Counter] = SqCenStepPairArr[Counter]()
 
