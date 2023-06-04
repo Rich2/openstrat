@@ -55,7 +55,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    scen = game.endTurn(moves)
+    scen = game.endTurn(moves.mapOnA1(_.step))
     moves = NoMoves
     repaint()
     thisTop()

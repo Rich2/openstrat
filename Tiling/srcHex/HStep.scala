@@ -1,6 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom._
+
+import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** Common trait for [[HStep]] and [[HStepStay]]. */
 sealed trait HStepLike extends TStepLike
@@ -55,6 +58,8 @@ object HStep
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
+
+  implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HStepPairArrMapBuilder[B2] = new HStepPairArrMapBuilder[B2]
 }
 
 /** A step upright on a hex tile grid [[HGrid]]. */
