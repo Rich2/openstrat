@@ -1,9 +1,10 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, pgui._
 
 abstract class SqSysGui(title: String) extends TGridSysGui(title)
-{ override def pixPerTile: Double = pixPerC * 2
+{ implicit def proj: SqSysProjection
+  final override def pixPerTile: Double = proj.pixelsPerTile
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     pixPerC *= 1.1

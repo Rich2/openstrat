@@ -8,6 +8,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
 
   var scen = AltScen.start(rows, columns)
   implicit def gridSys: SqGrid = scen.grid
+
   focus = gridSys.cenVec
   pixPerC = 32
   def balls: SqCenOptLayer[Balls] = scen.balls
@@ -17,6 +18,8 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
 
   /** Draws the tiles sides (or edges). */
   val sidesDraw: GraphicElem = gridSys.sidesDraw()
+
+  override implicit def proj: SqSysProjection = ???
 
   def ballDisps: GraphicElems = balls.scSomesMap{ (sc, bs) => TextGraphic(bs.num.toString, 18, sc.toPt2Reg, bs.colour) }
 

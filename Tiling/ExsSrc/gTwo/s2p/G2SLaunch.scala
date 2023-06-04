@@ -19,10 +19,6 @@ object G2SLaunch extends GuiLaunchMore
     { case 1 => G2SScen1
       case 2 => G2SScen2
       case 3 => G2SScen3
-      //case 4 => G2SScen4
-     // case 5 => G2SScen5
-     // case 6 => G2SScen6
-    //  case 7 => G2SScen7
       case _ => G2SScen1
     }
 
@@ -35,6 +31,6 @@ object G2SLaunch extends GuiLaunchMore
     val view: SGView = sts2.findTypeElse(scen.gridSys.defaultView())
     val settings = G2SGuiSettings(view, pls3)
     val game = G2SGame(scen, pls3)
-    (G2SGui(_, game, settings), "JavaFx Game Two Hexs")
+    (G2SGui(_, game, settings), "JavaFx Game Two Squares")
   }
 }

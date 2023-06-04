@@ -4,7 +4,6 @@ package ostrat; package prid; package phex
 /** Graphical User Interface for [[HGridSys]] hex grid systems. */
 abstract class HGridSysGui(title: String) extends TGridSysGui(title)
 { override def gridSys: HGridSys
-  //def pixPerTile: Double = pixPerC * 4
   implicit def proj: HSysProjection
   final override def pixPerTile: Double = proj.pixelsPerTile
 }
