@@ -7,8 +7,7 @@ import pgui._, geom._, prid._, phex._, gPlay._
 case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui")
 { def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
-  var scen = game.scen
-  var history: RArr[G1HScen] = RArr(scen)
+  var scen: G1HScen = game.scen
 
   implicit def gridSys: HGridSys = scen.gridSys
 
@@ -57,7 +56,6 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     scen = game.endTurn(moves.mapOnA1(_.step))
-    history +%= scen
     moves = NoMoves
     repaint()
     thisTop()

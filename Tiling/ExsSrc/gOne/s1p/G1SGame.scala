@@ -6,13 +6,14 @@ import prid._, psq._, gPlay._
 case class G1SGame(var scen: G1SScen, guiCounters: RArr[Counter])
 {
   implicit val gridSys: SqGridSys = scen.gridSys
-
+  var history: RArr[G1SScen] = RArr(scen)
   def endTurn(directives: SqCenStepPairArr[Counter]): G1SScen =
   { val res1 = SqCenOptStepLayer[Counter]()
     directives.pairForeach { (hcst, pl) =>if (guiCounters.contains(pl)) res1.setSome(hcst.startSC, hcst.step, pl) }
     val countersNew = scen.resolve(res1)
     val newScen: G1SScen = G1SScen(scen.turn + 1, gridSys, countersNew)
     scen = newScen
+    history +%= scen
     newScen
   }
 }

@@ -5,7 +5,8 @@ import pgui._, prid._, psq._, geom._, gPlay._, Colour.Black
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal
  *  tile steps. */
 case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings) extends SqSysGui("Game one Square")
-{ statusText = "Let click on Player to select. Right click on adjacent square to set move."
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+  statusText = "You control players" -- controlStr -- ". Left click on Player to select. Right click on adjacent square to set move."
   var scen = game.scen
 
   implicit def gridSys: SqGridSys = scen.gridSys
@@ -13,8 +14,6 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
   def counters: SqCenOptLayer[Counter] = scen.counters
   val counterSet = settings.counterSet
 
-  //pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  //focus = settings.view.vec
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
   proj.setView(settings.view)
 
@@ -34,15 +33,15 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
       Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, SqCenPair(sc, counter), str, 24, 2.0, Black, counter.contrastBW)
     }
 
-    /** Not sure why this is called css. */
-    def css: RArr[TextGraphic] = counters.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
-
+    /** Displays the hex coordinates if no [[Counter]]. */
+    def hexStrs: RArr[TextGraphic] = counters.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
+    def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
     def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
-    actives ++ lunits +% sidesDraw ++ css ++ moveGraphics
+    actives ++ lunits +% sidesDraw ++ hexStrs2 ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

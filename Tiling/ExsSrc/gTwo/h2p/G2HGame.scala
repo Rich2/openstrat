@@ -7,7 +7,7 @@ class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
 {
   protected var scen: G2HScen = scenIn
   implicit val gridSys: HGridSys = scen.gridSys
-
+  var history: RArr[G2HScen] = RArr(scen)
   def getScen: G2HScen = restrict(scen)
 
   /** Resolves turn. Takes in the directives from the single GUI player and sets the valid directives as intentions. The command is passed in as a
@@ -22,6 +22,7 @@ class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
     }
     val newScen = G2HScen(scen.turn + 1, gridSys, scen.resolve(intentions))
     scen = newScen
+    history +%= scen
     restrict(scen)
   }
 

@@ -25,13 +25,12 @@ trait SqSysProjection extends TSysProjection
 }
 
 case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
-{
-  type SysT = SqGridSys
+{ type SysT = SqGridSys
   pixelsPerC = parent.fullDisplayScale(panel.width, panel.height)
   override def pixelsPerTile: Double = pixelsPerC * 2
   override def pixelsPerR: Double = pixelsPerC
   var focus: Vec2 = parent.defaultView(pixelsPerC).vec
-  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
+  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixelsPerTile >= minScale, elems, RArr())
 
   var gChild: SqGridSys = getGChild
   def getGChild: SqGridSys = parent

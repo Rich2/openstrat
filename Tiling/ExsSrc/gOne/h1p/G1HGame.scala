@@ -6,6 +6,7 @@ import prid._, phex._, gPlay._
 case class G1HGame(var scen: G1HScen, guiCounters: RArr[Counter])
 {
   implicit def gridSys: HGridSys = scen.gridSys
+  var history: RArr[G1HScen] = RArr(scen)
 
   /** Resolves turn. Takes an [[HStepPairArr]] of [[Counter]]s. The directives are passed in as relative moves. This is in accordance with the
    *  principle in more complex games that the entity issuing the command may not know its real location. */
@@ -20,6 +21,7 @@ case class G1HGame(var scen: G1HScen, guiCounters: RArr[Counter])
     val countersNew = scen.resolve(intensions)
     val newScen = G1HScen(scen.turn + 1, scen.gridSys, countersNew)
     scen = newScen
+    history +%= scen
     scen
   }
 }

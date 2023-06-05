@@ -1,20 +1,12 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
-import pgui._, geom._, prid._, phex._, gPlay._
-
-/** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */
-case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
-{ override def typeStr: String = "HCounter"
-  override def name2: String = "counter"
-  override implicit def showT2: ShowT[Counter] = Counter.showTEv
-  override def syntaxDepth: Int = 2
-}
+import pgui._, geom._, prid._, phex._
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings) extends HGridSysGui("Game Two Hex Gui")
-{ statusText = "Left click on Counter to select. Right click on adjacent Hex to set move. Right click with shift to extend move."
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+  statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen: G2HScen = game.getScen
-  var history: RArr[G2HScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
@@ -38,6 +30,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
     def hexStrs: RArr[TextGraphic] = counterStates.projNoneHcPtMap { (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
+    def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives
@@ -56,7 +49,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
       lps3a ++ lps3b
     }
 
-    actives ++ hexStrs +% sidesDraw ++ moveGraphics ++ units
+    actives ++ hexStrs2 +% sidesDraw ++ moveGraphics ++ units
 }
 
   /** Creates the turn button and the action to commit on mouse click. */
