@@ -17,7 +17,7 @@ object G1HScen2 extends G1HScen
   implicit val gridSys: HGridReg = GSys.g2
   val counters: HCenOptLayer[Counter] = HCenOptLayer()
   counters.setSomeMut(6, 38, CounterA)
-  counters.setSomesMut((4, 40, CounterB), (6, 42, CounterC))
+  counters.setSomesMut((4, 40, CounterB), (6, 42, CounterC), (6, 50, CounterD), (10, 34, CounterE))
 }
 
 /** 3rd example Turn 0 scenario state for Game One hex. */

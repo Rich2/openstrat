@@ -29,7 +29,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   {
     def units: GraphicElems = counters.projSomeHcPtMap { (counter, hc, pt) =>
       val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
-      Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0)
+      Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0, Colour.Black, counter.contrastBW)
     }
 
     /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -57,6 +57,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     scen = game.endTurn(moves.mapOnA1(_.step))
+    history +%= scen
     moves = NoMoves
     repaint()
     thisTop()
