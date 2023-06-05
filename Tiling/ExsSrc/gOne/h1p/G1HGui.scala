@@ -5,7 +5,8 @@ import pgui._, geom._, prid._, phex._, gPlay._
 /** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
  *  one more than one player is attempting to move to fails. */
 case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings) extends HGridSysGui("Game One Gui")
-{ statusText = "Left click on Counter to select. Right click on adjacent Hex to set move."
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+  statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen = game.scen
   var history: RArr[G1HScen] = RArr(scen)
 
