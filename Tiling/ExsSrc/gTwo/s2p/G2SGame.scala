@@ -6,6 +6,7 @@ import prid._, psq._, gPlay._
 class G2SGame(scenIn: G2SqScen, val guiCounters: RArr[Counter])
 {
   protected var scen: G2SqScen = scenIn
+  protected var history: RArr[G2SqScen] = RArr(scen)
   implicit val gridSys: SqGridSys = scen.gridSys
 
   def getScen: G2SqScen = restrict(scen)

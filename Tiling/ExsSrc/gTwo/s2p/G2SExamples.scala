@@ -3,10 +3,10 @@ package ostrat; package gTwo; package s2p
 import prid._, psq._, gPlay._
 
 object G2SScen1 extends G2SqScenStart
-{ implicit val gridSys: SqGrid = SqGrid(2, 6, 2, 8)
+{ implicit val gridSys: SqGrid = SqGrid(2, 6, 2, 10)
   val counterStates: SqCenOptLayer[CounterState] = gridSys.newSCenOptDGrider
   counterStates.setSomeMut(4, 4, CounterState(CounterA))
-  //counters.unsafeSetSomes((4, 6, CounterB), (6, 8, CounterC))
+  counterStates.unsafeSetSomes((4, 6, CounterState(CounterB)), (6, 8, CounterState(CounterC)), (2, 10, CounterState(CounterD)))
 }
 
 object G2SScen2 extends G2SqScenStart
