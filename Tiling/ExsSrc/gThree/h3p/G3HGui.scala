@@ -47,7 +47,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
     //val getOrders = moves.mapSomes(rs => rs)
     scen = game.resolveTurn(RArr())
-    //moves = NoMoves*/
+    moves = lunits.copy
     repaint()
     thisTop()
   }

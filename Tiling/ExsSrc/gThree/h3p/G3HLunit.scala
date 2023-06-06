@@ -38,7 +38,7 @@ class LunitState(val lunit: Lunit, val intentions: HStepArr = HStepArr()) extend
 { def colour: Colour = lunit.colour
   def team: Team = lunit.team
   override def toString: String = lunit.toString
-  def cmdsTail: LunitState = new LunitState(lunit, intentions.tail)
+  def intensionsTail: LunitState = new LunitState(lunit, intentions.tail)
 }
 
 object LunitState
