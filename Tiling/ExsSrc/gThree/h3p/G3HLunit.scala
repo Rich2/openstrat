@@ -1,17 +1,29 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import prid._, phex._, Colour._
+import prid._, phex._, Colour._, gPlay._
+
+/** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */
+case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
+{ override def typeStr: String = "HCounter"
+  override def name2: String = "counter"
+  override implicit def showT2: ShowT[Counter] = Counter.showTEv
+  override def syntaxDepth: Int = 2
+}
+
 
 case class Hold(turns: Int)
 //type Command = HStep | Hold
-case class Team(name: String, colour: Colour) extends Coloured
-{ override def toString: String = name
-  def charStr: String = ???//char.toString
+case class Team(char: Char, colour: Colour) extends Coloured
+{ def name: String = "Team" + char
+  override def toString: String = name
+  def charStr: String = char.toString
 
 }
-object TeamA extends Team("TeamA" , Red)
-object TeamB extends Team("TeamB" , Violet)
-object TeamC extends Team("TeamC" , Colour.Turquoise)
+object TeamA extends Team('A' , Red)
+object TeamB extends Team('B' , Violet)
+object TeamC extends Team('C', Turquoise)
+object TeamD extends Team('D', Salmon)
+object TeamE extends Team('E', Orange)
 
 class Lunit(val team: Team, val num: Int) extends Coloured
 { override def colour: Colour = team.colour

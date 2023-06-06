@@ -1,17 +1,10 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree; package h3p
-import pgui._, prid._, phex._, geom._, gPlay._
-
-/** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */
-case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
-{ override def typeStr: String = "HCounter"
-  override def name2: String = "counter"
-  override implicit def showT2: ShowT[Counter] = Counter.showTEv
-  override def syntaxDepth: Int = 2
-}
+import pgui._, prid._, phex._, geom._
 
 case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings) extends HGridSysGui("Game Three Hex Gui")
-{ statusText = "Welcome to Game Three."
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+  statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
   val scen: G3HScen = game.getScen
   implicit def gridSys: HGridSys = scen.gridSys
   def lunits: HCenRArrLayer[LunitState] = scen.lunitStates
@@ -77,7 +70,6 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
-  statusText = s"Game Three. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
   proj.getFrame = () => frame
