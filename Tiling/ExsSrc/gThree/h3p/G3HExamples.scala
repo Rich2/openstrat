@@ -8,7 +8,7 @@ object G3HScen1 extends G3HScen(0)
   lunitStates.set1(4, 4, LunitState(Lunit(TeamA, 1), HexDR))
   lunitStates.setArr(4, 8, LunitState(Lunit(TeamB, 1), HexLt, HexDL), LunitState(Lunit(TeamB, 2), HexLt))
   lunitStates.set1(8, 16, LunitState(Lunit(TeamC, 1)))
-  lunitStates.setArr(8, 4, LunitState(TeamD, 1, HexRt, HexDR, HexDR, HexDR), LunitState(TeamD, 2, HexDL, HexRt))
+  lunitStates.setArr(8, 4, LunitState(TeamD, 1, HexRt, HexDR, HexDR, HexDR), LunitState(TeamD, 2, HexDL, HexRt, HexRt))
   lunitStates.set1(2, 18, LunitState(Lunit(TeamE, 1), HexLt, HexUL, HexUL))
   override val teamSet: RArr[Team] = RArr(TeamA, TeamB, TeamC, TeamD, TeamE)
 }
