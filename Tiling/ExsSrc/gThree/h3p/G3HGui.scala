@@ -5,7 +5,7 @@ import pgui._, prid._, phex._, geom._
 case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings) extends HGridSysGui("Game Three Hex Gui")
 { def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
-  val scen: G3HScen = game.getScen
+  var scen: G3HScen = game.getScen
   implicit def gridSys: HGridSys = scen.gridSys
   def lunits: HCenRArrLayer[LunitState] = scen.lunitStates
   var moves: HCenRArrLayer[LunitState] = lunits.copy
@@ -45,9 +45,9 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
-    /*val getOrders = moves.mapSomes(rs => rs)
-    scen = scen.doTurn(getOrders)
-    moves = NoMoves*/
+    //val getOrders = moves.mapSomes(rs => rs)
+    scen = game.resolveTurn(RArr())
+    //moves = NoMoves*/
     repaint()
     thisTop()
   }

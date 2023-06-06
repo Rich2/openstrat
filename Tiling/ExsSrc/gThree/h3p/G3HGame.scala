@@ -13,17 +13,13 @@ class G3HGame(scenIn: G3HScen, val guiTeams: RArr[Team])
   /** Resolves turn. Takes in the directives from the single GUI player and sets the valid directives as intentions. The command is passed in as a
    *  relative move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real
    *  location. */
-  /*def resolveTurn(directives: HCenRArrLayer[LunitState]): G3HScen =
-  { val intentions = scen.lunitStates.hcMap { (hc, arr) =>
-      directives(hc) match {
-        case Some(directiveState) if guiTeams.contains(currentState.team) & directiveState.counter == currentState.counter => directiveState
-        case _ => currentState
-      }
-    }
-    val newScen = G3HScen(scen.turn + 1, gridSys, scen.resolve(intentions))
+  def resolveTurn(directives: RArr[LunitState]): G3HScen =
+  { val intentions = scen.lunitStates
+
+    val newScen = G3HScen(scen.turn + 1, gridSys, scen.resolve(intentions), scen.teamSet)
     scen = newScen
     restrict(scen)
-  }*/
+  }
 
   /** Restricts intentions to the counters controled by the player. */
   def restrict(inp: G3HScen): G3HScen =
