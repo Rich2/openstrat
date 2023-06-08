@@ -3,12 +3,12 @@ package ostrat; package gThree; package h3p
 import prid._, phex._, Colour._, gPlay._
 
 /** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */
-case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
+/*case class HCounters(hc: HCen, value: RArr[Counter]) extends HexMemShow[RArr[Counter]]
 { override def typeStr: String = "HCounter"
   override def name2: String = "counter"
-  override implicit def showT2: ShowT[Counter] = Counter.showTEv
+  override implicit def showT2: ShowT[RArr[Counter]] = ???//Counter.showTEv
   override def syntaxDepth: Int = 2
-}
+}*/
 
 
 case class Hold(turns: Int)
