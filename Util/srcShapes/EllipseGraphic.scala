@@ -1,6 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, Colour.Black
+import pgui._
+import Colour.Black
+import ostrat.pWeb.XmlAtt
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphicCentred
@@ -65,9 +67,32 @@ object EllipseDraw
   }
 }
 
-trait EllipseActive extends EllipseGraphicSimple with GraphicClickable with CanvElem
+trait EllipseActive extends EllipseGraphicSimple with GraphicClickable
 {
   type ThisT <: EllipseActive
   type ThisT2 = EllipseActive
-  //override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), lineColour, lineWidth)
+  override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), pointerId)
+}
+
+object EllipseActive
+{
+  def apply(shape: Ellipse, pointerId: Any): EllipseActive = EllipseActiveImp(shape, pointerId)
+
+  /** Implementation class for [[EllipseDraw]]. */
+  final case class EllipseActiveImp(shape: Ellipse, pointerId: Any) extends EllipseActive
+  { type ThisT = EllipseActive
+
+    override def ptInside(pt: Pt2): Boolean = ???
+
+    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+    override def rendToCanvas(cp: CanvasPlatform): Unit = ???
+
+    override def ptsTrans(f: Pt2 => Pt2): EllipseActive = EllipseActiveImp(shape.fTrans(f), pointerId)
+
+    override def nonShapeAttribs: RArr[XmlAtt] = ???
+
+    override def svgStr: String = ???
+
+    override def svgElem(bounds: BoundingRect): SvgElem = ???
+  }
 }

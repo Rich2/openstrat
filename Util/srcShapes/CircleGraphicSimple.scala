@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, Colour.Black
+import pgui._
+import Colour.Black
+import ostrat.pWeb.XmlAtt
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
 trait CircleGraphicSimple extends CircleGraphic with EllipseGraphicSimple
@@ -25,7 +27,7 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
 }
 
 /** A pointable polygon without visual. */
-/*case class CircleActive(shape: Circle, pointerId: Any) extends GraphicSimElem with GraphicClickable with GraphicSimple
+case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive with CircleGraphicSimple
 { override type ThisT = CircleActive
  override def ptsTrans(f: Pt2 => Pt2): CircleActive = CircleActive(Circle(shape.diameter, f(shape.cen)), pointerId)
   override def boundingRect = shape.boundingRect
@@ -33,13 +35,12 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
-  //override def slateTo(newCen: Pt2): PolygonActive = ???
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
-  //override def attribs: Arr[XmlAtt] = ???
+  override def nonShapeAttribs: RArr[XmlAtt] = ???
 
-  //override def svgStr: String = ???
-}*/
+  override def svgElem(bounds: BoundingRect): SvgElem = ???
+}
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
 { override def reify(scale: Double, cen: Pt2): CircleFill = CircleFill(Circle(scale, cen), fillColour)
