@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui._, Colour.Black
 
@@ -62,6 +62,12 @@ object EllipseDraw
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
     override def svgStr: String = ???
-
   }
+}
+
+trait EllipseActive extends EllipseGraphicSimple with GraphicClickable with CanvElem
+{
+  type ThisT <: EllipseActive
+  type ThisT2 = EllipseActive
+  //override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), lineColour, lineWidth)
 }

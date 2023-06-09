@@ -82,6 +82,12 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def cenP2: Vec2 = Vec2(0, -radius)
   override def cenP3: Vec2 = Vec2(-radius, 0)
   override def cenP4: Vec2 = Vec2(0, radius)
+
+  /** Determines if the parameter point lies inside this Polygon. */
+  def ptInside(pt: Pt2): Boolean = pt match {
+    case Pt2(x, y) if x > cenX + radius | x < cenX - radius | y > cenY + radius | y < cenY - radius => false
+    case _ => true
+  }
 }
 
 /** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */
