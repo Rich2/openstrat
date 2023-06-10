@@ -140,6 +140,22 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     res
   }
 
+  /** [[SqCen]] with Some flatMap. FlatMaps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type ArrB. Returns an
+   *  immutable Array based collection of type ArrB. */
+  def scSomesFlatMap[ArrB <: Arr[_]](f: (SqCen, A) => ArrB)(implicit gridSys: SqGridSys, build: ArrFlatBuilder[ArrB]): ArrB =
+  { var buff = build.newBuff()
+
+    gridSys.foreach { sc =>
+      val a: A = unsafeArray(gridSys.layerArrayIndex(sc))
+      if (a != null) {
+        val newArr = f(sc, a)
+        build.buffGrowArr(buff, newArr)
+      }
+
+    }
+    build.buffToSeqLike(buff)
+  }
+
   def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairNoA1ParamElem[B1, B2], ArrB <: PairNoA1PramArr[B1, ArrB1, B2, B]](f1: (SqCen, A) => B1)(f2: (SqCen, A) => B2)(
   implicit gridSys: SqGridSys, build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val len = somesLen
