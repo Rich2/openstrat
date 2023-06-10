@@ -48,7 +48,8 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): CircleCompound =
     CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
-  
+
+  def fillActive(fillColour: Colour, pointerID: AnyRef): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def attribs: RArr[XANumeric] = RArr(cxAttrib, cyAttrib, rAttrib)
 

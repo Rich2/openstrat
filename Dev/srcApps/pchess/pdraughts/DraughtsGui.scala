@@ -2,6 +2,7 @@
 package ostrat; package pchess; package pdraughts
 import geom._, pgui._, Colour._, prid._, psq._
 
+/** 2D Graphical display for Draughts / Checkers game. */
 case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui
 { override def title: String = "Dreughts"
 
@@ -16,7 +17,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
 
   def frame: GraphicElems =
   { val tiles: GraphicElems = grid.map { sc => sc.polygonReg.fillActive(sc.checkeredColour(darkSquareColour, lightSquareColour), sc) }
-    val pieces = scen.draughts.scSomesFlatMap{ (sc, p) => RArr(Circle(1.2, sc.toPt2Reg).fill(p.colour), CircleActive(Circle(1.2, sc.toPt2Reg), p)) }
+    val pieces = scen.draughts.scSomesMap{ (sc, p) => Circle(1.2, sc.toPt2Reg).fillActive(p.colour, p) }
     (tiles ++ pieces).slate(-grid.cenVec).scale(cPScale)
  }
 
