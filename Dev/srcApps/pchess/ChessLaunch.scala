@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess
 import pgui._, pParse._
 
@@ -13,10 +13,7 @@ object ChessLaunch extends GuiLaunchMore
     val num: Int = oScen.getElse(1)
     num match
     { case 1 => (ChessGui(_, ChessStart), "JavaFx Chess")
-      case 2 => (pdraughts.DraughtsGui(_, pdraughts.DraughtsStart), "JavaFx Draughts")
       case _ => (ChessGui(_, ChessStart), "JavaFx Chess")
     }
-
-    //(GOneGui(_, scen, oview.getElse(scen.grid.coordCen.view())), "JavaFx Game One")
   }
 }

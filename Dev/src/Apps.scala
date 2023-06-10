@@ -26,6 +26,7 @@ object Apps
     ("NM", pnorm.NormLaunch),
     ("Go", pgo.GoLaunch),
     ("CH", pchess.ChessLaunch),
+    ("DR", pchess.pdraughts.DraughtsLaunch),
   )
 
   val ids: StrPairArr[(CanvasPlatform => Any, String)] = StrPairArr(

@@ -41,7 +41,7 @@ chess = {scen = 1 };
 ("CV", pCiv.CivLaunch),
 ("Go", pgo.GoLaunch),
 ("CH", pchess.ChessLaunch),
-
+("DR", pchess.pdraughts.DraughtsLaunch),
 
 ("Y1", (pZero.TessGui(_), "Tess")),
 ("Y2", (pnap.NapGuiOld(_, pnap.Nap1Old), "1783")),
