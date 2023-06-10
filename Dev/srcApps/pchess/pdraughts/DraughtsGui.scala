@@ -2,8 +2,8 @@
 package ostrat; package pchess; package pdraughts
 import geom._, pgui._, Colour._, prid._, psq._
 
-case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui {
-  override def title: String = "Dreughts"
+case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui
+{ override def title: String = "Dreughts"
 
   implicit def grid: SqGrid = scen.gridSys
 

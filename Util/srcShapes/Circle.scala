@@ -84,9 +84,9 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def cenP4: Vec2 = Vec2(0, radius)
 
   /** Determines if the parameter point lies inside this [[Circle]]. */
-  def ptInside(pt: Pt2): Boolean = pt match {
-    case Pt2(x, y) if x > cenX + radius | x < cenX - radius | y > cenY + radius | y < cenY - radius => false
-    case _ => true
+  def ptInside(pt: Pt2): Boolean = pt match
+  { case Pt2(x, y) if x > cenX + radius | x < cenX - radius | y > cenY + radius | y < cenY - radius => false
+    case Pt2(x, y) => radius >= ((x -cenX).squared + (y - cenY).squared).sqrt
   }
 }
 
