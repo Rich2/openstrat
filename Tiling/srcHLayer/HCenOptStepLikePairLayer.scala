@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import reflect.ClassTag
 
 /** Optional [[HStepLike]] pair data layer  for Hex grid systems. */
-class HCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
+class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
 {
   def numCens: Int = arrayA.length
   def step(hc: HCen): HStepLike = HStepLike.fromInt(arrayInt(gridSys.layerArrayIndex(hc)))
@@ -15,9 +15,9 @@ class HCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implic
   }
 
   /** Needs changing. */
-  def mapAcc: HCenAccLayer[A] =
+  def mapAcc: HCenAccPairLayer[A] =
   {
-    val acc = HCenAccLayer[A]()
+    val acc = HCenAccPairLayer[A]()
     gridSys.foreach{origin =>
       val index = gridSys.layerArrayIndex(origin)
       val optA = arrayA(index)
@@ -30,10 +30,10 @@ class HCenOptStepLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implic
   }
 }
 
-object HCenOptStepLayer
-{ /** Factory apply method for [[HCenOptStepLayer]]. */
-  def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptStepLayer[A] = new HCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
+object HCenOptStepLikePairLayer
+{ /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
+  def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptStepLikePairLayer[A] = new HCenOptStepLikePairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
 
-  /** Factory apply method for [[HCenOptStepLayer]]. */
-  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptStepLayer[A] = new HCenOptStepLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
+  /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
+  def apply[A]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptStepLikePairLayer[A] = new HCenOptStepLikePairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))
 }

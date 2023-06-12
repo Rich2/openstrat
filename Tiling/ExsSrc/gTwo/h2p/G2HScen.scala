@@ -14,7 +14,7 @@ trait G2HScen extends HSysTurnScen
 
   /** Resolves the turn returning a new [[HCenOptLayer]] of [[CounterState]]s. */
   def resolve(oldStates: HCenOptLayer[CounterState]): HCenOptLayer[CounterState] =
-  { val acc: HCenAccLayer[CounterState] = HCenAccLayer()
+  { val acc: HCenAccPairLayer[CounterState] = HCenAccPairLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
       val steps: HStepArr = ps.steps
       if(steps.length > 0)

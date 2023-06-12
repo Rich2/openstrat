@@ -1,9 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Common trait for [[HStep]] and [[HStepStay]]. */
 sealed trait HStepLike extends TStepLike

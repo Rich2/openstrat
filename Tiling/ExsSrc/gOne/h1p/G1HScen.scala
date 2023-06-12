@@ -14,12 +14,19 @@ trait G1HScen extends HSysTurnScen
   /** The [[Counter]]s in the scenario. The data is folded into an [[Arr]]. */
   def counterSet: RArr[Counter] = counters.somesMap(c => c)
 
-    /** Contains the resolution logic. The intensions are presumed to be correct. Combining and checking of intensions should be done before calling
+    /** Contains the resolution logic. The intentions are presumed to be correct. Combining and checking of intentions should be done before calling
      *  this method. */
-  def resolve(intensions: HCenOptStepLayer[Counter]): HCenOptLayer[Counter] =
+  def resolve(intensions: HCenOptStepLikePairLayer[Counter]): HCenOptLayer[Counter] =
   { val playersNew: HCenOptLayer[Counter] = counters.copy
-    val acc: HCenAccLayer[Counter] = intensions.mapAcc
+    val acc: HCenAccPairLayer[Counter] = intensions.mapAcc
     acc.foreach{ (target, arr) => if(arr.length == 1 & counters.emptyTile(target)) playersNew.moveUnsafe(arr.headHCen, target) }
+    playersNew
+  }
+
+  def resolve2(intensions: HCenOptStepLikeLayer): HCenOptLayer[Counter] =
+  { val playersNew: HCenOptLayer[Counter] = counters.copy
+    val acc: HCenAccLayer = intensions.mapAcc
+    acc.foreach { (target, arr) => if (arr.length == 1 & counters.emptyTile(target)) playersNew.moveUnsafe(arr.head, target) }
     playersNew
   }
 }
