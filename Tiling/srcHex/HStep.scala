@@ -106,6 +106,38 @@ case object HexUL extends HStep
   def int1 = 6
   override def reverse: HStep = HexDR
 }
+/** An Arr of hex step directions. */
+class HStepLikeArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStepLike] {
+  override type ThisT = HStepLikeArr
+
+  override def typeStr: String = "HStepLikeArr"
+
+  override def newElem(intValue: Int): HStepLike = HStepLike.fromInt(intValue)
+
+  override def fromArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
+
+  override def fElemStr: HStepLike => String = _.toString
+}
+
+object HStepLikeArr extends Int1SeqLikeCompanion[HStepLike, HStepLikeArr]
+{ override def fromArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
+
+  implicit val flatBuilder: ArrFlatBuilder[HStepLikeArr] = new Int1ArrFlatBuilder[HStepLikeArr]
+  { override type BuffT = HStepLikeBuff
+    override def fromIntArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepLikeBuff = new HStepLikeBuff(buffer)
+  }
+}
+
+/** ArrayBuffer based buffer class for [[HStepLike]]s. */
+class HStepLikeBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HStepLike]
+{ override def typeStr: String = "HStepLikeBuff"
+  def newElem(i1: Int): HStepLike = HStepLike.fromInt(i1)
+}
+
+object HStepLikeBuff
+{ def apply(initLen: Int = 4): HStepLikeBuff = new HStepLikeBuff(new ArrayBuffer[Int](initLen))
+}
 
 /** An Arr of hex step directions. */
 class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
