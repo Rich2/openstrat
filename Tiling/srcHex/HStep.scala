@@ -4,6 +4,13 @@ import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Common trait for [[HStep]] and [[HStepStay]]. */
 sealed trait HStepLike extends TStepLike
+{
+  /** Returns a [[Some]] of the result of the function if this is an [[HStep]] else returns [[None]]. */
+  def mapOpt[B, ArrB <: Arr[B]](f: HStep => B): Option[B] = this match
+  { case hs: HStep => Some(f(hs))
+    case _ => None
+  }
+}
 
 object HStepLike
 { /** Constructs [[HStepLike]] from its int1 value. */
@@ -17,6 +24,8 @@ object HStepLike
     case 6 => HexUL
     case _ => HStepStay
   }
+
+  implicit val defaultValueEv: DefaultValue[HStepLike] = new DefaultValue[HStepLike] { override def default: HStepLike = HStepStay }
 }
 
 /** The no step value of [[HStepLike]] */

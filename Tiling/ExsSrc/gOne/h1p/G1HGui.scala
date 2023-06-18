@@ -20,7 +20,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenStepPairArr[Counter] = HCenStepPairArr[Counter]()
 
-  val noMoves2 = HCenLayer[HStepLike](HStepStay)// HStepLikeArr()
+  val noMoves2 = HCenLayer[HStepLike](HStepStay)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */
@@ -59,7 +59,9 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    scen = game.endTurn(moves.mapOnA1(_.step))
+    //scen = game.endTurn(moves.mapOnA1(_.step))
+    val dirs = moves2.hcOptMap { (sl, hc) => sl.mapOpt { st => HCenStep(hc, st) } }
+    scen = game.endTurn2(dirs)
     moves = NoMoves
     repaint()
     thisTop()
@@ -77,7 +79,10 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
     case (RightButton, HCenPair(hc1, selectedCounter: Counter), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      newM.foreach{ d => if(counterSet.contains(selectedCounter)) moves = moves.replaceA1byA2OrAppend(selectedCounter, hc1.andStep(d))
+      newM.foreach{ st => if(counterSet.contains(selectedCounter))
+        { moves = moves.replaceA1byA2OrAppend(selectedCounter, hc1.andStep(st))
+          moves2.set(hc1, st)
+        }
         else { statusText = s"Illegal move You don't have control of $selectedCounter"; thisTop()} }
       repaint()
     }
@@ -85,7 +90,6 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
     case (_, _, h) => deb("Other; " + h.toString)
   }
   thisTop()
-
 
   proj.getFrame = () => frame
   proj.setStatusText = {str =>

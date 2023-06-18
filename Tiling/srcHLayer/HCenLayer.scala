@@ -301,7 +301,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   }
 }
 
-/** Companion object for [[HCenLayer]], contains an apply factory method. */
+/** Companion object for [[HCenLayer]], contains factory apply methods. */
 object HCenLayer
 { /** Apply factory method for [[HCenLayer]]. */
   def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGridSys): HCenLayer[A] = apply(gridSys, value)(ct)
