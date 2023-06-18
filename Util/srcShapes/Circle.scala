@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, math.Pi
 
@@ -7,8 +7,7 @@ import pWeb._, math.Pi
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
 final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
-{
-  type ThisT = Circle
+{ type ThisT = Circle
 
   override def fTrans(f: Pt2 => Pt2): Circle =
   { val v1: Pt2 = cen.addX(radius)
@@ -46,6 +45,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   
   override def draw(lineColour: Colour = Colour.Black, lineWidth: Double = 2): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
+  /** Returns a [[CircleCompound]] with a [[FillFacet]] and a [[DrawFact]]. */
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): CircleCompound =
     CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
 
@@ -58,10 +58,6 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def bottomRight: Pt2 = Pt2(rr2, -rr2)
   override def bottomLeft: Pt2 = Pt2(-rr2, -rr2)
   override def topLeft: Pt2 = Pt2(-rr2, rr2)
-
-  //override def topCen: Vec2 = ???
-
-  /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */
 
   @inline override def radius1: Double = radius
   @inline override def radius2: Double = radius
