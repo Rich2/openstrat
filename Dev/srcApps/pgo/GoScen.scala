@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgo
 import prid._, psq._, Colour._, pgui._
 
@@ -16,9 +16,10 @@ object WStone extends Stone
 
 class GoScen(val grid: SqGrid, val stones: SqCenOptLayer[Stone])
 
-object GoScen{
-  def apply() ={
-    val grid = SqGrid(2, 38, 2, 38)
+object GoScen
+{
+  def apply() =
+  { val grid = SqGrid(2, 38, 2, 38)
     new GoScen(grid, grid.newSCenOptDGrider[Stone])
   }
 }
