@@ -28,6 +28,7 @@ chess = {scen = 1 };
 ("DL", dless.DLessLaunch),
 ("W1", pww1.WW1Launch),
 ("BC", p305.BcLaunch),
+("UL", puloc.ULocLaunch),
 ("EA", pEarth.EarthBasicLaunch),
 ("EG", egrid.EGridLaunch),
 ("G1h", gOne.hp1.G1HLaunch),

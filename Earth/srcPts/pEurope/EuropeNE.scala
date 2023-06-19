@@ -48,7 +48,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
   val chelmuzhiEast = 62.53 ll 35.75
    
   /** Start of North coast. */
-  val onezhsky = 63.79 ll 37.35
+  val onezhsky: LatLong = 63.79 ll 37.35
   val onegaRiver = 63.93 ll 37.99
   val pushlakhtaNorth = 64.92 ll 36.44
   val letniyNavolok = 65.16 ll 37.04
@@ -57,13 +57,15 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
   val intsy = 65.98 ll 40.75
   val koyda = 66.51 ll 42.25
   val koydaEast = 66.41 ll 43.24
-  val mezenMouth = 66.07 ll 44.10
-  val southEast = 52 ll 45
+  val mezenMouth: LatLong = 66.07 ll 44.10
+  val southEast: LatLong = 52 ll 45
    
   val polygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, kesterclems, jurmala, saulkrasti, parnu, lao, virtsu, noarootsi, paldiski, udria,
      krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,pudozhgorskiy, chelmuzhiEast,
      /** North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast,
      Polandia.cenEast)
+
+  val konigsberg = 54.71 ll 20.45
 }
 
 object Gotland extends EArea2("Gotland", 57.46 ll 18.47, Plain)
