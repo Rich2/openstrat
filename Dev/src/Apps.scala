@@ -11,6 +11,7 @@ object Apps
     ("W1", pww1.WW1Launch),
     ("BC", p305.BcLaunch),
     ("EA", pEarth.EarthBasicLaunch),
+    ("UL", puloc.ULocLaunch),
     ("EG", egrid.EGridLaunch),
     ("G1h", gOne.h1p.G1HLaunch),
     ("G1s", gOne.s1p.G1SLaunch),

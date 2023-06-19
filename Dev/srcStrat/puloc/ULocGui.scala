@@ -3,7 +3,7 @@ package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._
 
 case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
-{ statusText = "Welcome to world map, constructed from irregular areas."
+{ statusText = "Welcome to Unit locations."
 
   /** Scale in km / pixel */
   var scale: Length = viewIn.scale
