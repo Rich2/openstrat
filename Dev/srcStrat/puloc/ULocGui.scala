@@ -66,7 +66,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
       val xyz = ll.toMetres3.fromLatLongFocus(focus)
       if (xyz.zPos){
         val pt = (xyz.xy/scale)
-        val res = InfantryCounter(50, lu, lu.nation.colour).slate(pt)
+        val res = InfantryCounter(50, lu, lu.colour).slate(pt)
         Some(res)
       }
       else None
@@ -77,8 +77,8 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
     mainRepaint(seas %: activeFills ++ sideLines ++ areaNames ++ locTexts ++ units1)
   }
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) => {
       selected = cl.headOrNone
       statusText = selectedStr.newLinesToSpaces
       thisTop()

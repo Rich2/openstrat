@@ -2,17 +2,36 @@
 package ostrat
 import java.util.{GregorianCalendar => JGreg}
 
-class Date(val year: Int, val month: Int = 1, val day: Int = 1, val hour: Int = 0, val minute: Int = 0, val second: Int = 0) extends Ordered[Date]
+/** Date class, name may change. */
+class Date(val year: Int, val monthNum: Int = 1, val day: Int = 1, val hour: Int = 0, val minute: Int = 0, val second: Int = 0) extends Ordered[Date]
 {
   override def compare(that: Date): Int = year match
   { case y if y > that.year => 1
     case y if y < that.year => -1
-    case _ if month > that.month => 1
-    case _ if month < that.month => -1
+    case _ if monthNum > that.monthNum => 1
+    case _ if monthNum < that.monthNum => -1
     case _ if day > that.day => 1
     case _ if day < that.day => -1
     case _ => 0
   }
+
+  private def monthStr: String = monthNum match
+  { case 1 => "January"
+    case 2 => "Febuary"
+    case 3 => "March"
+    case 4 => "April"
+    case 5 => "May"
+    case 6 => "June"
+    case 7 => "July"
+    case 8 => "August"
+    case 9 => "September"
+    case 10 => "October"
+    case 11 => "Novemeber"
+    case 12 => "December"
+    case _ => "Unknown Month"
+  }
+
+  override def toString: String = year.str -- monthStr -- day.str
 }
 
 object Date

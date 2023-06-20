@@ -3,20 +3,15 @@ package ostrat; package puloc
 import Colour._
 
 trait Nation extends Coloured
-{
-  def name: String
+{ def name: String
+  override def toString: String = name
 }
 
 object Germany extends Nation
-{
-
-  override def name: String = "Germany"
-
+{ override def name: String = "Germany"
   override def colour: Colour = Gray
 }
 object France extends Nation
-{
-  override def name: String = "France"
-
+{ override def name: String = "France"
   override def colour: Colour = LightBlue
 }

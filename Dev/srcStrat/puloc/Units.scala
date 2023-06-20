@@ -5,13 +5,16 @@ import geom._, pglobe._, pEarth._
 case class LocStart(oLocation: Option[LatLong], startDate: Date)
 case class LocPeriod(location: LatLong, stDate: Date, endDate: Date)
 
-trait Lunit
-{
+trait Lunit extends Coloured
+{ /** The nation / state to which this unit belongs.  */
   def nation: Nation
 
+  /** The end date for this incarnation of this Unit identity. */
   def endDate: Date
 
   def locStarts: RArr[LocStart]
+
+  override def colour: Colour = nation.colour
 
   def startDate: Date = locStarts(0).startDate
 
