@@ -1,11 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
-import geom._, pglobe._, pEarth._, pgui._, Colour._
+import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
 case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
-{ statusText = "Welcome to Unit locations."
-
-  /** Scale in km / pixel */
+{ /** Scale in km / pixel */
   var scale: Length = viewIn.scale
 
   /** Scale accounting for whether the display has north up or down. */
@@ -24,15 +22,10 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
 
-  import pEurope._
-  val london = England.london.a1
-  val paris = Frankia.paris.a1
-  val berlin = Germania.berlin.a1
-  val conns1 = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
-  val conns2 = conns1.map(_.map(_.toMetres3))
+  val date: Date = Date(1939, 9)
 
-  val date = Date(1939, 9)
-  val finds = allLocs(date)
+  statusText = s"Welcome to Unit locations. $date"
+  val finds: RArr[(Lunit, LatLong)] = allLocs(date)
   debvar(finds)
 
   def repaint(): Unit =
@@ -67,14 +60,21 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
       p.a1.textAt(p.a2.name, 10, col) }
 
-    val conns3 = conns2.map(_.fromLatLongFocus(focus))
-    val conns4 = conns3.filter(_.zsPos)
-    val conns5 = conns4.map(_.xy / scale)
-    val conns6 = conns5.draw(2, Orange)
+
+    def units1: GraphicElems = finds.optMap{ pair =>
+      val (lu, ll) = pair
+      val xyz = ll.toMetres3.fromLatLongFocus(focus)
+      if (xyz.zPos){
+        val pt = (xyz.xy/scale)
+        val res = InfantryCounter(50, lu, lu.nation.colour).slate(pt)
+        Some(res)
+      }
+      else None
+    }
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 
-    mainRepaint(seas %: activeFills ++ sideLines.+%(conns6) ++ areaNames ++ locTexts)
+    mainRepaint(seas %: activeFills ++ sideLines ++ areaNames ++ locTexts ++ units1)
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
