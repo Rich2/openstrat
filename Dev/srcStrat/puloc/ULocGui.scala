@@ -31,6 +31,9 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   val conns1 = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
   val conns2 = conns1.map(_.map(_.toMetres3))
 
+  val date = Date(1939, 9)
+  val finds = allLocs(date)
+  debvar(finds)
 
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
