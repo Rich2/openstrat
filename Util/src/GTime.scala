@@ -2,6 +2,26 @@
 package ostrat
 import java.util.{GregorianCalendar => JGreg}
 
+class Date(val year: Int, val month: Int = 1, val day: Int = 1, val hour: Int = 0, val minute: Int = 0, val second: Int = 0) extends Ordered[Date]
+{
+  override def compare(that: Date): Int = year match
+  { case y if y > that.year => 1
+    case y if y < that.year => -1
+    case _ if month > that.month => 1
+    case _ if month < that.month => -1
+    case _ if day > that.day => 1
+    case _ if day < that.day => -1
+    case _ => 0
+  }
+}
+
+object Date
+{
+  def apply(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): Date =
+    new Date(year, month, day, hour, minute, second)
+}
+
+/*
 object TimeSpan
 {
    def apply(ticsInMilliSeconds: Long): TimeSpan = TimeSpan(ticsInMilliSeconds) 
@@ -86,4 +106,4 @@ class WholeHours(val value: Int) extends AnyVal
 {
    def +(operand: WholeHours): WholeHours = new WholeHours(value + operand.value)
    def toTimeSpan: TimeSpan = new TimeSpan(value * 3600000)
-}
+}*/

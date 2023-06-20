@@ -2,18 +2,6 @@
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._
 
-case class Date(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0) extends Ordered[Date]
-{
-  override def compare(that: Date): Int = year match
-  { case y if y > that.year => 1
-    case y if y < that.year => -1
-    case _ if month > that.month => 1
-    case _ if month < that.month => -1
-    case _ if day > that.day => 1
-    case _ if day < that.day => -1
-    case _ => 0
-  }
-}
 case class LocStart(oLocation: Option[LatLong], startDate: Date)
 case class LocPeriod(location: LatLong, stDate: Date, endDate: Date)
 
