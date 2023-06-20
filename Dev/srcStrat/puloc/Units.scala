@@ -2,7 +2,21 @@
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._
 
-case class LocStart(oLocation: Option[LatLong], startDate: Date)
+class LocStart(val startDate: Date, val oLocation: Option[LatLong] = None)
+
+object LocStart{
+  def data(startDate: Date): LocStart = new LocStart(startDate)
+
+  def apply(latLong: LatLong, year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): LocStart =
+  { val date = Date(year, month, day: Int, hour: Int, minute: Int, second: Int)
+    new LocStart(date, Some(latLong))
+  }
+
+  def date(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): LocStart ={
+    val date = Date(year, month, day: Int, hour: Int, minute: Int, second: Int)
+    new LocStart(date)
+  }
+}
 case class LocPeriod(location: LatLong, stDate: Date, endDate: Date)
 
 trait Lunit extends Coloured
@@ -39,20 +53,27 @@ trait CorpsNumbered extends Lunit
 object DeuCp1 extends CorpsNumbered
 { override val nation: Nation = Germany
   override val corpsNum: Int = 1
-  override val locStarts: RArr[LocStart] = RArr(LocStart(Some(pEurope.Baltland.konigsberg), Date(1934, 10)), LocStart(None, Date(1939, 9, 2)))
+  override val locStarts: RArr[LocStart] = RArr(LocStart(pEurope.Baltland.konigsberg, 1934, 10), LocStart.date(1939, 9, 2))
   override val endDate: Date = Date(1945, 5, 8)
 }
 
 object DeuCp2 extends CorpsNumbered
 { override val nation: Nation = Germany
   override val corpsNum: Int = 2
-  override val locStarts: RArr[LocStart] = RArr(LocStart(None, Date(1935, 4)))
+  override val locStarts: RArr[LocStart] = RArr(LocStart.date(1935, 4))
   override val endDate: Date = Date(1945, 5, 8)
 }
 
 object FraCp1 extends CorpsNumbered
 { override val nation: Nation = France
   override val corpsNum: Int = 1
-  override val locStarts: RArr[LocStart] = RArr(LocStart(Some(pEurope.Frankia.calais), Date(1939, 8, 27)), LocStart(None, Date(1939, 11, 15)))
+  override val locStarts: RArr[LocStart] = RArr(LocStart(pEurope.Frankia.calais, 1939, 8, 27), LocStart.date(1939, 11, 15))
   override val endDate: Date = Date(1945, 5, 8)
+}
+
+object FraCp2 extends CorpsNumbered
+{ override val nation: Nation = France
+  override val corpsNum: Int = 2
+  override val locStarts: RArr[LocStart] = RArr(LocStart.date(1939, 8, 23))
+  override val endDate: Date = Date(1940, 5, 26)
 }
