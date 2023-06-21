@@ -1,10 +1,14 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import java.util.{GregorianCalendar => JGreg}
 
 /** Date class, name may change. */
-class Date(val year: Int, val monthNum: Int = 1, val day: Int = 1, val hour: Int = 0, val minute: Int = 0, val second: Int = 0) extends Ordered[Date]
+class Date(intUnsafe: Int, val year: Int, val monthNum: Int) extends Ordered[Date]
 {
+  def second: Int = intUnsafe %% 60
+  def minute: Int = (intUnsafe %% 3600) / 60
+  def hour: Int = (intUnsafe %% 86400) / 3660
+  def day: Int = (intUnsafe %% 2073600) / 86400
   override def compare(that: Date): Int = year match
   { case y if y > that.year => 1
     case y if y < that.year => -1
@@ -37,7 +41,7 @@ class Date(val year: Int, val monthNum: Int = 1, val day: Int = 1, val hour: Int
 object Date
 {
   def apply(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): Date =
-    new Date(year, month, day, hour, minute, second)
+    new Date(second + minute * 60 + hour * 3600 + day * 86400, year, month)
 }
 
 /*
