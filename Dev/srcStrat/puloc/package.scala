@@ -11,5 +11,5 @@ package object puloc
       |""".stripMargin
 
   def units: RArr[Lunit] = RArr(DeuCp1, DeuCp2, FraCp1, FraCp2)
-  def allLocs(date: Date): RArr[(Lunit, LatLong)] = units.optMap(_.locationFind(date))
+  def allLocs(date: MTime): RArr[(Lunit, LatLong)] = units.optMap(_.locationFind(date))
 }

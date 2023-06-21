@@ -2,22 +2,18 @@
 package ostrat
 import java.util.{GregorianCalendar => JGreg}
 
-/** Date class, name may change. */
-class Date(intUnsafe: Int) extends Ordered[Date]
+/** An instant of time specified to the nearest minute. By default uees Gregorian Calender */
+class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
 {
-  def minute: Int = intUnsafe %% 60
-  def hour: Int = (intUnsafe %% 1440) / 60
-  def day: Int = (intUnsafe %% 44640) / 1440
-  def monthNum: Int = (intUnsafe %% 535680) / 44640
-  def year = intUnsafe / 535680
-  override def compare(that: Date): Int = year match
-  { case y if y > that.year => 1
-    case y if y < that.year => -1
-    case _ if monthNum > that.monthNum => 1
-    case _ if monthNum < that.monthNum => -1
-    case _ if day > that.day => 1
-    case _ if day < that.day => -1
-    case _ => 0
+  def minute: Int = int1 %% 60
+  def hour: Int = (int1 %% 1440) / 60
+  def day: Int = (int1 %% 44640) / 1440
+  def monthNum: Int = (int1 %% 535680) / 44640
+  def year: Int = int1 / 535680
+  override def compare(that: MTime): Int = int1 match
+  { case i if i > that.int1 => 1
+    case i if i == that.int1 => 0
+    case _ => -1
   }
 
   private def monthStr: String = monthNum match
@@ -39,10 +35,10 @@ class Date(intUnsafe: Int) extends Ordered[Date]
   override def toString: String = year.str -- monthStr -- day.str
 }
 
-object Date
+object MTime
 {
-  def apply(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): Date =
-    new Date(minute + hour * 60 + day * 1440 + month * 44640 + year * 535680)
+  def apply(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): MTime =
+    new MTime(minute + hour * 60 + day * 1440 + month * 44640 + year * 535680)
 }
 
 /*

@@ -22,7 +22,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
 
-  val date: Date = Date(1939, 9)
+  val date: MTime = MTime(1939, 9)
 
   statusText = s"Welcome to Unit locations. $date"
   val finds: RArr[(Lunit, LatLong)] = allLocs(date)
