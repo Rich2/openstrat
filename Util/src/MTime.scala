@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import java.util.{GregorianCalendar => JGreg}
+import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 /** An instant of time specified to the nearest minute. By default uees Gregorian Calender */
 class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
@@ -39,6 +39,21 @@ object MTime
 {
   def apply(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): MTime =
     new MTime(minute + hour * 60 + day * 1440 + month * 44640 + year * 535680)
+}
+
+class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
+{
+  def seriesNum: Int = arrayA.length
+  def find(time: MTime): Option[A] = if (time.int1 < arrayInt(0) | time.int1 > arrayInt(seriesNum)) None
+  else
+  { def loop(i: Int): Option[A] = if (time.int1 >= arrayInt(i)) Some(arrayA(i)) else loop(i + 1)
+    loop(0)
+  }
+}
+
+object MTimeSeries
+{
+  def apply[A](startTime: MTime, time1: MTime, a1: A, pairs: (MTime, A)*)(implicit ct: ClassTag[A]): MTimeSeries[A] = ???
 }
 
 /*
