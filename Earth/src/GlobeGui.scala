@@ -8,6 +8,8 @@ abstract class GlobeGui(val title: String) extends CmdBarGui{
   /** The length normally shown in kms per pixel. */
   var scale: Length
 
+  def ifScale(minScale: Length, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
+
   def scaleStr = s"scale = ${scale.kMetresNum.str2} km/pixel"
   def repaint(): Unit
   var northUp: Boolean = true

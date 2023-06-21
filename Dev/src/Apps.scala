@@ -4,7 +4,7 @@ import pgui._, pStrat._
 
 /** Object for selecting various JavaFx apps / examples at run time. */
 object Apps
-{
+{ /** Matches the [[String]] for the identifier in DevSettings.rson to a list of Apps. */
   val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
     ("L", learn.Lessons),
     ("DL", dless.DLessLaunch),

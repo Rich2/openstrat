@@ -34,8 +34,8 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
     val ps4: PolygonM2PairArr[EArea2] = ps3.optMapOnA1 {
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
-      case p => {
-        val newPoly = p.map { case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
+      case p =>
+      { val newPoly = p.map { case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
         case v => v.xy
         }
         Some(newPoly)
@@ -72,9 +72,11 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
       else None
     }
 
+    def units2: GraphicElems = ifScale(8.km, units1)
+
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 
-    mainRepaint(seas %: activeFills ++ sideLines ++ areaNames ++ locTexts ++ units1)
+    mainRepaint(seas %: activeFills ++ sideLines ++ areaNames ++ locTexts ++ units2)
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
