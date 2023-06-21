@@ -2,16 +2,21 @@
 package ostrat; package puloc
 import Colour._
 
-trait Nation extends Coloured
+trait Polity extends Coloured
 { def name: String
   override def toString: String = name
 }
 
-object Germany extends Nation
+object Prussia extends Polity
+{ override val name: String = "Prussia"
+  override def colour: Colour = Colour.Navy
+}
+
+object Germany extends Polity
 { override def name: String = "Germany"
   override def colour: Colour = Gray
 }
-object France extends Nation
+object France extends Polity
 { override def name: String = "France"
   override def colour: Colour = LightBlue
 }

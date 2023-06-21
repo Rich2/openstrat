@@ -21,7 +21,7 @@ case class LocPeriod(location: LatLong, stDate: Date, endDate: Date)
 
 trait Lunit extends Coloured
 { /** The nation / state to which this unit belongs.  */
-  def nation: Nation
+  def nation: Polity
 
   /** The end date for this incarnation of this Unit identity. */
   def endDate: Date
@@ -50,29 +50,36 @@ trait CorpsNumbered extends Lunit
   override def toString: String = nation.name -- corpsNum.adjective -- "Corps"
 }
 
+object PruCp1 extends CorpsNumbered
+{ override def corpsNum: Int = 1
+  override def nation: Polity = Prussia
+  override def endDate: Date = Date(1871, 1, 18)
+  override def locStarts: RArr[LocStart] = RArr(LocStart.date(1820))
+}
+
 object DeuCp1 extends CorpsNumbered
-{ override val nation: Nation = Germany
+{ override val nation: Polity = Germany
   override val corpsNum: Int = 1
   override val locStarts: RArr[LocStart] = RArr(LocStart(pEurope.Baltland.konigsberg, 1934, 10), LocStart.date(1939, 9, 2))
   override val endDate: Date = Date(1945, 5, 8)
 }
 
 object DeuCp2 extends CorpsNumbered
-{ override val nation: Nation = Germany
+{ override val nation: Polity = Germany
   override val corpsNum: Int = 2
   override val locStarts: RArr[LocStart] = RArr(LocStart.date(1935, 4))
   override val endDate: Date = Date(1945, 5, 8)
 }
 
 object FraCp1 extends CorpsNumbered
-{ override val nation: Nation = France
+{ override val nation: Polity = France
   override val corpsNum: Int = 1
   override val locStarts: RArr[LocStart] = RArr(LocStart(pEurope.Frankia.calais, 1939, 8, 27), LocStart.date(1939, 11, 15))
   override val endDate: Date = Date(1945, 5, 8)
 }
 
 object FraCp2 extends CorpsNumbered
-{ override val nation: Nation = France
+{ override val nation: Polity = France
   override val corpsNum: Int = 2
   override val locStarts: RArr[LocStart] = RArr(LocStart.date(1939, 8, 23))
   override val endDate: Date = Date(1940, 5, 26)
