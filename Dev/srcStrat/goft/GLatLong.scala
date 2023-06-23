@@ -3,9 +3,9 @@ package ostrat; package goft
 import geom._, pglobe._
 
 /** LatLong for Game of Thrones world. */
-case class GLatLong(latMilliSecs: Double, longMilliSecs: Double) extends LatLongBase
+case class GLatLong(latMilliSecs: Double, longMilliSecs: Double)// extends LatLongBase
 {
-  override def equatorialRadius: Length = ???
+ def equatorialRadius: Length = ???
 
-  override def polarRadius: Length = ???
+ def polarRadius: Length = ???
 }

@@ -41,6 +41,16 @@ object MTime
     new MTime(minute + hour * 60 + day * 1440 + month * 44640 + year * 535680)
 }
 
+class MTime2(val int1: Int, val int2: Int)
+{
+  def time1: MTime = new MTime(int1)
+  def time2: MTime = new MTime(int2)
+}
+
+object MTime2{
+  def apply(time1: MTime, time2: MTime):MTime2 = new MTime2(time1.int1, time2.int1)
+}
+
 class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
 {
   def seriesNum: Int = arrayA.length
@@ -53,7 +63,35 @@ class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
 
 object MTimeSeries
 {
-  def apply[A](startTime: MTime, time1: MTime, a1: A, pairs: (MTime, A)*)(implicit ct: ClassTag[A]): MTimeSeries[A] = ???
+  def apply[A](startTime: MTime, pairs: (MTime, A)*)(implicit ct: ClassTag[A]): MTimeSeries[A] =
+  { val len = pairs.length
+    val intArray = new Array[Int](len + 1)
+    intArray(0) = startTime.int1
+    val arrayA = new Array[A](len)
+    var i = 0
+    pairs.foreach{ pair =>
+      intArray(i + 1) = pair._1.int1
+      arrayA(i) = pair._2
+      i += 1
+    }
+    new MTimeSeries[A](intArray, arrayA)
+  }
+
+  def apply[A](a1: A, pairs: (MTime, A)*)(implicit startEnd: MTime2, ct: ClassTag[A]): MTimeSeries[A] = {
+    val len = pairs.length + 1
+    val intArray = new Array[Int](len + 1)
+    intArray(0) = startEnd.int1
+    val arrayA = new Array[A](len)
+    arrayA(0) = a1
+    var i = 1
+    pairs.foreach { pair =>
+      intArray(i) = pair._1.int1
+      arrayA(i) = pair._2
+      i += 1
+    }
+    intArray(len) = startEnd.int2
+    new MTimeSeries[A](intArray, arrayA)
+  }
 }
 
 /*

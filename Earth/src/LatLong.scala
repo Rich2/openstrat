@@ -2,9 +2,16 @@
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
+sealed trait LatLongOpt
+{
+
+}
+
+object LLNone extends LatLongOpt
+
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with ShowDbl2 with PointDbl2 with ApproxDbl
+final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongOpt with ShowDbl2 with PointDbl2 with ApproxDbl
 { override type ThisT = LatLong
   override type LineSegT = LineSegLL
   override def typeStr: String = "LatLong"
@@ -17,6 +24,64 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   def latVec: AngleVec = latDegs.degsVec
   def longVec: AngleVec = longDegs.degsVec
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
+
+  @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
+
+  @inline final def long: Longitude = Longitude.milliSecs(longMilliSecs)
+
+  @inline final def latDegs: Double = latMilliSecs.milliSecsToDegs
+
+  @inline final def longDegs: Double = longMilliSecs.milliSecsToDegs
+
+  @inline final def latRadians: Double = latMilliSecs.milliSecsToRadians
+
+  @inline final def longRadians: Double = longMilliSecs.milliSecsToRadians
+
+  @inline final def latSecs: Double = latMilliSecs / 1000
+
+  @inline final def longSecs: Double = longMilliSecs / 1000
+
+  /** The sine of the longitude, where East is a positive longitude. */
+  @inline final def longSine: Double = longRadians.sine
+
+  /** The cosine of the longitude, where East is a positive longitude. */
+  @inline final def longCos: Double = longRadians.cos
+
+  /** The sine of the latitude, where North is a positive latitude. */
+  @inline final def latSine: Double = latRadians.sine
+
+  /** The cosine of the latitude, where North is a positive latitude. */
+  @inline final def latCos: Double = latRadians.cos
+
+  @inline final def latMins: Double = latSecs / 60
+
+  @inline final def longMins: Double = longSecs / 60
+
+//  override def toString: String = degStr
+
+  def latLetter: String = ife(latRadians < 0, "S", "N")
+
+  def longLetter: String = ife(longRadians < 0, "W", "E")
+
+  def latDegStr: String = latDegs.abs.str2 + latLetter
+
+  def longDegStr: String = longDegs.abs.str2 + longLetter
+
+  def degStr: String = latDegStr.appendCommas(longDegStr)
+
+  def latDegMinStr: String = {
+    val (degs, mins) = latRadians.abs.toDegsMins
+    degs.toString + latLetter + mins.str2Dig
+  }
+
+  def longDegMinStr: String = {
+    val (degs, mins) = longRadians.abs.toDegsMins
+    degs.toString + longLetter + mins.str2Dig
+  }
+
+  def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
+
+  def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)
 
   override def str: String = latDegStr appendCommas(longDegStr)
   def persistName = "LatLong"
