@@ -24,7 +24,7 @@ object Germania extends EArea2("Germania", 50.50 ll 11.11, Plain)
       Alpsland.steyr, Alsace.basel, Alsace.east, Alsace.luxSE, BelgLux.aachen)
 
    val berlin: LocationLL = LocationLL("Berlin", 52.52, 13.41, 1)
-
+   val dresden = LocationLL("Dresden", 51.05, 13.74, 2)
    override val places: LocationLLArr = LocationLLArr(berlin)
 }
 

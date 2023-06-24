@@ -15,6 +15,7 @@ case class Place(name: String, level: Int)
 class LocationLL(latMilliSecs: Double, longMilliSecs: Double, nameIn: String, level: Int) extends
   LatLongPair[Place](latMilliSecs, longMilliSecs, Place(nameIn, level))
 { def name: String = a2.name
+  def latLong: LatLong = LatLong.milliSecs(latMilliSecs, longMilliSecs)
 }
 
 object LocationLL

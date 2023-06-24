@@ -31,6 +31,15 @@ object DeuCp2 extends CorpsNumbered
   override val locPosns: MTimeSeries[LatLongOpt] = MTimeSeries(LLNone)
 }
 
+object DeuCp4 extends CorpsNumbered
+{ override val polity: Polity = Germany
+  override val corpsNum: Int = 4
+  override val locStarts: RArr[LocStart] = RArr(LocStart(Germania.dresden.latLong, 1934, 10), LocStart.date(1939, 11))
+  override val startDate = MTime(1935, 4)
+  override val endDate: MTime = MTime(1945, 5, 8)
+  override val locPosns: MTimeSeries[LatLongOpt] = MTimeSeries(Germania.dresden.latLong, (MTime(1939, 10), LLNone))
+}
+
 object FraCp1 extends CorpsNumbered
 { override val polity: Polity = France
   override val corpsNum: Int = 1
