@@ -2,8 +2,8 @@
 package ostrat; package geom; package pglobe
 import ostrat.pgui._
 
-abstract class GlobeGui(val title: String) extends CmdBarGui{
-  var focus: LatLong
+abstract class GlobeGui(val title: String) extends CmdBarGui
+{ var focus: LatLong
 
   /** The length normally shown in kms per pixel. */
   var scale: Length

@@ -7,7 +7,8 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
 {
   def minute: Int = int1 %% 60
   def hour: Int = (int1 %% 1440) / 60
-  def day: Int = (int1 %% 44640) / 1440
+  private def dayInt: Int = (int1 %% 44640) / 1440
+  def dayNum: Int = dayInt + 1
 
   /** A 0 based month number. 0 == January, 11 == December. Use monthNum for standard month ordering.  */
   private def monthInt: Int = (int1 %% 535680) / 44640
@@ -38,17 +39,27 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case _ => "Unknown Month"
   }
 
-  override def toString: String = yearInt.str -- monthStr -- day.str
+  override def toString: String = yearInt.str -- monthStr -- dayNum.str
 
-  def addYear: MTime = MTime(yearInt + 1, monthNum, day, hour, minute)
+  def addYear: MTime = if (monthInt == 1 & dayInt == 28) MTime(yearInt + 1, 2, 28, hour, minute)
+  else MTime(yearInt + 1, monthNum, dayNum, hour, minute)
 
-  def toNextMonth: MTime = ife(monthNum == 12, MTime(yearInt + 1), MTime(yearInt, monthNum + 1))
+  def addMonth: MTime = if(monthInt == 11) MTime(yearInt + 1, 1, dayNum, hour, minute)
+    else MTime(yearInt, monthNum + 1, dayNum, hour, minute)
+
+  def addDay: MTime = monthInt match
+  { case 0 | 2 | 4 | 6 | 7 | 9| 10 | 11 if dayInt == 30 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
+    case 3 | 5 | 8 if dayInt == 29 =>  MTime(yearInt, monthNum, 1, hour, minute).addMonth
+    case 1 if dayInt == 28 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
+    case 1 if dayInt == 27 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
+    case _ => MTime(yearInt, monthNum, dayNum + 1, hour, minute)
+  }
 }
 
 object MTime
 {
   def apply(year: Int, monthNum: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0): MTime =
-    new MTime(minute + hour * 60 + day * 1440 + (monthNum - 1) * 44640 + year * 535680)
+    new MTime(minute + hour * 60 + (day - 1) * 1440 + (monthNum - 1) * 44640 + year * 535680)
 }
 
 class MTime2(val int1: Int, val int2: Int)
