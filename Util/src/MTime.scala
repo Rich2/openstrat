@@ -8,37 +8,47 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def minute: Int = int1 %% 60
   def hour: Int = (int1 %% 1440) / 60
   def day: Int = (int1 %% 44640) / 1440
-  def monthNum: Int = (int1 %% 535680) / 44640
-  def year: Int = int1 / 535680
+
+  /** A 0 based month number. 0 == January, 11 == December. Use monthNum for standard month ordering.  */
+  private def monthInt: Int = (int1 %% 535680) / 44640
+
+  /** The month number. 1 == January, 12 == December. */
+  def monthNum: Int= monthInt + 1
+
+  def yearInt: Int = int1 / 535680
   override def compare(that: MTime): Int = int1 match
   { case i if i > that.int1 => 1
     case i if i == that.int1 => 0
     case _ => -1
   }
 
-  private def monthStr: String = monthNum match
-  { case 1 => "January"
-    case 2 => "Febuary"
-    case 3 => "March"
-    case 4 => "April"
-    case 5 => "May"
-    case 6 => "June"
-    case 7 => "July"
-    case 8 => "August"
-    case 9 => "September"
-    case 10 => "October"
-    case 11 => "Novemeber"
-    case 12 => "December"
+  def monthStr: String = monthInt match
+  { case 0 => "January"
+    case 1 => "Febuary"
+    case 2 => "March"
+    case 3 => "April"
+    case 4 => "May"
+    case 5 => "June"
+    case 6 => "July"
+    case 7 => "August"
+    case 8 => "September"
+    case 9 => "October"
+    case 10 => "Novemeber"
+    case 11 => "December"
     case _ => "Unknown Month"
   }
 
-  override def toString: String = year.str -- monthStr -- day.str
+  override def toString: String = yearInt.str -- monthStr -- day.str
+
+  def addYear: MTime = MTime(yearInt + 1, monthNum, day, hour, minute)
+
+  def toNextMonth: MTime = ife(monthNum == 12, MTime(yearInt + 1), MTime(yearInt, monthNum + 1))
 }
 
 object MTime
 {
-  def apply(year: Int, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0): MTime =
-    new MTime(minute + hour * 60 + day * 1440 + month * 44640 + year * 535680)
+  def apply(year: Int, monthNum: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0): MTime =
+    new MTime(minute + hour * 60 + day * 1440 + (monthNum - 1) * 44640 + year * 535680)
 }
 
 class MTime2(val int1: Int, val int2: Int)
