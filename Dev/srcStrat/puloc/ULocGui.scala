@@ -91,15 +91,11 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); repaint() }
 
-  def addDayButt: PolygonCompound = clickButton("d+") { b =>
-    date = date.addDay
-    repaint()
-    statusText = s"$date"
-    thisTop()
-  }
+  def addDayButt: PolygonCompound = timeButt("d+", date.addDay)
+  def subDayButt: PolygonCompound = timeButt("d-", date.subDay)
 
-  def subDayButt: PolygonCompound = clickButton("d-") { b =>
-    date = date.subDay
+  def timeButt(str: String, newTime: MTime): PolygonCompound = clickButton(str) { b =>
+    date = newTime
     repaint()
     statusText = s"$date"
     thisTop()
