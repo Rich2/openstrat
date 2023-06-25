@@ -35,8 +35,9 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
       case p =>
-      { val newPoly = p.map { case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
-        case v => v.xy
+      { val newPoly = p.map {
+          case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
+          case v => v.xy
         }
         Some(newPoly)
       }
@@ -90,14 +91,21 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); repaint() }
 
-  def dayButt: PolygonCompound = clickButton("d+") { b =>
-  date = date.addDay
-  repaint()
-  statusText = s"$date"
-  thisTop()
-}
+  def addDayButt: PolygonCompound = clickButton("d+") { b =>
+    date = date.addDay
+    repaint()
+    statusText = s"$date"
+    thisTop()
+  }
 
-  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, dayButt))
+  def subDayButt: PolygonCompound = clickButton("d-") { b =>
+    date = date.subDay
+    repaint()
+    statusText = s"$date"
+    thisTop()
+  }
+
+  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, addDayButt, subDayButt))
 
   repaint()
   thisTop()

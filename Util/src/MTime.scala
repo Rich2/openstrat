@@ -47,12 +47,25 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def addMonth: MTime = if(monthInt == 11) MTime(yearInt + 1, 1, dayNum, hour, minute)
     else MTime(yearInt, monthNum + 1, dayNum, hour, minute)
 
+  def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
+  else MTime(yearInt, monthNum - 1, dayNum, hour, minute)
+
   def addDay: MTime = monthInt match
-  { case 0 | 2 | 4 | 6 | 7 | 9| 10 | 11 if dayInt == 30 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
-    case 3 | 5 | 8 if dayInt == 29 =>  MTime(yearInt, monthNum, 1, hour, minute).addMonth
-    case 1 if dayInt == 28 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
+  { case 11 if dayInt == 30 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
+    case 0 | 2 | 4 | 6 | 7 | 9| 10 if dayInt == 30 => MTime(yearInt, monthNum + 1, 1, hour, minute)
+    case 3 | 5 | 8 if dayInt == 29 =>  MTime(yearInt, monthNum + 1, 1, hour, minute)
+    case 1 if dayInt == 28 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, 3, 1, hour, minute)
     case 1 if dayInt == 27 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
     case _ => MTime(yearInt, monthNum, dayNum + 1, hour, minute)
+  }
+
+  def subDay: MTime = monthInt match
+  { case 11 if dayInt == 0 => MTime(yearInt - 1, 12, 31, hour, minute)
+    case 1 | 3 | 5 | 6 | 7 | 9 if dayInt == 0 => MTime(yearInt, monthNum - 1, 31, hour, minute)
+    case 4 | 6 | 9 if dayInt == 0 => MTime(yearInt, monthNum - 1, 30, hour, minute).addMonth
+    case 2 if dayInt == 0 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, 2, 29, hour, minute)
+    case 2 if dayInt == 0 => MTime(yearInt, 2, 28, hour, minute)
+    case _ => MTime(yearInt, monthNum, dayNum - 1, hour, minute)
   }
 }
 
