@@ -91,8 +91,10 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); repaint() }
 
+  def addMonthButt: PolygonCompound = timeButt("m+", date.addMonth)
   def addDayButt: PolygonCompound = timeButt("d+", date.addDay)
   def subDayButt: PolygonCompound = timeButt("d-", date.subDay)
+  def subMonthButt: PolygonCompound = timeButt("m-", date.subMonth)
 
   def timeButt(str: String, newTime: MTime): PolygonCompound = clickButton(str) { b =>
     date = newTime
@@ -101,7 +103,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
     thisTop()
   }
 
-  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, addDayButt, subDayButt))
+  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, subMonthButt, subDayButt, addDayButt, addMonthButt))
 
   repaint()
   thisTop()

@@ -48,7 +48,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     else MTime(yearInt, monthNum + 1, dayNum, hour, minute)
 
   def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
-  else MTime(yearInt, monthNum - 1, dayNum, hour, minute)
+  else MTime(yearInt, monthNum - 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum - 1)), hour, minute)
 
   def addDay: MTime = monthInt match
   { case 11 if dayInt == 30 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
@@ -73,6 +73,14 @@ object MTime
 {
   def apply(year: Int, monthNum: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0): MTime =
     new MTime(minute + hour * 60 + (day - 1) * 1440 + (monthNum - 1) * 44640 + year * 535680)
+
+  def lastMonthDay(yearInt: Int, monthNum: Int): Int = monthNum match
+  { case 1 | 3 | 5 | 7 | 8| 10 | 11 | 12 => 31
+    case 4 | 6 | 9 => 30
+    case 2 if yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => 29
+    case 2 => 28
+    case n => excep(n.str -- "is an invalid Month number.")
+  }
 }
 
 class MTime2(val int1: Int, val int2: Int)
