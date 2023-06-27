@@ -1,5 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import ostrat.MTime.lastMonthDay
+
 import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 /** An instant of time specified to the nearest minute. By default uees Gregorian Calender */
@@ -34,7 +36,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case 7 => "August"
     case 8 => "September"
     case 9 => "October"
-    case 10 => "Novemeber"
+    case 10 => "November"
     case 11 => "December"
     case _ => "Unknown Month"
   }
@@ -45,7 +47,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   else MTime(yearInt + 1, monthNum, dayNum, hour, minute)
 
   def addMonth: MTime = if(monthInt == 11) MTime(yearInt + 1, 1, dayNum, hour, minute)
-    else MTime(yearInt, monthNum + 1, dayNum, hour, minute)
+    else MTime(yearInt, monthNum + 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum + 1)), hour, minute)
 
   def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
   else MTime(yearInt, monthNum - 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum - 1)), hour, minute)
@@ -59,13 +61,13 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case _ => MTime(yearInt, monthNum, dayNum + 1, hour, minute)
   }
 
-  def subDay: MTime = monthInt match
-  { case 11 if dayInt == 0 => MTime(yearInt - 1, 12, 31, hour, minute)
-    case 1 | 3 | 5 | 6 | 7 | 9 if dayInt == 0 => MTime(yearInt, monthNum - 1, 31, hour, minute)
-    case 4 | 6 | 9 if dayInt == 0 => MTime(yearInt, monthNum - 1, 30, hour, minute).addMonth
-    case 2 if dayInt == 0 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, 2, 29, hour, minute)
-    case 2 if dayInt == 0 => MTime(yearInt, 2, 28, hour, minute)
-    case _ => MTime(yearInt, monthNum, dayNum - 1, hour, minute)
+  def subDay: MTime = dayNum match
+  { case 1 if monthNum == 12 => MTime(yearInt - 1, 12, 31, hour, minute)
+    case 1 => MTime(yearInt, monthNum - 1, lastMonthDay(yearInt, monthNum - 1), hour, minute)
+//    case 4 | 6 | 9 if dayInt == 0 => MTime(yearInt, monthNum - 1, 30, hour, minute).addMonth
+//    case 2 if dayInt == 0 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, 2, 29, hour, minute)
+//    case 2 if dayInt == 0 => MTime(yearInt, 2, 28, hour, minute)
+    case n => MTime(yearInt, monthNum, n - 1, hour, minute)
   }
 }
 
@@ -77,7 +79,8 @@ object MTime
   def lastMonthDay(yearInt: Int, monthNum: Int): Int = monthNum match
   { case 1 | 3 | 5 | 7 | 8| 10 | 11 | 12 => 31
     case 4 | 6 | 9 => 30
-    case 2 if yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => 29
+    case 2 if yearInt %% 100 == 0 & (yearInt / 100) %% 4 != 0 => 28
+    case 2 if yearInt %% 4 == 0 => 29
     case 2 => 28
     case n => excep(n.str -- "is an invalid Month number.")
   }
