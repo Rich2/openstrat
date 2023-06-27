@@ -24,7 +24,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
 
   var date: MTime = MTime(1939, 9)
 
-  statusText = s"Welcome to Unit locations. $date"
+  statusText = "Welcome to Unit locations."
   def finds: RArr[(Lunit, LatLong)] = allLocs(date)
   debvar(finds)
 
@@ -99,11 +99,13 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   def timeButt(str: String, newTime: MTime): PolygonCompound = clickButton(str) { b =>
     date = newTime
     repaint()
-    statusText = s"$date"
+    //statusText = s"$date"
     thisTop()
   }
 
-  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, subMonthButt, subDayButt, addDayButt, addMonthButt))
+  def timeBox: PolygonCompound = textBox(8, date.str3)
+
+  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, subMonthButt, subDayButt, timeBox, addDayButt, addMonthButt))
 
   repaint()
   thisTop()

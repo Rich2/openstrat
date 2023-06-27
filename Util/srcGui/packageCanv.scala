@@ -15,4 +15,7 @@ package object pgui
   /** A button to react to different mouse buttons. The length varies with the String. */
   def simpleButton(str: String, backColour: Colour = White)(cmd: => Unit): PolygonCompound =
     Rect((str.length + 1).max(2) * 17, 30).fillDrawTextActive(backColour, MouseButtonCmd(MouseButton => cmd), str, 25, 3, backColour.contrastBW)
+
+  def textBox(length: Int, str: String, backColour: Colour = White): PolygonCompound =
+    Rect((length + 1).max(2) * 17, 30).fillDrawText(backColour, str, 25, backColour.contrastBW)
 }

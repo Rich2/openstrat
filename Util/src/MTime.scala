@@ -41,6 +41,22 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case _ => "Unknown Month"
   }
 
+  def monthStr3: String = monthInt match
+  { case 0 => "Jan"
+    case 1 => "Feb"
+    case 2 => "Mar"
+    case 3 => "Apr"
+    case 4 => "May"
+    case 5 => "Jun"
+    case 6 => "Jul"
+    case 7 => "Aug"
+    case 8 => "Sep"
+    case 9 => "Oct"
+    case 10 => "Nov"
+    case 11 => "Dec"
+    case _ => "Unknown Month"
+  }
+  def str3: String = yearInt.str -- monthStr3 -- dayNum.str
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 
   def addYear: MTime = if (monthInt == 1 & dayInt == 28) MTime(yearInt + 1, 2, 28, hour, minute)
