@@ -56,11 +56,13 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case 11 => "Dec"
     case _ => "Unknown Month"
   }
+
+  /** Produces a date [[String]] with month in 3 letter abbreviation. */
   def str3: String = yearInt.str -- monthStr3 -- dayNum.str
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 
-  def addYear: MTime = if (monthInt == 1 & dayInt == 28) MTime(yearInt + 1, 2, 28, hour, minute)
-  else MTime(yearInt + 1, monthNum, dayNum, hour, minute)
+  def addYear: MTime = MTime(yearInt + 1, monthNum, dayNum.min(MTime.lastMonthDay(yearInt + 1, monthNum)), hour, minute)
+  def subYear: MTime = MTime(yearInt - 1, monthNum, dayNum.min(MTime.lastMonthDay(yearInt - 1, monthNum)), hour, minute)
 
   def addMonth: MTime = if(monthNum == 12) MTime(yearInt + 1, 1, dayNum, hour, minute)
     else MTime(yearInt, monthNum + 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum + 1)), hour, minute)
