@@ -26,7 +26,6 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
 
   statusText = "Welcome to Unit locations."
   def finds: RArr[(Lunit, LatLong)] = allLocs(date)
-  debvar(finds)
 
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
@@ -96,7 +95,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   def subDayButt: PolygonCompound = timeButt("d-", date.subDay)
   def subMonthButt: PolygonCompound = timeButt("m-", date.subMonth)
 
-  def timeButt(str: String, newTime: MTime): PolygonCompound = clickButton(str) { b =>
+  def timeButt(str: String, newTime: => MTime): PolygonCompound = clickButton(str) { b =>
     date = newTime
     repaint()
     //statusText = s"$date"

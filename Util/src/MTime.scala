@@ -62,27 +62,21 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def addYear: MTime = if (monthInt == 1 & dayInt == 28) MTime(yearInt + 1, 2, 28, hour, minute)
   else MTime(yearInt + 1, monthNum, dayNum, hour, minute)
 
-  def addMonth: MTime = if(monthInt == 11) MTime(yearInt + 1, 1, dayNum, hour, minute)
+  def addMonth: MTime = if(monthNum == 12) MTime(yearInt + 1, 1, dayNum, hour, minute)
     else MTime(yearInt, monthNum + 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum + 1)), hour, minute)
 
   def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
   else MTime(yearInt, monthNum - 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum - 1)), hour, minute)
 
-  def addDay: MTime = monthInt match
-  { case 11 if dayInt == 30 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
-    case 0 | 2 | 4 | 6 | 7 | 9| 10 if dayInt == 30 => MTime(yearInt, monthNum + 1, 1, hour, minute)
-    case 3 | 5 | 8 if dayInt == 29 =>  MTime(yearInt, monthNum + 1, 1, hour, minute)
-    case 1 if dayInt == 28 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, 3, 1, hour, minute)
-    case 1 if dayInt == 27 => MTime(yearInt, monthNum, 1, hour, minute).addMonth
-    case _ => MTime(yearInt, monthNum, dayNum + 1, hour, minute)
+  def addDay: MTime = monthNum match
+  { case 11 if dayNum == 31 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
+    case n if dayNum == MTime.lastMonthDay(yearInt, n) => MTime(yearInt, n + 1, 1, hour, minute)
+    case n => MTime(yearInt, n, dayNum + 1, hour, minute)
   }
 
   def subDay: MTime = dayNum match
-  { case 1 if monthNum == 12 => MTime(yearInt - 1, 12, 31, hour, minute)
+  { case 1 if monthNum == 1 => MTime(yearInt - 1, 12, 31, hour, minute)
     case 1 => MTime(yearInt, monthNum - 1, lastMonthDay(yearInt, monthNum - 1), hour, minute)
-//    case 4 | 6 | 9 if dayInt == 0 => MTime(yearInt, monthNum - 1, 30, hour, minute).addMonth
-//    case 2 if dayInt == 0 & yearInt %% 4 == 0 & (yearInt / 100) %% 4 == 0 => MTime(yearInt, 2, 29, hour, minute)
-//    case 2 if dayInt == 0 => MTime(yearInt, 2, 28, hour, minute)
     case n => MTime(yearInt, monthNum, n - 1, hour, minute)
   }
 }
@@ -102,13 +96,17 @@ object MTime
   }
 }
 
+/** A time eriod. Compact class for holding 2 [[MTime]]s. */
 class MTime2(val int1: Int, val int2: Int)
-{
+{ /** Start time. */
   def time1: MTime = new MTime(int1)
+
+  /** End time. */
   def time2: MTime = new MTime(int2)
 }
 
-object MTime2{
+object MTime2
+{
   def apply(time1: MTime, time2: MTime):MTime2 = new MTime2(time1.int1, time2.int1)
 }
 
