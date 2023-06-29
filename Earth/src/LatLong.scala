@@ -4,10 +4,13 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 sealed trait LatLongOpt
 {
-
+  def map[B](f: LatLong => B): Option[B]
 }
 
 object LLNone extends LatLongOpt
+{
+  override def map[B](f: LatLong => B): Option[B] = None
+}
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
@@ -24,6 +27,8 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongOpt with 
   def latVec: AngleVec = latDegs.degsVec
   def longVec: AngleVec = longDegs.degsVec
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
+
+  override def map[B](f: LatLong => B): Option[B] = Some(f(this))
 
   @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
 

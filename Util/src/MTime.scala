@@ -4,7 +4,7 @@ import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 /** An instant of time specified to the nearest minute. By default uees Gregorian Calender */
 class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
-{ import ostrat.MTime.lastMonthDay
+{ import MTime.lastMonthDay
   def minute: Int = int1 %% 60
   def hour: Int = (int1 %% 1440) / 60
   private def dayInt: Int = (int1 %% 44640) / 1440
@@ -70,7 +70,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def addMonth: MTime = if(monthNum == 12) MTime(yearInt + 1, 1, dayNum, hour, minute)
     else MTime(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hour, minute)
 
-  def addMonths(num: Int): MTime =
+  def addMonths(num: Int): MTime = if (num < 0) subMonths(- num) else
   { val totalMonths = yearInt * 12 + monthInt + num
     val newYear = totalMonths / 12
     val newMonthNum = totalMonths %% 12 + 1
@@ -80,7 +80,12 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
   else MTime(yearInt, monthNum - 1, dayNum.min(lastMonthDay(yearInt, monthNum - 1)), hour, minute)
 
-  def subMonths(num: Int): MTime = addMonths(-num)
+  def subMonths(num: Int): MTime = if (num < 0) addMonths(-num) else
+  { val totalMonths = yearInt * 12 + monthInt - num
+    val newYear = totalMonths / 12
+    val newMonthNum = totalMonths %% 12 - 1
+    MTime(newYear, newMonthNum, dayNum.min(lastMonthDay(newYear, newMonthNum)))
+  }
 
   def addDay: MTime = monthNum match
   { case 11 if dayNum == 31 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
@@ -89,7 +94,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   }
 
   /** Adds the give number of days to the [[MTime]]. This hasn't been tested. */
-  def addDays(num: Int): MTime =
+  def addDays(num: Int): MTime = if(num < 0) subDays(-num) else
   { val leaps = yearInt + (num %% 1461) * 4
     val rem = num %% 1461
 
@@ -113,6 +118,28 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   { case 1 if monthNum == 1 => MTime(yearInt - 1, 12, 31, hour, minute)
     case 1 => MTime(yearInt, monthNum - 1, lastMonthDay(yearInt, monthNum - 1), hour, minute)
     case n => MTime(yearInt, monthNum, n - 1, hour, minute)
+  }
+
+  /** Not correct yet. */
+  def subDays(num: Int): MTime = if (num < 0) addDays(-num) else {
+    val leaps = yearInt - (num % 1461) * 4
+    val rem = num %% 1461
+
+    /** Assumes the input [[MTime]] is on the last day of the month and rem > 0. */
+    def loop(acc: MTime, rem: Int): MTime = monthNum match {
+      case 12 if rem > 31 => loop(MTime(acc.yearInt + 1, 1, 31, hour, minute), rem - 31)
+      case 12 => MTime(acc.yearInt + 1, 1, rem, hour, minute)
+      case n => {
+        val newLastDay = lastMonthDay(acc.yearInt, acc.monthNum + 1)
+        if (newLastDay > rem) loop(MTime(acc.yearInt, acc.monthNum + 1, newLastDay, hour, minute), rem - newLastDay)
+        else MTime(acc.yearInt, monthNum + 1, newLastDay, hour, minute)
+      }
+    }
+
+    def newLastDay: Int = lastMonthDay(leaps, monthNum)
+
+    if (newLastDay >= dayNum + rem) MTime(leaps, monthNum, dayNum + rem)
+    else loop(MTime(leaps, monthNum, newLastDay, hour, minute), rem - newLastDay + dayNum)
   }
 }
 
