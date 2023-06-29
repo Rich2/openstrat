@@ -65,6 +65,8 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def subYear: MTime = MTime(yearInt - 1, monthNum, dayNum.min(lastMonthDay(yearInt - 1, monthNum)), hour, minute)
   def subYears(num: Int): MTime = MTime(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
 
+  /** Adds a month to this [[MTime]]. If the new month does not contain the day number, the day number is reduced to the last dasy fp the month. Eg
+   *  2023 May 31st goes to 2023 June 30th. */
   def addMonth: MTime = if(monthNum == 12) MTime(yearInt + 1, 1, dayNum, hour, minute)
     else MTime(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hour, minute)
 
@@ -84,6 +86,27 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   { case 11 if dayNum == 31 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
     case n if dayNum == lastMonthDay(yearInt, n) => MTime(yearInt, n + 1, 1, hour, minute)
     case n => MTime(yearInt, n, dayNum + 1, hour, minute)
+  }
+
+  /** Adds the give number of days to the [[MTime]]. This hasn't been tested. */
+  def addDays(num: Int): MTime =
+  { val leaps = yearInt + (num %% 1461) * 4
+    val rem = num %% 1461
+
+    /** Assumes the input [[MTime]] is on the last day of the month and rem > 0. */
+    def loop(acc: MTime, rem: Int): MTime = monthNum match {
+      case 12 if rem > 31 => loop(MTime(acc.yearInt + 1, 1, 31, hour, minute), rem - 31)
+      case 12 => MTime(acc.yearInt + 1, 1, rem, hour, minute)
+      case n =>
+      { val newLastDay = lastMonthDay(acc.yearInt, acc.monthNum + 1)
+        if(newLastDay > rem) loop(MTime(acc.yearInt, acc.monthNum + 1, newLastDay, hour, minute), rem - newLastDay)
+        else MTime(acc.yearInt, monthNum + 1, newLastDay, hour, minute)
+      }
+    }
+
+    def newLastDay: Int = lastMonthDay(leaps, monthNum)
+    if (newLastDay >= dayNum + rem) MTime(leaps, monthNum, dayNum + rem)
+    else loop(MTime(leaps, monthNum, newLastDay, hour, minute), rem - newLastDay + dayNum)
   }
 
   def subDay: MTime = dayNum match
