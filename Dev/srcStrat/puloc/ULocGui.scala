@@ -30,7 +30,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
 
-    val ps4: PolygonM2PairArr[EArea2] = ps3.optMapOnA1 {
+    val ps4: PolygonM2PairArr[EArea2] = ps3.optMapOnA1{
       case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
       case p =>

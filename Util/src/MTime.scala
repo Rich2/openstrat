@@ -1,12 +1,10 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import ostrat.MTime.lastMonthDay
-
 import reflect.ClassTag//java.util.{GregorianCalendar => JGreg}
 
 /** An instant of time specified to the nearest minute. By default uees Gregorian Calender */
 class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
-{
+{ import ostrat.MTime.lastMonthDay
   def minute: Int = int1 %% 60
   def hour: Int = (int1 %% 1440) / 60
   private def dayInt: Int = (int1 %% 44640) / 1440
@@ -38,7 +36,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case 9 => "October"
     case 10 => "November"
     case 11 => "December"
-    case _ => "Unknown Month"
+    case n => excep(s"$n is an unknown month number.")
   }
 
   def monthStr3: String = monthInt match
@@ -54,25 +52,37 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     case 9 => "Oct"
     case 10 => "Nov"
     case 11 => "Dec"
-    case _ => "Unknown Month"
+    case n => excep(s"$n is unknown month number.")
   }
 
   /** Produces a date [[String]] with month in 3 letter abbreviation. */
   def str3: String = yearInt.str -- monthStr3 -- dayNum.str
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 
-  def addYear: MTime = MTime(yearInt + 1, monthNum, dayNum.min(MTime.lastMonthDay(yearInt + 1, monthNum)), hour, minute)
-  def subYear: MTime = MTime(yearInt - 1, monthNum, dayNum.min(MTime.lastMonthDay(yearInt - 1, monthNum)), hour, minute)
+  def addYear: MTime = MTime(yearInt + 1, monthNum, dayNum.min(lastMonthDay(yearInt + 1, monthNum)), hour, minute)
+  def addYears(num: Int): MTime = MTime(yearInt + num, monthNum, dayNum.min(lastMonthDay(yearInt + num, monthNum)), hour, minute)
+
+  def subYear: MTime = MTime(yearInt - 1, monthNum, dayNum.min(lastMonthDay(yearInt - 1, monthNum)), hour, minute)
+  def subYears(num: Int): MTime = MTime(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
 
   def addMonth: MTime = if(monthNum == 12) MTime(yearInt + 1, 1, dayNum, hour, minute)
-    else MTime(yearInt, monthNum + 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum + 1)), hour, minute)
+    else MTime(yearInt, monthNum + 1, dayNum.min(lastMonthDay(yearInt, monthNum + 1)), hour, minute)
+
+  def addMonths(num: Int): MTime =
+  { val totalMonths = yearInt * 12 + monthInt + num
+    val newYear = totalMonths / 12
+    val newMonthNum = totalMonths %% 12 + 1
+    MTime(newYear, newMonthNum, dayNum.min(lastMonthDay(newYear, newMonthNum)))
+  }
 
   def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
-  else MTime(yearInt, monthNum - 1, dayNum.min(MTime.lastMonthDay(yearInt, monthNum - 1)), hour, minute)
+  else MTime(yearInt, monthNum - 1, dayNum.min(lastMonthDay(yearInt, monthNum - 1)), hour, minute)
+
+  def subMonths(num: Int): MTime = addMonths(-num)
 
   def addDay: MTime = monthNum match
   { case 11 if dayNum == 31 => MTime(yearInt + 1, 1, 1, monthNum, dayNum)
-    case n if dayNum == MTime.lastMonthDay(yearInt, n) => MTime(yearInt, n + 1, 1, hour, minute)
+    case n if dayNum == lastMonthDay(yearInt, n) => MTime(yearInt, n + 1, 1, hour, minute)
     case n => MTime(yearInt, n, dayNum + 1, hour, minute)
   }
 
