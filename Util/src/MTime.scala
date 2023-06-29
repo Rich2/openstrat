@@ -59,10 +59,16 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   def str3: String = yearInt.str -- monthStr3 -- dayNum.str
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 
+  /** Adds a year to the time. February 29th goes to February 28th. */
   def addYear: MTime = MTime(yearInt + 1, monthNum, dayNum.min(lastMonthDay(yearInt + 1, monthNum)), hour, minute)
+
+  /** Adds the given number of years to the time. February 29th goes to February 28th. */
   def addYears(num: Int): MTime = MTime(yearInt + num, monthNum, dayNum.min(lastMonthDay(yearInt + num, monthNum)), hour, minute)
 
+  /** Subtracts a year from the time. February 29th goes to February 28th. */
   def subYear: MTime = MTime(yearInt - 1, monthNum, dayNum.min(lastMonthDay(yearInt - 1, monthNum)), hour, minute)
+
+  /** Subtracts the given number of years from the time. February 29th goes to February 28th. */
   def subYears(num: Int): MTime = MTime(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
 
   /** Adds a month to this [[MTime]]. If the new month does not contain the day number, the day number is reduced to the last dasy fp the month. Eg
@@ -77,13 +83,13 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
     MTime(newYear, newMonthNum, dayNum.min(lastMonthDay(newYear, newMonthNum)))
   }
 
-  def subMonth: MTime = if (monthInt == 0) MTime(yearInt - 1, 12, dayNum, hour, minute)
+  def subMonth: MTime = if (monthNum == 1) MTime(yearInt - 1, 12, dayNum, hour, minute)
   else MTime(yearInt, monthNum - 1, dayNum.min(lastMonthDay(yearInt, monthNum - 1)), hour, minute)
 
   def subMonths(num: Int): MTime = if (num < 0) addMonths(-num) else
   { val totalMonths = yearInt * 12 + monthInt - num
     val newYear = totalMonths / 12
-    val newMonthNum = totalMonths %% 12 - 1
+    val newMonthNum = totalMonths %% 12 + 1
     MTime(newYear, newMonthNum, dayNum.min(lastMonthDay(newYear, newMonthNum)))
   }
 
@@ -95,25 +101,27 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
 
   /** Adds the give number of days to the [[MTime]]. This hasn't been tested. */
   def addDays(num: Int): MTime = if(num < 0) subDays(-num) else
-  { val leaps = yearInt + (num %% 1461) * 4
+  { val leaps = yearInt + (num / 1461) * 4
+    debvar(leaps)
     val rem = num %% 1461
 
     /** Assumes the input [[MTime]] is on the last day of the month and rem > 0. */
-    def loop(acc: MTime, rem: Int): MTime = monthNum match {
-      case 12 if rem > 31 => loop(MTime(acc.yearInt + 1, 1, 31, hour, minute), rem - 31)
+    def loop(acc: MTime, rem: Int): MTime = acc.monthNum match
+    { case 12 if rem > 31 => loop(MTime(acc.yearInt + 1, 1, 31, hour, minute), rem - 31)
       case 12 => MTime(acc.yearInt + 1, 1, rem, hour, minute)
       case n =>
       { val newLastDay = lastMonthDay(acc.yearInt, acc.monthNum + 1)
-        if(newLastDay > rem) loop(MTime(acc.yearInt, acc.monthNum + 1, newLastDay, hour, minute), rem - newLastDay)
-        else MTime(acc.yearInt, monthNum + 1, newLastDay, hour, minute)
+        if(rem > newLastDay) loop(MTime(acc.yearInt, acc.monthNum + 1, newLastDay, hour, minute), rem - newLastDay)
+        else MTime(acc.yearInt, monthNum + 1, rem, hour, minute)
       }
     }
 
-    def newLastDay: Int = lastMonthDay(leaps, monthNum)
+    val newLastDay: Int = lastMonthDay(leaps, monthNum)
     if (newLastDay >= dayNum + rem) MTime(leaps, monthNum, dayNum + rem)
     else loop(MTime(leaps, monthNum, newLastDay, hour, minute), rem - newLastDay + dayNum)
   }
 
+  /** Returns a time one day earlier. */
   def subDay: MTime = dayNum match
   { case 1 if monthNum == 1 => MTime(yearInt - 1, 12, 31, hour, minute)
     case 1 => MTime(yearInt, monthNum - 1, lastMonthDay(yearInt, monthNum - 1), hour, minute)
@@ -121,25 +129,26 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   }
 
   /** Not correct yet. */
-  def subDays(num: Int): MTime = if (num < 0) addDays(-num) else {
-    val leaps = yearInt - (num % 1461) * 4
+  def subDays(num: Int): MTime = if (num < 0) addDays(-num) else
+  { val leaps = yearInt - (num / 1461) * 4
     val rem = num %% 1461
 
-    /** Assumes the input [[MTime]] is on the last day of the month and rem > 0. */
-    def loop(acc: MTime, rem: Int): MTime = monthNum match {
-      case 12 if rem > 31 => loop(MTime(acc.yearInt + 1, 1, 31, hour, minute), rem - 31)
-      case 12 => MTime(acc.yearInt + 1, 1, rem, hour, minute)
-      case n => {
-        val newLastDay = lastMonthDay(acc.yearInt, acc.monthNum + 1)
-        if (newLastDay > rem) loop(MTime(acc.yearInt, acc.monthNum + 1, newLastDay, hour, minute), rem - newLastDay)
-        else MTime(acc.yearInt, monthNum + 1, newLastDay, hour, minute)
+    /** Assumes the input [[MTime]] is on the 1st day of the month and rem > 0. */
+    def loop(acc: MTime, rem: Int): MTime = acc.monthNum match
+    { case 1 if rem > 31 => loop(MTime(acc.yearInt -1 , 12, 31, hour, minute), rem - 31)
+      case 1 => MTime(acc.yearInt - 1, 12, 32 - rem, hour, minute)
+      case n =>
+      { val newMonth = acc.monthNum - 1
+        val newLastDay = lastMonthDay(acc.yearInt, newMonth)
+        if (newLastDay > rem) MTime(acc.yearInt, newMonth, newLastDay - rem + 1, hour, minute)
+        else loop(MTime(acc.yearInt, newMonth, 1, hour, minute), rem - newLastDay)
       }
     }
 
-    def newLastDay: Int = lastMonthDay(leaps, monthNum)
+    val newLastDay: Int = lastMonthDay(leaps, monthNum)
 
-    if (newLastDay >= dayNum + rem) MTime(leaps, monthNum, dayNum + rem)
-    else loop(MTime(leaps, monthNum, newLastDay, hour, minute), rem - newLastDay + dayNum)
+    if (dayNum > rem) MTime(leaps, monthNum, dayNum - rem)
+    else loop(MTime(leaps, monthNum, 1, hour, minute), rem - dayNum + 1)
   }
 }
 

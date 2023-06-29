@@ -90,17 +90,16 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); repaint() }
 
-  def addYearButt: PolygonCompound = timeButt("y+", date.addYear)
-  def addMonthButt: PolygonCompound = timeButt("m+", date.addMonth)
-  def addDayButt: PolygonCompound = timeButt("d+", date.addDay)
-  def subDayButt: PolygonCompound = timeButt("d-", date.subDay)
-  def subMonthButt: PolygonCompound = timeButt("m-", date.subMonth)
-  def subYearButt: PolygonCompound = timeButt("y-", date.subYear)
+  def addYearButt: PolygonCompound = timeButt("y+", butt => date.addYears(butt(1, 10, 100, 0)))
+  def addMonthButt: PolygonCompound = timeButt("m+", butt => date.addMonths(butt(1, 3, 6, 0)))
+  def addDayButt: PolygonCompound = timeButt("d+", butt => date.addDays(butt(1, 3, 10, 0)))
+  def subDayButt: PolygonCompound = timeButt("d-", butt => date.subDays(butt(1, 3, 10, 0)))
+  def subMonthButt: PolygonCompound = timeButt("m-", butt => date.subMonths(butt(1, 3, 6, 0)))
+  def subYearButt: PolygonCompound = timeButt("y-", butt => date.subYears(butt(1, 10, 100, 0)))
 
-  def timeButt(str: String, newTime: => MTime): PolygonCompound = clickButton(str) { b =>
-    date = newTime
+  def timeButt(str: String, fNewTime: MouseButton => MTime): PolygonCompound = clickButton(str) { b =>
+    date = fNewTime(b)
     repaint()
-    //statusText = s"$date"
     thisTop()
   }
 
