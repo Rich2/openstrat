@@ -22,6 +22,13 @@ trait Lunit extends Coloured
 
   /** Finds all the [[Lunit]]s that have a defined location at the given time. */
   def locationFind(date: MTime): Option[(Lunit, LatLong)] = locPosns.find(date).flatMap(_.map(ll => (this, ll)))
+
+  def dateFind(date: MTime): Option[UnitState] = locPosns.find(date).map(oll => UnitState(polity, oll))
+}
+
+case class UnitState( polity: Polity, oLoc: LatLongOpt) extends Coloured
+{
+  override def colour: Colour = polity.colour
 }
 
 trait CorpsNumbered extends Lunit
