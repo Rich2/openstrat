@@ -25,7 +25,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   var date: MTime = MTime(1939, 9)
 
   statusText = "Welcome to Unit locations."
-  def finds: RArr[(Lunit, LatLong)] = allLocs(date)
+  def finds: RArr[LunitState] = unitsAt(date)
 
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
@@ -61,12 +61,11 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
       p.a1.textAt(p.a2.name, 10, col) }
 
 
-    def units1: GraphicElems = finds.optMap{ pair =>
-      val (lu, ll) = pair
-      val xyz = ll.toMetres3.fromLatLongFocus(focus)
+    def units1: GraphicElems = finds.optMap{ ls =>
+      val xyz = ls.loc.toMetres3.fromLatLongFocus(focus)
       if (xyz.zPos){
         val pt = (xyz.xy/scale)
-        val res = InfantryCounter(50, lu, lu.colour).slate(pt)
+        val res = InfantryCounter(50, ls, ls.colour).slate(pt)
         Some(res)
       }
       else None
