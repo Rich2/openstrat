@@ -12,4 +12,5 @@ package object puloc
 
   def units: RArr[Lunit] = RArr(DeuCp1, DeuCp2, DeuCp4, FraCp1, FraCp2)
   def allLocs(date: MTime): RArr[(Lunit, LatLong)] = units.optMap(_.locationFind(date))
+  def allLocs2(date: MTime): RArr[UnitState] = units.optMap(_.dateFind(date))
 }

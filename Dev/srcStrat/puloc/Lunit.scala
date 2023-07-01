@@ -26,7 +26,7 @@ trait Lunit extends Coloured
   def dateFind(date: MTime): Option[UnitState] = locPosns.find(date).map(oll => UnitState(polity, oll))
 }
 
-case class UnitState(polity: Polity, oLoc: LatLongOpt) extends Coloured
+case class UnitState(polity: Polity, loc: LatLong) extends Coloured
 {
   override def colour: Colour = polity.colour
 }
