@@ -18,7 +18,7 @@ trait Lunit extends Coloured
   override def colour: Colour = polity.colour
 
   /** Optional location of the unit throughout its existence. */
-  def locPosns: MTimeSeries[LatLongOpt]
+  def locPosns: MTimeSeries[LatLong]
 
   /** Finds all the [[Lunit]]s that have a defined location at the given time. */
   def locationFind(date: MTime): Option[(Lunit, LatLong)] = locPosns.find(date).flatMap(_.map(ll => (this, ll)))
@@ -26,7 +26,7 @@ trait Lunit extends Coloured
   def dateFind(date: MTime): Option[UnitState] = locPosns.find(date).map(oll => UnitState(polity, oll))
 }
 
-case class UnitState( polity: Polity, oLoc: LatLongOpt) extends Coloured
+case class UnitState(polity: Polity, oLoc: LatLongOpt) extends Coloured
 {
   override def colour: Colour = polity.colour
 }
