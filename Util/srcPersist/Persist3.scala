@@ -54,6 +54,14 @@ trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
     showT3.showDecT(show3, way, decimalPlaces, 0))
 }
 
+/** Show classes with 3 [[Int]] parameters. */
+trait ShowInt3 extends Any with Show3[Int, Int, Int]
+{ final override def syntaxDepth: Int = 2
+  final override implicit def showT1: Persist[Int] = ShowT.intPersistEv
+  final override implicit def showT2: Persist[Int] = ShowT.intPersistEv
+  final override implicit def showT3: Persist[Int] = ShowT.intPersistEv
+}
+
 /** Show classes with 3 [[Double]] parameters. */
 trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
@@ -62,9 +70,9 @@ trait ShowDbl3 extends Any with Show3[Double, Double, Double]
   final override implicit def showT3: Persist[Double] = ShowT.doublePersistEv
 }
 
-/** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]
+/** Trait for Show for product of 3[[Double]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl3T]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show2T]]. */
+ *  over [[Show3T]]. */
 trait ShowElemDbl3 extends Any with ShowDbl3 with Dbl3Elem
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
@@ -174,6 +182,12 @@ object Persist3
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
+}
+
+trait PersistInt3[R] extends Persist3[Int, Int, Int, R]
+{ override def ev1: Persist[Int] = ShowT.intPersistEv
+  override def ev2: Persist[Int] = ShowT.intPersistEv
+  override def ev3: Persist[Int] = ShowT.intPersistEv
 }
 
 trait PersistShow3[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]

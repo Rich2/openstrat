@@ -2,7 +2,7 @@
 package ostrat; package puloc
 import geom._, pglobe._
 
-trait Lunit //extends Coloured
+trait Lunit
 { /** The nation / state to which this unit belongs. */
   def polity: MTimeSeries[Polity]
 

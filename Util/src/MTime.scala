@@ -165,6 +165,21 @@ object MTime
     case 2 => 28
     case n => excep(n.str -- "is an invalid Month number.")
   }
+
+  implicit val persistEv: Persist3[Int, Int, Int, MTime] = new PersistInt3[MTime]
+  { override def typeStr: String = "MTime"
+
+    override def name1: String = "year"
+    override def name2: String = "month"
+    override def name3: String = "day"
+
+    override def opt3: Option[Int] = Some(1)
+    override def opt2: Option[Int] = Some(1)
+    override def opt1: Option[Int] = None
+    override def syntaxDepthT(obj: MTime): Int = 2
+    override def newT: (Int, Int, Int) => MTime = (i1, i2, i3) => MTime(i1, i2, i3)
+    override def strDecs(obj: MTime, way: ShowStyle, maxPlaces: Int): StrArr = StrArr("Unimplemented strDecs")
+  }
 }
 
 /** A time eriod. Compact class for holding 2 [[MTime]]s. */

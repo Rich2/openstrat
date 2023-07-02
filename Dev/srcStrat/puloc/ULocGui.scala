@@ -2,7 +2,7 @@
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
-case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
+case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
 { /** Scale in km / pixel */
   var scale: Length = viewIn.scale
 
@@ -22,7 +22,7 @@ case class ULocGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
 
-  var date: MTime = MTime(1939, 9)
+ // var date: MTime = MTime(1939, 9)
 
   statusText = "Welcome to Unit locations."
   def finds: RArr[LunitState] = unitsAt(date)
