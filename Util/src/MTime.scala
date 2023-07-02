@@ -166,18 +166,20 @@ object MTime
     case n => excep(n.str -- "is an invalid Month number.")
   }
 
-  implicit val persistEv: Persist3[Int, Int, Int, MTime] = new PersistInt3[MTime]
+  implicit val persistEv: PersistInt4[MTime] = new PersistInt4[MTime]
   { override def typeStr: String = "MTime"
 
     override def name1: String = "year"
     override def name2: String = "month"
     override def name3: String = "day"
+    override def name4: String = "hour"
 
+    override def opt4: Option[Int] = Some(0)
     override def opt3: Option[Int] = Some(1)
     override def opt2: Option[Int] = Some(1)
     override def opt1: Option[Int] = None
     override def syntaxDepthT(obj: MTime): Int = 2
-    override def newT: (Int, Int, Int) => MTime = (i1, i2, i3) => MTime(i1, i2, i3)
+    override def newT: (Int, Int, Int, Int) => MTime = (i1, i2, i3, i4) => MTime(i1, i2, i3, i4)
     override def strDecs(obj: MTime, way: ShowStyle, maxPlaces: Int): StrArr = StrArr("Unimplemented strDecs")
   }
 }
