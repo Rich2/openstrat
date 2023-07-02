@@ -186,7 +186,7 @@ class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
   def seriesNum: Int = arrayA.length
   def find(time: MTime): Option[A] = if (time.int1 < arrayInt(0) | time.int1 > arrayInt(seriesNum)) None
   else
-  { def loop(i: Int): Option[A] = if (time.int1 >= arrayInt(i)) Some(arrayA(i)) else loop(i + 1)
+  { def loop(i: Int): Option[A] = if (time.int1 < arrayInt(i + 1)) Some(arrayA(i)) else loop(i + 1)
     loop(0)
   }
 }

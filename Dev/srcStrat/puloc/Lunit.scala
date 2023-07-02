@@ -2,9 +2,9 @@
 package ostrat; package puloc
 import geom._, pglobe._
 
-trait Lunit extends Coloured
+trait Lunit //extends Coloured
 { /** The nation / state to which this unit belongs. */
-  def polity: Polity
+  def polity: MTimeSeries[Polity]
 
   /** The date this unt comes into existence. */
   val startDate: MTime
@@ -15,15 +15,10 @@ trait Lunit extends Coloured
   /** An implicit value for the start and end of the unit to be used in building time series.  */
   implicit def startEnd: MTime2 = new MTime2(startDate.int1, endDate.int1)
 
-  override def colour: Colour = polity.colour
-
-  /** Optional location of the unit throughout its existence. */
+  /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]
 
-  /** Finds all the [[Lunit]]s that have a defined location at the given time. */
-  def locationFind(date: MTime): Option[(Lunit, LatLong)] = locPosns.find(date).flatMap(_.map(ll => (this, ll)))
-
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(oll => LunitState(polity, oll))
+  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, ll))
 }
 
 case class LunitState(polity: Polity, loc: LatLong) extends Coloured
@@ -35,5 +30,5 @@ trait CorpsNumbered extends Lunit
 { /** The number of the Corps 1st, 2nd 3rd, etc. */
   def corpsNum: Int
 
-  override def toString: String = polity.name -- corpsNum.adjective -- "Corps"
+  //override def toString: String = polity.name -- corpsNum.adjective -- "Corps"
 }
