@@ -2,7 +2,6 @@
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pEurope._
 
-
 object DeuCp1 extends CorpsNumbered
 { override val corpsNum: Int = 1
   override val startDate = MTime(1934, 10)
@@ -19,6 +18,13 @@ object DeuCp2 extends CorpsNumbered
   override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg)
 }
 
+object DeuCp3 extends CorpsNumbered
+{ override val corpsNum: Int = 3
+  override val startDate = MTime(1935, 4)
+  override val endDate: MTime = MTime(1945, 5, 8)
+  override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
+  override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.stettin)
+}
 object DeuCp4 extends CorpsNumbered
 { override val corpsNum: Int = 4
   override val startDate = MTime(1935, 4)

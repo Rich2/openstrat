@@ -19,7 +19,6 @@ object ULocLaunch extends GuiLaunchMore
 
     val view: EarthView = sts.findType[EarthView].getElse(multisett)
     val oDate: EMon[MTime] = sts.findSettingOrUniqueT[MTime]("date")
-    debvar(oDate)
     val date = oDate.getElse(MTime(1939))
     (cv => ULocGui(cv, date, view), "JavaFx Unit Locations")
   }

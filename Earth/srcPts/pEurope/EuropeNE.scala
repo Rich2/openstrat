@@ -18,6 +18,8 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
 
   val polygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, p10, capeTaran, kaliningrad, cenEast,
     BalkansEast.odessa, BalkansWest.northEast, Alpsland.zagreb, Alpsland.vienna)
+
+  val stettin = 53.43 ll 14.55
 }
 
 object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
