@@ -8,8 +8,8 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
   val jastrzebia: LatLong = 54.83 ll 18.33
   val wladyslawowo: LatLong = 54.79 ll 18.42
   val danzig: LatLong = 54.39 ll 18.65
-  val p10 = 54.46 ll 19.64
-  val capeTaran = 54.96 ll 19.98
+  val p10: LatLong = 54.46 ll 19.64
+  val capeTaran: LatLong = 54.96 ll 19.98
 
   /** 54.93 ll 21.26 */
   val kaliningrad: LatLong = 54.93 ll 21.26
@@ -28,16 +28,16 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
 { val klaipeda: LatLong = 55.73 ll 21.08
   val ziemupe: LatLong = 56.83 ll 21.06
   val ovsi: LatLong = 57.57 ll 21.71
-  val kolka = 57.75 ll 22.60
-  val kesterclems = 57.11 ll 23.24
-  val jurmala = 56.96 ll 23.66
-  val saulkrasti = 57.28 ll 24.41
-  val parnu = 58.37 ll 24.47
-  val lao = 58.23 ll 24.12
-  val virtsu = 58.56 ll 23.50
-  val noarootsi = 59.2 ll 23.5
-  val paldiski = 59.40 ll 24.04
-  val udria = 59.40 ll 27.92
+  val kolka: LatLong = 57.75 ll 22.60
+  val kesterclems: LatLong = 57.11 ll 23.24
+  val jurmala: LatLong = 56.96 ll 23.66
+  val saulkrasti: LatLong = 57.28 ll 24.41
+  val parnu: LatLong = 58.37 ll 24.47
+  val lao: LatLong = 58.23 ll 24.12
+  val virtsu: LatLong = 58.56 ll 23.50
+  val noarootsi: LatLong = 59.2 ll 23.5
+  val paldiski: LatLong = 59.40 ll 24.04
+  val udria: LatLong = 59.40 ll 27.92
   val krasnoselsky = 59.86 ll 30.14
   val piterland: LatLong = 59.97 ll 30.21
   val nevaMouth: LatLong = 59.95 ll 31.04
@@ -56,11 +56,11 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
   val onegaRiver: LatLong = 63.93 ll 37.99
   val pushlakhtaNorth: LatLong = 64.92 ll 36.44
   val letniyNavolok: LatLong = 65.16 ll 37.04
-  val uyma = 64.55 ll 39.71
-  val niznyayaWest = 65.58 ll 39.79
-  val intsy = 65.98 ll 40.75
-  val koyda = 66.51 ll 42.25
-  val koydaEast = 66.41 ll 43.24
+  val uyma: LatLong = 64.55 ll 39.71
+  val niznyayaWest: LatLong = 65.58 ll 39.79
+  val intsy: LatLong = 65.98 ll 40.75
+  val koyda: LatLong = 66.51 ll 42.25
+  val koydaEast: LatLong = 66.41 ll 43.24
   val mezenMouth: LatLong = 66.07 ll 44.10
   val southEast: LatLong = 52 ll 45
    
@@ -70,7 +70,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
     /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast,
     Polandia.cenEast)
 
-  val konigsberg = 54.71 ll 20.45
+  val konigsberg: LatLong = 54.71 ll 20.45
 }
 
 object Gotland extends EArea2("Gotland", 57.46 ll 18.47, Plain)
@@ -97,10 +97,11 @@ object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, Plain)
 }
 
 object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, Plain)
-{ val west = 58.92 ll 22.04
-  val north = 59.08 ll 22.65
-  val sarve = 58.83 ll 23.05
-  val southEast = 58.70 ll 22.67
-  val southWest = 58.7 ll 22.49
-  val polygonLL = PolygonLL(west, north, sarve, southEast, southWest)
+{ val west: LatLong = 58.92 ll 22.04
+  val north: LatLong = 59.08 ll 22.65
+  val sarve: LatLong = 58.83 ll 23.05
+  val southEast: LatLong = 58.70 ll 22.67
+  val southWest: LatLong = 58.7 ll 22.49
+
+  override val polygonLL: PolygonLL = PolygonLL(west, north, sarve, southEast, southWest)
 }
