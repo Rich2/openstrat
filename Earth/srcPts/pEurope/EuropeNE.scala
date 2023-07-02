@@ -14,12 +14,14 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
   /** 54.93 ll 21.26 */
   val kaliningrad: LatLong = 54.93 ll 21.26
 
-  val cenEast = 52 ll 24
+  val cenEast: LatLong = 52 ll 24
 
   val polygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, p10, capeTaran, kaliningrad, cenEast,
     BalkansEast.odessa, BalkansWest.northEast, Alpsland.zagreb, Alpsland.vienna)
 
-  val stettin = 53.43 ll 14.55
+  val stettin: LatLong = 53.43 ll 14.55
+  val neidenburg: LatLong = 53.36 ll 20.43
+  val schlochau = 53.67 ll 17.36
 }
 
 object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)

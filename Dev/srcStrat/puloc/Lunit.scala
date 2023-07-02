@@ -18,10 +18,14 @@ trait Lunit
   /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]
 
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, ll))
+  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, desig, levelName, ll))
+
+  def levelName: String
+
+  def desig: String
 }
 
-case class LunitState(polity: Polity, loc: LatLong) extends Coloured
+case class LunitState(polity: Polity, desig: String, levelName: String, loc: LatLong) extends Coloured
 {
   override def colour: Colour = polity.colour
 }
@@ -30,5 +34,8 @@ trait CorpsNumbered extends Lunit
 { /** The number of the Corps 1st, 2nd 3rd, etc. */
   def corpsNum: Int
 
+  override def desig: String = corpsNum.adjective
+
+  override def levelName: String = "Corps"
   //override def toString: String = polity.name -- corpsNum.adjective -- "Corps"
 }

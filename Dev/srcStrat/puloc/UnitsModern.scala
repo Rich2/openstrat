@@ -7,7 +7,7 @@ object DeuCp1 extends CorpsNumbered
   override val startDate = MTime(1934, 10)
   override val endDate: MTime = MTime(1945, 5, 8)
   override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
-  override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg, (MTime(1939, 9, 2), Baltland.konigsberg))
+  override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg, (MTime(1939, 8, 1), Polandia.neidenburg))
 }
 
 object DeuCp2 extends CorpsNumbered
@@ -15,7 +15,7 @@ object DeuCp2 extends CorpsNumbered
   override val startDate = MTime(1935, 4)
   override val endDate: MTime = MTime(1945, 5, 8)
   override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
-  override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg)
+  override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg, (MTime(1939, 8, 1), Polandia.schlochau))
 }
 
 object DeuCp3 extends CorpsNumbered
