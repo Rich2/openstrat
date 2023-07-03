@@ -184,10 +184,30 @@ object Persist3
   }
 }
 
+/** Trait for [[Persist3]] where all three elements are [[Int]]s */
 trait PersistInt3[R] extends Persist3[Int, Int, Int, R]
 { override def ev1: Persist[Int] = ShowT.intPersistEv
   override def ev2: Persist[Int] = ShowT.intPersistEv
   override def ev3: Persist[Int] = ShowT.intPersistEv
+}
+
+/** Companion object for [[PersistInt3]] trait contains implementation class and factory apply method. */
+object PersistInt3
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int,
+    newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): PersistInt3[R] =
+    new PersistInt3Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)
+
+  class PersistInt3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
+    val fArg3: R => Int, val newT: (Int, Int, Int) => R, val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends
+    PersistInt3[R]
+  { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+    override def syntaxDepthT(obj: R): Int = ???
+
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
+  }
 }
 
 trait PersistShow3[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]
