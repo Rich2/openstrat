@@ -16,7 +16,10 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   /** The month number. 1 == January, 12 == December. */
   def monthNum: Int= monthInt + 1
 
-  def yearInt: Int = int1 / 535680
+  def yearInt: Int = int1 match{
+    case n if n < 0 & int1 %% 535680 > 0 => int1 / 535680 - 1
+    case n => int1 / 535680
+  }
   override def compare(that: MTime): Int = int1 match
   { case i if i > that.int1 => 1
     case i if i == that.int1 => 0
@@ -56,7 +59,20 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   }
 
   /** Produces a date [[String]] with month in 3 letter abbreviation. */
-  def str3: String = yearInt.str -- monthStr3 -- dayNum.str
+  def str3: String =
+  { def bn: Int = -yearInt + 1
+    val yearStr = yearInt match
+    {
+      case n if n >= 1000 => s"AD$n"
+      case n if n >= 100 => s"AD$n "
+      case n if n >= 10 => s"AD$n  "
+      case n if n >= 1 => s"AD$n   "
+      case n if n <= -999 => s"BC$bn"
+      case n if n <= -99 => s"BC$bn "
+      case n if n <= -9 => s"BC$bn  "
+      case n => s"BC$bn   "
+    }
+    f"$yearStr $monthStr3 $dayNum%2d $hour%02d $minute%02d"}
   override def toString: String = yearInt.str -- monthStr -- dayNum.str
 
   /** Adds a year to the time. February 29th goes to February 28th. */
@@ -70,6 +86,7 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
 
   /** Subtracts the given number of years from the time. February 29th goes to February 28th. */
   def subYears(num: Int): MTime = MTime(yearInt - num, monthNum, dayNum.min(lastMonthDay(yearInt - num, monthNum)), hour, minute)
+
 
   /** Adds a month to this [[MTime]]. If the new month does not contain the day number, the day number is reduced to the last dasy fp the month. Eg
    *  2023 May 31st goes to 2023 June 30th. */
@@ -102,7 +119,6 @@ class MTime(val int1: Int) extends AnyVal with Ordered[MTime] with Int1Elem
   /** Adds the give number of days to the [[MTime]]. This hasn't been tested. */
   def addDays(num: Int): MTime = if(num < 0) subDays(-num) else
   { val leaps = yearInt + (num / 1461) * 4
-    debvar(leaps)
     val rem = num %% 1461
 
     /** Assumes the input [[MTime]] is on the last day of the month and rem > 0. */
@@ -166,8 +182,8 @@ object MTime
     case n => excep(n.str -- "is an invalid Month number.")
   }
 
-  implicit val persistEv: PersistInt4[MTime] = PersistInt4[MTime]("MTime", "year", _.yearInt, "month", _.monthNum, "day", _.dayNum, "hour", _.hour,
-    (i1, i2, i3, i4) => MTime(i1, i2, i3, i4), Some(0), Some(1), Some(1))
+  implicit val persistEv: PersistInt5[MTime] = PersistInt5[MTime]("MTime", "year", _.yearInt, "month", _.monthNum, "day", _.dayNum, "hour", _.hour,
+    "minute", _.minute, (i1, i2, i3, i4, i5) => MTime(i1, i2, i3, i4, i5), Some(0), Some(0), Some(1), Some(1))
 }
 
 /** A time eriod. Compact class for holding 2 [[MTime]]s. */

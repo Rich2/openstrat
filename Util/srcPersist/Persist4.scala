@@ -52,7 +52,7 @@ trait Show4[A1, A2, A3, A4] extends Any with ShowN with TypeStr4[A1, A2, A3, A4]
   /** The [[ShowT]] type class instance for the 4th element of this 4 element Show product. */
   def showT4: ShowT[A4]
 
-  override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
+  final override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def elemTypeNames: StrArr = StrArr(showT1.typeStr, showT2.typeStr, showT3.typeStr, showT4.typeStr)
 
   override def showElemStrs(way: ShowStyle): StrArr = StrArr(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way), showT4.showT(show4, way))
@@ -117,6 +117,27 @@ trait Persist4[A1, A2, A3, A4, R] extends Show4T[A1, A2, A3, A4, R] with Unshow4
   override def ev4: Persist[A4]
 }
 
+/** Companion object for [[Persist4]] trait contains implementation class and factory apply method. */
+object Persist4
+{
+  def apply[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
+    name4: String, fArg4: R => A4, newT: (A1, A2, A3, A4) => R, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+    implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]): Persist4[A1, A2, A3, A4, R] =
+    new Persist4Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
+
+  class Persist4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val newT: (A1, A2, A3, A4) => R, val opt4: Option[A4] = None, val opt3In: Option[A3] = None, opt2In: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3], val ev4: Persist[A4]) extends Persist4[A1, A2, A3, A4, R]
+  { val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+    override def syntaxDepthT(obj: R): Int = ???
+
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
+  }
+}
+
 trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R]
 { override def ev1: Persist[Int] = ShowT.intPersistEv
   override def ev2: Persist[Int] = ShowT.intPersistEv
@@ -137,27 +158,6 @@ object PersistInt4
   { val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
-    override def syntaxDepthT(obj: R): Int = ???
-
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
-  }
-}
-
-/** Companion object for [[Persist4]] trait contains implementation class and factory apply method. */
-object Persist4
-{
-  def apply[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    name4: String, fArg4: R => A4, newT: (A1, A2, A3, A4) => R, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-    implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]): Persist4[A1, A2, A3, A4, R] =
-    new Persist4Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
-
-  class Persist4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val newT: (A1, A2, A3, A4) => R, val opt4: Option[A4] = None, val opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3], val ev4: Persist[A4]) extends Persist4[A1, A2, A3, A4, R]
-  { val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
-    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
     override def syntaxDepthT(obj: R): Int = ???
 
