@@ -113,6 +113,7 @@ object Persist5
   }
 }
 
+/** Persist trait for 5 [[Int]] parameters. */
 trait PersistInt5[R] extends Persist5[Int, Int, Int, Int, Int, R]
 { override def ev1: Persist[Int] = ShowT.intPersistEv
   override def ev2: Persist[Int] = ShowT.intPersistEv

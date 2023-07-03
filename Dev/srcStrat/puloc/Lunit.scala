@@ -37,5 +37,13 @@ trait CorpsNumbered extends Lunit
   override def desig: String = corpsNum.adjective
 
   override def levelName: String = "Corps"
-  //override def toString: String = polity.name -- corpsNum.adjective -- "Corps"
+}
+
+trait ArmyNumbered extends Lunit
+{ /** The number of the Army 1st, 2nd 3rd, etc. */
+  def armyNum: Int
+
+  override def desig: String = armyNum.adjective
+
+  override def levelName: String = "Army"
 }
