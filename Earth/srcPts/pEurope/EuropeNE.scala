@@ -17,8 +17,9 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
 
   val cenEast: LatLong = 52 ll 24
 
-  val polygonLL: PolygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, p10, capeTaran, kaliningrad,
-    cenEast, BalkansEast.odessa, BalkansWest.northEast, Alpsland.zagreb, Alpsland.vienna)
+  override val polygonLL: PolygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec,
+    jastrzebia, wladyslawowo, danzig, p10, capeTaran, kaliningrad, cenEast, BalkansEast.odessa,
+    BalkansWest.northEast, Alpsland.zagreb, Alpsland.vienna)
 
   val stettin: LatLong = 53.43 ll 14.55
   val neidenburg: LatLong = 53.36 ll 20.43
@@ -66,8 +67,8 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
   val mezenMouth: LatLong = 66.07 ll 44.10
   val southEast: LatLong = 52 ll 45
    
-  override val polygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, kesterclems, jurmala, saulkrasti, parnu, lao, virtsu,
-    noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,
+  override val polygonLL: PolygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, kesterclems, jurmala, saulkrasti, parnu, lao,
+    virtsu, noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,
     pudozhgorskiy, chelmuzhiEast,
     /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast,
     Polandia.cenEast)
