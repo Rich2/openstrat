@@ -26,6 +26,7 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   override def int3: Int = stepInt
 }
 
+/** Companion object for [[HCenStep]]. Contains apply factory methods and ArrBuilder type class instance. */
 object HCenStep
 { def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.int1)
   def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.int1)
