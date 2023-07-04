@@ -2,6 +2,7 @@
 package ostrat; package puloc
 import Colour._
 
+/** Historical nation state or other polity such as Kingdom or the Soviet Union. */
 trait Polity extends Coloured
 { def name: String
   override def toString: String = name

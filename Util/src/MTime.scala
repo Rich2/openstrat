@@ -195,8 +195,9 @@ class MTime2(val int1: Int, val int2: Int)
   def time2: MTime = new MTime(int2)
 }
 
+/** Companion object for [[MTime2]] class, contains apply factory method. */
 object MTime2
-{
+{ /** Apply factory method for [[MTime2]] class.Constructs from 2 [[MTime]] classes. */
   def apply(time1: MTime, time2: MTime):MTime2 = new MTime2(time1.int1, time2.int1)
 }
 

@@ -2,7 +2,7 @@
 package ostrat; package puloc
 import geom._, pglobe._, pgui._, pParse._
 
-/** object to launch EarthBasic Gui. */
+/** object to launch Unit locator  Gui. */
 object ULocLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "uloc"

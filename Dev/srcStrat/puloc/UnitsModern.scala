@@ -42,8 +42,7 @@ object FraCp1 extends CorpsNumbered
 }
 
 object FraCp2 extends CorpsNumbered
-{
-  override val corpsNum: Int = 2
+{ override val corpsNum: Int = 2
   override val startDate = MTime(1939, 8, 23)
   override val endDate: MTime = MTime(1940, 5, 26)
   override val polity: MTimeSeries[Polity] = MTimeSeries(France)
