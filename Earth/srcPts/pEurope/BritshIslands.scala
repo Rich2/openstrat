@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
-/** [[PolygonLL]] graphical representation of the Orkney's */
+/** [[PolygonLL]] graphical representation of the Orkney's. */
 object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, Plain)
 { val north: LatLong = 59.38 ll -2.88
   val stronsayE: LatLong = 59.09 ll -2.53

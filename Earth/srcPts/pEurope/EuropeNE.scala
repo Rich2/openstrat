@@ -2,6 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
+/** [[PolygonLL]] graphical representation for Poland and adjacent territory. */
 object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
 { val mielno: LatLong = 54.26 ll 16.06
   val jaroslawiec: LatLong = 54.54 ll 16.53
@@ -24,6 +25,7 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
   val schlochau: LatLong = 53.67 ll 17.36
 }
 
+/** [[PolygonLL]] graphical representation for the Baltic states and adjacent territory. */
 object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
 { val klaipeda: LatLong = 55.73 ll 21.08
   val ziemupe: LatLong = 56.83 ll 21.06
@@ -73,6 +75,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
   val konigsberg: LatLong = 54.71 ll 20.45
 }
 
+/** [[PolygonLL]] graphical representation for the island of Goland. */
 object Gotland extends EArea2("Gotland", 57.46 ll 18.47, Plain)
 { val southWest: LatLong = 56.90 ll 18.12
   val west: LatLong = 57.26 ll 18.09
@@ -83,6 +86,7 @@ object Gotland extends EArea2("Gotland", 57.46 ll 18.47, Plain)
   override val polygonLL: PolygonLL = PolygonLL(southWest, west, tofta, hallshuk, east)
 }
 
+/** [[PolygonLL]] graphical representation for the island of Saaremaa. */
 object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, Plain)
 { val south: LatLong = 57.91 ll 22.03
   val uudibe: LatLong = 58.15 ll 22.21
@@ -96,6 +100,7 @@ object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, Plain)
   override val polygonLL: PolygonLL = PolygonLL(south, uudibe, west, northWest, nommkula, loetsa, east, tehumardi)
 }
 
+/** [[PolygonLL]] graphical representation for the island of Hiiumaa. */
 object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, Plain)
 { val west: LatLong = 58.92 ll 22.04
   val north: LatLong = 59.08 ll 22.65

@@ -2,8 +2,9 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
+/** [[PolygonLL]] graphical representation for the Jutland peninsular. */
 object Jutland extends EArea2("Jutland", 56.29 ll 9.33, Plain)
-{ val swJutland = 53.89 ll 8.96
+{ val swJutland: LatLong = 53.89 ll 8.96
   val sanktPeterOrding = 54.32 ll 8.59
   val blavandshuk = 55.56 ll 8.07
   val ferring = 56.52 ll 8.11
@@ -18,19 +19,20 @@ object Jutland extends EArea2("Jutland", 56.29 ll 9.33, Plain)
   val kirkeskov = 55.63 ll 9.86
   val skaerbaek = 55.51 ll 9.64
 
-  val lubeck = 53.97 ll 10.84
+  val lubeck: LatLong = 53.97 ll 10.84
    
   val polygonLL = PolygonLL(swJutland, sanktPeterOrding, blavandshuk, ferring, hanstholm,
       slettestrand, hirtshals, wSkivern, skagen, albaek, hevring, grenaa, kirkeskov, skaerbaek, lubeck)
 }
 
+/** [[PolygonLL]] graphical representation for the island of Funen. */
 object Funen extends EArea2("Funen", 55.27 ll 10.39, Plain)
-{ val funenN = 55.62 ll 10.30
+{ val north: LatLong = 55.62 ll 10.30
   val nyborg = 55.29 ll 10.85
   val dovnsKlint = 54.72 ll 10.69
   val torohuse = 55.24 ll 9.89
 
-  val polygonLL = PolygonLL(funenN, nyborg, dovnsKlint, torohuse)
+  val polygonLL = PolygonLL(north, nyborg, dovnsKlint, torohuse)
 }
 
 /** [[polygonLL]] graphical representation of Zealand. Depends on nothing. */
@@ -75,22 +77,21 @@ object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, Plain)
   val wHono = 57.69 ll 11.60
   val p95 = 59.07 ll 10.85
   val rauer = 59.23 ll 10.68
-  val oslo = 59.57 ll 10.59
+  val oslo: LatLong = 59.57 ll 10.59
    
   override val polygonLL = PolygonLL(gavie, gardskarE, klungstenN, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn, stenshamn, pukavik,
     ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg, sTylosand, wHono, p95, rauer, oslo)
 }
 
-
-object Oland extends EArea2("Faroe", 56.77 ll 16.67, Plain)
-{
-  val north = 57.37 ll 17.08
-  val p10 = 57.31 ll 17.15
-  val p20 = 56.85 ll 16.87
-  val south = 56.19 ll 16.39
-  val p30 = 56.22 ll 16.37
-  val p40 = 56.88 ll 16.65
-  val p50 = 57.29 ll 16.96
+/** [[PolygonLL]] graphical representation for the island of Oland. */
+object Oland extends EArea2("Oland", 56.77 ll 16.67, Plain)
+{ val north: LatLong = 57.37 ll 17.08
+  val p10: LatLong = 57.31 ll 17.15
+  val p20: LatLong = 56.85 ll 16.87
+  val south: LatLong = 56.19 ll 16.39
+  val p30: LatLong = 56.22 ll 16.37
+  val p40: LatLong = 56.88 ll 16.65
+  val p50: LatLong = 57.29 ll 16.96
 
   override val polygonLL = PolygonLL(north, p10, p20, south, p30, p40, p50)
 }
@@ -101,16 +102,16 @@ object Faroe extends EArea2("Faroe", 62.14 ll -6.91, Hilly)
   val wValgar = 62.3 ll -7.46
   val nEysturoy = 62.34 ll -6.98
   val eFugloy = 62.33 ll -6.25
-  val polygonLL = PolygonLL(sSuduroy, wValgar, nEysturoy, eFugloy)
+  override val polygonLL: PolygonLL = PolygonLL(sSuduroy, wValgar, nEysturoy, eFugloy)
 }
 
 object JanMayen extends EArea2("JanMayen", 71.02 ll -8.29, Taiga)
-{ val south = 70.82 ll -9.03
-  val west = 70.86 ll -9.07
+{ val south: LatLong = 70.82 ll -9.03
+  val west: LatLong = 70.86 ll -9.07
   val susabu = 71.01 ll -8.46
-  val point1 = 71.08 ll -8.38
-  val northEast = 71.16 ll -7.94
-  val southEast = 71.02 ll -7.98
+  val point1: LatLong = 71.08 ll -8.38
+  val northEast: LatLong = 71.16 ll -7.94
+  val southEast: LatLong = 71.02 ll -7.98
    
-  val polygonLL = PolygonLL(south, west, susabu, point1, northEast, southEast)
+  override val polygonLL: PolygonLL = PolygonLL(south, west, susabu, point1, northEast, southEast)
 }
