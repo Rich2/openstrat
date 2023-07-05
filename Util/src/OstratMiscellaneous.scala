@@ -42,3 +42,13 @@ object DirPathAbs
     }
   }
 }
+
+sealed trait JustOrName[+T]
+
+case class Just[T](value: T) extends JustOrName[T]
+
+case class JustName[T](name: String) extends JustOrName[T]
+
+case object Unknown extends JustOrName[Nothing]
+
+object JustNone extends JustOrName[Nothing]

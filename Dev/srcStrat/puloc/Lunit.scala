@@ -20,6 +20,8 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
   def levelName: String
 
   def desig: String
+
+  def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Unknown)
 }
 
 /** A [[Lunit]], a military land unit's state at a particular moment in time.  */
