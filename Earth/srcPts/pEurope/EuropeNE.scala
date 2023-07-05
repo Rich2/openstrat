@@ -24,6 +24,8 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, Plain)
   val stettin: LatLong = 53.43 ll 14.55
   val neidenburg: LatLong = 53.36 ll 20.43
   val schlochau: LatLong = 53.67 ll 17.36
+  val allenstein: LatLong = 53.78 ll 20.48
+  val osteroda: LatLong = 53.70 ll 19.96
 }
 
 /** [[PolygonLL]] graphical representation for the Baltic states and adjacent territory. */

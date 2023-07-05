@@ -2,10 +2,25 @@
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pEurope._
 
-abstract class DeuNumberedKorps(startDate: MTime, endDate: MTime, val korpsNum: Int) extends Lunit(startDate, endDate)
-{ override def desig: String = korpsNum.adjective
+abstract class DeuArmee(startDate: MTime, endDate: MTime, val armeeNum: Int) extends Lunit(startDate, endDate)
+{ override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
+  override def levelName: String = "Armee"
+  override def desig: String = armeeNum.adjective
+}
+
+object DeuArmy3 extends DeuArmee(MTime(1939, 9), MTime(1939, 11, 5), 3)
+{
+  /** Locations of the unit throughout its existence. */
+  override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.osteroda)
+}
+
+abstract class DeuKorps(startDate: MTime, endDate: MTime) extends Lunit(startDate, endDate)
+{ override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
   override def levelName: String = "Korps"
-  override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
+}
+
+abstract class DeuNumberedKorps(startDate: MTime, endDate: MTime, val korpsNum: Int) extends DeuKorps(startDate, endDate)
+{ override def desig: String = korpsNum.adjective
 }
 
 /** 1st German corps of the 3rd Reich. */
@@ -26,4 +41,9 @@ object DeuCp3 extends DeuNumberedKorps(MTime(1935, 4), MTime(1945, 5, 8), 3)
 /** 4th German corps of the 3rd Reich. */
 object DeuCp4 extends DeuNumberedKorps(MTime(1935, 4), MTime(1945, 5, 8), 4)
 { override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Germania.dresden.latLong, (MTime(1939, 10), Baltland.konigsberg))
+}
+
+object KorpsWodrig extends DeuKorps(MTime(1939, 8, 22), MTime(1939, 10))
+{ override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.allenstein)
+  override def desig: String = "Wodrig"
 }
