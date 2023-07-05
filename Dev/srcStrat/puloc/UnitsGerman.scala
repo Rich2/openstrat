@@ -26,6 +26,7 @@ abstract class DeuNumberedKorps(startDate: MTime, endDate: MTime, val korpsNum: 
 /** 1st German corps of the 3rd Reich. */
 object DeuCp1 extends DeuNumberedKorps(MTime(1934, 10), MTime(1945, 5, 8), 1)
 { override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Baltland.konigsberg, (MTime(1939, 8, 1), Polandia.neidenburg))
+  override def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(JustNone, (MTime(1939, 9), Just(DeuArmy3)))
 }
 
 /** 2nd German corps of the 3rd Reich. */
@@ -46,4 +47,6 @@ object DeuCp4 extends DeuNumberedKorps(MTime(1935, 4), MTime(1945, 5, 8), 4)
 object KorpsWodrig extends DeuKorps(MTime(1939, 8, 22), MTime(1939, 10))
 { override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.allenstein)
   override def desig: String = "Wodrig"
+
+  override def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Just(DeuArmy3))
 }
