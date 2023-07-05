@@ -16,8 +16,7 @@ class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A]
 
   /** Needs changing. */
   def mapAcc: HCenAccPairLayer[A] =
-  {
-    val acc = HCenAccPairLayer[A]()
+  { val acc = HCenAccPairLayer[A]()
     gridSys.foreach{origin =>
       val index = gridSys.layerArrayIndex(origin)
       val optA = arrayA(index)
@@ -30,6 +29,8 @@ class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A]
   }
 }
 
+/** Companion object for [[HCenOptStepLikePairLayer]] class, an Optional [[HStepLike]] pair data layer for Hex grid systems. Contains factory apply
+ *  methods. */
 object HCenOptStepLikePairLayer
 { /** Factory apply method for [[HCenOptStepLikePairLayer]], an optional [[HStepLike]] pair data layer for Hex grid systems. */
   def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptStepLikePairLayer[A] = new HCenOptStepLikePairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
