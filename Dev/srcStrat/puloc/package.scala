@@ -8,7 +8,7 @@ package object puloc
     """Unit locations throughout history
       |""".stripMargin
 
-  def units: RArr[Lunit] = RArr(PruCp1, PruCp2, DeuCp1, DeuCp2, DeuCp3, DeuCp4, FraCp1, FraCp2)
+  def units: RArr[Lunit] = RArr(PruCp1, PruCp2, DeuArmy3, DeuCp1, DeuCp2, DeuCp3, DeuCp4, KorpsWodrig, FraCp1, FraCp2)
   
   def unitsAt(date: MTime): RArr[LunitState] = units.optMap(_.dateFind(date))
 }
