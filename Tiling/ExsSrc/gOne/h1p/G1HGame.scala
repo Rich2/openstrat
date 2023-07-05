@@ -10,7 +10,7 @@ case class G1HGame(var scen: G1HScen, guiCounters: RArr[Counter])
 
   /** Resolves turn. Takes an [[HStepPairArr]] of [[Counter]]s. The directives are passed in as relative moves. This is in accordance with the
    *  principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(directives: HStepPairArr[Counter]): G1HScen =
+  def endTurn3(directives: HStepPairArr[Counter]): G1HScen =
   { val intensions: HCenOptStepLikePairLayer[Counter] = HCenOptStepLikePairLayer[Counter](scen.gridSys)
     val counterCens: HCenPairArr[Counter] = scen.counters.somePairs
     directives.pairForeach { (st, ct) => if (guiCounters.contains(ct))

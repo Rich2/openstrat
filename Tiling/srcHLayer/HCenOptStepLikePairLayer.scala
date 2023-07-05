@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** Optional [[HStepLike]] pair data layer  for Hex grid systems. */
+/** Optional [[HStepLike]] pair data layer for Hex grid systems. */
 class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A])(implicit val ct: ClassTag[A], val gridSys: HGridSys)
 {
   def numCens: Int = arrayA.length
@@ -31,7 +31,7 @@ class HCenOptStepLikePairLayer[A](val arrayInt: Array[Int], val arrayA: Array[A]
 }
 
 object HCenOptStepLikePairLayer
-{ /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
+{ /** Factory apply method for [[HCenOptStepLikePairLayer]], an optional [[HStepLike]] pair data layer for Hex grid systems. */
   def apply[A](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptStepLikePairLayer[A] = new HCenOptStepLikePairLayer[A](new Array[Int](gSys.numTiles), new Array[A](gSys.numTiles))(ct, gSys)
 
   /** Factory apply method for [[HCenOptStepLikePairLayer]]. */
