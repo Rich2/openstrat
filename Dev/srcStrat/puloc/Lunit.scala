@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
-import geom._, pglobe._
+import geom._, pgui._, pglobe._
 
 /** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is consdered to be a new
  *  unit. */
@@ -25,8 +25,10 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
 }
 
 /** A [[Lunit]], a military land unit's state at a particular moment in time.  */
-case class LunitState(polity: Polity, desig: String, levelName: String, loc: LatLong) extends Coloured
+case class LunitState(polity: Polity, desig: String, levelName: String, loc: LatLong) extends Selectable with Coloured
 { override def colour: Colour = polity.colour
+
+  override def selectStr: String = s"$polity $desig $levelName"
 }
 
 

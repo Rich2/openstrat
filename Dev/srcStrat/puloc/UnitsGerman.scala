@@ -3,7 +3,7 @@ package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pEurope._
 
 abstract class DeuArmee(startDate: MTime, endDate: MTime, val armeeNum: Int) extends Lunit(startDate, endDate)
-{ override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
+{ override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
   override def levelName: String = "Armee"
   override def desig: String = armeeNum.adjective
 }
@@ -15,7 +15,7 @@ object DeuArmy3 extends DeuArmee(MTime(1939, 9), MTime(1939, 11, 5), 3)
 }
 
 abstract class DeuKorps(startDate: MTime, endDate: MTime) extends Lunit(startDate, endDate)
-{ override val polity: MTimeSeries[Polity] = MTimeSeries(Germany)
+{ override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
   override def levelName: String = "Korps"
 }
 

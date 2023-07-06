@@ -3,7 +3,7 @@ package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pEurope._
 
 abstract class PrussianKorpsNumbered(startDate: MTime, endDate: MTime, val korpsNum: Int) extends Lunit(startDate, endDate)
-{ override val polity: MTimeSeries[Polity] = MTimeSeries(Prussia,(MTime(1871, 1, 18), Germany))
+{ override val polity: MTimeSeries[Polity] = MTimeSeries(Prussia,(MTime(1871, 1, 18), Deutch))
   override def desig: String = korpsNum.adjective
   override def levelName: String = "Korps"
 }

@@ -2,6 +2,12 @@
 package ostrat; package pgui
 import geom._, Colour._
 
+/** This trait exists to provide text fpr a status bar in a graphical user interface when selected. */
+trait Selectable extends Any
+{ /** The [[String]] to be displayed in the status bar in a GUI when selected. */
+  def selectStr: String
+}
+
 /** A simple 2 panel display, a man panel and a command bar. */
 trait CmdBarGui extends CanvasPanelled
 { val barThickness = 30
@@ -36,8 +42,10 @@ trait CmdBarGui extends CanvasPanelled
 
   def selectedStr: String = selected match
   { case None => "Nothing selected"
+    case sel: Selectable => sel.selectStr
     case a => a.toString
   }
+
   topBar.mouseUp =
     { case (b, AnyArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
       case (_, l, _) => deb(l.toString)

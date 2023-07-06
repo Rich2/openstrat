@@ -9,12 +9,12 @@ trait Polity extends Coloured
 }
 
 object Prussia extends Polity
-{ override val name: String = "Prussia"
-  override def colour: Colour = Colour.Navy
+{ override val name: String = "Preußen"
+  override def colour: Colour = Navy
 }
 
-object Germany extends Polity
-{ override def name: String = "Germany"
+object Deutch extends Polity
+{ override def name: String = "Deutsch"
   override def colour: Colour = Gray
 }
 object France extends Polity
