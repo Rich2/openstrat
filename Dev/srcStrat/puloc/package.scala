@@ -8,7 +8,12 @@ package object puloc
     """Unit locations throughout history
       |""".stripMargin
 
-  def units: RArr[Lunit] = RArr(PruCp1, PruCp2, DeuArmy3, DeuCp1, DeuCp2, DeuCp3, DeuCp4, KorpsWodrig, FraCp1, FraCp2)
+  def germanUnits: RArr[Lunit] = RArr(PruCp1, PruCp2, DeuArmy3, DeuCp1, DeuCp2, DeuCp3, DeuCp4, KorpsWodrig)
+  def sovietUnits: RArr[Lunit] = RArr(SovArmy3)
+  def otherUnits: RArr[Lunit] = RArr(FraCp1, FraCp2)
+  def units: RArr[Lunit] = germanUnits ++ sovietUnits ++ otherUnits
   
   def unitsAt(date: MTime): RArr[LunitState] = units.optMap(_.dateFind(date))
+
+  def deu45Surr: MTime = MTime(1945, 5, 8, 23, 1)
 }

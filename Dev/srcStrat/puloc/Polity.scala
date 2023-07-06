@@ -17,7 +17,13 @@ object Deutch extends Polity
 { override def name: String = "Deutsch"
   override def colour: Colour = Gray
 }
+
 object France extends Polity
 { override def name: String = "France"
   override def colour: Colour = LightBlue
+}
+
+object Soviets extends Polity
+{ override def name: String = "Soviets"
+  override def colour: Colour = Red
 }

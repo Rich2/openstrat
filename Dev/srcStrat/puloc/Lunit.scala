@@ -14,12 +14,14 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
   /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]
 
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, desig, levelName, ll))
+  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, timeDesig(date), levelName, ll))
 
   /** The name of the level of the unit such as Army, Corps or Division. */
   def levelName: String
 
   def desig: String
+
+  def timeDesig(date: MTime): String = desig
 
   def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Unknown)
 }

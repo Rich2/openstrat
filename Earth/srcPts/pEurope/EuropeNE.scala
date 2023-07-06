@@ -76,6 +76,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, Plain)
     Polandia.cenEast)
 
   val konigsberg: LatLong = 54.71 ll 20.45
+  val slutsk = 53.03 ll 27.55
 }
 
 /** [[PolygonLL]] graphical representation for the island of Goland. */
