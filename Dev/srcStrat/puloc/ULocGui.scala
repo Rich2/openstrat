@@ -22,7 +22,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
 
-  statusText = "Welcome to Unit locations."
+  statusText = "Welcome to Unit locations. Click on units to get identity."
   def finds: RArr[LunitState] = unitsAt(date)
 
   def repaint(): Unit =
