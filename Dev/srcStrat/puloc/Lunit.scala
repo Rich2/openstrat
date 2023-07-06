@@ -29,14 +29,7 @@ case class LunitState(polity: Polity, desig: String, levelName: String, loc: Lat
 { override def colour: Colour = polity.colour
 }
 
-trait CorpsNumbered extends Lunit
-{ /** The number of the Corps 1st, 2nd 3rd, etc. */
-  def corpsNum: Int
 
-  override def desig: String = corpsNum.adjective
-
-  override def levelName: String = "Corps"
-}
 
 trait ArmyNumbered extends Lunit
 { /** The number of the Army 1st, 2nd 3rd, etc. */
