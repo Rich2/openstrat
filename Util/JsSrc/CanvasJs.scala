@@ -4,20 +4,20 @@ import geom._, pgui._, math.Pi, org.scalajs.dom._
 
 /** An implementation of CanvasPlatform for Scala.js using Web canvas. */
 object CanvasJs extends CanvasTopLeft
-{ val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
-  override def width = can.width
-  override def height = can.height
+{ val canvas: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
+  override def width: Double = canvas.width
+  override def height: Double = canvas.height
 
   def setup() =
-  { can.width = (window.innerWidth).max(200).toInt //-20
-    can.height = (window.innerHeight).max(200).toInt //-80
+  { canvas.width = (window.innerWidth).max(200).toInt //-20
+    canvas.height = (window.innerHeight).max(200).toInt //-80
     //tabindex required for canvas to receive key.Events (now focusable)
-    can.setAttribute("tabindex","1")
+    canvas.setAttribute("tabindex","1")
     //give focus to listen for key.Events
-    can.focus()
+    canvas.focus()
   }
   setup()
-   
+
   def getButton(e: MouseEvent): MouseButton = e.button match
   { case 0 => LeftButton
     case 1 => MiddleButton
@@ -40,33 +40,33 @@ object CanvasJs extends CanvasTopLeft
     case b => MultipleButton
   }
 
-  can.onmouseup = (e: MouseEvent) =>
+  canvas.onmouseup = (e: MouseEvent) =>
   { shiftDown = e.shiftKey
-    val rect: DOMRect = DOMRect()
+    val rect= canvas.getBoundingClientRect()//: DOMRect = DOMRect()
     mouseUpTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
 
-  can.onmousedown = (e: MouseEvent) =>
+  canvas.onmousedown = (e: MouseEvent) =>
   { shiftDown = e.shiftKey
-    val rect = can.getBoundingClientRect()
+    val rect = canvas.getBoundingClientRect()
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
-  
-  can.onmousemove = (e: MouseEvent) => getButtons(e) match
-  { case LeftButton => 
-    { val rect = can.getBoundingClientRect()
+
+  canvas.onmousemove = (e: MouseEvent) => getButtons(e) match
+  { case LeftButton =>
+    { val rect = canvas.getBoundingClientRect()
       mouseDraggedTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
     }
     case _ =>
-    { val rect = can.getBoundingClientRect()
+    { val rect = canvas.getBoundingClientRect()
       mouseMovedTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
     }
   }
 
-  can.onkeyup = (e: KeyboardEvent) => { keyUp(e.key) }
-  can.onkeydown = (e: KeyboardEvent) => { keyDown(e.key) }
+  canvas.onkeyup = (e: KeyboardEvent) => { keyUp(e.key) }
+  canvas.onkeydown = (e: KeyboardEvent) => { keyDown(e.key) }
 
-  can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) =>
+  canvas.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) =>
   { e.deltaY match
     { case 0 =>
       case d if d < 0 => onScroll(true)
@@ -74,14 +74,14 @@ object CanvasJs extends CanvasTopLeft
     }
     e.preventDefault() // Stops the page scrolling when the mouse pointer is over the canvas
   }
-      
-  can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
+
+  canvas.oncontextmenu = (e: MouseEvent) => e.preventDefault()
   window.onresize = (e: UIEvent) => { setup(); resize() }
-     
+
   override def getTime: Long = new scala.scalajs.js.Date().getTime().toLong
   override def timeOut(f: () => Unit, millis: Integer): Unit = { window.setTimeout(f, millis.toDouble); () }
-   
-  val gc = can.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+
+  val gc = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
 
   def setFill(f: FillFacet): Unit = f match
   { case c: Colour => gc.fillStyle = c.webStr
