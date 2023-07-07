@@ -19,7 +19,7 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../SbtDir/EarthAppJs/target/scala-3.2.1/earthappjs-fastopt.js?"+Date.now().toString());
+    script.setAttribute("src", "../SbtDir/EarthAppJs/target/scala-3.3.0/earthappjs-fastopt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
     EarthJsApp.main();
