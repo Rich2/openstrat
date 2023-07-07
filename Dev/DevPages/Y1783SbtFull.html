@@ -19,7 +19,7 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../SbtDir/Y1783Js/target/scala-3.2.2/y1783js-opt.js?"+Date.now().toString());
+    script.setAttribute("src", "../SbtDir/Y1783Js/target/scala-3.3.0/y1783js-opt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
     Y1783JsApp.main();
