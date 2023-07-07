@@ -19,7 +19,7 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../SbtDir/Bc305Js/target/scala-3.2.2/bc305js-fastopt.js?"+Date.now().toString());
+    script.setAttribute("src", "../SbtDir/BC305Js/target/scala-3.3.0/bc305js-fastopt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
     BC305JsApp.main();
