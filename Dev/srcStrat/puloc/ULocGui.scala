@@ -2,6 +2,7 @@
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
+/** Graphical user interface for Unit Locator. */
 case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
 { /** Scale in km / pixel */
   var scale: Length = viewIn.scale
