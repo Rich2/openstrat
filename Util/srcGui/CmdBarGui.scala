@@ -47,9 +47,9 @@ trait CmdBarGui extends CanvasPanelled
   }
 
   topBar.mouseUp =
-    { case (b, AnyArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
-      case (_, l, _) => deb(l.toString)
-    }
+  { case (b, AnyArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
+    case (_, l, _) => deb(l.toString)
+  }
 }
 
 object StdButton

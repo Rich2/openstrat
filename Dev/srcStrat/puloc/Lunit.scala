@@ -24,6 +24,8 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
   def timeDesig(date: MTime): String = desig
 
   def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Unknown)
+
+  def subUnits: MTimeSeries[RArr[Lunit]] = MTimeSeries(RArr[Lunit]())
 }
 
 /** A [[Lunit]], a military land unit's state at a particular moment in time.  */

@@ -10,6 +10,7 @@ abstract class DeuArmee(startDate: MTime, endDate: MTime, val armeeNum: Int) ext
 
 object DeuArmy3 extends DeuArmee(MTime(1939, 9), MTime(1939, 11, 5), 3)
 { override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.osteroda)
+  override val subUnits: MTimeSeries[RArr[Lunit]] = MTimeSeries(RArr(DeuKorps26))
 }
 
 abstract class DeuKorps(startDate: MTime, endDate: MTime) extends Lunit(startDate, endDate)
@@ -42,7 +43,7 @@ object DeuCp4 extends DeuNumberedKorps(MTime(1935, 4), MTime(1945, 5, 8), 4)
 { override val locPosns: MTimeSeries[LatLong] = MTimeSeries(Germania.dresden.latLong, (MTime(1939, 10), Baltland.konigsberg))
 }
 
-object KorpsWodrig extends DeuNumberedKorps(MTime(1939, 8, 22), deu45Surr, 26)
+object DeuKorps26 extends DeuNumberedKorps(MTime(1939, 8, 22), deu45Surr, 26)
 { override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.allenstein)
   override def timeDesig(date: MTime): String = ife(date < MTime(1939, 10), s"Wodrig ($desig)", desig)
 }
