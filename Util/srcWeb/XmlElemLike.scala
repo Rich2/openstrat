@@ -3,8 +3,9 @@ package ostrat; package pWeb
 
 /** Content for XML and HTML elements. */
 trait XCon
-{ /** Returns the XML source code, formatted according to the input. */
+{ /** Returns the XML source code, formatted according to the input. This allows the XML to be indented according to its context. */
   def out(indent: Int, maxLineLen: Int = 150): String
+
   def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
 }
 
@@ -15,14 +16,19 @@ case class XConStr(value: String) extends XCon
 }
 
 object XConStr
-{ implicit def StringToXConStr(value: String): XConStr = new XConStr(value)
+{ /** Implicitly converts a string in to a piece of XML / HTML content. */
+  implicit def StringToXConStr(value: String): XConStr = new XConStr(value)
 }
 
 /** An XML or an HTML element */
 trait XmlElemLike extends XCon
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
+
+  /** The attributes of this XML / HTML element. */
   def attribs: RArr[XmlAtt]
+
+  /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
   def attribsOut: String = ife(attribs.empty, "", " " + attribs.foldStr(_.str, " "))
