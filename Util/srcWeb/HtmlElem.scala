@@ -19,6 +19,7 @@ trait HtmlEmpty extends HtmlUnvoid
   override def contents: RArr[XCon] = RArr()
 }
 
+/** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
 trait HtmlOutline extends HtmlUnvoid
 {
   override def out(indent: Int, maxLineLen: Int): String =
