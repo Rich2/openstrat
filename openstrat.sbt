@@ -155,9 +155,8 @@ lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories +=
 lazy val ZugJs = jsApp("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/ZugApp")
 lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/WW2App")
 lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/Y1783App")
-
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/PlanetsApp")
-
+lazy val FlagsJs = jsApp("Flags").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/FlagsApp")
 
 val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid", "Dev")
 val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Earth/srcPts", "Dev/srcGrand")

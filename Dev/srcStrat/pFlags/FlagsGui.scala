@@ -12,7 +12,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   def bigRect: RectCompound = big.compoundStr.scale(bigScale).slateY(canv.top - bigScale / 2)
   val margin: Double = 10
   val flagsArr: RArr[Flag] = RArr(PapuaNewGuinea, Eritrea, India, Iraq, CCCP, CzechRepublic, Colombia, Chile, Cyprus, Armenia, Austria, Belgium,
-    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
+    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, UnitedKingdom, UnitedStates, WhiteFlag,
     CommonShapesInFlags)
 
   def flagLines: GraphicElems =
