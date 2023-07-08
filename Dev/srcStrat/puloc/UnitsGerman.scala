@@ -5,7 +5,7 @@ import geom._, pglobe._, pEarth._, pEurope._
 abstract class DeuArmee(startDate: MTime, endDate: MTime, val armeeNum: Int) extends Lunit(startDate, endDate)
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
   override def levelName: String = "Armee"
-  override def desig: String = armeeNum.adjective
+  override def desig: String = armeeNum.ordAbbr
 }
 
 object DeuArmy3 extends DeuArmee(MTime(1939, 9), MTime(1939, 11, 5), 3)
@@ -19,7 +19,7 @@ abstract class DeuKorps(startDate: MTime, endDate: MTime) extends Lunit(startDat
 }
 
 abstract class DeuNumberedKorps(startDate: MTime, endDate: MTime, val korpsNum: Int) extends DeuKorps(startDate, endDate)
-{ override def desig: String = korpsNum.adjective
+{ override def desig: String = korpsNum.ordAbbr
 }
 
 /** 1st German corps of the 3rd Reich. */

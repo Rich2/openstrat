@@ -81,8 +81,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     res
   }
 
-  /** Gives adjective [[String]] "1st", "2nd", "3rd", "4th", etc. */
-  def adjective: String =
+  /** Ordinal abbreviated form. "1st", "2nd", "3rd", "4th", etc. */
+  def ordAbbr: String =
   { val endStr = thisInt % 100 match
     { case 11 | 12 | 13 => "th"
       case n if n % 10 == 1 => "st"
@@ -91,6 +91,13 @@ class IntExtensions(val thisInt: Int) extends AnyVal
       case _ => "th"
     }
     thisInt.toString + endStr
+  }
+
+  /** French Ordinal abbreviated form. "1er" / "1re", "2e", "3e", "4e", etc. */
+  def frenchOrdAbbr(masculine: Boolean): String = thisInt match{
+    case 1 if masculine == true => "1er"
+    case 1 => "1re"
+    case n => n.toString + "e"
   }
 
   def scaledStr(i1: Int, s1: String, i2:Int, s2: String, i3: Int, s3: String, pairs: (Int, String)*): String =

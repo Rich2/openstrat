@@ -18,7 +18,7 @@ object TeamB extends Team("TeamB" , Violet)
 
 class Lunit(val team: Team, val num: Int) extends Coloured
 { override def colour: Colour = team.colour
-  override def toString: String = team.toString -- num.adjective
+  override def toString: String = team.toString -- num.ordAbbr
 }
 
 object Lunit

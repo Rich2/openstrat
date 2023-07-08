@@ -5,7 +5,7 @@ import geom._, pglobe._, pEarth._, pEurope._
 abstract class SovArmiya(startDate: MTime, endDate: MTime, val armeeNum: Int) extends Lunit(startDate, endDate)
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Soviets)
   override def levelName: String = "Armiya"
-  override def desig: String = armeeNum.adjective
+  override def desig: String = armeeNum.ordAbbr
 }
 
 object SovArmy3 extends SovArmiya(MTime(1939, 9, 15), MTime(1939, 11, 5), 3)

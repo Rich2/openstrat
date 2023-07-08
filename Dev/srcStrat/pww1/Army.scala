@@ -24,7 +24,7 @@ trait Lunit extends Coloured
 
 case class Army(polity: Polity, num: Int) extends Lunit
 { override def cat: UnitCat = Army
-  override def toString: String = "Army".appendParenth(polity.toString -- num.adjective)
+  override def toString: String = "Army".appendParenth(polity.toString -- num.ordAbbr)
 }
 
 object Army extends UnitCat
@@ -34,7 +34,7 @@ object Army extends UnitCat
 
 case class CavalryCorps(polity: Polity, num: Int) extends Lunit
 { override def cat: UnitCat = CavalryCorps
-  override def toString: String = "Cavalry Corps".appendParenth(polity.toString -- num.adjective)
+  override def toString: String = "Cavalry Corps".appendParenth(polity.toString -- num.ordAbbr)
 }
 
 object CavalryCorps extends UnitCat
