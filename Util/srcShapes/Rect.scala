@@ -52,8 +52,11 @@ object Rect
   /** Factory apply method for a rectangle aligned with the X and Y axes. There is a name overload that has a default height of 1 and takes a [[Pt2]]
    *  centre point paremeter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = RectImp(width, height, xCen, cenY)
+
+  /** Creates a [[Rect]] from an Array[Double] */
   def fromArray(array: Array[Double]): Rect = new RectImp(array)
 
+  /** Construct a [[Rect]] from the left, right, bottom and top values." */
   def lrbt(left: Double, right: Double, bottom: Double, top: Double): Rect = Rect(right -left, top - bottom, (left + right) / 2, (bottom + top) / 2)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
