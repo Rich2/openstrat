@@ -23,6 +23,8 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
 
   def timeDesig(date: MTime): String = desig
 
+  def level: LunitLevel
+
   def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Unknown)
 
   def subUnits: MTimeSeries[RArr[Lunit]] = MTimeSeries(RArr[Lunit]())

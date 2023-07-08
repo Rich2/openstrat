@@ -6,6 +6,7 @@ abstract class FraNumberedCorps(startDate: MTime, endDate: MTime, val corpsNum: 
 { override def desig: String = corpsNum.frenchOrdAbbr(true)
   override def levelName: String = "Corps"
   override val polity: MTimeSeries[Polity] = MTimeSeries(France)
+  override def level: LunitLevel = Corps
 }
 
 /** 1st French Corps WW2. */
