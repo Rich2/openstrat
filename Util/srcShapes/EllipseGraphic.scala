@@ -1,8 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._
-import Colour.Black
-import ostrat.pWeb.XmlAtt
+import pgui._, Colour.Black, pWeb.XmlAtt
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphicCentred
@@ -36,7 +34,7 @@ object EllipseFill
 
     override def ptsTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fill)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
-    override def svgElem(bounds: BoundingRect): SvgElem = ???
+    override def svgElem(bounds: Rect): SvgElem = ???
     override def svgStr: String = ???
 
   }
@@ -61,7 +59,7 @@ object EllipseDraw
 
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(this)
 
-    override def svgElem(bounds: BoundingRect): SvgElem = ???
+    override def svgElem(bounds: Rect): SvgElem = ???
 
     override def svgStr: String = ???
   }
@@ -93,6 +91,6 @@ object EllipseActive
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: BoundingRect): SvgElem = ???
+    override def svgElem(bounds: Rect): SvgElem = ???
   }
 }

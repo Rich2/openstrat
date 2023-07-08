@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -49,9 +49,9 @@ object EllipseCompound
     override def svgStr: String = ???
 
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
-    override def svgElem(bounds: BoundingRect): SvgEllipse =
+    override def svgElem(bounds: Rect): SvgEllipse =
     { //val bounds = shape.boundingRect
-      val newEllipse = shape.negY.slateXY(0, bounds.minY + bounds.maxY)
+      val newEllipse = shape.negY.slateXY(0, bounds.bottom + bounds.top)
       val newAtts = newEllipse.attribs
       val atts2 = if (shape.alignAngle == 0.degs) newAtts else newAtts +% SvgRotate(- shape.alignAngle.degs, shape.cenX, shape.cenY)
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))

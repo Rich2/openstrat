@@ -9,7 +9,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: Rect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.bottom + bounds.top).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
@@ -54,7 +54,7 @@ object RectangleCompound
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.minY + bounds.maxY).
+    override def svgElem(bounds: Rect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.bottom + bounds.top).
       attribs ++ facets.flatMap(_.attribs))
 
     /** Translate geometric transformation. */

@@ -12,7 +12,7 @@ final case class CircleFill(shape: Circle, fill: FillFacet) extends CircleGraphi
 { override type ThisT = CircleFill
   override def ptsTrans(f: Pt2 => Pt2): ThisT = CircleFill(shape.fTrans(f), fill)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  override def svgElem(bounds: Rect): SvgElem = ???
   override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): CircleDraw = shape.draw(newColour, lineWidth)
 }
 
@@ -21,14 +21,14 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
 { type ThisT = CircleDraw
   override def ptsTrans(f: Pt2 => Pt2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  override def svgElem(bounds: Rect): SvgElem = ???
 }
 
 /** A pointable polygon without visual. */
 case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive with CircleGraphicSimple
 { override type ThisT = CircleActive
   override def ptsTrans(f: Pt2 => Pt2): CircleActive = CircleActive(shape.fTrans(f), pointerId)
-  override def boundingRect = shape.boundingRect
+  override def boundingRect: Rect = shape.boundingRect
 
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
@@ -37,7 +37,7 @@ case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive wit
 
   override def nonShapeAttribs: RArr[XmlAtt] = ???
 
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  override def svgElem(bounds: Rect): SvgElem = ???
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon

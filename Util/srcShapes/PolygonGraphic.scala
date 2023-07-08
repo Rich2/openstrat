@@ -19,8 +19,8 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   def ifv3: Boolean = shape.vertsNum >= 3
   def xVertsArray: Array[Double] = shape.elem1sArray
   def yVertsArray: Array[Double] = shape.elem2sArray
-  override def boundingRect: BoundingRect = shape.boundingRect
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  override def boundingRect: Rect = shape.boundingRect
+  override def svgElem(bounds: Rect): SvgElem = ???
   @inline def foreachVert(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
   @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: ArrMapBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
 

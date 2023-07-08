@@ -8,10 +8,10 @@ trait RectCenlign extends Rectangularlign
   def cenX: Double = 0
   def cenY: Double = 0
   override def cen: Pt2 = Pt2Z
-  def left: Double = - width / 2
-  def right: Double = width / 2
-  def top: Double = height / 2
-  def bottom: Double = -height / 2
+  override def left: Double = - width / 2
+  override def right: Double = width / 2
+  override def top: Double = height / 2
+  override def bottom: Double = -height / 2
   def panelCen: Pt2 = Pt2(0, 0)
   def cenLeft: Pt2 = Pt2(left, 0)
 

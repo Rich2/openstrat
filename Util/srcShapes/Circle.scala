@@ -36,7 +36,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
 
   override def reflect(lineLike: LineLike): Circle = Circle(diameter, cen.reflect(lineLike))
 
-  def boundingRect: BoundingRect = BoundingRect(cenX - radius, cenX + radius, cenY - radius, cenY + radius)
+  def boundingRect: Rect = Rect(diameter, diameter, cenX, cenY)// BoundingRect(cenX - radius, cenX + radius, cenY - radius, cenY + radius)
   
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
   override def fillInt(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))

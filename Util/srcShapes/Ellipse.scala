@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour.Black, math.{Pi, sqrt}
 
@@ -40,7 +40,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def rxAttrib: XANumeric = XANumeric("rx", radius1)
   def ryAttrib: XANumeric = XANumeric("ry", radius2)
   def attribs: RArr[XANumeric] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
-  def boundingRect: BoundingRect
+  def boundingRect: Rect
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(axesPt1), f(axesPt4))
 
@@ -132,12 +132,13 @@ object Ellipse
     override def e: Double = sqrt(rMajor.squared - rMinor.squared) / rMajor
     override def h: Double = (rMajor - rMinor).squared / (rMajor + rMinor).squared
 
-    def boundingRect: BoundingRect =
+    def boundingRect: Rect =
     { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius2.squared * (alignAngle.sin).squared
       val xd = xd0.sqrt
       val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius2.squared * (alignAngle.cos).squared
       val yd = yd0.sqrt
-      BoundingRect(cenX - xd, cenX + xd, cenY - yd, cenY + yd)
+      Rect(2 * xd, 2 * yd, cenX, cenY)
+      //BoundingRect(cenX - xd, cenX + xd, cenY - yd, cenY + yd)
     }
 
     override def alignAngle: Angle = cen.angleTo(axesPt1)

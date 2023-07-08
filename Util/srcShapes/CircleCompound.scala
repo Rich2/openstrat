@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -16,7 +16,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-  override def svgElem(bounds: BoundingRect): SvgCircle = SvgCircle(shape.negY.slateXY(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: Rect): SvgCircle = SvgCircle(shape.negY.slateXY(0, bounds.bottom + bounds.top).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */

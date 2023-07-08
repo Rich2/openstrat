@@ -6,7 +6,7 @@ trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
   def shape: ShapeGenOld
   def segsLen: Int = shape.ssLength
-  override def boundingRect: BoundingRect = shape.boundingRect
+  override def boundingRect: Rect = shape.boundingRect
 }
 
 case class PolyCurveFill(shape: ShapeGenOld, colour: Colour) extends PolyCurveElem

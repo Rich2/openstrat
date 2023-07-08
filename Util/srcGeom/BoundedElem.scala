@@ -5,13 +5,15 @@ package ostrat; package geom
  *  rows and columns. It includes polygon and shape graphics but not line and curve graphics. */
 trait BoundedElem extends GeomElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
-  def boundingRect: BoundingRect
+  def boundingRect: Rect
 
   /** The width of the [[BoundingRect]] of this object. */
   def boundingWidth: Double = boundingRect.width
 
   def boundingHeight: Double = boundingRect.height
-  def trBounding: Pt2 = boundingRect.topRight
+  //def boundRight: Double = boundingRect.ri
+
+  def boundTopRight: Pt2 = boundingRect.topRight
   def brBounding: Pt2 = boundingRect.bottomRight
   def tlBounding: Pt2 = boundingRect.topLeft
   def blBounding: Pt2 = boundingRect.bottomLeft
@@ -34,7 +36,7 @@ class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal
 
   /** 2D geometric translation transformation on this type T, returning an object of type T with the top right of its bounding rectangle at the
    *  parameter point. */
-  def trBoundTo(newTopRight: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.trBounding >> newTopRight)
+  def trBoundTo(newTopRight: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.boundTopRight >> newTopRight)
 
   /** 2D geometric translation transformation on this type T, returning an object of type T with the bottom right of its bounding rectangle at the
    *  parameter point. */

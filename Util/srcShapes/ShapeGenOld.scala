@@ -72,7 +72,7 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqSpec[CurveTail]
   def fillScaleSlate(colour: Colour, factor: Double, offset: Pt2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)
 
   /** Not sure if this method should be a member of Transable */
-  def boundingRect =
+  def boundingRect: Rect =
   { //val t = Arc()
     var minX, maxX, minY, maxY = 0.0
     var i = 0
@@ -93,7 +93,7 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqSpec[CurveTail]
       i += 1
     }
     if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
-    BoundingRect(minX, maxX, minY, maxY)
+    Rect.lrbt(minX, maxX, minY, maxY)
   }
   def ptInShape: Pt2 => Boolean = pt => {
     val po: Polygon = this.mapPolygon/*dataMap[Pt2, PolygonGen]*/(_.pEnd)

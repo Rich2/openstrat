@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[Ellipselign.EllipselignImp]] classes implement
@@ -40,15 +40,12 @@ object Ellipselign
     /** The h value of this ellipse. */
     override def h: Double = ???
 
-
-
-
     /** Eccentricity of ellipse. */
     override def e: Double = ???
 
     override def area: Double = ???
 
-    override def boundingRect: BoundingRect = ???
+    override def boundingRect: Rect = ???
 
     /** Radius 1 of the ellipse. By default this is the horizontal axis of the ellipse. This can be the major or minor axis. */
     override def radius1: Double = ???

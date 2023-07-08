@@ -44,7 +44,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override def shearY(operand: Double): ShapeGen = ???
 
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
-  override def boundingRect: BoundingRect = ???
+  override def boundingRect: Rect = ???
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem = ???
 }

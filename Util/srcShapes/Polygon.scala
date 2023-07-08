@@ -180,7 +180,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   final def v0: Pt2 = v0x pp v0y
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
-  override def boundingRect: BoundingRect =
+  override def boundingRect: Rect =
   { var minX, maxX = v0x
     var minY, maxY = v0y
     vertsTailForeach{v =>
@@ -189,7 +189,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
       minY = minY.min(v.y)
       maxY = maxY.max(v.y)
     }
-    BoundingRect(minX, maxX, minY, maxY)
+    Rect.lrbt(minX, maxX, minY, maxY)
   }
 
   @inline def polygonMap(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon

@@ -1,20 +1,19 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import pWeb._
 
 /** A shape based graphic. */
 trait ShapeGraphic extends GraphicBounded
 { def shape: Shape
-  override def boundingRect: BoundingRect = shape.boundingRect
+  override def boundingRect: Rect = shape.boundingRect
   def attribs: RArr[XmlAtt]
   def svgStr: String
   def shapeAttribs: RArr[XmlAtt] = shape.attribs
-  final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
+  final def svgInline: String = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width, shape.boundingRect.height,
         svgJustElem).out(0, 150)
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
-  def svgElem(bounds: BoundingRect): SvgElem
+  def svgElem(bounds: Rect): SvgElem
 
   /** Translate geometric transformation. */
   def slateXY(xDelta: Double, yDelta: Double): ShapeGraphic
@@ -54,10 +53,10 @@ object ShapeGraphic
   {
     def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
 
-    def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String =
-    { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
-      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, lineLen)
-    }
+    def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = ???
+    /*{ val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
+      SvgSvgElem(br.left, br.bottom, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, lineLen)
+    }*/
   }
   
   implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)

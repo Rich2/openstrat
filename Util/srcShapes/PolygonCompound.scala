@@ -19,7 +19,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  override def svgElem(bounds: Rect): SvgElem = ???
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonCompound =
@@ -105,7 +105,7 @@ object PolygonCompound
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: BoundingRect): SvgElem = ???
+    override def svgElem(bounds: Rect): SvgElem = ???
 
     /** Translate geometric transformation. */
     override def slateXY(xDelta: Double, yDelta: Double): PolygonCompoundImp =

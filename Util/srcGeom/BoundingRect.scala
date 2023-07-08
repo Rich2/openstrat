@@ -11,8 +11,8 @@ case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double) 
   def topRight = Pt2(maxX, maxY)
   def bottomLeft = Pt2(minX, minY)
   def bottomRight = Pt2(maxX, minY)
-  def width = maxX - minX
-  def height = maxY - minY
+  def width: Double = maxX - minX
+  def height: Double = maxY - minY
   def xCen: Double = (minX + maxX) / 2
   def yCen: Double = (minY + maxY) / 2
   def cen: Pt2 = Pt2((minX + maxX) / 2, (minY + maxY) /2)

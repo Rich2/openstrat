@@ -34,6 +34,12 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
   override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
+
+  final override def boundingRect: Rect = this
+
+  final override def cenPt: Pt2 = Pt2(cenX, cenY)// boundingRect.cen
+
+  final override def cenVec: Vec2 = Vec2(cenX, cenY)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -46,6 +52,8 @@ object Rect
    *  centre point paremeter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = RectImp(width, height, xCen, cenY)
   def fromArray(array: Array[Double]): Rect = new RectImp(array)
+
+  def lrbt(left: Double, right: Double, bottom: Double, top: Double): Rect = Rect(right -left, top - bottom, (left + right) / 2, (bottom + top) / 2)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
    *  right vertex of the Rect at the origin. */

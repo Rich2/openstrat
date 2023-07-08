@@ -5,6 +5,10 @@ package ostrat; package geom
 trait Rectangularlign extends OrdinalEdgePoints
 { def width: Double
   def height: Double
+  def left: Double = cenX - width / 2
+  def right: Double = cenX + width / 2
+  def top: Double = cenY + height / 2
+  def bottom: Double = cenY - height / 2
   def xTopLeft: Double = cenX - width / 2
   def yTopLeft: Double = cenY + height / 2
   def topLeft: Pt2 = Pt2(xTopLeft, yTopLeft)

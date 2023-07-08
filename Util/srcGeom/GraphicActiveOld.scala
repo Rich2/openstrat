@@ -28,7 +28,7 @@ trait PolyCurveActive extends GraphicActiveSim with GraphicBoundedAffine
 { type ThisT <: PolyCurveActive
   def shape: ShapeGenOld
   def innerPoly: Polygon = shape.mapPolygon(_.pEnd)
-  override def boundingRect: BoundingRect = innerPoly.boundingRect
+  override def boundingRect: Rect = innerPoly.boundingRect
 
   /** This method needs improving. */
   override def ptInside(pt: Pt2): Boolean = innerPoly.ptInside(pt)
