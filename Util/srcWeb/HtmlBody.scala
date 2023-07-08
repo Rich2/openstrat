@@ -40,6 +40,7 @@ object HtmlA
 { def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
 }
 
+/** Html li, list item element. */
 case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "li"
 }
@@ -49,18 +50,22 @@ object HtmlLi
   def a(link: String, label: String): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))))
 }
 
+/** Html ul unordered list element. */
 class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlOutline
 { override def tag: String = "ul"
 }
 
+/** Html h1 header element. */
 case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { override def tag = "h1"
 }
 
+/** Html h2 header element. */
 case class HtmlH2(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h2"
 }
 
+/** Html h3 header element. */
 case class HtmlH3(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h3"
 }
