@@ -10,6 +10,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
 {
   override type SideT = LineSeg
 
+  def rightX: Double = vertsFold(v0x)((acc, pt) => acc.max(pt.x))
+
   final def vLastX: Double = unsafeArray(vertsNum - 2)
   final def vLastY: Double = unsafeArray(vertsNum - 1)
 

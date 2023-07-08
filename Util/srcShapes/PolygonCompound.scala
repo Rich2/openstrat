@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -55,6 +55,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def shearY(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
 
   def addChildren(newChildren: RArr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
+
+  def rightX: Double = shape.rightX
 }
 
 /** Companion object for the PolygonCompound trait contains factory apply method and implicit instances for the 2D geometric transformation type

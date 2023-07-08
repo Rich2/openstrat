@@ -32,9 +32,8 @@ object Apps
 
   val ids: StrPairArr[(CanvasPlatform => Any, String)] = StrPairArr(
     ("PL", (pspace.PlanetsGui(_), "JavaFx Planets")),
+    ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y1", (pZero.TessGui(_), "Tess")),
-    ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
-
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
     ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
