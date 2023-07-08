@@ -1,7 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A Rectangle like final class aligned to the X and Y axes. */
+/** A Rectangle like final class aligned to the X and Y axes. The prupose of this class is so as things like Canvas are not [[Rect]]s. Not sure if
+ *  this is a good idea or not */
 trait Rectangularlign extends OrdinalEdgePoints
 { def width: Double
   def height: Double
