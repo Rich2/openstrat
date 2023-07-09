@@ -43,7 +43,7 @@ sealed trait EMon[+A]
 
   /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a
    *  value. This method is implemented in the leaf Good classes to avoid boxing. */
-  def foldDo(fGood: A => Unit)(fBad: StrArr => Unit): Unit
+  def forGoodForBad(fGood: A => Unit)(fBad: StrArr => Unit): Unit
 
   /** Gets the value of Good, throws exception on Bad. */
   def get: A
@@ -129,7 +129,7 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R] =
     e2.map5(e3, e4, e5, e6){ (a2, a3, a4, a5, a6) => f(value, a2, a3, a4, a5, a6) }
 
-  override def foldDo(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fGood(value)
+  override def forGoodForBad(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fGood(value)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
@@ -187,7 +187,7 @@ class Bad[+A](val errs: StrArr) extends EMon[A]
   override def toOption: Option[A] = None
   override def toEither: Either[StrArr, A] = Left(errs)
   override def get: A = excep("Called get on Bad.")
-  override def foldDo(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fBad(errs)
+  override def forGoodForBad(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fBad(errs)
   override def isGood: Boolean = false
   override def isBad: Boolean = true
   override def mapToEither[D](f: A => D): Either[StrArr, D] = Left(errs)

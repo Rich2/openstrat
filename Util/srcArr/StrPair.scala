@@ -59,6 +59,17 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     }
     res
   }
+
+  /** filters this sequence using a predicate upon the A2 components of the pairs. */
+  def filterOnA2(f: A2 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  { val buff1 = Buffer[String]()
+    val buff2 = Buffer[A2]()
+    pairForeach { (a1, a2) => if (f(a2)){ buff1.append(a1); buff2.append(a2) } }
+    new StrPairArr[A2](buff1.toArray, buff2.toArray)
+  }
+
+  /** filters out elements of this sequence using a predicate upon the A2 components of the pairs. */
+  def filterNotOnA2(f: A2 => Boolean)(implicit ct: ClassTag[A2]): ThisT = filterOnA2(a2 => !f(a2))
 }
 
 object StrPairArr
@@ -78,7 +89,7 @@ class StrStrPairArr(a1Array: Array[String], a2Array: Array[String]) extends StrP
 
 object StrStrPairArr
 {
-  def apply(strings: String *): StrStrPairArr =
+  def apply(strings: String *): StrPairArr[String] =
   { if(strings.length.isOdd) excep("Odd number of Strings for StrStrPaiArr factory apply method.")
     val len = strings.length / 2
     val array1 = new Array[String](len)
@@ -87,6 +98,6 @@ object StrStrPairArr
       array1(i) = strings(i * 2)
       array2(i) = strings(i * 2 + 1)
     }
-    new StrStrPairArr(array1, array2)
+    new StrPairArr(array1, array2)
   }
 }
