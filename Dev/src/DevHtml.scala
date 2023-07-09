@@ -4,10 +4,21 @@ import pjvm._, pWeb._
 
 object DevHtmlApp extends App
 {
+  class SubPage(val appStemName: String, fileNameIn: String = "", linkTextIn: String = "")
+  {
+    val fileName: String = ife(fileNameIn == "", appStemName.toLowerCase(), fileNameIn)
+    val linkText: String = ife(linkTextIn == "", appStemName, linkTextIn)
+  }
+
+  object SubPage
+  { def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): SubPage = new SubPage(appStemName, fileNameIn, linkTextIn)
+  }
+
   val sett = findDevSettingT[DirPathAbs]("projPath")
 
   def make(title: String): Unit = sett.forGoodForBad { path =>
     val head = HtmlHead.titleCss(title, "only")
+    val subPages = RArr(SubPage("Diceless"), SubPage("BC305"), SubPage("Planets"), SubPage("Zug","zug", "ZugFuhrer"))
     val pairs: StrPairArr[String] = StrStrPairArr("index", "Home", "diceless", "Diceless", "bc305", "BC305", "planets", "Planets", "zug", "Zugfuhrer")
     val pairs2 = pairs.filterNotOnA2(_ == title)
     val list = HtmlUl(pairs2.pairMap{ (s1, s2) => HtmlLi.a(s1 + ".html", s2) })
