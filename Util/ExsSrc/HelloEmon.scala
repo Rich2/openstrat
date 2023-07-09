@@ -14,9 +14,9 @@ object HelloEmon extends App
   println(s1)
   var counter: Int = 10
   println("Counter value = " + counter.str)
-  mi1.foldDo { counter += _} {errs => println("The counter was not changed.") }
+  mi1.forGoodForBad { counter += _} {errs => println("The counter was not changed.") }
   println("Counter value is now: " + counter.str)
-  mi2.foldDo { counter += _ } { errs => println("The counter was not changed.") }
+  mi2.forGoodForBad { counter += _ } { errs => println("The counter was not changed.") }
   println("Counter value is now: " + counter.str)
   println("MyId".parseTokens)
 }
