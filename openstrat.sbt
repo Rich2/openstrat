@@ -123,8 +123,14 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, EarthExs, TilingExs, EGrid).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcStrat", "srcApps", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
+def appsSett = List(
+  Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => (ThisBuild/baseDirectory).value / "Apps" / s),
+)
+lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
+lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
+
+lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, EarthExs, TilingExs, Apps).settings(
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -139,8 +145,8 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, EarthExs, TilingExs, EGrid)
 
 lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
 
-def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(EGridJs).settings(
-  Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Dev/srcStrat" ::
+def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(AppsJs).settings(
+  Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Apps/srcStrat" ::
     List("Geom", "Earth", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
