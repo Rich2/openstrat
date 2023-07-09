@@ -16,23 +16,24 @@ object DevHtmlApp extends App
 
   val sett = findDevSettingT[DirPathAbs]("projPath")
   val subPages = RArr(SubPage("UnitLoc", "unitloc", "Unit Locator"), SubPage("Diceless"), SubPage("BC305"), SubPage("Planets"),
-    SubPage("Zug","zug", "ZugFuhrer"))
+    SubPage("Zug","zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"))
 
-  def make(page: SubPage): Unit = sett.forGoodForBad { path =>
-    val head = HtmlHead.titleCss(page.linkText, "only")
+  def make(path: DirPathAbs, page: SubPage): Unit =
+  { val head = HtmlHead.titleCss(page.linkText, "only")
 
     val pairs: StrPairArr[String] = StrStrPairArr("index", "Home", "diceless", "Diceless", "bc305", "BC305", "planets", "Planets", "zug", "Zugfuhrer")
     val pairs2 = pairs.filterNotOnA2(_ == page.appStemName)
 
-    val list = HtmlUl(pairs2.pairMap{ (s1, s2) => HtmlLi.a(s1 + ".html", s2) })
+    val list = HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s1 + ".html", s2) })
     val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)
 
     val res = fileWrite(path.str -/- "Dev/SbtDir", page.fileName + "app.html", content.out)
     debvar(res)
-  }{ errs =>
-     deb("")
-     errs.foreach(println)
   }
-  subPages.foreach(make)
+
+  sett.forGoodForBad { path => subPages.foreach(page => make(path, page)) }{
+    errs => deb("")
+    errs.foreach(println)
+  }
 }
