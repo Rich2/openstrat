@@ -31,6 +31,7 @@ object XANumeric
   }
 }
 
+/** Creates for an "id" XML / HTML attribute." */
 case class IdAtt(valueStr: String) extends XmlAtt
 { override def name: String = "id"
 }

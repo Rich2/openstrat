@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** trait for HTML Void elements such as br img and input. */
@@ -31,7 +31,9 @@ class HtmlCssLink(val fullFileName: String) extends HtmlVoid
   override def attribs: RArr[XmlAtt] = RArr(XmlAtt("rel", "stylesheet"), XmlAtt("type", "text/css"), XmlAtt("href", fullFileName))
 }
 
-object HtmlCssLink
-{ def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
-}
 
+/** Companion object for [[HtmlCssLink]] class, contains factory apply methid. */
+object HtmlCssLink
+{ /** Factory apply method for [[HtmlCssLink]] class form filename stem, adds the .css file ending. */
+  def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
+}
