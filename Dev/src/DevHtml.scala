@@ -23,12 +23,12 @@ object DevHtmlApp extends App
     SubPage("Zug","zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"), SubPage("Dungeon"), SubPage("CivRise"))
 
   def make(path: DirPathAbs, page: SubPage): Unit =
-  { val head = HtmlHead.titleCss(page.linkText, "only")
-
+  {
     val pages: RArr[SubPage] = subPages.filterNot(_.appStemName == page.appStemName)
     val pairs1 = pages.mapPair(_.linkText)(_.htmlFileName)
     val pairs2 = StrPair("Home", "index.html") %: pairs1
     val list = HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
+    val head = HtmlHead.titleCss(page.linkText, "only")
     val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(page.jsFileName), HtmlScript.main(page.appStemName + "JsApp"))
     val content = HtmlPage(head, body)
 
@@ -36,7 +36,10 @@ object DevHtmlApp extends App
     debvar(res)
   }
 
-  sett.forGoodForBad { path => subPages.foreach(page => make(path, page)) }{
+  sett.forGoodForBad { path =>
+    fileWrite(path.str -/- "Dev/SbtDir", "index.html", IndexPage.content.out)
+    subPages.foreach(page => make(path, page))
+  } {
     errs => deb("")
     errs.foreach(println)
   }
