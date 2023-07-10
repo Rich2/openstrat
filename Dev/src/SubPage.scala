@@ -11,11 +11,11 @@ class SubPage(val appStemName: String, fileNameStemIn: String = "", linkTextIn: 
 
   val linkText: String = ife(linkTextIn == "", appStemName, linkTextIn)
 
-  def out: String = {
-    val pages: RArr[SubPage] = SubPage.all.filterNot(_.appStemName == appStemName)
+  def out: String =
+  { val pages: RArr[SubPage] = SubPage.all.filterNot(_.appStemName == appStemName)
     val pairs1: StrPairArr[String] = pages.mapPair(_.linkText)(_.htmlFileName)
     val pairs2: StrPairArr[String] = StrPair("Home", "index.html") %: pairs1
-    val list: HtmlUl = SubPage.topMenu(pairs2)// HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
+    val list: HtmlUl = SubPage.topMenu(pairs2)
     val head = HtmlHead.titleCss(linkText, "only")
     val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(appStemName + "JsApp"))
     HtmlPage(head, body).out
@@ -26,7 +26,7 @@ object SubPage {
   def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): SubPage = new SubPage(appStemName, fileNameIn, linkTextIn)
 
   val all = RArr(SubPage("UnitLoc", "unitlocapp", "Unit Locator"), SubPage("Diceless", "dicelessapp"), SubPage("WW2"), SubPage("BC305"), SubPage("Planets"),
-    SubPage("Zug", "zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"), SubPage("Dungeon"), SubPage("CivRise"))
+    SubPage("Zug", "zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"), SubPage("Dungeon"), SubPage("CivRise", "civrise", "Civ Rise"))
 
   val allPairs: StrPairArr[String] = all.mapPair(_.linkText)(_.htmlFileName)
 
