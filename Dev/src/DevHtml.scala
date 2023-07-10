@@ -4,41 +4,12 @@ import pjvm._, pWeb._
 
 object DevHtmlApp extends App
 {
-  class SubPage(val appStemName: String, fileNameStemIn: String = "", linkTextIn: String = "")
-  {
-    val fileNameStem: String = ife(fileNameStemIn == "", appStemName.toLowerCase(), fileNameStemIn)// + ".js"
-
-    def htmlFileName: String = fileNameStem + ".html"
-
-    def jsFileName: String = fileNameStem + ".js"
-    val linkText: String = ife(linkTextIn == "", appStemName, linkTextIn)
-  }
-
-  object SubPage
-  { def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): SubPage = new SubPage(appStemName, fileNameIn, linkTextIn)
-  }
-
   val sett = findDevSettingT[DirPathAbs]("projPath")
-  val subPages = RArr(SubPage("UnitLoc", "unitlocapp", "Unit Locator"), SubPage("Diceless", "dicelessapp"), SubPage("WW2"), SubPage("BC305"), SubPage("Planets"),
-    SubPage("Zug","zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"), SubPage("Dungeon"), SubPage("CivRise"))
-
-  def make(path: DirPathAbs, page: SubPage): Unit =
-  {
-    val pages: RArr[SubPage] = subPages.filterNot(_.appStemName == page.appStemName)
-    val pairs1 = pages.mapPair(_.linkText)(_.htmlFileName)
-    val pairs2 = StrPair("Home", "index.html") %: pairs1
-    val list = HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
-    val head = HtmlHead.titleCss(page.linkText, "only")
-    val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(page.jsFileName), HtmlScript.main(page.appStemName + "JsApp"))
-    val content = HtmlPage(head, body)
-
-    val res = fileWrite(path.str -/- "Dev/SbtDir", page.htmlFileName, content.out)
-    debvar(res)
-  }
 
   sett.forGoodForBad { path =>
-    fileWrite(path.str -/- "Dev/SbtDir", "index.html", IndexPage.content.out)
-    subPages.foreach(page => make(path, page))
+    val path2 = path.str -/- "Dev/SbtDir/Docs"
+    fileWrite(path2, "index.html", IndexPage.content.out)
+    SubPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
   } {
     errs => deb("")
     errs.foreach(println)

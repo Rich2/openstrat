@@ -47,8 +47,8 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     new StrPairArr[A2](newA1Array, newA2Array)
   }
 
-  @targetName("prepend") final def %:(operand: StrPair[A2])(implicit ct: ClassTag[A2]): ThisT =
-  { val newA1Array = new Array[String](length + 1)
+  @targetName("prepend") final def %:(operand: StrPair[A2])(implicit ct: ClassTag[A2]): StrPairArr[A2] = {
+    val newA1Array = new Array[String](length + 1)
     newA1Array(0) = operand.a1
     a1Array.copyToArray(newA1Array, 1)
     val newA2Array = new Array[A2](length + 1)
