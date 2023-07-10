@@ -11,6 +11,41 @@
   <div class ="main">
 <div class ="main">
   <h2>Contents</h2>
+
+    <ul>
+
+      <li>ostrat The root package. All other packages depend on this.
+        <ul>
+          <li>32 bit Int based Colours.</li>
+          <li>A persistence framework. Succinct readable object notation. Save files in <code>Dev/mine</code> folder.</li>
+          <li>A functional Either based Errors framework.</li>
+          <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length
+            elements, to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future
+            Scala Native and Scala Web assembly platforms.
+          </li>
+          <li>3 simple macros, that print the source code location to help with debugging and development, in the srcMacros folder. They are a
+            separate unit of compilation for sbt /mill. It is a sub module of the this module inr Mill, but for Sbt it is a sub-project on the same
+            level as Util.
+          </li>
+          <li>Other general utilities.</li>
+        </ul>
+      </li>
+
+      <li>ostrat.parse The code for parsing RSON, Rich Succinct Object Notation.</li>
+
+      <li>ostrat.pWeb Code for the generation and manipulation of
+        <ul>
+          <li>HTML</li>
+          <li>Other XML</li>
+          <li>CSS</li>
+          <li>Simple JavaScript</li>
+        </ul>
+      </li>
+
+    </ul>
+  </li>
+
+  
   The Util module contains number of general utilities to support this.
   <ol>
     <li class ="main">Functional error system.

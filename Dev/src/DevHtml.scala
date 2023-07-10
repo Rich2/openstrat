@@ -7,7 +7,7 @@ object DevHtmlApp extends App
   val sett = findDevSettingT[DirPathAbs]("projPath")
 
   sett.forGoodForBad { path =>
-    val path2 = path.str -/- "Dev/SbtDir/Docs"
+    val path2 = path.str -/- "Dev/SbtDir/Site"
     fileWrite(path2, "index.html", IndexPage.content.out)
     SubPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
   } {

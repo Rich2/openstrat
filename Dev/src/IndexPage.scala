@@ -9,9 +9,8 @@ object IndexPage
   def body = HtmlBody.elems(topMenu, XConStr(bodyStr))
   def content = HtmlPage(head, body)
 
-  val bodyStr: String =
-    """<div class=main>
-      |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+  def iconStrs =
+    """<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
       |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
       |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path
       |    fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
@@ -34,6 +33,11 @@ object IndexPage
       |  <li>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</li>
       |</ul>
       |</b></p>
+      |""".stripMargin
+
+  val bodyStr: String =
+    s"""<div class=main>
+      |$iconStrs
       |
       |<p>The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability. The geometry
       |  and graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the
@@ -105,73 +109,10 @@ object IndexPage
       |</p>
       |
       |<ol>
-      |<li><a href="Documentation/Util.html"><b>Util Module</b></a> organised into the following packages: Organised into the following folders and packages:
-      |    <ul>
+      |<li><a href="Documentation/util.html"><b>Util Module</b></a> organised into the following packages: Organised into the following folders and packages:
+
       |
-      |      <li>ostrat The root package. All other packages depend on this.
-      |        <ul>
-      |          <li>32 bit Int based Colours.</li>
-      |          <li>A persistence framework. Succinct readable object notation. Save files in <code>Dev/mine</code> folder.</li>
-      |          <li>A functional Either based Errors framework.</li>
-      |          <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length
-      |            elements, to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future
-      |            Scala Native and Scala Web assembly platforms.
-      |          </li>
-      |          <li>3 simple macros, that print the source code location to help with debugging and development, in the srcMacros folder. They are a
-      |            separate unit of compilation for sbt /mill. It is a sub module of the this module inr Mill, but for Sbt it is a sub-project on the same
-      |            level as Util.
-      |          </li>
-      |          <li>Other general utilities.</li>
-      |        </ul>
-      |      </li>
-      |
-      |      <li>ostrat.parse The code for parsing RSON, Rich Succinct Object Notation.</li>
-      |
-      |      <li>ostrat.pWeb Code for the generation and manipulation of
-      |        <ul>
-      |          <li>HTML</li>
-      |          <li>Other XML</li>
-      |          <li>CSS</li>
-      |          <li>Simple JavaScript</li>
-      |        </ul>
-      |      </li>
-      |
-      |    </ul>
-      |  </li>
-      |
-      |  <li><a href="Documentation/Geom.html"><b>Geom Module</b></a> Depends on Util, organised into the following packages Organised into the following folders and packages:
-      |    <ul>
-      |
-      |      <li>ostrat.geom A pure or near pure functional package.
-      |        <ul>
-      |          <li>Basic  geometry.</li>
-      |          <li>A number of implementation Value classes of the Int and Double product classes defined in ostrat.</li>
-      |          <li>2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be
-      |            used in any display framework and for printing.</li>
-      |        </ul>
-      |      </li>
-      |
-      |      <li> ostrat.pCanv depends on geom. This could be made into a separate module, but I don't see any great advantage.
-      |        <ul>
-      |          <li>Abstract canvas and classes for placing objects on that abstract canvas.</li>
-      |          <li>classes for the manipulation and display of maps.</li>
-      |          <li>Mouse and other abstract controls.</li>
-      |          <li>An implementation of Canvas for Jvm using JavaFx.</li>
-      |          <li>An implementation of Canvas for Html Canvas using JavaScript.</li>
-      |          <li>There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in
-      |            native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could
-      |            be implemented on DirectX or OpenGL, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
-      |          </li>
-      |        </ul>
-      |      </li>
-      |
-      |      <li>ostrat.p3d Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is
-      |        highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics
-      |        engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we
-      |        are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface.
-      |        This will be the canonical interface, although it obviously won't be the normal user interface.
-      |      </li>
-      |    </ul>
+      |  <li><a href="Documentation/geom.html"><b>Geom Module</b></a> Depends on Util, organised into the following packages Organised into the following folders and packages:      |
       |  </li>
       |
       |  <li><a href="Documentation/Tiling.html"><b>Tiling Module</b></a> Depends on UtilMacros Util and Graphic, just has the ostrat.pGrid package depends on geom and pCanv.
@@ -253,20 +194,6 @@ object IndexPage
       |<li><a href="Documentation/Miscellaneous.html">Miscellaneous notes</a></li>
       |</ul>
       |</p>
-      |
-      |<p><b>Road Map</b> So currently we now have a 3 month maximum time frame for Github issues, for non urgent issues left as eaily accessible for
-      |  beginners. Everything will go in the road map, unitl we have time and focus to start implementing.
-      |<ul><li>2.5D, 3D Graphics. The knowledge form inplementing 2.5 and 3d will allow clarification of the 2d Transformation of arcs.</li>
-      |    <li>Audio: (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain
-      |      that way.
-      |    </li>
-      |    <li>Array Double based generalised deep-compound value-types includind C-style type unions and single Array based collections of those types.
-      |      Currently we just have Pruducts of a single type.
-      |    </li>
-      |    <li>Deep-compound value-types with repeat last members. These can not have single Array Collections.</li>
-      |  </ul>
-      |</p>
-      |
       |</div>
       |""".stripMargin
 
