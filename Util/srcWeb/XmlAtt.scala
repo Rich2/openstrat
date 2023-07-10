@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** An XML / HTML attribute, has a name and a value [[StrArr]]. */
@@ -37,4 +37,16 @@ case class IdAtt(valueStr: String) extends XmlAtt
 
 case class HrefAtt(valueStr: String) extends XmlAtt
 { override def name: String = "href"
+}
+
+case class TypeAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "type"
+}
+
+object TypeAtt{
+  def js: TypeAtt = TypeAtt("text/javascript")
+}
+
+case class SrcAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "src"
 }

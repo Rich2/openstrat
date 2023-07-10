@@ -4,9 +4,13 @@ import pjvm._, pWeb._
 
 object DevHtmlApp extends App
 {
-  class SubPage(val appStemName: String, fileNameIn: String = "", linkTextIn: String = "")
+  class SubPage(val appStemName: String, fileNameStemIn: String = "", linkTextIn: String = "")
   {
-    val fileName: String = ife(fileNameIn == "", appStemName.toLowerCase(), fileNameIn)
+    val fileNameStem: String = ife(fileNameStemIn == "", appStemName.toLowerCase(), fileNameStemIn)// + ".js"
+
+    def htmlFileName: String = fileNameStem + ".html"
+
+    def jsFileName: String = fileNameStem + ".js"
     val linkText: String = ife(linkTextIn == "", appStemName, linkTextIn)
   }
 
@@ -15,20 +19,20 @@ object DevHtmlApp extends App
   }
 
   val sett = findDevSettingT[DirPathAbs]("projPath")
-  val subPages = RArr(SubPage("UnitLoc", "unitloc", "Unit Locator"), SubPage("Diceless"), SubPage("BC305"), SubPage("Planets"),
+  val subPages = RArr(SubPage("UnitLoc", "unitlocapp", "Unit Locator"), SubPage("Diceless", "dicelessapp"), SubPage("BC305"), SubPage("Planets"),
     SubPage("Zug","zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"), SubPage("Dungeon"), SubPage("CivRise"))
 
   def make(path: DirPathAbs, page: SubPage): Unit =
   { val head = HtmlHead.titleCss(page.linkText, "only")
 
     val pages: RArr[SubPage] = subPages.filterNot(_.appStemName == page.appStemName)
-    val pairs1 = pages.mapPair(_.appStemName)(_.linkText)
+    val pairs1 = pages.mapPair(_.appStemName)(_.htmlFileName)
     val pairs2 = StrPair("index", "Home") %: pairs1
-    val list = HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s1 + ".html", s2) })
-    val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"))
+    val list = HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
+    val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(page.jsFileName), HtmlScript.main(page.appStemName + "JsApp"))
     val content = HtmlPage(head, body)
 
-    val res = fileWrite(path.str -/- "Dev/SbtDir", page.fileName + "app.html", content.out)
+    val res = fileWrite(path.str -/- "Dev/SbtDir", page.htmlFileName, content.out)
     debvar(res)
   }
 

@@ -35,6 +35,3 @@ object HtmlCssLink
 { def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
 
-trait HtmlScript extends XmlElemLike
-{ override def tag: String = "script"
-}

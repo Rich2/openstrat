@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -6,11 +6,9 @@ import annotation._, collection.mutable.ArrayBuffer
  *  widened. */
 final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[Int]
 { type ThisT = IntArr
-
-  /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): IntArr = new IntArr(new Array[Int](length))
-
   override def typeStr: String = "Ints"
+
+  override def unsafeSameSize(length: Int): IntArr = new IntArr(new Array[Int](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Int = unsafeArray(index)
   override def setElemUnsafe(i: Int, newElem: Int): Unit = unsafeArray(i) = newElem

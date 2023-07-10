@@ -31,9 +31,9 @@ object HtmlCanvas
 }
 
 /** HTML anchor. */
-case class HtmlA(link: String, contents: RArr[XCon]) extends HtmlInline
+class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "a"
-  override def attribs: RArr[XmlAtt] = RArr(HrefAtt(link))
+  override val attribs: RArr[XmlAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
 
 object HtmlA
@@ -47,12 +47,22 @@ case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends 
 
 object HtmlLi
 {
-  def a(link: String, label: String): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))))
+  def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))), attribs.toArr)
 }
 
 /** Html ul unordered list element. */
 case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlOutline
 { override def tag: String = "ul"
+}
+
+case class HtmlScript(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlInline
+{ override def tag: String = "script"
+}
+
+object HtmlScript
+{
+  def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeAtt.js, SrcAtt(src)))
+  def main(stem: String): HtmlScript = HtmlScript(RArr(XConStr(stem + ".main()")), RArr(TypeAtt.js))
 }
 
 /** Html h1 header element. */
