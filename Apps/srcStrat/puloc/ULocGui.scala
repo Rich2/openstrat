@@ -3,7 +3,7 @@ package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
 /** Graphical user interface for Unit Locator. */
-case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
+case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(50, 12, 1.2)) extends GlobeGui("The Earth in irregular tiles")
 { /** Scale in km / pixel */
   var scale: Length = viewIn.scale
 
@@ -58,7 +58,6 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
 
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
       p.a1.textAt(p.a2.name, 10, col) }
-
 
     def units1: GraphicElems = finds.optMap{ ls =>
       val xyz = ls.loc.toMetres3.fromLatLongFocus(focus)
