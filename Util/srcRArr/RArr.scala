@@ -90,8 +90,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
-  def appends[AA >: A](elems: AA *)(implicit ct: ClassTag[AA]): RArr[AA] = {
-    val newArray = new Array[AA](length + elems.length)
+  /** Functionally concatenates the elements, allows type widening. */
+  def appends[AA >: A](elems: AA *)(implicit ct: ClassTag[AA]): RArr[AA] =
+  { val newArray = new Array[AA](length + elems.length)
     unsafeArray.copyToArray(newArray)
     elems.iForeach{(i, aa) => newArray(length + i) = aa }
     new RArr(newArray)

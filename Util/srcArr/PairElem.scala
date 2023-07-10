@@ -214,8 +214,14 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <:
   def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 }
 
-object PairArrMapBuilder{
-  implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
+object PairArrMapBuilder extends PairArrMapBuilderLowPriority
+{
+  implicit def strArrMapEv[B2](implicit ct: ClassTag[B2]): StrPairArrMapBuilder[B2] = new StrPairArrMapBuilder[B2]
+  //implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
+}
+
+trait PairArrMapBuilderLowPriority
+{ implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
 /** [[ArrFlatbuilder]] for [[PairNoA1ParamElem]]s. */

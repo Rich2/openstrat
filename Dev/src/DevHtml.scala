@@ -16,14 +16,14 @@ object DevHtmlApp extends App
 
   val sett = findDevSettingT[DirPathAbs]("projPath")
   val subPages = RArr(SubPage("UnitLoc", "unitloc", "Unit Locator"), SubPage("Diceless"), SubPage("BC305"), SubPage("Planets"),
-    SubPage("Zug","zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"))
+    SubPage("Zug","zug", "ZugFuhrer"), SubPage("Y1783"), SubPage("Flags"), SubPage("Dungeon"), SubPage("CivRise"))
 
   def make(path: DirPathAbs, page: SubPage): Unit =
   { val head = HtmlHead.titleCss(page.linkText, "only")
 
-    val pairs: StrPairArr[String] = StrStrPairArr("index", "Home", "diceless", "Diceless", "bc305", "BC305", "planets", "Planets", "zug", "Zugfuhrer")
-    val pairs2 = pairs.filterNotOnA2(_ == page.appStemName)
-
+    val pages: RArr[SubPage] = subPages.filterNot(_.appStemName == page.appStemName)
+    val pairs1 = pages.mapPair(_.appStemName)(_.linkText)
+    val pairs2 = StrPair("index", "Home") %: pairs1
     val list = HtmlUl(pairs2.pairMap { (s1, s2) => HtmlLi.a(s1 + ".html", s2) })
     val body = HtmlBody.elems(list, HtmlCanvas.id("scanv"))
     val content = HtmlPage(head, body)

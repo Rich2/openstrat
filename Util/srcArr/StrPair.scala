@@ -1,8 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, reflect.ClassTag
+import annotation._
+import reflect.ClassTag
+import scala.collection.mutable.ArrayBuffer
 
 class StrPair[A2](val a1: String, val a2: A2) extends PairNoA1ParamElem[String, A2]
+
+object StrPair
+{ def apply[A2](a1: String,  a2: A2): StrPair[A2] = new StrPair[A2](a1, a2)
+}
 
 class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairNoA1PramArr[String, StrArr, A2, StrPair[A2]]
 { override type ThisT = StrPairArr[A2]
@@ -38,6 +44,16 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
+    new StrPairArr[A2](newA1Array, newA2Array)
+  }
+
+  @targetName("prepend") final def %:(operand: StrPair[A2])(implicit ct: ClassTag[A2]): ThisT =
+  { val newA1Array = new Array[String](length + 1)
+    newA1Array(0) = operand.a1
+    a1Array.copyToArray(newA1Array, 1)
+    val newA2Array = new Array[A2](length + 1)
+    newA2Array(0) = operand.a2
+    a2Array.copyToArray(newA2Array, 1)
     new StrPairArr[A2](newA1Array, newA2Array)
   }
 
@@ -83,9 +99,46 @@ object StrPairArr
   }
 }
 
-class StrStrPair(a1: String, a2: String) extends StrPair[String](a1, a2)
+class StrPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends PairArrMapBuilder[String, StrArr, B2, StrPair[B2], StrPairArr[B2]]
+{ override type BuffT = StrPairBuff[B2]
+  override type B1BuffT = StringBuff
+  override def b1ArrBuilder: ArrMapBuilder[String, StrArr] = StringArrBuilder
+  override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): StrPairArr[B2] = new StrPairArr[B2](b1Arr.unsafeArray, b2s)
 
-class StrStrPairArr(a1Array: Array[String], a2Array: Array[String]) extends StrPairArr[String](a1Array, a2Array)
+  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+  override def buffGrow(buff: StrPairBuff[B2], newElem: StrPair[B2]): Unit = ???
+
+  /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
+  override def uninitialised(length: Int): StrPairArr[B2] = ???
+
+  /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
+  override def indexSet(seqLike: StrPairArr[B2], index: Int, elem: StrPair[B2]): Unit = ???
+
+
+  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
+  override def newB1Buff(): StringBuff = ???
+
+  /** Expands / appends the B1 [[Buff]] with a single element of B1. */
+  override def b1BuffGrow(buff: StringBuff, newElem: String): Unit = ???
+
+  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
+  override def arrFromBuffs(a1Buff: StringBuff, b2s: ArrayBuffer[B2]): StrPairArr[B2] = ???
+
+  /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
+  override def newBuff(length: Int): StrPairBuff[B2] = ???
+
+  /** converts a the buffer type to the target compound class. */
+  override def buffToSeqLike(buff: StrPairBuff[B2]): StrPairArr[B2] = ???
+}
+
+class StrPairBuff[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[String, B2, StrPair[B2]]
+{ override type ThisT = StrPairBuff[B2]
+  override def typeStr: String = "StrPairBuff"
+  override def pairGrow(b1: String, b2: B2): Unit = { strBuffer.append(b1); b2Buffer.append(b2) }
+  override def grow(newElem: StrPair[B2]): Unit = { strBuffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
+  override def apply(index: Int): StrPair[B2] = StrPair[B2](strBuffer(index), b2Buffer(index))
+  override def setElemUnsafe(i: Int, newElem: StrPair[B2]): Unit = { strBuffer(i) = newElem.a1; b2Buffer(i) == newElem.a2 }
+}
 
 object StrStrPairArr
 {
