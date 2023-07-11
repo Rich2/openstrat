@@ -4,7 +4,7 @@ import pWeb._
 
 /** The home page for the project, currently displayed at richstrat.com. */
 object IndexPage
-{ val head = HtmlHead.titleCss("Openstrat", "only")
+{ val head = HtmlHead.titleCss("Openstrat", "Documentation/documentation")
   def topMenu: HtmlUl = SubPage.topMenu(SubPage.allPairs)
   def body = HtmlBody.elems(topMenu, main)
   def content = HtmlPage(head, body)
@@ -41,38 +41,23 @@ object IndexPage
   |  <li><a href="Documentation/Earth.html"><b>Earth Module</b></a> This module is for Earth maps. Allows the maniupation of latitude and longitude
   |    allowing free conversion betwen them and 2D and 3D coordinates.</li>
   |
-  |<li><a href="Documentation/EGrid.html"><b>EGrid Module</b></a>Tiling of the whole world in Hex grids, defining the changes over the course of history.
-  |  This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and higher scales
-  |  right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world
-  |  will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.
-  |</li>
+  |  <li><a href="Documentation/EGrid.html"><b>EGrid Module</b></a>Tiling of the whole world in Hex grids, defining the changes over the course of history.
+  |    This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and higher scales
+  |    right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world
+  |    will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.
+  |  </li>
   |
-  |<li><a href="Documentation/apps.html"><b>Apps Module</b></a></li>
+  |<li><a href="Documentation/apps.html"><b>Apps Module</b></a> This module for end-user applications, that may eventually end up in their own
+  | repositories.</li>
   |
-  |<li><a href="Documentation/Dev.html"><b>Dev Module</b></a> The Module as a whole Depends on all the other modules, although its constiurent parts may
-  |  not. This module is for the use of developer tools and settings and for end-user applications, that may eventually end up in their own repositaries.
-  |  Unlike the other modules this module has no examples sub modules. The eaxmples in the other modules, should be just that example codes to explain,
-  |  illustrate provide tutorials, and to some extent test the modules core code. The examples should not include apps that have nay use in and of
-  |  themsleves. Those apps belong in the Dev module.
-  |  <ul>
-  |    <li>User folder contains developer settings</li>
-  |    <li>Developer html pages, linked to sbt target and Mill out folder artifacts.</li>
-  |    <li>Documentation web pages.</li>
-  |    <li> Collates the lessons in the examples folders from Util, Graphic, World and Strat. This is a number of series of lessons for beginners to
-  |     Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the
-  |     LearnScala project.
-  |    </li>
-  |
-  |  </ul>
-  | </li>
+  |<li><a href="Documentation/Dev.html"><b>Dev Module</b></a> Depends on all the other modules|  not. This module is for the use of developer tools
+  | and settings and   |  illustrate provide tutorials, and to some extent test the modules core code.</li>
   |</ol>
   |
-  |<p>The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
   |<ul>
   |<li><a href="Documentation/GitCommands.html">Useful Git commands</a></li>
   |<li><a href="Documentation/Miscellaneous.html">Miscellaneous notes</a></li>
   |</ul>
-  |</p>
   |""".stripMargin
 
   def iconStrs ="""
