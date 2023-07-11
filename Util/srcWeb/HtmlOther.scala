@@ -29,7 +29,7 @@ object HtmlLi
 }
 
 /** Html ul unordered list element. */
-case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlOutline
+case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ul"
 }
 

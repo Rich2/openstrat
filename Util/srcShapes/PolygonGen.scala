@@ -19,7 +19,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
 
-  override def attribs: RArr[XANumeric] = ???
+  override def attribs: RArr[XAttNumeric] = ???
 
   override def canEqual(that: Any): Boolean = that match {
     case s: Shape => true

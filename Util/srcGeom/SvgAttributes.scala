@@ -9,12 +9,12 @@ case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) ex
 }
 
 /** XML attribute ofr width. */
-case class WidthAtt(value: Double) extends XANumeric
+case class WidthAtt(value: Double) extends XAttNumeric
 { override def name: String = "width"
 }
 
 /** XML attribute for height. */
-case class HeightAtt(value: Double) extends  XANumeric
+case class HeightAtt(value: Double) extends  XAttNumeric
 { override def name: String = "height"
 }
 
@@ -24,11 +24,11 @@ case class SvgRotate(degrees: Double, x: Double, y: Double) extends XmlAtt
 }
 
 /** XML attribute for x posn. */
-case class XAttrib(value: Double) extends XANumeric
+case class XAttrib(value: Double) extends XAttNumeric
 { override def name = "x"
 }
 
 /** XML attribute for y posn. */
-case class YAttrib(value: Double) extends XANumeric
+case class YAttrib(value: Double) extends XAttNumeric
 { override def name = "y"
 }

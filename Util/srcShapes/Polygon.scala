@@ -154,7 +154,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
     acc
   }
 
-  override def attribs: RArr[XANumeric] = ???
+  override def attribs: RArr[XAttNumeric] = ???
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillInt(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
