@@ -2,40 +2,21 @@
 package ostrat; package pDev
 import pWeb._
 
+/** The home page for the project, currently displayed at richstrat.com. */
 object IndexPage
-{
-  val head = HtmlHead.titleCss("Openstrat", "only")
+{ val head = HtmlHead.titleCss("Openstrat", "only")
   def topMenu: HtmlUl = SubPage.topMenu(SubPage.allPairs)
-  def body = HtmlBody.elems(topMenu, XConStr(bodyStr))
+  def body = HtmlBody.elems(topMenu, main)
   def content = HtmlPage(head, body)
 
-  def iconStrs ="""
-  |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
-  |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
-  |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path
-  |    fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
-  |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="17" y="15" fill="#010101"
-  |     fill-opacity=".3">code</text><text x="17" y="14">code</text><text x="62" y="15" fill="#010101" fill-opacity=".3">on github</text><
-  |     text x="62" y="14">on github</text>
-  |   </g>
-  |</svg></a>&nbsp;<a href="https://gitter.im/typestrat/Lobby"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
-  |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
-  |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/>
-  |    <path fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
-  |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
-  |      <text x="17" y="15" fill="#010101" fill-opacity=".3">chat</text><text x="17" y="14">chat</text>
-  |      <text x="62" y="15" fill="#010101" fill-opacity=".3">on gitter</text><text x="62" y="14">on gitter</text>
-  |    </g>
-  |</svg></a><br /></p>
-  |""".stripMargin
+  def main: HtmlDiv = HtmlDiv.classAtt("main", XConStr(iconStrs), XConStr(mainStr))
 
-  val bodyStr: String = s"""<div class=main>
-  |$iconStrs
-  |<p>
-  |<b>This project has 2 main focuses:
+  val mainStr: String = s"""<p>
+  |<b>This project has 3 main focuses:
   |<ul>
+  |  <li>Historical strategy games, particularly focused on simultaneous-turn, tile-based games.</li>
+  |  <li>Graphics for the display of historical information.</li>
   |  <li>A functional Geometry and Vector Graphics library with various supporting utilities</li>
-  |  <li>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</li>
   |</ul>
   |</b></p>
   |<p>
@@ -43,8 +24,7 @@ object IndexPage
   |</p>
   |<p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to
   |  learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming
-  |  as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and
-  |  want to get involved, drop into the gitter channel and say hi.
+  |  as deep as they wish to go, at the pace they wish to.
   |
   |<p><b>The Code is currently organised into 7 modules.</b> Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and
   |  the Web.
@@ -52,7 +32,6 @@ object IndexPage
   |
   |<ol>
   |<li><a href="Documentation/util.html"><b>Util Module</b></a> organised into the following packages: Organised into the following folders and packages:
-
   |
   |  <li><a href="Documentation/geom.html"><b>Geom Module</b></a> Depends on Util, organised into the following packages Organised into the following folders and packages:      |
   |  </li>
@@ -112,6 +91,26 @@ object IndexPage
   |<li><a href="Documentation/Miscellaneous.html">Miscellaneous notes</a></li>
   |</ul>
   |</p>
-  |</div>
   |""".stripMargin
+
+  def iconStrs ="""
+  |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+  |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
+  |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path
+  |    fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
+  |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="17" y="15" fill="#010101"
+  |     fill-opacity=".3">code</text><text x="17" y="14">code</text><text x="62" y="15" fill="#010101" fill-opacity=".3">on github</text><
+  |     text x="62" y="14">on github</text>
+  |   </g>
+  |</svg></a>&nbsp;<a href="https://gitter.im/typestrat/Lobby"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+  |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
+  |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/>
+  |    <path fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
+  |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+  |      <text x="17" y="15" fill="#010101" fill-opacity=".3">chat</text><text x="17" y="14">chat</text>
+  |      <text x="62" y="15" fill="#010101" fill-opacity=".3">on gitter</text><text x="62" y="14">on gitter</text>
+  |    </g>
+  |</svg></a><br /></p>
+  |""".stripMargin
+
 }

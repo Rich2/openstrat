@@ -36,6 +36,11 @@ case class IdAtt(valueStr: String) extends XmlAtt
 { override def name: String = "id"
 }
 
+/** Creates for a "class" XML / HTML attribute." */
+case class ClassAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "class"
+}
+
 case class HrefAtt(valueStr: String) extends XmlAtt
 { override def name: String = "href"
 }
