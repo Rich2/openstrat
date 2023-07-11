@@ -43,6 +43,7 @@ trait CmdBarGui extends CanvasPanelled
   def selectedStr: String = selected match
   { case None => "Nothing selected"
     case sel: Selectable => sel.selectStr
+    case sw: Show => sw.str
     case a => a.toString
   }
 

@@ -1,6 +1,10 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import geom._
+import ostrat.pgui.Selectable
+
+import collection.mutable.ArrayBuffer
+import reflect.ClassTag
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to
  *  as an [[HCen]] to distinguish it from [[HSide]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
@@ -201,9 +205,19 @@ object HCenBuff
 { def apply(length: Int = 4): HCenBuff = new HCenBuff(new ArrayBuffer[Int](length * 2))
 }
 
-class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2]
+class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2] with Selectable
 { override def a1: HCen = HCen(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
+
+  /** The [[String]] to be displayed in the status bar in a GUI when selected. */
+  override def selectStr: String =
+  { val s1 = a2 match
+    { case sel: Selectable => sel.selectStr
+      case st: Show => st.str
+      case a => a.toString
+    }
+    s"$s1; ${a1.rcStr}"
+  }
 }
 
 object HCenPair

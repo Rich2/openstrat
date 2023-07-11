@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._, pgui._
 
-abstract class TGridSysGui(val title: String) extends CmdBarGui//(title)
+abstract class TGridSysGui(val title: String) extends CmdBarGui
 { /** Tile grid system this gui displays. */
   def gridSys: TGridSys
 
