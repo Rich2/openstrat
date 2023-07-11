@@ -50,8 +50,8 @@ object IndexPage
   |<li><a href="Documentation/apps.html"><b>Apps Module</b></a> This module for end-user applications, that may eventually end up in their own
   | repositories.</li>
   |
-  |<li><a href="Documentation/Dev.html"><b>Dev Module</b></a> Depends on all the other modules|  not. This module is for the use of developer tools
-  | and settings and   |  illustrate provide tutorials, and to some extent test the modules core code.</li>
+  |<li><a href="Documentation/Dev.html"><b>Dev Module</b></a> Depends on all the other modules. This module is for the use of developer tools and
+  | settings and   |  illustrate provide tutorials, and to some extent test the modules core code.</li>
   |</ol>
   |
   |<ul>
