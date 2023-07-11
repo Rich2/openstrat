@@ -55,13 +55,17 @@ case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 { override def tag: String = "ul"
 }
 
+/** HTML script element. */
 case class HtmlScript(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlInline
 { override def tag: String = "script"
 }
 
+/** Companon object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
 object HtmlScript
-{
+{ /** Sets the link for a Javascript script file. */
   def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeAtt.js, SrcAtt(src)))
+
+  /** Sets the function for an external JavaScript call. */
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConStr(stem + ".main()")), RArr(TypeAtt.js))
 }
 

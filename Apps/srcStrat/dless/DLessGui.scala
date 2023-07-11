@@ -2,6 +2,7 @@
 package ostrat; package dless
 import geom._, prid._, phex._, pgui._, egrid._
 
+/** Graphical User Interface for [[DLessScen]]. */
 case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Diceless Gui")
 { var scen: DLessScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
