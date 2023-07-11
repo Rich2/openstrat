@@ -20,7 +20,7 @@ trait HtmlEmpty extends HtmlUnvoid
 }
 
 /** An HTML element that will be multiline such as an OL or a UL and will not be inlined like an LI list item. */
-trait HtmlOutline extends HtmlUnvoid
+trait HtmlMultiLine extends HtmlUnvoid
 {
   override def out(indent: Int, maxLineLen: Int): String =
   { val cons = contents.map(_.outEither(indent + 2, maxLineLen))

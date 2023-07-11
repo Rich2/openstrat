@@ -10,22 +10,27 @@ trait XmlAtt
 
 /** Companion object for the XML attribute [[XmlAtt]] trait. */
 object XmlAtt
-{
+{ /** Factory apply method for [[XmlAtt]] trait. Often you may prefer to use the sub classes of [[XmlAtt]] where the name of the attribute has already
+   * been set. */
   def apply(nameIn: String, valueStrIn: String): XmlAtt = new XmlAtt
   { override def name: String = nameIn
     override def valueStr: String = valueStrIn
   }
 }
 
-/** An Xml numeric attribute. */
-trait XANumeric extends XmlAtt
+/** An Xml attribute that has a numeric value, allowing the value to be constructed with a
+ *  [[Double]]. */
+trait XAttNumeric extends XmlAtt
 { def value: Double
   override def valueStr: String = value.toString
 }
 
-object XANumeric
+/** /companion object for the [[XAttNumeric]] trait, an Xml attribute that has a numeric value, allowing the value to be constructed with a
+ *  [[Double]]. */
+object XAttNumeric
 {
-  def apply(nameIn: String, valueIn: Double): XANumeric = new XANumeric
+  /** Factory apply method for an Xml attribute that has a numeric value, allowing the value to be constructed with a [[Double]].  */
+  def apply(nameIn: String, valueIn: Double): XAttNumeric = new XAttNumeric
   { override def name: String = nameIn
     override def value: Double = valueIn    
   }

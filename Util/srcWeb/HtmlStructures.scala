@@ -28,7 +28,7 @@ object HtmlBody
   def elems(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
 }
 
-class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlOutline
+class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlMultiLine
 { override def tag: String = "div"
 }
 
