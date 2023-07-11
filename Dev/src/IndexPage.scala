@@ -31,33 +31,15 @@ object IndexPage
   |</p>
   |
   |<ol>
-  |<li><a href="Documentation/util.html"><b>Util Module</b></a> organised into the following packages: Organised into the following folders and packages:
+  |  <li><a href="Documentation/util.html"><b>Util Module</b></a> Contains a number of utilities. This includes a parsing and persistence system.
   |
-  |  <li><a href="Documentation/geom.html"><b>Geom Module</b></a> Depends on Util, organised into the following packages Organised into the following folders and packages:      |
-  |  </li>
+  |  <li><a href="Documentation/geom.html"><b>Geom Module</b></a> Depends on Util. Basic 2D and 3D geometry, functional Graphics.</li>
   |
-  |  <li><a href="Documentation/Tiling.html"><b>Tiling Module</b></a> Depends on UtilMacros Util and Graphic, just has the ostrat.pGrid package depends on geom and pCanv.
-  |  	<ul>
-  |  		<li>Abstract regular tile geometry.</li>
-  |        <li>Square and hex tile grid geometry.</li>
-  |        <li>OfTile classes for the display of tiles.</li>
-  |    </ul>
-  |  </li>
+  |  <li><a href="Documentation/Tiling.html"><b>Tiling Module</b></a> Depends on Util and Geom modules. Encodes tile Grids, both square and hexagonal,
+  |   as well as systems of grids.</li>
   |
-  |  <li><a href="Documentation/Earth.html"><b>Earth Module</b></a> This package and module is for Earth maps.
-  |    <ul>
-  |
-  |      <li>ostrat.pEarth depends on geom, pCanv and pGrid
-  |        <ul>
-  |          <li>Earth and sphere geometry.</li>
-  |          <li>Grids of Earth terrain.</li>
-  |        </ul>
-  |      </li>
-  |
-  |      <li>ostrat.pEarth.pPts large irregular Earth terrain areas. This is mainly a development aid.</li>
-  |
-  |    </ul>
-  |  </li>
+  |  <li><a href="Documentation/Earth.html"><b>Earth Module</b></a> This module is for Earth maps. Allows the maniupation of latitude and longitude
+  |    allowing free conversion betwen them and 2D and 3D coordinates.</li>
   |
   |<li><a href="Documentation/EGrid.html"><b>EGrid Module</b></a>Tiling of the whole world in Hex grids, defining the changes over the course of history.
   |  This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and higher scales
