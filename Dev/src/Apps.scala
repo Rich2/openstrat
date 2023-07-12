@@ -23,6 +23,7 @@ object Apps
     ("NA", pnap.NapLaunch),
     ("W2", pww2.WW2Launch),
     ("DI", pdisc.DiscLaunch),
+    ("SO", psors.SorsLaunch),
     ("CV", pCiv.CivLaunch),
     ("NM", pnorm.NormLaunch),
     ("Go", pgo.GoLaunch),

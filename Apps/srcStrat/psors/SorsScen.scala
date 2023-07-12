@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package sors
+package ostrat; package psors
 import prid._, phex._, egrid._, eg220._
 
 trait SorsScen extends HSysTurnScen

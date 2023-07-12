@@ -9,7 +9,7 @@ object AppsDoc extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
 
-  def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, y1783,
+  def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, sors, y1783,
     HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), planets, flags))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
@@ -24,6 +24,8 @@ object AppsDoc extends HtmlPage
     -- "map. This is the game that most interests me.")
 
   val ww1: HtmlLi = HtmlLi.linkAndText("../ww1.html", "World War I Game", "A 120km hex game.")
+
+  val sors = HtmlLi.linkAndText("../sors.html", "Sors Imperiorum", "A game where empires appear at set times according to history. Uses 220km hex scale")
 
   val y1783: HtmlLi = HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses an 80km scale world"
     -- "map. This is the second game that most interests me.")
@@ -42,12 +44,7 @@ object AppsDoc extends HtmlPage
 
   def bodyStr: String =
     """
-      |<li>A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common
-      |      functionality and classes.
-      |    </li>
-      |
-      |      <li>ostrat.pCloseOrder. Pre modern close order formation based battles, not using tiles.</li>
-      |
-      |      <li>ostratpChess. A search for an elegant implementation of Draughts and Chess.</li>
+      |  Other part apps CloseOrder. Pre modern close order formation based battles, not using tiles. And Chess. A search for an elegan
+      |  implementation of Draughts and Chess.</li>
       |""".stripMargin
 }
