@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+  <title>OpenStrat: 1492</title>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width'> 
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
+  <style>
+    body { margin: 0px; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <canvas id='scanv'></canvas>
+  <noscript>
+    This page will not function properly without Javascript enabled
+  </noscript>
+  <script type='text/javascript'>
+  // aid local development in ensuring script not cached during a simple refresh
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", "../SbtDir/Y1492Js/target/scala-3.3.0/y1492js-opt.js?"+Date.now().toString());
+    document.getElementsByTagName("head")[0].appendChild(script);
+    script.addEventListener('load', function(e) {
+    Y1492JsApp.main();
+  });
+  </script>
+</body>
+  
+</html>	

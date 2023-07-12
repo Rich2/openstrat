@@ -16,7 +16,7 @@ object DiscScen1 extends DiscScen
 
 object DiscScen2 extends DiscScen
 { override def turn: Int = 0
-  override implicit def gridSys: EGrid160LongFull = EGrid160.e30(446)
+  override implicit def gridSys: EGrid160LongFull = Terr160E30.grid
   override val terrs: HCenLayer[WTile] = Terr160E30.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr160E30.sTerrs
   override val corners: HCornerLayer = Terr160E30.corners

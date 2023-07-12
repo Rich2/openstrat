@@ -2,10 +2,10 @@
 package ostrat; package pnap
 import pgui._, prid._, phex._, pParse._
 
-/** Scenario selector and launcher for Bc305. */
+/** Scenario selector and launcher for Y1783. */
 object NapLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "ad1783"
+  override def settingStr: String = "y1783"
 
   override def default: (CanvasPlatform => Any, String) = (NapGui(_, NapScen1, NapScen1.defaultView()), "JavaFx AD1783")
 

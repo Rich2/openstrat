@@ -28,7 +28,7 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
     repaint()
     thisTop()
   }
-  statusText = "Welcome to DISC305"
+  statusText = "Welcome to AD1492"
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
