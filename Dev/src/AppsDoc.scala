@@ -10,7 +10,7 @@ object AppsDoc extends HtmlPage
   def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
 
   def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, y1783, HtmlH2("Other Tiled Map Applications."),
-    zug, dung, HtmlH2("Other Applications."), planets))
+    zug, dung, civ, HtmlH2("Other Applications."), planets, flags))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
@@ -29,29 +29,23 @@ object AppsDoc extends HtmlPage
   val zug: HtmlLi = HtmlLi.linkAndText("../zug.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale.")
   val dung: HtmlLi = HtmlLi.linkAndText("../dungeon.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale.")
 
-  val planets = HtmlLi.linkAndText("../planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different.")
+  val civ: HtmlLi = HtmlLi.linkAndText("../civrise.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
+    "generalised side terrain")
+
+  val planets: HtmlLi = HtmlLi.linkAndText("../planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just" --
+    "because its different.")
+
+  val flags: HtmlLi = HtmlLi.linkAndText("../flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did" --
+    "most of the work on this.")
 
   def bodyStr: String =
     """
       |<li>A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common
       |      functionality and classes.
-      |      <ul>
-      |        <li>ostrat.pGames.pCiv A human history 4x development game using hex tiles.</li>
-      |      </ul>
       |    </li>
-      |
-      |      <li>ostrat.pStrat depends on geom, pCanv and pGrid and pEarth.
-      |        <ul>
-      |          <li>Flags</li>
-      |          <li>DemoCanvas for graphics elements.</li>
-      |          <li>Odds and ends.</li>
-      |        </ul>
-      |      </li>
       |
       |      <li>ostrat.pCloseOrder. Pre modern close order formation based battles, not using tiles.</li>
       |
       |      <li>ostratpChess. A search for an elegant implementation of Draughts and Chess.</li>
-      |
-      |    </div>
       |""".stripMargin
 }
