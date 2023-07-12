@@ -2,14 +2,25 @@
 package ostrat; package pWeb
 
 /** An HTML page, contains a head and a body element */
-case class HtmlPage(head: HtmlHead, body: HtmlBody)
-{ def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 150)
+trait HtmlPage
+{
+  def head: HtmlHead
+  def body: HtmlBody
+  def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 150)
 }
 
 /** Companion object for the [[HtmlHead]] class. */
 object HtmlPage
-{ /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
-  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead.title(title), HtmlBody.elems(HtmlH1(title), bodyContent.xCon))
+{ /** Factory apply method for [[HtmlPage]]. */
+  def apply(headIn: HtmlHead, bodyIn: HtmlBody): HtmlPage = new HtmlPage
+  { override val head: HtmlHead = headIn
+    override val body: HtmlBody = bodyIn
+  }
+  /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
+  def titleOnly(title: String, bodyContent: String): HtmlPage = new HtmlPage{
+    override val head: HtmlHead = HtmlHead.title(title)
+    override val body: HtmlBody = HtmlBody(HtmlH1(title), bodyContent.xCon)
+  }
 }
 
 /** HTML title element. */

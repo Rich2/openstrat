@@ -2,10 +2,11 @@
 package ostrat; package pDev
 import pWeb._
 
-object AppsHtml
+object AppsHtml extends HtmlPage
 {
-  def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation.css")
-  def body: HtmlDiv = HtmlDiv.classAtt("main", XConStr(bodyStr))
+  override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation.css")
+  override def body: HtmlBody = HtmlBody(main)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", XConStr(bodyStr))
 
   def bodyStr: String =
     """

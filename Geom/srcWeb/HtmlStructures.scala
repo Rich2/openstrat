@@ -24,8 +24,8 @@ case class HtmlBody(contents: RArr[XCon]) extends HtmlUnvoid
 
 /** Companion object for the [[HTMLBody]] class contains factory methods.  */
 object HtmlBody
-{ def apply(str: String): HtmlBody = new HtmlBody(RArr(str.xCon))
-  def elems(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
+{ def str(str: String): HtmlBody = new HtmlBody(RArr(str.xCon))
+  def apply(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
 }
 
 class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlMultiLine
