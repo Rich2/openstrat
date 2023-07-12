@@ -15,7 +15,8 @@ class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAt
 }
 
 object HtmlA
-{ def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
+{ /** FActory apply method for [[HtmlA]] class. */
+  def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
 }
 
 /** Html li, list item element. */
@@ -24,9 +25,10 @@ case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends 
 }
 
 object HtmlLi
-{
+{ /** An HTML list item element that has a link as its sole content. */
   def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))), attribs.toArr)
 
+  /** An HTML list item element that has a link, followed by some text as its sole contents. */
   def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
 }
@@ -36,7 +38,7 @@ case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 { override def tag: String = "ul"
 }
 
-/** Html ul unordered list element. */
+/** Html ol ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ol"
 }
