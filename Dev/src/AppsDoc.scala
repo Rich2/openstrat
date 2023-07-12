@@ -9,8 +9,8 @@ object AppsDoc extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
 
-  def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, y1783, HtmlH2("Other Tiled Map Applications."),
-    zug, dung, civ, HtmlH2("Other Applications."), planets, flags))
+  def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, y1783,
+    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), planets, flags))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
@@ -22,6 +22,8 @@ object AppsDoc extends HtmlPage
 
   val bc305: HtmlLi = HtmlLi.linkAndText("../bc305.html", "BC305", "A grand strategy game with a start point of 305BC. It uses an 80km scale world"
     -- "map. This is the game that most interests me.")
+
+  val ww1: HtmlLi = HtmlLi.linkAndText("../ww1.html", "World War I Game", "A 120km hex game.")
 
   val y1783: HtmlLi = HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses an 80km scale world"
     -- "map. This is the second game that most interests me.")

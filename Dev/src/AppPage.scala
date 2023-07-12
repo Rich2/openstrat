@@ -16,7 +16,7 @@ class AppPage(val appStemName: String, fileNameStemIn: String = "", linkTextIn: 
   override def head: HtmlHead = HtmlHead.titleCss(linkText, "only")
 
   def topMenu: HtmlUl =
-  { val pages: RArr[AppPage] = AppPage.all.filterNot(_.appStemName == appStemName)
+  { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.appStemName == appStemName)
     val pairs1: StrPairArr[String] = pages.mapPair(_.linkText)(_.htmlFileName)
     val pairs2: StrPairArr[String] = StrPair("Home", "index.html") %: pairs1
     AppPage.topMenu(pairs2)
@@ -25,13 +25,19 @@ class AppPage(val appStemName: String, fileNameStemIn: String = "", linkTextIn: 
   override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(appStemName + "JsApp"))
 }
 
-object AppPage {
+object AppPage
+{
   def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): AppPage = new AppPage(appStemName, fileNameIn, linkTextIn)
 
-  val all = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator"), AppPage("Diceless", "dicelessapp"), AppPage("WW2"), AppPage("BC305"), AppPage("Planets"),
-    AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Y1783"), AppPage("Flags"), AppPage("Dungeon"), AppPage("CivRise", "civrise", "Civ Rise"))
+  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator"), AppPage("Diceless", "dicelessapp"), AppPage("WW2"),
+    AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Y1783"), AppPage("Flags"), AppPage("Dungeon"),
+    AppPage("CivRise", "civrise", "Civ Rise"))
 
-  val allPairs: StrPairArr[String] = all.mapPair(_.linkText)(_.htmlFileName)
+  val others: RArr[AppPage] = RArr(AppPage("WW1"))
+
+  def all: RArr[AppPage] = allTops ++ others
+
+  val allTopPairs: StrPairArr[String] = allTops.mapPair(_.linkText)(_.htmlFileName)
 
   def topMenu(pairs: StrPairArr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }
