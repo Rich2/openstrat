@@ -2,11 +2,16 @@
 package ostrat; package pDev
 import pWeb._
 
-object AppsHtml extends HtmlPage
+/** The top level HTML documentation page for the apps. */
+object AppsDoc extends HtmlPage
 {
-  override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation.css")
-  override def body: HtmlBody = HtmlBody(main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", XConStr(bodyStr))
+  override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
+  override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
+  def list = HtmlOl(RArr(uloc, dless))
+  val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
+  val dless = HtmlLi.linkAndText("../dicelessapp.html", "DiceLess",
+    "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests no random element.")
 
   def bodyStr: String =
     """

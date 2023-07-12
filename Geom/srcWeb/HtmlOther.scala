@@ -26,11 +26,19 @@ case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends 
 object HtmlLi
 {
   def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))), attribs.toArr)
+
+  def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
+    new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
 }
 
 /** Html ul unordered list element. */
 case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ul"
+}
+
+/** Html ul unordered list element. */
+case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
+{ override def tag: String = "ol"
 }
 
 /** HTML script element. */

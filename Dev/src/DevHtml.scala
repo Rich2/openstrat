@@ -9,7 +9,8 @@ object DevHtmlApp extends App
   sett.forGoodForBad { path =>
     val path2 = path.str -/- "Dev/SbtDir/Site"
     fileWrite(path2, "index.html", IndexPage.content.out)
-    appPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
+    AppPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
+    fileWrite(path2, "apps.html", AppsDoc.out)
   } {
     errs => deb("")
     errs.foreach(println)

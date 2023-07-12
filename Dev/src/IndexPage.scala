@@ -5,7 +5,7 @@ import pWeb._
 /** The home page for the project, currently displayed at richstrat.com. */
 object IndexPage
 { val head = HtmlHead.titleCss("Openstrat", "Documentation/documentation")
-  def topMenu: HtmlUl = appPage.topMenu(appPage.allPairs)
+  def topMenu: HtmlUl = AppPage.topMenu(AppPage.allPairs)
   def body = HtmlBody(topMenu, main)
   def content = HtmlPage(head, body)
 
