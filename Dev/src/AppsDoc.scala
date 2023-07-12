@@ -8,10 +8,14 @@ object AppsDoc extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
-  def list = HtmlOl(RArr(uloc, dless))
+  def list = HtmlOl(RArr(uloc, dless, ww2))
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
+
   val dless = HtmlLi.linkAndText("../dicelessapp.html", "DiceLess",
     "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests no random element.")
+  
+  val ww2: HtmlLi = HtmlLi.linkAndText("../ww2.html", "World War II Game", "This was chosen as the third priority application as it seemed like" --
+    "the best choice for a game that could use the 320km scale tiled world map.")
 
   def bodyStr: String =
     """
