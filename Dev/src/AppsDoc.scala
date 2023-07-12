@@ -8,7 +8,7 @@ object AppsDoc extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
-  def list = HtmlOl(RArr(uloc, dless, ww2))
+  def list = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled word maps."), dless, ww2, bc305, y1783, HtmlH2("Other Applications."), planets))
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
   val dless = HtmlLi.linkAndText("../dicelessapp.html", "DiceLess",
@@ -17,13 +17,19 @@ object AppsDoc extends HtmlPage
   val ww2: HtmlLi = HtmlLi.linkAndText("../ww2.html", "World War II Game", "This was chosen as the third priority application as it seemed like" --
     "the best choice for a game that could use the 320km scale tiled world map.")
 
+  val bc305: HtmlLi = HtmlLi.linkAndText("../bc305.html", "BC305", "A grand strategy game with a start point of 305BC. It uses an 80km scale world"
+    -- "map. This is the game that most interests me.")
+
+  val y1783: HtmlLi = HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses an 80km scale world"
+    -- "map. This is the second game that most interests me.")
+
+  val planets = HtmlLi.linkAndText("../planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different.")
+
   def bodyStr: String =
     """
       |<li>A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common
       |      functionality and classes.
       |      <ul>
-      |        <li>ostrat.p1783 A grand strategy game, also using the world map starting in 1783.</li>
-      |        <li>ostrat.p305 A grand strategy game set in 305BC, using part of the world map.</li>
       |        <li>ostrat.pZug A 20th century squad based strategy game using hex tiles.</li>
       |        <li>ostrat.pGames.pCiv A human history 4x development game using hex tiles.</li>
       |        <li>ostrat.pGames.pDung A Square tile based dungeon game.</li>
