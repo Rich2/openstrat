@@ -3,11 +3,11 @@ package ostrat; package pDev
 import pWeb._
 
 /** The home page for the project, currently displayed at richstrat.com. */
-object IndexPage
+object IndexPage extends HtmlPage
 { val head = HtmlHead.titleCss("Openstrat", "Documentation/documentation")
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.allPairs)
   def body = HtmlBody(topMenu, main)
-  def content = HtmlPage(head, body)
+  //def content = HtmlPage(head, body)
 
   def main: HtmlDiv = HtmlDiv.classAtt("main", XConStr(iconStrs), XConStr(mainStr))
 

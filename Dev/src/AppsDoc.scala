@@ -22,7 +22,6 @@ object AppsDoc extends HtmlPage
       |<li>A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common
       |      functionality and classes.
       |      <ul>
-      |        <li>ostrat.pWW2 A grand strategy world War 2 game, using the hex tiled world terrain map.</li>
       |        <li>ostrat.p1783 A grand strategy game, also using the world map starting in 1783.</li>
       |        <li>ostrat.p305 A grand strategy game set in 305BC, using part of the world map.</li>
       |        <li>ostrat.pZug A 20th century squad based strategy game using hex tiles.</li>
