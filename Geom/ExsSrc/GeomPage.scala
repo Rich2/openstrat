@@ -7,8 +7,12 @@ object GeomPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), main)
+  def list: HtmlHeadOl = HtmlHeadOl("The Geom module contains".xCon, geomItme, colourItem)
+  def geomItme: HtmlLi = HtmlLi.str("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections" +
+    " from the Util module.")
+  def colourItem: HtmlLi = HtmlLi.str("Colour class. A 32 bit integer class that can be built from rgba and named values.")
 
-  def main: HtmlDiv = HtmlDiv.classAtt("main", mainStr.xCon)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", list, mainStr.xCon)
 
   def mainStr: String =
     """
@@ -17,7 +21,6 @@ object GeomPage extends HtmlPage
       |  <ol>
       |    <li>ostrat.geom A pure or near pure functional package.
       |        <ul>
-      |          <li>Basic  geometry.</li>
       |          <li>A number of implementation Value classes of the Int and Double product classes defined in ostrat.</li>
       |          <li>2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be
       |            used in any display framework and for printing.</li>

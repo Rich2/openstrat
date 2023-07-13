@@ -9,25 +9,21 @@ object UtilPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
   def central: HtmlDiv = HtmlDiv.classAtt("main", list, mainStr.xCon)
-  def list: HtmlHeadOl = HtmlHeadOl("The Util module contains".xCon, gen, errs)
+  def list: HtmlHeadOl = HtmlHeadOl("The Util module contains".xCon, debug, gen, coll, errs)
 
+  def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
   def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iUntillMap, etc.")
-  def errs: HtmlLi = HtmlLi.str("The EMon class error system.")
+  def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes.")
+  def errs: HtmlLi = HtmlLi.str("Functional error system usinf the EMon trait and its Good and Bad sub classes.")
 
   val mainStr: String = """
       |<ul>
       |      <li>ostrat The root package. All other packages depend on this.
       |        <ul>
-      |          <li>32 bit Int based Colours.</li>
       |          <li>A persistence framework. Succinct readable object notation. Save files in <code>Dev/mine</code> folder.</li>
-      |          <li>A functional Either based Errors framework.</li>
       |          <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length
       |            elements, to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future
       |            Scala Native and Scala Web assembly platforms.
-      |          </li>
-      |          <li>3 simple macros, that print the source code location to help with debugging and development, in the srcMacros folder. They are a
-      |            separate unit of compilation for sbt /mill. It is a sub module of the this module inr Mill, but for Sbt it is a sub-project on the same
-      |            level as Util.
       |          </li>
       |          <li>Other general utilities.</li>
       |        </ul>
@@ -55,7 +51,6 @@ object UtilPage extends HtmlPage
       |    <li>Show and persistence frame work</li>
       |    <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length
       |      elements.</li>
-      |    <li>Basic  geometry.</li>
       |      <li>A number of implementation Value classes of the Int and Double product classes defined in ostrat.</li>
       |      <li>2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used
       |       in any display framework and for printing.</li>
