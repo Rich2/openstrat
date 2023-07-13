@@ -28,7 +28,7 @@ object GeomPage extends HtmlPage
   def svg: HtmlLi = HtmlLi.str("Conversion of Graphic classes into SVG, gving an alternative target and greater flexibility.")
   def web: HtmlLi = HtmlLi.str("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been enerated using this.")
   def geom3: HtmlLi = HtmlLi.str("3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be" +
-    " provided, but currently there is no attempt to porvide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely" +
+    " provided, but currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely" +
     " possible.")
 
   def lessons: HtmlLi = HtmlLi.str("Series of lessons / tutorials in geometry and graphics.")
