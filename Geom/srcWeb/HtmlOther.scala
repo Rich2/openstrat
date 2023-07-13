@@ -8,24 +8,25 @@ case class HtmlCode(contentStr: String, attribs: RArr[XmlAtt] = RArr()) extends 
   override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
 
-/** HTML anchor. */
+/** HTML A anchor element. */
 class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "a"
   override val attribs: RArr[XmlAtt] = RArr(HrefAtt(link)) ++ otherAttribs
 }
 
 object HtmlA
-{ /** FActory apply method for [[HtmlA]] class. */
+{ /** Factory apply method for [[HtmlA]] class. */
   def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
 }
 
-/** Html li, list item element. */
+/** Html LI, list item element. */
 case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "li"
 }
 
+/** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
 object HtmlLi
-{
+{ /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
   def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
 
   /** An HTML list item element that has a link as its sole content. */
@@ -38,17 +39,18 @@ object HtmlLi
   def str(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
 }
 
-/** Html ul unordered list element. */
+/** Html UL unordered list element. */
 case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ul"
 }
 
-/** Html ol ordered list element. */
+/** Html OL ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ol"
 }
 
-object HtmlOl{
+object HtmlOl
+{ /** Factory apply method for HTML OL orderd list. */
   def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
 }
 
@@ -66,17 +68,22 @@ object HtmlScript
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConStr(stem + ".main()")), RArr(TypeAtt.js))
 }
 
-/** Html h1 header element. */
+/** Html H1 header element. */
 case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { override def tag = "h1"
 }
 
-/** Html h2 header element. */
+/** Html H2 header element. */
 case class HtmlH2(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h2"
 }
 
-/** Html h3 header element. */
+/** Html H3 header element. */
 case class HtmlH3(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h3"
+}
+
+/** Html H4 header element. */
+case class HtmlH4(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
+{ def tag = "h4"
 }
