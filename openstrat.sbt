@@ -71,6 +71,10 @@ lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",  
 )
 
+lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
+  Compile/mainClass:= Some("ostrat.UtilExsApp"),
+)
+
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
   name := "RUtil",
 
@@ -137,7 +141,7 @@ def appsSett = List(
 lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, EarthExs, TilingExs, Apps).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 

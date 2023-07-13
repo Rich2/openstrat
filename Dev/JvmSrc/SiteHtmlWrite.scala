@@ -11,7 +11,8 @@ object SiteHtmlWrite extends App
     fileWrite(path2, "index.html", IndexPage.out)
     AppPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
     fileWrite(path2, "apps.html", AppsDoc.out)
-  } {
+    fileWrite(path2, "Util.html", UtilPage.out)
+  }{
     errs => deb("")
     errs.foreach(println)
   }
