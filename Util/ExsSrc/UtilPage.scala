@@ -12,9 +12,9 @@ object UtilPage extends HtmlPage
   def list: HtmlHeadOl = HtmlHeadOl("The Util module contains".xCon, debug, gen, coll, errs)
 
   def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
-  def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iUntillMap, etc.")
+  def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iTOFLatMap, iUntillForeach, etc.")
   def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes.")
-  def errs: HtmlLi = HtmlLi.str("Functional error system usinf the EMon trait and its Good and Bad sub classes.")
+  def errs: HtmlLi = HtmlLi.str("Functional error system using the EMon trait and its Good and Bad sub classes.")
 
   val mainStr: String = """
       |<ul>
@@ -31,22 +31,11 @@ object UtilPage extends HtmlPage
       |
       |      <li>ostrat.parse The code for parsing RSON, Rich Succinct Object Notation.</li>
       |
-      |      <li>ostrat.pWeb Code for the generation and manipulation of
-      |        <ul>
-      |          <li>HTML</li>
-      |          <li>Other XML</li>
-      |          <li>CSS</li>
-      |          <li>Simple JavaScript</li>
-      |        </ul>
-      |      </li>
-      |
       |    </ul>
       |  </li>
       |
-      |
       |  The Util module contains number of general utilities to support this.
       |  <ol>
-      |    <li class ="main">Functional error system.
       |    <li>Parser for tokens and AST.</li>
       |    <li>Show and persistence frame work</li>
       |    <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length

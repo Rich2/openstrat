@@ -7,10 +7,16 @@ object GeomPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), main)
-  def list: HtmlHeadOl = HtmlHeadOl("The Geom module contains".xCon, geomItme, colourItem)
+  def list: HtmlHeadOl = HtmlHeadOl("The Geom module contains".xCon, geomItme, colourItem, graphicItem, compound, trans)
+
   def geomItme: HtmlLi = HtmlLi.str("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections" +
     " from the Util module.")
+
   def colourItem: HtmlLi = HtmlLi.str("Colour class. A 32 bit integer class that can be built from rgba and named values.")
+  def graphicItem: HtmlLi = HtmlLi.str("Graphic primitives. Immutable classes for fills, draws and active elements based on the geometry classes.")
+  def compound: HtmlLi = HtmlLi.str("Compound Graphics. Again immutable classes. Useful for selection and placing.")
+  def trans: HtmlLi = HtmlLi.str("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
+  def web = HtmlLi.str("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been enerated using this.")
 
   def main: HtmlDiv = HtmlDiv.classAtt("main", list, mainStr.xCon)
 
