@@ -10,7 +10,7 @@ object AppsDoc extends HtmlPage
   def main: HtmlDiv = HtmlDiv.classAtt("main", list)
 
   def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, sors, y1492, y1783,
-    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), planets, flags, chess))
+    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), geomTut, geomTut, planets, flags, chess))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
@@ -37,6 +37,10 @@ object AppsDoc extends HtmlPage
 
   val civ: HtmlLi = HtmlLi.linkAndText("../civrise.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
     "generalised side terrain")
+
+  val geomTut: HtmlLi = HtmlLi.str("Geometry and Graphics Tutorials")
+
+  val gameTut: HtmlLi = HtmlLi.str("Simultaneous turn, tile based tutorial games.")
 
   val planets: HtmlLi = HtmlLi.linkAndText("../planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just" --
     "because its different.")

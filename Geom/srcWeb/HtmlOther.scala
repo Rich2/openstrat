@@ -31,6 +31,8 @@ object HtmlLi
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
   def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
+
+  def str(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
 }
 
 /** Html ul unordered list element. */
