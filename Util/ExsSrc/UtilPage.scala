@@ -5,12 +5,12 @@ import pWeb._
 /** Produces documentation for the Util module. */
 object UtilPage extends HtmlPage
 {
-  override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
+  override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", bodyStr.xCon)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", mainStr.xCon)
 
-  val bodyStr: String = """
+  val mainStr: String = """
       |<ul>
       |      <li>ostrat The root package. All other packages depend on this.
       |        <ul>
