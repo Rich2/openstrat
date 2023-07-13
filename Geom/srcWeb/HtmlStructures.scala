@@ -32,7 +32,8 @@ class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlM
 { override def tag: String = "div"
 }
 
-object HtmlDiv{
+object HtmlDiv
+{
   def id(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.toArr, RArr(IdAtt(id)))
   def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.toArr, RArr(ClassAtt(id)))
 }
@@ -43,5 +44,22 @@ case class HtmlCanvas(attribs: RArr[XmlAtt] = RArr()) extends HtmlEmpty
 }
 
 object HtmlCanvas
-{ def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
+{ /** Constructs an HTML canvas with an id attribute. */
+  def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
+}
+
+trait HtmlSect extends HtmlMultiLine
+{ override def tag: String = "section"
+}
+
+class HtmlHeadOl(val head: XCon, items: RArr[HtmlLi]) extends HtmlSect
+{
+  override def contents: RArr[XCon] = RArr(head, list)
+  override def attribs: RArr[XmlAtt] = RArr()
+
+  def list: HtmlOl = HtmlOl(items)
+}
+
+object HtmlHeadOl{
+  def apply(head: XCon, items: HtmlLi*): HtmlHeadOl = new HtmlHeadOl(head, items.toArr)
 }
