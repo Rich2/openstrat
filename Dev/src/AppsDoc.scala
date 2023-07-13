@@ -7,10 +7,10 @@ object AppsDoc extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", list, XConStr(bodyStr))
+  def main: HtmlDiv = HtmlDiv.classAtt("main", list)
 
   def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, sors, y1492, y1783,
-    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), planets, flags))
+    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), planets, flags, chess))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
@@ -44,9 +44,5 @@ object AppsDoc extends HtmlPage
   val flags: HtmlLi = HtmlLi.linkAndText("../flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did" --
     "most of the work on this.")
 
-  def bodyStr: String =
-    """
-      |  Other part apps CloseOrder. Pre modern close order formation based battles, not using tiles. And Chess. A search for an elegan
-      |  implementation of Draughts and Chess.</li>
-      |""".stripMargin
+  val chess: HtmlLi = HtmlLi.linkAndText("../chess.html", "Chess", "Not completed.")
 }

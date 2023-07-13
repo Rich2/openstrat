@@ -33,7 +33,7 @@ object AppPage
     AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Y1783"), AppPage("Flags"), AppPage("Dungeon"),
     AppPage("CivRise", "civrise", "Civ Rise"))
 
-  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1492"))
+  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1492"), AppPage("Chess"))
 
   def all: RArr[AppPage] = allTops ++ others
 
