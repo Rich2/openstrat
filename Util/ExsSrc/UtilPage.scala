@@ -8,14 +8,21 @@ object UtilPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("main", list, mainStr.xCon)
-  def list: HtmlHeadOl = HtmlHeadOl("The Util module contains".xCon, debug, gen, coll, errs)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, mainStr.xCon)
+  def list: HtmlHeadOl = HtmlHeadOl("The Util module contains".xCon, debug, gen, coll, errs, parse, persist)
 
   def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
   def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iTOFLatMap, iUntillForeach, etc.")
+
   def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
     " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")
+
   def errs: HtmlLi = HtmlLi.str("Functional error system using the EMon trait and its Good and Bad sub classes.")
+
+  def parse: HtmlLi = HtmlLi.str("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for Tokenisation and a parser for an AST," +
+    " abstract syntax tree.")
+
+  def persist: HtmlLi = HtmlLi.str("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
 
   val mainStr: String = """
       |<ul>
@@ -35,15 +42,6 @@ object UtilPage extends HtmlPage
       |    </ul>
       |  </li>
       |
-      |  The Util module contains number of general utilities to support this.
-      |  <ol>
-      |    <li>Parser for tokens and AST.</li>
-      |    <li>Show and persistence frame work</li>
-      |     </ul>
-      |  </ol>
-      |</div>
-      |
-      | <div class ="main">
       |  <h2>Tokeniser</h2>
       |  <p>The Tokeniser will create the following tokens
       |    <ul>
@@ -159,7 +157,6 @@ object UtilPage extends HtmlPage
       |    unused.</p>
       |  <p>A 10, B 11, C 12, D 13, E 14, F 15, G 16, H 17, I 18, J 19, K 20, L 21, M 22, N 23, P 24, Q 25, R 26, S 27, T 28, U 29 V 30, W 31</p>
       |</div>
-      |<div class ="main">
       |  <h2>Miscellaneous</h2>
       |  <p>A Lower case letter will be use after numerals in names.</p>
       |""".stripMargin

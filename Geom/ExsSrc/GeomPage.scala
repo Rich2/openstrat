@@ -6,7 +6,7 @@ object GeomPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "https://richstrat.com/Documentation/documentation")
 
-  override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), main)
+  override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
   def list: HtmlHeadOl = HtmlHeadOl("The Geom module contains".xCon, geomItme, colourItem, graphicItem, compound, trans, canv, svg, web)
 
   def geomItme: HtmlLi = HtmlLi.str("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections" +
@@ -23,9 +23,9 @@ object GeomPage extends HtmlPage
   def svg: HtmlLi = HtmlLi.str("Conversion of Graphic classes into SVG, gving an alternative target and greater flexibility.")
   def web: HtmlLi = HtmlLi.str("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been enerated using this.")
 
-  def main: HtmlDiv = HtmlDiv.classAtt("main", list, mainStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, centralStr.xCon)
 
-  def mainStr: String =
+  def centralStr: String =
     """
       |<h2>Contents</h2>
       |  The Graphics module contains geometric and graphical software.
