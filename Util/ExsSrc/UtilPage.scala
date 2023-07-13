@@ -2,17 +2,17 @@
 package ostrat
 import pWeb._
 
-/** Produces documentation for the Util module. */
+/** Produces an HTML file documentation for the Util module. */
 object UtilPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, mainStr.xCon)
-  def list: HtmlHeadOl = HtmlHeadOl("The Util module contains".xCon, debug, gen, coll, errs, parse, persist)
+  def list: HtmlHeadOl = HtmlHeadOl(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
   def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
-  def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iTOFLatMap, iUntillForeach, etc.")
+  def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iToFlatMap, iUntilForeach, etc.")
 
   def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
     " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")
@@ -25,23 +25,6 @@ object UtilPage extends HtmlPage
   def persist: HtmlLi = HtmlLi.str("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
 
   val mainStr: String = """
-      |<ul>
-      |      <li>ostrat The root package. All other packages depend on this.
-      |        <ul>
-      |          <li>A persistence framework. Succinct readable object notation. Save files in <code>Dev/mine</code> folder.</li>
-      |          <li>Immutable Array based collection system including flat Array[Int] and Array[double] based compound value collections of same length
-      |            elements, to overcome the performance deficiencies of the Java and JavaScript platforms, with a view to maximising common code for future
-      |            Scala Native and Scala Web assembly platforms.
-      |          </li>
-      |          <li>Other general utilities.</li>
-      |        </ul>
-      |      </li>
-      |
-      |      <li>ostrat.parse The code for parsing RSON, Rich Succinct Object Notation.</li>
-      |
-      |    </ul>
-      |  </li>
-      |
       |  <h2>Tokeniser</h2>
       |  <p>The Tokeniser will create the following tokens
       |    <ul>
