@@ -8,7 +8,11 @@ object UtilPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", mainStr.xCon)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", list, mainStr.xCon)
+  def list: HtmlOl = HtmlOl("The Util module contains".xCon, gen, errs)
+
+  def gen: HtmlLi = HtmlLi.str("Many useful functions andextension methods such as the iToForeach, iToMap, iUntillMap, etc.")
+  def errs: HtmlLi = HtmlLi.str("The EMon class error system.")
 
   val mainStr: String = """
       |<ul>

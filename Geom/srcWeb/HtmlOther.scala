@@ -25,7 +25,10 @@ case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends 
 }
 
 object HtmlLi
-{ /** An HTML list item element that has a link as its sole content. */
+{
+  def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
+
+  /** An HTML list item element that has a link as its sole content. */
   def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))), attribs.toArr)
 
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
@@ -43,6 +46,10 @@ case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 /** Html ol ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ol"
+}
+
+object HtmlOl{
+  def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
 }
 
 /** HTML script element. */
