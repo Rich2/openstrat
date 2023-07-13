@@ -13,7 +13,8 @@ object UtilPage extends HtmlPage
 
   def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
   def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iTOFLatMap, iUntillForeach, etc.")
-  def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes.")
+  def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
+    " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")
   def errs: HtmlLi = HtmlLi.str("Functional error system using the EMon trait and its Good and Bad sub classes.")
 
   val mainStr: String = """
@@ -21,8 +22,8 @@ object UtilPage extends HtmlPage
       |      <li>ostrat The root package. All other packages depend on this.
       |        <ul>
       |          <li>A persistence framework. Succinct readable object notation. Save files in <code>Dev/mine</code> folder.</li>
-      |          <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length
-      |            elements, to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future
+      |          <li>Immutable Array based collection system including flat Array[Int] and Array[double] based compound value collections of same length
+      |            elements, to overcome the performance deficiencies of the Java and JavaScript platforms, with a view to maximising common code for future
       |            Scala Native and Scala Web assembly platforms.
       |          </li>
       |          <li>Other general utilities.</li>
@@ -38,12 +39,6 @@ object UtilPage extends HtmlPage
       |  <ol>
       |    <li>Parser for tokens and AST.</li>
       |    <li>Show and persistence frame work</li>
-      |    <li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length
-      |      elements.</li>
-      |      <li>A number of implementation Value classes of the Int and Double product classes defined in ostrat.</li>
-      |      <li>2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used
-      |       in any display framework and for printing.</li>
-      |      <li>ostrat.geom A pure or near pure functional package.</li>
       |     </ul>
       |  </ol>
       |</div>
