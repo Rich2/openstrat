@@ -10,9 +10,10 @@ object SiteHtmlWrite extends App
     val path2 = path.str -/- "Dev/SbtDir/Site"
     fileWrite(path2, "index.html", IndexPage.out)
     AppPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
-    fileWrite(path2, "apps.html", AppsDoc.out)
+    fileWrite(path2, "apps.html", AppsPage.out)
     fileWrite(path2, "util.html", UtilPage.out)
     fileWrite(path2, "geom.html", geom.GeomPage.out)
+    fileWrite(path2, "tiling.html", prid.TilingPage.out)
   }{
     errs => deb("")
     errs.foreach(println)

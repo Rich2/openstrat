@@ -52,14 +52,14 @@ trait HtmlSect extends HtmlMultiLine
 { override def tag: String = "section"
 }
 
-class HtmlHeadOl(val head: XCon, items: RArr[HtmlLi]) extends HtmlSect
-{
-  override def contents: RArr[XCon] = RArr(head, list)
+/** Html OL ordered list, with an effectiive LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
+class HtmlOlWithLH(val head: XCon, items: RArr[HtmlLi]) extends HtmlSect
+{ override def contents: RArr[XCon] = RArr(head, orderedList)
   override def attribs: RArr[XmlAtt] = RArr()
 
-  def list: HtmlOl = HtmlOl(items)
+  def orderedList: HtmlOl = HtmlOl(items)
 }
 
-object HtmlHeadOl{
-  def apply(head: XCon, items: HtmlLi*): HtmlHeadOl = new HtmlHeadOl(head, items.toArr)
+object HtmlOlWithLH{
+  def apply(head: XCon, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(head, items.toArr)
 }

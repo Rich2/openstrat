@@ -34,7 +34,7 @@ object IndexPage extends HtmlPage
   |
   |  <li><a href="Documentation/geom.html"><b>Geom Module</b></a> Depends on Util. Basic 2D and 3D geometry, functional Graphics.</li>
   |
-  |  <li><a href="Documentation/Tiling.html"><b>Tiling Module</b></a> Depends on Util and Geom modules. Encodes tile Grids, both square and hexagonal,
+  |  <li><a href="Documentation/tiling.html"><b>Tiling Module</b></a> Depends on Util and Geom modules. Encodes tile Grids, both square and hexagonal,
   |   as well as systems of grids.</li>
   |
   |  <li><a href="Documentation/Earth.html"><b>Earth Module</b></a> This module is for Earth maps. Allows the manipulation of latitude and longitude

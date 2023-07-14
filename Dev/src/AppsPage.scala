@@ -3,7 +3,7 @@ package ostrat; package pDev
 import pWeb._
 
 /** The top level HTML documentation page for the apps. */
-object AppsDoc extends HtmlPage
+object AppsPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
