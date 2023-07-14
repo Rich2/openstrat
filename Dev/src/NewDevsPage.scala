@@ -8,8 +8,9 @@ object NewDevsPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("New Developers Info"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, centralStr.xCon)
 
+  def contrib = HtmlP("The easier way to make a contribution is through the Github web site. Either way will require a Github membership.")
 
 
   def centralStr: String ="""
