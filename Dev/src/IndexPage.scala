@@ -25,7 +25,7 @@ object IndexPage extends HtmlPage
   |  learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming
   |  as deep as they wish to go, at the pace they wish to.
   |
-  |<p><b>The Code is currently organised into 7 modules.</b> Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and
+  |<p><b>The Code is currently organised into 7 modules.</b> Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and
   |  the Web.
   |</p>
   |
@@ -37,8 +37,8 @@ object IndexPage extends HtmlPage
   |  <li><a href="Documentation/Tiling.html"><b>Tiling Module</b></a> Depends on Util and Geom modules. Encodes tile Grids, both square and hexagonal,
   |   as well as systems of grids.</li>
   |
-  |  <li><a href="Documentation/Earth.html"><b>Earth Module</b></a> This module is for Earth maps. Allows the maniupation of latitude and longitude
-  |    allowing free conversion betwen them and 2D and 3D coordinates.</li>
+  |  <li><a href="Documentation/Earth.html"><b>Earth Module</b></a> This module is for Earth maps. Allows the manipulation of latitude and longitude
+  |    allowing free conversion between them and 2D and 3D coordinates.</li>
   |
   |  <li><a href="Documentation/EGrid.html"><b>EGrid Module</b></a>Tiling of the whole world in Hex grids, defining the changes over the course of history.
   |    This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and higher scales
