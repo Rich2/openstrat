@@ -8,7 +8,7 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, cenStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, cenStr.xCon, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
@@ -77,4 +77,43 @@ object DevPage extends HtmlPage
   |  <li>Project-Pane => Options -> "Flatten packages"</li>
   |</ul></p>
   |""".stripMargin
+
+  def miscStr: String ="""
+      |<p>This is just a place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.</p>
+      |
+      |<p>So its been one of my aspirations to reduce if not remove dependence on scala.Any. Any often leads to extra boxing. Single
+      |boxing of AnyRef classes but double boxing of primitives such Int, Double and Boolean. I created an Opt class as a replacement
+      |for Option and started replacing scala.Either[+A, +B] with a lower head Error Monad replacement. However this creates similar
+      |but possibly worse method signature complication than can scala.collection.generic.CanBuildFrom.</p>
+      |
+      |<p>The Opt class certainly works for the A* pathfinding algorithm where it doesn't into the user interface.</p>
+      |
+      |<p>So at least recent versions of Kubuntu the java command on the path, is at /usr/bin/java. It is a link to /etc/alternatives/java.
+      |This is also a link. To install a different java, install the JDK root folder in usr/lib/jvm. It doesn't have to be here,
+      |but it makes it easier to go with convention. Run <br>
+      |sudo update-alternatives --config java<br>
+      |In my example this gives<br>
+      | Selection    Path                                            Priority   Status
+      |------------------------------------------------------------
+      |* 0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+      |  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+      |  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+      |So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are
+      |already taken.<br>
+      |sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_212/bin/java 3<br>
+      |then repeat sudo update-alternatives --config java
+      |
+      |<p>ScalaRx might prove useful. Consider -Xfatal-warnings.</p>
+      |<p>Consider extending hexadecimal to 32 values for succinct tile coordinate notation. Uses all the letters except i and o. 2 digits can encode 1024 vales instead of 100. 3 digits can encode 32768 values instead of a thousand.
+      |
+      |0123456789ABCDEF //Hexadecimal
+      |
+      |0123456789ABCDEFGHJKLMNPQRSTUVWXYZ</p>
+      |
+      |<h3>Credits</h3>
+      |<ul>
+      |<li><a href="https://lampwww.epfl.ch/~doeraene/thesis/">Sébastien Doeraene, Ph.D. thesis</a> for Scala.js</li>
+      |  <li><a href="https://www.patreon.com/lihaoyi">Li Haoyi</a> for Mill and uTest.</li>
+      |</ul>
+      |""".stripMargin
 }
