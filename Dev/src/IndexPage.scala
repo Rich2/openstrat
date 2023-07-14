@@ -6,25 +6,22 @@ import pWeb._
 object IndexPage extends HtmlPage
 { val head = HtmlHead.titleCss("Openstrat", "Documentation/documentation")
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.allTopPairs)
-  def body = HtmlBody(topMenu, main)
+  def body = HtmlBody(topMenu, central)
 
-  def main: HtmlDiv = HtmlDiv.classAtt("main", XConStr(iconStrs), XConStr(mainStr))
+  def central: HtmlDiv = HtmlDiv.classAtt("main", XConStr(iconStrs), focus, XConStr(centralStr))
 
-  val mainStr: String = s"""<p>
-  |<b>This project has 3 main focuses:
-  |<ul>
-  |  <li>Historical strategy games, particularly focused on simultaneous-turn, tile-based games.</li>
-  |  <li>Graphics for the display of historical information.</li>
-  |  <li>A functional Geometry and Vector Graphics library with various supporting utilities</li>
-  |</ul>
-  |</b></p>
+  def focus = HtmlOlWithLH("This project has 3 main focuses".xCon, strat, hist, geom)
+  def strat: HtmlLi = HtmlLi.str("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
+  def hist: HtmlLi = HtmlLi.str("Graphics for the display of historical information.")
+  def geom: HtmlLi = HtmlLi.str("A functional Geometry and Vector Graphics library with various supporting utilities.")
+  val centralStr: String = s"""
   |<p>
   |<a href="Documentation/dev.html"><b>Info for developers here.</b></a>
   |</p>
   |<p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to
   |  learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming
   |  as deep as they wish to go, at the pace they wish to.
-  |
+  |<a href="Documentation/newdevs.html"><b>Info for new developers here.</b></a>
   |<p><b>The Code is currently organised into 7 modules.</b> Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and
   |  the Web.
   |</p>

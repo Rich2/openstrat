@@ -16,6 +16,7 @@ object SiteHtmlWrite extends App
     fileWrite(path2, "tiling.html", prid.TilingPage.out)
     fileWrite(path2, "earth.html", pEarth.EarthPage.out)
     fileWrite(path2, "dev.html", pDev.DevPage.out)
+    fileWrite(path2, "newdevs.html", pDev.NewDevsPage.out)
   }{
     errs => deb("")
     errs.foreach(println)

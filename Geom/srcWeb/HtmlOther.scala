@@ -19,6 +19,24 @@ object HtmlA
   def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
 }
 
+trait HtmlP extends HtmlUnvoid
+{ def tag = "p"
+}
+
+/** Copied from old needs checking. */
+object HtmlP
+{
+  def apply(str: String, attsIn: XmlAtt*): HtmlP = new HtmlP
+  { override val attribs: RArr[XmlAtt] = attsIn.toArr
+    override def contents: RArr[XCon] = RArr(str.xCon)
+    override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + str + closeTag
+  }
+
+  /*def r(memsIn: XCon*)(attsIn: XmlAtt*): HtmlP = new HtmlP
+  { override val atts: Seq[XAtt] = attsIn
+    override def mems: Seq[XCon] = memsIn
+  }*/
+}
 /** Html LI, list item element. */
 case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "li"

@@ -75,22 +75,7 @@ trait HtmlJs extends HNotVoid
   def jsMems: Seq[JCon]
   override def mems: Seq[XCon] = jsMems
 }
-object HtmlP
-{
-  def apply(str: String, attsIn: XAtt*): HtmlP = new HtmlP
-  { override val atts: Seq[XAtt] = attsIn
-    override def mems: Seq[XCon] = Seq(str)
-  }
 
-  def r(memsIn: XCon*)(attsIn: XAtt*): HtmlP = new HtmlP
-  { override val atts: Seq[XAtt] = attsIn
-    override def mems: Seq[XCon] = memsIn
-  }
-}
-
-trait HtmlP extends HNotVoid
-{ def tag = "p"
-}
 
 object HtmlDiv
 {
@@ -113,13 +98,6 @@ object HUList
   { val mems = memsIn
     override def atts: Seq[XAtt] = attsIn
   }
-}
-
-trait HUList extends HNotVoid { def tag = "ul" }
-
-case class HLinkItem(fileName: String, label: String) extends HNotVoid 
-{ def tag = "li"
-  override def mems: Seq[XCon] = Seq(HLink(fileName, label))
 }
 
 case class HtmlFile(fileName: String) extends XCon
