@@ -8,7 +8,7 @@ object TilingPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, centralStr.xCon)
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, turn)
+  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
   def coord: HtmlLi = HtmlLi.str("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each" +
     " have their own unique 2 inteeger coordinates.")
@@ -19,29 +19,20 @@ object TilingPage extends HtmlPage
     " would describe a chess board, but the class contains no data as to the position of the chess pieces, or even that it is being used for a" +
     "chess game.")
 
-  def sys: HtmlLi = HtmlLi.str("Tile Grid system classes allowing for multiple hex grids to be manipulated the same as a single grid.")
+  def sys: HtmlLi = HtmlLi.str("Tile Grid system classes allowing for multiple hex grids to be manipulated the same as a single grid. This enables" +
+    "the code in the EGrid module and other possible non Euclidean tile systems.")
+
+  def proj: HtmlLi = HtmlLi.str("Projections. Projections allow the separation of the visual display of tile geometry from the applications and" +
+    " objects within the grid systems.")
+
+  def terms = HtmlLi.str("Scenario and Game terminology,")
 
   def turn: HtmlLi = HtmlLi.str("Turn system allowing those grid systems to be used in, multi, simultaneous, homogenious segment simultaneous turn" +
     " games and productions.")
 
+  def exs: HtmlLi = HtmlLi.str("Example games to demonstrate the use of the design principles and code of this module.")
+
   def centralStr: String ="""
-      |    <div>
-      |      <h2>Contents</h2>
-      |      <ul>
-      |        <li>Tile geometry.</li>
-      |        <li>Game Terminology.</li>
-      |        <li>Turn Resolution.</li>
-      |      </ul>
-      |    </div>
-      |
-      |    <div>
-      |      <h2>Tile geometry</h2>
-      |      <ol>
-      |        <li><b>HCen / SqCen</b> An HCen is hex tile centre, consisting purely of an integer row and an integer column. This represents or references
-      |         the hex tile as a whole. A SqCen or a square tile works the same for Square tile grids.</li>
-      |      </ol>
-      |    </div>
-      |
       |    <div>
       |      <h2>Game Terminology</h2>
       |      <ol>
