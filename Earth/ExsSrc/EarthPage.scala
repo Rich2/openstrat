@@ -8,31 +8,17 @@ object EarthPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list)
 
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Earth module contains"), latLong, lines)
+  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Earth module contains"), latLong, lines, trans, terrs)
 
   def latLong: HtmlLi = HtmlLi.str("The LatLong class. Specifies a point in terms of latitude and longitude.")
 
   def lines: HtmlLi = HtmlLi.str("Classes for collections, lines and polygons specified in LatLongs.")
 
-  def centralStr: String ="""
-      |<h2>Contents</h2>
-      |<ul>
-      |
-      |      <li>ostrat.pEarth depends on geom, pCanv and pGrid
-      |        <ul>
-      |          <li>Earth and sphere geometry.</li>
-      |          <li>Grids of Earth terrain.</li>
-      |        </ul>
-      |      </li>
-      |
-      |      <li>ostrat.pEarth.pPts large irregular Earth terrain areas. This is mainly a development aid.</li>
-      |
-      |    </ul>
-      |	This package and module is for Earth maps. In particular the tiling of the whole world in Hex grids, defining the changes
-      |   over the course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for
-      |   local maps and higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world
-      |   will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.
-      |""".stripMargin
+  def trans: HtmlLi = HtmlLi.str("Transformation of these classes into their equilalents in 3D distance space, 2D distance space and 2D scalar" +
+    "geometric spaces.")
+
+  def terrs: HtmlLi = HtmlLi.str("Some basic terrain polygons for the Earth, imtended as a devlopment aid rather for polished proffesional looking" +
+    "applications.")
 }

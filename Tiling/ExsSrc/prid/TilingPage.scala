@@ -11,7 +11,7 @@ object TilingPage extends HtmlPage
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
   def coord: HtmlLi = HtmlLi.str("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each" +
-    " have their own unique 2 inteeger coordinates.")
+    " have their own unique 2 integer coordinates.")
 
   def tileGeom: HtmlLi = HtmlLi.str("Tile collections, tile paths and tile polygons and other tile structures, allowing their manipulation as tiles.")
 
