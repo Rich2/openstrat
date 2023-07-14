@@ -25,7 +25,7 @@ object TilingPage extends HtmlPage
   def proj: HtmlLi = HtmlLi.str("Projections. Projections allow the separation of the visual display of tile geometry from the applications and" +
     " objects within the grid systems.")
 
-  def terms = HtmlLi.str("Scenario and Game terminology,")
+  def terms: HtmlLi = HtmlLi.str("Scenario and Game terminology,")
 
   def turn: HtmlLi = HtmlLi.str("Turn system allowing those grid systems to be used in, multi, simultaneous, homogenious segment simultaneous turn" +
     " games and productions.")
