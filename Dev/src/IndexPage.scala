@@ -51,7 +51,6 @@ object IndexPage extends HtmlPage
   |</ol>
   |
   |<ul>
-  |<li><a href="Documentation/GitCommands.html">Useful Git commands</a></li>
   |<li><a href="Documentation/Miscellaneous.html">Miscellaneous notes</a></li>
   |</ul>
   |""".stripMargin
