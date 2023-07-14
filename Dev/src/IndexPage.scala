@@ -19,7 +19,7 @@ object IndexPage extends HtmlPage
   |</ul>
   |</b></p>
   |<p>
-  |<a href="Documentation/developers.html"><b>Info for developers here.</b></a>
+  |<a href="Documentation/dev.html"><b>Info for developers here.</b></a>
   |</p>
   |<p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to
   |  learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming
@@ -49,7 +49,7 @@ object IndexPage extends HtmlPage
   |<li><a href="Documentation/apps.html"><b>Apps Module</b></a> This module for end-user applications, that may eventually end up in their own
   | repositories.</li>
   |
-  |<li><a href="Documentation/Dev.html"><b>Dev Module</b></a> Depends on all the other modules. This module is for the use of developer tools and
+  |<li><a href="Documentation/dev.html"><b>Dev Module</b></a> Depends on all the other modules. This module is for the use of developer tools and
   | settings and   |  illustrate provide tutorials, and to some extent test the modules core code.</li>
   |</ol>
   |
