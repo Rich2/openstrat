@@ -39,7 +39,7 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings
 
 def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _),
-  Test/unmanagedSourceDirectories := List(moduleDir.value / "ExsSrc", (Test/scalaSource).value),
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
 )

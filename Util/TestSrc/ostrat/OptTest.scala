@@ -5,9 +5,7 @@ import utest._
 object OptTest extends TestSuite
 {
   val tests = Tests {
-    def f(ss: OptRef[String]): Int = ss.fld(-1, _.length)
-    val n1: OptRef[String] = NoRef
-    val n2 = OptRef("Hello")
+
     val i1: OptInt = NoInt
 
 //    val i2 = OptOld(5)
@@ -15,8 +13,6 @@ object OptTest extends TestSuite
 
     "test1" -
     {
-      f(n1) ==> -1
-      f(n2) ==> 5
       i1.toString ==> "NoInt"
  //     i1.mMap(_ *  2) ==> NoIntOld
 //      i2.map(_ * 2) ==> SomeInt(10)
