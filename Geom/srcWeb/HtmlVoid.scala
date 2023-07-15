@@ -37,3 +37,13 @@ object HtmlCssLink
 { /** Factory apply method for [[HtmlCssLink]] class form filename stem, adds the .css file ending. */
   def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
+
+
+object HtmlBr extends HtmlVoid
+{
+  /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
+  override def tag: String = "br"
+
+  /** The attributes of this XML / HTML element. */
+  override def attribs: RArr[XmlAtt] = RArr()
+}
