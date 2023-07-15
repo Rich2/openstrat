@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import utest._, gOne.hp1._, gPlay._
+import utest._, gOne.h1p._, gPlay._
 
 object G1HScen1Test  extends TestSuite
 {

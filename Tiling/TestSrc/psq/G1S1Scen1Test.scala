@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import utest._, gOne.sp1._
+import utest._, gOne.s1p._
 
 object G1S1Scen1Test  extends TestSuite
 {

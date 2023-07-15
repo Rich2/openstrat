@@ -121,7 +121,9 @@ lazy val EarthNat = natProj("Earth").dependsOn(UtilNat).settings(
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => (ThisBuild/baseDirectory).value / "Tiling" / s),
 )
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Geom).settings(tilingSett)
+lazy val Tiling = mainJvmProj("Tiling").dependsOn(Geom).settings(tilingSett).settings(
+  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/ExsSrc"
+)
 lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett)
 lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat).settings(tilingSett)
