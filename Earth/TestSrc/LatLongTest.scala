@@ -44,7 +44,7 @@ object LatLongTest extends TestSuite
     val ll4 = -5 ll -40
     test("Latlong Persist")
     {
-      ll1.str ==> "LatLong(44; 46)"
+      ll1.str ==> "44.00N, 46.00E"
       "LatLong(44; 46)".asType[LatLong] ==> Good(ll1)
       "44; 46".asType[LatLong] ==> Good(ll1)
       "-5, -40".asType[LatLong] ==> Good(ll4)
