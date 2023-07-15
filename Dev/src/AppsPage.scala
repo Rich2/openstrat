@@ -10,7 +10,7 @@ object AppsPage extends HtmlPage
   def main: HtmlDiv = HtmlDiv.classAtt("main", list)
 
   def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, sors, y1492, y1783,
-    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), geomTut, geomTut, planets, flags, chess))
+    HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), geomTut, planets, flags, chess))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
