@@ -8,7 +8,7 @@ package object pWeb
 
   implicit class StringExtension(thisString: String)
   { /** This implicit method allows Strings to be used as XML content. */
-    def xCon: XConStr = XConStr(thisString)
+    def xCon: XConText = XConText(thisString)
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
     

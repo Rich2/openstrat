@@ -83,7 +83,7 @@ object HtmlScript
   def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeAtt.js, SrcAtt(src)))
 
   /** Sets the function for an external JavaScript call. */
-  def main(stem: String): HtmlScript = HtmlScript(RArr(XConStr(stem + ".main()")), RArr(TypeAtt.js))
+  def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
 }
 
 /** Html H1 header element. */

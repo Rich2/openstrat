@@ -10,15 +10,10 @@ trait XCon
   def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
 }
 
-/** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
-case class XConStr(value: String) extends XCon
+/** XML / HTML text that can have its line breaks changed. */
+case class XConText(value: String) extends XCon
 { override def out(indent: Int, maxLineLen: Int): String = value
   override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
-}
-
-object XConStr
-{ /** Implicitly converts a string in to a piece of XML / HTML content. */
-  implicit def StringToXConStr(value: String): XConStr = new XConStr(value)
 }
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
@@ -69,5 +64,5 @@ trait XmlLikeInline extends XmlElemLike
 
 trait XmlLikeStr extends XmlLikeInline
 { def str: String
-  override def contents: RArr[XCon] = RArr(XConStr(str))
+  override def contents: RArr[XCon] = RArr(XConText(str))
 }
