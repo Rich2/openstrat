@@ -8,13 +8,15 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, cenStr.xCon, miscStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, cenStr.xCon, miscTitle, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
   def appSel: HtmlLi = HtmlLi.str("JavaFx application selection and developer settings for the different apps.")
 
-  def siteGen: HtmlLi = HtmlLi.str("Generats the HTML files for the wesbsite, including this file.")
+  def siteGen: HtmlLi = HtmlLi.str("Generates the HTML files for the wesbsite, including this file.")
+
+  def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
   def cenStr ="""
   |<p>It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="api/index.html">Scala Docs</a> and See
@@ -79,8 +81,6 @@ object DevPage extends HtmlPage
   |""".stripMargin
 
   def miscStr: String ="""
-      |<p>This is just a place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.</p>
-      |
       |<p>So its been one of my aspirations to reduce if not remove dependence on scala.Any. Any often leads to extra boxing. Single
       |boxing of AnyRef classes but double boxing of primitives such Int, Double and Boolean. I created an Opt class as a replacement
       |for Option and started replacing scala.Either[+A, +B] with a lower head Error Monad replacement. However this creates similar

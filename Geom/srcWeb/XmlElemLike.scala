@@ -3,9 +3,10 @@ package ostrat; package pWeb
 
 /** Content for XML and HTML elements. */
 trait XCon
-{ /** Returns the XML source code, formatted according to the input. This allows the XML to be indented according to its context. */
+{ /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
   def out(indent: Int, maxLineLen: Int = 150): String
 
+  /** I don't think this has been properly implemented. I believe the Boolean in the return value indicates if it is a single line output. */
   def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
 }
 
@@ -18,6 +19,11 @@ case class XConStr(value: String) extends XCon
 object XConStr
 { /** Implicitly converts a string in to a piece of XML / HTML content. */
   implicit def StringToXConStr(value: String): XConStr = new XConStr(value)
+}
+
+/** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
+case class XmlAsString(value: String) extends XCon
+{ override def out(indent: Int, maxLineLen: Int): String = value
 }
 
 /** An XML or an HTML element */
@@ -63,10 +69,5 @@ trait XmlLikeInline extends XmlElemLike
 
 trait XmlLikeStr extends XmlLikeInline
 { def str: String
-  override def contents: RArr[XCon] = RArr(str.xCon)
-}
-
-/** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
-case class XConStrLines(value: String) extends XCon
-{ override def out(indent: Int, maxLineLen: Int): String = value
+  override def contents: RArr[XCon] = RArr(XConStr(str))
 }

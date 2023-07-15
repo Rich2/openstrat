@@ -8,14 +8,15 @@ object IndexPage extends HtmlPage
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.allTopPairs)
   def body = HtmlBody(topMenu, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("main", XConStr(iconStrs), focus, XConStr(centralStr))
+  def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, centralHtml)
 
   def focus = HtmlOlWithLH("This project has 3 main focuses".xCon, strat, hist, geom)
   def strat: HtmlLi = HtmlLi.str("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
   def hist: HtmlLi = HtmlLi.str("Graphics for the display of historical information.")
   def geom: HtmlLi = HtmlLi.str("A functional Geometry and Vector Graphics library with various supporting utilities.")
-  val centralStr: String = s"""
-  |<p>
+
+  val centralHtml: XmlAsString =
+    s"""|<p>
   |<a href="Documentation/dev.html"><b>Info for developers here.</b></a>
   |</p>
   |<p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to
@@ -49,30 +50,25 @@ object IndexPage extends HtmlPage
   |<li><a href="Documentation/dev.html"><b>Dev Module</b></a> Depends on all the other modules. This module is for the use of developer tools and
   | settings and   |  illustrate provide tutorials, and to some extent test the modules core code.</li>
   |</ol>
-  |
-  |<ul>
-  |<li><a href="Documentation/Miscellaneous.html">Miscellaneous notes</a></li>
-  |</ul>
-  |""".stripMargin
+  |""".stripMargin.xmlAsString
 
-  def iconStrs ="""
-  |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
-  |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
-  |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path
-  |    fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
-  |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="17" y="15" fill="#010101"
-  |     fill-opacity=".3">code</text><text x="17" y="14">code</text><text x="62" y="15" fill="#010101" fill-opacity=".3">on github</text><
-  |     text x="62" y="14">on github</text>
-  |   </g>
-  |</svg></a>&nbsp;<a href="https://gitter.im/typestrat/Lobby"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
-  |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
-  |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/>
-  |    <path fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
-  |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
-  |      <text x="17" y="15" fill="#010101" fill-opacity=".3">chat</text><text x="17" y="14">chat</text>
-  |      <text x="62" y="15" fill="#010101" fill-opacity=".3">on gitter</text><text x="62" y="14">on gitter</text>
-  |    </g>
-  |</svg></a><br /></p>
-  |""".stripMargin
-
+  def iconsHtml: XmlAsString =
+    """ |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+      |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
+      |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path
+      |    fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
+      |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="17" y="15" fill="#010101"
+      |     fill-opacity=".3">code</text><text x="17" y="14">code</text><text x="62" y="15" fill="#010101" fill-opacity=".3">on github</text><
+      |     text x="62" y="14">on github</text>
+      |   </g>
+      |</svg></a>&nbsp;<a href="https://gitter.im/typestrat/Lobby"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+      |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
+      |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/>
+      |    <path fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>
+      |    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+      |      <text x="17" y="15" fill="#010101" fill-opacity=".3">chat</text><text x="17" y="14">chat</text>
+      |      <text x="62" y="15" fill="#010101" fill-opacity=".3">on gitter</text><text x="62" y="14">on gitter</text>
+      |    </g>
+      |</svg></a><br /></p>
+      |""".stripMargin.xmlAsString
 }
