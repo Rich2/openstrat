@@ -8,48 +8,45 @@ object IndexPage extends HtmlPage
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.allTopPairs)
   def body = HtmlBody(topMenu, central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, centralHtml)
+  def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, menu)
 
-  def focus = HtmlOlWithLH("This project has 3 main focuses".xCon, strat, hist, geom)
+  def focus = HtmlOlWithLH("This project has 3 main focuses".xCon, strat, hist, geom1)
   def strat: HtmlLi = HtmlLi.str("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
   def hist: HtmlLi = HtmlLi.str("Graphics for the display of historical information.")
-  def geom: HtmlLi = HtmlLi.str("A functional Geometry and Vector Graphics library with various supporting utilities.")
+  def geom1: HtmlLi = HtmlLi.str("A functional Geometry and Vector Graphics library with various supporting utilities.")
 
   def devInfo = HtmlA("Documentation/dev.html", "Info for developers here.")
   def begInfo = HtmlA("Documentation/newdevs.html", "Info for new developers here.")
 
-  val centralHtml: XmlAsString =s"""
-  |<p><b>The Code is currently organised into 7 modules.</b> Each module can build artifacts for Jvm and JavaFx and for the JavaScript platform and
-  |  the Web.
-  |</p>
-  |
-  |<ol>
-  |  <li><a href="Documentation/util.html"><b>Util Module</b></a> Contains a number of utilities. This includes a parsing and persistence system.
-  |
-  |  <li><a href="Documentation/geom.html"><b>Geom Module</b></a> Depends on Util. Basic 2D and 3D geometry, functional Graphics.</li>
-  |
-  |  <li><a href="Documentation/tiling.html"><b>Tiling Module</b></a> Depends on Util and Geom modules. Encodes tile Grids, both square and hexagonal,
-  |   as well as systems of grids.</li>
-  |
-  |  <li><a href="Documentation/earth.html"><b>Earth Module</b></a> This module is for Earth maps. Allows the manipulation of latitude and longitude
-  |    allowing free conversion between them and 2D and 3D coordinates.</li>
-  |
-  |  <li><a href="Documentation/EGrid.html"><b>EGrid Module</b></a>Tiling of the whole world in Hex grids, defining the changes over the course of history.
-  |    This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and higher scales
-  |    right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world
-  |    will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.
-  |  </li>
-  |
-  |<li><a href="Documentation/apps.html"><b>Apps Module</b></a> This module for end-user applications, that may eventually end up in their own
-  | repositories.</li>
-  |
-  |<li><a href="Documentation/dev.html"><b>Dev Module</b></a> Depends on all the other modules. This module is for the use of developer tools and
-  | settings and   |  illustrate provide tutorials, and to some extent test the modules core code.</li>
-  |</ol>
-  |""".stripMargin.xmlAsString
+  def menu: HtmlOlWithLH = HtmlOlWithLH(intro.xCon, util, geom, tile, earth, egrid, apps, dev)
 
-  def iconsHtml: XmlAsString =
-    """ |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+  def intro: String = "<b>The Code is currently organised into 7 modules.</b> Each module can build artifacts for Jvm and JavaFx and for the" +
+    " JavaScript platform and the Web."
+
+  def util: HtmlLi = HtmlLi.linkAndText("Documentation/util.html", "Util", "Contains a number of utilities. This includes a parsing and persistence" +
+    " system.")
+
+  def geom: HtmlLi = HtmlLi.linkAndText("Documentation/geom.html", "Geom Module", "Depends on Util. Basic 2D and 3D geometry, functional Graphics.")
+
+  def tile: HtmlLi = HtmlLi.linkAndText("Documentation/tiling.html", "Tiling Module", "Depends on Util and Geom modules. Encodes tile Grids, both" +
+    " square and hexagonal, as well as systems of grids.")
+
+  def earth: HtmlLi = HtmlLi.linkAndText("Documentation/earth.html", "Earth Module", "This module is for Earth maps. Allows the manipulation of" +
+    " latitude and longitude allowing free conversion between them and 2D and 3D coordinates.")
+
+  def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/EGrid.html", "EGrid Module", "Tiling of the whole world in Hex grids, defining the changes" +
+    " over the course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined" +
+    " for local maps and higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real" +
+    " world will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.")
+
+  def apps: HtmlLi = HtmlLi.linkAndText("Documentation/apps.html", "Apps Module", "This module for end-user applications, that may eventually end up" +
+    " in their own repositories")
+
+  def dev: HtmlLi = HtmlLi.linkAndText("Documentation/dev.html", "Dev Module", "Depends on all the other modules. This module is for the use of" +
+    " developer tools and settings and illustrate provide tutorials, and to some extent test the modules core code.")
+
+  def iconsHtml: XmlAsString ="""
+   |<p><a href="https://github.com/Rich2/openstrat"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
       |  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>
       |  </linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path
       |    fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g>

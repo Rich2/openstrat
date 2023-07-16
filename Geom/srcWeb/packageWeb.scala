@@ -10,6 +10,8 @@ package object pWeb
   { /** This implicit method allows Strings to be used as XML content. */
     def xCon: XConText = XConText(thisString)
 
+    def htmlB: HtmlB = HtmlB("thisString")
+
     def xmlAsString: XmlAsString = XmlAsString(thisString)
     
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"

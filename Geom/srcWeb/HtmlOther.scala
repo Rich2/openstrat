@@ -86,6 +86,17 @@ object HtmlScript
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
 }
 
+case class HtmlB(str: String) extends HtmlInline{
+  /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
+  override def tag: String = "b"
+
+  /** The attributes of this XML / HTML element. */
+  override def attribs: RArr[XmlAtt] = RArr()
+
+  /** The content of this XML / HTML element. */
+  override def contents: RArr[XCon] = RArr(str.xCon)
+}
+
 /** Html H1 header element. */
 case class HtmlH1(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { override def tag = "h1"
