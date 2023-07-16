@@ -14,6 +14,18 @@ trait XCon
 case class XConText(value: String) extends XCon
 { override def out(indent: Int, maxLineLen: Int): String = value
   override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
+
+  def outLines(indent: Int, line1: Int, maxLineLen: Int): TextLines ={
+    def loop(rem: String, lines: StrArr, curr: String): StrArr = rem match{
+      case "" => lines +% curr
+    }
+
+    def wordLoop(rem: String, currWord: String): Option[(String, String)] = rem match {
+      case "" => Some(rem, currWord)
+      case s if s(0).isWhitespace => Some(rem, currWord)
+    }
+    ???
+  }
 }
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
