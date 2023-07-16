@@ -15,14 +15,22 @@ case class XConText(value: String) extends XCon
 { override def out(indent: Int, maxLineLen: Int): String = value
   override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
 
-  def outLines(indent: Int, line1: Int, maxLineLen: Int): TextLines ={
-    def loop(rem: String, lines: StrArr, curr: String): StrArr = rem match{
-      case "" => lines +% curr
+  def outLines(indent: Int, line1: Int, maxLineLen: Int): TextLines =
+  {
+    def loop(rem: String, lines: StrArr, currLine: String): StrArr = rem match{
+      case "" => lines +% currLine
+      case s if s.head.isWhitespace => loop(rem.tail, lines, currLine)
+      case s => wordLoop(rem, "", currLine.length) match {
+        case None => loop(rem, lines +% currLine, "\n" + indent.spaces)
+        case Some((newRem, newWord)) => loop(newRem, lines, currLine -- newWord)
+      }
     }
 
-    def wordLoop(rem: String, currWord: String): Option[(String, String)] = rem match {
+    def wordLoop(rem: String, currWord: String, lineLen: Int): Option[(String, String)] = rem match {
       case "" => Some(rem, currWord)
       case s if s(0).isWhitespace => Some(rem, currWord)
+      case s if lineLen >= maxLineLen => None
+      case s => wordLoop(rem.tail, currWord :+ s.head, lineLen + 1)
     }
     ???
   }
