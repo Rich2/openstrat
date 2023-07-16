@@ -18,7 +18,7 @@ object NewDevsPage extends HtmlPage
       |
       |<h3>Git</h3> For transferring files from the master repository to your local machine and back again
       |<ul><li><code>git clone https://github.com/Rich2/openstrat.git</code> clone Used when you want to copy all the files locally (for the 1st time or when you've deleted the project directory) to grab your own copy of openstrat from github <a href="https://github.com/Richtype/openstrat"></a> to your local folder.</li>
-      |<li><code>cd openstrat</code>The change to the newly created openstrat project folder.</li>
+      |<li><code>cd openstrat</code> The change to the newly created openstrat project folder.</li>
       |<li><code>git pull origin master</code> Bring your local copy up to date with Github.</li>
       |<li><code>git add -A</code> Staging: tell git you've made new files to the project</li>
       |<li><code>git commit -m "A description of this commit."</code> Describe the changes</li>
