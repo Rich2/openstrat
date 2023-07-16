@@ -32,7 +32,10 @@ case class XConText(value: String) extends XCon
       case s if lineLen >= maxLineLen => None
       case s => wordLoop(rem.tail, currWord :+ s.head, lineLen + 1)
     }
-    ???
+    loop(value, StrArr(), "") match{
+      case sa if sa.length == 1 => TextInLine(sa(0), sa(0).length)
+      case sa => TextOwnLines(sa.foldStr(s => s), sa.length)
+    }
   }
 }
 
