@@ -72,6 +72,8 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     }
     loop(0)
   }
+
+  def ifHead(f: String => Boolean): Boolean = if (unsafeArray.isEmpty) false else f(head)
 }
 
 /** Companion object of ArrStrings class contains repeat parameter apply factor method. */

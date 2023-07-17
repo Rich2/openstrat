@@ -32,8 +32,15 @@ case class XConText(value: String) extends XCon
       case s if lineLen >= maxLineLen => None
       case s => wordLoop(rem.tail, currWord :+ s.head, lineLen + 1)
     }
+
+    def in2Loop(rem: String, currStr:String, lineLen: Int): Option[TextIn2Line] = rem match{
+      case "" => Some(TextIn2Line(currStr, lineLen))
+      case s if s(0).isWhitespace => in2Loop(rem.tail, currStr, lineLen)
+      case s if lineLen >= maxLineLen => None
+    }
+
     loop(value, StrArr(), "") match{
-      case sa if sa.length == 1 => TextInLine(sa(0), sa(0).length)
+      case sa if sa.length == 1 => TextIn1Line(sa(0), sa(0).length)
       case sa => TextOwnLines(sa.foldStr(s => s), sa.length)
     }
   }

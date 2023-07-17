@@ -5,6 +5,6 @@ sealed trait TextLines {
 
 }
 
-case class TextInLine(text: String, length: Int) extends TextLines
-case class TextOVerFlow(text: String, length2: Int) extends TextLines
+case class TextIn1Line(text: String, length: Int) extends TextLines
+case class TextIn2Line(text: String, length2: Int) extends TextLines
 case class TextOwnLines(text: String, numLines: Int) extends TextLines
