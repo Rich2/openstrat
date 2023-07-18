@@ -17,30 +17,41 @@ case class XConText(value: String) extends XCon
 
   def outLines(indent: Int, line1: Int, maxLineLen: Int): TextLines =
   {
-    def loop(rem: String, lines: StrArr, currLine: String): StrArr = rem match{
-      case "" => lines +% currLine
-      case s if s.head.isWhitespace => loop(rem.tail, lines, currLine)
+    def multiLoop(rem: String, lines: StrArr, currLine: String): StrArr = rem match
+    { case "" => lines +% currLine
+      case s if s.head.isWhitespace => multiLoop(rem.tail, lines, currLine)
       case s => wordLoop(rem, "", currLine.length) match {
-        case None => loop(rem, lines +% currLine, "\n" + indent.spaces)
-        case Some((newRem, newWord)) => loop(newRem, lines, currLine -- newWord)
+        case None => multiLoop(rem, lines +% currLine, "\n" + indent.spaces)
+        case Some((newRem, newWord)) => multiLoop(newRem, lines, currLine -- newWord)
       }
     }
 
-    def wordLoop(rem: String, currWord: String, lineLen: Int): Option[(String, String)] = rem match {
-      case "" => Some(rem, currWord)
+    def wordLoop(rem: String, currWord: String, lineLen: Int): Option[(String, String)] = rem match
+    { case "" => Some(rem, currWord)
       case s if s(0).isWhitespace => Some(rem, currWord)
       case s if lineLen >= maxLineLen => None
       case s => wordLoop(rem.tail, currWord :+ s.head, lineLen + 1)
     }
 
-    def in2Loop(rem: String, currStr:String, lineLen: Int): Option[TextIn2Line] = rem match{
-      case "" => Some(TextIn2Line(currStr, lineLen))
-      case s if s(0).isWhitespace => in2Loop(rem.tail, currStr, lineLen)
+    def in1Loop(rem: String, currStr: String, lineLen: Int): Option[TextLines] = rem match
+    { case "" => Some(TextIn1Line(currStr, lineLen))
+      case s if s(0).isWhitespace => in1Loop(rem.tail, currStr, lineLen)
       case s if lineLen >= maxLineLen => None
+      case s => wordLoop(rem, "", lineLen) match
+      { case None => in2Loop(rem.tail, currStr + "\n" + indent.spaces, indent)
+        case Some((newRem, newWord)) => in2Loop(newRem, currStr -- newWord, lineLen + 1)
+      }
     }
 
-    loop(value, StrArr(), "") match{
-      case sa if sa.length == 1 => TextIn1Line(sa(0), sa(0).length)
+    def in2Loop(rem: String, currStr:String, lineLen: Int): Option[TextIn2Line] = rem match
+    { case "" => Some(TextIn2Line(currStr, lineLen))
+      case s if s(0).isWhitespace => in2Loop(rem.tail, currStr, lineLen)
+      case s if lineLen >= maxLineLen => None
+      case s => wordLoop(rem, "", lineLen).flatMap { pair => in2Loop(pair._1, currStr -- pair._2, lineLen + 1) }
+    }
+
+    multiLoop(value, StrArr(), "") match
+    { case sa if sa.length == 1 => TextIn1Line(sa(0), sa(0).length)
       case sa => TextOwnLines(sa.foldStr(s => s), sa.length)
     }
   }
