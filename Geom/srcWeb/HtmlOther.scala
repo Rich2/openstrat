@@ -26,10 +26,16 @@ trait HtmlP extends HtmlUnvoid
 /** Copied from old needs checking. */
 object HtmlP
 {
-  def apply(str: String, attsIn: XmlAtt*): HtmlP = new HtmlP
-  { override val attribs: RArr[XmlAtt] = attsIn.toArr
-    override def contents: RArr[XCon] = RArr(str.xCon)
-    override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + str + closeTag
+  def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP
+  { def str = strIn
+    def con1 = str.xCon
+    override val attribs: RArr[XmlAtt] = attsIn.toArr
+    override def contents: RArr[XCon] = RArr(con1)
+    override def out(indent: Int, maxLineLen: Int = 150): String = con1.outLines(indent + 2, indent + 2) match
+    { case TextIn1Line(text, _) => openUnclosed + text + closeTag
+      case TextIn2Line(text, _) => {deb("This is 2"); openUnclosed + text + closeTag }
+      case TextOwnLines(text, _) => {deb("This is mulit"); openUnclosed + text --- closeTag }
+    }
   }
 
   /*def r(memsIn: XCon*)(attsIn: XmlAtt*): HtmlP = new HtmlP

@@ -15,7 +15,7 @@ case class XConText(value: String) extends XCon
 { override def out(indent: Int, maxLineLen: Int): String = value
   override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
 
-  def outLines(indent: Int, line1Len: Int, maxLineLen: Int): TextLines =
+  def outLines(indent: Int, line1Len: Int, maxLineLen: Int = 150): TextLines =
   {
     def multiLoop(rem: String, lines: String, currLine: String): TextOwnLines = rem match
     { case "" => TextOwnLines(lines + currLine, currLine.length)
@@ -36,10 +36,10 @@ case class XConText(value: String) extends XCon
     def in1Loop(rem: String, currStr: String, lineLen: Int): TextLines = rem match
     { case "" => TextIn1Line(currStr, lineLen)
       case s if s(0).isWhitespace => in1Loop(rem.tail, currStr, lineLen)
-      case s if lineLen >= maxLineLen => in2Loop(rem.tail, currStr + "\n" + indent.spaces, indent)
+      case s if lineLen >= maxLineLen  => in2Loop(rem.tail, currStr + "\n" + indent.spaces, indent)
       case s => wordLoop(rem, "", lineLen) match
       { case None => in2Loop(rem.tail, currStr + "\n" + indent.spaces, indent)
-        case Some((newRem, newWord)) => in2Loop(newRem, currStr -- newWord, lineLen + 1)
+        case Some((newRem, newWord)) => in1Loop(newRem, currStr -- newWord, lineLen + newWord.length +  1)
       }
     }
 
@@ -47,7 +47,7 @@ case class XConText(value: String) extends XCon
     { case "" => TextIn2Line(currStr, lineLen)
       case s if s(0).isWhitespace => in2Loop(rem.tail, currStr, lineLen)
       case s if lineLen >= maxLineLen => multiLoop(value, "", "")
-      case s => wordLoop(rem, "", lineLen).fold(multiLoop(value, "", "")){ pair => in2Loop(pair._1, currStr -- pair._2, lineLen + 1) }
+      case s => wordLoop(rem, "", lineLen).fold(multiLoop(value, "", "")){ pair => in2Loop(pair._1, currStr -- pair._2, lineLen + pair._2.length + 1) }
     }
 
     in1Loop(value, "", line1Len)
