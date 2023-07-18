@@ -14,7 +14,7 @@ object DevPage extends HtmlPage
 
   def appSel: HtmlLi = HtmlLi.str("JavaFx application selection and developer settings for the different apps.")
 
-  def siteGen: HtmlLi = HtmlLi.str("Generates the HTML files for the wesbsite, including this file.")
+  def siteGen: HtmlLi = HtmlLi.str("Generates the HTML files for the website, including this file.")
 
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
