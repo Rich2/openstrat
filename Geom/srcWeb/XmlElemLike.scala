@@ -17,21 +17,11 @@ case class XConText(value: String) extends XCon
 
   def outLines(indent: Int, line1Len: Int, maxLineLen: Int = 150): TextLines =
   {
-    def multiLoop(rem: String, lines: String, currLine: String): TextOwnLines = rem match
-    { case "" => TextOwnLines(lines + currLine, currLine.length)
-      case s if s.head.isWhitespace => multiLoop(rem.tail, lines, currLine)
-      case s =>
-      { val (newRem, newWord) = getWord(rem)
-        val newLen = currLine.length + newWord.length + 1
-        if (newLen > maxLineLen) multiLoop(newRem, lines + currLine, "\n" + indent.spaces + newWord)
-        else multiLoop(newRem, lines, currLine -- newWord)
-      }
-    }
+    implicit val charArr: CharArr = new CharArr(value.toCharArray)
 
-    def in1Loop(rem: String, currStr: String, lineLen: Int): TextLines = rem match
-    { case "" => TextIn1Line(currStr, lineLen)
-      case s if s(0).isWhitespace => in1Loop(rem.tail, currStr, lineLen)
-      case s if lineLen >= maxLineLen  => in2Loop(s, currStr + "\n" + indent.spaces, indent)
+    def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
+    { case CharsOff0() => TextIn1Line(currStr, lineLen)
+      case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
       case s =>
       { val (newRem, newWord) = getWord(s)
         val newLen = lineLen + newWord.length + 1
@@ -40,11 +30,10 @@ case class XConText(value: String) extends XCon
       }
     }
 
-    def in2Loop(rem: String, currStr:String, lineLen: Int): TextLines = rem match
-    { case "" => TextIn2Line(currStr, lineLen)
-      case s if s(0).isWhitespace => in2Loop(rem.tail, currStr, lineLen)
-      case s if lineLen >= maxLineLen => multiLoop(value, currStr, "")
-      case s =>
+    def in2Loop(rem: CharsOff, currStr:String, lineLen: Int): TextLines = rem match
+    { case CharsOff0() => TextIn2Line(currStr, lineLen)
+      case CharsOff1Tail(c, tail) if c.isWhitespace => in2Loop(tail, currStr, lineLen)
+      case rem =>
       { val (newRem, newWord) = getWord(rem)
         val newLen = lineLen + newWord.length + 1
         if (newLen > maxLineLen) multiLoop(newRem, currStr, "\n" + indent.spaces + newWord)
@@ -52,17 +41,28 @@ case class XConText(value: String) extends XCon
       }
     }
 
-    def getWord(rem: String): (String, String) =
+    def multiLoop(rem: CharsOff, lines: String, currLine: String): TextOwnLines = rem match
+    { case CharsOff0() => TextOwnLines(lines + currLine, currLine.length)
+      case CharsOff1Tail(c, tail) if c.isWhitespace => multiLoop(tail, lines, currLine)
+      case s =>
+      { val (newRem, newWord) = getWord(rem)
+        val newLen = currLine.length + newWord.length + 1
+        if (newLen > maxLineLen) multiLoop(newRem, lines + currLine, "\n" + indent.spaces + newWord)
+        else multiLoop(newRem, lines, currLine -- newWord)
+      }
+    }
+
+    def getWord(rem: CharsOff): (CharsOff, String) =
     {
-      def loop(rem: String, newWord: String): (String, String) = rem match
-      { case "" => (rem, newWord)
-        case s if s.head.isWhitespace => (rem, newWord)
-        case s => loop(rem.tail, newWord + s.head)
+      def loop(rem: CharsOff, newWord: String): (CharsOff, String) = rem match
+      { case CharsOff0()  => (rem, newWord)
+        case CharsOffHead(c) if c.isWhitespace => (rem, newWord)
+        case CharsOff1Tail(c, tail) => loop(tail, newWord + c)
       }
       loop(rem, "")
     }
 
-    val (newRem, firstWord) = getWord(value)
+    val (newRem, firstWord) = getWord(charArr.offsetter0)
     in1Loop(newRem, firstWord, line1Len + firstWord.length)
   }
 }

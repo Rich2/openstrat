@@ -7,7 +7,7 @@ trait Token extends TextSpan
   override def endPosn: TextPosn = startPosn.right(srcStr.length - 1)
   final def str: String = tokenTypeStr
   def tokenTypeStr: String
-  def canEqual(a: Any) = a.isInstanceOf[Token]
+  def canEqual(a: Any): Boolean = a.isInstanceOf[Token]
 
   override def equals(that: Any): Boolean = that match
   { case that: Token => tokenTypeStr == that.tokenTypeStr & startPosn == that.startPosn

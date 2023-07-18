@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._
 
@@ -60,10 +60,13 @@ object CharArr
   def apply(input: Char*): CharArr = new CharArr(input.toArray)
 }
 
-/** Immutable heapless iterator for Char arrays. */
+/** Immutable heapless iterator for Char arrays. At runtime this should just be an integer which indexes into a [[CharArr]]. This it self is just a
+ * compile time wrapped [[Array]][Char]. This allows you to decompose the Char Array without having to create a new Array each time you drop a
+ * character or characters.  */
 class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, CharArr]
-{
+{ /** Index's into the backing Array, which is passed by an implicit parameter. */
   override def apply(index: Int)(implicit chars: CharArr): Char = chars(offset0 + index)
+
   def str: String = "CharsOff" + offset0.toString.enParenth
   override def toString = str
   def drop(n: Int): CharsOff = new CharsOff(offset0 + n)
