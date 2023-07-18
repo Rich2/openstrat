@@ -27,22 +27,18 @@ trait HtmlP extends HtmlUnvoid
 object HtmlP
 {
   def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP
-  { def str = strIn
-    def con1 = str.xCon
+  { def str: String = strIn
+    def con1: XConText = str.xCon
     override val attribs: RArr[XmlAtt] = attsIn.toArr
     override def contents: RArr[XCon] = RArr(con1)
-    override def out(indent: Int, maxLineLen: Int = 150): String = con1.outLines(indent + 2, indent + 2) match
-    { case TextIn1Line(text, _) => openUnclosed + text + closeTag
-      case TextIn2Line(text, _) => {deb("This is 2"); openUnclosed + text + closeTag }
-      case TextOwnLines(text, _) => {deb("This is mulit"); openUnclosed + text --- closeTag }
+    override def out(indent: Int, maxLineLen: Int = 150): String = con1.outLines(indent + 2, indent + openUnclosed.length) match
+    { case TextIn1Line(text, _) => indent.spaces + openUnclosed + text + closeTag
+      case TextIn2Line(text, _) => indent.spaces + openUnclosed + text + closeTag
+      case TextOwnLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag
     }
   }
-
-  /*def r(memsIn: XCon*)(attsIn: XmlAtt*): HtmlP = new HtmlP
-  { override val atts: Seq[XAtt] = attsIn
-    override def mems: Seq[XCon] = memsIn
-  }*/
 }
+
 /** Html LI, list item element. */
 case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
 { override def tag: String = "li"
