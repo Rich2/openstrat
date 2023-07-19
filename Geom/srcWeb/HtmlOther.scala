@@ -34,7 +34,7 @@ object HtmlP
     override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = con1.outLines(indent + 2, openUnclosed.length) match
     { case TextIn1Line(text, _) => indent.spaces + openUnclosed + text + closeTag
       case TextIn2Line(text, _) => indent.spaces + openUnclosed + text + closeTag
-      case TextOwnLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag
+      case TextInMultiLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag
     }
   }
 }

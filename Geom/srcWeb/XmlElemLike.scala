@@ -43,8 +43,8 @@ case class XConText(value: String) extends XCon
       }
     }
 
-    def multiLoop(rem: CharsOff, lines: String, currLine: String): TextOwnLines = rem match
-    { case CharsOff0() => TextOwnLines(lines + currLine, currLine.length)
+    def multiLoop(rem: CharsOff, lines: String, currLine: String): TextInMultiLines = rem match
+    { case CharsOff0() => TextInMultiLines(lines + currLine, currLine.length)
       case CharsOff1Tail(c, tail) if c.isWhitespace => multiLoop(tail, lines, currLine)
       case s =>
       { val (newRem, newWord) = getWord(rem)
