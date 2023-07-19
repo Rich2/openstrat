@@ -12,13 +12,13 @@ object EarthPage extends HtmlPage
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Earth module contains"), latLong, lines, trans, terrs)
 
-  def latLong: HtmlLi = HtmlLi.str("The LatLong class. Specifies a point in terms of latitude and longitude.")
+  def latLong: HtmlLi = HtmlLi("The LatLong class. Specifies a point in terms of latitude and longitude.")
 
-  def lines: HtmlLi = HtmlLi.str("Classes for collections, lines and polygons specified in LatLongs.")
+  def lines: HtmlLi = HtmlLi("Classes for collections, lines and polygons specified in LatLongs.")
 
-  def trans: HtmlLi = HtmlLi.str("Transformation of these classes into their equilalents in 3D distance space, 2D distance space and 2D scalar" +
+  def trans: HtmlLi = HtmlLi("Transformation of these classes into their equilalents in 3D distance space, 2D distance space and 2D scalar" +
     "geometric spaces.")
 
-  def terrs: HtmlLi = HtmlLi.str("Some basic terrain polygons for the Earth, imtended as a devlopment aid rather for polished proffesional looking" +
+  def terrs: HtmlLi = HtmlLi("Some basic terrain polygons for the Earth, imtended as a devlopment aid rather for polished proffesional looking" +
     "applications.")
 }

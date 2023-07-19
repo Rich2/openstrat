@@ -11,24 +11,23 @@ object UtilPage extends HtmlPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, centralStr.xCon)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
-  def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
-  def gen: HtmlLi = HtmlLi.str("Many useful functions and extension methods such as the iToForeach, iToMap, iToFlatMap, iUntilForeach, etc.")
+  def debug: HtmlLi = HtmlLi("Some simple debug macros")
+  def gen: HtmlLi = HtmlLi("Many useful functions and extension methods such as the iToForeach, iToMap, iToFlatMap, iUntilForeach, etc.")
 
-  def coll: HtmlLi = HtmlLi.str("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
+  def coll: HtmlLi = HtmlLi("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
     " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")
 
-  def errs: HtmlLi = HtmlLi.str("Functional error system using the EMon trait and its Good and Bad sub classes.")
+  def errs: HtmlLi = HtmlLi("Functional error system using the EMon trait and its Good and Bad sub classes.")
 
-  def parse: HtmlLi = HtmlLi.str("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for Tokenisation and a parser for an AST," +
+  def parse: HtmlLi = HtmlLi("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for Tokenisation and a parser for an AST," +
     " abstract syntax tree.")
 
-  def persist: HtmlLi = HtmlLi.str("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
+  def persist: HtmlLi = HtmlLi("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
 
   def tokList: HtmlUlWithLH = HtmlUlWithLH("The Tokeniser will create the following tokens",
-    HtmlLi.str("""Keytokens <span class= lexical>_ ? ?? ???</ span >"""),
-    HtmlLi.str("Identifiers alphanumeric tokens starting with a letter or underscore character."), HtmlLi.str("Operators"),
-    HtmlLi.str("Numeric literals"), HtmlLi.str("Seperators , . .. ... {} etc."), HtmlLi.str("String literals"), HtmlLi.str("Character literals"),
-    HtmlLi.str("Comments"))
+    HtmlLi("""Keytokens <span class= lexical>_ ? ?? ???</ span >"""),
+    HtmlLi("Identifiers alphanumeric tokens starting with a letter or underscore character."), HtmlLi("Operators"),
+    HtmlLi("Numeric literals"), HtmlLi("Seperators , . .. ... {} etc."), HtmlLi("String literals"), HtmlLi("Character literals"), HtmlLi("Comments"))
 
   val centralStr: String = """
       |  <p>KeyTokens, Identifiers, and literals are all expressions. Operators, separators and comments are not. Identifiers includes lexemes such as

@@ -11,9 +11,9 @@ object IndexPage extends HtmlPage
   def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, menu)
 
   def focus = HtmlOlWithLH("This project has 3 main focuses".xCon, strat, hist, geom1)
-  def strat: HtmlLi = HtmlLi.str("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
-  def hist: HtmlLi = HtmlLi.str("Graphics for the display of historical information.")
-  def geom1: HtmlLi = HtmlLi.str("A functional Geometry and Vector Graphics library with various supporting utilities.")
+  def strat: HtmlLi = HtmlLi("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
+  def hist: HtmlLi = HtmlLi("Graphics for the display of historical information.")
+  def geom1: HtmlLi = HtmlLi("A functional Geometry and Vector Graphics library with various supporting utilities.")
 
   def devInfo = HtmlA("Documentation/dev.html", "Info for developers here.")
   def begInfo = HtmlA("Documentation/newdevs.html", "Info for new developers here.")

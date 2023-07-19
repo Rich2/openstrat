@@ -38,9 +38,9 @@ object AppsPage extends HtmlPage
   val civ: HtmlLi = HtmlLi.linkAndText("../civrise.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
     "generalised side terrain")
 
-  val geomTut: HtmlLi = HtmlLi.str("Geometry and Graphics Tutorials")
+  val geomTut: HtmlLi = HtmlLi("Geometry and Graphics Tutorials")
 
-  val gameTut: HtmlLi = HtmlLi.str("Simultaneous turn, tile based tutorial games.")
+  val gameTut: HtmlLi = HtmlLi("Simultaneous turn, tile based tutorial games.")
 
   val planets: HtmlLi = HtmlLi.linkAndText("../planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just" --
     "because its different.")

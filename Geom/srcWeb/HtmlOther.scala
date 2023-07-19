@@ -56,7 +56,7 @@ object HtmlLi
   def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
 
-  def str(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
+  def apply(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
 }
 
 /** Html UL unordered list element. */

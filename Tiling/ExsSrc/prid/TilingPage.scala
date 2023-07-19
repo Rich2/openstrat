@@ -10,27 +10,27 @@ object TilingPage extends HtmlPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, centralStr.xCon)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
-  def coord: HtmlLi = HtmlLi.str("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each" +
+  def coord: HtmlLi = HtmlLi("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each" +
     " have their own unique 2 integer coordinates.")
 
-  def tileGeom: HtmlLi = HtmlLi.str("Tile collections, tile paths and tile polygons and other tile structures, allowing their manipulation as tiles.")
+  def tileGeom: HtmlLi = HtmlLi("Tile collections, tile paths and tile polygons and other tile structures, allowing their manipulation as tiles.")
 
-  def grid: HtmlLi = HtmlLi.str("Tile grid classes that describe the tile grids but do not contain any data. For example an 8 by 8 square grid" +
+  def grid: HtmlLi = HtmlLi("Tile grid classes that describe the tile grids but do not contain any data. For example an 8 by 8 square grid" +
     " would describe a chess board, but the class contains no data as to the position of the chess pieces, or even that it is being used for a" +
     "chess game.")
 
-  def sys: HtmlLi = HtmlLi.str("Tile Grid system classes allowing for multiple hex grids to be manipulated the same as a single grid. This enables" +
+  def sys: HtmlLi = HtmlLi("Tile Grid system classes allowing for multiple hex grids to be manipulated the same as a single grid. This enables" +
     "the code in the EGrid module and other possible non Euclidean tile systems.")
 
-  def proj: HtmlLi = HtmlLi.str("Projections. Projections allow the separation of the visual display of tile geometry from the applications and" +
+  def proj: HtmlLi = HtmlLi("Projections. Projections allow the separation of the visual display of tile geometry from the applications and" +
     " objects within the grid systems.")
 
-  def terms: HtmlLi = HtmlLi.str("Scenario and Game terminology,")
+  def terms: HtmlLi = HtmlLi("Scenario and Game terminology,")
 
-  def turn: HtmlLi = HtmlLi.str("Turn system allowing those grid systems to be used in, multi, simultaneous, homogenious segment simultaneous turn" +
+  def turn: HtmlLi = HtmlLi("Turn system allowing those grid systems to be used in, multi, simultaneous, homogenious segment simultaneous turn" +
     " games and productions.")
 
-  def exs: HtmlLi = HtmlLi.str("Example games to demonstrate the use of the design principles and code of this module.")
+  def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
 
   def centralStr: String ="""
       |    <div>
