@@ -24,10 +24,10 @@ object UtilPage extends HtmlPage
 
   def persist: HtmlLi = HtmlLi.str("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
 
-
+  def tokList: HtmlUlWithLH = HtmlUlWithLH("The Tokeniser will create the following tokens")
 
   val centralStr: String = """
-      |  <p>The Tokeniser will create the following tokens
+      |  <p>
       |    <ul>
       |      <li>Keytokens <span class=lexical>_ ? ?? ???</span></li>
       |      <li>Identifiers alphanumeric tokens starting with a letter or underscore character.</li>
