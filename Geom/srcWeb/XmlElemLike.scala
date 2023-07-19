@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** Content for XML and HTML elements. */
 trait XCon
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
-  def out(indent: Int, maxLineLen: Int = 150): String
+  def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String
 
   /** I don't think this has been properly implemented. I believe the Boolean in the return value indicates if it is a single line output. */
   def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
@@ -12,12 +12,14 @@ trait XCon
 
 /** XML / HTML text that can have its line breaks changed. */
 case class XConText(value: String) extends XCon
-{ override def out(indent: Int, maxLineLen: Int): String = value
+{ override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = value
   override def outEither(indent: Int, maxLineLen: Int): (Boolean, String) = (true, out(indent, maxLineLen))
 
-  def outLines(indent: Int, line1Len: Int, maxLineLen: Int = 150): TextLines =
+  def outLines(indent: Int, line1Delta: Int, maxLineLen: Int = lineLenDefault): TextLines =
   {
     implicit val charArr: CharArr = new CharArr(value.toCharArray)
+
+    def line1Len: Int = indent + line1Delta
 
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match
     { case CharsOff0() => TextIn1Line(currStr, lineLen)
@@ -69,7 +71,7 @@ case class XConText(value: String) extends XCon
 
 /** XML / HTML just stored as a [[String]]. This is not desirable, except as a temporary expedient. */
 case class XmlAsString(value: String) extends XCon
-{ override def out(indent: Int, maxLineLen: Int): String = value
+{ override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = value
 }
 
 /** An XML or an HTML element */
@@ -94,16 +96,16 @@ trait XmlElemLike extends XCon
 
 trait XmlLikeMulti extends XmlElemLike
 {
-  override def out(indent: Int = 0, maxLineLen: Int = 150): String =
+  override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
     if (contents.empty) openAtts + "/>"
     else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
 trait XmlLikeInline extends XmlElemLike
 {
-  override def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (true, out(indent, maxLineLen))
+  override def outEither(indent: Int, maxLineLen: Int = lineLenDefault): (Boolean, String) = (true, out(indent, maxLineLen))
 
-  override def out(indent: Int = 0, maxLineLen: Int = 150): String =
+  override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
   { val cons = contents.map(_.outEither(indent, maxLineLen))
     val middle = cons.length match {
       case 1 if cons.head._1 => cons.head._2

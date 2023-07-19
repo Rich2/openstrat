@@ -5,7 +5,7 @@ package ostrat; package pWeb
 case class HtmlCode(contentStr: String, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { override def tag: String = "code"
   override def contents: RArr[XCon] = RArr(contentStr.xCon)
-  override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + contentStr + closeTag
+  override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = openUnclosed + contentStr + closeTag
 }
 
 /** HTML A anchor element. */
@@ -31,7 +31,7 @@ object HtmlP
     def con1: XConText = str.xCon
     override val attribs: RArr[XmlAtt] = attsIn.toArr
     override def contents: RArr[XCon] = RArr(con1)
-    override def out(indent: Int, maxLineLen: Int = 150): String = con1.outLines(indent + 2, indent + openUnclosed.length) match
+    override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = con1.outLines(indent + 2, openUnclosed.length) match
     { case TextIn1Line(text, _) => indent.spaces + openUnclosed + text + closeTag
       case TextIn2Line(text, _) => indent.spaces + openUnclosed + text + closeTag
       case TextOwnLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag

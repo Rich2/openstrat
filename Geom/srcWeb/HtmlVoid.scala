@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** trait for HTML Void elements such as br img and input. */
 sealed trait HtmlVoid extends HtmlElem
 { final override def contents: RArr[XCon] = RArr()
-  override def out(indent: Int, maxLineLen: Int): String = indent.spaces + openUnclosed
+  override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String = indent.spaces + openUnclosed
 }
 
 /** HTML meta element. */
