@@ -17,5 +17,7 @@ package object pWeb
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
     
     def h1Str: String = thisString.enTag("h1")
+
+    def h2: HtmlH2 = HtmlH2(thisString)
   }
 }

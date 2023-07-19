@@ -23,8 +23,8 @@ trait XConInLineable extends XCon
     def in1Loop(rem: CharsOff, currStr: String, lineLen: Int): TextLines = rem match {
       case CharsOff0() => TextIn1Line(currStr, lineLen)
       case CharsOff1Tail(c, tail) if c.isWhitespace => in1Loop(tail, currStr, lineLen)
-      case s => {
-        val (newRem, newWord) = getWord(s)
+      case s =>
+      { val (newRem, newWord) = getWord(s)
         val newLen = lineLen + newWord.length + 1
         if (newLen > maxLineLen) in2Loop(newRem, currStr + "\n" + indent.spaces + newWord, indent + newWord.length)
         else in1Loop(newRem, currStr -- newWord, newLen)

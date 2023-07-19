@@ -8,7 +8,7 @@ object UtilPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), centralStr.xCon)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
   def debug: HtmlLi = HtmlLi.str("Some simple debug macros")
@@ -24,8 +24,9 @@ object UtilPage extends HtmlPage
 
   def persist: HtmlLi = HtmlLi.str("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
 
+
+
   val centralStr: String = """
-      |  <h2>Tokeniser</h2>
       |  <p>The Tokeniser will create the following tokens
       |    <ul>
       |      <li>Keytokens <span class=lexical>_ ? ?? ???</span></li>
