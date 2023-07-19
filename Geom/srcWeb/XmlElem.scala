@@ -14,9 +14,3 @@ trait XmlNoAtts extends XmlElem
 }
 
 trait XmlMultiNoAtts extends XmlMulti with XmlNoAtts
-
-/** A Simple inline XML element. */
-trait XmlStr extends XmlNoAtts with XmlLikeStr
-{
-
-}

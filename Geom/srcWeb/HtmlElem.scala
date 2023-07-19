@@ -30,7 +30,7 @@ trait HtmlMultiLine extends HtmlUnvoid
 }
 
 /** An HTML element that we may wish to inline such as an LI list item, as opposed to a OL or a UL, which will be multi line. */
-trait HtmlInline extends HtmlUnvoid with XmlLikeInline
+trait HtmlInline extends HtmlUnvoid with XmlConInline
 
 /** An HTML whose contents can be represented by a [[String]]. */
 trait HtmlStr extends HtmlInline
