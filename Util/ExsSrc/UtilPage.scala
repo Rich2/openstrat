@@ -8,7 +8,7 @@ object UtilPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, tokList2, centralStr.xCon)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
   def debug: HtmlLi = HtmlLi("Some simple debug macros")
@@ -27,12 +27,15 @@ object UtilPage extends HtmlPage
   def tokList: HtmlUlWithLH = HtmlUlWithLH("The Tokeniser will create the following tokens",
     HtmlLi("""Keytokens <span class= lexical>_ ? ?? ???</ span >"""),
     HtmlLi("Identifiers alphanumeric tokens starting with a letter or underscore character."), HtmlLi("Operators"),
-    HtmlLi("Numeric literals"), HtmlLi("Seperators , . .. ... {} etc."), HtmlLi("String literals"), HtmlLi("Character literals"), HtmlLi("Comments"))
+    HtmlLi("Numeric literals"), HtmlLi("Separators , . .. ... {} etc."), HtmlLi("String literals"), HtmlLi("Character literals"), HtmlLi("Comments"))
+
+  def tokList2 = HtmlP("KeyTokens, Identifiers, and literals are all expressions. Operators, separators and comments are not. Identifiers" --
+    "includes lexemes such as <span class= lexical>if, IF true and TRUE </ span >.There are no alphabetic keywords in RSON syntax. Consumers of" --
+    "RSON syntax can of course treat what ever identifiers they want as keywords appropriate to their use case.Identifiers are categorised into 3" --
+    "types.")
 
   val centralStr: String = """
-      |  <p>KeyTokens, Identifiers, and literals are all expressions. Operators, separators and comments are not. Identifiers includes lexemes such as
-      |   <span class=lexical>if, IF true and TRUE</span>. There are no alphabetic keywords in RSON syntax. Consumers of RSON syntax can of course treat
-      |    what ever identifiers they want as keywords appropriate to their use case. Identifiers are categorised into 3 types.
+      |  <p>
       |    <ul>
       |      <li>IdentUnder An identifer beginning with an underscore character</li>
       |      <li>IdentLow And identifer beginning with a lower case alphabetic character.</li>
