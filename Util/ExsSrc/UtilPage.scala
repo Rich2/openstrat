@@ -8,7 +8,9 @@ object UtilPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, cenStr1.xCon, cenStr2.xCon)
+
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, cenStr1.xCon, cenStr2.xCon)
+
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
   def debug: HtmlLi = HtmlLi("Some simple debug macros")
@@ -39,42 +41,34 @@ object UtilPage extends HtmlPage
       "tokens, and a subset of these will also be considered valid raw Hexadecimals, however all the alphabetic characters must be lower case.")
     )
 
-  def lits: Any = HtmlOlWithLH("Numerical literals come in 4 types.",
+  def lits: HtmlOlWithLH = HtmlOlWithLH("Numerical literals come in 4 types.",
     HtmlLi("Floating point numbers <span class= lexical>6.02e23 6.02e-23 6.02e-23d</span>.Note this is the only case where a negative or dash" --
       "character is included as part of a token. Can have optional trailing lower case alphabetic characters at the end of the token."),
     HtmlLi("Explicit hexadecimals <span class= lexical>0x433A 0x2222 0xff000bc</span> Alphabetic characters must be all lower or all upper case."),
     HtmlLi("Explicit Base32 tokens <span class= lexical>0y433G 0x222C 0yWW000MP</span> Alphabetic characters must all be upper case.</li>"),
     digToks, negToks)
 
-  def digToks = HtmlLi("""DigitCode tokens. These are a sequence of one or more sequences of digits separated by decimal points, as well as integer
-    and fractional
-    decimal numbers they can be used for version numbers, IP addresses and other codes. These can themsleves be further divided into
-    <ul>
-      <li>Valid natural integers
-        <span class= lexical>0 21 567</span>
-        These are valid raw hexademimal and raw Base32 tokens.</li>
-      <li>Valid natural integers with trailing lower case alphabetic characters at the end of the token
-        <span class= lexical>0f 21snap 567d</span>
-        .
-        These may be valid raw hexadecimal or Base32 tokens if the alphabetic letter all fall within the correct set of letters.</li>
-      <li>Raw Hexadecimals that start with a digit, the alphabetic characters must be all lower or all upper case.
-        <span class= lexical>3A 2d1e 567D</span>
-        . These are also valid raw Base32 tokens.</li>
-      <li>Raw Base32 tokens that start with a digit that are not valid raw Hexadecimals, the alphabetic characters must be all lower or all upper
-        case.
-        <span class= lexical>3G 2d1s 567R</span>
-      </li>
-      <li>Valid fractional decimal numbers, which may have trailing lower case alphabetic characters at the end of the token
-        <span class= lexical>0.0f 2084.4 3.1rc</span>
-      </li>
-      <li>DigitCode Tokens with 3 or greater digit sequence parts
-        <span class= lexical>2.13.4 0.0.3snap 192.168.1.1</span>
-      </li>
-    </ul>""")
+  def digToks = HtmlLi(RArr(digToksEl))
 
-    def negToks = HtmlLi("There will be tokens for negative numbers. <span class= lexical>-5 -5.32 -5.87e7 -0xA434</span> will all be lexically" --
-      "processed as single tokens. This means that raw hexidecimals and raw base32s can be processed as 1 or 2 tokens depending on whether they" --
-      "start with a digit. This should not cause a problem as long as they are not combined with dot operators in dot expressions.")
+  def digToksEl = HtmlUlWithLH("DigitCode tokens. These are a sequence of one or more sequences of digits separated by decimal points, as well as" --
+    "integer and fractional decimal numbers they can be used for version numbers, IP addresses and other codes. These can themsleves be further" --
+    "divided into",
+    HtmlLi("Valid natural integers <span class= lexical>0 21 567</span> These are valid raw hexademimal and raw Base32 tokens."),
+    HtmlLi("Valid natural integers with trailing lower case alphabetic characters at the end of the token" --
+      "<span class=lexical>0f 21snap 567d</span>. These may be valid raw hexadecimal or Base32 tokens if the alphabetic letter all fall within the" --
+      "correct set of letters."),
+    HtmlLi("Raw Hexadecimals that start with a digit, the alphabetic characters must be all lower or all upper case." --
+      "<span class= lexical>3A 2d1e 567D</span>. These are also valid raw Base32 tokens."),
+    HtmlLi("Raw Base32 tokens that start with a digit that are not valid raw Hexadecimals, the alphabetic characters must be all lower or all" --
+      "upper case. <span class= lexical>3G 2d1s 567R</span>"),
+    HtmlLi("Valid fractional decimal numbers, which may have trailing lower case alphabetic characters at the end of the token" --
+      "<span class= lexical>0.0f 2084.4 3.1rc</span>"),
+    HtmlLi("DigitCode Tokens with 3 or greater digit sequence parts <span class= lexical>2.13.4 0.0.3snap 192.168.1.1</span>")
+  )
+
+  def negToks = HtmlLi("There will be tokens for negative numbers. <span class= lexical>-5 -5.32 -5.87e7 -0xA434</span> will all be lexically" --
+    "processed as single tokens. This means that raw hexidecimals and raw base32s can be processed as 1 or 2 tokens depending on whether they" --
+    "start with a digit. This should not cause a problem as long as they are not combined with dot operators in dot expressions.")
 
   val cenStr1: String = """
       |  <table>
@@ -91,12 +85,12 @@ object UtilPage extends HtmlPage
       |    <tr><td>Dot3Token</td>                   <td>= "..."</td></tr>
       |    <tr><td>Dot2Token</td>                   <td>= ".."</td></tr>
       |    <tr><td>DotToken</td>                    <td>= '.'</td></tr>
-      |    </table>
-      |    <br>
-      |    <table>
+      |  </table>
+      |  <br>
+      |  <table>
       |    <tr><td>IdentifierToken</td>             <td>= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }</td></tr>
       |    <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
-      |  </table>"""
+      |  </table>""".stripMargin
 
   def cenStr2 = """
       |  <h2>Abstract Syntax Tree</h2>
