@@ -9,7 +9,7 @@ object UtilPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, cenStr1.xCon, cenStr2.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, cenStr1.xCon, astHeaders, cenStr2.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
@@ -92,8 +92,17 @@ object UtilPage extends HtmlPage
       |    <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
       |  </table>""".stripMargin
 
+  def astSect = new HtmlSect {
+    /** The attributes of this XML / HTML element. */
+    override def attribs: RArr[XmlAtt] = ???
+
+    /** The content of this XML / HTML element. */
+    override def contents: RArr[XCon] = ???
+  }
+
+  def astHeaders = HtmlH2("Abstract Syntax Tree")
+
   def cenStr2 = """
-      |  <h2>Abstract Syntax Tree</h2>
       |  <p>So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON file can be three things.
       |  <ol>
       |    <li>An unStatemented file. It just contains an expression, without a semi colon at the end for example could just an Int or String.</li>
@@ -109,7 +118,7 @@ object UtilPage extends HtmlPage
       |     file with zero statements.</li>
       |  </ol>
       |    So there is currently some confusion as to where it is parsed into a series of statements or into an expression. Currently Statements and Clauses
-      |    contain an expression but are not themsleves an expression. This is causing a block to me coding at the moment.
+      |    contain an expression but are not themselves an expression. This is causing a block to me coding at the moment.
       |  </p>
       |  <p>AST Precedence From lowest to highest after brace block parsing.</p>
       |    <ul>
