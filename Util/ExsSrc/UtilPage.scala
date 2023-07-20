@@ -8,7 +8,7 @@ object UtilPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, cenStr1.xCon, cenStr2.xCon)
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
   def debug: HtmlLi = HtmlLi("Some simple debug macros")
@@ -76,7 +76,7 @@ object UtilPage extends HtmlPage
       "processed as single tokens. This means that raw hexidecimals and raw base32s can be processed as 1 or 2 tokens depending on whether they" --
       "start with a digit. This should not cause a problem as long as they are not combined with dot operators in dot expressions.")
 
-  val centralStr: String = """
+  val cenStr1: String = """
       |  <table>
       |    <tr><td>LetterChar</td>                  <td>= unicode_letter | '_'</td></tr>
       |    <tr><td>NonZeroDigit</td>                <td>= '1' ... '9'</td></tr>
@@ -96,7 +96,9 @@ object UtilPage extends HtmlPage
       |    <table>
       |    <tr><td>IdentifierToken</td>             <td>= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }</td></tr>
       |    <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
-      |  </table>
+      |  </table>"""
+
+  def cenStr2 = """
       |  <h2>Abstract Syntax Tree</h2>
       |  <p>So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON file can be three things.
       |  <ol>
