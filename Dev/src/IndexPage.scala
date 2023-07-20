@@ -34,7 +34,7 @@ object IndexPage extends HtmlPage
   def earth: HtmlLi = HtmlLi.linkAndText("Documentation/earth.html", "Earth Module", "This module is for Earth maps. Allows the manipulation of" +
     " latitude and longitude allowing free conversion between them and 2D and 3D coordinates.")
 
-  def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/EGrid.html", "EGrid Module", "Tiling of the whole world in Hex grids, defining the changes" +
+  def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/egrid.html", "EGrid Module", "Tiling of the whole world in Hex grids, defining the changes" +
     " over the course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined" +
     " for local maps and higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real" +
     " world will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.")

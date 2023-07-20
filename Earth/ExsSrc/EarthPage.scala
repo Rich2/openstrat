@@ -16,9 +16,9 @@ object EarthPage extends HtmlPage
 
   def lines: HtmlLi = HtmlLi("Classes for collections, lines and polygons specified in LatLongs.")
 
-  def trans: HtmlLi = HtmlLi("Transformation of these classes into their equilalents in 3D distance space, 2D distance space and 2D scalar" +
+  def trans: HtmlLi = HtmlLi("Transformation of these classes into their equivalents in 3D distance space, 2D distance space and 2D scalar" --
     "geometric spaces.")
 
-  def terrs: HtmlLi = HtmlLi("Some basic terrain polygons for the Earth, imtended as a devlopment aid rather for polished proffesional looking" +
+  def terrs: HtmlLi = HtmlLi("Some basic terrain polygons for the Earth, intended as a development aid rather for polished professional looking" --
     "applications.")
 }

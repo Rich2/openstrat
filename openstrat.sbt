@@ -129,6 +129,7 @@ lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett)
 lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat).settings(tilingSett)
 
 lazy val EGrid = mainJvmProj("EGrid").dependsOn(Earth, Tiling)
+lazy val EGridExs = exsJvmProj("EGrid").dependsOn(EGrid)
 lazy val EGridJs = jsProj("EGrid").dependsOn(EarthJs, TilingJs)
 lazy val EGridNat = natProj("EGrid").dependsOn(EarthNat, TilingNat)
 
@@ -143,7 +144,7 @@ def appsSett = List(
 lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingExs, Apps).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
