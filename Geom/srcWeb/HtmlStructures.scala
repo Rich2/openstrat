@@ -27,13 +27,20 @@ object HtmlBody
   def apply(inp: XCon*): HtmlBody = new HtmlBody(inp.toArr)
 }
 
+/** HTML Div element. */
 class HtmlDiv(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlMultiLine
 { override def tag: String = "div"
 }
 
+/** Companion object for the [[HtmlDiv]] DIV element class, contains various factory methods. */
 object HtmlDiv
-{
+{ /** Factory apply method for DIV HTML element. */
+  def apply(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()): HtmlDiv = new HtmlDiv(contents, attribs)
+
+  /** Factory method to create Div element with an ID attribute. */
   def id(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.toArr, RArr(IdAtt(id)))
+
+  /** Factory method to create Div element with a class attribute. */
   def classAtt(id: String, contents: XCon*): HtmlDiv = new HtmlDiv(contents.toArr, RArr(ClassAtt(id)))
 }
 
