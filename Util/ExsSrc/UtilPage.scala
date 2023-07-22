@@ -9,7 +9,7 @@ object UtilPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, cenStr1.xCon, astHeaders, cenStr2.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, cenStr1.xCon, astHeaders, cenStr2.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
@@ -70,24 +70,25 @@ object UtilPage extends HtmlPage
     "processed as single tokens. This means that raw hexidecimals and raw base32s can be processed as 1 or 2 tokens depending on whether they" --
     "start with a digit. This should not cause a problem as long as they are not combined with dot operators in dot expressions.")
 
+  def table1: HtmlTable = HtmlTable(
+    HtmlRow.strs2("LetterChar", "= unicode_letter | '_'"),
+    HtmlRow.strs2("NonZeroDigit", "= '1' ... '9'"),
+    HtmlRow.strs2("DigitChar", "= '0' | NonZeroDigit"),
+    HtmlRow.strs2("HexaLowerChar", "= 'a' ... 'f'"),
+    HtmlRow.strs2("HexaUpperChar", "= 'A' ... 'F'"),
+    HtmlRow.strs2("HexaLetterChar", "= HexaLowerChar | 'a' ... 'f'"),
+    HtmlRow.strs2("HexaChar", "= DigitChar | HexLetterChar"),
+    HtmlRow.strs2("LetterOrDigitChar", "= LetterChar | DigitChar"),
+    HtmlRow.strs2("LetterOrUnderscoreChar", "= LetterChar | '_'"),
+    HtmlRow.strs2("UnderscoreThenLetterOrDigit", "= '_', LetterOrDigitChar"),
+    HtmlRow.strs2("Dot3Token", "= \"...\""),
+    HtmlRow.strs2("Dot2Token", "= \"..\""),
+    HtmlRow.strs2("DotToken", "= '.'")
+  )
+
   val cenStr1: String = """
-      |  <table>
-      |    <tr><td>LetterChar</td>                  <td>= unicode_letter | '_'</td></tr>
-      |    <tr><td>NonZeroDigit</td>                <td>= '1' ... '9'</td></tr>
-      |    <tr><td>DigitChar</td>                   <td>= '0' | NonZeroDigit</td></tr>
-      |    <tr><td>HexaLowerChar</td>               <td>= 'a' ... 'f'</td></tr>
-      |    <tr><td>HexaUpperChar</td>               <td>= 'A' ... 'F'</td></tr>
-      |    <tr><td>HexaLetterChar</td>              <td>= HexaLowerChar | 'a' ... 'f'</td></tr>
-      |    <tr><td>HexaChar</td>                    <td>= DigitChar | HexLetterChar</td></tr>
-      |    <tr><td>LetterOrDigitChar</td>           <td>= LetterChar | DigitChar</td></tr>
-      |    <tr><td>LetterOrUnderscoreChar</td>      <td>= LetterChar | '_'</td></tr>
-      |    <tr><td>UnderscoreThenLetterOrDigit</td> <td>= '_', LetterOrDigitChar</td></tr>
-      |    <tr><td>Dot3Token</td>                   <td>= "..."</td></tr>
-      |    <tr><td>Dot2Token</td>                   <td>= ".."</td></tr>
-      |    <tr><td>DotToken</td>                    <td>= '.'</td></tr>
-      |  </table>
-      |  <br>
-      |  <table>
+      |<br>
+      |    <table>
       |    <tr><td>IdentifierToken</td>             <td>= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }</td></tr>
       |    <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
       |  </table>""".stripMargin

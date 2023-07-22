@@ -85,6 +85,22 @@ object HtmlUlWithLH
   def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.toArr)
 }
 
+case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
+{ override def tag: String = "table"
+}
+object HtmlTable{
+  def apply(contents: HtmlRow*):  HtmlTable = new HtmlTable(contents.toArr)
+}
+
+case class HtmlRow(val contents: RArr[HtmlTd], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
+{ override def tag: String = "tr"
+}
+
+object HtmlRow
+{
+  def strs2(str1: String, str2: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2)))
+}
+
 case class HtmlTd(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlInline
 { override def tag: String = "td"
 }
