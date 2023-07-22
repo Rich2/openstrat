@@ -84,3 +84,12 @@ object HtmlUlWithLH
 { def apply(header: XCon, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
   def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.toArr)
 }
+
+case class HtmlTd(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlInline
+{ override def tag: String = "td"
+}
+
+object HtmlTd
+{
+  def apply(str: String) = new HtmlTd(RArr(str.xCon), RArr())
+}
