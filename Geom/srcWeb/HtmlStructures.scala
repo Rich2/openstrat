@@ -93,6 +93,7 @@ object HtmlUlWithLH
   def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.toArr)
 }
 
+/** HTML TABLE element class. */
 case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "table"
 }
@@ -100,12 +101,13 @@ object HtmlTable{
   def apply(contents: HtmlRow*):  HtmlTable = new HtmlTable(contents.toArr)
 }
 
+/** HTML TR table row element class. */
 case class HtmlRow(val contents: RArr[HtmlTd], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "tr"
 }
 
 object HtmlRow
-{
+{ /** Convenience method for creating an HTML row element of 2 cells form 2 [[String]]s. */
   def strs2(str1: String, str2: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2)))
 }
 

@@ -19,6 +19,7 @@ object HtmlA
   def apply(link: String, label: String): HtmlA = new HtmlA(link, RArr(label.xCon))
 }
 
+/** HTML P paragraph element. */
 trait HtmlP extends HtmlUnvoid
 { def tag = "p"
 }
@@ -69,6 +70,7 @@ case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 { override def tag: String = "ol"
 }
 
+/** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlOl
 { /** Factory apply method for HTML OL orderd list. */
   def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
