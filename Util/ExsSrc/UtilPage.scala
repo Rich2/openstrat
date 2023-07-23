@@ -9,8 +9,8 @@ object UtilPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2, astHeaders,
-    cenStr2.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2,
+    HtmlH2("Abstract Syntax Tree"), cenStr2.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
@@ -102,7 +102,7 @@ object UtilPage extends HtmlPage
     override def contents: RArr[XCon] = ???
   }
 
-  def astHeaders = HtmlH2("Abstract Syntax Tree")
+
 
   def cenStr2 = """
       |  <p>So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON file can be three things.
