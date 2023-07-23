@@ -9,7 +9,8 @@ object UtilPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, cenStr1.xCon, astHeaders, cenStr2.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2, astHeaders,
+    cenStr2.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
@@ -86,14 +87,14 @@ object UtilPage extends HtmlPage
     HtmlRow.strs2("DotToken", "= '.'")
   )
 
-  val cenStr1: String = """
-      |<br>
-      |    <table>
-      |    <tr><td>IdentifierToken</td>             <td>= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }</td></tr>
-      |    <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
-      |  </table>""".stripMargin
+  val table2 = HtmlTable(
+    HtmlRow.strs2("IdentifierToken", "= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }"),
+    HtmlRow.strs2("DeciLitToken", "= '0' | (NonZeroDigit { DigitChar })")
+    )
 
-  def astSect = new HtmlSect {
+
+  def astSect = new HtmlSect
+  {
     /** The attributes of this XML / HTML element. */
     override def attribs: RArr[XmlAtt] = ???
 
