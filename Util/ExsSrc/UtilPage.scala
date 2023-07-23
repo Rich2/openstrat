@@ -10,7 +10,7 @@ object UtilPage extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2,
-    HtmlH2("Abstract Syntax Tree"), cenStr2.xCon)
+    astSect, cenStr2.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
@@ -92,20 +92,11 @@ object UtilPage extends HtmlPage
     HtmlRow.strs2("DeciLitToken", "= '0' | (NonZeroDigit { DigitChar })")
     )
 
-
-  def astSect = new HtmlSect
-  {
-    /** The attributes of this XML / HTML element. */
-    override def attribs: RArr[XmlAtt] = ???
-
-    /** The content of this XML / HTML element. */
-    override def contents: RArr[XCon] = ???
-  }
-
-
+  def astSect = HtmlSect(RArr(HtmlH2("Abstract Syntax Tree"),
+    HtmlP("So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON file can be three things.")
+    ), RArr())
 
   def cenStr2 = """
-      |  <p>So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON file can be three things.
       |  <ol>
       |    <li>An unStatemented file. It just contains an expression, without a semi colon at the end for example could just an Int or String.</li>
       |    <li>A Statemented file</li>
@@ -139,7 +130,6 @@ object UtilPage extends HtmlPage
       |      <li>All other special charachters</li>
       |      <li>Whitespace</li>
       |  </ul>
-      |  </p>
       |  <h2>Hexadecimal and Base32</h2>
       |  <p>Hexadecimal is written with Uppercase letters. Base32 is written with the digits followed by the upper case letters A to W, with the letter 'O'
       |    unused.</p>
