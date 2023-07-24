@@ -54,20 +54,21 @@ object HtmlCanvas
   def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
 }
 
-trait HtmlSect extends HtmlMultiLine
+trait HtmlSection extends HtmlMultiLine
 { override def tag: String = "section"
+  override def attribs: RArr[XmlAtt] = RArr()
 }
 
-object HtmlSect
+object HtmlSection
 {
-  def apply(contentsIn: RArr[XCon], attribsIn: RArr[XmlAtt] = RArr()): HtmlSect = new HtmlSect
+  def apply(contentsIn: RArr[XCon], attribsIn: RArr[XmlAtt] = RArr()): HtmlSection = new HtmlSection
   { override def contents: RArr[XCon] = contentsIn
     override def attribs: RArr[XmlAtt] = attribsIn
   }
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlOlWithLH(val head: XCon, items: RArr[HtmlLi]) extends HtmlSect
+class HtmlOlWithLH(val head: XCon, items: RArr[HtmlLi]) extends HtmlSection
 { override def contents: RArr[XCon] = RArr(head, orderedList)
   override def attribs: RArr[XmlAtt] = RArr()
 
@@ -81,7 +82,7 @@ object HtmlOlWithLH
 }
 
 /** Html UL unordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSect
+class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 { override def contents: RArr[XCon] = RArr(header, unorderedList)
   override def attribs: RArr[XmlAtt] = RArr()
 

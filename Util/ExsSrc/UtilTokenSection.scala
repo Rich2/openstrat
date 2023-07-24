@@ -2,11 +2,9 @@
 package ostrat
 import pWeb._
 
-object UtilTokenSection extends HtmlSect
+object UtilTokenSection extends HtmlSection
 {
   override def contents: RArr[XCon] = RArr(HtmlH2("Tokeniser"), tokList, gen2, identList, lits, table1, HtmlBr, table2)
-
-  override def attribs: RArr[XmlAtt] = RArr()
 
   def tokList: HtmlUlWithLH = HtmlUlWithLH("The Tokeniser will create the following tokens",
     HtmlLi("""Keytokens <span class= lexical>_ ? ?? ???</ span >"""),

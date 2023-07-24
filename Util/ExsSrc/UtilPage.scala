@@ -9,7 +9,7 @@ object UtilPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, UtilTokenSection, astSect, cenStr2.xCon, miscStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, UtilTokenSection, AstSection, cenStr2.xCon, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
 
@@ -26,18 +26,20 @@ object UtilPage extends HtmlPage
 
   def persist: HtmlLi = HtmlLi("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax.")
 
-  def astSect = HtmlSect(RArr(HtmlH2("Abstract Syntax Tree"),
-    HtmlP("So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON file can be three things.")
-    ), RArr())
+  object AstSection extends HtmlSection
+  {
+    override def contents: RArr[XCon] = RArr(HtmlH2("Abstract Syntax Tree"), statements)
+
+    def statements = HtmlUlWithLH("So after the source has been tokenised it is parsed into an Abstract Syntax tree. the basic idea is that an RSON" --
+      "file can be three things.",
+      HtmlLi("An unStatemented file. It just contains an expression, without a semi colon at the end for example could just an Int or String."),
+      HtmlLi("A Statemented file"),
+      HtmlLi("The empty file. It may contain comments but no expressions. The empty statement is a thing in itself but also a special case of a" --
+        "claused statement with with zero Clauses.")
+    )
+  }
 
   def cenStr2 = """
-      |  <ol>
-      |    <li>An unStatemented file. It just contains an expression, without a semi colon at the end for example could just an Int or String.</li>
-      |    <li>A Statemented file</li>
-      |    <li>The empty file. It may contain comments but no expressions. The empty statement is a thing in itself but also a special case of a claused
-      |    statement with with zero Clauses.</li>
-      |  </ol>
-      |
       |  <ol>
       |    <li>An unclaused Statement. It just contains an expression, without a comma at the end for example could just an Int or String.</li>
       |    <li>A Claused Statement</li>
