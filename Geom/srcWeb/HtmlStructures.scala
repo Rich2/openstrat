@@ -65,6 +65,8 @@ object HtmlSection
   { override def contents: RArr[XCon] = contentsIn
     override def attribs: RArr[XmlAtt] = attribsIn
   }
+
+  def apply(contents: XCon*): HtmlSection = apply(contents.toArr)
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
