@@ -2,6 +2,7 @@
 package ostrat; package pEarth
 import pWeb._
 
+/** HTML documentation page for Earth module. */
 object EarthPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Earth Module", "https://richstrat.com/Documentation/documentation")

@@ -57,6 +57,8 @@ object HtmlLi
   def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
     new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
 
+  def boldStart(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
+
   def apply(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
 }
 
@@ -90,9 +92,8 @@ object HtmlScript
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
 }
 
-case class HtmlB(str: String) extends HtmlInline{
-  /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
-  override def tag: String = "b"
+case class HtmlB(str: String) extends HtmlInline
+{ override def tag: String = "b"
 
   /** The attributes of this XML / HTML element. */
   override def attribs: RArr[XmlAtt] = RArr()

@@ -7,7 +7,8 @@ object TilingPage extends HtmlPage
   override def head: HtmlHead = HtmlHead.titleCss("Tiling Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), terms2, centralStr.xCon)
+
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
   def coord: HtmlLi = HtmlLi("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each" +
@@ -32,29 +33,23 @@ object TilingPage extends HtmlPage
 
   def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
 
+  def terms2 = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
+    "the GameWorld or the OutWorld."),
+    HtmlLi("<b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for" --
+      "submission of turn Directives. Rules on credits from InGame achievements or role-playering accreditation on future assignment of InWorld" --
+      "entities. Rules on Player communication."),
+    HtmlLi("<b>OutWorld</b> Anything outside of the Player universe. This can include servers, security, payement etc."),
+    HtmlLi("<b>Player</b> A GameWorld entity. Maybe a human, an AI or a script."),
+    HtmlLi("<b>PlayerControl</b> Assignment of an InWorld entity to a Player's control."),
+    HtmlLi("<b>Directive</b> A player directive given by a player to an InWorld entity at the begining of a turn."),
+    HtmlLi("<b>ControlHeirarchy</b> The precedence order of PlayerControl for Directives if multiple players are given control of an InGame entity."),
+    HtmlLi("<b>Intention</b> Intention to make an effect by an InGame object. An Intention has a single SourceTile and a single TargetTile."),
+    HtmlLi("<b>SourceTile</b> The location of an entity making an Intention."),
+    HtmlLi("<b>TargetTile</b> The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a" --
+      "non adjacent tile.")
+  )
+
   def centralStr: String ="""
-      |    <div>
-      |      <h2>Game Terminology</h2>
-      |      <ol>
-      |        <li><b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in the GameWorld or the
-      |          OutWorld.</li>
-      |        <li><b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for
-      |          submission of turn Directives. Rules on credits from InGame achievements or role-playering accreditation on future assignment of InWorld
-      |          entities. Rules on Player communication.
-      |       </li>
-      |        <li><b>OutWorld</b> Anything outside of the Player universe. This can include servers, security, payement etc.</li>
-      |        <li><b>Player</b> A GameWorld entity. Maybe a human, an AI or a script.</li>
-      |        <li><b>PlayerControl</b> Assignment of an InWorld entity to a Player's control.</li>
-      |        <li><b>Directive</b> A player directive given by a player to an InWorld entity at the begining of a turn.</li>
-      |        <li><b>ControlHeirarchy</b> The precedence order of PlayerControl for Directives if multiple players are given control of an InGame
-      |          entity.</li>
-      |        <li><b>Intention</b> Intention to make an effect by an InGame object. An Intention has a single SourceTile and a single TargetTile.</li>
-      |        <li><b>SourceTile</b> The location of an entity making an Intention.</li>
-      |        <li><b>TargetTile</b> The target an Intention. Maybe the sourceTile. For some Intentions it must be an adjacent tile for others it maybe a non
-      |          adjacent tile.</li>
-      |      </ol>
-      |    </div>
-      |
       |    <div>
       |      <h2>Turn Resolution</h2>
       |      <ol>
