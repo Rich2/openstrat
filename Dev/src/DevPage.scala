@@ -9,7 +9,7 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, cenStr1.xCon, miscTitle, miscStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, cenStr1.xCon, miscTitle, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
@@ -38,25 +38,23 @@ object DevPage extends HtmlPage
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
+  def sbt2: HtmlUl = HtmlUl(
+    HtmlLi.sbtAndText("~ Dev/reStart", "To launch a ScalaFx window. The most useful command for development."),
+    HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html."),
+    HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFull.html."),
+    HtmlLi.sbtAndText("~ Util/test", "Rerun tests on Util module."),
+    HtmlLi.sbtAndText("~ Tiling/test", "Rerun tests on Tiling module."),
+    HtmlLi.sbtAndText("~ Dev/test", "Rerun tests on, Dev module."),
+    HtmlLi.sbtAndText("~ Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
+    HtmlLi.sbtAndText("DocMain/doc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
+      """<code class="folder">Dev/SbtDir/DocMain/target/scala-3.3.0/api/</code>"""),
+
+    HtmlLi.sbtAndText("DocJs/doc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
+      """<code class="folder">Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.0/api/</code>"""),
+    HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
+  )
+
   def cenStr1 ="""
-  |  <ul>
-  |   <li><code class="sbt">~ Dev/reStart</code> To launch a ScalaFx window. The most useful command for development</li>
-  |   <li><code class="sbt">~ DicelessJs/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html</li>
-  |   <li><code class="sbt">DicelessJs/fullOptJS</code> To build a full optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFull.html</li>
-  |   <li><code class="sbt">~ Util/test</code> Rerun tests on Util module.</li>
-  |   <li><code class="sbt">~ Tiling/test</code> Rerun tests on Tiling module.</li>
-  |   <li><code class="sbt">~ Dev/test</code> Rerun tests on, Dev module.</li>
-  |   <li><code class="sbt">~ Util/test; Tiling/test; Dev/test</code> Rerun tests on Util module.</li>
-  |   <li><code class="sbt">DocMain/doc</code> Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in
-  |     <code class="folder">Dev/SbtDir/DocMain/target/scala-3.3.0/api/</code>
-  |    </li>
-  |   <li><code class="sbt">DocJs/doc</code> Will produce docs for all the main code in all the modules for the Javascript platform. They can be found
-  |      in <code class="folder">Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.0/api/</code>
-  |    </li>
-  |    <li><code class="sbt">bothDoc</code> will perform both the above tasks.</li>
-  |   </ul>
-  |  </p>
-  |
   |<p>The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a
   |  ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the
   |  Dev/Misc folder to the  Dev/User folder. Creating the directory and its parents if not already existing. Change the appStr setting in

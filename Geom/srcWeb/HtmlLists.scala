@@ -6,6 +6,11 @@ case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 { override def tag: String = "ul"
 }
 
+/** Companion object for [[HtmlUl]] unordered list HTML element class, contains factory apply method with repeat parameters. */
+object HtmlUl
+{ /** Factory apply method for HTML UL unordered list. */
+  def apply(contents: XCon*): HtmlUl = new HtmlUl(contents.toArr)
+}
 /** Html OL ordered list element. */
 case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "ol"
@@ -13,7 +18,7 @@ case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) 
 
 /** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
 object HtmlOl
-{ /** Factory apply method for HTML OL orderd list. */
+{ /** Factory apply method for HTML OL ordered list. */
   def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
 }
 
