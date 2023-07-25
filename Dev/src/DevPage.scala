@@ -2,6 +2,7 @@
 package ostrat; package pDev
 import pWeb._
 
+/** HTML page for Dev Module. */
 object DevPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
@@ -42,7 +43,7 @@ object DevPage extends HtmlPage
   |  elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala
   |  is, and in particular Scala 3 will be the ideal language to explore these questions.</p>
   |
-  |<p>Scala currently set to 3.3.0. Jdk 11+, 11 preferred. Scala.Js set to 1.13.2. Scala native set to 0.4.14. Sbt currently set to 1.9.1 (uses the
+  |<p>Scala currently set to 3.3.0. Jdk 11+, 11 preferred. Scala.Js set to 1.13.2. Scala native set to 0.4.14. Sbt currently set to 1.9.3 (uses the
   | build.sbt file). Note (probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to 0.10.7.</p>
   |
   |<p>Run <code>sbt</code> in bash from project's root folder</p>
