@@ -114,11 +114,12 @@ object HtmlRow
   def strs2(str1: String, str2: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2)))
 }
 
-case class HtmlTd(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlInline
+/** HTML TD table cell element. */
+case class HtmlTd(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlInline
 { override def tag: String = "td"
 }
 
 object HtmlTd
-{
+{ /** Factory apply method to construct HTML TD table cell element form a simple [[String]]. */
   def apply(str: String) = new HtmlTd(RArr(str.xCon), RArr())
 }

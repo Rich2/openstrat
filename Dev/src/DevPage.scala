@@ -9,7 +9,7 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, cenStr2.xCon, miscTitle, miscStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, cenStr1.xCon, miscTitle, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
@@ -32,13 +32,13 @@ object DevPage extends HtmlPage
     "elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel" --
     "Scala is, and in particular Scala 3 will be the ideal language to explore these questions.")
 
-  def cenStr2 ="""
-  |<p>Scala currently set to 3.3.0. Jdk 11+, 11 preferred. Scala.Js set to 1.13.2. Scala native set to 0.4.14. Sbt currently set to 1.9.3 (uses the
-  | build.sbt file). Note (probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to 0.10.7.</p>
-  |
-  |<p>Run <code>sbt</code> in bash from project's root folder</p>
-  |
-  |<p>From within the sbt console run:
+  def p4: HtmlP = HtmlP("Scala currently set to 3.3.0. Jdk 11+, 11 preferred. Scala.Js set to 1.13.2. Scala native set to 0.4.14. Sbt currently set" --
+    "to 1.9.3 (uses the build.sbt file).Note(probably due to the JavaFx dependency).Sbt will not work running on Windows in Git Bash.Update your" --
+    "Mill to 0.10.7.")
+
+  def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
+
+  def cenStr1 ="""
   |  <ul>
   |   <li><code class="sbt">~ Dev/reStart</code> To launch a ScalaFx window. The most useful command for development</li>
   |   <li><code class="sbt">~ DicelessJs/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html</li>

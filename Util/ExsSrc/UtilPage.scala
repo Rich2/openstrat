@@ -3,7 +3,8 @@ package ostrat
 import pWeb._
 
 /** Produces an HTML file documentation for the Util module. */
-object UtilPage extends HtmlPage {
+object UtilPage extends HtmlPage
+{
   override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
