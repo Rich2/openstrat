@@ -8,10 +8,13 @@ object NewDevsPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("New Developers Info"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, p1, centralStr.xCon)
 
   def contrib = HtmlP("The easier way to make a contribution is through the Github web site. Either way will require a Github membership.")
 
+  def p1 = HtmlP("If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11 and" --
+    "sbt. more complete documentation. For getting started on Linux / Windows / Mac will come later.The basic build has been tested on Linux and" --
+    "Windows 7. Jdk 17 preferred.")
 
   def centralStr: String ="""
       |<h2>Git Commands and Sbt</h2>
