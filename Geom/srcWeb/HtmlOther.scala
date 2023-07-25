@@ -2,10 +2,29 @@
 package ostrat; package pWeb
 
 /** An HTML code element. */
-case class HtmlCode(contentStr: String, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
+trait HtmlCode/*(contentStr: String, attribs: RArr[XmlAtt] = RArr())*/ extends HtmlUnvoid
 { override def tag: String = "code"
-  override def contents: RArr[XCon] = RArr(contentStr.xCon)
-  override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = openUnclosed + contentStr + closeTag
+
+  //override def contents: RArr[XCon] = RArr(contentStr.xCon)
+  //override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = openUnclosed + contentStr + closeTag
+}
+
+trait HtmlCodeInline extends HtmlCode with HtmlInline
+
+trait HtmlSbt extends HtmlCode
+{
+  def classAtt: ClassAtt = ClassAtt("sbt")
+
+  override def attribs: RArr[XmlAtt] = RArr(classAtt)
+}
+
+trait HtmlSbtInline extends HtmlSbt with HtmlCodeInline
+
+object HtmlSbtInline
+{
+  def apply(str: String): HtmlSbtInline = new HtmlSbtInline
+  { override def contents: RArr[XCon] = RArr(str.xCon)
+  }
 }
 
 /** HTML A anchor element. */
@@ -38,44 +57,6 @@ object HtmlP
       case TextInMultiLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag
     }
   }
-}
-
-/** Html LI, list item element. */
-case class HtmlLi(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
-{ override def tag: String = "li"
-}
-
-/** Companion object for HTML LI list element class, contains multiple methods fpr their construction. */
-object HtmlLi
-{ /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
-  def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
-
-  /** An HTML list item element that has a link as its sole content. */
-  def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))), attribs.toArr)
-
-  /** An HTML list item element that has a link, followed by some text as its sole contents. */
-  def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =
-    new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon)), otherText.xCon), attribs.toArr)
-
-  def boldStart(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
-
-  def apply(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
-}
-
-/** Html UL unordered list element. */
-case class HtmlUl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
-{ override def tag: String = "ul"
-}
-
-/** Html OL ordered list element. */
-case class HtmlOl(val contents: RArr[XCon], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
-{ override def tag: String = "ol"
-}
-
-/** Companion object for [[HtmlOl]] ordered list HTML element class, contains factory apply method with repeat parameters. */
-object HtmlOl
-{ /** Factory apply method for HTML OL orderd list. */
-  def apply(contents: XCon*): HtmlOl = new HtmlOl(contents.toArr)
 }
 
 /** HTML script element. */
