@@ -9,7 +9,7 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, cenStr.xCon, miscTitle, miscStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, cenStr.xCon, miscTitle, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
@@ -19,10 +19,10 @@ object DevPage extends HtmlPage
 
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
+  def p1 = HtmlP("""It currently works on JavaFx and web page. Using canvas on both platforms. See <a href=" api / index.html">Scala Docs</a>""" --
+    """and See <a href="apiJs/index.html">Scala Docs for JavaScript target.</a>")""")
+
   def cenStr ="""
-  |<p>It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="api/index.html">Scala Docs</a> and See
-  |  <a href="apiJs/index.html">Scala Docs for JavaScript target.</a>
-  |</p>
   |<p>The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability. The geometry
   |  and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance with the
   |  original vision, part of which was to explore the possibilities of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary
@@ -105,7 +105,8 @@ object DevPage extends HtmlPage
       |then repeat sudo update-alternatives --config java
       |
       |<p>ScalaRx might prove useful. Consider -Xfatal-warnings.</p>
-      |<p>Consider extending hexadecimal to 32 values for succinct tile coordinate notation. Uses all the letters except i and o. 2 digits can encode 1024 vales instead of 100. 3 digits can encode 32768 values instead of a thousand.
+      |<p>Consider extending hexadecimal to 32 values for succinct tile coordinate notation. Uses all the letters except i and o. 2 digits can encode
+      | 1024 vales instead of 100. 3 digits can encode 32768 values instead of a thousand.
       |
       |0123456789ABCDEF //Hexadecimal
       |
