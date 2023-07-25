@@ -9,7 +9,7 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, cenStr1.xCon, miscTitle, miscStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, intellij, miscTitle, miscStr.xCon)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
@@ -54,20 +54,18 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
-  def cenStr1 ="""
-  |<p>The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a
-  |  ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the
-  |  Dev/Misc folder to the  Dev/User folder. Creating the directory and its parents if not already existing. Change the appStr setting in
-  |  DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also
-  |  rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have
-  |  to manually refresh the browser window after the fastOptJS command has finished the rebuild.</p>
-  |
-  |<p><ul>For IntellliJ useful options:
-  |  <li>File => Editor => General -> Other -> tick "Show quick documentation on mouse move".</li>
-  |  <li>File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"</li>
-  |  <li>Project-Pane => Options -> "Flatten packages"</li>
-  |</ul></p>
-  |""".stripMargin
+  def p5: HtmlP = HtmlP("The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will" --
+    "build and launch a ScalaFx window.It will rebuild and relaunch so you can immediately see the effects of your changes.Copy the" --
+    "DevSettings.rson file from the Dev/Misc folder to the Dev / User folder.Creating the directory and its parents if not already existing." --
+    "Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus" --
+    "others.The second command will also rebuild on source changes in similar manner.However unlike with the reStart command, when you make a" --
+    "source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.")
+
+  def intellij = HtmlUlWithLH("For IntellliJ useful options:",
+    HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
+    HtmlLi("File => 'Build, Execution, Deployment' => Compiler -> Build project automatically"),
+    HtmlLi("Project-Pane => Options -> 'Flatten packages'")
+  )
 
   def miscStr: String ="""
   |<p>So its been one of my aspirations to reduce if not remove dependence on scala.Any. Any often leads to extra boxing. Single
