@@ -86,6 +86,7 @@ case class HtmlRow(val contents: RArr[HtmlTd], val attribs: RArr[XmlAtt] = RArr(
 object HtmlRow
 { /** Convenience method for creating an HTML row element of 2 cells form 2 [[String]]s. */
   def strs2(str1: String, str2: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2)))
+  def strs(strings: String*): HtmlRow = HtmlRow(strings.mapArr(HtmlTd(_)))
 }
 
 /** HTML TD table cell element. */
