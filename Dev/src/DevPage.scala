@@ -74,10 +74,10 @@ object DevPage extends HtmlPage
     "In my example this gives<br>")
 
   def table = HtmlTable(
-    HtmlRow.strs("Selection", "Path", "Priority", "Status"),
-    HtmlRow.strs("0", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "auto mode"),
-    HtmlRow.strs("1", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "manual mode"),
-    HtmlRow.strs("2", "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java", "1081", "manual mode")
+    HtmlRow.strs4("Selection", "Path", "Priority", "Status"),
+    HtmlRow.strs4("0", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "auto mode"),
+    HtmlRow.strs4("1", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "manual mode"),
+    HtmlRow.strs4("2", "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java", "1081", "manual mode")
   )
 
   def p7 = HtmlP("So leave the number as it is, then add to alternatives. I put the number 3 at then end because in my case slots 0 to 2 are" --

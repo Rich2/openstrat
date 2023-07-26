@@ -84,9 +84,14 @@ case class HtmlRow(val contents: RArr[HtmlTd], val attribs: RArr[XmlAtt] = RArr(
 }
 
 object HtmlRow
-{ /** Convenience method for creating an HTML row element of 2 cells form 2 [[String]]s. */
+{ /** Convenience method for creating an HTML row element of 2 cells from 2 [[String]]s. */
   def strs2(str1: String, str2: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2)))
-  def strs(strings: String*): HtmlRow = HtmlRow(strings.mapArr(HtmlTd(_)))
+
+  /** Convenience method for creating an HTML row element of 3 cells from 3 [[String]]s. */
+  def strs3(str1: String, str2: String, str3: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2), HtmlTd(str3)))
+
+  /** Convenience method for creating an HTML row element of 4 cells from 4 [[String]]s. */
+  def strs4(str1: String, str2: String, str3: String, str4: String): HtmlRow = HtmlRow(RArr(HtmlTd(str1), HtmlTd(str2), HtmlTd(str3), HtmlTd(str4)))
 }
 
 /** HTML TD table cell element. */
