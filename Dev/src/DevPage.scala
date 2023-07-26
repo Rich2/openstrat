@@ -33,33 +33,39 @@ object DevPage extends HtmlPage
     "Scala is, and in particular Scala 3 will be the ideal language to explore these questions.")
 
   def p4: HtmlP = HtmlP("Scala currently set to 3.3.0. Jdk 11+, 11 preferred. Scala.Js set to 1.13.2. Scala native set to 0.4.14. Sbt currently" --
-    "set to 1.9.3 (uses the build.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update" --
+    "set to 1.9.3 (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update" --
     "your Mill to 0.11.1.")
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
   def sbt2: HtmlUl = HtmlUl(
     HtmlLi.sbtAndText("~ Dev/reStart", "To launch a ScalaFx window. The most useful command for development."),
-    HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFast.html."),
-    HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with Dev/DevPages/DicelessSbtFull.html."),
+
+    HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" --
+      "Dev/DevPages/DicelessSbtFast.html".htmlPath),
+
+    HtmlLi.sbtAndText("DicelessJs/fullOptJS", "To build a full optimised JavaScript file. Use with" -- "Dev/DevPages/DicelessSbtFull.html".htmlPath),
     HtmlLi.sbtAndText("~ Util/test", "Rerun tests on Util module."),
     HtmlLi.sbtAndText("~ Tiling/test", "Rerun tests on Tiling module."),
     HtmlLi.sbtAndText("~ Dev/test", "Rerun tests on, Dev module."),
     HtmlLi.sbtAndText("~ Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
+
     HtmlLi.sbtAndText("DocMain/doc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
-      """<code class="folder">Dev/SbtDir/DocMain/target/scala-3.3.0/api/</code>"""),
+      "Dev/SbtDir/DocMain/target/scala-3.3.0/api/".htmlPath),
 
     HtmlLi.sbtAndText("DocJs/doc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
-      """<code class="folder">Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.0/api/</code>"""),
+      "Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.0/api/".htmlPath),
+
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
-  def p5: HtmlP = HtmlP("The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will" --
-    "build and launch a ScalaFx window.It will rebuild and relaunch so you can immediately see the effects of your changes.Copy the" --
-    "DevSettings.rson file from the Dev/Misc folder to the Dev / User folder.Creating the directory and its parents if not already existing." --
-    "Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus" --
-    "others.The second command will also rebuild on source changes in similar manner.However unlike with the reStart command, when you make a" --
-    "source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.")
+  def p5: HtmlP = HtmlP("The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command" --
+    "will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes.Copy the" --
+    "Dev/Misc/DevSettings.rson".htmlPath -- "file to the" -- "Dev/User".htmlPath -- "folder. Creating the directory and its" +
+    " parents if not already existing. Change the appStr setting in"-- "Dev/User/DevSettings.rson".htmlPath -- "to change the application. All the" --
+    "examples on the richstrat.com website are available plus others.The second command will also rebuild on source changes in similar manner." --
+    "However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window" --
+    "after the fastOptJS command has finished the rebuild.")
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
@@ -68,8 +74,8 @@ object DevPage extends HtmlPage
   )
 
   def p6: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at / usr/bin/java. It is a link to" --
-    "/etc/alternatives/java. This is also a link.To install a different java, install the JDK root folder in usr/lib jvm. It doesn 't have to be" --
-    "here, but it makes it easier to go with convention.Run<br>" ---
+    "/etc/alternatives/java. This is also a link. To install a different java, install the JDK root folder in usr/lib jvm. It doesn 't have to be" --
+    "here, but it makes it easier to go with convention. Run<br>" ---
     "sudo update-alternatives --config java<br>" ---
     "In my example this gives<br>")
 

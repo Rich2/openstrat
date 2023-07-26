@@ -15,9 +15,11 @@ package object pWeb
     def xmlAsString: XmlAsString = XmlAsString(thisString)
     
     def enTag(tag: String): String = "<" + tag + ">" + thisString + "</" + tag + ">"
-    
-    def h1Str: String = thisString.enTag("h1")
 
-    def h2: HtmlH2 = HtmlH2(thisString)
+    def htmlPath: String = "<code class='path'>" + thisString + "</code>"
+
+    //def h1Str: String = thisString.enTag("h1")
+
+    //def htH2: HtmlH2 = HtmlH2(thisString)
   }
 }
