@@ -1,31 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An HTML code element. */
-trait HtmlCode/*(contentStr: String, attribs: RArr[XmlAtt] = RArr())*/ extends HtmlUnvoid
-{ override def tag: String = "code"
 
-  //override def contents: RArr[XCon] = RArr(contentStr.xCon)
-  //override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = openUnclosed + contentStr + closeTag
-}
-
-trait HtmlCodeInline extends HtmlCode with HtmlInline
-
-trait HtmlSbt extends HtmlCode
-{
-  def classAtt: ClassAtt = ClassAtt("sbt")
-
-  override def attribs: RArr[XmlAtt] = RArr(classAtt)
-}
-
-trait HtmlSbtInline extends HtmlSbt with HtmlCodeInline
-
-object HtmlSbtInline
-{
-  def apply(str: String): HtmlSbtInline = new HtmlSbtInline
-  { override def contents: RArr[XCon] = RArr(str.xCon)
-  }
-}
 
 /** HTML A anchor element. */
 class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAtt] = RArr()) extends HtmlInline

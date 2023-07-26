@@ -73,11 +73,11 @@ object DevPage extends HtmlPage
     HtmlLi("Project-Pane => Options -> 'Flatten packages'")
   )
 
-  def p6: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at / usr/bin/java. It is a link to" --
-    "/etc/alternatives/java. This is also a link. To install a different java, install the JDK root folder in usr/lib jvm. It doesn 't have to be" --
-    "here, but it makes it easier to go with convention. Run<br>" ---
-    "sudo update-alternatives --config java<br>" ---
-    "In my example this gives<br>")
+  def p6: HtmlP = HtmlP("So at least recent versions of Kubuntu the java command on the path, is at" -- "/usr/bin/java".htmlPath +". It is a link" --
+    "to" --   "/etc/alternatives/java".htmlPath + ". This is also a link. To install a different java, install the JDK root folder in" --
+    "usr/lib/jvm".htmlPath + ". It doesn't have to be here, but it makes it easier to go with convention. Run<br>" ---
+    "sudo update-alternatives --config java".htmlBash ---
+    "<br>In my example this gives<br>")
 
   def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),

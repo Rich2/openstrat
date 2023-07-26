@@ -42,6 +42,7 @@ code { color: DarkRed; }
 .sbt { color: DarkGreen; }
 .folder { color: DarkBlue; white-space: nowrap; }
 .path { color: DarkBlue; white-space: nowrap; }
+,bash { color: DarkRed; white-space: nowrap; }
 
 @media (min-width:50em)
 {

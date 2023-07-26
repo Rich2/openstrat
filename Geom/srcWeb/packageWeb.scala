@@ -18,6 +18,7 @@ package object pWeb
 
     def htmlPath: String = "<code class='path'>" + thisString + "</code>"
 
+    def htmlBash: String = "<code class='bash'>" + thisString + "</code>"
     //def h1Str: String = thisString.enTag("h1")
 
     //def htH2: HtmlH2 = HtmlH2(thisString)
