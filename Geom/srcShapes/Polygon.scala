@@ -19,7 +19,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   def vLast: Pt2 = vLastX pp vLastY
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
-  final def side0: LineSeg = LineSeg(vLast, v0)
+  final def side0: LineSeg = LineSeg(v0, vert(1))
 
   /** The X component of the centre or half way point of side 0 of this polygon. */
   final def sd0CenX: Double = vLastX aver v0x
@@ -46,10 +46,10 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
   override def vertsIForeach[U](f: (Int, Pt2) => U): Unit =
-  { var count = 0
+  { var i = 0
     vertsForeach{ v =>
-      f(count, v)
-      count += 1
+      f(i, v)
+      i += 1
     }
   }
 
@@ -75,11 +75,11 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   /** flatMap with index to an immutable Arr. */
   def vertsIFlatMap[BB <: Arr[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
-    var count: Int = iInit
+    var i: Int = iInit
     vertsForeach { v =>
-      val newElems = f(v, count)
+      val newElems = f(v, i)
       build.buffGrowArr(buff, newElems)
-      count += 1
+      i += 1
     }
     build.buffToSeqLike(buff)
   }
@@ -97,59 +97,59 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
     res
   }
 
-  @inline def side(index: Int): LineSeg = LineSeg(vert(index), ife(index == vertsNum - 1, v0, vert(index + 1)))
+  @inline def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
-  { var count = 0
-    while (count < vertsNum) { f(side(count)); count += 1 }
+  { var i = 0
+    while (i < vertsNum) { f(side(i)); i += 1 }
   }
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def iForeachSide(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
-  { var count = 0
-    while (count < vertsNum)
-    { f(side(count), count + initCount)
-      count += 1
+  { var i = 0
+    while (i < vertsNum)
+    { f(side(i), i + initCount)
+      i += 1
     }
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: ArrMapBuilder[A, AA]): AA =
-  { var count = 0
+  { var i: Int = 0
     val res = build.uninitialised(vertsNum)
-    while (count < vertsNum)
-    { res.setElemUnsafe(count, f(side(count + 1)))
-      count += 1
+    while (i < vertsNum)
+    { res.setElemUnsafe(i, f(side(i)))
+      i += 1
     }
     res
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesIMap[A, AA <: Arr[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrMapBuilder[A, AA]): AA =
-  { var count = 0
+  { var i = 0
     val res = build.uninitialised(vertsNum)
-    while (count < vertsNum)
-    { res.setElemUnsafe(count, f(side(count + 1), count + initCount))
-      count += 1
+    while (i < vertsNum)
+    { res.setElemUnsafe(i, f(side(i), i + initCount))
+      i += 1
     }
     res
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesIFlatMap[AA <: Arr[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
-  { var count = initCount
+  { var i: Int = initCount
     val buff = build.newBuff()
     sidesForeach { side =>
-      val newElems = f(side, count)
+      val newElems = f(side, i)
       build.buffGrowArr(buff, newElems)
-      count += 1
+      i += 1
     }
     build.buffToSeqLike(buff)
   }
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
-  { var acc = init
+  { var acc: A = init
     sidesForeach{ s => acc = f(acc, s) }
     acc
   }
@@ -167,7 +167,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def yVert(index: Int): Double = unsafeArray(index * 2 +1)
+  def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   final def v0x: Double = unsafeArray(0)

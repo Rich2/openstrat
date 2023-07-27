@@ -64,8 +64,8 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
     build.buffToSeqLike(buff)
   }
 
-  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  def vert(index: Int): VT = ssIndex(index)
+  /** Returns the vertex of the given index. Cycles around if the index is out of range, vert 3 retruns vert 0 on a triangle. */
+  def vert(index: Int): VT = ssIndex(index %% vertsNum)
 
   /** This method should be overridden in final classes. */
   def vertsForAll(f: VT => Boolean): Boolean =

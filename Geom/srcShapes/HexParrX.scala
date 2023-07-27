@@ -68,12 +68,14 @@ object HexParrX
     val h2: Double = height / 2
     val dsq3: Double = height / 3.sqrt
     val d2sq3: Double = height / (3.sqrt * 2)
-    Array[Double](xCen - d2sq3, yCen + h2,
+    Array[Double](
       xCen + d2sq3, yCen + h2,
       xCen + dsq3, yCen,
       xCen + d2sq3, yCen - h2,
       xCen - d2sq3, yCen - h2,
-      xCen - dsq3, yCen)
+      xCen - dsq3, yCen,
+      xCen - d2sq3, yCen + h2
+    )
   }
 
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))

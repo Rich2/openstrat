@@ -69,7 +69,8 @@ object HexParrY
   { val dsq3 = width / 3.sqrt
     val d2sq3: Double = width /(3.sqrt * 2)
     val w2 = width / 2
-    val array = Array[Double](xCen, yCen + dsq3,
+    val array = Array[Double](
+      xCen, yCen + dsq3,
       xCen + w2, yCen + d2sq3,
       xCen + w2, yCen - d2sq3,
       xCen, yCen - dsq3,
