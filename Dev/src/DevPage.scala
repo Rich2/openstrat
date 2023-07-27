@@ -79,7 +79,7 @@ object DevPage extends HtmlPage
     "sudo update-alternatives --config java".htmlBash ---
     "<br>In my example this gives<br>")
 
-  def table = HtmlTable.width100(
+  def table = HtmlTable(
     HtmlRowHead.strs4("Selection", "Path", "Priority", "Status"),
     HtmlRow.strs4("0", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "auto mode"),
     HtmlRow.strs4("1", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java", "1111", "manual mode"),
