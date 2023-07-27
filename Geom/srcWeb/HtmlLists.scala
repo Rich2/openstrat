@@ -41,6 +41,7 @@ object HtmlLi
 
   def boldStart(str1: String, str2: String): HtmlLi = HtmlLi(str1.htmlB)
 
+  def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlBashInline(bashStr), str2.xCon))
   def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr), str2.xCon))
 }
 
