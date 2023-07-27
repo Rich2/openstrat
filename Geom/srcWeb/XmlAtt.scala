@@ -18,24 +18,6 @@ object XmlAtt
   }
 }
 
-/** An Xml attribute that has a numeric value, allowing the value to be constructed with a
- *  [[Double]]. */
-trait XAttNumeric extends XmlAtt
-{ def value: Double
-  override def valueStr: String = value.toString
-}
-
-/** /companion object for the [[XAttNumeric]] trait, an Xml attribute that has a numeric value, allowing the value to be constructed with a
- *  [[Double]]. */
-object XAttNumeric
-{
-  /** Factory apply method for an Xml attribute that has a numeric value, allowing the value to be constructed with a [[Double]].  */
-  def apply(nameIn: String, valueIn: Double): XAttNumeric = new XAttNumeric
-  { override def name: String = nameIn
-    override def value: Double = valueIn    
-  }
-}
-
 /** Creates for an "id" XML / HTML attribute." */
 case class IdAtt(valueStr: String) extends XmlAtt
 { override def name: String = "id"
@@ -54,14 +36,10 @@ case class TypeAtt(valueStr: String) extends XmlAtt
 { override def name: String = "type"
 }
 
-object TypeAtt{
-  def js: TypeAtt = TypeAtt("text/javascript")
+object TypeAtt
+{ def js: TypeAtt = TypeAtt("text/javascript")
 }
 
 case class SrcAtt(valueStr: String) extends XmlAtt
 { override def name: String = "src"
-}
-
-case class WidthAtt(valueStr: String) extends XmlAtt{
-  override def name: String = "width"
 }

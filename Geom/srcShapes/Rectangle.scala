@@ -24,7 +24,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   override def cenY: Double = v0y aver v2y
 
   /** length from v1 to v2 and v3 to v4. */
-  def width1: Double = v0.distTo(v1)
+  def width1: Double = v3.distTo(v0)
 
   /** length from v2 to v3 and v03 to v1. */
   def width2: Double = v1.distTo(v2)
@@ -37,11 +37,11 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   final def alignAngle: Angle = (v0 >> v1).angle
 
-  def widthAttrib: WidthAtt = WidthAtt(width1)
+  def widthAttrib: XmlAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(v3x)
   def yAttrib: YAttrib = YAttrib(v3y)
-  override def attribs: RArr[XAttNumeric] = RArr(widthAttrib, heightAttrib, xAttrib, yAttrib)
+  override def attribs: RArr[XmlAtt] = RArr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
   def diag1: LineSeg = LineSeg(v2, v0)
   def diag2: LineSeg = LineSeg(v3, v1)

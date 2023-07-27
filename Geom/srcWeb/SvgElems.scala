@@ -1,6 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package geom
-import pWeb._
+package ostrat; package pWeb
 
 /** An SVG element. */
 trait SvgElem extends XmlMulti

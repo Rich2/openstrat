@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, Colour.Black, pWeb.XmlAtt
+import pgui._, Colour.Black, pWeb._
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphicCentred

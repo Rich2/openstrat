@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -16,8 +16,8 @@ final class Sqlign private(val unsafeArray: Array[Double]) extends Square with R
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistEv
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
-  override def attribs: RArr[XAttNumeric] = ???
-  override def width1 = width
+  override def attribs: RArr[XmlAtt] = ???
+  override def width1: Double = width
   override def width2: Double = width
   override def height: Double = width
   override def rotation: AngleVec = 0.degsVec

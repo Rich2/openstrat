@@ -50,8 +50,8 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
     CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
 
   def fillActive(fillColour: Colour, pointerID: AnyRef): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
-  def rAttrib: XAttNumeric = XAttNumeric("r", radius)
-  override def attribs: RArr[XAttNumeric] = RArr(cxAttrib, cyAttrib, rAttrib)
+  def rAttrib: XmlAtt = XmlAtt("r", radius.toString)
+  override def attribs: RArr[XmlAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
 
   private[this] def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)

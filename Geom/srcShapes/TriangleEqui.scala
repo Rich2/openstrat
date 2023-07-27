@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -10,7 +10,7 @@ final class TriangleEqui(val unsafeArray: Array[Double]) extends TriangleIsos wi
   override def fromArray(array: Array[Double]): TriangleEqui = new TriangleEqui(array)
 
   override def height: Double = ???
-  override def attribs: RArr[XAttNumeric] = ???
+  override def attribs: RArr[XmlAtt] = ???
   override def vertsTrans(f: Pt2 => Pt2): TriangleEqui = ???
 
   override def rotate(angle: AngleVec): TriangleEqui = ???

@@ -35,11 +35,11 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def e: Double
 
   def area: Double
-  def cxAttrib: XAttNumeric = XAttNumeric("cx", cenX)
-  def cyAttrib: XAttNumeric = XAttNumeric("cy", cenY)
-  def rxAttrib: XAttNumeric = XAttNumeric("rx", radius1)
-  def ryAttrib: XAttNumeric = XAttNumeric("ry", radius2)
-  def attribs: RArr[XAttNumeric] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  def cxAttrib: XmlAtt = XmlAtt("cx", cenX.toString)
+  def cyAttrib: XmlAtt = XmlAtt("cy", cenY.toString)
+  def rxAttrib: XmlAtt = XmlAtt("rx", radius1.toString)
+  def ryAttrib: XmlAtt = XmlAtt("ry", radius2.toString)
+  def attribs: RArr[XmlAtt] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: Rect
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(axesPt1), f(axesPt4))

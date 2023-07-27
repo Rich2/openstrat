@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pWeb._
 
@@ -19,7 +19,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
 
-  override def attribs: RArr[XAttNumeric] = ???
+  override def attribs: RArr[XmlAtt] = ???
 
   override def canEqual(that: Any): Boolean = that match {
     case s: Shape => true

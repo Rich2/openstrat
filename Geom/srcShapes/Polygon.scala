@@ -25,7 +25,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   final def sd0CenX: Double = v0x aver xVert(1)
 
   /** The Y component of the centre or half way point of side 0 of this polygon. */
-  final def sd0CenY: Double = v0y aver yVert(1)
+  final def sd0CenY: Double = v0y aver vertY(1)
 
   /** The centre or half way point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as
    *  vertex 0.5. */
@@ -154,7 +154,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
     acc
   }
 
-  override def attribs: RArr[XAttNumeric] = ???
+  override def attribs: RArr[XmlAtt] = ???
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillInt(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
@@ -167,7 +167,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
+  def vertY(index: Int): Double = unsafeArray(index * 2 + 1)
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   final def v0x: Double = unsafeArray(0)

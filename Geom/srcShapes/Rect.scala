@@ -119,7 +119,7 @@ object Rect
     override def width1: Double = width
     override def width2: Double = height
 
-    override def attribs: RArr[XAttNumeric] = ???
+    override def attribs: RArr[XmlAtt] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slateXY(xDelta: Double, yDelta: Double): RectImp = mapRectImp(_.xySlate(xDelta, yDelta))

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -86,7 +86,7 @@ object Square extends ShapeIcon
     @inline override def width: Double = width1
     @inline override def width2: Double = width1
 
-    override def attribs: RArr[XAttNumeric] = ???
+    override def attribs: RArr[XmlAtt] = ???
 
     override def rotation: AngleVec = ???
 

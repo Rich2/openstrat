@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -18,7 +18,7 @@ final case class TriangleIsosGen(unsafeArray: Array[Double]) extends TriangleIso
   override def fromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
   override def vertsTrans(f: Pt2 => Pt2): TriangleIsosGen = ???
 
-  override def attribs: RArr[XAttNumeric] = ???
+  override def attribs: RArr[XmlAtt] = ???
 
   override def rotate(angle: AngleVec): TriangleIsosGen = ???
 
