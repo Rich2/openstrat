@@ -15,7 +15,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   final def vLastX: Double = unsafeArray(vertsNum - 2)
   final def vLastY: Double = unsafeArray(vertsNum - 1)
 
-  /** The last vertex. The default convention places this just anti clockwise of 12 oclock. */
+  /** The last vertex. The default convention places this just anti clockwise of 12 o'clock. */
   def vLast: Pt2 = vLastX pp vLastY
 
   /** Polygon side 0 from vertex 0 to vertex 1. */
