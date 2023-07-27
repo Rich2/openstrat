@@ -63,7 +63,7 @@ class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 { override def contents: RArr[XCon] = RArr(header, unorderedList)
   override def attribs: RArr[XmlAtt] = RArr()
 
-  /** the HTML list element. */
+  /** the HTML unordered list element. */
   def unorderedList: HtmlUl = HtmlUl(items)
 }
 

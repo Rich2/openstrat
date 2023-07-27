@@ -57,4 +57,6 @@ code { color: DarkRed; }
   #bottommenu {display: none;}
 }
 
-td {padding-right: 0.5em}
+td, th {padding-right: 0.5em;
+  text-align: start;
+}

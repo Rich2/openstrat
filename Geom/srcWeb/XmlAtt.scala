@@ -61,3 +61,7 @@ object TypeAtt{
 case class SrcAtt(valueStr: String) extends XmlAtt
 { override def name: String = "src"
 }
+
+case class WidthAtt(valueStr: String) extends XmlAtt{
+  override def name: String = "width"
+}

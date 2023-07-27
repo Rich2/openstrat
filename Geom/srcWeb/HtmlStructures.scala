@@ -73,9 +73,11 @@ object HtmlSection
 case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "table"
 }
+
 object HtmlTable
 {
   def apply(contents: HtmlRow*):  HtmlTable = new HtmlTable(contents.toArr)
+  def width100(contents: HtmlRow*):  HtmlTable = new HtmlTable(contents.toArr, RArr(WidthAtt("100%")))
 }
 
 /** HTML TR table row element class. */
