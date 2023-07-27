@@ -31,7 +31,6 @@ object NewDevsPage extends HtmlPage
       |<li><code>git config --global credential.helper "cache --timeout=3600"</code> Cache user/pswd store username/password for a set number of seconds, the next time you push</li>
       |</ul>
       |
-      |
       |<h3>Sbt</h3> A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is for compiling and running the applications and other tasks.
       |<ul>
       |  <li><code class=sbt>clean</code> Gets rid of the cache.</li>

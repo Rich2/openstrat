@@ -70,4 +70,5 @@ class HtmlUlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 object HtmlUlWithLH
 { def apply(header: XCon, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(header, items.toArr)
   def apply(headerStr: String, items: HtmlLi*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.toArr)
+  def strs(headerStr: String, items: String*): HtmlUlWithLH = new HtmlUlWithLH(headerStr.xCon, items.mapArr(str => HtmlLi(str)))
 }

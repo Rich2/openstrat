@@ -2,12 +2,14 @@
 package ostrat; package prid
 import pWeb._
 
+/** Html documentation page for Tiling Module. */
 object TilingPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Tiling Module", "https://richstrat.com/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), terms2, centralStr.xCon)
+
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), terms2, turnRes)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
@@ -49,28 +51,25 @@ object TilingPage extends HtmlPage
       "non adjacent tile.")
   )
 
-  def centralStr: String ="""
-      |    <div>
-      |      <h2>Turn Resolution</h2>
-      |      <ol>
-      |        <li>Verify directives from Players are valid and under the PlayerControl</li>
-      |        <li>Resolve ControlHeirarchy</li>
-      |        <li>Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects.</li>
-      |        <li>Aggregate Intentions.</li>
-      |        <li>Add subsidary Intentions.</li>
-      |        <li>Resolve Segment
-      |          <ul>
-      |            <li>Accumulate. Aggregate the intentions in their TargetTiles.</li>
-      |            <li>Ajudicate. Determine the outcome of the Intentions and processes.</li>
-      |            <li>Consolidate. Create a new game state from the outcomes of the Intentions on the TargetTile. No Movement is implemented during this
-      |              stage.</li>
-      |            <li>Distribute. Distribute the movement effects of the resolution of the TargetTiles on the SourceTiles in the Consilidated Game State.
-      |              Moving entities from SourceTiles to TargetTiles when appropriate.</li>
-      |          </ul>
-      |        </li>
-      |        <li>Repeat Resolve Segement till the given number of segments has been repeated.</li>
-      |        <li>Inform the players, human and AI, of the Turn resolution.</li>
-      |      </ol>
-      |    </div>
-      |""".stripMargin
+  def turnRes: HtmlSection = new HtmlSection
+  {
+    override def contents: RArr[XCon] = RArr(HtmlH2("Turn Resolution"), list)
+
+    def list = HtmlOl(
+      HtmlLi("Verify directives from Players are valid and under the PlayerControl"),
+      HtmlLi("Resolve ControlHeirarchy"),
+      HtmlLi("Map Directives to intentions. In more complex games some Directives maybe ignored or defered by InGame Objects."),
+      HtmlLi("Aggregate Intentions."),
+      HtmlLi("Add subsidary Intentions."),
+      HtmlLi(RArr(HtmlUlWithLH.strs("Resolve Segment",
+        "Accumulate. Aggregate the intentions in their TargetTiles.",
+        "Ajudicate. Determine the outcome of the Intentions and processes.",
+        "Consolidate. Create a new game state from the outcomes of the Intentions on the TargetTile. No Movement is implemented during this stage.",
+        "Distribute. Distribute the movement effects of the resolution of the TargetTiles on the SourceTiles in the Consilidated Game State. Moving" --
+          "entities from SourceTiles to TargetTiles when appropriate."
+      ))),
+      HtmlLi("Repeat Resolve Segement till the given number of segments has been repeated."),
+      HtmlLi("Inform the players, human and AI, of the Turn resolution.")
+    )
+  }
 }
