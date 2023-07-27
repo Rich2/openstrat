@@ -8,7 +8,7 @@ object NewDevsPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("New Developers Info"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, p1, centralStr.xCon)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, p1, centralStr.xCon, sbtCommands)
 
   def contrib = HtmlP("The easier way to make a contribution is through the Github web site. Either way will require a Github membership.")
 
@@ -30,11 +30,11 @@ object NewDevsPage extends HtmlPage
       |<li><code>git status</code> To check the status of your copy of master</li>
       |<li><code>git config --global credential.helper "cache --timeout=3600"</code> Cache user/pswd store username/password for a set number of seconds, the next time you push</li>
       |</ul>
-      |
-      |<h3>Sbt</h3> A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is for compiling and running the applications and other tasks.
-      |<ul>
-      |  <li><code class=sbt>clean</code> Gets rid of the cache.</li>
-      |  <li><code class=sbt>Util/clean</code> To clean an individual module.</li>
-      |</ul>
       |""".stripMargin
+
+  def sbtCommands = HtmlUlWithLH("<h3>Sbt</h3> A build utility. We also use Mill. Other well known build utilities are Ant, Maven and Make. It is" --
+    "for compiling and running the applications and other tasks.",
+    HtmlLi.sbtAndText("clean", "Gets rid of the cache"),
+    HtmlLi.sbtAndText("Util/clean", "To clean an individual module")
+  )
 }
