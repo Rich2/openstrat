@@ -31,10 +31,10 @@ trait Polygon3Plus extends Polygon
   final def v2: Pt2 = v2x pp v2y
 
   /** Polygon side 1 from vertex 0 to vertex 1. */
-  final def side1: LineSeg = LineSeg(v0, v1)
+  final def side1: LineSeg = LineSeg(v1, v2)
 
   /** Polygon side 2 from vertex 1 to vertex 2. */
-  final def side2: LineSeg = LineSeg(v1, v2)
+  final def side2: LineSeg = LineSeg(v2, vert(3))
 
   /** The X component of the centre or half way point of side 1 of this polygon. The midway point between v0 and v1. */
   final def sd1CenX: Double = v0x aver v1x

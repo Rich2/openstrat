@@ -11,7 +11,7 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
 
   override def name1: String = "width"
   override def name2: String = "cen"
-  override def diameterIn: Double = (v1x - v4x).abs
+  override def diameterIn: Double = (v1x - v5x).abs
   override def height: Double = (v0y - v3y).abs
   override def diameterOut: Double = (v0y - v3y).abs
   override def radiusIn: Double = diameterIn / 2

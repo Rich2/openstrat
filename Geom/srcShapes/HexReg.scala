@@ -70,12 +70,14 @@ object HexReg
     val h2: Double = dInner / 2
     val dsq3: Double = dInner / 3.sqrt
     val d2sq3: Double = dInner / (3.sqrt * 2)
-    val array = Array[Double](- d2sq3, h2,
+    val array = Array[Double](
       d2sq3, h2,
       dsq3, 0,
       d2sq3, -h2,
       -d2sq3, -h2,
-      -dsq3, 0)
+      -dsq3, 0,
+      -d2sq3, h2,
+    )
 
     val hr = new HexRegImp(array)
     hr.rotate(rotation).slate(cen)

@@ -22,7 +22,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   final def side0: LineSeg = LineSeg(v0, vert(1))
 
   /** The X component of the centre or half way point of side 0 of this polygon. */
-  final def sd0CenX: Double = v0x aver xVert(1)
+  final def sd0CenX: Double = v0x aver vertX(1)
 
   /** The Y component of the centre or half way point of side 0 of this polygon. */
   final def sd0CenY: Double = v0y aver vertY(1)
@@ -72,9 +72,22 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
     build.buffToSeqLike(buff)
   }
 
+
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: Arr[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
-  { val buff: build.BuffT = build.newBuff()
+  def vertsIFlatMap[BB <: Arr[_]](f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB = {
+    val buff: build.BuffT = build.newBuff()
+    var i: Int = 0
+    vertsForeach { v =>
+      val newElems = f(v, i)
+      build.buffGrowArr(buff, newElems)
+      i += 1
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** flatMap with index to an immutable Arr. */
+  def vertsIFlatMap[BB <: Arr[_]](iInit: Int)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB = {
+    val buff: build.BuffT = build.newBuff()
     var i: Int = iInit
     vertsForeach { v =>
       val newElems = f(v, i)
@@ -136,8 +149,20 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
     res
   }
 
-  /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: Arr[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
+  /** FlatMaps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
+  def sidesIFlatMap[AA <: Arr[_]](f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA = {
+    var i: Int = 0
+    val buff = build.newBuff()
+    sidesForeach { side =>
+      val newElems = f(side, i)
+      build.buffGrowArr(buff, newElems)
+      i += 1
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** FlatMaps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
+  def sidesIFlatMap[AA <: Arr[_]](initCount: Int)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
   { var i: Int = initCount
     val buff = build.newBuff()
     sidesForeach { side =>
@@ -163,7 +188,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def xVert(index: Int): Double = unsafeArray(index * 2)
+  def vertX(index: Int): Double = unsafeArray(index * 2)
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
