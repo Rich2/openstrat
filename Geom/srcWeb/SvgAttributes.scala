@@ -7,24 +7,12 @@ case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) ex
   override def valueStr: String = minX.str -- minY.str -- width.str -- height.str
 }
 
-/** XML attribute for width. */
-/*class WidthAtt(val dblValue: Double) extends XAttNumeric
-{ override def name: String = "width"
-}
-
-object WidthAtt
-{
-  def altMeth(inp: Double): WidthAtt = new WidthAtt(inp)
-}*/
-
-
-
 case class WidthAtt(valueStr: String) extends XmlAtt
 { override def name: String = "width"
 }
 
-object WidthAtt{
-  def apply(inp: Double): WidthAtt = new WidthAtt(inp.toString)
+object WidthAtt
+{ def apply(inp: Double): WidthAtt = new WidthAtt(inp.toString)
 }
 
 /** XML attribute for height. */

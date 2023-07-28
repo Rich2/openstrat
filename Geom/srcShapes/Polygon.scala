@@ -97,6 +97,14 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     build.buffToSeqLike(buff)
   }
 
+  def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
+
+  def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B = {
+    var acc = init
+    vertsForeach { v => acc = f(acc, v) }
+    acc
+  }
+
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
 
@@ -179,7 +187,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     acc
   }
 
-  override def attribs: RArr[XmlAtt] = RArr()
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillInt(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
@@ -332,6 +339,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def precisionDefault: Double = ???
 
   override def approx(that: Any, precision: Double): Boolean = ???
+
+  def pointsAttrib: XmlAtt = {
+    val vertStr: String = vertsFoldLeft((acc, v) => acc -- v.x.str + "," + v.y.str)
+    XmlAtt("points", vertStr)
+  }
+
+  override def attribs: RArr[XmlAtt] = RArr(pointsAttrib)
 }
 
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */

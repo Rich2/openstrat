@@ -7,6 +7,7 @@ import pWeb._
 trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 {
   override def shape: Polygon
+  override def svgStr: String = tagVoidStr("polygon", attribs)
   def x1: Double = shape.v0x
   def y1: Double = shape.v0y
 

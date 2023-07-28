@@ -6,12 +6,7 @@ import pgui._, pWeb._
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 {
   override def boundingRect: Rect = shape.boundingRect
-
-  def svgStr: String =
-  { val vertStr: String = vertsFoldLeft((acc, v) => acc -- v.x.str + "," + v.y.str)
-    tagVoidStr("polygon points=" + vertStr.enquote, attribs)
-  }
-  override def svgElem(bounds: Rect): SvgElem = ???
+  override def svgElem(bounds: Rect): SvgElem = SvgPolygon(attribs)
 
   override def shearX(operand: Double): PolygonGraphicSimple
 
@@ -19,7 +14,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
   override def reflect(lineLike: LineLike): PolygonGraphicSimple
 
-  override def nonShapeAttribs: RArr[XmlAtt] = ???
+  //override def nonShapeAttribs: RArr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphicSimple
@@ -77,7 +72,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
   //override def slateTo(newCen: Pt2): PolygonActive = ???
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
-  //override def attribs: Arr[XmlAtt] = ???
+  override def nonShapeAttribs: RArr[XmlAtt] = ???
 
   override def svgStr: String = ???
 }

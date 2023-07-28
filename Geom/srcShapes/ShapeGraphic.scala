@@ -9,8 +9,12 @@ trait ShapeGraphic extends GraphicBounded
   def attribs: RArr[XmlAtt]
   def svgStr: String
   def shapeAttribs: RArr[XmlAtt] = shape.attribs
-  final def svgInline: String = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width, shape.boundingRect.height,
-        svgJustElem).out(0, 150)
+
+  final def svgInline: SvgSvgElem = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width,
+    shape.boundingRect.height, svgJustElem)
+
+  final def svgInlineStr: String = svgInline.out(0, 150)
+
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
   def svgElem(bounds: Rect): SvgElem
