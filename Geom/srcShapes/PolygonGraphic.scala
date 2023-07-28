@@ -22,14 +22,14 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   def yVertsArray: Array[Double] = shape.elem2sArray
   override def boundingRect: Rect = shape.boundingRect
   override def svgElem(bounds: Rect): SvgElem = ???
-  @inline def foreachVert(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
+  @inline def vertsForeach(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
   @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: ArrMapBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
 
   def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
 
   def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B =
   { var acc = init
-    foreachVert{v => acc = f(acc, v) }
+    vertsForeach{v => acc = f(acc, v) }
     acc
   }
 
