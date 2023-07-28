@@ -10,13 +10,12 @@ trait ShapeGraphic extends GraphicBounded
   def svgStr: String
   def shapeAttribs: RArr[XmlAtt] = shape.attribs
 
-  final def svgInline: SvgSvgElem = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width,
-    shape.boundingRect.height, svgJustElem)
+  def svgInline: SvgSvgElem
 
   final def svgInlineStr: String = svgInline.out(0, 150)
 
-  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
-  final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
+  //def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
+
   def svgElem(bounds: Rect): SvgElem
 
   /** Translate geometric transformation. */

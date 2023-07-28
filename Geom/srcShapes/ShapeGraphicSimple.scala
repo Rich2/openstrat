@@ -4,6 +4,10 @@ import pWeb._
 
 trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 {
+  final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
+
+  final def svgInline: SvgSvgElem = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width,
+    shape.boundingRect.height, svgJustElem)
   def nonShapeAttribs: RArr[XmlAtt]
   final override def attribs: RArr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 

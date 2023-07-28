@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
 /** An SVG element. */
@@ -10,7 +10,7 @@ case class SvgSvgElem(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends SvgEl
 
 object SvgSvgElem
 { def apply(minX: Double, minY: Double, width: Double, height: Double, contents: XCon*): SvgSvgElem =
-  new SvgSvgElem(contents.toArr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))
+  new SvgSvgElem(contents.toArr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height), ClassAtt("centreBlock")))
 
   def apply(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XCon]): SvgSvgElem =
     new SvgSvgElem(arr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))

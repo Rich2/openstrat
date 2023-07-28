@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import ostrat.pWeb.SvgSvgElem
 
 /** A shape based compound graphic. */
 trait ShapeCompound extends ShapeGraphic with NoCanvElem
@@ -8,7 +9,9 @@ trait ShapeCompound extends ShapeGraphic with NoCanvElem
   def facets: RArr[GraphicFacet]
 
   override def canvElems: RArr[CanvElem] = ???
-  
+
+  override def svgInline: SvgSvgElem = ???
+
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: RArr[GraphicElem]
 

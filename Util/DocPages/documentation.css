@@ -60,3 +60,9 @@ code { color: DarkRed; }
 td, th {padding-right: 2.0em;
   text-align: start;
 }
+
+.centreBlock {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
