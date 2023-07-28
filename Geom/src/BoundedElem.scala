@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A 2D geometric element, that has a defined bounding rectangle, [[BoundingRect]]. This trait is for layout, such as placing Graphic elements in
  *  rows and columns. It includes polygon and shape graphics but not line and curve graphics. */
-trait BoundedElem extends GeomElem
+trait BoundedElem extends Any with GeomElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: Rect
 

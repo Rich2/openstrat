@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A [[Polygon]] with at least 3 vertices. The PolygonNPlus traits include values for the vertices and the x and y components of the vertices. The X
  * and Y components are included because Graphics implementation APIs use them. */
-trait Polygon3Plus extends Polygon
+trait Polygon3Plus extends Any with Polygon
 { type ThisT <: Polygon3Plus
 
   /** The X component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
@@ -58,7 +58,7 @@ trait Polygon3Plus extends Polygon
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
-trait Polygon4Plus extends Polygon3Plus with Dbl2SeqSpec[Pt2]
+trait Polygon4Plus extends Any with Polygon3Plus with Dbl2SeqSpec[Pt2]
 { type ThisT <: Polygon4Plus
 
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with vertex 1 immediately
@@ -84,7 +84,7 @@ trait Polygon4Plus extends Polygon3Plus with Dbl2SeqSpec[Pt2]
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
-trait Polygon5Plus extends Polygon4Plus with Dbl2SeqSpec[Pt2]
+trait Polygon5Plus extends Any with Polygon4Plus with Dbl2SeqSpec[Pt2]
 { type ThisT <: Polygon5Plus
 
   /** The X component of the vertex 4. */
@@ -111,7 +111,7 @@ trait Polygon5Plus extends Polygon4Plus with Dbl2SeqSpec[Pt2]
 }
 
 /** A [[Polygon]] with at least 6 vertices. */
-trait Polygon6Plus extends Polygon5Plus
+trait Polygon6Plus extends Any with Polygon5Plus
 { type ThisT <: Polygon6Plus
 
   /** The X component of the 6th Vertex. */

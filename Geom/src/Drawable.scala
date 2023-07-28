@@ -3,7 +3,7 @@ package ostrat; package geom
 import Colour.Black
 
 /** A 2D geometric element that can be drawn producing a [[GraphicElem]]. */
-trait Drawable extends GeomElem
+trait Drawable extends Any with GeomElem
 {
   /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed.  */
   def draw(lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
@@ -81,7 +81,7 @@ object Drawable
 }
 
 /** A 2D geometric element that can be drawn and filled producing [[GraphicElem]]s. */
-trait Fillable extends Drawable
+trait Fillable extends Any with Drawable
 { /** Returns a fill graphic of this geometric object. */
   def fill(fillColour: Colour): GraphicElem
 

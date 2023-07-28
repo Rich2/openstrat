@@ -16,7 +16,7 @@ trait Point extends Any
   def lineSegFrom(startPt: ThisT): LineSegT
 }
 
-trait PointSeqLike[PT <: Point] extends SeqLike[PT]
+trait PointSeqLike[PT <: Point] extends Any with SeqLike[PT]
 
 trait PointPair[A1 <: Point, A2] extends PairNoA1ParamElem[A1, A2]
 
@@ -24,7 +24,7 @@ trait PointPairArr[A1 <: Point, ArrA1 <: Arr[A1], A2, A <: PointPair[A1, A2]] ex
 
 trait PointDblN extends Any with Point with DblNElem
 
-trait PointDblNSeqLike[PT <: PointDblN] extends PointSeqLike[PT]
+trait PointDblNSeqLike[PT <: PointDblN] extends Any with PointSeqLike[PT]
 
 trait PointDblNPair[A1 <: PointDblN, A2] extends PointPair[A1, A2] with DblNPairElem[A1, A2]
 
@@ -32,7 +32,7 @@ trait PointDblNPairArr[A1 <: PointDblN, ArrA1 <: DblNArr[A1], A2, A <: PointDblN
 
 trait PointDbl2 extends Any with PointDblN with Dbl2Elem
 
-trait PointDbl2SeqLike[PT <: PointDbl2] extends PointDblNSeqLike[PT]
+trait PointDbl2SeqLike[PT <: PointDbl2] extends Any with PointDblNSeqLike[PT]
 
 trait PointDbl2Pair[A1 <: PointDbl2, A2] extends PointDblNPair[A1, A2] with Dbl2PairElem[A1, A2]
 
