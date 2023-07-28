@@ -24,8 +24,10 @@ case class SvgEllipse(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) exte
 { override def tag: String = "ellipse"
 }
 
-case class SvgPolygon(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) extends SvgElem
+class SvgPolygon(val attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) extends SvgElem
 { override def tag: String = "polygon"
+
+  override def attribs: RArr[XmlAtt] = ife(attribsIn.exists(_.name == "fill"), attribsIn, attribsIn +% FillAttrib.none)
 }
 
 case class SvgRect(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) extends SvgElem

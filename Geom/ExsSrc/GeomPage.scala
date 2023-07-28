@@ -43,7 +43,7 @@ object GeomPage extends HtmlPage
   {
     override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), dodec, circ, p1)
 
-    val dodec = DoDeclign(150).fill(Colour.DarkRed).svgInline
+    val dodec = DoDeclign(150).draw(Colour.Red).svgInline
 
     val circ: SvgElem = Circle(75).fill(Colour.Violet).svgInline
 

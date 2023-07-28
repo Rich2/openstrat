@@ -1,9 +1,13 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-case class FillAttrib(colour: Colour) extends XmlAtt
+case class FillAttrib(valueStr: String) extends XmlAtt
 { override def name: String = "fill"
-  override def valueStr: String = colour.svgStr
+}
+
+object FillAttrib
+{ def apply(colour: Colour): FillAttrib = FillAttrib(colour.svgStr)
+  val none: FillAttrib = FillAttrib("none")
 }
 
 case class StrokeWidthAttrib(lineWidth: Double) extends XmlAtt
