@@ -6,7 +6,10 @@ import pgui._, pWeb._
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 {
   override def boundingRect: Rect = shape.boundingRect
-  def svgStr: String = tagVoidStr("rect", attribs)
+  def svgStr: String =
+  { val vertStr: String = vertsFoldLeft((acc, v) => acc -- v.x.str + "," + v.y.str)
+    tagVoidStr("polygon points=" + vertStr.enquote, attribs)
+  }
   override def svgElem(bounds: Rect): SvgElem = ???
 
   override def shearX(operand: Double): PolygonGraphicSimple

@@ -179,7 +179,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     acc
   }
 
-  override def attribs: RArr[XmlAtt] = ???
+  override def attribs: RArr[XmlAtt] = RArr()
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillInt(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)

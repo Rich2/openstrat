@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A point in a space. So [[Pt2]]s are points in 2D space. [[Pt3]]s are points in 3D space. LatLongs are points in a 2D curved space. */

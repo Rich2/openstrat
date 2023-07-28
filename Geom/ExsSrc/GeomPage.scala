@@ -26,12 +26,12 @@ object GeomPage extends HtmlPage
   def trans: HtmlLi = HtmlLi("Geometric transformations on both the geometric and graphical elements, preserving maximum type information.")
 
   def canv: HtmlLi = HtmlLi("An abstract canvas on which to display the graphic elements. Concrete implementations for JavaFx and HtmlCanvas," +
-    " allowing appications to be created with minimal plaform specific code. The abstract canvas api could be implemented on DirectX or OpenGL," +
+    " allowing applications to be created with minimal platform specific code. The abstract canvas api could be implemented on DirectX or OpenGL," +
     " but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.")
 
   def svg: HtmlLi = HtmlLi("Conversion of Graphic classes into SVG, gving an alternative target and greater flexibility.")
 
-  def web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been enerated using this.")
+  def web: HtmlLi = HtmlLi("Web library. Classes for XML, HTML, CSS and simple JavaScript functions. These pages have been generated using this.")
 
   def geom3: HtmlLi = HtmlLi("3D geometry as well as distance unit classes as opposed to scalars for 1D, 2D and 3D. Basic 3D Graphics will be" +
     " provided, but currently there is no attempt to provide any kind of 3D or physics engine, although a 3D implementation for canvas is entirely" +
@@ -41,7 +41,12 @@ object GeomPage extends HtmlPage
 
   object Polygons extends HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), p1)
+    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svgDo.xCon, p1)
+
+    val dodec: String = DoDeclign(50, 50, 50).fill(Colour.DarkRed).svgStr
+    debvar(dodec)
+
+    val svgDo = "<svg>" --- dodec --- "</svg>"
 
     def p1: HtmlP = HtmlP(
     """Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults. The

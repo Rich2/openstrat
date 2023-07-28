@@ -10,20 +10,23 @@ class DoDeclign(val unsafeArray: Array[Double]) extends AnyVal with Polygon6Plus
 
 object DoDeclign
 {
-  def apply(radiusOut: Double, x: Double, y: Double): DoDeclign = {
+  def apply(radiusOut: Double, cen: Pt2): DoDeclign = DoDeclign(radiusOut, cen.x, cen.y)
+
+  def apply(radiusOut: Double, cx: Double = 0, cy: Double = 0): DoDeclign =
+  {
     val array = Array[Double](
-      x, y + radiusOut,
-      x + Cos60 * radiusOut, y + Sin60 * radiusOut,
-      x + Cos30 * radiusOut, y + Sin30 * radiusOut,
-      x + radiusOut,         y,
-      x + Cos30 * radiusOut, y - Sin30 * radiusOut,
-      x + Cos60 * radiusOut, y - Sin60 * radiusOut,
-      x,                     y - radiusOut,
-      x - Cos60 * radiusOut, y - Sin60 * radiusOut,
-      x - Cos30 * radiusOut, y - Sin30 * radiusOut,
-      x - radiusOut,         y,
-      x - Cos30 * radiusOut, y + Sin30 * radiusOut,
-      x - Cos60 * radiusOut, y + Sin60 * radiusOut
+      cx, cy + radiusOut,
+      cx + Cos60 * radiusOut, cy + Sin60 * radiusOut,
+      cx + Cos30 * radiusOut, cy + Sin30 * radiusOut,
+      cx + radiusOut,         cy,
+      cx + Cos30 * radiusOut, cy - Sin30 * radiusOut,
+      cx + Cos60 * radiusOut, cy - Sin60 * radiusOut,
+      cx,                     cy - radiusOut,
+      cx - Cos60 * radiusOut, cy - Sin60 * radiusOut,
+      cx - Cos30 * radiusOut, cy - Sin30 * radiusOut,
+      cx - radiusOut,         cy,
+      cx - Cos30 * radiusOut, cy + Sin30 * radiusOut,
+      cx - Cos60 * radiusOut, cy + Sin60 * radiusOut
     )
     new DoDeclign(array)
   }

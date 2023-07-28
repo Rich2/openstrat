@@ -25,6 +25,14 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   @inline def foreachVert(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
   @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: ArrMapBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
 
+  def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
+
+  def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B =
+  { var acc = init
+    foreachVert{v => acc = f(acc, v) }
+    acc
+  }
+
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphic
 
