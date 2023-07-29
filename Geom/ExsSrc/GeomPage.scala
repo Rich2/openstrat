@@ -11,8 +11,8 @@ object GeomPage extends HtmlPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, Polygons)
 
-  def list: HtmlOlWithLH =
-    HtmlOlWithLH("The Geom module contains", geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons)
+  def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
+    geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons)
 
   def geomItme: HtmlLi = HtmlLi("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections" +
     " from the Util module.")
