@@ -214,7 +214,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextGraphic]] to this point. The
    * alignment of the text is determined by the angle parameter. The method is not meant to cover all possible configurations for text arrows. These
    * can easily be constructed from OpenStrat primitives, but to provide a quick default for rapid development. */
-  def textArrow(str: String, angle: Angle = Ang45, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicAndSvgElem] =
+  def textArrow(str: String, angle: Angle = Ang45, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
   {
     val align: TextAlign = angle match
     { case a if a <= Ang60 => LeftAlign
@@ -230,12 +230,12 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
 
   /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextGraphic]] to this point. The arrow
    * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
-  def textArrowToward(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicAndSvgElem] =
+  def textArrowToward(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
     textArrow(str, angleFrom(dirnPt), arrowLength, colour, fontSize)
 
   /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing away from the [[TextGraphic]] to this point. The arrow
    * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
-  def textArrowAwayFrom(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicAndSvgElem] =
+  def textArrowAwayFrom(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
     textArrow(str, angleTo(dirnPt), arrowLength, colour, fontSize)
 }
 

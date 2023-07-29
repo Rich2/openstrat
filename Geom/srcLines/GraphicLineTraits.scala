@@ -5,7 +5,7 @@ import Colour.Black
 import ostrat.pWeb.{SvgElem, SvgLine}
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
-case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem with GraphicAndSvgElem
+case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem with GraphicSvgElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
   override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), colour, width)

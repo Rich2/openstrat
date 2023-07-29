@@ -6,11 +6,11 @@ import pWeb._
 object IndexPage extends HtmlPage
 { val head = HtmlHead.titleCss("Openstrat", "Documentation/documentation")
   def topMenu: HtmlUl = AppPage.topMenu(AppPage.allTopPairs)
-  def body = HtmlBody(topMenu, central)
+  def body: HtmlBody = HtmlBody(topMenu, central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("main", iconsHtml, focus, devInfo, HtmlBr, begInfo, menu)
 
-  def focus = HtmlOlWithLH("This project has 3 main focuses".xCon, strat, hist, geom1)
+  def focus: HtmlOlWithLH = HtmlOlWithLH.h2("This project has 3 main focuses", strat, hist, geom1)
   def strat: HtmlLi = HtmlLi("Historical strategy games, particularly focused on simultaneous-turn, tile-based games.")
   def hist: HtmlLi = HtmlLi("Graphics for the display of historical information.")
   def geom1: HtmlLi = HtmlLi("A functional Geometry and Vector Graphics library with various supporting utilities.")

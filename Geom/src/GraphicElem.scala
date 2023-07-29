@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import pWeb._
 
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element
  * in a display or both. So I think the self type will force all [[GraphicElem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
@@ -59,6 +60,8 @@ trait GraphicElem extends GeomElem
   /** Shear 2D geometric transformation along the Y Axis on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub classes and
    *  traits. */
   override def shearY(operand: Double): GraphicElem
+
+  def svgElems: RArr[SvgElem] = RArr()
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */

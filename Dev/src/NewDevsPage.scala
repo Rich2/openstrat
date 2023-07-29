@@ -8,13 +8,13 @@ object NewDevsPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("New Developers Info"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, p1, gitCommands, sbtCommands)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", contrib, gitCommands, sbtCommands)
 
-  def contrib = HtmlP("The easier way to make a contribution is through the Github web site. Either way will require a Github membership.")
-
-  def p1 = HtmlP("If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK11 and" --
-    "sbt. more complete documentation. For getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and" --
-    "Windows 7. Jdk 17 preferred.")
+  def contrib = HtmlP(
+  """The easier way to make a contribution is through the Github web site. Either way will require a Github membership. If you are not experienced
+  | with Scala, you have found this site and want to experiment, you will need to install Java JDK11+ and sbt. more complete documentation. For
+  | getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and  Windows 7. Jdk 17 preferred.
+  """.stripMargin)
 
   def gitCommands: HtmlUlWithLH = HtmlUlWithLH("<h2>Git Commands</h2> For transferring files from the master repository to your local machine and" --
     "back again.",

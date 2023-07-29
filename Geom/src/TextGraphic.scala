@@ -6,7 +6,7 @@ import Colour.Black, pWeb._
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
 case class TextGraphic(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, align: TextAlign, baseLine: BaseLine) extends
-  GraphicAffineElem with CanvElem with GraphicAndSvgElem
+  GraphicAffineElem with CanvElem with GraphicSvgElem
 { type ThisT = TextGraphic
   def posn: Pt2 = Pt2(xPosn, yPosn)
   override def ptsTrans(f: Pt2 => Pt2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)

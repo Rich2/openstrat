@@ -7,7 +7,7 @@ object Arrow
 {
   /** Draws a line from the start to the  end point parameters and adds a triangle fill to the end point to create an arrow head. */
   def paint(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 20, colour: Colour = Black, lineWidth: Double = 2):
-    RArr[GraphicAndSvgElem] =
+    RArr[GraphicSvgElem] =
   {
     val mainLine = LineSeg(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
