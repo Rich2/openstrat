@@ -37,8 +37,17 @@ class SvgPolygon(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) ext
   override val attribs: RArr[XmlAtt] = attribsIn.explicitFill
 }
 
-case class SvgRect(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) extends SvgElem
+object SvgPolygon
+{ def apply(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgPolygon = new SvgPolygon(attribs, contents)
+}
+
+case class SvgRect(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) extends SvgElem
 { override def tag: String = "rect"
+  override val attribs: RArr[XmlAtt] = attribsIn.explicitFill
+}
+
+object SvgRect{
+
 }
 
 case class SvgLine(x1: Double, y1: Double, x2: Double, y2: Double, colour: Colour, width: Double) extends SvgElem

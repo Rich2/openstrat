@@ -38,9 +38,11 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   final override def boundingRect: Rect = this
 
-  final override def cenPt: Pt2 = Pt2(cenX, cenY)// boundingRect.cen
+  final override def cenPt: Pt2 = Pt2(cenX, cenY)
 
   final override def cenVec: Vec2 = Vec2(cenX, cenY)
+
+  override def draw(lineColour: Colour, lineWidth: Double): RectDraw = RectDraw(this, lineWidth, lineColour)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -111,15 +113,15 @@ object Rect
     override def typeStr: String = "Rect"
     def mapRectImp(f: Pt2 => Pt2): RectImp = RectImp.fromArray(unsafeMap(f))
 
-    def width: Double = (v1x - v0x).abs
-    def height: Double = (v1y - v2y).abs
+    def width: Double = (v0x - v3x).abs
+    def height: Double = (v0y - v1y).abs
     override def cenX: Double = v0x aver v2x
     override def cenY: Double = v0y aver v2y
     override def vertsTrans(f: Pt2 => Pt2): RectImp = mapRectImp(f)
     override def width1: Double = width
     override def width2: Double = height
 
-    override def attribs: RArr[XmlAtt] = ???
+    override def attribs: RArr[XmlAtt] = RArr(xAttrib, yAttrib, widthAtt, heightAtt)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slateXY(xDelta: Double, yDelta: Double): RectImp = mapRectImp(_.xySlate(xDelta, yDelta))
@@ -147,14 +149,24 @@ object Rect
     def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp =
     { val w: Double = width / 2
       val h: Double = height / 2
-      val array: Array[Double] = Array[Double](cen.x - w, cen.y + h, cen.x + w, cen.y + h, cen.x + w, cen.y - h, cen.x - w, cen.y - h)
+      val array: Array[Double] = Array[Double](
+        cen.x + w, cen.y + h,
+        cen.x + w, cen.y - h,
+        cen.x - w, cen.y - h,
+        cen.x - w, cen.y + h
+      )
       new RectImp(array)
     }
 
     def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectImp =
     { val w: Double = width / 2
       val h: Double = height / 2
-      val array: Array[Double] = Array[Double](cenX - w, cenY + h, cenX + w, cenY + h, cenX + w, cenY - h, cenX - w, cenY - h)
+      val array: Array[Double] = Array[Double](
+        cenX + w, cenY + h,
+        cenX + w, cenY - h,
+        cenX - w, cenY - h,
+        cenX - w, cenY + h,
+      )
       new RectImp(array)
     }
 

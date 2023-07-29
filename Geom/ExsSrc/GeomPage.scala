@@ -41,16 +41,24 @@ object GeomPage extends HtmlPage
 
   object Polygons extends HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svg1, p1)
+    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svg1, p1, svg2)
 
     val width: Int = 250
+    val polyColour: Colour = DarkGreen
     val dodec1: DoDeclign = DoDeclign(width)
-    val dodec2: SvgElem = dodec1.draw(Red).svgElem
+    val dodec2: SvgElem = dodec1.draw(polyColour).svgElem
     val circ: SvgElem = Circle(width * 2).draw().svgElem
-    val verts: RArr[SvgElem] = dodec1.vertsIFlatMap{ (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem)  }
+    val verts: RArr[SvgElem] = dodec1.vertsIFlatMap{ (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem) }
+    val sides: RArr[SvgElem] = dodec1.sidesIFlatMap{ (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour).map(_.svgElem) }
     val cen = Pt2Z.textAt("Centre").svgElem
 
-    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.25), RArr(dodec2, circ, cen) ++ verts, RArr(CentreBlockAtt))
+    val rect1 = Rect(400, 250)
+    val rect2: SvgElem = rect1.draw(polyColour).svgElem
+    val verts2: RArr[SvgElem] = rect1.vertsIFlatMap { (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem) }
+    val sides2: RArr[SvgElem] = rect1.sidesIFlatMap { (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour).map(_.svgElem) }
+
+    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.25), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
+    val svg2: SvgSvgElem = SvgSvgElem.bounds(rect1.boundingRect.scale(1.30), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
 
 
     def p1: HtmlP = HtmlP(

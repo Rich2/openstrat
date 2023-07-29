@@ -218,12 +218,13 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   {
     val align: TextAlign = angle match
     { case a if a <= Ang60 => LeftAlign
-      case a if a > Ang60 & a < Ang120 => CenAlign
-      case a if a >= Ang120 & a <= Ang240 => RightAlign
-      case a if a > Ang240 & a < Ang300 => CenAlign
+      case a if a > Ang60 && a < Ang120 => CenAlign
+      case a if a >= Ang120 && a <= Ang240 => RightAlign
+      case a if a > Ang240 && a < Ang300 => CenAlign
       case _ => LeftAlign
     }
-    val tg = TextGraphic(str, fontSize, this.slateAngle(angle, arrowLength + 4), colour, align)
+    val textPt = this.slateAngle(angle, arrowLength + ife(angle > Ang240 && angle < Ang300, 18, 4))
+    val tg = TextGraphic(str, fontSize, textPt, colour, align)
     this.angleFromLine(angle, arrowLength).withArrow(colour) +% tg
   }
 
@@ -234,7 +235,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
 
   /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing away from the [[TextGraphic]] to this point. The arrow
    * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
-  def textArrowAwayFrom(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): GraphicElems =
+  def textArrowAwayFrom(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicAndSvgElem] =
     textArrow(str, angleTo(dirnPt), arrowLength, colour, fontSize)
 }
 

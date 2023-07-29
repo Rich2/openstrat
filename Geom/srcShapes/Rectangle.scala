@@ -38,11 +38,10 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   final def alignAngle: Angle = (v0 >> v1).angle
 
-  def widthAttrib: XmlAtt = WidthAtt(width1)
-  def heightAttrib: HeightAtt = HeightAtt(width2)
+  def widthAtt: XmlAtt = WidthAtt(width1)
+  def heightAtt: HeightAtt = HeightAtt(width2)
   def xAttrib: XXmlAtt = XXmlAtt(v3x)
-  def yAttrib: YXmlAtt = YXmlAtt(v3y)
-  //override def attribs: RArr[XmlAtt] = RArr(widthAttrib, heightAttrib, xAttrib, yAttrib)
+  def yAttrib: YXmlAtt = YXmlAtt(v2y)
 
   def diag1: LineSeg = LineSeg(v2, v0)
   def diag2: LineSeg = LineSeg(v3, v1)
