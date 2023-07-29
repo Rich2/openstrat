@@ -60,9 +60,17 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-  { val acc = build.newBuff()
-    vertsForeach{ v => build.buffGrow(acc, f(v)) }
-    build.buffToSeqLike(acc)
+  { val acc = build.uninitialised(vertsNum)
+    var i = 0
+    vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
+    acc
+  }
+
+  def vertsIMap[B, ArrB <: Arr[B]](f: (Pt2, Int) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val acc = build.uninitialised(vertsNum)
+    var i = 0
+    vertsForeach { v => acc.setElemUnsafe(i, f(v, i)); i += 1 }
+    acc
   }
 
   /** flatMap to an immutable Arr. */
@@ -340,8 +348,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   override def approx(that: Any, precision: Double): Boolean = ???
 
-  def pointsAttrib: XmlAtt = {
-    val vertStr: String = vertsFoldLeft((acc, v) => acc -- v.x.str + "," + v.y.str)
+  def pointsAttrib: XmlAtt =
+  { val vertStr: String = vertsFoldLeft((acc, v) => acc -- v.x.str + "," + (-v.y).str)
     XmlAtt("points", vertStr)
   }
 

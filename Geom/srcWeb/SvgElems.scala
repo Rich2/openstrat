@@ -40,3 +40,15 @@ class SvgPolygon(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) ext
 case class SvgRect(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) extends SvgElem
 { override def tag: String = "rect"
 }
+
+class SvgText(val x: Double, val y: Double, val text: String) extends SvgElem
+{ override def tag: String = "text"
+  override def attribs: RArr[XmlAtt] = RArr(XAttrib(x), YAttrib(y))
+  override def contents: RArr[XCon] = RArr(text.xCon)
+}
+
+object SvgText
+{
+  def apply(x: Double, y: Double, text: String): SvgText = new SvgText(x, y, text)
+  def apply(posn: Pt2, text: String): SvgText = new SvgText(posn.x, posn.y, text)
+}

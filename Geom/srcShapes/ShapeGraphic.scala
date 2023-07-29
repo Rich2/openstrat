@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb._
 
 /** A shape based graphic. */
-trait ShapeGraphic extends GraphicBounded
+trait ShapeGraphic extends GraphicBounded with GraphicAndSvgElem
 { def shape: Shape
   override def boundingRect: Rect = shape.boundingRect
   def attribs: RArr[XmlAtt]
@@ -16,7 +16,7 @@ trait ShapeGraphic extends GraphicBounded
 
   //def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
 
-  def svgElem: SvgElem
+
 
   /** Translate geometric transformation. */
   def slateXY(xDelta: Double, yDelta: Double): ShapeGraphic

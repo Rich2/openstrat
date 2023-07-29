@@ -47,8 +47,10 @@ object GeomPage extends HtmlPage
     val dodec1 = DoDeclign(width)
     val dodec2 = dodec1.draw(Red).svgElem
     val circ: SvgElem = Circle(width * 2).draw().svgElem
+    val verts: RArr[SvgElem] = dodec1.vertsIMap((pt, i) => pt.textAt(s"V$i").svgElem)
+    val cen = Pt2Z.textAt("Centre").svgElem
 
-    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.05), RArr(dodec2, circ), RArr(CentreBlockAtt))
+    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.1), RArr(dodec2, circ, cen) ++ verts, RArr(CentreBlockAtt))
 
 
     def p1: HtmlP = HtmlP(
