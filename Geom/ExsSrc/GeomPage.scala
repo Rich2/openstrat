@@ -44,6 +44,7 @@ object GeomPage extends HtmlPage
     override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svg1, p1, svg2)
 
     val width: Int = 250
+    val margin = 50
     val polyColour: Colour = DarkGreen
     val dodec1: DoDeclign = DoDeclign(width)
     val dodec2: SvgElem = dodec1.draw(polyColour).svgElem
@@ -57,8 +58,8 @@ object GeomPage extends HtmlPage
     val verts2: RArr[SvgElem] = rect1.vertsIFlatMap { (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem) }
     val sides2: RArr[SvgElem] = rect1.sidesIFlatMap { (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour).map(_.svgElem) }
 
-    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.25), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
-    val svg2: SvgSvgElem = SvgSvgElem.bounds(rect1.boundingRect.scale(1.30), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
+    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.addMargin(margin), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
+    val svg2: SvgSvgElem = SvgSvgElem.bounds(rect1.boundingRect.addMargin(margin), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
 
 
     def p1: HtmlP = HtmlP(
