@@ -34,7 +34,7 @@ object EllipseFill
 
     override def ptsTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fill)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
-    override def svgElem(bounds: Rect): SvgElem = ???
+    override def svgElem: SvgElem = ???
     override def svgStr: String = ???
 
   }
@@ -59,7 +59,7 @@ object EllipseDraw
 
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(this)
 
-    override def svgElem(bounds: Rect): SvgElem = ???
+    override def svgElem: SvgElem = ???
 
     override def svgStr: String = ???
   }
@@ -91,6 +91,6 @@ object EllipseActive
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: Rect): SvgElem = ???
+    override def svgElem: SvgElem = ???
   }
 }

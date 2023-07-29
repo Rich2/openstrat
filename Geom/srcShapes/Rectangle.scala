@@ -10,7 +10,8 @@ trait Quadrilateral extends Polygon4Plus
 
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
- *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
+ *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. For SVG purposes this will be output
+ *  as a polygon to avoid the transforms to rotate a rectangle.W */
 trait Rectangle extends ShapeCentred with Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
@@ -41,7 +42,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(v3x)
   def yAttrib: YAttrib = YAttrib(v3y)
-  override def attribs: RArr[XmlAtt] = RArr(widthAttrib, heightAttrib, xAttrib, yAttrib)
+  //override def attribs: RArr[XmlAtt] = RArr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
   def diag1: LineSeg = LineSeg(v2, v0)
   def diag2: LineSeg = LineSeg(v3, v1)

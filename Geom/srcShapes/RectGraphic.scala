@@ -1,9 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import pWeb._
 
 /** A graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphic extends RectangleGraphic with ShapeGraphicOrdinaled
 { override def shape: Rect
+  override def svgStr: String = tagVoidStr("rect", attribs)
 }
 
 /** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */

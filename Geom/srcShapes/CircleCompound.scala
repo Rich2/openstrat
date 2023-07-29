@@ -16,7 +16,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-  override def svgElem(bounds: Rect): SvgCircle = SvgCircle(shape.negY.slateXY(0, bounds.bottom + bounds.top).attribs ++ facets.flatMap(_.attribs))
+  override def svgElem: SvgCircle = SvgCircle(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): CircleCompound =

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
+import pWeb._, Colour._
 
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends HtmlPage
@@ -41,10 +41,15 @@ object GeomPage extends HtmlPage
 
   object Polygons extends HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), dodec, circ, p1)
+    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), dodec, sq4, circ, p1)
 
-    val dodec = DoDeclign(150).draw(Colour.Red).svgInline
+    val dodec = DoDeclign(150).draw(Red).svgInline
 
+    val sq1 = Sqlign(100)
+    val sq2 = sq1.draw(Green)
+    debvar(sq2)
+    val sq3 = sq2.svgElem
+    val sq4 = SvgSvgElem.bounds(sq1.scale(1.05), RArr(sq3))
     val circ: SvgElem = Circle(75).fill(Colour.Violet).svgInline
 
     def p1: HtmlP = HtmlP(

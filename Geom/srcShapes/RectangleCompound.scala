@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -9,7 +9,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: Rect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.bottom + bounds.top).
+  override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
@@ -54,7 +54,7 @@ object RectangleCompound
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: Rect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.bottom + bounds.top).
+    override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
       attribs ++ facets.flatMap(_.attribs))
 
     /** Translate geometric transformation. */

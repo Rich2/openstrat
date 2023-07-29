@@ -6,7 +6,7 @@ import pgui._, pWeb._
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 {
   override def boundingRect: Rect = shape.boundingRect
-  override def svgElem(bounds: Rect): SvgElem = SvgPolygon(attribs)
+  override def svgElem: SvgElem = SvgPolygon(attribs)
 
   override def shearX(operand: Double): PolygonGraphicSimple
 

@@ -16,7 +16,7 @@ trait ShapeGraphic extends GraphicBounded
 
   //def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
 
-  def svgElem(bounds: Rect): SvgElem
+  def svgElem: SvgElem
 
   /** Translate geometric transformation. */
   def slateXY(xDelta: Double, yDelta: Double): ShapeGraphic

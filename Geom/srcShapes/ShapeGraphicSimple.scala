@@ -4,7 +4,7 @@ import pWeb._
 
 trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 {
-  final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
+  final def svgJustElem: SvgElem = svgElem
 
   final def svgInline: SvgSvgElem = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width,
     shape.boundingRect.height, svgJustElem)
