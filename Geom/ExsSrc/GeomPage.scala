@@ -41,16 +41,15 @@ object GeomPage extends HtmlPage
 
   object Polygons extends HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), dodec, sq4, circ, p1)
+    override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svg1, p1)
 
-    val dodec = DoDeclign(150).draw(Red).svgInline
+    val width = 200
+    val dodec1 = DoDeclign(width)
+    val dodec2 = dodec1.draw(Red).svgElem
+    val circ: SvgElem = Circle(width * 2).draw().svgElem
 
-    val sq1 = Sqlign(100)
-    val sq2 = sq1.draw(Green)
-    debvar(sq2)
-    val sq3 = sq2.svgElem
-    val sq4 = SvgSvgElem.bounds(sq1.scale(1.05), RArr(sq3))
-    val circ: SvgElem = Circle(75).fill(Colour.Violet).svgInline
+    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.05), RArr(dodec2, circ), RArr(CentreBlockAtt))
+
 
     def p1: HtmlP = HtmlP(
     """Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults. The

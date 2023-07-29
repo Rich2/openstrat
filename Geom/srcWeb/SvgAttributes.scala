@@ -46,3 +46,5 @@ case class YAttrib(valueStr: String) extends XmlAtt
 object YAttrib
 { def apply(inp: Double): YAttrib = new YAttrib(inp.toString)
 }
+
+object CentreBlockAtt extends ClassAtt("centreBlock")

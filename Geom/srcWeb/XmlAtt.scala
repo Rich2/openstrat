@@ -16,6 +16,11 @@ object XmlAtt
   { override def name: String = nameIn
     override def valueStr: String = valueStrIn
   }
+
+  implicit class rArrExtensions(val thisArr: RArr[XmlAtt])
+  {
+    def explicitFill: RArr[XmlAtt] = ife(thisArr.exists(_.name == "fill"), thisArr, thisArr +% FillAttrib.none)
+  }
 }
 
 /** Creates for an "id" XML / HTML attribute." */
