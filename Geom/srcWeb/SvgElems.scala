@@ -41,14 +41,23 @@ case class SvgRect(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) extends
 { override def tag: String = "rect"
 }
 
-class SvgText(val x: Double, val y: Double, val text: String) extends SvgElem
+case class SvgLine(x1: Double, y1: Double, x2: Double, y2: Double, colour: Colour, width: Double) extends SvgElem
+{ override def tag: String = "line"
+  override def attribs: RArr[XmlAtt] = RArr(XmlAtt("x1", x1.toString), XmlAtt("y1", y1.toString), XmlAtt("x2", x2.toString),
+    XmlAtt("y2", y2.toString), StrokeAttrib(colour), StrokeWidthAttrib(width))
+
+  /** The content of this XML / HTML element. */
+  override def contents: RArr[XCon] = RArr()
+}
+
+class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign) extends SvgElem
 { override def tag: String = "text"
-  override def attribs: RArr[XmlAtt] = RArr(XAttrib(x), YAttrib(y))
+  override def attribs: RArr[XmlAtt] = RArr(XXmlAtt(x), YXmlAtt(y), align.attrib)
   override def contents: RArr[XCon] = RArr(text.xCon)
 }
 
 object SvgText
 {
-  def apply(x: Double, y: Double, text: String): SvgText = new SvgText(x, y, text)
-  def apply(posn: Pt2, text: String): SvgText = new SvgText(posn.x, posn.y, text)
+  def apply(x: Double, y: Double, text: String, align: TextAlign): SvgText = new SvgText(x, y, text, align)
+  def apply(posn: Pt2, text: String, align: TextAlign): SvgText = new SvgText(posn.x, posn.y, text, align)
 }

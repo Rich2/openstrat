@@ -1,34 +1,7 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pWeb._
 
-/* The alignment of text can be left right or centre. This may want to extend from a more general alignment trait. If such is useful. */
-sealed trait TextAlign
-{ def jsStr: String
-}
-
-case object CenAlign extends TextAlign { def jsStr = "center" }
-case object LeftAlign extends TextAlign { def jsStr = "left" }
-case object RightAlign extends TextAlign { def jsStr = "right" }
-
-/** Baseline style for text. */
-sealed trait BaseLine
-{ def jsStr: String
-}
-
-/** Companion object for [[BaseLine]] trait, contains the object value instances of the trait. */
-object BaseLine
-{ case object Top extends BaseLine { def jsStr = "top" }
-  case object Middle extends BaseLine { def jsStr = "middle" }
-  case object Alphabetic extends BaseLine { def jsStr = "alphabetic" }
-  case object Bottom extends BaseLine { def jsStr = "bottom" }
-
-  /** Implemented as VPos.Top on JavaFx Canvas. */
-  case object Hanging extends BaseLine { def jsStr = "hanging" }
-
-  /** Implemented as geometry.VPos.BASELINE on JavaFx Canvas. */
-  case object Ideographic extends BaseLine { def jsStr = "ideographic" }
-}
 
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
@@ -39,7 +12,7 @@ case class TextGraphic(str: String, fontSize: Double, xPosn: Double, yPosn: Doub
   override def ptsTrans(f: Pt2 => Pt2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
 
-  override def svgElem: SvgElem = SvgText(xPosn, -yPosn, str)
+  override def svgElem: SvgElem = SvgText(xPosn, -yPosn, str, align)
 }
 
 object TextGraphic

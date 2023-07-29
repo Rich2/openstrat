@@ -43,14 +43,14 @@ object GeomPage extends HtmlPage
   {
     override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svg1, p1)
 
-    val width = 200
-    val dodec1 = DoDeclign(width)
-    val dodec2 = dodec1.draw(Red).svgElem
+    val width: Int = 250
+    val dodec1: DoDeclign = DoDeclign(width)
+    val dodec2: SvgElem = dodec1.draw(Red).svgElem
     val circ: SvgElem = Circle(width * 2).draw().svgElem
-    val verts: RArr[SvgElem] = dodec1.vertsIMap((pt, i) => pt.textAt(s"V$i").svgElem)
+    val verts: RArr[SvgElem] = dodec1.vertsIFlatMap{ (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem)  }
     val cen = Pt2Z.textAt("Centre").svgElem
 
-    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.1), RArr(dodec2, circ, cen) ++ verts, RArr(CentreBlockAtt))
+    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.scale(1.25), RArr(dodec2, circ, cen) ++ verts, RArr(CentreBlockAtt))
 
 
     def p1: HtmlP = HtmlP(

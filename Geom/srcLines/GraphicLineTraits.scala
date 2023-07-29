@@ -1,9 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, Colour.Black
+import pgui._
+import Colour.Black
+import ostrat.pWeb.{SvgElem, SvgLine}
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
-case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem
+case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem with GraphicAndSvgElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
   override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), colour, width)
@@ -12,6 +14,8 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
   def startPt: Pt2 = xStart pp yStart
   def endPt: Pt2 = xEnd pp yEnd
   def arrow: GraphicElems = Arrow.paint(startPt, endPt, 30.degsVec, 20, colour, width)
+
+  override def svgElem: SvgElem = SvgLine(xStart, yStart, xEnd, yEnd, colour, width)
 }
 
 object LineSegDraw

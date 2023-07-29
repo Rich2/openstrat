@@ -48,3 +48,7 @@ object TypeAtt
 case class SrcAtt(valueStr: String) extends XmlAtt
 { override def name: String = "src"
 }
+
+case class TextAnchorAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "text-anchor"
+}

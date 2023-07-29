@@ -30,21 +30,40 @@ case class SvgRotate(degrees: Double, x: Double, y: Double) extends XmlAtt
 }
 
 /** XML attribute for x posn. */
-case class XAttrib(valueStr: String) extends XmlAtt
+case class XXmlAtt(valueStr: String) extends XmlAtt
 { override def name = "x"
 }
 
-object XAttrib
-{ def apply(inp: Double): XAttrib = new XAttrib(inp.toString)
+object XXmlAtt
+{ def apply(inp: Double): XXmlAtt = new XXmlAtt(inp.toString)
 }
 
 /** XML attribute for y posn. */
-case class YAttrib(valueStr: String) extends XmlAtt
+case class YXmlAtt(valueStr: String) extends XmlAtt
 { override def name = "y"
 }
 
-object YAttrib
-{ def apply(inp: Double): YAttrib = new YAttrib(inp.toString)
+object YXmlAtt
+{ def apply(inp: Double): YXmlAtt = new YXmlAtt(inp.toString)
 }
 
 object CentreBlockAtt extends ClassAtt("centreBlock")
+
+case class FillAttrib(valueStr: String) extends XmlAtt
+{ override def name: String = "fill"
+}
+
+object FillAttrib
+{ def apply(colour: Colour): FillAttrib = FillAttrib(colour.svgStr)
+  val none: FillAttrib = FillAttrib("none")
+}
+
+case class StrokeWidthAttrib(lineWidth: Double) extends XmlAtt
+{ override def name: String = "stroke-width"
+  override def valueStr: String = lineWidth.toString
+}
+
+case class StrokeAttrib(colour: Colour) extends XmlAtt
+{ override def name: String = "stroke"
+  override def valueStr: String = colour.svgStr
+}

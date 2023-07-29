@@ -40,8 +40,8 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   def widthAttrib: XmlAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
-  def xAttrib: XAttrib = XAttrib(v3x)
-  def yAttrib: YAttrib = YAttrib(v3y)
+  def xAttrib: XXmlAtt = XXmlAtt(v3x)
+  def yAttrib: YXmlAtt = YXmlAtt(v3y)
   //override def attribs: RArr[XmlAtt] = RArr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
   def diag1: LineSeg = LineSeg(v2, v0)
