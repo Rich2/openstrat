@@ -35,6 +35,9 @@ final class Sqlign private(val unsafeArray: Array[Double]) extends Square with R
   override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
+
+  /** Adds a margin to this [[Sqlign]], square aligned with the XY axes, moving the sides out by the given parameter. */
+  override def addMargin(delta: Double): Sqlign = Sqlign(width + 2 * delta, cenX, cenY)
 }
 
 /** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
