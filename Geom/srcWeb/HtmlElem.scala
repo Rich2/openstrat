@@ -8,8 +8,7 @@ trait HtmlElem extends XmlElemLike
 
 /** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
-{ //def openTag: String = openAtts + ">"
-  def openTag1: String = openTag + "\n"
+{ def openTag1: String = openTag + "\n"
   def openTag2: String = openTag + "\n\n"
 }
 
@@ -24,7 +23,7 @@ trait HtmlMultiLine extends HtmlUnvoid
 {
   override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String =
   { val cons = contents.map(_.outEither(indent + 2, maxLineLen))
-    val middle = cons.foldLeft("") { (acc, el) => acc --- ife(el._1, (indent + 2).spaces, "") + el._2 } + "\n"
+    val middle = cons.foldLeft("") { (acc, pair) => acc --- ife(pair._1, (indent + 2).spaces, "") + pair._2 } + "\n"
     indent.spaces + openTag + middle + indent.spaces + closeTag
   }
 }
