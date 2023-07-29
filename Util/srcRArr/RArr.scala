@@ -197,6 +197,21 @@ object RArr
   }
 }
 
+case object RArr0{
+  def unapply(inp: Any): Boolean = inp match{
+    case ra: RArr[_] if ra.length == 0 => true
+    case _ => false
+  }
+}
+
+case object RArr1
+{
+  def unapply[A](inp: Any): Option[A] = inp match{
+    case ra: RArr[A] if ra.length == 1 => Some(ra(0))
+    case _ => None
+  }
+}
+
 /** The default Immutable Array based collection builder for the Arr[A] class. */
 class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrMapBuilder[B, RArr[B]] with ArrFlatBuilder[RArr[B]]
 { type BuffT = RBuff[B]

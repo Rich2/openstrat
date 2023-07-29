@@ -9,6 +9,8 @@ trait XmlElem extends XmlElemLike
 
 trait XmlMulti extends XmlElem with XmlLikeMulti
 
+trait Xml1Lineable extends XmlElem with XmlLike1Lineable
+
 trait XmlNoAtts extends XmlElem
 { override def attribs: RArr[XmlAtt] = RArr()
 }

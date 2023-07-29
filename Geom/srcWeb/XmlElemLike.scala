@@ -33,6 +33,15 @@ trait XmlLikeMulti extends XmlElemLike
     else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
+trait XmlLike1Lineable extends XmlElemLike
+{
+  override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = contents match
+  { case RArr0() => openAtts + "/>"
+    case RArr1(_) => openUnclosed + contents(0).out(0, 150) + closeTag
+    case _ => openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+  }
+}
+
 trait XmlConInline extends XmlElemLike
 {
   override def outEither(indent: Int, maxLineLen: Int = lineLenDefault): (Boolean, String) = (true, out(indent, maxLineLen))
