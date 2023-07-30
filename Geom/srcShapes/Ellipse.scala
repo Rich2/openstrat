@@ -74,10 +74,14 @@ trait Ellipse extends EllipseBased with ShapeCentred
  * EllipseImp. */
 object Ellipse
 { /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
-  def apply(radius1: Double, radius0: Double): Ellipse = new EllipseImp(0, 0, radius1, 0,  radius0)
+  def apply(radius1: Double, radius0: Double, cenX: Double, cenY: Double): Ellipse = new EllipseImp(cenX, cenY, radius1, 0,  radius0)
 
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
-  def apply(radius1: Double, radius0: Double, cen: Pt2): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
+  def apply(radius1: Double, radius0: Double, cen: Pt2 = Pt2Z): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
+
+  /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
+  def diameter(diameter1: Double, diameter0: Double, cen: Pt2 = Pt2Z): Ellipse =
+    new EllipseImp(cen.x, cen.y, cen.x + diameter1 / 2, cen.y, diameter0 / 2)
 
   /** Factory method that creates an ellipse from the centre point, axes point 1 and axes point 4. */
   def cenAxes1axes4(cen: Pt2, axes1: Pt2, axes4: Pt2): EllipseImp =
@@ -138,7 +142,6 @@ object Ellipse
       val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius2.squared * (alignAngle.cos).squared
       val yd = yd0.sqrt
       Rect(2 * xd, 2 * yd, cenX, cenY)
-      //BoundingRect(cenX - xd, cenX + xd, cenY - yd, cenY + yd)
     }
 
     override def alignAngle: Angle = cen.angleTo(axesPt1)
