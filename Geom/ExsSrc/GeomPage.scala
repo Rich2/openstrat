@@ -45,15 +45,25 @@ object GeomPage extends HtmlPage
 
   object Ellipses extends HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs)
+    override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs1, svgs2)
 
     val circ2: Circle = Circle(200)
     val circ1: Circle = circ2.slateX(-200)
     val circ3: Circle = circ2.slateX(200)
-    val cg1: SvgCircle = circ1.fill(Orange).svgElem
-    val cg2: RArr[SvgElem] = circ2.fillDraw(Turquoise).svgElems
-    val cg3: SvgCircle = circ3.draw(Orchid).svgElem
-    val bounds: Rect = circ1.boundingRect.union(circ3.boundingRect).addMargin(svgMargin)
-    val svgs = HtmlSvg.bounds(bounds, RArr(cg1, cg3) ++ cg2, RArr(CentreBlockAtt))
+    val cg1 = circ1.fill(Orange)
+    val cg2 = circ2.fillDraw(Turquoise)
+    val cg3 = circ3.draw(Orchid)
+    val bounds1: Rect = circ1.boundingRect.union(circ3.boundingRect).addMargin(svgMargin)
+    val svgs1 = HtmlSvg(bounds1, RArr(cg1, cg3, cg2), RArr(CentreBlockAtt))
+
+    val diam1 = 160
+    val elipse2 = Ellipse(diam1, diam1 / 2)
+    val ellipse1 = elipse2.slateX(-diam1)
+    val ellipse3 = elipse2.slateX(diam1)
+    val eg1 = ellipse1.fill(Red)
+    val eg2 = elipse2.fillDraw(Pink)
+    val eg3 = ellipse3.draw(DarkBlue)
+    val bounds2: Rect = ellipse1.boundingRect.union(ellipse3.boundingRect).addMargin(svgMargin)
+    val svgs2 = HtmlSvg(bounds2, RArr(eg1, eg2, eg3), RArr(CentreBlockAtt))
   }
 }
