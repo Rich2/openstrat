@@ -5,21 +5,24 @@ import geom._
 /** An SVG element. */
 trait SvgElem extends Xml1Lineable
 
-case class SvgSvgElem(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends SvgElem
-{ override def tag: String = "svg"  
+case class HtmlSvg(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlMultiLine
+{ override def tag: String = "svg"
 }
 
-object SvgSvgElem
+object HtmlSvg
 {
-  def apply(minX: Double, minY: Double, width: Double, height: Double, contents: XCon*): SvgSvgElem =
-  new SvgSvgElem(contents.toArr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height), ClassAtt("centreBlock")))
-
-  def apply(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XCon]): SvgSvgElem =
-    new SvgSvgElem(arr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))
-
-  def bounds(rect: Rect, contents: RArr[XCon], otherAtts: RArr[XmlAtt] = RArr()): SvgSvgElem =
+  def apply(rect: Rect, contents: RArr[GraphicElem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
   { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, rect.bottom, rect.width, rect.height)) ++ otherAtts
-    new SvgSvgElem(contents, atts)
+    val svgElems = contents.flatMap(_.svgElems)
+    new HtmlSvg(svgElems, atts)
+  }
+
+  def bounds(minX: Double, minY: Double, width: Double, height: Double, arr: RArr[XCon]): HtmlSvg =
+    new HtmlSvg(arr, RArr(WidthAtt(width), HeightAtt(height), ViewBox(minX, minY, width, height)))
+
+  def bounds(rect: Rect, contents: RArr[XCon], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
+  { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, rect.bottom, rect.width, rect.height)) ++ otherAtts
+    new HtmlSvg(contents, atts)
   }
 }
 
@@ -29,7 +32,7 @@ class SvgCircle(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) exte
 }
 
 object SvgCircle
-{
+{ /** Factory apply method for SVG circle class. */
   def apply(attribsIn: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgCircle = new SvgCircle(attribsIn, contents)
 }
 
@@ -39,7 +42,7 @@ class SvgEllipse(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) ext
 }
 
 object SvgEllipse
-{
+{ /** Factory apply method for SVG ellipse class. */
   def apply(attribsIn: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgEllipse = new SvgEllipse(attribsIn, contents)
 }
 
@@ -49,16 +52,18 @@ class SvgPolygon(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) ext
 }
 
 object SvgPolygon
-{ def apply(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgPolygon = new SvgPolygon(attribs, contents)
+{ /** Factory apply method for SVG polygon class. */
+  def apply(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgPolygon = new SvgPolygon(attribs, contents)
 }
 
-case class SvgRect(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) extends SvgElem
+class SvgRect(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) extends SvgElem
 { override def tag: String = "rect"
   override val attribs: RArr[XmlAtt] = attribsIn.explicitFill
 }
 
-object SvgRect{
-
+object SvgRect
+{ /** Factory apply method for SVG RECT rectangle class. */
+  def apply(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgRect = new SvgRect(attribs, contents)
 }
 
 case class SvgLine(x1: Double, y1: Double, x2: Double, y2: Double, colour: Colour, width: Double) extends SvgElem

@@ -9,7 +9,7 @@ trait ShapeGraphic extends GraphicBounded
   def attribs: RArr[XmlAtt]
   def shapeAttribs: RArr[XmlAtt] = shape.attribs
 
-  def svgInline: SvgSvgElem
+  def svgInline: HtmlSvg
 
   final def svgInlineStr: String = svgInline.out(0, 150)
 

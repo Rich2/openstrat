@@ -6,8 +6,7 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple with GraphicSvg
 {
   final def svgJustElem: SvgElem = svgElem
 
-  final def svgInline: SvgSvgElem = SvgSvgElem(shape.boundingRect.left, shape.boundingRect.bottom, shape.boundingRect.width,
-    shape.boundingRect.height, svgJustElem)
+  final def svgInline: HtmlSvg = HtmlSvg.bounds(shape.boundingRect, RArr(svgJustElem))
   def nonShapeAttribs: RArr[XmlAtt]
   final override def attribs: RArr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 

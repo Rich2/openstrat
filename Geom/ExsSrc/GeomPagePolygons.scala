@@ -20,13 +20,13 @@ object GeomPagePolygons extends HtmlSection
   val verts: RArr[SvgElem] = dodec1.vertsIFlatMap { (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem) }
   val sides: RArr[SvgElem] = dodec1.sidesIFlatMap { (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour).map(_.svgElem) }
   val cen: SvgElem = Pt2Z.textAt("Centre").svgElem
-  val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.addMargin(svgMargin), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
+  val svg1: HtmlSvg = HtmlSvg.bounds(dodec1.boundingRect.addMargin(svgMargin), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
 
   val rect1: Rect = Rect(400, 250)
   val rect2: SvgElem = rect1.draw(polyColour).svgElem
   val verts2: RArr[SvgElem] = rect1.vertsIFlatMap { (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem) }
   val sides2: RArr[SvgElem] = rect1.sidesIFlatMap { (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour).map(_.svgElem) }
-  val svg2: SvgSvgElem = SvgSvgElem.bounds(rect1.boundingRect.addMargin(svgMargin), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
+  val svg2: HtmlSvg = HtmlSvg.bounds(rect1.boundingRect.addMargin(svgMargin), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
 
   def p2: HtmlP = HtmlP(
   """I've included the Scala code below both for the above diagram and for the rectangle diagram below. If you check the html source code for this web
