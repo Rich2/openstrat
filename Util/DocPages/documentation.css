@@ -42,7 +42,8 @@ code { color: DarkRed; }
 .sbt { color: DarkGreen; }
 .folder { color: DarkBlue; white-space: nowrap; }
 .path { color: DarkBlue; white-space: nowrap; }
-,bash { color: DarkRed; white-space: nowrap; }
+.bash { color: DarkRed; white-space: nowrap; }
+.scala { color: Black; white-space: nowrap; font-size:10px; }
 
 @media (min-width:50em)
 {

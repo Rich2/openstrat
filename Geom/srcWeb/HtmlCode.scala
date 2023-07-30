@@ -6,7 +6,28 @@ trait HtmlCode/*(contentStr: String, attribs: RArr[XmlAtt] = RArr())*/ extends H
 { override def tag: String = "code"
 }
 
+object HtmlCode
+{
+  def multiLine(str: String): HtmlCode = new HtmlCode with HtmlMultiLine
+  { override def attribs: RArr[XmlAtt] = RArr()
+    override def contents: RArr[XCon] = RArr(str.xCon)
+  }
+}
+
 trait HtmlCodeInline extends HtmlCode with HtmlInline
+
+
+trait HtmlScala extends HtmlCode
+{ def classAtt: ClassAtt = ClassAtt("scala")
+  override def attribs: RArr[XmlAtt] = RArr(classAtt)
+}
+
+object HtmlScala
+{
+  def apply(str: String): HtmlScala = new HtmlScala with HtmlMultiLine
+  { override def contents: RArr[XCon] = RArr(str.xCon)
+  }
+}
 
 trait HtmlSbt extends HtmlCode
 {
