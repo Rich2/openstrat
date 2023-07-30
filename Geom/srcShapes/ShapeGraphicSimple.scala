@@ -2,7 +2,7 @@
 package ostrat; package geom
 import pWeb._
 
-trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
+trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple with GraphicSvgElem
 {
   final def svgJustElem: SvgElem = svgElem
 

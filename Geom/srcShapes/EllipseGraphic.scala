@@ -11,6 +11,7 @@ trait EllipseGraphic extends ShapeGraphicCentred
 trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarAffPreserve
 { type ThisT <: EllipseGraphicSimple
   type ThisT2 <: EllipseGraphicSimple
+  override def svgElem: SvgElem = SvgEllipse(attribs)
 }
 
 /** A simple single colour fill of a circle graphic. */
@@ -34,9 +35,6 @@ object EllipseFill
 
     override def ptsTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fill)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
-    override def svgElem: SvgElem = ???
-    override def svgStr: String = ???
-
   }
 }
 
@@ -58,10 +56,6 @@ object EllipseDraw
     override def ptsTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineColour, lineWidth)
 
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(this)
-
-    override def svgElem: SvgElem = ???
-
-    override def svgStr: String = ???
   }
 }
 
@@ -88,9 +82,5 @@ object EllipseActive
     override def ptsTrans(f: Pt2 => Pt2): EllipseActive = EllipseActiveImp(shape.fTrans(f), pointerId)
 
     override def nonShapeAttribs: RArr[XmlAtt] = ???
-
-    override def svgStr: String = ???
-
-    override def svgElem: SvgElem = ???
   }
 }

@@ -9,7 +9,7 @@ object GeomPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, Polygons)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, Polygons, Ellipses)
 
   def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
     geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons)
@@ -39,12 +39,14 @@ object GeomPage extends HtmlPage
 
   def lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
 
+  val svgMargin = 50
+
   object Polygons extends HtmlSection
   {
     override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), svg1, p1, svg2)
 
     val width: Int = 250
-    val margin = 50
+
     val polyColour: Colour = DarkGreen
     val dodec1: DoDeclign = DoDeclign(width)
     val dodec2: SvgElem = dodec1.draw(polyColour).svgElem
@@ -58,8 +60,8 @@ object GeomPage extends HtmlPage
     val verts2: RArr[SvgElem] = rect1.vertsIFlatMap { (pt, i) => pt.textArrowToward(Pt2Z, "V" + i.str).map(_.svgElem) }
     val sides2: RArr[SvgElem] = rect1.sidesIFlatMap { (sd, i) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour).map(_.svgElem) }
 
-    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.addMargin(margin), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
-    val svg2: SvgSvgElem = SvgSvgElem.bounds(rect1.boundingRect.addMargin(margin), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
+    val svg1: SvgSvgElem = SvgSvgElem.bounds(dodec1.boundingRect.addMargin(svgMargin), RArr(dodec2, circ, cen) ++ verts ++ sides, RArr(CentreBlockAtt))
+    val svg2: SvgSvgElem = SvgSvgElem.bounds(rect1.boundingRect.addMargin(svgMargin), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
 
 
     def p1: HtmlP = HtmlP(
@@ -67,5 +69,18 @@ object GeomPage extends HtmlPage
       | vertices of an N sided polygon are numbered from 0 to n - 1. With the 0th vertex appearing at 12 o'clock, unless there is no vertex at the 12
       |  o'clock position in which case it is the first vertex clockwise of 12 o'clock. The other vertices then follow clockwise. The last vertex
       |  being immediately anti clockwise of 12 o'clock.""".stripMargin)
+  }
+
+  object Ellipses extends HtmlSection
+  {
+    override def contents: RArr[XCon] = RArr(HtmlH2("Circles and Ellipses"), svgs)
+
+    val circ2: Circle = Circle(200)
+    val circ1: Circle = circ2.slateX(-200)
+    val circ3: Circle = circ2.slateX(200)
+    val cg1: SvgCircle = circ1.fill(Orange).svgElem
+    val cg3: SvgCircle = circ3.draw(Orchid).svgElem
+    val bounds: Rect = circ1.boundingRect.union(circ3.boundingRect).addMargin(svgMargin)
+    val svgs = SvgSvgElem.bounds(bounds, RArr(cg1, cg3), RArr(CentreBlockAtt))
   }
 }

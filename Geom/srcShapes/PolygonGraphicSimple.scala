@@ -73,6 +73,4 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
   override def nonShapeAttribs: RArr[XmlAtt] = ???
-
-  override def svgStr: String = ???
 }

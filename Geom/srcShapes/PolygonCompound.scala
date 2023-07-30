@@ -17,9 +17,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   
   override def attribs: RArr[XmlAtt] = ???
 
-  override def svgStr: String = ???
-
-  override def svgElem: SvgElem = ???
+//  override def svgElem: SvgElem = ???
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonCompound =
@@ -103,9 +101,7 @@ object PolygonCompound
 
     override def attribs: RArr[XmlAtt] = ???
 
-    override def svgStr: String = ???
-
-    override def svgElem: SvgElem = ???
+//    override def svgElem: SvgElem = ???
 
     /** Translate geometric transformation. */
     override def slateXY(xDelta: Double, yDelta: Double): PolygonCompoundImp =

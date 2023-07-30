@@ -5,7 +5,7 @@ import pgui._, Colour.Black, pWeb._
 /** A Simple circle based graphic. Not sure if this trait is useful. */
 trait CircleGraphicSimple extends CircleGraphic with EllipseGraphicSimple
 { type ThisT <: CircleGraphicSimple
-  final override def svgElem: SvgElem = SvgCircle(attribs)
+  final override def svgElem: SvgCircle = SvgCircle(attribs)
 }
 
 /** A simple single colour fill of a circle graphic. */

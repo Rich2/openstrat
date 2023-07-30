@@ -5,9 +5,8 @@ import pWeb._
 /** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle
  *  use the implementation class [[PolygonCompound]]. */
 trait PolygonGraphic extends ShapeGraphic with GraphicBounded
-{
-  override def shape: Polygon
-  override def svgStr: String = tagVoidStr("polygon", attribs)
+{ override def shape: Polygon
+
   def x1: Double = shape.v0x
   def y1: Double = shape.v0y
 
@@ -22,7 +21,6 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   def xVertsArray: Array[Double] = shape.elem1sArray
   def yVertsArray: Array[Double] = shape.elem2sArray
   override def boundingRect: Rect = shape.boundingRect
-  override def svgElem: SvgElem = ???
   @inline def vertsForeach(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
   @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: ArrMapBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
 

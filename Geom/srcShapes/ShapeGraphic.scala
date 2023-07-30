@@ -3,20 +3,15 @@ package ostrat; package geom
 import pWeb._
 
 /** A shape based graphic. */
-trait ShapeGraphic extends GraphicBounded with GraphicSvgElem
+trait ShapeGraphic extends GraphicBounded
 { def shape: Shape
   override def boundingRect: Rect = shape.boundingRect
   def attribs: RArr[XmlAtt]
-  def svgStr: String
   def shapeAttribs: RArr[XmlAtt] = shape.attribs
 
   def svgInline: SvgSvgElem
 
   final def svgInlineStr: String = svgInline.out(0, 150)
-
-  //def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
-
-
 
   /** Translate geometric transformation. */
   def slateXY(xDelta: Double, yDelta: Double): ShapeGraphic
@@ -54,12 +49,7 @@ object ShapeGraphic
 {
   implicit class ArrImplicit(val thisArr: RArr[ShapeGraphic])
   {
-    def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
-
     def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = ???
-    /*{ val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
-      SvgSvgElem(br.left, br.bottom, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, lineLen)
-    }*/
   }
   
   implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)

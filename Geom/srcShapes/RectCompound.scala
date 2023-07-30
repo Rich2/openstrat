@@ -5,10 +5,8 @@ import pWeb._
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
 case class RectCompound(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectGraphic with RectangleCompound
 {
-  override def svgStr: String = ???
-
-  override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
-    attribs ++ facets.flatMap(_.attribs))
+  /*override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
+    attribs ++ facets.flatMap(_.attribs))*/
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): RectCompound =

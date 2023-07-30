@@ -28,8 +28,19 @@ class SvgCircle(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) exte
   override val attribs: RArr[XmlAtt] = attribsIn.explicitFill
 }
 
-case class SvgEllipse(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()) extends SvgElem
+object SvgCircle
+{
+  def apply(attribsIn: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgCircle = new SvgCircle(attribsIn, contents)
+}
+
+class SvgEllipse(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) extends SvgElem
 { override def tag: String = "ellipse"
+  override val attribs: RArr[XmlAtt] = attribsIn.explicitFill
+}
+
+object SvgEllipse
+{
+  def apply(attribsIn: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgEllipse = new SvgEllipse(attribsIn, contents)
 }
 
 class SvgPolygon(attribsIn: RArr[XmlAtt], val contents: RArr[XCon] = RArr()) extends SvgElem

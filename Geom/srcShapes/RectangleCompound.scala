@@ -7,10 +7,10 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 {
   override def attribs: RArr[XmlAtt] = ???
 
-  override def svgStr: String = ???
+//  override def svgStr: String = ???
 
-  override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
-    attribs ++ facets.flatMap(_.attribs))
+ /* override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
+    attribs ++ facets.flatMap(_.attribs))*/
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): RectangleCompound =
@@ -52,10 +52,8 @@ object RectangleCompound
     override type ThisT = RectangleCompoundImp
     override def attribs: RArr[XmlAtt] = ???
 
-    override def svgStr: String = ???
-
-    override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
-      attribs ++ facets.flatMap(_.attribs))
+ /*   override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
+      attribs ++ facets.flatMap(_.attribs))*/
 
     /** Translate geometric transformation. */
     override def slateXY(xDelta: Double, yDelta: Double): RectangleCompoundImp =

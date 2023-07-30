@@ -46,6 +46,14 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   /** Adds a margin to this [[Rect]], rectangle aligned with the XY axes, moving the sides out by the given parameter. */
   def addMargin(delta: Double): Rect = Rect(width + 2 * delta, height + 2 * delta, cenX, cenY)
+
+  def union(operand: Rect): Rect = {
+    val newLeft = left.min(operand.left)
+    val newRight = right.max(operand.right)
+    val newbottom = bottom.min(operand.bottom)
+    val newTop = top.max(operand.top)
+    Rect(newRight - newLeft, newTop - newbottom, (newLeft + newRight) / 2, (newbottom + newTop) / 2)
+  }
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
