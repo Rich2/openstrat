@@ -6,9 +6,11 @@ import ostrat.pWeb._
 trait ShapeCompound extends ShapeGraphic with NoCanvElem
 { 
   def facets: RArr[GraphicFacet]
-
+  final override def attribs: RArr[XmlAtt] = shapeAttribs ++ facets.flatMap(_.attribs)
   override def canvElems: RArr[CanvElem] = ???
+  def mainSvgElem: SvgElem
 
+  override def svgElems: RArr[SvgElem] = RArr(mainSvgElem) ++ children.flatMap(_.svgElems)
   override def svgInline: SvgSvgElem = ???
 
   /** The [[ShapeCompound]] type will be widened at a later point. */

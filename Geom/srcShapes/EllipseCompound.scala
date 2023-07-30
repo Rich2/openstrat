@@ -4,7 +4,9 @@ import pWeb._
 
 /** Compound graphic trait for an ellipse. The final sub classes of this trait are [[CircleCompound]] and[[Ellipse.EllipseImp]]. */
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
-{ /** Translate geometric transformation. */
+{
+  override def mainSvgElem: SvgElem = SvgEllipse(attribs)
+  /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): EllipseCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
@@ -44,8 +46,7 @@ object EllipseCompound
     EllipseCompound with AxisFree
   {
     override type ThisT = EllipseCompoundImplement
-    override def attribs: RArr[XmlAtt] = ???
-
+    override def mainSvgElem: SvgEllipse = SvgEllipse(attribs)
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
 /*    override def svgElem: SvgEllipse =
     { val newEllipse = shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top)

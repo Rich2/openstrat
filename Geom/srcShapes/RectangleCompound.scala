@@ -1,18 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
 
 /** A compound graphic for rectangles. */
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
-{
-  override def attribs: RArr[XmlAtt] = ???
-
-//  override def svgStr: String = ???
-
- /* override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
-    attribs ++ facets.flatMap(_.attribs))*/
-
-  /** Translate geometric transformation. */
+{ /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): RectangleCompound =
     RectangleCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
 
@@ -50,10 +41,6 @@ object RectangleCompound
     AxisFree
   {
     override type ThisT = RectangleCompoundImp
-    override def attribs: RArr[XmlAtt] = ???
-
- /*   override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
-      attribs ++ facets.flatMap(_.attribs))*/
 
     /** Translate geometric transformation. */
     override def slateXY(xDelta: Double, yDelta: Double): RectangleCompoundImp =
@@ -62,7 +49,6 @@ object RectangleCompound
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): RectangleCompoundImp = RectangleCompoundImp(shape.scale(operand), facets, children.scale(operand))
-
 
     override def prolign(matrix: ProlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 

@@ -5,6 +5,8 @@ import pWeb._
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
 trait PolygonCompound extends ShapeCompound with PolygonGraphic
 {
+  override def mainSvgElem: SvgElem = SvgPolygon(attribs)
+
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.polygonFill(shape.fill(c))
     case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
@@ -14,10 +16,6 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   }
 
   override def canvElems: RArr[CanvElem] = ???
-  
-  override def attribs: RArr[XmlAtt] = ???
-
-//  override def svgElem: SvgElem = ???
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonCompound =
@@ -91,6 +89,9 @@ object PolygonCompound
     AxisFree
   {
     override type ThisT = PolygonCompoundImp
+
+    override def mainSvgElem: SvgPolygon = SvgPolygon(attribs)
+
     override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
       case c: Colour => cp.polygonFill(shape.fill(c))
       case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
@@ -98,10 +99,6 @@ object PolygonCompound
       // case fr: FillRadial => cp.circleFillRadial(shape, fr)
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
-
-    override def attribs: RArr[XmlAtt] = ???
-
-//    override def svgElem: SvgElem = ???
 
     /** Translate geometric transformation. */
     override def slateXY(xDelta: Double, yDelta: Double): PolygonCompoundImp =

@@ -79,8 +79,9 @@ object GeomPage extends HtmlPage
     val circ1: Circle = circ2.slateX(-200)
     val circ3: Circle = circ2.slateX(200)
     val cg1: SvgCircle = circ1.fill(Orange).svgElem
+    val cg2 = circ2.fillDraw(Turquoise).svgElems
     val cg3: SvgCircle = circ3.draw(Orchid).svgElem
     val bounds: Rect = circ1.boundingRect.union(circ3.boundingRect).addMargin(svgMargin)
-    val svgs = SvgSvgElem.bounds(bounds, RArr(cg1, cg3), RArr(CentreBlockAtt))
+    val svgs = SvgSvgElem.bounds(bounds, RArr(cg1, cg3) ++ cg2, RArr(CentreBlockAtt))
   }
 }

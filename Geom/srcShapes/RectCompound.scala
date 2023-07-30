@@ -7,7 +7,7 @@ case class RectCompound(shape: Rect, facets: RArr[GraphicFacet], children: RArr[
 {
   /*override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
     attribs ++ facets.flatMap(_.attribs))*/
-
+  override def mainSvgElem: SvgRect = SvgRect(attribs)
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): RectCompound =
     RectCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))

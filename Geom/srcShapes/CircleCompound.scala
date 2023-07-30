@@ -7,7 +7,6 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   CircleGraphic with AxisFree
 {
   override type ThisT = CircleCompound
-  override def attribs: RArr[XmlAtt] = ???
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
@@ -16,7 +15,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-//  override def svgElem: SvgCircle = SvgCircle(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).attribs ++ facets.flatMap(_.attribs))
+  final override def mainSvgElem: SvgCircle = SvgCircle(attribs)
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): CircleCompound =

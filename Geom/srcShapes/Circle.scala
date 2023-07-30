@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._, math.Pi
+import pWeb._, math.Pi, Colour.Black
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse.
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
@@ -46,7 +46,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def draw(lineColour: Colour = Colour.Black, lineWidth: Double = 2): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
   /** Returns a [[CircleCompound]] with a [[FillFacet]] and a [[DrawFact]]. */
-  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): CircleCompound =
+  override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleCompound =
     CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
 
   def fillActive(fillColour: Colour, pointerID: AnyRef): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
