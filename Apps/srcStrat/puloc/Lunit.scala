@@ -33,7 +33,7 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
 /** A [[Lunit]], a military land unit's state at a particular moment in time.  */
 case class LunitState(polity: Polity, desig: String, level: LunitLevel, loc: LatLong) extends Selectable with Coloured
 { override def colour: Colour = polity.colour
-  def levelName = level.desigStr
+  def levelName = level.toString
   override def selectStr: String = s"$polity $desig $levelName"
 }
 
