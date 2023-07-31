@@ -17,7 +17,7 @@ object LunitSole extends LunitLevel
 object MCrew extends LunitLevel
 { override val int1: Int = 2
   override def desigStr: String = "0"
-  override def toString: String = "Team"
+  override def toString: String = "Crew"
 }
 
 object MTeam extends LunitLevel
@@ -72,12 +72,14 @@ object Brigade extends LunitLevel
 { override val int1: Int = 11
   override def desigStr: String = "X"
   override def toString: String = "Brigade"
+  override def graphic: LineSegArr = diagCross.scale(0.75)
 }
 
 object Division extends LunitLevel
 { override val int1: Int = 12
   override def desigStr: String = "XX"
   override def toString: String = "Division"
+  override def graphic: LineSegArr = iToFlatMap(-1, 1, 2){i => diagCross.scale(0.75).slateX(i) }
 }
 
 object Corps extends LunitLevel
@@ -91,10 +93,12 @@ object FieldArmy extends LunitLevel
 { override val int1: Int = 14
   override def desigStr: String = "XXXX"
   override def toString: String = "Field Army"
+  override def graphic: LineSegArr = iToFlatMap(-3, 3, 2){i => diagCross.scale(0.75).slateX(i) }
 }
 
 object ArmyGroup extends LunitLevel
 { override val int1: Int = 15
   override def desigStr: String = "XXXXX"
   override def toString: String = "Army Group"
+  override def graphic: LineSegArr = iToFlatMap(-4, 2, 4){i => diagCross.scale(0.75).slateX(i) }
 }
