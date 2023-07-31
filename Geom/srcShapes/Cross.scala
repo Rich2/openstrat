@@ -10,4 +10,6 @@ object Cross
    val rh =  LineSeg(0 pp 10, 0 pp -10)
    LineSegArr(lh, rh)map(_.scale(scale).slate(cen).draw(lineWidth = 2))
  }
+
+  def diag: LineSegArr = LineSegArr(LineSeg(-1, -1, 1, 1), LineSeg(-1, 1, 1, -1))
 }

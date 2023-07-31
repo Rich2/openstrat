@@ -37,8 +37,6 @@ case class LunitState(polity: Polity, desig: String, level: LunitLevel, loc: Lat
   override def selectStr: String = s"$polity $desig $levelName"
 }
 
-
-
 trait ArmyNumbered extends Lunit
 { /** The number of the Army 1st, 2nd 3rd, etc. */
   def armyNum: Int
