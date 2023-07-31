@@ -11,11 +11,20 @@ trait UnitCounter
 
 object InfantryCounter extends UnitCounter
 {
-  def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound = {
-    val rect: Rect = Rect(scale, scale * heightRatio)
+  def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
+  { val rect: Rect = Rect(scale, scale * heightRatio)
     val linesColour = fillColour.contrastBW //2(backgroundColour)
     val subj = rect.fillDrawActive(fillColour, evObj, lineWidth, linesColour)
     subj.addChildren(RArr(rect.diags.draw(1, linesColour)))
+  }
+
+  def level(scale: Double, evObj: AnyRef, fillColour: Colour, unitLevel: LunitLevel = FieldArmy): PolygonCompound ={
+    val rect: Rect = Rect(scale, scale * heightRatio)
+    val linesColour = fillColour.contrastBW //2(backgroundColour)
+    val subj = rect.fillDrawActive(fillColour, evObj, lineWidth, linesColour)
+    val lg = unitLevel.graphic.scale(0.08).slateY(0.55).scale(scale).draw(1, Colour.Black)
+    subj.addChildren(RArr(rect.diags.draw(1, linesColour), lg))
+
   }
 
   override def str: String = "Infantry"

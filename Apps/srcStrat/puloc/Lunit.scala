@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
-import geom._, pgui._, pglobe._
+import geom._, pgui._, pStrat._, pglobe._
 
 /** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is consdered to be a new
  *  unit. */
@@ -14,7 +14,7 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
   /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]
 
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, timeDesig(date), levelName, ll))
+  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, timeDesig(date), level, ll))
 
   /** The name of the level of the unit such as Army, Corps or Division. */
   def levelName: String
@@ -31,9 +31,9 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
 }
 
 /** A [[Lunit]], a military land unit's state at a particular moment in time.  */
-case class LunitState(polity: Polity, desig: String, levelName: String, loc: LatLong) extends Selectable with Coloured
+case class LunitState(polity: Polity, desig: String, level: LunitLevel, loc: LatLong) extends Selectable with Coloured
 { override def colour: Colour = polity.colour
-
+  def levelName = level.desigStr
   override def selectStr: String = s"$polity $desig $levelName"
 }
 

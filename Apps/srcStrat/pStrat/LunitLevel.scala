@@ -1,8 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package puloc
+package ostrat; package pStrat
+import geom._
 
 trait LunitLevel extends Int1Elem
 { def desigStr: String
+  def diagCross = LineSegArr(LineSeg(-1, -1, 1, 1), LineSeg(-1, 1, 1, -1))
+  def graphic: LineSegArr = iToFlatMap(-3, 3, 2){i => diagCross.scale(0.75).slateX(i) }
 }
 
 object LunitSole extends LunitLevel
@@ -81,6 +84,7 @@ object Corps extends LunitLevel
 { override val int1: Int = 13
   override def desigStr: String = "XXX"
   override def toString: String = "Corps"
+  override def graphic: LineSegArr = iToFlatMap(-2, 2, 2){i => diagCross.scale(0.75).slateX(i) }
 }
 
 object FieldArmy extends LunitLevel

@@ -63,7 +63,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
       val xyz = ls.loc.toMetres3.fromLatLongFocus(focus)
       if (xyz.zPos){
         val pt = (xyz.xy/scale)
-        val res = InfantryCounter(50, ls, ls.colour).slate(pt)
+        val res = InfantryCounter.level(50, ls, ls.colour, ls.level).slate(pt)
         Some(res)
       }
       else None
