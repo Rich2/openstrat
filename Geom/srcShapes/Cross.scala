@@ -11,5 +11,6 @@ object Cross
    LineSegArr(lh, rh)map(_.scale(scale).slate(cen).draw(lineWidth = 2))
  }
 
-  def diag: LineSegArr = LineSegArr(LineSeg(-1, -1, 1, 1), LineSeg(-1, 1, 1, -1))
+  /** Diagonal cross with a width and height of 1.  */
+  def diag: LineSegArr = LineSegArr(LineSeg(-0.5, -0.5, 0.5, 0.5), LineSeg(-0.5, 0.5, 0.5, -0.5))
 }
