@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 /** A segment of a curve that could be used in a closed shape or curve path. The names start and end are used in CurveSeg and its sub classes to
  *  provide consistent naming across line segments [[LineSeg]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic beziers

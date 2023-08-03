@@ -76,7 +76,7 @@ trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] 
 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
 abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
-{
+{ /* Apply factory method for [[Dbl4SeqLike]]. If you are constructing the elements inline the tuple4s factory method may be preferred. */
   final def apply(elems: A*): AA =
   { val length = elems.length
     val res = uninitialised(length)
@@ -89,6 +89,18 @@ abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends
    }
 
   override def elemNumDbls: Int = 4
+
+  /** Constructs the [[Dbl4SeqLike]] from a sequence of [[Tuple4]]s. */
+  def tuple4s(tuples: (Double, Double, Double, Double)*): AA =
+  { val length = tuples.length
+    val res = uninitialised(length)
+    var i: Int = 0
+    while (i < length) {
+      res.unsafeArray.setIndex4(i, tuples(i)._1, tuples(i)._2, tuples(i)._3, tuples(i)._4)
+      i += 1
+    }
+    res
+  }
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
