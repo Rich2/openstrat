@@ -10,7 +10,7 @@ class Bezier (val startX: Double, val startY: Double, val xC1: Double, val yC1: 
   def ptsTrans(f: Pt2 => Pt2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
   final def pC1: Pt2 = Pt2(xC1, yC1)
   final def pC2: Pt2 = Pt2(xC2, yC2)
-  def draw(colour: Colour = Black, lineWidth: Double = 2): BezierDraw = BezierDraw(this, colour, lineWidth)
+  def draw(lineWidth: Double = 2, colour: Colour = Black): BezierDraw = BezierDraw(this, colour, lineWidth)
 }
 
 object Bezier

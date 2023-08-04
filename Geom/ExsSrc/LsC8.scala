@@ -35,7 +35,7 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
 
     /** this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , ) */
     //val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
-    val circ = Circle(cRad.v.distTo(cCen.v), cCen.v).draw(Blue, 2.0)
+    val circ = Circle(cRad.v.distTo(cCen.v), cCen.v).draw(2.0, Blue)
     val ell = Ellipse(200, 100).fill(SeaGreen)
 
     val elementsToPaint = cds ++ RArr(cl1, cl2, ell, circ, ell)

@@ -44,8 +44,8 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init
       val lps2b = lps2.lasts
-      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(ps.counter.colour))
-      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(ps.counter.colour).arrow)
+      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(lineColour = ps.counter.colour))
+      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(lineColour = ps.counter.colour).arrow)
       lps3a ++ lps3b
     }
 

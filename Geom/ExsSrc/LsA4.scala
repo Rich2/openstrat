@@ -17,20 +17,20 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c1Cen = 100 pp 100
   val c1End = 200 pp 100
   val c1StText = c1St.textArrow("C1 Start, negative or clockwise arc", Ang30, 20, Blue)
-  val c1 = CArc.neg(c1St, c1Cen, c1End).draw(Blue)
+  val c1 = CArc.neg(c1St, c1Cen, c1End).draw(lineColour = Blue)
   val c2StText = c1St.textArrow("C2 Start, positive or anti clockwise arc", Ang150, 20, DarkRed)
-  val c2 = CArc.pos(c1St, c1Cen, c1End).draw(DarkRed)
+  val c2 = CArc.pos(c1St, c1Cen, c1End).draw(lineColour = DarkRed)
   val c3: CArc = CArc.neg(-100, 0, 0, 0, 0, 100)
-  val c3d = c3.draw(Violet)
+  val c3d = c3.draw(lineColour = Violet)
   val c4 = c3.slateXY(-25, 0).addRotations(-1)
-  val c4d = c4.draw(Turquoise)
+  val c4d = c4.draw(lineColour = Turquoise)
   val c4Text = c4.cen.textArrow("C4 Centre", 135.degs, 150, Turquoise)
   val e1St = 400 pp 0
   val e1StArrow = e1St.textArrow("E1 Start, positive or anti clockwise arc", Ang30, 25, Red)
   val e1Cen = 200 pp 0
-  val e1 = EArclign.pos(e1St, e1Cen, 200, 100, c1End).draw(Red)
+  val e1 = EArclign.pos(e1St, e1Cen, 200, 100, c1End).draw(lineColour = Red)
   val e2StArrow = e1St.textArrow("E2 Start, negative or clockwise arc", Ang330, 25, Green)
-  val e2 = EArclign.neg(e1St, e1Cen, 200, 100, c1End).draw(Green)
+  val e2 = EArclign.neg(e1St, e1Cen, 200, 100, c1End).draw(lineColour = Green)
 
   val stuff = RArr(
     LineSegDraw(0 pp 0, 160 pp 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
@@ -39,7 +39,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
     LinePath(0 pp -50, 50 pp -100, -25 pp -75, 200 pp -60).draw(2, Orange),
 
-    Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
+    Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(2, Green),
     c1, c2,
     c3d, c4d, e1, e2
   )

@@ -15,6 +15,6 @@ case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
   val prr = pr.reflect(ls)
   repaints(
     Triangle(-100 pp 0, 0 pp -200, -300 pp -400).fill(Violet),
-    rg, rd, sq0, sq1, sq2, sq3, pr.draw(), ls.draw(DarkGreen), prr.draw(Brown),
+    rg, rd, sq0, sq1, sq2, sq3, pr.draw(), ls.draw(lineColour = DarkGreen), prr.draw(lineColour = Brown),
   )
 }

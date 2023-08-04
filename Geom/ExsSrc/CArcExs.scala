@@ -16,7 +16,7 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       val theta = Pi1 / 180 * index + longArcOffset
       val startPoint = x + radius * math.cos(longArcOffset) pp y + radius * math.sin(longArcOffset)
       val endPoint = x + radius * math.cos(theta + longArcOffset) pp y + radius * math.sin(theta + longArcOffset)
-      CArc.pos(startPoint, x pp y, endPoint).draw(DeepSkyBlue)
+      CArc.pos(startPoint, x pp y, endPoint).draw(lineColour = DeepSkyBlue)
     }
 
     val arcNeg =
@@ -28,7 +28,7 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       val theta = shortArcOffset + Pi1 / 180 * index
       val startPoint = x + radius * math.cos(theta) pp y + radius * math.sin(theta)
       val endPoint = x + radius * math.cos(theta + delta + delta) pp y + radius * math.sin(theta + delta + delta)
-      CArc.neg(startPoint, x pp y, endPoint).draw(Orange)
+      CArc.neg(startPoint, x pp y, endPoint).draw(lineColour = Orange)
     }
 
     RArr(arcPos, arcNeg, index.xyTextGraphic(12, x, y, Black))

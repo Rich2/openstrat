@@ -10,7 +10,7 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
-    case DrawFacet(c, w) => cp.circleDraw(shape.draw(c, w))
+    case DrawFacet(c, w) => cp.circleDraw(shape.draw(w, c))
     case fr: FillRadial => cp.circleFillRadial(shape, fr)  
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }

@@ -52,7 +52,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
     def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
+    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
 
     actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs2
   }

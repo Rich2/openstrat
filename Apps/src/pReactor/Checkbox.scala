@@ -17,7 +17,7 @@ case class Checkbox(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 
     var ret:GraphicElems = RArr(TextGraphic(labelText, defaultSize, loc.addX(defaultSize), ink, LeftAlign))
     if (isSelected) ret = ret ++ RArr(Rect(defaultSize - 4, defaultSize - 4, loc).fill(ink))
     if (isEnabled) ret ++ RArr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 1, this))
-    else ret ++ RArr(Rect(defaultSize, defaultSize, loc).draw(ink, 1))
+    else ret ++ RArr(Rect(defaultSize, defaultSize, loc).draw(1, ink))
   }
 
   def clicked() =

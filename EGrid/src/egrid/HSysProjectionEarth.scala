@@ -116,7 +116,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     p.map(_ / metresPerPixel).fill(col)
   }
 
-  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / metresPerPixel).draw(Violet) }
+  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / metresPerPixel).draw(lineColour = Violet) }
 
   def irrLines2: GraphicElems = ifTileScale(8, irrLines)
 

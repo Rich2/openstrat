@@ -101,11 +101,11 @@ object CommonShapesInFlags extends Flag
 
     Star7(0.382).scale(0.1).slate(-0.3 pp 0.3).fill(Red),
 
-    Star5().scale(0.1).slate(0.3 pp 0.3).draw(Lime, 1),
+    Star5().scale(0.1).slate(0.3 pp 0.3).draw(1, Lime),
 
     //hexagram
-    Star3().scale(0.15).slate(0.6 pp 0.3).draw(Blue, 1.5),
-    Star3().scale(0.15).rotate(DegVec180).slate(0.6 pp 0.3).draw(Blue, 1.5),
+    Star3().scale(0.15).slate(0.6 pp 0.3).draw(1.5, Blue),
+    Star3().scale(0.15).rotate(DegVec180).slate(0.6 pp 0.3).draw(1.5, Blue),
 
     //crescent
     Circle(0.225, -0.6, -0.3).fill(Red),
@@ -115,7 +115,7 @@ object CommonShapesInFlags extends Flag
     Star5().scale(0.15).slate(-0.3 pp 0).fill(Gold),
     Star5().scale(0.1).slate(-0.3 pp 0).fill(Magenta),
 
-    Pentagram().scale(0.1).slate(0 pp 0.3).draw(Colour(0xFF006233), 2),
+    Pentagram().scale(0.1).slate(0 pp 0.3).draw(2, Colour(0xFF006233)),
   )
 }
 

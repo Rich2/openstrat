@@ -6,20 +6,20 @@ import ostrat._, geom._, pgui._, Colour._
 case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
 {
   val c1: CircleDraw = Circle(200).draw()
-  val c2: CircleDraw = Circle(231).draw(DarkBlue)
+  val c2: CircleDraw = Circle(231).draw(lineColour = DarkBlue)
 
   val h1: HexParrX = HexParrX(200)
   val hd: PolygonDraw = h1.draw()
   val htv: RArr[CircleFill] = h1.vertsMap(v => Circle(25, v).fill(Pink))
   val hts: RArr[TextGraphic] = h1.vertsMap(v => TextGraphic(v.str0, 15, v))
   val h2: HexParrX = h1.slateX(-400)
-  val hc: RArr[LineSegDraw] = h2.sidesIMap() { (s, i) => s.draw(Colours.rainbow.cycleGet(i), 2) }
-  val h3d: PolygonDraw = HexParrY(231, 231, 0).draw(DarkBlue)
+  val hc: RArr[LineSegDraw] = h2.sidesIMap() { (s, i) => s.draw(2, Colours.rainbow.cycleGet(i)) }
+  val h3d: PolygonDraw = HexParrY(231, 231, 0).draw(lineColour = DarkBlue)
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
   { val verts: GraphicElems = hr.vertsIFlatMap{ (pt, i) => pt.textArrowToward(hr.cen, "V" + i.str) }
     val sides: GraphicElems = hr.sidesIFlatMap{ (side, i) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
-    verts ++ sides +% hr.draw(colour) +% TextGraphic(hr.str, 12, hr.cen, colour)
+    verts ++ sides +% hr.draw(lineColour = colour) +% TextGraphic(hr.str, 12, hr.cen, colour)
   }
 
   val h4: HexParrX = HexParrX(250, 200, 290)

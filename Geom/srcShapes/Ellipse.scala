@@ -8,7 +8,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
 {
   override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
   override def fillInt(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
-  override def draw(lineColour: Colour = Black, lineWidth: Double): EllipseDraw = EllipseDraw(this, lineColour, lineWidth)
+  override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineColour, lineWidth)
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem =
     EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))

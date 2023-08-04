@@ -25,7 +25,7 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   def addRotations(delta: Int): CArc = new CArc(startX, startY, cenX, cenY, endX, endY, counter + delta)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
-  override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)
+  override def draw(lineWidth: Double, lineColour: Colour): CArcDraw = CArcDraw(this, lineColour, lineWidth)
   /** Translate 2D geometric transformation on this CArc returns a CArc. */
   override def slateXY(xDelta: Double, yDelta: Double): CArc = CArc(pStart.addXY(xDelta, yDelta), cen.addXY(xDelta, yDelta),
     pEnd.addXY(xDelta, yDelta), counter)

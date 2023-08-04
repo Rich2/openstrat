@@ -35,8 +35,8 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init
       val lps2b = lps2.lasts
-      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(ps.colour))
-      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(ps.colour).arrow)
+      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(lineColour = ps.colour))
+      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(lineColour = ps.colour).arrow)
       lps3a ++ lps3b
     }
 

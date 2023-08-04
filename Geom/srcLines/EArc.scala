@@ -96,7 +96,7 @@ trait EArc extends EllipseBased with CurveSeg
   override def shearY(operand: Double): EArc =
     EArc(pStart.xShear(operand), cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand), pEnd.yShear(operand), counter)
 
-  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): EArcDraw = EArcDraw(this, lineColour, lineWidth)
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): EArcDraw = EArcDraw(this, lineColour, lineWidth)
 }
 
 object EArc

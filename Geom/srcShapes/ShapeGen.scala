@@ -11,7 +11,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 
   override def fillInt(intValue: Int): ShapeFill = ???
 
-  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): ShapeDraw = ???
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw = ???
 
   override def attribs: RArr[XmlAtt] = ???
 

@@ -36,7 +36,7 @@ object CavalryCounter extends UnitCounter
     val rect: Rect = Rect(scale, scale * heightRatio)
     val linesColour = fillColour.contrastBW //2(backgroundColour)
     val subj = rect.fillDrawActive(fillColour, evObj, lineWidth, linesColour)
-    subj.addChildren(RArr(rect.diag1.draw(linesColour, 1)))
+    subj.addChildren(RArr(rect.diag1.draw(1, linesColour)))
   }
 
   override def str: String = "Cavalry"

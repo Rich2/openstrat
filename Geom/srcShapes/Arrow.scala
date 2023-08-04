@@ -11,7 +11,7 @@ object Arrow
   {
     val mainLine = LineSeg(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
-    RArr(mainLine.draw(colour, lineWidth), Triangle(leftVert, endPt, rightVert).fill(colour))
+    RArr(mainLine.draw(lineWidth, colour), Triangle(leftVert, endPt, rightVert).fill(colour))
   }
   
   def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 20): (Pt2, Pt2) =

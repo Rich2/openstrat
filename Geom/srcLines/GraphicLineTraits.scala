@@ -21,7 +21,7 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
 object LineSegDraw
 {
   def apply(lineSeg: LineSeg, colour: Colour, lineWidth: Double) = new LineSegDraw(lineSeg, lineWidth, colour)
-  def apply(pStart: Pt2, pEnd: Pt2, colour: Colour = Black, lineWidth: Double = 2.0): LineSegDraw = LineSeg(pStart, pEnd).draw(colour, lineWidth)
+  def apply(pStart: Pt2, pEnd: Pt2, colour: Colour = Black, lineWidth: Double = 2.0): LineSegDraw = LineSeg(pStart, pEnd).draw(lineWidth, colour)
 
  // implicit val persistImplicit: Persist4[Vec2, Vec2, Double, Colour, LineDraw] =
   //  Persist4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, apply, Some(Black), Some(1.0))

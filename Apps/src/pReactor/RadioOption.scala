@@ -19,8 +19,8 @@ case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:P
     if (isSelected) ret = ret ++ RArr(Circle(defaultSize - 4, loc).fill(ink))
 
     //drawActive with lineWidth 0.01 FUDGE :( todo: flesh out   circle.active(activeId) and circle.drawActive(activeId)
-    if (isEnabled) ret ++ RArr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 0.01, this), Circle(defaultSize, loc).draw(ink, 1))
-    else ret ++ RArr(Circle(defaultSize, loc).draw(ink, 1))
+    if (isEnabled) ret ++ RArr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 0.01, this), Circle(defaultSize, loc).draw(1, ink))
+    else ret ++ RArr(Circle(defaultSize, loc).draw(1, ink))
   }
 
   def clicked(): Unit = parent.clicked(this)

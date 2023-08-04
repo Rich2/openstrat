@@ -39,7 +39,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
 
     def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)
 
-    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
+    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
 
     actives ++ lunits +% sidesDraw ++ hexStrs2 ++ moveGraphics
   }

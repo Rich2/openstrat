@@ -42,7 +42,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   final override def cenVec: Vec2 = Vec2(cenX, cenY)
 
-  override def draw(lineColour: Colour, lineWidth: Double): RectDraw = RectDraw(this, lineWidth, lineColour)
+  override def draw(lineWidth: Double, lineColour: Colour): RectDraw = RectDraw(this, lineWidth, lineColour)
 
   /** Adds a margin to this [[Rect]], rectangle aligned with the XY axes, moving the sides out by the given parameter. */
   def addMargin(delta: Double): Rect = Rect(width + 2 * delta, height + 2 * delta, cenX, cenY)

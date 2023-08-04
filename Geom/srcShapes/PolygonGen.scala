@@ -11,7 +11,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   override def typeStr: String = "Polygon"
   override def vertsNum: Int = unsafeArray.length / 2
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
-  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonGen = vertsMap(f).toPolygon
 
   override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))

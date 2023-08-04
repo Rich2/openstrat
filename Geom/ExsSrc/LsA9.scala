@@ -4,7 +4,7 @@ import ostrat._, geom._, pgui._, Colour._
 
 case class LsA9(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A9")
 {
-  def bd(c1: Pt2, c2: Pt2, colour: Colour) = Bezier(Pt2Z, c1, c2, 500 pp 350).draw(colour, 3)
+  def bd(c1: Pt2, c2: Pt2, colour: Colour) = Bezier(Pt2Z, c1, c2, 500 pp 350).draw(3, colour)
   //This can be more elegantly expressed in dotty
   def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
   val pt1 = 500 pp - 400

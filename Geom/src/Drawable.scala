@@ -6,7 +6,7 @@ import Colour.Black
 trait Drawable extends Any with GeomElem
 {
   /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed.  */
-  def draw(lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): GraphicElem
 
   /** Translate 2D geometric transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits. */
   override def slateXY(xDelta: Double, yDelta: Double): Drawable

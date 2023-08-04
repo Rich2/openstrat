@@ -42,7 +42,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
         val cs: (HCen, Int, Int) = hs.corners
         val ls1 = corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
         val ls2 = ls1.map(hva => hva.toPt2(proj.transCoord(_)))
-        Some(ls2.draw(t1.contrastBW))
+        Some(ls2.draw(lineColour = t1.contrastBW))
       }
     }
 

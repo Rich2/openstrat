@@ -12,7 +12,7 @@ object Star5
 
   def fill(colour: Colour, ratio: Double = classicRatio): PolygonFill = apply(ratio).fill(colour)
   
-  def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(colour, lineWidth)
+  def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)
 
   def crossLines(ratio: Double = classicRatio): GraphicElem =
   { val poly = apply(ratio)
@@ -41,7 +41,7 @@ object Star3
               (sideLength / 2 pp -sideLength * math.sqrt(3) / 6),
               (-sideLength / 2 pp -sideLength * math.sqrt(3) / 6))
       
-  def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(colour, lineWidth)
+  def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)
 
   def fill(colour: Colour): PolygonFill = apply().fill(colour)
 }
@@ -53,5 +53,5 @@ object Pentagram
     iToFlatMap(4)(i => l2.rotate(-DegVec72 * i)).toPolygon
   }
 
-  def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(colour, lineWidth)
+  def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)
 }

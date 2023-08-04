@@ -34,7 +34,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
-  override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
+  override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
   final def alignAngle: Angle = (v0 >> v1).angle
 

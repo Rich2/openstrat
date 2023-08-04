@@ -26,10 +26,10 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
       case WSideNone if t1.colour == t2.colour => {
         val cs: (HCen, Int, Int) = hs.corners
         val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
-        Some(ls1.draw(t1.contrastBW))
+        Some(ls1.draw(lineColour = t1.contrastBW))
       }
-      case _: WSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVOffset).draw(t1.contrastBW))
-      case _: WSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVOffset).draw(t2.contrastBW))
+      case _: WSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVOffset).draw(lineColour = t1.contrastBW))
+      case _: WSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVOffset).draw(lineColour = t2.contrastBW))
       case _ => None
     }
   }

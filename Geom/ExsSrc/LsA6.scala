@@ -13,10 +13,10 @@ case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
   //val badPoint: Vec2 = 100
 
   val arr = RArr(
-    Bezier(ptStart, 200 pp 350, 0 pp 70, ptEnd).draw(Blue, 2),
-    Bezier(ptStart, 200 pp 350, 100 pp 270, ptEnd).draw(Gray, 2),
-    Bezier(ptStart, 100 pp 350, 100 pp 270, ptEnd).draw(Violet, 2),
-    Bezier(ptStart, 0 pp 350, 100 pp 270, ptEnd).draw(DarkRed, 2),
+    Bezier(ptStart, 200 pp 350, 0 pp 70, ptEnd).draw(2, Blue),
+    Bezier(ptStart, 200 pp 350, 100 pp 270, ptEnd).draw(2, Gray),
+    Bezier(ptStart, 100 pp 350, 100 pp 270, ptEnd).draw(2, Violet),
+    Bezier(ptStart, 0 pp 350, 100 pp 270, ptEnd).draw(2, DarkRed),
 
     //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
     TextOutline("Text in outline at centre screen", 40, Pt2Z, Orange, 1),
@@ -25,7 +25,7 @@ case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
 
     // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
     Polygon(-300 pp 200, -300 pp 300, -250 pp 300).fill(Orange),
-    Polygon(-250 pp 300, -200 pp 325, -150 pp 300, -275 pp 200).draw(Blue, 2),
+    Polygon(-250 pp 300, -200 pp 325, -150 pp 300, -275 pp 200).draw(2, Blue),
 
     TextGraphic("default baseline", 18, 0 pp 150, Black, RightAlign),
     TextGraphic("top baseline", 18, 0 pp 150, Black, LeftAlign, Top),
