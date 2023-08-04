@@ -119,10 +119,10 @@ object LineSeg
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
-
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. [[LineSeg]] is the library's term for a mathematical straight line
  *  segment, but what in common parlance is often just referred to as a line. */
-class LineSegArr(val unsafeArray: Array[Double]) extends AnyVal with LineSegLikeDbl4Arr[Pt2, LineSeg] with Dbl4Arr[LineSeg] with AffinePreserve
+class LineSegArr(val unsafeArray: Array[Double]) extends AnyVal with LineSegLikeDbl4Arr[Pt2, LineSeg] with Dbl4Arr[LineSeg] with AffinePreserve with
+Drawable
 { type ThisT = LineSegArr
   def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
   override def typeStr: String = "LineSegArr"
@@ -130,8 +130,8 @@ class LineSegArr(val unsafeArray: Array[Double]) extends AnyVal with LineSegLike
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LineSegArr = map(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 
-  /** Draws the sides with the given width and colour. */
-  def draw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
+  /** Draws the [[LineSeg]]s with the given width and colour. */
+  override def draw(lineWidth: Double = 2, colour: Colour = Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
 /** Companion object for the LineSegs class. */
