@@ -9,7 +9,7 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val redLine = line1.draw(Red, 0.25)
   val p1 = -100 pp 200
 
-  val c1 = Cross(1, p1)
+  val c1: RArr[LineSegDraw] = Cross(1, p1)
   val c1r = Cross(1, p1.reflect(line1))
   val rect = Rect(200, 100, 200, 200)
   val r1 = rect.fill(Red)
