@@ -4,9 +4,14 @@ import Colour.Black
 
 /** A 2D geometric element that can be drawn producing a [[GraphicElem]]. */
 trait Drawable extends Any with GeomElem
-{
-  /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed.  */
+{ /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed.  */
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): GraphicElem
+
+  /** If this element is [[Fillable]] applies the fill method, ignoring the line width parameter, else applies the draws method. */
+  def fillOrDraw(lineWidth: Double = 2, colour: Colour = Black): GraphicElem = this match
+  { case fl: Fillable => fl.fill(colour)
+    case _ => draw(lineWidth, colour)
+  }
 
   /** Translate 2D geometric transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits. */
   override def slateXY(xDelta: Double, yDelta: Double): Drawable
