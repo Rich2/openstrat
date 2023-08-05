@@ -1,6 +1,6 @@
 /* Copyright 2018 = 23 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat; package pStrat
-import geom._
+import geom._, Colour.Black
 
 trait UnitCounter
 { def heightRatio = 0.7
@@ -18,12 +18,13 @@ object InfantryCounter extends UnitCounter
     subj.addChildren(RArr(rect.diags.draw(1, linesColour)))
   }
 
-  def level(scale: Double, evObj: AnyRef, fillColour: Colour, unitLevel: LunitLevel = FieldArmy): PolygonCompound ={
-    val rect: Rect = Rect(scale, scale * heightRatio)
-    val linesColour = fillColour.contrastBW //2(backgroundColour)
+  def level(scale: Double, evObj: AnyRef, fillColour: Colour, unitLevel: LunitLevel = FieldArmy): PolygonCompound =
+  { val rect: Rect = Rect(scale, scale * heightRatio)
+    val linesColour = fillColour.contrastBW
     val subj = rect.fillDrawActive(fillColour, evObj, lineWidth, linesColour)
-    val lg = unitLevel.graphic.scale(0.08).slateY(0.55).scale(scale).draw(1, Colour.Black)
-    subj.addChildren(RArr(rect.diags.draw(1, linesColour), lg))
+    val lg1: Drawable = unitLevel.graphic.scale(0.08).slateY(0.55).scale(scale)
+    val lg2 = lg1.fillOrDraw(1, Black)
+    subj.addChildren(RArr(rect.diags.draw(1, linesColour), lg2))
 
   }
 

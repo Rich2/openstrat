@@ -5,7 +5,7 @@ import geom._
 trait LunitLevel extends Int1Elem
 { def desigStr: String
 
-  def graphic: LineSegArr = iToFlatMap(-3, 3, 2){i => Cross.diag.scale(0.75).slateX(i) }
+  def graphic: Drawable = iToFlatMap(-3, 3, 2){i => Cross.diag.scale(0.75).slateX(i) }
 }
 
 object LunitSole extends LunitLevel
@@ -30,6 +30,7 @@ object Squad extends LunitLevel
 { override val int1: Int = 4
   override def desigStr: String = "•"
   override def toString: String = "Team"
+  override def graphic: Drawable = Circle(0.5)
 }
 
 object Section extends LunitLevel
@@ -54,6 +55,7 @@ object Company extends LunitLevel
 { override val int1: Int = 8
   override def desigStr: String = "|"
   override def toString: String = "Company"
+  override def graphic: Drawable = LineSeg(0, -9.75, 0, 0.75)
 }
 
 object Battalion extends LunitLevel
