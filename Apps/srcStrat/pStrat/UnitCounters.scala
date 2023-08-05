@@ -22,7 +22,7 @@ object InfantryCounter extends UnitCounter
   { val rect: Rect = Rect(scale, scale * heightRatio)
     val linesColour = fillColour.contrastBW
     val subj = rect.fillDrawActive(fillColour, evObj, lineWidth, linesColour)
-    val lg1: Drawable = unitLevel.graphic.scale(0.08).slateY(0.55).scale(scale)
+    val lg1: Drawable = unitLevel.drawable.scale(0.08).slateY(0.55).scale(scale)
     val lg2 = lg1.fillOrDraw(1, Black)
     subj.addChildren(RArr(rect.diags.draw(1, linesColour), lg2))
 
