@@ -11,19 +11,19 @@ trait LunitLevel extends Int1Elem
 
 object LunitSole extends LunitLevel
 { override val int1: Int = 1
-  override def desigStr: String = "S"
+  override def desigStr: String = """/"""
   override def toString: String = "Individual Soldier"
 }
 
 object MCrew extends LunitLevel
 { override val int1: Int = 2
-  override def desigStr: String = "0"
+  override def desigStr: String = """//"""
   override def toString: String = "Crew"
 }
 
 object MTeam extends LunitLevel
 { override val int1: Int = 3
-  override def desigStr: String = "0"
+  override def desigStr: String = """///"""
   override def toString: String = "Team"
 }
 
