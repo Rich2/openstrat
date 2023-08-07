@@ -38,18 +38,21 @@ object Section extends LunitLevel
 { override val int1: Int = 5
   override def desigStr: String = "••"
   override def toString: String = "Section"
+  override def drawables: RArr[Drawable] = iToMap(-1, 1, 2){ i => Circle(0.5).scale(1.5).slateX(i) }
 }
 
 object Platoon extends LunitLevel
 { override val int1: Int = 6
   override def desigStr: String = "•••"
   override def toString: String = "Platoon"
+  override def drawables: RArr[Drawable] = iToMap(-2, 2, 2){ i => Circle(0.5).scale(1.5).slateX(i) }
 }
 
 object Echelon extends LunitLevel
 { override val int1: Int = 7
   override def desigStr: String = "••••"
   override def toString: String = "Echelon"
+  override def drawables: RArr[Drawable] = iToMap(-3, 3, 2){ i => Circle(0.5).scale(1.5).slateX(i) }
 }
 
 object Company extends LunitLevel
