@@ -6,35 +6,38 @@ import geom._
 trait LunitLevel extends Int1Elem
 { def desigStr: String
 
-  def drawables: RArr[Drawable] = RArr(iToFlatMap(-3, 3, 2){ i => Cross.diag.scale(0.75).slateX(i) } )
+  def drawables: RArr[Drawable]
 }
 
-object LunitSole extends LunitLevel
+trait LunitSoleLike extends LunitLevel
+{ def dashDrawable: LineSeg = LineSeg(-0.25, 0, 0.25, 0)
+}
+
+object LunitSole extends LunitSoleLike
 { override val int1: Int = 1
-  override def desigStr: String = """/"""
+  override def desigStr: String = """-"""
   override def toString: String = "Individual Soldier"
+  override def drawables: RArr[Drawable] = RArr(dashDrawable)
 }
 
-object MCrew extends LunitLevel
+/** Pair of soldiers including "Fire and Manouver teams. */
+object FirePair extends LunitSoleLike
 { override val int1: Int = 2
-  override def desigStr: String = """//"""
-  override def toString: String = "Crew"
+  override def desigStr: String = """--"""
+  override def toString: String = "FirePair"
+  override def drawables: RArr[Drawable] = RArr(iToMap(-1, 1, 2){ i => dashDrawable.slateX(i) })
 }
 
-object MTeam extends LunitLevel
+/** A fire team or squad where the squad is a sub unit of a platoon section. */
+object FireTeam extends LunitLevel
 { override val int1: Int = 3
-  override def desigStr: String = """///"""
-  override def toString: String = "Team"
-}
-
-object Squad extends LunitLevel
-{ override val int1: Int = 4
   override def desigStr: String = "•"
-  override def toString: String = "Team"
+  override def toString: String = "FireTeam"
   override def drawables: RArr[Drawable] = RArr(Circle(0.5))
 }
 
-object Section extends LunitLevel
+/** Platoon section, or infantry squad. Given the conflicting terms around this size of unit, a new term was created.  */
+object ZugSect extends LunitLevel
 { override val int1: Int = 5
   override def desigStr: String = "••"
   override def toString: String = "Section"
