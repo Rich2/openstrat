@@ -13,9 +13,10 @@ trait LunitSoleLike extends LunitLevel
 { def dashDrawable: LineSeg = LineSeg(-0.25, 0, 0.25, 0)
 }
 
+/** Individual soldier. */
 object LunitSole extends LunitSoleLike
 { override val int1: Int = 1
-  override def desigStr: String = """-"""
+  override def desigStr: String = """Ø"""
   override def toString: String = "Individual Soldier"
   override def drawables: RArr[Drawable] = RArr(dashDrawable)
 }
@@ -23,12 +24,12 @@ object LunitSole extends LunitSoleLike
 /** Pair of soldiers including "Fire and Manouver teams. */
 object FirePair extends LunitSoleLike
 { override val int1: Int = 2
-  override def desigStr: String = """--"""
+  override def desigStr: String = """ØØ"""
   override def toString: String = "FirePair"
   override def drawables: RArr[Drawable] = RArr(iToMap(-1, 1, 2){ i => dashDrawable.slateX(i) })
 }
 
-/** A fire team or squad where the squad is a sub unit of a platoon section. */
+/** A fire team, vehicle or squad where the squad is a sub unit of a platoon section. */
 object FireTeam extends LunitLevel
 { override val int1: Int = 3
   override def desigStr: String = "•"
