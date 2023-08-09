@@ -49,7 +49,7 @@ object Corps extends LunitLevel
   override def drawables: RArr[Drawable] = RArr(iToFlatMap(-2, 2, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
 }
 
-/** 20000 - 50000 men. A small corps. */
+/** 20000 - 50000 men. A large divsion such as US WWI or a small corps. */
 object Corpette extends LunitLevel
 { override val int1: Int = 13
   override def desigStr: String = "XX|"
@@ -65,7 +65,7 @@ object Division extends LunitLevel
   override def drawables: RArr[Drawable] = RArr(iToFlatMap(-1, 1, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
 }
 
-/** 5000 - 10000 men. A small division or large brigade. Roman legion 6600 fighting men + 1320 slaves. */
+/** 5000 - 10000 men. A small division or large brigade. Roman legion 6600 fighting men + 1320 slaves. Soviet WW2 Rifle Division. */
 object Divisette extends LunitLevel
 { override val int1: Int = 12
   override def desigStr: String = "X|"
