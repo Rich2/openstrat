@@ -65,7 +65,7 @@ object Division extends LunitLevel
   override def drawables: RArr[Drawable] = RArr(iToFlatMap(-1, 1, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
 }
 
-/** 5000 - 10000 men. A small division or large brigade. */
+/** 5000 - 10000 men. A small division or large brigade. Roman legion 6600 fighting men + 1320 slaves. */
 object Divisette extends LunitLevel
 { override val int1: Int = 12
   override def desigStr: String = "X|"
@@ -89,7 +89,7 @@ object Regiment extends LunitLevel
   override def drawables: RArr[Drawable] = RArr(iToMap(-2, 2, 2){ i => LineSeg(0, -9.75, 0, 0.75).slateX(i) })
 }
 
-/** 500 - 1000 men. */
+/** 500 - 1000 men. Battalion. Roman Cohort 600: 480 fighting men + 120 slaves. */
 object Battalion extends LunitLevel
 { override val int1: Int = 9
   override def desigStr: String = "||"
@@ -113,7 +113,7 @@ object Company extends LunitLevel
   override def drawables: RArr[Drawable] = RArr(LineSeg(0, -9.75, 0, 0.75))
 }
 
-/** 50 - 100 men. */
+/** 50 - 100 men. Roman Century 80 fighting men + 20 slaves. */
 object Echelon extends LunitLevel
 { override val int1: Int = 7
   override def desigStr: String = "••••"
@@ -145,13 +145,12 @@ object Squadette extends LunitLevel
   override def drawables: RArr[Drawable] = RArr(Circle(0.5))
 }
 
-/** 3 - 5 men. */
-/** A fire team, vehicle or squad where the squad is a sub unit of a platoon section. */
-object FireTeam extends LunitLevel
+/** 3 - 5 men. A fire team, vehicle. */
+object FireTeam extends LunitSoleLike
 { override val int1: Int = 3
-  override def desigStr: String = "•"
+  override def desigStr: String = "ØØØ"
   override def toString: String = "FireTeam"
-  override def drawables: RArr[Drawable] = RArr(Circle(0.5))
+  override def drawables: RArr[Drawable] = RArr(iToMap(-2, 2, 2){ i => dashDrawable.slateX(i) })
 }
 
 /** 2 soldiers including "Fire and Maneuver teams. */
