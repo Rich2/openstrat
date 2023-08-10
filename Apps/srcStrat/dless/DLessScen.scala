@@ -49,7 +49,7 @@ object DLessScen1 extends DLessScen
   override val armies: HCenRArrLayer[Army] =
   { val res = HCenRArrLayer[Army]()
     implicit val counters: ArrCounters[Nation] = ArrCounters(nations)
-    res.setFSomesMut(Britain.armyNext, 142,514,  144,508)
+    res.setFSomesMut(Britain.armyNext, 142,514,  144,508,  142,514)
     res.setFSomesMut(Germany.armyNext, 140,520,  144,1528,  144,520,  142,1526)
     res.setFSomesMut(France.armyNext, 138,514,  140,516)
     res.setFSomesMut(Russia.armyNext, 142,1534,  148,1536)

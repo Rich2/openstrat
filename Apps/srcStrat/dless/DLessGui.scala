@@ -21,9 +21,10 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   override def frame: GraphicElems =
   {
-    def units: GraphicElems = armies.projHeadsHcPtMap { (army, hc, pt) =>
-      val str = pixPerTile.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
+    def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
+      val str = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
+      val ref = ife(armies.length == 1, HCenPair(hc, armies.head), HCenPair(hc, armies))
+      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, ref, armies.head.colour).slate(pt)
     }
 
     def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)

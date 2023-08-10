@@ -124,12 +124,12 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
     build.buffToSeqLike(buff)
   }
 
-  def projNonEmptiesHcPtMap[B, ArrB <: Arr[B]](f: (RArr[A], HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
-    projNonEmptiesHcPtMap(proj)(f)
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (RArr[A], HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projSomesHcPtMap(proj)(f)
 
-  /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+  /** Uses projection to map the non empty ArrSome head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projNonEmptiesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val arr = apply(hc)

@@ -23,7 +23,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
     /** Draws the tiles sides (or edges). */
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
-    def unitGraphics: RArr[PolygonCompound] = lunits.projNonEmptiesHcPtMap { (rarr, hc, pt) =>
+    def unitGraphics: RArr[PolygonCompound] = lunits.projSomesHcPtMap { (rarr, hc, pt) =>
       val str: String = rarr.head.team.toString --- rarr.foldStr(us => us.lunit.num.str, ", ") --- hc.rcStr
       Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(rarr.head.colour, rarr, str, pixPerTile / 15, 2.0) }
 
