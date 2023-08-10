@@ -52,13 +52,13 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
       thisTop()
     }
 
-    case (RightButton, RArrHead(HCenPair(hc1, army: Army)), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
       repaint()
     }
 
-    case (_, _, h) => deb("Other; " + h.toString)
+    case (_, sel, hits) => deb(s"Other; $sel " + hits.toString)
   }
 
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
