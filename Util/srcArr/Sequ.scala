@@ -559,8 +559,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Tries to find te first element of this sequence conforming to the predicate. */
   def find(f: A => Boolean): Option[A] =
-  {
-    var count = 0
+  { var count = 0
     var res: Option[A] = None
     while (count < length & res.isEmpty)
     {

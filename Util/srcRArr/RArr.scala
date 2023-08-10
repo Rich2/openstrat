@@ -16,7 +16,7 @@ trait RefsSeqLike[+A] extends Any with SeqLike[A]
  *  the Javascript target. */
 final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with Arr[A] with RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
-  override def typeStr: String = "Arr"
+  override def typeStr: String = "RArr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
   override def length: Int = unsafeArray.length
 
@@ -71,13 +71,16 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
-  /** Alias for appendArr. Functionally appends 2nd [[RArr]] collection to dispatching [[RArr]], allows type widening. This operation allows type
-   *  widening.*/
+  /** Functionally appends 2nd [[Arr]] collection to dispatching [[RArr]], allows type widening. */
   @targetName("appendArr") @inline
-  def ++ [AA >: A](op: RArr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
-  { val newArray = new Array[AA](length + op.length)
+  def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  { val newLen = length + op.length
+    val newArray = new Array[AA](newLen)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, length)
+    op match
+    { case ra: RArr[_] => ra.asInstanceOf[RArr[AA]].unsafeArray.copyToArray(newArray, length)
+      case op => op.iForeach  { (i, el) => newArray(length + 1) = el }
+    }
     new RArr(newArray)
   }
 
@@ -90,19 +93,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
-  /** Functionally concatenates the elements, allows type widening. */
-  def appends[AA >: A](elems: AA *)(implicit ct: ClassTag[AA]): RArr[AA] =
-  { val newArray = new Array[AA](length + elems.length)
-    unsafeArray.copyToArray(newArray)
-    elems.iForeach{(i, aa) => newArray(length + i) = aa }
-    new RArr(newArray)
-  }
-
-  /** Alias for prepend. Functionally prepends element to array. Allows type widening. There is no precaternateRefs method, as this would serve no
-   *  purpose. The ::: method on Lists is required for performance reasons. */
-  @inline def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] = prepend(op)(ct)
-  /** Functionally prepends element to array. Aliased by the +: operator. */
-  def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  /** Functionally prepends element to this [[RArr]]. Allows type widening. There is no precaternate [[RArr]] method, as this would serve no purpose.
+   *  The ::: method on Lists is required for performance reasons. */
+  @inline @targetName("prepend") def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     unsafeArray.copyToArray(newArray, 1)

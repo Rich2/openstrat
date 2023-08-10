@@ -9,7 +9,7 @@ class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with ArrNoParam[Any]
   /** Copy's the backing Array[[Any]] to a new Array[char]. End users should rarely have to use this method. */
   def unsafeArrayCopy(operand: Array[Any], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
-  override def typeStr: String = "Anys"
+  override def typeStr: String = "AnyArr"
   override def unsafeSameSize(length: Int): AnyArr = new AnyArr(new Array[Any](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Any = unsafeArray(index)
