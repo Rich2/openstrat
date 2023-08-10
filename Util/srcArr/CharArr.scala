@@ -38,8 +38,6 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
     new CharArr(newArray)
   }
 
-
-
   override def drop(n: Int): CharArr =
   { val nn = n.max0
     val newArray = new Array[Char]((length - nn).max0)

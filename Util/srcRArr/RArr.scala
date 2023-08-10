@@ -222,6 +222,7 @@ case object RArr1
   }
 }
 
+/** Extractor object [[RArr]] head. RReturns the first / head element if non empty. */
 object RArrHead
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
   def unapply(arr: RArr[Any]): Option[Any] = ife(arr.nonEmpty, Some(arr(0)), None)

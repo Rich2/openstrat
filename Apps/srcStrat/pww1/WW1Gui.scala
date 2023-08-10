@@ -9,7 +9,10 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
+
   def lunits: HCenOptLayer[Lunit] = scen.lunits
+  def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
+  var moves: HCenStepPairArr[Army] = NoMoves
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -22,10 +25,15 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
 
     def units: GraphicElems = lunits.projSomeHcPtMap { (lunit, hc, pt) =>
       val str = pixPerTile.scaledStr(170, lunit.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, lunit.toString)
-      lunit.counter(proj.pixelsPerTile * 0.6, lunit, lunit.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+      lunit.counter(proj.pixelsPerTile * 0.6, HCenPair(hc, lunit), lunit.colour).slate(pt)
     }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2++ hexStrs ++ units
+    def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
+
+    /** This is the graphical display of the planned move orders. */
+    def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
+
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2++ hexStrs ++ units ++ moveGraphics
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
@@ -43,13 +51,13 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
       thisTop()
     }
 
-    /*case (RightButton, HPlayer(hc1, pl), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
-      newM.foreach { d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+    case (RightButton, HCenPair(hc1, pl: Army), hits) => hits.findHCenForEach { hc2 =>
+      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
-    }*/
+    }
 
-    case (_, _, h) => deb("Other; " + h.toString)
+    case (_, sel, hits) => deb(s"Other; $sel  $hits")
   }
 
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)

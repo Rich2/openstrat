@@ -23,7 +23,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   {
     def units: GraphicElems = armies.projHeadsHcPtMap { (army, hc, pt) =>
       val str = pixPerTile.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
     }
 
     def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
