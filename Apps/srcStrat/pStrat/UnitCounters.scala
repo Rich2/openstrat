@@ -13,7 +13,7 @@ object InfantryCounter extends UnitCounter
 {
   def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
   { val rect: Rect = Rect(scale, scale * heightRatio)
-    val linesColour = fillColour.contrastBW //2(backgroundColour)
+    val linesColour = fillColour.contrastBW
     val subj = rect.fillDrawActive(fillColour, evObj, lineWidth, linesColour)
     subj.addChildren(RArr(rect.diags.draw(1, linesColour)))
   }
