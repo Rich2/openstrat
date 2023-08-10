@@ -9,6 +9,11 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
   def sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def corps: HCenOptLayer[Corps] = scen.corps
+
+  def NoMoves: HCenStepPairArr[Corps] = HCenStepPairArr[Corps]()
+
+  var moves: HCenStepPairArr[Corps] = NoMoves
+
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -18,7 +23,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
   {
     def units: GraphicElems = corps.projSomeHcPtMap { (corps, hc, pt) =>
       val str = pixPerTile.scaledStr(170, corps.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, corps.toString)
-      pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, corps, corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+      pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, HCenPair(hc, corps), corps.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }
 
     tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(corps.emptyTile(_)) ++ units
@@ -39,19 +44,17 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
       thisTop()
     }
 
-    /*case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
-      newM.foreach { d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+    case (RightButton, HCenPair(hc1, pl: Corps), hits) => hits.findHCenForEach { hc2 =>
+      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
-    }*/
+    }
 
     case (_, _, h) => deb("Other; " + h.toString)
   }
 
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
-
   thisTop()
-
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
