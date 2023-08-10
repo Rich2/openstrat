@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
 /** Package for hex grids. */
@@ -19,14 +19,13 @@ package object phex
     def hv (c: Int): HVert = HVert(thisInt, c)
   }
 
-  implicit class AnysExtensions(thisArr: AnyArr)
+  implicit class RArrAnysExtensions(thisArr: RArr[Any])
   { /** Finds the first [[HCen]] in this sequence */
     def hCenFind: Option[HCen] =
-    {
-      var res: Option[HCen] = None
+    { var res: Option[HCen] = None
       var count = 0
-      while (res.isEmpty & count < thisArr.length) thisArr(count) match {
-        case hc: HCen => res = Some(hc)
+      while (res.isEmpty & count < thisArr.length) thisArr(count) match
+      { case hc: HCen => res = Some(hc)
         case _ => count += 1
       }
       res
@@ -36,7 +35,10 @@ package object phex
     def findHCenForEach(f: HCen => Unit): Unit =
     { var count = 0
       while (count < thisArr.length) thisArr(count) match
-      { case hc: HCen => { f(hc); count = thisArr.length }
+      { case hc: HCen =>
+        { f(hc)
+          count = thisArr.length
+        }
         case _ => count += 1
       }
     }

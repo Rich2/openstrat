@@ -77,7 +77,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HSquad(hc2, squad)), AnyArrHead(newTile: HCen)) =>
+    case (RightButton, RArrHead(HSquad(hc2, squad)), RArrHead(newTile: HCen)) =>
     {
       deb("Move")
       gridSys.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit] {
@@ -92,7 +92,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
         }
     }
 
-    case (MiddleButton, AnyArrHead(HSquad(_, squad)), hits) => hits.findHCenForEach{ hc2 =>
+    case (MiddleButton, RArrHead(HSquad(_, squad)), hits) => hits.findHCenForEach{ hc2 =>
       squad.action = Fire(hc2)
       deb("Fire")
       mainRepaint(frame)

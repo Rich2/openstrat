@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
@@ -19,9 +19,9 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   
   /** Note you can use what names you like. Here I put the types explicitly for clarity. When you are familiar with an anonymous function, you will
    *  probably want to use a short parameter list like (v, b, s).  */
-  mouseUp = (button: MouseButton, selected: AnyArr, posn: Pt2) => selected match
+  mouseUp = (button: MouseButton, selected: RArr[Any], posn: Pt2) => selected match
   {
-    case AnyArrHead(cen: Pt2/*, tail*/) =>
+    case RArrHead(cen: Pt2/*, tail*/) =>
     { colour = colour.nextFrom(Colours(Red, Orange, Green))
       repaint(gArr +% startText)
     }

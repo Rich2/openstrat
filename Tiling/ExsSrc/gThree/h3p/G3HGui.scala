@@ -59,7 +59,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(arr: RArr[Lunit]), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, RArrHead(arr: RArr[Lunit]), hits) => hits.findHCenForEach{ hc2 =>
      //val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

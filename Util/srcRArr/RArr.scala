@@ -190,19 +190,41 @@ object RArr
   }
 }
 
-case object RArr0{
+/** Funtion object for Factory method for [[RArr]][Any]. */
+object RArrAny
+{ /** Factory apply method for [[RArr]][Any]. */
+  def apply(elems: Any*): RArr[Any] =
+  { val array = new Array[Any](elems.length)
+    var i = 0
+    while(i < elems.length)
+    { array(i) = elems(i)
+      i += 1
+    }
+    new RArr[Any](array)
+  }
+}
+
+/** Extractor object for empty [[RArr]]. */
+case object RArr0
+{
   def unapply(inp: Any): Boolean = inp match{
     case ra: RArr[_] if ra.length == 0 => true
     case _ => false
   }
 }
 
+/** Extractor object for [[RArr]] of length 1. */
 case object RArr1
 {
   def unapply[A](inp: Any): Option[A] = inp match{
-    case ra: RArr[A] if ra.length == 1 => Some(ra(0))
+    case ra: RArr[_] if ra.length == 1 => Some(ra(0).asInstanceOf[A])
     case _ => None
   }
+}
+
+object RArrHead
+{ /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
+  def unapply(arr: RArr[Any]): Option[Any] = ife(arr.nonEmpty, Some(arr(0)), None)
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */

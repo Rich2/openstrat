@@ -34,8 +34,8 @@ trait CmdBarGui extends CanvasPanelled
   }
 
   canv.onScroll = b => mainPanel.onScroll(b)
-  def mainMouseUp: (MouseButton, AnyArr, Pt2) => Unit = mainPanel.mouseUp
-  def mainMouseUp_= (f: (MouseButton, AnyArr, Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
+  def mainMouseUp: (MouseButton, RArr[Any], Pt2) => Unit = mainPanel.mouseUp
+  def mainMouseUp_= (f: (MouseButton, RArr[Any], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
 
   /** Selected takes the type Any, but the value None means nothing selected. */
   var selected: Any = None
@@ -48,7 +48,7 @@ trait CmdBarGui extends CanvasPanelled
   }
 
   topBar.mouseUp =
-  { case (b, AnyArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
+  { case (b, RArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
     case (_, l, _) => deb(l.toString)
   }
 }

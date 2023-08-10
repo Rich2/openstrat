@@ -14,7 +14,7 @@ trait CanvasPanelled extends CanvasUser
   }     
   
   canv.mouseUp = (v, b) => panels.find(_.clipPoly.ptInside(v)).foreach{ pan =>
-      val ids: AnyArr = pan.actives.filter(_.ptInside(v)).map(_.pointerId)
+      val ids = pan.actives.filter(_.ptInside(v)).map(_.pointerId)
       pan.mouseUp(b, ids, v)
     }
     

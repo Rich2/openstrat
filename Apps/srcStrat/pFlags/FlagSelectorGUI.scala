@@ -1,4 +1,4 @@
-/* Copyright 2021 - 2022 w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2021 - 2023 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
 import geom._, pgui._, Colour._
 
@@ -125,8 +125,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { case true => isDragging = false
     case false => mouseButton match
     { case LeftButton => clickList match
-      { case AnyArrHead(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
-        case AnyArrHead(flagIndex) =>
+      { case RArrHead(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
+        case RArrHead(flagIndex) =>
         { selectedIndex = if (selectedIndex != -1) -1 else flagIndex.toString.toInt
           showGridView(viewIndex)
         } 

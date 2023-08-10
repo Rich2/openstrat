@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._
 
@@ -6,7 +6,7 @@ import geom._
  *  planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
-  var selected: AnyArr = AnyArr()
+  var selected: RArr[Any] = RArrAny()
   def inCmd: MouseCmd  
   def outCmd: MouseCmd
   def leftCmd: MouseCmd  

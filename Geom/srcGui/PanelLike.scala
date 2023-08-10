@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._
 
@@ -12,7 +12,7 @@ trait PanelLike extends RectCenlign
   var canvObjs: RArr[GraphicElem] = RArr()
 
   /** This method name is inconsistent with mouseUp on the canvas class*/
-  var mouseUp: (MouseButton, AnyArr, Pt2) => Unit = (_, _, _) => {}
+  var mouseUp: (MouseButton, RArr[Any], Pt2) => Unit = (_, _, _) => {}
 
   /** This method name is inconsistent with mousedown on the canvas class */
   var mouseDown: (Pt2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}

@@ -64,7 +64,6 @@ object ArrMapBuilder extends ArrBuilderPriority2
   implicit val floatImplicit: ArrMapBuilder[Float, FloatArr] = FloatArrBuilder
   implicit val stringImplicit: ArrMapBuilder[String, StrArr] = StringArrBuilder
   implicit val booleansImplicit: ArrMapBuilder[Boolean, BoolArr] = BooleanArrBuilder
-  implicit val anyImplicit: ArrMapBuilder[Any, AnyArr] = AnyArrBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from

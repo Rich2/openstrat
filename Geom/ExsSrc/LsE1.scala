@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._
 
@@ -29,7 +29,7 @@ case class LsE1(canv: CanvasPlatform) extends CmdBarGui
   frame()
 
   topBar.mouseUp = (b, s, v) => s match
-  { case AnyArr1(Turn) => newTurn()
+  { case RArr1(Turn) => newTurn()
     case _ =>
   }
 

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
@@ -18,7 +18,7 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   mouseUp = (button, selectedList, posn) =>
     {
       val newText = selectedList match
-      { case AnyArrHead(h) => TextGraphic("You hit a yellow rectangle at " + posn.str, 28, textPosn)
+      { case RArrHead(h) => TextGraphic("You hit a yellow rectangle at " + posn.str, 28, textPosn)
         case _ => { deb(selectedList.toString()); TextGraphic("You missed the yellow rectangles.\n" + posn.str, 28, textPosn) }
       }  
       repaint(rList +% newText)

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._, Colour._
 
@@ -12,7 +12,7 @@ abstract class MapGui(val title: String) extends CanvasPanelled
   topPan.backColour = Colour.Gray
 
   topPan.mouseUp =
-  { case (b, AnyArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
+  { case (b, RArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
     case (_, l, _) => deb(l.toString)
   }
    
