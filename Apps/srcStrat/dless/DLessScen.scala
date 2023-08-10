@@ -13,15 +13,15 @@ trait DLessScen extends HSysTurnScen
   val armies: HCenRArrLayer[Army]
 
   def endTurn(orderList: HCenStepPairArr[Army]): DLessScen =
-  { val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
+  { val targets: HCenBuffLayer[HCenPair[Army]] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
       val optTarget: Option[HCen] = pair.startHC.stepOpt(pair.step)
-      optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
+      optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, HCenPair(pair.startHC, pair.a2)) }
     }
 
     val armiesNew: HCenRArrLayer[Army] = armies.copy
-    //targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.tileNone(hc2)) armiesNew.moveMut(stCenStep.startHC, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(hcPair => if (armies.emptyTile(hc2)) armiesNew.moveUnsafe(hcPair.a1, hc2, hcPair.a2)) }
 
     new DLessScen
     { override implicit val gridSys: EGridSys = ThisScen.gridSys
