@@ -17,10 +17,12 @@ case class TextGraphic(str: String, fontSize: Double, xPosn: Double, yPosn: Doub
 object TextGraphic
 {
   def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Middle) = new TextGraphic(str, fontSize, posn.x, posn.y, colour, align, baseLine)
+    baseLine: BaseLine = BaseLine.Middle): TextGraphic =
+    new TextGraphic(str, fontSize, posn.x, posn.y, colour, align, baseLine)
 
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Middle) = new TextGraphic(str, fontSize, xPosn, yPosn, colour, align, baseLine)
+    baseLine: BaseLine = BaseLine.Middle) =
+    new TextGraphic(str, fontSize, xPosn, yPosn, colour, align, baseLine)
 
   def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[TextGraphic] =
