@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTile._
  *  area it must be assigned to France  */
 object TerrMegaE30 extends LongMegaTerrs
 {
-  override implicit val grid: EGridMegaLongFull = EGridMega.e30(102)
+  override implicit val grid: EGridMegaLongFull = EGridMega.e30(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()

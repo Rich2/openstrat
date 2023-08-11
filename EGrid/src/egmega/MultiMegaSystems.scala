@@ -2,11 +2,10 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._
 
-/** Scenario for 2 Grid system for 0E and 30E */
-
+/** Scenario for 3 Grid system for 0E, 30E and 60E. */
 object ScenMegas0e2 extends EScenLongMulti
 { override val title: String = "1000km 0E - 30E"
-  override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(3, 0, 102)
+  override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(3, 0, 82)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
