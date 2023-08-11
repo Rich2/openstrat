@@ -11,26 +11,17 @@ object ScenMegas0e2 extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Scenario for 3 Megakm grid system for 90E, 120E and 150E */
-/*object ScenMegaChinaJapan extends EScenLongMulti
-{ override val title: String = "Megakm 90E - 150E"
-  implicit override val gridSys: EGridMegaLongMulti = EGridMega.multi(3, 3, 124)
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
-  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-}
-
 /** Scenario for 4 Megakm grid system for 30W 0E, 30E and 60E. */
 object ScenMegaS11E2 extends EScenLongMulti
 { override val title: String = "Megakm 30W - 60E"
-  override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(4, 11, 118)
+  override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(4, 11, 82)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
 /** Scenario for 8 Grid system from 60W to 150E. */
-object ScenMegaS10E5 extends EScenLongMulti
+/*object ScenMegaS10E5 extends EScenLongMulti
 { override val title: String = "Megakm 60W - 150E"
   override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(8, 10, 124)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn

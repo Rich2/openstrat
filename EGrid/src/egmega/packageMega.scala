@@ -6,8 +6,10 @@ import prid.phex._, egrid._
  * Crete but excludes Zealand and Mallorca.  */
 package object egmega
 {
-  val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60)//, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180,
-    //TerrMegaW150, TerrMegaW120, TerrMegaW90, TerrMegaW60, TerrMegaW30)
+  val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, null, null, null, null, null, null, null, null,
+  //, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180,
+    //TerrMegaW150, TerrMegaW120, TerrMegaW90, TerrMegaW60
+    TerrMegaW30)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGridMegaLongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
