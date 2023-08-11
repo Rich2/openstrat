@@ -28,7 +28,7 @@ object TerrMegaE0 extends LongMegaTerrs
       TRow(100, sea * 2, jungle),
       TRow(98, sea * 2, jungle),
       TRow(96, sea * 3),
-      TRow(94, sea * 2, desert),
+      TRow(94, sea * 2, Hland(2, 4, Level(Desert))),
       TRow(92, sea * 2),
       TRow(90, sea * 2),
       TRow(88, sea * 2),
@@ -39,19 +39,3 @@ object TerrMegaE0 extends LongMegaTerrs
   }
   help.run
 }
-
-/*
-object BritReg
-{ def britGrid: EGridMegaLong = EGridMegaLong.reg(138, 148, 0, 504, 520)
-  def britTerrs: HCenLayer[WTile] = TerrMegaE0.terrs.spawn(TerrMegaE0.grid, britGrid)
-  def britSTerrs: HSideOptLayer[WSide, WSideSome] =TerrMegaE0.sTerrs.spawn(TerrMegaE0.grid, britGrid)
-  def britCorners: HCornerLayer =TerrMegaE0.corners.spawn(TerrMegaE0.grid, britGrid)
-
-  def regScen: EScenBasic = new EScenBasic
-  {  override def title: String = "Regular Britain"
-    override implicit val gridSys: EGridMegaLong = britGrid
-    override val terrs: HCenLayer[WTile] = britTerrs
-    override val sTerrs: HSideOptLayer[WSide, WSideSome] = britSTerrs
-    override val corners: HCornerLayer = britCorners
-  }
-}*/
