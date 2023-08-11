@@ -59,3 +59,5 @@ flat = false;
 92 = HGView(445, 562; 24.5);//80km 0E - 30E
 
 93 = HGView(454, 522; 26.5);//80km Western Front
+
+100 = HGView(105, 512; 23.5);//1000km 0E
