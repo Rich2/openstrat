@@ -3,7 +3,7 @@ package ostrat; package eg13
 import prid._, phex._, egrid._
 
 /** Scenario for 3 Grid system for 0E, 30E and 60E. */
-object Scen13s0e2 extends EScenLongMulti
+object Scen13S0E2 extends EScenLongMulti
 { override val title: String = "1300km 0E - 30E"
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(3, 0, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
