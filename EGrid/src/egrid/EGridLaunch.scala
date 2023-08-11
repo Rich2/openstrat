@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, eg80._, eg120._, eg160._, eg220._, eg320._, eg640._, egmega._, prid._, phex._, pParse._
+import pgui._, eg80._, eg120._, eg160._, eg220._, eg320._, eg640._, egmega._, eg13._, prid._, phex._, pParse._
 
 /** object to launch EGrid basic Gui. */
 object EGridLaunch extends GuiLaunchMore
@@ -79,15 +79,21 @@ object EGridLaunch extends GuiLaunchMore
       case 92 => Scen80s0s1
       case 93 => WesternFront.wFrontScen
 
-      case 100 => EGridMega.scen0
-      case 101 => EGridMega.scen1
-      case 102 => EGridMega.scen2
 
-      case 111 => EGridMega.scen11
-      case 112 => ScenMegas0e2
-      case 113 => ScenMegaS11E2
 
-      case 120 => EGrid640.scen0
+      case 100 => EGrid13.scen0
+
+      case 120 => EGridMega.scen0
+      case 121 => EGridMega.scen1
+      case 122 => EGridMega.scen2
+
+      case 131 => EGridMega.scen11
+      case 132 => ScenMegas0e2
+      case 133 => ScenMegaS11E2
+
+      case 140 => EGrid640.scen0
+
+
       case _ => Scen320All
     }
     (EGSphereGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")

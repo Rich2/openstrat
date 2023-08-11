@@ -4,7 +4,7 @@ import prid.phex._, egrid._, pEarth._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 640Km */
 abstract class EGridMegaLong(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 160.kMetres, 100, rowArray) with EGridMegaSys
+  EGridLong(rBottomCen, cenLongInt, 250.kMetres, 100, rowArray) with EGridMegaSys
 
 object EGridMegaLong
 {

@@ -2,7 +2,7 @@
 package ostrat; package eg640
 import egrid._
 
-/** object for creating earth grids with 640km hexs, with a c scale of 80km. */
+/** object for creating earth grids with 640km hexs, with a c scale of 160km. */
 object EGrid640
 { /** Returns an [[RArr]] sequence of 640km full earth grids. */
   def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 130): RArr[EGrid640LongFull] =
