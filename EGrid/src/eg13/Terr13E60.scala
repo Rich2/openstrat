@@ -19,9 +19,10 @@ object Terr13E60 extends Long13Terrs
       TRow(114, tundra),
       TRow(112, taiga),
 //      TRow(110, desert * 2),
-//      TRow(108, hillyDesert * 2),
-//      TRow(106, desert, sea, plain),
-//      TRow(104, SideB(), Hland(2, 2, Hilly(Desert)), sea * 2),
+      TRow(108, desert),
+      TRow(106, desert, hills),
+      TRow(104, Hland(2, 2, Hilly(Desert)), Hland(1, 4)),
+      TRow(102, Hland(3, 0, Level(Desert)), sea)
 //      TRow(96, SideB(), Hland(2, 1, Hilly()), sea * 2),
     )
   }

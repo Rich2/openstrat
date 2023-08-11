@@ -20,7 +20,7 @@ object Terr13E0 extends Long13Terrs
 //      VRow(109, Mouth(512, HVUR)),
 //      VRow(109, Mouth(516, HVUL)),
       TRow(108, Hland(3, 3, Hilly())),
-      TRow(106, desert * 2),
+      TRow(106, desert, Hland(1, 0, Level(Desert))),
       TRow(104, desert * 2),
       TRow(102, jungle * 2),
       TRow(100, sea, jungle),
