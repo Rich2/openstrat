@@ -11,8 +11,8 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   val corners = scen.corners
 
   def lunits: HCenOptLayer[Lunit] = scen.lunits
-  def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
-  var moves: HCenStepPairArr[Army] = NoMoves
+  def NoMoves: HCenStepPairArr[Lunit] = HCenStepPairArr[Lunit]()
+  var moves: HCenStepPairArr[Lunit] = NoMoves
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -28,7 +28,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
       lunit.counter(proj.pixelsPerTile * 0.6, HCenPair(hc, lunit), lunit.colour).slate(pt)
     }
 
-    def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LineSegPairArr[Lunit] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
@@ -38,7 +38,8 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
-    //scen = scen.endTurn()
+    scen = scen.endTurn(moves)
+    moves = NoMoves
     repaint()
     thisTop()
   }
@@ -51,9 +52,9 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
       thisTop()
     }
 
-    case (RightButton, HCenPair(hc1, pl: Army), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, HCenPair(hc1, lu: Lunit), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(lu, hc1.andStep(d)) }
       repaint()
     }
 

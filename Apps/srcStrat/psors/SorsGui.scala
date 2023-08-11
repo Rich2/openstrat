@@ -17,7 +17,7 @@ case class SorsGui(canv: CanvasPlatform, scenIn: SorsScen, viewIn: HGView, isFla
   override def frame: GraphicElems =
   { def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
-    def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
+    def hexStrs2: GraphicElems = proj.ifTileScale(55, hexStrs1)
 
     tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2
   }

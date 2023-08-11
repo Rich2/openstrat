@@ -11,7 +11,7 @@ trait WW1Scen extends HSysTurnScen
   val corners: HCornerLayer
   val lunits: HCenOptLayer[Lunit]
 
-  def endTurn(orderList: HCenStepPairArr[Army]): WW1Scen =
+  def endTurn(orderList: HCenStepPairArr[Lunit]): WW1Scen =
   {  val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
