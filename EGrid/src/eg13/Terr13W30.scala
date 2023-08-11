@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTile._
  *  area it must be assigned to France  */
 object Terr13W30 extends Long13Terrs
 {
-  override implicit val grid: EGrid13LongFull = EGrid13.w30(82)
+  override implicit val grid: EGrid13LongFull = EGrid13.w30(86)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -23,7 +23,7 @@ object Terr13W30 extends Long13Terrs
 //      TRow(110, hills, hills),
 //      TRow(108, plain, desert),
 //      VRow(107, Mouth(1538, HVUL), VertIn(1540, HVDL)),
-      TRow(106, sea * 2, Hland(2, 4, Level(Desert))),
+    //  TRow(106, sea * 2, Hland(2, 4, Level(Desert))),
 //      VRow(105, VertIn(1540, HVUR), VertIn(1542, HVDL)),
 //      TRow(104, desert * 3),
 //      VRow(103, VertIn(1542, HVUR)),

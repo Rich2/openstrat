@@ -5,10 +5,10 @@ import egrid._
 /** object for creating earth grids with 640km hexs, with a c scale of 80km. */
 object EGrid13
 { /** Returns an [[RArr]] sequence of 13km full earth grids. */
-  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 110): RArr[EGrid13LongFull] =
+  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 114): RArr[EGrid13LongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGrid13LongFull(rBottomCen, rTopCen, i %% 12) }
 
-  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 110): EGrid13LongMulti = new EGrid13LongMulti
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 114): EGrid13LongMulti = new EGrid13LongMulti
   { ThisSys =>
     override val grids: RArr[EGridLongFull] = EGrid13.grids(numGridsIn, headInt, bottomR, topR)
 
@@ -21,17 +21,17 @@ object EGrid13
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def e0(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 0)
-  def e30(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen,  1)
-  def e60(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 2)
-//  def e90(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 3)
-//  def e120(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 4)
-//  def e150(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 5)
-//  def e180(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 6)
-//  def w150(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 7)
-//  def w120(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 8)
-//  def w90(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 9)
-//  def w60(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 10)
-  def w30(rBottomCen: Int, rTopCen: Int = 118): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 11)
+  def e30(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen,  1)
+  def e60(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 2)
+//  def e90(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 3)
+//  def e120(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 4)
+//  def e150(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 5)
+//  def e180(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 6)
+//  def w150(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 7)
+//  def w120(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 8)
+//  def w90(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 9)
+//  def w60(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 10)
+  def w30(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 11)
 //
   def scen0: EScenBasic = EScenBasic(Terr13E0.grid, Terr13E0.terrs, Terr13E0.sTerrs, Terr13E0.corners, "1000km 0E")
   def scen1: EScenBasic = EScenBasic(Terr13E30.grid, Terr13E30.terrs, Terr13E30.sTerrs, Terr13E30.corners, "1000km 30E")

@@ -17,7 +17,7 @@ trait EGrid13LongMulti extends EGridLongMulti with EGrid13Sys
 
 object EGrid13LongMulti
 {
-  def apply(rBottomCen: Int = 110, rTopCen: Int = 112, startLong: Int, endLong: Int): EGrid13LongMulti = new EGrid13LongMulti
+  def apply(rBottomCen: Int = 96, rTopCen: Int = 114, startLong: Int, endLong: Int): EGrid13LongMulti = new EGrid13LongMulti
   {
     override def grids: RArr[EGridLongFull] = startLong match {
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid13LongFull(rBottomCen, rTopCen, i))
