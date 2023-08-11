@@ -35,9 +35,9 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = PolygonCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
-  override def rotate90: PolygonCompound = ???
-  override def rotate180: PolygonCompound = ???
-  override def rotate270: PolygonCompound = ???
+  override def rotate90: PolygonCompound = PolygonCompound(shape.rotate90, facets, children.rotate90)
+  override def rotate180: PolygonCompound = PolygonCompound(shape.rotate180, facets, children.rotate180)
+  override def rotate270: PolygonCompound = PolygonCompound(shape.rotate270, facets, children.rotate270)
 
   override def rotate(angle: AngleVec): PolygonCompound = PolygonCompound(shape.rotate(angle), facets, children.rotate(angle))
 

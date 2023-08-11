@@ -2,7 +2,7 @@
 package ostrat; package geom
 import pWeb._
 
-/** Compound graphic trait for an ellipse. The final sub classes of this trait are [[CircleCompound]] and[[Ellipse.EllipseImp]]. */
+/** Compound graphic trait for an ellipse. Note [[CircleCompound]] is a sub class of this trait. */
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
 {
   override def mainSvgElem: SvgElem = SvgEllipse(attribs)

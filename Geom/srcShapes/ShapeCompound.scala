@@ -2,7 +2,7 @@
 package ostrat; package geom
 import ostrat.pWeb._
 
-/** A shape based compound graphic. */
+/** A shape based compound graphic. The return types of methods will be narrowed in sub classes. */
 trait ShapeCompound extends ShapeGraphic with NoCanvElem
 { 
   def facets: RArr[GraphicFacet]
