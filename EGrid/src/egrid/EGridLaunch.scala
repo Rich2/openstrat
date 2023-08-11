@@ -80,7 +80,12 @@ object EGridLaunch extends GuiLaunchMore
       case 93 => WesternFront.wFrontScen
 
       case 100 => EGridMega.scen0
-      case 100 => EGrid640.scen0
+      case 101 => EGridMega.scen1
+      case 102 => EGridMega.scen2
+
+      case 112 => ScenMegas0e2
+
+      case 120 => EGrid640.scen0
       case _ => Scen320All
     }
     (EGSphereGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")

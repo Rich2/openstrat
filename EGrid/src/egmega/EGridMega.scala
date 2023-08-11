@@ -5,10 +5,10 @@ import egrid._
 /** object for creating earth grids with 640km hexs, with a c scale of 80km. */
 object EGridMega
 { /** Returns an [[RArr]] sequence of Megakm full earth grids. */
-  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 130): RArr[EGridMegaLongFull] =
+  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 118): RArr[EGridMegaLongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGridMegaLongFull(rBottomCen, rTopCen, i %% 12) }
 
-  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 130): EGridMegaLongMulti = new EGridMegaLongMulti
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 118): EGridMegaLongMulti = new EGridMegaLongMulti
   { ThisSys =>
     override val grids: RArr[EGridLongFull] = EGridMega.grids(numGridsIn, headInt, bottomR, topR)
 
@@ -21,26 +21,21 @@ object EGridMega
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def e0(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 0)
+  def e30(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen,  1)
+  def e60(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 2)
+//  def e90(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 3)
+//  def e120(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 4)
+//  def e150(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 5)
+//  def e180(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 6)
+//  def w150(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 7)
+//  def w120(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 8)
+//  def w90(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 9)
+//  def w60(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 10)
+//  def w30(rBottomCen: Int, rTopCen: Int = 118): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen,11)
 //
-//  def e30(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen,  1)
-//  def e60(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 2)
-//  def e90(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 3)
-//  def e120(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 4)
-//  def e150(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 5)
-//  def e180(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 6)
-//  def w150(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 7)
-//  def w120(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 8)
-//  def w90(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 9)
-//  def w60(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen, 10)
-//  def w30(rBottomCen: Int, rTopCen: Int = 166): EGridMegaLongFull = EGridMegaLongFull(rBottomCen, rTopCen,11)
-//
-  def scen0: EScenBasic = EScenBasic(TerrMegaE0.grid, TerrMegaE0.terrs, TerrMegaE0.sTerrs, TerrMegaE0.corners, "Megakm 0E")
-//
-//  def scen1: EScenBasic = EScenBasic(TerrMegaE30.grid, TerrMegaE30.terrs, TerrMegaE30.sTerrs, TerrMegaE30.corners, "Megakm 30E")
-//
-//  def scen2: EScenBasic =
-//  { val grid: EGridLongFull = TerrMegaE60.grid
-//    EScenBasic(grid, TerrMegaE60.terrs, TerrMegaE60.sTerrs, TerrMegaE60.corners, "Megakm 60E")
+  def scen0: EScenBasic = EScenBasic(TerrMegaE0.grid, TerrMegaE0.terrs, TerrMegaE0.sTerrs, TerrMegaE0.corners, "1000km 0E")
+  def scen1: EScenBasic = EScenBasic(TerrMegaE30.grid, TerrMegaE30.terrs, TerrMegaE30.sTerrs, TerrMegaE30.corners, "1000km 30E")
+  def scen2: EScenBasic = EScenBasic(TerrMegaE60.grid, TerrMegaE60.terrs, TerrMegaE60.sTerrs, TerrMegaE60.corners, "1000km 60E")
 //  }
 //
 //  def scen3: EScenBasic =

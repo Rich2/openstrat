@@ -35,7 +35,7 @@ object EGrid640
 //  def w30(rBottomCen: Int, rTopCen: Int = 166): EGrid640LongFull = EGrid640LongFull(rBottomCen, rTopCen,11)
 //
   def scen0: EScenBasic = EScenBasic(Terr640E0.grid, Terr640E0.terrs, Terr640E0.sTerrs, Terr640E0.corners, "640km 0E")
-//
+
 //  def scen1: EScenBasic = EScenBasic(Terr640E30.grid, Terr640E30.terrs, Terr640E30.sTerrs, Terr640E30.corners, "640km 30E")
 //
 //  def scen2: EScenBasic =
