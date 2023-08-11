@@ -32,6 +32,8 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
   override def shearX(operand: Double): EllipseCompound
 
   override def shearY(operand: Double): EllipseCompound
+
+  override def addChildren(newChildren: Arr[GraphicElem]): EllipseCompound = EllipseCompound(shape, facets, children ++ newChildren)
 }
 
 /** Companion object for the [[EllipseCompound]] trait contains factory apply method and implicit instances for the 2D geometric transformations.  */

@@ -38,4 +38,6 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   override def shearY(operand: Double): EllipseCompound = ???
 
  // override def slateTo(newCen: Pt2): EllipseCompound = ???
+
+  override def addChildren(newChildren: Arr[GraphicElem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }

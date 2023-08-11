@@ -50,7 +50,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def shearY(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
 
-  def addChildren(newChildren: RArr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
+  def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 
   def rightX: Double = shape.rightX
 }

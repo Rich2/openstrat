@@ -32,6 +32,8 @@ case class RectCompound(shape: Rect, facets: RArr[GraphicFacet], children: RArr[
 
   override def scaleXY(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand) )
+
+  override def addChildren(newChildren: Arr[GraphicElem]): RectCompound = RectCompound(shape, facets, children ++ newChildren)
 }
 
 /** Companion object for the RectCompound trait, contains implicit instances for 2D geometric transformation type classes. */

@@ -1,5 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import ostrat.Colour.Black
 import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
@@ -54,6 +55,9 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
     val newTop = top.max(operand.top)
     Rect(newRight - newLeft, newTop - newbottom, (newLeft + newRight) / 2, (newbottom + newTop) / 2)
   }
+
+  override def fillDrawActive(fillColour: Colour, pointerID: AnyRef, lineWidth: Double, lineColour: Colour = Black): RectCompound =
+    RectCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
