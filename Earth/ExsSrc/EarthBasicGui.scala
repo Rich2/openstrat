@@ -26,11 +26,11 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
 
   import pEurope._
-  val london = England.london.a1
-  val paris = Frankia.paris.a1
-  val berlin = Germania.berlin.a1
-  val conns1 = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
-  val conns2 = conns1.map(_.map(_.toMetres3))
+  val london: LatLong = England.london.a1
+  val paris: LatLong = Frankia.paris.a1
+  val berlin: LatLong = Germania.berlin.a1
+  val conns1: LineSegLLArr = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
+  val conns2: LineSegM3Arr = conns1.map(_.map(_.toMetres3))
 
 
   def repaint(): Unit =

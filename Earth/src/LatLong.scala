@@ -159,7 +159,8 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongOpt with 
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
 
   /** From focus parameter, converts to 3D metre coordinates. */
-  def fromFocusMetres(focus: LatLong): PtM3 = focus.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
+  def fromFocusMetres(focus: LatLong): PtM3 = //focus.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
+    subLong(focus.longVec).toMetres3.xRotateRadians(-focus.latRadians)
 
   def fromFocusLineDist3(inp: LineSegLL): LineSegM3 = LineSegM3(
     inp.startPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians),

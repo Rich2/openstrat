@@ -9,6 +9,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   override type LineSegT = LineSegM3
   def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
+  def kmStr: String = typeStr.appendParenthSemis((xMetres / 1000).str2, (yMetres / 1000).str2, (zMetres / 1000).str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
   def dbl1: Double = xMetres
   def dbl2: Double = yMetres
@@ -38,7 +39,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
     val ang0 = ife2(//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
-      z.neg && y.neg, atan(y / z) - Pi,
+      z.neg && y.neg, atan(y / z) + Pi,
       z.neg,          Pi + atan(y / z), //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
                       atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
 
