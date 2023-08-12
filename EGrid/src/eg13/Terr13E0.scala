@@ -2,8 +2,7 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
- *  according to objective geographical criteria, not political considerations. */
+/** [[WTile]] terrain for 15° West to 15° East. Hex tile scale 1300km. */
 object Terr13E0 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.e0(86)
@@ -17,8 +16,6 @@ object Terr13E0 extends Long13Terrs
       TRow(114, hillyTundra),
       TRow(112, hillyTaiga),
       TRow(110, plain),
-//      VRow(109, Mouth(512, HVUR)),
-//      VRow(109, Mouth(516, HVUL)),
       TRow(108, Hland(3, 3, Hilly())),
       TRow(106, Hland(2, 5, Level(Desert)), Hland(1, 0, Level(Desert))),
       TRow(104, desert * 2),
@@ -26,12 +23,7 @@ object Terr13E0 extends Long13Terrs
       TRow(100, sea, Hland(1, 4, Level(Jungle))),
       TRow(98, sea * 2),
       TRow(96, sea, Hland(2, 4, Level(Desert))),
-//      TRow(94, sea * 2, Hland(2, 4, Level(Desert))),
-//      TRow(92, sea * 2),
-//      TRow(90, sea * 2),
-//      TRow(88, sea * 2),
-//      TRow(86, sea),
-//      TRow(84, sea),
+      TRow(86, Hland(1, 0, Level(IceCap)))
     )
   }
   help.run

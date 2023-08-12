@@ -2,10 +2,7 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
- *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
- *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
- *  area it must be assigned to France  */
+/** [[WTile]] terrain for 45° East to 75°. Hex tile scale 1300km. */
 object Terr13E60 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.e60(86)
@@ -32,6 +29,7 @@ object Terr13E60 extends Long13Terrs
       VRow(97, SetSide(2557)),
       TRow(96, SideB(), sea * 2),
       VRow(95, SetSide(2557)),
+      VRow(87, SetSide(2558)),
       TRow(86, Hland(1, 0, Level(IceCap)))
     )
   }
