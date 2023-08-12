@@ -2,10 +2,7 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
- *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
- *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
- *  area it must be assigned to France  */
+/** [[WTile]] terrain for 15° West to 15° East, centred on 0° East. Hex tile scale 1 Megametre or 1000km. */
 object TerrMegaE0 extends LongMegaTerrs
 {
   override implicit val grid: EGridMegaLongFull = EGridMega.e0(82)

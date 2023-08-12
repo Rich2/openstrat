@@ -2,10 +2,10 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 100km. */
-object TerrMegaW30 extends LongMegaTerrs
+/** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1 megametre or 1000km. */
+object TerrMegaE90 extends LongMegaTerrs
 {
-  override implicit val grid: EGridMegaLongFull = EGridMega.w30(82)
+  override implicit val grid: EGridMegaLongFull = EGridMega.e90(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -13,29 +13,15 @@ object TerrMegaW30 extends LongMegaTerrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-//      TRow(118, sea),
+//      TRow(118, tundra),
 //      TRow(116, taiga),
 //      TRow(114, plain),
-//      TRow(112, hills, plain),
-//      TRow(110, hills, hills),
-//      TRow(108, plain, desert),
-//      VRow(107, Mouth(1538, HVUL), VertIn(1540, HVDL)),
-      TRow(106, sea * 2, Hland(2, 4, Level(Desert))),
-//      VRow(105, VertIn(1540, HVUR), VertIn(1542, HVDL)),
-//      TRow(104, desert * 3),
-//      VRow(103, VertIn(1542, HVUR)),
-//      TRow(102, jungle * 2, hills),
-//      TRow(100, jungle * 2, plain),
-//      TRow(98, jungle * 2, sea),
-//      TRow(96, plain * 2, Hland(3, 1)),
-//      VRow(95, Mouth(1538, HVUL)),
-//      TRow(94, desert, Hland(2, 1), Hland(2, 4)),
-//      TRow(92, Hland(2, 2, Hilly()), sea),
-//      TRow(90, sea * 2),
-//      TRow(88, sea * 2),
-//      TRow(86, sea),
-//      TRow(84, sea),
-//      TRow(82, ice),
+//      TRow(112, desert * 2),
+//      TRow(110, desert * 2),
+//      TRow(108, hillyDesert * 2),
+//      TRow(106, desert, sea, plain),
+//      TRow(104, SideB(), Hland(2, 2, Hilly(Desert)), sea * 2),
+//      TRow(96, SideB(), Hland(2, 1, Hilly()), sea * 2),
     )
   }
   help.run
