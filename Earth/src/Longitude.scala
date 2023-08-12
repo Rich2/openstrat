@@ -5,6 +5,7 @@ package ostrat;package geom; package pglobe
  * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
 final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLike
 { override def typeStr: String = "Longitude"
+
   /** True if eastern longitude or Greenwich meridian. */
   def eastern: Boolean = milliSecs >= 0
 
@@ -24,10 +25,23 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
   }
 
   /** Adds the operand [[Longitude]]. */
-  def +(operand: Longitude): Longitude = { Longitude.milliSecs(milliSecs + operand.milliSecs) }
+  def +(operand: Longitude): Longitude = Longitude.milliSecs(milliSecs + operand.milliSecs)
 
   /** Subtracts the operand [[Longitude]]. */
   def -(operand: Longitude): Longitude = Longitude.milliSecs(milliSecs - operand.milliSecs)
+
+  def midPt(operand: Longitude): Longitude = operand.milliSecs match
+  { case op if eastern && op >= 0 => Longitude.milliSecs((milliSecs + op) / 2)
+    case op if eastern && (milliSecs - op) <= MilliSecsIn180Degs => Longitude.milliSecs((milliSecs + op) / 2)
+    case op if eastern => Longitude.milliSecs((milliSecs + MilliSecsIn360Degs + op) / 2)
+    case op if op < 0 => Longitude.milliSecs((milliSecs + op) / 2)
+    case op if milliSecs >= 0 => excep("milli > 0")
+    case op if (op - milliSecs) <= MilliSecsIn180Degs => Longitude.milliSecs((milliSecs + op) / 2)
+    case op if op > 0 => excep("op > 0")
+    case op if op < 0 => excep("op < 0")
+    case op if op == 0 => excep("op == 0")
+    case op => Longitude.milliSecs((op + MilliSecsIn360Degs + milliSecs) / 2)
+  }
 }
 
 /** Companion object of the [[Longitude]] class. */

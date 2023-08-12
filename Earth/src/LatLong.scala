@@ -133,9 +133,9 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongOpt with 
   def addLongVec(delta: AngleVec): LatLong = addLongMilliSeca(delta.milliSecs)
 
   /** Add the delta parameter to the longitude. */
-  def addLongMilliSeca(delta: Double): LatLong = {
-    val long1 = longMilliSecs + delta
-    val long2 = long1 %+- MilliSecsIn360Degs
+  def addLongMilliSeca(delta: Double): LatLong =
+  { val long1 = longMilliSecs + delta
+    val long2 = long1 %+- MilliSecsIn180Degs
     LatLong.milliSecs(latMilliSecs, long2)
   }
 

@@ -14,12 +14,15 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
     //case c if hc.r.div4Rem3 & c.div4Rem2 => hCoordMiddleLL(hc)
 
     case cx if hc.c == rowRightCoordC(hc.r, hc.c) =>
-    { val rt = hCoordMiddleLL(hc)
-      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, hc.c)))
-      val rtLong = rt.longMilliSecs
-      val ltLong = (lt.long + 30.east).milliSecs
-      val longMilliSecs = rtLong aver ltLong
-      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
+    {
+      val rt: LatLong = hCoordMiddleLL(hc)
+      val lt: LatLong = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, hc.c)))
+      val rtLongDbl: Double = rt.longMilliSecs
+      val ltLongDbl: Double = (lt.long + 30.east).milliSecs
+      val longMilliSecs = rtLongDbl aver ltLongDbl
+      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)//Left in for time being
+
+      LatLong(rt.lat, (lt.long + 30.east).midPt(rt.long))
     }
 
     case cx if hc.c == rowLeftCoordC(hc.r, hc.c) =>
@@ -28,7 +31,9 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
       val longMilliSecs = ltLong aver rtLong
-      LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)
+      LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)//Left in for time being.
+
+      LatLong(rt.lat, (lt.long - 30.east).midPt(rt.long))
     }
 
     case _ => hCoordMiddleLL(hc)

@@ -36,6 +36,16 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def %+-(limit: Double): Double =
   { val r = thisDouble % (limit * 2)
     r match {
+      case r if r > limit * 2 =>{
+        val div = ((r / limit).toInt / 2) * 2
+        val newR = r - div * limit
+        newR %+- limit
+      }
+      case r if r < -limit * 2 =>
+      { val div = ((r / limit).toInt / 2) * 2
+        val newR = r - div * limit
+        newR %+- limit
+      }
       case r if r > limit => r - 2 * limit
       case r if r <= - limit => r + 2 * limit
       case r => r
