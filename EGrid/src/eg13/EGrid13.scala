@@ -40,11 +40,7 @@ object EGrid13
   def scen4: EScenBasic = EScenBasic(Terr13E120.grid, Terr13E120.terrs, Terr13E120.sTerrs, Terr13E120.corners, "1300km 120E")
   def scen5: EScenBasic = EScenBasic(Terr13E150.grid, Terr13E150.terrs, Terr13E150.sTerrs, Terr13E150.corners, "1300 150E")
   def scen6: EScenBasic = EScenBasic(Terr13E180.grid, Terr13E180.terrs, Terr13E180.sTerrs, Terr13E180.corners, "1300 180E")
-//  }
-//
-//  def scen7: EScenBasic =
-//  { val grid: EGridLongFull = Terr13W150.grid
-//    EScenBasic(grid, Terr13W150.terrs, Terr13W150.sTerrs, Terr13W150.corners, "1300 150W")
+  def scen7: EScenBasic = EScenBasic(Terr13W150.grid, Terr13W150.terrs, Terr13W150.sTerrs, Terr13W150.corners, "1300 150W")
 //  }
 //
 //  def scen8: EScenBasic =
