@@ -23,7 +23,7 @@ object Scen13S11E2 extends EScenLongMulti
 /** Scenario for 2 Grid system from 60E to 90E. */
 object Scen13S2E3 extends EScenLongMulti
 { override val title: String = "13km 60E - 90E"
-  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(3, 2, 86)
+  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(4, 2, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

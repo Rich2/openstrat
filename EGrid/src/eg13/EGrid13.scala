@@ -25,7 +25,7 @@ object EGrid13
   def e60(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 2)
   def e90(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 3)
   def e120(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 4)
-//  def e150(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 5)
+  def e150(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 5)
 //  def e180(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 6)
 //  def w150(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 7)
 //  def w120(rBottomCen: Int, rTopCen: Int = 114): EGrid13LongFull = EGrid13LongFull(rBottomCen, rTopCen, 8)
@@ -38,11 +38,7 @@ object EGrid13
   def scen2: EScenBasic = EScenBasic(Terr13E60.grid, Terr13E60.terrs, Terr13E60.sTerrs, Terr13E60.corners, "1300km 60E")
   def scen3: EScenBasic = EScenBasic(Terr13E90.grid, Terr13E90.terrs, Terr13E90.sTerrs, Terr13E90.corners, "1300km 90E")
   def scen4: EScenBasic = EScenBasic(Terr13E120.grid, Terr13E120.terrs, Terr13E120.sTerrs, Terr13E120.corners, "1300km 120E")
-//  }
-//
-//  def scen5: EScenBasic =
-//  { val grid: EGridLongFull = Terr13E150.grid
-//    EScenBasic(grid, Terr13E150.terrs, Terr13E150.sTerrs, Terr13E150.corners, "1300 150E")
+  def scen5: EScenBasic = EScenBasic(Terr13E150.grid, Terr13E150.terrs, Terr13E150.sTerrs, Terr13E150.corners, "1300 150E")
 //  }
 //
 //  def scen6: EScenBasic =
