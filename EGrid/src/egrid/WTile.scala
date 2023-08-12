@@ -35,7 +35,7 @@ object WTile
   val desert: WTile = Level(Desert)
   val hillyDesert: WTile = Hilly(Desert)
   val jungle: WTile = Level(Jungle)
-  val jungleHills: WTile = Level(Jungle)
+  val hillyJungle: WTile = Level(Jungle)
   val taiga: WTile = Level(Taiga)
   val hillyTaiga = Hilly(Taiga)
   val tundra: WTile = Level(Tundra)
@@ -99,6 +99,7 @@ case class Hilly(biome: Biome = OpenTerrain) extends Land
     case Taiga => Chocolate.average(Taiga.colour)
     case Forest => Chocolate.average(Forest.colour)
     case Desert => Chocolate.average(Desert.colour)
+    case Jungle => Chocolate.average(Jungle.colour)
     case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
     case _ => Chocolate
   }

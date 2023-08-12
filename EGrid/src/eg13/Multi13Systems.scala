@@ -20,17 +20,17 @@ object Scen13S11E2 extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Scenario for 8 Grid system from 60W to 150E. */
-/*object Scen13S10E5 extends EScenLongMulti
-{ override val title: String = "13km 60W - 150E"
-  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(8, 10, 86)
+/** Scenario for 2 Grid system from 60E to 90E. */
+object Scen13S2E3 extends EScenLongMulti
+{ override val title: String = "13km 60E - 90E"
+  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(3, 2, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
 /** Just terrain scenario for all longitudes grid system. */
-object Scen13All extends EScenLongMulti
+/*object Scen13All extends EScenLongMulti
 { override val title: String = "All longitude terrain only scenario."
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(12, 0, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn

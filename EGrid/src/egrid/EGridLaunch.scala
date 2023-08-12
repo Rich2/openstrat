@@ -79,15 +79,16 @@ object EGridLaunch extends GuiLaunchMore
       case 92 => Scen80s0s1
       case 93 => WesternFront.wFrontScen
 
-
-
       case 100 => EGrid13.scen0
       case 101 => EGrid13.scen1
       case 102 => EGrid13.scen2
+      case 103 => EGrid13.scen3
+      case 104 => EGrid13.scen4
 
       case 111 => EGrid13.scen11
       case 112 => Scen13S0E2
       case 113 => Scen13S11E2
+      case 114 => Scen13S2E3
 
       case 120 => EGridMega.scen0
       case 121 => EGridMega.scen1
