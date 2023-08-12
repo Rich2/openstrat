@@ -88,8 +88,8 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     opt.map(_ / metresPerPixel)
   }
 
-  override def transCoord(hc: HCoord): Pt2 = {
-    val m3 = parent.hCoordLL(hc).toMetres3
+  override def transCoord(hc: HCoord): Pt2 =
+  { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     rotated.xy / metresPerPixel
   }
