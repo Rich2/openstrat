@@ -2,7 +2,7 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 45° East to 75°. Hex tile scale 1300km. */
+/** [[WTile]] terrain for 45° East to 75°, centred on 60° east. Hex tile scale 1300km. */
 object Terr13E60 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.e60(86)

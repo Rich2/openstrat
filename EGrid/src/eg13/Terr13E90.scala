@@ -2,7 +2,7 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 75 East to 105 East. */
+/** [[WTile]] terrain for 75 east to 105 east, centred on 90° east. */
 object Terr13E90 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.e90(86)
