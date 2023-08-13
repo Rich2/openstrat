@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -38,11 +38,11 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   { val scalar: Length = Length(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
-    val ang0 = ife2(//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
-      z.neg && y.neg, atan(y / z) + Pi,
-      z.neg,          Pi + atan(y / z), //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
-                      atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
-
+    val ang0 = None match {//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
+      case _ if z.neg && y.neg => atan(y / z) + Pi
+      case _ if z.neg => Pi + atan(y / z)//The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
+      case _ => atan(y / z)//This operates on the standard atan range -Pi/2 to pi/2
+    }
     val ang1 = ang0 + rotationRadians
     PtM3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }

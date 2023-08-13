@@ -55,10 +55,11 @@ def contrast2(other: Colour): Colour =
       val avd = av.diff(i1).min(av.diff(i2))
       val ld = 0.diff(i1).min(0.diff(i2))
       val hd = 255.diff(i1).min(255.diff(i2))
-      ife2(
-        hd > avd && hd > ld, 255,
-        avd > ld, av,
-        0)
+      None match
+      { case _ if hd > avd && hd > ld => 255
+        case _ if avd > ld => av
+        case _ => 0
+      }
     }
     Colour.fromInts(f(red, other.red), f(green, other.green), f(blue, other.blue), 255)
   }

@@ -92,9 +92,6 @@ package object ostrat
   /** if-else. If the condition is true, return [[None]], else return [[Some]] of 2nd parameter value. */
   inline def ifNone[A](b: Boolean, vFalse: => A): Option[A] = if (b) None else Some(vFalse)
 
-  /** if-elseif-else. If the first condition is true, use 2nd parameter, else if the second condition in parameter 3 is true use 4th parameter. */
-  @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
-
   @inline def excep(str: => String): Nothing = throw new Exception(str)
   @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
   @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
