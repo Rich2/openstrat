@@ -31,9 +31,17 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boo
 
   /** Add the [[AngleVec]] delta parameter to the longitude. */
   def addLongVec(delta: AngleVec): LatLongDirn = addLongMilliSeca(delta.milliSecs)
+
+  /** Subtract the [[AngleVec]] delta parameter from the longitude. */
+  def subLong(delta: AngleVec): LatLongDirn = addLongVec(-delta)
 }
 
 object LatLongDirn{
+
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
+   * values are negative. */
+  def degs(lat: Double, long: Double, dirn: Boolean = true): LatLongDirn = milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs, dirn)
+
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a
    * degree, where southern and western values are negative. */
   def milliSecs(lat: Double, long: Double, dirn: Boolean): LatLongDirn = {

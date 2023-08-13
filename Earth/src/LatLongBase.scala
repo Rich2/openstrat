@@ -18,6 +18,12 @@ trait LatLongBase
   /** Subtract the [[AngleVec]] delta parameter from the latitude. */
   def subLat(delta: AngleVec): LatLongBase
 
+  /** Add the [[AngleVec]] delta parameter to the longitude. */
+  def addLongVec(delta: AngleVec): LatLongBase //= addLongMilliSeca(delta.milliSecs)
+
+  /** Subtract the [[AngleVec]] delta parameter from the longitude. */
+  def subLong(delta: AngleVec): LatLongBase
+
   @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
 
   @inline final def long: Longitude = Longitude.milliSecs(longMilliSecs)

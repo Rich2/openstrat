@@ -2,9 +2,10 @@
 package ostrat; package geom; package pglobe
 
 /** A view of the Earth. Currently North can only be up or down. */
-class EarthView (val latDegs: Double, val longDegs: Double, val scaleKm: Double, val up: Boolean)
+class EarthView (val latDegs: Double, val longDegs: Double, val scaleKm: Double, val up: Boolean = true)
 {
   def latLong: LatLong = LatLong.degs(latDegs, longDegs)
+  def latLongDirn: LatLongDirn = LatLongDirn.degs(latDegs, longDegs)
   def scale: Length = scaleKm * 1.km
 }
 
