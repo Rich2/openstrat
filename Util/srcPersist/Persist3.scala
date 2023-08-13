@@ -94,7 +94,13 @@ object Show3T
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+
+    val defaultNum: Int = None match
+    { case _ if opt3.isEmpty => 0
+      case _ if opt2.isEmpty => 1
+      case _ if opt1.isEmpty => 2
+      case _ => 3
+    }
 
     override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
 
