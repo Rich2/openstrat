@@ -5,8 +5,8 @@ import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProjection
 {
   override type SysT = EGridSys
-  var focus: LatLong = 0 ll 0
-  var northUp: Boolean = true
+  var focus: LatLongDirn = LatLongDirn.degs(0, 0)
+  def northUp: Boolean = focus.dirn
   def metresPerPixel: Length = parent.cScale / pixelsPerC
 
   def setMetresPerPixel(value: Length): Unit = pixelsPerC = parent.cScale / value
@@ -18,7 +18,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   {
     case hv: HGView => {
       pixelsPerC = hv.pixelsPerC
-      focus = parent.hCoordLL(hv.hCoord)
+      focus = parent.hCoordLLDirn(hv.hCoord)
     }
     //case d: Double => cPScale = d
     case _ =>
@@ -38,13 +38,11 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def goNorth: PolygonCompound = goDirn("\u2191") { delta =>
     val newLat: Double = focus.latDegs + ife(northUp, delta, -delta)
     focus = ife(northUp, focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
-    // northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
 
   def goSouth: PolygonCompound = goDirn("\u2193") { delta =>
     val newLat: Double = focus.latDegs + ife(northUp, -delta, delta)
     focus = ife(northUp, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
-    //northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
 
   def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(true/* northUp */, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
@@ -103,14 +101,14 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
 
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
-  def irr0: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus, true))// northUp))
+  def irr0: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus))
   def irr1: RArr[(EArea2, PolygonM2)] = irr0.filter(_._2.vertsMin3)
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair
     val col = ea.terr match {
       case w: Water => BlueViolet
-      case _ if ea == pOceans.Artic => White// LightSkyBlue.average(White).average(White)
+      case _ if ea == pOceans.Artic => White
       case _ => LightPink
     }
     p.map(_ / metresPerPixel).fill(col)

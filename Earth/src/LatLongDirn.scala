@@ -2,8 +2,10 @@
 package ostrat; package geom; package pglobe
 
 /** A [[Latitude]] and [[Longitude]] class with a binary north / south direction. */
-class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boolean) extends LatLongBase
+class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn: Boolean) extends LatLongBase
 {
+  def str: String = latDegStr -- longDegStr
+
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    * moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   override def addLat(delta: AngleVec): LatLongDirn = (latMilliSecs + delta.milliSecs) % MilliSecsIn360Degs match
