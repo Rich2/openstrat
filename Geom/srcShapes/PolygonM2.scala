@@ -45,6 +45,9 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   }
 
   override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
+
+  def revY: PolygonM2 = map(_.revY)
+  def revYIf(cond: Boolean): PolygonM2 = ife(cond, revY, this)
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */

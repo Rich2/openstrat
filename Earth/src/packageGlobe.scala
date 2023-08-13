@@ -58,10 +58,10 @@ package object pglobe
   }
 
   implicit class LatLongGlobeExtensions(val thisPt: PtM3)
-  { def fromLatLongFocus(focus: LatLongBase): PtM3 = thisPt.rotateY(-focus.longVec).rotateX(-focus.latVec)
+  { def fromLatLongFocus(focus: LatLongDirn): PtM3 = thisPt.rotateY(-focus.longVec).rotateX(-focus.latVec)
   }
 
   implicit class RotateM3GlobeExtensions[T](val thisT: T)(implicit ev: RotateM3T[T])
-  { def fromLatLongFocus(focus: LatLongBase): T = thisT.rotateY(-focus.longVec).rotateX(-focus.latVec)
+  { def fromLatLongFocus(focus: LatLongDirn): T = thisT.rotateY(-focus.longVec).rotateX(-focus.latVec)
   }
 }

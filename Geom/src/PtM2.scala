@@ -50,6 +50,9 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDb
 
   /** [[LinSegM]] from the parameter point to this point. */
   override def lineSegFrom(startPt: PtM2): LineSegM2 = LineSegM2(startPt, this)
+
+  def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
+  def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
 }
 
 /** Companion object for [[PtM2]] class contains factory methods. */

@@ -7,6 +7,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override type SysT = EGridSys
   var focus: LatLongDirn = LatLongDirn.degs(0, 0)
   def northUp: Boolean = focus.dirn
+  def southUp: Boolean = !focus.dirn
   def metresPerPixel: Length = parent.cScale / pixelsPerC
 
   def setMetresPerPixel(value: Length): Unit = pixelsPerC = parent.cScale / value
@@ -82,19 +83,20 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override def transOptCoord(hc: HCoord): Option[Pt2] =
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
-    val opt = ife(rotated.zPos, Some(rotated.xy), None)
+    val opt = ife(rotated.zPos, Some(rotated.xy.revYIf(southUp)), None)
     opt.map(_ / metresPerPixel)
   }
 
   override def transCoord(hc: HCoord): Pt2 =
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
-    rotated.xy / metresPerPixel
+    val r1: PtM2 = rotated.xy.revYIf(southUp)
+    r1 / metresPerPixel
   }
 
   override def transTile(hc: HCen): Option[Polygon] =
   { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
-    val opt = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
+    val opt: Option[PolygonM2] = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
     opt.map(_.map(_ / metresPerPixel))
   }
 
@@ -103,6 +105,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   def irr0: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus))
   def irr1: RArr[(EArea2, PolygonM2)] = irr0.filter(_._2.vertsMin3)
+  def irr2: RArr[(EArea2, PolygonM2)] = ife(northUp, irr1, irr1.map(pair => (pair._1, pair._2.revY)))
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair
