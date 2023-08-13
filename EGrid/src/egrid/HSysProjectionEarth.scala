@@ -51,7 +51,18 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
   override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
 
-  override def tilePolygons: PolygonArr = ???
+  override def tilePolygons: PolygonArr = {
+    val r1: PolygonHCArr = gChild.map(_.hVertPolygon)
+    r1.optMap{phc =>
+      var i = 0
+      var continue: Boolean = true
+      while(i < phc.vertNum && continue){
+        i += 1
+      }
+      ???
+    }
+    ???
+  }
 
   override def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems = gChild.map{ hc => f(hc, transCoord(hc)) }
   override def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenPtMap(f))
