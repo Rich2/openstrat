@@ -23,7 +23,8 @@ trait LatLongBase
 
   /** Subtract the [[AngleVec]] delta parameter from the longitude. */
   def subLong(delta: AngleVec): LatLongBase
-
+   def latVec: AngleVec = latDegs.degsVec
+   def longVec: AngleVec = longDegs.degsVec
   @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
 
   @inline final def long: Longitude = Longitude.milliSecs(longMilliSecs)
@@ -67,4 +68,18 @@ trait LatLongBase
   def polarRadius: Length = EarthPolarRadius
 
   def equatorialRadius: Length = EarthEquatorialRadius
+
+  def latDegMinStr: String = {
+    val (degs, mins) = latRadians.abs.toDegsMins
+    degs.toString + latLetter + mins.str2Dig
+  }
+
+  def longDegMinStr: String = {
+    val (degs, mins) = longRadians.abs.toDegsMins
+    degs.toString + longLetter + mins.str2Dig
+  }
+
+  def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
+
+  def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)
 }

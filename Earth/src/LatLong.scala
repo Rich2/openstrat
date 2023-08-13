@@ -8,29 +8,14 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
 { override type ThisT = LatLong
   override type LineSegT = LineSegLL
   override def typeStr: String = "LatLong"
-
   def show1: Double = latDegs
   def show2: Double = longDegs
   inline def latMilliSecs: Double = dbl1
   inline def longMilliSecs: Double = dbl2
-  def latVec: AngleVec = latDegs.degsVec
-  def longVec: AngleVec = longDegs.degsVec
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
   def degStr: String = latDegStr.appendCommas(longDegStr)
 
-  def latDegMinStr: String = {
-    val (degs, mins) = latRadians.abs.toDegsMins
-    degs.toString + latLetter + mins.str2Dig
-  }
 
-  def longDegMinStr: String = {
-    val (degs, mins) = longRadians.abs.toDegsMins
-    degs.toString + longLetter + mins.str2Dig
-  }
-
-  def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
-
-  def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)
 
   override def str: String = latDegStr appendCommas(longDegStr)
   def persistName = "LatLong"
