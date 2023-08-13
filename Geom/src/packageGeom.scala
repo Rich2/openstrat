@@ -69,6 +69,9 @@ package object geom
   /** The number of thousands of an arc second in 360 degrees = 3600000000. */
   val MilliSecsIn360Degs: Int = MilliSecsInDeg * 360
 
+  /** The number of thousands of an arc second in 270 degrees = 2700000000. */
+  val MilliSecsIn270Degs: Int = MilliSecsInDeg * 270
+
   /** The number of thousands of an arc second in 180 degrees = 1800000000. */
   val MilliSecsIn180Degs: Int = MilliSecsInDeg * 180
 

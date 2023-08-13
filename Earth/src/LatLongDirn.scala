@@ -6,10 +6,11 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boo
 {
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    * moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  override def addLat(delta: AngleVec): LatLongDirn = (latMilliSecs + delta.milliSecs) match { //Going over the north Pole
-    case a if a > MilliSecsIn90Degs => LatLongDirn.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, dirn)
-    //Going over the south Pole from western longitude
-    case a if a < -MilliSecsIn90Degs => LatLongDirn.milliSecs(-MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, dirn)
+  override def addLat(delta: AngleVec): LatLongDirn = (latMilliSecs + delta.milliSecs) % MilliSecsIn360Degs match
+  { case a if a > MilliSecsIn270Degs => LatLongDirn.milliSecs(MilliSecsIn360Degs - a, longMilliSecs, dirn)
+    case a if a > MilliSecsIn90Degs => LatLongDirn.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, !dirn)
+    case a if a < -MilliSecsIn270Degs => LatLongDirn.milliSecs(MilliSecsIn360Degs + a, longMilliSecs, dirn)
+    case a if a < -MilliSecsIn90Degs => LatLongDirn.milliSecs(-MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, !dirn)
     case a => LatLongDirn.milliSecs(a, longMilliSecs, dirn)
   }
 
