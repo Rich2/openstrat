@@ -2,11 +2,11 @@
 package ostrat; package geom; package pglobe
 
 /** A [[Latitude]] and [[Longitude]] class with a binary north / south direction. */
-class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boolean) extends LatLongBase {
-
+class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boolean) extends LatLongBase
+{
   /** Add the delta parameter to the longitude. */
-  def addLongMilliSeca(delta: Double): LatLongDirn = {
-    val long1 = longMilliSecs + delta
+  def addLongMilliSeca(delta: Double): LatLongDirn =
+  { val long1 = longMilliSecs + delta
     val long2 = long1 %+- MilliSecsIn180Degs
     LatLongDirn.milliSecs(latMilliSecs, long2, dirn)
   }

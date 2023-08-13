@@ -30,6 +30,7 @@ CurveSeg with Show2[Pt2, Pt2] with AffinePreserve
   def shortArray: Array[Short] = Array(startX.toShort, startY.toShort,endX.toShort,endY.toShort)
   def isHorizontal: Boolean = startY == endY
   def isVertical: Boolean = startX == endX
+
   /**Checks whether a forward horizontal ray crosses this polygon side. */
   def rayIntersection(pt: Pt2): Boolean = ife3(
     pt.y > startY & pt.y > endY, false, //Check if point is above the polygon side, above beg pt and end pt

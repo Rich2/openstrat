@@ -183,7 +183,14 @@ object Persist3
     opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3]) extends Persist3[A1, A2, A3, R]
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+
+    val defaultNum: Int = None match{
+      case _ if opt3.isEmpty => 0
+      case _ if opt2.isEmpty => 1
+      case _ if opt1.isEmpty => 2
+      case _ => 3
+    }
+
     override def syntaxDepthT(obj: R): Int = ???
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
@@ -209,7 +216,14 @@ object PersistInt3
     PersistInt3[R]
   { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+
+    val defaultNum: Int = None match
+    { case _ if opt3.isEmpty => 0
+      case _ if opt2.isEmpty => 1
+      case _ if opt1.isEmpty => 2
+      case _ => 3
+    }
+
     override def syntaxDepthT(obj: R): Int = ???
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
