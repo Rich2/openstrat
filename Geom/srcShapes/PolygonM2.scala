@@ -69,6 +69,7 @@ object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
   }
 }
 
+/** Arr of [[PolygonM2]]s. */
 class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM2]
 { override type ThisT = PolygonM2Arr
   override def typeStr: String = "PolygonMArr"
@@ -77,6 +78,7 @@ class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM2Arr = new PolygonM2Arr(array)
 }
 
+/** Buff of [[PolygonM2]]s. */
 class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM2]
 { override type ThisT = PolygonM2Buff
   override def typeStr: String = "PolygonMBuff"
@@ -84,6 +86,7 @@ class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal
   override def fromArrayDbl(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 }
 
+/** Companion object of the [[PolygonM2Buff]] class, a Buff of [[PolygonM2]]s, contains factory apply method. */
 object PolygonM2Buff
 { def apply(initLen: Int = 4): PolygonM2Buff = new PolygonM2Buff(new ArrayBuffer[Array[Double]](initLen))
 }
