@@ -105,7 +105,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   def irr0: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus))
   def irr1: RArr[(EArea2, PolygonM2)] = irr0.filter(_._2.vertsMin3)
-  def irr2: RArr[(EArea2, PolygonM2)] = ife(northUp, irr1, irr1.map(pair => (pair._1, pair._2.revY)))
+  //def irr2: RArr[(EArea2, PolygonM2)] = ife(northUp, irr1, irr1.map(pair => (pair._1, pair._2.revY)))
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair
@@ -123,7 +123,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   def irrNames: RArr[TextGraphic] = irr1.map { pair =>
     val (d, _) = pair
-    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / metresPerPixel
+    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy.rotate180If(southUp) / metresPerPixel
     TextGraphic(d.name, 12, posn, d.colour.contrastBW)
   }
 

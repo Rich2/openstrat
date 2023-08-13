@@ -25,7 +25,14 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDb
   def / (operator: Double): PtM2 = PtM2(x / operator, y / operator)
   //def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
-  def negXandY: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
+  /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
+  def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
+
+  /** Rotates th point 180 degrees around the origin if the condition is true. */
+  def rotate180If(cond: Boolean): PtM2 = ife(cond, rotate180, this)
+
+  /** Rotates the point 180 degrees around the origin  if the condition is not true. */
+  def rotate180IfNot(cond: Boolean): PtM2 = ife(cond, this, rotate180)
 
   def rotate(a: AngleVec): PtM2 =  PtM2.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
