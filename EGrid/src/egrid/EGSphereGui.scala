@@ -11,7 +11,7 @@ class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   var scale: Length = gridSys.cScale / viewIn.pixelsPerC
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
-  var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
+  var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(true)
 
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)

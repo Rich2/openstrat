@@ -12,7 +12,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
 
   val scaleMin: Length = 0.2.kMetres
   val scaleMax: Length = 100.kMetres
-  var focus: LatLong = viewIn.latLong
+  var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 

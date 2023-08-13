@@ -14,7 +14,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
   val scaleMin: Length = 0.2.kMetres
   val scaleMax: Length = 100.kMetres
-  var focus: LatLong = viewIn.latLong
+  var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 

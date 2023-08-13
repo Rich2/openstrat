@@ -15,7 +15,7 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boo
   }
 
   /** Subtract the [[AngleVec]] delta parameter from the latitude. */
-  def subLat(delta: AngleVec): LatLongBase = addLat(-delta)
+  def subLat(delta: AngleVec): LatLongDirn = addLat(-delta)
 
 
   /** Add the delta parameter to the longitude. */

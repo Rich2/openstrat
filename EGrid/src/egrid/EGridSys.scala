@@ -13,6 +13,8 @@ trait EGridSys extends HGridSys
   /** hex coordinate to latitude and longitude. */
   def hCoordLL(hc: HCoord): LatLong
 
+  def hCoordLLDirn(hc: HCoord, dirn: Boolean = true): LatLongDirn = hCoordLL(hc).andDirn(dirn)
+
   def sideLineLLs: LineSegLLArr = sideLineSegHCs.map(_.map(hCoordLL(_)))
   def innerSideLineLLs: LineSegLLArr = innerSideLineSegHCs.map(_.map(hCoordLL(_)))
   def outerSideLineLLs: LineSegLLArr = outerSideLineSegHCs.map(_.map(hCoordLL(_)))
