@@ -2,7 +2,7 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTile._
 
-/** 320km hex terrain centred on 30 west. */
+/** [[WTile]] terrain for 45° west to 15° wast, centred on 30° west. Hex tile scale of 320km. */
 object Terr320W30 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.w30(118)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
@@ -26,6 +26,5 @@ object Terr320W30 extends Long320Terrs
       TRow(118, sea * 8, desert),
     )
   }
-
   help.run
 }

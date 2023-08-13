@@ -31,7 +31,7 @@ CurveSeg with Show2[Pt2, Pt2] with AffinePreserve
   def isHorizontal: Boolean = startY == endY
   def isVertical: Boolean = startX == endX
 
-  /**Checks whether a forward horizontal ray crosses this polygon side. */
+  /** Checks whether a forward horizontal ray crosses this polygon side. */
   def rayIntersection(pt: Pt2): Boolean = None match{
     case _ if pt.y > startY & pt.y > endY => false //Check if point is above the polygon side, above beg pt and end pt
     case _ if pt.y < startY & pt.y < endY => false //Check if point is  below the polygon side, below beg pt and end pt
@@ -159,6 +159,7 @@ class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
 
+/** Companion object for [[LineSegBuff]] trait, contains factory apply method. */
 object LineSegBuff
 { def apply(length: Int = 4): LineSegBuff = new LineSegBuff(new ArrayBuffer[Double](length))
 }
