@@ -32,16 +32,17 @@ CurveSeg with Show2[Pt2, Pt2] with AffinePreserve
   def isVertical: Boolean = startX == endX
 
   /**Checks whether a forward horizontal ray crosses this polygon side. */
-  def rayIntersection(pt: Pt2): Boolean = ife3(
-    pt.y > startY & pt.y > endY, false, //Check if point is above the polygon side, above beg pt and end pt
-    pt.y < startY & pt.y < endY, false, //Check if point is  below the polygon side, below beg pt and end pt
-    0.000001 > (endY - startY).abs, false, /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
+  def rayIntersection(pt: Pt2): Boolean = None match{
+    case _ if pt.y > startY & pt.y > endY => false //Check if point is above the polygon side, above beg pt and end pt
+    case _ if pt.y < startY & pt.y < endY => false //Check if point is  below the polygon side, below beg pt and end pt
+    case _ if 0.000001 > (endY - startY).abs => false /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
      of the polygon that the point can measured as outside */
-    { val ptDeltaY: Double = pt.y - startY
+    case _ => { val ptDeltaY: Double = pt.y - startY
       val deltaX: Double = endX - startX //Not entirely sure what's going on here
       val lineX: Double = startX + (deltaX * ptDeltaY / (endY - startY)) //
       pt.x > lineX
-    })
+    }
+  }
 
   /** The mid or half way point of this lineSeg. */
   def midPt: Pt2 = Pt2((startX + endX) / 2, (startY + endY) / 2)
