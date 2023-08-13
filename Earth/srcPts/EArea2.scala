@@ -48,7 +48,7 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: ATerr = Plai
   { val p3s0: PolygonM3 = polygonLL.toMetres3
     val p3s1: PolygonM3 = p3s0.fromLatLongFocus(focus)
     val p3s3: PolygonM2 = p3s1.earthZPosXYModify
-    val p3s4 = p3s3.negXAndYIfNot(focus.dirn)
+    val p3s4 = p3s3.rotate180IfNot(focus.dirn)
     (this, p3s4)
   }
 }
