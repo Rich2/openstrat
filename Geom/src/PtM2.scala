@@ -25,6 +25,8 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDb
   def / (operator: Double): PtM2 = PtM2(x / operator, y / operator)
   //def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
+  def negXandY: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
+
   def rotate(a: AngleVec): PtM2 =  PtM2.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
   def rotateRadians(r: Double): PtM2 =

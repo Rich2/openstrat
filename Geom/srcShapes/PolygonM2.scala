@@ -48,6 +48,9 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 
   def revY: PolygonM2 = map(_.revY)
   def revYIf(cond: Boolean): PolygonM2 = ife(cond, revY, this)
+  def negXAndY: PolygonM2 = map(_.negXandY)
+  def negXAndYIf(cond: Boolean): PolygonM2 = ife(cond, map(_.negXandY), this)
+  def negXAndYIfNot(cond: Boolean): PolygonM2 = ife(cond, this, map(_.negXandY))
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
