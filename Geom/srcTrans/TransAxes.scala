@@ -65,7 +65,7 @@ class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
   @inline def rotate90: T = ev.rotate90(thisT)
   @inline def rotate180: T = ev.rotate180(thisT)
   @inline def rotate270: T = ev.rotate270(thisT)
-
+  @inline def rotate180If(cond: Boolean): T = ife(cond, ev.rotate180(thisT), thisT)
   def rotateQuadrants(implicit ct: ClassTag[T]): RArr[T] = RArr(thisT, rotate270, rotate180, rotate90)
 }
 

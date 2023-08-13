@@ -72,7 +72,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override def transLineSeg(seg: LineSegHC): LineSeg = seg.map(transCoord(_))
 
   /** Optionally Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
-  override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] = seg.mapOpt(transOptCoord(_))
+  override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] = seg.mapOpt(transOptCoord(_).rotate180If(southUp))
 
   def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
   { val rotated = inp.fromLatLongFocus(focus)
@@ -83,21 +83,21 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override def transOptCoord(hc: HCoord): Option[Pt2] =
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
-    val opt = ife(rotated.zPos, Some(rotated.xy.revYIf(southUp)), None)
+    val opt = ife(rotated.zPos, Some(rotated.xy.rotate180If(southUp)), None)
     opt.map(_ / metresPerPixel)
   }
 
   override def transCoord(hc: HCoord): Pt2 =
   { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
-    val r1: PtM2 = rotated.xy.revYIf(southUp)
+    val r1: PtM2 = rotated.xy.rotate180If(southUp)
     r1 / metresPerPixel
   }
 
   override def transTile(hc: HCen): Option[Polygon] =
   { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
     val opt: Option[PolygonM2] = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
-    opt.map{poly => poly.map(_.revYIf(southUp) / metresPerPixel) }
+    opt.map{poly => poly.map(_.rotate180If(southUp) / metresPerPixel) }
   }
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
@@ -105,7 +105,6 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   def irr0: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus))
   def irr1: RArr[(EArea2, PolygonM2)] = irr0.filter(_._2.vertsMin3)
-  //def irr2: RArr[(EArea2, PolygonM2)] = ife(northUp, irr1, irr1.map(pair => (pair._1, pair._2.revY)))
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair
