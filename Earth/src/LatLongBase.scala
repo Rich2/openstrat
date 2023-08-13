@@ -11,6 +11,13 @@ trait LatLongBase
 
   def name2: String = "long"
 
+  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
+   * moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
+  def addLat(delta: AngleVec): LatLongBase
+
+  /** Subtract the [[AngleVec]] delta parameter from the latitude. */
+  def subLat(delta: AngleVec): LatLongBase
+
   @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
 
   @inline final def long: Longitude = Longitude.milliSecs(longMilliSecs)

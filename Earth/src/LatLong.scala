@@ -56,7 +56,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
 
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def addLat(delta: AngleVec): LatLong = (latMilliSecs + delta.milliSecs) match
+  override def addLat(delta: AngleVec): LatLong = (latMilliSecs + delta.milliSecs) match
   { //Going over the north Pole
     case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs)
     //Going over the south Pole from western longitude
@@ -65,7 +65,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   }
 
   /** Subtract the [[AngleVec]] delta parameter from the latitude. */
-  def subLat(delta: AngleVec): LatLong = addLat(-delta)
+  override def subLat(delta: AngleVec): LatLong = addLat(-delta)
 
   /** Add the [[Longitude]] delta parameter to the longitude. */
   def addLong(delta: Longitude): LatLong = addLongMilliSeca(delta.milliSecs)

@@ -4,6 +4,19 @@ package ostrat; package geom; package pglobe
 /** A [[Latitude]] and [[Longitude]] class with a binary north / south direction. */
 class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, dirn: Boolean) extends LatLongBase
 {
+  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
+   * moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
+  override def addLat(delta: AngleVec): LatLongDirn = (latMilliSecs + delta.milliSecs) match { //Going over the north Pole
+    case a if a > MilliSecsIn90Degs => LatLongDirn.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, dirn)
+    //Going over the south Pole from western longitude
+    case a if a < -MilliSecsIn90Degs => LatLongDirn.milliSecs(-MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, dirn)
+    case a => LatLongDirn.milliSecs(a, longMilliSecs, dirn)
+  }
+
+  /** Subtract the [[AngleVec]] delta parameter from the latitude. */
+  def subLat(delta: AngleVec): LatLongBase = addLat(-delta)
+
+
   /** Add the delta parameter to the longitude. */
   def addLongMilliSeca(delta: Double): LatLongDirn =
   { val long1 = longMilliSecs + delta
