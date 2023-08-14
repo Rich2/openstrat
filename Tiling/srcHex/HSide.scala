@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer, pgui._
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
@@ -196,6 +196,30 @@ object HSideC
 {
   def unapply(inp: Any): Option[(Int, Int)] = inp match
   { case hs: HSideC => Some(hs.r, hs.c)
+    case _ => None
+  }
+}
+
+/** [[PairElem]] class for [[HSide]]s. Allows for the efficient storage of sequences in [[HSidePairArr]]s. */
+class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HSide, A2] with Selectable
+{ override def a1: HSide = HSide(a1Int1, a1Int2)
+  override def toString: String = s"$a2; $a1Int1, $a1Int2"
+
+  /** The [[String]] to be displayed in the status bar in a GUI when selected. */
+  override def selectStr: String =
+  { val s1 = a2 match
+  { case sel: Selectable => sel.selectStr
+    case st: Show => st.str
+    case a => a.toString
+  }
+    s"$s1; ${a1.rcStr}"
+  }
+}
+
+object HSidePair
+{ def apply[A2](hc: HSide, a2: A2): HSidePair[A2] = new HSidePair[A2](hc.int1, hc.int2, a2)
+  def unapply(inp: Any): Option[(HSide, Any)] = inp match{
+    case hcp: HSidePair[_] => Some((hcp.a1, hcp.a2))
     case _ => None
   }
 }

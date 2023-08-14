@@ -44,6 +44,10 @@ trait HSysProjection extends TSysProjection
     r1
   }
 
+  /*def hSidePolygons(corners: HCornerLayer): HSidePairArr[Polygon] ={
+    ???
+  }*/
+
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr
 

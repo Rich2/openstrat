@@ -1,7 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-import ostrat.pgui.Selectable
+import geom._, pgui._
 
 import collection.mutable.ArrayBuffer
 import reflect.ClassTag
@@ -170,7 +169,7 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 { type ThisT = HCenArr
   override def newElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
-  override def typeStr: String = "HCens"
+  override def typeStr: String = "HCenArr"
   override def fElemStr: HCen => String = _.toString
 
   def ===(operand: HCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
@@ -205,6 +204,7 @@ object HCenBuff
 { def apply(length: Int = 4): HCenBuff = new HCenBuff(new ArrayBuffer[Int](length * 2))
 }
 
+/** [[PairElem]] class for [[HCen]]s. Allows for the efficient storage of sequences in [[HCenPairArr]]s. */
 class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2] with Selectable
 { override def a1: HCen = HCen(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
