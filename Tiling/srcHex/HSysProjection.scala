@@ -31,7 +31,7 @@ trait HSysProjection extends TSysProjection
   /** IfFlatMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The flatMapping function is only applied if the
    *  first function condition is true */
   def hCensIfPtFlatMap[ArrB <: Arr[_]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
-    gChild.ifFlatMap(f1)(hc => f2(hc, transCoord(hc)))
+    gChild.ifFlatMap(hc => f1(hc) && transOptCoord(hc).nonEmpty)(hc => f2(hc, transCoord(hc)))
 
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
