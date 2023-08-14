@@ -35,11 +35,13 @@ trait HSysProjection extends TSysProjection
 
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
+  /** Produces the hex tile polygons modified by the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
   def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] = gChild.optMapPair{hc =>
     val poly: PolygonHVOffset = corners.tilePoly(hc)(parent)
     poly.optMap(transOptHVOffset(_))
   }
 
+  /** Produces the side polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
   def hSidePolygons(corners: HCornerLayer): HSidePairArr[Polygon] = gChild.sideOptMapPair { hs =>
     val poly: PolygonHVOffset = corners.sidePoly(hs)(parent)
       poly.optMap(transOptHVOffset(_))
