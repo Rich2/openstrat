@@ -28,7 +28,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
       sTerrs(hs) match
       { case VSideNone if t1.colour == t2.colour =>
-        { val cs: (HCen, Int, Int) = hs.corners
+        { val cs: (HCen, Int, Int) = hs.cornerNums
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(lineColour = t1.contrastBW))
         }

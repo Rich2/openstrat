@@ -1,9 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer
-import pgui._
-
-import scala.reflect.ClassTag
+import collection.mutable.ArrayBuffer, geom._, pgui._, reflect.ClassTag
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
@@ -58,11 +55,21 @@ trait HSide extends HCenOrSide with TSide
   def tileRtReg: HCen
 
   /** Not sure about this method. */
-  def corners(implicit sys: HGridSys): (HCen, Int, Int)
+  def cornerNums(implicit sys: HGridSys): (HCen, Int, Int)
 
   def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset
 
   def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset
+
+  def sideLineHVAndOffSet(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset = {
+    val cs: (HCen, Int, Int) = cornerNums
+    corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
+  }
+
+  def projCornersSideLine(proj: HSysProjection, corners: HCornerLayer): Option[LineSeg] = {
+    val ls1: LineSegHVAndOffset = sideLineHVAndOffSet(corners)(proj.parent)
+    ls1.mapOpt(proj.transOptHVOffset(_))
+  }
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
@@ -113,7 +120,7 @@ class HSideA(val r: Int, val c: Int) extends HSide
   override def tileRtAndVert: (HCen, Int) = (HCen(r + 1, c + 1), 4)
   override def lineSegHC: LineSegHC = LineSegHC(r, c - 1, r, c + 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
+  override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
 
   override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
     if(sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 0), corners.cornerV1(tileLt, 1))
@@ -147,7 +154,7 @@ class HSideB(val r: Int, val c: Int) extends HSide
   override def tileRtAndVert: (HCen, Int) = (HCen(r, c + 2), 5)
   override def lineSegHC: LineSegHC = LineSegHC(r + 1, c, r - 1, c)
   override def unsafeTiles: (HCen, HCen) = (HCen(r, c - 2), HCen(r, c + 2))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt), (tileRt, 4, 5), (tileLt, 1, 2))
+  override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt), (tileRt, 4, 5), (tileLt, 1, 2))
 
   override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
     if (sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 1), corners.cornerV1(tileLt, 2))
@@ -186,7 +193,7 @@ class HSideC(val r: Int, val c: Int) extends HSide
   override def tileRtAndVert: (HCen, Int) = (HCen(r - 1, c + 1), 0)
   override def lineSegHC: LineSegHC = LineSegHC(r, c + 1, r, c - 1)
   override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
-  override def corners(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt),(tileRt, 5, 0),  (tileLt, 2, 3))
+  override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt),(tileRt, 5, 0),  (tileLt, 2, 3))
 
   override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
     if (sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))

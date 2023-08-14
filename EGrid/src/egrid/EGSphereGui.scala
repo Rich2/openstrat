@@ -34,22 +34,21 @@ class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
+    def sidePolys: HSidePairArr[Polygon] = proj.hSidePolygons(corners)
+    def sideFills: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
 
-    def sideFills: GraphicElems = sTerrs.somePolyMap(proj, corners){ (st, poly) => poly.fill(st.colour) }
-
-    def sideActives: GraphicElems = sTerrs.someOnlyHSPolyMap(proj, corners){ (hs, poly) => poly.active(hs) }
+    def sideActives: GraphicElems = sidePolys.pairMap{ (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
       def t1: WTile = terrs(hs.tileLt)
       def t2: WTile = terrs(hs.tileRt)
       sTerrs(hs) match {
         case WSideNone if t1.colour == t2.colour => {
-          val cs: (HCen, Int, Int) = hs.corners
-          val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
-          Some(ls1.draw(lineColour = t1.contrastBW))
+          val ls1: Option[LineSeg] = hs.projCornersSideLine(proj, corners)
+          ls1.map(_.draw(lineColour = t1.contrastBW))
         }
-        case _: WSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVOffset).draw(lineColour = t1.contrastBW))
-        case _: WSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVOffset).draw(lineColour = t2.contrastBW))
+        case _: WSideSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))
+        case _: WSideSome if t2.isWater => hs.rightCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t2.contrastBW))
         case _ => None
       }
     }

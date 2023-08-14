@@ -31,6 +31,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
     LineSegHVAndOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
+  /** Not sure about the safety of this method. */
   def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LineSeg =
     sideLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
 
