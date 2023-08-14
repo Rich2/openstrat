@@ -35,18 +35,15 @@ trait HSysProjection extends TSysProjection
 
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
-  def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] =
-  { val r1 = gChild.optMapPair{hc =>
-      val poly = corners.tilePoly(hc)(parent)
-      val poly2 = poly.optMap (transOptHVOffset(_))
-      poly2
-    }
-    r1
+  def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] = gChild.optMapPair{hc =>
+    val poly: PolygonHVOffset = corners.tilePoly(hc)(parent)
+    poly.optMap(transOptHVOffset(_))
   }
 
-  /*def hSidePolygons(corners: HCornerLayer): HSidePairArr[Polygon] ={
-    ???
-  }*/
+  def hSidePolygons(corners: HCornerLayer): HSidePairArr[Polygon] = gChild.sideOptMapPair { hs =>
+    val poly: PolygonHVOffset = corners.sidePoly(hs)(parent)
+      poly.optMap(transOptHVOffset(_))
+    }
 
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr

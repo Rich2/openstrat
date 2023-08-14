@@ -15,7 +15,7 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
       apply(hs) match {
         case
           _: HSideSome => {
-          val poly = corners.sideVerts(hs).project(proj)
+          val poly = corners.sidePoly(hs).project(proj)
           Some(f(hs, poly))
         }
         case _ => None
@@ -27,7 +27,7 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
       apply(hs) match {
         case
           a: HSideSome => {
-          val poly = corners.sideVerts(hs).project(proj)
+          val poly = corners.sidePoly(hs).project(proj)
           Some(f(hs, poly, a))
         }
         case _ => None

@@ -16,7 +16,7 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
       apply(hs) match {
         case
           _: HSideSome => {
-          val poly = corners.sideVerts(hs).project(proj)
+          val poly = corners.sidePoly(hs).project(proj)
           Some(f(hs, poly))
         }
         case _ => None
@@ -29,7 +29,7 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
       apply(hs) match {
         case
           sa: HSideSome => {
-          val poly = corners.sideVerts(hs).project(proj)
+          val poly = corners.sidePoly(hs).project(proj)
           Some(f(sa.asInstanceOf[SA], poly))
         }
         case _ => None
@@ -42,7 +42,7 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
       apply(hs) match {
         case
           sa: HSideSome =>
-        { val poly = corners.sideVerts(hs).project(proj)
+        { val poly = corners.sidePoly(hs).project(proj)
           Some(f(sa.asInstanceOf[SA], hs, poly))
         }
         case _ => None

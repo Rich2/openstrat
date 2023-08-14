@@ -300,7 +300,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Returns the [[PolygonHVOffset]] [[PolygonLike]] for the given [[HSide]]. */
-  def sideVerts(hs: HSide)(implicit gridSys: HGridSys): PolygonHVOffset = hs.tileLtOpt match
+  def sidePoly(hs: HSide)(implicit gridSys: HGridSys): PolygonHVOffset = hs.tileLtOpt match
   {
     case None =>
     { val (hcRt, vi) = hs.tileRtAndVert
