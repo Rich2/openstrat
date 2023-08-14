@@ -37,8 +37,9 @@ trait HSysProjection extends TSysProjection
 
   def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] =
   { val r1 = gChild.optMapPair{hc =>
-      val poly = corners.tilePoly(hc)(parent).map (transHVOffset(_))
-      Some(poly)
+      val poly = corners.tilePoly(hc)(parent)
+      val poly2 = poly.optMap (transOptHVOffset(_))
+      poly2
     }
     r1
   }
