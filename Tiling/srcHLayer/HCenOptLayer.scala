@@ -70,8 +70,15 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
-  def setSome(hc: HCen, value: A)(implicit gridSys: HGridSys): HCenOptLayer[A] =
+  def setSome(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): HCenOptLayer[A] =
   { val newArr = unsafeArray.clone()
+    newArr(gridSys.layerArrayIndex(r, c)) = value
+    new HCenOptLayer[A](newArr)
+  }
+
+  /** Creates a new ArrOpt with the specified location set to the specified value. */
+  def setSome(hc: HCen, value: A)(implicit gridSys: HGridSys): HCenOptLayer[A] = {
+    val newArr = unsafeArray.clone()
     newArr(gridSys.layerArrayIndex(hc)) = value
     new HCenOptLayer[A](newArr)
   }

@@ -2,17 +2,8 @@
 package ostrat; package peri;
 import prid.phex._, egrid._, eg13._
 
-trait Nation extends Coloured
-
-object NoNation extends Nation
-{
-  override def colour: Colour = Colour.White
-}
-
-case class Army(nation: Nation, num: Int)
-
 trait PeriScen extends HSysScen
-{ def title: String = "DLessScen"
+{ def title: String = "PeriScen"
   override implicit val gridSys: EGridSys
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
@@ -49,4 +40,6 @@ object PeriScen2 extends PeriScen
   }.combine
    
   override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
+  armies.setSomeMut(108, 1536, Army(NRed, 1))
+  armies.setSomeMut(96, 1540, Army(NViolet, 1))
 }

@@ -2,7 +2,7 @@
 package ostrat; package peri
 import geom._, prid._, phex._, pgui._, egrid._
 
-class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Diceless Gui") {
+class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui") {
   var scen: PeriScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
 
@@ -11,6 +11,8 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
   override def sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
 
   override def corners: HCornerLayer = scen.corners
+
+  def armies: HCenOptLayer[Army] = scen.armies
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -24,15 +26,32 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
       val ref = ife(armies.length == 1, HCenPair(hc, armies.head), HCenPair(hc, armies))
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, ref, armies.head.colour).slate(pt)
     }*/
-
+    def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
+      Circle(proj.pixelsPerTile / 2).fillActive(army.colour, army).slate(pt)
+    }
     //def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     //def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 //++ hexStrs2(armies.emptyTile(_)) ++ units ++ moveGraphics
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(armies.emptyTile(_)) ++ units// ++ moveGraphics
   }
 
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+    case (LeftButton, _, cl) => {
+      selected = cl.headOrNone
+      statusText = selectedStr
+      thisTop()
+    }
+
+    /*case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
+      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
+      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
+      repaint()
+    }*/
+
+    case (_, _, h) => deb("Other; " + h.toString)
+  }
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " /* + (scen.turn + 1).toString*/) { _ =>
     //scen = scen.endTurn(moves)

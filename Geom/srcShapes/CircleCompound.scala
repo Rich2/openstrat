@@ -41,3 +41,24 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
 
   override def addChildren(newChildren: Arr[GraphicElem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }
+
+object CircleCompound
+{
+  implicit val slateImplicit: Slate[CircleCompound] = (obj: CircleCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[CircleCompound] = (obj: CircleCompound, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[CircleCompound] = (obj: CircleCompound, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[CircleCompound] = (obj, matrix) => obj.prolign(matrix)
+  implicit val reflectImplicit: Reflect[CircleCompound] = (obj: CircleCompound, lineLike: LineLike) => obj.reflect(lineLike)
+
+  implicit val reflectAxesImplicit: TransAxes[CircleCompound] = new TransAxes[CircleCompound]
+  { override def negYT(obj: CircleCompound): CircleCompound = obj.negY
+
+    override def negXT(obj: CircleCompound): CircleCompound = obj.negX
+
+    override def rotate90(obj: CircleCompound): CircleCompound = obj.rotate90
+
+    override def rotate180(obj: CircleCompound): CircleCompound = obj.rotate180
+
+    override def rotate270(obj: CircleCompound): CircleCompound = obj.rotate270
+  }
+}
