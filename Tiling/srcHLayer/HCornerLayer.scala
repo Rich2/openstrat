@@ -214,12 +214,6 @@ final class HCornerLayer(val unsafeArray: Array[Int])
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
   def setMouth5Corner(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
 
-  /** Sets the corner in towards the [[HCen]] with a single [[HVOffsetDelta]]. Would like to make this protected and possibly remove altogether. */
-  /*def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { val dirn = HVDirn.inFromVertIndex(vertNum)
-    setCorner(cenR, cenC, vertNum, dirn, magnitude)
-  }*/
-
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = {
     val dirn = HVDirn.inFromVertIndex(vertNum)
 

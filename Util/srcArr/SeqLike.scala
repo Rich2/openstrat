@@ -31,7 +31,8 @@ trait SeqLike[+A] extends Any
   override def toString: String = typeStr + elemsStr
 }
 
-/** Base traits for all specialist Array buffer classes */
+/** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting
+ *  from [[SeqLikeCommonBuilder]]. */
 trait Buff[A] extends Any with Sequ[A]
 { def grow(newElem: A): Unit
 }
