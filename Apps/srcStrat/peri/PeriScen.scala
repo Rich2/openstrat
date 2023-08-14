@@ -12,7 +12,8 @@ object NoNation extends Nation
 case class Army(nation: Nation, num: Int)
 
 trait PeriScen extends HSysScen
-{
+{ def title: String = "DLessScen"
+  override implicit val gridSys: EGridSys
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
@@ -20,7 +21,7 @@ trait PeriScen extends HSysScen
 }
 
 object PeriScen1 extends PeriScen
-{ override implicit val gridSys: HGridSys = Scen13All.gridSys
+{ override implicit val gridSys: EGridSys = Scen13All.gridSys
   override val terrs: HCenLayer[WTile] = Scen13All.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners

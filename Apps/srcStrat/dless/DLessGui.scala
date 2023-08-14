@@ -3,7 +3,7 @@ package ostrat; package dless
 import geom._, prid._, phex._, pgui._, egrid._
 
 /** Graphical User Interface for [[DLessScen]]. */
-case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Diceless Gui")
+class DLessGui(val canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Diceless Gui")
 { var scen: DLessScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
@@ -72,4 +72,8 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     thisTop()
   }
   mainRepaint(frame)
+}
+
+object DLessGui
+{ def apply(canv: CanvasPlatform, scen: DLessScen, view: HGView, isFlat: Boolean = false): DLessGui = new DLessGui(canv, scen, view, isFlat)
 }
