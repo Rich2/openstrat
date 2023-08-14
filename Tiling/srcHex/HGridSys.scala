@@ -200,13 +200,15 @@ trait HGridSys extends Any with TGridSys
    * TileGrid structure is lost in the flatMap operation. */
   final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff(numTiles)
-    foreach { hCen => f(hCen).foreach(build.buffGrow(buff, _)) }
+    foreach { hCen => f(hCen).foreach(b => buff.grow(b)) }
     build.buffToSeqLike(buff)
   }
 
+  /** Maps each [[Hcen]] to an element of type B, only if the predicate function on the [[HCen]] is true. Collects the true cases. In some cases this
+   * will be easier and more efficient than employing the optMap method. */
   final def ifMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff(numTiles)
-    foreach { hCen => if(f1(hCen)) build.buffGrow(buff, f2(hCen)) }
+    foreach { hCen => if(f1(hCen)) buff.grow(f2(hCen)) }
     build.buffToSeqLike(buff)
   }
 
