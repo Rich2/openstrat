@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A class that is like a LineSeg, includes [[LineSeg]] and [[LineSegM2]]. The trait takes the type parameter of the vertex. */
@@ -12,9 +12,13 @@ trait LineSegLike[VT] extends ValueNElem
    * [[PtM2]] for a [[LineSegM2]]. */
   def endPt: VT
 
+  /** Transforms this [[LineSegLike]] into a [[LineSegLike]] of type LB, by mapping the vertices to vertices of type VB. */
   def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeMapBuilder[VB, LB]): LB = build.newSeg(f(startPt), f(endPt))
 
-  def mapOpt[VB, LB <: LineSegLike[VB]](f: VT => Option[VB])(implicit build: LineSegLikeMapBuilder[VB, LB]): Option[LB] = f(startPt).flatMap{ p1 => f(endPt).map(p2 =>build.newSeg(p1, p2)) }
+  /** Optionally Transforms this [[LineSegLike]] into a [[LineSegLike]] of type LB, by mapping the vertices to vertices of type VB, as long as both
+   * vertices map to a [[Some]] result. */
+  def mapOpt[VB, LB <: LineSegLike[VB]](f: VT => Option[VB])(implicit build: LineSegLikeMapBuilder[VB, LB]): Option[LB] =
+    f(startPt).flatMap{ p1 => f(endPt).map(p2 =>build.newSeg(p1, p2)) }
 }
 
 trait LineSegLikeArr[VT, A <: LineSegLike[VT]] extends Any with Arr[A]

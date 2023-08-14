@@ -133,9 +133,9 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val arr = apply(hc)
-      if (arr.length > 0)
-      { val res = f(arr, hc, proj.transCoord(hc))
-        build.buffGrow(buff, res)
+      if (arr.length > 0) proj.transOptCoord(hc).foreach { pt =>
+        val res = f(arr, hc, pt)
+        buff.grow(res)
       }
     }
     build.buffToSeqLike(buff)
