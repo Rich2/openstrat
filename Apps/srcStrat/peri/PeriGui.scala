@@ -12,7 +12,10 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
   override def corners: HCornerLayer = scen.corners
 
-  override implicit def proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
+  focus = gridSys.cenVec
+  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  override implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
+  proj.setView(viewIn)
 
   override def frame: GraphicElems =
   {
@@ -38,6 +41,15 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
     thisTop()
   }
   override def thisTop(): Unit = reTop(bTurn %: proj.buttons)
+
+  thisTop()
+
+  proj.getFrame = () => frame
+  proj.setStatusText = { str =>
+    statusText = str
+    thisTop()
+  }
+  mainRepaint(frame)
 }
 
 object PeriGui

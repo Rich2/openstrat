@@ -46,9 +46,9 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     focus = ife(northUp, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
   }
 
-  def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(true/* northUp */, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
+  def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(northUp, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
 
-  def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
+  def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(northUp, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
   override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
 
   override def tilePolygons: PolygonArr =

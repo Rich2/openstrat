@@ -7,6 +7,7 @@ object Apps
 { /** Matches the [[String]] for the identifier in DevSettings.rson to a list of Apps. */
   val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
     ("L", learn.Lessons),
+    ("PF", peri.PeriLaunch),
     ("DL", dless.DLessLaunch),
     ("W1", pww1.WW1Launch),
     ("BC", p305.BcLaunch),

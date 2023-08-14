@@ -17,7 +17,7 @@ trait PeriScen extends HSysScen
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
-  val armies: HCenLayer[Army]
+  val armies: HCenOptLayer[Army]
 }
 
 object PeriScen1 extends PeriScen
@@ -25,5 +25,5 @@ object PeriScen1 extends PeriScen
   override val terrs: HCenLayer[WTile] = Scen13All.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners
-  override val armies: HCenLayer[Army] = ???
+  override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
 }
