@@ -83,6 +83,24 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
       case _ => f(vert)
     }
   }
+
+  def toPtM3(f: HCoord => PtM3)(implicit hSys: HGridSys): PtM3 = hvDirn match {
+    case HVExact => f(vert)
+    case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match {
+      case Some(hc2) => {
+        val p2 = f(hc2)
+        val frac: Int = hd match {
+          case HVLt | HVRt => 32
+          case _ => 16
+        }
+        val x = ((frac - magnitude) * f(vert).x + magnitude * p2.x) / frac
+        val y = ((frac - magnitude) * f(vert).y + magnitude * p2.y) / frac
+        val z = ((frac - magnitude) * f(vert).z + magnitude * p2.z) / frac
+        PtM3(x, y, z)
+      }
+      case _ => f(vert)
+    }
+  }
 }
 
   /** Companion object for [[HVOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor

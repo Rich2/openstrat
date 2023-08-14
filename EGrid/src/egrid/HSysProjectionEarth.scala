@@ -97,6 +97,13 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     r1 / metresPerPixel
   }
 
+  override def transOptHVOffset(hvo: HVOffset): Option[Pt2] =
+  { val m3 = hvo.toPtM3(hCoord => parent.hCoordLL(hCoord).toMetres3)(parent)
+    val rotated = m3.fromLatLongFocus(focus)
+    val opt = ife(rotated.zPos, Some(rotated.xy.rotate180If(southUp)), None)
+    opt.map(_ / metresPerPixel)
+  }
+
   override def transTile(hc: HCen): Option[Polygon] =
   { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
     val opt: Option[PolygonM2] = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)

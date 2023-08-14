@@ -47,13 +47,18 @@ trait HSysProjection extends TSysProjection
   def transHSides(inp: HSideArr): LineSegArr
 
   def transTile(hc: HCen): Option[Polygon]
+
+  /** Optionally transforms an [[HCoord]] to a [[Pt2]]. This is safe unlike transCoord. */
   def transOptCoord(hc: HCoord): Option[Pt2]
 
-  /** only use for projection's known [[HCoord]]s. */
+  /** Generally unsafe. Transforms an [[HCoord]] to a [[Pt2]]. Only use for [[HCoord]]s that are guaranteed displayed by the projection. */
   def transCoord(hc: HCoord): Pt2
-  def transHVOffset(hvo: HVOffset): Pt2 = hvo.toPt2(transCoord)(parent)
-  def transPolygonHVOffset(inp: PolygonHVOffset): Polygon = inp.toPolygon(transCoord)(parent)
 
+  def transHVOffset(hvo: HVOffset): Pt2 = hvo.toPt2(transCoord)(parent)
+  def transOptHVOffset(hvo: HVOffset): Option[Pt2]
+
+  def transPolygonHVOffset(inp: PolygonHVOffset): Polygon = inp.toPolygon(transCoord)(parent)
+  def transOptPolygonHVOffset(inp: PolygonHVOffset): Option[Polygon] = inp.optMap(transOptHVOffset(_))
 
   def transOptLineSeg(seg: LineSegHC): Option[LineSeg]
   def transLineSeg(seg: LineSegHC): LineSeg
