@@ -11,20 +11,20 @@ package object eg13
 
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid13LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
-    val ft = fullTerrs((i + subSys.headGridInt) %% 12)
+    val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine
 
   def fullTerrsSideLayerSpawn(implicit subSys: EGrid13LongMulti): HSideOptLayer[WSide, WSideSome] =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
-      val ft = fullTerrs((i + subSys.headGridInt) %% 12)
+    val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)
     }
     subSys.sidesOptFromPairsSpawn(arr)
   }
 
   def fullTerrsCornerLayerSpawn(implicit subSys: EGrid13LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>
-    val ft = fullTerrs((i + subSys.headGridInt) %% 12)
+    val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.corners.spawn(ft.grid, subSys.grids(i))
   }.combine
 }

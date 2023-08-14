@@ -26,6 +26,7 @@ chess = {scen = 1 };
 
 /* Change the  number to change the app on next run.
 ("L", learn.Lessons),
+("PF", peri.PeriLaunch),
 ("DL", dless.DLessLaunch),
 ("W1", pww1.WW1Launch),
 ("BC", p305.BcLaunch),
