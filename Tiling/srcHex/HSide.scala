@@ -1,6 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer, pgui._
+import collection.mutable.ArrayBuffer
+import pgui._
+
+import scala.reflect.ClassTag
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
@@ -81,11 +84,13 @@ object HSide
   }
 
   /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[HSide]] and [[HSideArr]]. */
-  implicit val buildEv: Int2ArrMapBuilder[HSide, HSideArr] = new Int2ArrMapBuilder[HSide, HSideArr]
+  implicit val arrMapBuilderEv: Int2ArrMapBuilder[HSide, HSideArr] = new Int2ArrMapBuilder[HSide, HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
   }
+
+  implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
 }
 
 /** A hex side that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
@@ -216,10 +221,11 @@ class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2Pa
   }
 }
 
+/** Companion object for [[HSidePair]] trait, provides apply and unapply methods. */
 object HSidePair
 { def apply[A2](hc: HSide, a2: A2): HSidePair[A2] = new HSidePair[A2](hc.int1, hc.int2, a2)
-  def unapply(inp: Any): Option[(HSide, Any)] = inp match{
-    case hcp: HSidePair[_] => Some((hcp.a1, hcp.a2))
+  def unapply(inp: Any): Option[(HSide, Any)] = inp match
+  { case hcp: HSidePair[_] => Some((hcp.a1, hcp.a2))
     case _ => None
   }
 }
