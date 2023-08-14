@@ -22,7 +22,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
 
   def frame: GraphicElems =
   {
-    def units: GraphicElems = counterStates.projSomeHcPtMap { (cs, hc, pt) =>
+    def units: GraphicElems = counterStates.projSomesHcPtMap { (cs, hc, pt) =>
       val counter = cs.counter
       val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
       Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCounter(hc, counter), str, 24, 2.0)

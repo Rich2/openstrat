@@ -21,7 +21,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
 
   override def frame: GraphicElems =
   {
-    def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
+    def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
       val str = pixPerTile.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
     }

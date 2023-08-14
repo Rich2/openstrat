@@ -20,7 +20,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
 
   override def frame: GraphicElems =
   {
-    def units: GraphicElems = armies.projSomeHcPtMap { (legion, hc, pt) =>
+    def units: GraphicElems = armies.projSomesHcPtMap { (legion, hc, pt) =>
       val str = pixPerTile.scaledStr(170, legion.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, legion.toString)
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.6, HCenPair(hc, legion), legion.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
     }

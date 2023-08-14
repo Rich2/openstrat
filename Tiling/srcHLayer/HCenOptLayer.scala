@@ -223,17 +223,17 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    *  most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
-    projSomeHcPtMap(proj)(f)
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projSomesHcPtMap(proj)(f)
 
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
-      if (a != null) {
-        val res = f(a, hc, proj.transCoord(hc))
+      if (a != null) proj.transOptCoord(hc).foreach { pt =>
+        val res = f(a, hc, pt)
         build.buffGrow(buff, res)
       }
     }
