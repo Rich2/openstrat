@@ -22,8 +22,8 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 
     def t2: WTile = terrs(hs.tileRt)
 
-    sTerrs(hs) match {
-      case WSideNone if t1.colour == t2.colour => {
+    sTerrs(hs) match
+    { case WSideNone if t1.colour == t2.colour => {
         val cs: (HCen, Int, Int) = hs.corners
         val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
         Some(ls1.draw(lineColour = t1.contrastBW))
@@ -42,5 +42,4 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   }
 
   def hexStrs2(f1: HCen => Boolean): GraphicElems = proj.ifTileScale(72, hexStrs(f1))
-
 }

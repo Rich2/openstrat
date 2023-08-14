@@ -49,7 +49,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   def revY: PolygonM2 = map(_.revY)
   def revYIf(cond: Boolean): PolygonM2 = ife(cond, revY, this)
   def rotate180: PolygonM2 = map(_.rotate180)
-  def rotate189If(cond: Boolean): PolygonM2 = ife(cond, map(_.rotate180), this)
+  def rotate180If(cond: Boolean): PolygonM2 = ife(cond, map(_.rotate180), this)
   def rotate180IfNot(cond: Boolean): PolygonM2 = ife(cond, this, map(_.rotate180))
 }
 

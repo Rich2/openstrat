@@ -210,6 +210,8 @@ trait HGridSys extends Any with TGridSys
     build.buffToSeqLike(buff)
   }
 
+  /** Maps each [[HCen]] of this hex grid system to an [[HCenPair]]. The first part of the pair is just the [[HCen]], the second part of the pair is
+   * produced by the parameter function. */
   def mapPair[B2](f2: HCen => B2)(implicit build: HCenPairArrMapBuilder[B2]): HCenPairArr[B2] =
   { val res = build.uninitialised(numTiles)
     iForeach{ (i, hc) =>
@@ -217,6 +219,13 @@ trait HGridSys extends Any with TGridSys
       res.setA2Unsafe(i, f2(hc))
     }
     res
+  }
+
+  /** OptMaps each [[HCen]] of this hex grid system to an [[HCenPair]]. */
+  def optMapPair[B2](f2: HCen => Option[B2])(implicit build: HCenPairArrMapBuilder[B2]): HCenPairArr[B2] =
+  { val buff = build.newBuff()
+    foreach{ hCen => f2(hCen).foreach{b2 => buff.pairGrow(hCen, b2) } }
+    build.buffToSeqLike(buff)
   }
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
