@@ -19,7 +19,7 @@ object Terr13E90 extends Long13Terrs
       TRow(108, hillyDesert),
       TRow(106, mtain, mtain),
       TRow(104, Hland(1, 3, Level(Jungle)), hillyJungle),
-      VRow(103, Mouth(3582, HVUL)),
+      VRow(103, Mouth(3582, HVUL), Mouth(3586, HVUR)),
       TRow(102, Hland(4, 1, Hilly(Jungle)), Hland(4, 2, Level(Jungle))),
       TRow(100, sea, Isle(Level(Jungle))),
       TRow(86, Hland(1, 0, Level(IceCap)))

@@ -22,6 +22,7 @@ object Terr13E60 extends Long13Terrs
       TRow(106, desert, hills),
       VRow(105, VertIn(2558, HVUp), VertIn(2560, HVDn)),
       TRow(104, Hland(3, 1, Hilly(Desert)), Hland(1, 4)),
+      VRow(103, VertIn(2556, HVUp)),
       TRow(102, Hland(3, 0, Level(Desert)), sea),
       TRow(100, SideB(), sea * 2),
       VRow(99, SetSide(2557)),

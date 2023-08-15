@@ -16,7 +16,7 @@ object Terr13E120 extends Long13Terrs
       TRow(114, hillyTundra),
       TRow(112, taiga),
       TRow(110, hillyTaiga),
-      TRow(108, hillyForest),
+      TRow(108, Hland(1, 2, Hilly(Forest))),
       TRow(106, hills),
       TRow(104, sea * 2),
       TRow(102, SideB(), sea * 2),
@@ -25,7 +25,7 @@ object Terr13E120 extends Long13Terrs
       VRow(99, SetSide(4604)),
       TRow(98, Isle(Hilly(Jungle)), sea),
       TRow(96, Hland(2, 5, Level(Desert)), desert),
-      TRow(94, Hland(3, 3), Hland(1, 3, Level(Desert))),
+      TRow(94, Hland(3, 3), desert),
       TRow(86, Hland(1, 0, Level(IceCap)))
     )
   }

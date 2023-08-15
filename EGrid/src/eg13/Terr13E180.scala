@@ -14,6 +14,7 @@ object Terr13E180 extends Long13Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(112, hillyTundra),
+      TRow(108, SideB(), sea),
       TRow(92, Isle(Hilly())),
     )
   }
