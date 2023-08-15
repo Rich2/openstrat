@@ -9,13 +9,16 @@ object AppsPage extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", list)
 
-  def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, ww2, bc305, ww1, sors, y1492, y1783,
+  def list: HtmlOl = HtmlOl(RArr(uloc, HtmlH2("Strategy Games using tiled world maps."), dless, peri, ww2, bc305, ww1, sors, y1492, y1783,
     HtmlH2("Other Tiled Map Applications."), zug, dung, civ, HtmlH2("Other Applications."), geomTut, planets, flags, chess))
 
   val uloc = HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
 
   val dless = HtmlLi.linkAndText("../dicelessapp.html", "DiceLess",
     "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests no random element.")
+
+  val peri = HtmlLi.linkAndText("../periculoapp.html", "Periculo Fundatuso",
+    "A simple consecutive turn, world map game that has some grounding in earth geography.")
   
   val ww2: HtmlLi = HtmlLi.linkAndText("../ww2.html", "World War II Game", "This was chosen as the third priority application as it seemed like" --
     "the best choice for a game that could use the 320km scale tiled world map.")
