@@ -63,6 +63,6 @@ object PolygonGen extends Dbl2SeqLikeCompanion[Pt2, PolygonGen]
 
   implicit val persistImplicit: Dbl2SeqDefPersist[Pt2, PolygonGen] = new Dbl2SeqDefPersist[Pt2, PolygonGen]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
-    override def showDecT(obj: PolygonGen, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: PolygonGen, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polygon" -- obj.vertsMap(_.str).mkStr("\n")
   }
 }
