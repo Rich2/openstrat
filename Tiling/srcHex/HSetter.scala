@@ -195,37 +195,31 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     { case HVUR =>
       { corners.setVert4In(row + 1, c + 2, magnitude)
         sTerrs.setIf(row + 1, c, terr)
-        //sTerrs.setIf(row, c + 1, terr)
       }
 
       case HVDR =>
       { corners.setVert5In(row - 1, c + 2, magnitude)
         sTerrs.set(row - 1, c, terr)
-        //sTerrs.set(row, c + 1, terr)
       }
 
       case HVDn =>
       { corners.setVert0In(row - 1, c, magnitude)
         sTerrs.setIf(row, c - 1, terr)
-       // sTerrs.setIf(row, c + 1, terr)
       }
 
       case HVDL =>
       { corners.setVert1In(row - 1, c - 2, magnitude)
         sTerrs.set(row, c - 1, terr)
-      //  sTerrs.set(row - 1, c, side2)
       }
 
       case HVUL =>
       { corners.setVert2In(row + 1, c - 2, magnitude)
-      //  sTerrs.setIf(row + 1, c, side1)
         sTerrs.setIf(row, c - 1, terr)
       }
 
       case HVUp =>
       { corners.setVert3In(row + 1, c, magnitude)
         sTerrs.setIf(row, c - 1, terr)
-       // sTerrs.setIf(row, c + 1, terr)
       }
 
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")

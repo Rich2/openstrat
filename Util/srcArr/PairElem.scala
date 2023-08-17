@@ -174,6 +174,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 }
 
+/** Base trait for building [[PairArr]] classes. */
 trait PairArrCommonBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, B2, _]] extends SeqLikeCommonBuilder[ArrB]
 {
   type BuffT <: PairBuff[B1, B2, _]
