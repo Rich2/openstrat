@@ -84,6 +84,7 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     }
   }
 
+  /** Converts this [[HVOffset]] to a [[PtM3]] using an [[HVert]] to [[PtM3]] function.  */
   def toPtM3(f: HCoord => PtM3)(implicit hSys: HGridSys): PtM3 = hvDirn match {
     case HVExact => f(vert)
     case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match {
