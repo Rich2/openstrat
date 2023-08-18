@@ -226,6 +226,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
+  /** Used for setting a vertex where 3 side terrains meet. */
   trait ThreeWayBase
   { def c: Int
     def st: SST
@@ -244,7 +245,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     def run(row: Int): Unit = sTerrs.set(row, c, terr)
   }
 
-  /** Used for setting the a vertex on the left edge of a grid. Sets the vetex to the right on both hex tiles. */
+  /** Used for setting the a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
   trait VertRightsRightBase
   { /** The c coordinate of the vertex. */
     def c: Int
