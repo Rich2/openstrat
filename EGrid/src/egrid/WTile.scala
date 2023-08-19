@@ -69,43 +69,58 @@ object TerrainNone extends WTile
   override def isLand: Boolean = false
 }
 
-trait Land extends WTile
+class Land(val elev: Lelev, val biome: Biome) extends WTile
 {
-  def biome: Biome
   override def toString: String = "Land" + str.enParenth
 
-  override def str = this match
-  { case _: Level => biome.toString
+  override def str = elev match
+  { case Level => biome.toString
     case _ => "Other"
   }
 
   override def isLand: Boolean = true
-}
 
-object Land
-{ /** Factory apply method for land. */
-  def apply(biome: Biome = OpenTerrain): Land = Level(biome)
-}
-
-case class Level(biome: Biome = OpenTerrain) extends Land
-{ override def str = "Level"
-  override def colour: Colour = biome.colour
-}
-
-case class Hilly(biome: Biome = OpenTerrain) extends Land
-{ override def str = "Hilly"
-  override def colour = biome match {
-    case Tundra => Chocolate.average(Tundra.colour)
-    case Taiga => Chocolate.average(Taiga.colour)
-    case Forest => Chocolate.average(Forest.colour)
-    case Desert => Chocolate.average(Desert.colour)
-    case Jungle => Chocolate.average(Jungle.colour)
-    case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
-    case _ => Chocolate
+  override def colour: Colour = elev match
+  { case Hilly => biome match
+    { case Tundra => Chocolate.average(Tundra.colour)
+      case Taiga => Chocolate.average(Taiga.colour)
+      case Forest => Chocolate.average(Forest.colour)
+      case Desert => Chocolate.average(Desert.colour)
+      case Jungle => Chocolate.average(Jungle.colour)
+      case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
+      case _ => Chocolate
+    }
+    case _ => biome.colour
   }
 }
 
-case class Mountains(biome: Biome = OpenTerrain) extends Land
+object Land
+{
+  def apply(elev: Lelev, biome: Biome = OpenTerrain): Land = new Land(elev, biome)
+}
+
+/** Land elevation. */
+trait Lelev
+{
+  /** Factory apply method for land. */
+  def apply(biome: Biome = OpenTerrain): Land = Land(this, biome)
+
+  def str: String
+
+  def colour: Colour
+}
+
+case object Level extends Lelev
+{ override def str = "Level"
+  override def colour: Colour = White
+}
+
+object Hilly extends Lelev
+{ override def str = "Hilly"
+  override def colour: Colour = Brown
+}
+
+object Mountains extends Lelev
 { override def str = "Mountain"
   override def colour = Gray
 }
