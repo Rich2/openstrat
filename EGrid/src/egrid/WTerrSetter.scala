@@ -18,7 +18,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
   trait TRunnerExtra extends TRunner
 
-  case class Isle(terr: Land = Level(), sTerr: Water = Sea) extends TRunner with IsleBase
+  case class Isle(elev: Lelev = Level, biome: Biome = OpenTerrain, sTerr: Water = Sea) extends TRunner with IsleBase
+  {
+    def terr: Land = Land(elev, biome)
+  }
   case class SideB(sTerr: Water = Sea) extends TRunnerExtra with SideBBase
   case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Level(), sideTerrs: Water = Sea) extends TRunner with HlandBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase

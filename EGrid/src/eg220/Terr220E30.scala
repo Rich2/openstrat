@@ -42,7 +42,7 @@ object Terr220E30 extends Long220Terrs
       TRow(144, Hland(4, 2, Hilly()), sea, hills, sea, hills * 4, hillyDesert, plain, mtain),
       VRow(143, Mouth(1544, HVUp)),
       TRow(142, sea * 5, Hland(3, 2, Hilly()), sea, Hland(3, 2, Hilly()), Hland(1, 4, Hilly()), desert * 3),
-      TRow(140, sea * 3, Isle(Hilly()), sea * 2, Isle(Hilly()), sea, hills, desert * 3),
+      TRow(140, sea * 3, Isle(Hilly), sea * 2, Isle(Hilly), sea, hills, desert * 3),
       TRow(138, sea * 2, Hland(3, 5, Level(Desert)), sea * 5, hills, desert * 3),
       TRow(136, desert, sea, desert * 4, plain, hillyDesert, desert * 5),
       VRow(135, Mouth(1540, HVUp), Mouth(1544, HVUp)),

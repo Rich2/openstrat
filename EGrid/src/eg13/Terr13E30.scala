@@ -25,7 +25,7 @@ object Terr13E30 extends Long13Terrs
       TRow(102, jungle * 2),
       TRow(100, jungle, Hland(1, 2, Level())),
       TRow(98, jungle, Hland(1, 2, Level(Jungle))),
-      TRow(96, hills, Isle(Level(Forest))),
+      TRow(96, hills, Isle(Level, Forest)),
       TRow(94, Hland(2, 2), sea),
       VRow(87, SetSide(1534)),
       TRow(86, Hland(1, 0, Level(IceCap))),

@@ -45,7 +45,7 @@ object Terr160E30 extends Long160Terrs
       TRow(262, hills, sea * 2, hills * 2, sea, hills, hills * 4, hills * 5),
       TRow(260, sea * 3, hills, sea * 2, hills * 10),
       TRow(258, sea * 11, hills * 5),
-      TRow(256, sea * 5, hills * 2, sea * 3, Isle(Hilly()), hills * 6),
+      TRow(256, sea * 5, hills * 2, sea * 3, Isle(Hilly), hills * 6),
     )
   }
   help.run

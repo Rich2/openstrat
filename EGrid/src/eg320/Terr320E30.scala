@@ -13,7 +13,7 @@ object Terr320E30 extends Long320Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(166, sice),
-      TRow(164, Isle(Level(IceCap), WSeaIce)),
+      TRow(164, Isle(Level, IceCap, WSeaIce)),
       TRow(162, Hland(2, 2, Mountains(IceCap))),
       TRow(156, Hland(2, 5, Hilly(Tundra)), Hland(2, 0, Hilly(Tundra)), sea),
       VRow(155, Mouth(1538, HVDn)),
@@ -40,7 +40,7 @@ object Terr320E30 extends Long320Terrs
       VRow(131, VertRightsRight(1522), Mouth(1528, HVDR)),
       TRow(130, Hland(4, 2, Hilly()), Hland(4, 3, Hilly()), Hland(3, 1, Hilly()), Hland(2, 3, Hilly()), hills * 4),
       VRow(129, VertIn(1528, HVDn), Mouth(1536, HVUR)),
-      TRow(128, sea * 2, Isle(Hilly()), sea, Isle(Hilly()), hills, desert * 2),
+      TRow(128, sea * 2, Isle(Hilly), sea, Isle(Hilly), hills, desert * 2),
       VRow(127, VertIn(1528, HVUp)),
       TRow(126, sea, Hland(2, 5, Level(Desert)), Hland(2, 0, Level(Desert)), sea * 2, Hland(1, 5, Hilly()), desert * 2),
       VRow(125, Mouth(1524, HVDn), Mouth(1532, HVDn), Mouth(1540, HVDn)),

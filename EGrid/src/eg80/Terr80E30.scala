@@ -83,7 +83,7 @@ object Terr80E30  extends Long80Terrs
 
       VRow(423, VertIn(1500, HVUp)),
 
-      TRow(422, Hland(4, 2, Mountains()), sea * 4, Isle(Hilly()), Hland(3, 4, Hilly()), Hland(2, 0, Mountains()), hills * 2, sea * 2, hills * 7, desert,
+      TRow(422, Hland(4, 2, Mountains()), sea * 4, Isle(Hilly), Hland(3, 4, Hilly()), Hland(2, 0, Mountains()), hills * 2, sea * 2, hills * 7, desert,
         hillyDesert, desert, mtain, hills, hillyDesert, mtain, plain * 2, hillyDesert, mtain * 2, hillyDesert),
 
       VRow(421, Mouth(1504, HVDn)),
@@ -95,7 +95,7 @@ object Terr80E30  extends Long80Terrs
       TRow(418, SideB(), sea * 7, hills, sea * 5, hills * 5, mtain, hills * 2, Hland(1, 3) * 2, hills, desert * 2, plain, desert * 3, hillyDesert * 2, mtain),
       VRow(417, Mouth(1564, HVUR)),
 
-      TRow(416, sea * 10, sea * 4, Isle(Hilly()), sea, Hland(3, 2, Mountains()), sea * 2, Hland(2, 3, Mountains()), Hland(2, 2, Mountains()), sea * 2, hills, plain,
+      TRow(416, sea * 10, sea * 4, Isle(Hilly), sea, Hland(3, 2, Mountains()), sea * 2, Hland(2, 3, Mountains()), Hland(2, 2, Mountains()), sea * 2, hills, plain,
         desert * 7, hillyDesert),
 
       TRow(414, sea * 9, hills, sea * 10, Hland(4, 5, Hilly()), sea, hills * 2, desert * 8, hillyDesert),
