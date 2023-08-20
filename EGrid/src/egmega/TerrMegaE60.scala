@@ -20,8 +20,8 @@ object TerrMegaE60 extends LongMegaTerrs
       TRow(110, desert * 2),
       TRow(108, hillyDesert * 2),
       TRow(106, desert, sea, plain),
-      TRow(104, SideB(), Hland(2, 2, Hilly(Desert)), sea * 2),
-      TRow(96, SideB(), Hland(2, 1, Hilly()), sea * 2),
+      TRow(104, SideB(), Hland(2, 2, Hilly, Desert), sea * 2),
+      TRow(96, SideB(), Hland(2, 1, Hilly), sea * 2),
     )
   }
   help.run

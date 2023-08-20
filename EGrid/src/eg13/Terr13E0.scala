@@ -16,14 +16,14 @@ object Terr13E0 extends Long13Terrs
       TRow(114, hillyTundra),
       TRow(112, hillyTaiga),
       TRow(110, plain),
-      TRow(108, Hland(3, 3, Hilly())),
-      TRow(106, Hland(2, 5, Level(Desert)), Hland(1, 0, Level(Desert))),
+      TRow(108, Hland(3, 3, Hilly)),
+      TRow(106, Hland(2, 5, Level, Desert), Hland(1, 0, Level, Desert)),
       TRow(104, desert * 2),
       TRow(102, jungle * 2),
-      TRow(100, sea, Hland(1, 4, Level(Jungle))),
+      TRow(100, sea, Hland(1, 4, Level, Jungle)),
       TRow(98, sea * 2),
-      TRow(96, sea, Hland(2, 4, Level(Desert))),
-      TRow(86, Hland(1, 0, Level(IceCap)))
+      TRow(96, sea, Hland(2, 4, Level, Desert)),
+      TRow(86, Hland(1, 0, Level, IceCap))
     )
   }
   help.run

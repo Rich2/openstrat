@@ -18,17 +18,17 @@ object Terr13E30 extends Long13Terrs
       VRow(109, Mouth(1538, HVUp)),
       TRow(108, hills),
       VRow(107, Mouth(1536, HVDR), Mouth(1538, HVDn)),
-      TRow(106, Hland(1, 0, Level(Desert)), desert),
+      TRow(106, Hland(1, 0, Level, Desert), desert),
       VRow(105, Mouth(1536, HVUL), VertIn(1538, HVDL), Mouth(1540, HVUL), VertIn(1542, HVUp)),
       TRow(104, desert * 2),
       VRow(103, VertIn(1538, HVUR), VertIn(1540, HVUp)),
       TRow(102, jungle * 2),
-      TRow(100, jungle, Hland(1, 2, Level())),
-      TRow(98, jungle, Hland(1, 2, Level(Jungle))),
+      TRow(100, jungle, Hland(1, 2, Level)),
+      TRow(98, jungle, Hland(1, 2, Level, Jungle)),
       TRow(96, hills, Isle(Level, Forest)),
       TRow(94, Hland(2, 2), sea),
       VRow(87, SetSide(1534)),
-      TRow(86, Hland(1, 0, Level(IceCap))),
+      TRow(86, Hland(1, 0, Level, IceCap)),
     )
   }
   help.run
