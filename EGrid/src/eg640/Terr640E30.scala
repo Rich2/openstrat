@@ -22,7 +22,7 @@ object Terr640E30 extends Long640Terrs
 //      VRow(123, Mouth(512, HVUp)),
       TRow(122, plain, plain),
 //      VRow(121, VertIn(512, HVUL)),
-//      TRow(120, sea, Hland(1, 5), plain),
+      TRow(120, plain * 3),
 //      TRow(118, sea, plain, hills),
 //      TRow(116, Hland(3, 4, Hilly), Hland(1, 2, Hilly), sea),
 //      VRow(115, VertIn(512, HVUp)),

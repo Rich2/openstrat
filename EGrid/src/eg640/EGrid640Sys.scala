@@ -19,10 +19,10 @@ object EGrid640LongMulti
 {
   def apply(rBottomCen: Int = 130, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid640LongMulti = new EGrid640LongMulti
   {
-    override def grids: RArr[EGridLongFull] = startLong match {
-      case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid640LongFull(rBottomCen, rTopCen, i))
-      case sl => {
-        val len = endLong - startLong + 13
+    override def grids: RArr[EGridLongFull] = startLong match
+    { case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid640LongFull(rBottomCen, rTopCen, i))
+      case sl =>
+      { val len = endLong - startLong + 13
         iUntilMap(len)(i => EGrid640LongFull(rBottomCen, rTopCen, (i + startLong) %% 12))
       }
     }
