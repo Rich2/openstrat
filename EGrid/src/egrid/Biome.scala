@@ -23,6 +23,11 @@ case object Desert extends Biome
   override def colour = LemonChiffon
 }
 
+case object Savannah extends Biome
+{ override def str = "Savannah"
+  override def colour = LightGreen
+}
+
 object Jungle extends Biome
 { override def str = "Jungle"
   override def colour = DarkGreen

@@ -3,15 +3,14 @@ package ostrat; package eg640
 import prid._, phex._, egrid._
 
 /** Scenario for 2 Grid system for 0E and 30E */
-/*
-object Scen640s0e1 extends EScenLongMulti
+object Scen640S0E1 extends EScenLongMulti
 { override val title: String = "640km 0E - 30E"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(2, 0, 120)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(2, 0, 112)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
-
+/*
 /** Scenario for 3 640km grid system for 90E, 120E and 150E */
 object Scen640ChinaJapan extends EScenLongMulti
 { override val title: String = "640km 90E - 150E"
