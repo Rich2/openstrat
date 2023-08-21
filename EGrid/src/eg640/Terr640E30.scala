@@ -6,9 +6,9 @@ import prid._, phex._, egrid._, WTile._
  *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
  *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
  *  area it must be assigned to France  */
-object Terr640E0 extends Long640Terrs
+object Terr640E30 extends Long640Terrs
 {
-  override implicit val grid: EGrid640LongFull = EGrid640.e0(112)
+  override implicit val grid: EGrid640LongFull = EGrid640.e30(112)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -16,16 +16,17 @@ object Terr640E0 extends Long640Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(124, sea, taiga),
-      VRow(123, Mouth(512, HVUp)),
-      TRow(122, Hland(3, 4), plain),
-      VRow(121, VertIn(512, HVUL)),
-      TRow(120, sea, Hland(1, 5), plain),
-      TRow(118, sea, plain, hills),
-      TRow(116, Hland(3, 4, Hilly), Hland(1, 2, Hilly), sea),
-      VRow(115, VertIn(512, HVUp)),
-      TRow(114, sea, Hland(2, 5, Hilly), hills * 2),
-      TRow(112, desert * 4),
+      TRow(128, tundra),
+//      TRow(124, sea, taiga),
+//      VRow(123, Mouth(512, HVUp)),
+//      TRow(122, Hland(3, 4), plain),
+//      VRow(121, VertIn(512, HVUL)),
+//      TRow(120, sea, Hland(1, 5), plain),
+//      TRow(118, sea, plain, hills),
+//      TRow(116, Hland(3, 4, Hilly), Hland(1, 2, Hilly), sea),
+//      VRow(115, VertIn(512, HVUp)),
+//      TRow(114, sea, Hland(2, 5, Hilly), hills * 2),
+//      TRow(112, desert * 4),
 //      TRow(150, sea * 3, hillyTaiga),
 //      TRow(148, sea * 3, hillyTaiga, taiga),
 //      TRow(146, sea, hills, sea, Hland(4, 4), Hland(3, 2, Level(Forest))),
