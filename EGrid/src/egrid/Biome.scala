@@ -13,6 +13,7 @@ case object OpenTerrain extends Biome
   def str = "Open Ground"
 }
 
+/** forest that is not taiga or rain forest. */
 case object Forest extends Biome
 { override def str = "Forest"
   override def colour = ForestGreen
@@ -23,11 +24,13 @@ case object Desert extends Biome
   override def colour = LemonChiffon
 }
 
+/** Savannah, steppe and prairie biome. */
 case object Savannah extends Biome
 { override def str = "Savannah"
   override def colour = LightGreen
 }
 
+/** Needs replacing. */
 object Jungle extends Biome
 { override def str = "Jungle"
   override def colour = DarkGreen
