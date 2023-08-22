@@ -22,7 +22,7 @@ object Terr13E30 extends Long13Terrs
       VRow(105, Mouth(1536, HVUL), VertIn(1538, HVDL), Mouth(1540, HVUL), VertIn(1542, HVUp)),
       TRow(104, desert * 2),
       VRow(103, VertIn(1538, HVUR), VertIn(1540, HVUp)),
-      TRow(102, jungle * 2),
+      TRow(102, jungle, Hilly(Savannah)),
       TRow(100, jungle, Hland(1, 2, Level)),
       TRow(98, jungle, Hland(1, 2, Level, Jungle)),
       TRow(96, hills, Isle(Level, Forest)),
