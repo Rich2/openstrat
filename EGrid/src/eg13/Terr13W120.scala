@@ -18,8 +18,8 @@ object Terr13W120 extends Long13Terrs
       VRow(111, Mouth(8708, HVDL)),
       TRow(110, hillyTaiga),
       TRow(108, hillyDesert),
-      TRow(106, sea, Hland(1, 4, Hilly, Desert)),
-      TRow(104, sea, Hland(2, 3, Hilly, Desert)),
+      TRow(106, sea, Hland(1, 4, hillyDesert)),
+      TRow(104, sea, Hland(2, 3, hillyDesert)),
     )
   }
   help.run

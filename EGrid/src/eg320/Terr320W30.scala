@@ -19,10 +19,10 @@ object Terr320W30 extends Long320Terrs
       TRow(158, ice * 2, sea),
       TRow(156, ice * 2, sea),
       TRow(154, ice, tundra, sea * 2),
-      TRow(152, Hland(1, 2, Hilly, IceCap), sea, Hland(2, 4, Hilly, Tundra), hillyTundra),
-      TRow(150, Hland(1, 2, Hilly, IceCap)),
-      TRow(148, Hland(2, 2, Level, Tundra)),
-      TRow(122, sea * 8, Isle(Hilly)),
+      TRow(152, Hland(1, 2, Hilly, IceCap, LandFree, Sea), sea, Hland(2, 4, hillyTundra), hillyTundra),
+      TRow(150, Hland(1, 2, Hilly, IceCap, LandFree, Sea)),
+      TRow(148, Hland(2, 2, tundra)),
+      TRow(122, sea * 8, Isle(hills)),
       TRow(118, sea * 8, desert),
     )
   }

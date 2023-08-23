@@ -42,8 +42,8 @@ object WTile
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
   val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
-  val sea: WTile = Sea
-  val lake: WTile = Lake
+  val sea: Water = Sea
+  val lake: Water = Lake
   val mtain: Land = Land(Mountains, Taiga, Forest)
 }
 
