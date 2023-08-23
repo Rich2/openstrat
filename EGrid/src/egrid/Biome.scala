@@ -8,16 +8,11 @@ trait Biome
   override def toString: String = str
 }
 
-case object OpenTerrain extends Biome
+case object Temperate extends Biome
 { def colour: Colour = LightGreen
   def str = "Open Ground"
 }
 
-/** forest that is not taiga or rain forest. */
-case object Forest extends Biome
-{ override def str = "Forest"
-  override def colour = ForestGreen
-}
 
 case object Desert extends Biome
 { override def str = "Desert"
@@ -31,7 +26,7 @@ case object Savannah extends Biome
 }
 
 /** Stand in for tropical forest. */
-object Jungle extends Biome
+object Tropical extends Biome
 { override def str = "Jungle"
   override def colour = DarkGreen
 }

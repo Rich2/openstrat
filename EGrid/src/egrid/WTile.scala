@@ -28,23 +28,23 @@ object WTile
     def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
   }
 
-  val plain: WTile = Level()
-  val hills: WTile = Hilly()
-  val forest: WTile = Level(Forest)
-  val hillyForest = Hilly(Forest)
-  val desert: WTile = Level(Desert)
-  val hillyDesert: WTile = Hilly(Desert)
-  val jungle: WTile = Level(Jungle)
-  val hillyJungle: WTile = Level(Jungle)
-  val taiga: WTile = Level(Taiga)
-  val hillyTaiga = Hilly(Taiga)
-  val tundra: WTile = Level(Tundra)
-  val hillyTundra: WTile = Hilly(Tundra)
-  val ice: WTile = Level(IceCap)
+  val plain: Land = Land(Level, Temperate, CivMix)
+  val hills: Land = Land(Hilly, Temperate, CivMix)
+  val forest: Land = Land(Level, Temperate, Forest)
+  val hillyForest: Land = Land(Hilly, Temperate, Forest)
+  val desert: Land = Land(Level, Desert, LandFree)
+  val hillyDesert: Land = Land(Hilly, Desert, LandFree)
+  val jungle: Land = Land(Level, Tropical, Forest)
+  val hillyJungle: Land = Land(Hilly, Tropical, Forest)
+  val taiga: Land = Land(Level, Taiga, Forest)
+  val hillyTaiga: Land = Land(Hilly, Taiga, LandFree)
+  val tundra: Land = Land(Level, Tundra, LandFree)
+  val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
+  val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
   val sea: WTile = Sea
   val lake: WTile = Lake
-  val mtain: WTile = Mountains()
+  val mtain: Land = Land(Mountains, Taiga, Forest)
 }
 
 /** A common trait for Ocean and Lake. */
@@ -69,7 +69,7 @@ object TerrainNone extends WTile
   override def isLand: Boolean = false
 }
 
-class Land(val elev: Lelev, val biome: Biome) extends WTile
+class Land(val elev: Lelev, val biome: Biome, val landUse: LandUse) extends WTile
 {
   override def toString: String = "Land" + str.enParenth
 
@@ -84,10 +84,11 @@ class Land(val elev: Lelev, val biome: Biome) extends WTile
   { case Hilly => biome match
     { case Tundra => Chocolate.average(Tundra.colour)
       case Taiga => Chocolate.average(Taiga.colour)
-      case Forest => Chocolate.average(Forest.colour)
+
       case Desert => Chocolate.average(Desert.colour)
-      case Jungle => Chocolate.average(Jungle.colour)
+      case Tropical => Chocolate.average(Tropical.colour)
       case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
+      case _ if landUse == Forest => Chocolate.average(Forest.colour)
       case _ => Chocolate
     }
     case _ => biome.colour
@@ -96,14 +97,14 @@ class Land(val elev: Lelev, val biome: Biome) extends WTile
 
 object Land
 {
-  def apply(elev: Lelev, biome: Biome = OpenTerrain): Land = new Land(elev, biome)
+  def apply(elev: Lelev, biome: Biome = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
 }
 
 /** Land elevation. */
 trait Lelev
 {
   /** Factory apply method for land. */
-  def apply(biome: Biome = OpenTerrain): Land = Land(this, biome)
+  def apply(biome: Biome = Temperate): Land = Land(this, biome)
 
   def str: String
 
