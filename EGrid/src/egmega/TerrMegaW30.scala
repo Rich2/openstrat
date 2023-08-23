@@ -20,7 +20,7 @@ object TerrMegaW30 extends LongMegaTerrs
 //      TRow(110, hills, hills),
 //      TRow(108, plain, desert),
 //      VRow(107, Mouth(1538, HVUL), VertIn(1540, HVDL)),
-      TRow(106, sea * 2, Hland(2, 4, Level, Desert)),
+      TRow(106, sea * 2, Hland(2, 4, desert)),
 //      VRow(105, VertIn(1540, HVUR), VertIn(1542, HVDL)),
 //      TRow(104, desert * 3),
 //      VRow(103, VertIn(1542, HVUR)),
