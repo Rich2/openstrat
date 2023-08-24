@@ -40,6 +40,7 @@ object WTile
   val hillyTaiga: Land = Land(Hilly, Taiga, LandFree)
   val tundra: Land = Land(Level, Tundra, LandFree)
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
+  val savannah: Land = Land(Level, Savannah, CivMix)
   val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
   val sea: Water = Sea

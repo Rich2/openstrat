@@ -19,7 +19,7 @@ object Terr13E0 extends Long13Terrs
       TRow(108, Hland(3, 3, hills)),
       TRow(106, Hland(2, 5, desert), Hland(1, 0, desert)),
       TRow(104, desert * 2),
-      TRow(102, jungle * 2),
+      TRow(102, savannah * 2),
       TRow(100, sea, Hland(1, 4, jungle)),
       TRow(98, sea * 2),
       TRow(96, sea, Hland(2, 4, desert)),

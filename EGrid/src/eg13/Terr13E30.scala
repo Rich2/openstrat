@@ -22,7 +22,7 @@ object Terr13E30 extends Long13Terrs
       VRow(105, Mouth(1536, HVUL), BendAll(1538, HVDL), Mouth(1540, HVUL), BendAll(1542, HVUp)),
       TRow(104, desert * 2),
       VRow(103, BendAll(1538, HVUR), BendAll(1540, HVUp)),
-      TRow(102, jungle, Hilly(Savannah)),
+      TRow(102, savannah, Hilly(Savannah)),
       VRow(101, BendOut(1542, HVDR)),
       TRow(100, jungle, Hland(1, 2, plain)),
       VRow(99, BendOut(1540, HVDR)),
