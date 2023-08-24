@@ -226,6 +226,51 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
+  /** Sets the Vert in for a side terrain, eg Straits / River / Wall and sets the left most of the sides. */
+  trait VertOutBase {
+    def c: Int
+
+    def magnitude: Int
+
+    def dirn: HVDirn
+
+    def terr: SST
+
+    def run(row: Int): Unit = dirn match {
+      case HVUR => {
+        corners.setVert4Out(row + 1, c + 2, magnitude)
+        sTerrs.setIf(row + 1, c, terr)
+      }
+
+      case HVDR => {
+        corners.setVert5Out(row - 1, c + 2, magnitude)
+        sTerrs.set(row - 1, c, terr)
+      }
+
+      case HVDn => {
+        corners.setVert0Out(row - 1, c, magnitude)
+        sTerrs.setIf(row, c - 1, terr)
+      }
+
+      case HVDL => {
+        corners.setVert1Out(row - 1, c - 2, magnitude)
+        sTerrs.set(row, c - 1, terr)
+      }
+
+      case HVUL => {
+        corners.setVert2Out(row + 1, c - 2, magnitude)
+        sTerrs.setIf(row, c - 1, terr)
+      }
+
+      case HVUp => {
+        corners.setVert3Out(row + 1, c, magnitude)
+        sTerrs.setIf(row, c - 1, terr)
+      }
+
+      case HVLt | HVRt => excep("HVLt and HVRt not implemented")
+    }
+  }
+
   /** Used for setting a vertex where 3 side terrains meet. */
   trait ThreeWayBase
   { def c: Int

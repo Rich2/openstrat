@@ -106,6 +106,48 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c - 2, 3, HVUL, magnitude)
   }
 
+  /** Sets the corner inward [[HVDn]] on the 0 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
+   * in the opposite direction [[HVUp]]. */
+  def setVert0Out(r: Int, c: Int, magnitude: Int = 6)(implicit grid: HGrid): Unit = {
+    setCorner(r + 2, c - 2, 2, HVUp, magnitude)
+    setCorner(r + 2, c + 2, 4, HVUp, magnitude)
+  }
+
+  /** Sets the corner inward [[HVDL]] on the 1 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
+   * in the opposite direction [[HVUR]]. */
+  def setVert1Out(r: Int, c: Int, magnitude: Int = 6)(implicit grid: HGrid): Unit = {
+    setCorner(r + 2, c + 2, 3, HVUR, magnitude)
+    setCorner(r, c + 4, 5, HVUR, magnitude)
+  }
+
+  /** Sets the corner inward [[HVUL]] on the 2 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
+   * in the opposite direction [[HVDR]]. */
+  def setVert2Out(r: Int, c: Int, magnitude: Int = 6)(implicit grid: HGrid): Unit = {
+    setCorner(r, c + 4, 4, HVDR, magnitude)
+    setCorner(r - 2, c + 2, 0, HVDR, magnitude)
+  }
+
+  /** Sets the corner inward [[HVUp]] on the 3 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
+   * in the opposite direction [[HVDn]]. */
+  def setVert3Out(r: Int, c: Int, magnitude: Int = 6)(implicit grid: HGrid): Unit = {
+    setCorner(r - 2, c + 2, 5, HVDn, magnitude)
+    setCorner(r - 2, c - 2, 1, HVDn, magnitude)
+  }
+
+  /** Sets the corner in [[HVUR]] on the 4 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
+   * in the opposite direction [[HVDL]]. */
+  def setVert4Out(r: Int, c: Int, magnitude: Int = 6)(implicit grid: HGrid): Unit = {
+    setCorner(r - 2, c - 2, 0, HVDL, magnitude)
+    setCorner(r, c - 4, 2, HVDL, magnitude)
+  }
+
+  /** Sets the corner in [[HVDR]] on the 5 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
+   * in the opposite direction [[HVUL]]. */
+  def setVert5Out(r: Int, c: Int, magnitude: Int = 6)(implicit grid: HGrid): Unit = {
+    setCorner(r, c - 4, 1, HVUL, magnitude)
+    setCorner(r + 2, c - 2, 3, HVUL, magnitude)
+  }
+
   def setVertEqual(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   {
     if (HVert.rcISHigh(r, c))

@@ -69,7 +69,8 @@ object TerrainNone extends WTile
   override def isLand: Boolean = false
 }
 
-class Land(val elev: Lelev, val biome: Biome, val landUse: LandUse) extends WTile
+/** Land tile. Describes topology, climate-biome and land use. */
+class Land(val elev: Lelev, val biome: Climate, val landUse: LandUse) extends WTile
 {
   override def toString: String = "Land" + str.enParenth
 
@@ -97,14 +98,14 @@ class Land(val elev: Lelev, val biome: Biome, val landUse: LandUse) extends WTil
 
 object Land
 {
-  def apply(elev: Lelev, biome: Biome = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
+  def apply(elev: Lelev, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
 }
 
 /** Land elevation. */
 trait Lelev
 {
   /** Factory apply method for land. */
-  def apply(biome: Biome = Temperate): Land = Land(this, biome)
+  def apply(biome: Climate = Temperate): Land = Land(this, biome)
 
   def str: String
 

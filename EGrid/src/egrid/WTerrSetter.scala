@@ -22,14 +22,14 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
   object Isle
   {
-    def apply(elev: Lelev, biome: Biome, landUse: LandUse, sTerr: Water): Isle = Isle(Land(elev, biome, landUse), sTerr)
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle = Isle(Land(elev, biome, landUse), sTerr)
   }
 
   case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Land(Level, Temperate, CivMix), sideTerrs: Water = Sea) extends TRunner with HlandBase
 
   object Hland
   {
-    def apply(numIndentedVerts: Int, indentStartIndex: Int, elev: Lelev, biome: Biome, landUse: LandUse, sideTerrs: Water): Hland =
+    def apply(numIndentedVerts: Int, indentStartIndex: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Hland =
       Hland(numIndentedVerts, indentStartIndex,Land(elev, biome, landUse), sideTerrs)
   }
 
@@ -73,6 +73,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     magnitude2: Int = 3) extends VRowElem with MouthSpecBase
 
   case class VertIn(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertInBase
+  case class VertOut(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 6) extends VRowElem with VertOutBase
   case class VertRightsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsRightBase
 
   case class ThreeWay(c: Int, st: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase

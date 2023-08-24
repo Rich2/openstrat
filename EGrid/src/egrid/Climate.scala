@@ -2,36 +2,38 @@
 package ostrat; package egrid
 import Colour._
 
-trait Biome
+/** Describes climate and biome. */
+trait Climate
 { def colour: Colour
   def str: String
   override def toString: String = str
 }
 
-case object Temperate extends Biome
+/** Temperate climate with out intense dry season. */
+case object Temperate extends Climate
 { def colour: Colour = LightGreen
   def str = "Open Ground"
 }
 
-
-case object Desert extends Biome
+/** Desert climate and biome. */
+case object Desert extends Climate
 { override def str = "Desert"
   override def colour = LemonChiffon
 }
 
 /** Savannah, steppe and prairie biome. */
-case object Savannah extends Biome
+case object Savannah extends Climate
 { override def str = "Savannah"
   override def colour = LightGreen
 }
 
 /** Stand in for tropical forest. */
-object Tropical extends Biome
+object Tropical extends Climate
 { override def str = "Jungle"
   override def colour = DarkGreen
 }
 
-object IceCap extends Biome
+object IceCap extends Climate
 { override def str = "IceCap"
   override def colour = White
 }
@@ -50,12 +52,12 @@ object WSeaIce extends Water
   override def isLand: Boolean = false
 }
 
-case object Taiga extends Biome
+case object Taiga extends Climate
 { override def str = "Taiga"
   override def colour = DarkCyan
 }
 
-case object Tundra extends Biome
+case object Tundra extends Climate
 { override def str = "Tundra"
   override def colour = Plum.average(Thistle)
 }
