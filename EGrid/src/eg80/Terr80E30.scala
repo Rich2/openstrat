@@ -81,7 +81,7 @@ object Terr80E30  extends Long80Terrs
       TRow(424, Hland(1, 5, hills), sea * 4, hills, mtain, hills * 2, sea * 3, hills * 5, hillyDesert, desert * 2, hillyDesert * 6, mtain * 2, hillyDesert, lake,
       hillyDesert, mtain),
 
-      VRow(423, VertIn(1500, HVUp)),
+      VRow(423, BendAll(1500, HVUp)),
 
       TRow(422, Hland(4, 2, mtain), sea * 4, Isle(hills), Hland(3, 4, hills), Hland(2, 0, mtain), hills * 2, sea * 2, hills * 7, desert,
         hillyDesert, desert, mtain, hills, hillyDesert, mtain, plain * 2, hillyDesert, mtain * 2, hillyDesert),

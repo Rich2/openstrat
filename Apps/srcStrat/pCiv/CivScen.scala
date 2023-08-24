@@ -31,11 +31,11 @@ object Civ1 extends CivScenStart
       TRow(12, Plain * 4, Hill, Mountain * 2, Plain * 3),
       VRow(9, Mouth(26, HVUp, River)),
 
-      VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River), ThreeWay(26, River), VertIn(28, HVUp, River), VertIn(30, HVDn, River),
-        VertIn(32, HVUp, River), VertIn(34, HVDn, River), VertIn(36, HVUp, River), VertIn(38, HVDn, River), Mouth(40, HVDR, River)),
+      VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River), ThreeWay(26, River), BendAll(28, HVUp, River), BendAll(30, HVDn, River),
+        BendAll(32, HVUp, River), BendAll(34, HVDn, River), BendAll(36, HVUp, River), BendAll(38, HVDn, River), Mouth(40, HVDR, River)),
 
       TRow(6, Plain * 5, SideB(River)),
-      VRow(5, Mouth(22, HVDL, River), VertIn(24, HVUL, River)),
+      VRow(5, Mouth(22, HVDL, River), BendAll(24, HVUL, River)),
       TRow(4, Hill * 3, Plain * 7),
     )
   }
@@ -63,7 +63,7 @@ object Civ2 extends CivScenStart
       TRow(8, Plain * 4, Hland(4, 0), Sea * 3, Plain, Sea),
       VRow(7, Mouth(18, HVUL), Mouth(28, HVDR), Mouth(40, HVUp, River)),
       TRow(6, Plain * 3, Sea * 2, Hland(2, 5, Mountain), Sea, Plain, Plain * 2),
-      VRow(5, Mouth(24, HVDn), Mouth(30, HVUp), VertIn(38, HVDR, River), VertIn(40, HVUL, River)),
+      VRow(5, Mouth(24, HVDn), Mouth(30, HVUp), BendAll(38, HVDR, River), BendAll(40, HVUL, River)),
       TRow(4, Sea * 5, Mountain * 3, Plain * 2),
       VRow(3, Mouth(30, HVDn), Mouth(36, HVDL, River), ThreeWay(38, River), Mouth(40, HVDR, River)),
       TRow(2, Plain * 10),

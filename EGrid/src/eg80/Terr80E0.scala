@@ -33,7 +33,7 @@ object Terr80E0 extends Long80Terrs
       TRow(484, sea * 5, Hland(3, 4, hills), mtain, hillyForest, hills, sea * 9, Hland(4, 5), Hland(1, 4), plain * 2),
       TRow(482, sea * 6, mtain * 2, hills, sea * 8, plain * 2, sea, Hland(1, 4), plain),
       TRow(480, sea * 7, hills * 2, sea * 9, plain * 2, sea, plain * 2),
-      VRow(479, Mouth(550, HVUL), VertIn(552, HVDL)),
+      VRow(479, Mouth(550, HVUL), BendAll(552, HVDL)),
       TRow(478, sea * 6, Hland(3, 3, hills), plain * 2, Hland(2, 0), sea * 7, plain * 2, Hland(3, 4), plain * 2, sea),
       VRow(477, Mouth(552, HVDn)),
       TRow(476, sea * 5, hills, plain, Hland(3, 3, hills), hills * 2, Hland(1, 1), sea * 7, plain, Hland(1, 1), Hland(3, 2), sea * 2),

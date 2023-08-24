@@ -184,8 +184,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
   }
 
 
-  /** Sets the Vert in for a side terrain, eg Straits / River / Wall and sets the left most of the sides.  */
-  trait VertInBase
+  /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
+   *  by the direction of the inside of the bend. */
+  trait BendAllBase
   { def c: Int
     def magnitude: Int
     def dirn: HVDirn
@@ -226,47 +227,47 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
-  /** Sets the Vert in for a side terrain, eg Straits / River / Wall and sets the left most of the sides. */
-  trait VertOutBase {
+  /** Sets the 2 outer corners of the bend for side terrain, Also sets the left most of the sides of the bend vertex. The orientation of the bend is
+   * specified by the direction of the inside of the bend. */
+  trait BendOutBase
+  { /** The coordinate of the vertex of the bend. */
     def c: Int
 
+    /** The magnitude of the offset for the 2 outer corners of the bend vertex. */
     def magnitude: Int
 
+    /** The direction of the inside of the bend. */
     def dirn: HVDirn
 
+    /** The terrain of the sides. */
     def terr: SST
 
-    def run(row: Int): Unit = dirn match {
-      case HVUR => {
-        corners.setVert4Out(row + 1, c + 2, magnitude)
+    /** Runs the setting actions.  */
+    def run(row: Int): Unit = dirn match
+    { case HVUR =>
+      { corners.setVert4Out(row + 1, c + 2, magnitude)
         sTerrs.setIf(row + 1, c, terr)
       }
-
-      case HVDR => {
-        corners.setVert5Out(row - 1, c + 2, magnitude)
+      case HVDR =>
+      { corners.setVert5Out(row - 1, c + 2, magnitude)
         sTerrs.set(row - 1, c, terr)
       }
-
-      case HVDn => {
-        corners.setVert0Out(row - 1, c, magnitude)
+      case HVDn =>
+      { corners.setVert0Out(row - 1, c, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
-
-      case HVDL => {
-        corners.setVert1Out(row - 1, c - 2, magnitude)
+      case HVDL =>
+      { corners.setVert1Out(row - 1, c - 2, magnitude)
         sTerrs.set(row, c - 1, terr)
       }
-
-      case HVUL => {
-        corners.setVert2Out(row + 1, c - 2, magnitude)
+      case HVUL =>
+      { corners.setVert2Out(row + 1, c - 2, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
-
-      case HVUp => {
-        corners.setVert3Out(row + 1, c, magnitude)
+      case HVUp =>
+      { corners.setVert3Out(row + 1, c, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
-
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
   }

@@ -13,11 +13,11 @@ object Terr220E30 extends Long220Terrs
       TRow(182, Hland(2, 5, hillyTundra), Hland(2, 0, hillyTundra), sea * 3),
       TRow(180, hillyTundra, taiga, tundra, Hland(2, 0, hillyTundra), sea),
       TRow(178, taiga * 4, Hland(3, 5, tundra)),
-      VRow(177, Mouth(1530, HVUp), Mouth(1538, HVDL), VertIn(1544, HVUL)),
+      VRow(177, Mouth(1530, HVUp), Mouth(1538, HVDL), BendAll(1544, HVUL)),
       TRow(176, Hland(1, 2, taiga), taiga * 2, Hland(3, 0, taiga), Hland(2, 4, taiga), taiga),
       VRow(175, Mouth(1540, HVDL), Mouth(1544, HVDR)),
       TRow(174, Hland(1, 2, taiga), Hland(1, 5, taiga), taiga * 4),
-      VRow(173, Mouth(1540, HVUL, Lake), VertIn(1542, HVDL, Lake)),
+      VRow(173, Mouth(1540, HVUL, Lake), BendAll(1542, HVDL, Lake)),
       TRow(172, Hland(1, 2, taiga), Hland(1, 5, taiga), taiga * 5),
       VRow(171, Mouth(1536, HVDL, Lake), Mouth(1538, HVUR, Lake), Mouth(1542, HVDn, Lake)),
       TRow(170, sea, Hland(2, 3, taiga), Hland(1, 3, taiga), taiga * 4),
@@ -47,7 +47,7 @@ object Terr220E30 extends Long220Terrs
       TRow(136, desert, sea, desert * 4, plain, hillyDesert, desert * 5),
       VRow(135, Mouth(1540, HVUp), Mouth(1544, HVUp)),
       TRow(134, desert * 6, plain, desert, hillyDesert, hillyDesert, desert * 3),
-      VRow(133, VertIn(1540, HVUR), Mouth(1542, HVDR), Mouth(1544, HVDn)),
+      VRow(133, BendAll(1540, HVUR), Mouth(1542, HVDR), Mouth(1544, HVDn)),
       TRow(132, desert * 6, plain, desert, sea, desert * 4),
     )
   }
