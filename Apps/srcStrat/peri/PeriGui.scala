@@ -27,7 +27,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
       pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, ref, armies.head.colour).slate(pt)
     }*/
     def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
-      Circle(proj.pixelsPerTile / 2).fillActive(army.colour, army).slate(pt)
+      Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, army, army.num.str, 12).slate(pt)
     }
     //def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 
