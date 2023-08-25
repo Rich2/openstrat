@@ -24,6 +24,7 @@ object Terr13W90 extends Long13Terrs
       VRow(103, SetSide(9725)),
       TRow(102, sea, Hland(2, 3, hillyJungle)),
       TRow(100, sea, Hland(2, 4, hillyJungle)),
+      VRow(91, Mouth(9730, HVUR)),
       TRow(90, Hland(3, 3, mtain)),
       TRow(86, Hland(4, 5, ice))
     )

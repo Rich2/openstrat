@@ -58,24 +58,24 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     }
   }
 
-  /** Sets all corner the corners of a bend. Inside of bend is [[HVDn]] on the 0 vertex of the given [[HCen]]. Sets the corners of the other two
-   *  [[HCen]]s sharing the [[HVert]] vertex in the opposite direction [[HVUp]]. */
+  /** Sets all 3 corners of a bend. The inside of the bend is at vertex 0 of the specified [[HCen]], Bend direction defined as [[HVDn]]. The other 2
+   *  corners are offset in the opposite direction [[HVUp]]. */
   def setBend0All(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   { setCornerIn(r, c, 0, magnitude)
     setCorner(r + 2, c - 2, 2, HVUp, magnitude)
     setCorner(r + 2, c + 2, 4, HVUp, magnitude)
   }
 
-  /** Sets all the corners of a bend. Inside of bend is [[HVDL]] on the 1 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s
-   *  sharing the [[HVert]] vertex in the opposite direction [[HVUR]]. */
+  /** Sets all 3 corners of a bend. The inside of the bend is at vertex 1 of the specified [[HCen]]. Bend direction defined as [[HVDL]]. The other 2
+   *  corners are offset in the opposite direction [[HVUR]]. */
   def setBend1All(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   { setCornerIn(r, c, 1, magnitude)
     setCorner(r + 2, c + 2, 3, HVUR, magnitude)
     setCorner(r, c + 4, 5, HVUR, magnitude)
   }
 
-  /** Sets the corner inward [[HVUL]] on the 2 vertex of the given [[HCen]]. Sets the corners of the other two [[HCen]]s sharing the [[HVert]] vertex
-   * in the opposite direction [[HVDR]]. */
+  /** Sets all 3 corners of a bend. The inside of the bend is at vertex 2 of the specified [[HCen]]. Bend direction defined as [[HVUL]]. The other 2
+   * corners are offset in the opposite direction [[HVDR]]. */
   def setBend2All(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   { setCornerIn(r, c, 2, magnitude)
     setCorner(r, c + 4, 4, HVDR, magnitude)
@@ -305,22 +305,6 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       val index = unsafeIndex(hCen, vertNum)
       unsafeArray(index) = corner.unsafeInt
     }
-
-  /** Creates a T junction of Straits or other terrain. */
-  /*def setTJunction(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = None match
-  { case _ if (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2) =>
-    { setSideCorner2(r + 1, c + 2, 4, HVUR, HVDn, magnitude, magnitude)
-      setCornerIn(r + 1, c - 2, 2)
-      setCornerIn(r - 1, c, 0)
-    }
-    case _ if (r.div4Rem1 & c.div4Rem2) | (r.div4Rem3 & c.div4Rem0) =>
-    { setSideCorner2(r - 1, c - 2, 1, HVDL, HVUp, magnitude, magnitude)
-      setCornerIn(r + 1, c, 3)
-      setCornerIn(r - 1, c + 2, 5)
-    }
-
-    case _ => excep(s"r = $r, c = $c are  not valid coordinates for an HVert.")
-  }*/
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
   def setVertSingle(r: Int, c: Int, dirn: HVDirnOpt, magnitude: Int)(implicit grid: HGrid): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
