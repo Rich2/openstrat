@@ -7,6 +7,8 @@ class Nation(val colour: Colour) extends Coloured
 object NoNation extends Nation(White)
 object NRed extends Nation(Red)
 object NViolet extends Nation(Violet)
+object NBlue extends Nation(Blue)
+
 case class Army(nation: Nation, num: Int) extends Coloured
 {  override def colour: Colour = nation.colour
 }
