@@ -17,7 +17,7 @@ object Terr13E0 extends Long13Terrs
       TRow(112, hillyTaiga),
       TRow(110, plain),
       TRow(108, Hland(3, 3, hills)),
-      TRow(106, Hland(2, 5, desert), Hland(1, 0, desert)),
+      TRow(106, Hland(2, 5, savannah), Hland(1, 0, sahel)),
       TRow(104, desert * 2),
       TRow(102, savannah * 2),
       TRow(100, sea, jungle),

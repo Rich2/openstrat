@@ -18,7 +18,7 @@ object Terr13E30 extends Long13Terrs
       VRow(109, Mouth(1538, HVUp)),
       TRow(108, hills),
       VRow(107, Mouth(1536, HVDR), Mouth(1538, HVDn)),
-      TRow(106, Hland(1, 0, desert), desert),
+      TRow(106, Hland(1, 0, sahel), sahel),
       VRow(105, Mouth(1536, HVUL), BendAll(1538, HVDL), Mouth(1540, HVUL), BendAll(1542, HVUp)),
       TRow(104, desert * 2),
       VRow(103, BendAll(1538, HVUR), BendAll(1540, HVUp)),
