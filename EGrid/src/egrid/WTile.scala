@@ -83,17 +83,10 @@ class Land(val elev: Lelev, val biome: Climate, val landUse: LandUse) extends WT
   override def isLand: Boolean = true
 
   override def colour: Colour = elev match
-  { case Hilly => biome match
-    { case Tundra => Chocolate.average(Tundra.colour)
-      case Taiga => Chocolate.average(Taiga.colour)
-
-      case Desert => Chocolate.average(Desert.colour)
-      case Tropical => Chocolate.average(Tropical.colour)
-      case IceCap => Chocolate.average(IceCap.colour).average(IceCap.colour)
-      case _ if landUse == Forest => Chocolate.average(Forest.colour)
-      case _ => Chocolate
-    }
-    case _ => biome.colour
+  { case Level => biome.colour
+    case Hilly if landUse == Forest => Chocolate.average(Forest.colour)
+    case Hilly => Chocolate.average(biome.colour)
+    case _ => Mountains.colour
   }
 }
 

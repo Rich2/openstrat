@@ -21,10 +21,16 @@ case object Desert extends Climate
   override def colour = LemonChiffon
 }
 
+/** Semi Desert climate and biome. */
+case object Sahel extends Climate
+{ override def str = "Sahel"
+  override def colour = LemonChiffon.average(YellowGreen)
+}
+
 /** Savannah, steppe and prairie biome. */
 case object Savannah extends Climate
 { override def str = "Savannah"
-  override def colour = LightGreen
+  override def colour = YellowGreen
 }
 
 /** Stand in for tropical forest. */
