@@ -5,7 +5,7 @@ package ostrat
  * class for the implementation of its strT and ShowT methods. It is better to use [[ShowDec]] and ShowElemT for types you control than have the toString
  * method delegate to the [[ShowT]] type class instance in the companion object. Potentially that can create initialisation order problems, but at the
  * very least it can increase compile times. */
-trait ShowShowT[R <: ShowDec] extends ShowT[R]
+trait ShowShowT[R <: Show] extends ShowT[R]
 { override def strT(obj: R): String = obj.str
   override def showT(obj: R, way: ShowStyle): String = obj.show(way)
   override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
@@ -18,3 +18,5 @@ object ShowShowT
   { override def typeStr: String = typeStrIn
   }
 }
+
+case class ShowShowSimpleT[R <: ShowSimple](typeStr: String) extends ShowShowT[R]

@@ -7,7 +7,7 @@ trait WTileHelper
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
  * and other land hexs.  */
-trait WTile extends WTileHelper with Coloured with ShowSimple with Descrip
+trait WTile extends WTileHelper with Coloured with Show//Simple //with Descrip
 { override def typeStr: String = "WTile"
   def isLand: Boolean
   def isWater: Boolean = !isLand
@@ -58,39 +58,41 @@ trait Water extends WTile with WSideSome
 case object Sea extends Water with  ShowSimple
 { override def str = "Sea"
   override def colour: Colour = DarkBlue
-  override def shortDescrip: String = "Sea"
+  //override def shortDescrip: String = "Sea"
 }
 
 case object Lake extends Water with ShowSimple
 { override def str = "Lake"
   override def colour: Colour = Blue
-  override def shortDescrip: String = "Lake"
+  //override def shortDescrip: String = "Lake"
 }
 
-object TerrainNone extends WTile
-{ override def str = "No terrain"
+object TerrainNone extends WTile with ShowSimple
+{ override def str = "NoTerrain"
   override def colour = Gray
   override def isLand: Boolean = false
-  override def shortDescrip: String = "No terrain"
+  //override def shortDescrip: String = "No terrain"
 }
 
 /** Land tile. Describes topology, climate-biome and land use. */
-class Land(val elev: Lelev, val biome: Climate, val landUse: LandUse) extends WTile
-{
-  override def shortDescrip: String = elev.toString -- biome.toString -- landUse.shortDescrip
-  override def toString: String = "Land" + (elev.toString -- biome.toString -- landUse.shortDescrip).enParenth
-
-  override def str = elev match
-  { case Level => biome.toString
-    case _ => "Other"
-  }
+class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) extends WTile with Show3[Lelev, Climate, LandUse]
+{ override def name1: String = "elev"
+  override def name2: String = "climate"
+  override def name3: String = "landUse"
+  override def show1: Lelev = elev
+  override def show2: Climate = climate
+  override def show3: LandUse = landUse
+  override def showT1: ShowT[Lelev] = Lelev.showEv
+  override def showT2: ShowT[Climate] = Climate.showEv
+  override def showT3: ShowT[LandUse] = LandUse.showEv
+  override def syntaxDepth: Int = 2
 
   override def isLand: Boolean = true
 
   override def colour: Colour = elev match
-  { case Level => biome.colour
+  { case Level => climate.colour
     case Hilly if landUse == Forest => Chocolate.average(Forest.colour)
-    case Hilly => Chocolate.average(biome.colour)
+    case Hilly => Chocolate.average(climate.colour)
     case _ => Mountains.colour
   }
 }
@@ -100,30 +102,12 @@ object Land
   def apply(elev: Lelev, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
 }
 
-/** Land elevation. */
-trait Lelev extends ShowSimple
-{
-  override def typeStr: String = "Lelev"
 
-  /** Factory apply method for land. */
-  def apply(biome: Climate = Temperate): Land = Land(this, biome)
 
-  def str: String
-
-  def colour: Colour
-}
-
-case object Level extends Lelev
-{ override def str = "Level"
-  override def colour: Colour = White
-}
-
-object Hilly extends Lelev
-{ override def str = "Hilly"
-  override def colour: Colour = Brown
-}
-
-object Mountains extends Lelev
-{ override def str = "Mountain"
-  override def colour = Gray
+/** Winter sea ice. */
+object WSeaIce extends Water with ShowSimple
+{ override def str = "WSeaIce"
+  override def colour = LightSkyBlue.average(White).average(White)
+  override def isLand: Boolean = false
+  //override def shortDescrip: String = "WTile"
 }

@@ -3,16 +3,19 @@ package ostrat; package egrid
 import Colour._
 
 /** Describes climate and biome. */
-trait Climate
-{ def colour: Colour
-  def str: String
-  override def toString: String = str
+trait Climate extends ShowSimple
+{ override def typeStr: String = "Climate"
+  def colour: Colour
+}
+
+object Climate
+{ implicit val showEv: ShowShowT[Climate] = ShowShowSimpleT[Climate]("Climate")
 }
 
 /** Temperate climate with out intense dry season. */
 case object Temperate extends Climate
 { def colour: Colour = LightGreen
-  def str = "Open Ground"
+  override def str = "Temperate"
 }
 
 /** Desert climate and biome. */
@@ -45,19 +48,11 @@ object IceCap extends Climate
 }
 
 /** Permanent all year round sea ice. */
-object SeaIce extends WTile
+object SeaIce extends WTile with ShowSimple
 { override def str = "SeaIce"
   override def colour = White
   override def isLand: Boolean = false
-  override def shortDescrip: String = "WTile"
-}
-
-/** Winter sea ice. */
-object WSeaIce extends Water
-{ override def str = "WSeaIce"
-  override def colour = LightSkyBlue.average(White).average(White)
-  override def isLand: Boolean = false
-  override def shortDescrip: String = "WTile"
+//  override def shortDescrip: String = "WTile"
 }
 
 case object Taiga extends Climate
