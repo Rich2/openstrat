@@ -11,11 +11,12 @@ object UtilPage extends HtmlPage
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
 
-  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"), debug, gen, coll, errs, parse, persist)
-
-  def debug: HtmlLi = HtmlLi("Some simple debug macros")
-
-  def gen: HtmlLi = HtmlLi("Many useful functions and extension methods such as the iToForeach, iToMap, iToFlatMap, iUntilForeach, etc.")
+  def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"),
+    HtmlLi("Some simple debug macros"),
+    HtmlLi("iToForeach, iToMap, iToFlatMap, iUntilForeach, etc functions. A more succinct and expressive alternative to the Standard Library's" +
+      "Range Class."),
+    HtmlLi("Many useful functions and extension methods."),
+    coll, errs, parse, persist)
 
   def coll: HtmlLi = HtmlLi("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
     " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")
