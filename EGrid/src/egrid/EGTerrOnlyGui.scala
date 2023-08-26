@@ -80,7 +80,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   }
 
   override def selectedStr: String = selected match
-  { case RArr1(hc: HCen) => hc.rcStr -- terrs(hc).toString
+  { case RArr1(hc: HCen) => hc.rcStr -- terrs(hc).shortDescrip
     case _ => super.selectedStr
   }
 
@@ -90,7 +90,8 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
       statusText = selectedStr
       thisTop()
     }
-
+    case (RightButton, _, h) => deb("Right mouse button; " + h.toString)
+    case (MiddleButton, _, h) => deb("Middle mouse button; " + h.toString)
     case (_, _, h) => deb("Other; " + h.toString)
   }
 

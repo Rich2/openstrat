@@ -49,6 +49,7 @@ object SeaIce extends WTile
 { override def str = "SeaIce"
   override def colour = White
   override def isLand: Boolean = false
+  override def shortDescrip: String = "WTile"
 }
 
 /** Winter sea ice. */
@@ -56,6 +57,7 @@ object WSeaIce extends Water
 { override def str = "WSeaIce"
   override def colour = LightSkyBlue.average(White).average(White)
   override def isLand: Boolean = false
+  override def shortDescrip: String = "WTile"
 }
 
 case object Taiga extends Climate

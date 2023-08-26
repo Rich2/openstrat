@@ -7,7 +7,7 @@ trait WTileHelper
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
  * and other land hexs.  */
-trait WTile extends WTileHelper with Coloured with ShowSimple
+trait WTile extends WTileHelper with Coloured with ShowSimple with Descrip
 { override def typeStr: String = "WTile"
   def isLand: Boolean
   def isWater: Boolean = !isLand
@@ -58,22 +58,26 @@ trait Water extends WTile with WSideSome
 case object Sea extends Water with  ShowSimple
 { override def str = "Sea"
   override def colour: Colour = DarkBlue
+  override def shortDescrip: String = "Sea"
 }
 
 case object Lake extends Water with ShowSimple
 { override def str = "Lake"
   override def colour: Colour = Blue
+  override def shortDescrip: String = "Lake"
 }
 
 object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
   override def isLand: Boolean = false
+  override def shortDescrip: String = "No terrain"
 }
 
 /** Land tile. Describes topology, climate-biome and land use. */
 class Land(val elev: Lelev, val biome: Climate, val landUse: LandUse) extends WTile
 {
+  override def shortDescrip: String = elev.toString -- biome.toString -- landUse.shortDescrip
   override def toString: String = "Land" + (elev.toString -- biome.toString -- landUse.shortDescrip).enParenth
 
   override def str = elev match
@@ -97,8 +101,10 @@ object Land
 }
 
 /** Land elevation. */
-trait Lelev
+trait Lelev extends ShowSimple
 {
+  override def typeStr: String = "Lelev"
+
   /** Factory apply method for land. */
   def apply(biome: Climate = Temperate): Land = Land(this, biome)
 
