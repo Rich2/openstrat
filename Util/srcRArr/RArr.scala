@@ -216,8 +216,8 @@ case object RArr0
 /** Extractor object for [[RArr]] of length 1. */
 case object RArr1
 {
-  def unapply[A](inp: Any): Option[A] = inp match{
-    case ra: RArr[_] if ra.length == 1 => Some(ra(0).asInstanceOf[A])
+  def unapply(inp: Any): Option[Any] = inp match{
+    case ra: RArr[_] if ra.length == 1 => Some(ra(0))
     case _ => None
   }
 }

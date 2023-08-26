@@ -8,7 +8,7 @@ object EGridLaunch extends GuiLaunchMore
   override def settingStr: String = "eGrid"
 
   override def default: (CanvasPlatform => Any, String) =
-    (cv => EGSphereGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view(), false), "JavaFx Eath 80KM Grid")
+    (cv => EGTerrOnlyGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view(), false), "JavaFx Eath 80KM Grid")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val scenNum: Int = sts.findSettingElse("scen",1)
@@ -114,6 +114,6 @@ object EGridLaunch extends GuiLaunchMore
       case 152 => Scen640S0E1
       case _ => Scen320All
     }
-    (EGSphereGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
+    (EGTerrOnlyGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
   }
 }

@@ -3,7 +3,7 @@ package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
 /** Displays grids on world as well as land mass outlines. */
-class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
+class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
 { val scen: EScenBasic = scenIn
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
@@ -76,7 +76,12 @@ class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ /* tileBackFills ++ */ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2/* ++ lines4*//* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines
+  }
+
+  override def selectedStr: String = selected match
+  { case RArr1(hc: HCen) => hc.rcStr -- terrs(hc).toString
+    case _ => super.selectedStr
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
@@ -101,6 +106,6 @@ class EGSphereGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   repaint()
 }
 
-object EGSphereGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean): EGSphereGui = new EGSphereGui(canv,grid, view, isFlat)
+object EGTerrOnlyGui
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean): EGTerrOnlyGui = new EGTerrOnlyGui(canv,grid, view, isFlat)
 }

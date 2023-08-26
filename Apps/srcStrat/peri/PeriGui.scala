@@ -21,11 +21,6 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
   override def frame: GraphicElems =
   {
-    /*def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
-      val str = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
-      val ref = ife(armies.length == 1, HCenPair(hc, armies.head), HCenPair(hc, armies))
-      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, ref, armies.head.colour).slate(pt)
-    }*/
     def units: GraphicElems = armies.projSomesPtMap { (army, pt) =>
       Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, army, army.num.str, proj.pixelsPerTile / 5, army.contrastBW).slate(pt)
     }
@@ -37,9 +32,10 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
     tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(armies.emptyTile(_)) ++ units// ++ moveGraphics
   }
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      selected = cl.headOrNone
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  {
+    case (LeftButton, _, cl) =>
+    { selected = cl.headOrNone
       statusText = selectedStr
       thisTop()
     }

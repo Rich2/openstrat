@@ -74,7 +74,7 @@ object TerrainNone extends WTile
 /** Land tile. Describes topology, climate-biome and land use. */
 class Land(val elev: Lelev, val biome: Climate, val landUse: LandUse) extends WTile
 {
-  override def toString: String = "Land" + str.enParenth
+  override def toString: String = "Land" + (elev.toString -- biome.toString -- landUse.shortDescrip).enParenth
 
   override def str = elev match
   { case Level => biome.toString
