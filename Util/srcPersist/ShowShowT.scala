@@ -14,9 +14,10 @@ trait ShowShowT[R <: Show] extends ShowT[R]
 
 object ShowShowT
 {
-  def apply[R <: ShowDec](typeStrIn: String): ShowShowT[R] = new ShowShowT[R]
+  def apply[R <: Show](typeStrIn: String): ShowShowT[R] = new ShowShowT[R]
   { override def typeStr: String = typeStrIn
   }
 }
 
+/** ShowT instances for [[ShowSimple]] types. */
 case class ShowShowSimpleT[R <: ShowSimple](typeStr: String) extends ShowShowT[R]

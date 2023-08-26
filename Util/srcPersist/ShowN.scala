@@ -13,9 +13,6 @@ trait ShowN extends Any with ShowDec
 
   override def str: String = show(ShowStandard)
 
-  /** A [[StrArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
-  //def showElemStrs(way: ShowStyle): Strings
-
   def showSemisNames: String =
     paramNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
 
@@ -50,16 +47,16 @@ trait ShowN extends Any with ShowDec
 
     style match
     { case ShowSemis => semisStr
-    case ShowCommas => showElemStrDecs(ShowStandard, maxPlaces).mkStr(", ")
-    case ShowParamNames => typeStr + showSemisNameDecs(maxPlaces, minPlaces).enParenth
-    case ShowSemisNames => showSemisNameDecs(maxPlaces, minPlaces)
+      case ShowCommas => showElemStrDecs(ShowCommas, maxPlaces).mkStr(", ")
+      case ShowParamNames => typeStr + showSemisNameDecs(maxPlaces, minPlaces).enParenth
+      case ShowSemisNames => showSemisNameDecs(maxPlaces, minPlaces)
 
-    case ShowStdTypedFields =>
-    { val inner = paramNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
-      typeStr + inner.enParenth
-    }
+      case ShowStdTypedFields =>
+      { val inner = paramNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
+        typeStr + inner.enParenth
+      }
 
-    case _ => typeStr.appendParenth(semisStr)
+      case _ => typeStr.appendParenth(semisStr)
     }
   }
 }

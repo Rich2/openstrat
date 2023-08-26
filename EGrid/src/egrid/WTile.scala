@@ -23,10 +23,7 @@ object WTile
   /** This is not correct, but put in as temporary measure. */
   implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
-  implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
-  { def strT(obj: WTile): String = obj.str
-    def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
-  }
+  implicit val showTEv: ShowShowT[WTile] = ShowShowT[WTile]("Terrain")
 
   val plain: Land = Land(Level, Temperate, CivMix)
   val hills: Land = Land(Hilly, Temperate, CivMix)

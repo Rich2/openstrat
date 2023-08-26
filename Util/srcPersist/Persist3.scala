@@ -49,8 +49,8 @@ trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
 
   override def showElemStrs(way: ShowStyle): StrArr = StrArr(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way))
 
-
-  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = StrArr(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
+  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr =
+    StrArr(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
     showT3.showDecT(show3, way, decimalPlaces, 0))
 }
 

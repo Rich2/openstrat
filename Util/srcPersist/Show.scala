@@ -25,6 +25,8 @@ trait Show extends Any with TypeStr
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+
+  //def strSemi: String = show(ShowSemis)
 }
 
 trait ShowNoDec extends Any with Show
