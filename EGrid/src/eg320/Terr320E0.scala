@@ -28,7 +28,7 @@ object Terr320E0 extends Long320Terrs
       TRow(148, sea * 3, Hland(1, 4, hillyTaiga), taiga),
       VRow(147, ThreeWay(516)),
       TRow(146, sea, hills, sea, Hland(4, 4), Hland(3, 2, forest)),
-      VRow(145, Mouth(508, HVUL)),
+      VRow(145, Mouth(508, HVUL), Mouth(518, HVDR)),
       TRow(144, sea, Hland(2, 1), plain, sea, plain),
       TRow(142, sea, Hland(2, 2), Hland(1, 5), Hland(3, 1), plain * 2),
       VRow(141, Mouth(504, HVUL)),

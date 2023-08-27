@@ -17,7 +17,7 @@ object Terr13E60 extends Long13Terrs
       TRow(110, desert),
       VRow(109, Mouth(2558, HVUp)),
       TRow(108, SideB(Lake), desert),
-      VRow(107, /*Mouth(2556, HVDL),*/ Mouth(2556, HVDR)),
+      VRow(107, Mouth(2558, HVDn, Lake), Mouth(2556, HVDR)),
       TRow(106, desert, hills),
       VRow(105, Mouth(2556, HVUL), BendAll(2558, HVUp), BendAll(2560, HVDn)),
       TRow(104, Hland(3, 1, hillyDesert), Hland(1, 4)),

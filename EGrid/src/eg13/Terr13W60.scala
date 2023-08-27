@@ -39,19 +39,3 @@ object Terr13W60 extends Long13Terrs
   }
   help.run
 }
-
-/*
-object BritReg
-{ def britGrid: EGrid14Long = EGrid14Long.reg(138, 148, 0, 504, 520)
-  def britTerrs: HCenLayer[WTile] = Terr14E0.terrs.spawn(Terr14E0.grid, britGrid)
-  def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr14E0.sTerrs.spawn(Terr14E0.grid, britGrid)
-  def britCorners: HCornerLayer =Terr14E0.corners.spawn(Terr14E0.grid, britGrid)
-
-  def regScen: EScenBasic = new EScenBasic
-  {  override def title: String = "Regular Britain"
-    override implicit val gridSys: EGrid14Long = britGrid
-    override val terrs: HCenLayer[WTile] = britTerrs
-    override val sTerrs: HSideOptLayer[WSide, WSideSome] = britSTerrs
-    override val corners: HCornerLayer = britCorners
-  }
-}*/
