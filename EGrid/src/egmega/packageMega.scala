@@ -6,8 +6,8 @@ import prid.phex._, egrid._
  * Crete but excludes Zealand and Mallorca.  */
 package object egmega
 {
-  val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, TerrMegaE90, null, null, null, null, null, null, null,
-  //TerrMegaE120, TerrMegaE150,TerrMegaE180,
+  val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180,
+    null, null, null, null,
     //TerrMegaW150, TerrMegaW120, TerrMegaW90, TerrMegaW60
     TerrMegaW30)
 
