@@ -8,7 +8,7 @@ object PeriScen1 extends PeriScen
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners
   override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
-  armies.setSomeMut(110, 514, Army(NBlue, 444))
+  armies.setSomeMut(110, 514, Army(NBlue, 4))
   armies.setSomeMut(108, 1536, Army(NRed, 1))
   armies.setSomeMut(96, 1540, Army(NViolet, 1))
 }

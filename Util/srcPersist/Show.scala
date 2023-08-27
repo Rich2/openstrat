@@ -46,6 +46,7 @@ trait ShowSimple extends ShowNoDec
   override def syntaxDepth: Int = 1
 }
 
+/** [[Show]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
 trait ShowDec extends Any with Show
 {
   override def show(style: ShowStyle = ShowStandard): String = showDec(style, -1, -1)
