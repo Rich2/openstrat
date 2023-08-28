@@ -17,7 +17,7 @@ trait EGridMegaLongMulti extends EGridLongMulti with EGridMegaSys
 
 object EGridMegaLongMulti
 {
-  def apply(rBottomCen: Int = 110, rTopCen: Int = 112, startLong: Int, endLong: Int): EGridMegaLongMulti = new EGridMegaLongMulti
+  def apply(rBottomCen: Int = 82, rTopCen: Int = 118, startLong: Int, endLong: Int): EGridMegaLongMulti = new EGridMegaLongMulti
   {
     override def grids: RArr[EGridLongFull] = startLong match {
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGridMegaLongFull(rBottomCen, rTopCen, i))
