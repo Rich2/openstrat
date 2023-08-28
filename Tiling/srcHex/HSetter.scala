@@ -272,7 +272,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
-  /** Used for setting a vertex where 3 side terrains meet. */
+  /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
   trait ThreeWayBase
   { def c: Int
     def st: SST

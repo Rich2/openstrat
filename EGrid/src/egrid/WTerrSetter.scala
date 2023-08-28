@@ -77,10 +77,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   case class BendAll(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with BendAllBase
 
   /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, Also sets the left most of the sides of the bend vertex, with
-   * a default terrain of [[Sea]]. The orientation of the bend is
-   * specified by the direction of the inside of the bend. */
+   * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
   case class BendOut(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 6) extends VRowElem with BendOutBase
+
   case class VertRightsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsRightBase
 
+  /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
   case class ThreeWay(c: Int, st: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
 }

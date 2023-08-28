@@ -38,7 +38,7 @@ case object Savannah extends Climate
 
 /** Stand in for tropical forest. */
 object Tropical extends Climate
-{ override def str = "Jungle"
+{ override def str = "Tropical"
   override def colour = DarkGreen
 }
 
