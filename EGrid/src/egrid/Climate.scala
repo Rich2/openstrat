@@ -36,12 +36,13 @@ case object Savannah extends Climate
   override def colour = YellowGreen
 }
 
-/** Stand in for tropical forest. */
+/** Tropical climate. High precipitation through out year. */
 object Tropical extends Climate
 { override def str = "Tropical"
   override def colour = DarkGreen
 }
 
+/** Ice cap / all year round snow. */
 object IceCap extends Climate
 { override def str = "IceCap"
   override def colour = White
@@ -52,14 +53,15 @@ object SeaIce extends WTile with ShowSimple
 { override def str = "SeaIce"
   override def colour = White
   override def isLand: Boolean = false
-//  override def shortDescrip: String = "WTile"
 }
 
+/** Taiga climate normally has [[Forest]]. */
 case object Taiga extends Climate
 { override def str = "Taiga"
   override def colour = DarkCyan
 }
 
+/** Tundra climate, no [[Foresr]] */
 case object Tundra extends Climate
 { override def str = "Tundra"
   override def colour = Plum.average(Thistle)
