@@ -1,9 +1,15 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
 
-case class Army(polity: Polity, num: Int) extends Coloured
+trait Lunit extends Coloured
 {
-  def colour = polity.colour
+  def polity: Polity
+  override def colour = polity.colour
+}
+
+case class Army(polity: Polity, num: Int) extends Lunit
+{
+
   override def toString = "Army" + polity.toString.enParenth
 
   /*override def equals(other: Any): Boolean = other match

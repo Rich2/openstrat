@@ -2,7 +2,7 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1 megametre or 1000km. */
+/** [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile scale 1 megametre or 1000km. */
 object TerrMegaE150 extends LongMegaTerrs
 {
   override implicit val grid: EGridMegaLongFull = EGridMega.e150(82)
