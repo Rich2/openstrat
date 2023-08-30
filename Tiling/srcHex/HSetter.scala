@@ -272,8 +272,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
-  /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
-   * by the direction of the inside of the bend. */
+  /** Sets only the inside corner of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is
+   *  specified by the direction of the inside of the bend. */
   trait BendInBase
   { def c: Int
 
@@ -299,18 +299,18 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
         sTerrs.setIf(row, c - 1, terr)
       }
 
-      case HVDL => {
-        corners.setBend1All(row - 1, c - 2, magnitude)
+      case HVDL =>
+      { corners.setCornerIn(row - 1, c - 2, 1, magnitude)
         sTerrs.set(row, c - 1, terr)
       }
 
-      case HVUL => {
-        corners.setBend2All(row + 1, c - 2, magnitude)
+      case HVUL =>
+      { corners.setCornerIn(row + 1, c - 2, 2, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
 
-      case HVUp => {
-        corners.setBend3All(row + 1, c, magnitude)
+      case HVUp =>
+      { corners.setCornerIn(row + 1, c, 3, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
 

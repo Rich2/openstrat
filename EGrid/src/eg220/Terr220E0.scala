@@ -38,6 +38,7 @@ object Terr220E0 extends Long220Terrs
       TRow(156, sea * 3, Hland(1, 0), plain * 2, hills * 2, plain, hills),
       VRow(155, Mouth(506, HVUL), BendOut(508, HVDL)),
       TRow(154, sea * 4, plain * 2, hills, mtain * 3),
+      VRow(153, BendIn(508, HVUR), Mouth(510, HVDR)),
       VRow(153, Mouth(530, HVUp)),
       TRow(152, sea * 4, plain, hills, mtain, hills, plain, hills),
       VRow(151, BendAll(530, HVUR), Mouth(532, HVDR)),
