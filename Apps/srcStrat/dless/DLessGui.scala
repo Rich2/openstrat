@@ -45,6 +45,11 @@ class DLessGui(val canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFl
 
   statusText = "Welcome to Diceless"
 
+  override def selectedStr: String = selected match
+  { case hc: HCen => hc.rcStr -- terrs(hc).strSemi
+    case _ => super.selectedStr
+  }
+
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   {
     case (LeftButton, _, cl) =>

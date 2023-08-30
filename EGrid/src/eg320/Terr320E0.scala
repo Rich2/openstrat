@@ -43,7 +43,7 @@ object Terr320E0 extends Long320Terrs
       VRow(131, MouthSpec(526, HVUL, HVRt, HVLt)),
       TRow(130, sea, Hland(3, 3), Hland(1, 3, hills), Hland(2, 2, hills), sea * 2, Hland(3, 5, hills), Hland(2, 3, hills)),
       TRow(128, sea, Hland(2, 5, hills), Hland(1, 0, hills), hills * 3, Hland(1, 1, hills), sea),
-      TRow(126, sea, Hland(1, 5), mtain, hillyDesert, desert * 4),
+      TRow(126, sea, Hland(1, 5), mtain, hillyDesert, sahel * 4),
       TRow(124, sea, hillyDesert, hills, desert * 6),
       VRow(123, SetSide(495)),
       TRow(122, SideB(), desert * 9),

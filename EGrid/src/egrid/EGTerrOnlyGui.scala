@@ -80,13 +80,13 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   }
 
   override def selectedStr: String = selected match
-  { case RArr1(hc: HCen) => hc.rcStr -- terrs(hc).strSemi
+  { case hc: HCen => hc.rcStr -- terrs(hc).strSemi
     case _ => super.selectedStr
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
-    { selected = cl
+    { selected = cl.headOrNone
       statusText = selectedStr
       thisTop()
     }
