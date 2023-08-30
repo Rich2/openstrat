@@ -272,6 +272,52 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
+  /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
+   * by the direction of the inside of the bend. */
+  trait BendInBase
+  { def c: Int
+
+    def magnitude: Int
+
+    def dirn: HVDirn
+
+    def terr: SST
+
+    def run(row: Int): Unit = dirn match
+    { case HVUR =>
+      { corners.setCornerIn(row + 1, c + 2, 4, magnitude)
+        sTerrs.setIf(row + 1, c, terr)
+      }
+
+      case HVDR =>
+      { corners.setCornerIn(row - 1, c + 2, 5, magnitude)
+        sTerrs.set(row - 1, c, terr)
+      }
+
+      case HVDn =>
+      { corners.setCornerIn(row - 1, c, 0, magnitude)
+        sTerrs.setIf(row, c - 1, terr)
+      }
+
+      case HVDL => {
+        corners.setBend1All(row - 1, c - 2, magnitude)
+        sTerrs.set(row, c - 1, terr)
+      }
+
+      case HVUL => {
+        corners.setBend2All(row + 1, c - 2, magnitude)
+        sTerrs.setIf(row, c - 1, terr)
+      }
+
+      case HVUp => {
+        corners.setBend3All(row + 1, c, magnitude)
+        sTerrs.setIf(row, c - 1, terr)
+      }
+
+      case HVLt | HVRt => excep("HVLt and HVRt not implemented")
+    }
+  }
+
   /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
   trait ThreeWayBase
   { def c: Int

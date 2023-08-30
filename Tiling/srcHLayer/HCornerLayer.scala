@@ -257,11 +257,11 @@ final class HCornerLayer(val unsafeArray: Array[Int])
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
   def setMouth5Corner(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
 
-  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = {
-    val dirn = HVDirn.inFromVertIndex(vertNum)
-
-    if (grid.hCenExists(cenR, cenC)) {
-      val corner = HCorner.sideSpecial(dirn, magnitude)
+  /** Sets thr corner in at the specified vertex if the specified [[HCen]] exists. */
+  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
+  { val dirn = HVDirn.inFromVertIndex(vertNum)
+    if (grid.hCenExists(cenR, cenC))
+    { val corner = HCorner.sideSpecial(dirn, magnitude)
       val index = unsafeIndex(cenR, cenC, vertNum)
       unsafeArray(index) = corner.unsafeInt
     }
