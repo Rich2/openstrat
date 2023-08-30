@@ -2,7 +2,7 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 220km, a C scale of 80km. A tile area of 23577.541km. A minimum island size of 3929.590km. */
+/** Hex tile grids for Earth with a hex scale of 220km, a C scale of 80km. A tile area of 23577.541km. A minimum island size of 1/6 3929.590km. */
 package object eg220
 {
   val fullTerrs: RArr[Long220Terrs] = RArr(Terr220E0, Terr220E30, null, null, null, null, null,
