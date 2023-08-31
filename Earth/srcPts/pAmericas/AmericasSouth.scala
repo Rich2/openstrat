@@ -4,22 +4,24 @@ import geom._, pglobe._
 
 /** [[polygonLL]] graphical representation for south South America, Argentine and Chile. Depends on nothing. */
 object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -56.0, Plain)
-{ val swArgentine = -54.28 ll -65.06
-  val sChile = -55.26 ll -69.48
-  val islaEsmeralda = -48.86 ll -75.62
-  val puntaLavapie = -37.15 ll -73.59
+{ val swArgentine: LatLong = -54.28 ll -65.06
+  val sChile: LatLong = -55.26 ll -69.48
+  val islaEsmeralda : LatLong= -48.86 ll -75.62
+  val puntaLavapie: LatLong = -37.15 ll -73.59
+  val curamilla: LatLong = -33.10 ll -71.74
+  val lenguaDeVaca : LatLong= -30.24 ll -71.63
   val sSAmericaN: Latitude = 21.south
-  val sSAmericaNW = sSAmericaN * 70.16.west
-  val nwAmericaE = 58.west
-  val nwSAmericaES = sSAmericaN * nwAmericaE
-  val sSAmericaNE = sSAmericaN * 40.81.west
-  val saoPaulo = -24 ll -46
-  val puntaDelEste = -35 ll -54
-  val buenosAires = -34 ll -59
-  val sBuenos = -36 ll -57
-  val cabotBlanco = -47.20 ll -65.75
+  val sSAmericaNW: LatLong = sSAmericaN * 70.16.west
+  val nwAmericaE: Longitude = 58.west
+  val nwSAmericaES: LatLong = sSAmericaN * nwAmericaE
+  val sSAmericaNE: LatLong = sSAmericaN * 40.81.west
+  val saoPaulo: LatLong = -24 ll -46
+  val puntaDelEste: LatLong = -35 ll -54
+  val buenosAires: LatLong = -34 ll -59
+  val sBuenos: LatLong = -36 ll -57
+  val cabotBlanco: LatLong = -47.20 ll -65.75
 
-  override val polygonLL: PolygonLL = PolygonLL(sChile, islaEsmeralda, puntaLavapie, sSAmericaNW, nwSAmericaES, sSAmericaNE, saoPaulo, puntaDelEste,
+  override val polygonLL: PolygonLL = PolygonLL(sChile, islaEsmeralda, puntaLavapie, curamilla, lenguaDeVaca, sSAmericaNW, nwSAmericaES, sSAmericaNE, saoPaulo, puntaDelEste,
     buenosAires, sBuenos, cabotBlanco, swArgentine)
 }
 
