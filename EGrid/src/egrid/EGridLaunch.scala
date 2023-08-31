@@ -104,11 +104,14 @@ object EGridLaunch extends GuiLaunchMore
       case 124 => EGridMega.scen4
       case 125 => EGridMega.scen5
       case 126 => EGridMega.scen6
+      case 127 => EGridMega.scen7
 
       case 131 => EGridMega.scen11
       case 132 => ScenMegaS0E2
       case 133 => ScenMegaS11E2
       case 134 => ScenMegaS3E6
+      case 135 => ScenMegaAmericas
+      case 136 => ScenMegaAll
 
       case 140 => EGrid640.scen0
       case 141 => EGrid640.scen1

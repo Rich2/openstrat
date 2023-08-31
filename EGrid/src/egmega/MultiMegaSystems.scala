@@ -29,15 +29,6 @@ object ScenMegaS3E6 extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Just terrain scenario for all longitudes grid system. */
-/*object ScenMegaAll extends EScenLongMulti
-{ override val title: String = "All longitude terrain only scenario."
-  override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(12, 0, 82)
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
-  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-}
-
 /** Terrain only scenario for North America. 3 Megakm grid system for 150W, 120W, 90W and 60W */
 object ScenMegaAmericas extends EScenLongMulti
 { override val title: String = "Megakm 150W - 60W"
@@ -47,13 +38,24 @@ object ScenMegaAmericas extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
+/** Just terrain scenario for all longitudes grid system. */
+object ScenMegaAll extends EScenLongMulti
+{ override val title: String = "All longitude terrain only scenario."
+  override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(12, 0, 82)
+  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
+
+
 /** 2 Megakm grid system for Northern Canada 120W and 90W. */
 object GridsNCanada extends EGridMegaLongMulti
 { override val grids: RArr[EGridLongFull] = EGridMega.grids(2, 8, 154, 82)
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, this))
-}*/
+}
 
 /** Scenario for 2 Megakm grid system for Northern Canada 120W and 90W. */
 /*object ScenNCanada extends EScenLongMulti
