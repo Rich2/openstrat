@@ -52,15 +52,15 @@ TextGraphic
 { type ThisT = TextAligned
 
   /** Translate 2D geometric transformation on this [[TextAligned]]. */
-  override def slateXY(xDelta: Double, yDelta: Double): TextAligned = copy(xPosn = xPosn + xDelta, yPosn = yPosn + yDelta )
+  override def slateXY(xDelta: Double, yDelta: Double): TextAligned = copy(str, fontSize, xPosn + xDelta, yPosn + yDelta )
 
   /** Uniform scaling 2D geometric transformation on this [[TextAligned]], returns a TextAligned. Scales the font size as well as the x and y
    *  positions. */
-  override def scale(operand: Double): TextAligned = copy(str, xPosn * operand, yPosn * operand, fontSize * operand)
+  override def scale(operand: Double): TextAligned = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: TextAligned = copy(str, xPosn, -yPosn)
+  override def negY: TextAligned = copy(str, fontSize, xPosn, -yPosn)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */

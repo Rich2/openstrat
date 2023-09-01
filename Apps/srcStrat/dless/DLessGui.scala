@@ -24,8 +24,8 @@ class DLessGui(val canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFl
     def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
       val str: String = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
       val ref = ife(armies.length == 1, HCenPair(hc, armies.head), HCenPair(hc, armies))
-      val rect = Rect(1.4).scale(proj.pixelsPerTile * 0.45)
-      rect.fillActiveTextAbs(armies.head.colour, ref, armies.foldStr(_.num.str, ", "), proj.pixelsPerTile/ 5, armies.head.contrastBW).slate(pt)
+      val rect = Rect(1.4).fillActiveTextRel(armies.head.colour, ref, armies.foldStr(_.num.str, ", "), 0.4, armies.head.contrastBW)
+      rect.scale(proj.pixelsPerTile * 0.45).slate(pt)
     }
 
     def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
