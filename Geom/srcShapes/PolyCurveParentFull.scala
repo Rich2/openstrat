@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui._
 
@@ -12,6 +12,11 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, 
 
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
+
+  /** The width of the [[BoundingRect]] of this object. */
+  override def boundingWidth: Double = shape.boundingRect.boundingWidth
+
+  override def boundingHeight: Double = shape.boundingRect.boundingHeight
 }
 
 object PolyCurveParentFull

@@ -38,7 +38,6 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
 case class CircleActive(shape: Circle, pointerId: Any) extends EllipseActive with CircleGraphicSimple
 { override type ThisT = CircleActive
   override def ptsTrans(f: Pt2 => Pt2): CircleActive = CircleActive(shape.fTrans(f), pointerId)
-  override def boundingRect: Rect = shape.boundingRect
 
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.") }

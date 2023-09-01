@@ -5,7 +5,9 @@ import pWeb._
 /** A shape based graphic. */
 trait ShapeGraphic extends GraphicBounded
 { def shape: Shape
-  override def boundingRect: Rect = shape.boundingRect
+  final override def boundingRect: Rect = shape.boundingRect
+  final override def boundingWidth: Double = shape.boundingWidth
+  final override def boundingHeight: Double = shape.boundingHeight
   def attribs: RArr[XmlAtt]
   def shapeAttribs: RArr[XmlAtt] = shape.attribs
 

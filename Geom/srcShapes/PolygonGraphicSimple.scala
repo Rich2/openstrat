@@ -4,9 +4,7 @@ import pgui._, pWeb._
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
-{
-  override def boundingRect: Rect = shape.boundingRect
-  override def svgElem: SvgElem = SvgPolygon(attribs)
+{ override def svgElem: SvgElem = SvgPolygon(attribs)
 
   override def shearX(operand: Double): PolygonGraphicSimple
 
@@ -64,7 +62,7 @@ object PolygonGraphicSimple
 case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphicSimple
 { override type ThisT = PolygonActive
   override def ptsTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.vertsTrans(f), pointerId)
-  override def boundingRect: Rect = shape.boundingRect
+//  override def boundingRect: Rect = shape.boundingRect
 
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}

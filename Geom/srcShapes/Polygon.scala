@@ -232,52 +232,69 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     Rect.lrbt(minX, maxX, minY, maxY)
   }
 
-  @inline def polygonMap(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
+  override def boundingWidth: Double =
+  { var minX, maxX = v0x
+    vertsTailForeach { v =>
+      minX = minX.min(v.x)
+      maxX = maxX.max(v.x)
+    }
+    maxX - minX
+  }
+
+
+  override def boundingHeight: Double =
+  { var minY, maxY = v0y
+    vertsTailForeach { v =>
+      minY = minY.min(v.y)
+      maxY = maxY.max(v.y)
+    }
+    maxY - minY
+  }
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slateXY(xDelta: Double, yDelta: Double): Polygon = polygonMap(_.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): Polygon = map(_.addXY(xDelta, yDelta))
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  def slate(offset: Vec2Like): Polygon = polygonMap(_.slate(offset))
+  def slate(offset: Vec2Like): Polygon = map(_.slate(offset))
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
    *  return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): Polygon = polygonMap(_.scale(operand))
+  override def scale(operand: Double): Polygon = map(_.scale(operand))
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
-  override def negY: Polygon = polygonMap(_.negY)
+  override def negY: Polygon = map(_.negY)
 
   /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
-  override def negX: Polygon = polygonMap(_.negX)
+  override def negX: Polygon = map(_.negX)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Polygon = map(_.prolign(matrix))
 
-  override def rotate90: Polygon = polygonMap(_.rotate90)
-  override def rotate180: Polygon = polygonMap(_.rotate180)
-  override def rotate270: Polygon = polygonMap(_.rotate270)
+  override def rotate90: Polygon = map(_.rotate90)
+  override def rotate180: Polygon = map(_.rotate180)
+  override def rotate270: Polygon = map(_.rotate270)
 
   /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
    *  be narrowed in some but not all sub traits / classes. */
-  override def rotate(angle: AngleVec): Polygon = polygonMap(_.rotate(angle))
+  override def rotate(angle: AngleVec): Polygon = map(_.rotate(angle))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
    *  traits / classes. */
-  override def reflect(lineLike: LineLike): Polygon = polygonMap(_.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Polygon = map(_.reflect(lineLike))
 
   /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
    *  return type will be narrowed in some, but not all descendant Polygon types. */
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = polygonMap(_.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = map(_.xyScale(xOperand, yOperand))
 
   /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
    *  classes and traits. */
-  override def shearX(operand: Double): Polygon = polygonMap(_.xShear(operand))
+  override def shearX(operand: Double): Polygon = map(_.xShear(operand))
 
   /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
    *  traits. */
-  override def shearY(operand: Double): Polygon = polygonMap(_.xShear(operand))
+  override def shearY(operand: Double): Polygon = map(_.xShear(operand))
 
   /** Determines if the parameter point lies inside this Polygon. */
   def ptInside(pt: Pt2): Boolean =
@@ -313,8 +330,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def fillDrawText(fillColour: Colour, str: String, fontSize: Double = 24, lineColour: Colour = Black, lineWidth: Double = 2.0): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(TextFixed(str, fontSize, cenDefault)))
 
-  def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonCompound = PolygonCompound(this, RArr(fillColour, TextFacet(str, textColour)), RArr())
+ // def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
+//  PolygonCompound = PolygonCompound(this, RArr(fillColour, TextFacet(str, textColour)), RArr())
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Double = 24, lineWidth: Double, lineColour: Colour = Black,
     textColour: Colour = Black, align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
