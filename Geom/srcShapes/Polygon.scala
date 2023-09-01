@@ -320,10 +320,12 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     textColour: Colour = Black, align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
     RArr(TextGraphic(str, fontSize, cenDefault, textColour, align), PolygonActive(this, pointerID)))
 
-  def fillText(fillColour: Colour, str: String, fontSize: Double = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
+  /** Returns compound polygon graphic with fill and Text members. The element parameters being entered in name order. */
+  def fillTextAbs(fillColour: Colour, str: String, fontSize: Double = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
     PolygonCompound(this, RArr(fillColour), RArr(TextGraphic(str, fontSize, cenDefault, textColour)))
 
-  def fillTextActive(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
+  /** Returns compound polygon graphic with fill, active and Text members. The element parameters being entered in name order. */
+  def fillActiveTextAbs(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
     PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cenDefault, fontColour, align)))
 
   /** Insert vertex. */

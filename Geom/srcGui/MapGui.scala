@@ -16,9 +16,9 @@ abstract class MapGui(val title: String) extends CanvasPanelled
     case (_, l, _) => deb(l.toString)
   }
    
-  def textBoxFull(str: String, cmd: AnyRef): PolygonCompound = Rect(75, 25).fillTextActive(Gray, cmd, str, 15, White, LeftAlign)
+  def textBoxFull(str: String, cmd: AnyRef): PolygonCompound = Rect(75, 25).fillActiveTextAbs(Gray, cmd, str, 15, White, LeftAlign)
 
-  def textBox(str: String, cmd: AnyRef): PolygonCompound = Rect(75, 25).fillTextActive(Gray, cmd, str, 15, White, LeftAlign)
+  def textBox(str: String, cmd: AnyRef): PolygonCompound = Rect(75, 25).fillActiveTextAbs(Gray, cmd, str, 15, White, LeftAlign)
 
   /**  repaints the top command bar */
   def reTop(commands: RArr[GraphicBounded]): Unit = topPan.repaint(displayRowGraphics(topPan.cenLeft, commands))

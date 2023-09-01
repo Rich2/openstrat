@@ -12,7 +12,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   implicit val proj: SqSysProjection = gSys.projection(mainPanel)
 
   val terrs: SqCenLayer[DungTerr] = scen.terrs
-  val tiles: GraphicElems = gSys.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
+  val tiles: GraphicElems = gSys.map{ sc => sc.polygonReg.fillActiveTextAbs(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
   def sls: LinesDraw = proj.sidesDraw(2, Colour.White)
   def players: RArr[PolygonCompound] = scen.characs.scSomesMap{ (sqc, cs) =>
     val poly1: Polygon = Rect(1.5, 1).insVerts(1, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cs.facing.angle - Angle.up)
