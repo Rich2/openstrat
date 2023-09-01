@@ -2,14 +2,28 @@
 package ostrat; package geom
 import Colour.Black, pgui.CanvasPlatform, pWeb._
 
+trait TextGraphic extends CanvElem{
+  def str: String
+  def fontSize: Double
+  def xPosn: Double
+  def yPosn: Double
+  def colour: Colour
+  def textAlign: TextAlign
+  def baseLine: BaseLine
+
+  override def slateXY(xDelta: Double, yDelta: Double): TextGraphic
+  override def negY: TextGraphic
+  def posn: Pt2 = Pt2(xPosn, yPosn)
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
+}
+
 /** Text graphic fixed in font size and orientation.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
 final case class TextFixed(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, textAlign: TextAlign, baseLine: BaseLine) extends
-GraphicAffineElem with CanvElem with GraphicSvgElem
+TextGraphic with GraphicAffineElem with GraphicSvgElem
 { type ThisT = TextFixed
-  def posn: Pt2 = Pt2(xPosn, yPosn)
   override def ptsTrans(f: Pt2 => Pt2) = TextFixed(str, fontSize, f(posn), colour, textAlign, baseLine)
-  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
+
 
   override def svgElem: SvgElem = SvgText(xPosn, -yPosn, str, textAlign)
 }
@@ -33,64 +47,58 @@ object TextFixed
 }
 
 /** A text Graphic aligned with the X and Y axes, but with a scaled font. */
-final case class TextAligned(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, align: TextAlign, baseLine: BaseLine) extends
-GraphicElem
+final case class TextAligned(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, textAlign: TextAlign, baseLine: BaseLine) extends
+TextGraphic
 { type ThisT = TextAligned
 
-  def posn: Pt2 = Pt2(xPosn, yPosn)
+  /** Translate 2D geometric transformation on this [[TextAligned]]. */
+  override def slateXY(xDelta: Double, yDelta: Double): TextAligned = copy(xPosn = xPosn + xDelta, yPosn = yPosn + yDelta )
 
-  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
-  override def rendToCanvas(cp: CanvasPlatform): Unit = ???
+  /** Uniform scaling 2D geometric transformation on this [[TextAligned]], returns a TextAligned. Scales the font size as well as the x and y
+   *  positions. */
+  override def scale(operand: Double): TextAligned = copy(str, xPosn * operand, yPosn * operand, fontSize * operand)
 
-  /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xDelta: Double, yDelta: Double): GraphicElem = ???
-
-  /** Uniform scaling 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes.
-   * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
-   * method for differential scaling on the X and Y axes. */
-  override def scale(operand: Double): GraphicElem = ???
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in
+  /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: GraphicElem = ???
+  override def negY: TextAligned = ???
 
-  /** Mirror, reflection 2D geometric transformation across the X axis on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in
+  /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negX: GraphicElem = ???
+  override def negX: TextAligned = ???
 
-  /** 2D geometric transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
+  /** 2D geometric transformation using a [[ProlignMatrix]] on a TextAligned, returns a TextAligned. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): GraphicElem = ???
+  override def prolign(matrix: ProlignMatrix): TextAligned = ???
 
-  /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be
+  /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a TextAligned, returns a TextAligned. The return type will be
    * narrowed in sub classes and traits. */
-  override def rotate90: GraphicElem = ???
+  override def rotate90: TextAligned = ???
 
-  /** Rotation positive or anti clockwise 180 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be
+  /** Rotation positive or anti clockwise 180 degrees, 2D geometric transformation on a TextAligned, returns a TextAligned. The return type will be
    * narrowed in sub classes and traits. */
-  override def rotate180: GraphicElem = ???
+  override def rotate180: TextAligned = ???
 
-  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a TextAligned, returns a TextAligned. The return type will be
    * narrowed in sub classes and traits. */
-  override def rotate270: GraphicElem = ???
+  override def rotate270: TextAligned = ???
 
-  /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return
+  /** Rotation 2D geometric transformation on a TextAligned taking the rotation as a scalar measured in radians, returns a TextAligned. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: AngleVec): GraphicElem = ???
+  override def rotate(angle: AngleVec): TextAligned = ???
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a GraphicElem, returns a GraphicElem. The Return type will be narrowed
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a TextAligned, returns a TextAligned. The Return type will be narrowed
    * in sub traits / classes. */
-  override def reflect(lineLike: LineLike): GraphicElem = ???
+  override def reflect(lineLike: LineLike): TextAligned = ???
 
-  /** XY scaling 2D geometric transformation on a GraphicElem, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
+  /** XY scaling 2D geometric transformation on a TextAligned, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): TextAligned = ???
 
-  /** Shear 2D geometric transformation along the X Axis on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub classes and
+  /** Shear 2D geometric transformation along the X Axis on a TextAligned, returns a TextAligned. The return type will be narrowed in sub classes and
    * traits. */
-  override def shearX(operand: Double): GraphicElem = ???
+  override def shearX(operand: Double): TextAligned = ???
 
-  /** Shear 2D geometric transformation along the Y Axis on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub classes and
+  /** Shear 2D geometric transformation along the Y Axis on a TextAligned, returns a TextAligned. The return type will be narrowed in sub classes and
    * traits. */
-  override def shearY(operand: Double): GraphicElem = ???
+  override def shearY(operand: Double): TextAligned = ???
 }

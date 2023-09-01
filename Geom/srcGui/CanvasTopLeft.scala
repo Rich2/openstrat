@@ -34,7 +34,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def ellipseDraw(ed: EllipseDraw): Unit = tlEllipseDraw(ed.negY.slateXY(width / 2, height / 2))
 
-  final override def textGraphic(tg: TextFixed): Unit = tlTextGraphic(tg.ptsTrans(tlCen))
+  final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.negY.slateXY(width / 2, height / 2))
   final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.ptsTrans(tlCen))
 
   final override def clip(pts: Polygon): Unit = tlClip(pts.vertsTrans(tlCen))
@@ -63,7 +63,7 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlEllipseDraw(ed: EllipseDraw): Unit
   protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit
    
-  protected[this] def tlTextGraphic(tg: TextFixed): Unit
+  protected def tlTextGraphic(tg: TextGraphic): Unit
   protected[this] def tlTextOutline(tl: TextOutline): Unit
 
   protected[this] def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Pt2(x - width / 2, height / 2 - y), mb)

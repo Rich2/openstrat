@@ -91,7 +91,7 @@ trait CanvasPlatform extends RectCenlign
   /** Side effecting procedure that draws an ellipse on the screen. Implemented by the target platform. */
   def ellipseDraw(ed: EllipseDraw): Unit
   
-  def textGraphic(tg: TextFixed): Unit
+  def textGraphic(tg: TextGraphic): Unit
    
   def textOutline(to: TextOutline): Unit
 

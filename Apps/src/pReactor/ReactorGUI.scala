@@ -160,7 +160,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
-    if (aDefaultGame.players.length < 2) canv.textGraphic(TextFixed(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer))
+    if (aDefaultGame.players.length < 2) canv.textGraphic(TextFixed(" Wins!", 16, 10 pp (-3 * size / 4), aDefaultGame.currentPlayer))
   }
 
   /** If the current player is a computer then play its hand here */

@@ -184,7 +184,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
    
 // baseline - VPos with values of Top, Center, Baseline, or Bottom or null.
 
-  override protected[this] def tlTextGraphic(tg: TextFixed): Unit =
+  override protected def tlTextGraphic(tg: TextGraphic): Unit =
   { gc.setTextAlign(fxAlign(tg.textAlign))
     gc.setTextBaseline(fxBaseline(tg.baseLine))
     gc.setFont(new text.Font(tg.fontSize))
