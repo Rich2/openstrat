@@ -25,6 +25,7 @@ case class DrawFacet(colour: Colour = Black, width: Double = 2.0) extends CurveF
   override def attribs: RArr[XmlAtt] = RArr(strokeWidthAttrib, strokeAttrib)
 }
 
-case class TextFacet(str: String, sizeRatio: Double, colour: Colour, textAlign: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle) extends GraphicFacet
+case class TextFacet(str: String, sizeRatio: Double, colour: Colour, textAlign: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle,
+  minSize: Double = 4) extends GraphicFacet
 { def attribs: RArr[XmlAtt] = RArr()
 }

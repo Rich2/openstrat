@@ -348,6 +348,11 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def fillActiveTextlign(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
 
+  /** [[PolygonCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[PolygonActive]] child. */
+  def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
+  baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): PolygonCompound =
+    PolygonCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize) ), RArr(PolygonActive(this, pointerEv)))
+
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + 1)
