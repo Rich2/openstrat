@@ -35,8 +35,8 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
       Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0, Colour.Black, counter.contrastBW)
     }
 
-    /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-    def hexStrs: RArr[TextGraphic] = counters.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.strComma, 20) }
+    /** [[TextFixed]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
+    def hexStrs: RArr[TextFixed] = counters.projNoneHcPtMap { (hc, pt) => pt.textAt(hc.strComma, 20) }
 
     def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 

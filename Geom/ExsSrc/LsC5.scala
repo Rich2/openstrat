@@ -13,7 +13,7 @@ case class LsC5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C5")
   val r5 = hol(100, 500)
   var rArr = RArr(r1, r2, r3, r4, r5)
   def gArr = rArr.map(h => h.rect.fillActiveDraw(h.colour, h))
-  val startText = TextGraphic("Click on the rectangles. All rectangles under the point will cycle their colour.", 28, 0 pp 400)
+  val startText = TextFixed("Click on the rectangles. All rectangles under the point will cycle their colour.", 28, 0 pp 400)
   repaint(gArr +% startText)
   
   mouseUp = (b, s, v) =>

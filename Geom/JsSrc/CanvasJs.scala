@@ -232,8 +232,8 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
    
-  override protected[this] def tlTextGraphic(tg: TextGraphic): Unit =
-  { gc.textAlign = tg.align.jsStr
+  override protected[this] def tlTextGraphic(tg: TextFixed): Unit =
+  { gc.textAlign = tg.textAlign.jsStr
     gc.textBaseline = tg.baseLine.jsStr
     gc.font = tg.fontSize.toString + "px Arial"
     gc.fillStyle = tg.colour.webStr

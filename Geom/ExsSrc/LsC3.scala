@@ -11,15 +11,15 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   val r4: PolygonCompound = r.slate(-300 pp - 300)
   val rList = RArr(r1, r2, r3, r4)
   val textPosn = 0 pp 0
-  val startText = TextGraphic("Please click on the screen.", 28, textPosn)
+  val startText = TextFixed("Please click on the screen.", 28, textPosn)
   repaint(rList +% startText)
   
   //Note we are ignoring the button here
   mouseUp = (button, selectedList, posn) =>
     {
       val newText = selectedList match
-      { case RArrHead(h) => TextGraphic("You hit a yellow rectangle at " + posn.str, 28, textPosn)
-        case _ => { deb(selectedList.toString()); TextGraphic("You missed the yellow rectangles.\n" + posn.str, 28, textPosn) }
+      { case RArrHead(h) => TextFixed("You hit a yellow rectangle at " + posn.str, 28, textPosn)
+        case _ => { deb(selectedList.toString()); TextFixed("You missed the yellow rectangles.\n" + posn.str, 28, textPosn) }
       }  
       repaint(rList +% newText)
   }

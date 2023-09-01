@@ -4,6 +4,6 @@ import ostrat._, geom._, pgui._, Colour._
 
 /** Lesson C2. Shows the location and [[Pt2]] coordinates of the point on the screen the user has clicked. */
 case class LsC2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C2")
-{ repaints(TextGraphic("Please click on the screen in different places.", 28, 0 pp 200, Green))
-  setMouseSimple(pt => repaints(TextGraphic("You clicked the screen at: " + pt.showSemisNameDecs(), 28, pt, Red)))
+{ repaints(TextFixed("Please click on the screen in different places.", 28, 0 pp 200, Green))
+  setMouseSimple(pt => repaints(TextFixed("You clicked the screen at: " + pt.showSemisNameDecs(), 28, pt, Red)))
 }

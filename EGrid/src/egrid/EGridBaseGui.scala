@@ -37,9 +37,9 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 
   def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
-  def hexStrs(f1: HCen => Boolean): RArr[TextGraphic] = proj.hCensIfPtFlatMap(f1) { (hc, pt) =>
+  def hexStrs(f1: HCen => Boolean): RArr[TextFixed] = proj.hCensIfPtFlatMap(f1) { (hc, pt) =>
     val strs: StrArr = StrArr(hc.rcStr32) +% hc.strComma
-    TextGraphic.lines(strs, 12, pt, terrs(hc).contrastBW)
+    TextFixed.lines(strs, 12, pt, terrs(hc).contrastBW)
   }
 
   def hexStrs2(f1: HCen => Boolean): GraphicElems = proj.ifTileScale(72, hexStrs(f1))

@@ -16,7 +16,7 @@ case class LsA9(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A9")
          bd(-250 pp 50, 200 pp 400, Orange),
          bd(-300 pp 100, 200 pp 0, Pink),
          PolyCurveFill(sh1, Yellow),
-         TextGraphic(pt1.toString, 12, pt1),
+         TextFixed(pt1.toString, 12, pt1),
          )
    repaint(stuff)
 }

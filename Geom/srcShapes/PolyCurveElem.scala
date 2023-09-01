@@ -44,7 +44,7 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
                                  lineWidth: Double = 2) extends PolyCurveElem
 { override type ThisT = PolyCurveFillDrawText
   override def ptsTrans(f: Pt2 => Pt2) = PolyCurveFillDrawText(shape.ptsTrans(f), fillColour, str, fontSize, lineColour, lineWidth)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
+  def textOnly: TextFixed = TextFixed(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)
 
   override def rendToCanvas(cp: CanvasPlatform): Unit =
@@ -61,7 +61,7 @@ case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, f
                            lineWidth: Double = 2) extends PolyCurveElem with PolyCurveActive
 { override type ThisT = PolyCurveAllOld
   override def ptsTrans(f: Pt2 => Pt2) = PolyCurveAllOld(shape.ptsTrans(f), pointerId, str, fillColour, fontSize, lineColour, lineWidth)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
+  def textOnly: TextFixed = TextFixed(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit =

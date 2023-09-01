@@ -29,7 +29,7 @@ trait CmdBarGui extends CanvasPanelled
   def reTop(commands: RArr[GraphicBounded]): Unit =
   { val a = displayRowGraphics(topBar.cenLeft, commands)
     val sp = ife(a.empty, topBar.cenLeft,a.last.boundingRect.cen.addX(80))
-    val st = TextGraphic(statusText, 15, sp, Black, LeftAlign)
+    val st = TextFixed(statusText, 15, sp, Black, LeftAlign)
     topBar.repaint(a +% st)
   }
 

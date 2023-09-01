@@ -28,8 +28,8 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
       Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCounter(hc, counter), str, 24, 2.0)
     }
 
-    /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-    def hexStrs: RArr[TextGraphic] = counterStates.projNoneHcPtMap { (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
+    /** [[TextFixed]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
+    def hexStrs: RArr[TextFixed] = counterStates.projNoneHcPtMap { (hc, pt) => TextFixed(hc.strComma, 20, pt) }
     def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */

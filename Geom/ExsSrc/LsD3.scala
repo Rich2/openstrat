@@ -27,7 +27,7 @@ case class LsD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
   /** Gives the result from the string, but has guard if setting not found. */
   val c6 = s2.findSettingPt2Else("Posn", 45 pp 1.2)
   
-  val bottomBlock = TextGraphic.lines(RArr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 pp -150, align = LeftAlign)
+  val bottomBlock = TextFixed.lines(RArr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 pp -150, align = LeftAlign)
    
   repaint(topBlock %: middleBlock %: bottomBlock)
 }

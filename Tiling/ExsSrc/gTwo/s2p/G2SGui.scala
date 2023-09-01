@@ -39,8 +39,8 @@ case class G2SGui(canv: CanvasPlatform, game: G2SGame, settings: G2SGuiSettings)
       urect.scale(80).slate(pt).fillDrawTextActive(counter.colour, SqCounter(hc, counter), str, 24, 2.0)
     }
 
-    /** [[TextGraphic]]s to display the [[SqCen]] coordinate in the tiles that have no unit counters. */
-    def hexStrs: RArr[TextGraphic] = counterStates.projNoneScPtMap { (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
+    /** [[TextFixed]]s to display the [[SqCen]] coordinate in the tiles that have no unit counters. */
+    def hexStrs: RArr[TextFixed] = counterStates.projNoneScPtMap { (hc, pt) => TextFixed(hc.strComma, 20, pt) }
 
     /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
     def actives: RArr[PolygonActive] = proj.tileActives

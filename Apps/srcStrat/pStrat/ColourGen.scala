@@ -12,13 +12,13 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
    (255 * fac).toInt
   }
   
-  val cols: RArr[(PolygonCompound, TextGraphic)] = ijkToMap(0, n)(0, n)(0, n) { (r, g, b) =>
+  val cols: RArr[(PolygonCompound, TextFixed)] = ijkToMap(0, n)(0, n)(0, n) { (r, g, b) =>
     val r1 = intMaker(r)
     val g1 = intMaker(g)
     val b1 = intMaker(b)
     def c1 = Colour.fromInts(r1, g1, b1)
     val c2 = Rect.colouredBordered(25, c1, 2).slateXY(left + 30, top - 20)
-    def c3 = TextGraphic(commaedInts(r1, g1, b1), 15, left + 120 pp top - 20)
+    def c3 = TextFixed(commaedInts(r1, g1, b1), 15, left + 120 pp top - 20)
     (c2, c3)
   }
    

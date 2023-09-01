@@ -27,9 +27,9 @@ case class LsD1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D1")
 }
 
 object SText
-{ def apply(y: Double, str: String)  = TextGraphic(str, 24, -250 pp y, align = LeftAlign)
+{ def apply(y: Double, str: String)  = TextFixed(str, 24, -250 pp y, align = LeftAlign)
 }
 
 object MText
-{ def apply(y: Double, strs: StrArr): RArr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
+{ def apply(y: Double, strs: StrArr): RArr[TextFixed]  = TextFixed.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
 }

@@ -27,7 +27,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
       val str: String = rarr.head.team.toString --- rarr.foldStr(us => us.lunit.num.str, ", ") --- hc.rcStr
       Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(rarr.head.colour, rarr, str, pixPerTile / 15, 2.0) }
 
-    def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
+    def texts: RArr[TextFixed] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moves.mapHcFlatMap { (ps, hc) =>

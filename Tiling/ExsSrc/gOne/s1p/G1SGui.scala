@@ -34,7 +34,7 @@ case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings)
     }
 
     /** Displays the hex coordinates if no [[Counter]]. */
-    def hexStrs: RArr[TextGraphic] = counters.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
+    def hexStrs: RArr[TextFixed] = counters.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
     def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
 
     def moveSegPairs: LineSegPairArr[Counter] = moves.optMapOnA1(_.projLineSeg)

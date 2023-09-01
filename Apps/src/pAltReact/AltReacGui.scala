@@ -21,7 +21,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
 
   override implicit def proj: SqSysProjection = ???
 
-  def ballDisps: GraphicElems = balls.scSomesMap{ (sc, bs) => TextGraphic(bs.num.toString, 18, sc.toPt2Reg, bs.colour) }
+  def ballDisps: GraphicElems = balls.scSomesMap{ (sc, bs) => TextFixed(bs.num.toString, 18, sc.toPt2Reg, bs.colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){

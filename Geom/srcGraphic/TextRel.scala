@@ -4,7 +4,7 @@ import Colour.Black
 
 case class TextRel(str: String, fontRel: Double, xPosn: Double, yPosn: Double, colour: Colour, align: TextAlign, baseLine: BaseLine)
 {
-  def abs(ratio: Double): TextGraphic = TextGraphic(str, fontRel * ratio, xPosn * ratio, yPosn * ratio, colour, align = CenAlign, baseLine = BaseLine.Middle)
+  def abs(ratio: Double): TextFixed = TextFixed(str, fontRel * ratio, xPosn * ratio, yPosn * ratio, colour, textAlign = CenAlign, baseLine = BaseLine.Middle)
 }
 object TextRel
 {

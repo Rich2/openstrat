@@ -47,9 +47,9 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
 
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
 
-    val areaNames: RArr[TextGraphic] = ps4.a2Map { d =>
+    val areaNames: RArr[TextFixed] = ps4.a2Map { d =>
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / dirnScale
-      TextGraphic(d.name, 10, posn, d.colour.contrastBW)
+      TextFixed(d.name, 10, posn, d.colour.contrastBW)
     }
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))

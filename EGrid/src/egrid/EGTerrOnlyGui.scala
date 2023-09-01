@@ -60,7 +60,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def rcTexts1 = terrs.hcOptFlatMap { (hc, terr) =>
       proj.transOptCoord(hc).map { pt =>
         val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
-        TextGraphic.lines(strs, 12, pt, terr.contrastBW)
+        TextFixed.lines(strs, 12, pt, terr.contrastBW)
       }
     }
 

@@ -3,5 +3,5 @@ package learn
 import ostrat._, geom._, pgui._
 
 case class HelloWorld(canv: CanvasPlatform) extends CanvasNoPanels("Hello World")
-{ repaints(TextGraphic("Hello World!"))
+{ repaints(TextFixed("Hello World!"))
 }

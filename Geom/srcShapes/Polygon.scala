@@ -311,22 +311,22 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
   def fillDrawText(fillColour: Colour, str: String, fontSize: Double = 24, lineColour: Colour = Black, lineWidth: Double = 2.0): PolygonCompound =
-    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(TextGraphic(str, fontSize, cenDefault)))
+    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(TextFixed(str, fontSize, cenDefault)))
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, RArr(fillColour, TextFacet(str, textColour)), RArr())
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Double = 24, lineWidth: Double, lineColour: Colour = Black,
     textColour: Colour = Black, align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
-    RArr(TextGraphic(str, fontSize, cenDefault, textColour, align), PolygonActive(this, pointerID)))
+    RArr(TextFixed(str, fontSize, cenDefault, textColour, align), PolygonActive(this, pointerID)))
 
   /** Returns compound polygon graphic with fill and Text members. The element parameters being entered in name order. */
   def fillTextAbs(fillColour: Colour, str: String, fontSize: Double = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
-    PolygonCompound(this, RArr(fillColour), RArr(TextGraphic(str, fontSize, cenDefault, textColour)))
+    PolygonCompound(this, RArr(fillColour), RArr(TextFixed(str, fontSize, cenDefault, textColour)))
 
   /** Returns compound polygon graphic with fill, active and Text members. The element parameters being entered in name order. */
   def fillActiveTextAbs(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
-    PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cenDefault, fontColour, align)))
+    PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextFixed(str, fontSize, cenDefault, fontColour, align)))
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =

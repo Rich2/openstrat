@@ -160,7 +160,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
-    if (aDefaultGame.players.length < 2) canv.textGraphic(TextGraphic(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer))
+    if (aDefaultGame.players.length < 2) canv.textGraphic(TextFixed(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer))
   }
 
   /** If the current player is a computer then play its hand here */
@@ -183,11 +183,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   { var totals = Map("Red"->0, "Yellow"->0, "Green"->0, "Blue"->0, "Black"->0)
     for(i <-0 to aDefaultGame.cellColors.length-1) totals(aDefaultGame.cellColors(i).toString) = totals(aDefaultGame.cellColors(i).toString) + aDefaultGame.cellCounts(i)
     // Array(Red,Yellow,Green,Blue).
-    RArr(Rect.bl(size/4, 2*totals("Red"), -3*size/4 pp 0).fill(Red), TextGraphic(totals("Red").toString, 7, -5*size/8 pp 7*size/8-size, White),
-        Rect.bl(size/4, 2*totals("Green"), -4*size/4 pp 0).fill(Green), TextGraphic(totals("Green").toString, 7, -7*size/8 pp 7*size/8-size, White),
-        Rect.bl(size/4, 2*totals("Yellow"), -5*size/4 pp 0).fill(Yellow), TextGraphic(totals("Yellow").toString, 7, -9*size/8 pp 7*size/8-size, White),
-        Rect.bl(size/4, 2*totals("Blue"), -6*size/4 pp 0).fill(Blue), TextGraphic(totals("Blue").toString, 7, -11*size/8 pp 7*size/8-size, White),
-        Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, 11, -3*size/4 pp -3*size/4, Black))
+    RArr(Rect.bl(size/4, 2*totals("Red"), -3*size/4 pp 0).fill(Red), TextFixed(totals("Red").toString, 7, -5*size/8 pp 7*size/8-size, White),
+        Rect.bl(size/4, 2*totals("Green"), -4*size/4 pp 0).fill(Green), TextFixed(totals("Green").toString, 7, -7*size/8 pp 7*size/8-size, White),
+        Rect.bl(size/4, 2*totals("Yellow"), -5*size/4 pp 0).fill(Yellow), TextFixed(totals("Yellow").toString, 7, -9*size/8 pp 7*size/8-size, White),
+        Rect.bl(size/4, 2*totals("Blue"), -6*size/4 pp 0).fill(Blue), TextFixed(totals("Blue").toString, 7, -11*size/8 pp 7*size/8-size, White),
+        Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextFixed(aDefaultGame.turn.toString, 11, -3*size/4 pp -3*size/4, Black))
   }
 
   mouseUp =

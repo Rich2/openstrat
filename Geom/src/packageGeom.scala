@@ -109,13 +109,13 @@ package object geom
 
   implicit class AnyGeomImplicit(thisAny: Any)
   {
-    /** Creates a [[TextGraphic]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
+    /** Creates a [[TextFixed]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
     def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-     baseLine: BaseLine = BaseLine.Middle): TextGraphic = TextGraphic(thisAny.toString, fontSize, posn, colour, align, baseLine)
+     baseLine: BaseLine = BaseLine.Middle): TextFixed = TextFixed(thisAny.toString, fontSize, posn, colour, align, baseLine)
 
-    /** Creates a [[TextGraphic]] at the given X and Y positions, using the toString method on this object. */
+    /** Creates a [[TextFixed]] at the given X and Y positions, using the toString method on this object. */
     def xyTextGraphic(fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
-      baseLine: BaseLine = BaseLine.Middle): TextGraphic = TextGraphic.xy(thisAny.toString, fontSize, xPosn, yPosn, colour, align, baseLine)
+      baseLine: BaseLine = BaseLine.Middle): TextFixed = TextFixed.xy(thisAny.toString, fontSize, xPosn, yPosn, colour, align, baseLine)
   }
 
   implicit class StringImplictGeom(thisString: String)
@@ -136,7 +136,7 @@ package object geom
     def findSettingPt2Else(setting: String, elseValue: Pt2): Pt2 = findSettingPt2(setting).getElse(elseValue)
 
     def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-                baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, fontSize, posn, colour, align, baseLine)
+                baseLine: BaseLine = BaseLine.Alphabetic): TextFixed = TextFixed(thisString, fontSize, posn, colour, align, baseLine)
   }
 
   implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: DblNBuff[A])

@@ -57,7 +57,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 
   mouseUp = (_, li, _) =>
   { val str: String = li.headFoldToString("No clickable object on canvas")
-    val tg = TextGraphic(str, 28, 0 pp 100)
+    val tg = TextFixed(str, 28, 0 pp 100)
     if (li.nonEmpty) li(0) match {
       case fl : Flag => big = fl
       case _ => 
