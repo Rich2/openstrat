@@ -10,7 +10,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.polygonFill(shape.fill(c))
     case DrawFacet(c, w) => cp.polygonDraw(shape.draw(w, c))
-    case TextFacet(s, col) => cp.textGraphic(TextFixed(s, 18, cenDefault, col))
+    case TextFacet(s, col, ta, bl) => cp.textGraphic(TextFixed(s, 18, cenDefault, col, ta, bl))
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
@@ -92,10 +92,10 @@ object PolygonCompound
 
     override def mainSvgElem: SvgPolygon = SvgPolygon(attribs)
 
-    override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
+    override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach{
       case c: Colour => cp.polygonFill(shape.fill(c))
       case DrawFacet(c, w) => cp.polygonDraw(shape.draw(w, c))
-      case TextFacet(s, col) => cp.textGraphic(TextFixed(s, 18, cenDefault, col))
+      case TextFacet(s, colour, ta, bl) => cp.textGraphic(TextFixed(s, 18, cenDefault, colour, ta, bl))
       // case fr: FillRadial => cp.circleFillRadial(shape, fr)
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }

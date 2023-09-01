@@ -328,8 +328,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def fillActiveTextAbs(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
     PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextFixed(str, fontSize, cenDefault, fontColour, align)))
 
-  def fillActiveTextRel(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextAligned(str, fontSize, cenDefault, fontColour, align)))
+  def fillActiveTextlign(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
+  PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =

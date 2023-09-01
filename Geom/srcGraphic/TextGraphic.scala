@@ -47,76 +47,76 @@ object TextFixed
 }
 
 /** A text Graphic aligned with the X and Y axes, but with a scaled font. */
-final case class TextAligned(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, textAlign: TextAlign, baseLine: BaseLine) extends
+final case class Textlign(str: String, fontSize: Double, xPosn: Double, yPosn: Double, colour: Colour, textAlign: TextAlign, baseLine: BaseLine) extends
 TextGraphic
-{ type ThisT = TextAligned
+{ type ThisT = Textlign
 
-  /** Translate 2D geometric transformation on this [[TextAligned]]. */
-  override def slateXY(xDelta: Double, yDelta: Double): TextAligned = copy(str, fontSize, xPosn + xDelta, yPosn + yDelta )
+  /** Translate 2D geometric transformation on this [[Textlign]]. */
+  override def slateXY(xDelta: Double, yDelta: Double): Textlign = copy(str, fontSize, xPosn + xDelta, yPosn + yDelta )
 
-  /** Uniform scaling 2D geometric transformation on this [[TextAligned]], returns a TextAligned. Scales the font size as well as the x and y
+  /** Uniform scaling 2D geometric transformation on this [[Textlign]], returns a TextAligned. Scales the font size as well as the x and y
    *  positions. */
-  override def scale(operand: Double): TextAligned = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
+  override def scale(operand: Double): Textlign = copy(str, fontSize * operand, xPosn * operand, yPosn * operand)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: TextAligned = copy(str, fontSize, xPosn, -yPosn)
+  override def negY: Textlign = copy(str, fontSize, xPosn, -yPosn)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negX: TextAligned = ???
+  override def negX: Textlign = copy(str, fontSize, -xPosn, yPosn)
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a TextAligned, returns a TextAligned. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): TextAligned = ???
+  override def prolign(matrix: ProlignMatrix): Textlign = ???
 
   /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a TextAligned, returns a TextAligned. The return type will be
    * narrowed in sub classes and traits. */
-  override def rotate90: TextAligned = ???
+  override def rotate90: Textlign = ???
 
   /** Rotation positive or anti clockwise 180 degrees, 2D geometric transformation on a TextAligned, returns a TextAligned. The return type will be
    * narrowed in sub classes and traits. */
-  override def rotate180: TextAligned = ???
+  override def rotate180: Textlign = ???
 
   /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a TextAligned, returns a TextAligned. The return type will be
    * narrowed in sub classes and traits. */
-  override def rotate270: TextAligned = ???
+  override def rotate270: Textlign = ???
 
   /** Rotation 2D geometric transformation on a TextAligned taking the rotation as a scalar measured in radians, returns a TextAligned. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: AngleVec): TextAligned = ???
+  override def rotate(angle: AngleVec): Textlign = ???
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a TextAligned, returns a TextAligned. The Return type will be narrowed
    * in sub traits / classes. */
-  override def reflect(lineLike: LineLike): TextAligned = ???
+  override def reflect(lineLike: LineLike): Textlign = ???
 
   /** XY scaling 2D geometric transformation on a TextAligned, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def scaleXY(xOperand: Double, yOperand: Double): TextAligned = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): Textlign = ???
 
   /** Shear 2D geometric transformation along the X Axis on a TextAligned, returns a TextAligned. The return type will be narrowed in sub classes and
    * traits. */
-  override def shearX(operand: Double): TextAligned = ???
+  override def shearX(operand: Double): Textlign = ???
 
   /** Shear 2D geometric transformation along the Y Axis on a TextAligned, returns a TextAligned. The return type will be narrowed in sub classes and
    * traits. */
-  override def shearY(operand: Double): TextAligned = ???
+  override def shearY(operand: Double): Textlign = ???
 }
 
-object TextAligned
+object Textlign
 {
   def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-    baseLine: BaseLine = BaseLine.Middle): TextAligned =
-    new TextAligned(str, fontSize, posn.x, posn.y, colour, align, baseLine)
+    baseLine: BaseLine = BaseLine.Middle): Textlign =
+    new Textlign(str, fontSize, posn.x, posn.y, colour, align, baseLine)
 
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle) =
-    new TextAligned(str, fontSize, xPosn, yPosn, colour, align, baseLine)
+    new Textlign(str, fontSize, xPosn, yPosn, colour, align, baseLine)
 
   def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
-    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[TextAligned] =
+    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[Textlign] =
   { val len = strs.length
     if(len == 0) RArr()
-    else strs.iMap((i, str) => TextAligned(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
+    else strs.iMap((i, str) => Textlign(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
 }
