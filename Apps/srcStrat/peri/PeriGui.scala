@@ -22,7 +22,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
   override def frame: GraphicElems =
   {
     def units: GraphicElems = armies.projSomesPtMap { (army, pt) =>
-      Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, army, army.num.str, proj.pixelsPerTile / 5, army.contrastBW).slate(pt)
+      Circle(proj.pixelsPerTile / 2).fillActiveTextAbs(army.colour, army, army.num.str, proj.pixelsPerTile / 5, army.contrastBW).slate(pt)
     }
     //def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 

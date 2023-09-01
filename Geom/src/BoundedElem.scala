@@ -8,10 +8,10 @@ trait BoundedElem extends Any with GeomElem
   def boundingRect: Rect
 
   /** The width of the [[BoundingRect]] of this object. */
-  def boundingWidth: Double// = boundingRect.width
+  def boundingWidth: Double
 
-  def boundingHeight: Double// = boundingRect.height
-  //def boundRight: Double = boundingRect.ri
+  /** The height of the [[BoundingRect]] of this object. */
+  def boundingHeight: Double
 
   def boundTopRight: Pt2 = boundingRect.topRight
   def brBounding: Pt2 = boundingRect.bottomRight

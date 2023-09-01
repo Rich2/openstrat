@@ -23,6 +23,8 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def area: Double = Pi * radius * radius
   override def e: Double = 0
   override def h: Double = 0
+  override def boundingWidth: Double = diameter
+  override def boundingHeight: Double = diameter
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slateXY(xDelta: Double, yDelta: Double): Circle = Circle(diameter, cen.addXY(xDelta, yDelta))
@@ -51,7 +53,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
 
   def fillActive(fillColour: Colour, pointerID: AnyRef): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
 
-  def fillActiveText(fillColour: Colour, pointerID: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black): CircleCompound =
+  def fillActiveTextAbs(fillColour: Colour, pointerID: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black): CircleCompound =
     CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID), TextFixed(str, fontSize, cen, fontColour)))
 
   def rAttrib: XmlAtt = XmlAtt("r", radius.toString)
