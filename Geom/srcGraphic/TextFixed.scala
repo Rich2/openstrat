@@ -60,7 +60,7 @@ TextGraphic
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: TextAligned = ???
+  override def negY: TextAligned = copy(str, xPosn, -yPosn)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a TextAligned, returns a TextAligned. The Return type will be narrowed in
    * sub traits / classes. */
@@ -101,4 +101,22 @@ TextGraphic
   /** Shear 2D geometric transformation along the Y Axis on a TextAligned, returns a TextAligned. The return type will be narrowed in sub classes and
    * traits. */
   override def shearY(operand: Double): TextAligned = ???
+}
+
+object TextAligned
+{
+  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+    baseLine: BaseLine = BaseLine.Middle): TextAligned =
+    new TextAligned(str, fontSize, posn.x, posn.y, colour, align, baseLine)
+
+  def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
+    baseLine: BaseLine = BaseLine.Middle) =
+    new TextAligned(str, fontSize, xPosn, yPosn, colour, align, baseLine)
+
+  def lines(strs: StrArr, fontSize: Double = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
+    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): RArr[TextAligned] =
+  { val len = strs.length
+    if(len == 0) RArr()
+    else strs.iMap((i, str) => TextAligned(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
+  }
 }
