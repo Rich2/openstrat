@@ -95,9 +95,11 @@ object PolygonCompound
     override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach{
       case c: Colour => cp.polygonFill(shape.fill(c))
       case DrawFacet(c, w) => cp.polygonDraw(shape.draw(w, c))
+
       case TextFacet(s, ratio, colour, ta, bl, min) =>
       { val size = boundingWidth /ratio
-        if (size >= min) cp.textGraphic(TextFixed(s, size, cenDefault, colour, ta, bl))}
+        if (size >= min) cp.textGraphic(TextFixed(s, size, cenDefault, colour, ta, bl))
+      }
       // case fr: FillRadial => cp.circleFillRadial(shape, fr)
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
@@ -106,19 +108,15 @@ object PolygonCompound
     override def slateXY(xDelta: Double, yDelta: Double): PolygonCompoundImp =
       PolygonCompoundImp(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
 
-    /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-     * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
-
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
-
     override def rotate(angle: AngleVec): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
-
     override def reflect(lineLike: LineLike): PolygonCompoundImp = PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
-    override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
+    override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))
 
-    override def shearX(operand: Double): PolygonCompoundImp = ???
+    override def shearX(operand: Double): PolygonCompoundImp = ???// PolygonCompoundImp(shape.shearX(operand), facets, children.shearX)
 
     override def shearY(operand: Double): PolygonCompoundImp = ???
   }  

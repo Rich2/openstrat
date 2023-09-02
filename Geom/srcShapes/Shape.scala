@@ -9,6 +9,11 @@ trait Shape extends Any with Fillable with BoundedElem
   override def fill(fillColour: Colour): ShapeFill
   override def fillInt(intValue: Int): ShapeFill
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw
+
+  /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
+  def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
+    baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): ShapeCompound
+
   def attribs: RArr[XmlAtt]
   
   /** This canEqual override allow the comparison of [[Shape]]s. */

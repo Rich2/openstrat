@@ -11,6 +11,15 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 
   override def fillInt(intValue: Int): ShapeFill = ???
 
+  /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
+  override def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign, baseLine: BaseLine, minSize: Double): ShapeCompound = ???
+
+  /** The width of the [[BoundingRect]] of this object. */
+  override def boundingWidth: Double = ???
+
+  /** The height of the [[BoundingRect]] of this object. */
+  override def boundingHeight: Double = ???
+
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw = ???
 
   override def attribs: RArr[XmlAtt] = ???

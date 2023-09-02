@@ -68,6 +68,13 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def shearX(operand: Double): Ellipse = fTrans(_.xShear(operand))
 
   override def shearY(operand: Double): Ellipse = fTrans(_.yShear(operand))
+
+  override def boundingWidth: Double = ???
+
+  override def boundingHeight: Double = ???
+
+  override def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
+    baseLine: BaseLine, minSize: Double): EllipseCompound = ???
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to

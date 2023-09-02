@@ -1,6 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pWeb._
 
 /** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle
  *  use the implementation class [[PolygonCompound]]. */
@@ -31,35 +30,18 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
     acc
   }
 
-  /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphic
-
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): PolygonGraphic  
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  override def scale(operand: Double): PolygonGraphic
   override def negY: PolygonGraphic
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
   override def negX: PolygonGraphic
-
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
-
   override def rotate90: PolygonGraphic
   override def rotate180: PolygonGraphic
   override def rotate270: PolygonGraphic
-  
   override def rotate(angle: AngleVec): PolygonGraphic
-
   override def reflect(lineLike: LineLike): PolygonGraphic
-
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
-
   override def shearX(operand: Double): PolygonGraphic
-
   override def shearY(operand: Double): PolygonGraphic
 }
 

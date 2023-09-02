@@ -56,6 +56,13 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   def fillActiveTextAbs(fillColour: Colour, pointerID: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black): CircleCompound =
     CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID), TextFixed(str, fontSize, cen, fontColour)))
 
+  def fillActiveTextlign(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
+  CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
+
+  override def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
+    baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): CircleCompound =
+    CircleCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)), RArr(CircleActive(this, pointerEv)))
+
   def rAttrib: XmlAtt = XmlAtt("r", radius.toString)
   override def attribs: RArr[XmlAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
 

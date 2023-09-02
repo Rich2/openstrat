@@ -11,7 +11,13 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
     case DrawFacet(c, w) => cp.circleDraw(shape.draw(w, c))
-    case fr: FillRadial => cp.circleFillRadial(shape, fr)  
+    case fr: FillRadial => cp.circleFillRadial(shape, fr)
+
+    case TextFacet(s, ratio, colour, ta, bl, min) => {
+      val size = boundingWidth / ratio
+      if (size >= min) cp.textGraphic(TextFixed(s, size, cenDefault, colour, ta, bl))
+    }
+
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
