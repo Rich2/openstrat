@@ -351,7 +351,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
 
   override def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour = Black,
-    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): PolygonCompound =
+    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle, minSize: Double = 6): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize) ), RArr(PolygonActive(this, pointerEv)))
 
   /** Insert vertex. */

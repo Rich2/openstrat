@@ -49,14 +49,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val ps5: PolygonPairArr[EArea2] = ps4.polygonMapToPair{ p => p / dirnScale }
 
-    val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActive(a2.colour, a2))
+    val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActiveText(a2.colour, a2, a2.name, 10, a2.colour.contrastBW))
 
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
-
-    val areaNames = ps5.pairMap { (poly, ea2) =>
-      val posn = ea2.cen.toMetres3.fromLatLongFocus(focus).xy / dirnScale
-      TextFixed(ea2.name, 10, posn, ea2.colour.contrastBW)
-    }
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
     val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zPos)
@@ -72,7 +67,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 
-    mainRepaint(seas %: activeFills ++ sideLines.+%(conns6) ++ areaNames ++ locTexts)
+    mainRepaint(seas %: fillActiveTexts ++ sideLines.+%(conns6) ++ locTexts)
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
