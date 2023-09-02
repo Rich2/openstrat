@@ -47,15 +47,15 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       }
     }
 
-    val ps5 = ps4.polygonMapToPair{ p => p / dirnScale }
+    val ps5: PolygonPairArr[EArea2] = ps4.polygonMapToPair{ p => p / dirnScale }
 
     val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActive(a2.colour, a2))
 
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
 
-    val areaNames: RArr[TextFixed] = ps4.a2Map { d =>
-      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / dirnScale
-      TextFixed(d.name, 10, posn, d.colour.contrastBW)
+    val areaNames = ps5.pairMap { (poly, ea2) =>
+      val posn = ea2.cen.toMetres3.fromLatLongFocus(focus).xy / dirnScale
+      TextFixed(ea2.name, 10, posn, ea2.colour.contrastBW)
     }
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))

@@ -121,9 +121,8 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, Desert)
 
 
 /** [[PolygonLL]] graphic for Canaries depends on [[Maghreb]]. */
-object SaharaCentral extends EArea2("SaharaWest", 26 ll 16, Desert)
-{
-  val p80: LatLong = 31.07 ll 17.39
+object SaharaCentral extends EArea2("SaharaCentral", 26 ll 16, Desert)
+{ val p80: LatLong = 31.07 ll 17.39
   val elAgheila: LatLong = 30.12 ll 19.08
   val southEast: LatLong = 17 ll 16.75
   val southWest: LatLong = 17 ll 10.08

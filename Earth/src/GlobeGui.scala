@@ -5,6 +5,7 @@ import ostrat.pgui._
 abstract class GlobeGui(val title: String) extends CmdBarGui
 { var focus: LatLongDirn
   def northUp: Boolean = focus.dirn
+
   /** The length normally shown in kms per pixel. */
   var scale: Length
 
