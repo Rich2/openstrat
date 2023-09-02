@@ -6,7 +6,6 @@ import geom._, pglobe._, collection.mutable.ArrayBuffer, reflect.ClassTag
 abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymbolKey
 { def neighbs: RArr[EArea1] = RArr()
   def a2Arr: RArr[EArea2]
-  def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg))
   def places: LocationLLArr = a2Arr.flatMap(_.places)(LocationLLArr.flatArrBuilderImplicit)
 }
 
