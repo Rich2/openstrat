@@ -49,7 +49,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val ps5: PolygonPairArr[EArea2] = ps4.polygonMapToPair{ p => p / dirnScale }
 
-    val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActiveText(a2.colour, a2, a2.name, 10, a2.colour.contrastBW))
+    val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActiveText(a2.colour, a2, a2.name, 10, a2.contrastBW))
 
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
 

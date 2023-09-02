@@ -3,12 +3,11 @@ package ostrat; package pEarth
 import geom._, pglobe._
 
 /** A second level area of the Earth. */
-abstract class EArea2(val name: String, val cen: LatLong, val terr: ATerr = Plain) extends GeographicSymbolKey
-{
-  override def toString = name.appendCommas(terr.toString)
+abstract class EArea2(val name: String, val cen: LatLong, val terr: ATerr = Plain) extends GeographicSymbolKey with Coloured
+{ override def toString = name.appendCommas(terr.toString)
   def aStrs: StrArr = StrArr(name)
   def textScale: Length = 15000.metres
-  def colour = terr.colour
+  override def colour = terr.colour
 
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
   def polygonLL: PolygonLL
