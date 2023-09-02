@@ -4,39 +4,39 @@ import geom._, pglobe._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
 object Majorca extends EArea2("Majorca", 39.59 ll 3.01, Plain)
-{ val south = 39.26 ll 3.05
-  val palma = 39.56 ll 2.63
-  val portalsVells = 39.45 ll 2.51
-  val santElm = 39.59 ll 2.34
-  val capFormentor = 39.96 ll 3.21
-  val east = 39.71 ll 3.47
+{ val south: LatLong = 39.26 ll 3.05
+  val palma: LatLong = 39.56 ll 2.63
+  val portalsVells: LatLong = 39.45 ll 2.51
+  val santElm: LatLong = 39.59 ll 2.34
+  val capFormentor: LatLong = 39.96 ll 3.21
+  val east: LatLong = 39.71 ll 3.47
 
   override val polygonLL: PolygonLL = PolygonLL(south, palma, portalsVells, santElm, capFormentor, east)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
 object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, Plain)
-{ val sSicily = 36.66 ll 15.08
-  val kartibubbo = 37.56 ll 12.67
-  val marsala = 37.80 ll 12.42
-  val calaRossa = 38.18 ll 12.73
-  val mondello = 38.22 ll 13.32
-  val n1 =37.97 ll 13.74
-  val torreFaro = 38.26 ll 15.65
-  val contradoFortino = 38.24 ll 15.58
-  val messina = 38.18 ll 15.56
-  val catania = 37.48 ll 15.08
+{ val sSicily: LatLong = 36.66 ll 15.08
+  val kartibubbo: LatLong = 37.56 ll 12.67
+  val marsala: LatLong = 37.80 ll 12.42
+  val calaRossa: LatLong = 38.18 ll 12.73
+  val mondello: LatLong = 38.22 ll 13.32
+  val n1: LatLong = 37.97 ll 13.74
+  val torreFaro: LatLong = 38.26 ll 15.65
+  val contradoFortino: LatLong = 38.24 ll 15.58
+  val messina: LatLong = 38.18 ll 15.56
+  val catania: LatLong = 37.48 ll 15.08
 
   override val polygonLL: PolygonLL = PolygonLL(sSicily, kartibubbo, marsala, calaRossa, mondello, n1, torreFaro, contradoFortino, messina, catania)
 }
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
 object Canarias extends EArea2("Canarias", 27.96 ll -15.60, Plain)
-{ val elHierro = 27.72 ll -18.15
-  val laPalma = 28.85 ll -17.92
-  val lanzarote = 29.24 ll -13.47
-  val fuerteventura = 28.24 ll -13.94
-  val granCanaria = 27.74 ll -15.60
+{ val elHierro: LatLong = 27.72 ll -18.15
+  val laPalma: LatLong = 28.85 ll -17.92
+  val lanzarote: LatLong = 29.24 ll -13.47
+  val fuerteventura: LatLong = 28.24 ll -13.94
+  val granCanaria: LatLong = 27.74 ll -15.60
 
   val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
@@ -79,10 +79,10 @@ object Sardina extends EArea2("Sardina", 40.12 ll 9.07, Hilly)
 
 /** [[PolygonLL]] graphic for west Sahara depends on nothing. */
 object Maghreb extends EArea2("Maghreb", 33 ll 2.32, Desert)
-{ val neTunis = 37.07 ll 11.04
-  val p28 = 36.87 ll 11.14
-  val p30 = 36.46 ll 10.81
-  val p32 = 36.17 ll 10.44
+{ val neTunis: LatLong = 37.07 ll 11.04
+  val p28: LatLong = 36.87 ll 11.14
+  val p30: LatLong = 36.46 ll 10.81
+  val p32: LatLong = 36.17 ll 10.44
   val chebba = 35.23 ll 11.16
   val p34 = 34.15 ll 10.02
   val gabes = 33.88 ll 10.12
