@@ -28,32 +28,27 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def rotate270: Rect = vertsTrans(_.rotate270)
 
   override def prolign(matrix: ProlignMatrix): Rect = vertsTrans(_.prolign(matrix))
-
   override def scaleXY(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.xyScale(xOperand, yOperand))
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, RArr(), active(id) %: children)
-
-  override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
-  override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
-
   final override def boundingRect: Rect = this
-
   final override def cenPt: Pt2 = Pt2(cenX, cenY)
-
   final override def cenVec: Vec2 = Vec2(cenX, cenY)
-
-  override def draw(lineWidth: Double, lineColour: Colour): RectDraw = RectDraw(this, lineWidth, lineColour)
 
   /** Adds a margin to this [[Rect]], rectangle aligned with the XY axes, moving the sides out by the given parameter. */
   def addMargin(delta: Double): Rect = Rect(width + 2 * delta, height + 2 * delta, cenX, cenY)
 
-  def union(operand: Rect): Rect = {
-    val newLeft = left.min(operand.left)
+  def union(operand: Rect): Rect =
+  { val newLeft = left.min(operand.left)
     val newRight = right.max(operand.right)
     val newbottom = bottom.min(operand.bottom)
     val newTop = top.max(operand.top)
     Rect(newRight - newLeft, newTop - newbottom, (newLeft + newRight) / 2, (newbottom + newTop) / 2)
   }
+
+  override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
+  override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
+  override def draw(lineWidth: Double, lineColour: Colour): RectDraw = RectDraw(this, lineWidth, lineColour)
 
   override def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double): RectCompound =
     RectCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))

@@ -338,13 +338,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     PolygonCompound(this, RArr(fillColour), RArr(TextFixed(str, fontSize, cenDefault, textColour)))
 
   /** Returns compound polygon graphic with fill, active and Text members. The element parameters being entered in name order. */
-  def fillActiveTextAbs(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
+  def fillActiveTextAbs(fillColour: Colour, pointerEv: Any, str: String, fontSize: Double = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
     PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextFixed(str, fontSize, cenDefault, fontColour, align)))
 
-  def fillActiveTextlign(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
+  def fillActiveTextlign(fillColour: Colour, pointerEv: Any, str: String, fontSize: Double, fontColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), Textlign(str, fontSize, cenDefault, fontColour, align)))
 
-  override def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour = Black,
+  override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black,
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle, minSize: Double = 6): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize) ), RArr(PolygonActive(this, pointerEv)))
 

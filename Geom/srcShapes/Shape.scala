@@ -11,7 +11,7 @@ trait Shape extends Any with Fillable with BoundedElem
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw
 
   /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
-  def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
+  def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle, minSize: Double = 4): ShapeCompound
 
   def attribs: RArr[XmlAtt]

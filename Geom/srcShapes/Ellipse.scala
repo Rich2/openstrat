@@ -73,7 +73,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def boundingHeight: Double = ???
 
-  override def fillActiveText(fillColour: Colour, pointerEv: AnyRef, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
+  override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
     baseLine: BaseLine, minSize: Double): EllipseCompound = ???
 }
 
