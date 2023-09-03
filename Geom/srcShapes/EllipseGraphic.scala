@@ -60,8 +60,7 @@ object EllipseDraw
 }
 
 trait EllipseActive extends EllipseGraphicSimple with GraphicClickable
-{
-  type ThisT <: EllipseActive
+{ type ThisT <: EllipseActive
   type ThisT2 = EllipseActive
   override def fTrans2(f: Pt2 => Pt2): EllipseActive = EllipseActive(shape.fTrans(f), pointerId)
   final override def nonShapeAttribs: RArr[XmlAtt] = RArr()
