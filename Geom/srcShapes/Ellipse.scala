@@ -5,9 +5,7 @@ import pWeb._, Colour.Black, math.{Pi, sqrt}
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends EllipseBased with ShapeCentred
-{
-
-  final override def cen: Pt2 = cenX pp cenY
+{ final override def cen: Pt2 = cenX pp cenY
 
   final def axesPt1: Pt2 = axesPt1x pp axesPt1y
   final def axesPt2: Pt2 = Pt2(axesPt2x, axesPt2y)
@@ -76,7 +74,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): EllipseCompound =
     EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
-  override def fillActive(fillColour: Colour, pointerID: Any): EllipseCompound = ???
+  override def fillActive(fillColour: Colour, pointerID: Any): EllipseCompound = EllipseCompound(this, RArr(fillColour))
 
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
     baseLine: BaseLine, minSize: Double): EllipseCompound = ???
