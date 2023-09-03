@@ -7,13 +7,6 @@ import Colour.Black, pWeb._
 class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 {
   override type ThisT = ShapeGen
-  override def fill(fillColour: Colour): ShapeFill = ???
-
-  override def fillInt(intValue: Int): ShapeFill = ???
-
-  /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
-  override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
-    baseLine: BaseLine, minSize: Double): ShapeCompound = ???
 
   /** The width of the [[BoundingRect]] of this object. */
   override def boundingWidth: Double = ???
@@ -56,7 +49,14 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   override def boundingRect: Rect = ???
 
-  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem = ???
+  override def fill(fillColour: Colour): ShapeFill = ???
+  override def fillInt(intValue: Int): ShapeFill = ???
+  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): ShapeCompound = ???
+  override def fillActive(fillColour: Colour, pointerID: Any): ShapeCompound = ???
+
+  /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
+  override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
+    baseLine: BaseLine, minSize: Double): ShapeCompound = ???
 }
 
 /** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations.  */

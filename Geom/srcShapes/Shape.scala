@@ -8,7 +8,9 @@ trait Shape extends Any with Fillable with BoundedElem
 {
   override def fill(fillColour: Colour): ShapeFill
   override def fillInt(intValue: Int): ShapeFill
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw
+  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): ShapeCompound
+  def fillActive(fillColour: Colour, pointerID: Any): ShapeCompound
 
   /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
   def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour = Black, align: TextAlign = CenAlign,

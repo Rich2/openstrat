@@ -6,12 +6,6 @@ import pWeb._, Colour.Black, math.{Pi, sqrt}
  *  methods in the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends EllipseBased with ShapeCentred
 {
-  override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
-  override def fillInt(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
-  override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineColour, lineWidth)
-
-  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem =
-    EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
   final override def cen: Pt2 = cenX pp cenY
 
@@ -72,6 +66,17 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def boundingWidth: Double = ???
 
   override def boundingHeight: Double = ???
+
+  override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
+
+  override def fillInt(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
+
+  override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineColour, lineWidth)
+
+  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): EllipseCompound =
+    EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
+
+  override def fillActive(fillColour: Colour, pointerID: Any): EllipseCompound = ???
 
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
     baseLine: BaseLine, minSize: Double): EllipseCompound = ???

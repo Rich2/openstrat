@@ -51,7 +51,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0): CircleCompound =
     CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
 
-  def fillActive(fillColour: Colour, pointerID: Any): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
+  override def fillActive(fillColour: Colour, pointerID: Any): CircleCompound = CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID)))
 
   def fillActiveTextAbs(fillColour: Colour, pointerID: Any, str: String, fontSize: Double, fontColour: Colour = Black): CircleCompound =
     CircleCompound(this, RArr(fillColour), RArr(CircleActive(this, pointerID), TextFixed(str, fontSize, cen, fontColour)))
