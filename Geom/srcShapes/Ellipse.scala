@@ -77,7 +77,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def fillActive(fillColour: Colour, pointerID: Any): EllipseCompound = EllipseCompound(this, RArr(fillColour), RArr(EllipseActive(this, pointerID)))
 
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
-    baseLine: BaseLine, minSize: Double): EllipseCompound = ???
+    baseLine: BaseLine, minSize: Double): EllipseCompound =
+    EllipseCompound(this, RArr(fillColour, TextFacet(str, fontRatio, fontColour, align, baseLine, minSize)))
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to
