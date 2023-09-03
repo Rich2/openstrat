@@ -32,7 +32,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   {
     def units: GraphicElems = counters.projSomesHcPtMap { (counter, hc, pt) =>
       val str = pixPerTile.scaledStr(170, counter.toString + "\n" + hc.strComma, 150, counter.charStr + "\n" + hc.strComma, 60, counter.charStr)
-      Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillDrawTextActive(counter.colour, HCenPair(hc, counter), str, 24, 2.0, Colour.Black, counter.contrastBW)
+      Rect(1.4).scale(pixPerTile * 0.4).slate(pt).fillActiveDrawText(counter.colour, HCenPair(hc, counter), str, 24, 2.0, Colour.Black, counter.contrastBW)
     }
 
     /** [[TextFixed]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */

@@ -17,7 +17,7 @@ trait CmdBarGui extends CanvasPanelled
   /** The text for the status field of the command bar. */
   var statusText: String = ""
 
-  def textButton(str: String, cmd: AnyRef): PolygonCompound = Rect(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, Colour.Black, LeftAlign)
+  def textButton(str: String, cmd: AnyRef): PolygonCompound = Rect(40, 25).fillActiveDrawText(Gray, cmd, str, 15, 2, White, Colour.Black, LeftAlign)
 
   val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barThickness, canv.bottomLeft))
   def mainRepaint(els: RArr[GraphicElem]): Unit = mainPanel.repaint(els)

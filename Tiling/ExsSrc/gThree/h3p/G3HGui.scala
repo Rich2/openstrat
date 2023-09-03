@@ -25,7 +25,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
 
     def unitGraphics: RArr[PolygonCompound] = lunits.projSomesHcPtMap { (rarr, hc, pt) =>
       val str: String = rarr.head.team.toString --- rarr.foldStr(us => us.lunit.num.str, ", ") --- hc.rcStr
-      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(rarr.head.colour, rarr, str, pixPerTile / 15, 2.0) }
+      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillActiveDrawText(rarr.head.colour, rarr, str, pixPerTile / 15, 2.0) }
 
     def texts: RArr[TextFixed] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
 

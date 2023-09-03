@@ -17,7 +17,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   def players: RArr[PolygonCompound] = scen.characs.scSomesMap{ (sqc, cs) =>
     val poly1: Polygon = Rect(1.5, 1).insVerts(1, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cs.facing.angle - Angle.up)
     val poly2: Polygon = poly1.scale( 0.75).slate(sqc.toPt2Reg)
-    poly2.fillDrawTextActive(cs.charac.colour, cs, cs.charac.iden.toString, 16, 2.0, cs.charac.colour.contrast)
+    poly2.fillActiveDrawText(cs.charac.colour, cs, cs.charac.iden.toString, 16, 2.0, cs.charac.colour.contrast)
   }
 
   def thisTop(): Unit = reTop(proj.buttons)

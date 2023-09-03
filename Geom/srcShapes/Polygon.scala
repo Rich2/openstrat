@@ -315,27 +315,21 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
-  def fillActive(fillColour: Colour, pointerID: AnyRef): PolygonCompound =
+  def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
     PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerID)))
 
-  def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: AnyRef): PolygonCompound =
+  def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: Any): PolygonCompound =
     PolygonCompound(this, RArr(DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
   /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
    * draw area line width of 2 and a colour of Black. */
-  def fillActiveDraw(fillColour: Colour, pointerID: AnyRef, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
-    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
-
-  def fillDrawActive(fillColour: Colour, pointerID: AnyRef, lineWidth: Double, lineColour: Colour = Black): PolygonCompound =
+  def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
   def fillDrawText(fillColour: Colour, str: String, fontSize: Double = 24, lineColour: Colour = Black, lineWidth: Double = 2.0): PolygonCompound =
     PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(TextFixed(str, fontSize, cenDefault)))
 
- // def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-//  PolygonCompound = PolygonCompound(this, RArr(fillColour, TextFacet(str, textColour)), RArr())
-
-  def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Double = 24, lineWidth: Double, lineColour: Colour = Black,
+  def fillActiveDrawText(fillColour: Colour, pointerID: Any, str: String, fontSize: Double = 24, lineWidth: Double, lineColour: Colour = Black,
     textColour: Colour = Black, align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
     RArr(TextFixed(str, fontSize, cenDefault, textColour, align), PolygonActive(this, pointerID)))
 

@@ -55,7 +55,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
     Rect(newRight - newLeft, newTop - newbottom, (newLeft + newRight) / 2, (newbottom + newTop) / 2)
   }
 
-  override def fillDrawActive(fillColour: Colour, pointerID: AnyRef, lineWidth: Double, lineColour: Colour = Black): RectCompound =
+  override def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double): RectCompound =
     RectCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 }
 
