@@ -5,7 +5,9 @@ import pWeb._, Colour.Black
 /** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. Shape does not extend CurvePath but it does
  *  extend [[Fillable]] which extends [[Drawable]].Not sure if Shape and Fillable should be seperate classes. */
 trait Shape extends Any with Fillable with BoundedElem
-{
+{ /** Determines if the parameter point lies inside this [[Circle]]. */
+  def ptInside(pt: Pt2): Boolean
+
   override def fill(fillColour: Colour): ShapeFill
   override def fillInt(intValue: Int): ShapeFill
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw

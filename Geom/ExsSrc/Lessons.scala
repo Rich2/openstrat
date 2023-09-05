@@ -37,6 +37,7 @@ object Lessons extends GuiLaunch
     case "C1" => (learn.LsC1(_), "JavaFx Demonstration Interactive Canvas 1") //User interactive graphics
     case "C2" => (learn.LsC2(_), "JavaFx Demonstration Interactive Canvas 2")
     case "C3" => (learn.LsC3(_), "JavaFx Demonstration Interactive Canvas 3")
+    case "C3b" => (learn.LsC3b(_), "JavaFx Demonstration Interactive Canvas 3b")
     case "C4" => (learn.LsC4(_), "JavaFx Demonstration Interactive Canvas 4")
     case "C5" => (learn.LsC5(_), "JavaFx Demonstration Interactive Canvas 5")
     case "C6" => (learn.LsC6(_), "JavaFx Demonstration Interactive Canvas 6")

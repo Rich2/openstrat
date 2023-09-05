@@ -74,7 +74,7 @@ object EllipseActive
   final case class EllipseActiveImp(shape: Ellipse, pointerId: Any) extends EllipseActive
   { type ThisT = EllipseActive
 
-    override def ptInside(pt: Pt2): Boolean = ???
+    override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
     /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
     override def rendToCanvas(cp: CanvasPlatform): Unit = ???

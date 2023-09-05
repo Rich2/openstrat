@@ -5,8 +5,7 @@ import Colour.Black, pWeb._
 /** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A
  *  closed sequence of curve segments. */
 class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
-{
-  override type ThisT = ShapeGen
+{ override type ThisT = ShapeGen
 
   /** The width of the [[BoundingRect]] of this object. */
   override def boundingWidth: Double = ???
@@ -57,6 +56,9 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
     baseLine: BaseLine, minSize: Double): ShapeCompound = ???
+
+  /** Determines if the parameter point lies inside this [[Circle]]. */
+  override def ptInside(pt: Pt2): Boolean = ???
 }
 
 /** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations.  */

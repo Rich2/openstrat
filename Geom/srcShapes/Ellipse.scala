@@ -176,6 +176,9 @@ object Ellipse
 
     override def shearY(operand: Double): EllipseImp =
       EllipseImp.cenAxes1Axes4(cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand))
+
+    /** Determines if the parameter point lies inside this [[Circle]]. */
+    override def ptInside(pt: Pt2): Boolean = ???
   }
 
   /** Companion object for the EllipseImp class, contains factory methods. */
