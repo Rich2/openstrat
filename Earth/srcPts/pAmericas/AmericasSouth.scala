@@ -4,25 +4,34 @@ import geom._, pglobe._
 
 /** [[polygonLL]] graphical representation for south South America, Argentine and Chile. Depends on nothing. */
 object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -56.0, Plain)
-{ val swArgentine: LatLong = -54.28 ll -65.06
-  val sChile: LatLong = -55.26 ll -69.48
-  val islaEsmeralda : LatLong= -48.86 ll -75.62
-  val puntaLavapie: LatLong = -37.15 ll -73.59
-  val curamilla: LatLong = -33.10 ll -71.74
-  val lenguaDeVaca : LatLong= -30.24 ll -71.63
-  val north: Latitude = 21.south
-  val sSAmericaNW: LatLong = north * 70.16.west
+{ val north: Latitude = 21.south
   val nwAmericaE: Longitude = 58.west
+
   val nwSAmericaES: LatLong = north * nwAmericaE
   val sSAmericaNE: LatLong = north * 40.81.west
-  val saoPaulo: LatLong = -24 ll -46
+  val grutaAzul =  -23.01 ll -42.00
+  val taquari: LatLong = -25.03 ll -44.67
+  val barra: LatLong = -28.50 ll -48.75
   val puntaDelEste: LatLong = -35 ll -54
   val buenosAires: LatLong = -34 ll -59
   val sBuenos: LatLong = -36 ll -57
   val cabotBlanco: LatLong = -47.20 ll -65.75
+  val swArgentine: LatLong = -54.28 ll -65.06
 
-  override val polygonLL: PolygonLL = PolygonLL(sChile, islaEsmeralda, puntaLavapie, curamilla, lenguaDeVaca, sSAmericaNW, nwSAmericaES, sSAmericaNE, saoPaulo, puntaDelEste,
-    buenosAires, sBuenos, cabotBlanco, swArgentine)
+  /** Southern most point of Chile. */
+  val sChile: LatLong = -55.26 ll -69.48
+
+  val islaEsmeralda : LatLong= -48.86 ll -75.62
+  val puntaLavapie: LatLong = -37.15 ll -73.59
+  val curamilla: LatLong = -33.10 ll -71.74
+  val lenguaDeVaca : LatLong= -30.24 ll -71.63
+
+  val sSAmericaNW: LatLong = north * 70.16.west
+
+
+
+  override val polygonLL: PolygonLL = PolygonLL(nwSAmericaES, sSAmericaNE, grutaAzul, taquari, barra, puntaDelEste,
+    buenosAires, sBuenos, cabotBlanco, swArgentine, sChile, islaEsmeralda, puntaLavapie, curamilla, lenguaDeVaca, sSAmericaNW)
 }
 
 /** [[polygonLL]] graphical representation for the west of South America. Dependant on [[SouthAmericaSouth]] [[AmericasCentral]]. */
