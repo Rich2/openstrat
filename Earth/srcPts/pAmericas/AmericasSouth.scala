@@ -28,15 +28,19 @@ object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -56.0, 
 /** [[polygonLL]] graphical representation for the west of South America. Dependant on [[SouthAmericaSouth]] [[AmericasCentral]]. */
 object SouthAmericaWest extends EArea2("South America\nwest", -5.0 ll -70.0, Jungles)
 { val nChile: LatLong = -18 ll -70
+  val p60 = -13.91 ll -76.39
+
   val nPeru: LatLong = -5 ll -81
+  val west: LatLong = -4.68 ll -81.33
+  val sanLorenzo: LatLong = -1.06 ll -80.91
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
   val nColumbia: LatLong = 12.19 ll -71.27
   val caracas: LatLong = 11 ll -71
   val nwSAmericaEN: LatLong = 6.77.north * SouthAmericaSouth.nwAmericaE
 
-  override val polygonLL: PolygonLL = PolygonLL(SouthAmericaSouth.sSAmericaNW, nChile, nPeru, bahiaSolano10, AmericasCentral.sePanama,
-    AmericasCentral.nePanama, nColumbia, caracas, nwSAmericaEN, SouthAmericaSouth.nwSAmericaES)
+  override val polygonLL: PolygonLL = PolygonLL(SouthAmericaSouth.sSAmericaNW, nChile, p60, nPeru, west, sanLorenzo, bahiaSolano10,
+    AmericasCentral.sePanama, AmericasCentral.nePanama, nColumbia, caracas, nwSAmericaEN, SouthAmericaSouth.nwSAmericaES)
 }
 
 /** [[polygonLL]] graphical representation for the east of South America. Dependant on [[AmericasCentral]]. */
