@@ -2,8 +2,8 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTile._
 
-/** [[polygonLL]] graphical representation for south South America, Argentine and Chile. Depends on nothing. */
-object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -70.22, desert)
+/** [[polygonLL]] graphical representation for south Argentine and south Chile. Depends on nothing. */
+object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -70.22, savannah)
 { val northEast: LatLong = -40.76 ll -65.02
   val fuegoEast: LatLong = -54.66 ll -65.14
   val swArgentine: LatLong = -54.28 ll -65.06
@@ -18,7 +18,7 @@ object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -70.22,
   override val polygonLL: PolygonLL = PolygonLL(northEast,cabotBlanco, swArgentine, fuegoEast, sChile, islaEsmeralda, northWest)
 }
 
-/** [[polygonLL]] graphical representation for south South America, Argentine and Chile. Depends on nothing. */
+/** [[polygonLL]] graphical representation for middle South America. Depends on [[SouthAmericaSouth]]. */
 object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0, plain)
 { val north: Latitude = 21.south
   val nwAmericaE: Longitude = 58.west
