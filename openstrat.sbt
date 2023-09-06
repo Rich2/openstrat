@@ -136,8 +136,7 @@ lazy val EGridNat = natProj("EGrid").dependsOn(EarthNat, TilingNat).settings(
 )
 
 lazy val EarthAppJs = jsApp("EarthApp").settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/JsSrcApp",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
 )
 
 def appsSett = List(
@@ -164,7 +163,7 @@ lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
 
 def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(AppsJs).settings(
   Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Apps/srcStrat" ::
-    List("Geom", "Earth", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
+    List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
