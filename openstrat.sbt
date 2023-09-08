@@ -4,7 +4,7 @@ val versionStr = "0.3.1snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.3"
-val scalaMinor = "0"
+val scalaMinor = "1"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 

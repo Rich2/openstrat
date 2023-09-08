@@ -6,4 +6,4 @@ object UtilExsApp extends App
 	deb("Welcome to UtilApp")
   val circ: geom.Circle = geom.Circle(10)
   debvar(circ)
-} 
+}
