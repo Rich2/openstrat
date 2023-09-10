@@ -13,7 +13,7 @@ object Scen13S0E2 extends EScenLongMulti
 
 /** Scenario for 4 13km grid system for 30W 0E, 30E and 60E. */
 object Scen13S11E2 extends EScenLongMulti
-{ override val title: String = "13km 30W - 60E"
+{ override val title: String = "1300km 30W - 60E"
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(4, 11, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
@@ -22,7 +22,7 @@ object Scen13S11E2 extends EScenLongMulti
 
 /** Scenario for 2 Grid system from 60E to 90E. */
 object Scen13S2E3 extends EScenLongMulti
-{ override val title: String = "13km 60E - 90E"
+{ override val title: String = "1300km 60E - 90E"
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(4, 2, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
@@ -31,7 +31,7 @@ object Scen13S2E3 extends EScenLongMulti
 
 /** Just terrain scenario for all longitudes grid system. */
 object Scen13All extends EScenLongMulti
-{ override val title: String = "All longitude terrain only scenario."
+{ override val title: String = "1300km all longitude terrain only scenario."
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(12, 0, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
@@ -40,26 +40,9 @@ object Scen13All extends EScenLongMulti
 
 /** Terrain only scenario for North America. 3 13km grid system for 150W, 120W, 90W and 60W */
 object Scen13Americas extends EScenLongMulti
-{ override val title: String = "13km 150W - 60W"
+{ override val title: String = "1300km 150W - 60W"
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(5, 7, 86)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
-
-/** 2 13km grid system for Northern Canada 120W and 90W. */
-/*object GridsNCanada extends EGrid13LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid13.grids(2, 8, 154, 86)
-  override def headGridInt: Int = 8
-  override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, this))
-}
-
-/** Scenario for 2 13km grid system for Northern Canada 120W and 90W. */
-object ScenNCanada extends EScenLongMulti
-{ override val title: String = "13km Far North Canada"
-  implicit override val gridSys: EGrid13LongMulti = GridsNCanada
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
-  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-}*/
