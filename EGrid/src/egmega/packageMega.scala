@@ -2,8 +2,9 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 1 megametre, a C scale of 250km. An area of 49883.063km. A minimum Island area of 8313.844km, which includes
- * Crete but excludes Zealand and Mallorca.  */
+/** Hex tile grids for Earth with a hex scale of 1 megametre, a C scale of 250km. An area of 866025.403 km². A minimum Island area of 144337.567km²,
+ *  which includes Honshu, Victoria Island, Great Britain, Ellesmere Island, Sulawesi and the New Zealand Islands combined, but not individually and
+ *  not Java, North Island, Luzon or Cuba.  */
 package object egmega
 {
   val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180, TerrMegaW150,

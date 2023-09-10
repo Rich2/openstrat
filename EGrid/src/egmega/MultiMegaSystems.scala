@@ -40,7 +40,7 @@ object ScenMegaAmericas extends EScenLongMulti
 
 /** Just terrain scenario for all longitudes grid system. */
 object ScenMegaAll extends EScenLongMulti
-{ override val title: String = "All longitude terrain only scenario."
+{ override val title: String = "Mega Metre all longitude terrain only scenario."
   override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(12, 0, 82)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn

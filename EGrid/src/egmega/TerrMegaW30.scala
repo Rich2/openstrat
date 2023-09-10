@@ -2,10 +2,9 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 100km. */
+/** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 1000km. */
 object TerrMegaW30 extends LongMegaTerrs
-{
-  override implicit val grid: EGridMegaLongFull = EGridMega.w30(82)
+{ override implicit val grid: EGridMegaLongFull = EGridMega.w30(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -15,7 +14,7 @@ object TerrMegaW30 extends LongMegaTerrs
     override val rowDatas: RArr[RowBase] = RArr(
 //      TRow(118, sea),
 //      TRow(116, taiga),
-//      TRow(114, plain),
+      TRow(114, SideB(), sea),
 //      TRow(112, hills, plain),
 //      TRow(110, hills, hills),
 //      TRow(108, plain, desert),

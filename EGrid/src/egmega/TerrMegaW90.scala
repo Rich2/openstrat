@@ -2,10 +2,9 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 100km. */
+/** [[WTile]] terrain for 105° west to 75° west, centred on 90° west. Hex tile scale 1 Megametre or 1000km. */
 object TerrMegaW90 extends LongMegaTerrs
-{
-  override implicit val grid: EGridMegaLongFull = EGridMega.w90(82)
+{ override implicit val grid: EGridMegaLongFull = EGridMega.w90(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -15,14 +14,15 @@ object TerrMegaW90 extends LongMegaTerrs
     override val rowDatas: RArr[RowBase] = RArr(
 //      TRow(118, sea),
 //      TRow(116, taiga),
-//      TRow(114, plain),
-//      TRow(112, hills, plain),
-//      TRow(110, hills, hills),
-//      TRow(108, plain, desert),
-//      VRow(107, Mouth(1538, HVUL), VertIn(1540, HVDL)),
-//      TRow(106, sea * 2, Hland(2, 4, desert)),
-//      VRow(105, VertIn(1540, HVUR), VertIn(1542, HVDL)),
-//      TRow(104, desert * 3),
+      TRow(114, taiga),
+      TRow(112, taiga, taiga),
+      TRow(110, savannah, hills),
+      VRow(109, Mouth(9732, HVUL)),
+      TRow(108, Hland(1, 3), Hland(2, 1)),
+      VRow(107, Mouth(9726, HVUL), Mouth(9730, HVUR), Mouth(9732, HVDL)),
+      TRow(106, Hland(2, 1, sahel), sea, sea),
+      //VRow(105, Mouth(1540, HVUR) VertIn(1542, HVDL)),
+      TRow(104, Hland(2, 3, hillyJungle), jungle, sea),
 //      VRow(103, VertIn(1542, HVUR)),
 //      TRow(102, jungle * 2, hills),
 //      TRow(100, jungle * 2, plain),
