@@ -58,6 +58,9 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
    * traits / classes. */
   override def reflect(lineLike: LineLike): HexReg = mapHexReg(_.reflect(lineLike))
+
+  /** The area of this [[HexReg]]. */
+  def area: Double = radiusOut.squared * 3.sqrt * 3 / 2
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
@@ -88,8 +91,6 @@ object HexReg
   def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg = apply(dInner, rotation, xCen pp yCen)
 
   def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
-
-  def areaFromShortRadius(sr: Double): Double = sr * sr * 9 * 3.sqrt / 8
 
   implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
   { override def typeStr: String = "HexReg"

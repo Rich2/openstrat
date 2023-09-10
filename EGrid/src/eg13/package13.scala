@@ -2,8 +2,8 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 1300km, a C scale of 375km. An area of 49883.063km. A minimum Island area of 8313.844km, which includes
- * Crete but excludes Zealand and Mallorca.  */
+/** Hex tile grids for Earth with a hex scale of 1300km, a C scale of 375km. An area of 1.463582932 million km² A minimum Island area of 243930488km²,
+ *  which includes Borneo, Madagascar, Baffin Island, Sumatra, Honshu, but not Victoria Island, Great Britain, Ellesemere Island or Sulawesi.  */
 package object eg13
 {
   val fullTerrs: RArr[Long13Terrs] = RArr(Terr13E0, Terr13E30, Terr13E60, Terr13E90, Terr13E120, Terr13E150, Terr13E180, Terr13W150, Terr13W120,

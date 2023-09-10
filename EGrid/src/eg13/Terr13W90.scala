@@ -2,10 +2,10 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 75 East to 105 East. */
+/** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1300km. Baffin Island appears at this scale by Cuba is too
+ *  small. */
 object Terr13W90 extends Long13Terrs
-{
-  override implicit val grid: EGrid13LongFull = EGrid13.w90(86)
+{ override implicit val grid: EGrid13LongFull = EGrid13.w90(86)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -20,7 +20,7 @@ object Terr13W90 extends Long13Terrs
       TRow(108, plain),
       TRow(106, savannah, Hland(1, 2)),
       VRow(105, Mouth(9726, HVDL)),
-      TRow(104, Hland(2, 0, hillyJungle), Isle(hillyJungle)),
+      TRow(104, Hland(2, 0, hillyJungle), sea),
       VRow(103, SetSide(9725)),
       TRow(102, sea, Hland(2, 3, hillyJungle)),
       VRow(101, Mouth(9732, HVUR)),

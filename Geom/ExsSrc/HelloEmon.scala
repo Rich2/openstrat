@@ -19,4 +19,10 @@ object HelloEmon extends App
   mi2.forGoodForBad { counter += _ } { errs => println("The counter was not changed.") }
   println("Counter value is now: " + counter.str)
   println("MyId".parseTokens)
+  import geom._
+  val h13 = HexParrX(1.3)
+  val h13a = h13.area
+  debvar(h13a)
+  val h13ta = h13a / 6
+  debvar(h13ta)
 }
