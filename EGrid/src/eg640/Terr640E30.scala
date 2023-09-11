@@ -2,13 +2,9 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
- *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
- *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
- *  area it must be assigned to France  */
+/** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 640km. */
 object Terr640E30 extends Long640Terrs
-{
-  override implicit val grid: EGrid640LongFull = EGrid640.e30(112)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e30(112)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -54,19 +50,3 @@ object Terr640E30 extends Long640Terrs
   }
   help.run
 }
-
-/*
-object BritReg
-{ def britGrid: EGrid640Long = EGrid640Long.reg(138, 148, 0, 504, 520)
-  def britTerrs: HCenLayer[WTile] = Terr640E0.terrs.spawn(Terr640E0.grid, britGrid)
-  def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr640E0.sTerrs.spawn(Terr640E0.grid, britGrid)
-  def britCorners: HCornerLayer =Terr640E0.corners.spawn(Terr640E0.grid, britGrid)
-
-  def regScen: EScenBasic = new EScenBasic
-  {  override def title: String = "Regular Britain"
-    override implicit val gridSys: EGrid640Long = britGrid
-    override val terrs: HCenLayer[WTile] = britTerrs
-    override val sTerrs: HSideOptLayer[WSide, WSideSome] = britSTerrs
-    override val corners: HCornerLayer = britCorners
-  }
-}*/
