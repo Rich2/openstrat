@@ -69,10 +69,10 @@ class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, CharArr]
   def str: String = "CharsOff" + offset0.toString.enParenth
   override def toString = str
   def drop(n: Int): CharsOff = new CharsOff(offset0 + n)
-  def drop1: CharsOff = new CharsOff(offset1)
-  def drop2: CharsOff = new CharsOff(offset2)
-  def drop3: CharsOff = new CharsOff(offset3)
-  def drop4: CharsOff = new CharsOff(offset4)
+  inline def drop1: CharsOff = new CharsOff(offset1)
+  inline def drop2: CharsOff = new CharsOff(offset2)
+  inline def drop3: CharsOff = new CharsOff(offset3)
+  inline def drop4: CharsOff = new CharsOff(offset4)
   def length(implicit chars: CharArr): Int = chars.length - offset0
   def span(p: Char => Boolean)(implicit array: CharArr): (CharArr, CharsOff) =
   {
@@ -159,7 +159,7 @@ object CharsOffHead3
 /** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
  *  tail. */
 object CharsOffHead4
-{ /** Extractor for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the tail */
+{ /** Extractor for the first 4 elements for immutable heapless iterator for Chars with length >= 4. Use this when you don't care about the tail */
   def unapply(inp: CharsOff)(implicit chars: CharArr): Option[(Char, Char, Char, Char)] =
     ife(chars.length - inp.offset0 >= 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
 }

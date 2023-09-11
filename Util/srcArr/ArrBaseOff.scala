@@ -6,10 +6,10 @@ trait ArrBaseOff[A, ArrT <: Arr[A]] extends Any
   @inline def apply(index: Int)(implicit arr: ArrT): A
   def lenStr(implicit arr: ArrT): String = length.toString
   def length(implicit arr: ArrT): Int
-  @inline def offset1: Int = offset0 + 1
-  @inline def offset2: Int = offset0 + 2
-  @inline def offset3: Int = offset0 + 3
-  @inline def offset4: Int = offset0 + 4
+  inline def offset1: Int = offset0 + 1
+  inline def offset2: Int = offset0 + 2
+  inline def offset3: Int = offset0 + 3
+  inline def offset4: Int = offset0 + 4
   def forall(p: A => Boolean)(implicit arr: ArrT): Boolean = ??? //forall(0, length - 1)(p)
 
   def forN(endIndex: Int, p: A => Boolean)(implicit arr: ArrT): Boolean =

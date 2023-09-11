@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 import collection.mutable.ArrayBuffer
 
@@ -14,13 +14,15 @@ object lexSrc
     val acc: ArrayBuffer[Token] = Buffer[Token]()
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
-    { def appendLoop: EArr[Token] = e3.flatMap { (cOff, tp, token) =>
-      acc.append (token)
-      mainLoop (cOff, tp)
+    {
+      def appendLoop: EArr[Token] = e3.flatMap { (cOff, tp, token) =>
+        acc.append(token)
+        mainLoop(cOff, tp)
       }
     }
 
-    def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): EArr[Token] =
+    /** Before this was inlined getting stack overflows. */
+    inline def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): EArr[Token] =
     { acc.append(newToken)
       mainLoop(charsOff, tp)
     }
@@ -37,7 +39,7 @@ object lexSrc
       case CharsOff1Tail('{', tail) => appendLoop(CurlyOpenToken(tp), tail, tp.right1)
       case CharsOff1Tail('}', tail) => appendLoop(CurlyCloseToken(tp), tail, tp.right1)
 
-      case CharsOffHead4('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
+      case CharsOffHead4('.', '.', '.', '.') => tp.right(4).bad(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(tp), tail, tp.right3)
       case CharsOff2Tail('.', '.', tail) => appendLoop(Dot2Token(tp), tail, tp.right2)
       case CharsOff1Tail('.', tail) => appendLoop(DotToken(tp), tail, tp.right1)

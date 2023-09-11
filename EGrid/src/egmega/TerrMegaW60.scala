@@ -20,7 +20,7 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(108, SideB(), sea * 2),
 
       TRow(102, jungle, sea * 2),
-//      TRow(100, jungle * 2, plain),
+      TRow(100, jungle * 2, plain),
 //      TRow(98, jungle * 2, sea),
 //      TRow(96, plain * 2, Hland(3, 1)),
 //      VRow(95, Mouth(1538, HVUL)),
