@@ -23,6 +23,7 @@ object TerrMegaE90 extends LongMegaTerrs
       VRow(103, Mouth(3590, HVUL)),
       TRow(102, sea, sea, Hland(2, 1, hillyJungle)),
       TRow(100, sea * 2, Isle(jungle)),
+      VRow(93, BendOut(3592, HVUR)),
     )
   }
   help.run
