@@ -20,7 +20,7 @@ object HelloEmon extends App
   println("Counter value is now: " + counter.str)
   println("MyId".parseTokens)
   import geom._
-  val h13 = HexParrX(1000)
+  val h13 = HexParrX(640)
   val h13a = h13.area
   debvar(h13a)
   val h13ta = h13a / 6
