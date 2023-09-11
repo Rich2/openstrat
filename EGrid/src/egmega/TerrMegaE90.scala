@@ -18,9 +18,10 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(114, taiga),
       TRow(112, hillyDesert, desert),
       TRow(110, desert, hillyDesert),
-//      TRow(108, hillyDesert * 2),
-//      TRow(106, desert, sea, plain),
-//      TRow(104, SideB(), Hland(2, 2, Hilly(Desert)), sea * 2),
+      TRow(108, mtain * 2),
+      TRow(106, jungle * 3),
+      TRow(104, jungle, sea, jungle),
+      TRow(100, sea * 2, Isle(jungle)),
 //      TRow(96, SideB(), Hland(2, 1, Hilly()), sea * 2),
     )
   }
