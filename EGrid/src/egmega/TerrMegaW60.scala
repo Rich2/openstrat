@@ -20,17 +20,16 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(108, SideB(), sea * 2),
 
       TRow(102, jungle, sea * 2),
-      TRow(100, jungle * 2, plain),
-//      TRow(98, jungle * 2, sea),
-//      TRow(96, plain * 2, Hland(3, 1)),
-//      VRow(95, Mouth(1538, HVUL)),
-//      TRow(94, desert, Hland(2, 1), Hland(2, 4)),
-//      TRow(92, Hland(2, 2, Hilly()), sea),
-//      TRow(90, sea * 2),
-//      TRow(88, sea * 2),
-//      TRow(86, sea),
-//      TRow(84, sea),
-//      TRow(82, ice),
+      TRow(100, jungle * 2, jungle),
+      TRow(98, jungle * 2, jungle),
+      TRow(96, hillySavannah, Land(Level, Tropical, CivMix), jungle),
+      VRow(95, BendAll(10760, HVDR)),
+      TRow(94, Land(Mountains, Savannah), savannah, Hland(1, 2, savannah)),
+      VRow(93, BendOut(10758, HVDR)),
+      TRow(92, hillySavannah, Hland(2, 2, savannah)),
+      VRow(91, Mouth(10754, HVUL)),
+      TRow(90, hillySavannah, sea),
+      VRow(89, Mouth(10748, HVUR)),
     )
   }
   help.run

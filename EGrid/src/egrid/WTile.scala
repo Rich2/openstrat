@@ -38,6 +38,7 @@ object WTile
   val tundra: Land = Land(Level, Tundra, LandFree)
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
   val savannah: Land = Land(Level, Savannah, CivMix)
+  val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val sahel: Land = Land(Level, Sahel, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
   val ice: Land = Land(Level, IceCap, LandFree)

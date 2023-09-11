@@ -28,16 +28,11 @@ object TerrMegaW90 extends LongMegaTerrs
       TRow(102, sea, Hland(2, 3, jungle), jungle),
       VRow(101, Mouth(9732, HVUR)),
       TRow(100, sea * 2, Hland(2, 4, hillyJungle)),
-//      TRow(98, jungle * 2, sea),
-//      TRow(96, plain * 2, Hland(3, 1)),
-//      VRow(95, Mouth(1538, HVUL)),
-//      TRow(94, desert, Hland(2, 1), Hland(2, 4)),
-//      TRow(92, Hland(2, 2, Hilly()), sea),
-//      TRow(90, sea * 2),
-//      TRow(88, sea * 2),
-//      TRow(86, sea),
-//      TRow(84, sea),
-//      TRow(82, ice),
+      VRow(99, Mouth(9732, HVDR)),
+      TRow(98, sea * 2, hillyJungle),
+      VRow(89, Mouth(9732, HVUR)),
+      TRow(88, sea, Hland(1, 5, hillyTaiga)),
+      VRow(87, Mouth(9730, HVDn)),
     )
   }
   help.run
