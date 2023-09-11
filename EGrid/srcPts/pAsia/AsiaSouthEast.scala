@@ -4,13 +4,13 @@ import geom._, pglobe._, egrid._, WTile._
 
 /** [[PolygonLL]] graphic for Taiwan depends on nothing. */
 object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
-{ val north = 25.29 ll 121.57
-  val northEast = 25.01 ll 122.01
-  val south = 21.90 ll 120.86
-  val west = 23.10 ll 120.04
-  val p10 = 25.05 ll 121.06
+{ val north: LatLong = 25.29 ll 121.57
+  val northEast: LatLong = 25.01 ll 122.01
+  val south: LatLong = 21.90 ll 120.86
+  val west: LatLong = 23.10 ll 120.04
+  val p10: LatLong = 25.05 ll 121.06
 
-  override val polygonLL = PolygonLL(north, northEast, south, west, p10)
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, south, west, p10)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
@@ -29,7 +29,7 @@ object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, plain)
   val xuwen: LatLong = 20.24 ll 110.18
   val yingzaiMouth: LatLong = 21.45 ll 109.90
 
-  override val polygonLL = PolygonLL(CEAsia.binhai, p5, jiolaiMouth, p10, rongcheng, p12, haitzhou, p15, p18, putuo, longhai, hongKong, xuwen,
+  override val polygonLL: PolygonLL = PolygonLL(CEAsia.binhai, p5, jiolaiMouth, p10, rongcheng, p12, haitzhou, p15, p18, putuo, longhai, hongKong, xuwen,
     yingzaiMouth, IndoChina.beilunMouth, IndoChina.chittagong, India.magdhara, India.indiaNE,  CentralAsia.southEast)
 }
 
@@ -40,14 +40,28 @@ object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
   val dienChau: LatLong = 18.99 ll 105.56
   val sVietnam: LatLong = 8.68 ll 104.92
   val bankok: LatLong = 13.59 ll 100.39
-  val seMalaysia: LatLong = 1.39 ll 104.25
-  val swMalaysia: LatLong = 1.32 ll 103.47
-  val selekoh: LatLong = 3.89 ll 100.73
-  val neMalayPen: LatLong = 13.48 ll 98.45
+
+  val lethabaukMau: LatLong = 13.553 ll 98.121
   val sittangMouth: LatLong = 17.36 ll 96.89
   val pathein: LatLong = 16.17 ll 94.31
   val chittagong: LatLong = 22.74 ll 91.54
 
-  override val polygonLL = PolygonLL(beilunMouth, dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth,
+  override val polygonLL: PolygonLL = PolygonLL(beilunMouth, dienChau, eVietnam, sVietnam, bankok, MalayPeninsula.maeKongMouth, MalayPeninsula.northWest, lethabaukMau, sittangMouth,
     pathein, chittagong)
+}
+
+/** [[PolygonLL]] graphic for IndoChina depends on nothing. */
+object MalayPeninsula extends EArea2("MaylayPeninsula", 4.84 ll 102, hillyJungle)
+{ val maeKongMouth: LatLong = 13.358 ll 100.009
+  val p15: LatLong = 12.187 ll 100.018
+  val tongNode = 9.303 ll 99.837
+  val khaeKhae = 6.845 ll 101.557
+
+  val seMalaysia: LatLong = 1.39 ll 104.25
+  val swMalaysia: LatLong = 1.32 ll 103.47
+  val selekoh: LatLong = 3.89 ll 100.73
+  val capeKrathing: LatLong = 7.775 ll 98.288
+  val northWest: LatLong = 13.569 ll 98.373
+
+  override val polygonLL: PolygonLL = PolygonLL(maeKongMouth, p15, tongNode, khaeKhae, seMalaysia, swMalaysia, selekoh, capeKrathing, northWest)
 }

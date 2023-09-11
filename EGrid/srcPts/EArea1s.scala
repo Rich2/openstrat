@@ -69,7 +69,7 @@ object AmericasNearNorth extends EArea1("North America", 49 ll -100)
 object Asia extends EArea1("Asia", 60 ll 100)
 { import pAsia._
   override val a2Arr = RArr(ChinaSE, IndoChina, Korea, CEAsia, NeAsia, FeAsia, sakhalin, Hokkaido, Honshu, Kyshu, Taiwan, Kazak, RusNorth, India, SriLanka,
-    Himalayas, CentralAsia, SevernyIsland)
+    Himalayas, CentralAsia, SevernyIsland, MalayPeninsula)
 }
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 { import pOceans._
