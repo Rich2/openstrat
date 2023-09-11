@@ -10,7 +10,7 @@ object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
   val seSumatra: LatLong = -5.90 ll 105.71
   val hutan: LatLong = -5.94 ll 104.58
 
-  override val polygonLL = PolygonLL(nSumatra, neSumatra, eSumatra, seSumatra, hutan)
+  override val polygonLL: PolygonLL = PolygonLL(nSumatra, neSumatra, eSumatra, seSumatra, hutan)
 }
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
 object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
@@ -51,12 +51,12 @@ object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
   val nuytsland2: LatLong = degs(-33.86, 123.63)
   val windyHarbour: LatLong = degs(-34.84, 116)
 
-  override val polygonLL = PolygonLL(capeLeeuwin, wAustralia, eightyMile, couloumbPoint, drysdaleRiver, victoriaMouth, thamarrurr, coxPeninsular,
-    nAustralia, eastArnhem, limmen, karumba, nQueensland, nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia, wilsonsProm,
-    barwonHeads, capeOtway, portMacdonnell, carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata, nuytsland1,
-    nuytsland2, windyHarbour)
+  override val polygonLL: PolygonLL = PolygonLL(capeLeeuwin, wAustralia, eightyMile, couloumbPoint, drysdaleRiver, victoriaMouth, thamarrurr,
+    coxPeninsular, nAustralia, eastArnhem, limmen, karumba, nQueensland, nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia,
+    wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata,
+    nuytsland1, nuytsland2, windyHarbour)
 }
-/** [[polygonLL]] graphical representation of Sumatra. Depends on nothing. */
+/** [[polygonLL]] graphical representation of the North Ilsand of New Zealand. Depends on nothing. */
 object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, plain)
 { val capeReinga: LatLong = -34.42 ll 172.68
   val teHapua: LatLong = -34.41 ll 173.05
@@ -67,32 +67,32 @@ object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, plain)
   val himtangi: LatLong = -40.36 ll 175.22
   val capeEgmont: LatLong = -39.28 ll 173.75
 
-  override val polygonLL = PolygonLL(capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
+  override val polygonLL: PolygonLL = PolygonLL(capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
 }
 
-/** [[polygonLL]] graphical representation of the south island of New Zealand. Depends on nothing. */
+/** [[polygonLL]] graphical representation of the South Island of New Zealand. Depends on nothing. */
 object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, plain)
 { val swNewZealand: LatLong = -45.98 ll 166.47
   val puponga: LatLong = -40.51 ll 172.72
   val capeCambell: LatLong = -41.73 ll 174.27
   val slopePoint: LatLong = -46.67 ll 169.00
 
-  override val polygonLL = PolygonLL(swNewZealand, puponga, capeCambell, slopePoint)
+  override val polygonLL: PolygonLL = PolygonLL(swNewZealand, puponga, capeCambell, slopePoint)
 }
 
-/** [[polygonLL]] graphical representation of the island of Sumatra. Depends on nothing. */
+/** [[polygonLL]] graphical representation of the island of Borneo. Depends on nothing. */
 object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
 { val nBorneo: LatLong = 6.99 ll 117.12
   val seBorneo: LatLong = -4.03 ll 116.09
   val swBorneo: LatLong = -2.96 ll 110.29
   val nwSarawak: LatLong = 2.08 ll 109.64
 
-  override val polygonLL = PolygonLL(nBorneo,seBorneo, swBorneo, nwSarawak)
+  override val polygonLL: PolygonLL = PolygonLL(nBorneo,seBorneo, swBorneo, nwSarawak)
 }
 
+/** [[polygonLL]] graphical representation of the island of Sulawesi. Depends on nothing. */
 object Sulawesi extends EArea2("Sulawesi", -2.16 ll 120.58, jungle)
-{
-  val seSulawesi: LatLong = -5.41 ll 119.38
+{ val seSulawesi: LatLong = -5.41 ll 119.38
   val nwSulawesi: LatLong = 0.72 ll 120.06
   val neSulawesi: LatLong = 1.67 ll 125.15
   val ambesia: LatLong = 0.52 ll 120.62
@@ -101,27 +101,37 @@ object Sulawesi extends EArea2("Sulawesi", -2.16 ll 120.58, jungle)
   val swSulawesi: LatLong = -5.66 ll 122.78
   val nGulfBoni: LatLong = -2.61 ll 120.81
 
-  override val polygonLL = PolygonLL(seSulawesi, nwSulawesi, neSulawesi, ambesia, poso, teku, swSulawesi, nGulfBoni)
+  override val polygonLL: PolygonLL = PolygonLL(seSulawesi, nwSulawesi, neSulawesi, ambesia, poso, teku, swSulawesi, nGulfBoni)
 }
 
+/** [[polygonLL]] graphical representation of the island of Java. Depends on nothing. */
 object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
 { val swJava: LatLong = -6.83 ll 105.24
   val nwJava: LatLong = -5.88 ll 106.04
   val ePulauMadura: LatLong = -6.96 ll 114.11
   val seJava: LatLong = -8.75 ll 114.58
-  override val polygonLL = PolygonLL(swJava, nwJava, ePulauMadura, seJava)
+
+  override val polygonLL: PolygonLL = PolygonLL(swJava, nwJava, ePulauMadura, seJava)
 }
 
-object NewGuinea extends EArea2("NewGuinea", -5.19 ll 141.03, jungle)
-{ val wNewGuinea: LatLong = -0.82 ll 130.45
+/** [[polygonLL]] graphical representation of the island of Sumatra. Depends on nothing. */
+object NewGuinea extends EArea2("NewGuinea", -5.19 ll 141.03, hillyJungle)
+{ val waigeoWest: LatLong = -0.113 ll 130.295
+  val waigeoNorth: LatLong = -0.007 ll 130.814
   val manokwari: LatLong = -0.73 ll 133.98
   val sCenderawasih: LatLong = -3.39 ll 135.33
   val tebe: LatLong = -1.46 ll 137.93
   val madang: LatLong = -4.85 ll 145.78
+  val p40: LatLong = -5.918 ll 147.339
   val eNewGuinea: LatLong = -10.23 ll 150.87
+  val hulaBlackSand: LatLong = -10.103 ll 147.726
   val morigo: LatLong = -7.83 ll 143.98
   val saibai: LatLong = -9.32 ll 142.63
+  val southWest: LatLong = -8.431 ll 137.655
+  val p70: LatLong = -7.518 ll 138.145
   val aindua: LatLong = -4.46 ll 135.21
+  val wNewGuinea: LatLong = -0.82 ll 130.45
 
-  override val polygonLL = PolygonLL(wNewGuinea, manokwari, sCenderawasih, tebe, madang, eNewGuinea, morigo, saibai, aindua)
+  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth/*, manokwari, sCenderawasih*/, tebe, madang, p40, eNewGuinea, hulaBlackSand,
+    morigo, saibai, southWest, p70, aindua, wNewGuinea)
 }
