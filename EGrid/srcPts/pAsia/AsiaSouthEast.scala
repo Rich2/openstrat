@@ -37,7 +37,7 @@ object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, plain)
 object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
 { val beilunMouth: LatLong = 21.50 ll 108.08
   val dienChau: LatLong = 18.99 ll 105.56
-  val p25 = 15.243 ll 108.939
+  val p25: LatLong = 15.243 ll 108.939
   val eVietnam: LatLong = 12.93 ll 109.37
   val p30: LatLong = 10.142 ll 106.796
   val sVietnam: LatLong = 8.68 ll 104.92
@@ -47,11 +47,13 @@ object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
 
   val lethabaukMau: LatLong = 13.553 ll 98.121
   val sittangMouth: LatLong = 17.36 ll 96.89
+  val p80: LatLong = 15.733 ll 95.429
   val pathein: LatLong = 16.17 ll 94.31
+  val sonadia: LatLong = 21.538 ll 91.841
   val chittagong: LatLong = 22.74 ll 91.54
 
   override val polygonLL: PolygonLL = PolygonLL(beilunMouth, dienChau, p25, eVietnam, p30, sVietnam, p40, khaoLaemPu, bankok, MalayPeninsula.maeKongMouth,
-    MalayPeninsula.northWest, lethabaukMau, sittangMouth, pathein, chittagong)
+    MalayPeninsula.northWest, lethabaukMau, sittangMouth, p80, pathein, sonadia, chittagong)
 }
 
 /** [[PolygonLL]] graphic for IndoChina depends on nothing. */

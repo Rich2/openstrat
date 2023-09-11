@@ -6,11 +6,13 @@ import geom._, pglobe._, LatLong._, egrid._, WTile._
 object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
 { val nSumatra: LatLong = 5.65 ll 95.43
   val neSumatra: LatLong = 5.24 ll 97.49
+  val tanjungDatuk: LatLong = -0.005 ll 103.812
   val eSumatra: LatLong = -3.22 ll 106.09
   val seSumatra: LatLong = -5.90 ll 105.71
   val hutan: LatLong = -5.94 ll 104.58
+  val p70 = -2.154 ll 100.820
 
-  override val polygonLL: PolygonLL = PolygonLL(nSumatra, neSumatra, eSumatra, seSumatra, hutan)
+  override val polygonLL: PolygonLL = PolygonLL(nSumatra, neSumatra, tanjungDatuk, eSumatra, seSumatra, hutan, p70)
 }
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
 object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
@@ -83,11 +85,16 @@ object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, plain
 /** [[polygonLL]] graphical representation of the island of Borneo. Depends on nothing. */
 object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
 { val nBorneo: LatLong = 6.99 ll 117.12
-  val seBorneo: LatLong = -4.03 ll 116.09
-  val swBorneo: LatLong = -2.96 ll 110.29
+  val northEast: LatLong = 5.382 ll 119.241
+  val cenEast: LatLong = 1.022 ll 118.986
+  val southEast: LatLong = -4.03 ll 116.09
+  val southWest: LatLong = -2.96 ll 110.29
+  val p60: LatLong = 0.816 ll 108.841
   val nwSarawak: LatLong = 2.08 ll 109.64
+  val batangLuparMouth: LatLong = 1.512 ll 110.988
+  val p70 = 2.798 ll 111.333
 
-  override val polygonLL: PolygonLL = PolygonLL(nBorneo,seBorneo, swBorneo, nwSarawak)
+  override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, cenEast, southEast, southWest, p60, nwSarawak, batangLuparMouth, p70)
 }
 
 /** [[polygonLL]] graphical representation of the island of Sulawesi. Depends on nothing. */

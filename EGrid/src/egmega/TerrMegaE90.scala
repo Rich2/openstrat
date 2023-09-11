@@ -4,8 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 /** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1 megametre or 1000km. */
 object TerrMegaE90 extends LongMegaTerrs
-{
-  override implicit val grid: EGridMegaLongFull = EGridMega.e90(82)
+{ override implicit val grid: EGridMegaLongFull = EGridMega.e90(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -21,8 +20,9 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(108, mtain * 2),
       TRow(106, jungle * 3),
       TRow(104, jungle, sea, jungle),
+      VRow(103, Mouth(3590, HVUL)),
+      TRow(102, sea, sea, Hland(2, 1, hillyJungle)),
       TRow(100, sea * 2, Isle(jungle)),
-//      TRow(96, SideB(), Hland(2, 1, Hilly()), sea * 2),
     )
   }
   help.run
