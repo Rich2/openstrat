@@ -19,8 +19,6 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(112, taiga, hillyTaiga),
       TRow(110, savannah, hillyTaiga),
       TRow(108, plain, hills),
-//      TRow(106, desert, sea, plain),
-//      TRow(104, SideB(), Hland(2, 2, Hilly(Desert)), sea * 2),
       TRow(100, Hland(2, 4, hillyJungle), sea * 2),
       TRow(96, sea, sea, savannah),
       TRow(94, Hland(1, 5, desert), desert, sahel),
