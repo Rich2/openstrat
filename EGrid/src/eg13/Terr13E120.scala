@@ -24,8 +24,10 @@ object Terr13E120 extends Long13Terrs
       TRow(100, Isle(hillyJungle), Hland(4, 4, hillyJungle)),
       VRow(99, SetSide(4604), BendOut(4612, HVDL)),
       TRow(98, Isle(hillyJungle), sea),
-      TRow(96, Hland(2, 5, desert), desert),
-      TRow(94, Hland(3, 3), desert),
+      TRow(96, Hland(2, 5, desert), sahel),
+      VRow(95, BendOut(4606, HVUL)),
+      TRow(94, Hland(3, 3, savannah), desert),
+      VRow(93, Mouth(4608, HVUR)),
       TRow(86, Hland(1, 0, ice))
     )
   }

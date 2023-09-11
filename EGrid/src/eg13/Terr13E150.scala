@@ -21,7 +21,7 @@ object Terr13E150 extends Long13Terrs
       VRow(99, BendOut(5628, HVDL)),
       TRow(98, Hland(3, 2, hillyJungle), sea),
       TRow(96, Hland(3, 0, hills), sea),
-      TRow(94, plain, sea),
+      TRow(94, savannah, sea),
     )
   }
   help.run
