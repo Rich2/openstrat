@@ -2,10 +2,10 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 15° West to 15° East, centred on 0° East. Hex tile scale 1 Megametre or 1000km. */
+/** [[WTile]] terrain for 15° West to 15° East, centred on 0° East. Hex tile scale 1 Megametre or 1000km. The Mediterranean has not been given a hex
+ * tile. Making 110, 514 an island causes problems. */
 object TerrMegaE0 extends LongMegaTerrs
-{
-  override implicit val grid: EGridMegaLongFull = EGridMega.e0(82)
+{ override implicit val grid: EGridMegaLongFull = EGridMega.e0(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -13,13 +13,15 @@ object TerrMegaE0 extends LongMegaTerrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(118, sea),
+      VRow(119, BendOut(516, HVUp)),
+      TRow(118, Hland(2, 5, hillyTundra)),
+      VRow(117, BendOut(512, HVUL)),
       TRow(116, Hland(3, 3, hillyTaiga)),
+      VRow(115, Mouth(514, HVUR)),
       TRow(114, plain),
       TRow(112, plain, hills),
-      TRow(110, Hland(3, 3, hills), sea),
-      VRow(109, Mouth(512, HVUR)),
-      VRow(109, Mouth(516, HVUL)),
+      TRow(110, Hland(3, 3, hills), Hland(3, 5, savannah)),
+      VRow(109, BendAll(512, HVUL), BendOut(516, HVUR)),
       TRow(108, hills, desert),
       TRow(106, desert * 3),
       TRow(104, desert * 3),
