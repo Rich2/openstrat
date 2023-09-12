@@ -1,7 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._
-import pglobe._
+import geom._, pglobe._
 
 /** 20North, 0 East */
 object EuropeNW extends EArea1("EuropeNW", 20 ll 0)

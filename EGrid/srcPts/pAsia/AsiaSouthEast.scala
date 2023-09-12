@@ -33,7 +33,7 @@ object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, plain)
     yingzaiMouth, IndoChina.beilunMouth, IndoChina.chittagong, India.magdhara, India.indiaNE,  CentralAsia.southEast)
 }
 
-/** [[PolygonLL]] graphic for IndoChina depends on nothing. */
+/** [[PolygonLL]] graphic for IndoChina depends on [[MalayPeninsula]]. */
 object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
 { val beilunMouth: LatLong = 21.50 ll 108.08
   val dienChau: LatLong = 18.99 ll 105.56
@@ -56,7 +56,7 @@ object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
     MalayPeninsula.northWest, lethabaukMau, sittangMouth, p80, pathein, sonadia, chittagong)
 }
 
-/** [[PolygonLL]] graphic for IndoChina depends on nothing. */
+/** [[PolygonLL]] graphic for Maly Peninsula depends on nothing. */
 object MalayPeninsula extends EArea2("MaylayPeninsula", 4.84 ll 102, hillyJungle)
 { val maeKongMouth: LatLong = 13.358 ll 100.009
   val p15: LatLong = 12.187 ll 100.018

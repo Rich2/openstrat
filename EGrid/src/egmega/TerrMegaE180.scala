@@ -4,8 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 /** [[WTile]] terrain for 175° east to 175° west, centred on 180° east. Hex tile scale 1 megametre or 1000km. */
 object TerrMegaE180 extends LongMegaTerrs
-{
-  override implicit val grid: EGridMegaLongFull = EGridMega.e180(82)
+{ override implicit val grid: EGridMegaLongFull = EGridMega.e180(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -13,7 +12,10 @@ object TerrMegaE180 extends LongMegaTerrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(116, Hland(2, 1, hillyTundra)),
+      VRow(117, Mouth(6658, HVUp)),
+      TRow(116, Hland(1, 2, hillyTundra)),
+      VRow(115, Mouth(6654, HVUL),  BendIn(6656, HVUp)),
+      TRow(114, SideB(), sea),
       TRow(90, Isle(hills)),
     )
   }

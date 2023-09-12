@@ -13,6 +13,7 @@ trait WTile extends WTileHelper with Coloured with Show//Simple //with Descrip
   def isWater: Boolean = !isLand
 }
 
+/** Companion object for WTile, contains short factory methods. */
 object WTile
 {
   implicit object TerainIsType extends IsType[WTile]
