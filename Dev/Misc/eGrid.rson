@@ -113,3 +113,4 @@ flat = false;
 152 = HGView(122, 1536; 23.5);//640km 0°E - 30°E
 153 = HGView(122, 4608; 23);//640km China - Japan 90°E - 150°E
 154 = HGView(122, 1536; 23);//640km 30°W - 60°E
+155 = HGView(122, 9728; 23);//640km North America 4 grids 150°W - 60°W

@@ -41,7 +41,7 @@ object Scen640S10E5 extends EScenLongMulti
 /** Just terrain scenario for all longitudes grid system. */
 object Scen640All extends EScenLongMulti
 { override val title: String = "All longitude terrain only scenario."
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(12, 0, 124)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(12, 0, 112)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -50,7 +50,7 @@ object Scen640All extends EScenLongMulti
 /** Terrain only scenario for North America. 3 640km grid system for 150W, 120W, 90W and 60W */
 object Scen640Americas extends EScenLongMulti
 { override val title: String = "640km 150W - 60W"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 7, 124)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 7, 112)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -58,7 +58,7 @@ object Scen640Americas extends EScenLongMulti
 
 /** 2 640km grid system for Northern Canada 120W and 90W. */
 object Grids640NCanada extends EGrid640LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid640.grids(2, 8, 154, 158)
+{ override val grids: RArr[EGridLongFull] = EGrid640.grids(2, 8, 124)
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, this))
