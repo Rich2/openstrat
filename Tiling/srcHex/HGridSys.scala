@@ -223,6 +223,8 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
+  //def ifMapPair[B2](f1: HCen => Boolean)
+
   /** OptMaps each [[HCen]] of this hex grid system to an [[HCenPair]]. */
   def optMapPair[B2](f2: HCen => Option[B2])(implicit build: HCenPairArrMapBuilder[B2]): HCenPairArr[B2] =
   { val buff = build.newBuff()
