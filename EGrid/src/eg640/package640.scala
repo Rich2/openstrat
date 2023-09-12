@@ -7,8 +7,10 @@ import prid.phex._, egrid._
  *  Alexander Island, or Isla Grande de Tierra del Fuego.  */
 package object eg640
 {
-  val fullTerrs: RArr[Long640Terrs] = RArr(Terr640E0, Terr640E30, Terr640E60)//, Terr640E90, Terr640E120, Terr640E150,Terr640E180,
-    //Terr640W150, Terr640W120, Terr640W90, Terr640W60, Terr640W30)
+  val fullTerrs: RArr[Long640Terrs] = RArr(Terr640E0, Terr640E30, Terr640E60, Terr640E90, Terr640E120,// Terr640E150,Terr640E180,
+    null, null, null, null, null, null,
+    //Terr640W150, Terr640W120, Terr640W90, Terr640W60,
+    Terr640W30)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid640LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)

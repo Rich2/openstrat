@@ -118,8 +118,12 @@ object EGridLaunch extends GuiLaunchMore
       case 140 => EGrid640.scen0
       case 141 => EGrid640.scen1
       case 142 => EGrid640.scen2
+      case 143 => EGrid640.scen3
+      case 144 => EGrid640.scen4
 
+      case 151 => EGrid640.scen11
       case 152 => Scen640S0E1
+      case 154 => Scen640S11E2
       case _ => Scen320All
     }
     (EGTerrOnlyGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
