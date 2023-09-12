@@ -17,17 +17,17 @@ flat = false;
 
 12 = HGView(149, 520; 21);//320km 0°E - 30°E
 13 = HGView(135, 4608; 24);//320km China - Japan 90°E - 150°E
-14 = HGView(150, 520; 21);//320km 30W - 60E
-15 = HGView(148, 2558; 8);//320km 60W - 150E
+14 = HGView(150, 520; 21);//320km 30°W - 60°E
+15 = HGView(148, 2558; 8);//320km 60°W - 150°E
 16 = HGView(150, 6650; 21);//320km All longitudes
 17 = HGView(143, 512; 42);//320Km British Iles and surrounding.
-18 = HGView(142, 9730; 21);//320km North America 4 grids 150W - 60W
-19 = HGView(157, 8711; 32);//320km North Canada only 2 rows, 120W - 90W
+18 = HGView(142, 9730; 21);//320km North America 4 grids 150°W - 6°0W
+19 = HGView(157, 8711; 32);//320km North Canada only 2 rows, 120°W - 90°W
 
-20 = HGView(156, 512; 22.5);//220Km 0E
-21 = HGView(156, 1536; 22.5);//220Km 30E
+20 = HGView(156, 512; 22.5);//220Km 0°E
+21 = HGView(156, 1536; 22.5);//220Km 30°E
 
-32 = HGView(156, 1524; 22.5);//220km 0E - 30E
+32 = HGView(156, 1524; 22.5);//220km 0°E - 30°E
 
 40 = HGView(286, 512; 25);//160km 0E
 41 = HGView(286, 1536; 25);//160km 30E
@@ -102,7 +102,12 @@ flat = false;
 142 = HGView(122, 2560; 23);//640km 60°E
 143 = HGView(122, 3584; 23);//640km 90°E
 144 = HGView(122, 4608; 23);//640km 120°E
+145 = HGView(122, 5632; 23);//640km 150°E
+146 = HGView(122, 6656; 23);//640km 180°E
+147 = HGView(122, 7680; 23);//640km 150°W
 
 151 = HGView(122, 11776; 23);//640km 0°E
+
 152 = HGView(122, 1536; 23.5);//640km 0°E - 30°E
+153 = HGView(122, 4608; 23);//640km China - Japan 90°E - 150°E
 154 = HGView(122, 1536; 23);//640km 30°W - 60°E

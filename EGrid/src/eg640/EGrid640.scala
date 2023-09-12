@@ -38,21 +38,9 @@ object EGrid640
   def scen2: EScenBasic = EScenBasic(Terr640E60.grid, Terr640E60.terrs, Terr640E60.sTerrs, Terr640E60.corners, "640km 60E")
   def scen3: EScenBasic = EScenBasic(Terr640E90.grid, Terr640E90.terrs, Terr640E90.sTerrs, Terr640E90.corners, "640km 90E")
   def scen4: EScenBasic = EScenBasic(Terr640E120.grid, Terr640E120.terrs, Terr640E120.sTerrs, Terr640E120.corners, "640km 120E")
-//  }
-//
-//  def scen5: EScenBasic =
-//  { val grid: EGridLongFull = Terr640E150.grid
-//    EScenBasic(grid, Terr640E150.terrs, Terr640E150.sTerrs, Terr640E150.corners, "640km 150E")
-//  }
-//
-//  def scen6: EScenBasic =
-//  { val grid: EGridLongFull = Terr640E180.grid
-//    EScenBasic(grid, Terr640E180.terrs, Terr640E180.sTerrs, Terr640E180.corners, "640km 180E")
-//  }
-//
-//  def scen7: EScenBasic =
-//  { val grid: EGridLongFull = Terr640W150.grid
-//    EScenBasic(grid, Terr640W150.terrs, Terr640W150.sTerrs, Terr640W150.corners, "640km 150W")
+  def scen5: EScenBasic = EScenBasic(Terr640E150.grid, Terr640E150.terrs, Terr640E150.sTerrs, Terr640E150.corners, "640km 150E")
+  def scen6: EScenBasic = EScenBasic(Terr640E180.grid, Terr640E180.terrs, Terr640E180.sTerrs, Terr640E180.corners, "640km 180E")
+  def scen7: EScenBasic = EScenBasic(Terr640W150.grid, Terr640W150.terrs, Terr640W150.sTerrs, Terr640W150.corners, "640km 150W")
 //  }
 //
 //  def scen8: EScenBasic =
