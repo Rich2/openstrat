@@ -30,7 +30,7 @@ object Scen640S11E2 extends EScenLongMulti
 }
 
 /** Scenario for 8 Grid system from 60W to 150E. */
-/*object Scen640S10E5 extends EScenLongMulti
+object Scen640S10E5 extends EScenLongMulti
 { override val title: String = "640km 60W - 150E"
   override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(8, 10, 124)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
@@ -57,7 +57,7 @@ object Scen640Americas extends EScenLongMulti
 }
 
 /** 2 640km grid system for Northern Canada 120W and 90W. */
-object GridsNCanada extends EGrid640LongMulti
+object Grids640NCanada extends EGrid640LongMulti
 { override val grids: RArr[EGridLongFull] = EGrid640.grids(2, 8, 154, 158)
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
@@ -65,10 +65,10 @@ object GridsNCanada extends EGrid640LongMulti
 }
 
 /** Scenario for 2 640km grid system for Northern Canada 120W and 90W. */
-object ScenNCanada extends EScenLongMulti
+object Scen640NCanada extends EScenLongMulti
 { override val title: String = "640km Far North Canada"
-  implicit override val gridSys: EGrid640LongMulti = GridsNCanada
+  implicit override val gridSys: EGrid640LongMulti = Grids640NCanada
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-}*/
+}

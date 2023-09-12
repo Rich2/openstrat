@@ -18,8 +18,7 @@ object EGridLaunch extends GuiLaunchMore
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](scenNum)
 
     val scen: EScenBasic = scenNum match
-    {
-      case 0 => EGrid320.scen0
+    { case 0 => EGrid320.scen0
       case 1 => EGrid320.scen1
       case 2 => EGrid320.scen2
       case 3 => EGrid320.scen3
@@ -39,7 +38,7 @@ object EGridLaunch extends GuiLaunchMore
       case 16 => Scen320All
       case 17 => BritReg220.regScen
       case 18 => Scen320Americas
-      case 19 => ScenNCanada
+      case 19 => Scen640NCanada
 
       case 20 => EGrid220.scen0
       case 21 => EGrid220.scen1
@@ -123,12 +122,16 @@ object EGridLaunch extends GuiLaunchMore
       case 145 => EGrid640.scen5
       case 146 => EGrid640.scen6
       case 147 => EGrid640.scen7
-
+      case 148 => EGrid640.scen8
+      case 149 => EGrid640.scen9
+      case 150 => EGrid640.scen10
       case 151 => EGrid640.scen11
 
       case 152 => Scen640S0E1
       case 153 => Scen640ChinaJapan
       case 154 => Scen640S11E2
+      case 155 => Scen640Americas
+      case 156 => Scen640All
       case _ => Scen320All
     }
     (EGTerrOnlyGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
