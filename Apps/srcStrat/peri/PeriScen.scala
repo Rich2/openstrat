@@ -50,9 +50,8 @@ object PeriScen
     }
     val res: HCenOptLayer[Army] = HCenOptLayer[Army]()
     val len = lands.length
-    var i = len
-    iUntilForeach(len, 0){i =>
-
+    iUntilForeach(len){i =>
+      res.setSomeMut(lands(i).a1, Army(NRed, 2))
     }
 
     PeriScen(gSys, terrs, inp.sTerrs, inp.corners, res)
