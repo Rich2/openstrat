@@ -40,12 +40,13 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
       thisTop()
     }
 
-    /*case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
+      deb("Hit")
+      //newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
       repaint()
-    }*/
-
+    }
+    case (RightButton, _, _) => deb("Just Right")
     case (_, _, h) => deb("Other; " + h.toString)
   }
   /** Creates the turn button and the action to commit on mouse click. */
