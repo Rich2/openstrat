@@ -2,38 +2,27 @@
 package ostrat; package peri;
 import prid.phex._, egrid._, util.Random
 
-trait PeriScenBase extends HSysScen
-{
-  def title: String = "PeriScen"
-
-  override implicit val gridSys: EGridSys
-  val terrs: HCenLayer[WTile]
-  val sTerrs: HSideOptLayer[WSide, WSideSome]
-  val corners: HCornerLayer
-}
-
-trait PeriScenStart extends PeriScenBase
-{
-  val nations: RArr[Nation]
-}
-
 trait PeriScen extends PeriScenBase
 { val armies: HCenOptLayer[Army]
   val rand: Random = new Random
 
-  def attack(src: HCen, target: HCen): PeriScen = {
-    val att1: Option[Army] = armies(src) match {
-      case Some(a1) if a1.num > 1 => Some(a1)
+  def attack(src: HCen, target: HCen): PeriScen =
+  { val att1: Option[Army] = armies(src) match
+    { case Some(a1) if a1.num > 1 => Some(a1)
       case _ => None
     }
     val def1: Option[Army] = armies(target)
-    val res: Option[Boolean] = att1.flatMap{at => def1.map{ df =>
+    val optArmies: Option[HCenOptLayer[Army]] = att1.flatMap{at => def1.map{ df =>
         val ar = rand.nextInt(10)
         val dr = rand.nextInt(10)
-        ar > dr
+        val res = armies.copy
+        if (ar > dr) res.setSomeMut(target, Army(df.nation, df.num - 1))
+        else res.setSomeMut(src, Army(at.nation, at.num - 1))
+        res
       }
     }
-    ???
+    val newArmies = optArmies.getOrElse(armies)
+    PeriScen(gridSys, terrs, sTerrs, corners, newArmies)
   }
 }
 
