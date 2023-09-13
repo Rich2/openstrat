@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package peri;
-import prid.phex._, egrid._
+import prid.phex._, egrid._, util.Random
 
 trait PeriScenBase extends HSysScen
 {
@@ -18,13 +18,23 @@ trait PeriScenStart extends PeriScenBase
 }
 
 trait PeriScen extends PeriScenBase
-{
-//  def title: String = "PeriScen"
-//  override implicit val gridSys: EGridSys
-//  val terrs: HCenLayer[WTile]
-//  val sTerrs: HSideOptLayer[WSide, WSideSome]
-//  val corners: HCornerLayer
-  val armies: HCenOptLayer[Army]
+{ val armies: HCenOptLayer[Army]
+  val rand: Random = new Random
+
+  def attack(src: HCen, target: HCen): PeriScen = {
+    val att1: Option[Army] = armies(src) match {
+      case Some(a1) if a1.num > 1 => Some(a1)
+      case _ => None
+    }
+    val def1: Option[Army] = armies(target)
+    val res: Option[Boolean] = att1.flatMap{at => def1.map{ df =>
+        val ar = rand.nextInt(10)
+        val dr = rand.nextInt(10)
+        ar > dr
+      }
+    }
+    ???
+  }
 }
 
 object PeriScen
@@ -50,7 +60,7 @@ object PeriScen
     }
     val res: HCenOptLayer[Army] = HCenOptLayer[Army]()
     val len = lands.length
-    val rand = new scala.util.Random
+    val rand: Random = new Random
     iToForeach(len - 1, 0, -1){i =>
       val j = rand.nextInt(i + 1)
       val jLands = lands(j)
