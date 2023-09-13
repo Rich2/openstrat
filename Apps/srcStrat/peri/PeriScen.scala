@@ -50,10 +50,17 @@ object PeriScen
     }
     val res: HCenOptLayer[Army] = HCenOptLayer[Army]()
     val len = lands.length
-    iUntilForeach(len){i =>
-      res.setSomeMut(lands(i).a1, Army(NRed, 2))
+    val rand = new scala.util.Random
+    iUntilForeach(len - 1, 0, -1){i =>
+      val j = rand.nextInt(i)
+      val army = Army(nats.indexCycle(i), 2)
+      val jLands = lands(j)
+      res.setSomeMut(jLands.a1, army)
+      lands.setElemUnsafe(j, lands(i))
+      lands.setElemUnsafe(i, jLands)
     }
-
+    val army = Army(nats.indexCycle(0), 2)
+    res.setSomeMut(lands(0).a1, army)
     PeriScen(gSys, terrs, inp.sTerrs, inp.corners, res)
   }
 }

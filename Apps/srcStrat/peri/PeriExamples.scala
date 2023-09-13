@@ -2,15 +2,16 @@
 package ostrat; package peri;
 import prid.phex._, egrid._, eg13._
 
-object PeriScen1 extends PeriScen
+object PeriScen1 extends PeriScenStart
 { override implicit val gridSys: EGridSys = Scen13All.gridSys
   override val terrs: HCenLayer[WTile] = Scen13All.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners
-  override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
-  armies.setSomeMut(110, 514, Army(NBlue, 4))
-  armies.setSomeMut(108, 1536, Army(NRed, 1))
-  armies.setSomeMut(96, 1540, Army(NViolet, 1))
+  //override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
+  override val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet)
+//  armies.setSomeMut(110, 514, Army(NBlue, 4))
+//  armies.setSomeMut(108, 1536, Army(NRed, 1))
+//  armies.setSomeMut(96, 1540, Army(NViolet, 1))
 }
 object PeriScen2 extends PeriScenStart
 {

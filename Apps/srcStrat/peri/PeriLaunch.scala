@@ -7,7 +7,7 @@ object PeriLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "peri"
 
-  override def default: (CanvasPlatform => Any, String) = (PeriGui(_, PeriScen1, PeriScen1.defaultView()), "JavaFx Periculo Fundatusa")
+  override def default: (CanvasPlatform => Any, String) = (PeriGui(_, PeriScen.init(PeriScen1), PeriScen1.defaultView()), "JavaFx Periculo Fundatusa")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
@@ -16,10 +16,10 @@ object PeriLaunch extends GuiLaunchMore
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: PeriScen = num match
-    { case 1 => PeriScen1
+    { case 1 => PeriScen.init(PeriScen1)
       case 2 => PeriScen.init(PeriScen2)
       case 3 => PeriScen3
-      case _ => PeriScen1
+      case _ => PeriScen.init(PeriScen2)
     }
 
     (PeriGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " Periculo Fundatusa " + ife(isFlat, "Flat", "Globe") + " JavaFx")
