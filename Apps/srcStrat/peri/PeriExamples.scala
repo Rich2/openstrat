@@ -8,7 +8,7 @@ object PeriScen1 extends PeriScenStart
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners
   //override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
-  override val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet)
+  override val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet, NOrange)
 //  armies.setSomeMut(110, 514, Army(NBlue, 4))
 //  armies.setSomeMut(108, 1536, Army(NRed, 1))
 //  armies.setSomeMut(96, 1540, Army(NViolet, 1))
@@ -21,7 +21,8 @@ object PeriScen2 extends PeriScenStart
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr13E0.sTerrs.spawn(Terr13E0.grid, gridSys)
   override val corners: HCornerLayer = Terr13E0.corners.spawn(Terr13E0.grid, gridSys)
 }
-object PeriScen2a extends PeriScenStart
+
+object PeriScen3 extends PeriScenStart
 { override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(3, 0, 94)
   val ft3 = fullTerrs.take(3)
   override val terrs: HCenLayer[WTile] = iToMap(0, 2) { i =>
@@ -42,14 +43,14 @@ object PeriScen2a extends PeriScenStart
     ft.corners.spawn(ft.grid, gridSys.grids(i))
   }.combine
 
-  val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet)
+  val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet, NOrange)
 
 //  val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
 //  armies.setSomeMut(108, 1536, Army(NRed, 1))
 //  armies.setSomeMut(96, 1540, Army(NViolet, 1))
 }
 
-object PeriScen3 extends PeriScen{
+object PeriScen4 extends PeriScen{
   override implicit val gridSys: EGridSys = EGrid13.e30(104, 106)
   override val terrs: HCenLayer[WTile] = Terr13E30.terrs.spawn(Terr13E30.grid, gridSys)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr13E30.sTerrs.spawn(Terr13E30.grid, gridSys)

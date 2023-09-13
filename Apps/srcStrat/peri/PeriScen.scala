@@ -51,16 +51,22 @@ object PeriScen
     val res: HCenOptLayer[Army] = HCenOptLayer[Army]()
     val len = lands.length
     val rand = new scala.util.Random
-    iUntilForeach(len - 1, 0, -1){i =>
-      val j = rand.nextInt(i)
-      val army = Army(nats.indexCycle(i), 2)
+    iToForeach(len - 1, 0, -1){i =>
+      val j = rand.nextInt(i + 1)
       val jLands = lands(j)
+      val armyNum = jLands.a2.climate match{
+        case Desert | Tundra => 1
+        case Taiga | Tropical => 2
+        case _ => 3
+      }
+      val army = Army(nats.indexCycle(i), armyNum)
+
       res.setSomeMut(jLands.a1, army)
       lands.setElemUnsafe(j, lands(i))
       lands.setElemUnsafe(i, jLands)
     }
-    val army = Army(nats.indexCycle(0), 2)
-    res.setSomeMut(lands(0).a1, army)
+//    val army = Army(nats.indexCycle(0), 2)
+//    res.setSomeMut(lands(0).a1, army)
     PeriScen(gSys, terrs, inp.sTerrs, inp.corners, res)
   }
 }

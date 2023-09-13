@@ -18,7 +18,7 @@ object PeriLaunch extends GuiLaunchMore
     val scen: PeriScen = num match
     { case 1 => PeriScen.init(PeriScen1)
       case 2 => PeriScen.init(PeriScen2)
-      case 3 => PeriScen3
+      case 3 => PeriScen.init(PeriScen3)
       case _ => PeriScen.init(PeriScen2)
     }
 
