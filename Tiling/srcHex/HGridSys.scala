@@ -64,6 +64,8 @@ trait HGridSys extends Any with TGridSys
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def stepFind(startCen: HCen, endCen: HCen): Option[HStep]
 
+  def stepExists(startCen: HCen, endCen: HCen): Boolean = stepFind(startCen, endCen).nonEmpty
+
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def stepEndFind(startHC: HCen, step: HStep): Option[HCen]
 

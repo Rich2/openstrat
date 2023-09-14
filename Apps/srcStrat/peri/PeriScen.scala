@@ -16,8 +16,14 @@ trait PeriScen extends PeriScenBase
         val ar = rand.nextInt(10)
         val dr = rand.nextInt(10)
         val res = armies.copy
-        if (ar > dr) res.setSomeMut(target, Army(df.nation, df.num - 1))
-        else res.setSomeMut(src, Army(at.nation, at.num - 1))
+        (ar > dr) match
+        { case true if df.num == 1 =>
+          { res.setSomeMut(target, Army(at.nation, 1))
+            res.setSomeMut(src, Army(at.nation, at.num - 1))
+          }
+          case true => res.setSomeMut(target, Army(df.nation, df.num - 1))
+          case _ => res.setSomeMut(src, Army(at.nation, at.num - 1))
+        }
         res
       }
     }

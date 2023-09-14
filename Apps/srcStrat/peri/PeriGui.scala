@@ -21,8 +21,8 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
   override def frame: GraphicElems =
   {
-    def units: GraphicElems = armies.projSomesPtMap { (army, pt) =>
-      Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, army, army.num.str, 4, army.contrastBW).slate(pt)
+    def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
+      Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, HCenPair(hc, army), army.num.str, 4, army.contrastBW).slate(pt)
     }
     //def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 
@@ -41,12 +41,12 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
     }
 
     case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
-      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
-      deb("Hit")
-      //newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
-      repaint()
+      if(gridSys.stepExists(hc1, hc2))
+      { scen = scen.attack(hc1, hc2)
+        repaint()
+      }
     }
-    case (RightButton, _, _) => deb("Just Right")
+    case (RightButton, sel, a) => deb(s"Just Right, $sel, $a")
     case (_, _, h) => deb("Other; " + h.toString)
   }
   /** Creates the turn button and the action to commit on mouse click. */
