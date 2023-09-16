@@ -42,7 +42,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
     case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
       if(gridSys.stepExists(hc1, hc2))
-      { scen = scen.attack(hc1, hc2)
+      { scen = scen.invMove(hc1, hc2)
         repaint()
       }
     }

@@ -2,11 +2,13 @@
 package ostrat; package peri;
 import prid.phex._, egrid._, util.Random
 
+/** A scenario state for Periculo Fundatusa a sequential turn game at a 1300km scale. */
 trait PeriScen extends PeriScenBase
 { val armies: HCenOptLayer[Army]
   val rand: Random = new Random
 
-  def attack(src: HCen, target: HCen): PeriScen =
+  /** Invade and move. */
+  def invMove(src: HCen, target: HCen): PeriScen =
   { val att1: Option[Army] = armies(src) match
     { case Some(a1) if a1.num > 1 => Some(a1)
       case _ => None

@@ -2,6 +2,7 @@
 package ostrat; package pDev
 import pjvm._
 
+/** Object for creating openstrat documentation. */
 object SiteHtmlWrite extends App
 {
   val sett = findDevSettingT[DirPathAbs]("projPath")
