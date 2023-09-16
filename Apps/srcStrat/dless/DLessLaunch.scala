@@ -10,7 +10,7 @@ object DLessLaunch extends GuiLaunchMore
   override def settingStr: String = "dless"
 
   override def default: (CanvasPlatform => Any, String) =
-    (DLessGui(_, DLessGame(DLessScen1, DLessScen1.nations), DLessSettings(DLessScen1.defaultView(), DLessScen1.nations)), "JavaFx Diceless")
+    (DLessGui(_, DLessGame(DLessScen1, DLessScen1.nationSet), DLessSettings(DLessScen1.defaultView(), DLessScen1.nationSet)), "JavaFx Diceless")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
@@ -23,10 +23,15 @@ object DLessLaunch extends GuiLaunchMore
       case 2 => DLessScen2
       case _ => DLessScen1
     }
-
-    val view = oview.getElse(scen.gridSys.coordCen.view())
-    val game = DLessGame(scen, scen.nations)
-    val settings = DLessSettings(view, scen.nations)
+    val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1 = sts2.findSettingIdentifierArr("nations")
+    val plAll: RArr[Nation] = scen.nationSet
+    val pls2: EMon[RArr[Nation]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.name.toLowerCase() == st.toLowerCase())) }
+    val pls3: RArr[Nation] = pls2.getElse(scen.nationSet)
+    val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
+    val settings: DLessSettings = DLessSettings(view, pls3)
+    val game: DLessGame = DLessGame(scen, pls3)
     (DLessGui(_, game, settings), scen.title +  " Diceless " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

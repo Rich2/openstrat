@@ -11,7 +11,7 @@ trait DLessScen extends HSysTurnScen
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
   val armies: HCenRArrLayer[Army]
-  def nations: RArr[Nation]
+  def nationSet: RArr[Nation]
 
   def endTurn(orderList: HCenStepPairArr[Army]): DLessScen =
   { val targets: HCenBuffLayer[HCenPair[Army]] = gridSys.newHCenArrOfBuff
@@ -30,7 +30,7 @@ trait DLessScen extends HSysTurnScen
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenRArrLayer[Army] = armiesNew
-      override val nations = ThisScen.nations
+      override val nationSet = ThisScen.nationSet
       override def turn: Int = ThisScen.turn + 1
     }
   }
@@ -46,11 +46,11 @@ object DLessScen1 extends DLessScen
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  implicit val nations: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
+  implicit val nationSet: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
 
   override val armies: HCenRArrLayer[Army] =
   { val res = HCenRArrLayer[Army]()
-    implicit val counters: ArrCounters[Nation] = ArrCounters(nations)
+    implicit val counters: ArrCounters[Nation] = ArrCounters(nationSet)
     res.setFSomesMut(Britain.armyNext, 142,514,  144,508,  142,514)
     res.setFSomesMut(Germany.armyNext, 140,520,  144,1528,  144,520,  142,1526)
     res.setFSomesMut(France.armyNext, 138,514,  140,516)
@@ -79,5 +79,5 @@ object DLessScen2 extends DLessScen
   override val corners: HCornerLayer = HCornerLayer()
   override val armies: HCenRArrLayer[Army] = HCenRArrLayer()
 
-  override def nations: RArr[Nation] = ???
+  override def nationSet: RArr[Nation] = ???
 }
