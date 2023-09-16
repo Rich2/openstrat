@@ -8,7 +8,7 @@ trait Lelev extends ShowSimple with Coloured
   override def typeStr: String = "Lelev"
 
   /** Factory apply method for land. */
-  def apply(biome: Climate = Temperate): Land = Land(this, biome)
+  def apply(biome: Climate = Temperate, landUse: LandUse = LandFree): Land = Land(this, biome, landUse)
 }
 
 object Lelev

@@ -16,7 +16,7 @@ object Terr640W90 extends Long640Terrs
       TRow(128, tundra),
       TRow(126, tundra, Isle(tundra)),
       TRow(124, Hland(2, 1, taiga), Hland(3, 4, tundra)),
-      VRow(123, Mouth(9728, HVDL)),
+      VRow(123, Mouth(9728, HVDL), Mouth(9732, HVDR)),
       TRow(122, taiga * 2),
       TRow(120, taiga * 3),
       VRow(119, Mouth(9728, HVDL, Lake)),
