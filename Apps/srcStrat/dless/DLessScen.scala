@@ -11,6 +11,7 @@ trait DLessScen extends HSysTurnScen
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
   val armies: HCenRArrLayer[Army]
+  def nations: RArr[Nation]
 
   def endTurn(orderList: HCenStepPairArr[Army]): DLessScen =
   { val targets: HCenBuffLayer[HCenPair[Army]] = gridSys.newHCenArrOfBuff
@@ -29,6 +30,7 @@ trait DLessScen extends HSysTurnScen
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenRArrLayer[Army] = armiesNew
+      override val nations = ThisScen.nations
       override def turn: Int = ThisScen.turn + 1
     }
   }
@@ -76,4 +78,6 @@ object DLessScen2 extends DLessScen
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg.britSTerrs
   override val corners: HCornerLayer = HCornerLayer()
   override val armies: HCenRArrLayer[Army] = HCenRArrLayer()
+
+  override def nations: RArr[Nation] = ???
 }

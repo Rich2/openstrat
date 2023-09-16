@@ -2,12 +2,15 @@
 package ostrat; package dless
 import pgui._, prid._, phex._, pParse._
 
+case class DLessSettings(view: HGView, counterSet: RArr[Nation], isFlat: Boolean = false)
+
 /** Scenario selector and launcher for DLess. */
 object DLessLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "dless"
 
-  override def default: (CanvasPlatform => Any, String) = (DLessGui(_, DLessScen1, DLessScen1.defaultView()), "JavaFx Diceless")
+  override def default: (CanvasPlatform => Any, String) =
+    (DLessGui(_, DLessGame(DLessScen1, DLessScen1.nations), DLessSettings(DLessScen1.defaultView(), DLessScen1.nations)), "JavaFx Diceless")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
@@ -21,6 +24,9 @@ object DLessLaunch extends GuiLaunchMore
       case _ => DLessScen1
     }
 
-    (DLessGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " Diceless " + ife(isFlat, "Flat", "Globe") + " JavaFx")
+    val view = oview.getElse(scen.gridSys.coordCen.view())
+    val game = DLessGame(scen, scen.nations)
+    val settings = DLessSettings(view, scen.nations)
+    (DLessGui(_, game, settings), scen.title +  " Diceless " + ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

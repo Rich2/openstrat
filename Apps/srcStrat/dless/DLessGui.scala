@@ -3,9 +3,9 @@ package ostrat; package dless
 import geom._, prid._, phex._, pgui._, egrid._
 
 /** Graphical User Interface for [[DLessScen]]. */
-class DLessGui(val canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Diceless Gui")
-{ var scen: DLessScen = scenIn
-  override implicit val gridSys: EGridSys = scenIn.gridSys
+class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLessSettings) extends EGridBaseGui("Diceless Gui")
+{ var scen: DLessScen = game.scen
+  override implicit val gridSys: EGridSys = scen.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
@@ -16,8 +16,8 @@ class DLessGui(val canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFl
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
-  proj.setView(viewIn)
+  implicit val proj: HSysProjection = ife(settings.isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
+  proj.setView(settings.view)
 
   override def frame: GraphicElems =
   {
@@ -81,5 +81,5 @@ class DLessGui(val canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isFl
 }
 
 object DLessGui
-{ def apply(canv: CanvasPlatform, scen: DLessScen, view: HGView, isFlat: Boolean = false): DLessGui = new DLessGui(canv, scen, view, isFlat)
+{ def apply(canv: CanvasPlatform, game: DLessGame, settings: DLessSettings): DLessGui = new DLessGui(canv, game, settings)
 }
