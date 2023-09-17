@@ -30,12 +30,12 @@ object G1HLaunch extends GuiLaunchMore
     val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
     val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("counters")
-    val plAll = scen.counterSet
-    val pls2 = pls1.map{arrA => arrA.optMap(st => plAll.find(_.charStr == st))}
-    val pls3 = pls2.getElse(plAll)
+    val plAll: RArr[Counter] = scen.counterSet
+    val pls2: EMon[RArr[Counter]] = pls1.map{arrA => arrA.optMap(st => plAll.find(_.charStr == st))}
+    val pls3: RArr[Counter] = pls2.getElse(scen.counterSet)
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
     val settings = G1HGuiSettings(view, pls3)
-    val game = G1HGame(scen, pls3)
+    val game: G1HGame = G1HGame(scen, pls3)
     (G1HGui(_, game, settings), "JavaFx Game One Hexs")
   }
 }
