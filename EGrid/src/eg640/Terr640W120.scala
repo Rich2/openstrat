@@ -20,7 +20,8 @@ object Terr640W120 extends Long640Terrs
       TRow(120, sea, hillyTaiga, savannah),
       TRow(118, Hland(2, 4, mtain), mtain, hillySahel),
       TRow(116, sea, hillySavannah, hillyDesert),
-      TRow(114, sea, hillySahel, hillyDesert, desert),
+      TRow(114, sea * 2, hillySahel, hillyDesert),
+      TRow(112, sea * 2, hillySahel, hillySahel),
     )
   }
   help.run
