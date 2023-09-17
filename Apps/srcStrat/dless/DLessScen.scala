@@ -13,7 +13,7 @@ trait DLessScen extends HSysTurnScen
   val armies: HCenRArrLayer[Army]
   def nationSet: RArr[Nation]
 
-  def endTurn(orderList: HCenStepPairArr[Army]): DLessScen =
+  def resolve(orderList: HCenStepPairArr[Army]): DLessScen =
   { val targets: HCenBuffLayer[HCenPair[Army]] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>

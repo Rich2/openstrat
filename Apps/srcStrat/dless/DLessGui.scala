@@ -38,7 +38,7 @@ class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLes
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
-    scen = scen.endTurn(moves)
+    scen = scen.resolve(moves)
     moves = NoMoves
     repaint()
     thisTop()

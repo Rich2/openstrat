@@ -4,5 +4,5 @@ import geom._, prid._, phex._, pgui._, egrid._
 
 case class DLessGame(var scen: DLessScen, guiNations: RArr[Nation])
 {
-  def endTurn(orderList: HCenStepPairArr[Army]): DLessScen = scen.endTurn(orderList)
+  def endTurn(orderList: HCenStepPairArr[Army]): DLessScen = scen.resolve(orderList)
 }
