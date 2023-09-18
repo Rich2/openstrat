@@ -8,7 +8,7 @@ class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLes
   override implicit val gridSys: EGridSys = scen.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
-  val corners = scen.corners
+  val corners: HCornerLayer = scen.corners
   def armies: HCenRArrLayer[Army] = scen.armies
 
   def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()

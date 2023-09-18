@@ -16,7 +16,7 @@ trait G1HScen extends HSysTurnScen
 
     /** Contains the resolution logic. The intentions are presumed to be correct. Combining and checking of intentions should be done before calling
      *  this method. */
-  def resolve(intensions: HCenOptStepLikeLayer): HCenOptLayer[Counter] =
+  def resolve(intensions: HCenOptStepLayer): HCenOptLayer[Counter] =
   { val playersNew: HCenOptLayer[Counter] = counters.copy
     val acc: HCenAccLayer = intensions.mapAcc
     acc.foreach { (target, arr) => if (arr.length == 1 & counters.emptyTile(target)) playersNew.moveUnsafe(arr.head, target) }

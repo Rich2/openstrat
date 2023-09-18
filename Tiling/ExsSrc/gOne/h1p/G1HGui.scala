@@ -61,7 +61,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     //scen = game.endTurn(moves.mapOnA1(_.step))
     val dirs = moves2.hcOptMap { (sl, hc) => sl.mapOpt { st => HCenStep(hc, st) } }
-    scen = game.endTurn2(dirs)
+    scen = game.endTurn(dirs)
     moves = NoMoves
     repaint()
     thisTop()

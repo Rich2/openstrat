@@ -3,6 +3,11 @@ package ostrat; package dless
 import geom._, prid._, phex._, pgui._, egrid._
 
 case class DLessGame(var scen: DLessScen, guiNations: RArr[Nation])
-{
-  def endTurn(orderList: HCenStepPairArr[Army]): DLessScen = scen.resolve(orderList)
+{ implicit def gridSys: EGridSys = scen.gridSys
+  var history: RArr[DLessScen] = RArr(scen)
+
+  def endTurn(directives: HCenStepPairArr[Army]): DLessScen ={
+
+    scen.resolve(directives)
+  }
 }
