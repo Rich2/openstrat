@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 /** [[WTile]] terrain terrain for 135° west to 115° west, centred on 120° wast. Hex tile scale 640km.  */
 object Terr640W120 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.w120(110)
+{ override implicit val grid: EGrid640LongFull = EGrid640.w120(108)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()

@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTile._
 
 /** [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile scale 640km.  */
 object Terr640W90 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.w90(110)
+{ override implicit val grid: EGrid640LongFull = EGrid640.w90(108)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -19,12 +19,14 @@ object Terr640W90 extends Long640Terrs
       VRow(123, Mouth(9728, HVDL), Mouth(9732, HVDR)),
       TRow(122, taiga * 2),
       TRow(120, taiga * 3),
-      VRow(119, Mouth(9728, HVDL, Lake)),
-      TRow(118, taiga, Hland(2, 0, taiga, Lake), taiga),
+      VRow(119, Mouth(9728, HVDL, Lake), Mouth(9730, HVUR, Lake), Mouth(9732, HVUp, Lake)),
+      TRow(118, taiga, taiga, taiga),
+      VRow(117, Mouth(9732, HVDn, Lake), Mouth(9736, HVUL)),
       TRow(116, savannah, savannah, hills),
       TRow(114, sahel, savannah, plain, plain),
       TRow(112, savannah, plain, jungle, sea),
-      TRow(110, sahel, sea * 3),
+      TRow(110, sahel, sea * 2, sea),
+      TRow(108, jungle, jungle, sea, Hland(4, 1, hillyJungle)),
     )
   }
   help.run
