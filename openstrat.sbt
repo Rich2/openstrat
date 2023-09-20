@@ -154,6 +154,7 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingEx
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies ++= Seq(
+    "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided",
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
     ),
