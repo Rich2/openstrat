@@ -6,10 +6,14 @@ class PeriServe extends HttpServlet
 {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit =
   {
-    val head = HtmlHead.title("Periculo")
-    val p1 = HtmlP("This is the first paragraph, using pWeb classes.")
-    val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("../peri2.js"), HtmlScript.main("Peri2JsApp"))
-    val page = HtmlPage(head, body)
-    resp.getWriter().println(page.out)
+    val path = req.getServletPath()
+    if (path == "/") {
+      val head = HtmlHead.title("Periculo")
+      val p1 = HtmlP("This is the first paragraph, using pWeb classes.")
+      val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("../peri2.js"), HtmlScript.main("Peri2JsApp"))
+      val page = HtmlPage(head, body)
+      resp.getWriter().println(page.out)
+    }
+    else resp.getWriter().println("Your path was " + path)
   }
 }
