@@ -8,7 +8,7 @@ class PeriServe extends HttpServlet
   {
     val head = HtmlHead.title("Periculo")
     val p1 = HtmlP("This is the first paragraph, using pWeb classes.")
-    val body = HtmlBody(HtmlH1("This is the start for Periculo"), p1)
+    val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("peri2.js"), HtmlScript.main("Peri2JsApp"))
     val page = HtmlPage(head, body)
     resp.getWriter().println(page.out)
   }

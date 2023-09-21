@@ -2,8 +2,8 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, peri._, prid.phex._
 
-@JSExportTopLevel("PericuloJsApp")
+@JSExportTopLevel("Peri2JsApp")
 object Peri2JsApp
 {
-  @JSExport def main(): Unit = { Peri2Gui(CanvasJs, PeriScen1, HGView(102, 1536, 24)); () }
+  @JSExport def main(): Unit = { Peri2Gui(CanvasJs, PeriScen.init(PeriScen1), HGView(102, 1536, 24)); () }
 } 
