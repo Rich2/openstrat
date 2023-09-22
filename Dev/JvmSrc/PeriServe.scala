@@ -11,11 +11,19 @@ class PeriServe extends HttpServlet
     { case "/" =>
       { val head = HtmlHead.title("Periculo")
         val p1 = HtmlP("This is the first paragraph, using pWeb classes.")
-        val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("../peri2.js"), HtmlScript.main("Peri2JsApp"))
+        val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("peri2.js"), HtmlScript.main("Peri2JsApp"))
         val page = HtmlPage(head, body)
         resp.getWriter().println(page.out)
       }
-      case "/car" =>{
+
+    case "/peri2.js" =>
+    { val file = File(getServletContext().getRealPath(File.separator) + "peri2.js")
+      val inpStream = new FileInputStream(file)
+      val outStream = resp.getOutputStream()
+      inpStream.transferTo(outStream)
+    }
+
+      case "/car" => {
         val file = File(getServletContext().getRealPath(File.separator) + "car.html")
         val inpStream = new FileInputStream(file)
         val outStream = resp.getOutputStream()
