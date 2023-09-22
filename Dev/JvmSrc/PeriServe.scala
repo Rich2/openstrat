@@ -18,6 +18,7 @@ class PeriServe extends HttpServlet
 
     case "/peri2.js" =>
     { val file = File(getServletContext().getRealPath(File.separator) + "peri2.js")
+      resp.setContentType("text/javascript")
       val inpStream = new FileInputStream(file)
       val outStream = resp.getOutputStream()
       inpStream.transferTo(outStream)

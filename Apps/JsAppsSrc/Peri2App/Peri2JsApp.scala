@@ -7,7 +7,7 @@ object Peri2JsApp
 {
   @JSExport def main(): Unit =
   { val xhr = new XMLHttpRequest()
-    xhr.open("GET", "https://37.221.93.158/")
+    xhr.open("GET", "https://37.221.93.158/index.html")
     xhr.onload = { (e: Event) => debvar(xhr.status) }
     xhr.send()
     Peri2Gui(CanvasJs, PeriScen.init(PeriScen1), HGView(102, 1536, 24)); ()
