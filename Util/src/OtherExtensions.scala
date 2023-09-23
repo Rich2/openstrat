@@ -74,6 +74,7 @@ class OptionExtensions[A](thisOption: Option[A])
     case None => Bad(errs)
   }
 
+  /** Convert to EMon with a single error if [[None]] */
   def toEMon1(fp: TextSpan, detail: String): EMon[A] = thisOption match
   { case Some(a) => Good(a)
     case None => bad1(fp, detail)

@@ -9,7 +9,8 @@ trait Polity extends ShowSimple
 object Polity
 {
   object PolityPersist extends PersistSingletons[Polity]("Polity")
-  { override val singletonList = List(Germany, Britain, France)
+  {
+    override val singletons: RArr[Polity] = RArr(Germany, Britain, France)
   }
 }
 

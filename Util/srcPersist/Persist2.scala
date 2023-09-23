@@ -130,7 +130,7 @@ trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with Show
 
 object ShowShow2T
 {
-  def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
+  def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String)(
     implicit ev1: ShowT[A1], ev2: ShowT[A2]): ShowShow2T[A1, A2, R] =
     new ShowShow2TImp[A1, A2, R](typeStr)
 

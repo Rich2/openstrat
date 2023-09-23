@@ -12,7 +12,7 @@ object Faction
 {
   implicit object FactionPersistImplicit extends PersistSingletons[Faction]("Faction")
   {
-    override def singletonList = List(Uruk, Eridu)
+    override def singletons: RArr[Faction] = RArr(Uruk, Eridu)
   }
 }
 

@@ -9,8 +9,8 @@ object ZugTest  extends TestSuite
     val f2 = Zug1Old.zPath(26 cc 10, 22 cc 14)
     val f3 = Zug1Old.zPath(24 cc 8, 32 cc 8)*/
     
-    "Path" -
-    { 5 ==> 5
+    test("Path"){
+      5 ==> 5
       /*assert(f1 == None)
       assert(f2 == Some(List(24 cc 12, 22 cc 14)))
       assert(f3 == Some(List(26 cc 10, 30 cc 10, 32 cc 8)))   */
