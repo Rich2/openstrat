@@ -28,7 +28,7 @@ abstract class PersistSingletons[A <: ShowSimple](typeStr: String) extends Persi
   @inline override def strT(obj: A): String = obj.str
 
   def fromExpr(expr: Expr): EMon[A] = expr match
-  { case IdentLowerToken(_, str) => singletons.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
+  { case IdentifierToken(str) => singletons.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
     case e => bad1(e, typeStr -- "not parsed from this Expression")
   }
 }
