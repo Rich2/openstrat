@@ -20,7 +20,7 @@ case class Counter(char: Char, colour: Colour) extends Show2[Char, Colour] with 
 /** Companion object for [[Counter]] case class contains implicit instance for Persist. */
 object Counter
 { /* Implicit [[ShowT]] instance / evidence for [[Player]]. */
-  implicit val showTEv: Show2T[Char, Colour, Counter] = ShowShow2T[Char, Colour, Counter]("Counter", "char", "colour")
+  implicit val showTEv: Show2T[Char, Colour, Counter] = ShowShow2T[Char, Colour, Counter]("Counter")
 }
 
 object CounterA extends Counter('A', Red)
