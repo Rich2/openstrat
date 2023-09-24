@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._, reflect.ClassTag
 
 /** A system of hex grids for the earth containing multiple grids. */
-trait EGridMulti extends EGridSys  with TGridMulti
+trait EGridMulti extends EGridSys with HGridMulti
 { ThisMulti =>
   override type GridT = EGrid
   type ManT <: EGridMan

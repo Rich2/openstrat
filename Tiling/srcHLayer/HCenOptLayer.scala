@@ -381,4 +381,13 @@ object HCenOptLayer
 
   /** New hex tile data layer of optional data for this [[HGridSys]]. */
   def apply[A <: AnyRef](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptLayer[A] = new HCenOptLayer(new Array[A](gSys.numTiles))
+
+  implicit def showEv[A <: AnyRef](gridSys: HGridSys, evA: ShowT[A]): ShowT[HCenOptLayer[A]] = gridSys match
+  {
+    case hg: HGrid => {
+      hg.foreachRow(r => ???)
+      ???
+    }
+    case hm: HGridMulti => ???
+  }
 }
