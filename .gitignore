@@ -3,6 +3,7 @@ project/metals.sbt
 target/
 DocProj/
 DevData/
+DocLib/
 bin/
 out/
 SbtDir/
