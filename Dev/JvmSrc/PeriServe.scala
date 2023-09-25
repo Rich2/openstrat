@@ -8,7 +8,13 @@ class PeriServe extends HttpServlet
   {
     val path = req.getServletPath()
     path match
-    { case "/" =>
+    {
+      case "/" if req.getMethod == "POST" =>
+      { resp.setContentType("text/plain")
+        resp.getWriter().println("42")
+      }
+
+      case "/" =>
       { val head = HtmlHead.title("Periculo")
         val p1 = HtmlP("This is the first paragraph, using pWeb classes.")
         val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("peri2.js"), HtmlScript.main("Peri2JsApp"))
@@ -16,20 +22,14 @@ class PeriServe extends HttpServlet
         resp.getWriter().println(page.out)
       }
 
-    case "/peri2.js" =>
-    { val file = File(getServletContext().getRealPath(File.separator) + "peri2.js")
-      resp.setContentType("text/javascript")
-      val inpStream = new FileInputStream(file)
-      val outStream = resp.getOutputStream()
-      inpStream.transferTo(outStream)
-    }
-
-      case "/car" => {
-        val file = File(getServletContext().getRealPath(File.separator) + "car.html")
+      case "/peri2.js" =>
+      { val file = File(getServletContext().getRealPath(File.separator) + "peri2.js")
+        resp.setContentType("text/javascript")
         val inpStream = new FileInputStream(file)
         val outStream = resp.getOutputStream()
         inpStream.transferTo(outStream)
       }
+
       case _ => resp.getWriter().println("Your path was " + path + "<br>\nServletContext: " + getServletContext().getRealPath(File.separator))
     }
   }

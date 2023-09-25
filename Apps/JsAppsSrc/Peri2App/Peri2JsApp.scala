@@ -7,7 +7,7 @@ object Peri2JsApp
 {
   @JSExport def main(): Unit =
   { val xhr = new XMLHttpRequest()
-    xhr.open("GET", "http ://37.221.93.158/index.html")
+    xhr.open("Post", "http ://37.221.93.158/peri")
     xhr.onload = { (e: Event) => debvar(xhr.status) }
     xhr.send()
     val oFile: Promise[Response] = fetch("http ://37.221.93.158/index.html")
