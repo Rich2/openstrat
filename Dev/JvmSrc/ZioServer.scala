@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import zio._, Console._, zio.http._, zio.http.html._
 
-object HelloWorld extends ZIOAppDefault
+object ZioServer extends ZIOAppDefault
 {
   val app: App[Any] =
     Http.collect[Request] {
