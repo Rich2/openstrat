@@ -156,7 +156,9 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingEx
   libraryDependencies ++= Seq(
     "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided",
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
-    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
+    "dev.zio" %% "zio" % "2.0.17",
+    "dev.zio" %% "zio-http" % "3.0.0-RC2",
     ),
 )
 
