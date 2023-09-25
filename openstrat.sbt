@@ -68,7 +68,8 @@ def utilSett = List(
 
 lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",  
+  Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
+  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc()// % "provided",
 )
 
 lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
@@ -154,7 +155,7 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingEx
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies ++= Seq(
-    "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided",
+
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
     "dev.zio" %% "zio" % "2.0.17",
