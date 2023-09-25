@@ -375,24 +375,24 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   }
 }
 
-object HCenOptLayer {
-  /** New hex tile data layer of optional data for this [[HGridSys]]. */
-    def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptLayer[A] = new HCenOptLayer(new Array[A](gSys.numTiles))
+object HCenOptLayer
+{ /** New hex tile data layer of optional data for this [[HGridSys]]. */
+  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gSys: HGridSys): HCenOptLayer[A] = new HCenOptLayer(new Array[A](gSys.numTiles))
 
   /** New hex tile data layer of optional data for this [[HGridSys]]. */
   def apply[A <: AnyRef](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptLayer[A] = new HCenOptLayer(new Array[A](gSys.numTiles))
 
   implicit def showEv[A <: AnyRef](gridSys: HGridSys, evA: ShowT[A]): ShowT[HCenOptLayer[A]] = new ShowT[HCenOptLayer[A]]
-   {
-     override def typeStr: String = "HCenOptLayer"
+  {
+    override def typeStr: String = "HCenOptLayer"
 
-     override def showDecT(obj: HCenOptLayer[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = gridSys match
-     {
-       case hg: HGrid => {
-         //hg.mapRows(r => s"Row($r" + hg.rowMap(r)).mkStr("\n")
-         ???
-      }
-      case hm: HGridMulti => "Not implemented"
+    override def showDecT(obj: HCenOptLayer[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = gridSys match
+    {
+      case hg: HGrid => {
+        hg.mapRows(r => s"Row($r" + hg.rowMap(r)(hc => obj(hc)(hg).toString)).mkStr("\n")
+        ???
+     }
+     case hm: HGridMulti => "Not implemented"
     }
 
     /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object

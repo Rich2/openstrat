@@ -15,6 +15,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   final override def leftSideC: Int = leftCenC - 2
   final override def rightSideC: Int = leftCenC + 2
+  def rowLen(r: Int): Int = ((rowRightCenC(r) - rowLeftCenC(r)) / 4).max0
 
   /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int
@@ -29,7 +30,16 @@ trait HGrid extends Any with TGrid with HGridSys
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit
 
-  def rowMap[B, ArrB <: Arr[B]](r: Int)(f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = ???
+  def rowMap[B, ArrB <: Arr[B]](r: Int)(f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val len = rowLen(r)
+    val res = build.uninitialised(len)
+    var i = 0
+    rowForeach(r){hc =>
+      res(i) == f(hc)
+      i += 1
+    }
+    res
+  }
 
   override def coordCen: HCoord
 
