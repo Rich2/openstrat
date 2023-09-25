@@ -1,8 +1,16 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package peri
-import geom._, prid._, phex._, pgui._, egrid._
+import geom._, prid._, phex._, pgui._, egrid._, org.scalajs.dom._
 
 class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui") {
+  val xhr = new XMLHttpRequest()
+  xhr.open("POST", "http://37.221.93.158/peri")
+  xhr.onload = { (e: Event) =>
+    statusText = "Status = " + xhr.status -- xhr.responseType
+    deb("Recieved")
+    thisTop()
+  }
+  xhr.send()
   var scen: PeriScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
 

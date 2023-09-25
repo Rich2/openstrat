@@ -6,10 +6,7 @@ import scalajs.js._, annotation._, peri._, prid.phex._, org.scalajs.dom._
 object Peri2JsApp
 {
   @JSExport def main(): Unit =
-  { val xhr = new XMLHttpRequest()
-    xhr.open("Post", "http ://37.221.93.158/peri")
-    xhr.onload = { (e: Event) => debvar(xhr.status) }
-    xhr.send()
+  {
     val oFile: Promise[Response] = fetch("http ://37.221.93.158/index.html")
     Peri2Gui(CanvasJs, PeriScen.init(PeriScen1), HGView(102, 1536, 24)); ()
   }

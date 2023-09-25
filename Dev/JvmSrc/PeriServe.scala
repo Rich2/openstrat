@@ -9,7 +9,7 @@ class PeriServe extends HttpServlet
     val path = req.getServletPath()
     path match
     {
-      case "/" if req.getMethod == "POST" =>
+      case _ if req.getMethod == "POST" =>
       { resp.setContentType("text/plain")
         resp.getWriter().println("42")
       }
@@ -20,6 +20,11 @@ class PeriServe extends HttpServlet
         val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlScript.jsSrc("peri2.js"), HtmlScript.main("Peri2JsApp"))
         val page = HtmlPage(head, body)
         resp.getWriter().println(page.out)
+      }
+
+      case "/hi" => {
+        resp.setContentType("text/plain")
+        resp.getWriter().println("100")
       }
 
       case "/peri2.js" =>
