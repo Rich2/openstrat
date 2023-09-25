@@ -389,8 +389,8 @@ object HCenOptLayer {
      override def showDecT(obj: HCenOptLayer[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = gridSys match
      {
        case hg: HGrid => {
-         val r1 = hg.mapRows(r => s"Row($r").mkStr("\n")
-         r1
+         //hg.mapRows(r => s"Row($r" + hg.rowMap(r)).mkStr("\n")
+         ???
       }
       case hm: HGridMulti => "Not implemented"
     }
@@ -403,5 +403,4 @@ object HCenOptLayer {
      * should always be determined at compile time or if sometimes it should be determined at runtime. */
     override def syntaxDepthT(obj: HCenOptLayer[A]): Int = ???
   }
-
 }
