@@ -389,8 +389,8 @@ object HCenOptLayer
     override def showDecT(obj: HCenOptLayer[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = gridSys match
     {
       case hg: HGrid => {
-        hg.mapRows(r => s"Row($r" + hg.rowMap(r)(hc => obj(hc)(hg).toString)).mkStr("\n")
-        ???
+        val r1 = hg.mapRows(r => s"Row($r" + hg.rowMap(r){hc => obj(hc)(hg).toString})
+        r1.mkStr("\n")
      }
      case hm: HGridMulti => "Not implemented"
     }

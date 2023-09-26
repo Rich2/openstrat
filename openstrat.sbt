@@ -69,7 +69,7 @@ def utilSett = List(
 lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
-  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc()// % "provided",
+  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
 )
 
 lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
