@@ -32,7 +32,7 @@ object DevPage extends HtmlPage
     "elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel" --
     "Scala is, and in particular Scala 3 will be the ideal language to explore these questions.")
 
-  def p4: HtmlP = HtmlP("Scala currently set to 3.3.1. Jdk 11+, 11 preferred. Scala.Js set to 1.13.2. Scala native set to 0.4.14. Sbt currently" --
+  def p4: HtmlP = HtmlP("Scala currently set to 3.3.1. Jdk 11+, 11 preferred. Scala.Js set to 1.14.0. Scala native set to 0.4.14. Sbt currently" --
     "set to 1.9.6 (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update" --
     "your Mill to 0.11.1.")
 
@@ -51,10 +51,10 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("~ Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
 
     HtmlLi.sbtAndText("DocMain/doc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
-      "Dev/SbtDir/DocMain/target/scala-3.3.0/api/".htmlPath),
+      "Dev/SbtDir/DocMain/target/scala-3.3.1/api/".htmlPath),
 
     HtmlLi.sbtAndText("DocJs/doc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
-      "Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.0/api/".htmlPath),
+      "Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.1/api/".htmlPath),
 
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )

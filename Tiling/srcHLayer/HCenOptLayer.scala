@@ -365,12 +365,14 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToSeqLike(buff)
   }
 
+  /** [[Option]]ally finds the value returning the [[HCen]] location wrapped in a [[Some]] if found. */
   def find(value: A)(implicit gridSys: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
     somesHcForeach{ (a, hc) => if (value == a) res = Some(hc)}
     res
   }
 
+  /** Unsafe get only use this method if you know it contains a [[Some]] value. */
   def get(value: A)(implicit gridSys: HGridSys): HCen = find(value).get
 
   def findHCen(value: A)(implicit gridSys: HGridSys): Option[HCen] =
