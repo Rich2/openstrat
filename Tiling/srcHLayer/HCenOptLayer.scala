@@ -8,8 +8,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 { override type ThisT = HCenOptLayer[A]
   override def typeStr: String = "HCenOptLayer"
 
-  /** Maps this [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. None values are just mapped to Nones. The [[HGridSys]] that encodes the layer is
-   *  not required for this operation. */
+  /** Maps this [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. [[None]] values are just mapped to [[None]]s. The [[HGridSys]] that encodes the
+   *  layer is not required for this operation. */
   def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] =
   { val newArray = new Array[B](flatLength)
     var i = 0
@@ -17,8 +17,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
-  /** Maps the corresponding [[HCen]]s with the [[Some]] values to a new [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. None values are just
-   * mapped to Nones. */
+  /** Maps the corresponding [[HCen]]s with the [[Some]] values to a new [[HCenOptLayer]] to a new [[HCenOptLayer]] of type B. [[None]] values are
+   *  just mapped to [[None]]s. */
   def hcMap[B <: AnyRef](f: (HCen, A) => B)(implicit ct: ClassTag[B], gridSys: HGridSys): HCenOptLayer[B] = {
     val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>
@@ -29,6 +29,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
+  /** Not sure what this does could perhpas be deleted. */
   def indexMap[B <: AnyRef](f: (Int, A) => B)(implicit ct: ClassTag[B], gridSys: HGridSys): HCenOptLayer[B] =
   { val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>
@@ -39,7 +40,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
-  /** Creates a ashallow copy of this [[HCenOptLayer]]. */
+  /** Creates a shallow copy of this [[HCenOptLayer]]. */
   def copy: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArray.clone)
 
   /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
@@ -313,9 +314,13 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToSeqLike(buff)
   }
 
+  /** Uses a projection of the implicit [[HGridSys]] to map the [[HCen]] and the [[Pt2]] from the projection where this [[HCenOptLayer]] contains
+   *  [[None]] values. There is a name overload for this where the projection is passed explicitly as the first parameter list. */
   def projNoneHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projNoneHcPtMap(proj)(f)
 
+  /** Uses a projection of the implicit [[HGridSys]] to map the [[HCen]] and the [[Pt2]] from the projection where this [[HCenOptLayer]] contains
+   * [[None]] values. There is a name overload for this where the projection is passed implicitly with the [[ArrMapBuilder]]. */
   def projNoneHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 
@@ -328,7 +333,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToSeqLike(buff)
   }
 
-  /** Drops the [[None]] values flatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Seqimut]]. */
+  /** FlatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Arr]]. Drops the [[None]] values . */
   def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
