@@ -29,7 +29,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     new HCenOptLayer[B](newArray)
   }
 
-  /** Not sure what this does could perhpas be deleted. */
+  /** Not sure what this does could perhaps be deleted. */
   def indexMap[B <: AnyRef](f: (Int, A) => B)(implicit ct: ClassTag[B], gridSys: HGridSys): HCenOptLayer[B] =
   { val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>
@@ -180,10 +180,10 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     }
   }
 
-  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a [[null]]. */
   def applyUnsafe(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
 
-  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a [[null]]. */
   def applyUnsafe(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
 
   /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, will return nulls for [[None]] values, throws exception if tile centre
@@ -371,9 +371,6 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     somesHcForeach{ (a, hc) => if (value == a) res = Some(hc)}
     res
   }
-
-  /** Unsafe get only use this method if you know it contains a [[Some]] value. */
-  def get(value: A)(implicit gridSys: HGridSys): HCen = find(value).get
 
   def findHCen(value: A)(implicit gridSys: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
