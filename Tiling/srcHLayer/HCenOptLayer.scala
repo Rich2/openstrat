@@ -377,6 +377,11 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     gridSys.foreach{hc => res.replaceNone(ife(value == getex(hc), Some(hc), None)) }
     res
   }
+
+  def out(gridSys: HGridSys)(implicit showA: ShowT[A]): String = {
+//    val rows = gridSys.mapRows{r => r.str + gridSys.r ""}
+    ""
+  }
 }
 
 object HCenOptLayer
