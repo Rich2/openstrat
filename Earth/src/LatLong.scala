@@ -157,7 +157,7 @@ object LatLong
   }
 
   implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
-  implicit val persistImplict: Persist[LatLong] = new PersistShowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
+  implicit val persistImplict: Persist[LatLong] = new PersistDbl2Ed[LatLong]("LatLong", "lat", "long", LatLong.degs)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
   implicit val arrMapBuilderImplicit: Dbl2ArrMapBuilder[LatLong, LatLongArr] = new Dbl2ArrMapBuilder[LatLong, LatLongArr]

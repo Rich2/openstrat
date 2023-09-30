@@ -44,7 +44,7 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
 
 object SqCen
 {
-  implicit val persistEv: Persist[SqCen] = new PersistShowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
+  implicit val persistEv: Persist[SqCen] = new PersistInt2Ed[SqCen]("SqCen", "r", "c", SqCen(_, _))
 
   val s00v1: SqVert = SqVert(1, 1)
   val s00v2: SqVert = SqVert(-1, 1)

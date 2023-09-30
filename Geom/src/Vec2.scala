@@ -109,5 +109,5 @@ object Vec2
   }
 
   /** implicit [[Persist]] type class instance / evidence for [[Vec2]]s. */
-  implicit val persistImplicit: PersistShowDbl2[Vec2] = new PersistShowDbl2[Vec2]("Vec2", "x", "y", apply)
+  implicit val persistImplicit: PersistDbl2Ed[Vec2] = new PersistDbl2Ed[Vec2]("Vec2", "x", "y", apply)
 }
