@@ -13,7 +13,7 @@ object HexMem
   case class HexMemImp[A](hc: HCen, value: A) extends HexMem[A]
 }
 
-trait HexMemShow[A] extends HexMem[A] with Show2[HCen, A]
+trait HexMemShow[A] extends HexMem[A] with Show2ed[HCen, A]
 { override def show1: HCen = hc
   override def name1: String = "hCen"
   override implicit def persist1: ShowT[HCen] = HCen.persistEv

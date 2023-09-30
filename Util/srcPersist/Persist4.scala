@@ -21,7 +21,7 @@ trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3,
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show4[A1, A2, A3, A4] extends Any with ShowN with PersistBase4[A1, A2, A3, A4]
+trait Show4[A1, A2, A3, A4] extends Any with ShowNed with PersistBase4[A1, A2, A3, A4]
 {
   override def opt1: Option[A1] = None
   override def opt2: Option[A2] = None

@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._
 
 /** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels per delta Cs scale. */
-class HGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Show2[HCoord, Double]
+class HGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Show2ed[HCoord, Double]
 { def hCoord: HCoord = HCoord(r, c)
   def vec: Vec2 = hCoord.toVecReg
   def pt2: Pt2 = hCoord.toPt2Reg

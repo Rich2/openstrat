@@ -3,7 +3,7 @@ package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
 /** Base trait for [[PersistBase2]] and [[PersistBase3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
- *  for [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delegate to the [[Show2]] object to implement their interfaces. */
+ *  for [[Show2T]], as [[Show2eding]] classes do not need this data, as they can delegate to the [[Show2ed]] object to implement their interfaces. */
 trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
 { /** 1st parameter name. */
   def name1: String
@@ -18,8 +18,8 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   def opt2: Option[A2]
 }
 
-/** A base trait for [[Show2]] and [[UnShow2]]. It is not a base trait for [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can
- *  delegate to the [[Show2]] object to implement their interfaces. */
+/** A base trait for [[Show2ed]] and [[UnShow2]]. It is not a base trait for [[Show2T]], as [[Show2eding]] classes do not need this data, as they can
+ *  delegate to the [[Show2ed]] object to implement their interfaces. */
 trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   override def numParams: Int = 2
@@ -33,10 +33,10 @@ trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 
 /** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
- *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
+ *  inherit from Show2 and then use [[Show2eding]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[Show2eding]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2T]] instance. */
-trait Show2[A1, A2] extends Any with ShowN with PersistBase2[A1, A2]
+trait Show2ed[A1, A2] extends Any with ShowNed with PersistBase2[A1, A2]
 {
   /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
@@ -65,35 +65,35 @@ trait Show2[A1, A2] extends Any with ShowN with PersistBase2[A1, A2]
   override def syntaxDepth: Int = persist1.syntaxDepthT(show1).max(persist2.syntaxDepthT(show2)) + 1
 }
 
-/** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowInt2T]] trait
+/** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowInt2Eding]] trait
  *  which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  *  [[Show2T]]. */
-trait ShowInt2 extends Any with Show2[Int, Int]
+trait ShowInt2Ed extends Any with Show2ed[Int, Int]
 { final override implicit def persist1: ShowT[Int] = ShowT.intPersistEv
   final override implicit def persist2: ShowT[Int] = ShowT.intPersistEv
   final override def syntaxDepth: Int = 2
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
- *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
+ *  corresponding [[ShowInt2Eding]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
-trait ShowElemInt2 extends Any with ShowInt2 with Int2Elem
+trait ShowElemInt2 extends Any with ShowInt2Ed with Int2Elem
 { final override def int1: Int = show1
   final override def int2: Int = show2
 }
 
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
  * and show2 properties, unless the class extends [[ShowElemDbl2]]. */
-trait ShowDbl2 extends Any with Show2[Double, Double]
+trait ShowDbl2Ed extends Any with Show2ed[Double, Double]
 { final override implicit def persist1: ShowT[Double] = ShowT.doublePersistEv
   final override implicit def persist2: ShowT[Double] = ShowT.doublePersistEv
   final override def syntaxDepth: Int = 2
 }
 
 /** Trait for Show for product of 2 Doubles that is also an [[Dbl2Elem]]. This trait is implemented directly by the type in question, unlike the
- *  corresponding [[ShowShowDbl2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
+ *  corresponding [[ShowDbl2Eding]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
-trait ShowElemDbl2 extends Any with ShowDbl2 with Dbl2Elem
+trait ShowElemDbl2 extends Any with ShowDbl2Ed with Dbl2Elem
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
 }
@@ -130,49 +130,49 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
     String = ???
 }
 
-/** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowT[R]
+/** Type class trait for Showing [[Show2ed]] objects. */
+trait Show2eding[A1, A2, R <: Show2ed[A1, A2]] extends Show2T[A1, A2, R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
   override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
 }
 
-object ShowShow2T
+object Show2eding
 {
-  def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String)(
-    implicit ev1: ShowT[A1], ev2: ShowT[A2]): ShowShow2T[A1, A2, R] =
+  def apply[A1, A2, R<: Show2ed[A1, A2]](typeStr: String)(
+    implicit ev1: ShowT[A1], ev2: ShowT[A2]): Show2eding[A1, A2, R] =
     new ShowShow2TImp[A1, A2, R](typeStr)
 
-  class ShowShow2TImp[A1, A2, R<: Show2[A1, A2]](val typeStr: String)(implicit val persist1: ShowT[A1], val persist2: ShowT[A2]) extends
-    ShowShow2T[A1, A2, R]
+  class ShowShow2TImp[A1, A2, R<: Show2ed[A1, A2]](val typeStr: String)(implicit val persist1: ShowT[A1], val persist2: ShowT[A2]) extends
+    Show2eding[A1, A2, R]
 }
 
-/** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
-trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShow2T[Double, Double, R]
+/** A trait for making quick ShowT instances for [[ShowDbl2Ed]] types. It uses the functionality of the [[ShowDbl2Ed]]. */
+trait ShowDbl2Eding[R <: ShowDbl2Ed] extends Show2eding[Double, Double, R]
 { override implicit def persist1: Persist[Double] = ShowT.doublePersistEv
   override implicit def persist2: Persist[Double] = ShowT.doublePersistEv
 }
 
-object ShowShowDbl2T
+object ShowDbl2Eding
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
   def apply[R <: ShowElemDbl2](typeStr: String): ShowShowDbl2TImp[R] = new ShowShowDbl2TImp[R](typeStr)
 
-  class ShowShowDbl2TImp[R <: ShowDbl2](val typeStr: String) extends ShowShowDbl2T[R]
+  class ShowShowDbl2TImp[R <: ShowDbl2Ed](val typeStr: String) extends ShowDbl2Eding[R]
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowShowInt2T[R <: ShowInt2] extends ShowShow2T[Int, Int, R]
+trait ShowInt2Eding[R <: ShowInt2Ed] extends Show2eding[Int, Int, R]
 { override implicit def persist1: Persist[Int] = ShowT.intPersistEv
   override implicit def persist2: Persist[Int] = ShowT.intPersistEv
 }
 
-object ShowShowInt2T
+object ShowInt2Eding
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
   def apply[R <: ShowElemInt2](typeStr: String, name1: String, name2: String, opt2: Option[Int] = None, opt1In: Option[Int] = None):
-    ShowShowInt2T[R] = new ShowShowInt2TImp[R](typeStr, name1, name2, opt2,opt1In)
+    ShowInt2Eding[R] = new ShowShowInt2TImp[R](typeStr, name1, name2, opt2,opt1In)
 
   class ShowShowInt2TImp[R <: ShowElemInt2](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Int] = None,
-    opt1In: Option[Int] = None) extends ShowShowInt2T[R]
+    opt1In: Option[Int] = None) extends ShowInt2Eding[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -231,17 +231,17 @@ object Persist2
   }
 }
 
-/** Persist type class for types that extends [[Show2]]. */
-trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with ShowShow2T[A1, A2, R]
+/** Persist type class for types that extends [[Show2ed]]. */
+trait PersistShow2[A1, A2, R <: Show2ed[A1, A2]] extends Persist2[A1, A2, R] with Show2eding[A1, A2, R]
 
-/** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2]]. Contains an apply factory method. */
+/** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2ed]]. Contains an apply factory method. */
 object PersistShow2
-{ /** Factory apply method for [[PersistShow2]], that Persists [[Show2]] objects. */
-  def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
+{ /** Factory apply method for [[PersistShow2]], that Persists [[Show2ed]] objects. */
+  def apply[A1, A2, R <: Show2ed[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2, R] =
     new PersistShow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 
-  class PersistShow2Imp[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
+  class PersistShow2Imp[A1, A2, R <: Show2ed[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
     val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends PersistShow2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
@@ -249,7 +249,7 @@ object PersistShow2
 
 /** Persistence type class for types that extend [[ShowElemInt2]]. */
 class PersistShowInt2[R <: ShowElemInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
-  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistShow2[Int, Int, R] with ShowShowInt2T[R]
+  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistShow2[Int, Int, R] with ShowInt2Eding[R]
 { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 
@@ -259,9 +259,9 @@ object PersistShowInt2
     new PersistShowInt2[R](typeStr, name1, name2, newT)
 }
 
-/** Persistence class for types that extends [[ShowDbl2]]. */
-class PersistShowDbl2[R <: ShowDbl2](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
-  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistShow2[Double, Double, R] with ShowShowDbl2T[R]
+/** Persistence class for types that extends [[ShowDbl2Ed]]. */
+class PersistShowDbl2[R <: ShowDbl2Ed](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
+  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistShow2[Double, Double, R] with ShowDbl2Eding[R]
 { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
 

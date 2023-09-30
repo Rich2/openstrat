@@ -2,8 +2,8 @@
 package ostrat
 import utest._
 
-/** Example of a [[Show2]] class for testing purposes. */
-case class ExUA(a: Int = 0, b: String = "blah") extends Show2[Int, String]
+/** Example of a [[Show2ed]] class for testing purposes. */
+case class ExUA(a: Int = 0, b: String = "blah") extends Show2ed[Int, String]
 {
   override def typeStr: String = "ExUA"
   override def show1: Int = a
@@ -20,7 +20,7 @@ object ExUA{
   implicit val persistEv: Persist2[Int, String, ExUA] = PersistShow2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
-/** Example of a [[Show3]] class on of whose parameters is also a [[ShowN]] class. */
+/** Example of a [[Show3]] class on of whose parameters is also a [[ShowNed]] class. */
 case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3[ExUA, String, Int]
 {
   override def typeStr: String = "ExUA"

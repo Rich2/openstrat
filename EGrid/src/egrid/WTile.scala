@@ -7,7 +7,7 @@ trait WTileHelper
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
  * and other land hexs.  */
-trait WTile extends WTileHelper with Coloured with Show//Simple //with Descrip
+trait WTile extends WTileHelper with Coloured with Showed//Simple //with Descrip
 { override def typeStr: String = "WTile"
   def isLand: Boolean
   def isWater: Boolean = !isLand
@@ -24,7 +24,7 @@ object WTile
   /** This is not correct, but put in as temporary measure. */
   implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
-  implicit val showTEv: ShowShowT[WTile] = ShowShowT[WTile]("Terrain")
+  implicit val showTEv: Showeding[WTile] = Showeding[WTile]("Terrain")
 
   val plain: Land = Land(Level, Temperate, CivMix)
   val hills: Land = Land(Hilly, Temperate, CivMix)
@@ -55,19 +55,19 @@ trait Water extends WTile with WSideSome
 }
 
 /** Sea. This is an object as currently has no other variables such as depth, current or climate. */
-case object Sea extends Water with  ShowSimple
+case object Sea extends Water with  ShowSimpled
 { override def str = "Sea"
   override def colour: Colour = DarkBlue
   //override def shortDescrip: String = "Sea"
 }
 
-case object Lake extends Water with ShowSimple
+case object Lake extends Water with ShowSimpled
 { override def str = "Lake"
   override def colour: Colour = Blue
   //override def shortDescrip: String = "Lake"
 }
 
-object TerrainNone extends WTile with ShowSimple
+object TerrainNone extends WTile with ShowSimpled
 { override def str = "NoTerrain"
   override def colour = Gray
   override def isLand: Boolean = false
@@ -105,7 +105,7 @@ object Land
 
 
 /** Winter sea ice. */
-object WSeaIce extends Water with ShowSimple
+object WSeaIce extends Water with ShowSimpled
 { override def str = "WSeaIce"
   override def colour = LightSkyBlue.average(White).average(White)
   override def isLand: Boolean = false

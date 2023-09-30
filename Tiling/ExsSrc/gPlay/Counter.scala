@@ -3,7 +3,7 @@ package ostrat; package gPlay
 import Colour._
 
 /** A counter has a very simple token with a letter and colour for recognition. */
-case class Counter(char: Char, colour: Colour) extends Show2[Char, Colour] with Coloured
+case class Counter(char: Char, colour: Colour) extends Show2ed[Char, Colour] with Coloured
 { override def typeStr: String = "Player"
   override def show1: Char = char
   override def show2: Colour = colour
@@ -20,7 +20,7 @@ case class Counter(char: Char, colour: Colour) extends Show2[Char, Colour] with 
 /** Companion object for [[Counter]] case class contains implicit instance for Persist. */
 object Counter
 { /* Implicit [[ShowT]] instance / evidence for [[Player]]. */
-  implicit val showTEv: Show2T[Char, Colour, Counter] = ShowShow2T[Char, Colour, Counter]("Counter")
+  implicit val showTEv: Show2T[Char, Colour, Counter] = Show2eding[Char, Colour, Counter]("Counter")
 }
 
 object CounterA extends Counter('A', Red)

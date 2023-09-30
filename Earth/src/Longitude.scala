@@ -70,7 +70,7 @@ object Longitude
     new Longitude(millis)
   }
 
-  implicit val showTEv: ShowT[Longitude] = ShowShowT("Longitude")
+  implicit val showTEv: ShowT[Longitude] = Showeding("Longitude")
   implicit val eqTImplicit: EqT[Longitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
   implicit val approxTImplicit: ApproxAngleT[Longitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)
   implicit val defaultValueImplicit: DefaultValue[Longitude] = new DefaultValue[Longitude] { override val default: Longitude = new Longitude(0)}

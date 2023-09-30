@@ -43,7 +43,7 @@ trait CmdBarGui extends CanvasPanelled
   def selectedStr: String = selected match
   { case None => "Nothing selected"
     case sel: Selectable => sel.selectStr
-    case sw: Show => sw.str
+    case sw: Showed => sw.str
     case a => a.toString
   }
 
@@ -61,7 +61,7 @@ object StdButton
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
-object Turn extends ShowSimple
+object Turn extends ShowSimpled
 { override def typeStr: String = "Turn.type"
   override def str: String = "Turn"
 }

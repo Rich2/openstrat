@@ -2,7 +2,7 @@
 package ostrat; package peri
 import Colour._
 
-class Nation(val str: String, val colour: Colour) extends Coloured with ShowSimple
+class Nation(val str: String, val colour: Colour) extends Coloured with ShowSimpled
 { override def typeStr: String = "Nation"
 }
 
@@ -19,7 +19,7 @@ object NViolet extends Nation("NViolet", Violet)
 object NBlue extends Nation("NBlue", Blue)
 object NOrange extends Nation("NOrange", Orange)
 
-case class Army(nation: Nation, num: Int) extends Coloured with Show2[Nation, Int]
+case class Army(nation: Nation, num: Int) extends Coloured with Show2ed[Nation, Int]
 { override def typeStr: String = "Army"
   override def colour: Colour = nation.colour
   override def name1: String = "nation"
@@ -32,7 +32,7 @@ case class Army(nation: Nation, num: Int) extends Coloured with Show2[Nation, In
 
 object Army
 {
-  implicit val showTEv: ShowShowT[Army] = ShowShow2T[Nation, Int, Army]("Army")
+  implicit val showTEv: Showeding[Army] = Show2eding[Nation, Int, Army]("Army")
   def persistEv(arr: RArr[Nation]): PersistShow2[Nation, Int, Army] =
     PersistShow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(arr), ShowT.intPersistEv)
 

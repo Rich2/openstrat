@@ -1,7 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
 
-trait Polity extends ShowSimple
+trait Polity extends ShowSimpled
 { override def typeStr: String = "Polity"
   def colour: Colour
 }

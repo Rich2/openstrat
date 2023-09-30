@@ -4,7 +4,7 @@ import utest._
 
 object PersistTest extends TestSuite
 {
-  class TestClass(val str: String) extends ShowSimple
+  class TestClass(val str: String) extends ShowSimpled
   { override def typeStr: String = "TestClass"
   }
 

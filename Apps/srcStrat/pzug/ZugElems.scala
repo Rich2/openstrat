@@ -20,7 +20,7 @@ case class HSquad(hc: HCen, value: Squad) extends HexMemShow[Squad]
   override def syntaxDepth: Int = 2
 }
 
-trait Polity extends ShowSimple
+trait Polity extends ShowSimpled
 { override def typeStr: String = "Polity"
   def colour: Colour
 }

@@ -5,7 +5,7 @@ import Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2] with LineLike with
-CurveSeg with Show2[Pt2, Pt2] with AffinePreserve
+CurveSeg with Show2ed[Pt2, Pt2] with AffinePreserve
 { override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
   override def name1: String = "startPt"
