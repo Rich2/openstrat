@@ -40,7 +40,7 @@ trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
   }
 }
 
-trait ShowShowNT[R <: ShowNed] extends ShowNT[R] with Showeding[R]
+trait ShowNeding[R <: ShowNed] extends ShowNT[R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }
 

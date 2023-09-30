@@ -20,8 +20,8 @@ object ExUA{
   implicit val persistEv: Persist2[Int, String, ExUA] = Persist2ed[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
-/** Example of a [[Show3]] class on of whose parameters is also a [[ShowNed]] class. */
-case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3[ExUA, String, Int]
+/** Example of a [[Show3ed]] class on of whose parameters is also a [[ShowNed]] class. */
+case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3ed[ExUA, String, Int]
 {
   override def typeStr: String = "ExUA"
   override def show1: ExUA = a
@@ -29,7 +29,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3
   override def show3: Int = c
   override def persist1: ShowT[ExUA] = ExUA.persistEv
   override def showT2: ShowT[String] = ShowT.stringPersistEv
-  override def showT3: ShowT[Int] = ShowT.intPersistEv
+  override def persist3: ShowT[Int] = ShowT.intPersistEv
   override def name1: String = "a"
   override def name2: String = "b"
   override def name3: String = "c"
@@ -40,8 +40,8 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3
 }
 
 object ExUB
-{ implicit val persistEv: PersistShow3[ExUA, String, Int, ExUB] =
-    PersistShow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
+{ implicit val persistEv: Persist3ed[ExUA, String, Int, ExUB] =
+    Persist3ed[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 
 object UnshowTest extends TestSuite

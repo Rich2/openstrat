@@ -20,6 +20,7 @@ trait PersistBase6[A1, A2, A3, A4, A5, A6] extends Any with PersistBase6Plus[A1,
 trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowNT[R] with PersistBase6[A1, A2, A3, A4, A5, A6]
 { override def persist1: ShowT[A1]
   override def persist2: ShowT[A2]
+  override def persist3: ShowT[A3]
 }
 
 /** Companion object for [[Show6T]] contains implementation class and factory apply method. */
@@ -36,7 +37,7 @@ object Show6T
   class Show6TImp[A1, A2, A3, A4, A5, A6, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2, val name3: String,
     fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
     val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: ShowT[A1], val persist2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
+    implicit val persist1: ShowT[A1], val persist2: ShowT[A2], val persist3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
     Show6T[A1, A2, A3, A4, A5, A6, R] with ShowNT[R]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
@@ -44,11 +45,11 @@ object Show6T
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
+    final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
       max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))).max(ev6.syntaxDepthT(fArg6(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showT(fArg1(obj), way), persist2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
+      StrArr(persist1.showT(fArg1(obj), way), persist2.showT(fArg2(obj), way), persist3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
         ev5.showT(fArg5(obj), way), ev6.showT(fArg6(obj), way))
   }
 }
