@@ -33,19 +33,6 @@ trait ShowNoDec extends Any with Showed
 { override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = show(style)
 }
 
-/** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
- *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
-trait ShowSimpled extends ShowNoDec
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
-  final override def show(style: ShowStyle): String = style match
-  { case ShowTyped => typeStr.appendParenth(str)
-    case ShowUnderScore => "_"
-    case _ => str
-  }
-
-  override def syntaxDepth: Int = 1
-}
-
 /** [[Showed]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
 trait ShowDec extends Any with Showed
 {

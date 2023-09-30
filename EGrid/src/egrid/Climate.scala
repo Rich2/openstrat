@@ -9,7 +9,7 @@ trait Climate extends ShowSimpled
 }
 
 object Climate
-{ implicit val showEv: Showeding[Climate] = ShowShowSimpleT[Climate]("Climate")
+{ implicit val showEv: Showeding[Climate] = ShowSimpleeding[Climate]("Climate")
 }
 
 /** Temperate climate with out intense dry season. */

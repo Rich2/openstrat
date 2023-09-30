@@ -1,17 +1,17 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
 trait PersistBaseN extends Any with PersistBase
 { /** Sequence of the names of parameter constituents of this class. */
-  def paramNames: StrArr// = Strings(name1, name2)
+  def paramNames: StrArr
 
   /** Number of parameter constituents of this class. */
   def numParams: Int
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowNT[R] extends ShowCompoundT[R] with Showing[R]
+trait ShowNing[R] extends ShowCompoundT[R] with Showing[R]
 {
   override def showT(obj: R, style: ShowStyle): String =
   { def semisStr = strs(obj, ShowCommas).mkStr("; ")
@@ -40,7 +40,7 @@ trait ShowNT[R] extends ShowCompoundT[R] with Showing[R]
   }
 }
 
-trait ShowNeding[R <: ShowNed] extends ShowNT[R] with Showeding[R]
+trait ShowNeding[R <: ShowNed] extends ShowNing[R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }
 

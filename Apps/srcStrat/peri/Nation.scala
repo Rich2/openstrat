@@ -8,7 +8,7 @@ class Nation(val str: String, val colour: Colour) extends Coloured with ShowSimp
 
 object Nation
 {
-  implicit val showTEv: ShowShowSimpleT[Nation] = ShowShowSimpleT[Nation]("Nation")
+  implicit val showTEv: ShowSimpleeding[Nation] = ShowSimpleeding[Nation]("Nation")
   def persistEv(arr: RArr[Nation]): PersistSingletons[Nation] = PersistSingletons[Nation]("Nation", arr)
   def persistEv(nations: Nation*): PersistSingletons[Nation] = PersistSingletons[Nation]("Nation", nations.toArr)
 }

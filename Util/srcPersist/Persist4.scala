@@ -58,7 +58,7 @@ trait Show4ed[A1, A2, A3, A4] extends Any with ShowNed with PersistBase4[A1, A2,
 }
 
 /** Show type class for 4 parameter case classes. */
-trait Show4T[A1, A2, A3, A4, R] extends ShowNT[R]
+trait Show4T[A1, A2, A3, A4, R] extends ShowNing[R]
 
 object Show4T
 {
@@ -91,7 +91,7 @@ trait ShowInt4Ed extends Any with Show4ed[Int, Int, Int, Int]
 trait Show4eding[A1, A2, A3, A4, R <: Show4ed[A1, A2, A3, A4]] extends Show4T[A1, A2, A3, A4, R] with ShowNeding[R]
 
 /** Produces [[ShowInt4T]] instances for types that extend [[ShowInt4Ed]]. */
-trait ShowInt4eding[R <: ShowInt4Ed] extends Show4eding[Int, Int, Int, Int, R] with ShowNT[R]
+trait ShowInt4eding[R <: ShowInt4Ed] extends Show4eding[Int, Int, Int, Int, R] with ShowNing[R]
 
 object ShowInt4eding
 { /** Factory apply method for creating quick ShowDecT instances for products of 4 Ints. */

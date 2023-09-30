@@ -12,13 +12,13 @@ trait Persist[T] extends Showing[T] with Unshow[T]
 /** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
  *  xStart, yStart, xEnd, yEnd. */
-trait PersistN[R] extends Persist[R] with ShowNT[R]
+trait PersistN[R] extends Persist[R] with ShowNing[R]
 
 /** [[Persist]] trait for types whose objects inherit from [[ShowDecN]]. */
 trait PersistShowN[R <: ShowNed] extends PersistN[R] with ShowNeding[R]
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleT[A] with Persist[A]
+abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleing[A] with Persist[A]
 
 /** I think this class may be redundant and can be replace by a more general PersistSum class for displaying algebraic sum types. */
 abstract class PersistSingletons[A <: ShowSimpled](typeStr: String) extends PersistSimple[A](typeStr)

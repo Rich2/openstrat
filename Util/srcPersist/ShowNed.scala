@@ -1,9 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowNT]] trait
+/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowNing]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- * [[ShowNT]]. */
+ * [[ShowNing]]. */
 trait ShowNed extends Any with ShowDec
 { /** A [[StrArr]] Arr of the element names of this Show Product class. */
   def paramNames: StrArr

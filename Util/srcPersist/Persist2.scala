@@ -99,7 +99,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2Ed with Dbl2Elem
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowNT[R]
+trait Show2T[A1, A2, R] extends ShowNing[R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def persist1: Showing[A1]

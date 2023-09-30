@@ -13,7 +13,7 @@ trait Lelev extends ShowSimpled with Coloured
 
 object Lelev
 {
-  implicit val showEv: Showeding[Lelev] = ShowShowSimpleT[Lelev]("Lelev")
+  implicit val showEv: Showeding[Lelev] = ShowSimpleeding[Lelev]("Lelev")
 }
 
 case object Level extends Lelev
