@@ -3,13 +3,22 @@ package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid//Reg
-{
+class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid with ShowInt4
+{ override def typeStr: String = "HGridReg"
+  override def name1: String = "bottom"
+  override def name2: String = "top"
+  override def name3: String = "left"
+  override def name4: String = "right"
+  override def show1: Int = bottomCenR
+  override def show2: Int = topCenR
+  override def show3: Int = leftCenC
+  override def show4: Int = rightCenC
+
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 
-  override def sideTileLtOpt(hSide: HSide): Option[HCen] = {
-    val ot: HCen = sideTileLtUnsafe(hSide)
+  override def sideTileLtOpt(hSide: HSide): Option[HCen] =
+  { val ot: HCen = sideTileLtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
@@ -109,8 +118,8 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   }
 
   override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
-  { case r if r >= topSideRow => excep(r.str + " is not an inner row.")
-    case r if r <= bottomSideR => excep(r.str + " is not an inner row.")
+  { case r if r >= topSideRow => excep(r.toString + " is not an inner row.")
+    case r if r <= bottomSideR => excep(r.toString + " is not an inner row.")
     case r if r.div4Rem2 => iToForeach(leftrem2CenC + 2, rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC + 2, rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
     case r => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(r, c)) }

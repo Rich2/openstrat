@@ -70,6 +70,15 @@ trait ShowDbl3 extends Any with Show3[Double, Double, Double]
   final override implicit def showT3: Persist[Double] = ShowT.doublePersistEv
 }
 
+/** Trait for Show for product of 3[[Int]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl3T]]
+ *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
+ *  over [[Show3T]]. */
+trait ShowElemInt3 extends Any with ShowInt3 with Int3Elem
+{ final override def int1: Int = show1
+  final override def int2: Int = show2
+  final override def int3: Int = show2
+}
+
 /** Trait for Show for product of 3[[Double]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl3T]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show3T]]. */
@@ -110,6 +119,20 @@ object Show3T
 }
 
 trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
+
+trait ShowShowInt3T[R <: ShowInt3] extends ShowShow3T[Int, Int, Int, R] with ShowNT[R]
+
+object ShowShowInt3T
+{ /** Factory apply method for creating quick ShowDecT instances for products of 3 Ints. */
+  def apply[R <: ShowElemInt3](typeStr: String, name1: String, name2: String, name3: String, opt2: Option[Int] = None, opt1In: Option[Int] = None):
+  ShowShowInt3TImp[R] = new ShowShowInt3TImp[R](typeStr, name1, name2, name3, opt2, opt1In)
+
+  class ShowShowInt3TImp[R <: ShowInt3](val typeStr: String, val name1: String, val name2: String, val name3: String, val opt3: Option[Int] = None,
+    opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends ShowShowInt3T[R]
+  { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
 
 trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowNT[R]
 
@@ -245,6 +268,17 @@ object PersistShow3
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
+}
+
+/** Persistence class for types that extends [[ShowDbl3]]. */
+class PersistShowInt3[R <: ShowInt3](val typeStr: String, val name1: String, val name2: String, val name3: String,
+  val newT: (Int, Int, Int) => R, val opt3: Option[Int] = None, val opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends
+  Persist3[Int, Int, Int, R] with PersistShowN[R] with ShowShowInt3T[R]
+{ val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+  val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  override def ev1: Persist[Int] = ShowT.intPersistEv
+  override def ev2: Persist[Int] = ShowT.intPersistEv
+  override def ev3: Persist[Int] = ShowT.intPersistEv
 }
 
 /** Persistence class for types that extends [[ShowDbl3]]. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -80,6 +80,15 @@ object Show4T
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(ev1.showDecT(fArg1(obj), way, maxPlaces), ev2.showDecT(fArg2(obj), way, maxPlaces),
       ev3.showDecT(fArg3(obj), way, maxPlaces), ev4.showDecT(fArg4(obj), way, maxPlaces))
   }
+}
+
+/** Show classes with 4 [[Int]] parameters. */
+trait ShowInt4 extends Any with Show4[Int, Int, Int, Int]
+{ final override def syntaxDepth: Int = 2
+  final override implicit def showT1: Persist[Int] = ShowT.intPersistEv
+  final override implicit def showT2: Persist[Int] = ShowT.intPersistEv
+  final override implicit def showT3: Persist[Int] = ShowT.intPersistEv
+  final override implicit def showT4: Persist[Int] = ShowT.intPersistEv
 }
 
 /** UnShow class for 3 logical parameter product types. */
