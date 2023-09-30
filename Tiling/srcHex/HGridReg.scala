@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid with ShowInt4
+class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid with ShowInt4Ed
 { override def typeStr: String = "HGridReg"
   override def name1: String = "bottom"
   override def name2: String = "top"
@@ -201,5 +201,5 @@ object HGridReg
   }
 
   /** Implicit instance of [[ShowT]] for [[HGridReg]]. */
-  implicit val showTEv: ShowShowInt4T[HGridReg] = ShowShowInt4T("HGrid", "bottom", "top", "left", "right")
+  implicit val showTEv: ShowInt4eding[HGridReg] = ShowInt4eding("HGrid", "bottom", "top", "left", "right")
 }
