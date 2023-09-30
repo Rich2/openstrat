@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Unshow6]], declares the common properties of name1 - 6 and opt1 - 6. */
-trait TypeStr6Plus[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5Plus[A1, A2, A3, A4, A5]
+trait PersistBase6Plus[A1, A2, A3, A4, A5, A6] extends Any with PersistBase5Plus[A1, A2, A3, A4, A5]
 { /** 6th parameter name. */
   def name6: String
 
@@ -11,7 +11,7 @@ trait TypeStr6Plus[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5Plus[A1, A2,
   def opt6: Option[A6]
 }
 
-trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr6Plus[A1, A2, A3, A4, A5, A6]
+trait PersistBase6[A1, A2, A3, A4, A5, A6] extends Any with PersistBase6Plus[A1, A2, A3, A4, A5, A6]
 { override def paramNames: StrArr = StrArr(name1, name2, name3, name4, name5, name6)
   override def numParams: Int = 6
 }
@@ -52,7 +52,7 @@ object Show6T
 }
 
 /** UnShow trait for 6 parameter product / case classes. */
-trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6Plus[A1, A2, A3, A4, A5, A6]
+trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with PersistBase6Plus[A1, A2, A3, A4, A5, A6]
 { def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3

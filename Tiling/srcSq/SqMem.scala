@@ -16,6 +16,6 @@ object SqMem
 trait SqMemShow[A] extends SqMem[A] with Show2[SqCen, A]
 { override def show1: SqCen = sqCen
   override def name1: String = "SqCen"
-  override implicit def showT1: ShowT[SqCen] = SqCen.persistEv
+  override implicit def persist1: ShowT[SqCen] = SqCen.persistEv
   override def show2: A = value
 }

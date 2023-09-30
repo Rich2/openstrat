@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show4T]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
-trait TypeStr4Plus[A1, A2, A3, A4] extends Any with TypeStr3Plus[A1, A2, A3]
+trait PersistBase4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2, A3]
 { /** 4th parameter name. */
   def name4: String
 
@@ -11,7 +11,7 @@ trait TypeStr4Plus[A1, A2, A3, A4] extends Any with TypeStr3Plus[A1, A2, A3]
   def opt4: Option[A4]
 }
 
-trait TypeStr4[A1, A2, A3, A4] extends Any with TypeStr4Plus[A1, A2, A3, A4]
+trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3, A4]
 { override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def numParams: Int = 4
 }
@@ -21,7 +21,7 @@ trait TypeStr4[A1, A2, A3, A4] extends Any with TypeStr4Plus[A1, A2, A3, A4]
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show4[A1, A2, A3, A4] extends Any with ShowN with TypeStr4[A1, A2, A3, A4]
+trait Show4[A1, A2, A3, A4] extends Any with ShowN with PersistBase4[A1, A2, A3, A4]
 {
   override def opt1: Option[A1] = None
   override def opt2: Option[A2] = None
@@ -111,7 +111,7 @@ object ShowShowInt4T
   }
 }
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with TypeStr4[A1, A2, A3, A4]
+trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with PersistBase4[A1, A2, A3, A4]
 {
   /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]

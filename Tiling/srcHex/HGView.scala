@@ -12,8 +12,8 @@ class HGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Show2[HCoor
   inline override def show1: HCoord = hCoord
   override def name2: String = "cPScale"
   inline override def show2: Double = pixelsPerC
-  override implicit def showT1: ShowT[HCoord] = HCoord.persistImplicit
-  override implicit def showT2: ShowT[Double] = ShowT.doublePersistEv
+  override implicit def persist1: ShowT[HCoord] = HCoord.persistImplicit
+  override implicit def persist2: ShowT[Double] = ShowT.doublePersistEv
   override def syntaxDepth: Int = 3
 }
 

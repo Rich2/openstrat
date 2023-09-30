@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
-trait TypeStr3Plus[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
+trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
 
@@ -11,7 +11,7 @@ trait TypeStr3Plus[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
   def opt3: Option[A3]
 }
 
-trait TypeStr3[A1, A2, A3] extends Any with TypeStr3Plus[A1, A2, A3]
+trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
 { override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def numParams: Int = 3
 }
@@ -21,7 +21,7 @@ trait TypeStr3[A1, A2, A3] extends Any with TypeStr3Plus[A1, A2, A3]
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
+trait Show3[A1, A2, A3] extends Any with ShowN with PersistBase3[A1, A2, A3]
 { override def opt1: Option[A1] = None
   override def opt2: Option[A2] = None
   override def opt3: Option[A3] = None
@@ -152,7 +152,7 @@ object ShowShowDbl3T
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with TypeStr3[A1, A2, A3]
+trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with PersistBase3[A1, A2, A3]
 { /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]
 

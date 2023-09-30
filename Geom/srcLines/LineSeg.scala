@@ -10,8 +10,8 @@ CurveSeg with Show2[Pt2, Pt2] with AffinePreserve
   override def typeStr: String = "LineSeg"
   override def name1: String = "startPt"
   override def name2: String = "endPt"
-  override implicit def showT1: ShowT[Pt2] = Pt2.persistImplicit
-  override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
+  override implicit def persist1: ShowT[Pt2] = Pt2.persistImplicit
+  override implicit def persist2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 2
   override def show1: Pt2 = startPt
   override def show2: Pt2 = endPt

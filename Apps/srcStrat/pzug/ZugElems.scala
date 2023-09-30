@@ -16,7 +16,7 @@ object Squad
 case class HSquad(hc: HCen, value: Squad) extends HexMemShow[Squad]
 { override def typeStr: String = "HPlayer"
   override def name2: String = "player"
-  override implicit def showT2: ShowT[Squad] = Squad.showTEv
+  override implicit def persist2: ShowT[Squad] = Squad.showTEv
   override def syntaxDepth: Int = 2
 }
 
