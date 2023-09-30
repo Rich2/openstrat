@@ -4,7 +4,7 @@ import pParse._, collection.mutable.ArrayBuffer
 
 /** Base trait for [[PersistBase2]] and [[PersistBase3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
  *  for [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delegate to the [[Show2]] object to implement their interfaces. */
-trait PersistBase2Plus[A1, A2] extends Any with TypeStrN
+trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
 { /** 1st parameter name. */
   def name1: String
 

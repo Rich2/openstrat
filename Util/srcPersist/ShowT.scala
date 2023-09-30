@@ -1,13 +1,20 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, collection.immutable.ArraySeq
+
+/** Common super trait for [[ShowDec]], [[ShowT]] and [[Unshow]]. All of which inherit the typeStr property. */
+trait PersistBase extends Any
+{ /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+ * Show. */
+  def typeStr: String
+}
 
 /** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
  *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. The capabilities of decimal place
  *  precision and explicit typing for numbers are placed defined here and in the corresponding [[SHow]] type class although they have n meaning /
  *  purpose for many types, as separating them adds enormous complexity for very little gain. */
-trait ShowT[-T] extends TypeStr
+trait ShowT[-T] extends PersistBase
 {
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */

@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-trait TypeStrN extends Any with TypeStr
+trait PersistBaseN extends Any with PersistBase
 { /** Sequence of the names of parameter constituents of this class. */
   def paramNames: StrArr// = Strings(name1, name2)
 
@@ -44,7 +44,7 @@ trait ShowShowNT[R <: ShowN] extends ShowNT[R] with ShowShowT[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }
 
-trait UnshowN[R] extends Unshow[R] with TypeStrN
+trait UnshowN[R] extends Unshow[R] with PersistBaseN
 {
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
 

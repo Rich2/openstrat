@@ -8,7 +8,7 @@ import pParse._, collection.immutable.ArraySeq
  *  can increase compile times. The capabilities of decimal place precision and explicit typing for numbers are placed defined here and in the
  *  corresponding [[SHowT]] type class although they have n meaning / purpose for many types, as separating them adds enormous complexity for very
  *  little gain. */
-trait Show extends Any with TypeStr
+trait Show extends Any with PersistBase
 {
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String

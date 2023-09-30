@@ -10,7 +10,7 @@ object G1Scen1Test extends TestSuite {
 
   val tests = Tests {
     test("os1") {
-      cs1.out(gs) ==>""
+      cs1.out(gs) ==> ""
     }
   }
 }
