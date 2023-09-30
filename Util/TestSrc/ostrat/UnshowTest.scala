@@ -27,7 +27,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3
   override def show1: ExUA = a
   override def show2: String = b
   override def show3: Int = c
-  override def showT1: ShowT[ExUA] = ExUA.persistEv
+  override def persist1: ShowT[ExUA] = ExUA.persistEv
   override def showT2: ShowT[String] = ShowT.stringPersistEv
   override def showT3: ShowT[Int] = ShowT.intPersistEv
   override def name1: String = "a"

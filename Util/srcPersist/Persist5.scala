@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -32,37 +32,32 @@ object Show5T
   class Show5TImp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
     val name3: String, fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val opt5: Option[A5],
     opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5]) extends Show5T[A1, A2, A3, A4, A5, R]// with TypeStr5Plus[A1, A2, A3, A4, A5]
+    implicit val persist1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5]) extends Show5T[A1, A2, A3, A4, A5, R]// with TypeStr5Plus[A1, A2, A3, A4, A5]
   {
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
+    final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
       max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
+      StrArr(persist1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
         ev5.showT(fArg5(obj), way))
   }
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
 trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with PersistBase5Plus[A1, A2, A3, A4, A5]
-{
-  def fArg1: R => A1
+{ def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3
   def fArg4: R => A4
   def fArg5: R => A5
   def newT: (A1, A2, A3, A4, A5) => R
-//  def opt5: Option[A5]
-//  def opt4: Option[A4] = None
-//  def opt3: Option[A3] = None
-//  def opt2: Option[A2] = None
-//  def opt1: Option[A1] = None
-  implicit def ev1: Unshow[A1]
+
+  implicit def persist1: Unshow[A1]
   implicit def ev2: Unshow[A2]
   implicit def ev3: Unshow[A3]
   implicit def ev4: Unshow[A4]
@@ -70,7 +65,7 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with PersistBase5Plus[A1
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), persist1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
     def e3: EMon[A3] = ife(len > pSeq(2), ev3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
     def e4: EMon[A4] = ife(len > pSeq(3), ev4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
@@ -81,7 +76,7 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with PersistBase5Plus[A1
 
 /** Persistence class for 5 logical parameter product types. */
 trait Persist5[A1, A2, A3, A4, A5, R] extends Show5T[A1, A2, A3, A4, A5, R] with Unshow5[A1, A2, A3, A4, A5, R] with PersistN[R]
-{ override def ev1: Persist[A1]
+{ override def persist1: Persist[A1]
   override def ev2: Persist[A2]
   override def ev3: Persist[A3]
   override def ev4: Persist[A4]
@@ -100,7 +95,7 @@ object Persist5
   class Persist5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5,
     val newT: (A1, A2, A3, A4, A5) => R, val opt5: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3], val ev4: Persist[A4],
+    opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3], val ev4: Persist[A4],
     val ev5: Persist[A5]) extends Persist5[A1, A2, A3, A4, A5, R]
   { val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
@@ -122,7 +117,7 @@ object Persist5
 
 /** Persist trait for 5 [[Int]] parameters. */
 trait PersistInt5[R] extends Persist5[Int, Int, Int, Int, Int, R]
-{ override def ev1: Persist[Int] = ShowT.intPersistEv
+{ override def persist1: Persist[Int] = ShowT.intPersistEv
   override def ev2: Persist[Int] = ShowT.intPersistEv
   override def ev3: Persist[Int] = ShowT.intPersistEv
   override def ev4: Persist[Int] = ShowT.intPersistEv

@@ -82,7 +82,7 @@ class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) extends 
   override def show1: Lelev = elev
   override def show2: Climate = climate
   override def show3: LandUse = landUse
-  override def showT1: ShowT[Lelev] = Lelev.showEv
+  override def persist1: ShowT[Lelev] = Lelev.showEv
   override def showT2: ShowT[Climate] = Climate.showEv
   override def showT3: ShowT[LandUse] = LandUse.showEv
   override def syntaxDepth: Int = 2
