@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
+/** A base trait for [[Show3ing]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
 trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
@@ -19,29 +19,24 @@ trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
   override def numParams: Int = 3
 }
 
+/** [[Showed]] trait for classes with 3+ Show parameters. */
+trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistBase3Plus[A1, A2, A3]
+{ /** The optional default value for parameter 3. */
+  override def opt3: Option[A3] = None
+
+  /** Element 3 of this Show 3+ element product. */
+  def show3: A3
+
+  override def persist3: Showing[A3]
+}
+
 /** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show3ed[A1, A2, A3] extends Any with ShowNed with PersistBase3[A1, A2, A3]
-{ override def opt1: Option[A1] = None
-  override def opt2: Option[A2] = None
-  override def opt3: Option[A3] = None
-
-  /** Element 1 of this 3 element Show product. */
-  def show1: A1
-
-  /** Element 2 of this 3 element Show product. */
-  def show2: A2
-
-  /** Element 3 of this 3 element Show product. */
-  def show3: A3
-
-  override def persist1: Showing[A1]
-  override def persist2: Showing[A2]
-  override def persist3: Showing[A3]
-
+trait Show3ed[A1, A2, A3] extends Any with Show3Plused[A1, A2, A3]
+{ override def numParams: Int = 3
   override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr, persist3.typeStr)
 
@@ -70,7 +65,7 @@ trait ShowDbl3Ed extends Any with Show3ed[Double, Double, Double]
 
 /** Trait for Show for product of 3[[Int]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDbl3Eding]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show3T]]. */
+ *  over [[Show3ing]]. */
 trait ShowElemInt3 extends Any with ShowInt3Ed with Int3Elem
 { final override def int1: Int = show1
   final override def int2: Int = show2
@@ -79,7 +74,7 @@ trait ShowElemInt3 extends Any with ShowInt3Ed with Int3Elem
 
 /** Trait for Show for product of 3[[Double]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDbl3Eding]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show3T]]. */
+ *  over [[Show3ing]]. */
 trait ShowElemDbl3 extends Any with ShowDbl3Ed with Dbl3Elem
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
@@ -87,17 +82,17 @@ trait ShowElemDbl3 extends Any with ShowDbl3Ed with Dbl3Elem
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3T[A1, A2, A3, R] extends  ShowNing[R]
+trait Show3ing[A1, A2, A3, R] extends  ShowNing[R]
 
-object Show3T
+object Show3ing
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2], ev3: Showing[A3]):
-  Show3T[A1, A2, A3, R] = new Show3TImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
+  Show3ing[A1, A2, A3, R] = new Show3TImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
 
   class Show3TImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: Showing[A1], val ev2: Showing[A2], val ev3: Showing[A3]) extends Show3T[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
+    implicit val ev1: Showing[A1], val ev2: Showing[A2], val ev3: Showing[A3]) extends Show3ing[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -116,8 +111,8 @@ object Show3T
   }
 }
 
-/** Produces [[Show3T]] instances for types that extend [[Show3ed]]. */
-trait Show3eding[A1, A2, A3, R <: Show3ed[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowNeding[R]
+/** Produces [[Show3ing]] instances for types that extend [[Show3ed]]. */
+trait Show3eding[A1, A2, A3, R <: Show3ed[A1, A2, A3]] extends Show3ing[A1, A2, A3, R] with ShowNeding[R]
 
 /** Produces [[ShowInt3T]] instances for types that extend [[ShowInt3Ed]]. */
 trait ShowInt3Eding[R <: ShowInt3Ed] extends Show3eding[Int, Int, Int, R] with ShowNing[R]
@@ -183,7 +178,7 @@ object Unshow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
+trait Persist3[A1, A2, A3, R] extends Show3ing[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
 { override def persist1: Persist[A1]
   override def persist2: Persist[A2]
   override def persist3: Persist[A3]
