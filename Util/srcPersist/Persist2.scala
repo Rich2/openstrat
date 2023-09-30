@@ -19,6 +19,9 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
 
   /** The declaration here allows the same field to cover [[ShowT]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
   def persist1: ShowT[A1] | Unshow[A1]
+
+  /** The declaration here allows the same field to be to cover [[ShowT]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
+  def persist2: ShowT[A2] | Unshow[A2]
 }
 
 /** A base trait for [[Show2ed]] and [[UnShow2]]. It is not a base trait for [[Show2T]], as [[Show2eding]] classes do not need this data, as they can
@@ -26,9 +29,6 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
 trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   override def numParams: Int = 2
-
-  /** The declaration here allows the same field to be to cover [[ShowT]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
-  def persist2: ShowT[A2] | Unshow[A2]
 }
 
 /** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
