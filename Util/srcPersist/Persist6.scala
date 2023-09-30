@@ -21,6 +21,7 @@ trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowNT[R] with PersistBase6[A1, 
 { override def persist1: ShowT[A1]
   override def persist2: ShowT[A2]
   override def persist3: ShowT[A3]
+  override def persist4: ShowT[A4]
 }
 
 /** Companion object for [[Show6T]] contains implementation class and factory apply method. */
@@ -37,7 +38,7 @@ object Show6T
   class Show6TImp[A1, A2, A3, A4, A5, A6, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2, val name3: String,
     fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
     val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: ShowT[A1], val persist2: ShowT[A2], val persist3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
+    implicit val persist1: ShowT[A1], val persist2: ShowT[A2], val persist3: ShowT[A3], val persist4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
     Show6T[A1, A2, A3, A4, A5, A6, R] with ShowNT[R]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
@@ -46,10 +47,10 @@ object Show6T
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
-      max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))).max(ev6.syntaxDepthT(fArg6(obj))) + 1
+      max(persist4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))).max(ev6.syntaxDepthT(fArg6(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showT(fArg1(obj), way), persist2.showT(fArg2(obj), way), persist3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
+      StrArr(persist1.showT(fArg1(obj), way), persist2.showT(fArg2(obj), way), persist3.showT(fArg3(obj), way), persist4.showT(fArg4(obj), way),
         ev5.showT(fArg5(obj), way), ev6.showT(fArg6(obj), way))
   }
 }
@@ -69,19 +70,19 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with PersistBase6Plu
   def opt3: Option[A3] = None
   def opt2: Option[A2] = None
   def opt1: Option[A1] = None
-  implicit def ev1: Unshow[A1]
-  implicit def ev2: Unshow[A2]
-  implicit def ev3: Unshow[A3]
-  implicit def ev4: Unshow[A4]
+  implicit override def persist1: Unshow[A1]
+  implicit override def persist2: Unshow[A2]
+  implicit override def persist3: Unshow[A3]
+  implicit override def persist4: Unshow[A4]
   implicit def ev5: Unshow[A5]
   implicit def ev6: Unshow[A6]
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
-    def e3: EMon[A3] = ife(len > pSeq(2), ev3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
-    def e4: EMon[A4] = ife(len > pSeq(3), ev4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), persist1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), persist2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), persist3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    def e4: EMon[A4] = ife(len > pSeq(3), persist4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
     def e5: EMon[A5] = ife(len > pSeq(4), ev5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toEMon)
     def e6: EMon[A6] = ife(len > pSeq(5), ev6.fromSettingOrExpr(name6, sortedExprs(pSeq(5))), opt6.toEMon)
     e1.map6(e2, e3, e4, e5, e6)(newT)
