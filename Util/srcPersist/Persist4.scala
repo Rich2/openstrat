@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[Show4T]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
+/** A base trait for [[Show4ing]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
 trait PersistBase4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2, A3]
 { /** 4th parameter name. */
   def name4: String
@@ -19,36 +19,24 @@ trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3,
   override def numParams: Int = 4
 }
 
+/** [[Showed]] trait for classes with 4+ Show parameters. */
+trait Show4Plused[A1, A2, A3, A4] extends Any with Show3Plused[A1, A2, A3] with PersistBase4Plus[A1, A2, A3, A4]
+{ /** The optional default value for parameter 4. */
+  override def opt4: Option[A4] = None
+
+  /** Element 4 of this 4 element Show product. */
+  def show4: A4
+
+  override def persist4: Showing[A4]
+}
+
 /** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowEq4T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show4ElemT]] or [[Persist4ElemT]] to create the type class instance for ShowT. The [[Show4ElemT]] or
  *  [[Persist4Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq4T]] instance. */
-trait Show4ed[A1, A2, A3, A4] extends Any with ShowNed with PersistBase4[A1, A2, A3, A4]
-{
-  override def opt1: Option[A1] = None
-  override def opt2: Option[A2] = None
-  override def opt3: Option[A3] = None
-  override def opt4: Option[A4] = None
-
-  /** Element 1 of this 4 element Show product. */
-  def show1: A1
-
-  /** Element 2 of this 4 element Show product. */
-  def show2: A2
-
-  /** Element 3 of this 4 element Show product. */
-  def show3: A3
-
-  /** Element 4 of this 4 element Show product. */
-  def show4: A4
-
-  override def persist1: Showing[A1]
-  override def persist2: Showing[A2]
-  override def persist3: Showing[A3]
-  override def persist4: Showing[A4]
-
-  final override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
+trait Show4ed[A1, A2, A3, A4] extends Any with Show4Plused[A1, A2, A3, A4] with PersistBase4[A1, A2, A3, A4]
+{ final override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr, persist3.typeStr, persist4.typeStr)
 
   override def showElemStrs(way: ShowStyle): StrArr = StrArr(persist1.showT(show1, way), persist2.showT(show2, way), persist3.showT(show3, way), persist4.showT(show4, way))
@@ -58,15 +46,14 @@ trait Show4ed[A1, A2, A3, A4] extends Any with ShowNed with PersistBase4[A1, A2,
 }
 
 /** Show type class for 4 parameter case classes. */
-trait Show4T[A1, A2, A3, A4, R] extends ShowNing[R]
+trait Show4ing[A1, A2, A3, A4, R] extends ShowNing[R]
 
-object Show4T
-{
-  class Show4TImp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+object Show4ing
+{ /** Implementation class for the [[Show4ing]] trait. */
+  class Show4ingImp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2], ev3: Showing[A3], ev4: Showing[A4]) extends Show4T[A1, A2, A3, A4, R] //with TypeStr4Plus[A1, A2, A3, A4]
-  {
-    val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2], ev3: Showing[A3], ev4: Showing[A4]) extends Show4ing[A1, A2, A3, A4, R] //with TypeStr4Plus[A1, A2, A3, A4]
+  { val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
@@ -87,8 +74,8 @@ trait ShowInt4Ed extends Any with Show4ed[Int, Int, Int, Int]
   final override implicit def persist4: Persist[Int] = Showing.intPersistEv
 }
 
-/** Produces [[Show4T]] instances for types that extend [[Show4ed]]. */
-trait Show4eding[A1, A2, A3, A4, R <: Show4ed[A1, A2, A3, A4]] extends Show4T[A1, A2, A3, A4, R] with ShowNeding[R]
+/** Produces [[Show4ing]] instances for types that extend [[Show4ed]]. */
+trait Show4eding[A1, A2, A3, A4, R <: Show4ed[A1, A2, A3, A4]] extends Show4ing[A1, A2, A3, A4, R] with ShowNeding[R]
 
 /** Produces [[ShowInt4T]] instances for types that extend [[ShowInt4Ed]]. */
 trait ShowInt4eding[R <: ShowInt4Ed] extends Show4eding[Int, Int, Int, Int, R] with ShowNing[R]
@@ -126,7 +113,7 @@ trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with PersistBase4[A1, A2, A3
 }
 
 /** Persistence class for 4 logical parameter product types. */
-trait Persist4[A1, A2, A3, A4, R] extends Show4T[A1, A2, A3, A4, R] with Unshow4[A1, A2, A3, A4, R] with PersistN[R]
+trait Persist4[A1, A2, A3, A4, R] extends Show4ing[A1, A2, A3, A4, R] with Unshow4[A1, A2, A3, A4, R] with PersistN[R]
 { override def persist1: Persist[A1]
   override def persist2: Persist[A2]
   override def persist3: Persist[A3]

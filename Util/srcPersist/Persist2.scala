@@ -114,9 +114,10 @@ object Show2ing
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2]): Show2ing[A1, A2, R] =
-    new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
+    new Show2ingImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
-  class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
+  /** Implementation class for the general cases of [[Show2ing]] trait. */
+  class Show2ingImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2ing[A1, A2, R] //with TypeStr2Plus[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))) + 1
@@ -126,7 +127,8 @@ object Show2ing
   }
 }
 
-class Show2TExtensions[A1, A2, -T](ev: Show2ing[A1, A2, T], thisVal: T)
+/** Extension methods for [[Show2ing]] type class instances. */
+class Show2ingExtensions[A1, A2, -T](ev: Show2ing[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
