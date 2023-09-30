@@ -118,14 +118,17 @@ object Show3T
   }
 }
 
+/** Produces [[Show3T]] instances for types that extend [[Show3]]. */
 trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
 
+/** Produces [[ShowInt3T]] instances for types that extend [[ShowInt3]]. */
 trait ShowShowInt3T[R <: ShowInt3] extends ShowShow3T[Int, Int, Int, R] with ShowNT[R]
 
 object ShowShowInt3T
 { /** Factory apply method for creating quick ShowDecT instances for products of 3 Ints. */
-  def apply[R <: ShowElemInt3](typeStr: String, name1: String, name2: String, name3: String, opt2: Option[Int] = None, opt1In: Option[Int] = None):
-  ShowShowInt3TImp[R] = new ShowShowInt3TImp[R](typeStr, name1, name2, name3, opt2, opt1In)
+  def apply[R <: ShowInt3](typeStr: String, name1: String, name2: String, name3: String, opt3: Option[Int] = None, opt2In: Option[Int] = None,
+    opt1In: Option[Int] = None):
+  ShowShowInt3TImp[R] = new ShowShowInt3TImp[R](typeStr, name1, name2, name3, opt3, opt2In, opt1In)
 
   class ShowShowInt3TImp[R <: ShowInt3](val typeStr: String, val name1: String, val name2: String, val name3: String, val opt3: Option[Int] = None,
     opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends ShowShowInt3T[R]

@@ -62,14 +62,20 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
   override def syntaxDepth: Int = showT1.syntaxDepthT(show1).max(showT2.syntaxDepthT(show2)) + 1
 }
 
-/** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
- *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
- *  types ShowProduct is preferred over [[Show2T]]. */
-trait ShowElemInt2 extends Any with Show2[Int, Int] with Int2Elem
+/** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowInt2T]] trait
+ *  which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
+ *  [[Show2T]]. */
+trait ShowInt2 extends Any with Show2[Int, Int]
 { final override implicit def showT1: ShowT[Int] = ShowT.intPersistEv
   final override implicit def showT2: ShowT[Int] = ShowT.intPersistEv
   final override def syntaxDepth: Int = 2
-  final override def int1: Int = show1
+}
+
+/** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
+ *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
+ *  types ShowProduct is preferred over [[Show2T]]. */
+trait ShowElemInt2 extends Any with ShowInt2 with Int2Elem
+{ final override def int1: Int = show1
   final override def int2: Int = show2
 }
 
@@ -152,7 +158,7 @@ object ShowShowDbl2T
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShow2T[Int, Int, R]
+trait ShowShowInt2T[R <: ShowInt2] extends ShowShow2T[Int, Int, R]
 { override implicit def ev1: Persist[Int] = ShowT.intPersistEv
   override implicit def ev2: Persist[Int] = ShowT.intPersistEv
 }

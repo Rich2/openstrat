@@ -175,7 +175,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   }
 }
 
-/** Companion object for the HGridReg class. Contains an apply method that corrects the r and Y minimum and maximum values. */
+/** Companion object for the [[HGridReg]] class. Contains factory apply method and [[ShowT]] instance. */
 object HGridReg
 {
   /** Corrects the X and Y minimum and maximum values. */
@@ -199,4 +199,7 @@ object HGridReg
 
     new HGridReg(rMin, rMax, cMin, cMax)
   }
+
+  /** Implicit instance of [[ShowT]] for [[HGridReg]]. */
+  implicit val showTEv: ShowShowInt4T[HGridReg] = ShowShowInt4T("HGrid", "bottom", "top", "left", "right")
 }

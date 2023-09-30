@@ -91,8 +91,25 @@ trait ShowInt4 extends Any with Show4[Int, Int, Int, Int]
   final override implicit def showT4: Persist[Int] = ShowT.intPersistEv
 }
 
+/** Produces [[Show4T]] instances for types that extend [[Show4]]. */
 trait ShowShow4T[A1, A2, A3, A4, R <: Show4[A1, A2, A3, A4]] extends Show4T[A1, A2, A3, A4, R] with ShowShowNT[R]
 
+/** Produces [[ShowInt4T]] instances for types that extend [[ShowInt4]]. */
+trait ShowShowInt4T[R <: ShowInt4] extends ShowShow4T[Int, Int, Int, Int, R] with ShowNT[R]
+
+object ShowShowInt4T
+{ /** Factory apply method for creating quick ShowDecT instances for products of 4 Ints. */
+  def apply[R <: ShowInt4](typeStr: String, name1: String, name2: String, name3: String, name4: String, opt4: Option[Int] = None,
+    opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):
+  ShowShowInt4TImp[R] = new ShowShowInt4TImp[R](typeStr, name1, name2, name3, name4, opt4, opt3, opt2, opt1)
+
+  class ShowShowInt4TImp[R <: ShowInt4](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
+    val opt4: Option[Int], opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends ShowShowInt4T[R]
+  { val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
+    val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with TypeStr4[A1, A2, A3, A4]
 {
