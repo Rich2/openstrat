@@ -9,7 +9,7 @@ case class Squad(polity: Polity, var action: ZugAction = NoAction) extends Colou
 /** Companion object for Player case class contains implicit instance for Persist. */
 object Squad
 { /* Implicit [[ShowT]] instance / evidence for [[Squad]]. */
-  implicit val showTEv: Show2T[Polity, Colour, Squad] = Show2T[Polity, Colour, Squad]("Squad", "polity", _.polity, "colour", _.colour)
+  implicit val showTEv: Show2ing[Polity, Colour, Squad] = Show2ing[Polity, Colour, Squad]("Squad", "polity", _.polity, "colour", _.colour)
 }
 
 /** A class identifying a Player and a hex coordinate position. */

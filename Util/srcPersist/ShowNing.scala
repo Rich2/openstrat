@@ -18,9 +18,9 @@ trait ShowNing[R] extends ShowCompoundT[R] with Showing[R]
 
     style match
     { case ShowUnderScore => "_"
-      case ShowSemis => semisStr
-      case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
-      case _ => typeStr.appendParenth(semisStr)
+    case ShowSemis => semisStr
+    case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
+    case _ => typeStr.appendParenth(semisStr)
     }
   }
 
@@ -33,13 +33,14 @@ trait ShowNing[R] extends ShowCompoundT[R] with Showing[R]
 
     style match
     { case ShowUnderScore => "_"
-      case ShowSemis => semisStr
-      case ShowCommas => strDecs(obj, ShowStandard, maxPlaces).mkStr(", ")
-      case _ => typeStr.appendParenth(semisStr)
+    case ShowSemis => semisStr
+    case ShowCommas => strDecs(obj, ShowStandard, maxPlaces).mkStr(", ")
+    case _ => typeStr.appendParenth(semisStr)
     }
   }
 }
 
+/** [[Showing]] trait for types that extend [[ShowNed]] */
 trait ShowNeding[R <: ShowNed] extends ShowNing[R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }
@@ -72,5 +73,5 @@ trait UnshowN[R] extends Unshow[R] with PersistBaseN
           case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
         }
       exprsLoop(0, StrArr())
-  }
+    }
 }

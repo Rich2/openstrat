@@ -3,7 +3,7 @@ package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
 /** Base trait for [[PersistBase2]] and [[PersistBase3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
- *  for [[Show2T]], as [[Show2eding]] classes do not need this data, as they can delegate to the [[Show2ed]] object to implement their interfaces. */
+ *  for [[Show2ing]], as [[Show2eding]] classes do not need this data, as they can delegate to the [[Show2ed]] object to implement their interfaces. */
 trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
 { /** 1st parameter name. */
   def name1: String
@@ -24,36 +24,39 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   def persist2: Showing[A2] | Unshow[A2]
 }
 
-/** A base trait for [[Show2ed]] and [[UnShow2]]. It is not a base trait for [[Show2T]], as [[Show2eding]] classes do not need this data, as they can
+/** A base trait for [[Show2ed]] and [[UnShow2]]. It is not a base trait for [[Show2ing]], as [[Show2eding]] classes do not need this data, as they can
  *  delegate to the [[Show2ed]] object to implement their interfaces. */
 trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   override def numParams: Int = 2
 }
 
-/** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
- *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
- *  inherit from Show2 and then use [[Show2eding]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[Show2eding]] or
- *  [[Persist2ed]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
- *  toString override to a [[Show2T]] instance. */
-trait Show2ed[A1, A2] extends Any with ShowNed with PersistBase2[A1, A2]
-{
-  /** The optional default value for parameter 1. */
+/** [[Showed]] trait for classes with 2+ Show parameters. */
+trait Show2Plused[A1, A2] extends Any with ShowNed with PersistBase2Plus[A1, A2]
+{ /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
 
   /** The optional default value for parameter 2. */
   override def opt2: Option[A2] = None
 
-  /** Element 1 of this Show 2 element product. */
+  /** Element 1 of this Show 2+ element product. */
   def show1: A1
 
-  /** Element 2 of this Show 2 element product. */
+  /** Element 2 of this Show 2+ element product. */
   def show2: A2
 
   override def persist1: Showing[A1]
-  override def persist2: Showing[A2]
 
-  override def paramNames: StrArr = StrArr(name1, name2)
+  override def persist2: Showing[A2]
+}
+
+/** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+ *  [[Show2ing]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
+ *  inherit from Show2 and then use [[Show2eding]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[Show2eding]] or
+ *  [[Persist2ed]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
+ *  toString override to a [[Show2ing]] instance. */
+trait Show2ed[A1, A2] extends Any with Show2Plused[A1, A2] with PersistBase2[A1, A2]
+{ override def paramNames: StrArr = StrArr(name1, name2)
   def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr)
   def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = StrArr(persist1.showDecT(show1, way, decimalPlaces, 0), persist2.showDecT(show2, way, decimalPlaces, 0))
 
@@ -67,7 +70,7 @@ trait Show2ed[A1, A2] extends Any with ShowNed with PersistBase2[A1, A2]
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowInt2Eding]] trait
  *  which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- *  [[Show2T]]. */
+ *  [[Show2ing]]. */
 trait ShowInt2Ed extends Any with Show2ed[Int, Int]
 { final override implicit def persist1: Showing[Int] = Showing.intPersistEv
   final override implicit def persist2: Showing[Int] = Showing.intPersistEv
@@ -76,7 +79,7 @@ trait ShowInt2Ed extends Any with Show2ed[Int, Int]
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowInt2Eding]] trait which externally acts on an object of the specified type to create its String representations. For your own
- *  types ShowProduct is preferred over [[Show2T]]. */
+ *  types ShowProduct is preferred over [[Show2ing]]. */
 trait ShowElemInt2 extends Any with ShowInt2Ed with Int2Elem
 { final override def int1: Int = show1
   final override def int2: Int = show2
@@ -92,29 +95,29 @@ trait ShowDbl2Ed extends Any with Show2ed[Double, Double]
 
 /** Trait for Show for product of 2 Doubles that is also an [[Dbl2Elem]]. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowDbl2Eding]] trait which externally acts on an object of the specified type to create its String representations. For your own
- *  types ShowProduct is preferred over [[Show2T]]. */
+ *  types ShowProduct is preferred over [[Show2ing]]. */
 trait ShowElemDbl2 extends Any with ShowDbl2Ed with Dbl2Elem
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowNing[R]
+trait Show2ing[A1, A2, R] extends ShowNing[R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def persist1: Showing[A1]
   implicit def persist2: Showing[A2]
 }
 
-/** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */
-object Show2T
+/** Companion object for the [[Show2ing]] type class trait that shows object with 2 logical fields. */
+object Show2ing
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2]): Show2T[A1, A2, R] =
+    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2]): Show2ing[A1, A2, R] =
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2T[A1, A2, R] //with TypeStr2Plus[A1,A2]
+    opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2ing[A1, A2, R] //with TypeStr2Plus[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))) + 1
 
@@ -123,7 +126,7 @@ object Show2T
   }
 }
 
-class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
+class Show2TExtensions[A1, A2, -T](ev: Show2ing[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
@@ -131,7 +134,7 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 }
 
 /** Type class trait for Showing [[Show2ed]] objects. */
-trait Show2eding[A1, A2, R <: Show2ed[A1, A2]] extends Show2T[A1, A2, R] with Showeding[R]
+trait Show2eding[A1, A2, R <: Show2ed[A1, A2]] extends Show2ing[A1, A2, R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
   override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
@@ -209,7 +212,7 @@ object Unshow2
 }
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistN[R]
+trait Persist2[A1, A2, R] extends Show2ing[A1, A2, R] with Unshow2[A1, A2, R] with PersistN[R]
 { override def persist1: Persist[A1]
   override def persist2: Persist[A2]
 }
