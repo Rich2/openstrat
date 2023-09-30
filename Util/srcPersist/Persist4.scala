@@ -91,6 +91,8 @@ trait ShowInt4 extends Any with Show4[Int, Int, Int, Int]
   final override implicit def showT4: Persist[Int] = ShowT.intPersistEv
 }
 
+trait ShowShow4T[A1, A2, A3, A4, R <: Show4[A1, A2, A3, A4]] extends Show4T[A1, A2, A3, A4, R] with ShowShowNT[R]
+
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with TypeStr4[A1, A2, A3, A4]
 {
