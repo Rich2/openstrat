@@ -92,7 +92,7 @@ object HexReg
 
   def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
 
-  implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
+  implicit val showImplicit: Showing[HexReg] = new Showing[HexReg]
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
     override def showDecT(obj: HexReg, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.showDec(way, maxPlaces, 0)
@@ -123,8 +123,8 @@ object HexReg
 
     override def show1: Pt2 = sd3Cen
     override def show2: Pt2 = sd0Cen
-    override implicit def persist1: ShowT[Pt2] = Pt2.persistImplicit
-    override implicit def persist2: ShowT[Pt2] = Pt2.persistImplicit
+    override implicit def persist1: Showing[Pt2] = Pt2.persistImplicit
+    override implicit def persist2: Showing[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
 
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3

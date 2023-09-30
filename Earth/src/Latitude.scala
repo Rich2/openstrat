@@ -48,7 +48,7 @@ object Latitude
     case i => new Latitude(i)
   }
 
-  implicit val showTEv: ShowT[Latitude] = Showeding("Latitude")
+  implicit val showTEv: Showing[Latitude] = Showeding("Latitude")
 
   implicit val eqTImplicit: EqT[Latitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
   implicit val approxTImplicit: ApproxAngleT[Latitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)

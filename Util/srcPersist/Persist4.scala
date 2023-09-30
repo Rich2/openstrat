@@ -10,8 +10,8 @@ trait PersistBase4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2,
   /** The optional default value for parameter 4. */
   def opt4: Option[A4]
 
-  /** The declaration here allows the same field to be to cover [[ShowT]][A4] [[UnShow]][A4] and [[Persist]][A4]. */
-  def persist4: ShowT[A4] | Unshow[A4]
+  /** The declaration here allows the same field to be to cover [[Showing]][A4] [[UnShow]][A4] and [[Persist]][A4]. */
+  def persist4: Showing[A4] | Unshow[A4]
 }
 
 trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3, A4]
@@ -43,10 +43,10 @@ trait Show4ed[A1, A2, A3, A4] extends Any with ShowNed with PersistBase4[A1, A2,
   /** Element 4 of this 4 element Show product. */
   def show4: A4
 
-  override def persist1: ShowT[A1]
-  override def persist2: ShowT[A2]
-  override def persist3: ShowT[A3]
-  override def persist4: ShowT[A4]
+  override def persist1: Showing[A1]
+  override def persist2: Showing[A2]
+  override def persist3: Showing[A3]
+  override def persist4: Showing[A4]
 
   final override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr, persist3.typeStr, persist4.typeStr)
@@ -64,7 +64,7 @@ object Show4T
 {
   class Show4TImp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4]) extends Show4T[A1, A2, A3, A4, R] //with TypeStr4Plus[A1, A2, A3, A4]
+    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2], ev3: Showing[A3], ev4: Showing[A4]) extends Show4T[A1, A2, A3, A4, R] //with TypeStr4Plus[A1, A2, A3, A4]
   {
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -81,10 +81,10 @@ object Show4T
 /** Show classes with 4 [[Int]] parameters. */
 trait ShowInt4Ed extends Any with Show4ed[Int, Int, Int, Int]
 { final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Int] = ShowT.intPersistEv
-  final override implicit def persist2: Persist[Int] = ShowT.intPersistEv
-  final override implicit def persist3: Persist[Int] = ShowT.intPersistEv
-  final override implicit def persist4: Persist[Int] = ShowT.intPersistEv
+  final override implicit def persist1: Persist[Int] = Showing.intPersistEv
+  final override implicit def persist2: Persist[Int] = Showing.intPersistEv
+  final override implicit def persist3: Persist[Int] = Showing.intPersistEv
+  final override implicit def persist4: Persist[Int] = Showing.intPersistEv
 }
 
 /** Produces [[Show4T]] instances for types that extend [[Show4ed]]. */
@@ -161,10 +161,10 @@ object Persist4
 }
 
 trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R]
-{ override def persist1: Persist[Int] = ShowT.intPersistEv
-  override def persist2: Persist[Int] = ShowT.intPersistEv
-  override def persist3: Persist[Int] = ShowT.intPersistEv
-  override def persist4: Persist[Int] = ShowT.intPersistEv
+{ override def persist1: Persist[Int] = Showing.intPersistEv
+  override def persist2: Persist[Int] = Showing.intPersistEv
+  override def persist3: Persist[Int] = Showing.intPersistEv
+  override def persist4: Persist[Int] = Showing.intPersistEv
 }
 
 /** Companion object for [[PersistInt4]] trait contains implementation class and factory apply method. */

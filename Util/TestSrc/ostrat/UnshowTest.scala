@@ -8,8 +8,8 @@ case class ExUA(a: Int = 0, b: String = "blah") extends Show2ed[Int, String]
   override def typeStr: String = "ExUA"
   override def show1: Int = a
   override def show2: String = b
-  override def showT1: ShowT[Int] = ShowT.intPersistEv
-  override def showT2: ShowT[String] = ShowT.stringPersistEv
+  override def showT1: Showing[Int] = Showing.intPersistEv
+  override def showT2: Showing[String] = Showing.stringPersistEv
   override def name1: String = "a"
   override def name2: String = "b"
 
@@ -27,9 +27,9 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3
   override def show1: ExUA = a
   override def show2: String = b
   override def show3: Int = c
-  override def persist1: ShowT[ExUA] = ExUA.persistEv
-  override def showT2: ShowT[String] = ShowT.stringPersistEv
-  override def persist3: ShowT[Int] = ShowT.intPersistEv
+  override def persist1: Showing[ExUA] = ExUA.persistEv
+  override def showT2: Showing[String] = Showing.stringPersistEv
+  override def persist3: Showing[Int] = Showing.intPersistEv
   override def name1: String = "a"
   override def name2: String = "b"
   override def name3: String = "c"

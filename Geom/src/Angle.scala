@@ -8,7 +8,7 @@ package ostrat; package geom
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
 { override def typeStr: String = "Angle"
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
   override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
   { case ShowTyped => typeStr + degs.str.enParenth
     case _ =>  degs.str.enParenth

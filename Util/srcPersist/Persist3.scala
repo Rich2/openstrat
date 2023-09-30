@@ -10,8 +10,8 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
   /** The optional default value for parameter 3. */
   def opt3: Option[A3]
 
-  /** The declaration here allows the same field to be to cover [[ShowT]][A3] [[UnShow]][A3] and [[Persist]][A3]. */
-  def persist3: ShowT[A3] | Unshow[A3]
+  /** The declaration here allows the same field to be to cover [[Showing]][A3] [[UnShow]][A3] and [[Persist]][A3]. */
+  def persist3: Showing[A3] | Unshow[A3]
 }
 
 trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
@@ -38,9 +38,9 @@ trait Show3ed[A1, A2, A3] extends Any with ShowNed with PersistBase3[A1, A2, A3]
   /** Element 3 of this 3 element Show product. */
   def show3: A3
 
-  override def persist1: ShowT[A1]
-  override def persist2: ShowT[A2]
-  override def persist3: ShowT[A3]
+  override def persist1: Showing[A1]
+  override def persist2: Showing[A2]
+  override def persist3: Showing[A3]
 
   override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr, persist3.typeStr)
@@ -55,17 +55,17 @@ trait Show3ed[A1, A2, A3] extends Any with ShowNed with PersistBase3[A1, A2, A3]
 /** Show classes with 3 [[Int]] parameters. */
 trait ShowInt3Ed extends Any with Show3ed[Int, Int, Int]
 { final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Int] = ShowT.intPersistEv
-  final override implicit def persist2: Persist[Int] = ShowT.intPersistEv
-  final override implicit def persist3: Persist[Int] = ShowT.intPersistEv
+  final override implicit def persist1: Persist[Int] = Showing.intPersistEv
+  final override implicit def persist2: Persist[Int] = Showing.intPersistEv
+  final override implicit def persist3: Persist[Int] = Showing.intPersistEv
 }
 
 /** Show classes with 3 [[Double]] parameters. */
 trait ShowDbl3Ed extends Any with Show3ed[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Double] = ShowT.doublePersistEv
-  final override implicit def persist2: Persist[Double] = ShowT.doublePersistEv
-  final override implicit def persist3: Persist[Double] = ShowT.doublePersistEv
+  final override implicit def persist1: Persist[Double] = Showing.doublePersistEv
+  final override implicit def persist2: Persist[Double] = Showing.doublePersistEv
+  final override implicit def persist3: Persist[Double] = Showing.doublePersistEv
 }
 
 /** Trait for Show for product of 3[[Int]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDbl3Eding]]
@@ -92,12 +92,12 @@ trait Show3T[A1, A2, A3, R] extends  ShowNT[R]
 object Show3T
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3]):
+    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2], ev3: Showing[A3]):
   Show3T[A1, A2, A3, R] = new Show3TImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
 
   class Show3TImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: ShowT[A1], val ev2: ShowT[A2], val ev3: ShowT[A3]) extends Show3T[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
+    implicit val ev1: Showing[A1], val ev2: Showing[A2], val ev3: Showing[A3]) extends Show3T[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -218,9 +218,9 @@ object Persist3
 
 /** Trait for [[Persist3]] where all three elements are [[Int]]s */
 trait PersistInt3[R] extends Persist3[Int, Int, Int, R]
-{ override def persist1: Persist[Int] = ShowT.intPersistEv
-  override def persist2: Persist[Int] = ShowT.intPersistEv
-  override def persist3: Persist[Int] = ShowT.intPersistEv
+{ override def persist1: Persist[Int] = Showing.intPersistEv
+  override def persist2: Persist[Int] = Showing.intPersistEv
+  override def persist3: Persist[Int] = Showing.intPersistEv
 }
 
 /** Companion object for [[PersistInt3]] trait contains implementation class and factory apply method. */
@@ -273,9 +273,9 @@ class PersistInt3ed[R <: ShowInt3Ed](val typeStr: String, val name1: String, val
   Persist3[Int, Int, Int, R] with PersistShowN[R] with ShowInt3Eding[R]
 { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-  override def persist1: Persist[Int] = ShowT.intPersistEv
-  override def persist2: Persist[Int] = ShowT.intPersistEv
-  override def persist3: Persist[Int] = ShowT.intPersistEv
+  override def persist1: Persist[Int] = Showing.intPersistEv
+  override def persist2: Persist[Int] = Showing.intPersistEv
+  override def persist3: Persist[Int] = Showing.intPersistEv
 }
 
 /** Persistence class for types that extend [[ShowDbl3Ed]]. */
@@ -284,7 +284,7 @@ class PersistDbl3ed[R <: ShowDbl3Ed](val typeStr: String, val name1: String, val
   Persist3[Double, Double, Double, R] with PersistShowN[R] with ShowDbl3Eding[R]
 { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  override def persist1: Persist[Double] = ShowT.doublePersistEv
-  override def persist2: Persist[Double] = ShowT.doublePersistEv
-  override def persist3: Persist[Double] = ShowT.doublePersistEv
+  override def persist1: Persist[Double] = Showing.doublePersistEv
+  override def persist2: Persist[Double] = Showing.doublePersistEv
+  override def persist3: Persist[Double] = Showing.doublePersistEv
 }

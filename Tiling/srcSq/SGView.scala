@@ -12,8 +12,8 @@ class SGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Show2ed[SqC
   inline override def show1: SqCoord = hCoord
   override def name2: String = "pxScale"
   inline override def show2: Double = pixelsPerC
-  override implicit def persist1: ShowT[SqCoord] = SqCoord.persistImplicit
-  override implicit def persist2: ShowT[Double] = ShowT.doublePersistEv
+  override implicit def persist1: Showing[SqCoord] = SqCoord.persistImplicit
+  override implicit def persist2: Showing[Double] = Showing.doublePersistEv
   override def syntaxDepth: Int = 3
 }
 

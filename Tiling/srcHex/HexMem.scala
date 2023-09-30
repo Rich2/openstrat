@@ -16,6 +16,6 @@ object HexMem
 trait HexMemShow[A] extends HexMem[A] with Show2ed[HCen, A]
 { override def show1: HCen = hc
   override def name1: String = "hCen"
-  override implicit def persist1: ShowT[HCen] = HCen.persistEv
+  override implicit def persist1: Showing[HCen] = HCen.persistEv
   override def show2: A = value
 }

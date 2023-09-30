@@ -378,7 +378,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     res
   }
 
-  def out(gridSys: HGridSys)(implicit showA: ShowT[A]): String = {
+  def out(gridSys: HGridSys)(implicit showA: Showing[A]): String = {
 //    val rows = gridSys.mapRows{r => r.str + gridSys.r ""}
     ""
   }
@@ -391,7 +391,7 @@ object HCenOptLayer
   /** New hex tile data layer of optional data for this [[HGridSys]]. */
   def apply[A <: AnyRef](gSys: HGridSys)(implicit ct: ClassTag[A]): HCenOptLayer[A] = new HCenOptLayer(new Array[A](gSys.numTiles))
 
-  implicit def showEv[A <: AnyRef](gridSys: HGridSys, evA: ShowT[A]): ShowT[HCenOptLayer[A]] = new ShowT[HCenOptLayer[A]]
+  implicit def showEv[A <: AnyRef](gridSys: HGridSys, evA: Showing[A]): Showing[HCenOptLayer[A]] = new Showing[HCenOptLayer[A]]
   {
     override def typeStr: String = "HCenOptLayer"
 

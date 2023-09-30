@@ -74,7 +74,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
 object IntArr
 { def apply(input: Int*): IntArr = new IntArr(input.toArray)
 
-  implicit val showImplicit: ShowT[IntArr] = new ArrShowT[Int, IntArr](ShowT.intPersistEv)// ShowT ???// DataGenShowT[Int, IntArr](ShowT.intPersistEv)
+  implicit val showImplicit: Showing[IntArr] = new ArrShowT[Int, IntArr](Showing.intPersistEv)// ShowT ???// DataGenShowT[Int, IntArr](ShowT.intPersistEv)
 
   implicit val eqImplicit: EqT[IntArr] = (a1, a2) =>
     if(a1.length != a2.length) false

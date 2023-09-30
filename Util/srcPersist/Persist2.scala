@@ -17,11 +17,11 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   /** The optional default value for parameter 2. */
   def opt2: Option[A2]
 
-  /** The declaration here allows the same field to cover [[ShowT]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
-  def persist1: ShowT[A1] | Unshow[A1]
+  /** The declaration here allows the same field to cover [[Showing]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
+  def persist1: Showing[A1] | Unshow[A1]
 
-  /** The declaration here allows the same field to be to cover [[ShowT]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
-  def persist2: ShowT[A2] | Unshow[A2]
+  /** The declaration here allows the same field to be to cover [[Showing]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
+  def persist2: Showing[A2] | Unshow[A2]
 }
 
 /** A base trait for [[Show2ed]] and [[UnShow2]]. It is not a base trait for [[Show2T]], as [[Show2eding]] classes do not need this data, as they can
@@ -50,8 +50,8 @@ trait Show2ed[A1, A2] extends Any with ShowNed with PersistBase2[A1, A2]
   /** Element 2 of this Show 2 element product. */
   def show2: A2
 
-  override def persist1: ShowT[A1]
-  override def persist2: ShowT[A2]
+  override def persist1: Showing[A1]
+  override def persist2: Showing[A2]
 
   override def paramNames: StrArr = StrArr(name1, name2)
   def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr)
@@ -69,8 +69,8 @@ trait Show2ed[A1, A2] extends Any with ShowNed with PersistBase2[A1, A2]
  *  which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  *  [[Show2T]]. */
 trait ShowInt2Ed extends Any with Show2ed[Int, Int]
-{ final override implicit def persist1: ShowT[Int] = ShowT.intPersistEv
-  final override implicit def persist2: ShowT[Int] = ShowT.intPersistEv
+{ final override implicit def persist1: Showing[Int] = Showing.intPersistEv
+  final override implicit def persist2: Showing[Int] = Showing.intPersistEv
   final override def syntaxDepth: Int = 2
 }
 
@@ -85,8 +85,8 @@ trait ShowElemInt2 extends Any with ShowInt2Ed with Int2Elem
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
  * and show2 properties, unless the class extends [[ShowElemDbl2]]. */
 trait ShowDbl2Ed extends Any with Show2ed[Double, Double]
-{ final override implicit def persist1: ShowT[Double] = ShowT.doublePersistEv
-  final override implicit def persist2: ShowT[Double] = ShowT.doublePersistEv
+{ final override implicit def persist1: Showing[Double] = Showing.doublePersistEv
+  final override implicit def persist2: Showing[Double] = Showing.doublePersistEv
   final override def syntaxDepth: Int = 2
 }
 
@@ -102,19 +102,19 @@ trait ShowElemDbl2 extends Any with ShowDbl2Ed with Dbl2Elem
 trait Show2T[A1, A2, R] extends ShowNT[R]
 { def fArg1: R => A1
   def fArg2: R => A2
-  implicit def persist1: ShowT[A1]
-  implicit def persist2: ShowT[A2]
+  implicit def persist1: Showing[A1]
+  implicit def persist2: Showing[A2]
 }
 
 /** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */
 object Show2T
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2]): Show2T[A1, A2, R] =
+    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2]): Show2T[A1, A2, R] =
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val persist1: ShowT[A1], val persist2: ShowT[A2]) extends Show2T[A1, A2, R] //with TypeStr2Plus[A1,A2]
+    opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2T[A1, A2, R] //with TypeStr2Plus[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))) + 1
 
@@ -125,7 +125,7 @@ object Show2T
 
 class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 {
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
     String = ???
 }
@@ -140,18 +140,18 @@ trait Show2eding[A1, A2, R <: Show2ed[A1, A2]] extends Show2T[A1, A2, R] with Sh
 object Show2eding
 {
   def apply[A1, A2, R<: Show2ed[A1, A2]](typeStr: String)(
-    implicit ev1: ShowT[A1], ev2: ShowT[A2]): Show2eding[A1, A2, R] =
+    implicit ev1: Showing[A1], ev2: Showing[A2]): Show2eding[A1, A2, R] =
     new Show2edingImp[A1, A2, R](typeStr)
 
   /** Implementation class for the general cases of the [[Show2eding]] trait. */
-  class Show2edingImp[A1, A2, R<: Show2ed[A1, A2]](val typeStr: String)(implicit val persist1: ShowT[A1], val persist2: ShowT[A2]) extends
+  class Show2edingImp[A1, A2, R<: Show2ed[A1, A2]](val typeStr: String)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends
     Show2eding[A1, A2, R]
 }
 
 /** A trait for making quick ShowT instances for [[ShowDbl2Ed]] types. It uses the functionality of the [[ShowDbl2Ed]]. */
 trait ShowDbl2Eding[R <: ShowDbl2Ed] extends Show2eding[Double, Double, R]
-{ override implicit def persist1: Persist[Double] = ShowT.doublePersistEv
-  override implicit def persist2: Persist[Double] = ShowT.doublePersistEv
+{ override implicit def persist1: Persist[Double] = Showing.doublePersistEv
+  override implicit def persist2: Persist[Double] = Showing.doublePersistEv
 }
 
 object ShowDbl2Eding
@@ -164,8 +164,8 @@ object ShowDbl2Eding
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
 trait ShowInt2Eding[R <: ShowInt2Ed] extends Show2eding[Int, Int, R]
-{ override implicit def persist1: Persist[Int] = ShowT.intPersistEv
-  override implicit def persist2: Persist[Int] = ShowT.intPersistEv
+{ override implicit def persist1: Persist[Int] = Showing.intPersistEv
+  override implicit def persist2: Persist[Int] = Showing.intPersistEv
 }
 
 object ShowInt2Eding
