@@ -107,23 +107,23 @@ trait Show2ing[A1, A2, R] extends ShowNing[R]
   def fArg2: R => A2
   implicit def persist1: Showing[A1]
   implicit def persist2: Showing[A2]
+
+  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
+    StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces, 0), persist2.showDecT(fArg2(obj), way, maxPlaces, 0))
 }
 
 /** Companion object for the [[Show2ing]] type class trait that shows object with 2 logical fields. */
 object Show2ing
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2]): Show2ing[A1, A2, R] =
+    opt1In: Option[A1] = None)(implicit persist1: Showing[A1], persist2: Showing[A2]): Show2ing[A1, A2, R] =
     new Show2ingImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   /** Implementation class for the general cases of [[Show2ing]] trait. */
   class Show2ingImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2ing[A1, A2, R] //with TypeStr2Plus[A1,A2]
+    opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2ing[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))) + 1
-
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces, 0), persist2.showDecT(fArg2(obj), way, maxPlaces, 0))
   }
 }
 
@@ -139,10 +139,19 @@ class Show2ingExtensions[A1, A2, -T](ev: Show2ing[A1, A2, T], thisVal: T)
 trait ShowInt2ing[R] extends Show2ing[Int, Int, R]
 { override def persist1: Persist[Int] = Showing.intPersistEv
   override def persist2: Persist[Int] = Showing.intPersistEv
+  override def syntaxDepthT(obj: R): Int = 2
 }
 
-object ShowInt2ing{
+object ShowInt2ing
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, opt2: Option[Int] = None, opt1In: Option[Int] = None):
+    ShowInt2ing[R] = new ShowInt2ingImp[R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
+  /** Implementation class for the general cases of [[ShowInt2ing]] trait. */
+  class ShowInt2ingImp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val opt2: Option[Int] = None,
+    opt1In: Option[Int] = None) extends ShowInt2ing[R]
+  { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 /** Type class trait for Showing [[Show2ed]] objects. */
@@ -247,6 +256,17 @@ object Persist2
 
 trait PersistInt2[R] extends Persist2[Int, Int, R] with ShowInt2ing[R]
 
+object PersistInt2ing
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R, opt2: Option[Int] = None,
+    opt1In: Option[Int] = None): ShowInt2ing[R] = new PersistInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1In)
+
+  /** Implementation class for the general cases of [[ShowInt2ing]] trait. */
+  class PersistInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
+    val newT: (Int, Int) => R, val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R]
+  { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
 /** Persist type class for types that extends [[Show2ed]]. */
 trait Persist2ed[A1, A2, R <: Show2ed[A1, A2]] extends Persist2[A1, A2, R] with Show2eding[A1, A2, R]
 
