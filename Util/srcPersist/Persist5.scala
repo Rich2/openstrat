@@ -19,18 +19,6 @@ trait PersistBase5[A1, A2, A3, A4, A5] extends Any with PersistBase5Plus[A1, A2,
   override def numParams: Int = 5
 }
 
-
-/** [[Showed]] trait for classes with 5+ Show parameters. */
-trait Show5Plused[A1, A2, A3, A4, A5] extends Any with Show4Plused[A1, A2, A3, A4] with PersistBase5Plus[A1, A2, A3, A4, A5]
-{ /** The optional default value for parameter 5. */
-  override def opt5: Option[A5] = None
-
-  /** Element 5 of this 5+ element Show product. */
-  def show5: A5
-
-  override def persist5: Showing[A5]
-}
-
 /** [[Showing]] type class for 5 parameter case classes. */
 trait Show5ing[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] with ShowNing[R]
 { override def persist1: Showing[A1]

@@ -19,19 +19,13 @@ trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3,
   override def numParams: Int = 4
 }
 
-/** [[Showed]] trait for classes with 4+ Show parameters. */
-trait Show4Plused[A1, A2, A3, A4] extends Any with Show3Plused[A1, A2, A3] with PersistBase4Plus[A1, A2, A3, A4]
-{ /** The optional default value for parameter 4. */
-  override def opt4: Option[A4] = None
-
-  /** Element 4 of this 4+ element Show product. */
-  def show4: A4
-
-  override def persist4: Showing[A4]
-}
-
 /** Show type class for 4 parameter case classes. */
 trait Show4ing[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowNing[R]
+{ override def persist1: Showing[A1]
+  override def persist2: Showing[A2]
+  override def persist3: Showing[A3]
+  override def persist4: Showing[A4]
+}
 
 object Show4ing
 { /** Implementation class for the [[Show4ing]] trait. */
