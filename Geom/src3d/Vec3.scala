@@ -28,5 +28,5 @@ object Vec3
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
   /** implicit [[Persist]] type class intance / evidence for [[Vec3]]. */
- implicit val persistEv: PersistDbl3ed[Vec3] = new PersistDbl3ed[Vec3]("Vec3", "x", "y", "z", apply)
+ implicit val persistEv: PersistDbl3[Vec3] = new PersistDbl3[Vec3]("Vec3", "x", _.x, "y", _.y, "z", _.z, apply)
 }

@@ -64,5 +64,5 @@ object Pt3
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
   /** Implicit [[Persist]] instance / evidence for [[Pt3]]s. */
-  implicit val persistEv: PersistDbl3ed[Pt3] = new PersistDbl3ed[Pt3]("Pt3", "x", "y", "z", apply)
+  implicit val persistEv: PersistDbl3[Pt3] = new PersistDbl3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)
 }

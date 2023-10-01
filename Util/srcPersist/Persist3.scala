@@ -294,18 +294,7 @@ object Persist3ed
 }
 
 /** Persistence class for types that extend [[ShowDbl3Ed]]. */
-class PersistDbl3ed[R <: ShowDbl3Ed](val typeStr: String, val name1: String, val name2: String, val name3: String,
-  val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
-  Persist3[Double, Double, Double, R] with PersistShowN[R] with ShowDbl3Eding[R]
-{ val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
-  val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  override def persist1: Persist[Double] = Showing.doublePersistEv
-  override def persist2: Persist[Double] = Showing.doublePersistEv
-  override def persist3: Persist[Double] = Showing.doublePersistEv
-}
-
-/** Persistence class for types that extend [[ShowDbl3Ed]]. */
-class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, fArg2: R => Double, val name3: String,
+class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
   val fArg3: R => Double, val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None,
   opt1In: Option[Double] = None) extends Persist3[Double, Double, Double, R] with ShowDbl3ing[R]
 { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
@@ -316,4 +305,11 @@ class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Dou
 
   override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
     StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces), persist3.showDecT(fArg3(obj), way, maxPlaces))
+}
+
+object PersistDbl3
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
+    newT: (Double, Double, Double) => R, opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None): PersistDbl3[R] =
+    new PersistDbl3[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)
 }
