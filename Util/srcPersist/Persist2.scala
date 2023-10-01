@@ -141,6 +141,10 @@ trait ShowInt2ing[R] extends Show2ing[Int, Int, R]
   override def persist2: Persist[Int] = Showing.intPersistEv
 }
 
+object ShowInt2ing{
+
+}
+
 /** Type class trait for Showing [[Show2ed]] objects. */
 trait Show2eding[A1, A2, R <: Show2ed[A1, A2]] extends Show2ing[A1, A2, R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
