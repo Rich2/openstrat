@@ -58,9 +58,7 @@ trait ShowInt4Ed extends Any with Show4ed[Int, Int, Int, Int]
 trait Show4ing[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowNing[R]
 {
 
-  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
-  //StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
-    //persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
+
 }
 
 object Show4ing
@@ -76,6 +74,8 @@ object Show4ing
     final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
       max(persist4.syntaxDepthT(fArg4(obj))) + 1
 
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
+     persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
   }
 }
 
@@ -94,11 +94,15 @@ object ShowInt4ing
     opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):
   ShowInt4ingImp[R] = new ShowInt4ingImp[R](typeStr, name1, name2, name3, name4, opt4, opt3, opt2, opt1)
 */
-  class ShowInt4ingImp[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
-    val opt4: Option[Int], opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt4ing[R] {
-    val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
+  class ShowInt4ingImp[R](val typeStr: String, val name1: String, fArg1: R => Int, val name2: String, fArg2: R => Int, val name3: String,
+    fArg3: R => Int, val name4: String, fArg4: R => Int, val opt4: Option[Int], opt3In: Option[Int] = None, opt2In: Option[Int] = None,
+    opt1In: Option[Int] = None) extends ShowInt4ing[R]
+  { val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
+      persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
   }
 }
 

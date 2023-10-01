@@ -124,8 +124,6 @@ object Show2ing
     opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2]) extends Show2ing[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))) + 1
-
-
   }
 }
 
