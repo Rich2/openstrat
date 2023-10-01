@@ -140,28 +140,6 @@ object ShowInt3ing
 /** Produces [[Show3ing]] instances for types that extend [[Show3ed]]. */
 trait Show3eding[A1, A2, A3, R <: Show3ed[A1, A2, A3]] extends Show3ing[A1, A2, A3, R] with ShowNeding[R]
 
-/** Produces [[ShowInt3T]] instances for types that extend [[ShowInt3Ed]]. */
-trait ShowInt3Eding[R <: ShowInt3Ed] extends Show3eding[Int, Int, Int, R] with ShowNing[R]
-{ override implicit def persist1: Persist[Int] = Showing.intPersistEv
-  override implicit def persist2: Persist[Int] = Showing.intPersistEv
-  override implicit def persist3: Persist[Int] = Showing.intPersistEv
-  final def syntaxDepth: Int = 2
-}
-
-object ShowInt3Eding
-{ /** Factory apply method for creating quick ShowDecT instances for products of 3 Ints. */
-  def apply[R <: ShowInt3Ed](typeStr: String, name1: String, name2: String, name3: String, opt3: Option[Int] = None, opt2In: Option[Int] = None,
-    opt1In: Option[Int] = None):
-  ShowInt3edingImp[R] = new ShowInt3edingImp[R](typeStr, name1, name2, name3, opt3, opt2In, opt1In)
-
-  class ShowInt3edingImp[R <: ShowInt3Ed](val typeStr: String, val name1: String, val name2: String, val name3: String, val opt3: Option[Int] = None,
-    opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt3Eding[R]
-  { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-
-  }
-}
-
 trait ShowDbl3Eding[R <: ShowDbl3Ed] extends Show3eding[Double, Double, Double, R] with ShowNing[R]
 
 object ShowDbl3Eding
@@ -301,14 +279,6 @@ object Persist3ed
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
-}
-
-/** Persistence class for types that extend [[ShowInt3Ed]]. */
-class PersistInt3ed[R <: ShowInt3Ed](val typeStr: String, val name1: String, val name2: String, val name3: String,
-  val newT: (Int, Int, Int) => R, val opt3: Option[Int] = None, val opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends
-  PersistInt3[R] with PersistShowN[R] with ShowInt3Eding[R]
-{ val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-  val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 
 /** Persistence class for types that extend [[ShowDbl3Ed]]. */
