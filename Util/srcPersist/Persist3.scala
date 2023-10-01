@@ -14,6 +14,7 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
   def persist3: Showing[A3] | Unshow[A3]
 }
 
+/** Common base trait for [[Show3ing]], [[Unshow3]] and [[Persist3]]. */
 trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
 { override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def numParams: Int = 3
@@ -263,15 +264,12 @@ object Persist3ed
   }
 }
 
-/** Persistence class for types that extend [[ShowDbl3Ed]]. */
+/** Persistence class for types that extend [[ShowInt3Ed]]. */
 class PersistInt3ed[R <: ShowInt3Ed](val typeStr: String, val name1: String, val name2: String, val name3: String,
   val newT: (Int, Int, Int) => R, val opt3: Option[Int] = None, val opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends
-  Persist3[Int, Int, Int, R] with PersistShowN[R] with ShowInt3Eding[R]
+  PersistInt3[R] with PersistShowN[R] with ShowInt3Eding[R]
 { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-  override def persist1: Persist[Int] = Showing.intPersistEv
-  override def persist2: Persist[Int] = Showing.intPersistEv
-  override def persist3: Persist[Int] = Showing.intPersistEv
 }
 
 /** Persistence class for types that extend [[ShowDbl3Ed]]. */

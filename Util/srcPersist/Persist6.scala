@@ -80,7 +80,7 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with PersistBase6Plu
   implicit override def persist3: Unshow[A3]
   implicit override def persist4: Unshow[A4]
   implicit override def persist5: Unshow[A5]
-  implicit def ev6: Unshow[A6]
+  implicit override def persist6: Unshow[A6]
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
@@ -89,7 +89,7 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with PersistBase6Plu
     def e3: EMon[A3] = ife(len > pSeq(2), persist3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
     def e4: EMon[A4] = ife(len > pSeq(3), persist4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
     def e5: EMon[A5] = ife(len > pSeq(4), persist5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toEMon)
-    def e6: EMon[A6] = ife(len > pSeq(5), ev6.fromSettingOrExpr(name6, sortedExprs(pSeq(5))), opt6.toEMon)
+    def e6: EMon[A6] = ife(len > pSeq(5), persist6.fromSettingOrExpr(name6, sortedExprs(pSeq(5))), opt6.toEMon)
     e1.map6(e2, e3, e4, e5, e6)(newT)
   }
 }

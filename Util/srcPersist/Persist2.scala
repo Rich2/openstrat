@@ -135,6 +135,12 @@ class Show2ingExtensions[A1, A2, -T](ev: Show2ing[A1, A2, T], thisVal: T)
     String = ???
 }
 
+/** [[Showing]] type class trait for types with 2 [[Int]] Show components. */
+trait ShowInt2ing[R] extends Show2ing[Int, Int, R]
+{ override def persist1: Persist[Int] = Showing.intPersistEv
+  override def persist2: Persist[Int] = Showing.intPersistEv
+}
+
 /** Type class trait for Showing [[Show2ed]] objects. */
 trait Show2eding[A1, A2, R <: Show2ed[A1, A2]] extends Show2ing[A1, A2, R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
@@ -168,10 +174,7 @@ object ShowDbl2Eding
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowInt2Eding[R <: ShowInt2Ed] extends Show2eding[Int, Int, R]
-{ override implicit def persist1: Persist[Int] = Showing.intPersistEv
-  override implicit def persist2: Persist[Int] = Showing.intPersistEv
-}
+trait ShowInt2Eding[R <: ShowInt2Ed] extends ShowInt2ing[R] with Show2eding[Int, Int, R]
 
 object ShowInt2Eding
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
@@ -238,6 +241,8 @@ object Persist2
   }
 }
 
+trait PersistInt2[R] extends Persist2[Int, Int, R] with ShowInt2ing[R]
+
 /** Persist type class for types that extends [[Show2ed]]. */
 trait Persist2ed[A1, A2, R <: Show2ed[A1, A2]] extends Persist2[A1, A2, R] with Show2eding[A1, A2, R]
 
@@ -254,9 +259,9 @@ object Persist2ed
   }
 }
 
-/** Persistence type class for types that extend [[ShowElemInt2]]. */
-class PersistInt2Ed[R <: ShowElemInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
-  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends Persist2ed[Int, Int, R] with ShowInt2Eding[R]
+/** Persistence type class for types that extend [[ShowInt2Ed]]. */
+class PersistInt2Ed[R <: ShowInt2Ed](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
+  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with Persist2ed[Int, Int, R] with ShowInt2Eding[R]
 { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 

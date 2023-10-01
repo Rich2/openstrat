@@ -40,7 +40,7 @@ trait ShowNing[R] extends ShowCompoundT[R] with Showing[R]
   }
 }
 
-/** [[Showing]] trait for types that extend [[ShowNed]] */
+/** [[Showing]] trait for types with N show fields that extend [[ShowNed]]. */
 trait ShowNeding[R <: ShowNed] extends ShowNing[R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }

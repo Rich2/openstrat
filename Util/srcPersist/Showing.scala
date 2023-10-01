@@ -230,6 +230,7 @@ sealed trait ShowTInstancesPriority2
   implicit def seqPersistImplicit[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
 }
 
+/** Extension methods for types with [[Showing]] type class instances. */
 class ShowingExtensions[-A](ev: Showing[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
   @inline def str: String = ev.strT(thisVal)

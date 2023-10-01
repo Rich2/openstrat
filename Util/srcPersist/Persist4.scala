@@ -24,7 +24,7 @@ trait Show4Plused[A1, A2, A3, A4] extends Any with Show3Plused[A1, A2, A3] with 
 { /** The optional default value for parameter 4. */
   override def opt4: Option[A4] = None
 
-  /** Element 4 of this 4 element Show product. */
+  /** Element 4 of this 4+ element Show product. */
   def show4: A4
 
   override def persist4: Showing[A4]
@@ -180,3 +180,8 @@ object PersistInt4
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
 }
+
+/*
+class PersistInt4ed[R <: ShowInt4Ed] extends PersistInt4[R] with ShowInt4Ed{
+
+}*/
