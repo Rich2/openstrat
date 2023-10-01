@@ -83,7 +83,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3Ed with Dbl3Elem
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3ing[A1, A2, A3, R] extends  ShowNing[R]
+trait Show3ing[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowNing[R]
 
 object Show3ing
 {
@@ -94,7 +94,7 @@ object Show3ing
   /** Implementation class for the general cases of the [[Show3ing]] trait. */
   class Show3ingImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: Showing[A1], val ev2: Showing[A2], val ev3: Showing[A3]) extends Show3ing[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
+    implicit val persist1: Showing[A1], val persist2: Showing[A2], val persist3: Showing[A3]) extends Show3ing[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -106,10 +106,34 @@ object Show3ing
       case _ => 3
     }
 
-    override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
+    override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(ev1.showDecT(fArg1(obj),way, maxPlaces), ev2.showDecT(fArg2(obj),way, maxPlaces), ev3.showDecT(fArg3(obj),way, maxPlaces))
+      StrArr(persist1.showDecT(fArg1(obj),way, maxPlaces), persist2.showDecT(fArg2(obj),way, maxPlaces), persist3.showDecT(fArg3(obj),way, maxPlaces))
+  }
+}
+/** [[Showing]] type class trait for types with 3 [[Int]] Show components. */
+trait ShowInt3ing[R] extends Show3ing[Int, Int, Int, R]
+{ override def persist1: Persist[Int] = Showing.intPersistEv
+  override def persist2: Persist[Int] = Showing.intPersistEv
+  override def persist3: Persist[Int] = Showing.intPersistEv
+  override def syntaxDepthT(obj: R): Int = 2
+}
+
+object ShowInt3ing
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int,
+    newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):ShowInt3ing[R] =
+    new ShowInt3ingImp[R](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, opt3, opt2, opt1)
+
+  /** Implementation class for the general cases of [[ShowInt2ing]] trait. */
+  class ShowInt3ingImp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
+    val fArg3: R => Int, val newT: (Int, Int, Int) => R, val opt3: Option[Int], val opt2In: Option[Int] = None,
+    opt1In: Option[Int] = None) extends ShowInt3ing[R]
+  { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
 }
 
@@ -118,6 +142,11 @@ trait Show3eding[A1, A2, A3, R <: Show3ed[A1, A2, A3]] extends Show3ing[A1, A2, 
 
 /** Produces [[ShowInt3T]] instances for types that extend [[ShowInt3Ed]]. */
 trait ShowInt3Eding[R <: ShowInt3Ed] extends Show3eding[Int, Int, Int, R] with ShowNing[R]
+{ override implicit def persist1: Persist[Int] = Showing.intPersistEv
+  override implicit def persist2: Persist[Int] = Showing.intPersistEv
+  override implicit def persist3: Persist[Int] = Showing.intPersistEv
+  final def syntaxDepth: Int = 2
+}
 
 object ShowInt3Eding
 { /** Factory apply method for creating quick ShowDecT instances for products of 3 Ints. */
@@ -129,6 +158,7 @@ object ShowInt3Eding
     opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt3Eding[R]
   { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+
   }
 }
 
@@ -143,6 +173,15 @@ object ShowDbl3Eding
     opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends ShowDbl3Eding[R]
   { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+
+    /** The declaration here allows the same field to be to cover [[Showing]][A3] [[UnShow]][A3] and [[Persist]][A3]. */
+    override def persist3: Persist[Double] =Showing.doublePersistEv
+
+    /** The declaration here allows the same field to cover [[Showing]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
+    override def persist1: Persist[Double] = Showing.doublePersistEv
+
+    /** The declaration here allows the same field to be to cover [[Showing]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
+    override def persist2: Persist[Double] = Showing.doublePersistEv
   }
 }
 
