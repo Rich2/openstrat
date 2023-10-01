@@ -45,40 +45,48 @@ trait Show4ed[A1, A2, A3, A4] extends Any with Show4Plused[A1, A2, A3, A4] with 
     persist3.showDecT(show3, way, decimalPlaces, 0), persist4.showDecT(show4, way, decimalPlaces, 0))
 }
 
+/** Show classes with 4 [[Int]] parameters. */
+trait ShowInt4Ed extends Any with Show4ed[Int, Int, Int, Int]
+{ final override def syntaxDepth: Int = 2
+  override implicit def persist1: Persist[Int] = Showing.intPersistEv
+  override implicit def persist2: Persist[Int] = Showing.intPersistEv
+  override implicit def persist3: Persist[Int] = Showing.intPersistEv
+  override implicit def persist4: Persist[Int] = Showing.intPersistEv
+}
+
 /** Show type class for 4 parameter case classes. */
-trait Show4ing[A1, A2, A3, A4, R] extends ShowNing[R]
+trait Show4ing[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowNing[R]
 
 object Show4ing
 { /** Implementation class for the [[Show4ing]] trait. */
   class Show4ingImp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: Showing[A1], ev2: Showing[A2], ev3: Showing[A3], ev4: Showing[A4]) extends Show4ing[A1, A2, A3, A4, R] //with TypeStr4Plus[A1, A2, A3, A4]
+    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Showing[A1], val persist2: Showing[A2], val persist3: Showing[A3],
+    val persist4: Showing[A4]) extends Show4ing[A1, A2, A3, A4, R]
   { val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
-      max(ev4.syntaxDepthT(fArg4(obj))) + 1
+    final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
+      max(persist4.syntaxDepthT(fArg4(obj))) + 1
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(ev1.showDecT(fArg1(obj), way, maxPlaces), ev2.showDecT(fArg2(obj), way, maxPlaces),
-      ev3.showDecT(fArg3(obj), way, maxPlaces), ev4.showDecT(fArg4(obj), way, maxPlaces))
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
+      persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
   }
 }
 
-/** Show classes with 4 [[Int]] parameters. */
-trait ShowInt4Ed extends Any with Show4ed[Int, Int, Int, Int]
-{ final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Int] = Showing.intPersistEv
-  final override implicit def persist2: Persist[Int] = Showing.intPersistEv
-  final override implicit def persist3: Persist[Int] = Showing.intPersistEv
-  final override implicit def persist4: Persist[Int] = Showing.intPersistEv
+trait ShowInt4ing[R] extends Show4ing[Int, Int, Int, Int, R]
+{ override def persist1: Persist[Int] = Showing.intPersistEv
+  override def persist2: Persist[Int] = Showing.intPersistEv
+  override def persist3: Persist[Int] = Showing.intPersistEv
+  override def persist4: Persist[Int] = Showing.intPersistEv
 }
 
 /** Produces [[Show4ing]] instances for types that extend [[Show4ed]]. */
 trait Show4eding[A1, A2, A3, A4, R <: Show4ed[A1, A2, A3, A4]] extends Show4ing[A1, A2, A3, A4, R] with ShowNeding[R]
 
 /** Produces [[ShowInt4T]] instances for types that extend [[ShowInt4Ed]]. */
-trait ShowInt4eding[R <: ShowInt4Ed] extends Show4eding[Int, Int, Int, Int, R] with ShowNing[R]
+trait ShowInt4eding[R <: ShowInt4Ed] extends ShowInt4ing[R] with Show4eding[Int, Int, Int, Int, R] with ShowNing[R]
 
 object ShowInt4eding
 { /** Factory apply method for creating quick ShowDecT instances for products of 4 Ints. */
