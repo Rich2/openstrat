@@ -85,7 +85,7 @@ object ShowInt3ing
     newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):ShowInt3ing[R] =
     new ShowInt3ingImp[R](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, opt3, opt2, opt1)
 
-  /** Implementation class for the general cases of [[ShowInt2ing]] trait. */
+  /** Implementation class for the general cases of [[ShowInt2]] trait. */
   class ShowInt3ingImp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
     val fArg3: R => Int, val newT: (Int, Int, Int) => R, val opt3: Option[Int], val opt2In: Option[Int] = None,
     opt1In: Option[Int] = None) extends ShowInt3ing[R]

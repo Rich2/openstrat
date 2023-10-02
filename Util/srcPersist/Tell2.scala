@@ -86,7 +86,7 @@ object ShowTellDbl2
 }
 
 /** A trait for making quick ShowT instances for [[TellElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowTellInt2[R <: TellInt2] extends ShowInt2ing[R] with ShowTell2[Int, Int, R]
+trait ShowTellInt2[R <: TellInt2] extends ShowInt2[R] with ShowTell2[Int, Int, R]
 
 object ShowTellInt2
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */

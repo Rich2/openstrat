@@ -77,7 +77,7 @@ object Show2
 }
 
 /** Extension methods for [[Show2]] type class instances. */
-class Show2ingExtensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
+class Show2Extensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
@@ -85,20 +85,20 @@ class Show2ingExtensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
 }
 
 /** [[Show]] type class trait for types with 2 [[Int]] Show components. */
-trait ShowInt2ing[R] extends Show2[Int, Int, R]
+trait ShowInt2[R] extends Show2[Int, Int, R]
 { override def persist1: Persist[Int] = Show.intPersistEv
   override def persist2: Persist[Int] = Show.intPersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
-object ShowInt2ing
+object ShowInt2
 {
   def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, opt2: Option[Int] = None, opt1In: Option[Int] = None):
-    ShowInt2ing[R] = new ShowInt2ingImp[R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
+    ShowInt2[R] = new ShowInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
-  /** Implementation class for the general cases of [[ShowInt2ing]] trait. */
-  class ShowInt2ingImp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val opt2: Option[Int] = None,
-    opt1In: Option[Int] = None) extends ShowInt2ing[R]
+  /** Implementation class for the general cases of [[ShowInt2]] trait. */
+  class ShowInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val opt2: Option[Int] = None,
+    opt1In: Option[Int] = None) extends ShowInt2[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -157,19 +157,20 @@ object Persist2
   }
 }
 
-trait PersistInt2[R] extends Persist2[Int, Int, R] with ShowInt2ing[R]
+trait PersistInt2[R] extends Persist2[Int, Int, R] with ShowInt2[R]
 
-object PersistInt2ing
+object PersistInt2
 {
   def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R, opt2: Option[Int] = None,
-    opt1In: Option[Int] = None): ShowInt2ing[R] = new PersistInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1In)
+    opt1In: Option[Int] = None): ShowInt2[R] = new PersistInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1In)
 
-  /** Implementation class for the general cases of [[ShowInt2ing]] trait. */
+  /** Implementation class for the general cases of [[ShowInt2]] trait. */
   class PersistInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
     val newT: (Int, Int) => R, val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
+
 /** Persist type class for types that extends [[Tell2]]. */
 trait Persist2ed[A1, A2, R <: Tell2[A1, A2]] extends Persist2[A1, A2, R] with ShowTell2[A1, A2, R]
 
