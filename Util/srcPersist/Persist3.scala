@@ -149,32 +149,6 @@ object ShowInt3ing
   }
 }
 
-/** Produces [[Show3ing]] instances for types that extend [[Show3ed]]. */
-trait Show3eding[A1, A2, A3, R <: Show3ed[A1, A2, A3]] extends Show3ing[A1, A2, A3, R] with ShowNeding[R]
-
-trait ShowDbl3Eding[R <: ShowDbl3Ed] extends Show3eding[Double, Double, Double, R] with ShowNing[R]
-
-object ShowDbl3Eding
-{ /** Factory apply method for creating quick ShowDecT instances for products of 3 Doubles. */
-  def apply[R <: ShowElemDbl3](typeStr: String, name1: String, name2: String, name3: String, opt2: Option[Double] = None, opt1In: Option[Double] = None):
-  ShowShowDbl3TImp[R] = new ShowShowDbl3TImp[R](typeStr, name1, name2, name3, opt2, opt1In)
-
-  class ShowShowDbl3TImp[R <: ShowDbl3Ed](val typeStr: String, val name1: String, val name2: String, val name3: String, val opt3: Option[Double] = None,
-    opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends ShowDbl3Eding[R]
-  { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-
-    /** The declaration here allows the same field to be to cover [[Showing]][A3] [[UnShow]][A3] and [[Persist]][A3]. */
-    override def persist3: Persist[Double] =Showing.doublePersistEv
-
-    /** The declaration here allows the same field to cover [[Showing]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
-    override def persist1: Persist[Double] = Showing.doublePersistEv
-
-    /** The declaration here allows the same field to be to cover [[Showing]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
-    override def persist2: Persist[Double] = Showing.doublePersistEv
-  }
-}
-
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with PersistBase3[A1, A2, A3]
 { override def persist1: Unshow[A1]
@@ -272,24 +246,6 @@ object PersistInt3
     override def syntaxDepthT(obj: R): Int = ???
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
-  }
-}
-
-/** [[Persist]] trait for types that extend [[Show3ed]]. */
-trait Persist3ed[A1, A2, A3, R <: Show3ed[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with Show3eding[A1, A2, A3, R]
-
-/** Companion object for the [[Persist3ed]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
-object Persist3ed
-{ /** Factory apply method for [[Persist3ed]], that Persists [[ShowDec3]] objects. */
-  def apply[A1, A2, A3, R <: Show3ed[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
-    opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2], ev3In: Persist[A3]):
-    Persist3ed[A1, A2, A3, R] = new PersistShow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3,opt2, opt1)
-
-  class PersistShow3Imp[A1, A2, A3, R <: Show3ed[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
-    val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: Persist[A1], val persist2: Persist[A2], val persist3: Persist[A3]) extends Persist3ed[A1, A2, A3, R]
-  { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
