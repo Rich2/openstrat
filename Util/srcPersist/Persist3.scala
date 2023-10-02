@@ -64,20 +64,8 @@ trait ShowDbl3Ed extends Any with Show3ed[Double, Double, Double]
   final override implicit def persist3: Persist[Double] = Showing.doublePersistEv
 }
 
-/** Trait for Show for product of 3[[Double]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDbl3Eding]]
- *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show3ing]]. */
-trait ShowElemDbl3 extends Any with ShowDbl3Ed with Dbl3Elem
-{ final override def dbl1: Double = show1
-  final override def dbl2: Double = show2
-  final override def dbl3: Double = show2
-}
-
 /** Show type class for 3 parameter case classes. */
 trait Show3ing[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowNing[R]
-{
-
-}
 
 object Show3ing
 {

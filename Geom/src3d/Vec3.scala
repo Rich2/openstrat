@@ -5,7 +5,7 @@ package ostrat; package geom
  * to the absolute nature of a point. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of
  * points. Thanks to René Descartes for this great idea. */
 final class Vec3(val x: Double, val y: Double, val z: Double) extends Vec3Like
-{ override def typeStr: String = "Vec3"
+{ //override def typeStr: String = "Vec3"
   override def canEqual(that: Any): Boolean = isInstanceOf[Vec3]
 
   override def approx(that: Any, precision: Double): Boolean = that match

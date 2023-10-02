@@ -7,7 +7,6 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 w
 { override type ThisT = Pt3
   override type LineSegT = LineSeg3
 
-  override def typeStr: String = "Pt3"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
   override def approx(that: Any, precision: Double): Boolean = that match
