@@ -20,7 +20,7 @@ trait PersistBase6[A1, A2, A3, A4, A5, A6] extends Any with PersistBase6Plus[A1,
 }
 
 /** [[Show]] type class for 6 parameter case classes. */
-trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowN[R] with PersistBase6[A1, A2, A3, A4, A5, A6]
+trait Show6[A1, A2, A3, A4, A5, A6, R] extends ShowN[R] with PersistBase6[A1, A2, A3, A4, A5, A6]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
   override def persist3: Show[A3]
@@ -29,13 +29,13 @@ trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowN[R] with PersistBase6[A1, A
   override def persist6: Show[A6]
 }
 
-/** Companion object for [[Show6T]] contains implementation class and factory apply method. */
-object Show6T
+/** Companion object for [[Show6]] contains implementation class and factory apply method. */
+object Show6
 {
   def apply[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, opt6: Option[A6] = None, opt5: Option[A5] = None,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    ev1: Show[A1], ev2: Show[A2], ev3: Show[A3], ev4: Show[A4], ev5: Show[A5], ev6: Show[A6]): Show6T[A1, A2, A3, A4, A5, A6, R] =
+    ev1: Show[A1], ev2: Show[A2], ev3: Show[A3], ev4: Show[A4], ev5: Show[A5], ev6: Show[A6]): Show6[A1, A2, A3, A4, A5, A6, R] =
     new Show6ingImp[A1, A2, A3, A4, A5, A6, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
       opt6, opt5, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4, ev5, ev6)
 
@@ -44,7 +44,7 @@ object Show6T
     fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
     val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3], val persist4: Show[A4], val persist5: Show[A5],
-    val persist6: Show[A6]) extends Show6T[A1, A2, A3, A4, A5, A6, R] with ShowN[R]
+    val persist6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, R] with ShowN[R]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)

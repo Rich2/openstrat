@@ -20,7 +20,7 @@ trait PersistBase5[A1, A2, A3, A4, A5] extends Any with PersistBase5Plus[A1, A2,
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
-trait Show5ing[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] with ShowN[R]
+trait Show5[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] with ShowN[R]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
   override def persist3: Show[A3]
@@ -28,21 +28,21 @@ trait Show5ing[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] w
   override def persist5: Show[A5]
 }
 
-/** Companion object for [[Show5ing]] trait contains implementation class and factory apply method. */
-object Show5ing
+/** Companion object for [[Show5]] trait contains implementation class and factory apply method. */
+object Show5
 {
   def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3], ev4: Show[A4], ev5: Show[A5]) =
-    new Show5ingImp[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
+    new Show5Imp[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
       ev1, ev2, ev3, ev4, ev5)
 
-  /** Implementation class for the general cases of [[Show5ing]] type class. */
-  class Show5ingImp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
+  /** Implementation class for the general cases of [[Show5]] type class. */
+  class Show5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
     val name3: String, fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val opt5: Option[A5],
     opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3], val persist4: Show[A4], val persist5: Show[A5]) extends
-    Show5ing[A1, A2, A3, A4, A5, R]
+    Show5[A1, A2, A3, A4, A5, R]
   {
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
@@ -85,7 +85,7 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with PersistBase5Plus[A1
 }
 
 /** Persistence class for 5 logical parameter product types. */
-trait Persist5[A1, A2, A3, A4, A5, R] extends Show5ing[A1, A2, A3, A4, A5, R] with Unshow5[A1, A2, A3, A4, A5, R] with PersistN[R]
+trait Persist5[A1, A2, A3, A4, A5, R] extends Show5[A1, A2, A3, A4, A5, R] with Unshow5[A1, A2, A3, A4, A5, R] with PersistN[R]
 { override def persist1: Persist[A1]
   override def persist2: Persist[A2]
   override def persist3: Persist[A3]
