@@ -20,8 +20,8 @@ object ExUA{
   implicit val persistEv: Persist2[Int, String, ExUA] = Persist2ed[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
-/** Example of a [[Show3ed]] class on of whose parameters is also a [[ShowNed]] class. */
-case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3ed[ExUA, String, Int]
+/** Example of a [[Tell3]] class on of whose parameters is also a [[TellN]] class. */
+case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3[ExUA, String, Int]
 {
   override def typeStr: String = "ExUA"
   override def show1: ExUA = a

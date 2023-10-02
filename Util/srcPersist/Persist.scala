@@ -15,7 +15,7 @@ trait Persist[T] extends Showing[T] with Unshow[T]
 trait PersistN[R] extends Persist[R] with ShowNing[R]
 
 /** [[Persist]] trait for types whose objects inherit from [[ShowDecN]]. */
-trait PersistShowN[R <: ShowNed] extends PersistN[R] with ShowNeding[R]
+trait PersistShowN[R <: TellN] extends PersistN[R] with ShowNeding[R]
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
 abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleing[A] with Persist[A]

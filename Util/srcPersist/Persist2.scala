@@ -32,7 +32,7 @@ trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 }
 
 /** [[Tell]] trait for classes with 2+ Show parameters. */
-trait Show2Plused[A1, A2] extends Any with ShowNed with PersistBase2Plus[A1, A2]
+trait Show2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
 { /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
 
