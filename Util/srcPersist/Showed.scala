@@ -29,7 +29,8 @@ trait Showed extends Any with PersistBase
   //def strSemi: String = show(ShowSemis)
 }
 
-trait ShowNoDec extends Any with Showed
+/** [[Showed]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */
+trait ShowQuantaed extends Any with Showed
 { override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = show(style)
 }
 

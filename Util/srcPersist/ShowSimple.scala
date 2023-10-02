@@ -3,7 +3,7 @@ package ostrat
 
 /** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
-trait ShowSimpled extends ShowNoDec
+trait ShowSimpled extends ShowQuantaed
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
   final override def show(style: ShowStyle): String = style match
   { case ShowTyped => typeStr.appendParenth(str)
