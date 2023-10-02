@@ -64,15 +64,6 @@ trait ShowDbl3Ed extends Any with Show3ed[Double, Double, Double]
   final override implicit def persist3: Persist[Double] = Showing.doublePersistEv
 }
 
-/** Trait for Show for product of 3[[Int]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDbl3Eding]]
- *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show3ing]]. */
-trait ShowElemInt3 extends Any with ShowInt3Ed with Int3Elem
-{ final override def int1: Int = show1
-  final override def int2: Int = show2
-  final override def int3: Int = show2
-}
-
 /** Trait for Show for product of 3[[Double]]s. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDbl3Eding]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show3ing]]. */
