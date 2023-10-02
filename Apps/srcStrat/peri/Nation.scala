@@ -19,7 +19,7 @@ object NViolet extends Nation("NViolet", Violet)
 object NBlue extends Nation("NBlue", Blue)
 object NOrange extends Nation("NOrange", Orange)
 
-case class Army(nation: Nation, num: Int) extends Coloured with Show2ed[Nation, Int]
+case class Army(nation: Nation, num: Int) extends Coloured with Tell2[Nation, Int]
 { override def typeStr: String = "Army"
   override def colour: Colour = nation.colour
   override def name1: String = "nation"

@@ -3,7 +3,7 @@ package ostrat; package gPlay
 import Colour._
 
 /** A counter has a very simple token with a letter and colour for recognition. */
-case class Counter(char: Char, colour: Colour) extends Show2ed[Char, Colour] with Coloured
+case class Counter(char: Char, colour: Colour) extends Tell2[Char, Colour] with Coloured
 { override def typeStr: String = "Player"
   override def show1: Char = char
   override def show2: Colour = colour

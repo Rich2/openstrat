@@ -13,7 +13,7 @@ object SqMem
   case class SqMemImp[A](sqCen: SqCen, value: A) extends SqMem[A]
 }
 
-trait SqMemShow[A] extends SqMem[A] with Show2ed[SqCen, A]
+trait SqMemShow[A] extends SqMem[A] with Tell2[SqCen, A]
 { override def show1: SqCen = sqCen
   override def name1: String = "SqCen"
   override implicit def persist1: Showing[SqCen] = SqCen.persistEv

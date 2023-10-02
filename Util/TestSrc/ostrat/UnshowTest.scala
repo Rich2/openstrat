@@ -2,8 +2,8 @@
 package ostrat
 import utest._
 
-/** Example of a [[Show2ed]] class for testing purposes. */
-case class ExUA(a: Int = 0, b: String = "blah") extends Show2ed[Int, String]
+/** Example of a [[Tell2]] class for testing purposes. */
+case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
 {
   override def typeStr: String = "ExUA"
   override def show1: Int = a
