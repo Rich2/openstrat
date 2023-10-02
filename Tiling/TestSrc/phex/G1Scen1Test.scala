@@ -2,15 +2,17 @@
 package ostrat; package prid; package phex
 import utest._, gOne.h1p._, gPlay._
 
-object G1Scen1Test extends TestSuite {
-  val os1: G1HScen1.type = G1HScen1
+object G1Scen1Test extends TestSuite
+{ val os1: G1HScen1.type = G1HScen1
   val gs = os1.gridSys
   val g1: HGridReg = os1.gridSys
+  val g1Str = "HGridReg(2; 6; 2; 10)"
   val cs1: HCenOptLayer[Counter] = os1.counters
 
   val tests = Tests {
     test("os1") {
-      cs1.out(gs) ==> ""
+      g1.str ==> g1Str
+      g1Str.asType[HGridReg] ==> Good(g1)
     }
   }
 }

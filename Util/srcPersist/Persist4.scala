@@ -25,6 +25,12 @@ trait Show4ing[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowN
   override def persist2: Showing[A2]
   override def persist3: Showing[A3]
   override def persist4: Showing[A4]
+  def fArg1: R => A1
+  def fArg2: R => A2
+  def fArg3: R => A3
+  def fArg4: R => A4
+  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
+    persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
 }
 
 object Show4ing
@@ -39,9 +45,6 @@ object Show4ing
 
     final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
       max(persist4.syntaxDepthT(fArg4(obj))) + 1
-
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
-     persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
   }
 }
 
@@ -60,8 +63,8 @@ object ShowInt4ing
     fArg4: R => Int, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):
   ShowInt4ingImp[R] = new ShowInt4ingImp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1)
 
-  class ShowInt4ingImp[R](val typeStr: String, val name1: String, fArg1: R => Int, val name2: String, fArg2: R => Int, val name3: String,
-    fArg3: R => Int, val name4: String, fArg4: R => Int, val opt4: Option[Int], opt3In: Option[Int] = None, opt2In: Option[Int] = None,
+  class ShowInt4ingImp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
+    val fArg3: R => Int, val name4: String, val fArg4: R => Int, val opt4: Option[Int], opt3In: Option[Int] = None, opt2In: Option[Int] = None,
     opt1In: Option[Int] = None) extends ShowInt4ing[R]
   { val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
@@ -127,7 +130,7 @@ object Persist4
   }
 }
 
-trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R]
+trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R] with ShowInt4ing[R]
 { override def persist1: Persist[Int] = Showing.intPersistEv
   override def persist2: Persist[Int] = Showing.intPersistEv
   override def persist3: Persist[Int] = Showing.intPersistEv
@@ -154,9 +157,5 @@ object PersistInt4
       case _ if opt1.isEmpty => 2
       case _ => 3
     }
-
-    override def syntaxDepthT(obj: R): Int = ???
-
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
 }

@@ -200,6 +200,6 @@ object HGridReg
   }
 
   /** Implicit instance of [[Showing]] for [[HGridReg]]. */
-  implicit val showTEv: ShowInt4ing[HGridReg] = ShowInt4ing("HGrid", "bottom", _.bottomCenR, "top", _.topCenR, "left", _.leftCenC, "right",
-    _.rightCenC)
+  implicit val persistEv: PersistInt4[HGridReg] = PersistInt4[HGridReg]("HGridReg", "bottom", _.bottomCenR, "top", _.topCenR, "left", _.leftCenC, "right",
+    _.rightCenC, apply)
 }
