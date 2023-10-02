@@ -174,7 +174,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   }
 }
 
-/** Companion object for the [[HGridReg]] class. Contains factory apply method and [[Showing]] instance. */
+/** Companion object for the [[HGridReg]] class. Contains factory apply method and [[Show]] instance. */
 object HGridReg
 {
   /** Corrects the X and Y minimum and maximum values. */
@@ -199,7 +199,7 @@ object HGridReg
     new HGridReg(rMin, rMax, cMin, cMax)
   }
 
-  /** Implicit instance of [[Showing]] for [[HGridReg]]. */
+  /** Implicit instance of [[Show]] for [[HGridReg]]. */
   implicit val persistEv: PersistInt4[HGridReg] = PersistInt4[HGridReg]("HGridReg", "bottom", _.bottomCenR, "top", _.topCenR, "left", _.leftCenC, "right",
     _.rightCenC, apply)
 }

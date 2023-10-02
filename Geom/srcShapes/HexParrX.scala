@@ -17,8 +17,8 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Tell2[
   override def radiusOut: Double = diameterOut / 2
   override def show1: Double = height
   override def show2: Pt2 = cen
-  override implicit def persist1: Showing[Double] = Showing.doublePersistEv
-  override implicit def persist2: Showing[Pt2] = Pt2.persistImplicit
+  override implicit def persist1: Show[Double] = Show.doublePersistEv
+  override implicit def persist2: Show[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 
   /** maps the vertices of this [[HexParrX]] to a new [[HexparrX]] instance. */

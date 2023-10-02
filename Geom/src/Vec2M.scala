@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-trait length2M extends ShowElemDbl2
+trait length2M extends TellElemDbl2
 
 /** A 2 dimensional vector specified in metres as units rather than pure scalar numbers. */
 final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends length2M

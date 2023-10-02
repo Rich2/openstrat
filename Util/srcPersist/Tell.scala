@@ -3,8 +3,8 @@ package ostrat
 import collection.immutable.ArraySeq
 
 /** A trait that is Showed by itself. for providing an alternative to toString. Using this trait can be convenient, but at some level of the
- *  inheritance the type must provide a [[Showing]] type class instance. It is better for the [[Showing]] type class instance to delegate to this trait
- *  than have the toString method delegate to the [[Showing]] type class instance in the companion object. Potentially that can create initialisation
+ *  inheritance the type must provide a [[Show]] type class instance. It is better for the [[Show]] type class instance to delegate to this trait
+ *  than have the toString method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation
  *  order problems, but at the very least it can increase compile times. The capabilities of decimal place precision and explicit typing for numbers
  *  are placed defined here and in the corresponding [[SHowT]] type class although they have no meaning / purpose for many types, as separating them
  *  adds enormous complexity for very little gain. */
@@ -13,17 +13,17 @@ trait Tell extends Any with PersistBase
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   def tell(style: ShowStyle = ShowStandard): String
 
   def syntaxDepth: Int
 
   override def toString: String = str
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   def showDec(style: ShowStyle = ShowStandard, maxPlaces: Int): String = showDec(style, maxPlaces, maxPlaces)
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 
   //def strSemi: String = show(ShowSemis)

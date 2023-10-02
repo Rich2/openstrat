@@ -16,7 +16,7 @@ object Squad
 case class HSquad(hc: HCen, value: Squad) extends HexMemShow[Squad]
 { override def typeStr: String = "HPlayer"
   override def name2: String = "player"
-  override implicit def persist2: Showing[Squad] = Squad.showTEv
+  override implicit def persist2: Show[Squad] = Squad.showTEv
   override def syntaxDepth: Int = 2
 }
 
@@ -27,7 +27,7 @@ trait Polity extends ShowSimpled
 
 object Polity
 {
-  implicit val showEv: Showing[Polity] = new Showing[Polity] {
+  implicit val showEv: Show[Polity] = new Show[Polity] {
     override def strT(obj: Polity): String = obj.str
     override def syntaxDepthT(obj: Polity): Int = 1
     override def showDecT(obj: Polity, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polity"

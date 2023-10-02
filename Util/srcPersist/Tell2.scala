@@ -24,7 +24,23 @@ trait Tell2[A1, A2] extends Any with Show2Plused[A1, A2] with PersistBase2[A1, A
  *  which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  *  [[Show2ing]]. */
 trait TellInt2 extends Any with Tell2[Int, Int]
-{ final override implicit def persist1: Showing[Int] = Showing.intPersistEv
-  final override implicit def persist2: Showing[Int] = Showing.intPersistEv
+{ final override implicit def persist1: Show[Int] = Show.intPersistEv
+  final override implicit def persist2: Show[Int] = Show.intPersistEv
   final override def syntaxDepth: Int = 2
+}
+
+/** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
+ * and show2 properties, unless the class extends [[TellElemDbl2]]. */
+trait TellDbl2 extends Any with Tell2[Double, Double]
+{ final override implicit def persist1: Show[Double] = Show.doublePersistEv
+  final override implicit def persist2: Show[Double] = Show.doublePersistEv
+  final override def syntaxDepth: Int = 2
+}
+
+/** Trait for Show for product of 2 Doubles that is also an [[Dbl2Elem]]. This trait is implemented directly by the type in question, unlike the
+ *  corresponding [[ShowDbl2Eding]] trait which externally acts on an object of the specified type to create its String representations. For your own
+ *  types ShowProduct is preferred over [[Show2ing]]. */
+trait TellElemDbl2 extends Any with TellDbl2 with Dbl2Elem
+{ final override def dbl1: Double = show1
+  final override def dbl2: Double = show2
 }

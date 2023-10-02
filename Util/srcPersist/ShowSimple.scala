@@ -4,7 +4,7 @@ package ostrat
 /** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
 trait ShowSimpled extends ShowQuantaed
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
+{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   final override def tell(style: ShowStyle): String = style match
   { case ShowTyped => typeStr.appendParenth(str)
     case ShowUnderScore => "_"
@@ -17,7 +17,7 @@ trait ShowSimpled extends ShowQuantaed
 
 /** Shows a simple object like a Singleton object or a Double. For your own objects that you control it is better to use Show and its helper sub
  * rather than the sub traits of ShowT to implement your Show functionality.S */
-trait ShowSimpleing[-A] extends Showing[A]
+trait ShowSimpleing[-A] extends Show[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
 
@@ -28,5 +28,5 @@ trait ShowSimpleing[-A] extends Showing[A]
   }
 }
 
-/** [[Showing]] class for types that extend [[ShowSimpled]]. */
+/** [[Show]] class for types that extend [[ShowSimpled]]. */
 case class ShowSimpleeding[R <: ShowSimpled](typeStr: String) extends Showeding[R]

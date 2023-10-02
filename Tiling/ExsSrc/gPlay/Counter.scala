@@ -7,8 +7,8 @@ case class Counter(char: Char, colour: Colour) extends Tell2[Char, Colour] with 
 { override def typeStr: String = "Player"
   override def show1: Char = char
   override def show2: Colour = colour
-  override implicit def persist1: Showing[Char] = Showing.charImplicit
-  override implicit def persist2: Showing[Colour] = Colour.persistImplicit
+  override implicit def persist1: Show[Char] = Show.charImplicit
+  override implicit def persist2: Show[Colour] = Colour.persistImplicit
   override def name1: String = "char"
   override def name2: String = "colour"
   override def str: String = "Counter" + char

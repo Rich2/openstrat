@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
-final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDbl2 with ShowElemDbl2
+final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDbl2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "Pt2M"

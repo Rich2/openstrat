@@ -32,9 +32,9 @@ class SqVert private(val bLong: Long) extends AnyVal with SqCoord with TCoord
   def + (sqCen: SqCen): SqVert = SqVert(r + sqCen.r, c + sqCen.c)
 }
 
-/** Companion object for [[SqVert]] trait. Contains [[Showing]] and builder implicit instances. */
+/** Companion object for [[SqVert]] trait. Contains [[Show]] and builder implicit instances. */
 object SqVert
-{ val showTImplicit: Showing[SqVert] = ShowInt2Eding("Sqvert", "r", "c")
+{ val showTImplicit: Show[SqVert] = ShowInt2Eding("Sqvert", "r", "c")
   def apply(r: Int, c: Int): SqVert = if (r.isOdd & c.isOdd)
     new SqVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
   else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
