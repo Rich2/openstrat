@@ -8,13 +8,13 @@ import collection.immutable.ArraySeq
  *  order problems, but at the very least it can increase compile times. The capabilities of decimal place precision and explicit typing for numbers
  *  are placed defined here and in the corresponding [[SHowT]] type class although they have no meaning / purpose for many types, as separating them
  *  adds enormous complexity for very little gain. */
-trait Showed extends Any with PersistBase
+trait Tell extends Any with PersistBase
 {
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
-  def show(style: ShowStyle = ShowStandard): String
+  def tell(style: ShowStyle = ShowStandard): String
 
   def syntaxDepth: Int
 
@@ -29,15 +29,15 @@ trait Showed extends Any with PersistBase
   //def strSemi: String = show(ShowSemis)
 }
 
-/** [[Showed]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */
-trait ShowQuantaed extends Any with Showed
-{ override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = show(style)
+/** [[Tell]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */
+trait ShowQuantaed extends Any with Tell
+{ override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
 }
 
-/** [[Showed]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
-trait ShowDec extends Any with Showed
+/** [[Tell]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
+trait TellDec extends Any with Tell
 {
-  override def show(style: ShowStyle = ShowStandard): String = showDec(style, -1, -1)
+  override def tell(style: ShowStyle = ShowStandard): String = showDec(style, -1, -1)
 
   def str: String = showDec(ShowStandard, -1, 0)
 

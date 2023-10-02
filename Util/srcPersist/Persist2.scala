@@ -31,7 +31,7 @@ trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
   override def numParams: Int = 2
 }
 
-/** [[Showed]] trait for classes with 2+ Show parameters. */
+/** [[Tell]] trait for classes with 2+ Show parameters. */
 trait Show2Plused[A1, A2] extends Any with ShowNed with PersistBase2Plus[A1, A2]
 { /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
@@ -50,7 +50,7 @@ trait Show2Plused[A1, A2] extends Any with ShowNed with PersistBase2Plus[A1, A2]
   override def persist2: Showing[A2]
 }
 
-/** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[TellDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2ing]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show2 and then use [[Show2eding]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[Show2eding]] or
  *  [[Persist2ed]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the

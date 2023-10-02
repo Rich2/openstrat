@@ -5,7 +5,7 @@ package ostrat
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
 trait ShowSimpled extends ShowQuantaed
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Showing]] type class instances. */
-  final override def show(style: ShowStyle): String = style match
+  final override def tell(style: ShowStyle): String = style match
   { case ShowTyped => typeStr.appendParenth(str)
     case ShowUnderScore => "_"
     case _ => str

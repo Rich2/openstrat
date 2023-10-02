@@ -4,19 +4,19 @@ package ostrat
 /** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowNing]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowNing]]. */
-trait ShowNed extends Any with ShowDec
+trait ShowNed extends Any with TellDec
 { /** A [[StrArr]] Arr of the element names of this Show Product class. */
   def paramNames: StrArr
 
   /** A [[StrArr]] Arr of the element type names of this Show Product class. */
   def elemTypeNames: StrArr
 
-  override def str: String = show(ShowStandard)
+  override def str: String = tell(ShowStandard)
 
   def showSemisNames: String =
     paramNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def show(style: ShowStyle): String =
+  override def tell(style: ShowStyle): String =
   { def semisStr = showElemStrs(ShowCommas).mkStr("; ")
 
     style match

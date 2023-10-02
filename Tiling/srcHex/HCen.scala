@@ -213,7 +213,7 @@ class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2Pai
   override def selectStr: String =
   { val s1 = a2 match
     { case sel: Selectable => sel.selectStr
-      case st: Showed => st.str
+      case st: Tell => st.str
       case a => a.toString
     }
     s"$s1; ${a1.rcStr}"

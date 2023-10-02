@@ -13,7 +13,7 @@ case class Counter(char: Char, colour: Colour) extends Show2ed[Char, Colour] wit
   override def name2: String = "colour"
   override def str: String = "Counter" + char
   def charStr: String = char.toString
-  override def show(style: ShowStyle): String = "Player" + char
+  override def tell(style: ShowStyle): String = "Player" + char
   override def syntaxDepth: Int = 1
 }
 

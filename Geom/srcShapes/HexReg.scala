@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon */
-trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
+trait HexReg extends ShapeCentred with Polygon6Plus with TellDec
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 

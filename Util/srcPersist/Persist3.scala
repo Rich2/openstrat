@@ -20,7 +20,7 @@ trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
   override def numParams: Int = 3
 }
 
-/** [[Showed]] trait for classes with 3+ Show parameters. */
+/** [[Tell]] trait for classes with 3+ Show parameters. */
 trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistBase3Plus[A1, A2, A3]
 { /** The optional default value for parameter 3. */
   override def opt3: Option[A3] = None
@@ -31,7 +31,7 @@ trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistB
   override def persist3: Showing[A3]
 }
 
-/** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[TellDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the

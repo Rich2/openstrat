@@ -23,11 +23,11 @@ object UtilPage extends HtmlPage
 
   def errs: HtmlLi = HtmlLi("Functional error system using the EMon trait and its Good and Bad sub classes.")
 
-  def parse: HtmlLi = HtmlLi("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for Tokenisation and a parser for an AST," +
+  def parse: HtmlLi = HtmlLi("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for tokenisation and a parser for an AST," +
     " abstract syntax tree.")
 
   def persist: HtmlLi = HtmlLi("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
-    "classic type class. This will be the default for classic product types. Showed will be used for traits inherited directly by the type itslef." --
+    "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itslef." --
     "And Showing will be used for Show type classes that use Showed functionality, to minimise their constructors.")
 
   def base32: HtmlSection = HtmlSection(HtmlH2("Hexadecimal and Base32"),

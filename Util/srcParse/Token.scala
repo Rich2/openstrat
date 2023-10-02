@@ -17,7 +17,7 @@ trait Token extends TextSpan
   override def hashCode(): Int = tokenTypeStr.hashCode * 31 + startPosn.hashCode
 }
 
-/** Companion object for [[Token]] trait contains [[ShowDec]] implicit instance. */
+/** Companion object for [[Token]] trait contains [[TellDec]] implicit instance. */
 object Token
 {
   implicit val showImplicit: Showing[Token] = new ShowSimpleing[Token]
