@@ -171,25 +171,9 @@ object PersistInt2
   }
 }
 
-/** Persist type class for types that extends [[Tell2]]. */
-trait Persist2ed[A1, A2, R <: Tell2[A1, A2]] extends Persist2[A1, A2, R] with ShowTell2[A1, A2, R]
-
-/** Companion object for the [[Persist2ed]] class the persists object that extend [[Tell2]]. Contains an apply factory method. */
-object Persist2ed
-{ /** Factory apply method for [[Persist2ed]], that Persists [[Tell2]] objects. */
-  def apply[A1, A2, R <: Tell2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): Persist2ed[A1, A2, R] =
-    new PersistShow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
-
-  class PersistShow2Imp[A1, A2, R <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
-    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends Persist2ed[A1, A2, R]
-  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  }
-}
-
 /** Persistence type class for types that extend [[TellInt2]]. */
 class PersistInt2Ed[R <: TellInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
-  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with Persist2ed[Int, Int, R] with ShowTellInt2[R]
+  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with PersistTell2[Int, Int, R] with ShowTellInt2[R]
 { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 
@@ -201,7 +185,7 @@ object PersistInt2Ed
 
 /** Persistence class for types that extend [[TellDbl2]]. */
 class PersistDbl2Ed[R <: TellDbl2](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
-  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends Persist2ed[Double, Double, R] with ShowTellDbl2[R]
+  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistTell2[Double, Double, R] with ShowTellDbl2[R]
 { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
 

@@ -23,6 +23,6 @@ object HGView
   def apply(hCoord: HCoord, pxScale: Double): HGView = new HGView(hCoord.r, hCoord.c, pxScale)
 
   /** Implicit [[Persist]] instance for HGridView.  */
-  implicit val persistImplicit: Persist2ed[HCoord, Double, HGView] =
-    Persist2ed[HCoord, Double, HGView]("HGView", "hCoord", "cPScale", apply(_, _))
+  implicit val persistImplicit: PersistTell2[HCoord, Double, HGView] =
+    PersistTell2[HCoord, Double, HGView]("HGView", "hCoord", "cPScale", apply(_, _))
 }

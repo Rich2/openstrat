@@ -3,12 +3,12 @@ package ostrat
 import pParse._
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
-trait ShowCompoundT[R] extends Show[R]
+trait ShowCompound[R] extends Show[R]
 { override def strT(obj: R): String = showT(obj, ShowStandard)//, -1, 0)
 }
 
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */
-trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
+trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
 {
   override def fromExpr(expr: Expr): EMon[R] =  expr match
   {
@@ -18,7 +18,7 @@ trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
   }
 }
 
-trait ShowTSeqLike[A, R] extends ShowCompoundT[R] with Show[R]
+trait ShowTSeqLike[A, R] extends ShowCompound[R] with Show[R]
 { def evA: Show[A]
   override def typeStr = "Seq" + evA.typeStr.enSquare
 }

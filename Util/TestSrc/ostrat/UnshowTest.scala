@@ -17,7 +17,7 @@ case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
 }
 
 object ExUA{
-  implicit val persistEv: Persist2[Int, String, ExUA] = Persist2ed[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
+  implicit val persistEv: Persist2[Int, String, ExUA] = PersistTell2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
 /** Example of a [[Tell3]] class on of whose parameters is also a [[TellN]] class. */

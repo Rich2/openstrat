@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[Show3ing]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
+/** A base trait for [[Show3]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
 trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
@@ -14,7 +14,7 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
   def persist3: Show[A3] | Unshow[A3]
 }
 
-/** Common base trait for [[Show3ing]], [[Unshow3]] and [[Persist3]]. */
+/** Common base trait for [[Show3]], [[Unshow3]] and [[Persist3]]. */
 trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
 { override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def numParams: Int = 3
@@ -31,20 +31,19 @@ trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistB
   override def persist3: Show[A3]
 }
 
-
 /** Show type class for 3 parameter case classes. */
-trait Show3ing[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowN[R]
+trait Show3[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowN[R]
 
-object Show3ing
+object Show3
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3]):
-  Show3ing[A1, A2, A3, R] = new Show3ingImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
+  Show3[A1, A2, A3, R] = new Show3Imp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
 
-  /** Implementation class for the general cases of the [[Show3ing]] trait. */
-  class Show3ingImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
+  /** Implementation class for the general cases of the [[Show3]] trait. */
+  class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3]) extends Show3ing[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
+    implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3]) extends Show3[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -64,7 +63,7 @@ object Show3ing
 }
 
 /** [[Show]] type class trait for types with 3 [[Int]] Show components. */
-trait ShowInt3ing[R] extends Show3ing[Int, Int, Int, R]
+trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 { override def persist1: Persist[Int] = Show.intPersistEv
   override def persist2: Persist[Int] = Show.intPersistEv
   override def persist3: Persist[Int] = Show.intPersistEv
@@ -72,23 +71,23 @@ trait ShowInt3ing[R] extends Show3ing[Int, Int, Int, R]
 }
 
 /** [[Show]] type class trait for types with 3 [[Double]] Show components. */
-trait ShowDbl3ing[R] extends Show3ing[Double, Double, Double, R]
+trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
 { override def persist1: Persist[Double] = Show.doublePersistEv
   override def persist2: Persist[Double] = Show.doublePersistEv
   override def persist3: Persist[Double] = Show.doublePersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
-object ShowInt3ing
+object ShowInt3
 {
   def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int,
-    newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):ShowInt3ing[R] =
-    new ShowInt3ingImp[R](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, opt3, opt2, opt1)
+    newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):ShowInt3[R] =
+    new ShowInt3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, opt3, opt2, opt1)
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
-  class ShowInt3ingImp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
+  class ShowInt3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
     val fArg3: R => Int, val newT: (Int, Int, Int) => R, val opt3: Option[Int], val opt2In: Option[Int] = None,
-    opt1In: Option[Int] = None) extends ShowInt3ing[R]
+    opt1In: Option[Int] = None) extends ShowInt3[R]
   { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
@@ -130,7 +129,7 @@ object Unshow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3ing[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
+trait Persist3[A1, A2, A3, R] extends Show3[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
 { override def persist1: Persist[A1]
   override def persist2: Persist[A2]
   override def persist3: Persist[A3]
@@ -199,7 +198,7 @@ object PersistInt3
 /** Persistence class for types that extend [[TellDbl3]]. */
 class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
   val fArg3: R => Double, val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None,
-  opt1In: Option[Double] = None) extends Persist3[Double, Double, Double, R] with ShowDbl3ing[R]
+  opt1In: Option[Double] = None) extends Persist3[Double, Double, Double, R] with ShowDbl3[R]
 { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   override def persist1: Persist[Double] = Show.doublePersistEv

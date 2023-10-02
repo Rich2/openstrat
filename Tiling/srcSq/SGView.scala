@@ -23,6 +23,6 @@ object SGView
   def apply(sqCoord: SqCoord, pxScale: Double): SGView = new SGView(sqCoord.r, sqCoord.c, pxScale)
 
   /** Implicit [[Persist]] instance for SqGridView.  */
-  implicit val persistImplicit: Persist2ed[SqCoord, Double, SGView] =
-    Persist2ed[SqCoord, Double, SGView]("SqGridView", "sqCoord", "pxScale", apply(_, _))
+  implicit val persistImplicit: PersistTell2[SqCoord, Double, SGView] =
+    PersistTell2[SqCoord, Double, SGView]("SqGridView", "sqCoord", "pxScale", apply(_, _))
 }

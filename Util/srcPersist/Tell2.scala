@@ -5,7 +5,7 @@ import pParse._, collection.mutable.ArrayBuffer
 /** Trait for [[TellDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show2 and then use [[ShowTell2]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowTell2]] or
- *  [[Persist2ed]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
+ *  [[PersistTell2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2]] instance. */
 trait Tell2[A1, A2] extends Any with Show2Plused[A1, A2] with PersistBase2[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
@@ -96,5 +96,21 @@ object ShowTellInt2
   class ShowShowInt2TImp[R <: TellElemInt2](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Int] = None,
     opt1In: Option[Int] = None) extends ShowTellInt2[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
+/** Persist type class for types that extends [[Tell2]]. */
+trait PersistTell2[A1, A2, R <: Tell2[A1, A2]] extends Persist2[A1, A2, R] with ShowTell2[A1, A2, R]
+
+/** Companion object for the [[PersistTell2]] class the persists object that extend [[Tell2]]. Contains an apply factory method. */
+object PersistTell2
+{ /** Factory apply method for [[PersistTell2]], that Persists [[Tell2]] objects. */
+  def apply[A1, A2, R <: Tell2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistTell2[A1, A2, R] =
+    new PersistShow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
+
+  class PersistShow2Imp[A1, A2, R <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends PersistTell2[A1, A2, R]
+  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
