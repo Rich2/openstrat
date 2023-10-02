@@ -20,7 +20,7 @@ trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3,
 }
 
 /** Show type class for 4 parameter case classes. */
-trait Show4ing[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowNing[R]
+trait Show4ing[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowN[R]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
   override def persist3: Show[A3]

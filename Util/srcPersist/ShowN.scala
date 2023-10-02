@@ -11,7 +11,7 @@ trait PersistBaseN extends Any with PersistBase
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowNing[R] extends ShowCompoundT[R] with Show[R]
+trait ShowN[R] extends ShowCompoundT[R] with Show[R]
 {
   override def showT(obj: R, style: ShowStyle): String =
   { def semisStr = strs(obj, ShowCommas).mkStr("; ")
@@ -41,7 +41,7 @@ trait ShowNing[R] extends ShowCompoundT[R] with Show[R]
 }
 
 /** [[Show]] trait for types with N show fields that extend [[TellN]]. */
-trait ShowNeding[R <: TellN] extends ShowNing[R] with Showeding[R]
+trait ShowNeding[R <: TellN] extends ShowN[R] with Showeding[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }
 

@@ -60,7 +60,7 @@ trait ShowElemInt2 extends Any with TellInt2 with Int2Elem
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2ing[A1, A2, R] extends ShowNing[R]
+trait Show2ing[A1, A2, R] extends ShowN[R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def persist1: Show[A1]

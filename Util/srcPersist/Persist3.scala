@@ -32,25 +32,8 @@ trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistB
 }
 
 
-
-/** Show classes with 3 [[Int]] parameters. */
-trait ShowInt3Ed extends Any with Tell3[Int, Int, Int]
-{ final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Int] = Show.intPersistEv
-  final override implicit def persist2: Persist[Int] = Show.intPersistEv
-  final override implicit def persist3: Persist[Int] = Show.intPersistEv
-}
-
-/** Show classes with 3 [[Double]] parameters. */
-trait ShowDbl3Ed extends Any with Tell3[Double, Double, Double]
-{ final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Double] = Show.doublePersistEv
-  final override implicit def persist2: Persist[Double] = Show.doublePersistEv
-  final override implicit def persist3: Persist[Double] = Show.doublePersistEv
-}
-
 /** Show type class for 3 parameter case classes. */
-trait Show3ing[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowNing[R]
+trait Show3ing[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowN[R]
 
 object Show3ing
 {
@@ -213,7 +196,7 @@ object PersistInt3
   }
 }
 
-/** Persistence class for types that extend [[ShowDbl3Ed]]. */
+/** Persistence class for types that extend [[TellDbl3]]. */
 class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
   val fArg3: R => Double, val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None,
   opt1In: Option[Double] = None) extends Persist3[Double, Double, Double, R] with ShowDbl3ing[R]

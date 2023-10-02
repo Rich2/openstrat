@@ -18,3 +18,19 @@ trait Tell3[A1, A2, A3] extends Any with Show3Plused[A1, A2, A3]
     StrArr(persist1.showDecT(show1, way, decimalPlaces, 0), persist2.showDecT(show2, way, decimalPlaces, 0),
       persist3.showDecT(show3, way, decimalPlaces, 0))
 }
+
+/** Show classes with 3 [[Int]] parameters. */
+trait TellInt3 extends Any with Tell3[Int, Int, Int]
+{ final override def syntaxDepth: Int = 2
+  final override implicit def persist1: Persist[Int] = Show.intPersistEv
+  final override implicit def persist2: Persist[Int] = Show.intPersistEv
+  final override implicit def persist3: Persist[Int] = Show.intPersistEv
+}
+
+/** Show classes with 3 [[Double]] parameters. */
+trait TellDbl3 extends Any with Tell3[Double, Double, Double]
+{ final override def syntaxDepth: Int = 2
+  final override implicit def persist1: Persist[Double] = Show.doublePersistEv
+  final override implicit def persist2: Persist[Double] = Show.doublePersistEv
+  final override implicit def persist3: Persist[Double] = Show.doublePersistEv
+}

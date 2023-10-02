@@ -20,7 +20,7 @@ trait PersistBase5[A1, A2, A3, A4, A5] extends Any with PersistBase5Plus[A1, A2,
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
-trait Show5ing[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] with ShowNing[R]
+trait Show5ing[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] with ShowN[R]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
   override def persist3: Show[A3]
