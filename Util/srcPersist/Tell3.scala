@@ -19,10 +19,10 @@ trait Tell3[A1, A2, A3] extends Any with Show3Plused[A1, A2, A3]
       persist3.showDecT(show3, way, decimalPlaces, 0))
 }
 
-trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Show3[A1, A2, A3, R]
+trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
 
 object ShowTell3{
- // class ShowTellImp[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell3[A1, A2, A3, R]
+  class ShowTellImp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell3[A1, A2, A3, R]
 }
 
 /** Show classes with 3 [[Int]] parameters. */
@@ -41,4 +41,41 @@ trait TellDbl3 extends Any with Tell3[Double, Double, Double]
   final override implicit def persist3: Persist[Double] = Show.doublePersistEv
 }
 
-trait PersistTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]// with ShowTell3
+trait PersistTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Persist[R] with ShowTell3[A1, A2, A3, R] with Unshow3[A1, A2, A3, R]{
+
+}
+
+object PersistTell3{
+  class PersistTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends PersistTell3[A1, A2, A3, R]{
+    override def persist1: Unshow[A1] = ???
+
+    override def persist2: Unshow[A2] = ???
+
+    override def persist3: Unshow[A3] = ???
+
+    /** Method fpr creating a value of type R from values A1, A2, A3. */
+    override def newT: (A1, A2, A3) => R = ???
+
+    /** 3rd parameter name. */
+    override def name3: String = ???
+
+    /** The optional default value for parameter 3. */
+    override def opt3: Option[A3] = ???
+
+    /** 1st parameter name. */
+    override def name1: String = ???
+
+    /** 2nd parameter name. */
+    override def name2: String = ???
+
+    /** The optional default value for parameter 1. */
+    override def opt1: Option[A1] = ???
+
+    /** The optional default value for parameter 2. */
+    override def opt2: Option[A2] = ???
+
+    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+     * Show. */
+    override def typeStr: String = ???
+  }
+}

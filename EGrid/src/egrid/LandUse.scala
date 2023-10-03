@@ -7,7 +7,7 @@ trait LandUse extends ShowSimpled
 }
 object LandUse
 {
-  implicit val showEv: Showeding[LandUse] = ShowSimpleeding[LandUse]("LandUse")
+  implicit val showEv: ShowTell[LandUse] = ShowSimpleeding[LandUse]("LandUse")
 }
 
 object CivMix extends LandUse

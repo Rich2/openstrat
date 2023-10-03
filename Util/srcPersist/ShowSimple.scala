@@ -29,4 +29,4 @@ trait ShowSimpleing[-A] extends Show[A]
 }
 
 /** [[Show]] class for types that extend [[ShowSimpled]]. */
-case class ShowSimpleeding[R <: ShowSimpled](typeStr: String) extends Showeding[R]
+case class ShowSimpleeding[R <: ShowSimpled](typeStr: String) extends ShowTell[R]

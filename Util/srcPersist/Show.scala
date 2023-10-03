@@ -271,21 +271,3 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
 
   def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, -1, 0)
 }
-
-/** A sub trait of the [[Show]] sub class where the type parameter of ShowT extends Show. This allows the ShowT type class to delegate to the Show
- * class for the implementation of its strT and ShowT methods. It is better to use [[TellDec]] and ShowElemT for types you control than have the toString
- * method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation order problems, but at the
- * very least it can increase compile times. */
-trait Showeding[R <: Tell] extends Show[R]
-{ override def strT(obj: R): String = obj.str
-  override def showT(obj: R, way: ShowStyle): String = obj.tell(way)
-  override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
-  override def showDecT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
-}
-
-object Showeding
-{
-  def apply[R <: Tell](typeStrIn: String): Showeding[R] = new Showeding[R]
-  { override def typeStr: String = typeStrIn
-  }
-}

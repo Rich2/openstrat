@@ -53,7 +53,7 @@ trait TellElemInt2 extends Any with TellInt2 with Int2Elem
 }
 
 /** Type class trait for Showing [[Tell2]] objects. */
-trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends Show2[A1, A2, R] with Showeding[R]
+trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends Show2[A1, A2, R] with ShowTell[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
   override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
