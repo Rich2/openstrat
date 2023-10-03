@@ -119,7 +119,6 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, desert)
     plageLota, capAlAouna, lePointNoir, capSerat, p25, capTarf, tunis, p27)
 }
 
-
 /** [[PolygonLL]] graphic for Canaries depends on [[Maghreb]]. */
 object SaharaCentral extends EArea2("SaharaCentral", 26 ll 16, desert)
 { val p80: LatLong = 31.07 ll 17.39

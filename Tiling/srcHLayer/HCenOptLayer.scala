@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
  *  the index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
-class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenOptLayer[A]
+class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with HCenBaseLayer[Option[A]] with TCenOptLayer[A]
 { override type ThisT = HCenOptLayer[A]
   override def typeStr: String = "HCenOptLayer"
 
@@ -378,7 +378,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     res
   }
 
-  def out(gridSys: HGridSys)(implicit showA: Show[A]): String = {
+  def out(gridSys: HGridSys)(implicit showA: Show[A]): String =
+  {
 //    val rows = gridSys.mapRows{r => r.str + gridSys.r ""}
     ""
   }

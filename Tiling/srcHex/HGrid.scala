@@ -211,26 +211,26 @@ trait HGrid extends Any with TGrid with HGridSys
 
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
   {
-    flatMapRows[RArr[HCenRowPair[A]]]{ r => if (cenRowEmpty(r)) RArr()
-    else
-    { var currStart: Int = rowLeftCenC(r)
-      var currC: Int = currStart
-      var currVal: A = layer.rc(r, currStart)(indexingGSys)
-      var list: List[HCenRowPair[A]] = Nil
-      rowForeach(r){hc =>
-        currC = hc.c
-        if (layer(hc)(indexingGSys) != currVal) {
-          val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
-          list :+= newHCenRowValue
-          currVal = layer(hc)(indexingGSys)
-          currStart = hc.c
+    flatMapRows[RArr[HCenRowPair[A]]]{ r =>
+      if (cenRowEmpty(r)) RArr()
+      else
+      { var currStart: Int = rowLeftCenC(r)
+        var currC: Int = currStart
+        var currVal: A = layer.rc(r, currStart)(indexingGSys)
+        var list: List[HCenRowPair[A]] = Nil
+        rowForeach(r){ hc =>
+          currC = hc.c
+          if (layer(hc)(indexingGSys) != currVal)
+          { val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
+            list :+= newHCenRowValue
+            currVal = layer(hc)(indexingGSys)
+            currStart = hc.c
+          }
         }
-
+        val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
+        list :+= newHCenRowValue
+        list.toArr
       }
-      val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
-      list :+= newHCenRowValue
-      list.toArr
-    }
     }
   }
 

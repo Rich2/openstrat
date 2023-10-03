@@ -4,20 +4,20 @@ import geom._, pglobe._, egrid._, WTile._
 
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */
 object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, plain)
-{ val cAfricaN = 4.53.north
-  val cAfricaNW = cAfricaN * 8.89.east
-  val sangana = 4.31 ll 5.99
-  val aiyetoro = 6.20 ll 4.66
-  val capeThreePoints = 4.73 ll -2.09
-  val liberia = 4.18 ll -7.22
-  val sierraLeone = 8.11 ll -13.11
-  val dakar = 14.30 ll -17.2
-  val keurMassene = 16.7 ll -16.38
+{ val cAfricaN: Latitude = 4.53.north
+  val cAfricaNW: LatLong = cAfricaN * 8.89.east
+  val sangana: LatLong = 4.31 ll 5.99
+  val aiyetoro: LatLong = 6.20 ll 4.66
+  val capeThreePoints: LatLong = 4.73 ll -2.09
+  val liberia: LatLong = 4.18 ll -7.22
+  val sierraLeone: LatLong = 8.11 ll -13.11
+  val dakar: LatLong = 14.30 ll -17.2
+  val keurMassene: LatLong = 16.7 ll -16.38
 
   /** The south east corner of West Africa. */
-  val westAfricaPtSE = 4.53 ll 16.75
+  val westAfricaPtSE: LatLong = 4.53 ll 16.75
 
-  val westAfricaSouthCoast = LinePathLL(sangana, aiyetoro, capeThreePoints, liberia)
+  val westAfricaSouthCoast: LinePathLL = LinePathLL(sangana, aiyetoro, capeThreePoints, liberia)
 
   override val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene,
     SaharaWest.southWest, pMed.SaharaCentral.southWest, pMed.SaharaCentral.southEast, westAfricaPtSE, cAfricaNW)
