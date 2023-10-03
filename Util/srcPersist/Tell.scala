@@ -2,11 +2,11 @@
 package ostrat
 import collection.immutable.ArraySeq
 
-/** A trait that is Showed by itself. for providing an alternative to toString. Using this trait can be convenient, but at some level of the
+/** A trait that is showed by itself. for providing an alternative to toString. Using this trait can be convenient, but at some level of the
  *  inheritance the type must provide a [[Show]] type class instance. It is better for the [[Show]] type class instance to delegate to this trait
  *  than have the toString method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation
  *  order problems, but at the very least it can increase compile times. The capabilities of decimal place precision and explicit typing for numbers
- *  are placed defined here and in the corresponding [[SHowT]] type class although they have no meaning / purpose for many types, as separating them
+ *  are placed defined here and in the corresponding [[Show]] type class although they have no meaning / purpose for many types, as separating them
  *  adds enormous complexity for very little gain. */
 trait Tell extends Any with PersistBase
 {
@@ -21,35 +21,33 @@ trait Tell extends Any with PersistBase
   override def toString: String = str
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def showDec(style: ShowStyle = ShowStandard, maxPlaces: Int): String = showDec(style, maxPlaces, maxPlaces)
+  def tellDec(style: ShowStyle = ShowStandard, maxPlaces: Int): String = tellDec(style, maxPlaces, maxPlaces)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
-
-  //def strSemi: String = show(ShowSemis)
+  def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 }
 
 /** [[Tell]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */
-trait ShowQuantaed extends Any with Tell
-{ override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
+trait TellQuanta extends Any with Tell
+{ override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
 }
 
 /** [[Tell]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
 trait TellDec extends Any with Tell
 {
-  override def tell(style: ShowStyle = ShowStandard): String = showDec(style, -1, -1)
+  override def tell(style: ShowStyle = ShowStandard): String = tellDec(style, -1, -1)
 
-  def str: String = showDec(ShowStandard, -1, 0)
+  def str: String = tellDec(ShowStandard, -1, 0)
 
   /** Show with decimal precision of 0 places. */
-  def str0: String = showDec(ShowStandard, 0, 0)
+  def str0: String = tellDec(ShowStandard, 0, 0)
 
   /** Show with decimal precision of 1 place padding with a zero if necessary. */
-  def str1: String = showDec(ShowStandard, 1, 1)
+  def str1: String = tellDec(ShowStandard, 1, 1)
 
   /** Show with decimal precision of 2 places padding with zeros if necessary. */
-  def str2: String = showDec(ShowStandard, 2, 2)
+  def str2: String = tellDec(ShowStandard, 2, 2)
 
   /** Show with decimal precision of 3 places padding with zeros if necessary. */
-  def str3: String = showDec(ShowStandard, 3, 3)
+  def str3: String = tellDec(ShowStandard, 3, 3)
 }

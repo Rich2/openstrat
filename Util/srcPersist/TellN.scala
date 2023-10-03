@@ -42,7 +42,7 @@ trait TellN extends Any with TellDec
   def showSemisNameDecs(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     paramNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = showElemStrDecs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match

@@ -95,7 +95,7 @@ object HexReg
   implicit val showImplicit: Show[HexReg] = new Show[HexReg]
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
-    override def showDecT(obj: HexReg, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.showDec(way, maxPlaces, 0)
+    override def showDecT(obj: HexReg, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
     override def syntaxDepthT(obj: HexReg): Int = 2
   }
 

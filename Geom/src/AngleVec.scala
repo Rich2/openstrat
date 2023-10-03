@@ -7,7 +7,7 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
 { override def typeStr: String = "AngleVec"
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
+  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
     case ShowTyped => typeStr + degs.str.enParenth
     case _ =>  degs.str.enParenth
   }

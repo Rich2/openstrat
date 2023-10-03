@@ -1,6 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
 
 /** Trait for [[TellDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to

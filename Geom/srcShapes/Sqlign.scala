@@ -62,7 +62,7 @@ object Sqlign
   implicit val ShowTImplicit: Show[Sqlign] = new Show[Sqlign]
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str
-    override def showDecT(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.showDec(way, maxPlaces, 0)
+    override def showDecT(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
     override def syntaxDepthT(obj: Sqlign): Int = 3
   }
 }

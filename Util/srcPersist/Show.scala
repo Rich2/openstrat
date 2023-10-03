@@ -280,7 +280,7 @@ trait Showeding[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
   override def showT(obj: R, way: ShowStyle): String = obj.tell(way)
   override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
-  override def showDecT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.showDec(way, maxPlaces, 0)
+  override def showDecT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
 }
 
 object Showeding

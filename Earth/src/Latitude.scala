@@ -11,7 +11,7 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
   /** True if southern latitude. */
   def southern: Boolean = milliSecs < 0
 
-  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
+  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
   { case ShowTyped => typeStr + degs.showDec(ShowStandard, maxPlaces, 0).enParenth
     case ShowUnderScore => "_"
     case _ => degs.abs.showDec(ShowStandard, maxPlaces, minPlaces) + ife(northern, "N", "S")
