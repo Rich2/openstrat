@@ -45,25 +45,10 @@ trait PersistTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Persist[R] with S
 
 object PersistTell3
 {
-  class PersistTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String, val name1: String)(implicit val persist1: Unshow[A1],
-    val persist2: Unshow[A2], val persist3: Unshow[A3]) extends PersistTell3[A1, A2, A3, R]
-  {
-    /** Method fpr creating a value of type R from values A1, A2, A3. */
-    override def newT: (A1, A2, A3) => R = ???
-
-    /** 3rd parameter name. */
-    override def name3: String = ???
-
-    /** The optional default value for parameter 3. */
-    override def opt3: Option[A3] = ???
-
-    /** 2nd parameter name. */
-    override def name2: String = ???
-
-    /** The optional default value for parameter 1. */
-    override def opt1: Option[A1] = ???
-
-    /** The optional default value for parameter 2. */
-    override def opt2: Option[A2] = ???
+  class PersistTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
+    val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit val persist1: Unshow[A1], val persist2: Unshow[A2], val persist3: Unshow[A3]) extends PersistTell3[A1, A2, A3, R]
+  { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
