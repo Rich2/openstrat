@@ -41,7 +41,6 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
   val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
 
-
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
 object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
 { val nCorsica: LatLong = 43.00 ll 9.42
@@ -91,6 +90,7 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, desert)
 
   val agadir: LatLong = 30.42 ll -9.61
   val agadirPort: LatLong = 30.43 ll -9.65
+  val capGhir: LatLong = 30.629 ll -9.889
   val capSim: LatLong = 31.39 ll -9.84
   val capTin: LatLong = 32.54 ll -9.28
   val elJadida: LatLong = 33.26 ll -8.51
@@ -115,8 +115,8 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, desert)
   val p27: LatLong = 36.71 ll 10.41
 
   override val polygonLL: PolygonLL = PolygonLL(neTunis, p28, p30, p32, chebba, p34, gabes, p35, southEast,
-    agadir, agadirPort, capSim, capTin, elJadida, rabat, tangierW, ceuta, alHoceima, biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22, plageLota, capAlAouna,
-    lePointNoir, capSerat, p25, capTarf, tunis, p27)
+    agadir, agadirPort, capGhir, capSim, capTin, elJadida, rabat, tangierW, ceuta, alHoceima, biharaPlage, p10, capCarbon, sidiMansour, p15, p20, p22,
+    plageLota, capAlAouna, lePointNoir, capSerat, p25, capTarf, tunis, p27)
 }
 
 

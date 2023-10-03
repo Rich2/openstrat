@@ -31,7 +31,9 @@ object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, desert)
   val nouadhibou: LatLong = 20.77 ll -17.05
   val nou2: LatLong = 21.27 ll -17.04
   val boujdour: LatLong = 26.13 ll -14.50
+  val p80: LatLong = 28.741 ll -11.074
+  val p90: LatLong = 29.235 ll -10.328
 
   override val polygonLL: PolygonLL = PolygonLL(pMed.Maghreb.southEast, pMed.SaharaCentral.southWest, southWest, nouakchott, nouadhibouBay,
-    nouadhibou, nou2, boujdour, pMed.Maghreb.agadir)
+    nouadhibou, nou2, boujdour, p80, p90, pMed.Maghreb.agadir)
 }

@@ -1,6 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.immutable.ArraySeq
 
 /** A trait that is showed by itself. for providing an alternative to toString. Using this trait can be convenient, but at some level of the
  *  inheritance the type must provide a [[Show]] type class instance. It is better for the [[Show]] type class instance to delegate to this trait
