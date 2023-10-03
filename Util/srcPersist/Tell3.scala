@@ -19,6 +19,12 @@ trait Tell3[A1, A2, A3] extends Any with Show3Plused[A1, A2, A3]
       persist3.showDecT(show3, way, decimalPlaces, 0))
 }
 
+trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Show3[A1, A2, A3, R]
+
+object ShowTell3{
+ // class ShowTellImp[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell3[A1, A2, A3, R]
+}
+
 /** Show classes with 3 [[Int]] parameters. */
 trait TellInt3 extends Any with Tell3[Int, Int, Int]
 { final override def syntaxDepth: Int = 2
@@ -34,3 +40,5 @@ trait TellDbl3 extends Any with Tell3[Double, Double, Double]
   final override implicit def persist2: Persist[Double] = Show.doublePersistEv
   final override implicit def persist3: Persist[Double] = Show.doublePersistEv
 }
+
+trait PersistTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]// with ShowTell3

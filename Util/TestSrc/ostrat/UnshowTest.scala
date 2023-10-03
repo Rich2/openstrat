@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest._
+import utest.TestSuite
 
 /** Example of a [[Tell2]] class for testing purposes. */
 case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
@@ -8,8 +8,8 @@ case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
   override def typeStr: String = "ExUA"
   override def show1: Int = a
   override def show2: String = b
-  override def showT1: Show[Int] = Show.intPersistEv
-  override def showT2: Show[String] = Show.stringPersistEv
+  override def persist1: Show[Int] = Show.intPersistEv
+  override def persist2: Show[String] = Show.stringPersistEv
   override def name1: String = "a"
   override def name2: String = "b"
 
@@ -40,7 +40,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
 }
 
 object ExUB
-{ implicit val persistEv: Persist3ed[ExUA, String, Int, ExUB] =
+{ implicit val persistEv: PersistTell3[ExUA, String, Int, ExUB] =
     Persist3ed[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 
