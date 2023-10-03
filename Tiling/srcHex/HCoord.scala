@@ -73,7 +73,7 @@ object HCoord
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCoordBuff = HCoordBuff()
   }
 
-  implicit val persistImplicit: Persist[HCoord] = PersistInt2Ed[HCoord]("HCoord", "r", "c", HCoord(_, _))
+  implicit val persistImplicit: Persist[HCoord] = PersistTellInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonInt2MapBuilder[HCoord, PolygonHC] = new PolygonInt2MapBuilder[HCoord, PolygonHC]
@@ -138,7 +138,7 @@ object HCenOrSide
     case _ => excep(s"$r, $c is not a valid HCenOrSide hex grid coordinate.")
   }
 
-  implicit val persistImplicit: PersistInt2Ed[HCenOrSide] = new PersistInt2Ed[HCenOrSide]("HCenOrSide", "r", "c", HCenOrSide(_, _))
+  implicit val persistImplicit: PersistTellInt2[HCenOrSide] = new PersistTellInt2[HCenOrSide]("HCenOrSide", "r", "c", HCenOrSide(_, _))
 }
 
 /** The only purpose of this class is to ensure that all [[HCoord]] combinations of r and c are valid. Thisis for the combinations where r is even and

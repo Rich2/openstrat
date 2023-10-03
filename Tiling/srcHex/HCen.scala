@@ -152,7 +152,7 @@ object HCen
   val neibs00: HCenArr = HCenArr(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
 
   /** implicit [[Persist]] instance / evidence for [[HCen]]. */
-  implicit val persistEv: Persist[HCen] = new PersistInt2Ed[HCen]("HCen", "r", "c", HCen(_, _))
+  implicit val persistEv: Persist[HCen] = new PersistTellInt2[HCen]("HCen", "r", "c", HCen(_, _))
 
   /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
   implicit val arrMapBuilderEv: Int2ArrMapBuilder[HCen, HCenArr] = new Int2ArrMapBuilder[HCen, HCenArr]

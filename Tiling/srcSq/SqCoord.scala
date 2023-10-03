@@ -26,7 +26,7 @@ object SqCoord
     case _ => SqSide(r, c)
   }
 
-  implicit val persistImplicit: Persist[SqCoord] = PersistInt2Ed[SqCoord]("SqCoord", "r", "c", SqCoord(_, _))
+  implicit val persistImplicit: Persist[SqCoord] = PersistTellInt2[SqCoord]("SqCoord", "r", "c", SqCoord(_, _))
 }
 
 trait SqCoordSeqLike extends Any with Int2SeqLike[SqCoord]

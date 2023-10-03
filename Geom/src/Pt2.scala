@@ -257,7 +257,7 @@ object Pt2
   def circlePtClockwise(angle: Double): Pt2 = Pt2(cos(angle), - sin(angle))
 
   /** implicit [[Persist]] type class instance / evidence for [[Pt2]]s. */
-  implicit val persistImplicit: PersistDbl2Ed[Pt2] = new PersistDbl2Ed[Pt2]("Pt2", "x", "y", apply)
+  implicit val persistImplicit: PersistTellDbl2[Pt2] = new PersistTellDbl2[Pt2]("Pt2", "x", "y", apply)
 
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)

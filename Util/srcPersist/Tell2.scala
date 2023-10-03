@@ -114,3 +114,21 @@ object PersistTell2
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
+
+/** Persistence type class for types that extend [[TellInt2]]. */
+class PersistTellInt2[R <: TellInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
+  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with PersistTell2[Int, Int, R] with ShowTellInt2[R]
+{ val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+}
+
+object PersistTellInt2
+{ /** Factory apply method for [[PersistTellInt2]] that persists objects of type [[TellElemInt2]]. */
+  def apply[R <: TellElemInt2](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R): PersistTellInt2[R] =
+    new PersistTellInt2[R](typeStr, name1, name2, newT)
+}
+
+/** Persistence class for types that extend [[TellDbl2]]. */
+class PersistTellDbl2[R <: TellDbl2](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
+  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistTell2[Double, Double, R] with ShowTellDbl2[R]
+{ val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+}

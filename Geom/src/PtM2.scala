@@ -77,7 +77,7 @@ object PtM2
   { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
-  implicit val PersistImplicit: Persist[PtM2] = new PersistDbl2Ed[PtM2]("Metres2", "x", "y", new PtM2(_, _))
+  implicit val PersistImplicit: Persist[PtM2] = new PersistTellDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
   implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtMetre2Arr] = new Dbl2ArrMapBuilder[PtM2, PtMetre2Arr]
   { type BuffT = BuffPtMetre2
