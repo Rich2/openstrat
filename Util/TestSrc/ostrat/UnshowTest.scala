@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import utest.TestSuite
+import utest.{Show => _, _}
 
 /** Example of a [[Tell2]] class for testing purposes. */
 case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
@@ -28,7 +28,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
   override def show2: String = b
   override def show3: Int = c
   override def persist1: Show[ExUA] = ExUA.persistEv
-  override def showT2: Show[String] = Show.stringPersistEv
+  override def persist2: Show[String] = Show.stringPersistEv
   override def persist3: Show[Int] = Show.intPersistEv
   override def name1: String = "a"
   override def name2: String = "b"
@@ -41,12 +41,11 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
 
 object ExUB
 { implicit val persistEv: PersistTell3[ExUA, String, Int, ExUB] =
-    Persist3ed[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
+    PersistTell3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 
 object UnshowTest extends TestSuite
 { val tests = Tests {
-
     test("UA")
     { """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))
@@ -59,8 +58,8 @@ object UnshowTest extends TestSuite
       """ExUA(b = "Hello")""".asType[ExUA] ==> Good(ExUA(0, "Hello"))
     }
 
-    test("UB") {
-      """ExUB()""".asType[ExUB] ==> Good(ExUB())
+    test("UB")
+    { """ExUB()""".asType[ExUB] ==> Good(ExUB())
       """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
       """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
       """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))

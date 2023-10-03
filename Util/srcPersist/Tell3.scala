@@ -45,6 +45,11 @@ trait PersistTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends Persist[R] with S
 
 object PersistTell3
 {
+  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
+    opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None) (implicit persist1: Unshow[A1], persist2: Unshow[A2],
+    persist3: Unshow[A3]): PersistTell3[A1, A2, A3, R] =
+    PersistTell3[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3, opt2, opt1)(persist1, persist2, persist3)
+
   class PersistTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
     val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Unshow[A1], val persist2: Unshow[A2], val persist3: Unshow[A3]) extends PersistTell3[A1, A2, A3, R]
