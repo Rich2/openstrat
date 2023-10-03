@@ -29,12 +29,13 @@ trait Show4[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowN[R]
   def fArg2: R => A2
   def fArg3: R => A3
   def fArg4: R => A4
+
   override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
     persist3.showDecT(fArg3(obj), way, maxPlaces), persist4.showDecT(fArg4(obj), way, maxPlaces))
 }
 
 object Show4
-{ /** Implementation class for the [[Show4]] trait. */
+{ /** Implementation class for the general cases of [[Show4]] trait. */
   class Show4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None,
     opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3],
@@ -48,6 +49,7 @@ object Show4
   }
 }
 
+/** Produces [[Show]] type class instances for 4 [[Int]] types. */
 trait ShowInt4[R] extends Show4[Int, Int, Int, Int, R]
 { override def persist1: Persist[Int] = Show.intPersistEv
   override def persist2: Persist[Int] = Show.intPersistEv
