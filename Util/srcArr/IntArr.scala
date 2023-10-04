@@ -1,12 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer, pParse._
 
 /** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
  *  widened. */
 final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[Int]
 { type ThisT = IntArr
   override def typeStr: String = "Ints"
+
+
 
   override def unsafeSameSize(length: Int): IntArr = new IntArr(new Array[Int](length))
   override def length: Int = unsafeArray.length
@@ -84,6 +86,22 @@ object IntArr
       while (i < a1.length & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
+
+  /** Implicit method for creating List[A: Persist] instances. */
+  implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr] // with ShowIterable[A, List[A]]
+  {
+
+    override def typeStr: String = "Seq" + "Int"
+
+    override def fromExpr(expr: Expr): EMon[IntArr] = expr match {
+      case eet: EmptyExprToken => Good(IntArr())
+      case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
+        sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder) //.map(_.toList)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder) //.map(_.toList)
+      case AlphaParenth("Seq", sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder) //.map(_.toList)
+      case e => bad1(expr, expr.toString + " unknown Expression for Seq")
+    }
+  }
 }
 
 /** Builder object for [[IntArr]]. */

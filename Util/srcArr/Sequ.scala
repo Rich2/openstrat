@@ -287,6 +287,16 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
   }
 
+  def eMapLike[B, BB <: SeqLike[B]](f: A => EMon[B])(implicit ev: SeqLikeMapBuilder[B, BB]): EMon[BB] =
+  { val acc = ev.newBuff()
+    var continue = true
+    var count = 0
+    var errs: StrArr = StrArr()
+    while (count < length & continue == true)
+      f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
+    ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
+  }
+
   /** Maps to an Array. */
   def mapArray[B](f: A => B)(implicit ct: ClassTag[B]): Array[B] =
   { val res = new Array[B](length)

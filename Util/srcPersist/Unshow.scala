@@ -72,7 +72,7 @@ trait Unshow[+T] extends PersistBase
 }
 
 /** Companion object for the [[Unshow]] type class trait, contains implicit instances for common types. */
-object Unshow
+object Unshow extends UnshowLowPriority
 {
   /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
   implicit val intEv: Unshow[Int] = new IntEvClass
@@ -283,11 +283,16 @@ object Unshow
     override def ev2: Unshow[None.type] = noneUnShowImplicit
   }
 
-  implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type]//("None")
-  { override def typeStr: String = "None"
+}
 
-    def fromExpr(expr: Expr): EMon[None.type] = expr match
-    { case IdentUpperToken(_, "None") => Good(None)
+trait UnshowLowPriority{
+
+  implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type] //("None")
+  {
+    override def typeStr: String = "None"
+
+    def fromExpr(expr: Expr): EMon[None.type] = expr match {
+      case IdentUpperToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }

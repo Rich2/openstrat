@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance
+import annotation.unchecked.uncheckedVariance, pParse._
 
 /** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as
  *  classes such as polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by
@@ -29,6 +29,27 @@ trait SeqLike[+A] extends Any
   def elemsStr: String
 
   override def toString: String = typeStr + elemsStr
+}
+
+object SeqLike
+{
+  /** Implicit method for creating List[A: Persist] instances. */
+  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: SeqLikeMapBuilder[A, AA]): Unshow[AA] = new Unshow[AA] // with ShowIterable[A, List[A]]
+  {
+    val evA: Unshow[A] = evIn
+    val build: SeqLikeMapBuilder[A, AA] = buildIn
+
+    override def typeStr: String = "Seq" + evA.typeStr.enSquare
+
+    override def fromExpr(expr: Expr): EMon[AA] = expr match {
+      case eet: EmptyExprToken => Good(build.uninitialised(0))
+      case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
+        sts.eMapLike(s => evA.fromExpr(s.expr))(build)//.map(_.toList)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)//.map(_.toList)
+      case AlphaParenth("Seq", sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)//.map(_.toList)
+      case e => bad1(expr, expr.toString + " unknown Expression for Seq")
+    }
+  }
 }
 
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting

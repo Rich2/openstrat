@@ -54,12 +54,12 @@ object ArrRefTest extends TestSuite
       (arr1 === arr4) ==> false
     }
 
-    val rs1 = "Seq[Int](5; 6; 7)"
+    val rs1 = "Seq(5; 6; 7)"
 
     test("Persist")
     {
       //ints2.str ==> rs1
-      //rs1.findType[Ints] ==> Good(ints2)
+      rs1.findType[IntArr].map(_(2)) ==> Good(7)
     }
   }
 }
