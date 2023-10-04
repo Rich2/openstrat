@@ -89,12 +89,16 @@ object IntArr
 
   /** Implicit method for creating [[IntArr]] instances. */
   implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
-  {
-
-    override def typeStr: String = "Seq" + "Int"
+  { override def typeStr: String = "Seq" + "Int"
 
     override def fromExpr(expr: Expr): EMon[IntArr] = expr match
     { case _: EmptyExprToken => Good(IntArr())
+
+      case AlphaBracketExpr(id1,
+        RArr2(BracketedStatements(RArr1(_), brs1, _, _),
+        BracketedStatements(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs2 == Parenthesis =>
+        sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
         sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
       case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)

@@ -54,12 +54,13 @@ object ArrRefTest extends TestSuite
       (arr1 === arr4) ==> false
     }
 
-    val rs1 = "Seq(5; 6; 7)"
+    val intArr1 = IntArr(5, 6, 7)
 
-    test("Persist")
+    test("Unshow")
     {
-      //ints2.str ==> rs1
-      rs1.findType[IntArr].map(_(2)) ==> Good(7)
+      ("Seq(5; 6; 7)".findType[IntArr] === Good(intArr1)) ==> true
+      ("Seq(5; 6; 7)".asType[IntArr] === Good(intArr1)) ==> true
+      "Seq[Int](5; 6; 7)".asType[IntArr] ==> Good(true)
     }
   }
 }

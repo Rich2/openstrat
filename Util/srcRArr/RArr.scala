@@ -222,6 +222,15 @@ case object RArr1
   }
 }
 
+/** Extractor object for [[RArr]] of length 2. */
+case object RArr2
+{
+  def unapply(inp: Any): Option[(Any, Any)] = inp match
+  { case ra: RArr[_] if ra.length == 2 => Some(ra(0), ra(1))
+    case _ => None
+  }
+}
+
 /** Extractor object [[RArr]] head. RReturns the first / head element if non empty. */
 object RArrHead
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */

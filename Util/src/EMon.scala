@@ -104,6 +104,12 @@ object EMon
       ife (count < 2, acc, badNone (s"$count values found") )
     }
   }
+
+  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[EMon[A]] = (em1, em2) => (em1, em2) match {
+    case (Good(a1), Good(a2)) => evA.eqT(a1, a2)
+    case (Bad(errs1), Bad(errs2)) => false
+    case _ => false
+  }
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
