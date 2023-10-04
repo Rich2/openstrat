@@ -240,14 +240,17 @@ object Unshow
   }
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listImplicit[A](implicit evIn: Unshow[A]): Unshow[List[A]] = new Unshow[List[A]]// with ShowIterable[A, List[A]]
+  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: ArrMapBuilder[A, ArrA]): Unshow[List[A]] = new Unshow[List[A]]// with ShowIterable[A, List[A]]
   { val evA: Unshow[A] = evIn
+    val build: ArrMapBuilder[A, ArrA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[List[A]] = expr match
     { case eet: EmptyExprToken => Good(List[A]())
-      case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
-      case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
+      case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
+        sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
+      case AlphaParenth("Seq", sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
   }

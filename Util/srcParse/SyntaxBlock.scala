@@ -61,6 +61,7 @@ case class CurlyCloseToken(startPosn: TextPosn) extends BracketCloseToken
 { override def braces: Braces = CurlyBraces
 }
 
+/** Defines the types of braces and the opening and closing brace character. Eg '(' and ')' for the [[Parenthesis]] object. */
 sealed trait Braces
 { def openChar: Char
   def closeChar: Char

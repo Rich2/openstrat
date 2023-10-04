@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -11,7 +11,7 @@ object PersistCollectionsTest  extends TestSuite
     val l2Comma: String = "4, 5, 6"
     val ll: List[List[Int]] = List(l1, l2)
     
-    "List" -
+    test("List1")
     { l1.str ==> "Seq[Int](-1; -2; -30)"
       l1.strSemi ==> "-1; -2; -30"
       l1.strComma ==> l1Comma
@@ -22,10 +22,12 @@ object PersistCollectionsTest  extends TestSuite
     }
     //val s2 = "Seq(1; 2; 3)"
     
-    "List2" -
+    test("List2")
     {
-      //"Seq[Int](1; 2; 3)".asType[List[Int]] ==> Good(List(1, 2, 3))
-       // "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
+      "Seq(1; 2; 3)".asType[List[Int]] ==> Good(List(1, 2, 3))
+      "Seq[1; 2; 3]".asType[List[Int]].isBad ==> true
+      "What(1; 2; 3)".asType[List[Int]].isBad ==> true
+      //"Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
 
     //  s1.findType[List[Double]] ==> Good(List(1.0, 2, 3))
       //s1.findType[List[Int]] ==> Good(List(1, 2, 3))

@@ -59,10 +59,8 @@ object UnshowTest extends TestSuite
     }
 
     test("UB")
-    {
-      5 ==> 5
-      ExUB() ==> ExUB()
-    """ExUB()""".asType[ExUB] ==> Good(ExUB())
+    { ExUB() ==> ExUB()
+      """ExUB()""".asType[ExUB] ==> Good(ExUB())
       """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
       """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
       """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
