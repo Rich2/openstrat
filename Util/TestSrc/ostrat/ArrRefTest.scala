@@ -60,7 +60,7 @@ object ArrRefTest extends TestSuite
     {
       ("Seq(5; 6; 7)".findType[IntArr] === Good(intArr1)) ==> true
       ("Seq(5; 6; 7)".asType[IntArr] === Good(intArr1)) ==> true
-      "Seq[Int](5; 6; 7)".asType[IntArr] ==> Good(true)
+      ("Seq[Int](5; 6; 7)".asType[IntArr] === Good(intArr1)) ==> true
     }
   }
 }

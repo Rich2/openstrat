@@ -164,6 +164,23 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     }
     new RArr[A](newArray)
   }
+
+  /** Partitions this [[RArr]] with the first part taking all the elements while they are of type AA. */
+  def partitionT[AA <: A @uncheckedVariance](implicit ct1: ClassTag[A] @uncheckedVariance, ct2: ClassTag[AA]): (RArr[AA], RArr[A]) =
+  { val buff = Buffer[AA]()
+    var continue = true
+    var i = 0
+    while(i < length && continue) apply(i) match {
+      case el if el.isInstanceOf[AA] => {
+        buff.append(el.asInstanceOf[AA])
+        i += 1
+      }
+      case _ => continue = false
+    }
+    val array2 = new Array[A](length - i)
+    Array.copy(unsafeArray, i, array2, 0, length - i)
+    (buff.toArr, new RArr[A](array2))
+  }
 }
 
 /** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A

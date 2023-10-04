@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import reflect.ClassTag
+import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** Extractor object for empty [[Arr]][A]. Arr[A] is an immutable covariant Array based collection. */
 object Arr0
@@ -168,6 +168,21 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, RArr[A]]
   /** Folds over the existence of a head on this [[ArrOff]] iterator */
   def headFold[B](emptyValue: => B)(f: (A, ArrOff[A]) => B)(implicit arr: RArr[A]): B =
     if (arr.length > offset0) f(arr(offset0), drop1) else emptyValue
+
+  /** Partitions this [[ArrOff]] into an [[RArr]] and an [[ArrOff]] with the first part taking all the elements while they are of type AA. */
+  def partitionT[AA <: A@uncheckedVariance](implicit ct1: ClassTag[AA]@uncheckedVariance,  arr: RArr[A]): (RArr[AA], ArrOff[A]) =
+  { val buff = Buffer[AA]()
+    var continue = true
+    var i = 0
+    while (i < length && continue) apply(i) match {
+      case el if el.isInstanceOf[AA] => {
+        buff.append(el.asInstanceOf[AA])
+        i += 1
+      }
+      case _ => continue = false
+    }
+    (new RArr(buff.toArray), drop(i))
+  }
 }
 
 /** Extractor for empty immutable heapless iterator for Arr. */

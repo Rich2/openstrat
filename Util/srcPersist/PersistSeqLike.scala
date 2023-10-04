@@ -1,7 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse._
 
+/** Not sure if these are still usefull. */
 object AlphaSquareParenth
 {
   def unapply(expr: ColonMemExpr): Option[(String, RArr[Statement], RArr[Statement])] = expr match
@@ -11,6 +12,7 @@ object AlphaSquareParenth
   }
 }
 
+/** Not sure if these are still usefull. */
 object AlphaParenth
 {
   def unapply(expr: ColonMemExpr): Option[(String, RArr[Statement])] = expr match

@@ -13,9 +13,10 @@ object parse8ClauseMem
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)
 
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
-        val abe = AlphaBracketExpr(at, RArr(bb))
+        val (bks, tail3) = t2.partitionT[BracketedStatements]
+        val abe = AlphaBracketExpr(at, bb %: bks)
         acc.append(abe)
-        loop(t2)
+        loop(tail3)
       }
 
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }

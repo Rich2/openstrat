@@ -101,7 +101,7 @@ object IntArr
 
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
         sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
-      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+      //case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
       case AlphaParenth("Seq", sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
