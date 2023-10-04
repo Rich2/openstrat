@@ -61,18 +61,18 @@ object UnshowTest extends TestSuite
     test("UB")
     {
       5 ==> 5
- //     ExUB() ==> ExUB()
-//    """ExUB()""".asType[ExUB] ==> Good(ExUB())
-//      """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
-//      """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
-//      """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
-//      """ExUB(b: String = "AAA")""".asType[ExUB] ==> Good(ExUB(b = "AAA"))
-//      """ExUB(c = 5;)""".asType[ExUB] ==> Good(ExUB(c = 5))
-//      """ExUB(c = 5; a = ExUA(b = "Hi"))""".asType[ExUB] ==> Good(ExUB(ExUA(b = "Hi"), c = 5))
-//      """ExUB(c = 5; a = 7, "Hi")""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
-//      """ExUB(c = 5; a = 7, "Hi",)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
-//      """ExUB(c = 5; a = 7, "Hi";)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
-//      """ExUB(c = 5; a = 7, "Hi", ;)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      ExUB() ==> ExUB()
+    """ExUB()""".asType[ExUB] ==> Good(ExUB())
+      """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
+      """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
+      """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
+      """ExUB(b: String = "AAA")""".asType[ExUB] ==> Good(ExUB(b = "AAA"))
+      """ExUB(c = 5;)""".asType[ExUB] ==> Good(ExUB(c = 5))
+      """ExUB(c = 5; a = ExUA(b = "Hi"))""".asType[ExUB] ==> Good(ExUB(ExUA(b = "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi")""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi",)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi";)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi", ;)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
     }
   }
 }
