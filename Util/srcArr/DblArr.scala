@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer, pParse._
 
 /** An immutable Array based class for Doubles. */
 class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrNoParam[Double]
@@ -41,6 +41,25 @@ object DblArr
       while (i < a1.length & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
+
+  /** Implicit method for creating [[IntArr]] instances. */
+  implicit val unshowEv: Unshow[DblArr] = new Unshow[DblArr]
+  { override def typeStr: String = "Seq" + "Dbl"
+
+    override def fromExpr(expr: Expr): EMon[DblArr] = expr match
+    { case _: EmptyExprToken => Good(DblArr())
+
+      case AlphaBracketExpr(id1,
+      RArr2(BracketedStatements(RArr1(_), brs1, _, _),
+      BracketedStatements(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parenthesis =>
+        sts.eMapLike(s => Unshow.doubleEv.fromExpr(s.expr))(DblArrBuilder)
+
+      case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
+        sts.eMapLike(s => Unshow.doubleEv.fromExpr(s.expr))(DblArrBuilder)
+
+      case e => bad1(expr, expr.toString + " unknown Expression for Seq")
+    }
+  }
 }
 
 object DblArrBuilder extends ArrMapBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
