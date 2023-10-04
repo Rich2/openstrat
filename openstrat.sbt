@@ -26,8 +26,7 @@ def sett3 = List(
 
 def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(sett3).settings(
   moduleDir := baseDir.value / srcsStr,
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
-  testFrameworks += new TestFramework("utest.runner.Framework"),
+  
   Test/scalaSource := moduleDir.value / "TestSrc",
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
@@ -42,6 +41,8 @@ def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.1" % "test" withSources(),
+  testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
 def exsJvmProj(srcsStr: String) = proj(srcsStr, srcsStr + "Exs").settings(
@@ -50,6 +51,8 @@ def exsJvmProj(srcsStr: String) = proj(srcsStr, srcsStr + "Exs").settings(
   Compile/unmanagedSourceDirectories := List("ExsSrc", "ExsJvmSrc").map(moduleDir.value / _),
   resourceDirectory := moduleDir.value / "ExsRes",
   Test/unmanagedResourceDirectories := List(moduleDir.value / "ExsRes", (Test/resourceDirectory).value),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.1" % "test" withSources(),
+  testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
 def jsProj(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
