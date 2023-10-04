@@ -87,18 +87,18 @@ object IntArr
       acc
     }
 
-  /** Implicit method for creating List[A: Persist] instances. */
-  implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr] // with ShowIterable[A, List[A]]
+  /** Implicit method for creating [[IntArr]] instances. */
+  implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
   {
 
     override def typeStr: String = "Seq" + "Int"
 
-    override def fromExpr(expr: Expr): EMon[IntArr] = expr match {
-      case eet: EmptyExprToken => Good(IntArr())
+    override def fromExpr(expr: Expr): EMon[IntArr] = expr match
+    { case _: EmptyExprToken => Good(IntArr())
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
-        sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder) //.map(_.toList)
-      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder) //.map(_.toList)
-      case AlphaParenth("Seq", sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder) //.map(_.toList)
+        sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+      case AlphaParenth("Seq", sts) => sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
   }

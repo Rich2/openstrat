@@ -33,20 +33,18 @@ trait SeqLike[+A] extends Any
 
 object SeqLike
 {
-  /** Implicit method for creating List[A: Persist] instances. */
+  /** Implicit method for creating [[SeqLike]] instances. */
   implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: SeqLikeMapBuilder[A, AA]): Unshow[AA] = new Unshow[AA] // with ShowIterable[A, List[A]]
-  {
-    val evA: Unshow[A] = evIn
+  { val evA: Unshow[A] = evIn
     val build: SeqLikeMapBuilder[A, AA] = buildIn
-
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): EMon[AA] = expr match {
-      case eet: EmptyExprToken => Good(build.uninitialised(0))
+    override def fromExpr(expr: Expr): EMon[AA] = expr match
+    { case eet: EmptyExprToken => Good(build.uninitialised(0))
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
-        sts.eMapLike(s => evA.fromExpr(s.expr))(build)//.map(_.toList)
-      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)//.map(_.toList)
-      case AlphaParenth("Seq", sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)//.map(_.toList)
+        sts.eMapLike(s => evA.fromExpr(s.expr))(build)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)
+      case AlphaParenth("Seq", sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
   }
