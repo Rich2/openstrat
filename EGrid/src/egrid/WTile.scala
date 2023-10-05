@@ -7,7 +7,7 @@ trait WTileHelper
 /** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
  * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
  * and other land hexs.  */
-trait WTile extends WTileHelper with Coloured with Tell//Simple //with Descrip
+trait WTile extends WTileHelper with Coloured with Tell
 { override def typeStr: String = "WTile"
   def isLand: Boolean
   def isWater: Boolean = !isLand
@@ -100,9 +100,8 @@ class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) extends 
 object Land
 {
   def apply(elev: Lelev, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
+  implicit val showEv: ShowTell3[Lelev, Climate, LandUse, Land] = ShowTell3[Lelev, Climate, LandUse, Land]("Land")
 }
-
-
 
 /** Winter sea ice. */
 object WSeaIce extends Water with ShowSimpled

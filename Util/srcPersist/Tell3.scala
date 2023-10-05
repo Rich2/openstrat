@@ -20,8 +20,10 @@ trait Tell3[A1, A2, A3] extends Any with Show3Plused[A1, A2, A3]
 
 trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
 
-object ShowTell3{
-  class ShowTellImp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell3[A1, A2, A3, R]
+object ShowTell3
+{
+  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String): ShowTell3[A1, A2, A3, R] = new ShowTell3Imp[A1, A2, A3, R](typeStr)
+  class ShowTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell3[A1, A2, A3, R]
 }
 
 /** Show classes with 3 [[Int]] parameters. */
