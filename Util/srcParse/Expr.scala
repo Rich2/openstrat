@@ -88,6 +88,7 @@ case class UnimplementedExpr(bMems: RArr[BlockMem]) extends CompoundClauseMemExp
   override def exprName: String = "UnimplementedExpr"
 }
 
+/** An Identifier Token followed by 1 or more brace blocks. */
 case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStatements]) extends CompoundClauseMemExpr
 { def startMem: IdentifierToken = name
   def endMem: BracketedStatements = blocks.last

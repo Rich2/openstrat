@@ -149,7 +149,7 @@ object Persist2
     val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends Persist2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
+//    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
 
     /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
      * should always be determined at compile time or if sometimes it should be determined at runtime. */

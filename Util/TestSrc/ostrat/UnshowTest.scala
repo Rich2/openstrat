@@ -15,14 +15,14 @@ case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
   override def opt2: Option[String] = Some("blah")
 }
 
-object ExUA{
-  implicit val persistEv: Persist2[Int, String, ExUA] = PersistTell2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
+object ExUA
+{ implicit val persistEv: Persist2[Int, String, ExUA] =
+    PersistTell2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
 /** Example of a [[Tell3]] class on of whose parameters is also a [[TellN]] class. */
 case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3[ExUA, String, Int]
-{
-  override def typeStr: String = "ExUA"
+{ override def typeStr: String = "ExUA"
   override def show1: ExUA = a
   override def show2: String = b
   override def show3: Int = c
@@ -46,8 +46,7 @@ object ExUB
 object UnshowTest extends TestSuite
 { val tests = Tests {
     test("UA")
-    {
-     """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
+    { """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))
       "ExUA()".asType[ExUA] ==> Good(ExUA(0, "blah"))
       """ExUA(a = 42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))

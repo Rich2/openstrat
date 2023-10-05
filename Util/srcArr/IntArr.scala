@@ -74,7 +74,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
 object IntArr
 { def apply(input: Int*): IntArr = new IntArr(input.toArray)
 
-  implicit val showImplicit: Show[IntArr] = new ArrShowT[Int, IntArr](Show.intPersistEv)// ShowT ???// DataGenShowT[Int, IntArr](ShowT.intPersistEv)
+
 
   implicit val eqImplicit: EqT[IntArr] = (a1, a2) =>
     if(a1.length != a2.length) false
@@ -85,9 +85,10 @@ object IntArr
       acc
     }
 
-  /** Implicit method for creating [[IntArr]] instances. */
-  implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
+  implicit val persistEv: Persist[IntArr] with ShowTellArr[Int, IntArr] = new Persist[IntArr] with ShowTellArr[Int, IntArr]
   { override def typeStr: String = "Seq" + "Int"
+
+    override def evA: Show[Int] = Show.intPersistEv
 
     override def fromExpr(expr: Expr): EMon[IntArr] = expr match
     { case _: EmptyExprToken => Good(IntArr())

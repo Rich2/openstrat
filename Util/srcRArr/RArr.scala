@@ -187,7 +187,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
  * extends AnyRef. */
 object RArr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
-  implicit def showImplicit[A](implicit evA: Show[A]): Show[RArr[A]] = ArrShowT[A, RArr[A]](evA)
+  implicit def showImplicit[A](implicit evAIn: Show[A]): Show[RArr[A]] = new ShowTellArr[A, RArr[A]]{
+    override def evA: Show[A] = evAIn
+  }
 
   implicit def eqTEv[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
   { var i = 0
