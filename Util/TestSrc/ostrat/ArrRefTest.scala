@@ -47,9 +47,9 @@ object ArrRefTest extends TestSuite
     val arr2: RArr[MyT] = RArr(a1, b1, b2)
     val arr3: RArr[MyT] = RArr(a1, b1, b3)
     val arr4: RArr[MyT] = RArr(a1, b2, b3)
+
     test("Equality")
-    {
-      (arr1 === arr2) ==> true
+    { (arr1 === arr2) ==> true
       (arr1 === arr3) ==> true
       (arr1 === arr4) ==> false
     }

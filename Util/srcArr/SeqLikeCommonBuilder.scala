@@ -48,7 +48,6 @@ trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
     res
   }
 
-
   def iterMap[A](inp: Iterable[A], f: A => B): ArrB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
@@ -79,7 +78,6 @@ trait ArrBuilderPriority2
 }
 
 trait SeqLikeFlatBuilder[BB <: SeqLike[_]] extends SeqLikeCommonBuilder[BB]
-
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrMapBuilder]][BB] type class where the instance

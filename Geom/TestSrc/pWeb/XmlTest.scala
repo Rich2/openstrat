@@ -5,8 +5,11 @@ import utest._
 /** Also tests the srcToETokens function object. */
 object XmlTest extends TestSuite
 {
-  case class City(str: String) extends XmlStr
-  { override def tag: String = "City"
+  case class City(str: String) extends XCon
+  { def tag: String = "City"
+
+    /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
+    override def out(indent: Int = 0, line1Delta: Int = 2, maxLineLen: Int = 150): String = tag
   }
 
   case class Cities(contents: RArr[XCon]) extends XmlMultiNoAtts

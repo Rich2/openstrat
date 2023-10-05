@@ -8,8 +8,6 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
 { type ThisT = IntArr
   override def typeStr: String = "Ints"
 
-
-
   override def unsafeSameSize(length: Int): IntArr = new IntArr(new Array[Int](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Int = unsafeArray(index)
