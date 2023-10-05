@@ -78,8 +78,8 @@ object Show
         case _ => orig
       }
 
-      style match {
-        case ShowTyped => typeStr + inner.enParenth
+      style match
+      { case ShowTyped => typeStr + inner.enParenth
         case _ => inner
       }
     }

@@ -2,6 +2,7 @@
 package ostrat
 import pParse._
 
+/** Base trait for [[ShowN]] and [[UnshowN]]. */
 trait PersistBaseN extends Any with PersistBase
 { /** Sequence of the names of parameter constituents of this class. */
   def paramNames: StrArr
@@ -18,9 +19,9 @@ trait ShowN[R] extends ShowCompound[R] with Show[R]
 
     style match
     { case ShowUnderScore => "_"
-    case ShowSemis => semisStr
-    case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
-    case _ => typeStr.appendParenth(semisStr)
+      case ShowSemis => semisStr
+      case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
+      case _ => typeStr.appendParenth(semisStr)
     }
   }
 
