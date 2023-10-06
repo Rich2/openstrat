@@ -3,9 +3,13 @@ package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid
-{
-  def canEqual(a: Any) = a.isInstanceOf[HGridSys]
+class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid with TellInt4
+{ override def typeStr: String = "HGridReg"
+  override def name1: String = "bottom"
+  override def name2: String = "top"
+  override def name3: String = "left"
+  override def name4: String = "right"
+  def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
 
   override def equals(that: Any): Boolean = that match
   { case that: HGridReg =>

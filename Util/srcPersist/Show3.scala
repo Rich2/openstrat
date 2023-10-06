@@ -8,7 +8,7 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
   def name3: String
 
   /** The optional default value for parameter 3. */
-  def opt3: Option[A3]
+  def opt3: Option[A3] = None
 
   /** The declaration here allows the same field to be to cover [[Show]][A3] [[UnShow]][A3] and [[Persist]][A3]. */
   def persist3: Show[A3] | Unshow[A3]
@@ -42,11 +42,11 @@ object Show3
 
   /** Implementation class for the general cases of the [[Show3]] trait. */
   class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
-    val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    val fArg3: R => A3, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3]) extends Show3[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
-    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     val defaultNum: Int = None match
     { case _ if opt3.isEmpty => 0
@@ -86,10 +86,10 @@ object ShowInt3
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
   class ShowInt3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
-    val fArg3: R => Int, val newT: (Int, Int, Int) => R, val opt3: Option[Int], val opt2In: Option[Int] = None,
+    val fArg3: R => Int, val newT: (Int, Int, Int) => R, override val opt3: Option[Int], opt2In: Option[Int] = None,
     opt1In: Option[Int] = None) extends ShowInt3[R]
-  { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  { override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
@@ -120,7 +120,7 @@ object Unshow3
     Unshow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3, opt2, opt1)
 
   class Unshow3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => R,
-    val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Unshow[A1], val persist2: Unshow[A2], val persist3: Unshow[A3]) extends Unshow3[A1, A2, A3, R]
   {
     override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
@@ -144,10 +144,10 @@ object Persist3
     new Persist3Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
 
   class Persist3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val name3: String, val fArg3: R => A3, val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None,
+    val name3: String, val fArg3: R => A3, val newT: (A1, A2, A3) => R, override val opt3: Option[A3] = None, opt2In: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2], val persist3: Persist[A3]) extends Persist3[A1, A2, A3, R]
-  { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     val defaultNum: Int = None match{
       case _ if opt3.isEmpty => 0
@@ -177,10 +177,10 @@ object PersistInt3
     new PersistInt3Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)
 
   class PersistInt3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
-    val fArg3: R => Int, val newT: (Int, Int, Int) => R, val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends
+    val fArg3: R => Int, val newT: (Int, Int, Int) => R, override val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends
     PersistInt3[R]
-  { val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  { override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
     val defaultNum: Int = None match
     { case _ if opt3.isEmpty => 0
@@ -197,10 +197,10 @@ object PersistInt3
 
 /** Persistence class for types that extend [[TellDbl3]]. */
 class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
-  val fArg3: R => Double, val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None,
+  val fArg3: R => Double, val newT: (Double, Double, Double) => R, override val opt3: Option[Double] = None, opt2In: Option[Double] = None,
   opt1In: Option[Double] = None) extends Persist3[Double, Double, Double, R] with ShowDbl3[R]
-{ val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
-  val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+{ override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+  override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   override def persist1: Persist[Double] = Show.doublePersistEv
   override def persist2: Persist[Double] = Show.doublePersistEv
   override def persist3: Persist[Double] = Show.doublePersistEv

@@ -12,10 +12,10 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   def name2: String
 
   /** The optional default value for parameter 1. */
-  def opt1: Option[A1]
+  def opt1: Option[A1] = None
 
   /** The optional default value for parameter 2. */
-  def opt2: Option[A2]
+  def opt2: Option[A2] = None
 
   /** The declaration here allows the same field to cover [[Show]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
   def persist1: Show[A1] | Unshow[A1]
@@ -126,9 +126,9 @@ object Unshow2
   def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
     ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, R] = new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 
-  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, val opt2: Option[A2], opt1In: Option[A1])(implicit
+  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, override val opt2: Option[A2], opt1In: Option[A1])(implicit
     val persist1: Unshow[A1], val persist2: Unshow[A2]) extends Unshow2[A1, A2, R]
-  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
@@ -146,8 +146,8 @@ object Persist2
     new Persist2Imp(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 
   class Persist2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends Persist2[A1, A2, R]
-  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends Persist2[A1, A2, R]
+  { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
 //    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
 
@@ -166,8 +166,8 @@ object PersistInt2
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
   class PersistInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
-    val newT: (Int, Int) => R, val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R]
-  { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+    val newT: (Int, Int) => R, override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R]
+  { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
