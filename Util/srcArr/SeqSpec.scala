@@ -112,7 +112,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 }
 
 /** [[Show] type class for showing [[SeqSpec]][A] objects. */
-class SeqSpecShowT[A, R <: SeqSpec[A]](val evA: Show[A]) extends ShowTSeqLike[A, R]
+class SeqSpecShow[A, R <: SeqSpec[A]](val evA: Show[A]) extends ShowSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

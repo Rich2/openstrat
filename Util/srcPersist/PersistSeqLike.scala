@@ -22,7 +22,7 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowTSeqLike[A, R] with PersistCompound[R]
+abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSeqLike[A, R] with PersistCompound[R]
 {
   def fromExprLike(expr: Expr): EMon[List[A]] = expr match
   {
@@ -35,7 +35,7 @@ abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowTS
 
 abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends PersistSeqLike[A, R](ev) with ShowIterable[A, R]
 
-trait ShowIterable[A, R <: Iterable[A]] extends ShowTSeqLike[A, R]
+trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
 

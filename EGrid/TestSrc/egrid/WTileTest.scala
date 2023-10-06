@@ -8,7 +8,7 @@ object WTileTest
   val tests = Tests {
     test("show")
     { forest.str ==> "Land(Level; Temperate; Forest)"
-      RArr(forest, hills).str ==> ""
+      RArr(forest, hills).str ==> "Seq(Level, Temperate, Forest; Hilly, Temperate, Mixed use)"
     }
   }
 }
