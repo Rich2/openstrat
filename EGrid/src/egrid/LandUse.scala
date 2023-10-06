@@ -2,12 +2,12 @@
 package ostrat; package egrid
 
 /** The local climate. */
-trait LandUse extends ShowSimpled
+trait LandUse extends TellSimple
 { override def typeStr: String = "LandUse"
 }
 object LandUse
 {
-  implicit val showEv: ShowTell[LandUse] = ShowSimpleeding[LandUse]("LandUse")
+  implicit val showEv: ShowTell[LandUse] = ShowTellSimple[LandUse]("LandUse")
 }
 
 object CivMix extends LandUse

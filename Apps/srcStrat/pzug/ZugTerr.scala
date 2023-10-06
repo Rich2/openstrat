@@ -5,7 +5,7 @@ import Colour._
 trait ZugTerrHelper
 
 /** ZugFuhrer hex terrain. Currently a simple form of terrain. */
-trait ZugTerr extends ZugTerrHelper with ShowSimpled with Coloured
+trait ZugTerr extends ZugTerrHelper with TellSimple with Coloured
 {
   override def typeStr: String = "ZugTerr"
   def colour: Colour

@@ -2,13 +2,13 @@
 package ostrat; package peri
 import Colour._
 
-class Nation(val str: String, val colour: Colour) extends Coloured with ShowSimpled
+class Nation(val str: String, val colour: Colour) extends Coloured with TellSimple
 { override def typeStr: String = "Nation"
 }
 
 object Nation
 {
-  implicit val showTEv: ShowSimpleeding[Nation] = ShowSimpleeding[Nation]("Nation")
+  implicit val showTEv: ShowTellSimple[Nation] = ShowTellSimple[Nation]("Nation")
   def persistEv(arr: RArr[Nation]): PersistSingletons[Nation] = PersistSingletons[Nation]("Nation", arr)
   def persistEv(nations: Nation*): PersistSingletons[Nation] = PersistSingletons[Nation]("Nation", nations.toArr)
 }

@@ -2,7 +2,7 @@
 package ostrat; package pww2
 import Colour._
 
-trait Polity extends ShowSimpled with Coloured
+trait Polity extends TellSimple with Coloured
 { override def typeStr: String = "Polity"
   def army(num: Int): Army = Army(this, num)
   def armyNext()(implicit counters: ArrCounters[Polity]): Army = army(counters(this))

@@ -2,7 +2,7 @@
 package ostrat; package pDung
 import Colour._
 
-sealed trait DungTerr extends AnyRef with ShowSimpled
+sealed trait DungTerr extends AnyRef with TellSimple
 { override def typeStr: String = "DungTerr"
   def colour: Colour
 }

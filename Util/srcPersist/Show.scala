@@ -36,16 +36,16 @@ trait Show[-T] extends PersistBase
 object Show
 { /** Implicit [[Persist]] type class instance /evidence for [[Int]]. */
   implicit val intPersistEv: Persist[Int] = new IntPersistClass
-  class IntPersistClass extends Unshow.IntEvClass with Persist[Int] with ShowSimpleing[Int]
+  class IntPersistClass extends Unshow.IntEvClass with Persist[Int] with ShowSimple[Int]
   { def strT(obj: Int): String = obj.toString
   }
 
-  val hexadecimal: Show[Int] = new ShowSimpleing[Int]
+  val hexadecimal: Show[Int] = new ShowSimple[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.hexStr
   }
 
-  val base32: Show[Int] = new ShowSimpleing[Int]
+  val base32: Show[Int] = new ShowSimple[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.base32
   }
@@ -102,7 +102,7 @@ object Show
     }
   }
 
-  implicit val floatImplicit: Show[Float] = new ShowSimpleing[Float]
+  implicit val floatImplicit: Show[Float] = new ShowSimple[Float]
   { override def typeStr: String = "SFloat"
     def strT(obj: Float): String = obj.toString
   }
@@ -125,7 +125,7 @@ object Show
     }
   }
 
-  implicit val charImplicit: Show[Char] = new ShowSimpleing[Char]
+  implicit val charImplicit: Show[Char] = new ShowSimple[Char]
   { override def typeStr: String = "Char"
     def strT(obj: Char): String = obj.toString.enquote1
   }

@@ -2,14 +2,14 @@
 package ostrat; package pDung
 import Colour._, prid._, psq._
 
-sealed class Faction(val str: String, val colour: Colour) extends ShowSimpled
+sealed class Faction(val str: String, val colour: Colour) extends TellSimple
 { override def typeStr: String = "Faction"
 }
 
 object Fact1 extends Faction("Fac1", Orange)
 object Fact2 extends Faction("Fac2", Green)
 
-class Character(val iden: Char, val faction: Faction) extends ShowSimpled // with CoodMover
+class Character(val iden: Char, val faction: Faction) extends TellSimple // with CoodMover
 { override def typeStr = "Character"
   def colour = faction.colour
   val str: String = "Character" -- iden.toString

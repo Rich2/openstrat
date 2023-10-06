@@ -2,7 +2,7 @@
 package ostrat; package p305
 import Colour._
 
-trait Polity extends ShowSimpled
+trait Polity extends TellSimple
 { override def typeStr: String = "Polity"
   def colour: Colour
   def lg(num: Int): Legion = Legion(this, num)

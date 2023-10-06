@@ -2,7 +2,7 @@
 package ostrat; package pnap
 import Colour._
 
-trait Polity extends ShowSimpled
+trait Polity extends TellSimple
 { override def typeStr: String = "Polity"
   def colour: Colour
 }

@@ -61,7 +61,7 @@ object StdButton
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
-object Turn extends ShowSimpled
+object Turn extends TellSimple
 { override def typeStr: String = "Turn.type"
   override def str: String = "Turn"
 }

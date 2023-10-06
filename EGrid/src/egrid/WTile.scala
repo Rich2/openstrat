@@ -50,24 +50,27 @@ object WTile
 }
 
 /** A common trait for Ocean and Lake. */
-trait Water extends WTile with WSideSome
+trait Water extends WTile with WSideSome with TellSimple
 { override def isLand: Boolean = false
 }
 
-/** Sea. This is an object as currently has no other variables such as depth, current or climate. */
-case object Sea extends Water with  ShowSimpled
+object Water{
+  implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
+}
+
+/** Sea tile. This is an object as currently has no other variables such as depth, current or climate. */
+case object Sea extends Water
 { override def str = "Sea"
   override def colour: Colour = DarkBlue
-  //override def shortDescrip: String = "Sea"
 }
 
-case object Lake extends Water with ShowSimpled
+/** Lake tile. This is an object as currently has no other variables such as depth, current or climate. */
+case object Lake extends Water
 { override def str = "Lake"
   override def colour: Colour = Blue
-  //override def shortDescrip: String = "Lake"
 }
 
-object TerrainNone extends WTile with ShowSimpled
+object TerrainNone extends WTile with TellSimple
 { override def str = "NoTerrain"
   override def colour = Gray
   override def isLand: Boolean = false
@@ -104,7 +107,7 @@ object Land
 }
 
 /** Winter sea ice. */
-object WSeaIce extends Water with ShowSimpled
+object WSeaIce extends Water with TellSimple
 { override def str = "WSeaIce"
   override def colour = LightSkyBlue.average(White).average(White)
   override def isLand: Boolean = false

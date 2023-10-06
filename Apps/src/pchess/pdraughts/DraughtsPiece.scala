@@ -2,7 +2,7 @@
 package ostrat; package pchess; package pdraughts
 import Colour._
 
-sealed trait Draught extends ShowSimpled
+sealed trait Draught extends TellSimple
 { def colour: Colour
   override def typeStr: String = "Draught"
 }

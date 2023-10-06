@@ -3,7 +3,7 @@ package ostrat; package egrid
 import Colour._
 
 /** Land elevation. */
-trait Lelev extends ShowSimpled with Coloured
+trait Lelev extends TellSimple with Coloured
 {
   override def typeStr: String = "Lelev"
 
@@ -13,7 +13,7 @@ trait Lelev extends ShowSimpled with Coloured
 
 object Lelev
 {
-  implicit val showEv: ShowTell[Lelev] = ShowSimpleeding[Lelev]("Lelev")
+  implicit val showEv: ShowTell[Lelev] = ShowTellSimple[Lelev]("Lelev")
 }
 
 case object Level extends Lelev

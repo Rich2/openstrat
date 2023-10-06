@@ -18,10 +18,10 @@ trait PersistN[R] extends Persist[R] with ShowN[R]
 trait PersistShowN[R <: TellN] extends PersistN[R] with ShowNeding[R]
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleing[A] with Persist[A]
+abstract class PersistSimple[A](val typeStr: String) extends ShowSimple[A] with Persist[A]
 
 /** I think this class may be redundant and can be replace by a more general PersistSum class for displaying algebraic sum types. */
-abstract class PersistSingletons[A <: ShowSimpled](typeStr: String) extends PersistSimple[A](typeStr)
+abstract class PersistSingletons[A <: TellSimple](typeStr: String) extends PersistSimple[A](typeStr)
 {
   def singletons: RArr[A]
 
@@ -35,11 +35,11 @@ abstract class PersistSingletons[A <: ShowSimpled](typeStr: String) extends Pers
 
 object PersistSingletons
 {
-  def apply[A <: ShowSimpled](typeStr: String, singletonsIn: RArr[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
+  def apply[A <: TellSimple](typeStr: String, singletonsIn: RArr[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
   { override def singletons: RArr[A] = singletonsIn
   }
 
-  def apply[A <: ShowSimpled](typeStr: String, singletonsIn: A*)(implicit ct: ClassTag[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
+  def apply[A <: TellSimple](typeStr: String, singletonsIn: A*)(implicit ct: ClassTag[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
   {  override def singletons: RArr[A] = singletonsIn.toArr
   }
 }
