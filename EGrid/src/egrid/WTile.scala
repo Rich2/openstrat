@@ -54,8 +54,8 @@ trait Water extends WTile with WSideSome with TellSimple
 { override def isLand: Boolean = false
 }
 
-object Water{
-  implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
+object Water
+{ implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
 }
 
 /** Sea tile. This is an object as currently has no other variables such as depth, current or climate. */
@@ -79,7 +79,8 @@ object TerrainNone extends WTile with TellSimple
 
 /** Land tile. Describes topology, climate-biome and land use. */
 class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) extends WTile with Tell3[Lelev, Climate, LandUse]
-{ override def name1: String = "elev"
+{ override def typeStr: String = "Land"
+  override def name1: String = "elev"
   override def name2: String = "climate"
   override def name3: String = "landUse"
   override def show1: Lelev = elev

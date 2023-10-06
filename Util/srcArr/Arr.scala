@@ -21,7 +21,7 @@ trait Arr[+A] extends Any with Sequ[A]
   def headOrNone: Any = ife(length ==0, None, apply(0))
 }
 
-/** [[Show] type class for showing [[DataGen]][A] objects. */
+/** [[Show] type class for showing [[Arr]][A] objects. */
 trait ShowTellArr[A, R <: Arr[A]] extends ShowTSeqLike[A, R]
 { // (val evA: Show[A])
   override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))

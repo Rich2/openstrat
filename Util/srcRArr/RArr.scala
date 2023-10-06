@@ -186,7 +186,8 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
 /** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A
  * extends AnyRef. */
 object RArr
-{ def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
+{ /** Factory apply method for [[RArr]] class. */
+  def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
   implicit def showImplicit[A](implicit evAIn: Show[A]): Show[RArr[A]] = new ShowTellArr[A, RArr[A]]{
     override def evA: Show[A] = evAIn
   }
@@ -209,7 +210,7 @@ object RArr
   }
 }
 
-/** Funtion object for Factory method for [[RArr]][Any]. */
+/** Function object for Factory method for [[RArr]][Any]. */
 object RArrAny
 { /** Factory apply method for [[RArr]][Any]. */
   def apply(elems: Any*): RArr[Any] =
