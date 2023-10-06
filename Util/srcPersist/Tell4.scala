@@ -59,3 +59,8 @@ class PersistTellInt4[R <: TellInt4](val typeStr: String, val name1: String, val
   override def persist3: Unshow[Int] = Show.intPersistEv
   override def persist4: Unshow[Int] = Show.intPersistEv
 }
+
+object PersistTellInt4{
+  def apply[R <: TellInt4](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (Int, Int, Int, Int) => R):
+    PersistTellInt4[R] = new PersistTellInt4[R](typeStr, name1, name2, name3, name4, newT: (Int, Int, Int, Int) => R)
+}

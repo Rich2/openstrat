@@ -37,10 +37,10 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   def rightRem2CenC: Int = rightCenC.roundDownTo(_.div4Rem2)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem0. */
-  def row0sTileNum = ((rightRem0CenC - leftRem0CenC + 4) / 4).max(0)
+  def row0sTileNum: Int = ((rightRem0CenC - leftRem0CenC + 4) / 4).max(0)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem2. */
-  def row2sTileNum = ((rightRem2CenC - leftrem2CenC + 4) / 4).max0
+  def row2sTileNum: Int = ((rightRem2CenC - leftrem2CenC + 4) / 4).max0
 
   /** The starting, minimum or by convention left column coordinate c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
@@ -204,6 +204,5 @@ object HGridReg
   }
 
   /** Implicit instance of [[Show]] for [[HGridReg]]. */
-  implicit val persistEv: PersistInt4[HGridReg] = PersistInt4[HGridReg]("HGridReg", "bottom", _.bottomCenR, "top", _.topCenR, "left", _.leftCenC, "right",
-    _.rightCenC, apply)
+  implicit val persistEv: PersistTellInt4[HGridReg] = PersistTellInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", apply)
 }
