@@ -52,9 +52,9 @@ object PersistTell3
     new PersistTell3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3, opt2, opt1)(persist1, persist2, persist3)
 
   class PersistTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
-    val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    val newT: (A1, A2, A3) => R, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Unshow[A1], val persist2: Unshow[A2], val persist3: Unshow[A3]) extends PersistTell3[A1, A2, A3, R]
-  { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }

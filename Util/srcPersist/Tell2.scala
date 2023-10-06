@@ -109,15 +109,15 @@ object PersistTell2
     new PersistTell2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 
   class PersistTell2Imp[A1, A2, R <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
-    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends PersistTell2[A1, A2, R]
-  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends PersistTell2[A1, A2, R]
+  { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 /** Persistence type class for types that extend [[TellInt2]]. */
 class PersistTellInt2[R <: TellInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
-  val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with PersistTell2[Int, Int, R] with ShowTellInt2[R]
-{ val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with PersistTell2[Int, Int, R] with ShowTellInt2[R]
+{ override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 
 object PersistTellInt2
@@ -128,6 +128,6 @@ object PersistTellInt2
 
 /** Persistence class for types that extend [[TellDbl2]]. */
 class PersistTellDbl2[R <: TellDbl2](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
-  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistTell2[Double, Double, R] with ShowTellDbl2[R]
-{ val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistTell2[Double, Double, R] with ShowTellDbl2[R]
+{ override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }

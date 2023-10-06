@@ -39,15 +39,15 @@ object Show5
 
   /** Implementation class for the general cases of [[Show5]] type class. */
   class Show5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
-    val name3: String, fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val opt5: Option[A5],
+    val name3: String, fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, override val opt5: Option[A5],
     opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3], val persist4: Show[A4], val persist5: Show[A5]) extends
     Show5[A1, A2, A3, A4, A5, R]
   {
-    val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
-    val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
-    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
+    override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+    override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
       max(persist4.syntaxDepthT(fArg4(obj))).max(persist5.syntaxDepthT(fArg5(obj))) + 1
@@ -104,13 +104,13 @@ object Persist5
 
   class Persist5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5,
-    val newT: (A1, A2, A3, A4, A5) => R, val opt5: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
+    val newT: (A1, A2, A3, A4, A5) => R, override val opt5: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2], val persist3: Persist[A3], val persist4: Persist[A4],
     val persist5: Persist[A5]) extends Persist5[A1, A2, A3, A4, A5, R]
-  { val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
-    val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
-    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  { override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
+    override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+    override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     val defaultNum: Int = None match
     { case _ if opt3.isEmpty => 0
@@ -144,11 +144,11 @@ object PersistInt5
 
   class PersistInt5Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
     val fArg3: R => Int, val name4: String, val fArg4: R => Int, val name5: String, val fArg5: R => Int, val newT: (Int, Int, Int, Int, Int) => R,
-    val opt5: Option[Int] = None, opt4In: Option[Int] = None, opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt5[R]
-  { val opt4: Option[Int] = ife(opt5.nonEmpty, opt4In, None)
-    val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
-    val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+    override val opt5: Option[Int] = None, opt4In: Option[Int] = None, opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt5[R]
+  { override val opt4: Option[Int] = ife(opt5.nonEmpty, opt4In, None)
+    override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
+    override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
     val defaultNum: Int = None match
     { case _ if opt3.isEmpty => 0

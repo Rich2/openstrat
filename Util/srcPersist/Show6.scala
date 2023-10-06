@@ -46,10 +46,10 @@ object Show6
     implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3], val persist4: Show[A4], val persist5: Show[A5],
     val persist6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, R] with ShowN[R]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
-    val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
-    val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
-    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
+    override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+    override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
       max(persist4.syntaxDepthT(fArg4(obj))).max(persist5.syntaxDepthT(fArg5(obj))).max(persist6.syntaxDepthT(fArg6(obj))) + 1
@@ -71,10 +71,10 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with PersistBase6Plu
   val newT: (A1, A2, A3, A4, A5, A6) => R
   def opt6: Option[A6]
   def opt5: Option[A5] = None
-  def opt4: Option[A4] = None
-  def opt3: Option[A3] = None
-  def opt2: Option[A2] = None
-  def opt1: Option[A1] = None
+  override def opt4: Option[A4] = None
+  override def opt3: Option[A3] = None
+  override def opt2: Option[A2] = None
+  override def opt1: Option[A1] = None
   implicit override def persist1: Unshow[A1]
   implicit override def persist2: Unshow[A2]
   implicit override def persist3: Unshow[A3]
