@@ -102,6 +102,22 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
+  /** Functionally appends new elements to this [[RArr]] collection, allows type widening. */
+  def appends[AA >: A](newElems: AA*)(implicit ct: ClassTag[AA]): RArr[AA] =
+  { val newLen = length + newElems.length
+    val newArray = new Array[AA](newLen)
+    newElems.iForeach { (i, el) => newArray(length + i) = el }
+    new RArr(newArray)
+  }
+
+  /** Functionally appends [[Iterable]] to this [[RArr]] collection, allows type widening. */
+  def appendIter[AA >: A](operand: Iterable[AA])(implicit ct: ClassTag[AA]): RArr[AA] = {
+    val newLen = length + operand.size
+    val newArray = new Array[AA](newLen)
+    operand.iForeach { (i, el) => newArray(length + i) = el }
+    new RArr(newArray)
+  }
+
   def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = indexWhere(f) match {
     case -1 => returnThis
     case n => {

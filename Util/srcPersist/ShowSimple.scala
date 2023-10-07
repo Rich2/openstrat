@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag
+import pParse._, reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
@@ -32,15 +32,21 @@ trait ShowSimple[-A] extends Show[A]
 case class ShowTellSimple[R <: TellSimple](typeStr: String) extends ShowTell[R]
 
 trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
-{
+{ /** The sequence of objects that can be unshown. */
   def singletons: RArr[A]
 
-  def fromExpr(expr: Expr): EMon[A] = expr match {
-    case IdentifierToken(str) => singletons.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
+  def fromExpr(expr: Expr): EMon[A] = expr match
+  { case IdentifierToken(str) => singletons.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
     case e => bad1(e, typeStr -- "not parsed from this Expression")
   }
 
-  //def ++[AA <: A](operand: UnshowSingletons[AA]): UnshowSingletons[AA] = ???
+  def ++[AA >: A <: TellSimple](operand: UnshowSingletons[AA])(implicit ct: ClassTag[AA]): UnshowSingletons[AA] =
+    UnshowSingletons(typeStr, singletons ++ operand.singletons)
+
+  def append[AA >: A <: TellSimple](extras: AA*)(implicit ct: ClassTag[AA]): UnshowSingletons[AA] =
+  { val newArr: RArr[AA] = singletons.appendIter(extras)
+    UnshowSingletons.apply[AA](typeStr, newArr)
+  }
 }
 
 object UnshowSingletons
@@ -56,7 +62,6 @@ object UnshowSingletons
 abstract class PersistSingletons[A <: TellSimple](typeStr: String) extends PersistSimple[A](typeStr) with UnshowSingletons[A]
 {
   @inline override def strT(obj: A): String = obj.str
-
 }
 
 object PersistSingletons
