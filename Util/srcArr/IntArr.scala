@@ -85,7 +85,7 @@ object IntArr
       acc
     }
 
-  implicit val persistEv: Persist[IntArr] with ShowTellArr[Int, IntArr] = new Persist[IntArr] with ShowTellArr[Int, IntArr]
+  implicit val persistEv: Persist[IntArr] with ShowArr[Int, IntArr] = new Persist[IntArr] with ShowArr[Int, IntArr]
   { override def typeStr: String = "Seq" + "Int"
 
     override def evA: Show[Int] = Show.intPersistEv

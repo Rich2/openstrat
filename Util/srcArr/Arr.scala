@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, scala.reflect.ClassTag, unchecked.uncheckedVariance
 
@@ -22,7 +22,7 @@ trait Arr[+A] extends Any with Sequ[A]
 }
 
 /** [[Show] type class for showing [[Arr]][A] objects. */
-trait ShowTellArr[A, R <: Arr[A]] extends ShowSeqLike[A, R]
+trait ShowArr[A, R <: Arr[A]] extends ShowSeqLike[A, R]
 { override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
 
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
