@@ -37,7 +37,7 @@ object EGrid220LongFull
 
   val fullBounds: Array[EGrid220LongFull] = {
     val array = new Array[EGrid220LongFull](12)
-    iUntilForeach(0, 12) { i => array(i) = EGrid220LongFull(40, 160, i) }
+    iUntilForeach(0, 12) { i => array(i) = EGrid220LongFull(40, 202, i) }
     array
   }
 }

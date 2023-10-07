@@ -59,7 +59,7 @@ object Terr320E0 extends Long320Terrs
   help.run
 }
 
-object BritReg
+object BritReg320
 { def britGrid: EGrid320Long = EGrid320Long.reg(138, 148, 0, 504, 520)
   def britTerrs: HCenLayer[WTile] = Terr320E0.terrs.spawn(Terr320E0.grid, britGrid)
   def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr320E0.sTerrs.spawn(Terr320E0.grid, britGrid)

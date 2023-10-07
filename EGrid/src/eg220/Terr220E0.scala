@@ -60,9 +60,9 @@ object Terr220E0 extends Long220Terrs
 }
 
 object BritReg220
-{ def britGrid: EGrid220Long = EGrid220Long.reg(138, 148, 0, 504, 520)
+{ def britGrid: EGrid220Long = EGrid220Long.reg(156, 170, 0, 500, 520)
   def britTerrs: HCenLayer[WTile] = Terr220E0.terrs.spawn(Terr220E0.grid, britGrid)
-  def britSTerrs: HSideOptLayer[WSide, WSideSome] =Terr220E0.sTerrs.spawn(Terr220E0.grid, britGrid)
+  def britSTerrs: HSideOptLayer[WSide, WSideSome] = Terr220E0.sTerrs.spawn(Terr220E0.grid, britGrid)
   def britCorners: HCornerLayer = Terr220E0.corners.spawn(Terr220E0.grid, britGrid)
 
   def regScen: EScenBasic = new EScenBasic

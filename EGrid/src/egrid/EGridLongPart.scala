@@ -7,11 +7,11 @@ trait EGridLongPart extends EGridLong
 {
   def fullGrid: EGridLongFull
 
-  override def hCoordLL(hc: HCoord): LatLong = hc.c match {
-    case _ if hc.isCen => hCoordMiddleLL(hc)
+  override def hCoordLL(hc: HCoord): LatLong = hc.c match
+  { case _ if hc.isCen => hCoordMiddleLL(hc)
 
-    case c if c == fullGrid.rowRightCoordC(hc.r, c) => {
-      val rt = hCoordMiddleLL(hc)
+    case c if c == fullGrid.rowRightCoordC(hc.r, c) =>
+    { val rt = hCoordMiddleLL(hc)
       val lt = hCoordMiddleLL(HCoord(hc.r, fullGrid.rowLeftCoordC(hc.r, c)))
       val rtLong = rt.longMilliSecs
       val ltLong = (lt.long + 30.east).milliSecs
@@ -19,8 +19,8 @@ trait EGridLongPart extends EGridLong
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
     }
 
-    case c if c == fullGrid.rowLeftCoordC(hc.r, c) => {
-      val lt = hCoordMiddleLL(hc)
+    case c if c == fullGrid.rowLeftCoordC(hc.r, c) =>
+    { val lt = hCoordMiddleLL(hc)
       val rt = hCoordMiddleLL(HCoord(hc.r, fullGrid.rowRightCoordC(hc.r, c)))
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs

@@ -72,10 +72,10 @@ object DLessScen2 extends DLessScen
 { deb("Diceless Scen 2")
   override def turn: Int = 0
 
-  override implicit val gridSys: EGrid320Long = BritReg.britGrid
+  override implicit val gridSys: EGrid320Long = BritReg320.britGrid
 
-  override val terrs: HCenLayer[WTile] = BritReg.britTerrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg.britSTerrs
+  override val terrs: HCenLayer[WTile] = BritReg320.britTerrs
+  override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg320.britSTerrs
   override val corners: HCornerLayer = HCornerLayer()
   override val armies: HCenRArrLayer[Army] = HCenRArrLayer()
 
