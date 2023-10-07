@@ -49,7 +49,7 @@ object WW2Scen1 extends WW2Scen
   val armies: HCenOptLayer[Army] = HCenOptLayer()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
-//  armies.setFSomesMut(Germany.armyNext, 146,1534,  144,1536,  142,1538,  140,1540,  138,1542,  136,1540)
+  armies.setFSomesMut(Germany.armyNext, 162,522,  160,520)
 //  armies.setFSomesMut(Soviet.armyNext, 148,1536,  146,1538,  144,1540,  142,1542,  140,1544,  138,1546,  136,1544)
   armies.setFSomesMut(Britain.armyNext, 160,512)
 //  armies.setFSomesMut(Japan.armyNext, 128,4624)

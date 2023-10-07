@@ -166,7 +166,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   }
 
   /** Partitions this [[RArr]] with the first part taking all the elements while they are of type AA. */
-  def partitionT[AA <: A @uncheckedVariance](implicit ct1: ClassTag[A] @uncheckedVariance, ct2: ClassTag[AA]): (RArr[AA], RArr[A]) =
+  def partitionType[AA <: A @uncheckedVariance](implicit ct1: ClassTag[A] @uncheckedVariance, ct2: ClassTag[AA]): (RArr[AA], RArr[A]) =
   { val buff = Buffer[AA]()
     var continue = true
     var i = 0
