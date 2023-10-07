@@ -19,27 +19,3 @@ trait PersistShowN[R <: TellN] extends PersistN[R] with ShowNeding[R]
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
 abstract class PersistSimple[A](val typeStr: String) extends ShowSimple[A] with Persist[A]
-
-/** I think this class may be redundant and can be replace by a more general PersistSum class for displaying algebraic sum types. */
-abstract class PersistSingletons[A <: TellSimple](typeStr: String) extends PersistSimple[A](typeStr)
-{
-  def singletons: RArr[A]
-
-  @inline override def strT(obj: A): String = obj.str
-
-  def fromExpr(expr: Expr): EMon[A] = expr match
-  { case IdentifierToken(str) => singletons.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
-    case e => bad1(e, typeStr -- "not parsed from this Expression")
-  }
-}
-
-object PersistSingletons
-{
-  def apply[A <: TellSimple](typeStr: String, singletonsIn: RArr[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
-  { override def singletons: RArr[A] = singletonsIn
-  }
-
-  def apply[A <: TellSimple](typeStr: String, singletonsIn: A*)(implicit ct: ClassTag[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
-  {  override def singletons: RArr[A] = singletonsIn.toArr
-  }
-}
