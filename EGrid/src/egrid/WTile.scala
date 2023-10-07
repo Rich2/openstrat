@@ -78,7 +78,7 @@ object TerrainNone extends WTile with TellSimple
 }
 
 /** Land tile. Describes topology, climate-biome and land use. */
-class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) extends WTile with Tell3[Lelev, Climate, LandUse]
+case class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) extends WTile with Tell3[Lelev, Climate, LandUse]
 { override def typeStr: String = "Land"
   override def name1: String = "elev"
   override def name2: String = "climate"
