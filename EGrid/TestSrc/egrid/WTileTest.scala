@@ -5,10 +5,12 @@ import utest._, WTile._
 object WTileTest extends TestSuite
 {
   val tests = Tests {
-    val lStr1 = "Seq(Level, Temperate, Forest; Hilly, Temperate, Mixed use)"
+    val lds1 = RArr(forest, hills, Land(Mountains, Desert))
+    val lStr1 = "Seq(Level, Temperate, Forest; Hilly, Temperate, MixedUse; Mountain, Desert, MixedUse)"
     test("show")
     { forest.str ==> "Land(Level; Temperate; Forest)"
-      RArr(forest, hills).str ==> lStr1
+      lds1.str ==> lStr1
+      //assert(lStr1.asType[RArr[WTile]].isGood)// === Good(lds1)
       RArr(Lake, Sea).str ==> "Seq(Lake; Sea)"
 //      assert(lStr1.asType[RArr[Land]] === Good(RArr(Lake, Sea)))
     }

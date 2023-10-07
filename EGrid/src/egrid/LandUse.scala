@@ -8,10 +8,11 @@ trait LandUse extends TellSimple
 object LandUse
 {
   implicit val showEv: ShowTell[LandUse] = ShowTellSimple[LandUse]("LandUse")
+  implicit val unshowEv: UnshowSingletons[LandUse] = UnshowSingletons[LandUse]("LandUse", CivMix, Forest, LandFree)
 }
 
 object CivMix extends LandUse
-{ override def str: String = "Mixed use"
+{ override def str: String = "MixedUse"
 }
 
 object LandFree extends LandUse

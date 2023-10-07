@@ -10,6 +10,7 @@ trait Climate extends TellSimple
 
 object Climate
 { implicit val showEv: ShowTell[Climate] = ShowTellSimple[Climate]("Climate")
+  implicit val unshowEv: UnshowSingletons[Climate] = UnshowSingletons[Climate]("Climate", Temperate, Desert, Sahel, Savannah, Taiga, Tundra, Tropical)
 }
 
 /** Temperate climate with out intense dry season. */
