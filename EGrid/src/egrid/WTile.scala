@@ -105,6 +105,7 @@ object Land
 {
   def apply(elev: Lelev, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
   implicit val showEv: ShowTell3[Lelev, Climate, LandUse, Land] = ShowTell3[Lelev, Climate, LandUse, Land]("Land")
+//  implicit val unshowEv: Unshow3[Lelev, Climate, LandUse, Land] = Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply)
 }
 
 /** Winter sea ice. */
