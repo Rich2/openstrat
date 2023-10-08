@@ -103,6 +103,28 @@ trait UnshowInt4[R] extends Unshow4[Int, Int, Int, Int, R]
   override def persist4: Unshow[Int] = Unshow.intEv
 }
 
+object UnshowInt4
+{
+  def apply[R](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (Int, Int, Int, Int) => R, opt4: Option[Int] = None,
+    opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): UnshowInt4[R] =
+    new UnshowInt4Imp(typeStr, name1, name2, name3, name4, newT, opt4, opt3, opt2, opt1)
+
+  class UnshowInt4Imp[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
+    val newT: (Int, Int, Int, Int) => R, override val opt4: Option[Int] = None, opt3In: Option[Int] = None, opt2In: Option[Int] = None,
+    opt1In: Option[Int] = None) extends UnshowInt4[R]
+  { override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
+    override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+
+    val defaultNum: Int = None match {
+      case _ if opt3.isEmpty => 0
+      case _ if opt2.isEmpty => 1
+      case _ if opt1.isEmpty => 2
+      case _ => 3
+    }
+  }
+}
+
 /** Persistence class for 4 logical parameter product types. */
 trait Persist4[A1, A2, A3, A4, R] extends Show4[A1, A2, A3, A4, R] with Unshow4[A1, A2, A3, A4, R] with PersistN[R]
 { override def persist1: Persist[A1]

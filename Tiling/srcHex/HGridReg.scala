@@ -204,8 +204,8 @@ object HGridReg
   }
 
   /** Implicit instance of [[Show]] for [[HGridReg]]. */
-  implicit val showEv: ShowTellInt4[HGridReg] = PersistTellInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", apply)
+  implicit val showEv: ShowTellInt4[HGridReg] = ShowTellInt4[HGridReg]("HGridReg")
 
-  /** Implicit instance of [[Show]] for [[HGridReg]]. */
-  implicit val unshowEv: UnshowInt4[HGridReg] = PersistTellInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", apply)
+  /** Implicit instance of [[Unshow]] for [[HGridReg]]. */
+  implicit val unshowEv: UnshowInt4[HGridReg] = UnshowInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", apply)
 }
