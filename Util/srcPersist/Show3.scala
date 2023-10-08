@@ -9,9 +9,6 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 
   /** The optional default value for parameter 3. */
   def opt3: Option[A3] = None
-
-  /** The declaration here allows the same field to be to cover [[Show]][A3] [[UnShow]][A3] and [[Persist]][A3]. */
-  def persist3: Show[A3] | Unshow[A3]
 }
 
 /** Common base trait for [[Show3]], [[Unshow3]] and [[Persist3]]. */
@@ -28,7 +25,7 @@ trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistB
   /** Element 3 of this Show 3+ element product. */
   def show3: A3
 
-  override def persist3: Show[A3]
+  def persist3: Show[A3]
 }
 
 /** Show type class for 3 parameter case classes. */
@@ -66,7 +63,7 @@ object Show3
 trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 { override def persist1: Persist[Int] = Show.intPersistEv
   override def persist2: Persist[Int] = Show.intPersistEv
-  override def persist3: Persist[Int] = Show.intPersistEv
+  def persist3: Persist[Int] = Show.intPersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
@@ -74,7 +71,7 @@ trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
 { override def persist1: Persist[Double] = Show.doublePersistEv
   override def persist2: Persist[Double] = Show.doublePersistEv
-  override def persist3: Persist[Double] = Show.doublePersistEv
+  def persist3: Persist[Double] = Show.doublePersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
@@ -99,7 +96,7 @@ object ShowInt3
 trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with PersistBase3[A1, A2, A3]
 { override def persist1: Unshow[A1]
   override def persist2: Unshow[A2]
-  override def persist3: Unshow[A3]
+  def persist3: Unshow[A3]
 
   /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => R

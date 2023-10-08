@@ -9,7 +9,7 @@ trait Tell4[A1, A2, A3, A4] extends PersistBase4[A1, A2, A3, A3] with TellN
 trait TellInt4 extends Tell4[Int, Int, Int, Int]
 { override def persist1: Persist[Int] = Show.intPersistEv
   override def persist2: Persist[Int] = Show.intPersistEv
-  override def persist3: Persist[Int] = Show.intPersistEv
+  def persist3: Persist[Int] = Show.intPersistEv
   def unshow4: Persist[Int] = Show.intPersistEv
   override def syntaxDepth: Int = 2
   override def paramNames: StrArr = StrArr(name1, name2, name3, name4)

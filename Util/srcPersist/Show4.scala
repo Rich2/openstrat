@@ -23,7 +23,7 @@ trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3,
 trait Show4[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowN[R]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
-  override def persist3: Show[A3]
+  def persist3: Show[A3]
   def show4: Show[A4]
   def fArg1: R => A1
   def fArg2: R => A2
@@ -81,7 +81,7 @@ object ShowInt4
 trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with PersistBase4[A1, A2, A3, A4]
 { override def persist1: Unshow[A1]
   override def persist2: Unshow[A2]
-  override def persist3: Unshow[A3]
+  def persist3: Unshow[A3]
   def unshow4: Unshow[A4]
 
   def newT: (A1, A2, A3, A4) => R

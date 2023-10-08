@@ -20,7 +20,7 @@ trait Persist6[A1, A2, A3, A4, A5, A6] extends Any with Persist6Plus[A1, A2, A3,
 trait Show6[A1, A2, A3, A4, A5, A6, R] extends ShowN[R] with Persist6[A1, A2, A3, A4, A5, A6]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
-  override def persist3: Show[A3]
+  def persist3: Show[A3]
   def unshow4: Show[A4]
   def show5: Show[A5]
   def show6: Show[A6]
@@ -74,7 +74,7 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with Persist6[A1, A2
   override def opt1: Option[A1] = None
   implicit override def persist1: Unshow[A1]
   implicit override def persist2: Unshow[A2]
-  implicit override def persist3: Unshow[A3]
+  implicit def persist3: Unshow[A3]
   implicit def unshow4: Unshow[A4]
   implicit def unshow5: Unshow[A5]
   implicit def unshow6: Unshow[A6]
