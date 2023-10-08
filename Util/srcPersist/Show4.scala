@@ -96,6 +96,13 @@ trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with PersistBase4[A1, A2, A3
   }
 }
 
+trait UnshowInt4[R] extends Unshow4[Int, Int, Int, Int, R]
+{ override def persist1: Unshow[Int] = Unshow.intEv
+  override def persist2: Unshow[Int] = Unshow.intEv
+  override def persist3: Unshow[Int] = Unshow.intEv
+  override def persist4: Unshow[Int] = Unshow.intEv
+}
+
 /** Persistence class for 4 logical parameter product types. */
 trait Persist4[A1, A2, A3, A4, R] extends Show4[A1, A2, A3, A4, R] with Unshow4[A1, A2, A3, A4, R] with PersistN[R]
 { override def persist1: Persist[A1]
@@ -132,7 +139,7 @@ object Persist4
   }
 }
 
-trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R] with ShowInt4[R]
+trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R] with ShowInt4[R] with UnshowInt4[R]
 { override def persist1: Persist[Int] = Show.intPersistEv
   override def persist2: Persist[Int] = Show.intPersistEv
   override def persist3: Persist[Int] = Show.intPersistEv
@@ -142,9 +149,9 @@ trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R] with ShowInt4[R]
 /** Companion object for [[PersistInt4]] trait contains implementation class and factory apply method. */
 object PersistInt4
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int, name4: String,
-    fArg4: R => Int, newT: (Int, Int, Int, Int) => R, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): PersistInt4[R] =
-    new PersistInt4Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, newT, opt4, opt3, opt2, opt1)
+//  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int, name4: String,
+//    fArg4: R => Int, newT: (Int, Int, Int, Int) => R, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): PersistInt4[R] =
+//    new PersistInt4Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, newT, opt4, opt3, opt2, opt1)
 
   class PersistInt4Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
     val fArg3: R => Int, val name4: String, val fArg4: R => Int, val newT: (Int, Int, Int, Int) => R, override val opt4: Option[Int] = None,
