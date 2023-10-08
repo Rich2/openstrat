@@ -12,7 +12,7 @@ object PersistCollectionsTest  extends TestSuite
     val ll: List[List[Int]] = List(l1, l2)
     
     test("List1")
-    { l1.str ==> "Seq[Int](-1; -2; -30)"
+    { l1.str ==> "Seq(-1; -2; -30)"
       l1.strSemi ==> "-1; -2; -30"
       l1.strComma ==> l1Comma
       l1.strTyped ==> "Seq[Int](-1; -2; -30)"

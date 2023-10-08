@@ -19,7 +19,7 @@ object ParseTest extends TestSuite
     val oi: Option[Int] = Some(50)
 
     val l1 = List(4, 5, 6)
-    val l1s = "Seq[Int](4; 5; 6)"
+    val l1s = "Seq(4; 5; 6)"
 
     "List Test" -
     {

@@ -12,11 +12,10 @@ object ArrOtherTest extends TestSuite
     val dbls1 = DblArr(1.5, 3, 4.5, 6)
     val dbls2 = ints1.map(_ * 1.5)
     val dbls3: DblArr = ints1.flatToIterableMap[Double, DblArr] { a => List(a + 0.1, a + 0.2) }
-    //debvar(dbls3)
     val longs1 = LongArr(2, 4, 6) ++ LongArr(8, 9)
     val pre1 = IntArr(2, 3, 4).prepend(1)
 
-    "test1" -
+    test("test1")
     { ints1(3) ==> 4
       ints3.length ==> 7
       ints3(6) ==> 7
