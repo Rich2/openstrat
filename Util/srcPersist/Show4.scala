@@ -3,24 +3,21 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show4]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
-trait PersistBase4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2, A3]
+trait Persist4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2, A3]
 { /** 4th parameter name. */
   def name4: String
 
   /** The optional default value for parameter 4. */
   def opt4: Option[A4] = None
-
-  /** The declaration here allows the same field to be to cover [[Show]][A4] [[UnShow]][A4] and [[Persist]][A4]. */
-  //def persist4: Show[A4] | Unshow[A4]
 }
 
-trait PersistBase4[A1, A2, A3, A4] extends Any with PersistBase4Plus[A1, A2, A3, A4]
+trait Persist4[A1, A2, A3, A4] extends Any with Persist4Plus[A1, A2, A3, A4]
 { override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def numParams: Int = 4
 }
 
 /** Show type class for 4 parameter case classes. */
-trait Show4[A1, A2, A3, A4, R] extends PersistBase4[A1,A2, A3, A4] with ShowN[R]
+trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with ShowN[R]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
   def persist3: Show[A3]
@@ -78,7 +75,7 @@ object ShowInt4
 }
 
 /** UnShow class for 4 logical parameter product types. */
-trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with PersistBase4[A1, A2, A3, A4]
+trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with Persist4[A1, A2, A3, A4]
 { override def persist1: Unshow[A1]
   override def persist2: Unshow[A2]
   def persist3: Unshow[A3]

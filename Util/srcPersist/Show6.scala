@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for Show6+ and Unshow6+ classses. Declares the common properties of name1 - 6 and opt1 - 6. */
-trait Persist6Plus[A1, A2, A3, A4, A5, A6] extends Any with PersistBase5Plus[A1, A2, A3, A4, A5]
+trait Persist6Plus[A1, A2, A3, A4, A5, A6] extends Any with Persist5Plus[A1, A2, A3, A4, A5]
 { /** 6th parameter name. */
   def name6: String
 

@@ -1,7 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-trait Tell4[A1, A2, A3, A4] extends PersistBase4[A1, A2, A3, A3] with TellN
+trait Tell4[A1, A2, A3, A4] extends Persist4[A1, A2, A3, A3] with TellN
 { override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = ???
   override def syntaxDepth: Int = ???
 }

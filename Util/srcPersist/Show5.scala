@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for Unshow5+, declares the common properties of name1 - 5 and opt1 - 5. */
-trait PersistBase5Plus[A1, A2, A3, A4, A5] extends Any with PersistBase4Plus[A1, A2, A3, A4]
+trait Persist5Plus[A1, A2, A3, A4, A5] extends Any with Persist4Plus[A1, A2, A3, A4]
 { /** 5th parameter name. */
   def name5: String
 
@@ -11,13 +11,13 @@ trait PersistBase5Plus[A1, A2, A3, A4, A5] extends Any with PersistBase4Plus[A1,
   def opt5: Option[A5]
 }
 
-trait PersistBase5[A1, A2, A3, A4, A5] extends Any with PersistBase5Plus[A1, A2, A3, A4, A5]
+trait Persist5[A1, A2, A3, A4, A5] extends Any with Persist5Plus[A1, A2, A3, A4, A5]
 { override def paramNames: StrArr = StrArr(name1, name2, name3, name4, name5)
   override def numParams: Int = 5
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
-trait Show5[A1, A2, A3, A4, A5, R] extends PersistBase5[A1, A2, A3, A4, A5] with ShowN[R]
+trait Show5[A1, A2, A3, A4, A5, R] extends Persist5[A1, A2, A3, A4, A5] with ShowN[R]
 { override def persist1: Show[A1]
   override def persist2: Show[A2]
   def persist3: Show[A3]
@@ -64,7 +64,7 @@ trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
-trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with PersistBase5[A1, A2, A3, A4, A5]
+trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with Persist5[A1, A2, A3, A4, A5]
 { def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3
