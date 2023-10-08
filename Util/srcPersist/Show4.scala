@@ -96,6 +96,30 @@ trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with PersistBase4[A1, A2, A3
   }
 }
 
+object Unshow4
+{
+  def apply[A1, A2, A3, A4, R](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (A1, A2, A3, A4) => R,
+    opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None,  opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
+    ev3: Persist[A3], ev4: Persist[A4]): Unshow4[A1, A2, A3, A4, R] =
+    new Unshow4Imp(typeStr, name1, name2, name3, name4, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
+
+  class Unshow4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
+    val newT: (A1, A2, A3, A4) => R, override val opt4: Option[A4] = None, val opt3In: Option[A3] = None,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2], val persist3: Persist[A3],
+    val persist4: Persist[A4]) extends Unshow4[A1, A2, A3, A4, R]
+  { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+    override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+
+    val defaultNum: Int = None match
+    { case _ if opt3.isEmpty => 0
+      case _ if opt2.isEmpty => 1
+      case _ if opt1.isEmpty => 2
+      case _ => 3
+    }
+  }
+}
+
 trait UnshowInt4[R] extends Unshow4[Int, Int, Int, Int, R]
 { override def persist1: Unshow[Int] = Unshow.intEv
   override def persist2: Unshow[Int] = Unshow.intEv
@@ -158,35 +182,5 @@ object Persist4
     override def syntaxDepthT(obj: R): Int = ???
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
-  }
-}
-
-trait PersistInt4[R] extends Persist4[Int, Int, Int, Int, R] with ShowInt4[R] with UnshowInt4[R]
-{ override def persist1: Persist[Int] = Show.intPersistEv
-  override def persist2: Persist[Int] = Show.intPersistEv
-  override def persist3: Persist[Int] = Show.intPersistEv
-  override def persist4: Persist[Int] = Show.intPersistEv
-}
-
-/** Companion object for [[PersistInt4]] trait contains implementation class and factory apply method. */
-object PersistInt4
-{
-//  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int, name4: String,
-//    fArg4: R => Int, newT: (Int, Int, Int, Int) => R, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): PersistInt4[R] =
-//    new PersistInt4Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, newT, opt4, opt3, opt2, opt1)
-
-  class PersistInt4Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
-    val fArg3: R => Int, val name4: String, val fArg4: R => Int, val newT: (Int, Int, Int, Int) => R, override val opt4: Option[Int] = None,
-    opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt4[R]
-  { override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
-    override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-    override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-
-    val defaultNum: Int = None match
-    { case _ if opt3.isEmpty => 0
-      case _ if opt2.isEmpty => 1
-      case _ if opt1.isEmpty => 2
-      case _ => 3
-    }
   }
 }

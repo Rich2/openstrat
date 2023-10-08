@@ -20,9 +20,7 @@ trait ShowTell4[A1, A2, A3, A4, R <: Tell4[A1, A2, A3, A4]] extends ShowTell[R]
 
 object ShowTell4
 {
-  class ShowTell4Imp[A1, A2, A3, A4, R <: Tell4[A1, A2, A3, A4]](val typeStr: String) extends ShowTell4[A1, A2, A3, A4, R] {
-
-  }
+  class ShowTell4Imp[A1, A2, A3, A4, R <: Tell4[A1, A2, A3, A4]](val typeStr: String) extends ShowTell4[A1, A2, A3, A4, R]
 }
 
 case class ShowTellInt4[R <: TellInt4](typeStr: String) extends ShowTell4[Int, Int, Int, Int, R]
