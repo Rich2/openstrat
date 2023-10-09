@@ -19,7 +19,7 @@ trait Persist5[A1, A2, A3, A4, A5] extends Any with Persist5Plus[A1, A2, A3, A4,
 /** [[Show]] type class for 5 parameter case classes. */
 trait Show5[A1, A2, A3, A4, A5, R] extends Persist5[A1, A2, A3, A4, A5] with ShowN[R]
 { override def persist1: Show[A1]
-  override def persist2: Show[A2]
+  def persist2: Show[A2]
   def persist3: Show[A3]
   def show4: Show[A4]
   def show5: Show[A5]
@@ -73,7 +73,7 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with Persist5[A1, A2, A3
   def newT: (A1, A2, A3, A4, A5) => R
 
   implicit override def persist1: Unshow[A1]
-  implicit override def persist2: Unshow[A2]
+  implicit def persist2: Unshow[A2]
   implicit def persist3: Unshow[A3]
   implicit def unshow4: Unshow[A4]
   implicit def unshow5: Unshow[A5]

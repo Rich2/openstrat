@@ -62,7 +62,7 @@ object Show3
 /** [[Show]] type class trait for types with 3 [[Int]] Show components. */
 trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 { override def persist1: Show[Int] = Show.intPersistEv
-  override def persist2: Show[Int] = Show.intPersistEv
+  def persist2: Show[Int] = Show.intPersistEv
   def persist3: Persist[Int] = Show.intPersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
@@ -70,7 +70,7 @@ trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 /** [[Show]] type class trait for types with 3 [[Double]] Show components. */
 trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
 { override def persist1: Show[Double] = Show.doublePersistEv
-  override def persist2: Show[Double] = Show.doublePersistEv
+  def persist2: Show[Double] = Show.doublePersistEv
   def persist3: Persist[Double] = Show.doublePersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
@@ -110,7 +110,7 @@ object ShowInt3
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with PersistBase3[A1, A2, A3]
 { override def persist1: Unshow[A1]
-  override def persist2: Unshow[A2]
+  def persist2: Unshow[A2]
   def persist3: Unshow[A3]
 
   /** Method fpr creating a value of type R from values A1, A2, A3. */

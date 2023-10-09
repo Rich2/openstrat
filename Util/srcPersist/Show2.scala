@@ -21,7 +21,7 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   def persist1: Show[A1] | Unshow[A1]
 
   /** The declaration here allows the same field to be to cover [[Show]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
-  def persist2: Show[A2] | Unshow[A2]
+  //def persist2: Show[A2] | Unshow[A2]
 }
 
 /** A base trait for [[Tell2]] and [[UnShow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can
@@ -47,7 +47,7 @@ trait Show2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
 
   override def persist1: Show[A1]
 
-  override def persist2: Show[A2]
+  def persist2: Show[A2]
 }
 
 /** Show type class for 2 parameter case classes. */
@@ -124,6 +124,18 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
 trait UnshowDbl2[R] extends Unshow2[Double, Double, R]
 { override implicit def persist1: Unshow[Double] = Unshow.doubleEv
   override implicit def persist2: Unshow[Double] = Unshow.doubleEv
+}
+
+object UnshowDbl2
+{
+  def apply[R](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R, opt2: Option[Double] = None,
+    opt1In: Option[Double] = None): UnshowDbl2[R] = new UnshowDbl2Imp[R](typeStr, name1, name2, newT, opt2, opt1In)
+
+  /** Implementation class for the general cases of [[UnshowDbl2]] trait. */
+  class UnshowDbl2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
+    override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[R]
+  { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 object Unshow2

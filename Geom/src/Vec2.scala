@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math.{Pi, atan}
 
@@ -108,8 +108,9 @@ object Vec2
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(buffer)
   }
 
-  /** implicit [[Persist]] type class instance / evidence for [[Vec2]]s. */
-  implicit val persistImplicit: PersistTellDbl2[Vec2] = new PersistTellDbl2[Vec2]("Vec2", "x", "y", apply)
-  /** implicit [[Persist]] type class instance / evidence for [[Vec2]]s. */
-  //implicit val unshowImplicit: UnshowDbl2[Vec2] = new PersistTellDbl2[Vec2]("Vec2", "x", "y", apply)
+  /** implicit [[Show]] type class instance / evidence for [[Vec2]]s. */
+  implicit val showEv: PersistTellDbl2[Vec2] = new PersistTellDbl2[Vec2]("Vec2", "x", "y", apply)
+
+  /** implicit [[Unshow]] type class instance / evidence for [[Vec2]]s. */
+  implicit val unshowEv: UnshowDbl2[Vec2] = UnshowDbl2[Vec2]("Vec2", "x", "y", apply)
 }

@@ -19,7 +19,7 @@ trait Persist4[A1, A2, A3, A4] extends Any with Persist4Plus[A1, A2, A3, A4]
 /** Show type class for 4 parameter case classes. */
 trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with ShowN[R]
 { override def persist1: Show[A1]
-  override def persist2: Show[A2]
+  def persist2: Show[A2]
   def persist3: Show[A3]
   def show4: Show[A4]
   def fArg1: R => A1
@@ -84,7 +84,7 @@ object ShowInt4
 /** UnShow class for 4 logical parameter product types. */
 trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with Persist4[A1, A2, A3, A4]
 { override def persist1: Unshow[A1]
-  override def persist2: Unshow[A2]
+  def persist2: Unshow[A2]
   def persist3: Unshow[A3]
   def unshow4: Unshow[A4]
 
