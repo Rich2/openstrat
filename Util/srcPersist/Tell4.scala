@@ -7,7 +7,7 @@ trait Tell4[A1, A2, A3, A4] extends Persist4[A1, A2, A3, A3] with TellN
 }
 
 trait TellInt4 extends Tell4[Int, Int, Int, Int]
-{ override def persist1: Persist[Int] = Show.intPersistEv
+{ def persist1: Persist[Int] = Show.intPersistEv
   def persist2: Persist[Int] = Show.intPersistEv
   def persist3: Persist[Int] = Show.intPersistEv
   def unshow4: Persist[Int] = Show.intPersistEv

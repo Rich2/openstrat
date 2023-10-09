@@ -18,7 +18,7 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   def opt2: Option[A2] = None
 
   /** The declaration here allows the same field to cover [[Show]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
-  def persist1: Show[A1] | Unshow[A1]
+  //def persist1: Show[A1] | Unshow[A1]
 
   /** The declaration here allows the same field to be to cover [[Show]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
   //def persist2: Show[A2] | Unshow[A2]
@@ -45,8 +45,7 @@ trait Show2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
   /** Element 2 of this Show 2+ element product. */
   def show2: A2
 
-  override def persist1: Show[A1]
-
+  def persist1: Show[A1]
   def persist2: Show[A2]
 }
 

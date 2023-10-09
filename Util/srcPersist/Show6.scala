@@ -18,7 +18,7 @@ trait Persist6[A1, A2, A3, A4, A5, A6] extends Any with Persist6Plus[A1, A2, A3,
 
 /** [[Show]] type class for 6 parameter case classes. */
 trait Show6[A1, A2, A3, A4, A5, A6, R] extends ShowN[R] with Persist6[A1, A2, A3, A4, A5, A6]
-{ override def persist1: Show[A1]
+{ def persist1: Show[A1]
   def persist2: Show[A2]
   def show3: Show[A3]
   def show4: Show[A4]
@@ -66,7 +66,7 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with Persist6[A1, A2
   override def opt3: Option[A3] = None
   override def opt2: Option[A2] = None
   override def opt1: Option[A1] = None
-  implicit override def persist1: Unshow[A1]
+  implicit def persist1: Unshow[A1]
   implicit def persist2: Unshow[A2]
   implicit def persist3: Unshow[A3]
   implicit def unshow4: Unshow[A4]
