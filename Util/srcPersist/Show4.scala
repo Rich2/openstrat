@@ -32,7 +32,14 @@ trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with ShowN[R]
 }
 
 object Show4
-{ /** Implementation class for the general cases of [[Show4]] trait. */
+{
+  def apply[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
+    name4: String, fArg4: R => A4, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
+    persist1: Show[A1], persist2: Show[A2], persist3: Show[A3], show4: Show[A4]): Show4[A1, A2, A3, A4, R] =
+    new Show4Imp[A1, A2, A3, A4, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1)(persist1, persist2,
+    persist3, show4: Show[A4])
+
+  /** Implementation class for the general cases of [[Show4]] trait. */
   class Show4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, override val opt4: Option[A4] = None, opt3In: Option[A3] = None,
     opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3],

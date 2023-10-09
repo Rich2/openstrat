@@ -35,7 +35,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val stuff = RArr(
     LineSegDraw(0 pp 0, 160 pp 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
     LineSegDraw(0 pp 50, 150 pp 200, lineWidth = 3),
-    LineSegDraw(50 pp -50, 200 pp -50, Red, 2),//Note if you don't include a Colour you get Black
+    LineSegDraw(50 pp -50, 200 pp -50, 2, Red),//Note if you don't include a Colour you get Black
 
     LinePath(0 pp -50, 50 pp -100, -25 pp -75, 200 pp -60).draw(2, Orange),
 

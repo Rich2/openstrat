@@ -1,3 +1,4 @@
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
@@ -41,10 +42,10 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
   { val dragCircles = bezierPoints.map(dc => Circle(circleRadius, dc.loc).fill(dc.color))
 
     /** line between the start point and its control point */
-    val startControlLine = LineSegDraw(startPoint.loc, controlStart.loc, Grey, 1)
+    val startControlLine = LineSegDraw(startPoint.loc, controlStart.loc, 1, Grey)
 
     /** line between the end point and its control point */
-    val endControlLine = LineSegDraw(endPoint.loc, controlEnd.loc, Grey, 1)
+    val endControlLine = LineSegDraw(endPoint.loc, controlEnd.loc, 1, Grey)
 
     /** the bezier to be displayed */
     val bezier = Bezier(startPoint.loc, controlStart.loc, controlEnd.loc, endPoint.loc).draw(2, Green)
@@ -56,8 +57,8 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
 
     val quadraticBezier = Bezier(quadraticStart.loc, quadraticControl.loc, quadraticControl.loc, quadraticEnd.loc).draw(2, Blue)
     val quadraticDragCircles = quadraticBezierPoints.map(dc => Circle(circleRadius, dc.loc).fill(dc.color))
-    val quadraticStartControlLine = LineSegDraw(quadraticStart.loc, quadraticControl.loc, Grey, 1)
-    val quadraticEndControlLine = LineSegDraw(quadraticEnd.loc, quadraticControl.loc, Grey, 1)
+    val quadraticStartControlLine = LineSegDraw(quadraticStart.loc, quadraticControl.loc, 1, Grey)
+    val quadraticEndControlLine = LineSegDraw(quadraticEnd.loc, quadraticControl.loc, 1, Grey)
     val txtQuad = TextFixed("BezierDraw(" + quadraticStart.loc + ", " + quadraticControl.loc + ", " + quadraticControl.loc + ", " + quadraticEnd.loc + ", 2, Blue)", 18, 0 pp -300, Blue)
 
     repaint(elementsToPaint +% txtQuad ++ quadraticDragCircles +% quadraticBezier +% quadraticStartControlLine +% quadraticEndControlLine )

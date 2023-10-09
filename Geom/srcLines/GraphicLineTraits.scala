@@ -1,14 +1,12 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._
-import Colour.Black
-import ostrat.pWeb.{SvgElem, SvgLine}
+import pgui._, Colour.Black, pWeb._
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
 case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem with GraphicSvgElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
-  override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), colour, width)
+  override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), width, colour)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(curveSeg, width, dashLength, gapLength, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegDraw(this)
   def startPt: Pt2 = xStart pp yStart
@@ -20,11 +18,14 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
 
 object LineSegDraw
 {
-  def apply(lineSeg: LineSeg, colour: Colour, lineWidth: Double) = new LineSegDraw(lineSeg, lineWidth, colour)
-  def apply(pStart: Pt2, pEnd: Pt2, colour: Colour = Black, lineWidth: Double = 2.0): LineSegDraw = LineSeg(pStart, pEnd).draw(lineWidth, colour)
+  def apply(lineSeg: LineSeg, lineWidth: Double, colour: Colour) = new LineSegDraw(lineSeg, lineWidth, colour)
+  def apply(pStart: Pt2, pEnd: Pt2, lineWidth: Double = 2.0, colour: Colour = Black): LineSegDraw = LineSeg(pStart, pEnd).draw(lineWidth, colour)
 
- // implicit val persistImplicit: Persist4[Vec2, Vec2, Double, Colour, LineDraw] =
-  //  Persist4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, apply, Some(Black), Some(1.0))
+  implicit val showEv: Show4[Pt2, Pt2, Double, Colour, LineSegDraw] =
+    Show4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, Some(Black), Some(1.0))
+
+  implicit val unshowEv: Unshow4[Pt2, Pt2, Double, Colour, LineSegDraw] =
+    Unshow4("LineDraw", "pStart", "pEnd", "width", "colour", apply, Some(Black), Some(1.0))
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
