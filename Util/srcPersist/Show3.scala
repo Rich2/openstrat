@@ -172,8 +172,7 @@ trait UnshowDbl3[R] extends Unshow3[Double, Double, Double, R]
 }
 
 object UnshowDbl3
-{
-  def apply[R](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => R, opt3: Option[Double] = None,
+{ def apply[R](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => R, opt3: Option[Double] = None,
     opt2: Option[Double] = None, opt1: Option[Double] = None): UnshowDbl3[R] =
     new UnshowDbl3Imp[R](typeStr, name1, name2, name3, newT, opt3, opt2, opt1)
 
@@ -182,39 +181,5 @@ object UnshowDbl3
     override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl3[R]
   { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  }
-}
-
-/** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
-{ override def persist1: Persist[A1]
-  override def persist2: Persist[A2]
-  override def persist3: Persist[A3]
-}
-
-/** Companion object for [[Persist3]] trait contains implementation class and factory apply method. */
-object Persist3
-{
-  def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-    implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): Persist3[A1, A2, A3, R] =
-    new Persist3Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
-
-  class Persist3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val name3: String, val fArg3: R => A3, val newT: (A1, A2, A3) => R, override val opt3: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2], val persist3: Persist[A3]) extends Persist3[A1, A2, A3, R]
-  { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
-    val defaultNum: Int = None match{
-      case _ if opt3.isEmpty => 0
-      case _ if opt2.isEmpty => 1
-      case _ if opt1.isEmpty => 2
-      case _ => 3
-    }
-
-    override def syntaxDepthT(obj: R): Int = ???
-
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
 }

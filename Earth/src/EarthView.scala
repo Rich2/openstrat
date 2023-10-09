@@ -15,7 +15,11 @@ object EarthView
   def apply(latLong: LatLong, scale: Length, up: Boolean): EarthView = new EarthView(latLong.latDegs, latLong.longDegs, scale.kMetresNum, up)
 
   /** Not sure about the scale .metres parameter conversion */
-  implicit val earthViewPersistPersist3: Persist3[LatLong, Double, Boolean, EarthView] =
-    Persist3[LatLong, Double, Boolean, EarthView]("EarthView", "latLong", _.latLong,"scale", _.scale.metresNum / 1000, "up", _.up,
-    (ll: LatLong, d: Double, b: Boolean) => EarthView(ll, Length(d * 1000), b))
+  implicit val show3Ev: Show3[LatLong, Double, Boolean, EarthView] =
+    Show3[LatLong, Double, Boolean, EarthView]("EarthView", "latLong", _.latLong,"scale", _.scale.metresNum / 1000, "up", _.up)
+
+  /** Not sure about the scale .metres parameter conversion */
+  implicit val unshowEv: Unshow3[LatLong, Double, Boolean, EarthView] =
+    Unshow3[LatLong, Double, Boolean, EarthView]("EarthView", "latLong", "scale", "up",
+      (ll: LatLong, d: Double, b: Boolean) => EarthView(ll, Length(d * 1000), b))
 }
