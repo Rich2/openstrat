@@ -18,47 +18,47 @@ trait Persist4[A1, A2, A3, A4] extends Any with Persist4Plus[A1, A2, A3, A4]
 
 /** Show type class for 4 parameter case classes. */
 trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with ShowN[R]
-{ def persist1: Show[A1]
-  def persist2: Show[A2]
-  def persist3: Show[A3]
+{ def show1: Show[A1]
+  def show2: Show[A2]
+  def show3: Show[A3]
   def show4: Show[A4]
   def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3
   def fArg4: R => A4
 
-  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
-    persist3.showDecT(fArg3(obj), way, maxPlaces), show4.showDecT(fArg4(obj), way, maxPlaces))
+  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(show1.showDecT(fArg1(obj), way, maxPlaces), show2.showDecT(fArg2(obj), way, maxPlaces),
+    show3.showDecT(fArg3(obj), way, maxPlaces), show4.showDecT(fArg4(obj), way, maxPlaces))
 }
 
 object Show4
 {
   def apply[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    persist1: Show[A1], persist2: Show[A2], persist3: Show[A3], show4: Show[A4]): Show4[A1, A2, A3, A4, R] =
-    new Show4Imp[A1, A2, A3, A4, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1)(persist1, persist2,
-    persist3, show4: Show[A4])
+    show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4]): Show4[A1, A2, A3, A4, R] =
+    new Show4Imp[A1, A2, A3, A4, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1)(show1, show2,
+    show3, show4: Show[A4])
 
   /** Implementation class for the general cases of [[Show4]] trait. */
   class Show4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, override val opt4: Option[A4] = None, opt3In: Option[A3] = None,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3],
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val show1: Show[A1], val show2: Show[A2], val show3: Show[A3],
     val show4: Show[A4]) extends Show4[A1, A2, A3, A4, R]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
+    final override def syntaxDepthT(obj: R): Int = show1.syntaxDepthT(fArg1(obj)).max(show2.syntaxDepthT(fArg2(obj))).max(show3.syntaxDepthT(fArg3(obj))).
       max(show4.syntaxDepthT(fArg4(obj))) + 1
   }
 }
 
 /** Produces [[Show]] type class instances for 4 [[Int]] types. */
 trait ShowInt4[R] extends Show4[Int, Int, Int, Int, R]
-{ override def persist1: Persist[Int] = Show.intPersistEv
-  override def persist2: Persist[Int] = Show.intPersistEv
-  override def persist3: Persist[Int] = Show.intPersistEv
-  override def show4: Persist[Int] = Show.intPersistEv
+{ override def show1: Show[Int] = Show.intPersistEv
+  override def show2: Show[Int] = Show.intPersistEv
+  override def show3: Show[Int] = Show.intPersistEv
+  override def show4: Show[Int] = Show.intPersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
@@ -76,25 +76,25 @@ object ShowInt4
     override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces),
-      persist3.showDecT(fArg3(obj), way, maxPlaces), show4.showDecT(fArg4(obj), way, maxPlaces))
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(show1.showDecT(fArg1(obj), way, maxPlaces), show2.showDecT(fArg2(obj), way, maxPlaces),
+      show3.showDecT(fArg3(obj), way, maxPlaces), show4.showDecT(fArg4(obj), way, maxPlaces))
   }
 }
 
 /** UnShow class for 4 logical parameter product types. */
 trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with Persist4[A1, A2, A3, A4]
-{ def persist1: Unshow[A1]
-  def persist2: Unshow[A2]
-  def persist3: Unshow[A3]
+{ def unshow1: Unshow[A1]
+  def unshow2: Unshow[A2]
+  def unshow3: Unshow[A3]
   def unshow4: Unshow[A4]
 
   def newT: (A1, A2, A3, A4) => R
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), persist1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), persist2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
-    def e3: EMon[A3] = ife(len > pSeq(2), persist3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), unshow3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
     def e4: EMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
     e1.map4(e2, e3, e4)(newT)
   }
@@ -103,14 +103,14 @@ trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with Persist4[A1, A2, A3, A4
 object Unshow4
 {
   def apply[A1, A2, A3, A4, R](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (A1, A2, A3, A4) => R,
-    opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None,  opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
-    ev3: Persist[A3], ev4: Persist[A4]): Unshow4[A1, A2, A3, A4, R] =
-    new Unshow4Imp(typeStr, name1, name2, name3, name4, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
+    opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None,  opt1: Option[A1] = None)(implicit unshow1: Unshow[A1], unshow2: Unshow[A2],
+    unshow3: Unshow[A3], unshow4: Unshow[A4]): Unshow4[A1, A2, A3, A4, R] =
+    new Unshow4Imp(typeStr, name1, name2, name3, name4, newT, opt4, opt3, opt2, opt1)(unshow1, unshow2, unshow3, unshow4)
 
   class Unshow4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
     val newT: (A1, A2, A3, A4) => R, override val opt4: Option[A4] = None, val opt3In: Option[A3] = None,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2], val persist3: Persist[A3],
-    val unshow4: Persist[A4]) extends Unshow4[A1, A2, A3, A4, R]
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2], val unshow3: Unshow[A3],
+    val unshow4: Unshow[A4]) extends Unshow4[A1, A2, A3, A4, R]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -125,9 +125,9 @@ object Unshow4
 }
 
 trait UnshowInt4[R] extends Unshow4[Int, Int, Int, Int, R]
-{ override def persist1: Unshow[Int] = Unshow.intEv
-  override def persist2: Unshow[Int] = Unshow.intEv
-  override def persist3: Unshow[Int] = Unshow.intEv
+{ override def unshow1: Unshow[Int] = Unshow.intEv
+  override def unshow2: Unshow[Int] = Unshow.intEv
+  override def unshow3: Unshow[Int] = Unshow.intEv
   override def unshow4: Unshow[Int] = Unshow.intEv
 }
 

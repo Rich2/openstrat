@@ -30,9 +30,9 @@ object Show5
 {
   def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3], ev4: Show[A4], ev5: Show[A5]) =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4], show5: Show[A5]) =
     new Show5Imp[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
-      ev1, ev2, ev3, ev4, ev5)
+      show1, show2, show3, show4, show5)
 
   /** Implementation class for the general cases of [[Show5]] type class. */
   class Show5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
@@ -56,11 +56,11 @@ object Show5
 }
 
 trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
-{ override def show1: Persist[Int] = Show.intPersistEv
-  override def show2: Persist[Int] = Show.intPersistEv
-  override def show3: Persist[Int] = Show.intPersistEv
-  override def show4: Persist[Int] = Show.intPersistEv
-  override def show5: Persist[Int] = Show.intPersistEv
+{ override def show1: Show[Int] = Show.intPersistEv
+  override def show2: Show[Int] = Show.intPersistEv
+  override def show3: Show[Int] = Show.intPersistEv
+  override def show4: Show[Int] = Show.intPersistEv
+  override def show5: Show[Int] = Show.intPersistEv
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
@@ -72,17 +72,17 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with Persist5[A1, A2, A3
   def fArg5: R => A5
   def newT: (A1, A2, A3, A4, A5) => R
 
-  implicit def persist1: Unshow[A1]
-  implicit def persist2: Unshow[A2]
-  implicit def persist3: Unshow[A3]
+  implicit def unshow1: Unshow[A1]
+  implicit def unshow2: Unshow[A2]
+  implicit def unshow3: Unshow[A3]
   implicit def unshow4: Unshow[A4]
   implicit def unshow5: Unshow[A5]
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), persist1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), persist2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
-    def e3: EMon[A3] = ife(len > pSeq(2), persist3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), unshow3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
     def e4: EMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
     def e5: EMon[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toEMon)
     e1.map5(e2, e3, e4, e5)(newT)
@@ -105,9 +105,9 @@ class UnshowInt5[R](val typeStr: String, val name1: String, val fArg1: R => Int,
     case _ => 3
   }
 
-  override def persist1: Unshow[Int] = Unshow.intEv
-  override def persist2: Unshow[Int] = Unshow.intEv
-  override def persist3: Unshow[Int] = Unshow.intEv
+  override def unshow1: Unshow[Int] = Unshow.intEv
+  override def unshow2: Unshow[Int] = Unshow.intEv
+  override def unshow3: Unshow[Int] = Unshow.intEv
   override def unshow4: Unshow[Int] = Unshow.intEv
   override def unshow5: Unshow[Int] = Unshow.intEv
 }
