@@ -218,17 +218,3 @@ object Persist3
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
 }
-
-/** Persistence class for types that extend [[TellDbl3]]. */
-class PersistDbl3[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
-  val fArg3: R => Double, val newT: (Double, Double, Double) => R, override val opt3: Option[Double] = None, opt2In: Option[Double] = None,
-  opt1In: Option[Double] = None) extends Persist3[Double, Double, Double, R] with UnshowDbl3[R] with ShowDbl3[R]
-{ override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
-  override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  override def persist1: Persist[Double] = Show.doublePersistEv
-  override def persist2: Persist[Double] = Show.doublePersistEv
-  override def persist3: Persist[Double] = Show.doublePersistEv
-
-  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-    StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces), persist3.showDecT(fArg3(obj), way, maxPlaces))
-}

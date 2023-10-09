@@ -27,6 +27,9 @@ object Vec3
   /** unapply extractor method for [[Vec3]]s. */
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
-  /** implicit [[Persist]] type class intance / evidence for [[Vec3]]. */
- implicit val persistEv: PersistDbl3[Vec3] = new PersistDbl3[Vec3]("Vec3", "x", _.x, "y", _.y, "z", _.z, apply)
+  /** implicit [[Show]] type class intance / evidence for [[Vec3]]. */
+ implicit val persistEv: ShowDbl3[Vec3] = ShowDbl3[Vec3]("Vec3", "x", _.x, "y", _.y, "z", _.z)
+
+  /** implicit [[Unshow]] type class intance / evidence for [[Vec3]]. */
+  implicit val unshowEv: UnshowDbl3[Vec3] = UnshowDbl3[Vec3]("Vec3", "x", "y", "z", apply)
 }
