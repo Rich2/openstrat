@@ -156,6 +156,20 @@ trait UnshowDbl3[R] extends Unshow3[Double, Double, Double, R]
   override def persist3: Unshow[Double] = Unshow.doubleEv
 }
 
+object UnshowDbl3
+{
+  def apply[R](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => R, opt3: Option[Double] = None,
+    opt2: Option[Double] = None, opt1: Option[Double] = None): UnshowDbl3[R] =
+    new UnshowDbl3Imp[R](typeStr, name1, name2, name3, newT, opt3, opt2, opt1)
+
+  /** Implementation class for [[UnshowDbl3]]. */
+  class UnshowDbl3Imp[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Double, Double, Double) => R,
+    override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl3[R]
+  { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+    override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
 /** Persistence class for 3 logical parameter product types. */
 trait Persist3[A1, A2, A3, R] extends Show3[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
 { override def persist1: Persist[A1]
