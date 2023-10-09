@@ -149,6 +149,13 @@ object UnshowInt3
     }
   }
 }
+
+trait UnshowDbl3[R] extends Unshow3[Double, Double, Double, R]
+{ override def persist1: Unshow[Double] = Unshow.doubleEv
+  override def persist2: Unshow[Double] = Unshow.doubleEv
+  override def persist3: Unshow[Double] = Unshow.doubleEv
+}
+
 /** Persistence class for 3 logical parameter product types. */
 trait Persist3[A1, A2, A3, R] extends Show3[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
 { override def persist1: Persist[A1]

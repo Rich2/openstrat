@@ -29,15 +29,15 @@ object ShowTell3
 /** Show classes with 3 [[Int]] parameters. */
 trait TellInt3 extends Any with Tell3[Int, Int, Int]
 { final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Int] = Show.intPersistEv
-  final override implicit def persist2: Persist[Int] = Show.intPersistEv
-  final override implicit def persist3: Persist[Int] = Show.intPersistEv
+  final override implicit def persist1: Show[Int] = Show.intPersistEv
+  final override implicit def persist2: Show[Int] = Show.intPersistEv
+  final override implicit def persist3: Show[Int] = Show.intPersistEv
 }
 
 /** Show classes with 3 [[Double]] parameters. */
 trait TellDbl3 extends Any with Tell3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
-  final override implicit def persist1: Persist[Double] = Show.doublePersistEv
-  final override implicit def persist2: Persist[Double] = Show.doublePersistEv
-  final override implicit def persist3: Persist[Double] = Show.doublePersistEv
+  final override implicit def persist1: Show[Double] = Show.doublePersistEv
+  final override implicit def persist2: Show[Double] = Show.doublePersistEv
+  final override implicit def persist3: Show[Double] = Show.doublePersistEv
 }
