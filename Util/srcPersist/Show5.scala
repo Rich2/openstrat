@@ -18,9 +18,9 @@ trait Persist5[A1, A2, A3, A4, A5] extends Any with Persist5Plus[A1, A2, A3, A4,
 
 /** [[Show]] type class for 5 parameter case classes. */
 trait Show5[A1, A2, A3, A4, A5, R] extends Persist5[A1, A2, A3, A4, A5] with ShowN[R]
-{ def persist1: Show[A1]
-  def persist2: Show[A2]
-  def persist3: Show[A3]
+{ def show1: Show[A1]
+  def show2: Show[A2]
+  def show3: Show[A3]
   def show4: Show[A4]
   def show5: Show[A5]
 }
@@ -38,7 +38,7 @@ object Show5
   class Show5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
     val name3: String, fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, override val opt5: Option[A5],
     opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3], val show4: Show[A4], val show5: Show[A5]) extends
+    implicit val show1: Show[A1], val show2: Show[A2], val show3: Show[A3], val show4: Show[A4], val show5: Show[A5]) extends
     Show5[A1, A2, A3, A4, A5, R]
   {
     override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
@@ -46,19 +46,19 @@ object Show5
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))).
+    final override def syntaxDepthT(obj: R): Int = show1.syntaxDepthT(fArg1(obj)).max(show2.syntaxDepthT(fArg2(obj))).max(show3.syntaxDepthT(fArg3(obj))).
       max(show4.syntaxDepthT(fArg4(obj))).max(show5.syntaxDepthT(fArg5(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showT(fArg1(obj), way), persist2.showT(fArg2(obj), way), persist3.showT(fArg3(obj), way), show4.showT(fArg4(obj), way),
+      StrArr(show1.showT(fArg1(obj), way), show2.showT(fArg2(obj), way), show3.showT(fArg3(obj), way), show4.showT(fArg4(obj), way),
         show5.showT(fArg5(obj), way))
   }
 }
 
 trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
-{ override def persist1: Persist[Int] = Show.intPersistEv
-  override def persist2: Persist[Int] = Show.intPersistEv
-  override def persist3: Persist[Int] = Show.intPersistEv
+{ override def show1: Persist[Int] = Show.intPersistEv
+  override def show2: Persist[Int] = Show.intPersistEv
+  override def show3: Persist[Int] = Show.intPersistEv
   override def show4: Persist[Int] = Show.intPersistEv
   override def show5: Persist[Int] = Show.intPersistEv
 }
