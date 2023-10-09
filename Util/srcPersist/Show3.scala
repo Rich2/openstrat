@@ -61,26 +61,32 @@ object Show3
 
 /** [[Show]] type class trait for types with 3 [[Int]] Show components. */
 trait ShowInt3[R] extends Show3[Int, Int, Int, R]
-{ override def persist1: Persist[Int] = Show.intPersistEv
-  override def persist2: Persist[Int] = Show.intPersistEv
+{ override def persist1: Show[Int] = Show.intPersistEv
+  override def persist2: Show[Int] = Show.intPersistEv
   def persist3: Persist[Int] = Show.intPersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
 /** [[Show]] type class trait for types with 3 [[Double]] Show components. */
 trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
-{ override def persist1: Persist[Double] = Show.doublePersistEv
-  override def persist2: Persist[Double] = Show.doublePersistEv
+{ override def persist1: Show[Double] = Show.doublePersistEv
+  override def persist2: Show[Double] = Show.doublePersistEv
   def persist3: Persist[Double] = Show.doublePersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
-object ShowDbl3{
-  class ShowDbl3Imp[R] (val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
+object ShowDbl3
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
+    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None): ShowDbl3[R] =
+    new ShowDbl3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1)
+
+  class ShowDbl3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
     val fArg3: R => Double, override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
     ShowDbl3[R]
   {
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
+      StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces), persist3.showDecT(fArg3(obj), way, maxPlaces))
   }
 }
 

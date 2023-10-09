@@ -62,9 +62,9 @@ object Pt3
   /** unapply extractor method for [[Pt3]]s. */
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
-  /** Implicit [[Persist]] instance / evidence for [[Pt3]]s. */
-  implicit val persistEv: ShowDbl3[Pt3] = new PersistDbl3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)
+  /** Implicit [[Show]] instance / evidence for [[Pt3]]s. */
+  implicit val showEv: ShowDbl3[Pt3] = ShowDbl3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z)
 
-  /** Implicit [[Persist]] instance / evidence for [[Pt3]]s. */
-  implicit val unshowEv: UnshowDbl3[Pt3] = new PersistDbl3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)
+  /** Implicit [[Unshow]] instance / evidence for [[Pt3]]s. */
+  implicit val unshowEv: UnshowDbl3[Pt3] = UnshowDbl3[Pt3]("Pt3", "x", "y", "z", apply)
 }
