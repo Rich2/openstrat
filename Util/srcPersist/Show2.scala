@@ -121,6 +121,11 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
   }
 }
 
+trait UnshowDbl2[R] extends Unshow2[Double, Double, R]
+{ override implicit def persist1: Unshow[Double] = Unshow.doubleEv
+  override implicit def persist2: Unshow[Double] = Unshow.doubleEv
+}
+
 object Unshow2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
