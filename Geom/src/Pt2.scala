@@ -250,15 +250,17 @@ object Pt2
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Length): PtM2 = PtM2(thisPt.x * operand, thisPt.y * operand)
-
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))
   def circlePtClockwise(angle: Double): Pt2 = Pt2(cos(angle), - sin(angle))
 
-  /** implicit [[Persist]] type class instance / evidence for [[Pt2]]s. */
+  /** implicit [[Show]] type class instance / evidence for [[Pt2]]s. */
   implicit val showEv: ShowTellDbl2[Pt2] = ShowTellDbl2[Pt2]("Pt2")
+
+  /** implicit [[Unshow]] type class instance / evidence for [[Pt2]]s. */
   implicit val unshowEv: UnshowDbl2[Pt2] = UnshowDbl2[Pt2]("Pt2", "x", "y", apply)
+
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
