@@ -81,10 +81,10 @@ object ShowTell2
 {
   def apply[A1, A2, R<: Tell2[A1, A2]](typeStr: String)(
     implicit ev1: Show[A1], ev2: Show[A2]): ShowTell2[A1, A2, R] =
-    new Show2edingImp[A1, A2, R](typeStr)
+    new ShowTell2Imp[A1, A2, R](typeStr)
 
   /** Implementation class for the general cases of the [[ShowTell2]] trait. */
-  class Show2edingImp[A1, A2, R<: Tell2[A1, A2]](val typeStr: String)(implicit val persist1: Show[A1], val persist2: Show[A2]) extends
+  class ShowTell2Imp[A1, A2, R<: Tell2[A1, A2]](val typeStr: String)(implicit val persist1: Show[A1], val persist2: Show[A2]) extends
     ShowTell2[A1, A2, R]
 }
 

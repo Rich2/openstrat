@@ -138,7 +138,11 @@ object HCenOrSide
     case _ => excep(s"$r, $c is not a valid HCenOrSide hex grid coordinate.")
   }
 
-  implicit val persistImplicit: PersistTellInt2[HCenOrSide] = new PersistTellInt2[HCenOrSide]("HCenOrSide", "r", "c", HCenOrSide(_, _))
+  /** implicit [[Show]] type class instance / evidence for [[HCenOrSide]]s. */
+  implicit val showEv: ShowTellInt2[HCenOrSide] = ShowTellInt2[HCenOrSide]("HCenOrSide", "r", "c")
+
+  /** implicit [[Unshow]] type class instance / evidence for [[HCenOrSide]]s. */
+  implicit val unshowEv: UnshowInt2[HCenOrSide] = UnshowInt2[HCenOrSide]("HCenOrSide", "r", "c", apply)
 }
 
 /** The only purpose of this class is to ensure that all [[HCoord]] combinations of r and c are valid. Thisis for the combinations where r is even and
