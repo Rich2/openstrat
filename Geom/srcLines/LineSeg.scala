@@ -110,7 +110,10 @@ object LineSeg
   /** Creates a vertical LineSeg. */
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 
+  /** [[Show]] type class instance / evidence for [[LineSeg]]. */
   implicit val showEv: ShowTell2[Pt2, Pt2, LineSeg] =  ShowTell2[Pt2, Pt2, LineSeg]("Line2")
+
+  /** [[Unshow]] type class instance / evidence for [[LineSeg]]. */
   implicit val unshowEv: Unshow2[Pt2, Pt2, LineSeg] =  Unshow2[Pt2, Pt2, LineSeg]("Line2", "start", "end", apply)
 
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
