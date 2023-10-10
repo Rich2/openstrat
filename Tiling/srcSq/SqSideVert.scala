@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
@@ -34,10 +34,11 @@ class SqVert private(val bLong: Long) extends AnyVal with SqCoord with TCoord
 
 /** Companion object for [[SqVert]] trait. Contains [[Show]] and builder implicit instances. */
 object SqVert
-{ val showTImplicit: Show[SqVert] = ShowTellInt2("Sqvert", "r", "c")
-  def apply(r: Int, c: Int): SqVert = if (r.isOdd & c.isOdd)
-    new SqVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
-  else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
+{
+  def apply(r: Int, c: Int): SqVert = if (r.isOdd & c.isOdd) new SqVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
+    else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
+
+  val showEv: Show[SqVert] = ShowTellInt2("Sqvert")
 
   implicit val sqVertsBuildImplicit: Int2ArrMapBuilder[SqVert, SqVertArr] = new Int2ArrMapBuilder[SqVert, SqVertArr]
   { type BuffT = SqVertBuff

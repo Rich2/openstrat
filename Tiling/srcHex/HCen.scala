@@ -1,9 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, pgui._
-
-import collection.mutable.ArrayBuffer
-import reflect.ClassTag
+import geom._, pgui._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to
  *  as an [[HCen]] to distinguish it from [[HSide]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
@@ -151,8 +148,11 @@ object HCen
 
   val neibs00: HCenArr = HCenArr(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
 
-  /** implicit [[Persist]] instance / evidence for [[HCen]]. */
-  implicit val persistEv: Persist[HCen] = new PersistTellInt2[HCen]("HCen", "r", "c", HCen(_, _))
+  /** implicit [[Show]] type class instance / evidence for [[HCen]]. */
+  implicit val showEv: ShowTellInt2[HCen] = ShowTellInt2[HCen]("HCen")
+
+  /** implicit [[Unshow]] instance / evidence for [[HCen]]. */
+  implicit val unshowEv: UnshowInt2[HCen] = UnshowInt2[HCen]("HCen", "r", "c", HCen(_, _))
 
   /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
   implicit val arrMapBuilderEv: Int2ArrMapBuilder[HCen, HCenArr] = new Int2ArrMapBuilder[HCen, HCenArr]

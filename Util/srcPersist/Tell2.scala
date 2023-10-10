@@ -117,14 +117,24 @@ object ShowTellElemDbl2
 
 /** A trait for making quick ShowT instances for [[TellElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
 trait ShowTellInt2[R <: TellInt2] extends ShowInt2[R] with ShowTell2[Int, Int, R]
-
 object ShowTellInt2
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
-  def apply[R <: TellElemInt2](typeStr: String, name1: String, name2: String, opt2: Option[Int] = None, opt1In: Option[Int] = None):
-  ShowTellInt2[R] = new ShowShowInt2TImp[R](typeStr, name1, name2, opt2,opt1In)
+  def apply[R <: TellInt2](typeStr: String, opt2: Option[Int] = None, opt1: Option[Int] = None): ShowTellInt2[R] =
+    new ShowTellInt2TImp[R](typeStr, opt2,opt1)
 
-  class ShowShowInt2TImp[R <: TellElemInt2](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Int] = None,
-    opt1In: Option[Int] = None) extends ShowTellInt2[R]
+  class ShowTellInt2TImp[R <: TellInt2](val typeStr: String, val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends
+    ShowTellInt2[R]
+  { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
+object ShowTellElemInt2
+{ /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
+  def apply[R <: TellElemInt2](typeStr: String, opt2: Option[Int] = None, opt1: Option[Int] = None): ShowTellInt2[R] =
+    new ShowTellElemInt2TImp[R](typeStr, opt2,opt1)
+
+  class ShowTellElemInt2TImp[R <: TellElemInt2](val typeStr: String, val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends
+    ShowTellInt2[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
