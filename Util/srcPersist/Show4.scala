@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show4]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
-trait Persist4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2, A3]
+trait Persist4Plus[A1, A2, A3, A4] extends Any with Persist3Plus[A1, A2, A3]
 { /** 4th parameter name. */
   def name4: String
 

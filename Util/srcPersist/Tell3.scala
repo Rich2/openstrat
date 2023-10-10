@@ -2,7 +2,7 @@
 package ostrat
 
 /** [[Tell]] trait for classes with 3+ Show parameters. */
-trait Tell3Plused[A1, A2, A3] extends Any with Tell2Plused[A1, A2] with PersistBase3Plus[A1, A2, A3]
+trait Tell3Plused[A1, A2, A3] extends Any with Tell2Plused[A1, A2] with Persist3Plus[A1, A2, A3]
 { /** Element 3 of this Show 3+ element product. */
   def tell3: A3
 

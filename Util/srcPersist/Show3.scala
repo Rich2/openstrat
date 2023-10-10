@@ -2,8 +2,8 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[Show3]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
-trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
+/** A base trait for Tell3+, Show3+ and Unshow3+ classes. Declares the common properties of name1 - 3 and opt1 - 3. */
+trait Persist3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
 
@@ -12,13 +12,13 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 }
 
 /** Common base trait for [[Show3]], [[Unshow3]] and [[Persist3]]. */
-trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
-{ override def paramNames: StrArr = StrArr(name1, name2, name3)
-  override def numParams: Int = 3
+trait Persist3[A1, A2, A3] extends Any with Persist3Plus[A1, A2, A3]
+{ final override def paramNames: StrArr = StrArr(name1, name2, name3)
+  final override def numParams: Int = 3
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3[A1, A2, A3, R] extends PersistBase3[A1, A2, A3] with ShowN[R]
+trait Show3[A1, A2, A3, R] extends Persist3[A1, A2, A3] with ShowN[R]
 
 object Show3
 {
@@ -50,9 +50,9 @@ object Show3
 
 /** [[Show]] type class trait for types with 3 [[Int]] Show components. */
 trait ShowInt3[R] extends Show3[Int, Int, Int, R]
-{ def persist1: Show[Int] = Show.intPersistEv
-  def persist2: Show[Int] = Show.intPersistEv
-  def persist3: Persist[Int] = Show.intPersistEv
+{ def show1: Show[Int] = Show.intPersistEv
+  def show2: Show[Int] = Show.intPersistEv
+  def show3: Show[Int] = Show.intPersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
@@ -60,7 +60,7 @@ trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
 { def persist1: Show[Double] = Show.doublePersistEv
   def persist2: Show[Double] = Show.doublePersistEv
-  def persist3: Persist[Double] = Show.doublePersistEv
+  def persist3: Show[Double] = Show.doublePersistEv
   override def syntaxDepthT(obj: R): Int = 2
 }
 
@@ -98,7 +98,7 @@ object ShowInt3
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with PersistBase3[A1, A2, A3]
+trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with Persist3[A1, A2, A3]
 { def persist1: Unshow[A1]
   def persist2: Unshow[A2]
   def persist3: Unshow[A3]

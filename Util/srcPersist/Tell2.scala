@@ -9,10 +9,10 @@ trait Tell2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
   /** The optional default value for parameter 2. */
   override def opt2: Option[A2] = None
 
-  /** Element 1 of this Tell 2+ element product. */
+  /** Element 1 of this Tell2+ element product. */
   def tell1: A1
 
-  /** Element 2 of this Tell 2+ element product. */
+  /** Element 2 of this Tell2+ element product. */
   def tell2: A2
 
   def persist1: Show[A1]
