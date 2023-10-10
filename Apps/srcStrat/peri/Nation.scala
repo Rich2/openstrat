@@ -26,8 +26,8 @@ case class Army(nation: Nation, num: Int) extends Coloured with Tell2[Nation, In
   override def name2: String = "num"
   override def tell1: Nation = nation
   override def tell2: Int = num
-  override def persist1: Show[Nation] = Nation.showTEv
-  override def persist2: Show[Int] = Show.intPersistEv
+  override def show1: Show[Nation] = Nation.showTEv
+  override def show2: Show[Int] = Show.intPersistEv
 }
 
 object Army
