@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
@@ -26,7 +26,11 @@ object SqCoord
     case _ => SqSide(r, c)
   }
 
-  implicit val persistImplicit: Persist[SqCoord] = PersistTellInt2[SqCoord]("SqCoord", "r", "c", SqCoord(_, _))
+  /** implicit [[Show]] type class instance / evidence for [[SqCoor]]s. */
+  implicit val showEv: ShowTellInt2[SqCoord] = ShowTellInt2[SqCoord]("SqCoord")
+
+  /** implicit [[Show]] type class instance / evidence for [[SqCoord]]s. */
+  implicit val unshowEv: UnshowInt2[SqCoord] = UnshowInt2[SqCoord]("SqCoord", "r", "c", apply)
 }
 
 trait SqCoordSeqLike extends Any with Int2SeqLike[SqCoord]

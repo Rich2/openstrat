@@ -154,9 +154,3 @@ object PersistTell2
   { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
-
-/** Persistence type class for types that extend [[TellInt2]]. */
-class PersistTellInt2[R <: TellInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
-  override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with PersistTell2[Int, Int, R] with ShowTellInt2[R]
-{ override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-}

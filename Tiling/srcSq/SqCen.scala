@@ -43,8 +43,11 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
 }
 
 object SqCen
-{
-  implicit val persistEv: Persist[SqCen] = new PersistTellInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
+{ /** implicit [[Show]] type class instance / evidence for [[SqCen]]s. */
+  implicit val showEv: ShowTellInt2[SqCen] = ShowTellInt2[SqCen]("SqCen")
+
+  /** implicit [[Unshow]] type class instance / evidence for [[SqCen]]s. */
+  implicit val unshowEv: UnshowInt2[SqCen] = UnshowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
 
   val s00v1: SqVert = SqVert(1, 1)
   val s00v2: SqVert = SqVert(-1, 1)
