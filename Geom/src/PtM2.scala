@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
@@ -77,7 +77,11 @@ object PtM2
   { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
-  implicit val PersistImplicit: Persist[PtM2] = new PersistTellDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
+  /** [[Show]] type class instance / evidence for [[PTM2]]. */
+  implicit val showEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
+
+  /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
+  implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
   implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtMetre2Arr] = new Dbl2ArrMapBuilder[PtM2, PtMetre2Arr]
   { type BuffT = BuffPtMetre2

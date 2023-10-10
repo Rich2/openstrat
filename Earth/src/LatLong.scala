@@ -159,9 +159,9 @@ object LatLong
   implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
 
   /** [[Show]] type class instance / evidence for [[LatLong]]. */
-  implicit val persistImplict: Show[LatLong] = ShowTellDbl2[LatLong]("LatLong")//, "lat", _.latDegs, "long", _.longDegs)
+  implicit val showEv: ShowTellDbl2[LatLong] = ShowTellDbl2[LatLong]("LatLong")
 
-  /** [[Show]] type class instance / evidence for [[LatLong]]. */
+  /** [[Unshow]] type class instance / evidence for [[LatLong]]. */
   implicit val unshowEv: UnshowDbl2[LatLong] = UnshowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
 
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)

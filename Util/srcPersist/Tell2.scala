@@ -96,7 +96,7 @@ trait ShowTellDbl2[R <: TellDbl2] extends ShowTell2[Double, Double, R]
 
 object ShowTellDbl2
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
-  def apply[R <: TellDbl2](typeStr: String): ShowTellDbl2Imp[R] = new ShowTellDbl2Imp[R](typeStr)
+  def apply[R <: TellDbl2](typeStr: String): ShowTellDbl2[R] = new ShowTellDbl2Imp[R](typeStr)
 
   /** Implementation class for the general cases of the [[ShowTellDbl2]] trait. */
   class ShowTellDbl2Imp[R <: TellDbl2](val typeStr: String) extends ShowTellDbl2[R]
@@ -149,10 +149,4 @@ object PersistTell2
 class PersistTellInt2[R <: TellInt2](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
   override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R] with PersistTell2[Int, Int, R] with ShowTellInt2[R]
 { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-}
-
-/** Persistence class for types that extend [[TellDbl2]]. */
-class PersistTellDbl2[R <: TellDbl2](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
-  override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistTell2[Double, Double, R] with ShowTellDbl2[R]
-{ override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
