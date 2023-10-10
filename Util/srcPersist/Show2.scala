@@ -98,6 +98,23 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
   }
 }
 
+trait UnshowInt2[R] extends Unshow2[Int, Int, R]
+{ override implicit def persist1: Unshow[Int] = Unshow.intEv
+  override implicit def persist2: Unshow[Int] = Unshow.intEv
+}
+
+object UnshowInt2
+{
+  def apply[R](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R, opt2: Option[Int] = None,
+    opt1In: Option[Int] = None): UnshowInt2[R] = new UnshowInt2Imp[R](typeStr, name1, name2, newT, opt2, opt1In)
+
+  /** Implementation class for the general cases of [[UnshowDbl2]] trait. */
+  class UnshowInt2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
+    override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[R]
+  { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
 trait UnshowDbl2[R] extends Unshow2[Double, Double, R]
 { override implicit def persist1: Unshow[Double] = Unshow.doubleEv
   override implicit def persist2: Unshow[Double] = Unshow.doubleEv
@@ -152,18 +169,6 @@ object Persist2
 }
 
 trait PersistInt2[R] extends Persist2[Int, Int, R] with ShowInt2[R]
-
-object PersistInt2
-{
-  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R, opt2: Option[Int] = None,
-    opt1In: Option[Int] = None): ShowInt2[R] = new PersistInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1In)
-
-  /** Implementation class for the general cases of [[ShowInt2]] trait. */
-  class PersistInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
-    val newT: (Int, Int) => R, override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends PersistInt2[R]
-  { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-  }
-}
 
 /**  Class to persist [[Int2Arr]] collection classes. */
 abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends IntNSeqLikePersist[A, M]
