@@ -32,11 +32,9 @@ case class Army(nation: Nation, num: Int) extends Coloured with Tell2[Nation, In
 
 object Army
 {
-  implicit val showTEv: ShowTell[Army] = ShowTell2[Nation, Int, Army]("Army")
-  def persistEv(arr: RArr[Nation]): PersistTell2[Nation, Int, Army] =
-    PersistTell2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(arr), Show.intPersistEv)
+  implicit val showEv: ShowTell[Army] = ShowTell2[Nation, Int, Army]("Army")
 
-  def persistEv(nations: Nation*): PersistTell2[Nation, Int, Army] =
-    PersistTell2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(nations.toArr), Show.intPersistEv)
+  def unshowEv(arr: RArr[Nation]): Unshow2[Nation, Int, Army] = Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(arr), Show.intPersistEv)
 
+  def persistEv(nations: Nation*) = Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(nations.toArr), Show.intPersistEv)
 }

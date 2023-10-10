@@ -138,19 +138,3 @@ object ShowTellElemInt2
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
-
-/** Persist type class for types that extends [[Tell2]]. */
-trait PersistTell2[A1, A2, R <: Tell2[A1, A2]] extends Persist2[A1, A2, R] with ShowTell2[A1, A2, R]
-
-/** Companion object for the [[PersistTell2]] class the persists object that extend [[Tell2]]. Contains an apply factory method. */
-object PersistTell2
-{ /** Factory apply method for [[PersistTell2]], that Persists [[Tell2]] objects. */
-  def apply[A1, A2, R <: Tell2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,  opt2: Option[A2] = None,
-    opt1: Option[A1] = None)(implicit persist1: Persist[A1], persist2: Persist[A2]): PersistTell2[A1, A2, R] =
-    new PersistTell2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
-
-  class PersistTell2Imp[A1, A2, R <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
-    override val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val persist1: Persist[A1], val persist2: Persist[A2]) extends PersistTell2[A1, A2, R]
-  { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  }
-}
