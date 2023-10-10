@@ -19,7 +19,7 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Tell2[
   override def tell1: Double = width
   override def tell2: Pt2 = cen
   override implicit def persist1: Show[Double] = Show.doublePersistEv
-  override implicit def persist2: Show[Pt2] = Pt2.persistImplicit
+  override implicit def persist2: Show[Pt2] = Pt2.showEv
   override def syntaxDepth: Int = 3
 
   /** maps the vertices of this [[HexParrY]] to a new [[HexparrY]] instance. */
@@ -83,7 +83,8 @@ object HexParrY
 
   def fromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 
-  implicit val persistImplicit: Persist[HexParrY] = Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
+  implicit val showEv: Show2[Double, Pt2, HexParrY] = Show2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen)
+  implicit val unshowEv: Unshow[HexParrY] = Unshow2[Double, Pt2, HexParrY]("HexYlign", "width", "cen", apply)
   implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrY] = (obj, matrix) => obj.prolign(matrix)

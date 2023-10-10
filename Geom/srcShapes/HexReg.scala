@@ -123,8 +123,8 @@ object HexReg
 
     override def tell1: Pt2 = sd3Cen
     override def tell2: Pt2 = sd0Cen
-    override implicit def persist1: Show[Pt2] = Pt2.persistImplicit
-    override implicit def persist2: Show[Pt2] = Pt2.persistImplicit
+    override implicit def persist1: Show[Pt2] = Pt2.showEv
+    override implicit def persist2: Show[Pt2] = Pt2.showEv
     override def syntaxDepth: Int = 3
 
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3

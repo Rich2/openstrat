@@ -10,8 +10,8 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
   override def typeStr: String = "LineSeg"
   override def name1: String = "startPt"
   override def name2: String = "endPt"
-  override implicit def persist1: Show[Pt2] = Pt2.persistImplicit
-  override implicit def persist2: Show[Pt2] = Pt2.persistImplicit
+  override implicit def persist1: Show[Pt2] = Pt2.showEv
+  override implicit def persist2: Show[Pt2] = Pt2.showEv
   override def syntaxDepth: Int = 2
   override def tell1: Pt2 = startPt
   override def tell2: Pt2 = endPt
@@ -110,7 +110,7 @@ object LineSeg
   /** Creates a vertical LineSeg. */
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 
-  implicit val persistImplicit: Persist[LineSeg] =  PersistTell2[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
+  implicit val persistImplicit: Show[LineSeg] =  ShowTell2[Pt2, Pt2, LineSeg]("Line2")
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */

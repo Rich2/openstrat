@@ -109,7 +109,7 @@ object Vec2
   }
 
   /** implicit [[Show]] type class instance / evidence for [[Vec2]]s. */
-  implicit val showEv: PersistTellDbl2[Vec2] = new PersistTellDbl2[Vec2]("Vec2", "x", "y", apply)
+  implicit val showEv: ShowTellDbl2[Vec2] = ShowTellDbl2[Vec2]("Vec2")
 
   /** implicit [[Unshow]] type class instance / evidence for [[Vec2]]s. */
   implicit val unshowEv: UnshowDbl2[Vec2] = UnshowDbl2[Vec2]("Vec2", "x", "y", apply)
