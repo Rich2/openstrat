@@ -22,7 +22,9 @@ object HGView
 { def apply(r: Int, c: Int, cPScale: Double = 50): HGView = new HGView(r, c, cPScale)
   def apply(hCoord: HCoord, pxScale: Double): HGView = new HGView(hCoord.r, hCoord.c, pxScale)
 
-  /** Implicit [[Persist]] instance for HGridView.  */
-  implicit val persistImplicit: PersistTell2[HCoord, Double, HGView] =
-    PersistTell2[HCoord, Double, HGView]("HGView", "hCoord", "cPScale", apply(_, _))
+  /** Implicit [[Show]] type class instance /evidence for [[HGView]].  */
+  implicit val showEv: ShowTell2[HCoord, Double, HGView] = ShowTell2[HCoord, Double, HGView]("HGView")
+
+  /** Implicit [[Umshow]] type class instance /evidence for [[HGView]].  */
+  implicit val unshowEv: Unshow2[HCoord, Double, HGView] = Unshow2[HCoord, Double, HGView]("HGView", "hCoord", "cPScale", apply)
 }

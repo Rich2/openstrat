@@ -73,7 +73,11 @@ object HCoord
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCoordBuff = HCoordBuff()
   }
 
-  implicit val persistImplicit: Persist[HCoord] = PersistTellInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
+  /** Implicit [[Show]] type class instance /evidence for [[HCoord]]. */
+  implicit val persistImplicit: ShowTellInt2[HCoord] = ShowTellInt2[HCoord]("HCoord")
+
+  /** Implicit [[Unshow]] type class instance /evidence for [[HCoord]]. */
+  implicit val unshowEv: UnshowInt2[HCoord] = UnshowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonInt2MapBuilder[HCoord, PolygonHC] = new PolygonInt2MapBuilder[HCoord, PolygonHC]
