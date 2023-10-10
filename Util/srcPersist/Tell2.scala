@@ -84,14 +84,14 @@ object ShowTell2
     new ShowTell2Imp[A1, A2, R](typeStr)
 
   /** Implementation class for the general cases of the [[ShowTell2]] trait. */
-  class ShowTell2Imp[A1, A2, R<: Tell2[A1, A2]](val typeStr: String)(implicit val persist1: Show[A1], val persist2: Show[A2]) extends
+  class ShowTell2Imp[A1, A2, R<: Tell2[A1, A2]](val typeStr: String)(implicit val show1: Show[A1], val show2: Show[A2]) extends
     ShowTell2[A1, A2, R]
 }
 
 /** A trait for making quick ShowT instances for [[TellDbl2]] types. It uses the functionality of the [[TellDbl2]]. */
 trait ShowTellDbl2[R <: TellDbl2] extends ShowTell2[Double, Double, R]
-{ override implicit def persist1: Persist[Double] = Show.doublePersistEv
-  override implicit def persist2: Persist[Double] = Show.doublePersistEv
+{ override implicit def show1: Persist[Double] = Show.doublePersistEv
+  override implicit def show2: Persist[Double] = Show.doublePersistEv
 }
 
 object ShowTellDbl2
