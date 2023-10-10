@@ -13,8 +13,8 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
   override implicit def persist1: Show[Pt2] = Pt2.persistImplicit
   override implicit def persist2: Show[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 2
-  override def show1: Pt2 = startPt
-  override def show2: Pt2 = endPt
+  override def tell1: Pt2 = startPt
+  override def tell2: Pt2 = endPt
   override def dbl1: Double = startX
   override def dbl2: Double = startY
   override def dbl3: Double = endX

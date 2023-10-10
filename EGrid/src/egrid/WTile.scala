@@ -83,9 +83,9 @@ case class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) ext
   override def name1: String = "elev"
   override def name2: String = "climate"
   override def name3: String = "landUse"
-  override def show1: Lelev = elev
-  override def show2: Climate = climate
-  override def show3: LandUse = landUse
+  override def tell1: Lelev = elev
+  override def tell2: Climate = climate
+  override def tell3: LandUse = landUse
   override def persist1: Show[Lelev] = Lelev.showEv
   override def persist2: Show[Climate] = Climate.showEv
   override def persist3: Show[LandUse] = LandUse.showEv

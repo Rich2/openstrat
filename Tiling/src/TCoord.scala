@@ -10,8 +10,8 @@ trait TCoord extends Any with Point with TellElemInt2
   /** Column number for the coordinate of a tile grid. */
   def c: Int
 
-  @inline override def show1: Int = r
-  @inline override def show2: Int = c
+  @inline override def tell1: Int = r
+  @inline override def tell2: Int = c
   override def name1: String = "r"
   override def name2: String = "c"
 

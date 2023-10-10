@@ -121,8 +121,8 @@ object HexReg
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"
 
-    override def show1: Pt2 = sd3Cen
-    override def show2: Pt2 = sd0Cen
+    override def tell1: Pt2 = sd3Cen
+    override def tell2: Pt2 = sd0Cen
     override implicit def persist1: Show[Pt2] = Pt2.persistImplicit
     override implicit def persist2: Show[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3

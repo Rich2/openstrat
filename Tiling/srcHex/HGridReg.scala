@@ -9,6 +9,11 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   override def name2: String = "top"
   override def name3: String = "left"
   override def name4: String = "right"
+  override def tell1: Int = bottomCenR
+  override def tell2: Int = topCenR
+  override def tell3: Int = leftCenC
+  override def tell4: Int = rightCenC
+
   def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
 
   override def equals(that: Any): Boolean = that match

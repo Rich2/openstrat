@@ -8,11 +8,12 @@ trait Persist4Plus[A1, A2, A3, A4] extends Any with PersistBase3Plus[A1, A2, A3]
   def name4: String
 
   /** The optional default value for parameter 4. */
-  def opt4: Option[A4] = None
+  def opt4: Option[A4]
 }
 
+/** Base trait for [[Tell4]], [[Show4]] and [[Unshow4]]. */
 trait Persist4[A1, A2, A3, A4] extends Any with Persist4Plus[A1, A2, A3, A4]
-{ override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
+{ final override def paramNames: StrArr = StrArr(name1, name2, name3, name4)
   override def numParams: Int = 4
 }
 

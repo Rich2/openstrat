@@ -8,8 +8,8 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
 { override type ThisT = LatLong
   override type LineSegT = LineSegLL
   override def typeStr: String = "LatLong"
-  def show1: Double = latDegs
-  def show2: Double = longDegs
+  override def tell1: Double = latDegs
+  override def tell2: Double = longDegs
   inline def latMilliSecs: Double = dbl1
   inline def longMilliSecs: Double = dbl2
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)

@@ -11,8 +11,8 @@ trait Vec2Like extends Any with TellElemDbl2 with ApproxDbl
 
   override def name1: String = "x"
   override def name2: String = "y"
-  @inline final override def show1: Double = x
-  @inline final override def show2: Double = y
+  @inline final override def tell1: Double = x
+  @inline final override def tell2: Double = y
 
   def yScale(factor: Double): Vec2Like
   def xScale(factor: Double): Vec2Like

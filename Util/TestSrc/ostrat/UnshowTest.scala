@@ -5,8 +5,8 @@ import utest.{Show => _, _}
 /** Example of a [[Tell2]] class for testing purposes. */
 case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
 { override def typeStr: String = "ExUA"
-  override def show1: Int = a
-  override def show2: String = b
+  override def tell1: Int = a
+  override def tell2: String = b
   override def persist1: Show[Int] = Show.intPersistEv
   override def persist2: Show[String] = Show.stringPersistEv
   override def name1: String = "a"
@@ -23,9 +23,9 @@ object ExUA
 /** Example of a [[Tell3]] class on of whose parameters is also a [[TellN]] class. */
 case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3[ExUA, String, Int]
 { override def typeStr: String = "ExUA"
-  override def show1: ExUA = a
-  override def show2: String = b
-  override def show3: Int = c
+  override def tell1: ExUA = a
+  override def tell2: String = b
+  override def tell3: Int = c
   override def persist1: Show[ExUA] = ExUA.persistEv
   override def persist2: Show[String] = Show.stringPersistEv
   override def persist3: Show[Int] = Show.intPersistEv

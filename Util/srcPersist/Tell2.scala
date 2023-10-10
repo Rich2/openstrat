@@ -1,22 +1,40 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+/** [[Tell]] trait for classes with 2+ Show parameters. */
+trait Tell2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
+{ /** The optional default value for parameter 1. */
+  override def opt1: Option[A1] = None
+
+  /** The optional default value for parameter 2. */
+  override def opt2: Option[A2] = None
+
+  /** Element 1 of this Tell 2+ element product. */
+  def tell1: A1
+
+  /** Element 2 of this Tell 2+ element product. */
+  def tell2: A2
+
+  def persist1: Show[A1]
+  def persist2: Show[A2]
+}
+
 /** Trait for [[TellDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show2 and then use [[ShowTell2]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowTell2]] or
  *  [[PersistTell2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2]] instance. */
-trait Tell2[A1, A2] extends Any with Show2Plused[A1, A2] with PersistBase2[A1, A2]
+trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   def elemTypeNames: StrArr = StrArr(persist1.typeStr, persist2.typeStr)
-  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = StrArr(persist1.showDecT(show1, way, decimalPlaces, 0), persist2.showDecT(show2, way, decimalPlaces, 0))
+  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = StrArr(persist1.showDecT(tell1, way, decimalPlaces, 0), persist2.showDecT(tell2, way, decimalPlaces, 0))
 
-  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = persist1.showDecT(show1, style, maxPlaces, maxPlaces): String
-  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = persist2.showDecT(show2, style, maxPlaces, maxPlaces): String
+  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = persist1.showDecT(tell1, style, maxPlaces, maxPlaces): String
+  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = persist2.showDecT(tell2, style, maxPlaces, maxPlaces): String
 
-  override def str: String = typeStr + (persist1.strT(show1).appendSemicolons(persist2.strT(show2))).enParenth
+  override def str: String = typeStr + (persist1.strT(tell1).appendSemicolons(persist2.strT(tell2))).enParenth
 
-  override def syntaxDepth: Int = persist1.syntaxDepthT(show1).max(persist2.syntaxDepthT(show2)) + 1
+  override def syntaxDepth: Int = persist1.syntaxDepthT(tell1).max(persist2.syntaxDepthT(tell2)) + 1
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowTellInt2]] trait
@@ -40,23 +58,23 @@ trait TellDbl2 extends Any with Tell2[Double, Double]
  *  corresponding [[ShowTellDbl2]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2]]. */
 trait TellElemDbl2 extends Any with TellDbl2 with Dbl2Elem
-{ final override def dbl1: Double = show1
-  final override def dbl2: Double = show2
+{ final override def dbl1: Double = tell1
+  final override def dbl2: Double = tell2
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowTellInt2]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2]]. */
 trait TellElemInt2 extends Any with TellInt2 with Int2Elem
-{ final override def int1: Int = show1
-  final override def int2: Int = show2
+{ final override def int1: Int = tell1
+  final override def int2: Int = tell2
 }
 
 /** Type class trait for Showing [[Tell2]] objects. */
 trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends Show2[A1, A2, R] with ShowTell[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
-  override def fArg1: R => A1 = _.show1
-  override def fArg2: R => A2 = _.show2
+  override def fArg1: R => A1 = _.tell1
+  override def fArg2: R => A2 = _.tell2
 }
 
 object ShowTell2

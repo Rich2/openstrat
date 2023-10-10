@@ -11,8 +11,8 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDb
   override def name2: String = "y"
   def x: Length = Length(xMetresNum)
   def y: Length = Length(yMetresNum)
-  override def show1: Double = xMetresNum
-  override def show2: Double = yMetresNum
+  override def tell1: Double = xMetresNum
+  override def tell2: Double = yMetresNum
   def + (op: Vec2M): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
   def - (op: PtM2): PtM2 = PtM2(x - op.x, y - op.y)
   def addXY (otherX: Length, otherY: Length): PtM2 = PtM2(x + otherX, y + otherY)

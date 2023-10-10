@@ -8,24 +8,13 @@ trait PersistBase3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
   def name3: String
 
   /** The optional default value for parameter 3. */
-  def opt3: Option[A3] = None
+  def opt3: Option[A3]
 }
 
 /** Common base trait for [[Show3]], [[Unshow3]] and [[Persist3]]. */
 trait PersistBase3[A1, A2, A3] extends Any with PersistBase3Plus[A1, A2, A3]
 { override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def numParams: Int = 3
-}
-
-/** [[Tell]] trait for classes with 3+ Show parameters. */
-trait Show3Plused[A1, A2, A3] extends Any with Show2Plused[A1, A2] with PersistBase3Plus[A1, A2, A3]
-{ /** The optional default value for parameter 3. */
-  override def opt3: Option[A3] = None
-
-  /** Element 3 of this Show 3+ element product. */
-  def show3: A3
-
-  def persist3: Show[A3]
 }
 
 /** Show type class for 3 parameter case classes. */
@@ -84,7 +73,8 @@ object ShowDbl3
   class ShowDbl3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
     val fArg3: R => Double, override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
     ShowDbl3[R]
-  {
+  { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+    override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
       StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces), persist3.showDecT(fArg3(obj), way, maxPlaces))
   }

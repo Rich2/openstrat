@@ -12,16 +12,10 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
   def name2: String
 
   /** The optional default value for parameter 1. */
-  def opt1: Option[A1] = None
+  def opt1: Option[A1]
 
   /** The optional default value for parameter 2. */
-  def opt2: Option[A2] = None
-
-  /** The declaration here allows the same field to cover [[Show]][A1], [[UnShow]][A1] and [[Persist]][A1]. */
-  //def persist1: Show[A1] | Unshow[A1]
-
-  /** The declaration here allows the same field to be to cover [[Show]][A2] [[UnShow]][A2] and [[Persist]][A2]. */
-  //def persist2: Show[A2] | Unshow[A2]
+  def opt2: Option[A2]
 }
 
 /** A base trait for [[Tell2]] and [[UnShow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can
@@ -31,23 +25,7 @@ trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
   override def numParams: Int = 2
 }
 
-/** [[Tell]] trait for classes with 2+ Show parameters. */
-trait Show2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
-{ /** The optional default value for parameter 1. */
-  override def opt1: Option[A1] = None
 
-  /** The optional default value for parameter 2. */
-  override def opt2: Option[A2] = None
-
-  /** Element 1 of this Show 2+ element product. */
-  def show1: A1
-
-  /** Element 2 of this Show 2+ element product. */
-  def show2: A2
-
-  def persist1: Show[A1]
-  def persist2: Show[A2]
-}
 
 /** Show type class for 2 parameter case classes. */
 trait Show2[A1, A2, R] extends ShowN[R]

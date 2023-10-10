@@ -21,10 +21,10 @@ final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends lengt
   override def name2: String = "y"
 
   /** Element 1 of this Show 2 element product. */
-  override def show1: Double = ???
+  override def tell1: Double = ???
 
   /** Element 2 of this Show 2 element product. */
-  override def show2: Double = ???
+  override def tell2: Double = ???
 
   def + (op: Vec2M): Vec2M = new Vec2M(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
   def - (op: Vec2M): Vec2M = new Vec2M(xMetresNum - op.xMetresNum, yMetresNum - op.yMetresNum)
