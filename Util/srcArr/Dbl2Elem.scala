@@ -141,7 +141,7 @@ trait Dbl2SeqLikeCompanion[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends DblNSeqL
   }
 }
 
-/** Persists and assists in building [[Db2SeqDef]] objectsS. */
+/** Persists and assists in building [[Db2SeqDef]] objects. */
 abstract class Dbl2SeqDefPersist[A <: Dbl2Elem, M <: Dbl2SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 { override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2 }
   override def syntaxDepthT(obj: M): Int = 3

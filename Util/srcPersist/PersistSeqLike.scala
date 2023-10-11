@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** Not sure if these are still usefull. */
+/** Not sure if these are still useful. */
 object AlphaSquareParenth
 {
   def unapply(expr: ColonMemExpr): Option[(String, RArr[Statement], RArr[Statement])] = expr match

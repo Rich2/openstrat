@@ -103,9 +103,6 @@ object ShowTellDbl2
 }
 
 trait ShowTellElemDbl2[R <: TellElemDbl2] extends ShowTellDbl2[R]
-{
-
-}
 
 object ShowTellElemDbl2
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
