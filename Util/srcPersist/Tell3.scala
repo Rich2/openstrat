@@ -6,7 +6,7 @@ trait Tell3Plused[A1, A2, A3] extends Any with Tell2Plused[A1, A2] with Persist3
 { /** Element 3 of this Show 3+ element product. */
   def tell3: A3
 
-  def persist3: Show[A3]
+  def show3: Show[A3]
 
   /** The optional default value for parameter 3. */
   override def opt3: Option[A3] = None
@@ -20,13 +20,13 @@ trait Tell3Plused[A1, A2, A3] extends Any with Tell2Plused[A1, A2] with Persist3
 trait Tell3[A1, A2, A3] extends Any with Tell3Plused[A1, A2, A3]
 { override def numParams: Int = 3
   override def paramNames: StrArr = StrArr(name1, name2, name3)
-  override def elemTypeNames: StrArr = StrArr(show1.typeStr, show2.typeStr, persist3.typeStr)
+  override def elemTypeNames: StrArr = StrArr(show1.typeStr, show2.typeStr, show3.typeStr)
 
-  override def showElemStrs(way: ShowStyle): StrArr = StrArr(show1.showT(tell1, way), show2.showT(tell2, way), persist3.showT(tell3, way))
+  override def showElemStrs(way: ShowStyle): StrArr = StrArr(show1.showT(tell1, way), show2.showT(tell2, way), show3.showT(tell3, way))
 
   override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr =
     StrArr(show1.showDecT(tell1, way, decimalPlaces, 0), show2.showDecT(tell2, way, decimalPlaces, 0),
-      persist3.showDecT(tell3, way, decimalPlaces, 0))
+      show3.showDecT(tell3, way, decimalPlaces, 0))
 }
 
 trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
@@ -42,7 +42,7 @@ trait TellInt3 extends Any with Tell3[Int, Int, Int]
 { final override def syntaxDepth: Int = 2
   final override implicit def show1: Show[Int] = Show.intPersistEv
   final override implicit def show2: Show[Int] = Show.intPersistEv
-  final override implicit def persist3: Show[Int] = Show.intPersistEv
+  final override implicit def show3: Show[Int] = Show.intPersistEv
 }
 
 /** Show classes with 3 [[Double]] parameters. */
@@ -50,5 +50,5 @@ trait TellDbl3 extends Any with Tell3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
   final override implicit def show1: Show[Double] = Show.doublePersistEv
   final override implicit def show2: Show[Double] = Show.doublePersistEv
-  final override implicit def persist3: Show[Double] = Show.doublePersistEv
+  final override implicit def show3: Show[Double] = Show.doublePersistEv
 }

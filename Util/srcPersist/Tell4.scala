@@ -12,14 +12,17 @@ trait Tell4Plused[A1, A2, A3, A4] extends Any with Tell3Plused[A1, A2, A3] with 
 }
 
 trait Tell4[A1, A2, A3, A4] extends Tell4Plused[A1, A2, A3, A4] with Persist4[A1, A2, A3, A4] with TellN
-{ override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = ???
-  override def syntaxDepth: Int = ???
+{ override def syntaxDepth: Int = ???
+
+  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr =
+    StrArr(show1.showDecT(tell1, way, decimalPlaces, 0), show2.showDecT(tell2, way, decimalPlaces, 0),
+      show3.showDecT(tell3, way, decimalPlaces, 0), show4.showDecT(tell4, way, decimalPlaces, 0))
 }
 
 trait TellInt4 extends Tell4[Int, Int, Int, Int]
 { override def show1: Show[Int] = Show.intPersistEv
   override def show2: Show[Int] = Show.intPersistEv
-  override def persist3: Show[Int] = Show.intPersistEv
+  override def show3: Show[Int] = Show.intPersistEv
   override def show4: Show[Int] = Show.intPersistEv
   override def syntaxDepth: Int = 2
   override def elemTypeNames: StrArr = StrArr("Int", "Int", "Int", "Int")

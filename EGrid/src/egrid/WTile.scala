@@ -88,7 +88,7 @@ case class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) ext
   override def tell3: LandUse = landUse
   override def show1: Show[Lelev] = Lelev.showEv
   override def show2: Show[Climate] = Climate.showEv
-  override def persist3: Show[LandUse] = LandUse.showEv
+  override def show3: Show[LandUse] = LandUse.showEv
   override def syntaxDepth: Int = 2
 
   override def isLand: Boolean = true
