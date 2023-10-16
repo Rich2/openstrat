@@ -142,6 +142,8 @@ object Unshow2
   }
 }
 
+trait UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]] extends Unshow[A]
+
 /**  Class to persist [[Int2Arr]] collection classes. */
 abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends IntNSeqLikePersist[A, M]
 {

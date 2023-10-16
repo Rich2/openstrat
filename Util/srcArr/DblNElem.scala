@@ -170,7 +170,7 @@ trait DblNSeqLikeCompanion[A <: DblNElem, AA <: DblNSeqLike[A]]// extends SeqLik
 }
 
 /** Persists [[DblNArr]]s. */
-trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends ValueNSeqLikePersist[A, M] with EqT[M]
+trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends PersistValueNSeqLike[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
