@@ -112,12 +112,14 @@ trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ValueNArr[B]] extends ValueNS
  *  function. */
 trait ValueNArrFlatBuilder[ArrB <: ValueNArr[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
 
-/** Class to Persist specialised for [[DatValueNs]] cLasses. */
-trait PersistValueNSeqLike[A <: ValueNElem, M <: ValueNSeqLike[A]] extends PersistCompound[M]
-{ /** Atomic Value type normally Double or Int. */
+trait UnshowValueNSeqLike[A <: ValueNElem, M <: ValueNSeqLike[A]] extends UnshowCompound[M]
+{ /** Atomic Value type normally [[Double]] or [[Int]]. */
   type VT
   def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit
   def fromArray(value: Array[VT]): M
   def fromBuffer(buf: ArrayBuffer[VT]): M
   def newBuffer: ArrayBuffer[VT]
 }
+
+/** Class to Persist specialised for [[ValueNElem]]s cLasses. */
+trait PersistValueNSeqLike[A <: ValueNElem, M <: ValueNSeqLike[A]] extends PersistCompound[M] with UnshowValueNSeqLike[A, M]

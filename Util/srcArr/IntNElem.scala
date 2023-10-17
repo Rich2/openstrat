@@ -125,12 +125,15 @@ trait IntNBuff[A <: IntNElem] extends Any with ValueNBuff[A]
   override def length = unsafeBuffer.length / elemProdSize
 }
 
-/**  Class to persist specialised flat Array[Int] based collections. */
-trait IntNSeqLikePersist[A <: IntNElem, M <: IntNSeqLike[A]] extends PersistValueNSeqLike[A, M]
+/**  Class to unshow specialised flat Array[Int] based collections. */
+trait UnshowIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = BuffInt(0)
 }
+
+/**  Class to persist specialised flat Array[Int] based collections. */
+trait PersistIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends PersistValueNSeqLike[A, M] with UnshowIntNSeqLike[A,M]
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
