@@ -142,15 +142,17 @@ object Unshow2
   }
 }
 
-trait UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]] extends Unshow[A]
-
-/**  Class to persist [[Int2Arr]] collection classes. */
-abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends PersistIntNSeqLike[A, M]
+trait UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLike[A, M]
 {
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
-  { buf += value.int1
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit = {
+    buf += value.int1
     buf += value.int2
   }
+}
 
+
+/**  Class to persist [[Int2Arr]] collection classes. */
+abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends PersistIntNSeqLike[A, M] with UnshowArrInt2[A, M]
+{
   override def syntaxDepthT(obj: M): Int = 3
 }
