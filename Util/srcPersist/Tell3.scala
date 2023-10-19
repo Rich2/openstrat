@@ -22,11 +22,11 @@ trait Tell3[A1, A2, A3] extends Any with Tell3Plused[A1, A2, A3]
   override def paramNames: StrArr = StrArr(name1, name2, name3)
   override def elemTypeNames: StrArr = StrArr(show1.typeStr, show2.typeStr, show3.typeStr)
 
-  override def showElemStrs(way: ShowStyle): StrArr = StrArr(show1.showT(tell1, way), show2.showT(tell2, way), show3.showT(tell3, way))
+  override def showElemStrs(way: ShowStyle): StrArr = StrArr(show1.show(tell1, way), show2.show(tell2, way), show3.show(tell3, way))
 
   override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr =
-    StrArr(show1.showDecT(tell1, way, decimalPlaces, 0), show2.showDecT(tell2, way, decimalPlaces, 0),
-      show3.showDecT(tell3, way, decimalPlaces, 0))
+    StrArr(show1.showDec(tell1, way, decimalPlaces, 0), show2.showDec(tell2, way, decimalPlaces, 0),
+      show3.showDec(tell3, way, decimalPlaces, 0))
 }
 
 trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]

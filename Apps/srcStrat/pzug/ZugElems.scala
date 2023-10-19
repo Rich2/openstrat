@@ -30,7 +30,7 @@ object Polity
   implicit val showEv: Show[Polity] = new Show[Polity] {
     override def strT(obj: Polity): String = obj.str
     override def syntaxDepthT(obj: Polity): Int = 1
-    override def showDecT(obj: Polity, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polity"
+    override def showDec(obj: Polity, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polity"
     override def typeStr: String = "Polity"
   }
 }

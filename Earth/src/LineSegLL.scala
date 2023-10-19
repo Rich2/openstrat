@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import geom._, collection.mutable.ArrayBuffer
 
@@ -38,7 +38,7 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
 
   implicit val persistImplicit: Dbl4SeqLikePersist[LineSegLL, LineSegLLArr] = new Dbl4SeqLikePersist[LineSegLL, LineSegLLArr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegLLArr = new LineSegLLArr(value)
-    override def showDecT(obj: LineSegLLArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: LineSegLLArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */

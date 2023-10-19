@@ -58,9 +58,9 @@ trait TellDec extends Any with Tell
  * very least it can increase compile times. */
 trait ShowTell[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
-  override def showT(obj: R, way: ShowStyle): String = obj.tell(way)
+  override def show(obj: R, way: ShowStyle): String = obj.tell(way)
   override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
-  override def showDecT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
+  override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
 }
 
 object ShowTell

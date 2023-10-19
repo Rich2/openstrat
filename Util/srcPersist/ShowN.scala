@@ -14,7 +14,7 @@ trait PersistBaseN extends Any with PersistBase
 /** The base trait for the persistence of algebraic product types, including case classes. */
 trait ShowN[R] extends ShowCompound[R] with Show[R]
 {
-  override def showT(obj: R, style: ShowStyle): String =
+  override def show(obj: R, style: ShowStyle): String =
   { def semisStr = strs(obj, ShowCommas).mkStr("; ")
 
     style match
@@ -29,7 +29,7 @@ trait ShowN[R] extends ShowCompound[R] with Show[R]
 
   def strs(obj: R, way: ShowStyle): StrArr = strDecs(obj, way, -1)
 
-  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def showDec(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match

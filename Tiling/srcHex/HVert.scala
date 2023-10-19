@@ -161,7 +161,7 @@ object HVertArr extends Int2SeqLikeCompanion[HVert, HVertArr]
   implicit object PersistImplicit extends PersistArrInt2s[HVert, HVertArr]("HVerts")
   { override def fromArray(value: Array[Int]): HVertArr = new HVertArr(value)
 
-    override def showDecT(obj: HVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: HVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrFlatBuilder[HVertArr] = new Int2ArrFlatBuilder[HVertArr]

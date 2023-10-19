@@ -183,7 +183,7 @@ object HCenArr extends Int2SeqLikeCompanion[HCen, HCenArr]
 
   implicit object PersistImplicit extends PersistArrInt2s[HCen, HCenArr]("HCens")
   { override def fromArray(value: Array[Int]): HCenArr = new HCenArr(value)
-    override def showDecT(obj: HCenArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: HCenArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */

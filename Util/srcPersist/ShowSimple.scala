@@ -21,7 +21,7 @@ trait ShowSimple[-A] extends Show[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
 
-  override def showDecT(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
+  override def showDec(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
   { case ShowTyped => typeStr + strT(obj).enParenth
     case ShowUnderScore => "_"
     case _ => strT(obj)

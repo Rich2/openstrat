@@ -33,7 +33,7 @@ trait Show2[A1, A2, R] extends ShowN[R]
   implicit def show2: Show[A2]
 
   override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-    StrArr(show1.showDecT(fArg1(obj), way, maxPlaces, 0), show2.showDecT(fArg2(obj), way, maxPlaces, 0))
+    StrArr(show1.showDec(fArg1(obj), way, maxPlaces, 0), show2.showDec(fArg2(obj), way, maxPlaces, 0))
 }
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */

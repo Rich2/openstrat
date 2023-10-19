@@ -44,7 +44,7 @@ object Show3
     override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showDecT(fArg1(obj),way, maxPlaces), persist2.showDecT(fArg2(obj),way, maxPlaces), persist3.showDecT(fArg3(obj),way, maxPlaces))
+      StrArr(persist1.showDec(fArg1(obj),way, maxPlaces), persist2.showDec(fArg2(obj),way, maxPlaces), persist3.showDec(fArg3(obj),way, maxPlaces))
   }
 }
 
@@ -76,7 +76,7 @@ object ShowDbl3
   { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showDecT(fArg1(obj), way, maxPlaces), persist2.showDecT(fArg2(obj), way, maxPlaces), persist3.showDecT(fArg3(obj), way, maxPlaces))
+      StrArr(persist1.showDec(fArg1(obj), way, maxPlaces), persist2.showDec(fArg2(obj), way, maxPlaces), persist3.showDec(fArg3(obj), way, maxPlaces))
   }
 }
 

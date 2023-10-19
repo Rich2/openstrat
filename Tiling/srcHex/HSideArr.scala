@@ -23,7 +23,7 @@ object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
 
   implicit val persistImplicit: PersistArrInt2s[HSide, HSideArr] = new PersistArrInt2s[HSide, HSideArr]("HSides")
   { override def fromArray(value: Array[Int]): HSideArr = new HSideArr(value)
-    override def showDecT(obj: HSideArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: HSideArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */

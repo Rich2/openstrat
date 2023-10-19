@@ -56,7 +56,7 @@ object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
   implicit val persistImplicit: Dbl4SeqLikePersist[LineSegM2, LineSegM2Arr] = new Dbl4SeqLikePersist[LineSegM2, LineSegM2Arr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegM2Arr = new LineSegM2Arr(value)
 
-    override def showDecT(obj: LineSegM2Arr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: LineSegM2Arr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
 
   }
 

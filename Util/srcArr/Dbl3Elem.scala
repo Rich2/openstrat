@@ -77,7 +77,7 @@ trait Dbl3ArrFlatBuilder[ArrB <: Dbl3Arr[_]] extends Dbl3SeqLikeCommonBuilder[Ar
 abstract class Dbl3SeqDefPersist[A <: Dbl3Elem, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 { override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3 }
   override def syntaxDepthT(obj: M): Int = 3
-  override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
+  override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
 /** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */

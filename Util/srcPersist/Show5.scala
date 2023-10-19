@@ -50,8 +50,8 @@ object Show5
       max(show4.syntaxDepthT(fArg4(obj))).max(show5.syntaxDepthT(fArg5(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(show1.showT(fArg1(obj), way), show2.showT(fArg2(obj), way), show3.showT(fArg3(obj), way), show4.showT(fArg4(obj), way),
-        show5.showT(fArg5(obj), way))
+      StrArr(show1.show(fArg1(obj), way), show2.show(fArg2(obj), way), show3.show(fArg3(obj), way), show4.show(fArg4(obj), way),
+        show5.show(fArg5(obj), way))
   }
 }
 

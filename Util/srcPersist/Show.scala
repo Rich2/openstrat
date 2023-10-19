@@ -24,9 +24,9 @@ trait Show[-T] extends PersistBase
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepthT(obj: T): Int
 
-  def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
+  def showDec(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
 
-  def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
+  def show(obj: T, style: ShowStyle): String = showDec(obj, style, -1, -1)
 }
 
 /* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
@@ -61,7 +61,7 @@ object Show
       ife(s1.last == '0', s1.dropRight(2), s1)
     }
 
-    override def showDecT(obj: Double, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    override def showDec(obj: Double, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     {
       val orig = obj.toString
       val len = orig.length
@@ -150,7 +150,7 @@ object Show
     override def evA: Show[Int] = Show.intPersistEv
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
-    override def showDecT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
+    override def showDec(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
   }
 
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
@@ -163,7 +163,7 @@ object Show
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
-    override def showDecT(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
@@ -179,7 +179,7 @@ object Show
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
-    override def showDecT(obj: Array[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: Array[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
@@ -189,8 +189,8 @@ object Show
     override def evA: Show[A] = ev
 
     /** Not fully correct yet. */
-    override def showDecT(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-      obj.map(el => ev.showDecT(el, ShowStandard, maxPlaces, 0)).semiFold
+    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+      obj.map(el => ev.showDec(el, ShowStandard, maxPlaces, 0)).semiFold
   }
 
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
@@ -199,7 +199,7 @@ object Show
     override def syntaxDepthT(obj: Some[A]): Int = ev.syntaxDepthT(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
 
-    override def showDecT(obj: Some[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDec(obj: Some[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
@@ -236,38 +236,38 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
   @inline def str: String = ev.strT(thisVal)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def show(style: ShowStyle = ShowStandard): String = ev.showT(thisVal, style)
+  def show(style: ShowStyle = ShowStandard): String = ev.show(thisVal, style)
 
  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def showDec(style: ShowStyle = ShowStandard, decimalPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
+  def showDec(style: ShowStyle = ShowStandard, decimalPlaces: Int): String = ev.showDec(thisVal, style, decimalPlaces, decimalPlaces)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def showDec(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, minPlaces)
+  def showDec(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDec(thisVal, style, decimalPlaces, minPlaces)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
-  @inline def strComma: String = ev.showDecT(thisVal, ShowCommas, -1, 0)//ev.showComma(thisVal)
+  @inline def strComma: String = ev.showDec(thisVal, ShowCommas, -1, 0)//ev.showComma(thisVal)
 
-  def str2Comma: String = ev.showDecT(thisVal, ShowCommas, 2, 0)
+  def str2Comma: String = ev.showDec(thisVal, ShowCommas, 2, 0)
 
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
    *  for case classes with a single member. */
-  @inline def strSemi: String = ev.showDecT(thisVal, ShowSemis, -1, 0)
+  @inline def strSemi: String = ev.showDec(thisVal, ShowSemis, -1, 0)
 
-  @inline def strSemi(maxPlaces: Int, minPlaces: Int = 0): String =  ev.showDecT(thisVal, ShowSemis, maxPlaces, minPlaces)
+  @inline def strSemi(maxPlaces: Int, minPlaces: Int = 0): String =  ev.showDec(thisVal, ShowSemis, maxPlaces, minPlaces)
 
   /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
-  @inline def strTyped: String = ev.showDecT(thisVal, ShowTyped, -1, 0)
+  @inline def strTyped: String = ev.showDec(thisVal, ShowTyped, -1, 0)
 
-  def str0: String = ev.showDecT(thisVal, ShowStandard, 0, 0)
-  def str1: String = ev.showDecT(thisVal, ShowStandard, 1, 0)
-  def str2: String = ev.showDecT(thisVal, ShowStandard, 2, 0)
-  def str3: String = ev.showDecT(thisVal, ShowStandard, 3, 0)
+  def str0: String = ev.showDec(thisVal, ShowStandard, 0, 0)
+  def str1: String = ev.showDec(thisVal, ShowStandard, 1, 0)
+  def str2: String = ev.showDec(thisVal, ShowStandard, 2, 0)
+  def str3: String = ev.showDec(thisVal, ShowStandard, 3, 0)
 
   /** Shows this object with field names. */
-  def showFields: String = ev.showDecT(thisVal, ShowParamNames, -1, 0)
+  def showFields: String = ev.showDec(thisVal, ShowParamNames, -1, 0)
 
-  def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, -1, 0)
+  def showTypedFields: String = ev.showDec(thisVal, ShowStdTypedFields, -1, 0)
 }
