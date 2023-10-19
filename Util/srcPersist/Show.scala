@@ -270,4 +270,6 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
   def showFields: String = ev.showDec(thisVal, ShowParamNames, -1, 0)
 
   def showTypedFields: String = ev.showDec(thisVal, ShowStdTypedFields, -1, 0)
+
+  def showDepth: Int = ev.syntaxDepth(thisVal)
 }

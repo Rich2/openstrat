@@ -10,6 +10,11 @@ object PersistCollectionsTest  extends TestSuite
     val l2: List[Int] = List(4, 5, 6)
     val l2Comma: String = "4, 5, 6"
     val ll: List[List[Int]] = List(l1, l2)
+
+    test("Depth"){
+      l2.showDepth ==> 2
+      ll.showDepth ==> 3
+    }
     
     test("List1")
     { l1.str ==> "Seq(-1; -2; -30)"
@@ -17,17 +22,16 @@ object PersistCollectionsTest  extends TestSuite
       l1.strComma ==> l1Comma
       l1.strTyped ==> "Seq[Int](-1; -2; -30)"
       l2.strComma ==> l2Comma
-      ll.str ==> "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")"
-      ::(4, Nil).str ==> "Seq[Int](4)"
+      ll.str ==> "Seq(" + l1Comma + "; " + l2Comma + ")"
+      ::(4, Nil).str ==> "Seq(4)"
     }
-    //val s2 = "Seq(1; 2; 3)"
+    val s2 = "Seq(1; 2; 3)"
     
     test("List2")
-    {
-      "Seq(1; 2; 3)".asType[List[Int]] ==> Good(List(1, 2, 3))
+    { "Seq(1; 2; 3)".asType[List[Int]] ==> Good(List(1, 2, 3))
       "Seq[1; 2; 3]".asType[List[Int]].isBad ==> true
       "What(1; 2; 3)".asType[List[Int]].isBad ==> true
-      //"Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
+      "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
 
     //  s1.findType[List[Double]] ==> Good(List(1.0, 2, 3))
       //s1.findType[List[Int]] ==> Good(List(1, 2, 3))

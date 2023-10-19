@@ -39,15 +39,15 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 {
   override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
 
-  final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
+  final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   {
-    case ShowCommas if obj.foldLeft[Int](1)((acc: Int, el: A) =>
-      acc.max(evA.syntaxDepth(el))) == 1 => obj.map(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).commaFold
-
-    case ShowSemis if obj.foldLeft(1)((acc, el) =>
-      acc.max(evA.syntaxDepth(el))) <= 2 => obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold
-
-    case _ => typeStr + obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
+    val depth = syntaxDepth(obj)
+    way match {
+      case ShowCommas if depth == 2 => obj.map(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).commaFold
+      case ShowSemis if depth <= 2 => obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold
+      case ShowTyped => typeStr + evA.typeStr.enSquare + obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
+      case _ => typeStr + obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
+    }
   }
 }
 
