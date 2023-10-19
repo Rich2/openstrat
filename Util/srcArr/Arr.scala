@@ -21,14 +21,6 @@ trait Arr[+A] extends Any with Sequ[A]
   def headOrNone: Any = ife(length ==0, None, apply(0))
 }
 
-/** [[Show] type class for showing [[Arr]][A] objects. */
-trait ShowArr[A, R <: Arr[A]] extends ShowSeqLike[A, R]
-{ override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
-
-  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-    typeStr + obj.map(a => evA.showDecT(a, ShowCommas, maxPlaces, minPlaces)).mkStr("; ").enParenth
-}
-
 case class ArrCounters[A](arr: Arr[A])
 { val counters: Array[Int] = new Array[Int](arr.length)
 

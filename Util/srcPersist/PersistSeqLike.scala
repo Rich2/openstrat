@@ -22,7 +22,7 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSeqLike[A, R] with PersistCompound[R]
+abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSeq[A, R] with PersistCompound[R]
 {
   def fromExprLike(expr: Expr): EMon[List[A]] = expr match
   {
@@ -35,7 +35,7 @@ abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSe
 
 abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends PersistSeqLike[A, R](ev) with ShowIterable[A, R]
 
-trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
+trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
 
@@ -51,6 +51,13 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
   }
 }
 
+/** [[Show] type class for showing [[Sequ]][A] objects. */
+trait ShowSequ[A, R <: Sequ[A]] extends ShowSeq[A, R]
+{ override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+
+  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    typeStr + obj.map(a => evA.showDecT(a, ShowCommas, maxPlaces, minPlaces)).mkStr("; ").enParenth
+}
 /*class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](ev)
 {
   override def fromExpr(expr: Expr): EMon[::[A]] = fromExprLike(expr).flatMap[::[A]]
