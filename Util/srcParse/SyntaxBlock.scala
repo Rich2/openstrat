@@ -38,11 +38,11 @@ sealed trait BracketCloseToken extends BracketToken
 }
 
 case class ParenthOpenToken(startPosn: TextPosn) extends BracketOpen
-{ override def braces: Braces = Parenthesis
+{ override def braces: Braces = Parentheses
 }
 
 case class ParenthCloseToken(startPosn: TextPosn) extends BracketCloseToken
-{ override def braces: Braces = Parenthesis
+{ override def braces: Braces = Parentheses
 }
 
 case class SquareOpenToken(startPosn: TextPosn) extends BracketOpen
@@ -61,13 +61,13 @@ case class CurlyCloseToken(startPosn: TextPosn) extends BracketCloseToken
 { override def braces: Braces = CurlyBraces
 }
 
-/** Defines the types of braces and the opening and closing brace character. Eg '(' and ')' for the [[Parenthesis]] object. */
+/** Defines the types of braces and the opening and closing brace character. Eg '(' and ')' for the [[Parentheses]] object. */
 sealed trait Braces
 { def openChar: Char
   def closeChar: Char
   def name: String
 }
-case object Parenthesis extends Braces
+case object Parentheses extends Braces
 { override def openChar: Char = '('
   override def closeChar: Char = ')'
   override def name: String =  "Round"
@@ -96,7 +96,7 @@ case class BracketedStatements(statements: RArr[Statement], braces: Braces, star
 
 object ParenthBlock
 { def unapply(inp: AnyRef): Option[(RArr[Statement], TextPosn, TextPosn)] = inp match
-  { case BracketedStatements(sts, Parenthesis, sp, ep) => Some((sts, sp, ep))
+  { case BracketedStatements(sts, Parentheses, sp, ep) => Some((sts, sp, ep))
     case _ => None
   }
 }

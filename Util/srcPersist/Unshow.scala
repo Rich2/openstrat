@@ -246,10 +246,8 @@ object Unshow extends UnshowLowPriority
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[List[A]] = expr match
-    { case eet: EmptyExprToken => Good(List[A]())
-      case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parenthesis =>
-        sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
-      case AlphaSquareParenth("Seq", ts, sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
+    { case _: EmptyExprToken => Good(List[A]())
+      case AlphaSquareParenth("Seq", _, sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
       case AlphaParenth("Seq", sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toList)
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
@@ -282,17 +280,15 @@ object Unshow extends UnshowLowPriority
     override def ev1: Unshow[Some[A]] = someUnShowImplicit[A](evA)
     override def ev2: Unshow[None.type] = noneUnShowImplicit
   }
-
 }
 
-trait UnshowLowPriority{
+trait UnshowLowPriority
+{
+  implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type]
+  { override def typeStr: String = "None"
 
-  implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type] //("None")
-  {
-    override def typeStr: String = "None"
-
-    def fromExpr(expr: Expr): EMon[None.type] = expr match {
-      case IdentUpperToken(_, "None") => Good(None)
+    def fromExpr(expr: Expr): EMon[None.type] = expr match
+    { case IdentUpperToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }

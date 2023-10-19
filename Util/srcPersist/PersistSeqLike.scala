@@ -2,22 +2,20 @@
 package ostrat
 import pParse._
 
-/** Not sure if these are still useful. */
+/** Extractor object for an [[AlphaBracketExpr]] with a square brackets followed by a single parentheses block. */
 object AlphaSquareParenth
-{
+{ /** Extractor unapply method for an [[AlphaBracketExpr]] with a square brackets block followed by a single parentheses block. */
   def unapply(expr: ColonMemExpr): Option[(String, RArr[Statement], RArr[Statement])] = expr match
-  {
-    case AlphaBracketExpr(IdentLowerToken(_, name), Arr2(SquareBlock(ts, _, _) , ParenthBlock(sts, _, _))) => Some((name, ts, sts))
+  { case AlphaBracketExpr(IdentifierToken(name), Arr2(SquareBlock(sts1, _, _) , ParenthBlock(sts2, _, _))) => Some((name, sts1, sts2))
     case _ => None
   }
 }
 
-/** Not sure if these are still usefull. */
+/** Extractor object for an [[AlphaBracketExpr]] with a single parentheses block. */
 object AlphaParenth
-{
+{ /** Extractor unapply method for an [[AlphaBracketExpr]] with a single parentheses block. */
   def unapply(expr: ColonMemExpr): Option[(String, RArr[Statement])] = expr match
-  {
-    case AlphaBracketExpr(IdentLowerToken(_, name), Arr1(ParenthBlock(sts, _, _))) => Some((name, sts))
+  { case AlphaBracketExpr(IdentifierToken(name), Arr1(ParenthBlock(sts, _, _))) => Some((name, sts))
     case _ => None
   }
 }
