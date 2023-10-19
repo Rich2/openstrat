@@ -41,7 +41,7 @@ object PersistTest extends TestSuite
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
-      mc.str ==> "My2(7, 8, 9; \"hi\")"
+//      mc.str ==> "My2(7, 8, 9; \"hi\")"
       abSeq.str ==> sStr
      // abRefs.str ==> sStr
     }

@@ -20,13 +20,11 @@ ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 def sett3 = List(
   scalaVersion := scalaMajor + "." + scalaMinor,
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation",
-    "-encoding", "UTF-8"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
 def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(sett3).settings(
   moduleDir := baseDir.value / srcsStr,
-  
   Test/scalaSource := moduleDir.value / "TestSrc",
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )

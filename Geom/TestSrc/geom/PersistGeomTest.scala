@@ -2,7 +2,7 @@
 package ostrat; package geom
 import utest._
 
-object PersistTest extends TestSuite
+object PersistGeomTest extends TestSuite
 {
   val tests = Tests {
     val p1 = Pt2(2.5, -4)
