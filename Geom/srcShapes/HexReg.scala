@@ -96,7 +96,7 @@ object HexReg
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
     override def showDec(obj: HexReg, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
-    override def syntaxDepthT(obj: HexReg): Int = 2
+    override def syntaxDepth(obj: HexReg): Int = 2
   }
 
   implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.slateXY(dx, dy)

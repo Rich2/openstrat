@@ -59,7 +59,7 @@ trait TellDec extends Any with Tell
 trait ShowTell[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
   override def show(obj: R, way: ShowStyle): String = obj.tell(way)
-  override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
+  override def syntaxDepth(obj: R): Int = obj.syntaxDepth
   override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
 }
 

@@ -47,7 +47,7 @@ object Show2
   class Show2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit val show1: Show[A1], val show2: Show[A2]) extends Show2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    override def syntaxDepthT(obj: R): Int = show1.syntaxDepthT(fArg1(obj)).max(show2.syntaxDepthT(fArg2(obj))) + 1
+    override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))) + 1
   }
 }
 
@@ -63,7 +63,7 @@ class Show2Extensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
 trait ShowInt2[R] extends Show2[Int, Int, R]
 { override def show1: Show[Int] = Show.intPersistEv
   override def show2: Show[Int] = Show.intPersistEv
-  override def syntaxDepthT(obj: R): Int = 2
+  override def syntaxDepth(obj: R): Int = 2
 }
 
 object ShowInt2
@@ -154,5 +154,5 @@ trait UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLike[A,
 /**  Class to persist [[Int2Arr]] collection classes. */
 abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends PersistIntNSeqLike[A, M] with UnshowArrInt2[A, M]
 {
-  override def syntaxDepthT(obj: M): Int = 3
+  override def syntaxDepth(obj: M): Int = 3
 }

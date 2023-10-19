@@ -14,7 +14,7 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
     case _ => excep("Case not implemented")
   }
   
-  override def syntaxDepthT(obj: ST): Int = 3//ev1.syntaxDepth(obj.).max(ev2.syntaxDepth())
+  override def syntaxDepth(obj: ST): Int = 3//ev1.syntaxDepth(obj.).max(ev2.syntaxDepth())
   
   /*override def showComma(obj: ST): String = obj match
   { case a1: A1 => ev1.showComma(a1)

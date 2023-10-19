@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -20,7 +20,8 @@ object PersistTest extends TestSuite
   case class My2(ints: IntArr, myStr: String)
  
   object My2
-  { implicit val persist: Persist2[IntArr, String, My2] = Persist2[IntArr, String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
+  { implicit val showEv: Show2[IntArr, String, My2] = Show2[IntArr, String, My2]("My2", "ints", _.ints, "myStr", _.myStr)
+    implicit val unshowEv: Unshow2[IntArr, String, My2] = Unshow2[IntArr, String, My2]("My2", "ints", "myStr", apply)
   }
 
   val tests = Tests {

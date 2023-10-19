@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest.{Show => _, _}
 
@@ -16,8 +16,8 @@ case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
 }
 
 object ExUA
-{ implicit val persistEv: Persist2[Int, String, ExUA] =
-    PersistTell2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
+{ implicit val showEv: ShowTell2[Int, String, ExUA] = ShowTell2[Int, String, ExUA]("ExUA")
+  implicit val unshowEv: Unshow2[Int, String, ExUA] = Unshow2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
 /** Example of a [[Tell3]] class on of whose parameters is also a [[TellN]] class. */
@@ -26,7 +26,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
   override def tell1: ExUA = a
   override def tell2: String = b
   override def tell3: Int = c
-  override def show1: Show[ExUA] = ExUA.persistEv
+  override def show1: Show[ExUA] = ExUA.showEv
   override def show2: Show[String] = Show.stringPersistEv
   override def show3: Show[Int] = Show.intPersistEv
   override def name1: String = "a"
@@ -39,8 +39,8 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
 }
 
 object ExUB
-{ implicit val persistEv: PersistTell3[ExUA, String, Int, ExUB] =
-  PersistTell3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
+{ implicit val showEv: ShowTell3[ExUA, String, Int, ExUB] = ShowTell3[ExUA, String, Int, ExUB ]("ExUB")
+  implicit val unshowEv: Unshow3[ExUA, String, Int, ExUB] = Unshow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 
 object UnshowTest extends TestSuite

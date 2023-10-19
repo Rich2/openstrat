@@ -98,7 +98,7 @@ abstract class DataDbl5sPersist[A <: Dbl5Elem, ArrA <: Dbl5SeqSpec[A]](val typeS
   override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit =
     buffer.append5(value.dbl1, value.dbl2, value.dbl3, value.dbl4, value.dbl5)
 
-  override def syntaxDepthT(obj: ArrA): Int = 3
+  override def syntaxDepth(obj: ArrA): Int = 3
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */

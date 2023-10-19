@@ -41,7 +41,7 @@ object Show3
       case _ => 3
     }
 
-    override def syntaxDepthT(obj: R): Int = persist1.syntaxDepthT(fArg1(obj)).max(persist2.syntaxDepthT(fArg2(obj))).max(persist3.syntaxDepthT(fArg3(obj))) + 1
+    override def syntaxDepth(obj: R): Int = persist1.syntaxDepth(fArg1(obj)).max(persist2.syntaxDepth(fArg2(obj))).max(persist3.syntaxDepth(fArg3(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
       StrArr(persist1.showDec(fArg1(obj),way, maxPlaces), persist2.showDec(fArg2(obj),way, maxPlaces), persist3.showDec(fArg3(obj),way, maxPlaces))
@@ -53,7 +53,7 @@ trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 { def show1: Show[Int] = Show.intPersistEv
   def show2: Show[Int] = Show.intPersistEv
   def show3: Show[Int] = Show.intPersistEv
-  override def syntaxDepthT(obj: R): Int = 2
+  override def syntaxDepth(obj: R): Int = 2
 }
 
 /** [[Show]] type class trait for types with 3 [[Double]] Show components. */
@@ -61,7 +61,7 @@ trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
 { def persist1: Show[Double] = Show.doublePersistEv
   def persist2: Show[Double] = Show.doublePersistEv
   def persist3: Show[Double] = Show.doublePersistEv
-  override def syntaxDepthT(obj: R): Int = 2
+  override def syntaxDepth(obj: R): Int = 2
 }
 
 object ShowDbl3

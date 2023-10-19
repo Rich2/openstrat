@@ -37,15 +37,15 @@ abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends Pers
 
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 {
-  override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
+  override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
 
   final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
   {
     case ShowCommas if obj.foldLeft[Int](1)((acc: Int, el: A) =>
-      acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).commaFold
+      acc.max(evA.syntaxDepth(el))) == 1 => obj.map(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).commaFold
 
     case ShowSemis if obj.foldLeft(1)((acc, el) =>
-      acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold
+      acc.max(evA.syntaxDepth(el))) <= 2 => obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold
 
     case _ => typeStr + obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
   }
@@ -53,7 +53,7 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 
 /** [[Show] type class for showing [[Sequ]][A] objects. */
 trait ShowSequ[A, R <: Sequ[A]] extends ShowSeq[A, R]
-{ override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+{ override def syntaxDepth(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
 
   override def showDec(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     typeStr + obj.map(a => evA.showDec(a, ShowCommas, maxPlaces, minPlaces)).mkStr("; ").enParenth

@@ -63,6 +63,6 @@ object Sqlign
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str
     override def showDec(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
-    override def syntaxDepthT(obj: Sqlign): Int = 3
+    override def syntaxDepth(obj: Sqlign): Int = 3
   }
 }

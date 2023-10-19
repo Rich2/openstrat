@@ -48,8 +48,8 @@ object Show6
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepthT(obj: R): Int = show1.syntaxDepthT(fArg1(obj)).max(show2.syntaxDepthT(fArg2(obj))).max(show3.syntaxDepthT(fArg3(obj))).
-      max(show4.syntaxDepthT(fArg4(obj))).max(show5.syntaxDepthT(fArg5(obj))).max(show6.syntaxDepthT(fArg6(obj))) + 1
+    final override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))).max(show3.syntaxDepth(fArg3(obj))).
+      max(show4.syntaxDepth(fArg4(obj))).max(show5.syntaxDepth(fArg5(obj))).max(show6.syntaxDepth(fArg6(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
       StrArr(show1.show(fArg1(obj), way), show2.show(fArg2(obj), way), show3.show(fArg3(obj), way), show4.show(fArg4(obj), way),

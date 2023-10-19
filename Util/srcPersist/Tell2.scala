@@ -34,7 +34,7 @@ trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A
 
   override def str: String = typeStr + (show1.strT(tell1).appendSemicolons(show2.strT(tell2))).enParenth
 
-  override def syntaxDepth: Int = show1.syntaxDepthT(tell1).max(show2.syntaxDepthT(tell2)) + 1
+  override def syntaxDepth: Int = show1.syntaxDepth(tell1).max(show2.syntaxDepth(tell2)) + 1
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowTellInt2]] trait

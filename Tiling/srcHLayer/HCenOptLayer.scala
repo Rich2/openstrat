@@ -411,6 +411,6 @@ object HCenOptLayer
 
     /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
      * should always be determined at compile time or if sometimes it should be determined at runtime. */
-    override def syntaxDepthT(obj: HCenOptLayer[A]): Int = ???
+    override def syntaxDepth(obj: HCenOptLayer[A]): Int = ???
   }
 }

@@ -29,7 +29,7 @@ object DirPathAbs
   implicit val persistImplicit: Persist[DirPathAbs] = new Persist[DirPathAbs]
   { override def typeStr: String = "DirnPathAbs"
     override def strT(obj: DirPathAbs): String = obj.str
-    override def syntaxDepthT(obj: DirPathAbs): Int = 1
+    override def syntaxDepth(obj: DirPathAbs): Int = 1
     override def showDec(obj: DirPathAbs, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
       case ShowTyped | ShowStdTypedFields => typeStr + obj.str.enParenth
       case _ => obj.str

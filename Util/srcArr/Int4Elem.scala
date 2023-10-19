@@ -111,6 +111,6 @@ abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends IntNSeqL
 
 /**  Class to persist specialised flat Array[Int] based [[Int4Arr]] collection classes. */
 abstract class Int4SeqLikePersist[B <: Int4Elem, ArrB <: Int4Arr[B]](val typeStr: String) extends PersistIntNSeqLike[B, ArrB]
-{ override def syntaxDepthT(obj: ArrB): Int = 3
+{ override def syntaxDepth(obj: ArrB): Int = 3
   override def appendtoBuffer(buffer: ArrayBuffer[Int], value: B): Unit = buffer.append4(value.int1, value.int2, value.int3, value.int4)
 }

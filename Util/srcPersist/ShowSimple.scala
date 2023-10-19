@@ -19,7 +19,7 @@ trait TellSimple extends TellQuanta
  * rather than the sub traits of ShowT to implement your Show functionality.S */
 trait ShowSimple[-A] extends Show[A]
 {
-  final override def syntaxDepthT(obj: A): Int = 1
+  final override def syntaxDepth(obj: A): Int = 1
 
   override def showDec(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
   { case ShowTyped => typeStr + strT(obj).enParenth

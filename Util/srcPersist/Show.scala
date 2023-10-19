@@ -22,7 +22,7 @@ trait Show[-T] extends PersistBase
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  def syntaxDepthT(obj: T): Int
+  def syntaxDepth(obj: T): Int
 
   def showDec(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
 
@@ -54,7 +54,7 @@ object Show
   implicit val doublePersistEv: Persist[Double] = new Persist[Double]
   {
     override def typeStr: String = "DFloat"
-    override def syntaxDepthT(obj: Double): Int = 1
+    override def syntaxDepth(obj: Double): Int = 1
 
     def strT(obj: Double): String = {
       val s1 = obj.toString
@@ -148,14 +148,14 @@ object Show
   implicit val arrayIntImplicit: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
   {
     override def evA: Show[Int] = Show.intPersistEv
-    override def syntaxDepthT(obj: Array[Int]): Int = 2
+    override def syntaxDepth(obj: Array[Int]): Int = 2
 
     override def showDec(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
   }
 
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
-    override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
+    override def syntaxDepth(obj: ArraySeq[A]): Int = ???
 
     override def fromExpr(expr: Expr): EMon[ArraySeq[A]] =  expr match
     { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
@@ -170,7 +170,7 @@ object Show
   implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
   class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
   {
-    override def syntaxDepthT(obj: Array[A]): Int = ???
+    override def syntaxDepth(obj: Array[A]): Int = ???
 
     override def fromExpr(expr: Expr): EMon[Array[A]] =  expr match
     {
@@ -185,7 +185,7 @@ object Show
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
   implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeq[A, ArraySeq[A]]
   {
-    override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
+    override def syntaxDepth(obj: ArraySeq[A]): Int = ???
     override def evA: Show[A] = ev
 
     /** Not fully correct yet. */
@@ -196,7 +196,7 @@ object Show
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
   {
     override def typeStr: String = "Some" + ev.typeStr.enSquare
-    override def syntaxDepthT(obj: Some[A]): Int = ev.syntaxDepthT(obj.value)
+    override def syntaxDepth(obj: Some[A]): Int = ev.syntaxDepth(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
 
     override def showDec(obj: Some[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
@@ -221,7 +221,7 @@ object Show
   implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
     new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
     { override def typeStr: String = "Option" + evA.typeStr.enSquare
-      override def syntaxDepthT(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepthT(_))
+      override def syntaxDepth(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepth(_))
     }
 }
 
