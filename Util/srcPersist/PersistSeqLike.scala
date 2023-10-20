@@ -43,6 +43,13 @@ trait ShowSequ[A, R <: Sequ[A]] extends ShowSeq[A, R]
   override def showMap(obj: R)(f: A => String): StrArr = obj.map(f)
 }
 
+object ShowSequ
+{
+  def apply[A, R <: Sequ[A]]()(implicit evAIn: Show[A]): ShowSequ[A, R] = new ShowSequ[A, R]
+  { override val evA: Show[A] = evAIn
+  }
+}
+
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](ev)
 { override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr)
 }

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -14,8 +14,8 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
 
   /** Make 1 string, by appending with separator from this collection of strings. */
   def mkStr(separator: String =""): String = if(empty) ""
-  else {
-    var acc = head
+  else
+  { var acc = head
     tailForeach{ s => acc += separator + s }
     acc
   }
