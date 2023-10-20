@@ -499,6 +499,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     acc
   }
 
+  def toVector: Vector[A] = toList.toVector
+
   /** Sums aaccumulating the results of the A => Int function. */
   def sumBy(f: A => Int): Int =
   { var acc = 0

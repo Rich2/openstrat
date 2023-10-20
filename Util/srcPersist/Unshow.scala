@@ -72,7 +72,7 @@ trait Unshow[+T] extends PersistBase
 }
 
 /** Companion object for the [[Unshow]] type class trait, contains implicit instances for common types. */
-object Unshow extends UnshowLowPriority
+object Unshow extends UnshowPriority2
 {
   /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
   implicit val intEv: Unshow[Int] = new IntEvClass
@@ -253,19 +253,6 @@ object Unshow extends UnshowLowPriority
     }
   }
 
-  /** Implicit method for creating Vector[A: UnShow] instances. */
-  implicit def vectorImplicit[A](implicit evIn: Unshow[A]): Unshow[Vector[A]] = new Unshow[Vector[A]]
-  { val evA: Unshow[A] = evIn
-    override def typeStr: String = "Seq" + evA.typeStr.enSquare
-
-    override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match
-    { case eet: EmptyExprToken => Good(Vector[A]())
-      case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
-      case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
-      case e => bad1(expr, "Unknown Exoression for Seq")
-    }
-  }
-
   implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
   { override def typeStr: String = "Some" + ev.typeStr.enSquare
 
@@ -282,7 +269,24 @@ object Unshow extends UnshowLowPriority
   }
 }
 
-trait UnshowLowPriority
+trait UnshowPriority2 extends UnshowPriority3
+{
+  /** Implicit method for creating Vector[A: UnShow] instances. */
+  implicit def vectorImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: ArrMapBuilder[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
+  { val evA: Unshow[A] = evIn
+    val build: ArrMapBuilder[A, ArrA] = buildIn
+    override def typeStr: String = "Seq" + evA.typeStr.enSquare
+
+    override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match {
+      case eet: EmptyExprToken => Good(Vector[A]())
+      case AlphaSquareParenth("Seq", ts, sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case AlphaParenth("Seq", sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case e => bad1(expr, "Unknown Exoression for Seq")
+    }
+  }
+}
+
+trait UnshowPriority3
 {
   implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type]
   { override def typeStr: String = "None"

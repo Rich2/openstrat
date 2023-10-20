@@ -33,10 +33,10 @@ object PersistCollectionsTest  extends TestSuite
       "What(1; 2; 3)".asType[List[Int]].isBad ==> true
       "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
 
-    //  s1.findType[List[Double]] ==> Good(List(1.0, 2, 3))
-      //s1.findType[List[Int]] ==> Good(List(1, 2, 3))
-      //s1.findType[List[Int]] ==> Good(Seq(1, 2, 3))
-     // s1.findType[List[Int]] ==> Good(Vector(1, 2, 3))
+      s2.findType[List[Double]] ==> Good(List(1.0, 2, 3))
+      s2.findType[List[Int]] ==> Good(List(1, 2, 3))
+      s2.findType[Seq[Int]] ==> Good(Seq(1, 2, 3))
+      s2.findType[Vector[Int]] ==> Good(Vector(1, 2, 3))
       //"Seq()".findType[Nil.type] ==> Good(Nil)
     }
     /*
