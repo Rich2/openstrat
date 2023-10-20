@@ -150,12 +150,16 @@ object Show
     override def evA: Show[Int] = Show.intPersistEv
     override def syntaxDepth(obj: Array[Int]): Int = 2
 
-    override def showDec(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
+//    override def showDec(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
+
+    override def showMap(obj: Array[Int])(f: Int => String): StrArr = obj.mapArr(f)
   }
 
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
     override def syntaxDepth(obj: ArraySeq[A]): Int = ???
+
+    override def showMap(obj: ArraySeq[A])(f: A => String): StrArr = obj.mapArr(f)
 
     override def fromExpr(expr: Expr): EMon[ArraySeq[A]] =  expr match
     { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
@@ -163,7 +167,7 @@ object Show
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
-    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+//    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
@@ -172,6 +176,8 @@ object Show
   {
     override def syntaxDepth(obj: Array[A]): Int = ???
 
+    override def showMap(obj: Array[A])(f: A => String): StrArr = obj.mapArr(f)
+
     override def fromExpr(expr: Expr): EMon[Array[A]] =  expr match
     {
       case AlphaBracketExpr(IdentLowerToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
@@ -179,7 +185,7 @@ object Show
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
-    override def showDec(obj: Array[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    //override def showDec(obj: Array[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
@@ -188,9 +194,11 @@ object Show
     override def syntaxDepth(obj: ArraySeq[A]): Int = ???
     override def evA: Show[A] = ev
 
+    override def showMap(obj: ArraySeq[A])(f: A => String): StrArr = obj.mapArr(f)
+
     /** Not fully correct yet. */
-    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-      obj.map(el => ev.showDec(el, ShowStandard, maxPlaces, 0)).semiFold
+//    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  //    obj.map(el => ev.showDec(el, ShowStandard, maxPlaces, 0)).semiFold
   }
 
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]

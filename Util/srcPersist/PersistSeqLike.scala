@@ -37,24 +37,18 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 {
   override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
 
-  final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-  {
-    val depth = syntaxDepth(obj)
-    way match {
-      case ShowCommas if depth == 2 => obj.map(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).commaFold
-      case ShowSemis if depth <= 2 => obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold
-      case ShowTyped => typeStr + evA.typeStr.enSquare + obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
-      case _ => typeStr + obj.map(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
-    }
-  }
+  override def showMap(obj: R)(f: A => String): StrArr = obj.mapArr(f)
+
+
 }
 
 /** [[Show] type class for showing [[Sequ]][A] objects. */
 trait ShowSequ[A, R <: Sequ[A]] extends ShowSeq[A, R]
 { override def syntaxDepth(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
 
-  override def showDec(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-    typeStr + obj.map(a => evA.showDec(a, ShowCommas, maxPlaces, minPlaces)).mkStr("; ").enParenth
+  override def showMap(obj: R)(f: A => String): StrArr = obj.map(f)
+ // override def showDec(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+   // typeStr + obj.map(a => evA.showDec(a, ShowCommas, maxPlaces, minPlaces)).mkStr("; ").enParenth
 }
 /*class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](ev)
 {
