@@ -49,11 +49,11 @@ class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike w
 object SqVertArr extends Int2SeqLikeCompanion[SqVert, SqVertArr]
 { def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
 
-  implicit object PersistImplicit extends PersistArrInt2s[SqVert, SqVertArr]("SqVerts")
-  { override def fromArray(value: Array[Int]): SqVertArr = new SqVertArr(value)
+  /** Implicit [[Show]] type class instance / evidence for [[SqVertArr]]. */
+  implicit val showEv: ShowSequ[SqVert, SqVertArr] = ShowSequ[SqVert, SqVertArr]()
 
-    override def showDec(obj: SqVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-  }
+  /** Implicit [[Unshow]] type class instance / evidence for [[SqVertArr]]. */
+  implicit val unshowEv: UnshowArrInt2[SqVert, SqVertArr] = UnshowArrInt2[SqVert, SqVertArr]("SqVertArr", new SqVertArr(_))
 
   implicit val arrArrayImplicit: ArrFlatBuilder[SqVertArr] = new Int2ArrFlatBuilder[SqVertArr]
   { type BuffT = SqVertBuff

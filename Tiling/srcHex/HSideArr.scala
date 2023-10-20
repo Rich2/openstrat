@@ -21,10 +21,11 @@ object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
 {
   override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 
-  implicit val persistImplicit: PersistArrInt2s[HSide, HSideArr] = new PersistArrInt2s[HSide, HSideArr]("HSides")
-  { override def fromArray(value: Array[Int]): HSideArr = new HSideArr(value)
-    override def showDec(obj: HSideArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-  }
+  /** Implicit [[Show]] type class instance / evidence for [[HSideArr]]. */
+  implicit val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
+  implicit val unshowEv: UnshowArrInt2[HSide, HSideArr] = UnshowArrInt2[HSide, HSideArr]("HSideArr", new HSideArr(_))
 
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */
   implicit val flatBuilderEv: ArrFlatBuilder[HSideArr] = new Int2ArrFlatBuilder[HSideArr]
