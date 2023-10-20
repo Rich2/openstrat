@@ -17,8 +17,8 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   def ssForeach[U](f: A => U): Unit =
   { var i = 0
-    while (i < ssLength) {
-      f(ssIndex(i))
+    while (i < ssLength)
+    { f(ssIndex(i))
       i = i + 1
     }
   }
@@ -63,8 +63,8 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
    * the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
    * seen for example in fold methods' (accumulator, element) => B signature. */
-  def ssIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit = {
-    var i = 0
+  def ssIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
+  { var i = 0
     while (i < ssLength) {
       f(i + initIndex, ssIndex(i))
       i = i + 1
@@ -101,8 +101,8 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   def ssLast: A = ssIndex(ssLength - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
-  def ssTailFold[B](initial: B)(f: (B, A) => B) = {
-    var acc: B = initial
+  def ssTailFold[B](initial: B)(f: (B, A) => B) =
+  { var acc: B = initial
     ssTailForeach(a => acc = f(acc, a))
     acc
   }
@@ -115,7 +115,4 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 class SeqSpecShow[A, R <: SeqSpec[A]](val typeStr: String, val evA: Show[A]) extends ShowSeqBased[A, R]
 { override def syntaxDepth(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
   override def showMap(obj: R)(f: A => String): StrArr = obj.ssMap(f)
-
-//  override def showDec(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-  //  typeStr + evA.typeStr.enSquare + obj.ssMap(a => evA.showDec(a, style, maxPlaces, minPlaces))
 }

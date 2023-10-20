@@ -166,8 +166,6 @@ object Show
       case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
-
-//    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
@@ -184,8 +182,6 @@ object Show
       case AlphaBracketExpr(IdentLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
-
-    //override def showDec(obj: Array[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
@@ -195,10 +191,6 @@ object Show
     override def evA: Show[A] = ev
 
     override def showMap(obj: ArraySeq[A])(f: A => String): StrArr = obj.mapArr(f)
-
-    /** Not fully correct yet. */
-//    override def showDec(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-  //    obj.map(el => ev.showDec(el, ShowStandard, maxPlaces, 0)).semiFold
   }
 
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
