@@ -144,7 +144,7 @@ object Unshow2
 
 class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String, f: Array[Int] => M) extends UnshowIntNSeqLike[A, M]
 { override def fromArray(value: Array[Int]): M = f(value)
-  
+
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1
     buf += value.int2
