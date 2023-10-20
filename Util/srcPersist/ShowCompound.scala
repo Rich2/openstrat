@@ -24,13 +24,13 @@ trait ShowSeqBased[A, R] extends ShowCompound[R]
 
   def showMap(obj: R)(f: A => String): StrArr
 
-  final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = {
-    val depth = syntaxDepth(obj)
+  final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  { val depth = syntaxDepth(obj)
     way match {
-      case ShowCommas if depth == 2 => showMap(obj)(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).mkStr(", ")
-      case ShowSemis if depth <= 2 => showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkStr("; ")
-      case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkStr("; ").enParenth
-      case _ => typeStr + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkStr("; ").enParenth
+      case ShowCommas if depth == 2 => showMap(obj)(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).mkComma
+      case ShowSemis if depth <= 2 => showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemi
+      case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
+      case _ => typeStr + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
     }
   }
 }

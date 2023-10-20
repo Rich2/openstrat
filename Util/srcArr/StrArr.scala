@@ -12,13 +12,30 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   override def apply(index: Int): String = unsafeArray(index)
   override def length: Int = unsafeArray.length
 
-  /** Make 1 string with separator from this collection of strings. */
-  def mkStr(separator: String): String = if(empty) ""
+  /** Make 1 string, by appending with separator from this collection of strings. */
+  def mkStr(separator: String =""): String = if(empty) ""
   else {
     var acc = head
     tailForeach{ s => acc += separator + s }
     acc
   }
+
+  /** Make with semicolons. Make 1 string, by appending with "; " separator from this collection of strings. */
+  def mkSemi: String = mkStr("; ")
+
+  /** Make with commas. Make 1 string, by appending with ", " separator from this collection of strings. */
+  def mkComma: String = mkStr(", ")
+
+  /** Make with semicolons inside parentheses. Make 1 string, by appending with "; " separator from this collection of strings and then enclose with a
+   *  pair of parentheses. */
+  def mkSemiParenth: String = mkStr("; ").enParenth
+
+  /** Make with commas inside parentheses. Make 1 string, by appending with ", " separator from this collection of stringsand then enclose with a pair
+   *  of parentheses. */
+  def mkCommaParenth: String = mkStr(", ").enParenth
+
+  /** Make with new lines. Make 1 string, by appending with "\n" separator from this collection of strings. */
+  def mkNewLine: String = mkStr("\n")
 
   override def reverse: StrArr =
   { val newArray = new Array[String](length)

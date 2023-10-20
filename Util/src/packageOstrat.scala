@@ -146,7 +146,7 @@ package object ostrat
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
 
-  def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
+  def commaedInts(iSeq: Int*) = iSeq.map(_.toString).mkComma
 
   val two32: Long = 4294967296L
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
@@ -527,7 +527,7 @@ package object ostrat
   implicit def showTToExtensions[A](thisVal: A)(implicit ev: Show[A]): ShowingExtensions[A] = new ShowingExtensions[A](ev, thisVal)
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
     new Show2Extensions[A1, A2, T](ev, thisVal)
-  implicit def stringToExtensions(s: String): StringImplicit = new StringImplicit(s)
+  implicit def stringToExtensions(s: String): ExtensionsString = new ExtensionsString(s)
   implicit def stringIterableToExtensions(strIter: Iterable[String]): StringIterableExtensions = StringIterableExtensions(strIter)
   implicit def stringArrayToExtensions(strArray: Array[String]): StringIterableExtensions = StringIterableExtensions(strArray)
 }

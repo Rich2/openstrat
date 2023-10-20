@@ -13,10 +13,21 @@ case class StringIterableExtensions(iter: Iterable[String])
          })
       loop(iter, initialString, initialAcc2)   
    }
-   def commaFold: String = strFold(", ")
-   def semiFold: String = strFold("; ")
-   def semiParenth: String = semiFold.enParenth
-   def commaParenth: String = commaFold.enParenth
+
+   /** Make with commas. Make 1 string, by appending with ", " separator from this collection of strings. */
+   def mkComma: String = iter.mkString(", ")
+
+   /** Make with semicolons. Make 1 string, by appending with "; " separator from this collection of strings. */
+   def mkSemi: String = iter.mkString("; ")
+
+   /** Make with semicolons inside parentheses. Make 1 string, by appending with "; " separator from this collection of strings and then enclose with a
+    * pair of parentheses. */
+   def mkSemiParenth: String = mkSemi.enParenth
+
+   /** Make with commas inside parentheses. Make 1 string, by appending with ", " separator from this collection of stringsand then enclose with a pair
+    * of parentheses. */
+   def mkCommaParenth: String = mkComma.enParenth
+
    def insertSpaces: String = strFold(" ")
    def insertSlashes: String = strFold(" / ")
    def encurly: String =

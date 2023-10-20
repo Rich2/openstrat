@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
-class StringImplicit(val thisString: String) extends AnyVal
+class ExtensionsString(val thisString: String) extends AnyVal
 {
   def parseTokens: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String")
   def parseStatements: EArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
@@ -173,7 +173,7 @@ class StringImplicit(val thisString: String) extends AnyVal
   def commaInts(ints: Int*): String = ints.foldLeft(thisString)(_ + ", " + _.toString)
 
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
-  def appendParenthSemis(innerStrs: String*): String = thisString + innerStrs.semiParenth
+  def appendParenthSemis(innerStrs: String*): String = thisString + innerStrs.mkSemiParenth
   def appendParenth(innerStr: String): String = thisString + innerStr.enParenth
 
   def prependIndefiniteArticle = thisString.find(!_.isWhitespace) match
