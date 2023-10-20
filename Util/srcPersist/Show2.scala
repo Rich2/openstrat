@@ -150,6 +150,14 @@ trait UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLike[A,
   }
 }
 
+object UnshowArrInt2
+{
+  def apply[A <: Int2Elem, M <: Int2Arr[A]](typeStrIn: String, f: Array[Int] => M): UnshowArrInt2[A, M] = new UnshowArrInt2[A, M]
+  { override val typeStr: String = typeStrIn
+    override def fromArray(value: Array[Int]): M = f(value)
+  }
+}
+
 /**  Class to persist [[Int2Arr]] collection classes. */
 abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends PersistIntNSeqLike[A, M] with UnshowArrInt2[A, M]
 {

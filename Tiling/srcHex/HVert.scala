@@ -158,13 +158,11 @@ class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike wit
 object HVertArr extends Int2SeqLikeCompanion[HVert, HVertArr]
 { def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
 
+  /** Implicit [[Show]] type class instance / evidence for [[HVertArr]].  */
   implicit val showEv: ShowSequ[HVert, HVertArr] = ShowSequ[HVert, HVertArr]()
-  //implicit val unshowEv = new UnshowArrInt2[HVert, HVertArr] {}
-  /*implicit object PersistImplicit extends PersistArrInt2s[HVert, HVertArr]("HVerts")
-  { override def fromArray(value: Array[Int]): HVertArr = new HVertArr(value)
 
-    override def showDec(obj: HVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-  }*/
+  /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]].  */
+  implicit val unshowEv: UnshowArrInt2[HVert, HVertArr] = UnshowArrInt2[HVert, HVertArr]("HVertArr", new HVertArr(_))
 
   implicit val arrArrayImplicit: ArrFlatBuilder[HVertArr] = new Int2ArrFlatBuilder[HVertArr]
   { type BuffT = HVertBuff
