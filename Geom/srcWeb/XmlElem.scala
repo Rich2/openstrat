@@ -16,3 +16,9 @@ trait XmlNoAtts extends XmlElem
 }
 
 trait XmlMultiNoAtts extends XmlMulti with XmlNoAtts
+
+abstract class XmlElemSimple(val tag: String) extends Xml1Lineable
+{ def str: String
+  override def attribs: RArr[XmlAtt] = RArr()
+  override def contents: RArr[XCon] = RArr(str.xCon)
+}

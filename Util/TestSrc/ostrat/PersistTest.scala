@@ -9,9 +9,8 @@ object PersistTest extends TestSuite
   }
 
   object TestClass
-  { implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
-    { override val singletons: RArr[TestClass] = RArr(TestObjA, TestObjB)
-    }
+  { implicit val showEV: ShowTellSimple[TestClass] =  ShowTellSimple[TestClass]("TestClass")
+    implicit val unshowEV: UnshowSingletons[TestClass] =  UnshowSingletons[TestClass]("TestClass", TestObjA, TestObjB)
   }
 
   object TestObjA extends TestClass("TestObjA")

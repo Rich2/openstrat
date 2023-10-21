@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** Content for XML and HTML elements. */
 trait XCon
 { /** Returns the XML / HTML source code, formatted according to the input. This allows the XML to be indented according to its context. */
-  def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = 150): String
+  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String
 
   /** I don't think this has been properly implemented. I believe the Boolean in the return value indicates if it is a single line output. */
   def outEither(indent: Int, maxLineLen: Int = 150): (Boolean, String) = (false, out(indent, maxLineLen))
