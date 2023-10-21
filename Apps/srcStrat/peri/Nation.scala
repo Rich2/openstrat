@@ -9,8 +9,8 @@ class Nation(val str: String, val colour: Colour) extends Coloured with TellSimp
 object Nation
 {
   implicit val showTEv: ShowTellSimple[Nation] = ShowTellSimple[Nation]("Nation")
-  def persistEv(arr: RArr[Nation]): PersistSingletons[Nation] = PersistSingletons[Nation]("Nation", arr)
-  def persistEv(nations: Nation*): PersistSingletons[Nation] = PersistSingletons[Nation]("Nation", nations.toArr)
+  def unshowEv(arr: RArr[Nation]): UnshowSingletons[Nation] = UnshowSingletons[Nation]("Nation", arr)
+  def unshowEv(nations: Nation*): UnshowSingletons[Nation] = UnshowSingletons[Nation]("Nation", nations.toArr)
 }
 
 object NoNation extends Nation("NoNation", White)
@@ -34,7 +34,9 @@ object Army
 {
   implicit val showEv: ShowTell[Army] = ShowTell2[Nation, Int, Army]("Army")
 
-  def unshowEv(arr: RArr[Nation]): Unshow2[Nation, Int, Army] = Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(arr), Show.intPersistEv)
+  def unshowEv(arr: RArr[Nation]): Unshow2[Nation, Int, Army] =
+    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(arr), Show.intPersistEv)
 
-  def persistEv(nations: Nation*) = Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.persistEv(nations.toArr), Show.intPersistEv)
+  def unshowEv(nations: Nation*): Unshow2[Nation, Int, Army] =
+    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(nations.toArr), Show.intPersistEv)
 }
