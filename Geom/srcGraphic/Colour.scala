@@ -95,12 +95,16 @@ trait Coloured extends AnyRef
 
 /** Companion object for Colour class, contains named values for the standard web colours and implicit instances for various type classes. */
 object Colour
-{
+{ /** Implicit [[EqT]] type class instance / evidence for [[Colour]]. */
   implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
+  /** Implicit [[Show]] type class instance / evidence for [[Colour]]. */
   implicit val showEv: Show[Colour] = ShowSimple[Colour]("Colour", obj => Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c))
 
-  implicit val unshowEv: Unshow[Colour] = new PersistSimple[Colour]("Colour") {
+  /** Implicit [[Unshow]] type class instance / evidence for [[Colour]]. */
+  implicit val unshowEv: Unshow[Colour] = new Unshow[Colour]
+  { override def typeStr: String = "Colour"
+
     def fromExpr(expr: Expr): EMon[Colour] = expr match {
       case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
