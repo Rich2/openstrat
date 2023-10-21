@@ -116,19 +116,10 @@ object Show
     }
   }
 
-  /** Implicit [[Persist]] type class instance /evidence for [[String]]. */
-  implicit val stringPersistEv: Persist[String] = new PersistSimple[String]("Str")
-  { def strT(obj: String): String = obj.enquote
-    override def fromExpr(expr: Expr): EMon[String] = expr match
-    { case StringToken(_, stringStr) => Good(stringStr)
-      case  _ => expr.exprParseErr[String]
-    }
-  }
+  /** Implicit [[Show]] type class instance / evidence for [[String]]. */
+  implicit val stringEv: Show[String] = ShowSimple[String]("Str", _.enquote)
 
-  implicit val charImplicit: Show[Char] = new ShowSimple[Char]
-  { override def typeStr: String = "Char"
-    def strT(obj: Char): String = obj.toString.enquote1
-  }
+  implicit val charImplicit: Show[Char] = ShowSimple[Char]("Char", _.toString.enquote1)
 
   class ShowIterableClass[A, R <: Iterable[A]](val evA: Show[A]) extends ShowIterable[A, R] with Show[R]{}
 

@@ -8,7 +8,7 @@ case class ExUA(a: Int = 0, b: String = "blah") extends Tell2[Int, String]
   override def tell1: Int = a
   override def tell2: String = b
   override def show1: Show[Int] = Show.intPersistEv
-  override def show2: Show[String] = Show.stringPersistEv
+  override def show2: Show[String] = Show.stringEv
   override def name1: String = "a"
   override def name2: String = "b"
 
@@ -27,7 +27,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
   override def tell2: String = b
   override def tell3: Int = c
   override def show1: Show[ExUA] = ExUA.showEv
-  override def show2: Show[String] = Show.stringPersistEv
+  override def show2: Show[String] = Show.stringEv
   override def show3: Show[Int] = Show.intPersistEv
   override def name1: String = "a"
   override def name2: String = "b"

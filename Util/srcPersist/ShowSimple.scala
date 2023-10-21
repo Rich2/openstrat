@@ -28,6 +28,14 @@ trait ShowSimple[-A] extends Show[A]
   }
 }
 
+object ShowSimple
+{
+  def apply[A](typeStrIn: String, f: A => String): ShowSimple[A] = new ShowSimple[A]
+  { override def typeStr: String = typeStrIn
+    override def strT(obj: A): String = f(obj)
+  }
+}
+
 /** [[Show]] class for types that extend [[TellSimple]]. */
 case class ShowTellSimple[R <: TellSimple](typeStr: String) extends ShowTell[R]
 
