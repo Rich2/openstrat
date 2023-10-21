@@ -92,15 +92,6 @@ abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] exten
   }
 }
 
-/** Both Persists and Builds [[Dbl5Arr]] Collection classes. */
-abstract class DataDbl5sPersist[A <: Dbl5Elem, ArrA <: Dbl5SeqSpec[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
-{
-  override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit =
-    buffer.append5(value.dbl1, value.dbl2, value.dbl3, value.dbl4, value.dbl5)
-
-  override def syntaxDepth(obj: ArrA): Int = 3
-}
-
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */
 trait Dbl5Buff[A <: Dbl5Elem] extends Any with DblNBuff[A]
 { type ArrT <: Dbl5Arr[A]
