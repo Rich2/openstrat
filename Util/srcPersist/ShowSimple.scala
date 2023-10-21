@@ -57,9 +57,3 @@ object UnshowSingletons
 
   class UnshowSingletonsImp[+A <: TellSimple](val typeStr: String, val singletons: RArr[A]) extends UnshowSingletons[A]
 }
-
-/** I think this class may be redundant and can be replace by a more general PersistSum class for displaying algebraic sum types. */
-abstract class PersistSingletons[A <: TellSimple](typeStr: String) extends PersistSimple[A](typeStr) with UnshowSingletons[A]
-{
-  @inline override def strT(obj: A): String = obj.str
-}

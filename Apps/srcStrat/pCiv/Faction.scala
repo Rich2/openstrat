@@ -1,7 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCiv
-import geom._, Colour._
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCiv
+import Colour._
 
 trait Faction extends TellSimple
 { override def typeStr: String = "Faction"
@@ -9,11 +8,7 @@ trait Faction extends TellSimple
 }
 
 object Faction
-{
-  implicit object FactionPersistImplicit extends PersistSingletons[Faction]("Faction")
-  {
-    override def singletons: RArr[Faction] = RArr(Uruk, Eridu)
-  }
+{ implicit val showEv: ShowTellSimple[Faction] = ShowTellSimple[Faction]("Faction")
 }
 
 object Uruk extends Faction
