@@ -10,10 +10,7 @@ trait Polity extends TellSimple with Coloured
 
 object Polity
 {
-  object PolityPersist extends PersistSingletons[Polity]("Polity")
-  {
-    override val singletons: RArr[Polity] = RArr(Germany, Britain, France)
-  }
+  implicit val showEv: ShowTellSimple[Nothing] = ShowTellSimple("Polity")
 }
 
 object Germany extends Polity

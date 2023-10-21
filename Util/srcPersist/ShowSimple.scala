@@ -63,14 +63,3 @@ abstract class PersistSingletons[A <: TellSimple](typeStr: String) extends Persi
 {
   @inline override def strT(obj: A): String = obj.str
 }
-
-object PersistSingletons
-{
-  def apply[A <: TellSimple](typeStr: String, singletonsIn: RArr[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
-  { override def singletons: RArr[A] = singletonsIn
-  }
-
-  def apply[A <: TellSimple](typeStr: String, singletonsIn: A*)(implicit ct: ClassTag[A]): PersistSingletons[A] = new PersistSingletons[A](typeStr)
-  {  override def singletons: RArr[A] = singletonsIn.toArr
-  }
-}
