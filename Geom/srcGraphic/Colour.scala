@@ -5,11 +5,11 @@ import geom._, pWeb._, collection.mutable.ArrayBuffer, pParse._
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 { 
-  override def toString: String = Colour.persistImplicit.strT(this)
+  override def toString: String = Colour.showEv.strT(this)
 
   /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = FillAttrib(this)
-  
+
   override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
   @inline final override def int1: Int = argbValue
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
@@ -36,7 +36,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   }
 
   def nextFromRainbow: Colour = nextFrom(Colours.rainbow)
-  
+
   /** Returns the colour with the greatest contrast */
   def contrast: Colour =
   {
@@ -47,10 +47,10 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
     Colour.fromInts(getCol(red), getCol(green), getCol(blue), alpha)
   }
 
-/** Returns the colour that most contrasts with the 2 colours. This is useful for text that is displayed across 2 background colours. */  
+/** Returns the colour that most contrasts with the 2 colours. This is useful for text that is displayed across 2 background colours. */
 def contrast2(other: Colour): Colour =
   {
-    def f(i1: Int, i2: Int): Int = 
+    def f(i1: Int, i2: Int): Int =
     { val av = (i1 + i2) / 2
       val avd = av.diff(i1).min(av.diff(i2))
       val ld = 0.diff(i1).min(0.diff(i2))
@@ -63,7 +63,7 @@ def contrast2(other: Colour): Colour =
     }
     Colour.fromInts(f(red, other.red), f(green, other.green), f(blue, other.blue), 255)
   }
-  
+
   /** Darkens a colour by a defualt value of 2. */
   def darken(factor: Double = 2): Colour =
   { def f(primary: Int): Int = (primary / factor).toInt.min(255)
@@ -98,17 +98,19 @@ object Colour
 {
   implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
-  implicit val persistImplicit: Persist[Colour] = new PersistSimple[Colour]("Colour")
-  {
-    def fromExpr(expr: Expr): EMon[Colour] = expr match
-    { case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
+  implicit val showEv: Show[Colour] = ShowSimple[Colour]("Colour", obj => Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c))
+
+  implicit val unshowEv: Unshow[Colour] = new PersistSimple[Colour]("Colour") {
+    def fromExpr(expr: Expr): EMon[Colour] = expr match {
+      case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
-      case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStatements(Arr1(st), Parentheses, _, _))) => st.expr match
-      { case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))
+      case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStatements(Arr1(st), Parentheses, _, _))) => st.expr match {
+        case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))
         case _ => expr.exprParseErr[Colour](this)
       }
       case _ => expr.exprParseErr[Colour](this)
     }
+
     def strT(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 

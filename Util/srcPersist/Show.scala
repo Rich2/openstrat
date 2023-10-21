@@ -110,7 +110,8 @@ object Show
   /** Implicit [[Show]] type class instance / evidence for [[String]]. */
   implicit val stringEv: Show[String] = ShowSimple[String]("Str", _.enquote)
 
-  implicit val charImplicit: Show[Char] = ShowSimple[Char]("Char", _.toString.enquote1)
+  /** Implicit [[Show]] type class instance / evidence for [[Char]]. */
+  implicit val charEv: Show[Char] = ShowSimple[Char]("Char", _.toString.enquote1)
 
   class ShowIterableClass[A, R <: Iterable[A]](val evA: Show[A]) extends ShowIterable[A, R] with Show[R]{}
 
