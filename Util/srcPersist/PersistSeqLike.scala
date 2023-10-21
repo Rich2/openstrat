@@ -30,8 +30,6 @@ abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSe
   }
 }
 
-abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends PersistSeqLike[A, R](ev) with ShowIterable[A, R]
-
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 { override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
   override def showMap(obj: R)(f: A => String): StrArr = obj.mapArr(f)
@@ -48,8 +46,4 @@ object ShowSequ
   def apply[A, R <: Sequ[A]]()(implicit evAIn: Show[A]): ShowSequ[A, R] = new ShowSequ[A, R]
   { override val evA: Show[A] = evAIn
   }
-}
-
-class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](ev)
-{ override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr)
 }

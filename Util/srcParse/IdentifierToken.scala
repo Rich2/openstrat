@@ -1,11 +1,12 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
 trait IdentifierToken extends ClauseMemExprToken
 
+/** Extractor object for [[IdentifierToken]]. */
 object IdentifierToken
-{
+{ /** Unaply extractor method for [[IdentifierToken]]. */
   def unapply(inp: Any): Option[String] = inp match
   { case idt: IdentifierToken => Some(idt.srcStr)
     case _ => None
@@ -22,8 +23,7 @@ trait IdentUpperToken extends IdentifierToken
 
 /** Extractor function object for [[IdentUpperToken]] type. */
 object IdentUpperToken
-{
-  /** Extractor method for [[IdentUpperToken]] type. */
+{ /** Extractor method for [[IdentUpperToken]] type. */
   def unapply(inp: Any): Option[(TextPosn, String)] = inp match
   { case iup: IdentUpperToken => Some((iup.startPosn, iup.srcStr))
     case _ => None

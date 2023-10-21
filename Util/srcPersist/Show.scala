@@ -225,11 +225,6 @@ object Show
     }
 }
 
-sealed trait ShowTInstancesPriority2
-{ /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def seqPersistImplicit[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
-}
-
 /** Extension methods for types with [[Show]] type class instances. */
 class ShowingExtensions[-A](ev: Show[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
