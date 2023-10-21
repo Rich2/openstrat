@@ -138,35 +138,6 @@ object Show
     override def showMap(obj: Array[Int])(f: Int => String): StrArr = obj.mapArr(f)
   }
 
-  class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
-  {
-    override def syntaxDepth(obj: ArraySeq[A]): Int = ???
-
-    override def showMap(obj: ArraySeq[A])(f: A => String): StrArr = obj.mapArr(f)
-
-    override def fromExpr(expr: Expr): EMon[ArraySeq[A]] =  expr match
-    { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-      case _ => ??? // expr.exprParseErr[A](this)
-    }
-  }
-
-  /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
-  class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
-  {
-    override def syntaxDepth(obj: Array[A]): Int = ???
-
-    override def showMap(obj: Array[A])(f: A => String): StrArr = obj.mapArr(f)
-
-    override def fromExpr(expr: Expr): EMon[Array[A]] =  expr match
-    {
-      case AlphaBracketExpr(IdentLowerToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-      case _ => ??? // expr.exprParseErr[A](this)
-    }
-  }
-
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
   implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeq[A, ArraySeq[A]]
   {

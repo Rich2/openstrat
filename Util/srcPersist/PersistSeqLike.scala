@@ -20,16 +20,6 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSeq[A, R] with PersistCompound[R]
-{
-  def fromExprLike(expr: Expr): EMon[List[A]] = expr match
-  { case SemicolonToken(_) => Good(List[A]())
-    case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
-    case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
-    case e => bad1(expr, expr.toString + " Unknown Expression for Seq")
-  }
-}
-
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 { override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
   override def showMap(obj: R)(f: A => String): StrArr = obj.mapArr(f)
