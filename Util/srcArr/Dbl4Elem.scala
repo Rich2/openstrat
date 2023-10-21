@@ -103,12 +103,6 @@ abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends
   }
 }
 
-/** Persists [[Dble4Elem] Collection classes. */
-abstract class Dbl4SeqLikePersist[A <: Dbl4Elem, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]{
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = buf.append4(value.dbl1, value.dbl2, value.dbl3, value.dbl4)
-  override def syntaxDepth(obj: ArrA): Int = 3
-}
-
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait Dbl4Buff[A <: Dbl4Elem] extends Any with DblNBuff[A]
 { type ArrT <: Dbl4Arr[A]

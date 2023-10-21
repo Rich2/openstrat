@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._,  collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show4]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
 trait Persist4Plus[A1, A2, A3, A4] extends Any with Persist3Plus[A1, A2, A3]
@@ -161,4 +161,17 @@ object UnshowInt4
       case _ => 3
     }
   }
+}
+
+trait UnshowDbl4[R] extends Unshow4[Double, Double, Double, Double, R]
+{ override def unshow1: Unshow[Double] = Unshow.doubleEv
+  override def unshow2: Unshow[Double] = Unshow.doubleEv
+  override def unshow3: Unshow[Double] = Unshow.doubleEv
+  override def unshow4: Unshow[Double] = Unshow.doubleEv
+}
+
+/** Persists [[Dble4Elem] Collection classes. */
+abstract class Dbl4SeqLikePersist[A <: Dbl4Elem, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]{
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = buf.append4(value.dbl1, value.dbl2, value.dbl3, value.dbl4)
+  override def syntaxDepth(obj: ArrA): Int = 3
 }
