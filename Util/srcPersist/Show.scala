@@ -92,20 +92,11 @@ object Show
     }
   }
 
-  implicit val longPersistImplicit: Persist[Long] = new PersistSimple[Long]("Long")
-  { def strT(obj: Long): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Long] = expr match
-    { case NatDeciToken(_, i) => Good(i.toLong)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
-      case  _ => expr.exprParseErr[Long]
-    }
-  }
+  /** Implicit [[Show]] type class instance / evidence for [[Long]]. */
+  implicit val longEv: Show[Long] = ShowSimple[Long]("Long", _.toString)
 
-  implicit val floatImplicit: Show[Float] = new ShowSimple[Float]
-  { override def typeStr: String = "SFloat"
-    def strT(obj: Float): String = obj.toString
-  }
+  /** Implicit [[Show]] type class instance / evidence for [[Long]]. */
+  implicit val floatImplicit: Show[Float] = ShowSimple[Float]("SFloat", _.toString)
 
   implicit val booleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def strT(obj: Boolean): String = obj.toString
