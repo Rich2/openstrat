@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -30,6 +30,12 @@ object LineSegM2
     def /(operand: Length): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
   }
 
+  /** [[Show]] type class instance / evidence for [[LineSegM2]]. */
+  //implicit val showEv: Show2[PtM2, PtM2, LineSegM2] = Show2[PtM2, PtM2, LineSegM2]("LineSegM2", "x", _.)
+
+  /** [[Unshow]] type class instance / evidence for [[LineSegM2]]. */
+  implicit val unshowEv: Unshow2[PtM2, PtM2, LineSegM2] = Unshow2[PtM2, PtM2, LineSegM2]("Line2", "start", "end", apply)
+
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
   implicit val buildEv: Dbl4ArrMapBuilder[LineSegM2, LineSegM2Arr] = new Dbl4ArrMapBuilder[LineSegM2, LineSegM2Arr]
   { type BuffT = LineSegM2Buff
@@ -52,6 +58,7 @@ class LineSegM2Arr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegM2]
 object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
 {
   override def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
+  //val showEv = ShowSequ[LineSegM2, LineSegM2Arr]()
 
   implicit val persistImplicit: Dbl4SeqLikePersist[LineSegM2, LineSegM2Arr] = new Dbl4SeqLikePersist[LineSegM2, LineSegM2Arr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegM2Arr = new LineSegM2Arr(value)
