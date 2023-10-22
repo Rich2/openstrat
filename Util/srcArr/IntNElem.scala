@@ -125,7 +125,7 @@ trait IntNBuff[A <: IntNElem] extends Any with ValueNBuff[A]
   override def length = unsafeBuffer.length / elemProdSize
 }
 
-/**  Class to unshow specialised flat Array[Int] based collections. */
+/**  Class to [[Unshow]] specialised flat Array[Int] based collections. */
 trait UnshowIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)

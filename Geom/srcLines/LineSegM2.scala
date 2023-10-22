@@ -31,7 +31,7 @@ object LineSegM2
   }
 
   /** [[Show]] type class instance / evidence for [[LineSegM2]]. */
-  //implicit val showEv: Show2[PtM2, PtM2, LineSegM2] = Show2[PtM2, PtM2, LineSegM2]("LineSegM2", "x", _.)
+  implicit val showEv: Show2[PtM2, PtM2, LineSegM2] = Show2[PtM2, PtM2, LineSegM2]("LineSegM2", "start", _.startPt, "end", _.endPt)
 
   /** [[Unshow]] type class instance / evidence for [[LineSegM2]]. */
   implicit val unshowEv: Unshow2[PtM2, PtM2, LineSegM2] = Unshow2[PtM2, PtM2, LineSegM2]("Line2", "start", "end", apply)
@@ -58,7 +58,9 @@ class LineSegM2Arr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegM2]
 object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
 {
   override def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
-  //val showEv = ShowSequ[LineSegM2, LineSegM2Arr]()
+  val showEv: ShowSequ[LineSegM2, LineSegM2Arr] = ShowSequ[LineSegM2, LineSegM2Arr]()
+
+  //val unshowEv = UnshowArrInt2
 
   implicit val persistImplicit: Dbl4SeqLikePersist[LineSegM2, LineSegM2Arr] = new Dbl4SeqLikePersist[LineSegM2, LineSegM2Arr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegM2Arr = new LineSegM2Arr(value)

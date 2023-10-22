@@ -175,3 +175,16 @@ class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String, f: Arra
 object UnshowArrInt2
 { def apply[A <: Int2Elem, M <: Int2Arr[A]](typeStr: String, f: Array[Int] => M): UnshowArrInt2[A, M] = new UnshowArrInt2[A, M](typeStr, f)
 }
+
+class UnshowArrDbl2[A <: Dbl2Elem, M <: Dbl2Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
+{ override def fromArray(value: Array[Double]): M = f(value)
+
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
+  { buf += value.dbl1
+    buf += value.dbl2
+  }
+}
+
+object UnshowArrDbl2
+{ def apply[A <: Dbl2Elem, M <: Dbl2Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl2[A, M] = new UnshowArrDbl2[A, M](typeStr, f)
+}

@@ -168,6 +168,12 @@ trait DblNSeqLikeCompanion[A <: DblNElem, AA <: DblNSeqLike[A]]// extends SeqLik
     fromArray(array)
   }
 }
+/**  Class to [[Unshow]] specialised flat Array[Double] based collections. */
+trait UnshowDblNSeqLike[A <: DblNElem, M <: DblNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
+{ type VT = Double
+  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
+  override def newBuffer: ArrayBuffer[Double] = BuffDbl()
+}
 
 /** Persists [[DblNArr]]s. */
 trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends PersistValueNSeqLike[A, M] with EqT[M]

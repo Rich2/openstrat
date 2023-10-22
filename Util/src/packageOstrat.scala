@@ -132,6 +132,9 @@ package object ostrat
   /** Constructs a new [[ArrayBuffer]][Int]. */
   @inline def BuffInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
 
+  /** Constructs a new [[ArrayBuffer]][Double]. */
+  @inline def BuffDbl(initialLength: Int = 5): ArrayBuffer[Double] = new ArrayBuffer[Double](initialLength)
+
   /** Constructs a new [[ArrayBuffer]][Long]. */
   @inline def BufferLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
 
