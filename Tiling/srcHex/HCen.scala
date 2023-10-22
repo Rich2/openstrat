@@ -194,6 +194,7 @@ object HCenArr extends Int2SeqLikeCompanion[HCen, HCenArr]
   }
 }
 
+/** Efficient buffer, mutable sequence without fixed length for [[HCen]]s. */
 class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[HCen]
 { type ArrT = HCenArr
   override def typeStr: String = "HCenBuff"
