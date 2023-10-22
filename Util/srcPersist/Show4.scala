@@ -83,12 +83,15 @@ object ShowInt4
 }
 
 /** Produces [[Show]] type class instances for 4 [[Double]] types. */
-trait ShowDbl4[R] extends Show4[Double, Double, Double, Double, R]
-{ override def show1: Show[Double] = Show.doublePersistEv
+abstract class ShowDbl4[R] extends Show4[Double, Double, Double, Double, R]
+{
+
+  override def show1: Show[Double] = Show.doublePersistEv
   override def show2: Show[Double] = Show.doublePersistEv
   override def show3: Show[Double] = Show.doublePersistEv
   override def show4: Show[Double] = Show.doublePersistEv
   override def syntaxDepth(obj: R): Int = 2
+
 }
 
 /** UnShow class for 4 logical parameter product types. */

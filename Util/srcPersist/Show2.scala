@@ -78,6 +78,27 @@ object ShowInt2
   }
 }
 
+
+/** [[Show]] type class trait for types with 2 [[Double]] Show components. */
+trait ShowDbl2[R] extends Show2[Double, Double, R]
+{ override def show1: Show[Double] = Show.doublePersistEv
+  override def show2: Show[Double] = Show.doublePersistEv
+  override def syntaxDepth(obj: R): Int = 2
+}
+
+object ShowDbl2
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, opt2: Option[Double] = None, opt1: Option[Double] = None):
+  ShowDbl2[R] = new ShowDbl2Imp[R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1)
+
+  /** Implementation class for the general cases of [[ShowDbl2]] trait. */
+  class ShowDbl2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val opt2: Option[Double] = None,
+    opt1In: Option[Double] = None) extends ShowDbl2[R]
+  { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
+
 /** UnShow type class trait for a 2 element Product. */
 trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
 { /** The [[Unshow]] type class instance for type A1. */
