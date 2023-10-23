@@ -90,8 +90,8 @@ object ShowTell2
 
 /** A trait for making quick ShowT instances for [[TellDbl2]] types. It uses the functionality of the [[TellDbl2]]. */
 trait ShowTellDbl2[R <: TellDbl2] extends ShowTell2[Double, Double, R]
-{ override implicit def show1: Persist[Double] = Show.doublePersistEv
-  override implicit def show2: Persist[Double] = Show.doublePersistEv
+{ override implicit def show1: Show[Double] = Show.doublePersistEv
+  override implicit def show2: Show[Double] = Show.doublePersistEv
 }
 
 object ShowTellDbl2

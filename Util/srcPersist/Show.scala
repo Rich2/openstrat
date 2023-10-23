@@ -56,14 +56,13 @@ object Show
     override def typeStr: String = "DFloat"
     override def syntaxDepth(obj: Double): Int = 1
 
-    def strT(obj: Double): String = {
-      val s1 = obj.toString
+    def strT(obj: Double): String =
+    { val s1 = obj.toString
       ife(s1.last == '0', s1.dropRight(2), s1)
     }
 
     override def showDec(obj: Double, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-    {
-      val orig = obj.toString
+    { val orig = obj.toString
       val len = orig.length
       val minPlacesAdj: Int = ife(maxPlaces < 0, minPlaces, minPlaces.min(maxPlaces))
       val dotIndex: Int = orig.indexOf('.')
@@ -96,16 +95,10 @@ object Show
   implicit val longEv: Show[Long] = ShowSimple[Long]("Long", _.toString)
 
   /** Implicit [[Show]] type class instance / evidence for [[Long]]. */
-  implicit val floatImplicit: Show[Float] = ShowSimple[Float]("SFloat", _.toString)
+  implicit val floatEv: Show[Float] = ShowSimple[Float]("SFloat", _.toString)
 
-  implicit val booleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
-  { override def strT(obj: Boolean): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Boolean] = expr match
-    { case IdentLowerToken(_, str) if str == "true" => Good(true)
-      case IdentLowerToken(_, str) if str == "false" => Good(false)
-      case _ => expr.exprParseErr[Boolean]
-    }
-  }
+  /** Implicit [[Show]] type class instance / evidence for [[Boolean]]. */
+  implicit val booleanEv: Show[Boolean] = ShowSimple[Boolean]("Bool", _.toString)
 
   /** Implicit [[Show]] type class instance / evidence for [[String]]. */
   implicit val stringEv: Show[String] = ShowSimple[String]("Str", _.enquote)

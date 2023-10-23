@@ -160,7 +160,7 @@ object Statement
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): EMon[Boolean] = Show.booleanPersistImplicit.settingFromStatements(statements, settingStr)
+    def findSettingBool(settingStr: String): EMon[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
   }
 
   /** Extension class for EMon[Arr[Statement]]. */
