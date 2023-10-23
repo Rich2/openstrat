@@ -17,6 +17,12 @@ final case class LineSegLL(val dbl1: Double, val dbl2: Double, val dbl3: Double,
 object LineSegLL
 { def apply(startPt: LatLong, endPt: LatLong): LineSegLL = new LineSegLL(startPt.dbl1, startPt.dbl2, endPt.dbl1, endPt.dbl2)
 
+  /** [[Show]] type class instance / evidence for [[LineSegLL]]. */
+  implicit val showEv: Show2[LatLong, LatLong, LineSegLL] = Show2[LatLong, LatLong, LineSegLL]("LineSegLL", "start", _.startPt, "end", _.endPt)
+
+  /** [[Unshow]] type class instance / evidence for [[LineSegLL]]. */
+  implicit val unshowEv: Unshow2[LatLong, LatLong, LineSegLL] = Unshow2[LatLong, LatLong, LineSegLL]("Line2", "start", "end", apply)
+
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
   implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new LineSegLLArrMapBuilder
 }
@@ -36,10 +42,11 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
 {
   override def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
 
-  implicit val persistImplicit: Dbl4SeqLikePersist[LineSegLL, LineSegLLArr] = new Dbl4SeqLikePersist[LineSegLL, LineSegLLArr]("Line2s")
-  { override def fromArray(value: Array[Double]): LineSegLLArr = new LineSegLLArr(value)
-    override def showDec(obj: LineSegLLArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-  }
+  /** [[Show]] type class instance / evidence for [[LineSegLLArr]]. */
+  implicit val showEv: ShowSequ[LineSegLL, LineSegLLArr] = ShowSequ[LineSegLL, LineSegLLArr]()
+
+  /** [[Unshow]] type class instance / evidence for [[LineSegLLArr]]. */
+  implicit val unshowEv: UnshowArrDbl4[LineSegLL, LineSegLLArr] = UnshowArrDbl4[LineSegLL, LineSegLLArr]("LineSegLLArr", new LineSegLLArr(_))
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
   implicit val flatBuildEv: ArrFlatBuilder[LineSegLLArr] = new LineSegArrLLFlatBuilder

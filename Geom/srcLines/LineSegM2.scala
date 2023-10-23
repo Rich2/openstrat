@@ -58,8 +58,11 @@ class LineSegM2Arr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegM2]
 object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
 {
   override def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
+
+  /** [[Show]] type class instance / evidence for [[LineSegM2Arr]]. */
   implicit val showEv: ShowSequ[LineSegM2, LineSegM2Arr] = ShowSequ[LineSegM2, LineSegM2Arr]()
 
+  /** [[Unshow]] type class instance / evidence for [[LineSegM2Arr]]. */
   implicit val unshowEv: UnshowArrDbl4[LineSegM2, LineSegM2Arr] = UnshowArrDbl4[LineSegM2, LineSegM2Arr]("LineSegM2Arr", new LineSegM2Arr(_))
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */

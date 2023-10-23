@@ -172,24 +172,19 @@ trait UnshowDbl4[R] extends Unshow4[Double, Double, Double, Double, R]
 }
 
 object UnshowDbl4
-{ def apply[R](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (Double, Double, Double, Double) => R,
+{
+  def apply[R](typeStr: String, name1: String, name2: String, name3: String, name4: String, newT: (Double, Double, Double, Double) => R,
   opt4: Option[Double] = None, opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None): UnshowDbl4[R] =
   new UnshowDbl4Imp[R](typeStr, name1, name2, name3, name4, newT, opt4, opt3, opt2, opt1)
 
-  /** Implementation class for [[UnshowDbl3]]. */
+  /** Implementation class for [[UnshowDbl4]]. */
   class UnshowDbl4Imp[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
-    val newT: (Double, Double, Double, Double) => R, val opt4: Option[Double] = None, val opt3In: Option[Double] = None,
-    opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl4[R]
+    val newT: (Double, Double, Double, Double) => R, val opt4: Option[Double] = None, val opt3In: Option[Double] = None, opt2In: Option[Double] = None,
+    opt1In: Option[Double] = None) extends UnshowDbl4[R]
   { override val opt3: Option[Double] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
-}
-
-/** Persists [[Dble4Elem] Collection classes. */
-abstract class Dbl4SeqLikePersist[A <: Dbl4Elem, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]{
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = buf.append4(value.dbl1, value.dbl2, value.dbl3, value.dbl4)
-  override def syntaxDepth(obj: ArrA): Int = 3
 }
 
 class UnshowArrDbl4[A <: Dbl4Elem, M <: Dbl4Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
