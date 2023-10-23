@@ -2,6 +2,8 @@
 package ostrat
 import pParse._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A base trait for Tell3+, Show3+ and Unshow3+ classes. Declares the common properties of name1 - 3 and opt1 - 3. */
 trait Persist3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
 { /** 3rd parameter name. */
@@ -172,4 +174,18 @@ object UnshowDbl3
   { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
+}
+
+class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
+{ override def fromArray(value: Array[Double]): M = f(value)
+
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
+  { buf += value.dbl1
+    buf += value.dbl2
+    buf += value.dbl3
+  }
+}
+
+object UnshowArrDbl3
+{ def apply[A <: Dbl3Elem, M <: Dbl3Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl3[A, M] = new UnshowArrDbl3[A, M](typeStr, f)
 }
