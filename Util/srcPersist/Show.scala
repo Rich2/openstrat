@@ -162,10 +162,9 @@ object Show
     }
   }
 
-  implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
-    new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
-    { override def typeStr: String = "Option" + evA.typeStr.enSquare
-      override def syntaxDepth(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepth(_))
+  implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Show[Option[A]] =
+    new PersistSum2[Option[A], Some[A], None.type]("Opt", somePersistImplicit[A](evA), nonePersistImplicit)
+    { override def syntaxDepth(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepth(_))
     }
 }
 

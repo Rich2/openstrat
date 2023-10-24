@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, pParse._
 
 /** Show class for algebraic sum types. If you are using your own code then Show sum types handled by inheritance. */
-abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends Show[ST]
+abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST](val typeStr: String)(implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends Show[ST]
 {
   def ev1: Show[A1]
   def ev2: Show[A2]
@@ -36,8 +36,8 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
 object ShowSum2
 {
   def apply[ST <: AnyRef, A1 <: ST, A2 <: ST](typeIn: String, ev1In: Show[A1], ev2In: Show[A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]):
-    ShowSum2[ST, A1, A2] = new ShowSum2[ST, A1, A2]()(ct1, ct2)
-  { override def typeStr: String = typeIn
+    ShowSum2[ST, A1, A2] = new ShowSum2[ST, A1, A2](typeIn)(ct1, ct2)
+  { //override def typeStr: String = typeIn
     override def ev1: Show[A1] = ev1In
     override def ev2: Show[A2] = ev2In
   }
@@ -85,5 +85,5 @@ trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends Unshow[ST]
     pList.mapFirstGood(_.fromStatements(sts), sts.startPosn.bad("fromStatements, No value of" -- typeStr -- "found.")) */
 }
 
-abstract class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val ev1: Persist[A1], val ev2: Persist[A2])(implicit ct1: ClassTag[A1],
-    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2] with UnShowSum2[ST, A1, A2] with Persist[ST]
+class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](typeStrIn: String, val ev1: Persist[A1], val ev2: Persist[A2])(implicit ct1: ClassTag[A1],
+    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2](typeStrIn) with UnShowSum2[ST, A1, A2] with Persist[ST]

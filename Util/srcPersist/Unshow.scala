@@ -267,13 +267,13 @@ object Unshow extends UnshowPriority2
     }
   }
 
-  implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA))
+  implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA), noneUnEv)
 
-  def optionUnShowImplicit[A](implicit evA: Unshow[A]): Unshow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
+  /*def optionUnShowImplicit[A](implicit evA: Unshow[A]): Unshow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
   { override def typeStr: String = "Option" + evA.typeStr.enSquare
     override def ev1: Unshow[Some[A]] = someUnShowImplicit[A](evA)
     override def ev2: Unshow[None.type] = noneUnShowImplicit
-  }
+  }*/
 }
 
 trait UnshowPriority2 extends UnshowPriority3
@@ -295,7 +295,7 @@ trait UnshowPriority2 extends UnshowPriority3
 
 trait UnshowPriority3
 {
-  implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type]
+  implicit val noneUnEv: Unshow[None.type] = new Unshow[None.type]
   { override def typeStr: String = "None"
 
     def fromExpr(expr: Expr): EMon[None.type] = expr match
