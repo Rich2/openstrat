@@ -137,34 +137,21 @@ object Show
     override def showMap(obj: ArraySeq[A])(f: A => String): StrArr = obj.mapArr(f)
   }
 
-  implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
-  {
-    override def typeStr: String = "Some" + ev.typeStr.enSquare
+  /** [[Show]] type class instance evidence for [[Some]]. */
+  implicit def someEv[A](implicit ev: Show[A]): Show[Some[A]] = new  Show[Some[A]]
+  { override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepth(obj: Some[A]): Int = ev.syntaxDepth(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
 
     override def showDec(obj: Some[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-
-    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
-      case expr => ev.fromExpr(expr).map(Some(_))
-    }
   }
 
-  implicit val nonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
-  {
-    override def strT(obj: None.type): String = ""
+  /** [[Show]] type class instance evidence for [[None.type]]. */
+  implicit val noneEv: Show[None.type] = ShowSimple[None.type]("None", _ => "")
 
-    def fromExpr(expr: Expr): EMon[None.type] = expr match
-    { case IdentLowerToken(_, "None") => Good(None)
-      case eet: EmptyExprToken => Good(None)
-      case e => bad1(e, "None not found")
-    }
-  }
-
-  implicit def optionEv[A](implicit evA: Persist[A]): Show[Option[A]] =
-    ShowSum2[Option[A], Some[A], None.type]("Opt", somePersistImplicit[A](evA), nonePersistImplicit)
-
+  /** [[Show]] type class instance evidence for [[Option]]. */
+  implicit def optionEv[A](implicit evA: Show[A]): Show[Option[A]] =
+    ShowSum2[Option[A], Some[A], None.type]("Opt", someEv[A](evA), noneEv)
 }
 
 /** Extension methods for types with [[Show]] type class instances. */
