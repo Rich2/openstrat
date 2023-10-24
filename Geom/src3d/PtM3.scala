@@ -102,8 +102,9 @@ object PtM3
 {
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
   def apply(x: Length, y: Length, z: Length): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
-  //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
-  var counter = 0
+
+  /** [[Show]] type class instance / evidence for [[PTM3]]. */
+  implicit val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetres, "y", _.yMetres, "z", _.zMetres)
 
   implicit val arrBuilderImplicit: Dbl3ArrMapBuilder[PtM3, PtM3Arr] = new Dbl3ArrMapBuilder[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff

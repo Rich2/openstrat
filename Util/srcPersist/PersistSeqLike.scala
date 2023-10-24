@@ -37,3 +37,17 @@ object ShowSequ
   { override val evA: Show[A] = evAIn
   }
 }
+
+/** [[Show] type class for showing [[Sequ]][A] objects. */
+trait ShowSeqSpec[A, R <: SeqSpec[A]] extends ShowSeq[A, R]
+{ override def syntaxDepth(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
+  override def showMap(obj: R)(f: A => String): StrArr = obj.ssMap(f)
+}
+
+object ShowSeqSpec
+{
+  def apply[A, R <: SeqSpec[A]](typeStrIn: String)(implicit evAIn: Show[A]): ShowSeqSpec[A, R] = new ShowSeqSpec[A, R]
+  { override val typeStr: String = typeStrIn
+    override val evA: Show[A] = evAIn
+  }
+}

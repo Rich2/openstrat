@@ -35,6 +35,22 @@ trait ShowSeqBased[A, R] extends ShowCompound[R]
   }
 }
 
+object ShowSeqBased{
+  class ShowSeqBasedImp[A, R] extends ShowSeqBased[A, R]{
+    override def evA: Show[A] = ???
+
+    override def showMap(obj: R)(f: A => String): StrArr = ???
+
+    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+     * should always be determined at compile time or if sometimes it should be determined at runtime. */
+    override def syntaxDepth(obj: R): Int = ???
+
+    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+     * Show. */
+    override def typeStr: String = ???
+  }
+}
+
 /** All logical sequence classes are shown as "Seq"s. There encoding in memory and the immutability are irrelevant for their persistence. */
 trait ShowSeq[A, R] extends ShowSeqBased[A, R]
 { override def typeStr = "Seq"
