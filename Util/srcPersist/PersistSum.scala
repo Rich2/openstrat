@@ -15,16 +15,6 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST](val typeStr: String)(i
   }
   
   override def syntaxDepth(obj: ST): Int = 3//ev1.syntaxDepth(obj.).max(ev2.syntaxDepth())
-  
-  /*override def showComma(obj: ST): String = obj match
-  { case a1: A1 => ev1.showComma(a1)
-    case a2: A2 => ev2.showComma(a2)
-  }
-  
-  override def showSemi(obj: ST): String = obj match
-  { case a1: A1 => ev1.showSemi(a1)
-    case a2: A2 => ev2.showSemi(a2)
-  }*/
 
   override def showDec(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =  obj match
   { case a1: A1 => ev1.strT(a1)
@@ -77,13 +67,4 @@ trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends Unshow[ST]
   def pList: List[Unshow[ST]] = List(ev1, ev2)
   override def fromExpr(expr: Expr): EMon[ST] =
     pList.mapFirstGood(_.fromExpr(expr), expr.startPosn.bad("fromExpr, No value of" -- typeStr -- "found."))
-    
- /* override def fromClauses(clauses: Refs[Clause]): EMon[ST] =
-    pList.mapFirstGood(_.fromClauses(clauses), clauses(0).startPosn.bad("fromClauses No value of" -- typeStr -- "found."))
-    
-  override def fromStatements(sts: Refs[Statement]): EMon[ST] =
-    pList.mapFirstGood(_.fromStatements(sts), sts.startPosn.bad("fromStatements, No value of" -- typeStr -- "found.")) */
 }
-
-class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](typeStrIn: String, val ev1: Persist[A1], val ev2: Persist[A2])(implicit ct1: ClassTag[A1],
-    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2](typeStrIn) with UnShowSum2[ST, A1, A2] with Persist[ST]

@@ -162,10 +162,9 @@ object Show
     }
   }
 
-  implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Show[Option[A]] =
-    new PersistSum2[Option[A], Some[A], None.type]("Opt", somePersistImplicit[A](evA), nonePersistImplicit)
-    { override def syntaxDepth(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepth(_))
-    }
+  implicit def optionEv[A](implicit evA: Persist[A]): Show[Option[A]] =
+    ShowSum2[Option[A], Some[A], None.type]("Opt", somePersistImplicit[A](evA), nonePersistImplicit)
+
 }
 
 /** Extension methods for types with [[Show]] type class instances. */
