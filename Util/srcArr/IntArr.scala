@@ -88,7 +88,7 @@ object IntArr
   implicit val persistEv: Persist[IntArr] with ShowSequ[Int, IntArr] = new Persist[IntArr] with ShowSequ[Int, IntArr]
   { override def typeStr: String = "Seq" + "Int"
 
-    override def evA: Show[Int] = Show.intPersistEv
+    override def evA: Show[Int] = Show.intEv
 
     override def fromExpr(expr: Expr): EMon[IntArr] = expr match
     { case _: EmptyExprToken => Good(IntArr())

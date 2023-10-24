@@ -27,7 +27,7 @@ case class Army(nation: Nation, num: Int) extends Coloured with Tell2[Nation, In
   override def tell1: Nation = nation
   override def tell2: Int = num
   override def show1: Show[Nation] = Nation.showTEv
-  override def show2: Show[Int] = Show.intPersistEv
+  override def show2: Show[Int] = Show.intEv
 }
 
 object Army
@@ -35,8 +35,8 @@ object Army
   implicit val showEv: ShowTell[Army] = ShowTell2[Nation, Int, Army]("Army")
 
   def unshowEv(arr: RArr[Nation]): Unshow2[Nation, Int, Army] =
-    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(arr), Show.intPersistEv)
+    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(arr), Unshow.intEv)
 
   def unshowEv(nations: Nation*): Unshow2[Nation, Int, Army] =
-    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(nations.toArr), Show.intPersistEv)
+    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(nations.toArr), Unshow.intEv)
 }

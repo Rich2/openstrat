@@ -61,8 +61,8 @@ class Show2Extensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
 
 /** [[Show]] type class trait for types with 2 [[Int]] Show components. */
 trait ShowInt2[R] extends Show2[Int, Int, R]
-{ override def show1: Show[Int] = Show.intPersistEv
-  override def show2: Show[Int] = Show.intPersistEv
+{ override def show1: Show[Int] = Show.intEv
+  override def show2: Show[Int] = Show.intEv
   override def syntaxDepth(obj: R): Int = 2
 }
 

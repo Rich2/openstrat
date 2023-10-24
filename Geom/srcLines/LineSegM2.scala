@@ -63,7 +63,7 @@ object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
   implicit val showEv: ShowSequ[LineSegM2, LineSegM2Arr] = ShowSequ[LineSegM2, LineSegM2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[LineSegM2Arr]]. */
-  implicit val unshowEv: UnshowArrDbl4[LineSegM2, LineSegM2Arr] = UnshowArrDbl4[LineSegM2, LineSegM2Arr]("LineSegM2Arr", new LineSegM2Arr(_))
+  implicit val unshowEv: UnshowArrDbl4[LineSegM2, LineSegM2Arr] = UnshowArrDbl4[LineSegM2, LineSegM2Arr]("LineSegM2Arr", LineSegM2Arr.fromArray)
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
   implicit val flatBuildEv: ArrFlatBuilder[LineSegM2Arr] = new Dbl4ArrFlatBuilder[LineSegM2Arr]
@@ -71,8 +71,6 @@ object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
     override def fromDblArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegM2Buff = new LineSegM2Buff(inp)
   }
-
-  //implicit val transImplicit: AffineTrans[LineSegMArr] = (obj, f) => obj.dataMap(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for [[LineSegM2]]s. */

@@ -56,10 +56,10 @@ object Show4
 
 /** Produces [[Show]] type class instances for 4 [[Int]] types. */
 trait ShowInt4[R] extends Show4[Int, Int, Int, Int, R]
-{ override def show1: Show[Int] = Show.intPersistEv
-  override def show2: Show[Int] = Show.intPersistEv
-  override def show3: Show[Int] = Show.intPersistEv
-  override def show4: Show[Int] = Show.intPersistEv
+{ override def show1: Show[Int] = Show.intEv
+  override def show2: Show[Int] = Show.intEv
+  override def show3: Show[Int] = Show.intEv
+  override def show4: Show[Int] = Show.intEv
   override def syntaxDepth(obj: R): Int = 2
 }
 

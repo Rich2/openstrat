@@ -52,9 +52,9 @@ object Show3
 
 /** [[Show]] type class trait for types with 3 [[Int]] Show components. */
 trait ShowInt3[R] extends Show3[Int, Int, Int, R]
-{ def show1: Show[Int] = Show.intPersistEv
-  def show2: Show[Int] = Show.intPersistEv
-  def show3: Show[Int] = Show.intPersistEv
+{ def show1: Show[Int] = Show.intEv
+  def show2: Show[Int] = Show.intEv
+  def show3: Show[Int] = Show.intEv
   override def syntaxDepth(obj: R): Int = 2
 }
 

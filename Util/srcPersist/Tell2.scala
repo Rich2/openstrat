@@ -41,8 +41,8 @@ trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A
  *  which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  *  [[Show2]]. */
 trait TellInt2 extends Any with Tell2[Int, Int]
-{ final override implicit def show1: Show[Int] = Show.intPersistEv
-  final override implicit def show2: Show[Int] = Show.intPersistEv
+{ final override implicit def show1: Show[Int] = Show.intEv
+  final override implicit def show2: Show[Int] = Show.intEv
   final override def syntaxDepth: Int = 2
 }
 

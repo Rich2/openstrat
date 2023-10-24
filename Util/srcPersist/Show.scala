@@ -34,11 +34,8 @@ trait Show[-T] extends PersistBase
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */
 object Show
-{ /** Implicit [[Persist]] type class instance /evidence for [[Int]]. */
-  implicit val intPersistEv: Persist[Int] = new IntPersistClass
-  class IntPersistClass extends Unshow.IntEvClass with Persist[Int] with ShowSimple[Int]
-  { def strT(obj: Int): String = obj.toString
-  }
+{ /** Implicit [[Show]] type class instance / evidence for [[Int]]. */
+  implicit val intEv: Show[Int] = ShowSimple("Int", _.toString)
 
   val hexadecimal: Show[Int] = new ShowSimple[Int]
   { override def typeStr: String = "Int"
@@ -123,7 +120,7 @@ object Show
 
   implicit val arrayIntImplicit: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
   {
-    override def evA: Show[Int] = Show.intPersistEv
+    override def evA: Show[Int] = Show.intEv
     override def syntaxDepth(obj: Array[Int]): Int = 2
 
 //    override def showDec(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"

@@ -56,11 +56,11 @@ object Show5
 }
 
 trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
-{ override def show1: Show[Int] = Show.intPersistEv
-  override def show2: Show[Int] = Show.intPersistEv
-  override def show3: Show[Int] = Show.intPersistEv
-  override def show4: Show[Int] = Show.intPersistEv
-  override def show5: Show[Int] = Show.intPersistEv
+{ override def show1: Show[Int] = Show.intEv
+  override def show2: Show[Int] = Show.intEv
+  override def show3: Show[Int] = Show.intEv
+  override def show4: Show[Int] = Show.intEv
+  override def show5: Show[Int] = Show.intEv
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */

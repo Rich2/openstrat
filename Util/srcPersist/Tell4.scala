@@ -20,10 +20,10 @@ trait Tell4[A1, A2, A3, A4] extends Tell4Plused[A1, A2, A3, A4] with Persist4[A1
 }
 
 trait TellInt4 extends Tell4[Int, Int, Int, Int]
-{ override def show1: Show[Int] = Show.intPersistEv
-  override def show2: Show[Int] = Show.intPersistEv
-  override def show3: Show[Int] = Show.intPersistEv
-  override def show4: Show[Int] = Show.intPersistEv
+{ override def show1: Show[Int] = Show.intEv
+  override def show2: Show[Int] = Show.intEv
+  override def show3: Show[Int] = Show.intEv
+  override def show4: Show[Int] = Show.intEv
   override def syntaxDepth: Int = 2
   override def elemTypeNames: StrArr = StrArr("Int", "Int", "Int", "Int")
 }

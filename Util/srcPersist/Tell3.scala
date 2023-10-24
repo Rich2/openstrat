@@ -40,9 +40,9 @@ object ShowTell3
 /** Show classes with 3 [[Int]] parameters. */
 trait TellInt3 extends Any with Tell3[Int, Int, Int]
 { final override def syntaxDepth: Int = 2
-  final override implicit def show1: Show[Int] = Show.intPersistEv
-  final override implicit def show2: Show[Int] = Show.intPersistEv
-  final override implicit def show3: Show[Int] = Show.intPersistEv
+  final override implicit def show1: Show[Int] = Show.intEv
+  final override implicit def show2: Show[Int] = Show.intEv
+  final override implicit def show3: Show[Int] = Show.intEv
 }
 
 /** Show classes with 3 [[Double]] parameters. */

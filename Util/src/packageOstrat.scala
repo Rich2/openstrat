@@ -107,7 +107,7 @@ package object ostrat
   }
 
   /** Not sure what this method does. */
-  def readT[T](implicit ev: Persist[T]): T =
+  def readT[T](implicit ev: Unshow[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
     def loop(inp: EMon[T]): T = inp match
     { case Good(t) => t
