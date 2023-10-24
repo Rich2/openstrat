@@ -70,9 +70,10 @@ trait Unshow[+T] extends PersistBase
     }
   }
 
-  /*def ++[TT >: T] (operand: Unshow[TT]): Unshow[TT] = operand match{
-    case uSum: UnshowSum[TT] =>
-  }*/
+  def ++[TT >: T] (operand: Unshow[TT])(implicit ev: Unshow[TT]): Unshow[TT] = operand match
+  { case uSum: UnshowSum[TT] => UnshowSum[TT](ev.typeStr, this %: uSum.elems)
+    case op => UnshowSum[TT](ev.typeStr, RArr(this, op))
+  }
 }
 
 /** Companion object for the [[Unshow]] type class trait, contains implicit instances for common types. */
@@ -266,7 +267,9 @@ object Unshow extends UnshowPriority2
     }
   }
 
-  implicit def optionUnShowImplicit[A](implicit evA: Unshow[A]): Unshow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
+  implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA))
+
+  def optionUnShowImplicit[A](implicit evA: Unshow[A]): Unshow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
   { override def typeStr: String = "Option" + evA.typeStr.enSquare
     override def ev1: Unshow[Some[A]] = someUnShowImplicit[A](evA)
     override def ev2: Unshow[None.type] = noneUnShowImplicit

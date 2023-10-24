@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, pParse._
 
@@ -49,15 +49,23 @@ trait UnshowSum[+A] extends Unshow[A]
   def elems: RArr[Unshow[A]]
 
   override def fromExpr(expr: Expr): EMon[A] = elems.findGood(_.fromExpr(expr))
+
+  override def ++[AA >: A](operand: Unshow[AA])(implicit ev: Unshow[AA]): Unshow[AA] = operand match
+  { case uSum: UnshowSum[AA] => UnshowSum[AA](ev.typeStr, elems ++ uSum.elems)
+    case op => UnshowSum[AA](ev.typeStr, elems +% op)
+  }
 }
 
-object UnshowSum{
-  def apply[A](typeStrIn: String, elemsIn: RArr[Unshow[A]]): UnshowSum[A] = new UnshowSum[A] {
-    override def elems: RArr[Unshow[A]] = elems
+object UnshowSum
+{
+  def apply[A](typeStrIn: String, elemsIn: RArr[Unshow[A]]): UnshowSum[A] = new UnshowSum[A]
+  { override def typeStr: String = typeStrIn
+    override def elems: RArr[Unshow[A]] = elemsIn
+  }
 
-    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
-     * Show. */
-    override def typeStr: String = typeStrIn
+  def apply[A](typeStrIn: String, elemsIn: Unshow[A]*): UnshowSum[A] = new UnshowSum[A]
+  { override def typeStr: String = typeStrIn
+    override def elems: RArr[Unshow[A]] = elemsIn.toArr
   }
 }
 
