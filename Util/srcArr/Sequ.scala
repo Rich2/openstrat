@@ -601,4 +601,15 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = map(fElemStr).mkString("; ").enParenth
+
+  def findGood[B](f: A => EMon[B]): EMon[B] =
+  { var res: EMon[B] = ENone
+    var i = 0
+    while(i < length && res == ENone)
+    { val b = f(apply(i))
+      if (b.isGood) res = b
+      i += 1
+    }
+    res.noneMap1("No Good returned when function applied to this Sequ.")
+  }
 }

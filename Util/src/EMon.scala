@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.annotation.unchecked.uncheckedVariance
 
@@ -70,9 +70,23 @@ sealed trait EMon[+A]
   def flatMap2ToOption[A2, B](o2: EMon[A2], f: (A, A2) => B): Option[B]
 
   def goodOrOther[A1 >: A](otherEMon: => EMon[A1] @uncheckedVariance): EMon[A1]
+
+  def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMon[A]
+
+  /** Creates new errors for an ENone. */
+  def noneMap(newErrs: => StrArr): EMon[A] = this match {
+    case ENone => Bad(newErrs)
+    case _ => this
+  }
+
+  /** Creates a new error for an ENone. */
+  def noneMap1(newErr: => String): EMon[A] = this match
+  { case ENone => Bad(StrArr(newErr))
+    case _ => this
+  }
 }
 
-/** Companion object for EMon triat contains implict class for EMon returning extension methods on [[String]] and Show implicit instance. */
+/** Companion object for EMon trait contains implicit class for EMon returning extension methods on [[String]] and Show implicit instance. */
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
@@ -154,6 +168,9 @@ final case class Good[+A](val value: A) extends EMon[A]
 
   /** Returns this [[EMon]][A] if this is Good, else returns the operand EMon[A]. */
   override def goodOrOther[A1 >: A](otherEMon: => EMon[A1] @uncheckedVariance): Good[A] = this
+
+  /** Maps over the [[Bad]] errors side of this bifunctor. */
+  override def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMon[A] = this
 }
 
 object Good
@@ -202,6 +219,7 @@ class Bad[+A](val errs: StrArr) extends EMon[A]
   override def mapToOption[B](f: A => B): Option[B] = None
   override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = None
   override def goodOrOther[A1 >: A](otherEMon: => EMon[A1] @uncheckedVariance): EMon[A1] = otherEMon
+  override def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMon[A] = f(this)
 }
 
 object Bad
@@ -218,3 +236,6 @@ object Bad
     override def showDec(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
+
+/** An [[EMon]] corresponding to a [[None]] */
+case object ENone extends Bad[Nothing](StrArr("None"))

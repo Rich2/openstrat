@@ -43,6 +43,14 @@ object ShowSum2
   }
 }
 
+/** Algebraic sum type for [[Unshow]]. */
+trait UnshowSum[+A] extends Unshow[A]
+{
+  def elems: RArr[Unshow[A]]
+
+  override def fromExpr(expr: Expr): EMon[A] = elems.findGood(_.fromExpr(expr))
+}
+
 trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends Unshow[ST]
 {
   def ev1: Unshow[A1]
