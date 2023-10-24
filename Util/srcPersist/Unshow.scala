@@ -258,22 +258,8 @@ object Unshow extends UnshowPriority2
     }
   }
 
-  implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
-  { override def typeStr: String = "Some" + ev.typeStr.enSquare
-
-    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
-      case expr => ev.fromExpr(expr).map(Some(_))
-    }
-  }
 
   implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA), noneUnEv)
-
-  /*def optionUnShowImplicit[A](implicit evA: Unshow[A]): Unshow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
-  { override def typeStr: String = "Option" + evA.typeStr.enSquare
-    override def ev1: Unshow[Some[A]] = someUnShowImplicit[A](evA)
-    override def ev2: Unshow[None.type] = noneUnShowImplicit
-  }*/
 }
 
 trait UnshowPriority2 extends UnshowPriority3
@@ -289,6 +275,15 @@ trait UnshowPriority2 extends UnshowPriority3
       case AlphaSquareParenth("Seq", ts, sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toVector)
       case AlphaParenth("Seq", sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toVector)
       case e => bad1(expr, "Unknown Exoression for Seq")
+    }
+  }
+
+  implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]] {
+    override def typeStr: String = "Some" + ev.typeStr.enSquare
+
+    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match {
+      case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case expr => ev.fromExpr(expr).map(Some(_))
     }
   }
 }

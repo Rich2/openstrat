@@ -48,7 +48,7 @@ object Show
   }
 
   /** Implicit [[Persist]] instance / evidence for [[Double]]. */
-  implicit val doublePersistEv: Persist[Double] = new Persist[Double]
+  implicit val doublePersistEv: Show[Double] = new Show[Double]
   {
     override def typeStr: String = "DFloat"
     override def syntaxDepth(obj: Double): Int = 1
@@ -79,13 +79,6 @@ object Show
         case _ => inner
       }
     }
-
-    override def fromExpr(expr: Expr): EMon[Double] = expr match
-    { case ValidFracToken(d) => Good(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(d)
-      case _ => expr.exprParseErr[Double]
-    }
   }
 
   /** Implicit [[Show]] type class instance / evidence for [[Long]]. */
@@ -110,11 +103,6 @@ object Show
 
   /** Implicit method for creating List[A: Show] instances. */
   implicit def listImplicit[A](implicit ev: Show[A]): Show[List[A]] = new ShowIterableClass[A, List[A]](ev)
-
-  /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  //implicit def consShowImplicit[A](implicit ev: ShowT[A]): ShowT[::[A]] = new PersistConsImplicit[A](ev)
-
-  //implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
   implicit def vectorImplicit[A](implicit ev: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
