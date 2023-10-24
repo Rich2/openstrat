@@ -69,6 +69,10 @@ trait Unshow[+T] extends PersistBase
       case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
+
+  /*def ++[TT >: T] (operand: Unshow[TT]): Unshow[TT] = operand match{
+    case uSum: UnshowSum[TT] =>
+  }*/
 }
 
 /** Companion object for the [[Unshow]] type class trait, contains implicit instances for common types. */

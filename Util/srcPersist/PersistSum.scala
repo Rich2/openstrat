@@ -51,6 +51,16 @@ trait UnshowSum[+A] extends Unshow[A]
   override def fromExpr(expr: Expr): EMon[A] = elems.findGood(_.fromExpr(expr))
 }
 
+object UnshowSum{
+  def apply[A](typeStrIn: String, elemsIn: RArr[Unshow[A]]): UnshowSum[A] = new UnshowSum[A] {
+    override def elems: RArr[Unshow[A]] = elems
+
+    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+     * Show. */
+    override def typeStr: String = typeStrIn
+  }
+}
+
 trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends Unshow[ST]
 {
   def ev1: Unshow[A1]
