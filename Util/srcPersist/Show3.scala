@@ -193,3 +193,10 @@ class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) exten
 object UnshowArrDbl3
 { def apply[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M): UnshowArrDbl3[A, M] = new UnshowArrDbl3[A, M](f)
 }
+
+/** Persists [[Dbl3SeqSpec]]s. */
+abstract class Dbl3SeqDefPersist[A <: Dbl3Elem, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
+{ override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3 }
+  override def syntaxDepth(obj: M): Int = 3
+  override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
+}

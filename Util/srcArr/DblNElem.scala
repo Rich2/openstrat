@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -167,20 +167,6 @@ trait DblNSeqLikeCompanion[A <: DblNElem, AA <: DblNSeqLike[A]]// extends SeqLik
     }
     fromArray(array)
   }
-}
-/**  Class to [[Unshow]] specialised flat Array[Double] based collections. */
-trait UnshowDblNSeqLike[A <: DblNElem, M <: DblNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
-{ type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = BuffDbl()
-}
-
-/** Persists [[DblNArr]]s. */
-trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends PersistValueNSeqLike[A, M] with EqT[M]
-{ type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */

@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
 class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
@@ -18,14 +17,13 @@ class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
 /** Companion object for [[HSideArr]] trait efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates, contains factory apply and
  *  uninitialised methods. */
 object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
-{
-  override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
+{ override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 
   /** Implicit [[Show]] type class instance / evidence for [[HSideArr]]. */
   implicit val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
-  implicit val unshowEv: UnshowArrInt2[HSide, HSideArr] = UnshowArrInt2[HSide, HSideArr](new HSideArr(_))
+  implicit val unshowEv: UnshowArrInt2[HSide, HSideArr] = UnshowArrInt2[HSide, HSideArr](fromArray)
 
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */
   implicit val flatBuilderEv: ArrFlatBuilder[HSideArr] = new Int2ArrFlatBuilder[HSideArr]

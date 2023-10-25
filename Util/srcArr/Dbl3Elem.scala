@@ -73,13 +73,6 @@ trait Dbl3ArrMapBuilder[B <: Dbl3Elem, ArrB <: Dbl3Arr[B]] extends Dbl3SeqLikeMa
  *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3ArrFlatBuilder[ArrB <: Dbl3Arr[_]] extends Dbl3SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
-/** Persists [[Dbl3SeqSpec]]s. */
-abstract class Dbl3SeqDefPersist[A <: Dbl3Elem, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{ override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3 }
-  override def syntaxDepth(obj: M): Int = 3
-  override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
-}
-
 /** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
 abstract class Dbl3SeqLikeCompanion[A <: Dbl3Elem, ArrA <: Dbl3SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { final override def elemNumDbls: Int = 3

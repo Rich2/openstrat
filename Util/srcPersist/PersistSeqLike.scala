@@ -2,6 +2,8 @@
 package ostrat
 import pParse._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** Extractor object for an [[AlphaBracketExpr]] with a square brackets followed by a single parentheses block. */
 object AlphaSquareParenth
 { /** Extractor unapply method for an [[AlphaBracketExpr]] with a square brackets block followed by a single parentheses block. */
@@ -50,4 +52,19 @@ object ShowSeqSpec
   { override val typeStr: String = typeStrIn
     override val evA: Show[A] = evAIn
   }
+}
+
+/**  Class to [[Unshow]] specialised flat Array[Double] based collections. */
+trait UnshowDblNSeqLike[A <: DblNElem, M <: DblNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
+{ type VT = Double
+  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
+  override def newBuffer: ArrayBuffer[Double] = BuffDbl()
+}
+
+/** Persists [[DblNArr]]s. */
+trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends PersistValueNSeqLike[A, M] with EqT[M]
+{ type VT = Double
+  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
+  override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
+  override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
 }

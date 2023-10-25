@@ -162,7 +162,7 @@ object HVertArr extends Int2SeqLikeCompanion[HVert, HVertArr]
   implicit val showEv: ShowSequ[HVert, HVertArr] = ShowSequ[HVert, HVertArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]].  */
-  implicit val unshowEv: UnshowArrInt2[HVert, HVertArr] = UnshowArrInt2[HVert, HVertArr](new HVertArr(_))
+  implicit val unshowEv: UnshowArrInt2[HVert, HVertArr] = UnshowArrInt2[HVert, HVertArr](fromArray)
 
   implicit val arrArrayImplicit: ArrFlatBuilder[HVertArr] = new Int2ArrFlatBuilder[HVertArr]
   { type BuffT = HVertBuff
