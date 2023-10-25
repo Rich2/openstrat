@@ -7,6 +7,7 @@ trait Dbl1Elem extends Any with DblNElem
 { def dbl1: Double
   def dblsEqual(that: Dbl1Elem): Boolean = dbl1 == that.dbl1
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double]) : Unit = { buffer.append(dbl1) }
 }
 
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
@@ -17,7 +18,6 @@ trait Dbl1Arr[A <: Dbl1Elem] extends Any with DblNArr[A]
   final override def apply(index: Int): A = newElem(unsafeArray(index))
   final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray(index) = newElem.dbl1
   override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1) }
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](length + 1)

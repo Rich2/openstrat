@@ -9,13 +9,13 @@ trait Dbl2Elem extends Any with DblNElem
   def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
   def dblsApprox(that: Dbl2Elem, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double]) : Unit = buffer.append2(dbl1, dbl2)
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
 trait Dbl2SeqLike[A <: Dbl2Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 2
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.dbl1, newElem.dbl2)
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = buffer.append2(elem.dbl1, elem.dbl2)
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */

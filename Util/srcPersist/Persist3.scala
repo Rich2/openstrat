@@ -175,16 +175,9 @@ object UnshowDbl3
 }
 
 trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3SeqLike[A]] extends UnshowDblNSeqLike[A, M]
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = {
-    buf += value.dbl1
-    buf += value.dbl2
-    buf += value.dbl3
-  }
-}
 
 class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M] with PersistBaseSeq[A, M]
-{ override def fromArray(value: Array[Double]): M = f(value)
+{ override def fromArray(array: Array[Double]): M = f(array)
 }
 
 object UnshowArrDbl3
@@ -192,17 +185,16 @@ object UnshowArrDbl3
 }
 
 class UnshowSeqSpecDbl3[A <: Dbl3Elem, M <: Dbl3SeqSpec[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M]
-{ override def fromArray(value: Array[Double]): M = f(value)
+{ override def fromArray(array: Array[Double]): M = f(array)
 }
 
 object UnshowSeqSpecDbl3
-{ def apply[A <: Dbl3Elem, M <: Dbl3SeqSpec[A]](typeStr: String, f: Array[Double] => M): UnshowSeqSpecDbl3[A, M] =
-  new UnshowSeqSpecDbl3[A, M](typeStr, f)
+{ def apply[A <: Dbl3Elem, M <: Dbl3SeqSpec[A]](typeStr: String, f: Array[Double] => M): UnshowSeqSpecDbl3[A, M] = new UnshowSeqSpecDbl3[A, M](typeStr, f)
 }
 
 /** Persists [[Dbl3SeqSpec]]s. */
 abstract class Dbl3SeqDefPersist[A <: Dbl3Elem, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{ override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3 }
+{ override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = { buffer += value.dbl1; buffer += value.dbl2; buffer += value.dbl3 }
   override def syntaxDepth(obj: M): Int = 3
   override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
 }

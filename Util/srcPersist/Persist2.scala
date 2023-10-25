@@ -164,15 +164,15 @@ object Unshow2
 }
 
 trait UnshowSeqLikeInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLike[A, M]
-{ override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
-  { buf += value.int1
-    buf += value.int2
+{ override def appendtoBuffer(buffer: ArrayBuffer[Int], value: A): Unit =
+  { buffer += value.int1
+    buffer += value.int2
   }
 }
 
 class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M) extends UnshowSeqLikeInt2[A, M]
 { override def typeStr: String = "Seq"
-  override def fromArray(value: Array[Int]): M = f(value)
+  override def fromArray(array: Array[Int]): M = f(array)
 
 }
 
@@ -180,22 +180,9 @@ object UnshowArrInt2
 { def apply[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M): UnshowArrInt2[A, M] = new UnshowArrInt2[A, M](f)
 }
 
-class UnshowArrDbl2[A <: Dbl2Elem, M <: Dbl2Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
-{ override def fromArray(value: Array[Double]): M = f(value)
-
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1
-    buf += value.dbl2
-  }
-}
-
-object UnshowArrDbl2
-{ def apply[A <: Dbl2Elem, M <: Dbl2Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl2[A, M] = new UnshowArrDbl2[A, M](typeStr, f)
-}
-
 /** Persists and assists in building [[Db2SeqDef]] objects. */
 abstract class Dbl2SeqDefPersist[A <: Dbl2Elem, M <: Dbl2SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{ override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2 }
+{ override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = { buffer += value.dbl1; buffer += value.dbl2 }
   override def syntaxDepth(obj: M): Int = 3
   override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = typeStr //+ obj.dataF Map(_.toString).toString
 }

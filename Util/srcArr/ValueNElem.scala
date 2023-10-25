@@ -1,6 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
 
 /** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored
  *  as *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the
@@ -111,15 +110,3 @@ trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ValueNArr[B]] extends ValueNS
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
 trait ValueNArrFlatBuilder[ArrB <: ValueNArr[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
-
-trait UnshowValueNSeqLike[A <: ValueNElem, M <: ValueNSeqLike[A]] extends UnshowCompound[M]
-{ /** Atomic Value type normally [[Double]] or [[Int]]. */
-  type VT
-  def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit
-  def fromArray(value: Array[VT]): M
-  def fromBuffer(buf: ArrayBuffer[VT]): M
-  def newBuffer: ArrayBuffer[VT]
-}
-
-/** Class to Persist specialised for [[ValueNElem]]s cLasses. */
-trait PersistValueNSeqLike[A <: ValueNElem, M <: ValueNSeqLike[A]] extends PersistCompound[M] with UnshowValueNSeqLike[A, M]

@@ -17,6 +17,6 @@ object LinePathM2 extends Dbl2SeqLikeCompanion[PtM2, LinePathM2]
 { override def fromArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, LinePathM2] = new Dbl2SeqDefPersist[PtM2, LinePathM2]("LinePathM")
-  { override def fromArray(value: Array[Double]): LinePathM2 = new LinePathM2(value)
+  { override def fromArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
   }
 }

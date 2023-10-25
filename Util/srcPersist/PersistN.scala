@@ -76,18 +76,3 @@ trait UnshowN[R] extends Unshow[R] with PersistBaseN
       exprsLoop(0, StrArr())
     }
 }
-
-/**  Class to [[Unshow]] specialised flat Array[Double] based collections. */
-trait UnshowDblNSeqLike[A <: DblNElem, M <: DblNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
-{ type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = BuffDbl()
-}
-
-/** Persists [[DblNArr]]s. */
-trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends PersistValueNSeqLike[A, M] with EqT[M]
-{ type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
-}

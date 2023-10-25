@@ -11,6 +11,7 @@ trait Dbl5Elem extends Any with DblNElem
   def dbl5: Double
 
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4); f(dbl5) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append5(dbl1, dbl2, dbl3, dbl4, dbl5)
 }
 
 trait Dbl5SeqLike[A <: Dbl5Elem] extends Any with DblNSeqLike[A]
@@ -18,8 +19,6 @@ trait Dbl5SeqLike[A <: Dbl5Elem] extends Any with DblNSeqLike[A]
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
     unsafeArray.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
-
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = buffer.append5(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */

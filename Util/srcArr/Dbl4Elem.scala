@@ -10,6 +10,7 @@ trait Dbl4Elem extends Any with DblNElem
   def dbl4: Double
 
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append4(dbl1, dbl2, dbl3, dbl4)
 }
 
 trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with DblNSeqLike[A]
@@ -17,8 +18,6 @@ trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with DblNSeqLike[A]
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
     unsafeArray.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
-
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = buffer.append4(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */

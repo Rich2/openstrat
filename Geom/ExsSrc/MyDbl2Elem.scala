@@ -41,7 +41,7 @@ object MyDbl2s extends Dbl2SeqLikeCompanion[MyDbl2Elem, MyDbl2s]
   override def fromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[MyDbl2Elem, MyDbl2s] = new Dbl2SeqDefPersist[MyDbl2Elem, MyDbl2s]("Mines")
-  { override def fromArray(value: Array[Double]): MyDbl2s = new MyDbl2s(value)
+  { override def fromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
   }
 }
 

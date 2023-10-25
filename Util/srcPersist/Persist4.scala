@@ -188,14 +188,7 @@ object UnshowDbl4
 }
 
 class UnshowArrDbl4[A <: Dbl4Elem, M <: Dbl4Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
-{ override def fromArray(value: Array[Double]): M = f(value)
-
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1
-    buf += value.dbl2
-    buf += value.dbl3
-    buf += value.dbl4
-  }
+{ override def fromArray(array: Array[Double]): M = f(array)
 }
 
 object UnshowArrDbl4

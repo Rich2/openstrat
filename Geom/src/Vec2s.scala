@@ -38,7 +38,7 @@ object Vec2s extends Dbl2SeqLikeCompanion[Vec2, Vec2s]
   override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[Vec2, Vec2s] = new Dbl2SeqDefPersist[Vec2, Vec2s]("Vec2s")
-  { override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
+  { override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
   }
 
   implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Vec2s] =  new Dbl2ArrFlatBuilder[Vec2s]

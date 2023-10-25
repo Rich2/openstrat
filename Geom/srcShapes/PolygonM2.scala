@@ -60,7 +60,7 @@ object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
   val showEv: ShowSeqSpec[PtM2, PolygonM2] = ShowSeqSpec[PtM2, PolygonM2]("PolygonM2")
 
   implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PolygonM2] = new Dbl2SeqDefPersist[PtM2, PolygonM2]("PolygonMs")
-  { override def fromArray(value: Array[Double]): PolygonM2 = new PolygonM2(value)
+  { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   }
 
   implicit val arrBuildImplicit: ArrMapBuilder[PolygonM2, PolygonM2Arr] = new ArrMapBuilder[PolygonM2, PolygonM2Arr] {

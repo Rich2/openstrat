@@ -12,6 +12,8 @@ trait Dbl6Elem extends Any with DblNElem
   def dbl6: Double
 
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4); f(dbl5); f(dbl6) }
+
+  override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append6(dbl1, dbl2, dbl3, dbl4, dbl5, dbl6)
 }
 
 /** Sequence like class whose elements or sequence specifying elements [[Dbl6Elem]] can be constructed from 6 [[Double]]s. */
@@ -21,9 +23,6 @@ trait Dbl6SeqLike[A <: Dbl6Elem] extends Any with DblNSeqLike[A]
 
   def setElemUnsafe(index: Int, newElem: A): Unit =
     unsafeArray.setIndex6(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6)
-
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit =
-    buffer.append6(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5, elem.dbl6)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl6Elem]]s. */

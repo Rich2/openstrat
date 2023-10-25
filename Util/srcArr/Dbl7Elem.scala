@@ -13,6 +13,7 @@ trait Dbl7Elem extends Any with DblNElem
   def dbl7: Double
 
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4); f(dbl5); f(dbl6); f(dbl7) }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.appends(dbl1, dbl2, dbl3, dbl4, dbl5, dbl6, dbl7)
 }
 
 /** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[Dbl7Arr]]s and [[Dbl7SeqSpec]] */
@@ -21,9 +22,6 @@ trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with DblNSeqLike[A]
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
     unsafeArray.setIndex7(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
-
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit =
-    buffer.appends(elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5, elem.dbl6, elem.dbl7)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */

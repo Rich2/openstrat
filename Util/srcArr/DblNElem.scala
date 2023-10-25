@@ -6,6 +6,10 @@ import annotation._, collection.mutable.ArrayBuffer
 trait DblNElem extends Any with ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def dblForeach(f: Double => Unit): Unit
+
+  /** Utility method to append this element on to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
+  def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
+
 }
 
 trait DblNSeqLike[A <: DblNElem] extends Any with ValueNSeqLike[A] with ArrayDblBacked
@@ -13,7 +17,7 @@ trait DblNSeqLike[A <: DblNElem] extends Any with ValueNSeqLike[A] with ArrayDbl
   def fromArray(array: Array[Double]): ThisT
 
   /** Utility method to append element on to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
-  def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit
+  final def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = elem.dblBufferAppend(buffer)
 
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
   @inline final def unsafeLength: Int = unsafeArray.length
