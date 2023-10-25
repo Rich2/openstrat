@@ -7,8 +7,8 @@ package ostrat
  *  composed from 4 [[Double]] values. */
 trait ValueNElem extends Any with SpecialT
 
-trait ValueNSeqLike[A <: ValueNElem] extends Any with SeqLike[A]
-{ type ThisT <: ValueNSeqLike[A]
+trait SeqLikeValueN[A <: ValueNElem] extends Any with SeqLike[A]
+{ type ThisT <: SeqLikeValueN[A]
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
    * class. */
   def elemProdSize: Int
@@ -19,8 +19,8 @@ trait ValueNSeqLike[A <: ValueNElem] extends Any with SeqLike[A]
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[Arr]s and classes like polygons and lines. */
-trait ValueNSeqSpec[A <: ValueNElem] extends Any with ValueNSeqLike[A] with SeqSpec[A]
-{ type ThisT <: ValueNSeqSpec[A]
+trait SeqSpecValueN[A <: ValueNElem] extends Any with SeqLikeValueN[A] with SeqSpec[A]
+{ type ThisT <: SeqSpecValueN[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */
   def ssElemEq(a1: A, a2: A): Boolean
@@ -44,8 +44,8 @@ trait ValueNSeqSpec[A <: ValueNElem] extends Any with ValueNSeqLike[A] with SeqS
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A <: ValueNElem] extends Any with  ArrNoParam[A] with ValueNSeqLike[A]
-{ type ThisT <: ValueNArr[A]
+trait ArrValueN[A <: ValueNElem] extends Any with  ArrNoParam[A] with SeqLikeValueN[A]
+{ type ThisT <: ArrValueN[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */
   def elemEq(a1: A, a2: A): Boolean
@@ -84,7 +84,7 @@ trait ValueNArr[A <: ValueNElem] extends Any with  ArrNoParam[A] with ValueNSeqL
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNBuff[A <: ValueNElem] extends Any with Buff[A]
-{ type ArrT <: ValueNArr[A]
+{ type ArrT <: ArrValueN[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
@@ -95,18 +95,18 @@ trait ValueNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends SeqLikeCommonBuilder[
 { def elemProdSize: Int
 }
 
-/** Map builder for [[ValueNSeqLike]] classes. */
+/** Map builder for [[SeqLikeValueN]] classes. */
 trait ValueNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
 
 trait ValueNSeqLikeFlatBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeFlatBuilder[BB]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ValueNArr[B]] extends ValueNSeqLikeMapBuilder[B, ArrB] with ArrMapBuilder[B, ArrB]
+trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ArrValueN[B]] extends ValueNSeqLikeMapBuilder[B, ArrB] with ArrMapBuilder[B, ArrB]
 { type BuffT <: ValueNBuff[B]
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNArr]] final classes. Instances for the [[ArrFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[ArrFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNArrFlatBuilder[ArrB <: ValueNArr[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
+trait ValueNArrFlatBuilder[ArrB <: ArrValueN[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]

@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait LongNElem extends Any with ValueNElem
 
-trait LongNSeqLike[A <: LongNElem] extends Any with ValueNSeqLike[A] //with ArrayDblBacked
+trait LongNSeqLike[A <: LongNElem] extends Any with SeqLikeValueN[A] //with ArrayDblBacked
 { type ThisT <: LongNSeqLike[A]
   def unsafeArray: Array[Long]
 
@@ -18,10 +18,10 @@ trait LongNSeqLike[A <: LongNElem] extends Any with ValueNSeqLike[A] //with Arra
   @inline final def unsafeLength: Int = unsafeArray.length
 }
 
-trait LongNSeqSpec[A <: LongNElem] extends Any with LongNSeqLike[A] with ValueNSeqSpec[A]
+trait LongNSeqSpec[A <: LongNElem] extends Any with LongNSeqLike[A] with SeqSpecValueN[A]
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait LongNArr[A <: LongNElem] extends Any with LongNSeqLike[A] with ValueNArr[A]
+trait LongNArr[A <: LongNElem] extends Any with LongNSeqLike[A] with ArrValueN[A]
 {
   final override def drop(n: Int): ThisT =
   { val nn = n.max0

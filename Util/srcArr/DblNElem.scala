@@ -11,7 +11,7 @@ trait DblNElem extends Any with ValueNElem
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
 }
 
-trait DblNSeqLike[A <: DblNElem] extends Any with ValueNSeqLike[A] with ArrayDblBacked
+trait DblNSeqLike[A <: DblNElem] extends Any with SeqLikeValueN[A] with ArrayDblBacked
 { type ThisT <: DblNSeqLike[A]
   def fromArray(array: Array[Double]): ThisT
 
@@ -21,7 +21,7 @@ trait DblNSeqLike[A <: DblNElem] extends Any with ValueNSeqLike[A] with ArrayDbl
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNSeqSpec[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A] with ArrayDblBacked
+trait DblNSeqSpec[A <: DblNElem] extends Any with DblNSeqLike[A] with SeqSpecValueN[A] with ArrayDblBacked
 { type ThisT <: DblNSeqSpec[A]
 
   override def reverse: ThisT =
@@ -50,7 +50,7 @@ trait DblNSeqSpec[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNSeqS
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
+trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ArrValueN[A]
 { type ThisT <: DblNArr[A]
 
   /** Not sure about this method. */

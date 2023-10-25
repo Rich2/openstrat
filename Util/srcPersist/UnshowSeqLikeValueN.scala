@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait UnshowSeqLikeValueN[A <: ValueNElem, M <: ValueNSeqLike[A]] extends UnshowCompound[M]
+trait UnshowSeqLikeValueN[A <: ValueNElem, M <: SeqLikeValueN[A]] extends UnshowCompound[M]
 { /** Atomic Value type normally [[Double]] or [[Int]]. */
 type VT
   def appendtoBuffer(buffer: ArrayBuffer[VT], value: A): Unit
@@ -62,7 +62,7 @@ object UnshowSeqSpecDblN
 }
 
 /** Class to Persist specialised for [[ValueNElem]]s cLasses. */
-trait PersistValueNSeqLike[A <: ValueNElem, M <: ValueNSeqLike[A]] extends PersistCompound[M] with UnshowSeqLikeValueN[A, M]
+trait PersistValueNSeqLike[A <: ValueNElem, M <: SeqLikeValueN[A]] extends PersistCompound[M] with UnshowSeqLikeValueN[A, M]
 
 /** Persists [[DblNArr]]s. */
 trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends PersistValueNSeqLike[A, M] with EqT[M]

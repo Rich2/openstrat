@@ -13,7 +13,7 @@ trait IntNElem extends Any with ValueNElem
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
-trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayIntBacked
+trait IntNSeqLike[A <: IntNElem] extends Any with SeqLikeValueN[A] with ArrayIntBacked
 { type ThisT <: IntNSeqLike[A]
 
   /** Constructs the final type of these [[IntNSeqLike]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or
@@ -24,7 +24,7 @@ trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayInt
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
+trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with SeqSpecValueN[A] with ArrayIntBacked
 { type ThisT <: IntNSeqSpec[A]
 
   override def reverse: ThisT =
@@ -36,7 +36,7 @@ trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with ValueNSeqS
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
+trait IntNArr[A <: IntNElem] extends Any with ArrValueN[A] with IntNSeqLike[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNArr[A]
 
