@@ -59,7 +59,7 @@ trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends IntNSeqLikeCommonBuilder[
   final override def elemProdSize: Int = 1
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
 trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with IntNArrMapBuilder[A, ArrT]
@@ -68,8 +68,8 @@ trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommon
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.int1); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[MapBuilderArr]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[FlatBuilderArr] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends Int1ArrCommonBuilder[ArrT] with IntNArrFlatBuilder[ArrT]
 

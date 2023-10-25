@@ -13,7 +13,7 @@ trait Dbl4Elem extends Any with DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append4(dbl1, dbl2, dbl3, dbl4)
 }
 
-trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with DblNSeqLike[A]
+trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 4
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -21,7 +21,7 @@ trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with DblNSeqLike[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
-trait Dbl4SeqSpec[A <: Dbl4Elem] extends Any with Dbl4SeqLike[A] with DblNSeqSpec[A]
+trait Dbl4SeqSpec[A <: Dbl4Elem] extends Any with Dbl4SeqLike[A] with SeqSpecDblN[A]
 { /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
@@ -58,7 +58,7 @@ trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB
   final override def elemProdSize = 4
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[MapBuilderArr]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
@@ -67,9 +67,9 @@ trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommon
   final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex4(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4)
 }
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
- *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
+ *  [[FlatBuilderArr] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
 trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 

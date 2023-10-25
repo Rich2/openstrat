@@ -36,7 +36,7 @@ object Colours
 
   /** All the named colours. */
   def allNamed: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
-  implicit val arrFlatBuildImplicit: ArrFlatBuilder[Colours] = new Int1ArrFlatBuilder[Colours]
+  implicit val arrFlatBuildImplicit: FlatBuilderArr[Colours] = new Int1ArrFlatBuilder[Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): ColourBuff = new ColourBuff(buffer)

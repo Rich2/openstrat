@@ -20,7 +20,7 @@ trait TCenLayer[A <: AnyRef] extends Any with RefsSeqLike[A]
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the [[HCenArr]] class like a
    *  standard Arr or Array. It does not utilise the grid HGrid from which this HCenArr was created. */
-  def map[B, BB <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, BB]): BB =
+  def map[B, BB <: Arr[B]](f: A => B)(implicit build: MapBuilderArr[B, BB]): BB =
   { val res = build.uninitialised(length)
     var count = 0
     foreach{a => res.setElemUnsafe(count, f(a)); count += 1 }

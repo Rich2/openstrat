@@ -20,7 +20,7 @@ trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
 
 /** This is the map builder for Arrays of Arrays of Double. It is not to be confused with the builder for Arrays of Double. It requires 3 memebers to
  * be implemented in the final type BuffT, newBuff and fromArrayArrayDbl. */
-trait ArrayDblArrMapBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrMapBuilder[A, ArrT]
+trait ArrayDblArrMapBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends MapBuilderArr[A, ArrT]
 { @inline def fromArrayArrayDbl(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDblBuff[A]
   @inline final override def uninitialised(length: Int): ArrT = fromArrayArrayDbl(new Array[Array[Double]](length))

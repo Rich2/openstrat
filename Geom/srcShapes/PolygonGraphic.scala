@@ -20,7 +20,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   def xVertsArray: Array[Double] = shape.elem1sArray
   def yVertsArray: Array[Double] = shape.elem2sArray
   @inline def vertsForeach(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
-  @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: ArrMapBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
+  @inline def vertsMap[A, ArrT <: Arr[A]](f: Pt2 => A)(implicit build: MapBuilderArr[A, ArrT]): ArrT = shape.vertsMap(f)
 
   def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
 

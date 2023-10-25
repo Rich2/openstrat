@@ -9,28 +9,28 @@ trait HSysProjection extends TSysProjection
   var gChild: HGridSys
 
   /** Maps the [[HCen]]s of this projection. */
-  def hCenMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)
+  def hCenMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB = gChild.map(f)
 
   /** OptMaps the [[HCen]]s visible in this projection. */
-  def hCenOptMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.optMap(f)
+  def hCenOptMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB = gChild.optMap(f)
 
   /** IfMaps the [[HCen]]s visible in this projection. The mapping function is only applied if the first function condition is true. */
-  def hCenIfMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.ifMap(f1)(f2)
+  def hCenIfMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB = gChild.ifMap(f1)(f2)
 
   /** FlatMaps the [[HCen]]s visible in this projection. */
-  def hCenFlatMap[ArrB <: Arr[_]](f: HCen => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB = gChild.flatMap(f)
+  def hCenFlatMap[ArrB <: Arr[_]](f: HCen => ArrB)(implicit build: FlatBuilderArr[ArrB]): ArrB = gChild.flatMap(f)
 
   /** Maps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. */
   def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
   /** IfMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The mapping function is only applied if the first
    * function condition is true. */
-  def hCensIfPtMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  def hCensIfPtMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: (HCen, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
     gChild.ifMap(f1)(hc => f2(hc, transCoord(hc)))
 
   /** IfFlatMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The flatMapping function is only applied if the
    *  first function condition is true */
-  def hCensIfPtFlatMap[ArrB <: Arr[_]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  def hCensIfPtFlatMap[ArrB <: Arr[_]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: FlatBuilderArr[ArrB]): ArrB =
     gChild.ifFlatMap(hc => f1(hc) && transOptCoord(hc).nonEmpty)(hc => f2(hc, transCoord(hc)))
 
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
@@ -77,10 +77,10 @@ trait HSysProjection extends TSysProjection
 
   def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
 
-  def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.sidesOptMap(f)
+  def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB = gChild.sidesOptMap(f)
 
-  def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.linksOptMap(f)
+  def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB = gChild.linksOptMap(f)
 
-  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSide, LineSeg) => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSide, LineSeg) => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB =
     gChild.linksOptMap{hs => f(hs, lineSeg(hs)) }
 }

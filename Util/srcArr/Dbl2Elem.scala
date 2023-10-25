@@ -13,13 +13,13 @@ trait Dbl2Elem extends Any with DblNElem
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
-trait Dbl2SeqLike[A <: Dbl2Elem] extends Any with DblNSeqLike[A]
+trait Dbl2SeqLike[A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 2
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2SeqSpec[A <: Dbl2Elem] extends Any with Dbl2SeqLike[A] with DblNSeqSpec[A]
+trait Dbl2SeqSpec[A <: Dbl2Elem] extends Any with Dbl2SeqLike[A] with SeqSpecDblN[A]
 { /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the
    *  sequence. */
   def ssElem(d1: Double, d2: Double): A
@@ -114,12 +114,12 @@ trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2Seq
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.dbl1, elem.dbl2)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2ArrMapBuilder[B <: Dbl2Elem, ArrB <: Dbl2Arr[B]] extends Dbl2SeqLikeMapBuilder[B, ArrB] with DblNArrMapBuilder[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[ArrFlatBuilder] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[FlatBuilderArr] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2ArrFlatBuilder[ArrB <: Dbl2Arr[_]] extends Dbl2SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]

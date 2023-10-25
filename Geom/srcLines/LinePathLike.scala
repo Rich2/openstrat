@@ -47,7 +47,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   final def numVerts: Int = ssLength
 }
 
-trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with DblNSeqSpec[VT]
+trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSpecDblN[VT]
 { type ThisT <: LinePathDblN[VT]
   type PolygonT <: PolygonLikeDblN[VT]
 
@@ -120,7 +120,7 @@ trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with Dbl2Se
   type PolygonT <: PolygonLikeDbl2[VT]
 }
 
-trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with Dbl3SeqSpec[VT]
+trait LinePathDbl3[VT <: Dbl3Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl3[VT]
 { type ThisT <: LinePathDbl3[VT]
   type PolygonT <: PolygonLikeDbl3[VT]
 }
@@ -202,7 +202,7 @@ trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2Se
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B, BB <: LinePathLike[B]] extends SeqLikeMapBuilder[B, BB]
+trait LinePathBuilder[B, BB <: LinePathLike[B]] extends MapBuilderSeqLike[B, BB]
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

@@ -34,9 +34,9 @@ trait SeqLike[+A] extends Any
 object SeqLike
 {
   /** Implicit method for creating [[SeqLike]] instances. */
-  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: SeqLikeMapBuilder[A, AA]): Unshow[AA] = new Unshow[AA]
+  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: MapBuilderSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
   { val evA: Unshow[A] = evIn
-    val build: SeqLikeMapBuilder[A, AA] = buildIn
+    val build: MapBuilderSeqLike[A, AA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[AA] = expr match
@@ -51,7 +51,7 @@ object SeqLike
 }
 
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting
- *  from [[SeqLikeCommonBuilder]]. */
+ *  from [[CommonBuilderSeqLike]]. */
 trait Buff[A] extends Any with Sequ[A]
 { def grow(newElem: A): Unit
 }

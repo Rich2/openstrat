@@ -14,7 +14,7 @@ trait ScaleXY[T]
 /** Companion object for scale transformation where the X and Y components can be scaled independently. Contains instance for comon types. */
 object ScaleXY
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrMapBuilder[A, AA], ev: ScaleXY[A]): ScaleXY[AA] =
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: MapBuilderArr[A, AA], ev: ScaleXY[A]): ScaleXY[AA] =
     (obj, xOperand: Double, yOperand) => obj.map(ev.scaleXYT(_, xOperand, yOperand))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: ScaleXY[A]): ScaleXY[F[A]] =

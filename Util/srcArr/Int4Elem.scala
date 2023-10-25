@@ -84,7 +84,7 @@ trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: Int4SeqLike[B]] extends Int4Seq
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int4ArrMapBuilder[B <: Int4Elem, ArrB <: Int4Arr[B]] extends Int4SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]

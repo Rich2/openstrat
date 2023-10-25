@@ -102,7 +102,7 @@ object StrPairArr
 class StrPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends PairArrMapBuilder[String, StrArr, B2, StrPair[B2], StrPairArr[B2]]
 { override type BuffT = StrPairBuff[B2]
   override type B1BuffT = StringBuff
-  override def b1ArrBuilder: ArrMapBuilder[String, StrArr] = StringArrBuilder
+  override def b1ArrBuilder: MapBuilderArr[String, StrArr] = StringArrBuilder
   override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): StrPairArr[B2] = new StrPairArr[B2](b1Arr.unsafeArray, b2s)
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */

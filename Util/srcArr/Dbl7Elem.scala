@@ -17,7 +17,7 @@ trait Dbl7Elem extends Any with DblNElem
 }
 
 /** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[Dbl7Arr]]s and [[Dbl7SeqSpec]] */
-trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with DblNSeqLike[A]
+trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
 { def elemProdSize: Int = 7
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -25,7 +25,7 @@ trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with DblNSeqLike[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
-trait Dbl7SeqSpec[A <: Dbl7Elem] extends Any with Dbl7SeqLike[A] with DblNSeqSpec[A]
+trait Dbl7SeqSpec[A <: Dbl7Elem] extends Any with Dbl7SeqLike[A] with SeqSpecDblN[A]
 {
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 

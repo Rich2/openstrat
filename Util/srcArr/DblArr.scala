@@ -62,7 +62,7 @@ object DblArr
   }
 }
 
-object DblArrBuilder extends ArrMapBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
+object DblArrBuilder extends MapBuilderArr[Double, DblArr] with FlatBuilderArr[DblArr]
 { type BuffT = DblBuff
   override def uninitialised(length: Int): DblArr = new DblArr(new Array[Double](length))
   override def indexSet(seqLike: DblArr, index: Int, elem: Double): Unit = seqLike.unsafeArray(index) = elem

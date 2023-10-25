@@ -11,7 +11,7 @@ class PolygonHCPair[A2](val a1ArrayInt: Array[Int], val a2: A2)extends PolygonLi
 /** Companion object for a [[PolygonHC]], a Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. Contains implicit
  * build instance for [[PolygonHCPArr]]. */
 object PolygonHCPair {
-  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrMapBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]] = new PolygonHCPairBuild[A2]
+  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): MapBuilderArr[PolygonHCPair[A2], PolygonHCPairArr[A2]] = new PolygonHCPairBuild[A2]
 }
 
 /** An Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
@@ -43,10 +43,10 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def fromArrays(arrayArrayInt: Array[Array[Int]], a2Array: Array[A2]): PolygonHCPairArr[A2] = ???
 
   /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
-  override def b1Builder: SeqLikeMapBuilder[HCoord, PolygonHC] = ???//PolygonHC.arrBuildImplicit
+  override def b1Builder: MapBuilderSeqLike[HCoord, PolygonHC] = ???//PolygonHC.arrBuildImplicit
 
   /** Builder for an Arr of the first element of the pair. */
-  override def b1ArrBuilder: ArrMapBuilder[PolygonHC, PolygonHCArr] = ???
+  override def b1ArrBuilder: MapBuilderArr[PolygonHC, PolygonHCArr] = ???
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
   override def arrFromArrAndArray(b1Arr: PolygonHCArr, b2s: Array[A2]): PolygonHCPairArr[A2] = ???

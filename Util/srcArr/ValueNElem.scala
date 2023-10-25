@@ -91,22 +91,22 @@ trait ValueNBuff[A <: ValueNElem] extends Any with Buff[A]
   override def fElemStr: A => String = _.toString
 }
 
-trait ValueNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends SeqLikeCommonBuilder[BB]
+trait ValueNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLike[BB]
 { def elemProdSize: Int
 }
 
 /** Map builder for [[SeqLikeValueN]] classes. */
-trait ValueNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+trait ValueNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with MapBuilderSeqLike[B, BB]
 
 trait ValueNSeqLikeFlatBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeFlatBuilder[BB]
 
-/** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
+/** Trait for creating the ArrTBuilder. Instances for the [[MapBuilderArr]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ArrValueN[B]] extends ValueNSeqLikeMapBuilder[B, ArrB] with ArrMapBuilder[B, ArrB]
+trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ArrValueN[B]] extends ValueNSeqLikeMapBuilder[B, ArrB] with MapBuilderArr[B, ArrB]
 { type BuffT <: ValueNBuff[B]
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[ArrFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[FlatBuilderArr] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNArrFlatBuilder[ArrB <: ArrValueN[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
+trait ValueNArrFlatBuilder[ArrB <: ArrValueN[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with FlatBuilderArr[ArrB]

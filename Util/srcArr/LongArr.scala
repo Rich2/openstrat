@@ -59,7 +59,7 @@ object LongArr
     }
 }
 
-object LongArrBuilder extends ArrMapBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
+object LongArrBuilder extends MapBuilderArr[Long, LongArr] with FlatBuilderArr[LongArr]
 { type BuffT = LongBuff
   override def uninitialised(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def indexSet(seqLike: LongArr, index: Int, elem: Long): Unit = seqLike.unsafeArray(index) = elem

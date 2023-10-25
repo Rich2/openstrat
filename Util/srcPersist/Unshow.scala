@@ -25,11 +25,11 @@ trait Unshow[+T] extends PersistBase
   }
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
-  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrMapBuilder[T, ArrT] @uncheckedVariance): ArrT =
+  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: MapBuilderArr[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrMapBuilder[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: MapBuilderArr[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match
   { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
     case s if s.length == 1 => Good(s.head)
@@ -245,9 +245,9 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: ArrMapBuilder[A, ArrA]): Unshow[List[A]] = new Unshow[List[A]]// with ShowIterable[A, List[A]]
+  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: MapBuilderArr[A, ArrA]): Unshow[List[A]] = new Unshow[List[A]]// with ShowIterable[A, List[A]]
   { val evA: Unshow[A] = evIn
-    val build: ArrMapBuilder[A, ArrA] = buildIn
+    val build: MapBuilderArr[A, ArrA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[List[A]] = expr match
@@ -265,9 +265,9 @@ object Unshow extends UnshowPriority2
 trait UnshowPriority2 extends UnshowPriority3
 {
   /** Implicit method for creating Vector[A: UnShow] instances. */
-  implicit def vectorImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: ArrMapBuilder[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
+  implicit def vectorImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: MapBuilderArr[A, ArrA]): Unshow[Vector[A]] = new Unshow[Vector[A]]
   { val evA: Unshow[A] = evIn
-    val build: ArrMapBuilder[A, ArrA] = buildIn
+    val build: MapBuilderArr[A, ArrA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match {

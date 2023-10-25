@@ -9,7 +9,7 @@ trait SqSysProjection extends TSysProjection
 
   def sidesForeach(f: SqSide => Unit): Unit = gChild.sidesForeach(f)
 
-  def sidesMap[B, ArrB <: Arr[B]](f: SqSide => B)(implicit build: ArrMapBuilder[B, ArrB]) =
+  def sidesMap[B, ArrB <: Arr[B]](f: SqSide => B)(implicit build: MapBuilderArr[B, ArrB]) =
   { val buff = build.newBuff()
     sidesForeach{ss => buff.grow(f(ss))}
     build.buffToSeqLike(buff)

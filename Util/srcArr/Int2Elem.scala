@@ -49,13 +49,13 @@ trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: Int2SeqLike[B]] extends Int2Seq
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append2(newElem.int1, newElem.int2)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int2ArrMapBuilder[B <: Int2Elem, ArrB <: Int2Arr[B]] extends Int2SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[MapBuilderArr]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[FlatBuilderArr] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
 trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends Int2SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
