@@ -8,12 +8,12 @@ trait Int1Elem extends Any with IntNElem
   def int1: Int
 
   override def intForeach(f: Int => Unit): Unit = { f(int1) }
+  override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = { buffer.append(int1) }
 }
 
 trait Int1SeqLike[A <: Int1Elem] extends Any with IntNSeqLike[A]
 { final override def elemProdSize: Int = 1
   final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(index) = newElem.int1 }
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1) }
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */

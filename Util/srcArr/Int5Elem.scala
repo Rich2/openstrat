@@ -11,6 +11,9 @@ trait Int5Elem extends Any with IntNElem
   def int5: Int
 
   override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2); f(int3); f(int4); f(int5) }
+
+  override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = { buffer.append(int1); buffer.append(int2); buffer.append(int3)
+    buffer.append(int4); buffer.append(int5) }
 }
 
 trait Int5SeqLike[A <: Int5Elem] extends Any with IntNSeqLike[A]
@@ -20,9 +23,6 @@ trait Int5SeqLike[A <: Int5Elem] extends Any with IntNSeqLike[A]
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
     unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
-
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
-    buffer.append(elem.int3); buffer.append(elem.int4); buffer.append(elem.int5) }
 }
 
 trait Int5SeqSpec[A <: Int5Elem] extends Any with Int5SeqLike[A] with IntNSeqSpec[A]

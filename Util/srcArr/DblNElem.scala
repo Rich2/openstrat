@@ -7,17 +7,13 @@ trait DblNElem extends Any with ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def dblForeach(f: Double => Unit): Unit
 
-  /** Utility method to append this element on to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
+  /** Utility method to append this as an element to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
   def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit
-
 }
 
 trait DblNSeqLike[A <: DblNElem] extends Any with ValueNSeqLike[A] with ArrayDblBacked
 { type ThisT <: DblNSeqLike[A]
   def fromArray(array: Array[Double]): ThisT
-
-  /** Utility method to append element on to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
-  final def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = elem.dblBufferAppend(buffer)
 
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
   @inline final def unsafeLength: Int = unsafeArray.length
@@ -68,7 +64,7 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
 
   final def filter(f: A => Boolean): ThisT =
   { val buff = new ArrayBuffer[Double](4 * elemProdSize)
-    foreach { a => if (f(a)) dblBufferAppend(buff, a) }
+    foreach { a => if (f(a)) a.dblBufferAppend(buff) }
     fromArray(buff.toArray)
   }
 

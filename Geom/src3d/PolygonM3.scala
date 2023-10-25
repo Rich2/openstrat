@@ -87,7 +87,7 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
   implicit val showEv: ShowSeqSpec[PtM3, PolygonM3] = ShowSeqSpec[PtM3, PolygonM3]("PolygonM3")
 
   /** [[Unshow]] type class instance / evidence for [[PolygonM3]]. */
-  implicit val unshowEv: UnshowDblNSeqSpec[PtM3, PolygonM3] = UnshowDblNSeqSpec[PtM3, PolygonM3]("PolygonM3", fromArray)
+  implicit val unshowEv: UnshowSeqSpecDblN[PtM3, PolygonM3] = UnshowSeqSpecDblN[PtM3, PolygonM3]("PolygonM3", fromArray)
 
   implicit val rotateM3TImplicit: RotateM3T[PolygonM3] = new RotateM3T[PolygonM3] {
     override def rotateXT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateX(angle))

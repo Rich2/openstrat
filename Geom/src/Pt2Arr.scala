@@ -51,7 +51,7 @@ object Pt2Arr extends Dbl2SeqLikeCompanion[Pt2, Pt2Arr]
   implicit val showEv: ShowSequ[Pt2, Pt2Arr] = ShowSequ[Pt2, Pt2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
-  implicit val unshowEv: UnshowDblNArr[Pt2, Pt2Arr] = UnshowDblNArr[Pt2, Pt2Arr](fromArray)
+  implicit val unshowEv: UnshowArrDblN[Pt2, Pt2Arr] = UnshowArrDblN[Pt2, Pt2Arr](fromArray)
 
   implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2Arr]
   { override type BuffT = Pt2Buff

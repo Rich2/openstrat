@@ -7,6 +7,10 @@ import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 trait IntNElem extends Any with ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def intForeach(f: Int => Unit): Unit
+
+  /** Utility method to append this element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful for methods
+   *  like filter. */
+  def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
 trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayIntBacked
@@ -18,10 +22,6 @@ trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayInt
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
-
-  /** Utility method to append element on to an [[ArrayBuffer]][Int]. End users should rarely need to use this method. This is useful for methods likw
-   * filter. */
-  def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit
 }
 
 trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
@@ -71,7 +71,7 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
 
   final def filter(f: A => Boolean): ThisT =
   { val buff = new ArrayBuffer[Int](4 * elemProdSize)
-    foreach { a => if (f(a)) intBufferAppend(buff, a) }
+    foreach { a => if (f(a)) a.intBufferAppend(buff) }
     fromArray(buff.toArray)
   }
 
@@ -126,7 +126,7 @@ trait IntNBuff[A <: IntNElem] extends Any with ValueNBuff[A]
 }
 
 /**  Class to [[Unshow]] specialised flat Array[Int] based collections. */
-trait UnshowIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowValueNSeqLike[A, M]
+trait UnshowIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowSeqLikeValueN[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = BuffInt(0)

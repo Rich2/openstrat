@@ -9,6 +9,7 @@ trait Int3Elem extends Any with IntNElem
   def int3: Int
 
   override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2); f(int3) }
+  override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = { buffer.append(int1); buffer.append(int2); buffer.append(int3) }
 }
 
 trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
@@ -16,11 +17,7 @@ trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
   def newElem(i1: Int, i2: Int, i3: Int): A
 
   override def elemProdSize: Int = 3
-
   final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
-
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
-    buffer.append(elem.int3) }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int3Elem]]s. */

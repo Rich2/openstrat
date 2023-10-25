@@ -7,13 +7,13 @@ trait Int2Elem extends Any with IntNElem
 { def int1: Int
   def int2: Int
   override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2) }
+  override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = buffer.append2(int1, int2)
 }
 
 trait Int2SeqLike[A <: Int2Elem] extends Any with IntNSeqLike[A]
 { override def elemProdSize: Int = 2
   final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.int1, newElem.int2)
   def newElem(i1: Int, i2: Int): A
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = buffer.append2(elem.int1, elem.int2)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int2Elem]]s. */

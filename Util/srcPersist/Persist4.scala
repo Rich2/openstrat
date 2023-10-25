@@ -187,7 +187,7 @@ object UnshowDbl4
   }
 }
 
-class UnshowArrDbl4[A <: Dbl4Elem, M <: Dbl4Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
+class UnshowArrDbl4[A <: Dbl4Elem, M <: Dbl4Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M]
 { override def fromArray(array: Array[Double]): M = f(array)
 }
 

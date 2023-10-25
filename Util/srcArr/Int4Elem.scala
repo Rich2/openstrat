@@ -10,6 +10,9 @@ trait Int4Elem extends Any with IntNElem
   def int4: Int
 
   override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2); f(int3); f(int4) }
+
+  override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit =
+  { buffer.append(int1); buffer.append(int2); buffer.append(int3); buffer.append(int4) }
 }
 
 trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
@@ -18,9 +21,6 @@ trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
 
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
-
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
-    buffer.append(elem.int3); buffer.append(elem.int4) }
 }
 
 trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNSeqSpec[A]

@@ -174,7 +174,7 @@ object UnshowDbl3
   }
 }
 
-trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3SeqLike[A]] extends UnshowDblNSeqLike[A, M]
+trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3SeqLike[A]] extends UnshowSeqLikeDblN[A, M]
 
 class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M] with PersistBaseSeq[A, M]
 { override def fromArray(array: Array[Double]): M = f(array)

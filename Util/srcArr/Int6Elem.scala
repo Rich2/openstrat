@@ -12,6 +12,8 @@ trait Int6Elem extends Any with IntNElem
   def int6: Int
 
   override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2); f(int3); f(int4); f(int5); f(int6) }
+
+  override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = buffer.append6(int1, int2, int3, int4, int5, int6)
 }
 
 trait Int6SeqLike[A <: Int6Elem] extends Any with IntNSeqLike[A]
@@ -21,9 +23,6 @@ trait Int6SeqLike[A <: Int6Elem] extends Any with IntNSeqLike[A]
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
     unsafeArray.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
-
-  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit =
-    buffer.append6(elem.int1, elem.int2, elem.int3, elem.int4, elem.int5, elem.int6)
 }
 
 trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNSeqSpec[A]
