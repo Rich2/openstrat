@@ -132,9 +132,6 @@ trait UnshowIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowValueN
   override def newBuffer: ArrayBuffer[Int] = BuffInt(0)
 }
 
-/**  Class to persist specialised flat Array[Int] based collections. */
-trait PersistIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends PersistValueNSeqLike[A, M] with UnshowIntNSeqLike[A,M]
-
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
 trait IntNSeqLikeCompanion[A <: IntNElem, AA <: IntNSeqLike[A]]

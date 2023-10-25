@@ -40,15 +40,6 @@ trait LongNBuff[A <: LongNElem] extends Any with ValueNBuff[A]
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[LongNArr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
- *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LongNSeqDefPersist[B <: LongNElem, ArrB <: LongNArr[B]] extends PersistValueNSeqLike[B, ArrB]
-{ type VT = Long
-  override def fromBuffer(buf: ArrayBuffer[Long]): ArrB = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Long] = BufferLong(0)
-}
-
 /** Helper trait for Companion objects of [[LongNArr]] classes. */
 trait LongNSeqDefCompanion[A <: LongNElem, ArrA <: LongNSeqSpec[A]]// extends SeqLikeCompanion[A, ArrA]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
