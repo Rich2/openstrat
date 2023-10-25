@@ -184,7 +184,7 @@ object HCenArr extends Int2SeqLikeCompanion[HCen, HCenArr]
   implicit val showEv: ShowSequ[HCen, HCenArr] = ShowSequ[HCen, HCenArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HCenArr]]. */
-  implicit val unshowEv: UnshowArrInt2[HCen, HCenArr] = UnshowArrInt2[HCen, HCenArr]("HCenArr", new HCenArr(_))
+  implicit val unshowEv: UnshowArrInt2[HCen, HCenArr] = UnshowArrInt2[HCen, HCenArr](new HCenArr(_))
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
   implicit val flatBuilderEv: Int2ArrFlatBuilder[HCenArr] = new Int2ArrFlatBuilder[HCenArr]

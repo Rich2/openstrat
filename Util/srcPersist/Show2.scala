@@ -163,17 +163,21 @@ object Unshow2
   }
 }
 
-class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String, f: Array[Int] => M) extends UnshowIntNSeqLike[A, M]
-{ override def fromArray(value: Array[Int]): M = f(value)
-
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
+trait UnshowSeqLikeInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLike[A, M]
+{ override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1
     buf += value.int2
   }
 }
 
+class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M) extends UnshowSeqLikeInt2[A, M]
+{ override def typeStr: String = "Seq"
+  override def fromArray(value: Array[Int]): M = f(value)
+
+}
+
 object UnshowArrInt2
-{ def apply[A <: Int2Elem, M <: Int2Arr[A]](typeStr: String, f: Array[Int] => M): UnshowArrInt2[A, M] = new UnshowArrInt2[A, M](typeStr, f)
+{ def apply[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M): UnshowArrInt2[A, M] = new UnshowArrInt2[A, M](f)
 }
 
 class UnshowArrDbl2[A <: Dbl2Elem, M <: Dbl2Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]

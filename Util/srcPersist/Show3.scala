@@ -185,10 +185,11 @@ trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3Arr[A]] extends UnshowDblNSeqLik
   }
 }
 
-class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M]
-{ override def fromArray(value: Array[Double]): M = f(value)
+class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M]
+{ override def typeStr: String = "Seq"
+  override def fromArray(value: Array[Double]): M = f(value)
 }
 
 object UnshowArrDbl3
-{ def apply[A <: Dbl3Elem, M <: Dbl3Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl3[A, M] = new UnshowArrDbl3[A, M](typeStr, f)
+{ def apply[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M): UnshowArrDbl3[A, M] = new UnshowArrDbl3[A, M](f)
 }

@@ -25,7 +25,7 @@ object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
   implicit val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
-  implicit val unshowEv: UnshowArrInt2[HSide, HSideArr] = UnshowArrInt2[HSide, HSideArr]("HSideArr", new HSideArr(_))
+  implicit val unshowEv: UnshowArrInt2[HSide, HSideArr] = UnshowArrInt2[HSide, HSideArr](new HSideArr(_))
 
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */
   implicit val flatBuilderEv: ArrFlatBuilder[HSideArr] = new Int2ArrFlatBuilder[HSideArr]
