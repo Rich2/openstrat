@@ -1,8 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
-
-import scala.collection.mutable.ArrayBuffer
+import pParse._, collection.mutable.ArrayBuffer
 
 /** A base trait for Tell3+, Show3+ and Unshow3+ classes. Declares the common properties of name1 - 3 and opt1 - 3. */
 trait Persist3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
@@ -176,7 +174,7 @@ object UnshowDbl3
   }
 }
 
-trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3Arr[A]] extends UnshowDblNSeqLike[A, M]
+trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3SeqLike[A]] extends UnshowDblNSeqLike[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = {
     buf += value.dbl1
@@ -185,13 +183,21 @@ trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3Arr[A]] extends UnshowDblNSeqLik
   }
 }
 
-class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M]
-{ override def typeStr: String = "Seq"
-  override def fromArray(value: Array[Double]): M = f(value)
+class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M] with PersistBaseSeq[A, M]
+{ override def fromArray(value: Array[Double]): M = f(value)
 }
 
 object UnshowArrDbl3
 { def apply[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M): UnshowArrDbl3[A, M] = new UnshowArrDbl3[A, M](f)
+}
+
+class UnshowSeqSpecDbl3[A <: Dbl3Elem, M <: Dbl3SeqSpec[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M]
+{ override def fromArray(value: Array[Double]): M = f(value)
+}
+
+object UnshowSeqSpecDbl3
+{ def apply[A <: Dbl3Elem, M <: Dbl3SeqSpec[A]](typeStr: String, f: Array[Double] => M): UnshowSeqSpecDbl3[A, M] =
+  new UnshowSeqSpecDbl3[A, M](typeStr, f)
 }
 
 /** Persists [[Dbl3SeqSpec]]s. */

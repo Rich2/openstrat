@@ -35,7 +35,8 @@ trait ShowSeqBased[A, R] extends ShowCompound[R]
   }
 }
 
-object ShowSeqBased{
+object ShowSeqBased
+{
   class ShowSeqBasedImp[A, R] extends ShowSeqBased[A, R]{
     override def evA: Show[A] = ???
 
@@ -49,9 +50,4 @@ object ShowSeqBased{
      * Show. */
     override def typeStr: String = ???
   }
-}
-
-/** All logical sequence classes are shown as "Seq"s. There encoding in memory and the immutability are irrelevant for their persistence. */
-trait ShowSeq[A, R] extends ShowSeqBased[A, R]
-{ override def typeStr = "Seq"
 }
