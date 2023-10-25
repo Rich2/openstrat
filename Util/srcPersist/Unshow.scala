@@ -258,7 +258,7 @@ object Unshow extends UnshowPriority2
     }
   }
 
-
+  /** [[Unshow]] type class instance for [[Option]] */
   implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA), noneUnEv)
 }
 
