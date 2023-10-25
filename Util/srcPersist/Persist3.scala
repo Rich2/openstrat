@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse._
 
 /** A base trait for Tell3+, Show3+ and Unshow3+ classes. Declares the common properties of name1 - 3 and opt1 - 3. */
 trait Persist3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
@@ -172,21 +172,4 @@ object UnshowDbl3
   { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
-}
-
-trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3SeqLike[A]] extends UnshowSeqLikeDblN[A, M]
-
-class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M] with PersistBaseSeq[A, M]
-{ override def fromArray(array: Array[Double]): M = f(array)
-}
-
-object UnshowArrDbl3
-{ def apply[A <: Dbl3Elem, M <: Dbl3Arr[A]](f: Array[Double] => M): UnshowArrDbl3[A, M] = new UnshowArrDbl3[A, M](f)
-}
-
-/** Persists [[Dbl3SeqSpec]]s. */
-abstract class Dbl3SeqDefPersist[A <: Dbl3Elem, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{ override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = { buffer += value.dbl1; buffer += value.dbl2; buffer += value.dbl3 }
-  override def syntaxDepth(obj: M): Int = 3
-  override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
 }

@@ -150,7 +150,7 @@ object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
   implicit val showEv: ShowSequ[LineSeg, LineSegArr] = ShowSequ[LineSeg, LineSegArr]()
 
   /** [[Unshow]] type class instance / evidence for [[LineSegArr]]. */
-  implicit val unshowEv: UnshowArrDbl4[LineSeg, LineSegArr] = UnshowArrDbl4[LineSeg, LineSegArr]("LineSegArr", new LineSegArr(_))
+  implicit val unshowEv: UnshowArrDblN[LineSeg, LineSegArr] = UnshowArrDblN[LineSeg, LineSegArr](fromArray)
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
   implicit val arrFlatBuildEv: ArrFlatBuilder[LineSegArr] = new LineSegArrFlatBuilder
