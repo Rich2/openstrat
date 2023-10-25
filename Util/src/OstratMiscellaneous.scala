@@ -26,7 +26,7 @@ class DirPathAbs(val arrayUnsafe: Array[String])
 
 object DirPathAbs
 {
-  implicit val persistImplicit: Persist[DirPathAbs] = new Persist[DirPathAbs]
+  implicit val showEv: Show[DirPathAbs] = new Show[DirPathAbs]
   { override def typeStr: String = "DirnPathAbs"
     override def strT(obj: DirPathAbs): String = obj.str
     override def syntaxDepth(obj: DirPathAbs): Int = 1
@@ -34,9 +34,13 @@ object DirPathAbs
       case ShowTyped | ShowStdTypedFields => typeStr + obj.str.enParenth
       case _ => obj.str
     }
+  }
 
-    override def fromExpr(expr: Expr): EMon[DirPathAbs] = expr match
-    { case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
+  implicit val unshowEv:Unshow[DirPathAbs] = new Unshow[DirPathAbs]
+  { override def typeStr: String = "DirnPathAbs"
+
+    override def fromExpr(expr: Expr): EMon[DirPathAbs] = expr match {
+      case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
       case PathToken(_, array) => Good(new DirPathAbs(array))
       case expr => expr.startPosn.bad("Not an absolute path")
     }

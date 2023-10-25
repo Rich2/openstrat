@@ -7,6 +7,3 @@ package ostrat
  * implicit instances for [[Int]], [[Double]], [[List]] etc in the [[Persist]] companion object, the Persist components for these standard types will
  * be found in the ShowT and UnShow companion objects. */
 trait Persist[T] extends Show[T] with Unshow[T]
-
-/** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](val typeStr: String) extends ShowSimple[A] with Persist[A]
