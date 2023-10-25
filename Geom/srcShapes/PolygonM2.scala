@@ -57,11 +57,11 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
 { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 
-  val showEv: ShowSeqSpec[PtM2, PolygonM2] = ShowSeqSpec[PtM2, PolygonM2]("PolygonM2")
+  /** [[Show]] type class instance / evidence for [[PolygonM2]]. */
+  implicit val showEv: ShowSeqSpec[PtM2, PolygonM2] = ShowSeqSpec[PtM2, PolygonM2]("PolygonM2")
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PolygonM2] = new Dbl2SeqDefPersist[PtM2, PolygonM2]("PolygonMs")
-  { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
-  }
+  /** [[Unshow]] type class instance / evidence for [[PolygonM2]]. */
+  implicit val unshowEv: UnshowSeqSpecDblN[PtM2, PolygonM2] = UnshowSeqSpecDblN[PtM2, PolygonM2]("PolygonM2", fromArray)
 
   implicit val arrBuildImplicit: MapBuilderArr[PolygonM2, PolygonM2Arr] = new MapBuilderArr[PolygonM2, PolygonM2Arr] {
     override type BuffT = PolygonM2Buff

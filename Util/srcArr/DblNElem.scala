@@ -92,7 +92,7 @@ trait DblNArr[A <: DblNElem] extends Any with SeqLikeDblN[A] with ArrValueN[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait DblNBuff[A <: DblNElem] extends Any with ValueNBuff[A]
+trait DblNBuff[A <: DblNElem] extends Any with BuffValueN[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
 
@@ -104,7 +104,7 @@ trait DblNBuff[A <: DblNElem] extends Any with ValueNBuff[A]
 }
 
 /** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
-trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]
+trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLikeValueN[BB]
 { type BuffT <: DblNBuff[_]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
@@ -128,7 +128,7 @@ trait DblNArrCommonBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[
 /** Trait for creating the sequence builder type class instances for [[DblNArr]] final classes. Instances for the [[MapBuilderArr]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNArrMapBuilder[B <: DblNElem, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
+trait DblNArrMapBuilder[B <: DblNElem, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with MapBuilderArrValueN[B, ArrB]
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[FlatBuilderArr] should go in the companion

@@ -32,7 +32,7 @@ trait LongNArr[A <: LongNElem] extends Any with LongNSeqLike[A] with ArrValueN[A
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait LongNBuff[A <: LongNElem] extends Any with ValueNBuff[A]
+trait LongNBuff[A <: LongNElem] extends Any with BuffValueN[A]
 { def unsafeBuffer: ArrayBuffer[Long]
   def toArray: Array[Long] = unsafeBuffer.toArray[Long]
 //  def unBuff: M

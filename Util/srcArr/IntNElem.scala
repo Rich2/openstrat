@@ -88,25 +88,25 @@ trait IntNArr[A <: IntNElem] extends Any with ArrValueN[A] with IntNSeqLike[A]
   }
 }
 
-trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]
+trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLikeValueN[BB]
 { type BuffT <:  IntNBuff[_]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
+trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with MapBuilderSeqLikeValueN[B, BB]
 { type BuffT <:  IntNBuff[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
 
-trait IntNSeqLikeFlatBuilder[BB <: IntNSeqLike[_]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeFlatBuilder[BB]
+trait IntNSeqLikeFlatBuilder[BB <: IntNSeqLike[_]] extends IntNSeqLikeCommonBuilder[BB] with FlatBuilderSeqLikeValueN[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[MapBuilderArr]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNArrMapBuilder[B <: IntNElem, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
+trait IntNArrMapBuilder[B <: IntNElem, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with MapBuilderArrValueN[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for [[FlatBuilderArr] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
@@ -116,7 +116,7 @@ trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends IntNSeqLikeCommonBuilder[Ar
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
-trait IntNBuff[A <: IntNElem] extends Any with ValueNBuff[A]
+trait IntNBuff[A <: IntNElem] extends Any with BuffValueN[A]
 { type ArrT <: IntNArr[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
