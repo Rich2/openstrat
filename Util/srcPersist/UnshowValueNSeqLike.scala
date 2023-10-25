@@ -24,8 +24,15 @@ class UnshowDblNArr[A <: DblNElem, M <: DblNArr[A]](f: Array[Double] => M) exten
 }
 
 object UnshowDblNArr
-{
-  def apply[A <: DblNElem, M <: DblNArr[A]](f: Array[Double] => M): UnshowDblNArr[A, M] = new UnshowDblNArr[A, M](f)
+{ def apply[A <: DblNElem, M <: DblNArr[A]](f: Array[Double] => M): UnshowDblNArr[A, M] = new UnshowDblNArr[A, M](f)
+}
+
+class UnshowDblNSeqSpec[A <: DblNElem, M <: DblNSeqSpec[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
+{ override def fromArray(array: Array[Double]): M = f(array)
+}
+
+object UnshowDblNSeqSpec
+{ def apply[A <: DblNElem, M <: DblNSeqSpec[A]](typeStr: String, f: Array[Double] => M): UnshowDblNSeqSpec[A, M] = new UnshowDblNSeqSpec[A, M](typeStr, f)
 }
 
 /** Class to Persist specialised for [[ValueNElem]]s cLasses. */

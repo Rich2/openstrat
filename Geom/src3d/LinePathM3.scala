@@ -18,5 +18,5 @@ object LinePathM3 extends Dbl3SeqLikeCompanion[PtM3, LinePathM3]
 
   implicit val showEv: ShowSeqSpec[PtM3, LinePathM3] = ShowSeqSpec[PtM3, LinePathM3]("LinePathM3")
 
-  implicit val unshowEv: UnshowSeqSpecDbl3[PtM3, LinePathM3] = UnshowSeqSpecDbl3[PtM3, LinePathM3]("LinePathM3", fromArray)
+  implicit val unshowEv: UnshowDblNSeqSpec[PtM3, LinePathM3] = UnshowDblNSeqSpec[PtM3, LinePathM3]("LinePathM3", fromArray)
 }
