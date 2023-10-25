@@ -176,14 +176,17 @@ object UnshowDbl3
   }
 }
 
-class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDblNSeqLike[A, M]
-{ override def fromArray(value: Array[Double]): M = f(value)
-
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1
+trait UnshowDbl3SeqLike[A <: Dbl3Elem, M <: Dbl3Arr[A]] extends UnshowDblNSeqLike[A, M]
+{
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = {
+    buf += value.dbl1
     buf += value.dbl2
     buf += value.dbl3
   }
+}
+
+class UnshowArrDbl3[A <: Dbl3Elem, M <: Dbl3Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowDbl3SeqLike[A, M]
+{ override def fromArray(value: Array[Double]): M = f(value)
 }
 
 object UnshowArrDbl3
