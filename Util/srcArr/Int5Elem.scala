@@ -58,7 +58,7 @@ trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait Int5Buff[A <: Int5Elem] extends Any with IntNBuff[A]
+trait Int5Buff[A <: Int5Elem] extends Any with BuffIntN[A]
 { type ThisT <: Int5Buff[A]
 
   /** Constructs a new element of this [[Buff]] from 5 [[Int]]s. */
@@ -80,7 +80,7 @@ trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends BuilderAllSeqLikeIn
   final override def elemProdSize: Int = 5
 }
 
-trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
+trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5SeqLikeCommonBuilder[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: Int5Buff[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
@@ -93,9 +93,9 @@ trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5Seq
 /** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[BuilderMapArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: Int5Arr[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
+trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: Int5Arr[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int5ArrFlatBuilder[ArrB <: Int5Arr[_]] extends Int5SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
+trait Int5ArrFlatBuilder[ArrB <: Int5Arr[_]] extends Int5SeqLikeCommonBuilder[ArrB] with BuilderFlatArrIntN[ArrB]
 
 /** Class for the singleton companion objects of [[Int5Arr]] final classes to extend. */
 abstract class Int5ArrCompanion[A <: Int5Elem, M <: Int5Arr[A]] extends CompanionSeqLikeIntN[A, M]

@@ -73,7 +73,7 @@ trait IntNPairBuff[B1 <: IntNElem, B2, B <: IntNPairElem[B1, B2]] extends PairBu
 trait IntNPAirArrCommonBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
   PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: IntNPairBuff[B1, B2, _]
-  type B1BuffT <: IntNBuff[B1]
+  type B1BuffT <: BuffIntN[B1]
 
   /** Constructs the [[Arr]] class from an [[Array]][Int] object for the first components of the pairs and an [[Array]][B2] for the second
    *  components of the pairs. */

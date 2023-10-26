@@ -37,7 +37,7 @@ trait PolygonDbl3MapBuilder[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends Pol
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait PolygonIntNMapBuilder[B <: IntNElem, BB <: PolygonLikeIntN[B] ] extends PolygonValueNMapBuilder[B, BB] with IntNSeqLikeMapBuilder[B, BB]
+trait PolygonIntNMapBuilder[B <: IntNElem, BB <: PolygonLikeIntN[B] ] extends PolygonValueNMapBuilder[B, BB] with BuilderSeqLikeIntNMap[B, BB]
 
 /** Trait for creating the line path type class instances for [[PolygonLikeInt2]] final classes. Instances for the [[PolygonInt2MapBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called
@@ -56,7 +56,7 @@ trait PolygonLikeFlatBuilder[VT, +BB <: PolygonLike[VT]] extends BuilderFlatSeqL
 
 trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extends PolygonLikeFlatBuilder[VT, BB] with BuilderAllSeqLikeValueN[BB]
 
-trait PolygonIntNFlatBuilder[VT <: IntNElem, BB <: PolygonLikeIntN[VT]] extends PolygonValueNFlatBuilder[VT, BB] with IntNSeqLikeFlatBuilder[BB]
+trait PolygonIntNFlatBuilder[VT <: IntNElem, BB <: PolygonLikeIntN[VT]] extends PolygonValueNFlatBuilder[VT, BB] with BuilderSeqLikeIntNFlat[BB]
 {
   override def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit = seqLike.ssForeach{_.intForeach(int => buff.unsafeBuffer.append(int)) }
   override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)

@@ -226,7 +226,7 @@ trait LinePathDbl3MapBuilder[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends LineP
 /** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathIntNMapBuilder[B <: IntNElem, BB <: LinePathIntN[B] ] extends LinePathBuilderValueN[B, BB] with IntNSeqLikeMapBuilder[B, BB]
+trait LinePathIntNMapBuilder[B <: IntNElem, BB <: LinePathIntN[B] ] extends LinePathBuilderValueN[B, BB] with BuilderSeqLikeIntNMap[B, BB]
 
 /** Trait for creating the line path type class instances for [[LinePathInt2]] final classes. Instances for the [[LinePathInt2MapBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called

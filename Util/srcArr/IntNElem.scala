@@ -89,34 +89,38 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
 }
 
 trait BuilderAllSeqLikeIntN[BB <: SeqLike[_]] extends BuilderAllSeqLikeValueN[BB]
-{ type BuffT <:  IntNBuff[_]
+{ type BuffT <:  BuffIntN[_]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with BuilderMapSeqLikeValueN[B, BB]
-{ type BuffT <:  IntNBuff[B]
+/** Constructs [[SeqLikeIntN]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
+ * companion object. */
+trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with BuilderMapSeqLikeValueN[B, BB]
+{ type BuffT <:  BuffIntN[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
 
-trait IntNSeqLikeFlatBuilder[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with BuilderFlatSeqLikeValueN[BB]
+/** Constructs [[SeqLikeIntN]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
+ * in the [[SeqLike]]'s companion object. */
+trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with BuilderFlatSeqLikeValueN[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderMapArr]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNArrMapBuilder[B <: IntNElem, ArrB <: ArrIntN[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with BuilderMapArrValueN[B, ArrB]
+trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLikeIntNMap[B, ArrB] with BuilderMapArrValueN[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[BuilderFlatArr] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNArrFlatBuilder[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with BuilderFlatArrValueN[ArrB]
+trait BuilderFlatArrIntN[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with BuilderFlatArrValueN[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
-trait IntNBuff[A <: IntNElem] extends Any with BuffValueN[A]
+trait BuffIntN[A <: IntNElem] extends Any with BuffValueN[A]
 { type ArrT <: ArrIntN[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
@@ -144,7 +148,7 @@ trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SeqLikeIntN[A]]
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   def fromArray(array: Array[Int]): AA
 
-  def fromBuff(buff: IntNBuff[A]): AA = fromArray(buff.unsafeBuffer.toArray)
+  def fromBuff(buff: BuffIntN[A]): AA = fromArray(buff.unsafeBuffer.toArray)
 
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
   def uninitialised(length: Int): AA = fromArray(new Array[Int](length * elemNumInts))
@@ -155,9 +159,9 @@ trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SeqLikeIntN[A]]
   }
 }
 
-/** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
-trait CompanionBuffIntN[A <: IntNElem, AA <: IntNBuff[A]]
-{ /** apply factory method for [[IntNBuff]] final classes */
+/** Helper trait for [[BuffIntN]] companion objects. Facilitates factory apply methods. */
+trait CompanionBuffIntN[A <: IntNElem, AA <: BuffIntN[A]]
+{ /** apply factory method for [[BuffIntN]] final classes */
   def apply(elems: A*): AA
 
   /** Number of [[Int]]s required to construct an element */

@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 
 class HCenIntNArrLayer[A <: IntNElem, ArrA <: ArrIntN[A]](val outerArrayUnsafe: Array[Array[Int]], val gridSys: HGridSys)(
-implicit val arrBuilder: IntNArrMapBuilder[A, ArrA]) extends HCenArrLayer[A, ArrA]
+implicit val arrBuilder: BuilderArrIntNMap[A, ArrA]) extends HCenArrLayer[A, ArrA]
 { override def iApply(index: Int): ArrA = arrBuilder.fromIntArray(outerArrayUnsafe(index))
 
   override def foreach(f: ArrA => Unit): Unit =

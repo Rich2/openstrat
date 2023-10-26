@@ -43,7 +43,7 @@ trait BuilderAllSeqLikeInt2[BB <: SeqLike[_]] extends BuilderAllSeqLikeIntN[BB]
   final override def elemProdSize: Int = 2
 }
 
-trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: SeqLikeInt2[B]] extends BuilderAllSeqLikeInt2[BB] with IntNSeqLikeMapBuilder[B, BB]
+trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: SeqLikeInt2[B]] extends BuilderAllSeqLikeInt2[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt2[B]
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.int1, elem.int2)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append2(newElem.int1, newElem.int2)
@@ -52,16 +52,16 @@ trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: SeqLikeInt2[B]] extends Builder
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[BuilderMapArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int2ArrMapBuilder[B <: Int2Elem, ArrB <: Int2Arr[B]] extends Int2SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
+trait Int2ArrMapBuilder[B <: Int2Elem, ArrB <: Int2Arr[B]] extends Int2SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[BuilderMapArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends BuilderAllSeqLikeInt2[ArrB] with IntNArrFlatBuilder[ArrB]
+trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends BuilderAllSeqLikeInt2[ArrB] with BuilderFlatArrIntN[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
-trait BuffInt2[A <: Int2Elem] extends Any with IntNBuff[A]
+trait BuffInt2[A <: Int2Elem] extends Any with BuffIntN[A]
 { type ThisT <: BuffInt2[A]
 
   /** Constructs a new element of this [[Buff]] from 2 [[Int]]s. */

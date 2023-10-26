@@ -41,7 +41,7 @@ trait Int1Arr[A <: Int1Elem] extends Any with ArrIntN[A] with Int1SeqLike[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait Int1Buff[A <: Int1Elem] extends Any with IntNBuff[A]
+trait Int1Buff[A <: Int1Elem] extends Any with BuffIntN[A]
 { type ThisT <: Int1Buff[A]
 
   /** Constructs a new element of this [[Buff]] from a single [[Int]]. */
@@ -62,7 +62,7 @@ trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends BuilderAllSeqLikeIntN[Arr
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[BuilderMapArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
-trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with IntNArrMapBuilder[A, ArrT]
+trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with BuilderArrIntNMap[A, ArrT]
 { type BuffT <: Int1Buff[A]
   final override def indexSet(seqLike: ArrT, index: Int, elem: A): Unit =  seqLike.unsafeArray(index) = elem.int1
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.int1); () }
@@ -71,7 +71,7 @@ trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommon
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[BuilderMapArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[BuilderFlatArr] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends Int1ArrCommonBuilder[ArrT] with IntNArrFlatBuilder[ArrT]
+trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends Int1ArrCommonBuilder[ArrT] with BuilderFlatArrIntN[ArrT]
 
 
 /** Helper class for companion objects of final [[Int1SeqSpec]] classes. */
