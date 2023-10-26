@@ -102,9 +102,9 @@ object Vec2
   /** unapply extractor method for [[Vec2]]s. */
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
-  implicit val buildImplicit: Dbl2ArrMapBuilder[Vec2, Vec2s] = new Dbl2ArrMapBuilder[Vec2, Vec2s]
+  implicit val buildImplicit: Dbl2ArrMapBuilder[Vec2, Vec2Arr] = new Dbl2ArrMapBuilder[Vec2, Vec2Arr]
   { override type BuffT = BuffVec2
-    override def fromDblArray(array: Array[Double]): Vec2s = new Vec2s(array)
+    override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(buffer)
   }
 

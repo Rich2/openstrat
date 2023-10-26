@@ -53,7 +53,7 @@ trait Dbl3Arr[A <: Dbl3Elem] extends Any with DblNArr[A] with SeqLikeDbl3[A]
   }
 }
 
-trait Dbl3SeqLikeCommonBuilder[BB <: SeqLikeDbl3[_]] extends DblNSeqLikeCommonBuilder[BB]
+trait Dbl3SeqLikeCommonBuilder[BB <: SeqLikeDbl3[_]] extends CommonBuilderSeqLikeDblN[BB]
 { type BuffT <: Dbl3Buff[_]
   final override def elemProdSize = 3
 }

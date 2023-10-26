@@ -104,7 +104,7 @@ trait DblNBuff[A <: DblNElem] extends Any with BuffValueN[A]
 }
 
 /** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
-trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLikeValueN[BB]
+trait CommonBuilderSeqLikeDblN[BB <: SeqLike[_]] extends CommonBuilderSeqLikeValueN[BB]
 { type BuffT <: DblNBuff[_]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
@@ -112,7 +112,7 @@ trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLikeVal
   final override def buffToSeqLike(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
 }
 
-trait DblNSeqLikeMapBuilder[B <: DblNElem, BB <: SeqLikeDblN[B]] extends DblNSeqLikeCommonBuilder[BB] with MapBuilderSeqLike[B, BB]
+trait DblNSeqLikeMapBuilder[B <: DblNElem, BB <: SeqLikeDblN[B]] extends CommonBuilderSeqLikeDblN[BB] with MapBuilderSeqLike[B, BB]
 { type BuffT <: DblNBuff[B]
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, newElem: B): Unit = newElem.dblForeach(buff.unsafeBuffer.append(_))
@@ -123,7 +123,7 @@ trait DblNSeqLikeMapBuilder[B <: DblNElem, BB <: SeqLikeDblN[B]] extends DblNSeq
   }
 }
 
-trait DblNArrCommonBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[ArrB]
+trait DblNArrCommonBuilder[ArrB <: DblNArr[_]] extends CommonBuilderSeqLikeDblN[ArrB]
 
 /** Trait for creating the sequence builder type class instances for [[DblNArr]] final classes. Instances for the [[MapBuilderArr]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -133,7 +133,7 @@ trait DblNArrMapBuilder[B <: DblNElem, ArrB <: DblNArr[B]] extends DblNSeqLikeMa
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[MapBuilderArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[FlatBuilderArr] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNArrFlatBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[ArrB] with FlatBuilderArrValueN[ArrB]
+trait DblNArrFlatBuilder[ArrB <: DblNArr[_]] extends CommonBuilderSeqLikeDblN[ArrB] with FlatBuilderArrValueN[ArrB]
 { //final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }

@@ -1,12 +1,12 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Vec2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Vec2s(val unsafeArray: Array[Double]) extends /*AffinePreserve with*/ Dbl2Arr[Vec2]
-{ type ThisT = Vec2s
-  def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
+final class Vec2Arr(val unsafeArray: Array[Double]) extends /*AffinePreserve with*/ Dbl2Arr[Vec2]
+{ type ThisT = Vec2Arr
+  def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
   override def typeStr: String = "Vec2s"
 
   @inline def lengthFull: Int = unsafeArray.length / 2
@@ -14,7 +14,7 @@ final class Vec2s(val unsafeArray: Array[Double]) extends /*AffinePreserve with*
   @inline def toLinePath: LinePath = new LinePath(unsafeArray)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
-  def ptsTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))
+  def ptsTrans(f: Vec2 => Vec2): Vec2Arr =  new Vec2Arr(arrTrans(f))
 
   def arrTrans(f: Vec2 => Vec2): Array[Double] =
   { val newArray = new Array[Double](unsafeArray.length)
@@ -32,18 +32,20 @@ final class Vec2s(val unsafeArray: Array[Double]) extends /*AffinePreserve with*
   final override def seqDefElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
 }
 
-/** Companion object for the [[Vec2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
-object Vec2s extends Dbl2SeqLikeCompanion[Vec2, Vec2s]
+/** Companion object for the [[Vec2Arr]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
+object Vec2Arr extends Dbl2SeqLikeCompanion[Vec2, Vec2Arr]
 {
-  override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
+  override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[Vec2, Vec2s] = new Dbl2SeqDefPersist[Vec2, Vec2s]("Vec2s")
-  { override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
-  }
+  /** [[Show]] type class instance / evidence for [[Vec2Arr]]. */
+  implicit val showEv: ShowSequ[Vec2, Vec2Arr] = ShowSequ[Vec2, Vec2Arr]()
 
-  implicit val arrFlatBuilderImplicit: FlatBuilderArr[Vec2s] =  new Dbl2ArrFlatBuilder[Vec2s]
+  /** [[Unshow]] type class instance / evidence for [[Vec2Arr]]. */
+  implicit val unshowEv: UnshowArrDblN[Vec2, Vec2Arr] = UnshowArrDblN[Vec2, Vec2Arr](fromArray)
+
+  implicit val arrFlatBuilderImplicit: FlatBuilderArr[Vec2Arr] =  new Dbl2ArrFlatBuilder[Vec2Arr]
   { override type BuffT = BuffVec2
-    override def fromDblArray(array: Array[Double]): Vec2s = new Vec2s(array)
+    override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)
   }
 

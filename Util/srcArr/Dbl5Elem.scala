@@ -54,7 +54,7 @@ trait Dbl5Arr[A <: Dbl5Elem] extends Any with DblNArr[A] with Dbl5SeqLike[A]
   }
 }
 
-trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]
+trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends CommonBuilderSeqLikeDblN[BB]
 { type BuffT <: Dbl5Buff[_]
   final override def elemProdSize: Int = 5
 }
