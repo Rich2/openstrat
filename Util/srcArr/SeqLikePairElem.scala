@@ -82,7 +82,7 @@ trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], B2, B <: SeqL
 trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2], ArrB <: PairNoA1PramArr[B1, ArrB1, B2, B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeDblNPairBuff[B1E, B1, B2, B]
-  type B1BuffT <: ArrayDblBuff[B1]
+  type B1BuffT <: BuffArrayDbl[B1]
 
   /** Construct the final target [[Arr]] type from an Array of Arrays of Doubles and an Array of B2. */
   def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[B2]): ArrB

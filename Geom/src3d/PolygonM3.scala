@@ -98,7 +98,7 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
 }
 
 /** Specialised [[Arr]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
-class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM3]
+class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonM3]
 { override type ThisT = PolygonM3Arr
   override def typeStr: String = "PolygonM3Arr"
   override def fElemStr: PolygonM3 => String = _.toString
@@ -107,7 +107,7 @@ class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
 }
 
 /** Specialised [[Buff]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
-class PolygonM3Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM3]
+class PolygonM3Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonM3]
 { override type ThisT = PolygonM3Buff
   override def typeStr: String = "PolygonM3Buff"
   override def fElemStr: PolygonM3 => String = _.toString

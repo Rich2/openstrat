@@ -49,7 +49,7 @@ object MyDbl2Arr extends CompanionSeqLikeDbl2[MyDbl2Elem, MyDbl2Arr]
   implicit val unshowEv: UnshowArrDblN[MyDbl2Elem, MyDbl2Arr] = UnshowArrDblN[MyDbl2Elem, MyDbl2Arr](fromArray)
 }
 
-class MinesBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[MyDbl2Elem]
+class MinesBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[MyDbl2Elem]
 { override def typeStr: String = "MinesBuff"
   def newElem(d1: Double, d2: Double): MyDbl2Elem = MyDbl2Elem(d1, d2)
 }

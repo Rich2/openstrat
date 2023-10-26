@@ -57,7 +57,7 @@ trait Dbl2PairBuff[A1 <: Dbl2Elem, A2, A <: Dbl2PairElem[A1, A2]] extends DblNPa
 trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2PairElem[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl2PairBuff[B1, B2, B]
-  override type B1BuffT <: Dbl2Buff[B1]
+  override type B1BuffT <: BuffDbl2[B1]
   final override def a1DblNum: Int = 2
 
   final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =

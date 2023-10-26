@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
-final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrayDblArr[Polygon]
+final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[Polygon]
 { override type ThisT = PolygonArr
   override def typeStr: String = "PolygonArr"
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonArr = new PolygonArr(aad)
@@ -48,7 +48,7 @@ object PolygonArr
   }
 }
 
-class PolygonBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[Polygon]
+class PolygonBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[Polygon]
 { override type ThisT = PolygonBuff
   override def typeStr: String = "PolygonBuff"
   override def fElemStr: Polygon => String = _.toString

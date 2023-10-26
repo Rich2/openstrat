@@ -74,7 +74,7 @@ object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
 }
 
 /** Arr of [[PolygonM2]]s. */
-class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM2]
+class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonM2]
 { override type ThisT = PolygonM2Arr
   override def typeStr: String = "PolygonMArr"
   override def fElemStr: PolygonM2 => String = _.toString
@@ -83,7 +83,7 @@ class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
 }
 
 /** Buff of [[PolygonM2]]s. */
-class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM2]
+class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonM2]
 { override type ThisT = PolygonM2Buff
   override def typeStr: String = "PolygonMBuff"
   override def fElemStr: PolygonM2 => String = _.toString

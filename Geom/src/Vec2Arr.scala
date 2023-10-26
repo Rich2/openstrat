@@ -71,7 +71,7 @@ object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Vec2]]s collections. */
-final class BuffVec2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[Vec2]
+final class BuffVec2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[Vec2]
 { override def typeStr: String = "BuffVec2"
   def newElem(d1: Double, d2: Double): Vec2 = Vec2(d1, d2)
 }

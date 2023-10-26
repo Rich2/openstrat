@@ -179,10 +179,3 @@ class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M) extends 
 object UnshowArrInt2
 { def apply[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M): UnshowArrInt2[A, M] = new UnshowArrInt2[A, M](f)
 }
-
-/** Persists and assists in building [[Db2SeqDef]] objects. */
-abstract class Dbl2SeqDefPersist[A <: Dbl2Elem, M <: Dbl2SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{ override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = { buffer += value.dbl1; buffer += value.dbl2 }
-  override def syntaxDepth(obj: M): Int = 3
-  override def showDec(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = typeStr
-}

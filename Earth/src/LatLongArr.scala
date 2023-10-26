@@ -31,7 +31,7 @@ object LatLongArr{
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[LatLong]]s collections. */
-final class LatLongBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[LatLong]
+final class LatLongBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[LatLong]
 { override def typeStr: String = "LatLongBuff"
   def newElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
 }

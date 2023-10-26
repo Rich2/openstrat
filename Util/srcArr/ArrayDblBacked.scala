@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -9,8 +9,8 @@ trait ArrayDblBacked extends Any with SpecialT
 }
 
 /** Base trait for collections of elements that are based on [[array]][Double]s, backed by an underlying Array[Array[Double]]. */
-trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
-{ type ThisT <: ArrayDblArr[A]
+trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with Arr[A]
+{ type ThisT <: ArrArrayDbl[A]
   def unsafeArrayOfArrays: Array[Array[Double]]
   override final def length: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
@@ -20,26 +20,27 @@ trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
 
 /** This is the map builder for Arrays of Arrays of Double. It is not to be confused with the builder for Arrays of Double. It requires 3 memebers to
  * be implemented in the final type BuffT, newBuff and fromArrayArrayDbl. */
-trait ArrayDblArrMapBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends MapBuilderArr[A, ArrT]
+trait MapBuilderArrArrayDbl[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends MapBuilderArr[A, ArrT]
 { @inline def fromArrayArrayDbl(array: Array[Array[Double]]): ArrT
-  type BuffT <: ArrayDblBuff[A]
+  type BuffT <: BuffArrayDbl[A]
   @inline final override def uninitialised(length: Int): ArrT = fromArrayArrayDbl(new Array[Array[Double]](length))
   final override def indexSet(seqLike: ArrT, index: Int, elem: A): Unit = seqLike.unsafeArrayOfArrays(index) = elem.unsafeArray
   final override def buffToSeqLike(buff: BuffT): ArrT = fromArrayArrayDbl(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.unsafeArray); () }
 }
 
-class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends EqT[ArrT]
+class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends EqT[ArrT]
 { override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.length != a2.length) false
   else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
 }
 
 object ArrArrayDblEq
-{ def apply[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
+{ def apply[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
 }
 
-/** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
-trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Buff[A]
+/** This is a [[Buff]] efficient buffer class for [[Array]][Double]s Each object contains multiple [[Array]]s. It is not a Buffer class for the
+ *  elements to be put into [[Array]]s. */
+trait BuffArrayDbl[A <: ArrayDblBacked] extends Any with Buff[A]
 { /** Constructs an lement of this [[Buff]] from an [[Array]][Double]. */
   def fromArrayDbl(array: Array[Double]): A
 

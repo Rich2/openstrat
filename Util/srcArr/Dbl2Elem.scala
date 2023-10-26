@@ -105,12 +105,12 @@ trait Dbl2Arr[A <: Dbl2Elem] extends Any with ArrDblN[A] with Dbl2SeqLike[A]
 }
 
 trait Dbl2SeqLikeCommonBuilder[BB <: Dbl2SeqLike[_]] extends CommonBuilderSeqLikeDblN[BB]
-{ type BuffT <: Dbl2Buff[_]
+{ type BuffT <: BuffDbl2[_]
   final override def elemProdSize = 2
 }
 
 trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with MapBuilderSeqLikeDblN[B, BB]
-{ type BuffT <: Dbl2Buff[B]
+{ type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.dbl1, elem.dbl2)
 }
 
@@ -142,7 +142,7 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends Companio
 }
 
 /** [[Buff]] class for building [[Dbl2Elem]]s collections. */
-trait Dbl2Buff[B <: Dbl2Elem] extends Any with BuffDblN[B]
+trait BuffDbl2[B <: Dbl2Elem] extends Any with BuffDblN[B]
 { type ArrT <: Dbl2Arr[B]
 
   /** Constructs a new element of this [[Buff]] from 2 [[Double]]s. */
@@ -157,7 +157,7 @@ trait Dbl2Buff[B <: Dbl2Elem] extends Any with BuffDblN[B]
   override def fElemStr: B => String = _.toString
 }
 
-trait CompanionBuffDbl2[A <: Dbl2Elem, AA <: Dbl2Buff[A]] extends CompanionBuffDblN[A, AA]
+trait CompanionBuffDbl2[A <: Dbl2Elem, AA <: BuffDbl2[A]] extends CompanionBuffDblN[A, AA]
 {
   override def apply(elems: A*): AA =
   { val buffer: ArrayBuffer[Double] =  new ArrayBuffer[Double](elems.length * 2 + 6)

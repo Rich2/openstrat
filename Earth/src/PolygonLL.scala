@@ -63,15 +63,17 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
   /** Implicit instance to build specialist sequences of [[PolygonLL]]s for map and related methods. */
-  implicit val arrMapBuildImplicit: ArrayDblArrMapBuilder[PolygonLL, PolygonLLArr]  = new ArrayDblArrMapBuilder[PolygonLL, PolygonLLArr]
+  implicit val mapBuilderArrEv: MapBuilderArrArrayDbl[PolygonLL, PolygonLLArr]  = new MapBuilderArrArrayDbl[PolygonLL, PolygonLLArr]
   { override type BuffT = PolygonLLBuff
     override def newBuff(length: Int): PolygonLLBuff = PolygonLLBuff(length)
     override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
   }
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[LatLong, PolygonLL] = new Dbl2SeqDefPersist[LatLong, PolygonLL]("PolygonLL")
-  { override def fromArray(value: Array[Double]): PolygonLL = new PolygonLL(value)
-  }
+  /** [[Show]] type class instance / evidence for [[PolygonLL]]. */
+  implicit val showEv: ShowSeqSpec[LatLong, PolygonLL] = ShowSeqSpec[LatLong, PolygonLL]("PolygonLL")
+
+  /** [[Unshow]] type class instance / evidence for [[PolygonLL]]. */
+  implicit val unshowEv: UnshowSeqSpecDblN[LatLong, PolygonLL] = UnshowSeqSpecDblN[LatLong, PolygonLL]("PolygonLL", fromArray)
 
   implicit val llTransImplicit: LLTrans[PolygonLL] = new LLTrans[PolygonLL] {
     override def fLLTrans(orig: PolygonLL, f: LatLong => LatLong): PolygonLL = orig.map(f)
@@ -80,7 +82,7 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
 
 /** An [[Arr]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an Array of Arrays
  *  of Doubles. */
-class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonLL]
+class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLArr
   override def typeStr: String = "PolygonLLArr"
   override def fElemStr: PolygonLL => String = _.toString
@@ -90,7 +92,7 @@ class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
 
 /** An [[Buff]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an ArrayBuffer of
  *  Arrays of Doubles. */
-class PolygonLLBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonLL]
+class PolygonLLBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonLL]
 { override type ThisT = PolygonLLBuff
   override def typeStr: String = "PolygonLLBuff"
   override def fElemStr: PolygonLL => String = _.toString
