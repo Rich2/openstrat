@@ -109,7 +109,7 @@ trait Dbl2SeqLikeCommonBuilder[BB <: Dbl2SeqLike[_]] extends BuilderSeqLikeDblN[
   final override def elemProdSize = 2
 }
 
-trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with MapBuilderSeqLikeDblN[B, BB]
+trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with BuilderSeqLikeDblNMap[B, BB]
 { type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.dbl1, elem.dbl2)
 }
@@ -117,12 +117,12 @@ trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2Seq
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2ArrMapBuilder[B <: Dbl2Elem, ArrB <: Dbl2Arr[B]] extends Dbl2SeqLikeMapBuilder[B, ArrB] with DblNArrMapBuilder[B, ArrB]
+trait Dbl2ArrMapBuilder[B <: Dbl2Elem, ArrB <: Dbl2Arr[B]] extends Dbl2SeqLikeMapBuilder[B, ArrB] with BuilderArrDblNMap[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[BuilderArrFlat] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2ArrFlatBuilder[ArrB <: Dbl2Arr[_]] extends Dbl2SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
+trait Dbl2ArrFlatBuilder[ArrB <: Dbl2Arr[_]] extends Dbl2SeqLikeCommonBuilder[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl2Arr]] final classes to extend. */
 trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends CompanionSeqLikeDblN[A, AA]

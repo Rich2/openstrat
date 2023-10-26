@@ -97,7 +97,7 @@ trait BuilderAllSeqLikeIntN[BB <: SeqLike[_]] extends BuilderSeqLikeValueN[BB]
 
 /** Constructs [[SeqLikeIntN]] objects via map method. Type of element known at at call site. Hence implicit look up will be in the element
  * companion object. */
-trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with BuilderMapSeqLikeValueN[B, BB]
+trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with BuilderSeqLikeValueNMap[B, BB]
 { type BuffT <:  BuffIntN[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
@@ -105,16 +105,16 @@ trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntN[B]] extends Builder
 
 /** Constructs [[SeqLikeIntN]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
  * in the [[SeqLike]]'s companion object. */
-trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with BuilderFlatSeqLikeValueN[BB]
+trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with BuilderSeqLikeValueNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderArrMap]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLikeIntNMap[B, ArrB] with BuilderMapArrValueN[B, ArrB]
+trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLikeIntNMap[B, ArrB] with BuilderArrValueNMap[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[BuilderArrFlat] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderFlatArrIntN[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with BuilderFlatArrValueN[ArrB]
+trait BuilderFlatArrIntN[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with BuilderArrValueNFlat[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }

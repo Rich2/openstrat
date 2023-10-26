@@ -106,7 +106,7 @@ object PtM3
   /** [[Show]] type class instance / evidence for [[PTM3]]. */
   implicit val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetres, "y", _.yMetres, "z", _.zMetres)
 
-  implicit val arrBuilderImplicit: Dbl3ArrMapBuilder[PtM3, PtM3Arr] = new Dbl3ArrMapBuilder[PtM3, PtM3Arr]
+  implicit val arrBuilderImplicit: BuilderArrDbl3Map[PtM3, PtM3Arr] = new BuilderArrDbl3Map[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)

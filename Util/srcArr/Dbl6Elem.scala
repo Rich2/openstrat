@@ -93,7 +93,7 @@ trait Dbl6SeqLikeCommonBuilder[BB <: Dbl6Arr[_]] extends BuilderSeqLikeDblN[BB]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl6Arr]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
+trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCommonBuilder[ArrB] with BuilderArrDblNMap[B, ArrB]
 { type BuffT <: Dbl6Buff[B]
 
   override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
@@ -104,7 +104,7 @@ trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCo
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends Dbl6SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
+trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends Dbl6SeqLikeCommonBuilder[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait Dbl6Buff[A <: Dbl6Elem] extends Any with BuffDblN[A]

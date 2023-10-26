@@ -211,7 +211,7 @@ trait LinePathBuilderValueN[B <: ValueNElem, BB <: LinePathLike[B]] extends Line
 /** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathMapBuilderDblN[B <: DblNElem, BB <: LinePathDblN[B] ] extends LinePathBuilderValueN[B, BB] with MapBuilderSeqLikeDblN[B, BB]
+trait LinePathMapBuilderDblN[B <: DblNElem, BB <: LinePathDblN[B] ] extends LinePathBuilderValueN[B, BB] with BuilderSeqLikeDblNMap[B, BB]
 
 /** Trait for creating the line path type class instances for [[LinePathDbl2]] final classes. Instances for the [[LinePathDbl2Builder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called
@@ -221,7 +221,7 @@ trait LinePathDbl2Builder[B <: Dbl2Elem, BB <: LinePathDbl2[B]] extends LinePath
 /** Trait for creating the line path type class instances for [[LinePathDbl3]] final classes. Instances for the [[LinePathDbl3MapBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl3MapBuilder[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends LinePathMapBuilderDblN[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
+trait LinePathDbl3MapBuilder[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends LinePathMapBuilderDblN[B, BB] with BuilderSeqLikeDbl3Map[B, BB]
 
 /** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

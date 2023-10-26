@@ -26,7 +26,7 @@ trait PolygonDbl2MapBuilder[B <: Dbl2Elem, BB <: PolygonLikeDbl2[B]] extends Pol
 /** Trait for creating the line path type class instances for [[PolygonLikeDbl3]] final classes. Instances for the [[PolygonDbl3MapBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait PolygonDbl3MapBuilder[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends PolygonDblNMapBuilder[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
+trait PolygonDbl3MapBuilder[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends PolygonDblNMapBuilder[B, BB] with BuilderSeqLikeDbl3Map[B, BB]
 { type BuffT <: Dbl3Buff[B]
 
   /*override def indexSet(arr: BB, index: Int, value: B): Unit =
