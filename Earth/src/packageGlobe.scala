@@ -23,7 +23,7 @@ package object pglobe
 
     /** Internal method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
     def earthZPosXYModifyInefficient: PolygonM2 =
-    { val buff = BuffPtMetre2()
+    { val buff = BuffPtM2()
       thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
         {
           case true if prev.zNeg =>

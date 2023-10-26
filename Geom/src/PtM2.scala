@@ -84,21 +84,21 @@ object PtM2
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
   implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtM2Arr] = new Dbl2ArrMapBuilder[PtM2, PtM2Arr]
-  { type BuffT = BuffPtMetre2
+  { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
-    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtMetre2 = new BuffPtMetre2(buffer)
+    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(buffer)
   }
 
   implicit val linePathBuildImplicit: LinePathDbl2Builder[PtM2, LinePathM2] = new LinePathDbl2Builder[PtM2, LinePathM2]
-  { override type BuffT = BuffPtMetre2
+  { override type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtMetre2 = new BuffPtMetre2(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonDbl2MapBuilder[PtM2, PolygonM2] = new PolygonDbl2MapBuilder[PtM2, PolygonM2]
-  { override type BuffT = BuffPtMetre2
+  { override type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtMetre2 = new BuffPtMetre2(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 
   /** Implicit instance for the [[PolygonM2Pair]] builder. This has to go in the [[PtM2]] companion object so it can be found by an A => B function
@@ -120,19 +120,19 @@ object PtM2Arr extends Dbl2SeqLikeCompanion[PtM2, PtM2Arr]
 {
   override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
 
-  val showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
+  /** [[Show]] type class instance / evidence for [[PtM2Arr]]. */
+  implicit val showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PtM2Arr] = new Dbl2SeqDefPersist[PtM2, PtM2Arr]("Metres2s")
-  { override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
-  }
+  /** [[Unshow]] type class instance / evidence for [[PtM2Arr]]. */
+  implicit val unshowEv: UnshowArrDblN[PtM2, PtM2Arr] = UnshowArrDblN[PtM2, PtM2Arr](fromArray)
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */
-final class BuffPtMetre2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[PtM2]
+final class BuffPtM2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[PtM2]
 { override def typeStr: String = "BuffPtMetre2"
   def newElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
 }
 
-object BuffPtMetre2{
-  def apply(initSize: Int = 4): BuffPtMetre2 = new BuffPtMetre2(new ArrayBuffer[Double](initSize * 2))
+object BuffPtM2
+{ def apply(initSize: Int = 4): BuffPtM2 = new BuffPtM2(new ArrayBuffer[Double](initSize * 2))
 }

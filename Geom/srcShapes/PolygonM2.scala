@@ -63,9 +63,8 @@ object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
   /** [[Unshow]] type class instance / evidence for [[PolygonM2]]. */
   implicit val unshowEv: UnshowSeqSpecDblN[PtM2, PolygonM2] = UnshowSeqSpecDblN[PtM2, PolygonM2]("PolygonM2", fromArray)
 
-  implicit val arrBuildImplicit: MapBuilderArr[PolygonM2, PolygonM2Arr] = new MapBuilderArr[PolygonM2, PolygonM2Arr] {
-    override type BuffT = PolygonM2Buff
-
+  implicit val arrBuildImplicit: MapBuilderArr[PolygonM2, PolygonM2Arr] = new MapBuilderArr[PolygonM2, PolygonM2Arr]
+  { override type BuffT = PolygonM2Buff
     override def newBuff(length: Int): PolygonM2Buff = PolygonM2Buff(length)
     override def uninitialised(length: Int): PolygonM2Arr = new PolygonM2Arr(new Array[Array[Double]](length))
     override def indexSet(seqLike: PolygonM2Arr, index: Int, elem: PolygonM2): Unit = seqLike.unsafeArrayOfArrays(index) = elem.unsafeArray
