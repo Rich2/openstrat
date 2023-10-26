@@ -83,9 +83,9 @@ object PtM2
   /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
-  implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtMetre2Arr] = new Dbl2ArrMapBuilder[PtM2, PtMetre2Arr]
+  implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtM2Arr] = new Dbl2ArrMapBuilder[PtM2, PtM2Arr]
   { type BuffT = BuffPtMetre2
-    override def fromDblArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
+    override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtMetre2 = new BuffPtMetre2(buffer)
   }
 
@@ -107,21 +107,23 @@ object PtM2
 }
 
 /** Specialised immutable Array based collection class for [[PtM2]]s. */
-class PtMetre2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2]
-{ type ThisT = PtMetre2Arr
-  override def fromArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
+class PtM2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2]
+{ type ThisT = PtM2Arr
+  override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
   override def typeStr: String = "Metres2s"
   override def seqDefElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
 }
 
-/** Companion object for the [[PtMetre2Arr]] class. Contains implicit Instance for Persist type class. */
-object PtMetre2Arr extends Dbl2SeqLikeCompanion[PtM2, PtMetre2Arr]
+/** Companion object for the [[PtM2Arr]] class. Contains implicit Instance for Persist type class. */
+object PtM2Arr extends Dbl2SeqLikeCompanion[PtM2, PtM2Arr]
 {
-  override def fromArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
+  override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PtMetre2Arr] = new Dbl2SeqDefPersist[PtM2, PtMetre2Arr]("Metres2s")
-  { override def fromArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
+  val showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
+
+  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PtM2Arr] = new Dbl2SeqDefPersist[PtM2, PtM2Arr]("Metres2s")
+  { override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
   }
 }
 

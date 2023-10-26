@@ -18,7 +18,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
   def toCanv(mapPoint: PtM2): Pt2 = (mapPoint - mapFocus) / scale
 
   /** Translates an array of map points to an array of Canvas Display positions */
-  def arrCanv(inp: PtMetre2Arr): Polygon = inp.mapPolygon(toCanv(_))
+  def arrCanv(inp: PtM2Arr): Polygon = inp.mapPolygon(toCanv(_))
 
   final def repaintMap(): Unit = mapPanel.repaint(mapObjs)
 

@@ -74,7 +74,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
-  def polyToGlobedArea(inp: PolygonLL): OptEither[PtMetre2Arr, CurveSegDists] =
+  def polyToGlobedArea(inp: PolygonLL): OptEither[PtM2Arr, CurveSegDists] =
   { val d3s: PtM3Arr = inp.ssMap(el => fromFocusMetres(el))
     d3s.earthZPositive
   }

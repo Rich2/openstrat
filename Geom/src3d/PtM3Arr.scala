@@ -13,7 +13,7 @@ class PtM3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
    *  points are moved to the horizon. */
-  def earthZPositive: OptEither[PtMetre2Arr, CurveSegDists] =
+  def earthZPositive: OptEither[PtM2Arr, CurveSegDists] =
   {
     existsCount(_.z.pos) match
     { case 0 => NoOptEither

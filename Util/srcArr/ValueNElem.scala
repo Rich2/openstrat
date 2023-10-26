@@ -109,4 +109,4 @@ trait MapBuilderArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends MapBuil
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[FlatBuilderArr] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNArrFlatBuilder[ArrB <: ArrValueN[_]] extends CommonBuilderSeqLikeValueN[ArrB] with FlatBuilderArr[ArrB]
+trait FlatBuilderArrValueN[ArrB <: ArrValueN[_]] extends CommonBuilderSeqLikeValueN[ArrB] with FlatBuilderArr[ArrB]
