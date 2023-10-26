@@ -91,22 +91,24 @@ trait BuffValueN[A <: ValueNElem] extends Any with Buff[A]
   override def fElemStr: A => String = _.toString
 }
 
+/** Base trait for all [[SeqLikeValueN]] builders. */
 trait BuilderAllSeqLikeValueN[BB <: SeqLike[_]] extends BuilderAllSeqLike[BB]
 { def elemProdSize: Int
 }
 
 /** Map builder for [[SeqLikeValueN]] classes. */
-trait MapBuilderSeqLikeValueN[B <: ValueNElem, BB <: SeqLike[B]] extends BuilderAllSeqLikeValueN[BB] with BuilderMapSeqLike[B, BB]
+trait BuilderMapSeqLikeValueN[B <: ValueNElem, BB <: SeqLike[B]] extends BuilderAllSeqLikeValueN[BB] with BuilderMapSeqLike[B, BB]
 
-trait FlatBuilderSeqLikeValueN[BB <: SeqLikeValueN[_]] extends BuilderAllSeqLikeValueN[BB] with BuilderFlatSeqLike[BB]
+/** Constructs [[SeqLikeValueN]] objects via flatMap method. Element type not known at call site. */
+trait BuilderFlatSeqLikeValueN[BB <: SeqLikeValueN[_]] extends BuilderAllSeqLikeValueN[BB] with BuilderFlatSeqLike[BB]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[BuilderMapArr]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait MapBuilderArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends MapBuilderSeqLikeValueN[B, ArrB] with BuilderMapArr[B, ArrB]
+trait BuilderMapArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends BuilderMapSeqLikeValueN[B, ArrB] with BuilderMapArr[B, ArrB]
 { type BuffT <: BuffValueN[B]
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderFlatArr] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait FlatBuilderArrValueN[ArrB <: ArrValueN[_]] extends BuilderAllSeqLikeValueN[ArrB] with BuilderFlatArr[ArrB]
+trait BuilderFlatArrValueN[ArrB <: ArrValueN[_]] extends BuilderAllSeqLikeValueN[ArrB] with BuilderFlatArr[ArrB]

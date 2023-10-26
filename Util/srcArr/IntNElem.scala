@@ -95,22 +95,22 @@ trait BuilderAllSeqLikeIntN[BB <: SeqLike[_]] extends BuilderAllSeqLikeValueN[BB
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with MapBuilderSeqLikeValueN[B, BB]
+trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with BuilderMapSeqLikeValueN[B, BB]
 { type BuffT <:  IntNBuff[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
 
-trait IntNSeqLikeFlatBuilder[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with FlatBuilderSeqLikeValueN[BB]
+trait IntNSeqLikeFlatBuilder[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with BuilderFlatSeqLikeValueN[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderMapArr]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNArrMapBuilder[B <: IntNElem, ArrB <: ArrIntN[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with MapBuilderArrValueN[B, ArrB]
+trait IntNArrMapBuilder[B <: IntNElem, ArrB <: ArrIntN[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with BuilderMapArrValueN[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[BuilderFlatArr] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNArrFlatBuilder[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with FlatBuilderArrValueN[ArrB]
+trait IntNArrFlatBuilder[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with BuilderFlatArrValueN[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }

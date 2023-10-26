@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import geom._, collection.mutable.ArrayBuffer
 
@@ -63,7 +63,7 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
   /** Implicit instance to build specialist sequences of [[PolygonLL]]s for map and related methods. */
-  implicit val mapBuilderArrEv: MapBuilderArrArrayDbl[PolygonLL, PolygonLLArr]  = new MapBuilderArrArrayDbl[PolygonLL, PolygonLLArr]
+  implicit val mapBuilderArrEv: BuilderMapArrArrayDbl[PolygonLL, PolygonLLArr]  = new BuilderMapArrArrayDbl[PolygonLL, PolygonLLArr]
   { override type BuffT = PolygonLLBuff
     override def newBuff(length: Int): PolygonLLBuff = PolygonLLBuff(length)
     override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
