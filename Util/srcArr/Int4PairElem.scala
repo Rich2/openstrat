@@ -61,7 +61,7 @@ trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends IntNPa
 trait Int4PairArrCommonBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
 IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, _]
-  type B1BuffT <: Int4Buff[B1]
+  type B1BuffT <: BuffInt4[B1]
 
 }
 

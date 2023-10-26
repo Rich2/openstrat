@@ -78,7 +78,7 @@ trait Int6Buff[A <: Int6Elem] extends Any with BuffIntN[A]
     unsafeBuffer.setIndex6(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-trait Int6SeqLikeCommonBuilder[BB <: Int6SeqLike[_]] extends BuilderAllSeqLikeIntN[BB]
+trait Int6SeqLikeCommonBuilder[BB <: Int6SeqLike[_]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: Int6Buff[_]
   final override def elemProdSize: Int = 6
 }

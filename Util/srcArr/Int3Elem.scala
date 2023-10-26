@@ -58,7 +58,7 @@ trait Int3Buff[A <: Int3Elem] extends Any with BuffIntN[A]
   override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex3(i, newElem.int1, newElem.int2, newElem.int3)
 }
 
-trait Int3SeqLikeCommonBuilder[BB <: Int3SeqLike[_]] extends BuilderAllSeqLikeIntN[BB]
+trait Int3SeqLikeCommonBuilder[BB <: Int3SeqLike[_]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: Int3Buff[_]
   final override def elemProdSize: Int = 3
 }

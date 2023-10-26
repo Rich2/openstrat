@@ -54,7 +54,7 @@ trait Int1Buff[A <: Int1Elem] extends Any with BuffIntN[A]
   override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem.int1
 }
 
-trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends BuilderAllSeqLikeIntN[ArrB]
+trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends BuilderSeqLikeIntN[ArrB]
 { type BuffT <: Int1Buff[_]
   final override def elemProdSize: Int = 1
 }

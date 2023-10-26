@@ -75,7 +75,7 @@ trait Int5Buff[A <: Int5Elem] extends Any with BuffIntN[A]
     unsafeBuffer.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends BuilderAllSeqLikeIntN[BB]
+trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: Int5Buff[_]
   final override def elemProdSize: Int = 5
 }

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse._
 
 /** Base trait for [[ShowN]] and [[UnshowN]]. */
 trait PersistBaseN extends Any with PersistBase

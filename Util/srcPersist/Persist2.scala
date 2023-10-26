@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse._
 
 /** Base trait for [[PersistBase2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
  *  for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to the [[Tell2]] object to implement their interfaces. */
@@ -118,6 +118,17 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
   }
 }
 
+object Unshow2
+{
+  def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
+    ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, R] = new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
+
+  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, override val opt2: Option[A2], opt1In: Option[A1])(implicit
+    val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, R]
+  { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
 trait UnshowInt2[R] extends Unshow2[Int, Int, R]
 { override implicit def unshow1: Unshow[Int] = Unshow.intEv
   override implicit def unshow2: Unshow[Int] = Unshow.intEv
@@ -149,23 +160,5 @@ object UnshowDbl2
   class UnshowDbl2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
     override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[R]
   { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  }
-}
-
-object Unshow2
-{
-  def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, R] = new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
-
-  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, override val opt2: Option[A2], opt1In: Option[A1])(implicit
-    val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, R]
-  { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  }
-}
-
-trait UnshowSeqLikeInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLike[A, M]
-{ override def appendtoBuffer(buffer: ArrayBuffer[Int], value: A): Unit =
-  { buffer += value.int1
-    buffer += value.int2
   }
 }

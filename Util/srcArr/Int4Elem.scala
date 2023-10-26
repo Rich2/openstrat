@@ -54,8 +54,8 @@ trait ArrInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
-trait Int4Buff[A <: Int4Elem] extends Any with BuffIntN[A]
-{ type ThisT <: Int4Buff[A]
+trait BuffInt4[A <: Int4Elem] extends Any with BuffIntN[A]
+{ type ThisT <: BuffInt4[A]
 
   /** Constructs a new element of this [[Buff]] form 4 [[Int]]s. */
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -70,13 +70,13 @@ trait Int4Buff[A <: Int4Elem] extends Any with BuffIntN[A]
   final override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-trait Int4SeqLikeCommonBuilder[BB <: SeqLikeInt4[_]] extends BuilderAllSeqLikeIntN[BB]
-{ type BuffT <: Int4Buff[_]
+trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[_]] extends BuilderSeqLikeIntN[BB]
+{ type BuffT <: BuffInt4[_]
   final override def elemProdSize: Int = 4
 }
 
-trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends Int4SeqLikeCommonBuilder[BB] with BuilderSeqLikeIntNMap[B, BB]
-{ type BuffT <: Int4Buff[B]
+trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB] with BuilderSeqLikeIntNMap[B, BB]
+{ type BuffT <: BuffInt4[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex4(index, elem.int1, elem.int2, elem.int3, elem.int4)
@@ -89,13 +89,13 @@ trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends Int4Seq
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int4ArrMapBuilder[B <: Int4Elem, ArrB <: ArrInt4[B]] extends Int4SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int4ArrFlatBuilder[ArrB <: ArrInt4[_]] extends Int4SeqLikeCommonBuilder[ArrB] with BuilderFlatArrIntN[ArrB]
+trait Int4ArrFlatBuilder[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderFlatArrIntN[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
 abstract class Int4ArrCompanion[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 4
 
-  def buff(initialSize: Int): Int4Buff[A]
+  def buff(initialSize: Int): BuffInt4[A]
 
   final def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
