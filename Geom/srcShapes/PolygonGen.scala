@@ -60,8 +60,9 @@ object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[Pt2, PolygonGen] = new Dbl2SeqDefPersist[Pt2, PolygonGen]("Polygon")
-  { override def fromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
-    override def showDec(obj: PolygonGen, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polygon" -- obj.vertsMap(_.str).mkStr("\n")
-  }
+  /** [[Show]] type class instance / evidence for [[PolygonGen]] */
+  implicit val showEv: ShowSeqSpec[Pt2, PolygonGen] = ShowSeqSpec[Pt2, PolygonGen]("Polygon")
+
+  /** [[Unshow]] type class instance / evidence for [[PolygonGen]] */
+  implicit val unshowEv: UnshowSeqSpecDblN[Pt2, PolygonGen] = UnshowSeqSpecDblN[Pt2, PolygonGen]("Polygon", fromArray)
 }
