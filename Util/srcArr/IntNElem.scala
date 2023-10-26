@@ -156,7 +156,7 @@ trait IntNSeqLikeCompanion[A <: IntNElem, AA <: SeqLikeIntN[A]]
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
-trait IntNBuffCompanion[A <: IntNElem, AA <: IntNBuff[A]]
+trait CompanionBuffIntN[A <: IntNElem, AA <: IntNBuff[A]]
 { /** apply factory method for [[IntNBuff]] final classes */
   def apply(elems: A*): AA
 
