@@ -16,7 +16,9 @@ final class LinePathM2(val unsafeArray: Array[Double]) extends AnyVal with LineP
 object LinePathM2 extends CompanionSeqLikeDbl2[PtM2, LinePathM2]
 { override def fromArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, LinePathM2] = new Dbl2SeqDefPersist[PtM2, LinePathM2]("LinePathM")
-  { override def fromArray(array: Array[Double]): LinePathM2 = new LinePathM2(array)
-  }
+  /** [[Show]] type class instance / evidence for [[LinePathM2]]. */
+  implicit val showEv: ShowSeqSpec[PtM2, LinePathM2] = ShowSeqSpec[PtM2, LinePathM2]("LinePathM2")
+
+  /** [[Unshow]] type class instance / evidence for [[LinePathM2]]. */
+  implicit val unshowEv: UnshowSeqSpecDblN[PtM2, LinePathM2] = UnshowSeqSpecDblN[PtM2, LinePathM2]("LinePathM2", fromArray)
 }
