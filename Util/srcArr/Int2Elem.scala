@@ -58,7 +58,7 @@ trait Int2ArrMapBuilder[B <: Int2Elem, ArrB <: Int2Arr[B]] extends Int2SeqLikeMa
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[BuilderArrFlat] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends BuilderAllSeqLikeInt2[ArrB] with BuilderFlatArrIntN[ArrB]
+trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends BuilderAllSeqLikeInt2[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
 trait BuffInt2[A <: Int2Elem] extends Any with BuffIntN[A]

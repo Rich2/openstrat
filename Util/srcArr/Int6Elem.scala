@@ -98,7 +98,7 @@ trait Int6SeqLikeMapBuilder[B <: Int6Elem, BB <: Int6SeqLike[B]] extends Int6Seq
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int6ArrMapBuilder[B <: Int6Elem, ArrB <: Int6Arr[B]] extends Int6SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int6ArrFlatBuilder[ArrB <: Int6Arr[_]] extends Int6SeqLikeCommonBuilder[ArrB] with BuilderFlatArrIntN[ArrB]
+trait Int6ArrFlatBuilder[ArrB <: Int6Arr[_]] extends Int6SeqLikeCommonBuilder[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[Int6Arr]] final classes to extend. */
 abstract class Int6ArrCompanion[A <: Int6Elem, M <: Int6Arr[A]] extends CompanionSeqLikeIntN[A, M]

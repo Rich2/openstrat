@@ -50,7 +50,7 @@ class LineSegHCArr(val unsafeArray: Array[Int]) extends ArrInt4[LineSegHC]
 }
 
 /** Companion object for the LineSegHCs class. */
-object LineSegHCArr extends CompanionSrrInt4[LineSegHC, LineSegHCArr]
+object LineSegHCArr extends CompanionArrInt4[LineSegHC, LineSegHCArr]
 {
   implicit def pairArrFlatBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
 

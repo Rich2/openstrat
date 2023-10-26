@@ -89,10 +89,10 @@ trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends Builder
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLikeInt4Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait BuilderArrInt4Flat[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderFlatArrIntN[ArrB]
+trait BuilderArrInt4Flat[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
-abstract class CompanionSrrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
+abstract class CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): BuffInt4[A]

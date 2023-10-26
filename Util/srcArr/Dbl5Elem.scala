@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 5 [[Double]]s. These are used in [[Dbl5Arr]] Array[Double] based collections. */
+/** An object that can be constructed from 5 [[Double]]s. These are used in [[ArrDbl5]] Array[Double] based collections. */
 trait Dbl5Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
@@ -14,7 +14,7 @@ trait Dbl5Elem extends Any with DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append5(dbl1, dbl2, dbl3, dbl4, dbl5)
 }
 
-trait Dbl5SeqLike[A <: Dbl5Elem] extends Any with SeqLikeDblN[A]
+trait SeqLikeDbl5[A <: Dbl5Elem] extends Any with SeqLikeDblN[A]
 { def elemProdSize: Int = 5
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -22,8 +22,8 @@ trait Dbl5SeqLike[A <: Dbl5Elem] extends Any with SeqLikeDblN[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
-trait Dbl5SeqSpec[A <: Dbl5Elem] extends Any with Dbl5SeqLike[A] with SeqSpecDblN[A]
-{  /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the
+trait SeqSpecDbl5[A <: Dbl5Elem] extends Any with SeqLikeDbl5[A] with SeqSpecDblN[A]
+{  /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[ArrDbl5]] this will be the type of the elements of the
    * sequence. */
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
@@ -35,7 +35,7 @@ trait Dbl5SeqSpec[A <: Dbl5Elem] extends Any with Dbl5SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait Dbl5Arr[A <: Dbl5Elem] extends Any with ArrDblN[A] with Dbl5SeqLike[A]
+trait ArrDbl5[A <: Dbl5Elem] extends Any with ArrDblN[A] with SeqLikeDbl5[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
   final override def length: Int = unsafeArray.length / 5
   def head1: Double = unsafeArray(0)
@@ -54,29 +54,29 @@ trait Dbl5Arr[A <: Dbl5Elem] extends Any with ArrDblN[A] with Dbl5SeqLike[A]
   }
 }
 
-trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends BuilderSeqLikeDblN[BB]
-{ type BuffT <: Dbl5Buff[_]
+trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5[_]] extends BuilderSeqLikeDblN[BB]
+{ type BuffT <: BuffDbl5[_]
   final override def elemProdSize: Int = 5
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl5ArrMapBuilder[B <: Dbl5Elem, ArrB <: Dbl5Arr[B]] extends Dbl5SeqLikeCommonBuilder[ArrB] with BuilderArrDblNMap[B, ArrB]
-{ type BuffT <: Dbl5Buff[B]
+trait Dbl5ArrMapBuilder[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLikeDbl5[ArrB] with BuilderArrDblNMap[B, ArrB]
+{ type BuffT <: BuffDbl5[B]
 
   override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex5(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[BuilderArrMap]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl5ArrFlatBuilder[ArrB <: Dbl5Arr[_]] extends Dbl5SeqLikeCommonBuilder[ArrB] with BuilderArrDblNFlat[ArrB]
+trait Dbl5ArrFlatBuilder[ArrB <: ArrDbl5[_]] extends BuilderSeqLikeDbl5[ArrB] with BuilderArrDblNFlat[ArrB]
 
-/** Helper class for companion objects of final [[Dbl5SeqSpec]] classes. */
-abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] extends CompanionSeqLikeDblN[A, ArrA]
+/** Helper class for companion objects of final [[SeqSpecDbl5]] classes. */
+abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: SeqLikeDbl5[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def elemNumDbls: Int = 5
 
   def apply(elems: A*): ArrA =
@@ -92,8 +92,8 @@ abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] exten
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */
-trait Dbl5Buff[A <: Dbl5Elem] extends Any with BuffDblN[A]
-{ type ArrT <: Dbl5Arr[A]
+trait BuffDbl5[A <: Dbl5Elem] extends Any with BuffDblN[A]
+{ type ArrT <: ArrDbl5[A]
   override def elemProdSize: Int = 5
   final override def length: Int = unsafeBuffer.length / 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A

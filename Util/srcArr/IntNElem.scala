@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, collection.mutable.ArrayBuffer
 
 /** A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length of these elements they can be be stored as and
  * reconstructed from a single Array[Int] of primitive values. */
@@ -114,7 +114,7 @@ trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLik
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[BuilderArrFlat] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderFlatArrIntN[ArrB <: ArrIntN[_]] extends BuilderSeqLikeIntN[ArrB] with BuilderArrValueNFlat[ArrB]
+trait BuilderArrIntNFlat[ArrB <: ArrIntN[_]] extends BuilderSeqLikeIntN[ArrB] with BuilderArrValueNFlat[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }

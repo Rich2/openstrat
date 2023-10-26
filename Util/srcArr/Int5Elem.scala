@@ -95,7 +95,7 @@ trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5Seq
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: Int5Arr[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int5ArrFlatBuilder[ArrB <: Int5Arr[_]] extends Int5SeqLikeCommonBuilder[ArrB] with BuilderFlatArrIntN[ArrB]
+trait Int5ArrFlatBuilder[ArrB <: Int5Arr[_]] extends Int5SeqLikeCommonBuilder[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[Int5Arr]] final classes to extend. */
 abstract class Int5ArrCompanion[A <: Int5Elem, M <: Int5Arr[A]] extends CompanionSeqLikeIntN[A, M]
