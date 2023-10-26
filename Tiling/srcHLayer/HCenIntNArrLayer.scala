@@ -1,7 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-class HCenIntNArrLayer[A <: IntNElem, ArrA <: IntNArr[A]](val outerArrayUnsafe: Array[Array[Int]], val gridSys: HGridSys)(
+class HCenIntNArrLayer[A <: IntNElem, ArrA <: ArrIntN[A]](val outerArrayUnsafe: Array[Array[Int]], val gridSys: HGridSys)(
 implicit val arrBuilder: IntNArrMapBuilder[A, ArrA]) extends HCenArrLayer[A, ArrA]
 { override def iApply(index: Int): ArrA = arrBuilder.fromIntArray(outerArrayUnsafe(index))
 

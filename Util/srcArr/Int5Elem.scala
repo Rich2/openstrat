@@ -16,7 +16,7 @@ trait Int5Elem extends Any with IntNElem
     buffer.append(int4); buffer.append(int5) }
 }
 
-trait Int5SeqLike[A <: Int5Elem] extends Any with IntNSeqLike[A]
+trait Int5SeqLike[A <: Int5Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 5
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
@@ -25,7 +25,7 @@ trait Int5SeqLike[A <: Int5Elem] extends Any with IntNSeqLike[A]
     unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-trait Int5SeqSpec[A <: Int5Elem] extends Any with Int5SeqLike[A] with IntNSeqSpec[A]
+trait Int5SeqSpec[A <: Int5Elem] extends Any with Int5SeqLike[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
@@ -35,7 +35,7 @@ trait Int5SeqSpec[A <: Int5Elem] extends Any with Int5SeqLike[A] with IntNSeqSpe
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with IntNArr[A]
+trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with ArrIntN[A]
 { final override def length: Int = unsafeArray.length / 5
 
   override def apply(index: Int): A =

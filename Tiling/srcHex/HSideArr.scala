@@ -16,14 +16,14 @@ class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
 
 /** Companion object for [[HSideArr]] trait efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates, contains factory apply and
  *  uninitialised methods. */
-object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
+object HSideArr extends CompanionSeqLikeInt2[HSide, HSideArr]
 { override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 
   /** Implicit [[Show]] type class instance / evidence for [[HSideArr]]. */
   implicit val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
-  implicit val unshowEv: UnshowArrInt2[HSide, HSideArr] = UnshowArrInt2[HSide, HSideArr](fromArray)
+  implicit val unshowEv: UnshowArrIntN[HSide, HSideArr] = UnshowArrIntN[HSide, HSideArr](fromArray)
 
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */
   implicit val flatBuilderEv: FlatBuilderArr[HSideArr] = new Int2ArrFlatBuilder[HSideArr]

@@ -10,20 +10,20 @@ trait Int2Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = buffer.append2(int1, int2)
 }
 
-trait Int2SeqLike[A <: Int2Elem] extends Any with IntNSeqLike[A]
+trait Int2SeqLike[A <: Int2Elem] extends Any with SeqLikeIntN[A]
 { override def elemProdSize: Int = 2
   final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.int1, newElem.int2)
   def newElem(i1: Int, i2: Int): A
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int2Elem]]s. */
-trait Int2SeqSpec[A <: Int2Elem] extends Any with Int2SeqLike[A] with IntNSeqSpec[A]
+trait Int2SeqSpec[A <: Int2Elem] extends Any with Int2SeqLike[A] with SeqSpecIntN[A]
 { final override def ssIndex(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   final override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
-trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A] with Int2SeqLike[A]
+trait Int2Arr[A <: Int2Elem] extends Any with ArrIntN[A] with Int2SeqLike[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   final override def length: Int = unsafeArray.length / 2
@@ -76,7 +76,7 @@ trait Int2Buff[A <: Int2Elem] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final [[Int2SeqSpec]] classes. */
-trait Int2SeqLikeCompanion[A <: Int2Elem, ArrA <: Int2SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
+trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: Int2SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 {
   override def elemNumInts: Int = 2
 

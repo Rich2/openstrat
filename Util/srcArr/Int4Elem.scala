@@ -15,7 +15,7 @@ trait Int4Elem extends Any with IntNElem
   { buffer.append(int1); buffer.append(int2); buffer.append(int3); buffer.append(int4) }
 }
 
-trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
+trait Int4SeqLike[A <: Int4Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 4
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -23,7 +23,7 @@ trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNSeqSpec[A]
+trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
@@ -32,7 +32,7 @@ trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNSeqSpe
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNArr[A]
+trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with ArrIntN[A]
 { final override def length: Int = unsafeArray.length / 4
 
   override def apply(index: Int): A =

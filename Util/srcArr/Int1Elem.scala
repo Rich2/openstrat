@@ -11,13 +11,13 @@ trait Int1Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]) : Unit = { buffer.append(int1) }
 }
 
-trait Int1SeqLike[A <: Int1Elem] extends Any with IntNSeqLike[A]
+trait Int1SeqLike[A <: Int1Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 1
   final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(index) = newElem.int1 }
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
-trait Int1SeqSpec[A <: Int1Elem] extends Any with Int1SeqLike[A] with IntNSeqSpec[A]
+trait Int1SeqSpec[A <: Int1Elem] extends Any with Int1SeqLike[A] with SeqSpecIntN[A]
 { final override def ssIndex(index: Int): A = ssElem(unsafeArray(index))
 
   /** Constructs an element of the specifing sequence from an [[Int]] value. */
@@ -25,7 +25,7 @@ trait Int1SeqSpec[A <: Int1Elem] extends Any with Int1SeqLike[A] with IntNSeqSpe
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A] with Int1SeqLike[A]
+trait Int1Arr[A <: Int1Elem] extends Any with ArrIntN[A] with Int1SeqLike[A]
 { final override def length: Int = unsafeArray.length
 
   @targetName("append") inline final override def +%(operand: A): ThisT =

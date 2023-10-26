@@ -173,7 +173,6 @@ trait UnshowSeqLikeInt2[A <: Int2Elem, M <: Int2Arr[A]] extends UnshowIntNSeqLik
 class UnshowArrInt2[A <: Int2Elem, M <: Int2Arr[A]](f: Array[Int] => M) extends UnshowSeqLikeInt2[A, M]
 { override def typeStr: String = "Seq"
   override def fromArray(array: Array[Int]): M = f(array)
-
 }
 
 object UnshowArrInt2

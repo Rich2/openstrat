@@ -46,7 +46,7 @@ class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike w
   }*/
 }
 
-object SqVertArr extends Int2SeqLikeCompanion[SqVert, SqVertArr]
+object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
 { def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
 
   /** Implicit [[Show]] type class instance / evidence for [[SqVertArr]]. */

@@ -99,7 +99,7 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
 /** Companion object for [[HCenArrLayer]] trait contains implicit builder instances. */
 object HCenArrLayer extends HCenArrLayerLowPrioity
 {
-  implicit def intNBuilderEv[B <: IntNElem, ArrB <: IntNArr[B]](implicit intNArrMapBuilder: IntNArrMapBuilder[B, ArrB]):
+  implicit def intNBuilderEv[B <: IntNElem, ArrB <: ArrIntN[B]](implicit intNArrMapBuilder: IntNArrMapBuilder[B, ArrB]):
   HCenArrLayerBuilder[B, ArrB, HCenIntNArrLayer[B, ArrB]] = new HCenArrLayerBuilder[B, ArrB, HCenIntNArrLayer[B, ArrB]]
   { override val arrBBuild: IntNArrMapBuilder[B, ArrB] = intNArrMapBuilder
     override def uninitialised(gridSys: HGridSys): HCenIntNArrLayer[B, ArrB] =

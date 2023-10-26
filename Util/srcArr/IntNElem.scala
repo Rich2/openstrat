@@ -13,10 +13,10 @@ trait IntNElem extends Any with ValueNElem
   def intBufferAppend(buffer: ArrayBuffer[Int]): Unit
 }
 
-trait IntNSeqLike[A <: IntNElem] extends Any with SeqLikeValueN[A] with ArrayIntBacked
-{ type ThisT <: IntNSeqLike[A]
+trait SeqLikeIntN[A <: IntNElem] extends Any with SeqLikeValueN[A] with ArrayIntBacked
+{ type ThisT <: SeqLikeIntN[A]
 
-  /** Constructs the final type of these [[IntNSeqLike]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or
+  /** Constructs the final type of these [[SeqLikeIntN]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or
    *  the appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
@@ -24,8 +24,8 @@ trait IntNSeqLike[A <: IntNElem] extends Any with SeqLikeValueN[A] with ArrayInt
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with SeqSpecValueN[A] with ArrayIntBacked
-{ type ThisT <: IntNSeqSpec[A]
+trait SeqSpecIntN[A <: IntNElem] extends Any with SeqLikeIntN[A] with SeqSpecValueN[A] with ArrayIntBacked
+{ type ThisT <: SeqSpecIntN[A]
 
   override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(ssLength)
@@ -36,9 +36,9 @@ trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with SeqSpecVal
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNArr[A <: IntNElem] extends Any with ArrValueN[A] with IntNSeqLike[A]
+trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
 { /** The final type of this Array[Int] backed collection class. */
-  type ThisT <: IntNArr[A]
+  type ThisT <: ArrIntN[A]
 
   final override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(length)
@@ -95,29 +95,29 @@ trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLikeVal
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with MapBuilderSeqLikeValueN[B, BB]
+trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: SeqLikeIntN[B]] extends IntNSeqLikeCommonBuilder[BB] with MapBuilderSeqLikeValueN[B, BB]
 { type BuffT <:  IntNBuff[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
 
-trait IntNSeqLikeFlatBuilder[BB <: IntNSeqLike[_]] extends IntNSeqLikeCommonBuilder[BB] with FlatBuilderSeqLikeValueN[BB]
+trait IntNSeqLikeFlatBuilder[BB <: SeqLikeIntN[_]] extends IntNSeqLikeCommonBuilder[BB] with FlatBuilderSeqLikeValueN[BB]
 
-/** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[MapBuilderArr]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[MapBuilderArr]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNArrMapBuilder[B <: IntNElem, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with MapBuilderArrValueN[B, ArrB]
+trait IntNArrMapBuilder[B <: IntNElem, ArrB <: ArrIntN[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with MapBuilderArrValueN[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for [[FlatBuilderArr] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[FlatBuilderArr] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends IntNSeqLikeCommonBuilder[ArrB] with FlatBuilderArrValueN[ArrB]
+trait IntNArrFlatBuilder[ArrB <: ArrIntN[_]] extends IntNSeqLikeCommonBuilder[ArrB] with FlatBuilderArrValueN[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
 trait IntNBuff[A <: IntNElem] extends Any with BuffValueN[A]
-{ type ArrT <: IntNArr[A]
+{ type ArrT <: ArrIntN[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
   def grow(newElem: A): Unit
@@ -126,15 +126,15 @@ trait IntNBuff[A <: IntNElem] extends Any with BuffValueN[A]
 }
 
 /**  Class to [[Unshow]] specialised flat Array[Int] based collections. */
-trait UnshowIntNSeqLike[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowSeqLikeValueN[A, M]
+trait UnshowIntNSeqLike[A <: IntNElem, M <: SeqLikeIntN[A]] extends UnshowSeqLikeValueN[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = BuffInt(0)
 }
 
-/** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
+/** Helper trait for Companion objects of [[ArrIntN]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
-trait IntNSeqLikeCompanion[A <: IntNElem, AA <: IntNSeqLike[A]]
+trait IntNSeqLikeCompanion[A <: IntNElem, AA <: SeqLikeIntN[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 

@@ -12,27 +12,27 @@ type VT
 }
 
 /**  Class to [[Unshow]] specialised flat Array[Int] based collections. */
-trait UnshowSeqLikeIntN[A <: IntNElem, M <: IntNSeqLike[A]] extends UnshowSeqLikeValueN[A, M]
+trait UnshowSeqLikeIntN[A <: IntNElem, M <: SeqLikeIntN[A]] extends UnshowSeqLikeValueN[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = BuffInt()
   final override def appendtoBuffer(buffer: ArrayBuffer[Int], value: A): Unit = value.intBufferAppend(buffer)
 }
 
-class UnshowArrIntN[A <: IntNElem, M <: IntNArr[A]](f: Array[Int] => M) extends UnshowSeqLikeIntN[A, M] with PersistBaseSeq[A, M]
+class UnshowArrIntN[A <: IntNElem, M <: ArrIntN[A]](f: Array[Int] => M) extends UnshowSeqLikeIntN[A, M] with PersistBaseSeq[A, M]
 { override def fromArray(array: Array[Int]): M = f(array)
 }
 
 object UnshowArrIntN
-{ def apply[A <: IntNElem, M <: IntNArr[A]](f: Array[Int] => M): UnshowArrIntN[A, M] = new UnshowArrIntN[A, M](f)
+{ def apply[A <: IntNElem, M <: ArrIntN[A]](f: Array[Int] => M): UnshowArrIntN[A, M] = new UnshowArrIntN[A, M](f)
 }
 
-class UnshowSeqSpecIntN[A <: IntNElem, M <: IntNSeqSpec[A]](val typeStr: String, f: Array[Int] => M) extends UnshowSeqLikeIntN[A, M]
+class UnshowSeqSpecIntN[A <: IntNElem, M <: SeqSpecIntN[A]](val typeStr: String, f: Array[Int] => M) extends UnshowSeqLikeIntN[A, M]
 { override def fromArray(array: Array[Int]): M = f(array)
 }
 
 object UnshowSeqSpecIntN
-{ def apply[A <: IntNElem, M <: IntNSeqSpec[A]](typeStr: String, f: Array[Int] => M): UnshowSeqSpecIntN[A, M] = new UnshowSeqSpecIntN[A, M](typeStr, f)
+{ def apply[A <: IntNElem, M <: SeqSpecIntN[A]](typeStr: String, f: Array[Int] => M): UnshowSeqSpecIntN[A, M] = new UnshowSeqSpecIntN[A, M](typeStr, f)
 }
 
 

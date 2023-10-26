@@ -16,7 +16,7 @@ trait Int6Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = buffer.append6(int1, int2, int3, int4, int5, int6)
 }
 
-trait Int6SeqLike[A <: Int6Elem] extends Any with IntNSeqLike[A]
+trait Int6SeqLike[A <: Int6Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 6
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
@@ -25,7 +25,7 @@ trait Int6SeqLike[A <: Int6Elem] extends Any with IntNSeqLike[A]
     unsafeArray.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNSeqSpec[A]
+trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5) & (a1.int6 == a2.int6)
@@ -35,7 +35,7 @@ trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNSeqSpe
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait Int6Arr[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNArr[A]
+trait Int6Arr[A <: Int6Elem] extends Any with Int6SeqLike[A] with ArrIntN[A]
 { final override def length: Int = unsafeArray.length / 6
 
   override def apply(index: Int): A = newElem(unsafeArray(6 * index), unsafeArray(6 * index + 1), unsafeArray(6 * index + 2),

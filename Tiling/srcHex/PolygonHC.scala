@@ -80,7 +80,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
 }
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonHC]] trait. */
-object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
+object PolygonHC extends CompanionSeqLikeInt2[HCoord, PolygonHC]
 { override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 
   implicit val arrBuildImplicit: MapBuilderArr[PolygonHC, PolygonHCArr] = new MapBuilderArr[PolygonHC, PolygonHCArr] {
