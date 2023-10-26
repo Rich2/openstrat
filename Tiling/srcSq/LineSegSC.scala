@@ -42,7 +42,7 @@ class LineSegSCArr(val unsafeArray: Array[Int]) extends ArrInt4[LineSegSC]
 }
 
 /** Companion object for the LineSegSqCs class. */
-object LineSegSCArr extends Int4ArrCompanion[LineSegSC, LineSegSCArr]
+object LineSegSCArr extends CompanionSrrInt4[LineSegSC, LineSegSCArr]
 {
   /*implicit val persistImplicit: DataInt4sPersist[LineSegSqC, LineSegSqCs] = new DataDbl4sPersist[LineSegSqC, LineSegSqCs]("Line2s")
   { override def fromArray(value: Array[Int]): LineSegSqCs = new LineSegSqCs(value)
@@ -74,7 +74,7 @@ object LineSegSCBuff
 { def apply(initLen: Int = 4): LineSegSCBuff = new LineSegSCBuff(new ArrayBuffer[Int](initLen * 4))
 }
 
-class LineSegSCMapBuilder extends Int4ArrMapBuilder[LineSegSC, LineSegSCArr]
+class LineSegSCMapBuilder extends BuilderArrInt4Map[LineSegSC, LineSegSCArr]
 { type BuffT = LineSegSCBuff
   override def fromIntArray(array: Array[Int]): LineSegSCArr = new LineSegSCArr(array)
   def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegSCBuff = new LineSegSCBuff(buffer)

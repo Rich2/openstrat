@@ -75,7 +75,7 @@ trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[_]] extends BuilderSeqLikeIntN[BB]
   final override def elemProdSize: Int = 4
 }
 
-trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB] with BuilderSeqLikeIntNMap[B, BB]
+trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt4[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
@@ -87,12 +87,12 @@ trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends Builder
 /** Trait for creating the ArrTBuilder type class instances for [[ArrInt4]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int4ArrMapBuilder[B <: Int4Elem, ArrB <: ArrInt4[B]] extends Int4SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLikeInt4Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int4ArrFlatBuilder[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderFlatArrIntN[ArrB]
+trait BuilderArrInt4Flat[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderFlatArrIntN[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
-abstract class Int4ArrCompanion[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
+abstract class CompanionSrrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): BuffInt4[A]

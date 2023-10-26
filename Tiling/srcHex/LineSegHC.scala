@@ -50,7 +50,7 @@ class LineSegHCArr(val unsafeArray: Array[Int]) extends ArrInt4[LineSegHC]
 }
 
 /** Companion object for the LineSegHCs class. */
-object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
+object LineSegHCArr extends CompanionSrrInt4[LineSegHC, LineSegHCArr]
 {
   implicit def pairArrFlatBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
 
@@ -79,7 +79,7 @@ object LineSegHCBuff
 { def apply(initLen: Int = 4): LineSegHCBuff = new LineSegHCBuff(new ArrayBuffer[Int](initLen * 4))
 }
 
-class LineSegHCMapBuilder extends Int4ArrMapBuilder[LineSegHC, LineSegHCArr]
+class LineSegHCMapBuilder extends BuilderArrInt4Map[LineSegHC, LineSegHCArr]
 { type BuffT = LineSegHCBuff
   override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
   def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
