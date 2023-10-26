@@ -12,7 +12,7 @@ trait Int4PairElem[A1 <: Int4Elem, A2] extends IntNPairElem[A1, A2]
 }
 
 /** An [[Arr]] of [[PairNoA1ParamElem]]s where the first component is an [[Int4Elem]]. */
-trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: Int4PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Int4PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
@@ -58,14 +58,14 @@ trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends IntNPa
   }
 }
 
-trait Int4PairArrCommonBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
+trait Int4PairArrCommonBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
 IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, _]
   type B1BuffT <: Int4Buff[B1]
 
 }
 
-trait Int4PairArrMapBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, B <: Int4PairElem[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
+trait Int4PairArrMapBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, B <: Int4PairElem[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
 Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, B]
 
@@ -77,7 +77,7 @@ Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, Ar
   }
 }
 
-trait Int4PairArrFlatBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
+trait Int4PairArrFlatBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
   Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 
 trait Int4PairArrCompanion[A1 <: Int4Elem]

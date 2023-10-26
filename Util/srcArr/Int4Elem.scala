@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4Arr]] Array[Int] based collections. */
+/** An object that can be constructed from 4 [[Int]]s. These are used in [[ArrInt4]] Array[Int] based collections. */
 trait Int4Elem extends Any with IntNElem
 { def int1: Int
   def int2: Int
@@ -15,7 +15,7 @@ trait Int4Elem extends Any with IntNElem
   { buffer.append(int1); buffer.append(int2); buffer.append(int3); buffer.append(int4) }
 }
 
-trait Int4SeqLike[A <: Int4Elem] extends Any with SeqLikeIntN[A]
+trait SeqLikeInt4[A <: Int4Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 4
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -23,7 +23,7 @@ trait Int4SeqLike[A <: Int4Elem] extends Any with SeqLikeIntN[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with SeqSpecIntN[A]
+trait SeqSpecInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
@@ -32,7 +32,7 @@ trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with SeqSpecInt
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with ArrIntN[A]
+trait ArrInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with ArrIntN[A]
 { final override def length: Int = unsafeArray.length / 4
 
   override def apply(index: Int): A =
@@ -70,12 +70,12 @@ trait Int4Buff[A <: Int4Elem] extends Any with BuffIntN[A]
   final override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-trait Int4SeqLikeCommonBuilder[BB <: Int4SeqLike[_]] extends BuilderAllSeqLikeIntN[BB]
+trait Int4SeqLikeCommonBuilder[BB <: SeqLikeInt4[_]] extends BuilderAllSeqLikeIntN[BB]
 { type BuffT <: Int4Buff[_]
   final override def elemProdSize: Int = 4
 }
 
-trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: Int4SeqLike[B]] extends Int4SeqLikeCommonBuilder[BB] with BuilderSeqLikeIntNMap[B, BB]
+trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends Int4SeqLikeCommonBuilder[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: Int4Buff[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
@@ -84,15 +84,15 @@ trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: Int4SeqLike[B]] extends Int4Seq
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append4(newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[BuilderArrMap]] type
+/** Trait for creating the ArrTBuilder type class instances for [[ArrInt4]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int4ArrMapBuilder[B <: Int4Elem, ArrB <: Int4Arr[B]] extends Int4SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait Int4ArrMapBuilder[B <: Int4Elem, ArrB <: ArrInt4[B]] extends Int4SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int4ArrFlatBuilder[ArrB <: Int4Arr[_]] extends Int4SeqLikeCommonBuilder[ArrB] with BuilderFlatArrIntN[ArrB]
+trait Int4ArrFlatBuilder[ArrB <: ArrInt4[_]] extends Int4SeqLikeCommonBuilder[ArrB] with BuilderFlatArrIntN[ArrB]
 
-/** Class for the singleton companion objects of [[Int4Arr]] final classes to extend. */
-abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends CompanionSeqLikeIntN[A, M]
+/** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
+abstract class Int4ArrCompanion[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): Int4Buff[A]

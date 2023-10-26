@@ -37,7 +37,7 @@ trait LineSegLikeIntNPairArr[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], ArrA1 <:
 
 trait LineSegLikeInt4Pair[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with Int4PairElem[A1, A2]
 
-trait LineSegLikeInt4PairArr[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], ArrA1 <: Int4Arr[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
+trait LineSegLikeInt4PairArr[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], ArrA1 <: ArrInt4[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
 LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A] with Int4PairArr[A1, ArrA1, A2, A]
 { final override def a1NumInt: Int = 4
 }
