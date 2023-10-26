@@ -107,7 +107,7 @@ trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCo
 trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends Dbl6SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait Dbl6Buff[A <: Dbl6Elem] extends Any with DblNBuff[A]
+trait Dbl6Buff[A <: Dbl6Elem] extends Any with BuffDblN[A]
 { type ArrT <: Dbl6Arr[A]
   override def elemProdSize: Int = 6
   final override def length: Int = unsafeBuffer.length / 6

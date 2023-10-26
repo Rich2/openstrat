@@ -90,7 +90,7 @@ abstract class Dbl3SeqLikeCompanion[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] exten
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
-trait Dbl3Buff[A <: Dbl3Elem] extends Any with DblNBuff[A]
+trait Dbl3Buff[A <: Dbl3Elem] extends Any with BuffDblN[A]
 { type ArrT <: Dbl3Arr[A]
 
   /** Constructs a new element of this buffer from 3 [[Double]]s. */

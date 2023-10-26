@@ -103,7 +103,7 @@ abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait Dbl4Buff[A <: Dbl4Elem] extends Any with DblNBuff[A]
+trait Dbl4Buff[A <: Dbl4Elem] extends Any with BuffDblN[A]
 { type ArrT <: Dbl4Arr[A]
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
   override def elemProdSize: Int = 4

@@ -139,8 +139,8 @@ package object geom
                 baseLine: BaseLine = BaseLine.Alphabetic): TextFixed = TextFixed(thisString, fontSize, posn, colour, align, baseLine)
   }
 
-  implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: DblNBuff[A])
-  { /** Extension method to create Polygons from [[DblNBuff]]. Takes an implicit [[PolygonDblNMapBuilder]] parameter to return the [[PolygonLikeDblN]] */
+  implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: BuffDblN[A])
+  { /** Extension method to create Polygons from [[BuffDblN]]. Takes an implicit [[PolygonDblNMapBuilder]] parameter to return the [[PolygonLikeDblN]] */
     def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNMapBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
   }
 

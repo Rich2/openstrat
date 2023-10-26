@@ -86,7 +86,6 @@ final class Pt2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with D
   def newElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
-object Pt2Buff
-{ /** Factory apply method for [[Pt2Buff]]. */
-  def apply(n: Int = 4): Pt2Buff = new Pt2Buff(new ArrayBuffer[Double](n * 2))
+object Pt2Buff extends CompanionBuffDbl2[Pt2, Pt2Buff]
+{ override def fromBuffer(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
 }

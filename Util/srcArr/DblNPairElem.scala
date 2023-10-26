@@ -42,7 +42,7 @@ trait DblNPairBuff[B1 <: DblNElem, B2, B <: DblNPairElem[B1, B2]] extends PairBu
 trait DblNPAirArrCommonBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
 PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, _]
-  type B1BuffT <: DblNBuff[B1]
+  type B1BuffT <: BuffDblN[B1]
 
   /** Constructs the [[Arr]] class from an [[Array]][Double] object for the first components of the pairs and an [[Array]][B2] for the second
    *  components of the pairs. */

@@ -92,7 +92,7 @@ trait DblNArr[A <: DblNElem] extends Any with SeqLikeDblN[A] with ArrValueN[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait DblNBuff[A <: DblNElem] extends Any with BuffValueN[A]
+trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
 
@@ -105,7 +105,7 @@ trait DblNBuff[A <: DblNElem] extends Any with BuffValueN[A]
 
 /** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
 trait CommonBuilderSeqLikeDblN[BB <: SeqLike[_]] extends CommonBuilderSeqLikeValueN[BB]
-{ type BuffT <: DblNBuff[_]
+{ type BuffT <: BuffDblN[_]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
@@ -113,7 +113,7 @@ trait CommonBuilderSeqLikeDblN[BB <: SeqLike[_]] extends CommonBuilderSeqLikeVal
 }
 
 trait DblNSeqLikeMapBuilder[B <: DblNElem, BB <: SeqLikeDblN[B]] extends CommonBuilderSeqLikeDblN[BB] with MapBuilderSeqLike[B, BB]
-{ type BuffT <: DblNBuff[B]
+{ type BuffT <: BuffDblN[B]
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, newElem: B): Unit = newElem.dblForeach(buff.unsafeBuffer.append(_))
 
@@ -169,14 +169,14 @@ trait DblNSeqLikeCompanion[A <: DblNElem, AA <: SeqLikeDblN[A]]// extends SeqLik
   }
 }
 
-/** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
-/*
-trait DblNBuffCompanion[A <: DblNElem, AA <: DblNBuff[A]]
-{ /** apply factory method for [[DblNBuff]] final classes */
+/** Helper trait for [[BuffDblN]] companion objects. Facilitates factory apply methods. */
+trait CompanionBuffDblN[A <: DblNElem, AA <: BuffDblN[A]]
+{ /** apply factory method for [[BuffDblN]] final classes */
   def apply(elems: A*): AA
 
   /** Number of [[Double]]s required to construct an element */
-  def elemNumInts: Int
+  def elemNumDbls: Int
 
+  /** Allows the creation of the final [[Buff]] class from an [[ArrayBuffer]][Double]. */
   def fromBuffer(buffer: ArrayBuffer[Double]): AA
-}*/
+}

@@ -142,7 +142,7 @@ trait Dbl2SeqLikeCompanion[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends DblNSeqL
 }
 
 /** [[Buff]] class for building [[Dbl2Elem]]s collections. */
-trait Dbl2Buff[B <: Dbl2Elem] extends Any with DblNBuff[B]
+trait Dbl2Buff[B <: Dbl2Elem] extends Any with BuffDblN[B]
 { type ArrT <: Dbl2Arr[B]
 
   /** Constructs a new element of this [[Buff]] from 2 [[Double]]s. */
@@ -155,4 +155,15 @@ trait Dbl2Buff[B <: Dbl2Elem] extends Any with DblNBuff[B]
   override def apply(index: Int): B = newElem(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   final override def setElemUnsafe(i: Int, newElem: B): Unit = unsafeBuffer.setIndex2(i, newElem.dbl1, newElem.dbl2)
   override def fElemStr: B => String = _.toString
+}
+
+trait CompanionBuffDbl2[A <: Dbl2Elem, AA <: Dbl2Buff[A]] extends CompanionBuffDblN[A, AA]
+{
+  override def apply(elems: A*): AA =
+  { val buffer: ArrayBuffer[Double] =  new ArrayBuffer[Double](elems.length * 2 + 6)
+    elems.foreach{ elem => buffer.append2(elem.dbl1, elem.dbl2) }
+    fromBuffer(buffer)
+  }
+
+  final override def elemNumDbls: Int = 2
 }

@@ -92,7 +92,7 @@ abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] exten
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl5Elem]]s collections. */
-trait Dbl5Buff[A <: Dbl5Elem] extends Any with DblNBuff[A]
+trait Dbl5Buff[A <: Dbl5Elem] extends Any with BuffDblN[A]
 { type ArrT <: Dbl5Arr[A]
   override def elemProdSize: Int = 5
   final override def length: Int = unsafeBuffer.length / 5
