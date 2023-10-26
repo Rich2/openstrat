@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 trait DblNPairElem[A1 <: DblNElem, A2] extends PairNoA1ParamElem[A1, A2]
 
-trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
+trait DblNPairArr[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: DblNPairElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
 { type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
 
   def a1NumDbl: Int
@@ -39,7 +39,7 @@ trait DblNPairBuff[B1 <: DblNElem, B2, B <: DblNPairElem[B1, B2]] extends PairBu
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.dblForeach(b1DblBuffer.append(_)); b2Buffer.append(b2) }
 }
 
-trait DblNPAirArrCommonBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
+trait DblNPAirArrCommonBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
 PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, _]
   type B1BuffT <: BuffDblN[B1]
@@ -58,7 +58,7 @@ PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait DblNPairArrMapBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, B <: DblNPairElem[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
+trait DblNPairArrMapBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, B <: DblNPairElem[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
 
@@ -69,7 +69,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
   inline final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.grow(newElem)
 }
 
-trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
+trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayDbl.foreach(buff.b1DblBuffer.append(_))
@@ -77,7 +77,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1,
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
-trait DblNPairArrCompanion[A1 <: DblNElem, ArrA1 <: DblNArr[A1]]
+trait DblNPairArrCompanion[A1 <: DblNElem, ArrA1 <: ArrDblN[A1]]
 {
   /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def elemNumDbls: Int

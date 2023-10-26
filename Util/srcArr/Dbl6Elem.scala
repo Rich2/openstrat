@@ -42,7 +42,7 @@ trait Dbl6SeqSpec[A <: Dbl6Elem] extends Any with Dbl6SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl6Elem]]s. */
-trait Dbl6Arr[A <: Dbl6Elem] extends Any with DblNArr[A] with Dbl6SeqLike[A]
+trait Dbl6Arr[A <: Dbl6Elem] extends Any with ArrDblN[A] with Dbl6SeqLike[A]
 { final override def length: Int = unsafeArray.length / 6
 
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
@@ -70,7 +70,7 @@ trait Dbl6Arr[A <: Dbl6Elem] extends Any with DblNArr[A] with Dbl6SeqLike[A]
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqSpec]] classes. */
-abstract class Dbl6SeqLikeCompanion[A <: Dbl6Elem, ArrA <: Dbl6SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
+abstract class Dbl6SeqLikeCompanion[A <: Dbl6Elem, ArrA <: Dbl6SeqLike[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def elemNumDbls: Int = 6
 
   def apply(elems: A*): ArrA =

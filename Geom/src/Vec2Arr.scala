@@ -33,7 +33,7 @@ final class Vec2Arr(val unsafeArray: Array[Double]) extends /*AffinePreserve wit
 }
 
 /** Companion object for the [[Vec2Arr]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
-object Vec2Arr extends Dbl2SeqLikeCompanion[Vec2, Vec2Arr]
+object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
 {
   override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
 
@@ -76,7 +76,6 @@ final class BuffVec2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with 
   def newElem(d1: Double, d2: Double): Vec2 = Vec2(d1, d2)
 }
 
-object BuffVec2
-{
-  def empty: BuffVec2 = new BuffVec2(new ArrayBuffer[Double](4))
+object BuffVec2 extends CompanionBuffDbl2[Vec2, BuffVec2]
+{ override def fromBuffer(buffer: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(buffer)
 }

@@ -11,7 +11,7 @@ trait Dbl1Elem extends Any with DblNElem
 }
 
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
-trait Dbl1Arr[A <: Dbl1Elem] extends Any with DblNArr[A]
+trait Dbl1Arr[A <: Dbl1Elem] extends Any with ArrDblN[A]
 { final override def elemProdSize: Int = 1
   def newElem(dblValue: Double): A
   final override def length: Int = unsafeArray.length

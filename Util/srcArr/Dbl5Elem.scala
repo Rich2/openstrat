@@ -35,7 +35,7 @@ trait Dbl5SeqSpec[A <: Dbl5Elem] extends Any with Dbl5SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait Dbl5Arr[A <: Dbl5Elem] extends Any with DblNArr[A] with Dbl5SeqLike[A]
+trait Dbl5Arr[A <: Dbl5Elem] extends Any with ArrDblN[A] with Dbl5SeqLike[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
   final override def length: Int = unsafeArray.length / 5
   def head1: Double = unsafeArray(0)
@@ -76,7 +76,7 @@ trait Dbl5ArrMapBuilder[B <: Dbl5Elem, ArrB <: Dbl5Arr[B]] extends Dbl5SeqLikeCo
 trait Dbl5ArrFlatBuilder[ArrB <: Dbl5Arr[_]] extends Dbl5SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Helper class for companion objects of final [[Dbl5SeqSpec]] classes. */
-abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
+abstract class Dbl5SeqLikeCompanion[A <: Dbl5Elem, ArrA <: Dbl5SeqLike[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def elemNumDbls: Int = 5
 
   def apply(elems: A*): ArrA =

@@ -54,7 +54,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
+object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
 { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 
   /** [[Show]] type class instance / evidence for [[PolygonM2]]. */

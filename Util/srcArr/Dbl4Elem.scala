@@ -29,7 +29,7 @@ trait Dbl4SeqSpec[A <: Dbl4Elem] extends Any with Dbl4SeqLike[A] with SeqSpecDbl
   override def ssIndex(index: Int): A = ssElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
-trait Dbl4Arr[A <: Dbl4Elem] extends Any with DblNArr[A] with Dbl4SeqLike[A]
+trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with Dbl4SeqLike[A]
 { def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
@@ -74,7 +74,7 @@ trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommon
 trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
-abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
+abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends CompanionSeqLikeDblN[A, AA]
 { /* Apply factory method for [[Dbl4SeqLike]]. If you are constructing the elements inline the tuple4s factory method may be preferred. */
   final def apply(elems: A*): AA =
   { val length = elems.length

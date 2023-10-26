@@ -59,7 +59,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
 }
 
 /** Companion object for the [[PolygonLL]] class. */
-object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
+object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
   /** Implicit instance to build specialist sequences of [[PolygonLL]]s for map and related methods. */

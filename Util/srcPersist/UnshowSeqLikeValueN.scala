@@ -45,12 +45,12 @@ trait UnshowSeqLikeDblN[A <: DblNElem, M <: SeqLikeDblN[A]] extends UnshowSeqLik
   final override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = value.dblBufferAppend(buffer)
 }
 
-class UnshowArrDblN[A <: DblNElem, M <: DblNArr[A]](f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M] with PersistBaseSeq[A, M]
+class UnshowArrDblN[A <: DblNElem, M <: ArrDblN[A]](f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M] with PersistBaseSeq[A, M]
 { override def fromArray(array: Array[Double]): M = f(array)
 }
 
 object UnshowArrDblN
-{ def apply[A <: DblNElem, M <: DblNArr[A]](f: Array[Double] => M): UnshowArrDblN[A, M] = new UnshowArrDblN[A, M](f)
+{ def apply[A <: DblNElem, M <: ArrDblN[A]](f: Array[Double] => M): UnshowArrDblN[A, M] = new UnshowArrDblN[A, M](f)
 }
 
 class UnshowSeqSpecDblN[A <: DblNElem, M <: SeqSpecDblN[A]](val typeStr: String, f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M]
@@ -64,7 +64,7 @@ object UnshowSeqSpecDblN
 /** Class to Persist specialised for [[ValueNElem]]s cLasses. */
 trait PersistValueNSeqLike[A <: ValueNElem, M <: SeqLikeValueN[A]] extends PersistCompound[M] with UnshowSeqLikeValueN[A, M]
 
-/** Persists [[DblNArr]]s. */
+/** Persists [[ArrDblN]]s. */
 trait DataDblNsPersist[A <: DblNElem, M <: SeqLikeDblN[A]] extends PersistValueNSeqLike[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)

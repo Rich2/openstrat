@@ -116,7 +116,7 @@ class PtM2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2]
 }
 
 /** Companion object for the [[PtM2Arr]] class. Contains implicit Instance for Persist type class. */
-object PtM2Arr extends Dbl2SeqLikeCompanion[PtM2, PtM2Arr]
+object PtM2Arr extends CompanionSeqLikeDbl2[PtM2, PtM2Arr]
 {
   override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
 

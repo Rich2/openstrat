@@ -41,10 +41,12 @@ final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with
 }
 
 /** Companion object for LinePath contains apply factory object and Persist type class instance. */
-object LinePath extends Dbl2SeqLikeCompanion[Pt2, LinePath]
+object LinePath extends CompanionSeqLikeDbl2[Pt2, LinePath]
 { override def fromArray(array: Array[Double]): LinePath = new LinePath(array)
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[Pt2, LinePath] = new Dbl2SeqDefPersist[Pt2, LinePath]("LinePath")
-  { override def fromArray(array: Array[Double]): LinePath = new LinePath(array)
-  }
+  /** [[Show]] type class instance / evidence for [[LinePath]]. */
+  implicit val showEv: ShowSeqSpec[Pt2, LinePath] = ShowSeqSpec[Pt2, LinePath]("LinePath")
+
+  /** [[Unshow]] type class instance / evidence for [[LinePath]]. */
+  implicit val unshowEv: UnshowSeqSpecDblN[Pt2, LinePath] = UnshowSeqSpecDblN[Pt2, LinePath]("LinePath", fromArray)
 }

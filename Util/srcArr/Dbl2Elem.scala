@@ -76,7 +76,7 @@ trait Dbl2SeqSpec[A <: Dbl2Elem] extends Any with Dbl2SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2Arr[A <: Dbl2Elem] extends Any with DblNArr[A] with Dbl2SeqLike[A]
+trait Dbl2Arr[A <: Dbl2Elem] extends Any with ArrDblN[A] with Dbl2SeqLike[A]
 { type ThisT <: Dbl2Arr[A]
   final override def length: Int = unsafeArray.length / 2
   def head1: Double = unsafeArray(0)
@@ -109,7 +109,7 @@ trait Dbl2SeqLikeCommonBuilder[BB <: Dbl2SeqLike[_]] extends CommonBuilderSeqLik
   final override def elemProdSize = 2
 }
 
-trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with DblNSeqLikeMapBuilder[B, BB]
+trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with MapBuilderSeqLikeDblN[B, BB]
 { type BuffT <: Dbl2Buff[B]
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.dbl1, elem.dbl2)
 }
@@ -125,7 +125,7 @@ trait Dbl2ArrMapBuilder[B <: Dbl2Elem, ArrB <: Dbl2Arr[B]] extends Dbl2SeqLikeMa
 trait Dbl2ArrFlatBuilder[ArrB <: Dbl2Arr[_]] extends Dbl2SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl2Arr]] final classes to extend. */
-trait Dbl2SeqLikeCompanion[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
+trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends CompanionSeqLikeDblN[A, AA]
 { final def elemNumDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */

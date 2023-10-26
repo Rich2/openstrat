@@ -55,7 +55,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
 }
 
 /** Companion object for [[PolygonGen]]. */
-object PolygonGen extends Dbl2SeqLikeCompanion[Pt2, PolygonGen]
+object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
 { override def fromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
