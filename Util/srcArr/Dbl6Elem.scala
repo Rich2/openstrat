@@ -85,7 +85,7 @@ abstract class Dbl6SeqLikeCompanion[A <: Dbl6Elem, ArrA <: Dbl6SeqLike[A]] exten
   }
 }
 
-trait Dbl6SeqLikeCommonBuilder[BB <: Dbl6Arr[_]] extends CommonBuilderSeqLikeDblN[BB]
+trait Dbl6SeqLikeCommonBuilder[BB <: Dbl6Arr[_]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: Dbl6Buff[_]
   final override def elemProdSize = 6
 }

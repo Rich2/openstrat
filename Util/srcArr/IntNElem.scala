@@ -88,7 +88,7 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
   }
 }
 
-trait BuilderAllSeqLikeIntN[BB <: SeqLike[_]] extends BuilderAllSeqLikeValueN[BB]
+trait BuilderAllSeqLikeIntN[BB <: SeqLike[_]] extends BuilderSeqLikeValueN[BB]
 { type BuffT <:  BuffIntN[_]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB

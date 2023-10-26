@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** An immutable flat efficient Array backed sequence collection class of 3 dimensional points. This is the default collection class for [Pt3]s. */
-final class Pt3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[Pt3]
+final class Pt3Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl3[Pt3]
 { type ThisT = Pt3Arr
   override def typeStr: String = "Vec3s"
   def newElem(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)

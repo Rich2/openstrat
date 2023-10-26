@@ -51,7 +51,7 @@ object SeqLike
 }
 
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting
- *  from [[BuilderAllSeqLike]]. */
+ *  from [[BuilderSeqLike]]. */
 trait Buff[A] extends Any with Sequ[A]
 { def grow(newElem: A): Unit
 }

@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
-trait BuilderAllSeqLike[BB <: SeqLike[_]]
+trait BuilderSeqLike[BB <: SeqLike[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
    *  BuffProdHomo. */
@@ -18,7 +18,7 @@ trait BuilderAllSeqLike[BB <: SeqLike[_]]
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
-trait BuilderMapSeqLike[B, BB <: SeqLike[B]] extends BuilderAllSeqLike[BB]
+trait BuilderMapSeqLike[B, BB <: SeqLike[B]] extends BuilderSeqLike[BB]
 { type BuffT <: Buff[B]
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
@@ -79,12 +79,12 @@ trait BuilderMapArrPriority2
 
 /** Builds [[SeqLike]] objects via flatMap methods. Hence the type of the element of the sequence or specifiying sequence is not known at the call
  *  site. */
-trait BuilderFlatSeqLike[BB <: SeqLike[_]] extends BuilderAllSeqLike[BB]
+trait BuilderFlatSeqLike[BB <: SeqLike[_]] extends BuilderSeqLike[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[BuilderMapArr]][BB] type class where the instance
  *  should go into the B companion object. */
-trait BuilderFlatArr[ArrB <: Arr[_]] extends BuilderFlatSeqLike[ArrB] with BuilderAllSeqLike[ArrB]
+trait BuilderFlatArr[ArrB <: Arr[_]] extends BuilderFlatSeqLike[ArrB] with BuilderSeqLike[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }
@@ -110,7 +110,7 @@ trait BuilderFlatArrPriority2
 }
 
 /** Builds [[SeqSpec]] objects via flatMap methods. Hence the type of the element of the specifying sequence is not known at the call site. */
-trait BuilderFlatSeqSpec[ArrB <: Arr[_], BB <: SeqSpec[_]] extends BuilderAllSeqLike[BB]
+trait BuilderFlatSeqSpec[ArrB <: Arr[_], BB <: SeqSpec[_]] extends BuilderSeqLike[BB]
 {
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: BB): Unit

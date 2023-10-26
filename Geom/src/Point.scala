@@ -45,7 +45,7 @@ trait PointDbl3 extends Any with PointDblN with Dbl3Elem
 
 trait PointDbl3Pair[A1 <: PointDbl3, A2] extends PointDblNPair[A1, A2] with Dbl3PairElem[A1, A2]
 
-trait PointDbl3PairArr[A1 <: PointDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: PointDbl3Pair[A1, A2]] extends PointDblNPairArr[A1, ArrA1, A2, A] with
+trait PointDbl3PairArr[A1 <: PointDbl3, ArrA1 <: ArrDbl3[A1], A2, A <: PointDbl3Pair[A1, A2]] extends PointDblNPairArr[A1, ArrA1, A2, A] with
   Dbl3PairArr[A1, ArrA1, A2, A]
 { type ThisT <: PointDbl3PairArr[A1, ArrA1, A2, A]
 }
