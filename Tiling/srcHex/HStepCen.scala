@@ -65,7 +65,7 @@ object HStepCenArr extends  Int3SeqLikeCompanion[HStepCen, HStepCenArr]
   }
 }
 
-class HStepCenBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HStepCen]
+class HStepCenBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HStepCen]
 { override type ThisT = HStepCenBuff
   override type ArrT = HStepCenArr
   override def typeStr: String = "HStepCenBuff"

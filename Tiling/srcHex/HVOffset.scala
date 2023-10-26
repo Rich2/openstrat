@@ -164,7 +164,7 @@ object HVOffsetArr extends Int3SeqLikeCompanion [HVOffset, HVOffsetArr]
 }
 
 /** Specialised [[Buff]] class for [[HVOffset]]s. The [[HVert]] with offset class. */
-class HVOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HVOffset]
+class HVOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HVOffset]
 { override type ThisT = HVOffsetBuff
   override type ArrT = HVOffsetArr
   override def typeStr: String = "HVAndoffsetBuff"

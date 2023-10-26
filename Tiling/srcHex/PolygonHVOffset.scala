@@ -39,7 +39,7 @@ object PolygonHVOffset extends Int3SeqLikeCompanion[HVOffset, PolygonHVOffset]
   override def fromArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
 }
 
-trait PolgonHVAndOffsetCommonBuilder extends Int3SeqLikeCommonBuilder[PolygonHVOffset]
+trait PolgonHVAndOffsetCommonBuilder extends BuilderSeqLikeInt3[PolygonHVOffset]
 { override type BuffT = HVOffsetBuff
   override def fromIntArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
   override def fromIntBuffer(inp: ArrayBuffer[Int]): HVOffsetBuff = new HVOffsetBuff(inp)

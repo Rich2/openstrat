@@ -55,7 +55,7 @@ object SqCenStepArr extends Int3SeqLikeCompanion[SqCenStep, SqCenStepArr]
   }
 }
 
-class SqCenStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[SqCenStep]
+class SqCenStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[SqCenStep]
 { override type ThisT = SqCenStepBuff
   override type ArrT = SqCenStepArr
   override def typeStr: String = "SqCenStepBuff"
