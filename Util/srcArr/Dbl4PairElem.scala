@@ -70,7 +70,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 trait Dbl4PairArrMapBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, B <: Dbl4PairElem[B1, B2], ArrB <: Dbl4PairArr[B1, ArrB1, B2, B]] extends
 Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl4PairBuff[B1, B2, B]
-  override type B1BuffT <: Dbl4Buff[B1]
+  override type B1BuffT <: BuffDbl4[B1]
   final override def a1DblNum: Int = 4
 
   final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =

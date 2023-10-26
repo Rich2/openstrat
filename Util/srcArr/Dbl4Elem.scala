@@ -53,16 +53,16 @@ trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
   }
 }
 
-trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends BuilderArrDblN[ArrB]
-{ type BuffT <: Dbl4Buff[_]
+trait BuilderArrDbl4[ArrB <: Dbl4Arr[_]] extends BuilderArrDblN[ArrB]
+{ type BuffT <: BuffDbl4[_]
   final override def elemProdSize = 4
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with BuilderArrDblNMap[B, ArrB]
-{ type BuffT <: Dbl4Buff[B]
+trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends BuilderArrDbl4[ArrB] with BuilderArrDblNMap[B, ArrB]
+{ type BuffT <: BuffDbl4[B]
 
   final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex4(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4)
@@ -71,10 +71,10 @@ trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommon
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl4Flat[ArrB <: Dbl4Arr[_]] extends BuilderArrDbl4[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
-abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends CompanionSeqLikeDblN[A, AA]
+abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends CompanionSeqLikeDblN[A, AA]
 { /* Apply factory method for [[Dbl4SeqLike]]. If you are constructing the elements inline the tuple4s factory method may be preferred. */
   final def apply(elems: A*): AA =
   { val length = elems.length
@@ -103,7 +103,7 @@ abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait Dbl4Buff[A <: Dbl4Elem] extends Any with BuffDblN[A]
+trait BuffDbl4[A <: Dbl4Elem] extends Any with BuffDblN[A]
 { type ArrT <: Dbl4Arr[A]
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
   override def elemProdSize: Int = 4

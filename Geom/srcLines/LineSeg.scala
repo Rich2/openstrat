@@ -142,7 +142,7 @@ Drawable
 }
 
 /** Companion object for the LineSegs class. */
-object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
+object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
 {
   override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
 
@@ -159,7 +159,7 @@ object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
 }
 
 /** Efficient expandable buffer for Line2s. */
-class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl4Buff[LineSeg]
+class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSeg]
 { override def typeStr: String = "Line2sBuff"
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
@@ -169,11 +169,11 @@ object LineSegBuff
 { def apply(length: Int = 4): LineSegBuff = new LineSegBuff(new ArrayBuffer[Double](length))
 }
 
-trait LineSegArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegArr]
+trait LineSegArrCommonBuilder extends BuilderArrDbl4[LineSegArr]
 { type BuffT = LineSegBuff
   override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
 }
 
-class LineSegArrMapBuilder extends LineSegArrCommonBuilder with Dbl4ArrMapBuilder[LineSeg, LineSegArr]
-class LineSegArrFlatBuilder extends LineSegArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegArr]
+class LineSegArrMapBuilder extends LineSegArrCommonBuilder with BuilderArrDbl4Map[LineSeg, LineSegArr]
+class LineSegArrFlatBuilder extends LineSegArrCommonBuilder with BuilderArrDbl4Flat[LineSegArr]

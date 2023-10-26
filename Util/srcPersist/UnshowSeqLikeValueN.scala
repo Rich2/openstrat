@@ -35,8 +35,6 @@ object UnshowSeqSpecIntN
 { def apply[A <: IntNElem, M <: SeqSpecIntN[A]](typeStr: String, f: Array[Int] => M): UnshowSeqSpecIntN[A, M] = new UnshowSeqSpecIntN[A, M](typeStr, f)
 }
 
-
-
 /**  Class to [[Unshow]] specialised flat Array[Double] based collections. */
 trait UnshowSeqLikeDblN[A <: DblNElem, M <: SeqLikeDblN[A]] extends UnshowSeqLikeValueN[A, M]
 { type VT = Double

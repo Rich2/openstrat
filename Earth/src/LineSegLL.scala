@@ -24,7 +24,7 @@ object LineSegLL
   implicit val unshowEv: Unshow2[LatLong, LatLong, LineSegLL] = Unshow2[LatLong, LatLong, LineSegLL]("Line2", "start", "end", apply)
 
   /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
-  implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new LineSegLLArrMapBuilder
+  implicit val buildEv: BuilderArrDbl4Map[LineSegLL, LineSegLLArr] = new LineSegLLArrMapBuilder
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
@@ -38,7 +38,7 @@ class LineSegLLArr(val unsafeArray: Array[Double]) extends LineSegLikeDbl4Arr[La
 }
 
 /** Companion object for the LineSegLLs class. */
-object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
+object LineSegLLArr extends CompanionSeqLikeDbl4[LineSegLL, LineSegLLArr]
 {
   override def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
 
@@ -53,16 +53,16 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
 }
 
 /** Efficient expandable buffer for [[LineSegLL]]s. */
-class LineSegLLBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl4Buff[LineSegLL]
+class LineSegLLBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4[LineSegLL]
 { override def typeStr: String = "Line2sBuff"
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
 }
 
-trait LineSegLLArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegLLArr]
+trait LineSegLLArrCommonBuilder extends BuilderArrDbl4[LineSegLLArr]
 { type BuffT = LineSegLLBuff
   final override def fromDblArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
   final def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(inp)
 }
 
-class LineSegLLArrMapBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
-class LineSegArrLLFlatBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegLLArr]
+class LineSegLLArrMapBuilder extends LineSegLLArrCommonBuilder with BuilderArrDbl4Map[LineSegLL, LineSegLLArr]
+class LineSegArrLLFlatBuilder extends LineSegLLArrCommonBuilder with BuilderArrDbl4Flat[LineSegLLArr]
