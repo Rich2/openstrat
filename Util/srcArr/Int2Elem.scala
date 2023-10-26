@@ -39,12 +39,12 @@ trait Int2Arr[A <: Int2Elem] extends Any with ArrIntN[A] with Int2SeqLike[A]
 }
 
 trait Int2SeqLikeCommonBuilder[BB <: SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
-{ type BuffT <: Int2Buff[_]
+{ type BuffT <: BuffInt2[_]
   final override def elemProdSize: Int = 2
 }
 
 trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: Int2SeqLike[B]] extends Int2SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
-{ type BuffT <: Int2Buff[B]
+{ type BuffT <: BuffInt2[B]
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.int1, elem.int2)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append2(newElem.int1, newElem.int2)
 }
@@ -61,8 +61,8 @@ trait Int2ArrMapBuilder[B <: Int2Elem, ArrB <: Int2Arr[B]] extends Int2SeqLikeMa
 trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends Int2SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
-trait Int2Buff[A <: Int2Elem] extends Any with IntNBuff[A]
-{ type ThisT <: Int2Buff[A]
+trait BuffInt2[A <: Int2Elem] extends Any with IntNBuff[A]
+{ type ThisT <: BuffInt2[A]
 
   /** Constructs a new element of this [[Buff]] from 2 [[Int]]s. */
   def newElem(i1: Int, i2: Int): A
@@ -92,7 +92,7 @@ trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: Int2SeqLike[A]] extends Compan
   }
 }
 
-trait Int2BuffCompanion[A <: Int2Elem, AA <: Int2Buff[A]] extends CompanionBuffIntN[A, AA]
+trait Int2BuffCompanion[A <: Int2Elem, AA <: BuffInt2[A]] extends CompanionBuffIntN[A, AA]
 {
   override def apply(elems: A*): AA =
   { val buffer: ArrayBuffer[Int] =  new ArrayBuffer[Int](elems.length * 2 + 6)

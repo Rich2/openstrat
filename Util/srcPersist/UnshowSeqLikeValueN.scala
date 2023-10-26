@@ -60,14 +60,3 @@ class UnshowSeqSpecDblN[A <: DblNElem, M <: SeqSpecDblN[A]](val typeStr: String,
 object UnshowSeqSpecDblN
 { def apply[A <: DblNElem, M <: SeqSpecDblN[A]](typeStr: String, f: Array[Double] => M): UnshowSeqSpecDblN[A, M] = new UnshowSeqSpecDblN[A, M](typeStr, f)
 }
-
-/** Class to Persist specialised for [[ValueNElem]]s cLasses. */
-trait PersistValueNSeqLike[A <: ValueNElem, M <: SeqLikeValueN[A]] extends PersistCompound[M] with UnshowSeqLikeValueN[A, M]
-
-/** Persists [[ArrDblN]]s. */
-trait DataDblNsPersist[A <: DblNElem, M <: SeqLikeDblN[A]] extends PersistValueNSeqLike[A, M] with EqT[M]
-{ type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
-}

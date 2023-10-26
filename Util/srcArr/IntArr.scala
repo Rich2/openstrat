@@ -74,8 +74,6 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
 object IntArr
 { def apply(input: Int*): IntArr = new IntArr(input.toArray)
 
-
-
   implicit val eqImplicit: EqT[IntArr] = (a1, a2) =>
     if(a1.length != a2.length) false
     else
@@ -85,17 +83,17 @@ object IntArr
       acc
     }
 
-  implicit val persistEv: Persist[IntArr] with ShowSequ[Int, IntArr] = new Persist[IntArr] with ShowSequ[Int, IntArr]
-  { override def typeStr: String = "Seq" + "Int"
+  implicit val showEv: ShowSequ[Int, IntArr] = ShowSequ[Int, IntArr]()
 
-    override def evA: Show[Int] = Show.intEv
+  implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
+  { override def typeStr: String = "Seq"
 
     override def fromExpr(expr: Expr): EMon[IntArr] = expr match
     { case _: EmptyExprToken => Good(IntArr())
 
       case AlphaBracketExpr(id1,
-        RArr2(BracketedStatements(RArr1(_), brs1, _, _),
-        BracketedStatements(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>
+      RArr2(BracketedStatements(RArr1(_), brs1, _, _),
+      BracketedStatements(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>
         sts.eMapLike(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
 
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>

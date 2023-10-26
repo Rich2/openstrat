@@ -15,35 +15,6 @@ class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike w
   override def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)
   def toPolygon: PolygonSqC = new PolygonSqC(unsafeArray)
-  //def toPolygon: PolygonSC = new PolygonSC(unsafeArray)
-  /*def filter(f: SqVert => Boolean): SqVerts =
-  { val tempArr = new Array[Int](array.length)
-    var count = 0
-    var lengthCounter = 0
-    while (count < length)
-    {
-      if (f(this.apply(count)))
-      { tempArr(lengthCounter * 2) = array(count * 2)
-        tempArr(lengthCounter * 2 + 1) = array(count * 2 + 1)
-        lengthCounter += 1
-      }
-      count += 1
-    }
-    val finalArr = new Array[Int](lengthCounter * 2)
-    count = 0
-    while (count < lengthCounter * 2){ finalArr(count) = tempArr(count); count += 1 }
-    new SqVerts(finalArr)
-  }
-
-  def flatMapNoDuplicates(f: SqVert => SqVerts): SqVerts =
-  {
-    val buff = new SqVertBuff()
-    foreach{ el =>
-      val newVals = f(el)
-      newVals.foreach{ newVal => if( ! buff.contains(newVal)) buff.grow(newVal) }
-    }
-    new SqVerts(buff.toArray)
-  }*/
 }
 
 object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
@@ -62,7 +33,7 @@ object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
   }
 }
 
-class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[SqVert]
+class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with BuffInt2[SqVert]
 { type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"
   override def newElem(i1: Int, i2: Int): SqVert = SqVert(i1, i2)
