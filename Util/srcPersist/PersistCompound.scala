@@ -16,9 +16,6 @@ trait UnshowCompound[+R] extends Unshow[R]
   }
 }
 
-/** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */
-trait PersistCompound[R] extends Persist[R] with ShowCompound[R] with UnshowCompound[R]
-
 trait ShowSeqBased[A, R] extends ShowCompound[R]
 { def evA: Show[A]
 
