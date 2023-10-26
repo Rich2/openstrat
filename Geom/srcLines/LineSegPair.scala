@@ -49,7 +49,7 @@ trait LineSegPairArrCommonBuilder[B2] extends Dbl4PairArrCommonBuilder[LineSeg, 
 class LineSegPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends LineSegPairArrCommonBuilder[B2] with
 Dbl4PairArrMapBuilder[LineSeg, LineSegArr, B2, LineSegPair[B2], LineSegPairArr[B2]]
 {
-  override def b1ArrBuilder: BuilderMapArr[LineSeg, LineSegArr] = LineSeg.arrMapbuilderEv
+  override def b1ArrBuilder: BuilderArrMap[LineSeg, LineSegArr] = LineSeg.arrMapbuilderEv
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   override def arrFromArrAndArray(b1Arr: LineSegArr, b2s: Array[B2]): LineSegPairArr[B2] = ???

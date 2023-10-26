@@ -21,7 +21,7 @@ object TransAlign
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: TransAlign[A]): TransAlign[AA] = new TransAlign[AA]
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderArrMap[A, AA], ev: TransAlign[A]): TransAlign[AA] = new TransAlign[AA]
   { override def slate(obj: AA, offset: Vec2Like): AA = obj.map(ev.slate(_, offset))
     override def scale(obj: AA, operand: Double): AA = obj.map(ev.scale(_, operand))
   }

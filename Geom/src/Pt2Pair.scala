@@ -39,7 +39,7 @@ class Pt2PairBuff[A2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayB
 class Pt2PairArrMapBuider[A2](implicit val b2ClassTag: ClassTag[A2]) extends Dbl2PairArrMapBuilder[Pt2, Pt2Arr, A2, Pt2Pair[A2], Pt2PairArr[A2]]
 { override type BuffT = Pt2PairBuff[A2]
   override type B1BuffT = Pt2Buff
-  override def b1ArrBuilder: BuilderMapArr[Pt2, Pt2Arr] = Pt2.arrBuilderImplicit
+  override def b1ArrBuilder: BuilderArrMap[Pt2, Pt2Arr] = Pt2.arrBuilderImplicit
   override def arrFromArrAndArray(b1Arr: Pt2Arr, b2s: Array[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](b1Arr.unsafeArray, b2s)
   override def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](b1ArrayDbl, b2Array)
   override def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[A2]): Pt2PairBuff[A2] = new Pt2PairBuff[A2](b1Buffer, b2Buffer)

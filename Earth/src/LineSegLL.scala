@@ -23,7 +23,7 @@ object LineSegLL
   /** [[Unshow]] type class instance / evidence for [[LineSegLL]]. */
   implicit val unshowEv: Unshow2[LatLong, LatLong, LineSegLL] = Unshow2[LatLong, LatLong, LineSegLL]("Line2", "start", "end", apply)
 
-  /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
+  /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
   implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new LineSegLLArrMapBuilder
 }
 
@@ -48,8 +48,8 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
   /** [[Unshow]] type class instance / evidence for [[LineSegLLArr]]. */
   implicit val unshowEv: UnshowArrDbl4[LineSegLL, LineSegLLArr] = UnshowArrDbl4[LineSegLL, LineSegLLArr]("LineSegLLArr", LineSegLLArr.fromArray)
 
-  /** Implicit instance /evidence for [[BuilderFlatArr]] type class instance. */
-  implicit val flatBuildEv: BuilderFlatArr[LineSegLLArr] = new LineSegArrLLFlatBuilder
+  /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
+  implicit val flatBuildEv: BuilderArrFlat[LineSegLLArr] = new LineSegArrLLFlatBuilder
 }
 
 /** Efficient expandable buffer for [[LineSegLL]]s. */

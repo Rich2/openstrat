@@ -39,7 +39,7 @@ trait LineSegHCPairArrCommonBuilder[B2] extends Int4PairArrCommonBuilder[LineSeg
 
 class LineSegHCPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends LineSegHCPairArrCommonBuilder[B2] with
 Int4PairArrMapBuilder[LineSegHC, LineSegHCArr, B2, LineSegHCPair[B2], LineSegHCPairArr[B2]]
-{ override def b1ArrBuilder: BuilderMapArr[LineSegHC, LineSegHCArr] = LineSegHC.arrMapBuilderEv
+{ override def b1ArrBuilder: BuilderArrMap[LineSegHC, LineSegHCArr] = LineSegHC.arrMapBuilderEv
 }
 
 class LineSegHCPairArrFlatBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends LineSegHCPairArrCommonBuilder[B2] with

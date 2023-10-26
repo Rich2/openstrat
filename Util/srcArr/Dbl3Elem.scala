@@ -64,12 +64,12 @@ trait Dbl3SeqLikeMapBuilder[B <: Dbl3Elem, BB <: SeqLikeDbl3[B]] extends Builder
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex3(index, elem.dbl1, elem.dbl2, elem.dbl3)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderMapArr]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl3ArrMapBuilder[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends Dbl3SeqLikeMapBuilder[B, ArrB] with DblNArrMapBuilder[B, ArrB]
 
-/** Trait for creating the [[BuilderFlatArr]] type class instances for [[ArrDbl3]] final classes. Instances for the  for classes / traits you
+/** Trait for creating the [[BuilderArrFlat]] type class instances for [[ArrDbl3]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3ArrFlatBuilder[ArrB <: ArrDbl3[_]] extends BuilderSeqLikeDbl3[ArrB] with DblNArrFlatBuilder[ArrB]

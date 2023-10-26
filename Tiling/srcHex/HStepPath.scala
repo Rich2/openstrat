@@ -56,7 +56,7 @@ class HStepPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
 
   //def SegHCLast: Option[LineSegHC] = if (length >= 0) Some(index(length - 1)) else None
 
-  def segHCsMap[B, ArrB <: Arr[B]](f: LineSegHC => B)(implicit build: BuilderMapArr[B, ArrB], grider: HGridSys): ArrB =
+  def segHCsMap[B, ArrB <: Arr[B]](f: LineSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.uninitialised(length)
     var count = 0
     segHCsForeach{ s => res.setElemUnsafe(count, f(s)); count += 1 }

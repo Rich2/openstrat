@@ -131,7 +131,7 @@ class HStepLikeArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HSte
 object HStepLikeArr extends Int1SeqLikeCompanion[HStepLike, HStepLikeArr]
 { override def fromArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
 
-  implicit val flatBuilder: BuilderFlatArr[HStepLikeArr] = new Int1ArrFlatBuilder[HStepLikeArr]
+  implicit val flatBuilder: BuilderArrFlat[HStepLikeArr] = new Int1ArrFlatBuilder[HStepLikeArr]
   { override type BuffT = HStepLikeBuff
     override def fromIntArray(array: Array[Int]): HStepLikeArr = new HStepLikeArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepLikeBuff = new HStepLikeBuff(buffer)
@@ -178,10 +178,10 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
     }
   }
 
-  def segHCsMap[B, ArrB <: Arr[B]](start: HCen)(f: LineSegHC => B)(implicit build: BuilderMapArr[B, ArrB], gridSys: HGridSys): ArrB =
+  def segHCsMap[B, ArrB <: Arr[B]](start: HCen)(f: LineSegHC => B)(implicit build: BuilderArrMap[B, ArrB], gridSys: HGridSys): ArrB =
     segHCsMap(start.r, start.c)(f)(build, gridSys)
 
-  def segHCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSegHC => B)(implicit build: BuilderMapArr[B, ArrB], grider: HGridSys): ArrB = {
+  def segHCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSegHC => B)(implicit build: BuilderArrMap[B, ArrB], grider: HGridSys): ArrB = {
     val res = build.uninitialised(segsNum)
     var count = 0
     segHCsForeach(startR, startC) { s =>
@@ -224,7 +224,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
 object HStepArr extends Int1SeqLikeCompanion[HStep, HStepArr]
 { override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
 
-  implicit val flatBuilder: BuilderFlatArr[HStepArr] = new Int1ArrFlatBuilder[HStepArr]
+  implicit val flatBuilder: BuilderArrFlat[HStepArr] = new Int1ArrFlatBuilder[HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)

@@ -118,7 +118,7 @@ object Colour
     def strT(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
-  implicit val arrBuildImplicit: BuilderMapArr[Colour, Colours] = new Int1ArrMapBuilder[Colour, Colours]
+  implicit val arrBuildImplicit: BuilderArrMap[Colour, Colours] = new Int1ArrMapBuilder[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
 

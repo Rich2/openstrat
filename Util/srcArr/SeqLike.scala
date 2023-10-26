@@ -34,9 +34,9 @@ trait SeqLike[+A] extends Any
 object SeqLike
 {
   /** Implicit method for creating [[SeqLike]] instances. */
-  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: BuilderMapSeqLike[A, AA]): Unshow[AA] = new Unshow[AA]
+  implicit def unshowEv[A, AA <: SeqLike[A]](implicit evIn: Unshow[A], buildIn: BuilderSeqLikeMap[A, AA]): Unshow[AA] = new Unshow[AA]
   { val evA: Unshow[A] = evIn
-    val build: BuilderMapSeqLike[A, AA] = buildIn
+    val build: BuilderSeqLikeMap[A, AA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[AA] = expr match

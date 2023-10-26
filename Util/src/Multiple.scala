@@ -18,7 +18,7 @@ case class Multiple[+A](value: A, num: Int)
     Multiple[B](res.value, res.num * num)
   }
 
-  def toArr[ArrA <: Arr[A]@uncheckedVariance](implicit build: BuilderMapArr[A, ArrA]@uncheckedVariance): ArrA =
+  def toArr[ArrA <: Arr[A]@uncheckedVariance](implicit build: BuilderArrMap[A, ArrA]@uncheckedVariance): ArrA =
   { val res: ArrA = build.uninitialised(num)
     iUntilForeach(num){i => res.setElemUnsafe(i, value)}
     res
@@ -47,7 +47,7 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
 
   def numSingles: Int = this.sumBy(_.num)
 
-  def toSinglesArr[ArrA <: Arr[A]](implicit build: BuilderMapArr[A, ArrA]): ArrA =
+  def toSinglesArr[ArrA <: Arr[A]](implicit build: BuilderArrMap[A, ArrA]): ArrA =
   { val res = build.uninitialised(numSingles)
     var i = 0
     foreach{ m => iUntilForeach(m.num){ _ => res.setElemUnsafe(i, m.value); i += 1 } }
@@ -67,7 +67,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
 
   /** Extension method. Converts this [[Seq]] of [[Multiple]]s, to an [[Arr]] of the Single values
    * of type A. The appropriate Arr type is found by implicit look up for type A. */
-  def toSinglesArr[ArrA <: Arr[A]](implicit build: BuilderMapArr[A, ArrA]): ArrA =
+  def toSinglesArr[ArrA <: Arr[A]](implicit build: BuilderArrMap[A, ArrA]): ArrA =
   { val res = build.uninitialised(numSingles)
     var i = 0
     thisSeq.foreach { m => iUntilForeach(m.num) { _ => res.setElemUnsafe(i, m.value); i += 1 } }
@@ -95,7 +95,7 @@ object MultipleBuff
 { def apply[A](initLen: Int = 4): MultipleBuff[A] = new MultipleBuff[A](new ArrayBuffer[Int](initLen), new ArrayBuffer[A](initLen))
 }
 
-class MultipleArrMapBuilder[A](implicit ct: ClassTag[A]) extends BuilderMapArr[Multiple[A], MultipleArr[A]]
+class MultipleArrMapBuilder[A](implicit ct: ClassTag[A]) extends BuilderArrMap[Multiple[A], MultipleArr[A]]
 { override type BuffT = MultipleBuff[A]
   override def buffGrow(buff: MultipleBuff[A], newElem: Multiple[A]): Unit = buff.grow(newElem)
   override def uninitialised(length: Int): MultipleArr[A] = new MultipleArr[A](new Array[Int](length), new Array[A](length))

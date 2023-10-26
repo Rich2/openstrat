@@ -15,7 +15,7 @@ trait AffineTrans[T] extends TransSim[T]
 /** The companion object for the Trans[T] type class, containing instances for common classes. */
 object AffineTrans
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: AffineTrans[A]): AffineTrans[AA] =
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderArrMap[A, AA], ev: AffineTrans[A]): AffineTrans[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
   implicit def fromTranserAllImplicit[T <: AffinePreserve]: AffineTrans[T] =

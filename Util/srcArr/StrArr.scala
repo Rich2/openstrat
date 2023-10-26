@@ -108,7 +108,7 @@ object StrArr
     }
 }
 
-object StringArrBuilder extends BuilderMapArr[String, StrArr] with BuilderFlatArr[StrArr]
+object StringArrBuilder extends BuilderArrMap[String, StrArr] with BuilderArrFlat[StrArr]
 { type BuffT = StringBuff
   override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
   override def indexSet(seqLike: StrArr, index: Int, elem: String): Unit = seqLike.unsafeArray(index) = elem

@@ -24,7 +24,7 @@ object LineSegSC
 { /** Factory apply method to create a hex coordinate line segment a [[LineSegSC]] from the start and end hex coordinates [[SqCoord]]s. */
   def apply(hCoord1: SqCoord, hCoord2: SqCoord): LineSegSC = new LineSegSC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
-  /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
+  /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
   implicit val arrMapBuilderEv: LineSegSCMapBuilder = new LineSegSCMapBuilder
 
   implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegSCPairArrMapBuilder[B2] = new LineSegSCPairArrMapBuilder[B2]

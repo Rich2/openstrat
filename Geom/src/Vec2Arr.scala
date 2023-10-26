@@ -43,7 +43,7 @@ object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
   /** [[Unshow]] type class instance / evidence for [[Vec2Arr]]. */
   implicit val unshowEv: UnshowArrDblN[Vec2, Vec2Arr] = UnshowArrDblN[Vec2, Vec2Arr](fromArray)
 
-  implicit val arrFlatBuilderImplicit: BuilderFlatArr[Vec2Arr] =  new Dbl2ArrFlatBuilder[Vec2Arr]
+  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Vec2Arr] =  new Dbl2ArrFlatBuilder[Vec2Arr]
   { override type BuffT = BuffVec2
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)

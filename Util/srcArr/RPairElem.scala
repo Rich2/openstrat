@@ -103,7 +103,7 @@ object RPairBuff
 class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends PairArrMapBuilder[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]
-  override def b1ArrBuilder: BuilderMapArr[B1, RArr[B1]] = BuilderMapArr.rMapImplicit
+  override def b1ArrBuilder: BuilderArrMap[B1, RArr[B1]] = BuilderArrMap.rMapImplicit
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.unsafeArray, b2s)

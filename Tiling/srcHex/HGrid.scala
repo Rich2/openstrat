@@ -30,7 +30,7 @@ trait HGrid extends Any with TGrid with HGridSys
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit
 
-  def rowMap[B, ArrB <: Arr[B]](r: Int)(f: HCen => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
+  def rowMap[B, ArrB <: Arr[B]](r: Int)(f: HCen => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val len = rowLen(r)
     val res = build.uninitialised(len)
     var i = 0
