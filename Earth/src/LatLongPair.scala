@@ -43,7 +43,7 @@ object LatLongPairBuff{
 class LatLongPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Dbl2PairArrMapBuilder[LatLong, LatLongArr, B2, LatLongPair[B2], LatLongPairArr[B2]]
 { override type BuffT = LatLongPairBuff[B2]
   override type B1BuffT = LatLongBuff
-  override def b1ArrBuilder: MapBuilderArr[LatLong, LatLongArr] = LatLong.arrMapBuilderImplicit
+  override def b1ArrBuilder: BuilderMapArr[LatLong, LatLongArr] = LatLong.arrMapBuilderImplicit
   override def arrFromArrAndArray(b1Arr: LatLongArr, b2s: Array[B2]): LatLongPairArr[B2] = new LatLongPairArr[B2](b1Arr.unsafeArray, b2s)
   override def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): LatLongPairArr[B2] = new LatLongPairArr[B2](b1ArrayDbl, b2Array)
   override def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[B2]): LatLongPairBuff[B2] = new LatLongPairBuff[B2](b1Buffer, b2Buffer)

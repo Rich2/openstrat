@@ -27,7 +27,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
    * @tparam B The element type of the returned sequence.
    * @tparam ArrB The type of the immutable Array like sequence of B.
    * @return the immutable sequence collection by applying the supplied function to each vertex. */
-  def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: MapBuilderArr[B, ArrB]): ArrB = ssMap(f)
+  def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB = ssMap(f)
 
   /** Folds over the vertices.
    * @tparam B type of the accumulator return value of this method. */
@@ -108,7 +108,7 @@ trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with 
 trait PolygonLikeIntN[VT <: IntNElem] extends Any with PolygonValueN[VT] with SeqSpecIntN[VT]
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
-trait PolygonLikeInt2[VT <: Int2Elem] extends Any with PolygonLikeIntN[VT] with Int2SeqSpec[VT]
+trait PolygonLikeInt2[VT <: Int2Elem] extends Any with PolygonLikeIntN[VT] with SeqSpecInt2[VT]
 
 /** A polygon whose elements are defined by 3 [[int]]s. */
 trait PolygonLikeInt3[VT <: Int3Elem] extends Any with PolygonLikeIntN[VT] with Int3SeqSpec[VT]

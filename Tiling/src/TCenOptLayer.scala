@@ -16,7 +16,7 @@ trait TCenOptLayer[A <: AnyRef] extends Any
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
    *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
-  def mapArr[B, ArrT <: Arr[B]](noneValue: => B)(f: A => B)(implicit build: MapBuilderArr[B, ArrT]): ArrT =
+  def mapArr[B, ArrT <: Arr[B]](noneValue: => B)(f: A => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArray.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
     build.buffToSeqLike(buff)
@@ -35,7 +35,7 @@ trait TCenOptLayer[A <: AnyRef] extends Any
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
-  def somesMapArr[B, ArrT <: Arr[B]](f: A => B)(implicit build: MapBuilderArr[B, ArrT]): ArrT =
+  def somesMapArr[B, ArrT <: Arr[B]](f: A => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArray.foreach { a =>
       if(a != null)
@@ -47,7 +47,7 @@ trait TCenOptLayer[A <: AnyRef] extends Any
   }
 
   /** Returns an ArrBase[A] of type ArrA filtered to the Some values. */
-  def somesArr[ArrA <: Arr[A]](implicit build: MapBuilderArr[A, ArrA]): ArrA =
+  def somesArr[ArrA <: Arr[A]](implicit build: BuilderMapArr[A, ArrA]): ArrA =
   { val buff = build.newBuff()
     unsafeArray.foreach { a => if (a != null) build.buffGrow(buff, a) }
     build.buffToSeqLike(buff)

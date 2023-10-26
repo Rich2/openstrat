@@ -192,7 +192,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
-  final def map[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  final def map[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val res = build.uninitialised(numTiles)
     iForeach((i, hCen) => res.setElemUnsafe(i, f(hCen)))
     res
@@ -200,7 +200,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Maps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    * TileGrid structure is lost in the flatMap operation. */
-  final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff(numTiles)
     foreach { hCen => f(hCen).foreach(b => buff.grow(b)) }
     build.buffToSeqLike(buff)
@@ -208,7 +208,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Maps each [[Hcen]] to an element of type B, only if the predicate function on the [[HCen]] is true. Collects the true cases. In some cases this
    * will be easier and more efficient than employing the optMap method. */
-  final def ifMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  final def ifMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff(numTiles)
     foreach { hCen => if(f1(hCen)) buff.grow(f2(hCen)) }
     build.buffToSeqLike(buff)
@@ -236,7 +236,7 @@ trait HGridSys extends Any with TGridSys
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: Arr[_]](f: HCen => ArrT)(implicit build: FlatBuilderArr[ArrT]): ArrT =
+  final def flatMap[ArrT <: Arr[_]](f: HCen => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToSeqLike(buff)
@@ -244,7 +244,7 @@ trait HGridSys extends Any with TGridSys
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The normal flatMap functions is only applied if the condtion of the first
    * function is true. */
-  final def ifFlatMap[ArrT <: Arr[_]](f1: HCen => Boolean)(f2: HCen => ArrT)(implicit build: FlatBuilderArr[ArrT]): ArrT =
+  final def ifFlatMap[ArrT <: Arr[_]](f1: HCen => Boolean)(f2: HCen => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach { hCen => if(f1(hCen)) build.buffGrowArr(buff, f2(hCen)) }
     build.buffToSeqLike(buff)
@@ -268,7 +268,7 @@ trait HGridSys extends Any with TGridSys
   def edgesForeach(f: HSide => Unit): Unit
 
   /** maps over each Hex Side's coordinate [[HSide]] in the hex grid system. */
-  final def sidesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: MapBuilderArr[B, ArrT]): ArrT =
+  final def sidesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numSides)
     var i = 0
     sidesForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -276,7 +276,7 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** maps over each the grid systems link / inner side's coordinate [[HSide]]. */
-  final def linksMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: MapBuilderArr[B, ArrT]): ArrT =
+  final def linksMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numInnerSides)
     var i = 0
     linksForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -284,7 +284,7 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** maps over each the grid systems outer side's coordinate [[HSide]]. */
-  final def edgesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: MapBuilderArr[B, ArrT]): ArrT =
+  final def edgesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: BuilderMapArr[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numOuterSides)
     var i = 0
     edgesForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -292,14 +292,14 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** flatMaps over each Hex Side's coordinate [[HSide]]. */
-  final def sidesFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: FlatBuilderArr[ArrT]): ArrT =
+  final def sidesFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff()
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
   /** Optionally maps over each Hex Side's coordinate [[HSide]]. */
-  final def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  final def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     sidesForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
     build.buffToSeqLike(buff)
@@ -313,14 +313,14 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** flatMaps  over each inner hex Side's coordinate [[HSide]].. */
-  final def linksFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: FlatBuilderArr[ArrT]): ArrT =
+  final def linksFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
   /** OptMaps over each inner hex Side's coordinate [[HSide]]. */
-  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     linksForeach { hs => f(hs).foreach(build.buffGrow(buff, _)) }
     build.buffToSeqLike(buff)

@@ -91,22 +91,22 @@ trait BuffValueN[A <: ValueNElem] extends Any with Buff[A]
   override def fElemStr: A => String = _.toString
 }
 
-trait CommonBuilderSeqLikeValueN[BB <: SeqLike[_]] extends CommonBuilderSeqLike[BB]
+trait BuilderAllSeqLikeValueN[BB <: SeqLike[_]] extends BuilderAllSeqLike[BB]
 { def elemProdSize: Int
 }
 
 /** Map builder for [[SeqLikeValueN]] classes. */
-trait MapBuilderSeqLikeValueN[B <: ValueNElem, BB <: SeqLike[B]] extends CommonBuilderSeqLikeValueN[BB] with MapBuilderSeqLike[B, BB]
+trait MapBuilderSeqLikeValueN[B <: ValueNElem, BB <: SeqLike[B]] extends BuilderAllSeqLikeValueN[BB] with BuilderMapSeqLike[B, BB]
 
-trait FlatBuilderSeqLikeValueN[BB <: SeqLikeValueN[_]] extends CommonBuilderSeqLikeValueN[BB] with SeqLikeFlatBuilder[BB]
+trait FlatBuilderSeqLikeValueN[BB <: SeqLikeValueN[_]] extends BuilderAllSeqLikeValueN[BB] with BuilderFlatSeqLike[BB]
 
-/** Trait for creating the ArrTBuilder. Instances for the [[MapBuilderArr]] type class, for classes / traits you control, should go in the companion
+/** Trait for creating the ArrTBuilder. Instances for the [[BuilderMapArr]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait MapBuilderArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends MapBuilderSeqLikeValueN[B, ArrB] with MapBuilderArr[B, ArrB]
+trait MapBuilderArrValueN[B <: ValueNElem, ArrB <: ArrValueN[B]] extends MapBuilderSeqLikeValueN[B, ArrB] with BuilderMapArr[B, ArrB]
 { type BuffT <: BuffValueN[B]
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[FlatBuilderArr] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderFlatArr] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait FlatBuilderArrValueN[ArrB <: ArrValueN[_]] extends CommonBuilderSeqLikeValueN[ArrB] with FlatBuilderArr[ArrB]
+trait FlatBuilderArrValueN[ArrB <: ArrValueN[_]] extends BuilderAllSeqLikeValueN[ArrB] with BuilderFlatArr[ArrB]

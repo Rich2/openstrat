@@ -20,7 +20,7 @@ trait RotateM3T[T]
 /** Companion object for the Rotate[T] type class, contains implicit instances for collections and other container classes. */
 object RotateM3T
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: MapBuilderArr[A, AA], ev: RotateM3T[A]): RotateM3T[AA] = new RotateM3T[AA]
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: RotateM3T[A]): RotateM3T[AA] = new RotateM3T[AA]
   { override def rotateXT(obj: AA, angle: AngleVec): AA = obj.map(ev.rotateXT(_, angle))
     override def rotateYT(obj: AA, angle: AngleVec): AA = obj.map(ev.rotateYT(_, angle))
     override def rotateZT(obj: AA, angle: AngleVec): AA = obj.map(ev.rotateZT(_, angle))

@@ -140,7 +140,7 @@ object HVertLow
 }
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait HVertSeqLike extends Any with Int2SeqLike[HVert]
+trait HVertSeqLike extends Any with SeqLikeInt2[HVert]
 { override def newElem(int1: Int, int2: Int): HVert = HVert.apply(int1, int2)
   override def fElemStr: HVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2
@@ -164,7 +164,7 @@ object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]
   /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]].  */
   implicit val unshowEv: UnshowArrIntN[HVert, HVertArr] = UnshowArrIntN[HVert, HVertArr](fromArray)
 
-  implicit val arrArrayImplicit: FlatBuilderArr[HVertArr] = new Int2ArrFlatBuilder[HVertArr]
+  implicit val arrArrayImplicit: BuilderFlatArr[HVertArr] = new Int2ArrFlatBuilder[HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)

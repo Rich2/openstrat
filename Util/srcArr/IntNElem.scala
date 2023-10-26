@@ -88,29 +88,29 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
   }
 }
 
-trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends CommonBuilderSeqLikeValueN[BB]
+trait BuilderAllSeqLikeIntN[BB <: SeqLike[_]] extends BuilderAllSeqLikeValueN[BB]
 { type BuffT <:  IntNBuff[_]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: SeqLikeIntN[B]] extends IntNSeqLikeCommonBuilder[BB] with MapBuilderSeqLikeValueN[B, BB]
+trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: SeqLikeIntN[B]] extends BuilderAllSeqLikeIntN[BB] with MapBuilderSeqLikeValueN[B, BB]
 { type BuffT <:  IntNBuff[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
 
-trait IntNSeqLikeFlatBuilder[BB <: SeqLikeIntN[_]] extends IntNSeqLikeCommonBuilder[BB] with FlatBuilderSeqLikeValueN[BB]
+trait IntNSeqLikeFlatBuilder[BB <: SeqLikeIntN[_]] extends BuilderAllSeqLikeIntN[BB] with FlatBuilderSeqLikeValueN[BB]
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[MapBuilderArr]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderMapArr]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait IntNArrMapBuilder[B <: IntNElem, ArrB <: ArrIntN[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with MapBuilderArrValueN[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[FlatBuilderArr] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntN]] final classes. Instances for [[BuilderFlatArr] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNArrFlatBuilder[ArrB <: ArrIntN[_]] extends IntNSeqLikeCommonBuilder[ArrB] with FlatBuilderArrValueN[ArrB]
+trait IntNArrFlatBuilder[ArrB <: ArrIntN[_]] extends BuilderAllSeqLikeIntN[ArrB] with FlatBuilderArrValueN[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }

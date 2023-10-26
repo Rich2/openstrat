@@ -31,6 +31,6 @@ class LineSegSCPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int4Pair
   override implicit def b2ClassTag: ClassTag[B2] = ct
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): LineSegSCPairBuff[B2] = new LineSegSCPairBuff[B2](a1Buffer, a2Buffer)
   override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): LineSegSCPairArr[B2] = new LineSegSCPairArr[B2](b1ArrayInt, b2Array)
-  override def b1ArrBuilder: MapBuilderArr[LineSegSC, LineSegSCArr] = LineSegSC.arrMapBuilderEv
+  override def b1ArrBuilder: BuilderMapArr[LineSegSC, LineSegSCArr] = LineSegSC.arrMapBuilderEv
   override def newB1Buff(): LineSegSCBuff = LineSegSCBuff()
 }

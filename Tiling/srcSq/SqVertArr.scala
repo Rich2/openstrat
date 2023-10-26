@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait SqVertSeqLike extends Any with Int2SeqLike[SqVert]
+trait SqVertSeqLike extends Any with SeqLikeInt2[SqVert]
 { override def newElem(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2
@@ -26,13 +26,14 @@ object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
   /** Implicit [[Unshow]] type class instance / evidence for [[SqVertArr]]. */
   implicit val unshowEv: UnshowArrIntN[SqVert, SqVertArr] = UnshowArrIntN[SqVert, SqVertArr](fromArray)
 
-  implicit val arrArrayImplicit: FlatBuilderArr[SqVertArr] = new Int2ArrFlatBuilder[SqVertArr]
+  implicit val arrArrayImplicit: BuilderFlatArr[SqVertArr] = new Int2ArrFlatBuilder[SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
 }
 
+/** [[Buff]] class for storing [[SqVert]]s in an [[ArrayBuffer]][Int]. */
 class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with BuffInt2[SqVert]
 { type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"

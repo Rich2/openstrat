@@ -14,7 +14,7 @@ object Reflect
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Reflect[T] = (obj, lineLike) => obj.reflect(lineLike).asInstanceOf[T]
 
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: MapBuilderArr[A, AA], ev: Reflect[A]): Reflect[AA] =
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: Reflect[A]): Reflect[AA] =
     (obj, offset) => obj.map(ev.reflectT(_, offset))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Reflect[A]): Reflect[F[A]] =

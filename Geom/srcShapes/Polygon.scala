@@ -59,14 +59,14 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     res
   }
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val acc = build.uninitialised(vertsNum)
     var i = 0
     vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
     acc
   }
 
-  def vertsIMap[B, ArrB <: Arr[B]](f: (Pt2, Int) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def vertsIMap[B, ArrB <: Arr[B]](f: (Pt2, Int) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val acc = build.uninitialised(vertsNum)
     var i = 0
     vertsForeach { v => acc.setElemUnsafe(i, f(v, i)); i += 1 }
@@ -74,7 +74,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** flatMap to an immutable Arr. */
-  def vertsFlatMap[BB <: Arr[_]](f: Pt2 => BB)(implicit build: FlatBuilderArr[BB]): BB =
+  def vertsFlatMap[BB <: Arr[_]](f: Pt2 => BB)(implicit build: BuilderFlatArr[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     vertsForeach(v => build.buffGrowArr(buff, f(v)))
     build.buffToSeqLike(buff)
@@ -82,7 +82,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
 
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: Arr[_]](f: (Pt2, Int) => BB)(implicit build: FlatBuilderArr[BB]): BB = {
+  def vertsIFlatMap[BB <: Arr[_]](f: (Pt2, Int) => BB)(implicit build: BuilderFlatArr[BB]): BB = {
     val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     vertsForeach { v =>
@@ -94,7 +94,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: Arr[_]](iInit: Int)(f: (Pt2, Int) => BB)(implicit build: FlatBuilderArr[BB]): BB = {
+  def vertsIFlatMap[BB <: Arr[_]](iInit: Int)(f: (Pt2, Int) => BB)(implicit build: BuilderFlatArr[BB]): BB = {
     val buff: build.BuffT = build.newBuff()
     var i: Int = iInit
     vertsForeach { v =>
@@ -144,7 +144,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: MapBuilderArr[A, AA]): AA =
+  def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: BuilderMapArr[A, AA]): AA =
   { var i: Int = 0
     val res = build.uninitialised(vertsNum)
     while (i < vertsNum)
@@ -155,7 +155,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIMap[A, AA <: Arr[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: MapBuilderArr[A, AA]): AA =
+  def sidesIMap[A, AA <: Arr[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: BuilderMapArr[A, AA]): AA =
   { var i = 0
     val res = build.uninitialised(vertsNum)
     while (i < vertsNum)
@@ -166,7 +166,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** FlatMaps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: Arr[_]](f: (LineSeg, Int) => AA)(implicit build: FlatBuilderArr[AA]): AA = {
+  def sidesIFlatMap[AA <: Arr[_]](f: (LineSeg, Int) => AA)(implicit build: BuilderFlatArr[AA]): AA = {
     var i: Int = 0
     val buff = build.newBuff()
     sidesForeach { side =>
@@ -178,7 +178,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** FlatMaps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: Arr[_]](initCount: Int)(f: (LineSeg, Int) => AA)(implicit build: FlatBuilderArr[AA]): AA =
+  def sidesIFlatMap[AA <: Arr[_]](initCount: Int)(f: (LineSeg, Int) => AA)(implicit build: BuilderFlatArr[AA]): AA =
   { var i: Int = initCount
     val buff = build.newBuff()
     sidesForeach { side =>
@@ -383,7 +383,7 @@ object Polygon
 
   def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 
-  implicit val arrBuildImplicit: MapBuilderArr[Polygon, PolygonArr] = new MapBuilderArrArrayDbl[Polygon, PolygonArr]
+  implicit val arrBuildImplicit: BuilderMapArr[Polygon, PolygonArr] = new MapBuilderArrArrayDbl[Polygon, PolygonArr]
   { override type BuffT = PolygonBuff
     override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonArr = new PolygonArr(array)
     override def newBuff(length: Int): PolygonBuff = PolygonBuff(length)

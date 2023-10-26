@@ -112,7 +112,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def hcMapArr[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit gridSys: HGridSys, build: MapBuilderArr[B, ArrT]): ArrT =
+  def hcMapArr[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit gridSys: HGridSys, build: BuilderMapArr[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       val a = unsafeArray(gridSys.layerArrayIndex(hc))
@@ -126,7 +126,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
   }
 
   /** Maps from the [[Some]] values to an [[Arr]]. */
-  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit gridSys: HGridSys, build: MapBuilderArr[B, ArrT]): ArrT =
+  def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit gridSys: HGridSys, build: BuilderMapArr[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       val a = unsafeArray(gridSys.layerArrayIndex(hc))
@@ -136,7 +136,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
   }
 
   /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
-  def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: MapBuilderArr[B, ArrT]): ArrT =
+  def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: BuilderMapArr[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       val a = unsafeArray(gridSys.layerArrayIndex(hc))
@@ -198,7 +198,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
    * 0 and the length of this [[HCenOptLayer]]. */
-  def someHCMapArr[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: MapBuilderArr[B, ArrB]): ArrB =
+  def someHCMapArr[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
@@ -231,12 +231,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Uses projection to map the Some data value with the projections corresponding [[Pt2]] to an element of type B. In most cases B will be a
    *  [[GraphicElem]] or a subtype. */
-  def projSomesPtMap[B, ArrB <: Arr[B]](f: (A, Pt2) => B)(implicit proj: HSysProjection, build: MapBuilderArr[B, ArrB]): ArrB =
+  def projSomesPtMap[B, ArrB <: Arr[B]](f: (A, Pt2) => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projSomesPtMap(proj)(f)
 
   /** Uses projection to map the Some data value with the projections corresponding [[Pt2]] to an element of type B. In most cases B will be a
    *  [[GraphicElem]] or a subtype. */
-  def projSomesPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def projSomesPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, Pt2) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
@@ -249,12 +249,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
   }
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    *  most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: MapBuilderArr[B, ArrB]): ArrB =
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projSomesHcPtMap(proj)(f)
 
   /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
@@ -268,7 +268,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Uses this and a second [[HCenOptLayer]] of type B. Drops all values where either or both [[HCenOptLayer]] have [[None]] values. Maps the
    *  corresponding values of the [[Some]]s to type C. Returns a [[Arr]] of length bwteen 0 na d the length of the original [[HCenOptLayer]]s. */
-  def zipSomesMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: MapBuilderArr[C, ArrC]): ArrC =
+  def zipSomesMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: BuilderMapArr[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
@@ -285,7 +285,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
   /** Uses this and a second [[HCenOptLayer]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
    * to a value of type C. Returns a [[Arr]] with a length between 0 and the length of the original [[HCenOptDGtid]] data grids. */
   def zipSomesHCMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B, HCen) => C)(
-    implicit gridSys: HGridSys, build: MapBuilderArr[C, ArrC]): ArrC =
+    implicit gridSys: HGridSys, build: BuilderMapArr[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
@@ -301,7 +301,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to type B. Returns
    *  a [[Arr]] of length between 0 and the length of this [[HCenOptLayer]]. */
-  def noneHCMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit gridSys: HGridSys, build: MapBuilderArr[B, ArrB]): ArrB =
+  def noneHCMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit gridSys: HGridSys, build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     gridSys.foreach { r =>
@@ -316,12 +316,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Uses a projection of the implicit [[HGridSys]] to map the [[HCen]] and the [[Pt2]] from the projection where this [[HCenOptLayer]] contains
    *  [[None]] values. There is a name overload for this where the projection is passed explicitly as the first parameter list. */
-  def projNoneHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: MapBuilderArr[B, ArrB]): ArrB =
+  def projNoneHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projNoneHcPtMap(proj)(f)
 
   /** Uses a projection of the implicit [[HGridSys]] to map the [[HCen]] and the [[Pt2]] from the projection where this [[HCenOptLayer]] contains
-   * [[None]] values. There is a name overload for this where the projection is passed implicitly with the [[MapBuilderArr]]. */
-  def projNoneHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB = {
+   * [[None]] values. There is a name overload for this where the projection is passed implicitly with the [[BuilderMapArr]]. */
+  def projNoneHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 
     proj.gChild.foreach { hc =>
@@ -334,7 +334,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
   }
 
   /** FlatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Arr]]. Drops the [[None]] values . */
-  def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: FlatBuilderArr[ArrT]): ArrT =
+  def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       val a = unsafeArray(gridSys.layerArrayIndex(hc))
@@ -348,7 +348,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
    *  [[Some]]'s values returned by the function. */
-  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit gridSys: HGridSys, build: FlatBuilderArr[ArrB]): ArrB =
+  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit gridSys: HGridSys, build: BuilderFlatArr[ArrB]): ArrB =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>

@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 
 /** A polygon made up of 1 or more hex tiles, defined by the [[HCen]]s of its outer ring of hex tiles. */
-class HTilePolygon(override val unsafeArray: Array[Int]) extends Int2SeqSpec[HCen]
+class HTilePolygon(override val unsafeArray: Array[Int]) extends SeqSpecInt2[HCen]
 {
   override type ThisT = HTilePolygon
   override def typeStr: String = "HTilePolygon"

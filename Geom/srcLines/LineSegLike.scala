@@ -26,7 +26,7 @@ trait LineSegLikeArr[VT, A <: LineSegLike[VT]] extends Any with Arr[A]
 trait LineSegLikeBuff[VT, B <: LineSegLike[VT]] extends Any
 
 /** Builder for [[LineSegLike]] map operations. Note this is a builder for [[LineSegLike]] not a [[LineSegLikeArr]] so unlike most builders it does
- * not inherit from [[CommonBuilderSeqLike]]. */
+ * not inherit from [[BuilderAllSeqLike]]. */
 trait LineSegLikeMapBuilder[VT, ST <: LineSegLike[VT]]
 {
   def newSeg(vStart: VT, vEnd: VT): ST

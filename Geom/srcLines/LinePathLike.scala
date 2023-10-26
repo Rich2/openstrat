@@ -192,7 +192,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     polygonFromArray((this ++< operand).unsafeArray)
 }
 
-trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2SeqSpec[VT]
+trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with SeqSpecInt2[VT]
 { type ThisT <: LinePathInt2[VT]
   type PolygonT <: PolygonLikeInt2[VT]
 }
@@ -202,11 +202,11 @@ trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with Int2Se
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B, BB <: LinePathLike[B]] extends MapBuilderSeqLike[B, BB]
+trait LinePathBuilder[B, BB <: LinePathLike[B]] extends BuilderMapSeqLike[B, BB]
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LinePathBuilderValueN[B <: ValueNElem, BB <: LinePathLike[B]] extends LinePathBuilder[B, BB] with CommonBuilderSeqLikeValueN[BB]
+trait LinePathBuilderValueN[B <: ValueNElem, BB <: LinePathLike[B]] extends LinePathBuilder[B, BB] with BuilderAllSeqLikeValueN[BB]
 
 /** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

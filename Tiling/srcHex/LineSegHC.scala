@@ -32,7 +32,7 @@ object LineSegHC
 { /** Factory apply method to create a hex coordinate line segment a [[LineSegHC]] from the start and end hex coordinates [[HCoord]]s. */
   def apply(hCoord1: HCoord, hCoord2: HCoord): LineSegHC = new LineSegHC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
-  /** Implicit instance / evidence for [[MapBuilderArr]] type class. */
+  /** Implicit instance / evidence for [[BuilderMapArr]] type class. */
   implicit val arrMapBuilderEv: LineSegHCMapBuilder = new LineSegHCMapBuilder
 
   implicit def pairArrMapBuider[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrMapBuilder[B2] = new LineSegHCPairArrMapBuilder[B2]

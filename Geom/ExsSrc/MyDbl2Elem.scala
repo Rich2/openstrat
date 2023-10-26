@@ -36,7 +36,7 @@ final class MyDbl2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Ar
 
 object MyDbl2Arr extends CompanionSeqLikeDbl2[MyDbl2Elem, MyDbl2Arr]
 {
-  implicit val flatImplicit: FlatBuilderArr[MyDbl2Arr] = new Dbl2ArrFlatBuilder[MyDbl2Arr]
+  implicit val flatImplicit: BuilderFlatArr[MyDbl2Arr] = new Dbl2ArrFlatBuilder[MyDbl2Arr]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)

@@ -25,7 +25,7 @@ trait TransAllDist[T]
 /** The companion object for the TransDist typeclass, containing instances for common classes. */
 object TransAllDist
 {
-  implicit def arrImutImplicit[A, AA <: Arr[A]](implicit build: MapBuilderArr[A, AA], ev: TransAllDist[A]): TransAllDist[AA] =
+  implicit def arrImutImplicit[A, AA <: Arr[A]](implicit build: BuilderMapArr[A, AA], ev: TransAllDist[A]): TransAllDist[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAllDist[A]): TransAllDist[F[A]] =

@@ -274,7 +274,7 @@ object RArrHead
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends MapBuilderArr[B, RArr[B]] with FlatBuilderArr[RArr[B]]
+class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderMapArr[B, RArr[B]] with BuilderFlatArr[RArr[B]]
 { type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def indexSet(seqLike: RArr[B], index: Int, elem: B): Unit = seqLike.unsafeArray(index) = elem

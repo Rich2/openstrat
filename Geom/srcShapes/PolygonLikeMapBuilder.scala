@@ -7,11 +7,11 @@ import annotation.unchecked.uncheckedVariance
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait PolygonLikeMapBuilder[B, +BB <: PolygonLike[B]] extends MapBuilderSeqLike[B, BB @uncheckedVariance]
+trait PolygonLikeMapBuilder[B, +BB <: PolygonLike[B]] extends BuilderMapSeqLike[B, BB @uncheckedVariance]
 
 /** Trait for creating the line path builder instances for the [[PolygonLikeMapBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait PolygonValueNMapBuilder[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonLikeMapBuilder[B, BB] with CommonBuilderSeqLikeValueN[BB]
+trait PolygonValueNMapBuilder[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonLikeMapBuilder[B, BB] with BuilderAllSeqLikeValueN[BB]
 
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -49,12 +49,12 @@ trait PolygonInt2MapBuilder[B <: Int2Elem, BB <: PolygonLikeInt2[B]] extends Pol
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait PolygonInt3MapBuilder[B <: Int3Elem, BB <: PolygonLikeInt3[B]] extends PolygonIntNMapBuilder[B, BB] with Int3SeqLikeMapBuilder[B, BB]
 
-trait PolygonLikeFlatBuilder[VT, +BB <: PolygonLike[VT]] extends SeqLikeFlatBuilder[BB @uncheckedVariance]
+trait PolygonLikeFlatBuilder[VT, +BB <: PolygonLike[VT]] extends BuilderFlatSeqLike[BB @uncheckedVariance]
 { override type BuffT <: Buff[VT]
   def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit
 }
 
-trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extends PolygonLikeFlatBuilder[VT, BB] with CommonBuilderSeqLikeValueN[BB]
+trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extends PolygonLikeFlatBuilder[VT, BB] with BuilderAllSeqLikeValueN[BB]
 
 trait PolygonIntNFlatBuilder[VT <: IntNElem, BB <: PolygonLikeIntN[VT]] extends PolygonValueNFlatBuilder[VT, BB] with IntNSeqLikeFlatBuilder[BB]
 {

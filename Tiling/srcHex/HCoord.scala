@@ -66,7 +66,7 @@ object HCoord
     case _ => new HCoordOther(r, c)
   }
 
-  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[MapBuilderArr]]. */
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[BuilderMapArr]]. */
   implicit val arrBuildEv: Int2ArrMapBuilder[HCoord, HCoordArr] = new Int2ArrMapBuilder[HCoord, HCoordArr] {
     override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
@@ -94,12 +94,12 @@ object HCoord
   }
 }
 
-trait HCoordSeqLike extends Any with Int2SeqLike[HCoord]
+trait HCoordSeqLike extends Any with SeqLikeInt2[HCoord]
 { final override def newElem(int1: Int, int2: Int): HCoord = HCoord(int1, int2)
   final override def fElemStr: HCoord => String = _.toString
 }
 
-trait HCoordSeqSpec extends Any with HCoordSeqLike with Int2SeqSpec[HCoord]
+trait HCoordSeqSpec extends Any with HCoordSeqLike with SeqSpecInt2[HCoord]
 
 /** Specialised sequence class for [[HCoord]]. */
 class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] with HCoordSeqLike

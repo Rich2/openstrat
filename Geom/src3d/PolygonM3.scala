@@ -36,7 +36,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     }
   }
 
-  override def vertsMap[B, ArrB <: Arr[B]](f: PtM3 => B)(implicit builder: MapBuilderArr[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: PtM3 => B)(implicit builder: BuilderMapArr[B, ArrB]): ArrB =
   { val res = builder.uninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
@@ -74,7 +74,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
 { override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
-  implicit val arrBuildImplicit: MapBuilderArr[PolygonM3, PolygonM3Arr] = new MapBuilderArr[PolygonM3, PolygonM3Arr] {
+  implicit val arrBuildImplicit: BuilderMapArr[PolygonM3, PolygonM3Arr] = new BuilderMapArr[PolygonM3, PolygonM3Arr] {
     override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))

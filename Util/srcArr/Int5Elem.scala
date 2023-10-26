@@ -75,7 +75,7 @@ trait Int5Buff[A <: Int5Elem] extends Any with IntNBuff[A]
     unsafeBuffer.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
+trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends BuilderAllSeqLikeIntN[BB]
 { type BuffT <: Int5Buff[_]
   final override def elemProdSize: Int = 5
 }
@@ -90,7 +90,7 @@ trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5Seq
     buff.unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[MapBuilderArr]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[BuilderMapArr]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: Int5Arr[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]

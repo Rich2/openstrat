@@ -53,7 +53,7 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
   /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
   implicit val unshowEv: UnshowArrDblN[Pt2, Pt2Arr] = UnshowArrDblN[Pt2, Pt2Arr](fromArray)
 
-  implicit val arrFlatBuilderImplicit: FlatBuilderArr[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2Arr]
+  implicit val arrFlatBuilderImplicit: BuilderFlatArr[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

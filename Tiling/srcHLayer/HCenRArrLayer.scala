@@ -74,7 +74,7 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
   }
 
   /** Maps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: MapBuilderArr[B, BB]): BB =
+  def headsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit gSys: HGridSys, build: BuilderMapArr[B, BB]): BB =
   { val buff = build.newBuff()
     gSys.foreach { r =>
       val el:RArr[A] = apply(r)
@@ -84,7 +84,7 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def headsFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit build: FlatBuilderArr[BB]): BB =
+  def headsFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit build: BuilderFlatArr[BB]): BB =
   { val buff = build.newBuff()
     gridSys.foreach { r =>
       val el:RArr[A] = apply(r)
@@ -94,7 +94,7 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
   }
 
   /** FlatMaps the head values of the [[Arr]], if the [[Arr]] is none empty, with the corresponding [[HCen]] to a [[Seqimut]]. */
-  def headsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: FlatBuilderArr[ArrT]): ArrT =
+  def headsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: BuilderFlatArr[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       if (noneEmptyTile(hc)) {
@@ -107,12 +107,12 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
 
   /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projHeadsHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: MapBuilderArr[B, ArrB]): ArrB =
+  def projHeadsHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projHeadsHcPtMap(proj)(f)
 
   /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projHeadsHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def projHeadsHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val array = outerArrayUnsafe(proj.parent.layerArrayIndex(hc))
@@ -124,12 +124,12 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
     build.buffToSeqLike(buff)
   }
 
-  def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (RArr[A], HCen, Pt2) => B)(implicit proj: HSysProjection, build: MapBuilderArr[B, ArrB]): ArrB =
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](f: (RArr[A], HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projSomesHcPtMap(proj)(f)
 
   /** Uses projection to map the non empty ArrSome head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (RArr[A], HCen, Pt2) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val arr = apply(hc)
@@ -141,10 +141,10 @@ class HCenRArrLayer[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGrid
     build.buffToSeqLike(buff)
   }
 
-  def projEmptyHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: MapBuilderArr[B, ArrB]): ArrB =
+  def projEmptyHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: BuilderMapArr[B, ArrB]): ArrB =
     projEmptyHcPtMap(proj)(f)
 
-  def projEmptyHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def projEmptyHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val array = outerArrayUnsafe(proj.parent.layerArrayIndex(hc))

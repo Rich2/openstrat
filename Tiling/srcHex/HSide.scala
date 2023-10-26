@@ -90,7 +90,7 @@ object HSide
     case _ => None
   }
 
-  /** Implicit [[MapBuilderArr]] type class instance / evidence for [[HSide]] and [[HSideArr]]. */
+  /** Implicit [[BuilderMapArr]] type class instance / evidence for [[HSide]] and [[HSideArr]]. */
   implicit val arrMapBuilderEv: Int2ArrMapBuilder[HSide, HSideArr] = new Int2ArrMapBuilder[HSide, HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)

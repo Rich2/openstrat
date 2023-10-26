@@ -11,7 +11,7 @@ trait HIndentN
 
   def indentedVertexIndexForeach(f: Int => Unit): Unit
 
-  def indentedVertexIndexMap[B, ArrB <: Arr[B]](f: Int => B)(implicit build: MapBuilderArr[B, ArrB]): ArrB =
+  def indentedVertexIndexMap[B, ArrB <: Arr[B]](f: Int => B)(implicit build: BuilderMapArr[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     indentedVertexIndexForeach{ i => buff.grow(f(i)) }
     build.buffToSeqLike(buff)
