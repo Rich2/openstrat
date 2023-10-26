@@ -83,7 +83,7 @@ trait Int3ArrMapBuilder[B <: Int3Elem, ArrB <: Int3Arr[B]] extends Int3SeqLikeMa
 trait Int3ArrFlatBuilder[ArrB <: Int3Arr[_]] extends Int3SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** Helper class for companion objects of final [[Int3SeqSpec]] classes. */
-abstract class Int3SeqLikeCompanion[A <: Int3Elem, ArrA <: Int3SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
+abstract class Int3SeqLikeCompanion[A <: Int3Elem, ArrA <: Int3SeqLike[A]] extends CompanionSeqLikeIntN[A, ArrA]
 { override def elemNumInts: Int = 3
 
   /** Apply factory method for constructing [[SeqLike]] objects from [[Int3Elem]]s. */

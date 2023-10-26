@@ -92,7 +92,7 @@ trait Int4ArrMapBuilder[B <: Int4Elem, ArrB <: Int4Arr[B]] extends Int4SeqLikeMa
 trait Int4ArrFlatBuilder[ArrB <: Int4Arr[_]] extends Int4SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Int4Arr]] final classes to extend. */
-abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends IntNSeqLikeCompanion[A, M]
+abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): Int4Buff[A]

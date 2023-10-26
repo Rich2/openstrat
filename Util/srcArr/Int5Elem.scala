@@ -98,7 +98,7 @@ trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: Int5Arr[B]] extends Int5SeqLikeMa
 trait Int5ArrFlatBuilder[ArrB <: Int5Arr[_]] extends Int5SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Int5Arr]] final classes to extend. */
-abstract class Int5ArrCompanion[A <: Int5Elem, M <: Int5Arr[A]] extends IntNSeqLikeCompanion[A, M]
+abstract class Int5ArrCompanion[A <: Int5Elem, M <: Int5Arr[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 5
 
   def buff(initialSize: Int): Int5Buff[A]

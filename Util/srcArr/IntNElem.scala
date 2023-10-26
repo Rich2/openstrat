@@ -134,7 +134,7 @@ trait UnshowIntNSeqLike[A <: IntNElem, M <: SeqLikeIntN[A]] extends UnshowSeqLik
 
 /** Helper trait for Companion objects of [[ArrIntN]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
-trait IntNSeqLikeCompanion[A <: IntNElem, AA <: SeqLikeIntN[A]]
+trait CompanionSeqLikeIntN[A <: IntNElem, AA <: SeqLikeIntN[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 

@@ -75,7 +75,7 @@ trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends Int1ArrCommonBuilder[ArrT] 
 
 
 /** Helper class for companion objects of final [[Int1SeqSpec]] classes. */
-trait Int1SeqLikeCompanion[A <: Int1Elem, ArrA <: Int1SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
+trait Int1SeqLikeCompanion[A <: Int1Elem, ArrA <: Int1SeqLike[A]] extends CompanionSeqLikeIntN[A, ArrA]
 {
   final override def elemNumInts: Int = 1
 

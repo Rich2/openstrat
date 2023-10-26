@@ -76,7 +76,7 @@ trait Int2Buff[A <: Int2Elem] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final [[Int2SeqSpec]] classes. */
-trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: Int2SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
+trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: Int2SeqLike[A]] extends CompanionSeqLikeIntN[A, ArrA]
 {
   override def elemNumInts: Int = 2
 

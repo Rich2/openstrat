@@ -101,7 +101,7 @@ trait Int6ArrMapBuilder[B <: Int6Elem, ArrB <: Int6Arr[B]] extends Int6SeqLikeMa
 trait Int6ArrFlatBuilder[ArrB <: Int6Arr[_]] extends Int6SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Int6Arr]] final classes to extend. */
-abstract class Int6ArrCompanion[A <: Int6Elem, M <: Int6Arr[A]] extends IntNSeqLikeCompanion[A, M]
+abstract class Int6ArrCompanion[A <: Int6Elem, M <: Int6Arr[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 6
 
   def buff(initialSize: Int): Int6Buff[A]
