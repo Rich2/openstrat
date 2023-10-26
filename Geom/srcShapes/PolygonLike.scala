@@ -111,4 +111,4 @@ trait PolygonLikeIntN[VT <: IntNElem] extends Any with PolygonValueN[VT] with Se
 trait PolygonLikeInt2[VT <: Int2Elem] extends Any with PolygonLikeIntN[VT] with SeqSpecInt2[VT]
 
 /** A polygon whose elements are defined by 3 [[int]]s. */
-trait PolygonLikeInt3[VT <: Int3Elem] extends Any with PolygonLikeIntN[VT] with Int3SeqSpec[VT]
+trait PolygonLikeInt3[VT <: Int3Elem] extends Any with PolygonLikeIntN[VT] with SeqSpecInt3[VT]

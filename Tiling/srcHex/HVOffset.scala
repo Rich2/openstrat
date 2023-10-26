@@ -147,13 +147,13 @@ object HVOffset
   implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
-trait HVOffsetSeqLike extends Int3SeqLike[HVOffset]
+trait HVOffsetSeqLike extends SeqLikeInt3[HVOffset]
 {
   final override def newElem(int1: Int, int2: Int, int3: Int): HVOffset = new HVOffset(int1, int2, int3)
   final override def fElemStr: HVOffset => String = _.toString
 }
 
-class HVOffsetArr(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with Int3Arr[HVOffset]
+class HVOffsetArr(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with ArrInt3[HVOffset]
 { override type ThisT = HVOffsetArr
   override def typeStr: String = "HVAndOffsetArr"
   override def fromArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
