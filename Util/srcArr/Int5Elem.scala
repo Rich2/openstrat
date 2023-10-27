@@ -75,13 +75,15 @@ trait BuffInt5[A <: Int5Elem] extends Any with BuffIntN[A]
     unsafeBuffer.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** Builder for [[SeqLike]]s with [[Int5Elem]]s. */
+/** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
 trait BuilderSeqLikeInt5[BB <: SeqLikeInt5[_]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt5[_]
   final override def elemProdSize: Int = 5
 }
 
-trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
+/** Builder for [[SeqLike]]s with [[Int5]] elements via the map method, where the call site knows the typeof th element, but not the type of compound
+ * object. */
+trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
@@ -94,12 +96,13 @@ trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends Builder
 /** Trait for creating the ArrTBuilder type class instances for [[ArrInt5]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: ArrInt5[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait BuilderArrInt5Map[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderSeqLikeInt5Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int5ArrFlatBuilder[ArrB <: ArrInt5[_]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
+/** Builder for [[Arr]]s with [[Int5]] elements via the flatMap method. */
+trait BuilderArrInt5Flat[ArrB <: ArrInt5[_]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt5]] final classes to extend. */
-abstract class Int5ArrCompanion[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSeqLikeIntN[A, M]
+abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 5
 
   def buff(initialSize: Int): BuffInt5[A]
