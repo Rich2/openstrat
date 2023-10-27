@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from a single [[Double]]. These are used in [[Dbl1Arr]] Array[Int] based collections. */
+/** An object that can be constructed from a single [[Double]]. These are used in [[ArrDbl1]] Array[Int] based collections. */
 trait Dbl1Elem extends Any with DblNElem
 { def dbl1: Double
   def dblsEqual(that: Dbl1Elem): Boolean = dbl1 == that.dbl1
@@ -11,7 +11,7 @@ trait Dbl1Elem extends Any with DblNElem
 }
 
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
-trait Dbl1Arr[A <: Dbl1Elem] extends Any with ArrDblN[A]
+trait ArrDbl1[A <: Dbl1Elem] extends Any with ArrDblN[A]
 { final override def elemProdSize: Int = 1
   def newElem(dblValue: Double): A
   final override def length: Int = unsafeArray.length
