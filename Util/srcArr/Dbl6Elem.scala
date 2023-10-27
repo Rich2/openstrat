@@ -87,15 +87,15 @@ abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6[A]] extend
 
 /** Builder for [[SeqLikeDbl6]] types. */
 trait BuilderSeqLikeDbl6[BB <: ArrDbl6[_]] extends BuilderSeqLikeDblN[BB]
-{ type BuffT <: Dbl6Buff[_]
+{ type BuffT <: BuffDbl6[_]
   final override def elemProdSize = 6
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl6]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNMap[B, ArrB]
-{ type BuffT <: Dbl6Buff[B]
+trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNMap[B, ArrB]
+{ type BuffT <: BuffDbl6[B]
 
   override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex6(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5, elem.dbl6)
@@ -105,10 +105,10 @@ trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLik
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrFlatBuilder[ArrB <: ArrDbl6[_]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl6Flat[ArrB <: ArrDbl6[_]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait Dbl6Buff[A <: Dbl6Elem] extends Any with BuffDblN[A]
+trait BuffDbl6[A <: Dbl6Elem] extends Any with BuffDblN[A]
 { type ArrT <: ArrDbl6[A]
   override def elemProdSize: Int = 6
   final override def length: Int = unsafeBuffer.length / 6

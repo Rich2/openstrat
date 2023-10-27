@@ -38,7 +38,7 @@ object LineSegM3
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
 
   /** Implicit instance / evidence for [[BuilderArrMap]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
-  implicit val buildEv: Dbl6ArrMapBuilder[LineSegM3, LineSegM3Arr] = new Dbl6ArrMapBuilder[LineSegM3, LineSegM3Arr]
+  implicit val buildEv: BuilderArrDbl6Map[LineSegM3, LineSegM3Arr] = new BuilderArrDbl6Map[LineSegM3, LineSegM3Arr]
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
@@ -84,7 +84,7 @@ object LineSegM3Arr extends CompanionSqLikeDbl6[LineSegM3, LineSegM3Arr]
   }*/
 
   /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
-  implicit val flatBuildEv: BuilderArrFlat[LineSegM3Arr] = new Dbl6ArrFlatBuilder[LineSegM3Arr]
+  implicit val flatBuildEv: BuilderArrFlat[LineSegM3Arr] = new BuilderArrDbl6Flat[LineSegM3Arr]
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(inp)
@@ -92,7 +92,7 @@ object LineSegM3Arr extends CompanionSqLikeDbl6[LineSegM3, LineSegM3Arr]
 }
 
 /** Efficient expandable buffer for [[LineSegM3]]s. */
-class LineSegM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl6Buff[LineSegM3]
+class LineSegM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl6[LineSegM3]
 { override def typeStr: String = "LineSegM3Buff"
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegM3 =
     new LineSegM3(d1, d2, d3, d4, d5, d6)

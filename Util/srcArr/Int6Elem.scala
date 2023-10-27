@@ -93,7 +93,7 @@ trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends Builder
     buff.unsafeBuffer.append6(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[BuilderArrMap]] type
+/** Trait for creating the ArrTBuilder type class instances for [[ArrInt5]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]

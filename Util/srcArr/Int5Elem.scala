@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 5 [[Int]]s. These are used in [[Int5Arr]] Array[Int] based collections. */
+/** An object that can be constructed from 5 [[Int]]s. These are used in [[ArrInt5]] Array[Int] based collections. */
 trait Int5Elem extends Any with IntNElem
 { def int1: Int
   def int2: Int
@@ -16,7 +16,7 @@ trait Int5Elem extends Any with IntNElem
     buffer.append(int4); buffer.append(int5) }
 }
 
-trait Int5SeqLike[A <: Int5Elem] extends Any with SeqLikeIntN[A]
+trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 5
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
@@ -25,7 +25,7 @@ trait Int5SeqLike[A <: Int5Elem] extends Any with SeqLikeIntN[A]
     unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-trait Int5SeqSpec[A <: Int5Elem] extends Any with Int5SeqLike[A] with SeqSpecIntN[A]
+trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
@@ -35,7 +35,7 @@ trait Int5SeqSpec[A <: Int5Elem] extends Any with Int5SeqLike[A] with SeqSpecInt
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with ArrIntN[A]
+trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with ArrIntN[A]
 { final override def length: Int = unsafeArray.length / 5
 
   override def apply(index: Int): A =
@@ -58,8 +58,8 @@ trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait Int5Buff[A <: Int5Elem] extends Any with BuffIntN[A]
-{ type ThisT <: Int5Buff[A]
+trait BuffInt5[A <: Int5Elem] extends Any with BuffIntN[A]
+{ type ThisT <: BuffInt5[A]
 
   /** Constructs a new element of this [[Buff]] from 5 [[Int]]s. */
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
@@ -75,13 +75,14 @@ trait Int5Buff[A <: Int5Elem] extends Any with BuffIntN[A]
     unsafeBuffer.setIndex5(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-trait Int5SeqLikeCommonBuilder[BB <: Int5SeqLike[_]] extends BuilderSeqLikeIntN[BB]
-{ type BuffT <: Int5Buff[_]
+/** Builder for [[SeqLike]]s with [[Int5Elem]]s. */
+trait BuilderSeqLikeInt5[BB <: SeqLikeInt5[_]] extends BuilderSeqLikeIntN[BB]
+{ type BuffT <: BuffInt5[_]
   final override def elemProdSize: Int = 5
 }
 
-trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5SeqLikeCommonBuilder[BB] with BuilderSeqLikeIntNMap[B, BB]
-{ type BuffT <: Int5Buff[B]
+trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends BuilderSeqLikeInt5[BB] with BuilderSeqLikeIntNMap[B, BB]
+{ type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex5(index, elem.int1, elem.int2, elem.int3, elem.int4, elem.int5)
@@ -90,18 +91,18 @@ trait Int5SeqLikeMapBuilder[B <: Int5Elem, BB <: Int5SeqLike[B]] extends Int5Seq
     buff.unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[BuilderArrMap]] type
+/** Trait for creating the ArrTBuilder type class instances for [[ArrInt5]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: Int5Arr[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait Int5ArrMapBuilder[B <: Int5Elem, ArrB <: ArrInt5[B]] extends Int5SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int5ArrFlatBuilder[ArrB <: Int5Arr[_]] extends Int5SeqLikeCommonBuilder[ArrB] with BuilderArrIntNFlat[ArrB]
+trait Int5ArrFlatBuilder[ArrB <: ArrInt5[_]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
-/** Class for the singleton companion objects of [[Int5Arr]] final classes to extend. */
-abstract class Int5ArrCompanion[A <: Int5Elem, M <: Int5Arr[A]] extends CompanionSeqLikeIntN[A, M]
+/** Class for the singleton companion objects of [[ArrInt5]] final classes to extend. */
+abstract class Int5ArrCompanion[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 5
 
-  def buff(initialSize: Int): Int5Buff[A]
+  def buff(initialSize: Int): BuffInt5[A]
 
   final def apply(elems: A*): M =
   { val res = uninitialised(elems.length)
