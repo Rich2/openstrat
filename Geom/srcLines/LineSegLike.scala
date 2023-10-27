@@ -47,7 +47,7 @@ trait LineSegLikeDbl4Arr[VT <: Dbl2Elem, A <: LineSegLikeDbl4[VT]] extends Any w
  *  segment specified in metres. */
 trait LineSegLikeDbl6[VT <: Dbl3Elem] extends LineSegLikeDblN[VT] with Dbl6Elem
 
-trait LineSegLikeDbl6Arr[VT <: Dbl3Elem, A <: LineSegLikeDbl6[VT]] extends Any with LineSegLikeDblNArr[VT, A] with Dbl6Arr[A]
+trait LineSegLikeDbl6Arr[VT <: Dbl3Elem, A <: LineSegLikeDbl6[VT]] extends Any with LineSegLikeDblNArr[VT, A] with ArrDbl6[A]
 
 trait LineSegLikeIntN[VT <: IntNElem] extends LineSegLike[VT] with IntNElem
 

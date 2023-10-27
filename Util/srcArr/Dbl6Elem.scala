@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 6 [[Double]]s. These are used in [[Dbl6Arr]] Array[Double] based collections. */
+/** An object that can be constructed from 6 [[Double]]s. These are used in [[ArrDbl6]] Array[Double] based collections. */
 trait Dbl6Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
@@ -17,7 +17,7 @@ trait Dbl6Elem extends Any with DblNElem
 }
 
 /** Sequence like class whose elements or sequence specifying elements [[Dbl6Elem]] can be constructed from 6 [[Double]]s. */
-trait Dbl6SeqLike[A <: Dbl6Elem] extends Any with SeqLikeDblN[A]
+trait SeqLikeDbl6[A <: Dbl6Elem] extends Any with SeqLikeDblN[A]
 {
   def elemProdSize: Int = 6
 
@@ -26,7 +26,7 @@ trait Dbl6SeqLike[A <: Dbl6Elem] extends Any with SeqLikeDblN[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl6Elem]]s. */
-trait Dbl6SeqSpec[A <: Dbl6Elem] extends Any with Dbl6SeqLike[A] with SeqSpecDblN[A]
+trait Dbl6SeqSpec[A <: Dbl6Elem] extends Any with SeqLikeDbl6[A] with SeqSpecDblN[A]
 {
   override def ssElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
@@ -42,7 +42,7 @@ trait Dbl6SeqSpec[A <: Dbl6Elem] extends Any with Dbl6SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl6Elem]]s. */
-trait Dbl6Arr[A <: Dbl6Elem] extends Any with ArrDblN[A] with Dbl6SeqLike[A]
+trait ArrDbl6[A <: Dbl6Elem] extends Any with ArrDblN[A] with SeqLikeDbl6[A]
 { final override def length: Int = unsafeArray.length / 6
 
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
@@ -70,7 +70,7 @@ trait Dbl6Arr[A <: Dbl6Elem] extends Any with ArrDblN[A] with Dbl6SeqLike[A]
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqSpec]] classes. */
-abstract class Dbl6SeqLikeCompanion[A <: Dbl6Elem, ArrA <: Dbl6SeqLike[A]] extends CompanionSeqLikeDblN[A, ArrA]
+abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def elemNumDbls: Int = 6
 
   def apply(elems: A*): ArrA =
@@ -85,30 +85,31 @@ abstract class Dbl6SeqLikeCompanion[A <: Dbl6Elem, ArrA <: Dbl6SeqLike[A]] exten
   }
 }
 
-trait Dbl6SeqLikeCommonBuilder[BB <: Dbl6Arr[_]] extends BuilderSeqLikeDblN[BB]
+/** Builder for [[SeqLikeDbl6]] types. */
+trait BuilderSeqLikeDbl6[BB <: ArrDbl6[_]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: Dbl6Buff[_]
   final override def elemProdSize = 6
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl6Arr]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl6]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCommonBuilder[ArrB] with BuilderArrDblNMap[B, ArrB]
+trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNMap[B, ArrB]
 { type BuffT <: Dbl6Buff[B]
 
   override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex6(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5, elem.dbl6)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl6Arr]] final classes. Instances for the [[BuilderArrMap]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl6]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends Dbl6SeqLikeCommonBuilder[ArrB] with BuilderArrDblNFlat[ArrB]
+trait Dbl6ArrFlatBuilder[ArrB <: ArrDbl6[_]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait Dbl6Buff[A <: Dbl6Elem] extends Any with BuffDblN[A]
-{ type ArrT <: Dbl6Arr[A]
+{ type ArrT <: ArrDbl6[A]
   override def elemProdSize: Int = 6
   final override def length: Int = unsafeBuffer.length / 6
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
