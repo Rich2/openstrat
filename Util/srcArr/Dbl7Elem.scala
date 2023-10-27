@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7SeqSpec]] classes including [[Dbl7Arr]] sequence collections. */
+/** An object that can be constructed from 7 [[Double]]s. These are used in [[SeqSpecDbl7]] classes including [[ArrDbl7]] sequence collections. */
 trait Dbl7Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
@@ -16,8 +16,8 @@ trait Dbl7Elem extends Any with DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.appends(dbl1, dbl2, dbl3, dbl4, dbl5, dbl6, dbl7)
 }
 
-/** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[Dbl7Arr]]s and [[Dbl7SeqSpec]] */
-trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
+/** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[ArrDbl7]]s and [[SeqSpecDbl7]] */
+trait SeqLikeDbl7[A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
 { def elemProdSize: Int = 7
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
@@ -25,7 +25,7 @@ trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
-trait Dbl7SeqSpec[A <: Dbl7Elem] extends Any with Dbl7SeqLike[A] with SeqSpecDblN[A]
+trait SeqSpecDbl7[A <: Dbl7Elem] extends Any with SeqLikeDbl7[A] with SeqSpecDblN[A]
 {
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
@@ -40,7 +40,7 @@ trait Dbl7SeqSpec[A <: Dbl7Elem] extends Any with Dbl7SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
-trait Dbl7Arr[A <: Dbl7Elem] extends Any with ArrDblN[A] with Dbl7SeqLike[A]
+trait ArrDbl7[A <: Dbl7Elem] extends Any with ArrDblN[A] with SeqLikeDbl7[A]
 { def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5); def head7: Double = unsafeArray(6)
   final override def length: Int = unsafeArray.length / 7
@@ -65,8 +65,8 @@ trait Dbl7Arr[A <: Dbl7Elem] extends Any with ArrDblN[A] with Dbl7SeqLike[A]
   }
 }
 
-/** Helper class for companion objects of final [[Dbl7SeqSpec]] sequence-defined classes. */
-abstract class Dbl7SeqDefCompanion[A <: Dbl7Elem, ArrA <: Dbl7SeqLike[A]] extends CompanionSeqLikeDblN[A, ArrA]
+/** Helper class for companion objects of final [[SeqSpecDbl7]] sequence-defined classes. */
+abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7[A]] extends CompanionSeqLikeDblN[A, ArrA]
 { override def elemNumDbls: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)
 

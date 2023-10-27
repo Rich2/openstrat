@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 6 [[Int]]s. These are used in [[Int6Arr]] [[Array]][Int] based collections. */
+/** An object that can be constructed from 6 [[Int]]s. These are used in [[ArrInt6]] [[Array]][Int] based collections. */
 trait Int6Elem extends Any with IntNElem
 { def int1: Int
   def int2: Int
@@ -16,7 +16,7 @@ trait Int6Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = buffer.append6(int1, int2, int3, int4, int5, int6)
 }
 
-trait Int6SeqLike[A <: Int6Elem] extends Any with SeqLikeIntN[A]
+trait SeqLikeInt6[A <: Int6Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 6
 
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
@@ -25,7 +25,7 @@ trait Int6SeqLike[A <: Int6Elem] extends Any with SeqLikeIntN[A]
     unsafeArray.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with SeqSpecIntN[A]
+trait SeqSpecInt6[A <: Int6Elem] extends Any with SeqLikeInt6[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean =
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5) & (a1.int6 == a2.int6)
@@ -35,7 +35,7 @@ trait Int6SeqSpec[A <: Int6Elem] extends Any with Int6SeqLike[A] with SeqSpecInt
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
-trait Int6Arr[A <: Int6Elem] extends Any with Int6SeqLike[A] with ArrIntN[A]
+trait ArrInt6[A <: Int6Elem] extends Any with SeqLikeInt6[A] with ArrIntN[A]
 { final override def length: Int = unsafeArray.length / 6
 
   override def apply(index: Int): A = newElem(unsafeArray(6 * index), unsafeArray(6 * index + 1), unsafeArray(6 * index + 2),
@@ -60,8 +60,8 @@ trait Int6Arr[A <: Int6Elem] extends Any with Int6SeqLike[A] with ArrIntN[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
-trait Int6Buff[A <: Int6Elem] extends Any with BuffIntN[A]
-{ type ThisT <: Int6Buff[A]
+trait BuffInt6[A <: Int6Elem] extends Any with BuffIntN[A]
+{ type ThisT <: BuffInt6[A]
 
   /** Constructs a new element of this [[Buff]] from 6 [[Int]]s. */
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
@@ -78,13 +78,13 @@ trait Int6Buff[A <: Int6Elem] extends Any with BuffIntN[A]
     unsafeBuffer.setIndex6(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
-trait Int6SeqLikeCommonBuilder[BB <: Int6SeqLike[_]] extends BuilderSeqLikeIntN[BB]
-{ type BuffT <: Int6Buff[_]
+trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[_]] extends BuilderSeqLikeIntN[BB]
+{ type BuffT <: BuffInt6[_]
   final override def elemProdSize: Int = 6
 }
 
-trait Int6SeqLikeMapBuilder[B <: Int6Elem, BB <: Int6SeqLike[B]] extends Int6SeqLikeCommonBuilder[BB] with BuilderSeqLikeIntNMap[B, BB]
-{ type BuffT <: Int6Buff[B]
+trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends BuilderSeqLikeInt6[BB] with BuilderSeqLikeIntNMap[B, BB]
+{ type BuffT <: BuffInt6[B]
 
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
     seqLike.unsafeArray.setIndex6(index, elem.int1, elem.int2, elem.int3, elem.int4, elem.int5, elem.int6)
@@ -96,15 +96,15 @@ trait Int6SeqLikeMapBuilder[B <: Int6Elem, BB <: Int6SeqLike[B]] extends Int6Seq
 /** Trait for creating the ArrTBuilder type class instances for [[Int5Arr]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of [[Int5Elem]],
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int6ArrMapBuilder[B <: Int6Elem, ArrB <: Int6Arr[B]] extends Int6SeqLikeMapBuilder[B, ArrB] with BuilderArrIntNMap[B, ArrB]
+trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int6ArrFlatBuilder[ArrB <: Int6Arr[_]] extends Int6SeqLikeCommonBuilder[ArrB] with BuilderArrIntNFlat[ArrB]
+trait Int6ArrFlatBuilder[ArrB <: ArrInt6[_]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
 
-/** Class for the singleton companion objects of [[Int6Arr]] final classes to extend. */
-abstract class Int6ArrCompanion[A <: Int6Elem, M <: Int6Arr[A]] extends CompanionSeqLikeIntN[A, M]
+/** Class for the singleton companion objects of [[ArrInt6]] final classes to extend. */
+abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 6
 
-  def buff(initialSize: Int): Int6Buff[A]
+  def buff(initialSize: Int): BuffInt6[A]
 
   final def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 6

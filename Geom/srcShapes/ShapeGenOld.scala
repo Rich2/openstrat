@@ -6,7 +6,7 @@ import Colour.Black
  *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
  *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
  *  a BezierSeg. */
-class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqSpec[CurveTail] with AffinePreserve
+class ShapeGenOld(val unsafeArray: Array[Double]) extends SeqSpecDbl7[CurveTail] with AffinePreserve
 { type ThisT = ShapeGenOld
   def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"
@@ -107,7 +107,7 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqSpec[CurveTail]
   @inline def segLast: CurveTail = ssLast
 }
 
-object ShapeGenOld extends Dbl7SeqDefCompanion[CurveTail, ShapeGenOld]
+object ShapeGenOld extends CompanionSeqLikeDbl7[CurveTail, ShapeGenOld]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   override def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
 }

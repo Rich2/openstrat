@@ -134,7 +134,7 @@ object HVOffset
   def none(r: Int, c: Int) = new HVOffset(r, c, 0)
   def none(hVert: HVert) = new HVOffset(hVert.r, hVert.c, 0)
 
-  implicit val sarrMapBuilderImplicit: Int3ArrMapBuilder[HVOffset, HVOffsetArr]  = new Int3ArrMapBuilder[HVOffset, HVOffsetArr]
+  implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HVOffset, HVOffsetArr]  = new BuilderArrInt3Map[HVOffset, HVOffsetArr]
   { type BuffT = HVOffsetBuff
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVOffsetBuff = new HVOffsetBuff(buffer)
     override def fromIntArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
@@ -159,7 +159,7 @@ class HVOffsetArr(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with ArrI
   override def fromArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
 }
 
-object HVOffsetArr extends Int3SeqLikeCompanion [HVOffset, HVOffsetArr]
+object HVOffsetArr extends CompanionSeqLikeInt3 [HVOffset, HVOffsetArr]
 { override def fromArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
 }
 

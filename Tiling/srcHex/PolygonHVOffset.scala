@@ -34,7 +34,7 @@ class PolygonHVOffset(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with 
   def project(proj: HSysProjection): Polygon = map{ _.toPt2(proj.transCoord(_))(proj.parent) }
 }
 
-object PolygonHVOffset extends Int3SeqLikeCompanion[HVOffset, PolygonHVOffset]
+object PolygonHVOffset extends CompanionSeqLikeInt3[HVOffset, PolygonHVOffset]
 {
   override def fromArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
 }
