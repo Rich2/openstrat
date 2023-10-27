@@ -16,6 +16,7 @@ trait Int5Elem extends Any with IntNElem
     buffer.append(int4); buffer.append(int5) }
 }
 
+/** A compound object that could be a sequence or specified / defined by a sequence of [[Int5Elem]]s.  */
 trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 5
 
@@ -25,6 +26,7 @@ trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntN[A]
     unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
+/** A compound object that is not a sequence but is specified / defined by an [[Int5Elem]] sequence.  */
 trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean =
