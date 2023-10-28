@@ -7,7 +7,7 @@ package ostrat; package prid; package phex
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param bottomCenR The r value for the bottom tile row of the TileGrid.
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
+class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
 

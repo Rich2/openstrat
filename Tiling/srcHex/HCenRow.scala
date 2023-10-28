@@ -2,10 +2,11 @@
 package ostrat; package prid; package phex
 
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
-final class HCenRow(val r: Int, val cStart: Int, val tNum: Int)
+final class HCenRow private (val r: Int, val cStart: Int, val cEnd: Int)
 {
-  def cLen: Int = tNum * 4
-  def cEnd: Int = cStart + cLen
+  def cLen: Int = (cEnd - cStart).max0
+  def tNum: Int = ((cEnd - cStart + 1) / 4).max0
+
   def verts: HVertArr = new HVertArr(setHVertArray)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
@@ -34,12 +35,17 @@ final class HCenRow(val r: Int, val cStart: Int, val tNum: Int)
 
 object HCenRow
 {
-  def apply(r: Int, c: Int, num: Int): HCenRow = new HCenRow(r, c, num)
+  def apply(r: Int, cStart: Int, cEnd: Int): HCenRow = new HCenRow(r, cStart, cEnd)
 }
 
-case class HCenRowPair[A](r: Int, c: Int, num: Int, a2: A) extends PairElem[HCenRow, A]
+class HCenRowPair[A]private (val r: Int, val cStart: Int, val cEnd: Int, val a2: A) extends PairElem[HCenRow, A]
 {
-  override def a1: HCenRow = HCenRow(r, c, num)
+  override def a1: HCenRow = HCenRow(r, cStart, cEnd)
 
   def polygonHCTuple: PolygonHCPair[A] = new PolygonHCPair[A](a1.setHVertArray, a2)
+}
+
+object HCenRowPair
+{
+ def apply[A] (r: Int, cStart: Int, cEnd: Int, a2: A): HCenRowPair[A] = new HCenRowPair[A](r, cStart, cEnd, a2)
 }

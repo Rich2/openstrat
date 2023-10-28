@@ -215,19 +215,20 @@ trait HGrid extends Any with TGrid with HGridSys
       if (cenRowEmpty(r)) RArr()
       else
       { var currStart: Int = rowLeftCenC(r)
+        var currEnd: Int = rowRightCenC(r)
         var currC: Int = currStart
         var currVal: A = layer.rc(r, currStart)(indexingGSys)
         var list: List[HCenRowPair[A]] = Nil
         rowForeach(r){ hc =>
           currC = hc.c
           if (layer(hc)(indexingGSys) != currVal)
-          { val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
+          { val newHCenRowValue = HCenRowPair(r, currStart, currC + 4, currVal)
             list :+= newHCenRowValue
             currVal = layer(hc)(indexingGSys)
             currStart = hc.c
           }
         }
-        val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
+        val newHCenRowValue = HCenRowPair(r, currStart, currC + 4, currVal)
         list :+= newHCenRowValue
         list.toArr
       }
