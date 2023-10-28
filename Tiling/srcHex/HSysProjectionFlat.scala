@@ -60,9 +60,9 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
             val rowRight0 = hgi.rowRightCenC(r).min(newRight)
             val rowRight = ife(r.div4Rem0, rowRight0.roundDownTo(_.div4Rem0), rowRight0.roundDownTo(_.div4Rem2))
             val rowLen = ((rowRight - rowLeft) / 4 + 1).max(0)
-            newArray(i) = rowLen
-            i += 1
             newArray(i) = rowLeft
+            i += 1
+            newArray(i) = rowRight
             i += 1
           }
           val newGrid = new HGridIrr(bottom, newArray)

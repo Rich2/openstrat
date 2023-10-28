@@ -9,6 +9,7 @@ package ostrat; package prid; package phex
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
 {
+  unsafeRowsArray.foreach(i => if (i.isOdd) excep("A bound is odd. " + unsafeRowsArray.mkString(" ")))
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
   override def sideTileLtOpt(hSide: HSide): Option[HCen] =
@@ -116,7 +117,10 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
     wholeRows + (c - rowLeftCenC(r)) / 4
   }
 
-  override def rowNumTiles(row: Int): Int = unsafeRowsArray(row - bottomCenR)
+  override def rowNumTiles(row: Int): Int ={
+    val rd = row - bottomCenR
+    ((unsafeRowsArray(rd + 1) - unsafeRowsArray(rd) + 1) / 4).max0
+  }
 
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowLeftCenC(r), rowRightCenC(r), 4){ c => f(HCen(r, c))}
@@ -127,7 +131,11 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
     case r if r > topCenR =>
       excep(s"Row number $r is greater than top tile row $topCenR. There are $numTileRows rows. Exception in tileRowStart method.")
     case r if r < bottomCenR => excep(s"$r Row number less than bottom tile row in tileRowStart method.")
-    case _ => unsafeRowsArray(row - bottomCenR + 1)
+    case r =>{
+      val c = unsafeRowsArray(row - bottomCenR)
+      if (c.isOdd) excep(s"$c is invalid in method rowleftCenC for row $r")
+      c
+    }
   }
 
   /** The end (or by default right) column number of the tile centre of the given row. Will throw on illegal values. */
@@ -135,7 +143,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowEnd method.")
     case r if r > topCenR => excep(s"Row number $r is greater than top tile row $topCenR in tileRowEnd method.")
     case r if r < bottomCenR => excep(s"$r Row number less than $bottomCenR, the bottom tile row value in tileRowEnd method.")
-    case _ => rowLeftCenC(row) + (rowNumTiles(row) - 1) * 4
+    case _ => unsafeRowsArray(row - bottomCenR + 1)// rowLeftCenC(row) + (rowNumTiles(row) - 1) * 4
   }
 
   override def hCenExists(r: Int, c: Int): Boolean = r match
@@ -147,15 +155,15 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
 
 object HGridIrr
 {
-  /** Takes the top row number followed by pairs of the number of tiles in the row ad the tile centre start coordinate. */
-  def apply(rMax: Int, cLenMins: (Int, Int) *): HGridIrr =
-  { val array = new Array[Int](cLenMins.length * 2)
-    val len = cLenMins.length
-    val rMin = rMax - (len - 1) * 2
-    iUntilForeach(len){ i =>
-      val (rLen, cMin) = cLenMins(len - 1 - i)
-      array(i * 2) = rLen
-      array(i * 2 + 1) = cMin
+  /** Takes the top row number followed by pairs of start and end c numbers. */
+  def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrr =
+  { val numRows: Int = cMinMaxs.length
+    val array = new Array[Int](numRows * 2)
+    val rMin = rMax - (numRows - 1) * 2
+    iUntilForeach(numRows){ i =>
+      val (cMin, cMax) = cMinMaxs(numRows - 1 - i)
+      array(i * 2) = cMin
+      array(i * 2 + 1) = cMax
     }
     new HGridIrr(rMin, array)
   }
