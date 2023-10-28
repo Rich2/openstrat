@@ -18,8 +18,8 @@ object G1HScen2Test  extends TestSuite
       g1.numTileRows ==> 6
       g1.bottomCenR ==> 2
       g1.topCenR ==> 12
-      g1.leftCenC ==> 2
-      g1.rightCenC ==> 60
+      g1.gridLeftCenC ==> 2
+      g1.gridRightCenC ==> 60
       g1.numTiles ==> 90
 //      implicit val grid = os1.gridSys
 //      os1.oPlayers.numSomes ==> 3

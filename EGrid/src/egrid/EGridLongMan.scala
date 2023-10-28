@@ -65,8 +65,8 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   override def hCenExists(r: Int, c: Int): Boolean = None match
   { case _ if r > grid.topCenR => false
     case _ if r < grid.bottomCenR => false
-    case _ if isLeftMan & c < grid.leftCenC => false
-    case _ if isRightMan & c > grid.rightCenC => false
+    case _ if isLeftMan & c < grid.gridLeftCenC => false
+    case _ if isRightMan & c > grid.gridRightCenC => false
     case _ => true
   }
 

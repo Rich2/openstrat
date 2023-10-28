@@ -12,8 +12,8 @@ object G1Scen3Test extends TestSuite
       g1.numTileRows ==> 5
       g1.bottomCenR ==> 2
       g1.topCenR ==> 10
-      g1.leftCenC ==> 2
-      g1.rightCenC ==> 14
+      g1.gridLeftCenC ==> 2
+      g1.gridRightCenC ==> 14
       g1.numTiles ==> 11
     }
   }

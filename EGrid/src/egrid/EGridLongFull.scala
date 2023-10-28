@@ -68,10 +68,11 @@ object EGridLongFull
   def getBounds(rTileMin: Int, rTileMax: Int, rOffset: Int, c0Offset: Int, cScale: Length): Array[Int] =
   { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).max0)
     iToForeach(rTileMin, rTileMax, 2){ r =>
-      val p = (r - rTileMin)
-      val pair = tileRowMinMaxC(r, rOffset, c0Offset, cScale)
-      bounds(p) = ((pair._2 - pair._1 + 4)/ 4).max0
-      bounds(p + 1) = pair._1
+      val p: Int = (r - rTileMin)
+      val pair: (Int, Int) = tileRowMinMaxC(r, rOffset, c0Offset, cScale)
+      //bounds(p) = ((pair._2 - pair._1 + 4)/ 4).max0//Old formula
+      bounds(p) = pair._1
+      bounds(p + 1) = pair._2
     }
     bounds
   }

@@ -36,18 +36,18 @@ trait TGrid extends Any with TGridSys
   def rCen: Int = (bottomCenR + topCenR) / 2
 
   /** The centre of the hex grid in terms of c column coordinates. */
-  def cCen: Int = (leftCenC + rightCenC) / 2
+  def cCen: Int = (gridLeftCenC + gridRightCenC) / 2
 
   /** The [[TCenOrSide]] coordinate centre of this tile grid. */
   def coordCen: TCoord
 
   /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
-  def leftCenC: Int
+  def gridLeftCenC: Int
 
   /** the Maximum or highest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
-  def rightCenC: Int
+  def gridRightCenC: Int
 
   /** The [[TSide]] tile side, with the lowest C column coordinate. This places it on the left most points of the grid. */
   def leftSideC: Int
@@ -56,7 +56,7 @@ trait TGrid extends Any with TGridSys
   def rightSideC: Int
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
-  @inline override def xCen: Double = (leftCenC + rightCenC) / 2
+  @inline override def xCen: Double = (gridLeftCenC + gridRightCenC) / 2
   
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomCenR, topCenR, 2)(f)

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-
+//S@inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomCenR
 /** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
  *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
  *  centres [[HCen]]s and the cTileMin coordinate for the row.
@@ -104,23 +104,18 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
     sideRowIndexArray(r - bottomSideR) + ic
   }
 
-  override def leftCenC: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowLeftCenC(r)))
-  override def rightCenC: Int = foldRows(Int.MinValue )((acc, r) => acc.max(rowRightCenC(r)))
+  override def gridLeftCenC: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowLeftCenC(r)))
+  override def gridRightCenC: Int = foldRows(Int.MinValue )((acc, r) => acc.max(rowRightCenC(r)))
 
   override def numRow0s: Int = numTileRows.ifMod(bottomCenR.div4Rem0, _.roundUpToEven) / 2
   override def numRow2s: Int = numTileRows.ifMod(bottomCenR.div4Rem2, _.roundUpToEven) / 2
 
-  @inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomCenR
-
   override def layerArrayIndex(r: Int, c: Int): Int =
-  { val wholeRows = iUntilIntSum(bottomCenR, r, 2){ r => rowNumTiles(r) }
+  { val wholeRows = iUntilIntSum(bottomCenR, r, 2){ ri => rowNumTiles(ri) }
     wholeRows + (c - rowLeftCenC(r)) / 4
   }
 
-  override def rowNumTiles(row: Int): Int ={
-    val rd = row - bottomCenR
-    ((unsafeRowsArray(rd + 1) - unsafeRowsArray(rd) + 1) / 4).max0
-  }
+  override def rowNumTiles(row: Int): Int = ((rowRightCenC(row) - rowLeftCenC(row)) / 4 + 1).max0
 
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowLeftCenC(r), rowRightCenC(r), 4){ c => f(HCen(r, c))}

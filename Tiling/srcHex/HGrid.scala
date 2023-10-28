@@ -8,13 +8,13 @@ import geom._, reflect.ClassTag
  *  @groupprio SidesGroup 1010 */
 trait HGrid extends Any with TGrid with HGridSys
 {
-  final override def left: Double = leftCenC - 2
-  final override def right: Double = rightCenC + 2
+  final override def left: Double = gridLeftCenC - 2
+  final override def right: Double = gridRightCenC + 2
   final override def top: Double = topCenR * yRatio + 4.0/Sqrt3
   final override def bottom: Double = bottomCenR * yRatio - 4.0/Sqrt3
 
-  final override def leftSideC: Int = leftCenC - 2
-  final override def rightSideC: Int = leftCenC + 2
+  final override def leftSideC: Int = gridLeftCenC - 2
+  final override def rightSideC: Int = gridLeftCenC + 2
   def rowLen(r: Int): Int = ((rowRightCenC(r) - rowLeftCenC(r)) / 4).max0
 
   /** The number of tile centre rows where r %% 4 == 0.  */

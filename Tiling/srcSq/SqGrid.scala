@@ -6,20 +6,20 @@ import geom._, Colour.Black, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends SqGridSys with TGrid
+class SqGrid(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val gridRightCenC: Int) extends SqGridSys with TGrid
 {
   /** Number of rows of tiles. */
   override def numTileRows: Int = (topCenR - bottomCenR + 2).max0 / 2
 
   /** The number of tiles in each tile row. */
-  def tileRowLen: Int = (rightCenC - leftCenC + 2).max0 / 2
+  def tileRowLen: Int = (gridRightCenC - gridLeftCenC + 2).max0 / 2
 
   override def stepFind(startCen: SqCen, endCen: SqCen): Option[SqStep] = ife(sqCenExists(startCen) & sqCenExists(endCen), scSteps.optFind(_.sqCenDelta == endCen - startCen), None)
 
   override def flatSqCoordToPt2(sqCoord: SqCoord): Pt2 = Pt2(sqCoord.c, sqCoord.r)
 
-  final override def rightSideC: Int = rightCenC + 1
-  final override def leftSideC: Int = leftCenC - 1
+  final override def rightSideC: Int = gridRightCenC + 1
+  final override def leftSideC: Int = gridLeftCenC - 1
 
   override def left: Double = leftSideC
   override def right: Double = rightSideC
@@ -31,7 +31,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideR, c, topSideRow) }
 
   override def sidesForeach(f: SqSide => Unit): Unit = iToForeach(bottomSideR, topSideRow){r =>
-    if (r.isOdd) iToForeach(leftCenC, rightCenC, 2)(c => f(SqSide(r, c)))
+    if (r.isOdd) iToForeach(gridLeftCenC, gridRightCenC, 2)(c => f(SqSide(r, c)))
     else iToForeach(leftSideC, rightSideC, 2)(c => f(SqSide(r, c)))
   }
 
@@ -42,16 +42,16 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
    *  data. */
   @inline final def layerArrayIndex(sc: SqCen): Int = layerArrayIndex(sc.r, sc.c)
 
-  @inline def layerArrayIndex(r: Int, c: Int): Int = (r - bottomCenR) / 2 * tileRowLen + (c - leftCenC) / 2
+  @inline def layerArrayIndex(r: Int, c: Int): Int = (r - bottomCenR) / 2 * tileRowLen + (c - gridLeftCenC) / 2
 
-  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenC, rightCenC, 2)(c => f(SqCen(r, c)))
+  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(gridLeftCenC, gridRightCenC, 2)(c => f(SqCen(r, c)))
 
   def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
   def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
   { var count = startCount
     iUntilForeach(tileRowLen) { deltaC =>
-      f(SqCen(r, leftCenC + deltaC * 2), count)
+      f(SqCen(r, gridLeftCenC + deltaC * 2), count)
       count += 1
     }
     count
@@ -65,7 +65,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
-  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenR & c >= leftCenC & c <= rightCenC
+  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenR & c >= gridLeftCenC & c <= gridRightCenC
 
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].  */
   override def stepEndFind(startSC: SqCen, step: SqStep): Option[SqCen] ={

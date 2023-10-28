@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid with TellInt4
+class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val gridRightCenC: Int) extends HGrid with TellInt4
 { override def typeStr: String = "HGridReg"
   override def name1: String = "bottom"
   override def name2: String = "top"
@@ -11,14 +11,14 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   override def name4: String = "right"
   override def tell1: Int = bottomCenR
   override def tell2: Int = topCenR
-  override def tell3: Int = leftCenC
-  override def tell4: Int = rightCenC
+  override def tell3: Int = gridLeftCenC
+  override def tell4: Int = gridRightCenC
 
   def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
 
   override def equals(that: Any): Boolean = that match
   { case that: HGridReg =>
-      that.canEqual(this) && bottomCenR == that.bottomCenR && topCenR  == that.topCenR && leftCenC == that.leftCenC && rightCenC == that.rightCenC
+      that.canEqual(this) && bottomCenR == that.bottomCenR && topCenR  == that.topCenR && gridLeftCenC == that.gridLeftCenC && gridRightCenC == that.gridRightCenC
     case _ => false
   }
 
@@ -35,11 +35,11 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def leftrem2CenC: Int = leftCenC.roundUpTo(_.div4Rem2)
+  def leftrem2CenC: Int = gridLeftCenC.roundUpTo(_.div4Rem2)
 
   /** The end, maximum or by convention right column coordinate or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def rightRem2CenC: Int = rightCenC.roundDownTo(_.div4Rem2)
+  def rightRem2CenC: Int = gridRightCenC.roundDownTo(_.div4Rem2)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem0. */
   def row0sTileNum: Int = ((rightRem0CenC - leftRem0CenC + 4) / 4).max(0)
@@ -49,11 +49,11 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   /** The starting, minimum or by convention left column coordinate c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def leftRem0CenC: Int = leftCenC.roundUpTo(_.div4Rem0)
+  def leftRem0CenC: Int = gridLeftCenC.roundUpTo(_.div4Rem0)
 
   /** The end maximum or by convention right column coordinate, or c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def rightRem0CenC: Int = rightCenC.roundDownTo(_.div4Rem0)
+  def rightRem0CenC: Int = gridRightCenC.roundDownTo(_.div4Rem0)
 
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
   def bottomRem2R: Int = bottomCenR.roundUpTo(_.div4Rem2)
@@ -110,8 +110,8 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   override def adjTilesOfTile(origR: Int, origC: Int): HCenArr = HCen(origR, origC).neibs.filter{ hc => (hc.r, hc.c) match
   { case (r, _) if r > topCenR => false
     case (r, _) if r < bottomCenR => false
-    case (_, c) if c > rightCenC => false
-    case (_, c) if c < leftCenC => false
+    case (_, c) if c > gridRightCenC => false
+    case (_, c) if c < gridLeftCenC => false
     case _ => true
   }}
 
@@ -122,7 +122,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case r if r.div4Rem0 => iToForeach(leftRem0CenC - 2, rightRem0CenC + 2, 4){ c => f(HSide(r, c)) }
     case r if r == bottomSideR & r.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(r, c)) }
     case r if r == bottomSideR => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(r, c)) }
-    case r => iToForeach(leftCenC - 1, rightCenC + 1, 2){ c => f(HSide(r, c)) }
+    case r => iToForeach(gridLeftCenC - 1, gridRightCenC + 1, 2){ c => f(HSide(r, c)) }
   }
 
   override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
@@ -130,7 +130,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case r if r <= bottomSideR => excep(r.toString + " is not an inner row.")
     case r if r.div4Rem2 => iToForeach(leftrem2CenC + 2, rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC + 2, rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
-    case r => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(r, c)) }
+    case r => iToForeach(gridLeftCenC + 1, gridRightCenC - 1, 2){ c => f(HSide(r, c)) }
   }
 
   override def rowNumTiles(row: Int): Int = row %% 4 match
@@ -155,12 +155,12 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
    * Array data. */
   override def sideLayerArrayIndex(r: Int, c: Int): Int =
   { val cDelta = r match
-    { case r if r == topSideR  & (r - 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
-      case r if r == topSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1
-      case r if r == bottomSideR & (r + 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
-      case r if r == bottomSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1
+    { case r if r == topSideR  & (r - 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
+      case r if r == topSideR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
+      case r if r == bottomSideR & (r + 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
+      case r if r == bottomSideR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
       case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
-      case r => c - leftCenC + 1
+      case r => c - gridLeftCenC + 1
     }
     val ic = cDelta / 2
     sideRowIndexArray(r - bottomSideR) + ic
@@ -177,7 +177,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
     iToForeach(bottomCenR, topCenR){r => r match{
       case r if r.isEven => { f(HSide(r, rowLeftCenC(r) - 2)); f(HSide(r, rowRightCenC(r) + 2)) }
-      case r => { f(HSide(r, leftCenC - 1)); f(HSide(r, rightCenC + 1)) }
+      case r => { f(HSide(r, gridLeftCenC - 1)); f(HSide(r, gridRightCenC + 1)) }
     }}
     if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
   }

@@ -35,8 +35,8 @@ class EGrid320LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
 object EGrid320LongFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320LongFull(rBottomCen, rTopCen, cenLongInt)
 
-  val fullBounds: Array[EGrid320LongFull] = {
-    val array = new Array[EGrid320LongFull](12)
+  val fullBounds: Array[EGrid320LongFull] =
+  { val array = new Array[EGrid320LongFull](12)
     iUntilForeach(0, 12) { i => array(i) = EGrid320LongFull(40, 160, i) }
     array
   }
