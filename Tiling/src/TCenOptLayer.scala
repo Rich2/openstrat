@@ -23,7 +23,7 @@ trait TCenOptLayer[A <: AnyRef] extends Any
   }
 
   def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairNoA1ParamElem[B1, B2], ArrB <: PairNoA1PramArr[B1,ArrB1, B2, B]](noneB1: => B1, noneB2: => B2)(f1: A => B1)(
-    f2: A => B2)(implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
+    f2: A => B2)(implicit build: BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val b1Buff = build.newB1Buff()
     val b2Buff = build.newB2Buffer()
     unsafeArray.foreach { a =>

@@ -99,7 +99,7 @@ object StrPairArr
   }
 }
 
-class StrPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends PairArrMapBuilder[String, StrArr, B2, StrPair[B2], StrPairArr[B2]]
+class StrPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[String, StrArr, B2, StrPair[B2], StrPairArr[B2]]
 { override type BuffT = StrPairBuff[B2]
   override type B1BuffT = StringBuff
   override def b1ArrBuilder: BuilderArrMap[String, StrArr] = StringArrBuilder

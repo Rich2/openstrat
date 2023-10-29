@@ -89,7 +89,7 @@ trait IntNPAirArrCommonBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <:
 }
 
 trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: PairIntNElem[B1, B2], ArrB <: ArrPairIntN[B1, ArrB1, B2, B]] extends
-  IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+  IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairIntN[B1, B2, B]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
@@ -104,7 +104,7 @@ trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: PairI
 }
 
 trait IntNPairArrFlatBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPairIntN[B1, ArrB1, B2, _]] extends
-  IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
+  IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with BuilderArrPairFlat[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayInt.foreach(buff.b1IntBuffer.append(_))
     arr.a2Array.foreach(buff.b2Buffer.append(_)) }

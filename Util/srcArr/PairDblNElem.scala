@@ -61,7 +61,7 @@ BuilderArrPair[B1, ArrB1, B2, ArrB]
 }
 
 trait DblNPairArrMapBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, B <: PairDblNElem[B1, B2], ArrB <: PairArrDblN[B1, ArrB1, B2, B]] extends
-DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDblN[B1, B2, B]
 
   /** The number of [[Double]]s required to construct the first component of the pairs. */
@@ -72,7 +72,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
 }
 
 trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: PairArrDblN[B1, ArrB1, B2, _]] extends
-DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
+DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with BuilderArrPairFlat[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayDbl.foreach(buff.b1DblBuffer.append(_))
     arr.a2Arr.foreach(buff.b2Buffer.append(_)) }

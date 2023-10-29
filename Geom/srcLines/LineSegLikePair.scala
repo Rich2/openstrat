@@ -19,7 +19,7 @@ trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: L
 trait LineSegLikePairBuff[VT, B1 <: LineSegLike[VT], B2, B <: LineSegLikePair[VT, B1, B2]] extends BuffPair[B1, B2, B]
 
 trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B2, B <: LineSegLikePair[B1V, B1, B2],
-  ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+  ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: LineSegLikePairBuff[B1V, B1, B2, B]
   //override type B1BuffT = <: LineSegL
 

@@ -100,7 +100,7 @@ object RPairBuff
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 }
 
-class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends PairArrMapBuilder[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
+class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPairMap[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
 { override type BuffT = RPairBuff[B1, B2]
   override type B1BuffT = RBuff[B1]
   override def b1ArrBuilder: BuilderArrMap[B1, RArr[B1]] = BuilderArrMap.rMapImplicit

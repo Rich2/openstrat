@@ -12,7 +12,7 @@ trait PairElem[A1, A2] extends Any
 }
 
 /** An [[Arr]] of [[PairElem]]s. These classes allow convenient methods to map and filter on just one component of the pair. They and their associated
- *  [[PairArrMapBuilder]] and [[BuffPair]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather than one
+ *  [[BuilderArrPairMap]] and [[BuffPair]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather than one
  *  array of the pairs. It is particularly designed for efficient mapOnA1 operations, where we want to map over the first part of the pair while
  *  leaving the second component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
  *  filterMap methods. You must map then filter. */
@@ -76,7 +76,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   /** Maps the sequence of pairs to a new sequence of pairs, but leaving the second component of the pairs unchanged. */
   def mapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
-    build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+    build: BuilderArrPairMap[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
@@ -84,7 +84,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairNoA1PramArr]] of [[PairNoA1ParamElem]][B1, A2]. Then flattens
    * these new [[PairNoA1PramArr]]s to make a single [[PairNoA1PramArr]] */
   def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairNoA1PramArr[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
-    build: PairArrFlatBuilder[B1, ArrB1, A2, ArrB]): ArrB = {
+    build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]): ArrB = {
     val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
@@ -93,7 +93,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
    * values to make the new pairs of type [[PairNoA1ParamElem]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairNoA1ParamElem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
-    build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+    build: BuilderArrPairMap[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
@@ -107,7 +107,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
-  def filterOnA1(f: A1 => Boolean)(implicit build: PairArrMapBuilder[A1, A1Arr, A2, A, ThisT]): ThisT = {
+  def filterOnA1(f: A1 => Boolean)(implicit build: BuilderArrPairMap[A1, A1Arr, A2, A, ThisT]): ThisT = {
     val buff = build.newBuff()
     pairForeach { (a1, a2) => if (f(a1)) buff.pairGrow(a1, a2) }
     build.buffToSeqLike(buff)
@@ -197,9 +197,9 @@ trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]
   def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB
 }
 
-/** Builder for [[PairNoA1ParamElem]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
- * flatMap methods where B corresponds to the map function f: A => B. */
-trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: ArrPair[B1, ArrB1, B2, B]] extends
+/** Builder for [[ArrPair]] objects via the map f: A => PairB, method. Hence the call site knows the type of the [[PairElem]]s that will make up the
+ *  final [[Arr]] object. */
+trait BuilderArrPairMap[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: ArrPair[B1, ArrB1, B2, B]] extends
   BuilderArrPair[B1, ArrB1, B2, ArrB] with BuilderArrMap[B, ArrB]
 {
   type BuffT <: BuffPair[B1, B2, B]
@@ -215,16 +215,17 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <:
   def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 }
 
-object PairArrMapBuilder extends PairArrMapBuilderLowPriority
+object BuilderArrPairMap extends BuilderArrPairMapPriority2
 {
   implicit def strArrMapEv[B2](implicit ct: ClassTag[B2]): StrPairArrMapBuilder[B2] = new StrPairArrMapBuilder[B2]
   //implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
-trait PairArrMapBuilderLowPriority
+trait BuilderArrPairMapPriority2
 { implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
-/** [[ArrFlatbuilder]] for [[PairNoA1ParamElem]]s. */
-trait PairArrFlatBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]] extends BuilderArrPair[B1, ArrB1, B2, ArrB] with
+/** Builder for [[ArrPair]] objects via the flatMap f: A => ArrPairB, method. Hence the call site doesn't know the type of the [[PairElem]]s that will
+ *  make up the final [[Arr]] object. */
+trait BuilderArrPairFlat[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]] extends BuilderArrPair[B1, ArrB1, B2, ArrB] with
   BuilderArrFlat[ArrB]

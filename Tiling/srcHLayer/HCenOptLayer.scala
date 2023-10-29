@@ -147,7 +147,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with H
 
   /** Maps the [[Some]] values with the corresponding [[HCen]] to type B. The [[None]] values are dropped. */
   def somesHcPairMap[B1, B1Arr <: Arr[B1], B2, B <: PairElem[B1, B2], ArrT <: ArrPair[B1, B1Arr, B2, B]](f: (A, HCen) => B)(implicit gridSys: HGridSys,
-    build: PairArrMapBuilder[B1, B1Arr, B2, B, ArrT]): ArrT =
+    build: BuilderArrPairMap[B1, B1Arr, B2, B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       val a = unsafeArray(gridSys.layerArrayIndex(hc))

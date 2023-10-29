@@ -157,7 +157,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   }
 
   def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairNoA1ParamElem[B1, B2], ArrB <: PairNoA1PramArr[B1, ArrB1, B2, B]](f1: (SqCen, A) => B1)(f2: (SqCen, A) => B2)(
-  implicit gridSys: SqGridSys, build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
+  implicit gridSys: SqGridSys, build: BuilderArrPairMap[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val len = somesLen
     val res1 = build.b1Uninitialised(len)
     val res2 = new Array[B2](len)(build.b2ClassTag)
