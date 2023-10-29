@@ -28,7 +28,7 @@ object LineSegPairArr{
   implicit def pairArrFlatBuilder[B2](implicit ct: ClassTag[B2]): BuilderArrPairFlat[LineSeg, LineSegArr,B2, LineSegPairArr[B2]] = new LineSegPairArrFlatBuilder[B2]
 }
 
-class LineSegPairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends Dbl4PairBuff[LineSeg, B2, LineSegPair[B2]]
+class LineSegPairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl4[LineSeg, B2, LineSegPair[B2]]
 { override type ThisT = LineSegPairBuff[B2]
   override def typeStr: String = "LineSegPairBuff"
 
@@ -36,7 +36,7 @@ class LineSegPairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Ar
     new LineSegPair[B2](dbl1, dbl2, dbl3, dbl4, a2)
 }
 
-trait LineSegPairArrCommonBuilder[B2] extends Dbl4PairArrCommonBuilder[LineSeg, LineSegArr, B2, LineSegPairArr[B2]]
+trait LineSegPairArrCommonBuilder[B2] extends BuilderArrPairDbl4[LineSeg, LineSegArr, B2, LineSegPairArr[B2]]
 { override type BuffT = LineSegPairBuff[B2]
   override type B1BuffT = LineSegBuff
   override def newB1Buff(): LineSegBuff = LineSegBuff()
@@ -47,7 +47,7 @@ trait LineSegPairArrCommonBuilder[B2] extends Dbl4PairArrCommonBuilder[LineSeg, 
 }
 
 class LineSegPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends LineSegPairArrCommonBuilder[B2] with
-Dbl4PairArrMapBuilder[LineSeg, LineSegArr, B2, LineSegPair[B2], LineSegPairArr[B2]]
+BuilderArrPairDbl4Map[LineSeg, LineSegArr, B2, LineSegPair[B2], LineSegPairArr[B2]]
 {
   override def b1ArrBuilder: BuilderArrMap[LineSeg, LineSegArr] = LineSeg.arrMapbuilderEv
 
