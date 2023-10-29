@@ -12,7 +12,7 @@ trait SeqLikePairElem[A1E, A1 <: SeqLike[A1E], A2] extends PairNoA1ParamElem[A1,
 trait SeqLikePairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends PairNoA1PramArr[A1, A1Arr, A2, A]
 
 /** A buffer of [[SeqLikePairElem]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
-trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends PairBuff[A1, A2, A]
+trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: SeqLikePairElem[A1E, A1, A2]] extends BuffPair[A1, A2, A]
 { def b2Buffer: ArrayBuffer[A2]
   override def length: Int = b2Buffer.length
 }

@@ -4,7 +4,7 @@ import annotation._, reflect.ClassTag
 
 /** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
  * [[Int4Elem]] components are backed bya single [[Array]][Int]. */
-trait Int4PairElem[A1 <: Int4Elem, A2] extends IntNPairElem[A1, A2]
+trait Int4PairElem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
   def a1Int3: Int
@@ -12,7 +12,7 @@ trait Int4PairElem[A1 <: Int4Elem, A2] extends IntNPairElem[A1, A2]
 }
 
 /** An [[Arr]] of [[PairNoA1ParamElem]]s where the first component is an [[Int4Elem]]. */
-trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: Int4PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: Int4PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: Int4PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
@@ -40,7 +40,7 @@ trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: Int4PairElem[A1
   }
 }
 
-trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends IntNPairBuff[B1, B2, B]
+trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends BuffPairIntN[B1, B2, B]
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): B
 

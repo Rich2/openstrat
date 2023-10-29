@@ -7,8 +7,8 @@ import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 final class RPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
 
 /** R for stored by reference. The generalised default [[PAirArr]] for types that do not have there own specialised classes. Note although they are
- *  named as reference [[PairArr]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */
-class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends PairArr[A1, RArr[A1], A2, RPairElem[A1, A2]]
+ *  named as reference [[ArrPair]]s the A1 type parameter does not have to inherit from [[AnyRef]]. */
+class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends ArrPair[A1, RArr[A1], A2, RPairElem[A1, A2]]
 { override type ThisT = RPairArr[A1, A2]
   override def typeStr: String = "RPairArr"
   override def a1Arr: RArr[A1] = new RArr[A1](a1Array)
@@ -86,7 +86,7 @@ object RPairArr
 
 /** R for the first component of the [[PairNoA1ParamElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as
  *  reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
-class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[B1, B2, RPairElem[B1, B2]]
+class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]
   override def typeStr: String = "GenPairBuff"
   override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1); b2Buffer.append(b2) }

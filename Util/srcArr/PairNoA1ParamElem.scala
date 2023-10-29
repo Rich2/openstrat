@@ -1,12 +1,12 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** These classes are for use in [[PairNoA1PramArr]]s. The A1 type is finalised in the instantiable classes */
 trait PairNoA1ParamElem[A1, A2] extends Any with PairElem[A1, A2]
 
-/** [[PairArr]] where the A1 type is finalised in the instantiable classes. */
-trait PairNoA1PramArr[A1, A1Arr <: Arr[A1], A2, A <: PairNoA1ParamElem[A1, A2]] extends PairArr[A1, A1Arr, A2, A]
+/** [[ArrPair]] where the A1 type is finalised in the instantiable classes. */
+trait PairNoA1PramArr[A1, A1Arr <: Arr[A1], A2, A <: PairNoA1ParamElem[A1, A2]] extends ArrPair[A1, A1Arr, A2, A]
 { type ThisT <: PairNoA1PramArr[A1, A1Arr, A2, A]
 
   /** Returns a copy of this [[PairNoA1PramArr]] where the A1 component is replaced for any pairs where the A2 value matches the given parameter. this method
@@ -26,11 +26,11 @@ trait PairNoA1PramArr[A1, A1Arr <: Arr[A1], A2, A <: PairNoA1ParamElem[A1, A2]] 
 
 /** An efficient [[Buff]] for [[PairNoA1ParamElem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
  * because these [[Buff]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
-trait PairBuff[B1, B2, B <: PairElem[B1, B2]] extends Any with Buff[B]
+trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any with Buff[B]
 { /** ArrayBuffer for the B2 components of the pairs. */
   def b2Buffer: ArrayBuffer[B2]
 
-  /** Grows a [[PairBuff]] by adding the elements of the pair to the b1 and b2 buffers. */
+  /** Grows a [[BuffPair]] by adding the elements of the pair to the b1 and b2 buffers. */
   def pairGrow(b1: B1, b2: B2): Unit
 
   override def length: Int = b2Buffer.length

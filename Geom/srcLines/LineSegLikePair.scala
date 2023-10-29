@@ -16,7 +16,7 @@ trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: L
   }
 }
 
-trait LineSegLikePairBuff[VT, B1 <: LineSegLike[VT], B2, B <: LineSegLikePair[VT, B1, B2]] extends PairBuff[B1, B2, B]
+trait LineSegLikePairBuff[VT, B1 <: LineSegLike[VT], B2, B <: LineSegLikePair[VT, B1, B2]] extends BuffPair[B1, B2, B]
 
 trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B2, B <: LineSegLikePair[B1V, B1, B2],
   ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
@@ -28,10 +28,10 @@ trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B
   def b1Builder: LineSegLikeMapBuilder[B1V, B1]
 }
 
-trait LineSegLikeIntNPair[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with IntNPairElem[A1, A2]
+trait LineSegLikeIntNPair[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with PairIntNElem[A1, A2]
 
 trait LineSegLikeIntNPairArr[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], ArrA1 <: ArrIntN[A1], A2, A <: LineSegLikeIntNPair[VT, A1, A2]] extends
-  LineSegLikePairArr[VT, A1, ArrA1, A2, A] with IntNPairArr[A1, ArrA1, A2, A]
+  LineSegLikePairArr[VT, A1, ArrA1, A2, A] with ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A]
 }
 
@@ -42,10 +42,10 @@ LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A] with Int4PairArr[A1, ArrA1, A2, A]
 { final override def a1NumInt: Int = 4
 }
 
-trait LineSegLikeDblNPair[VT <: DblNElem, A1 <: LineSegLikeDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with DblNPairElem[A1, A2]
+trait LineSegLikeDblNPair[VT <: DblNElem, A1 <: LineSegLikeDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with PairDblNElem[A1, A2]
 
 trait LineSegLikeDblNPairArr[VT <: DblNElem, A1 <: LineSegLikeDblN[VT], ArrA1 <: ArrDblN[A1], A2, A <: LineSegLikeDblNPair[VT, A1, A2]] extends
-  LineSegLikePairArr[VT, A1, ArrA1, A2, A] with DblNPairArr[A1, ArrA1, A2, A]
+  LineSegLikePairArr[VT, A1, ArrA1, A2, A] with PairArrDblN[A1, ArrA1, A2, A]
 { type ThisT <: LineSegLikeDblNPairArr[VT, A1, ArrA1, A2, A]
 }
 

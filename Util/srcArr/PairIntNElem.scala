@@ -1,14 +1,14 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** Pair element where the first element is an [[IntNElem]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length
- *  of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
-trait IntNPairElem[A1 <: IntNElem, A2] extends PairNoA1ParamElem[A1, A2]
+/** Pair element where the first component is an [[IntNElem]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed
+ *  length of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
+trait PairIntNElem[A1 <: IntNElem, A2] extends PairNoA1ParamElem[A1, A2]
 
 /** An [[Arr]] of [[PairNoA1ParamElem]]s where the first component is an [[IntNElem]]. */
-trait IntNPairArr[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: IntNPairElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
-{ type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
+trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
+{ type ThisT <: ArrPairIntN[A1, ArrA1, A2, A]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
   def a1NumInt: Int
@@ -59,10 +59,10 @@ trait IntNPairArr[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: IntNPairElem[A1
 }
 
 /** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[IntNElem]]. */
-trait IntNPairBuff[B1 <: IntNElem, B2, B <: IntNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
+trait BuffPairIntN[B1 <: IntNElem, B2, B <: PairIntNElem[B1, B2]] extends BuffPair[B1, B2, B]
 { def b1IntBuffer: ArrayBuffer[Int]
 
-  final def growArr(newElems: IntNPairArr[B1, _, B2, B]): Unit =
+  final def growArr(newElems: ArrPairIntN[B1, _, B2, B]): Unit =
   { newElems.a1ArrayInt.foreach(b1IntBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_))
   }
@@ -70,9 +70,8 @@ trait IntNPairBuff[B1 <: IntNElem, B2, B <: IntNPairElem[B1, B2]] extends PairBu
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.intForeach(b1IntBuffer.append(_)); b2Buffer.append(b2) }
 }
 
-trait IntNPAirArrCommonBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
-  PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
-{ type BuffT <: IntNPairBuff[B1, B2, _]
+trait IntNPAirArrCommonBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPairIntN[B1, ArrB1, B2, _]] extends BuilderArrPair[B1, ArrB1, B2, ArrB]
+{ type BuffT <: BuffPairIntN[B1, B2, _]
   type B1BuffT <: BuffIntN[B1]
 
   /** Constructs the [[Arr]] class from an [[Array]][Int] object for the first components of the pairs and an [[Array]][B2] for the second
@@ -89,9 +88,9 @@ trait IntNPAirArrCommonBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <:
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: IntNPairElem[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
+trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: PairIntNElem[B1, B2], ArrB <: ArrPairIntN[B1, ArrB1, B2, B]] extends
   IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: IntNPairBuff[B1, B2, B]
+{ type BuffT <: BuffPairIntN[B1, B2, B]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
   def a1IntNum: Int
@@ -104,7 +103,7 @@ trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: IntNP
   inline final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.grow(newElem)
 }
 
-trait IntNPairArrFlatBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
+trait IntNPairArrFlatBuilder[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPairIntN[B1, ArrB1, B2, _]] extends
   IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayInt.foreach(buff.b1IntBuffer.append(_))

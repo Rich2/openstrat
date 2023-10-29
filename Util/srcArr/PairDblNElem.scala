@@ -1,11 +1,12 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait DblNPairElem[A1 <: DblNElem, A2] extends PairNoA1ParamElem[A1, A2]
+/** [[PairElem]] where the first component is a [[DblNElem]]. */
+trait PairDblNElem[A1 <: DblNElem, A2] extends PairNoA1ParamElem[A1, A2]
 
-trait DblNPairArr[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: DblNPairElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
-{ type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
+trait PairArrDblN[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: PairDblNElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
+{ type ThisT <: PairArrDblN[A1, ArrA1, A2, A]
 
   def a1NumDbl: Int
 
@@ -29,19 +30,20 @@ trait DblNPairArr[A1 <: DblNElem, ArrA1 <: ArrDblN[A1], A2, A <: DblNPairElem[A1
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }
 
-trait DblNPairBuff[B1 <: DblNElem, B2, B <: DblNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
+/** Efficent buffer classes for [[PairDblN]] elements. */
+trait BuffPairDblN[B1 <: DblNElem, B2, B <: PairDblNElem[B1, B2]] extends BuffPair[B1, B2, B]
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]
 
-  final def growArr(newElems: DblNPairArr[B1, _, B2, B]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
+  final def growArr(newElems: PairArrDblN[B1, _, B2, B]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.dblForeach(b1DblBuffer.append(_)); b2Buffer.append(b2) }
 }
 
-trait DblNPAirArrCommonBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
-PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
-{ type BuffT <: DblNPairBuff[B1, B2, _]
+trait DblNPAirArrCommonBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: PairArrDblN[B1, ArrB1, B2, _]] extends
+BuilderArrPair[B1, ArrB1, B2, ArrB]
+{ type BuffT <: BuffPairDblN[B1, B2, _]
   type B1BuffT <: BuffDblN[B1]
 
   /** Constructs the [[Arr]] class from an [[Array]][Double] object for the first components of the pairs and an [[Array]][B2] for the second
@@ -58,9 +60,9 @@ PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait DblNPairArrMapBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, B <: DblNPairElem[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
+trait DblNPairArrMapBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, B <: PairDblNElem[B1, B2], ArrB <: PairArrDblN[B1, ArrB1, B2, B]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: DblNPairBuff[B1, B2, B]
+{ type BuffT <: BuffPairDblN[B1, B2, B]
 
   /** The number of [[Double]]s required to construct the first component of the pairs. */
   def a1DblNum: Int
@@ -69,14 +71,14 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
   inline final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.grow(newElem)
 }
 
-trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
+trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: PairArrDblN[B1, ArrB1, B2, _]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayDbl.foreach(buff.b1DblBuffer.append(_))
     arr.a2Arr.foreach(buff.b2Buffer.append(_)) }
 }
 
-/** Helper trait for Companion objects of [[DblNPairArr]] classes. */
+/** Helper trait for Companion objects of [[PairArrDblN]] classes. */
 trait DblNPairArrCompanion[A1 <: DblNElem, ArrA1 <: ArrDblN[A1]]
 {
   /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */

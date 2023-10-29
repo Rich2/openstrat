@@ -2,14 +2,14 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Dbl4PairElem[A1 <: Dbl4Elem, A2] extends DblNPairElem[A1, A2]
+trait Dbl4PairElem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
   def a1Dbl3: Double
   def a1Dbl4: Double
 }
 
-trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
 { type ThisT <: Dbl4PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
@@ -43,7 +43,7 @@ trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1
   }
 }
 
-trait Dbl4PairBuff[B1 <: Dbl4Elem, B2, B <: Dbl4PairElem[B1, B2]] extends DblNPairBuff[B1, B2, B]
+trait Dbl4PairBuff[B1 <: Dbl4Elem, B2, B <: Dbl4PairElem[B1, B2]] extends BuffPairDblN[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
 

@@ -2,12 +2,12 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Dbl2PairElem[A1 <: Dbl2Elem, A2] extends DblNPairElem[A1, A2]
+trait Dbl2PairElem[A1 <: Dbl2Elem, A2] extends PairDblNElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
 }
 
-trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: Dbl2PairElem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
 { type ThisT <: Dbl2PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
@@ -38,7 +38,7 @@ trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: Dbl2PairElem[A1
   }
 }
 
-trait Dbl2PairBuff[A1 <: Dbl2Elem, A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairBuff[A1, A2, A]
+trait Dbl2PairBuff[A1 <: Dbl2Elem, A2, A <: Dbl2PairElem[A1, A2]] extends BuffPairDblN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))

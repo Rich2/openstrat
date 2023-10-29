@@ -131,7 +131,7 @@ class StrPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Pa
   override def buffToSeqLike(buff: StrPairBuff[B2]): StrPairArr[B2] = ???
 }
 
-class StrPairBuff[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[String, B2, StrPair[B2]]
+class StrPairBuff[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[String, B2, StrPair[B2]]
 { override type ThisT = StrPairBuff[B2]
   override def typeStr: String = "StrPairBuff"
   override def pairGrow(b1: String, b2: B2): Unit = { strBuffer.append(b1); b2Buffer.append(b2) }

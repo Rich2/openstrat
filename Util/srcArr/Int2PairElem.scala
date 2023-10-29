@@ -2,12 +2,12 @@
 package ostrat
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-trait Int2PairElem[A1 <: Int2Elem, A2] extends IntNPairElem[A1, A2]
+trait Int2PairElem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
 }
 
-trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: Int2PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
@@ -51,7 +51,7 @@ trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1
   }
 }
 
-trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
+trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))

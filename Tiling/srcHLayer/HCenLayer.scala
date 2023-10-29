@@ -8,10 +8,10 @@ import geom._, reflect.ClassTag
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
 class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenLayer[A]
 { override type ThisT = HCenLayer[A]
-  override def typeStr: String = "HCenDGrid"
+  override def typeStr: String = "HCenLayer"
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
-   * There is an alterntive nme overload where the [[HGridSys]] is passed explicitly as the first paremter. */
+   * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
   def apply(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. */

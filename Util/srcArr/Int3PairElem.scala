@@ -2,13 +2,13 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Int3PairElem[A1 <: Int3Elem, A2] extends IntNPairElem[A1, A2]
+trait Int3PairElem[A1 <: Int3Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
   def a1Int3: Int
 }
 
-trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: Int3PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: Int3PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: Int3PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
@@ -39,7 +39,7 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: Int3PairElem[A1
   }
 }
 
-trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
+trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, a2: A2): A
 
