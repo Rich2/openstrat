@@ -60,7 +60,7 @@ object SqStep
     case _ => SqRt
   }
 
-  implicit val buildEv: Int1ArrMapBuilder[SqStep, SqStepArr] = new Int1ArrMapBuilder[SqStep, SqStepArr] {
+  implicit val buildEv: BuilderArrInt1Map[SqStep, SqStepArr] = new BuilderArrInt1Map[SqStep, SqStepArr] {
     override type BuffT = SqDirnBuff
 
     override def fromIntArray(array: Array[Int]): SqStepArr = new SqStepArr(array)
@@ -159,7 +159,7 @@ case class SqAndStep(r1: Int, c1: Int, step: SqStep)
 }
 
 /** An Arr of hex step directions. */
-class SqStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqStep]
+class SqStepArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[SqStep]
 { override type ThisT = SqStepArr
   override def typeStr: String = "SqSteps"
   override def newElem(intValue: Int): SqStep = SqStep.fromInt(intValue)
@@ -242,7 +242,7 @@ object SqStepArr
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[SqStep]
+class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with BuffInt1[SqStep]
 { override def typeStr: String = "SqDirnBuff"
   def newElem(i1: Int): SqStep = SqStep.fromInt(i1)
 }

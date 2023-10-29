@@ -190,7 +190,7 @@ case object HVLt extends HVDirn
   override def toString: String = "HVLt"
 }
 
-class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirnOpt]
+class HVDirnArr(val unsafeArray: Array[Int]) extends ArrInt1[HVDirnOpt]
 { override type ThisT = HVDirnArr
   override def typeStr: String = "HDirnArr"
   override def newElem(intValue: Int): HVDirnOpt = HVDirnOpt.fromInt(intValue)
@@ -198,6 +198,6 @@ class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirnOpt]
   override def fElemStr: HVDirnOpt => String = _.toString
 }
 
-object HVDirnArr extends Int1SeqLikeCompanion[HVDirnOpt, HVDirnArr]
+object HVDirnArr extends CompanionSeqLikeInt1[HVDirnOpt, HVDirnArr]
 { override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
 }

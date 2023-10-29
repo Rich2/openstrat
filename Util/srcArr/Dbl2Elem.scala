@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[Dbl2Arr]] Array[Double] based collections. */
+/** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[ArrDbl2]] Array[Double] based collections. */
 trait Dbl2Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
@@ -13,14 +13,14 @@ trait Dbl2Elem extends Any with DblNElem
 }
 
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
-trait Dbl2SeqLike[A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
+trait SeqLikeDbl2[A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 2
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2SeqSpec[A <: Dbl2Elem] extends Any with Dbl2SeqLike[A] with SeqSpecDblN[A]
-{ /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the
+trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDblN[A]
+{ /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the
    *  sequence. */
   def ssElem(d1: Double, d2: Double): A
 
@@ -76,8 +76,8 @@ trait Dbl2SeqSpec[A <: Dbl2Elem] extends Any with Dbl2SeqLike[A] with SeqSpecDbl
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2Arr[A <: Dbl2Elem] extends Any with ArrDblN[A] with Dbl2SeqLike[A]
-{ type ThisT <: Dbl2Arr[A]
+trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
+{ type ThisT <: ArrDbl2[A]
   final override def length: Int = unsafeArray.length / 2
   def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
@@ -99,35 +99,35 @@ trait Dbl2Arr[A <: Dbl2Elem] extends Any with ArrDblN[A] with Dbl2SeqLike[A]
     fromArray(newArray)
   }
 
-  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
+  /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the sequence. */
   def seqDefElem(d1: Double, d2: Double): A
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2)))
 }
 
 /** Base trait for Builders for [[SeqLike]]s with [[Dbl2Elem]] elements via both map and flatMap methods. */
-trait BuilderSeqLikeDbl2[BB <: Dbl2SeqLike[_]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2[_]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl2[_]
   final override def elemProdSize = 2
 }
 
 /** Builder for [[SeqLike]]s with [[Dbl2Elem]] elements via the map method. Hence the type of the element is known at the call site. */
-trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends BuilderSeqLikeDbl2[BB] with BuilderSeqLikeDblNMap[B, BB]
+trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2[B]] extends BuilderSeqLikeDbl2[BB] with BuilderSeqLikeDblNMap[B, BB]
 { type BuffT <: BuffDbl2[B]
   final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.dbl1, elem.dbl2)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[BuilderArrMap]] type
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2ArrMapBuilder[B <: Dbl2Elem, ArrB <: Dbl2Arr[B]] extends BuilderSeqLikeDbl2Map[B, ArrB] with BuilderArrDblNMap[B, ArrB]
+trait BuilderArrDbl2Map[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderSeqLikeDbl2Map[B, ArrB] with BuilderArrDblNMap[B, ArrB]
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[BuilderArrFlat] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderArrFlat] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2ArrFlatBuilder[ArrB <: Dbl2Arr[_]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[_]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
 
-/** Class for the singleton companion objects of [[Dbl2Arr]] final classes to extend. */
-trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends CompanionSeqLikeDblN[A, AA]
+/** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
+trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends CompanionSeqLikeDblN[A, AA]
 { final def elemNumDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
@@ -145,7 +145,7 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: Dbl2SeqLike[A]] extends Companio
 
 /** [[Buff]] class for building [[Dbl2Elem]]s collections. */
 trait BuffDbl2[B <: Dbl2Elem] extends Any with BuffDblN[B]
-{ type ArrT <: Dbl2Arr[B]
+{ type ArrT <: ArrDbl2[B]
 
   /** Constructs a new element of this [[Buff]] from 2 [[Double]]s. */
   def newElem(d1: Double, d2: Double): B

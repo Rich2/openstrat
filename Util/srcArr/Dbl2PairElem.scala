@@ -7,7 +7,7 @@ trait Dbl2PairElem[A1 <: Dbl2Elem, A2] extends DblNPairElem[A1, A2]
   def a1Dbl2: Double
 }
 
-trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1], A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Dbl2PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
@@ -54,7 +54,7 @@ trait Dbl2PairBuff[A1 <: Dbl2Elem, A2, A <: Dbl2PairElem[A1, A2]] extends DblNPa
   }
 }
 
-trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2PairElem[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
+trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: ArrDbl2[B1], B2, B <: Dbl2PairElem[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl2PairBuff[B1, B2, B]
   override type B1BuffT <: BuffDbl2[B1]
@@ -66,7 +66,7 @@ trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2P
   }
 }
 
-trait Dbl2PairArrCompanion[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1]] //extends DblNPairArrCompanion[A1, ArrA1]
+trait Dbl2PairArrCompanion[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1]] //extends DblNPairArrCompanion[A1, ArrA1]
 {
   def seqToArrays[A2](pairs: Seq[Dbl2PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   { val dblsArray = new Array[Double](pairs.length * 2)

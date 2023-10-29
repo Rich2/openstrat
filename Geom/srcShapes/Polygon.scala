@@ -6,7 +6,7 @@ import pWeb._, Colour.Black
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
-trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with Pt2SeqSpec with PolygonLikeDbl2[Pt2] with Dbl2SeqSpec[Pt2]
+trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with Pt2SeqSpec with PolygonLikeDbl2[Pt2] with SeqSpecDbl2[Pt2]
 {
   override type SideT = LineSeg
 

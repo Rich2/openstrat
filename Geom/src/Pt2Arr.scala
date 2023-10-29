@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with Dbl2SeqLike[Pt2]
+trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
 {
   def arrTrans(f: Pt2 => Pt2): Array[Double] =
   { val newArray = new Array[Double](unsafeArray.length)
@@ -20,13 +20,13 @@ trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with Dbl2SeqLike[Pt2]
   final override def fElemStr: Pt2 => String = _.str
 }
 
-trait Pt2SeqSpec extends Any with Pt2SeqLike with Dbl2SeqSpec[Pt2]
+trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
 { final override def ssElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2Arr(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqLike with Dbl2Arr[Pt2]
+final class Pt2Arr(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqLike with ArrDbl2[Pt2]
 { type ThisT = Pt2Arr
   def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
   override def typeStr: String = "Pt2s"
@@ -35,7 +35,7 @@ final class Pt2Arr(val unsafeArray: Array[Double]) extends AffinePreserve with P
   @inline def toPolygon: PolygonGen = new PolygonGen(unsafeArray)
   @inline def toLinePath: LinePath = new LinePath(unsafeArray)
 
-  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
+  /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the sequence. */
   override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
@@ -53,7 +53,7 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
   /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
   implicit val unshowEv: UnshowArrDblN[Pt2, Pt2Arr] = UnshowArrDblN[Pt2, Pt2Arr](fromArray)
 
-  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2Arr]
+  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Pt2Arr] =  new BuilderArrDbl2Flat[Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

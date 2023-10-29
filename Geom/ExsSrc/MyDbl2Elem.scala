@@ -19,14 +19,14 @@ object MyDbl2Elem
 
   implicit val unshowEv: UnshowDbl2[MyDbl2Elem] = UnshowDbl2[MyDbl2Elem]("MyDbl2", "a", "b", MyDbl2Elem.apply)
 
-  implicit val arrBuilderImplicit: Dbl2ArrMapBuilder[MyDbl2Elem, MyDbl2Arr] = new Dbl2ArrMapBuilder[MyDbl2Elem, MyDbl2Arr]
+  implicit val arrBuilderImplicit: BuilderArrDbl2Map[MyDbl2Elem, MyDbl2Arr] = new BuilderArrDbl2Map[MyDbl2Elem, MyDbl2Arr]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): MinesBuff = new MinesBuff(buffer)
   }
 }
 
-final class MyDbl2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[MyDbl2Elem]
+final class MyDbl2Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2[MyDbl2Elem]
 { type ThisT = MyDbl2Arr
   def typeStr = "Mines"
   def fromArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)
@@ -36,7 +36,7 @@ final class MyDbl2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Ar
 
 object MyDbl2Arr extends CompanionSeqLikeDbl2[MyDbl2Elem, MyDbl2Arr]
 {
-  implicit val flatImplicit: BuilderArrFlat[MyDbl2Arr] = new Dbl2ArrFlatBuilder[MyDbl2Arr]
+  implicit val flatImplicit: BuilderArrFlat[MyDbl2Arr] = new BuilderArrDbl2Flat[MyDbl2Arr]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)

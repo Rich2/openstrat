@@ -264,7 +264,7 @@ object Pt2
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
-  implicit val arrBuilderImplicit: Dbl2ArrMapBuilder[Pt2, Pt2Arr] = new Dbl2ArrMapBuilder[Pt2, Pt2Arr]
+  implicit val arrBuilderImplicit: BuilderArrDbl2Map[Pt2, Pt2Arr] = new BuilderArrDbl2Map[Pt2, Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)

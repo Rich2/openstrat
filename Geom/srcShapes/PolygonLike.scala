@@ -99,7 +99,7 @@ trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqS
 trait PolygonLikeDblN[VT <: DblNElem] extends Any with PolygonValueN[VT] with SeqSpecDblN[VT]
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
-trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with Dbl2SeqSpec[VT]
+trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl2[VT]
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
 trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl3[VT]

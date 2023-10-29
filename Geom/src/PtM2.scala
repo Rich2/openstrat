@@ -83,7 +83,7 @@ object PtM2
   /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
-  implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtM2Arr] = new Dbl2ArrMapBuilder[PtM2, PtM2Arr]
+  implicit val builderImplicit: BuilderArrDbl2Map[PtM2, PtM2Arr] = new BuilderArrDbl2Map[PtM2, PtM2Arr]
   { type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(buffer)
@@ -107,7 +107,7 @@ object PtM2
 }
 
 /** Specialised immutable Array based collection class for [[PtM2]]s. */
-class PtM2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2]
+class PtM2Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2[PtM2]
 { type ThisT = PtM2Arr
   override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
   override def typeStr: String = "Metres2s"

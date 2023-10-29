@@ -166,7 +166,7 @@ object LatLong
 
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
-  implicit val arrMapBuilderImplicit: Dbl2ArrMapBuilder[LatLong, LatLongArr] = new Dbl2ArrMapBuilder[LatLong, LatLongArr]
+  implicit val arrMapBuilderImplicit: BuilderArrDbl2Map[LatLong, LatLongArr] = new BuilderArrDbl2Map[LatLong, LatLongArr]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)

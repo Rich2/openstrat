@@ -58,7 +58,7 @@ trait Polygon3Plus extends Any with Polygon
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
-trait Polygon4Plus extends Any with Polygon3Plus with Dbl2SeqSpec[Pt2]
+trait Polygon4Plus extends Any with Polygon3Plus with SeqSpecDbl2[Pt2]
 { type ThisT <: Polygon4Plus
 
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with vertex 1 immediately
@@ -84,7 +84,7 @@ trait Polygon4Plus extends Any with Polygon3Plus with Dbl2SeqSpec[Pt2]
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
-trait Polygon5Plus extends Any with Polygon4Plus with Dbl2SeqSpec[Pt2]
+trait Polygon5Plus extends Any with Polygon4Plus with SeqSpecDbl2[Pt2]
 { type ThisT <: Polygon5Plus
 
   /** The X component of the vertex 4. */

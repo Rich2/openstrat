@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Vec2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Vec2Arr(val unsafeArray: Array[Double]) extends /*AffinePreserve with*/ Dbl2Arr[Vec2]
+final class Vec2Arr(val unsafeArray: Array[Double]) extends /*AffinePreserve with*/ ArrDbl2[Vec2]
 { type ThisT = Vec2Arr
   def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
   override def typeStr: String = "Vec2s"
@@ -43,7 +43,7 @@ object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
   /** [[Unshow]] type class instance / evidence for [[Vec2Arr]]. */
   implicit val unshowEv: UnshowArrDblN[Vec2, Vec2Arr] = UnshowArrDblN[Vec2, Vec2Arr](fromArray)
 
-  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Vec2Arr] =  new Dbl2ArrFlatBuilder[Vec2Arr]
+  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Vec2Arr] =  new BuilderArrDbl2Flat[Vec2Arr]
   { override type BuffT = BuffVec2
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)

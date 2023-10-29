@@ -6,7 +6,7 @@ trait Int1PairElem[A1 <: Int1Elem, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
 }
 
-trait Int1PairArr[A1 <: Int1Elem, ArrA1 <: Int1Arr[A1], A2, A <: Int1PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int1PairArr[A1 <: Int1Elem, ArrA1 <: ArrInt1[A1], A2, A <: Int1PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Int1PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
@@ -47,7 +47,7 @@ trait Int1PairBuff[A1 <: Int1Elem, A2, A <: Int1PairElem[A1, A2]] extends IntNPa
   override final def setElemUnsafe(i: Int, newElem: A): Unit = { b1IntBuffer(i) = newElem.a1Int1; b2Buffer(i) = newElem.a2 }
 }
 
-trait Int1PairArrMapBuilder[B1 <: Int1Elem, ArrB1 <: Int1Arr[B1], B2, B <: Int1PairElem[B1, B2], ArrB <: Int1PairArr[B1, ArrB1, B2, B]] extends
+trait Int1PairArrMapBuilder[B1 <: Int1Elem, ArrB1 <: ArrInt1[B1], B2, B <: Int1PairElem[B1, B2], ArrB <: Int1PairArr[B1, ArrB1, B2, B]] extends
   IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int1PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 1

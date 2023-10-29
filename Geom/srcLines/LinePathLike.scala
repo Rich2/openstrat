@@ -115,7 +115,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   }
 }
 
-trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with Dbl2SeqSpec[VT]
+trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl2[VT]
 { type ThisT <: LinePathDbl2[VT]
   type PolygonT <: PolygonLikeDbl2[VT]
 }
