@@ -49,7 +49,7 @@ trait LineSegLikeDblNPairArr[VT <: DblNElem, A1 <: LineSegLikeDblN[VT], ArrA1 <:
 { type ThisT <: LineSegLikeDblNPairArr[VT, A1, ArrA1, A2, A]
 }
 
-trait LineSegLikeDbl4Pair[VT <: Dbl2Elem, A1 <: LineSegLikeDbl4[VT], A2] extends LineSegLikeDblNPair[VT, A1, A2] with Dbl4PairElem[A1, A2]
+trait LineSegLikeDbl4Pair[VT <: Dbl2Elem, A1 <: LineSegLikeDbl4[VT], A2] extends LineSegLikeDblNPair[VT, A1, A2] with PairDbl4Elem[A1, A2]
 
 trait LineSegLikeDbl4PairArr[VT <: Dbl2Elem, A1 <: LineSegLikeDbl4[VT], ArrA1 <: Dbl4Arr[A1], A2, A <: LineSegLikeDbl4Pair[VT, A1, A2]] extends
-  LineSegLikeDblNPairArr[VT, A1, ArrA1, A2, A] with Dbl4PairArr[A1, ArrA1, A2, A]
+  LineSegLikeDblNPairArr[VT, A1, ArrA1, A2, A] with ArrPairDbl4[A1, ArrA1, A2, A]

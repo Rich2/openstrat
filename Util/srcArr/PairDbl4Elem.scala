@@ -2,15 +2,17 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Dbl4PairElem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
+/** [[PairElem]] where the first component of the pair is a [[Dbl4Elem]]. */
+trait PairDbl4Elem[A1 <: Dbl4Elem, A2] extends PairDblNElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
   def a1Dbl3: Double
   def a1Dbl4: Double
 }
 
-trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
-{ type ThisT <: Dbl4PairArr[A1, ArrA1, A2, A]
+/** [[Arr]] of [[PairDbl4]] elements. */
+trait ArrPairDbl4[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: PairDbl4Elem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
+{ type ThisT <: ArrPairDbl4[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newPair(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: A2): A
@@ -43,7 +45,7 @@ trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1
   }
 }
 
-trait Dbl4PairBuff[B1 <: Dbl4Elem, B2, B <: Dbl4PairElem[B1, B2]] extends BuffPairDblN[B1, B2, B]
+trait Dbl4PairBuff[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPairDblN[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
 
@@ -61,13 +63,13 @@ trait Dbl4PairBuff[B1 <: Dbl4Elem, B2, B <: Dbl4PairElem[B1, B2]] extends BuffPa
   }
 }
 
-trait Dbl4PairArrCommonBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: Dbl4PairArr[B1, ArrB1, B2, _]] extends
+trait Dbl4PairArrCommonBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: Dbl4PairBuff[B1, B2, _]
 
 }
 
-trait Dbl4PairArrMapBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, B <: Dbl4PairElem[B1, B2], ArrB <: Dbl4PairArr[B1, ArrB1, B2, B]] extends
+trait Dbl4PairArrMapBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, B <: PairDbl4Elem[B1, B2], ArrB <: ArrPairDbl4[B1, ArrB1, B2, B]] extends
 Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl4PairBuff[B1, B2, B]
   override type B1BuffT <: BuffDbl4[B1]
@@ -79,14 +81,14 @@ Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, Ar
   }
 }
 
-trait Dbl4PairArrFlatBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: Dbl4PairArr[B1, ArrB1, B2, _]] extends
+trait Dbl4PairArrFlatBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
   Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with DblNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 
 trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
 {
   override def elemNumDbls: Int = 4
 
-  def seqToArrays[A2](pairs: Seq[Dbl4PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairDbl4Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
