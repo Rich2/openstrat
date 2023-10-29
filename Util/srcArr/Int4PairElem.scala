@@ -59,14 +59,14 @@ trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends BuffPa
 }
 
 trait Int4PairArrCommonBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
-IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
+BuilderArrPairIntN[B1, ArrB1, B2, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, _]
   type B1BuffT <: BuffInt4[B1]
 
 }
 
 trait Int4PairArrMapBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, B <: Int4PairElem[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
-Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, B]
 
   final override def a1IntNum: Int = 4
@@ -78,7 +78,7 @@ Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, Ar
 }
 
 trait Int4PairArrFlatBuilder[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
-  Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
+  Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNFlat[B1, ArrB1, B2, ArrB]
 
 trait Int4PairArrCompanion[A1 <: Int4Elem]
 {

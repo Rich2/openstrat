@@ -57,7 +57,7 @@ trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends BuffPa
 }
 
 trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: Int3PairElem[B1, B2], ArrB <: Int3PairArr[B1, ArrB1, B2, B]] extends
-  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+  BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int3PairBuff[B1, B2, B]
 
   final override def a1IntNum: Int = 3
