@@ -40,7 +40,7 @@ object LatLongPairBuff{
 }
 
 /** Map builder for [[LatLongPairArr]]s. */
-class LatLongPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Dbl2PairArrMapBuilder[LatLong, LatLongArr, B2, LatLongPair[B2], LatLongPairArr[B2]]
+class LatLongPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairDbl2Map[LatLong, LatLongArr, B2, LatLongPair[B2], LatLongPairArr[B2]]
 { override type BuffT = LatLongPairBuff[B2]
   override type B1BuffT = LatLongBuff
   override def b1ArrBuilder: BuilderArrMap[LatLong, LatLongArr] = LatLong.arrMapBuilderImplicit

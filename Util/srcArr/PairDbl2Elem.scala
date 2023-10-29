@@ -57,7 +57,8 @@ trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPa
   }
 }
 
-trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: ArrDbl2[B1], B2, B <: PairDbl2Elem[B1, B2], ArrB <: PairArrPairDbl2[B1, ArrB1, B2, B]] extends
+/** Builder for [[ArrPairDbl2]]s via the map A => PairB method. */
+trait BuilderArrPairDbl2Map[B1 <: Dbl2Elem, ArrB1 <: ArrDbl2[B1], B2, B <: PairDbl2Elem[B1, B2], ArrB <: PairArrPairDbl2[B1, ArrB1, B2, B]] extends
   DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDbl2[B1, B2, B]
   override type B1BuffT <: BuffDbl2[B1]
