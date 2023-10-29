@@ -35,7 +35,7 @@ trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
   def head3: Double = unsafeArray(2)
   def head4: Double = unsafeArray(3)
   final override def length: Int = unsafeArray.length / 4
-  override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
+  override def foreachArr(f: ArrDbl => Unit): Unit = foreach(el => f(ArrDbl(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 
   /** Method for creating new elements from 4 [[Double]]s. */
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A

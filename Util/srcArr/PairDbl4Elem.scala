@@ -84,7 +84,8 @@ BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, ArrB1, B
   }
 }
 
-trait Dbl4PairArrFlatBuilder[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
+/** Builder for [[ArrPairDbl4]] objects via the flatMap f: A => ArrPairB method. */
+trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
   BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with DblNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 
 trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]

@@ -61,8 +61,8 @@ object ArrRefTest extends TestSuite
       ("Seq(5; 6; 7)".asType[IntArr] === Good(intArr1)) ==> true
       ("Seq[Int](5; 6; 7)".asType[IntArr] === Good(intArr1)) ==> true
       ("Seq[Double](5; 6; 7)".asType[IntArr] === Good(intArr1)) ==> true
-      ("Seq(5; 6; 7)".findType[DblArr] === Good(DblArr(5, 6, 7))) ==> true
-      ("Seq(-5; 6.27; 7.01)".findType[DblArr] === Good(DblArr(-5, 6.27, 7.01))) ==> true
+      ("Seq(5; 6; 7)".findType[ArrDbl] === Good(ArrDbl(5, 6, 7))) ==> true
+      ("Seq(-5; 6.27; 7.01)".findType[ArrDbl] === Good(ArrDbl(-5, 6.27, 7.01))) ==> true
     }
   }
 }

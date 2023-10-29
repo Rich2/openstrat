@@ -58,6 +58,6 @@ BuilderArrPairDbl4Map[LineSeg, LineSegArr, B2, LineSegPair[B2], LineSegPairArr[B
 }
 
 class LineSegPairArrFlatBuilder[B2](implicit ct: ClassTag[B2]) extends LineSegPairArrCommonBuilder[B2] with
-Dbl4PairArrFlatBuilder[LineSeg, LineSegArr, B2, LineSegPairArr[B2]]
+BuilderArrPairDbl4Flat[LineSeg, LineSegArr, B2, LineSegPairArr[B2]]
 { override implicit def b2ClassTag: ClassTag[B2] = ct
 }

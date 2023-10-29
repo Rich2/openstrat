@@ -53,7 +53,7 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any with ArrDblN[A] with SeqLikeDbl3[A]
   def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
-  def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
+  def foreachArr(f: ArrDbl => Unit): Unit = foreach(el => f(ArrDbl(el.dbl1, el.dbl2, el.dbl3)))
 
   /** Method for creating new elements from 3 [[Double]]s. */
   def newElem(d1: Double, d2: Double, d3: Double): A

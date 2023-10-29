@@ -23,7 +23,7 @@ class LineSegHCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
 }
 
 /** Specialised [[Buff]] class for [[LineSegHCPair]]s, that uses two backing [[ArrayBuffer]]s. */
-class LineSegHCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends Int4PairBuff[LineSegHC, B2, LineSegHCPair[B2]]
+class LineSegHCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt4[LineSegHC, B2, LineSegHCPair[B2]]
 { override type ThisT = LineSegHCPairBuff[B2]
   override def typeStr: String = "LineSegHCPairBuff"
   override def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): LineSegHCPair[B2] = new LineSegHCPair[B2](int1, int2, int3, int4, a2)

@@ -44,7 +44,7 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any with ArrDblN[A] with SeqLikeDbl5[A]
   def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4)
 
-  def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
+  def foreachArr(f: ArrDbl => Unit): Unit = foreach(el => f(ArrDbl(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](unsafeLength + 5)

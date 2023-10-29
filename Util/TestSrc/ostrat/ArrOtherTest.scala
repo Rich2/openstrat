@@ -9,9 +9,9 @@ object ArrOtherTest extends TestSuite
     val ints1 = IntArr(1, 2, 3, 4)
     val ints2 = IntArr(5, 6, 7)
     val ints3 = ints1 ++ ints2
-    val dbls1 = DblArr(1.5, 3, 4.5, 6)
+    val dbls1 = ArrDbl(1.5, 3, 4.5, 6)
     val dbls2 = ints1.map(_ * 1.5)
-    val dbls3: DblArr = ints1.flatToIterableMap[Double, DblArr] { a => List(a + 0.1, a + 0.2) }
+    val dbls3: ArrDbl = ints1.flatToIterableMap[Double, ArrDbl] { a => List(a + 0.1, a + 0.2) }
     val longs1 = LongArr(2, 4, 6) ++ LongArr(8, 9)
     val pre1 = IntArr(2, 3, 4).prepend(1)
 
