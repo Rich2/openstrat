@@ -2,8 +2,9 @@
 package ostrat; package eg220
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 15° west to 15° east centred on 0° east. A minimum island size of 1/6 5715.767km2. At 3071km² the Outer Hebrides are too
- * small. Zealand is large enough to qualify, but shares its hex with Jutland. Mallorca is too small. */
+/** [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 34294.605km². Sicily is ~75% of a tile. A minimum island size of 1/6
+ *  5715.767km². At 3071km² the Outer Hebrides are too small. Zealand is large enough to qualify, but shares its hex with Jutland. Mallorca is too
+ *  small. */
 object Terr220E0 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
@@ -46,9 +47,10 @@ object Terr220E0 extends Long220Terrs
       TRow(148, sea * 2, plain * 4, Hland(2, 2, hills), sea, Hland(3, 4, hills), sea, hills),
       VRow(147, Mouth(514, HVUL), BendOut(524, HVDL)),
       TRow(146, sea, plain * 4, sea * 3, Hland(4, 1, hills), sea * 2),
-      TRow(144, sea * 2, plain * 3, sea * 5, Hland(3, 3, hills)),
+      TRow(144, sea * 2, plain * 3, sea * 5, Isle(hills)),
       VRow(143, Mouth(512, HVDL), Mouth(516, HVDR)),
       TRow(142, sea * 3, Hland(3, 2, hills), sea * 2, Hland(1, 0, hills), hills * 3, Hland(2, 1, hills), sea),
+      VRow(141, Mouth(530, HVDL)),
       TRow(140, sea * 2, Hland(2, 5, hills), hills, hillyDesert * 2, desert * 2, hillyDesert * 2, sea * 2),
       TRow(138, sea * 2, plain, desert, hillyDesert, desert * 7),
       TRow(136, sea * 2, mtain * 3, desert * 8),

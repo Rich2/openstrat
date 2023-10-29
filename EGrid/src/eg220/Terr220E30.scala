@@ -2,6 +2,7 @@
 package ostrat; package eg220
 import prid.phex._, egrid._, WTile._
 
+/** [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 34294.605km². A minimum island size of 1/6 5715.767km². */
 object Terr220E30 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e30(132)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
@@ -39,8 +40,8 @@ object Terr220E30 extends Long220Terrs
       TRow(148, Hland(2, 0, hills), Hland(1, 4, hills), plain, hills * 2, Hland(1, 0, hills), mtain, hills * 2, Hland(1, 0, mtain), hills),
       VRow(147, Mouth(1526, HVUL)),
       TRow(146, Hland(2, 1, hills), Hland(1, 4, hills), Hland(2, 1, hills), hills * 2, hillyDesert * 3, mtain, hillyDesert * 2),
-      VRow(145, Mouth(1522, HVDL), Mouth(1524, HVUR)),
-      TRow(144, Hland(4, 2, hills), sea, hills, sea, hills * 4, hillyDesert, plain, mtain),
+      VRow(145, BendOut(1518, HVDR), Mouth(1522, HVDL), Mouth(1524, HVUR)),
+      TRow(144, Hland(3, 2, hills), sea, hills, sea, hills * 4, hillyDesert, plain, mtain),
       VRow(143, Mouth(1544, HVUp)),
       TRow(142, sea * 5, Hland(3, 2, hills), sea, Hland(3, 2, hills), Hland(1, 4, hills), desert * 3),
       TRow(140, sea * 3, Isle(hills), sea * 2, Isle(hills), sea, hills, desert * 3),
