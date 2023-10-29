@@ -2,14 +2,16 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Dbl3PairElem[A1 <: Dbl3Elem, A2] extends PairDblNElem[A1, A2]
+/** [[PairElem]] where the first component of the pair is a [[Dbl3Elem]]. */
+trait PairDbl3Elem[A1 <: Dbl3Elem, A2] extends PairDblNElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
   def a1Dbl3: Double
 }
 
-trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: Dbl3PairElem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
-{ type ThisT <: Dbl3PairArr[A1, ArrA1, A2, A]
+/** [[Arr]] of [[PairDbl3Elem]]s. */
+trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
+{ type ThisT <: ArrPairDbl3[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newPair(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
@@ -41,7 +43,8 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: Dbl3PairElem[A1
   }
 }
 
-trait Dbl3PairBuff[B1 <: Dbl3Elem, B2, B <: Dbl3PairElem[B1, B2]] extends BuffPairDblN[B1, B2, B]
+/** Efficient buffer for [[PairDbl3Elem]]s.  */
+trait BuffPairDbl3[B1 <: Dbl3Elem, B2, B <: PairDbl3Elem[B1, B2]] extends BuffPairDblN[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): B
 
@@ -58,9 +61,10 @@ trait Dbl3PairBuff[B1 <: Dbl3Elem, B2, B <: Dbl3PairElem[B1, B2]] extends BuffPa
   }
 }
 
-trait Dbl3PairArrMapBuilder[B1 <: Dbl3Elem, ArrB1 <: ArrDbl3[B1], B2, B <: Dbl3PairElem[B1, B2], ArrB <: Dbl3PairArr[B1, ArrB1, B2, B]] extends
+/** Constructs [[ArrPairDbl3]] objects via map method. */
+trait BuilderArrPairDbl3[B1 <: Dbl3Elem, ArrB1 <: ArrDbl3[B1], B2, B <: PairDbl3Elem[B1, B2], ArrB <: ArrPairDbl3[B1, ArrB1, B2, B]] extends
   DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: Dbl3PairBuff[B1, B2, B]
+{ type BuffT <: BuffPairDbl3[B1, B2, B]
   override type B1BuffT <: Dbl3Buff[B1]
   final override def a1DblNum: Int = 3
 
@@ -74,7 +78,7 @@ trait Dbl3PairArrCompanion[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1]] extends DblNPai
 {
   override def elemNumDbls: Int = 3
 
-  def seqToArrays[A2](pairs: Seq[Dbl3PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairDbl3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
