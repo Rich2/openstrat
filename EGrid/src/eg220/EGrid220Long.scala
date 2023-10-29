@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg220
-import prid.phex._, egrid._, pEarth._
+import egrid._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 220Km */
 abstract class EGrid220Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
@@ -15,8 +15,8 @@ object EGrid220Long
     iToForeach(bot, top, 2){r =>
       val (lc, rc) = ife(r.div4Rem0, (leftC.roundUpTo(_.div4Rem0), rightC.roundDownTo(_.div4Rem0)),
         (leftC.roundUpTo(_.div4Rem2), rightC.roundDownTo(_.div4Rem2)))
-      array(r - rBottomCen) = (rc - lc + 4) / 4
-      array(r - rBottomCen + 1) = lc
+      array(r - rBottomCen) = lc
+      array(r - rBottomCen + 1) = rc
     }
     new EGrid220LongPart(rBottomCen, rTopCen, cenLongInt, array)
   }
