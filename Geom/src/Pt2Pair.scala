@@ -29,7 +29,7 @@ object Pt2PairArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
 }
 
 /** Buffer for [[Pt2Pair]]s. */
-class Pt2PairBuff[A2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[A2]) extends Dbl2PairBuff[Pt2, A2, Pt2Pair[A2]]
+class Pt2PairBuff[A2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[A2]) extends BuffPairDbl2[Pt2, A2, Pt2Pair[A2]]
 { override type ThisT = Pt2PairBuff[A2]
   override def typeStr: String = "Pt2PairBuff"
   override def newElem(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
