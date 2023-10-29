@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** [[SqCood]] defined [[LineSegLike]] [[PairNoA1ParamElem]]. */
+/** [[SqCood]] defined [[LineSegLike]] [[PairFinalA1Elem]]. */
 class LineSegHCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends LineSegLikeInt4Pair[HCoord, LineSegHC, A2]
 { /** The first component of this pair. */
   override def a1: LineSegHC = new LineSegHC(a1Int1, a1Int2, a1Int3, a1Int4)

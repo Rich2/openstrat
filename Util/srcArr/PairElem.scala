@@ -81,9 +81,9 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
-  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairNoA1PramArr]] of [[PairNoA1ParamElem]][B1, A2]. Then flattens
-   * these new [[PairNoA1PramArr]]s to make a single [[PairNoA1PramArr]] */
-  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairNoA1PramArr[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
+  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrFinalA1]] of [[PairFinalA1Elem]][B1, A2]. Then flattens
+   * these new [[PairArrFinalA1]]s to make a single [[PairArrFinalA1]] */
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrFinalA1[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
     build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]): ArrB = {
     val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
@@ -91,15 +91,15 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
-   * values to make the new pairs of type [[PairNoA1ParamElem]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
-  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairNoA1ParamElem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
+   * values to make the new pairs of type [[PairFinalA1Elem]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
+  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairFinalA1Elem[B1, A2], ArrB <: ArrPair[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: BuilderArrPairMap[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
   }
 
-  def optMapRefOnA1[B1, B <: PairNoA1ParamElem[B1, A2]](f: A1 => Option[B1])(implicit ct1: ClassTag[B1], ct2: ClassTag[A2]): RPairArr[B1, A2] =
+  def optMapRefOnA1[B1, B <: PairFinalA1Elem[B1, A2]](f: A1 => Option[B1])(implicit ct1: ClassTag[B1], ct2: ClassTag[A2]): RPairArr[B1, A2] =
   { val buffer1 = new ArrayBuffer[B1]()
     val buffer2 = new ArrayBuffer[A2]()
     pairForeach { (a1, a2) => f(a1).foreach{b1 => buffer1.append(b1); buffer2.append(a2) } }
@@ -115,14 +115,14 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   final override def length: Int = a2Array.length
 
-  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. If you
    * are uncertain whether this pair sequence contains the A2 key, use the safe a2FindA1 method. */
   def a2GetA1(key: A2): A1 = a2FindA1(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A2 values as a the key. Returns None if the key value is absent. If you are certain that
    *  this pair sequence contains the A2 key, use the a2GetA1 method. */
   def a2FindA1(key: A2): Option[A1] =
   { var i = 0
@@ -134,14 +134,14 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
-  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. If you
    * are uncertain whether this pair sequence contains the A1 key value, use the safe a1FindA2 method.*/
   def a1GetA2(key: A1): A2 = a1FindA2(key) match
   { case Some(a1) => a1
     case None => excep(s"The a2: A2 of value $key was not found")
   }
 
-  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that
+  /** Treats this [[PairArrFinalA1]] as a [[Map]] with the A1 values as a the key. Returns None if the key value is absent. If you are certain that
    * this pair sequence contains the A1 key, use the a1GetA2 method. */
   def a1FindA2(key: A1): Option[A2] =
   { var i = 0

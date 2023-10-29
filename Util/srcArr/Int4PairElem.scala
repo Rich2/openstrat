@@ -11,7 +11,7 @@ trait Int4PairElem[A1 <: Int4Elem, A2] extends PairIntNElem[A1, A2]
   def a1Int4: Int
 }
 
-/** An [[Arr]] of [[PairNoA1ParamElem]]s where the first component is an [[Int4Elem]]. */
+/** An [[Arr]] of [[PairFinalA1Elem]]s where the first component is an [[Int4Elem]]. */
 trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: ArrInt4[A1], A2, A <: Int4PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: Int4PairArr[A1, ArrA1, A2, A]
 

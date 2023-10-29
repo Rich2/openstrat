@@ -4,13 +4,13 @@ import annotation._
 import reflect.ClassTag
 import scala.collection.mutable.ArrayBuffer
 
-class StrPair[A2](val a1: String, val a2: A2) extends PairNoA1ParamElem[String, A2]
+class StrPair[A2](val a1: String, val a2: A2) extends PairFinalA1Elem[String, A2]
 
 object StrPair
 { def apply[A2](a1: String,  a2: A2): StrPair[A2] = new StrPair[A2](a1, a2)
 }
 
-class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairNoA1PramArr[String, StrArr, A2, StrPair[A2]]
+class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArrFinalA1[String, StrArr, A2, StrPair[A2]]
 { override type ThisT = StrPairArr[A2]
   override def typeStr: String = "StringPairArr"
   override def a1Arr: StrArr = new StrArr(a1Array)

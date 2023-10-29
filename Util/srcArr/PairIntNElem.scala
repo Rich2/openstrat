@@ -4,10 +4,10 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Pair element where the first component is an [[IntNElem]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed
  *  length of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
-trait PairIntNElem[A1 <: IntNElem, A2] extends PairNoA1ParamElem[A1, A2]
+trait PairIntNElem[A1 <: IntNElem, A2] extends PairFinalA1Elem[A1, A2]
 
 /** An [[Arr]] of [[PairIntN]] elements where the first component of the pairs is an [[IntNElem]]. */
-trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
+trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1, A2]] extends PairArrFinalA1[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairIntN[A1, ArrA1, A2, A]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */

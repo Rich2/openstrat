@@ -54,12 +54,12 @@ trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
 }
 
 
-trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends PairNoA1ParamElem[A1, A2]
+trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends PairFinalA1Elem[A1, A2]
 { /** The backing Array of Ints for A1 component. */
   def a1ArrayInt: Array[Int]
 }
 
-trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
+trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends PairArrFinalA1[A1, ArrA1, A2, A]
 { /** The backing Array for the A1 components. */
   def a1ArrayArrayInts: Array[Array[Int]]
 
@@ -69,14 +69,14 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   /** Constructs the final class from an Array of Arrays of Ints and an Array[A2]. */
   def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
 
-  /** Constructs a [[PairNoA1ParamElem]] from an Array[Int and an A2 value. */
+  /** Constructs a [[PairFinalA1Elem]] from an Array[Int and an A2 value. */
   def elemFromComponents(a1: Array[Int], a2: A2): A
 
   final override def a1Index(index: Int): A1 = a1FromArrayArrayInt(a1ArrayArrayInts(index))
   final override def setElemUnsafe(i: Int, newElem: A): Unit = { a1ArrayArrayInts(i) = newElem.a1ArrayInt; a2Array(i) = newElem.a2 }
   final override def apply(index: Int): A = elemFromComponents(a1ArrayArrayInts(index), a2Array(index))
 
-  /** Returns a new uninitialised [[PairNoA1PramArr]] of the same final type. */
+  /** Returns a new uninitialised [[PairArrFinalA1]] of the same final type. */
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
   final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayArrayInts(index) = value.unsafeArray }

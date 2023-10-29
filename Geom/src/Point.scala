@@ -18,9 +18,9 @@ trait Point extends Any
 
 trait PointSeqLike[PT <: Point] extends Any with SeqLike[PT]
 
-trait PointPair[A1 <: Point, A2] extends PairNoA1ParamElem[A1, A2]
+trait PointPair[A1 <: Point, A2] extends PairFinalA1Elem[A1, A2]
 
-trait PointPairArr[A1 <: Point, ArrA1 <: Arr[A1], A2, A <: PointPair[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
+trait PointPairArr[A1 <: Point, ArrA1 <: Arr[A1], A2, A <: PointPair[A1, A2]] extends PairArrFinalA1[A1, ArrA1, A2, A]
 
 trait PointDblN extends Any with Point with DblNElem
 

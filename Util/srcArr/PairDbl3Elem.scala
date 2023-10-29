@@ -74,9 +74,9 @@ trait BuilderArrPairDbl3[B1 <: Dbl3Elem, ArrB1 <: ArrDbl3[B1], B2, B <: PairDbl3
   }
 }
 
-trait Dbl3PairArrCompanion[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1]] extends DblNPairArrCompanion[A1, ArrA1]
-{
-  override def elemNumDbls: Int = 3
+/** Companion object helper trait for constructing [[ArrPairDbl3]] objects. */
+trait CompanionArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1]] extends DblNPairArrCompanion[A1, ArrA1]
+{ override def elemNumDbls: Int = 3
 
   def seqToArrays[A2](pairs: Seq[PairDbl3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 3)
