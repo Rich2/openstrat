@@ -66,7 +66,7 @@ trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPa
 
 /** Common trait for builders of [[ArrPairDbl4]] objects via the map and flatMap methods. */
 trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
-DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
+BuilderArrPairDblN[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairDbl4[B1, B2, _]
 
 }
