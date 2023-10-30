@@ -29,6 +29,8 @@ flat = false;
 
 32 = HGView(156, 1524; 22.5);//220km 0°E - 30°E
 
+36 = HGView(140, 530; 24);//220km All longitudes
+
 40 = HGView(286, 512; 25);//160km 0E
 41 = HGView(286, 1536; 25);//160km 30E
 
