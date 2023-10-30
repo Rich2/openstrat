@@ -25,7 +25,7 @@ class LineSegSCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: Arr
   override def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): LineSegSCPair[B2] = new LineSegSCPair[B2](int1, int2, int3, int4, a2)
 }
 
-class LineSegSCPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int4PairArrMapBuilder[LineSegSC, LineSegSCArr, B2, LineSegSCPair[B2], LineSegSCPairArr[B2]]
+class LineSegSCPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt4Map[LineSegSC, LineSegSCArr, B2, LineSegSCPair[B2], LineSegSCPairArr[B2]]
 { override type BuffT = LineSegSCPairBuff[B2]
   override type B1BuffT = LineSegSCBuff
   override implicit def b2ClassTag: ClassTag[B2] = ct
