@@ -1,13 +1,15 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Int1PairElem[A1 <: Int1Elem, A2] extends PairIntNElem[A1, A2]
+/** [[PairElem]] where the first component of the pair is an [[Int1Elem]], */
+trait PairInt1Elem[A1 <: Int1Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
 }
 
-trait Int1PairArr[A1 <: Int1Elem, ArrA1 <: ArrInt1[A1], A2, A <: Int1PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
-{ type ThisT <: Int1PairArr[A1, ArrA1, A2, A]
+/** [[Arr]] of [[PairInt1]]s, [[PairElem]]s where the first component of the pair is an [[Int1Elem]]. */
+trait ArrPairInt1[A1 <: Int1Elem, ArrA1 <: ArrInt1[A1], A2, A <: PairInt1Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
+{ type ThisT <: ArrPairInt1[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, a2: A2): A
@@ -35,7 +37,7 @@ trait Int1PairArr[A1 <: Int1Elem, ArrA1 <: ArrInt1[A1], A2, A <: Int1PairElem[A1
   }
 }
 
-trait Int1PairBuff[A1 <: Int1Elem, A2, A <: Int1PairElem[A1, A2]] extends BuffPairIntN[A1, A2, A]
+trait Int1PairBuff[A1 <: Int1Elem, A2, A <: PairInt1Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1IntBuffer (index), b2Buffer(index))
@@ -47,7 +49,7 @@ trait Int1PairBuff[A1 <: Int1Elem, A2, A <: Int1PairElem[A1, A2]] extends BuffPa
   override final def setElemUnsafe(i: Int, newElem: A): Unit = { b1IntBuffer(i) = newElem.a1Int1; b2Buffer(i) = newElem.a2 }
 }
 
-trait Int1PairArrMapBuilder[B1 <: Int1Elem, ArrB1 <: ArrInt1[B1], B2, B <: Int1PairElem[B1, B2], ArrB <: Int1PairArr[B1, ArrB1, B2, B]] extends
+trait Int1PairArrMapBuilder[B1 <: Int1Elem, ArrB1 <: ArrInt1[B1], B2, B <: PairInt1Elem[B1, B2], ArrB <: ArrPairInt1[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int1PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 1
@@ -58,7 +60,7 @@ trait Int1PairArrMapBuilder[B1 <: Int1Elem, ArrB1 <: ArrInt1[B1], B2, B <: Int1P
 
 trait Int1PairArrCompanion[A1 <: Int1Elem]
 {
-  def seqToArrays[A2](pairs: Seq[Int1PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairInt1Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   { val intsArray = new Array[Int](pairs.length)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

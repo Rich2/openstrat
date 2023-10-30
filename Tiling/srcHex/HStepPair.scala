@@ -3,12 +3,12 @@ package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A [[PairElem]] where A1 is an [[HStep]]. */
-class HStepPair[A2](val a1Int1: Int, val a2: A2) extends Int1PairElem[HStep, A2]
+class HStepPair[A2](val a1Int1: Int, val a2: A2) extends PairInt1Elem[HStep, A2]
 { override def a1: HStep = HStep.fromInt(a1Int1)
 }
 
 /** A specialised [[Arr]] class for [[HStepPair]]s. */
-class HStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int1PairArr[HStep, HStepArr, A2, HStepPair[A2]]
+class HStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt1[HStep, HStepArr, A2, HStepPair[A2]]
 { override type ThisT = HStepPairArr[A2]
   override def typeStr: String = "HDirnPairArr"
   override def newPair(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
