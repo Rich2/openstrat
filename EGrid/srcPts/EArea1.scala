@@ -28,7 +28,7 @@ class LocationLLArr(a1ArrayDbl: Array[Double], a2Array: Array[Place]) extends La
   override def newA1(dbl1: Double, dbl2: Double): LatLong = LatLong.milliSecs(dbl1, dbl2)
 }
 
-object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
+object LocationLLArr extends CompanionArrPairDbl2[Pt2, Pt2Arr]
 {
   def apply(pairs: LocationLL*): LocationLLArr =
   { val arrays = seqToArrays(pairs)

@@ -171,7 +171,7 @@ object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]
   }
 }
 
-class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with BuffInt2[HVert]
+class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HVert]
 { type ArrT = HVertArr
   override def typeStr: String = "HVertBuff"
   override def newElem(i1: Int, i2: Int): HVert = HVert(i1, i2)

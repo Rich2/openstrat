@@ -82,7 +82,7 @@ object SqCenPairArr1
     case _ => None
   }
 }
-class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with BuffInt2[SqCen]
+class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqCen]
 { type ArrT = SqCenArr
   override def typeStr: String = "SqCenBuff"
   override def newElem(i1: Int, i2: Int): SqCen = SqCen(i1, i2)

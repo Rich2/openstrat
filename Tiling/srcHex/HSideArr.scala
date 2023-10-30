@@ -33,7 +33,7 @@ object HSideArr extends CompanionSeqLikeInt2[HSide, HSideArr]
   }
 }
 
-class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with BuffInt2[HSide]
+class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HSide]
 { type ArrT = HSideArr
   override def typeStr: String = "HSideBuff"
   override def newElem(i1: Int, i2: Int): HSide = HSide(i1, i2)

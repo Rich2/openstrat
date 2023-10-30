@@ -20,7 +20,7 @@ class Pt2PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2])exten
   override def newA1(dbl1: Double, dbl2: Double): Pt2 = new Pt2(dbl1, dbl2)
 }
 
-object Pt2PairArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
+object Pt2PairArr extends CompanionArrPairDbl2[Pt2, Pt2Arr]
 {
   def apply[A2](pairs: Pt2Pair[A2]*)(implicit ct: ClassTag[A2]): Pt2PairArr[A2] ={
     val arrays = seqToArrays(pairs)

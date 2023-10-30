@@ -15,7 +15,7 @@ type VT
 trait UnshowSeqLikeIntN[A <: IntNElem, M <: SeqLikeIntN[A]] extends UnshowSeqLikeValueN[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Int] = BuffInt()
+  override def newBuffer: ArrayBuffer[Int] = BufferInt()
   final override def appendtoBuffer(buffer: ArrayBuffer[Int], value: A): Unit = value.intBufferAppend(buffer)
 }
 
@@ -39,7 +39,7 @@ object UnshowSeqSpecIntN
 trait UnshowSeqLikeDblN[A <: DblNElem, M <: SeqLikeDblN[A]] extends UnshowSeqLikeValueN[A, M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = BuffDbl()
+  override def newBuffer: ArrayBuffer[Double] = BufferDbl()
   final override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = value.dblBufferAppend(buffer)
 }
 

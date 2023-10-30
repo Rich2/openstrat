@@ -22,7 +22,7 @@ class LatLongPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) 
   override def newA1(dbl1: Double, dbl2: Double): LatLong = LatLong.milliSecs(dbl1, dbl2)
 }
 
-object LatLongPairArr extends Dbl2PairArrCompanion [LatLong, LatLongArr]{
+object LatLongPairArr extends CompanionArrPairDbl2 [LatLong, LatLongArr]{
   def apply[A2](pairs: LatLongPair[A2]*)(implicit ct: ClassTag[A2]): LatLongPairArr[A2] =
   { val arrays = seqToArrays(pairs)
     new LatLongPairArr[A2](arrays._1, arrays._2)
