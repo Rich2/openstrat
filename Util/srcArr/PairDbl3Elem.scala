@@ -10,7 +10,7 @@ trait PairDbl3Elem[A1 <: Dbl3Elem, A2] extends PairDblNElem[A1, A2]
 }
 
 /** [[Arr]] of [[PairDbl3Elem]]s. */
-trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
+trait ArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1], A2, A <: PairDbl3Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairDbl3[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
@@ -63,7 +63,7 @@ trait BuffPairDbl3[B1 <: Dbl3Elem, B2, B <: PairDbl3Elem[B1, B2]] extends BuffPa
 
 /** Constructs [[ArrPairDbl3]] objects via map method. */
 trait BuilderArrPairDbl3[B1 <: Dbl3Elem, ArrB1 <: ArrDbl3[B1], B2, B <: PairDbl3Elem[B1, B2], ArrB <: ArrPairDbl3[B1, ArrB1, B2, B]] extends
-  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+  BuilderArrPairDblNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDbl3[B1, B2, B]
   override type B1BuffT <: Dbl3Buff[B1]
   final override def a1DblNum: Int = 3
@@ -75,7 +75,7 @@ trait BuilderArrPairDbl3[B1 <: Dbl3Elem, ArrB1 <: ArrDbl3[B1], B2, B <: PairDbl3
 }
 
 /** Companion object helper trait for constructing [[ArrPairDbl3]] objects. */
-trait CompanionArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1]] extends DblNPairArrCompanion[A1, ArrA1]
+trait CompanionArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1]] extends CompanionArrPairDblN[A1, ArrA1]
 { override def elemNumDbls: Int = 3
 
   def seqToArrays[A2](pairs: Seq[PairDbl3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =

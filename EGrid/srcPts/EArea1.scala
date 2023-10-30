@@ -35,8 +35,8 @@ object LocationLLArr extends CompanionArrPairDbl2[Pt2, Pt2Arr]
     new LocationLLArr(arrays._1, arrays._2)
   }
 
-  implicit def flatArrBuilderImplicit(implicit ct: ClassTag[Place]): DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr] =
-  new DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr]
+  implicit def flatArrBuilderImplicit(implicit ct: ClassTag[Place]): BuilderArrPairDblNFlat[LatLong, LatLongArr, Place, LocationLLArr] =
+  new BuilderArrPairDblNFlat[LatLong, LatLongArr, Place, LocationLLArr]
   { override type BuffT = LatLongPairBuff[Place]
     override type B1BuffT = LatLongBuff
     override implicit def b2ClassTag: ClassTag[Place] = ct

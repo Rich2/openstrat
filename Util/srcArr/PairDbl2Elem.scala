@@ -9,7 +9,7 @@ trait PairDbl2Elem[A1 <: Dbl2Elem, A2] extends PairDblNElem[A1, A2]
 }
 
 /** An [[Arr]] of [[PairElem]]s where the first component of the pairs is a [[Dbl2Elem]]. */
-trait PairArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1, A2]] extends PairArrDblN[A1, ArrA1, A2, A]
+trait PairArrPairDbl2[A1 <: Dbl2Elem, ArrA1 <: ArrDbl2[A1], A2, A <: PairDbl2Elem[A1, A2]] extends ArrPairDblN[A1, ArrA1, A2, A]
 { type ThisT <: PairArrPairDbl2[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
@@ -59,7 +59,7 @@ trait BuffPairDbl2[A1 <: Dbl2Elem, A2, A <: PairDbl2Elem[A1, A2]] extends BuffPa
 
 /** Builder for [[ArrPairDbl2]]s via the map A => PairB method. */
 trait BuilderArrPairDbl2Map[B1 <: Dbl2Elem, ArrB1 <: ArrDbl2[B1], B2, B <: PairDbl2Elem[B1, B2], ArrB <: PairArrPairDbl2[B1, ArrB1, B2, B]] extends
-  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+  BuilderArrPairDblNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairDbl2[B1, B2, B]
   override type B1BuffT <: BuffDbl2[B1]
   final override def a1DblNum: Int = 2
