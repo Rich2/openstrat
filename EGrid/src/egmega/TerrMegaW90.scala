@@ -2,7 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTile._
 
-/** [[WTile]] terrain for 105° west to 75° west, centred on 90° west. Hex tile scale 1 Megametre or 1000km. */
+/** [[WTile]] terrain for 105° west to 75° west, centred on 90° west. Hex tile scale 1 Megametre or 1000km. A hex tile area of 866025.403 km². A
+ *  minimum Island area of 144337.567km². Cuba has an area of 109884 km², which is too small to qualify as an island. */
 object TerrMegaW90 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.w90(82)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
