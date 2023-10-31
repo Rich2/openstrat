@@ -15,6 +15,7 @@ trait Int4Elem extends Any with IntNElem
   { buffer.append(int1); buffer.append(int2); buffer.append(int3); buffer.append(int4) }
 }
 
+/** [[SeqLike]] with [[Int4Elem]]s. */
 trait SeqLikeInt4[A <: Int4Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 4
 
@@ -23,6 +24,7 @@ trait SeqLikeInt4[A <: Int4Elem] extends Any with SeqLikeIntN[A]
   override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex4(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
+/** A compound object defined / specified by a sequence of [[Int4Elem]]s. */
 trait SeqSpecInt4[A <: Int4Elem] extends Any with SeqLikeInt4[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
@@ -70,11 +72,13 @@ trait BuffInt4[A <: Int4Elem] extends Any with BuffIntN[A]
   final override def setElemUnsafe(i: Int, newElem: A): Unit = unsafeBuffer.setIndex4(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4)
 }
 
+/** Base trait for builders of [[SeqLikeInt4]] objects via both map and flatMap methods. */
 trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[_]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt4[_]
   final override def elemProdSize: Int = 4
 }
 
+/** Builders for [[SeqLikeInt4]] objects via the map f: A => B method. */
 trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends BuilderSeqLikeInt4[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt4[B]
 
@@ -92,7 +96,7 @@ trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLik
 trait BuilderArrInt4Flat[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
-abstract class CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
+trait CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]
 { final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): BuffInt4[A]

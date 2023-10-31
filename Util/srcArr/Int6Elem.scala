@@ -16,6 +16,7 @@ trait Int6Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = buffer.append6(int1, int2, int3, int4, int5, int6)
 }
 
+
 trait SeqLikeInt6[A <: Int6Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 6
 
