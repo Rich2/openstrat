@@ -147,7 +147,7 @@ trait HVertSeqLike extends Any with SeqLikeInt2[HVert]
 }
 
 /** An array[Int] based collection for HVert. */
-class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike with Int2Arr[HVert]
+class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike with ArrInt2[HVert]
 { type ThisT = HVertArr
   override def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)

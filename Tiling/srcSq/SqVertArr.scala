@@ -10,7 +10,7 @@ trait SqVertSeqLike extends Any with SeqLikeInt2[SqVert]
 }
 
 /** An array[Int] based collection for SqVert. */
-class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike with Int2Arr[SqVert]
+class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike with ArrInt2[SqVert]
 { type ThisT = SqVertArr
   override def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)

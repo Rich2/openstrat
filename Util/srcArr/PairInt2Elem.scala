@@ -9,7 +9,7 @@ trait PairInt2Elem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
 }
 
 /** An [[Arr]] of [[PairElem]] elements, where the first component of the pairs is a [[Int2Elem]]. */
-trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: PairInt2Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
+trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: ArrInt2[A1], A2, A <: PairInt2Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
 { type ThisT <: ArrPairInt2[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
@@ -77,7 +77,7 @@ trait BuffPairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPa
   }
 }
 
-trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: PairInt2Elem[B1, B2], ArrB <: ArrPairInt2[B1, ArrB1, B2, B]] extends
+trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: ArrInt2[B1], B2, B <: PairInt2Elem[B1, B2], ArrB <: ArrPairInt2[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairInt2[B1, B2, B]
   final override def a1IntNum: Int = 2

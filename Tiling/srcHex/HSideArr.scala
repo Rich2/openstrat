@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
-class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
+class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[HSide]
 { type ThisT = HSideArr
   override def newElem(int1: Int, int2: Int): HSide = HSide(int1, int2)
 

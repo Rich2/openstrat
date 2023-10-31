@@ -165,7 +165,7 @@ object HCen
 }
 
 /** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
-class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
+class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[HCen]
 { type ThisT = HCenArr
   override def newElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
