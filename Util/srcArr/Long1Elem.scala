@@ -17,6 +17,6 @@ trait ArrLong1[A <: Long1Elem] extends Any with ArrLongN[A]
 }
 
 /** A specialised flat ArrayBuffer[long] based trait for [[Long1Elem]]s collections. */
-trait Long1Buff[A <: Long1Elem, ArrA <: ArrLong1[A]] extends Any with LongNBuff[A]
+trait BuffLong1[A <: Long1Elem, ArrA <: ArrLong1[A]] extends Any with BuffLongN[A]
 { override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem._1); () }
 }

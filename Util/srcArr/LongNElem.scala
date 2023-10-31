@@ -34,7 +34,7 @@ trait ArrLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with ArrValueN[A
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait LongNBuff[A <: LongNElem] extends Any with BuffValueN[A]
+trait BuffLongN[A <: LongNElem] extends Any with BuffValueN[A]
 { def unsafeBuffer: ArrayBuffer[Long]
   def toArray: Array[Long] = unsafeBuffer.toArray[Long]
 //  def unBuff: M
@@ -42,8 +42,8 @@ trait LongNBuff[A <: LongNElem] extends Any with BuffValueN[A]
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-/** Helper trait for Companion objects of [[ArrLongN]] classes. */
-trait LongNSeqDefCompanion[A <: LongNElem, ArrA <: SeqSpecLongN[A]]// extends SeqLikeCompanion[A, ArrA]
+/** Helper trait for Companion objects of [[SeqLikeLongN]] classes. */
+trait CompanionSeqLikeLongN[A <: LongNElem, ArrA <: SeqLikeLongN[A]]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
 
