@@ -2,13 +2,15 @@
 package ostrat
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-trait Int2PairElem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
+/** [[PairElem]] where the first component of the pair is ant [[Int2Elem]]. */
+trait PairInt2Elem[A1 <: Int2Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
 }
 
-trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
-{ type ThisT <: Int2PairArr[A1, ArrA1, A2, A]
+/** An [[Arr]] of [[PairElem]] elements, where the first component of the pairs is a [[Int2Elem]]. */
+trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: PairInt2Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
+{ type ThisT <: ArrPairInt2[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, int2: Int, a2: A2): A
@@ -51,7 +53,7 @@ trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1
   }
 }
 
-trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends BuffPairIntN[A1, A2, A]
+trait Int2PairBuff[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
@@ -74,7 +76,7 @@ trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends BuffPa
   }
 }
 
-trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: Int2PairElem[B1, B2], ArrB <: Int2PairArr[B1, ArrB1, B2, B]] extends
+trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: PairInt2Elem[B1, B2], ArrB <: ArrPairInt2[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int2PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 2
@@ -85,7 +87,7 @@ trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: Int2P
 
 trait Int2PairArrCompanion[A1 <: Int2Elem]
 {
-  def seqToArrays[A2](pairs: Seq[Int2PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairInt2Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 2)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

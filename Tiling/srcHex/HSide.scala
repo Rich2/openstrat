@@ -213,7 +213,7 @@ object HSideC
 }
 
 /** [[PairElem]] class for [[HSide]]s. Allows for the efficient storage of sequences in [[HSidePairArr]]s. */
-class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HSide, A2] with Selectable
+class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HSide, A2] with Selectable
 { override def a1: HSide = HSide(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
 

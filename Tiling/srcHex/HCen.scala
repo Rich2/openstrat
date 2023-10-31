@@ -206,7 +206,7 @@ object HCenBuff
 }
 
 /** [[PairElem]] class for [[HCen]]s. Allows for the efficient storage of sequences in [[HCenPairArr]]s. */
-class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2] with Selectable
+class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HCen, A2] with Selectable
 { override def a1: HCen = HCen(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
 
@@ -230,7 +230,7 @@ object HCenPair
   }
 }
 
-class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[HCen, HCenArr, A2, HCenPair[A2]]
+class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt2[HCen, HCenArr, A2, HCenPair[A2]]
 { override type ThisT = HCenPairArr[A2]
   override def typeStr: String = "HCenPairArr"
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HCenPairArr[A2] = new HCenPairArr[A2](newA1Array, newA2Array)

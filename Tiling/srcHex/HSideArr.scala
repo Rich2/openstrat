@@ -43,7 +43,7 @@ object HSideBuff
 { def apply(length: Int = 4): HSideBuff = new HSideBuff(new ArrayBuffer[Int](length * 2))
 }
 
-class HSidePairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[HSide, HSideArr, A2, HSidePair[A2]]
+class HSidePairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt2[HSide, HSideArr, A2, HSidePair[A2]]
 { override type ThisT = HSidePairArr[A2]
   override def typeStr: String = "HSidePairArr"
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): HSidePairArr[A2] = new HSidePairArr[A2](newA1Array, newA2Array)

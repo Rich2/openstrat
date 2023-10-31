@@ -92,7 +92,7 @@ object SqCenBuff
 { def apply(length: Int = 4): SqCenBuff = new SqCenBuff(new ArrayBuffer[Int](length * 2))
 }
 
-class SqCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[SqCen, A2]
+class SqCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[SqCen, A2]
 { override def a1: SqCen = SqCen(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
 }
@@ -105,7 +105,7 @@ object SqCenPair
   }
 }
 
-class SqCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[SqCen, SqCenArr, A2, SqCenPair[A2]]
+class SqCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt2[SqCen, SqCenArr, A2, SqCenPair[A2]]
 { override type ThisT = SqCenPairArr[A2]
   override def typeStr: String = "SqCenPairArr"
   override def newFromArrays(newA1Array: Array[Int], newA2Array: Array[A2]): SqCenPairArr[A2] = new SqCenPairArr[A2](newA1Array, newA2Array)
