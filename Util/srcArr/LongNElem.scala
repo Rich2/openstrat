@@ -5,8 +5,9 @@ import collection.mutable.ArrayBuffer
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait LongNElem extends Any with ValueNElem
 
-trait LongNSeqLike[A <: LongNElem] extends Any with SeqLikeValueN[A]
-{ type ThisT <: LongNSeqLike[A]
+/** [[SeqLike]] with [[LongN]] elements. */
+trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeValueN[A]
+{ type ThisT <: SeqLikeLongN[A]
   def unsafeArray: Array[Long]
 
   def fromArray(array: Array[Long]): ThisT
@@ -18,10 +19,11 @@ trait LongNSeqLike[A <: LongNElem] extends Any with SeqLikeValueN[A]
   @inline final def unsafeLength: Int = unsafeArray.length
 }
 
-trait LongNSeqSpec[A <: LongNElem] extends Any with LongNSeqLike[A] with SeqSpecValueN[A]
+/** A compound object defined / specified by a sequence of [[LongN]] elements. */
+trait SeqSpecLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with SeqSpecValueN[A]
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait LongNArr[A <: LongNElem] extends Any with LongNSeqLike[A] with ArrValueN[A]
+trait ArrLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with ArrValueN[A]
 {
   final override def drop(n: Int): ThisT =
   { val nn = n.max0
@@ -40,8 +42,8 @@ trait LongNBuff[A <: LongNElem] extends Any with BuffValueN[A]
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-/** Helper trait for Companion objects of [[LongNArr]] classes. */
-trait LongNSeqDefCompanion[A <: LongNElem, ArrA <: LongNSeqSpec[A]]// extends SeqLikeCompanion[A, ArrA]
+/** Helper trait for Companion objects of [[ArrLongN]] classes. */
+trait LongNSeqDefCompanion[A <: LongNElem, ArrA <: SeqSpecLongN[A]]// extends SeqLikeCompanion[A, ArrA]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
 
