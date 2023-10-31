@@ -54,6 +54,6 @@ class SqCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyV
   override def newElem(i1: Int, i2: Int): SqCoord = SqCoord(i1, i2)
 }
 
-object SqCoordBuff extends Int2BuffCompanion[SqCoord, SqCoordBuff]
+object SqCoordBuff extends CompanionBuffInt2[SqCoord, SqCoordBuff]
 { override def fromBuffer(buffer: ArrayBuffer[Int]): SqCoordBuff = new SqCoordBuff(buffer)
 }

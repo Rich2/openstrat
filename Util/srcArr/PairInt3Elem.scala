@@ -59,7 +59,8 @@ trait BuffPairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends BuffPa
   }
 }
 
-trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairInt3Elem[B1, B2], ArrB <: ArrPairInt3[B1, ArrB1, B2, B]] extends
+/** Builders for [[ArrPairInt3]] objects via the map f: A => PairB method. */
+trait BuilderArrPairInt3Map[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairInt3Elem[B1, B2], ArrB <: ArrPairInt3[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: BuffPairInt3[B1, B2, B]
 
@@ -69,7 +70,8 @@ trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairI
     seqLike.a2Array(index) = elem.a2 }
 }
 
-trait Int3PairArrCompanion[A1 <: Int3Elem]
+/** Helper trait for companion objects of instantiable [[PairInt3]] classes. */
+trait CompanionArrPairInt3[A1 <: Int3Elem]
 {
   def pairsToArrays[A2](pairs: Seq[PairInt3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 3)

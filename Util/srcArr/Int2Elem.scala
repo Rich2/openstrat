@@ -92,7 +92,7 @@ trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: SeqLikeInt2[A]] extends Compan
   }
 }
 
-trait Int2BuffCompanion[A <: Int2Elem, AA <: BuffInt2[A]] extends CompanionBuffIntN[A, AA]
+trait CompanionBuffInt2[A <: Int2Elem, AA <: BuffInt2[A]] extends CompanionBuffIntN[A, AA]
 {
   override def apply(elems: A*): AA =
   { val buffer: ArrayBuffer[Int] =  new ArrayBuffer[Int](elems.length * 2 + 6)

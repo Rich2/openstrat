@@ -115,7 +115,7 @@ class HCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVa
   override def newElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 }
 
-object HCoordBuff extends Int2BuffCompanion[HCoord, HCoordBuff]
+object HCoordBuff extends CompanionBuffInt2[HCoord, HCoordBuff]
 { override def fromBuffer(buffer: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(buffer)
 }
 
