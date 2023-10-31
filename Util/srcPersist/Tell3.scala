@@ -29,14 +29,6 @@ trait Tell3[A1, A2, A3] extends Any with Tell3Plused[A1, A2, A3]
       show3.showDec(tell3, way, decimalPlaces, 0))
 }
 
-trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
-
-object ShowTell3
-{
-  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String): ShowTell3[A1, A2, A3, R] = new ShowTell3Imp[A1, A2, A3, R](typeStr)
-  class ShowTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell3[A1, A2, A3, R]
-}
-
 /** Show classes with 3 [[Int]] parameters. */
 trait TellInt3 extends Any with Tell3[Int, Int, Int]
 { final override def syntaxDepth: Int = 2
@@ -52,3 +44,15 @@ trait TellDbl3 extends Any with Tell3[Double, Double, Double]
   final override implicit def show2: Show[Double] = Show.doublePersistEv
   final override implicit def show3: Show[Double] = Show.doublePersistEv
 }
+
+/** [[Show]] type class for [[Tell3]] types. */
+trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
+
+object ShowTell3
+{
+  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String): ShowTell3[A1, A2, A3, R] = new ShowTell3Imp[A1, A2, A3, R](typeStr)
+  class ShowTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell3[A1, A2, A3, R]
+}
+
+/** [[Show]] type class for [[TellInt3]] types. */
+case class ShowTellInt3[R <: TellInt3](typeStr: String) extends ShowTell3[Int, Int, Int, R]
