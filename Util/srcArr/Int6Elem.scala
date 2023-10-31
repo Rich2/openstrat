@@ -16,7 +16,7 @@ trait Int6Elem extends Any with IntNElem
   override def intBufferAppend(buffer: ArrayBuffer[Int]): Unit = buffer.append6(int1, int2, int3, int4, int5, int6)
 }
 
-
+/** [[SeqLike]] for [[Int6Elem]]s */
 trait SeqLikeInt6[A <: Int6Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 6
 
@@ -26,6 +26,7 @@ trait SeqLikeInt6[A <: Int6Elem] extends Any with SeqLikeIntN[A]
     unsafeArray.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
+/** Compound object defined / specified by [[Int6Elem]]s */
 trait SeqSpecInt6[A <: Int6Elem] extends Any with SeqLikeInt6[A] with SeqSpecIntN[A]
 {
   final def ssElemEq(a1: A, a2: A): Boolean =
@@ -79,11 +80,13 @@ trait BuffInt6[A <: Int6Elem] extends Any with BuffIntN[A]
     unsafeBuffer.setIndex6(i, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 }
 
+/** Builder for [[SeqLike]]s with [[Int6Elem]]s */
 trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[_]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt6[_]
   final override def elemProdSize: Int = 6
 }
 
+/** Builder of [[SeqLikeInt6]] objects via the map f: A => B method. */
 trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends BuilderSeqLikeInt6[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
@@ -99,7 +102,8 @@ trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends Builder
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait Int6ArrFlatBuilder[ArrB <: ArrInt6[_]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
+/** Builder of [[ArrInt6]] objects via the flatMap f: A => ArrB method. */
+trait BuilderArrInt6Flat[ArrB <: ArrInt6[_]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt6]] final classes to extend. */
 abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSeqLikeIntN[A, M]

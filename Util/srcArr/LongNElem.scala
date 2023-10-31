@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait LongNElem extends Any with ValueNElem
 
-trait LongNSeqLike[A <: LongNElem] extends Any with SeqLikeValueN[A] //with ArrayDblBacked
+trait LongNSeqLike[A <: LongNElem] extends Any with SeqLikeValueN[A]
 { type ThisT <: LongNSeqLike[A]
   def unsafeArray: Array[Long]
 
