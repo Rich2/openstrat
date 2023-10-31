@@ -33,7 +33,7 @@ object DevPage extends HtmlPage
     "Scala is, and in particular Scala 3 will be the ideal language to explore these questions.")
 
   def p4: HtmlP = HtmlP("Scala currently set to 3.3.1. Jdk 11+, 11 preferred. Scala.Js set to 1.14.0. Scala native set to 0.4.14. Sbt currently" --
-    "set to 1.9.6 (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update" --
+    "set to 1.9.7 (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update" --
     "your Mill to 0.11.1.")
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
