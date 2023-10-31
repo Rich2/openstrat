@@ -64,7 +64,7 @@ object HSidePairArr1
 }
 
 
-class HSidePairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends Int2PairBuff[HSide, B2, HSidePair[B2]]
+class HSidePairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt2[HSide, B2, HSidePair[B2]]
 { override type ThisT = HSidePairBuff[B2]
   override def typeStr: String = "HSidePairBuff"
   override def newElem(int1: Int, int2: Int, a2: B2): HSidePair[B2] = new HSidePair[B2](int1, int2, a2)

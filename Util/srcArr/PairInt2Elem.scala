@@ -53,7 +53,8 @@ trait ArrPairInt2[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: PairInt2Elem[A1
   }
 }
 
-trait Int2PairBuff[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
+/** Efficient buffer for [[Int2Elem]]s. */
+trait BuffPairInt2[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
@@ -78,14 +79,15 @@ trait Int2PairBuff[A1 <: Int2Elem, A2, A <: PairInt2Elem[A1, A2]] extends BuffPa
 
 trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: PairInt2Elem[B1, B2], ArrB <: ArrPairInt2[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: Int2PairBuff[B1, B2, B]
+{ type BuffT <: BuffPairInt2[B1, B2, B]
   final override def a1IntNum: Int = 2
 
   final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.a1ArrayInt.setIndex2(index, elem.a1Int1, elem.a1Int2)
     seqLike.a2Array(index) = elem.a2 }
 }
 
-trait Int2PairArrCompanion[A1 <: Int2Elem]
+/** Helper trait for the companion objects of instantiable [[ArrPairInt2]] classes.  */
+trait CompanionArrPairInt2[A1 <: Int2Elem]
 {
   def seqToArrays[A2](pairs: Seq[PairInt2Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 2)
