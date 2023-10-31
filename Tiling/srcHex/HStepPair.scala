@@ -26,14 +26,14 @@ object HStepPairArr1{
 }
 
 /** A [[Buff]] class for [[HStepPair]]s.  */
-class HStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends Int1PairBuff[HStep, A2, HStepPair[A2]]
+class HStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends BuffPairInt1[HStep, A2, HStepPair[A2]]
 { override type ThisT = HStepPairBuff[A2]
   override def typeStr: String = "HDirnPairBuff"
   override def newElem(int1: Int, a2: A2): HStepPair[A2] = new HStepPair[A2](int1, a2)
 }
 
 /** An [[BuilderArrMap]] for [[HStepPair]]s. */
-class HStepPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Int1PairArrMapBuilder[HStep, HStepArr, B2, HStepPair[B2], HStepPairArr[B2]]
+class HStepPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairIn1Map[HStep, HStepArr, B2, HStepPair[B2], HStepPairArr[B2]]
 { override type BuffT = HStepPairBuff[B2]
   override type B1BuffT = HStepBuff
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HStepPairBuff[B2] = new HStepPairBuff[B2](a1Buffer, a2Buffer)
