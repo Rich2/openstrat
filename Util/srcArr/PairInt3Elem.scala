@@ -2,14 +2,16 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-trait Int3PairElem[A1 <: Int3Elem, A2] extends PairIntNElem[A1, A2]
+/** [[PairElem]] where the first component is an [[Int3Elem]]. */
+trait PairInt3Elem[A1 <: Int3Elem, A2] extends PairIntNElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
   def a1Int3: Int
 }
 
-trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: Int3PairElem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
-{ type ThisT <: Int3PairArr[A1, ArrA1, A2, A]
+/** [[Arr]] for [[PairElem]]s where the first component of the pairs is an [[Int3Elem]]. */
+trait ArrPairInt3[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: PairInt3Elem[A1, A2]] extends ArrPairIntN[A1, ArrA1, A2, A]
+{ type ThisT <: ArrPairInt3[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, int2: Int, int3: Int, a2: A2): A
@@ -39,7 +41,8 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: ArrInt3[A1], A2, A <: Int3PairElem[A1
   }
 }
 
-trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends BuffPairIntN[A1, A2, A]
+/** Efficient buffer for [[PairInt3Elem]]s. */
+trait BuffPairInt3[A1 <: Int3Elem, A2, A <: PairInt3Elem[A1, A2]] extends BuffPairIntN[A1, A2, A]
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, a2: A2): A
 
@@ -56,9 +59,9 @@ trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends BuffPa
   }
 }
 
-trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: Int3PairElem[B1, B2], ArrB <: Int3PairArr[B1, ArrB1, B2, B]] extends
+trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairInt3Elem[B1, B2], ArrB <: ArrPairInt3[B1, ArrB1, B2, B]] extends
   BuilderArrPairIntNMap[B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: Int3PairBuff[B1, B2, B]
+{ type BuffT <: BuffPairInt3[B1, B2, B]
 
   final override def a1IntNum: Int = 3
 
@@ -68,7 +71,7 @@ trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: Int3P
 
 trait Int3PairArrCompanion[A1 <: Int3Elem]
 {
-  def pairsToArrays[A2](pairs: Seq[Int3PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def pairsToArrays[A2](pairs: Seq[PairInt3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

@@ -68,7 +68,7 @@ object HCenStepBuff
 }
 
 /** A pair where a1 is an [[HCenStep]] hex grid step representing the starting [[HCen]] of the step as well as the [[HStep]] singleton object itself. */
-class HCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2: A2) extends Int3PairElem[HCenStep, A2]
+class HCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2: A2) extends PairInt3Elem[HCenStep, A2]
 { inline def r1: Int = a1Int1
   inline def c1: Int = a1Int2
   inline def stepInt: Int = a1Int3
@@ -77,7 +77,7 @@ class HCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2
   def step: HStep = HStep.fromInt(a1Int3)
 }
 
-class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int3PairArr[HCenStep, HCenStepArr, A2, HCenStepPair[A2]]
+class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt3[HCenStep, HCenStepArr, A2, HCenStepPair[A2]]
 { override type ThisT = HCenStepPairArr[A2]
   override def typeStr: String = "HCenStepArr"
   override def newPair(int1: Int, int2: Int, int3: Int, a2: A2): HCenStepPair[A2] = new HCenStepPair[A2](int1, int2, int3, a2)
@@ -108,7 +108,7 @@ object HCenStepPairArr extends Int3PairArrCompanion[HCenStep]
   }
 }
 
-class HCenStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends Int3PairBuff[HCenStep, A2, HCenStepPair[A2]]
+class HCenStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends BuffPairInt3[HCenStep, A2, HCenStepPair[A2]]
 { override type ThisT = HCenStepPairBuff[A2]
   override def typeStr: String = "HCenStep"
   override def newElem(int1: Int, int2: Int, int3: Int, a2: A2): HCenStepPair[A2] = new HCenStepPair[A2](int1, int2, int3, a2)

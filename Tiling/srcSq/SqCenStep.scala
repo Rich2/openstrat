@@ -66,7 +66,7 @@ object SqCenStepBuff
 { def apply(initLen: Int = 4) = new SqCenStepBuff(new ArrayBuffer[Int](initLen * 3))
 }
 
-class SqCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2: A2) extends Int3PairElem[SqCenStep, A2]
+class SqCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2: A2) extends PairInt3Elem[SqCenStep, A2]
 { inline def r1: Int = a1Int1
   inline def c1: Int = a1Int2
   inline def stepInt: Int = a1Int3
@@ -74,7 +74,7 @@ class SqCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a
   def step: SqStep = SqStep.fromInt(a1Int3)
 }
 
-class SqCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int3PairArr[SqCenStep, SqCenStepArr, A2, SqCenStepPair[A2]]
+class SqCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends ArrPairInt3[SqCenStep, SqCenStepArr, A2, SqCenStepPair[A2]]
 { override type ThisT = SqCenStepPairArr[A2]
   override def typeStr: String = "SqCenStepArr"
   override def newPair(int1: Int, int2: Int, int3: Int, a2: A2): SqCenStepPair[A2] = new SqCenStepPair[A2](int1, int2, int3, a2)
@@ -97,7 +97,7 @@ object SqCenStepPairArr extends Int3PairArrCompanion[SqCenStep]
   }
 }
 
-class SqCenStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends Int3PairBuff[SqCenStep, A2, SqCenStepPair[A2]]
+class SqCenStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends BuffPairInt3[SqCenStep, A2, SqCenStepPair[A2]]
 { override type ThisT = SqCenStepPairBuff[A2]
   override def typeStr: String = "SqCenStep"
   override def newElem(int1: Int, int2: Int, int3: Int, a2: A2): SqCenStepPair[A2] = new SqCenStepPair[A2](int1, int2, int3, a2)
