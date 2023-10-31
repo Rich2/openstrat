@@ -18,5 +18,6 @@ object EGridPage extends HtmlPage
     "<br>R² = d² / 3" ---
     "<br>A = √3 * d² / 2" ---
     "<br>A = 0.8660254037844386 * d²" ---
-    "<br>MIA = 0.14433756729740643 * d² //where MIA is minimum island area.")
+    "<br>MIA = A/6 //where MIA is minimum island area." ---
+    "<br>MIA = 0.14433756729740643 * d²")
 }

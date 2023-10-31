@@ -2,8 +2,14 @@
 package ostrat; package prid; package phex
 
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
-final class HCenRow private (val r: Int, val cStart: Int, val cEnd: Int)
-{
+final class HCenRow private (val r: Int, val cStart: Int, val cEnd: Int) extends TellInt3
+{ override def typeStr: String = "HCenRow"
+  override def name1: String = "r"
+  override def tell1: Int = r
+  override def name2: String = "cStart"
+  override def tell2: Int = cStart
+  override def name3: String = "cEnd"
+  override def tell3: Int = cEnd
   def cLen: Int = (cEnd - cStart).max0
   def tNum: Int = ((cEnd - cStart + 1) / 4).max0
 
@@ -36,6 +42,8 @@ final class HCenRow private (val r: Int, val cStart: Int, val cEnd: Int)
 object HCenRow
 {
   def apply(r: Int, cStart: Int, cEnd: Int): HCenRow = new HCenRow(r, cStart, cEnd)
+
+  //val showEv = ShowTellInt3
 }
 
 class HCenRowPair[A]private (val r: Int, val cStart: Int, val cEnd: Int, val a2: A) extends PairElem[HCenRow, A]
