@@ -26,7 +26,7 @@ object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
   /** Implicit [[Unshow]] type class instance / evidence for [[SqVertArr]]. */
   implicit val unshowEv: UnshowArrIntN[SqVert, SqVertArr] = UnshowArrIntN[SqVert, SqVertArr](fromArray)
 
-  implicit val arrArrayImplicit: BuilderArrFlat[SqVertArr] = new Int2ArrFlatBuilder[SqVertArr]
+  implicit val arrArrayImplicit: BuilderArrFlat[SqVertArr] = new BuilderArrInt2Flat[SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)

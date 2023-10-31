@@ -91,7 +91,7 @@ object HSide
   }
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HSide]] and [[HSideArr]]. */
-  implicit val arrMapBuilderEv: Int2ArrMapBuilder[HSide, HSideArr] = new Int2ArrMapBuilder[HSide, HSideArr]
+  implicit val arrMapBuilderEv: BuilderArrInt2Map[HSide, HSideArr] = new BuilderArrInt2Map[HSide, HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)

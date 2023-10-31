@@ -42,7 +42,7 @@ trait PolygonIntNMapBuilder[B <: IntNElem, BB <: PolygonLikeIntN[B] ] extends Po
 /** Trait for creating the line path type class instances for [[PolygonLikeInt2]] final classes. Instances for the [[PolygonInt2MapBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait PolygonInt2MapBuilder[B <: Int2Elem, BB <: PolygonLikeInt2[B]] extends PolygonIntNMapBuilder[B, BB] with Int2SeqLikeMapBuilder[B, BB]
+trait PolygonInt2MapBuilder[B <: Int2Elem, BB <: PolygonLikeInt2[B]] extends PolygonIntNMapBuilder[B, BB] with BuilderSeqLikeInt2Map[B, BB]
 
 /** Trait for creating the line path type class instances for [[PolygonLikeInt3]] final classes. Instances for the [[PolygonInt3MapBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called

@@ -57,7 +57,7 @@ object HVert
   }
 
 
-  implicit val hVertsBuildImplicit: Int2ArrMapBuilder[HVert, HVertArr] = new Int2ArrMapBuilder[HVert, HVertArr]
+  implicit val hVertsBuildImplicit: BuilderArrInt2Map[HVert, HVertArr] = new BuilderArrInt2Map[HVert, HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)
@@ -164,7 +164,7 @@ object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]
   /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]].  */
   implicit val unshowEv: UnshowArrIntN[HVert, HVertArr] = UnshowArrIntN[HVert, HVertArr](fromArray)
 
-  implicit val arrArrayImplicit: BuilderArrFlat[HVertArr] = new Int2ArrFlatBuilder[HVertArr]
+  implicit val arrArrayImplicit: BuilderArrFlat[HVertArr] = new BuilderArrInt2Flat[HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)

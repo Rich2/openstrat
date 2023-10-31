@@ -155,7 +155,7 @@ object HCen
   implicit val unshowEv: UnshowInt2[HCen] = UnshowInt2[HCen]("HCen", "r", "c", HCen(_, _))
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
-  implicit val arrMapBuilderEv: Int2ArrMapBuilder[HCen, HCenArr] = new Int2ArrMapBuilder[HCen, HCenArr]
+  implicit val arrMapBuilderEv: BuilderArrInt2Map[HCen, HCenArr] = new BuilderArrInt2Map[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
@@ -187,7 +187,7 @@ object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
   implicit val unshowEv: UnshowArrIntN[HCen, HCenArr] = UnshowArrIntN[HCen, HCenArr](fromArray)
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
-  implicit val flatBuilderEv: Int2ArrFlatBuilder[HCenArr] = new Int2ArrFlatBuilder[HCenArr]
+  implicit val flatBuilderEv: BuilderArrInt2Flat[HCenArr] = new BuilderArrInt2Flat[HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)

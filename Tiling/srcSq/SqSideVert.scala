@@ -40,7 +40,7 @@ object SqVert
 
   val showEv: Show[SqVert] = ShowTellInt2("Sqvert")
 
-  implicit val sqVertsBuildImplicit: Int2ArrMapBuilder[SqVert, SqVertArr] = new Int2ArrMapBuilder[SqVert, SqVertArr]
+  implicit val sqVertsBuildImplicit: BuilderArrInt2Map[SqVert, SqVertArr] = new BuilderArrInt2Map[SqVert, SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
