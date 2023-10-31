@@ -45,6 +45,9 @@ object HCenRow
 
   /** [[Show]] type class instance / evidence for [[HCenRow]]. */
   implicit val showEv: ShowTellInt3[HCenRow] = ShowTellInt3[HCenRow]("HCenRow")
+
+  /** [[Show]] type class instance / evidence for [[HCenRow]]. */
+  implicit val unshowEv: UnshowInt3[HCenRow] = UnshowInt3[HCenRow]("HCenRow", "r", "cStart", "cEnd", apply)
 }
 
 class HCenRowPair[A]private (val r: Int, val cStart: Int, val cEnd: Int, val a2: A) extends PairElem[HCenRow, A]

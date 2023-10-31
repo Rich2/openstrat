@@ -46,13 +46,17 @@ trait TellDbl3 extends Any with Tell3[Double, Double, Double]
 }
 
 /** [[Show]] type class for [[Tell3]] types. */
-trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
+class ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell[R]
 
 object ShowTell3
-{
-  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String): ShowTell3[A1, A2, A3, R] = new ShowTell3Imp[A1, A2, A3, R](typeStr)
-  class ShowTell3Imp[A1, A2, A3, R <: Tell3[A1, A2, A3]](val typeStr: String) extends ShowTell3[A1, A2, A3, R]
+{ /** Factory apply method for creating [[ShowTell3]] instances. */
+  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String): ShowTell3[A1, A2, A3, R] = new ShowTell3[A1, A2, A3, R](typeStr)
 }
 
 /** [[Show]] type class for [[TellInt3]] types. */
-case class ShowTellInt3[R <: TellInt3](typeStr: String) extends ShowTell3[Int, Int, Int, R]
+class ShowTellInt3[R <: TellInt3](typeStr: String) extends ShowTell3[Int, Int, Int, R](typeStr)
+
+object ShowTellInt3
+{ /** Factory apply method for creating [[ShowTell3]] instances. */
+  def apply[R <: TellInt3](typeStr: String): ShowTellInt3[R] = new ShowTellInt3[R](typeStr)
+}
