@@ -162,4 +162,6 @@ object HGridIrr
     }
     new HGridIrr(rMin, array)
   }
+
+  implicit val showEv: Show2[Int, RArr[HCenRow], HGridIrr] = Show2[Int, RArr[HCenRow], HGridIrr]("HGridIrr", "bottom", _.bottomCenR, "rows", ???)
 }
