@@ -6,10 +6,10 @@ import egrid._, prid.phex._
 object EGrid80
 {
   /** Returns an [[RArr]] sequence of 320km full earth grids. */
-  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 540): RArr[EGrid80LongFull] =
+  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 582): RArr[EGrid80LongFull] =
     iUntilMap(startIndex, startIndex + num) { i => EGrid80LongFull(rBottomCen, rTopCen, i %% 12) }
 
-  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 540): EGrid80LongMulti = new EGrid80LongMulti {
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 582): EGrid80LongMulti = new EGrid80LongMulti {
     ThisSys =>
     override val grids: RArr[EGridLongFull] = EGrid80.grids(numGridsIn, headInt, bottomR, topR)
 
@@ -25,10 +25,10 @@ object EGrid80
   }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def e0(rBottomCen: Int, rTopCen: Int = 540): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 0)
+  def e0(rBottomCen: Int, rTopCen: Int = 582): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 0)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 80km. */
-  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 1)
+  def e30(rBottomCen: Int, rTopCen: Int = 582): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 1)
 
   def scen0: EScenBasic = EScenBasic(Terr80E0.grid, Terr80E0.terrs, Terr80E0.sTerrs, Terr80E0.corners, "80km 0E")
   def scen1: EScenBasic = EScenBasic(Terr80E30.grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners)

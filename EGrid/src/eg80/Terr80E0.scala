@@ -5,13 +5,16 @@ import prid._, phex._, egrid._, WTile._
 /** 80 Km tile width grid ventred on the Greenwich meridian, 0E form 15W to 15E. Covers North West Europe. The c or column offset is 512 which is G0
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object Terr80E0 extends Long80Terrs
-{ implicit val grid: EGrid80LongFull = EGrid80.e0(416)
+{ implicit val grid: EGrid80LongFull = EGrid80.e0(416, 582)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
+
+      TRow(552, sea * 7, mtain),
+
       TRow(518, sea * 14, taiga),
       TRow(516, sea * 15, taiga),
       TRow(514, sea * 15, taiga),
