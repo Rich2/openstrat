@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-//S@inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomCenR
+
 /** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
  *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
  *  centres [[HCen]]s and the cTileMin coordinate for the row.
@@ -163,5 +163,5 @@ object HGridIrr
     new HGridIrr(rMin, array)
   }
 
-  implicit val showEv: Show2[Int, RArr[HCenRow], HGridIrr] = Show2[Int, RArr[HCenRow], HGridIrr]("HGridIrr", "bottom", _.bottomCenR, "rows", ???)
+  //implicit val showEv = ShowSeqSpec[HCenRow, HGridIrr]("HGridIrr", "bottom", _.bottomCenR, "rows", ???)
 }

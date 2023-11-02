@@ -1,9 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import scala.collection.mutable.ArrayBuffer
 
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
-final class HCenRow private (val r: Int, val cStart: Int, val cEnd: Int) extends TellInt3
+final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends TellInt3 with Int3Elem with SpecialT
 { override def typeStr: String = "HCenRow"
+  inline override def int1: Int = r
+  inline override def int2: Int = cStart
+  inline override def int3: Int = cEnd
+
   override def name1: String = "r"
   override def tell1: Int = r
   override def name2: String = "cStart"
@@ -48,6 +53,27 @@ object HCenRow
 
   /** [[Show]] type class instance / evidence for [[HCenRow]]. */
   implicit val unshowEv: UnshowInt3[HCenRow] = UnshowInt3[HCenRow]("HCenRow", "r", "cStart", "cEnd", apply)
+
+  implicit val buildMapEv: BuilderArrInt3Map[HCenRow, HCenRowArr] {type BuffT = HCenRowBuff} = new BuilderArrInt3Map[HCenRow, HCenRowArr]
+  { override type BuffT = HCenRowBuff
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenRowBuff = new HCenRowBuff(buffer)
+    override def fromIntArray(array: Array[Int]): HCenRowArr = new HCenRowArr(array)
+  }
+}
+
+class HCenRowArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt3[HCenRow]
+{ override type ThisT = HCenRowArr
+  override def typeStr: String = "HCenRowArr"
+  override def newElem(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)
+  override def fromArray(array: Array[Int]): HCenRowArr = new HCenRowArr(array)
+  override def fElemStr: HCenRow => String = _.str
+}
+
+class HCenRowBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HCenRow]
+{ override type ThisT = HCenRowBuff
+  override type ArrT = HCenRowArr
+  override def typeStr: String = "HCenRowBuff"
+  override def newElem(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)
 }
 
 class HCenRowPair[A]private (val r: Int, val cStart: Int, val cEnd: Int, val a2: A) extends PairElem[HCenRow, A]
