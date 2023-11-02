@@ -30,13 +30,14 @@ trait ShowSeq[A, R] extends ShowSeqBased[A, R] with PersistBaseSeq[A, R]
 
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
 { override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
-  override def showMap(obj: R)(f: A => String): StrArr = obj.mapArr(f)
+  override def showForeach(obj: R, f: A => Unit): Unit = obj.foreach(f)
+
 }
 
 /** [[Show] type class for showing [[Sequ]][A] objects. */
 trait ShowSequ[A, R <: Sequ[A]] extends ShowSeq[A, R]
 { override def syntaxDepth(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
-  override def showMap(obj: R)(f: A => String): StrArr = obj.map(f)
+  override def showForeach(obj: R, f: A => Unit): Unit = obj.foreach(f)
 }
 
 object ShowSequ
@@ -49,7 +50,7 @@ object ShowSequ
 /** [[Show] type class for showing [[Sequ]][A] objects. */
 trait ShowSeqSpec[A, R <: SeqSpec[A]] extends ShowSeq[A, R]
 { override def syntaxDepth(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
-  override def showMap(obj: R)(f: A => String): StrArr = obj.ssMap(f)
+  override def showForeach(obj: R, f: A => Unit): Unit = obj.ssForeach(f)
 }
 
 object ShowSeqSpec

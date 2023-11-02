@@ -111,9 +111,3 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = ssMap(fElemStr).mkString("; ").enParenth
 }
-
-/** [[Show] type class for showing [[SeqSpec]][A] objects. */
-class SeqSpecShow[A, R <: SeqSpec[A]](val typeStr: String, val evA: Show[A]) extends ShowSeqBased[A, R]
-{ override def syntaxDepth(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepth(a)))
-  override def showMap(obj: R)(f: A => String): StrArr = obj.ssMap(f)
-}

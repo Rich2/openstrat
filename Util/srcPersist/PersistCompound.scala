@@ -2,6 +2,8 @@
 package ostrat
 import pParse._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
 trait ShowCompound[R] extends Show[R]
 { override def strT(obj: R): String = show(obj, ShowStandard)//, -1, 0)
@@ -19,7 +21,13 @@ trait UnshowCompound[+R] extends Unshow[R]
 trait ShowSeqBased[A, R] extends ShowCompound[R]
 { def evA: Show[A]
 
-  def showMap(obj: R)(f: A => String): StrArr
+  def showForeach(obj: R, f: A => Unit): Unit
+
+  final def showMap(obj: R)(f: A => String): StrArr =
+  { val buffer: ArrayBuffer[String] = Buffer[String]()
+    showForeach(obj, a => buffer.append(f(a)))
+    new StrArr(buffer.toArray)
+  }
 
   final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { val depth = syntaxDepth(obj)
@@ -37,7 +45,7 @@ object ShowSeqBased
   class ShowSeqBasedImp[A, R] extends ShowSeqBased[A, R]{
     override def evA: Show[A] = ???
 
-    override def showMap(obj: R)(f: A => String): StrArr = ???
+    override def showForeach(obj: R, f: A => Unit): Unit = ???
 
     /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
      * should always be determined at compile time or if sometimes it should be determined at runtime. */

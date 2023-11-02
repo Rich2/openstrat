@@ -107,13 +107,9 @@ object Show
   implicit def vectorImplicit[A](implicit ev: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
   implicit val arrayIntImplicit: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
-  {
-    override def evA: Show[Int] = Show.intEv
+  { override def evA: Show[Int] = Show.intEv
     override def syntaxDepth(obj: Array[Int]): Int = 2
-
-//    override def showDec(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
-
-    override def showMap(obj: Array[Int])(f: Int => String): StrArr = obj.mapArr(f)
+    override def showForeach(obj: Array[Int], f: Int => Unit): Unit = obj.foreach(f)
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
@@ -121,8 +117,7 @@ object Show
   {
     override def syntaxDepth(obj: ArraySeq[A]): Int = ???
     override def evA: Show[A] = ev
-
-    override def showMap(obj: ArraySeq[A])(f: A => String): StrArr = obj.mapArr(f)
+    override def showForeach(obj: ArraySeq[A], f: A => Unit): Unit = obj.foreach(f)
   }
 
   /** [[Show]] type class instance evidence for [[Some]]. */
