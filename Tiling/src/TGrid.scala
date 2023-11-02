@@ -58,13 +58,13 @@ trait TGrid extends Any with TGridSys
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
   @inline override def xCen: Double = (gridLeftCenC + gridRightCenC) / 2
   
-  /** Foreach grid Row y coordinate. */
-  final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomCenR, topCenR, 2)(f)
+  /** Foreach grid Row r coordinate. */
+  final def allRsforeach(f: Int => Unit): Unit = iToForeach(bottomCenR, topCenR, 2)(f)
 
   /** foldLefts over each row number. */
   final def foldRows[B](init: B)(f: (B, Int) => B): B =
   { var acc = init
-    foreachRow{ r => acc = f(acc, r) }
+    allRsforeach{ r => acc = f(acc, r) }
     acc
   }
 

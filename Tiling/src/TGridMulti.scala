@@ -9,6 +9,6 @@ trait TGridMulti extends TGridSys
   /** The grids of this tile grid system. */
   def grids: RArr[GridT]
 
-  override def foreachRow(f: Int => Unit): Unit = grids.foreach(_.foreachRow(f))
+  override def allRsforeach(f: Int => Unit): Unit = grids.foreach(_.allRsforeach(f))
   def numTileRows: Int = grids.sumBy(_.numTileRows)
 }

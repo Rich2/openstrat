@@ -51,18 +51,18 @@ trait HGrid extends Any with TGrid with HGridSys
   final override def yCen: Double = rCen * yRatio
 
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
-  final override def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
+  final override def foreach(f: HCen => Unit): Unit = allRsforeach(r => rowForeach(r)(f))
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   final override def iForeach(f: (Int, HCen) => Unit): Unit =
   { var i: Int = 0
-    foreachRow(r => rowForeach(r){hc => f(i, hc); i += 1 })
+    allRsforeach(r => rowForeach(r){hc => f(i, hc); i += 1 })
   }
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   final override def iForeach(init: Int)(f: (Int, HCen) => Unit): Unit =
   { var i: Int = init
-    foreachRow(r => rowForeach(r){hc => f(i, hc); i += 1 })
+    allRsforeach(r => rowForeach(r){hc => f(i, hc); i += 1 })
   }
 
   /** Is the specified tile centre row empty? */
@@ -211,7 +211,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
   {
-    flatMapRows[RArr[HCenRowPair[A]]]{ r =>
+    allRsFlatMap[RArr[HCenRowPair[A]]]{ r =>
       if (cenRowEmpty(r)) RArr()
       else
       { var currStart: Int = rowLeftCenC(r)

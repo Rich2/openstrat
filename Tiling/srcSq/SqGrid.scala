@@ -46,7 +46,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val g
 
   def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(gridLeftCenC, gridRightCenC, 2)(c => f(SqCen(r, c)))
 
-  def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
+  def foreach(f: SqCen => Unit): Unit = allRsforeach(rowForeach(_)(f))
 
   def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
   { var count = startCount

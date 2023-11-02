@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
 
@@ -16,20 +16,20 @@ trait TGridSys extends Any
   def numTileRows: Int
 
   /** For each row of tiles performs side effecting function on the r coordinate of the row. */
-  def foreachRow(f: Int => Unit): Unit
+  def allRsforeach(f: Int => Unit): Unit
 
-  /** maps over each row number. */
-  final def mapRows[B, BB <: Arr[B]](f: Int => B)(implicit build: BuilderArrMap[B, BB]): BB =
+  /** maps over each r row coordinate number. */
+  final def allRsMap[B, BB <: Arr[B]](f: Int => B)(implicit build: BuilderArrMap[B, BB]): BB =
   { val res = build.uninitialised(numTileRows)
     var index = 0
-    foreachRow{r => res.setElemUnsafe(index, f(r)); index += 1 }
+    allRsforeach{r => res.setElemUnsafe(index, f(r)); index += 1 }
     res
   }
 
-  /** flatMaps over each row number. */
-  final def flatMapRows[ArrT <: Arr[_]](f: Int => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  /** flatMaps over each r row coordinate number. */
+  final def allRsFlatMap[ArrT <: Arr[_]](f: Int => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
-    foreachRow{ r => build.buffGrowArr(buff, f(r)) }
+    allRsforeach{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToSeqLike(buff)
   }
 
