@@ -61,7 +61,7 @@ object lexSrc
       }
 
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(posn, c1), tail, posn.right3)
-      case CharsOff1Tail('\'', _) => posn.bad("Unclosed Character literal.")
+      case CharsOff1Tail('\'', _) => acc2 = posn.bad("Unclosed Character literal.")
 
       case CharsOff2Tail('/', '*', tail) =>
       {
@@ -84,7 +84,7 @@ object lexSrc
       case CharsOff2Tail('-', DigitChar(d), tail) => lexRawNumberToken(tail, posn, d.toString, true).append3Loop
       case CharsOffHead2('/', LetterOrUnderscoreChar(_) ) => lexPathToken(rem, posn).append3Loop
       case CharsOffHead(c) if isOperator(c) => lexOperatorToken(rem, posn).append3Loop
-      case CharsOffHead(c) => posn.bad("Unimplemented character in main loop: " + c.toString)
+      case CharsOffHead(c) => acc2 = posn.bad("Unimplemented character in main loop: " + c.toString)
     }
     acc2.map(_.toArr)
   }

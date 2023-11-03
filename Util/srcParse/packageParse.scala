@@ -31,7 +31,7 @@ package object pParse
   def stringToTokens(srcStr: String): EArr[Token] = plex.lexSrc(srcStr.toCharArray, "String")
 
   def isOperator(char: Char): Boolean = char match
-  { case '+' | '-' | '*' | '/' | '=' | ':' => true
+  { case '+' | '-' | '*' | '/' | '=' | ':'  => true
     case _ => false
   }
 

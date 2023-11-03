@@ -30,7 +30,7 @@ object srcToETokensTest extends TestSuite
 
       assertMatch("=".parseTokens){case Good(Arr1(AsignToken(Sp1))) => }
 
-      //"#".parseTokens.isBad ==> true
+      "#".parseTokens.isBad ==> true
     }
 
     val C1 = IdentUpperOnlyToken(Sp1, "Colour")
