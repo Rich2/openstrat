@@ -2,11 +2,6 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait PersistBaseSeq[A, M] extends PersistBase
-{ /** All Sequences are persisted with the "Seq" type. */
-  override def typeStr: String = "Seq"
-}
-
 /** Base traits for all sequence like classes including not only [[SeqLike]]s but also standard library collections like [[Iterable]] and
  * [[Array]]. */
 trait ShowSeqLike[A, R] extends ShowCompound[R]
@@ -44,26 +39,6 @@ object ShowSeqLike
 
   class ShowSeqLikeImp[A, R](val typeStr: String, fForeach: (R, A => Unit) => Unit)(implicit val evA: Show[A]) extends ShowSeqLike[A, R]
   { override def showForeach(obj: R, f: A => Unit): Unit = fForeach
-  }
-}
-
-/** All logical sequence classes are shown as "Seq"s. There encoding in memory and the immutability are irrelevant for their persistence. */
-trait ShowSeq[A, R] extends ShowSeqLike[A, R] with PersistBaseSeq[A, R]
-
-trait ShowIterable[A, R <: Iterable[A]] extends ShowSeq[A, R]
-{ //override def syntaxDepth(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepth(el))) + 1
-  override def showForeach(obj: R, f: A => Unit): Unit = obj.foreach(f)
-}
-
-/** [[Show] type class for showing [[Sequ]][A] objects. */
-trait ShowSequ[A, R <: Sequ[A]] extends ShowSeq[A, R]
-{ override def showForeach(obj: R, f: A => Unit): Unit = obj.foreach(f)
-}
-
-object ShowSequ
-{
-  def apply[A, R <: Sequ[A]]()(implicit evAIn: Show[A]): ShowSequ[A, R] = new ShowSequ[A, R]
-  { override val evA: Show[A] = evAIn
   }
 }
 
