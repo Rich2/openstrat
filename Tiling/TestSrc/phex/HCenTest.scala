@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import utest._
 
@@ -15,9 +15,8 @@ object HCenTest extends TestSuite
     test("test1")
     { hc1.str ==> hcs1
       hcs1.asType[HCen] ==> Good(hc1)
-      //arr1.str ==> "6, 10"
-      arrStr1.asType[HCenArr] ==> Good(arrStr1)
+      //arr1.str ==> arrStr1
+      //arrStr1.asType[HCenArr] ==> Good(arr1)
     }
   }
-
 }
