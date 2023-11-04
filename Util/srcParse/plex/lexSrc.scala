@@ -47,7 +47,7 @@ object lexSrc
       case CharsOff1Tail('{', tail) => appendLoop(CurlyOpenToken(posn), tail, posn.right1)
       case CharsOff1Tail('}', tail) => appendLoop(CurlyCloseToken(posn), tail, posn.right1)
 
-      case CharsOffHead4('.', '.', '.', '.') => posn.right(4).bad(".... is not an allowed character sequence.")
+      case CharsOffHead4('.', '.', '.', '.') => acc2 = posn.right(4).bad(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(posn), tail, posn.right3)
       case CharsOff2Tail('.', '.', tail) => appendLoop(Dot2Token(posn), tail, posn.right2)
       case CharsOff1Tail('.', tail) => appendLoop(DotToken(posn), tail, posn.right1)

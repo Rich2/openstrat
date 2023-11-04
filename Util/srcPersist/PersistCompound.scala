@@ -18,10 +18,16 @@ trait UnshowCompound[+R] extends Unshow[R]
   }
 }
 
-trait ShowSeqBased[A, R] extends ShowCompound[R]
+trait ShowSeqLike[A, R] extends ShowCompound[R]
 { def evA: Show[A]
 
   def showForeach(obj: R, f: A => Unit): Unit
+
+  override def syntaxDepth(obj: R): Int =
+  { var acc = 1
+    showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a)))
+    acc
+  }
 
   final def showMap(obj: R)(f: A => String): StrArr =
   { val buffer: ArrayBuffer[String] = Buffer[String]()
@@ -40,19 +46,12 @@ trait ShowSeqBased[A, R] extends ShowCompound[R]
   }
 }
 
-object ShowSeqBased
+object ShowSeqLike
 {
-  class ShowSeqBasedImp[A, R] extends ShowSeqBased[A, R]{
-    override def evA: Show[A] = ???
+  def apply[A, R](typeStr: String, fForeach: (R, A => Unit) => Unit)(implicit evA: Show[A]): ShowSeqLike[A, R] =
+    new ShowSeqLikeImp[A, R](typeStr, fForeach)(evA)
 
-    override def showForeach(obj: R, f: A => Unit): Unit = ???
-
-    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-     * should always be determined at compile time or if sometimes it should be determined at runtime. */
-    override def syntaxDepth(obj: R): Int = ???
-
-    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
-     * Show. */
-    override def typeStr: String = ???
+  class ShowSeqLikeImp[A, R](val typeStr: String, fForeach: (R, A => Unit) => Unit)(implicit val evA: Show[A]) extends ShowSeqLike[A, R]
+  { override def showForeach(obj: R, f: A => Unit): Unit = fForeach
   }
 }
