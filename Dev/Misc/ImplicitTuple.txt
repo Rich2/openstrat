@@ -1,0 +1,5 @@
+/** Evidence for Int and String. */
+  implicit val (myInt: Int, myStr: String) = (4, "hello")
+
+  def tupFunc(implicit str1: String): Unit = println(str1)
+  tupFunc

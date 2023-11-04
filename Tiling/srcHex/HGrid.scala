@@ -28,6 +28,8 @@ trait HGrid extends Any with TGrid with HGridSys
 
   def rows: HCenRowArr = allRsMap{ r => HCenRow(r, rowLeftCenC(r), rowRightCenC(r)) }
 
+  def allRowsForeach(f: HCenRow => Unit): Unit = allRsforeach{ r => f(HCenRow(r, rowLeftCenC(r), rowRightCenC(r))) }
+
   /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate in the given tile row. This method is defined here rather than on
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit

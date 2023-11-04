@@ -163,5 +163,5 @@ object HGridIrr
     new HGridIrr(rMin, array)
   }
 
-  //implicit val showEv: ShowSeqLike[HCenRow, HGridIrr] = ShowSeqLike[HCenRow, HGridIrr]("HGridIrr", (obj, f) => obj.all rowForeach(f))
+  implicit val showEv: ShowSeqLike[HCenRow, HGridIrr] = ShowSeqLike[HCenRow, HGridIrr]("HGridIrr", (obj, f) => obj.allRowsForeach(f))
 }
