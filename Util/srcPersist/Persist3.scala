@@ -17,10 +17,18 @@ trait Persist3[A1, A2, A3] extends Any with Persist3Plus[A1, A2, A3]
   final override def numParams: Int = 3
 }
 
+/** [[Show]] type class for 2 parameter case classes. */
+trait Show3Plus[A1, A2, A3, R] extends Show2Plus[A1, A2, R] with Persist3Plus[A1, A2, A3]
+{ /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
+  def fArg3: R => A3
+
+  /** Show type class instance for the 2nd Show field. */
+  implicit def showEv3: Show[A3]
+}
+
 /** Show type class for 3 parameter case classes. */
-trait Show3[A1, A2, A3, R] extends Persist3[A1, A2, A3] with ShowN[R]
-{
-  //override def fieldShows: RArr[Show[_]] = RArr(show1, show2)
+trait Show3[A1, A2, A3, R] extends Show3Plus[A1, A2, A3, R] with Persist3[A1, A2, A3] with ShowN[R]
+{ override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3)
 }
 
 object Show3
@@ -32,7 +40,7 @@ object Show3
   /** Implementation class for the general cases of the [[Show3]] trait. */
   class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val show1: Show[A1], val show2: Show[A2], val showEv3: Show[A3]) extends Show3[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
+    implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3]) extends Show3[A1, A2, A3, R]
   {
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -44,43 +52,19 @@ object Show3
       case _ => 3
     }
 
-    override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))) + 1
+    override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(show1.showDec(fArg1(obj),way, maxPlaces), show2.showDec(fArg2(obj),way, maxPlaces), showEv3.showDec(fArg3(obj),way, maxPlaces))
+      StrArr(showEv1.showDec(fArg1(obj),way, maxPlaces), showEv2.showDec(fArg2(obj),way, maxPlaces), showEv3.showDec(fArg3(obj),way, maxPlaces))
   }
 }
 
 /** [[Show]] type class trait for types with 3 [[Int]] Show components. */
 trait ShowInt3[R] extends Show3[Int, Int, Int, R]
-{ def show1: Show[Int] = Show.intEv
-  def show2: Show[Int] = Show.intEv
-  def show3: Show[Int] = Show.intEv
+{ def showEv1: Show[Int] = Show.intEv
+  def showEv2: Show[Int] = Show.intEv
+  def showEv3: Show[Int] = Show.intEv
   override def syntaxDepth(obj: R): Int = 2
-}
-
-/** [[Show]] type class trait for types with 3 [[Double]] Show components. */
-trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
-{ def persist1: Show[Double] = Show.doublePersistEv
-  def persist2: Show[Double] = Show.doublePersistEv
-  def persist3: Show[Double] = Show.doublePersistEv
-  override def syntaxDepth(obj: R): Int = 2
-}
-
-object ShowDbl3
-{
-  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
-    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None): ShowDbl3[R] =
-    new ShowDbl3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1)
-
-  class ShowDbl3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
-    val fArg3: R => Double, override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
-    ShowDbl3[R]
-  { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
-    override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showDec(fArg1(obj), way, maxPlaces), persist2.showDec(fArg2(obj), way, maxPlaces), persist3.showDec(fArg3(obj), way, maxPlaces))
-  }
 }
 
 object ShowInt3
@@ -99,6 +83,31 @@ object ShowInt3
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = ???
   }
 }
+
+/** [[Show]] type class trait for types with 3 [[Double]] Show components. */
+trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
+{ def showEv1: Show[Double] = Show.doublePersistEv
+  def showEv2: Show[Double] = Show.doublePersistEv
+  def showEv3: Show[Double] = Show.doublePersistEv
+  override def syntaxDepth(obj: R): Int = 2
+}
+
+object ShowDbl3
+{
+  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
+    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None): ShowDbl3[R] =
+    new ShowDbl3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1)
+
+  class ShowDbl3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
+    val fArg3: R => Double, override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
+    ShowDbl3[R]
+  { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+    override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
+      StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces), showEv2.showDec(fArg2(obj), way, maxPlaces), showEv3.showDec(fArg3(obj), way, maxPlaces))
+  }
+}
+
 
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with Persist3[A1, A2, A3]
