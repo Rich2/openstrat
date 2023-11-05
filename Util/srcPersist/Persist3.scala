@@ -19,6 +19,9 @@ trait Persist3[A1, A2, A3] extends Any with Persist3Plus[A1, A2, A3]
 
 /** Show type class for 3 parameter case classes. */
 trait Show3[A1, A2, A3, R] extends Persist3[A1, A2, A3] with ShowN[R]
+{
+  //override def fieldShows: RArr[Show[_]] = RArr(show1, show2)
+}
 
 object Show3
 {
@@ -29,7 +32,7 @@ object Show3
   /** Implementation class for the general cases of the [[Show3]] trait. */
   class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: Show[A1], val persist2: Show[A2], val persist3: Show[A3]) extends Show3[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
+    implicit val show1: Show[A1], val show2: Show[A2], val showEv3: Show[A3]) extends Show3[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -41,10 +44,10 @@ object Show3
       case _ => 3
     }
 
-    override def syntaxDepth(obj: R): Int = persist1.syntaxDepth(fArg1(obj)).max(persist2.syntaxDepth(fArg2(obj))).max(persist3.syntaxDepth(fArg3(obj))) + 1
+    override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(persist1.showDec(fArg1(obj),way, maxPlaces), persist2.showDec(fArg2(obj),way, maxPlaces), persist3.showDec(fArg3(obj),way, maxPlaces))
+      StrArr(show1.showDec(fArg1(obj),way, maxPlaces), show2.showDec(fArg2(obj),way, maxPlaces), showEv3.showDec(fArg3(obj),way, maxPlaces))
   }
 }
 

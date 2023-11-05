@@ -26,14 +26,26 @@ trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2[A1, A2, R] extends ShowN[R] with PersistBase2[A1, A2]
-{ def fArg1: R => A1
+trait Show2Plus[A1, A2, R] extends ShowN[R] with PersistBase2Plus[A1, A2]
+{ /** Gets the 1st show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
+  def fArg1: R => A1
+
+  /** Show type class instance for the 1st Show field. */
+  implicit def showEv1: Show[A1]
+
+  /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg2: R => A2
-  implicit def show1: Show[A1]
-  implicit def show2: Show[A2]
+
+  /** Show type class instance for the 2nd Show field. */
+  implicit def showEv2: Show[A2]
+}
+
+/** [[Show]] type class for 2 parameter case classes. */
+trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with PersistBase2[A1, A2]
+{ override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
 
   override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-    StrArr(show1.showDec(fArg1(obj), way, maxPlaces, 0), show2.showDec(fArg2(obj), way, maxPlaces, 0))
+    StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces, 0), showEv2.showDec(fArg2(obj), way, maxPlaces, 0))
 }
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
@@ -45,9 +57,9 @@ object Show2
 
   /** Implementation class for the general cases of [[Show2]] trait. */
   class Show2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val show1: Show[A1], val show2: Show[A2]) extends Show2[A1, A2, R]
+    opt1In: Option[A1] = None)(implicit val showEv1: Show[A1], val showEv2: Show[A2]) extends Show2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))) + 1
+    override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
   }
 }
 
@@ -61,8 +73,8 @@ class Show2Extensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
 
 /** [[Show]] type class trait for types with 2 [[Int]] Show components. */
 trait ShowInt2[R] extends Show2[Int, Int, R]
-{ override def show1: Show[Int] = Show.intEv
-  override def show2: Show[Int] = Show.intEv
+{ override def showEv1: Show[Int] = Show.intEv
+  override def showEv2: Show[Int] = Show.intEv
   override def syntaxDepth(obj: R): Int = 2
 }
 
@@ -81,8 +93,8 @@ object ShowInt2
 
 /** [[Show]] type class trait for types with 2 [[Double]] Show components. */
 trait ShowDbl2[R] extends Show2[Double, Double, R]
-{ override def show1: Show[Double] = Show.doublePersistEv
-  override def show2: Show[Double] = Show.doublePersistEv
+{ override def showEv1: Show[Double] = Show.doublePersistEv
+  override def showEv2: Show[Double] = Show.doublePersistEv
   override def syntaxDepth(obj: R): Int = 2
 }
 
