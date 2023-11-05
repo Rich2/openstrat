@@ -164,5 +164,5 @@ object HGridIrr
   }
 
   implicit val showEv: ShowSeqLike[HCenRow, HGridIrr] = ShowSeqLike[HCenRow, HGridIrr]("HGridIrr", (obj, f) => obj.allRowsForeach(f))
-  //implicit val unshowEv = ShowSeqLike[HCenRow, HGridIrr]("HGridIrr", (obj, f) => obj.allRowsForeach(f))
+  implicit val unshowEv: ShowSeqLike[HCenRow, HGridIrr] = ShowSeqLike[HCenRow, HGridIrr]("HGridIrr", (obj, f) => obj.allRowsForeach(f))
 }

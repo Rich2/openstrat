@@ -11,8 +11,8 @@ object PersistCollectionsTest  extends TestSuite
     val l2Comma: String = "4, 5, 6"
     val ll: List[List[Int]] = List(l1, l2)
 
-    test("Depth"){
-      l2.showDepth ==> 2
+    test("Depth")
+    { l2.showDepth ==> 2
       ll.showDepth ==> 3
     }
     
@@ -39,18 +39,12 @@ object PersistCollectionsTest  extends TestSuite
       s2.findType[Vector[Int]] ==> Good(Vector(1, 2, 3))
       //"Seq()".findType[Nil.type] ==> Good(Nil)
     }
-    /*
-    val a1: Array[String] = Array("3", "4")    
-    val a1Res ="Seq[Str](\"3\"; \"4\")"
-    
-    'Array -
-    {
-      a1.str ==> a1Res
-    }
 
-    'Arr -
+    val lts: List[List[Int]] = List(List(1, 2), List(10, 11))
+
+    test("List[List]")
     {
-      Arr(-1, -2, -3).str ==> """Seq[Int](-1; -2; -3)"""
-    }*/
+      lts.strSemi ==> "1, 2; 10, 11"
+    }
   }
 }

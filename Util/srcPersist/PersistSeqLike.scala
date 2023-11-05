@@ -10,8 +10,8 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
   def showForeach(obj: R, f: A => Unit): Unit
 
   override def syntaxDepth(obj: R): Int =
-  { var acc = 1
-    showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a)))
+  { var acc = 2
+    showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a) + 1))
     acc
   }
 
@@ -23,9 +23,9 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
 
   final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { val depth = syntaxDepth(obj)
-    way match {
-      case ShowCommas if depth == 2 => showMap(obj)(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).mkComma
-      case ShowSemis if depth <= 2 => showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemi
+    way match
+    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).mkComma
+      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemi
       case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
       case _ => typeStr + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
     }
@@ -38,7 +38,7 @@ object ShowSeqLike
     new ShowSeqLikeImp[A, R](typeStr, fForeach)(evA)
 
   class ShowSeqLikeImp[A, R](val typeStr: String, fForeach: (R, A => Unit) => Unit)(implicit val evA: Show[A]) extends ShowSeqLike[A, R]
-  { override def showForeach(obj: R, f: A => Unit): Unit = fForeach
+  { override def showForeach(obj: R, f: A => Unit): Unit = fForeach(obj, f)
   }
 }
 

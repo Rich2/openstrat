@@ -153,7 +153,7 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
-  @inline def strComma: String = ev.showDec(thisVal, ShowCommas, -1, 0)//ev.showComma(thisVal)
+  @inline def strComma: String = ev.showDec(thisVal, ShowCommas, -1, 0)
 
   def str2Comma: String = ev.showDec(thisVal, ShowCommas, 2, 0)
 
