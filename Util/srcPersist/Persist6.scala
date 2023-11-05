@@ -16,14 +16,17 @@ trait Persist6[A1, A2, A3, A4, A5, A6] extends Any with Persist6Plus[A1, A2, A3,
   override def numParams: Int = 6
 }
 
+/** [[Show]] type class for 6 field product types. */
+trait Show6Plus[A1, A2, A3, A4, A5, A6, R] extends Show5Plus[A1, A2, A3, A4, A5, R] with Persist6Plus[A1, A2, A3, A4, A5, A6]
+{ /** Gets the 6th show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
+  def fArg6: R => A6
+
+  /** Show type class instance for the 5th Show field. */
+  implicit def showEv6: Show[A6]
+}
 /** [[Show]] type class for 6 parameter case classes. */
-trait Show6[A1, A2, A3, A4, A5, A6, R] extends ShowN[R] with Persist6[A1, A2, A3, A4, A5, A6]
-{ def show1: Show[A1]
-  def show2: Show[A2]
-  def show3: Show[A3]
-  def show4: Show[A4]
-  def show5: Show[A5]
-  def show6: Show[A6]
+trait Show6[A1, A2, A3, A4, A5, A6, R] extends Show6Plus[A1, A2, A3, A4, A5, A6,R] with Persist6[A1, A2, A3, A4, A5, A6]
+{ override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4, showEv5, showEv6)
 }
 
 /** Companion object for [[Show6]] contains implementation class and factory apply method. */
@@ -37,23 +40,24 @@ object Show6
       opt6, opt5, opt4, opt3, opt2, opt1)(show1, show2, show3, show4, show5, show6)
 
   /** Implementation class for general cases of [[Show6]] type class. */
-  class Show6Imp[A1, A2, A3, A4, A5, A6, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2, val name3: String,
-    fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
-    val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val show1: Show[A1], val show2: Show[A2], val show3: Show[A3], val show4: Show[A4], val show5: Show[A5],
-    val show6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, R] with ShowN[R]
+  class Show6Imp[A1, A2, A3, A4, A5, A6, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5, val name6: String,
+    val fArg6: R => A6, val opt6: Option[A6], val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3], val showEv4: Show[A4], val showEv5: Show[A5],
+    val showEv6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, R] with ShowN[R]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))).max(show3.syntaxDepth(fArg3(obj))).
-      max(show4.syntaxDepth(fArg4(obj))).max(show5.syntaxDepth(fArg5(obj))).max(show6.syntaxDepth(fArg6(obj))) + 1
+    final override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
+      max(showEv4.syntaxDepth(fArg4(obj))).max(showEv5.syntaxDepth(fArg5(obj))).max(showEv6.syntaxDepth(fArg6(obj))) + 1
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(show1.show(fArg1(obj), way), show2.show(fArg2(obj), way), show3.show(fArg3(obj), way), show4.show(fArg4(obj), way),
-        show5.show(fArg5(obj), way), show6.show(fArg6(obj), way))
+      StrArr(showEv1.show(fArg1(obj), way), showEv2.show(fArg2(obj), way), showEv3.show(fArg3(obj), way), showEv4.show(fArg4(obj), way),
+        showEv5.show(fArg5(obj), way), showEv6.show(fArg6(obj), way))
   }
 }
 
