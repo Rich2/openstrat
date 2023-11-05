@@ -14,7 +14,7 @@ case object ShowSemis extends ShowStyle
 case object ShowStandard extends ShowStyle
 
 /** Show the object in the standard default manner, with parameter names. */
-case object ShowParamNames extends ShowStyle
+case object ShowFieldNames extends ShowStyle
 
 /** Show the object as semicolon separated constituent values preceded b y their parameter names. */
 case object ShowSemisNames extends ShowStyle

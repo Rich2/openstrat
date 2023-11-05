@@ -12,7 +12,7 @@ trait PersistBaseN extends Any with PersistBase
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowN[R] extends ShowCompound[R] with Show[R]
+trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 {
   override def show(obj: R, style: ShowStyle): String =
   { def semisStr = strs(obj, ShowCommas).mkStr("; ")
@@ -21,6 +21,11 @@ trait ShowN[R] extends ShowCompound[R] with Show[R]
     { case ShowUnderScore => "_"
       case ShowSemis => semisStr
       case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
+      case ShowFieldNames =>
+      { val r1: StrArr = strs(obj, ShowStandard).iMap { (i, s1) => paramNames(i) + " = " + s1 }
+        val r2 = r1.mkStr("; ")
+        typeStr.appendParenth(r2)
+      }
       case _ => typeStr.appendParenth(semisStr)
     }
   }
@@ -34,9 +39,22 @@ trait ShowN[R] extends ShowCompound[R] with Show[R]
 
     style match
     { case ShowUnderScore => "_"
-    case ShowSemis => semisStr
-    case ShowCommas => strDecs(obj, ShowStandard, maxPlaces).mkStr(", ")
-    case _ => typeStr.appendParenth(semisStr)
+      case ShowSemis => semisStr
+      case ShowCommas => strDecs(obj, ShowStandard, maxPlaces).mkStr(", ")
+
+      case ShowFieldNames =>
+      { val r1: StrArr = strDecs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
+        val r2 = r1.mkStr("; ")
+        typeStr.appendParenth(r2)
+      }
+
+    case ShowStdTypedFields =>
+    { val r1: StrArr = strDecs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
+      val r2 = r1.mkStr("; ")
+      typeStr.appendParenth(r2)
+    }
+
+      case _ => typeStr.appendParenth(semisStr)
     }
   }
 }

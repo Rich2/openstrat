@@ -174,7 +174,7 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
   def str3: String = ev.showDec(thisVal, ShowStandard, 3, 0)
 
   /** Shows this object with field names. */
-  def showFields: String = ev.showDec(thisVal, ShowParamNames, -1, 0)
+  def showFields: String = ev.showDec(thisVal, ShowFieldNames, -1, 0)
 
   def showTypedFields: String = ev.showDec(thisVal, ShowStdTypedFields, -1, 0)
 

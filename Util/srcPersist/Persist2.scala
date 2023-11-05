@@ -26,7 +26,7 @@ trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2[A1, A2, R] extends ShowN[R]
+trait Show2[A1, A2, R] extends ShowN[R] with PersistBase2[A1, A2]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def show1: Show[A1]

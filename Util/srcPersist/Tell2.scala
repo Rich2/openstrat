@@ -71,10 +71,10 @@ trait TellElemInt2 extends Any with TellInt2 with Int2Elem
 }
 
 /** Type class trait for Showing [[Tell2]] objects. */
-trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends Show2[A1, A2, R] with ShowTell[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
-  override def fArg1: R => A1 = _.tell1
-  override def fArg2: R => A2 = _.tell2
+trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends /*Show2[A1, A2, R] with*/ ShowTell[R]
+{ //override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
+  //override def fArg1: R => A1 = _.tell1
+  //override def fArg2: R => A2 = _.tell2
 }
 
 object ShowTell2
@@ -90,8 +90,8 @@ object ShowTell2
 
 /** A trait for making quick ShowT instances for [[TellDbl2]] types. It uses the functionality of the [[TellDbl2]]. */
 trait ShowTellDbl2[R <: TellDbl2] extends ShowTell2[Double, Double, R]
-{ override implicit def show1: Show[Double] = Show.doublePersistEv
-  override implicit def show2: Show[Double] = Show.doublePersistEv
+{ //override implicit def show1: Show[Double] = Show.doublePersistEv
+  //override implicit def show2: Show[Double] = Show.doublePersistEv
 }
 
 object ShowTellDbl2
@@ -113,7 +113,8 @@ object ShowTellElemDbl2
 }
 
 /** A trait for making quick ShowT instances for [[TellElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowTellInt2[R <: TellInt2] extends ShowInt2[R] with ShowTell2[Int, Int, R]
+trait ShowTellInt2[R <: TellInt2] extends ShowTell2[Int, Int, R]
+
 object ShowTellInt2
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
   def apply[R <: TellInt2](typeStr: String, opt2: Option[Int] = None, opt1: Option[Int] = None): ShowTellInt2[R] =

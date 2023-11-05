@@ -22,7 +22,7 @@ trait TellN extends Any with TellDec
     style match
     { case ShowSemis => semisStr
       case ShowCommas => showElemStrs(ShowStandard).mkStr(", ")
-      case ShowParamNames => typeStr + showSemisNames.enParenth
+      case ShowFieldNames => typeStr + showSemisNames.enParenth
       case ShowSemisNames => showSemisNames
 
     case ShowStdTypedFields =>
@@ -48,7 +48,7 @@ trait TellN extends Any with TellDec
     style match
     { case ShowSemis => semisStr
       case ShowCommas => showElemStrDecs(ShowCommas, maxPlaces).mkStr(", ")
-      case ShowParamNames => typeStr + showSemisNameDecs(maxPlaces, minPlaces).enParenth
+      case ShowFieldNames => typeStr + showSemisNameDecs(maxPlaces, minPlaces).enParenth
       case ShowSemisNames => showSemisNameDecs(maxPlaces, minPlaces)
 
       case ShowStdTypedFields =>
