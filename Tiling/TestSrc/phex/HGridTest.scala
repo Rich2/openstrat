@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import utest._
 
@@ -15,13 +15,10 @@ object HGridTest extends TestSuite
       g1.stepFind(2, 2, 0, 4) ==> None
     }
 
-    test("test2") {
-//      g2.unsafeGetMan(4, 4).grid.leftCenC ==> 2
-//      g2.unsafeGetMan(4, 4).grid.hCenExists(4, 100) ==> false
-//      g2.unsafeGetMan(4, 4).outSteps(4, 4).length ==> 1
-//      g2.unsafeGetMan(4, 4).outSteps(4, 4)(0) ==> HStepCen(HexRt, 4, 100)
-//      g2.findStep(4, 4, 4, 100) ==> Some(HexRt)
-//      g2.findStep(6, 6, 6, 102) ==> Some(HexRt)
+    val ig1: HGridIrr = HGridIrr(6, (2, 10), (4, 8), (6, 6))
+
+    test("test HGrid Irr")
+    { ig1.str ==> "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
     }
   }
 }
