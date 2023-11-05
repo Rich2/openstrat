@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse._
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
 trait ShowCompound[R] extends Show[R]

@@ -17,19 +17,22 @@ trait Persist4[A1, A2, A3, A4] extends Any with Persist4Plus[A1, A2, A3, A4]
   override def numParams: Int = 4
 }
 
-/** Show type class for 4 parameter case classes. */
-trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with ShowN[R]
-{ def show1: Show[A1]
-  def show2: Show[A2]
-  def show3: Show[A3]
-  def show4: Show[A4]
-  def fArg1: R => A1
-  def fArg2: R => A2
-  def fArg3: R => A3
+/** [[Show]] type class for 4 field product types. */
+trait Show4Plus[A1, A2, A3, A4, R] extends Show3Plus[A1, A2, A3, R] with Persist4Plus[A1, A2, A3, A4]
+{ /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg4: R => A4
 
-  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(show1.showDec(fArg1(obj), way, maxPlaces), show2.showDec(fArg2(obj), way, maxPlaces),
-    show3.showDec(fArg3(obj), way, maxPlaces), show4.showDec(fArg4(obj), way, maxPlaces))
+  /** Show type class instance for the 2nd Show field. */
+  implicit def showEv4: Show[A4]
+}
+
+/** Show type class for 4 parameter case classes. */
+trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1, A2, A3, A4, R]
+{
+  override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4)
+
+  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces), showEv2.showDec(fArg2(obj), way, maxPlaces),
+    showEv3.showDec(fArg3(obj), way, maxPlaces), showEv4.showDec(fArg4(obj), way, maxPlaces))
 }
 
 object Show4
@@ -43,23 +46,23 @@ object Show4
   /** Implementation class for the general cases of [[Show4]] trait. */
   class Show4Imp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, override val opt4: Option[A4] = None, opt3In: Option[A3] = None,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val show1: Show[A1], val show2: Show[A2], val show3: Show[A3],
-    val show4: Show[A4]) extends Show4[A1, A2, A3, A4, R]
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3],
+    val showEv4: Show[A4]) extends Show4[A1, A2, A3, A4, R]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepth(obj: R): Int = show1.syntaxDepth(fArg1(obj)).max(show2.syntaxDepth(fArg2(obj))).max(show3.syntaxDepth(fArg3(obj))).
-      max(show4.syntaxDepth(fArg4(obj))) + 1
+    final override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
+      max(showEv4.syntaxDepth(fArg4(obj))) + 1
   }
 }
 
 /** Produces [[Show]] type class instances for 4 [[Int]] types. */
 trait ShowInt4[R] extends Show4[Int, Int, Int, Int, R]
-{ override def show1: Show[Int] = Show.intEv
-  override def show2: Show[Int] = Show.intEv
-  override def show3: Show[Int] = Show.intEv
-  override def show4: Show[Int] = Show.intEv
+{ override def showEv1: Show[Int] = Show.intEv
+  override def showEv2: Show[Int] = Show.intEv
+  override def showEv3: Show[Int] = Show.intEv
+  override def showEv4: Show[Int] = Show.intEv
   override def syntaxDepth(obj: R): Int = 2
 }
 
@@ -77,18 +80,18 @@ object ShowInt4
     override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(show1.showDec(fArg1(obj), way, maxPlaces), show2.showDec(fArg2(obj), way, maxPlaces),
-      show3.showDec(fArg3(obj), way, maxPlaces), show4.showDec(fArg4(obj), way, maxPlaces))
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces), showEv2.showDec(fArg2(obj), way, maxPlaces),
+      showEv3.showDec(fArg3(obj), way, maxPlaces), showEv4.showDec(fArg4(obj), way, maxPlaces))
   }
 }
 
 /** Produces [[Show]] type class instances for types with 4 [[Double]] components. Note a LineSeg does not use this class although it is held in
  * memory as 4 [[Double]]s. As its logical components are 2 points. */
 abstract class ShowDbl4[R] extends Show4[Double, Double, Double, Double, R]
-{ override def show1: Show[Double] = Show.doublePersistEv
-  override def show2: Show[Double] = Show.doublePersistEv
-  override def show3: Show[Double] = Show.doublePersistEv
-  override def show4: Show[Double] = Show.doublePersistEv
+{ override def showEv1: Show[Double] = Show.doublePersistEv
+  override def showEv2: Show[Double] = Show.doublePersistEv
+  override def showEv3: Show[Double] = Show.doublePersistEv
+  override def showEv4: Show[Double] = Show.doublePersistEv
   override def syntaxDepth(obj: R): Int = 2
 }
 

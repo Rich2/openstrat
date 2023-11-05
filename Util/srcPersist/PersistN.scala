@@ -16,21 +16,7 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 {
   def fieldShows: RArr[Show[_]] = RArr()
 
-  override def show(obj: R, style: ShowStyle): String =
-  { def semisStr = strs(obj, ShowCommas).mkStr("; ")
-
-    style match
-    { case ShowUnderScore => "_"
-      case ShowSemis => semisStr
-      case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
-      case ShowFieldNames =>
-      { val r1: StrArr = strs(obj, ShowStandard).iMap { (i, s1) => paramNames(i) + " = " + s1 }
-        val r2 = r1.mkStr("; ")
-        typeStr.appendParenth(r2)
-      }
-      case _ => typeStr.appendParenth(semisStr)
-    }
-  }
+  override def show(obj: R, style: ShowStyle): String = showDec(obj, style, 0)
 
   def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr
 
@@ -51,7 +37,7 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
       }
 
     case ShowStdTypedFields =>
-    { val r1: StrArr = strDecs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
+    { val r1: StrArr = strDecs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
       val r2 = r1.mkStr("; ")
       typeStr.appendParenth(r2)
     }

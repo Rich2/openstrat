@@ -17,7 +17,7 @@ trait Persist3[A1, A2, A3] extends Any with Persist3Plus[A1, A2, A3]
   final override def numParams: Int = 3
 }
 
-/** [[Show]] type class for 2 parameter case classes. */
+/** [[Show]] type class for 3 field product types. */
 trait Show3Plus[A1, A2, A3, R] extends Show2Plus[A1, A2, R] with Persist3Plus[A1, A2, A3]
 { /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg3: R => A3
