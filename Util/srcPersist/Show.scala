@@ -27,6 +27,8 @@ trait Show[-T] extends PersistBase
   def showDec(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
 
   def show(obj: T, style: ShowStyle): String = showDec(obj, style, -1, -1)
+
+  override def toString: String = "Show" + typeStr
 }
 
 /* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow

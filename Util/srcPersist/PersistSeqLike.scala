@@ -45,6 +45,7 @@ object ShowSeqLike
 /** [[Show] type class for showing [[Sequ]][A] objects. */
 trait ShowSeqSpec[A, R <: SeqSpec[A]] extends ShowSeq[A, R]
 { override def showForeach(obj: R, f: A => Unit): Unit = obj.ssForeach(f)
+  override def toString: String = "Show" + typeStr
 }
 
 object ShowSeqSpec

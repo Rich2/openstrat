@@ -152,7 +152,7 @@ object HCen
   implicit val showEv: ShowTellInt2[HCen] = ShowTellInt2[HCen]("HCen")
 
   /** implicit [[Unshow]] instance / evidence for [[HCen]]. */
-  implicit val unshowEv: UnshowInt2[HCen] = UnshowInt2[HCen]("HCen", "r", "c", HCen(_, _))
+  implicit val unshowEv: UnshowInt2[HCen] = UnshowInt2[HCen]("HCen", "r", "c", HCen.apply)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
   implicit val arrMapBuilderEv: BuilderArrInt2Map[HCen, HCenArr] = new BuilderArrInt2Map[HCen, HCenArr]
@@ -181,7 +181,7 @@ object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
   def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
   /** Implicit [[Show]] type class instance / evidence for [[HCenArr]]. */
-  implicit val showEv: ShowSequ[HCen, HCenArr] = ShowSequ[HCen, HCenArr]()
+  implicit lazy val showEv: ShowSequ[HCen, HCenArr] = ShowSequ[HCen, HCenArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HCenArr]]. */
   implicit val unshowEv: UnshowArrIntN[HCen, HCenArr] = UnshowArrIntN[HCen, HCenArr](fromArray)
