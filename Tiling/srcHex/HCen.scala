@@ -201,8 +201,8 @@ class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal 
   override def newElem(i1: Int, i2: Int): HCen = HCen(i1, i2)
 }
 
-object HCenBuff
-{ def apply(length: Int = 4): HCenBuff = new HCenBuff(new ArrayBuffer[Int](length * 2))
+object HCenBuff extends CompanionBuffInt2[HCen, HCenBuff]
+{ override def fromBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
 }
 
 /** [[PairElem]] class for [[HCen]]s. Allows for the efficient storage of sequences in [[HCenPairArr]]s. */
