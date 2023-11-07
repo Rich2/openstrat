@@ -32,9 +32,9 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] exte
   override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.unsafeArray); () }
 }
 
+/** Eqt instances for objects that are defined by [[Array]][Int]s. */
 class EqArrayIntBacked[ArrT <: ArrayIntBacked] extends EqT[ArrT]
-{ override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.unsafeArray.length != a2.unsafeArray.length) false
-else a1.unsafeArray.sameElements(a2.unsafeArray) //iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
+{ override def eqT(a1: ArrT, a2: ArrT): Boolean = a1.unsafeArray.sameElements(a2.unsafeArray)
 }
 
 object EqArrayIntBacked
