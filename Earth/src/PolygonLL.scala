@@ -73,7 +73,7 @@ object PolygonLL extends CompanionSeqLikeDbl2[LatLong, PolygonLL]
   implicit val showEv: ShowSeqSpec[LatLong, PolygonLL] = ShowSeqSpec[LatLong, PolygonLL]("PolygonLL")
 
   /** [[Unshow]] type class instance / evidence for [[PolygonLL]]. */
-  implicit val unshowEv: UnshowSeqSpecDblN[LatLong, PolygonLL] = UnshowSeqSpecDblN[LatLong, PolygonLL]("PolygonLL", fromArray)
+  implicit val unshowEv: UnshowSeqLike[LatLong, PolygonLL] = UnshowSeqLike[LatLong, PolygonLL]("PolygonLL")
 
   implicit val llTransImplicit: LLTrans[PolygonLL] = new LLTrans[PolygonLL] {
     override def fLLTrans(orig: PolygonLL, f: LatLong => LatLong): PolygonLL = orig.map(f)

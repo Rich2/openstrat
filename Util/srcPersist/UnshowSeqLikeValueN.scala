@@ -50,11 +50,3 @@ class UnshowArrDblN[A <: DblNElem, M <: ArrDblN[A]](f: Array[Double] => M) exten
 object UnshowArrDblN
 { def apply[A <: DblNElem, M <: ArrDblN[A]](f: Array[Double] => M): UnshowArrDblN[A, M] = new UnshowArrDblN[A, M](f)
 }
-
-class UnshowSeqSpecDblN[A <: DblNElem, M <: SeqSpecDblN[A]](val typeStr: String, f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M]
-{ override def fromArray(array: Array[Double]): M = f(array)
-}
-
-object UnshowSeqSpecDblN
-{ def apply[A <: DblNElem, M <: SeqSpecDblN[A]](typeStr: String, f: Array[Double] => M): UnshowSeqSpecDblN[A, M] = new UnshowSeqSpecDblN[A, M](typeStr, f)
-}

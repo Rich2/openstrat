@@ -99,7 +99,6 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
    * traits. */
   override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))
-
 }
 
 /** Companion object for [[PolygonGen]]. */
