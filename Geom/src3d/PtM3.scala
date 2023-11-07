@@ -103,14 +103,19 @@ object PtM3
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
   def apply(x: Length, y: Length, z: Length): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
 
-  /** [[Show]] type class instance / evidence for [[PTM3]]. */
-  implicit val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetres, "y", _.yMetres, "z", _.zMetres)
+
 
   implicit val arrBuilderImplicit: BuilderArrDbl3Map[PtM3, PtM3Arr] = new BuilderArrDbl3Map[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
   }
+
+  /** [[Show]] type class instance / evidence for [[PTM3]]. */
+  implicit lazy val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetres, "y", _.yMetres, "z", _.zMetres)
+
+  /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
+  implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metres)
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
 

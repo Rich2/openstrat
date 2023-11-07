@@ -24,6 +24,14 @@ trait UnshowSeqLike[A, R <: SeqLike[A]] extends UnshowCompound[R]
   }
 }
 
+object UnshowSeqLike
+{
+  def apply[A, R <: SeqLike[A]](typeStr: String)(implicit evA: Unshow[A], build: BuilderSeqLikeMap[A, R]): UnshowSeqLike[A, R] =
+    new UnshowSeqLikeImp[A, R](typeStr, evA, build)
+
+  class UnshowSeqLikeImp[A, R <: SeqLike[A]](val typeStr: String, val evA: Unshow[A], val build: BuilderSeqLikeMap[A, R]) extends UnshowSeqLike[A, R]
+}
+
 class UnshowSequ[A, R <: Sequ[A]](val evA: Unshow[A], val build: BuilderSeqLikeMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
 }

@@ -68,8 +68,8 @@ trait ArrDblN[A <: DblNElem] extends Any with SeqLikeDblN[A] with ArrValueN[A]
     fromArray(buff.toArray)
   }
 
-  final override def drop(n: Int): ThisT = {
-    val nn = n.max0.min(length)
+  final override def drop(n: Int): ThisT =
+  { val nn = n.max0.min(length)
     val newLen = (unsafeLength - elemProdSize * nn)
     val newArray = new Array[Double](newLen)
     unsafeArray.copyDropToArray(nn * elemProdSize, newArray)
