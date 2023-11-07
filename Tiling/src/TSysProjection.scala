@@ -61,7 +61,7 @@ trait TSysProjection
   val buttons: RArr[PolygonCompound]
 
   /** Projected [[Polygon]]s of the tiles. */
-  def tilePolygons: PolygonArr
+  def tilePolygons: PolygonGenArr
 
   /** Active projected [[Polygon]]s of the tiles. */
   def tileActives: RArr[PolygonActive]

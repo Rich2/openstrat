@@ -146,7 +146,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   def projRowsCombinePolygonHCs(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonHCPairArr[A] = projRowsCombine.map(_.polygonHCTuple)
 
-  def projRowsCombinePolygons(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonPairArr[A] =
+  def projRowsCombinePolygons(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonGenPairArr[A] =
     projRowsCombine.map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
 
   def projPtMap(proj: HSysProjection)(f: (Pt2, A) => GraphicElem): GraphicElems = proj.hCenPtMap{ (hc, pt2) => f(pt2, apply(hc)(proj.gChild)) }

@@ -108,9 +108,9 @@ object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
 
-  implicit val buildArrMapEv: BuilderArrMap[PolygonGen, PolygonArr] = new BuilderMapArrArrayDbl[PolygonGen, PolygonArr]
+  implicit val buildArrMapEv: BuilderArrMap[PolygonGen, PolygonGenArr] = new BuilderMapArrArrayDbl[PolygonGen, PolygonGenArr]
   { override type BuffT = PolygonGenBuff
-    override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonArr = new PolygonArr(array)
+    override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonGenArr = new PolygonGenArr(array)
     override def newBuff(length: Int): PolygonGenBuff = PolygonGenBuff(length)
   }
 
@@ -118,5 +118,5 @@ object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
   implicit lazy val showEv: ShowSeqSpec[Pt2, PolygonGen] = ShowSeqSpec[Pt2, PolygonGen]("Polygon")
 
   /** [[Unshow]] type class instance / evidence for [[PolygonGen]] */
-  implicit lazy val unshowEv: UnshowSeqSpecDblN[Pt2, PolygonGen] = UnshowSeqSpecDblN[Pt2, PolygonGen]("Polygon", fromArray)
+  implicit lazy val unshowEv: UnshowSeqLike[Pt2, PolygonGen] = UnshowSeqLike[Pt2, PolygonGen]("Polygon")
 }

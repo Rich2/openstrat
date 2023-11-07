@@ -73,7 +73,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     }
   }
 
-  override def tilePolygons: PolygonArr = gChild.map(_.hVertPolygon.map(transCoord(_)))
+  override def tilePolygons: PolygonGenArr = gChild.map(_.hVertPolygon.map(transCoord(_)))
 
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixelsPerC).active(hc))

@@ -37,7 +37,7 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
   def setGChild: Unit = gChild = getGChild
   override def transCoord(sc: SqCoord): Pt2 = (parent.flatSqCoordToPt2(sc) - focus).scale(pixelsPerC)
   override def transOptCoord(sc: SqCoord): Option[Pt2] = Some(parent.flatSqCoordToPt2(sc).slate(-focus).scale(pixelsPerC))
-  override def tilePolygons: PolygonArr = gChild.map(_.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixelsPerC))
+  override def tilePolygons: PolygonGenArr = gChild.map(_.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixelsPerC))
 
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixelsPerC).active(hc))
