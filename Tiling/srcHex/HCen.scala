@@ -180,11 +180,7 @@ object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
 {
   def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
-  /** Implicit [[Show]] type class instance / evidence for [[HCenArr]]. */
-  implicit lazy val showEv: ShowSequ[HCen, HCenArr] = ShowSequ[HCen, HCenArr]()
 
-  /** Implicit [[Unshow]] type class instance / evidence for [[HCenArr]]. */
-  implicit val unshowEv: UnshowArrIntN[HCen, HCenArr] = UnshowArrIntN[HCen, HCenArr](fromArray)
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
   implicit val flatBuilderEv: BuilderArrInt2Flat[HCenArr] = new BuilderArrInt2Flat[HCenArr]
@@ -192,6 +188,12 @@ object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
   }
+
+  /** Implicit [[Show]] type class instance / evidence for [[HCenArr]]. */
+  implicit lazy val showEv: ShowSequ[HCen, HCenArr] = ShowSequ[HCen, HCenArr]()
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[HCenArr]]. */
+  implicit lazy val unshowEv: UnshowSequ[HCen, HCenArr] = UnshowSequ[HCen, HCenArr]() //fromArray)
 }
 
 /** Efficient buffer, mutable sequence without fixed length for [[HCen]]s. */
