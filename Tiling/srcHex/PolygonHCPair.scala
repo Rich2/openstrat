@@ -5,7 +5,7 @@ import geom._, annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 /** A [[PolygonHC]], a Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
 class PolygonHCPair[A2](val a1ArrayInt: Array[Int], val a2: A2)extends PolygonLikeIntNPair[HCoord, PolygonHC, A2]// with SpecialT
 { def a1: PolygonHC = new PolygonHC(a1ArrayInt)
-  def polygonPair(f: HCoord => Pt2): PolygonPair[A2] = new PolygonPair[A2](a1.toPolygon(f).unsafeArray, a2)
+  def polygonPair(f: HCoord => Pt2): PolygonGenPair[A2] = new PolygonGenPair[A2](a1.toPolygon(f).unsafeArray, a2)
 }
 
 /** Companion object for a [[PolygonHC]], a Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. Contains implicit

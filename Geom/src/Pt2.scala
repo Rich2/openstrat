@@ -279,13 +279,13 @@ object Pt2
   }
 
   /** Implicit instance evidence for [[PolygonLike]] map builder. */
-  implicit val polygonMapBuildEv: PolygonLikeMapBuilder[Pt2, Polygon] = new PolygonLikeMapBuilder[Pt2, PolygonGen] with BuilderSeqLikeDbl2Map[Pt2, PolygonGen]
+  implicit val polygonMapBuildEv: PolygonLikeMapBuilder[Pt2, PolygonGen] = new PolygonLikeMapBuilder[Pt2, PolygonGen] with BuilderSeqLikeDbl2Map[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 
-  /** Implicit instance for the [[PolygonPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function
+  /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function
    * where Pt2 is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonPairBuilder[A2] = new PolygonPairBuilder[A2]
 

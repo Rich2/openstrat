@@ -383,12 +383,6 @@ object Polygon
 
   def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 
-  implicit val buildArrMapEv: BuilderArrMap[Polygon, PolygonArr] = new BuilderMapArrArrayDbl[Polygon, PolygonArr]
-  { override type BuffT = PolygonBuff
-    override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonArr = new PolygonArr(array)
-    override def newBuff(length: Int): PolygonBuff = PolygonBuff(length)
-  }
-
   implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slateXY(dx, dy)

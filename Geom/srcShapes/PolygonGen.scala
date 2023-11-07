@@ -52,6 +52,54 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   }
 
   def distScale(distRatio: Length): PolygonM2 = map[PtM2, PolygonM2](p => p.toMetres(distRatio))
+
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slateXY(xDelta: Double, yDelta: Double): PolygonGen = map(_.addXY(xDelta, yDelta))
+
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slate(offset: Vec2Like): PolygonGen = map(_.slate(offset))
+
+  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
+   * return type of this method will be narrowed further in descendant traits / classes. */
+  override def scale(operand: Double): PolygonGen = map(_.scale(operand))
+
+  /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
+  override def negY: PolygonGen = map(_.negY)
+
+  /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
+  override def negX: PolygonGen = map(_.negX)
+
+  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
+  override def prolign(matrix: ProlignMatrix): PolygonGen = map(_.prolign(matrix))
+
+  override def rotate90: PolygonGen = map(_.rotate90)
+
+  override def rotate180: PolygonGen = map(_.rotate180)
+
+  override def rotate270: PolygonGen = map(_.rotate270)
+
+  /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
+   * be narrowed in some but not all sub traits / classes. */
+  override def rotate(angle: AngleVec): PolygonGen = map(_.rotate(angle))
+
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
+   * traits / classes. */
+  override def reflect(lineLike: LineLike): PolygonGen = map(_.reflect(lineLike))
+
+  /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
+   * return type will be narrowed in some, but not all descendant Polygon types. */
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGen = map(_.xyScale(xOperand, yOperand))
+
+  /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
+   * classes and traits. */
+  override def shearX(operand: Double): PolygonGen = map(_.xShear(operand))
+
+  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
+   * traits. */
+  override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))
+
 }
 
 /** Companion object for [[PolygonGen]]. */
@@ -59,6 +107,12 @@ object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
 { override def fromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
+
+  implicit val buildArrMapEv: BuilderArrMap[PolygonGen, PolygonArr] = new BuilderMapArrArrayDbl[PolygonGen, PolygonArr]
+  { override type BuffT = PolygonGenBuff
+    override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonArr = new PolygonArr(array)
+    override def newBuff(length: Int): PolygonGenBuff = PolygonGenBuff(length)
+  }
 
   /** [[Show]] type class instance / evidence for [[PolygonGen]] */
   implicit lazy val showEv: ShowSeqSpec[Pt2, PolygonGen] = ShowSeqSpec[Pt2, PolygonGen]("Polygon")

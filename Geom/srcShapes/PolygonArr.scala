@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
-final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[Polygon]
+final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonGen]
 { override type ThisT = PolygonArr
   override def typeStr: String = "PolygonArr"
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonArr = new PolygonArr(aad)
@@ -26,7 +26,7 @@ object PolygonArr
     new PolygonArr(array)
   }
 
-  implicit val eqImplicit: EqT[PolygonArr] = ArrArrayDblEq[Polygon, PolygonArr]
+  implicit val eqImplicit: EqT[PolygonArr] = ArrArrayDblEq[PolygonGen, PolygonArr]
 
   implicit val slateImplicit: Slate[PolygonArr] = (obj: PolygonArr, dx: Double, dy: Double) => obj.map(_.slateXY(dx, dy))
   implicit val scaleImplicit: Scale[PolygonArr] = (obj: PolygonArr, operand: Double) => obj.map(_.scale(operand))
@@ -48,13 +48,13 @@ object PolygonArr
   }
 }
 
-class PolygonBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[Polygon]
-{ override type ThisT = PolygonBuff
+class PolygonGenBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonGen]
+{ override type ThisT = PolygonGenBuff
   override def typeStr: String = "PolygonBuff"
-  override def fElemStr: Polygon => String = _.toString
+  override def fElemStr: PolygonGen => String = _.toString
   override def fromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 }
 
-object PolygonBuff
-{ def apply(initLen: Int = 4): PolygonBuff = new PolygonBuff(new ArrayBuffer[Array[Double]](initLen))
+object PolygonGenBuff
+{ def apply(initLen: Int = 4): PolygonGenBuff = new PolygonGenBuff(new ArrayBuffer[Array[Double]](initLen))
 }
