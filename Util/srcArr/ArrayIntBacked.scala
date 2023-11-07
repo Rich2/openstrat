@@ -32,13 +32,13 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] exte
   override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.unsafeArray); () }
 }
 
-class ArrArrayIntEq[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] extends EqT[ArrT]
-{ override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.length != a2.length) false
-else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
+class EqArrayIntBacked[ArrT <: ArrayIntBacked] extends EqT[ArrT]
+{ override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.unsafeArray.length != a2.unsafeArray.length) false
+else a1.unsafeArray.sameElements(a2.unsafeArray) //iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
 }
 
-object ArrArrayIntEq
-{ def apply[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]]: ArrArrayIntEq[A, ArrT] = new ArrArrayIntEq[A, ArrT]
+object EqArrayIntBacked
+{ def apply[ArrT <: ArrayIntBacked](): EqArrayIntBacked[ArrT] = new EqArrayIntBacked[ArrT]
 }
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */

@@ -17,7 +17,7 @@ object HCenTest extends TestSuite
     { hc1.str ==> hcs1
       hcs1.asType[HCen] ==> Good(hc1)
       arr1.str ==> arrStr1
-      arrStr1.asType[HCenArr].isGood ==> true
+      assert(arrStr1.asType[HCenArr] === Good(arr1))
     }
   }
 }
