@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.immutable.ArraySeq
+import collection.immutable.ArraySeq
 
 /** Common super trait for [[TellDec]], [[Show]] and [[Unshow]]. All of which inherit the typeStr property. */
 trait PersistBase extends Any
@@ -116,8 +116,7 @@ object Show
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
   implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeq[A, ArraySeq[A]]
-  {
-    override def syntaxDepth(obj: ArraySeq[A]): Int = ???
+  { override def syntaxDepth(obj: ArraySeq[A]): Int = ???
     override def evA: Show[A] = ev
     override def showForeach(obj: ArraySeq[A], f: A => Unit): Unit = obj.foreach(f)
   }

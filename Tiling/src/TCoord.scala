@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
 
@@ -21,12 +21,6 @@ trait TCoord extends Any with Point with TellElemInt2
   def rcStr: String = s"$r, $c"
   def rcStr32: String = s"${r.base32}, ${c.base32}"
   def parenthStr: String = rcStr.enParenth
-}
-
-/** Companion object for [[TCoord]] trait will contain a Show[TCoord] implicit instance in Scala 3, but this produces an error in 2.13.5. */
-object TCoord
-{
-  //implicit val showTImplicit: Show2Base32sT[TCoord] = Show2Base32sT[TCoord]("TCoord")
 }
 
 /** A tile centre or a tile side coordinate. */
