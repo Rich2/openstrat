@@ -2,11 +2,6 @@
 package ostrat
 import pParse._
 
-/** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
-trait ShowCompound[R] extends Show[R]
-{ override def strT(obj: R): String = show(obj, ShowStandard)//, -1, 0)
-}
-
 trait UnshowCompound[+R] extends Unshow[R]
 {
   override def fromExpr(expr: Expr): EMon[R] = expr match
@@ -14,4 +9,9 @@ trait UnshowCompound[+R] extends Unshow[R]
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
+}
+
+trait UnshowSeqLike[A, R <: SeqLike[A]] extends UnshowCompound[R]
+{
+  def build: BuilderSeqLikeMap[A, R]
 }

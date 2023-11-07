@@ -195,5 +195,5 @@ class UnshowArrDbl4[A <: Dbl4Elem, M <: Dbl4Arr[A]](val typeStr: String, f: Arra
 }
 
 object UnshowArrDbl4
-{ def apply[A <: Dbl4Elem, M <: Dbl4Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl4[A, M] = new UnshowArrDbl4[A, M](typeStr, f)
+{ //def apply[A <: Dbl4Elem, M <: Dbl4Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl4[A, M] = new UnshowArrDbl4[A, M](typeStr, f)
 }

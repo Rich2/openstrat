@@ -181,3 +181,8 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
 
   def showDepth: Int = ev.syntaxDepth(thisVal)
 }
+
+/** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
+trait ShowCompound[R] extends Show[R]
+{ override def strT(obj: R): String = show(obj, ShowStandard)//, -1, 0)
+}
