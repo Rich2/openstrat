@@ -59,18 +59,18 @@ object LineSegM2Arr extends CompanionSeqLikeDbl4[LineSegM2, LineSegM2Arr]
 {
   override def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
 
-  /** [[Show]] type class instance / evidence for [[LineSegM2Arr]]. */
-  implicit val showEv: ShowSequ[LineSegM2, LineSegM2Arr] = ShowSequ[LineSegM2, LineSegM2Arr]()
-
-  /** [[Unshow]] type class instance / evidence for [[LineSegM2Arr]]. */
-  implicit val unshowEv: UnshowArrDbl4[LineSegM2, LineSegM2Arr] = UnshowArrDbl4[LineSegM2, LineSegM2Arr]("LineSegM2Arr", LineSegM2Arr.fromArray)
-
   /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
   implicit val flatBuildEv: BuilderArrFlat[LineSegM2Arr] = new BuilderArrDbl4Flat[LineSegM2Arr]
   { type BuffT = LineSegM2Buff
     override def fromDblArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegM2Buff = new LineSegM2Buff(inp)
   }
+
+  /** [[Show]] type class instance / evidence for [[LineSegM2Arr]]. */
+  implicit lazy val showEv: ShowSequ[LineSegM2, LineSegM2Arr] = ShowSequ[LineSegM2, LineSegM2Arr]()
+
+  /** [[Unshow]] type class instance / evidence for [[LineSegM2Arr]]. */
+  implicit lazy val unshowEv: UnshowSequ[LineSegM2, LineSegM2Arr] = UnshowSequ[LineSegM2, LineSegM2Arr]()
 }
 
 /** Efficient expandable buffer for [[LineSegM2]]s. */
