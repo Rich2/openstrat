@@ -19,7 +19,7 @@ object PersistGeomTest extends TestSuite
       "Pt2(x = 2.5; z = -4)".asType[Pt2].isGood ==> false
     }
 
-    val p3 = Pt3(2.5, -4, -20.01)
+    val p3: Pt3 = Pt3(2.5, -4, -20.01)
 
     test("Pt3")
     { p3.str ==> "Pt3(2.5; -4; -20.01)"

@@ -60,7 +60,7 @@ object Show
       ife(s1.last == '0', s1.dropRight(2), s1)
     }
 
-    override def showDec(obj: Double, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    override def showDec(obj: Double, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String =
     { val orig = obj.toString
       val len = orig.length
       val minPlacesAdj: Int = ife(maxPlaces < 0, minPlaces, minPlaces.min(maxPlaces))
