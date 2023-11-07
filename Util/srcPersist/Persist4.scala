@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._,  collection.mutable.ArrayBuffer
+import pParse._//,  collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show4]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
 trait Persist4Plus[A1, A2, A3, A4] extends Any with Persist3Plus[A1, A2, A3]

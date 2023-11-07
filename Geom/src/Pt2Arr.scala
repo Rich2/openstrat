@@ -47,17 +47,19 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
 {
   override def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
 
-  /** [[Show]] type class instance / evidence for [[Pt2Arr]] */
-  implicit val showEv: ShowSequ[Pt2, Pt2Arr] = ShowSequ[Pt2, Pt2Arr]()
 
-  /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
-  implicit val unshowEv: UnshowArrDblN[Pt2, Pt2Arr] = UnshowArrDblN[Pt2, Pt2Arr](fromArray)
 
   implicit val arrFlatBuilderImplicit: BuilderArrFlat[Pt2Arr] =  new BuilderArrDbl2Flat[Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
+
+  /** [[Show]] type class instance / evidence for [[Pt2Arr]] */
+  implicit lazy val showEv: ShowSequ[Pt2, Pt2Arr] = ShowSequ[Pt2, Pt2Arr]()
+
+  /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
+  implicit lazy val unshowEv: UnshowSequ[Pt2, Pt2Arr] = UnshowSequ[Pt2, Pt2Arr]()
 
   implicit val slateImplicit: Slate[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)
