@@ -83,11 +83,6 @@ object PolygonM3 extends CompanionSeqLikeDbl3[PtM3, PolygonM3]
     override def buffToSeqLike(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 
-  /** [[Show]] type class instance / evidence for [[PolygonM3]]. */
-  implicit val showEv: ShowSeqSpec[PtM3, PolygonM3] = ShowSeqSpec[PtM3, PolygonM3]("PolygonM3")
-
-  /** [[Unshow]] type class instance / evidence for [[PolygonM3]]. */
-  implicit val unshowEv: UnshowSeqSpecDblN[PtM3, PolygonM3] = UnshowSeqSpecDblN[PtM3, PolygonM3]("PolygonM3", fromArray)
 
   implicit val rotateM3TImplicit: RotateM3T[PolygonM3] = new RotateM3T[PolygonM3] {
     override def rotateXT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateX(angle))
@@ -95,6 +90,12 @@ object PolygonM3 extends CompanionSeqLikeDbl3[PtM3, PolygonM3]
     override def rotateZT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateZ(angle))
     override def rotateZ180T(obj: PolygonM3): PolygonM3 = obj.map(pt => pt.rotateZ180)
   }
+
+  /** [[Show]] type class instance / evidence for [[PolygonM3]]. */
+  implicit lazy val showEv: ShowSeqSpec[PtM3, PolygonM3] = ShowSeqSpec[PtM3, PolygonM3]("PolygonM3")
+
+  /** [[Unshow]] type class instance / evidence for [[PolygonM3]]. */
+  implicit lazy val unshowEv: UnshowSeqLike[PtM3, PolygonM3] = UnshowSeqLike[PtM3, PolygonM3]("PolygonM3")
 }
 
 /** Specialised [[Arr]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */

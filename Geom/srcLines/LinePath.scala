@@ -45,8 +45,8 @@ object LinePath extends CompanionSeqLikeDbl2[Pt2, LinePath]
 { override def fromArray(array: Array[Double]): LinePath = new LinePath(array)
 
   /** [[Show]] type class instance / evidence for [[LinePath]]. */
-  implicit val showEv: ShowSeqSpec[Pt2, LinePath] = ShowSeqSpec[Pt2, LinePath]("LinePath")
+  implicit lazy val showEv: ShowSeqSpec[Pt2, LinePath] = ShowSeqSpec[Pt2, LinePath]("LinePath")
 
   /** [[Unshow]] type class instance / evidence for [[LinePath]]. */
-  implicit val unshowEv: UnshowSeqSpecDblN[Pt2, LinePath] = UnshowSeqSpecDblN[Pt2, LinePath]("LinePath", fromArray)
+  implicit lazy val unshowEv: UnshowSeqLike[Pt2, LinePath] = UnshowSeqLike[Pt2, LinePath]("LinePath")
 }
