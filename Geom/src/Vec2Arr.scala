@@ -34,20 +34,19 @@ final class Vec2Arr(val unsafeArray: Array[Double]) extends /*AffinePreserve wit
 
 /** Companion object for the [[Vec2Arr]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
 object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
-{
-  override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
-
-  /** [[Show]] type class instance / evidence for [[Vec2Arr]]. */
-  implicit val showEv: ShowSequ[Vec2, Vec2Arr] = ShowSequ[Vec2, Vec2Arr]()
-
-  /** [[Unshow]] type class instance / evidence for [[Vec2Arr]]. */
-  implicit val unshowEv: UnshowArrDblN[Vec2, Vec2Arr] = UnshowArrDblN[Vec2, Vec2Arr](fromArray)
+{  override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
 
   implicit val arrFlatBuilderImplicit: BuilderArrFlat[Vec2Arr] =  new BuilderArrDbl2Flat[Vec2Arr]
   { override type BuffT = BuffVec2
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)
   }
+
+  /** [[Show]] type class instance / evidence for [[Vec2Arr]]. */
+  implicit lazy val showEv: ShowSequ[Vec2, Vec2Arr] = ShowSequ[Vec2, Vec2Arr]()
+
+  /** [[Unshow]] type class instance / evidence for [[Vec2Arr]]. */
+  implicit lazy val unshowEv: UnshowSequ[Vec2, Vec2Arr] = UnshowSequ[Vec2, Vec2Arr]()
 
 //  implicit val slateImplicit: Slate[Vec2s] = (obj: Vec2s, dx: Double, dy: Double) => obj.slateXY(dx, dy)
 //  implicit val scaleImplicit: Scale[Vec2s] = (obj: Vec2s, operand: Double) => obj.scale(operand)
