@@ -39,17 +39,16 @@ class LineSegLLArr(val unsafeArray: Array[Double]) extends LineSegLikeDbl4Arr[La
 
 /** Companion object for the LineSegLLs class. */
 object LineSegLLArr extends CompanionSeqLikeDbl4[LineSegLL, LineSegLLArr]
-{
-  override def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
-
-  /** [[Show]] type class instance / evidence for [[LineSegLLArr]]. */
-  implicit val showEv: ShowSequ[LineSegLL, LineSegLLArr] = ShowSequ[LineSegLL, LineSegLLArr]()
-
-  /** [[Unshow]] type class instance / evidence for [[LineSegLLArr]]. */
-  implicit val unshowEv: UnshowArrDbl4[LineSegLL, LineSegLLArr] = UnshowArrDbl4[LineSegLL, LineSegLLArr]("LineSegLLArr", LineSegLLArr.fromArray)
+{ override def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
 
   /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
   implicit val flatBuildEv: BuilderArrFlat[LineSegLLArr] = new LineSegArrLLFlatBuilder
+
+  /** [[Show]] type class instance / evidence for [[LineSegLLArr]]. */
+  implicit lazy val showEv: ShowSequ[LineSegLL, LineSegLLArr] = ShowSequ[LineSegLL, LineSegLLArr]()
+
+  /** [[Unshow]] type class instance / evidence for [[LineSegLLArr]]. */
+  implicit lazy val unshowEv: UnshowSequ[LineSegLL, LineSegLLArr] = UnshowSequ[LineSegLL, LineSegLLArr]()
 }
 
 /** Efficient expandable buffer for [[LineSegLL]]s. */

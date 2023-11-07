@@ -189,11 +189,3 @@ object UnshowDbl4
     override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
-
-class UnshowArrDbl4[A <: Dbl4Elem, M <: Dbl4Arr[A]](val typeStr: String, f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M]
-{ override def fromArray(array: Array[Double]): M = f(array)
-}
-
-object UnshowArrDbl4
-{ //def apply[A <: Dbl4Elem, M <: Dbl4Arr[A]](typeStr: String, f: Array[Double] => M): UnshowArrDbl4[A, M] = new UnshowArrDbl4[A, M](typeStr, f)
-}
