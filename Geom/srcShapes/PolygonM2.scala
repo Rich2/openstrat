@@ -57,12 +57,6 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
 { override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 
-  /** [[Show]] type class instance / evidence for [[PolygonM2]]. */
-  implicit val showEv: ShowSeqSpec[PtM2, PolygonM2] = ShowSeqSpec[PtM2, PolygonM2]("PolygonM2")
-
-  /** [[Unshow]] type class instance / evidence for [[PolygonM2]]. */
-  implicit val unshowEv: UnshowSeqSpecDblN[PtM2, PolygonM2] = UnshowSeqSpecDblN[PtM2, PolygonM2]("PolygonM2", fromArray)
-
   implicit val arrBuildImplicit: BuilderArrMap[PolygonM2, PolygonM2Arr] = new BuilderArrMap[PolygonM2, PolygonM2Arr]
   { override type BuffT = PolygonM2Buff
     override def newBuff(length: Int): PolygonM2Buff = PolygonM2Buff(length)
@@ -71,6 +65,12 @@ object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
     override def buffGrow(buff: PolygonM2Buff, newElem: PolygonM2): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
     override def buffToSeqLike(buff: PolygonM2Buff): PolygonM2Arr = new PolygonM2Arr(buff.unsafeBuffer.toArray)
   }
+
+  /** [[Show]] type class instance / evidence for [[PolygonM2]]. */
+  implicit lazy val showEv: ShowSeqSpec[PtM2, PolygonM2] = ShowSeqSpec[PtM2, PolygonM2]("PolygonM2")
+
+  /** [[Unshow]] type class instance / evidence for [[PolygonM2]]. */
+  implicit lazy val unshowEv: UnshowSeqLike[PtM2, PolygonM2] = UnshowSeqLike[PtM2, PolygonM2]("PolygonM2")
 }
 
 /** Arr of [[PolygonM2]]s. */
