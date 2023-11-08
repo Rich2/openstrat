@@ -146,14 +146,14 @@ object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
 {
   override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
 
-  /** [[Show]] type class instance / evidence for [[LineSegArr]]. */
-  implicit val showEv: ShowSequ[LineSeg, LineSegArr] = ShowSequ[LineSeg, LineSegArr]()
-
-  /** [[Unshow]] type class instance / evidence for [[LineSegArr]]. */
-  implicit val unshowEv: UnshowArrDblN[LineSeg, LineSegArr] = UnshowArrDblN[LineSeg, LineSegArr](fromArray)
-
   /** Implicit instance /evidence for [[BuilderArrFlat]] type class instance. */
   implicit val arrFlatBuildEv: BuilderArrFlat[LineSegArr] = new LineSegArrFlatBuilder
+
+  /** [[Show]] type class instance / evidence for [[LineSegArr]]. */
+  implicit lazy val showEv: ShowSequ[LineSeg, LineSegArr] = ShowSequ[LineSeg, LineSegArr]()
+
+  /** [[Unshow]] type class instance / evidence for [[LineSegArr]]. */
+  implicit lazy val unshowEv: UnshowSequ[LineSeg, LineSegArr] = UnshowSequ[LineSeg, LineSegArr]()
 
   implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
