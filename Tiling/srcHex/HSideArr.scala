@@ -30,7 +30,7 @@ object HSideArr extends CompanionSeqLikeInt2[HSide, HSideArr]
   implicit lazy val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
-  implicit lazy val unshowEv: UnshowSequ[HSide, HSideArr] = UnshowSequ[HSide, HSideArr]()
+  implicit lazy val unshowEv: UnshowSeq[HSide, HSideArr] = UnshowSeq[HSide, HSideArr]()
 }
 
 class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HSide]

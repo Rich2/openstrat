@@ -70,7 +70,7 @@ object LineSegM2Arr extends CompanionSeqLikeDbl4[LineSegM2, LineSegM2Arr]
   implicit lazy val showEv: ShowSequ[LineSegM2, LineSegM2Arr] = ShowSequ[LineSegM2, LineSegM2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[LineSegM2Arr]]. */
-  implicit lazy val unshowEv: UnshowSequ[LineSegM2, LineSegM2Arr] = UnshowSequ[LineSegM2, LineSegM2Arr]()
+  implicit lazy val unshowEv: UnshowSeq[LineSegM2, LineSegM2Arr] = UnshowSeq[LineSegM2, LineSegM2Arr]()
 }
 
 /** Efficient expandable buffer for [[LineSegM2]]s. */

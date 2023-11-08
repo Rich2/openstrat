@@ -124,7 +124,7 @@ object PtM2Arr extends CompanionSeqLikeDbl2[PtM2, PtM2Arr]
   implicit lazy val showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[PtM2Arr]]. */
-  implicit lazy val unshowEv: UnshowSequ[PtM2, PtM2Arr] = UnshowSequ[PtM2, PtM2Arr]()
+  implicit lazy val unshowEv: UnshowSeq[PtM2, PtM2Arr] = UnshowSeq[PtM2, PtM2Arr]()
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */

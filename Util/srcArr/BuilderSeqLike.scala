@@ -10,7 +10,6 @@ trait BuilderSeqLike[BB <: SeqLike[_]] extends BuilderColl[BB]
   type BuffT <: BuffSequ[_]
 }
 
-
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
 trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderCollMap[B, BB] with BuilderSeqLike[BB]

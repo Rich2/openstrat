@@ -245,7 +245,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: BuilderArrMap[A, ArrA]): Unshow[List[A]] = UnshowSequ[A, List[A]]()
+  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: BuilderArrMap[A, ArrA]): Unshow[List[A]] = UnshowSeq[A, List[A]]()
 
   /** [[Unshow]] type class instance for [[Option]] */
   implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA), noneUnEv)

@@ -153,7 +153,7 @@ object LineSegArr extends CompanionSeqLikeDbl4[LineSeg, LineSegArr]
   implicit lazy val showEv: ShowSequ[LineSeg, LineSegArr] = ShowSequ[LineSeg, LineSegArr]()
 
   /** [[Unshow]] type class instance / evidence for [[LineSegArr]]. */
-  implicit lazy val unshowEv: UnshowSequ[LineSeg, LineSegArr] = UnshowSequ[LineSeg, LineSegArr]()
+  implicit lazy val unshowEv: UnshowSeq[LineSeg, LineSegArr] = UnshowSeq[LineSeg, LineSegArr]()
 
   implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }

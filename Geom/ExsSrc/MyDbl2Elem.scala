@@ -46,7 +46,7 @@ object MyDbl2Arr extends CompanionSeqLikeDbl2[MyDbl2Elem, MyDbl2Arr]
 
   implicit lazy val showEv: ShowSequ[MyDbl2Elem, MyDbl2Arr] = ShowSequ[MyDbl2Elem, MyDbl2Arr]()
 
-  implicit lazy val unshowEv: UnshowSequ[MyDbl2Elem, MyDbl2Arr] = UnshowSequ[MyDbl2Elem, MyDbl2Arr]()
+  implicit lazy val unshowEv: UnshowSeq[MyDbl2Elem, MyDbl2Arr] = UnshowSeq[MyDbl2Elem, MyDbl2Arr]()
 }
 
 class MinesBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[MyDbl2Elem]

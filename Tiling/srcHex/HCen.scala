@@ -190,7 +190,7 @@ object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
   implicit lazy val showEv: ShowSequ[HCen, HCenArr] = ShowSequ[HCen, HCenArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HCenArr]]. */
-  implicit lazy val unshowEv: UnshowSequ[HCen, HCenArr] = UnshowSequ[HCen, HCenArr]()
+  implicit lazy val unshowEv: UnshowSeq[HCen, HCenArr] = UnshowSeq[HCen, HCenArr]()
 
   implicit val eqEv: EqArrayIntBacked[HCenArr] = EqArrayIntBacked[HCenArr]()
 }

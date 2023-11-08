@@ -23,11 +23,18 @@ object UnshowSeqLike
   class UnshowSeqLikeImp[A, R](val typeStr: String, val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 }
 
-class UnshowSequ[A, R](val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
+class UnshowSeq[A, R](val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
 }
 
-object UnshowSequ
+object UnshowSeq
 {
-  def apply[A, R]()(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSequ[A, R] = new UnshowSequ[A, R](evA, build)
+  def apply[A, R]()(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSeq[A, R] = new UnshowSeq[A, R](evA, build)
+}
+
+class UnshowFromArr[A, ArrA <: Arr[A], R](val typeStr: String, f: ArrA => R)(implicit evA: Unshow[A], build1: BuilderArrMap[A, ArrA]) extends Unshow[R]
+{
+  val stage: UnshowSeqLike[A, ArrA] = UnshowSeqLike[A, ArrA](typeStr)(evA, build1)
+
+  override def fromExpr(expr: Expr): EMon[R] = stage.fromExpr(expr).map(f)
 }

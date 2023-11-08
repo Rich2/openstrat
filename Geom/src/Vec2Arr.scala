@@ -46,7 +46,7 @@ object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
   implicit lazy val showEv: ShowSequ[Vec2, Vec2Arr] = ShowSequ[Vec2, Vec2Arr]()
 
   /** [[Unshow]] type class instance / evidence for [[Vec2Arr]]. */
-  implicit lazy val unshowEv: UnshowSequ[Vec2, Vec2Arr] = UnshowSequ[Vec2, Vec2Arr]()
+  implicit lazy val unshowEv: UnshowSeq[Vec2, Vec2Arr] = UnshowSeq[Vec2, Vec2Arr]()
 
 //  implicit val slateImplicit: Slate[Vec2s] = (obj: Vec2s, dx: Double, dy: Double) => obj.slateXY(dx, dy)
 //  implicit val scaleImplicit: Scale[Vec2s] = (obj: Vec2s, operand: Double) => obj.scale(operand)

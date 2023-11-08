@@ -170,7 +170,7 @@ object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]
   implicit lazy val showEv: ShowSequ[HVert, HVertArr] = ShowSequ[HVert, HVertArr]()
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]]. */
-  implicit lazy val unshowEv: UnshowSequ[HVert, HVertArr] = UnshowSequ[HVert, HVertArr]()
+  implicit lazy val unshowEv: UnshowSeq[HVert, HVertArr] = UnshowSeq[HVert, HVertArr]()
 }
 
 class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HVert]

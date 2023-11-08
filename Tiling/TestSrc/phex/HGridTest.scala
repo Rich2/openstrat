@@ -16,9 +16,14 @@ object HGridTest extends TestSuite
     }
 
     val ig1: HGridIrr = HGridIrr(6, (2, 10), (4, 8), (6, 6))
+    val ig1Str = "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
+    val eg1 = ig1Str.asType[HGridIrr]
 
     test("test HGrid Irr")
-    { ig1.str ==> "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
+    { ig1.str ==> ig1Str
+      assert(eg1.isGood)
+      eg1.map(_.bottomCenR) ==> Good(2)
+      eg1.map(_.rowRightCenC(6)) ==> Good(10)
     }
   }
 }
