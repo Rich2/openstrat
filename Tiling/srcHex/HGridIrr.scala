@@ -12,6 +12,11 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   unsafeRowsArray.foreach(i => if (i.isOdd) excep("A bound is odd. " + unsafeRowsArray.mkString(" ")))
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
+  override def equals(that: Any): Boolean = that match
+  { case that: HGridIrr => bottomCenR == that.bottomCenR && unsafeRowsArray.sameElements(that.unsafeRowsArray)
+    case _ => false
+  }
+
   override def sideTileLtOpt(hSide: HSide): Option[HCen] =
   { val ot: HCen = sideTileLtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
