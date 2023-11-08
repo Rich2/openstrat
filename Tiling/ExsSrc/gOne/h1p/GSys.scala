@@ -6,5 +6,5 @@ import prid.phex._
 object GSys {
   val g1: HGridReg = HGridReg(2, 6, 2, 10)
   val g2: HGridReg = HGridReg(2, 12, 2, 60)
-  val g3: HGridIrr = HGridIrr(10, (6, 14), (8, 8), (2, 14), (4, 8), (6, 6))
+  val g3: HGridIrr = HGridIrr.fromTop(10, (6, 14), (8, 8), (2, 14), (4, 8), (6, 6))
 }

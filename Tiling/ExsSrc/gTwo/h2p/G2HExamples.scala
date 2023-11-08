@@ -23,7 +23,7 @@ object G2HScen2 extends G2HScen
 /** 3rd example Turn 0 scenario state for Game Three. */
 object G2HScen3 extends G2HScen
 { override def turn: Int = 0
-  implicit val gridSys: HGrid = HGridIrr(10, (6, 6), (4, 8), (2, 10), (4, 8), (6, 6))
+  implicit val gridSys: HGrid = HGridIrr.fromTop(10, (6, 6), (4, 8), (2, 10), (4, 8), (6, 6))
   val counterStates: HCenOptLayer[CounterState] = HCenOptLayer()
   counterStates.setSomesMut((4, 4, CounterState(CounterA)), (10, 6, CounterState(CounterB)), (8, 8, CounterState(CounterC)))
 }

@@ -15,7 +15,7 @@ object HGridTest extends TestSuite
       g1.stepFind(2, 2, 0, 4) ==> None
     }
 
-    val ig1: HGridIrr = HGridIrr(6, (2, 10), (4, 8), (6, 6))
+    val ig1: HGridIrr = HGridIrr.fromTop(6, (2, 10), (4, 8), (6, 6))
     val ig1Str = "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
     val eg1 = ig1Str.asType[HGridIrr]
 

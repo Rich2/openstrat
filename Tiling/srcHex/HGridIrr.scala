@@ -151,7 +151,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
 object HGridIrr
 {
   /** Takes the top row number followed by pairs of start and end c numbers. */
-  def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrr =
+  def fromTop(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrr =
   { val numRows: Int = cMinMaxs.length
     val array = new Array[Int](numRows * 2)
     val rMin = rMax - (numRows - 1) * 2
