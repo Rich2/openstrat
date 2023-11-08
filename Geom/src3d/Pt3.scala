@@ -50,7 +50,7 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 w
   /** [[LineSeg3]] from this point to the parameter point. */
   override def lineSegTo(endPt: Pt3): LineSeg3 = LineSeg3(this, endPt)
 
-  /** [[LinSeg3]] from the parameter point to this point. */
+  /** [[LineSeg3]] from the parameter point to this point. */
   override def lineSegFrom(startPt: Pt3): LineSeg3 = LineSeg3(startPt, this)
 }
 

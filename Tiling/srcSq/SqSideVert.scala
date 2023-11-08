@@ -38,11 +38,17 @@ object SqVert
   def apply(r: Int, c: Int): SqVert = if (r.isOdd & c.isOdd) new SqVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
     else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
 
-  val showEv: Show[SqVert] = ShowTellInt2("Sqvert")
+
 
   implicit val sqVertsBuildImplicit: BuilderArrInt2Map[SqVert, SqVertArr] = new BuilderArrInt2Map[SqVert, SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
+
+  /** [[Show]] type class instance / evidence for [[SqVert]]. */
+  implicit lazy val showEv: Show[SqVert] = ShowTellInt2("Sqvert")
+
+  /** [[Unshow]] type class instance / evidence for [[SqVert]]. */
+  implicit lazy val unshowEv: UnshowInt2[SqVert] = UnshowInt2("Sqvert", "r", "c", apply)
 }

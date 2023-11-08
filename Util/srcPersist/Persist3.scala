@@ -108,7 +108,6 @@ object ShowDbl3
   }
 }
 
-
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with Persist3[A1, A2, A3]
 { def persist1: Unshow[A1]
