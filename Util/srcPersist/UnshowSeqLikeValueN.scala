@@ -26,27 +26,3 @@ class UnshowArrIntN[A <: IntNElem, M <: ArrIntN[A]](f: Array[Int] => M) extends 
 object UnshowArrIntN
 { def apply[A <: IntNElem, M <: ArrIntN[A]](f: Array[Int] => M): UnshowArrIntN[A, M] = new UnshowArrIntN[A, M](f)
 }
-
-class UnshowSeqSpecIntN[A <: IntNElem, M <: SeqSpecIntN[A]](val typeStr: String, f: Array[Int] => M) extends UnshowSeqLikeIntN[A, M]
-{ override def fromArray(array: Array[Int]): M = f(array)
-}
-
-object UnshowSeqSpecIntN
-{ def apply[A <: IntNElem, M <: SeqSpecIntN[A]](typeStr: String, f: Array[Int] => M): UnshowSeqSpecIntN[A, M] = new UnshowSeqSpecIntN[A, M](typeStr, f)
-}
-
-/**  Class to [[Unshow]] specialised flat Array[Double] based collections. */
-trait UnshowSeqLikeDblN[A <: DblNElem, M <: SeqLikeDblN[A]] extends UnshowSeqLikeValueN[A, M]
-{ type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Double] = BufferDbl()
-  final override def appendtoBuffer(buffer: ArrayBuffer[Double], value: A): Unit = value.dblBufferAppend(buffer)
-}
-
-class UnshowArrDblN[A <: DblNElem, M <: ArrDblN[A]](f: Array[Double] => M) extends UnshowSeqLikeDblN[A, M] with PersistBaseSeq[A, M]
-{ override def fromArray(array: Array[Double]): M = f(array)
-}
-
-object UnshowArrDblN
-{ def apply[A <: DblNElem, M <: ArrDblN[A]](f: Array[Double] => M): UnshowArrDblN[A, M] = new UnshowArrDblN[A, M](f)
-}
