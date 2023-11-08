@@ -2,9 +2,7 @@
 package ostrat
 import pParse._
 
-trait UnshowCompound[+R] extends Unshow[R]
-
-trait UnshowSeqLike[A, R <: SeqLike[A]] extends UnshowCompound[R]
+trait UnshowSeqLike[A, R <: SeqLike[A]] extends Unshow[R]
 {
   def evA: Unshow[A]
   def build: BuilderSeqLikeMap[A, R]

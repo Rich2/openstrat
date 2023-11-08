@@ -30,7 +30,7 @@ trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderSeqLike[BB]
   /** Creates a new empty [[SeqLike]] of type BB. */
   def empty: BB = uninitialised(0)
 
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
+  /** A mutable operation that extends the [[Buff]] with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, newElems: Iterable[B]): Unit = newElems.foreach(buffGrow(buff, _))
 
   /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
