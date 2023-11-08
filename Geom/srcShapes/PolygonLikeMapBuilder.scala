@@ -50,7 +50,7 @@ trait PolygonInt2MapBuilder[B <: Int2Elem, BB <: PolygonLikeInt2[B]] extends Pol
 trait PolygonInt3MapBuilder[B <: Int3Elem, BB <: PolygonLikeInt3[B]] extends PolygonIntNMapBuilder[B, BB] with BuilderSeqLikeInt3Map[B, BB]
 
 trait PolygonLikeFlatBuilder[VT, +BB <: PolygonLike[VT]] extends BuilderSeqLikeFlat[BB @uncheckedVariance]
-{ override type BuffT <: Buff[VT]
+{ override type BuffT <: BuffSequ[VT]
   def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit
 }
 

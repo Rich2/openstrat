@@ -33,7 +33,7 @@ object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]
   }
 }
 
-/** [[Buff]] class for storing [[SqVert]]s in an [[ArrayBuffer]][Int]. */
+/** [[BuffSequ]] class for storing [[SqVert]]s in an [[ArrayBuffer]][Int]. */
 class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[SqVert]
 { type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"

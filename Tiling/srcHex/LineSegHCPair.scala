@@ -22,7 +22,7 @@ class LineSegHCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
   override def fElemStr: LineSegHCPair[A2] => String = _.toString
 }
 
-/** Specialised [[Buff]] class for [[LineSegHCPair]]s, that uses two backing [[ArrayBuffer]]s. */
+/** Specialised [[BuffSequ]] class for [[LineSegHCPair]]s, that uses two backing [[ArrayBuffer]]s. */
 class LineSegHCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt4[LineSegHC, B2, LineSegHCPair[B2]]
 { override type ThisT = LineSegHCPairBuff[B2]
   override def typeStr: String = "LineSegHCPairBuff"

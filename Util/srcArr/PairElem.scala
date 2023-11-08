@@ -179,21 +179,21 @@ trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]
 {
   type BuffT <: BuffPair[B1, B2, _]
 
-  /** The type of the [[Buff]] for accumulating B1s. */
-  type B1BuffT <: Buff[B1]
+  /** The type of the [[BuffSequ]] for accumulating B1s. */
+  type B1BuffT <: BuffSequ[B1]
 
   /** ClassTag for building Arrays and ArrayBuffers of B2s. */
   implicit def b2ClassTag: ClassTag[B2]
 
-  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
+  /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
   def newB1Buff(): B1BuffT
 
   def newB2Buffer(): ArrayBuffer[B2] = new ArrayBuffer[B2]()
 
-  /** Expands / appends the B1 [[Buff]] with a single element of B1. */
+  /** Expands / appends the B1 [[BuffSequ]] with a single element of B1. */
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
 
-  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
+  /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
   def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB
 }
 

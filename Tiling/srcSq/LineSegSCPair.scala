@@ -18,7 +18,7 @@ class LineSegSCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
   override def fElemStr: LineSegSCPair[A2] => String = _.toString
 }
 
-/** Specialised [[Buff]] class for [[LineSegSCPair]]s, that uses two backing [[ArrayBuffer]]s. */
+/** Specialised [[BuffSequ]] class for [[LineSegSCPair]]s, that uses two backing [[ArrayBuffer]]s. */
 class LineSegSCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt4[LineSegSC, B2, LineSegSCPair[B2]]
 { override type ThisT = LineSegSCPairBuff[B2]
   override def typeStr: String = "LineSegSCPairBuff"

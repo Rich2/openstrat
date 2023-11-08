@@ -287,7 +287,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
   }
 
-  def eMapLike[B, BB <: SeqLike[B]](f: A => EMon[B])(implicit ev: BuilderSeqLikeMap[B, BB]): EMon[BB] =
+  def eMapLike[B, BB](f: A => EMon[B])(implicit ev: BuilderCollMap[B, BB]): EMon[BB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0

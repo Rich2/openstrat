@@ -58,7 +58,7 @@ trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1
   }
 }
 
-/** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[IntNElem]]. */
+/** Specialised efficient [[BuffSequ]] classes for accumulating pairs where the first component of the pair is and [[IntNElem]]. */
 trait BuffPairIntN[B1 <: IntNElem, B2, B <: PairIntNElem[B1, B2]] extends BuffPair[B1, B2, B]
 { def b1IntBuffer: ArrayBuffer[Int]
 
@@ -79,7 +79,7 @@ trait BuilderArrPairIntN[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, ArrB <: ArrPa
    *  components of the pairs. */
   def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
+  /** Constructs the [[BuffSequ]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
    * second components of the pairs. */
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
 

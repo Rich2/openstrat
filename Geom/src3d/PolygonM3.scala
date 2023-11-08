@@ -107,7 +107,7 @@ class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArra
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM3Arr = new PolygonM3Arr(array)
 }
 
-/** Specialised [[Buff]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
+/** Specialised [[BuffSequ]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
 class PolygonM3Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonM3]
 { override type ThisT = PolygonM3Buff
   override def typeStr: String = "PolygonM3Buff"

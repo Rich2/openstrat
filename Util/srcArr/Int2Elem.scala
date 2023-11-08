@@ -67,7 +67,7 @@ trait BuilderArrInt2Flat[ArrB <: ArrInt2[_]] extends BuilderSeqLikeInt2[ArrB] wi
 trait BuffInt2[A <: Int2Elem] extends Any with BuffIntN[A]
 { type ThisT <: BuffInt2[A]
 
-  /** Constructs a new element of this [[Buff]] from 2 [[Int]]s. */
+  /** Constructs a new element of this [[BuffSequ]] from 2 [[Int]]s. */
   def newElem(i1: Int, i2: Int): A
 
   override def elemProdSize: Int = 2

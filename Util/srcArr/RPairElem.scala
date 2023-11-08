@@ -84,7 +84,7 @@ object RPairArr
     new RPairArr[A1, A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 }
 
-/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as
+/** R for the first component of the [[PairFinalA1Elem]] is stored by reference. [[BuffSequ]] for [[RPairElem]]s. Note although they are named as
  *  reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]
@@ -96,7 +96,7 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
 }
 
 object RPairBuff
-{ /** Factory apply method for [[RPairBuff]] class. Creates an empty [[Buff]] class with a default buffer for expansion of 4 elements. */
+{ /** Factory apply method for [[RPairBuff]] class. Creates an empty [[BuffSequ]] class with a default buffer for expansion of 4 elements. */
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 }
 
@@ -120,16 +120,16 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPa
   /** ClassTag for building Arrays and ArrayBuffers of B2s. */
   override implicit def b2ClassTag: ClassTag[B2] = ???
 
-  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
+  /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
   override def newB1Buff(): RBuff[B1] = ???
 
-  /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
+  /** Expands / appends the B1 [[BuffSequ]] with a songle element of B1. */
   override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = ???
 
-  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
+  /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
   override def arrFromBuffs(a1Buff: RBuff[B1], b2s: ArrayBuffer[B2]): RPairArr[B1, B2] = ???
 
-  /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
+  /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
   override def newBuff(length: Int): RPairBuff[B1, B2] = ???
 
   /** converts a the buffer type to the target compound class. */

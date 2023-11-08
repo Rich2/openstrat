@@ -52,7 +52,7 @@ BuilderArrPair[B1, ArrB1, B2, ArrB]
    *  components of the pairs. */
   def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): ArrB
 
-  /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
+  /** Constructs the [[BuffSequ]] class from an [[ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
    * second components of the pairs. */
   def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[B2]): BuffT
 

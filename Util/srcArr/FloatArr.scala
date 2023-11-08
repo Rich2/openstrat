@@ -65,7 +65,7 @@ object FloatArrBuilder extends BuilderArrMap[Float, FloatArr] with BuilderArrFla
   override def buffGrowArr(buff: FloatBuff, arr: FloatArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
-class FloatBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Buff[Float]
+class FloatBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with BuffSequ[Float]
 { override type ThisT = FloatBuff
   override def typeStr: String = "FloatsBuff"
   override def apply(index: Int): Float = unsafeBuffer(index)

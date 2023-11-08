@@ -44,7 +44,7 @@ trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1[A]
 trait BuffInt1[A <: Int1Elem] extends Any with BuffIntN[A]
 { type ThisT <: BuffInt1[A]
 
-  /** Constructs a new element of this [[Buff]] from a single [[Int]]. */
+  /** Constructs a new element of this [[BuffSequ]] from a single [[Int]]. */
   def newElem(value: Int): A
 
   final override def length: Int = unsafeBuffer.length

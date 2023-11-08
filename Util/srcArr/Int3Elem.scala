@@ -49,7 +49,7 @@ trait ArrInt3[A <: Int3Elem] extends Any with ArrIntN[A] with SeqLikeInt3[A]
 trait BuffInt3[A <: Int3Elem] extends Any with BuffIntN[A]
 { type ThisT <: BuffInt3[A]
 
-  /** Constructs a new element of this [[Buff]] from 3 [[Int]]s. */
+  /** Constructs a new element of this [[BuffSequ]] from 3 [[Int]]s. */
   def newElem(i1: Int, i2: Int, i3: Int): A
 
   override def elemProdSize: Int = 3

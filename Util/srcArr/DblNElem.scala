@@ -177,6 +177,6 @@ trait CompanionBuffDblN[A <: DblNElem, AA <: BuffDblN[A]]
   /** Number of [[Double]]s required to construct an element */
   def elemNumDbls: Int
 
-  /** Allows the creation of the final [[Buff]] class from an [[ArrayBuffer]][Double]. */
+  /** Allows the creation of the final [[BuffSequ]] class from an [[ArrayBuffer]][Double]. */
   def fromBuffer(buffer: ArrayBuffer[Double]): AA
 }

@@ -25,7 +25,7 @@ object HStepPairArr1{
   }
 }
 
-/** A [[Buff]] class for [[HStepPair]]s.  */
+/** A [[BuffSequ]] class for [[HStepPair]]s.  */
 class HStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends BuffPairInt1[HStep, A2, HStepPair[A2]]
 { override type ThisT = HStepPairBuff[A2]
   override def typeStr: String = "HDirnPairBuff"

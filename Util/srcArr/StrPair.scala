@@ -115,16 +115,16 @@ class StrPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Bu
   override def indexSet(seqLike: StrPairArr[B2], index: Int, elem: StrPair[B2]): Unit = ???
 
 
-  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
+  /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
   override def newB1Buff(): StringBuff = ???
 
-  /** Expands / appends the B1 [[Buff]] with a single element of B1. */
+  /** Expands / appends the B1 [[BuffSequ]] with a single element of B1. */
   override def b1BuffGrow(buff: StringBuff, newElem: String): Unit = ???
 
-  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
+  /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
   override def arrFromBuffs(a1Buff: StringBuff, b2s: ArrayBuffer[B2]): StrPairArr[B2] = ???
 
-  /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
+  /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
   override def newBuff(length: Int): StrPairBuff[B2] = ???
 
   /** converts a the buffer type to the target compound class. */

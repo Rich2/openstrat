@@ -65,7 +65,7 @@ trait ArrInt6[A <: Int6Elem] extends Any with SeqLikeInt6[A] with ArrIntN[A]
 trait BuffInt6[A <: Int6Elem] extends Any with BuffIntN[A]
 { type ThisT <: BuffInt6[A]
 
-  /** Constructs a new element of this [[Buff]] from 6 [[Int]]s. */
+  /** Constructs a new element of this [[BuffSequ]] from 6 [[Int]]s. */
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
 
   final override def elemProdSize: Int = 6

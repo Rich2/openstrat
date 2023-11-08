@@ -118,7 +118,7 @@ object StringArrBuilder extends BuilderArrMap[String, StrArr] with BuilderArrFla
   override def buffGrowArr(buff: StringBuff, arr: StrArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
-class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff[String]
+class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with BuffSequ[String]
 {   override type ThisT = StringBuff
 
   override def typeStr: String = "Stringsbuff"

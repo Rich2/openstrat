@@ -143,11 +143,11 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends Companio
   }
 }
 
-/** [[Buff]] class for building [[Dbl2Elem]]s collections. */
+/** [[BuffSequ]] class for building [[Dbl2Elem]]s collections. */
 trait BuffDbl2[B <: Dbl2Elem] extends Any with BuffDblN[B]
 { type ArrT <: ArrDbl2[B]
 
-  /** Constructs a new element of this [[Buff]] from 2 [[Double]]s. */
+  /** Constructs a new element of this [[BuffSequ]] from 2 [[Double]]s. */
   def newElem(d1: Double, d2: Double): B
 
   final override def length: Int = unsafeBuffer.length / 2

@@ -81,7 +81,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   }
 }
 
-class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
+class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends BuffSequ[Multiple[A]]
 { override type ThisT = MultipleBuff[A]
   override def typeStr: String = "MultipleBuff"
   override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }

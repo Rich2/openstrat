@@ -284,8 +284,8 @@ class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[
   override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
-/** R for stored by reference. The default [[Buff]] class for types without their own specialist sequence classes. */
-final class RBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[A]
+/** R for stored by reference. The default [[BuffSequ]] class for types without their own specialist sequence classes. */
+final class RBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with BuffSequ[A]
 { override type ThisT = RBuff[A]
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = unsafeBuffer(index)

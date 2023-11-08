@@ -50,8 +50,11 @@ object SeqLike
   }
 }
 
+//trait BufferWrap[A] extends Any
+
+
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting
  *  from [[BuilderSeqLike]]. */
-trait Buff[A] extends Any with Sequ[A]
+trait BuffSequ[A] extends Any with Sequ[A]
 { def grow(newElem: A): Unit
 }

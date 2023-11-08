@@ -38,10 +38,10 @@ object ArrArrayDblEq
 { def apply[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
 }
 
-/** This is a [[Buff]] efficient buffer class for [[Array]][Double]s Each object contains multiple [[Array]]s. It is not a Buffer class for the
+/** This is a [[BuffSequ]] efficient buffer class for [[Array]][Double]s Each object contains multiple [[Array]]s. It is not a Buffer class for the
  *  elements to be put into [[Array]]s. */
-trait BuffArrayDbl[A <: ArrayDblBacked] extends Any with Buff[A]
-{ /** Constructs an lement of this [[Buff]] from an [[Array]][Double]. */
+trait BuffArrayDbl[A <: ArrayDblBacked] extends Any with BuffSequ[A]
+{ /** Constructs an lement of this [[BuffSequ]] from an [[Array]][Double]. */
   def fromArrayDbl(array: Array[Double]): A
 
   def unsafeBuffer: ArrayBuffer[Array[Double]]

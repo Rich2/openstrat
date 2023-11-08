@@ -42,8 +42,8 @@ object EqArrayIntBacked
 }
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
-trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
-{ /** Constructs an element of this [[Buff]] from an [[Array]][Int]. */
+trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with BuffSequ[A]
+{ /** Constructs an element of this [[BuffSequ]] from an [[Array]][Int]. */
   def fromArrayInt(array: Array[Int]): A
 
   def unsafeBuffer: ArrayBuffer[Array[Int]]

@@ -73,7 +73,7 @@ object DblArrBuilder extends BuilderArrMap[Double, ArrDbl] with BuilderArrFlat[A
 }
 
 /** Compile time wrapped Buff class for [[Double]]s, used to build [[ArrDbl]]. */
-class BuffDbl(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Buff[Double]
+class BuffDbl(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffSequ[Double]
 { override type ThisT = BuffDbl
   override def typeStr: String = "DblsBuff"
   override def apply(index: Int): Double = unsafeBuffer(index)

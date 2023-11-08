@@ -24,9 +24,9 @@ trait PairArrFinalA1[A1, A1Arr <: Arr[A1], A2, A <: PairFinalA1Elem[A1, A2]] ext
   def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT
 }
 
-/** An efficient [[Buff]] for [[PairFinalA1Elem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
- * because these [[Buff]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
-trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any with Buff[B]
+/** An efficient [[BuffSequ]] for [[PairFinalA1Elem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
+ * because these [[BuffSequ]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
+trait BuffPair[B1, B2, B <: PairElem[B1, B2]] extends Any with BuffSequ[B]
 { /** ArrayBuffer for the B2 components of the pairs. */
   def b2Buffer: ArrayBuffer[B2]
 
