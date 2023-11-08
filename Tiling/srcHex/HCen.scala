@@ -7,8 +7,8 @@ import geom._, pgui._, collection.mutable.ArrayBuffer, reflect.ClassTag
  *  as the first parameter for example  f: (HCen, Pt2) => B. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 {
-  override def equals(that: Any): Boolean = that match {
-    case that: HCen if r == that.r & c == that.c => true
+  override def equals(that: Any): Boolean = that match
+  { case that: HCen if r == that.r & c == that.c => true
     case _ => false
     }
 
@@ -177,10 +177,7 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[HCen]
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
 object HCenArr extends CompanionSeqLikeInt2[HCen, HCenArr]
-{
-  def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
-
-
+{ def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
   implicit val flatBuilderEv: BuilderArrInt2Flat[HCenArr] = new BuilderArrInt2Flat[HCenArr]

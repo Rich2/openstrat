@@ -88,6 +88,7 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
   }
 }
 
+/** Common trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
 trait BuilderSeqLikeIntN[BB <: SeqLike[_]] extends BuilderSeqLikeValueN[BB]
 { type BuffT <:  BuffIntN[_]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT

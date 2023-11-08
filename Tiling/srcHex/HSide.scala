@@ -99,6 +99,7 @@ object HSide
 
   implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
 
+  /** Implicit [[Unshow]] type class instance / evidence for [[HSide]]. */
   implicit val unshowEv: UnshowInt2[HSide] = UnshowInt2[HSide]("HSide", "r", "c", apply)
 }
 
