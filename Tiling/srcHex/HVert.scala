@@ -56,12 +56,13 @@ object HVert
     case _ => excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
   }
 
-
   implicit val hVertsBuildImplicit: BuilderArrInt2Map[HVert, HVertArr] = new BuilderArrInt2Map[HVert, HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)
   }
+
+  implicit val unshowEv: UnshowInt2[HVert] = UnshowInt2[HVert]("HVert", "r", "c", apply)
 }
 
 /** An [[HVert]] hex vert where (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2). */
@@ -158,17 +159,17 @@ class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike wit
 object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]
 { def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
 
-  /** Implicit [[Show]] type class instance / evidence for [[HVertArr]].  */
-  implicit val showEv: ShowSequ[HVert, HVertArr] = ShowSequ[HVert, HVertArr]()
-
-  /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]].  */
-  implicit val unshowEv: UnshowArrIntN[HVert, HVertArr] = UnshowArrIntN[HVert, HVertArr](fromArray)
-
   implicit val arrArrayImplicit: BuilderArrFlat[HVertArr] = new BuilderArrInt2Flat[HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)
   }
+
+  /** Implicit [[Show]] type class instance / evidence for [[HVertArr]]. */
+  implicit lazy val showEv: ShowSequ[HVert, HVertArr] = ShowSequ[HVert, HVertArr]()
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[HVertArr]]. */
+  implicit lazy val unshowEv: UnshowSequ[HVert, HVertArr] = UnshowSequ[HVert, HVertArr]()
 }
 
 class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HVert]

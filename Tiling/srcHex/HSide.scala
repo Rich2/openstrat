@@ -98,6 +98,8 @@ object HSide
   }
 
   implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
+
+  implicit val unshowEv: UnshowInt2[HSide] = UnshowInt2[HSide]("HSide", "r", "c", apply)
 }
 
 /** A hex side that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */

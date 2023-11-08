@@ -19,18 +19,18 @@ class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[HSide]
 object HSideArr extends CompanionSeqLikeInt2[HSide, HSideArr]
 { override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 
-  /** Implicit [[Show]] type class instance / evidence for [[HSideArr]]. */
-  implicit val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
-
-  /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
-  implicit val unshowEv: UnshowArrIntN[HSide, HSideArr] = UnshowArrIntN[HSide, HSideArr](fromArray)
-
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */
   implicit val flatBuilderEv: BuilderArrFlat[HSideArr] = new BuilderArrInt2Flat[HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
   }
+
+  /** Implicit [[Show]] type class instance / evidence for [[HSideArr]]. */
+  implicit lazy val showEv: ShowSequ[HSide, HSideArr] = ShowSequ[HSide, HSideArr]()
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[HSideArr]]. */
+  implicit lazy val unshowEv: UnshowSequ[HSide, HSideArr] = UnshowSequ[HSide, HSideArr]()
 }
 
 class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt2[HSide]
