@@ -74,16 +74,16 @@ object EGridLaunch extends GuiLaunchMore
       case 55 => Scen640Americas
       case 56 => Scen640All
 
-      case 120 => EGrid320.scen0
-      case 121 => EGrid320.scen1
-      case 122 => EGrid320.scen2
-      case 123 => EGrid320.scen3
-      case 124 => EGrid320.scen4
-      case 125 => EGrid320.scen5
-      case 126 => EGrid320.scen6
-      case 127 => EGrid320.scen7
-      case 128 => EGrid320.scen8
-      case 129 => EGrid320.scen9
+      case 60 => EGrid320.scen0
+      case 61 => EGrid320.scen1
+      case 62 => EGrid320.scen2
+      case 63 => EGrid320.scen3
+      case 64 => EGrid320.scen4
+      case 65 => EGrid320.scen5
+      case 66 => EGrid320.scen6
+      case 67 => EGrid320.scen7
+      case 68 => EGrid320.scen8
+      case 69 => EGrid320.scen9
       case 70 => EGrid320.scen10
       case 71 => EGrid320.scen11
 
