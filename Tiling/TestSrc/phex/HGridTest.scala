@@ -24,6 +24,7 @@ object HGridTest extends TestSuite
       assert(eg1.isGood)
       eg1.map(_.bottomCenR) ==> Good(2)
       eg1.map(_.rowRightCenC(6)) ==> Good(10)
+      eg1 ==> Good(ig1)
     }
   }
 }

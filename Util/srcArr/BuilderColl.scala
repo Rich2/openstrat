@@ -16,6 +16,7 @@ trait BuilderColl[BB]
 
 }
 
+/** Builder for collection via the map method. */
 trait BuilderCollMap[B, BB] extends BuilderColl[BB]
 { /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, newElem: B): Unit
@@ -25,7 +26,10 @@ trait BuilderCollMap[B, BB] extends BuilderColl[BB]
 }
 
 object BuilderCollMap
-{ implicit def listEv[A]: ListBuilder[A] = new ListBuilder[A]
+{ /** [[BuilderCollMap]] type class instance / evidence for the [[List]] class. */
+  implicit def listEv[A]: ListBuilder[A] = new ListBuilder[A]
+
+  /** [[BuilderCollMap]] type class instance / evidence for the [[Vector]] class. */
   implicit def vectorEv[A]: VectorBuilder[A] = new VectorBuilder[A]
 }
 
