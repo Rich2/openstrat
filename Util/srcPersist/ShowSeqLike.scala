@@ -42,6 +42,19 @@ object ShowSeqLike
   }
 }
 
+class TellSeqLike(val typeStr: String) extends Tell{
+  /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
+  override def str: String = tell()
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
+  override def tell(style: ShowStyle): String = ???
+
+  override def syntaxDepth: Int = ???
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
+  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+}
+
 /** [[Show] type class for showing [[Sequ]][A] objects. */
 trait ShowSeqSpec[A, R <: SeqSpec[A]] extends ShowSeq[A, R]
 { override def showForeach(obj: R, f: A => Unit): Unit = obj.ssForeach(f)

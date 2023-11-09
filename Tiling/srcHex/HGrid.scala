@@ -6,7 +6,7 @@ import geom._, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-trait HGrid extends Any with TGrid with HGridSys
+trait HGrid extends Any with TGrid with HGridSys// with Tell
 {
   final override def left: Double = gridLeftCenC - 2
   final override def right: Double = gridRightCenC + 2
