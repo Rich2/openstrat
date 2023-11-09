@@ -12,8 +12,10 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   unsafeRowsArray.foreach(i => if (i.isOdd) excep("A bound is odd. " + unsafeRowsArray.mkString(" ")))
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
+  def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
+
   override def equals(that: Any): Boolean = that match
-  { case that: HGridIrr => bottomCenR == that.bottomCenR && unsafeRowsArray.sameElements(that.unsafeRowsArray)
+  { case that: HGridIrr => canEqual(that) && bottomCenR ==  that.bottomCenR && unsafeRowsArray.sameElements(that.unsafeRowsArray)
     case _ => false
   }
 
