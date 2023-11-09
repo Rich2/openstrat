@@ -2,6 +2,7 @@
 package ostrat
 import pParse._
 
+/** [[Unshow]] type classes for SeqLike. This trait actually implements fromExpr method.  */
 trait UnshowSeqLike[A, R] extends Unshow[R]
 {
   def evA: Unshow[A]
