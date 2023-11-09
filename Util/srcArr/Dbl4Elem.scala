@@ -13,6 +13,7 @@ trait Dbl4Elem extends Any with DblNElem
   override def dblBufferAppend(buffer: ArrayBuffer[Double]): Unit = buffer.append4(dbl1, dbl2, dbl3, dbl4)
 }
 
+/** [[SeqLike]] with [[Dbl4Elem]] elements. */
 trait SeqLikeDbl4[A <: Dbl4Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 4
 
