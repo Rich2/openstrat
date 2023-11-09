@@ -24,6 +24,9 @@ object UnshowSeqLike
   class UnshowSeqLikeImp[A, R](val typeStr: String, val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 }
 
+/** [[Unshow]] type class instances for sequences, both [[Sequ]] and standard library classes such as [[List]] and
+ * [[Array]]. Uses the typeStr "Seq". As all these different types are persisted as logical sequences. Their in memory
+ * storage structure is irrelevant. They can all be reconstructed / unshown from an RSON Seq. */
 class UnshowSeq[A, R](val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
 }
