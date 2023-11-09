@@ -277,7 +277,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => [[EMon]][B]. Returns an [[Arr]] */
+  /** Map from A => [[EMon]][B]. implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible
+   *  [[BuilderCollMap]] as the first parameter list. */
   def mapEMon[B, ArrB <: Arr[B]](f: A => EMon[B])(implicit ev: BuilderArrMap[B, ArrB]): EMon[ArrB] =
   { val acc = ev.newBuff()
     var continue = true
@@ -288,8 +289,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
   }
 
-  /** Map from A => [[EMon]][B]. */
-  def mapEMonColl[B, BB](f: A => EMon[B])(implicit ev: BuilderCollMap[B, BB]): EMon[BB] =
+  /** Map from A => [[EMon]][B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
+  def mapEMon[B, BB](ev: BuilderCollMap[B, BB])(f: A => EMon[B]): EMon[BB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0

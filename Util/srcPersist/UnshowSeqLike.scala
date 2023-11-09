@@ -9,8 +9,8 @@ trait UnshowSeqLike[A, R] extends Unshow[R]
 
   override def fromExpr(expr: Expr): EMon[R] = expr match
   { case _: EmptyExprToken => Good(build.empty)
-    case AlphaSquareParenth(str1, _, sts) if str1 == typeStr => sts.mapEMonColl(s => evA.fromExpr(s.expr))(build)
-    case AlphaParenth(str1, sts) if str1 == typeStr => sts.mapEMonColl(s => evA.fromExpr(s.expr))(build)
+    case AlphaSquareParenth(str1, _, sts) if str1 == typeStr => sts.mapEMon(build)(s => evA.fromExpr(s.expr))
+    case AlphaParenth(str1, sts) if str1 == typeStr => sts.mapEMon(build)(s => evA.fromExpr(s.expr))
     case e => bad1(expr, expr.toString + " unknown Expression for this sequence based class.")
   }
 }

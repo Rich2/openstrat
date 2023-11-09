@@ -94,10 +94,10 @@ object IntArr
       case AlphaBracketExpr(id1,
       RArr2(BracketedStatements(RArr1(_), brs1, _, _),
       BracketedStatements(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>
-        sts.mapEMonColl(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+        sts.mapEMon(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
 
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
-        sts.mapEMonColl(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+        sts.mapEMon(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
 
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
