@@ -261,8 +261,8 @@ trait UnshowPriority2 extends UnshowPriority3
 
     override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match {
       case eet: EmptyExprToken => Good(Vector[A]())
-      case AlphaSquareParenth("Seq", ts, sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toVector)
-      case AlphaParenth("Seq", sts) => sts.eMap(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case AlphaSquareParenth("Seq", ts, sts) => sts.mapEMon(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case AlphaParenth("Seq", sts) => sts.mapEMon(s => evA.fromExpr(s.expr))(build).map(_.toVector)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }

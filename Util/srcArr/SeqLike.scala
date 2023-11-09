@@ -42,9 +42,9 @@ object SeqLike
     override def fromExpr(expr: Expr): EMon[AA] = expr match
     { case _: EmptyExprToken => Good(build.uninitialised(0))
       case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
-        sts.eMapLike(s => evA.fromExpr(s.expr))(build)
-      case AlphaSquareParenth("Seq", _, sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)
-      case AlphaParenth("Seq", sts) => sts.eMapLike(s => evA.fromExpr(s.expr))(build)
+        sts.mapEMonColl(s => evA.fromExpr(s.expr))(build)
+      case AlphaSquareParenth("Seq", _, sts) => sts.mapEMonColl(s => evA.fromExpr(s.expr))(build)
+      case AlphaParenth("Seq", sts) => sts.mapEMonColl(s => evA.fromExpr(s.expr))(build)
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
   }
