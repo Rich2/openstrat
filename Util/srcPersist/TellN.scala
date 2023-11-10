@@ -16,8 +16,6 @@ trait TellN extends Any with TellDec
   /** A [[StrArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
-  //def tellElemStrs(way: ShowStyle): StrArr = tellElemStrDecs(way, -1)
-
   def tellSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 

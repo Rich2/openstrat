@@ -20,7 +20,7 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 
   def strs(obj: R, way: ShowStyle): StrArr = strDecs(obj, way, -1)
 
-  override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String =
+  override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match

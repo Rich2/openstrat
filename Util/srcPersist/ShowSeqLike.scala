@@ -21,13 +21,13 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
     new StrArr(buffer.toArray)
   }
 
-  final override def show(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  final override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { val depth = syntaxDepth(obj)
     way match
-    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStandard, maxPlaces, 0)).mkComma
-      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, 0)).mkSemi
-      case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
-      case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
+    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStandard, maxPlaces, minPlaces)).mkComma
+      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
+      case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
+      case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
     }
   }
 }
@@ -49,7 +49,7 @@ class TellSeqLike(val typeStr: String) extends Tell
   override def syntaxDepth: Int = ???
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = ???
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = ???
 }
 
 /** [[Show] type class for showing [[Sequ]][A] objects. */
