@@ -9,16 +9,16 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
 
   def showForeach(obj: R, f: A => Unit): Unit
 
-  override def syntaxDepth(obj: R): Int =
-  { var acc = 2
-    showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a) + 1))
-    acc
-  }
-
-  final def showMap(obj: R)(f: A => String): StrArr =
-  { val buffer: ArrayBuffer[String] = Buffer[String]()
+  final def showMap(obj: R)(f: A => String): StrArr = {
+    val buffer: ArrayBuffer[String] = Buffer[String]()
     showForeach(obj, a => buffer.append(f(a)))
     new StrArr(buffer.toArray)
+  }
+
+  override def syntaxDepth(obj: R): Int = {
+    var acc = 2
+    showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a) + 1))
+    acc
   }
 
   final override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
@@ -42,14 +42,31 @@ object ShowSeqLike
   }
 }
 
-class TellSeqLike(val typeStr: String) extends Tell
+trait TellSeqLike[A] extends Tell
 { /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   override def str: String = tell(ShowStandard)
+  def evA: Show[A]
+  override def syntaxDepth: Int =
+  { var acc = 2
+    tellForeach(a => acc = acc.max(evA.syntaxDepth(a) + 1))
+    acc
+  }
+  def tellForeach(f: A => Unit): Unit
 
-  override def syntaxDepth: Int = ???
+  final def tellMap(f: A => String): StrArr =
+  { val buffer: ArrayBuffer[String] = Buffer[String]()
+    tellForeach(a => buffer.append(f(a)))
+    new StrArr(buffer.toArray)
+  }
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = ???
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = style match {
+    case ShowCommas if syntaxDepth <= 2 => tellMap(el => evA.show(el, ShowStandard, maxPlaces, minPlaces)).mkComma
+    case ShowSemis if syntaxDepth <= 3 => tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
+    case ShowTyped => typeStr + evA.typeStr.enSquare + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
+    case _ => typeStr + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
+  }
+
 }
 
 /** [[Show] type class for showing [[Sequ]][A] objects. */

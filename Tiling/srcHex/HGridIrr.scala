@@ -7,9 +7,15 @@ package ostrat; package prid; package phex
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param bottomCenR The r value for the bottom tile row of the TileGrid.
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
-{
+class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid with TellSeqLike[HCenRow]
+{ override def typeStr: String = "HGridIrr"
+
   unsafeRowsArray.foreach(i => if (i.isOdd) excep("A bound is odd. " + unsafeRowsArray.mkString(" ")))
+
+  override def evA: Show[HCenRow] = HCenRow.showEv
+
+  override def tellForeach(f: HCenRow => Unit): Unit = allRowsForeach(f)
+
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
   def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
