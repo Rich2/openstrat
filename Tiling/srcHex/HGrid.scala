@@ -351,6 +351,14 @@ trait HGrid extends Any with TGrid with HGridSys with Tell
   }
 }
 
+object HGrid
+{ /** Implicit [[Show]] type class instance / evidence for [[HGrid]]. */
+  implicit lazy val showEv: ShowTell[HGrid] = ShowTell[HGrid]("HGrid")
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[HGrid]]. */
+  implicit lazy val unshowEv: UnshowSum[HGrid] = UnshowSum[HGrid]("HGrid", HGridReg.unshowEv, HGridIrr.unshowEv)
+}
+
 /** Hex grid path finding node. */
 case class HNode(val tile: HCen, var gCost: Int, var hCost: Int, var parent: Option[HNode])
 { def fCost: Int = gCost + hCost
