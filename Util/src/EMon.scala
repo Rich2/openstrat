@@ -179,7 +179,7 @@ object Good
   { override def syntaxDepth(obj: Good[A]): Int = ev.syntaxDepth(obj.value) + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
 
-    override def showDec(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def show(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
 
@@ -233,7 +233,7 @@ object Bad
   implicit def BadShowImplicit[A](implicit ev: Show[A]): Show[Bad[A]] = new Show[Bad[A]] with ShowCompound[Bad[A]]
   { override def syntaxDepth(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
-    override def showDec(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def show(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
 

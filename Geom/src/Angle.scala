@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360
@@ -9,7 +9,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
 { override def typeStr: String = "Angle"
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = style match
   { case ShowTyped => typeStr + degs.str.enParenth
     case _ =>  degs.str.enParenth
   }

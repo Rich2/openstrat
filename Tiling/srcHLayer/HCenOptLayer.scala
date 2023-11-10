@@ -396,7 +396,7 @@ object HCenOptLayer
   {
     override def typeStr: String = "HCenOptLayer"
 
-    override def showDec(obj: HCenOptLayer[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = gridSys match
+    override def show(obj: HCenOptLayer[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = gridSys match
     {
       case hg: HGrid => {
         val r1 = hg.allRsMap(r => s"Row($r" + hg.rowMap(r){hc => obj(hc)(hg).toString})

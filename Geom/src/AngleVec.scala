@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Angle vector, an angle of rotation. Values may be greater than 360 degrees and less than -360 degrees. Negative values represent clockwise
@@ -7,8 +7,8 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
 { override def typeStr: String = "AngleVec"
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
-    case ShowTyped => typeStr + degs.str.enParenth
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = style match
+  { case ShowTyped => typeStr + degs.str.enParenth
     case _ =>  degs.str.enParenth
   }
 

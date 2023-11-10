@@ -12,43 +12,35 @@ trait Tell extends Any with PersistBase
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def tell(style: ShowStyle = ShowStandard): String
-
   def syntaxDepth: Int
 
   override def toString: String = str
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def tellDec(style: ShowStyle = ShowStandard, maxPlaces: Int): String = tellDec(style, maxPlaces, maxPlaces)
-
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+  def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String
 }
 
 /** [[Tell]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */
 trait TellQuanta extends Any with Tell
-{ override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
+{ override def tell(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
 }
 
 /** [[Tell]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
 trait TellDec extends Any with Tell
 {
-  override def tell(style: ShowStyle = ShowStandard): String = tellDec(style, -1, -1)
-
-  def str: String = tellDec(ShowStandard, -1, 0)
+  def str: String = tell(ShowStandard, -1, 0)
 
   /** Show with decimal precision of 0 places. */
-  def str0: String = tellDec(ShowStandard, 0, 0)
+  def str0: String = tell(ShowStandard, 0, 0)
 
   /** Show with decimal precision of 1 place padding with a zero if necessary. */
-  def str1: String = tellDec(ShowStandard, 1, 1)
+  def str1: String = tell(ShowStandard, 1, 1)
 
   /** Show with decimal precision of 2 places padding with zeros if necessary. */
-  def str2: String = tellDec(ShowStandard, 2, 2)
+  def str2: String = tell(ShowStandard, 2, 2)
 
   /** Show with decimal precision of 3 places padding with zeros if necessary. */
-  def str3: String = tellDec(ShowStandard, 3, 3)
+  def str3: String = tell(ShowStandard, 3, 3)
 }
 
 
@@ -58,9 +50,9 @@ trait TellDec extends Any with Tell
  * very least it can increase compile times. */
 trait ShowTell[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
-  override def show(obj: R, way: ShowStyle): String = obj.tell(way)
+//  override def show(obj: R, way: ShowStyle): String = obj.tell(way)
   override def syntaxDepth(obj: R): Int = obj.syntaxDepth
-  override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.tellDec(way, maxPlaces, 0)
+  override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = obj.tell(way, maxPlaces, minPlaces)
 }
 
 object ShowTell

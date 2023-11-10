@@ -16,13 +16,11 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 {
   def fieldShows: RArr[Show[_]]
 
-  override def show(obj: R, style: ShowStyle): String = showDec(obj, style, 0)
-
   def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr
 
   def strs(obj: R, way: ShowStyle): StrArr = strDecs(obj, way, -1)
 
-  override def showDec(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match

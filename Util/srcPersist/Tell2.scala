@@ -27,10 +27,10 @@ trait Tell2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
 trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   def elemTypeNames: StrArr = StrArr(show1.typeStr, show2.typeStr)
-  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = StrArr(show1.showDec(tell1, way, decimalPlaces, 0), show2.showDec(tell2, way, decimalPlaces, 0))
+  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr = StrArr(show1.show(tell1, way, decimalPlaces, 0), show2.show(tell2, way, decimalPlaces, 0))
 
-  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show1.showDec(tell1, style, maxPlaces, maxPlaces): String
-  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show2.showDec(tell2, style, maxPlaces, maxPlaces): String
+  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show1.show(tell1, style, maxPlaces, maxPlaces): String
+  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show2.show(tell2, style, maxPlaces, maxPlaces): String
 
   override def str: String = typeStr + (show1.strT(tell1).appendSemicolons(show2.strT(tell2))).enParenth
 

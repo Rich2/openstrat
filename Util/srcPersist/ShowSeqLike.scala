@@ -21,13 +21,13 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
     new StrArr(buffer.toArray)
   }
 
-  final override def showDec(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  final override def show(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { val depth = syntaxDepth(obj)
     way match
-    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.showDec(el, ShowStandard, maxPlaces, 0)).mkComma
-      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemi
-      case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
-      case _ => typeStr + showMap(obj)(el => evA.showDec(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
+    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStandard, maxPlaces, 0)).mkComma
+      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, 0)).mkSemi
+      case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
+      case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, 0)).mkSemiParenth
     }
   }
 }
@@ -42,17 +42,14 @@ object ShowSeqLike
   }
 }
 
-class TellSeqLike(val typeStr: String) extends Tell{
-  /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
-  override def str: String = tell()
-
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def tell(style: ShowStyle): String = ???
+class TellSeqLike(val typeStr: String) extends Tell
+{ /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
+  override def str: String = tell(ShowStandard)
 
   override def syntaxDepth: Int = ???
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = ???
 }
 
 /** [[Show] type class for showing [[Sequ]][A] objects. */

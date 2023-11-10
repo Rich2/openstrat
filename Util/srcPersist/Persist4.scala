@@ -31,8 +31,8 @@ trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1
 {
   override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4)
 
-  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces), showEv2.showDec(fArg2(obj), way, maxPlaces),
-    showEv3.showDec(fArg3(obj), way, maxPlaces), showEv4.showDec(fArg4(obj), way, maxPlaces))
+  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(showEv1.show(fArg1(obj), way, maxPlaces), showEv2.show(fArg2(obj), way, maxPlaces),
+    showEv3.show(fArg3(obj), way, maxPlaces), showEv4.show(fArg4(obj), way, maxPlaces))
 }
 
 object Show4
@@ -80,8 +80,8 @@ object ShowInt4
     override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces), showEv2.showDec(fArg2(obj), way, maxPlaces),
-      showEv3.showDec(fArg3(obj), way, maxPlaces), showEv4.showDec(fArg4(obj), way, maxPlaces))
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = StrArr(showEv1.show(fArg1(obj), way, maxPlaces), showEv2.show(fArg2(obj), way, maxPlaces),
+      showEv3.show(fArg3(obj), way, maxPlaces), showEv4.show(fArg4(obj), way, maxPlaces))
   }
 }
 

@@ -16,24 +16,6 @@ trait TellN extends Any with TellDec
   def showSemisNames: String =
     paramNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def tell(style: ShowStyle): String =
-  { def semisStr = showElemStrs(ShowCommas).mkStr("; ")
-
-    style match
-    { case ShowSemis => semisStr
-      case ShowCommas => showElemStrs(ShowStandard).mkStr(", ")
-      case ShowFieldNames => typeStr + showSemisNames.enParenth
-      case ShowSemisNames => showSemisNames
-
-    case ShowStdTypedFields =>
-    { val inner = paramNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
-      typeStr + inner.enParenth
-    }
-
-    case _ => typeStr.appendParenth(semisStr)
-    }
-  }
-
   /** A [[StrArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr
 
@@ -42,7 +24,7 @@ trait TellN extends Any with TellDec
   def showSemisNameDecs(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     paramNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def tellDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String =
   { def semisStr = showElemStrDecs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match

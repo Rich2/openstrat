@@ -15,8 +15,8 @@ trait Tell4[A1, A2, A3, A4] extends Tell4Plused[A1, A2, A3, A4] with Persist4[A1
 { override def syntaxDepth: Int = ???
 
   override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr =
-    StrArr(show1.showDec(tell1, way, decimalPlaces, 0), show2.showDec(tell2, way, decimalPlaces, 0),
-      show3.showDec(tell3, way, decimalPlaces, 0), show4.showDec(tell4, way, decimalPlaces, 0))
+    StrArr(show1.show(tell1, way, decimalPlaces, 0), show2.show(tell2, way, decimalPlaces, 0),
+      show3.show(tell3, way, decimalPlaces, 0), show4.show(tell4, way, decimalPlaces, 0))
 }
 
 trait TellInt4 extends Tell4[Int, Int, Int, Int]

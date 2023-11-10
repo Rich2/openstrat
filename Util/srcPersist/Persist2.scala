@@ -45,7 +45,7 @@ trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with PersistBase2[A1, A2]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
 
   override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-    StrArr(showEv1.showDec(fArg1(obj), way, maxPlaces, 0), showEv2.showDec(fArg2(obj), way, maxPlaces, 0))
+    StrArr(showEv1.show(fArg1(obj), way, maxPlaces, 0), showEv2.show(fArg2(obj), way, maxPlaces, 0))
 }
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */

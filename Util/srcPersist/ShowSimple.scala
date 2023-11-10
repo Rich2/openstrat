@@ -1,12 +1,12 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, reflect.ClassTag, annotation.unchecked.uncheckedVariance
+import pParse._, reflect.ClassTag
 
 /** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
 trait TellSimple extends TellQuanta
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  final override def tell(style: ShowStyle): String = style match
+  final override def tell(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = -1): String = style match
   { case ShowTyped => typeStr.appendParenth(str)
     case ShowUnderScore => "_"
     case _ => str
@@ -21,7 +21,7 @@ trait ShowSimple[-A] extends Show[A]
 {
   final override def syntaxDepth(obj: A): Int = 1
 
-  override def showDec(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
+  override def show(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
   { case ShowTyped => typeStr + strT(obj).enParenth
     case ShowUnderScore => "_"
     case _ => strT(obj)

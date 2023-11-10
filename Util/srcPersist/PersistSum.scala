@@ -16,7 +16,7 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST](val typeStr: String)(i
   
   override def syntaxDepth(obj: ST): Int = 3//ev1.syntaxDepth(obj.).max(ev2.syntaxDepth())
 
-  override def showDec(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =  obj match
+  override def show(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =  obj match
   { case a1: A1 => ev1.strT(a1)
     case a2: A2 => ev2.strT(a2)
     case _ => excep("Case not implemented")

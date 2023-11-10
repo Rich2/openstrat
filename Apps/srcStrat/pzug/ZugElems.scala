@@ -27,10 +27,10 @@ trait Polity extends TellSimple
 
 object Polity
 {
-  implicit val showEv: Show[Polity] = new Show[Polity] {
-    override def strT(obj: Polity): String = obj.str
+  implicit val showEv: Show[Polity] = new Show[Polity]
+  { override def strT(obj: Polity): String = obj.str
     override def syntaxDepth(obj: Polity): Int = 1
-    override def showDec(obj: Polity, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polity"
+    override def show(obj: Polity, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Polity"
     override def typeStr: String = "Polity"
   }
 }

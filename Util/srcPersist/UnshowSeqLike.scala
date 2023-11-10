@@ -17,7 +17,7 @@ trait UnshowSeqLike[A, R] extends Unshow[R]
 }
 
 object UnshowSeqLike
-{
+{ /** Factory apply method for creating [[Unshow]] type class instances for [[SeqLike]] objects. */
   def apply[A, R](typeStr: String)(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSeqLike[A, R] =
     new UnshowSeqLikeImp[A, R](typeStr, evA, build)
 
@@ -36,7 +36,7 @@ object UnshowSeq
   def apply[A, R]()(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSeq[A, R] = new UnshowSeq[A, R](evA, build)
 }
 
-/** [[Unshow]] type class instances for building classes from sequences. */
+/** [[Unshow]] type class instances for building classes from sequences through two builders. */
 class UnshowFromArr[A, ArrA <: Arr[A], R](val typeStr: String, f: ArrA => R)(implicit evA: Unshow[A],
   build1: BuilderArrMap[A, ArrA]) extends Unshow[R]
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
