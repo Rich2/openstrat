@@ -2,7 +2,7 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, WTile._
 
-/** 80 Km tile width grid ventred on the Greenwich meridian, 0E form 15W to 15E. Covers North West Europe. The c or column offset is 512 which is G0
+/** 80 Km tile width grid centred on the Greenwich meridian, 0E form 15°W to 15°E. Covers North West Europe. The c or column offset is 512 which is G0
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object Terr80E0 extends Long80Terrs
 { implicit val grid: EGrid80LongFull = EGrid80.e0(416, 582)
@@ -11,8 +11,10 @@ object Terr80E0 extends Long80Terrs
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rowDatas: RArr[RowBase] = RArr(
-
+  {
+    override val rowDatas: RArr[RowBase] = RArr(
+      TRow(556, sea *6, Hland(2, 4, mtain)),
+      TRow(554, sea * 6, mtain),
       TRow(552, sea * 7, mtain),
 
       TRow(518, sea * 14, taiga),
