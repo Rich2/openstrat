@@ -14,9 +14,9 @@ trait Tell4Plused[A1, A2, A3, A4] extends Any with Tell3Plused[A1, A2, A3] with 
 trait Tell4[A1, A2, A3, A4] extends Tell4Plused[A1, A2, A3, A4] with Persist4[A1, A2, A3, A4] with TellN
 { override def syntaxDepth: Int = ???
 
-  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr =
-    StrArr(show1.show(tell1, way, decimalPlaces, 0), show2.show(tell2, way, decimalPlaces, 0),
-      show3.show(tell3, way, decimalPlaces, 0), show4.show(tell4, way, decimalPlaces, 0))
+  override def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr =  StrArr(
+    show1.show(tell1, way, decimalPlaces, minPlaces), show2.show(tell2, way, decimalPlaces, minPlaces),
+    show3.show(tell3, way, decimalPlaces, minPlaces), show4.show(tell4, way, decimalPlaces, 0))
 }
 
 trait TellInt4 extends Tell4[Int, Int, Int, Int]

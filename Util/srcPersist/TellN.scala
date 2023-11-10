@@ -13,28 +13,25 @@ trait TellN extends Any with TellDec
 
   override def str: String = tell(ShowStandard)
 
-  def showSemisNames: String =
-    paramNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
-
   /** A [[StrArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
-  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StrArr
+  def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
-  def showElemStrs(way: ShowStyle): StrArr = showElemStrDecs(way, -1)
+  //def tellElemStrs(way: ShowStyle): StrArr = tellElemStrDecs(way, -1)
 
-  def showSemisNameDecs(maxPlaces: Int = -1, minPlaces: Int = 0): String =
-    paramNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
+  def tellSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
+    paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String =
-  { def semisStr = showElemStrDecs(ShowCommas, maxPlaces).mkStr("; ")
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
+  { def semisStr = tellElemStrs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match
     { case ShowSemis => semisStr
-      case ShowCommas => showElemStrDecs(ShowCommas, maxPlaces).mkStr(", ")
-      case ShowFieldNames => typeStr + showSemisNameDecs(maxPlaces, minPlaces).enParenth
-      case ShowSemisNames => showSemisNameDecs(maxPlaces, minPlaces)
+      case ShowCommas => tellElemStrs(ShowCommas, maxPlaces).mkStr(", ")
+      case ShowFieldNames => typeStr + tellSemisNames(maxPlaces, minPlaces).enParenth
+      case ShowSemisNames => tellSemisNames(maxPlaces, minPlaces)
 
       case ShowStdTypedFields =>
-      { val inner = paramNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
+      { val inner = paramNames.zipMap2(elemTypeNames,tellElemStrs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
         typeStr + inner.enParenth
       }
 

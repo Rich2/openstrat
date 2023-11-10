@@ -47,7 +47,7 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 
 /** [[Show]] trait for types with N show fields that extend [[TellN]]. */
 trait ShowTellN[R <: TellN] extends ShowN[R] with ShowTell[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
+{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.tellElemStrs(way, maxPlaces)
 }
 
 trait UnshowN[R] extends Unshow[R] with PersistBaseN
