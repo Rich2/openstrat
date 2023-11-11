@@ -24,7 +24,11 @@ object WTile
   /** This is not correct, but put in as temporary measure. */
   implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
+  /** [[Show]] type class instance / evidence for [[WTile]]. */
   implicit val showTEv: ShowTell[WTile] = ShowTell[WTile]("Terrain")
+
+  /** [[Unshow]] type class instance / evidence for [[WTile]]. */
+  implicit val unshowEv: UnshowSum[WTile] = UnshowSum[WTile]("WTile", Land.unshowEv, Water.unshowEv)
 
   val plain: Land = Land(Level, Temperate, CivMix)
   val hills: Land = Land(Hilly, Temperate, CivMix)
@@ -55,7 +59,11 @@ trait Water extends WTile with WSideSome with TellSimple
 }
 
 object Water
-{ implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
+{ /** [[Show]] type class instance / evidence for [[Water]]. */
+  implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
+
+  /** [[Unshow]] type class instance / evidence for [[Water]]. */
+  implicit val unshowEv: UnshowSingletons[Water] = UnshowSingletons[Water]("Water", Sea, Lake)
 }
 
 /** Sea tile. This is an object as currently has no other variables such as depth, current or climate. */
