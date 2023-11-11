@@ -128,11 +128,41 @@ trait Tell2Repeat[A1, A2] extends Tell
   /** Element 2 of this Tell2+ element product. */
   def tell2Foreach(f: A2 => Unit): Unit
 
+  def tell2MapStrs(f: A2 => String): StrArr = {
+    val buff = StringBuff()
+    tell2Foreach(a2 => buff.grow(f(a2)))
+    buff.toArr
+  }
+
   def show1: Show[A1]
 
   def show2: Show[A2]
 
-  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show1.show(tell1, style, maxPlaces, maxPlaces): String
+  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1, minPlaces: Int = 0): String = show1.show(tell1, style, maxPlaces, minPlaces): String
 
-  def el2Show(elem: A2, style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show2.show(elem, style, maxPlaces, maxPlaces): String
+  //def el2Show(elem: A2, style: ShowStyle = ShowStandard, maxPlaces: Int = -1, minPlaces: Int = 0): String = show2.show(elem, style, maxPlaces, minPlaces): String
+
+  def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr = el1Show(way, decimalPlaces, minPlaces) %:
+    tell2MapStrs(a2 => show2.show(a2, way, decimalPlaces, minPlaces))
+
+  //def tellSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
+    //paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
+
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = {
+    def semisStr = tellElemStrs(ShowCommas, maxPlaces).mkStr("; ")
+
+    style match
+    { case ShowSemis => semisStr
+      case ShowCommas => tellElemStrs(ShowCommas, maxPlaces).mkStr(", ")
+      //case ShowFieldNames => typeStr + tellSemisNames(maxPlaces, minPlaces).enParenth
+      //case ShowSemisNames => tellSemisNames(maxPlaces, minPlaces)
+
+      /*case ShowStdTypedFields => {
+        val inner = paramNames.zipMap2(elemTypeNames, tellElemStrs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
+        typeStr + inner.enParenth
+      }*/
+
+      case _ => typeStr.appendParenth(semisStr)
+    }
+  }
 }

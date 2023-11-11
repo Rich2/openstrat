@@ -73,6 +73,14 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
+  /** prepend. Functionally prepends the operand [[String]]. */
+  @targetName("prepend") @inline def %:(operand: String): StrArr =
+  { val newArray = new Array[String](length + 1)
+    newArray(0) = operand
+    Array.copy(unsafeArray, 0, newArray, 1, length)
+    new StrArr(newArray)
+  }
+
   def appendOption(optElem: Option[String]): StrArr =
     optElem.fld(this, this +% _)
 
@@ -127,7 +135,8 @@ class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff
   override def setElemUnsafe(i: Int, newElem: String): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: String => String = s => s
   override def grow(newElem: String): Unit = unsafeBuffer.append(newElem)
-  def array: Array[String] = unsafeBuffer.toArray
+  def toArray: Array[String] = unsafeBuffer.toArray
+  def toArr: StrArr = new StrArr(toArray)
 }
 
 object StringBuff
