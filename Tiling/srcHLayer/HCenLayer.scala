@@ -338,4 +338,9 @@ class HCenRowLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A])(implicit 
 
 object HCenRowLayer{
   def apply[A <: AnyRef](row:Int, mems: A*)(implicit show2: Show[A], ct: ClassTag[A]): HCenRowLayer[A] = new HCenRowLayer[A](row, mems.toArray)
+
+  /** [[Show]] type class instances / evidence for [[HCenRowLayer]] */
+  implicit def showEv[A <: AnyRef]: ShowTell[HCenRowLayer[A]] = ShowTell[HCenRowLayer[A]]("HRow")
+
+  //def unshowEv[A <: AnyRef] = Unshow2R
 }

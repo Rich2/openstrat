@@ -126,8 +126,8 @@ trait Tell2Repeat[A1, A2] extends Tell
   /** Element 2 of this Tell2+ element product. */
   def tell2Foreach(f: A2 => Unit): Unit
 
-  def tell2MapStrs(f: A2 => String): StrArr = {
-    val buff = StringBuff()
+  def tell2MapStrs(f: A2 => String): StrArr =
+  { val buff = StringBuff()
     tell2Foreach(a2 => buff.grow(f(a2)))
     buff.toArr
   }
