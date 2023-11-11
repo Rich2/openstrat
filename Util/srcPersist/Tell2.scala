@@ -72,11 +72,7 @@ trait TellElemInt2 extends Any with TellInt2 with Int2Elem
 }
 
 /** Type class trait for Showing [[Tell2]] objects. */
-trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends /*Show2[A1, A2, R] with*/ ShowTell[R]
-{ //override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
-  //override def fArg1: R => A1 = _.tell1
-  //override def fArg2: R => A2 = _.tell2
-}
+trait ShowTell2[A1, A2, R <: Tell2[A1, A2]] extends ShowTell[R]
 
 object ShowTell2
 {
@@ -122,4 +118,21 @@ object ShowTellInt2
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
   def apply[R <: TellInt2](typeStr: String, opt2: Option[Int] = None, opt1: Option[Int] = None): ShowTellInt2[R] =
     new ShowTellInt2[R](typeStr, opt2, opt1)
+}
+
+trait Tell2Repeat[A1, A2] extends Tell
+{
+  /** Element 1 of this Tell2+ element product. */
+  def tell1: A1
+
+  /** Element 2 of this Tell2+ element product. */
+  def tell2Foreach(f: A2 => Unit): Unit
+
+  def show1: Show[A1]
+
+  def show2: Show[A2]
+
+  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show1.show(tell1, style, maxPlaces, maxPlaces): String
+
+  def el2Show(elem: A2, style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show2.show(elem, style, maxPlaces, maxPlaces): String
 }

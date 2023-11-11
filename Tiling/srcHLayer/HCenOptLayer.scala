@@ -414,3 +414,18 @@ object HCenOptLayer
     override def syntaxDepth(obj: HCenOptLayer[A]): Int = ???
   }
 }
+
+class HCenRowOptLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A]) extends Tell
+{
+  /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
+  override def str: String = ???
+
+  override def syntaxDepth: Int = ???
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
+  override def tell(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+
+  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+   * Show. */
+  override def typeStr: String = ???
+}
