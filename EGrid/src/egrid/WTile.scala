@@ -111,7 +111,7 @@ case class Land(val elev: Lelev, val climate: Climate, val landUse: LandUse) ext
 
 object Land
 {
-  def apply(elev: Lelev, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
+  def apply(elev: Lelev = Level, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
   implicit val showEv: ShowTell3[Lelev, Climate, LandUse, Land] = ShowTell3[Lelev, Climate, LandUse, Land]("Land")
   implicit val unshowEv: Unshow3[Lelev, Climate, LandUse, Land] = Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply)
 }
