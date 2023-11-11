@@ -324,3 +324,14 @@ object HCenLayer
     }
   }
 }
+
+class HCenRowLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A])(implicit val show2: Show[A]) extends Tell2Repeat[Int, A]
+{ override def typeStr: String = "HRow"
+  /** Element 1 of this Tell2+ element product. */
+  override def tell1: Int = r
+
+  /** Element 2 of this Tell2+ element product. */
+  override def tell2Foreach(f: A => Unit): Unit = unsafeArray.foreach(f)
+
+  override def show1: Show[Int] = Show.intEv
+}
