@@ -32,8 +32,11 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, plain)
 object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, plain)
 { val klaipeda: LatLong = 55.73 ll 21.08
   val ziemupe: LatLong = 56.83 ll 21.06
+  val osvalki = 57.047 ll 21.408
   val ovsi: LatLong = 57.57 ll 21.71
   val kolka: LatLong = 57.75 ll 22.60
+  val meinsils: LatLong = 57.651 ll 22.582
+  val mersrags = 57.366 ll 23.121
   val kesterclems: LatLong = 57.11 ll 23.24
   val jurmala: LatLong = 56.96 ll 23.66
   val saulkrasti: LatLong = 57.28 ll 24.41
@@ -69,7 +72,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, plain)
   val mezenMouth: LatLong = 66.07 ll 44.10
   val southEast: LatLong = 52 ll 45
    
-  override val polygonLL: PolygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, kesterclems, jurmala, saulkrasti, parnu, lao,
+  override val polygonLL: PolygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, osvalki, ovsi, kolka, meinsils, mersrags, kesterclems, jurmala, saulkrasti, parnu, lao,
     virtsu, noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,
     pudozhgorskiy, chelmuzhiEast,
     /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast,
