@@ -353,7 +353,7 @@ trait HGrid extends Any with TGrid with HGridSys with Tell
 
 object HGrid
 { /** Implicit [[Show]] type class instance / evidence for [[HGrid]]. */
-  implicit lazy val showEv: ShowTell[HGrid] = ShowTell[HGrid]("HGrid")
+  implicit lazy val showEv: ShowTellSum[HGrid] = ShowTellSum[HGrid]("HGrid")
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HGrid]]. */
   implicit lazy val unshowEv: UnshowSum[HGrid] = UnshowSum[HGrid]("HGrid", HGridReg.unshowEv, HGridIrr.unshowEv)
