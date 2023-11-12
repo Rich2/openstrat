@@ -144,7 +144,7 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
   @inline def str: String = ev.strT(thisVal)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def show(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = -1): String = ev.show(thisVal, style, decimalPlaces, minPlaces)
+  def show(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.show(thisVal, style, decimalPlaces, minPlaces)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
