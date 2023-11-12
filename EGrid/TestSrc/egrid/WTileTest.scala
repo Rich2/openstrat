@@ -6,7 +6,7 @@ object WTileTest extends TestSuite
 {
   val tests = Tests {
     val lds1 = RArr(forest, hills, Land(Mountains, Desert))
-    val lStr1 = "Seq(Level, Temperate, Forest; Hilly, Temperate, MixedUse; Mountain, Desert, MixedUse)"
+    val lStr1 = "Seq(Level, Temperate, Forest; Hilly; Mountain, Desert)"
     test("show")
     { forest.str ==> "Land(Level; Temperate; Forest)"
       "Land(Level; Temperate; Forest)".asType[Land] ==> Good(forest)

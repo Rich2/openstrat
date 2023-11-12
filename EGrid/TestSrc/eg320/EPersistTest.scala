@@ -6,7 +6,7 @@ object EPersistTest  extends TestSuite
 {
   val tests = Tests {
     val r1 = HCenRowLayer[WTile](4, Land(), Land(Hilly))
-    val rs1 = "HRow(4; Level, Temperate, MixedUse; Hilly, Temperate, MixedUse)"
+    val rs1 = "HRow(4; Level; Hilly)"
 
     test("Test E1")
     {  r1.str ==> rs1
