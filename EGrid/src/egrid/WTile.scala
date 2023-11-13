@@ -58,12 +58,16 @@ trait Water extends WTile with WSideSome with TellSimple
 { override def isLand: Boolean = false
 }
 
+/** Companion object for [[Water]] trait contains type class instances for [[Show]], [[Unshow]] and [[EqT]]. */
 object Water
 { /** [[Show]] type class instance / evidence for [[Water]]. */
   implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
 
   /** [[Unshow]] type class instance / evidence for [[Water]]. */
   implicit val unshowEv: UnshowSingletons[Water] = UnshowSingletons[Water]("Water", Sea, Lake)
+
+  /** [[EqT]] type class instance / evidence for [[Water]]. */
+  implicit val eqEv: EqT[Water] = (w1, w2) => w1 == w2
 }
 
 /** Sea tile. This is an object as currently has no other variables such as depth, current or climate. */

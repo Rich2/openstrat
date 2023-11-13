@@ -10,10 +10,11 @@ object WTileTest extends TestSuite
     test("show")
     { forest.str ==> "Land(Level; Temperate; Forest)"
       "Land(Level; Temperate; Forest)".asType[Land] ==> Good(forest)
-//      lds1.str ==> lStr1
-     // assert(lStr1.asType[RArr[WTile]].isGood)// === Good(lds1)
       RArr(Lake, Sea).str ==> "Seq(Lake; Sea)"
-//      assert(lStr1.asType[RArr[Land]] === Good(RArr(Lake, Sea)))
+    }
+    test("Unshow"){
+      assert("Seq(Lake; Sea)".asType[RArr[Water]] === Good(RArr(Lake, Sea)))
+      4 == 4
     }
   }
 }

@@ -204,9 +204,12 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
 object RArr
 { /** Factory apply method for [[RArr]] class. */
   def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
-  implicit def showImplicit[A](implicit evAIn: Show[A]): Show[RArr[A]] = new ShowSequ[A, RArr[A]]{
-    override def evA: Show[A] = evAIn
-  }
+
+  /** Implicit [[Show]] type class instance / evidence for [[RArr]]. */
+  implicit def showEv[A](implicit evAIn: Show[A]): Show[RArr[A]] = ShowSequ[A, RArr[A]]()
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[RArr]]. */
+  implicit def unshowEv[A](implicit evA: Unshow[A], ct: ClassTag[A]): UnshowSeq[A, RArr[A]] = UnshowSeq[A, RArr[A]]()(evA, new RArrAllBuilder[A])
 
   implicit def eqTEv[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
   { var i = 0
