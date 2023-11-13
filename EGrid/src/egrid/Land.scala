@@ -14,6 +14,7 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   override def show1: Show[Lelev] = Lelev.showEv
   override def show2: Show[Climate] = Climate.showEv
   override def show3: Show[LandUse] = LandUse.showEv
+  override def opt1: Option[Lelev] = Some(Level)
   override def opt2: Option[Climate] = Some(Temperate)
   override def opt3: Option[LandUse] = Some(CivMix)
   override def syntaxDepth: Int = 2
