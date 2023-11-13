@@ -174,3 +174,8 @@ object UnshowDbl2
   { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
+
+class Unshow2Repeat[A1, A2, R](val typeStr: String)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[R]{
+
+  override def fromExpr(expr: Expr): EMon[R] = ???
+}
