@@ -54,9 +54,9 @@ object Show5
     final override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
       max(showEv4.syntaxDepth(fArg4(obj))).max(showEv5.syntaxDepth(fArg5(obj))) + 1
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
-      StrArr(showEv1.show(fArg1(obj), way), showEv2.show(fArg2(obj), way), showEv3.show(fArg3(obj), way), showEv4.show(fArg4(obj), way),
-        showEv5.show(fArg5(obj), way))
+    override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
+      StrArr(showEv1.show(fArg1(obj), way, maxPlaces, minPlaces), showEv2.show(fArg2(obj), way, maxPlaces, minPlaces),
+        showEv3.show(fArg3(obj), way, maxPlaces, minPlaces), showEv4.show(fArg4(obj), way, maxPlaces, minPlaces), showEv5.show(fArg5(obj), way))
   }
 }
 

@@ -16,26 +16,26 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 {
   def fieldShows: RArr[Show[_]]
 
-  def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr
+  //def strs(obj: R, way: ShowStyle): StrArr
 
-  def strs(obj: R, way: ShowStyle): StrArr = strDecs(obj, way, -1)
+  def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
   override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
-  { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
+  { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match
     { case ShowUnderScore => "_"
       case ShowSemis => semisStr
-      case ShowCommas => strDecs(obj, ShowStandard, maxPlaces).mkStr(", ")
+      case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
 
       case ShowFieldNames =>
-      { val r1: StrArr = strDecs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
+      { val r1: StrArr = strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
         val r2 = r1.mkStr("; ")
         typeStr.appendParenth(r2)
       }
 
     case ShowStdTypedFields =>
-    { val r1: StrArr = strDecs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
+    { val r1: StrArr = strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
       val r2 = r1.mkStr("; ")
       typeStr.appendParenth(r2)
     }
@@ -47,7 +47,7 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
 
 /** [[Show]] trait for types with N show fields that extend [[TellN]]. */
 trait ShowTellN[R <: TellN] extends ShowN[R] with ShowTell[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.tellElemStrs(way, maxPlaces)
+{ override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = obj.tellElemStrs(way, maxPlaces, minPlaces)
 }
 
 trait UnshowN[R] extends Unshow[R] with PersistBaseN
