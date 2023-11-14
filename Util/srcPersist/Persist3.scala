@@ -24,11 +24,21 @@ trait Show3Plus[A1, A2, A3, R] extends Show2Plus[A1, A2, R] with Persist3Plus[A1
 
   /** Show type class instance for the 2nd Show field. */
   implicit def showEv3: Show[A3]
+
+  /** Shows parameter 3 of the object. */
+  def show3(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv3.show(fArg3(obj), way, maxPlaces, minPlaces)
 }
 
 /** Show type class for 3 parameter case classes. */
 trait Show3[A1, A2, A3, R] extends Show3Plus[A1, A2, A3, R] with Persist3[A1, A2, A3] with ShowN[R]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3)
+
+  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt3 match {
+    case Some(a3) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && a3 == fArg3(obj) => StrArr()
+    case Some(a3) if opt2 == Some(fArg2(obj)) && a3 == fArg3(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
+    case Some(a3) if a3 == fArg3(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces))
+    case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces))
+  }
 }
 
 object Show3
@@ -52,10 +62,6 @@ object Show3
     }
 
     override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))) + 1
-
-    override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = StrArr(
-      showEv1.show(fArg1(obj),way, maxPlaces, minPlaces), showEv2.show(fArg2(obj),way, maxPlaces, minPlaces),
-      showEv3.show(fArg3(obj),way, maxPlaces, minPlaces))
   }
 }
 
@@ -79,8 +85,6 @@ object ShowInt3
     opt1In: Option[Int] = None) extends ShowInt3[R]
   { override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-
-    override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = ???
   }
 }
 
@@ -103,9 +107,6 @@ object ShowDbl3
     ShowDbl3[R]
   { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-    override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = StrArr(
-      showEv1.show(fArg1(obj), way, maxPlaces, minPlaces), showEv2.show(fArg2(obj), way, maxPlaces, minPlaces),
-      showEv3.show(fArg3(obj), way, maxPlaces))
   }
 }
 

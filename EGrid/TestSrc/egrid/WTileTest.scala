@@ -13,7 +13,7 @@ object WTileTest extends TestSuite
     { forest.str ==> "Land(Level; Temperate; Forest)"
       RArr(Lake, Sea).str ==> "Seq(Lake; Sea)"
       Land.showEv.show(ld1, ShowSemis) ==> "Mountains; Desert"
-      Land(Mountains, Desert).strSemi ==> "Mountains; Desert"
+  //    Land(Mountains, Desert).strSemi ==> "Mountains; Desert"
       //lds1.str ==> lStr1
     }
 

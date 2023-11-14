@@ -38,14 +38,23 @@ trait Show2Plus[A1, A2, R] extends ShowN[R] with PersistBase2Plus[A1, A2]
 
   /** Show type class instance for the 2nd Show field. */
   implicit def showEv2: Show[A2]
+
+  /** Shows parameter 1 of the object. */
+  def show1(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv1.show(fArg1(obj), way, maxPlaces, minPlaces)
+
+  /** Shows parameter 2 of the object. */
+  def show2(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
 trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with PersistBase2[A1, A2]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
 
-  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
-    StrArr(showEv1.show(fArg1(obj), way, maxPlaces, 0), showEv2.show(fArg2(obj), way, maxPlaces, minPlaces))
+  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
+  { case Some(a2) if opt1 == Some(fArg1(obj)) && a2 == fArg2(obj) => StrArr()
+    case Some(a2) if a2 == fArg2(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
+    case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces) )
+  }
 }
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
