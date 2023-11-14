@@ -17,10 +17,10 @@ trait TellN extends Any with TellDec
   def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
   def tellSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
-    paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
+    paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces, minPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
-  { def semisStr = tellElemStrs(ShowCommas, maxPlaces).mkStr("; ")
+  { def semisStr = tellElemStrs(ShowCommas, maxPlaces, minPlaces).mkStr("; ")
 
     style match
     { case ShowSemis => semisStr
