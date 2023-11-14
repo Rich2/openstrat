@@ -48,10 +48,14 @@ object Multiple
     override def syntaxDepth(obj: Multiple[A]): Int = evA.syntaxDepth(obj.value)
 
     override def show(obj: Multiple[A], style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = style match
-    { case ShowTyped | ShowStdTypedFields => "Multiple" + (evA.show(obj.value, ShowStandard, maxPlaces, minPlaces) + ", " + obj.num).enParenth
-      case _ => evA.show (obj.value, ShowStandard, maxPlaces, minPlaces) + " * " + obj.num
+    { case ShowTyped | ShowStdTypedFields => showFullEv.show(obj, style, maxPlaces, minPlaces)
+      case _ if obj.num == 1 => evA.show(obj.value, ShowStandard, maxPlaces, minPlaces)
+      case _ => evA.show(obj.value, ShowStandard, maxPlaces, minPlaces) + " * " + obj.num
     }
   }
+
+  /** [[Show]] type class instance / evidence for full show of [[Multiple]] class. */
+  def showFullEv[A](implicit evA: Show[A]): Show2[A, Int, Multiple[A]] = Show2[A, Int, Multiple[A]]("Multiple", "value", _.value, "num", _.num)
 }
 
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
