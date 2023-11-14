@@ -124,9 +124,9 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
-    val r0: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
-    r0.map2(e2)(newT)
+    e1.map2(e2)(newT)
   }
 }
 

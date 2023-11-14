@@ -41,8 +41,7 @@ object Show3
   class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3]) extends Show3[A1, A2, A3, R]
-  {
-    override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+  { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     val defaultNum: Int = None match
