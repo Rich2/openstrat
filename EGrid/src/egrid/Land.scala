@@ -32,7 +32,7 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
 object Land
 {
   def apply(elev: Lelev = Level, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
-  implicit val showEv: ShowTell3[Lelev, Climate, LandUse, Land] = ShowTell3[Lelev, Climate, LandUse, Land]("Land")
+  implicit val showEv: ShowTell[Land] = ShowTell[Land]("Land")
 
   implicit val unshowEv: Unshow3[Lelev, Climate, LandUse, Land] =
     Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply, Some(CivMix), Some(Temperate), Some(Level))

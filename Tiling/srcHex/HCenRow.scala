@@ -49,7 +49,7 @@ object HCenRow
   def apply(r: Int, cStart: Int, cEnd: Int): HCenRow = new HCenRow(r, cStart, cEnd)
 
   /** [[Show]] type class instance / evidence for [[HCenRow]]. */
-  implicit val showEv: ShowTellInt3[HCenRow] = ShowTellInt3[HCenRow]("HCenRow")
+  implicit val showEv: ShowTell[HCenRow] = ShowTell[HCenRow]("HCenRow")
 
   /** [[Show]] type class instance / evidence for [[HCenRow]]. */
   implicit val unshowEv: UnshowInt3[HCenRow] = UnshowInt3[HCenRow]("HCenRow", "r", "cStart", "cEnd", apply)
