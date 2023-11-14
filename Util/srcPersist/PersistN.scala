@@ -99,7 +99,7 @@ trait UnshowNRepeat[R] extends Unshow[R] with PersistBaseN
         if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
         else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
       else exprs(i) match {
-        case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i), "Unrecognised setting identifer name.")
+        case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i), "Unrecognised setting identifier name.")
         case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
         case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
         case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)

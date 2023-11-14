@@ -39,6 +39,20 @@ object Multiple
   }
 
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
+
+  //implicit def showEv[A](implicit evA: Show[A]) = new
+
+    class MultipleShow[A](val typeStr: String) extends Show[Multiple[A]](){
+    /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+     * rather than a method on the object being shown. */
+    override def strT(obj: Multiple[A]): String = ???
+
+    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+     * should always be determined at compile time or if sometimes it should be determined at runtime. */
+    override def syntaxDepth(obj: Multiple[A]): Int = ???
+
+    override def show(obj: Multiple[A], style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = ???
+  }
 }
 
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
