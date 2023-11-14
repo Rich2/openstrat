@@ -1,16 +1,20 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import utest._, WTile._, prid.phex._
+import utest.{Show => _, _}, WTile._
 
 object WTileTest extends TestSuite
 {
   val tests = Tests {
+    val ld1 = Land(Mountains, Desert)
     val lds1: RArr[Land] = RArr(forest, hills, Land(Mountains, Desert))
     val lStr1 = "Seq(Level, Temperate, Forest; Hilly; Mountain, Desert)"
 
     test("show")
     { forest.str ==> "Land(Level; Temperate; Forest)"
       RArr(Lake, Sea).str ==> "Seq(Lake; Sea)"
+      Land.showEv.show(ld1, ShowSemis) ==> "Mountains; Desert"
+      Land(Mountains, Desert).strSemi ==> "Mountains; Desert"
+      //lds1.str ==> lStr1
     }
 
     test("Unshow")

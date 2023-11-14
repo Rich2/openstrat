@@ -28,6 +28,6 @@ object Hilly extends Lelev
 }
 
 object Mountains extends Lelev
-{ override def str = "Mountain"
+{ override def str = "Mountains"
   override def colour = Gray
 }

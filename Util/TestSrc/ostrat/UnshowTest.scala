@@ -39,7 +39,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
 }
 
 object ExUB
-{ implicit val showEv: ShowTell3[ExUA, String, Int, ExUB] = ShowTell3[ExUA, String, Int, ExUB ]("ExUB")
+{ implicit val showEv: ShowTell[ExUB] = ShowTell[ExUB ]("ExUB")
   implicit val unshowEv: Unshow3[ExUA, String, Int, ExUB] = Unshow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 

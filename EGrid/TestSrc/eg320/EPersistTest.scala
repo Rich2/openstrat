@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import utest._, prid.phex._, egrid._
+import utest.{Show => _, _}, prid.phex._, egrid._
 
 object EPersistTest  extends TestSuite
 {

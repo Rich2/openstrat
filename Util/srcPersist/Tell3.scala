@@ -28,7 +28,7 @@ trait Tell3[A1, A2, A3] extends Any with Tell3Plused[A1, A2, A3]
     def s2 = show2.show(tell2, way, decimalPlaces, minPlaces)
     def s3 = show3.show(tell3, way, decimalPlaces, minPlaces)
     opt3 match
-    {case Some(v3) if v3 == tell3 && opt2 == Some(tell2) && opt1 == Some(tell1) => StrArr()
+    { case Some(v3) if v3 == tell3 && opt2 == Some(tell2) && opt1 == Some(tell1) => StrArr()
       case Some(v3) if v3 == tell3 && opt2 == Some(tell2) => StrArr(s1)
       case Some(v3) if v3 == tell3 => StrArr(s1, s2)
       case _ => StrArr(s1, s2, s3)

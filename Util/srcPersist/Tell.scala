@@ -17,7 +17,7 @@ trait Tell extends Any with PersistBase
   override def toString: String = str
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String
+  def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String
 }
 
 /** [[Tell]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */

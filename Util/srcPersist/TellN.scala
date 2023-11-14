@@ -20,7 +20,8 @@ trait TellN extends Any with TellDec
     paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces, minPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
-  { def semisStr = tellElemStrs(ShowCommas, maxPlaces, minPlaces).mkStr("; ")
+  {
+    def semisStr: String = tellElemStrs(ShowCommas, maxPlaces, minPlaces).mkStr("; ")
 
     style match
     { case ShowSemis => semisStr
