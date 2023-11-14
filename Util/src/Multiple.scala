@@ -40,18 +40,17 @@ object Multiple
 
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
 
-  //implicit def showEv[A](implicit evA: Show[A]) = new
+  /** [[Show]] type class instance / evidence for [[Multiple]] class. */
+  implicit def showEv[A](typeStr: String)(implicit evA: Show[A]): MultipleShow[A] = new MultipleShow[A](typeStr)(evA)
 
-    class MultipleShow[A](val typeStr: String) extends Show[Multiple[A]](){
-    /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
-     * rather than a method on the object being shown. */
-    override def strT(obj: Multiple[A]): String = ???
+  class MultipleShow[A](val typeStr: String)(implicit val evA: Show[A]) extends Show[Multiple[A]]()
+  { override def strT(obj: Multiple[A]): String = show(obj, ShowStandard)
+    override def syntaxDepth(obj: Multiple[A]): Int = evA.syntaxDepth(obj.value)
 
-    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-     * should always be determined at compile time or if sometimes it should be determined at runtime. */
-    override def syntaxDepth(obj: Multiple[A]): Int = ???
-
-    override def show(obj: Multiple[A], style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = ???
+    override def show(obj: Multiple[A], style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = style match
+    { case ShowTyped | ShowStdTypedFields => "Multiple" + (evA.show(obj.value, ShowStandard, maxPlaces, minPlaces) + ", " + obj.num).enParenth
+      case _ => evA.show (obj.value, ShowStandard, maxPlaces, minPlaces) + " * " + obj.num
+    }
   }
 }
 
