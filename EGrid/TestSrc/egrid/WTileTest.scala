@@ -20,6 +20,10 @@ object WTileTest extends TestSuite
       "Land(Hilly; Temperate)".asType[Land] ==> Good(Land(Hilly))
       "Land(Hilly)".asType[Land] ==> Good(Land(Hilly))
       "Land()".asType[Land] ==> Good(Land())
+      "Land(landUse = Forest)".asType[Land] ==> Good(Land(Level, Temperate, Forest))
+      "Land(landUse = Forest; elev = Hilly)".asType[Land] ==> Good(Land(Hilly, Temperate, Forest))
+      "Land(landUse = Forest; climate = Savannah; elev = Hilly)".asType[Land] ==> Good(Land(Hilly, Savannah, Forest))
+      "Land(landUse = Forest; climate = Savannah; Hilly)".asType[Land] ==> Good(Land(Hilly, Savannah, Forest))
       assert("Seq(Lake; Land(Hilly))".asType[RArr[WTile]] === Good(RArr(Lake, hills)))
 
       //"HRow(4; Sea, Lake)".asType[HCenRowLayer[Water]]
