@@ -53,14 +53,6 @@ object Show3
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3]) extends Show3[A1, A2, A3, R]
   { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
-    val defaultNum: Int = None match
-    { case _ if opt3.isEmpty => 0
-      case _ if opt2.isEmpty => 1
-      case _ if opt1.isEmpty => 2
-      case _ => 3
-    }
-
     override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))) + 1
   }
 }

@@ -23,10 +23,36 @@ trait Show6Plus[A1, A2, A3, A4, A5, A6, R] extends Show5Plus[A1, A2, A3, A4, A5,
 
   /** Show type class instance for the 5th Show field. */
   implicit def showEv6: Show[A6]
+
+  /** Shows parameter 6 of the object. */
+  def show6(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv6.show(fArg6(obj), way, maxPlaces, minPlaces)
 }
 /** [[Show]] type class for 6 parameter case classes. */
 trait Show6[A1, A2, A3, A4, A5, A6, R] extends Show6Plus[A1, A2, A3, A4, A5, A6,R] with Persist6[A1, A2, A3, A4, A5, A6]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4, showEv5, showEv6)
+
+  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt5 match {
+    case Some(a6) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) &&
+      opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) => StrArr()
+
+    case Some(a6) if opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) &&
+      a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
+
+    case Some(a6) if opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) =>
+      StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces))
+
+    case Some(a6) if opt4 == Some(fArg4(obj)) && opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces),
+      show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces))
+
+    case Some(a6) if opt5 == Some(fArg5(obj)) && a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
+      show4(obj, way, maxPlaces, minPlaces))
+
+    case Some(a6) if a6 == fArg6(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
+      show4(obj, way, maxPlaces, minPlaces), show5(obj, way, maxPlaces, minPlaces))
+
+    case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
+      show4(obj, way, maxPlaces, minPlaces), show5(obj, way, maxPlaces, minPlaces), show6(obj, way, maxPlaces, minPlaces))
+  }
 }
 
 /** Companion object for [[Show6]] contains implementation class and factory apply method. */
@@ -54,11 +80,6 @@ object Show6
 
     final override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
       max(showEv4.syntaxDepth(fArg4(obj))).max(showEv5.syntaxDepth(fArg5(obj))).max(showEv6.syntaxDepth(fArg6(obj))) + 1
-
-    override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
-      StrArr(showEv1.show(fArg1(obj), way, maxPlaces, minPlaces), showEv2.show(fArg2(obj), way, maxPlaces, minPlaces),
-        showEv3.show(fArg3(obj), way, maxPlaces, minPlaces), showEv4.show(fArg4(obj), way, maxPlaces, minPlaces),
-        showEv5.show(fArg5(obj), way, maxPlaces, minPlaces), showEv6.show(fArg6(obj), way, maxPlaces, minPlaces))
   }
 }
 

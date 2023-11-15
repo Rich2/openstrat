@@ -23,11 +23,34 @@ trait Show5Plus[A1, A2, A3, A4, A5, R] extends Show4Plus[A1, A2, A3, A4, R] with
 
   /** Show type class instance for the 5th Show field. */
   implicit def showEv5: Show[A5]
+
+  /** Shows parameter 5 of the object. */
+  def show5(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv5.show(fArg5(obj), way, maxPlaces, minPlaces)
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
 trait Show5[A1, A2, A3, A4, A5, R] extends Persist5[A1, A2, A3, A4, A5] with Show5Plus[A1, A2, A3, A4, A5, R]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4, showEv5)
+
+  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt5 match
+  { case Some(a5) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) &&
+      a5 == fArg5(obj) => StrArr()
+
+    case Some(a5) if opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) &&  opt4 == Some(fArg4(obj)) && a5 == fArg5(obj) =>
+      StrArr(show1(obj, way, maxPlaces, minPlaces))
+
+    case Some(a5) if opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) && a5 == fArg5(obj) =>
+      StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces))
+
+    case Some(a5) if opt4 == Some(fArg4(obj)) && a5 == fArg5(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces),
+      show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces))
+
+    case Some(a5) if a5 == fArg5(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
+      show4(obj, way, maxPlaces, minPlaces))
+
+    case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
+      show4(obj, way, maxPlaces, minPlaces), show5(obj, way, maxPlaces, minPlaces))
+  }
 }
 
 /** Companion object for [[Show5]] trait contains implementation class and factory apply method. */
@@ -53,10 +76,6 @@ object Show5
 
     final override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
       max(showEv4.syntaxDepth(fArg4(obj))).max(showEv5.syntaxDepth(fArg5(obj))) + 1
-
-    override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
-      StrArr(showEv1.show(fArg1(obj), way, maxPlaces, minPlaces), showEv2.show(fArg2(obj), way, maxPlaces, minPlaces),
-        showEv3.show(fArg3(obj), way, maxPlaces, minPlaces), showEv4.show(fArg4(obj), way, maxPlaces, minPlaces), showEv5.show(fArg5(obj), way))
   }
 }
 
@@ -102,13 +121,6 @@ class UnshowInt5[R](val typeStr: String, val name1: String, val fArg1: R => Int,
   override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
   override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
   override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-
-  val defaultNum: Int = None match {
-    case _ if opt3.isEmpty => 0
-    case _ if opt2.isEmpty => 1
-    case _ if opt1.isEmpty => 2
-    case _ => 3
-  }
 
   override def unshow1: Unshow[Int] = Unshow.intEv
   override def unshow2: Unshow[Int] = Unshow.intEv

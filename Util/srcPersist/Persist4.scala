@@ -24,6 +24,9 @@ trait Show4Plus[A1, A2, A3, A4, R] extends Show3Plus[A1, A2, A3, R] with Persist
 
   /** Show type class instance for the 2nd Show field. */
   implicit def showEv4: Show[A4]
+
+  /** Shows parameter 4 of the object. */
+  def show4(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv4.show(fArg4(obj), way, maxPlaces, minPlaces)
 }
 
 /** Show type class for 4 parameter case classes. */
@@ -31,8 +34,16 @@ trait Show4[A1, A2, A3, A4, R] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1
 {
   override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4)
 
-  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = StrArr(showEv1.show(fArg1(obj), way, maxPlaces), showEv2.show(fArg2(obj), way, maxPlaces),
-    showEv3.show(fArg3(obj), way, maxPlaces), showEv4.show(fArg4(obj), way, maxPlaces))
+  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt4 match {
+    case Some(a4) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr()
+    case Some(a4) if opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
+    case Some(a4) if opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces),
+      show2(obj, way, maxPlaces, minPlaces))
+    case Some(a4) if a4 == fArg4(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces),
+      show3(obj, way, maxPlaces, minPlaces))
+    case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces), show3(obj, way, maxPlaces, minPlaces),
+      show4(obj, way, maxPlaces, minPlaces))
+  }
 }
 
 object Show4
