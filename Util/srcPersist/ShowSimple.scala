@@ -12,7 +12,7 @@ trait TellSimple extends TellQuanta
     case _ => str
   }
 
-  override def syntaxDepth: Int = 1
+  override def tellDepth: Int = 1
 }
 
 /** Shows a simple object like a Singleton object or a Double. For your own objects that you control it is better to use Show and its helper sub

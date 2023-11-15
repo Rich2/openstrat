@@ -7,7 +7,7 @@ case class SqCounter(sqCen: SqCen, value: Counter) extends SqMemShow[Counter]
 { override def typeStr: String = "SqCounter"
   override def name2: String = "counter"
   override implicit def show2: Show[Counter] = Counter.showTEv
-  override def syntaxDepth: Int = 2
+  override def tellDepth: Int = 2
 }
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */

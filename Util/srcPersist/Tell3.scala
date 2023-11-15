@@ -39,7 +39,7 @@ trait Tell3[A1, A2, A3] extends Any with Tell3Plused[A1, A2, A3]
 
 /** Show classes with 3 [[Int]] parameters. */
 trait TellInt3 extends Any with Tell3[Int, Int, Int]
-{ final override def syntaxDepth: Int = 2
+{ final override def tellDepth: Int = 2
   final override implicit def show1: Show[Int] = Show.intEv
   final override implicit def show2: Show[Int] = Show.intEv
   final override implicit def show3: Show[Int] = Show.intEv
@@ -47,7 +47,7 @@ trait TellInt3 extends Any with Tell3[Int, Int, Int]
 
 /** Show classes with 3 [[Double]] parameters. */
 trait TellDbl3 extends Any with Tell3[Double, Double, Double]
-{ final override def syntaxDepth: Int = 2
+{ final override def tellDepth: Int = 2
   final override implicit def show1: Show[Double] = Show.doublePersistEv
   final override implicit def show2: Show[Double] = Show.doublePersistEv
   final override implicit def show3: Show[Double] = Show.doublePersistEv

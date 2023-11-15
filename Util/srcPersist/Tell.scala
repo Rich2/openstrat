@@ -12,11 +12,12 @@ trait Tell extends Any with PersistBase
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String
 
-  def syntaxDepth: Int
+  /** The syntactic depth of the tell [[String]] for this object. */
+  def tellDepth: Int
 
   override def toString: String = str
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by show method on [[Show]] type class instances. */
   def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String
 }
 
@@ -25,7 +26,7 @@ trait TellQuanta extends Any with Tell
 { override def tell(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
 }
 
-/** [[Tell]] decimal. A trait which can be displayed /persisted with varying levels of decimal precison. */
+/** [[Tell]] decimal. A trait which can be displayed / persisted with varying levels of decimal precision. */
 trait TellDec extends Any with Tell
 {
   def str: String = tell(ShowStandard, -1, 0)
@@ -50,7 +51,7 @@ trait TellDec extends Any with Tell
  * very least it can increase compile times. */
 trait ShowTell[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
-  override def syntaxDepth(obj: R): Int = obj.syntaxDepth
+  override def syntaxDepth(obj: R): Int = obj.tellDepth
   override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way, maxPlaces, minPlaces)
 }
 
@@ -63,7 +64,7 @@ object ShowTell
 
 trait ShowTellSum[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
-  override def syntaxDepth(obj: R): Int = obj.syntaxDepth
+  override def syntaxDepth(obj: R): Int = obj.tellDepth
   override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way.full, maxPlaces, minPlaces)
 }
 

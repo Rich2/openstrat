@@ -33,7 +33,7 @@ trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A
   def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show1.show(tell1, style, maxPlaces, maxPlaces): String
   def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show2.show(tell2, style, maxPlaces, maxPlaces): String
 
-  override def syntaxDepth: Int = show1.syntaxDepth(tell1).max(show2.syntaxDepth(tell2)) + 1
+  override def tellDepth: Int = show1.syntaxDepth(tell1).max(show2.syntaxDepth(tell2)) + 1
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[ShowTellInt2]] trait
@@ -42,7 +42,7 @@ trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A
 trait TellInt2 extends Any with Tell2[Int, Int]
 { final override implicit def show1: Show[Int] = Show.intEv
   final override implicit def show2: Show[Int] = Show.intEv
-  final override def syntaxDepth: Int = 2
+  final override def tellDepth: Int = 2
 }
 
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
@@ -50,7 +50,7 @@ trait TellInt2 extends Any with Tell2[Int, Int]
 trait TellDbl2 extends Any with Tell2[Double, Double]
 { final override implicit def show1: Show[Double] = Show.doublePersistEv
   final override implicit def show2: Show[Double] = Show.doublePersistEv
-  final override def syntaxDepth: Int = 2
+  final override def tellDepth: Int = 2
 }
 
 /** Trait for Show for product of 2 Doubles that is also an [[Dbl2Elem]]. This trait is implemented directly by the type in question, unlike the
@@ -166,5 +166,5 @@ trait Tell2Repeat[A1, A2] extends Tell
     }
   }
 
-  override def syntaxDepth: Int = 3
+  override def tellDepth: Int = 3
 }

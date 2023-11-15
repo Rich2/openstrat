@@ -14,7 +14,7 @@ class SGView(val r: Int, val c: Int, val pixelsPerC: Double) extends Tell2[SqCoo
   inline override def tell2: Double = pixelsPerC
   override implicit def show1: Show[SqCoord] = SqCoord.showEv
   override implicit def show2: Show[Double] = Show.doublePersistEv
-  override def syntaxDepth: Int = 3
+  override def tellDepth: Int = 3
 }
 
 /** Companion object for [[SGView]] class. Contains factory apply method overloads and implicit Persist instance. */

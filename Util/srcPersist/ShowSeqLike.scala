@@ -46,7 +46,7 @@ trait TellSeqLike[A] extends Tell
 { /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   override def str: String = tell(ShowStandard)
   def evA: Show[A]
-  override def syntaxDepth: Int =
+  override def tellDepth: Int =
   { var acc = 2
     tellForeach(a => acc = acc.max(evA.syntaxDepth(a) + 1))
     acc
@@ -61,8 +61,8 @@ trait TellSeqLike[A] extends Tell
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = style match {
-    case ShowCommas if syntaxDepth <= 2 => tellMap(el => evA.show(el, ShowStandard, maxPlaces, minPlaces)).mkComma
-    case ShowSemis if syntaxDepth <= 3 => tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
+    case ShowCommas if tellDepth <= 2 => tellMap(el => evA.show(el, ShowStandard, maxPlaces, minPlaces)).mkComma
+    case ShowSemis if tellDepth <= 3 => tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
     case ShowTyped => typeStr + evA.typeStr.enSquare + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
     case _ => typeStr + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
   }

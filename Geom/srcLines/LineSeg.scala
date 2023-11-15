@@ -12,7 +12,7 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
   override def name2: String = "end"
   override implicit def show1: Show[Pt2] = Pt2.showEv
   override implicit def show2: Show[Pt2] = Pt2.showEv
-  override def syntaxDepth: Int = 2
+  override def tellDepth: Int = 2
   override def tell1: Pt2 = startPt
   override def tell2: Pt2 = endPt
   override def dbl1: Double = startX

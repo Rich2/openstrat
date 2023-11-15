@@ -125,7 +125,7 @@ object HexReg
     override def tell2: Pt2 = sd0Cen
     override implicit def show1: Show[Pt2] = Pt2.showEv
     override implicit def show2: Show[Pt2] = Pt2.showEv
-    override def syntaxDepth: Int = 3
+    override def tellDepth: Int = 3
 
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
 

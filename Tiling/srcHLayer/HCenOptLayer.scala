@@ -420,7 +420,7 @@ class HCenRowOptLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A]) extend
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   override def str: String = ???
 
-  override def syntaxDepth: Int = ???
+  override def tellDepth: Int = ???
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   override def tell(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

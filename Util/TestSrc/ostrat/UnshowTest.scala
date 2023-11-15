@@ -35,7 +35,7 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Tell3
 
   override def opt2: Option[String] = Some("blah")
 
-  override def syntaxDepth: Int = 3
+  override def tellDepth: Int = 3
 }
 
 object ExUB

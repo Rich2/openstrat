@@ -14,7 +14,7 @@ case class Counter(char: Char, colour: Colour) extends Tell2[Char, Colour] with 
   override def str: String = "Counter" + char
   def charStr: String = char.toString
   override def tell(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = -1): String = "Player" + char
-  override def syntaxDepth: Int = 1
+  override def tellDepth: Int = 1
 }
 
 /** Companion object for [[Counter]] case class contains implicit instance for Persist. */
