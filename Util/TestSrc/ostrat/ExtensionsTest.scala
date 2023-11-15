@@ -13,5 +13,4 @@ object ExtensionsTest extends TestSuite
       11.divRoundUp(10) ==> 2
     }
   }
-
 }

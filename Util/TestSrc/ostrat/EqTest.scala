@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -19,9 +19,8 @@ object EqTest extends TestSuite
     val d2 = 4.567
     val s1: Option[Double] = Some(d2)
 
-    "ApproxTest" -
-    {
-      4.567 =~(4.56, 0.001) ==> false
+    test("ApproxTest")
+    { 4.567 =~(4.56, 0.001) ==> false
       4.567 =~(4.56, 0.01) ==> true
       4.567 =~(4.56) ==> false
       s1 =~ (Some(4.56), 0.01) ==> true
@@ -30,9 +29,8 @@ object EqTest extends TestSuite
     val o1: Option[Int] = Some(-56)
     val o2: Option[Int] = Some(-56)
 
-    "OptionTest" -
-    {
-      assert(None === None)
+    test("OptionTest")
+    { assert(None === None)
       assert(Some(7) === Some(7))
       assert(o1 === o2)
       assert(o1 === Some(-56))

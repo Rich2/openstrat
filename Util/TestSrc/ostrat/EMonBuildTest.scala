@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -11,7 +11,7 @@ object EMonBuildTest  extends TestSuite
     val b = NoInt
     val s1: EMon[String] = Good("Hello")
 
-    "Test1" -
+    test("Test1")
     { a2 ==> Good(55)
       a3 ==> Good("Good 55")
       b.map(_ * 2) ==> NoInt
