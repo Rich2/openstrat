@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
 object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, plain)

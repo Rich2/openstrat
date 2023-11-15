@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for central Canada. Depends on [[CanadaNorthEast]]. */
 object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, taiga)

@@ -29,8 +29,10 @@ object WTile
 
   /** [[Unshow]] type class instance / evidence for [[WTile]]. */
   implicit val unshowEv: UnshowSum[WTile] = UnshowSum[WTile]("WTile", Land.unshowEv, Water.unshowEv)
+}
 
-  val plain: Land = Land(Level, Temperate, CivMix)
+object WTiles
+{ val plain: Land = Land(Level, Temperate, CivMix)
   val hills: Land = Land(Hilly, Temperate, CivMix)
   val forest: Land = Land(Level, Temperate, Forest)
   val hillyForest: Land = Land(Hilly, Temperate, Forest)

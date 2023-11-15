@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, egrid._, WTile._
+import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
 {

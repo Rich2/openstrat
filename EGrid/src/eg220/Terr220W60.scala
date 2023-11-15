@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg220
-import prid.phex._, egrid._, WTile._
+import prid.phex._, egrid._, WTiles._
 
 object Terr220W60 extends Long220Terrs {
   override implicit val grid: EGrid220LongFull = EGrid220.w60(154, 162)

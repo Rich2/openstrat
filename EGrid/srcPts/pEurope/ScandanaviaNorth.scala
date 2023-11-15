@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Findland. Depends on [[SwedenNorth]] and [[Baltland]]. */
 object KolaPeninsula extends EArea2("KolaPeninsula", 67.80 ll 36.52, tundra)

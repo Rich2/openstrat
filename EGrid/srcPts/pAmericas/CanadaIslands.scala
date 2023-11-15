@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Devon Island and Axal Heiberg Island. Depends on nothing. */
 object EllesmereIsland extends EArea2("Ellsesmere Island", 80.24 ll -79.37, mtain)

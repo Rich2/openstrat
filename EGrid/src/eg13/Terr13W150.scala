@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
-import prid._, phex._, egrid._, WTile._
+import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 75 East to 105 East. 1300km per hex tile. */
 object Terr13W150 extends Long13Terrs

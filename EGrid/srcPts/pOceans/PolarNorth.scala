@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
-import geom._, pglobe._, LatLong._, egrid._, WTile._
+import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 case object Artic extends EArea2("Artic", 89.9 ll 0, ice)
 { val long0 = 82 ll 0

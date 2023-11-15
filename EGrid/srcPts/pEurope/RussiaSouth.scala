@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Crimea depends on nothing. */
 object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)
 { val reykjavik = 64.17 ll -21.75

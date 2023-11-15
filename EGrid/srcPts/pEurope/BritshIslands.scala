@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphical representation of the Orkney's. */
 object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, plain)

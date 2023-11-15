@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Taiwan depends on nothing. */
 object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)

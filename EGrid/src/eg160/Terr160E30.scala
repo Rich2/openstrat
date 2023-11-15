@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import prid._, phex._, egrid._, WTile._
+import prid._, phex._, egrid._, WTiles._
 
 /** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked. */
 object Terr160E30 extends Long160Terrs

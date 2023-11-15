@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg220
-import prid.phex._, egrid._, WTile._
+import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 34294.605km². A minimum island size of 1/6 5715.767km². */
 object Terr220E30 extends Long220Terrs

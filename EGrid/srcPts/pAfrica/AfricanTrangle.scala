@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAfrica
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic object for Lake Victoria. Depends on nothing. */
 object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lake)

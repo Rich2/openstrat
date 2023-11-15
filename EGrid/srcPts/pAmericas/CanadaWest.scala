@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Alaska. Depends on Nothing. */
 object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)

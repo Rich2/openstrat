@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 object sakhalin extends EArea2("Sakhalin", 50.94 ll 142.90, taiga)
 { val sakhalinN = 54.38 ll 142.73

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
-import geom._, pglobe._, egrid._, WTile._
+import geom._, pglobe._, egrid._, WTiles._
 
 object Florida extends EArea2("Florida", 28.29 ll -81.59, jungle)
 { val stJohnsMouth = 30.40 ll -81.40

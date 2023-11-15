@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
-import geom._, pglobe._, LatLong._, egrid._, WTile._
+import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Sumatra. Depends on nothing. */
 object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
