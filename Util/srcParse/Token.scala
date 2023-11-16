@@ -64,25 +64,28 @@ case class Dot2Token(startPosn: TextPosn) extends ClauseMemToken
 
 /** The triple Dot or Stop Token. */
 case class Dot3Token(startPosn: TextPosn) extends ClauseMemToken
-{ def srcStr = "..."
+{ def srcStr: String = "..."
   override def tokenTypeStr: String = "DotToken"
 }
 
+/** A [[Char]] [[Token]]. */
 case class CharToken(startPosn: TextPosn, char: Char) extends ClauseMemExprToken
-{ def srcStr = char.toString.enquote1
+{ def srcStr: String = char.toString.enquote1
   override def exprName: String = "CharToken"
 }
 
+/** A [[String]] [[Token]]. */
 case class StringToken(startPosn: TextPosn, stringStr: String) extends ClauseMemExprToken
-{ def srcStr = stringStr.enquote
+{ def srcStr: String = stringStr.enquote
   override def exprName: String = "StringToken"
 }
 
 /** An Operator token. */
 trait OperatorToken extends ClauseMemExprToken
 
+/** General operator [[Token]]. */
 case class OperatorGenToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def exprName: String = "OperatorGenToken"
+{ override def exprName: String = "OperatorGen"
 }
 
 case class SlashToken(startPosn: TextPosn) extends OperatorToken
@@ -90,11 +93,13 @@ case class SlashToken(startPosn: TextPosn) extends OperatorToken
   override def srcStr: String = "/"
 }
 
+/** The = assignment [[Token]]. */
 case class AsignToken(startPosn: TextPosn) extends BlockMemToken with StatementMem
 { def srcStr = "="
   override def tokenTypeStr: String = "AsignToken"
 }
 
+/** The : colon [[Token]]. */
 case class ColonToken(startPosn: TextPosn) extends BlockMemToken with ClauseMem
 { def srcStr = ":"
   override def tokenTypeStr: String = "AsignToken"

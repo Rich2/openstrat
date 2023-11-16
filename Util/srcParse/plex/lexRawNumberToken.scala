@@ -12,7 +12,7 @@ object lexRawNumberToken
     case CharsOff1Tail(l, tail) if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, str + l.toString, isNeg)
     case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
     case _ if isNeg => Good3(rem, tp.addStr(str).right1, NegDeciToken(tp, str))
-    case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
+    case _ => Good3(rem, tp.addStr(str), NatBase10Token(tp, str))
   }
 }
 

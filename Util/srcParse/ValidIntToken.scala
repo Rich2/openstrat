@@ -86,12 +86,12 @@ trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
   }
 }
 
-/** A 64 bit natural number token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit
+/** A 64 bit natural number token in standard Base10 format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
-{ override def exprName: String = "Decimal"
+case class NatBase10Token(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
+{ override def exprName: String = "NatBase10"
   override def digitsStr: String = srcStr
   override def digitSeqs: StrArr = StrArr(digitsStr)
   inline override def getIntStd: Int = getAbsoluteIntStd

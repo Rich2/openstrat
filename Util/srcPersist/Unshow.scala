@@ -180,9 +180,9 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "SFloat"
 
     override def fromExpr(expr: Expr): EMon[Float] = expr match
-    { case NatDeciToken(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
+    { case NatBase10Token(_, i) => Good(i.toFloat)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
       case intok: NegDeciToken => Good(intok.getIntStd.toFloat)
       case  _ => expr.exprParseErr[Float]
     }
@@ -193,9 +193,9 @@ object Unshow extends UnshowPriority2
   { override def typeStr = "Long"
 
     override def fromExpr(expr: Expr): EMon[Long] = expr match
-    { case NatDeciToken(_, i) => Good(i.toLong)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
+    { case NatBase10Token(_, i) => Good(i.toLong)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toLong)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-i.toLong)
       case  _ => expr.exprParseErr[Long]
     }
   }

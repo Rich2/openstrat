@@ -106,7 +106,7 @@ case class InfixOpExpr(left: ClauseMemExpr, op: OperatorToken, right: ClauseMemE
 { override def startMem: AssignMemExpr = left
   override def endMem: AssignMemExpr = right
   override def exprName: String = "PreOpExpr"
-  def opStr = op.srcStr
+  def opStr: String = op.srcStr
 }
 
 case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMemExpr) extends CompoundExpr
