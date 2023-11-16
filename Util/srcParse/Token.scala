@@ -83,9 +83,14 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ClauseMem
 /** An Operator token. */
 trait OperatorToken extends ClauseMemExprToken
 
-/** General operator [[Token]]. */
-case class OperatorGenToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def exprName: String = "OperatorGen"
+/** Operator precedence 1 [[Token]] begins with * / %. */
+case class OperatorPrec1Token(startPosn: TextPosn, srcStr: String) extends OperatorToken
+{ override def exprName: String = "OperatorPrec1"
+}
+
+/** Operator precedence 0 [[Token]]. */
+case class OperatorPrec0Token(startPosn: TextPosn, srcStr: String) extends OperatorToken
+{ override def exprName: String = "OperatorPrec0"
 }
 
 case class SlashToken(startPosn: TextPosn) extends OperatorToken

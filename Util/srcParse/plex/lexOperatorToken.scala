@@ -19,7 +19,10 @@ object lexOperatorToken
     { case '=' => AsignToken(tp)
       case ':' => ColonToken(tp)
       case _ if acc == "/" => SlashToken(tp)
-      case _ => OperatorGenToken(tp, acc)
+      case _ => acc.head match
+      { case '|' | '^' | '&' | '=' | '!' | '<' | '>' | ':' | '+' | '-' | '*'  | '/' | '%' => OperatorPrec1Token(tp, acc)
+        case _ => OperatorPrec0Token(tp, acc)
+      }
     }
     loop(remOff, tp)
   }

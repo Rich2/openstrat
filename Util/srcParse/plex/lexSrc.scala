@@ -18,8 +18,8 @@ object lexSrc
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
     {
-      def append3Loop: Unit = e3 match {
-        case Good3(newChars, newPosn, token) =>
+      def append3Loop: Unit = e3 match
+      { case Good3(newChars, newPosn, token) =>
         { acc.append(token)
           rem = newChars
           posn = newPosn

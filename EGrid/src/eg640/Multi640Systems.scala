@@ -43,7 +43,7 @@ object Scen640All extends EScenLongMulti
 { import pParse._
   override val title: String = "640km all longitude terrain only scenario."
   deb("All long object.")
-  val r1: EArr[Token] = plex.lexSrc.str("Land() * 3")// .asType[Land]
+  val r1: EArr[Token] = plex.lexSrc.str("Land().aaa 3")// .asType[Land]
   r1.printArrLines
   val r2: EMon[RArr[BlockMem]] = r1.flatMap(pAST.parse1BlockStructure(_))
   deb("Block Mems")
