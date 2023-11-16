@@ -84,8 +84,8 @@ object Unshow extends UnshowPriority2
   class IntEvClass extends Unshow[Int]
   { override def typeStr: String = "Int"
 
-    override def fromExpr(expr: Expr): EMon[Int] = expr match {
-      case IntStdToken(i) => Good(i)
+    override def fromExpr(expr: Expr): EMon[Int] = expr match
+    { case IntStdToken(i) => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Good(-i)
       case _ => expr.exprParseErr[Int]

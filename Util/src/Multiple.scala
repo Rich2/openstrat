@@ -57,13 +57,15 @@ object Multiple
   /** [[Show]] type class instance / evidence for full show of [[Multiple]] class. */
   def showFullEv[A](implicit evA: Show[A]): Show2[A, Int, Multiple[A]] = Show2[A, Int, Multiple[A]]("Multiple", "value", _.value, "num", _.num)
 
+  /** [[Unshow]] type class instance / evidence for [[Multiple]] class. */
   implicit def unshowEv[A](implicit evA: Unshow[A]): UnshowMultiple[A] = new UnshowMultiple[A]()(evA)
 
-  class UnshowMultiple[A]()(implicit val evA: Unshow[A]) extends Unshow[Multiple[A]]{
-    override def typeStr: String = "Multiple"
+  class UnshowMultiple[A]()(implicit val evA: Unshow[A]) extends Unshow[Multiple[A]]
+  { override def typeStr: String = "Multiple"
 
     override def fromExpr(expr: Expr): EMon[Multiple[A]] = expr match
-    { case AlphaMaybeSquareParenth(name,  RArr2(st1: Statement, st2: Statement)) if name == "Multiple"  => evA.fromStatement(st1).flatMap{a => Unshow.natEv.fromStatement(st2).map(i => Multiple(a, i)) }
+    { case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple"
+        => evA.fromExpr(e1).map{a => Multiple(a, i) }
       case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
     }
   }

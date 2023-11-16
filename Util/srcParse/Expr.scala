@@ -129,7 +129,8 @@ case class SpacedExpr(exprs: RArr[ColonMemExpr]) extends CompoundClauseMemExpr
   override def exprName: String = "SpacedExprs"
 }
 
-object IntExpr{
+object IntExpr
+{
   def unapply(inp: Expr): Option[Int] = Unshow.intEv.fromExpr(inp) match {
     case Good(i) => Some(i)
     case _ => None

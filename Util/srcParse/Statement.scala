@@ -44,6 +44,11 @@ object Statement
     override def endPosn: TextPosn = expr.endPosn
   }
 
+  def unapply(inp: Any): Option[Expr] = inp match
+  { case st: Statement => Some(st.expr)
+    case _ => None
+  }
+
   /** Extension class for Arr[Statement]. */
   implicit class arrImplicit(statements: RArr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
