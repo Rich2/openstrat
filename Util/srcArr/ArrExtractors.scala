@@ -174,9 +174,9 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, RArr[A]]
   { val buff = Buffer[AA]()
     var continue = true
     var i = 0
-    while (i < length && continue) apply(i) match {
-      case el if el.isInstanceOf[AA] => {
-        buff.append(el.asInstanceOf[AA])
+    while (i < length && continue) apply(i) match
+    { case el if el.isInstanceOf[AA] =>
+      { buff.append(el.asInstanceOf[AA])
         i += 1
       }
       case _ => continue = false

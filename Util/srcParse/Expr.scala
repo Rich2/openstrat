@@ -99,7 +99,7 @@ case class PreOpExpr(op: OperatorToken, right: ClauseMemExpr) extends CompoundCl
 { override def startMem: OperatorToken = op
   override def endMem: AssignMemExpr = right
   override def exprName: String = "PreOpExpr"
-  def opStr = op.srcStr
+  def opStr: String = op.srcStr
 }
 
 case class InfixOpExpr(left: ClauseMemExpr, op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
@@ -125,14 +125,14 @@ object AsignExprName
 }
 
 case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr with AssignMemExpr with AssignMem
-{ override def startMem = left
-  override def endMem = right
+{ override def startMem: ColonMemExpr = left
+  override def endMem: ColonMemExpr = right
   override def exprName: String = "ColonExpr"
 }
 
 case class SpacedExpr(exprs: RArr[ColonMemExpr]) extends CompoundClauseMemExpr
-{ override def startMem = exprs(0)
-  override def endMem = exprs.last
+{ override def startMem: ColonMemExpr = exprs(0)
+  override def endMem: ColonMemExpr = exprs.last
   override def exprName: String = "SpacedExprs"
 }
 
