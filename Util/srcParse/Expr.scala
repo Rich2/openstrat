@@ -28,7 +28,7 @@ trait ClauseMemExpr extends ColonMemExpr with ClauseMem
 trait CompoundExpr extends Expr with TextSpanCompound
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr// with TextSpanCompound
+trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeq extends ColonMemExpr
@@ -95,8 +95,15 @@ case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStateme
   override def exprName: String = "AlphaBracketExpr"
 }
 
-case class PreOpExpr(op: OperatorToken, right: AssignMemExpr) extends CompoundClauseMemExpr
+case class PreOpExpr(op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
 { override def startMem: OperatorToken = op
+  override def endMem: AssignMemExpr = right
+  override def exprName: String = "PreOpExpr"
+  def opStr = op.srcStr
+}
+
+case class InfixOpExpr(left: ClauseMemExpr, op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
+{ override def startMem: AssignMemExpr = left
   override def endMem: AssignMemExpr = right
   override def exprName: String = "PreOpExpr"
   def opStr = op.srcStr

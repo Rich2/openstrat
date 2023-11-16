@@ -225,6 +225,12 @@ object ArrOff2Tail
     ife(inp.length >= 2, Some((inp(0), inp(1), inp.drop2)), None)
 }
 
+object ArrOff3Tail
+{
+  def unapply[A](inp: ArrOff[A])(implicit arr: RArr[A]): Option[(A, A, A, ArrOff[A])] =
+    ife(inp.length >= 3, Some((inp(0), inp(1), inp(2), inp.drop(3))), None)
+}
+
 object ArrOffHead
 {
   def unapply[A](inp: ArrOff[A])(implicit arr: RArr[A]): Option[A] =

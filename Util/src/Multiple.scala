@@ -64,7 +64,8 @@ object Multiple
   { override def typeStr: String = "Multiple"
 
     override def fromExpr(expr: Expr): EMon[Multiple[A]] = expr match
-    { case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple"
+    { case InfixOpExpr(left, OperatorGenToken(startPosn, "*"), IntExpr(i)) => evA.fromExpr(left).map(a => Multiple(a, i))
+      case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple"
         => evA.fromExpr(e1).map{a => Multiple(a, i) }
       case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
     }

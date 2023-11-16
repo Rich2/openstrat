@@ -67,13 +67,10 @@ object srcToETokensTest extends TestSuite
       assertMatch(et5){case Good(_) => }
       r5.length ==> 12
       ro6.length ==> 8
-     // assertMatch(r5(4)){ case IdentLowerToken(_, "displayX") => }
+      assertMatch(r5(4)){ case IdentLowerToken(_, "displayX") => }
+      assert("Gh * 5".parseTokens.isGood)
     }
 
-    test("Neg")
-    { 4 ==> 4
-      //assertMatch("-".parseTokens){case Good(Refs1(PlusInToken(_, _))) => }
-      //assertMatch("- 4".findTokens){case Good(Refs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4"))) => }
-    }
+
   }
 }
