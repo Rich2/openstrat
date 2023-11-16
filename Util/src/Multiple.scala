@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
+import ostrat.pParse._, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
@@ -56,6 +56,17 @@ object Multiple
 
   /** [[Show]] type class instance / evidence for full show of [[Multiple]] class. */
   def showFullEv[A](implicit evA: Show[A]): Show2[A, Int, Multiple[A]] = Show2[A, Int, Multiple[A]]("Multiple", "value", _.value, "num", _.num)
+
+  implicit def unshowEv[A](implicit evA: Unshow[A]): UnshowMultiple[A] = new UnshowMultiple[A]()(evA)
+
+  class UnshowMultiple[A]()(implicit val evA: Unshow[A]) extends Unshow[Multiple[A]]{
+    override def typeStr: String = "Multiple"
+
+    override def fromExpr(expr: Expr): EMon[Multiple[A]] = expr match
+    { case AlphaMaybeSquareParenth(name,  RArr2(st1: Statement, st2: Statement)) if name == "Multiple"  => evA.fromStatement(st1).flatMap{a => Unshow.natEv.fromStatement(st2).map(i => Multiple(a, i)) }
+      case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
+    }
+  }
 }
 
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]

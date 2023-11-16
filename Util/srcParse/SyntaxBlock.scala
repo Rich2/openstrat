@@ -132,3 +132,13 @@ object AlphaParenth
     case _ => None
   }
 }
+
+/** Extractor object for an [[AlphaBracketExpr]] with or without a square brackets followed by a single parentheses block. */
+object AlphaMaybeSquareParenth
+{ /** Extractor unapply method for an [[AlphaBracketExpr]] with a square brackets block followed by a single parentheses block. */
+  def unapply(expr: ColonMemExpr): Option[(String, RArr[Statement])] = expr match
+  { case AlphaBracketExpr(IdentifierToken(name), Arr2(SquareBlock(_, _, _) , ParenthBlock(sts2, _, _))) => Some((name, sts2))
+    case AlphaBracketExpr(IdentifierToken(name), Arr1(ParenthBlock(sts, _, _))) => Some((name, sts))
+    case _ => None
+  }
+}
