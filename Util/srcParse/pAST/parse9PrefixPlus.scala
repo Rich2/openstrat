@@ -12,7 +12,11 @@ object parse9PrefixPlus
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
       case ArrOff2Tail(pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
-      case ArrOff3Tail(left: ClauseMemExpr, pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(InfixOpExpr(left, pp, right)); loop(tail) }
+      case ArrOff3Tail(left: ClauseMemExpr, pp: OperatorToken,  right: ClauseMemExpr, tail) =>{
+        deb("About to append.")
+        acc.append(InfixOpExpr(left, pp, right));
+        loop(tail)
+      }
       case ArrOffHead(pp: OperatorToken) => bad1(pp, "Prefix operator not followed by expression")
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }

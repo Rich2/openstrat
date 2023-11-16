@@ -12,8 +12,8 @@ object parse8ClauseMem
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)
 
-      case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) =>
-      { val (bks, tail3) = t2.partitionT[BracketedStatements]
+      case ArrOff2Tail(at: IdentifierToken, bb: BracketedStructure, t2) =>
+      { val (bks, tail3) = t2.partitionT[BracketedStructure]
         val abe = AlphaBracketExpr(at, bb %: bks)
         acc.append(abe)
         loop(tail3)

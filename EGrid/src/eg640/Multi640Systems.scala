@@ -45,6 +45,10 @@ object Scen640All extends EScenLongMulti
   deb("All long object.")
   val r1: EArr[Token] = plex.lexSrc.str("Land() * 3")// .asType[Land]
   r1.printArrLines
+  val r2: EMon[RArr[BlockMem]] = r1.flatMap(pAST.parse1BlockStructure(_))
+  deb("Block Mems")
+  r2.printArrLines
+  //r2.flatMap(g => pAST.parse3Statements(g))
   //deb(r1.toString)
   override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(12, 0, 112)
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn

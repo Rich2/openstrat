@@ -1,14 +1,14 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-223Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
 /** Function object to parse a brace delineated block. */
 object parse2BraceBlock
-{ /** Funton apply method parses input [[Token]]s into a brace syntax block. */
-  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: RArr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
+{ /** Function apply method parses input [[Token]]s into a brace syntax block. */
+  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: RArr[Token]): EMon2[BracketedStructure, ArrOff[Token]] =
   {
     val acc: ArrayBuffer[BlockMem] = Buffer()
-    def loop(rem: ArrOff[Token]): EMon2[BracketedStatements, ArrOff[Token]] = rem match
+    def loop(rem: ArrOff[Token]): EMon2[BracketedStructure, ArrOff[Token]] = rem match
     {
       case ArrOff0() => open.startPosn.bad2("Unclosed Brace")
 
@@ -20,7 +20,7 @@ object parse2BraceBlock
 
       case ArrOff1Tail(bc: BracketCloseToken, tail) =>
         if (bc.braces == open.braces) blockMemsToStatements(acc.toArr).toEMon2 { g =>
-          val res = BracketedStatements(g, bc.braces, open.startPosn, bc.startPosn)
+          val res = BracketedStructure(g, bc.braces, open.startPosn, bc.startPosn)
           Good2(res, tail)
         }
         else bc.startPosn.bad2("Unexpected Closing Parenthesis")

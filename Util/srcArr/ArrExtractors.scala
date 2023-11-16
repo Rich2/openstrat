@@ -227,8 +227,10 @@ object ArrOff2Tail
 
 object ArrOff3Tail
 {
-  def unapply[A](inp: ArrOff[A])(implicit arr: RArr[A]): Option[(A, A, A, ArrOff[A])] =
+  def unapply[A](inp: ArrOff[A])(implicit arr: RArr[A]): Option[(A, A, A, ArrOff[A])] = {
+    deb("ArrOff3Tail")
     ife(inp.length >= 3, Some((inp(0), inp(1), inp(2), inp.drop(3))), None)
+  }
 }
 
 object ArrOffHead

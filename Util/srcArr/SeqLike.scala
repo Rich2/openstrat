@@ -41,7 +41,7 @@ object SeqLike
 
     override def fromExpr(expr: Expr): EMon[AA] = expr match
     { case _: EmptyExprToken => Good(build.uninitialised(0))
-      case AlphaBracketExpr(id1, RArr1(BracketedStatements(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
+      case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapEMon(build)(s => evA.fromExpr(s.expr))
       case AlphaSquareParenth("Seq", _, sts) => sts.mapEMon(build)(s => evA.fromExpr(s.expr))
       case AlphaParenth("Seq", sts) => sts.mapEMon(build)(s => evA.fromExpr(s.expr))

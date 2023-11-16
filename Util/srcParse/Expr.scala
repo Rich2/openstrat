@@ -60,6 +60,7 @@ trait BlockRaw
   def endMem: Statement = statements.last
 }
 
+/** A syntactic block of [[Statement]]s, may be encapsulated by a file of pair of matching braces." */
 trait BlockStatements extends ExprSeqNonEmpty
 { def statements: RArr[Statement]
   def exprs: RArr[ColonMemExpr] = statements.map(_.expr).asInstanceOf[RArr[ColonMemExpr]]
@@ -89,9 +90,9 @@ case class UnimplementedExpr(bMems: RArr[BlockMem]) extends CompoundClauseMemExp
 }
 
 /** An Identifier Token followed by 1 or more brace blocks. */
-case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStatements]) extends CompoundClauseMemExpr
+case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStructure]) extends CompoundClauseMemExpr
 { def startMem: IdentifierToken = name
-  def endMem: BracketedStatements = blocks.last
+  def endMem: BracketedStructure = blocks.last
   override def exprName: String = "AlphaBracketExpr"
 }
 

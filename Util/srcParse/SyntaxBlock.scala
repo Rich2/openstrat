@@ -89,28 +89,29 @@ case class BracketedRaws(statements: RArr[TextSpan], braces: Braces, startBracke
 { def exprName: String = braces.name + "BlockExpr"
 }
 
-case class BracketedStatements(statements: RArr[Statement], braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends BlockStatements
+/** Syntactic structure consisting of a pair of matching brackets and the sequence of statements they encapsulate." */
+case class BracketedStructure(statements: RArr[Statement], braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends BlockStatements
 { def exprName: String = braces.name + "BlockExpr"
   def memExprs: RArr[Expr] = statements.map(_.expr)
 }
 
 object ParenthBlock
 { def unapply(inp: AnyRef): Option[(RArr[Statement], TextPosn, TextPosn)] = inp match
-  { case BracketedStatements(sts, Parentheses, sp, ep) => Some((sts, sp, ep))
+  { case BracketedStructure(sts, Parentheses, sp, ep) => Some((sts, sp, ep))
     case _ => None
   }
 }
 
 object SquareBlock
 { def unapply(inp: AnyRef): Option[(RArr[Statement], TextPosn, TextPosn)] = inp match
-  { case BracketedStatements(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
+  { case BracketedStructure(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
     case _ => None
   }
 }
 
 object CurlyBlock
 { def unapply(inp: AnyRef): Option[(RArr[Statement], TextPosn, TextPosn)] = inp match
-  { case BracketedStatements(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
+  { case BracketedStructure(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
     case _ => None
   }
 }
