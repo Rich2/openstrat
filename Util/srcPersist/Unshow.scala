@@ -290,4 +290,10 @@ trait UnshowPriority3
   }
 }
 
-//class UnshowIdents[A](val pairs: StrPairArr)
+class UnshowIdents[A](val typeStr: String, val pairs: ArrPairStr[A]) extends Unshow[A]
+{
+  override def fromExpr(expr: Expr): EMon[A] = expr match {
+    case IdentifierToken(str) => pairs.a1FindA2(str).toEMon
+    case _ => bad1(expr, typeStr -- "not found.")
+  }
+}

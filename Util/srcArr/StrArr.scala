@@ -116,16 +116,7 @@ object StrArr
     }
 }
 
-object StringArrBuilder extends BuilderArrMap[String, StrArr] with BuilderArrFlat[StrArr]
-{ type BuffT = StringBuff
-  override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
-  override def indexSet(seqLike: StrArr, index: Int, elem: String): Unit = seqLike.unsafeArray(index) = elem
-  override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
-  override def buffGrow(buff: StringBuff, newElem: String): Unit = buff.unsafeBuffer.append(newElem)
-  override def buffToSeqLike(buff: StringBuff): StrArr = new StrArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: StringBuff, arr: StrArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
-}
-
+/** [[Buff]] class for [[String]]s. */
 class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with BuffSequ[String]
 {   override type ThisT = StringBuff
 
@@ -141,4 +132,14 @@ class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff
 
 object StringBuff
 { def apply(startSize: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](startSize))
+}
+
+object BuilderArrString extends BuilderArrMap[String, StrArr] with BuilderArrFlat[StrArr]
+{ type BuffT = StringBuff
+  override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
+  override def indexSet(seqLike: StrArr, index: Int, elem: String): Unit = seqLike.unsafeArray(index) = elem
+  override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
+  override def buffGrow(buff: StringBuff, newElem: String): Unit = buff.unsafeBuffer.append(newElem)
+  override def buffToSeqLike(buff: StringBuff): StrArr = new StrArr(buff.unsafeBuffer.toArray)
+  override def buffGrowArr(buff: StringBuff, arr: StrArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
