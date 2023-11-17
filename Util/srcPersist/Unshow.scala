@@ -183,7 +183,7 @@ object Unshow extends UnshowPriority2
     { case NatBase10Token(_, i) => Good(i.toFloat)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toFloat)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
-      case intok: NegDeciToken => Good(intok.getIntStd.toFloat)
+      case intok: NegBase10Token => Good(intok.getIntStd.toFloat)
       case  _ => expr.exprParseErr[Float]
     }
   }

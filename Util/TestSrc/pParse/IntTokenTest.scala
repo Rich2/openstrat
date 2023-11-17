@@ -45,7 +45,7 @@ object IntTokenTest extends TestSuite
     }
 
     test("Negative")
-    { assertMatch("-4".parseTokens){ case Good(Arr1(NegDeciToken(Sp1, "4"))) => }
+    { assertMatch("-4".parseTokens){ case Good(Arr1(NegBase10Token(Sp1, "4"))) => }
       "-4".asInt ==> Good(-4)
       "-4".asNat.isBad ==> true
       "-257".asInt ==> Good(-257)

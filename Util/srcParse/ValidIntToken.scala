@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
@@ -34,7 +34,7 @@ object ValidPosFracToken
   }
 }
 
-/** Common trait for [[RawIntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+/** Common trait for [[RawBase10Token]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait IntStdToken extends ValidIntToken with ValidFracToken
 { /** Returns an integer value for the [[Token]] using the standard decimal format unless it is an 0x or 0y Token. */
@@ -52,7 +52,7 @@ object IntStdToken
   }
 }
 
-/** Common trait for [[RawIntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+/** Common trait for [[RawBase10Token]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait NatStdToken extends IntStdToken with ValidPosFracToken
 { def getNatStd: Int = getIntStd
@@ -69,8 +69,8 @@ object NatStdToken
 }
 
 
-/** A raw integer token could be negative. */
-trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
+/** A raw base10 integer token, also valid as raw hexadecimal or raw base32, could be negative. Raw means not an 0x or 0y token. */
+trait RawBase10Token extends IntStdToken with ValidRawHexaIntToken
 {
   /** gets the natural integer value part from this token interpreting it as a standard Base10 notation. */
   def getAbsoluteIntStd: Int =
@@ -90,7 +90,7 @@ trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
-case class NatBase10Token(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
+case class NatBase10Token(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawBase10Token with NatStdToken with DigitSeqsCode
 { override def exprName: String = "NatBase10"
   override def digitsStr: String = srcStr
   override def digitSeqs: StrArr = StrArr(digitsStr)
@@ -100,7 +100,7 @@ case class NatBase10Token(startPosn: TextPosn, srcStr: String) extends ValidRawH
 }
 
 /** Negative natural number token. There must be no space between the '-' character and the digits. */
-case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends RawIntDeciToken with ValidRawHexaNegToken
+case class NegBase10Token(startPosn: TextPosn, digitsStr: String) extends RawBase10Token with ValidRawHexaNegToken
 { override def exprName: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
   override def getIntStd: Int = -super.getAbsoluteIntStd
