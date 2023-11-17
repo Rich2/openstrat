@@ -2,6 +2,7 @@
 package ostrat
 import pParse._, reflect.ClassTag
 
+/** [[Unshow]] type class instances from one of sequence of identity tokens."  */
 class UnshowIdents[A](val typeStr: String, val pairs: ArrPairStr[A]) extends Unshow[A]
 {
   override def fromExpr(expr: Expr): EMon[A] = expr match {

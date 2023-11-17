@@ -146,7 +146,7 @@ object BuffPairStr
 }
 
 object StrStrPairArr
-{
+{ /** Function obect apply method to create [[ArrPair]] with pair of Strings form [[Tuple2]]s. */
   def apply(strings: String *): ArrPairStr[String] =
   { if(strings.length.isOdd) excep("Odd number of Strings for StrStrPaiArr factory apply method.")
     val len = strings.length / 2
