@@ -32,10 +32,17 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
 object Land
 {
   def apply(elev: Lelev = Level, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
+  val land: Land = Land(Level, Temperate, CivMix)
+  val hills: Land = Land(Hilly, Temperate, CivMix)
+  //lazy val landPairs: ArrPairStr[Land] = ArrPairStr[Land](("land", land), ("hills", hills))
 
-  implicit val showEv: Show3[Lelev, Climate, LandUse, Land] =
+  implicit lazy val showEv: Show3[Lelev, Climate, LandUse, Land] =
     Show3[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate", _.climate, "use", _.landUse, Some(CivMix), Some(Temperate), Some(Level))
 
-  implicit val unshowEv: Unshow3[Lelev, Climate, LandUse, Land] =
-    Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply, Some(CivMix), Some(Temperate), Some(Level))
+  lazy val unshowFullEv: Unshow3[Lelev, Climate, LandUse, Land] =  Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse",
+    (elev, climate, use) => new Land(elev, climate, use), Some(CivMix), Some(Temperate), Some(Level))
+
+  lazy val altUnshowEv: UnshowIdents[Land] = UnshowIdents[Land]("Land", ("land", land), ("hills", hills))//landPairs)
+
+  implicit lazy val unshowEv: Unshow[Land] = unshowFullEv concat(altUnshowEv)
 }

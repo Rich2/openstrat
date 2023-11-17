@@ -48,6 +48,7 @@ object WTiles
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val sahel: Land = Land(Level, Sahel, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
+
   val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
   val sea: Water = Sea

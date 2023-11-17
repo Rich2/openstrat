@@ -5,10 +5,13 @@ package ostrat; package egrid
 trait LandUse extends TellSimple
 { override def typeStr: String = "LandUse"
 }
+
 object LandUse
-{
-  implicit val showEv: ShowTell[LandUse] = ShowTellSimple[LandUse]("LandUse")
-  implicit val unshowEv: UnshowSingletons[LandUse] = UnshowSingletons[LandUse]("LandUse", CivMix, Forest, LandFree)
+{ /** Implicit [[Show]] type class instance / evidence for [[LandUse]]. */
+  implicit lazy val showEv: ShowTell[LandUse] = ShowTellSimple[LandUse]("LandUse")
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[LandUse]]. */
+  implicit lazy val unshowEv: UnshowSingletons[LandUse] = UnshowSingletons[LandUse]("LandUse", CivMix, Forest, LandFree)
 }
 
 object CivMix extends LandUse

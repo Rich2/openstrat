@@ -12,9 +12,11 @@ trait Lelev extends TellSimple with Coloured
 }
 
 object Lelev
-{
-  implicit val showEv: ShowTell[Lelev] = ShowTellSimple[Lelev]("Lelev")
-  implicit val unshowEV: UnshowSingletons[Lelev] = UnshowSingletons[Lelev]("Lelev", Level, Hilly, Mountains)
+{ /** Implicit [[Show]] type class instance / evidence for [[Lelev]]. */
+  implicit lazy val showEv: ShowTell[Lelev] = ShowTellSimple[Lelev]("Lelev")
+
+  /** Implicit [[Unshow]] type class instance / evidence for [[Lelev]]. */
+  implicit lazy val unshowEV: UnshowSingletons[Lelev] = UnshowSingletons[Lelev]("Lelev", Level, Hilly, Mountains)
 }
 
 case object Level extends Lelev

@@ -70,7 +70,7 @@ class HSidePairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBu
   override def newElem(int1: Int, int2: Int, a2: B2): HSidePair[B2] = new HSidePair[B2](int1, int2, a2)
 }
 
-class HSidePairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int2PairArrMapBuilder[HSide, HSideArr, B2, HSidePair[B2], HSidePairArr[B2]]
+class HSidePairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt2Map[HSide, HSideArr, B2, HSidePair[B2], HSidePairArr[B2]]
 { override type BuffT = HSidePairBuff[B2]
   override type B1BuffT = HSideBuff
   override implicit val b2ClassTag: ClassTag[B2] = ct

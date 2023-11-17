@@ -40,9 +40,9 @@ trait UnshowSum[+A] extends Unshow[A]
 
   override def fromExpr(expr: Expr): EMon[A] = elems.findGood(_.fromExpr(expr))
 
-  override def ++[AA >: A](operand: Unshow[AA])(implicit ev: Unshow[AA]): Unshow[AA] = operand match
-  { case uSum: UnshowSum[AA] => UnshowSum[AA](ev.typeStr, elems ++ uSum.elems)
-    case op => UnshowSum[AA](ev.typeStr, elems +% op)
+  override def concat[AA >: A](operand: Unshow[AA], newTypeStr: String = typeStr): Unshow[AA] = operand match
+  { case uSum: UnshowSum[AA] => UnshowSum[AA](newTypeStr, elems ++ uSum.elems)
+    case op => UnshowSum[AA](newTypeStr, elems +% op)
   }
 }
 

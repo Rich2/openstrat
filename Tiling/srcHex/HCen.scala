@@ -258,7 +258,7 @@ class HCenPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuf
   override def newElem(int1: Int, int2: Int, a2: B2): HCenPair[B2] = new HCenPair[B2](int1, int2, a2)
 }
 
-class HCenPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int2PairArrMapBuilder[HCen, HCenArr, B2, HCenPair[B2], HCenPairArr[B2]]
+class HCenPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt2Map[HCen, HCenArr, B2, HCenPair[B2], HCenPairArr[B2]]
 { override type BuffT = HCenPairBuff[B2]
   override type B1BuffT = HCenBuff
   override implicit val b2ClassTag: ClassTag[B2] = ct

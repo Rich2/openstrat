@@ -73,9 +73,9 @@ trait Unshow[+T] extends PersistBase
     }
   }
 
-  def ++[TT >: T] (operand: Unshow[TT])(implicit ev: Unshow[TT]): Unshow[TT] = operand match
-  { case uSum: UnshowSum[TT] => UnshowSum[TT](ev.typeStr, this %: uSum.elems)
-    case op => UnshowSum[TT](ev.typeStr, RArr(this, op))
+  def concat[TT >: T](operand: Unshow[TT], newTypeStr: String = typeStr): Unshow[TT] = operand match
+  { case uSum: UnshowSum[TT] => UnshowSum[TT](newTypeStr, this %: uSum.elems)
+    case op => UnshowSum[TT](newTypeStr, RArr(this, op))
   }
 }
 
@@ -291,17 +291,4 @@ trait UnshowPriority3
       case e => bad1(e, "None not found")
     }
   }
-}
-
-class UnshowIdents[A](val typeStr: String, val pairs: ArrPairStr[A]) extends Unshow[A]
-{
-  override def fromExpr(expr: Expr): EMon[A] = expr match {
-    case IdentifierToken(str) => pairs.a1FindA2(str).toEMon
-    case _ => bad1(expr, typeStr -- "not found.")
-  }
-}
-
-object UnshowIdents
-{
-  def apply[A](typeStr: String, pairs: (String, A)*)(implicit ct: ClassTag[A]): UnshowIdents[A] = new UnshowIdents[A](typeStr, pairs.toPairArr)
 }

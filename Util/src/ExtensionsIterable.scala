@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Extension methods for [[Iterable]][A]. */
@@ -190,11 +190,12 @@ class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) e
   }
 }
 
+/** Extension class for [[Iterable]]s of [[Tuple2]]s. */
 class IterablePairExtensions[A1, A2](thisIter: Iterable[(A1, A2)])
-{
+{ /** Extension method converts this [[Iterable]] of [[Tuple2]]s to a [[ArrPair]]. */
   def toPairArr[ArrA1 <: Arr[A1], A <: PairElem[A1, A2], ArrA <: ArrPair[A1, ArrA1, A2, A]](implicit
-    builder: BuilderArrPairMap[A1, ArrA1, A2, A, ArrA]): ArrA = {
-    val buff = builder.newBuff()
+  builder: BuilderArrPairMap[A1, ArrA1, A2, A, ArrA]): ArrA =
+  { val buff = builder.newBuff()
     thisIter.foreach{pair => buff.pairGrow(pair._1, pair._2)}
     builder.buffToSeqLike(buff)
   }
