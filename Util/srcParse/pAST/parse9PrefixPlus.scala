@@ -11,6 +11,11 @@ object parse9PrefixPlus
 
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
+      case ArrOff2Tail(alpha: IdentifierToken, bs: BracketedStructure, tail) => {
+        val (newExpr, newRem) = parseAlphaBrackets(tail, alpha, bs)
+        acc.append(newExpr)
+        loop(newRem)
+      }
       case ArrOff2Tail(pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       case ArrOff3Tail(left: ClauseMemExpr, pp: OperatorToken,  right: ClauseMemExpr, tail) =>{
         deb("About to append.")
@@ -21,5 +26,16 @@ object parse9PrefixPlus
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }
     loop(refs.offset0)
+  }
+
+  def parseAlphaBrackets(rem: ArrOff[ClauseMem], alpha: IdentifierToken, bracks1: BracketedStructure)(implicit refs: RArr[ClauseMem]):
+    (AlphaBracketExpr, ArrOff[ClauseMem]) =
+  { deb("parseAlphaBrackets")
+    val acc: ArrayBuffer[BracketedStructure] = ArrayBuffer(bracks1)
+    def loop(rem: ArrOff[ClauseMem]): (AlphaBracketExpr, ArrOff[ClauseMem]) = rem match
+    { case ArrOff1Tail(bs: BracketedStructure, tail) => {acc.append(bs); loop(tail) }
+      case _ => (AlphaBracketExpr(alpha, acc.toArr), rem)
+    }
+    loop(rem)
   }
 }

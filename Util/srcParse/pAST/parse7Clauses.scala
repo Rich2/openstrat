@@ -12,9 +12,9 @@ object parse7Clauses
   {
     var subAcc: ArrayBuffer[ClauseMem] = Buffer()
     val acc: ArrayBuffer[Clause] = Buffer()
-    def loop(rem: ArrOff[ColonOpMem]): EMon[ColonMemExpr] = rem match {
 
-      case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)
+    def loop(rem: ArrOff[ColonOpMem]): EMon[ColonMemExpr] = rem match
+    { case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
       case ArrOff0() => parse8ClauseMem(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, None)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
@@ -13,7 +13,8 @@ object parse8ClauseMem
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)
 
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStructure, t2) =>
-      { val (bks, tail3) = t2.partitionT[BracketedStructure]
+      { deb("parse8ClauseMem => AlphaBracketExpr")
+        val (bks, tail3) = t2.partitionT[BracketedStructure]
         val abe = AlphaBracketExpr(at, bb %: bks)
         acc.append(abe)
         loop(tail3)
