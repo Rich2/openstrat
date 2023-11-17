@@ -49,6 +49,8 @@ object WTiles
   val sahel: Land = Land(Level, Sahel, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
 
+  lazy val landPairs: ArrPairStr[Land] = ArrPairStr[Land](("land", land), ("hills", hills))
+
   val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
   val sea: Water = Sea

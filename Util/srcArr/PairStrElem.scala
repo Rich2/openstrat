@@ -99,13 +99,13 @@ object ArrPairStr
 
 /** Builder for [[Arr]]s of [[PairStrElem]]s via map method. */
 class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairMap[String, StrArr, B2, PairStrElem[B2], ArrPairStr[B2]]
-{ override type BuffT = StrPairBuff[B2]
+{ override type BuffT = BuffPairStr[B2]
   override type B1BuffT = StringBuff
   override def b1ArrBuilder: BuilderArrMap[String, StrArr] = BuilderArrString
   override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): ArrPairStr[B2] = new ArrPairStr[B2](b1Arr.unsafeArray, b2s)
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-  override def buffGrow(buff: StrPairBuff[B2], newElem: PairStrElem[B2]): Unit = ???
+  override def buffGrow(buff: BuffPairStr[B2], newElem: PairStrElem[B2]): Unit = ???
 
   /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
   override def uninitialised(length: Int): ArrPairStr[B2] = ???
@@ -124,14 +124,15 @@ class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends Bu
   override def arrFromBuffs(a1Buff: StringBuff, b2s: ArrayBuffer[B2]): ArrPairStr[B2] = ???
 
   /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
-  override def newBuff(length: Int): StrPairBuff[B2] = StrPairBuff[B2]()
+  override def newBuff(length: Int): BuffPairStr[B2] = BuffPairStr[B2]()
 
   /** converts a the buffer type to the target compound class. */
-  override def buffToSeqLike(buff: StrPairBuff[B2]): ArrPairStr[B2] = new ArrPairStr[B2](buff.strBuffer.toArray, buff.b2Buffer.toArray)
+  override def buffToSeqLike(buff: BuffPairStr[B2]): ArrPairStr[B2] = new ArrPairStr[B2](buff.strBuffer.toArray, buff.b2Buffer.toArray)
 }
 
-class StrPairBuff[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[String, B2, PairStrElem[B2]]
-{ override type ThisT = StrPairBuff[B2]
+/** Efficient buffer class for [[PairStrElem]]s. */
+class BuffPairStr[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuffer[B2]) extends BuffPair[String, B2, PairStrElem[B2]]
+{ override type ThisT = BuffPairStr[B2]
   override def typeStr: String = "StrPairBuff"
   override def pairGrow(b1: String, b2: B2): Unit = { strBuffer.append(b1); b2Buffer.append(b2) }
   override def grow(newElem: PairStrElem[B2]): Unit = { strBuffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
@@ -139,8 +140,9 @@ class StrPairBuff[B2](val strBuffer: ArrayBuffer[String], val b2Buffer: ArrayBuf
   override def setElemUnsafe(i: Int, newElem: PairStrElem[B2]): Unit = { strBuffer(i) = newElem.a1; b2Buffer(i) == newElem.a2 }
 }
 
-object StrPairBuff{
-  def apply[B2](): StrPairBuff[B2] = new StrPairBuff[B2](new ArrayBuffer[String](4), new ArrayBuffer[B2](4))
+object BuffPairStr
+{ /** Factory apply method for creating [[BuffPairStr]] objects, efficent buffer for [[PairStrElem]]. */
+  def apply[B2](): BuffPairStr[B2] = new BuffPairStr[B2](new ArrayBuffer[String](4), new ArrayBuffer[B2](4))
 }
 
 object StrStrPairArr
