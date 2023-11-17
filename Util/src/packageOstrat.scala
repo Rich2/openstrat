@@ -518,15 +518,17 @@ package object ostrat
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
+
   implicit def iterableToExtensions[A](iter: Iterable[A]): IterableExtensions[A] = new IterableExtensions[A](iter)
   implicit def iterableValueNElemToExtensions[A <: ValueNElem](iter: Iterable[A]): IterableValueNElemExtensions[A] = new IterableValueNElemExtensions[A](iter)
+  implicit def iterableTuple2ToExtensions[A1, A2](iter: Iterable[(A1, A2)]): IterablePairExtensions[A1, A2] = new IterablePairExtensions[A1, A2](iter)
   implicit def listToExtensions[A](thisList: List[A]): ListExtensions[A] = new ListExtensions[A](thisList)
+  implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
 
   implicit def charToExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)
   implicit def longToImplicit(i: Long): LongExtensions = new LongExtensions(i)
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
-  implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
   implicit def showTToExtensions[A](thisVal: A)(implicit ev: Show[A]): ShowingExtensions[A] = new ShowingExtensions[A](ev, thisVal)
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
     new Show2Extensions[A1, A2, T](ev, thisVal)

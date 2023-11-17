@@ -216,9 +216,8 @@ trait BuilderArrPairMap[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <:
 }
 
 object BuilderArrPairMap extends BuilderArrPairMapPriority2
-{
+{ /** Implicit [[BuilderArrPairMap]] type class instances / evidence for [[ArrPairStr]]s. */
   implicit def strArrMapEv[B2](implicit ct: ClassTag[B2]): BuilderArrPairStrMap[B2] = new BuilderArrPairStrMap[B2]
-  //implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
 trait BuilderArrPairMapPriority2

@@ -189,3 +189,13 @@ class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) e
     res
   }
 }
+
+class IterablePairExtensions[A1, A2](thisIter: Iterable[(A1, A2)])
+{
+  def toPairArr[ArrA1 <: Arr[A1], A <: PairElem[A1, A2], ArrA <: ArrPair[A1, ArrA1, A2, A]](implicit
+    builder: BuilderArrPairMap[A1, ArrA1, A2, A, ArrA]): ArrA = {
+    val buff = builder.newBuff()
+    thisIter.foreach{pair => buff.pairGrow(pair._1, pair._2)}
+    builder.buffToSeqLike(buff)
+  }
+}
