@@ -29,7 +29,7 @@ object Terr13W60 extends Long13Terrs
       VRow(101, Mouth(10754, HVDL)),
       TRow(100, jungle, Hland(2, 0, jungle)),
       VRow(99, BendAll(10758, HVUR)),
-      TRow(98, hills, plain),
+      TRow(98, hills, land),
       VRow(97, BendAll(10758, HVDR)),
       TRow(96, hills, Hland(1, 2)),
       VRow(95, BendAll(10756, HVDR)),

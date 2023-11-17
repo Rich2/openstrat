@@ -30,7 +30,7 @@ object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
      shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, nRusNE, cAsiaNE, kazakNE, pEurope.Baltland.southEast)
 }
 
-object Kazak extends EArea2("Kazak", 47 ll 60, plain)
+object Kazak extends EArea2("Kazak", 47 ll 60, land)
 {
   val bautino = degs(44.53, 50.24)
   val kendirliBay = degs(42.73, 52.74)

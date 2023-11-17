@@ -5,7 +5,7 @@ import pgui._, pStrat._
 /** Object for selecting various JavaFx apps / examples at run time. */
 object Apps
 { /** Matches the [[String]] for the identifier in DevSettings.rson to a list of Apps. */
-  val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
+  val launchs: ArrPairStr[GuiLaunch] = ArrPairStr[GuiLaunch](
     ("L", learn.Lessons),
     ("PF", peri.PeriLaunch),
     ("DL", dless.DLessLaunch),
@@ -32,7 +32,7 @@ object Apps
     ("DR", pchess.pdraughts.DraughtsLaunch),
   )
 
-  val ids: StrPairArr[(CanvasPlatform => Any, String)] = StrPairArr(
+  val ids: ArrPairStr[(CanvasPlatform => Any, String)] = ArrPairStr(
     ("PL", (pspace.PlanetsGui(_), "JavaFx Planets")),
     ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y1", (pZero.TessGui(_), "Tess")),

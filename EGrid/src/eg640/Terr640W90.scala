@@ -23,8 +23,8 @@ object Terr640W90 extends Long640Terrs
       TRow(118, taiga, taiga, taiga),
       VRow(117, Mouth(9732, HVDn, Lake), Mouth(9736, HVUL)),
       TRow(116, savannah, savannah, hills),
-      TRow(114, sahel, savannah, plain, plain),
-      TRow(112, savannah, plain, jungle, sea),
+      TRow(114, sahel, savannah, land, land),
+      TRow(112, savannah, land, jungle, sea),
       TRow(110, sahel, sea * 2, sea),
       TRow(108, jungle, jungle, sea, Hland(4, 1, hillyJungle)),
     )

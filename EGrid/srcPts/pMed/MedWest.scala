@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
+object Majorca extends EArea2("Majorca", 39.59 ll 3.01, land)
 { val south: LatLong = 39.26 ll 3.05
   val palma: LatLong = 39.56 ll 2.63
   val portalsVells: LatLong = 39.45 ll 2.51
@@ -15,7 +15,7 @@ object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
+object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, land)
 { val sSicily: LatLong = 36.66 ll 15.08
   val kartibubbo: LatLong = 37.56 ll 12.67
   val marsala: LatLong = 37.80 ll 12.42
@@ -31,7 +31,7 @@ object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
 }
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
-object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
+object Canarias extends EArea2("Canarias", 27.96 ll -15.60, land)
 { val elHierro: LatLong = 27.72 ll -18.15
   val laPalma: LatLong = 28.85 ll -17.92
   val lanzarote: LatLong = 29.24 ll -13.47

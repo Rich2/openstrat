@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphical representation for the Jutland peninsular. */
-object Jutland extends EArea2("Jutland", 56.29 ll 9.33, plain)
+object Jutland extends EArea2("Jutland", 56.29 ll 9.33, land)
 { val swJutland: LatLong = 53.89 ll 8.96
   val sanktPeterOrding = 54.32 ll 8.59
   val blavandshuk = 55.56 ll 8.07
@@ -26,7 +26,7 @@ object Jutland extends EArea2("Jutland", 56.29 ll 9.33, plain)
 }
 
 /** [[PolygonLL]] graphical representation for the island of Funen. */
-object Funen extends EArea2("Funen", 55.27 ll 10.39, plain)
+object Funen extends EArea2("Funen", 55.27 ll 10.39, land)
 { val north: LatLong = 55.62 ll 10.30
   val nyborg = 55.29 ll 10.85
   val dovnsKlint = 54.72 ll 10.69
@@ -36,7 +36,7 @@ object Funen extends EArea2("Funen", 55.27 ll 10.39, plain)
 }
 
 /** [[polygonLL]] graphical representation of Zealand. Depends on nothing. */
-object Zealand extends EArea2("Zealand", 55.58 ll 11.90, plain)
+object Zealand extends EArea2("Zealand", 55.58 ll 11.90, land)
 { val zealandN = 56.13 ll 12.29
   val helsingor = 56.04 ll 12.62
   val mikkelborg = 55.91 ll 12.51
@@ -49,7 +49,7 @@ object Zealand extends EArea2("Zealand", 55.58 ll 11.90, plain)
 }
 
 /** [[polygonLL]] graphical representation of south Sweden. Depends on nothing. */
-object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, plain)
+object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, land)
 { //South Baltic Coast
   val gavie: LatLong = 60.68 ll 17.21
   val gardskarE: LatLong = 60.63 ll 17.67
@@ -84,7 +84,7 @@ object SwedenSouth extends EArea2("SwedenSouth", 58.25 ll 15.14, plain)
 }
 
 /** [[PolygonLL]] graphical representation for the island of Oland. */
-object Oland extends EArea2("Oland", 56.77 ll 16.67, plain)
+object Oland extends EArea2("Oland", 56.77 ll 16.67, land)
 { val north: LatLong = 57.37 ll 17.08
   val p10: LatLong = 57.31 ll 17.15
   val p20: LatLong = 56.85 ll 16.87

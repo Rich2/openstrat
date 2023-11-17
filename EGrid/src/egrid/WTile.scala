@@ -32,7 +32,7 @@ object WTile
 }
 
 object WTiles
-{ val plain: Land = Land(Level, Temperate, CivMix)
+{ val land: Land = Land(Level, Temperate, CivMix)
   val hills: Land = Land(Hilly, Temperate, CivMix)
   val forest: Land = Land(Level, Temperate, Forest)
   val hillyForest: Land = Land(Hilly, Temperate, Forest)

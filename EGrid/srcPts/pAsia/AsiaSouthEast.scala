@@ -14,7 +14,7 @@ object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, plain)
+object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, land)
 { val p5: LatLong = 38.15 ll 118.81
   val jiolaiMouth: LatLong = 37.11 ll 119.57
   val p10: LatLong = 37.82 ll 120.75

@@ -15,7 +15,7 @@ object Terr640E60 extends Long640Terrs
       TRow(128, tundra),
       TRow(126, taiga * 2),
       TRow(124, taiga * 2),
-      TRow(122, plain, plain),
+      TRow(122, land, land),
       TRow(120, savannah * 3),
       VRow(119, Mouth(2556, HVUp, Lake)),
       TRow(118, sahel, sahel * 2),

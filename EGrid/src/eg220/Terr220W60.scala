@@ -15,7 +15,7 @@ object Terr220W60 extends Long220Terrs {
       TRow(160, taiga * 3, hillyTaiga),
       TRow(158, hillyTaiga),
       TRow(156, hillyTaiga * 2),
-      TRow(154, plain),
+      TRow(154, land),
     )
   }
   help.run

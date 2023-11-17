@@ -46,7 +46,7 @@ object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, jungle
 }
 
 /** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
-object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, plain)
+object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, land)
 { val seNacala: LatLong = -14.4 ll 40.3
   val eAfricaEquator: LatLong = 0.0 ll 42.4
   val mombassa: LatLong = -4.03 ll 39.28
@@ -56,7 +56,7 @@ object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, 
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
-object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, plain)
+object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, land)
 { val north: LatLong = -11.95 ll 49.26
   val east: LatLong = -15.33 ll 50.48
   val southEast: LatLong = -25.03 ll 46.99
@@ -67,7 +67,7 @@ object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, plain)
 }
 
 /** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
-object SouthAfrica extends EArea2("South Africa", -25 ll 24, plain)
+object SouthAfrica extends EArea2("South Africa", -25 ll 24, land)
 { val sAfricaN: Latitude = 17.south
 
   val sAfricaNW: LatLong = - 17 ll 11.76

@@ -50,7 +50,7 @@ object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, hills)
 }
 
 /** [[PolygonLL]] graphic for east Balkans depends on [[BalkansWest]], [[Alpsland]] and [[Greece]]. */
-object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, plain)
+object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, land)
 { val odessa = 46.48 ll 30.74
   val ochakivskeMouth = 45.46 ll 29.78
   val p10 = 44.84 ll 29.59

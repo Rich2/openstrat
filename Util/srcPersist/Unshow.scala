@@ -289,3 +289,5 @@ trait UnshowPriority3
     }
   }
 }
+
+//class UnshowIdents[A](val pairs: StrPairArr)

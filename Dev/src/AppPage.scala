@@ -17,8 +17,8 @@ class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextI
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStemName == JsMainStemName)
-    val pairs1: StrPairArr[String] = pages.mapPair(_.linkText)(_.htmlFileName)
-    val pairs2: StrPairArr[String] = StrPair("Home", "index.html") %: pairs1
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(_.htmlFileName)
+    val pairs2: ArrPairStr[String] = PairStrElem("Home", "index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
 
@@ -41,7 +41,7 @@ object AppPage
 
   def all: RArr[AppPage] = allTops ++ others
 
-  val allTopPairs: StrPairArr[String] = allTops.mapPair(_.linkText)(_.htmlFileName)
+  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.linkText)(_.htmlFileName)
 
-  def topMenu(pairs: StrPairArr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
+  def topMenu(pairs: ArrPairStr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }

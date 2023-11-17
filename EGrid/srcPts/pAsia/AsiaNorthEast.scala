@@ -101,7 +101,7 @@ object NeAsia extends EArea2("NEAsia", 64 ll 113, taiga)
   bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, RusNorth.cAsiaNE, RusNorth.nRusNE)
 }
 
-object CEAsia extends EArea2("CEAsia", 47 ll 115, plain)
+object CEAsia extends EArea2("CEAsia", 47 ll 115, land)
 { val udaMouth: LatLong = 54.72 ll 135.28
   val khab10: LatLong = 54.64 ll 136.81
   val khab15: LatLong = 54.28 ll 139.75

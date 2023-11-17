@@ -15,7 +15,7 @@ object Terr13E0 extends Long13Terrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(114, hillyTundra),
       TRow(112, hillyTaiga),
-      TRow(110, plain),
+      TRow(110, land),
       TRow(108, Hland(3, 3, hills)),
       TRow(106, Hland(2, 5, savannah), Hland(1, 0, sahel)),
       VRow(105, BendAll(508, HVUL)),

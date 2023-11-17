@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */
-object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, plain)
+object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, land)
 { val cAfricaN: Latitude = 4.53.north
   val cAfricaNW: LatLong = cAfricaN * 8.89.east
   val sangana: LatLong = 4.31 ll 5.99

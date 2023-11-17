@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** Displays Netherlands depends on [[BelgLux]]. */
-object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, plain)
+object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, land)
 {  val wMiddleburg = 51.53 ll 3.43
    val denHeider = 52.95 ll 4.72
    val p10 = 53.39 ll 5.20
@@ -16,7 +16,7 @@ object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, plain)
 }
 
 /** Displays roughly Germany on map. Depends on [[Alsace]], [[Frankia]] and [[BelgLux]]. */
-object Germania extends EArea2("Germania", 50.50 ll 11.11, plain)
+object Germania extends EArea2("Germania", 50.50 ll 11.11, land)
 {  val cuxhaven = 53.88 ll 8.66
    val swinoujscie = 53.92 ll 14.24
       
