@@ -3,13 +3,13 @@ package ostrat; package pParse
 
 /** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
 * on the class may be interpreted in 1 to 3 ways, as a normal decimal number, a hexadecimal number, or a trigdual (base 32) number. */
-trait ValidIntToken extends ClauseMemExprToken
+trait ValidIntToken extends OpExprMemToken
 { /** The digit chars used to calculate the integer. */
   def digitsStr: String
 }
 
 /** A valid fractional number token. Could be an integer or a fractional number. */
-trait ValidFracToken extends ClauseMemExprToken
+trait ValidFracToken extends OpExprMemToken
 { def doubleValue: Double
 }
 
@@ -22,7 +22,7 @@ object ValidFracToken
 }
 
 /** A valid non negative fractional number token */
-trait ValidPosFracToken extends ClauseMemExprToken
+trait ValidPosFracToken extends OpExprMemToken
 { def posDoubleValue: Double
 }
 

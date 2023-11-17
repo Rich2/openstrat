@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
-trait IdentifierToken extends ClauseMemExprToken
+trait IdentifierToken extends OpExprMemToken
 
 /** Extractor object for [[IdentifierToken]]. */
 object IdentifierToken
