@@ -22,8 +22,8 @@ object Terr640E60 extends Long640Terrs
       VRow(117, BendAll(2556, HVUR, Lake)),
       TRow(116, Hland(2, 1, sahel, lake), sahel * 2),
       VRow(115, Mouth(2556, HVDL, Lake)),
-      TRow(114, hillySahel, hillySahel, sea, sea),
-//      TRow(112, desert, plain, desert * 2),
+      TRow(114, hillySahel, hillySahel, Land(Mountains, Desert), Land(Mountains, Sahel)),
+      TRow(112, hillyDesert, hillyDesert, Land(Mountains, Desert), savannah),
     )
   }
   help.run

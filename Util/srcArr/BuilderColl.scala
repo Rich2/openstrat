@@ -31,6 +31,9 @@ object BuilderCollMap
 
   /** [[BuilderCollMap]] type class instance / evidence for the [[Vector]] class. */
   implicit def vectorEv[A]: VectorBuilder[A] = new VectorBuilder[A]
+
+  /** [[BuilderCollMap]] type class instance / evidence for the [[Array]][Int] class. */
+  implicit val arrayIntEv: ArrayIntBuilder = new ArrayIntBuilder
 }
 
 trait BuilderStdCollMap[A, R] extends BuilderCollMap[A, R]
@@ -48,4 +51,9 @@ class ListBuilder[A] extends BuilderStdCollMap[A, List[A]]{
 class VectorBuilder[A] extends BuilderStdCollMap[A, Vector[A]]
 { override def empty: Vector[A] = Vector[A]()
   override def buffToSeqLike(buff: ArrayBuffer[A]): Vector[A] = buff.toVector
+}
+
+class ArrayIntBuilder extends BuilderStdCollMap[Int, Array[Int]]
+{ override def empty: Array[Int] = Array[Int]()
+  override def buffToSeqLike(buff: ArrayBuffer[Int]): Array[Int] = buff.toArray
 }

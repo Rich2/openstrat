@@ -1,9 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
-
-import annotation.unchecked.uncheckedVariance
-import scala.reflect.ClassTag
+import pParse._, annotation.unchecked.uncheckedVariance
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends PersistBase
@@ -235,20 +232,11 @@ object Unshow extends UnshowPriority2
     }
   }
 
-  implicit val arrayIntImplicit: Unshow[Array[Int]] = new Unshow[Array[Int]]//(ShowT.intPersistImplicit)
-  {
-    def typeStr: String = "Array[Int]"
-
-    override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
-    { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(IdentUpperToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
-      //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
-      case e => bad1(expr, "Unknown Exoression for Seq")
-    }
-  }
+  /** Implicit [[Unshow]] instance / evidence for [[Array]][Int]. */
+  implicit val arrayIntImplicit: Unshow[Array[Int]] = UnshowSeq[Int, Array[Int]]()
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A], buildIn: BuilderArrMap[A, ArrA]): Unshow[List[A]] = UnshowSeq[A, List[A]]()
+  implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A]): Unshow[List[A]] = UnshowSeq[A, List[A]]()
 
   /** [[Unshow]] type class instance for [[Option]] */
   implicit def optionEv[A](implicit evA: Unshow[A]): UnshowSum[Option[A]] = UnshowSum[Option[A]]("Opt", someUnShowImplicit[A](evA), noneUnEv)
@@ -262,16 +250,17 @@ trait UnshowPriority2 extends UnshowPriority3
     val build: BuilderArrMap[A, ArrA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match {
-      case eet: EmptyExprToken => Good(Vector[A]())
+    override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match
+    { case _: EmptyExprToken => Good(Vector[A]())
       case AlphaSquareParenth("Seq", ts, sts) => sts.mapEMon(s => evA.fromExpr(s.expr))(build).map(_.toVector)
       case AlphaParenth("Seq", sts) => sts.mapEMon(s => evA.fromExpr(s.expr))(build).map(_.toVector)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
 
-  implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]] {
-    override def typeStr: String = "Some" + ev.typeStr.enSquare
+  /** Implicit [[Unshow]] type class instance / evidence method for [[Some]] objects. */
+  implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
+  { override def typeStr: String = "Some" + ev.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match {
       case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
