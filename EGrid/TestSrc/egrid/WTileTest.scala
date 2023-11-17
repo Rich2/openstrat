@@ -38,6 +38,7 @@ object WTileTest extends TestSuite
       "Sea * 5".asType[Multiple[Water]] ==> Good(Multiple(Sea, 5))
       "Lake * 3".asType[Multiple[Water]] ==> Good(Multiple(Lake, 3))
       "Land() * 3".asType[Multiple[Land]] ==> Good(Multiple(Land(), 3))
+      "Land(Hilly) * 3".asType[Multiple[WTile]] ==> Good(Multiple(Land(Hilly), 3))
     }
   }
 }

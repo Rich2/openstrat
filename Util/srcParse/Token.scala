@@ -119,6 +119,7 @@ case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ClauseMem
 { override def exprName: String = "HashAlpha"
 }
 
+/** Underscore / wild card token. */
 case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMem
 { def srcStr = "_"
   override def exprName: String = "EmptyClauseExpr"
