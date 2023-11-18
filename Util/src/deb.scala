@@ -25,25 +25,24 @@ def posnStrImpl(using Quotes): Expr[String] =
   Expr(pos.sourceFile.path + ":" + (pos.startLine + 1).toString)
 }
 
-inline def inspect[T](inline expr: T*): Seq[(String, String)] = ${inspectCode('expr) }
-def inspectCode[T](expr: Expr[Seq[T]])(using Quotes): Expr[Seq[(String, String)]] =
+inline def inspect[T](inline expr: T*): Seq[(String, T)] = ${inspectCode('expr) }//.map(_ + "Hi")
+def inspectCode[T](expr: Expr[Seq[T]])(using Type[T], Quotes): Expr[Seq[(String, T)]] =
 {
   import quotes.reflect.report
-  expr match {
-    case Varargs(aExprs) => // numberExprs: Seq[Expr[Int]]
-      { val strs = aExprs.map { v =>
-          val v2 = v.show.reverse.takeWhile(_ != '.').reverse
-        }
-        val str2: String = strs.mkString(",")
-
-        Expr[String](str2)
-      }
-
+  val aSeq: Seq[Expr[T]] = expr match
+  { case Varargs(aExprs) => aExprs
     case _ => report.errorAndAbort("Expected explicit varargs sequence. " + "Notation `args*` is not supported.", expr)
   }
   val s1: String = expr.show
-  val s2: String = s1.dropWhile(_ != '(').drop(1).dropRight(1)
-  val str3 = Seq(s2, "There")
-  val str4: Expr[(String, String)] = Expr(("hi4", "bye4"))
-  '{ Seq(("hi1", "bye1"), $str4 ) }
+  val s2s: Array[String] = s1.split(", ")
+  val s3s = s2s.map(_.reverse.takeWhile(_ != '.').reverse)
+  var i = 0
+  val aSeq2 = aSeq.map{ ep =>
+    i = i + 1
+    Expr.ofTuple(Expr(s3s(i - 1)), ep)
+  }
+
+  val aSeq3: Expr[Seq[(String, T)]] = Expr.ofSeq(aSeq2)
+
+  aSeq3
 }
