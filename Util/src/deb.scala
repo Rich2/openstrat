@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import quoted.*
 
@@ -23,4 +23,18 @@ inline def posnStr(): String = ${ posnStrImpl }
 def posnStrImpl(using Quotes): Expr[String] =
 { val pos = quotes.reflect.Position.ofMacroExpansion
   Expr(pos.sourceFile.path + ":" + (pos.startLine + 1).toString)
+}
+
+inline def inspect(inline expr: List[Any]): String = ${inspectCode('expr) }
+def inspectCode(expr: Expr[List[Any]])(using Quotes): Expr[String] =
+{ val s1: String = expr.show
+  val len = s1.length
+  var i = len
+  var cont = true
+  while(i > 0 && cont){
+    if(s1(i - 1) == '.') cont = false
+    i = i - 1
+  }
+  val s2 = s1.drop(i + 1)
+  Expr( s1)
 }

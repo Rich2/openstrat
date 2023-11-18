@@ -56,6 +56,8 @@ object WTiles
   val sea: Water = Sea
   val lake: Water = Lake
   val mtain: Land = Land(Mountains, Taiga, Forest)
+
+  println(inspect(List(land, hills)))
 }
 
 /** A common trait for Ocean and Lake. */

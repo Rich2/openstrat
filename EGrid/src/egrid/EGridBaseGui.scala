@@ -8,7 +8,6 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def sTerrs: HSideOptLayer[WSide, WSideSome]
   def corners: HCornerLayer
   implicit def proj: HSysProjection
-
   def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
   def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
