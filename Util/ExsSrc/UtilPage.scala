@@ -27,9 +27,10 @@ object UtilPage extends HtmlPage
     " abstract syntax tree.")
 
   def persist: HtmlLi = HtmlLi("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
-    "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itslef." --
-    "And Showing will be used for Show type classes that use Showed functionality, to minimise their constructors. I think the Persist type class" --
-    "must be removed. It creates more problems than its worth.")
+    "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itself." --
+    "And ShowTell will be used for Show type classes that use Tell functionality, to minimise their constructors. The show and tell methods" --
+    "contain a style parameter, to indicate which information to show and precision parameters to specify the number of decimal places precision." --
+    "The default max precision is set to -1, which indicates no limit." )
 
   def base32: HtmlSection = HtmlSection(HtmlH2("Hexadecimal and Base32"),
     HtmlP("Hexadecimal is written with Uppercase letters. Base32 is written with the digits followed by the upper case letters A to W, with the" --

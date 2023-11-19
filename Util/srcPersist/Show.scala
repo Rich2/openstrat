@@ -26,8 +26,6 @@ trait Show[-T] extends PersistBase
 
   def show(obj: T, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String
 
-  //def show(obj: T, style: ShowStyle): String = showDec(obj, style, -1, -1)
-
   override def toString: String = "Show" + typeStr
 }
 

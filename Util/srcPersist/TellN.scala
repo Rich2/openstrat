@@ -4,7 +4,7 @@ package ostrat
 /** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowN]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowN]]. */
-trait TellN extends Any with TellDec
+trait TellN extends Any with Tell
 { /** A [[StrArr]] Arr of the element names of this Show Product class. */
   def paramNames: StrArr
 

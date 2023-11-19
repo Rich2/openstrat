@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon */
-trait HexReg extends ShapeCentred with Polygon6Plus with TellDec
+trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 
