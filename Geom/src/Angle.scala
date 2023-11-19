@@ -74,8 +74,8 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
 }
 
 /** Angle Companion object. */
-object Angle {
-  /** Factory method for Angle from number of degrees */
+object Angle
+{ /** Factory method for Angle from number of degrees */
   @inline def apply(degrees: Double): Angle = new Angle((degrees %% 360) * MilliSecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */

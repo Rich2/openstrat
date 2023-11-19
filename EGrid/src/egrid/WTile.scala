@@ -50,15 +50,20 @@ object WTiles
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
   val mtain: Land = Land(Mountains, Taiga, Forest)
 
+  /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](land, hills, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
     hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtain)
 
+  /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
 
   val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
   val sea: Water = Sea
   val lake: Water = Lake
+
+  /** Sequence of short hand words for [[Water]]. */
+  lazy val waterWords: ArrPairStr[Water] = ArrPairStr[Water](("sea", sea), ("lake", lake))
 }
 
 /** A common trait for Ocean and Lake. */

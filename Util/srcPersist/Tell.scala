@@ -44,7 +44,7 @@ trait ShowTell[R <: Tell] extends Show[R]
 }
 
 object ShowTell
-{
+{ /** Factory apply method for [[ShowTell]] type class instances / evidence. */
   def apply[R <: Tell](typeStrIn: String): ShowTell[R] = new ShowTell[R]
   { override def typeStr: String = typeStrIn
   }
