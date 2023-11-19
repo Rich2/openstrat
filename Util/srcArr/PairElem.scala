@@ -194,7 +194,7 @@ trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
 
   /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
-  def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB
+  def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB
 }
 
 /** Builder for [[ArrPair]] objects via the map f: A => PairB, method. Hence the call site knows the type of the [[PairElem]]s that will make up the

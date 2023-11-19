@@ -40,7 +40,7 @@ object Land
   lazy val unshowFullEv: Unshow3[Lelev, Climate, LandUse, Land] =  Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse",
     (elev, climate, use) => new Land(elev, climate, use), Some(CivMix), Some(Temperate), Some(Level))
 
-  lazy val unshowIdentsEv: UnshowIdents[Land] = UnshowIdents[Land]("Land", WTiles.landPairs)
+  lazy val unshowIdentsEv: UnshowIdents[Land] = UnshowIdents[Land]("Land", WTiles.landWords)
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Land]]. */
   implicit lazy val unshowEv: Unshow[Land] = unshowFullEv.concat(unshowIdentsEv)

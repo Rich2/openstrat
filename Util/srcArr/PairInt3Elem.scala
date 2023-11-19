@@ -66,8 +66,8 @@ trait BuilderArrPairInt3Map[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairI
 
   final override def a1IntNum: Int = 3
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.a1ArrayInt.setIndex3(index, elem.a1Int1, elem.a1Int2, elem.a1Int3)
-    seqLike.a2Array(index) = elem.a2 }
+  final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit = { seqLike.a1ArrayInt.setIndex3(index, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3)
+    seqLike.a2Array(index) = newElem.a2 }
 }
 
 /** Helper trait for companion objects of instantiable [[PairInt3]] classes. */

@@ -137,7 +137,7 @@ object StringBuff
 object BuilderArrString extends BuilderArrMap[String, StrArr] with BuilderArrFlat[StrArr]
 { type BuffT = StringBuff
   override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
-  override def indexSet(seqLike: StrArr, index: Int, elem: String): Unit = seqLike.unsafeArray(index) = elem
+  override def indexSet(seqLike: StrArr, index: Int, newElem: String): Unit = seqLike.unsafeArray(index) = newElem
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringBuff, newElem: String): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: StringBuff): StrArr = new StrArr(buff.unsafeBuffer.toArray)

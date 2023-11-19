@@ -25,8 +25,9 @@ def posnStrImpl(using Quotes): Expr[String] =
   Expr(pos.sourceFile.path + ":" + (pos.startLine + 1).toString)
 }
 
-inline def inspect[T](inline expr: T*): Seq[(String, T)] = ${inspectCode('expr) }//.map(_ + "Hi")
-def inspectCode[T](expr: Expr[Seq[T]])(using Type[T], Quotes): Expr[Seq[(String, T)]] =
+/** Transforms varargs of type T into a sequence of [[Tuple2]][(String, T)]s. */
+inline def identStrs[T](inline expr: T*): Seq[(String, T)] = ${identStrsCode('expr) }
+def identStrsCode[T](expr: Expr[Seq[T]])(using Type[T], Quotes): Expr[Seq[(String, T)]] =
 {
   import quotes.reflect.report
   val aSeq: Seq[Expr[T]] = expr match
@@ -37,12 +38,10 @@ def inspectCode[T](expr: Expr[Seq[T]])(using Type[T], Quotes): Expr[Seq[(String,
   val s2s: Array[String] = s1.split(", ")
   val s3s = s2s.map(_.reverse.takeWhile(_ != '.').reverse)
   var i = 0
-  val aSeq2 = aSeq.map{ ep =>
+  val aSeq2 = aSeq.map{ (ep: Expr[T]) =>
     i = i + 1
     Expr.ofTuple(Expr(s3s(i - 1)), ep)
   }
 
-  val aSeq3: Expr[Seq[(String, T)]] = Expr.ofSeq(aSeq2)
-
-  aSeq3
+  Expr.ofSeq(aSeq2)
 }

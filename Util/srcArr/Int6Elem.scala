@@ -90,8 +90,8 @@ trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[_]] extends BuilderSeqLikeIntN[BB]
 trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends BuilderSeqLikeInt6[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt6[B]
 
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
-    seqLike.unsafeArray.setIndex6(index, elem.int1, elem.int2, elem.int3, elem.int4, elem.int5, elem.int6)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
+    seqLike.unsafeArray.setIndex6(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)
 
   final override def buffGrow(buff: BuffT, newElem: B): Unit =
     buff.unsafeBuffer.append6(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5, newElem.int6)

@@ -72,9 +72,9 @@ BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNMap[B1, ArrB1, B
 { type BuffT <: BuffPairInt4[B1, B2, B]
   final override def a1IntNum: Int = 4
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
-  { seqLike.a1ArrayInt.setIndex4(index, elem.a1Int1, elem.a1Int2, elem.a1Int3, elem.a1Int4)
-    seqLike.a2Array(index) = elem.a2
+  final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
+  { seqLike.a1ArrayInt.setIndex4(index, newElem.a1Int1, newElem.a1Int2, newElem.a1Int3, newElem.a1Int4)
+    seqLike.a2Array(index) = newElem.a2
   }
 }
 

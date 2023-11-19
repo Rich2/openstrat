@@ -48,7 +48,7 @@ trait BuilderSeqLikeInt2[BB <: SeqLike[_]] extends BuilderSeqLikeIntN[BB]
 /** Builds [[SeqLikeInt2]] objects via the map method. */
 trait BuilderSeqLikeInt2Map[B <: Int2Elem, BB <: SeqLikeInt2[B]] extends BuilderSeqLikeInt2[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt2[B]
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex2(index, elem.int1, elem.int2)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex2(index, newElem.int1, newElem.int2)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append2(newElem.int1, newElem.int2)
 }
 

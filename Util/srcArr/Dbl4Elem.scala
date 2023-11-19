@@ -65,8 +65,8 @@ trait BuilderArrDbl4[ArrB <: Dbl4Arr[_]] extends BuilderArrDblN[ArrB]
 trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends BuilderArrDbl4[ArrB] with BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl4[B]
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
-    seqLike.unsafeArray.setIndex4(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4)
+  final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
+    seqLike.unsafeArray.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for

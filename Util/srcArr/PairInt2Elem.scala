@@ -83,8 +83,8 @@ trait BuilderArrPairInt2Map[B1 <: Int2Elem, ArrB1 <: ArrInt2[B1], B2, B <: PairI
 { type BuffT <: BuffPairInt2[B1, B2, B]
   final override def a1IntNum: Int = 2
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.a1ArrayInt.setIndex2(index, elem.a1Int1, elem.a1Int2)
-    seqLike.a2Array(index) = elem.a2 }
+  final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit = { seqLike.a1ArrayInt.setIndex2(index, newElem.a1Int1, newElem.a1Int2)
+    seqLike.a2Array(index) = newElem.a2 }
 }
 
 /** Helper trait for the companion objects of instantiable [[ArrPairInt2]] classes.  */

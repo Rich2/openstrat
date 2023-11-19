@@ -65,7 +65,7 @@ trait BuilderArrInt1[ArrB <: ArrInt1[_]] extends BuilderSeqLikeIntN[ArrB]
  *  the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt1[ArrT] with BuilderArrIntNMap[A, ArrT]
 { type BuffT <: BuffInt1[A]
-  final override def indexSet(seqLike: ArrT, index: Int, elem: A): Unit =  seqLike.unsafeArray(index) = elem.int1
+  final override def indexSet(seqLike: ArrT, index: Int, newElem: A): Unit =  seqLike.unsafeArray(index) = newElem.int1
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.int1); () }
 }
 

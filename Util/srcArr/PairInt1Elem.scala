@@ -56,8 +56,8 @@ trait BuilderArrPairIn1Map[B1 <: Int1Elem, ArrB1 <: ArrInt1[B1], B2, B <: PairIn
 { type BuffT <: BuffPairInt1[B1, B2, B]
   final override def a1IntNum: Int = 1
 
-  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.a1ArrayInt(index) = elem.a1Int1
-    seqLike.a2Array(index) = elem.a2 }
+  final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit = { seqLike.a1ArrayInt(index) = newElem.a1Int1
+    seqLike.a2Array(index) = newElem.a2 }
 }
 
 /** Helper trait for companion objects for [[ArrPairInt1]]s. */

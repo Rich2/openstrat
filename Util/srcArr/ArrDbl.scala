@@ -65,7 +65,7 @@ object ArrDbl
 object DblArrBuilder extends BuilderArrMap[Double, ArrDbl] with BuilderArrFlat[ArrDbl]
 { type BuffT = BuffDbl
   override def uninitialised(length: Int): ArrDbl = new ArrDbl(new Array[Double](length))
-  override def indexSet(seqLike: ArrDbl, index: Int, elem: Double): Unit = seqLike.unsafeArray(index) = elem
+  override def indexSet(seqLike: ArrDbl, index: Int, newElem: Double): Unit = seqLike.unsafeArray(index) = newElem
   override def newBuff(length: Int = 4): BuffDbl = new BuffDbl(new ArrayBuffer[Double](length))
   override def buffGrow(buff: BuffDbl, newElem: Double): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: BuffDbl): ArrDbl = new ArrDbl(buff.unsafeBuffer.toArray)

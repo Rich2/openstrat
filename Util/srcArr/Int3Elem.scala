@@ -68,7 +68,7 @@ trait BuilderSeqLikeInt3[BB <: SeqLikeInt3[_]] extends BuilderSeqLikeIntN[BB]
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s via the map method, meaning the element type is known at the call site.. */
 trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SeqLikeInt3[B]] extends BuilderSeqLikeInt3[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex3(index, elem.int1, elem.int2, elem.int3)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append3(newElem.int1, newElem.int2, newElem.int3)
 }
 

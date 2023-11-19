@@ -28,8 +28,8 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override type B1BuffT = PolygonLLBuff
   override def uninitialised(length: Int): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
-  override def indexSet(seqLike: PolygonLLPairArr[A2], index: Int, elem: PolygonLLPair[A2]): Unit =
-  { seqLike.a1ArrayDbls(index) = elem.a1ArrayDbl ; seqLike.a2Array(index) = elem.a2 }
+  override def indexSet(seqLike: PolygonLLPairArr[A2], index: Int, newElem: PolygonLLPair[A2]): Unit =
+  { seqLike.a1ArrayDbls(index) = newElem.a1ArrayDbl ; seqLike.a2Array(index) = newElem.a2 }
 
   override def newBuff(length: Int): PolygonLLPairBuff[A2] = new PolygonLLPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonLLPairBuff[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)

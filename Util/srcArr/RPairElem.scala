@@ -115,7 +115,7 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPa
   override def uninitialised(length: Int): RPairArr[B1, B2] = ???
 
   /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
-  override def indexSet(seqLike: RPairArr[B1, B2], index: Int, elem: RPairElem[B1, B2]): Unit = ???
+  override def indexSet(seqLike: RPairArr[B1, B2], index: Int, newElem: RPairElem[B1, B2]): Unit = ???
 
   /** ClassTag for building Arrays and ArrayBuffers of B2s. */
   override implicit def b2ClassTag: ClassTag[B2] = ???
@@ -127,7 +127,7 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPa
   override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = ???
 
   /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
-  override def arrFromBuffs(a1Buff: RBuff[B1], b2s: ArrayBuffer[B2]): RPairArr[B1, B2] = ???
+  override def arrFromBuffs(b1Buff: RBuff[B1], b2Buffer: ArrayBuffer[B2]): RPairArr[B1, B2] = ???
 
   /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
   override def newBuff(length: Int): RPairBuff[B1, B2] = ???

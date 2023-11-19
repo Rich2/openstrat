@@ -24,7 +24,7 @@ trait BuilderSeqLikeMap[B, BB <: SeqLike[B]] extends BuilderCollMap[B, BB] with 
   def buffGrowIter(buff: BuffT, newElems: Iterable[B]): Unit = newElems.foreach(buffGrow(buff, _))
 
   /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
-  def indexSet(seqLike: BB, index: Int, elem: B): Unit
+  def indexSet(seqLike: BB, index: Int, newElem: B): Unit
 }
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in

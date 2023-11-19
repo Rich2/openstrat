@@ -77,7 +77,7 @@ trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3[_]] extends BuilderSeqLikeDblN[BB]
 
 trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SeqLikeDbl3[B]] extends BuilderSeqLikeDbl3[BB] with BuilderSeqLikeDblNMap[B, BB]
 { type BuffT <: Dbl3Buff[B]
-  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = seqLike.unsafeArray.setIndex3(index, elem.dbl1, elem.dbl2, elem.dbl3)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /

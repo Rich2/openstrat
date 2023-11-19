@@ -117,7 +117,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var good = true
     var i = 0
     while(i < length & good) f(apply(i)) match
-    { case Some(b) => { build.indexSet (res, i, b); i += 1 }
+    { case Some(b) => { build.indexSet(res, i, b); i += 1 }
       case None => good = false
     }
     ife(good, Some(res), None)

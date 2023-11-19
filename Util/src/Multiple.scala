@@ -130,7 +130,7 @@ class MultipleArrMapBuilder[A](implicit ct: ClassTag[A]) extends BuilderArrMap[M
 { override type BuffT = MultipleBuff[A]
   override def buffGrow(buff: MultipleBuff[A], newElem: Multiple[A]): Unit = buff.grow(newElem)
   override def uninitialised(length: Int): MultipleArr[A] = new MultipleArr[A](new Array[Int](length), new Array[A](length))
-  override def indexSet(seqLike: MultipleArr[A], index: Int, elem: Multiple[A]): Unit = { seqLike.setElemUnsafe(index, elem) }
+  override def indexSet(seqLike: MultipleArr[A], index: Int, newElem: Multiple[A]): Unit = { seqLike.setElemUnsafe(index, newElem) }
   override def newBuff(length: Int): MultipleBuff[A] = MultipleBuff(length)
   override def buffToSeqLike(buff: MultipleBuff[A]): MultipleArr[A] = new MultipleArr[A](buff.numBuffer.toArray, buff.valuesBuffer.toArray)
 }

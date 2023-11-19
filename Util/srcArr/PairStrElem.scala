@@ -104,29 +104,22 @@ class BuilderArrPairStrMap[B2](implicit val b2ClassTag: ClassTag[B2]) extends Bu
   override def b1ArrBuilder: BuilderArrMap[String, StrArr] = BuilderArrString
   override def arrFromArrAndArray(b1Arr: StrArr, b2s: Array[B2]): ArrPairStr[B2] = new ArrPairStr[B2](b1Arr.unsafeArray, b2s)
 
-  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-  override def buffGrow(buff: BuffPairStr[B2], newElem: PairStrElem[B2]): Unit = ???
+  override def buffGrow(buff: BuffPairStr[B2], newElem: PairStrElem[B2]): Unit =
+  { buff.strBuffer.append(newElem.a1)
+    buff.b2Buffer.append(newElem.a2)
+  }
 
-  /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
-  override def uninitialised(length: Int): ArrPairStr[B2] = ???
+  override def uninitialised(length: Int): ArrPairStr[B2] = new ArrPairStr[B2](new Array[String](length), new Array[B2](length))
 
-  /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
-  override def indexSet(seqLike: ArrPairStr[B2], index: Int, elem: PairStrElem[B2]): Unit = ???
+  override def indexSet(seqLike: ArrPairStr[B2], index: Int, newElem: PairStrElem[B2]): Unit =
+  { seqLike.setA1Unsafe(index, newElem.a1)
+    seqLike.setA2Unsafe(index, newElem.a2)
+  }
 
-
-  /** Constructs a new empty [[BuffSequ]] for the B1 components of the pairs. */
-  override def newB1Buff(): StringBuff = ???
-
-  /** Expands / appends the B1 [[BuffSequ]] with a single element of B1. */
-  override def b1BuffGrow(buff: StringBuff, newElem: String): Unit = ???
-
-  /** Constructs an [[Arr]] of B from the [[BuffSequ]]s of the B1 and B2 components. */
-  override def arrFromBuffs(a1Buff: StringBuff, b2s: ArrayBuffer[B2]): ArrPairStr[B2] = ???
-
-  /** Creates a new empty [[BuffSequ]] with a default capacity of 4 elements. */
+  override def newB1Buff(): StringBuff = StringBuff()
+  override def b1BuffGrow(buff: StringBuff, newElem: String): Unit = buff.grow(newElem)
+  override def arrFromBuffs(b1Buff: StringBuff, b2Buffer: ArrayBuffer[B2]): ArrPairStr[B2] = new ArrPairStr[B2](b1Buff.toArray, b2Buffer.toArray)
   override def newBuff(length: Int): BuffPairStr[B2] = BuffPairStr[B2]()
-
-  /** converts a the buffer type to the target compound class. */
   override def buffToSeqLike(buff: BuffPairStr[B2]): ArrPairStr[B2] = new ArrPairStr[B2](buff.strBuffer.toArray, buff.b2Buffer.toArray)
 }
 

@@ -97,8 +97,8 @@ trait BuilderSeqLikeDbl6[BB <: ArrDbl6[_]] extends BuilderSeqLikeDblN[BB]
 trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNMap[B, ArrB]
 { type BuffT <: BuffDbl6[B]
 
-  override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
-    seqLike.unsafeArray.setIndex6(index, elem.dbl1, elem.dbl2, elem.dbl3, elem.dbl4, elem.dbl5, elem.dbl6)
+  override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
+    seqLike.unsafeArray.setIndex6(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6)
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl6]] final classes. Instances for the [[BuilderArrMap]] type

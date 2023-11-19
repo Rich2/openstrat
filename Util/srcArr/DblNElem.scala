@@ -117,9 +117,9 @@ trait BuilderSeqLikeDblNMap[B <: DblNElem, BB <: SeqLikeDblN[B]] extends Builder
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, newElem: B): Unit = newElem.dblForeach(buff.unsafeBuffer.append(_))
 
-  override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
+  override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
   { var ii = 0
-    elem.dblForeach {d => seqLike.unsafeArray(index * elemProdSize + ii); ii += 1}
+    newElem.dblForeach { d => seqLike.unsafeArray(index * elemProdSize + ii); ii += 1}
   }
 }
 
