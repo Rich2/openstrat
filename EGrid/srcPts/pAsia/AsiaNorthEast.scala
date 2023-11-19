@@ -25,6 +25,25 @@ object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
     p80, xianshuiMouth, liaoheMouth)
 }
 
+/** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
+object LakeBaikal extends EArea2("Lake Baikal", 53.463 ll 108.157, lake)
+{ val north: LatLong = 55.872 ll 109.742
+  val northEast: LatLong = 55.670 ll 109.963
+  val east: LatLong = 54.157 ll 109.556
+  val mamai: LatLong = 51.456 ll 104.768
+  val west: LatLong = 51.697 ll 103.699
+  val angaraMouth = 51.870 ll 104.82
+  val p80 = 53.927 ll 108.197
+
+  override val polygonLL = PolygonLL(north, northEast, east, mamai, west, angaraMouth, p80)
+}
+
+object SiberiaSouth extends EArea2("FEAsia", 60 ll 92, taiga)
+{ val khuvsgulLakeN = 51.616 ll 100.542
+
+  override val polygonLL = PolygonLL(khuvsgulLakeN)
+}
+
 /** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
 object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, taiga)
 { val farAsiaW = 141.6.east
