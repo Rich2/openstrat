@@ -4,7 +4,7 @@ import pParse._, reflect.ClassTag
 
 /** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
-trait TellSimple extends TellQuanta
+trait TellSimple extends Tell//Quanta
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   final override def tell(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = -1): String = style match
   { case ShowTyped => typeStr.appendParenth(str)

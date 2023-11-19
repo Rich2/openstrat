@@ -20,8 +20,6 @@ trait Tell extends Any with PersistBase
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by show method on [[Show]] type class instances. */
   def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String
 
-  //def str: String = tell(ShowStandard, -1, 0)
-
   /** Show with decimal precision of 0 places. */
   def str0: String = tell(ShowStandard, 0, 0)
 
@@ -34,12 +32,6 @@ trait Tell extends Any with PersistBase
   /** Show with decimal precision of 3 places padding with zeros if necessary. */
   def str3: String = tell(ShowStandard, 3, 3)
 }
-
-/** [[Tell]] type that does not use [[Double]]s and [[Float]]s where precision may need to be specified. */
-trait TellQuanta extends Any with Tell
-{ override def tell(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = tell(style)
-}
-
 
 /** A sub trait of the [[Show]] sub class where the type parameter of ShowT extends Show. This allows the ShowT type class to delegate to the Show
  * class for the implementation of its strT and ShowT methods. It is better to use [[TellDec]] and ShowElemT for types you control than have the toString
