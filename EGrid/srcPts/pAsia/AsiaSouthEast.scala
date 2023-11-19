@@ -13,25 +13,6 @@ object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, south, west, p10)
 }
 
-/** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object ChinaSE extends EArea2("ChinaSE", 30.0 ll 105.5, land)
-{ val p5: LatLong = 38.15 ll 118.81
-  val jiolaiMouth: LatLong = 37.11 ll 119.57
-  val p10: LatLong = 37.82 ll 120.75
-  val p12: LatLong = 36.90 ll 122.52
-  val rongcheng: LatLong = 37.39 ll 122.69
-  val haitzhou: LatLong = 34.95 ll 119.20
-  val p15: LatLong = 34.30 ll 120.28
-  val p18 : LatLong = 31.71 ll 121.98
-  val putuo: LatLong = 29.9 ll 122.34
-  val longhai: LatLong = 24.26 ll 118.14
-  val hongKong: LatLong = 22.44 ll 114.16
-  val xuwen: LatLong = 20.24 ll 110.18
-  val yingzaiMouth: LatLong = 21.45 ll 109.90
-
-  override val polygonLL: PolygonLL = PolygonLL(CEAsia.binhai, p5, jiolaiMouth, p10, rongcheng, p12, haitzhou, p15, p18, putuo, longhai, hongKong, xuwen,
-    yingzaiMouth, IndoChina.beilunMouth, IndoChina.chittagong, India.magdhara, India.indiaNE,  CentralAsia.southEast)
-}
 
 /** [[PolygonLL]] graphic for IndoChina depends on [[MalayPeninsula]]. */
 object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)

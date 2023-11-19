@@ -2,8 +2,9 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [polygonLL]] Graphical object for Florida. Dependant on nothing. */
 object Florida extends EArea2("Florida", 28.29 ll -81.59, jungle)
-{ val stJohnsMouth = 30.40 ll -81.40
+{ val stJohnsMouth: LatLong = 30.40 ll -81.40
   val seFlorida: LatLong = 25.34 ll -80.39
   val swFlorida: LatLong = 25.19 ll -81.13
 
@@ -23,11 +24,11 @@ object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, land)
   /** Camden County Georgia USA */
   val NAtlanticSW: LatLong = 31 ll  -81.47
 
-  val capeSanBlas = 29.67 ll -85.35
-  val p70 = 30.39 ll -86.65
-  val gulfPort = 30.37 ll -89.08
+  val capeSanBlas: LatLong = 29.67 ll -85.35
+  val p70: LatLong = 30.39 ll -86.65
+  val gulfPort: LatLong = 30.37 ll -89.08
 
-  override def polygonLL: PolygonLL = LakeSuperior.southCoast +% LakeHuron.pineMouth ++
+  override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++
     LakeMichigan.coast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
     p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, capeSanBlas, p70, gulfPort)
 }

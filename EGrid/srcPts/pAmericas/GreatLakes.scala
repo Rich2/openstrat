@@ -10,7 +10,7 @@ object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, taiga)
   val moosoneeMouth: LatLong = 51.36 ll -80.40
 
   override def polygonLL: PolygonLL = LinePathLL(CanadaSouthWest.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
-    CanadaNorthEast.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast |++| LinePathLL(LakeWinnipeg.redMouth,
+    CanadaNorthEast.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++| LinePathLL(LakeWinnipeg.redMouth,
     LakeWinnipeg.winnipegMouth, LakeWinnipeg.bloodveinMouth, LakeWinnipeg.playGreenMouth, LakeWinnipeg.north, LakeWinnipeg.northWest)
 }
 
@@ -34,16 +34,19 @@ object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
   val north: LatLong = 48.80 ll -87.31
   val west48: LatLong = 48.00 ll -89.57
   val west: LatLong = 46.77 ll -92.11
-  val northCoast = LinePathLL(east, michipicoten, north, west48, west)
 
-  val p10 = 46.96 ll -90.86
+  /** The north coast of Lake Superior in a clockwise direction, shares both west and east [[LatLong]] points with southCoast. */
+  val northCoast: LinePathLL = LinePathLL(west, west48, north, michipicoten, east)
+
+  val p10: LatLong = 46.96 ll -90.86
   val montrealMouth: LatLong = 46.57 ll -90.42
   val highRock : LatLong = 47.42 ll -87.71
   val chocolayMouth: LatLong = 46.50 ll -87.35
 
-  val southCoast = LinePathLL(west, p10, montrealMouth, highRock, chocolayMouth, east)
+  /** The south coast of Lake Superior in a clockwise direction, shares both east and west [[LatLong]] points with northCoast. */
+  val southCoast: LinePathLL = LinePathLL(east, chocolayMouth, highRock, montrealMouth, p10, west)
 
-  override def polygonLL: PolygonLL = northCoast.reverse |++<| southCoast.inner
+  override def polygonLL: PolygonLL = northCoast |++| southCoast.inner
 }
 
 /** Graphical display for Lake Huron. No dependencies. */

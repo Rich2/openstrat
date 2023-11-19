@@ -38,7 +38,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
 
-  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
+  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended closed [[PolygonLike]]. */
   @targetName("appendReverseToPolygon") def |++<|(operand: ThisT): PolygonT
 
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */

@@ -3,52 +3,41 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
-object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
-{ val northEast: LatLong = 41.49 ll 129.65
-  val kaima: LatLong = 40.84 ll 129.71
-  val hwaDo: LatLong =39.76 ll 127.54
-  val kaigochiRi: LatLong = 39.31 ll 127.57
-  val p15: LatLong = 39.30 ll 127.39
-  val p19: LatLong = 39.19 ll 127.41
-  val p20: LatLong = 39.13 ll 127.74
-  val koreaE: LatLong = 37.06 ll 129.40
-  val busan: LatLong = 35.19 ll 129.19
-  val jindo: LatLong = 34.39 ll 126.14
-  val ryongyon: LatLong = 38.12 ll 124.78
-  val taeryongMouth: LatLong = 39.49 ll 125.31
-  val dalianSouth: LatLong = 38.76 ll 121.16
-  val p80: LatLong = 39.53 ll 121.23
-  val xianshuiMouth: LatLong = 40.48 ll 122.28
-  val liaoheMouth: LatLong = 40.95 ll 121.82
-
-  override val polygonLL = PolygonLL(northEast, kaima, hwaDo, kaigochiRi, p15, p19, p20, koreaE, busan, jindo, ryongyon, taeryongMouth, dalianSouth,
-    p80, xianshuiMouth, liaoheMouth)
-}
-
-/** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
 object LakeBaikal extends EArea2("Lake Baikal", 53.463 ll 108.157, lake)
 { val north: LatLong = 55.872 ll 109.742
   val northEast: LatLong = 55.670 ll 109.963
   val east: LatLong = 54.157 ll 109.556
   val mamai: LatLong = 51.456 ll 104.768
-  val west: LatLong = 51.697 ll 103.699
-  val angaraMouth = 51.870 ll 104.82
-  val p80 = 53.927 ll 108.197
 
-  override val polygonLL = PolygonLL(north, northEast, east, mamai, west, angaraMouth, p80)
+
+  /** The east coast of Lake Baikal in clockwise direction. Shares both north and south [[LatLong]] points with the westCoast. */
+  val eastCoast = LinePathLL(north, northEast, east, mamai)
+
+  val west: LatLong = 51.697 ll 103.699
+
+  /** The east coast of Lake Baikal in clockwise direction. Shares both north and south [[LatLong]] points with the westCoast. */
+  val southCoast = LinePathLL(mamai, west)
+  val angaraMouth: LatLong = 51.870 ll 104.82
+  val p80: LatLong = 53.927 ll 108.197
+
+  /** The west coast of Lake Baikal in clockwise direction. Shares both south and north [[LatLong]] points with the eastCoast. */
+  val westCoast: LinePathLL = LinePathLL(west, angaraMouth, p80, north)
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, east, mamai, west, angaraMouth, p80)
 }
 
-object SiberiaSouth extends EArea2("FEAsia", 60 ll 92, taiga)
-{ val khuvsgulLakeN = 51.616 ll 100.542
+object SiberiaSouth extends EArea2("SiberiaSouth", 60 ll 92, taiga)
+{
+  val khuvsgulLakeN: LatLong = 51.616 ll 100.542
 
-  override val polygonLL = PolygonLL(khuvsgulLakeN)
+  override val polygonLL = LinePathLL(Manchuria.lensk) ++ LakeBaikal.westCoast.reverse |++| LinePathLL(khuvsgulLakeN)
 }
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
-object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, taiga)
+object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, hillyTundra)
 { val farAsiaW = 141.6.east
 
-  val ustYansky = 72.81.north * farAsiaW
+  val ustYansky: LatLong = 72.81.north * farAsiaW
   val sakha43 = 72.11 ll 149.64
   val sundrunMouth = 70.81 ll 152.56
   val sakha45 = 71.07 ll 157.19
@@ -98,9 +87,9 @@ object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, taiga)
   wKamchatka, kamchatka40, kamchatka50, penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
 }
 
-object NeAsia extends EArea2("NEAsia", 64 ll 113, taiga)
-{ val krasnoyarsk = 77.43 ll 103.99
-  val kras10 = 76.62 ll 112.46
+object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
+{ val krasnoyarsk: LatLong = 77.43 ll 103.99
+  val kras10: LatLong = 76.62 ll 112.46
   val kras20 = 75.38 ll 113.69
   val khatangaMouth = 73.21 ll 106.23
   val khat10 = 74.02 ll 110.26
@@ -114,28 +103,8 @@ object NeAsia extends EArea2("NEAsia", 64 ll 113, taiga)
   val sakha20 = 71.94 ll 132.77
   val sakha30 = 71.36 ll 134.38
   val sakha40 = 71.96 ll 138.71
-  val khabarovsk = 55 ll 134.73
+  val khabarovsk: LatLong = 55 ll 134.73
 
-  override val polygonLL = PolygonLL(krasnoyarsk, kras10, kras20, khatangaMouth, khat10, sakha10, anabarMouth,
-  bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, RusNorth.cAsiaNE, RusNorth.nRusNE)
-}
-
-object CEAsia extends EArea2("CEAsia", 47 ll 115, land)
-{ val udaMouth: LatLong = 54.72 ll 135.28
-  val khab10: LatLong = 54.64 ll 136.81
-  val khab15: LatLong = 54.28 ll 139.75
-  val khab20: LatLong = 53.29 ll 141.42
-  val khab30: LatLong = 48.46 ll 140.16
-  val primorsky10: LatLong = 45.82 ll 137.68
-  val nakhodka: LatLong = 42.69 ll 133.14
-  val vladivostok: LatLong = 43.17 ll 132.00
-
-  val jinzhou: LatLong = 40.93 ll 121.22
-  val qinhuangdao: LatLong = 39.92 ll 119.61
-  val luanheMouth: LatLong = 39.43 ll 119.30
-  val huituo: LatLong = 39.19 ll 118.98
-  val binhai: LatLong = middleEast.Persia.persiaN ll 117.66
-
-  override val polygonLL = PolygonLL(NeAsia.khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka, vladivostok,
-    Korea.northEast, Korea.liaoheMouth, jinzhou, qinhuangdao, luanheMouth, huituo, binhai, CentralAsia.southEast, RusNorth.cAsiaNE)
+  override val polygonLL: PolygonLL = PolygonLL(krasnoyarsk, kras10, kras20, khatangaMouth, khat10, sakha10, anabarMouth,
+  bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, RusNorth.nRusNE)
 }
