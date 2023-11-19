@@ -23,10 +23,10 @@ object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
   //val nRusSW = 55.north * cEuropeE
 
   override val polygonLL: PolygonLL = PolygonLL(pEurope.Baltland.mezenMouth, chizhaSouth, chizhaWest, shoynaNorth1, shoynaNorth2, shoynaNorth3, shoynaNorth4, shoynaEast1,
-     shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, SiberiaNorth.uralsNorthEnd, SiberiaNorth.uralsNW, pEurope.Baltland.southEast)
+     shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, SiberiaWest.uralsNorthEnd, SiberiaWest.uralsNW, pEurope.Baltland.southEast)
 }
 
-object Kazak extends EArea2("Kazak", 47 ll 60, land)
+object Kazak extends EArea2("Kazak", 47 ll 60, desert)
 {
   val bautino = degs(44.53, 50.24)
   val kendirliBay = degs(42.73, 52.74)
@@ -50,17 +50,35 @@ object SevernyIsland extends EArea2("Severny", 74.38 ll 57.29, ice)
   override val polygonLL: PolygonLL = PolygonLL(wSeverny, severny1, severnyN, severny2, eSeverny)
 }
 
-object SiberiaNorth extends EArea2("SiberiaNorth", 70 ll 90, tundra)
+object SiberiaWest extends EArea2("SiberiaWest", 70 ll 90, hills)
 {
-  val p10: LatLong = 75.64 ll 91.5//north * indiaE
-  val krasnoyarsk: LatLong = 77.43 ll 103.99
-  val kras10: LatLong = 76.62 ll 112.46
+  val northWest: LatLong = 72.928 ll 69.396
+
 
   val p75 = 53.132 ll 56.307
   val p80: LatLong = 59.138 ll 58.378
   val uralsNW: LatLong = 64.939 ll 58.963
   val uralsNorthEnd: LatLong = 68.829 ll 67.069
 
-  override val polygonLL: PolygonLL = PolygonLL(krasnoyarsk, kras10, p75, p80, uralsNW, uralsNorthEnd, p10,
+  override val polygonLL: PolygonLL = PolygonLL(northWest, SiberiaNorth.yeniseiMouth, SiberiaNorth.yenisei70, p75, p80, uralsNW, uralsNorthEnd,
+  )
+}
+
+object SiberiaNorth extends EArea2("SiberiaNorth", 70 ll 95, tundra)
+{ val krasnoyarsk: LatLong = 77.43 ll 103.99
+  val kras10: LatLong = 76.62 ll 112.46
+  val kras20 = 75.38 ll 113.69
+  val khatangaMouth = 73.21 ll 106.23
+  val khat10 = 74.02 ll 110.26
+  val sakha10 = 74.00 ll 112.83
+  val anabarMouth: LatLong = 73.534 ll 113.478
+  val anabarHead: LatLong = 70.774 ll 113.337
+
+  val yenisei70: LatLong = 66.775 ll 86.738
+  val yeniseiMouth: LatLong = 71.831 ll 82.730
+  val p90: LatLong = 75.64 ll 91.5//north * indiaE
+
+  override val polygonLL: PolygonLL = PolygonLL(krasnoyarsk, kras10, kras20, khatangaMouth, khat10, sakha10, anabarMouth, anabarHead,
+    yenisei70, yeniseiMouth, p90
   )
 }
