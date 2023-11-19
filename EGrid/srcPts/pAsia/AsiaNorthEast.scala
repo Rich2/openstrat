@@ -88,8 +88,8 @@ object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, hillyTundra)
 }
 
 object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
-{ val krasnoyarsk: LatLong = 77.43 ll 103.99
-  val kras10: LatLong = 76.62 ll 112.46
+{
+
   val kras20 = 75.38 ll 113.69
   val khatangaMouth = 73.21 ll 106.23
   val khat10 = 74.02 ll 110.26
@@ -105,6 +105,7 @@ object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
   val sakha40 = 71.96 ll 138.71
   val khabarovsk: LatLong = 55 ll 134.73
 
-  override val polygonLL: PolygonLL = PolygonLL(krasnoyarsk, kras10, kras20, khatangaMouth, khat10, sakha10, anabarMouth,
-  bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, RusNorth.nRusNE)
+  override val polygonLL: PolygonLL = PolygonLL(kras20, khatangaMouth, khat10, sakha10, anabarMouth,
+  bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk,
+  )
 }

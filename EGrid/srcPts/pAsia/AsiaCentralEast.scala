@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-
+/** [[PolygonLL]] graphic for Manchura. */
 object Manchuria extends EArea2("Manchuria", 58 ll 128, land)
 {val lensk: LatLong = 60.709 ll 114.92
 
@@ -15,7 +15,7 @@ object Manchuria extends EArea2("Manchuria", 58 ll 128, land)
   val nakhodka: LatLong = 42.69 ll 133.14
   val vladivostok: LatLong = 43.17 ll 132.00
   val jinzhou: LatLong = 40.93 ll 121.22
-  val hulunbir = 49.265 ll 119.752
+  val hulunbir: LatLong = 49.265 ll 119.752
 
   override val polygonLL = LinePathLL(Yakutia.khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka, vladivostok,
     Korea.northEast, Korea.liaoheMouth,jinzhou, Mongolia.southEast, hulunbir) |++<| LakeBaikal.eastCoast // |++| LinePathLL(Manchuria.lensk)

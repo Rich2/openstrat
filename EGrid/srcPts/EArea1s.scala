@@ -66,7 +66,7 @@ object AmericasNearNorth extends EArea1("North America", 49 ll -100)
 
 object AsiaMain extends EArea1("Asia", 60 ll 65)
 { import pAsia._
-  override val a2Arr: RArr[EArea2] = RArr(RusNorth, SevernyIsland, India, SriLanka, Himalayas, CentralAsia, SiberiaSouth)
+  override val a2Arr: RArr[EArea2] = RArr(RusNorth, SiberiaNorth, SevernyIsland, India, SriLanka, Himalayas, CentralAsia, SiberiaSouth)
 }
 
 /** Asia East. North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
