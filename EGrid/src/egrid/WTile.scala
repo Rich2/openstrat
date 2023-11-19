@@ -48,17 +48,17 @@ object WTiles
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val sahel: Land = Land(Level, Sahel, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
+  val mtain: Land = Land(Mountains, Taiga, Forest)
 
-  lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](land, hills, forest, hillyForest, desert)
+  lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](land, hills, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
+    hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtain)
+
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
 
   val ice: Land = Land(Level, IceCap, LandFree)
   val sice: WTile = SeaIce
   val sea: Water = Sea
   val lake: Water = Lake
-  val mtain: Land = Land(Mountains, Taiga, Forest)
-
-
 }
 
 /** A common trait for Ocean and Lake. */
