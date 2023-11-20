@@ -16,7 +16,7 @@ object Terr640E150 extends Long640Terrs
       TRow(126, mtain, hillyTaiga),
       TRow(124, hillyTaiga, hillyTaiga),
       TRow(122, sea, Hland(4, 2, hillyTaiga)),
-//      TRow(120, plain * 3),
+      TRow(120, taiga, sea * 2),
 //      TRow(118, plain, Hland(3, 2), plain),
 //      VRow(119, Mouth(1536, HVUp), Mouth(1540, HVUp)),
 //      TRow(116, hills, hills, hills),
