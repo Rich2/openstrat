@@ -24,7 +24,7 @@ HSetter[VTile, VSide, VSideSome]
   object Cape
   {
     def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Plain, sideTerrs: Water = Sea): Cape =
-      new Cape(numIndentedVerts, indentStartIndex, terr, sideTerrs)
+      new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
   }
 
   class Isthmus private(val indentIndex: Int, val terr: Land = Plain, val sideTerrs1: Water = Sea, val sideTerrs2: Water = Sea) extends TRunner with

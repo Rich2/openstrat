@@ -50,7 +50,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     /** The terrain of the main tile, typically a type of land. */
     def terr: TT
 
-    /** The land of the sides, typically a type of water. */
+    /** The terrain of the sides, typically a type of water. */
     def sideTerrs: SST
 
     def run(row: Int, c: Int): Unit =
@@ -93,9 +93,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
       corners.setCornerIn(row, c, oppositeIndex, 7)
 
       sTerrs.set(HCen(row, c).side(indentIndex - 1), sideTerrs1)
-      sTerrs.set(HCen(row, c).side(indentIndex + 1), sideTerrs1)
+      sTerrs.set(HCen(row, c).side(indentIndex), sideTerrs1)
       sTerrs.set(HCen(row, c).side(indentIndex - 4), sideTerrs2)
-      sTerrs.set(HCen(row, c).side(indentIndex + 4), sideTerrs2)
+      sTerrs.set(HCen(row, c).side(indentIndex + 3), sideTerrs2)
     }
   }
 

@@ -57,12 +57,14 @@ object Civ2 extends CivScenStart
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      VRow(11, Mouth(12, HVDR)),
-      TRow(10, Plain, Cape(2, 5), Sea * 4, Isle() * 2, Sea * 2),
+      VRow(13, BendAll(18, HVUp), BendAll(22, HVUp)),
+      TRow(12, Sea * 3, Cape(3, 4, Hill), Isthmus(0), Cape(0, 4, Hill), Sea * 4),
+      VRow(11, Mouth(12, HVDR), BendAll(18, HVDn), BendAll(22, HVDn)),
+      TRow(10, Plain, Cape(5, 2), Sea * 4, Isle() * 2, Sea * 2),
       VRow(9, Mouth(8, HVDn), Mouth(18, HVDL)),
-      TRow(8, Plain * 4, Cape(4, 0), Sea * 3, Plain, Sea),
+      TRow(8, Plain * 4, Cape(0, 4), Sea * 3, Plain, Sea),
       VRow(7, Mouth(18, HVUL), Mouth(28, HVDR), Mouth(40, HVUp, River)),
-      TRow(6, Plain * 3, Sea * 2, Cape(2, 5, Mountain), Sea, Plain, Plain * 2),
+      TRow(6, Plain * 3, Sea * 2, Cape(5, 2, Mountain), Sea, Plain, Plain * 2),
       VRow(5, Mouth(24, HVDn), Mouth(30, HVUp), BendAll(38, HVDR, River), BendAll(40, HVUL, River)),
       TRow(4, Sea * 5, Mountain * 3, Plain * 2),
       VRow(3, Mouth(30, HVDn), Mouth(36, HVDL, River), ThreeWay(38, River), Mouth(40, HVDR, River)),
