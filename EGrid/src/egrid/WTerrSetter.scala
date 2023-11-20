@@ -26,7 +26,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
   }
 
   /** Cape / headland / peninsula for [[WTile]]s. */
-  class Cape(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land = Land(Level, Temperate, CivMix), val sideTerrs: Water = Sea) extends
+  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land = Land(Level, Temperate, CivMix), val sideTerrs: Water = Sea) extends
     TRunner with CapeBase
 
   object Cape
@@ -34,7 +34,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     def apply(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Land(Level, Temperate, CivMix), sideTerrs: Water = Sea): Cape =
       new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
 
-    def apply(numIndentedVerts: Int, indentStartIndex: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
+    def a(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
+      new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
+
+    def a(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
       Cape(indentStartIndex, numIndentedVerts, Land(elev, biome, landUse), sideTerrs)
   }
 
