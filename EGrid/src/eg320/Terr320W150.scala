@@ -17,14 +17,14 @@ object Terr320W150 extends Long320Terrs
       TRow(162, WSeaIce * 2),
       TRow(160, WSeaIce * 2),
       TRow(158, WSeaIce * 3),
-      TRow(156, tundra * 2, Cape(1, 0, tundra, WSeaIce)),
+      TRow(156, tundra * 2, Cape.a(0, 1, tundra, WSeaIce)),
       TRow(154, hillyTaiga * 3, taiga),
       TRow(152, taiga * 3, hillyTaiga),
       TRow(150, hillyTundra, mtain * 2, taiga),
       TRow(148, hillyTaiga * 2, sea * 2, mtain),
       VRow(147, Mouth(7674, HVUR)),
-      TRow(146, Cape(1, 5, hillyTundra), sea * 3, mtain),
-      TRow(144, Cape(2, 2, hillyTaiga), sea * 4),
+      TRow(146, Cape.a(5, 1, hillyTundra), sea * 3, mtain),
+      TRow(144, Cape.a(2, 2, hillyTaiga), sea * 4),
       VRow(143, Mouth(7670, HVUL)),
     )
   }
