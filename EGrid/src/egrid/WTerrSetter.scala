@@ -38,7 +38,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
       new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
 
     def a(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
-      Cape(indentStartIndex, numIndentedVerts, Land(elev, biome, landUse), sideTerrs)
+      new Cape(indentStartIndex, numIndentedVerts, Land(elev, biome, landUse), sideTerrs)
   }
 
   case class SideB(sTerr: Water = Sea) extends TRunnerExtra with SideBBase

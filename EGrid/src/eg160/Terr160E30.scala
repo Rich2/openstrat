@@ -36,7 +36,7 @@ object Terr160E30 extends Long160Terrs
       TRow(278, hilly * 3, land * 10),
       TRow(276, land, hilly, land * 12),
       TRow(274, hilly * 2, land, hilly * 3, land * 4, sea, land * 3),
-      TRow(272, hilly, land, hilly * 2, land * 2, land, sea, land, Cape(2, 2), Cape(2, 3), land * 3),
+      TRow(272, hilly, land, hilly * 2, land * 2, land, sea, land, Cape.a(2, 2), Cape.a(3, 2), land * 3),
       TRow(270, hilly * 3, land * 4, sea * 5, mtain, hilly, land),
       TRow(268, sea, Cape.a(3, 2, mtain), hilly * 3, land * 2, sea * 6, land, mtain),
       TRow(266, Cape.a(0, 2), Cape.a(4, 2, mtain), hilly * 3, land * 2, hilly * 8),
