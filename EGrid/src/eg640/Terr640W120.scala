@@ -19,7 +19,7 @@ object Terr640W120 extends Long640Terrs
       TRow(124, taiga * 2),
       TRow(122, hillyTaiga, taiga),
       TRow(120, sea, hillyTaiga, savannah),
-      TRow(118, Cape(2, 4, mtain), mtain, hillySahel),
+      TRow(118, Cape.a(4, 2, mtain), mtain, hillySahel),
       TRow(116, sea, hillySavannah, hillyDesert),
       TRow(114, sea * 2, hillySahel, hillyDesert),
       TRow(112, sea * 2, hillySahel, hillySahel),
