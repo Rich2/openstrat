@@ -4,9 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Manchura. */
 object Manchuria extends EArea2("Manchuria", 58 ll 128, land)
-{val lensk: LatLong = 60.709 ll 114.92
-
-  val udaMouth: LatLong = 54.72 ll 135.28
+{ val udaMouth: LatLong = 54.72 ll 135.28
   val khab10: LatLong = 54.64 ll 136.81
   val khab15: LatLong = 54.28 ll 139.75
   val khab20: LatLong = 53.29 ll 141.42
@@ -22,22 +20,23 @@ object Manchuria extends EArea2("Manchuria", 58 ll 128, land)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object Xinjiang extends EArea2("Xinjiang", 42 ll 85, sahel)
+object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDesert)
 { val south: LatLong = 36.505 ll 80.950
-  val east: LatLong = 39.377 ll 75.528
 
-  override val polygonLL: PolygonLL = PolygonLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, south, east)
+  override val polygonLL: PolygonLL = PolygonLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, south, Kyrgyyzstan.p20, Kyrgyyzstan.p10,
+    Kyrgyyzstan.issykKulWest, SiberiaWest.p55, SiberiaSouth.southWest)
 }
 
+/** [[polygonLL]] graphical representation of Mongolia, depends on [[Manchuria]], [[SiberiaSouth]] and [[LakeBaikal]]. */
 object Mongolia extends EArea2("Mongolia", 42 ll 115, desert)
-{
-  val southEast = 41.096 ll 114.088
+{ val southEast: LatLong = 41.096 ll 114.088
   val p50: LatLong = 39.860 ll 106.965
   val southWest: LatLong = 40.022 ll 96.864
   val southWestOffical: LatLong = 42.745 ll 96.383
   val west: LatLong = 49.170 ll 87.821
 
-  override val polygonLL: PolygonLL = LakeBaikal.southCoast.reverse |++| LinePathLL(Manchuria.hulunbir, southEast, p50, southWest, southWestOffical, west)
+  override val polygonLL: PolygonLL = LakeBaikal.southCoast.reverse |++| LinePathLL(Manchuria.hulunbir, southEast, p50, southWest, southWestOffical,
+    west, SiberiaSouth.khuvsgulLakeN)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */

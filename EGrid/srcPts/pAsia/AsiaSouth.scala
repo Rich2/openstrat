@@ -3,13 +3,13 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 object India extends EArea2("India", 20.85 ll 78.68, jungle)
-{
+{ val kotdwar = 29.747 ll 78.527
   val mianiLat: Latitude = 25.39.north
   val wAsiaE: Longitude = 66.52.east
 
   val indiaE: Longitude = 91.5.east
   val himilayasE: Longitude = 83.75.east
-  val mianiHor: LatLong = India.mianiLat * wAsiaE
+
   val magdhara: LatLong = 22.41.north * indiaE
 
   //val chinaSW = AsiaWestPts.mianiLat * indiaE
@@ -32,7 +32,7 @@ object India extends EArea2("India", 20.85 ll 78.68, jungle)
   val bhada = 22.83 ll 69.19
   val karachi = degs(25.38, 66.70)
 
-  override val polygonLL: PolygonLL = PolygonLL(mianiHor, indiaNE, indiaNE, magdhara, balasore, ongale, kattupali,
+  override val polygonLL: PolygonLL = PolygonLL(kotdwar, indiaNE, indiaNE, magdhara, balasore, ongale, kattupali,
   manapad, sIndia, kovalam, karnataka1, karnataka2, tarapur, khambat, girSomnath, varvala, kutchMouth, bhada, karachi)
 }
 
@@ -45,4 +45,10 @@ object SriLanka extends EArea2("SriLanka", 7.47 ll 80.78, jungle)
   val dondra = 5.92 ll 80.59
 
   override val polygonLL: PolygonLL = PolygonLL(dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
+}
+
+object Pakistan extends EArea2("Pakistan", 30 ll 67, hills)
+{
+  override val polygonLL: PolygonLL = PolygonLL(India.kotdwar, India.karachi, middleEast.Persia.southEast, Kyrgyyzstan.southWest,
+    Kyrgyyzstan.kandahar, Kyrgyyzstan.p40, Kyrgyyzstan.islamabad)
 }

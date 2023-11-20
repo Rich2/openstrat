@@ -80,6 +80,7 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hills)
     pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, p70, p75, p77, p85, sinopeN)
 }
 
+/** [[PolygonLL]] graphic for Caspian Sea depends on nothing. */
 object Caspian extends EArea2("CaspianSea", 42.10 ll 50.64, Sea)
 { val north: LatLong = 47.05 ll 51.36
   val northEast: LatLong = 46.66 ll 53.03
@@ -90,9 +91,30 @@ object Caspian extends EArea2("CaspianSea", 42.10 ll 50.64, Sea)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, persiaN, southEast, southWest)
 }
 
+/** [[PolygonLL]] graphic for Iraq depends on [[Levant]]. */
 object Iraq extends EArea2("Iraq", 34.0 ll 44.5, desert)
 { override def toString: String = "Iraq"
 
   override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, Kurdistan.cizre, LakeVan.southEast, Caspian.southWest, Persia.mahshahr, Arabia.alFaw,
   pMed.Sinai.eilat, pMed.Sinai.deadSeaSE)
+}
+
+/** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
+object Persia extends EArea2("Persia", 32.4 ll 60, hills)
+{ /** 38.86N */
+  //val persiaN = 38.86.north
+
+  val mahshahr = 30.22.north * Armenia.asiaMinorE
+
+  val north = 38.285 ll 57.209
+
+  val southEast = 25.179 ll 61.618
+
+  val kuhmobarak = 25.80 ll 57.30
+  val nHormuz = 27.17 ll 56.47
+  val nwHormuz = 26.49 ll 54.79
+  val zeydan = 27.88 ll 51.50
+
+  override val polygonLL: PolygonLL = PolygonLL(mahshahr, Caspian.southWest, Caspian.southEast, Caspian.persiaN, north, pAsia.Kyrgyyzstan.p65, pAsia.Kyrgyyzstan.southWest, southEast,
+    kuhmobarak, nHormuz, nwHormuz, zeydan)
 }

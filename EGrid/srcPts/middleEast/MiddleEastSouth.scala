@@ -35,22 +35,3 @@ object Arabia extends EArea2("Arabia", 25 ll 45.0, desert)
   override val polygonLL: PolygonLL = PolygonLL(alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar, alKhaburah, eOman, mirbat,
     dhahawnMouth, haswayn, sYemen, p75, p80, sharmas, pMed.Sinai.eilat)
 }
-
-/** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
-object Persia extends EArea2("Persia", 32.4 ll 60, hills)
-{ /** 38.86N */
-  val persiaN = 38.86.north
-
-  val mahshahr = 30.22.north * Armenia.asiaMinorE
-
-  val persiaNE = persiaN * pAsia.India.wAsiaE
-
-  val seIran = 25.37 ll 61.67
-  val kuhmobarak = 25.80 ll 57.30
-  val nHormuz = 27.17 ll 56.47
-  val nwHormuz = 26.49 ll 54.79
-  val zeydan = 27.88 ll 51.50
-
-  override val polygonLL: PolygonLL = PolygonLL(mahshahr, Caspian.southWest, Caspian.southEast, Caspian.persiaN, persiaNE, pAsia.India.mianiHor,
-    seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)
-}
