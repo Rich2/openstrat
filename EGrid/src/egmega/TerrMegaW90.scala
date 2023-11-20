@@ -18,7 +18,7 @@ object TerrMegaW90 extends LongMegaTerrs
       VRow(115, Mouth(9728, HVDL)),
       TRow(114, taiga),
       TRow(112, taiga, taiga),
-      TRow(110, savannah, hills),
+      TRow(110, savannah, hilly),
       VRow(109, Mouth(9732, HVUL)),
       TRow(108, Hland(1, 3), Hland(2, 1)),
       VRow(107, Mouth(9726, HVUL), Mouth(9730, HVUR), Mouth(9732, HVDL)),

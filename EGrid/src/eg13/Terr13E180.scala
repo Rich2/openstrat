@@ -18,7 +18,7 @@ object Terr13E180 extends Long13Terrs
       TRow(112, Hland(2, 2, hillyTundra)),
       VRow(111, BendAll(6658, HVUR)),
       TRow(108, SideB(), sea),
-      TRow(92, Isle(hills)),
+      TRow(92, Isle(hilly)),
     )
   }
   help.run

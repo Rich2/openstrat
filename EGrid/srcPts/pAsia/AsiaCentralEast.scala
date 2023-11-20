@@ -40,7 +40,7 @@ object Mongolia extends EArea2("Mongolia", 42 ll 115, desert)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object China extends EArea2("China", 30.0 ll 105.5, hills)
+object China extends EArea2("China", 30.0 ll 105.5, hilly)
 { val qinhuangdao: LatLong = 39.92 ll 119.61
   val luanheMouth: LatLong = 39.43 ll 119.30
   val huituo: LatLong = 39.19 ll 118.98
@@ -64,7 +64,7 @@ object China extends EArea2("China", 30.0 ll 105.5, hills)
 }
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
-object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
+object Korea extends EArea2("Korea", 37.77 ll 127.55, hilly)
 { val northEast: LatLong = 41.49 ll 129.65
   val kaima: LatLong = 40.84 ll 129.71
   val hwaDo: LatLong =39.76 ll 127.54

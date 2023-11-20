@@ -47,7 +47,7 @@ object SriLanka extends EArea2("SriLanka", 7.47 ll 80.78, jungle)
   override val polygonLL: PolygonLL = PolygonLL(dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
 }
 
-object Pakistan extends EArea2("Pakistan", 30 ll 67, hills)
+object Pakistan extends EArea2("Pakistan", 30 ll 67, hilly)
 {
   override val polygonLL: PolygonLL = PolygonLL(India.kotdwar, India.karachi, middleEast.Persia.southEast, Kyrgyyzstan.southWest,
     Kyrgyyzstan.kandahar, Kyrgyyzstan.p40, Kyrgyyzstan.islamabad)

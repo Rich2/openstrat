@@ -42,7 +42,7 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, land)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
+object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hilly)
 { val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
   val p10: LatLong = 42.57 ll 9.53
@@ -58,7 +58,7 @@ object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hills)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hills)
+object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hilly)
 { val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62

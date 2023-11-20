@@ -21,9 +21,9 @@ object Terr640E30 extends Long640Terrs
       TRow(118, land, Hland(3, 2), land),
       VRow(119, Mouth(1536, HVUp), Mouth(1540, HVUp), Mouth(1544, HVUp, Lake)),
       VRow(117, BendAll(1544, HVUR, Lake)),
-      TRow(116, hills, hills, hills),
+      TRow(116, hilly, hilly, hilly),
       VRow(115, SetSide(1529), Mouth(1536, HVUp)),
-      TRow(114, sea, sea, Hland(1, 4, hills), hills),
+      TRow(114, sea, sea, Hland(1, 4, hilly), hilly),
       VRow(113, Mouth(1528, HVDn), Mouth(1534, HVDL), Mouth(1538, HVDR)),
       TRow(112, desert, Hland(1, 0), desert * 2),
     )

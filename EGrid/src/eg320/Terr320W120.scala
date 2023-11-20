@@ -30,13 +30,13 @@ object Terr320W120 extends Long320Terrs
       TRow(142, sea, mtain * 2, land * 3),
       TRow(140, sea, mtain * 2, land * 3),
       TRow(138, sea * 2, mtain * 2, land * 3),
-      TRow(136, sea * 2, hillyForest, hills, mtain * 2, hillyDesert),
-      TRow(134, sea * 2, hills, hillyDesert, desert, hillyDesert * 2),
-      TRow(132, sea * 2, hills * 2, hillyDesert * 2, mtain),
-      TRow(130, sea * 3, hills, hills, hillyDesert * 2, mtain),
-      TRow(128, sea * 3, hills, hillyDesert * 2, desert, hillyDesert),
-      TRow(126, sea * 5, hills, hillyDesert, desert),
-      TRow(124, sea * 6, hills, hills, hillyDesert),
+      TRow(136, sea * 2, hillyForest, hilly, mtain * 2, hillyDesert),
+      TRow(134, sea * 2, hilly, hillyDesert, desert, hillyDesert * 2),
+      TRow(132, sea * 2, hilly * 2, hillyDesert * 2, mtain),
+      TRow(130, sea * 3, hilly, hilly, hillyDesert * 2, mtain),
+      TRow(128, sea * 3, hilly, hillyDesert * 2, desert, hillyDesert),
+      TRow(126, sea * 5, hilly, hillyDesert, desert),
+      TRow(124, sea * 6, hilly, hilly, hillyDesert),
     )
   }
 

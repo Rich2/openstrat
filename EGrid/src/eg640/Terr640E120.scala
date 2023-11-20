@@ -15,12 +15,14 @@ object Terr640E120 extends Long640Terrs
       TRow(128, tundra),
       TRow(126, hillyTaiga, hillyTaiga),
       TRow(124, hillyTaiga, hillyTaiga),
+      VRow(123, Mouth(4614, HVUL)),
       TRow(122, mtain, hillyTaiga),
-      TRow(120, mtain, hills, hills),
-      TRow(118, desert, savannah, hills),
-      TRow(116, hillySahel, hillySavannah, hills),
-//      TRow(114, sea, sea, sea, hills),
-//      TRow(112, desert, plain, desert * 2),
+      TRow(120, mtain, hilly, hilly),
+      TRow(118, desert, savannah, hilly),
+      VRow(117, BendOut(4614, HVDR)),
+      TRow(116, hillySahel, hillySavannah, Hland(1, 2, hilly)),
+      TRow(114, hilly, land, sea, Hland(3, 3, hilly)),
+      TRow(112, land, hilly, sea * 2),
     )
   }
   help.run

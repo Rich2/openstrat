@@ -29,10 +29,10 @@ object Terr320E150 extends Long320Terrs
       TRow(138, Hland(2, 2, taiga), sea * 6),
       TRow(136, sea, Hland(3, 5, hillyForest), sea * 5),
       TRow(134, Hland(3, 3, hillyForest), Hland(2, 2, hillyForest), sea * 5),
-      TRow(132, sea, Hland(2, 0, hills), sea * 5),
+      TRow(132, sea, Hland(2, 0, hilly), sea * 5),
       VRow(131, Mouth(5626, HVDn)),
-      TRow(130, hills, Hland(1, 2, hills), sea * 6),
-      TRow(128, Hland(2, 2, hills), sea * 7),
+      TRow(130, hilly, Hland(1, 2, hilly), sea * 6),
+      TRow(128, Hland(2, 2, hilly), sea * 7),
     )
   }
   help.run

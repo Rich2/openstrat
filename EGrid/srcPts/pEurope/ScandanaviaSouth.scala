@@ -97,7 +97,7 @@ object Oland extends EArea2("Oland", 56.77 ll 16.67, land)
 }
 
 /** [[PolygonLL]] graphic for the FaroeIslands. */
-object Faroe extends EArea2("Faroe", 62.14 ll -6.91, hills)
+object Faroe extends EArea2("Faroe", 62.14 ll -6.91, hilly)
 { val sSuduroy = 61.39 ll -6.68
   val wValgar = 62.3 ll -7.46
   val nEysturoy = 62.34 ll -6.98

@@ -19,13 +19,13 @@ object Terr120E30 extends Long120Terrs
       TRow(312, land * 10, land * 6),
       TRow(314, land),
 
-      TRow(286, hills, land, hills * 3, sea, hills * 2, hills * 13),
-      TRow(284, hills, sea * 2, hills * 3, sea * 2, hills * 13),
-      TRow(282, hills, sea * 2, hills * 3, sea * 2, hills * 13),
-      TRow(280, sea * 4, hills * 2, sea * 2, hills * 14),
-      TRow(278, sea * 5, hills, sea * 9, hills * 7),
-      TRow(276, sea * 6, hills * 2, sea * 7, hills * 7),
-      TRow(274, sea * 8, sea * 5, hills, sea, hills * 7),
+      TRow(286, hilly, land, hilly * 3, sea, hilly * 2, hilly * 13),
+      TRow(284, hilly, sea * 2, hilly * 3, sea * 2, hilly * 13),
+      TRow(282, hilly, sea * 2, hilly * 3, sea * 2, hilly * 13),
+      TRow(280, sea * 4, hilly * 2, sea * 2, hilly * 14),
+      TRow(278, sea * 5, hilly, sea * 9, hilly * 7),
+      TRow(276, sea * 6, hilly * 2, sea * 7, hilly * 7),
+      TRow(274, sea * 8, sea * 5, hilly, sea, hilly * 7),
     )
   }
   help.run

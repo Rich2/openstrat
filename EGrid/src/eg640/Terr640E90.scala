@@ -21,7 +21,7 @@ object Terr640E90 extends Long640Terrs
       TRow(118, sahel, hillyDesert, hillyDesert),
       TRow(116, desert, desert, hillyDesert),
       TRow(114, Land(Mountains, Desert, LandFree), hillyDesert, hillyDesert, mtain),
-      TRow(112, mtain, Land(Mountains, Desert, LandFree), mtain, hills),
+      TRow(112, mtain, Land(Mountains, Desert, LandFree), mtain, hilly),
     )
   }
   help.run

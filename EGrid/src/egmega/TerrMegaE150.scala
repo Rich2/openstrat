@@ -17,7 +17,7 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(116, hillyTundra),
       VRow(115, Mouth(5632, HVUp), Mouth(5634, HVUL), BendIn(5636, HVUp)),
       TRow(114, Hland(4, 1, hillyTaiga)),
-      TRow(110, Hland(4, 5, hills), sea),
+      TRow(110, Hland(4, 5, hilly), sea),
       TRow(108, SideB(), sea * 2),
 
       VRow(101, Mouth(5626, HVDL)),

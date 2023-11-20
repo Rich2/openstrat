@@ -14,14 +14,14 @@ object Terr640E150 extends Long640Terrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(128, tundra),
       TRow(126, mtain, hillyTaiga),
-      TRow(124, hillyTaiga, hillyTaiga),
+      TRow(124, Hland(1, 3, hillyTaiga), hillyTaiga),
+      VRow(123, Mouth(5630, HVUL), Mouth(5634, HVUR)),
       TRow(122, sea, Hland(4, 2, hillyTaiga)),
-      TRow(120, taiga, sea * 2),
-//      TRow(118, plain, Hland(3, 2), plain),
-//      VRow(119, Mouth(1536, HVUp), Mouth(1540, HVUp)),
-//      TRow(116, hills, hills, hills),
-//      TRow(114, sea, sea, sea, hills),
-//      TRow(112, desert, plain, desert * 2),
+      VRow(121, Mouth(5630, HVUp)),
+      TRow(120, Hland(1, 2, taiga), sea * 2),
+      TRow(118, Isle(hilly), sea * 2),
+      TRow(116, Hland(4, 5, hilly), sea * 2),
+      TRow(114, Hland(2, 2, hilly), sea * 3),
     )
   }
   help.run

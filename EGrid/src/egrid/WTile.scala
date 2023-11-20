@@ -33,7 +33,7 @@ object WTile
 
 object WTiles
 { val land: Land = Land(Level, Temperate, CivMix)
-  val hills: Land = Land(Hilly, Temperate, CivMix)
+  val hilly: Land = Land(Hilly, Temperate, CivMix)
   val forest: Land = Land(Level, Temperate, Forest)
   val hillyForest: Land = Land(Hilly, Temperate, Forest)
   val desert: Land = Land(Level, Desert, LandFree)
@@ -51,7 +51,7 @@ object WTiles
   val mtain: Land = Land(Mountains, Taiga, Forest)
 
   /** Sequence of short hand words for [[Land]]. */
-  lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](land, hills, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
+  lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](land, hilly, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
     hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtain)
 
   /** Sequence of short hand words for [[Land]]. */

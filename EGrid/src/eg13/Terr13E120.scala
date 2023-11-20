@@ -17,7 +17,7 @@ object Terr13E120 extends Long13Terrs
       TRow(112, taiga),
       TRow(110, hillyTaiga),
       TRow(108, hillyForest),
-      TRow(106, hills),
+      TRow(106, hilly),
       TRow(104, sea * 2),
       TRow(102, SideB(), sea * 2),
       VRow(101, SetSide(4604)),

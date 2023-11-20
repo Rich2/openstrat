@@ -6,7 +6,7 @@ object WTileTest extends TestSuite
 {
   val tests = Tests {
     val ld1 = Land(Mountains, Desert)
-    val lds1: RArr[Land] = RArr(forest, hills, Land(Mountains, Desert))
+    val lds1: RArr[Land] = RArr(forest, hilly, Land(Mountains, Desert))
     val lStr1 = "Seq(Level, Temperate, Forest; Hilly; Mountains, Desert)"
 
     test("show")
@@ -28,7 +28,7 @@ object WTileTest extends TestSuite
       "Land(landUse = Forest; elev = Hilly)".asType[Land] ==> Good(Land(Hilly, Temperate, Forest))
       "Land(landUse = Forest; climate = Savannah; elev = Hilly)".asType[Land] ==> Good(Land(Hilly, Savannah, Forest))
       "Land(landUse = Forest; climate = Savannah; Hilly)".asType[Land] ==> Good(Land(Hilly, Savannah, Forest))
-      assert("Seq(Lake; Land(Hilly))".asType[RArr[WTile]] === Good(RArr(Lake, hills)))
+      assert("Seq(Lake; Land(Hilly))".asType[RArr[WTile]] === Good(RArr(Lake, hilly)))
     }
 
     test("Multiple")
