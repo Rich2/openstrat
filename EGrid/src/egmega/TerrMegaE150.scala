@@ -16,18 +16,18 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(118, hillyTundra),
       TRow(116, hillyTundra),
       VRow(115, Mouth(5632, HVUp), Mouth(5634, HVUL), BendIn(5636, HVUp)),
-      TRow(114, Hland(4, 1, hillyTaiga)),
-      TRow(110, Hland(4, 5, hilly), sea),
+      TRow(114, Cape(4, 1, hillyTaiga)),
+      TRow(110, Cape(4, 5, hilly), sea),
       TRow(108, SideB(), sea * 2),
 
       VRow(101, Mouth(5626, HVDL)),
-      TRow(100, Hland(2, 0, hillyJungle), sea * 2),
-      TRow(98, Hland(2, 3, hillyJungle), sea * 2),
-      TRow(96, Hland(1, 0, savannah), sea * 2),
+      TRow(100, Cape(2, 0, hillyJungle), sea * 2),
+      TRow(98, Cape(2, 3, hillyJungle), sea * 2),
+      TRow(96, Cape(1, 0, savannah), sea * 2),
       TRow(94, savannah, sea * 2),
       TRow(92, forest, sea),
       VRow(91, Mouth(5632, HVUp)),
-      TRow(90, Hland(3, 2, savannah), sea),
+      TRow(90, Cape(3, 2, savannah), sea),
     )
   }
   help.run

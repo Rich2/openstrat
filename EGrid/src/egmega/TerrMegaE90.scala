@@ -21,7 +21,7 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(106, jungle * 3),
       TRow(104, jungle, sea, jungle),
       VRow(103, Mouth(3590, HVUL)),
-      TRow(102, sea, sea, Hland(2, 1, hillyJungle)),
+      TRow(102, sea, sea, Cape(2, 1, hillyJungle)),
       TRow(100, sea * 2, Isle(jungle)),
       VRow(93, BendOut(3592, HVUR)),
     )

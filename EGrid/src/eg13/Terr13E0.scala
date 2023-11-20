@@ -16,8 +16,8 @@ object Terr13E0 extends Long13Terrs
       TRow(114, hillyTundra),
       TRow(112, hillyTaiga),
       TRow(110, land),
-      TRow(108, Hland(3, 3, hilly)),
-      TRow(106, Hland(2, 5, savannah), Hland(1, 0, sahel)),
+      TRow(108, Cape(3, 3, hilly)),
+      TRow(106, Cape(2, 5, savannah), Cape(1, 0, sahel)),
       VRow(105, BendAll(508, HVUL)),
       TRow(104, desert * 2),
       VRow(103, Mouth(508, HVDR)),
@@ -25,9 +25,9 @@ object Terr13E0 extends Long13Terrs
       TRow(100, sea, jungle),
       TRow(98, sea * 2),
       VRow(97, Mouth(516, HVUR)),
-      TRow(96, sea, Hland(2, 4, desert)),
+      TRow(96, sea, Cape(2, 4, desert)),
       VRow(95, Mouth(516, HVDR)),
-      TRow(86, Hland(1, 0, ice))
+      TRow(86, Cape(1, 0, ice))
     )
   }
   help.run

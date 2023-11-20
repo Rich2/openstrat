@@ -20,9 +20,9 @@ object Terr13E60 extends Long13Terrs
       VRow(107, Mouth(2558, HVDn, Lake), Mouth(2556, HVDR)),
       TRow(106, desert, hilly),
       VRow(105, Mouth(2556, HVUL), BendAll(2558, HVUp), BendAll(2560, HVDn)),
-      TRow(104, Hland(3, 1, hillyDesert), Hland(1, 4)),
+      TRow(104, Cape(3, 1, hillyDesert), Cape(1, 4)),
       VRow(103, BendAll(2556, HVUp), BendAll(2564, HVDL)),
-      TRow(102, Hland(3, 0, desert), sea),
+      TRow(102, Cape(3, 0, desert), sea),
       VRow(101, BendOut(2558, HVDR)),
       TRow(100, SideB(), sea * 2),
       VRow(99, SetSide(2557)),
@@ -31,7 +31,7 @@ object Terr13E60 extends Long13Terrs
       TRow(96, SideB(), sea * 2),
       VRow(95, SetSide(2557)),
       VRow(87, SetSide(2558)),
-      TRow(86, Hland(1, 0, ice))
+      TRow(86, Cape(1, 0, ice))
     )
   }
   help.run

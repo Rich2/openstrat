@@ -39,8 +39,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     def run(row: Int, c: Int): Unit = sTerrs.set(row, c - 2, sTerr)
   }
 
-
-  trait HlandBase
+  /** Base trait for capes / headlands / peninsulas. */
+  trait CapeBase
   { /** The number of indented vertices. */
     def numIndentedVerts: Int
 
@@ -54,8 +54,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     def sideTerrs: SST
 
     def run(row: Int, c: Int): Unit =
-    {
-      terrs.set(row, c, terr)
+    { terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
 
       iUntilForeach(numIndentedVerts) { i0 =>

@@ -17,7 +17,7 @@ HSetter[VTile, VSide, VSideSome]
   trait TRunnerExtra extends TRunner
 
   case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner with IsleBase
-  case class Hland(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea) extends TRunner with HlandBase
+  case class Cape(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea) extends TRunner with CapeBase
   case class SideB(sTerr: VSideSome = Sea) extends TRunnerExtra with SideBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 

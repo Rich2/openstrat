@@ -15,7 +15,7 @@ object Terr640W90 extends Long640Terrs
 //      TRow(130, ice),
       TRow(128, tundra),
       TRow(126, tundra, Isle(tundra)),
-      TRow(124, Hland(2, 1, taiga), Hland(3, 4, tundra)),
+      TRow(124, Cape(2, 1, taiga), Cape(3, 4, tundra)),
       VRow(123, Mouth(9728, HVDL), Mouth(9732, HVDR)),
       TRow(122, taiga * 2),
       TRow(120, taiga * 3),
@@ -26,7 +26,7 @@ object Terr640W90 extends Long640Terrs
       TRow(114, sahel, savannah, land, land),
       TRow(112, savannah, land, jungle, sea),
       TRow(110, sahel, sea * 2, sea),
-      TRow(108, jungle, jungle, sea, Hland(4, 1, hillyJungle)),
+      TRow(108, jungle, jungle, sea, Cape(4, 1, hillyJungle)),
     )
   }
   help.run
