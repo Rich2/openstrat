@@ -17,7 +17,16 @@ HSetter[VTile, VSide, VSideSome]
   trait TRunnerExtra extends TRunner
 
   case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner with IsleBase
-  case class Cape(numIndentedVerts: Int, indentStartIndex: Int, terr: Land = Plain, sideTerrs: Water = Sea) extends TRunner with CapeBase
+
+  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land = Plain, val sideTerrs: Water = Sea) extends TRunner with
+    CapeBase
+
+  object Cape
+  {
+    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Plain, sideTerrs: Water = Sea): Cape =
+      new Cape(numIndentedVerts, indentStartIndex, terr, sideTerrs)
+  }
+
   case class SideB(sTerr: VSideSome = Sea) extends TRunnerExtra with SideBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 

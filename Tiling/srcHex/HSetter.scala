@@ -41,11 +41,11 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
 
   /** Base trait for capes / headlands / peninsulas. */
   trait CapeBase
-  { /** The number of indented vertices. */
-    def numIndentedVerts: Int
-
-    /** The number of the first vertex to be indented. */
+  { /** The number of the first vertex to be indented. */
     def indentStartIndex: Int
+
+    /** The number of indented vertices. */
+    def numIndentedVerts: Int
 
     /** The terrain of the main tile, typically a type of land. */
     def terr: TT
