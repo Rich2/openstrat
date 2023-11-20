@@ -27,6 +27,15 @@ HSetter[VTile, VSide, VSideSome]
       new Cape(numIndentedVerts, indentStartIndex, terr, sideTerrs)
   }
 
+  class Isthmus private(val indentIndex: Int, val terr: Land = Plain, val sideTerrs1: Water = Sea, val sideTerrs2: Water = Sea) extends TRunner with
+    IsthmusBase
+
+  object Isthmus
+  {
+    def apply(indentIndex: Int, terr: Land = Plain, sideTerrs1: Water = Sea, sideTerrs2: Water = Sea): Isthmus =
+      new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
+  }
+
   case class SideB(sTerr: VSideSome = Sea) extends TRunnerExtra with SideBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 

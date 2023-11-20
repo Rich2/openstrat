@@ -57,16 +57,45 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     { terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
 
-      iUntilForeach(numIndentedVerts) { i0 =>
+      /*iUntilForeach(numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
         corners.setCornerIn(row, c, i, 7)
-      }
+      }*/
 
       iUntilForeach(-1, numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
         val side = HCen(row, c).side(i)
         sTerrs.set(side, sideTerrs)
       }
+    }
+  }
+
+  /** Base trait for capes / headlands / peninsulas. */
+  trait IsthmusBase
+  { /** The number of the first vertex to be indented. */
+    def indentIndex: Int
+
+    /** The number of the first vertex to be indented. */
+    def oppositeIndex: Int = (indentIndex + 3) %% 6
+
+    /** The terrain of the main tile, typically a type of land. */
+    def terr: TT
+
+    /** The terrain of the sides, next to the index vertex, typically a type of water. */
+    def sideTerrs1: SST
+
+    /** The terrain of the sides, next to the opposite vertex typically a type of water. */
+    def sideTerrs2: SST
+
+    def run(row: Int, c: Int): Unit = {
+      terrs.set(row, c, terr)
+      corners.setCornerIn(row, c, indentIndex, 7)
+      corners.setCornerIn(row, c, oppositeIndex, 7)
+
+      sTerrs.set(HCen(row, c).side(indentIndex - 1), sideTerrs1)
+      sTerrs.set(HCen(row, c).side(indentIndex + 1), sideTerrs1)
+      sTerrs.set(HCen(row, c).side(indentIndex - 4), sideTerrs2)
+      sTerrs.set(HCen(row, c).side(indentIndex + 4), sideTerrs2)
     }
   }
 
