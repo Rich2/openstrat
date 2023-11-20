@@ -18,12 +18,12 @@ object Terr13E90 extends Long13Terrs
       TRow(110, mtain),
       TRow(108, hillyDesert),
       TRow(106, mtain, mtain),
-      TRow(104, Cape(1, 3, jungle), hillyJungle),
+      TRow(104, Cape.a(3, 1, jungle), hillyJungle),
       VRow(103, BendAll(3580, HVDL), Mouth(3582, HVUL), Mouth(3586, HVUR)),
-      TRow(102, Cape(4, 1, hillyJungle), Cape(4, 2, jungle)),
+      TRow(102, Cape.a(1, 4, hillyJungle), Cape.a(2, 4, jungle)),
       TRow(100, sea, Isle(jungle)),
       VRow(95, BendOut(3590, HVUL)),
-      TRow(86, Cape(1, 0, ice))
+      TRow(86, Cape.a(0, 1, ice))
     )
   }
   help.run
