@@ -37,7 +37,7 @@ object AntarticaEast extends EArea2("Antartica East", -89.91 ll 0, ice)
     p45, p50, p55, p65, p70, westEnd, whitmore, elizabeth, filchnerEast)
 }
 
-object AntarticaWest extends EArea2("Antartica West", -85 ll -100, desert)
+object AntarticaWest extends EArea2("Antartica West", -85 ll -100, ice)
 { val p20: LatLong =  -77.37 ll -156.41
   val p30: LatLong = -74.85 ll -127.23
   val p35: LatLong = -73.36 ll -98.40

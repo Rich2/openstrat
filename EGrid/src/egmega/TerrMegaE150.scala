@@ -28,6 +28,7 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(92, forest, sea),
       VRow(91, Mouth(5632, HVUp)),
       TRow(90, Cape(2, 3, savannah), sea),
+      TRow(82, ice)
     )
   }
   help.run

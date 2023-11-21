@@ -120,7 +120,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     val (ea, p) = pair
     val col = ea.terr match {
       case w: Water => BlueViolet
-      case _ if ea == pOceans.Artic => White
+      case wh if wh.colour == White => White
       case _ => LightPink
     }
     p.map(_ / metresPerPixel).fill(col)
