@@ -24,6 +24,7 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(102, sea, sea, Cape(1, 2, hillyJungle)),
       TRow(100, sea * 2, Isle(jungle)),
       VRow(93, BendOut(3592, HVUR)),
+      TRow(82, ice)
     )
   }
   help.run
