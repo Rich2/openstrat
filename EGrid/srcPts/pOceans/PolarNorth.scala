@@ -1,7 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
-import geom._, pglobe._, LatLong._, egrid._, WTiles._
+import geom._, pglobe._, egrid._, WTiles._
 
+/** [[polygonLL]] graphical representation of the Artic. Depends on nothing. */
 case object Artic extends EArea2("Artic", 89.9 ll 0, ice)
 { val long0 = 82 ll 0
   val long15 = 82 ll 15
@@ -27,17 +28,18 @@ case object Artic extends EArea2("Artic", 89.9 ll 0, ice)
     long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland, Greenland.neGreenland)
 }
 
+/** [[polygonLL]] graphical representation of Greenland. Depends on nothing. */
 object Greenland extends EArea2("Greenland", 75 ll -42, ice)
-{ val sGreenland = degs(59.87, -43.95)
-  val swGreenland = degs(60.82, -48.07)
-  val aasiaat = 68.68 ll -53.00
-  val pt1 = 75.73 ll -58.98
-  val wGreenland = degs(78.20, -72.77)
-  val nwGreenland = degs(80.33, -67.27)
-  val nGreenland = degs(83.60, -34.19)
-  val neGreenland = degs(81.44, -11.77)
-  val semersooq = degs(70.03, -23.07)
-  val kulusuk = 65.53 ll -37.05
+{ val sGreenland: LatLong = 59.87 ll -43.95
+  val swGreenland: LatLong = 60.82 ll -48.07
+  val aasiaat: LatLong = 68.68 ll -53.00
+  val pt1: LatLong = 75.73 ll -58.98
+  val wGreenland: LatLong = 78.20 ll -72.77
+  val nwGreenland: LatLong = 80.33 ll -67.27
+  val nGreenland: LatLong = 83.60 ll -34.19
+  val neGreenland: LatLong = 81.44 ll -11.77
+  val semersooq: LatLong = 70.03 ll -23.07
+  val kulusuk: LatLong = 65.53 ll -37.05
 
   override val polygonLL: PolygonLL = PolygonLL(sGreenland, swGreenland, aasiaat, pt1, wGreenland, nwGreenland,
     nGreenland, neGreenland, semersooq, kulusuk)
@@ -50,7 +52,7 @@ object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
   val north = 80.06 ll 16.23
   val east = 78.83 ll 21.51
   val sEdgeoya = 77.25 ll 22.67
-  val pt1 = 78.47 ll 18.93
+  val pt1: LatLong = 78.47 ll 18.93
    
   val polygonLL: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
 }      
@@ -62,7 +64,7 @@ object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, ice)
   val north1 = 80.50 ll 19.65
   val north2 = 80.00 ll 22.23
   val north3 = 80.51 ll 22.79
-  val northEast = 80.15 ll 26.83
+  val northEast: LatLong = 80.15 ll 26.83
    
   val polygonLL: PolygonLL = PolygonLL(south, southWest, northWest, north1, north2, north3, northEast)
 }

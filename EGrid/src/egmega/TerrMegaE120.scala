@@ -30,6 +30,7 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(94, Cape(5, 1, desert), desert, sahel),
       VRow(93, BendIn(4604, HVUR), BendOut(4606, HVDL)),
       TRow(92, Cape(3, 2, savannah), desert),
+      TRow(82, ice)
     )
   }
   help.run

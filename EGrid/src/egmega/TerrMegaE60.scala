@@ -22,7 +22,7 @@ object TerrMegaE60 extends LongMegaTerrs
       TRow(106, desert, sea, land),
       TRow(104, SideB(), Cape(2, 2, hillyDesert), sea * 2),
       TRow(96, SideB(), Cape(1, 2, hilly), sea * 2),
-      TRow(82, Cape(0, 1, ice))
+      TRow(82, ice)
     )
   }
   help.run

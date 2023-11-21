@@ -15,9 +15,12 @@ object AntarticaEast extends EArea2("Antartica East", -89.91 ll 0, ice)
   val p32: LatLong = -67.000 ll 61.143
   val p34: LatLong = -67.445 ll 61.207
   val p35: LatLong = -67.478 ll 63.116
-  val p37: LatLong = -71.39 ll 71.22
-  val p38: LatLong = -69.486 ll 75.705
-  val p40: LatLong = -65.764 ll 81.840
+  val p36: LatLong = -67.915 ll 69.063
+  val p37: LatLong =  -67.744 ll 69.721
+  val p38: LatLong = -67.577 ll 70.513
+  val p39 :LatLong = -68.699 ll 70.382
+  val p40: LatLong = -67.773 ll 81.414
+
   val p41: LatLong = -66.651 ll 84.182
   val p42: LatLong = -66.109 ll 95.496
   val p45: LatLong = -66.48 ll 102.33
@@ -30,8 +33,8 @@ object AntarticaEast extends EArea2("Antartica East", -89.91 ll 0, ice)
   val elizabeth: LatLong = -83 ll -55
   val filchnerEast: LatLong = -79 ll -36
 
-  override val polygonLL: PolygonLL = PolygonLL(filchnerNorth, p10, p12, p15, p18, p22, p25, p30, p32, p34, p35, p37, p38, p40, p41, p42, p45, p50, p55, p65, p70, westEnd,
-    whitmore, elizabeth, filchnerEast)
+  override val polygonLL: PolygonLL = PolygonLL(filchnerNorth, p10, p12, p15, p18, p22, p25, p30, p32, p34, p35, p36, p37, p38, p38, p40, p41, p42,
+    p45, p50, p55, p65, p70, westEnd, whitmore, elizabeth, filchnerEast)
 }
 
 object AntarticaWest extends EArea2("Antartica West", -85 ll -100, desert)
