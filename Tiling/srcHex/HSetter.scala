@@ -57,11 +57,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     { terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
 
-      /*iUntilForeach(numIndentedVerts) { i0 =>
-        val i: Int = (indentStartIndex + i0) %% 6
-        corners.setCornerIn(row, c, i, 7)
-      }*/
-
       iUntilForeach(-1, numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
         val side = HCen(row, c).side(i)

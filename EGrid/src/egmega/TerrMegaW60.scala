@@ -12,10 +12,10 @@ object TerrMegaW60 extends LongMegaTerrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(118, Cape.a(4, 1, ice)),
-      TRow(116, Cape.a(1, 4, tundra)),
-      TRow(114, Cape.a(0, 3, taiga)),
-      TRow(112, Cape.a(2, 2,taiga), sea),
+      TRow(118, Cape(4, 1, ice)),
+      TRow(116, Cape(1, 4, tundra)),
+      TRow(114, Cape(0, 3, taiga)),
+      TRow(112, Cape(2, 2,taiga), sea),
       VRow(109, Mouth(10748, HVUL)),
       TRow(108, SideB(), sea * 2),
 
@@ -24,9 +24,9 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(98, jungle * 2, jungle),
       TRow(96, hillySavannah, Land(Level, Tropical, CivMix), jungle),
       VRow(95, BendAll(10760, HVDR)),
-      TRow(94, Land(Mountains, Savannah), savannah, Cape.a(2, 1, savannah)),
+      TRow(94, Land(Mountains, Savannah), savannah, Cape(2, 1, savannah)),
       VRow(93, BendOut(10758, HVDR)),
-      TRow(92, hillySavannah, Cape.a(2, 2, savannah)),
+      TRow(92, hillySavannah, Cape(2, 2, savannah)),
       VRow(91, Mouth(10754, HVUL)),
       TRow(90, hillySavannah, sea),
       VRow(89, Mouth(10748, HVUR)),

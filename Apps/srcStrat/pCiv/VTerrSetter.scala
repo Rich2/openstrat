@@ -27,11 +27,12 @@ HSetter[VTile, VSide, VSideSome]
       new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
   }
 
+  /** Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
   class Isthmus private(val indentIndex: Int, val terr: Land = Plain, val sideTerrs1: Water = Sea, val sideTerrs2: Water = Sea) extends TRunner with
     IsthmusBase
 
   object Isthmus
-  {
+  { /** Factory apply method for Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
     def apply(indentIndex: Int, terr: Land = Plain, sideTerrs1: Water = Sea, sideTerrs2: Water = Sea): Isthmus =
       new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }

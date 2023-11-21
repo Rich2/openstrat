@@ -18,14 +18,14 @@ object Terr640E30 extends Long640Terrs
       TRow(124, land, taiga),
       TRow(122, land, land),
       TRow(120, land * 3),
-      TRow(118, land, Cape.a(2, 3), land),
+      TRow(118, land, Cape(2, 3), land),
       VRow(119, Mouth(1536, HVUp), Mouth(1540, HVUp), Mouth(1544, HVUp, Lake)),
       VRow(117, BendAll(1544, HVUR, Lake)),
       TRow(116, hilly, hilly, hilly),
       VRow(115, SetSide(1529), Mouth(1536, HVUp)),
-      TRow(114, sea, sea, Cape.a(4, 1, hilly), hilly),
+      TRow(114, sea, sea, Cape(4, 1, hilly), hilly),
       VRow(113, Mouth(1528, HVDn), Mouth(1534, HVDL), Mouth(1538, HVDR)),
-      TRow(112, desert, Cape.a(0, 1), desert * 2),
+      TRow(112, desert, Cape(0, 1), desert * 2),
     )
   }
   help.run

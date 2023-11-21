@@ -34,11 +34,18 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
     def apply(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
       new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
 
-    def a(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
-
     def apply(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
       new Cape(indentStartIndex, numIndentedVerts, Land(elev, biome, landUse), sideTerrs)
+  }
+
+  /** Isthmus for [[WTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
+  class Isthmus private(val indentIndex: Int, val terr: Land = Land(), val sideTerrs1: Water = Sea, val sideTerrs2: Water = Sea) extends TRunner with
+    IsthmusBase
+
+  object Isthmus {
+    /** Factory apply method for Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
+      def apply(indentIndex: Int, terr: Land = Land(), sideTerrs1: Water = Sea, sideTerrs2: Water = Sea): Isthmus =
+        new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }
 
   case class SideB(sTerr: Water = Sea) extends TRunnerExtra with SideBBase
