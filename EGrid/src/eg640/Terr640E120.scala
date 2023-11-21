@@ -20,8 +20,8 @@ object Terr640E120 extends Long640Terrs
       TRow(120, mtain, hilly, hilly),
       TRow(118, desert, savannah, hilly),
       VRow(117, BendOut(4614, HVDR)),
-      TRow(116, hillySahel, hillySavannah, Cape.a(2, 1, hilly)),
-      TRow(114, hilly, land, sea, Cape.a(3, 3, hilly)),
+      TRow(116, hillySahel, hillySavannah, Cape(2, 1, hilly)),
+      TRow(114, hilly, land, sea, Cape(3, 3, hilly)),
       TRow(112, land, hilly, sea * 2),
     )
   }
