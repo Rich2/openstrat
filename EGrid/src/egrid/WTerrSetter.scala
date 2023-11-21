@@ -31,10 +31,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerr
 
   object Cape
   {
+    def apply(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
+      new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
+
     def a(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
       new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
 
-    def a(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
+    def apply(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
       new Cape(indentStartIndex, numIndentedVerts, Land(elev, biome, landUse), sideTerrs)
   }
 
