@@ -65,7 +65,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
-  /** Base trait for capes / headlands / peninsulas. */
+  /** Base trait [Isthmus](https://en.wikipedia.org/wiki/Isthmus). Generally this will be used for Isthmuses, but it can be used for any [[HCen]] and
+   * [[HSide]] terrain that fits the geometry. */
   trait IsthmusBase
   { /** The number of the first vertex to be indented. */
     def indentIndex: Int
@@ -82,8 +83,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     /** The terrain of the sides, next to the opposite vertex typically a type of water. */
     def sideTerrs2: SST
 
-    def run(row: Int, c: Int): Unit = {
-      terrs.set(row, c, terr)
+    /** Sets the [[HCen]] terrain. Sets the two opposite [[HCorner]]s and sets the four [[HSide]] terrains adjacent to the pulled in vertices. The
+     * side terrains can be different on either side of the isthmus. For eample it could be sea on one side and fresh water lake on the other. */
+    def run(row: Int, c: Int): Unit =
+    { terrs.set(row, c, terr)
       corners.setCornerIn(row, c, indentIndex, 7)
       corners.setCornerIn(row, c, oppositeIndex, 7)
 
