@@ -18,7 +18,7 @@ object Terr13W30 extends Long13Terrs
       VRow(111, SetSide(11774), Mouth(11778, HVDn)),
       TRow(110, SideB(), sea),
       VRow(109, SetSide(11774), Mouth(11780, HVUR)),
-      TRow(108, SideB(), sea),
+      TRow(108, sea),
       VRow(105, BendAll(11780, HVUL)),
       TRow(104, sea, Cape(4, 2, desert)),
       VRow(103, Mouth(11780, HVDR)),

@@ -28,7 +28,7 @@ object Terr13E120 extends Long13Terrs
       VRow(95, BendOut(4606, HVUL)),
       TRow(94, Cape(3, 3, savannah), desert),
       VRow(93, Mouth(4608, HVUR)),
-      TRow(86, Cape(0, 1, ice))
+      TRow(86, ice)
     )
   }
   help.run

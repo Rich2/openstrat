@@ -20,7 +20,7 @@ object Terr13W60 extends Long13Terrs
       TRow(112, Cape(5, 3, hillyTaiga)),
       TRow(110, Cape(1, 3, hillyForest)),
       VRow(109, Mouth(10752, HVUL)),
-      TRow(108, Cape(1, 3, hillyForest)),
+      TRow(108, sea),
       TRow(106, SideB(), sea * 2),
       VRow(105, SetSide(10748)),
       TRow(104, SideB(), sea * 2),
