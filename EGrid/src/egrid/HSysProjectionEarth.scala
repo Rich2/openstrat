@@ -118,9 +118,11 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   def irrFills: RArr[PolygonFill] = irr1.map { pair =>
     val (ea, p) = pair
-    val col = ea.terr match {
+    val col = ea.terr match
+    { case wh if wh.colour == White => White
+      case SeaIce => SeaIce.colour
       case w: Water => BlueViolet
-      case wh if wh.colour == White => White
+
       case _ => LightPink
     }
     p.map(_ / metresPerPixel).fill(col)

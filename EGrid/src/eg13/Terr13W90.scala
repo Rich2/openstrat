@@ -28,7 +28,7 @@ object Terr13W90 extends Long13Terrs
       VRow(99, Mouth(9730, HVDn)),
       VRow(91, Mouth(9730, HVUR)),
       TRow(90, Cape(3, 3, mtain)),
-      TRow(86, Cape(5, 4, ice))
+      TRow(86, ice)
     )
   }
   help.run

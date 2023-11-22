@@ -53,7 +53,7 @@ object IceCap extends Climate
 }
 
 /** Permanent all year round sea ice. */
-object SeaIce extends WTile with TellSimple
+case object SeaIce extends WTile with TellSimple
 { override def str = "SeaIce"
   override def colour = White.average(DeepSkyBlue).average(White)
   override def isLand: Boolean = false
