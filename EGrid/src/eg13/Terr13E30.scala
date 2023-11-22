@@ -31,7 +31,7 @@ object Terr13E30 extends Long13Terrs
       TRow(96, hilly, Isle(forest)),
       TRow(94, Cape(2, 2), sea),
       VRow(87, BendOut(1536, HVUp, wice), Mouth(1538, HVUR, wice), Mouth(1540, HVDL, wice)),
-      TRow(86, ice),
+      TRow(86, ice)
     )
   }
   help.run

@@ -33,8 +33,8 @@ object Terr13W30 extends Long13Terrs
       TRow(94, SideB(), sea * 2),
       VRow(93, SetSide(11772)),
       TRow(92, SideB(), sea),
-      VRow(87, Mouth(11776, HVDL), BendOut(11780, HVUp)),
-      TRow(86, Cape(0, 1, ice))
+      VRow(87, Mouth(11776, HVDL, wice), BendOut(11780, HVUp, wice)),
+      TRow(86, Cape(0, 1, ice, wice))
     )
   }
   help.run
