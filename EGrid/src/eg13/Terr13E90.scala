@@ -23,7 +23,7 @@ object Terr13E90 extends Long13Terrs
       TRow(102, Cape(1, 4, hillyJungle), Cape(2, 4, jungle)),
       TRow(100, sea, Isle(jungle)),
       VRow(95, BendOut(3590, HVUL)),
-      VRow(87, Mouth(3584, HVDR)),
+      VRow(87, Mouth(3584, HVDR, wice)),
       TRow(86, ice)
     )
   }

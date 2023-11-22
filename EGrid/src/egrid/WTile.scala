@@ -58,12 +58,12 @@ object WTiles
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
 
   val ice: Land = Land(Level, IceCap, LandFree)
-  val sice: WTile = SeaIce
+  val wice: Water = SeaIceWinter
   val sea: Water = Sea
   val lake: Water = Lake
 
   /** Sequence of short hand words for [[Water]]. */
-  lazy val waterWords: ArrPairStr[Water] = ArrPairStr[Water](("sea", sea), ("lake", lake))
+  lazy val waterWords: ArrPairStr[Water] = ArrPairStr[Water](("sea", sea), ("lake", lake), ("wice,", wice))
 }
 
 /** A common trait for Ocean and Lake. */
@@ -99,13 +99,17 @@ object TerrainNone extends WTile with TellSimple
 { override def str = "NoTerrain"
   override def colour = Gray
   override def isLand: Boolean = false
-  //override def shortDescrip: String = "No terrain"
 }
 
 /** Winter sea ice. */
-object WSeaIce extends Water with TellSimple
-{ override def str = "WSeaIce"
+object SeaIceWinter extends Water with TellSimple
+{ override def str = "SeaIceWinter"
   override def colour = LightSkyBlue.average(White).average(White)
+}
+
+/** All year round sea ice sheet. */
+case object SeaIcePerm extends WTile with TellSimple
+{ override def str = "SeaIce"
+  override def colour = White
   override def isLand: Boolean = false
-  //override def shortDescrip: String = "WTile"
 }

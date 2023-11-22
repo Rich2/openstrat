@@ -39,7 +39,7 @@ object Terr13W60 extends Long13Terrs
       VRow(91, Mouth(10752, HVDL)),
       VRow(89, SetSide(10750)),
       VRow(87, SetSide(10750), Mouth(10756, HVDL)),
-      TRow(86, sice),
+      TRow(86, wice),
     )
   }
   help.run

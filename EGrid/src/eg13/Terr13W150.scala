@@ -19,8 +19,8 @@ object Terr13W150 extends Long13Terrs
       VRow(111, BendAll(7678, HVUR)),
       VRow(109, Mouth(7684, HVUR)),
       TRow(92, SideB(), sea),
-      VRow(87, Mouth(7684, HVDL)),
-      TRow(86, sice)
+      VRow(87, Mouth(7684, HVDL, wice)),
+      TRow(86, wice)
     )
   }
   help.run

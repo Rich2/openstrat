@@ -120,7 +120,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     val (ea, p) = pair
     val col = ea.terr match
     { case wh if wh.colour == White => White
-      case SeaIce => SeaIce.colour
+      case SeaIceWinter => SeaIceWinter.colour
       case w: Water => BlueViolet
 
       case _ => LightPink

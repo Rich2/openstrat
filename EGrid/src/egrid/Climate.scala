@@ -52,13 +52,6 @@ object IceCap extends Climate
   override def colour = White
 }
 
-/** Permanent all year round sea ice. */
-case object SeaIce extends WTile with TellSimple
-{ override def str = "SeaIce"
-  override def colour = White.average(DeepSkyBlue).average(White)
-  override def isLand: Boolean = false
-}
-
 /** Taiga climate normally has [[Forest]]. */
 case object Taiga extends Climate
 { override def str = "Taiga"
