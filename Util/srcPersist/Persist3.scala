@@ -107,8 +107,6 @@ object ShowDbl3
 trait Unshow3Plus[A1, A2, A3, R] extends Unshow2Plus[A1, A2, R] with Persist3Plus[A1, A2, A3]
 { /** The [[Unshow]] type class instance for type A3. */
   def unshow3: Unshow[A3]
-
-  def shortKeys: ArrPairStr[R]
 }
 
 /** UnShow class for 3 logical parameter product types. */

@@ -35,8 +35,8 @@ object Army
   implicit val showEv: ShowTell[Army] = ShowTell2[Nation, Int, Army]("Army")
 
   def unshowEv(arr: RArr[Nation]): Unshow2[Nation, Int, Army] =
-    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(arr), Unshow.intEv)
+    Unshow2.explicit[Nation, Int, Army]("Army", "nation", "num", Army.apply, Nation.unshowEv(arr), Unshow.intEv)
 
   def unshowEv(nations: Nation*): Unshow2[Nation, Int, Army] =
-    Unshow2[Nation, Int, Army]("Army", "nation", "num", Army.apply)(Nation.unshowEv(nations.toArr), Unshow.intEv)
+    Unshow2.explicit[Nation, Int, Army]("Army", "nation", "num", Army.apply, Nation.unshowEv(nations.toArr), Unshow.intEv)
 }

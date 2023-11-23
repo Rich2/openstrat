@@ -19,6 +19,8 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
+  def shortKeys: ArrPairStr[R]
+
   override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
@@ -52,6 +54,9 @@ trait ShowTellN[R <: TellN] extends ShowN[R] with ShowTell[R]
 trait UnshowN[R] extends Unshow[R] with PersistBaseN
 {
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
+
+
+  def shortKeys: ArrPairStr[R]
 
   final override def fromExpr(expr: Expr): EMon[R] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))

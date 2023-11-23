@@ -44,8 +44,6 @@ trait Show2Plus[A1, A2, R] extends ShowN[R] with Persist2Plus[A1, A2]
 
   /** Shows parameter 2 of the object. */
   def show2(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
-
-  def shortKeys: ArrPairStr[R]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
@@ -65,6 +63,10 @@ object Show2
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
     opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], ct: ClassTag[R]): Show2[A1, A2, R] =
     new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
+
+  def explicit[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, show1: Show[A1], show2: Show[A2],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[R]): Show2[A1, A2, R] =
+    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)(show1, show2)
 
   def withShorts[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, shortKeys: ArrPairStr[R],
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2]): Show2[A1, A2, R] =
@@ -98,8 +100,7 @@ trait ShowInt2[R] extends Show2[Int, Int, R]
 object ShowInt2
 {
   def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(
-    implicit ct: ClassTag[R]):
-    ShowInt2[R] = new ShowInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
+    implicit ct: ClassTag[R]): ShowInt2[R] = new ShowInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
   class ShowInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
@@ -154,10 +155,15 @@ trait Unshow2[A1, A2, R] extends Unshow2Plus[A1, A2, R] with Persist2[A1, A2]
 object Unshow2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, R] = new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
+    ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[R]): Unshow2[A1, A2, R] =
+    new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1)
 
-  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, override val opt2: Option[A2], opt1In: Option[A1])(implicit
-    val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, R]
+  def explicit[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, ev1: Unshow[A1], ev2: Unshow[A2],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[R]): Unshow2[A1, A2, R] =
+    new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1)(ev1, ev2)
+
+  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, val shortKeys: ArrPairStr[R],
+    override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, R]
   { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -169,11 +175,11 @@ trait UnshowInt2[R] extends Unshow2[Int, Int, R]
 
 object UnshowInt2
 {
-  def apply[R](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R, opt2: Option[Int] = None,
-    opt1In: Option[Int] = None): UnshowInt2[R] = new UnshowInt2Imp[R](typeStr, name1, name2, newT, opt2, opt1In)
+  def apply[R](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R, opt2: Option[Int] = None, opt1In: Option[Int] = None)(implicit
+    ct: ClassTag[R]): UnshowInt2[R] = new UnshowInt2Imp[R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1In)
 
   /** Implementation class for the general cases of [[UnshowDbl2]] trait. */
-  class UnshowInt2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R,
+  class UnshowInt2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R, val shortKeys: ArrPairStr[R],
     override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[R]
   { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
@@ -187,10 +193,11 @@ trait UnshowDbl2[R] extends Unshow2[Double, Double, R]
 object UnshowDbl2
 {
   def apply[R](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R, opt2: Option[Double] = None,
-    opt1In: Option[Double] = None): UnshowDbl2[R] = new UnshowDbl2Imp[R](typeStr, name1, name2, newT, opt2, opt1In)
+    opt1In: Option[Double] = None)(implicit classTag: ClassTag[R]): UnshowDbl2[R] =
+    new UnshowDbl2Imp[R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1In)
 
   /** Implementation class for the general cases of [[UnshowDbl2]] trait. */
-  class UnshowDbl2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
+  class UnshowDbl2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R, val shortKeys: ArrPairStr[R],
     override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[R]
   { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
