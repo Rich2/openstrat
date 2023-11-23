@@ -102,7 +102,7 @@ object ShowDbl3
   }
 }
 
-/** common trait for [[Unshow]] type class instances for sum types with 2 or more components. */
+/** common trait for [[Unshow]] type class instances for sum types with 3 or more components. */
 trait Unshow3Plus[A1, A2, A3, R] extends Unshow2Plus[A1, A2, R] with Persist3Plus[A1, A2, A3]
 { /** The [[Unshow]] type class instance for type A3. */
   def unshow3: Unshow[A3]

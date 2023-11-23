@@ -107,13 +107,16 @@ abstract class ShowDbl4[R] extends Show4[Double, Double, Double, Double, R]
   override def syntaxDepth(obj: R): Int = 2
 }
 
-/** UnShow class for 4 logical parameter product types. */
-trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with Persist4[A1, A2, A3, A4]
-{ def unshow1: Unshow[A1]
-  def unshow2: Unshow[A2]
-  def unshow3: Unshow[A3]
+/** common trait for [[Unshow]] type class instances for sum types with 4 or more components. */
+trait Unshow4Plus[A1, A2, A3, A4, R] extends Unshow3Plus[A1, A2, A3, R] with Persist4Plus[A1, A2, A3, A4]
+{ /** The [[Unshow]] type class instance for type A3. */
   def unshow4: Unshow[A4]
+}
 
+
+/** UnShow class for 4 logical parameter product types. */
+trait Unshow4[A1, A2, A3, A4, R] extends Unshow4Plus[A1,A2, A3, A4, R] with Persist4[A1, A2, A3, A4]
+{ /** Allows this [[Unshow]] instance to create object from it's 4 components. */
   def newT: (A1, A2, A3, A4) => R
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
