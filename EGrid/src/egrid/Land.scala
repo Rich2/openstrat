@@ -40,4 +40,6 @@ object Land
   /** Implicit [[Unshow]] type class instance / evidence for [[Land]]. */
   implicit lazy val unshowEv: Unshow[Land] = Unshow3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply,
     WTiles.landWords, Some(CivMix), Some(Temperate), Some(Level))
+
+  implicit val eqEv: EqT[Land] = (a1, a2) => a1.elev == a2.elev && a1.climate == a1.climate && a1.landUse == a2.landUse
 }

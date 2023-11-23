@@ -22,13 +22,18 @@ object WTile
   }
 
   /** This is not correct, but put in as temporary measure. */
-  implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
+//  implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
   /** [[Show]] type class instance / evidence for [[WTile]]. */
   implicit val showTEv: ShowTellSum[WTile] = ShowTellSum[WTile]("WTile")
 
   /** [[Unshow]] type class instance / evidence for [[WTile]]. */
   implicit val unshowEv: UnshowSum[WTile] = UnshowSum[WTile]("WTile", Land.unshowEv, Water.unshowEv)
+
+  implicit val eqEV: EqT[WTile] = (a1, a2) => if(a1 == a2) true else (a1, a2) match{
+    case (l1: Land, l2: Land) => Land.eqEv.eqT(l1, l2)
+    case _ => false
+  }
 }
 
 object WTiles

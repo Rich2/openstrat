@@ -43,5 +43,15 @@ object WTileTest extends TestSuite
       "forest * 2".asType[Multiple[Land]] ==> Good(Multiple(forest, 2))
       "sea * 2".asType[Multiple[Water]] ==> Good(Multiple(sea, 2))
     }
+
+    val er1 = "Seq(land; lake; Land(Hilly; Savannah))".asType[RArr[WTile]]
+    println(er1)
+
+    test("W Seqs")
+    { assert("Seq(sea; forest)".asType[RArr[WTile]] === Good(RArr(sea, forest)))
+      assert(RArr(land, lake, Land(Hilly, Savannah)) === RArr(land, lake , Land(Hilly, Savannah)))
+      assert(Good(RArr(land, lake, Land(Hilly, Savannah))) === Good(RArr(land, lake , Land(Hilly, Savannah))))
+      assert(er1 === Good(RArr(land, lake , hillySavannah)))
+    }
   }
 }

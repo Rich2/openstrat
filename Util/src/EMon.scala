@@ -188,6 +188,8 @@ object Good
 
     override def show(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
+
+  implicit def eqEv[A](implicit evA: EqT[A]): EqT[Good[A]] = (g1, g2) => evA.eqT(g1.value, g2.value)
 }
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
