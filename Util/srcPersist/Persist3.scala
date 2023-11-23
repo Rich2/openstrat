@@ -48,6 +48,11 @@ object Show3
     ct: ClassTag[R]):
   Show3[A1, A2, A3, R] = new Show3Imp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[R](), opt3, opt2In, opt1In)
 
+  def shorts[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
+    shortKeys: ArrPairStr[R], opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2],
+    ev3: Show[A3]): Show3[A1, A2, A3, R] =
+    new Show3Imp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, shortKeys, opt3, opt2In, opt1In)
+
   /** Implementation class for the general cases of the [[Show3]] trait. */
   class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val shortKeys: ArrPairStr[R], override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
@@ -128,6 +133,10 @@ object Unshow3
   def apply[A1, A2, A3, R](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R, opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2], persist3: Unshow[A3], ct: ClassTag[R]):
   Unshow3[A1, A2, A3, R] = new Unshow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, ArrPairStr[R](), opt3, opt2, opt1)
+
+  def shorts[A1, A2, A3, R](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R, shortKeys: ArrPairStr[R],
+    opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2],
+    persist3: Unshow[A3]): Unshow3[A1, A2, A3, R] = new Unshow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, shortKeys, opt3, opt2, opt1)
 
   class Unshow3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => R,
     val shortKeys: ArrPairStr[R], override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit

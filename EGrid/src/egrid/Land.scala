@@ -30,18 +30,14 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
 }
 
 object Land
-{
+{ /** Factory apply method for [[Land]] objects. */
   def apply(elev: Lelev = Level, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
 
   /** Implicit [[Show]] type class instance / evidence for [[Land]]. */
-  implicit lazy val showEv: Show3[Lelev, Climate, LandUse, Land] =
-    Show3[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate", _.climate, "use", _.landUse, Some(CivMix), Some(Temperate), Some(Level))
-
-  lazy val unshowFullEv: Unshow3[Lelev, Climate, LandUse, Land] =  Unshow3[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse",
-    (elev, climate, use) => new Land(elev, climate, use), Some(CivMix), Some(Temperate), Some(Level))
-
-  lazy val unshowIdentsEv: UnshowIdents[Land] = UnshowIdents[Land]("Land", WTiles.landWords)
+  implicit lazy val showEv: Show3[Lelev, Climate, LandUse, Land] = Show3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate",
+    _.climate, "use", _.landUse, WTiles.landWords, Some(CivMix), Some(Temperate), Some(Level))
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Land]]. */
-  implicit lazy val unshowEv: Unshow[Land] = unshowFullEv.concat(unshowIdentsEv)
+  implicit lazy val unshowEv: Unshow[Land] = Unshow3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply,
+    WTiles.landWords, Some(CivMix), Some(Temperate), Some(Level))
 }

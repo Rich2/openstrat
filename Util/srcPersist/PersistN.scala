@@ -19,6 +19,7 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
+  /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
 
   override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
@@ -55,11 +56,12 @@ trait UnshowN[R] extends Unshow[R] with PersistBaseN
 {
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
 
-
+  /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
 
   final override def fromExpr(expr: Expr): EMon[R] = expr match
-  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
+  { case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](this)
