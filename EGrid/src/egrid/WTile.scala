@@ -77,7 +77,7 @@ object Water
   implicit val showEv: ShowTellSimple[Water] = ShowTellSimple[Water]("Water")
 
   /** [[Unshow]] type class instance / evidence for [[Water]]. */
-  implicit val unshowEv: UnshowSingletons[Water] = UnshowSingletons[Water]("Water", Sea, Lake)
+  implicit val unshowEv: UnshowSingletons[Water] = UnshowSingletons.shorts[Water]("Water", WTiles.waterWords, Sea, Lake)
 
   /** [[EqT]] type class instance / evidence for [[Water]]. */
   implicit val eqEv: EqT[Water] = (w1, w2) => w1 == w2
