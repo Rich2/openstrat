@@ -2,6 +2,8 @@
 package ostrat
 import pParse._
 
+import scala.reflect.ClassTag
+
 /** Base trait for [[PersistBase2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
  *  for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to the [[Tell2]] object to implement their interfaces. */
 trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
@@ -61,14 +63,20 @@ trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with PersistBase2[A1, A2]
 object Show2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2]): Show2[A1, A2, R] =
-    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1)
+    opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], ct: ClassTag[R]): Show2[A1, A2, R] =
+    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
+
+  def withShorts[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, shortKeys: ArrPairStr[R],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2]): Show2[A1, A2, R] =
+    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, shortKeys, opt2, opt1)
 
   /** Implementation class for the general cases of [[Show2]] trait. */
-  class Show2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val showEv1: Show[A1], val showEv2: Show[A2]) extends Show2[A1, A2, R]
+  class Show2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+    override val shortKeys: ArrPairStr[R], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1],
+    val showEv2: Show[A2]) extends Show2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
+
   }
 }
 

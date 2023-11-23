@@ -42,6 +42,11 @@ case object ShowTyped extends ShowStyle
 { override def full: ShowStyle = ShowTyped
 }
 
+/** Represents the object with the minimum text to specify. */
+case object ShowMinimum extends ShowStyle
+{ override def full: ShowStyle = ShowUnderScore
+}
+
 /** Represents the object with an underscore. */
 case object ShowUnderScore extends ShowStyle
 { override def full: ShowStyle = ShowUnderScore

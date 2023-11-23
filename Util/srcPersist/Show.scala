@@ -157,8 +157,10 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
 
   @inline def strSemi(maxPlaces: Int, minPlaces: Int = 0): String =  ev.show(thisVal, ShowSemis, maxPlaces, minPlaces)
 
+  def strMin: String = ev.show(thisVal, ShowMinimum)
+
   /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
-   * will return Int(4) */
+   * will return Int(4). */
   @inline def strTyped: String = ev.show(thisVal, ShowTyped, -1, 0)
 
   def str0: String = ev.show(thisVal, ShowStandard, 0, 0)
