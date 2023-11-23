@@ -27,8 +27,6 @@ trait Show3Plus[A1, A2, A3, R] extends Show2Plus[A1, A2, R] with Persist3Plus[A1
 
   /** Shows parameter 3 of the object. */
   def show3(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv3.show(fArg3(obj), way, maxPlaces, minPlaces)
-
-  def shortKeys: ArrPairStr[R]
 }
 
 /** Show type class for 3 parameter case classes. */

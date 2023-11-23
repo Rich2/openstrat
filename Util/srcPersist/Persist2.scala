@@ -44,6 +44,8 @@ trait Show2Plus[A1, A2, R] extends ShowN[R] with Persist2Plus[A1, A2]
 
   /** Shows parameter 2 of the object. */
   def show2(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
+
+  def shortKeys: ArrPairStr[R]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
@@ -95,12 +97,13 @@ trait ShowInt2[R] extends Show2[Int, Int, R]
 
 object ShowInt2
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, opt2: Option[Int] = None, opt1: Option[Int] = None):
-    ShowInt2[R] = new ShowInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1)
+  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(
+    implicit ct: ClassTag[R]):
+    ShowInt2[R] = new ShowInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
-  class ShowInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val opt2: Option[Int] = None,
-    opt1In: Option[Int] = None) extends ShowInt2[R]
+  class ShowInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
+    val shortKeys: ArrPairStr[R], val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt2[R]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -115,12 +118,13 @@ trait ShowDbl2[R] extends Show2[Double, Double, R]
 
 object ShowDbl2
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, opt2: Option[Double] = None, opt1: Option[Double] = None):
-  ShowDbl2[R] = new ShowDbl2Imp[R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1)
+  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, opt2: Option[Double] = None,
+    opt1: Option[Double] = None)(implicit ct :ClassTag[R]): ShowDbl2[R] =
+    new ShowDbl2Imp[R](typeStr, name1, fArg1, name2, fArg2, opt2, ArrPairStr[R](), opt1)
 
   /** Implementation class for the general cases of [[ShowDbl2]] trait. */
   class ShowDbl2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val opt2: Option[Double] = None,
-    opt1In: Option[Double] = None) extends ShowDbl2[R]
+    val shortKeys: ArrPairStr[R], opt1In: Option[Double] = None) extends ShowDbl2[R]
   { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
