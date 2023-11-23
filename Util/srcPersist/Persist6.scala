@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, reflect.ClassTag
 
 /** A base trait for Show6+ and Unshow6+ classses. Declares the common properties of name1 - 6 and opt1 - 6. */
 trait Persist6Plus[A1, A2, A3, A4, A5, A6] extends Any with Persist5Plus[A1, A2, A3, A4, A5]
@@ -26,6 +26,8 @@ trait Show6Plus[A1, A2, A3, A4, A5, A6, R] extends Show5Plus[A1, A2, A3, A4, A5,
 
   /** Shows parameter 6 of the object. */
   def show6(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv6.show(fArg6(obj), way, maxPlaces, minPlaces)
+
+  def shortKeys: ArrPairStr[R]
 }
 /** [[Show]] type class for 6 parameter case classes. */
 trait Show6[A1, A2, A3, A4, A5, A6, R] extends Show6Plus[A1, A2, A3, A4, A5, A6,R] with Persist6[A1, A2, A3, A4, A5, A6]
@@ -61,14 +63,14 @@ object Show6
   def apply[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, opt6: Option[A6] = None, opt5: Option[A5] = None,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2],
-    show3: Show[A3], show4: Show[A4], show5: Show[A5], show6: Show[A6]): Show6[A1, A2, A3, A4, A5, A6, R] =
+    show3: Show[A3], show4: Show[A4], show5: Show[A5], show6: Show[A6], ct: ClassTag[R]): Show6[A1, A2, A3, A4, A5, A6, R] =
     new Show6Imp[A1, A2, A3, A4, A5, A6, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
-      opt6, opt5, opt4, opt3, opt2, opt1)(show1, show2, show3, show4, show5, show6)
+      ArrPairStr[R](), opt6, opt5, opt4, opt3, opt2, opt1)(show1, show2, show3, show4, show5, show6)
 
   /** Implementation class for general cases of [[Show6]] type class. */
   class Show6Imp[A1, A2, A3, A4, A5, A6, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5, val name6: String,
-    val fArg6: R => A6, val opt6: Option[A6], val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None,
+    val fArg6: R => A6, val shortKeys: ArrPairStr[R], val opt6: Option[A6], val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None,
     opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3], val showEv4: Show[A4], val showEv5: Show[A5],
     val showEv6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, R] with ShowN[R]

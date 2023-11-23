@@ -19,8 +19,6 @@ trait ShowN[R] extends ShowCompound[R] with PersistBaseN
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
-  def shortKeys: ArrPairStr[R] = ???
-
   override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
