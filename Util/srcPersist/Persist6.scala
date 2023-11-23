@@ -27,7 +27,6 @@ trait Show6Plus[A1, A2, A3, A4, A5, A6, R] extends Show5Plus[A1, A2, A3, A4, A5,
   /** Shows parameter 6 of the object. */
   def show6(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv6.show(fArg6(obj), way, maxPlaces, minPlaces)
 
-  def shortKeys: ArrPairStr[R]
 }
 /** [[Show]] type class for 6 parameter case classes. */
 trait Show6[A1, A2, A3, A4, A5, A6, R] extends Show6Plus[A1, A2, A3, A4, A5, A6,R] with Persist6[A1, A2, A3, A4, A5, A6]
@@ -89,6 +88,8 @@ object Show6
 trait Unshow6Plus[A1, A2, A3, A4, A5, A6, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] with Persist6Plus[A1, A2, A3, A4, A5, A6]
 { /** The [[Unshow]] type class instance for type A6. */
   def unshow6: Unshow[A6]
+
+  def shortKeys: ArrPairStr[R]
 }
 
 /** UnShow trait for 6 parameter product / case classes. */

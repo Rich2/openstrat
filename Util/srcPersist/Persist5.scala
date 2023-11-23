@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._ , reflect.ClassTag
 
 /** A base trait for Unshow5+, declares the common properties of name1 - 5 and opt1 - 5. */
 trait Persist5Plus[A1, A2, A3, A4, A5] extends Any with Persist4Plus[A1, A2, A3, A4]
@@ -26,6 +26,8 @@ trait Show5Plus[A1, A2, A3, A4, A5, R] extends Show4Plus[A1, A2, A3, A4, R] with
 
   /** Shows parameter 5 of the object. */
   def show5(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv5.show(fArg5(obj), way, maxPlaces, minPlaces)
+
+  def shortKeys: ArrPairStr[R]
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
@@ -58,14 +60,15 @@ object Show5
 {
   def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4], show5: Show[A5]) =
-    new Show5Imp[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
-      show1, show2, show3, show4, show5)
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4], show5: Show[A5],
+    ct: ClassTag[R]) =
+    new Show5Imp[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, ArrPairStr[R](), opt5, opt4,
+    opt3, opt2, opt1)(show1, show2, show3, show4, show5)
 
   /** Implementation class for the general cases of [[Show5]] type class. */
   class Show5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5, override val opt5: Option[A5],
-    opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5, val shortKeys: ArrPairStr[R],
+    override val opt5: Option[A5], opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3], val showEv4: Show[A4], val showEv5: Show[A5]) extends
     Show5[A1, A2, A3, A4, A5, R]
   {
