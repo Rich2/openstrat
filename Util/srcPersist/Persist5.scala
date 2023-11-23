@@ -26,8 +26,6 @@ trait Show5Plus[A1, A2, A3, A4, A5, R] extends Show4Plus[A1, A2, A3, A4, R] with
 
   /** Shows parameter 5 of the object. */
   def show5(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv5.show(fArg5(obj), way, maxPlaces, minPlaces)
-
-  def shortKeys: ArrPairStr[R]
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
@@ -94,6 +92,8 @@ trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
 trait Unshow5Plus[A1, A2, A3, A4, A5, R] extends Unshow4Plus[A1, A2, A3, A4, R] with Persist5Plus[A1, A2, A3, A4, A5]
 { /** The [[Unshow]] type class instance for type A5. */
   def unshow5: Unshow[A5]
+
+  def shortKeys: ArrPairStr[R]
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
@@ -113,8 +113,8 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] 
 }
 
 class UnshowInt5[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String, val name5: String,
-  val newT: (Int, Int, Int, Int, Int) => R, override val opt5: Option[Int] = None, opt4In: Option[Int] = None, opt3In: Option[Int] = None,
-  opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow5[Int, Int, Int, Int, Int, R]
+  val shortKeys: ArrPairStr[R], val newT: (Int, Int, Int, Int, Int) => R, override val opt5: Option[Int] = None, opt4In: Option[Int] = None,
+  opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow5[Int, Int, Int, Int, Int, R]
 {
   override val opt4: Option[Int] = ife(opt5.nonEmpty, opt4In, None)
   override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
@@ -131,6 +131,7 @@ class UnshowInt5[R](val typeStr: String, val name1: String, val name2: String, v
 object UnshowInt5
 {
   def apply[R](typeStr: String, name1: String, name2: String, name3: String, name4: String, name5: String, newT: (Int, Int, Int, Int, Int) => R,
-    opt5: Option[Int] = None, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): UnshowInt5[R] =
-    new UnshowInt5[R](typeStr, name1, name2, name3, name4, name5, newT, opt5, opt4, opt3, opt2, opt1)
+    opt5: Option[Int] = None, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit
+    ct: ClassTag[R]): UnshowInt5[R] =
+    new UnshowInt5[R](typeStr, name1, name2, name3, name4, name5, ArrPairStr[R](), newT, opt5, opt4, opt3, opt2, opt1)
 }
