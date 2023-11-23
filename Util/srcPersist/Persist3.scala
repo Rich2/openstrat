@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, reflect.ClassTag
 
 /** A base trait for Tell3+, Show3+ and Unshow3+ classes. Declares the common properties of name1 - 3 and opt1 - 3. */
 trait Persist3Plus[A1, A2, A3] extends Any with Persist2Plus[A1, A2]
@@ -27,6 +27,8 @@ trait Show3Plus[A1, A2, A3, R] extends Show2Plus[A1, A2, R] with Persist3Plus[A1
 
   /** Shows parameter 3 of the object. */
   def show3(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv3.show(fArg3(obj), way, maxPlaces, minPlaces)
+
+  def shortKeys: ArrPairStr[R]
 }
 
 /** Show type class for 3 parameter case classes. */
@@ -44,12 +46,13 @@ trait Show3[A1, A2, A3, R] extends Show3Plus[A1, A2, A3, R] with Persist3[A1, A2
 object Show3
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3]):
-  Show3[A1, A2, A3, R] = new Show3Imp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
+    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3],
+    ct: ClassTag[R]):
+  Show3[A1, A2, A3, R] = new Show3Imp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[R](), opt3, opt2In, opt1In)
 
   /** Implementation class for the general cases of the [[Show3]] trait. */
   class Show3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
-    val fArg3: R => A3, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    val fArg3: R => A3, val shortKeys: ArrPairStr[R], override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3]) extends Show3[A1, A2, A3, R]
   { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -68,12 +71,12 @@ trait ShowInt3[R] extends Show3[Int, Int, Int, R]
 object ShowInt3
 {
   def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int,
-    newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None):ShowInt3[R] =
-    new ShowInt3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, opt3, opt2, opt1)
+    newT: (Int, Int, Int) => R, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit ct: ClassTag[R]): ShowInt3[R] =
+    new ShowInt3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, ArrPairStr[R](), opt3, opt2, opt1)
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
   class ShowInt3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
-    val fArg3: R => Int, val newT: (Int, Int, Int) => R, override val opt3: Option[Int], opt2In: Option[Int] = None,
+    val fArg3: R => Int, val newT: (Int, Int, Int) => R, val shortKeys: ArrPairStr[R], override val opt3: Option[Int], opt2In: Option[Int] = None,
     opt1In: Option[Int] = None) extends ShowInt3[R]
   { override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
@@ -91,12 +94,12 @@ trait ShowDbl3[R] extends Show3[Double, Double, Double, R]
 object ShowDbl3
 {
   def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
-    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None): ShowDbl3[R] =
-    new ShowDbl3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1)
+    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit classTag: ClassTag[R]): ShowDbl3[R] =
+    new ShowDbl3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[R](), opt3, opt2, opt1)
 
   class ShowDbl3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
-    val fArg3: R => Double, override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
-    ShowDbl3[R]
+    val fArg3: R => Double, val shortKeys: ArrPairStr[R], override val opt3: Option[Double] = None, opt2In: Option[Double] = None,
+    opt1In: Option[Double] = None) extends ShowDbl3[R]
   { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }

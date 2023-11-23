@@ -27,8 +27,6 @@ trait Show4Plus[A1, A2, A3, A4, R] extends Show3Plus[A1, A2, A3, R] with Persist
 
   /** Shows parameter 4 of the object. */
   def show4(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv4.show(fArg4(obj), way, maxPlaces, minPlaces)
-
-  def shortKeys: ArrPairStr[R]
 }
 
 /** Show type class for 4 parameter case classes. */
