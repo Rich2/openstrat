@@ -92,8 +92,6 @@ trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
 trait Unshow5Plus[A1, A2, A3, A4, A5, R] extends Unshow4Plus[A1, A2, A3, A4, R] with Persist5Plus[A1, A2, A3, A4, A5]
 { /** The [[Unshow]] type class instance for type A5. */
   def unshow5: Unshow[A5]
-
-  def shortKeys: ArrPairStr[R]
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
