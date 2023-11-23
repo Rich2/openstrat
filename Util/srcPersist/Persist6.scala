@@ -85,21 +85,16 @@ object Show6
   }
 }
 
+/** Common trait for [[Unshow]] type class instances for sum types with 6 or more components. */
+trait Unshow6Plus[A1, A2, A3, A4, A5, A6, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] with Persist6Plus[A1, A2, A3, A4, A5, A6]
+{ /** The [[Unshow]] type class instance for type A6. */
+  def unshow6: Unshow[A6]
+}
+
 /** UnShow trait for 6 parameter product / case classes. */
-trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with Persist6[A1, A2, A3, A4, A5, A6]
-{ val newT: (A1, A2, A3, A4, A5, A6) => R
-  def opt6: Option[A6]
-  def opt5: Option[A5] = None
-  override def opt4: Option[A4] = None
-  override def opt3: Option[A3] = None
-  override def opt2: Option[A2] = None
-  override def opt1: Option[A1] = None
-  implicit def unshow1: Unshow[A1]
-  implicit def unshow2: Unshow[A2]
-  implicit def unshow3: Unshow[A3]
-  implicit def unshow4: Unshow[A4]
-  implicit def unshow5: Unshow[A5]
-  implicit def unshow6: Unshow[A6]
+trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends Unshow6Plus[A1, A2, A3, A4, A5, A6, R] with Persist6[A1, A2, A3, A4, A5, A6]
+{ /** Allows this [[Unshow]] instance to create object from it's 6 components. */
+  val newT: (A1, A2, A3, A4, A5, A6) => R
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length

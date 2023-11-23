@@ -109,7 +109,7 @@ abstract class ShowDbl4[R] extends Show4[Double, Double, Double, Double, R]
 
 /** common trait for [[Unshow]] type class instances for sum types with 4 or more components. */
 trait Unshow4Plus[A1, A2, A3, A4, R] extends Unshow3Plus[A1, A2, A3, R] with Persist4Plus[A1, A2, A3, A4]
-{ /** The [[Unshow]] type class instance for type A3. */
+{ /** The [[Unshow]] type class instance for type A4. */
   def unshow4: Unshow[A4]
 }
 

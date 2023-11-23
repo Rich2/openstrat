@@ -87,18 +87,16 @@ trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
   override def showEv5: Show[Int] = Show.intEv
 }
 
-
-/** common trait for [[Unshow]] type class instances for sum types with 4 or more components. */
+/** Common trait for [[Unshow]] type class instances for sum types with 5 or more components. */
 trait Unshow5Plus[A1, A2, A3, A4, A5, R] extends Unshow4Plus[A1, A2, A3, A4, R] with Persist5Plus[A1, A2, A3, A4, A5]
-{ /** The [[Unshow]] type class instance for type A3. */
+{ /** The [[Unshow]] type class instance for type A5. */
   def unshow5: Unshow[A5]
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
 trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] with Persist5[A1, A2, A3, A4, A5]
-{
+{ /** Allows this [[Unshow]] instance to create object from it's 5 components. */
   def newT: (A1, A2, A3, A4, A5) => R
-
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
