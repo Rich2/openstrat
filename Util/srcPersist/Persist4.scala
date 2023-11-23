@@ -113,7 +113,6 @@ trait Unshow4Plus[A1, A2, A3, A4, R] extends Unshow3Plus[A1, A2, A3, R] with Per
   def unshow4: Unshow[A4]
 }
 
-
 /** UnShow class for 4 logical parameter product types. */
 trait Unshow4[A1, A2, A3, A4, R] extends Unshow4Plus[A1,A2, A3, A4, R] with Persist4[A1, A2, A3, A4]
 { /** Allows this [[Unshow]] instance to create object from it's 4 components. */

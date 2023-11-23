@@ -182,8 +182,8 @@ object MTime
     case n => excep(n.str -- "is an invalid Month number.")
   }
 
-  implicit val unshowEv: UnshowInt5[MTime] = UnshowInt5[MTime]("MTime", "year", _.yearInt, "month", _.monthNum, "day", _.dayNum, "hour", _.hour,
-    "minute", _.minute, (i1, i2, i3, i4, i5) => MTime(i1, i2, i3, i4, i5), Some(0), Some(0), Some(1), Some(1))
+  implicit val unshowEv: UnshowInt5[MTime] = UnshowInt5[MTime]("MTime", "year", "month", "day", "hour", "minute",
+    (i1, i2, i3, i4, i5) => MTime(i1, i2, i3, i4, i5), Some(0), Some(0), Some(1), Some(1))
 }
 
 /** A time eriod. Compact class for holding 2 [[MTime]]s. */

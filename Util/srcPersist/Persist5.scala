@@ -87,20 +87,18 @@ trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
   override def showEv5: Show[Int] = Show.intEv
 }
 
+
+/** common trait for [[Unshow]] type class instances for sum types with 4 or more components. */
+trait Unshow5Plus[A1, A2, A3, A4, A5, R] extends Unshow4Plus[A1, A2, A3, A4, R] with Persist5Plus[A1, A2, A3, A4, A5]
+{ /** The [[Unshow]] type class instance for type A3. */
+  def unshow5: Unshow[A5]
+}
+
 /** [[Unshow]] trait for 5 parameter product / case classes. */
-trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with Persist5[A1, A2, A3, A4, A5]
-{ def fArg1: R => A1
-  def fArg2: R => A2
-  def fArg3: R => A3
-  def fArg4: R => A4
-  def fArg5: R => A5
+trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] with Persist5[A1, A2, A3, A4, A5]
+{
   def newT: (A1, A2, A3, A4, A5) => R
 
-  implicit def unshow1: Unshow[A1]
-  implicit def unshow2: Unshow[A2]
-  implicit def unshow3: Unshow[A3]
-  implicit def unshow4: Unshow[A4]
-  implicit def unshow5: Unshow[A5]
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
@@ -113,9 +111,9 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with Persist5[A1, A2, A3
   }
 }
 
-class UnshowInt5[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int, val name3: String,
-  val fArg3: R => Int, val name4: String, val fArg4: R => Int, val name5: String, val fArg5: R => Int, val newT: (Int, Int, Int, Int, Int) => R,
-  override val opt5: Option[Int] = None, opt4In: Option[Int] = None, opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow5[Int, Int, Int, Int, Int, R]
+class UnshowInt5[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String, val name5: String,
+  val newT: (Int, Int, Int, Int, Int) => R, override val opt5: Option[Int] = None, opt4In: Option[Int] = None, opt3In: Option[Int] = None,
+  opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow5[Int, Int, Int, Int, Int, R]
 {
   override val opt4: Option[Int] = ife(opt5.nonEmpty, opt4In, None)
   override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
@@ -131,8 +129,7 @@ class UnshowInt5[R](val typeStr: String, val name1: String, val fArg1: R => Int,
 
 object UnshowInt5
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, name3: String, fArg3: R => Int, name4: String,
-    fArg4: R => Int, name5: String, fArg5: R => Int, newT: (Int, Int, Int, Int, Int) => R, opt5: Option[Int] = None, opt4: Option[Int] = None,
-    opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): UnshowInt5[R] =
-    new UnshowInt5[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, newT, opt5, opt4, opt3, opt2, opt1)
+  def apply[R](typeStr: String, name1: String, name2: String, name3: String, name4: String, name5: String, newT: (Int, Int, Int, Int, Int) => R,
+    opt5: Option[Int] = None, opt4: Option[Int] = None, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None): UnshowInt5[R] =
+    new UnshowInt5[R](typeStr, name1, name2, name3, name4, name5, newT, opt5, opt4, opt3, opt2, opt1)
 }
