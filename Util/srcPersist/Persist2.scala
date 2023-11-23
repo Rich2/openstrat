@@ -1,12 +1,10 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, reflect.ClassTag
 
-import scala.reflect.ClassTag
-
-/** Base trait for [[PersistBase2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
+/** Base trait for [[Persist2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
  *  for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to the [[Tell2]] object to implement their interfaces. */
-trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
+trait Persist2Plus[A1, A2] extends Any with PersistBaseN
 { /** 1st parameter name. */
   def name1: String
 
@@ -22,13 +20,13 @@ trait PersistBase2Plus[A1, A2] extends Any with PersistBaseN
 
 /** A base trait for [[Tell2]] and [[UnShow2]]. It is not a base trait for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can
  *  delegate to the [[Tell2]] object to implement their interfaces. */
-trait PersistBase2[A1, A2] extends Any with PersistBase2Plus[A1, A2]
+trait Persist2[A1, A2] extends Any with Persist2Plus[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   override def numParams: Int = 2
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2Plus[A1, A2, R] extends ShowN[R] with PersistBase2Plus[A1, A2]
+trait Show2Plus[A1, A2, R] extends ShowN[R] with Persist2Plus[A1, A2]
 { /** Gets the 1st show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
   def fArg1: R => A1
 
@@ -49,7 +47,7 @@ trait Show2Plus[A1, A2, R] extends ShowN[R] with PersistBase2Plus[A1, A2]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with PersistBase2[A1, A2]
+trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with Persist2[A1, A2]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
 
   override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
@@ -127,16 +125,18 @@ object ShowDbl2
   }
 }
 
-
-/** UnShow type class trait for a 2 element Product. */
-trait Unshow2[A1, A2, R] extends UnshowN[R] with PersistBase2[A1, A2]
+/** common trait for [[Unshow]] type class instances for sum types with 2 or more components. */
+trait Unshow2Plus[A1, A2, R] extends UnshowN[R] with Persist2Plus[A1, A2]
 { /** The [[Unshow]] type class instance for type A1. */
   def unshow1: Unshow[A1]
 
   /** The [[Unshow]] type class instance for type A2. */
   def unshow2: Unshow[A2]
+}
 
-  /** The function to construct an object of type R from its 2 components." */
+/** UnShow type class trait for a 2 element Product. */
+trait Unshow2[A1, A2, R] extends Unshow2Plus[A1, A2, R] with Persist2[A1, A2]
+{ /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, A2) => R
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =

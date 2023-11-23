@@ -2,7 +2,7 @@
 package ostrat
 
 /** [[Tell]] trait for classes with 2+ Show parameters. */
-trait Tell2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
+trait Tell2Plused[A1, A2] extends Any with TellN with Persist2Plus[A1, A2]
 { /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
 
@@ -24,7 +24,7 @@ trait Tell2Plused[A1, A2] extends Any with TellN with PersistBase2Plus[A1, A2]
  *  inherit from Show2 and then use [[ShowTell2]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowTell2]] or
  *  [[PersistTell2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2]] instance. */
-trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with PersistBase2[A1, A2]
+trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with Persist2[A1, A2]
 { override def paramNames: StrArr = StrArr(name1, name2)
   def elemTypeNames: StrArr = StrArr(show1.typeStr, show2.typeStr)
   override def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr = StrArr(

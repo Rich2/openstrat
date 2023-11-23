@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for Tell3+, Show3+ and Unshow3+ classes. Declares the common properties of name1 - 3 and opt1 - 3. */
-trait Persist3Plus[A1, A2, A3] extends Any with PersistBase2Plus[A1, A2]
+trait Persist3Plus[A1, A2, A3] extends Any with Persist2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
 
@@ -102,20 +102,22 @@ object ShowDbl3
   }
 }
 
-/** UnShow class for 3 logical parameter product types. */
-trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with Persist3[A1, A2, A3]
-{ def persist1: Unshow[A1]
-  def persist2: Unshow[A2]
-  def persist3: Unshow[A3]
+/** common trait for [[Unshow]] type class instances for sum types with 2 or more components. */
+trait Unshow3Plus[A1, A2, A3, R] extends Unshow2Plus[A1, A2, R] with Persist3Plus[A1, A2, A3]
+{ /** The [[Unshow]] type class instance for type A3. */
+  def unshow3: Unshow[A3]
+}
 
-  /** Method fpr creating a value of type R from values A1, A2, A3. */
+/** UnShow class for 3 logical parameter product types. */
+trait Unshow3[A1, A2, A3, R] extends Unshow3Plus[A1, A2, A3, R] with Persist3[A1, A2, A3]
+{ /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => R
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), persist1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), persist2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
-    def e3: EMon[A3] = ife(len > pSeq(2), persist3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), unshow3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
     e1.map3(e2, e3)(newT)
   }
 }
@@ -128,7 +130,7 @@ object Unshow3
 
   class Unshow3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => R,
     override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val persist1: Unshow[A1], val persist2: Unshow[A2], val persist3: Unshow[A3]) extends Unshow3[A1, A2, A3, R]
+    implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2], val unshow3: Unshow[A3]) extends Unshow3[A1, A2, A3, R]
   {
     override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
     override def opt1: Option[A1] = ife(opt2.nonEmpty , opt1In, None)
@@ -136,9 +138,9 @@ object Unshow3
 }
 
 trait UnshowInt3[R] extends Unshow3[Int, Int, Int, R]
-{ override def persist1: Unshow[Int] = Unshow.intEv
-  override def persist2: Unshow[Int] = Unshow.intEv
-  override def persist3: Unshow[Int] = Unshow.intEv
+{ override def unshow1: Unshow[Int] = Unshow.intEv
+  override def unshow2: Unshow[Int] = Unshow.intEv
+  override def unshow3: Unshow[Int] = Unshow.intEv
 }
 
 /** Companion object for [[UnshowInt3]] trait contains implementation class and factory apply method. */
@@ -161,9 +163,9 @@ object UnshowInt3
 }
 
 trait UnshowDbl3[R] extends Unshow3[Double, Double, Double, R]
-{ override def persist1: Unshow[Double] = Unshow.doubleEv
-  override def persist2: Unshow[Double] = Unshow.doubleEv
-  override def persist3: Unshow[Double] = Unshow.doubleEv
+{ override def unshow1: Unshow[Double] = Unshow.doubleEv
+  override def unshow2: Unshow[Double] = Unshow.doubleEv
+  override def unshow3: Unshow[Double] = Unshow.doubleEv
 }
 
 object UnshowDbl3
