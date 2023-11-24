@@ -40,6 +40,9 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
+  def asSeqMultiple[A, R <: Arr[A]](implicit evA: Unshow[A], build: BuilderArrMap[A, R]): EMon[R] =
+    thisString.asType[RArr[Multiple[A]]].map(ms => ms.toArr)
+
   def newLinesToSpaces: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */

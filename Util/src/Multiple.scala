@@ -36,6 +36,12 @@ object Multiple
 
   implicit class RefsImplicit[A](thisRefs: RArr[Multiple[A]])
   { def numSingles: Int = thisRefs.sumBy(_.num)
+
+    def toArr[R <: Arr[A]](implicit builder: BuilderArrMap[A, R]): R =
+    { val buff = builder.newBuff()
+      thisRefs.foreach(multi => iUntilForeach(multi.num)(_ => builder.buffGrow(buff, multi.value)))
+      builder.buffToSeqLike(buff)
+    }
   }
 
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
