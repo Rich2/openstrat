@@ -75,6 +75,7 @@ object Multiple
 
   class UnshowMultiple[A]()(implicit val evA: Unshow[A]) extends Unshow[Multiple[A]]
   { override def typeStr: String = "Multiple"
+    override def useMultiple: Boolean = false
 
     override def fromExpr(expr: Expr): EMon[Multiple[A]] = expr match
     { case InfixOpExpr(left, OperatorPrec1Token(startPosn, "*"), IntExpr(i)) => evA.fromExpr(left).map(a => Multiple(a, i))

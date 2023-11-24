@@ -4,7 +4,7 @@ import pParse._
 
 /** [[Unshow]] type classes for SeqLike. This trait actually implements fromExpr method.  */
 trait UnshowSeqLike[A, R] extends Unshow[R]
-{
+{ /** [[Unshow]] type class instance for the elements of the seqLike. */
   def evA: Unshow[A]
   def build: BuilderCollMap[A, R]
 
@@ -29,6 +29,7 @@ object UnshowSeqLike
  * storage structure is irrelevant. They can all be reconstructed / unshown from an RSON Seq. */
 class UnshowSeq[A, R](val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
+  override def useMultiple: Boolean = false
 }
 
 object UnshowSeq
