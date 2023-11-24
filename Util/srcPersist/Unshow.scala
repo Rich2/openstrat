@@ -9,6 +9,8 @@ trait Unshow[+T] extends PersistBase
    *  implemented by all instances. */
   def fromExpr(expr: Expr): EMon[T]
 
+  def useMultiple: Boolean = true
+
   /** Trys to build an object of type T from the statement. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
 
@@ -81,9 +83,10 @@ object Unshow extends UnshowPriority2
 {
   /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
   implicit val intEv: Unshow[Int] = new IntEvClass
+
   class IntEvClass extends Unshow[Int]
   { override def typeStr: String = "Int"
-
+    override val useMultiple: Boolean = false
     override def fromExpr(expr: Expr): EMon[Int] = expr match
     { case IntStdToken(i) => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
@@ -94,8 +97,8 @@ object Unshow extends UnshowPriority2
 
   /** [[Unshow]] instance / evidence for natural, non-negative [[Int]] in a standard format. This must be passed explicitly. */
   val natEv: Unshow[Int] = new Unshow[Int]
-  {
-    override def typeStr: String = "Nat"
+  { override def typeStr: String = "Nat"
+    override val useMultiple: Boolean = false
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match
     { case  NatStdToken(i) => Good(i)
@@ -105,8 +108,8 @@ object Unshow extends UnshowPriority2
 
   /** [[Unshow]] instance for [[Int]] in hexadecimal format. This must be passed explicitly. */
   val hexaIntEv: Unshow[Int] = new Unshow[Int]
-  {
-    override def typeStr: String = "HexaInt"
+  { override def typeStr: String = "HexaInt"
+    override val useMultiple: Boolean = false
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match
     { case ValidRawHexaIntToken(i) => Good(i)
