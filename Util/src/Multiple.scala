@@ -35,12 +35,19 @@ object Multiple
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
   implicit class RefsImplicit[A](thisRefs: RArr[Multiple[A]])
-  { def numSingles: Int = thisRefs.sumBy(_.num)
+  { /** The total number of elements in this sequence of [[Multiple]]s. */
+    def numSingles: Int = thisRefs.sumBy(_.num)
 
+    /** Converts this sequence of [[Multiple]]s to an [[Arr]] of the type of the [[Multiple]]. */
     def toArr[R <: Arr[A]](implicit builder: BuilderArrMap[A, R]): R =
-    { val buff = builder.newBuff()
-      thisRefs.foreach(multi => iUntilForeach(multi.num)(_ => builder.buffGrow(buff, multi.value)))
-      builder.buffToSeqLike(buff)
+    { val newLen = thisRefs.numSingles
+      val res = builder.uninitialised(newLen)
+      var i = 0
+      thisRefs.foreach { multi =>
+        iUntilForeach(multi.num) { j => res.setElemUnsafe(i + j, multi.value) }
+        i = i + multi.num
+      }
+      res
     }
   }
 
