@@ -91,13 +91,20 @@ object Multiple
     }
 
     def fromArrExpr(inp: Arr[Expr]): EMon[RArr[Multiple[A]]] = inp.mapEMon(fromExpr(_))
-    def arrFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): EMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
-    def arrFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderCollMap[A, R]): EMon[R]  = arrFromArrExpr(inp.map(_.expr), builderColl)
 
-//      val r1: EMon[Multiple[A]] = inp.mapEMon(st => fromExpr(st.expr)(evA))
-//      r1.map(multis => multis.toColl(builderColl))}
-//      ???
+    /** Collection from [[Arr]] of [[Expr]]. */
+    def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): EMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
+
+    /** Collection from [[Arr]] of [[Statement]]. */
+    def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderCollMap[A, R]): EMon[R]  = collFromArrExpr(inp.map(_.expr), builderColl)
   }
+
+  /** Collection from [[Arr]] of [[Expr]]. */
+  def collFromArrExpr[A, R](inp: Arr[Expr])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] = unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
+
+  /** Collection from [[Arr]] of [[Statement]]. */
+  def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] = unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)
+
 }
 
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
