@@ -49,6 +49,12 @@ object Multiple
       }
       res
     }
+
+    def toColl[R](builder: BuilderCollMap[A, R]): R =
+    { val buff = builder.newBuff()
+      thisRefs.foreach { multi => iUntilForeach(multi.num) { _ => builder.buffGrow(buff, multi.value) } }
+      builder.buffToSeqLike(buff)
+    }
   }
 
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
@@ -83,6 +89,14 @@ object Multiple
         => evA.fromExpr(e1).map{a => Multiple(a, i) }
       case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
     }
+
+    def fromArrExpr(inp: Arr[Expr]): EMon[RArr[Multiple[A]]] = inp.mapEMon(fromExpr(_))
+    def arrFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): EMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
+    def arrFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderCollMap[A, R]): EMon[R]  = arrFromArrExpr(inp.map(_.expr), builderColl)
+
+//      val r1: EMon[Multiple[A]] = inp.mapEMon(st => fromExpr(st.expr)(evA))
+//      r1.map(multis => multis.toColl(builderColl))}
+//      ???
   }
 }
 

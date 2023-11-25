@@ -53,7 +53,8 @@ object WTileTest extends TestSuite
       assert(RArr(land, lake, Land(Hilly, Savannah)) === RArr(land, lake , Land(Hilly, Savannah)))
       assert(Good(RArr(land, lake, Land(Hilly, Savannah))) === Good(RArr(land, lake , Land(Hilly, Savannah))))
       assert(er1 === Good(RArr(land, lake , hillySavannah)))
-      assert("Seq(sea * 2; lake)".asSeqMultiple[Water, RArr[Water]] === Good(RArr(sea, sea, lake)))
+      assert("Seq(sea * 2; lake)".asType[RArr[Water]] === Good(RArr(sea, sea, lake)))
+      assert("Seq(hilly * 2; land * 3)".asType[RArr[Land]] === Good(RArr(hilly, hilly, land, land, land)))
     }
   }
 }
