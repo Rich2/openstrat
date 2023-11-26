@@ -16,7 +16,11 @@ object UtilPage extends HtmlPage
     HtmlLi("iToForeach, iToMap, iToFlatMap, iUntilForeach, etc functions. A more succinct and expressive alternative to the Standard Library's" +
       "Range Class."),
     HtmlLi("Many useful functions and extension methods."),
-    coll, errs, parse, persist)
+    coll,
+    errs,
+    parse,
+    HtmlLi("RSON: Rich Succint Object Notation. A persistence system to write objects to text and to read text back into memory as objects, using" --
+      "consistent properly structured grammar heirachry, default values, Multiple values and repeat values."))
 
   def coll: HtmlLi = HtmlLi("Powerful, fast, efficient Array based collections for primitive values and compound value classes. These work on" +
     " both the Java platform, the JVM and in the web browser when compiled to JavaScript.")
@@ -26,11 +30,13 @@ object UtilPage extends HtmlPage
   def parse: HtmlLi = HtmlLi("Parser for RSON, Rich Succinct, Object Notation. Includes a lexar for tokenisation and a parser for an AST," +
     " abstract syntax tree.")
 
-  def persist: HtmlLi = HtmlLi("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
-    "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itself." --
-    "And ShowTell will be used for Show type classes that use Tell functionality, to minimise their constructors. The show and tell methods" --
-    "contain a style parameter, to indicate which information to show and precision parameters to specify the number of decimal places precision." --
-    "The default max precision is set to -1, which indicates no limit." )
+  def persistSection: HtmlSection = HtmlSection(HtmlH2("Persistence"),
+    HtmlP("Persistence system for Show and UnShow, uses the previously mentioned RSON syntax. Show will be used for the" --
+      "classic type class. This will be the default for classic product types. 'Tell' will be used for traits inherited directly by the type itself." --
+      "And ShowTell will be used for Show type classes that use Tell functionality, to minimise their constructors. The show and tell methods" --
+      "contain a style parameter, to indicate which information to show and precision parameters to specify the number of decimal places precision." --
+      "The default max precision is set to -1, which indicates no limit."
+    ))
 
   def base32: HtmlSection = HtmlSection(HtmlH2("Hexadecimal and Base32"),
     HtmlP("Hexadecimal is written with Uppercase letters. Base32 is written with the digits followed by the upper case letters A to W, with the" --
