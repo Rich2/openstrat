@@ -3,10 +3,10 @@ package ostrat; package gFour; package hp4
 import prid._, phex._, Colour._
 
 /** Example Game three scenario trait. */
-abstract class FourScen(val turn: Int) extends HGridScen
+abstract class G4HScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenLayer[Terr]
-  
+  def lunits: HCenRArrLayer[LunitState]
  // def lunits: HCenArrLayer[LunitState]
   //def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 
@@ -36,7 +36,7 @@ abstract class FourScen(val turn: Int) extends HGridScen
  // }
 }
 
-object FourScen
+object G4HScen
 {
   /*def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenArrLayer[LunitState]): ThreeScen = new ThreeScen(turnNum)
   {

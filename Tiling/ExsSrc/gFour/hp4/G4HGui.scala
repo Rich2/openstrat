@@ -1,19 +1,18 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gFour
+package ostrat; package gFour; package hp4
 import pgui._, prid._, phex._, geom._, gPlay._
 
-/*
-case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
+case class G4HGui(canv: CanvasPlatform, scenStart: G4HScen, viewIn: HGView) extends HGridSysGui("Game Four Hex Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
 
 //  def terrs: HCenLayer[Terr] = scen.terrs
 
-  def lunits: HCenArrLayer[LunitState] = scen.lunits
+  def lunits: HCenRArrLayer[LunitState] = scen.lunits
 
-  var moves: HCenArrLayer[LunitState] = lunits.copy
+  var moves: HCenRArrLayer[LunitState] = lunits.copy
 
-  var history: RArr[ThreeScen] = RArr(scen)
+  var history: RArr[G4HScen] = RArr(scen)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
@@ -21,7 +20,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
-  def pixPerTile: Double = proj.pixelsPerTile
+  //def pixPerTile: Double = proj.pixelsPerTile
 
   canv.keyDown = s => deb("Key down" -- s)
 
@@ -36,21 +35,24 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
     /** Draws the tiles sides (or edges). */
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
-    def unitGraphics: RArr[PolygonCompound] = lunits.projHeadsHcPtMap { (ls, hc, pt) =>
-      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillDrawTextActive(ls.colour, ls, ls.toString + "\n" + hc.rcStr, pixPerTile / 15, 2.0) }
+    def unitGraphics: RArr[PolygonCompound] = ??? /*lunits.projSomesHcPtMap { (rarr, hc, pt) =>
+      val str: String = rarr.head.team.toString --- rarr.foldStr(us => us.lunit.num.str, ", ") --- hc.rcStr
+      Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillActiveDrawText(rarr.head.colour, rarr, str, pixPerTile / 15, 2.0)
+    }*/
 
     def texts: RArr[TextGraphic] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
 
     /** This is the graphical display of the planned move orders. */
-    def moveGraphics: GraphicElems = moves.elemsHcFlatMap { (ps, hc) =>
-      val lps1: LinePathHC = ps.cmds.pathHC(hc)
+    def moveGraphics: GraphicElems = ??? /*moves.mapHcFlatMap { (ps, hc) =>
+      val lps1: LinePathHC = ps.intentions.pathHC(hc)
       val lps2: LineSegHCArr = lps1.lineSegArr
       val lps2a: LineSegHCArr = lps2.init
       val lps2b = lps2.lasts
-      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(ps.colour))
-      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(ps.colour).arrow)
+      val lps3a = lps2a.optMap(lh => proj.transOptLineSeg(lh)).map(_.draw(lineColour = ps.colour))
+      val lps3b = lps2b.optMap(proj.transOptLineSeg(_)).flatMap(_.draw(lineColour = ps.colour).arrow)
       lps3a ++ lps3b
-    }
+    }*/
+
 
     actives +% sidesDraw ++ moveGraphics ++ unitGraphics ++ texts
   }
@@ -71,11 +73,11 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
+   /* case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
      val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
-    }
+    }*/
 
     case (_, _, h) => deb("Other; " + h.toString)
   }
@@ -91,4 +93,4 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
     thisTop()
   }
   repaint()
-}*/
+}
