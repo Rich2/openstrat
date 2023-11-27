@@ -15,14 +15,12 @@ object ArrOtherTest extends TestSuite
     val longs1 = LongArr(2, 4, 6) ++ LongArr(8, 9)
     val pre1 = IntArr(2, 3, 4).prepend(1)
 
-    test("test1")    { ints1(3) ==> 4
-      ints3.length ==> 7
-      ints3(6) ==> 7
+    test("Ints test 1")
+    { ints1(3) ==> 4
+      assert(ints3 === IntArr(1, 2, 3, 4, 5, 6, 7))
       dbls1(2) ==> 4.5
-      dbls2(0) ==> 1.5
-      dbls2.length ==> 4
-
-      dbls3.length ==> 8
+      assert(dbls2 === ArrDbl(1.5, 3, 4.5, 6))
+      assert(dbls3 === ArrDbl(1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2))
       longs1(4) == 9L
       pre1(0) ==> 1
       pre1(3) ==> 4
