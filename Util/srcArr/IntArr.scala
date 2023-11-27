@@ -42,10 +42,9 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
     new IntArr(newArray)
   }
 
-  /** Alias for prepend. Functionally appends the operand Int. */
-  @inline def +:(op: Int): IntArr = prepend(op)
-  /** Functionally prepends the operand [[Int]]. */
-  def prepend(op: Int): IntArr =
+  /** Functionally prepends the operand [[Int]] returning a new object. Note the operators %: and +% are used rather than the conventional +: and :+
+   * to ensure that prepend takes precedence over append. */
+  @inline @targetName("prepend") def %:(op: Int): IntArr =
   { val newArray = new Array[Int](length + 1)
     newArray(0) = op
     unsafeArray.copyToArray(newArray, 1)

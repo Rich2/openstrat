@@ -51,7 +51,7 @@ trait BuilderArrMap[B, ArrB <: Arr[B]] extends BuilderSeqLikeMap[B, ArrB]
 /** The companion object for [[BuilderArrMap]] contains implicit instances for common types. */
 object BuilderArrMap extends BuilderArrMapPriority2
 { implicit val intsImplicit: BuilderArrMap[Int, IntArr] = IntArrBuilder
-  implicit val doublesImplicit: BuilderArrMap[Double, ArrDbl] = DblArrBuilder
+  implicit val doublesImplicit: BuilderArrMap[Double, DblArr] = DblArrBuilder
   implicit val longImplicit: BuilderArrMap[Long, LongArr] = LongArrBuilder
   implicit val floatImplicit: BuilderArrMap[Float, FloatArr] = FloatArrBuilder
   implicit val stringImplicit: BuilderArrMap[String, StrArr] = BuilderArrString
@@ -85,7 +85,7 @@ trait BuilderArrFlat[ArrB <: Arr[_]] extends BuilderSeqLikeFlat[ArrB] with Build
 /** Companion object for [[BuilderArrFlat]], contains implicit instances for atomic value classes. */
 object BuilderArrFlat extends BuilderArrFlatPriority2
 { implicit val intsImplicit: BuilderArrFlat[IntArr] = IntArrBuilder
-  implicit val dblsImplicit: BuilderArrFlat[ArrDbl] = DblArrBuilder
+  implicit val dblsImplicit: BuilderArrFlat[DblArr] = DblArrBuilder
   implicit val longsImplicit: BuilderArrFlat[LongArr] = LongArrBuilder
   implicit val floatImplicit: BuilderArrFlat[FloatArr] = FloatArrBuilder
   implicit val booleansImplicit: BuilderArrFlat[BoolArr] = BooleanArrBuilder

@@ -101,7 +101,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
 
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the sequence. */
   def seqDefElem(d1: Double, d2: Double): A
-  override def foreachArr(f: ArrDbl => Unit): Unit = foreach(el => f(ArrDbl(el.dbl1, el.dbl2)))
+  override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2)))
 }
 
 /** Base trait for Builders for [[SeqLike]]s with [[Dbl2Elem]] elements via both map and flatMap methods. */

@@ -54,7 +54,7 @@ trait ArrDblN[A <: DblNElem] extends Any with SeqLikeDblN[A] with ArrValueN[A]
 { type ThisT <: ArrDblN[A]
 
   /** Not sure about this method. */
-  def foreachArr(f: ArrDbl => Unit): Unit
+  def foreachArr(f: DblArr => Unit): Unit
 
   final def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(length)
