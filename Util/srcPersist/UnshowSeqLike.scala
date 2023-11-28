@@ -23,6 +23,7 @@ object UnshowSeqLike
   def apply[A, R](typeStr: String)(implicit evA: Unshow[A], build: BuilderCollMap[A, R]): UnshowSeqLike[A, R] =
     new UnshowSeqLikeImp[A, R](typeStr, evA, build)
 
+  /** Implementation class for the general cases of [[UnshowSeqLike]]. Use [[UnshowSeq]] for any actual sequence classes. */
   class UnshowSeqLikeImp[A, R](val typeStr: String, val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 }
 

@@ -9,6 +9,9 @@ trait Unshow[+T] extends PersistBase
    *  implemented by all instances. */
   def fromExpr(expr: Expr): EMon[T]
 
+  /** This property determines if the type can be used with [[Multiple]] syntax. {{{MyObj * 7}}}. for describing sequences succinctly. This is not
+   * desirable for some types such as numerical and mathematical vector types as this could be confusing 3 * 4 should resolve to an [[Int]] of value
+   * 12, not a Multiple(3, 4). */
   def useMultiple: Boolean = true
 
   /** Trys to build an object of type T from the statement. */
