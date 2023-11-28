@@ -276,6 +276,16 @@ object RArrHead
   def unapply(arr: RArr[Any]): Option[Any] = ife(arr.nonEmpty, Some(arr(0)), None)
 }
 
+/** Extractor object for [[RArr]] of length greater or equalt ot 1. */
+case object RArr1Tail
+{
+  def unapply(inp: Any): Option[(Any, Seq[Any])] = inp match
+  {
+    case ra: RArr[_] if ra.length >= 1 => Some((ra(0), ra.toList.drop(1)))
+    case _ => None
+  }
+}
+
 /** The default Immutable Array based collection builder for the Arr[A] class. */
 class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]] with BuilderArrFlat[RArr[B]]
 { type BuffT = RBuff[B]

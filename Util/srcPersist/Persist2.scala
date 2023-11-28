@@ -203,11 +203,15 @@ object UnshowDbl2
   }
 }
 
-class Unshow2Repeat[A1, A2, R](val typeStr: String)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[R]{
+class Unshow2Repeat[A1, A2, R](val typeStr: String, f: (A1, Seq[A2]) => R)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[R]
+{
+  /** The function to construct an object of type R from its 2 components." */
+  def newT: (A1, Seq[A2]) => R = f
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match {
+  override def fromExpr(expr: Expr): EMon[R] = expr match
+  {
     //case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromExprSeq(sts.map(_.expr))
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(RArr1Tail(st1, tail), _, _))) if typeStr == typeName => ??? // fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => ???//fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](this)
