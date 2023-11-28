@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-object ArrRefTest extends TestSuite
+object RArrTest extends TestSuite
 {
   trait MyT { def i: Int }
   case class MyA(i: Int) extends MyT

@@ -2,8 +2,8 @@
 package ostrat
 import utest._
 
-/** Test object for our own immutable wrapper. Types have been deliberatly left unannotated to test demonstrated type inference.*/
-object ArrOtherTest extends TestSuite
+/** Test object for our own immutable wrapper. Types have been deliberately left unannotated to test demonstrated type inference.*/
+object ArrPrimitivesTest extends TestSuite
 {
   val tests = Tests {
     val ints1 = IntArr(1, 2, 3, 4)
