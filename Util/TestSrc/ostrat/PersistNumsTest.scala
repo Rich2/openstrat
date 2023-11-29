@@ -1,13 +1,12 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
 object PersistNumsTest  extends TestSuite
 {
   val tests = Tests {
-    "Ints" -
-    {
-      5.str ==> "5"
+    test("Ints")
+    { 5.str ==> "5"
       "5".findType[Int] ==> Good(5)
       "228".asInt ==> Good(228)
       "-228".intAtStsIndex(0) ==> Good(-228)
@@ -18,9 +17,8 @@ object PersistNumsTest  extends TestSuite
       "7".findType[Double] ==> Good(7)
     }
 
-    "Doubles" -
-     {
-       23.4.str ==> "23.4"
+    test("Doubles")
+     { 23.4.str ==> "23.4"
        8.0.str ==> "8"
        9.12345.show(ShowStandard, 0, 0) ==> "9"
        9.12345.show(ShowStandard, 1, 0) ==> "9.1"

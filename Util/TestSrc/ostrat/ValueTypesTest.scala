@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -14,9 +14,8 @@ object ValueTypesTest extends TestSuite
     val dd5 = (-40875, -21474)
     val dd6 = (410875, -21001474) 
 
-    "TwoIntsToDouble" -
-    { 
-      tt(dd1) ==> dd1
+    test("TwoIntsToDouble")
+    { tt(dd1) ==> dd1
       tt(dd2) ==> dd2
       tt(dd3) ==> dd3
       tt(dd4) ==> dd4

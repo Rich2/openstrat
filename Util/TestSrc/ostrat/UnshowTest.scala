@@ -45,7 +45,7 @@ object ExUB
 
 object UnshowTest extends TestSuite
 { val tests = Tests {
-    test("UA")
+    test("Named 2 Parameters test")
     { """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))
       "ExUA()".asType[ExUA] ==> Good(ExUA(0, "blah"))
@@ -57,7 +57,7 @@ object UnshowTest extends TestSuite
       """ExUA(b = "Hello")""".asType[ExUA] ==> Good(ExUA(0, "Hello"))
     }
 
-    test("UB")
+    test("Named 3 parameters test")
     { ExUB() ==> ExUB()
       """ExUB()""".asType[ExUB] ==> Good(ExUB())
       """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
