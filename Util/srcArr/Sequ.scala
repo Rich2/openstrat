@@ -308,7 +308,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  def eMapList[B](f: A => EMon[B]): EMon[List[B]] =
+  def mapEMonList[B](f: A => EMon[B]): EMon[List[B]] =
   { var acc: List[B] = Nil
     var continue = true
     var count = 0
