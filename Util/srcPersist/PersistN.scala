@@ -74,7 +74,11 @@ trait UnshowN[R] extends Unshow[R] with PersistBaseN
     {
       def exprsLoop(i: Int, usedNames: StrArr): EMon[R] =
         if (i >= exprs.length)
-          if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
+          if (i >= numParams)
+          {
+            //val newExprSeq = RArr.uninitialised[Expr](exprs.length)
+            fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
+          }
           else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
         else exprs(i) match
         { case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")

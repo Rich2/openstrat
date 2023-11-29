@@ -205,6 +205,9 @@ object RArr
 { /** Factory apply method for [[RArr]] class. */
   def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
 
+  /** Creates new uninitialised [[RArr]] of the given length. */
+  def uninitialised[A](length: Int)(implicit ct: ClassTag[A]): RArr[A] = new RArr[A](new Array[A](length))
+
   /** Implicit [[Show]] type class instance / evidence for [[RArr]]. */
   implicit def showEv[A](implicit evAIn: Show[A]): Show[RArr[A]] = ShowSequ[A, RArr[A]]()
 
