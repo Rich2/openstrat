@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** Base trait for [[ShowN]] and [[UnshowN]]. */
-trait PersistBaseN extends Any with PersistBase
+trait PersistN extends Any with Persist
 { /** Sequence of the names of parameter constituents of this class. */
   def paramNames: StrArr
 
@@ -12,7 +12,7 @@ trait PersistBaseN extends Any with PersistBase
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowN[R] extends ShowCompound[R] with PersistBaseN
+trait ShowN[R] extends ShowCompound[R] with PersistN
 {
   def fieldShows: RArr[Show[_]]
 
@@ -52,7 +52,7 @@ trait ShowTellN[R <: TellN] extends ShowN[R] with ShowTell[R]
 { override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = obj.tellElemStrs(way, maxPlaces, minPlaces)
 }
 
-trait UnshowN[R] extends Unshow[R] with PersistBaseN
+trait UnshowN[R] extends Unshow[R] with PersistN
 {
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
 
@@ -91,7 +91,7 @@ trait UnshowN[R] extends Unshow[R] with PersistBaseN
 }
 
 /** The base trait for the persistence of algebraic product types, where the last component is a repeat parameter. */
-trait UnshowNRepeat[R] extends Unshow[R] with PersistBaseN
+trait UnshowNRepeat[R] extends Unshow[R] with PersistN
 {
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
 

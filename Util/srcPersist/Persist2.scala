@@ -4,7 +4,7 @@ import pParse._, reflect.ClassTag
 
 /** Base trait for [[Persist2]] and [[Persist3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
  *  for [[Show2]], as [[ShowTell2]] classes do not need this data, as they can delegate to the [[Tell2]] object to implement their interfaces. */
-trait Persist2Plus[A1, A2] extends Any with PersistBaseN
+trait Persist2Plus[A1, A2] extends Any with PersistN
 { /** 1st parameter name. */
   def name1: String
 

@@ -7,7 +7,7 @@ package ostrat
  *  order problems, but at the very least it can increase compile times. The capabilities of decimal place precision and explicit typing for numbers
  *  are placed defined here and in the corresponding [[Show]] type class although they have no meaning / purpose for many types, as separating them
  *  adds enormous complexity for very little gain. */
-trait Tell extends Any with PersistBase
+trait Tell extends Any with Persist
 {
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String
@@ -33,10 +33,11 @@ trait Tell extends Any with PersistBase
   def str3: String = tell(ShowStandard, 3, 3)
 }
 
-/** A sub trait of the [[Show]] sub class where the type parameter of ShowT extends Show. This allows the ShowT type class to delegate to the Show
- * class for the implementation of its strT and ShowT methods. It is better to use [[TellDec]] and ShowElemT for types you control than have the toString
- * method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation order problems, but at the
- * very least it can increase compile times. */
+/** A sub trait of the [[Show]] sub class where the type parameter extends [[Tell]]. This allows this [[Show]] type class to delegate to the [[Tell]]
+ * object for the implementation of its strT and Show methods. It is better to use [[Tell]] and [[ShowTell]] for types you control rather than have
+ * the toString method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation order
+ * problems, but at the very least it can increase compile times. The typeStr is the only data that a [[Show]] instance requires, that can't be
+ * implemented through delegation to the [[Tell]] object. */
 trait ShowTell[R <: Tell] extends Show[R]
 { override def strT(obj: R): String = obj.str
   override def syntaxDepth(obj: R): Int = obj.tellDepth

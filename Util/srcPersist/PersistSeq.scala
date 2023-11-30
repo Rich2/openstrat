@@ -1,13 +1,13 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-trait PersistBaseSeq[A, M] extends PersistBase
+trait PersistSeq[A, M] extends Persist
 { /** All Sequences are persisted with the "Seq" type. */
   override def typeStr: String = "Seq"
 }
 
 /** All logical sequence classes are shown as "Seq"s. There encoding in memory and the immutability are irrelevant for their persistence. */
-trait ShowSeq[A, R] extends ShowSeqLike[A, R] with PersistBaseSeq[A, R]
+trait ShowSeq[A, R] extends ShowSeqLike[A, R] with PersistSeq[A, R]
 {
   override def toString: String = "Show" + typeStr + evA.typeStr.enSquare
 }
