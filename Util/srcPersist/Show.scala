@@ -170,8 +170,10 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
   /** Shows this object with field names. */
   def showFields: String = ev.show(thisVal, ShowFieldNames, -1, 0)
 
+  /** Shows this object with field names and field types. */
   def showTypedFields: String = ev.show(thisVal, ShowStdTypedFields, -1, 0)
 
+  /** the syntactic depth of the [[Show]] for this object. */
   def showDepth: Int = ev.syntaxDepth(thisVal)
 }
 
