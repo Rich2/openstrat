@@ -38,28 +38,28 @@ trait Tell extends Any with Persist
  * the toString method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation order
  * problems, but at the very least it can increase compile times. The typeStr is the only data that a [[Show]] instance requires, that can't be
  * implemented through delegation to the [[Tell]] object. */
-trait ShowTell[R <: Tell] extends Show[R]
-{ override def strT(obj: R): String = obj.str
-  override def syntaxDepth(obj: R): Int = obj.tellDepth
-  override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way, maxPlaces, minPlaces)
+trait ShowTell[A <: Tell] extends Show[A]
+{ override def strT(obj: A): String = obj.str
+  override def syntaxDepth(obj: A): Int = obj.tellDepth
+  override def show(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way, maxPlaces, minPlaces)
 }
 
 object ShowTell
 { /** Factory apply method for [[ShowTell]] type class instances / evidence. */
-  def apply[R <: Tell](typeStrIn: String): ShowTell[R] = new ShowTell[R]
+  def apply[A <: Tell](typeStrIn: String): ShowTell[A] = new ShowTell[A]
   { override def typeStr: String = typeStrIn
   }
 }
 
-trait ShowTellSum[R <: Tell] extends Show[R]
-{ override def strT(obj: R): String = obj.str
-  override def syntaxDepth(obj: R): Int = obj.tellDepth
-  override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way.full, maxPlaces, minPlaces)
+trait ShowTellSum[A <: Tell] extends Show[A]
+{ override def strT(obj: A): String = obj.str
+  override def syntaxDepth(obj: A): Int = obj.tellDepth
+  override def show(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way.full, maxPlaces, minPlaces)
 }
 
 object ShowTellSum
 {
-  def apply[R <: Tell](typeStrIn: String): ShowTellSum[R] = new ShowTellSum[R]
+  def apply[A <: Tell](typeStrIn: String): ShowTellSum[A] = new ShowTellSum[A]
   { override def typeStr: String = typeStrIn
   }
 }
