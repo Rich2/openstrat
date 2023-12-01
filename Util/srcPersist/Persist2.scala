@@ -26,31 +26,31 @@ trait Persist2[A1, A2] extends Any with Persist2Plus[A1, A2]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2Plus[A1, A2, R] extends ShowN[R] with Persist2Plus[A1, A2]
+trait Show2Plus[A1, A2, A] extends ShowN[A] with Persist2Plus[A1, A2]
 { /** Gets the 1st show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
-  def fArg1: R => A1
+  def fArg1: A => A1
 
   /** Show type class instance for the 1st Show field. */
   implicit def showEv1: Show[A1]
 
   /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
-  def fArg2: R => A2
+  def fArg2: A => A2
 
   /** Show type class instance for the 2nd Show field. */
   implicit def showEv2: Show[A2]
 
   /** Shows parameter 1 of the object. */
-  def show1(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv1.show(fArg1(obj), way, maxPlaces, minPlaces)
+  def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv1.show(fArg1(obj), way, maxPlaces, minPlaces)
 
   /** Shows parameter 2 of the object. */
-  def show2(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
+  def show2(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with Persist2[A1, A2]
+trait Show2[A1, A2, A] extends Show2Plus[A1, A2, A] with Persist2[A1, A2]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
 
-  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
+  override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
   { case Some(a2) if opt1 == Some(fArg1(obj)) && a2 == fArg2(obj) => StrArr()
     case Some(a2) if a2 == fArg2(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
     case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces) )
@@ -60,17 +60,17 @@ trait Show2[A1, A2, R] extends Show2Plus[A1, A2, R] with Persist2[A1, A2]
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
 object Show2
 {
-  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], ct: ClassTag[R]): Show2[A1, A2, R] =
-    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
+  def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, opt2: Option[A2] = None,
+    opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], ct: ClassTag[A]): Show2[A1, A2, A] =
+    new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
 
-  def explicit[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, show1: Show[A1], show2: Show[A2],
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[R]): Show2[A1, A2, R] =
-    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)(show1, show2)
+  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, show1: Show[A1], show2: Show[A2],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[A]): Show2[A1, A2, A] =
+    new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)(show1, show2)
 
-  def withShorts[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, shortKeys: ArrPairStr[R],
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2]): Show2[A1, A2, R] =
-    new Show2Imp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, shortKeys, opt2, opt1)
+  def withShorts[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, shortKeys: ArrPairStr[A],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2]): Show2[A1, A2, A] =
+    new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, shortKeys, opt2, opt1)
 
   /** Implementation class for the general cases of [[Show2]] trait. */
   class Show2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,

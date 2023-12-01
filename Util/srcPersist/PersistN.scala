@@ -12,17 +12,17 @@ trait PersistN extends Any with Persist
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowN[R] extends ShowCompound[R] with PersistN
+trait ShowN[A] extends ShowCompound[A] with PersistN
 {
   def fieldShows: RArr[Show[_]]
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
-  def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
+  def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
   /** Single identifiers for values. */
-  def shortKeys: ArrPairStr[R]
+  def shortKeys: ArrPairStr[A]
 
-  override def show(obj: R, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
+  override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match
@@ -48,8 +48,8 @@ trait ShowN[R] extends ShowCompound[R] with PersistN
 }
 
 /** [[Show]] trait for types with N show fields that extend [[TellN]]. */
-trait ShowTellN[R <: TellN] extends ShowN[R] with ShowTell[R]
-{ override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = obj.tellElemStrs(way, maxPlaces, minPlaces)
+trait ShowTellN[A <: TellN] extends ShowN[A] with ShowTell[A]
+{ override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = obj.tellElemStrs(way, maxPlaces, minPlaces)
 }
 
 trait UnshowN[R] extends Unshow[R] with PersistN
