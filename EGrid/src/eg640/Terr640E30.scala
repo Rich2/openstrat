@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  118241.335km² */
 object Terr640E30 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e30(102)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 

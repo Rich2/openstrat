@@ -4,7 +4,7 @@ import prid.phex._, egrid._, eg13._
 
 object PeriScen1 extends PeriScenStart
 { override implicit val gridSys: EGridSys = Scen13All.gridSys
-  override val terrs: HCenLayer[WTile] = Scen13All.terrs
+  override val terrs: LayerHcSys[WTile] = Scen13All.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners
   //override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
@@ -17,7 +17,7 @@ object PeriScen2 extends PeriScenStart
 {
   override implicit val gridSys: EGrid13LongFull = EGrid13.e0(100, 104)
   override val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet)
-  override val terrs: HCenLayer[WTile] = Terr13E0.terrs.spawn(Terr13E0.grid, gridSys)
+  override val terrs: LayerHcSys[WTile] = Terr13E0.terrs.spawn(Terr13E0.grid, gridSys)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr13E0.sTerrs.spawn(Terr13E0.grid, gridSys)
   override val corners: HCornerLayer = Terr13E0.corners.spawn(Terr13E0.grid, gridSys)
 }
@@ -25,7 +25,7 @@ object PeriScen2 extends PeriScenStart
 object PeriScen3 extends PeriScenStart
 { override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(3, 0, 94)
   val ft3 = fullTerrs.take(3)
-  override val terrs: HCenLayer[WTile] = iToMap(0, 2) { i =>
+  override val terrs: LayerHcSys[WTile] = iToMap(0, 2) { i =>
     val ft: Long13Terrs = ft3(i)
     ft.terrs.spawn(ft.grid, gridSys.grids(i))
   }.combine
@@ -52,7 +52,7 @@ object PeriScen3 extends PeriScenStart
 
 object PeriScen4 extends PeriScen{
   override implicit val gridSys: EGridSys = EGrid13.e30(104, 106)
-  override val terrs: HCenLayer[WTile] = Terr13E30.terrs.spawn(Terr13E30.grid, gridSys)
+  override val terrs: LayerHcSys[WTile] = Terr13E30.terrs.spawn(Terr13E30.grid, gridSys)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr13E30.sTerrs.spawn(Terr13E30.grid, gridSys)
   override val corners: HCornerLayer = Terr13E30.corners.spawn(Terr13E30.grid, gridSys)
   override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()

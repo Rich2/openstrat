@@ -10,7 +10,7 @@ package object egmega
   val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180, TerrMegaW150,
     TerrMegaW120, TerrMegaW90, TerrMegaW60, TerrMegaW30)
 
-  def fullTerrsHCenLayerSpawn(implicit subSys: EGridMegaLongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsHCenLayerSpawn(implicit subSys: EGridMegaLongMulti): LayerHcSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine

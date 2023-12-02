@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
 object TerrMegaE60 extends LongMegaTerrs
 {
   override implicit val grid: EGridMegaLongFull = EGridMega.e60(82)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 

@@ -6,7 +6,7 @@ import prid.phex._, egrid._, WTiles._
  *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Isle]].  */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
@@ -47,14 +47,14 @@ object Terr120E0 extends Long120Terrs
 
 object BritReg120
 { implicit def britGrid: EGrid120Long = EGrid120Long.reg(138, 148, 0, 504, 520)
-  def britTerrs: HCenLayer[WTile] = Terr120E0.terrs.spawn(Terr120E0.grid)
+  def britTerrs: LayerHcSys[WTile] = Terr120E0.terrs.spawn(Terr120E0.grid)
   def britSTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E0.sTerrs.spawn(Terr120E0.grid, britGrid)
   def britCorners: HCornerLayer = Terr120E0.corners.spawn(Terr120E0.grid, britGrid)
 
   def regScen: EScenBasic = new EScenBasic
   {  override def title: String = "Regular Britain"
     override implicit val gridSys: EGrid120Long = britGrid
-    override val terrs: HCenLayer[WTile] = britTerrs
+    override val terrs: LayerHcSys[WTile] = britTerrs
     override val sTerrs: HSideOptLayer[WSide, WSideSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
   }

@@ -2,8 +2,21 @@
 package ostrat; package prid; package phex
 import scala.collection.mutable.ArrayBuffer
 
+trait HCenStruct
+{
+
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+   * Array SeqDef data. */
+  def layerArrayIndex(r: Int, c: Int): Int
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   * data. */
+  @inline final def layerArrayIndex(hc: HCen): Int = layerArrayIndex(hc.r, hc.c)
+}
+
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
-final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends TellInt3 with Int3Elem with SpecialT
+final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStruct with TellInt3 with Int3Elem with SpecialT
 { override def typeStr: String = "HCenRow"
   inline override def int1: Int = r
   inline override def int2: Int = cStart
@@ -17,6 +30,8 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends TellInt3
   override def tell3: Int = cEnd
   def cLen: Int = (cEnd - cStart).max0
   def tNum: Int = ((cEnd - cStart + 1) / 4).max0
+
+  override def layerArrayIndex(r: Int, c: Int): Int = (c - cStart) / 4
 
   def verts: HVertArr = new HVertArr(setHVertArray)
 

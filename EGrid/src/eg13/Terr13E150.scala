@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  km² A minimum Island area of 243930.488km². Japan has an area of 377,973 km², entitling it to 1 Island hex not 2. */
 object Terr13E150 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e150(86)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 

@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag, pgui._
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
-trait HGridSys extends Any with TGridSys
+trait HGridSys extends HCenStruct with TGridSys
 { /** Returns the most appropriate [[HSysProjection]] for this HGridSys. */
   def projection: Panel => HSysProjection = HSysProjectionFlat(this, _)
 
@@ -100,9 +100,7 @@ trait HGridSys extends Any with TGridSys
    * games will require their own specialist projections. */
   def flatHCoordToPt2(hCoord: HCoord): Pt2
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   *  data. */
-  @inline final def layerArrayIndex(hc: HCen): Int = layerArrayIndex(hc.r, hc.c)
+
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
@@ -112,7 +110,7 @@ trait HGridSys extends Any with TGridSys
   def cornerLayerArrayIndex(hc: HCen, vertIndex: Int): Int = layerArrayIndex(hc) * 6 + vertIndex
 
   /** For each row combine data layer into RArr[HCenRowPair]. May be superceded */
-  def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
+  def rowsCombine[A <: AnyRef](layer: LayerHcSys[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
 
   /** Returns a clockwise sequence of adjacent tiles. */
   def adjTilesOfTile(origR: Int, origC: Int): HCenArr

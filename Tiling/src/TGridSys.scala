@@ -3,7 +3,7 @@ package ostrat; package prid
 import geom._
 
 /** A system of tile grids. Can be a single tile grid or a system of multiple tile grids. */
-trait TGridSys extends Any
+trait TGridSys// extends Any
 {
   /** The total number of tile centres in this tile Grid system. */
   lazy val numTiles: Int

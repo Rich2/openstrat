@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._, pgui._, reflect.ClassTag, Colour.Black
 
 /** A system of Square tile grids. Could be a single or multiple grids. */
-trait SqGridSys extends Any with TGridSys
+trait SqGridSys extends TGridSys
 {
   def projection: Panel => SqSysProjection = SqSysProjectionFlat(this, _)
 

@@ -16,7 +16,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
-  val terrs: HCenLayer[WTile] = scen.terrs
+  val terrs: LayerHcSys[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
 

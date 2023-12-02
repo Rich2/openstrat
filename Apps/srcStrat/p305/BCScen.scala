@@ -8,7 +8,7 @@ trait BCScen extends HSysTurnScen
 
   override def title: String = "BC305 scenario"
 
-  val terrs: HCenLayer[WTile]
+  val terrs: LayerHcSys[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
   val armies: HCenOptLayer[Legion]
@@ -26,7 +26,7 @@ trait BCScen extends HSysTurnScen
 
     new BCScen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
-      override val terrs: HCenLayer[WTile] = ThisScen.terrs
+      override val terrs: LayerHcSys[WTile] = ThisScen.terrs
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenOptLayer[Legion] = armiesNew
@@ -39,7 +39,7 @@ trait BCScen extends HSysTurnScen
 object BCScen1 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongMulti = EGrid80.multi(2, 0, 418)
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val terrs: LayerHcSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   override val armies: HCenOptLayer[Legion] = HCenOptLayer()
@@ -51,7 +51,7 @@ object BCScen1 extends BCScen
 object BCScen2 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
-  override val terrs: HCenLayer[WTile] = Terr80E0.terrs
+  override val terrs: LayerHcSys[WTile] = Terr80E0.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
   override val armies: HCenOptLayer[Legion] = HCenOptLayer()

@@ -9,7 +9,7 @@ package object eg320
   val fullTerrs: RArr[Long320Terrs] = RArr(Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150,Terr320E180,
     Terr320W150, Terr320W120, Terr320W90, Terr320W60, Terr320W30)
 
-  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid320LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid320LongMulti): LayerHcSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine

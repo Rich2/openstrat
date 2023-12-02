@@ -11,7 +11,7 @@ package object eg13
     Terr13W90, Terr13W60, Terr13W30)
 
 
-  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid13LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid13LongMulti): LayerHcSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine

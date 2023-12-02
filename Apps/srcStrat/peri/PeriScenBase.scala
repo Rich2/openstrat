@@ -7,7 +7,7 @@ trait PeriScenBase extends HSysScen
   def title: String = "PeriScen"
 
   override implicit val gridSys: EGridSys
-  val terrs: HCenLayer[WTile]
+  val terrs: LayerHcSys[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
 }

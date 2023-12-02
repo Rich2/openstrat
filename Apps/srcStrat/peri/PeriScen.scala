@@ -36,10 +36,10 @@ trait PeriScen extends PeriScenBase
 
 object PeriScen
 {
-  def apply(gSysIn: EGridSys, terrsIn: HCenLayer[WTile], sTerrsIn: HSideOptLayer[WSide, WSideSome], cornersIn: HCornerLayer,
+  def apply(gSysIn: EGridSys, terrsIn: LayerHcSys[WTile], sTerrsIn: HSideOptLayer[WSide, WSideSome], cornersIn: HCornerLayer,
     armiesIn: HCenOptLayer[Army]): PeriScen = new PeriScen
     { override implicit val gridSys: EGridSys = gSysIn
-      override val terrs: HCenLayer[WTile] = terrsIn
+      override val terrs: LayerHcSys[WTile] = terrsIn
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = sTerrsIn
       override val corners: HCornerLayer = cornersIn
       override val armies: HCenOptLayer[Army] = armiesIn

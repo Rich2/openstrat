@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  area of 118241.335km², which includes Britain but excludes Ireland and Sicily. */
 object Terr640E0 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e0(102)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 

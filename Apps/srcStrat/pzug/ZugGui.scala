@@ -6,7 +6,7 @@ import pgui._, prid._, phex._, geom._, Colour._, pStrat._
 case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("ZugFuhrer Gui") {
   var scen = scenIn
   implicit def gridSys: HGridSys = scen.gridSys
-  val terrs: HCenLayer[ZugTerr] = scen.terrs
+  val terrs: LayerHcSys[ZugTerr] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
   val corners = scen.corners
   def squads: HCenRArrLayer[Squad] = scen.lunits

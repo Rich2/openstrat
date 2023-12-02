@@ -138,7 +138,7 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   override def flatHCoordToPt2(hCoord: HCoord): Pt2 = manMapex(hCoord){m => m.grid.flatHCoordToPt2(hCoord) + m.offset }
 
-  override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
+  override def rowsCombine[A <: AnyRef](layer: LayerHcSys[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def stepEndFind(startHC: HCen, step: HStep): Option[HCen] = manMapex(startHC)(_.findStepEnd(startHC, step))

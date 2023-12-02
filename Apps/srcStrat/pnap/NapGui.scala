@@ -5,7 +5,7 @@ import geom._, prid._, phex._, pgui._, egrid._
 case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1783 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  def terrs: HCenLayer[WTile] = scen.terrs
+  def terrs: LayerHcSys[WTile] = scen.terrs
   def sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def corps: HCenOptLayer[Corps] = scen.corps

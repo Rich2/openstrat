@@ -6,7 +6,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
   var scen: PeriScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
 
-  override def terrs: HCenLayer[WTile] = scen.terrs
+  override def terrs: LayerHcSys[WTile] = scen.terrs
 
   override def sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
 

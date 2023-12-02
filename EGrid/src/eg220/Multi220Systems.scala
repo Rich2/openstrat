@@ -15,7 +15,7 @@ object Grids220S0E1 extends EGrid220LongMulti
 object Scen220s0e1 extends EScenLongMulti
 { override val title: String = "220km 0E - 30E"
   override implicit val gridSys: EGrid220LongMulti = Grids220S0E1
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val terrs: LayerHcSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
@@ -24,7 +24,7 @@ object Scen220s0e1 extends EScenLongMulti
 object Scen220Americas extends EScenLongMulti
 { override val title: String = "320km 120W - 90W"
   override implicit val gridSys: EGrid220LongMulti = EGrid220.multi(2, 9, 154, 162)
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val terrs: LayerHcSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

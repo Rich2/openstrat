@@ -5,7 +5,7 @@ import geom._, prid._, phex._, pgui._, egrid._
 case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("BC305 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs: HCenLayer[WTile] = scen.terrs
+  val terrs: LayerHcSys[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
   def armies: HCenOptLayer[Legion] = scen.armies

@@ -6,7 +6,7 @@ import geom._, prid._, phex._, pgui._, egrid._
 case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("WW2 Gui")
 { var scen: WW2Scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs: HCenLayer[WTile] = scen.terrs
+  val terrs: LayerHcSys[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def armies: HCenOptLayer[Army] = scen.armies

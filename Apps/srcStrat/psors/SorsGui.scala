@@ -5,7 +5,7 @@ import geom._, prid._, phex._, pgui._, egrid._
 case class SorsGui(canv: CanvasPlatform, scenIn: SorsScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Sors Imperiorum Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs: HCenLayer[WTile] = scen.terrs
+  val terrs: LayerHcSys[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
 

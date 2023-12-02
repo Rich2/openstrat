@@ -6,7 +6,7 @@ import geom._, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-trait HGrid extends Any with TGrid with HGridSys with Tell
+trait HGrid extends TGrid with HGridSys with Tell
 {
   final override def left: Double = gridLeftCenC - 2
   final override def right: Double = gridRightCenC + 2
@@ -208,12 +208,12 @@ trait HGrid extends Any with TGrid with HGridSys with Tell
   }
 
   /** Implementation incomplete. */
-  def rowCombine[A <: AnyRef](r: Int, layer: HCenLayer[A], indexingGSys: HGridSys = this)(implicit ct2: ClassTag[A]): RPairArr[HCenRow, A] =
+  def rowCombine[A <: AnyRef](r: Int, layer: LayerHcSys[A], indexingGSys: HGridSys = this)(implicit ct2: ClassTag[A]): RPairArr[HCenRow, A] =
   { val buff: RPairBuff[HCenRow, A] = RPairBuff[HCenRow, A]()
     RPairArr.fromBuff(buff)
   }
 
-  override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
+  override def rowsCombine[A <: AnyRef](layer: LayerHcSys[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
   {
     allRsFlatMap[RArr[HCenRowPair[A]]]{ r =>
       if (cenRowEmpty(r)) RArr()

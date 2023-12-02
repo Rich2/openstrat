@@ -8,7 +8,7 @@ package object eg80
 {
   val fullTerrs: RArr[Long80Terrs] = RArr(Terr80E0, Terr80E30, null, null, null, null, null, null, null, null, null, null)
 
-  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid80LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid80LongMulti): LayerHcSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine

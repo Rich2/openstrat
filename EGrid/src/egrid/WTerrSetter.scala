@@ -2,8 +2,8 @@
 package ostrat; package egrid
 import prid._, phex._
 
-/** Helper class for setting  [[HCenLayer]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class WTerrSetter(gridIn: HGrid, val terrs: HCenLayer[WTile], val sTerrs: HSideOptLayer[WSide, WSideSome], val corners: HCornerLayer) extends
+/** Helper class for setting  [[LayerHcSys]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
+abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcSys[WTile], val sTerrs: HSideOptLayer[WSide, WSideSome], val corners: HCornerLayer) extends
   HSetter[WTile, WSide, WSideSome]
 {
   implicit val grid: HGrid = gridIn

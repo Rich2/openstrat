@@ -6,7 +6,7 @@ import geom._, prid._, phex._, pgui._
 case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ Rise Game Gui")
 { statusText = "Welcome to Civ Rise."
   implicit val gridSys: HGridSys = scen.gridSys
-  val terrs: HCenLayer[VTile] = scen.terrs
+  val terrs: LayerHcSys[VTile] = scen.terrs
   val sTerrs: HSideOptLayer[VSide, VSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   val lunits: HCenRArrLayer[Warrior] = scen.lunits

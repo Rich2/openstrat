@@ -4,7 +4,7 @@ import geom._, prid._, phex._
 
 abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 { implicit val gridSys: HGridSys
-  def terrs: HCenLayer[WTile]
+  def terrs: LayerHcSys[WTile]
   def sTerrs: HSideOptLayer[WSide, WSideSome]
   def corners: HCornerLayer
   implicit def proj: HSysProjection

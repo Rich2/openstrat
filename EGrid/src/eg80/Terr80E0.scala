@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object Terr80E0 extends Long80Terrs
 { implicit val grid: EGrid80LongFull = EGrid80.e0(416, 582)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
@@ -90,7 +90,7 @@ object WesternFront
     new EGrid80LongPart(446, 0, array)
   }
 
-  def wfTerrs: HCenLayer[WTile] = Terr80E0.terrs.spawn(Terr80E0.grid, wfGrid)
+  def wfTerrs: LayerHcSys[WTile] = Terr80E0.terrs.spawn(Terr80E0.grid, wfGrid)
   def wfSTerrs:HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs.spawn(Terr80E0.grid, wfGrid)
   def wfCorners: HCornerLayer = Terr80E0.corners.spawn(Terr80E0.grid,wfGrid )
   def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")

@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, eg120._
 trait WW1Scen extends HSysTurnScen
 { ThisScen =>
   def title: String = "WWI scenario."
-  val terrs: HCenLayer[WTile]
+  val terrs: LayerHcSys[WTile]
   val sTerrs: HSideOptLayer[WSide, WSideSome]
   val corners: HCornerLayer
   val lunits: HCenOptLayer[Lunit]
@@ -24,7 +24,7 @@ trait WW1Scen extends HSysTurnScen
 
     new WW1Scen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
-      override val terrs: HCenLayer[WTile] = ThisScen.terrs
+      override val terrs: LayerHcSys[WTile] = ThisScen.terrs
       override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val lunits: HCenOptLayer[Lunit] = armiesNew
@@ -36,7 +36,7 @@ trait WW1Scen extends HSysTurnScen
 object WW1Scen1 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E0.grid
-  override val terrs: HCenLayer[WTile] = Terr120E0.terrs
+  override val terrs: LayerHcSys[WTile] = Terr120E0.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
   override val lunits: HCenOptLayer[Lunit] = HCenOptLayer()
@@ -49,7 +49,7 @@ object WW1Scen1 extends WW1Scen
 object WW1Scen2 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E30.grid
-  override val terrs: HCenLayer[WTile] = Terr120E30.terrs
+  override val terrs: LayerHcSys[WTile] = Terr120E30.terrs
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr120E30.sTerrs
   override val corners: HCornerLayer = Terr120E30.corners
   override val lunits: HCenOptLayer[Lunit] = HCenOptLayer()

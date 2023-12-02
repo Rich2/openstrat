@@ -9,7 +9,7 @@ import prid._, phex._, egrid._, WTiles._
 object Terr13W60 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.w60(86)
-  override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
+  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
