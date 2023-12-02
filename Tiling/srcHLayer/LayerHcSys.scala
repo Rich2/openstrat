@@ -26,8 +26,8 @@ class LayerHcRow[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
 
 object LayerHcRow
 {
-//  implicit def unshowEv[A <: AnyRef]: Unshow2[Int, Array[A], LayerHcRow[A]] =
-//    Unshow2[Int, Array[A], LayerHcRow[A]]("HRow", "row", "values", (_, array) => new LayerHcRow(array))
+  implicit def unshowEv[A <: AnyRef](implicit evA: ostrat.Unshow[A], ct: ClassTag[A]): Unshow2[Int, Array[A], LayerHcRow[A]] =
+    Unshow2[Int, Array[A], LayerHcRow[A]]("HRow", "row", "values", (_, array) => new LayerHcRow(array))
 }
 
 

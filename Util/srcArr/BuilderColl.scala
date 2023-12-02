@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Builder for a collection of type BB. */
 trait BuilderColl[BB]
@@ -34,8 +34,10 @@ object BuilderCollMap
 
   /** [[BuilderCollMap]] type class instance / evidence for the [[Array]][Int] class. */
   implicit val arrayIntEv: ArrayIntBuilder = new ArrayIntBuilder
-}
 
+  /** [[BuilderCollMap]] type class instance / evidence for the [[Array]][A] class. */
+  implicit def arrayRefEv[A <: AnyRef](implicit ct: ClassTag[A]): BuilderStdCollMap[A, Array[A]] = new ArrayRefBuilder[A]
+}
 trait BuilderStdCollMap[A, R] extends BuilderCollMap[A, R]
 { override type BuffT = ArrayBuffer[A]
   override def buffGrow(buff: ArrayBuffer[A], newElem: A): Unit = buff.append(newElem)
@@ -56,4 +58,9 @@ class VectorBuilder[A] extends BuilderStdCollMap[A, Vector[A]]
 class ArrayIntBuilder extends BuilderStdCollMap[Int, Array[Int]]
 { override def empty: Array[Int] = Array[Int]()
   override def buffToSeqLike(buff: ArrayBuffer[Int]): Array[Int] = buff.toArray
+}
+
+class ArrayRefBuilder[A](implicit val ct: ClassTag[A]) extends BuilderStdCollMap[A, Array[A]]
+{ override def empty: Array[A] = Array[A]()
+  override def buffToSeqLike(buff: ArrayBuffer[A]): Array[A] = buff.toArray
 }

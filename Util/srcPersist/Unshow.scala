@@ -1,6 +1,9 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, annotation.unchecked.uncheckedVariance
+import pParse._
+
+import annotation.unchecked.uncheckedVariance
+import scala.reflect.ClassTag
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends Persist
@@ -240,6 +243,9 @@ object Unshow extends UnshowPriority2
 
   /** Implicit [[Unshow]] instance / evidence for [[Array]][Int]. */
   implicit val arrayIntImplicit: Unshow[Array[Int]] = UnshowSeq[Int, Array[Int]]()
+
+  /** Implicit [[Unshow]] instance / evidence for [[Array]][A]. */
+  implicit def arrayRefEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow[Array[A]] = UnshowSeq[A, Array[A]]()
 
   /** Implicit method for creating List[A: Persist] instances. */
   implicit def listImplicit[A, ArrA <: Arr[A]](implicit evIn: Unshow[A]): Unshow[List[A]] = UnshowSeq[A, List[A]]()

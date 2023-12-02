@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import utest.{Show => _, _}, WTiles._
+import utest.{Show => _, _}, prid.phex._, WTiles._
 
 object WTileTest extends TestSuite
 {
