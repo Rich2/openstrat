@@ -96,30 +96,30 @@ trait ShowDbl3[A] extends Show3[Double, Double, Double, A]
 
 object ShowDbl3
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
-    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit classTag: ClassTag[R]): ShowDbl3[R] =
-    new ShowDbl3Imp[R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[R](), opt3, opt2, opt1)
+  def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, name3: String, fArg3: A => Double,
+    opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit classTag: ClassTag[A]): ShowDbl3[A] =
+    new ShowDbl3Imp[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), opt3, opt2, opt1)
 
-  class ShowDbl3Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val name3: String,
-    val fArg3: R => Double, val shortKeys: ArrPairStr[R], override val opt3: Option[Double] = None, opt2In: Option[Double] = None,
-    opt1In: Option[Double] = None) extends ShowDbl3[R]
+  class ShowDbl3Imp[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val name3: String,
+    val fArg3: A => Double, val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None, opt2In: Option[Double] = None,
+    opt1In: Option[Double] = None) extends ShowDbl3[A]
   { override def opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 /** common trait for [[Unshow]] type class instances for sum types with 3 or more components. */
-trait Unshow3Plus[A1, A2, A3, R] extends Unshow2Plus[A1, A2, R] with Persist3Plus[A1, A2, A3]
+trait Unshow3Plus[A1, A2, A3, A] extends Unshow2Plus[A1, A2, A] with Persist3Plus[A1, A2, A3]
 { /** The [[Unshow]] type class instance for type A3. */
   def unshow3: Unshow[A3]
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow3[A1, A2, A3, R] extends Unshow3Plus[A1, A2, A3, R] with Persist3[A1, A2, A3]
+trait Unshow3[A1, A2, A3, A] extends Unshow3Plus[A1, A2, A3, A] with Persist3[A1, A2, A3]
 { /** Method fpr creating a value of type R from values A1, A2, A3. */
-  def newT: (A1, A2, A3) => R
+  def newT: (A1, A2, A3) => A
 
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
@@ -130,17 +130,17 @@ trait Unshow3[A1, A2, A3, R] extends Unshow3Plus[A1, A2, A3, R] with Persist3[A1
 
 object Unshow3
 {
-  def apply[A1, A2, A3, R](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R, opt3: Option[A3] = None,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2], persist3: Unshow[A3], ct: ClassTag[R]):
-  Unshow3[A1, A2, A3, R] = new Unshow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, ArrPairStr[R](), opt3, opt2, opt1)
+  def apply[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => A, opt3: Option[A3] = None,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2], persist3: Unshow[A3], ct: ClassTag[A]):
+  Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 
-  def shorts[A1, A2, A3, R](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R, shortKeys: ArrPairStr[R],
+  def shorts[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => A, shortKeys: ArrPairStr[A],
     opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2],
-    persist3: Unshow[A3]): Unshow3[A1, A2, A3, R] = new Unshow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, shortKeys, opt3, opt2, opt1)
+    persist3: Unshow[A3]): Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, newT, shortKeys, opt3, opt2, opt1)
 
-  class Unshow3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => R,
-    val shortKeys: ArrPairStr[R], override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
-    val unshow1: Unshow[A1], val unshow2: Unshow[A2], val unshow3: Unshow[A3]) extends Unshow3[A1, A2, A3, R]
+  class Unshow3Imp[A1, A2, A3, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => A,
+    val shortKeys: ArrPairStr[A], override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
+    val unshow1: Unshow[A1], val unshow2: Unshow[A2], val unshow3: Unshow[A3]) extends Unshow3[A1, A2, A3, A]
   {
     override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
     override def opt1: Option[A1] = ife(opt2.nonEmpty , opt1In, None)
