@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 640km. A hex tile area of 709448.010km² . A minimum island
  *  area of 118241.335km², which includes Britain but excludes Ireland and Sicily. */
 object Terr640E0 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e0(108)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e0(102)
   override val terrs: HCenLayer[WTile] = HCenLayer[WTile](sea)
   override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -14,18 +14,24 @@ object Terr640E0 extends Long640Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(124, sea, taiga),
-      VRow(123, Mouth(512, HVUp)),
-      TRow(122, Cape(4, 3), land),
-      VRow(121, BendAll(512, HVUL)),
+      VRow(123, ThreeWay(512), Mouth(516, HVDR)),
+      TRow(122, Cape(5, 2), Cape(5, 2)),
+      VRow(121, Mouth(508, HVDn), BendAll(512, HVUL)),
       TRow(120, sea, Cape(5, 1), land),
+      VRow(119, Mouth(510, HVDn)),
       TRow(118, sea, land, hilly),
       TRow(116, Cape(4, 3, hilly), Cape(2, 1, hilly), sea),
       VRow(115, BendAll(512, HVUp), Mouth(516, HVDL)),
       TRow(114, sea, Cape(5, 2, hilly), hilly, Cape(0, 2, hilly)),
       VRow(113, Mouth(520, HVDn)),
-      TRow(112, desert * 4),
-      TRow(110, desert * 4),
+      TRow(112, hillyDesert, desert * 3),
+      TRow(110, desert * 2, hillyDesert, desert),
+      VRow(109, Mouth(504, HVUR)),
       TRow(108, desert * 4),
+      TRow(106, sahel * 5),
+      TRow(104, Land(Hilly, Savannah, Forest), Land(Level, Savannah, Forest) * 3, Land(Hilly, Savannah, Forest)),
+      TRow(102, jungle, Cape(3, 1, jungle) * 2, jungle, jungle),
+      VRow(101, BendOut(512, HVDn)),
     )
   }
   help.run

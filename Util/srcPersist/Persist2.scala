@@ -73,11 +73,11 @@ object Show2
     new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, shortKeys, opt2, opt1)
 
   /** Implementation class for the general cases of [[Show2]] trait. */
-  class Show2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val shortKeys: ArrPairStr[R], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1],
-    val showEv2: Show[A2]) extends Show2[A1, A2, R]
+  class Show2Imp[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
+    val shortKeys: ArrPairStr[A], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1],
+    val showEv2: Show[A2]) extends Show2[A1, A2, A]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
+    override def syntaxDepth(obj: A): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
 
   }
 }
@@ -91,20 +91,20 @@ class Show2Extensions[A1, A2, -A](ev: Show2[A1, A2, A], thisVal: A)
 }
 
 /** [[Show]] type class trait for types with 2 [[Int]] Show components. */
-trait ShowInt2[R] extends Show2[Int, Int, R]
+trait ShowInt2[A] extends Show2[Int, Int, A]
 { override def showEv1: Show[Int] = Show.intEv
   override def showEv2: Show[Int] = Show.intEv
-  override def syntaxDepth(obj: R): Int = 2
+  override def syntaxDepth(obj: A): Int = 2
 }
 
 object ShowInt2
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(
-    implicit ct: ClassTag[R]): ShowInt2[R] = new ShowInt2Imp[R](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[R](), opt2, opt1)
+  def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(
+    implicit ct: ClassTag[A]): ShowInt2[A] = new ShowInt2Imp[A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
 
   /** Implementation class for the general cases of [[ShowInt2]] trait. */
-  class ShowInt2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Int, val name2: String, val fArg2: R => Int,
-    val shortKeys: ArrPairStr[R], val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt2[R]
+  class ShowInt2Imp[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int,
+    val shortKeys: ArrPairStr[A], val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends ShowInt2[A]
   { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
