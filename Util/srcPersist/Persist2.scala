@@ -162,25 +162,25 @@ object Unshow2
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[R]): Unshow2[A1, A2, R] =
     new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1)(ev1, ev2)
 
-  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, val shortKeys: ArrPairStr[R],
-    override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, R]
+  case class Unshow2Imp[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, val shortKeys: ArrPairStr[A],
+    override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, A]
   { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
-trait UnshowInt2[R] extends Unshow2[Int, Int, R]
+trait UnshowInt2[A] extends Unshow2[Int, Int, A]
 { override implicit def unshow1: Unshow[Int] = Unshow.intEv
   override implicit def unshow2: Unshow[Int] = Unshow.intEv
 }
 
 object UnshowInt2
 {
-  def apply[R](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R, opt2: Option[Int] = None, opt1In: Option[Int] = None)(implicit
-    ct: ClassTag[R]): UnshowInt2[R] = new UnshowInt2Imp[R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1In)
+  def apply[A](typeStr: String, name1: String, name2: String, newT: (Int, Int) => A, opt2: Option[Int] = None, opt1In: Option[Int] = None)(implicit
+    ct: ClassTag[A]): UnshowInt2[A] = new UnshowInt2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 
   /** Implementation class for the general cases of [[UnshowDbl2]] trait. */
-  class UnshowInt2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => R, val shortKeys: ArrPairStr[R],
-    override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[R]
+  class UnshowInt2Imp[A](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A],
+    override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[A]
   { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -203,12 +203,12 @@ object UnshowDbl2
   }
 }
 
-class Unshow2Repeat[A1, A2, R](val typeStr: String, f: (A1, Seq[A2]) => R)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[R]
+class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
 {
   /** The function to construct an object of type R from its 2 components." */
-  def newT: (A1, Seq[A2]) => R = f
+  def newT: (A1, Seq[A2]) => A = f
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match
+  override def fromExpr(expr: Expr): EMon[A] = expr match
   {
     //case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName && sts.length >= 1 => {
@@ -218,6 +218,6 @@ class Unshow2Repeat[A1, A2, R](val typeStr: String, f: (A1, Seq[A2]) => R)(impli
     }
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => ???//fromExprSeq(exprs)
-    case _ => expr.exprParseErr[R](this)
+    case _ => expr.exprParseErr[A](this)
   }
 }
