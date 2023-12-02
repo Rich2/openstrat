@@ -147,7 +147,7 @@ object Unshow3
   }
 }
 
-trait UnshowInt3[R] extends Unshow3[Int, Int, Int, R]
+trait UnshowInt3[A] extends Unshow3[Int, Int, Int, A]
 { override def unshow1: Unshow[Int] = Unshow.intEv
   override def unshow2: Unshow[Int] = Unshow.intEv
   override def unshow3: Unshow[Int] = Unshow.intEv
@@ -155,12 +155,12 @@ trait UnshowInt3[R] extends Unshow3[Int, Int, Int, R]
 
 /** Companion object for [[UnshowInt3]] trait contains implementation class and factory apply method. */
 object UnshowInt3
-{ def apply[R](typeStr: String, name1: String, name2: String, name3: String, newT: (Int, Int, Int) => R, opt3: Option[Int] = None,
-    opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit classTag: ClassTag[R]): UnshowInt3[R] =
-    new UnshowInt3Imp(typeStr, name1, name2, name3, newT, ArrPairStr[R](), opt3, opt2, opt1)
+{ def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Int, Int, Int) => A, opt3: Option[Int] = None,
+    opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit classTag: ClassTag[A]): UnshowInt3[A] =
+    new UnshowInt3Imp(typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 
-  class UnshowInt3Imp[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Int, Int, Int) => R,
-  val shortKeys: ArrPairStr[R], override val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt3[R]
+  class UnshowInt3Imp[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Int, Int, Int) => A,
+  val shortKeys: ArrPairStr[A], override val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt3[A]
   { override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
@@ -173,21 +173,21 @@ object UnshowInt3
   }
 }
 
-trait UnshowDbl3[R] extends Unshow3[Double, Double, Double, R]
+trait UnshowDbl3[A] extends Unshow3[Double, Double, Double, A]
 { override def unshow1: Unshow[Double] = Unshow.doubleEv
   override def unshow2: Unshow[Double] = Unshow.doubleEv
   override def unshow3: Unshow[Double] = Unshow.doubleEv
 }
 
 object UnshowDbl3
-{ def apply[R](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => R, opt3: Option[Double] = None,
-    opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit ct: ClassTag[R]): UnshowDbl3[R] =
-    new UnshowDbl3Imp[R](typeStr, name1, name2, name3, newT, ArrPairStr[R](), opt3, opt2, opt1)
+{ def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => A, opt3: Option[Double] = None,
+    opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit ct: ClassTag[A]): UnshowDbl3[A] =
+    new UnshowDbl3Imp[A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 
   /** Implementation class for [[UnshowDbl3]]. */
-  class UnshowDbl3Imp[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Double, Double, Double) => R,
-    val shortKeys: ArrPairStr[R], override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
-    UnshowDbl3[R]
+  class UnshowDbl3Imp[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Double, Double, Double) => A,
+    val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
+    UnshowDbl3[A]
   { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
