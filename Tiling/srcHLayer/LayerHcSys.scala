@@ -10,15 +10,24 @@ trait LayerHc[A <: AnyRef] extends Any
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
    * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
   def apply(hc: HCen)(implicit key: KeyT): A = unsafeArray(key.layerArrayIndex(hc))
+
+  /** Apply method returns a data element from this data layer for the given [[HCen]]. */
+  def apply(key: KeyT, hc: HCen): A = unsafeArray(key.layerArrayIndex(hc))
+
+  def rc(r: Int, c: Int)(implicit key: KeyT): A = unsafeArray(key.layerArrayIndex(r, c))
+
+  def rc(key: KeyT, r: Int, c: Int): A = unsafeArray(key.layerArrayIndex(r, c))
+
 }
 
 class LayerHcRow[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with LayerHc[A]
-{
-  override type KeyT = HCenRow
+{ override type KeyT = HCenRow
+}
 
-  /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
-   * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
-  //override def apply(hc: HCen)(implicit gridSys: HCenRow): A = ???
+object LayerHcRow
+{
+//  implicit def unshowEv[A <: AnyRef]: Unshow2[Int, Array[A], LayerHcRow[A]] =
+//    Unshow2[Int, Array[A], LayerHcRow[A]]("HRow", "row", "values", (_, array) => new LayerHcRow(array))
 }
 
 
@@ -31,15 +40,6 @@ class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
   override type KeyT = HGridSys
   override def typeStr: String = "HCenLayer"
 
-  /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
-   * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
-  //def apply(hc: HCen)(implicit key: HGridSys): A = unsafeArray(key.layerArrayIndex(hc))
-
-  /** Apply method returns a data element from this data layer for the given [[HCen]]. */
-  def apply(gridSys: HGridSys, hc: HCen): A = unsafeArray(gridSys.layerArrayIndex(hc))
-
-  def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.layerArrayIndex(r, c))
-  def rc(grid: HGridSys, r: Int, c: Int): A = unsafeArray(grid.layerArrayIndex(r, c))
 
   def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
