@@ -140,11 +140,11 @@ trait Unshow2Plus[A1, A2, R] extends UnshowN[R] with Persist2Plus[A1, A2]
 }
 
 /** UnShow type class trait for a 2 element Product. */
-trait Unshow2[A1, A2, R] extends Unshow2Plus[A1, A2, R] with Persist2[A1, A2]
+trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
 { /** The function to construct an object of type R from its 2 components." */
-  def newT: (A1, A2) => R
+  def newT: (A1, A2) => A
 
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
@@ -154,13 +154,13 @@ trait Unshow2[A1, A2, R] extends Unshow2Plus[A1, A2, R] with Persist2[A1, A2]
 
 object Unshow2
 {
-  def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[R]): Unshow2[A1, A2, R] =
-    new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1)
+  def apply[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
+    ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[A]): Unshow2[A1, A2, A] =
+    new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)
 
-  def explicit[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, ev1: Unshow[A1], ev2: Unshow[A2],
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[R]): Unshow2[A1, A2, R] =
-    new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1)(ev1, ev2)
+  def explicit[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, ev1: Unshow[A1], ev2: Unshow[A2],
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[A]): Unshow2[A1, A2, A] =
+    new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)(ev1, ev2)
 
   case class Unshow2Imp[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, val shortKeys: ArrPairStr[A],
     override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, A]
@@ -185,20 +185,20 @@ object UnshowInt2
   }
 }
 
-trait UnshowDbl2[R] extends Unshow2[Double, Double, R]
+trait UnshowDbl2[A] extends Unshow2[Double, Double, A]
 { override implicit def unshow1: Unshow[Double] = Unshow.doubleEv
   override implicit def unshow2: Unshow[Double] = Unshow.doubleEv
 }
 
 object UnshowDbl2
 {
-  def apply[R](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R, opt2: Option[Double] = None,
-    opt1In: Option[Double] = None)(implicit classTag: ClassTag[R]): UnshowDbl2[R] =
-    new UnshowDbl2Imp[R](typeStr, name1, name2, newT, ArrPairStr[R](), opt2, opt1In)
+  def apply[A](typeStr: String, name1: String, name2: String, newT: (Double, Double) => A, opt2: Option[Double] = None,
+    opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): UnshowDbl2[A] =
+    new UnshowDbl2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 
   /** Implementation class for the general cases of [[UnshowDbl2]] trait. */
-  class UnshowDbl2Imp[R](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R, val shortKeys: ArrPairStr[R],
-    override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[R]
+  class UnshowDbl2Imp[A](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A],
+    override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[A]
   { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }

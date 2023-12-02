@@ -32,6 +32,7 @@ object Terr640E30 extends Long640Terrs
       TRow(108, desert, desert, Cape(1, 1, desert), Cape(4, 1, desert)),
       TRow(106, sahel * 3, Cape(1, 1, savannah), Cape(3, 2, hillyDesert)),
       TRow(104, Land(Level, Savannah, Forest), savannah, savannah, hillySavannah, hillySahel),
+      TRow(102, jungle * 2, Land(Level, Savannah, Forest), hillySavannah, sahel),
     )
   }
   help.run
