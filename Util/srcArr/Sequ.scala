@@ -308,6 +308,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
+  /** Map from A => B, retuening an [[EMon]] of [[List]]. */
   def mapEMonList[B](f: A => EMon[B]): EMon[List[B]] =
   { var acc: List[B] = Nil
     var continue = true

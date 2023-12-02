@@ -98,7 +98,7 @@ trait ShowInt2[A] extends Show2[Int, Int, A]
 }
 
 object ShowInt2
-{
+{ /** Factory apply method to create [[Show2]] with [[Int]] components type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, opt2: Option[Int] = None, opt1: Option[Int] = None)(
     implicit ct: ClassTag[A]): ShowInt2[A] = new ShowInt2Imp[A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
 
