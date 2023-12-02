@@ -111,27 +111,27 @@ object ShowInt2
 
 
 /** [[Show]] type class trait for types with 2 [[Double]] Show components. */
-trait ShowDbl2[R] extends Show2[Double, Double, R]
+trait ShowDbl2[A] extends Show2[Double, Double, A]
 { override def showEv1: Show[Double] = Show.doublePersistEv
   override def showEv2: Show[Double] = Show.doublePersistEv
-  override def syntaxDepth(obj: R): Int = 2
+  override def syntaxDepth(obj: A): Int = 2
 }
 
 object ShowDbl2
 {
-  def apply[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, opt2: Option[Double] = None,
-    opt1: Option[Double] = None)(implicit ct :ClassTag[R]): ShowDbl2[R] =
-    new ShowDbl2Imp[R](typeStr, name1, fArg1, name2, fArg2, opt2, ArrPairStr[R](), opt1)
+  def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, opt2: Option[Double] = None,
+    opt1: Option[Double] = None)(implicit ct :ClassTag[A]): ShowDbl2[A] =
+    new ShowDbl2Imp[A](typeStr, name1, fArg1, name2, fArg2, opt2, ArrPairStr[A](), opt1)
 
   /** Implementation class for the general cases of [[ShowDbl2]] trait. */
-  class ShowDbl2Imp[R](val typeStr: String, val name1: String, val fArg1: R => Double, val name2: String, val fArg2: R => Double, val opt2: Option[Double] = None,
-    val shortKeys: ArrPairStr[R], opt1In: Option[Double] = None) extends ShowDbl2[R]
+  class ShowDbl2Imp[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val opt2: Option[Double] = None,
+    val shortKeys: ArrPairStr[A], opt1In: Option[Double] = None) extends ShowDbl2[A]
   { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 /** common trait for [[Unshow]] type class instances for sum types with 2 or more components. */
-trait Unshow2Plus[A1, A2, R] extends UnshowN[R] with Persist2Plus[A1, A2]
+trait Unshow2Plus[A1, A2, A] extends UnshowN[A] with Persist2Plus[A1, A2]
 { /** The [[Unshow]] type class instance for type A1. */
   def unshow1: Unshow[A1]
 
@@ -204,8 +204,7 @@ object UnshowDbl2
 }
 
 class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
-{
-  /** The function to construct an object of type R from its 2 components." */
+{ /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[A2]) => A = f
 
   override def fromExpr(expr: Expr): EMon[A] = expr match
