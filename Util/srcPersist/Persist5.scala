@@ -17,22 +17,22 @@ trait Persist5[A1, A2, A3, A4, A5] extends Any with Persist5Plus[A1, A2, A3, A4,
 }
 
 /** [[Show]] type class for 5 field product types. */
-trait Show5Plus[A1, A2, A3, A4, A5, R] extends Show4Plus[A1, A2, A3, A4, R] with Persist5Plus[A1, A2, A3, A4, A5]
+trait Show5Plus[A1, A2, A3, A4, A5, A] extends Show4Plus[A1, A2, A3, A4, A] with Persist5Plus[A1, A2, A3, A4, A5]
 { /** Gets the 5th show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
-  def fArg5: R => A5
+  def fArg5: A => A5
 
   /** Show type class instance for the 5th Show field. */
   implicit def showEv5: Show[A5]
 
   /** Shows parameter 5 of the object. */
-  def show5(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv5.show(fArg5(obj), way, maxPlaces, minPlaces)
+  def show5(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv5.show(fArg5(obj), way, maxPlaces, minPlaces)
 }
 
 /** [[Show]] type class for 5 parameter case classes. */
-trait Show5[A1, A2, A3, A4, A5, R] extends Persist5[A1, A2, A3, A4, A5] with Show5Plus[A1, A2, A3, A4, A5, R]
+trait Show5[A1, A2, A3, A4, A5, A] extends Persist5[A1, A2, A3, A4, A5] with Show5Plus[A1, A2, A3, A4, A5, A]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4, showEv5)
 
-  override def strs(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt5 match
+  override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt5 match
   { case Some(a5) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) &&
       a5 == fArg5(obj) => StrArr()
 
@@ -56,31 +56,31 @@ trait Show5[A1, A2, A3, A4, A5, R] extends Persist5[A1, A2, A3, A4, A5] with Sho
 /** Companion object for [[Show5]] trait contains implementation class and factory apply method. */
 object Show5
 {
-  def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
+  def apply[A1, A2, A3, A4, A5, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
+    name4: String, fArg4: A => A4, name5: String, fArg5: A => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4], show5: Show[A5],
-    ct: ClassTag[R]) =
-    new Show5Imp[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, ArrPairStr[R](), opt5, opt4,
+    ct: ClassTag[A]) =
+    new Show5Imp[A1, A2, A3, A4, A5, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, ArrPairStr[A](), opt5, opt4,
     opt3, opt2, opt1)(show1, show2, show3, show4, show5)
 
   /** Implementation class for the general cases of [[Show5]] type class. */
-  class Show5Imp[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
-    val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val name5: String, val fArg5: R => A5, val shortKeys: ArrPairStr[R],
+  class Show5Imp[A1, A2, A3, A4, A5, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
+    val name3: String, val fArg3: A => A3, val name4: String, val fArg4: A => A4, val name5: String, val fArg5: A => A5, val shortKeys: ArrPairStr[A],
     override val opt5: Option[A5], opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3], val showEv4: Show[A4], val showEv5: Show[A5]) extends
-    Show5[A1, A2, A3, A4, A5, R]
+    Show5[A1, A2, A3, A4, A5, A]
   {
     override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepth(obj: R): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
+    final override def syntaxDepth(obj: A): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
       max(showEv4.syntaxDepth(fArg4(obj))).max(showEv5.syntaxDepth(fArg5(obj))) + 1
   }
 }
 
-trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
+trait ShowInt5[A] extends Show5[Int, Int, Int, Int, Int, A]
 { override def showEv1: Show[Int] = Show.intEv
   override def showEv2: Show[Int] = Show.intEv
   override def showEv3: Show[Int] = Show.intEv
@@ -89,17 +89,17 @@ trait ShowInt5[R] extends Show5[Int, Int, Int, Int, Int, R]
 }
 
 /** Common trait for [[Unshow]] type class instances for sum types with 5 or more components. */
-trait Unshow5Plus[A1, A2, A3, A4, A5, R] extends Unshow4Plus[A1, A2, A3, A4, R] with Persist5Plus[A1, A2, A3, A4, A5]
+trait Unshow5Plus[A1, A2, A3, A4, A5, A] extends Unshow4Plus[A1, A2, A3, A4, A] with Persist5Plus[A1, A2, A3, A4, A5]
 { /** The [[Unshow]] type class instance for type A5. */
   def unshow5: Unshow[A5]
 }
 
 /** [[Unshow]] trait for 5 parameter product / case classes. */
-trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] with Persist5[A1, A2, A3, A4, A5]
+trait Unshow5[A1, A2, A3, A4, A5, A] extends Unshow5Plus[A1, A2, A3, A4, A5, A] with Persist5[A1, A2, A3, A4, A5]
 { /** Allows this [[Unshow]] instance to create object from it's 5 components. */
-  def newT: (A1, A2, A3, A4, A5) => R
+  def newT: (A1, A2, A3, A4, A5) => A
 
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
@@ -110,9 +110,9 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow5Plus[A1, A2, A3, A4, A5, R] 
   }
 }
 
-class UnshowInt5[R](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String, val name5: String,
-  val shortKeys: ArrPairStr[R], val newT: (Int, Int, Int, Int, Int) => R, override val opt5: Option[Int] = None, opt4In: Option[Int] = None,
-  opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow5[Int, Int, Int, Int, Int, R]
+class UnshowInt5[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String, val name5: String,
+  val shortKeys: ArrPairStr[A], val newT: (Int, Int, Int, Int, Int) => A, override val opt5: Option[Int] = None, opt4In: Option[Int] = None,
+  opt3In: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow5[Int, Int, Int, Int, Int, A]
 {
   override val opt4: Option[Int] = ife(opt5.nonEmpty, opt4In, None)
   override val opt3: Option[Int] = ife(opt4.nonEmpty, opt3In, None)
