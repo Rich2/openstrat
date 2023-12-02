@@ -14,6 +14,9 @@ trait UnshowSeqLike[A, R] extends Unshow[R]
     case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(evA.useMultiple) Multiple.collFromArrStatement(sts)(evA, build)
       else sts.mapEMon(build)(s => evA.fromExpr(s.expr))
 
+    case ExprSeqNonEmpty(mems) => if (evA.useMultiple) Multiple.collFromArrExpr(mems)(evA, build)
+    else mems.mapEMon(build)(e => evA.fromExpr(e))
+
     case e => bad1(expr, expr.toString + " unknown Expression for this sequence based class.")
   }
 }

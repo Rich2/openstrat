@@ -6,8 +6,10 @@ object LayerTest extends TestSuite
 {
   val tests = Tests {
     test("layer")
-    { assert("HRow(4; ;)".asType[LayerHcRow[Land]].isGood) // === Good(new LayerHcRow(4)))
-      assert("HRow(4; Seq(hilly))".asType[LayerHcRow[Land]].isGood)
+    { assert("HRow(4; ;)".asType[LayerHcRow[Land]] === Good(LayerHcRow[Land]()))
+      assert("HRow(4; Seq(hilly))".asType[LayerHcRow[Land]] === Good(LayerHcRow[Land](hilly)))
+      assert("HRow(4; hilly,)".asType[LayerHcRow[Land]] === Good(LayerHcRow[Land](hilly)))
+      assert("HRow(4; sea, lake)".asType[LayerHcRow[Water]].isGood)
     }
   }
 }

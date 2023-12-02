@@ -100,10 +100,12 @@ object Multiple
   }
 
   /** Collection from [[Arr]] of [[Expr]]. */
-  def collFromArrExpr[A, R](inp: Arr[Expr])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] = unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
+  def collFromArrExpr[A, R](inp: Arr[Expr])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] =
+    unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
 
   /** Collection from [[Arr]] of [[Statement]]. */
-  def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] = unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)
+  def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] =
+    unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)
 
 }
 
