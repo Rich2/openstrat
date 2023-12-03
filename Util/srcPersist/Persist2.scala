@@ -202,29 +202,27 @@ object UnshowDbl2
     new UnshowDbl2[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
-class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
+class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A, val opt1: Option[A1] = None)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[A2]) => A = f
 
-  override def fromExpr(expr: Expr): EMon[A] = expr match
+  override def fromExpr(expr: Expr): EMon[A] =
   {
-    //case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName && sts.length >= 1 =>
-    { val a1 = unshowA1.fromStatement(sts(0))
-      def reps = if(unshowA2.useMultiple) Multiple.collFromArrStatement(sts.drop1)(unshowA2, BuilderCollMap.listEv)
-      else sts.drop1.mapEMonList(unshowA2.fromStatement)
-
-      a1.flatMap(a1 => reps.map(l => newT(a1, l)))
+    val Match1: NamedExprSeq = NamedExprSeq(typeStr)
+    expr match
+    { case Match1(exprs) if exprs.length == 0 => opt1 match
+      { case Some(a1) => Good(f(a1, Nil))
+        case None => bad1(expr, "No values")
+      }
+      case Match1(exprs) =>
+      { val a1 = unshowA1.fromExpr(exprs(0))
+        def reps = if (unshowA2.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowA2, BuilderCollMap.listEv)
+        else exprs.drop1.mapEMonList(unshowA2.fromExpr)
+        a1.flatMap(a1 => reps.map(l => newT(a1, l)))
+      }
+      case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
+      case _ => expr.exprParseErr[A](this)
     }
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case ExprSeqNonEmpty(exprs) =>
-    { val a1 = unshowA1.fromExpr(exprs(0))
-      def reps = if(unshowA2.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowA2, BuilderCollMap.listEv)
-      else exprs.drop1.mapEMonList(unshowA2.fromExpr)
-      a1.flatMap(a1 => reps.map(l => newT(a1, l)))
-    }
-
-    case _ => expr.exprParseErr[A](this)
   }
 }
 

@@ -143,3 +143,18 @@ object AlphaMaybeSquareParenth
     case _ => None
   }
 }
+
+class NamedExprSeq(val name: String)
+{
+  def unapply(expr: Expr): Option[RArr[Expr]] = expr match{
+    case AlphaBracketExpr(IdentifierToken(`name`), Arr2(SquareBlock(_, _, _), ParenthBlock(sts2, _, _))) => Some(sts2.map(_.expr))
+    case AlphaBracketExpr(IdentifierToken(`name`), Arr1(ParenthBlock(sts, _, _))) => Some(sts.map(_.expr))
+    case ExprSeqNonEmpty(exprs) => Some(exprs)
+    case _ => None
+  }
+}
+
+object NamedExprSeq
+{
+  def apply(name: String): NamedExprSeq = new NamedExprSeq(name)
+}
