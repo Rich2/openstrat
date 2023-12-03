@@ -114,7 +114,7 @@ trait Unshow3Plus[A1, A2, A3, A] extends Unshow2Plus[A1, A2, A] with Persist3Plu
   def unshow3: Unshow[A3]
 }
 
-/** UnShow class for 3 logical parameter product types. */
+/** [[Unshow]] class for 3 logical parameter product types. */
 trait Unshow3[A1, A2, A3, A] extends Unshow3Plus[A1, A2, A3, A] with Persist3[A1, A2, A3]
 { /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => A
@@ -147,30 +147,29 @@ object Unshow3
   }
 }
 
-trait UnshowInt3[A] extends Unshow3[Int, Int, Int, A]
-{ override def unshow1: Unshow[Int] = Unshow.intEv
+/** [[Unshow]] type class instances with 3 [[Int]] components. */
+class UnshowInt3[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Int, Int, Int) => A,
+  val shortKeys: ArrPairStr[A], override val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow3[Int, Int, Int, A]
+{
+  override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
+  override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  override def unshow1: Unshow[Int] = Unshow.intEv
   override def unshow2: Unshow[Int] = Unshow.intEv
   override def unshow3: Unshow[Int] = Unshow.intEv
+
+  val defaultNum: Int = None match
+  { case _ if opt3.isEmpty => 0
+    case _ if opt2.isEmpty => 1
+    case _ if opt1.isEmpty => 2
+    case _ => 3
+  }
 }
 
-/** Companion object for [[UnshowInt3]] trait contains implementation class and factory apply method. */
+/** Companion object for [[UnshowInt3]] trait contains factory apply method. */
 object UnshowInt3
 { def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Int, Int, Int) => A, opt3: Option[Int] = None,
     opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit classTag: ClassTag[A]): UnshowInt3[A] =
-    new UnshowInt3Imp(typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
-
-  class UnshowInt3Imp[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Int, Int, Int) => A,
-  val shortKeys: ArrPairStr[A], override val opt3: Option[Int] = None, opt2In: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt3[A]
-  { override val opt2: Option[Int] = ife(opt3.nonEmpty, opt2In, None)
-    override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-
-    val defaultNum: Int = None match
-    { case _ if opt3.isEmpty => 0
-      case _ if opt2.isEmpty => 1
-      case _ if opt1.isEmpty => 2
-      case _ => 3
-    }
-  }
+    new UnshowInt3(typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 }
 
 /** [[Unshow]] type class instances with 3 [[Double]] components. */
