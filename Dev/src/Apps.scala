@@ -23,7 +23,7 @@ object Apps
     ("DG", pDung.DungLaunch),
     ("NA", pnap.NapLaunch),
     ("W2", pww2.WW2Launch),
-    ("DI", pdisc.DiscLaunch),
+    ("DI", p1492.DiscLaunch),
     ("SO", psors.SorsLaunch),
     ("CV", pCiv.CivLaunch),
     ("NM", pnorm.NormLaunch),

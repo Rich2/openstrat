@@ -1,11 +1,11 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pdisc
+package ostrat; package p1492
 import pgui._, prid._, phex._, pParse._
 
 /** Scenario selector and launcher for AD1492. */
 object DiscLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "y1492"
+  override def settingStr: String = "ad1492"
 
   override def default: (CanvasPlatform => Any, String) = (DiscGui(_, DiscScen1, DiscScen1.defaultView()), "JavaFx AD 1492")
 

@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pdisc
+package ostrat; package p1492
 import geom._, prid._, phex._, pgui._, egrid._
 
 case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1492 Gui")
