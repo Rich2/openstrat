@@ -211,13 +211,16 @@ class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A)(impli
     //case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName && sts.length >= 1 =>
     { val a1 = unshowA1.fromStatement(sts(0))
-      def reps = sts.drop1.mapEMonList(unshowA2.fromStatement)
+      def reps = if(unshowA2.useMultiple) Multiple.collFromArrStatement(sts.drop1)(unshowA2, BuilderCollMap.listEv)
+      else sts.drop1.mapEMonList(unshowA2.fromStatement)
+
       a1.flatMap(a1 => reps.map(l => newT(a1, l)))
     }
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) =>
     { val a1 = unshowA1.fromExpr(exprs(0))
-      def reps = exprs.drop1.mapEMonList(unshowA2.fromExpr)
+      def reps = if(unshowA2.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowA2, BuilderCollMap.listEv)
+      else exprs.drop1.mapEMonList(unshowA2.fromExpr)
       a1.flatMap(a1 => reps.map(l => newT(a1, l)))
     }
 
