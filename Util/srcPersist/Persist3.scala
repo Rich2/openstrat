@@ -173,22 +173,20 @@ object UnshowInt3
   }
 }
 
-trait UnshowDbl3[A] extends Unshow3[Double, Double, Double, A]
-{ override def unshow1: Unshow[Double] = Unshow.doubleEv
+/** [[Unshow]] type class instances with 3 [[Double]] components. */
+class UnshowDbl3[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Double, Double, Double) => A,
+  val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
+  Unshow3[Double, Double, Double, A]
+{ override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+  override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  override def unshow1: Unshow[Double] = Unshow.doubleEv
   override def unshow2: Unshow[Double] = Unshow.doubleEv
   override def unshow3: Unshow[Double] = Unshow.doubleEv
 }
 
 object UnshowDbl3
-{ def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => A, opt3: Option[Double] = None,
+{ /** Factory apply method for [[Unshow]] type class instances with 3 [[Double]] components. */
+  def apply[A](typeStr: String, name1: String, name2: String, name3: String, newT: (Double, Double, Double) => A, opt3: Option[Double] = None,
     opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit ct: ClassTag[A]): UnshowDbl3[A] =
-    new UnshowDbl3Imp[A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
-
-  /** Implementation class for [[UnshowDbl3]]. */
-  class UnshowDbl3Imp[A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (Double, Double, Double) => A,
-    val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None, opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
-    UnshowDbl3[A]
-  { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
-    override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  }
+    new UnshowDbl3[A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 }
