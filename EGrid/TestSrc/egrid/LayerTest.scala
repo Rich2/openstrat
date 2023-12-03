@@ -10,6 +10,7 @@ object LayerTest extends TestSuite
       assert("HRow(4; Seq(hilly))".asType[LayerHcRow[Land]] === Good(LayerHcRow[Land](hilly)))
       assert("HRow(4; hilly,)".asType[LayerHcRow[Land]] === Good(LayerHcRow[Land](hilly)))
       assert("HRow(4; sea, lake)".asType[LayerHcRow[Water]].isGood)
+      assert("HRow(3; sea, lake)".asType[LayerHcRow[Water]].isBad)
     }
   }
 }

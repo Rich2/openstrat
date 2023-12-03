@@ -32,8 +32,9 @@ object LayerHcRow
     new LayerHcRow[A](array)
   }
 
-  implicit def unshowEv[A <: AnyRef](implicit evA: ostrat.Unshow[A], ct: ClassTag[A]): Unshow2[Int, Array[A], LayerHcRow[A]] =
-    Unshow2[Int, Array[A], LayerHcRow[A]]("HRow", "row", "values", (_, array) => new LayerHcRow(array))
+  implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow2[Int, Array[A], LayerHcRow[A]] =
+    Unshow2.explicit[Int, Array[A], LayerHcRow[A]]("HRow", "row", "values", (_, array) =>
+      new LayerHcRow[A](array), Unshow.intSubset(_.isEven), Unshow.arrayRefEv[A](evA, ct))
 
   implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRow[A]] = (lr1, lr2) => lr1.unsafeArray === lr2.unsafeArray
 }

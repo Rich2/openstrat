@@ -160,6 +160,11 @@ object Unshow extends UnshowPriority2
     }
   }
 
+  def intSubset(pred: Int => Boolean): Unshow[Int] = new Unshow[Int]
+  { override def typeStr: String = "Int"
+    override def fromExpr(expr: Expr): EMon[Int] = intEv.fromExpr(expr).flatMap(i => ife(pred(i), Good(i), bad1(expr, s"$i does not fullfll predicate.")))
+  }
+
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
   implicit val doubleEv: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"

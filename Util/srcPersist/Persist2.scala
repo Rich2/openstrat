@@ -153,14 +153,18 @@ trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
 }
 
 object Unshow2
-{
+{ /** Factory apply method for producing [[Unshow]] type class instances for objects with 2 components. Implicitly finds the evidience for the 2 type
+   * parameters and the [[ClassTag]] for the whole object. If you want to explicitly apply the unshow1 and unshow2 type class instances, then use the
+   * explicit method instead.  */
   def apply[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
     ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)
 
-  def explicit[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, ev1: Unshow[A1], ev2: Unshow[A2],
+  /** Factory method for producing [[Unshow]] type class instances for obejcts with 2 components. Explicitly applies the unshow1 and unshow2 type class instances at the end of the first parameter list. The [[ClassTag]] can still be found
+   * implicitly  */
+  def explicit[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, unshow1: Unshow[A1], unshow2: Unshow[A2],
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[A]): Unshow2[A1, A2, A] =
-    new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)(ev1, ev2)
+    new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)(unshow1, unshow2)
 
   case class Unshow2Imp[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, val shortKeys: ArrPairStr[A],
     override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, A]
