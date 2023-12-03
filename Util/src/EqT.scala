@@ -85,57 +85,21 @@ case class Eq2DblsT[A](fArg1: A => Double, fArg2: A => Double) extends Eq2T[Doub
 }
 
 /** Equality type class trait for Product 3. */
-class Eq3T[A1, A2, A3, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3)(implicit eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends
-  EqT[R]
-{ override def eqT(r1: R, r2: R): Boolean = eq1.eqT(fArg1(r1), fArg1(r2)) & eq2.eqT(fArg2(r1), fArg2(r2)) & eq3.eqT(fArg3(r1), fArg3(r2))
+class Eq3T[A1, A2, A3, A](val fArg1: A => A1, val fArg2: A => A2, val fArg3: A => A3)(implicit eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends
+  EqT[A]
+{ override def eqT(a1: A, a2: A): Boolean = eq1.eqT(fArg1(a1), fArg1(a2)) & eq2.eqT(fArg2(a1), fArg2(a2)) & eq3.eqT(fArg3(a1), fArg3(a2))
 }
 
 object Eq3T
 {
-  def apply[A1, A2, A3, R](fArg1: R => A1, fArg2: R => A2, fArg3: R => A3)(implicit eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]): Eq3T[A1, A2, A3, R] =
+  def apply[A1, A2, A3, A](fArg1: A => A1, fArg2: A => A2, fArg3: A => A3)(implicit eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]): Eq3T[A1, A2, A3, A] =
     new Eq3T(fArg1, fArg2, fArg3)
 }
 
 /** Equality type class trait for Product 4. */
-class Eq4T[A1, A2, A3, A4, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4)(implicit eq1: EqT[A1], eq2: EqT[A2],
-                                                                                                              eq3: EqT[A3], eq4: EqT[A4]) extends EqT[R]
+class Eq4T[A1, A2, A3, A4, A](val fArg1: A => A1, val fArg2: A => A2, val fArg3: A => A3, val fArg4: A => A4)(implicit eq1: EqT[A1], eq2: EqT[A2],
+                                                                                                              eq3: EqT[A3], eq4: EqT[A4]) extends EqT[A]
 {
-  override def eqT(r1: R, r2: R): Boolean = eq1.eqT(fArg1(r1), fArg1(r2)) & eq2.eqT(fArg2(r1), fArg2(r2)) & eq3.eqT(fArg3(r1), fArg3(r2)) &
-    eq4.eqT(fArg4(r1), fArg4(r2))
+  override def eqT(a1: A, a2: A): Boolean = eq1.eqT(fArg1(a1), fArg1(a2)) & eq2.eqT(fArg2(a1), fArg2(a2)) & eq3.eqT(fArg3(a1), fArg3(a2)) &
+    eq4.eqT(fArg4(a1), fArg4(a2))
 }
-
-/*class EqCase5[A1, A2, A3, A4, A5, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4, val fArg5: R => A5)(implicit
-  eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]) extends Eq[R]
-{ override def eqv(r1: R, r2: R): Boolean =
-    eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2)) & eq3.eqv(fArg3(r1), fArg3(r2)) & eq4.eqv(fArg4(r1), fArg4(r2)) &
-    eq5.eqv(fArg5(r1), fArg5(r2))
-}*/
-
-/*
-trait Eq6T[A1, A2, A3, A4, A5, A6, R] extends Eq[R]
-{
-  def fArg1: R => A1
-  def fArg2: R => A2
-  def fArg3: R => A3
-  def fArg4: R => A4
-  def fArg5: R => A5
-  def fArg6: R => A6
-  implicit def eq1: Eq[A1]
-  implicit def eq2: Eq[A2]
-  implicit def eq3: Eq[A3]
-  implicit def eq4: Eq[A4]
-  implicit def eq5: Eq[A5]
-  implicit def eq6: Eq[A6]
-  override def eqv(r1: R, r2: R): Boolean =
-  eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2)) & eq3.eqv(fArg3(r1), fArg3(r2)) & eq4.eqv(fArg4(r1), fArg4(r2)) &
-  eq5.eqv(fArg5(r1), fArg5(r2)) & eq6.eqv(fArg6(r1), fArg6(r2) )
-}
-
-object Eq6T
-{
-  def apply[A1, A2, A3, A4, A5, A6, R](fArg1In: R => A1, fArg2in: R => A2, fArg3In: R => A3, fArg4In: R => A4, fArg5In: R => A5, fArg6In: R => A6)(
-    implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5], eq6: Eq[A6])
-
-  (val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4, val fArg5: R => A5,
-  val fArg6: R => A6)(implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5], eq6: Eq[A6])
-}*/
