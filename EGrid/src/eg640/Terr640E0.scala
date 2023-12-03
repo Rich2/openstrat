@@ -2,8 +2,8 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 640km. A hex tile area of 709448.010km² . A minimum island
- *  area of 118241.335km², which includes Britain but excludes Ireland and Sicily. */
+/** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 640km. A hex tile area of 354724.005km².
+ *  A minimum island area of 59120.667km², which includes Britain but excludes Ireland and Sicily-Corsica. */
 object Terr640E0 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e0(102)
   override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
@@ -30,8 +30,8 @@ object Terr640E0 extends Long640Terrs
       TRow(108, desert * 4),
       TRow(106, sahel * 5),
       TRow(104, Land(Hilly, Savannah, Forest), Land(Level, Savannah, Forest) * 3, Land(Hilly, Savannah, Forest)),
-      TRow(102, jungle, Cape(3, 1, jungle) * 2, jungle, jungle),
-      VRow(101, BendOut(512, HVDn)),
+      TRow(102, Cape(3, 2, jungle), Cape(3, 1, jungle) * 2, jungle, jungle),
+      VRow(101, BendOut(508, HVDn), BendOut(512, HVDn)),
     )
   }
   help.run

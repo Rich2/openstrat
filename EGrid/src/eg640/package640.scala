@@ -3,8 +3,8 @@ package ostrat
 import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 640km, a C scale of 160km. A hex tile area of 354724.005km² . A minimum island area of 59120.667km²,
- *  which includes Ireland, Hokkaidō, Hispaniola, Sakhalin,Banks Island, Sri Lanka and Tasmania but not Devon Island or Alexander Island,
- *  Alexander Island, or Isla Grande de Tierra del Fuego.  */
+ *  which includes Ireland, Hokkaidō, Hispaniola, Sakhalin, Banks Island, Sri Lanka and Tasmania but not Devon Island Alexander Island, Isla Grande de
+ *  Tierra del Fuego, Severny Island North, Hawaii.  */
 package object eg640
 {
   val fullTerrs: RArr[Long640Terrs] = RArr(Terr640E0, Terr640E30, Terr640E60, Terr640E90, Terr640E120, Terr640E150,Terr640E180, Terr640W150,
