@@ -6,6 +6,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 {
   override type SysT = EGridSys
   var focus: LatLongDirn = LatLongDirn.degs(0, 0)
+  var irrOn: Boolean = true
   def northUp: Boolean = focus.dirn
   def southUp: Boolean = !focus.dirn
   def metresPerPixel: Length = parent.cScale / pixelsPerC
@@ -49,7 +50,16 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(northUp, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
 
   def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(northUp, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
-  override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
+
+  def showIrr: PolygonCompound = clickButton("L") { b =>
+    irrOn = !irrOn
+    panel.repaint(getFrame())
+    setStatusText(ife(irrOn, "Irregular borders on", "Irregular borders off"))
+  }
+
+  override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, showIrr)
+
+
 
   override def tilePolygons: PolygonGenArr =
   { val r1: PolygonHCArr = gChild.map(_.hVertPolygon)
@@ -130,7 +140,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / metresPerPixel).draw(lineColour = Violet) }
 
-  def irrLines2: GraphicElems = ifTileScale(8, irrLines)
+  def irrLines2: GraphicElems = ifTileScale(8, ife(irrOn, irrLines, RArr()))
 
   def irrNames: RArr[TextFixed] = irr1.map { pair =>
     val (d, _) = pair
