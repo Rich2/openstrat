@@ -45,9 +45,7 @@ class Show1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: 
     case _ => show1(obj, way, maxPlaces, minPlaces) %: showR(obj, way, maxPlaces, minPlaces)
   }
 
-  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-   * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  override def syntaxDepth(obj: A): Int = ???
+  override def syntaxDepth(obj: A): Int = fArgR(obj).foldLeft(showEv1.syntaxDepth(fArg1(obj))){(acc, ar) => acc.max(showEvR.syntaxDepth(ar)) }
 }
 
 /** [[Unshow]] type class instances for 2 components where the final parameter repeats. */

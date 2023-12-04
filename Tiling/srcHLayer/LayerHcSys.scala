@@ -17,7 +17,6 @@ trait LayerHc[A <: AnyRef] extends Any
   def rc(r: Int, c: Int)(implicit key: KeyT): A = unsafeArray(key.layerArrayIndex(r, c))
 
   def rc(key: KeyT, r: Int, c: Int): A = unsafeArray(key.layerArrayIndex(r, c))
-
 }
 
 class LayerHcRow[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with LayerHc[A]
@@ -31,6 +30,9 @@ object LayerHcRow
     elems.iForeach{(i, a) => array(i) = a }
     new LayerHcRow[A](array)
   }
+
+  def show[A <: AnyRef](row: Int, obj: LayerHcRow[A], style: ShowStyle)(implicit evA: Show[A]): String =
+    new Show1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", _ => row, "values", lhr => new RArr(lhr.unsafeArray)).show(obj, style)
 
   implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRow[A]] =
     Unshow1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", "values",  (_, seq) => new LayerHcRow[A](seq.toArray))(Unshow.intSubset(_.isEven), evA)
