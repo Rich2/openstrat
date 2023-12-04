@@ -13,6 +13,7 @@ object LayerTest extends TestSuite
       assert("8; sea; Land(Hilly; Tropical); lake * 2".asType[LayerHcRow[WTile]] === Good(LayerHcRow(8, sea, Land(Hilly, Tropical), lake, lake)))
       assert("8, sea, Land(Hilly; Tropical), lake * 2".asType[LayerHcRow[WTile]] === Good(LayerHcRow(8, sea, Land(Hilly, Tropical), lake, lake)))
       assert("HRow(3; sea; lake)".asType[LayerHcRow[Water]].isBad)
+      LayerHcRow(8, sea, Land(Hilly, Tropical), lake, lake).str ==> "HRow(8; Sea; Land(Hilly; Tropical); Lake; Lake)"
     }
   }
 }
