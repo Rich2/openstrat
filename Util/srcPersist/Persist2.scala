@@ -226,7 +226,8 @@ class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A, val o
   }
 }
 
-object Unshow2Repeat{
+object Unshow2Repeat
+{
   def apply[A1, A2, A](typeStr: String, name1: String, f: (A1, Seq[A2]) => A)(implicit unshowA1: Unshow[A1], unshowA2: Unshow[A2]) =
     new Unshow2Repeat[A1, A2, A](typeStr, f)
 }

@@ -11,6 +11,45 @@ trait PersistNRepeat extends Any with Persist
   def numFixedParams: Int
 }
 
+/** The base trait for the persistence of algebraic product types, including case classes where the last parameter repeats.. */
+trait ShowNRepeat[A] extends ShowCompound[A] with PersistNRepeat
+{
+  def fieldShows: RArr[Show[_]]
+
+  /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
+  def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
+
+  override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = {
+    def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
+
+    style match
+    { case ShowUnderScore => "_"
+      case ShowSemis => semisStr
+      case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
+
+      case ShowFieldNames => {
+        val r1: StrArr ={
+          val strs2 = strs(obj, ShowStandard, maxPlaces)
+          val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
+          val reps = strs2.drop(numFixedParams)
+          named ++ reps
+          //strs2.iMap { (i, s1) => paramFixedNames(i) + " = " + s1 }
+        }
+        val r2 = r1.mkStr("; ")
+        typeStr.appendParenth(r2)
+      }
+
+      case ShowStdTypedFields => {
+        val r1: StrArr = strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
+        val r2 = r1.mkStr("; ")
+        typeStr.appendParenth(r2)
+      }
+
+      case _ => typeStr.appendParenth(semisStr)
+    }
+  }
+}
+
 /** The base trait for the persistence of algebraic product types, where the last component is a repeat parameter. */
 trait UnshowNRepeat[A, R] extends Unshow[A] with PersistNRepeat
 {
