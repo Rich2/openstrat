@@ -29,7 +29,7 @@ trait ShowNRepeat[A] extends ShowCompound[A] with PersistNRepeat
 
       case ShowFieldNames => {
         val r1: StrArr ={
-          val strs2 = strs(obj, ShowStandard, maxPlaces)
+          val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
           val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
           val reps = strs2.drop(numFixedParams)
           named ++ reps
@@ -40,7 +40,13 @@ trait ShowNRepeat[A] extends ShowCompound[A] with PersistNRepeat
       }
 
       case ShowStdTypedFields => {
-        val r1: StrArr = strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
+        val r1: StrArr ={
+          val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
+          val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + strs2(i) }
+          val reps = strs2.drop(numFixedParams)
+          named ++ reps
+          //strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
+        }
         val r2 = r1.mkStr("; ")
         typeStr.appendParenth(r2)
       }
