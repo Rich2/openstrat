@@ -144,6 +144,7 @@ object AlphaMaybeSquareParenth
   }
 }
 
+/** Extractor object for an [[Expre]] sequence with a name to be applied to ALphaBracket expressions. */
 class NamedExprSeq(val name: String)
 {
   def unapply(expr: Expr): Option[RArr[Expr]] = expr match{

@@ -202,6 +202,7 @@ object UnshowDbl2
     new UnshowDbl2[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
+/** [[Unshow]] type class instances for 2 components where the final parameter repeats. */
 class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A, val opt1: Option[A1] = None)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[A2]) => A = f
@@ -227,7 +228,7 @@ class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A, val o
 }
 
 object Unshow2Repeat
-{
+{ /** Factory apply method for [[Unshow]] type class instances of 2 components where the final parameter repeats. */
   def apply[A1, A2, A](typeStr: String, name1: String, f: (A1, Seq[A2]) => A)(implicit unshowA1: Unshow[A1], unshowA2: Unshow[A2]) =
     new Unshow2Repeat[A1, A2, A](typeStr, f)
 }
