@@ -19,17 +19,17 @@ trait ShowNRepeat[A] extends ShowCompound[A] with PersistNRepeat
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
-  override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = {
-    def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
+  override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
+  { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match
     { case ShowUnderScore => "_"
       case ShowSemis => semisStr
       case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
 
-      case ShowFieldNames => {
-        val r1: StrArr ={
-          val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
+      case ShowFieldNames =>
+      { val r1: StrArr =
+        { val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
           val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
           val reps = strs2.drop(numFixedParams)
           named ++ reps
@@ -39,9 +39,9 @@ trait ShowNRepeat[A] extends ShowCompound[A] with PersistNRepeat
         typeStr.appendParenth(r2)
       }
 
-      case ShowStdTypedFields => {
-        val r1: StrArr ={
-          val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
+      case ShowStdTypedFields =>
+      { val r1: StrArr =
+        { val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
           val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + strs2(i) }
           val reps = strs2.drop(numFixedParams)
           named ++ reps

@@ -160,8 +160,8 @@ object Unshow2
     ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)
 
-  /** Factory method for producing [[Unshow]] type class instances for obejcts with 2 components. Explicitly applies the unshow1 and unshow2 type class instances at the end of the first parameter list. The [[ClassTag]] can still be found
-   * implicitly  */
+  /** Factory method for producing [[Unshow]] type class instances for objects with 2 components. Explicitly applies the unshow1 and unshow2 type
+   *  class instances at the end of the first parameter list. The [[ClassTag]] can still be found implicitly. */
   def explicit[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, unshow1: Unshow[A1], unshow2: Unshow[A2],
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit  classTag: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)(unshow1, unshow2)
@@ -202,8 +202,25 @@ object UnshowDbl2
     new UnshowDbl2[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
+class Show2Repeat[A1, A2, A](val typeStr: String, name1: String, repeats: Arr[A2]) extends ShowNRepeat[A]
+{
+  override def fieldShows: RArr[Show[_]] = ???
+
+  /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
+  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = ???
+
+  override def paramFixedNames: StrArr = StrArr(name1)
+
+  override def numFixedParams: Int = 1
+
+  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+   * should always be determined at compile time or if sometimes it should be determined at runtime. */
+  override def syntaxDepth(obj: A): Int = ???
+}
+
 /** [[Unshow]] type class instances for 2 components where the final parameter repeats. */
-class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A, val opt1: Option[A1] = None)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
+class Unshow2Repeat[A1, A2, A](val typeStr: String, f: (A1, Seq[A2]) => A, val opt1: Option[A1] = None)(implicit val unshowA1: Unshow[A1],
+  val unshowA2: Unshow[A2]) extends Unshow[A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[A2]) => A = f
 
