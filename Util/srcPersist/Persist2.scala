@@ -20,28 +20,19 @@ trait Persist2[A1, A2] extends Any with Persist2Plus[A1, A2]
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2Plus[A1, A2, A] extends ShowN[A] with Persist2Plus[A1, A2]
-{ /** Gets the 1st show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
-  def fArg1: A => A1
-
-  /** Show type class instance for the 1st Show field. */
-  implicit def showEv1: Show[A1]
-
-  /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
+trait Show2PlusFixed[A1, A2, A] extends Show1PlusFixed[A1, A] with Persist2Plus[A1, A2]
+{ /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg2: A => A2
 
   /** Show type class instance for the 2nd Show field. */
   implicit def showEv2: Show[A2]
-
-  /** Shows parameter 1 of the object. */
-  def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv1.show(fArg1(obj), way, maxPlaces, minPlaces)
 
   /** Shows parameter 2 of the object. */
   def show2(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
-trait Show2[A1, A2, A] extends Show2Plus[A1, A2, A] with Persist2[A1, A2]
+trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
@@ -195,4 +186,3 @@ object UnshowDbl2
     opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): UnshowDbl2[A] =
     new UnshowDbl2[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
 }
-

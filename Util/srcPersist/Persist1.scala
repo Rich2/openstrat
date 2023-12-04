@@ -10,30 +10,49 @@ trait Persist1Plus[A1]  extends Any with PersistN
   def opt1: Option[A1]
 }
 
-trait Persist1RepeatPlus[A1, Ar] extends Persist1Plus[A1] with PersistNRepeat[Ar]
+trait Show1Plus[A1, A] extends Persist1Plus[A1]
+{
+  /** Gets the 1st show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
+  def fArg1: A => A1
 
-trait Persist1Repeat[A1, Ar, A] extends Persist1RepeatPlus[A1, Ar] with PersistNRepeat[Ar]
+  /** Show type class instance for the 1st Show field. */
+  implicit def showEv1: Show[A1]
+
+  /** Shows parameter 1 of the object. */
+  def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv1.show(fArg1(obj), way, maxPlaces, minPlaces)
+}
+
+trait Show1PlusFixed[A1, A] extends ShowNFixed[A] with Show1Plus[A1, A]
+
+/** [[Show]] type class for 2 parameter case classes. */
+trait Show1PlusRepeat[A1, Ar, A] extends ShowNRepeat[Ar, A] with Show1Plus[A1, A]
+
+trait Persist1PlusRepeat[A1, Ar] extends Persist1Plus[A1] with PersistNRepeat[Ar]
+
+trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar] with PersistNRepeat[Ar]
 { override def numFixedParams: Int = 1
   override def paramFixedNames: StrArr = StrArr(name1)
 }
 
-class Show1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, repeats: Arr[Ar], val opt1: Option[A1] = None) extends ShowNRepeat[Ar, A] with Persist1Repeat[A1, Ar, A]
+class Show1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, val fArgR: A => Arr[Ar],
+  val opt1: Option[A1] = None)(implicit val showEv1: Show[A1], val showEvR: Show[Ar]) extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
 {
-  override def fieldShows: RArr[Show[_]] = ???
+  override def fixedfieldShows: RArr[Show[_]] = RArr(showEv1)
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
-  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = ???
+  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = opt1 match
+  { case Some(a1) if fArgR(obj).empty && a1 == fArg1(obj) => StrArr()
+    case _ => show1(obj, way, maxPlaces, minPlaces) %: showR(obj, way, maxPlaces, minPlaces)
+  }
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
   override def syntaxDepth(obj: A): Int = ???
 }
 
-
-
 /** [[Unshow]] type class instances for 2 components where the final parameter repeats. */
-class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Seq[Ar]) => A, val opt1: Option[A1] = None)(implicit val unshowA1: Unshow[A1],
-  val unshowAr: Unshow[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
+class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Seq[Ar]) => A, val opt1: Option[A1] = None)(
+  implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[Ar]) => A = f
 
@@ -42,17 +61,19 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
     val Match1: NamedExprSeq = NamedExprSeq(typeStr)
     expr match
     { case Match1(exprs) if exprs.length == 0 => opt1 match
-    { case Some(a1) => Good(f(a1, Nil))
-      case None => bad1(expr, "No values")
-    }
-    case Match1(exprs) =>
-    { val a1 = unshowA1.fromExpr(exprs(0))
-      def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
-      else exprs.drop1.mapEMonList(unshowAr.fromExpr)
-      a1.flatMap(a1 => reps.map(l => newT(a1, l)))
-    }
-    case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
-    case _ => expr.exprParseErr[A](this)
+      { case Some(a1) => Good(f(a1, Nil))
+        case None => bad1(expr, "No values")
+      }
+
+      case Match1(exprs) =>
+      { val a1 = unshowA1.fromExpr(exprs(0))
+        def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
+        else exprs.drop1.mapEMonList(unshowAr.fromExpr)
+        a1.flatMap(a1 => reps.map(l => newT(a1, l)))
+      }
+
+      case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
+      case _ => expr.exprParseErr[A](this)
     }
   }
 }

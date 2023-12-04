@@ -7,14 +7,14 @@ trait PersistN extends Any with Persist
   def paramNames: StrArr
 }
 
-/** Base trait for [[ShowN]] and [[UnshowN]]. */
+/** Base trait for [[ShowNFixed]] and [[UnshowN]]. */
 trait PersistNFixed extends Any with PersistN
 { /** Number of parameter constituents of this class. */
   def numParams: Int
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowN[A] extends ShowCompound[A] with PersistNFixed
+trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
 {
   def fieldShows: RArr[Show[_]]
 
@@ -50,7 +50,7 @@ trait ShowN[A] extends ShowCompound[A] with PersistNFixed
 }
 
 /** [[Show]] trait for types with N show fields that extend [[TellN]]. */
-trait ShowTellN[A <: TellN] extends ShowN[A] with ShowTell[A]
+trait ShowTellN[A <: TellN] extends ShowNFixed[A] with ShowTell[A]
 { override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = obj.tellElemStrs(way, maxPlaces, minPlaces)
 }
 
@@ -88,7 +88,7 @@ trait UnshowN[R] extends Unshow[R] with PersistNFixed
     }
 }
 
-/** Base trait for [[ShowN]] and [[UnshowN]]. */
+/** Base trait for [[ShowNFixed]] and [[UnshowN]]. */
 trait PersistNRepeat[AR] extends Any with PersistN
 { /** Sequence of the names of parameter constituents of this class. */
   def paramFixedNames: StrArr
@@ -103,9 +103,19 @@ trait PersistNRepeat[AR] extends Any with PersistN
 
 
 /** The base trait for the persistence of algebraic product types, including case classes where the last parameter repeats.. */
-trait ShowNRepeat[AR, A] extends ShowCompound[A] with PersistNRepeat[AR]
+trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
 {
-  def fieldShows: RArr[Show[_]]
+  def fixedfieldShows: RArr[Show[_]]
+
+  /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
+  def fArgR: A => Arr[Ar]
+
+  /** Show type class instance for the 2nd Show field. */
+  implicit def showEvR: Show[Ar]
+
+  /** Shows parameter 2 of the object. */
+  def showR(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
+    fArgR(obj).map { ar => showEvR.show(ar, way, maxPlaces, minPlaces) }
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
@@ -124,7 +134,6 @@ trait ShowNRepeat[AR, A] extends ShowCompound[A] with PersistNRepeat[AR]
       val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
       val reps = strs2.drop(numFixedParams)
       named ++ reps
-      //strs2.iMap { (i, s1) => paramFixedNames(i) + " = " + s1 }
     }
       val r2 = r1.mkStr("; ")
       typeStr.appendParenth(r2)
@@ -133,10 +142,9 @@ trait ShowNRepeat[AR, A] extends ShowCompound[A] with PersistNRepeat[AR]
     case ShowStdTypedFields =>
     { val r1: StrArr =
     { val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
-      val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + strs2(i) }
+      val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fixedfieldShows(i).typeStr + " = " + strs2(i) }
       val reps = strs2.drop(numFixedParams)
       named ++ reps
-      //strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramFixedNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
     }
       val r2 = r1.mkStr("; ")
       typeStr.appendParenth(r2)

@@ -72,7 +72,7 @@ object Show6
     val fArg6: A => A6, val shortKeys: ArrPairStr[A], val opt6: Option[A6], val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None,
     opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val showEv1: Show[A1], val showEv2: Show[A2], val showEv3: Show[A3], val showEv4: Show[A4], val showEv5: Show[A5],
-    val showEv6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, A] with ShowN[A]
+    val showEv6: Show[A6]) extends Show6[A1, A2, A3, A4, A5, A6, A] with ShowNFixed[A]
   { val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     override val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
     override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)

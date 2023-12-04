@@ -18,7 +18,7 @@ trait Persist3[A1, A2, A3] extends Any with Persist3Plus[A1, A2, A3]
 }
 
 /** [[Show]] type class for 3 field product types. */
-trait Show3Plus[A1, A2, A3, A] extends Show2Plus[A1, A2, A] with Persist3Plus[A1, A2, A3]
+trait Show3Plus[A1, A2, A3, A] extends Show2PlusFixed[A1, A2, A] with Persist3Plus[A1, A2, A3]
 { /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory.*/
   def fArg3: A => A3
 
@@ -30,7 +30,7 @@ trait Show3Plus[A1, A2, A3, A] extends Show2Plus[A1, A2, A] with Persist3Plus[A1
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3[A1, A2, A3, A] extends Show3Plus[A1, A2, A3, A] with Persist3[A1, A2, A3] with ShowN[A]
+trait Show3[A1, A2, A3, A] extends Show3Plus[A1, A2, A3, A] with Persist3[A1, A2, A3] with ShowNFixed[A]
 { override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt3 match
