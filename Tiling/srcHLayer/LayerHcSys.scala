@@ -19,23 +19,23 @@ trait LayerHc[A <: AnyRef] extends Any
   def rc(key: KeyT, r: Int, c: Int): A = unsafeArray(key.layerArrayIndex(r, c))
 }
 
-class LayerHcRow[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with LayerHc[A]
+class LayerHcRow[A <: AnyRef](val row: Int, val unsafeArray: Array[A]) extends LayerHc[A]
 { override type KeyT = HCenRow
 }
 
 object LayerHcRow
 {
-  def apply[A <: AnyRef](elems: A*)(implicit ct: ClassTag[A]): LayerHcRow[A] =
+  def apply[A <: AnyRef](row: Int, elems: A*)(implicit ct: ClassTag[A]): LayerHcRow[A] =
   { val array = new Array[A](elems.length)
     elems.iForeach{(i, a) => array(i) = a }
-    new LayerHcRow[A](array)
+    new LayerHcRow[A](row, array)
   }
 
-  def show[A <: AnyRef](row: Int, obj: LayerHcRow[A], style: ShowStyle)(implicit evA: Show[A]): String =
-    new Show1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", _ => row, "values", lhr => new RArr(lhr.unsafeArray)).show(obj, style)
+  implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1Repeat[Int, A, LayerHcRow[A]] =
+    Show1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", lhr => lhr.row, "values", lhr => new RArr(lhr.unsafeArray))
 
   implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRow[A]] =
-    Unshow1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", "values",  (_, seq) => new LayerHcRow[A](seq.toArray))(Unshow.intSubset(_.isEven), evA)
+    Unshow1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", "values",  (r, seq) => new LayerHcRow[A](r, seq.toArray))(Unshow.intSubset(_.isEven), evA)
 
   implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRow[A]] = (lr1, lr2) => lr1.unsafeArray === lr2.unsafeArray
 }

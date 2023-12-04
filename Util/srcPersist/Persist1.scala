@@ -48,6 +48,12 @@ class Show1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: 
   override def syntaxDepth(obj: A): Int = fArgR(obj).foldLeft(showEv1.syntaxDepth(fArg1(obj))){(acc, ar) => acc.max(showEvR.syntaxDepth(ar)) }
 }
 
+object Show1Repeat
+{
+  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArgR: A => Arr[Ar], opt1: Option[A1] = None)(implicit
+    showEv1: Show[A1], showEvR: Show[Ar]) = new Show1Repeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArgR, opt1)
+}
+
 /** [[Unshow]] type class instances for 2 components where the final parameter repeats. */
 class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Seq[Ar]) => A, val opt1: Option[A1] = None)(
   implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
