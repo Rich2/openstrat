@@ -194,19 +194,19 @@ object UnshowDbl3
   }
 }
 
-/** [[Unshow]] type class instances with 3 [[Double]] components. */
-class PersistBothDbl3[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val name3: String,
+/** Class to provide both [[Show]] and [[Unshow]] type class instances with 3 [[Double]] components. */
+class PersistDbl3Both[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val name3: String,
   val fArg3: A => Double, val newT: (Double, Double, Double) => A, val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None,
   opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends PersistBoth[A] with ShowDbl3[A] with UnshowDbl3[A]
 { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
   override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
 
-object PersistBothDbl3
+object PersistDbl3Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, name3: String, fArg3: A => Double,
     newT: (Double, Double, Double) => A, opt2: Option[Double] = None, opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]):
-    PersistBothDbl3[A] = new PersistBothDbl3[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, ArrPairStr[A](), opt2, opt1In)
+    PersistDbl3Both[A] = new PersistDbl3Both[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
 class Unshow3Repeat[A1, A2, A3, A](val typeStr: String, f: (A1, A2, Seq[A3]) => A)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]

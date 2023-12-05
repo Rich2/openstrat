@@ -92,9 +92,6 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
   def withArrow(colour: Colour = Black, lineWidth: Double = 2): RArr[GraphicSvgElem] = Arrow.paint(startPt, endPt, DegVec25, 20, colour, lineWidth)
 
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
-
-  /** Converts this 2 dimensional line segment to an infinite length 2 dimensional line */
-  //def toLine: Line = ???
 }
 
 /** Companion object for the LineSeg class. Contains factory apply methods and implicit instances for [[LineSeg]]s. */
@@ -111,7 +108,7 @@ object LineSeg
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 
   /** [[Show]] and [[Unshow]] type class instance / evidence for [[LineSeg]]. */
-  implicit val persistEv: PersistBoth2[Pt2, Pt2, LineSeg] =  PersistBoth2[Pt2, Pt2, LineSeg]("Line2", "start", _.startPt, "end", _.endPt, apply)
+  implicit val persistEv: Persist2Both[Pt2, Pt2, LineSeg] =  Persist2Both[Pt2, Pt2, LineSeg]("Line2", "start", _.startPt, "end", _.endPt, apply)
 
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 

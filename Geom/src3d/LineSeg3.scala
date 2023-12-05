@@ -26,12 +26,16 @@ final class LineSeg3(val dbl1: Double, val dbl2: Double, val dbl3: Double, val d
 /** Companion object for LineSeg3 contains factory apply methods. */
 object LineSeg3
 {
+  /** Factory apply method to create a line segment in 3 dimensions from 2 [[Pt3]] points. There is also a name overload to create a [[LineSeg]] from
+   * its 4 consituent [[Double]]s. */
   def apply(pStart: Pt3, pEnd: Pt3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)
 
+  /** Factory apply method to create a line segment in 3 dimensions from 4 [[Double]]s. There is also a name overload to create a [[LineSeg]] from its
+   * [[Pt3]] start and end points. */
   def apply(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double): LineSeg3 =
     new LineSeg3(xStart, yStart, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double)
 
   /** Implicit [[Show]] and [[Unshow]] instances / evidence for [[LineSeg3]]. */
-  implicit lazy val persistEv: PersistBoth2[Pt3, Pt3, LineSeg3] =
-    PersistBoth2[Pt3, Pt3, LineSeg3]("Line3", "start", _.startPt, "end", _.endPt, apply)
+  implicit lazy val persistEv: Persist2Both[Pt3, Pt3, LineSeg3] =
+    Persist2Both[Pt3, Pt3, LineSeg3]("Line3", "start", _.startPt, "end", _.endPt, apply)
 }

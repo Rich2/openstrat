@@ -195,7 +195,8 @@ object UnshowDbl2
   }
 }
 
-class PersistBoth2[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
+/** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 [[Double]] components. */
+class Persist2Both[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
   val newT: (A1, A2) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[A2], opt1In: Option[A1])(implicit persist1Ev: PersistBoth[A1],
   persist2Ev: PersistBoth[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
 { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -205,35 +206,37 @@ class PersistBoth2[A1, A2, A](val typeStr: String, val name1: String, val fArg1:
   override def unshow2: Unshow[A2] = persist2Ev
 }
 
-object PersistBoth2
+object Persist2Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
   def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit persistEv1: PersistBoth[A1], persistEv2: PersistBoth[A2], classTag: ClassTag[A]): PersistBoth2[A1, A2, A] =
-    new PersistBoth2[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
+    opt1In: Option[A1] = None)(implicit persistEv1: PersistBoth[A1], persistEv2: PersistBoth[A2], classTag: ClassTag[A]): Persist2Both[A1, A2, A] =
+    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
-class PersistBothInt2[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int,
+/** Class to provide both [[Show]] and [[Unshow]] type class instances with 2 [[Int]] components. */
+class PersistInt2Both[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int,
   val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Int], opt1In: Option[Int]) extends
   PersistBoth[A] with ShowInt2[A] with UnshowInt2[A]
 { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 }
 
-object PersistBothInt2
+object PersistInt2Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IInt]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, newT: (Int, Int) => A, opt2: Option[Int] = None,
-    opt1In: Option[Int] = None)(implicit classTag: ClassTag[A]): PersistBothInt2[A] =
-    new PersistBothInt2[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
+    opt1In: Option[Int] = None)(implicit classTag: ClassTag[A]): PersistInt2Both[A] =
+    new PersistInt2Both[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
-class PersistBothDbl2[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,
+/** Class to provide both [[Show]] and [[Unshow]] type class instances with 2 [[Double]] components. */
+class PersistDbl2Both[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,
   val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Double], opt1In: Option[Double]) extends
   PersistBoth[A] with ShowDbl2[A] with UnshowDbl2[A]
 { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
 
-object PersistBothDbl2
+object PersistDbl2Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, newT: (Double, Double) => A, opt2: Option[Double] = None,
-    opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): PersistBothDbl2[A] =
-    new PersistBothDbl2[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
+    opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): PersistDbl2Both[A] =
+    new PersistDbl2Both[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }

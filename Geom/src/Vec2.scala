@@ -109,5 +109,5 @@ object Vec2
   }
 
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Vec2]]s. */
-  implicit val persistEv: PersistBothDbl2[Vec2] = PersistBothDbl2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
+  implicit val persistEv: PersistDbl2Both[Vec2] = PersistDbl2Both[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
 }

@@ -100,7 +100,7 @@ object HSide
   implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
 
   /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSide]]. */
-  implicit val persistEv: PersistBothInt2[HSide] = PersistBothInt2[HSide]("HSide", "r", _.r, "c", _.c, apply)
+  implicit val persistEv: PersistInt2Both[HSide] = PersistInt2Both[HSide]("HSide", "r", _.r, "c", _.c, apply)
 }
 
 /** A hex side that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
