@@ -40,6 +40,8 @@ trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
     case Some(a2) if a2 == fArg2(obj) => StrArr(show1(obj, way, maxPlaces, minPlaces))
     case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces) )
   }
+
+  override def syntaxDepth(obj: A): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
 }
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
@@ -62,8 +64,6 @@ object Show2
     val shortKeys: ArrPairStr[A], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1],
     val showEv2: Show[A2]) extends Show2[A1, A2, A]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    override def syntaxDepth(obj: A): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
-
   }
 }
 
@@ -189,6 +189,23 @@ object UnshowDbl2
     override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[A]
   { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   }
+}
+
+class PersistBoth2[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
+  val newT: (A1, A2) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[A2], opt1In: Option[A1])(implicit persist1Ev: PersistBoth[A1],
+  persist2Ev: PersistBoth[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
+{ override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  override implicit def showEv1: Show[A1] = persist1Ev
+  override implicit def showEv2: Show[A2] = persist2Ev
+  override def unshow1: Unshow[A1] = persist1Ev
+  override def unshow2: Unshow[A2] = persist2Ev
+}
+
+object PersistBoth2
+{ /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
+  def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, opt2: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit persistEv1: PersistBoth[A1], persistEv2: PersistBoth[A2], classTag: ClassTag[A]): PersistBoth2[A1, A2, A] =
+    new PersistBoth2[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
 class PersistBothDbl2[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,
