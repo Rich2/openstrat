@@ -1,13 +1,13 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import utest.{Show => _, _}, prid.phex._, WTiles._
+import utest.{Show => _, _}, WTiles._
 
 object WTileTest extends TestSuite
 {
   val tests = Tests {
     val ld1 = Land(Mountains, Desert)
     val lds1: RArr[Land] = RArr(forest, hilly, Land(Mountains, Desert))
-    val lStr1 = "Seq(Level, Temperate, Forest; Hilly; Mountains, Desert)"
+    val lStr1 = "Seq(forest; hilly; Mountains, Desert)"
 
     test("show")
     { forest.str ==> "Land(Level; Temperate; Forest)"

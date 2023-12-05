@@ -26,9 +26,10 @@ trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
 
   override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
-
+    val shortOpt = shortKeys.a2FindA1(obj)
     style match
-    { case ShowUnderScore => "_"
+    { case ShowStandard | ShowSemis | ShowCommas if shortOpt.nonEmpty => shortOpt.get
+      case ShowUnderScore => "_"
       case ShowSemis => semisStr
       case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
 
