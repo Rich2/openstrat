@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A 3 dimensional line segment. A straight line between two points in a 3d space. */
@@ -30,4 +30,8 @@ object LineSeg3
 
   def apply(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double): LineSeg3 =
     new LineSeg3(xStart, yStart, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double)
+
+  /** Implicit [[Show]] and [[Unshow]] instances / evidence for [[LineSeg3]]. */
+  implicit lazy val persistEv: PersistBoth2[Pt3, Pt3, LineSeg3] =
+    PersistBoth2[Pt3, Pt3, LineSeg3]("Line3", "start", _.startPt, "end", _.endPt, apply)
 }

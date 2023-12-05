@@ -197,7 +197,7 @@ object UnshowDbl3
 /** [[Unshow]] type class instances with 3 [[Double]] components. */
 class PersistBothDbl3[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val name3: String,
   val fArg3: A => Double, val newT: (Double, Double, Double) => A, val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None,
-  opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends ShowDbl3[A] with UnshowDbl3[A]
+  opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends PersistBoth[A] with ShowDbl3[A] with UnshowDbl3[A]
 { override val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
   override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
