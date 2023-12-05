@@ -108,9 +108,6 @@ object Vec2
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(buffer)
   }
 
-  /** implicit [[Show]] type class instance / evidence for [[Vec2]]s. */
-  implicit val showEv: ShowTellDbl2[Vec2] = ShowTellDbl2[Vec2]("Vec2")
-
-  /** implicit [[Unshow]] type class instance / evidence for [[Vec2]]s. */
-  implicit val unshowEv: UnshowDbl2[Vec2] = UnshowDbl2[Vec2]("Vec2", "x", "y", apply)
+  /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Vec2]]s. */
+  implicit val persistEv: PersistBothDbl2[Vec2] = PersistBothDbl2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
 }
