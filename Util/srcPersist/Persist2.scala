@@ -159,17 +159,21 @@ object Unshow2
 }
 
 /** [[Unshow2]] with 2 [[Int]] components type class instances. */
-class UnshowInt2[A](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A],
-  override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends Unshow2[Int, Int, A]
-{ override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def unshow1: Unshow[Int] = Unshow.intEv
+trait UnshowInt2[A] extends Unshow2[Int, Int, A]
+{ override implicit def unshow1: Unshow[Int] = Unshow.intEv
   override implicit def unshow2: Unshow[Int] = Unshow.intEv
 }
 
 object UnshowInt2
 { /** Factory apply method for creating [[Unshow2]] with 2 [[Int]] component type class instances. */
   def apply[A](typeStr: String, name1: String, name2: String, newT: (Int, Int) => A, opt2: Option[Int] = None, opt1In: Option[Int] = None)(implicit
-    ct: ClassTag[A]): UnshowInt2[A] = new UnshowInt2[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
+    ct: ClassTag[A]): UnshowInt2[A] = new UnshowInt2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
+
+  /** [[Unshow2]] with 2 [[Int]] components type class instances. */
+  class UnshowInt2Imp[A](val typeStr: String, val name1: String, val name2: String, val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A],
+    override val opt2: Option[Int] = None, opt1In: Option[Int] = None) extends UnshowInt2[A]
+  { override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 /** [[Unshow2]] with 2 [[Double]] components type class instances. */
@@ -206,6 +210,19 @@ object PersistBoth2
   def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, opt2: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit persistEv1: PersistBoth[A1], persistEv2: PersistBoth[A2], classTag: ClassTag[A]): PersistBoth2[A1, A2, A] =
     new PersistBoth2[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
+}
+
+class PersistBothInt2[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int,
+  val newT: (Int, Int) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Int], opt1In: Option[Int]) extends
+  PersistBoth[A] with ShowInt2[A] with UnshowInt2[A]
+{ override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+}
+
+object PersistBothInt2
+{ /** Factory apply method for creating [[Unshow2]] with 2 [[IInt]] component type class instances. */
+  def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, newT: (Int, Int) => A, opt2: Option[Int] = None,
+    opt1In: Option[Int] = None)(implicit classTag: ClassTag[A]): PersistBothInt2[A] =
+    new PersistBothInt2[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
 class PersistBothDbl2[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,

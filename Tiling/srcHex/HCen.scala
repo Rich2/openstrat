@@ -148,11 +148,8 @@ object HCen
 
   val neibs00: HCenArr = HCenArr(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
 
-  /** implicit [[Show]] type class instance / evidence for [[HCen]]. */
-  implicit val showEv: ShowTellInt2[HCen] = ShowTellInt2[HCen]("HCen")
-
-  /** implicit [[Unshow]] instance / evidence for [[HCen]]. */
-  implicit val unshowEv: UnshowInt2[HCen] = UnshowInt2[HCen]("HCen", "r", "c", HCen.apply)
+  /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HCen]]. */
+  implicit val persistEv: PersistBothInt2[HCen] = PersistBothInt2[HCen]("HCen", "r", _.r, "c", _.c, HCen.apply)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
   implicit val arrMapBuilderEv: BuilderArrInt2Map[HCen, HCenArr] = new BuilderArrInt2Map[HCen, HCenArr]

@@ -16,6 +16,6 @@ object HexMem
 trait HexMemShow[A] extends HexMem[A] with Tell2[HCen, A]
 { override def tell1: HCen = hc
   override def name1: String = "hCen"
-  override implicit def show1: Show[HCen] = HCen.showEv
+  override implicit def show1: Show[HCen] = HCen.persistEv
   override def tell2: A = value
 }
