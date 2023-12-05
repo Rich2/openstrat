@@ -173,10 +173,8 @@ object UnshowInt2
 }
 
 /** [[Unshow2]] with 2 [[Double]] components type class instances. */
-class UnshowDbl2[A](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A],
-  override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends Unshow2[Double, Double, A]
-{ override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def unshow1: Unshow[Double] = Unshow.doubleEv
+trait UnshowDbl2[A] extends Unshow2[Double, Double, A]
+{ override implicit def unshow1: Unshow[Double] = Unshow.doubleEv
   override implicit def unshow2: Unshow[Double] = Unshow.doubleEv
 }
 
@@ -184,5 +182,24 @@ object UnshowDbl2
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
   def apply[A](typeStr: String, name1: String, name2: String, newT: (Double, Double) => A, opt2: Option[Double] = None,
     opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): UnshowDbl2[A] =
-    new UnshowDbl2[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
+    new UnshowDbl2Imp[A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1In)
+
+  /** [[Unshow2]] with 2 [[Double]] components type class instances. */
+  class UnshowDbl2Imp[A](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A],
+    override val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends UnshowDbl2[A]
+  { override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
+class PersistBothDbl2[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double,
+  val newT: (Double, Double) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[Double], opt1In: Option[Double]) extends
+  PersistBoth[A] with ShowDbl2[A] with UnshowDbl2[A]
+{ override val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+}
+
+object PersistBothDbl2
+{ /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
+  def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, newT: (Double, Double) => A, opt2: Option[Double] = None,
+    opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]): PersistBothDbl2[A] =
+    new PersistBothDbl2[A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
