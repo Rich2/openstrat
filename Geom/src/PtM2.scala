@@ -78,7 +78,7 @@ object PtM2
   }
 
   /** [[Show]] type class instance / evidence for [[PTM2]]. */
-  implicit val showEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
+  implicit val persistEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
 
   /** [[Unshow]] type class instance / evidence for [[PTM2]]. */
   implicit val unShowEv: UnshowDbl2[PtM2] = UnshowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
