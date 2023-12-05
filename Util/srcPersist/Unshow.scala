@@ -1,9 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
-
-import annotation.unchecked.uncheckedVariance
-import scala.reflect.ClassTag
+import pParse._, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends Persist
@@ -11,11 +8,6 @@ trait Unshow[+T] extends Persist
   /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be
    *  implemented by all instances. */
   def fromExpr(expr: Expr): EMon[T]
-
-  /** This property determines if the type can be used with [[Multiple]] syntax. {{{MyObj * 7}}}. for describing sequences succinctly. This is not
-   * desirable for some types such as numerical and mathematical vector types as this could be confusing 3 * 4 should resolve to an [[Int]] of value
-   * 12, not a Multiple(3, 4). */
-  def useMultiple: Boolean = true
 
   /** Trys to build an object of type T from the statement. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)

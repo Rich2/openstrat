@@ -6,6 +6,11 @@ import collection.immutable.ArraySeq
 trait Persist extends Any
 { /** The type of the object to be persisted. */
   def typeStr: String
+
+  /** This property determines if the type can be used with [[Multiple]] syntax. {{{MyObj * 7}}}. for describing sequences succinctly. This is not
+   * desirable for some types such as numerical and mathematical vector types as this could be confusing 3 * 4 should resolve to an [[Int]] of value
+   * 12, not a Multiple(3, 4). */
+  def useMultiple: Boolean = true
 }
 
 /** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
