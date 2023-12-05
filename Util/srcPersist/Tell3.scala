@@ -48,7 +48,7 @@ trait TellInt3 extends Any with Tell3[Int, Int, Int]
 /** Show classes with 3 [[Double]] parameters. */
 trait TellDbl3 extends Any with Tell3[Double, Double, Double]
 { final override def tellDepth: Int = 2
-  final override implicit def show1: Show[Double] = Show.doublePersistEv
-  final override implicit def show2: Show[Double] = Show.doublePersistEv
-  final override implicit def show3: Show[Double] = Show.doublePersistEv
+  final override implicit def show1: Show[Double] = Show.doubleEv
+  final override implicit def show2: Show[Double] = Show.doubleEv
+  final override implicit def show3: Show[Double] = Show.doubleEv
 }

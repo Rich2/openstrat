@@ -97,8 +97,8 @@ object ShowInt2
 
 /** [[Show]] type class trait for types with 2 [[Double]] Show components. */
 trait ShowDbl2[A] extends Show2[Double, Double, A]
-{ override def showEv1: Show[Double] = Show.doublePersistEv
-  override def showEv2: Show[Double] = Show.doublePersistEv
+{ override def showEv1: Show[Double] = Show.doubleEv
+  override def showEv2: Show[Double] = Show.doubleEv
   override def syntaxDepth(obj: A): Int = 2
 }
 

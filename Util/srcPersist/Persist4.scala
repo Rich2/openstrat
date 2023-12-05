@@ -98,10 +98,10 @@ object ShowInt4
 /** Produces [[Show]] type class instances for types with 4 [[Double]] components. Note a LineSeg does not use this class although it is held in
  * memory as 4 [[Double]]s. As its logical components are 2 points. */
 abstract class ShowDbl4[A] extends Show4[Double, Double, Double, Double, A]
-{ override def showEv1: Show[Double] = Show.doublePersistEv
-  override def showEv2: Show[Double] = Show.doublePersistEv
-  override def showEv3: Show[Double] = Show.doublePersistEv
-  override def showEv4: Show[Double] = Show.doublePersistEv
+{ override def showEv1: Show[Double] = Show.doubleEv
+  override def showEv2: Show[Double] = Show.doubleEv
+  override def showEv3: Show[Double] = Show.doubleEv
+  override def showEv4: Show[Double] = Show.doubleEv
   override def syntaxDepth(obj: A): Int = 2
 }
 

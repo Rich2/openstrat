@@ -4,6 +4,8 @@ package ostrat
 trait PersistSeq[A, SA] extends Persist
 { /** All Sequences are persisted with the "Seq" type. */
   override def typeStr: String = "Seq"
+
+  override def useMultiple: Boolean = false
 }
 
 /** All logical sequence classes are shown as "Seq"s. There encoding in memory and the immutability are irrelevant for their persistence. */

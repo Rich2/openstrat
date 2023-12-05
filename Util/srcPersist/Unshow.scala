@@ -158,16 +158,7 @@ object Unshow extends UnshowPriority2
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
-  implicit val doubleEv: Unshow[Double] = new Unshow[Double]
-  { override def typeStr: String = "DFloat"
-
-    override def fromExpr(expr: Expr): EMon[Double] = expr match
-    { case ValidFracToken(d) => Good(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(-d)
-      case _ => expr.exprParseErr[Double]
-    }
-  }
+  implicit val doubleEv: Unshow[Double] = PersistBoth.doubleEv
 
   /** [[Unshow]] instance / evidence for positive, non-negative [[Double]]. This must be passed explicitly. */
   val posDoubleEv: Unshow[Double] = new Unshow[Double]

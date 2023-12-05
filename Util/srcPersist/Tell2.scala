@@ -48,8 +48,8 @@ trait TellInt2 extends Any with Tell2[Int, Int]
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
  * and show2 properties, unless the class extends [[TellElemDbl2]]. */
 trait TellDbl2 extends Any with Tell2[Double, Double]
-{ final override implicit def show1: Show[Double] = Show.doublePersistEv
-  final override implicit def show2: Show[Double] = Show.doublePersistEv
+{ final override implicit def show1: Show[Double] = Show.doubleEv
+  final override implicit def show2: Show[Double] = Show.doubleEv
   final override def tellDepth: Int = 2
 }
 
