@@ -20,6 +20,11 @@ object PersistOptionTest extends TestSuite
     {
       None.str ==> "None"
       "None".findType[None.type] ==> Good(None)
+      None.str.enCurly ==> "None".enCurly
+      None.show(ShowSemis).enCurly ==> " ".enCurly
+      None.show(ShowCommas).enCurly ==> " ".enCurly
+      None.show(ShowStd).enCurly ==> " ".enCurly
+      //List[Option[Int]](Some(4), None, Some(8), None).str ==> "Seq()"
      // "".asType[None.type] ==> Good(None)
     }    
 

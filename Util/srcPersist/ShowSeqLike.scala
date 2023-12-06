@@ -9,14 +9,14 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
 
   def showForeach(obj: R, f: A => Unit): Unit
 
-  final def showMap(obj: R)(f: A => String): StrArr = {
-    val buffer: ArrayBuffer[String] = Buffer[String]()
+  final def showMap(obj: R)(f: A => String): StrArr =
+  { val buffer: ArrayBuffer[String] = Buffer[String]()
     showForeach(obj, a => buffer.append(f(a)))
     new StrArr(buffer.toArray)
   }
 
-  override def syntaxDepth(obj: R): Int = {
-    var acc = 2
+  override def syntaxDepth(obj: R): Int =
+  { var acc = 2
     showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a) + 1))
     acc
   }
@@ -24,7 +24,7 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
   final override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { val depth = syntaxDepth(obj)
     way match
-    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStdNoSpace, maxPlaces, minPlaces)).mkComma
+    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStd, maxPlaces, minPlaces)).mkComma
       case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
       case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
       case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
