@@ -47,9 +47,10 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
 {
   override def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
 
-
-
-  implicit val arrFlatBuilderImplicit: BuilderArrFlat[Pt2Arr] =  new BuilderArrDbl2Flat[Pt2Arr]
+  /** Builder for [[Arr]] of [[Pt2]]s via the flatMap method. The call site does not need to know that the element type is [[Pt2]] hence why this type
+   *  class instance / evidence is in the [[Pt2Arr]] companion object, while the corresponding [[BuilderArrDbl2Map]] type class instance is in the
+   *  [[Pt2]] companion object. */
+  implicit val builderArrFlatEv: BuilderArrFlat[Pt2Arr] =  new BuilderArrDbl2Flat[Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

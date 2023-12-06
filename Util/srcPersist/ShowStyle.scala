@@ -27,7 +27,7 @@ case object ShowFieldNames extends ShowStyle
 { override def full: ShowStyle = ShowFieldNames
 }
 
-/** Show the object as semicolon separated constituent values preceded b y their parameter names. */
+/** Show the object as semicolon separated constituent values preceded by their parameter names. */
 case object ShowSemisNames extends ShowStyle
 { override def full: ShowStyle = ShowFieldNames
 }
