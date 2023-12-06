@@ -13,7 +13,7 @@ object parse3Statements
     var subAcc: ArrayBuffer[StatementMem] = Buffer()
 
     def loop(rem: ArrOff[BlockMem]): EMon[Expr] = rem match
-    {
+    { //case ArrOff0() if acc.isEmpty & subAcc.isEmpty => Good(EmptyStringExpr)
       case ArrOff0() if subAcc.isEmpty => Good(StringStatements(acc.toArr))
       case ArrOff0() if acc.isEmpty => parse5AssignExpr(subAcc.toArr)
       case ArrOff0() => parse4Statement(subAcc.toArr, None).map(acc :+ _).map(g => StringStatements(g.toArr))

@@ -49,6 +49,8 @@ object Statement
     case _ => None
   }
 
+  val none: Statement = Statement(EmptyStringExpr)
+
   /** Extension class for Arr[Statement]. */
   implicit class arrImplicit(statements: RArr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)

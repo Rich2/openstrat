@@ -8,6 +8,12 @@ trait Expr extends BlockMem with StatementMem
   def exprParseErr[A](implicit ev: Unshow[A]): EMon[A] = startPosn.bad(ev.typeStr -- "is not available from" -- exprName)
 }
 
+case object EmptyStringExpr extends Expr
+{  override def exprName: String = "EmptyString"
+  override def startPosn: TextPosn = StrPosn(0, 0)
+  override def endPosn: TextPosn = StrPosn(0, 0)
+}
+
 /** An expression that is a member of the right oe left side of an assignment expression. */
 trait AssignMemExpr extends Expr with AssignMem
 {
@@ -56,8 +62,8 @@ trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
 
 trait BlockRaw
 { def statements: RArr[Statement]
-  def startMem: Statement = statements.head
-  def endMem: Statement = statements.last
+  def startMem: Statement = statements.headFold(Statement.none){ st => st}
+  def endMem: Statement = statements.lastFold(Statement.none){ st => st}
 }
 
 /** A syntactic block of [[Statement]]s, may be encapsulated by a file of pair of matching braces." */

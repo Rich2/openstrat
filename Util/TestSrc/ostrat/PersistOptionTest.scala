@@ -27,7 +27,7 @@ object PersistOptionTest extends TestSuite
       None.show(ShowStd).enCurly ==> " ".enCurly
       noi.show(ShowCommas).enCurly ==> " ".enCurly
       List[Option[Int]](Some(4), None, Some(8), None).str ==> "Seq(4; ; 8; ;)"
-     // "".asType[None.type] ==> Good(None)
+      //"".asType[None.type] ==> Good(None)
     }    
 
     val sm5: Option[Int] = Some(-5)
