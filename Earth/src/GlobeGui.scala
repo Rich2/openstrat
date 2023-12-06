@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
-import ostrat.pgui._
+import pgui._
 
 abstract class GlobeGui(val title: String) extends CmdBarGui
 { var focus: LatLongDirn

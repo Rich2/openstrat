@@ -2,6 +2,7 @@
 package ostrat
 import pParse._
 
+/** Base trait for [[TellN]], [[ShowN]] and [[UnshowN]] which share the paramNames property. */
 trait PersistN extends Any with Persist
 { /** Sequence of the names of parameter constituents of this class. */
   def paramNames: StrArr

@@ -14,12 +14,21 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
+  def ifGlobe(f: HSysProjectionEarth => GraphicElems): GraphicElems = proj match {
+    case ep: HSysProjectionEarth => f(ep)
+    case _ => RArr()
+  }
+
+  def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
+
   override def frame: GraphicElems =
-  { def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
+  {
+    def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
+    def hexStrs1: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
     def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs1)
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2
+    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2  ++ irrLines ++ hexStrs2
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

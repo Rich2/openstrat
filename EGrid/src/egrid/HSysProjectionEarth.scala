@@ -6,7 +6,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 {
   override type SysT = EGridSys
   var focus: LatLongDirn = LatLongDirn.degs(0, 0)
-  var irrOn: Boolean = true
+  var irrOn: Boolean = false
   def northUp: Boolean = focus.dirn
   def southUp: Boolean = !focus.dirn
   def metresPerPixel: Length = parent.cScale / pixelsPerC
