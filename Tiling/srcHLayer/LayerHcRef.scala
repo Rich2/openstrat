@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
-/** Refereence aata layer for [[HCen]] hex tile structure. */
+/** Reference data layer for [[HCen]] hex tile structure. */
 trait LayerHcRef[A <: AnyRef] extends Any
 { type KeyT <: HCenStruct
 

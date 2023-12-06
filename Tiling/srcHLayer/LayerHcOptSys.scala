@@ -6,10 +6,19 @@ trait LayerHcOpt[A <: AnyRef] extends Any with TCenOptLayer[A]
 { type KeyT <: HCenStruct
 }
 
-class LayerHcOptRow[A <: AnyRef](val arrayUnsafe: Array[A]) extends LayerHcOpt[A]
+class LayerHcOptRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extends LayerHcOpt[A]
 { type ThisT = LayerHcOptSys[A]
   override type KeyT = HCenRow
   override def typeStr: String = "LayerHcOptRow"
+}
+
+object LayerHcOptRow
+{
+  def apply[A <: AnyRef](row: Int, elems: A*)(implicit ct: ClassTag[A]): LayerHcOptRow[A] =
+  { val array = new Array[A](elems.length)
+    elems.iForeach { (i, a) => array(i) = a }
+    new LayerHcOptRow[A](row, array)
+  }
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
