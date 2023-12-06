@@ -2,15 +2,21 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
-trait LayerHcOpt[A <: AnyRef]
-{
-  def unsafeArray: Array[A]
+trait LayerHcOpt[A <: AnyRef] extends Any with TCenOptLayer[A]
+{ type KeyT <: HCenStruct
+}
+
+class LayerHcOptRow[A <: AnyRef](val arrayUnsafe: Array[A]) extends LayerHcOpt[A]
+{ type ThisT = LayerHcOptSys[A]
+  override type KeyT = HCenRow
+  override def typeStr: String = "LayerHcOptRow"
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
  *  the index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
-class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with HCenBaseLayer[Option[A]] with TCenOptLayer[A]
+class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerHcOpt[A] with LayerHcSys[Option[A]]
 { override type ThisT = LayerHcOptSys[A]
+  override type KeyT = HGridSys
   override def typeStr: String = "HCenOptLayer"
 
   /** Maps this [[LayerHcOptSys]] to a new [[LayerHcOptSys]] of type B. [[None]] values are just mapped to [[None]]s. The [[HGridSys]] that encodes the
@@ -18,7 +24,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): LayerHcOptSys[B] =
   { val newArray = new Array[B](flatLength)
     var i = 0
-    while (i < flatLength) { if (unsafeArray(i) != null) newArray(i) = f(unsafeArray(i)); i += 1 }
+    while (i < flatLength) { if (arrayUnsafe(i) != null) newArray(i) = f(arrayUnsafe(i)); i += 1 }
     new LayerHcOptSys[B](newArray)
   }
 
@@ -28,7 +34,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>
       val i = gridSys.layerArrayIndex(hc)
-      val aUnsafe = unsafeArray(i)
+      val aUnsafe = arrayUnsafe(i)
       if (aUnsafe != null) newArray(i) = f(hc, aUnsafe)
     }
     new LayerHcOptSys[B](newArray)
@@ -39,59 +45,59 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>
       val i = gridSys.layerArrayIndex(hc)
-      val aUnsafe = unsafeArray(i)
+      val aUnsafe = arrayUnsafe(i)
       if (aUnsafe != null) newArray(i) = f(i, aUnsafe)
     }
     new LayerHcOptSys[B](newArray)
   }
 
   /** Creates a shallow copy of this [[LayerHcOptSys]]. */
-  def copy: LayerHcOptSys[A] = new LayerHcOptSys[A](unsafeArray.clone)
+  def copy: LayerHcOptSys[A] = new LayerHcOptSys[A](arrayUnsafe.clone)
 
   /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
-  def setSomeMut(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value
+  def setSomeMut(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value
 
   /** Sets / the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
-  def setSomeMut(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = value
+  def setSomeMut(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(hc)) = value
 
   /** Sets / mutates the Some values of the hex tile data at the specified row and column coordinate values. */
   def setSomesMut(triples: (Int, Int, A)*)(implicit gridSys: HGridSys): Unit =
-    triples.foreach(t => unsafeArray(gridSys.layerArrayIndex(t._1, t._2)) = t._3)
+    triples.foreach(t => arrayUnsafe(gridSys.layerArrayIndex(t._1, t._2)) = t._3)
 
   /** Sets / mutates the given hex tiles to the given value. */
   def setSamesUnsafe(value: A, hCens: Int*)(implicit gridSys: HGridSys): Unit =
     iUntilForeach(hCens.length / 2){ i => setSomeMut(hCens(i * 2), hCens(i * 2 + 1), value) }
 
   /** Sets / mutates the value ot the specified location to None. */
-  def setNoneMut(hc: HCen)(implicit gridSys: HGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
+  def setNoneMut(hc: HCen)(implicit gridSys: HGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
 
   /** Sets / mutates every element to the given value. */
-  def setAllMut(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
+  def setAllMut(value: A): Unit = iUntilForeach(flatLength)(arrayUnsafe(_) = value)
 
   /** Sets multiple [[HCen]] locations to [[Some]] values. */
   def setFSomesMut(f: () => A, hCens: Int*)(implicit gridSys: HGridSys): Unit =
   { if (hCens.length.isOdd) excep(s"${hCens.length} odd number of int parameters for HCens.")
-    iUntilForeach(0, hCens.length, 2){i => unsafeArray(gridSys.layerArrayIndex(hCens(i), hCens(i + 1))) = f()
+    iUntilForeach(0, hCens.length, 2){i => arrayUnsafe(gridSys.layerArrayIndex(hCens(i), hCens(i + 1))) = f()
     }
   }
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): LayerHcOptSys[A] =
-  { val newArr = unsafeArray.clone()
+  { val newArr = arrayUnsafe.clone()
     newArr(gridSys.layerArrayIndex(r, c)) = value
     new LayerHcOptSys[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(hc: HCen, value: A)(implicit gridSys: HGridSys): LayerHcOptSys[A] = {
-    val newArr = unsafeArray.clone()
+    val newArr = arrayUnsafe.clone()
     newArr(gridSys.layerArrayIndex(hc)) = value
     new LayerHcOptSys[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
   def setNone(hc: HCen)(implicit gridSys: HGridSys): LayerHcOptSys[A] =
-  { val newArr = unsafeArray.clone()
+  { val newArr = arrayUnsafe.clone()
     newArr(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
     new LayerHcOptSys[A](newArr)
   }
@@ -99,19 +105,19 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
    *  None. This mutates the data layer. */
   def moveUnsafe(hc1: HCen, hc2: HCen)(implicit gridSys: HGridSys): Unit =
-  { unsafeArray(gridSys.layerArrayIndex(hc2)) = unsafeArray(gridSys.layerArrayIndex(hc1))
-    unsafeArray(gridSys.layerArrayIndex(hc1)) = null.asInstanceOf[A]
+  { arrayUnsafe(gridSys.layerArrayIndex(hc2)) = arrayUnsafe(gridSys.layerArrayIndex(hc1))
+    arrayUnsafe(gridSys.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }
 
   /** Not sure if this is still needed. */
   def MoveModifyMut(hc1: HCen, hc2: HCen)(f: A => A)(implicit gridSys: HGridSys): Unit =
-  { unsafeArray(gridSys.layerArrayIndex(hc2)) = f(unsafeArray(gridSys.layerArrayIndex(hc1)))
-    unsafeArray(gridSys.layerArrayIndex(hc1)) = null.asInstanceOf[A]
+  { arrayUnsafe(gridSys.layerArrayIndex(hc2)) = f(arrayUnsafe(gridSys.layerArrayIndex(hc1)))
+    arrayUnsafe(gridSys.layerArrayIndex(hc1)) = null.asInstanceOf[A]
   }
 
   /** Drops the [[None]] values. Foreach value of the [[Some]] with the corresponding [[HCen]] applies the side effecting parameter function. */
   def somesHcForeach(f: (A, HCen) => Unit)(implicit gridSys: HGridSys): Unit = gridSys.foreach { hc =>
-    val a = unsafeArray(gridSys.layerArrayIndex(hc))
+    val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
     if (a != null) f(a, hc)
   }
 
@@ -120,7 +126,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def hcMapArr[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit gridSys: HGridSys, build: BuilderArrMap[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
-      val a = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a, hc))
       else
       { val newVal = fNone(hc)
@@ -134,7 +140,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit gridSys: HGridSys, build: BuilderArrMap[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
-      val a = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a))
     }
     build.buffToSeqLike(buff)
@@ -144,7 +150,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def somesHcMap[B, ArrT <: Arr[B]](f: (A, HCen) => B)(implicit gridSys: HGridSys, build: BuilderArrMap[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
-      val a = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, f(a, hc))
     }
     build.buffToSeqLike(buff)
@@ -155,7 +161,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     build: BuilderArrPairMap[B1, B1Arr, B2, B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
-      val a = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) build. buffGrow(buff, f(a, hc))
     }
     build.buffToSeqLike(buff)
@@ -165,14 +171,14 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
    * for the [[Some]] values. */
   def projHcMap(proj: HSysProjection)(fNone: (Pt2, HCen) => GraphicElem)(fSome: (A, Pt2, HCen) => GraphicElem): GraphicElems =
     proj.hCenPtMap{ (hc, pt) =>
-      val a = unsafeArray(proj.parent.layerArrayIndex(hc))
+      val a = arrayUnsafe(proj.parent.layerArrayIndex(hc))
       ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
     }
 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(hc: HCen)(implicit gridSys: HGridSys): Option[A] =
   { if (!gridSys.hCenExists(hc)) None else
-      { val elem = unsafeArray(gridSys.layerArrayIndex(hc))
+      { val elem = arrayUnsafe(gridSys.layerArrayIndex(hc))
         if (elem == null) None else Some(elem)
       }
   }
@@ -180,26 +186,26 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] = {
     if (!gridSys.hCenExists(r, c)) None else {
-      val elem = unsafeArray(gridSys.layerArrayIndex(r, c))
+      val elem = arrayUnsafe(gridSys.layerArrayIndex(r, c))
       if (elem == null) None else Some(elem)
     }
   }
 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, returns the raw value which might be a [[null]]. */
-  def applyUnsafe(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
+  def applyUnsafe(hc: HCen)(implicit gridSys: HGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(hc))
 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, returns the raw value which might be a [[null]]. */
-  def applyUnsafe(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
+  def applyUnsafe(r: Int, c: Int)(implicit gridSys: HGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(r, c))
 
   /** Indexes in to this [[LayerHcOptSys]] using the tile centre coordinate, will return nulls for [[None]] values, throws exception if tile centre
    *  does not exist. */
-  def getex(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
+  def getex(r: Int, c: Int)(implicit gridSys: HGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(r, c))
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def getex(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
+  def getex(hc: HCen)(implicit gridSys: HGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(hc))
 
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
-  def emptyTile(hc: HCen)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(hc)) == null
+  def emptyTile(hc: HCen)(implicit gridSys: HGridSys): Boolean = arrayUnsafe(gridSys.layerArrayIndex(hc)) == null
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
    * 0 and the length of this [[LayerHcOptSys]]. */
@@ -207,7 +213,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if(a != null)
       { val newVal = f(a, hc)
         build.buffGrow(buff, newVal)
@@ -226,7 +232,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   {
     val buff = BuffGraphic()
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(proj.parent.layerArrayIndex(hc))
       if (a != null) {
         buff.append(f(a, hc))
       }
@@ -244,7 +250,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def projSomesPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(proj.parent.layerArrayIndex(hc))
       if (a != null) proj.transOptCoord(hc).foreach { pt =>
         val res = f(a, pt)
         build.buffGrow(buff, res)
@@ -262,7 +268,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def projSomesHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(proj.parent.layerArrayIndex(hc))
       if (a != null) proj.transOptCoord(hc).foreach { pt =>
         val res = f(a, hc, pt)
         build.buffGrow(buff, res)
@@ -277,8 +283,8 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
-      val b: B = optArrB.unsafeArray(gridSys.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))
+      val b: B = optArrB.arrayUnsafe(gridSys.layerArrayIndex(hc))
       if(a != null & b != null)
       { val newVal = f(a, b)
         build.buffGrow(buff, newVal)
@@ -294,8 +300,8 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
-      val b: B = optArrB.unsafeArray(gridSys.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))
+      val b: B = optArrB.arrayUnsafe(gridSys.layerArrayIndex(hc))
       if(a != null)
       { val newVal = f(a, b, hc)
         build.buffGrow(buff, newVal)
@@ -310,7 +316,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val buff = build.newBuff()
 
     gridSys.foreach { r =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(r))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(r))
       if(a == null)
       { val newVal = f(r)
         build.buffGrow(buff, newVal)
@@ -330,7 +336,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     val buff = build.newBuff()
 
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArray(proj.parent.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(proj.parent.layerArrayIndex(hc))
       if (a == null) {
         build.buffGrow(buff, f(hc, proj.transCoord(hc)))
       }
@@ -342,7 +348,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
-      val a = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if(a != null)
       { val newVal = f(a, hc)
         build.buffGrowArr(buff, newVal)
@@ -357,7 +363,7 @@ class LayerHcOptSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) { f(a, hc).foreach(build.buffGrowArr(buff, _)) }
     }
     build.buffToSeqLike(buff)

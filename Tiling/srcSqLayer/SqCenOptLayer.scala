@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag
 
 /** A layer of immutable optional [[SqCen]] data for a [[SqGridSys]] square grid system, This is specialised for OptRef[A]. The tileGrid can map the
  *  [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGridSys]] square grid system parameter. */
-class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenOptLayer[A]
+class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with TCenOptLayer[A]
 {override type ThisT = SqCenOptLayer[A]
   override def typeStr: String = "SqCenOptLayer"
 
@@ -12,7 +12,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def apply(hc: SqCen)(implicit gridSys: SqGridSys): Option[A] =
   { if (!gridSys.sqCenExists(hc)) None
     else
-    { val elem = unsafeArray(gridSys.layerArrayIndex(hc))
+    { val elem = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (elem == null) None else Some(elem)
     }
   }
@@ -20,50 +20,50 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, either passed as an [[SqCen]] or as row and column [[Int values]]. */
   def apply(r: Int, c: Int)(implicit gridSys: SqGridSys): Option[A] =
   { if (!gridSys.sqCenExists(r, c)) None else {
-      val elem = unsafeArray(gridSys.layerArrayIndex(r, c))
+      val elem = arrayUnsafe(gridSys.layerArrayIndex(r, c))
       if (elem == null) None else Some(elem)
     }
   }
   /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
-  def applyUnsafe(hc: SqCen)(implicit gridSys: SqGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
+  def applyUnsafe(hc: SqCen)(implicit gridSys: SqGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(hc))
 
   /** Indexes in to this [[SqCenOptLayer]] using the tile centre coordinate, returns the raw value which might be a null. */
-  def applyUnsafe(r: Int, c: Int)(implicit gridSys: SqGridSys): A = unsafeArray(gridSys.layerArrayIndex(r, c))
+  def applyUnsafe(r: Int, c: Int)(implicit gridSys: SqGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(r, c))
 
 
-  def copy: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArray.clone)
+  def copy: SqCenOptLayer[A] = new SqCenOptLayer[A](arrayUnsafe.clone)
 
   /** Sets / mutates the Some value of the hex tile data at the specified row and column coordinate values. */
-  def setSomeMut(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value
+  def setSomeMut(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value
 
   /** Sets / the Some value of the hex tile data at the specified [[SqCen]] coordinate. This is an imperative mutating operation. */
-  def setSomeMut(hc: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = value
+  def setSomeMut(hc: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(hc)) = value
 
   /** Sets / mutates the value ot the specified location to None. */
-  def setNoneMut(hc: SqCen)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
+  def setNoneMut(hc: SqCen)(implicit gridSys: SqGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSome(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(r, c)) = value
+  def unsafeSetSome(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value
 
   /** Sets the Some value of the hex tile data at the specified [[SqCen]] coordinate. This is an imperative mutating operation. */
-  def unsafeSetSome(sc: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = unsafeArray(gridSys.layerArrayIndex(sc)) = value
+  def unsafeSetSome(sc: SqCen, value: A)(implicit gridSys: SqGridSys): Unit = arrayUnsafe(gridSys.layerArrayIndex(sc)) = value
 
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit gridSys: SqGridSys): Unit = triples.foreach(t => unsafeArray(gridSys.layerArrayIndex(t._1, t._2)) = t._3)
+  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit gridSys: SqGridSys): Unit = triples.foreach(t => arrayUnsafe(gridSys.layerArrayIndex(t._1, t._2)) = t._3)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(r: Int, c: Int, value: A)(implicit gridSys: SqGridSys): SqCenOptLayer[A] = setSome(SqCen(r, c), value)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(sc: SqCen, value: A)(implicit gridSys: SqGridSys): SqCenOptLayer[A] =
-  { val newArr = unsafeArray.clone()
+  { val newArr = arrayUnsafe.clone()
     newArr(gridSys.layerArrayIndex(sc)) = value
     new SqCenOptLayer[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
   def setNone(hc: SqCen)(implicit gridSys: SqGridSys): SqCenOptLayer[A] =
-  { val newArr = unsafeArray.clone()
+  { val newArr = arrayUnsafe.clone()
     newArr(gridSys.layerArrayIndex(hc)) = null.asInstanceOf[A]
     new SqCenOptLayer[A](newArr)
   }
@@ -71,7 +71,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def somesMap[B, ArrT <: Arr[B]](fSome: A => B)(implicit gridSys: SqGridSys, build: BuilderArrMap[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
-      val a = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(a))
     }
     build.buffToSeqLike(buff)
@@ -79,23 +79,23 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
 
   /** Drops the [[None]] values. Foreach value of the [[Some]] with the corresponding [[SqCen]] applies the side effecting parameter function. */
   def somesScForeach(f: (A, SqCen) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { hc =>
-    val a = unsafeArray(gridSys.layerArrayIndex(hc))
+    val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
     if (a != null) f(a, hc)
   }
   /** The tile is a None at the given hex grid centre coordinate [[SqCen]]. */
-  def emptyTile(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = unsafeArray(gridSys.layerArrayIndex(sc)) == null
+  def emptyTile(sc: SqCen)(implicit gridSys: SqGridSys): Boolean = arrayUnsafe(gridSys.layerArrayIndex(sc)) == null
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def unSafeApply(sc: SqCen)(implicit gridSys: SqGridSys): A = unsafeArray(gridSys.layerArrayIndex(sc))
+  def unSafeApply(sc: SqCen)(implicit gridSys: SqGridSys): A = arrayUnsafe(gridSys.layerArrayIndex(sc))
 
   def somesForeach(f: A => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
-    val a: A = unsafeArray(gridSys.layerArrayIndex(sc))
+    val a: A = arrayUnsafe(gridSys.layerArrayIndex(sc))
     if (a != null) f(a)
   }
 
   def somesLen: Int =
   { var res = 0
-    unsafeArray.foreach(a => if (a != null) res += 1)
+    arrayUnsafe.foreach(a => if (a != null) res += 1)
     res
   }
 
@@ -105,7 +105,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val newArray = new Array[B](flatLength)
     var i = 0
     while (i < flatLength) {
-      if (unsafeArray(i) != null) newArray(i) = f(unsafeArray(i)); i += 1
+      if (arrayUnsafe(i) != null) newArray(i) = f(arrayUnsafe(i)); i += 1
     }
     new SqCenOptLayer[B](newArray)
   }
@@ -115,7 +115,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val newArray = new Array[B](flatLength)
     gridSys.foreach { hc =>
       val i = gridSys.layerArrayIndex(hc)
-      val aUnsafe = unsafeArray(i)
+      val aUnsafe = arrayUnsafe(i)
       if (aUnsafe != null) newArray(i) = f(hc, aUnsafe)
     }
     new SqCenOptLayer[B](newArray)
@@ -129,7 +129,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     var i = 0
 
     gridSys.foreach { sc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(sc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(sc))
       if(a != null)
       { val newVal = f(sc, a)
         res.setElemUnsafe(i, newVal)
@@ -146,7 +146,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { var buff = build.newBuff()
 
     gridSys.foreach { sc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(sc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(sc))
       if (a != null) {
         val newArr = f(sc, a)
         build.buffGrowArr(buff, newArr)
@@ -164,7 +164,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     var i = 0
 
     gridSys.foreach { sc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(sc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(sc))
       if (a != null) {
         val new1 = f1(sc, a)
         res1.setElemUnsafe(i, new1)
@@ -181,7 +181,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     val buff = build.newBuff()
 
     gridSys.foreach { hc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))
       if (a != null) {
         f(a, hc).foreach(build.buffGrowArr(buff, _))
       }
@@ -197,7 +197,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def projSomeScPtMap[B, ArrB <: Arr[B]](proj: SqSysProjection)(f: (A, SqCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { sc =>
-      val a: A = unsafeArray(proj.parent.layerArrayIndex(sc))
+      val a: A = arrayUnsafe(proj.parent.layerArrayIndex(sc))
       if (a != null) {
         build.buffGrow(buff, f(a, sc, proj.transCoord(sc)))
       }
@@ -211,7 +211,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   {
     val buff = build.newBuff()
     gridSys.foreach { r =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(r))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(r))
       if(a == null)
       { val newVal = f(r)
         build.buffGrow(buff, newVal)
@@ -229,7 +229,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   def projNoneScPtMap[B, ArrB <: Arr[B]](proj: SqSysProjection)(f: (SqCen, Pt2) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.foreach { sc =>
-      val a: A = unsafeArray(proj.parent.layerArrayIndex(sc))
+      val a: A = arrayUnsafe(proj.parent.layerArrayIndex(sc))
       if (a == null) {
         val newVal = f(sc, proj.transCoord(sc))
         build.buffGrow(buff, newVal)
@@ -240,14 +240,14 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
 
   /** Moves the object in the array location given by SqCen1 to SqCen2, by setting s2 to the value of s1 and setting s1 to null. */
   def moveUnsafe(s1: SqCen, s2: SqCen)(implicit gridSys: SqGridSys): Unit =
-  { unsafeArray(gridSys.layerArrayIndex(s2)) = unsafeArray(gridSys.layerArrayIndex(s1))
-    unsafeArray(gridSys.layerArrayIndex(s1)) = null.asInstanceOf[A]
+  { arrayUnsafe(gridSys.layerArrayIndex(s2)) = arrayUnsafe(gridSys.layerArrayIndex(s1))
+    arrayUnsafe(gridSys.layerArrayIndex(s1)) = null.asInstanceOf[A]
   }
 
   /** coordinate-foreach-Some. Foreach Some element and its associated [[SqCen]] coordinate applies the side effecting parameter function. It ignores
    *  the None values. */
   def someScForeach(f: (SqCen, A) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
-    val a = unsafeArray(gridSys.layerArrayIndex(sc))
+    val a = arrayUnsafe(gridSys.layerArrayIndex(sc))
     if (a != null) f(sc, a)
   }
 
@@ -257,8 +257,8 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
-      val a: A = unsafeArray(gridSys.layerArrayIndex(hc))
-      val b: B = optArrB.unsafeArray(gridSys.layerArrayIndex(hc))
+      val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))
+      val b: B = optArrB.arrayUnsafe(gridSys.layerArrayIndex(hc))
       if(a != null & b != null)
       { val newVal = f(a, b)
         build.buffGrow(buff, newVal)
@@ -276,7 +276,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   /** Moves the object in the array location given by the 1st [[SqCen]] to the 2nd [[SqCen]], by setting sc2 to the value of sc1 and setting sc1 to
    *  None. */
   def unsafeMove(sc1: SqCen, sc2: SqCen)(implicit gridSys: SqGridSys): Unit =
-  { unsafeArray(gridSys.layerArrayIndex(sc2)) = unsafeArray(gridSys.layerArrayIndex(sc1))
-    unsafeArray(gridSys.layerArrayIndex(sc1)) = null.asInstanceOf[A]
+  { arrayUnsafe(gridSys.layerArrayIndex(sc2)) = arrayUnsafe(gridSys.layerArrayIndex(sc1))
+    arrayUnsafe(gridSys.layerArrayIndex(sc1)) = null.asInstanceOf[A]
   }
 }

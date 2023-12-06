@@ -3,10 +3,15 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 trait LayerHsOpt
+{
+  type KeyT <: HCenStruct
+}
 
 /** Data layer for [[HSide]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
 class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
-{ /** apply index method returns the data from this layer for the given [[HSide]]. */
+{ type KeyT = HGridSys
+
+  /** apply index method returns the data from this layer for the given [[HSide]]. */
   def apply(hs: HSide)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
 
   /** apply index method returns the data from this layer for the given [[HSide]]. */

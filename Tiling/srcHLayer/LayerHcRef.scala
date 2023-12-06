@@ -45,7 +45,6 @@ object LayerHcRefRow
   implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRefRow[A]] = (lr1, lr2) => lr1.unsafeArray === lr2.unsafeArray
 }
 
-
 /** Reference data layer for [[HGridSys]]. An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data

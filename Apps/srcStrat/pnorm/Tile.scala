@@ -20,7 +20,7 @@ trait LandLike extends Tile
 
 case class Land(terr: LandTerr = Plain) extends LandLike
 
-case class Island(terr: LandTerr = Plain) extends LandLike with HIndent6
+case class Island(terr: LandTerr = Plain) extends LandLike with HcIndent6
 
 //case class Head1Land(indentStartIndex: Int, terr: LandTerr = Plain) extends LandLike with HIndent4
 
