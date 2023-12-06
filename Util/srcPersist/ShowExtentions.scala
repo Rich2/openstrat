@@ -28,10 +28,10 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
    * will return Int(4). */
   @inline def strTyped: String = ev.show(thisVal, ShowTyped, -1, 0)
 
-  def str0: String = ev.show(thisVal, ShowStandard, 0, 0)
-  def str1: String = ev.show(thisVal, ShowStandard, 1, 0)
-  def str2: String = ev.show(thisVal, ShowStandard, 2, 0)
-  def str3: String = ev.show(thisVal, ShowStandard, 3, 0)
+  def str0: String = ev.show(thisVal, ShowStd, 0, 0)
+  def str1: String = ev.show(thisVal, ShowStd, 1, 0)
+  def str2: String = ev.show(thisVal, ShowStd, 2, 0)
+  def str3: String = ev.show(thisVal, ShowStd, 3, 0)
 
   /** Shows this object with field names. */
   def showFields: String = ev.show(thisVal, ShowFieldNames, -1, 0)

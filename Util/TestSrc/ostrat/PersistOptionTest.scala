@@ -18,7 +18,7 @@ object PersistOptionTest extends TestSuite
   val tests = Tests {
     test("None")
     {
-      None.str ==> ""
+      None.str ==> "None"
       "None".findType[None.type] ==> Good(None)
      // "".asType[None.type] ==> Good(None)
     }    

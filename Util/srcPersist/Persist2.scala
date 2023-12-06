@@ -71,7 +71,7 @@ object Show2
 class Show2Extensions[A1, A2, -A](ev: Show2[A1, A2, A], thisVal: A)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
-  def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
+  def show2(way: ShowStyle = ShowStd, way1: ShowStyle = ShowStd, places1: Int = -1, way2: ShowStyle = ShowStd, places2: Int = -1):
     String = ???
 }
 

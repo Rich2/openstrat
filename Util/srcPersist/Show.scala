@@ -90,7 +90,16 @@ object Show
   }
 
   /** [[Show]] type class instance evidence for [[None.type]]. */
-  implicit val noneEv: Show[None.type] = ShowSimple[None.type]("None", _ => "")
+  implicit val noneEv: Show[None.type] = new Show[None.type]
+  { override def typeStr: String = "Option"
+    override def strT(obj: None.type): String = "None"
+    override def syntaxDepth(obj: None.type): Int = 1
+
+    override def show(obj: None.type, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match{
+      case ShowTyped => "None"
+      case _ => " "
+    }
+  }
 
   /** [[Show]] type class instance evidence for [[Option]]. */
   implicit def optionEv[A](implicit evA: Show[A]): Show[Option[A]] =
@@ -99,5 +108,5 @@ object Show
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
 trait ShowCompound[A] extends Show[A]
-{ override def strT(obj: A): String = show(obj, ShowStandard, -1, 0)
+{ override def strT(obj: A): String = show(obj, ShowStd, -1, 0)
 }

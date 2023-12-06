@@ -29,19 +29,19 @@ trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
     val shortOpt = shortKeys.a2FindA1(obj)
     style match
-    { case ShowStandard | ShowSemis | ShowCommas if shortOpt.nonEmpty => shortOpt.get
+    { case ShowStd | ShowSemis | ShowCommas if shortOpt.nonEmpty => shortOpt.get
       case ShowUnderScore => "_"
       case ShowSemis => semisStr
-      case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
+      case ShowCommas => strs(obj, ShowStd, maxPlaces).mkStr(", ")
 
       case ShowFieldNames =>
-      { val r1: StrArr = strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
+      { val r1: StrArr = strs(obj, ShowStd, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
         val r2 = r1.mkStr("; ")
         typeStr.appendParenth(r2)
       }
 
     case ShowStdTypedFields =>
-    { val r1: StrArr = strs(obj, ShowStandard, maxPlaces).iMap { (i, s1) => paramNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
+    { val r1: StrArr = strs(obj, ShowStd, maxPlaces).iMap { (i, s1) => paramNames(i) + ": " + fieldShows(i).typeStr + " = " + s1 }
       val r2 = r1.mkStr("; ")
       typeStr.appendParenth(r2)
     }
@@ -128,11 +128,11 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
     style match
     { case ShowUnderScore => "_"
     case ShowSemis => semisStr
-    case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
+    case ShowCommas => strs(obj, ShowStd, maxPlaces).mkStr(", ")
 
     case ShowFieldNames =>
     { val r1: StrArr =
-    { val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
+    { val strs2 = strs(obj, ShowStd, maxPlaces, minPlaces)
       val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
       val reps = strs2.drop(numFixedParams)
       named ++ reps
@@ -143,7 +143,7 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
 
     case ShowStdTypedFields =>
     { val r1: StrArr =
-    { val strs2 = strs(obj, ShowStandard, maxPlaces, minPlaces)
+    { val strs2 = strs(obj, ShowStd, maxPlaces, minPlaces)
       val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fixedfieldShows(i).typeStr + " = " + strs2(i) }
       val reps = strs2.drop(numFixedParams)
       named ++ reps

@@ -1,8 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
-object OptTest extends TestSuite
+object OptionTest extends TestSuite
 {
   val tests = Tests {
 
@@ -14,6 +14,7 @@ object OptTest extends TestSuite
     "test1" -
     {
       i1.toString ==> "NoInt"
+      None.str ==> "None"
  //     i1.mMap(_ *  2) ==> NoIntOld
 //      i2.map(_ * 2) ==> SomeInt(10)
 //      n1.map(_.length  + 2) ==> NoIntOld

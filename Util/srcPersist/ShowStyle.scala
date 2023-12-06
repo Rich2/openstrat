@@ -9,17 +9,17 @@ sealed trait ShowStyle
 
 /** Show the object just as its comma separated constituent values. */
 case object ShowCommas extends ShowStyle
-{ override def full: ShowStyle = ShowStandard
+{ override def full: ShowStyle = ShowStd
 }
 
 /** Show the object as semicolon separated constituent values. */
 case object ShowSemis extends ShowStyle
-{ override def full: ShowStyle = ShowStandard
+{ override def full: ShowStyle = ShowStd
 }
 
 /** Show the object in the standard default manner. */
-case object ShowStandard extends ShowStyle
-{ override def full: ShowStyle = ShowStandard
+case object ShowStd extends ShowStyle
+{ override def full: ShowStyle = ShowStd
 }
 
 /** Show the object in the standard default manner, with parameter names. */
