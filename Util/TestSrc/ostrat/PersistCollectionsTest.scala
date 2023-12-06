@@ -18,7 +18,7 @@ object PersistCollectionsTest  extends TestSuite
     
     test("List1")
     { l1.str ==> "Seq(-1; -2; -30)"
-      l1.strSemi ==> "-1; -2; -30"
+      l1.strSemi.enCurly ==> "-1; -2; -30".enCurly
       l1.strComma ==> l1Comma
       l1.strTyped ==> "Seq[Int](-1; -2; -30)"
       l2.strComma ==> l2Comma

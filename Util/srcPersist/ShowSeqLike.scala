@@ -24,10 +24,10 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
   final override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { val depth = syntaxDepth(obj)
     way match
-    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStd, maxPlaces, minPlaces)).mkComma
-      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
+    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStd, maxPlaces, minPlaces)).mkCommaSpaceSpecial
+      case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiSpaceSpecial
       case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
-      case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
+      case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiSpaceSpecial.enParenth
     }
   }
 }

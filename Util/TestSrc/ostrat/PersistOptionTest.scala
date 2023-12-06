@@ -16,6 +16,7 @@ object PersistOptionTest extends TestSuite
   case class Test2(t1: Test1, t2: Test1)
   
   val tests = Tests {
+    val noi: Option[Int] = None
     test("None")
     {
       None.str ==> "None"
@@ -24,7 +25,8 @@ object PersistOptionTest extends TestSuite
       None.show(ShowSemis).enCurly ==> " ".enCurly
       None.show(ShowCommas).enCurly ==> " ".enCurly
       None.show(ShowStd).enCurly ==> " ".enCurly
-      //List[Option[Int]](Some(4), None, Some(8), None).str ==> "Seq()"
+      noi.show(ShowCommas).enCurly ==> " ".enCurly
+      List[Option[Int]](Some(4), None, Some(8), None).str ==> "Seq(4; ; 8; ;)"
      // "".asType[None.type] ==> Good(None)
     }    
 

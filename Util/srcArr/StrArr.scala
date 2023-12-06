@@ -23,6 +23,24 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   /** Make with semicolons. Make 1 string, by appending with "; " separator from this collection of strings. */
   def mkSemi: String = mkStr("; ")
 
+  def mkSemiSpaceSpecial: String = mkSpaceSpecial(";")
+  def mkCommaSpaceSpecial: String = mkSpaceSpecial(",")
+
+  def mkSpaceSpecial(sep: String): String = length match{
+    case 0 => ""
+    case 1 => head
+    case n =>
+    { var acc = head
+      var i = 1
+      while(i < n)
+      { acc = acc + ife(apply(i) == " ", sep, sep + " ") + apply(i)
+        i += 1
+      }
+      if (last == " ") acc += sep
+      acc
+    }
+  }
+
   /** Make with commas. Make 1 string, by appending with ", " separator from this collection of strings. */
   def mkComma: String = mkStr(", ")
 
