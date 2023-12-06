@@ -11,13 +11,13 @@ trait TellN extends Any with Tell
   /** A [[StrArr]] Arr of the element type names of this Show Product class. */
   def elemTypeNames: StrArr
 
-  override def str: String = tell(ShowStd)
+  override def str: String = tell(ShowStdNoSpace)
 
   /** A [[StrArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
   def tellSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
-    paramNames.zipMap(tellElemStrs(ShowStd, maxPlaces, minPlaces))((n, s) => n + " = " + s).mkStr("; ")
+    paramNames.zipMap(tellElemStrs(ShowStdNoSpace, maxPlaces, minPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   {
@@ -30,7 +30,7 @@ trait TellN extends Any with Tell
       case ShowSemisNames => tellSemisNames(maxPlaces, minPlaces)
 
       case ShowStdTypedFields =>
-      { val inner = paramNames.zipMap2(elemTypeNames,tellElemStrs(ShowStd, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
+      { val inner = paramNames.zipMap2(elemTypeNames,tellElemStrs(ShowStdNoSpace, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
         typeStr + inner.enParenth
       }
 

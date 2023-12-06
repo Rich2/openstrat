@@ -30,8 +30,8 @@ trait Tell2[A1, A2] extends Any with Tell2Plused[A1, A2] with Persist2[A1, A2]
   override def tellElemStrs(way: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): StrArr = StrArr(
     show1.show(tell1, way, decimalPlaces, minPlaces), show2.show(tell2, way, decimalPlaces, minPlaces))
 
-  def el1Show(style: ShowStyle = ShowStd, maxPlaces: Int = -1): String = show1.show(tell1, style, maxPlaces, maxPlaces): String
-  def el2Show(style: ShowStyle = ShowStd, maxPlaces: Int = -1): String = show2.show(tell2, style, maxPlaces, maxPlaces): String
+  def el1Show(style: ShowStyle = ShowStdNoSpace, maxPlaces: Int = -1): String = show1.show(tell1, style, maxPlaces, maxPlaces): String
+  def el2Show(style: ShowStyle = ShowStdNoSpace, maxPlaces: Int = -1): String = show2.show(tell2, style, maxPlaces, maxPlaces): String
 
   override def tellDepth: Int = show1.syntaxDepth(tell1).max(show2.syntaxDepth(tell2)) + 1
 }
@@ -136,7 +136,7 @@ trait Tell2Repeat[A1, A2] extends Tell
 
   def show2: Show[A2]
 
-  def el1Show(style: ShowStyle = ShowStd, maxPlaces: Int = -1, minPlaces: Int = 0): String = show1.show(tell1, style, maxPlaces, minPlaces): String
+  def el1Show(style: ShowStyle = ShowStdNoSpace, maxPlaces: Int = -1, minPlaces: Int = 0): String = show1.show(tell1, style, maxPlaces, minPlaces): String
 
   //def el2Show(elem: A2, style: ShowStyle = ShowStandard, maxPlaces: Int = -1, minPlaces: Int = 0): String = show2.show(elem, style, maxPlaces, minPlaces): String
 
@@ -146,7 +146,7 @@ trait Tell2Repeat[A1, A2] extends Tell
   //def tellSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     //paramNames.zipMap(tellElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def str: String = tell(ShowStd)
+  override def str: String = tell(ShowStdNoSpace)
 
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = {
     def semisStr = tellElemStrs(ShowCommas, maxPlaces).mkStr("; ")

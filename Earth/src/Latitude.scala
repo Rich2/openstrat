@@ -12,9 +12,9 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
   def southern: Boolean = milliSecs < 0
 
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = -1): String = style match
-  { case ShowTyped => typeStr + degs.show(ShowStd, maxPlaces, 0).enParenth
+  { case ShowTyped => typeStr + degs.show(ShowStdNoSpace, maxPlaces, 0).enParenth
     case ShowUnderScore => "_"
-    case _ => degs.abs.show(ShowStd, maxPlaces, minPlaces) + ife(northern, "N", "S")
+    case _ => degs.abs.show(ShowStdNoSpace, maxPlaces, minPlaces) + ife(northern, "N", "S")
   }
 
   def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)

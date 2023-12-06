@@ -25,7 +25,7 @@ trait AngleLike extends Any with Tell with ApproxAngle with Dbl1Elem
   final override def tellDepth: Int = 1
 
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
-  override def str: String = tell(ShowStd, -1, 0)
+  override def str: String = tell(ShowStdNoSpace, -1, 0)
 }
 
 trait ApproxAngle extends Any with Approx[AngleVec]

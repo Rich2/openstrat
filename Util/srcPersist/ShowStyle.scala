@@ -6,20 +6,28 @@ sealed trait ShowStyle
 {
   def full: ShowStyle
 }
+/** Show the object just as its comma separated constituent values. */
+case object ShowCommasNoSpace extends ShowStyle
+{ override def full: ShowStyle = ShowStdNoSpace
+}
 
 /** Show the object just as its comma separated constituent values. */
 case object ShowCommas extends ShowStyle
-{ override def full: ShowStyle = ShowStd
+{ override def full: ShowStyle = ShowStdNoSpace
 }
 
 /** Show the object as semicolon separated constituent values. */
+case object ShowSemisNoSpace extends ShowStyle
+{ override def full: ShowStyle = ShowStdNoSpace
+}
+/** Show the object as semicolon separated constituent values. */
 case object ShowSemis extends ShowStyle
-{ override def full: ShowStyle = ShowStd
+{ override def full: ShowStyle = ShowStdNoSpace
 }
 
 /** Show the object in the standard default manner. */
-case object ShowStd extends ShowStyle
-{ override def full: ShowStyle = ShowStd
+case object ShowStdNoSpace extends ShowStyle
+{ override def full: ShowStyle = ShowStdNoSpace
 }
 
 /** Show the object in the standard default manner, with parameter names. */
@@ -43,8 +51,8 @@ case object ShowTyped extends ShowStyle
 }
 
 /** Represents the object with the minimum text to specify. */
-case object ShowMinimum extends ShowStyle
-{ override def full: ShowStyle = ShowUnderScore
+case object ShowStd extends ShowStyle
+{ override def full: ShowStyle = ShowStdNoSpace
 }
 
 /** Represents the object with an underscore. */

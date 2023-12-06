@@ -1,9 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
 /** An efficient immutable array of optional values mapped to a [[TGridSys]] tile grid. */
-trait TCenOptLayer[A <: AnyRef] extends Any
-{ type ThisT <: TCenOptLayer[A]
+trait LayerTcOpt[A <: AnyRef] extends Any
+{ type ThisT <: LayerTcOpt[A]
 
   def typeStr: String
   /** The underlying mutable backing [[Array]]. it is designated unsafe because it uses [[null]]s for run time efficiency. End users should rarely need to access this directly.  */
@@ -15,7 +15,7 @@ trait TCenOptLayer[A <: AnyRef] extends Any
   def foreach[U](noneValue: => U)(f: A => U): Unit = arrayUnsafe.foreach { a => if (a == null) noneValue else f(a) }
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
-   *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
+   *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[LayerTcOpt]] was created. */
   def mapArr[B, ArrT <: Arr[B]](noneValue: => B)(f: A => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     arrayUnsafe.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
@@ -34,7 +34,7 @@ trait TCenOptLayer[A <: AnyRef] extends Any
   }
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
-   *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
+   *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[LayerTcOpt]] was created. */
   def somesMapArr[B, ArrT <: Arr[B]](f: A => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     arrayUnsafe.foreach { a =>

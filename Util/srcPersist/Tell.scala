@@ -21,16 +21,16 @@ trait Tell extends Any with Persist
   def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String
 
   /** Show with decimal precision of 0 places. */
-  def str0: String = tell(ShowStd, 0, 0)
+  def str0: String = tell(ShowStdNoSpace, 0, 0)
 
   /** Show with decimal precision of 1 place padding with a zero if necessary. */
-  def str1: String = tell(ShowStd, 1, 1)
+  def str1: String = tell(ShowStdNoSpace, 1, 1)
 
   /** Show with decimal precision of 2 places padding with zeros if necessary. */
-  def str2: String = tell(ShowStd, 2, 2)
+  def str2: String = tell(ShowStdNoSpace, 2, 2)
 
   /** Show with decimal precision of 3 places padding with zeros if necessary. */
-  def str3: String = tell(ShowStd, 3, 3)
+  def str3: String = tell(ShowStdNoSpace, 3, 3)
 }
 
 /** A sub trait of the [[Show]] sub class where the type parameter extends [[Tell]]. This allows this [[Show]] type class to delegate to the [[Tell]]

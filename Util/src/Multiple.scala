@@ -63,13 +63,13 @@ object Multiple
   implicit def showEv[A](typeStr: String)(implicit evA: Show[A]): MultipleShow[A] = new MultipleShow[A](typeStr)(evA)
 
   class MultipleShow[A](val typeStr: String)(implicit val evA: Show[A]) extends Show[Multiple[A]]()
-  { override def strT(obj: Multiple[A]): String = show(obj, ShowStd)
+  { override def strT(obj: Multiple[A]): String = show(obj, ShowStdNoSpace)
     override def syntaxDepth(obj: Multiple[A]): Int = evA.syntaxDepth(obj.value)
 
     override def show(obj: Multiple[A], style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = style match
     { case ShowTyped | ShowStdTypedFields => showFullEv.show(obj, style, maxPlaces, minPlaces)
-      case _ if obj.num == 1 => evA.show(obj.value, ShowStd, maxPlaces, minPlaces)
-      case _ => evA.show(obj.value, ShowStd, maxPlaces, minPlaces) + " * " + obj.num
+      case _ if obj.num == 1 => evA.show(obj.value, ShowStdNoSpace, maxPlaces, minPlaces)
+      case _ => evA.show(obj.value, ShowStdNoSpace, maxPlaces, minPlaces) + " * " + obj.num
     }
   }
 

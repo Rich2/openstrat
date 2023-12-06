@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
-trait LayerHcOpt[A <: AnyRef] extends Any with TCenOptLayer[A]
+trait LayerHcOpt[A <: AnyRef] extends Any with LayerTcOpt[A]
 { type KeyT <: HCenStruct
 }
 

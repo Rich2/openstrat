@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag
 
 /** A layer of immutable optional [[SqCen]] data for a [[SqGridSys]] square grid system, This is specialised for OptRef[A]. The tileGrid can map the
  *  [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGridSys]] square grid system parameter. */
-class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with TCenOptLayer[A]
+class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerTcOpt[A]
 {override type ThisT = SqCenOptLayer[A]
   override def typeStr: String = "SqCenOptLayer"
 

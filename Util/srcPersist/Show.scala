@@ -86,7 +86,11 @@ object Show
     override def syntaxDepth(obj: Some[A]): Int = ev.syntaxDepth(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
 
-    override def show(obj: Some[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def show(obj: Some[A], style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
+    { case ShowTyped => "Some" + ev.show(obj.value, ShowStd)
+      case _ => ev.show(obj.value, style)
+
+    }
   }
 
   /** [[Show]] type class instance evidence for [[None.type]]. */
@@ -95,8 +99,9 @@ object Show
     override def strT(obj: None.type): String = "None"
     override def syntaxDepth(obj: None.type): Int = 1
 
-    override def show(obj: None.type, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match{
-      case ShowTyped => "None"
+    override def show(obj: None.type, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
+    { case ShowTyped => typeStr + "None".enParenth
+      case ShowStd | ShowSemis | ShowCommas => " "
       case _ => " "
     }
   }
@@ -108,5 +113,5 @@ object Show
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
 trait ShowCompound[A] extends Show[A]
-{ override def strT(obj: A): String = show(obj, ShowStd, -1, 0)
+{ override def strT(obj: A): String = show(obj, ShowStdNoSpace, -1, 0)
 }

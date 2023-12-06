@@ -24,7 +24,7 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
   final override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { val depth = syntaxDepth(obj)
     way match
-    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStd, maxPlaces, minPlaces)).mkComma
+    { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStdNoSpace, maxPlaces, minPlaces)).mkComma
       case ShowSemis if depth <= 3 => showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
       case ShowTyped => typeStr + evA.typeStr.enSquare + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
       case _ => typeStr + showMap(obj)(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
@@ -44,7 +44,7 @@ object ShowSeqLike
 
 trait TellSeqLike[A] extends Tell
 { /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
-  override def str: String = tell(ShowStd)
+  override def str: String = tell(ShowStdNoSpace)
   def evA: Show[A]
   override def tellDepth: Int =
   { var acc = 2
@@ -61,7 +61,7 @@ trait TellSeqLike[A] extends Tell
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = style match {
-    case ShowCommas if tellDepth <= 2 => tellMap(el => evA.show(el, ShowStd, maxPlaces, minPlaces)).mkComma
+    case ShowCommas if tellDepth <= 2 => tellMap(el => evA.show(el, ShowStdNoSpace, maxPlaces, minPlaces)).mkComma
     case ShowSemis if tellDepth <= 3 => tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemi
     case ShowTyped => typeStr + evA.typeStr.enSquare + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
     case _ => typeStr + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
