@@ -34,6 +34,7 @@ trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar] with PersistN
   override def paramFixedNames: StrArr = StrArr(name1)
 }
 
+/** [[Show]] type class instances / evidence for objects with 1 fixed component and a repeated parameter. */
 class Show1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, val fArgR: A => Arr[Ar],
   val opt1: Option[A1] = None)(implicit val showEv1: Show[A1], val showEvR: Show[Ar]) extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
 {
@@ -54,7 +55,7 @@ object Show1Repeat
     showEv1: Show[A1], showEvR: Show[Ar]) = new Show1Repeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArgR, opt1)
 }
 
-/** [[Unshow]] type class instances for 2 components where the final parameter repeats. */
+/** [[Unshow]] type class instances / evidence for objects with 1 fixed component and 1 repeat parameter. */
 class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Seq[Ar]) => A, val opt1: Option[A1] = None)(
   implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
 { /** The function to construct an object of type R from its 2 components." */

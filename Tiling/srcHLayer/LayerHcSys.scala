@@ -5,6 +5,7 @@ import geom._, reflect.ClassTag
 trait LayerHc[A <: AnyRef] extends Any
 { type KeyT <: HCenStruct
 
+  /** The backing [[Array]] for the data elements of [[HCen]] structure. */
   def unsafeArray: Array[A]
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
@@ -31,9 +32,11 @@ object LayerHcRow
     new LayerHcRow[A](row, array)
   }
 
+  /** Implicit [[Show]] type class instances / evidence for [[LayerHcRow]]. */
   implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1Repeat[Int, A, LayerHcRow[A]] =
-    Show1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", lhr => lhr.row, "values", lhr => new RArr(lhr.unsafeArray))
+    Show1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", _.row, "values", lhr => new RArr(lhr.unsafeArray))
 
+  /** Implicit [[Unahow]] type class instances / evidence for [[LayerHcRow]]. */
   implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRow[A]] =
     Unshow1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", "values",  (r, seq) => new LayerHcRow[A](r, seq.toArray))(Unshow.intSubset(_.isEven), evA)
 
