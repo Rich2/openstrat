@@ -29,6 +29,7 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   }
 }
 
+/** Companion object for [[Land]], contains factory apply method and type class instance for [[Show]], [[Unshow]] and [[EqT]], */
 object Land
 { /** Factory apply method for [[Land]] objects. */
   def apply(elev: Lelev = Level, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
@@ -41,5 +42,6 @@ object Land
   implicit lazy val unshowEv: Unshow[Land] = Unshow3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply,
     WTiles.landWords, Some(CivMix), Some(Temperate), Some(Level))
 
+  /** Implicit [[EqT]] type class instance / evidence for [[Land]]. */
   implicit val eqEv: EqT[Land] = (a1, a2) => a1.elev == a2.elev && a1.climate == a1.climate && a1.landUse == a2.landUse
 }

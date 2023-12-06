@@ -13,10 +13,9 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
   /** Maps over the respective [[HSide]] and [[Polygon]]s of the Some values, but does not use the value's themselves. */
   def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSide, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
-      apply(hs) match {
-        case
-          _: HSideSome => {
-          val poly = corners.sidePoly(hs).project(proj)
+      apply(hs) match
+      { case _: HSideSome =>
+        { val poly = corners.sidePoly(hs).project(proj)
           Some(f(hs, poly))
         }
         case _ => None

@@ -21,9 +21,6 @@ object WTile
     override def asType(obj: AnyRef): WTile = obj.asInstanceOf[WTile]
   }
 
-  /** This is not correct, but put in as temporary measure. */
-//  implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
-
   /** [[Show]] type class instance / evidence for [[WTile]]. */
   implicit val showTEv: ShowTellSum[WTile] = ShowTellSum[WTile]("WTile")
 
@@ -36,6 +33,7 @@ object WTile
   }
 }
 
+/** Object to provide short names for various [[WTile]] values. */
 object WTiles
 { val land: Land = Land(Level, Temperate, CivMix)
   val hilly: Land = Land(Hilly, Temperate, CivMix)
@@ -72,7 +70,7 @@ object WTiles
 }
 
 /** A common trait for Ocean and Lake. */
-trait Water extends WTile with WSideSome with TellSimple
+trait Water extends WTile with WSideSome
 { override def isLand: Boolean = false
 }
 
@@ -90,13 +88,13 @@ object Water
 
 /** Sea tile. This is an object as currently has no other variables such as depth, current or climate. */
 case object Sea extends Water
-{ override def str = "Sea"
+{ override def str: String = "Sea"
   override def colour: Colour = DarkBlue
 }
 
 /** Lake tile. This is an object as currently has no other variables such as depth, current or climate. */
 case object Lake extends Water
-{ override def str = "Lake"
+{ override def str: String = "Lake"
   override def colour: Colour = Blue
 }
 
