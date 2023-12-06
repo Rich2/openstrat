@@ -14,13 +14,13 @@ class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFla
   var scen: PeriScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
 
-  override def terrs: LayerHcSys[WTile] = scen.terrs
+  override def terrs: LayerHcRefSys[WTile] = scen.terrs
 
-  override def sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
+  override def sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
 
   override def corners: HCornerLayer = scen.corners
 
-  def armies: HCenOptLayer[Army] = scen.armies
+  def armies: LayerHcOptSys[Army] = scen.armies
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)

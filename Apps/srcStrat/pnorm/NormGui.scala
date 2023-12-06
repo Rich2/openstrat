@@ -5,7 +5,7 @@ import geom._, prid._, phex._, pgui._
 case class NormGui(canv: CanvasPlatform, scenIn: NormScen, viewIn: HGView) extends HGridSysGui("Normandy Gui") {
   var scen: NormScen = scenIn
   implicit val gridSys: HGridSys = scen.grid
-  val terrs: LayerHcSys[Tile] = scen.terrs
+  val terrs: LayerHcRefSys[Tile] = scen.terrs
   val corners: HCornerLayer = scen.corners
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)

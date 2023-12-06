@@ -8,10 +8,10 @@ trait WW2Scen extends HSysTurnScen
   def title: String = "WW2Scen"
   override def toString = title
   override implicit val gridSys: EGridSys
-  val terrs: LayerHcSys[WTile]
-  val sTerrs: HSideOptLayer[WSide, WSideSome]
+  val terrs: LayerHcRefSys[WTile]
+  val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  def armies: HCenOptLayer[Army]
+  def armies: LayerHcOptSys[Army]
 
   def endTurn(orderList: HCenStepPairArr[Army]): WW2Scen =
   {
@@ -22,15 +22,15 @@ trait WW2Scen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Army] = armies.copy
+    val armiesNew: LayerHcOptSys[Army] = armies.copy
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveUnsafe(stCenStep.startHC, hc2)) }
 
     new WW2Scen
     { override implicit val gridSys: EGridSys = ThisScen.gridSys
-      override val terrs: LayerHcSys[WTile] = ThisScen.terrs
-      override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
+      override val terrs: LayerHcRefSys[WTile] = ThisScen.terrs
+      override val sTerrs: LayerHSOptSys[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
-      override val armies: HCenOptLayer[Army] = armiesNew
+      override val armies: LayerHcOptSys[Army] = armiesNew
 
       override def turn: Int = ThisScen.turn + 1
     }
@@ -42,11 +42,11 @@ object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
 
   override implicit val gridSys: EGrid220LongMulti =  Scen220s0e1.gridSys
-  override val terrs: LayerHcSys[WTile] = Scen220s0e1.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen220s0e1.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Scen220s0e1.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen220s0e1.sTerrs
   override val corners: HCornerLayer = Scen220s0e1.corners
 
-  val armies: HCenOptLayer[Army] = HCenOptLayer()
+  val armies: LayerHcOptSys[Army] = LayerHcOptSys()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
   armies.setFSomesMut(Germany.armyNext, 162,522,  160,520)
@@ -59,8 +59,8 @@ object WW2Scen2 extends WW2Scen
 { override def turn: Int = 0
 
   override implicit val gridSys: EGrid220LongMulti = Scen220s0e1.gridSys
-  override val terrs: LayerHcSys[WTile] = Scen220s0e1.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen220s0e1.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Scen220s0e1.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen220s0e1.sTerrs
   override val corners: HCornerLayer = Scen220s0e1.corners
-  val armies: HCenOptLayer[Army] = HCenOptLayer()
+  val armies: LayerHcOptSys[Army] = LayerHcOptSys()
 }

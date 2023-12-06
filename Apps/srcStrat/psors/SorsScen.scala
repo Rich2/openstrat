@@ -4,8 +4,8 @@ import prid._, phex._, egrid._, eg220._
 
 trait SorsScen extends HSysTurnScen
 { def title: String = "DLessScen"
-  val terrs: LayerHcSys[WTile]
-  val sTerrs: HSideOptLayer[WSide, WSideSome]
+  val terrs: LayerHcRefSys[WTile]
+  val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
 }
 
@@ -23,7 +23,7 @@ object SorsScen1 extends SorsScen
    override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
   }
 
-  override val terrs: LayerHcSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

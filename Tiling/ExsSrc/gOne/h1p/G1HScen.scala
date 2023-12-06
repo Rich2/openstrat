@@ -7,7 +7,7 @@ trait G1HScen extends HSysTurnScen
 { override def title: String = "Game 1 hex Scen"
 
   /** An optional counter can occupy each tile. This is the only tile data in the game. */
-  def counters: HCenOptLayer[Counter]
+  def counters: LayerHcOptSys[Counter]
 
   def counterCens: HCenPairArr[Counter] = counters.somePairs
 
@@ -16,8 +16,8 @@ trait G1HScen extends HSysTurnScen
 
     /** Contains the resolution logic. The intentions are presumed to be correct. Combining and checking of intentions should be done before calling
      *  this method. */
-  def resolve(intensions: HCenOptStepLayer): HCenOptLayer[Counter] =
-  { val playersNew: HCenOptLayer[Counter] = counters.copy
+  def resolve(intensions: HCenOptStepLayer): LayerHcOptSys[Counter] =
+  { val playersNew: LayerHcOptSys[Counter] = counters.copy
     val acc: HCenAccLayer = intensions.mapAcc
     acc.foreach { (target, arr) => if (arr.length == 1 & counters.emptyTile(target)) playersNew.moveUnsafe(arr.head, target) }
     playersNew
@@ -27,9 +27,9 @@ trait G1HScen extends HSysTurnScen
 /** Companion object for [[G1HScen]], contains factory apply method. */
 object G1HScen
 { /** Factory apply method for [[G1HScen]] trait. */
-  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[Counter]): G1HScen = new G1HScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: LayerHcOptSys[Counter]): G1HScen = new G1HScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def counters: HCenOptLayer[Counter] = opIn
+    override def counters: LayerHcOptSys[Counter] = opIn
   }
 }

@@ -208,12 +208,12 @@ trait HGrid extends TGrid with HGridSys with Tell
   }
 
   /** Implementation incomplete. */
-  def rowCombine[A <: AnyRef](r: Int, layer: LayerHcSys[A], indexingGSys: HGridSys = this)(implicit ct2: ClassTag[A]): RPairArr[HCenRow, A] =
+  def rowCombine[A <: AnyRef](r: Int, layer: LayerHcRefSys[A], indexingGSys: HGridSys = this)(implicit ct2: ClassTag[A]): RPairArr[HCenRow, A] =
   { val buff: RPairBuff[HCenRow, A] = RPairBuff[HCenRow, A]()
     RPairArr.fromBuff(buff)
   }
 
-  override def rowsCombine[A <: AnyRef](layer: LayerHcSys[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
+  override def rowsCombine[A <: AnyRef](layer: LayerHcRefSys[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
   {
     allRsFlatMap[RArr[HCenRowPair[A]]]{ r =>
       if (cenRowEmpty(r)) RArr()

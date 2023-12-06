@@ -8,10 +8,10 @@ trait BCScen extends HSysTurnScen
 
   override def title: String = "BC305 scenario"
 
-  val terrs: LayerHcSys[WTile]
-  val sTerrs: HSideOptLayer[WSide, WSideSome]
+  val terrs: LayerHcRefSys[WTile]
+  val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  val armies: HCenOptLayer[Legion]
+  val armies: LayerHcOptSys[Legion]
 
   def endTurn(orderList: HCenStepPairArr[Legion]): BCScen =
   { val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
@@ -21,15 +21,15 @@ trait BCScen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, pair.a1) }
     }
 
-    val armiesNew: HCenOptLayer[Legion] = armies.copy
+    val armiesNew: LayerHcOptSys[Legion] = armies.copy
     targets.foreach { (hc2, buff) => buff.foreachLen1(stCenStep => if (armies.emptyTile(hc2)) armiesNew.moveUnsafe(stCenStep.startHC, hc2)) }
 
     new BCScen
     { override implicit def gridSys: HGridSys = ThisScen.gridSys
-      override val terrs: LayerHcSys[WTile] = ThisScen.terrs
-      override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
+      override val terrs: LayerHcRefSys[WTile] = ThisScen.terrs
+      override val sTerrs: LayerHSOptSys[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
-      override val armies: HCenOptLayer[Legion] = armiesNew
+      override val armies: LayerHcOptSys[Legion] = armiesNew
       override def turn: Int = ThisScen.turn + 1
     }
   }
@@ -39,10 +39,10 @@ trait BCScen extends HSysTurnScen
 object BCScen1 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongMulti = EGrid80.multi(2, 0, 418)
-  override val terrs: LayerHcSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override val armies: HCenOptLayer[Legion] = HCenOptLayer()
+  override val armies: LayerHcOptSys[Legion] = LayerHcOptSys()
   armies.setSomeMut(434,562, Rome.lg(1) )
   armies.setSomeMut(434,566, Rome.lg(2))
   armies.setSomeMut(418,1502, Sparta.lg(1))
@@ -51,8 +51,8 @@ object BCScen1 extends BCScen
 object BCScen2 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
-  override val terrs: LayerHcSys[WTile] = Terr80E0.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Terr80E0.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
-  override val armies: HCenOptLayer[Legion] = HCenOptLayer()
+  override val armies: LayerHcOptSys[Legion] = LayerHcOptSys()
 }

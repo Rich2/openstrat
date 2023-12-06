@@ -7,13 +7,13 @@ trait G2HScen extends HSysTurnScen
 { override def title: String = "Game 2 hex scenario"
 
   /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def counterStates: HCenOptLayer[CounterState]
+  def counterStates: LayerHcOptSys[CounterState]
 
   /** The [[Counter]]s in this scenario. */
   def counterSet: RArr[Counter] = counterStates.somesMap(cs => cs.counter)
 
-  /** Resolves the turn returning a new [[HCenOptLayer]] of [[CounterState]]s. */
-  def resolve(oldStates: HCenOptLayer[CounterState]): HCenOptLayer[CounterState] =
+  /** Resolves the turn returning a new [[LayerHcOptSys]] of [[CounterState]]s. */
+  def resolve(oldStates: LayerHcOptSys[CounterState]): LayerHcOptSys[CounterState] =
   { val acc: HCenAccPairLayer[CounterState] = HCenAccPairLayer()
     oldStates.somesHcForeach{ (ps, origin) =>
       val steps: HStepArr = ps.steps
@@ -41,9 +41,9 @@ trait G2HScen extends HSysTurnScen
 /** Companion object for [[G2HScen]] trait, contains factory apply method. */
 object G2HScen
 { /** Factory apply method for [[G2HScen]] trait. */
-  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[CounterState]): G2HScen = new G2HScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: LayerHcOptSys[CounterState]): G2HScen = new G2HScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def counterStates: HCenOptLayer[CounterState] = opIn
+    override def counterStates: LayerHcOptSys[CounterState] = opIn
   }
 }

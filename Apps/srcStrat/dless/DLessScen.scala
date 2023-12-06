@@ -7,8 +7,8 @@ trait DLessScen extends HSysTurnScen
 { ThisScen =>
   def title: String = "DLessScen"
   override implicit val gridSys: EGridSys
-  val terrs: LayerHcSys[WTile]
-  val sTerrs: HSideOptLayer[WSide, WSideSome]
+  val terrs: LayerHcRefSys[WTile]
+  val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
   val armies: HCenRArrLayer[Army]
   def nationSet: RArr[Nation]
@@ -26,8 +26,8 @@ trait DLessScen extends HSysTurnScen
 
     new DLessScen
     { override implicit val gridSys: EGridSys = ThisScen.gridSys
-      override val terrs: LayerHcSys[WTile] = ThisScen.terrs
-      override val sTerrs: HSideOptLayer[WSide, WSideSome] = ThisScen.sTerrs
+      override val terrs: LayerHcRefSys[WTile] = ThisScen.terrs
+      override val sTerrs: LayerHSOptSys[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
       override val armies: HCenRArrLayer[Army] = armiesNew
       override val nationSet = ThisScen.nationSet
@@ -43,8 +43,8 @@ object DLessScen1 extends DLessScen
 
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 124)
 
-  override val terrs: LayerHcSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   implicit val nationSet: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
 
@@ -62,7 +62,7 @@ object DLessScen1 extends DLessScen
     res
   }
 
-  val nationMap: LayerHcSys[NationOpt] = LayerHcSys[NationOpt](NationLess)
+  val nationMap: LayerHcRefSys[NationOpt] = LayerHcRefSys[NationOpt](NationLess)
   terrs.hcForeach{ (hc, terr) => if(terr.isLand) nationMap.set(hc, Neutral) }
   //nationMap.setRowPartSame(138, 510, 3, France)
 }
@@ -74,8 +74,8 @@ object DLessScen2 extends DLessScen
 
   override implicit val gridSys: EGrid320Long = BritReg320.britGrid
 
-  override val terrs: LayerHcSys[WTile] = BritReg320.britTerrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = BritReg320.britSTerrs
+  override val terrs: LayerHcRefSys[WTile] = BritReg320.britTerrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = BritReg320.britSTerrs
   override val corners: HCornerLayer = HCornerLayer()
   override val armies: HCenRArrLayer[Army] = HCenRArrLayer()
 

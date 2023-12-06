@@ -35,4 +35,5 @@ trait HSideOpt
 
 trait HSideNone extends HSideOpt
 
+/** This trait is purely to tag an object as a something. */
 trait HSideSome extends HSideOpt

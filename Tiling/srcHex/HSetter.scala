@@ -1,14 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** Helper trait for setting an [[LayerHcSys]], [[HSideLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
+/** Helper trait for setting an [[LayerHcRefSys]], [[HSideLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
  *  terrain to be laid out in systematic row order. */
 trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
   implicit def grid: HGrid
 
-  def terrs: LayerHcSys[TT]
+  def terrs: LayerHcRefSys[TT]
 
-  def sTerrs: HSideOptLayer[ST, SST]
+  def sTerrs: LayerHSOptSys[ST, SST]
 
   def corners: HCornerLayer
 

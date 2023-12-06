@@ -5,13 +5,13 @@ import prid.phex._
 trait NormScen
 { def title = "Normandy 1944"
   implicit val grid: HGrid
-  val terrs: LayerHcSys[Tile]
+  val terrs: LayerHcRefSys[Tile]
   val corners: HCornerLayer
 }
 
 object NormScen1 extends NormScen
 { override implicit val grid  = HGridReg(2, 12, 2, 40)
-  override val terrs = LayerHcSys[Tile](Sea)
+  override val terrs = LayerHcRefSys[Tile](Sea)
 
   terrs.set(6, 6, Island())
 //  terrs.set(6, 10, Head1Land(3))

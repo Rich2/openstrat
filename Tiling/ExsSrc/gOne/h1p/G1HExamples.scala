@@ -6,7 +6,7 @@ import prid._, phex._, gPlay._
 object G1HScen1 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = GSys.g1
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomeMut(4, 4, CounterA)
   counters.setSomesMut((4, 8, CounterB), (6, 10, CounterC))
 }
@@ -15,7 +15,7 @@ object G1HScen1 extends G1HScen
 object G1HScen2 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = GSys.g2
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomeMut(6, 38, CounterA)
   counters.setSomesMut((4, 40, CounterB), (6, 42, CounterC), (6, 50, CounterD), (10, 34, CounterE))
 }
@@ -24,7 +24,7 @@ object G1HScen2 extends G1HScen
 object G1HScen3 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridIrr = GSys.g3
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomesMut((4, 4, CounterA), (10, 6, CounterB), (8, 8, CounterC))
 }
 
@@ -32,7 +32,7 @@ object G1HScen3 extends G1HScen
 object G1HScen7 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr.fromTop(10, (6, 6), (4, 8), (2, 10), (4, 8), (6, 6))
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomesMut((4, 4, CounterA), (10, 6, CounterB), (8, 8, CounterC))
 }
 
@@ -40,7 +40,7 @@ object G1HScen7 extends G1HScen
 object G1HScen4 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomesMut((4, 4, CounterA), (8, 4, CounterB), (6, 6, CounterC))
 }
 
@@ -48,20 +48,20 @@ object G1HScen4 extends G1HScen
 object G1HScen8 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(4, 2, 4, 2)
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
 }
 
 /** 9th example Turn 0 scenario state for Game One. An empty irregular grid containing no hex tiles. */
 object G1HScen9 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr.fromTop(2)
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
 }
 
 /** 10th example Turn 0 scenario state for Game One. Uses an [[HGridIrr]] */
 object G1HScen10 extends G1HScen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr.fromTop(12, (4, 48), (6, 18), (8, 8), (2, 14), (4, 14), (6, 6))
-  val counters: HCenOptLayer[Counter] = HCenOptLayer()
+  val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomesMut((4, 4, CounterA), (10, 6, CounterB), (8, 8, CounterC))
 }

@@ -2,8 +2,8 @@
 package ostrat; package pCiv
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcSys]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcSys[VTile], val sTerrs: HSideOptLayer[VSide, VSideSome], val corners: HCornerLayer) extends
+/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
+abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSide, VSideSome], val corners: HCornerLayer) extends
 HSetter[VTile, VSide, VSideSome]
 { implicit val grid: HGrid = gridIn
 

@@ -6,7 +6,7 @@ import prid._, phex._, gPlay._
 object G2HScen1 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 16)
-  val counterStates: HCenOptLayer[CounterState] = HCenOptLayer()
+  val counterStates: LayerHcOptSys[CounterState] = LayerHcOptSys()
   counterStates.setSomeMut(6, 2, CounterState(CounterA, HexDR, HexDL))
   counterStates.setSomeMut(4, 16, CounterState(CounterD, HexDL, HexLt))
   counterStates.setSomesMut((4, 8, CounterState(CounterB, HexDR)), (6, 10, CounterState(CounterC, HexDL, HexDL)))
@@ -16,7 +16,7 @@ object G2HScen1 extends G2HScen
 object G2HScen2 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
-  val counterStates: HCenOptLayer[CounterState] = HCenOptLayer()
+  val counterStates: LayerHcOptSys[CounterState] = LayerHcOptSys()
   counterStates.setSomesMut((4, 4, CounterState(CounterA)), (8, 4, CounterState(CounterB)), (6, 6, CounterState(CounterC)))
 }
 
@@ -24,14 +24,14 @@ object G2HScen2 extends G2HScen
 object G2HScen3 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr.fromTop(10, (6, 6), (4, 8), (2, 10), (4, 8), (6, 6))
-  val counterStates: HCenOptLayer[CounterState] = HCenOptLayer()
+  val counterStates: LayerHcOptSys[CounterState] = LayerHcOptSys()
   counterStates.setSomesMut((4, 4, CounterState(CounterA)), (10, 6, CounterState(CounterB)), (8, 8, CounterState(CounterC)))
 }
 
 object G2HScen4 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 12, 2, 60)
-  val counterStates: HCenOptLayer[CounterState] = HCenOptLayer()
+  val counterStates: LayerHcOptSys[CounterState] = LayerHcOptSys()
   counterStates.setSomeMut(4, 4, CounterState(CounterA))
   counterStates.setSomesMut((4, 8, CounterState(CounterB)), (6, 10, CounterState(CounterC)), (8, 32, CounterState(CounterD)))
 }

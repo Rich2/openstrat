@@ -9,15 +9,15 @@ trait DiscScen extends EScenBasic with HSysTurnScen
 object DiscScen1 extends DiscScen
 { override def turn: Int = 0
   override implicit def gridSys =  Scen320All.gridSys// Terr320E0.grid
-  override val terrs: LayerHcSys[WTile] = Scen320All.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Scen320All.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Scen320All.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen320All.sTerrs
   override val corners: HCornerLayer = Scen320All.corners
 }
 
 object DiscScen2 extends DiscScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid320LongFull = Terr320E30.grid
-  override val terrs: LayerHcSys[WTile] = Terr320E30.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr320E30.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Terr320E30.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr320E30.sTerrs
   override val corners: HCornerLayer = Terr320E30.corners
 }

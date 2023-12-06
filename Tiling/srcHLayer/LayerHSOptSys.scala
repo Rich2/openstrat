@@ -2,8 +2,10 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
+trait LayerHsOpt
+
 /** Data layer for [[HSide]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
-class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
+class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
 { /** apply index method returns the data from this layer for the given [[HSide]]. */
   def apply(hs: HSide)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
 
@@ -48,22 +50,22 @@ class HSideOptLayer[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
       }
     }
 
-  /** Spawns a new [[HSideOptlLayer]] data layer for the child [[HGridSys]] from this [[HSideOptLayer]]. */
-  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HSideOptLayer[A, SA] =
+  /** Spawns a new [[HSideOptlLayer]] data layer for the child [[HGridSys]] from this [[LayerHSOptSys]]. */
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
   { val array: Array[A] = new Array[A](childGridSys.numSides)
     childGridSys.sidesForeach { sc => array(childGridSys.sideLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
-    new HSideOptLayer[A, SA](array)
+    new LayerHSOptSys[A, SA](array)
   }
 }
 
-object HSideOptLayer
+object LayerHSOptSys
 {
-  def apply[A, SA <: HSideSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): HSideOptLayer[A, SA] =
+  def apply[A, SA <: HSideSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): LayerHSOptSys[A, SA] =
     apply[A, SA](gridSys, defaultValue)(ct)
 
-  def apply[A, SA <: HSideSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): HSideOptLayer[A, SA] =
+  def apply[A, SA <: HSideSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
   { val newArray = new Array[A](gridSys.numSides)
     iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
-    new HSideOptLayer[A, SA](newArray)
+    new LayerHSOptSys[A, SA](newArray)
   }
 }

@@ -4,8 +4,8 @@ import prid._, phex._, egrid._, WTiles._
 
 object Terr160W30 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.w30(276)
-  override val terrs: LayerHcSys[WTile] = LayerHcSys[WTile](sea)
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = HSideOptLayer[WSide, WSideSome]()
+  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)

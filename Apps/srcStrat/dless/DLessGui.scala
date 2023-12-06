@@ -6,8 +6,8 @@ import geom._, prid._, phex._, pgui._, egrid._
 class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLessSettings) extends EGridBaseGui("Diceless Gui")
 { var scen: DLessScen = game.scen
   override implicit val gridSys: EGridSys = scen.gridSys
-  val terrs: LayerHcSys[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
+  val terrs: LayerHcRefSys[WTile] = scen.terrs
+  val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   def armies: HCenRArrLayer[Army] = scen.armies
 

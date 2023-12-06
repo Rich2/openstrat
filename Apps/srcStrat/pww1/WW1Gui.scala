@@ -6,11 +6,11 @@ import geom._, prid._, phex._, pgui._, egrid._
 case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("WW1 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs: LayerHcSys[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
+  val terrs: LayerHcRefSys[WTile] = scen.terrs
+  val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
 
-  def lunits: HCenOptLayer[Lunit] = scen.lunits
+  def lunits: LayerHcOptSys[Lunit] = scen.lunits
   def NoMoves: HCenStepPairArr[Lunit] = HCenStepPairArr[Lunit]()
   var moves: HCenStepPairArr[Lunit] = NoMoves
 

@@ -4,7 +4,7 @@ import prid.phex._, egrid._, util.Random
 
 /** A scenario state for Periculo Fundatusa a sequential turn game at a 1300km scale. */
 trait PeriScen extends PeriScenBase
-{ val armies: HCenOptLayer[Army]
+{ val armies: LayerHcOptSys[Army]
   val rand: Random = new Random
 
   /** Invade and move. */
@@ -14,7 +14,7 @@ trait PeriScen extends PeriScenBase
       case _ => None
     }
     val def1: Option[Army] = armies(target)
-    val optArmies: Option[HCenOptLayer[Army]] = att1.flatMap{at => def1.map{ df =>
+    val optArmies: Option[LayerHcOptSys[Army]] = att1.flatMap{at => def1.map{ df =>
         val ar = rand.nextInt(10)
         val dr = rand.nextInt(10)
         val res = armies.copy
@@ -36,13 +36,13 @@ trait PeriScen extends PeriScenBase
 
 object PeriScen
 {
-  def apply(gSysIn: EGridSys, terrsIn: LayerHcSys[WTile], sTerrsIn: HSideOptLayer[WSide, WSideSome], cornersIn: HCornerLayer,
-    armiesIn: HCenOptLayer[Army]): PeriScen = new PeriScen
+  def apply(gSysIn: EGridSys, terrsIn: LayerHcRefSys[WTile], sTerrsIn: LayerHSOptSys[WSide, WSideSome], cornersIn: HCornerLayer,
+    armiesIn: LayerHcOptSys[Army]): PeriScen = new PeriScen
     { override implicit val gridSys: EGridSys = gSysIn
-      override val terrs: LayerHcSys[WTile] = terrsIn
-      override val sTerrs: HSideOptLayer[WSide, WSideSome] = sTerrsIn
+      override val terrs: LayerHcRefSys[WTile] = terrsIn
+      override val sTerrs: LayerHSOptSys[WSide, WSideSome] = sTerrsIn
       override val corners: HCornerLayer = cornersIn
-      override val armies: HCenOptLayer[Army] = armiesIn
+      override val armies: LayerHcOptSys[Army] = armiesIn
     }
 
   def init(inp: PeriScenStart): PeriScen =
@@ -55,7 +55,7 @@ object PeriScen
         case _ => None
       }
     }
-    val res: HCenOptLayer[Army] = HCenOptLayer[Army]()
+    val res: LayerHcOptSys[Army] = LayerHcOptSys[Army]()
     val len = lands.length
     val rand: Random = new Random
     iToForeach(len - 1, 0, -1){i =>

@@ -10,7 +10,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  def counterStates: HCenOptLayer[CounterState] = scen.counterStates
+  def counterStates: LayerHcOptSys[CounterState] = scen.counterStates
   val counterSet = settings.counterSet
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
@@ -18,7 +18,7 @@ case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */
-  var moves: HCenOptLayer[CounterState] = counterStates.copy
+  var moves: LayerHcOptSys[CounterState] = counterStates.copy
 
   def frame: GraphicElems =
   {

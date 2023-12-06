@@ -110,7 +110,7 @@ trait HGridSys extends HCenStruct with TGridSys
   def cornerLayerArrayIndex(hc: HCen, vertIndex: Int): Int = layerArrayIndex(hc) * 6 + vertIndex
 
   /** For each row combine data layer into RArr[HCenRowPair]. May be superceded */
-  def rowsCombine[A <: AnyRef](layer: LayerHcSys[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
+  def rowsCombine[A <: AnyRef](layer: LayerHcRefSys[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
 
   /** Returns a clockwise sequence of adjacent tiles. */
   def adjTilesOfTile(origR: Int, origC: Int): HCenArr

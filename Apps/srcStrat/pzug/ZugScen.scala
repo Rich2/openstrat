@@ -9,7 +9,7 @@ trait ZugScen extends HSysTurnScen
   override def title: String = "Zugfuhrer scenario"
 
   /** tile terrain. */
-  val terrs: LayerHcSys[ZugTerr]
+  val terrs: LayerHcRefSys[ZugTerr]
 
   val sTerrs: HSideBoolLayer
   val corners: HCornerLayer
@@ -18,7 +18,7 @@ trait ZugScen extends HSysTurnScen
 
   def endTurn(): ZugScen = new ZugScen
   {
-    override val terrs: LayerHcSys[ZugTerr] = origSelf.terrs
+    override val terrs: LayerHcRefSys[ZugTerr] = origSelf.terrs
     override val sTerrs: HSideBoolLayer = origSelf.sTerrs
     override val corners: HCornerLayer = origSelf.corners
     override val lunits: HCenRArrLayer[Squad] = origSelf.lunits
@@ -39,7 +39,7 @@ trait ZugScenStart extends ZugScen
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 14, 2, 48)
-  val terrs: LayerHcSys[ZugTerr] = LayerHcSys[ZugTerr](Plain)
+  val terrs: LayerHcRefSys[ZugTerr] = LayerHcRefSys[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues :_*)(gridSys)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
   cr(10, 2, WheatField * 2, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
@@ -82,7 +82,7 @@ object Zug1 extends ZugScenStart
 object Zug2 extends ZugScenStart
 {
   override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
-  val terrs = LayerHcSys[ZugTerr](Lake)
+  val terrs = LayerHcRefSys[ZugTerr](Lake)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues :_*)(gridSys)
   gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
   gs(8, 4 , Plain * 4, Lake * 2, Plain * 3 )
@@ -98,7 +98,7 @@ object Zug2 extends ZugScenStart
 /** ZugFuhrer scenario 3. */
 object Zug3 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
-  val terrs = LayerHcSys[ZugTerr](Plain)
+  val terrs = LayerHcRefSys[ZugTerr](Plain)
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = HCornerLayer()
 

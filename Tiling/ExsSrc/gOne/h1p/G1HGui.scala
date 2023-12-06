@@ -11,7 +11,7 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  def counters: HCenOptLayer[Counter] = scen.counters
+  def counters: LayerHcOptSys[Counter] = scen.counters
   def counterSet: RArr[Counter] = settings.counterSet
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
@@ -20,13 +20,13 @@ case class G1HGui(canv: CanvasPlatform, game: G1HGame, settings: G1HGuiSettings)
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenStepPairArr[Counter] = HCenStepPairArr[Counter]()
 
-  val noMoves2 = LayerHcSys[HStepLike](HStepStay)
+  val noMoves2 = LayerHcRefSys[HStepLike](HStepStay)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    * moves. This data is state for the Gui. */
   var moves: HCenStepPairArr[Counter] = NoMoves
 
-  var moves2: LayerHcSys[HStepLike] = noMoves2
+  var moves2: LayerHcRefSys[HStepLike] = noMoves2
 
   def frame: GraphicElems =
   {

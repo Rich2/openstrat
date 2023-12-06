@@ -103,14 +103,14 @@ trait EGridMulti extends EGridSys with HGridMulti
     res
   }
 
-  /** Spawns a new [[HSideOptLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
-  def sidesOptFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, HSideOptLayer[A, SA])])(implicit ct: ClassTag[A], noneTC: DefaultValue[A]):
-  HSideOptLayer[A, SA] =
-  { val res = HSideOptLayer[A, SA](this, noneTC)
+  /** Spawns a new [[LayerHSOptSys]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideOptLayer pairs. */
+  def sidesOptFromPairsSpawn[A, SA <: HSideSome](sidePairs: RArr[(HGrid, LayerHSOptSys[A, SA])])(implicit ct: ClassTag[A], noneTC: DefaultValue[A]):
+  LayerHSOptSys[A, SA] =
+  { val res = LayerHSOptSys[A, SA](this, noneTC)
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
-      val lay: HSideOptLayer[A, SA] = pair._2
+      val lay: LayerHSOptSys[A, SA] = pair._2
       m.sidesForeach { hs =>
         val value: A = lay(hs)(origGrid)
         res.set(ThisMulti, hs, value)
@@ -138,7 +138,7 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   override def flatHCoordToPt2(hCoord: HCoord): Pt2 = manMapex(hCoord){m => m.grid.flatHCoordToPt2(hCoord) + m.offset }
 
-  override def rowsCombine[A <: AnyRef](layer: LayerHcSys[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
+  override def rowsCombine[A <: AnyRef](layer: LayerHcRefSys[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def stepEndFind(startHC: HCen, step: HStep): Option[HCen] = manMapex(startHC)(_.findStepEnd(startHC, step))

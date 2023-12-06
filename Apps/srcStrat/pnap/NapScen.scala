@@ -5,18 +5,18 @@ import prid._, phex._, egrid._, eg80._
 trait NapScen extends EScenBasic with HSysTurnScen
 {
   override def title: String = "AD1783"
-  val corps: HCenOptLayer[Corps]
+  val corps: LayerHcOptSys[Corps]
 }
 
 object NapScen1 extends NapScen
 { override def turn: Int = 0
 
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
-  override val terrs: LayerHcSys[WTile] = Terr80E0.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Terr80E0.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
 
-  override val corps: HCenOptLayer[Corps] = HCenOptLayer()
+  override val corps: LayerHcOptSys[Corps] = LayerHcOptSys()
   corps.setSomeMut(464, 516, Corps(Britain))
   corps.setSomeMut(456, 516, Corps(France))
 }
@@ -25,9 +25,9 @@ object NapScen2 extends NapScen
 { override def turn: Int = 0
 
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
-  override val terrs: LayerHcSys[WTile] = Terr80E0.terrs
-  override val sTerrs: HSideOptLayer[WSide, WSideSome] = Terr80E0.sTerrs
+  override val terrs: LayerHcRefSys[WTile] = Terr80E0.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
 
-  override val corps: HCenOptLayer[Corps] = HCenOptLayer()
+  override val corps: LayerHcOptSys[Corps] = LayerHcOptSys()
 }

@@ -13,7 +13,7 @@ class G2HGame(scenIn: G2HScen, val guiCounters: RArr[Counter])
   /** Resolves turn. Takes in the directives from the single GUI player and sets the valid directives as intentions. The command is passed in as a
    *  relative move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real
    *  location. */
-  def resolveTurn(directives: HCenOptLayer[CounterState]): G2HScen =
+  def resolveTurn(directives: LayerHcOptSys[CounterState]): G2HScen =
   {
     val intentions = scen.counterStates.hcMap{(hc, currentState) => directives(hc) match
       { case Some(directiveState) if guiCounters.contains(currentState.counter) & directiveState.counter == currentState.counter => directiveState

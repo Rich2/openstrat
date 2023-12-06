@@ -5,7 +5,7 @@ import prid._, phex._, Colour._
 /** Example Game three scenario trait. */
 abstract class G4HScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
-  def terrs: LayerHcSys[Terr]
+  def terrs: LayerHcRefSys[Terr]
   def lunits: HCenRArrLayer[LunitState]
  // def lunits: HCenArrLayer[LunitState]
   //def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()

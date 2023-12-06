@@ -5,8 +5,8 @@ import geom._, prid._, phex._, pgui._, egrid._
 case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1492 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs: LayerHcSys[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide, WSideSome] = scen.sTerrs
+  val terrs: LayerHcRefSys[WTile] = scen.terrs
+  val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
   val corners = scen.corners
 
   focus = gridSys.cenVec

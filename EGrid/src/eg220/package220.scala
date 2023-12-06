@@ -8,12 +8,12 @@ package object eg220
   val fullTerrs: RArr[Long220Terrs] = RArr(Terr220E0, Terr220E30, null, null, null, null, null,
     null, null, Terr220W90, Terr220W60, null)
 
-  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid220LongMulti): LayerHcSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid220LongMulti): LayerHcRefSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine
 
-  def fullTerrsSideLayerSpawn(implicit subSys: EGrid220LongMulti): HSideOptLayer[WSide, WSideSome] =
+  def fullTerrsSideLayerSpawn(implicit subSys: EGrid220LongMulti): LayerHSOptSys[WSide, WSideSome] =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
       val ft = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)

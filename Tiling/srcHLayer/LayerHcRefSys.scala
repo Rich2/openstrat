@@ -2,7 +2,8 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
-trait LayerHc[A <: AnyRef] extends Any
+/** Refereence aata layer for [[HCen]] hex tile structure. */
+trait LayerHcRef[A <: AnyRef] extends Any
 { type KeyT <: HCenStruct
 
   /** The backing [[Array]] for the data elements of [[HCen]] structure. */
@@ -20,43 +21,44 @@ trait LayerHc[A <: AnyRef] extends Any
   def rc(key: KeyT, r: Int, c: Int): A = unsafeArray(key.layerArrayIndex(r, c))
 }
 
-class LayerHcRow[A <: AnyRef](val row: Int, val unsafeArray: Array[A]) extends LayerHc[A]
+/** Reference data layer for [[HCenRow]]. */
+class LayerHcRefRow[A <: AnyRef](val row: Int, val unsafeArray: Array[A]) extends LayerHcRef[A]
 { override type KeyT = HCenRow
 }
 
-object LayerHcRow
+object LayerHcRefRow
 {
-  def apply[A <: AnyRef](row: Int, elems: A*)(implicit ct: ClassTag[A]): LayerHcRow[A] =
+  def apply[A <: AnyRef](row: Int, elems: A*)(implicit ct: ClassTag[A]): LayerHcRefRow[A] =
   { val array = new Array[A](elems.length)
     elems.iForeach{(i, a) => array(i) = a }
-    new LayerHcRow[A](row, array)
+    new LayerHcRefRow[A](row, array)
   }
 
-  /** Implicit [[Show]] type class instances / evidence for [[LayerHcRow]]. */
-  implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1Repeat[Int, A, LayerHcRow[A]] =
-    Show1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", _.row, "values", lhr => new RArr(lhr.unsafeArray))
+  /** Implicit [[Show]] type class instances / evidence for [[LayerHcRefRow]]. */
+  implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1Repeat[Int, A, LayerHcRefRow[A]] =
+    Show1Repeat[Int, A, LayerHcRefRow[A]]("HRow", "row", _.row, "values", lhr => new RArr(lhr.unsafeArray))
 
-  /** Implicit [[Unahow]] type class instances / evidence for [[LayerHcRow]]. */
-  implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRow[A]] =
-    Unshow1Repeat[Int, A, LayerHcRow[A]]("HRow", "row", "values",  (r, seq) => new LayerHcRow[A](r, seq.toArray))(Unshow.intSubset(_.isEven), evA)
+  /** Implicit [[Unahow]] type class instances / evidence for [[LayerHcRefRow]]. */
+  implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRefRow[A]] =
+    Unshow1Repeat[Int, A, LayerHcRefRow[A]]("HRow", "row", "values",  (r, seq) => new LayerHcRefRow[A](r, seq.toArray))(Unshow.intSubset(_.isEven), evA)
 
-  implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRow[A]] = (lr1, lr2) => lr1.unsafeArray === lr2.unsafeArray
+  implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRefRow[A]] = (lr1, lr2) => lr1.unsafeArray === lr2.unsafeArray
 }
 
 
-/** An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
+/** Reference data layer for [[HGridSys]]. An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
-class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with LayerHc[A] with TCenLayer[A]
-{ override type ThisT = LayerHcSys[A]
+class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with LayerHcRef[A] with TCenLayer[A]
+{ override type ThisT = LayerHcRefSys[A]
   override type KeyT = HGridSys
   override def typeStr: String = "HCenLayer"
 
 
   def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
-  override def fromArray(array: Array[A]): LayerHcSys[A] = new LayerHcSys[A](array)
+  override def fromArray(array: Array[A]): LayerHcRefSys[A] = new LayerHcRefSys[A](array)
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = "Not implemented"
@@ -79,7 +81,7 @@ class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
   }
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
-   * [[Arr]] will be between 0 and the length of this [[LayerHcSys]]. */
+   * [[Arr]] will be between 0 and the length of this [[LayerHcRefSys]]. */
   def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: BuilderArrMap[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (i, hc) =>
@@ -225,16 +227,16 @@ class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
     proj.transPolygonHVOffset(poly1)
   }
 
-  /** Spawns a new [[LayerHcSys]] data layer from this [[LayerHcSys]]'s [[HGridSys]] to the child [[HGridSys]], passed as implicit parameter. There is a
+  /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]], passed as implicit parameter. There is a
    * name overload for this method that passes the child [[HGridSys]] explicitly. */
-  def spawn(parentGridSys: HGridSys)(implicit ct: ClassTag[A], childGridSys: HGridSys): LayerHcSys[A] = spawn(parentGridSys, childGridSys)(ct)
+  def spawn(parentGridSys: HGridSys)(implicit ct: ClassTag[A], childGridSys: HGridSys): LayerHcRefSys[A] = spawn(parentGridSys, childGridSys)(ct)
 
-  /** Spawns a new [[LayerHcSys]] data layer from this [[LayerHcSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
+  /** Spawns a new [[LayerHcRefSys]] data layer from this [[LayerHcRefSys]]'s [[HGridSys]] to the child [[HGridSys]]. There is a name overload for this method
    *  that passes the child [[HGridSys]] implicitly. */
-  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHcSys[A] =
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
   { val array: Array[A] = new Array[A](childGridSys.numTiles)
     childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(hc)(parentGridSys) }
-    new LayerHcSys[A](array)
+    new LayerHcRefSys[A](array)
   }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
@@ -297,7 +299,7 @@ class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
   def projLinksFlatMap[BB <: Arr[_]](proj: HSysProjection)(f: (HSide, A, A) => BB)(implicit build: BuilderArrFlat[BB]): BB =
     proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tileLtReg), apply(proj.parent, hs.tileRtReg)) }
 
-  /** Maps the sides to an immutable Array, using the data of this [[LayerHcSys]]. It takes two functions, one for the edges of the grid, that takes the
+  /** Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
   def projLinksLineOptMap[B, BB <: Arr[B]](f: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderArrMap[B, BB]): BB =
@@ -313,7 +315,7 @@ class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
       }
     }
 
-  /** Comment no correct, Maps the sides to an immutable Array, using the data of this [[LayerHcSys]]. It takes two functions, one for the edges of the grid, that takes the
+  /** Comment no correct, Maps the sides to an immutable Array, using the data of this [[LayerHcRefSys]]. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
   def projLinksHsLineOptMap[B, BB <: Arr[B]](f: (HSide, LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: BuilderArrMap[B, BB]): BB =
@@ -329,32 +331,32 @@ class LayerHcSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with Lay
       }
     }
 
-  def ++(operand: LayerHcSys[A])(implicit ct: ClassTag[A]): LayerHcSys[A] = {
+  def ++(operand: LayerHcRefSys[A])(implicit ct: ClassTag[A]): LayerHcRefSys[A] = {
     val newArray = Array.concat(unsafeArray, operand.unsafeArray)
-    new LayerHcSys[A](newArray)
+    new LayerHcRefSys[A](newArray)
   }
 }
 
-/** Companion object for [[LayerHcSys]], contains factory apply methods. */
-object LayerHcSys
-{ /** Apply factory method for [[LayerHcSys]]. */
-  def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGridSys): LayerHcSys[A] = apply(gridSys, value)(ct)
+/** Companion object for [[LayerHcRefSys]], contains factory apply methods. */
+object LayerHcRefSys
+{ /** Apply factory method for [[LayerHcRefSys]]. */
+  def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGridSys): LayerHcRefSys[A] = apply(gridSys, value)(ct)
 
-  /** Apply factory method for [[LayerHcSys]]. */
-  def apply[A <: AnyRef](gridSys: HGridSys, value: A)(implicit ct: ClassTag[A]): LayerHcSys[A] =
+  /** Apply factory method for [[LayerHcRefSys]]. */
+  def apply[A <: AnyRef](gridSys: HGridSys, value: A)(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
   { val newArray = new Array[A](gridSys.numTiles)
     iUntilForeach(gridSys.numTiles)(i => newArray(i) = value)
-    new LayerHcSys[A](newArray)
+    new LayerHcRefSys[A](newArray)
   }
 
-  implicit class RArrHCenLayerExtension[A <: AnyRef](val thisArr: RArr[LayerHcSys[A]])
+  implicit class RArrHCenLayerExtension[A <: AnyRef](val thisArr: RArr[LayerHcRefSys[A]])
   { /** Combines by appending the data grids to produce a single layer. */
-    def combine(implicit ct: ClassTag[A]): LayerHcSys[A] =
+    def combine(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
     { val newLen = thisArr.sumBy(_.length)
       val newArray = new Array[A](newLen)
       var i = 0
       thisArr.foreach{ar => ar.unsafeArray.copyToArray(newArray, i); i += ar.length}
-      new LayerHcSys[A](newArray)
+      new LayerHcRefSys[A](newArray)
     }
   }
 }

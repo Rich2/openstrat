@@ -7,7 +7,7 @@ object G1Scen1Test extends TestSuite
   val gs = os1.gridSys
   val g1: HGridReg = os1.gridSys
   val g1Str = "HGridReg(2; 6; 2; 10)"
-  val cs1: HCenOptLayer[Counter] = os1.counters
+  val cs1: LayerHcOptSys[Counter] = os1.counters
 
   val tests = Tests {
     test("os1") {

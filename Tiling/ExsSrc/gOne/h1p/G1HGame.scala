@@ -15,7 +15,7 @@ case class G1HGame(var scen: G1HScen, guiCounters: RArr[Counter])
       val oc: Option[Counter] = scen.counters(hcst.startHC)
       oc.foreach { ct => if (guiCounters.contains(ct)) intensions.setSome(hcst.startHC, hcst.step) }
     }
-    val countersNew: HCenOptLayer[Counter] = scen.resolve(intensions)
+    val countersNew: LayerHcOptSys[Counter] = scen.resolve(intensions)
     val newScen: G1HScen = G1HScen(scen.turn + 1, scen.gridSys, countersNew)
     scen = newScen
     history +%= scen
