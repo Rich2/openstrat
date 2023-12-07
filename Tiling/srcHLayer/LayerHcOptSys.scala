@@ -15,11 +15,19 @@ class LayerHcOptRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extend
 
 object LayerHcOptRow
 {
-  def apply[A <: AnyRef](row: Int, elems: A*)(implicit ct: ClassTag[A]): LayerHcOptRow[A] =
-  { val array = new Array[A](elems.length)
-    elems.iForeach { (i, a) => array(i) = a }
+  def apply[A <: AnyRef](row: Int, elems: Multiple[A | None.type ]*)(implicit ct: ClassTag[A]): LayerHcOptRow[A] =
+  { val array = new Array[A](elems.numSingles)
+    var i = 0
+    elems.foreach { m => m.foreach{ a =>
+        if (a.isInstanceOf[None.type]) array(i) = null.asInstanceOf[A]
+        else array(i) = a.asInstanceOf[A]
+        i += 1
+      }
+    }
     new LayerHcOptRow[A](row, array)
   }
+
+  //def showEv[A <: AnyRef](implicit evA: Show[A]) = Show1Repeat[Int, A, LayerHcOptRow[A]]("LayerHcOptRow", "row", _.row, "values", RArr(_.arrayUnsafe))
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
