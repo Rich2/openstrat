@@ -6,6 +6,7 @@ trait LayerHcOpt[A <: AnyRef] extends Any with LayerTcOpt[A]
 { type KeyT <: HCenStruct
 }
 
+/** [[HCen]] layer for a hex row. */
 class LayerHcOptRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extends LayerHcOpt[A]
 { type ThisT = LayerHcOptSys[A]
   override type KeyT = HCenRow
