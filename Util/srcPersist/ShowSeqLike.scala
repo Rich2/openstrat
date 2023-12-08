@@ -2,26 +2,28 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Base traits for all sequence like classes including not only [[SeqLike]]s but also standard library collections like [[Iterable]] and
- * [[Array]]. */
-trait ShowSeqLike[A, R] extends ShowCompound[R]
-{ def evA: Show[A]
+/** Base traits for all [[Show]] type classs instances for sequence like objectss including not only [[SeqLike]]s but also standard library
+ *  collections like [[Iterable]] and [[Array]]s. */
+trait ShowSeqLike[Ae, A] extends ShowCompound[A]
+{ def evA: Show[Ae]
 
-  def showForeach(obj: R, f: A => Unit): Unit
+  /** Foreach's all the elements of the sequence like object that is being shown. */
+  def showForeach(obj: A, f: Ae => Unit): Unit
 
-  final def showMap(obj: R)(f: A => String): StrArr =
+  /** Maps over all the elements of the sequence like object that is being shown. */
+  final def showMap(obj: A)(f: Ae => String): StrArr =
   { val buffer: ArrayBuffer[String] = Buffer[String]()
     showForeach(obj, a => buffer.append(f(a)))
     new StrArr(buffer.toArray)
   }
 
-  override def syntaxDepth(obj: R): Int =
+  override def syntaxDepth(obj: A): Int =
   { var acc = 2
     showForeach(obj, a => acc = acc.max(evA.syntaxDepth(a) + 1))
     acc
   }
 
-  final override def show(obj: R, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
+  final override def show(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { val depth = syntaxDepth(obj)
     way match
     { case ShowCommas if depth <= 2 => showMap(obj)(el => evA.show(el, ShowStd, maxPlaces, minPlaces)).mkCommaSpaceSpecial
@@ -34,26 +36,31 @@ trait ShowSeqLike[A, R] extends ShowCompound[R]
 
 object ShowSeqLike
 {
-  def apply[A, R](typeStr: String, fForeach: (R, A => Unit) => Unit)(implicit evA: Show[A]): ShowSeqLike[A, R] =
-    new ShowSeqLikeImp[A, R](typeStr, fForeach)(evA)
+  def apply[Ae, A](typeStr: String, fForeach: (A, Ae => Unit) => Unit)(implicit evA: Show[Ae]): ShowSeqLike[Ae, A] =
+    new ShowSeqLikeImp[Ae, A](typeStr, fForeach)(evA)
 
-  class ShowSeqLikeImp[A, R](val typeStr: String, fForeach: (R, A => Unit) => Unit)(implicit val evA: Show[A]) extends ShowSeqLike[A, R]
-  { override def showForeach(obj: R, f: A => Unit): Unit = fForeach(obj, f)
+  class ShowSeqLikeImp[Ae, A](val typeStr: String, fForeach: (A, Ae => Unit) => Unit)(implicit val evA: Show[Ae]) extends ShowSeqLike[Ae, A]
+  { override def showForeach(obj: A, f: Ae => Unit): Unit = fForeach(obj, f)
   }
 }
 
-trait TellSeqLike[A] extends Tell
-{ /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
+/** [[Tell]] trait for seequence like objects. The type parameter is named Ae, to correpond to the Ae type class in the corresponding [[Show]] and
+ * [[Unshow]] type class instances for the type of this object. */
+trait TellSeqLike[Ae] extends Tell
+{ /** The most basic Show method, paralleling the show method on [[Show]] type class instances. */
   override def str: String = tell(ShowStdNoSpace)
-  def evA: Show[A]
+
+  /** Show type class instance for the elements of this class. */
+  def evA: Show[Ae]
+
   override def tellDepth: Int =
   { var acc = 2
     tellForeach(a => acc = acc.max(evA.syntaxDepth(a) + 1))
     acc
   }
-  def tellForeach(f: A => Unit): Unit
+  def tellForeach(f: Ae => Unit): Unit
 
-  final def tellMap(f: A => String): StrArr =
+  final def tellMap(f: Ae => String): StrArr =
   { val buffer: ArrayBuffer[String] = Buffer[String]()
     tellForeach(a => buffer.append(f(a)))
     new StrArr(buffer.toArray)
@@ -69,16 +76,16 @@ trait TellSeqLike[A] extends Tell
 
 }
 
-/** [[Show] type class for showing [[Sequ]][A] objects. */
-trait ShowSeqSpec[A, R <: SeqSpec[A]] extends ShowSeq[A, R]
-{ override def showForeach(obj: R, f: A => Unit): Unit = obj.ssForeach(f)
+/** [[Show]] type class for showing [[Sequ]][Ae] objects. */
+trait ShowSeqSpec[Ae, A <: SeqSpec[Ae]] extends ShowSeq[Ae, A]
+{ override def showForeach(obj: A, f: Ae => Unit): Unit = obj.ssForeach(f)
   override def toString: String = "Show" + typeStr
 }
 
 object ShowSeqSpec
-{
-  def apply[A, R <: SeqSpec[A]](typeStrIn: String)(implicit evAIn: Show[A]): ShowSeqSpec[A, R] = new ShowSeqSpec[A, R]
+{ /** Factory apply method for constructing [[ShowSeqSpec]] type class instances. */
+  def apply[Ae, A <: SeqSpec[Ae]](typeStrIn: String)(implicit evAIn: Show[Ae]): ShowSeqSpec[Ae, A] = new ShowSeqSpec[Ae, A]
   { override val typeStr: String = typeStrIn
-    override val evA: Show[A] = evAIn
+    override val evA: Show[Ae] = evAIn
   }
 }
