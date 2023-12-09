@@ -35,24 +35,35 @@ trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar] with PersistN
 }
 
 /** [[Show]] type class instances / evidence for objects with 1 fixed component and a repeated parameter. */
-class Show1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, val fArgR: A => Arr[Ar],
-  val opt1: Option[A1] = None)(implicit val showEv1: Show[A1], val showEvR: Show[Ar]) extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
+trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
 {
   override def fixedfieldShows: RArr[Show[_]] = RArr(showEv1)
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
-  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = opt1 match
-  { case Some(a1) if fArgR(obj).empty && a1 == fArg1(obj) => StrArr()
-    case _ => show1(obj, way, maxPlaces, minPlaces) %: showR(obj, way, maxPlaces, minPlaces)
+  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = {
+    val strs1 = showR(obj, way, maxPlaces, minPlaces)
+    opt1 match
+  { case Some(a1) if strs1.empty && a1 == fArg1(obj) => StrArr()
+    case _ => show1(obj, way, maxPlaces, minPlaces) %: strs1
+  }
   }
 
-  override def syntaxDepth(obj: A): Int = fArgR(obj).foldLeft(showEv1.syntaxDepth(fArg1(obj))){(acc, ar) => acc.max(showEvR.syntaxDepth(ar)) }
+  override def syntaxDepth(obj: A): Int =
+  { var acc = 2
+    showForeach(obj, a => acc = acc.max(showEvR.syntaxDepth(a) + 1))
+    acc
+  }
 }
 
-object Show1Repeat
+class Show1ArrayRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, fArrayR: A => Array[Ar],
+  val opt1: Option[A1] = None)(implicit val showEv1: Show[A1], val showEvR: Show[Ar]) extends Show1Repeat[A1, Ar, A]
+{ override def showForeach(obj: A, f: Ar => Unit): Unit = fArrayR(obj).foreach(f)
+}
+
+object Show1ArrayRepeat
 {
-  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArgR: A => Arr[Ar], opt1: Option[A1] = None)(implicit
-    showEv1: Show[A1], showEvR: Show[Ar]) = new Show1Repeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArgR, opt1)
+  def apply[A1, Ar, A](typeStr: String, name1: String, fArg1: A => A1, repeatName: String, fArrayR: A => Array[Ar], opt1: Option[A1] = None)(implicit
+    showEv1: Show[A1], showEvR: Show[Ar]) = new Show1ArrayRepeat[A1, Ar, A](typeStr, name1, fArg1, repeatName, fArrayR, opt1)
 }
 
 /** [[Unshow]] type class instances / evidence for objects with 1 fixed component and 1 repeat parameter. */

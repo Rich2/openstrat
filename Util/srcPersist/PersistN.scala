@@ -2,6 +2,8 @@
 package ostrat
 import pParse._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** Base trait for [[TellN]], [[ShowN]] and [[UnshowN]] which share the paramNames property. */
 trait PersistN extends Any with Persist
 { /** Sequence of the names of parameter constituents of this class. */
@@ -110,14 +112,24 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
   def fixedfieldShows: RArr[Show[_]]
 
   /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
-  def fArgR: A => Arr[Ar]
+  //def fArgR: A => Arr[Ar]
+
+  /** Foreach's all the elements of the sequence like object that is being shown. */
+  def showForeach(obj: A, f: Ar => Unit): Unit
+
+  /** Maps over all the elements of the sequence like object that is being shown. */
+  final def showMap(obj: A)(f: Ar => String): StrArr = {
+    val buffer: ArrayBuffer[String] = Buffer[String]()
+    showForeach(obj, a => buffer.append(f(a)))
+    new StrArr(buffer.toArray)
+  }
 
   /** Show type class instance for the 2nd Show field. */
   implicit def showEvR: Show[Ar]
 
   /** Shows parameter 2 of the object. */
   def showR(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
-    fArgR(obj).map { ar => showEvR.show(ar, way, maxPlaces, minPlaces) }
+    showMap(obj){ ar => showEvR.show(ar, way, maxPlaces, minPlaces) }
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr

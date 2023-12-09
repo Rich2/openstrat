@@ -36,7 +36,7 @@ object LayerHcRefRow
 
   /** Implicit [[Show]] type class instances / evidence for [[LayerHcRefRow]]. */
   implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1Repeat[Int, A, LayerHcRefRow[A]] =
-    Show1Repeat[Int, A, LayerHcRefRow[A]]("HRow", "row", _.row, "values", lhr => new RArr(lhr.unsafeArray))
+    Show1ArrayRepeat[Int, A, LayerHcRefRow[A]]("HRow", "row", _.row, "values", lhr => lhr.unsafeArray)
 
   /** Implicit [[Unahow]] type class instances / evidence for [[LayerHcRefRow]]. */
   implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRefRow[A]] =
