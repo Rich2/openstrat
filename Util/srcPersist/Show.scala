@@ -109,6 +109,22 @@ object Show
   /** [[Show]] type class instance evidence for [[Option]]. */
   implicit def optionEv[A](implicit evA: Show[A]): Show[Option[A]] =
     ShowSum2[Option[A], Some[A], None.type]("Opt", someEv[A](evA), noneEv)
+
+  def nullOptionEv[A](implicit evA: Show[A]): Show[A] = new Show[A]
+  { override def typeStr: String = "Option"
+
+    override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = if (obj == null)
+      someEv(evA).show(Some(obj), style, maxPlaces, minPlaces)
+    else noneEv.show(None, style, maxPlaces, minPlaces)
+
+    override def strT(obj: A): String = ???
+
+
+    override def syntaxDepth(obj: A): Int = ife(obj == null, 1, evA.syntaxDepth(obj))
+
+
+
+  }
 }
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
