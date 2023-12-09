@@ -30,6 +30,7 @@ object Terr640W90 extends Long640Terrs
       VRow(109, BendOut(9724, HVUR), BendOut(9726, HVUp), Mouth(9720, HVUR)),
       TRow(108, jungle, Cape(0, 1, jungle), sea, Isle(hillyJungle)),
       TRow(106, sea, Cape(3, 2, Hilly, Savannah, Forest, Sea), Land(Hilly, Savannah, Forest)),
+      VRow(105, BendOut(9738, HVUp)),
       TRow(104, sea * 3, Cape(4, 1, hillyJungle), Cape(0, 1, hillyJungle))
     )
   }

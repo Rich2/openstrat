@@ -14,7 +14,7 @@ object Scen640S0E1 extends EScenLongMulti
 /** Scenario for 3 640km grid system for 90E, 120E and 150E */
 object Scen640ChinaJapan extends EScenLongMulti
 { override val title: String = "640km 90E - 150E"
-  implicit override val gridSys: EGrid640LongMulti = EGrid640.multi(3, 3, 104)
+  implicit override val gridSys: EGrid640LongMulti = EGrid640.multi(3, 3, 100)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -23,7 +23,7 @@ object Scen640ChinaJapan extends EScenLongMulti
 /** Scenario for 4 640km grid system for 30W 0E, 30E and 60E. */
 object Scen640S11E2 extends EScenLongMulti
 { override val title: String = "640km 30W - 60E"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 11, 102)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 11, 100)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -32,7 +32,7 @@ object Scen640S11E2 extends EScenLongMulti
 /** Scenario for 8 Grid system from 60W to 150E. */
 object Scen640S10E5 extends EScenLongMulti
 { override val title: String = "640km 60W - 150E"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(8, 10, 124)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(8, 10, 102)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
