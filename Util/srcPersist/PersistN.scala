@@ -105,21 +105,17 @@ trait PersistNRepeat[AR] extends Any with PersistN
   override def paramNames: StrArr = paramFixedNames +% repeatName
 }
 
-
 /** The base trait for the persistence of algebraic product types, including case classes where the last parameter repeats.. */
 trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
 {
   def fixedfieldShows: RArr[Show[_]]
 
-  /** Gets the 2nd show field from the object. The Show fields do not necessarily correspond to the fields in memory. */
-  //def fArgR: A => Arr[Ar]
-
   /** Foreach's all the elements of the sequence like object that is being shown. */
   def showForeach(obj: A, f: Ar => Unit): Unit
 
   /** Maps over all the elements of the sequence like object that is being shown. */
-  final def showMap(obj: A)(f: Ar => String): StrArr = {
-    val buffer: ArrayBuffer[String] = Buffer[String]()
+  final def showMap(obj: A)(f: Ar => String): StrArr =
+  { val buffer: ArrayBuffer[String] = Buffer[String]()
     showForeach(obj, a => buffer.append(f(a)))
     new StrArr(buffer.toArray)
   }

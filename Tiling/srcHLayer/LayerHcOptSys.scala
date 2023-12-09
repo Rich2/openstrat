@@ -27,7 +27,7 @@ object LayerHcOptRow
     new LayerHcOptRow[A](row, array)
   }
 
-  //def showEv[A <: AnyRef](implicit evA: Show[A]) = Show1Repeat[Int, A, LayerHcOptRow[A]]("LayerHcOptRow", "row", _.row, "values", RArr(_.arrayUnsafe))
+  //def showEv[A <: AnyRef](implicit evA: Show[A]) = Show1ArrayRepeat[Int, Option[A], LayerHcOptRow[A]]("LayerHcOptRow", "row", _.row, "values", RArr(_.arrayUnsafe))()
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
