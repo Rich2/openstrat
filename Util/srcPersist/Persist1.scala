@@ -16,10 +16,10 @@ trait Show1Plus[A1, A] extends Persist1Plus[A1]
   def fArg1: A => A1
 
   /** Show type class instance for the 1st Show field. */
-  implicit def showEv1: Show[A1]
+  implicit def show1Ev: Show[A1]
 
   /** Shows parameter 1 of the object. */
-  def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv1.show(fArg1(obj), way, maxPlaces, minPlaces)
+  def show1(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = show1Ev.show(fArg1(obj), way, maxPlaces, minPlaces)
 }
 
 trait Show1PlusFixed[A1, A] extends ShowNFixed[A] with Show1Plus[A1, A]
@@ -37,7 +37,7 @@ trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar] with PersistN
 /** [[Show]] type class instances / evidence for objects with 1 fixed component and a repeated parameter. */
 trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
 {
-  override def fixedfieldShows: RArr[Show[_]] = RArr(showEv1)
+  override def fixedfieldShows: RArr[Show[_]] = RArr(show1Ev)
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = {
@@ -56,7 +56,7 @@ trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Rep
 }
 
 class Show1ArrayRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, fArrayR: A => Array[Ar],
-  val opt1: Option[A1] = None)(implicit val showEv1: Show[A1], val showEvR: Show[Ar]) extends Show1Repeat[A1, Ar, A]
+  val opt1: Option[A1] = None)(implicit val show1Ev: Show[A1], val showEvR: Show[Ar]) extends Show1Repeat[A1, Ar, A]
 { override def showForeach(obj: A, f: Ar => Unit): Unit = fArrayR(obj).foreach(f)
 }
 

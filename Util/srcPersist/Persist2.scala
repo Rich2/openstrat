@@ -25,15 +25,15 @@ trait Show2PlusFixed[A1, A2, A] extends Show1PlusFixed[A1, A] with Persist2Plus[
   def fArg2: A => A2
 
   /** Show type class instance for the 2nd Show field. */
-  implicit def showEv2: Show[A2]
+  implicit def show2Ev: Show[A2]
 
   /** Shows parameter 2 of the object. */
-  def show2(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = showEv2.show(fArg2(obj), way, maxPlaces, minPlaces)
+  def show2(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = show2Ev.show(fArg2(obj), way, maxPlaces, minPlaces)
 }
 
 /** [[Show]] type class for 2 parameter case classes. */
 trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
-{ override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2)
+{ override def fieldShows: RArr[Show[_]] = RArr(show1Ev, show2Ev)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
   { case Some(a2) if opt1 == Some(fArg1(obj)) && a2 == fArg2(obj) => StrArr()
@@ -41,7 +41,7 @@ trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
     case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces) )
   }
 
-  override def syntaxDepth(obj: A): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))) + 1
+  override def syntaxDepth(obj: A): Int = show1Ev.syntaxDepth(fArg1(obj)).max(show2Ev.syntaxDepth(fArg2(obj))) + 1
 }
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
@@ -61,8 +61,8 @@ object Show2
 
   /** Implementation class for the general cases of [[Show2]] trait. */
   class Show2Imp[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-    val shortKeys: ArrPairStr[A], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1],
-    val showEv2: Show[A2]) extends Show2[A1, A2, A]
+    val shortKeys: ArrPairStr[A], val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val show1Ev: Show[A1],
+    val show2Ev: Show[A2]) extends Show2[A1, A2, A]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
@@ -77,8 +77,8 @@ class Show2Extensions[A1, A2, -A](ev: Show2[A1, A2, A], thisVal: A)
 
 /** [[Show]] type class trait for types with 2 [[Int]] Show components. */
 trait ShowInt2[A] extends Show2[Int, Int, A]
-{ override def showEv1: Show[Int] = Show.intEv
-  override def showEv2: Show[Int] = Show.intEv
+{ override def show1Ev: Show[Int] = Show.intEv
+  override def show2Ev: Show[Int] = Show.intEv
   override def syntaxDepth(obj: A): Int = 2
 }
 
@@ -97,8 +97,8 @@ object ShowInt2
 
 /** [[Show]] type class trait for types with 2 [[Double]] Show components. */
 trait ShowDbl2[A] extends Show2[Double, Double, A]
-{ override def showEv1: Show[Double] = Show.doubleEv
-  override def showEv2: Show[Double] = Show.doubleEv
+{ override def show1Ev: Show[Double] = Show.doubleEv
+  override def show2Ev: Show[Double] = Show.doubleEv
   override def syntaxDepth(obj: A): Int = 2
 }
 
@@ -118,10 +118,10 @@ object ShowDbl2
 /** common trait for [[Unshow]] type class instances for sum types with 2 or more components. */
 trait Unshow2Plus[A1, A2, A] extends UnshowN[A] with Persist2Plus[A1, A2]
 { /** The [[Unshow]] type class instance for type A1. */
-  def unshow1: Unshow[A1]
+  def unshow1Ev: Unshow[A1]
 
   /** The [[Unshow]] type class instance for type A2. */
-  def unshow2: Unshow[A2]
+  def unshow2Ev: Unshow[A2]
 }
 
 /** UnShow type class trait for a 2 element Product. */
@@ -131,8 +131,8 @@ trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
     e1.map2(e2)(newT)
   }
 }
@@ -153,15 +153,15 @@ object Unshow2
 
   /** Implementation class for the general case of [[Unshow2]]. */
   case class Unshow2Imp[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, val shortKeys: ArrPairStr[A],
-    override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2]) extends Unshow2[A1, A2, A]
+    override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2]) extends Unshow2[A1, A2, A]
   { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 /** [[Unshow2]] with 2 [[Int]] components type class instances. */
 trait UnshowInt2[A] extends Unshow2[Int, Int, A]
-{ override implicit def unshow1: Unshow[Int] = Unshow.intEv
-  override implicit def unshow2: Unshow[Int] = Unshow.intEv
+{ override implicit def unshow1Ev: Unshow[Int] = Unshow.intEv
+  override implicit def unshow2Ev: Unshow[Int] = Unshow.intEv
 }
 
 object UnshowInt2
@@ -178,8 +178,8 @@ object UnshowInt2
 
 /** [[Unshow2]] with 2 [[Double]] components type class instances. */
 trait UnshowDbl2[A] extends Unshow2[Double, Double, A]
-{ override implicit def unshow1: Unshow[Double] = Unshow.doubleEv
-  override implicit def unshow2: Unshow[Double] = Unshow.doubleEv
+{ override implicit def unshow1Ev: Unshow[Double] = Unshow.doubleEv
+  override implicit def unshow2Ev: Unshow[Double] = Unshow.doubleEv
 }
 
 object UnshowDbl2
@@ -197,13 +197,9 @@ object UnshowDbl2
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 [[Double]] components. */
 class Persist2Both[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-  val newT: (A1, A2) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[A2], opt1In: Option[A1])(implicit show1Ev: Show[A1],
-  show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
+  val newT: (A1, A2) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[A2], opt1In: Option[A1])(implicit val show1Ev: Show[A1],
+  val show2Ev: Show[A2], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
 { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def showEv1: Show[A1] = show1Ev
-  override implicit def showEv2: Show[A2] = show2Ev
-  override def unshow1: Unshow[A1] = unshow1Ev
-  override def unshow2: Unshow[A2] = unshow2Ev
 }
 
 object Persist2Both

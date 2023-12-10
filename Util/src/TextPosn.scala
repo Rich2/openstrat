@@ -22,7 +22,7 @@ object StrPosn
 }
 
 object TextPosn
-{ //def apply(fileName: String, lineNum: Int, linePosn: Int): FilePosn = new FilePosn(fileName, lineNum, linePosn)
+{ def apply(fileName: String, lineNum: Int, linePosn: Int): TextPosn = new TextPosn(fileName, lineNum, linePosn)
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
   def emptyError[A](errStr: String): Bad[A] = empty.bad(errStr)
@@ -37,8 +37,8 @@ object TextPosn
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
   
-  implicit val TextPosnShow: Show3[String, Int, Int, TextPosn] = Show3[String, Int, Int, TextPosn](
-    "TextPosn", "fileName", _.fileName, "lineNum", _.lineNum,"linePosn", _.linePosn)
+  implicit val persistEV: Persist3Both[String, Int, Int, TextPosn] =
+    Persist3Both[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum, "linePosn", _.linePosn, apply)
 }
 
 trait TextSpan

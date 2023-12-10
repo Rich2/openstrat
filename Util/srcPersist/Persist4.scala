@@ -31,7 +31,7 @@ trait Show4Plus[A1, A2, A3, A4, A] extends Show3Plus[A1, A2, A3, A] with Persist
 
 /** Show type class for 4 parameter case classes. */
 trait Show4[A1, A2, A3, A4, A] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1, A2, A3, A4, A]
-{ override def fieldShows: RArr[Show[_]] = RArr(showEv1, showEv2, showEv3, showEv4)
+{ override def fieldShows: RArr[Show[_]] = RArr(show1Ev, show2Ev, show3Ev, showEv4)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt4 match
   { case Some(a4) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr()
@@ -56,22 +56,22 @@ object Show4
   /** Implementation class for the general cases of [[Show4]] trait. */
   class Show4Imp[A1, A2, A3, A4, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
     val name3: String, val fArg3: A => A3, val name4: String, val fArg4: A => A4, val shortKeys: ArrPairStr[A],  override val opt4: Option[A4] = None,
-    opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val showEv1: Show[A1], val showEv2: Show[A2],
-    val showEv3: Show[A3], val showEv4: Show[A4]) extends Show4[A1, A2, A3, A4, A]
+    opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val show1Ev: Show[A1], val show2Ev: Show[A2],
+    val show3Ev: Show[A3], val showEv4: Show[A4]) extends Show4[A1, A2, A3, A4, A]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    final override def syntaxDepth(obj: A): Int = showEv1.syntaxDepth(fArg1(obj)).max(showEv2.syntaxDepth(fArg2(obj))).max(showEv3.syntaxDepth(fArg3(obj))).
+    final override def syntaxDepth(obj: A): Int = show1Ev.syntaxDepth(fArg1(obj)).max(show2Ev.syntaxDepth(fArg2(obj))).max(show3Ev.syntaxDepth(fArg3(obj))).
       max(showEv4.syntaxDepth(fArg4(obj))) + 1
   }
 }
 
 /** Produces [[Show]] type class instances for 4 [[Int]] types. */
 trait ShowInt4[A] extends Show4[Int, Int, Int, Int, A]
-{ override def showEv1: Show[Int] = Show.intEv
-  override def showEv2: Show[Int] = Show.intEv
-  override def showEv3: Show[Int] = Show.intEv
+{ override def show1Ev: Show[Int] = Show.intEv
+  override def show2Ev: Show[Int] = Show.intEv
+  override def show3Ev: Show[Int] = Show.intEv
   override def showEv4: Show[Int] = Show.intEv
   override def syntaxDepth(obj: A): Int = 2
 }
@@ -90,17 +90,17 @@ object ShowInt4
     override val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
 
     override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = StrArr(
-      showEv1.show(fArg1(obj), way, maxPlaces, minPlaces), showEv2.show(fArg2(obj), way, maxPlaces, minPlaces),
-      showEv3.show(fArg3(obj), way, maxPlaces, minPlaces), showEv4.show(fArg4(obj), way, maxPlaces, minPlaces))
+      show1Ev.show(fArg1(obj), way, maxPlaces, minPlaces), show2Ev.show(fArg2(obj), way, maxPlaces, minPlaces),
+      show3Ev.show(fArg3(obj), way, maxPlaces, minPlaces), showEv4.show(fArg4(obj), way, maxPlaces, minPlaces))
   }
 }
 
 /** Produces [[Show]] type class instances for types with 4 [[Double]] components. Note a LineSeg does not use this class although it is held in
  * memory as 4 [[Double]]s. As its logical components are 2 points. */
 abstract class ShowDbl4[A] extends Show4[Double, Double, Double, Double, A]
-{ override def showEv1: Show[Double] = Show.doubleEv
-  override def showEv2: Show[Double] = Show.doubleEv
-  override def showEv3: Show[Double] = Show.doubleEv
+{ override def show1Ev: Show[Double] = Show.doubleEv
+  override def show2Ev: Show[Double] = Show.doubleEv
+  override def show3Ev: Show[Double] = Show.doubleEv
   override def showEv4: Show[Double] = Show.doubleEv
   override def syntaxDepth(obj: A): Int = 2
 }
@@ -118,9 +118,9 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), unshow1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), unshow2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
-    def e3: EMon[A3] = ife(len > pSeq(2), unshow3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    val e1: EMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
     def e4: EMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
     e1.map4(e2, e3, e4)(newT)
   }
@@ -135,7 +135,7 @@ object Unshow4
 
   class Unshow4Imp[A1, A2, A3, A4, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val name4: String,
     val newT: (A1, A2, A3, A4) => A, val shortKeys: ArrPairStr[A], override val opt4: Option[A4] = None, val opt3In: Option[A3] = None,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val unshow1: Unshow[A1], val unshow2: Unshow[A2], val unshow3: Unshow[A3],
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3],
     val unshow4: Unshow[A4]) extends Unshow4[A1, A2, A3, A4, A]
   { override val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -151,9 +151,9 @@ object Unshow4
 }
 
 trait UnshowInt4[A] extends Unshow4[Int, Int, Int, Int, A]
-{ override def unshow1: Unshow[Int] = Unshow.intEv
-  override def unshow2: Unshow[Int] = Unshow.intEv
-  override def unshow3: Unshow[Int] = Unshow.intEv
+{ override def unshow1Ev: Unshow[Int] = Unshow.intEv
+  override def unshow2Ev: Unshow[Int] = Unshow.intEv
+  override def unshow3Ev: Unshow[Int] = Unshow.intEv
   override def unshow4: Unshow[Int] = Unshow.intEv
 }
 
@@ -180,9 +180,9 @@ object UnshowInt4
 }
 
 trait UnshowDbl4[A] extends Unshow4[Double, Double, Double, Double, A]
-{ override def unshow1: Unshow[Double] = Unshow.doubleEv
-  override def unshow2: Unshow[Double] = Unshow.doubleEv
-  override def unshow3: Unshow[Double] = Unshow.doubleEv
+{ override def unshow1Ev: Unshow[Double] = Unshow.doubleEv
+  override def unshow2Ev: Unshow[Double] = Unshow.doubleEv
+  override def unshow3Ev: Unshow[Double] = Unshow.doubleEv
   override def unshow4: Unshow[Double] = Unshow.doubleEv
 }
 
