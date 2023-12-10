@@ -211,6 +211,19 @@ object Persist2Both
   def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, opt2: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit show1Ev: Show[A1], show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], classTag: ClassTag[A]):
     Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
+
+  /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
+  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A,
+    persist1Ev: PersistBoth[A1], persist2Ev: PersistBoth[A2], opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit classTag: ClassTag[A]):
+    Persist2Both[A1, A2, A] =
+    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)(persist1Ev, persist2Ev, persist1Ev,
+    persist2Ev)
+
+  /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
+  def explicitFull[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, show1Ev: Show[A1],
+    show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], opt2: Option[A2] = None,opt1In: Option[A1] = None)(implicit ct: ClassTag[A]):
+  Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)(show1Ev: Show[A1],
+    show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2])
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances with 2 [[Int]] components. */
