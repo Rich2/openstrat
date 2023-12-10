@@ -81,11 +81,8 @@ object HexParrX
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))
   def fromArray(array: Array[Double]): HexParrX = new HexParrX(array)
 
-  /** [[Show]] type class instance / evidence for [[HexParrX]]. */
-  implicit val showEv: Show2[Double, Pt2, HexParrX] = Show2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen)
-
-  /** [[Unshow]] type class instance / evidence for [[HexParrX]]. */
-  implicit val unshowEv: Unshow2[Double, Pt2, HexParrX] = Unshow2[Double, Pt2, HexParrX]("HexXlign", "height","cen", apply)
+  /** [[Show]] and [[Unshow]] type class instances / evidence for [[HexParrX]]. */
+  implicit val persistEv: Persist2Both[Double, Pt2, HexParrX] = Persist2Both[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
   implicit val slateImplicit: Slate[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)

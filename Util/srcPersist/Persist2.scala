@@ -197,20 +197,20 @@ object UnshowDbl2
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 [[Double]] components. */
 class Persist2Both[A1, A2, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-  val newT: (A1, A2) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[A2], opt1In: Option[A1])(implicit persist1Ev: PersistBoth[A1],
-  persist2Ev: PersistBoth[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
+  val newT: (A1, A2) => A, val shortKeys: ArrPairStr[A], override val opt2: Option[A2], opt1In: Option[A1])(implicit show1Ev: Show[A1],
+  show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2]) extends PersistBoth[A] with Show2[A1, A2, A] with Unshow2[A1, A2, A]
 { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def showEv1: Show[A1] = persist1Ev
-  override implicit def showEv2: Show[A2] = persist2Ev
-  override def unshow1: Unshow[A1] = persist1Ev
-  override def unshow2: Unshow[A2] = persist2Ev
+  override implicit def showEv1: Show[A1] = show1Ev
+  override implicit def showEv2: Show[A2] = show2Ev
+  override def unshow1: Unshow[A1] = unshow1Ev
+  override def unshow2: Unshow[A2] = unshow2Ev
 }
 
 object Persist2Both
 { /** Factory apply method for creating [[Unshow2]] with 2 [[IDouble]] component type class instances. */
   def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit persistEv1: PersistBoth[A1], persistEv2: PersistBoth[A2], classTag: ClassTag[A]): Persist2Both[A1, A2, A] =
-    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
+    opt1In: Option[A1] = None)(implicit show1Ev: Show[A1], show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], classTag: ClassTag[A]):
+    Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances with 2 [[Int]] components. */
