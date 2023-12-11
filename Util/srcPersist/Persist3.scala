@@ -44,12 +44,14 @@ trait Show3[A1, A2, A3, A] extends Show3Plus[A1, A2, A3, A] with Persist3[A1, A2
 }
 
 object Show3
-{
+{ /** Factory apply method for creating [[Show]] type class instances / evidence for objects with 3 components. */
   def apply[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
     opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3],
     ct: ClassTag[A]):
   Show3[A1, A2, A3, A] = new Show3Imp[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), opt3, opt2In, opt1In)
 
+  /** Factory apply method for creating [[Show]] type class instances / evidence for objects with 3 components, with added short hand names for
+   * certain values. */
   def shorts[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
     shortKeys: ArrPairStr[A], opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2],
     ev3: Show[A3]): Show3[A1, A2, A3, A] =
@@ -73,12 +75,12 @@ trait ShowInt3[A] extends Show3[Int, Int, Int, A]
 }
 
 object ShowInt3
-{
+{ /** Factory apply method for creating [[Show]] type class instances / evidence for objects with 3 [[Int]] components. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Int, name2: String, fArg2: A => Int, name3: String, fArg3: A => Int,
     newT: (Int, Int, Int) => A, opt3: Option[Int] = None, opt2: Option[Int] = None, opt1: Option[Int] = None)(implicit ct: ClassTag[A]): ShowInt3[A] =
     new ShowInt3Imp[A](typeStr, name1, fArg1, name2, fArg2, name3: String, fArg3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 
-  /** Implementation class for the general cases of [[ShowInt2]] trait. */
+  /** Implementation class for [[Show]] type class instances / evidence for objects with 3 [[Int]] components. */
   class ShowInt3Imp[A](val typeStr: String, val name1: String, val fArg1: A => Int, val name2: String, val fArg2: A => Int, val name3: String,
     val fArg3: A => Int, val newT: (Int, Int, Int) => A, val shortKeys: ArrPairStr[A], override val opt3: Option[Int], opt2In: Option[Int] = None,
     opt1In: Option[Int] = None) extends ShowInt3[A]
@@ -96,11 +98,12 @@ trait ShowDbl3[A] extends Show3[Double, Double, Double, A]
 }
 
 object ShowDbl3
-{
+{ /** Factory apply method for creating [[Show]] type class instances / evidence for objects with 3 [[Double]] components. */
   def apply[A](typeStr: String, name1: String, fArg1: A => Double, name2: String, fArg2: A => Double, name3: String, fArg3: A => Double,
     opt3: Option[Double] = None, opt2: Option[Double] = None, opt1: Option[Double] = None)(implicit classTag: ClassTag[A]): ShowDbl3[A] =
     new ShowDbl3Imp[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), opt3, opt2, opt1)
 
+  /** Implementation class for [[Show]] type class instances / evidence for objects with 3 [[Double]] components. */
   class ShowDbl3Imp[A](val typeStr: String, val name1: String, val fArg1: A => Double, val name2: String, val fArg2: A => Double, val name3: String,
     val fArg3: A => Double, val shortKeys: ArrPairStr[A], override val opt3: Option[Double] = None, opt2In: Option[Double] = None,
     opt1In: Option[Double] = None) extends ShowDbl3[A]
@@ -130,11 +133,13 @@ trait Unshow3[A1, A2, A3, A] extends Unshow3Plus[A1, A2, A3, A] with Persist3[A1
 }
 
 object Unshow3
-{
+{ /** Factory apply method for creating [[Unshow]] type class instances / evidence for objects with 3 components. */
   def apply[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => A, opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2], persist3: Unshow[A3], ct: ClassTag[A]):
   Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
 
+  /** Factory apply method for creating [[Unshow]] type class instances / evidence for objects with 3 components, with added short hand names for
+   * certain values. */
   def shorts[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => A, shortKeys: ArrPairStr[A],
     opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2],
     persist3: Unshow[A3]): Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, newT, shortKeys, opt3, opt2, opt1)
