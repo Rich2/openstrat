@@ -46,7 +46,7 @@ trait Show4[A1, A2, A3, A4, A] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1
 }
 
 object Show4
-{
+{ /** Factory apply method for general cases of [[Show4]] type class instances / evidence. */
   def apply[A1, A2, A3, A4, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
     name4: String, fArg4: A => A4, opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
     show1: Show[A1], show2: Show[A2], show3: Show[A3], show4: Show[A4], ct: ClassTag[A]): Show4[A1, A2, A3, A4, A] =

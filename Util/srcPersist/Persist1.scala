@@ -40,12 +40,12 @@ trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Rep
   override def fixedfieldShows: RArr[Show[_]] = RArr(show1Ev)
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
-  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr = {
-    val strs1 = showR(obj, way, maxPlaces, minPlaces)
+  override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr =
+  { val strs1 = showR(obj, way, maxPlaces, minPlaces)
     opt1 match
-  { case Some(a1) if strs1.empty && a1 == fArg1(obj) => StrArr()
-    case _ => show1(obj, way, maxPlaces, minPlaces) %: strs1
-  }
+    { case Some(a1) if strs1.empty && a1 == fArg1(obj) => StrArr()
+      case _ => show1(obj, way, maxPlaces, minPlaces) %: strs1
+    }
   }
 
   override def syntaxDepth(obj: A): Int =
