@@ -41,7 +41,7 @@ object Scen640S10E5 extends EScenLongMulti
 /** Just terrain scenario for all longitudes grid system. */
 object Scen640All extends EScenLongMulti
 { override val title: String = "640km all longitude terrain only scenario."
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(12, 0, 102)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(12, 0, 100)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
