@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import utest.{Show => _, _}, gOne.h1p._, gPlay._
 
@@ -9,13 +9,12 @@ object G1Scen1Test extends TestSuite
   val g1Str = "HGridReg(2; 6; 2; 10)"
   val cs1: LayerHcOptSys[Counter] = os1.counters
   val hr1 = LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB)
-//  val rs1 = hr1.str
 
   val tests = Tests {
 
     val lr1 = LayerHcOptRow(8, CounterA, CounterB)
-    test("os1") {
-      g1.str ==> g1Str
+    test("os1")
+    { g1.str ==> g1Str
       g1Str.asType[HGridReg] ==> Good(g1)
       lr1.numTiles ==> 2
       lr1.arrayUnsafe(0) ==> CounterA

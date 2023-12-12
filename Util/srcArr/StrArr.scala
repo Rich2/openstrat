@@ -24,14 +24,17 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   def mkSemi: String = mkStr("; ")
 
   /** Make a combined [[String]] with semicolons. Make 1 string, by appending with "; " separator from this collection of strings, but add a semicolon
-   * ";" if the final string. */
+   * ";" if the final string is all white space. */
   def mkSemiSpaceSpecial: String = mkSpaceSpecial(";")
 
-  /** Make with semicolons. Make 1 string, by appending with "; " separator from this collection of strings. */
+  /** Make a combined [[String]] with semicolons. Make 1 string, by appending with ", " separator from this collection of strings, but add a semicolon
+   * ";" if the final string is all white space. */
   def mkCommaSpaceSpecial: String = mkSpaceSpecial(",")
 
-  def mkSpaceSpecial(sep: String): String = length match{
-    case 0 => ""
+  /** Make a combined [[String]] with a space followed by the given separator [[String]] from this collection of strings, but add a speraotor without
+   * a space if the final string is all white space. */
+  def mkSpaceSpecial(sep: String): String = length match
+  { case 0 => ""
     case 1 => head
     case n =>
     { var acc = head

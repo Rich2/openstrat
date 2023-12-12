@@ -43,14 +43,14 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
   {
     def semisStr = strs(obj, ShowCommas, maxPlaces).mkSemiSpaceSpecial
 
-    style match {
-      case ShowUnderScore => "_"
+    style match
+    { case ShowUnderScore => "_"
       case ShowSemis => semisStr
       case ShowCommas => strs(obj, ShowStdNoSpace, maxPlaces).mkCommaSpaceSpecial
 
-      case ShowFieldNames => {
-        val r1: StrArr = {
-          val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
+      case ShowFieldNames =>
+      { val r1: StrArr =
+        { val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
           val named = iUntilMap(numFixedParams) { i => paramFixedNames(i) + " = " + strs2(i) }
           val reps = strs2.drop(numFixedParams)
           named ++ reps
@@ -59,9 +59,9 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
         typeStr.appendParenth(r2)
       }
 
-      case ShowStdTypedFields => {
-        val r1: StrArr = {
-          val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
+      case ShowStdTypedFields =>
+      { val r1: StrArr =
+        { val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
           val named = iUntilMap(numFixedParams) { i => paramFixedNames(i) + ": " + fixedfieldShows(i).typeStr + " = " + strs2(i) }
           val reps = strs2.drop(numFixedParams)
           named ++ reps
