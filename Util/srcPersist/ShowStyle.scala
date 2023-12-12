@@ -25,7 +25,7 @@ case object ShowSemis extends ShowStyle
 { override def full: ShowStyle = ShowStdNoSpace
 }
 
-/** Show the object in the standard default manner. */
+/** Show the object in the standard default manner, except the Space " " characters can not be used to represent a None. */
 case object ShowStdNoSpace extends ShowStyle
 { override def full: ShowStyle = ShowStdNoSpace
 }

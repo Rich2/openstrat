@@ -20,8 +20,8 @@ object G1Scen1Test extends TestSuite
       lr1.numTiles ==> 2
       lr1.arrayUnsafe(0) ==> CounterA
       lr1.str ==> "HRow(8; CounterA; CounterB)"
-      hr1.str ==> "HRow(4; CounterA;  ;  ; CounterB)"
-      LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB, None).str ==> "HRow(4; CounterA;  ;  ; CounterB; ;)"
+      hr1.str ==> "HRow(4; CounterA; ; ; CounterB)"
+      LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB, None).str ==> "HRow(4; CounterA; ; ; CounterB; ;)"
     }
   }
 }

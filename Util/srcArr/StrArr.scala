@@ -23,7 +23,11 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   /** Make with semicolons. Make 1 string, by appending with "; " separator from this collection of strings. */
   def mkSemi: String = mkStr("; ")
 
+  /** Make a combined [[String]] with semicolons. Make 1 string, by appending with "; " separator from this collection of strings, but add a semicolon
+   * ";" if the final string. */
   def mkSemiSpaceSpecial: String = mkSpaceSpecial(";")
+
+  /** Make with semicolons. Make 1 string, by appending with "; " separator from this collection of strings. */
   def mkCommaSpaceSpecial: String = mkSpaceSpecial(",")
 
   def mkSpaceSpecial(sep: String): String = length match{
@@ -33,10 +37,10 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     { var acc = head
       var i = 1
       while(i < n)
-      { acc = acc + ife(apply(i) == " ", sep, sep + " ") + apply(i)
+      { acc = acc + ife(apply(i).forall(_.isWhitespace), sep, sep + " ") + apply(i)
         i += 1
       }
-      if (last == " ") acc += sep
+      if (last.forall(_.isWhitespace)) acc += sep
       acc
     }
   }
