@@ -130,3 +130,38 @@ object Unshow1Repeat
   def apply[A1, Ar, A](typeStr: String, name1: String, repeatName: String, f: (A1, Seq[Ar]) => A)(implicit unshowA1: Unshow[A1], unshowA2: Unshow[Ar]) =
     new Unshow1Repeat[A1, Ar, A](typeStr, name1, repeatName, f)
 }
+
+/** [[Unshow]] type class instances / evidence for objects with 1 fixed component and 1 repeat parameter. */
+class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val repeatName: String, f: (A1, Array[Ar]) => A, val opt1: Option[A1] = None)(
+  implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar], ct: ClassTag[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
+{ /** The function to construct an object of type R from its 2 components." */
+  def newT: (A1, Array[Ar]) => A = f
+
+  override def fromExpr(expr: Expr): EMon[A] =
+  {
+    val Match1: NamedExprSeq = NamedExprSeq(typeStr)
+    expr match
+    { case Match1(exprs) if exprs.length == 0 => opt1 match
+    { case Some(a1) => Good(f(a1, new Array[Ar](0)))
+      case None => bad1(expr, "No values")
+    }
+
+    case Match1(exprs) =>
+    { val a1 = unshowA1.fromExpr(exprs(0))
+      def reps: EMon[List[Ar]] = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
+      else exprs.drop1.mapEMonList(unshowAr.fromExpr)
+      a1.flatMap(a1 => reps.map(l => newT(a1, l.toArray)))
+    }
+
+    case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
+    case _ => expr.exprParseErr[A](this)
+    }
+  }
+}
+
+object Unshow1OptRepeat
+{
+  /** Factory apply method for [[Unshow]] type class instances of 2 components where the final parameter repeats. */
+    def apply[A1, Ar, A](typeStr: String, name1: String, repeatName: String, f: (A1, Array[Ar]) => A)(implicit unshowA1: Unshow[A1],
+      unshowA2: Unshow[Ar], ct: ClassTag[Ar]): Unshow1OptRepeat[A1, Ar, A] = new Unshow1OptRepeat[A1, Ar, A](typeStr, name1, repeatName, f)
+}
