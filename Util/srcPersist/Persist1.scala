@@ -62,12 +62,13 @@ class Show1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg
 {
   override def fixedfieldShows: RArr[Show[_]] = RArr(show1Ev)
   override def showForeach(obj: A, f: Ar => Unit): Unit = fArrayR(obj).foreach(f)
+
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr =
   { val strs1 = showR(obj, way, maxPlaces, minPlaces)
     opt1 match
     { case Some(a1) if strs1.empty && a1 == fArg1(obj) => StrArr()
-    case _ => show1(obj, way, maxPlaces, minPlaces) %: strs1
+      case _ => show1(obj, way, maxPlaces, minPlaces) %: strs1
     }
   }
 

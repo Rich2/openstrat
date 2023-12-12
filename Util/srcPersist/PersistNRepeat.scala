@@ -15,124 +15,72 @@ trait PersistNRepeat[AR] extends Any with PersistN
   override def paramNames: StrArr = paramFixedNames +% repeatName
 }
 
-/** The base trait for the persistence of algebraic product types, including case classes where the last parameter repeats.. */
 trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
 {
+  /** Show type class instance for the 2nd Show field. */
+  implicit def showEvR: Show[Ar]
+
   def fixedfieldShows: RArr[Show[_]]
 
   /** Foreach's all the elements of the sequence like object that is being shown. */
   def showForeach(obj: A, f: Ar => Unit): Unit
 
-  /** Maps over all the elements of the sequence like object that is being shown. */
-  final def showMap(obj: A)(f: Ar => String): StrArr =
-  { val buffer: ArrayBuffer[String] = Buffer[String]()
-    showForeach(obj, a => buffer.append(f(a)))
-    new StrArr(buffer.toArray)
-  }
-
-  /** Show type class instance for the 2nd Show field. */
-  implicit def showEvR: Show[Ar]
+  /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
+  def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
 
   /** Shows parameter 2 of the object. */
   def showR(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
     showMap(obj){ ar => showEvR.show(ar, way, maxPlaces, minPlaces) }
 
-  /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
-  def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
+  /** Maps over all the elements of the sequence like object that is being shown. */
+  final def showMap(obj: A)(f: Ar => String): StrArr = {
+    val buffer: ArrayBuffer[String] = Buffer[String]()
+    showForeach(obj, a => buffer.append(f(a)))
+    new StrArr(buffer.toArray)
+  }
 
   override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
-  { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
+  {
+    def semisStr = strs(obj, ShowCommas, maxPlaces).mkSemiSpaceSpecial
 
-    style match
-    { case ShowUnderScore => "_"
-    case ShowSemis => semisStr
-    case ShowCommas => strs(obj, ShowStdNoSpace, maxPlaces).mkStr(", ")
+    style match {
+      case ShowUnderScore => "_"
+      case ShowSemis => semisStr
+      case ShowCommas => strs(obj, ShowStdNoSpace, maxPlaces).mkCommaSpaceSpecial
 
-    case ShowFieldNames =>
-    { val r1: StrArr =
-    { val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
-      val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
-      val reps = strs2.drop(numFixedParams)
-      named ++ reps
-    }
-      val r2 = r1.mkStr("; ")
-      typeStr.appendParenth(r2)
-    }
+      case ShowFieldNames => {
+        val r1: StrArr = {
+          val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
+          val named = iUntilMap(numFixedParams) { i => paramFixedNames(i) + " = " + strs2(i) }
+          val reps = strs2.drop(numFixedParams)
+          named ++ reps
+        }
+        val r2 = r1.mkStr("; ")
+        typeStr.appendParenth(r2)
+      }
 
-    case ShowStdTypedFields =>
-    { val r1: StrArr =
-    { val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
-      val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fixedfieldShows(i).typeStr + " = " + strs2(i) }
-      val reps = strs2.drop(numFixedParams)
-      named ++ reps
-    }
-      val r2 = r1.mkStr("; ")
-      typeStr.appendParenth(r2)
-    }
+      case ShowStdTypedFields => {
+        val r1: StrArr = {
+          val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
+          val named = iUntilMap(numFixedParams) { i => paramFixedNames(i) + ": " + fixedfieldShows(i).typeStr + " = " + strs2(i) }
+          val reps = strs2.drop(numFixedParams)
+          named ++ reps
+        }
+        val r2 = r1.mkStr("; ")
+        typeStr.appendParenth(r2)
+      }
 
-    case _ => typeStr.appendParenth(semisStr)
+      case _ => typeStr.appendParenth(semisStr)
     }
   }
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes where the last parameter repeats.. */
-trait ShowNOptRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
+trait ShowNOptRepeat[Ar, A] extends ShowNRepeat[Ar, A]//ShowCompound[A] with PersistNRepeat[Ar]
 {
-  def fixedfieldShows: RArr[Show[_]]
-
-  /** Foreach's all the elements of the sequence like object that is being shown. */
-  def showForeach(obj: A, f: Ar => Unit): Unit
-
-  /** Maps over all the elements of the sequence like object that is being shown. */
-  final def showMap(obj: A)(f: Ar => String): StrArr =
-  { val buffer: ArrayBuffer[String] = Buffer[String]()
-    showForeach(obj, a => buffer.append(f(a)))
-    new StrArr(buffer.toArray)
-  }
-
-  /** Show type class instance for the 2nd Show field. */
-  implicit def showEvR: Show[Ar]
-
   /** Shows parameter 2 of the object. */
-  def showR(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
+  override def showR(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr =
     showMap(obj){ ar => Show.nullOptionEv[Ar].show(ar, way, maxPlaces, minPlaces) }
-
-  /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
-  def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr
-
-  override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
-  { def semisStr = strs(obj, ShowCommas, maxPlaces).mkSemiSpaceSpecial
-
-    style match
-    { case ShowUnderScore => "_"
-    case ShowSemis => semisStr
-    case ShowCommas => strs(obj, ShowStdNoSpace, maxPlaces).mkCommaSpaceSpecial
-
-    case ShowFieldNames =>
-    { val r1: StrArr =
-    { val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
-      val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + " = " + strs2(i) }
-      val reps = strs2.drop(numFixedParams)
-      named ++ reps
-    }
-      val r2 = r1.mkStr("; ")
-      typeStr.appendParenth(r2)
-    }
-
-    case ShowStdTypedFields =>
-    { val r1: StrArr =
-    { val strs2 = strs(obj, ShowStdNoSpace, maxPlaces, minPlaces)
-      val named = iUntilMap(numFixedParams){ i => paramFixedNames(i) + ": " + fixedfieldShows(i).typeStr + " = " + strs2(i) }
-      val reps = strs2.drop(numFixedParams)
-      named ++ reps
-    }
-      val r2 = r1.mkStr("; ")
-      typeStr.appendParenth(r2)
-    }
-
-    case _ => typeStr.appendParenth(semisStr)
-    }
-  }
 }
 
 /** The base trait for the persistence of algebraic product types, where the last component is a repeat parameter. */
