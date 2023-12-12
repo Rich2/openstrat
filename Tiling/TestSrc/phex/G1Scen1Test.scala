@@ -12,9 +12,16 @@ object G1Scen1Test extends TestSuite
 //  val rs1 = hr1.str
 
   val tests = Tests {
+
+    val lr1 = LayerHcOptRow(8, CounterA, CounterB)
     test("os1") {
       g1.str ==> g1Str
       g1Str.asType[HGridReg] ==> Good(g1)
+      lr1.numTiles ==> 2
+      lr1.arrayUnsafe(0) ==> CounterA
+      lr1.str ==> "HRow(8; CounterA; CounterB)"
+      hr1.str ==> "HRow(4; CounterA;  ;  ; CounterB)"
+      LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB, None).str ==> "HRow(4; CounterA;  ;  ; CounterB; ;)"
     }
   }
 }

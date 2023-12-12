@@ -4,7 +4,7 @@ import Colour._
 
 /** A counter has a very simple token with a letter and colour for recognition. */
 case class Counter(char: Char, colour: Colour) extends Tell2[Char, Colour] with Coloured
-{ override def typeStr: String = "Player"
+{ override def typeStr: String = "Counter"
   override def tell1: Char = char
   override def tell2: Colour = colour
   override implicit def show1: Show[Char] = Show.charEv
@@ -13,7 +13,7 @@ case class Counter(char: Char, colour: Colour) extends Tell2[Char, Colour] with 
   override def name2: String = "colour"
   override def str: String = "Counter" + char
   def charStr: String = char.toString
-  override def tell(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = -1): String = "Player" + char
+  override def tell(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = -1): String = "Counter" + char
   override def tellDepth: Int = 1
 }
 

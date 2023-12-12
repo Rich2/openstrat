@@ -114,8 +114,8 @@ object Show
   { override def typeStr: String = "Option"
 
     override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = if (obj == null)
-      someEv(evA).show(Some(obj), style, maxPlaces, minPlaces)
-    else noneEv.show(None, style, maxPlaces, minPlaces)
+      noneEv.show(None, style, maxPlaces, minPlaces)
+      else someEv(evA).show(Some(obj), style, maxPlaces, minPlaces)
 
     override def strT(obj: A): String = ???
 
