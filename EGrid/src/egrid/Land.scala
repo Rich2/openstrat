@@ -35,12 +35,12 @@ object Land
   def apply(elev: Lelev = Level, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
 
   /** Implicit [[Show]] type class instance / evidence for [[Land]]. */
-  implicit lazy val showEv: Show3[Lelev, Climate, LandUse, Land] = Show3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate",
+  implicit lazy val persistEv: Show3[Lelev, Climate, LandUse, Land] = Show3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate",
     _.climate, "use", _.landUse, WTiles.landWords, Some(CivMix), Some(Temperate), Some(Level))
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Land]]. */
-  implicit lazy val unshowEv: Unshow[Land] = Unshow3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", apply,
-    WTiles.landWords, Some(CivMix), Some(Temperate), Some(Level))
+  implicit lazy val unshowEv: Unshow[Land] = Unshow3.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", "climate", "landUse", WTiles.landWords,
+    apply, Some(CivMix), Some(Temperate), Some(Level))
 
   /** Implicit [[EqT]] type class instance / evidence for [[Land]]. */
   implicit val eqEv: EqT[Land] = (a1, a2) => a1.elev == a2.elev && a1.climate == a1.climate && a1.landUse == a2.landUse

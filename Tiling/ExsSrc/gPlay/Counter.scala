@@ -19,12 +19,15 @@ case class Counter(char: Char, colour: Colour) extends Tell2[Char, Colour] with 
 
 /** Companion object for [[Counter]] case class contains implicit instance for Persist. */
 object Counter
-{ /* Implicit [[ShowT]] instance / evidence for [[Player]]. */
-  implicit val showEv: ShowTell2[Char, Colour, Counter] = ShowTell2[Char, Colour, Counter]("Counter")
+{
+  lazy val shorts: ArrPairStr[Counter] = ArrPairStr[Counter](("CounterA", CounterA), ("CounterB", CounterB), ("CounterC", CounterC),
+    ("CounterD", CounterD), ("CounterE", CounterE))
 
-  lazy val shorts: ArrPairStr[Counter] = ArrPairStr[Counter](("CounterA", CounterA), ("CounterB", CounterB), ("CounterC", CounterC), ("CounterD", CounterD))
+  /* Implicit [[Show]] type class instance / evidence for [[Counter]]. */
+  implicit val showEv: Show2[Char, Colour, Counter] = Show2.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts)
 
-  implicit val unshowEv: Unshow2[Char, Colour, Counter] = Unshow2.shorts[Char, Colour, Counter]("Counter", "char", "colour", apply, shorts)
+
+  implicit lazy val unshowEv: Unshow2[Char, Colour, Counter] = Unshow2.shorts[Char, Colour, Counter]("Counter", "char", "colour", apply, shorts)
 }
 
 object CounterA extends Counter('A', Red)

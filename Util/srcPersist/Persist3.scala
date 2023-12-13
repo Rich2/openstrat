@@ -46,15 +46,15 @@ trait Show3[A1, A2, A3, A] extends Show3Plus[A1, A2, A3, A] with Persist3[A1, A2
 object Show3
 { /** Factory apply method for creating [[Show]] type class instances / evidence for objects with 3 components. */
   def apply[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
-    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3],
+    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit show1Ev: Show[A1], show2Ev: Show[A2], show3Ev: Show[A3],
     ct: ClassTag[A]):
   Show3[A1, A2, A3, A] = new Show3Imp[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), opt3, opt2In, opt1In)
 
   /** Factory apply method for creating [[Show]] type class instances / evidence for objects with 3 components, with added short hand names for
    * certain values. */
   def shorts[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
-    shortKeys: ArrPairStr[A], opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2],
-    ev3: Show[A3]): Show3[A1, A2, A3, A] =
+    shortKeys: ArrPairStr[A], opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit show1Ev: Show[A1],
+    show2Ev: Show[A2], show3Ev: Show[A3]): Show3[A1, A2, A3, A] =
     new Show3Imp[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, shortKeys, opt3, opt2In, opt1In)
 
   /** Implementation class for the general cases of the [[Show3]] trait. */
@@ -136,16 +136,16 @@ object Unshow3
 { /** Factory apply method for creating [[Unshow]] type class instances / evidence for objects with 3 components. */
   def apply[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => A, opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2], persist3: Unshow[A3], ct: ClassTag[A]):
-  Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, newT, ArrPairStr[A](), opt3, opt2, opt1)
+  Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, ArrPairStr[A](), newT, opt3, opt2, opt1)
 
   /** Factory apply method for creating [[Unshow]] type class instances / evidence for objects with 3 components, with added short hand names for
    * certain values. */
-  def shorts[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => A, shortKeys: ArrPairStr[A],
+  def shorts[A1, A2, A3, A](typeStr: String, name1: String, name2: String, name3: String, shortKeys: ArrPairStr[A], newT: (A1, A2, A3) => A,
     opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit persist1: Unshow[A1], persist2: Unshow[A2],
-    persist3: Unshow[A3]): Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, newT, shortKeys, opt3, opt2, opt1)
+    persist3: Unshow[A3]): Unshow3[A1, A2, A3, A] = new Unshow3Imp[A1, A2, A3, A](typeStr, name1, name2, name3, shortKeys, newT, opt3, opt2, opt1)
 
-  class Unshow3Imp[A1, A2, A3, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => A,
-    val shortKeys: ArrPairStr[A], override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
+  class Unshow3Imp[A1, A2, A3, A](val typeStr: String, val name1: String, val name2: String, val name3: String, val shortKeys: ArrPairStr[A],
+    val newT: (A1, A2, A3) => A, override val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
     val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2], val unshow3Ev: Unshow[A3]) extends Unshow3[A1, A2, A3, A]
   {
     override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
@@ -202,7 +202,7 @@ object UnshowDbl3
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for objects with 2 [[Double]] components. */
 class Persist3Both[A1, A2, A3, A](val typeStr: String, val name1: String, val fArg1: A => A1, val name2: String, val fArg2: A => A2,
-  val name3: String, val fArg3: A => A3, val newT: (A1, A2, A3) => A, val shortKeys: ArrPairStr[A], override val opt3: Option[A3], opt2In: Option[A2],
+  val name3: String, val fArg3: A => A3, val shortKeys: ArrPairStr[A], val newT: (A1, A2, A3) => A, override val opt3: Option[A3], opt2In: Option[A2],
   opt1In: Option[A1])(implicit val show1Ev: Show[A1], val show2Ev: Show[A2], val show3Ev: Show[A3], val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2],
   val unshow3Ev: Unshow[A3]) extends PersistBoth[A] with Show3[A1, A2, A3, A] with Unshow3[A1, A2, A3, A]
 { override val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -215,23 +215,25 @@ object Persist3Both
   def apply[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
     newT: (A1, A2, A3) => A, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit show1Ev: Show[A1],
     show2Ev: Show[A2], show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], unshow3Ev: Unshow[A3], classTag: ClassTag[A]):
-    Persist3Both[A1, A2, A3, A] = new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, ArrPairStr[A](),opt3, opt2,
+    Persist3Both[A1, A2, A3, A] = new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT,opt3, opt2,
     opt1)
 
   /** Factory method for creating [[Unshow2]] component type class instances / evidence, by explicitly passing the [[PersistBoth]] type class
    * instances for the two components. */
-  def explicit[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A,
-    persist1Ev: PersistBoth[A1], persist2Ev: PersistBoth[A2], opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit classTag: ClassTag[A]):
-  Persist2Both[A1, A2, A] =
-    new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)(persist1Ev, persist2Ev, persist1Ev,
-      persist2Ev)
+  def explicit[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
+    newT: (A1, A2, A3) => A, persist1Ev: PersistBoth[A1], persist2Ev: PersistBoth[A2], persist3Ev: PersistBoth[A3], opt3: Option[A3] = None,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit classTag: ClassTag[A]): Persist3Both[A1, A2, A3, A] =
+    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT, opt3, opt2, opt1)(persist1Ev,
+      persist2Ev, persist3Ev, persist1Ev, persist2Ev, persist3Ev)
 
   /** Factory method for creating [[Unshow2]] component type class instances / evidence, by explicitly passing the [[Show]] and [[Unshow]] type class
    * instances for the two components. */
-  def explicitFull[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, newT: (A1, A2) => A, show1Ev: Show[A1],
-    show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], opt2: Option[A2] = None,opt1In: Option[A1] = None)(implicit ct: ClassTag[A]):
-  Persist2Both[A1, A2, A] = new Persist2Both[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, newT, ArrPairStr[A](), opt2, opt1In)(show1Ev: Show[A1],
-    show2Ev: Show[A2], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2])
+  def explicitFull[A1, A2, A3, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, name3: String, fArg3: A => A3,
+    newT: (A1, A2, A3) => A, show1Ev: Show[A1], show2Ev: Show[A2], show3Ev: Show[A3], unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2],
+    unshow3Ev: Unshow[A3], opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ct: ClassTag[A]):
+    Persist3Both[A1, A2, A3, A] =
+    new Persist3Both[A1, A2, A3, A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, ArrPairStr[A](), newT, opt3, opt2, opt1)(show1Ev, show2Ev,
+    show3Ev, unshow1Ev, unshow2Ev, unshow3Ev)
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances with 3 [[Double]] components. */
