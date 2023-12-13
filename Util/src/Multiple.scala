@@ -100,13 +100,12 @@ object Multiple
   }
 
   /** Collection from [[Arr]] of [[Expr]]. */
-  def collFromArrExpr[A, R](inp: Arr[Expr])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] =
+  def collFromArrExpr[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderCollMap[Ae, A]): EMon[A] =
     unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
 
   /** Collection from [[Arr]] of [[Statement]]. */
   def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] =
     unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)
-
 }
 
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]

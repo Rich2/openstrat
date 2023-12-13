@@ -36,7 +36,7 @@ object BuilderCollMap
   implicit val arrayIntEv: ArrayIntBuilder = new ArrayIntBuilder
 
   /** [[BuilderCollMap]] type class instance / evidence for the [[Array]][A] class. */
-  implicit def arrayRefEv[A <: AnyRef](implicit ct: ClassTag[A]): BuilderStdCollMap[A, Array[A]] = new ArrayRefBuilder[A]
+  implicit def arrayEv[A <: AnyRef](implicit ct: ClassTag[A]): BuilderStdCollMap[A, Array[A]] = new ArrayBuilder[A]
 }
 trait BuilderStdCollMap[A, R] extends BuilderCollMap[A, R]
 { override type BuffT = ArrayBuffer[A]
@@ -60,7 +60,7 @@ class ArrayIntBuilder extends BuilderStdCollMap[Int, Array[Int]]
   override def buffToSeqLike(buff: ArrayBuffer[Int]): Array[Int] = buff.toArray
 }
 
-class ArrayRefBuilder[A](implicit val ct: ClassTag[A]) extends BuilderStdCollMap[A, Array[A]]
+class ArrayBuilder[A](implicit val ct: ClassTag[A]) extends BuilderStdCollMap[A, Array[A]]
 { override def empty: Array[A] = Array[A]()
   override def buffToSeqLike(buff: ArrayBuffer[A]): Array[A] = buff.toArray
 }
