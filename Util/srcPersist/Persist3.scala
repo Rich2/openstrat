@@ -258,22 +258,3 @@ object PersistDbl3Both
     newT: (Double, Double, Double) => A, opt2: Option[Double] = None, opt1In: Option[Double] = None)(implicit classTag: ClassTag[A]):
     PersistDbl3Both[A] = new PersistDbl3Both[A](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, ArrPairStr[A](), opt2, opt1In)
 }
-
-class Unshow3Repeat[A1, A2, A3, A](val typeStr: String, f: (A1, A2, Seq[A3]) => A)(implicit val unshowA1: Unshow[A1], val unshowA2: Unshow[A2]) extends Unshow[A]
-{ /** The function to construct an object of type R from its 2 components." */
-  def newT: (A1, A2, Seq[A3]) => A = f
-
-  override def fromExpr(expr: Expr): EMon[A] = ???
-   /* expr match
-  {
-    //case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName && sts.length >= 1 => {
-      val a1 = unshowA1.fromStatement(sts(0))
-      def reps = sts.drop1.mapEMonList(unshowA2.fromStatement)
-      a1.flatMap(a1 => reps.map(l => newT(a1, l)))
-    }
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case ExprSeqNonEmpty(exprs) => ???//fromExprSeq(exprs)
-    case _ => expr.exprParseErr[A](this)
-  }*/
-}

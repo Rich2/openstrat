@@ -7,6 +7,7 @@ trait PersistNRepeat[AR] extends Any with PersistN
 { /** Sequence of the names of parameter constituents of this class. */
   def paramFixedNames: StrArr
 
+  /** Name of the repeated parameters. */
   def repeatName: String
 
   /** Number of parameter constituents of this class. */

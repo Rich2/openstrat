@@ -110,6 +110,7 @@ object Show
   implicit def optionEv[A](implicit evA: Show[A]): Show[Option[A]] =
     ShowSum2[Option[A], Some[A], None.type]("Opt", someEv[A](evA), noneEv)
 
+  /** [[Show]] type class instance for optional values stored using null for [[None]] values. */
   def nullOptionEv[A](implicit evA: Show[A]): Show[A] = new Show[A]
   { override def typeStr: String = "Option"
 
@@ -118,12 +119,7 @@ object Show
       else someEv(evA).show(Some(obj), style, maxPlaces, minPlaces)
 
     override def strT(obj: A): String = ???
-
-
     override def syntaxDepth(obj: A): Int = ife(obj == null, 1, evA.syntaxDepth(obj))
-
-
-
   }
 }
 
