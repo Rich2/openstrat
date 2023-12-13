@@ -24,10 +24,10 @@ object Counter
     ("CounterD", CounterD), ("CounterE", CounterE))
 
   /* Implicit [[Show]] type class instance / evidence for [[Counter]]. */
-  implicit val showEv: Show2[Char, Colour, Counter] = Show2.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts)
+  implicit val showEv: Persist2Both[Char, Colour, Counter] = Persist2Both.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts, apply)
 
 
-  implicit lazy val unshowEv: Unshow2[Char, Colour, Counter] = Unshow2.shorts[Char, Colour, Counter]("Counter", "char", "colour", apply, shorts)
+  //implicit lazy val unshowEv: Unshow2[Char, Colour, Counter] = Unshow2.shorts[Char, Colour, Counter]("Counter", "char", "colour", apply, shorts)
 }
 
 object CounterA extends Counter('A', Red)

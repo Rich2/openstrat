@@ -25,7 +25,7 @@ object WTile
   implicit val showTEv: ShowTellSum[WTile] = ShowTellSum[WTile]("WTile")
 
   /** [[Unshow]] type class instance / evidence for [[WTile]]. */
-  implicit val unshowEv: UnshowSum[WTile] = UnshowSum[WTile]("WTile", Land.unshowEv, Water.unshowEv)
+  implicit val unshowEv: UnshowSum[WTile] = UnshowSum[WTile]("WTile", Land.persistEv, Water.unshowEv)
 
   implicit val eqEV: EqT[WTile] = (a1, a2) => if(a1 == a2) true else (a1, a2) match{
     case (l1: Land, l2: Land) => Land.eqEv.eqT(l1, l2)
