@@ -277,6 +277,14 @@ package object ostrat
     ev.buffToSeqLike(buff)
   }
 
+  def iUntilForall(iUntil: Int)(f: Int => Boolean): Boolean =
+  { if (iUntil < 0) throw excep(s"Loop will not reach $iUntil and terminate with positive step.")
+    var i: Int = 0
+    var res = true
+    while (i < iUntil && res == true) if(f(i)) i += 1 else res = false
+    res
+  }
+
   /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or
    *  equal to) the end value in integer steps. Default step value is 1. Throws on non termination. */
   def iToIntSum(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =

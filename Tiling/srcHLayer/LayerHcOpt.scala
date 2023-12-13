@@ -13,10 +13,14 @@ class LayerHcOptRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extend
   override def typeStr: String = "HRow"
   def numTiles: Int = arrayUnsafe.length
 
-  /*override def equals(obj: Any): Boolean = obj match{
-    case op: LayerHcOptSys[_] => true
+  override def equals(obj: Any): Boolean = obj match{
+    case op: LayerHcOptRow[_] =>{
+      val a1 = arrayUnsafe
+      val a2 = op.arrayUnsafe
+      a1.length == a2.length && iUntilForall(a1.length){ i => a1(i) == a2(i) }
+    }
     case _ => false
-  }*/
+  }
 }
 
 object LayerHcOptRow

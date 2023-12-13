@@ -9,6 +9,7 @@ object G1Scen1Test extends TestSuite
   val g1Str = "HGridReg(2; 6; 2; 10)"
   val cs1: LayerHcOptSys[Counter] = os1.counters
   val hr1 = LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB)
+  val hr2 = LayerHcOptRow[Counter](4, CounterA, CounterB, CounterC)
 
   val tests = Tests {
 
@@ -21,6 +22,9 @@ object G1Scen1Test extends TestSuite
       lr1.str ==> "HRow(8; CounterA; CounterB)"
       hr1.str ==> "HRow(4; CounterA; ; ; CounterB)"
       LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB, None).str ==> "HRow(4; CounterA; ; ; CounterB; ;)"
+      "HRow(4; CounterA; CounterB; CounterC)".asType[LayerHcOptRow[Counter]] ==> Good(hr2)
+      assert("HRow(4; CounterA; CounterB; CounterD)".asType[LayerHcOptRow[Counter]] != Good(hr2))
+      //"HRow(4; CounterA; ; ; CounterB)".asType[LayerHcOptRow[Counter]] ==> Good(hr1)
     }
   }
 }

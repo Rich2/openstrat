@@ -145,6 +145,10 @@ object Unshow2
     ev1: Unshow[A1], ev2: Unshow[A2], classTag: ClassTag[A]): Unshow2[A1, A2, A] =
     new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, ArrPairStr[A](), opt2, opt1)
 
+  def shorts[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, shorts: ArrPairStr[A], opt2: Option[A2] = None,
+    opt1: Option[A1] = None)(implicit ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, A] =
+    new Unshow2Imp[A1, A2, A](typeStr, name1, name2, newT, shorts, opt2, opt1)
+
   /** Factory method for producing [[Unshow]] type class instances for objects with 2 components. Explicitly applies the unshow1 and unshow2 type
    *  class instances at the end of the first parameter list. The [[ClassTag]] can still be found implicitly. */
   def explicit[A1, A2, A](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, unshow1: Unshow[A1], unshow2: Unshow[A2],
