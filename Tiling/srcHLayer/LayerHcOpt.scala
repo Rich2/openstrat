@@ -46,16 +46,20 @@ class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A]) ex
   override type KeyT = HCenRow
   override def typeStr: String = "HRow"
   def numTiles: Int = arrayUnsafe.length
+  def apply(hCen: HCen): A = arrayUnsafe(grid.layerArrayIndex(hCen))
 
   override def equals(obj: Any): Boolean = obj match
   { case op: LayerHcOptGrid[_] => grid == op.grid && arrayUnsafe.sameElements(op.arrayUnsafe)
     case _ => false
   }
+
+  //def rowsForeach(f: LayerHcOptGrid[A] => Unit): Unit = grid.allRowsForeach{hcr => }
 }
 
 object LayerHcOptGrid
 {
-  def show[A <: AnyRef](implicit showAEv: Show[A]) = ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", ???)
+  def show[A <: AnyRef](implicit showAEv: Show[A]) =
+    ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", ???)
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to

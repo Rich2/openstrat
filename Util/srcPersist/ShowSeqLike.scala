@@ -39,6 +39,7 @@ object ShowSeqLike
   def apply[Ae, A](typeStr: String, fForeach: (A, Ae => Unit) => Unit)(implicit evA: Show[Ae]): ShowSeqLike[Ae, A] =
     new ShowSeqLikeImp[Ae, A](typeStr, fForeach)(evA)
 
+  /** Implementation class for the general case of [[ShowSeqLike]] type class instances. */
   class ShowSeqLikeImp[Ae, A](val typeStr: String, fForeach: (A, Ae => Unit) => Unit)(implicit val evA: Show[Ae]) extends ShowSeqLike[Ae, A]
   { override def showForeach(obj: A, f: Ae => Unit): Unit = fForeach(obj, f)
   }
