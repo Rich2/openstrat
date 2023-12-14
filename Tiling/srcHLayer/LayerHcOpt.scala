@@ -53,6 +53,11 @@ class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A]) ex
   }
 }
 
+object LayerHcOptGrid
+{
+  def show[A <: AnyRef](implicit showAEv: Show[A]) = ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", ???)
+}
+
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
  *  the index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
 class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerHcOpt[A] with LayerHcSys[Option[A]]
@@ -467,7 +472,7 @@ object LayerHcOptSys
   }
 }
 
-class HCenRowOptLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A]) extends Tell
+/*class HCenRowOptLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A]) extends Tell
 {
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   override def str: String = ???
@@ -480,4 +485,4 @@ class HCenRowOptLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A]) extend
   /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
    * Show. */
   override def typeStr: String = ???
-}
+}*/
