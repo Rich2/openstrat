@@ -6,7 +6,7 @@ import pgui._, geom._, prid._, psq._, gPlay._
 case class SqCounter(sqCen: SqCen, value: Counter) extends SqMemShow[Counter]
 { override def typeStr: String = "SqCounter"
   override def name2: String = "counter"
-  override implicit def show2: Show[Counter] = Counter.showEv
+  override implicit def show2: Show[Counter] = Counter.persistEv
   override def tellDepth: Int = 2
 }
 

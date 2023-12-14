@@ -23,11 +23,8 @@ object Counter
   lazy val shorts: ArrPairStr[Counter] = ArrPairStr[Counter](("CounterA", CounterA), ("CounterB", CounterB), ("CounterC", CounterC),
     ("CounterD", CounterD), ("CounterE", CounterE))
 
-  /* Implicit [[Show]] type class instance / evidence for [[Counter]]. */
-  implicit val showEv: Persist2Both[Char, Colour, Counter] = Persist2Both.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts, apply)
-
-
-  //implicit lazy val unshowEv: Unshow2[Char, Colour, Counter] = Unshow2.shorts[Char, Colour, Counter]("Counter", "char", "colour", apply, shorts)
+  /* Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Counter]]. */
+  implicit val persistEv: Persist2Both[Char, Colour, Counter] = Persist2Both.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts, apply)
 }
 
 object CounterA extends Counter('A', Red)

@@ -16,6 +16,6 @@ object CounterState
 case class HCounter(hc: HCen, value: Counter) extends HexMemShow[Counter]
 { override def typeStr: String = "HCounter"
   override def name2: String = "counter"
-  override implicit def show2: Show[Counter] = Counter.showEv
+  override implicit def show2: Show[Counter] = Counter.persistEv
   override def tellDepth: Int = 2
 }
