@@ -29,7 +29,9 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStru
   override def name3: String = "cEnd"
   override def tell3: Int = cEnd
   def cLen: Int = (cEnd - cStart).max0
-  def tNum: Int = ((cEnd - cStart + 1) / 4).max0
+
+  /** The number of tiles [[HCen]]s in this row. */
+  def numTiles: Int = ((cEnd - cStart + 1) / 4).max0
 
   override def layerArrayIndex(r: Int, c: Int): Int = (c - cStart) / 4
 
@@ -40,21 +42,21 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStru
 
   /** Creates the backing Array[Int] of [[HVert]]s for this HCenRow. This same array can be used inside an [[HVertArr]] or a [[PolygonHC]] class. */
   def setHVertArray: Array[Int] =
-  { val res = new Array[Int]((tNum * 4 + 2) * 2)
+  { val res = new Array[Int]((numTiles * 4 + 2) * 2)
     res.setIndex2(0, r + 1, cStart + 2)
-    iToForeach(2, tNum ){ i =>
+    iToForeach(2, numTiles ){ i =>
       res.setIndex2(i * 2 - 3, r + 1, cStart + i * 4 - 4)
       res.setIndex2(i * 2 - 2, r + 1, cStart + i * 4 - 2)
     }
-    iToForeach(tNum, 2, - 1) { i =>
-      res.setIndex2(tNum * 4 - i * 2 - 1, r - 1, cStart + i * 4 - 2)
-      res.setIndex2(tNum * 4 - i * 2,     r - 1, cStart + i * 4 - 4)
+    iToForeach(numTiles, 2, - 1) { i =>
+      res.setIndex2(numTiles * 4 - i * 2 - 1, r - 1, cStart + i * 4 - 2)
+      res.setIndex2(numTiles * 4 - i * 2,     r - 1, cStart + i * 4 - 4)
     }
-    res.setIndex2(tNum * 4 - 3, r - 1, cStart + 2)
-    res.setIndex2(tNum * 4 - 2, r - 1, cStart)
-    res.setIndex2(tNum * 4 - 1, r - 1, cStart - 2)
-    res.setIndex2(tNum * 4,     r + 1, cStart - 2)
-    res.setIndex2(tNum * 4 + 1, r + 1, cStart)
+    res.setIndex2(numTiles * 4 - 3, r - 1, cStart + 2)
+    res.setIndex2(numTiles * 4 - 2, r - 1, cStart)
+    res.setIndex2(numTiles * 4 - 1, r - 1, cStart - 2)
+    res.setIndex2(numTiles * 4,     r + 1, cStart - 2)
+    res.setIndex2(numTiles * 4 + 1, r + 1, cStart)
     res
   }
 }

@@ -33,6 +33,8 @@ object LayerHcOptRow
     new LayerHcOptRow[A](row, array)
   }
 
+  def apply[A <: AnyRef](row: Int, array: Array[A]): LayerHcOptRow[A] = new LayerHcOptRow[A](row, array)
+
   implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1OptRepeat[Int, A, LayerHcOptRow[A]] =
     Show1OptRepeat[Int, A, LayerHcOptRow[A]]("HRow", "row", _.row, "values", _.arrayUnsafe)
 
@@ -41,25 +43,32 @@ object LayerHcOptRow
 }
 
 /** [[HCen]] layer for a hex row. */
-class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A]) extends LayerHcOpt[A]
+class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A])(implicit ct: ClassTag[A]) extends LayerHcOpt[A]
 { type ThisT = LayerHcOptSys[A]
   override type KeyT = HCenRow
   override def typeStr: String = "HRow"
   def numTiles: Int = arrayUnsafe.length
   def apply(hCen: HCen): A = arrayUnsafe(grid.layerArrayIndex(hCen))
-
+  def apply(r: Int, c: Int): A = arrayUnsafe(grid.layerArrayIndex(r, c))
   override def equals(obj: Any): Boolean = obj match
   { case op: LayerHcOptGrid[_] => grid == op.grid && arrayUnsafe.sameElements(op.arrayUnsafe)
     case _ => false
   }
 
-  //def rowsForeach(f: LayerHcOptGrid[A] => Unit): Unit = grid.allRowsForeach{hcr => }
+  def rowsForeach(f: LayerHcOptRow[A] => Unit): Unit = grid.allRowsForeach{hcr =>
+    val len = hcr.numTiles
+    val array = new Array[A](len)
+    val st = hcr.cStart
+    iUntilForeach(len){i => array(i) = apply(hcr.r, st + i * 4) }
+    val lhor: LayerHcOptRow[A] = LayerHcOptRow(hcr.r, array)
+    f(lhor)
+  }
 }
 
 object LayerHcOptGrid
 {
-  def show[A <: AnyRef](implicit showAEv: Show[A]) =
-    ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", ???)
+  implicit def showEv[A <: AnyRef](implicit evA: Show[A]): ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]] =
+    ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", (obj, f) => obj.rowsForeach(f))
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
