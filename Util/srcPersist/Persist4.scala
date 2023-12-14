@@ -179,6 +179,8 @@ object UnshowInt4
   }
 }
 
+/** [[Unshow]] type class instances for classes with 4 [[Double]] [[Unshow]] components. Note this wouldn't include classes like e line segement,
+ * because although it would be stored in memory as 4 [[Double]]s for efficiency, for persistence purpose it has 2 point components. */
 trait UnshowDbl4[A] extends Unshow4[Double, Double, Double, Double, A]
 { override def unshow1Ev: Unshow[Double] = Unshow.doubleEv
   override def unshow2Ev: Unshow[Double] = Unshow.doubleEv
