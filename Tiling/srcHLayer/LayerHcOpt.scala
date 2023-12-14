@@ -13,12 +13,8 @@ class LayerHcOptRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extend
   override def typeStr: String = "HRow"
   def numTiles: Int = arrayUnsafe.length
 
-  override def equals(obj: Any): Boolean = obj match{
-    case op: LayerHcOptRow[_] =>{
-      val a1 = arrayUnsafe
-      val a2 = op.arrayUnsafe
-      a1.length == a2.length && iUntilForall(a1.length){ i => a1(i) == a2(i) }
-    }
+  override def equals(obj: Any): Boolean = obj match
+  { case op: LayerHcOptRow[_] => row == op.row && arrayUnsafe.sameElements(op.arrayUnsafe)
     case _ => false
   }
 }
@@ -42,6 +38,19 @@ object LayerHcOptRow
 
   implicit def unshow[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1OptRepeat[Int, A, LayerHcOptRow[A]] =
     Unshow1OptRepeat[Int, A, LayerHcOptRow[A]]("HRow", "row", "values", (a1, ars) => new LayerHcOptRow[A](a1, ars))
+}
+
+/** [[HCen]] layer for a hex row. */
+class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A]) extends LayerHcOpt[A]
+{ type ThisT = LayerHcOptSys[A]
+  override type KeyT = HCenRow
+  override def typeStr: String = "HRow"
+  def numTiles: Int = arrayUnsafe.length
+
+  override def equals(obj: Any): Boolean = obj match
+  { case op: LayerHcOptGrid[_] => grid == op.grid && arrayUnsafe.sameElements(op.arrayUnsafe)
+    case _ => false
+  }
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
