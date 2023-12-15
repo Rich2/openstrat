@@ -1,7 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-
 /** [[Show]] type class for showing [[Sequ]][Ae] objects. */
 trait ShowSeqSpec[Ae, A <: SeqSpec[Ae]] extends ShowSeqLike[Ae, A]
 { override def showForeach(obj: A, f: Ae => Unit): Unit = obj.ssForeach(f)
@@ -15,6 +14,7 @@ object ShowSeqSpec
   }
 }
 
+/** Both [[Show]] and [[Unshow]] type class instances / evidence for [[SeqSpec]] objects. */
 class PersistSeqSpecBoth[Ae, A <: SeqSpec[Ae]](val typeStr: String, val showAeEv: Show[Ae],  val unshowAeEv: Unshow[Ae])(implicit
   val build: BuilderCollMap[Ae, A]) extends PersistBoth[A] with ShowSeqSpec[Ae, A] with UnshowSeqLike[Ae, A]
 
