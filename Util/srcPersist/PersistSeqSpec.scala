@@ -8,7 +8,7 @@ trait ShowSeqSpec[Ae, A <: SeqSpec[Ae]] extends ShowSeqLike[Ae, A]
 }
 
 object ShowSeqSpec
-{ /** Factory apply method for constructing [[ShowSeqSpec]] type class instances. */
+{ /** Factory apply method for constructing [[Show]] type class instances / evidence for [[SeqSpec]] objects. */
   def apply[Ae, A <: SeqSpec[Ae]](typeStrIn: String)(implicit evAIn: Show[Ae]): ShowSeqSpec[Ae, A] = new ShowSeqSpec[Ae, A]
   { override val typeStr: String = typeStrIn
     override val showAeEv: Show[Ae] = evAIn
@@ -19,7 +19,7 @@ class PersistSeqSpecBoth[Ae, A <: SeqSpec[Ae]](val typeStr: String, val showAeEv
   val build: BuilderCollMap[Ae, A]) extends PersistBoth[A] with ShowSeqSpec[Ae, A] with UnshowSeqLike[Ae, A]
 
 object PersistSeqSpecBoth
-{
+{  /** Factory apply method for constructing both [[Show]] and [[Unshow]] type class instances for [[SeqSpec]] types. */
   def apply[Ae, A <: SeqSpec[Ae]](typeStr: String)(implicit showAeEv: Show[Ae],  unshowAeEv: Unshow[Ae], build: BuilderCollMap[Ae, A]):
     PersistSeqSpecBoth[Ae, A] = new PersistSeqSpecBoth[Ae, A](typeStr, showAeEv,  unshowAeEv)(build)
 }

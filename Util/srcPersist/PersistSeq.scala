@@ -10,8 +10,7 @@ trait PersistSeq[A, SA] extends Persist
 
 /** All logical sequence classes are shown as "Seq"s. There encoding in memory and the immutability are irrelevant for their persistence. */
 trait ShowSeq[A, SA] extends ShowSeqLike[A, SA] with PersistSeq[A, SA]
-{
-  override def toString: String = "Show" + typeStr + showAeEv.typeStr.enSquare
+{ override def toString: String = "Show" + typeStr + showAeEv.typeStr.enSquare
 }
 
 trait ShowIterable[A, SA <: Iterable[A]] extends ShowSeq[A, SA]

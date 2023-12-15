@@ -91,11 +91,8 @@ object PolygonM3 extends CompanionSeqLikeDbl3[PtM3, PolygonM3]
     override def rotateZ180T(obj: PolygonM3): PolygonM3 = obj.map(pt => pt.rotateZ180)
   }
 
-  /** [[Show]] type class instance / evidence for [[PolygonM3]]. */
-  implicit lazy val showEv: ShowSeqSpec[PtM3, PolygonM3] = ShowSeqSpec[PtM3, PolygonM3]("PolygonM3")
-
-  /** [[Unshow]] type class instance / evidence for [[PolygonM3]]. */
-  implicit lazy val unshowEv: UnshowSeqLike[PtM3, PolygonM3] = UnshowSeqLike[PtM3, PolygonM3]("PolygonM3")
+  /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[PolygonM3]]. */
+  implicit lazy val persistEv: PersistSeqSpecBoth[PtM3, PolygonM3] = PersistSeqSpecBoth[PtM3, PolygonM3]("PolygonM3")
 }
 
 /** Specialised [[Arr]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
