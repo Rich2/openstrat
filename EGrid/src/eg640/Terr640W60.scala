@@ -31,6 +31,7 @@ object Terr640W60 extends Long640Terrs
       TRow(102, savannah, hillyJungle, jungle, Cape(0, 2, hillyJungle)),
       VRow(101, BendOut(10760, HVUR)),
       TRow(100, jungle * 3, hillyJungle, Cape(1, 1, jungle)),
+      TRow(98, jungle * 4, hillyJungle),
     )
   }
   help.run
