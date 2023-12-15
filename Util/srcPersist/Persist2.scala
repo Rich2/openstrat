@@ -41,8 +41,7 @@ trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
     case _ => StrArr(show1(obj, way, maxPlaces, minPlaces), show2(obj, way, maxPlaces, minPlaces) )
   }
 
-  override def syntaxDepth(obj: A): Int = show1Ev.syntaxDepth(fArg1(obj)).max(show2Ev.syntaxDepth(fArg2(obj))) + 1
-}
+  override def syntaxDepth(obj: A): Int = show1Ev.syntaxDepth(fArg1(obj)).max(show2Ev.syntaxDepth(fArg2(obj))) + 1}
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
 object Show2

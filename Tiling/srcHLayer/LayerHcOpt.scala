@@ -63,6 +63,8 @@ class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A])(im
     val lhor: LayerHcOptRow[A] = LayerHcOptRow(hcr.r, array)
     f(lhor)
   }
+
+  override def toString: String = "LayerHcOptGrid".appendParenthSemis(grid.toString, arrayUnsafe.length.toString)
 }
 
 object LayerHcOptGrid

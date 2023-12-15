@@ -31,7 +31,7 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStru
   def cLen: Int = (cEnd - cStart).max0
 
   /** The number of tiles [[HCen]]s in this row. */
-  def numTiles: Int = ((cEnd - cStart + 1) / 4).max0
+  def numTiles: Int = ((cEnd - cStart + 4) / 4).max0
 
   override def layerArrayIndex(r: Int, c: Int): Int = (c - cStart) / 4
 

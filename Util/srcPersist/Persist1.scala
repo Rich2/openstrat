@@ -74,7 +74,7 @@ class Show1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg
 
   override def syntaxDepth(obj: A): Int =
   { var acc = 2
-    showForeach(obj, a => acc = acc.max(showEvR.syntaxDepth(a) + 1))
+    showForeach(obj, a => acc = acc.max(Show.nullOptionEv[Ar](showEvR).syntaxDepth(a) + 1))
     acc
   }
 }
