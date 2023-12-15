@@ -16,7 +16,6 @@ class LinePathM3(val unsafeArray: Array[Double]) extends AnyVal with LinePathDbl
 object LinePathM3 extends CompanionSeqLikeDbl3[PtM3, LinePathM3]
 { override def fromArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
 
-  implicit lazy val showEv: ShowSeqSpec[PtM3, LinePathM3] = ShowSeqSpec[PtM3, LinePathM3]("LinePathM3")
-
-  implicit lazy val unshowEv: UnshowSeqLike[PtM3, LinePathM3] = UnshowSeqLike[PtM3, LinePathM3]("LinePathM3")
+  /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePathM3]]. */
+  implicit lazy val persistEv: PersistSeqSpecBoth[PtM3, LinePathM3] = PersistSeqSpecBoth[PtM3, LinePathM3]("LinePathM3")
 }

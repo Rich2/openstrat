@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+
 
 /** [[Show]] type class for showing [[Sequ]][Ae] objects. */
 trait ShowSeqSpec[Ae, A <: SeqSpec[Ae]] extends ShowSeqLike[Ae, A]
@@ -15,8 +15,11 @@ object ShowSeqSpec
   }
 }
 
-class PersistSeqSpecBoth[Ae, A <: SeqSpec[Ae]](val typeStr: String, val showAeEv: Show[Ae],  val unshowAeEv: Unshow[Ae]) extends PersistBoth[A] with ShowSeqSpec[Ae, A]
-  with UnshowSeqLike[Ae, A]
+class PersistSeqSpecBoth[Ae, A <: SeqSpec[Ae]](val typeStr: String, val showAeEv: Show[Ae],  val unshowAeEv: Unshow[Ae])(implicit
+  val build: BuilderCollMap[Ae, A]) extends PersistBoth[A] with ShowSeqSpec[Ae, A] with UnshowSeqLike[Ae, A]
+
+object PersistSeqSpecBoth
 {
-  override def build: BuilderCollMap[Ae, A] = ???
+  def apply[Ae, A <: SeqSpec[Ae]](typeStr: String)(implicit showAeEv: Show[Ae],  unshowAeEv: Unshow[Ae], build: BuilderCollMap[Ae, A]):
+    PersistSeqSpecBoth[Ae, A] = new PersistSeqSpecBoth[Ae, A](typeStr, showAeEv,  unshowAeEv)(build)
 }
