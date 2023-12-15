@@ -66,11 +66,8 @@ object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
     override def buffToSeqLike(buff: PolygonM2Buff): PolygonM2Arr = new PolygonM2Arr(buff.unsafeBuffer.toArray)
   }
 
-  /** [[Show]] type class instance / evidence for [[PolygonM2]]. */
-  implicit lazy val showEv: ShowSeqSpec[PtM2, PolygonM2] = ShowSeqSpec[PtM2, PolygonM2]("PolygonM2")
-
-  /** [[Unshow]] type class instance / evidence for [[PolygonM2]]. */
-  implicit lazy val unshowEv: UnshowSeqLike[PtM2, PolygonM2] = UnshowSeqLike[PtM2, PolygonM2]("PolygonM2")
+  /** Both [[Show]] amd [[Unshoe]] type class instances / evidence for [[PolygonM2]] objects. */
+  implicit lazy val persistEv: PersistSeqSpecBoth[PtM2, PolygonM2] = PersistSeqSpecBoth[PtM2, PolygonM2]("PolygonM2")
 }
 
 /** Arr of [[PolygonM2]]s. */
