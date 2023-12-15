@@ -24,7 +24,8 @@ object Counter
     ("CounterD", CounterD), ("CounterE", CounterE))
 
   /* Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Counter]]. */
-  implicit val persistEv: Persist2Both[Char, Colour, Counter] = Persist2Both.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts, apply)
+  implicit lazy val persistEv: Persist2Both[Char, Colour, Counter] =
+    Persist2Both.shorts[Char, Colour, Counter]("Counter", "Char", _.char, "colour", _.colour, shorts, apply)
 }
 
 object CounterA extends Counter('A', Red)

@@ -9,6 +9,8 @@ object G1HScen1 extends G1HScen
   val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomeMut(4, 4, CounterA)
   counters.setSomesMut((4, 8, CounterB), (6, 10, CounterC))
+  lazy val gl: LayerHcOptGrid[Counter] = LayerHcOptGrid(gridSys, counters.arrayUnsafe)
+  //deb(gl.str)
 }
 
 /** 2nd example Turn 0 scenario state for Game One hex. */

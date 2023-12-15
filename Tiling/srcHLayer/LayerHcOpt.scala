@@ -67,6 +67,8 @@ class LayerHcOptGrid[A <: AnyRef](val grid: HGrid, val arrayUnsafe: Array[A])(im
 
 object LayerHcOptGrid
 {
+  def apply[A <: AnyRef](grid: HGrid, array: Array[A])(implicit ct: ClassTag[A]): LayerHcOptGrid[A] = new LayerHcOptGrid[A](grid, array)
+
   implicit def showEv[A <: AnyRef](implicit evA: Show[A]): ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]] =
     ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", (obj, f) => obj.rowsForeach(f))
 }
