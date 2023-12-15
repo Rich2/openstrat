@@ -3,10 +3,7 @@ package ostrat; package prid; package phex
 import scala.collection.mutable.ArrayBuffer
 
 trait HCenStruct
-{
-
-
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+{ /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array SeqDef data. */
   def layerArrayIndex(r: Int, c: Int): Int
 

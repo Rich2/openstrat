@@ -3,19 +3,19 @@ package ostrat
 import pParse._
 
 /** [[Unshow]] type classes for SeqLike. This trait actually implements fromExpr method.  */
-trait UnshowSeqLike[A, R] extends Unshow[R]
+trait UnshowSeqLike[Ae, A] extends Unshow[A]
 { /** [[Unshow]] type class instance for the elements of the seqLike. */
-  def evA: Unshow[A]
-  def build: BuilderCollMap[A, R]
+  def unshowAeEv: Unshow[Ae]
+  def build: BuilderCollMap[Ae, A]
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match
+  override def fromExpr(expr: Expr): EMon[A] = expr match
   { case _: EmptyExprToken => Good(build.empty)
 
-    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(evA.useMultiple) Multiple.collFromArrStatement(sts)(evA, build)
-      else sts.mapEMon(build)(s => evA.fromExpr(s.expr))
+    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(unshowAeEv, build)
+      else sts.mapEMon(build)(s => unshowAeEv.fromExpr(s.expr))
 
-    case ExprSeqNonEmpty(mems) => if (evA.useMultiple) Multiple.collFromArrExpr(mems)(evA, build)
-    else mems.mapEMon(build)(e => evA.fromExpr(e))
+    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(unshowAeEv, build)
+    else mems.mapEMon(build)(e => unshowAeEv.fromExpr(e))
 
     case e => bad1(expr, expr.toString + " unknown Expression for this sequence based class.")
   }
@@ -27,13 +27,13 @@ object UnshowSeqLike
     new UnshowSeqLikeImp[A, R](typeStr, evA, build)
 
   /** Implementation class for the general cases of [[UnshowSeqLike]]. Use [[UnshowSeq]] for any actual sequence classes. */
-  class UnshowSeqLikeImp[A, R](val typeStr: String, val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
+  class UnshowSeqLikeImp[A, R](val typeStr: String, val unshowAeEv: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 }
 
 /** [[Unshow]] type class instances for sequences, both [[Sequ]] and standard library classes such as [[List]] and
  * [[Array]]. Uses the typeStr "Seq". As all these different types are persisted as logical sequences. Their in memory
  * storage structure is irrelevant. They can all be reconstructed / unshown from an RSON Seq. */
-class UnshowSeq[A, R](val evA: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
+class UnshowSeq[A, R](val unshowAeEv: Unshow[A], val build: BuilderCollMap[A, R]) extends UnshowSeqLike[A, R]
 { def typeStr: String = "Seq"
   override def useMultiple: Boolean = false
 }

@@ -57,7 +57,7 @@ object Show
   /** Implicit [[Show]] type class instance / evidence for [[Char]]. */
   implicit val charEv: Show[Char] = ShowSimple[Char]("Char", _.toString.enquote1)
 
-  class ShowIterableClass[A, R <: Iterable[A]](val evA: Show[A]) extends ShowIterable[A, R] with Show[R]{}
+  class ShowIterableClass[A, R <: Iterable[A]](val showAeEv: Show[A]) extends ShowIterable[A, R] with Show[R]{}
 
   implicit def ShowIterableImplicit[A](implicit evA: Show[A]): Show[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
   implicit def ShowSeqImplicit[A](implicit evA: Show[A]): Show[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
@@ -68,7 +68,7 @@ object Show
   implicit def vectorImplicit[A](implicit ev: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
   implicit val arrayIntImplicit: Show[Array[Int]] = new ShowSeq[Int, Array[Int]]
-  { override def evA: Show[Int] = Show.intEv
+  { override def showAeEv: Show[Int] = Show.intEv
     override def syntaxDepth(obj: Array[Int]): Int = 2
     override def showForeach(obj: Array[Int], f: Int => Unit): Unit = obj.foreach(f)
   }
@@ -76,7 +76,7 @@ object Show
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
   implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeq[A, ArraySeq[A]]
   { override def syntaxDepth(obj: ArraySeq[A]): Int = ???
-    override def evA: Show[A] = ev
+    override def showAeEv: Show[A] = ev
     override def showForeach(obj: ArraySeq[A], f: A => Unit): Unit = obj.foreach(f)
   }
 
