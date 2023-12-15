@@ -45,7 +45,7 @@ trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
 
 /** Companion object for the [[Show2]] type class trait that shows object with 2 logical fields. */
 object Show2
-{
+{ /** Factory apply method for creating general cases of [[Show2]] type class instances / evidence. */
   def apply[A1, A2, A](typeStr: String, name1: String, fArg1: A => A1, name2: String, fArg2: A => A2, opt2: Option[A2] = None,
     opt1: Option[A1] = None)(implicit show1: Show[A1], show2: Show[A2], ct: ClassTag[A]): Show2[A1, A2, A] =
     new Show2Imp[A1, A2, A](typeStr, name1, fArg1, name2, fArg2, ArrPairStr[A](), opt2, opt1)
