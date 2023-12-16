@@ -11,7 +11,7 @@ trait WW2Scen extends HSysTurnScen
   val terrs: LayerHcRefSys[WTile]
   val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  def lunitSts: LayerHcRArr[LunitSt]// LayerHcOptSys[Army]
+  def lunitSts: LayerHcRArr[LunitSt]
 
   def endTurn(orderList: HCenStepPairArr[BrArmy]): WW2Scen = ???
   /*{
@@ -49,6 +49,7 @@ object WW2Scen1 extends WW2Scen
   val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr[LunitSt]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   lunitSts.set1(112, 1532, LunitSt(BrAr8))
+  lunitSts.set1(112, 1536, LunitSt(PzAr5))
   //implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
 }
 

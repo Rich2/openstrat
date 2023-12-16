@@ -34,4 +34,14 @@ case class BrArmy(num: Int, polity: Polity = Britain) extends Lunit
   override def levelStr: String = "Army"
 }
 
+/** British 8th Army. */
 object BrAr8 extends BrArmy(8)
+
+case class PzArmy(num: Int) extends Lunit
+{ override def level: LunitLevel = FieldArmy
+  override def levelStr: String = "Panzer Armee"
+  override def polity: Polity = Germany
+}
+
+/** Panzer Armee North Africa. */
+object PzAr5 extends PzArmy(5)
