@@ -2,14 +2,27 @@
 package ostrat; package pww2
 import pStrat._
 
-trait Lunit extends Coloured
-{
+/** Military unit. */
+trait Munit extends Coloured
+{ /** The polity or nation to which this military unit belongs. */
   def polity: Polity
-  def level: LunitLevel
-  def levelStr: String
   override def colour = polity.colour
+}
 
+trait MunitSt
+{
+  def identity: Munit
+}
+
+trait Lunit extends Munit
+{ def level: LunitLevel
+  def levelStr: String
   override def toString: String = levelStr + polity.toString.enParenth
+}
+
+trait LunitSt extends MunitSt
+{
+  override def identity: Lunit
 }
 
 case class Army(polity: Polity, num: Int) extends Lunit
@@ -17,11 +30,6 @@ case class Army(polity: Polity, num: Int) extends Lunit
   override def level: LunitLevel = FieldArmy
 
   override def levelStr: String = "Army"
-
-  /*override def equals(other: Any): Boolean = other match
-  { case that: Army => polity == that.polity
-    case _ => false
-  }*/
 }
 
 object BrAr8 extends Army(Britain, 8)
