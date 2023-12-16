@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, eg80._, eg120._, eg160._, eg220._, eg320._, eg640._, egmega._, eg13._, prid._, phex._, pParse._
+import pgui._, eg80._, eg120._, eg160._, eg220._, eg320._, eg460._, eg640._, egmega._, eg13._, prid._, phex._, pParse._
 
 /** object to launch EGrid basic Gui. */
 object EGridLaunch extends GuiLaunchMore
@@ -72,66 +72,69 @@ object EGridLaunch extends GuiLaunchMore
       case 56 => Scen640All
       case 57 => Scen640Americas
 
-      case 60 => EGrid320.scen0
-      case 61 => EGrid320.scen1
-      case 62 => EGrid320.scen2
-      case 63 => EGrid320.scen3
-      case 64 => EGrid320.scen4
-      case 65 => EGrid320.scen5
-      case 66 => EGrid320.scen6
-      case 67 => EGrid320.scen7
-      case 68 => EGrid320.scen8
-      case 69 => EGrid320.scen9
-      case 70 => EGrid320.scen10
-      case 71 => EGrid320.scen11
+      case 60 => EGrid460.scen0
+      case 61 => EGrid460.scen1
 
-      case 72 => Scen320s0e1
-      case 73 => Scen320ChinaJapan
-      case 74 => Scen320S11E2
-      case 75 => Scen320S10E5
-      case 76 => Scen320All
-      case 77 => BritReg320.regScen
-      case 78 => Scen320Americas
-      case 79 => Scen640NCanada
+      case 80 => EGrid320.scen0
+      case 81 => EGrid320.scen1
+      case 82 => EGrid320.scen2
+      case 83 => EGrid320.scen3
+      case 84 => EGrid320.scen4
+      case 85 => EGrid320.scen5
+      case 86 => EGrid320.scen6
+      case 87 => EGrid320.scen7
+      case 88 => EGrid320.scen8
+      case 89 => EGrid320.scen9
+      case 90 => EGrid320.scen10
+      case 91 => EGrid320.scen11
 
-      case 80 => EGrid220.scen0
-      case 81 => EGrid220.scen1
+      case 92 => Scen320s0e1
+      case 93 => Scen320ChinaJapan
+      case 94 => Scen320S11E2
+      case 95 => Scen320S10E5
+      case 96 => Scen320All
+      case 97 => BritReg320.regScen
+      case 98 => Scen320Americas
+      case 99 => Scen640NCanada
 
-      case 90 => EGrid220.scen10
+      case 100 => EGrid220.scen0
+      case 101 => EGrid220.scen1
 
-      case 92 => Scen220s0e1
+      case 110 => EGrid220.scen10
 
-      case 97 => BritReg220.regScen
-      case 98 => Scen220Americas
+      case 112 => Scen220s0e1
 
-      case 100 => EGrid160.scen0
-      case 101 => EGrid160.scen1
+      case 117 => BritReg220.regScen
+      case 118 => Scen220Americas
 
-      case 104 => EGrid160.scen4
-      case 105 => EGrid160.scen5
+      case 120 => EGrid160.scen0
+      case 121 => EGrid160.scen1
 
-      case 108 => EGrid160.scen8
-      case 109 => EGrid160.scen9
-      case 110 => EGrid160.scen10
-      case 111 => EGrid160.scen11
+      case 124 => EGrid160.scen4
+      case 125 => EGrid160.scen5
 
-      case 112 => Scen160S0E1
-      case 113 => Scen160s11e1
-      case 114 => Scen160S4E5
-      case 115 => Brit160.britScen
+      case 128 => EGrid160.scen8
+      case 129 => EGrid160.scen9
+      case 130 => EGrid160.scen10
+      case 131 => EGrid160.scen11
 
-      case 120 => EGrid120.scen0
-      case 121 => EGrid120.scen1
-      case 122 => EGrid120.scen2
+      case 132 => Scen160S0E1
+      case 133 => Scen160s11e1
+      case 134 => Scen160S4E5
+      case 135 => Brit160.britScen
 
-      case 132 => Scen120S0E1
-      case 133 => Scen120S0E2
-      case 134 => Scen120S0E1North
+      case 140 => EGrid120.scen0
+      case 141 => EGrid120.scen1
+      case 142 => EGrid120.scen2
 
-      case 140 => EGrid80.scen0
-      case 141 => EGrid80.scen1
-      case 152 => Scen80s0s1
-      case 153 => WesternFront.wFrontScen
+      case 152 => Scen120S0E1
+      case 153 => Scen120S0E2
+      case 154 => Scen120S0E1North
+
+      case 160 => EGrid80.scen0
+      case 161 => EGrid80.scen1
+      case 172 => Scen80s0s1
+      case 173 => WesternFront.wFrontScen
       case _ => Scen320All
     }
     (EGTerrOnlyGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
