@@ -34,6 +34,7 @@ object Terr640W90 extends Long640Terrs
       TRow(102, sea * 4, mtain),
       TRow(100, sea * 4, Cape(5, 1, mtain)),
       TRow(98, sea * 3, Cape(4, 2, mtain), jungle),
+      TRow(96, sea * 4, Cape(4, 1, mtain)),
     )
   }
   help.run

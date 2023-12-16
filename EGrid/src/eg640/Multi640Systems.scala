@@ -50,7 +50,7 @@ object Scen640All extends EScenLongMulti
 /** Terrain only scenario for North America. 3 640km grid system for 150W, 120W, 90W and 60W */
 object Scen640Americas extends EScenLongMulti
 { override val title: String = "640km 150W - 60W"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 7, 98)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(5, 7, 96)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
