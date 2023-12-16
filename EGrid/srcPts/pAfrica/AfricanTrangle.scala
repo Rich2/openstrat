@@ -47,15 +47,30 @@ object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, jungle
 
 /** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
 object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, land)
-{ val seNacala: LatLong = -14.4 ll 40.3
-  val eAfricaEquator: LatLong = 0.0 ll 42.4
+{ val eAfricaEquator: LatLong = 0.0 ll 42.4
   val mombassa: LatLong = -4.03 ll 39.28
+  val saadani: LatLong = -6.042 ll 38.780
+  val bagamoyo: LatLong = -6.439 ll 38.909
+  val p40: LatLong = -6.865 ll 39.476
+  val royumaMouth: LatLong = -10.469 ll 40.436
+  val seNacala: LatLong = -14.4 ll 40.3
 
-  override def polygonLL: PolygonLL = SouthAfrica.cAfricaSE %: LakeTanganyika.eastCoast ++ LakeVictoria.southEastAfrica |++|
-    LinePathLL(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa, seNacala, SouthAfrica.sAfricaNE)
+  override def polygonLL: PolygonLL = LinePathLL(eAfricaEquator, mombassa, saadani, bagamoyo, p40, royumaMouth, seNacala, SouthAfrica.sAfricaNE, SouthAfrica.cAfricaSE) ++
+    LakeTanganyika.eastCoast ++ LakeVictoria.southEastAfrica |++| LinePathLL(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
+object Zanzibar extends EArea2("Zanzibar", -6.112 ll 39.341, land)
+{ val north: LatLong = -5.721 ll 39.302
+  val p25: LatLong = -6.126 ll 39.509
+  val p40: LatLong = -6.383 ll 39.580
+  val south: LatLong = -6.478 ll 39.507
+  val capital: LatLong = -6.162 ll 39.185
+
+  override def polygonLL: PolygonLL = PolygonLL(north, p25, p40, south, capital)
+}
+
+  /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
 object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, land)
 { val north: LatLong = -11.95 ll 49.26
   val east: LatLong = -15.33 ll 50.48
@@ -67,7 +82,7 @@ object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, land)
 }
 
 /** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
-object SouthAfrica extends EArea2("South Africa", -25 ll 24, land)
+object SouthAfrica extends EArea2("South Africa", -25 ll 24, savannah)
 { val sAfricaN: Latitude = 17.south
 
   val sAfricaNW: LatLong = - 17 ll 11.76
