@@ -33,3 +33,10 @@ case object WSideNone extends WSide
 trait WSideSome extends WSide with HSideSome
 { override def nonEmpty: Boolean = true
 }
+
+/** Escarpment / cliff. Sudden change or changes elevation, heavily restiracting movement between the tiles. */
+case object Scarp extends WSideSome
+{ override def typeStr: String = "Scarp"
+  override def str: String = "Scarp"
+  override def colour: Colour = Maroon
+}
