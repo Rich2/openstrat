@@ -9,7 +9,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   val terrs: LayerHcRefSys[VTile] = scen.terrs
   val sTerrs: LayerHSOptSys[VSide, VSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
-  val lunits: HCenRArrLayer[Warrior] = scen.lunits
+  val lunits: LayerHcRArr[Warrior] = scen.lunits
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)

@@ -10,7 +10,7 @@ trait CivScen  extends HSysTurnScen
   val terrs: LayerHcRefSys[VTile]
   val sTerrs: LayerHSOptSys[VSide, VSideSome]
   val corners: HCornerLayer
-  val lunits: HCenRArrLayer[Warrior]
+  val lunits: LayerHcRArr[Warrior]
 }
 
 /** A Civ scenario state at turn 0. */
@@ -41,7 +41,7 @@ object Civ1 extends CivScenStart
   }
   help.run
 
-  val lunits: HCenRArrLayer[Warrior] = HCenRArrLayer[Warrior]()
+  val lunits: LayerHcRArr[Warrior] = LayerHcRArr[Warrior]()
   lunits.set1(10, 18, Warrior(Uruk))
   lunits.set1(6, 10, Warrior(Eridu))
 }
@@ -73,7 +73,7 @@ object Civ2 extends CivScenStart
   }
   help.run
 
-  val lunits: HCenRArrLayer[Warrior] = HCenRArrLayer[Warrior]()
+  val lunits: LayerHcRArr[Warrior] = LayerHcRArr[Warrior]()
   lunits.set1(8, 16, Warrior(Uruk))
   lunits.set1(6, 10, Warrior(Eridu))
 }

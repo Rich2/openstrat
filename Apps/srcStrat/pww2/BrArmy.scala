@@ -9,27 +9,29 @@ trait Munit extends Coloured
   override def colour = polity.colour
 }
 
-trait MunitSt
+trait MunitSt extends Coloured
 {
   def identity: Munit
+  override def colour: Colour = identity.colour
 }
 
 trait Lunit extends Munit
 { def level: LunitLevel
   def levelStr: String
   override def toString: String = levelStr + polity.toString.enParenth
+  def num: Int
 }
 
-trait LunitSt extends MunitSt
+case class LunitSt(override val identity: Lunit) extends MunitSt
 {
-  override def identity: Lunit
+  def num: Int = identity.num
 }
 
-case class Army(polity: Polity, num: Int) extends Lunit
+case class BrArmy(num: Int, polity: Polity = Britain) extends Lunit
 {
   override def level: LunitLevel = FieldArmy
 
   override def levelStr: String = "Army"
 }
 
-object BrAr8 extends Army(Britain, 8)
+object BrAr8 extends BrArmy(8)

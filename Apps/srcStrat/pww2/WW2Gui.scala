@@ -9,24 +9,31 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   val terrs: LayerHcRefSys[WTile] = scen.terrs
   val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
-  def armies: LayerHcOptSys[Army] = scen.armies
+  def armies: LayerHcRArr[LunitSt] = scen.lunitSts
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
-  def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
-  var moves: HCenStepPairArr[Army] = NoMoves
+  def NoMoves: HCenStepPairArr[BrArmy] = HCenStepPairArr[BrArmy]()
+  var moves: HCenStepPairArr[BrArmy] = NoMoves
 
   override def frame: GraphicElems =
   {
-    def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
-      val str = pixPerTile.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
+    def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
+      val str: String = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
+      val ref = ife(armies.length == 1, HCenPair(hc, armies.head), HCenPair(hc, armies))
+      val rect = Rect(1.4).fillActiveText(armies.head.colour, ref, armies.foldStr(_.num.str, ", "), 4, armies.head.contrastBW)
+      rect.scale(proj.pixelsPerTile * 0.45).slate(pt)
     }
 
-    def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
+    /*def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
+      val str = pixPerTile.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
+      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
+    }*/
+
+    def moveSegPairs: LineSegPairArr[BrArmy] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
@@ -50,7 +57,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
       thisTop()
     }
 
-    case (RightButton, HCenPair(hc1, army: Army), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, HCenPair(hc1, army: BrArmy), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
       repaint()

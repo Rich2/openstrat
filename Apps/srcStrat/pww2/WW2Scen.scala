@@ -11,10 +11,10 @@ trait WW2Scen extends HSysTurnScen
   val terrs: LayerHcRefSys[WTile]
   val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  def armies: LayerHcOptSys[Army]
+  def lunitSts: LayerHcRArr[LunitSt]// LayerHcOptSys[Army]
 
-  def endTurn(orderList: HCenStepPairArr[Army]): WW2Scen =
-  {
+  def endTurn(orderList: HCenStepPairArr[BrArmy]): WW2Scen = ???
+  /*{
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
@@ -30,11 +30,11 @@ trait WW2Scen extends HSysTurnScen
       override val terrs: LayerHcRefSys[WTile] = ThisScen.terrs
       override val sTerrs: LayerHSOptSys[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
-      override val armies: LayerHcOptSys[Army] = armiesNew
+      override val armies: HCenRArrLayer[LunitSt] =  armiesNew
 
       override def turn: Int = ThisScen.turn + 1
     }
-  }
+  }*/
 }
 
 /** Initial main scenario for World War 2. Scenario will start March 1 1942. Turns will be 3 months. Segments may initially be a month or 2 weeks. */
@@ -46,14 +46,10 @@ object WW2Scen1 extends WW2Scen
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen640All.sTerrs
   override val corners: HCornerLayer = Scen640All.corners
 
-  val armies: LayerHcOptSys[Army] = LayerHcOptSys()
+  val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr[LunitSt]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
-  implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
-
-//  armies.setFSomesMut(Germany.armyNext, 162,522,  160,520)
-//  armies.setFSomesMut(Soviet.armyNext, 148,1536,  146,1538,  144,1540,  142,1542,  140,1544,  138,1546,  136,1544)
- // armies.setFSomesMut(Britain.armyNext, 160,512)
-//  armies.setFSomesMut(Japan.armyNext, 128,4624)
+  lunitSts.set1(112, 1532, LunitSt(BrAr8))
+  //implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
 }
 
 object WW2Scen2 extends WW2Scen
@@ -63,5 +59,5 @@ object WW2Scen2 extends WW2Scen
   override val terrs: LayerHcRefSys[WTile] = Scen640S0E1.terrs
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen640S0E1.sTerrs
   override val corners: HCornerLayer = Scen640S0E1.corners
-  val armies: LayerHcOptSys[Army] = LayerHcOptSys()
+  val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr()
 }

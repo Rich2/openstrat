@@ -6,7 +6,7 @@ import prid._, phex._, Colour._
 abstract class G4HScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: LayerHcRefSys[Terr]
-  def lunits: HCenRArrLayer[LunitState]
+  def lunits: LayerHcRArr[LunitState]
  // def lunits: HCenArrLayer[LunitState]
   //def playerOrders: HStepPathPairArr[LunitState] = HStepPathPairArr()
 

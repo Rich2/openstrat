@@ -4,8 +4,8 @@ import Colour._
 
 trait Polity extends TellSimple with Coloured
 { override def typeStr: String = "Polity"
-  def army(num: Int): Army = Army(this, num)
-  def armyNext()(implicit counters: ArrCounters[Polity]): Army = army(counters(this))
+//  def army(num: Int): BrArmy = BrArmy(this, num)
+ // def armyNext()(implicit counters: ArrCounters[Polity]): BrArmy = army(counters(this))
 }
 
 object Polity

@@ -13,7 +13,7 @@ trait ZugScen extends HSysTurnScen
 
   val sTerrs: HSideBoolLayer
   val corners: HCornerLayer
-  val lunits: HCenRArrLayer[Squad]
+  val lunits: LayerHcRArr[Squad]
   def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set1(r, c, Squad(polity, Move(HStepArr(steps:_*))))
 
   def endTurn(): ZugScen = new ZugScen
@@ -21,7 +21,7 @@ trait ZugScen extends HSysTurnScen
     override val terrs: LayerHcRefSys[ZugTerr] = origSelf.terrs
     override val sTerrs: HSideBoolLayer = origSelf.sTerrs
     override val corners: HCornerLayer = origSelf.corners
-    override val lunits: HCenRArrLayer[Squad] = origSelf.lunits
+    override val lunits: LayerHcRArr[Squad] = origSelf.lunits
 
     override implicit val gridSys: HGridSys = origSelf.gridSys
 
@@ -66,7 +66,7 @@ object Zug1 extends ZugScenStart
   corners.setBend3All(10, 46, 1)
   corners.setMouth4OffGrid(10, 50, 1)
 
-  val lunits: HCenRArrLayer[Squad] = HCenRArrLayer[Squad]()
+  val lunits: LayerHcRArr[Squad] = LayerHcRArr[Squad]()
   setSquadMove(2, 30, Britain, HexLt, HexLt)
   lunits.set1(10, 38, Squad(Britain, Fire(6 hc 18)))
   setSquadMove(4, 32, Britain, HexLt, HexLt)
@@ -92,7 +92,7 @@ object Zug2 extends ZugScenStart
 
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = HCornerLayer()
-  val lunits: HCenRArrLayer[Squad] = HCenRArrLayer[Squad]()
+  val lunits: LayerHcRArr[Squad] = LayerHcRArr[Squad]()
 }
 
 /** ZugFuhrer scenario 3. */
@@ -102,7 +102,7 @@ object Zug3 extends ZugScenStart
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = HCornerLayer()
 
-  override val lunits = HCenRArrLayer[Squad]()
+  override val lunits = LayerHcRArr[Squad]()
   lunits.setSame(Squad( Germany), 6 hc 18, 6 hc 30)
   lunits.setSame(Squad(France), 10 hc 14, 10 hc 22, 10 hc 30)
 }

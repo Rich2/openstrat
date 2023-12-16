@@ -7,8 +7,8 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
   statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen: G3HScen = game.getScen
   implicit def gridSys: HGridSys = scen.gridSys
-  def lunits: HCenRArrLayer[LunitState] = scen.lunitStates
-  var moves: HCenRArrLayer[LunitState] = lunits.copy
+  def lunits: LayerHcRArr[LunitState] = scen.lunitStates
+  var moves: LayerHcRArr[LunitState] = lunits.copy
   var history: RArr[G3HScen] = RArr(scen)
 
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)

@@ -10,7 +10,7 @@ trait DLessScen extends HSysTurnScen
   val terrs: LayerHcRefSys[WTile]
   val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  val armies: HCenRArrLayer[Army]
+  val armies: LayerHcRArr[Army]
   def nationSet: RArr[Nation]
 
   def resolve(orderList: HCenStepPairArr[Army]): DLessScen =
@@ -21,7 +21,7 @@ trait DLessScen extends HSysTurnScen
       optTarget.foreach { target => if (terrs(target).isLand) targets.appendAt(target, HCenPair(pair.startHC, pair.a2)) }
     }
 
-    val armiesNew: HCenRArrLayer[Army] = armies.copy
+    val armiesNew: LayerHcRArr[Army] = armies.copy
     targets.foreach { (hc2, buff) => buff.foreachLen1(hcPair => if (armies.emptyTile(hc2)) armiesNew.moveUnsafe(hcPair.a1, hc2, hcPair.a2)) }
 
     new DLessScen
@@ -29,7 +29,7 @@ trait DLessScen extends HSysTurnScen
       override val terrs: LayerHcRefSys[WTile] = ThisScen.terrs
       override val sTerrs: LayerHSOptSys[WSide, WSideSome] = ThisScen.sTerrs
       override val corners: HCornerLayer = ThisScen.corners
-      override val armies: HCenRArrLayer[Army] = armiesNew
+      override val armies: LayerHcRArr[Army] = armiesNew
       override val nationSet = ThisScen.nationSet
       override def turn: Int = ThisScen.turn + 1
     }
@@ -48,8 +48,8 @@ object DLessScen1 extends DLessScen
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   implicit val nationSet: RArr[Nation] = RArr(Britain, France, Germany, Austria, Russia, Ottoman, Italy, Spain)
 
-  override val armies: HCenRArrLayer[Army] =
-  { val res = HCenRArrLayer[Army]()
+  override val armies: LayerHcRArr[Army] =
+  { val res = LayerHcRArr[Army]()
     implicit val counters: ArrCounters[Nation] = ArrCounters(nationSet)
     res.setFSomesMut(Britain.armyNext, 142,514,  144,508,  142,514)
     res.setFSomesMut(Germany.armyNext, 140,520,  144,1528,  144,520,  142,1526)
@@ -77,7 +77,7 @@ object DLessScen2 extends DLessScen
   override val terrs: LayerHcRefSys[WTile] = BritReg320.britTerrs
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = BritReg320.britSTerrs
   override val corners: HCornerLayer = HCornerLayer()
-  override val armies: HCenRArrLayer[Army] = HCenRArrLayer()
+  override val armies: LayerHcRArr[Army] = LayerHcRArr()
 
   override def nationSet: RArr[Nation] = ???
 }

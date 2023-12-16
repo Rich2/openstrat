@@ -8,9 +8,9 @@ case class G4HGui(canv: CanvasPlatform, scenStart: G4HScen, viewIn: HGView) exte
 
 //  def terrs: HCenLayer[Terr] = scen.terrs
 
-  def lunits: HCenRArrLayer[LunitState] = scen.lunits
+  def lunits: LayerHcRArr[LunitState] = scen.lunits
 
-  var moves: HCenRArrLayer[LunitState] = lunits.copy
+  var moves: LayerHcRArr[LunitState] = lunits.copy
 
   var history: RArr[G4HScen] = RArr(scen)
 

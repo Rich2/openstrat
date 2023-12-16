@@ -4,10 +4,10 @@ import prid._, phex._
 
 /** Example Game three scenario trait. */
 abstract class G3HScen(val turn: Int) extends HSysScen
-{ def lunitStates: HCenRArrLayer[LunitState]
+{ def lunitStates: LayerHcRArr[LunitState]
   def teamSet: RArr[Team]
 
-  def resolve(oldStates: HCenRArrLayer[LunitState]): HCenRArrLayer[LunitState] =
+  def resolve(oldStates: LayerHcRArr[LunitState]): LayerHcRArr[LunitState] =
   { val acc: HCenAccPairLayer[LunitState] = HCenAccPairLayer()
     oldStates.foreachHcForeach{(origin, ls) =>
       val steps: HStepArr = ls.intentions
@@ -17,7 +17,7 @@ abstract class G3HScen(val turn: Int) extends HSysScen
           case _ =>
         }
     }
-    val newStates: HCenRArrLayer[LunitState] = oldStates.copy
+    val newStates: LayerHcRArr[LunitState] = oldStates.copy
     acc.foreach { (target, pairArr) => pairArr match
       { case pa if pa.empty =>
         case HCenPairArr1(origin, ls) if origin != target => newStates.mutateMoveUnsafe(origin, target, _ == ls)(_.intensionsTail)
@@ -32,9 +32,9 @@ abstract class G3HScen(val turn: Int) extends HSysScen
 
 object G3HScen
 {
-  def apply(turnNum: Int, gridIn: HGridSys, unitsIn: HCenRArrLayer[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
+  def apply(turnNum: Int, gridIn: HGridSys, unitsIn: LayerHcRArr[LunitState], teamSetIn: RArr[Team]): G3HScen = new G3HScen(turnNum)
   { override implicit val gridSys: HGridSys = gridIn
-    override def lunitStates: HCenRArrLayer[LunitState] = unitsIn
+    override def lunitStates: LayerHcRArr[LunitState] = unitsIn
     override val teamSet: RArr[Team] = teamSetIn
   }
 }
