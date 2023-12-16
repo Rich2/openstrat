@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import prid._, phex._, egrid._, eg640._
+import prid._, phex._, egrid._, eg460._
 
 /** Scenario for World War 2 grand strategy game. */
 trait WW2Scen extends HSysTurnScen
@@ -41,24 +41,24 @@ trait WW2Scen extends HSysTurnScen
 object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit val gridSys: EGrid640LongMulti = Scen640All.gridSys
-  override val terrs: LayerHcRefSys[WTile] = Scen640All.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen640All.sTerrs
-  override val corners: HCornerLayer = Scen640All.corners
+  override implicit val gridSys: EGrid460LongMulti = Scen460S0E1.gridSys
+  override val terrs: LayerHcRefSys[WTile] = Scen460S0E1.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460S0E1.sTerrs
+  override val corners: HCornerLayer = Scen460S0E1.corners
 
   val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr[LunitSt]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
-  lunitSts.set1(112, 1532, LunitSt(BrAr8))
-  lunitSts.set1(112, 1536, LunitSt(PzAr5))
+  lunitSts.set1(118, 1538, LunitSt(BrAr8))
+  lunitSts.set1(118, 1534, LunitSt(PzAr5))
   //implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
 }
 
 object WW2Scen2 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit val gridSys = Scen640S0E1.gridSys
-  override val terrs: LayerHcRefSys[WTile] = Scen640S0E1.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen640S0E1.sTerrs
-  override val corners: HCornerLayer = Scen640S0E1.corners
+  override implicit val gridSys = Scen460S0E1.gridSys
+  override val terrs: LayerHcRefSys[WTile] = Scen460S0E1.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460S0E1.sTerrs
+  override val corners: HCornerLayer = Scen460S0E1.corners
   val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr()
 }
