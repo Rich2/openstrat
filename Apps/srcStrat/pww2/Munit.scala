@@ -20,11 +20,13 @@ trait Lunit extends Munit
   def levelStr: String
   override def toString: String = levelStr + polity.toString.enParenth
   def num: Int
+  def counter: UnitCounter = InfantryCounter
 }
 
 case class LunitSt(override val identity: Lunit) extends MunitSt
 {
   def num: Int = identity.num
+  def counter: UnitCounter = identity.counter
 }
 
 case class BrArmy(num: Int, polity: Polity = Britain) extends Lunit

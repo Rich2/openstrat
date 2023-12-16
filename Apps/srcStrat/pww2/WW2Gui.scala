@@ -23,15 +23,10 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   {
     def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
       val str: String = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
-      val ref = ife(armies.length == 1, HCenPair(hc, armies.head), HCenPair(hc, armies))
-      val rect = Rect(1.4).fillActiveText(armies.head.colour, ref, armies.foldStr(_.num.str, ", "), 4, armies.head.contrastBW)
-      rect.scale(proj.pixelsPerTile * 0.45).slate(pt)
+      val head: LunitSt = armies.head
+      val ref = ife(armies.length == 1, HCenPair(hc, head), HCenPair(hc, armies))
+      head.counter(proj.pixelsPerTile * 0.45, ref, head.colour).slate(pt)
     }
-
-    /*def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
-      val str = pixPerTile.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
-      pStrat.InfantryCounter(proj.pixelsPerTile * 0.45, HCenPair(hc, army), army.colour).slate(pt)
-    }*/
 
     def moveSegPairs: LineSegPairArr[BrArmy] = moves.optMapOnA1(_.projLineSeg)
 
