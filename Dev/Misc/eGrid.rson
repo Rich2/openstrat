@@ -60,6 +60,11 @@ flat = false;
 56 = HGView(120, 2560; 27);//640km All Longitudes
 57 = HGView(122, 9728; 23);//640km North America 4 grids 150°W - 60°W
 
+60 = HGView(138, 512; 25);//460km 0°E
+61 = HGView(135, 1536; 23);//460km 30°E
+
+72 = HGView(135, 1532; 28);//460km 0°E - 30°E
+
 80 = HGView(149, 512; 22);//320km 0°E
 81 = HGView(149, 1536; 23);//320km 30°E
 82 = HGView(149, 2560; 23);//320km 60°E
@@ -70,53 +75,53 @@ flat = false;
 87 = HGView(150, 7680; 23.5);//320km 150°W
 88 = HGView(142, 8704; 23.5);//320km 120°W
 89 = HGView(150, 9730; 22);//320km 90°W
-70 = HGView(150, 10752; 22);//320km 60°W
-71 = HGView(150, 11778; 24);//320km 30°W
+90 = HGView(150, 10752; 22);//320km 60°W
+91 = HGView(150, 11778; 24);//320km 30°W
 
-72 = HGView(149, 520; 21);//320km 0°E - 30°E
-73 = HGView(135, 4608; 24);//320km China - Japan 90°E - 150°E
-74 = HGView(150, 520; 21);//320km 30°W - 60°E
-75 = HGView(148, 2558; 8);//320km 60°W - 150°E
-76 = HGView(150, 6650; 21);//320km All longitudes
-77 = HGView(143, 512; 42);//320Km British Iles and surrounding.
-78 = HGView(142, 9730; 21);//320km North America 4 grids 150°W - 6°0W
-79 = HGView(157, 8711; 32);//320km North Canada only 2 rows, 120°W - 90°W
+92 = HGView(149, 520; 21);//320km 0°E - 30°E
+93 = HGView(135, 4608; 24);//320km China - Japan 90°E - 150°E
+94 = HGView(150, 520; 21);//320km 30°W - 60°E
+95 = HGView(148, 2558; 8);//320km 60°W - 150°E
+96 = HGView(150, 6650; 21);//320km All longitudes
+97 = HGView(143, 512; 42);//320Km British Iles and surrounding.
+98 = HGView(142, 9730; 21);//320km North America 4 grids 150°W - 6°0W
+99 = HGView(157, 8711; 32);//320km North Canada only 2 rows, 120°W - 90°W
 
-80 = HGView(156, 512; 22.5);//220Km 0°E
-81 = HGView(156, 1536; 22.5);//220Km 30°E
+100 = HGView(156, 512; 22.5);//220Km 0°E
+101 = HGView(156, 1536; 22.5);//220Km 30°E
 
-92 = HGView(156, 1524; 22.5);//220km 0°E - 30°E
+112 = HGView(156, 1524; 22.5);//220km 0°E - 30°E
 
-96 = HGView(140, 530; 24);//220km All longitudes
+116 = HGView(140, 530; 24);//220km All longitudes
 
-100 = HGView(286, 512; 25);//160km 0°E
-101 = HGView(286, 1536; 25);//160km 30°E
+120 = HGView(286, 512; 25);//160km 0°E
+121 = HGView(286, 1536; 25);//160km 30°E
 
-104 = HGView(262, 4614; 25);//160km 120°E
-105 = HGView(262, 5624; 25);//160km 150°E
+124 = HGView(262, 4614; 25);//160km 120°E
+125 = HGView(262, 5624; 25);//160km 150°E
 
-108 = HGView(316, 8704; 30);//160km 120°W
-109 = HGView(316, 9728; 30);//160km 90°W
-110 = HGView(316, 10752; 30);//160km 60°W
-111 = HGView(309, 11776; 23.5);//160km 30°W
+128 = HGView(316, 8704; 30);//160km 120°W
+129 = HGView(316, 9728; 30);//160km 90°W
+130 = HGView(316, 10752; 30);//160km 60°W
+131 = HGView(309, 11776; 23.5);//160km 30°W
 
-112 = HGView(292, 1520; 22);//160km 0E - 30°E
-113 = HGView(298, 504; 22);//160km 30°W - 30°E
-114 = HGView(262, 4624; 24);//160km 120°E - 150°E
-115 = HGView(288, 508; 28);//160km Britain
+132 = HGView(292, 1520; 22);//160km 0E - 30°E
+133 = HGView(298, 504; 22);//160km 30°W - 30°E
+134 = HGView(262, 4624; 24);//160km 120°E - 150°E
+135 = HGView(288, 508; 28);//160km Britain
 
-120 = HGView(338, 512; 25);//120km 0°E
-121 = HGView(285, 1536; 25);//120km 30°E
-122 = HGView(308, 2560; 25);//120km 60°E
+140 = HGView(338, 512; 25);//120km 0°E
+141 = HGView(285, 1536; 25);//120km 30°E
+142 = HGView(308, 2560; 25);//120km 60°E
 
-132 = HGView(308, 1524; 24);//120km 0E - 30°E
-133 = HGView(308, 1580; 24);//120km 0E - 60°E
-134 = HGView(354, 1524; 24);//120km 0°E - 30°E north
+152 = HGView(308, 1524; 24);//120km 0E - 30°E
+153 = HGView(308, 1580; 24);//120km 0E - 60°E
+154 = HGView(354, 1524; 24);//120km 0°E - 30°E north
 
-140 = HGView(458, 524; 22);//80km 0°E
-141 = HGView(480, 1538; 25);//80km 30°E
+160 = HGView(458, 524; 22);//80km 0°E
+161 = HGView(480, 1538; 25);//80km 30°E
 
-152 = HGView(445, 562; 24.5);//80km 0E - 30°E
+172 = HGView(445, 562; 24.5);//80km 0E - 30°E
 
-153 = HGView(454, 522; 26.5);//80km Western Front
+173 = HGView(454, 522; 26.5);//80km Western Front
 
