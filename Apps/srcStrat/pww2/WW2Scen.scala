@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import prid._, phex._, egrid._, eg220._
+import prid._, phex._, egrid._, eg640._
 
 /** Scenario for World War 2 grand strategy game. */
 trait WW2Scen extends HSysTurnScen
@@ -41,26 +41,27 @@ trait WW2Scen extends HSysTurnScen
 object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit val gridSys: EGrid220LongMulti =  Scen220s0e1.gridSys
-  override val terrs: LayerHcRefSys[WTile] = Scen220s0e1.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen220s0e1.sTerrs
-  override val corners: HCornerLayer = Scen220s0e1.corners
+  override implicit val gridSys: EGrid640LongMulti = Scen640All.gridSys
+  override val terrs: LayerHcRefSys[WTile] = Scen640All.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen640All.sTerrs
+  override val corners: HCornerLayer = Scen640All.corners
 
   val armies: LayerHcOptSys[Army] = LayerHcOptSys()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
-  armies.setFSomesMut(Germany.armyNext, 162,522,  160,520)
+
+//  armies.setFSomesMut(Germany.armyNext, 162,522,  160,520)
 //  armies.setFSomesMut(Soviet.armyNext, 148,1536,  146,1538,  144,1540,  142,1542,  140,1544,  138,1546,  136,1544)
-  armies.setFSomesMut(Britain.armyNext, 160,512)
+ // armies.setFSomesMut(Britain.armyNext, 160,512)
 //  armies.setFSomesMut(Japan.armyNext, 128,4624)
 }
 
 object WW2Scen2 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit val gridSys: EGrid220LongMulti = Scen220s0e1.gridSys
-  override val terrs: LayerHcRefSys[WTile] = Scen220s0e1.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen220s0e1.sTerrs
-  override val corners: HCornerLayer = Scen220s0e1.corners
+  override implicit val gridSys = Scen640S0E1.gridSys
+  override val terrs: LayerHcRefSys[WTile] = Scen640S0E1.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen640S0E1.sTerrs
+  override val corners: HCornerLayer = Scen640S0E1.corners
   val armies: LayerHcOptSys[Army] = LayerHcOptSys()
 }

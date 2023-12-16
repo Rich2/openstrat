@@ -14,14 +14,14 @@ trait Lunit extends Coloured
 
 case class Army(polity: Polity, num: Int) extends Lunit
 {
-
   override def level: LunitLevel = FieldArmy
 
   override def levelStr: String = "Army"
-
 
   /*override def equals(other: Any): Boolean = other match
   { case that: Army => polity == that.polity
     case _ => false
   }*/
 }
+
+object BrAr8 extends Army(Britain, 8)
