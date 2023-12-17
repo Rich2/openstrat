@@ -42,7 +42,7 @@ object EGrid460
   def scen6: EScenBasic = EScenBasic(Terr460E180.grid, Terr460E180.terrs, Terr460E180.sTerrs, Terr460E180.corners, "460km 180E")
   def scen7: EScenBasic = EScenBasic(Terr460W150.grid, Terr460W150.terrs, Terr460W150.sTerrs, Terr460W150.corners, "460km 150W")
   def scen8: EScenBasic = EScenBasic(Terr460W120.grid, Terr460W120.terrs, Terr460W120.sTerrs, Terr460W120.corners, "460km 120W")
-//  def scen9: EScenBasic = EScenBasic(Terr460W90.grid, Terr460W90.terrs, Terr460W90.sTerrs, Terr460W90.corners, "460km 90W")
-//  def scen10: EScenBasic = EScenBasic(Terr460W60.grid, Terr460W60.terrs, Terr460W60.sTerrs, Terr460W60.corners, "460km 60W")
-//  def scen11: EScenBasic = EScenBasic(Terr460W30.grid, Terr460W30.terrs, Terr460W30.sTerrs, Terr460W30.corners, "460km 30W")
+  def scen9: EScenBasic = EScenBasic(Terr460W90.grid, Terr460W90.terrs, Terr460W90.sTerrs, Terr460W90.corners, "460km 90W")
+  def scen10: EScenBasic = EScenBasic(Terr460W60.grid, Terr460W60.terrs, Terr460W60.sTerrs, Terr460W60.corners, "460km 60W")
+  def scen11: EScenBasic = EScenBasic(Terr460W30.grid, Terr460W30.terrs, Terr460W30.sTerrs, Terr460W30.corners, "460km 30W")
 }
