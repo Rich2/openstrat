@@ -7,7 +7,7 @@ import prid.phex._, egrid._
  *  Tierra del Fuego, Severny Island North, Hawaii.  */
 package object eg460
 {
-  val fullTerrs: RArr[Long460Terrs] = RArr(Terr460E0, Terr460E30, Terr460E60)//, Terr460E90, Terr460E120, Terr460E150,Terr460E180, Terr460W150,
+  val fullTerrs: RArr[Long460Terrs] = RArr(Terr460E0, Terr460E30, Terr460E60, Terr460E90, Terr460E120, Terr460E150)//,Terr460E180, Terr460W150,
    // Terr460W120, Terr460W90, Terr460W60, Terr460W30)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid460LongMulti): LayerHcRefSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>

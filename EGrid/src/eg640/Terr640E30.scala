@@ -4,14 +4,13 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 640km. A hex tile area of 709448.010km² . A minimum island area of
  *  118241.335km² */
-object Terr640E30 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
+object Terr640E30 extends Long640Terrs {
+  override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
-  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(128, Cape(5, 3, tundra)),
       TRow(126, taiga * 2),
