@@ -11,15 +11,15 @@ object Scen460S0E1 extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-///** Scenario for 3 460km grid system for 90E, 120E and 150E */
-//object Scen460ChinaJapan extends EScenLongMulti
-//{ override val title: String = "460km 90E - 150E"
-//  implicit override val gridSys: EGrid460LongMulti = EGrid460.multi(3, 3, 96)
-//  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-//  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
-//  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-//}
-//
+/** Scenario for 3 460km grid system for 90E, 120E and 150E */
+object Scen460ChinaJapan extends EScenLongMulti
+{ override val title: String = "460km 90E - 150E"
+  implicit override val gridSys: EGrid460LongMulti = EGrid460.multi(3, 3, 118, 120)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
 /** Scenario for 4 460km grid system for 30W 0E, 30E and 60E. */
 object Scen460E0E2 extends EScenLongMulti
 { override val title: String = "460km 30W - 60E"
