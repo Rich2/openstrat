@@ -35,7 +35,7 @@ object EGrid460
 
   def scen0: EScenBasic = EScenBasic(Terr460E0.grid, Terr460E0.terrs, Terr460E0.sTerrs, Terr460E0.corners, "460km 0E")
   def scen1: EScenBasic = EScenBasic(Terr460E30.grid, Terr460E30.terrs, Terr460E30.sTerrs, Terr460E30.corners, "460km 30E")
-//  def scen2: EScenBasic = EScenBasic(Terr460E60.grid, Terr460E60.terrs, Terr460E60.sTerrs, Terr460E60.corners, "460km 60E")
+  def scen2: EScenBasic = EScenBasic(Terr460E60.grid, Terr460E60.terrs, Terr460E60.sTerrs, Terr460E60.corners, "460km 60E")
 //  def scen3: EScenBasic = EScenBasic(Terr460E90.grid, Terr460E90.terrs, Terr460E90.sTerrs, Terr460E90.corners, "460km 90E")
 //  def scen4: EScenBasic = EScenBasic(Terr460E120.grid, Terr460E120.terrs, Terr460E120.sTerrs, Terr460E120.corners, "460km 120E")
 //  def scen5: EScenBasic = EScenBasic(Terr460E150.grid, Terr460E150.terrs, Terr460E150.sTerrs, Terr460E150.corners, "460km 150E")
