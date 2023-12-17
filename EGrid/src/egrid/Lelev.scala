@@ -19,6 +19,11 @@ object Lelev
   implicit lazy val unshowEV: UnshowSingletons[Lelev] = UnshowSingletons[Lelev]("Lelev", Level, Hilly, Mountains)
 }
 
+case object WetLand extends Lelev
+{ override def str = "WetLand"
+  override def colour: Colour = Turquoise
+}
+
 case object Level extends Lelev
 { override def str = "Level"
   override def colour: Colour = White
