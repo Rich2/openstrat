@@ -74,6 +74,7 @@ flat = false;
 
 72 = HGView(125, 1528; 28);//460km 0°E - 30°E
 73 = HGView(120, 4608; 27);//460km China - Japan 90°E - 150°E
+74 = HGView(120, 9724; 28);//460km North America 4 grids 150°W - 60°W
 
 80 = HGView(149, 512; 22);//320km 0°E
 81 = HGView(149, 1536; 23);//320km 30°E

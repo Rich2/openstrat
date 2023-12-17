@@ -20,10 +20,19 @@ object Scen460ChinaJapan extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Scenario for 4 460km grid system for 30W 0E, 30E and 60E. */
-object Scen460E0E2 extends EScenLongMulti
+/** Terrain only scenario for North America. 4 460km grid system for 150W, 120W, 90W and 60W */
+object Scen460NorthAmerica extends EScenLongMulti
+{ override val title: String = "460km 150W - 60W"
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(4, 7, 118, 120)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
+/** Scenario for 4 460km grid system for 30W, 0E, 30E and 60E. */
+object Scen460E11E2 extends EScenLongMulti
 { override val title: String = "460km 30W - 60E"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 0, 96)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 0, 118, 120)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -47,15 +56,8 @@ object Scen460E0E2 extends EScenLongMulti
 //  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 //}
 //
-///** Terrain only scenario for North America. 3 460km grid system for 150W, 120W, 90W and 60W */
-//object Scen460Americas extends EScenLongMulti
-//{ override val title: String = "460km 150W - 60W"
-//  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(5, 7, 96)
-//  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-//  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
-//  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-//}
-//
+
+
 ///** 2 460km grid system for Northern Canada 120W and 90W. */
 //object Grids460NCanada extends EGrid460LongMulti
 //{ override val grids: RArr[EGridLongFull] = EGrid460.grids(2, 8, 124)
