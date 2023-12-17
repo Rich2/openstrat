@@ -4,10 +4,9 @@ import Colour._
 
 /** Land elevation. */
 trait Lelev extends TellSimple with Coloured
-{
-  override def typeStr: String = "Lelev"
+{ override def typeStr: String = "Lelev"
 
-  /** Factory apply method for land. */
+  /** Apply method for land from this [[Lelev]]. */
   def apply(biome: Climate = Temperate, landUse: LandUse = LandFree): Land = Land(this, biome, landUse)
 }
 

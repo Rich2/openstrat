@@ -17,8 +17,7 @@ object Terr460E60 extends Long460Terrs
 //      TRow(124, taiga * 2),
 //      TRow(122, land, land),
       TRow(120, hillySahel, hillySahel),
-//      VRow(119, Mouth(2556, HVUp, Lake)),
-//      TRow(118, sahel, sahel * 2),
+      TRow(118, hillySahel, hillyDesert),
 //      VRow(117, BendAll(2556, HVUR, Lake)),
 //      TRow(116, Cape(1, 2, sahel, lake), sahel * 2),
 //      VRow(115, Mouth(2556, HVDL, Lake)),
@@ -32,7 +31,6 @@ object Terr460E60 extends Long460Terrs
 //      TRow(106, Cape(2, 2, desert), sea * 3, Cape(4, 1, savannah)),
 //      TRow(104, Cape(0, 1, desert)),
 //      VRow(101, Mouth(2550, HVUp)),
-
     )
   }
   help.run
