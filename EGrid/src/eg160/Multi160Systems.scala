@@ -1,66 +1,29 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import prid._, phex._, egrid._, pEarth._
+import prid._, phex._, egrid._
 
-/** 2 Grid system for 0E and 30E */
-object Grids160S0E1 extends EGrid160LongMulti
-{ ThisSys =>
-  override val grids: RArr[EGridLongFull] = EGrid160.grids(2, 0, 262)
-  override def headGridInt: Int = 0
-  override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-
-  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
-   * departure and the tile of arrival. */
-  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
-}
-
-/** 160km scenario for 2 Grid system for 0E and 30E */
+/** 160km scenario for 2 Grid system for 0°E and 30°E */
 object Scen160S0E1 extends EScenLongMulti
-{ override val title: String = "160km 0E - 30E"
-  override implicit val gridSys: EGrid160LongMulti = Grids160S0E1
+{ override val title: String = "160km °0E - 30°E"
+  override implicit val gridSys: EGrid160LongMulti = EGrid160.multi(2, 0, 262)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** 3 Grid system for 30W, 0E and 30E */
-object Grids160S11E1 extends EGrid160LongMulti
-{ ThisSys =>
-  override val grids: RArr[EGridLongFull] = EGrid160.grids(3, 11, 280)
-  override def headGridInt: Int = 11
-  override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, ThisSys))
-
-  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
-}
-
-/** 160km scenario for 3 Grid system for 30W, 0E and 30E */
-object Scen160s11e1 extends EScenLongMulti
-{ override val title: String = "160km 0E - 30E"
-  override implicit val gridSys: EGrid160LongMulti = Grids160S11E1
+/** 160km scenario for 2 Grid system for 120°E and 150°E */
+object Scen160ChinaJapan extends EScenLongMulti
+{ override val title: String = "160km 120°E - 150°E"
+  override implicit val gridSys: EGrid160LongMulti = EGrid160.multi(2, 4, 252, 272)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** 2 Grid system for 0E and 30E */
-object Grids160S4E5 extends EGrid160LongMulti
-{ ThisSys =>
-  override val grids: RArr[EGridLongFull] = EGrid160.grids(2, 4, 252, 272)
-  override def headGridInt: Int = 4
-  override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
-
-  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
-   * departure and the tile of arrival. */
-  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
-}
-
-/** 160km scenario for 2 Grid system for 120E and 150E */
-object Scen160S4E5 extends EScenLongMulti
-{ override val title: String = "160km 120E - 150E"
-  override implicit val gridSys: EGrid160LongMulti = Grids160S4E5
+/** 160km scenario for 3 Grid system for 30°W, 0°E and 30°E */
+object Scen160S11E2 extends EScenLongMulti
+{ override val title: String = "160km 30°W - 60°E"
+  override implicit val gridSys: EGrid160LongMulti = EGrid160.multi(3, 11, 280)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

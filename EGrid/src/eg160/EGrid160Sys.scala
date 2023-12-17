@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import egrid._, geom._, pglobe._
+import egrid._, geom._, prid.phex._// pglobe._
 
 trait EGrid160Sys extends EGridSys
 { override val cScale: Length = 40.kMetres
@@ -38,3 +38,8 @@ object EGrid160Warm
 }*/
 
 trait EGrid160LongMulti extends EGridLongMulti with EGrid160Sys
+{
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of the tile of
+   * departure and the tile of arrival. */
+  final override def getHCost(startCen: HCen, endCen: HCen): Int = ???
+}

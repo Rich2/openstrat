@@ -11,11 +11,8 @@ object EGrid320
   def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 166): EGrid320LongMulti = new EGrid320LongMulti
   { ThisSys =>
     override val grids: RArr[EGridLongFull] = EGrid320.grids(numGridsIn, headInt, bottomR, topR)
-
     override def headGridInt: Int = headInt
-
     override def gridsXSpacing: Double = 40
-
     override val gridMans: RArr[EGridLongMan] = iUntilMap(numGridsIn)(EGridLongMan(_, ThisSys))
   }
 
