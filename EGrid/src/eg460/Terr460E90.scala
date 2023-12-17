@@ -17,7 +17,7 @@ object Terr460E90 extends Long460Terrs
 //      TRow(126, taiga, Land(Mountains, Taiga, LandFree)),
 //      TRow(124, taiga * 2),
 //      TRow(122, forest, mtain),
-//      TRow(120, savannah, sahel, sahel),
+      TRow(120, mtain, hillyDesert * 2, mtain * 2),
 //      TRow(118, sahel, hillyDesert, hillyDesert),
 //      TRow(116, desert, desert, hillyDesert),
 //      TRow(114, Land(Mountains, Desert, LandFree), hillyDesert, hillyDesert, mtain),

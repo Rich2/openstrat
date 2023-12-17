@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 //Settings file for EGrids
-scen = 12;
+scen = 32;
 flat = false;
 0 = HGView(102, 512; 23.5);//1300km 0°E
 1 = HGView(102, 1536; 23.5);//1300km 30°E
@@ -35,7 +35,7 @@ flat = false;
 31 = HGView(105, 11776; 23.5);//1Mm 30°W
 
 32 = HGView(105, 1536; 23.5);//1Mm 0°E - 30°E
-33 = HGView(105, 4608; 23.5);//1Mm 90°E - 150°E
+33 = HGView(105, 4608; 23.5);//1Mm China-Japan 90°E - 150°E
 34 = HGView(108, 9728; 28);//1Mm North America 150°W - 60°W
 35 = HGView(105, 1536; 23.5);//1Mm 30°W - 60°E
 36 = HGView(105, 512; 23.5);//1Mm All Longitudes
@@ -54,7 +54,7 @@ flat = false;
 51 = HGView(122, 11776; 23);//640km 0°E
 
 52 = HGView(122, 1536; 23.5);//640km 0°E - 30°E
-53 = HGView(122, 4608; 23);//640km China - Japan 90°E - 150°E
+53 = HGView(122, 4608; 23);//640km China-Japan 90°E - 150°E
 54 = HGView(117, 9724; 26.5);//640km North America 4 grids 150°W - 60°W
 55 = HGView(108, 1530; 25);//640km 30°W - 60°E
 56 = HGView(120, 2560; 27);//640km All Longitudes
@@ -73,7 +73,7 @@ flat = false;
 71 = HGView(130, 11776; 30);//460km 30°W
 
 72 = HGView(125, 1528; 28);//460km 0°E - 30°E
-73 = HGView(120, 4608; 27);//460km China - Japan 90°E - 150°E
+73 = HGView(120, 4608; 27);//460km China-Japan 90°E - 150°E
 74 = HGView(120, 9724; 28);//460km North America 4 grids 150°W - 60°W
 75 = HGView(120, 1536; 27);//460km 30°W - 150°E
 
