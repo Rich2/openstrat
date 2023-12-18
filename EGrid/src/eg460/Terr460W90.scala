@@ -17,7 +17,7 @@ object Terr460W90 extends Long460Terrs
         TRow(124, hillySavannah, savannah, hilly, land, land),
       VRow(123, Mouth(9730, HVDn, lake)),
       TRow(122, savannah * 3, mtain, hilly),
-//      TRow(120, taiga * 3),
+      TRow(120, sahel, hillySavannah, savannah, mtain, hilly),
 //      VRow(119, Mouth(9728, HVDL, Lake), Mouth(9730, HVUR, Lake), Mouth(9732, HVUp, Lake)),
 //      TRow(118, taiga, taiga, taiga),
 //      VRow(117, Mouth(9732, HVDn, Lake), Mouth(9736, HVUL)),
