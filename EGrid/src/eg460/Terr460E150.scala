@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 460km.  */
 object Terr460E150 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e150(118, 124)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e150(116, 124)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -19,7 +19,7 @@ object Terr460E150 extends Long460Terrs
       TRow(122, Cape(5, 4, hilly)),
 //      VRow(121, Mouth(5630, HVUp)),
       TRow(120, Cape(2, 2, hilly), sea * 4),
-//      TRow(118, Isle(hilly), sea * 2),
+
 //      TRow(116, Cape(5, 4, hilly), sea * 2),
 //      TRow(114, Cape(2, 2, hilly), sea * 3),
 //      VRow(99, Mouth(5622, HVDn)),

@@ -32,7 +32,7 @@ object Terr460E0 extends Long460Terrs
       TRow(120, sea, Cape(2, 3, hilly), Cape(5, 2, hillySavannah), Cape(0, 1, hillySavannah), Cape(0, 2, hillySavannah)),
       VRow(119, Mouth(522, HVDn)),
       TRow(118, sea, hillySahel, hillyDesert, desert, desert, sahel),
-//      TRow(116, Cape(4, 3, hilly), Cape(2, 1, hilly), sea),
+      TRow(116, hillyDesert, desert * 5),
 //      VRow(115, BendAll(512, HVUp), Mouth(516, HVDL)),
 //      TRow(114, sea, Cape(5, 2, hilly), hilly, Cape(0, 2, hilly)),
 //      VRow(113, Mouth(520, HVDn)),
