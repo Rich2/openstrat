@@ -8,6 +8,14 @@ object EGrid120
   def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 360): RArr[EGrid120LongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGrid120LongFull(rBottomCen, rTopCen, i %% 12) }
 
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 360): EGrid120LongMulti = new EGrid120LongMulti
+  { ThisSys =>
+    override val grids: RArr[EGridLongFull] = EGrid120.grids(numGridsIn, headInt, bottomR, topR)
+    override def headGridInt: Int = headInt
+    override def gridsXSpacing: Double = 40
+    override val gridMans: RArr[EGridLongMan] = iUntilMap(numGridsIn)(EGridLongMan(_, ThisSys))
+  }
+
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 55Km or hex scale 120km. */
   def e0(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 0)
 

@@ -47,7 +47,7 @@ object Scen320All extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Scenario for South America 3 Grid system from 90W to 30W. */
+/** Scenario for South America 3 Grid system from 90°W to 30°W. */
 object Scen320SouthAmerica extends EScenLongMulti
 { override val title: String = "320km South America 90°W - 30°W"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(3, 9, 124)

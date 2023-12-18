@@ -41,10 +41,10 @@ trait WW2Scen extends HSysTurnScen
 object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit val gridSys: EGrid460LongMulti = Scen460S0E1.gridSys
-  override val terrs: LayerHcRefSys[WTile] = Scen460S0E1.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460S0E1.sTerrs
-  override val corners: HCornerLayer = Scen460S0E1.corners
+  override implicit val gridSys: EGrid460LongMulti = Scen460All.gridSys
+  override val terrs: LayerHcRefSys[WTile] = Scen460All.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460All.sTerrs
+  override val corners: HCornerLayer = Scen460All.corners
 
   val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr[LunitSt]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)

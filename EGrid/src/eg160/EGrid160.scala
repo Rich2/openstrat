@@ -17,10 +17,10 @@ object EGrid160
     override val gridMans: RArr[EGridLongMan] = iUntilMap(numGridsIn)(EGridLongMan(_, ThisSys))
   }
 
-  /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 40Km or hex scale 160km. */
+  /** Factory method for creating a main Earth grid centred on 0° east of scale cScale 40Km or hex scale 160km. */
   def e0(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 0)
 
-  /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 40Km or hex scale 160km. */
+  /** Factory method for creating a main Earth grid centred on 30° east of scale cScale 40Km or hex scale 160km. */
   def e30(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,  1)
 
   def e60(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 2)
