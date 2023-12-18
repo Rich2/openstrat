@@ -17,7 +17,7 @@ object Terr460W120 extends Long460Terrs
 //      TRow(128, tundra),
 //      TRow(126, taiga * 2),
 //      TRow(124, taiga * 2),
-      TRow(122, sea, mtain, hillySahel),
+      TRow(122, sea, mtain, hillySahel * 2, mtain),
       TRow(120, sea * 2, hillySavannah, hillySahel * 2),
       TRow(118, sea * 3, Cape(4, 1, hillySahel), hillyDesert, hillySahel),
       VRow(117, BendOut(8706, HVDL), Mouth(8708, HVUL), BendAll(8710, HVDL)),
