@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 135° west to 115° west, centred on 120° wast. Hex tile scale 460km.  */
 object Terr460W120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w120(112, 130)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w120(112, 132)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -12,10 +12,12 @@ object Terr460W120 extends Long460Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-//      TRow(130, ice),
-//      VRow(129, BendOut(8702, HVUp), Mouth(8704, HVUR)),
-//      TRow(128, tundra),
-      TRow(126, sea, mtain, mtain * 2),
+      TRow(130, Cape(4, 1, mtain), hillyTaiga, taiga * 2),
+      VRow(129, BendOut(8698, HVDL)),
+      TRow(128, Cape(4, 1, mtain), mtain, savannah * 2),
+      VRow(127, BendOut(8700, HVDL)),
+      TRow(126, sea, SideB(), mtain, mtain * 2),
+      VRow(125, BendOut(8700, HVUL)),
       TRow(124, sea, Cape(4, 2, mtain), hillyDesert, hillySavannah, hillySahel),
       VRow(123, BendOut(8700, HVDL)),
       TRow(122, sea, Cape(4, 1, mtain), hillySahel * 2, mtain),
