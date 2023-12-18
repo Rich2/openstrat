@@ -13,8 +13,9 @@ object Terr460W90 extends Long460Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
 //      TRow(128, tundra),
-//      TRow(126, tundra, Isle(tundra)),
-        TRow(124, hillySavannah, savannah, hilly, land, land),
+      TRow(126, savannah, taiga, Cape(0, 1, taiga), hillyTaiga),
+      VRow(125, BendAll(9730, HVDR, lake), BendOut(9732, HVDn, lake), Mouth(9734, HVDR, lake)),
+      TRow(124, hillySavannah, savannah, hilly, land, land),
       VRow(123, Mouth(9730, HVDn, lake)),
       TRow(122, savannah * 3, mtain, hilly),
       TRow(120, sahel, hillySavannah, savannah, mtain, hilly),
