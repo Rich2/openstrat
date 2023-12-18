@@ -17,7 +17,7 @@ object Terr460W60 extends Long460Terrs
 //      VRow(127, SetSide(10748)),
 //      TRow(126, SideB(), Cape(2, 2, tundra), Cape(3, 4, hillyTundra)),
 //      VRow(123, Mouth(10748, HVDR)),
-//      TRow(124, Cape(5, 4, Mountains(Tundra)), sea),
+      TRow(124, hillyForest),
 //      TRow(122, taiga, sea),
 //      TRow(120, taiga, taiga),
 //      VRow(119, Mouth(10750, HVUL), Mouth(10752, HVDR)),
