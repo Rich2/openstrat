@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 135° west to 115° west, centred on 120° wast. Hex tile scale 460km.  */
 object Terr460W120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w120(116, 122)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w120(112, 124)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -20,9 +20,12 @@ object Terr460W120 extends Long460Terrs
 //      TRow(122, hillyTaiga, taiga),
       TRow(120, sea * 2, hillySavannah, hillySahel * 2),
       TRow(118, sea * 3, Cape(4, 1, hillySahel), hillyDesert, hillySahel),
-//      TRow(116, sea, hillySavannah, hillyDesert),
-//      TRow(114, sea * 2, hillySahel, hillyDesert),
-//      TRow(112, sea * 2, hillySahel, hillySahel),
+      VRow(117, BendOut(8706, HVDL), Mouth(8708, HVUL), BendAll(8710, HVDL)),
+      TRow(116, sea * 3, Cape(4, 1, hillySahel), Cape(4, 1, hillySahel), hillySahel),
+      VRow(115, BendOut(8708, HVDL), BendOut(8712, HVDL)),
+      TRow(114, sea * 4, Cape(4, 1, hillySahel), Cape(4, 1, mtain)),
+      VRow(113, Mouth(8710, HVDR), BendOut(8714, HVDL)),
+      TRow(112, sea * 5, Cape(4, 1, mtain)),
 //      TRow(110, sea * 3, Cape(3, 2, hillyDesert)),
 //      VRow(109, Mouth(8712, HVUR)),
 //      TRow(108, sea * 3, Cape(3, 3, Land(Mountains, Savannah))),
