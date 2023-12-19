@@ -7,7 +7,7 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
 { def numTiles: Int = grid.numTiles
   //final def outSteps(hCen: SqCen): Arr[(HStep, HCen)] = outSteps(hCen.r, hCen.c)
   //def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = Arr()
-  def sides: RArr[SqSide] = ??? // grid.sides
+  def sides: RArr[SqSep] = ??? // grid.sides
   //val numSides: Int = grid.sides.length
   //def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 }

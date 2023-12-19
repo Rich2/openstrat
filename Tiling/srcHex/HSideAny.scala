@@ -6,7 +6,7 @@ trait HSideLayerAny[A]
 {
   def unsafeArray: Array[A]
 
-  def set(hs: HSide, value: A)(implicit grid: HGridSys): Unit =
+  def set(hs: HSep, value: A)(implicit grid: HGridSys): Unit =
   { val i = grid.sideLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
@@ -18,13 +18,13 @@ trait HSideLayerAny[A]
     unsafeArray(i) = value
   }
 
-  def set(grid: HGridSys, hs: HSide, value: A): Unit =
+  def set(grid: HGridSys, hs: HSep, value: A): Unit =
   { val i = grid.sideLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
   }
 
-  def setIf(hs: HSide, value: A)(implicit grid: HGrid): Unit =
+  def setIf(hs: HSep, value: A)(implicit grid: HGrid): Unit =
   { if(grid.sideExists(hs))
     { val i = grid.sideLayerArrayIndex(hs)
       unsafeArray(i) = value
@@ -38,7 +38,7 @@ trait HSideLayerAny[A]
     }
   }
 
-  /** Swts the [[HSide]]s specified by their Int parameters to rhe given value. */
+  /** Swts the [[HSep]]s specified by their Int parameters to rhe given value. */
   def setSomeInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit =
   {  val len = hSideInts.length / 2
     iUntilForeach(0, len * 2, 2) { i =>

@@ -81,7 +81,7 @@ trait SqGridSys extends TGridSys
   final def newSqCenBuffLayer[A <: AnyRef](implicit ct: ClassTag[A]): SqCenBuffLayer[A] = SqCenBuffLayer(numTiles)
 
   /** foreach Hex side's coordinate HSide, calls the effectual function. */
-  def sidesForeach(f: SqSide => Unit): Unit = ???
+  def sidesForeach(f: SqSep => Unit): Unit = ???
 
   def sideLines: LineSegArr
 

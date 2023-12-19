@@ -19,11 +19,11 @@ trait SqCoord extends Any with TCoord
 }
 
 object SqCoord
-{ /** Apply factory method for [[SqCoord]] trait, returns a [[SqCen]], [[SqSide]] or [[SqVert]] depending on the coordinates. */
+{ /** Apply factory method for [[SqCoord]] trait, returns a [[SqCen]], [[SqSep]] or [[SqVert]] depending on the coordinates. */
   def apply(r: Int, c: Int): SqCoord = None match {
     case _ if r.isEven & c.isEven => SqCen(r, c)
     case _ if r.isOdd & c.isOdd => SqVert(r, c)
-    case _ => SqSide(r, c)
+    case _ => SqSep(r, c)
   }
 
   /** implicit [[Show]] type class instance / evidence for [[SqCoor]]s. */

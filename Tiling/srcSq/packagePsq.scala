@@ -11,8 +11,8 @@ package object psq
   { /** Syntax for succinct [[SqCen]] notation. */
     def sc (c: Int): SqCen = SqCen(thisInt, c)
 
-    /** Syntax for succinct [[SqSide]] notation. */
-    def ss (c: Int): SqSide = SqSide(thisInt, c)
+    /** Syntax for succinct [[SqSep]] notation. */
+    def ss (c: Int): SqSep = SqSep(thisInt, c)
   }
   implicit class ArrExtensions(thisArr: RArr[AnyRef])
   { /** Finds the first [[SqCen]] in this sequence */

@@ -42,12 +42,12 @@ trait HSysProjection extends TSysProjection
   }
 
   /** Produces the side polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
-  def hSidePolygons(f: HSide => Boolean, corners: HCornerLayer): HSidePairArr[Polygon] = gChild.sideOptMapPair { hs =>
+  def hSidePolygons(f: HSep => Boolean, corners: HCornerLayer): HSidePairArr[Polygon] = gChild.sideOptMapPair { hs =>
     if(f(hs)) corners.sidePoly(hs)(parent).optMap(transOptHVOffset(_))
     else None
     }
 
-  /** transforms and filters out non visible [[HSide]]s. */
+  /** transforms and filters out non visible [[HSep]]s. */
   def transHSides(inp: HSideArr): LineSegArr
 
   def transTile(hc: HCen): Option[Polygon]
@@ -67,7 +67,7 @@ trait HSysProjection extends TSysProjection
   def transOptLineSeg(seg: LineSegHC): Option[LineSeg]
   def transLineSeg(seg: LineSegHC): LineSeg
 
-  def lineSeg(hs: HSide): LineSeg = transLineSeg(hs.lineSegHC)
+  def lineSeg(hs: HSep): LineSeg = transLineSeg(hs.lineSegHC)
 
   /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */
   def hCoordOptStr(hc: HCoord): Option[String] = None
@@ -77,10 +77,10 @@ trait HSysProjection extends TSysProjection
 
   def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
 
-  def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.sidesOptMap(f)
+  def sidesOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.sidesOptMap(f)
 
-  def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.linksOptMap(f)
+  def linksOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.linksOptMap(f)
 
-  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSide, LineSeg) => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSep, LineSeg) => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
     gChild.linksOptMap{hs => f(hs, lineSeg(hs)) }
 }

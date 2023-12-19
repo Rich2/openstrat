@@ -60,7 +60,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
   }
 
-  override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
+  override def sidesForeach(f: HSep => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
 
   override def hCenExists(r: Int, c: Int): Boolean = None match
   { case _ if r > grid.topCenR => false
@@ -70,77 +70,77 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     case _ => true
   }
 
-  def rowSidesForeach(r: Int)(f: HSide => Unit): Unit = r match
+  def rowSidesForeach(r: Int)(f: HSep => Unit): Unit = r match
   { case r if r == grid.topSideR | r == grid.bottomSideR => grid.rowForeachSide(r)(f)
 
     case r if r.isEven & (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
-      iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
+      iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) + 2, 4){c => f(HSep(r, c)) }
 
-    case r if r.isEven => iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) - 2, 4){c => f(HSide(r, c)) }
+    case r if r.isEven => iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) - 2, 4){c => f(HSep(r, c)) }
 
     case r if isRightMan =>
     { val ls: Int = grid.rowLeftSideC(r)
       val rs: Int = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
-      iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
+      iToForeach(ls, rs, 2)(c => f(HSep(r, c)))
     }
 
     case r =>
     { val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
       val rs = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
-      iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
+      iToForeach(ls, rs, 2)(c => f(HSep(r, c)))
     }
   }
 
-  override def outerSidesForeach(f: HSide => Unit): Unit = None match
+  override def outerSidesForeach(f: HSep => Unit): Unit = None match
   {
     case _ if isLeftMan =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSideR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
-        case r if r.isEven => f(HSide(r, grid.rowLeftCenC(r) -2))
+        case r if r.isEven => f(HSep(r, grid.rowLeftCenC(r) -2))
         case r =>
         { val bLeft = grid.rowLeftCenC(r - 1)
           val uLeft = grid.rowLeftCenC(r + 1)
           val leftStart = bLeft.min(uLeft) - 1
           val leftEnd = bLeft.max(uLeft) - 3
-          iToForeach(leftStart, leftEnd, 2){c => f(HSide(r, c)) }
+          iToForeach(leftStart, leftEnd, 2){c => f(HSep(r, c)) }
         }
       }}
-      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
+      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSep(grid.topSideR, c)))
     }
 
     case _ if isRightMan =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSideR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
-        case r if r.isEven => f(HSide(r, grid.rowRightCenC(r) + 2))
+        case r if r.isEven => f(HSep(r, grid.rowRightCenC(r) + 2))
         case r =>
         { val bRight = grid.rowRightCenC(r - 1)
           val uRight = grid.rowRightCenC(r + 1)
           val rightEnd = bRight.max(uRight) + 1
           val rightStart = bRight.min(uRight) + 3
-          iToForeach(rightStart, rightEnd, 2){c => f(HSide(r, c)) }
+          iToForeach(rightStart, rightEnd, 2){c => f(HSep(r, c)) }
         }
       }}
-      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
+      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSep(grid.topSideR, c)))
     }
 
     case _ =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
-      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSideR, c)))
+      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSep(grid.topSideR, c)))
     }
   }
 
-  override def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit =
+  override def innerRowInnerSidesForeach(r: Int)(f: HSep => Unit): Unit =
     if (isLeftMan) grid.innerRowForeachInnerSide(r)(f)
     else r match
     {
-      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) - 2, 4){ c => f(HSide(r, c)) }
+      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) - 2, 4){ c => f(HSep(r, c)) }
       case r if r == grid.bottomSideR =>
       case r if r == grid.topSideR =>
 
       case r =>
       { val start = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
         val end = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
-        iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+        iToForeach(start, end, 2){ c => f(HSep(r, c)) }
       }
   }
 
@@ -163,108 +163,108 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     array
   }
 
-  def sideTileLtFind(hSide: HSide): Option[HCen] =
+  def sideTileLtFind(hSide: HSep): Option[HCen] =
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) Some(hCen1)
     else hSide match
     { case _ if isLeftMan => None
-      case HSideA(r, c) if r <=ltGrid.bottomSideR => None
-      case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
-      case HSideA(r, _) => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
-      case HSideB(r, _) => Some(HCen(r, ltGrid.rowRightCenC(r)))
-      case HSideC(r, _) if r >= ltGrid.topSideR => None
-      case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
-      case HSideC(r, _) => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
+      case HSepA(r, c) if r <=ltGrid.bottomSideR => None
+      case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
+      case HSepA(r, _) => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
+      case HSepB(r, _) => Some(HCen(r, ltGrid.rowRightCenC(r)))
+      case HSepC(r, _) if r >= ltGrid.topSideR => None
+      case HSepC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
+      case HSepC(r, _) => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
     }
   }
 
-  def sideTileRtFind(hSide: HSide): Option[HCen] =
+  def sideTileRtFind(hSide: HSep): Option[HCen] =
   { val hCen1 = hSide.tileRtReg
     if (grid.hCenExists(hCen1)) Some(hCen1)
     else hSide match
     { case _ if isRightMan => None
-      case HSideA(r, c) if r >= rtGrid.topSideR => None
-      case HSideA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
-      case HSideA(r, _) => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
-      case HSideB(r, _) => Some(HCen(r, rtGrid.rowLeftCenC(r)))
-      case HSideC(r, _) if r <= rtGrid.bottomSideR => None
-      case HSideC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
-      case HSideC(r, _) => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
+      case HSepA(r, c) if r >= rtGrid.topSideR => None
+      case HSepA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
+      case HSepA(r, _) => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
+      case HSepB(r, _) => Some(HCen(r, rtGrid.rowLeftCenC(r)))
+      case HSepC(r, _) if r <= rtGrid.bottomSideR => None
+      case HSepC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
+      case HSepC(r, _) => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
     }
   }
 
-  def sideTileLtAndVertFind(hSide: HSide): Option[(HCen, Int)] =
+  def sideTileLtAndVertFind(hSide: HSep): Option[(HCen, Int)] =
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) Some(hSide.tileLtAndVert)
     else hSide match
-    { case HSideA(r, c) if r <= ltGrid.bottomSideR => None
-      case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
-      case HSideA(r, _) => Some((HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3))
-      case HSideB(r, _) => Some((HCen(r, ltGrid.rowRightCenC(r)), 1))
-      case HSideC(r, _) if r >= ltGrid.topSideR => None
-      case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => Some((HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 2))
-      case HSideC(r, _) => Some((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
+    { case HSepA(r, c) if r <= ltGrid.bottomSideR => None
+      case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
+      case HSepA(r, _) => Some((HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3))
+      case HSepB(r, _) => Some((HCen(r, ltGrid.rowRightCenC(r)), 1))
+      case HSepC(r, _) if r >= ltGrid.topSideR => None
+      case HSepC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => Some((HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 2))
+      case HSepC(r, _) => Some((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
     }
   }
 
   /** Vert nums incorrect. */
-  def sideTileRtAndVertFind(hSide: HSide): Option[(HCen, Int)] =
+  def sideTileRtAndVertFind(hSide: HSep): Option[(HCen, Int)] =
   { val hCen2 = hSide.tileRtReg
     if (grid.hCenExists(hCen2)) Some(hSide.tileRtAndVert)
     else hSide match
-    { case HSideA(r, c) if r >= rtGrid.topSideR => None
-      case HSideA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowRightCenC(r - 1) - 2 => Some((HCen(r + 1, rtGrid.rowRightCenC(r + 1)), 0))
-      case HSideA(r, _) => Some((HCen(r - 1, rtGrid.rowLeftCenC(r - 1)), 3))
-      case HSideB(r, _) => Some((HCen(r, rtGrid.rowLeftCenC(r)), 1))
-      case HSideC(r, _) if r <= rtGrid.bottomSideR => None
-      case HSideC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowRightCenC(r + 1) - 2 => Some((HCen(r - 1, rtGrid.rowRightCenC(r - 1)), 2))
-      case HSideC(r, _) => Some((HCen(r + 1, rtGrid.rowLeftCenC(r + 1)), 0))
+    { case HSepA(r, c) if r >= rtGrid.topSideR => None
+      case HSepA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowRightCenC(r - 1) - 2 => Some((HCen(r + 1, rtGrid.rowRightCenC(r + 1)), 0))
+      case HSepA(r, _) => Some((HCen(r - 1, rtGrid.rowLeftCenC(r - 1)), 3))
+      case HSepB(r, _) => Some((HCen(r, rtGrid.rowLeftCenC(r)), 1))
+      case HSepC(r, _) if r <= rtGrid.bottomSideR => None
+      case HSepC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowRightCenC(r + 1) - 2 => Some((HCen(r - 1, rtGrid.rowRightCenC(r - 1)), 2))
+      case HSepC(r, _) => Some((HCen(r + 1, rtGrid.rowLeftCenC(r + 1)), 0))
     }
   }
 
-  override def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) =
+  override def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) =
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) hSide.tileLtAndVert
     else hSide match
-    { case HSideA(r, c) if r <= ltGrid.bottomSideR => excep("HCen below bottom.")
-      case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => (HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0)
-      case HSideA(r, _) => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3)
-      case HSideB(r, _) => (HCen(r, ltGrid.rowRightCenC(r)), 1)
-      case HSideC(r, _) if r >= ltGrid.topSideR => excep("HCen above top.")
-      case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 2)
-      case HSideC(r, _) => ((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
+    { case HSepA(r, c) if r <= ltGrid.bottomSideR => excep("HCen below bottom.")
+      case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => (HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0)
+      case HSepA(r, _) => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3)
+      case HSepB(r, _) => (HCen(r, ltGrid.rowRightCenC(r)), 1)
+      case HSepC(r, _) if r >= ltGrid.topSideR => excep("HCen above top.")
+      case HSepC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 2)
+      case HSepC(r, _) => ((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
     }
   }
 
-  override def sideTileLtUnsafe(hSide: HSide): HCen =
+  override def sideTileLtUnsafe(hSide: HSep): HCen =
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) hCen1
     else hSide match
-    { case HSideA(r, c) if r <= ltGrid.bottomSideR => excep(s"Bottom, $r, $c, returning ${hSide.tileRtReg}")
-      case HSideA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 =>  HCen(r - 1, ltGrid.rowRightCenC(r - 1))
-      case HSideA(r, _) => HCen(r + 1, ltGrid.rowRightCenC(r + 1))
-      case HSideB(r, _) => HCen(r, ltGrid.rowRightCenC(r))
-      case HSideC(r, _) if r >= ltGrid.topSideR => { deb("Top"); hSide.tileRtReg }
-      case HSideC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => HCen(r + 1, ltGrid.rowRightCenC(r + 1))
-      case HSideC(r, _) => HCen(r - 1, ltGrid.rowRightCenC(r - 1))
+    { case HSepA(r, c) if r <= ltGrid.bottomSideR => excep(s"Bottom, $r, $c, returning ${hSide.tileRtReg}")
+      case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 =>  HCen(r - 1, ltGrid.rowRightCenC(r - 1))
+      case HSepA(r, _) => HCen(r + 1, ltGrid.rowRightCenC(r + 1))
+      case HSepB(r, _) => HCen(r, ltGrid.rowRightCenC(r))
+      case HSepC(r, _) if r >= ltGrid.topSideR => { deb("Top"); hSide.tileRtReg }
+      case HSepC(r, _) if ltGrid.rowRightCenC(r + 1) == ltGrid.rowRightCenC(r - 1) + 2 => HCen(r + 1, ltGrid.rowRightCenC(r + 1))
+      case HSepC(r, _) => HCen(r - 1, ltGrid.rowRightCenC(r - 1))
     }
   }
 
-  override def sideTileRtUnsafe(hSide: HSide): HCen =
+  override def sideTileRtUnsafe(hSide: HSep): HCen =
   { val hCen1 = hSide.tileRtReg
     if (grid.hCenExists(hCen1)) hCen1
     else hSide match {
-      case HSideA(r, c) if r >= rtGrid.topSideR => {
+      case HSepA(r, c) if r >= rtGrid.topSideR => {
         excep(s"Top, $r, $c, returning ${hSide.tileLtReg}"); hSide.tileLtReg
       }
-      case HSideA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => HCen(r + 1, ltGrid.rowLeftCenC(r + 1))
-      case HSideA(r, _) => HCen(r - 1, rtGrid.rowLeftCenC(r - 1))
-      case HSideB(r, _) => HCen(r, rtGrid.rowLeftCenC(r))
-      case HSideC(r, _) if r <= rtGrid.bottomSideR => {
+      case HSepA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => HCen(r + 1, ltGrid.rowLeftCenC(r + 1))
+      case HSepA(r, _) => HCen(r - 1, rtGrid.rowLeftCenC(r - 1))
+      case HSepB(r, _) => HCen(r, rtGrid.rowLeftCenC(r))
+      case HSepC(r, _) if r <= rtGrid.bottomSideR => {
         deb("Bottom"); hSide.tileLtReg
       }
-      case HSideC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => HCen(r - 1, ltGrid.rowRightCenC(r - 1))
-      case HSideC(r, _) => HCen(r + 1, rtGrid.rowLeftCenC(r + 1))
+      case HSepC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => HCen(r - 1, ltGrid.rowRightCenC(r - 1))
+      case HSepC(r, _) => HCen(r + 1, rtGrid.rowLeftCenC(r + 1))
     }
   }
 

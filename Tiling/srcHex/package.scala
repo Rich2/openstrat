@@ -12,8 +12,8 @@ package object phex
   { /** Syntax for succinct [[HCen]] notation. */
     def hc (c: Int): HCen = HCen(thisInt, c)
 
-    /** Syntax for succinct [[HSide]] notation. */
-    def hs (c: Int): HSide = HSide(thisInt, c)
+    /** Syntax for succinct [[HSep]] notation. */
+    def hs (c: Int): HSep = HSep(thisInt, c)
 
     /** Syntax for succinct [[HVert]] notation. */
     def hv (c: Int): HVert = HVert(thisInt, c)

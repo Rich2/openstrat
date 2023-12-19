@@ -38,7 +38,7 @@ trait TGrid extends TGridSys
   /** The centre of the hex grid in terms of c column coordinates. */
   def cCen: Int = (gridLeftCenC + gridRightCenC) / 2
 
-  /** The [[TCenOrSide]] coordinate centre of this tile grid. */
+  /** The [[TCenOrSep]] coordinate centre of this tile grid. */
   def coordCen: TCoord
 
   /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
@@ -49,10 +49,10 @@ trait TGrid extends TGridSys
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
   def gridRightCenC: Int
 
-  /** The [[TSide]] tile side, with the lowest C column coordinate. This places it on the left most points of the grid. */
+  /** The [[TSep]] tile side, with the lowest C column coordinate. This places it on the left most points of the grid. */
   def leftSideC: Int
 
-  /** The [[TSide]] tile side, with the highest C column coordinate. This places it on the right most points of the grid. */
+  /** The [[TSep]] tile side, with the highest C column coordinate. This places it on the right most points of the grid. */
   def rightSideC: Int
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */

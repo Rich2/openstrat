@@ -26,7 +26,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
 
     def tileActives: RArr[PolygonActive] = proj.tileActives
 
-    def walls2: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
+    def walls2: GraphicElems = proj.sidesOptMap { (hs: HSep) =>
       val sTerr: Boolean = sTerrs(hs)
       if (sTerr) Some(corners.sidePoly(hs).project(proj).fill(Colour.Gray)) else None
     }

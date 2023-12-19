@@ -30,9 +30,9 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val g
   def horrSideLines: LineSegArr = iToMap(bottomSideR, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
   def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideR, c, topSideRow) }
 
-  override def sidesForeach(f: SqSide => Unit): Unit = iToForeach(bottomSideR, topSideRow){r =>
-    if (r.isOdd) iToForeach(gridLeftCenC, gridRightCenC, 2)(c => f(SqSide(r, c)))
-    else iToForeach(leftSideC, rightSideC, 2)(c => f(SqSide(r, c)))
+  override def sidesForeach(f: SqSep => Unit): Unit = iToForeach(bottomSideR, topSideRow){r =>
+    if (r.isOdd) iToForeach(gridLeftCenC, gridRightCenC, 2)(c => f(SqSep(r, c)))
+    else iToForeach(leftSideC, rightSideC, 2)(c => f(SqSep(r, c)))
   }
 
   /** Fills all the tiles with the same given parameter [[Colour]]. Not sure how useful this method is. */

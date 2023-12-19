@@ -74,11 +74,11 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   final override def hCenExists(r: Int, c: Int): Boolean = manFind(r, c).fold(false)(_.hCenExists(r, c))
 
-  override def sideTileLtUnsafe(hSide: HSide): HCen = manMapex(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
+  override def sideTileLtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
 
-  override def sideTileRtUnsafe(hSide: HSide): HCen = manMapex(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
+  override def sideTileRtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
 
-  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = manMapex(hSide)(_.sideTileLtAndVertUnsafe(hSide))
+  def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) = manMapex(hSide)(_.sideTileLtAndVertUnsafe(hSide))
 
   final override def adjTilesOfTile(origR: Int, origC: Int): HCenArr = manMapex(origR, origC)(_.adjTilesOfTile(origR, origC))
 
@@ -145,9 +145,9 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   override def defaultView(pxScale: Double = 30): HGView = grids(grids.length / 2).defaultView(pxScale)
 
-  override final def sidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
-  override final def linksForeach(f: HSide => Unit): Unit = gridMans.foreach(_.linksForeach(f))
-  override final def edgesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
+  override final def sidesForeach(f: HSep => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
+  override final def linksForeach(f: HSep => Unit): Unit = gridMans.foreach(_.linksForeach(f))
+  override final def edgesForeach(f: HSep => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
   def sideBoolsFromGrids[A <: AnyRef](sideLayers: RArr[HSideBoolLayer]): HSideBoolLayer =
   { val res = HSideBoolLayer()(this)

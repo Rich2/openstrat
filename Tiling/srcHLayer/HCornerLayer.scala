@@ -19,15 +19,15 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def corner(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HCorner =
     new HCorner(unsafeArray(gridSys.layerArrayIndex(hCenR, hCenC) * 6 + vertNum))
 
-  /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
+  /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
   def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-  /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSide]] hex side line segments. */
+  /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
   def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
 
   def isSpecial(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).isSpecial
 
-  /** Produces an [[HSide]]'s line segment specified in [[HVOffset]] coordinates. */
+  /** Produces an [[HSep]]'s line segment specified in [[HVOffset]] coordinates. */
   def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
     LineSegHVAndOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
@@ -320,8 +320,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     hVert.adjHCenCorners.foreach{pair => setCorner(pair._1, pair._2, dirn2, mag3)}
   }
 
-  /** Returns the [[PolygonHVOffset]] [[PolygonLike]] for the given [[HSide]]. */
-  def sidePoly(hs: HSide)(implicit gridSys: HGridSys): PolygonHVOffset = hs.tileLtOpt match
+  /** Returns the [[PolygonHVOffset]] [[PolygonLike]] for the given [[HSep]]. */
+  def sidePoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHVOffset = hs.tileLtOpt match
   {
     case None =>
     { val (hcRt, vi) = hs.tileRtAndVert

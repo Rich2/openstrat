@@ -25,12 +25,12 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
     case _ => false
   }
 
-  override def sideTileLtOpt(hSide: HSide): Option[HCen] =
+  override def sideTileLtOpt(hSide: HSep): Option[HCen] =
   { val ot: HCen = sideTileLtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
-  override def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int) = hSide.tileLtAndVert
+  override def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) = hSide.tileLtAndVert
 
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 
@@ -50,56 +50,56 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
     HCenArr.fromBuff(buff)
   }
 
-  /** The [[HCenOrSide]] coordinate centre for this hex grid. */
+  /** The [[HCenOrSep]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
+  override def rowForeachSide(r: Int)(f: HSep => Unit): Unit = r match
   { case r if r.isEven =>
-    { rowForeach(r){ hc => f(HSide(hc.r, hc.c -2)) }
-      if (rowNumTiles(r) > 0) f(HSide(r, rowRightCenC(r) + 2))
+    { rowForeach(r){ hc => f(HSep(hc.r, hc.c -2)) }
+      if (rowNumTiles(r) > 0) f(HSep(r, rowRightCenC(r) + 2))
     }
 
-    case r if r == bottomSideR => rowForeach(r + 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
-    case r if r == topSideR => rowForeach(r - 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
+    case r if r == bottomSideR => rowForeach(r + 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
+    case r if r == topSideR => rowForeach(r - 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
 
     case r =>
     { val start = rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1
       val end = rowRightCenC(r - 1).max(rowRightCenC(r + 1)) + 1
-      iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+      iToForeach(start, end, 2){ c => f(HSep(r, c)) }
     }
   }
 
-  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
-  { case r if r.isEven => iToForeach(rowLeftCenC(r) + 2, rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
+  override def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit = r match
+  { case r if r.isEven => iToForeach(rowLeftCenC(r) + 2, rowRightCenC(r) -2, 4){ c => f(HSep(r, c)) }
     case r if r == bottomSideR =>
     case r if r == topSideR =>
 
     case r =>
     { val start = rowLeftCenC(r - 1).max(rowLeftCenC(r + 1)) - 1
       val end = rowRightCenC(r - 1).min(rowRightCenC(r + 1)) + 1
-      iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+      iToForeach(start, end, 2){ c => f(HSep(r, c)) }
     }
   }
 
-  override def edgesForeach(f: HSide => Unit): Unit = if (numTileRows > 0)
+  override def edgesForeach(f: HSep => Unit): Unit = if (numTileRows > 0)
   {
-    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
+    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSep(bottomSideR, c)))
     iToForeach(bottomCenR, topCenR){r => r match{
-      case r if r.isEven => { f(HSide(r, rowLeftCenC(r) -2)); f(HSide(r, rowRightCenC(r) + 2)) }
+      case r if r.isEven => { f(HSep(r, rowLeftCenC(r) -2)); f(HSep(r, rowRightCenC(r) + 2)) }
       case r => {
         val bLeft = rowLeftCenC(r - 1)
         val uLeft = rowLeftCenC(r + 1)
         val leftStart = bLeft.min(uLeft) - 1
         val leftEnd = bLeft.max(uLeft) - 3
-        iToForeach(leftStart, leftEnd, 2){c => f(HSide(r, c)) }
+        iToForeach(leftStart, leftEnd, 2){c => f(HSep(r, c)) }
         val bRight = rowRightCenC(r - 1)
         val uRight = rowRightCenC(r + 1)
         val rightEnd = bRight.max(uRight) + 1
         val rightStart = bRight.min(uRight) + 3
-        iToForeach(rightStart, rightEnd, 2){c => f(HSide(r, c)) }
+        iToForeach(rightStart, rightEnd, 2){c => f(HSep(r, c)) }
       }
     }}
-    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
+    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSep(topSideR, c)))
   }
 
   def cSideRowMin(r: Int): Int = ???

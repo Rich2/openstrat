@@ -19,16 +19,16 @@ trait EGridMan
   def hCenExists(r: Int, c: Int): Boolean
 
   final def hCenExists(hCen: HCen): Boolean = hCenExists(hCen.r, hCen.c)
-  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int)
+  def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int)
 
-  /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
+  /** Gives the index into an [[HSep]] data layer's backing [[Array]]. */
   def sideArrIndex(r: Int, c: Int): Int
 
   /** Foreach's over the sides of the [[HGrid]] that are outer sides, ie nt links of the [[HGridSys]]. This will be a subset of the [[Hgrids]]'s
    * outer sides, as some of the girds outer sides will link to hexes in other grids within the [HGridSys]] grid system. */
-  def outerSidesForeach(f: HSide => Unit): Unit
+  def outerSidesForeach(f: HSep => Unit): Unit
 
-  def sidesForeach(f: HSide => Unit): Unit
+  def sidesForeach(f: HSep => Unit): Unit
 
   /** The offset is used in the implementation of the flatHCoordToPt2(hCoord: HCoord) method in [[HGridMulti]] where it is added to the [[Pt2]] value
    * given by the [[HGrid]]. */
@@ -59,31 +59,31 @@ trait EGridMan
 
   def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
-  def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit
+  def innerRowInnerSidesForeach(r: Int)(f: HSep => Unit): Unit
 
   /** Foreach's over sides of the [[HGrid]] that are links ar inner sides within the [[HGridSys]]. Note this wil include all the links of the
    * [[HGrid]] plus outer sides of the [[HGrid]] that link to hexs in other [[HGrid]]s within the system. */
-  final def linksForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowInnerSidesForeach(r)(f))
+  final def linksForeach(f: HSep => Unit): Unit = grid.innerSideRowsForeach(r => innerRowInnerSidesForeach(r)(f))
 
   lazy val sideIndexStart: Int =
     ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
 
   /** This method should only be used when you know both side tiles exist. */
-  def unsafeSideTiles(hSide: HSide): (HCen, HCen) = (sideTileLtUnsafe(hSide), sideTileRtUnsafe(hSide))
+  def unsafeSideTiles(hSide: HSep): (HCen, HCen) = (sideTileLtUnsafe(hSide), sideTileRtUnsafe(hSide))
 
   /** This method should only be used when you know the side tile exists. */
-  def sideTileLtUnsafe(hSide: HSide): HCen
+  def sideTileLtUnsafe(hSide: HSep): HCen
 
   /** This method should only be used when you know the side tile exists. */
-  def sideTileRtUnsafe(hSide: HSide): HCen
+  def sideTileRtUnsafe(hSide: HSep): HCen
 
-  def sidesFold[A](init: A)(f: (A, HSide) => A): A =
+  def sidesFold[A](init: A)(f: (A, HSep) => A): A =
   { var acc: A = init
     sidesForeach { hs => acc = f(acc, hs) }
     acc
   }
 
-  def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
+  def sidesFold[A](f: (A, HSep) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
   def numSides: Int = sidesFold((acc, _) => acc + 1)
 
   final def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord] = vertToCoordFind(hVert.r, hVert.c, dirn)

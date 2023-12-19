@@ -3,9 +3,9 @@ package ostrat; package prid; package phex
 import geom._, pgui._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to
- *  as an [[HCen]] to distinguish it from [[HSide]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
+ *  as an [[HCen]] to distinguish it from [[HSep]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
  *  as the first parameter for example  f: (HCen, Pt2) => B. */
-class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
+class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
 {
   override def equals(that: Any): Boolean = that match
   { case that: HCen if r == that.r & c == that.c => true
@@ -71,24 +71,24 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
     PolygonHVOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
 
   /** Up right side. From vert 0 to vert 1. */
-  def s0: HSide = HSide(r + 1, c + 1)
+  def s0: HSep = HSep(r + 1, c + 1)
 
   /** Right side. From vert 1 to vert 2. */
-  def s1: HSide = HSide(r, c + 2)
+  def s1: HSep = HSep(r, c + 2)
 
   /** Down right side. From vert 2 to vert 3. */
-  def s2: HSide = HSide(r - 1, c + 1)
+  def s2: HSep = HSep(r - 1, c + 1)
 
   /** Down left side. From vert 3 to vert 4. */
-  def s3: HSide = HSide(r - 1, c - 1)
+  def s3: HSep = HSep(r - 1, c - 1)
 
   /** Left side. From vert 4 to vert 5. */
-  def s4: HSide = HSide(r, c - 2)
+  def s4: HSep = HSep(r, c - 2)
 
   /** Up left side. From vert 5 to vert 0. */
-  def s5: HSide = HSide(r + 1, c - 1)
+  def s5: HSep = HSep(r + 1, c - 1)
 
-  def side(index: Int): HSide = (index %% 6) match
+  def side(index: Int): HSep = (index %% 6) match
   { case 0 => s0
     case 1 => s1
     case 2 => s2

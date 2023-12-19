@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer, geom._, pgui._, reflect.ClassTag
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
  * So Side 2 on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
  * So Side 3 on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
-trait HSide extends HCenOrSide with TSide
+trait HSep extends HCenOrSep with TSep
 { override def typeStr: String = "HSide"
 
   /** Is a side that goes from top left to bottom right. */
@@ -73,25 +73,25 @@ trait HSide extends HCenOrSide with TSide
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
-object HSide
+object HSep
 { /** Factory method for HSide that throws an exception for an invalid Hex side coordinate. */
-  def apply(r: Int, c: Int): HSide = r %% 4 match
-  { case 1 if c.div4Rem1 => new HSideA(r, c)
-    case 3 if c.div4Rem3 => new HSideA(r, c)
-    case 0 if c.div4Rem2 => new HSideB(r, c)
-    case 2 if c.div4Rem0 => new HSideB(r, c)
-    case 1 if c.div4Rem3 => new HSideC(r, c)
-    case 3 if c.div4Rem1 => new HSideC(r, c)
+  def apply(r: Int, c: Int): HSep = r %% 4 match
+  { case 1 if c.div4Rem1 => new HSepA(r, c)
+    case 3 if c.div4Rem3 => new HSepA(r, c)
+    case 0 if c.div4Rem2 => new HSepB(r, c)
+    case 2 if c.div4Rem0 => new HSepB(r, c)
+    case 1 if c.div4Rem3 => new HSepC(r, c)
+    case 3 if c.div4Rem1 => new HSepC(r, c)
     case _ => excep(s"$r, $c is not a valid hex side tile coordinate.")
   }
 
   def unapply(inp: Any): Option[(Int, Int)] = inp match{
-    case hs: HSide => Some(hs.r, hs.c)
+    case hs: HSep => Some(hs.r, hs.c)
     case _ => None
   }
 
-  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HSide]] and [[HSideArr]]. */
-  implicit val arrMapBuilderEv: BuilderArrInt2Map[HSide, HSideArr] = new BuilderArrInt2Map[HSide, HSideArr]
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HSep]] and [[HSideArr]]. */
+  implicit val arrMapBuilderEv: BuilderArrInt2Map[HSep, HSideArr] = new BuilderArrInt2Map[HSep, HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
@@ -99,12 +99,12 @@ object HSide
 
   implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
 
-  /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSide]]. */
-  implicit val persistEv: PersistInt2Both[HSide] = PersistInt2Both[HSide]("HSide", "r", _.r, "c", _.c, apply)
+  /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSep]]. */
+  implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSide", "r", _.r, "c", _.c, apply)
 }
 
 /** A hex side that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
-class HSideA(val r: Int, val c: Int) extends HSide
+class HSepA(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = true
   override def isTypeB: Boolean = false
   override def isTypeC: Boolean = false
@@ -134,16 +134,16 @@ class HSideA(val r: Int, val c: Int) extends HSide
     else LineSegHVAndOffset(tileRt.v3Exact, tileRt.v4Exact)
 }
 
-object HSideA
+object HSepA
 {
   def unapply(inp: Any): Option[(Int, Int)] = inp match
-  { case hs: HSideA => Some(hs.r, hs.c)
+  { case hs: HSepA => Some(hs.r, hs.c)
     case _ => None
   }
 }
 
 /** A hex side that slants straight down. r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0 */
-class HSideB(val r: Int, val c: Int) extends HSide
+class HSepB(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = true
   override def isTypeC: Boolean = false
@@ -168,16 +168,16 @@ class HSideB(val r: Int, val c: Int) extends HSide
     else LineSegHVAndOffset(tileRt.v4Exact, tileRt.v5Exact)
 }
 
-object HSideB
+object HSepB
 {
   def unapply(inp: Any): Option[(Int, Int)] = inp match
-  { case hs: HSideB => Some(hs.r, hs.c)
+  { case hs: HSepB => Some(hs.r, hs.c)
     case _ => None
   }
 }
 
 /** A hex side that slants down from top right to bottom left. r.div4Rem1 & c.div4Rem3 | r.div4Rem3 & c.div4Rem1 */
-class HSideC(val r: Int, val c: Int) extends HSide
+class HSepC(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = false
   override def isTypeC: Boolean = true
@@ -207,17 +207,17 @@ class HSideC(val r: Int, val c: Int) extends HSide
     else LineSegHVAndOffset(tileRt.v5Exact, tileRt.v0Exact)
 }
 
-object HSideC
+object HSepC
 {
   def unapply(inp: Any): Option[(Int, Int)] = inp match
-  { case hs: HSideC => Some(hs.r, hs.c)
+  { case hs: HSepC => Some(hs.r, hs.c)
     case _ => None
   }
 }
 
-/** [[PairElem]] class for [[HSide]]s. Allows for the efficient storage of sequences in [[HSidePairArr]]s. */
-class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HSide, A2] with Selectable
-{ override def a1: HSide = HSide(a1Int1, a1Int2)
+/** [[PairElem]] class for [[HSep]]s. Allows for the efficient storage of sequences in [[HSidePairArr]]s. */
+class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HSep, A2] with Selectable
+{ override def a1: HSep = HSep(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
 
   /** The [[String]] to be displayed in the status bar in a GUI when selected. */
@@ -233,8 +233,8 @@ class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairIn
 
 /** Companion object for [[HSidePair]] trait, provides apply and unapply methods. */
 object HSidePair
-{ def apply[A2](hc: HSide, a2: A2): HSidePair[A2] = new HSidePair[A2](hc.int1, hc.int2, a2)
-  def unapply(inp: Any): Option[(HSide, Any)] = inp match
+{ def apply[A2](hc: HSep, a2: A2): HSidePair[A2] = new HSidePair[A2](hc.int1, hc.int2, a2)
+  def unapply(inp: Any): Option[(HSep, Any)] = inp match
   { case hcp: HSidePair[_] => Some((hcp.a1, hcp.a2))
     case _ => None
   }

@@ -23,14 +23,14 @@ trait TCoord extends Any with Point with TellElemInt2
   def parenthStr: String = rcStr.enParenth
 }
 
-/** A tile centre or a tile side coordinate. */
-trait TCenOrSide extends Any with TCoord
+/** Common trait for [[TCen]] and [[TSep]]. A tile centre or a tile separator coordinate. */
+trait TCenOrSep extends Any with TCoord
 
 /** A tile centre coordinate. */
-trait TCen extends Any with TCenOrSide
+trait TCen extends Any with TCenOrSep
 
-/** A tile side coordinate. */
-trait TSide extends Any with TCenOrSide
+/** A tile separator coordinate. */
+trait TSep extends Any with TCenOrSep
 
 /** A tile vertex coordinate. */
 trait TVert extends Any with TCoord

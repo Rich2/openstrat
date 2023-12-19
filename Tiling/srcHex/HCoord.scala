@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
-/** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
+/** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSep]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord with Ordered[HCoord]
 { override type ThisT = HCoord
   override type LineSegT = LineSegHC
@@ -51,16 +51,16 @@ trait HCoord extends Any with TCoord with Ordered[HCoord]
 
 /** Companion object for Hex coordinate trait, contains apply factory method and persist and PolygonBuilder implicit instances. */
 object HCoord
-{ /** Factory apply method for creating [[HCoord]]s .Creates an [[HCen]], an [[HSide]], an [[HVert]] or an [[HCoordOther]] depending on the values of
+{ /** Factory apply method for creating [[HCoord]]s .Creates an [[HCen]], an [[HSep]], an [[HVert]] or an [[HCoordOther]] depending on the values of
    *  r and c. */
   def apply(r: Int, c: Int): HCoord = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
-    case 1 if c.div4Rem1 => new HSideA(r, c)
-    case 3 if c.div4Rem3 => new HSideA(r, c)
-    case 0 if c.div4Rem2 => new HSideB(r, c)
-    case 2 if c.div4Rem0 => new HSideB(r, c)
-    case 1 if c.div4Rem3 => new HSideC(r, c)
-    case 3 if c.div4Rem1 => new HSideC(r, c)
+    case 1 if c.div4Rem1 => new HSepA(r, c)
+    case 3 if c.div4Rem3 => new HSepA(r, c)
+    case 0 if c.div4Rem2 => new HSepB(r, c)
+    case 2 if c.div4Rem0 => new HSepB(r, c)
+    case 1 if c.div4Rem3 => new HSepC(r, c)
+    case 3 if c.div4Rem1 => new HSepC(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
     case 1 | 3 => HVert(r, c)
     case _ => new HCoordOther(r, c)
@@ -124,29 +124,30 @@ trait HNotVert extends HCoord
   override def toPt2Reg: Pt2 = Pt2(c, r  * Sqrt3)
 }
 
-/** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */
-trait HCenOrSide extends HNotVert with TCenOrSide
+/** Common trait for [[HCen]] hex centre and [[HSep]] hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices
+ *  positions. */
+trait HCenOrSep extends HNotVert with TCenOrSep
 
-/** Companion object for [[HCenOrSide]] trait, contains factory apply method and implicit [[Persist]] instance. */
-object HCenOrSide
-{ /** Apply factory method for creating [[HCenOrSide]] instances. Will throw exception on illegal values.  */
-  def apply(r: Int, c: Int): HCenOrSide = r %% 4 match
+/** Companion object for [[HCenOrSep]] trait, contains factory apply method and implicit [[Persist]] instance. */
+object HCenOrSep
+{ /** Apply factory method for creating [[HCenOrSep]] instances. Will throw exception on illegal values.  */
+  def apply(r: Int, c: Int): HCenOrSep = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
-    case 1 if c.div4Rem1 => new HSideA(r, c)
-    case 3 if c.div4Rem3 => new HSideA(r, c)
-    case 0 if c.div4Rem2 => new HSideB(r, c)
-    case 2 if c.div4Rem0 => new HSideB(r, c)
-    case 1 if c.div4Rem3 => new HSideC(r, c)
-    case 3 if c.div4Rem1 => new HSideC(r, c)
+    case 1 if c.div4Rem1 => new HSepA(r, c)
+    case 3 if c.div4Rem3 => new HSepA(r, c)
+    case 0 if c.div4Rem2 => new HSepB(r, c)
+    case 2 if c.div4Rem0 => new HSepB(r, c)
+    case 1 if c.div4Rem3 => new HSepC(r, c)
+    case 3 if c.div4Rem1 => new HSepC(r, c)
     case _ => excep(s"$r, $c is not a valid HCenOrSide hex grid coordinate.")
   }
 
-  /** implicit [[Show]] type class instance / evidence for [[HCenOrSide]]s. */
-  implicit val showEv: ShowTellInt2[HCenOrSide] = ShowTellInt2[HCenOrSide]("HCenOrSide")
+  /** implicit [[Show]] type class instance / evidence for [[HCenOrSep]]s. */
+  implicit val showEv: ShowTellInt2[HCenOrSep] = ShowTellInt2[HCenOrSep]("HCenOrSide")
 
-  /** implicit [[Unshow]] type class instance / evidence for [[HCenOrSide]]s. */
-  implicit val unshowEv: UnshowInt2[HCenOrSide] = UnshowInt2[HCenOrSide]("HCenOrSide", "r", "c", apply)
+  /** implicit [[Unshow]] type class instance / evidence for [[HCenOrSep]]s. */
+  implicit val unshowEv: UnshowInt2[HCenOrSep] = UnshowInt2[HCenOrSep]("HCenOrSide", "r", "c", apply)
 }
 
 /** The only purpose of this class is to ensure that all [[HCoord]] combinations of r and c are valid. Thisis for the combinations where r is even and

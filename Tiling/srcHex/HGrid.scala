@@ -277,14 +277,14 @@ trait HGrid extends TGrid with HGridSys with Tell
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  final override def sidesForeach(f: HSide => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
+  final override def sidesForeach(f: HSep => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
 
-  final def linksForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+  final def linksForeach(f: HSep => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 
-  def edgesForeach(f: HSide => Unit): Unit
+  def edgesForeach(f: HSep => Unit): Unit
 
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
-  def rowForeachSide(r: Int)(f: HSide => Unit): Unit
+  def rowForeachSide(r: Int)(f: HSep => Unit): Unit
 
   def rowNumSides(r:Int): Int =
   { var i = 0
@@ -316,13 +316,13 @@ trait HGrid extends TGrid with HGridSys with Tell
     array
   }
 
-  def topRowForeachSide(f: HSide => Unit): Unit =
-    iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
+  def topRowForeachSide(f: HSep => Unit): Unit =
+    iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSep(topSideRow, c)) }
 
-  def bottomRowForeachSide(f: HSide => Unit): Unit =
-    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideR, c)) }
+  def bottomRowForeachSide(f: HSep => Unit): Unit =
+    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSep(bottomSideR, c)) }
 
-  def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
+  def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit
   def newSideBooleans: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
   def rowLeftSideC(r: Int): Int = r match
@@ -333,13 +333,13 @@ trait HGrid extends TGrid with HGridSys with Tell
   }
 
   /** Not correct yet. */
-  override def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = Some(hs.tileLtReg, hs.tileRtReg)
+  override def findSideTiles(hs: HSep ): Option[(HCen, HCen)] = Some(hs.tileLtReg, hs.tileRtReg)
 
-  override def sideTileLtUnsafe(hSide: HSide): HCen = hSide.tileLtReg
+  override def sideTileLtUnsafe(hSide: HSep): HCen = hSide.tileLtReg
 
-  override def sideTileRtUnsafe(hSide: HSide): HCen = hSide.tileRtReg
+  override def sideTileRtUnsafe(hSide: HSep): HCen = hSide.tileRtReg
 
-  override def sideTileRtOpt(hSide: HSide): Option[HCen] =
+  override def sideTileRtOpt(hSide: HSep): Option[HCen] =
   { val ot: HCen = sideTileRtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }

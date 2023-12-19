@@ -118,19 +118,19 @@ trait HGridSys extends HCenStruct with TGridSys
   /** Returns a clockwise sequence of adjacent tiles. */
   final def adjTilesOfTile(origin: HCen): HCenArr = adjTilesOfTile(origin.r, origin.c)
 
-  def sideTileRtOpt(hSide: HSide): Option[HCen]
+  def sideTileRtOpt(hSide: HSep): Option[HCen]
 
   /** This method should only be used when you know the side tile exists. */
-  def sideTileRtUnsafe(hSide: HSide): HCen
+  def sideTileRtUnsafe(hSide: HSep): HCen
 
-  def sideTileLtOpt(hSide: HSide): Option[HCen]
+  def sideTileLtOpt(hSide: HSep): Option[HCen]
 
   /** This method should only be used when you know the side tile exists. */
-  def sideTileLtUnsafe(hSide: HSide): HCen
+  def sideTileLtUnsafe(hSide: HSep): HCen
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
-  def sideTileLtAndVertUnsafe(hSide: HSide): (HCen, Int)
+  def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)
 
@@ -248,87 +248,87 @@ trait HGridSys extends HCenStruct with TGridSys
     build.buffToSeqLike(buff)
   }
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
-  @inline final def sideLayerArrayIndex(hc: HSide): Int = sideLayerArrayIndex(hc.r, hc.c)
+  @inline final def sideLayerArrayIndex(hc: HSep): Int = sideLayerArrayIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of side data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
+  /** Gives the index into an Arr / Array of side data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
   def sideLayerArrayIndex(r: Int, c: Int): Int
 
   /** foreach Hex side's coordinate HSide, calls the effectual function. */
-  def sidesForeach(f: HSide => Unit): Unit
+  def sidesForeach(f: HSep => Unit): Unit
 
   /** foreach hex link / inner side's coordinate HSide, calls the effectual function. */
-  def linksForeach(f: HSide => Unit): Unit
+  def linksForeach(f: HSep => Unit): Unit
 
   /** foreach hex edge / outer side's coordinate HSide, calls the effectual function. */
-  def edgesForeach(f: HSide => Unit): Unit
+  def edgesForeach(f: HSep => Unit): Unit
 
-  /** maps over each Hex Side's coordinate [[HSide]] in the hex grid system. */
-  final def sidesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
+  /** maps over each Hex Side's coordinate [[HSep]] in the hex grid system. */
+  final def sidesMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numSides)
     var i = 0
     sidesForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
   }
 
-  /** maps over each the grid systems link / inner side's coordinate [[HSide]]. */
-  final def linksMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
+  /** maps over each the grid systems link / inner side's coordinate [[HSep]]. */
+  final def linksMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numInnerSides)
     var i = 0
     linksForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
   }
 
-  /** maps over each the grid systems outer side's coordinate [[HSide]]. */
-  final def edgesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
+  /** maps over each the grid systems outer side's coordinate [[HSep]]. */
+  final def edgesMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numOuterSides)
     var i = 0
     edgesForeach{ hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
   }
 
-  /** flatMaps over each Hex Side's coordinate [[HSide]]. */
-  final def sidesFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  /** flatMaps over each Hex Side's coordinate [[HSep]]. */
+  final def sidesFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
-  /** Optionally maps over each Hex Side's coordinate [[HSide]]. */
-  final def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  /** Optionally maps over each Hex Side's coordinate [[HSep]]. */
+  final def sidesOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     sidesForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
     build.buffToSeqLike(buff)
   }
 
-  /** OptMaps each [[HSide]] of this hex grid system to an [[HSidePair]]. */
-  def sideOptMapPair[B2](f2: HSide => Option[B2])(implicit build: HSidePairArrMapBuilder[B2]): HSidePairArr[B2] =
+  /** OptMaps each [[HSep]] of this hex grid system to an [[HSidePair]]. */
+  def sideOptMapPair[B2](f2: HSep => Option[B2])(implicit build: HSidePairArrMapBuilder[B2]): HSidePairArr[B2] =
   { val buff = build.newBuff()
     sidesForeach { hSide => f2(hSide).foreach { b2 => buff.pairGrow(hSide, b2) } }
     build.buffToSeqLike(buff)
   }
 
-  /** flatMaps  over each inner hex Side's coordinate [[HSide]].. */
-  final def linksFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  /** flatMaps  over each inner hex Side's coordinate [[HSep]].. */
+  final def linksFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
-  /** OptMaps over each inner hex Side's coordinate [[HSide]]. */
-  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  /** OptMaps over each inner hex Side's coordinate [[HSep]]. */
+  final def linksOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     linksForeach { hs => f(hs).foreach(build.buffGrow(buff, _)) }
     build.buffToSeqLike(buff)
   }
 
-  /** The [[HSide]] hex side coordinates. */
+  /** The [[HSep]] hex side coordinates. */
   final def sides: HSideArr = sidesMap(hs => hs)
 
-  def sideExists(r: Int, c: Int): Boolean = sideExists(HSide(r, c))
-  def sideExists(hs: HSide): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
+  def sideExists(r: Int, c: Int): Boolean = sideExists(HSep(r, c))
+  def sideExists(hs: HSep): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
@@ -343,13 +343,13 @@ trait HGridSys extends HCenStruct with TGridSys
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side
    *  Arr / Array data. */
-  @inline final def vertArrIndex(hc: HSide): Int = vertArrIndex(hc.r, hc.c)
+  @inline final def vertArrIndex(hc: HSep): Int = vertArrIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of side data from its tile [[HVert]]. Use arrIndex and vertIndex methods to access tile centre and side Arr
    *  / Array data. */
   def vertArrIndex(r: Int, c: Int): Int = 0
 
-  def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = ???
+  def findSideTiles(hs: HSep ): Option[(HCen, HCen)] = ???
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
   def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord]

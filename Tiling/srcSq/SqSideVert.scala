@@ -2,25 +2,26 @@
 package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
-trait SqCenOrSide extends Any with SqCoord with TCenOrSide
+/** Common trait for a [[SqCen]] square centres and a [[SqSep]] square separator coordinates. */
+trait SqCenOrSep extends Any with SqCoord with TCenOrSep
 
-object SqCenOrSide
+object SqCenOrSep
 {
-  def apply(r: Int, c:Int): SqCenOrSide = r match {
-    case r if r.isEven & c.isEven => new SqCen(r, c)
-    case r if r.isEven => new SqSide(r, c)
-    case r if c.isEven => new SqSide(r, c)
+  def apply(r: Int, c:Int): SqCenOrSep = r match
+  { case r if r.isEven & c.isEven => new SqCen(r, c)
+    case r if r.isEven => new SqSep(r, c)
+    case r if c.isEven => new SqSep(r, c)
     case _ => debexc(s"$r, $c is not a valid SqCenOrSide coordinate it is a SqVert Square grid vertex coordinate.")
   }
 }
 
-/** A Square tile side square grid [[SqGrid]] coordinate. */
-class SqSide(val r: Int, val c: Int) extends SqCenOrSide with TSide
+/** A Square tile seprartor square grid [[SqGrid]] coordinate. */
+class SqSep(val r: Int, val c: Int) extends SqCenOrSep with TSep
 { override def typeStr: String = "Sqside"
 }
 
-object SqSide{
-  def apply(r: Int, c: Int): SqSide = new SqSide(r, c)
+object SqSep
+{ def apply(r: Int, c: Int): SqSep = new SqSep(r, c)
 }
 
 /** A Square tile vertex square grid [[SqGrid]] coordinate. */
