@@ -201,10 +201,18 @@ object MTime2
   def apply(time1: MTime, time2: MTime):MTime2 = new MTime2(time1.int1, time2.int1)
 }
 
+/** Matches values of type A to periods in historical time. Each value has a start time. It is optional if there is a final end time, allowing the
+ * final value of the series to continue into the indefinite future. For example in principle we know the start date of each of our Prime Minsters,
+ * but we can never know for certain the end date of the current Prime Minister.  */
 class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
 {
   def seriesNum: Int = arrayA.length
-  def find(time: MTime): Option[A] = if (time.int1 < arrayInt(0) | time.int1 > arrayInt(seriesNum)) None
+  def endDate: Boolean = arrayInt.length - seriesNum match
+  {case 0 => false
+    case 1 => true
+    case _ => excep("MTImeSeries incorrect Array lengths")
+  }
+  def find(time: MTime): Option[A] = if (time.int1 < arrayInt(0) || time.int1 > arrayInt(seriesNum)) None
   else
   { def loop(i: Int): Option[A] = if (time.int1 < arrayInt(i + 1)) Some(arrayA(i)) else loop(i + 1)
     loop(0)
@@ -227,8 +235,8 @@ object MTimeSeries
     new MTimeSeries[A](intArray, arrayA)
   }
 
-  def apply[A](a1: A, pairs: (MTime, A)*)(implicit startEnd: MTime2, ct: ClassTag[A]): MTimeSeries[A] = {
-    val len = pairs.length + 1
+  def apply[A](a1: A, pairs: (MTime, A)*)(implicit startEnd: MTime2, ct: ClassTag[A]): MTimeSeries[A] =
+  { val len = pairs.length + 1
     val intArray = new Array[Int](len + 1)
     intArray(0) = startEnd.int1
     val arrayA = new Array[A](len)
