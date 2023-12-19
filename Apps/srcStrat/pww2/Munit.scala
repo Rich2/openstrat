@@ -30,14 +30,26 @@ case class LunitSt(override val identity: Lunit) extends MunitSt
 }
 
 case class BrArmy(num: Int, polity: Polity = Britain) extends Lunit
-{
-  override def level: LunitLevel = FieldArmy
-
+{ override def level: LunitLevel = FieldArmy
   override def levelStr: String = "Army"
 }
 
 /** British 8th Army. */
 object BrAr8 extends BrArmy(8)
+
+case class BrCorps(num: Int, polity: Polity = Britain) extends Lunit
+{ override def level: LunitLevel = Corps
+  override def levelStr: String = "Corps"
+}
+
+object BrCorps5 extends BrCorps(5)
+
+case class DeArmee(num: Int, polity: Polity = Germany) extends Lunit
+{ override def level: LunitLevel = FieldArmy
+  override def levelStr: String = "Armee"
+}
+
+object DeArmee7 extends DeArmee(7)
 
 case class PzArmy(num: Int) extends Lunit
 { override def level: LunitLevel = FieldArmy
