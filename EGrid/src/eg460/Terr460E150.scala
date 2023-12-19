@@ -15,15 +15,11 @@ object Terr460E150 extends Long460Terrs
 //      TRow(128, tundra),
 //      TRow(126, mtain, hillyTaiga),
       TRow(124, sea, Cape(1, 3, mtain)),
-//      VRow(123, Mouth(5630, HVUL), Mouth(5634, HVUR)),
+      VRow(123, Mouth(5622, HVUR) ),
       TRow(122, Cape(5, 4, hilly)),
-//      VRow(121, Mouth(5630, HVUp)),
+      VRow(121, BendOut(5622, HVUp), BendOut(5624, HVUL), BendOut(5626, HVDR)),
       TRow(120, Cape(2, 2, hilly), sea * 4),
-
-//      TRow(116, Cape(5, 4, hilly), sea * 2),
-//      TRow(114, Cape(2, 2, hilly), sea * 3),
-//      VRow(99, Mouth(5622, HVDn)),
-//      TRow(98, hillyJungle),
+      VRow(117, Mouth(5620, HVUR)),
     )
   }
   help.run
