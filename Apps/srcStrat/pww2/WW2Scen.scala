@@ -50,7 +50,9 @@ object WW2Scen1 extends WW2Scen
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   lunitSts.set1(118, 1538, LunitSt(BrAr8))
   lunitSts.set1(128, 512, LunitSt(BrCorps5))
+  lunitSts.set1(126, 510, LunitSt(DeArmee1))
   lunitSts.set1(126, 514, LunitSt(DeArmee7))
+  lunitSts.set1(128, 516, LunitSt(DeArmee15))
   lunitSts.set1(118, 1534, LunitSt(PzAr5))
   //implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
 }

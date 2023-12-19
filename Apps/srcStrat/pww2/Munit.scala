@@ -49,7 +49,9 @@ case class DeArmee(num: Int, polity: Polity = Germany) extends Lunit
   override def levelStr: String = "Armee"
 }
 
+object DeArmee1 extends DeArmee(1)
 object DeArmee7 extends DeArmee(7)
+object DeArmee15 extends DeArmee(15)
 
 case class PzArmy(num: Int) extends Lunit
 { override def level: LunitLevel = FieldArmy
