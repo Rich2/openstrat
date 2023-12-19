@@ -2,15 +2,15 @@
 package ostrat; package pStrat
 import geom._
 
-/** Military land unit level of organisation. */
-trait LunitLevel extends Int1Elem
+/** Military land unit universal standard level of organisation. */
+trait LuUniLevel extends Int1Elem
 { def desigStr: String
 
   def drawables: RArr[Drawable]
 }
 
 /** 1 million - 3 million. */
-object TheatreArmy extends LunitLevel
+object TheatreArmy extends LuUniLevel
 { override val int1: Int = 14
   override def desigStr: String = "XXXX"
   override def toString: String = "Field Army"
@@ -18,7 +18,7 @@ object TheatreArmy extends LunitLevel
 }
 
 /** 500000 - 1 million men. */
-object ArmyGroup extends LunitLevel
+object ArmyGroup extends LuUniLevel
 { override val int1: Int = 15
   override def desigStr: String = "XXXXX"
   override def toString: String = "Army Group"
@@ -26,7 +26,7 @@ object ArmyGroup extends LunitLevel
 }
 
 /** 200000 - 500000. 1914 German 1st Army 320000. */
-object FieldArmy extends LunitLevel
+object FieldArmy extends LuUniLevel
 { override val int1: Int = 14
   override def desigStr: String = "XXXX"
   override def toString: String = "Field Army"
@@ -34,7 +34,7 @@ object FieldArmy extends LunitLevel
 }
 
 /** 100000 - 200000. */
-object FieldArmette extends LunitLevel
+object FieldArmette extends LuUniLevel
 { override val int1: Int = 14
   override def desigStr: String = "XXX|"
   override def toString: String = "Field Army"
@@ -42,7 +42,7 @@ object FieldArmette extends LunitLevel
 }
 
 /** 50000 - 100000 men. A large Corps or a small field army. */
-object Corps extends LunitLevel
+object Corps extends LuUniLevel
 { override val int1: Int = 13
   override def desigStr: String = "XXX"
   override def toString: String = "Corps"
@@ -50,7 +50,7 @@ object Corps extends LunitLevel
 }
 
 /** 20000 - 50000 men. A large divsion such as US WWI or a small corps. */
-object Corpette extends LunitLevel
+object Corpette extends LuUniLevel
 { override val int1: Int = 13
   override def desigStr: String = "XX|"
   override def toString: String = "Corps"
@@ -58,7 +58,7 @@ object Corpette extends LunitLevel
 }
 
 /** 10000 - 20000 men. World War 1 16000 -18000. */
-object Division extends LunitLevel
+object Division extends LuUniLevel
 { override val int1: Int = 12
   override def desigStr: String = "XX"
   override def toString: String = "Division"
@@ -66,7 +66,7 @@ object Division extends LunitLevel
 }
 
 /** 5000 - 10000 men. A small division or large brigade. Roman legion 6600 fighting men + 1320 slaves. Soviet WW2 Rifle Division. */
-object Divisette extends LunitLevel
+object Divisette extends LuUniLevel
 { override val int1: Int = 12
   override def desigStr: String = "X|"
   override def toString: String = "Divisette"
@@ -74,7 +74,7 @@ object Divisette extends LunitLevel
 }
 
 /** 2000 - 5000 men. Napoleonic Brigades tended to be 2000 to 3000 men. */
-object Brigade extends LunitLevel
+object Brigade extends LuUniLevel
 { override val int1: Int = 11
   override def desigStr: String = "X"
   override def toString: String = "Brigade"
@@ -82,7 +82,7 @@ object Brigade extends LunitLevel
 }
 
 /** 1000 - 2000 men. Small brigade, regiment or very large battalion. */
-object Regiment extends LunitLevel
+object Regiment extends LuUniLevel
 { override val int1: Int = 10
   override def desigStr: String = "|||"
   override def toString: String = "Regiment"
@@ -90,7 +90,7 @@ object Regiment extends LunitLevel
 }
 
 /** 500 - 1000 men. Battalion. Roman Cohort 600: 480 fighting men + 120 slaves. */
-object Battalion extends LunitLevel
+object Battalion extends LuUniLevel
 { override val int1: Int = 9
   override def desigStr: String = "||"
   override def toString: String = "Battalion"
@@ -98,7 +98,7 @@ object Battalion extends LunitLevel
 }
 
 /** 200 - 500 men. Small Battalion or large company. */
-object Battalette extends LunitLevel
+object Battalette extends LuUniLevel
 { override val int1: Int = 9
   override def desigStr: String = "||"
   override def toString: String = "Battalion"
@@ -106,7 +106,7 @@ object Battalette extends LunitLevel
 }
 
 /** 100 - 200 men. */
-object Company extends LunitLevel
+object Company extends LuUniLevel
 { override val int1: Int = 8
   override def desigStr: String = "|"
   override def toString: String = "Company"
@@ -114,7 +114,7 @@ object Company extends LunitLevel
 }
 
 /** 50 - 100 men. Roman Century 80 fighting men + 20 slaves. */
-object Echelon extends LunitLevel
+object Echelon extends LuUniLevel
 { override val int1: Int = 7
   override def desigStr: String = "••••"
   override def toString: String = "Echelon"
@@ -122,7 +122,7 @@ object Echelon extends LunitLevel
 }
 
 /** 20 to 50 men. */
-object Platoon extends LunitLevel
+object Platoon extends LuUniLevel
 { override val int1: Int = 6
   override def desigStr: String = "•••"
   override def toString: String = "Platoon"
@@ -130,7 +130,7 @@ object Platoon extends LunitLevel
 }
 
 /** 10 - 20 men. Platoon section, or large infantry squad. Given the conflicting terms around this size of unit, a new term was created.  */
-object ZugSect extends LunitLevel
+object ZugSect extends LuUniLevel
 { override val int1: Int = 5
   override def desigStr: String = "••"
   override def toString: String = "Section"
@@ -138,7 +138,7 @@ object ZugSect extends LunitLevel
 }
 
 /** 6 - 10 men. Small squad.  */
-object Squadette extends LunitLevel
+object Squadette extends LuUniLevel
 { override val int1: Int = 5
   override def desigStr: String = "•"
   override def toString: String = "Squad"
@@ -161,7 +161,7 @@ object FirePair extends LunitSoleLike
   override def drawables: RArr[Drawable] = RArr(iToMap(-1, 1, 2){ i => dashDrawable.slateX(i) })
 }
 
-trait LunitSoleLike extends LunitLevel
+trait LunitSoleLike extends LuUniLevel
 { def dashDrawable: LineSeg = LineSeg(-0.25, 0, 0.25, 0)
 }
 

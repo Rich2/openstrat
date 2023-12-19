@@ -2,11 +2,11 @@
 package ostrat; package puloc
 import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
-abstract class SovArmiya(startDate: MTime, endDate: MTime, val armeeNum: Int) extends Lunit(startDate, endDate)
+abstract class SovArmiya(val startDate: MTime, val endDate: MTime, val armeeNum: Int) extends Lunit//(startDate, endDate)
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Soviets)
   override def levelName: String = "Armiya"
   override def desig: String = armeeNum.ordAbbr
-  override def level: LunitLevel = FieldArmy
+  override def level: LuUniLevel = FieldArmy
 }
 
 object SovArmy3 extends SovArmiya(MTime(1939, 9, 15), MTime(1939, 11, 5), 3)

@@ -2,11 +2,11 @@
 package ostrat; package puloc
 import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
-abstract class FraNumberedCorps(startDate: MTime, endDate: MTime, val corpsNum: Int) extends Lunit(startDate, endDate)
+abstract class FraNumberedCorps(val startDate: MTime, val endDate: MTime, val corpsNum: Int) extends Lunit
 { override def desig: String = corpsNum.frenchOrdAbbr(true)
   override def levelName: String = "Corps"
   override val polity: MTimeSeries[Polity] = MTimeSeries(France)
-  override def level: LunitLevel = Corps
+  override def level: LuUniLevel = Corps
 }
 
 /** 1st French Corps WW2. */

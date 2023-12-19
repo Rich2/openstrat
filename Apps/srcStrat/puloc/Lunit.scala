@@ -4,8 +4,11 @@ import geom._, pgui._, pStrat._, pglobe._
 
 /** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is consdered to be a new
  *  unit. */
-abstract class Lunit(val startDate: MTime, val endDate: MTime)
-{ /** The nation / state to which this unit belongs. */
+trait Lunit
+{
+  val startDate: MTime
+  val endDate: MTime
+  /** The nation / state to which this unit belongs. */
   def polity: MTimeSeries[Polity]
 
   /** An implicit value for the start and end of the unit to be used in building time series.  */
@@ -23,7 +26,7 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
 
   def timeDesig(date: MTime): String = desig
 
-  def level: LunitLevel
+  def level: LuUniLevel
 
   def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Unknown)
 
@@ -31,7 +34,7 @@ abstract class Lunit(val startDate: MTime, val endDate: MTime)
 }
 
 /** A [[Lunit]], a military land unit's state at a particular moment in time.  */
-case class LunitState(polity: Polity, desig: String, level: LunitLevel, loc: LatLong) extends Selectable with Coloured
+case class LunitState(polity: Polity, desig: String, level: LuUniLevel, loc: LatLong) extends Selectable with Coloured
 { override def colour: Colour = polity.colour
   def levelName = level.toString
   override def selectStr: String = s"$polity $desig $levelName"

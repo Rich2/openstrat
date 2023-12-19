@@ -18,7 +18,7 @@ object InfantryCounter extends UnitCounter
     subj.addChildren(RArr(rect.diags.draw(1, linesColour)))
   }
 
-  def level(scale: Double, evObj: AnyRef, fillColour: Colour, unitLevel: LunitLevel = FieldArmy): PolygonCompound =
+  def level(scale: Double, evObj: AnyRef, fillColour: Colour, unitLevel: LuUniLevel = FieldArmy): PolygonCompound =
   { val rect: Rect = Rect(scale, scale * heightRatio)
     val linesColour = fillColour.contrastBW
     val subj = rect.fillActiveDraw(fillColour, evObj, linesColour, lineWidth)
