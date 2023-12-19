@@ -15,7 +15,7 @@ object SqCenOrSep
   }
 }
 
-/** A Square tile seprartor square grid [[SqGrid]] coordinate. */
+/** A Square tile separator square grid [[SqGrid]] coordinate. */
 class SqSep(val r: Int, val c: Int) extends SqCenOrSep with TSep
 { override def typeStr: String = "Sqside"
 }

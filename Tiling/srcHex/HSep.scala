@@ -72,7 +72,7 @@ trait HSep extends HCenOrSep with TSep
   }
 }
 
-/** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
+/** Companion object for the [[HSep]] class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
 object HSep
 { /** Factory method for HSide that throws an exception for an invalid Hex side coordinate. */
   def apply(r: Int, c: Int): HSep = r %% 4 match
@@ -103,7 +103,7 @@ object HSep
   implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSide", "r", _.r, "c", _.c, apply)
 }
 
-/** A hex side that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
+/** A hex separator that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
 class HSepA(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = true
   override def isTypeB: Boolean = false
@@ -142,7 +142,7 @@ object HSepA
   }
 }
 
-/** A hex side that slants straight down. r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0 */
+/** A hex separator that slants straight down. r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0 */
 class HSepB(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = true
@@ -176,7 +176,7 @@ object HSepB
   }
 }
 
-/** A hex side that slants down from top right to bottom left. r.div4Rem1 & c.div4Rem3 | r.div4Rem3 & c.div4Rem1 */
+/** A hex separator that slants down from top right to bottom left. r.div4Rem1 & c.div4Rem3 | r.div4Rem3 & c.div4Rem1 */
 class HSepC(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = false
