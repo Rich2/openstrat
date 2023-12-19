@@ -4,7 +4,7 @@ import geom._, pgui._, pStrat._, pglobe._
 
 /** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is consdered to be a new
  *  unit. */
-trait Lunit
+trait LunitLocHist
 {
   val startDate: MTime
   val endDate: MTime
@@ -28,19 +28,19 @@ trait Lunit
 
   def level: LuUniLevel
 
-  def supUnit: MTimeSeries[JustOrName[Lunit]] = MTimeSeries(Unknown)
+  def supUnit: MTimeSeries[JustOrName[LunitLocHist]] = MTimeSeries(Unknown)
 
-  def subUnits: MTimeSeries[RArr[Lunit]] = MTimeSeries(RArr[Lunit]())
+  def subUnits: MTimeSeries[RArr[LunitLocHist]] = MTimeSeries(RArr[LunitLocHist]())
 }
 
-/** A [[Lunit]], a military land unit's state at a particular moment in time.  */
+/** A [[LunitLocHist]], a military land unit's state at a particular moment in time.  */
 case class LunitState(polity: Polity, desig: String, level: LuUniLevel, loc: LatLong) extends Selectable with Coloured
 { override def colour: Colour = polity.colour
   def levelName = level.toString
   override def selectStr: String = s"$polity $desig $levelName"
 }
 
-trait ArmyNumbered extends Lunit
+trait ArmyNumbered extends LunitLocHist
 { /** The number of the Army 1st, 2nd 3rd, etc. */
   def armyNum: Int
 

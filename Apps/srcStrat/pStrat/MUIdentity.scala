@@ -3,6 +3,8 @@ package ostrat; package pStrat
 
 /** Military Unit Identity. */
 trait MuIdentity {
+  def birth: MTime
+  def name: String
 }
 
 trait LuIdentity extends MuIdentity

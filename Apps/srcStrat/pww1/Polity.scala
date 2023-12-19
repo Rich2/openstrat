@@ -1,7 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
 
-trait Polity extends TellSimple
+/*trait Polity extends TellSimple
 { override def typeStr: String = "Polity"
   def colour: Colour
 }
@@ -23,4 +23,4 @@ object Britain extends Polity
 object France extends Polity
 { def str: String = "France"
   def colour = Colour.fromInts(125, 255, 255)
-}
+}*/

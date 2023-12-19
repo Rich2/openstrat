@@ -2,7 +2,7 @@
 package ostrat; package puloc
 import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
-abstract class FraNumberedCorps(val startDate: MTime, val endDate: MTime, val corpsNum: Int) extends Lunit
+abstract class FraNumberedCorps(val startDate: MTime, val endDate: MTime, val corpsNum: Int) extends LunitLocHist
 { override def desig: String = corpsNum.frenchOrdAbbr(true)
   override def levelName: String = "Corps"
   override val polity: MTimeSeries[Polity] = MTimeSeries(France)

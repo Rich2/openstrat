@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import prid._, phex._, egrid._, eg460._
+import prid._, phex._, egrid._, eg460._, pStrat._
 
 /** Scenario for World War 2 grand strategy game. */
 trait WW2Scen extends HSysTurnScen
