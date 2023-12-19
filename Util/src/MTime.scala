@@ -186,7 +186,7 @@ object MTime
     (i1, i2, i3, i4, i5) => MTime(i1, i2, i3, i4, i5), Some(0), Some(0), Some(1), Some(1))
 }
 
-/** A time eriod. Compact class for holding 2 [[MTime]]s. */
+/** A time period. Compact class for holding 2 [[MTime]]s. */
 class MTime2(val int1: Int, val int2: Int)
 { /** Start time. */
   def time1: MTime = new MTime(int1)
@@ -201,6 +201,23 @@ object MTime2
   def apply(time1: MTime, time2: MTime):MTime2 = new MTime2(time1.int1, time2.int1)
 }
 
+/** A time period. Compact class for holding 2 [[MTime]]s. */
+class MTime2Opt(val int1: Int, val hasEnd: Boolean, val int2: Int)
+{ /** Start time. */
+  def time1: MTime = new MTime(int1)
+
+  /** End time. */
+  def time2: Option[MTime] = ifSome(hasEnd, new MTime(int2))
+}
+
+object MTime2Opt
+{ /** Apply factory method for [[MTime2]] class.Constructs from 2 [[MTime]] classes. */
+  def apply(time1: MTime, oTime2: Option[MTime]):MTime2Opt = oTime2 match{
+    case Some(time2) => new MTime2Opt(time1.int1, true, time2.int1)
+    case None => new MTime2Opt(time1.int1, false, 0)
+  }
+}
+
 /** Matches values of type A to periods in historical time. Each value has a start time. It is optional if there is a final end time, allowing the
  * final value of the series to continue into the indefinite future. For example in principle we know the start date of each of our Prime Minsters,
  * but we can never know for certain the end date of the current Prime Minister.  */
@@ -208,11 +225,11 @@ class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
 {
   def seriesNum: Int = arrayA.length
   def endDate: Boolean = arrayInt.length - seriesNum match
-  {case 0 => false
+  { case 0 => false
     case 1 => true
     case _ => excep("MTImeSeries incorrect Array lengths")
   }
-  def find(time: MTime): Option[A] = if (time.int1 < arrayInt(0) || time.int1 > arrayInt(seriesNum)) None
+  def find(time: MTime): Option[A] = if (time.int1 < arrayInt(0) || endDate && time.int1 > arrayInt.last) None
   else
   { def loop(i: Int): Option[A] = if (time.int1 < arrayInt(i + 1)) Some(arrayA(i)) else loop(i + 1)
     loop(0)
@@ -221,7 +238,7 @@ class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
 
 object MTimeSeries
 {
-  def apply[A](startTime: MTime, pairs: (MTime, A)*)(implicit ct: ClassTag[A]): MTimeSeries[A] =
+  def ended[A](startTime: MTime, pairs: (MTime, A)*)(implicit ct: ClassTag[A]): MTimeSeries[A] =
   { val len = pairs.length
     val intArray = new Array[Int](len + 1)
     intArray(0) = startTime.int1
