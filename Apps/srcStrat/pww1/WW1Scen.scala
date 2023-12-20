@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
-import prid._, phex._, egrid._, eg120._, pStrat._
+import prid._, phex._, egrid._, eg120._//, pStrat._
 
 /** Scenario for WW1 game. */
 trait WW1Scen extends HSysTurnScen
@@ -40,10 +40,10 @@ object WW1Scen1 extends WW1Scen
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
   override val lunits: LayerHcOptSys[Lunit] = LayerHcOptSys()
-  lunits.setSomeMut(310, 514, Army(Britain, 1))
-  lunits.setSomeMut(308, 528, Army(Germany, 1))
-  lunits.setSomeMut(306, 526, CavalryCorps(Germany, 1))
-  lunits.setSomeMut(306, 518, Army(France, 1))
+  lunits.setSomeMut(310, 514, Army(pStrat.Britain, 1))
+  lunits.setSomeMut(308, 528, Army(pStrat.Germany, 1))
+  lunits.setSomeMut(306, 526, CavalryCorps(pStrat.Germany, 1))
+  lunits.setSomeMut(306, 518, Army(pStrat.France, 1))
 }
 
 object WW1Scen2 extends WW1Scen

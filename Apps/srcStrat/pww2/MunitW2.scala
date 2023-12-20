@@ -37,21 +37,27 @@ object AfricaKorps extends LuIdentity
   override def date0: MTime = MTime(1941, 3)
 }
 
-trait DeArmee extends LuDesig
+trait DeArmeeId extends LuDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Armee"
   override def counter: UnitCounter = InfantryCounter
   override def polity: Polity = Germany
 }
 
+case class DeArmee(NumKorps: Int = 3) extends Lunit{
+  override def ident: LuIdentity = ???
 
-case class DeArmeeUnNum(idStr: String) extends DeArmee
-case class DeArmeeNum(num: Int) extends DeKorps with LuNumberedDesig
+  override def desig: LuDesig = ???
 
-object DeArmee7 extends LuIdentity{
-  override def desig0: LuDesig = ???
+  override def struct: Any = None
+}
 
-  override def date0: MTime = ???
+case class DeArmeeUnNum(idStr: String) extends DeArmeeId
+case class DeArmeeNum(num: Int) extends DeArmeeId with LuNumberedDesig
+
+object DeArmee7 extends LuIdentity
+{ override def desig0: LuDesig = DeArmeeNum(7)
+  override def date0: MTime = MTime(1939, 8 , 25)
 }
 
 //object DeArmee1 extends DeArmee(1)
