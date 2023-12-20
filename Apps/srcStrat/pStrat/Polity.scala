@@ -15,7 +15,7 @@ object Polity
 }
 
 object Germany extends Polity
-{ def str: String = "Germany"
+{ def str: String = "Deutschland"
   /** CadetBlue 60% shade. */
   def colour = Colour.fromInts(128, 177, 179)
 }

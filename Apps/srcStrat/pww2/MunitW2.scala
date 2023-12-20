@@ -27,6 +27,9 @@ trait DeKorps extends LuDesig
 }
 
 case class DeKorpsUnNum(idStr: String) extends DeKorps
+{
+  override def toString: String = levelStr -- idStr
+}
 case class DeKorpsNum(num: Int) extends DeKorps with LuNumberedDesig
 
 object AfricaKorps extends LuIdentity
@@ -50,10 +53,14 @@ case class DeArmeeNum(num: Int) extends DeKorps with LuNumberedDesig
 
 trait PzArmy extends LuDesig
 { override def level: LuUniLevel = FieldArmy
-  override def levelStr: String = "Panzer Armee"
+  override def levelStr: String = "PanzerArmee"
   override def polity: Polity = Germany
   override def counter: UnitCounter = CavalryCounter
 }
+
 case class PzArmeeUnNum(idStr: String) extends PzArmy
+{
+  override def toString: String = levelStr -- idStr
+}
 /** Panzer Armee North Africa. */
 //object PzAr5 extends PzArmy(5)
