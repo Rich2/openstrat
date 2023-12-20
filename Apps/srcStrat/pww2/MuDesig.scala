@@ -2,34 +2,28 @@
 package ostrat; package pww2
 import pStrat._
 
-/** Military unit. */
-trait Munit extends Coloured
-{ /** The polity or nation to which this military unit belongs. */
-  def polity: Polity
-  override def colour = polity.colour
-}
-
 trait MunitSt extends Coloured
 {
-  def identity: Munit
+  def identity: MuDesig
   override def colour: Colour = identity.colour
 }
 
-trait Lunit extends Munit
-{ def level: LuUniLevel
+
+trait LunitNumberedDesig extends LunitDesig with MuNumberedDesig
+{
   def levelStr: String
   override def toString: String = levelStr + polity.toString.enParenth
-  def num: Int
+
   def counter: UnitCounter = InfantryCounter
 }
 
-case class LunitSt(override val identity: Lunit) extends MunitSt
+case class LunitSt(override val identity: LunitNumberedDesig) extends MunitSt
 {
   def num: Int = identity.num
   def counter: UnitCounter = identity.counter
 }
 
-case class BrArmy(num: Int, polity: Polity = Britain) extends Lunit
+case class BrArmy(num: Int, polity: Polity = Britain) extends LunitNumberedDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Army"
 }
@@ -37,14 +31,14 @@ case class BrArmy(num: Int, polity: Polity = Britain) extends Lunit
 /** British 8th Army. */
 object BrAr8 extends BrArmy(8)
 
-case class BrCorps(num: Int, polity: Polity = Britain) extends Lunit
+case class BrCorps(num: Int, polity: Polity = Britain) extends LunitNumberedDesig
 { override def level: LuUniLevel = Corps
   override def levelStr: String = "Corps"
 }
 
 object BrCorps5 extends BrCorps(5)
 
-case class DeArmee(num: Int, polity: Polity = Germany) extends Lunit
+case class DeArmee(num: Int, polity: Polity = Germany) extends LunitNumberedDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Armee"
 }
@@ -53,7 +47,7 @@ object DeArmee1 extends DeArmee(1)
 object DeArmee7 extends DeArmee(7)
 object DeArmee15 extends DeArmee(15)
 
-case class PzArmy(num: Int) extends Lunit
+case class PzArmy(num: Int) extends LunitNumberedDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Panzer Armee"
   override def polity: Polity = Germany

@@ -6,7 +6,7 @@ abstract class SovArmiya(val startDate: MTime, val endDate: MTime, val armeeNum:
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Soviets)
   override def levelName: String = "Armiya"
   override def desig: String = armeeNum.ordAbbr
-  override def level: LuUniLevel = FieldArmy
+  override def uniLevel: LuUniLevel = FieldArmy
 }
 
 object SovArmy3 extends SovArmiya(MTime(1939, 9, 15), MTime(1939, 11, 5), 3)

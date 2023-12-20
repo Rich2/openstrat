@@ -17,7 +17,7 @@ trait LunitLocHist
   /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]
 
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, timeDesig(date), level, ll))
+  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, timeDesig(date), uniLevel, ll))
 
   /** The name of the level of the unit such as Army, Corps or Division. */
   def levelName: String
@@ -26,7 +26,7 @@ trait LunitLocHist
 
   def timeDesig(date: MTime): String = desig
 
-  def level: LuUniLevel
+  def uniLevel: LuUniLevel
 
   def supUnit: MTimeSeries[JustOrName[LunitLocHist]] = MTimeSeries(Unknown)
 

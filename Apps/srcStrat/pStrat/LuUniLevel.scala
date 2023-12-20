@@ -2,8 +2,10 @@
 package ostrat; package pStrat
 import geom._
 
+trait MuUniLevel
+
 /** Military land unit universal standard level of organisation. */
-trait LuUniLevel extends Int1Elem
+trait LuUniLevel extends MuUniLevel with Int1Elem
 { def desigStr: String
 
   def drawables: RArr[Drawable]

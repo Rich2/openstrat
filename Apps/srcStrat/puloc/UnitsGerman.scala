@@ -4,7 +4,7 @@ import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
 abstract class DeuArmee(val startDate: MTime, val endDate: MTime, val armeeNum: Int) extends LunitLocHist
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
-  override def level: LuUniLevel = FieldArmy
+  override def uniLevel: LuUniLevel = FieldArmy
   override def levelName: String = "Armee"
   override def desig: String = armeeNum.ordAbbr
 }
@@ -16,7 +16,7 @@ object DeuArmy3 extends DeuArmee(MTime(1939, 9), MTime(1939, 11, 5), 3)
 
 abstract class DeuKorps(val startDate: MTime, val endDate: MTime) extends LunitLocHist
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
-  override def level: LuUniLevel = Corps
+  override def uniLevel: LuUniLevel = Corps
   override def levelName: String = "Korps"
 }
 
