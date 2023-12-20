@@ -1,12 +1,21 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pStrat
 
+trait Munit extends Coloured
+{ def ident: MuIdentity
+  def desig: MuDesig
+  override def colour: Colour = desig.colour
+  def counter: UnitCounter = desig.counter
+}
+
+trait Lunit extends Munit
+{  override def ident: LuIdentity
+}
+
 /** Military unit designation such as the Wodrig Korps, RAF 303 squadron, 10th Cruiser Squadron. */
 trait MuDesig extends Coloured
 { /** The polity or nation to which this military unit belongs. */
   def polity: Polity
-
-  //def struct: MuStruct
 
   /** The universal military hierarchy category. */
   def level: MuUniLevel
@@ -18,6 +27,7 @@ trait MuDesig extends Coloured
   def counter: UnitCounter
 
   override def colour = polity.colour
+  override def toString: String = idStr -- levelStr
 }
 
 /** Military unit designation such as the British 30 Corps, RAF 303 squadron, 10th Cruiser Squadron. */

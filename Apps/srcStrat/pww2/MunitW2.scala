@@ -2,17 +2,7 @@
 package ostrat; package pww2
 import pStrat._
 
-trait Munit extends Coloured
-{
-  def ident: MuIdentity
-  def desig: MuDesig
-  override def colour: Colour = desig.colour
-  def counter: UnitCounter = desig.counter
-}
 
-trait Lunit extends Munit
-{  override def ident: LuIdentity
-}
 
 case class BrArmy(num: Int, polity: Polity = Britain) extends LunitNumberedDesig
 { override def level: LuUniLevel = FieldArmy
@@ -60,13 +50,12 @@ case class DeArmeeNum(num: Int) extends DeKorps with LunitNumberedDesig
 //object DeArmee7 extends DeArmee(7)
 //object DeArmee15 extends DeArmee(15)
 
-case class PzArmy(num: Int) extends LunitNumberedDesig
+trait PzArmy extends LunitDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Panzer Armee"
   override def polity: Polity = Germany
-
   override def counter: UnitCounter = CavalryCounter
 }
-
+case class PzArmeeUnNum(idStr: String) extends DeArmee
 /** Panzer Armee North Africa. */
 //object PzAr5 extends PzArmy(5)

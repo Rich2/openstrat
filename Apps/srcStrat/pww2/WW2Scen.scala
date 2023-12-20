@@ -48,9 +48,9 @@ object WW2Scen1 extends WW2Scen
 
   val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr[Lunit]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
-  val AfKorps0 = new Lunit {
-    override def ident: LuIdentity = AfricaKorps
-    override def desig: MuDesig = DeArmeeUnNum("Africa")
+  val AfKorps0 = new Lunit
+  { override def ident: LuIdentity = AfricaKorps
+    override def desig: MuDesig = PzArmeeUnNum("Africa")
   }
 //  lunitSts.set1(118, 1538, LunitSt(BrAr8))
 //  lunitSts.set1(128, 512, LunitSt(BrCorps5))

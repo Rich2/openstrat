@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww2
-import geom._, prid._, phex._, pgui._, egrid._
+import geom._, prid._, phex._, pgui._, egrid._, pStrat._
 
 /** Graphical user interface for WW2 game. */
 case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("WW2 Gui")
