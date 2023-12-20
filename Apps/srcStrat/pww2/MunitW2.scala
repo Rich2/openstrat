@@ -44,20 +44,29 @@ trait DeArmeeId extends LuDesig
   override def polity: Polity = Germany
 }
 
-case class DeArmee(NumKorps: Int = 3) extends Lunit{
-  override def ident: LuIdentity = ???
-
-  override def desig: LuDesig = ???
-
-  override def struct: Any = None
+trait DeMuDesigNum extends MuNumberedDesig
+{
+  override def idStr: String = num.toString + "."
 }
+trait DeLuDesigNum extends DeMuDesigNum with LuNumberedDesig
+case class DeArmee(ident: LuIdentity, desig: LuDesig, NumKorps: Int = 3) extends Lunit
 
 case class DeArmeeUnNum(idStr: String) extends DeArmeeId
-case class DeArmeeNum(num: Int) extends DeArmeeId with LuNumberedDesig
+case class DeArmeeNum(num: Int) extends DeArmeeId with DeLuDesigNum
+
+object DeArmee1 extends LuIdentity
+{ override def desig0: LuDesig = DeArmeeNum(1)
+  override def date0: MTime = MTime(1939, 8, 26)
+}
 
 object DeArmee7 extends LuIdentity
 { override def desig0: LuDesig = DeArmeeNum(7)
   override def date0: MTime = MTime(1939, 8 , 25)
+}
+
+object DeArmee15 extends LuIdentity
+{ override def desig0: LuDesig = DeArmeeNum(15)
+  override def date0: MTime = MTime(1941, 1 , 15)
 }
 
 //object DeArmee1 extends DeArmee(1)

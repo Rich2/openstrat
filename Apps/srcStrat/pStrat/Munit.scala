@@ -6,8 +6,6 @@ trait Munit extends Coloured
   def desig: MuDesig
   override def colour: Colour = desig.colour
   def counter: UnitCounter = desig.counter
-  def struct: Any
-
   override def toString: String = desig.toString
 }
 
@@ -22,8 +20,7 @@ object Lunit
 }
 
 class LunitImut(val ident: LuIdentity, val desig: LuDesig) extends Lunit
-{ override def struct: Any = None
-}
+
 
 /** Military unit designation such as the Wodrig Korps, RAF 303 squadron, 10th Cruiser Squadron. */
 trait MuDesig extends Coloured
