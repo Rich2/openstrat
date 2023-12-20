@@ -6,10 +6,23 @@ trait Munit extends Coloured
   def desig: MuDesig
   override def colour: Colour = desig.colour
   def counter: UnitCounter = desig.counter
+  def struct: Any
+
+  override def toString: String = desig.toString
 }
 
 trait Lunit extends Munit
-{  override def ident: LuIdentity
+{ override def ident: LuIdentity
+  override def desig: LuDesig
+}
+
+object Lunit
+{
+  def apply(ident: LuIdentity, desig: LuDesig): Lunit = new LunitImut(ident, desig)
+}
+
+class LunitImut(val ident: LuIdentity, val desig: LuDesig) extends Lunit
+{ override def struct: Any = None
 }
 
 /** Military unit designation such as the Wodrig Korps, RAF 303 squadron, 10th Cruiser Squadron. */
@@ -38,20 +51,13 @@ trait MuNumberedDesig extends MuDesig
   override def idStr: String = num.toString
 }
 
-trait LunitDesig extends MuDesig
-{
-  //override def struct: LuStruct
-  override def level: LuUniLevel
-
-  override def toString: String = levelStr + polity.toString.enParenth
+trait LuDesig extends MuDesig
+{ override def level: LuUniLevel
+  //override def toString: String = levelStr + polity.toString.enParenth
 }
 
-trait LunitNumberedDesig extends LunitDesig with MuNumberedDesig
-{
+trait LuNumberedDesig extends LuDesig with MuNumberedDesig
 
-
-  //override def counter: UnitCounter = InfantryCounter
-}
 /*trait Munit
 { def identity: MuIdentity
   def struct: MuStruct
@@ -69,7 +75,7 @@ trait MuIdentity
 }
 
 trait LuIdentity extends MuIdentity
-{ override def desig0: LunitDesig
+{ override def desig0: LuDesig
 }
 
 trait MuStruct
