@@ -44,8 +44,15 @@ trait DeArmee extends LuDesig
   override def polity: Polity = Germany
 }
 
+
 case class DeArmeeUnNum(idStr: String) extends DeArmee
 case class DeArmeeNum(num: Int) extends DeKorps with LuNumberedDesig
+
+object DeArmee7 extends LuIdentity{
+  override def desig0: LuDesig = ???
+
+  override def date0: MTime = ???
+}
 
 //object DeArmee1 extends DeArmee(1)
 //object DeArmee7 extends DeArmee(7)

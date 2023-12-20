@@ -78,6 +78,14 @@ trait LuIdentity extends MuIdentity
 { override def desig0: LuDesig
 }
 
+object LuIdentity
+{
+  def apply(desig0In: LuDesig, date0In: MTime): LuIdentity = new LuIdentity
+  { override def desig0: LuDesig = desig0In
+    override def date0: MTime = date0In
+  }
+}
+
 trait MuStruct
 { def uniLevel: MuUniLevel
   def counter: UnitCounter
