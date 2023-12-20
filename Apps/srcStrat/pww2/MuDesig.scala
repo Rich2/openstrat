@@ -2,56 +2,71 @@
 package ostrat; package pww2
 import pStrat._
 
-trait MunitSt extends Coloured
+trait Munit extends Coloured
 {
-  def identity: MuDesig
-  override def colour: Colour = identity.colour
+  def ident: MuIdentity
+  def desig: MuDesig
+  override def colour: Colour = desig.colour
+  def counter: UnitCounter = desig.counter
 }
 
-
-trait LunitNumberedDesig extends LunitDesig with MuNumberedDesig
-{
-  def levelStr: String
-  override def toString: String = levelStr + polity.toString.enParenth
-
-  def counter: UnitCounter = InfantryCounter
-}
-
-case class LunitSt(override val identity: LunitNumberedDesig) extends MunitSt
-{
-  def num: Int = identity.num
-  def counter: UnitCounter = identity.counter
+trait Lunit extends Munit
+{  override def ident: LuIdentity
 }
 
 case class BrArmy(num: Int, polity: Polity = Britain) extends LunitNumberedDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Army"
+  override def counter: UnitCounter = InfantryCounter
 }
 
 /** British 8th Army. */
-object BrAr8 extends BrArmy(8)
+//object BrAr8 extends BrArmy(8)
 
 case class BrCorps(num: Int, polity: Polity = Britain) extends LunitNumberedDesig
 { override def level: LuUniLevel = Corps
   override def levelStr: String = "Corps"
+  override def counter: UnitCounter = InfantryCounter
 }
 
-object BrCorps5 extends BrCorps(5)
+//object BrCorps5 extends BrCorps(5)
 
-case class DeArmee(num: Int, polity: Polity = Germany) extends LunitNumberedDesig
+trait DeKorps extends LunitDesig
+{ override def level: LuUniLevel = Corps
+  override def levelStr: String = "Korps"
+  override def counter: UnitCounter = InfantryCounter
+  override def polity: Polity = Germany
+}
+
+case class DeKorpsUnNum(idStr: String) extends DeKorps
+case class DeKorpsNum(num: Int) extends DeKorps with LunitNumberedDesig
+
+object AfricaKorps extends LuIdentity{
+  override def desig0: LunitDesig = DeKorpsUnNum("Africa")
+  override def date0: MTime = MTime(1941, 3)
+}
+
+trait DeArmee extends LunitDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Armee"
+  override def counter: UnitCounter = InfantryCounter
+  override def polity: Polity = Germany
 }
 
-object DeArmee1 extends DeArmee(1)
-object DeArmee7 extends DeArmee(7)
-object DeArmee15 extends DeArmee(15)
+case class DeArmeeUnNum(idStr: String) extends DeArmee
+case class DeArmeeNum(num: Int) extends DeKorps with LunitNumberedDesig
+
+//object DeArmee1 extends DeArmee(1)
+//object DeArmee7 extends DeArmee(7)
+//object DeArmee15 extends DeArmee(15)
 
 case class PzArmy(num: Int) extends LunitNumberedDesig
 { override def level: LuUniLevel = FieldArmy
   override def levelStr: String = "Panzer Armee"
   override def polity: Polity = Germany
+
+  override def counter: UnitCounter = CavalryCounter
 }
 
 /** Panzer Armee North Africa. */
-object PzAr5 extends PzArmy(5)
+//object PzAr5 extends PzArmy(5)

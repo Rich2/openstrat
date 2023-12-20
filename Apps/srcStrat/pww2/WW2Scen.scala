@@ -11,7 +11,7 @@ trait WW2Scen extends HSysTurnScen
   val terrs: LayerHcRefSys[WTile]
   val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  def lunitSts: LayerHcRArr[LunitSt]
+  def lunitSts: LayerHcRArr[Lunit]
 
   def endTurn(orderList: HCenStepPairArr[BrArmy]): WW2Scen = ???
   /*{
@@ -46,14 +46,18 @@ object WW2Scen1 extends WW2Scen
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460All.sTerrs
   override val corners: HCornerLayer = Scen460All.corners
 
-  val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr[LunitSt]()
+  val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr[Lunit]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
-  lunitSts.set1(118, 1538, LunitSt(BrAr8))
-  lunitSts.set1(128, 512, LunitSt(BrCorps5))
-  lunitSts.set1(126, 510, LunitSt(DeArmee1))
-  lunitSts.set1(126, 514, LunitSt(DeArmee7))
-  lunitSts.set1(128, 516, LunitSt(DeArmee15))
-  lunitSts.set1(118, 1534, LunitSt(PzAr5))
+  val AfKorps0 = new Lunit {
+    override def ident: LuIdentity = AfricaKorps
+    override def desig: MuDesig = DeArmeeUnNum("Africa")
+  }
+//  lunitSts.set1(118, 1538, LunitSt(BrAr8))
+//  lunitSts.set1(128, 512, LunitSt(BrCorps5))
+//  lunitSts.set1(126, 510, LunitSt(DeArmee1))
+//  lunitSts.set1(126, 514, LunitSt(DeArmee7))
+//  lunitSts.set1(128, 516, LunitSt(DeArmee15))
+  lunitSts.set1(118, 1534, AfKorps0)
   //implicit val counters: ArrCounters[Polity] = ArrCounters(polities)
 }
 
@@ -64,5 +68,5 @@ object WW2Scen2 extends WW2Scen
   override val terrs: LayerHcRefSys[WTile] = Scen460S0E1.terrs
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460S0E1.sTerrs
   override val corners: HCornerLayer = Scen460S0E1.corners
-  val lunitSts: LayerHcRArr[LunitSt] = LayerHcRArr()
+  val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr()
 }

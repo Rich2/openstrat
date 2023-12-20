@@ -9,7 +9,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   val terrs: LayerHcRefSys[WTile] = scen.terrs
   val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
-  def armies: LayerHcRArr[LunitSt] = scen.lunitSts
+  def armies: LayerHcRArr[Lunit] = scen.lunitSts
 
   focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -23,7 +23,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   {
     def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
       val str: String = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
-      val head: LunitSt = armies.head
+      val head: Lunit = armies.head
       val ref = ife(armies.length == 1, HCenPair(hc, head), HCenPair(hc, armies))
       head.counter(proj.pixelsPerTile * 0.45, ref, head.colour).slate(pt)
     }
