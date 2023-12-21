@@ -2,11 +2,15 @@
 package ostrat; package pww2
 import pStrat._
 
-case class BrArmyDesigNum(num: Int, polity: Polity = Britain) extends LuNumberedDesig
+trait BrArmyDesig extends LuDesig
 { override def uniLevel: LuUniLevel = FieldArmy
   override def structStr: String = "Army"
   override def counter: UnitCounter = InfantryCounter
 }
+
+case class BrArmyDesigNum(num: Int, polity: Polity = Britain) extends BrArmyDesig with LuNumberedDesig
+
+case class BrArmyDesigUnNum(idStr: String, polity: Polity = Britain) extends BrArmyDesig
 
 case class BrArmy(ident: LuIdentity, desig: LuDesig, numCorps: Int) extends Lunit
 
@@ -15,7 +19,7 @@ object BrArmy
 }
 
 object BrArmy8 extends LuIdentity
-{ override def desig0: LuDesig = BrArmyDesigNum(8)
+{ override def desig0: LuDesig = BrArmyDesigUnNum("Western")
   override def date0: MTime = MTime(1941, 9, 10)
 }
 
