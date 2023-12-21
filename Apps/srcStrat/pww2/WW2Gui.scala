@@ -16,8 +16,8 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
-  def NoMoves: HCenStepPairArr[BrArmy] = HCenStepPairArr[BrArmy]()
-  var moves: HCenStepPairArr[BrArmy] = NoMoves
+  def NoMoves: HCenStepPairArr[BrArmyDesigNum] = HCenStepPairArr[BrArmyDesigNum]()
+  var moves: HCenStepPairArr[BrArmyDesigNum] = NoMoves
 
   override def frame: GraphicElems =
   {
@@ -28,7 +28,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
       head.counter(proj.pixelsPerTile * 0.45, ref, head.colour).slate(pt)
     }
 
-    def moveSegPairs: LineSegPairArr[BrArmy] = moves.optMapOnA1(_.projLineSeg)
+    def moveSegPairs: LineSegPairArr[BrArmyDesigNum] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
@@ -52,7 +52,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
       thisTop()
     }
 
-    case (RightButton, HCenPair(hc1, army: BrArmy), hits) => hits.findHCenForEach { hc2 =>
+    case (RightButton, HCenPair(hc1, army: BrArmyDesigNum), hits) => hits.findHCenForEach { hc2 =>
       val newM: Option[HStep] = gridSys.stepFind(hc1, hc2)
       newM.foreach { d => moves = moves.replaceA1byA2OrAppend(army, hc1.andStep(d)) }
       repaint()

@@ -13,7 +13,7 @@ trait WW2Scen extends HSysTurnScen
   val corners: HCornerLayer
   def lunitSts: LayerHcRArr[Lunit]
 
-  def endTurn(orderList: HCenStepPairArr[BrArmy]): WW2Scen = ???
+  def endTurn(orderList: HCenStepPairArr[BrArmyDesigNum]): WW2Scen = ???
   /*{
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
@@ -49,10 +49,11 @@ object WW2Scen1 extends WW2Scen
   val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr[Lunit]()
   val polities: RArr[Polity] = RArr(Britain, Soviet, France, Germany, Japan)
   val AfKorps0 = Lunit(AfricaKorps, PzArmeeUnNum("Africa"))
-  val de1Armee0: DeArmee = DeArmee(DeArmee1, DeArmeeNum(1))
-  val de7Armee0 = DeArmee(DeArmee7, DeArmeeNum(7))
-  val de15Armee0 = DeArmee(DeArmee15, DeArmeeNum(15))
-//  lunitSts.set1(118, 1538, LunitSt(BrAr8))
+  val de1Armee0: DeArmee = DeArmee.num(DeArmee1, 1, 2)
+  val de7Armee0 = DeArmee.num(DeArmee7, 7, 2)
+  val de15Armee0 = DeArmee.num(DeArmee15, 15, 2)
+  val Br8Army0 = BrArmy.num(BrArmy8, 8, 2)
+  lunitSts.set1(118, 1538, Br8Army0)
 //  lunitSts.set1(128, 512, LunitSt(BrCorps5))
   lunitSts.set1(126, 510, de1Armee0)
   lunitSts.set1(126, 514, de7Armee0)

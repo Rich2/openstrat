@@ -28,8 +28,10 @@ trait MuDesig extends Coloured
   def polity: Polity
 
   /** The universal military hierarchy category. */
-  def level: MuUniLevel
-  def levelStr: String
+  def uniLevel: MuUniLevel
+
+  /** The name of the type of structure, Squadron Corps Army PanzerArmee etc. */
+  def structStr: String
 
   /** Usually a number. */
   def idStr: String
@@ -37,7 +39,7 @@ trait MuDesig extends Coloured
   def counter: UnitCounter
 
   override def colour = polity.colour
-  override def toString: String = idStr -- levelStr
+  override def toString: String = idStr -- structStr
 }
 
 /** Military unit designation such as the British 30 Corps, RAF 303 squadron, 10th Cruiser Squadron. */
@@ -49,7 +51,7 @@ trait MuNumberedDesig extends MuDesig
 }
 
 trait LuDesig extends MuDesig
-{ override def level: LuUniLevel
+{ override def uniLevel: LuUniLevel
   //override def toString: String = levelStr + polity.toString.enParenth
 }
 

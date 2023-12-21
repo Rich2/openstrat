@@ -2,33 +2,17 @@
 package ostrat; package pww2
 import pStrat._
 
-case class BrArmy(num: Int, polity: Polity = Britain) extends LuNumberedDesig
-{ override def level: LuUniLevel = FieldArmy
-  override def levelStr: String = "Army"
-  override def counter: UnitCounter = InfantryCounter
-}
-
-/** British 8th Army. */
-//object BrAr8 extends BrArmy(8)
-
-case class BrCorps(num: Int, polity: Polity = Britain) extends LuNumberedDesig
-{ override def level: LuUniLevel = Corps
-  override def levelStr: String = "Corps"
-  override def counter: UnitCounter = InfantryCounter
-}
-
-//object BrCorps5 extends BrCorps(5)
 
 trait DeKorps extends LuDesig
-{ override def level: LuUniLevel = Corps
-  override def levelStr: String = "Korps"
+{ override def uniLevel: LuUniLevel = Corps
+  override def structStr: String = "Korps"
   override def counter: UnitCounter = InfantryCounter
   override def polity: Polity = Germany
 }
 
 case class DeKorpsUnNum(idStr: String) extends DeKorps
 {
-  override def toString: String = levelStr -- idStr
+  override def toString: String = structStr -- idStr
 }
 case class DeKorpsNum(num: Int) extends DeKorps with LuNumberedDesig
 
@@ -38,8 +22,8 @@ object AfricaKorps extends LuIdentity
 }
 
 trait DeArmeeId extends LuDesig
-{ override def level: LuUniLevel = FieldArmy
-  override def levelStr: String = "Armee"
+{ override def uniLevel: LuUniLevel = FieldArmy
+  override def structStr: String = "Armee"
   override def counter: UnitCounter = InfantryCounter
   override def polity: Polity = Germany
 }
@@ -49,7 +33,11 @@ trait DeMuDesigNum extends MuNumberedDesig
   override def idStr: String = num.toString + "."
 }
 trait DeLuDesigNum extends DeMuDesigNum with LuNumberedDesig
-case class DeArmee(ident: LuIdentity, desig: LuDesig, NumKorps: Int = 3) extends Lunit
+case class DeArmee(ident: LuIdentity, desig: LuDesig, NumKorps: Int) extends Lunit
+
+object DeArmee
+{ def num(ident: LuIdentity, desigNum: Int, numKorps: Int): DeArmee = DeArmee(ident, DeArmeeNum(desigNum), numKorps)
+}
 
 case class DeArmeeUnNum(idStr: String) extends DeArmeeId
 case class DeArmeeNum(num: Int) extends DeArmeeId with DeLuDesigNum
@@ -74,15 +62,15 @@ object DeArmee15 extends LuIdentity
 //object DeArmee15 extends DeArmee(15)
 
 trait PzArmy extends LuDesig
-{ override def level: LuUniLevel = FieldArmy
-  override def levelStr: String = "PanzerArmee"
+{ override def uniLevel: LuUniLevel = FieldArmy
+  override def structStr: String = "PanzerArmee"
   override def polity: Polity = Germany
   override def counter: UnitCounter = CavalryCounter
 }
 
 case class PzArmeeUnNum(idStr: String) extends PzArmy
 {
-  override def toString: String = levelStr -- idStr
+  override def toString: String = structStr -- idStr
 }
 /** Panzer Armee North Africa. */
 //object PzAr5 extends PzArmy(5)
