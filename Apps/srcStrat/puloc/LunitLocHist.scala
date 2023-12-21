@@ -5,14 +5,19 @@ import geom._, pgui._, pStrat._, pglobe._
 /** A military land unit. The unit can change nationality, position, composition and leadership, but if it changes name it is consdered to be a new
  *  unit. */
 trait LunitLocHist
-{
-  val startDate: MTime
-  val endDate: MTime
+{ val startDate: MTime
+  val endDate: Option[MTime]
   /** The nation / state to which this unit belongs. */
   def polity: MTimeSeries[Polity]
 
   /** An implicit value for the start and end of the unit to be used in building time series.  */
-  implicit def startEnd: MTime2 = new MTime2(startDate.int1, endDate.int1)
+  implicit def startEnd: MTime2Opt = {
+    val endInt = endDate match{
+      case Some(t) => t.int1
+      case None => 0
+    }
+    new MTime2Opt(startDate.int1, endDate.nonEmpty,  endInt)
+  }
 
   /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]

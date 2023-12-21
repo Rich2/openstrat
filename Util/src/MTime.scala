@@ -252,8 +252,9 @@ object MTimeSeries
     new MTimeSeries[A](intArray, arrayA)
   }
 
-  def apply[A](a1: A, pairs: (MTime, A)*)(implicit startEnd: MTime2, ct: ClassTag[A]): MTimeSeries[A] =
+  def apply[A](a1: A, pairs: (MTime, A)*)(implicit startEnd: MTime2Opt, ct: ClassTag[A]): MTimeSeries[A] =
   { val len = pairs.length + 1
+    val lenI = ife(startEnd.hasEnd, len + 1, len)
     val intArray = new Array[Int](len + 1)
     intArray(0) = startEnd.int1
     val arrayA = new Array[A](len)
@@ -264,7 +265,7 @@ object MTimeSeries
       arrayA(i) = pair._2
       i += 1
     }
-    intArray(len) = startEnd.int2
+    if (startEnd.hasEnd) {intArray(len) = startEnd.int2}
     new MTimeSeries[A](intArray, arrayA)
   }
 }
