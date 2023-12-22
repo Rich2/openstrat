@@ -234,6 +234,8 @@ class MTimeSeries[A](val arrayInt: Array[Int], arrayA: Array[A])
   { def loop(i: Int): Option[A] = if (time.int1 < arrayInt(i + 1)) Some(arrayA(i)) else loop(i + 1)
     loop(0)
   }
+
+  def get(time: MTime): A = find(time).get
 }
 
 object MTimeSeries

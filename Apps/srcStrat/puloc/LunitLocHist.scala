@@ -11,9 +11,9 @@ trait LunitLocHist
   def polity: MTimeSeries[Polity]
 
   /** An implicit value for the start and end of the unit to be used in building time series.  */
-  implicit def startEnd: MTime2Opt = {
-    val endInt = endDate match{
-      case Some(t) => t.int1
+  implicit def startEnd: MTime2Opt =
+  { val endInt = endDate match
+    {  case Some(t) => t.int1
       case None => 0
     }
     new MTime2Opt(startDate.int1, endDate.nonEmpty,  endInt)
@@ -22,7 +22,7 @@ trait LunitLocHist
   /** Locations of the unit throughout its existence. */
   def locPosns: MTimeSeries[LatLong]
 
-  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.find(date).get, timeDesig(date), uniLevel, ll))
+  def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.get(date), timeDesig(date), uniLevel.get(date), ll))
 
   /** The name of the level of the unit such as Army, Corps or Division. */
   def levelName: String
@@ -31,7 +31,7 @@ trait LunitLocHist
 
   def timeDesig(date: MTime): String = desig
 
-  def uniLevel: LuUniLevel
+  def uniLevel: MTimeSeries[LuUniLevel]
 
   def supUnit: MTimeSeries[JustOrName[LunitLocHist]] = MTimeSeries(Unknown)
 

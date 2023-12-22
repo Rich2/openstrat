@@ -6,7 +6,7 @@ abstract class PrussianKorpsNumbered(val startDate: MTime, val endDate: Option[M
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Prussia,(MTime(1871, 1, 18), Deutch))
   override def desig: String = korpsNum.ordAbbr
   override def levelName: String = "Korps"
-  override def uniLevel: LuUniLevel = Corps
+  override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(Corps)
 }
 
 /** 1st Prussian later 1st German Corps. */
