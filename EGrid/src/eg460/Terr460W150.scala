@@ -12,7 +12,9 @@ object Terr460W150 extends Long460Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(134, sea * 2, mtain),
+      TRow(138, hillyTundra),
+      TRow(136, hillyTaiga),
+      TRow(134, hillyTaiga, Cape(3, 1, mtain), mtain),
       VRow(129, BendOut(7690, HVDL)),
     )
   }
