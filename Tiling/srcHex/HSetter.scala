@@ -209,7 +209,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
     }
   }
 
-
   /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
    *  by the direction of the inside of the bend. */
   trait BendAllBase
@@ -364,7 +363,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
   }
 
   /** Used for setting the a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
-  trait VertRightsRightBase
+  trait VertLeftsRightBase
   { /** The c coordinate of the vertex. */
     def c: Int
 
@@ -382,7 +381,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
   }
 
   /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
-  trait VertLeftsLeftBase
+  trait VertRightsLeftBase
   { /** The c coordinate of the vertex. */
     def c: Int
 

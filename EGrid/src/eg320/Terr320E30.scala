@@ -37,7 +37,7 @@ object Terr320E30 extends Long320Terrs
       TRow(134, Cape(4, 1, hilly), hilly, hilly, sea * 3, mtain),
       VRow(133, Mouth(1530, HVUp), Mouth(1536, HVDn)),
       TRow(132, Cape(1, 2, hilly), hilly, Cape(4, 1, hilly), hilly * 4),
-      VRow(131, VertRightsRight(1522), Mouth(1528, HVDR)),
+      VRow(131, VertLeftsRight(1522), Mouth(1528, HVDR)),
       TRow(130, Cape(2, 4, hilly), Cape(3, 4, hilly), Cape(1, 3, hilly), Cape(3, 2, hilly), hilly * 4),
       VRow(129, BendAll(1528, HVDn), Mouth(1536, HVUR)),
       TRow(128, sea * 2, Isle(hillySavannah), sea, Isle(hilly), hilly, desert * 2),

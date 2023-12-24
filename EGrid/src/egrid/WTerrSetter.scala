@@ -99,7 +99,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
   case class BendIn(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 6) extends VRowElem with BendInBase
 
-  case class VertRightsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsRightBase
+  /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
+  case class VertRightsLeft(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsLeftBase
+
+  /** Used for setting a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
+  case class VertLeftsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase
 
   /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
   case class ThreeWay(c: Int, st: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
