@@ -59,7 +59,7 @@ object Scen460SouthAmerica extends EScenLongMulti
 /** Scenario for 3 460km grids across the Dateline for 150°E, 180°E, and 150°W. */
 object Scen460DateLine extends EScenLongMulti
 { override val title: String = "460km Date Line 150°E - 120°W"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 5, 114, 140)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 5, 114)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
