@@ -4,7 +4,7 @@ import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
 abstract class PrussianKorpsNumbered(val startDate: MTime, val endDate: Option[MTime], val korpsNum: Int) extends LunitLocHist//(startDate, endDate)
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Prussia,(MTime(1871, 1, 18), Deutch))
-  override def desig: String = korpsNum.ordAbbr
+  override def idStr: String = korpsNum.ordAbbr
   override def levelName: MTimeSeries[String] = MTimeSeries("Korps")
   override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(Corps)
 }

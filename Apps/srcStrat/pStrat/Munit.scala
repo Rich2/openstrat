@@ -38,13 +38,13 @@ trait MuDesig extends Coloured
 
   def counter: UnitCounter
 
-  override def colour = polity.colour
+  override def colour: Colour = polity.colour
   override def toString: String = idStr -- structStr
 }
 
 /** Military unit designation such as the British 30 Corps, RAF 303 squadron, 10th Cruiser Squadron. */
 trait MuNumberedDesig extends MuDesig
-{
+{ /** The ordinal designation. */
   def num: Int
 
   override def idStr: String = num.toString

@@ -6,7 +6,7 @@ abstract class DeuArmee(val startDate: MTime, val endDate: Option[MTime], val ar
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Deutch)
   override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(FieldArmy)
   override def levelName: MTimeSeries[String] = MTimeSeries("Armee")
-  override def desig: String = armeeNum.ordAbbr
+  override def idStr: String = armeeNum.ordAbbr
 }
 
 object DeuArmy3 extends DeuArmee(MTime(1939, 9), Some(MTime(1939, 11, 5)), 3)
@@ -21,7 +21,7 @@ abstract class DeuKorps(val startDate: MTime, val endDate: Option[MTime]) extend
 }
 
 abstract class DeuNumberedKorps(startDate: MTime, endDate: Option[MTime], val korpsNum: Int) extends DeuKorps(startDate, endDate)
-{ override def desig: String = korpsNum.ordAbbr
+{ override def idStr: String = korpsNum.ordAbbr
 }
 
 /** 1st German corps of the 3rd Reich. */
@@ -52,5 +52,5 @@ object DeuCp21 extends DeuNumberedKorps(MTime(1939, 8, 10), Some(MTime(1941)), 4
 
 object DeuKorps26 extends DeuNumberedKorps(MTime(1939, 8, 22), Some(deu45Surr), 26)
 { override def locPosns: MTimeSeries[LatLong] = MTimeSeries(Polandia.allenstein)
-  override def timeDesig(date: MTime): String = ife(date < MTime(1939, 10), s"Wodrig ($desig)", desig)
+  override def timeDesig(date: MTime): String = ife(date < MTime(1939, 10), s"Wodrig ($idStr)", idStr)
 }

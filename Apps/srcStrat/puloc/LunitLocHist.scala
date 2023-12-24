@@ -27,9 +27,10 @@ trait LunitLocHist
   /** The name of the level of the unit such as Army, Corps or Division. */
   def levelName: MTimeSeries[String]
 
-  def desig: String
+  /** The designated identification, such as "8th" in "8th Army" or "Wodrig" in "Korps Wodrig". */
+  def idStr: String
 
-  def timeDesig(date: MTime): String = desig
+  def timeDesig(date: MTime): String = idStr
 
   def uniLevel: MTimeSeries[LuUniLevel]
 
@@ -49,7 +50,7 @@ trait ArmyNumbered extends LunitLocHist
 { /** The number of the Army 1st, 2nd 3rd, etc. */
   def armyNum: Int
 
-  override def desig: String = armyNum.ordAbbr
+  override def idStr: String = armyNum.ordAbbr
 
   override def levelName: MTimeSeries[String] = MTimeSeries("Army")
 }
