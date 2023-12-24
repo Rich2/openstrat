@@ -2,9 +2,9 @@
 package ostrat; package puloc
 import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
-abstract class SovArmiya(val startDate: MTime, val endDate: Option[MTime], val armeeNum: Int) extends LunitLocHist//(startDate, endDate)
+abstract class SovArmiya(val startDate: MTime, val endDate: Option[MTime], val armeeNum: Int) extends LunitLocHist
 { override val polity: MTimeSeries[Polity] = MTimeSeries(Soviets)
-  override def levelName: String = "Armiya"
+  override def levelName: MTimeSeries[String] = MTimeSeries("Armiya")
   override def desig: String = armeeNum.ordAbbr
   override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(FieldArmy)
 }

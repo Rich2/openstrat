@@ -4,7 +4,7 @@ import geom._, pStrat._, pglobe._, pEarth._, pEurope._
 
 abstract class FraNumberedCorps(val startDate: MTime, val endDate: Option[MTime], val corpsNum: Int) extends LunitLocHist
 { override def desig: String = corpsNum.frenchOrdAbbr(true)
-  override def levelName: String = "Corps"
+  override def levelName: MTimeSeries[String] = MTimeSeries("Corps")
   override val polity: MTimeSeries[Polity] = MTimeSeries(France)
   override def uniLevel: MTimeSeries[LuUniLevel] = MTimeSeries(Corps)
 }

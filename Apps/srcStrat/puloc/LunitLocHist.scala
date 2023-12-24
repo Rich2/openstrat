@@ -25,7 +25,7 @@ trait LunitLocHist
   def dateFind(date: MTime): Option[LunitState] = locPosns.find(date).map(ll => LunitState(polity.get(date), timeDesig(date), uniLevel.get(date), ll))
 
   /** The name of the level of the unit such as Army, Corps or Division. */
-  def levelName: String
+  def levelName: MTimeSeries[String]
 
   def desig: String
 
@@ -51,5 +51,5 @@ trait ArmyNumbered extends LunitLocHist
 
   override def desig: String = armyNum.ordAbbr
 
-  override def levelName: String = "Army"
+  override def levelName: MTimeSeries[String] = MTimeSeries("Army")
 }
