@@ -10,11 +10,11 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Tell2[
   override def name1: String = "height"
   override def name2: String = "cen"
   def height: Double = (v1y - v2y).abs
-  override def diameterIn: Double = (v1y - v2y).abs
-  override def diameterOut: Double = v5.distTo(v2)
+  override def apoDiameter: Double = (v1y - v2y).abs
+  override def diameter: Double = v5.distTo(v2)
   override def width: Double = v5.distTo(v2)
-  override def radiusIn: Double = diameterIn / 2
-  override def radiusOut: Double = diameterOut / 2
+  override def apo: Double = apoDiameter / 2
+  override def radius: Double = diameter / 2
   override def tell1: Double = height
   override def tell2: Pt2 = cen
   override implicit def show1: Show[Double] = Show.doubleEv
@@ -51,7 +51,7 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Tell2[
   override def rotate270: HexParrY = HexParrY.fromArray(unsafeMap(_.rotate270))
 
   /** Prolign 2d geometric transformations, similar transformations that retain alignment with the axes on this HexXlign returns a HexXlign. */
-  override def prolign(matrix: ProlignMatrix): HexParrX = HexParrX(diameterIn, cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexParrX = HexParrX(apoDiameter, cen.prolign(matrix))
 }
 
 /** Companion object for the regular hexagon aligned to the X Axis class. It has a limited set of 2D geometric transformation type class instances as

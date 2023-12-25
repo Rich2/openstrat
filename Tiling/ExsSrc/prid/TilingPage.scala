@@ -35,7 +35,7 @@ object TilingPage extends HtmlPage
 
   def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
 
-  def terms2 = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
+  def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
     "the GameWorld or the OutWorld."),
     HtmlLi("<b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for" --
       "submission of turn Directives. Rules on credits from InGame achievements or role-playering accreditation on future assignment of InWorld" --

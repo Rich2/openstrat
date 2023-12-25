@@ -1,7 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Regular Hexagon */
+/** Regular Hexagon. a = √3 * r / 2. r = 2 * √3 * a. */
 trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
@@ -12,40 +12,27 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
   def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
-  def diameterIn: Double
+  def apoDiameter: Double
 
-  /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
-  @inline def radiusIn: Double
+  /** The apothem or the radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a
+   *  side. */
+  @inline def apo: Double
 
   /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
    *  the hexagon side. */
-  @inline def radiusOut: Double
+  @inline def radius: Double
 
   /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
    * the length of the hexagon side. */
-  @inline def diameterOut: Double
+  @inline def diameter: Double
 
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6
-
-  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(delta: Vec2Like): HexReg = mapHexReg(_.slate(delta))
-
-  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slateXY(xDelta: Double, yDelta: Double): HexReg = mapHexReg(_.addXY(xDelta, yDelta))
-
-  /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
-   * return type of this method will be narrowed further in descendant traits / classes. */
   override def scale(operand: Double): HexReg = mapHexReg(_.scale(operand))
-
-  /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
   override def negY: HexReg = HexReg.fromArray(unsafeNegY)
-
-  /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
   override def negX: HexReg = HexReg.fromArray(unsafeNegX)
-
   override def rotate90: HexReg = mapHexReg(_.rotate90)
   override def rotate180: HexReg = mapHexReg(_.rotate180)
   override def rotate270: HexReg = mapHexReg(_.rotate270)
@@ -59,8 +46,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
    * traits / classes. */
   override def reflect(lineLike: LineLike): HexReg = mapHexReg(_.reflect(lineLike))
 
-  /** The area of this [[HexReg]]. */
-  def area: Double = radiusOut.squared * 3.sqrt * 3 / 2
+  /** The area of this [[HexReg]]. 3 * √3 * r² / 2. Or 2 * √3 * a²  */
+  def area: Double = radius.squared * 3.sqrt * 3 / 2
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
@@ -112,6 +99,8 @@ object HexReg
     override def rotate270(obj: HexReg): HexReg = obj.rotate180
   }
 
+  def apoToArea(a: Double): Double = 2.0 * 3.sqrt * a.squared
+
   /** Implementation class for the [[HexReg]] trait. */
   final class HexRegImp(val unsafeArray: Array[Double]) extends HexReg with Tell2[Pt2, Pt2]
   { override type ThisT = HexRegImp
@@ -130,16 +119,16 @@ object HexReg
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
 
     /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
-    override def radiusIn: Double = diameterOut * 3.sqrt / 4
+    override def apo: Double = diameter * 3.sqrt / 4
 
     /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
      * the hexagon side. */
-    override def radiusOut: Double = diameterOut / 2
+    override def radius: Double = diameter / 2
 
     /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
      * the length of the hexagon side. */
-    override def diameterOut: Double = v5.distTo(v2)
+    override def diameter: Double = v5.distTo(v2)
 
-    @inline override def diameterIn: Double = diameterOut * 3.sqrt / 2
+    @inline override def apoDiameter: Double = diameter * 3.sqrt / 2
   }
 }
