@@ -16,6 +16,8 @@ object Terr460W150 extends Long460Terrs
       TRow(138, SideB(), hillyTundra, mtain),
       TRow(136, hillyTaiga * 2, mtain),
       TRow(134, hillyTaiga, Cape(3, 1, mtain), mtain),
+      VRow(133, BendOut(7674, HVDL), BendAll(7678, HVDR), BendOut(7680, HVDn), Mouth(7684, HVUR)),
+      TRow(132, Cape(2, 3, hillyTundra)),
       VRow(129, BendOut(7690, HVDL)),
     )
   }

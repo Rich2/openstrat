@@ -18,8 +18,8 @@ object Terr460E180 extends Long460Terrs
       VRow(137, BendIn(6658, HVDR)),
       TRow(136, mtain, Cape(2, 1, hillyTundra)),
       VRow(135, BendOut(6656, HVDR)),
-      TRow(134, Cape(2, 2, mtain), sea, Cape(3, 3, hillyTundra)),
-      VRow(133, BendOut(6650, HVDR), BendAll(6652, HVDn)),
+      TRow(134, Cape(2, 2, mtain), sea, Cape(4, 2, hillyTundra)),
+      VRow(133, BendOut(6650, HVDR), BendAll(6652, HVDn), BendOut(6662, HVDL)),
       VRow(131, SetSide(6649)),
       TRow(130, SideB()),
     )
