@@ -78,7 +78,7 @@ flat = false;
 74 = HGView(120, 9724; 28);//460km North America 4 grids 150°W - 60°W
 75 = HGView(122, 1536; 27.5);//460km 30°W - 60°E
 76 = HGView(120, 1536; 28);//460km All longitudes
-77 = HGView(125, 10752; 30);//460km South America 90°W - 30°W
+77 = HGView(125, 10752; 30);//460km Atlantic 90°W - 0°E
 78 = HGView(132, 6656; 27);//460km China-Japan 90°E - 150°E
 
 80 = HGView(149, 512; 22);//320km 0°E

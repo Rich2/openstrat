@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 460km. A hex tile area of 354724.005km².
  *  A minimum island area of 59120.667km², which includes Britain but excludes Ireland and Sicily-Corsica. */
 object Terr460E0 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e0(114)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e0(112)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -13,8 +13,11 @@ object Terr460E0 extends Long460Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
+      TRow(146, SeaIcePerm),
+      VRow(143, Mouth(510, HVUL)),
+      TRow(142, SideB()),
       TRow(136, sea * 2, Cape(5, 1, hillyTaiga)),
-      VRow(135, BendOut(514, HVUL), BendAll(520, HVDR)),
+      VRow(135, Mouth(506, HVUR), BendOut(514, HVUL), BendAll(520, HVDR)),
       TRow(134, sea, Cape(5, 1, mtain), land),
       VRow(133, Mouth(510, HVDR), Mouth(512, HVDn)),
       TRow(132, Cape(4, 3, hilly), sea, Cape(4, 4)),
@@ -26,7 +29,7 @@ object Terr460E0 extends Long460Terrs
       TRow(126, sea, Cape(4, 1), land, hilly),
       VRow(125, Mouth(506, HVDL), Mouth(510, HVDR), Mouth(518, HVUp)),
       TRow(124, sea, Cape(0, 1, hilly), hilly, Cape(2, 2, hilly), Cape(4, 1, hilly)),
-      VRow(123, Mouth(514, HVUL), BendOut(524, HVDL)),
+      VRow(123, Mouth(506, HVUR), Mouth(514, HVUL), BendOut(524, HVDL)),
       TRow(122, Cape(4, 2, hillySavannah), sahel, sea, Isle(hillySavannah), Cape(4, 1, hillySavannah)),
       VRow(121, BendIn(506, HVDL)),
       TRow(120, sea, Cape(2, 3, hilly), Cape(5, 2, hillySavannah), Cape(0, 1, hillySavannah), Cape(0, 2, hillySavannah)),
@@ -36,7 +39,7 @@ object Terr460E0 extends Long460Terrs
 //      VRow(115, BendAll(512, HVUp), Mouth(516, HVDL)),
       TRow(114, desert * 4, hillyDesert, desert),
 //      VRow(113, Mouth(520, HVDn)),
-//      TRow(112, hillyDesert, desert * 3),
+      TRow(112, desert * 6),
 //      TRow(110, desert * 2, hillyDesert, desert),
 //      VRow(109, Mouth(504, HVUR)),
 //      TRow(108, desert * 4),
