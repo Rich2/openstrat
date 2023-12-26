@@ -7,8 +7,10 @@ object TilingTryApp  extends App
   deb("Hello TilingTryApp")
   val scs = DblArr(1300, 1000, 640, 460, 320, 220, 160, 120, 80)
   val res = scs.map(d => (d, tileScaleToArea(d)))
-  res.foreach{ p =>
-    val str = p._1.str.appendCommas(p._2.str)
-    println(str)
-  }
+  val res2 = res.map{ p => p._1.str.appendCommas(p._2.str) }
+  //res2.foreach{ println(_) }
+  val isl = DblArr(16, 10, 9, 8, 7, 6, 5, 4, 3)
+  val a460 = tileScaleToArea(460)
+  val isl1 = isl.map{ i =>(i,  i.squared * a460 / 256) }.map (p => p._1 + ", " + p._2)
+  isl1.foreach(println)
 }

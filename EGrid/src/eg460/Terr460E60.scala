@@ -16,7 +16,8 @@ object Terr460E60 extends Long460Terrs
       TRow(142, Cape(5, 4, ice)),
       VRow(141, BendOut(2562, HVDR)),
       TRow(140, Cape(2, 2, mtain), tundra),
-      TRow(138, SideB(), Cape(0, 1, taiga), tundra),
+      VRow(139, Mouth(2558, HVUL)),
+      TRow(138, SideB(), taiga, tundra),
       TRow(136, taiga, hillyTaiga, taiga),
       TRow(134, taiga * 3),
       TRow(132, taiga, hillyTaiga, taiga),
@@ -35,15 +36,6 @@ object Terr460E60 extends Long460Terrs
       VRow(115, BendIn(2556, HVDL)),
       TRow(114, desert, Cape(0, 1, desert), Cape(3, 2, mtain), hillyDesert, sahel * 2),
       VRow(113, BendOut(2560, HVDn)),
-//      TRow(112, hillyDesert, hillyDesert, Land(Mountains, Desert), savannah),
-//      VRow(111, Mouth(2554, HVUL), BendOut(2556, HVUp)),
-//      TRow(110, sahel, Cape(0, 2, sahel), Cape(3, 2, sahel), savannah),
-//      VRow(109, Mouth(2564, HVUR)),
-//      TRow(108, sahel, sea * 2, Cape(4, 1, savannah)),
-//      VRow(107, BendOut(2568, HVDL)),
-//      TRow(106, Cape(2, 2, desert), sea * 3, Cape(4, 1, savannah)),
-//      TRow(104, Cape(0, 1, desert)),
-//      VRow(101, Mouth(2550, HVUp)),
     )
   }
   help.run

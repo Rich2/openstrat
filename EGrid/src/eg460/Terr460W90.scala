@@ -41,17 +41,6 @@ object Terr460W90 extends Long460Terrs
       TRow(114, hillySahel, Cape(2, 1, hillySavannah)),
       VRow(113, BendOut(9722, HVDR)),
       TRow(112, hillySavannah),
-//      VRow(111, BendAll(9724, HVDR), BendOut(9726, HVDn)),
-//      TRow(110, sahel, sea * 2, sea),
-//      VRow(109, BendOut(9724, HVUR), BendOut(9726, HVUp), Mouth(9720, HVUR)),
-//      TRow(108, jungle, Cape(0, 1, jungle), sea, Isle(hillyJungle)),
-//      TRow(106, sea, Cape(3, 2, Hilly, Savannah, Forest, Sea), Land(Hilly, Savannah, Forest)),
-//      VRow(105, BendOut(9738, HVUp)),
-//      TRow(104, sea * 3, Cape(4, 1, hillyJungle), Cape(0, 1, hillyJungle)),
-//      TRow(102, sea * 4, mtain),
-//      TRow(100, sea * 4, Cape(5, 1, mtain)),
-//      TRow(98, sea * 3, Cape(4, 2, mtain), jungle),
-//      TRow(96, sea * 4, Cape(4, 1, mtain)),
     )
   }
   help.run

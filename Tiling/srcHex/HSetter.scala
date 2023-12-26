@@ -3,8 +3,8 @@ package ostrat; package prid; package phex
 
 /** Helper trait for setting an [[LayerHcRefSys]], [[HSideLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
  *  terrain to be laid out in systematic row order. */
-trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
-  implicit def grid: HGrid
+trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
+{ implicit def grid: HGrid
 
   def terrs: LayerHcRefSys[TT]
 
@@ -12,23 +12,29 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome] {
 
   def corners: HCornerLayer
 
-  /** Sets the side terrain and corners for an Island. */
-  trait IsleBase
+  trait IsleNBase
   { /** The tile terrain. typically land terrain. */
     def terr: TT
 
     /** The Side terrain, Typically water terrain, */
     def sTerr: SST
 
+    def magnitude: Int
+
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, 6, 0, 7)
-      iUntilForeach(6) { i => corners.setCornerIn(row, c, i, 7) }
+      corners.setNCornersIn(row, c, 6, 0, magnitude)
+      iUntilForeach(6) { i => corners.setCornerIn(row, c, i, magnitude) }
       iUntilForeach(6) { i =>
         val side = HCen(row, c).side(i)
         sTerrs.set(side, sTerr)
       }
     }
+  }
+
+  /** Sets the side terrain and corners for an Island. */
+  trait IsleBase extends IsleNBase
+  { override def magnitude: Int = 7
   }
 
   /** Sets a side in the tile row. This is type B side. */
