@@ -7,7 +7,12 @@ import prid.phex._, egrid._
  *  Mindanao, Ireland, Hokkaidō, Hispaniola, Sakhalin, Banks Island, Sri Lanka and Tasmania.
  *  Isle8 down to 35075.382 km² which includes Devon Island down to Kyūshū
  *  Isle6 down 21653.679km² which includes Hawaii combined.
- *  Isle5 down to 14495.438km²   */
+ *  Isle5 down to 14495.438km²
+ *  Isle4 down to 8768.845km²
+ *  Isle3 down to 4473.900km²
+ *  Isle2 down to 1610.604km²
+ *  Isle1 down to 357.9124km²
+ *  */
 package object eg460
 {
   val fullTerrs: RArr[Long460Terrs] = RArr(Terr460E0, Terr460E30, Terr460E60, Terr460E90, Terr460E120, Terr460E150,Terr460E180, Terr460W150,
