@@ -32,22 +32,22 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the side terrain and corners for an Island. */
+  /** Sets the side terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
   trait IsleBase extends IsleNBase
   { override def magnitude: Int = 6
   }
 
-  /** Sets the side terrain and corners for an Island. */
+  /** Sets the side terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
   trait Isle8Base extends IsleNBase
   { override def magnitude: Int = 8
   }
 
-  /** Sets the side terrain and corners for an Island. */
+  /** Sets the side terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
   trait Isle6Base extends IsleNBase
   { override def magnitude: Int = 10
   }
 
-  /** Sets the side terrain and corners for an Island. */
+  /** Sets the side terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
   trait Isle5Base extends IsleNBase
   { override def magnitude: Int = 11
   }
