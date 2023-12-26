@@ -2,9 +2,9 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 1300km, a C scale of 375km. A hex tile area of 1.463582932 million km². A maximum Ilse area of
+/** Hex tile grids for Earth with a hex scale of 1300km, a C scale of 375km. A hex tile area of 1.463582932 million km². A maximum Isle area of
  *  966193.420km², which excludes Greenland down to 463086.787km² which includes Borneo, Madagascar, Baffin Island.
- *  243930.488km², , Sumatra, Honshu, but not Victoria Island, Great Britain, Ellesmere Island or Sulawesi.  */
+ *  Isle8 down to 243930.488km², Sumatra, New Zealand combined, Honshu, but not Victoria Island, Great Britain, Ellesmere Island or Sulawesi.  */
 package object eg13
 {
   val fullTerrs: RArr[Long13Terrs] = RArr(Terr13E0, Terr13E30, Terr13E60, Terr13E90, Terr13E120, Terr13E150, Terr13E180, Terr13W150, Terr13W120,
