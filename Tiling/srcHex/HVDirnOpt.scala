@@ -1,7 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** [[HVert]] direction of offset towards [[HCen]]. These objects should not be confused with [[HStep]]s */
+/** [[HVert]] direction of offset towards [[HCen]]. These objects should not be confused with [[HStep]]s. Stored as a 4 bit number between 0 and 15
+ *  although only values 0 to 8 currently used. */
 sealed trait HVDirnOpt extends Int1Elem
 { /** The delta in R to the [[HCen]] from an [[HCoord]]. */
   def dCenR: Int
@@ -29,6 +30,7 @@ sealed trait HVDirnOpt extends Int1Elem
 
 object HVDirnOpt
 {
+  /** Values 0 to 8 are valid. Normally storeda as 4bit 0-15 value. */
   def fromInt(inp: Int): HVDirnOpt = inp match
   { case 0 => HVExact
     case 1 => HVUR

@@ -21,8 +21,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class Isle(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with IsleBase
 
   object Isle
-  {
-    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle = Isle(Land(elev, biome, landUse), sTerr)
+  { def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle = Isle(Land(elev, biome, landUse), sTerr)
+  }
+
+  case class Isle6(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle6Base
+
+  object Isle6
+  { def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle6 = Isle6(Land(elev, biome, landUse), sTerr)
   }
 
   /** Cape / headland / peninsula for [[WTile]]s. */

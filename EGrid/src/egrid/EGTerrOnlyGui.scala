@@ -27,7 +27,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   }
 
   val sideError = gridSys.numSides - gridSys.numInnerSides - gridSys.numOuterSides
-  deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
+  //deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
   def frame: RArr[GraphicElem] =
   { def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)

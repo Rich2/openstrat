@@ -34,6 +34,11 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
   /** Sets the side terrain and corners for an Island. */
   trait IsleBase extends IsleNBase
+  { override def magnitude: Int = 6
+  }
+
+  /** Sets the side terrain and corners for an Island. */
+  trait Isle6Base extends IsleNBase
   { override def magnitude: Int = 7
   }
 

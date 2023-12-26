@@ -21,7 +21,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   def v2(hVert: HVert): HVOffset =
   { if(numVerts < 2) excep(s"Trying to access the second HVOffset for a Corner that has only $numVerts.")
     val dirn = HVDirnOpt.fromInt((unsafeInt %% 32768) / 2048)
-    val magnitude = (unsafeInt %% 131072) / 32768
+    val magnitude = (unsafeInt %% 524288) / 32768
     HVOffset(hVert, dirn, magnitude)
   }
 
