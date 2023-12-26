@@ -83,3 +83,5 @@ class BuffDbl(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffSeq
   override def fElemStr: Double => String = _.toString
   override def grow(newElem: Double): Unit = unsafeBuffer.append(newElem)
 }
+
+//class DblArrPair extends ArrPair[Double, DblArr, Double, (Double, Double)]

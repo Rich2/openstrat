@@ -2,7 +2,7 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 460km, a C scale of 115km. A hex tile area of 354724.005km² . A minimum island area of 59120.667km²,
+/** Hex tile grids for Earth with a hex scale of 460km, a C scale of 115km. A hex tile area of 183250.975km² . A minimum island area of 59120.667km²,
  *  which includes Ireland, Hokkaidō, Hispaniola, Sakhalin, Banks Island, Sri Lanka and Tasmania but not Devon Island Alexander Island, Isla Grande de
  *  Tierra del Fuego, Severny Island North, Hawaii.  */
 package object eg460

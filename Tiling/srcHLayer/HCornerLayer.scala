@@ -261,8 +261,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   { val dirn = HVDirn.inFromVertIndex(vertNum)
     if (grid.hCenExists(cenR, cenC))
-    { val corner = HCorner.sideSpecial(dirn, magnitude)
-      val index = unsafeIndex(cenR, cenC, vertNum)
+    { val corner: HCorner = HCorner.sideSpecial(dirn, magnitude)
+      val index: Int = unsafeIndex(cenR, cenC, vertNum)
       unsafeArray(index) = corner.unsafeInt
     }
   }

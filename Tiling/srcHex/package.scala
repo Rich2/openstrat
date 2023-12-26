@@ -7,6 +7,9 @@ package object phex
   /** The hex centre step values. */
   val hcSteps: RArr[HStep] = RArr(HexUR, HexRt, HexDR, HexDL, HexLt, HexUL)
 
+  def cScaleToArea(a: Double): Double = 8.0 * 3.sqrt * a.squared
+
+  def tileScaleToArea(a: Double): Double = 3.sqrt * a.squared / 2.0
   /** phex package extensions for Int. */
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct [[HCen]] notation. */
