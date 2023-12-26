@@ -24,7 +24,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, 6, 0, magnitude)
-      iUntilForeach(6) { i => corners.setCornerIn(row, c, i, magnitude) }
+      //iUntilForeach(6) { i => corners.setCornerIn(row, c, i, magnitude) }
       iUntilForeach(6) { i =>
         val side = HCen(row, c).side(i)
         sTerrs.set(side, sTerr)
@@ -38,8 +38,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   }
 
   /** Sets the side terrain and corners for an Island. */
+  trait Isle8Base extends IsleNBase
+  { override def magnitude: Int = 8
+  }
+
+  /** Sets the side terrain and corners for an Island. */
   trait Isle6Base extends IsleNBase
-  { override def magnitude: Int = 7
+  { override def magnitude: Int = 10
   }
 
   /** Sets a side in the tile row. This is type B side. */

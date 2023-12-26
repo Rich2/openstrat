@@ -13,7 +13,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   /** Returns the first, going clockwise and possibly only [[HVOffsetDelta]] of this corner */
   def v1(hVert: HVert): HVOffset =
   { val dirn = HVDirnOpt.fromInt((unsafeInt %% 64) / 4)
-    val magnitude = (unsafeInt %% 512) / 64
+    val magnitude = (unsafeInt %% 1024) / 64
     HVOffset(hVert, dirn, magnitude)
   }
 
@@ -41,17 +41,17 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   }
 
   def isSpecial: Boolean = numVerts == 3
-
-  /** Returns the vertices of a side feature, such as a straits or a wall. The vertices are specified as [[HVOffset]]. */
-  //def sideVertsFirst(hVert: HVert): HVOffsetArr = ife(numVerts == 3, HVOffsetArr(hVert.noOffset, v1(hVert)), HVOffsetArr(v1(hVert)))
 }
 
 /** Companion object for [[HCorner]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */
 object HCorner
 { def noOffset: HCorner = new HCorner(0)
 
+  /** Creates a corner with a single vertex. */
   def single(dirn: HVDirnOpt, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.int1 + magnitude * 64)
 
+  /** Creates a corner with 2 vertexs. For example the corner of a sea hex at the mouth of straits or river needs 2 vertexs for the corresponding
+   * corners of the land hexs. */
   def double(dirn1: HVDirnOpt, magnitude1 : Int, dirn2: HVDirnOpt, magnitude2 : Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 64
     val v2 = dirn2.int1 + magnitude2 * 16

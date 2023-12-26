@@ -123,7 +123,7 @@ object HVOffset
     }
 
     val magnitude3 = magnitude match
-    { case m if  m > 7 => { deb(s"$m > 7 ofr HCen dirn"); m.min(7) }
+    { case m if  m > 15 => { deb(s"$m > 15 of HCen dirn"); m.min(7) }
       case m => m
     }
 
