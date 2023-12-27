@@ -19,8 +19,9 @@ object Terr13E150 extends Long13Terrs
       VRow(101, SetSide(5628)),
       TRow(100, SideB(), sea * 2),
       VRow(99, BendOut(5628, HVDL)),
-      TRow(98, Cape(2, 3, hillyJungle), sea),
-      TRow(96, Cape(0, 3, hilly), sea),
+      TRow(98, Cape(3, 2, hillyJungle), sea),
+      TRow(96, Cape(0, 2, hilly), sea),
+      VRow(95, Mouth(5634, HVDn)),
       TRow(94, savannah, sea),
       VRow(87, Mouth(5632, HVDL, wice), Mouth(5636, HVDR, wice)),
       TRow(86, Cape(0, 1, ice, wice))
