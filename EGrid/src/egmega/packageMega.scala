@@ -2,8 +2,11 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 1 megametre, a C scale of 250km. A hex tile area of 866025.403 km². A minimum Island area of
- *  144337.567km², which includes Honshu, Victoria Island, Great Britain, Ellesmere Island, Sulawesi and the New Zealand Islands combined, but not individually and
+/** Hex tile grids for Earth with a hex scale of 1 megametre, a C scale of 250km. A hex tile area of 866025.403 km².
+ * Maximum Isle area 571712.082km² which excludes New Guinea, Borneo, Madagascar,.
+ * Isle 571712.082km² <= 274015.850km². Includes, Baffin Island and Sumatra,
+ * Isle8 274015.850km² <= 165762.674km². Includes Honshu, Victoria Island, Great Britain, Ellesmere Island,
+ * Isle6 165762.674km² <= 102333.079km² Sulawesi and the New Zealand Islands combined, but not individually and
  *  not Java, North Island, Luzon or Cuba.  */
 package object egmega
 {

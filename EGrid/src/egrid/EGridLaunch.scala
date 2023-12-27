@@ -53,6 +53,8 @@ object EGridLaunch extends GuiLaunchMore
       case 34 => ScenMegaNorthAmerica
       case 35 => ScenMegaS11E2
       case 36 => ScenMegaAll
+      case 37 => ScenMegaAtlantic
+      case 38 => ScenMegaDateLine
 
       case 40 => EGrid640.scen0
       case 41 => EGrid640.scen1

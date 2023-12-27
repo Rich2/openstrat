@@ -24,7 +24,7 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(112, hilly, land),
       TRow(110, Cape(3, 1, hilly), hilly),
       VRow(109, BendOut(1532, HVUR), Mouth(1538, HVDR)),
-      TRow(108, Cape(0, 0), desert),
+      TRow(108, Cape(0, 1), desert),
       VRow(107, Mouth(1538, HVUL), BendAll(1540, HVDL)),
       TRow(106, desert * 3),
       VRow(105, BendAll(1540, HVUR), BendAll(1542, HVDL)),
