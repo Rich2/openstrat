@@ -2,13 +2,13 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 460km, a C scale of 115km. A hex tile area of 183250.975km². A maximum Isle size of 120974.276km²
- *  which excludes Sulawesi, NZ south island and Java down to 57981.753km², which includes NZ North Island, Luzon, Newfoundland, Cuba, Iceland,
- *  Mindanao, Ireland, Hokkaidō, Hispaniola, Sakhalin, Banks Island, Sri Lanka and Tasmania.
- *  Isle8 down to 35075.382 km² which includes Devon Island down to Kyūshū
- *  Isle6 down 21653.679km² which includes Hawaii combined.
- *  Isle5 down to 14495.438km²
- *  Isle4 down to 8768.845km²
+/** Hex tile grids for Earth with a hex scale of 460km, a C scale of 115km. A hex tile area of 183250.975km².
+ *  A maximum Isle size of 120974.276km² excludes South Island(NZ), Java
+ *  Isle10 120974.276km² <= 57981.753km²
+ *  Isle8 57981.753km² <= 35075.382km²
+ *  Isle6 35075.382km² <= 21653.679km²
+ *  Isle5 21653.679km² <= 14495.438km²
+ *  Isle4 14495.438km² <= 8768.845km²
  *  Isle3 down to 4473.900km²
  *  Isle2 down to 1610.604km²
  *  Isle1 down to 357.9124km²

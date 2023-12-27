@@ -2,9 +2,10 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.  */
+/** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.
+ * Isle10 120974.276km² <= 57981.753km² Hispaniola 76192km². */
 object Terr460W60 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w60(112)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w60(108)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -13,10 +14,11 @@ object Terr460W60 extends Long460Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(146, ice),
-      TRow(144, ice),
+      TRow(144, SideB(), ice),
       VRow(143, SetSide(10751)),
-      TRow(142, SideB(), ice),
+      TRow(142, SideB(), Cape(4, 1, ice)),
       TRow(140, sea, ice),
+      VRow(139, Mouth(10754, HVUR)),
       TRow(138, SideB(), Cape(1, 1, hillyTundra), Cape(4, 2, mtain)),
       VRow(137, SetSide(10747), BendOut(10754, HVDL)),
       TRow(136, SideB(), hillyTundra, sea, Cape(4, 1, mtain)),
@@ -31,11 +33,7 @@ object Terr460W60 extends Long460Terrs
       TRow(126, hillyTaiga, hillyTaiga, Cape(2, 3, mtain)),
       VRow(125, Mouth(10748, HVUR), Mouth(10750, HVUp)),
       TRow(124, hillyForest, Cape(2, 4, WetLand, Taiga, Forest, Sea)),
-//      TRow(122, taiga, sea),
-//      TRow(120, taiga, taiga),
-//      VRow(119, Mouth(10750, HVUL), Mouth(10752, HVDR)),
-//      TRow(118, Cape(2, 2, taiga), sea),
-//      VRow(117, Mouth(10748, HVUL)),
+      TRow(110, Isle(mtain)),
 //      VRow(109, SetSide(10745)),
 //      TRow(108, SideB()),
 //      VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAll(10750, HVUp)),

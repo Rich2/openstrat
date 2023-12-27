@@ -2,9 +2,10 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile scale 460km.  */
+/** [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile scale 460km.
+ * Isle10 120974.276km² <= 57981.753km² Cuba. */
 object Terr460W90 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w90(112)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w90(108)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -39,8 +40,11 @@ object Terr460W90 extends Long460Terrs
       TRow(116, savannah, land, Cape(2, 2), sea, Cape(1, 2, jungle)),
       VRow(115, BendOut(9724, HVDR), BendOut(9726, HVDn)),
       TRow(114, hillySahel, Cape(2, 1, hillySavannah)),
-      VRow(113, BendOut(9722, HVDR)),
-      TRow(112, hillySavannah),
+      VRow(113, BendOut(9722, HVDR), Mouth(9730, HVDR), BendOut(9738, HVUp)),
+      TRow(112, hillySavannah, sea, Cape(5, 2, savannah), sea, Cape(3, 4, hillyJungle), Cape(0, 4, jungle)),
+      VRow(111, Mouth(9724, HVDL), BendOut(9726, HVUL), BendOut(9738, HVDn)),
+      TRow(110, mtain, hillyJungle, savannah, jungle),
+      TRow(108, sea * 3, mtain, hillyJungle)
     )
   }
   help.run

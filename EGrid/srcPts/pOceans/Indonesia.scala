@@ -17,12 +17,11 @@ object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
 
 /** [[polygonLL]] graphical representation of Lesser Sunda Islands except eastern islands. Depends on nothing. */
 object LesserSunda extends EArea2("Lesser Sunda", -8.538 ll 118.510, jungle)
-{
-  val baliNW = -8.090 ll 114
-  val baliNorth = -8.061 ll 115.184
-  val wetarNorth = -7.559 ll 126.627
-  val timorEast = -8.402 ll 127.288
-  val roteSE = -10.936 ll 122.848
+{ val baliNW: LatLong = -8.090 ll 114
+  val baliNorth: LatLong = -8.061 ll 115.184
+  val wetarNorth: LatLong = -7.559 ll 126.627
+  val timorEast: LatLong = -8.402 ll 127.288
+  val roteSE: LatLong = -10.936 ll 122.848
 
   override val polygonLL: PolygonLL = PolygonLL(baliNW, baliNorth, wetarNorth, timorEast, roteSE)
 }
