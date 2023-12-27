@@ -2,9 +2,11 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 460km.  */
+/** 460km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. A hex tile area of 183250.975km².
+ *  Isle 120974.276km² down to 57981.753km²
+ *  Isle8 35075.382 km² => 57981.753km², includes Taiwan, */
 object Terr460E120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e120(114)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e120(110)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -30,7 +32,7 @@ object Terr460E120 extends Long460Terrs
       TRow(118, mtain, land * 2, Cape(0, 3), sea, Cape(3, 1, hilly)),
       VRow(117, Mouth(4616, HVUL), Mouth(4620, HVUR)),
       TRow(116, mtain, hilly, mtain),
-      TRow(114, mtain * 2, Cape(2, 1, mtain)),
+      TRow(114, mtain * 2, Cape(2, 1, mtain), Isle8(mtain)),
 //      TRow(112, land, hilly, sea * 2),
 //      TRow(110, Land(Hilly, Savannah), hillySavannah, sea, sea),
 //      TRow(104, SideB(), Cape(1, 3, jungle)),

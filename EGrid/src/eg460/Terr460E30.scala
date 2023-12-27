@@ -3,7 +3,7 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 183250975km².
- *  Isle3 4473.900km² - 8768.845km², includes Crete. */
+ *  Isle3 4473.900km² => 8768.845km², includes Crete. */
 object Terr460E30 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e30(112)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
