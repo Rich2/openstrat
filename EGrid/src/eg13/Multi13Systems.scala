@@ -46,3 +46,12 @@ object Scen13All extends EScenLongMulti
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
+
+/** Terrain only scenario for the Atlantic. 4 1300km grid system for n 90°W, 60°W, 30°W and 0°E */
+object Scen13Atlantic extends EScenLongMulti
+{ override val title: String = "1300km Atlantic 90°W - 0°E"
+  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(4, 9, 86)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
