@@ -2,8 +2,8 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 709448.010km² . A minimum island area of
- *  118241.335km² */
+/** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 183250975km².
+ *  Isle3 4473.900km² - 8768.845km², includes Crete. */
 object Terr460E30 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e30(112)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -29,9 +29,9 @@ object Terr460E30 extends Long460Terrs
       VRow(125, Mouth(1542, HVUp)),
       TRow(124, Cape(4, 1, mtain), hilly, sea * 2, Cape(4, 1, mtain)),
       VRow(123, BendOut(1528, HVDL), Mouth(1532, HVUp)),
-      TRow(122, Cape(4, 1, hillySavannah), Cape(4, 1, hillySavannah), hillySahel, mtain, mtain),
-      VRow(121, Mouth(1530, HVDR)),
-      TRow(120, SideB(), sea * 2, Cape(3, 2, hillySavannah), hillySavannah, desert),
+      TRow(122, hillySavannah, Cape(4, 1, hillySavannah), hillySahel, mtain, mtain),
+      VRow(121, Mouth(1528, HVDn)),
+      TRow(120, SideB(), sea, Isle3(hillySavannah), Cape(3, 2, hillySavannah), hillySavannah, desert),
       VRow(119, Mouth(1526,HVDn),  Mouth(1528, HVDL), BendOut(1532, HVUp), BendOut(1536, HVUp), BendOut(1540, HVDL)),
       TRow(118, sahel, Cape(0, 1, sahel), Cape(0, 1, sahel), Cape(0, 2, sahel), savannah, desert),
       VRow(117, Mouth(1534, HVDL, Scarp), Mouth(1536, HVUR, Scarp), Mouth(1538, HVUp), Mouth(1540, HVDn), Mouth(1542, HVUp), Mouth(1550, HVUp)),
