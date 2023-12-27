@@ -52,6 +52,16 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   { override def magnitude: Int = 11
   }
 
+  /** Sets the side terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
+  trait Isle4Base extends IsleNBase
+  { override def magnitude: Int = 12
+  }
+
+  /** Sets the side terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
+  trait Isle3Base extends IsleNBase
+  { override def magnitude: Int = 13
+  }
+
   /** Sets a side in the tile row. This is type B side. */
   trait SideBBase
   { /** The Side terrain. */

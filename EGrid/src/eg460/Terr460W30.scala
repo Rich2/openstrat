@@ -2,7 +2,8 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 45° west to 15° west, centred on 30° wast. Hex tile scale 460km.  */
+/** [[WTile]] terrain terrain for 45° west to 15° west, centred on 30° wast. Hex tile scale 460km. Maximum Isle area is 120974.276km², which would
+ *  include Iceland if it was centred. Isle3 from 8768.845km² down to 4473.900km² includes the Canaries. */
 object Terr460W30 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.w30(112)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -23,6 +24,7 @@ object Terr460W30 extends Long460Terrs
       VRow(135, BendAll(11772, HVDR), Mouth(11778, HVUL), Mouth(11782, HVUR)),
       VRow(133, SetSide(11771)),
       VRow(129, Mouth(11786, HVDR)),
+      TRow(116, sea * 5, Isle3(mtain)),
       TRow(112, sea * 5, Cape(4, 2, desert)),
     )
   }
