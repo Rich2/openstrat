@@ -33,7 +33,7 @@ object Terr460E120 extends Long460Terrs
       VRow(117, Mouth(4616, HVUL), Mouth(4620, HVUR)),
       TRow(116, mtain, hilly, mtain),
       TRow(114, mtain * 2, Cape(2, 1, mtain), Isle8(mtain)),
-//      TRow(112, land, hilly, sea * 2),
+      TRow(112, hillyJungle),
 //      TRow(110, Land(Hilly, Savannah), hillySavannah, sea, sea),
 //      TRow(104, SideB(), Cape(1, 3, jungle)),
 //      TRow(102, sea, Cape(0, 2, hillyJungle)),
