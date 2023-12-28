@@ -3,9 +3,12 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 460km. A hex tile area of 354724.005km².
- *  A minimum island area of 59120.667km², which includes Britain but excludes Ireland and Sicily-Corsica. */
+ *  Isle 234173.269km² <= 112236.892km².
+ *  Isle10 120974.276km² <= 57981.753km². Ireland
+ *  Isle8 57981.753km² <= 35075.382km². Sardinia. Sicily no hex avaliabe
+ *  Isle3 8768.845km² <= 4473.900km² Corsica no hex available. */
 object Terr460E0 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e0(112)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e0(110)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -30,7 +33,7 @@ object Terr460E0 extends Long460Terrs
       VRow(125, Mouth(506, HVDL), Mouth(510, HVDR), Mouth(518, HVUp)),
       TRow(124, sea, Cape(0, 1, hilly), hilly, Cape(2, 2, hilly), Cape(4, 1, hilly)),
       VRow(123, Mouth(506, HVUR), Mouth(514, HVUL), BendOut(524, HVDL)),
-      TRow(122, Cape(4, 2, hillySavannah), sahel, sea, Isle6(hillySavannah), Cape(4, 1, hillySavannah)),
+      TRow(122, Cape(4, 2, hillySavannah), sahel, sea, Isle8(hillySavannah), Cape(4, 1, hillySavannah)),
       VRow(121, BendIn(506, HVDL), Mouth(524, HVDn)),
       TRow(120, sea, Cape(2, 3, hilly), Cape(5, 2, hillySavannah), Cape(0, 1, hillySavannah), Cape(0, 2, hillySavannah)),
       VRow(119, Mouth(522, HVDn)),

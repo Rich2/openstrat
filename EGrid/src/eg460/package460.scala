@@ -9,10 +9,7 @@ import prid.phex._, egrid._
  *  Isle6 35075.382km² <= 21653.679km²
  *  Isle5 21653.679km² <= 14495.438km²
  *  Isle4 14495.438km² <= 8768.845km²
- *  Isle3 down to 4473.900km²
- *  Isle2 down to 1610.604km²
- *  Isle1 down to 357.9124km²
- *  */
+ *  Isle3 8768.845km² <= 4473.900km² */
 package object eg460
 {
   val fullTerrs: RArr[Long460Terrs] = RArr(Terr460E0, Terr460E30, Terr460E60, Terr460E90, Terr460E120, Terr460E150,Terr460E180, Terr460W150,
