@@ -121,10 +121,16 @@ object UnshowSeq
 }
 
 /** [[Unshow]] type class instances for building classes from sequences through two builders. */
-class UnshowFromArr[A, ArrA <: Arr[A], R](val typeStr: String, f: ArrA => R)(implicit evA: Unshow[A],
-  build1: BuilderArrMap[A, ArrA]) extends Unshow[R]
+class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae],
+  build1: BuilderArrMap[Ae, ArrAe]) extends Unshow[A]
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
-  val stage: UnshowSeqLike[A, ArrA] = UnshowSeqLike[A, ArrA](typeStr)(evA, build1)
+  val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)(evA, build1)
 
-  override def fromExpr(expr: Expr): EMon[R] = stage.fromExpr(expr).map(f)
+  override def fromExpr(expr: Expr): EMon[A] = stage.fromExpr(expr).map(f)
+}
+
+object UnshowFromArr
+{
+  def apply[Ae, ArrAe <: Arr[Ae], A](typeStr: String, f: ArrAe => A)(implicit evA: Unshow[Ae], build1: BuilderArrMap[Ae, ArrAe]):
+    UnshowFromArr[Ae, ArrAe, A] = new UnshowFromArr[Ae, ArrAe, A](typeStr, f)
 }
