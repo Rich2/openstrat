@@ -26,7 +26,10 @@ object Terr460W30 extends Long460Terrs
       VRow(133, SetSide(11771)),
       VRow(129, Mouth(11786, HVDR)),
       TRow(116, sea * 5, Isle3(mtain)),
-      TRow(112, sea * 5, Cape(4, 2, desert)),
+      TRow(112, sea * 5, Cape(5, 1, desert)),
+      VRow(111, BendOut(11786, HVUL)),
+      TRow(110, sea * 5, Cape(4, 2, sahel)),
+      VRow(109, BendOut(11786, HVDL)),
       TRow(108, sea * 6, Cape(4, 1, savannah)),
     )
   }
