@@ -221,13 +221,27 @@ object RArr
     res
   }
 
-  implicit class ArrExtension[A <: AnyRef](thisArr: RArr[A])
+  implicit class RArrExtension[A <: AnyRef](thisArr: RArr[A])
   {
     def optFind(f: A => Boolean): Option[A] =
     { var acc: Option[A] = None
       var count = 0
       while (acc == None & count < thisArr.length) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
       acc
+    }
+  }
+
+  implicit class RArrArrayExtension[A](val arr: RArr[Array[A]])
+  {
+    def combine(implicit ct: ClassTag[A]): Array[A] =
+    { val tot = arr.sumBy(_.length)
+      val res = new Array[A](tot)
+      var posn: Int = 0
+      arr.foreach{el =>
+        Array.copy(el, 0, res, posn, el.length)
+        posn += el.length
+      }
+      res
     }
   }
 }
