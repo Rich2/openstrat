@@ -89,7 +89,12 @@ object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
 
 object Australasia extends EArea1("Australasia", -23 ll 130)
 { import pOceans._
-  override val a2Arr: RArr[EArea2] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, LesserSunda, NewGuinea, Australia, NZNorthIsland, NZSouthIsland)
+  override val a2Arr: RArr[EArea2] = RArr(Australia, NZNorthIsland, NZSouthIsland)
+}
+
+object MalayArch extends EArea1("MalayArchAustralasia", 0.762 ll 123.068)
+{ import pMalay._
+  override val a2Arr: RArr[EArea2] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, LesserSunda, NewGuinea, Luzon, PhilippinesCen)
 }
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */

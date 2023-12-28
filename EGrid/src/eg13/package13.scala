@@ -5,7 +5,7 @@ import prid.phex._, egrid._
 /** Hex tile grids for Earth with a hex scale of 1300km, a C scale of 375km. A hex tile area of 1.463582932 million km².
  *  A maximum Isle area of 966193.420km², which excludes Greenland
  *  Isle 966193.420km² <= 463086.787km². Includes New Guinea, Borneo, Madagascar, Baffin Island.
- *  Isle8 463086.787km² <= 243930.488km², Sumatra, New Zealand combined.
+ *  Isle8 463086.787km² <= 243930.488km², Sumatra, Philippines combined, New Zealand combined.
  *  Isle6 243930.488km² <= 172942.905km². Honshu, Victoria Island, Great Britain, Ellesmere Island.
  *  Isle5 172942.905km² <= 115771.696km². Sulawesi, South Island(NZ), Java.  */
 package object eg13

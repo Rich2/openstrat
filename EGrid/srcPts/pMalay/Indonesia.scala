@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pOceans
+package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Sumatra. Depends on nothing. */
@@ -10,7 +10,7 @@ object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
   val eSumatra: LatLong = -3.22 ll 106.09
   val seSumatra: LatLong = -5.90 ll 105.71
   val hutan: LatLong = -5.94 ll 104.58
-  val p70 = -2.154 ll 100.820
+  val p70: LatLong = -2.154 ll 100.820
 
   override val polygonLL: PolygonLL = PolygonLL(nSumatra, neSumatra, tanjungDatuk, eSumatra, seSumatra, hutan, p70)
 }
@@ -36,7 +36,7 @@ object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
   val p60: LatLong = 0.816 ll 108.841
   val nwSarawak: LatLong = 2.08 ll 109.64
   val batangLuparMouth: LatLong = 1.512 ll 110.988
-  val p70 = 2.798 ll 111.333
+  val p70: LatLong = 2.798 ll 111.333
 
   override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, cenEast, southEast, southWest, p60, nwSarawak, batangLuparMouth, p70)
 }
@@ -84,6 +84,6 @@ object NewGuinea extends EArea2("NewGuinea", -5.19 ll 141.03, hillyJungle)
   val aindua: LatLong = -4.46 ll 135.21
   val wNewGuinea: LatLong = -0.82 ll 130.45
 
-  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth/*, manokwari, sCenderawasih*/, tebe, madang, p40, eNewGuinea, hulaBlackSand,
+  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth, tebe, madang, p40, eNewGuinea, hulaBlackSand,
     morigo, saibai, southWest, p70, aindua, wNewGuinea)
 }
