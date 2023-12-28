@@ -43,7 +43,7 @@ object Terr460E0 extends Long460Terrs
       VRow(115, SetSide(501)),
       TRow(114, desert * 4, hillyDesert, desert),
       TRow(112, desert * 6),
-//      TRow(110, desert * 2, hillyDesert, desert),
+      TRow(110, desert * 6),
 //      VRow(109, Mouth(504, HVUR)),
 //      TRow(108, desert * 4),
 //      TRow(106, sahel * 5),
