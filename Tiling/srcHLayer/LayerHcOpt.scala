@@ -73,6 +73,9 @@ object LayerHcOptGrid
 
   implicit def showEv[A <: AnyRef](implicit evA: Show[A]): ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]] =
     ShowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid", (obj, f) => obj.rowsForeach(f))
+
+  def unshowEv[A <: AnyRef](implicit evA: Unshow[A]): UnshowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]] = ???
+    //UnshowSeqLike[LayerHcOptRow[A], LayerHcOptGrid[A]]("LayerHcOptGrid")
 }
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to

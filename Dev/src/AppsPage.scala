@@ -20,8 +20,7 @@ object AppsPage extends HtmlPage
   val peri = HtmlLi.linkAndText("../periculoapp.html", "Periculo Fundatuso",
     "A simple consecutive turn, world map game that has some grounding in earth geography.")
   
-  val ww2: HtmlLi = HtmlLi.linkAndText("../ww2.html", "World War II Game", "This was going to be the third priority application, but it was" ---
-    "decided to use the 220km scale tiled world map, as this scale is required to resolve Belgium and the Netherlands as separate countries.")
+  val ww2: HtmlLi = HtmlLi.linkAndText("../ww2.html", "World War II Game", "Using 460km scale.")
 
   val bc305: HtmlLi = HtmlLi.linkAndText("../bc305.html", "BC305", "A grand strategy game with a start point of 305BC. It uses an 80km scale world"
     -- "map. This is the game that most interests me.")
