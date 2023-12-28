@@ -33,6 +33,8 @@ object Terr460W60 extends Long460Terrs
       TRow(126, hillyTaiga, hillyTaiga, Cape(2, 3, mtain)),
       VRow(125, Mouth(10748, HVUR), Mouth(10750, HVUp)),
       TRow(124, hillyForest, Cape(2, 4, WetLand, Taiga, Forest, Sea)),
+      VRow(113, SetSide(10741)),
+      TRow(112, SideB()),
       TRow(110, Isle(mtain)),
 //      VRow(109, SetSide(10745)),
 //      TRow(108, SideB()),
