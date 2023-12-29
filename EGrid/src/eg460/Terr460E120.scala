@@ -34,7 +34,7 @@ object Terr460E120 extends Long460Terrs
       TRow(116, mtain, hilly, mtain),
       TRow(114, mtain * 2, Cape(2, 1, mtain), Isle8(mtain)),
       TRow(112, hillyJungle),
-      TRow(110, Cape(2, 1, mtain)),
+      TRow(110, Cape(2, 1, mtain), sea * 2, Cape(0, 3, hillyJungle)),
       TRow(108, hillyJungle),
     )
   }
