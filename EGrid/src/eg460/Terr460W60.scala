@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.
  * Isle10 120974.276km² <= 57981.753km² Hispaniola 76192km². */
 object Terr460W60 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w60(108)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w60(106)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
