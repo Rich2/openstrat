@@ -232,12 +232,12 @@ object RArr
   }
 
   implicit class RArrArrayExtension[A](val arr: RArr[Array[A]])
-  {
+  { /** Combines the [[Array]]s into a single [[Array]]. */
     def combine(implicit ct: ClassTag[A]): Array[A] =
     { val tot = arr.sumBy(_.length)
       val res = new Array[A](tot)
       var posn: Int = 0
-      arr.foreach{el =>
+      arr.foreach{ el =>
         Array.copy(el, 0, res, posn, el.length)
         posn += el.length
       }
