@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of Luzon island. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Luzon and nearby smaller islands. Depends on nothing. */
 object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
 { val north: LatLong = 18.650 ll 120.844
   val northEast: LatLong = 18.522 ll 122.225
@@ -17,6 +17,21 @@ object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, p10, jomaigEast, calintaanSouth, puntaTumaquip, southWest, northWest)
 }
 
+/** [[polygonLL]] graphical representation of Palawan and nearby smaller islands. Depends on nothing. */
+object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtain)
+{ val busangaNW: LatLong = 12.327 ll 119.980
+  val busangaNE: LatLong = 12.064 ll 120.338
+  val dumaranE: LatLong = 10.568 ll 119.997
+  val bugsukSE: LatLong = 8.195 ll 117.332
+  val balabacSE: LatLong = 7.805 ll 117.023
+  val balabacSW = 7.814 ll 116.993
+  val balabacWest = 7.936 ll 116.932
+  val p80 = 10.854 ll 119.211
+
+  override val polygonLL: PolygonLL = PolygonLL(busangaNW, busangaNE, dumaranE, bugsukSE, balabacSE, balabacSW, balabacWest, p80)
+}
+
+/** [[polygonLL]] graphical representation of Samar and nearby smaller islands. Depends on nothing. */
 object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtain)
 { val batagNE: LatLong = 12.685 ll 125.063
   val samarSE: LatLong = 10.939 ll 125.837
@@ -27,7 +42,7 @@ object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtain)
   override val polygonLL: PolygonLL = PolygonLL(batagNE, samarSE, panonSouth, higatanganNW, northWest)
 }
 
-/** [[polygonLL]] graphical representation of Sumatra. Depends on nothing. */
+/** [[polygonLL]] graphical representation of central Philippines islands. Depends on nothing. */
 object PhilippinesCen extends EArea2("Philippines Central", 13.259 ll 122.615, hillyJungle)
 { val negrosS: LatLong = 9.043 ll 123.013
   val mindoroNW: LatLong = 13.500 ll 120.343
