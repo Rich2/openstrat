@@ -6,7 +6,7 @@ import prid.phex._, egrid._
  * Maximum Isle area 571712.082km² which excludes New Guinea, Borneo, Madagascar.
  * Isle 571712.082km² <= 274015.850km². Includes, Baffin Island and Sumatra,
  * Isle8 274015.850km² <= 165762.674km². Includes New Zealand combined, Honshu, Victoria Island, Great Britain, Ellesmere Island, Sulawesi.
- * Isle6 165762.674km² <= 102333.079km²  South Island(NZ), Java, North Island(NZ), Luzon or Cuba.
+ * Isle6 165762.674km² <= 102333.079km². South Island(NZ), Java, North Island(NZ), Luzon or Cuba.
  * Isle5 */
 package object egmega
 {

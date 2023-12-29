@@ -2,7 +2,9 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 1 megametre or 1000km. */
+/** [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 1 megametre or 1000km.
+ * Isle8 274015.850km² <= 165762.674km². Most of Philippines excluding Luzon and Palawan.
+ * Isle6 165762.674km² <= 102333.079km² Luzon. */
 object TerrMegaE120 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e120(82)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -22,9 +24,9 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(108, Cape(1, 2), Cape(2, 4, hilly)),
       TRow(106, Cape(2, 2, hillyJungle), sea * 2),
       VRow(105, Mouth(4604, HVUL)),
-      TRow(104, Cape(1, 2, jungle)),
+      TRow(104, Cape(1, 2, jungle), Isle6(hillyJungle)),
 
-      TRow(102, Cape(5, 4, hillyJungle), sea * 2),
+      TRow(102, Cape(5, 4, hillyJungle), Isle8(hillyJungle), sea),
       VRow(101, Mouth(4614, HVDL)),
       TRow(100, Cape(4, 2, hillyJungle), Isle(hillyJungle), sea),
       TRow(98, Isle6(hillyJungle)),

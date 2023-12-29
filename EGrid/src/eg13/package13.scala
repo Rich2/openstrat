@@ -7,7 +7,9 @@ import prid.phex._, egrid._
  *  Isle 966193.420km² <= 463086.787km². Includes New Guinea, Borneo, Madagascar, Baffin Island.
  *  Isle8 463086.787km² <= 243930.488km², Sumatra, Philippines combined, New Zealand combined.
  *  Isle6 243930.488km² <= 172942.905km². Honshu, Victoria Island, Great Britain, Ellesmere Island.
- *  Isle5 172942.905km² <= 115771.696km². Sulawesi, South Island(NZ), Java.  */
+ *  Isle5 172942.905km² <= 115771.696km². Sulawesi, South Island(NZ), Java.
+ *  Isle4 115771.696km² <= 70034.730km²
+ *  Isle3 70034.730km² <= 35732.005km² */
 package object eg13
 {
   val fullTerrs: RArr[Long13Terrs] = RArr(Terr13E0, Terr13E30, Terr13E60, Terr13E90, Terr13E120, Terr13E150, Terr13E180, Terr13W150, Terr13W120,

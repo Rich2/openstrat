@@ -2,7 +2,9 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 640km.  */
+/** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 640km.
+ * Isle 234173.269km² <= 112236.892km². Luzon+, southern Philippines
+ * Isle3 16974.097km² <= 8660.254km² Palawan- (12,188.6 km2). */
 object Terr640E120 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e120(96)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -24,7 +26,8 @@ object Terr640E120 extends Long640Terrs
       TRow(114, hilly, land, sea, Cape(3, 3, hilly)),
       TRow(112, land, hilly, sea * 2),
       TRow(110, Land(Hilly, Savannah), hillySavannah, sea, sea),
-      TRow(104, SideB(), Cape(1, 3, jungle)),
+      TRow(106, sea * 2, Isle(hillyJungle)),
+      TRow(104, SideB(), Cape(1, 3, jungle), sea, Isle3(mtain), Isle(hillyJungle)),
       TRow(102, sea, Cape(0, 2, hillyJungle)),
       TRow(100, Cape(3, 4, hillyJungle), jungle, Cape(4, 3, hillyJungle), sea, Cape(4, 4, hillyJungle)),
       VRow(99, Mouth(4618, HVDn)),

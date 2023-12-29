@@ -11,17 +11,17 @@ object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
   val jomaigEast: LatLong = 14.703 ll 122.439
   val northWest: LatLong = 16.359 ll 119.815
   val calintaanSouth: LatLong = 12.524 ll 124.091
-  val puntaTumaquip = 12.870 ll 123.65
-  val llinSouth = 12.157 ll 121.118
+  val puntaTumaquip: LatLong = 12.870 ll 123.65
+  val llinSouth: LatLong = 12.157 ll 121.118
   val southWest: LatLong = 13.768 ll 120.658
 
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, p10, jomaigEast, calintaanSouth, puntaTumaquip, llinSouth, southWest, northWest)
 }
 
-/** [[polygonLL]] graphical representation of central Philippines islands. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Visayas Philippines islands. Depends on nothing. */
 object Visayas extends EArea2("Visayas Islands", 13.259 ll 122.615, hillyJungle)
 { val negrosS: LatLong = 9.043 ll 123.013
-  val panayNW = 11.897 ll 121.887
+  val panayNW: LatLong = 11.897 ll 121.887
   val ticaoN: LatLong = 12.691 ll 123.621
   val cebuN: LatLong = 11.281 ll 124.057
   val lapinigN: LatLong = 10.152 ll 124.615
@@ -36,9 +36,9 @@ object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtain)
   val dumaranE: LatLong = 10.568 ll 119.997
   val bugsukSE: LatLong = 8.195 ll 117.332
   val balabacSE: LatLong = 7.805 ll 117.023
-  val balabacSW = 7.814 ll 116.993
-  val balabacWest = 7.936 ll 116.932
-  val p80 = 10.854 ll 119.211
+  val balabacSW: LatLong = 7.814 ll 116.993
+  val balabacWest: LatLong = 7.936 ll 116.932
+  val p80: LatLong = 10.854 ll 119.211
 
   override val polygonLL: PolygonLL = PolygonLL(busangaNW, busangaNE, dumaranE, bugsukSE, balabacSE, balabacSW, balabacWest, p80)
 }
@@ -54,11 +54,17 @@ object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtain)
   override val polygonLL: PolygonLL = PolygonLL(batagNE, samarSE, panonSouth, higatanganNW, northWest)
 }
 
+/** [[polygonLL]] graphical representation of Mindanao and nearby smaller islands. Depends on nothing. */
 object Mindano extends EArea2("Mindano", 7.729 ll 125.011, hillyJungle)
 { val north: LatLong = 9.824 ll 125.441
   val capeSanAgustin: LatLong = 6.269 ll 126.193
+  val balutSE = 5.366 ll 125.419
+  val p37: LatLong = 5.583 ll 125.294
+  val p40: LatLong = 6.410 ll 124.070
+  val p42: LatLong = 6.901 ll 123.957
+  val p50: LatLong = 7.29 ll 122.808
   val basilianSouth: LatLong = 6.412 ll 121.959
   val p70: LatLong = 7.953 ll 122.222
 
-  override val polygonLL: PolygonLL = PolygonLL(north, capeSanAgustin, basilianSouth, p70)
+  override val polygonLL: PolygonLL = PolygonLL(north, capeSanAgustin, balutSE, p37, p40, p42, p50, basilianSouth, p70)
 }
