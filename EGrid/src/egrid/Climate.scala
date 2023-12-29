@@ -41,13 +41,13 @@ case object Savannah extends Climate
 }
 
 /** Tropical climate. High precipitation through out year. */
-object Tropical extends Climate
+case object Tropical extends Climate
 { override def str = "Tropical"
   override def colour = YellowGreen
 }
 
 /** Ice cap / all year round snow. */
-object IceCap extends Climate
+case object IceCap extends Climate
 { override def str = "IceCap"
   override def colour = White
 }

@@ -2,7 +2,7 @@
 package ostrat; package egrid
 
 /** The local climate. */
-trait LandUse extends TellSimple
+trait LandUse extends TellSimple 
 { override def typeStr: String = "LandUse"
 }
 
@@ -12,13 +12,15 @@ object LandUse
 
   /** Implicit [[Unshow]] type class instance / evidence for [[LandUse]]. */
   implicit lazy val unshowEv: UnshowSingletons[LandUse] = UnshowSingletons[LandUse]("LandUse", CivMix, Forest, LandFree)
+
+  given CanEqual[LandUse, LandUse] = CanEqual.derived
 }
 
-object CivMix extends LandUse
+case object CivMix extends LandUse
 { override def str: String = "MixedUse"
 }
 
-object LandFree extends LandUse
+case object LandFree extends LandUse
 {
   override def str: String = "No Civilisation"
 }
@@ -27,6 +29,4 @@ object LandFree extends LandUse
 case object Forest extends LandUse
 { def str = "Forest"
   def colour: Colour = Colour.ForestGreen
-
-  //override def shortDescrip: String = "Forested"
 }

@@ -25,11 +25,10 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   { case WetLand if climate == Tundra => WetLand.colour.average(Tundra.colour)
     case WetLand if climate == Taiga => WetLand.colour.average(Taiga.colour)
     case WetLand => WetLand.colour
-    case Level => climate.colour
     case Hilly if landUse == Forest => Chocolate.average(Forest.colour)
     case Hilly => Chocolate.average(climate.colour)
-    case Level if climate == Tropical && LandUse == Forest => DarkGreen
-    case Level if LandUse == Forest => Forest.colour
+    case Level if climate == Tropical && landUse == Forest => DarkGreen
+    case Level if landUse == Forest => Forest.colour
     case Level => climate.colour
     case _ => Mountains.colour
   }
