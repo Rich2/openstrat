@@ -129,7 +129,14 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets all the corners of Vertex for a bend side terrain with a default offset of 3. Also sets the left most of the sides of this vertex with a
    *  default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  case class BendAll(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with BendAllBase
+  class BendAll(val c: Int, val dirn: HVDirn, val terr: WSideSome, val magIn: Int, val magOut: Int) extends VRowElem with BendInOutBase
+
+  object BendAll
+  {
+    def apply(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3): BendAll = new BendAll(c, dirn, terr, 3, 3)
+
+    def apply(c: Int, dirn: HVDirn, terr: WSideSome, magIn: Int, magOut: Int): BendAll = new BendAll(c, dirn, terr, magIn, magOut)
+  }
 
   /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, Also sets the left most of the sides of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
