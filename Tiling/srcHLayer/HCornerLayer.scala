@@ -60,18 +60,18 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   /** Sets all 3 corners of a bend. The inside of the bend is at vertex <b>0</b> of the specified [[HCen]], Bend direction defined as [[HVDn]]. The
    *  other 2 corners are offset in the opposite direction [[HVUp]]. */
-  def setBend0All(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerIn(r, c, 0, magnitude)
-    setCorner(r + 2, c - 2, 2, HVUp, magnitude)
-    setCorner(r + 2, c + 2, 4, HVUp, magnitude)
+  def setBend0All(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerIn(r, c, 0, magIn)
+    setCorner(r + 2, c - 2, 2, HVUp, magOut)
+    setCorner(r + 2, c + 2, 4, HVUp, magOut)
   }
 
   /** Sets all 3 corners of a bend. The inside of the bend is at vertex <b>1</b> of the specified [[HCen]]. Bend direction defined as [[HVDL]]. The
    *  other 2 corners are offset in the opposite direction [[HVUR]]. */
-  def setBend1All(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
-  { setCornerIn(r, c, 1, magnitude)
-    setCorner(r + 2, c + 2, 3, HVUR, magnitude)
-    setCorner(r, c + 4, 5, HVUR, magnitude)
+  def setBend1All(r: Int, c: Int, magIn: Int, magOut: Int)(implicit grid: HGrid): Unit =
+  { setCornerIn(r, c, 1, magIn)
+    setCorner(r + 2, c + 2, 3, HVUR, magOut)
+    setCorner(r, c + 4, 5, HVUR, magOut)
   }
 
   /** Sets all 3 corners of a bend. The inside of the bend is at vertex <b>2</b> of the specified [[HCen]]. Bend direction defined as [[HVUL]]. The

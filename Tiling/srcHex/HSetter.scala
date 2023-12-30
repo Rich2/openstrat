@@ -260,12 +260,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVDn =>
-      { corners.setBend0All(row - 1, c, magnitude)
+      { corners.setBend0All(row - 1, c, magnitude, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
 
       case HVDL =>
-      { corners.setBend1All(row - 1, c - 2, magnitude)
+      { corners.setBend1All(row - 1, c - 2, magnitude, magnitude)
         sTerrs.set(row, c - 1, terr)
       }
 
