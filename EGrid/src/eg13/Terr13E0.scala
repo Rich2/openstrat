@@ -33,7 +33,7 @@ object Terr13E0 extends Long13Terrs
       VRow(97, Mouth(516, HVUR)),
       TRow(96, sea, Cape(4, 2, desert)),
       VRow(95, Mouth(516, HVDR)),
-      VRow(87, BendOut(512, HVUp, wice), BendOut(516, HVUp, wice)),
+      VRow(87, BendOut(512, HVUp, 6, wice), BendOut(516, HVUp, 6, wice)),
       TRow(86, Cape(0, 1, ice, wice))
     )
   }
