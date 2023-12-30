@@ -15,6 +15,8 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def sidePolys: HSidePairArr[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
   def sideFills: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
 
+  def sideDraws: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.draw(2, sTerrs(hSide).contrastBW) }
+
   def sideActives: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.active(hSide) }
 
   def lines1: GraphicElems = proj.linksOptMap { hs =>

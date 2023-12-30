@@ -151,14 +151,14 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setVertEqual(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
   {
     if (HVert.rcISHigh(r, c))
-    { grid.hCenExistsIfDo(r + 1, c + 2){ setCornerIn(r + 1, c + 2, 4) }
-      grid.hCenExistsIfDo(r - 1, c){ setCornerIn(r - 1, c, 0) }
-      grid.hCenExistsIfDo(r + 1, c - 2){ setCornerIn(r + 1, c - 2, 2) }
+    { grid.hCenExistsIfDo(r + 1, c + 2){ setCornerIn(r + 1, c + 2, 4, magnitude) }
+      grid.hCenExistsIfDo(r - 1, c){ setCornerIn(r - 1, c, 0, magnitude) }
+      grid.hCenExistsIfDo(r + 1, c - 2){ setCornerIn(r + 1, c - 2, 2, magnitude) }
     }
     else
-    { grid.hCenExistsIfDo(r + 1, c) { setCornerIn(r + 1, c, 3) }
-      grid.hCenExistsIfDo(r - 1, c + 2) { setCornerIn(r - 1, c + 2, 5) }
-      grid.hCenExistsIfDo(r - 1, c - 2) { setCornerIn(r - 1, c -2, 1) }
+    { grid.hCenExistsIfDo(r + 1, c) { setCornerIn(r + 1, c, 3, magnitude) }
+      grid.hCenExistsIfDo(r - 1, c + 2) { setCornerIn(r - 1, c + 2, 5, magnitude) }
+      grid.hCenExistsIfDo(r - 1, c - 2) { setCornerIn(r - 1, c -2, 1, magnitude) }
     }
   }
 
@@ -258,7 +258,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def setMouth5Corner(r: Int, c: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit = setCornerPair(r, c, 5, HVDL, HVUp, magnitude, magnitude)
 
   /** Sets thr corner in at the specified vertex if the specified [[HCen]] exists. */
-  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit grid: HGrid): Unit =
+  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int)(implicit grid: HGrid): Unit =
   { val dirn = HVDirn.inFromVertIndex(vertNum)
     if (grid.hCenExists(cenR, cenC))
     { val corner: HCorner = HCorner.sideSpecial(dirn, magnitude)

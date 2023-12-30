@@ -396,6 +396,22 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
+  /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
+  trait ThreeDownBase
+  { def c: Int
+    def st: SST
+    def magUp: Int
+    def magDR: Int
+    def magDL: Int
+
+    def run(row: Int): Unit =
+    { grid.hCenExistsIfDo(row + 1, c) { corners.setCornerIn(row + 1, c, 3, magUp) }
+      grid.hCenExistsIfDo(row - 1, c + 2) { corners.setCornerIn(row - 1, c + 2, 5, magDR) }
+      grid.hCenExistsIfDo(row - 1, c - 2) { corners.setCornerIn(row - 1, c -2, 1, magDL) }
+      sTerrs.set(row, c - 1, st)
+    }
+  }
+
   /** This is for setting sides on the edge of grids that sit within the hex area of the tile on the neighbouring grid. */
   trait SetSideBase
   { def c: Int

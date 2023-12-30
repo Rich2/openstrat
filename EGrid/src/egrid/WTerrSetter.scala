@@ -173,4 +173,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
   case class ThreeWay(c: Int, st: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
+
+  /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
+  case class ThreeDown(c: Int, magUp: Int = 3, magDR: Int = 3, magDL: Int = 3, st: WSideSome = Sea) extends VRowElem with ThreeDownBase
+
 }

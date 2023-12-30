@@ -37,7 +37,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
     def sidePolys: HSidePairArr[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
     def sideFills: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
-
+    def sideDraws: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.draw(1, sTerrs(hSide).contrastBW) }
     def sideActives: GraphicElems = sidePolys.pairMap{ (hs, poly) => poly.active(hs) }
 
     def lines1: GraphicElems = proj.linksOptMap { hs =>
@@ -77,7 +77,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFrontFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileFrontFills ++ tileActives ++ sideFills /*++ sideDraws*/ ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines
   }
 
   override def selectedStr: String = selected match
