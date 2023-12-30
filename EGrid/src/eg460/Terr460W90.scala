@@ -24,9 +24,10 @@ object Terr460W90 extends Long460Terrs
       TRow(136, wetTundra, Cape(2, 1, wetTundra), Cape(0, 4, hillyTundra)),
       VRow(135, Mouth(9736, HVDR)),
       TRow(134, wetTundra, sea, Cape(5, 2, wetTundra)),
-      TRow(132, wetTaiga, Cape(1, 1, taiga)),
-      TRow(130, wetTaiga * 3, Cape(4, WetLand, Taiga, Forest, Sea)),//check
-      VRow(129, Mouth(9734, HVDR)),
+      TRow(132, wetTaiga, taiga, wetTaiga),
+      VRow(131, BendIn(9730, HVUR, sea, 13), BendOut(9732, HVDL, sea, 7)),
+      TRow(130, wetTaiga * 3, Land(WetLand, Taiga, Forest)),//check
+      VRow(129, BendIn(9732, HVUR, sea, 13), Mouth(9734, HVDR)),
       TRow(128, wetTaiga * 2, taiga, wetTaiga),
       VRow(127, Mouth(9728, HVDL, lake), Mouth(9732, HVDR, lake)),
       TRow(126, savannah, taiga, Cape(0, 1, taiga, lake), hillyTaiga),
