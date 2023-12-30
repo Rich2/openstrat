@@ -55,7 +55,7 @@ object Zug1 extends ZugScenStart
 
   corners.setMouth3OffGrid(16, 36, 1)
   corners.setBend2All(14, 34, 1, 1)
-  corners.setBend5All(12, 36, 1)
+  corners.setBend5All(12, 36, 1, 1)
   corners.setBend4All(12, 36, 1, 1)
   corners.setBend1All(10, 34, 1, 1)
   corners.setBend4All(10, 38, 1, 1)

@@ -242,45 +242,55 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
   /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
    *  by the direction of the inside of the bend. */
-  trait BendAllBase
+  trait BendInOutBase
   { def c: Int
-    def magnitude: Int
+    def magIn: Int
+    def magOut: Int
     def dirn: HVDirn
     def terr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
-      { corners.setBend4All(row + 1, c + 2, magnitude, magnitude)
+      { corners.setBend4All(row + 1, c + 2, magIn, magOut)
         sTerrs.setIf(row + 1, c, terr)
       }
 
       case HVDR =>
-      { corners.setBend5All(row - 1, c + 2, magnitude)
+      { corners.setBend5All(row - 1, c + 2, magIn, magOut)
         sTerrs.set(row - 1, c, terr)
       }
 
       case HVDn =>
-      { corners.setBend0All(row - 1, c, magnitude, magnitude)
+      { corners.setBend0All(row - 1, c, magIn, magOut)
         sTerrs.setIf(row, c - 1, terr)
       }
 
       case HVDL =>
-      { corners.setBend1All(row - 1, c - 2, magnitude, magnitude)
+      { corners.setBend1All(row - 1, c - 2, magIn, magOut)
         sTerrs.set(row, c - 1, terr)
       }
 
       case HVUL =>
-      { corners.setBend2All(row + 1, c - 2, magnitude, magnitude)
+      { corners.setBend2All(row + 1, c - 2, magIn, magOut)
         sTerrs.setIf(row, c - 1, terr)
       }
 
       case HVUp =>
-      { corners.setBend3All(row + 1, c, magnitude, magnitude)
+      { corners.setBend3All(row + 1, c, magIn, magOut)
         sTerrs.setIf(row, c - 1, terr)
       }
 
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
+  }
+
+  trait BendAllBase extends BendInOutBase
+  {
+    def magnitude: Int
+
+    override def magIn: Int = magnitude
+
+    override def magOut: Int = magnitude
   }
 
   /** Sets the 2 outer corners of the bend for side terrain, Also sets the left most of the sides of the bend vertex. The orientation of the bend is

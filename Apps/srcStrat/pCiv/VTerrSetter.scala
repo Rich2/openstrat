@@ -79,5 +79,8 @@ HSetter[VTile, VSide, VSideSome]
   case class SetSide(c: Int, terr: VSideSome = Sea) extends VRowElem with SetSideBase
   case class ThreeWay(c: Int, st: VSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
   case class Mouth(c: Int, dirn: HVDirnPrimary, terr: VSideSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
-  case class BendAll(c: Int, dirn: HVDirn, terr: VSideSome = Sea, magnitude: Int = 3) extends VRowElem with BendAllBase
+
+  case class BendAll(c: Int, dirn: HVDirn, terr: VSideSome = Sea) extends VRowElem with BendAllBase
+  { override def magnitude: Int = 3
+  }
 }
