@@ -32,20 +32,10 @@ object Terr460W60 extends Long460Terrs
       VRow(127, Mouth(10748, HVDL), BendAll(10750, HVDn, sea, 7), ThreeWay(10752)),
       TRow(126, hillyTaiga, hillyTaiga, Cape(2, 3, mtain)),
       VRow(125, Mouth(10748, HVUR), Mouth(10750, HVUp)),
-      TRow(124, hillyForest, Cape(2, 4, WetLand, Taiga, Forest, Sea)),
+      TRow(124, hillyForest, Cape(2, WetLand, Taiga, Forest, Sea)),//Check
       VRow(113, SetSide(10741)),
       TRow(112, SideB()),
       TRow(110, Isle(mtain)),
-//      VRow(109, SetSide(10745)),
-//      TRow(108, SideB()),
-//      VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAll(10750, HVUp)),
-//      TRow(104, Cape(0, 1, hillyJungle), Cape(0, 1, jungle), Cape(0, 2, jungle)),
-//      VRow(103, BendOut(10754, HVUR), BendOut(10756, HVUp)),
-//      TRow(102, savannah, hillyJungle, jungle, Cape(0, 2, hillyJungle)),
-//      VRow(101, BendOut(10760, HVUR), Mouth(10762, HVDR)),
-//      TRow(100, jungle * 3, hillyJungle, jungle),
-//      TRow(98, jungle * 4, hillyJungle),
-//      TRow(96, jungle * 4, hillyJungle),
     )
   }
   help.run

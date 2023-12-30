@@ -25,7 +25,7 @@ object Terr460W90 extends Long460Terrs
       VRow(135, Mouth(9736, HVDR)),
       TRow(134, wetTundra, sea, Cape(5, 2, wetTundra)),
       TRow(132, wetTaiga, Cape(1, 1, taiga)),
-      TRow(130, wetTaiga * 3, Cape(4, 2, WetLand, Taiga, Forest, Sea)),
+      TRow(130, wetTaiga * 3, Cape(4, WetLand, Taiga, Forest, Sea)),//check
       VRow(129, Mouth(9734, HVDR)),
       TRow(128, wetTaiga * 2, taiga, wetTaiga),
       VRow(127, Mouth(9728, HVDL, lake), Mouth(9732, HVDR, lake)),

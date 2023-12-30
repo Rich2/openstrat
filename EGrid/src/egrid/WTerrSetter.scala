@@ -74,8 +74,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
       new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
 
-    def apply(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, Land(elev, biome, landUse), sideTerrs)
+    def apply(indentStartIndex: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
+      new Cape(indentStartIndex, 1, Land(elev, biome, landUse), sideTerrs)
   }
 
   /** Isthmus for [[WTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */

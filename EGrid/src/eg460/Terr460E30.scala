@@ -19,7 +19,7 @@ object Terr460E30 extends Long460Terrs
       VRow(137, Mouth(1534, HVUp), Mouth(1538, HVDL)),
       TRow(136, Cape(2, 1,hillyTaiga), Land(WetLand, Taiga, Forest), taiga),
       VRow(135, BendAll(1532, HVDR)),
-      TRow(134, Cape(3, 2, WetLand, Taiga, Forest, Sea), Land(WetLand, Taiga, Forest), taiga),
+      TRow(134, Cape(3, WetLand, Taiga, Forest, Sea), Land(WetLand, Taiga, Forest), taiga),//check
       VRow(133, Mouth(1536, HVUR)),
       TRow(132, Cape(5, 2), land, taiga),
       VRow(131, Mouth(1530, HVDn)),
