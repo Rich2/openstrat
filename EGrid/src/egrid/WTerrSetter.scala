@@ -146,6 +146,15 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
   case class BendIn(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 6) extends VRowElem with BendInBase
 
+  object BendIn
+  {
+    def apply(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 6): BendIn = {
+      ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magnitude > 13, magnitude.toString -- "magnitude, magnitude values > 13 not allowed.")
+      new BendIn(c, dirn, terr, magnitude)
+    }
+  }
+
   /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
   case class VertRightsLeft(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsLeftBase
 

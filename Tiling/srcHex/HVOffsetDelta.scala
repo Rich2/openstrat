@@ -14,7 +14,7 @@ object HVOffsetDelta
 {
   def apply(dirn: HVDirnOpt, magnitude: Int): Int =
   { val m2 = magnitude match
-    { case m if m > 10 => { deb("$m offset value is greater than max allowed value of 10"); 7 }
+    { case m if m > 13 => { deb("$m offset value is greater than max allowed value of 10"); 13 }
       case m if m < 0 => { deb("< 0"); 0 }
       case m => m
     }
