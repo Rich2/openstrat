@@ -270,7 +270,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setBend2All(row + 1, c - 2, magnitude)
+      { corners.setBend2All(row + 1, c - 2, magnitude, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
 

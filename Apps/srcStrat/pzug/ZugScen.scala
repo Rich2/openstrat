@@ -54,7 +54,7 @@ object Zug1 extends ZugScenStart
   sTerrs.setTruesInts(14,36,  13,35,  12,34,  11,35,  10,36,  9,37,  9,39,  9,41,  9,43,  9,45,  9,47)
 
   corners.setMouth3OffGrid(16, 36, 1)
-  corners.setBend2All(14, 34, 1)
+  corners.setBend2All(14, 34, 1, 1)
   corners.setBend5All(12, 36, 1)
   corners.setBend4All(12, 36, 1)
   corners.setBend1All(10, 34, 1, 1)
