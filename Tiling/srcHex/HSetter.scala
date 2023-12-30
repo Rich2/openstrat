@@ -250,7 +250,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
-      { corners.setBend4All(row + 1, c + 2, magnitude)
+      { corners.setBend4All(row + 1, c + 2, magnitude, magnitude)
         sTerrs.setIf(row + 1, c, terr)
       }
 
@@ -275,7 +275,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUp =>
-      { corners.setBend3All(row + 1, c, magnitude)
+      { corners.setBend3All(row + 1, c, magnitude, magnitude)
         sTerrs.setIf(row, c - 1, terr)
       }
 
