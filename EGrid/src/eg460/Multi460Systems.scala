@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** Scenario for 2 Grid system for 0E and 30E */
 object Scen460S0E1 extends EScenLongMulti
 { override val title: String = "460km 0E - 30E"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(2, 0, 106)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(2, 0, 104)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -59,7 +59,7 @@ object Scen460Atlantic extends EScenLongMulti
 /** Scenario for 3 460km grids across the Dateline for 150°E, 180°E, and 150°W. */
 object Scen460DateLine extends EScenLongMulti
 { override val title: String = "460km Date Line 150°E - 150°W"
-  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 5, 106)
+  override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(3, 5, 104)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
