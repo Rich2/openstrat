@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle8 35075.382 km² => 57981.753km², includes Taiwan,
  *  Isle4 14495.438km² <= 8768.845km². Palawan 12189 km2.*/
 object Terr460E120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e120(106)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e120(104)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -38,6 +38,7 @@ object Terr460E120 extends Long460Terrs
       TRow(110, Cape(2, 1, mtain), sea * 2, Cape(0, 3, hillyJungle)),
       TRow(108, hillyJungle, sea * 2, Cape(4, 2, hillyJungle)),
       TRow(106, sea * 2, Isle4(mtain)),
+      TRow(104, sea *4, hillyJungle),
     )
   }
   help.run

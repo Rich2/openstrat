@@ -122,14 +122,14 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   case class SetSide(c: Int, terr: WSideSome = Sea) extends  VRowElem with SetSideBase
-  case class Mouth(c: Int, dirn: HVDirnPrimary, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
+  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
 
-  case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, terr: WSideSome = Sea, magnitude1: Int = 3,
-    magnitude2: Int = 3) extends VRowElem with MouthSpecBase
+  case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSideSome = Sea, magnitude1: Int = 3,
+                       magnitude2: Int = 3) extends VRowElem with MouthSpecBase
 
   /** Sets all the corners of Vertex for a bend side terrain with a default offset of 3. Also sets the left most of the sides of this vertex with a
    *  default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendAll(val c: Int, val dirn: HVDirn, val terr: WSideSome, val magIn: Int, val magOut: Int) extends VRowElem with BendInOutBase
+  class BendAll(val c: Int, val dirn: HVDirn, val sTerr: WSideSome, val magIn: Int, val magOut: Int) extends VRowElem with BendInOutBase
 
   object BendAll
   {
@@ -140,7 +140,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, max 7, Also sets the left most of the sides of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val terr: WSideSome = Sea) extends VRowElem with BendOutBase
+  class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendOutBase
 
   object BendOut
   {
@@ -154,7 +154,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, Also sets the left most of the sides of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val terr: WSideSome = Sea) extends VRowElem with BendInBase
+  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendInBase
 
   object BendIn
   {
@@ -172,9 +172,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class VertLeftsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase
 
   /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
-  case class ThreeWay(c: Int, st: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
+  case class ThreeWay(c: Int, sTerr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
 
   /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
-  case class ThreeDown(c: Int, magUp: Int = 3, magDR: Int = 3, magDL: Int = 3, st: WSideSome = Sea) extends VRowElem with ThreeDownBase
+  case class ThreeDown(c: Int, magUp: Int, magDR: Int, magDL: Int, st: WSideSome = Sea) extends VRowElem with ThreeDownBase
 
+  /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
+  case class ThreeUp(c: Int, magUR: Int, magDn: Int, magUL: Int, sTerr: WSideSome = Sea) extends VRowElem with ThreeUpBase
 }

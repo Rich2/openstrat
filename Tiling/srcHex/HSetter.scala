@@ -128,59 +128,59 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
-  trait MouthBase
+  trait VertSetBase
   { /** The C coordinate of the vertex. */
     def c: Int
 
-    /** The direction of the mouth. */
+    /** The terrain of the left most side of the junction. */
+    def sTerr: SST
+  }
+
+  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  trait MouthBase extends VertSetBase
+  { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
 
     /** The magnitude of the offsets. */
     def magnitude: Int
 
-    /** The terrain of the left most side of the junction. */
-    def terr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, magnitude)
-        sTerrs.set(row - 1, c, terr)
+        sTerrs.set(row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setMouth4(row + 1, c + 2, magnitude)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setMouth5(row - 1, c + 2, magnitude)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setMouth0(row - 1, c, magnitude)
-        sTerrs.set(row + 1, c, terr)
+        sTerrs.set(row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setMouth1(row - 1, c - 2, magnitude)
-        sTerrs.set(row, c + 1, terr)
+        sTerrs.set(row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setMouth2(row + 1, c - 2, magnitude)
-        sTerrs.set(row, c + 2, terr)
+        sTerrs.set(row, c + 2, sTerr)
       }
     }
   }
 
   /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
-  trait MouthSpecBase
-  { /** The C coordinate of the vertex. */
-    def c: Int
-
-    /** The direction of the mouth. */
+  trait MouthSpecBase extends VertSetBase
+  { /** The direction of the mouth. */
     def mouthDirn: HVDirnPrimary
 
     def dirn1: HVDirn
@@ -192,92 +192,89 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
     def magnitude2: Int
 
-    /** The terrain of the left most side of the junction. */
-    def terr: SST
-
     def run(row: Int): Unit = mouthDirn match
     { case HVUp =>
       { corners.setCorner(row - 1, c + 2, 5, dirn1, magnitude1)
         corners.setCorner(row - 1, c - 2, 1, dirn2, magnitude2)
         corners.setCornerPair(row + 1, c, 3, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row - 1, c, terr)
+        sTerrs.set(row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setCorner(row - 1, c, 0, dirn1, magnitude1)
         corners.setCorner(row + 1, c - 2, 2, dirn2, magnitude2)
         corners.setCornerPair(row + 1, c + 2, 4, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setCorner(row - 1, c - 2, 1, dirn1, magnitude1)
         corners.setCorner(row + 1, c, 3, dirn2, magnitude2)
         corners.setCornerPair(row - 1, c + 2, 5, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setCorner(row + 1, c - 2, 2, dirn1, magnitude1)
         corners.setCorner(row + 1, c + 2, 4, dirn2, magnitude2)
         corners.setCornerPair(row - 1, c, 0, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row + 1, c, terr)
+        sTerrs.set(row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setCorner(row + 1, c, 3, dirn1, magnitude1)
         corners.setCorner(row - 1, c + 2, 5, dirn2, magnitude2)
         corners.setCornerPair(row - 1, c - 2, 1, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c + 1, terr)
+        sTerrs.set(row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setCorner(row + 1, c + 2, 4, dirn1, magnitude1)
         corners.setCorner(row - 1, c, 0, dirn2, magnitude2)
         corners.setCornerPair(row + 1, c - 2, 2, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c + 2, terr)
+        sTerrs.set(row, c + 2, sTerr)
       }
     }
   }
 
   /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
    *  by the direction of the inside of the bend. */
-  trait BendInOutBase
-  { def c: Int
+  trait BendInOutBase extends VertSetBase
+  {
     def magIn: Int
     def magOut: Int
     def dirn: HVDirn
-    def terr: SST
+
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setBend4All(row + 1, c + 2, magIn, magOut)
-        sTerrs.setIf(row + 1, c, terr)
+        sTerrs.setIf(row + 1, c, sTerr)
       }
 
       case HVDR =>
       { corners.setBend5All(row - 1, c + 2, magIn, magOut)
-        sTerrs.set(row - 1, c, terr)
+        sTerrs.set(row - 1, c, sTerr)
       }
 
       case HVDn =>
       { corners.setBend0All(row - 1, c, magIn, magOut)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
 
       case HVDL =>
       { corners.setBend1All(row - 1, c - 2, magIn, magOut)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVUL =>
       { corners.setBend2All(row + 1, c - 2, magIn, magOut)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
 
       case HVUp =>
       { corners.setBend3All(row + 1, c, magIn, magOut)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
 
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
@@ -285,54 +282,46 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   }
 
   trait BendAllBase extends BendInOutBase
-  {
-    def magnitude: Int
+  {  def magnitude: Int
 
     override def magIn: Int = magnitude
-
     override def magOut: Int = magnitude
   }
 
   /** Sets the 2 outer corners of the bend for side terrain, Also sets the left most of the sides of the bend vertex. The orientation of the bend is
    * specified by the direction of the inside of the bend. */
-  trait BendOutBase
-  { /** The coordinate of the vertex of the bend. */
-    def c: Int
-
-    /** The magnitude of the offset for the 2 outer corners of the bend vertex. */
+  trait BendOutBase extends VertSetBase
+  { /** The magnitude of the offset for the 2 outer corners of the bend vertex. */
     def magnitude: Int
 
     /** The direction of the inside of the bend. */
     def dirn: HVDirn
 
-    /** The terrain of the sides. */
-    def terr: SST
-
     /** Runs the setting actions.  */
     def run(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setBend4Out(row + 1, c + 2, magnitude)
-        sTerrs.setIf(row + 1, c, terr)
+        sTerrs.setIf(row + 1, c, sTerr)
       }
       case HVDR =>
       { corners.setBend5Out(row - 1, c + 2, magnitude)
-        sTerrs.set(row - 1, c, terr)
+        sTerrs.set(row - 1, c, sTerr)
       }
       case HVDn =>
       { corners.setVert0Out(row - 1, c, magnitude)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
       case HVDL =>
       { corners.setBend1Out(row - 1, c - 2, magnitude)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
       case HVUL =>
       { corners.setBend2Out(row + 1, c - 2, magnitude)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
       case HVUp =>
       { corners.setBend3Out(row + 1, c, magnitude)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
@@ -340,44 +329,40 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
   /** Sets only the inside corner of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is
    *  specified by the direction of the inside of the bend. */
-  trait BendInBase
-  { def c: Int
-
-    def magnitude: Int
+  trait BendInBase extends VertSetBase
+  {  def magnitude: Int
 
     def dirn: HVDirn
-
-    def terr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magnitude)
-        sTerrs.setIf(row + 1, c, terr)
+        sTerrs.setIf(row + 1, c, sTerr)
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magnitude)
-        sTerrs.set(row - 1, c, terr)
+        sTerrs.set(row - 1, c, sTerr)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magnitude)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
 
       case HVDL =>
       { corners.setCornerIn(row - 1, c - 2, 1, magnitude)
-        sTerrs.set(row, c - 1, terr)
+        sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magnitude)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
 
       case HVUp =>
       { corners.setCornerIn(row + 1, c, 3, magnitude)
-        sTerrs.setIf(row, c - 1, terr)
+        sTerrs.setIf(row, c - 1, sTerr)
       }
 
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
@@ -385,18 +370,35 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   }
 
   /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
-  trait ThreeWayBase
-  { def c: Int
-    def st: SST
-    def magnitude: Int
+  trait ThreeWayBase extends VertSetBase
+  { def magnitude: Int
 
     def run(row: Int): Unit =
     { corners.setVertEqual(row, c, magnitude)
-      sTerrs.set(row, c - 1, st)
+      sTerrs.set(row, c - 1, sTerr)
     }
   }
 
   /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
+  trait ThreeUpBase extends VertSetBase
+  {
+    def magUR: Int
+
+    def magDn: Int
+
+    def magUL: Int
+
+    def run(row: Int): Unit =
+    { grid.hCenExistsIfDo(row + 1, c + 2){ corners.setCornerIn(row + 1, c + 2, 4, magUR) }
+      grid.hCenExistsIfDo(row - 1, c){ corners.setCornerIn(row - 1, c, 0, magDn) }
+      grid.hCenExistsIfDo(row + 1, c - 2){ corners.setCornerIn(row + 1, c - 2, 2, magUL) }
+      sTerrs.set(row, c - 1, sTerr)
+    }
+
+  }
+
+
+    /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
   trait ThreeDownBase
   { def c: Int
     def st: SST
