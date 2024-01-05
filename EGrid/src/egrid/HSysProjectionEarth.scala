@@ -75,7 +75,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override def innerSideLines: LineSegArr = transLineSegM3Arr(parent.innerSideLineM3s)
   override def outerSideLines: LineSegArr = transLineSegM3Arr(parent.outerSideLineM3s)
 
-  override def transHSides(inp: HSideArr): LineSegArr =
+  override def transHSides(inp: HSepArr): LineSegArr =
   { val lls: LineSegLLArr = inp.map(_.lineSegHC.map(parent.hCoordLL(_)))
     val m3s = lls.map(_.map(_.toMetres3))
     transLineSegM3Arr(m3s)

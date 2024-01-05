@@ -37,7 +37,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   }
 
   /** Returns the [[HSep]]s that have a corresponding true value. */
-  def trueHSides(implicit gridSys: HGridSys): HSideArr = truesHsMap(hs => hs)
+  def trueHSides(implicit gridSys: HGridSys): HSepArr = truesHsMap(hs => hs)
 
   def projTruesMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: HSep => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { var i = 0
@@ -112,7 +112,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   }
 
   def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideLayerArrayIndex(r, c)) = value }
-  def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
+  def setTrues(hSides: HSepArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
   def setTrues(hSides: HSep*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
   def setTruesPairs(hSidePairs: (Int, Int)*)(implicit grid: HGridSys): Unit = hSidePairs.foreach(p => unsafeArray(grid.sideLayerArrayIndex(p._1, p._2)) = true)
 

@@ -48,7 +48,7 @@ trait HSysProjection extends TSysProjection
     }
 
   /** transforms and filters out non visible [[HSep]]s. */
-  def transHSides(inp: HSideArr): LineSegArr
+  def transHSides(inp: HSepArr): LineSegArr
 
   def transTile(hc: HCen): Option[Polygon]
 

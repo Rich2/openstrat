@@ -90,20 +90,21 @@ object HSep
     case _ => None
   }
 
-  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HSep]] and [[HSideArr]]. */
-  implicit val arrMapBuilderEv: BuilderArrInt2Map[HSep, HSideArr] = new BuilderArrInt2Map[HSep, HSideArr]
-  { type BuffT = HSideBuff
-    override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[HSep]] and [[HSepArr]]. */
+  implicit val arrMapBuilderEv: BuilderArrInt2Map[HSep, HSepArr] = new BuilderArrInt2Map[HSep, HSepArr]
+  { type BuffT = HSepBuff
+    override def fromIntArray(array: Array[Int]): HSepArr = new HSepArr(array)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSepBuff = new HSepBuff(buffer)
   }
 
-  implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
+  /** Implicit [[BuilderArrPair]] type class instances / evidence for [[HSep]]. */
+  implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
 
   /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSep]]. */
   implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSide", "r", _.r, "c", _.c, apply)
 }
 
-/** A hex separator that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
+/** A hex tiles separator that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */
 class HSepA(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = true
   override def isTypeB: Boolean = false
@@ -142,7 +143,7 @@ object HSepA
   }
 }
 
-/** A hex separator that slants straight down. r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0 */
+/** A hex tiles separator that slants straight down. r.div4Rem0 & c.div4Rem2 | r.div4Rem2 & c.div4Rem0 */
 class HSepB(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = true
@@ -176,7 +177,7 @@ object HSepB
   }
 }
 
-/** A hex separator that slants down from top right to bottom left. r.div4Rem1 & c.div4Rem3 | r.div4Rem3 & c.div4Rem1 */
+/** A hex tiles separator that slants down from top right to bottom left. r.div4Rem1 & c.div4Rem3 | r.div4Rem3 & c.div4Rem1 */
 class HSepC(val r: Int, val c: Int) extends HSep
 { override def isTypeA: Boolean = false
   override def isTypeB: Boolean = false
@@ -216,7 +217,7 @@ object HSepC
 }
 
 /** [[PairElem]] class for [[HSep]]s. Allows for the efficient storage of sequences in [[HSidePairArr]]s. */
-class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HSep, A2] with Selectable
+class HSepPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HSep, A2] with Selectable
 { override def a1: HSep = HSep(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
 
@@ -231,11 +232,11 @@ class HSidePair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairIn
   }
 }
 
-/** Companion object for [[HSidePair]] trait, provides apply and unapply methods. */
-object HSidePair
-{ def apply[A2](hc: HSep, a2: A2): HSidePair[A2] = new HSidePair[A2](hc.int1, hc.int2, a2)
+/** Companion object for [[HSepPair]] trait, provides apply and unapply methods. */
+object HSepPair
+{ def apply[A2](hc: HSep, a2: A2): HSepPair[A2] = new HSepPair[A2](hc.int1, hc.int2, a2)
   def unapply(inp: Any): Option[(HSep, Any)] = inp match
-  { case hcp: HSidePair[_] => Some((hcp.a1, hcp.a2))
+  { case hcp: HSepPair[_] => Some((hcp.a1, hcp.a2))
     case _ => None
   }
 }

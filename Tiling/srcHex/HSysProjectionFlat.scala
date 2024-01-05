@@ -102,5 +102,5 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
 
   override def transLineSeg(seg: LineSegHC): LineSeg = seg.map(transCoord)
 
-  override def transHSides(inp: HSideArr): LineSegArr = LineSegArr()// ???//.slate(-focus).scale(cPScale)
+  override def transHSides(inp: HSepArr): LineSegArr = LineSegArr()// ???//.slate(-focus).scale(cPScale)
 }
