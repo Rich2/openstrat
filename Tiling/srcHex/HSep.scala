@@ -98,7 +98,7 @@ object HSep
   }
 
   /** Implicit [[BuilderArrPair]] type class instances / evidence for [[HSep]]. */
-  implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): HSidePairArrMapBuilder[B2] = new HSidePairArrMapBuilder[B2]
+  implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): HSepBuilderArrPairMap[B2] = new HSepBuilderArrPairMap[B2]
 
   /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSep]]. */
   implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSide", "r", _.r, "c", _.c, apply)

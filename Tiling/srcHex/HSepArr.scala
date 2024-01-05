@@ -66,18 +66,19 @@ object HSepPairArr1
   }
 }
 
-
-class HSidePairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt2[HSep, B2, HSepPair[B2]]
-{ override type ThisT = HSidePairBuff[B2]
+/** Efficient [[BuffPair]] buffer class for [[HSepPair]]s */
+class HSepBuffPair[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends BuffPairInt2[HSep, B2, HSepPair[B2]]
+{ override type ThisT = HSepBuffPair[B2]
   override def typeStr: String = "HSidePairBuff"
   override def newElem(int1: Int, int2: Int, a2: B2): HSepPair[B2] = new HSepPair[B2](int1, int2, a2)
 }
 
-class HSidePairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt2Map[HSep, HSepArr, B2, HSepPair[B2], HSepArrPair[B2]]
-{ override type BuffT = HSidePairBuff[B2]
+/** [[BuilderArrPairMap]] class for [[HSepPair]]s. */
+class HSepBuilderArrPairMap[B2](implicit ct: ClassTag[B2]) extends BuilderArrPairInt2Map[HSep, HSepArr, B2, HSepPair[B2], HSepArrPair[B2]]
+{ override type BuffT = HSepBuffPair[B2]
   override type B1BuffT = HSepBuff
   override implicit val b2ClassTag: ClassTag[B2] = ct
-  override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HSidePairBuff[B2] = new HSidePairBuff[B2](a1Buffer, a2Buffer)
+  override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HSepBuffPair[B2] = new HSepBuffPair[B2](a1Buffer, a2Buffer)
   override def b1ArrBuilder: BuilderArrMap[HSep, HSepArr] = HSep.arrMapBuilderEv
   override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): HSepArrPair[B2] = new HSepArrPair[B2](b1ArrayInt, b2Array)
   override def newB1Buff(): HSepBuff = HSepBuff()

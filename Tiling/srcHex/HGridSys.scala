@@ -304,7 +304,7 @@ trait HGridSys extends HCenStruct with TGridSys
   }
 
   /** OptMaps each [[HSep]] of this hex grid system to an [[HSepPair]]. */
-  def sideOptMapPair[B2](f2: HSep => Option[B2])(implicit build: HSidePairArrMapBuilder[B2]): HSepArrPair[B2] =
+  def sideOptMapPair[B2](f2: HSep => Option[B2])(implicit build: HSepBuilderArrPairMap[B2]): HSepArrPair[B2] =
   { val buff = build.newBuff()
     sidesForeach { hSide => f2(hSide).foreach { b2 => buff.pairGrow(hSide, b2) } }
     build.buffToSeqLike(buff)
