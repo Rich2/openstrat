@@ -12,7 +12,7 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
-  def sidePolys: HSidePairArr[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
+  def sidePolys: HSepArrPair[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
   def sideFills: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
 
   def sideDraws: GraphicElems = sidePolys.pairMap { (hSide, poly) => poly.draw(2, sTerrs(hSide).contrastBW) }

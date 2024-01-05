@@ -42,7 +42,7 @@ trait HSysProjection extends TSysProjection
   }
 
   /** Produces the side polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
-  def hSidePolygons(f: HSep => Boolean, corners: HCornerLayer): HSidePairArr[Polygon] = gChild.sideOptMapPair { hs =>
+  def hSidePolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sideOptMapPair { hs =>
     if(f(hs)) corners.sidePoly(hs)(parent).optMap(transOptHVOffset(_))
     else None
     }

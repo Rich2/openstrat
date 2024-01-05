@@ -35,7 +35,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def tileFrontFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
 
     def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
-    def sidePolys: HSidePairArr[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
+    def sidePolys: HSepArrPair[Polygon] = proj.hSidePolygons(sTerrs(_).nonEmpty, corners)
     def sideFills: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.fill(sTerrs(hSide).colour) }
     def sideDraws: GraphicElems = sidePolys.pairMap{ (hSide, poly) => poly.draw(1, sTerrs(hSide).contrastBW) }
     def sideActives: GraphicElems = sidePolys.pairMap{ (hs, poly) => poly.active(hs) }

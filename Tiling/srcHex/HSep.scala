@@ -216,7 +216,7 @@ object HSepC
   }
 }
 
-/** [[PairElem]] class for [[HSep]]s. Allows for the efficient storage of sequences in [[HSidePairArr]]s. */
+/** [[PairElem]] class for [[HSep]]s. Allows for the efficient storage of sequences in [[HSepArrPair]]s. */
 class HSepPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HSep, A2] with Selectable
 { override def a1: HSep = HSep(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
