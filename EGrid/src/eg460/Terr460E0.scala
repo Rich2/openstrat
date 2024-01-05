@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle8 57981.753km² <= 35075.382km². Sardinia. Sicily no hex avaliabe
  *  Isle3 8768.845km² <= 4473.900km² Corsica no hex available. */
 object Terr460E0 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e0(104)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e0(102)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -46,7 +46,8 @@ object Terr460E0 extends Long460Terrs
       TRow(110, desert * 6),
       TRow(108, savannah, sahel, savannah, sahel, desert * 2, sahel),
       TRow(106, savannah, savannah * 2, jungle, savannah * 3),
-      TRow(104, jungle, hillyJungle * 3),
+      TRow(104, jungle, hillyJungle * 4, savannah, hillySavannah),
+      TRow(102, sea * 5, hillyJungle, jungle),
     )
   }
   help.run
