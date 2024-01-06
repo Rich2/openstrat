@@ -15,8 +15,11 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4
   /** The end [[HCoord]] point. */
   def endPt: HCoord = HCoord(r2, c2)
 
-  /** Uses the implicit [[HGridSysFlat]] parameter to convert from [[HCen]]s to [[Pt2]]s. */
+  /** Uses the implicit [[HGridSysProjecton]] parameter to convert from [[HCoord]]s to [[Pt2]]s. */
   def projLineSeg(implicit proj: HSysProjection): LineSeg = LineSeg(startPt.projPt2, endPt.projPt2)
+
+  /** Transforms from  [[HCoord]]s to [[Pt2]]s. */
+  def lineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
 
   def transLineSeg(scale: Double, rOrigin: Int, cOrigin: Int): LineSeg = transLineSeg(scale, HCoord(rOrigin, cOrigin))
 

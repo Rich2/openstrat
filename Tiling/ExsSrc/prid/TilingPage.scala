@@ -46,9 +46,7 @@ object TilingPage extends HtmlPage
 
     val grid: HGridReg = HGridReg(3, 4)
     val seps: LineSegHCArr = grid.sepLineSegHCs
-    val res1: LineSegHC = seps(0)
-    //val res2: Any = res1.toPt2Reg
-    //val seps2 = seps.map(_.projLineSeg)//.scale(50)
+    val seps2 = seps.map(_.lineSeg).scale(50).draw()
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
