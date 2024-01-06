@@ -61,7 +61,7 @@ object AmericasFarNorth extends EArea1("Far North\nAmerica", 61 ll -109)
 
 object AmericasNearNorth extends EArea1("North America", 49 ll -100)
 { import pAmericas._
-  override val a2Arr: RArr[EArea2] = RArr(UsaWest, UsaMid, UsaEast, Florida, Baja, Mexico, MexicoEast, AmericasCentral, Cuba)
+  override val a2Arr: RArr[EArea2] = RArr(UsaWest, UsaMid, UsaEast, Florida, Baja, Mexico, MexicoEast, AmericasCentral, Cuba, Jamaica)
 }
 
 object AsiaMain extends EArea1("Asia", 60 ll 65)

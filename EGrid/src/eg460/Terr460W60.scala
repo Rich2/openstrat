@@ -40,8 +40,8 @@ object Terr460W60 extends Long460Terrs
       TRow(110, Isle(mtain)),
       TRow(108),
       VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn)),
-      TRow(106, hillySavannah),
-      TRow(104, mtain),
+      TRow(106, hillySavannah * 3),
+      TRow(104, mtain, savannah, hillyJungle * 2),
     )
   }
   help.run

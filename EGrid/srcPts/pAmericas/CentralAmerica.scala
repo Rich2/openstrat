@@ -39,7 +39,7 @@ object AmericasCentral extends EArea2("CAmerica", 14.62 ll -86.84, jungle)
 { val p10 = 15.968 ll -85.040
   val eHonduras: LatLong = 15.0 ll -83.17
 
-  /** The mouth of the San Juuan de Nicaragua river, the Caribbean border between Nicaragua and Costa Rica/ */
+  /** The mouth of the San Juuan de Nicaragua river, the Caribbean border between Nicaragua and Costa Rica. */
   val sanJuanMouth: LatLong = 10.94 ll -83.70
 
   val kusapin: LatLong = 8.79 ll -81.38
@@ -59,12 +59,23 @@ object AmericasCentral extends EArea2("CAmerica", 14.62 ll -86.84, jungle)
 
 /** [[polygonLL]] graphical representation for Cuba. Depends on nothing. */
 object Cuba extends EArea2("Cuba", 21.97 ll -78.96, jungle)
-{ val wCuba: LatLong = 21.86 ll -84.95
+{ val west: LatLong = 21.86 ll -84.95
   val havana: LatLong = 23.14 ll -82.39
-  val eCuba: LatLong = 20.22 ll -74.13
+  val east: LatLong = 20.22 ll -74.13
   val cabotCruz: LatLong = 19.84 ll -77.73
   val yara: LatLong = 20.45 ll -77.07
   val surgidero: LatLong = 22.68 ll -82.29
 
-  override def polygonLL: PolygonLL = PolygonLL(wCuba, havana, eCuba, cabotCruz, yara, surgidero)
+  override def polygonLL: PolygonLL = PolygonLL(west, havana, east, cabotCruz, yara, surgidero)
+}
+
+/** [[polygonLL]] graphical representation for Jamaica. Depends on nothing. */
+object Jamaica extends EArea2("Jamaica", 21.97 ll -78.96, hillyJungle)
+{ val north: LatLong = 18.525 ll -77.824
+  val galinaPoint: LatLong = 18.407 ll -76.887
+  val morantPoint: LatLong = 17.919 ll -76.184
+  val portlandPoint: LatLong = 17.705 ll -77.166
+  val southWest: LatLong = 18.242 ll -78.356
+
+  override def polygonLL: PolygonLL = PolygonLL(north, galinaPoint, morantPoint, portlandPoint, southWest)
 }
