@@ -25,14 +25,14 @@ trait HSideLayerAny[A]
   }
 
   def setIf(hs: HSep, value: A)(implicit grid: HGrid): Unit =
-  { if(grid.sideExists(hs))
+  { if(grid.sepExists(hs))
     { val i = grid.sideLayerArrayIndex(hs)
       unsafeArray(i) = value
     }
   }
 
   def setIf(r: Int, c: Int, value: A)(implicit grid: HGrid): Unit =
-  { if(grid.sideExists(r, c))
+  { if(grid.sepExists(r, c))
     { val i = grid.sideLayerArrayIndex(r, c)
        unsafeArray(i) = value
     }

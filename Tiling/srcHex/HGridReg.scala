@@ -208,6 +208,8 @@ object HGridReg
     new HGridReg(rMin, rMax, cMin, cMax)
   }
 
+  def rowsCols(numRows: Int, numCols: Int): HGridReg = new HGridReg(2, 2 + numRows.max0 * 2, 2, 2 + numCols.max0 * 4)
+
   /** Implicit instance of [[Show]] for [[HGridReg]]. */
   implicit val showEv: ShowTellInt4[HGridReg] = ShowTellInt4[HGridReg]("HGridReg")
 

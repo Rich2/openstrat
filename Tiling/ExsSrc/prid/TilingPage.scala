@@ -1,5 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
+import ostrat.prid.phex.HGridReg
 import pWeb._
 
 /** Html documentation page for Tiling Module. */
@@ -43,6 +44,9 @@ object TilingPage extends HtmlPage
     """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
     | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
     | between the hexs and to each of the vertices ofthe tiles.""".stripMargin)
+
+    val grid = HGridReg.rowsCols(3, 4)
+    val seps = grid.seps//.map(_.toPt2)
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --

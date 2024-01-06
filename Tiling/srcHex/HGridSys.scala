@@ -324,11 +324,14 @@ trait HGridSys extends HCenStruct with TGridSys
     build.buffToSeqLike(buff)
   }
 
-  /** The [[HSep]] hex side coordinates. */
-  final def sides: HSepArr = sidesMap(hs => hs)
+  /** The [[HSep]] hex separator coordinates. */
+  final def seps: HSepArr = sidesMap(hs => hs)
 
-  def sideExists(r: Int, c: Int): Boolean = sideExists(HSep(r, c))
-  def sideExists(hs: HSep): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
+  /** Does the [[HSep]] hex tile separator exist within this[[HGridSys]]. */
+  def sepExists(r: Int, c: Int): Boolean = sepExists(HSep(r, c))
+
+  /** Does the [[HSep]] hex tile separator exist within this[[HGridSys]]. */
+  def sepExists(hs: HSep): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
