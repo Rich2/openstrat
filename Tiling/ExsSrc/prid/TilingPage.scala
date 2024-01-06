@@ -9,12 +9,12 @@ object TilingPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), terms2, turnRes)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Tiling module contains"), coord, tileGeom, grid, sys, proj, terms, turn, exs)
 
-  def coord: HtmlLi = HtmlLi("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each" +
-    " have their own unique 2 integer coordinates.")
+  def coord: HtmlLi = HtmlLi("Hex and Square tile coordinate system, allowing the tile centres, the tile sides and the tile vertices to each have" --
+    "their own unique 2 integer coordinates.")
 
   def tileGeom: HtmlLi = HtmlLi("Tile collections, tile paths and tile polygons and other tile structures, allowing their manipulation as tiles.")
 
@@ -34,6 +34,16 @@ object TilingPage extends HtmlPage
     " games and productions.")
 
   def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
+
+  object CoordSystem extends HtmlSection
+  {
+    override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1)
+
+    def p1: HtmlP = HtmlP(
+    """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
+    | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
+    | between the hexs and to each of the vertices ofthe tiles.""".stripMargin)
+  }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
     "the GameWorld or the OutWorld."),
