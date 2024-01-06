@@ -33,6 +33,8 @@ case class LinesDraw(lines: LineSegArr, lineWidth: Double, colour: Colour = Blac
 { override type ThisT = LinesDraw
   override def ptsTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.ptsTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
+
+  //override def svgElems: RArr[SvgElem] = RArr(SvgGroup(lines.map(_.draw)))
 }
 
 object LinesDraw

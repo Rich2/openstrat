@@ -82,7 +82,15 @@ class SvgText(val x: Double, val y: Double, val text: String, val align: TextAli
 }
 
 object SvgText
-{
-  def apply(x: Double, y: Double, text: String, align: TextAlign): SvgText = new SvgText(x, y, text, align)
+{ def apply(x: Double, y: Double, text: String, align: TextAlign): SvgText = new SvgText(x, y, text, align)
   def apply(posn: Pt2, text: String, align: TextAlign): SvgText = new SvgText(posn.x, posn.y, text, align)
+}
+
+class SvgGroup(val contents: RArr[XCon], val attribs: RArr[XmlAtt])extends SvgElem
+{
+  override def tag: String = "g"
+}
+
+object SvgGroup{
+  def apply(contents: RArr[XCon], attribs: XmlAtt*): SvgGroup = new SvgGroup(contents, attribs.toArr)
 }

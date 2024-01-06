@@ -45,10 +45,12 @@ object TilingPage extends HtmlPage
     | between the hexs and to each of the vertices ofthe tiles.""".stripMargin)
 
     val grid: HGridReg = HGridReg.minMax(-4, 4, -6, 6)
+    debvar(grid.numTiles)
     val seps: LineSegHCArr = grid.sepLineSegHCs
-    val seps2 = seps.map(_.lineSeg).scale(75).draw(2)
+    val seps2: LinesDraw = seps.map(_.lineSeg).scale(25).draw(2)
     val rect1: Rect = Rect(400, 250)
-    val svg1: HtmlSvg = HtmlSvg(rect1, RArr(seps2), RArr(CentreBlockAtt))
+    val c1 = Circle(100).fill(Colour.Green)
+    val svg1: HtmlSvg = HtmlSvg(rect1, RArr(c1, seps2), RArr(CentreBlockAtt))
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
