@@ -43,8 +43,8 @@ trait HCoord extends Any with TCoord with Ordered[HCoord]
 
   def view(pxScale: Double = 30): HGView = HGView(r, c, pxScale)
 
-  /** Uses the implicit [[HGridSysFlat]] to convert to [[Pt2]]. */
-  def toPt2(implicit proj: HSysProjection): Pt2 = proj.transCoord(this)
+  /** Uses the implicit [[HGridSysProjection]] to convert to [[Pt2]]. */
+  def projPt2(implicit proj: HSysProjection): Pt2 = proj.transCoord(this)
 
   def isCen: Boolean = (r.div4Rem0 & c.div4Rem0) | (r.div4Rem2 & c.div4Rem2)
 }

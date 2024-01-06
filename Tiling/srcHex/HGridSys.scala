@@ -100,8 +100,6 @@ trait HGridSys extends HCenStruct with TGridSys
    * games will require their own specialist projections. */
   def flatHCoordToPt2(hCoord: HCoord): Pt2
 
-
-
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
   def layerArrayIndex(r: Int, c: Int): Int
