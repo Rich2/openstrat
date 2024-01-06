@@ -37,16 +37,18 @@ object TilingPage extends HtmlPage
 
   object CoordSystem extends HtmlSection
   {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1)
+    override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, svg1)
 
     def p1: HtmlP = HtmlP(
     """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
     | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
     | between the hexs and to each of the vertices ofthe tiles.""".stripMargin)
 
-    val grid: HGridReg = HGridReg(3, 4)
+    val grid: HGridReg = HGridReg.minMax(-4, 4, -6, 6)
     val seps: LineSegHCArr = grid.sepLineSegHCs
-    val seps2 = seps.map(_.lineSeg).scale(50).draw()
+    val seps2 = seps.map(_.lineSeg).scale(75).draw(2)
+    val rect1: Rect = Rect(400, 250)
+    val svg1: HtmlSvg = HtmlSvg(rect1, RArr(seps2), RArr(CentreBlockAtt))
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
