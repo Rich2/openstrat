@@ -43,7 +43,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
         val lt = hg.gridLeftCenC.max(newLeft)
         val rt = hg.gridRightCenC.min(newRight)
         //deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
-        HGridReg(bt, tp, lt, rt)
+        HGridReg.minMax(bt, tp, lt, rt)
       }
       case hgi: HGridIrr => hgi.numTileRows match
       { case n if n <= 0 => hgi
@@ -86,9 +86,9 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
 
   override def hCenSizedMap(hexScale: Double)(f: (HCen, Pt2) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenPtMap(f))
 
-  override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
-  override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
-  override def outerSideLines: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
+  override def sideLines: LineSegArr = gChild.sepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
+  override def innerSideLines: LineSegArr = gChild.innerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
+  override def outerSideLines: LineSegArr = gChild.outerSepLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixelsPerC)
 
   override def transOptCoord(hc: HCoord): Option[Pt2] = Some(parent.flatHCoordToPt2(hc).slate(-focus).scale(pixelsPerC))
   override def transCoord(hc: HCoord): Pt2 = parent.flatHCoordToPt2(hc).slate(-focus).scale(pixelsPerC)

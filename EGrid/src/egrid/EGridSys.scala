@@ -15,9 +15,9 @@ trait EGridSys extends HGridSys
 
   def hCoordLLDirn(hc: HCoord, dirn: Boolean = true): LatLongDirn = hCoordLL(hc).andDirn(dirn)
 
-  def sideLineLLs: LineSegLLArr = sideLineSegHCs.map(_.map(hCoordLL(_)))
-  def innerSideLineLLs: LineSegLLArr = innerSideLineSegHCs.map(_.map(hCoordLL(_)))
-  def outerSideLineLLs: LineSegLLArr = outerSideLineSegHCs.map(_.map(hCoordLL(_)))
+  def sideLineLLs: LineSegLLArr = sepLineSegHCs.map(_.map(hCoordLL(_)))
+  def innerSideLineLLs: LineSegLLArr = innerSepLineSegHCs.map(_.map(hCoordLL(_)))
+  def outerSideLineLLs: LineSegLLArr = outerSepLineSegHCs.map(_.map(hCoordLL(_)))
 
   def sideLineM3s: LineSegM3Arr = sideLineLLs.map(_.map(_.toMetres3))
   def innerSideLineM3s: LineSegM3Arr = innerSideLineLLs.map(_.map(_.toMetres3))

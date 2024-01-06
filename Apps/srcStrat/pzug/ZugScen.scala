@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pzug
 import prid._, phex._
 
@@ -38,7 +38,7 @@ trait ZugScenStart extends ZugScen
 
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
-{ override implicit val gridSys: HGrid = HGridReg(2, 14, 2, 48)
+{ override implicit val gridSys: HGrid = HGridReg.minMax(2, 14, 2, 48)
   val terrs: LayerHcRefSys[ZugTerr] = LayerHcRefSys[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues :_*)(gridSys)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
@@ -80,8 +80,7 @@ object Zug1 extends ZugScenStart
 
 /** ZugFuhrer scenario 2. */
 object Zug2 extends ZugScenStart
-{
-  override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
+{ override implicit val gridSys: HGrid = HGridReg.minMax(2, 10, 4, 38)
   val terrs = LayerHcRefSys[ZugTerr](Lake)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRowEnd(yRow, cStart, tileValues :_*)(gridSys)
   gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
@@ -97,7 +96,7 @@ object Zug2 extends ZugScenStart
 
 /** ZugFuhrer scenario 3. */
 object Zug3 extends ZugScenStart
-{ override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
+{ override implicit val gridSys: HGrid = HGridReg.minMax(2, 10, 4, 38)
   val terrs = LayerHcRefSys[ZugTerr](Plain)
   val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   override val corners: HCornerLayer = HCornerLayer()

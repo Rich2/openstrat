@@ -185,9 +185,11 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
 
 /** Companion object for the [[HGridReg]] class. Contains factory apply method and [[Show]] instance. */
 object HGridReg
-{
+{ /** Factory apply method to create a regular hex grid of a given number of rows anc columns. */
+  def apply(numRows: Int, numCols: Int): HGridReg = new HGridReg(2, 2 + numRows.max0 * 2, 2, 2 + numCols.max0 * 4)
+
   /** Corrects the X and Y minimum and maximum values. */
-  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =
+  def minMax(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =
   {
     val rMin = rTileMin.roundUpToEven
     val rMax = rTileMax.roundDownToEven
@@ -208,11 +210,9 @@ object HGridReg
     new HGridReg(rMin, rMax, cMin, cMax)
   }
 
-  def rowsCols(numRows: Int, numCols: Int): HGridReg = new HGridReg(2, 2 + numRows.max0 * 2, 2, 2 + numCols.max0 * 4)
-
   /** Implicit instance of [[Show]] for [[HGridReg]]. */
   implicit val showEv: ShowTellInt4[HGridReg] = ShowTellInt4[HGridReg]("HGridReg")
 
   /** Implicit instance of [[Unshow]] for [[HGridReg]]. */
-  implicit val unshowEv: UnshowInt4[HGridReg] = UnshowInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", apply)
+  implicit val unshowEv: UnshowInt4[HGridReg] = UnshowInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", minMax)
 }

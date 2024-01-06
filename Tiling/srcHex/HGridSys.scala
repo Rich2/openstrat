@@ -334,13 +334,13 @@ trait HGridSys extends HCenStruct with TGridSys
   def sepExists(hs: HSep): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
-  def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
+  def sepLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
 
-  /** The line segments of the inner sides defined in [[HCoord]] vertices. */
-  def innerSideLineSegHCs: LineSegHCArr = linksMap(_.lineSegHC)
+  /** The line segments of the inner separators defined in [[HCoord]] vertices. */
+  def innerSepLineSegHCs: LineSegHCArr = linksMap(_.lineSegHC)
 
-  /** The line segments of the outer sides defined in [[HCoord]] vertices. */
-  def outerSideLineSegHCs: LineSegHCArr = edgesMap(_.lineSegHC)
+  /** The line segments of the outer separators defined in [[HCoord]] vertices. */
+  def outerSepLineSegHCs: LineSegHCArr = edgesMap(_.lineSegHC)
 
   def defaultView(pxScale: Double = 30): HGView
 

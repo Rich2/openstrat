@@ -41,7 +41,7 @@ object G1HScen7 extends G1HScen
 /** 2nd example Turn 0 scenario state for Game One. */
 object G1HScen4 extends G1HScen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
+  implicit val gridSys: HGridReg = HGridReg.minMax(2, 10, 4, 8)
   val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
   counters.setSomesMut((4, 4, CounterA), (8, 4, CounterB), (6, 6, CounterC))
 }
@@ -49,7 +49,7 @@ object G1HScen4 extends G1HScen
 /** 8th example Turn 0 scenario state for Game One. An empty regular grid containing no hex tiles. */
 object G1HScen8 extends G1HScen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = HGridReg(4, 2, 4, 2)
+  implicit val gridSys: HGridReg = HGridReg.minMax(4, 2, 4, 2)
   val counters: LayerHcOptSys[Counter] = LayerHcOptSys()
 }
 
