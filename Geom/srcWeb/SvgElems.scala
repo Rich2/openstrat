@@ -66,13 +66,26 @@ object SvgRect
   def apply(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgRect = new SvgRect(attribs, contents)
 }
 
-case class SvgLine(x1: Double, y1: Double, x2: Double, y2: Double, colour: Colour, width: Double) extends SvgElem
+class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, otherAttribs: RArr[XmlAtt]) extends SvgElem
 { override def tag: String = "line"
-  override def attribs: RArr[XmlAtt] = RArr(XmlAtt("x1", x1.toString), XmlAtt("y1", y1.toString), XmlAtt("x2", x2.toString),
-    XmlAtt("y2", y2.toString), StrokeAttrib(colour), StrokeWidthAttrib(width))
+  val x1Att = XmlAtt("x1", x1.toString)
+  val y1Att = XmlAtt("y1", y1.toString)
+  val x2Att = XmlAtt("x2", x2.toString)
+  val y2Att =  XmlAtt("y2", y2.toString)
 
-  /** The content of this XML / HTML element. */
+  override def attribs: RArr[XmlAtt] = RArr(x1Att, y1Att, x2Att, y2Att) ++ otherAttribs
+
   override def contents: RArr[XCon] = RArr()
+}
+
+object SvgLine
+{
+  def apply(x1: Double, y1: Double, x2: Double, y2: Double, colour: Colour, width: Double, otherAttribs: XmlAtt*): SvgLine =
+  { val attribs1: RArr[XmlAtt] = RArr(StrokeAttrib(colour), StrokeWidthAttrib(width))
+    new SvgLine(x1, y1, x2, y2, attribs1 ++ otherAttribs.toArr)
+  }
+
+  def bare(x1: Double, y1: Double, x2: Double, y2: Double, otherAttribs: XmlAtt*): SvgLine = new SvgLine(x1, y1, x2, y2, otherAttribs.toArr)
 }
 
 class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign) extends SvgElem

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
+import pWeb._, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
@@ -92,6 +92,8 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
   def withArrow(colour: Colour = Black, lineWidth: Double = 2): RArr[GraphicSvgElem] = Arrow.paint(startPt, endPt, DegVec25, 20, colour, lineWidth)
 
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
+
+  def svgElem: SvgElem = SvgLine.bare(startX, startY, endX, endY)
 }
 
 /** Companion object for the LineSeg class. Contains factory apply methods and implicit instances for [[LineSeg]]s. */
