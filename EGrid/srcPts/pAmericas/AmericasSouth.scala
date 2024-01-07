@@ -55,6 +55,8 @@ object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtain)
   val manus: LatLong = -3.170 ll -59.982
 
   val southWest: LatLong = southDegs ll -79.790
+  val punaSouth: LatLong = -3.041 ll -80.197
+  val p20: LatLong = -2.188 ll -81.010
   val sanLorenzo: LatLong = -1.06 ll -80.91
   val p90: LatLong = -2.187 ll -81.008
   val puntaTortuga: LatLong = 0.775 ll -80.089
@@ -62,19 +64,21 @@ object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtain)
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
   override val polygonLL: PolygonLL = PolygonLL(nColumbia, caracas, caicara, margaritaE, trinidadNE, northEast, manus,
-    southWest, sanLorenzo, p90, puntaTortuga, p95, bahiaSolano10, AmericasCentral.sePanama, AmericasCentral.nePanama)
+    southWest, punaSouth, p20, sanLorenzo, p90, puntaTortuga, p95, bahiaSolano10, AmericasCentral.sePanama, AmericasCentral.nePanama)
 }
 
 /** [[polygonLL]] graphical representation for the north west of South America. Dependant on [[SouthAmericaMiddle]] [[AmericasCentral]]. */
 object SouthAmericaWest extends EArea2("South America\nwest", -20 ll -70.0, jungle)
-{
-  val nChile: LatLong = -18 ll -70
+{ val nChile: LatLong = -18 ll -70
   val p60: LatLong = -13.91 ll -76.39
+  val p61 = -13.461 ll -76.187
+  val p68 = -7.711 ll -79.465
+  val p70 = -6.054 ll -81.115
   val nPeru: LatLong = -5 ll -81
   val west: LatLong = -4.68 ll -81.33
 
   override val polygonLL: PolygonLL = PolygonLL(ColomVenez.manus, SouthAmericaMiddle.nwSAmericaES,
-    SouthAmericaMiddle.northWest, nChile, p60, nPeru, west, ColomVenez.southWest)
+    SouthAmericaMiddle.northWest, nChile, p60, p61, p68, p70, nPeru, west, ColomVenez.southWest)
 }
 
 /** [[polygonLL]] graphical representation for the east of South America. Dependant on [[AmericasCentral]]. */

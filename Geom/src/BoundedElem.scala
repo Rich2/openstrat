@@ -33,13 +33,13 @@ class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal
 
 /** Type class for the production of bounding rectangles. */
 trait Bounding[A]
-{
+{ /** Extension method for the bounding rectangle of this object. */
   def bounds(obj: A): Rect
 
   /** The centre of the bounding rectangle. consider also using cenDefault. */
   @inline final def boundCen(obj: A): Pt2 = bounds(obj).cen
 
-  /** The width of the [[BoundingRect]] of this object. */
+  /** The width of the bounding rectangle. of this object. */
   def boundingWidth(obj: A): Double = bounds(obj).width
 
   /** Top right of the bounding rectangle. */
@@ -56,13 +56,12 @@ trait Bounding[A]
 }
 
 object Bounding
-{
+{ /** Implicit [[Bounding]] type class instances evidence for objects that extends [[BoundedElem]]. */
   implicit def boundedEv[A <: BoundedElem]: Bounding[A] = obj => obj.boundingRect
 
+  /** Implicit [[Bounding]] type class instances evidence for [[Sequ]]. */
   implicit def sequEv[A](implicit evA: Bounding[A]): Bounding[Sequ[A]] = new Bounding[Sequ[A]]
-  {
-    override def bounds(obj: Sequ[A]): Rect = if (obj.length == 0) NoBounds
-    else obj.foldLeft{ (acc, el) => acc || evA.bounds(el) }
+  { override def bounds(obj: Sequ[A]): Rect = if (obj.length == 0) NoBounds else obj.foldLeft{ (acc, el) => acc || evA.bounds(el) }
   }
 }
 
@@ -74,19 +73,19 @@ class BoundingExtensions[A](val thisObj: A, evA: Bounding[A])
    * point. */
   def boundsCenTo(newCen: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundCen(thisObj) >> newCen)
 
-  /** 2D geometric translation transformation on this type T, returning an object of type T with the top right of its bounding rectangle at the
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the top right of its bounding rectangle at the
    *  parameter point. */
-  def trBoundTo(newTopRight: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsTR(thisObj) >> newTopRight)
+  def boundsTRTo(newTopRight: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsTR(thisObj) >> newTopRight)
 
-  /** 2D geometric translation transformation on this type T, returning an object of type T with the bottom right of its bounding rectangle at the
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the bottom right of its bounding rectangle at the
    *  parameter point. */
-  def brBoundTo(newBottomRight: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsBR(thisObj) >> newBottomRight)
+  def boundsBRTo(newBottomRight: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsBR(thisObj) >> newBottomRight)
 
-  /** 2D geometric translation transformation on this type T, returning an object of type T with the bottom left of its bounding rectangle at the
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the bottom left of its bounding rectangle at the
    *  parameter point. */
-  def blBoundTo(newBottomLeft: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsBL(thisObj) >> newBottomLeft)
+  def boundsBLTo(newBottomLeft: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsBL(thisObj) >> newBottomLeft)
 
-  /** 2D geometric translation transformation on this type T, returning an object of type T with the top left of its bounding rectangle at the
+  /** 2D geometric translation transformation on this type A, returning an object of type A with the top left of its bounding rectangle at the
    * parameter point. */
-  def tlBoundTo(newTopLeft: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsTL(thisObj) >> newTopLeft)
+  def boundsTLTo(newTopLeft: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundsTL(thisObj) >> newTopLeft)
 }

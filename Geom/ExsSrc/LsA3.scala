@@ -21,7 +21,7 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val el2 = Ellipse(50, 100, 150 pp 200).fill(Colour.BurlyWood)
   val el3 = el2.slateX(100).toDraw(2)
 
-  val elTopRight = el1.trBoundTo(canv.topRight)
+  val elTopRight = el1.boundsTRTo(canv.topRight)
   val els = RArr(el1, el2, el3, elTopRight)
 
   repaint(circles ++ crosses ++ els +% c1d)
