@@ -50,3 +50,22 @@ class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal
    * parameter point. */
   def tlBoundTo(newTopLeft: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.tlBounding >> newTopLeft)
 }
+
+/** Type class for the production of bounding rectangles. */
+trait Bounding[A]
+{
+  def bounds(obj: A): Rect
+}
+
+object Bounding
+{
+  implicit def boundedEv[A <: BoundedElem]: Bounding[A] = obj => obj.boundingRect
+
+  implicit def sequEv[A](implicit evA: Bounding[A]): Bounding[Sequ[A]] = new Bounding[Sequ[A]]
+  {
+    override def bounds(obj: Sequ[A]): Rect = if (obj.length == 0) Rect(0, 0)
+    else ???
+  }
+
+
+}
