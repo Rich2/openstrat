@@ -37,13 +37,7 @@ case class LinesDraw(lines: LineSegArr, lineWidth: Double, colour: Colour = Blac
   def svgElem: SvgElem = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
   override def svgElems: RArr[SvgElem] = RArr(svgElem)
 
-  override def boundingRect: Rect = ???
-
-  /** The width of the [[BoundingRect]] of this object. */
-  override def boundingWidth: Double = ???
-
-  /** The height of the [[BoundingRect]] of this object. */
-  override def boundingHeight: Double = ???
+  override def boundingRect: Rect = lines.boundingRect
 }
 
 object LinesDraw

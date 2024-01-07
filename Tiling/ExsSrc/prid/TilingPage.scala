@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import ostrat.geom._, prid.phex._, pWeb._
+import ostrat.geom._, prid.phex._, pWeb._, Colour._
 
 /** Html documentation page for Tiling Module. */
 object TilingPage extends HtmlPage
@@ -44,12 +44,14 @@ object TilingPage extends HtmlPage
     | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
     | between the hexs and to each of the vertices ofthe tiles.""".stripMargin)
 
-    val grid: HGridReg = HGridReg.minMax(-4, 4, -6, 6)
+    val grid: HGridReg = HGridReg(3, 6)
     debvar(grid.numTiles)
     val seps: LineSegHCArr = grid.sepLineSegHCs
-    val seps2: LinesDraw = seps.map(_.lineSeg).scale(25).draw(2)
-    val rect1: Rect = Rect(1000, 600)
-    val svg1: HtmlSvg = HtmlSvg(rect1, RArr(seps2), RArr(CentreBlockAtt))
+    val seps2: LinesDraw = seps.map(_.lineSeg).draw(2)
+    val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.str, 10, Black) }
+    val stuff = (cens +% seps2).scale(40)
+    val rect1: Rect = seps2.scale(40).boundingRect.addMargin(10)
+    val svg1: HtmlSvg = HtmlSvg(rect1, stuff, RArr(CentreBlockAtt))
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --

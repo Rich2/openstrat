@@ -186,7 +186,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
 /** Companion object for the [[HGridReg]] class. Contains factory apply method and [[Show]] instance. */
 object HGridReg
 { /** Factory apply method to create a regular hex grid of a given number of rows anc columns. */
-  def apply(numRows: Int, numCols: Int): HGridReg = new HGridReg(2, 2 + numRows.max0 * 2, 2, 2 + numCols.max0 * 4)
+  def apply(numRows: Int, numCols: Int): HGridReg = new HGridReg(2, numRows.max0 * 2, 2, 2 + numCols.max0 * 2)
 
   /** Corrects the X and Y minimum and maximum values. */
   def minMax(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =

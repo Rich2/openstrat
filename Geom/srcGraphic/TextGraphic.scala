@@ -24,8 +24,7 @@ TextGraphic with GraphicAffineElem with GraphicSvgElem
 { type ThisT = TextFixed
   override def ptsTrans(f: Pt2 => Pt2) = TextFixed(str, fontSize, f(posn), colour, textAlign, baseLine)
 
-
-  override def svgElem: SvgElem = SvgText(xPosn, -yPosn, str, textAlign)
+  override def svgElem: SvgElem = SvgText(xPosn, yPosn, str, textAlign)
 }
 
 object TextFixed
@@ -101,6 +100,8 @@ TextGraphic
   /** Shear 2D geometric transformation along the Y Axis on a TextAligned, returns a TextAligned. The return type will be narrowed in sub classes and
    * traits. */
   override def shearY(operand: Double): Textlign = ???
+
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 object Textlign

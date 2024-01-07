@@ -61,7 +61,7 @@ trait GraphicElem extends GeomElem
    *  traits. */
   override def shearY(operand: Double): GraphicElem
 
-  def svgElems: RArr[SvgElem] = RArr()
+  def svgElems: RArr[SvgElem]
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
