@@ -66,6 +66,4 @@ object Bounding
     override def bounds(obj: Sequ[A]): Rect = if (obj.length == 0) Rect(0, 0)
     else ???
   }
-
-
 }
