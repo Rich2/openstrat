@@ -63,7 +63,7 @@ object Bounding
 
   implicit def sequEv[A](implicit evA: Bounding[A]): Bounding[Sequ[A]] = new Bounding[Sequ[A]]
   {
-    override def bounds(obj: Sequ[A]): Rect = if (obj.length == 0) Rect(0, 0)
-    else ???
+    override def bounds(obj: Sequ[A]): Rect = if (obj.length == 0) NoBounds
+    else obj.foldLeft{ (acc, el) => acc || evA.bounds(el) }
   }
 }

@@ -1,6 +1,7 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import ostrat.Colour.Black, pWeb._
+import ostrat.Colour.Black
+import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
@@ -38,7 +39,8 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** Adds a margin to this [[Rect]], rectangle aligned with the XY axes, moving the sides out by the given parameter. */
   def addMargin(delta: Double): Rect = Rect(width + 2 * delta, height + 2 * delta, cenX, cenY)
 
-  def union(operand: Rect): Rect =
+  /** Creates a union of the Rects for bounding rectangles. */
+  def ||(operand: Rect): Rect =
   { val newLeft = left.min(operand.left)
     val newRight = right.max(operand.right)
     val newbottom = bottom.min(operand.bottom)
@@ -63,6 +65,10 @@ object Rect
   /** Factory apply method for a rectangle aligned with the X and Y axes. There is a name overload that has a default height of 1 and takes a [[Pt2]]
    *  centre point paremeter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, cenX: Double, cenY: Double): Rect = RectImp(width, height, cenX, cenY)
+
+  implicit lazy val defaultEv: DefaultValue[Rect] = new DefaultValue[Rect]
+  { override def default: Rect = NoBounds
+  }
 
   /** Creates a [[Rect]] from an Array[Double] */
   def fromArray(array: Array[Double]): Rect = new RectImp(array)
@@ -180,5 +186,17 @@ object Rect
     }
 
     def fromArray(array: Array[Double]): RectImp = new RectImp(array)
+  }
+}
+
+object NoBounds extends Rect
+{ override type ThisT = Rect
+  override def width: Double = -1
+  override def height: Double = -1
+  override def fromArray(array: Array[Double]): Rect = new Rect.RectImp(array)
+
+  override val unsafeArray: Array[Double] =
+  { import Double.{MaxValue => v }
+    Array[Double](-v, -v, -v, v, v, v, v, -v)
   }
 }

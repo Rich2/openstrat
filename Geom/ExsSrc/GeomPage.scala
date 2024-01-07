@@ -51,7 +51,7 @@ object GeomPage extends HtmlPage
     val cg1 = circ1.fill(Orange)
     val cg2 = circ2.fillDraw(Turquoise)
     val cg3 = circ3.draw(lineColour = Orchid)
-    val bounds1: Rect = circ1.boundingRect.union(circ3.boundingRect).addMargin(svgMargin)
+    val bounds1: Rect = circ1.boundingRect.||(circ3.boundingRect).addMargin(svgMargin)
     val svgs1 = HtmlSvg(bounds1, RArr(cg1, cg3, cg2), RArr(CentreBlockAtt))
 
     val rad1 = 125
@@ -61,7 +61,7 @@ object GeomPage extends HtmlPage
     val eg1 = ellipse1.fill(Red)
     val eg2 = elipse2.fillDraw(Pink)
     val eg3 = ellipse3.draw(lineColour = DarkBlue)
-    val bounds2: Rect = ellipse1.boundingRect.union(ellipse3.boundingRect).addMargin(svgMargin)
+    val bounds2: Rect = ellipse1.boundingRect.||(ellipse3.boundingRect).addMargin(svgMargin)
     val svgs2 = HtmlSvg(bounds2, RArr(eg1, eg2, eg3), RArr(CentreBlockAtt))
   }
 }
