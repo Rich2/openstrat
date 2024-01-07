@@ -8,10 +8,10 @@ trait BoundedElem extends Any with GeomElem
   def boundingRect: Rect
 
   /** The width of the [[BoundingRect]] of this object. */
-  def boundingWidth: Double
+  def boundingWidth: Double = boundingRect.width
 
   /** The height of the [[BoundingRect]] of this object. */
-  def boundingHeight: Double
+  def boundingHeight: Double = boundingRect.height
 
   def boundTopRight: Pt2 = boundingRect.topRight
   def brBounding: Pt2 = boundingRect.bottomRight
@@ -25,12 +25,9 @@ trait BoundedElem extends Any with GeomElem
   def cenDefault: Pt2 = boundingRect.cen
 }
 
+/** This will be deprecated and its methods transfered to [[BoundingExtensions]]. */
 class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal
 {
-  /** 2D geometric translation transformation on this type T, returning an object of type T with the centre of its bounding rectangle at the parameter
-   * point. */
-  def boundCenTo(newCen: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.boundCen >> newCen)
-
   /** 2D geometric translation transformation on this type T, returning an object of type T with its default centre at the parameter point. */
   def cenDefaultTo(newCenDefault: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.cenDefault >> newCenDefault)
 
@@ -55,6 +52,12 @@ class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal
 trait Bounding[A]
 {
   def bounds(obj: A): Rect
+
+  /** The centre of the bounding rectangle. consider also using cenDefault. */
+  @inline final def boundCen(obj: A): Pt2 = bounds(obj).cen
+
+  /** The width of the [[BoundingRect]] of this object. */
+  def boundingWidth(obj: A): Double = bounds(obj).width
 }
 
 object Bounding
@@ -71,4 +74,8 @@ object Bounding
 class BoundingExtensions[A](val thisObj: A, evA: Bounding[A])
 {
   def bounds: Rect = evA.bounds(thisObj)
+
+  /** 2D geometric translation transformation on this type T, returning an object of type T with the centre of its bounding rectangle at the parameter
+   * point. */
+  def boundCenTo(newCen: Pt2)(implicit ev: Slate[A]): A = ev.slateT(thisObj, evA.boundCen(thisObj) >> newCen)
 }

@@ -5,7 +5,7 @@ import pWeb._, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2] with LineLike with
-CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
+CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
 { override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
   override def name1: String = "start"
@@ -94,6 +94,9 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
 
   def svgElem: SvgElem = SvgLine.bare(startX, startY, endX, endY)
+
+  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
+  override def boundingRect: Rect = Rect.lrbt(startX.min(endX), startX.max(endX), startY.min(endY), startY.max(endY))
 }
 
 /** Companion object for the LineSeg class. Contains factory apply methods and implicit instances for [[LineSeg]]s. */
@@ -136,14 +139,7 @@ Drawable with BoundedElem
   /** Draws the [[LineSeg]]s with the given width and colour. */
   override def draw(lineWidth: Double = 2, colour: Colour = Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 
-  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
-  override def boundingRect: Rect = ???
-
-  /** The width of the [[BoundingRect]] of this object. */
-  override def boundingWidth: Double = ???
-
-  /** The height of the [[BoundingRect]] of this object. */
-  override def boundingHeight: Double = ???
+  override def boundingRect: Rect = foldLeft(_ || _.boundingRect)
 }
 
 /** Companion object for the LineSegs class. */
