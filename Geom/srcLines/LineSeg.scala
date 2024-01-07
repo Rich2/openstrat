@@ -125,7 +125,7 @@ object LineSeg
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. [[LineSeg]] is the library's term for a mathematical straight line
  *  segment, but what in common parlance is often just referred to as a line. */
 class LineSegArr(val unsafeArray: Array[Double]) extends AnyVal with LineSegLikeDbl4Arr[Pt2, LineSeg] with Dbl4Arr[LineSeg] with AffinePreserve with
-Drawable
+Drawable with BoundedElem
 { type ThisT = LineSegArr
   def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
   override def typeStr: String = "LineSegArr"
@@ -135,6 +135,15 @@ Drawable
 
   /** Draws the [[LineSeg]]s with the given width and colour. */
   override def draw(lineWidth: Double = 2, colour: Colour = Black): LinesDraw = LinesDraw(this, lineWidth, colour)
+
+  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
+  override def boundingRect: Rect = ???
+
+  /** The width of the [[BoundingRect]] of this object. */
+  override def boundingWidth: Double = ???
+
+  /** The height of the [[BoundingRect]] of this object. */
+  override def boundingHeight: Double = ???
 }
 
 /** Companion object for the LineSegs class. */

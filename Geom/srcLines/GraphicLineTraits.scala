@@ -29,13 +29,21 @@ object LineSegDraw
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
-case class LinesDraw(lines: LineSegArr, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem
+case class LinesDraw(lines: LineSegArr, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem with BoundedElem
 { override type ThisT = LinesDraw
   override def ptsTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.ptsTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
 
   def svgElem: SvgElem = SvgGroup(lines.map(_.svgElem), StrokeAttrib(colour), StrokeWidthAttrib(lineWidth))
   override def svgElems: RArr[SvgElem] = RArr(svgElem)
+
+  override def boundingRect: Rect = ???
+
+  /** The width of the [[BoundingRect]] of this object. */
+  override def boundingWidth: Double = ???
+
+  /** The height of the [[BoundingRect]] of this object. */
+  override def boundingHeight: Double = ???
 }
 
 object LinesDraw
