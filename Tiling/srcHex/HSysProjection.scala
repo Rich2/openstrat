@@ -42,7 +42,7 @@ trait HSysProjection extends TSysProjection
   }
 
   /** Produces the side polygons from the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
-  def hSidePolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sideOptMapPair { hs =>
+  def hSidePolygons(f: HSep => Boolean, corners: HCornerLayer): HSepArrPair[Polygon] = gChild.sepOptMapPair { hs =>
     if(f(hs)) corners.sidePoly(hs)(parent).optMap(transOptHVOffset(_))
     else None
     }
@@ -77,7 +77,7 @@ trait HSysProjection extends TSysProjection
 
   def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
 
-  def sidesOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.sidesOptMap(f)
+  def sidesOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.sepsOptMap(f)
 
   def linksOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.linksOptMap(f)
 

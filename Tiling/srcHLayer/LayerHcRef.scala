@@ -242,7 +242,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
    *  [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    *  tile data values. */
   def sideMap[B, BB <: Arr[B]](f1: (HSep, A) => B, f2: (HSep, A, A) => B)(implicit grid: HGrid, build: BuilderArrMap[B, BB]): BB =
-    grid.sidesMap{ hs => hs.unsafeTiles match
+    grid.sepsMap{ hs => hs.unsafeTiles match
       {
         case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
         case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
@@ -262,7 +262,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
    *  [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    *  tile data values. */
   def sideFlatMap[BB <: Arr[_]](f1: (HSep, A) => BB, f2: (HSep, A, A) => BB)(implicit grid: HGridSys, build: BuilderArrFlat[BB]): BB =
-    grid.sidesFlatMap{ hs => hs.unsafeTiles match
+    grid.sepsFlatMap{ hs => hs.unsafeTiles match
     { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
       case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
       case (_, c2) => f1(hs, apply(c2))
@@ -278,7 +278,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
    * [[HSep]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSep]] and the two adjacent hex
    * tile data values. */
   def projSideFlatMap[BB <: Arr[_]](proj: HSysProjection)(f1: (HSep, A) => BB, f2: (HSep, A, A) => BB)(implicit build: BuilderArrFlat[BB]): BB =
-    proj.gChild.sidesFlatMap { hs =>
+    proj.gChild.sepsFlatMap { hs =>
       hs.unsafeTiles match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(proj.parent, c1), apply(proj.parent, c2))
         case (c1, _) if proj.gChild.hCenExists(c1) => f1(hs, apply(proj.parent, c1))

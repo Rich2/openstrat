@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import geom._
+import geom._, Colour.Black
 
 /** An SVG element. */
 trait SvgElem extends Xml1Lineable
@@ -88,15 +88,15 @@ object SvgLine
   def bare(x1: Double, y1: Double, x2: Double, y2: Double, otherAttribs: XmlAtt*): SvgLine = new SvgLine(x1, y1, x2, y2, otherAttribs.toArr)
 }
 
-class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign) extends SvgElem
+class SvgText(val x: Double, val y: Double, val text: String, val align: TextAlign, colour: Colour) extends SvgElem
 { override def tag: String = "text"
-  override def attribs: RArr[XmlAtt] = RArr(XXmlAtt(x), YXmlAtt(y), align.attrib)
+  override def attribs: RArr[XmlAtt] = RArr(XXmlAtt(x), YXmlAtt(y), align.attrib).appendIf(colour != Black, FillAttrib(colour))
   override def contents: RArr[XCon] = RArr(text.xCon)
 }
 
 object SvgText
-{ def apply(x: Double, y: Double, text: String, align: TextAlign): SvgText = new SvgText(x, y, text, align)
-  def apply(posn: Pt2, text: String, align: TextAlign): SvgText = new SvgText(posn.x, posn.y, text, align)
+{ def xy(x: Double, y: Double, text: String, align: TextAlign, colour: Colour = Black): SvgText = new SvgText(x, y, text, align, colour)
+  def apply(posn: Pt2, text: String, align: TextAlign, colour: Colour = Black): SvgText = new SvgText(posn.x, posn.y, text, align, colour)
 }
 
 class SvgGroup(val contents: RArr[XCon], val attribs: RArr[XmlAtt])extends SvgElem

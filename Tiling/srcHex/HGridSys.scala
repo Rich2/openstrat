@@ -263,8 +263,8 @@ trait HGridSys extends HCenStruct with TGridSys
   /** foreach hex edge / outer side's coordinate HSide, calls the effectual function. */
   def edgesForeach(f: HSep => Unit): Unit
 
-  /** maps over each Hex Side's coordinate [[HSep]] in the hex grid system. */
-  final def sidesMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
+  /** maps over each Hex Separator's coordinate [[HSep]] in the hex grid system. */
+  final def sepsMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numSides)
     var i = 0
     sidesForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
@@ -287,28 +287,28 @@ trait HGridSys extends HCenStruct with TGridSys
     res
   }
 
-  /** flatMaps over each Hex Side's coordinate [[HSep]]. */
-  final def sidesFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  /** flatMaps over each Hex Separator's coordinate [[HSep]]. */
+  final def sepsFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
-  /** Optionally maps over each Hex Side's coordinate [[HSep]]. */
-  final def sidesOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
+  /** Optionally maps over each Hex Separator's coordinate [[HSep]]. */
+  final def sepsOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     sidesForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
     build.buffToSeqLike(buff)
   }
 
   /** OptMaps each [[HSep]] of this hex grid system to an [[HSepPair]]. */
-  def sideOptMapPair[B2](f2: HSep => Option[B2])(implicit build: HSepBuilderArrPairMap[B2]): HSepArrPair[B2] =
+  def sepOptMapPair[B2](f2: HSep => Option[B2])(implicit build: HSepBuilderArrPairMap[B2]): HSepArrPair[B2] =
   { val buff = build.newBuff()
     sidesForeach { hSide => f2(hSide).foreach { b2 => buff.pairGrow(hSide, b2) } }
     build.buffToSeqLike(buff)
   }
 
-  /** flatMaps  over each inner hex Side's coordinate [[HSep]].. */
+  /** flatMaps  over each inner hex Separator's coordinate [[HSep]].. */
   final def linksFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
@@ -323,7 +323,7 @@ trait HGridSys extends HCenStruct with TGridSys
   }
 
   /** The [[HSep]] hex separator coordinates. */
-  final def seps: HSepArr = sidesMap(hs => hs)
+  final def seps: HSepArr = sepsMap(hs => hs)
 
   /** Does the [[HSep]] hex tile separator exist within this[[HGridSys]]. */
   def sepExists(r: Int, c: Int): Boolean = sepExists(HSep(r, c))
@@ -332,7 +332,7 @@ trait HGridSys extends HCenStruct with TGridSys
   def sepExists(hs: HSep): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
-  def sepLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
+  def sepLineSegHCs: LineSegHCArr = sepsMap(_.lineSegHC)
 
   /** The line segments of the inner separators defined in [[HCoord]] vertices. */
   def innerSepLineSegHCs: LineSegHCArr = linksMap(_.lineSegHC)

@@ -137,8 +137,13 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   def concatArrIf[AA >: A](b: Boolean, newElems: => RArr[AA])(implicit ct: ClassTag[AA]): RArr[AA] =
     ife(b,this ++ newElems, this)
 
-  /** Appends the elements of the operand Refs if the condition is true, else returns the original Refs. The operand is lazy so will only be evaluated
-   *  if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
+  /** Appends the element if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be evaluated if the condition
+   *  is true. This is similar to the concats If method, but appendsIf does not allow type widening. */
+  def appendIf(b: Boolean, newElem: => A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+    ife(b,this +% newElem, this)
+
+  /** Appends the elements of the operand [[RArr]] if the condition is true, else returns the original [[RArr]]. The operand is lazy so will only be
+   *  evaluated if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
   def appendArrIf(b: Boolean, newElems: => RArr[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
     ife(b,this ++ newElems, this)
 

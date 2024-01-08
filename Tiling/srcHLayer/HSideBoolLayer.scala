@@ -56,7 +56,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   /** Maps across all the trues in this Side Layer that exist in the projection. */
   def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
-    proj.gChild.sidesOptMap { hs => if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
+    proj.gChild.sepsOptMap { hs => if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
       else None
     }
 
@@ -77,7 +77,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   /** Maps across all the falses in this Side Layer that exist in the projection. */
   def projFalsesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
-    proj.gChild.sidesOptMap { hs =>
+    proj.gChild.sepsOptMap { hs =>
       if (!apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
       else None
     }

@@ -47,11 +47,13 @@ object TilingPage extends HtmlPage
     val grid: HGridReg = HGridReg(3, 6)
     debvar(grid.numTiles)
     val seps: LineSegHCArr = grid.sepLineSegHCs
-    val seps2: LinesDraw = seps.map(_.lineSeg).draw(2)
-    val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.str, 10, Black) }
-    val stuff = (cens +% seps2).scale(40)
-    val rect1: Rect = seps2.scale(40).boundingRect.addMargin(10)
-    val svg1: HtmlSvg = HtmlSvg(rect1, stuff, RArr(CentreBlockAtt))
+    val sc = 60
+    val seps2: LinesDraw = seps.map(_.lineSeg).draw(2).scale(sc)
+    val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
+    val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, 0.degs, 15, Blue, 10)}
+    val stuff = (cens).scale(sc)
+    val rect1: Rect = seps2.boundingRect.addHorrMargin(100).addVertMargin(10)
+    val svg1: HtmlSvg = HtmlSvg(rect1, seps2 %: stuff ++ spt, RArr(CentreBlockAtt))
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
