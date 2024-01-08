@@ -12,7 +12,7 @@ case class HtmlSvg(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlMult
 object HtmlSvg
 {
   def apply(rect: Rect, contents: RArr[GraphicElem], otherAtts: RArr[XmlAtt] = RArr()): HtmlSvg =
-  { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, rect.bottom, rect.width, rect.height)) ++ otherAtts
+  { val atts = RArr(WidthAtt(rect.width), HeightAtt(rect.height), ViewBox(rect.left, -rect.top, rect.width, rect.height)) ++ otherAtts
     val svgElems = contents.flatMap(_.svgElems)
     new HtmlSvg(svgElems, atts)
   }
@@ -66,15 +66,14 @@ object SvgRect
   def apply(attribs: RArr[XmlAtt], contents: RArr[XCon] = RArr()): SvgRect = new SvgRect(attribs, contents)
 }
 
+/** Class to produce an SVG line. */
 class SvgLine(val x1: Double, val y1: Double, val x2: Double, val y2: Double, otherAttribs: RArr[XmlAtt]) extends SvgElem
 { override def tag: String = "line"
-  val x1Att = XmlAtt("x1", x1.toString)
-  val y1Att = XmlAtt("y1", y1.toString)
-  val x2Att = XmlAtt("x2", x2.toString)
-  val y2Att =  XmlAtt("y2", y2.toString)
-
+  val x1Att: XmlAtt = XmlAtt("x1", x1.toString)
+  val y1Att: XmlAtt = XmlAtt("y1", (-y1).toString)
+  val x2Att: XmlAtt = XmlAtt("x2", x2.toString)
+  val y2Att: XmlAtt = XmlAtt("y2", (-y2).toString)
   override def attribs: RArr[XmlAtt] = RArr(x1Att, y1Att, x2Att, y2Att) ++ otherAttribs
-
   override def contents: RArr[XCon] = RArr()
 }
 

@@ -44,7 +44,7 @@ case class YXmlAtt(valueStr: String) extends XmlAtt
 }
 
 object YXmlAtt
-{ def apply(inp: Double): YXmlAtt = new YXmlAtt(inp.toString)
+{ def apply(inp: Double): YXmlAtt = new YXmlAtt((-inp).toString)
 }
 
 object CentreBlockAtt extends ClassAtt("centreBlock")

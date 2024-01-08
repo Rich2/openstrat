@@ -54,6 +54,8 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   override def ptsTrans(f: Pt2 => Pt2): LinePathDraw = LinePathDraw(path.ptsTrans(f), lineWidth, colour)
   @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.vertsTailForeach(f)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
+
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 /** This class will be replaced but extends [[CanvElem]] as a temporary measure. */
@@ -65,6 +67,8 @@ case class DashedLineDraw(curveSeg: LineSeg, lineWidth: Double, colour: Colour, 
   def typeStr: String = "DashedLineDraw"
   override def ptsTrans(f: Pt2 => Pt2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
+
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 object DashedLineDraw
