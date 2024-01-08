@@ -30,7 +30,7 @@ trait EGridLongMulti extends EGridSys with EGridMulti
     ife(i < 0 | i >= gridMans.length, None, Some(gridMans(i)))
   }
 
-  override def sideTileLtOpt(hSide: HSep): Option[HCen] = manFind(hSide).flatMap(_.sideTileLtFind(hSide))
+  override def sepTileLtOpt(hSide: HSep): Option[HCen] = manFind(hSide).flatMap(_.sideTileLtFind(hSide))
 
-  override def sideTileRtOpt(hSide: HSep): Option[HCen] = manFind(hSide).flatMap(_.sideTileRtFind(hSide))
+  override def sepTileRtOpt(hSide: HSep): Option[HCen] = manFind(hSide).flatMap(_.sideTileRtFind(hSide))
 }

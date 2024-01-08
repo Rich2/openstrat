@@ -25,13 +25,13 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
   /** The [[HCenOrSep]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 
-  override def sideTileLtOpt(hSide: HSep): Option[HCen] =
-  { val ot: HCen = sideTileLtUnsafe(hSide)
+  override def sepTileLtOpt(hSide: HSep): Option[HCen] =
+  { val ot: HCen = sepTileLtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 
   /** Needs reimplementing. */
-  def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) = hSide.tileLtAndVert
+  def sepTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) = hSide.tileLtAndVert
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
@@ -74,7 +74,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
   //override def numTiles: Int = numRow2s * row2sTileNum + numRow0s * row0sTileNum
   override def numTileRows: Int = numRow2s + numRow0s
 
-  /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
+  /** foreachs over each hex tile's [[HCen]] in the given Row. The row is specified by its r value. */
   override def rowForeach(r: Int)(f: HCen => Unit): Unit =
     if (r %% 4 == 2) iToForeach(leftrem2CenC, rightRem2CenC, 4)(c => f(HCen(r, c)))
     else iToForeach(leftRem0CenC, rightRem0CenC, 4)(c => f(HCen(r, c)))

@@ -31,10 +31,10 @@ trait HSep extends HCenOrSep with TSep
   def unsafeTiles: (HCen, HCen)
 
   /** Returns the [[HCen]] of the right hand tile needs modification. */
-  def tileRt(implicit sys: HGridSys): HCen = sys.sideTileRtUnsafe(this)
+  def tileRt(implicit sys: HGridSys): HCen = sys.sepTileRtUnsafe(this)
 
   /** Returns the [[HCen]] of the left hand tile needs modification. */
-  def tileLt(implicit sys: HGridSys): HCen = sys.sideTileLtUnsafe(this)
+  def tileLt(implicit sys: HGridSys): HCen = sys.sepTileLtUnsafe(this)
 
   /** Returns the tile and upper vertex index for this side. */
   def tileLtAndVert: (HCen, Int)
@@ -44,9 +44,9 @@ trait HSep extends HCenOrSep with TSep
   /** Returns the [[HCen]] of the right tile and the index of the upper vertex it follows the sides in clockwise direction. */
   def tileRtAndVert: (HCen, Int)
 
-  def tileLtOpt(implicit sys: HGridSys): Option[HCen] = sys.sideTileLtOpt(this)
+  def tileLtOpt(implicit sys: HGridSys): Option[HCen] = sys.sepTileLtOpt(this)
 
-  def tileRtOpt(implicit sys: HGridSys): Option[HCen] = sys.sideTileRtOpt(this)
+  def tileRtOpt(implicit sys: HGridSys): Option[HCen] = sys.sepTileRtOpt(this)
 
   /** The left tile in the [[HGrid]]. It may not exist in the [[HGridSys]], but guaranteed to exist if the side is a link / inner side of an [[HGrid]]. */
   def tileLtReg: HCen

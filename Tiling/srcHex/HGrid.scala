@@ -335,12 +335,12 @@ trait HGrid extends TGrid with HGridSys with Tell
   /** Not correct yet. */
   override def findSideTiles(hs: HSep ): Option[(HCen, HCen)] = Some(hs.tileLtReg, hs.tileRtReg)
 
-  override def sideTileLtUnsafe(hSide: HSep): HCen = hSide.tileLtReg
+  override def sepTileLtUnsafe(hSide: HSep): HCen = hSide.tileLtReg
 
-  override def sideTileRtUnsafe(hSide: HSep): HCen = hSide.tileRtReg
+  override def sepTileRtUnsafe(hSide: HSep): HCen = hSide.tileRtReg
 
-  override def sideTileRtOpt(hSide: HSep): Option[HCen] =
-  { val ot: HCen = sideTileRtUnsafe(hSide)
+  override def sepTileRtOpt(hSide: HSep): Option[HCen] =
+  { val ot: HCen = sepTileRtUnsafe(hSide)
     ife(hCenExists(ot), Some(ot), None)
   }
 

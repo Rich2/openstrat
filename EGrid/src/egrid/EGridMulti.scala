@@ -74,11 +74,11 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   final override def hCenExists(r: Int, c: Int): Boolean = manFind(r, c).fold(false)(_.hCenExists(r, c))
 
-  override def sideTileLtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
+  override def sepTileLtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
 
-  override def sideTileRtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
+  override def sepTileRtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileRtUnsafe(hSide))
 
-  def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) = manMapex(hSide)(_.sideTileLtAndVertUnsafe(hSide))
+  def sepTileLtAndVertUnsafe(hSide: HSep): (HCen, Int) = manMapex(hSide)(_.sideTileLtAndVertUnsafe(hSide))
 
   final override def adjTilesOfTile(origR: Int, origC: Int): HCenArr = manMapex(origR, origC)(_.adjTilesOfTile(origR, origC))
 

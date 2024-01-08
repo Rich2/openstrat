@@ -116,19 +116,19 @@ trait HGridSys extends HCenStruct with TGridSys
   /** Returns a clockwise sequence of adjacent tiles. */
   final def adjTilesOfTile(origin: HCen): HCenArr = adjTilesOfTile(origin.r, origin.c)
 
-  def sideTileRtOpt(hSide: HSep): Option[HCen]
+  def sepTileRtOpt(hSide: HSep): Option[HCen]
 
-  /** This method should only be used when you know the side tile exists. */
-  def sideTileRtUnsafe(hSide: HSep): HCen
+  /** This method should only be used when you know the hex separator exists. */
+  def sepTileRtUnsafe(hSide: HSep): HCen
 
-  def sideTileLtOpt(hSide: HSep): Option[HCen]
+  def sepTileLtOpt(hSide: HSep): Option[HCen]
 
-  /** This method should only be used when you know the side tile exists. */
-  def sideTileLtUnsafe(hSide: HSep): HCen
+  /** This method should only be used when you know the hex separator exists. */
+  def sepTileLtUnsafe(hSide: HSep): HCen
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
-  def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int)
+  def sepTileLtAndVertUnsafe(hSide: HSep): (HCen, Int)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)
 
