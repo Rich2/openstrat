@@ -45,6 +45,8 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** Adds a margin to top and bottom of this [[Rect]], rectangle aligned with the XY axes, moving the sides out by the given parameter. */
   def addVertMargin(delta: Double): Rect = Rect(width, height, cenX, cenY)
 
+  /** Adds a margin to this [[Rect]], rectangle aligned with the XY axes, moving the sides out by the given parameter. */
+  def addHorrVertMargin(horrDelta: Double, vertDelta: Double): Rect = Rect(width + 2 * horrDelta, height + 2 * vertDelta, cenX, cenY)
 
   /** Creates a union of the Rects for bounding rectangles. */
   def ||(operand: Rect): Rect =

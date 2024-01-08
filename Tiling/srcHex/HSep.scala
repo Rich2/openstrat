@@ -2,10 +2,10 @@
 package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer, geom._, pgui._, reflect.ClassTag
 
-/** A Hex side coordinate in a Hex Grid.
- * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
- * So Side 2 on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
- * So Side 3 on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
+/** A Hex separator coordinate in a Hex Grid.
+ * So [[HSepA]] on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
+ * So [[HSepB]] on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
+ * So [[HSepC]] on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
 trait HSep extends HCenOrSep with TSep
 { override def typeStr: String = "HSide"
 
@@ -70,6 +70,8 @@ trait HSep extends HCenOrSep with TSep
     val ls1: LineSegHVAndOffset = sideLineHVAndOffSet(corners)(proj.parent)
     ls1.mapOpt(proj.transOptHVOffset(_))
   }
+
+  def anglePerpRt: Angle
 }
 
 /** Companion object for the [[HSep]] class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
@@ -133,6 +135,8 @@ class HSepA(val r: Int, val c: Int) extends HSep
   override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
     if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 3), corners.cornerV1(tileRt, 4))
     else LineSegHVAndOffset(tileRt.v3Exact, tileRt.v4Exact)
+
+  override def anglePerpRt: Angle = 60.degs
 }
 
 object HSepA
@@ -167,6 +171,8 @@ class HSepB(val r: Int, val c: Int) extends HSep
   override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
     if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 4), corners.cornerV1(tileRt, 5))
     else LineSegHVAndOffset(tileRt.v4Exact, tileRt.v5Exact)
+
+  override def anglePerpRt: Angle = 0.degs
 }
 
 object HSepB
@@ -206,6 +212,8 @@ class HSepC(val r: Int, val c: Int) extends HSep
   override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
     if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 5), corners.cornerV1(tileRt, 0))
     else LineSegHVAndOffset(tileRt.v5Exact, tileRt.v0Exact)
+
+  override def anglePerpRt: Angle = -60.degs
 }
 
 object HSepC
