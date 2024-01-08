@@ -63,7 +63,7 @@ trait EGridMan
 
   /** Foreach's over sides of the [[HGrid]] that are links ar inner sides within the [[HGridSys]]. Note this wil include all the links of the
    * [[HGrid]] plus outer sides of the [[HGrid]] that link to hexs in other [[HGrid]]s within the system. */
-  final def linksForeach(f: HSep => Unit): Unit = grid.innerSideRowsForeach(r => innerRowInnerSidesForeach(r)(f))
+  final def linksForeach(f: HSep => Unit): Unit = grid.innerSepRowsForeach(r => innerRowInnerSidesForeach(r)(f))
 
   lazy val sideIndexStart: Int =
     ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)

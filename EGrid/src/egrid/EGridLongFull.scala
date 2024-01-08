@@ -10,7 +10,7 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
   {
     case hc: HCen => hCoordMiddleLL(hc)
     case HVertHigh(r, _) if r == topSideR => hCoordMiddleLL(hc)
-    case HVertLow(r, _) if r == bottomSideR => hCoordMiddleLL(hc)
+    case HVertLow(r, _) if r == bottomSepR => hCoordMiddleLL(hc)
     //case c if hc.r.div4Rem3 & c.div4Rem2 => hCoordMiddleLL(hc)
 
     case cx if hc.c == rowRightCoordC(hc.r, hc.c) =>

@@ -71,15 +71,15 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   def rowSidesForeach(r: Int)(f: HSep => Unit): Unit = r match
-  { case r if r == grid.topSideR | r == grid.bottomSideR => grid.rowForeachSide(r)(f)
+  { case r if r == grid.topSideR | r == grid.bottomSepR => grid.rowForeachSep(r)(f)
 
     case r if r.isEven & (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
-      iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) + 2, 4){c => f(HSep(r, c)) }
+      iToForeach(grid.rowLeftSepC(r), grid.rowRightCenC(r) + 2, 4){ c => f(HSep(r, c)) }
 
-    case r if r.isEven => iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) - 2, 4){c => f(HSep(r, c)) }
+    case r if r.isEven => iToForeach(grid.rowLeftSepC(r), grid.rowRightCenC(r) - 2, 4){ c => f(HSep(r, c)) }
 
     case r if isRightMan =>
-    { val ls: Int = grid.rowLeftSideC(r)
+    { val ls: Int = grid.rowLeftSepC(r)
       val rs: Int = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
       iToForeach(ls, rs, 2)(c => f(HSep(r, c)))
     }
@@ -94,7 +94,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   override def outerSidesForeach(f: HSep => Unit): Unit = None match
   {
     case _ if isLeftMan =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSideR, c)))
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSepR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
         case r if r.isEven => f(HSep(r, grid.rowLeftCenC(r) -2))
         case r =>
@@ -109,7 +109,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
 
     case _ if isRightMan =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSideR, c)))
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSepR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
         case r if r.isEven => f(HSep(r, grid.rowRightCenC(r) + 2))
         case r =>
@@ -124,7 +124,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     }
 
     case _ =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSideR, c)))
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSep(grid.bottomSepR, c)))
       if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSep(grid.topSideR, c)))
     }
   }
@@ -134,7 +134,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     else r match
     {
       case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) - 2, 4){ c => f(HSep(r, c)) }
-      case r if r == grid.bottomSideR =>
+      case r if r == grid.bottomSepR =>
       case r if r == grid.topSideR =>
 
       case r =>
@@ -145,21 +145,21 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   }
 
   override def sideArrIndex(r: Int, c : Int): Int =
-    sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.rowLeftSideC(r)) / 4,(c - grid.rowLeftSideC(r)) / 2)
+    sideRowIndexArray(r - grid.bottomSepR) + ife(r.isEven, (c - grid.rowLeftSepC(r)) / 4,(c - grid.rowLeftSepC(r)) / 2)
 
   final override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
 
   /** Array of indexes for Side data Arrs giving the index value for the start of each side row. */
   lazy val sideRowIndexArray: Array[Int] =
-  { val array = new Array[Int](grid.numOfSideRows)
+  { val array = new Array[Int](grid.numOfSepRows)
     array(0) = 0
     var count = 0
     grid.bottomRowForeachSide{_ => count += 1}
-    grid.innerSideRowsForeach{ r =>
-      array(r - grid.bottomSideR) = count
+    grid.innerSepRowsForeach{ r =>
+      array(r - grid.bottomSepR) = count
       rowSidesForeach(r){_ => count += 1}
     }
-    array(grid.topSideR - grid.bottomSideR) = count
+    array(grid.topSideR - grid.bottomSepR) = count
     array
   }
 
@@ -168,7 +168,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     if (grid.hCenExists(hCen1)) Some(hCen1)
     else hSide match
     { case _ if isLeftMan => None
-      case HSepA(r, c) if r <=ltGrid.bottomSideR => None
+      case HSepA(r, c) if r <=ltGrid.bottomSepR => None
       case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some(HCen(r - 1, ltGrid.rowRightCenC(r - 1)))
       case HSepA(r, _) => Some(HCen(r + 1, ltGrid.rowRightCenC(r + 1)))
       case HSepB(r, _) => Some(HCen(r, ltGrid.rowRightCenC(r)))
@@ -187,7 +187,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HSepA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
       case HSepA(r, _) => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
       case HSepB(r, _) => Some(HCen(r, rtGrid.rowLeftCenC(r)))
-      case HSepC(r, _) if r <= rtGrid.bottomSideR => None
+      case HSepC(r, _) if r <= rtGrid.bottomSepR => None
       case HSepC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => Some(HCen(r - 1, rtGrid.rowLeftCenC(r - 1)))
       case HSepC(r, _) => Some(HCen(r + 1, rtGrid.rowLeftCenC(r + 1)))
     }
@@ -197,7 +197,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) Some(hSide.tileLtAndVert)
     else hSide match
-    { case HSepA(r, c) if r <= ltGrid.bottomSideR => None
+    { case HSepA(r, c) if r <= ltGrid.bottomSepR => None
       case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => Some((HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0))
       case HSepA(r, _) => Some((HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3))
       case HSepB(r, _) => Some((HCen(r, ltGrid.rowRightCenC(r)), 1))
@@ -216,7 +216,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HSepA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowRightCenC(r - 1) - 2 => Some((HCen(r + 1, rtGrid.rowRightCenC(r + 1)), 0))
       case HSepA(r, _) => Some((HCen(r - 1, rtGrid.rowLeftCenC(r - 1)), 3))
       case HSepB(r, _) => Some((HCen(r, rtGrid.rowLeftCenC(r)), 1))
-      case HSepC(r, _) if r <= rtGrid.bottomSideR => None
+      case HSepC(r, _) if r <= rtGrid.bottomSepR => None
       case HSepC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowRightCenC(r + 1) - 2 => Some((HCen(r - 1, rtGrid.rowRightCenC(r - 1)), 2))
       case HSepC(r, _) => Some((HCen(r + 1, rtGrid.rowLeftCenC(r + 1)), 0))
     }
@@ -226,7 +226,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) hSide.tileLtAndVert
     else hSide match
-    { case HSepA(r, c) if r <= ltGrid.bottomSideR => excep("HCen below bottom.")
+    { case HSepA(r, c) if r <= ltGrid.bottomSepR => excep("HCen below bottom.")
       case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 => (HCen(r - 1, ltGrid.rowRightCenC(r - 1)), 0)
       case HSepA(r, _) => (HCen(r + 1, ltGrid.rowRightCenC(r + 1)), 3)
       case HSepB(r, _) => (HCen(r, ltGrid.rowRightCenC(r)), 1)
@@ -240,7 +240,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
   { val hCen1 = hSide.tileLtReg
     if (grid.hCenExists(hCen1)) hCen1
     else hSide match
-    { case HSepA(r, c) if r <= ltGrid.bottomSideR => excep(s"Bottom, $r, $c, returning ${hSide.tileRtReg}")
+    { case HSepA(r, c) if r <= ltGrid.bottomSepR => excep(s"Bottom, $r, $c, returning ${hSide.tileRtReg}")
       case HSepA(r, _) if ltGrid.rowRightCenC(r - 1) == ltGrid.rowRightCenC(r + 1) + 2 =>  HCen(r - 1, ltGrid.rowRightCenC(r - 1))
       case HSepA(r, _) => HCen(r + 1, ltGrid.rowRightCenC(r + 1))
       case HSepB(r, _) => HCen(r, ltGrid.rowRightCenC(r))
@@ -260,7 +260,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
       case HSepA(r, _) if rtGrid.rowLeftCenC(r + 1) == rtGrid.rowLeftCenC(r - 1) - 2 => HCen(r + 1, ltGrid.rowLeftCenC(r + 1))
       case HSepA(r, _) => HCen(r - 1, rtGrid.rowLeftCenC(r - 1))
       case HSepB(r, _) => HCen(r, rtGrid.rowLeftCenC(r))
-      case HSepC(r, _) if r <= rtGrid.bottomSideR => {
+      case HSepC(r, _) if r <= rtGrid.bottomSepR => {
         deb("Bottom"); hSide.tileLtReg
       }
       case HSepC(r, _) if rtGrid.rowLeftCenC(r - 1) == rtGrid.rowLeftCenC(r + 1) - 2 => HCen(r - 1, ltGrid.rowRightCenC(r - 1))
@@ -332,7 +332,7 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     dirn match
     { case _ if grid.hCoordExists(hc) => Some(hc)
       case HVUp | HVUR | HVUL if r == grid.topSideR => None
-      case HVDR | HVDn | HVDL if r == grid.bottomSideR => None
+      case HVDR | HVDn | HVDL if r == grid.bottomSepR => None
       case HVUR | HVRt | HVDR if isRightMan => None
       case HVDL | HVLt | HVUL  if isLeftMan => None
 

@@ -126,8 +126,6 @@ trait HGridSys extends HCenStruct with TGridSys
   /** This method should only be used when you know the hex separator exists. */
   def sepTileLtUnsafe(hSide: HSep): HCen
 
-  //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
-
   def sepTileLtAndVertUnsafe(hSide: HSep): (HCen, Int)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)
@@ -350,8 +348,26 @@ trait HGridSys extends HCenStruct with TGridSys
    *  / Array data. */
   def vertArrIndex(r: Int, c: Int): Int = 0
 
-  def findSideTiles(hs: HSep ): Option[(HCen, HCen)] = ???
+  def findSepTiles(hs: HSep ): Option[(HCen, HCen)] = ???
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
   def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord]
+
+  /** foreach Hex vertex coordinate [[HVert]], calls the effectual function. */
+  def vertsForeach(f: HVert => Unit): Unit = ???
+
+  /** maps over each Hex Separator's coordinate [[HSep]] in the hex grid system. */
+  final def vertsMap[B, ArrT <: Arr[B]](f: HVert => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
+  { val res: ArrT = build.uninitialised(numSides)
+    var i = 0
+    vertsForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
+    res
+  }
+
+  /** flatMaps over each Hex vertex's coordinate [[HVert]]. */
+  final def vertsFlatMap[ArrT <: Arr[_]](f: HVert => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  { val buff = build.newBuff()
+    vertsForeach{hs => build.buffGrowArr(buff, f(hs)) }
+    build.buffToSeqLike(buff)
+  }
 }

@@ -53,13 +53,13 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   /** The [[HCenOrSep]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 
-  override def rowForeachSide(r: Int)(f: HSep => Unit): Unit = r match
+  override def rowForeachSep(r: Int)(f: HSep => Unit): Unit = r match
   { case r if r.isEven =>
     { rowForeach(r){ hc => f(HSep(hc.r, hc.c -2)) }
       if (rowNumTiles(r) > 0) f(HSep(r, rowRightCenC(r) + 2))
     }
 
-    case r if r == bottomSideR => rowForeach(r + 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
+    case r if r == bottomSepR => rowForeach(r + 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
     case r if r == topSideR => rowForeach(r - 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
 
     case r =>
@@ -71,7 +71,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
 
   override def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit = r match
   { case r if r.isEven => iToForeach(rowLeftCenC(r) + 2, rowRightCenC(r) -2, 4){ c => f(HSep(r, c)) }
-    case r if r == bottomSideR =>
+    case r if r == bottomSepR =>
     case r if r == topSideR =>
 
     case r =>
@@ -83,7 +83,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
 
   override def edgesForeach(f: HSep => Unit): Unit = if (numTileRows > 0)
   {
-    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSep(bottomSideR, c)))
+    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSep(bottomSepR, c)))
     iToForeach(bottomCenR, topCenR){r => r match{
       case r if r.isEven => { f(HSep(r, rowLeftCenC(r) -2)); f(HSep(r, rowRightCenC(r) + 2)) }
       case r => {
@@ -109,12 +109,12 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   override def sepLayerArrayIndex(r: Int, c: Int): Int =
   { val cDelta = r match
     { case r if r == topSideR => c - rowLeftCenC(r - 1) + 1
-      case r if r == bottomSideR => c - rowLeftCenC(r + 1) + 1
+      case r if r == bottomSepR => c - rowLeftCenC(r + 1) + 1
       case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
       case r => c - rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) + 1
     }
     val ic = cDelta / 2
-    sideRowIndexArray(r - bottomSideR) + ic
+    sepRowIndexArray(r - bottomSepR) + ic
   }
 
   override def gridLeftCenC: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowLeftCenC(r)))

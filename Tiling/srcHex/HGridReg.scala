@@ -115,19 +115,19 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
     case _ => true
   }}
 
-  override def rowForeachSide(r: Int)(f: HSep => Unit): Unit = r match
-  { case r if r == topSideRow & r.div4Rem3 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSep(r, c)) }
-    case r if r == topSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSep(r, c)) }
+  override def rowForeachSep(r: Int)(f: HSep => Unit): Unit = r match
+  { case r if r == topSepRow & r.div4Rem3 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSep(r, c)) }
+    case r if r == topSepRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSep(r, c)) }
     case r if r.div4Rem2 => iToForeach(leftrem2CenC - 2, rightRem2CenC + 2, 4){ c => f(HSep(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC - 2, rightRem0CenC + 2, 4){ c => f(HSep(r, c)) }
-    case r if r == bottomSideR & r.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSep(r, c)) }
-    case r if r == bottomSideR => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSep(r, c)) }
+    case r if r == bottomSepR & r.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSep(r, c)) }
+    case r if r == bottomSepR => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSep(r, c)) }
     case r => iToForeach(gridLeftCenC - 1, gridRightCenC + 1, 2){ c => f(HSep(r, c)) }
   }
 
   override def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit = r match
-  { case r if r >= topSideRow => excep(r.toString + " is not an inner row.")
-    case r if r <= bottomSideR => excep(r.toString + " is not an inner row.")
+  { case r if r >= topSepRow => excep(r.toString + " is not an inner row.")
+    case r if r <= bottomSepR => excep(r.toString + " is not an inner row.")
     case r if r.div4Rem2 => iToForeach(leftrem2CenC + 2, rightRem2CenC - 2, 4){ c => f(HSep(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC + 2, rightRem0CenC - 2, 4){ c => f(HSep(r, c)) }
     case r => iToForeach(gridLeftCenC + 1, gridRightCenC - 1, 2){ c => f(HSep(r, c)) }
@@ -157,13 +157,13 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
   { val cDelta = r match
     { case r if r == topSideR  & (r - 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
       case r if r == topSideR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
-      case r if r == bottomSideR & (r + 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
-      case r if r == bottomSideR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
+      case r if r == bottomSepR & (r + 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
+      case r if r == bottomSepR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
       case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
       case r => c - gridLeftCenC + 1
     }
     val ic = cDelta / 2
-    sideRowIndexArray(r - bottomSideR) + ic
+    sepRowIndexArray(r - bottomSepR) + ic
   }
 
   /** The number of tile sides in the top side row of the hex grid. */
@@ -174,7 +174,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
 
   override def edgesForeach(f: HSep => Unit): Unit = if (topCenR >= bottomCenR)
   {
-    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSep(bottomSideR, c)))
+    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSep(bottomSepR, c)))
     iToForeach(bottomCenR, topCenR){r => r match{
       case r if r.isEven => { f(HSep(r, rowLeftCenC(r) - 2)); f(HSep(r, rowRightCenC(r) + 2)) }
       case r => { f(HSep(r, gridLeftCenC - 1)); f(HSep(r, gridRightCenC + 1)) }

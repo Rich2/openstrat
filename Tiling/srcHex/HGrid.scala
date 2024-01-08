@@ -85,8 +85,8 @@ trait HGrid extends TGrid with HGridSys with Tell
   { //sides
     case (1, 3) | (3, 1) if row == topSideR => rowRightCenC(row - 1) - 2
     case (1, 1) | (3, 3) if row == topSideR => rowRightCenC(row - 1) + 2
-    case (1, 3) | (3, 1) if row == bottomSideR => rowRightCenC(row + 1) + 2
-    case (1, 1) | (3, 3) if row == bottomSideR => rowRightCenC(row + 1) - 2
+    case (1, 3) | (3, 1) if row == bottomSepR => rowRightCenC(row + 1) + 2
+    case (1, 1) | (3, 3) if row == bottomSepR => rowRightCenC(row + 1) - 2
     case (1, 3) | (3, 1) => (rowRightCenC(row + 1) + 2) max (rowRightCenC(row - 1) - 2)
     case (1, 1) | (3, 3) => (rowRightCenC(row + 1) - 2) max (rowRightCenC(row - 1) + 2)
     case (2, 0) | (0, 2) => rowRightCenC(row) + 2
@@ -100,8 +100,8 @@ trait HGrid extends TGrid with HGridSys with Tell
     //verts
     case (1, 2) | (3, 0) if row == topSideR => rowRightCenC(row - 1) + 2
     case (1, 0) | (3, 2) if row == topSideR => rowRightCenC(row - 1)
-    case (1, 2) | (3, 0) if row == bottomSideR => rowRightCenC(row + 1)
-    case (1, 0) | (3, 2) if row == bottomSideR => rowRightCenC(row + 1) + 2
+    case (1, 2) | (3, 0) if row == bottomSepR => rowRightCenC(row + 1)
+    case (1, 0) | (3, 2) if row == bottomSepR => rowRightCenC(row + 1) + 2
     case (1, 2) | (3, 0) => (rowRightCenC(row - 1) + 2) max rowRightCenC(row + 1)
     case _ => rowRightCenC(row - 1) max (rowRightCenC(row + 1) + 2)
   }
@@ -110,8 +110,8 @@ trait HGrid extends TGrid with HGridSys with Tell
   { //Sides
     case (1, 3) | (3, 1) if row == topSideR => rowLeftCenC(row - 1) - 2
     case (1, 1) | (3, 3) if row == topSideR => rowLeftCenC(row - 1) + 2
-    case (1, 3) | (3, 1) if row == bottomSideR => rowLeftCenC(row + 1) + 2
-    case (1, 1) | (3, 3) if row == bottomSideR => rowLeftCenC(row + 1) - 2
+    case (1, 3) | (3, 1) if row == bottomSepR => rowLeftCenC(row + 1) + 2
+    case (1, 1) | (3, 3) if row == bottomSepR => rowLeftCenC(row + 1) - 2
     case (1, 3) | (3, 1) => (rowLeftCenC(row + 1) + 2) min (rowLeftCenC(row - 1) - 2)
     case (1, 1) | (3, 3) => (rowLeftCenC(row + 1) - 2) min (rowLeftCenC(row - 1) + 2)
     case (2, 0) | (0, 2) => rowLeftCenC(row) - 2
@@ -125,8 +125,8 @@ trait HGrid extends TGrid with HGridSys with Tell
     //verts
     case (1, 2) | (3, 0) if row == topSideR => rowLeftCenC(row - 1) - 2
     case (1, 0) | (3, 2) if row == topSideR => rowLeftCenC(row - 1)
-    case (1, 2) | (3, 0) if row == bottomSideR => rowLeftCenC(row + 1)
-    case (1, 0) | (3, 2) if row == bottomSideR => rowLeftCenC(row + 1) - 2
+    case (1, 2) | (3, 0) if row == bottomSepR => rowLeftCenC(row + 1)
+    case (1, 0) | (3, 2) if row == bottomSepR => rowLeftCenC(row + 1) - 2
 
     case (1, 2) | (3, 0) => (rowLeftCenC(row - 1) - 2) min rowLeftCenC(row + 1)
     case _ => rowLeftCenC(row - 1) min (rowLeftCenC(row + 1) - 2)
@@ -135,10 +135,10 @@ trait HGrid extends TGrid with HGridSys with Tell
   def hCoordExists(hCoord: HCoord): Boolean = hCoordExists(hCoord.r, hCoord.c)
   def hCoordExists(r: Int, c: Int): Boolean = None match
   { case _ if r > topSideR => false
-    case _ if r < bottomSideR => false
+    case _ if r < bottomSepR => false
     case _ if r.isEven => (c <= rowRightCenC(r) + 2) & (c >= rowLeftCenC(r) - 2)
     case _ if r == topSideR => c <= (rowRightCenC(r - 1) + 2) & c >= (rowLeftCenC(r - 1) - 2)
-    case _ if r == bottomSideR  => (c <= rowRightCenC(r + 1) + 2) & (c >= rowLeftCenC(r + 1) - 2)
+    case _ if r == bottomSepR  => (c <= rowRightCenC(r + 1) + 2) & (c >= rowLeftCenC(r + 1) - 2)
     case _ if c > rowRightCenC(r -1).max(rowRightCenC(r + 1)) + 2 => false
     case _ if c < rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 2 => false
     case _ => true
@@ -261,7 +261,7 @@ trait HGrid extends TGrid with HGridSys with Tell
       iToForeach(lastC + 2, currC + 2, step){ c => buff.growInts(currR + 1, c) }
       lastC = currC
     }
-    iToForeach(rowRightCenC(bottomCenR) + 2, rowLeftCenC(bottomCenR) - 2, -2){ c => buff.growInts(bottomSideR, c)}
+    iToForeach(rowRightCenC(bottomCenR) + 2, rowLeftCenC(bottomCenR) - 2, -2){ c => buff.growInts(bottomSepR, c)}
     lastC = rowLeftCenC(bottomCenR)
     iToForeach(br + 2, tr, 2) { currR =>
       val lastR = currR - 2
@@ -277,63 +277,63 @@ trait HGrid extends TGrid with HGridSys with Tell
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  final override def sepsForeach(f: HSep => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
+  final override def sepsForeach(f: HSep => Unit): Unit = sepRowsForeach(r => rowForeachSep(r)(f))
 
-  final def linksForeach(f: HSep => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+  final def linksForeach(f: HSep => Unit): Unit = innerSepRowsForeach(r => innerRowForeachInnerSide(r)(f))
 
   def edgesForeach(f: HSep => Unit): Unit
 
-  /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
-  def rowForeachSide(r: Int)(f: HSep => Unit): Unit
+  /** Calls the Foreach procedure on every hex separator [[HSep]] in the row given by the input parameter. */
+  def rowForeachSep(r: Int)(f: HSep => Unit): Unit
 
-  def rowNumSides(r:Int): Int =
+  def rowNumSeps(r:Int): Int =
   { var i = 0
-    rowForeachSide(r){_ => i += 1}
+    rowForeachSep(r){ _ => i += 1}
     i
   }
 
   val sideIndexArr: Array[Int] =
-  { val array = new Array[Int]((topSideR - bottomSideR + 1).max(2))
+  { val array = new Array[Int]((topSideR - bottomSepR + 1).max(2))
     array(0) = 0
     var i = 0
     var acc = 0
-    iUntilForeach(bottomSideR, topSideR){ r =>
+    iUntilForeach(bottomSepR, topSideR){ r =>
       i += 1
-      acc += rowNumSides(r)
+      acc += rowNumSeps(r)
       array(i) = acc
     }
     array
   }
 
-  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
-  lazy val sideRowIndexArray: Array[Int] =
-  { val array = new Array[Int](numOfSideRows)
+  /** Array of indexs for separator data Arrs giving the index value for the start of each separator row. */
+  lazy val sepRowIndexArray: Array[Int] =
+  { val array = new Array[Int](numOfSepRows)
     var count = 0
-    sideRowsForeach{y =>
-      array(y - bottomSideR) = count
-      rowForeachSide(y)(_ => count += 1)
+    sepRowsForeach{ y =>
+      array(y - bottomSepR) = count
+      rowForeachSep(y)(_ => count += 1)
     }
     array
   }
 
   def topRowForeachSide(f: HSep => Unit): Unit =
-    iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSep(topSideRow, c)) }
+    iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSep(topSepRow, c)) }
 
   def bottomRowForeachSide(f: HSep => Unit): Unit =
-    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSep(bottomSideR, c)) }
+    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSep(bottomSepR, c)) }
 
   def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit
   def newSideBooleans: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
-  def rowLeftSideC(r: Int): Int = r match
+  def rowLeftSepC(r: Int): Int = r match
   { case r if r == topSideR => rowLeftCenC(topCenR) - 1
-    case r if r == bottomSideR => rowLeftCenC(bottomCenR) - 1
+    case r if r == bottomSepR => rowLeftCenC(bottomCenR) - 1
     case r if r.isEven => rowLeftCenC(r) - 2
     case r => rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1
   }
 
   /** Not correct yet. */
-  override def findSideTiles(hs: HSep ): Option[(HCen, HCen)] = Some(hs.tileLtReg, hs.tileRtReg)
+  override def findSepTiles(hs: HSep ): Option[(HCen, HCen)] = Some(hs.tileLtReg, hs.tileRtReg)
 
   override def sepTileLtUnsafe(hSide: HSep): HCen = hSide.tileLtReg
 
@@ -349,6 +349,13 @@ trait HGrid extends TGrid with HGridSys with Tell
   { val hc2: HCoord = hVert.dirnTo(dirn)
     ifSome(hCoordExists(hc2), hc2)
   }
+
+  /** foreach Hex side's coordinate HSide, calls the effectfull function.
+   * @group SidesGroup */
+  final override def vertsForeach(f: HVert => Unit): Unit = sepRowsForeach(r => rowForeachVert(r)(f))
+
+  /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
+  def rowForeachVert(r: Int)(f: HVert => Unit): Unit = ??? // iToForeach(rowLeftSepC(r) - 1, rowRigthCenC)
 }
 
 object HGrid

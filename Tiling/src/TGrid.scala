@@ -75,21 +75,21 @@ trait TGrid extends TGridSys
 
   /** The number of Rows of Sides.
    *  @group SidesGroup */
-  @inline final def numOfSideRows: Int = ife(numTileRows > 0, numTileRows * 2 + 1, 0)
+  @inline final def numOfSepRows: Int = ife(numTileRows > 0, numTileRows * 2 + 1, 0)
 
   /** The bottom, lowest or minimum Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def bottomSideR: Int = bottomCenR - 1
+  @inline final def bottomSepR: Int = bottomCenR - 1
 
   /** The top, highest or maximum Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def topSideRow: Int = topCenR + 1
+  @inline final def topSepRow: Int = topCenR + 1
 
-  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
+  /** Foreachs over each Row of separators. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR - 1, topCenR + 1)(f)
+  def sepRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR - 1, topCenR + 1)(f)
 
   /** Foreachs over each inner row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def innerSideRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR, topCenR)(f)
+  def innerSepRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR, topCenR)(f)
 }
