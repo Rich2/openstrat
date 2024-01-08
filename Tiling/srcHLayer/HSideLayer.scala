@@ -5,10 +5,10 @@ import geom._, reflect.ClassTag
 /** Data layer for [[HSep]]s of an [[HGridSys]]. */
 class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
 { /** apply index method returns the data from this layer for the given [[HSep]]. */
-  def apply(hs: HSep)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
+  def apply(hs: HSep)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(hs))
 
   /** apply index method returns the data from this layer for the given [[HSep]]. */
-  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(r, c))
+  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(r, c))
 
   def somesPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
@@ -37,7 +37,7 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
   /** Spawns a new [[HSideLayer]] data layer for the child [[HGridSys]] from this [[HSideLayer]]. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HSideLayer[A] =
   { val array: Array[A] = new Array[A](childGridSys.numSides)
-    childGridSys.sidesForeach { sc => array(childGridSys.sideLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
+    childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
     new HSideLayer[A](array)
   }
 }

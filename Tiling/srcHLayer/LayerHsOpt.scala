@@ -12,10 +12,10 @@ class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
 { type KeyT = HGridSys
 
   /** apply index method returns the data from this layer for the given [[HSep]]. */
-  def apply(hs: HSep)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(hs))
+  def apply(hs: HSep)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(hs))
 
   /** apply index method returns the data from this layer for the given [[HSep]]. */
-  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sideLayerArrayIndex(r, c))
+  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(r, c))
 
   /** Maps over the respective [[HSep]] and [[Polygon]]s of the Some values, but does not use the value's themselves. */
   def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
@@ -58,7 +58,7 @@ class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSide
   /** Spawns a new [[HSideOptlLayer]] data layer for the child [[HGridSys]] from this [[LayerHSOptSys]]. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
   { val array: Array[A] = new Array[A](childGridSys.numSides)
-    childGridSys.sidesForeach { sc => array(childGridSys.sideLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
+    childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
     new LayerHSOptSys[A, SA](array)
   }
 }

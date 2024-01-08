@@ -9,13 +9,13 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   override def typeStr: String = "HSideBoolDGrid"
   override def fromArray(array: Array[Boolean]): HSideBoolLayer = new HSideBoolLayer(array)
 
-  def apply(hs: HSep)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.sideLayerArrayIndex(hs))
+  def apply(hs: HSep)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.sepLayerArrayIndex(hs))
 
   /** Foreach true value applies the side effecting function to the corresponding [[HSep]]
    *  value.  */
   def truesHsForeach(f: HSep => Unit)(implicit gridSys: HGridSys): Unit =
   { var i = 0
-    gridSys.sidesForeach{hs =>
+    gridSys.sepsForeach{hs =>
       if (unsafeArray(i) == true) f(hs)
       i += 1
     }
@@ -28,7 +28,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   def truesHsMap[B, ArrB <: Arr[B]](gridSys: HGridSys)(f: HSep => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { var i = 0
     val buff = build.newBuff()
-    gridSys.sidesForeach{hs =>
+    gridSys.sepsForeach{hs =>
       if (unsafeArray(i))
         build.buffGrow(buff, f(hs))
       i += 1
@@ -42,7 +42,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   def projTruesMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: HSep => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { var i = 0
     val buff = build.newBuff()
-    proj.gChild.sidesForeach { hs =>
+    proj.gChild.sepsForeach { hs =>
       if (unsafeArray(i))
         build.buffGrow(buff, f(hs))
       i += 1
@@ -84,7 +84,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   def projFalsesHsLineSegOptMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HSep, LineSeg) => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
-    proj.gChild.sidesForeach { hs =>
+    proj.gChild.sepsForeach { hs =>
       if (!apply(hs)(proj.parent))
         proj.transOptLineSeg(hs.lineSegHC).foreach{ls => f(hs, ls).foreach(build.buffGrow(buff, _) )}
     }
@@ -106,20 +106,20 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   }
 
   def set(hs: HSep, value: Boolean)(implicit grid: HGridSys): Unit = {
-    val i = grid.sideLayerArrayIndex(hs)
+    val i = grid.sepLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
   }
 
-  def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideLayerArrayIndex(r, c)) = value }
-  def setTrues(hSides: HSepArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
-  def setTrues(hSides: HSep*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
-  def setTruesPairs(hSidePairs: (Int, Int)*)(implicit grid: HGridSys): Unit = hSidePairs.foreach(p => unsafeArray(grid.sideLayerArrayIndex(p._1, p._2)) = true)
+  def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sepLayerArrayIndex(r, c)) = value }
+  def setTrues(hSides: HSepArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sepLayerArrayIndex(r)) = true)
+  def setTrues(hSides: HSep*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sepLayerArrayIndex(r)) = true)
+  def setTruesPairs(hSidePairs: (Int, Int)*)(implicit grid: HGridSys): Unit = hSidePairs.foreach(p => unsafeArray(grid.sepLayerArrayIndex(p._1, p._2)) = true)
 
   def setTruesInts(hSideInts: Int*)(implicit grid: HGridSys): Unit ={
     val len = hSideInts.length / 2
     iUntilForeach(0, len * 2, 2){ i =>
-      val index = grid.sideLayerArrayIndex(hSideInts(i), hSideInts(i + 1))
+      val index = grid.sepLayerArrayIndex(hSideInts(i), hSideInts(i + 1))
       unsafeArray(index) = true
     }
   }
@@ -127,7 +127,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   /** Spawns a new [[HSideBoolLayer]] data layer for the child [[HGridSys]]. */
   def spawn(parentGridSys: HGridSys, childGridSys: HGridSys): HSideBoolLayer =
   { val array: Array[Boolean] = new Array[Boolean](childGridSys.numSides)
-    childGridSys.sidesForeach { sc => array(childGridSys.sideLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
+    childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
     new HSideBoolLayer(array)
   }
 }

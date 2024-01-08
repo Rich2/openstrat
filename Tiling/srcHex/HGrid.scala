@@ -277,7 +277,7 @@ trait HGrid extends TGrid with HGridSys with Tell
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  final override def sidesForeach(f: HSep => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
+  final override def sepsForeach(f: HSep => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
 
   final def linksForeach(f: HSep => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 

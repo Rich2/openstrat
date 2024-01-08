@@ -145,7 +145,7 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   override def defaultView(pxScale: Double = 30): HGView = grids(grids.length / 2).defaultView(pxScale)
 
-  override final def sidesForeach(f: HSep => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
+  override final def sepsForeach(f: HSep => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
   override final def linksForeach(f: HSep => Unit): Unit = gridMans.foreach(_.linksForeach(f))
   override final def edgesForeach(f: HSep => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
@@ -162,7 +162,7 @@ trait EGridMulti extends EGridSys with HGridMulti
   }
 
   /** Temporary implementation. */
-  final override def sideLayerArrayIndex(r: Int, c: Int): Int = manMapex(r, c) { man => man.sideIndexStart + man.sideArrIndex(r, c) }
+  final override def sepLayerArrayIndex(r: Int, c: Int): Int = manMapex(r, c) { man => man.sideIndexStart + man.sideArrIndex(r, c) }
 
   /** Finds the [[HCoord]] if it exists, by taking the [[HVDirn]] from an [[HVert]]. */
   override def vertToCoordFind(hVert: HVert, dirn: HVDirn): Option[HCoord] = manOptMap(hVert)(_.vertToCoordFind(hVert, dirn))

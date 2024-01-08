@@ -19,7 +19,7 @@ trait HGridSys extends HCenStruct with TGridSys
   /** The number of sides in the hex grid system. */
   final lazy val numSides: Int =
   { var i = 0
-    sidesForeach(_ => i += 1)
+    sepsForeach(_ => i += 1)
     i
   }
 
@@ -248,14 +248,14 @@ trait HGridSys extends HCenStruct with TGridSys
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
-  @inline final def sideLayerArrayIndex(hc: HSep): Int = sideLayerArrayIndex(hc.r, hc.c)
+  @inline final def sepLayerArrayIndex(hc: HSep): Int = sepLayerArrayIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of side data from its tile [[HSep]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
-  def sideLayerArrayIndex(r: Int, c: Int): Int
+  def sepLayerArrayIndex(r: Int, c: Int): Int
 
-  /** foreach Hex side's coordinate HSide, calls the effectual function. */
-  def sidesForeach(f: HSep => Unit): Unit
+  /** foreach Hex separator's coordinate [[HSep]], calls the effectual function. */
+  def sepsForeach(f: HSep => Unit): Unit
 
   /** foreach hex link / inner side's coordinate HSide, calls the effectual function. */
   def linksForeach(f: HSep => Unit): Unit
@@ -267,7 +267,7 @@ trait HGridSys extends HCenStruct with TGridSys
   final def sepsMap[B, ArrT <: Arr[B]](f: HSep => B)(implicit build: BuilderArrMap[B, ArrT]): ArrT =
   { val res: ArrT = build.uninitialised(numSides)
     var i = 0
-    sidesForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
+    sepsForeach{hs => res.setElemUnsafe(i, f(hs)); i += 1 }
     res
   }
 
@@ -290,21 +290,21 @@ trait HGridSys extends HCenStruct with TGridSys
   /** flatMaps over each Hex Separator's coordinate [[HSep]]. */
   final def sepsFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
-    sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
+    sepsForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
   }
 
   /** Optionally maps over each Hex Separator's coordinate [[HSep]]. */
   final def sepsOptMap[B, ArrB <: Arr[B]](f: HSep => Option[B])(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val buff = build.newBuff()
-    sidesForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
+    sepsForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
     build.buffToSeqLike(buff)
   }
 
   /** OptMaps each [[HSep]] of this hex grid system to an [[HSepPair]]. */
   def sepOptMapPair[B2](f2: HSep => Option[B2])(implicit build: HSepBuilderArrPairMap[B2]): HSepArrPair[B2] =
   { val buff = build.newBuff()
-    sidesForeach { hSide => f2(hSide).foreach { b2 => buff.pairGrow(hSide, b2) } }
+    sepsForeach { hSide => f2(hSide).foreach { b2 => buff.pairGrow(hSide, b2) } }
     build.buffToSeqLike(buff)
   }
 

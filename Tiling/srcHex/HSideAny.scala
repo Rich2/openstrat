@@ -7,33 +7,33 @@ trait HSideLayerAny[A]
   def unsafeArray: Array[A]
 
   def set(hs: HSep, value: A)(implicit grid: HGridSys): Unit =
-  { val i = grid.sideLayerArrayIndex(hs)
+  { val i = grid.sepLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
   }
 
   def set(r: Int, c: Int, value: A)(implicit grid: HGridSys): Unit =
-  { val i = grid.sideLayerArrayIndex(r, c)
+  { val i = grid.sepLayerArrayIndex(r, c)
     if (i >= unsafeArray.length) deb(s"$r, $c")
     unsafeArray(i) = value
   }
 
   def set(grid: HGridSys, hs: HSep, value: A): Unit =
-  { val i = grid.sideLayerArrayIndex(hs)
+  { val i = grid.sepLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
   }
 
   def setIf(hs: HSep, value: A)(implicit grid: HGrid): Unit =
   { if(grid.sepExists(hs))
-    { val i = grid.sideLayerArrayIndex(hs)
+    { val i = grid.sepLayerArrayIndex(hs)
       unsafeArray(i) = value
     }
   }
 
   def setIf(r: Int, c: Int, value: A)(implicit grid: HGrid): Unit =
   { if(grid.sepExists(r, c))
-    { val i = grid.sideLayerArrayIndex(r, c)
+    { val i = grid.sepLayerArrayIndex(r, c)
        unsafeArray(i) = value
     }
   }
@@ -50,7 +50,7 @@ trait HSideLayerAny[A]
         case 2 if c.div4Rem0 =>
         case _ => excep(s"$r, $c is not a valid hex side tile coordinate.")
       }
-      val index = grid.sideLayerArrayIndex(r, c)
+      val index = grid.sepLayerArrayIndex(r, c)
       unsafeArray(index) = value
     }
   }
