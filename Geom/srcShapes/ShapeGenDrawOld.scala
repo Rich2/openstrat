@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, Colour.Black
+import pgui._
+import Colour.Black
+import ostrat.pWeb.SvgElem
 
 /** To be phased out. */
 case class ShapeGenDrawOld(shape: ShapeGenOld, lineColour: Colour = Black, lineWidth: Double = 2) extends CanvElem with AxisFree
@@ -41,4 +43,6 @@ case class ShapeGenDrawOld(shape: ShapeGenOld, lineColour: Colour = Black, lineW
   /** Shear 2D geometric transformation along the Y Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
   override def shearY(operand: Double): ShapeGenDrawOld = ShapeGenDrawOld(shape.shearY(operand), lineColour, lineWidth)
+
+  override def svgElems: RArr[SvgElem] = ???
 }

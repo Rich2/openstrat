@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._
+import pWeb._, pgui._
 
 case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, children: RArr[GraphicAffineElem]) extends GraphicParentFull with
   PolyCurveActive
@@ -17,6 +17,8 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: AnyRef, 
   override def boundingWidth: Double = shape.boundingRect.boundingWidth
 
   override def boundingHeight: Double = shape.boundingRect.boundingHeight
+
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 object PolyCurveParentFull

@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import ostrat.pWeb.SvgElem
 import pgui._
 
 /** To be phased out. */
@@ -40,4 +41,6 @@ final case class ShapeGenFillOld(shape: ShapeGenOld, colour: Colour) extends Can
   /** Shear 2D geometric transformation along the Y Axis on a ShapeGenFill, returns a ShapeGenFill. The return type will be narrowed in sub classes and
    * traits. */
   override def shearY(operand: Double): ShapeGenFillOld = ???
+
+  override def svgElems: RArr[SvgElem] = ???
 }
