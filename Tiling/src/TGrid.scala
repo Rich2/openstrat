@@ -29,8 +29,8 @@ trait TGrid extends TGridSys
   /** The top or highest tile centre row, r coordinate. */
   def topCenR: Int
 
-  /** The top or highest centre row, r coordinate. */
-  final def topSideR: Int = topCenR + 1
+  /** The top or highest separator row, r coordinate. */
+  final def topSepR: Int = topCenR + 1
 
   /** The centre of the hex grid in terms of r row coordinates. */
   def rCen: Int = (bottomCenR + topCenR) / 2
@@ -92,4 +92,8 @@ trait TGrid extends TGridSys
   /** Foreachs over each inner row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
   def innerSepRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR, topCenR)(f)
+
+  /** Foreachs over each Row of vertices. Users will not normally need to use this method directly.
+   *  @group SidesGroup */
+  def vertRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR - 1, topCenR + 1, 2)(f)
 }

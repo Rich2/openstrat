@@ -155,8 +155,8 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
    * Array data. */
   override def sepLayerArrayIndex(r: Int, c: Int): Int =
   { val cDelta = r match
-    { case r if r == topSideR  & (r - 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
-      case r if r == topSideR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
+    { case r if r == topSepR  & (r - 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
+      case r if r == topSepR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
       case r if r == bottomSepR & (r + 1).div4Rem0 => c - gridLeftCenC.roundUpTo(_.div4Rem0) + 1
       case r if r == bottomSepR => c - gridLeftCenC.roundUpTo(_.div4Rem2) + 1
       case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
@@ -179,7 +179,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
       case r if r.isEven => { f(HSep(r, rowLeftCenC(r) - 2)); f(HSep(r, rowRightCenC(r) + 2)) }
       case r => { f(HSep(r, gridLeftCenC - 1)); f(HSep(r, gridRightCenC + 1)) }
     }}
-    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSep(topSideR, c)))
+    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSep(topSepR, c)))
   }
 }
 

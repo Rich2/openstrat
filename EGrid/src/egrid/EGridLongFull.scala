@@ -9,7 +9,7 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
   override def hCoordLL(hc: HCoord): LatLong = hc match
   {
     case hc: HCen => hCoordMiddleLL(hc)
-    case HVertHigh(r, _) if r == topSideR => hCoordMiddleLL(hc)
+    case HVertHigh(r, _) if r == topSepR => hCoordMiddleLL(hc)
     case HVertLow(r, _) if r == bottomSepR => hCoordMiddleLL(hc)
     //case c if hc.r.div4Rem3 & c.div4Rem2 => hCoordMiddleLL(hc)
 

@@ -60,7 +60,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
     }
 
     case r if r == bottomSepR => rowForeach(r + 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
-    case r if r == topSideR => rowForeach(r - 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
+    case r if r == topSepR => rowForeach(r - 1){ hc => f(HSep(r, hc.c - 1)); f(HSep(r, hc.c + 1)) }
 
     case r =>
     { val start = rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1
@@ -72,7 +72,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   override def innerRowForeachInnerSide(r: Int)(f: HSep => Unit): Unit = r match
   { case r if r.isEven => iToForeach(rowLeftCenC(r) + 2, rowRightCenC(r) -2, 4){ c => f(HSep(r, c)) }
     case r if r == bottomSepR =>
-    case r if r == topSideR =>
+    case r if r == topSepR =>
 
     case r =>
     { val start = rowLeftCenC(r - 1).max(rowLeftCenC(r + 1)) - 1
@@ -99,7 +99,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
         iToForeach(rightStart, rightEnd, 2){c => f(HSep(r, c)) }
       }
     }}
-    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSep(topSideR, c)))
+    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSep(topSepR, c)))
   }
 
   def cSideRowMin(r: Int): Int = ???
@@ -108,7 +108,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
    * Array data. */
   override def sepLayerArrayIndex(r: Int, c: Int): Int =
   { val cDelta = r match
-    { case r if r == topSideR => c - rowLeftCenC(r - 1) + 1
+    { case r if r == topSepR => c - rowLeftCenC(r - 1) + 1
       case r if r == bottomSepR => c - rowLeftCenC(r + 1) + 1
       case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
       case r => c - rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) + 1
