@@ -51,9 +51,9 @@ object TilingPage extends HtmlPage
     val seps2: LinesDraw = seps.map(_.lineSeg).draw(2).scale(sc)
     val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
     val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
-    val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, 0.degs, 25, Green, 10) }
+    val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
     val stuff = (cens).scale(sc)
-    val rect1: Rect = seps2.boundingRect.addHorrVertMargin(100, 20)
+    val rect1: Rect = seps2.boundingRect.addHorrVertMargin(100, 40)
     val svg1: HtmlSvg = HtmlSvg(rect1, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
   }
 

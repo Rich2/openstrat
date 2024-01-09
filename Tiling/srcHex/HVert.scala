@@ -33,6 +33,8 @@ sealed trait HVert extends Any with HCoord with TCoord
   def noOffset: HVOffset = HVOffset.none(this)
 
   def dirnTo(hvDirn: HVDirn): HCoord
+
+  def angleOppLeft: Angle
 }
 
 object HVert
@@ -86,6 +88,8 @@ final class HVertHigh(val bLong: Long) extends AnyVal with HVert
     case HVRt => HVertHigh(r, c + 4)
     case HVLt => HVertHigh(r, c - 4)
   }
+
+  override def angleOppLeft: Angle = 150.degs
 }
 
 object HVertHigh
@@ -124,6 +128,8 @@ final class HVertLow(val bLong: Long) extends AnyVal with  HVert
     case HVRt => HVertLow(r, c + 4)
     case HVLt => HVertLow(r, c - 4)
   }
+
+  override def angleOppLeft: Angle = -150.degs
 }
 
 object HVertLow

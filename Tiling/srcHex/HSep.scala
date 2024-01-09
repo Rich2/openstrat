@@ -71,7 +71,11 @@ trait HSep extends HCenOrSep with TSep
     ls1.mapOpt(proj.transOptHVOffset(_))
   }
 
+  /** The angle of alignment that makes a 90 perpendicular angle with this [[HSep]] to the right. */
   def anglePerpRt: Angle
+
+  /** The angle of alignment that makes a 90 perpendicular angle with this [[HSep]] to the right. */
+  def anglePerpLt: Angle
 }
 
 /** Companion object for the [[HSep]] class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
@@ -137,6 +141,7 @@ class HSepA(val r: Int, val c: Int) extends HSep
     else LineSegHVAndOffset(tileRt.v3Exact, tileRt.v4Exact)
 
   override def anglePerpRt: Angle = 60.degs
+  override def anglePerpLt: Angle = -120.degs
 }
 
 object HSepA
@@ -173,6 +178,7 @@ class HSepB(val r: Int, val c: Int) extends HSep
     else LineSegHVAndOffset(tileRt.v4Exact, tileRt.v5Exact)
 
   override def anglePerpRt: Angle = 0.degs
+  override def anglePerpLt: Angle = 180.degs
 }
 
 object HSepB
@@ -214,6 +220,7 @@ class HSepC(val r: Int, val c: Int) extends HSep
     else LineSegHVAndOffset(tileRt.v5Exact, tileRt.v0Exact)
 
   override def anglePerpRt: Angle = -60.degs
+  override def anglePerpLt: Angle = 120.degs
 }
 
 object HSepC
