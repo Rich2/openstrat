@@ -1,6 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pgui._, Colour.Black
+import pgui._
+import Colour.Black
+import ostrat.pWeb.SvgElem
 
 trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
@@ -22,6 +24,8 @@ case class PolyCurveFill(shape: ShapeGenOld, colour: Colour) extends PolyCurveEl
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
+
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 case class PolyCurveDraw(shape: ShapeGenOld, colour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -31,6 +35,7 @@ case class PolyCurveDraw(shape: ShapeGenOld, colour: Colour = Black, lineWidth: 
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -44,6 +49,7 @@ case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour:
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black,
@@ -61,6 +67,7 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
@@ -79,4 +86,5 @@ case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, f
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
+  override def svgElems: RArr[SvgElem] = ???
 }

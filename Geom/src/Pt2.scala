@@ -237,6 +237,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
    * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
   def textArrowAwayFrom(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
     textArrow(str, angleTo(dirnPt), arrowLength, colour, fontSize)
+
+  def boundingRect: Rect = Rect(0, 0, this)
 }
 
 /** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the

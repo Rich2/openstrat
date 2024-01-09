@@ -42,7 +42,7 @@ object TilingPage extends HtmlPage
     def p1: HtmlP = HtmlP(
     """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
     | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
-    | between the hexs and to each of the vertices ofthe tiles.""".stripMargin)
+    | between the hexs and to each of the vertices of the tiles.""".stripMargin)
 
     val grid: HGridReg = HGridReg(3, 6)
     debvar(grid.numTiles)
@@ -53,8 +53,8 @@ object TilingPage extends HtmlPage
     val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
     val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
     val stuff = (cens).scale(sc)
-    val rect1: Rect = seps2.boundingRect.addHorrVertMargin(100, 40)
-    val svg1: HtmlSvg = HtmlSvg(rect1, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
+
+    val svg1: HtmlSvg = HtmlSvg.autoHorrVert(100, 40, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
   }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
