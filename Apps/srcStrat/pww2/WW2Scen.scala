@@ -65,9 +65,9 @@ object WW2Scen1 extends WW2Scen
 object WW2Scen2 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit val gridSys = Scen460S0E1.gridSys
-  override val terrs: LayerHcRefSys[WTile] = Scen460S0E1.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460S0E1.sTerrs
-  override val corners: HCornerLayer = Scen460S0E1.corners
+  override implicit val gridSys = Scen460Europe.gridSys
+  override val terrs: LayerHcRefSys[WTile] = Scen460Europe.terrs
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460Europe.sTerrs
+  override val corners: HCornerLayer = Scen460Europe.corners
   val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr()
 }

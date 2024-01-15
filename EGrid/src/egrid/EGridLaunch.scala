@@ -94,10 +94,10 @@ object EGridLaunch extends GuiLaunchMore
       case 70 => EGrid460.scen10
       case 71 => EGrid460.scen11
 
-      case 72 => Scen460S0E1
+      case 72 => Scen460Europe
       case 73 => Scen460ChinaJapan
       case 74 => Scen460NorthAmerica
-      case 75 => Scen460S11E2
+      case 75 => Scen460Africa
       case 76 => Scen460India
       case 77 => Scen460Atlantic
       case 78 => Scen460DateLine
