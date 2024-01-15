@@ -122,7 +122,7 @@ object EGridLaunch extends GuiLaunchMore
       case 94 => Scen320NorthAmerica
       case 95 => Scen320Africa
       case 96 => Scen320India
-      case 97 => Scen320SouthAmerica
+      case 97 => Scen320Atlantic
       case 98 => BritReg320.regScen
       case 99 => Scen320All
 

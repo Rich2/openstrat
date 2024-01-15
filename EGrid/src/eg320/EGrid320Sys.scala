@@ -15,14 +15,14 @@ trait EGrid320LongMulti extends EGridLongMulti with EGrid320Sys
   final override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object EGrid320LongMulti
+/*object EGrid320LongMulti
 {
-  def apply(rBottomCen: Int = 130, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320LongMulti = new EGrid320LongMulti
+  /*def apply(rBottomCen: Int, rTopCen: Int = 166, startLong: Int, endLong: Int): EGrid320LongMulti = new EGrid320LongMulti
   {
-    override def grids: RArr[EGridLongFull] = startLong match {
-      case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320LongFull(rBottomCen, rTopCen, i))
-      case sl => {
-        val len = endLong - startLong + 13
+    override def grids: RArr[EGridLongFull] = startLong match
+    { case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320LongFull(rBottomCen, rTopCen, i))
+      case sl =>
+      { val len = endLong - startLong + 13
         iUntilMap(len)(i => EGrid320LongFull(rBottomCen, rTopCen, (i + startLong) %% 12))
       }
     }
@@ -33,5 +33,5 @@ object EGrid320LongMulti
 
     /** The longitude Int for the head grid. */
     override def headGridInt: Int = ???
-  }
-}
+  }*/
+}*/
