@@ -54,17 +54,18 @@ object HtmlCanvas
   def id(idStr: String): HtmlCanvas = new HtmlCanvas(RArr(IdAtt(idStr)))
 }
 
+/** An Html section element. */
 trait HtmlSection extends HtmlMultiLine
 { override def tag: String = "section"
   override def attribs: RArr[XmlAtt] = RArr()
 }
 
 object HtmlSection
-{
+{ /** Factory apply method for [[HtmlSection]] passing contents and attributes. There is a apply overload convenience method for passing just contents using repeat parameters. */
   def apply(contentsIn: RArr[XCon], attribsIn: RArr[XmlAtt] = RArr()): HtmlSection = new HtmlSection
   { override def contents: RArr[XCon] = contentsIn
     override def attribs: RArr[XmlAtt] = attribsIn
   }
-
+  /** Factory apply convenience method for [[HtmlSection]] using repeat parameters. There is an apply overload method for passing contents and attributes. */
   def apply(contents: XCon*): HtmlSection = apply(contents.toArr)
 }
