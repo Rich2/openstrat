@@ -103,10 +103,10 @@ flat = false;
 90 = HGView(150, 10752; 22);//320km 60°W
 91 = HGView(150, 11778; 24);//320km 30°W
 
-92 = HGView(149, 520; 21);//320km 0°E - 30°E
+92 = HGView(149, 520; 22);//320km Europe 0°E - 30°E
 93 = HGView(135, 4608; 24);//320km China - Japan 90°E - 150°E
-94 = HGView(142, 9730; 21);//320km North America 4 grids 150°W - 60°W
-95 = HGView(150, 520; 21);//320km 30°W - 60°E
+94 = HGView(142, 9730; 22);//320km North America 4 grids 150°W - 60°W
+95 = HGView(150, 520; 22);//320km Africa, Middle East, Europe 30°W - 60°E
 
 97 = HGView(135, 10752; 21);//320km South America 3 grids 90°W - 30°W
 98 = HGView(143, 512; 42);//320Km British Isles and surrounding.

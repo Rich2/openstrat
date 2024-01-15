@@ -28,6 +28,7 @@ object EGridLaunch extends GuiLaunchMore
       case 9 => EGrid13.scen9
       case 10 => EGrid13.scen10
       case 11 => EGrid13.scen11
+
       case 12 => Scen13Europe
       case 13 => Scen13ChinaJapan
       case 14 => Scen13NorthAmerica
@@ -116,11 +117,11 @@ object EGridLaunch extends GuiLaunchMore
       case 90 => EGrid320.scen10
       case 91 => EGrid320.scen11
 
-      case 92 => Scen320s0e1
+      case 92 => Scen320Europe
       case 93 => Scen320ChinaJapan
       case 94 => Scen320NorthAmerica
-      case 95 => Scen320S11E2
-      case 96 => Scen320NorthAmerica
+      case 95 => Scen320Africa
+      case 96 => Scen320India
       case 97 => Scen320SouthAmerica
       case 98 => BritReg320.regScen
       case 99 => Scen320All
