@@ -32,8 +32,9 @@ object EGridLaunch extends GuiLaunchMore
       case 13 => Scen13ChinaJapan
       case 14 => Scen13NorthAmerica
       case 15 => Scen13Africa
-
+      case 16 => Scen13India
       case 17 => Scen13Atlantic
+      case 18 => Scen13DateLine
       case 19 => Scen13All
 
       case 20 => EGridMega.scen0
@@ -53,7 +54,7 @@ object EGridLaunch extends GuiLaunchMore
       case 33 => ScenMegaChinaJapan
       case 34 => ScenMegaNorthAmerica
       case 35 => ScenMegaAfrica
-
+      case 36 => ScenMegaIndia
       case 37 => ScenMegaAtlantic
       case 38 => ScenMegaDateLine
       case 39 => ScenMegaAll

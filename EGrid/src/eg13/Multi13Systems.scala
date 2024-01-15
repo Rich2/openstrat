@@ -38,10 +38,28 @@ object Scen13Africa extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Terrain only scenario for the Atlantic. 4 1300km grid system for n 90°W, 60°W, 30°W and 0°E */
+/** 1300km terrain only scenario for India. 2 Grid system for 60°E, and 90°E. */
+object Scen13India extends EScenLongMulti
+{ override val title: String = "1300km India 60°E - 90°E"
+  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(2, 2, 86)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
+/** Terrain only scenario for the Atlantic. 4 1300km grid system for 90°W, 60°W, 30°W and 0°E */
 object Scen13Atlantic extends EScenLongMulti
 { override val title: String = "1300km Atlantic 90°W - 0°E"
   override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(4, 9, 86)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
+/** 1300km terrain only scenario for the Date Line. 3 grid system for 150°E, 180°E, and 150°W */
+object Scen13DateLine extends EScenLongMulti
+{ override val title: String = "1300km Date Line 150°E - 150°W"
+  override implicit val gridSys: EGrid13LongMulti = EGrid13.multi(3, 5, 86)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
