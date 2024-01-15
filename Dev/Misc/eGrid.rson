@@ -15,10 +15,10 @@ flat = false;
 10 = HGView(102, 10752; 23.5);//1300km 60°W
 11 = HGView(102, 11776; 23.5);//1300km 30°W
 
-12 = HGView(102, 1536; 23.5);//1300km 0°E - 60°E
+12 = HGView(102, 1536; 23.5);//1300km Europe 0°E - 30°E
 13 = HGView(103, 4608; 27.5);//1300km China-Japan 90°E - 150°E
 14 = HGView(103, 9728; 27.5);//1300km North America 4 grids 150°W - 60°E
-15 = HGView(102, 1536; 23.5);//1300km 30°W - 60°E
+15 = HGView(102, 1536; 23.5);//1300km Africa, Middle East and Europe 30°W - 60°E
 
 19 = HGView(101, 1536; 23.5);//1300km All longitudes
 

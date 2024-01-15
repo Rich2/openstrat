@@ -2,8 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._
 
-/** 1Mm terrain 2 Grid system for 0°E and 30°E. */
-object ScenMegaS0E1 extends EScenLongMulti
+/** 1Mm terrain only scenario fpr Europe. 2 Grid system for 0°E and 30°E. */
+object ScenMegaEurope extends EScenLongMulti
 { override val title: String = "1Mm 0E - 30E"
   override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(2, 0, 82)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
@@ -29,8 +29,8 @@ object ScenMegaNorthAmerica extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Scenario for 4 Mega metre grid system for 30°W 0°E, 30°E and 60°E. */
-object ScenMegaS11E2 extends EScenLongMulti
+/** 1Mm terrain only scenario for Africa and Middle East. 4 grid system for 30°W 0°E, 30°E and 60°E. */
+object ScenMegaAfrica extends EScenLongMulti
 { override val title: String = "1Mm 4 grids 30°W - 60°E"
   override implicit val gridSys: EGridMegaLongMulti = EGridMega.multi(4, 11, 82)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
