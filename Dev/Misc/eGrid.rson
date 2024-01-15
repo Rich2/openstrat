@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 //Settings file for EGrids
 scen = 32;
 flat = false;
@@ -19,7 +19,8 @@ flat = false;
 13 = HGView(103, 4608; 27.5);//1300km China-Japan 90°E - 150°E
 14 = HGView(103, 9728; 27.5);//1300km North America 4 grids 150°W - 60°E
 15 = HGView(102, 1536; 23.5);//1300km 30°W - 60°E
-16 = HGView(101, 1536; 23.5);//1300km All longitudes
+
+19 = HGView(101, 1536; 23.5);//1300km All longitudes
 
 20 = HGView(105, 512; 23.5);//1Mm 0°E
 21 = HGView(105, 1536; 23.5);//1Mm 30°E
@@ -38,9 +39,10 @@ flat = false;
 33 = HGView(105, 4608; 23.5);//1Mm China-Japan 90°E - 150°E
 34 = HGView(108, 9728; 28);//1Mm North America 150°W - 60°W
 35 = HGView(105, 1536; 23.5);//1Mm 30°W - 60°E
-36 = HGView(105, 512; 23.5);//1Mm All Longitudes
+
 37 = HGView(100, 11776; 35);//1Mm Atlantic 90°W - 0°E
 38 = HGView(110, 6656; 35);//1Mm Date Line 150°E - 150°E
+39 = HGView(105, 512; 23.5);//1Mm All Longitudes
 
 40 = HGView(122, 512; 23);//640km 0°E
 41 = HGView(122, 1536; 23);//640km 30°E
@@ -59,8 +61,10 @@ flat = false;
 53 = HGView(122, 4608; 23);//640km China-Japan 90°E - 150°E
 54 = HGView(117, 9724; 26.5);//640km North America 4 grids 150°W - 60°W
 55 = HGView(108, 1530; 25);//640km 30°W - 60°E
-56 = HGView(120, 2560; 27);//640km All Longitudes
+
 57 = HGView(105, 10752; 26);//640km South America 90°W - 30°W
+
+59 = HGView(120, 2560; 27);//640km All Longitudes
 
 60 = HGView(124, 512; 24);//460km 0°E
 61 = HGView(124, 1536; 24);//460km 30°E
@@ -101,9 +105,10 @@ flat = false;
 93 = HGView(135, 4608; 24);//320km China - Japan 90°E - 150°E
 94 = HGView(142, 9730; 21);//320km North America 4 grids 150°W - 60°W
 95 = HGView(150, 520; 21);//320km 30°W - 60°E
-96 = HGView(150, 512; 21);//320km All longitudes
+
 97 = HGView(135, 10752; 21);//320km South America 3 grids 90°W - 30°W
 98 = HGView(143, 512; 42);//320Km British Isles and surrounding.
+99 = HGView(150, 512; 21);//320km All longitudes
 
 100 = HGView(156, 512; 22.5);//220Km 0°E
 101 = HGView(156, 1536; 22.5);//220Km 30°E

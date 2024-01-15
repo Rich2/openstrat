@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import pgui._, eg80._, eg120._, eg160._, eg220._, eg320._, eg460._, eg640._, egmega._, eg13._, prid._, phex._, pParse._
 
@@ -32,8 +32,9 @@ object EGridLaunch extends GuiLaunchMore
       case 13 => Scen13ChinaJapan
       case 14 => Scen13NorthAmerica
       case 15 => Scen13S11E2
-      case 16 => Scen13All
+
       case 17 => Scen13Atlantic
+      case 19 => Scen13All
 
       case 20 => EGridMega.scen0
       case 21 => EGridMega.scen1
@@ -52,9 +53,10 @@ object EGridLaunch extends GuiLaunchMore
       case 33 => ScenMegaChinaJapan
       case 34 => ScenMegaNorthAmerica
       case 35 => ScenMegaS11E2
-      case 36 => ScenMegaAll
+
       case 37 => ScenMegaAtlantic
       case 38 => ScenMegaDateLine
+      case 39 => ScenMegaAll
 
       case 40 => EGrid640.scen0
       case 41 => EGrid640.scen1
@@ -73,8 +75,10 @@ object EGridLaunch extends GuiLaunchMore
       case 53 => Scen640ChinaJapan
       case 54 => Scen640NorthAmerica
       case 55 => Scen640S11E2
-      case 56 => Scen640All
+
       case 57 => Scen640SouthAmerica
+
+      case 59 => Scen640All
 
       case 60 => EGrid460.scen0
       case 61 => EGrid460.scen1
@@ -115,11 +119,10 @@ object EGridLaunch extends GuiLaunchMore
       case 93 => Scen320ChinaJapan
       case 94 => Scen320NorthAmerica
       case 95 => Scen320S11E2
-      case 96 => Scen320All
+      case 96 => Scen640NCanada
       case 97 => Scen320SouthAmerica
       case 98 => BritReg320.regScen
-
-      case 99 => Scen640NCanada
+      case 99 => Scen320All
 
       case 100 => EGrid220.scen0
       case 101 => EGrid220.scen1
