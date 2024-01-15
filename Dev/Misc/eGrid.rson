@@ -63,9 +63,9 @@ flat = false;
 53 = HGView(118, 4608; 23);//640km China-Japan 90°E - 150°E
 54 = HGView(117, 9724; 26.5);//640km North America 4 grids 150°W - 60°W
 55 = HGView(108, 1530; 25);//640km Africa, Middle East, Europe 30°W - 60°E
-
-57 = HGView(105, 10752; 26);//640km South America 90°W - 30°W
-
+56 = HGView(115, 3580; 23.5);//640km India 60°E - 90°E
+57 = HGView(105, 11776; 26);//640km Atlantic, South America 90°W - 0°E
+58 = HGView(105, 6656; 26);//640km Date Line America 150°E - 150°W
 59 = HGView(120, 2560; 27);//640km All Longitudes
 
 60 = HGView(124, 512; 24);//460km 0°E
