@@ -59,8 +59,8 @@ flat = false;
 50 = HGView(122, 10752; 23);//640km 60°W
 51 = HGView(122, 11776; 23);//640km 0°E
 
-52 = HGView(122, 1536; 23.5);//640km Europe 0°E - 30°E
-53 = HGView(122, 4608; 23);//640km China-Japan 90°E - 150°E
+52 = HGView(118, 1536; 23.5);//640km Europe 0°E - 30°E
+53 = HGView(118, 4608; 23);//640km China-Japan 90°E - 150°E
 54 = HGView(117, 9724; 26.5);//640km North America 4 grids 150°W - 60°W
 55 = HGView(108, 1530; 25);//640km Africa, Middle East, Europe 30°W - 60°E
 
