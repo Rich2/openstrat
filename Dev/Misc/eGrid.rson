@@ -18,7 +18,7 @@ flat = false;
 12 = HGView(102, 1536; 23.5);//1300km Europe 0°E - 30°E
 13 = HGView(103, 4608; 27.5);//1300km China-Japan 90°E - 150°E
 14 = HGView(103, 9728; 27.5);//1300km North America 4 grids 150°W - 60°E
-15 = HGView(102, 1536; 23.5);//1300km Africa, Middle East and Europe 30°W - 60°E
+15 = HGView(102, 1536; 23.5);//1300km Africa, Middle East, Europe 30°W - 60°E
 
 19 = HGView(101, 1536; 23.5);//1300km All longitudes
 
@@ -35,10 +35,10 @@ flat = false;
 30 = HGView(105, 10752; 23.5);//1Mm 60°W
 31 = HGView(105, 11776; 23.5);//1Mm 30°W
 
-32 = HGView(105, 1536; 23.5);//1Mm 0°E - 30°E
+32 = HGView(105, 1536; 23.5);//1Mm Europe 0°E - 30°E
 33 = HGView(105, 4608; 23.5);//1Mm China-Japan 90°E - 150°E
 34 = HGView(108, 9728; 28);//1Mm North America 150°W - 60°W
-35 = HGView(105, 1536; 23.5);//1Mm 30°W - 60°E
+35 = HGView(105, 1536; 23.5);//1Mm Africa, Middle East, Europe 30°W - 60°E
 
 37 = HGView(100, 11776; 35);//1Mm Atlantic 90°W - 0°E
 38 = HGView(110, 6656; 35);//1Mm Date Line 150°E - 150°E
@@ -57,10 +57,10 @@ flat = false;
 50 = HGView(122, 10752; 23);//640km 60°W
 51 = HGView(122, 11776; 23);//640km 0°E
 
-52 = HGView(122, 1536; 23.5);//640km 0°E - 30°E
+52 = HGView(122, 1536; 23.5);//640km Europe 0°E - 30°E
 53 = HGView(122, 4608; 23);//640km China-Japan 90°E - 150°E
 54 = HGView(117, 9724; 26.5);//640km North America 4 grids 150°W - 60°W
-55 = HGView(108, 1530; 25);//640km 30°W - 60°E
+55 = HGView(108, 1530; 25);//640km Africa, Middle East, Europe 30°W - 60°E
 
 57 = HGView(105, 10752; 26);//640km South America 90°W - 30°W
 
