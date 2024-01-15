@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
+import pWeb._, Colour.Black
 
 class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: Double, val colour: Colour, val lineWidth: Double,
   val align: TextAlign, val baseLine: BaseLine) extends GraphicAffineElem
@@ -11,11 +11,7 @@ class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: D
 
   override def negY: TextOutline = ???
 
-  /*override def productArity: Int = 8
-
-  override def productElement(n: Int): Any = ???
-
-  override def canEqual(that: Any): Boolean = ???*/
+  override def svgElems: RArr[SvgElem] = ???
 }
 
 object TextOutline
