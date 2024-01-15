@@ -10,7 +10,7 @@ trait NormScen
 }
 
 object NormScen1 extends NormScen
-{ override implicit val grid  = HGridReg.minMax(2, 12, 2, 40)
+{ override implicit val grid  = HGridRect.minMax(2, 12, 2, 40)
   override val terrs = LayerHcRefSys[Tile](Sea)
 
   terrs.set(6, 6, Island())

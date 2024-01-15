@@ -44,7 +44,7 @@ object TilingPage extends HtmlPage
     | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
     | between the hexs and to each of the vertices of the tiles.""".stripMargin)
 
-    val grid: HGridReg = HGridReg(3, 6)
+    val grid: HGridRect = HGridRect(3, 6)
     debvar(grid.numTiles)
     val seps: LineSegHCArr = grid.sepLineSegHCs
     val sc = 60

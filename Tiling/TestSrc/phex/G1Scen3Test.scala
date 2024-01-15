@@ -5,7 +5,7 @@ import utest._, gOne.h1p._
 object G1Scen3Test extends TestSuite
 {
   val os1: G1HScen3.type = G1HScen3
-  val g1: HGridIrr = os1.gridSys
+  val g1: HGridGen = os1.gridSys
   val tests = Tests {
 
     test("os1") {

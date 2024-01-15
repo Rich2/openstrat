@@ -370,7 +370,7 @@ object HGrid
   implicit lazy val showEv: ShowTellSum[HGrid] = ShowTellSum[HGrid]("HGrid")
 
   /** Implicit [[Unshow]] type class instance / evidence for [[HGrid]]. */
-  implicit lazy val unshowEv: UnshowSum[HGrid] = UnshowSum[HGrid]("HGrid", HGridReg.unshowEv, HGridIrr.unshowEv)
+  implicit lazy val unshowEv: UnshowSum[HGrid] = UnshowSum[HGrid]("HGrid", HGridRect.unshowEv, HGridGen.unshowEv)
 }
 
 /** Hex grid path finding node. */

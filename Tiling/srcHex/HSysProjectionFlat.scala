@@ -37,17 +37,17 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
 
     parent match
     {
-      case hg: HGridReg =>
+      case hg: HGridRect =>
       { val bt = hg.bottomCenR.max(newBottom)
         val tp = hg.topCenR.min(newTop)
         val lt = hg.gridLeftCenC.max(newLeft)
         val rt = hg.gridRightCenC.min(newRight)
         //deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
-        HGridReg.minMax(bt, tp, lt, rt)
+        HGridRect.minMax(bt, tp, lt, rt)
       }
-      case hgi: HGridIrr => hgi.numTileRows match
+      case hgi: HGridGen => hgi.numTileRows match
       { case n if n <= 0 => hgi
-        case _ if newTop < hgi.bottomCenR | newBottom > hgi.topCenR | newLeft > hgi.gridRightCenC | newRight < hgi.gridLeftCenC => HGridIrr.fromTop(hgi.topCenR)
+        case _ if newTop < hgi.bottomCenR | newBottom > hgi.topCenR | newLeft > hgi.gridRightCenC | newRight < hgi.gridLeftCenC => HGridGen.fromTop(hgi.topCenR)
         case _ => {
           val bottom = hgi.bottomCenR.max(newBottom)
           val top = hgi.topCenR.min(newTop)
@@ -65,7 +65,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
             newArray(i) = rowRight
             i += 1
           }
-          val newGrid = new HGridIrr(bottom, newArray)
+          val newGrid = new HGridGen(bottom, newArray)
           newGrid
         }
       }

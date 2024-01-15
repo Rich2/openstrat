@@ -25,5 +25,5 @@ trait EGridSys extends HGridSys
 }
 
 /** A hex grid on the surface of the earth. */
-abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with
+abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridGen(bottomTileRow, unsafeRowsArray) with
   EGridSys

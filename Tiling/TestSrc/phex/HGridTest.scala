@@ -4,7 +4,7 @@ import utest._
 
 object HGridTest extends TestSuite
 {
-  val g1: HGridReg = HGridReg(2, 6, 2, 10)
+  val g1: HGridRect = HGridReg(2, 6, 2, 10)
  // val g2: HGridsDuo = HGridsDuo(2, 8, 2, 6, 100, 104)
 
   val tests = Tests {
@@ -15,9 +15,9 @@ object HGridTest extends TestSuite
       g1.stepFind(2, 2, 0, 4) ==> None
     }
 
-    val ig1: HGridIrr = HGridIrr.fromTop(6, (2, 10), (4, 8), (6, 6))
+    val ig1: HGridGen = HGridGen.fromTop(6, (2, 10), (4, 8), (6, 6))
     val ig1Str = "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
-    val eg1 = ig1Str.asType[HGridIrr]
+    val eg1 = ig1Str.asType[HGridGen]
 
     test("test HGrid Irr")
     { ig1.str ==> ig1Str

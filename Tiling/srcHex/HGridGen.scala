@@ -1,13 +1,13 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
- *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
- *  centres [[HCen]]s and the cTileMin coordinate for the row.
+/** [[HGrid]] implementation class for the general case where the rows have different lengths and irregular start row coordinates. This is backed by
+ *  an Array[Int]. The length of this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the
+ *  row in the number of tile centres [[HCen]]s and the cTileMin coordinate for the row.
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param bottomCenR The r value for the bottom tile row of the TileGrid.
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid with TellSeqLike[HCenRow]
+class HGridGen(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid with TellSeqLike[HCenRow]
 { override def typeStr: String = "HGridIrr"
 
   unsafeRowsArray.foreach(i => if (i.isOdd) excep("A bound is odd. " + unsafeRowsArray.mkString(" ")))
@@ -21,7 +21,7 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
 
   override def equals(that: Any): Boolean = that match
-  { case that: HGridIrr => canEqual(that) && bottomCenR ==  that.bottomCenR && unsafeRowsArray.sameElements(that.unsafeRowsArray)
+  { case that: HGridGen => canEqual(that) && bottomCenR ==  that.bottomCenR && unsafeRowsArray.sameElements(that.unsafeRowsArray)
     case _ => false
   }
 
@@ -161,10 +161,10 @@ class HGridIrr (val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HG
   }
 }
 
-object HGridIrr
+object HGridGen
 {
   /** Takes the top row number followed by pairs of start and end c numbers. */
-  def fromTop(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrr =
+  def fromTop(rMax: Int, cMinMaxs: (Int, Int) *): HGridGen =
   { val numRows: Int = cMinMaxs.length
     val array = new Array[Int](numRows * 2)
     val rMin = rMax - (numRows - 1) * 2
@@ -173,20 +173,20 @@ object HGridIrr
       array(i * 2) = cMin
       array(i * 2 + 1) = cMax
     }
-    new HGridIrr(rMin, array)
+    new HGridGen(rMin, array)
   }
 
-  implicit val showEv: ShowSeqLike[HCenRow, HGridIrr] = ShowSeqLike[HCenRow, HGridIrr]("HGridIrr", (obj, f) => obj.allRowsForeach(f))
+  implicit val showEv: ShowSeqLike[HCenRow, HGridGen] = ShowSeqLike[HCenRow, HGridGen]("HGridIrr", (obj, f) => obj.allRowsForeach(f))
 
-  implicit val unshowEv: UnshowFromArr[HCenRow, HCenRowArr, HGridIrr] =
-  { val f: HCenRowArr => HGridIrr = { ra =>
+  implicit val unshowEv: UnshowFromArr[HCenRow, HCenRowArr, HGridGen] =
+  { val f: HCenRowArr => HGridGen = { ra =>
       val array = new Array[Int](ra.length * 2)
       ra.iForeach{ (i, hr) =>
         array(2 * i) = hr.cStart
         array(2 * i + 1) = hr.cEnd
       }
-      new HGridIrr(ra.unsafeArray(0), array)
+      new HGridGen(ra.unsafeArray(0), array)
     }
-    new UnshowFromArr[HCenRow, HCenRowArr, HGridIrr]("HGridIrr", f)
+    new UnshowFromArr[HCenRow, HCenRowArr, HGridGen]("HGridIrr", f)
   }
 }

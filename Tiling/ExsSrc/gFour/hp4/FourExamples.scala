@@ -3,7 +3,7 @@ package ostrat; package gFour; package hp4
 import prid._, phex._, gOne.h1p.GSys
 
 object FourScen1 extends G4HScen(0)
-{ override implicit val gridSys: HGridReg = GSys.g1
+{ override implicit val gridSys: HGridRect = GSys.g1
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
@@ -15,7 +15,7 @@ object FourScen1 extends G4HScen(0)
 }
 
 object FourScen2 extends G4HScen(0)
-{ override implicit val gridSys: HGrid = HGridReg(4, 6)
+{ override implicit val gridSys: HGrid = HGridRect(4, 6)
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   import terrs.{setRowPartSame => srp}
   srp(6, 2, 2, Water)
@@ -27,7 +27,7 @@ object FourScen2 extends G4HScen(0)
 
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
 object FourScen3 extends G4HScen(0)
-{ override implicit val gridSys: HGrid = HGridReg.minMax(12, 20, 4, 60)
+{ override implicit val gridSys: HGrid = HGridRect.minMax(12, 20, 4, 60)
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   import terrs.{setRowPartSame => sr}
   sr(6,6, 4, Water)
@@ -45,7 +45,7 @@ object FourScen3 extends G4HScen(0)
 /** 3rd Scenario of Game Four. Has a larger number of hexs. */
 object FourScen4 extends G4HScen(0)
 {
-  override implicit val gridSys: HGridReg = HGridReg(3, 3)
+  override implicit val gridSys: HGridRect = HGridRect(3, 3)
   override val terrs: LayerHcRefSys[Terr] = LayerHcRefSys[Terr](Plain)
   override val lunits: LayerHcRArr[LunitState] = LayerHcRArr()
 //  import terrs.{setRowEnd => sr}

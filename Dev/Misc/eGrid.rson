@@ -79,10 +79,10 @@ flat = false;
 73 = HGView(120, 4608; 27);//460km China-Japan 90°E - 150°E
 74 = HGView(120, 9724; 28);//460km North America 4 grids 150°W - 60°W
 75 = HGView(122, 1536; 27.5);//460km 30°W - 60°E
-76 = HGView(120, 1536; 28);//460km All longitudes
+76 = HGView(120, 3578; 27);//460km India 60°E - 90°E
 77 = HGView(125, 10752; 30);//460km Atlantic 90°W - 0°E
 78 = HGView(135, 6656; 30);//460km Date Line 150°E - 150°W
-79 = HGView(120, 3578; 27);//460km India 60°E - 90°E
+79 = HGView(120, 1536; 28);//460km All longitudes
 
 80 = HGView(149, 512; 22);//320km 0°E
 81 = HGView(149, 1536; 23);//320km 30°E

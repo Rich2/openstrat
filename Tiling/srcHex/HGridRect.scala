@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
+/** A Rectangular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val gridRightCenC: Int) extends HGrid with TellInt4
+class HGridRect(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val gridRightCenC: Int) extends HGrid with TellInt4
 { override def typeStr: String = "HGridReg"
   override def name1: String = "bottom"
   override def name2: String = "top"
@@ -17,7 +17,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
   def canEqual(a: Any): Boolean = a.isInstanceOf[HGridSys]
 
   override def equals(that: Any): Boolean = that match
-  { case that: HGridReg =>
+  { case that: HGridRect =>
       that.canEqual(this) && bottomCenR == that.bottomCenR && topCenR  == that.topCenR && gridLeftCenC == that.gridLeftCenC && gridRightCenC == that.gridRightCenC
     case _ => false
   }
@@ -183,13 +183,13 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val gridLeftCenC: Int, val
   }
 }
 
-/** Companion object for the [[HGridReg]] class. Contains factory apply method and [[Show]] instance. */
-object HGridReg
+/** Companion object for the [[HGridRect]] class. Contains factory apply method and [[Show]] instance. */
+object HGridRect
 { /** Factory apply method to create a regular hex grid of a given number of rows anc columns. */
-  def apply(numRows: Int, numCols: Int): HGridReg = new HGridReg(2, numRows.max0 * 2, 2, 2 + numCols.max0 * 2)
+  def apply(numRows: Int, numCols: Int): HGridRect = new HGridRect(2, numRows.max0 * 2, 2, 2 + numCols.max0 * 2)
 
   /** Corrects the X and Y minimum and maximum values. */
-  def minMax(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =
+  def minMax(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridRect =
   {
     val rMin = rTileMin.roundUpToEven
     val rMax = rTileMax.roundDownToEven
@@ -207,12 +207,12 @@ object HGridReg
       case _ => cTileMax.roundDownToEven
     }
 
-    new HGridReg(rMin, rMax, cMin, cMax)
+    new HGridRect(rMin, rMax, cMin, cMax)
   }
 
-  /** Implicit instance of [[Show]] for [[HGridReg]]. */
-  implicit val showEv: ShowTellInt4[HGridReg] = ShowTellInt4[HGridReg]("HGridReg")
+  /** Implicit instance of [[Show]] for [[HGridRect]]. */
+  implicit val showEv: ShowTellInt4[HGridRect] = ShowTellInt4[HGridRect]("HGridReg")
 
-  /** Implicit instance of [[Unshow]] for [[HGridReg]]. */
-  implicit val unshowEv: UnshowInt4[HGridReg] = UnshowInt4[HGridReg]("HGridReg", "bottom", "top", "left", "right", minMax)
+  /** Implicit instance of [[Unshow]] for [[HGridRect]]. */
+  implicit val unshowEv: UnshowInt4[HGridRect] = UnshowInt4[HGridRect]("HGridReg", "bottom", "top", "left", "right", minMax)
 }
