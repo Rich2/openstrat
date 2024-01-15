@@ -39,9 +39,10 @@ object Terr460W60 extends Long460Terrs
       TRow(112, SideB()),
       TRow(110, Isle(mtain)),
       TRow(108),
-      VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn)),
+      VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13), Mouth(10752, HVDR)),
       TRow(106, hillySavannah * 3),
       TRow(104, mtain, savannah, hillyJungle * 2),
+      TRow(102, jungle, hillyJungle * 2, jungle, hillyJungle),
     )
   }
   help.run

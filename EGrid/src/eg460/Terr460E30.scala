@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 183250975km².
  *  Isle3 4473.900km² => 8768.845km², includes Crete. */
 object Terr460E30 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e30(104)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e30(102)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -47,6 +47,7 @@ object Terr460E30 extends Long460Terrs
       VRow(107, BendAll(1552, HVUp, sea, 7)),
       TRow(106, savannah * 2, sahel, savannah, mtain, hillySahel, Cape(0, 1, hillySahel)),
       TRow(104, savannah * 5, mtain, hillySahel),
+      TRow(102, hillyJungle * 3, hillySavannah, hillySahel * 2, savannah),
     )
   }
   help.run

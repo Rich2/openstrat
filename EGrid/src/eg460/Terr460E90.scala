@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 460km.
  * Isle10 120974.276km² <= 57981.753km² Sri Lanka */
 object Terr460E90 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e90(104)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e90(100)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -32,9 +32,15 @@ object Terr460E90 extends Long460Terrs
       TRow(114, hilly, land, hillySavannah, savannah, hillyJungle, mtain),
       TRow(112, hillySavannah * 2, Cape(3, 1, Land(Level, Tropical)), hillySavannah, mtain * 2),
       TRow(110, savannah, hillySavannah, sea * 2, hillyJungle, mtain),
+      VRow(109, Mouth(3590, HVUp)),
       TRow(108, sahel, savannah, sea * 3, Cape(4, 1, mtain), hillySavannah),
       TRow(106, savannah, sea * 4, Cape(1, 2, mtain), Cape(4, 1, jungle)),
-      TRow(104, sea, Isle(hillyJungle), sea * 3, hillyJungle)
+      VRow(105, BendIn(3590, HVDR), Mouth(3592, HVUR), Mouth(3594, HVDL)),
+      TRow(104, sea, Isle(hillyJungle), sea * 3, hillyJungle),
+      VRow(103, BendIn(3590, HVUR, 13), BendOut(3592, HVDL, 7)),
+      TRow(102, sea * 4, hillyJungle, hillyJungle),
+      VRow(101, BendIn(3588, HVUR, 13), BendOut(3590, HVDL, 7), BendIn(3592, HVUR, 13), BendIn(3594, HVUp, 13), Mouth(3596, HVUR)),
+      TRow(100, sea * 5, hillyJungle, hillyJungle),
     )
   }
   help.run
