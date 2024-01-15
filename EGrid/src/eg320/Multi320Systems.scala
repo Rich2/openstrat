@@ -38,19 +38,19 @@ object Scen320Africa extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** 320km terrain only scenario for Africa, Middle East and Europe. 4 grid system for 30°W 0°E, 30°E and 60°E. */
+/** 320km terrain only scenario for India. 2 grid system for 60°E and 90°E. */
 object Scen320India extends EScenLongMulti
-{ override val title: String = "320km 30°W - 60°E"
+{ override val title: String = "320km India 60°E - 90°E"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 2, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
-/** Scenario for South America 3 Grid system from 90°W to 30°W. */
+/** 320km terrain only scenario for Atlantic and South America. 4 Grid system from 90°W to 0°E. */
 object Scen320Atlantic extends EScenLongMulti
-{ override val title: String = "320km South America 90°W - 30°W"
-  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(3, 9, 124)
+{ override val title: String = "320km Atlantic 120°W - 30°W"
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 9, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
