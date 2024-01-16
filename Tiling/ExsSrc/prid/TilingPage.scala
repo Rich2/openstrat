@@ -98,7 +98,9 @@ object CoordSystem extends HtmlSection
 
   val p3 = HtmlP("""So things are still pretty simple right? A hex is either land orits water. A hex is either hilly or or its not. If we were
   | creating some kind of low level Dungeons and Dragons type game a square could be either be rock which you can not enter of the open space of a
-  | room or a cavern which you can enter. Unfortunately this is not going to work at least for real world maps""".stripMargin)
+  | room or a cavern which you can enter. Unfortunately this is not going to work at least for real world maps. So I have mapped Britain at a number
+  | of scales including 80km hex tiles. At this scale mainland Britain occupies 15 hex rows from Cornwall to the north of Scotland. However the
+  | English Channel, or La Manche at its narrowest point still does not occupy a full hex at this scale.""".stripMargin)
 
   def p4: HtmlP = HtmlP(
     """The hex tile coordinate system
