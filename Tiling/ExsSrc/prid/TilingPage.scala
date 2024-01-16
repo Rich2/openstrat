@@ -35,27 +35,7 @@ object TilingPage extends HtmlPage
 
   def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
 
-  object CoordSystem extends HtmlSection
-  {
-    override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, svg1)
 
-    def p1: HtmlP = HtmlP(
-    """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
-    | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
-    | between the hexs and to each of the vertices of the tiles.""".stripMargin)
-
-    val grid: HGridRect = HGridRect(3, 6)
-    debvar(grid.numTiles)
-    val seps: LineSegHCArr = grid.sepLineSegHCs
-    val sc = 60
-    val seps2: LinesDraw = seps.map(_.lineSeg).draw(2).scale(sc)
-    val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
-    val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
-    val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
-    val stuff = (cens).scale(sc)
-
-    val svg1: HtmlSvg = HtmlSvg.autoHorrVert(100, 40, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
-  }
 
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
     "the GameWorld or the OutWorld."),
@@ -94,4 +74,35 @@ object TilingPage extends HtmlPage
       HtmlLi("Inform the players, human and AI, of the Turn resolution.")
     )
   }
+}
+
+object CoordSystem extends HtmlSection
+{
+  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p2, svg1)
+
+  val p1 = HtmlP(
+    """So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board game Diplomacy
+      | the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,which has
+      | become popular in its online form.Irregular tiles provides great flexibility when representing geography from the real world, allowing the
+      | game designer to greatly exaggerate the features and boundaries, they want and to downplay and ignore the features and boundaries they
+      | consider less important or distracting. The two dominant regular tiling systems are standard squares and hexs
+      |
+      |""".stripMargin)
+
+  def p2: HtmlP = HtmlP(
+    """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
+      | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
+      | between the hexs and to each of the vertices of the tiles.""".stripMargin)
+
+  val grid: HGridRect = HGridRect(3, 6)
+  debvar(grid.numTiles)
+  val seps: LineSegHCArr = grid.sepLineSegHCs
+  val sc = 60
+  val seps2: LinesDraw = seps.map(_.lineSeg).draw(2).scale(sc)
+  val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
+  val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
+  val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
+  val stuff = (cens).scale(sc)
+
+  val svg1: HtmlSvg = HtmlSvg.autoHorrVert(100, 40, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
 }
