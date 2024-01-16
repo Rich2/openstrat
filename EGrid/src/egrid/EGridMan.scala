@@ -18,6 +18,8 @@ trait EGridMan
 
   def hCenExists(r: Int, c: Int): Boolean
 
+  def hCoordExists(r: Int, c: Int): Boolean
+
   final def hCenExists(hCen: HCen): Boolean = hCenExists(hCen.r, hCen.c)
   def sideTileLtAndVertUnsafe(hSide: HSep): (HCen, Int)
 

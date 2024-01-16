@@ -169,6 +169,7 @@ object EGridLaunch extends GuiLaunchMore
       case 173 => WesternFront.wFrontScen
       case _ => Scen320All
     }
-    (EGTerrOnlyGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
+    val view = oview.flatMap(v => ife(scen.gridSys.hCoordExists(v.hCoord), Good(v), badNone("None"))).getElse(scen.gridSys.coordCen.view())
+    (EGTerrOnlyGui(_, scen, view, isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
   }
 }

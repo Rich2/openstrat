@@ -19,8 +19,8 @@ object EGridMegaLongMulti
 {
   def apply(rBottomCen: Int = 82, rTopCen: Int = 118, startLong: Int, endLong: Int): EGridMegaLongMulti = new EGridMegaLongMulti
   {
-    override def grids: RArr[EGridLongFull] = startLong match {
-      case sl if endLong > startLong => iToMap(sl, endLong)(i => EGridMegaLongFull(rBottomCen, rTopCen, i))
+    override def grids: RArr[EGridLongFull] = startLong match
+    { case sl if endLong > startLong => iToMap(sl, endLong)(i => EGridMegaLongFull(rBottomCen, rTopCen, i))
       case sl => {
         val len = endLong - startLong + 13
         iUntilMap(len)(i => EGridMegaLongFull(rBottomCen, rTopCen, (i + startLong) %% 12))

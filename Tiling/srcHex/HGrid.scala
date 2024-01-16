@@ -132,7 +132,8 @@ trait HGrid extends TGrid with HGridSys with Tell
     case _ => rowLeftCenC(row - 1) min (rowLeftCenC(row + 1) - 2)
   }
 
-  def hCoordExists(hCoord: HCoord): Boolean = hCoordExists(hCoord.r, hCoord.c)
+  //def hCoordExists(hCoord: HCoord): Boolean = hCoordExists(hCoord.r, hCoord.c)
+
   def hCoordExists(r: Int, c: Int): Boolean = None match
   { case _ if r > topSepR => false
     case _ if r < bottomSepR => false

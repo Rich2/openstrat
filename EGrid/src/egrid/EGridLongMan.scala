@@ -70,6 +70,15 @@ final case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMa
     case _ => true
   }
 
+  override def hCoordExists(r: Int, c: Int): Boolean = None match
+  { case _ if r > grid.topSepR => false
+    case _ if r < grid.bottomSepR => false
+    case _ if isLeftMan & c < grid.gridLeftCenC - 2 => false
+    case _ if isRightMan & c > grid.gridRightCenC + 2 => false
+    case _ => true
+  }
+
+
   def rowSidesForeach(r: Int)(f: HSep => Unit): Unit = r match
   { case r if r == grid.topSepR | r == grid.bottomSepR => grid.rowForeachSep(r)(f)
 

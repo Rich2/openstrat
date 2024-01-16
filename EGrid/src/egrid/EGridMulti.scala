@@ -73,6 +73,7 @@ trait EGridMulti extends EGridSys with HGridMulti
   override def hCoordLL(hc: HCoord): LatLong = manMapex(hc)(_.grid.hCoordLL(hc))
 
   final override def hCenExists(r: Int, c: Int): Boolean = manFind(r, c).fold(false)(_.hCenExists(r, c))
+  final override def hCoordExists(r: Int, c: Int): Boolean = manFind(r, c).fold(false)(_.hCoordExists(r, c))
 
   override def sepTileLtUnsafe(hSide: HSep): HCen = manMapex(hSide.r, hSide.c)(_.sideTileLtUnsafe(hSide))
 
