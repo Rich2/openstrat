@@ -179,6 +179,90 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   }
 
   /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  trait MouthLtBase extends VertSetBase
+  { /** The direction of the mouth. */
+    def dirn: HVDirnPrimary
+
+    /** The magnitude of the offsets. */
+    def magnitude: Int
+
+
+    def run(row: Int): Unit = dirn match
+    { case HVUp =>
+      { corners.setMouth3(row + 1, c, magnitude)
+        sTerrs.set(row - 1, c, sTerr)
+      }
+
+      case HVUR =>
+      { corners.setMouthLt4(row + 1, c + 2, magnitude)
+        sTerrs.set(row, c - 1, sTerr)
+      }
+
+      case HVDR =>
+      { corners.setMouth5(row - 1, c + 2, magnitude)
+        sTerrs.set(row, c - 1, sTerr)
+      }
+
+      case HVDn =>
+      { corners.setMouth0(row - 1, c, magnitude)
+        sTerrs.set(row + 1, c, sTerr)
+      }
+
+      case HVDL =>
+      { corners.setMouth1(row - 1, c - 2, magnitude)
+        sTerrs.set(row, c + 1, sTerr)
+      }
+
+      case HVUL =>
+      { corners.setMouth2(row + 1, c - 2, magnitude)
+        sTerrs.set(row, c + 2, sTerr)
+      }
+    }
+  }
+
+  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  trait MouthRtBase extends VertSetBase
+  { /** The direction of the mouth. */
+    def dirn: HVDirnPrimary
+
+    /** The magnitude of the offsets. */
+    def magnitude: Int
+
+
+    def run(row: Int): Unit = dirn match
+    { case HVUp =>
+      { corners.setMouth3(row + 1, c, magnitude)
+        sTerrs.set(row - 1, c, sTerr)
+      }
+
+      case HVUR =>
+      { corners.setMouthRt4(row + 1, c + 2, magnitude)
+        sTerrs.set(row, c - 1, sTerr)
+      }
+
+      case HVDR =>
+      { corners.setMouth5(row - 1, c + 2, magnitude)
+        sTerrs.set(row, c - 1, sTerr)
+      }
+
+      case HVDn =>
+      { corners.setMouth0(row - 1, c, magnitude)
+        sTerrs.set(row + 1, c, sTerr)
+      }
+
+      case HVDL =>
+      { corners.setMouthRt1(row - 1, c - 2, magnitude)
+        sTerrs.set(row, c + 1, sTerr)
+      }
+
+      case HVUL =>
+      { corners.setMouth2(row + 1, c - 2, magnitude)
+        sTerrs.set(row, c + 2, sTerr)
+      }
+    }
+  }
+
+  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
   trait MouthSpecBase extends VertSetBase
   { /** The direction of the mouth. */
     def mouthDirn: HVDirnPrimary
