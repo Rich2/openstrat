@@ -151,7 +151,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
-
   /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, Also sets the left most of the sides of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
   class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendInBase

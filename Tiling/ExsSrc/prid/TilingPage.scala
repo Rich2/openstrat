@@ -96,9 +96,9 @@ object CoordSystem extends HtmlSection
   | right I increase by 2 column units. If I go up-right I go up 1 row and right 1 column. If I then go down-right I down 1 and right anther column
   | giving the same result of same row coordinate but column increased by 2. """.stripMargin)
 
-  val p3 = HtmlP("""So things can be simple right? A hex is either land orits water. A hex is either hilly or or its not. If we were creating some
-  | kind of low level Dungeons and Dragons type game a square could be either be rock which you can not enter of the open space of a room or a cavern
-  | which you can enter. Unfortunately this is not going to work at least for real world maps""".stripMargin)
+  val p3 = HtmlP("""So things are still pretty simple right? A hex is either land orits water. A hex is either hilly or or its not. If we were
+  | creating some kind of low level Dungeons and Dragons type game a square could be either be rock which you can not enter of the open space of a
+  | room or a cavern which you can enter. Unfortunately this is not going to work at least for real world maps""".stripMargin)
 
   def p4: HtmlP = HtmlP(
     """The hex tile coordinate system
