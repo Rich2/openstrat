@@ -78,21 +78,30 @@ object TilingPage extends HtmlPage
 
 object CoordSystem extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, svg1)
+  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, svg1)
 
-  val p1 = HtmlP(
-    """So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board game Diplomacy
-      | the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,which has
-      | become popular in its online form.Irregular tiles provides great flexibility when representing geography from the real world, allowing the
-      | game designer to greatly exaggerate the features and boundaries, they want and to downplay and ignore the features and boundaries they
-      | consider less important or distracting. The two dominant regular tiling systems are standard squares and hexs. Tranlge while useful as a
-      | graphics primitive is not useful for strategy games. It is also possible to tile with squares where wither alternative rows or alternate
-      | columns are offset. But from here on i'm only going to consider the standard square tiling and hex tiling with continuous rows, where the
-      | columns are offset.
-      |""".stripMargin)
+  val p1 = HtmlP("""So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board
+  | game Diplomacy the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,
+  | which has become popular in its online form.Irregular tiles provides great flexibility when representing geography from the real world, allowing
+  | the game designer to greatly exaggerate the features and boundaries, they want and to downplay and ignore the features and boundaries they
+  | consider less important or distracting. The two dominant regular tiling systems are standard squares and hexs. Tranlge while useful as a graphics
+  | primitive is not useful for strategy games. It is also possible to tile with squares where alternative rows or alternate columns are
+  | offset.""".stripMargin)
 
-  def p2: HtmlP = HtmlP(
-    """We'll deal with the hex coordinate system first and then move on to the similar square tile coordinate system. The hex tile coordinate system
+  val p2 = HtmlP("""But from here on I'm only going to consider the standard square tiling and hex tiling. We'll focus on the hex grid system first
+  | but a lot of what I say will apply to hex and square tile grid. Now with hex tiling we have a choice between nice continuous rows and nice
+  | continuous columns. without too much ado I have chosen to keep rows over columns. We write in rows not colunms and this means on real world hex
+  | maps our hex rows can follow lines of latitude, right around the earth if necessary, where as if you want to go north or south you have to zigzag.
+  | We'll assign tiles some row and column integer coordinates. Straightforward for the squares, the only diference with the hexs is that when I move
+  | right I increase by 2 column units. If I go up-right I go up 1 row and right 1 column. If I then go down-right I down 1 and right anther column
+  | giving the same result of same row coordinate but column increased by 2. """.stripMargin)
+
+  val p3 = HtmlP("""So things can be simple right? A hex is either land orits water. A hex is either hilly or or its not. If we were creating some
+  | kind of low level Dungeons and Dragons type game a square could be either be rock which you can not enter of the open space of a room or a cavern
+  | which you can enter. Unfortunately this is not going to work at least for real world maps""".stripMargin)
+
+  def p4: HtmlP = HtmlP(
+    """The hex tile coordinate system
       | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
       | between the hexs and to each of the vertices of the tiles.""".stripMargin)
 

@@ -2,9 +2,9 @@
 package ostrat; package eg220
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 34294.605km². Sicily is ~75% of a tile. A minimum island size of 1/6
- *  5715.767km². At 3071km² the Outer Hebrides are too small. Zealand is large enough to qualify, but shares its hex with Jutland. Mallorca is too
- *  small. */
+/** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 34294.605km². Sicily is ~75% of a tile. A minimum island size
+ *  of 1/6 5715.767km². At 3071km² the Outer Hebrides are too small. Zealand is large enough to qualify, but shares its hex with Jutland. Mallorca is
+ *  too small. */
 object Terr220E0 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)

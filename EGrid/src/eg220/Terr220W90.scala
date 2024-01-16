@@ -2,7 +2,7 @@
 package ostrat; package eg220
 import prid.phex._, egrid._, WTiles._
 
-/** 220km terrain for 90 west. */
+/** 220km terrain for 90° west. */
 object Terr220W90 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.w90(154, 162)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
