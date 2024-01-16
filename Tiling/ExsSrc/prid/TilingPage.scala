@@ -78,15 +78,17 @@ object TilingPage extends HtmlPage
 
 object CoordSystem extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p2, svg1)
+  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, svg1)
 
   val p1 = HtmlP(
     """So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board game Diplomacy
       | the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,which has
       | become popular in its online form.Irregular tiles provides great flexibility when representing geography from the real world, allowing the
       | game designer to greatly exaggerate the features and boundaries, they want and to downplay and ignore the features and boundaries they
-      | consider less important or distracting. The two dominant regular tiling systems are standard squares and hexs
-      |
+      | consider less important or distracting. The two dominant regular tiling systems are standard squares and hexs. Tranlge while useful as a
+      | graphics primitive is not useful for strategy games. It is also possible to tile with squares where wither alternative rows or alternate
+      | columns are offset. But from here on i'm only going to consider the standard square tiling and hex tiling with continuous rows, where the
+      | columns are offset.
       |""".stripMargin)
 
   def p2: HtmlP = HtmlP(
@@ -95,7 +97,6 @@ object CoordSystem extends HtmlSection
       | between the hexs and to each of the vertices of the tiles.""".stripMargin)
 
   val grid: HGridRect = HGridRect(3, 6)
-  debvar(grid.numTiles)
   val seps: LineSegHCArr = grid.sepLineSegHCs
   val sc = 60
   val seps2: LinesDraw = seps.map(_.lineSeg).draw(2).scale(sc)
