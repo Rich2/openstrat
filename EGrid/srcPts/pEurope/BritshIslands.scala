@@ -13,17 +13,28 @@ object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, land)
   override val polygonLL = PolygonLL(north, stronsayE, south, hoyS, marwick)
 }
 
-/** [[polygonLL]] graphical representation of Outer Hebrides. Depends on nothing. */
-object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, land)
+/** [[polygonLL]] graphical representation of Lewis Island. Depends on nothing. */
+object IsleLewis extends EArea2("Lewis", 57.83 ll -6.09, hillyTundra)
 { val nLewis: LatLong = 58.51 ll -6.26
   val swLewis: LatLong = 57.94 ll -6.47
   val sHarris: LatLong = 57.73 ll -6.97
-  val sandray: LatLong = 56.88 ll -7.50
-  val wUist: LatLong = 57.60 ll -7.53
+
   val wLewis: LatLong = 58.12 ll -7.13
    
-  override val polygonLL: PolygonLL = PolygonLL(nLewis, swLewis, sHarris, sandray, wUist, wLewis)
+  override val polygonLL: PolygonLL = PolygonLL(nLewis, swLewis, sHarris, wLewis)
 }
+
+/** [[polygonLL]] graphical representation of Uist islands. Depends on nothing. */
+object Uist extends EArea2("Uist", 57.384 ll -7.32, land)
+{ val pabbay = 57.785 ll -7.225
+  val northEast = 57.660 ll -7.047
+  val sandray: LatLong = 56.88 ll -7.50
+  val barraHead = 56.779 ll -7.636
+  val wUist: LatLong = 57.60 ll -7.53
+
+  override val polygonLL: PolygonLL = PolygonLL(pabbay, northEast, sandray, barraHead, wUist)
+}
+
 
 /** [[polygonLL]] Graphical representation of Ireland. Depends on nothing. */
 object Ireland extends EArea2("Ireland", 53.36 ll -7.63, land)

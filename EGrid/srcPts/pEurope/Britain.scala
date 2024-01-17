@@ -33,13 +33,17 @@ object Scotland extends EArea2("Scotland", 56.82 ll -4.07, hilly)
   val wRum: LatLong = 57.00 ll -6.45
   val wSkye: LatLong = 57.43 ll -6.78
   val nSkye: LatLong = 57.70 ll -6.29
+
   val nRona: LatLong = 57.58 ll -5.96
+  val fearnmore: LatLong = 57.585 ll -5.814
+  val p95: LatLong = 57.859 ll -5.812
   val nwScotland: LatLong = 58.61 ll -4.99
+  val eileanNahRon: LatLong = 58.560 ll -4.341
 
   override val polygonLL: PolygonLL = PolygonLL( johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, firthForth, archerfield, tantallion,
      stAbbs, bamburgh, tyneMouth,
      solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,snaigmore, wScarba, kerrera, wMull, canna, wRum,
-     wSkye, nSkye, nRona, nwScotland,
+     wSkye, nSkye, nRona, fearnmore, p95, nwScotland, eileanNahRon
   )
 }
 
