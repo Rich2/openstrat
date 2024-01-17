@@ -33,6 +33,7 @@ object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtain
   val inverness: LatLong = 57.49 ll -4.22
   val lossieMouth: LatLong = 57.72 ll -3.33
   val aberdeenshire: LatLong = 57.58 ll -1.85
+  val craighead = 56.279 ll -2.586
   val firthForth: LatLong = 56.00 ll -3.39
 
   val prestwick = 55.497 ll -4.620
@@ -55,7 +56,7 @@ object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtain
   val nwScotland: LatLong = 58.61 ll -4.99
   val eileanNahRon: LatLong = 58.560 ll -4.341
 
-  override val polygonLL: PolygonLL = PolygonLL(johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, firthForth,
+  override val polygonLL: PolygonLL = PolygonLL(johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, craighead, firthForth,
     prestwick, buteSouth, arranSE, sKintyre, addMouth, wScarba, kerrera, wMull, canna, wRum,
     wSkye, nSkye, nRona, fearnmore, p95, nwScotland, eileanNahRon
   )
