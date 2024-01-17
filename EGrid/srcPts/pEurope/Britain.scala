@@ -1,51 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
-
-/** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */
-object Scotland extends EArea2("Scotland", 56.82 ll -4.07, hilly)
-{ val johnOGroats: LatLong = 58.62 ll -3.08
-  val girnigoe: LatLong = 58.47 ll -3.05
-  val inverness: LatLong = 57.49 ll -4.22
-  val lossieMouth: LatLong = 57.72 ll -3.33
-  val aberdeenshire: LatLong = 57.58 ll -1.85
-  val firthForth: LatLong = 56.00 ll -3.39
-  val archerfield: LatLong = 56.06 ll -2.81
-  val tantallion: LatLong = 56.05 ll -2.65
-  val stAbbs: LatLong = 55.91 ll -2.14
-  val bamburgh: LatLong = 55.60 ll -1.68
-  val tyneMouth: LatLong = 55.01 ll -1.41
-
-  val solwayMouth: LatLong = 54.89 ll -3.37
-  val eggerness: LatLong = 54.79 ll -4.34
-  val sWhithorn: LatLong = 54.67 ll -4.39
-  val dunragit: LatLong = 54.86 ll -4.84
-  val cairngaan: LatLong = 54.63 ll -4.88
-  val northCairn: LatLong = 55.00 ll -5.15
-  val ayr: LatLong = 55.44 ll -4.64
-  val sKintyre: LatLong = 55.29 ll -5.77
-  val portahaven: LatLong = 55.69 ll -6.25
-  val snaigmore: LatLong = 55.85 ll -6.45
-  val wScarba: LatLong = 56.17 ll -5.75
-  val kerrera: LatLong = 56.38 ll -5.58
-  val wMull: LatLong = 56.28 ll -6.38
-  val canna: LatLong = 57.05 ll -6.60
-  val wRum: LatLong = 57.00 ll -6.45
-  val wSkye: LatLong = 57.43 ll -6.78
-  val nSkye: LatLong = 57.70 ll -6.29
-
-  val nRona: LatLong = 57.58 ll -5.96
-  val fearnmore: LatLong = 57.585 ll -5.814
-  val p95: LatLong = 57.859 ll -5.812
-  val nwScotland: LatLong = 58.61 ll -4.99
-  val eileanNahRon: LatLong = 58.560 ll -4.341
-
-  override val polygonLL: PolygonLL = PolygonLL( johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, firthForth, archerfield, tantallion,
-     stAbbs, bamburgh, tyneMouth,
-     solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,snaigmore, wScarba, kerrera, wMull, canna, wRum,
-     wSkye, nSkye, nRona, fearnmore, p95, nwScotland, eileanNahRon
-  )
-}
 
 /** [[polygonLL]] Graphical representation of Wales. Depends on nothing. */
 object Wales extends EArea2("Wales", 52.40 ll -3.50, hilly)
