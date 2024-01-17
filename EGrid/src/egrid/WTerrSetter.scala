@@ -166,6 +166,19 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
+  class BendInOut(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendInOutBase
+
+  object BendInOut
+  {
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, terr: WSideSome = Sea): BendInOut =
+    { ifExcep(magIn < 0, magIn.str -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magOut < 0, magOut.toString -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magIn > 13, magIn.str -- "magnitude, magnitude values > 13 not allowed.")
+      ifExcep(magOut > 7, magOut.str -- "magnitude, outer bend magnitude values > 7 not allowed.")
+      new BendInOut(c, dirn, magIn, magOut, terr)
+    }
+  }
+
   /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
   case class VertRightsLeft(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsLeftBase
 
