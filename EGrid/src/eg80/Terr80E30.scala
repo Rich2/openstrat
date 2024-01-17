@@ -75,8 +75,8 @@ object Terr80E30  extends Long80Terrs
         hilly * 2),
 
       VRow(433, BendIn(1490, HVDR, 13)),
-
       TRow(432, hilly, Cape(0, 2), sea * 2, hilly, mtain, hilly * 6, land * 2, hilly, hilly * 7, land, hilly * 8),
+      VRow(431, BendOut(1490, HVUL, 7)),
 
       TRow(430, hilly, savannah * 2, mtain, hilly, mtain, hilly, land, hilly * 2, sea, hilly, sea, hilly * 2, mtain * 5, hilly * 3, mtain * 4, hilly * 3,
       mtain),

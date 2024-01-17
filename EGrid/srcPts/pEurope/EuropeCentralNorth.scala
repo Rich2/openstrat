@@ -28,7 +28,7 @@ object Germania extends EArea2("Germania", 50.50 ll 11.11, land)
    override val places: LocationLLArr = LocationLLArr(berlin)
 }
 
-/** Displays the Alps, depends on [[Alsace]], [[Frankia]] and [[Italy]]. */
+/** Displays the Alps, depends on [[Alsace]], [[Frankia]] and [[ItalyNorth]]. */
 object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtain)
 { val steyr = 48.04 ll 14.14
   val vienna = 48.22 ll 16.41
@@ -41,5 +41,5 @@ object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtain)
   val imperia = 43.89 ll 8.06
       
   val polygonLL = PolygonLL(FranceSouth.stRaphael, FranceSouth.orangeCrossing, FranceSouth.montelimar, Frankia.southEast, Frankia.bourgeEnBresse,
-     Alsace.southWest, Alsace.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, Italy.venice, Italy.voltri, petraLigure, imperia)
+     Alsace.southWest, Alsace.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, ItalyNorth.venice, ItalyNorth.voltri, petraLigure, imperia)
 }
