@@ -27,29 +27,20 @@ object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, land)
 }
 
 /** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */
-object Scotland extends EArea2("Scotland", 56.82 ll -4.07, hilly)
+object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtain)
 { val johnOGroats: LatLong = 58.62 ll -3.08
   val girnigoe: LatLong = 58.47 ll -3.05
   val inverness: LatLong = 57.49 ll -4.22
   val lossieMouth: LatLong = 57.72 ll -3.33
   val aberdeenshire: LatLong = 57.58 ll -1.85
   val firthForth: LatLong = 56.00 ll -3.39
-  val archerfield: LatLong = 56.06 ll -2.81
-  val tantallion: LatLong = 56.05 ll -2.65
-  val stAbbs: LatLong = 55.91 ll -2.14
-  val bamburgh: LatLong = 55.60 ll -1.68
-  val tyneMouth: LatLong = 55.01 ll -1.41
 
-  val solwayMouth: LatLong = 54.89 ll -3.37
-  val eggerness: LatLong = 54.79 ll -4.34
-  val sWhithorn: LatLong = 54.67 ll -4.39
-  val dunragit: LatLong = 54.86 ll -4.84
-  val cairngaan: LatLong = 54.63 ll -4.88
-  val northCairn: LatLong = 55.00 ll -5.15
-  val ayr: LatLong = 55.44 ll -4.64
+  val prestwick = 55.497 ll -4.620
+  val buteSouth = 55.722 ll -5.029
+  val arranSE = 55.445 ll -5.101
   val sKintyre: LatLong = 55.29 ll -5.77
-  val portahaven: LatLong = 55.69 ll -6.25
-  val snaigmore: LatLong = 55.85 ll -6.45
+  val addMouth = 56.091 ll -5.547
+
   val wScarba: LatLong = 56.17 ll -5.75
   val kerrera: LatLong = 56.38 ll -5.58
   val wMull: LatLong = 56.28 ll -6.38
@@ -64,11 +55,29 @@ object Scotland extends EArea2("Scotland", 56.82 ll -4.07, hilly)
   val nwScotland: LatLong = 58.61 ll -4.99
   val eileanNahRon: LatLong = 58.560 ll -4.341
 
-  override val polygonLL: PolygonLL = PolygonLL( johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, firthForth, archerfield, tantallion,
-    stAbbs, bamburgh, tyneMouth,
-    solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,snaigmore, wScarba, kerrera, wMull, canna, wRum,
+  override val polygonLL: PolygonLL = PolygonLL(johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, firthForth,
+    prestwick, buteSouth, arranSE, sKintyre, addMouth, wScarba, kerrera, wMull, canna, wRum,
     wSkye, nSkye, nRona, fearnmore, p95, nwScotland, eileanNahRon
   )
+}
+
+/** [[polygonLL]] graphical representation of Scottish lowlands. Depends on [[ScotlandHigh]]. */
+object ScotlandLow extends EArea2("Scotland\nlowlands", 56.82 ll -4.07, hilly)
+{ val archerfield: LatLong = 56.06 ll -2.81
+  val tantallion: LatLong = 56.05 ll -2.65
+  val stAbbs: LatLong = 55.91 ll -2.14
+  val bamburgh: LatLong = 55.60 ll -1.68
+  val tyneMouth: LatLong = 55.01 ll -1.41
+
+  val solwayMouth: LatLong = 54.89 ll -3.37
+  val eggerness: LatLong = 54.79 ll -4.34
+  val sWhithorn: LatLong = 54.67 ll -4.39
+  val dunragit: LatLong = 54.86 ll -4.84
+  val cairngaan: LatLong = 54.63 ll -4.88
+  val northCairn: LatLong = 55.00 ll -5.15
+
+  override val polygonLL: PolygonLL = PolygonLL(ScotlandHigh.firthForth, archerfield, tantallion, stAbbs, bamburgh, tyneMouth,
+    solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ScotlandHigh.prestwick)
 }
 
 /** [[polygonLL]] graphical representation of Lewis Island. Depends on nothing. */
@@ -84,11 +93,23 @@ object IsleLewis extends EArea2("Lewis", 57.83 ll -6.09, hillyTundra)
 
 /** [[polygonLL]] graphical representation of Uist islands. Depends on nothing. */
 object Uist extends EArea2("Uist", 57.384 ll -7.32, land)
-{ val pabbay = 57.785 ll -7.225
-  val northEast = 57.660 ll -7.047
+{
+  val pabbay: LatLong = 57.785 ll -7.225
+  val northEast: LatLong = 57.660 ll -7.047
   val sandray: LatLong = 56.88 ll -7.50
-  val barraHead = 56.779 ll -7.636
+  val barraHead: LatLong = 56.779 ll -7.636
   val wUist: LatLong = 57.60 ll -7.53
 
   override val polygonLL: PolygonLL = PolygonLL(pabbay, northEast, sandray, barraHead, wUist)
+}
+
+/** [[polygonLL]] graphical representation of Islay, jura and Colonsay islands. Depends on nothing. */
+object IslayJura extends EArea2("Islay Jura", 55.879 ll -6.006, land)
+{ val juraNorth = 56.149 ll -5.709
+  val islaySouth = 55.580 ll -6.293
+  val portahaven: LatLong = 55.671 ll -6.514
+  val snaigmore: LatLong = 55.85 ll -6.45
+  val colonsayNorth = 56.133 ll -6.147
+
+  override val polygonLL: PolygonLL = PolygonLL(juraNorth, islaySouth, portahaven, snaigmore, colonsayNorth)
 }

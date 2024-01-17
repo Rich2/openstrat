@@ -5,8 +5,9 @@ import geom._, pglobe._
 /** 20North, 0 East */
 object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(Ireland, England, Scotland, Wales, Orkneys, Uist, IsleLewis, Shetland, Faroe, JanMayen, Frankia,
-    BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth, Oland)
+  override val a2Arr: RArr[EArea2] = RArr(Ireland, England, ScotlandLow, ScotlandHigh, Wales, Orkneys, IslayJura, Uist, IsleLewis, Shetland, Faroe,
+    JanMayen, Frankia, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland, Polandia, Baltland, Ukraine, SwedenSouth,
+    SwedenNorth, Oland)
 }
 
 object EuropeEast extends EArea1("EuropeEast", 60 ll 60)

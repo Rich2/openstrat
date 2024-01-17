@@ -16,7 +16,7 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hilly)
   override val polygonLL: PolygonLL = PolygonLL(liverpool, chepstow, nashPoint, stDavids, aberaeron, criccieth, mynydd, anglesey)
 }
 
-/** [[polygonLL]] graphical representation of England. Depends on [[Scotland]] and [[Wales]]. */
+/** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
 object England extends EArea2("England", 52.73 ll -1.26, land)
 { val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
@@ -51,10 +51,10 @@ object England extends EArea2("England", 52.73 ll -1.26, land)
   val sBarrow: LatLong = 54.04 ll -3.20
   val stBeesHead: LatLong = 54.51 ll -3.63
 
-  override val polygonLL: PolygonLL = PolygonLL(Scotland.tyneMouth, scarborough, flamborough, holbeach, ouseMouth, hunstanton, cromer, horsey,
+  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, scarborough, flamborough, holbeach, ouseMouth, hunstanton, cromer, horsey,
     lowestoft, foulness, nwGrain, nekent, dover,
     dungeness, beachyHead, ventnor, bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard, penzance, trevoseHead,
-    nwDevon, parrettMouth, Wales.chepstow,  Wales.liverpool,  kentMouth, sBarrow, stBeesHead, Scotland.solwayMouth,
+    nwDevon, parrettMouth, Wales.chepstow,  Wales.liverpool,  kentMouth, sBarrow, stBeesHead, ScotlandLow.solwayMouth,
   )
 
    val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
