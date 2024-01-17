@@ -2,8 +2,14 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 80km, a C scale of 20km. A tile area of 3117.691 square km. A minimum island area of 519.615 square
- * km. That is 1/6 of the tile area.  A amx island size of possibly 1558.846 square km. */
+/** Hex tile grids for Earth with a hex scale of 80km, a C scale of 20km. A tile area of 5542.562km².
+ * A maximum Isle area of 3658.957km²
+ * Isle 1753.701km² <= 3658.957km²
+ * Isle8 1060.881km² <= 1753.701km²
+ * Isle6 654.931km² <= 1060.881km²
+ * Isle5 438.425km² <= 654.931km²
+ * Isle4 265.220km² <= 438.425km²
+ * Isle3 135.316km² <= 265.220km² */
 package object eg80
 {
   val fullTerrs: RArr[Long80Terrs] = RArr(Terr80E0, Terr80E30, null, null, null, null, null, null, null, null, null, null)

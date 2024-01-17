@@ -2,8 +2,9 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, WTiles._
 
-/** The 80 Km grid centred on 30E for 15E to 45E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current y offset is 300 for
- *  the equator. The Old c offset was 400 so a diff of 1136. */
+/** The 80 Km grid centred on 30°E for 15°E to 45°E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current
+ * r offset is 300 for the equator.
+ *  Isle8 1060.881km² <= 1753.701km² includes Rhodes */
 object Terr80E30  extends Long80Terrs
 { override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -81,12 +82,12 @@ object Terr80E30  extends Long80Terrs
       TRow(430, hilly, savannah * 2, mtain, hilly, mtain, hilly, land, hilly * 2, sea, hilly, sea, hilly * 2, mtain * 5, hilly * 3, mtain * 4, hilly * 3,
       mtain),
 
-      VRow(429, BendIn(1488, HVUR, 13), BendOut(1490, HVDL, 7)),
+      VRow(429, BendIn(1488, HVUR, 13), BendOut(1490, HVDL, 7), MouthLt(1504, HVUL), BendInOut(1506, HVDL, 4, 7)),
 
       TRow(428, hilly, sea, sea * 2, mtain * 2, hilly * 2, hilly * 2, sea, hilly * 3, mtain, hilly * 4, hillyDesert * 2, hilly * 4, hillyDesert * 2,
       hilly * 3, land),
 
-      VRow(427, MouthRt(1490, HVDn)),
+      VRow(427, MouthRt(1490, HVDn), BendIn(1506, HVUR)),
 
       TRow(426, sea, hilly, sea * 3, hilly, mtain, land, hilly, sea * 3, hilly * 2, mtain, hilly * 2, desert, hillyDesert * 7, mtain * 2, hilly,
       hillyDesert * 2, mtain, hillyDesert),
