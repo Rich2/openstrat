@@ -104,19 +104,20 @@ object Italy extends EArea2("ItalyNorth", 43.61 ll 11.82, hilly)
 
 /** [[PolygonLL]] graphic for Italy depends on nothing. */
 object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hilly)
-{ val siponto = 41.60 ll 15.89
-  val barletta = 41.32 ll 16.28
-  val brindisi = 40.65 ll 17.97
-  val otranto = 40.12 ll 18.45
-  val leuca = 39.79 ll 18.34
-  val puntaPizzo = 40.00 ll 17.99
-  val p40 = 40.05 ll 17.97
-  val p42 = 40.21 ll 17.86
+{ val siponto: LatLong = 41.60 ll 15.89
+  val barletta: LatLong = 41.32 ll 16.28
+  val brindisi: LatLong = 40.65 ll 17.97
+  val otranto: LatLong = 40.12 ll 18.45
+  val leuca: LatLong = 39.79 ll 18.34
+  val puntaPizzo: LatLong = 40.00 ll 17.99
+  val p40: LatLong = 40.05 ll 17.97
+  val p42: LatLong = 40.21 ll 17.86
+  val capoSanVito = 40.408 ll 17.203
 
-  val taranto = 40.52 ll 17.09
-  val bruscata = 39.76 ll 16.48
-  val mirto = 39.62 ll 16.77
-  val capoColonna = 39.02 ll 17.20
+  val taranto: LatLong = 40.52 ll 17.09
+  val bruscata: LatLong = 39.76 ll 16.48
+  val mirto: LatLong = 39.62 ll 16.77
+  val capoColonna: LatLong = 39.02 ll 17.20
   val stilaroMouth = 38.43 ll 16.57
 
   val palizzi = 37.95 ll 16.03
@@ -124,10 +125,11 @@ object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hilly)
   val giovanni = 38.23 ll 15.63
   val bagnaraCalabra = 38.28 ll 15.79
   val lamezia = 38.89 ll 16.22
-  val p70 = 39.99 ll 15.42
+  val p70: LatLong = 39.99 ll 15.42
+
   val licosa = 40.25 ll 14.91
   val diProcida = 40.79 ll 14.04
 
-  val polygonLL = PolygonLL(siponto, barletta, brindisi, otranto, leuca, puntaPizzo, p40, p42, taranto, bruscata, mirto, capoColonna, stilaroMouth, palizzi, riaciCapo,
+  val polygonLL = PolygonLL(siponto, barletta, brindisi, otranto, leuca, puntaPizzo, p40, p42, capoSanVito, taranto, bruscata, mirto, capoColonna, stilaroMouth, palizzi, riaciCapo,
     giovanni, bagnaraCalabra, lamezia, p70, licosa, diProcida)
 }

@@ -74,12 +74,14 @@ object Terr80E30  extends Long80Terrs
       TRow(434, Cape(1, 2, hilly), sea * 3, hilly, mtain, hilly * 2, mtain, hilly * 2, land, hilly, sea * 4, hilly * 4, sea * 6, hilly, mtain,
         hilly * 2),
 
-      TRow(432, hilly, Cape(0, 2), sea * 2, Cape(4, 2, hilly), mtain, hilly * 6, land * 2, hilly, hilly * 7, land, hilly * 8),
+      VRow(433, BendIn(1490, HVDR, 13)),
 
-      TRow(430, hilly, land, sea * 2, hilly, mtain, hilly, land, hilly * 2, sea, hilly, sea, hilly * 2, mtain * 5, hilly * 3, mtain * 4, hilly * 3,
+      TRow(432, hilly, Cape(0, 2), sea * 2, hilly, mtain, hilly * 6, land * 2, hilly, hilly * 7, land, hilly * 8),
+
+      TRow(430, hilly, savannah * 2, mtain, hilly, mtain, hilly, land, hilly * 2, sea, hilly, sea, hilly * 2, mtain * 5, hilly * 3, mtain * 4, hilly * 3,
       mtain),
 
-      TRow(428, hilly, sea, land, sea, mtain * 2, hilly * 2, hilly * 2, sea, hilly * 3, mtain, hilly * 4, hillyDesert * 2, hilly * 4, hillyDesert * 2,
+      TRow(428, hilly, sea, savannah, sea, mtain * 2, hilly * 2, hilly * 2, sea, hilly * 3, mtain, hilly * 4, hillyDesert * 2, hilly * 4, hillyDesert * 2,
       hilly * 3, land),
 
       TRow(426, sea, hilly, sea * 3, hilly, mtain, land, hilly, sea * 3, hilly * 2, mtain, hilly * 2, desert, hillyDesert * 7, mtain * 2, hilly,
