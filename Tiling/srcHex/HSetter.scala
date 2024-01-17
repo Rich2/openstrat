@@ -189,7 +189,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
     def run(row: Int): Unit = dirn match
     { case HVUp =>
-      { corners.setMouth3(row + 1, c, magnitude)
+      { corners.setMouth3Lt(row + 1, c, magnitude)
         sTerrs.set(row - 1, c, sTerr)
       }
 

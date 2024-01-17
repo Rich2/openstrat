@@ -19,7 +19,7 @@ object Terr320E0 extends Long320Terrs
       TRow(166, SeaIcePerm),
       TRow(164, SeaIceWinter),
       TRow(162, SeaIceWinter * 2),
-      TRow(160, SeaIceWinter * 2),
+      TRow(160, SeaIceWinter),
       TRow(156, sea * 3),
       TRow(154, sea * 4),
       TRow(152, sea * 3, hillyTaiga),
