@@ -214,7 +214,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setMouth2(row + 1, c - 2, magnitude)
+      { corners.setMouthLt2(row + 1, c - 2, magnitude)
         sTerrs.set(row, c + 2, sTerr)
       }
     }
@@ -231,7 +231,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
     def run(row: Int): Unit = dirn match
     { case HVUp =>
-      { corners.setMouth3(row + 1, c, magnitude)
+      { corners.setMouthRt3(row + 1, c, magnitude)
         sTerrs.set(row - 1, c, sTerr)
       }
 
@@ -241,12 +241,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVDR =>
-      { corners.setMouth5(row - 1, c + 2, magnitude)
+      { corners.setMouthRt5(row - 1, c + 2, magnitude)
         sTerrs.set(row, c - 1, sTerr)
       }
 
       case HVDn =>
-      { corners.setMouth0(row - 1, c, magnitude)
+      { corners.setMouthRt0(row - 1, c, magnitude)
         sTerrs.set(row + 1, c, sTerr)
       }
 
@@ -256,7 +256,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setMouth2(row + 1, c - 2, magnitude)
+      { corners.setMouthRt2(row + 1, c - 2, magnitude)
         sTerrs.set(row, c + 2, sTerr)
       }
     }

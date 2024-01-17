@@ -123,8 +123,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   case class SetSide(c: Int, terr: WSideSome = Sea) extends  VRowElem with SetSideBase
   case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
-  case class MouthLt(c: Int, dirn: HVDirnPrimary, sTerr: WSideSome = Sea, magnitude: Int = 6) extends VRowElem with MouthLtBase
-  case class MouthRt(c: Int, dirn: HVDirnPrimary, sTerr: WSideSome = Sea, magnitude: Int = 6) extends VRowElem with MouthRtBase
+  case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSideSome = Sea) extends VRowElem with MouthLtBase
+  case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSideSome = Sea) extends VRowElem with MouthRtBase
 
   case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSideSome = Sea, magnitude1: Int = 3,
                        magnitude2: Int = 3) extends VRowElem with MouthSpecBase

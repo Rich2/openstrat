@@ -23,7 +23,7 @@ object Terr460W30 extends Long460Terrs
       TRow(138, ice),
       TRow(136, Cape(2, 1, ice), sea, Cape(3, 1, mtain)),
       VRow(135, BendAll(11772, HVDR), Mouth(11778, HVUL), Mouth(11782, HVUR)),
-      VRow(133, SetSide(11771)),
+      VRow(133, SetSide(11771), MouthLt(11784, HVUR, 7)),
       VRow(129, Mouth(11786, HVDR)),
       TRow(116, sea * 5, Isle3(mtain)),
       TRow(112, sea * 5, Cape(5, 1, desert)),
