@@ -9,7 +9,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle6 4952.921km² <= 8022.913km² Zealand 7180km² is large enough to qualify, but shares its hex with Jutland.
  *  Isle5 3315.591km² <= 4952.921km² Mallorca 3640km².
  *  Isle4 2005.728km² <= 3315.591km² Outer Hebrides 3071km².
- *  Isle3 1023.330km² <= 2005.728km²
+ *  Isle3 1023.330km² <= 2005.728km² Faroe Islands 1,399 km²
  *  Smaller Isle of Man. */
 object Terr220E0 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
@@ -26,11 +26,11 @@ object Terr220E0 extends Long220Terrs
       TRow(178, sea * 4, Cape(4, 2, hillyTaiga)),
       TRow(176, sea * 5, hillyTaiga),
       TRow(174, sea * 5, hillyTaiga),
-      TRow(172, sea * 5, hillyTaiga, taiga),
-      TRow(170, sea * 4, hillyTaiga, taiga * 2),
-      VRow(169, Mouth(506, HVDL)),
-      TRow(168, sea * 2, Cape(0, 2, hilly), sea * 2, Cape(3, 2, hillyTaiga), taiga),
-      VRow(167, Mouth(510, HVDn), BendAll(522, HVDn), BendAll(524, HVDL)),
+      TRow(172, sea, Isle3(mtain), sea * 2, mtain, hillyTaiga, taiga),
+      TRow(170, sea * 2, Isle4(Hilly, Taiga, CivMix, Sea), sea, hillyTaiga, taiga * 2),
+      VRow(169, MouthRt(506, HVDL)),
+      TRow(168, sea * 2, hilly, sea * 2, Cape(3, 2, hillyTaiga), taiga),
+      VRow(167, MouthLt(510, HVDn), BendAll(522, HVDn), BendAll(524, HVDL)),
       TRow(166, sea * 2, hilly, sea, sea * 2, land, Cape(4, 1)),
       VRow(165, Mouth(526, HVDR), Mouth(528, HVUL)),
       TRow(164, sea, Cape(5, 3), Cape(4, 1, hilly), sea * 3, land, sea),

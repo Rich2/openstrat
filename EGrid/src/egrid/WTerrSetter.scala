@@ -50,7 +50,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the side terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
-  case class Isle4(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle6Base
+  case class Isle4(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle4Base
 
   object Isle4
   { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
@@ -58,7 +58,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the side terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
-  case class Isle3(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle6Base
+  case class Isle3(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle3Base
 
   object Isle3
   { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
