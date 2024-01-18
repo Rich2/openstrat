@@ -9,10 +9,10 @@ trait WW1Scen extends HSysTurnScen
   val terrs: LayerHcRefSys[WTile]
   val sTerrs: LayerHSOptSys[WSide, WSideSome]
   val corners: HCornerLayer
-  val lunits: LayerHcOptSys[Lunit]
+  val lunits: LayerHcRArr[Lunit]
 
-  def endTurn(orderList: HCenStepPairArr[Lunit]): WW1Scen =
-  {  val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
+  def endTurn(orderList: HCenStepPairArr[Lunit]): WW1Scen = ???
+  /*{  val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pair =>
       val optTarget: Option[HCen] = pair.startHC.stepOpt(pair.step)
@@ -30,7 +30,7 @@ trait WW1Scen extends HSysTurnScen
       override val lunits: LayerHcOptSys[Lunit] = armiesNew
       override def turn: Int = ThisScen.turn + 1
     }
-  }
+  }*/
 }
 
 object WW1Scen1 extends WW1Scen
@@ -39,11 +39,11 @@ object WW1Scen1 extends WW1Scen
   override val terrs: LayerHcRefSys[WTile] = Terr120E0.terrs
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
-  override val lunits: LayerHcOptSys[Lunit] = LayerHcOptSys()
-  lunits.setSomeMut(310, 514, Army(pStrat.Britain, 1))
-  lunits.setSomeMut(308, 528, Army(pStrat.Germany, 1))
-  lunits.setSomeMut(306, 526, CavalryCorps(pStrat.Germany, 1))
-  lunits.setSomeMut(306, 518, Army(pStrat.France, 1))
+  override val lunits: LayerHcRArr[Lunit] = LayerHcRArr()
+  lunits.set1(310, 514, Army(pStrat.Britain, 1))
+  lunits.set1(308, 528, Army(pStrat.Germany, 1))
+  lunits.set1(306, 526, CavalryCorps(pStrat.Germany, 1))
+  lunits.set1(306, 518, Army(pStrat.France, 1))
 }
 
 object WW1Scen2 extends WW1Scen
@@ -52,5 +52,5 @@ object WW1Scen2 extends WW1Scen
   override val terrs: LayerHcRefSys[WTile] = Terr120E30.terrs
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr120E30.sTerrs
   override val corners: HCornerLayer = Terr120E30.corners
-  override val lunits: LayerHcOptSys[Lunit] = LayerHcOptSys()
+  override val lunits: LayerHcRArr[Lunit] = LayerHcRArr()
 }

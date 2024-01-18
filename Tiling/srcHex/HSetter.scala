@@ -144,7 +144,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     /** The magnitude of the offsets. */
     def magnitude: Int
 
-    /** Sets the 3 corners for the [[HVert]] and sets the side.  */
+    /** Sets the 3 corners for the [[HVert]] and sets the [[HSep]].  */
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, magnitude)
