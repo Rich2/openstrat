@@ -26,13 +26,16 @@ object Terr460W30 extends Long460Terrs
       VRow(133, SetSide(11771), MouthLt(11784, HVUR, 7)),
       VRow(129, Mouth(11786, HVDR)),
       TRow(116, sea * 5, Isle3(mtain)),
-      TRow(112, sea * 5, Cape(5, 1, desert)),
-      VRow(111, BendOut(11786, HVUL)),
-      TRow(110, sea * 5, Cape(4, 2, sahel)),
-      VRow(109, BendOut(11786, HVDL)),
-      TRow(108, sea * 6, Cape(4, 1, savannah)),
-      VRow(107, BendOut(11788, HVDL)),
-      TRow(106, sea * 6, Cape(4, 1, hillySavannah)),
+      VRow(113, MouthLt(11786, HVUp)),
+      TRow(112, sea * 5, desert),
+      VRow(111, BendIn(11784, HVDR, 13), BendOut(11786, HVUL, 7)),
+      TRow(110, sea * 5, sahel),
+      VRow(109, BendIn(11784, HVUR, 13), BendOut(11786, HVDL, 7)),
+      TRow(108, sea * 6, savannah),
+      VRow(107, BendIn(11786, HVUR, 13), BendOut(11788, HVDL, 7)),
+      TRow(106, sea * 6, hillySavannah),
+      VRow(105, BendIn(11788, HVUR, 13), BendOut(11790, HVDL, 7)),
+      VRow(103, BendIn(11790, HVUR, 13), BendIn(11792, HVUp, 13)),
     )
   }
   help.run

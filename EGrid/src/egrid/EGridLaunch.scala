@@ -165,7 +165,7 @@ object EGridLaunch extends GuiLaunchMore
 
       case 160 => EGrid80.scen0
       case 161 => EGrid80.scen1
-      case 172 => Scen80s0s1
+      case 172 => Scen80Europe
       case 173 => WesternFront.wFrontScen
       case _ => Scen320All
     }

@@ -2,9 +2,9 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._
 
-/** 460km terrain only scenario for Europe. 2 Grid system for 0E and 30E */
+/** 460km terrain only scenario for Europe. 2 Grid system for 0°E and 30°E. */
 object Scen460Europe extends EScenLongMulti
-{ override val title: String = "460km Europe 0E - 30E"
+{ override val title: String = "460km Europe 0°E - 30°E"
   override implicit val gridSys: EGrid460LongMulti = EGrid460.multi(2, 0, 102)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn

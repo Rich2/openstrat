@@ -25,9 +25,9 @@ object Terr460E0 extends Long460Terrs
       TRow(134, sea, mtain, land),
       VRow(133, BendIn(506, HVDR, 13), MouthLt(508, HVUR), BendIn(512, HVUR, 13), BendOut(514, HVDL)),
       TRow(132, Cape(4, 1, hilly), sea, forest),
-      VRow(131, Mouth(504, HVUp), BendOut(508, HVDL), BendIn(514, HVUR, 13), BendIn(516, HVUp, 13)),
+      VRow(131, Mouth(504, HVUp), BendOut(508, HVDL), BendIn(514, HVUR, 13), BendIn(516, HVUp, 13), BendIn(518, HVUL)),
       TRow(130, Cape(5, 2), hilly, sea, land),
-      VRow(129, BendIn(504, HVUR, 10), Mouth(506, HVDR), MouthRt(508, HVDn), MouthRt(514, HVUp)),
+      VRow(129, BendIn(504, HVUR, 10), MouthRt(506, HVDR), MouthRt(508, HVDn), MouthRt(514, HVUp)),
       TRow(128, sea, land, land, hilly),
       VRow(127, Mouth(508, HVUp), MouthLt(510, HVUL, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
       TRow(126, sea, Cape(4, 1), land, hilly),
@@ -47,7 +47,9 @@ object Terr460E0 extends Long460Terrs
       TRow(110, desert * 6),
       TRow(108, savannah, sahel, savannah, sahel, desert * 2, sahel),
       TRow(106, savannah, savannah * 2, jungle, savannah * 3),
+      VRow(105, BendOut(498, HVDL, 7)),
       TRow(104, jungle, hillyJungle * 4, savannah, hillySavannah),
+      VRow(103, BendIn(498, HVUR, 13), BendIn(500, HVUp, 13), Mouth(502, HVUR)),
       TRow(102, sea * 5, hillyJungle, jungle),
     )
   }
