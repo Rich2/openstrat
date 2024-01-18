@@ -2,9 +2,15 @@
 package ostrat; package eg220
 import prid._, phex._, egrid._, WTiles._
 
-/** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 34294.605km². Sicily is ~75% of a tile. A minimum island size
- *  of 1/6 5715.767km². At 3071km² the Outer Hebrides are too small. Zealand is large enough to qualify, but shares its hex with Jutland. Mallorca is
- *  too small. */
+/** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 41915.629km². Sicily is ~75% of a tile.
+ * A minimum island size of 27670.864km².
+ *  Isle 13262.367km² <= 27670.864km².
+ *  Isle8 8022.913km² <= 13262.367km²
+ *  Isle6 4952.921km² <= 8022.913km² Zealand 7180km² is large enough to qualify, but shares its hex with Jutland.
+ *  Isle5 3315.591km² <= 4952.921km² Mallorca 3640km².
+ *  Isle4 2005.728km² <= 3315.591km² Outer Hebrides 3071km².
+ *  Isle3 1023.330km² <= 2005.728km²
+ *  Smaller Isle of Man. */
 object Terr220E0 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -30,9 +36,9 @@ object Terr220E0 extends Long220Terrs
       TRow(164, sea, Cape(5, 3), Cape(4, 1, hilly), sea * 3, land, sea),
       VRow(163, Mouth(508, HVDR)),
       TRow(162, sea, land, Cape(4, 3, hilly), land, sea, Cape(5, 2), land * 3),
-      VRow(161, Mouth(506, HVDR), BendOut(516, HVUL)),
-      TRow(160, sea, Cape(2, 4), sea, land * 2, Cape(5, 1), land, hilly, land),
-      VRow(159, Mouth(506, HVUR), BendAll(512, HVUp), BendAll(514, HVUL)),
+      VRow(161, MouthLt(498, HVUp), Mouth(506, HVDR), BendOut(516, HVUL)),
+      TRow(160, sea, land, sea, land * 2, Cape(5, 1), land, hilly, land),
+      VRow(159, BendIn(498, HVUR, 13), BendIn(500, HVUp, 13), MouthRt(502, HVUR, 7), Mouth(506, HVUR), BendAll(512, HVUp), BendAll(514, HVUL)),
       TRow(158, sea * 2, Cape(2, 4, hilly), Cape(4, 3), land, hilly * 4),
       VRow(157, Mouth(510, HVDR)),
       TRow(156, sea * 3, Cape(0, 1), land * 2, hilly * 2, land, hilly),
