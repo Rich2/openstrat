@@ -2,8 +2,8 @@
 package ostrat; package peri
 import geom._, prid._, phex._, pgui._, egrid._
 
-class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui") {
-  var scen: PeriScen = scenIn
+class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui")
+{ var scen: PeriScen = scenIn
   override implicit val gridSys: EGridSys = scenIn.gridSys
 
   override def terrs: LayerHcRefSys[WTile] = scen.terrs
