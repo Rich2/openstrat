@@ -11,7 +11,6 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   val corners: HCornerLayer = scen.corners
   val lunits: LayerHcRArr[Warrior] = scen.lunits
 
-  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //def view: HGView()
   //proj.setView(viewIn)

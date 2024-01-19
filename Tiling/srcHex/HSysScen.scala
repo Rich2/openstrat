@@ -12,12 +12,6 @@ abstract class HGridSysGui(val title: String) extends CmdBarGui// TGridSysGui(ti
   def frame: GraphicElems
   def repaint(): Unit = mainRepaint(frame)
 
-  /** The number of pixels displayed per c column coordinate. */
-  var pixPerC: Double = 40
-
-  /** Pixels per Tile. The number of pixels from a side of a tile to the opposite side of the tile. */
-  //def pixPerTile: Double
-
   def tilePScaleStr = s"scale = ${pixPerTile.str2} pixels per tile"
 
   final def pixPerTile: Double = proj.pixelsPerTile

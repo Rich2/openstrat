@@ -11,8 +11,6 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   val corners: HCornerLayer = scen.corners
   def armies: LayerHcRArr[Lunit] = scen.lunitSts
 
-//  focus = gridSys.cenVec
-  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

@@ -14,7 +14,6 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def NoMoves: HCenStepPairArr[Lunit] = HCenStepPairArr[Lunit]()
   var moves: HCenStepPairArr[Lunit] = NoMoves
 
-  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
@@ -22,10 +21,6 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   {
     def hexStrs: GraphicElems = proj.hCenSizedMap(15) { (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
-    /*def units: GraphicElems = lunits. projSomesHcPtMap { (lunit, hc, pt) =>
-      val str = pixPerTile.scaledStr(170, lunit.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, lunit.toString)
-      lunit.counter(proj.pixelsPerTile * 0.6, HCenPair(hc, lunit), lunit.colour).slate(pt)
-    }*/
     def units: GraphicElems = lunits.projSomesHcPtMap { (armies, hc, pt) =>
       val str: String = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
       val head: Lunit = armies.head

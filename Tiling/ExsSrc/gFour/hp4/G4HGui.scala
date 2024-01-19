@@ -16,8 +16,6 @@ case class G4HGui(canv: CanvasPlatform, scenStart: G4HScen, viewIn: HGView) exte
 
   implicit def gridSys: HGridSys = scen.gridSys
 
-  pixPerC = viewIn.pixelsPerC
-
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 

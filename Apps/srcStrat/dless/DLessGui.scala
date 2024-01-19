@@ -14,7 +14,6 @@ class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLes
   def NoMoves: HCenStepPairArr[Army] = HCenStepPairArr[Army]()
   var moves: HCenStepPairArr[Army] = NoMoves
 
-  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(settings.isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(settings.view)
 
