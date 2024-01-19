@@ -11,7 +11,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   val corners = scen.corners
   def squads: LayerHcRArr[Squad] = scen.lunits
 
-  focus = gridSys.cenVec
+
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //proj.setView(viewIn)

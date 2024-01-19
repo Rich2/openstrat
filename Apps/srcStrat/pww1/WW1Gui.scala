@@ -14,7 +14,6 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def NoMoves: HCenStepPairArr[Lunit] = HCenStepPairArr[Lunit]()
   var moves: HCenStepPairArr[Lunit] = NoMoves
 
-  focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)

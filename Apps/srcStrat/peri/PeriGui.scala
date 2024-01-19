@@ -14,7 +14,6 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
   def armies: LayerHcOptSys[Army] = scen.armies
 
-  focus = gridSys.cenVec
   pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   override implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)

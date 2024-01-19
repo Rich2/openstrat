@@ -1,11 +1,26 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import geom._, pgui._
 
 /** Graphical User Interface for [[HGridSys]] hex grid systems. */
-abstract class HGridSysGui(title: String) extends TGridSysGui(title)
-{ override def gridSys: HGridSys
+abstract class HGridSysGui(val title: String) extends CmdBarGui// TGridSysGui(title)
+{ def gridSys: HGridSys
   implicit def proj: HSysProjection
-  final override def pixPerTile: Double = proj.pixelsPerTile
+  /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
+  def thisTop(): Unit
+
+  def frame: GraphicElems
+  def repaint(): Unit = mainRepaint(frame)
+
+  /** The number of pixels displayed per c column coordinate. */
+  var pixPerC: Double = 40
+
+  /** Pixels per Tile. The number of pixels from a side of a tile to the opposite side of the tile. */
+  //def pixPerTile: Double
+
+  def tilePScaleStr = s"scale = ${pixPerTile.str2} pixels per tile"
+
+  final def pixPerTile: Double = proj.pixelsPerTile
 }
 
 /** Scenario based on a [[HGrid]] system. */

@@ -77,7 +77,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFrontFills ++ tileActives ++ sideFills /*++ sideDraws*/ ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tileFrontFills ++ tileActives ++ sideFills ++ sideDraws ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines
   }
 
   override def selectedStr: String = selected match
