@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, prid._, phex._
 
@@ -8,7 +8,10 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
   def sTerrs: LayerHSOptSys[WSide, WSideSome]
   def corners: HCornerLayer
   implicit def proj: HSysProjection
+
+  /** tile [[HCen]] - [[Polygon]]  pairs. */
   def tilePolys: HCenPairArr[Polygon] = proj.hCenPolygons(corners)
+
   def tileFills: RArr[PolygonFill] = tilePolys.pairMap{ (hc, poly) => poly.fill(terrs(hc)(gridSys).colour) }
   def tileActives: RArr[PolygonActive] = tilePolys.pairMap{ (hc, poly) => poly.active(hc) }
 
