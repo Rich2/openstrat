@@ -51,7 +51,8 @@ object PeriScen
     val terrs = inp.terrs
     val nats = inp.nations
     val lands: HCenPairArr[Land] = gSys.optMapPair{ hc => terrs(hc) match
-      { case ld: Land => Some(ld)
+      { case ld: Land if ld.climate == IceCap => None
+        case ld: Land => Some(ld)
         case _ => None
       }
     }

@@ -77,6 +77,7 @@ object Rect
    *  centre point paremeter wth a default of x = 0, y = 0. */
   def apply(width: Double, height: Double, cenX: Double, cenY: Double): Rect = RectImp(width, height, cenX, cenY)
 
+  /** The implicit [[DefaultValue]] type class instace / evidence for [[Rect]] is the [[NoBounds]] object. */
   implicit lazy val defaultEv: DefaultValue[Rect] = new DefaultValue[Rect]
   { override def default: Rect = NoBounds
   }
