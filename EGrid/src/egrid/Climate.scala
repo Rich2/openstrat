@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import Colour._
 
@@ -14,6 +14,8 @@ object Climate
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Climate]]. */
   implicit lazy val unshowEv: UnshowSingletons[Climate] = UnshowSingletons[Climate]("Climate", Temperate, Desert, Sahel, Savannah, Taiga, Tundra, Tropical)
+
+  given CanEqual[Climate, Climate] = CanEqual.derived
 }
 
 /** Temperate climate with out intense dry season. */

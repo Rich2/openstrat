@@ -16,6 +16,8 @@ object Lelev
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Lelev]]. */
   implicit lazy val unshowEV: UnshowSingletons[Lelev] = UnshowSingletons[Lelev]("Lelev", Level, Hilly, Mountains)
+
+  given CanEqual[Lelev, Lelev] = CanEqual.derived
 }
 
 case object WetLand extends Lelev

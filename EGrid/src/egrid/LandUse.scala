@@ -2,7 +2,7 @@
 package ostrat; package egrid
 
 /** The local climate. */
-trait LandUse extends TellSimple 
+trait LandUse extends TellSimple
 { override def typeStr: String = "LandUse"
 }
 
