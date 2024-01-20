@@ -1,7 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 
+/** Creates a 2D projection from  hexgrids projected on on to the Earth */
 case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProjection
 {
   override type SysT = EGridSys
