@@ -19,15 +19,19 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
   override def frame: GraphicElems =
   {
+    val pf = new HSFrame
+
     def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
-      Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, HCenPair(hc, army), army.num.str, 4, army.contrastBW).slate(pt)
+      /** Bounding rectangle centre. */
+      val brc = pf.tilePolys.a1GetA2(hc).boundCen
+      Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, HCenPair(hc, army), army.num.str, 4, army.contrastBW).slate(brc)
     }
     //def moveSegPairs: LineSegPairArr[Army] = moves.optMapOnA1(_.projLineSeg)
 
     /** This is the graphical display of the planned move orders. */
     //def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(lineColour = pl.colour).arrow }
 
-    tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ hexStrs2(armies.emptyTile(_)) ++ units// ++ moveGraphics
+    pf.tileFills ++ pf.tileActives ++ pf.sideFills ++ pf.sideActives ++ pf.lines2 ++ hexStrs2(armies.emptyTile(_)) ++ units// ++ moveGraphics
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
