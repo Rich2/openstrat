@@ -375,12 +375,16 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   override def attribs: RArr[XmlAtt] = RArr(pointsAttrib)
 
-  def vertsDouble: Polygon =
-  { val res = Polygon.uninitialised(numVerts * 2)
+  /** Increase the number of vertices and [[LineSeg]]s by breaking up the [[LineSeg]]s into parts. */
+  def vertsMultiply(n: Int): Polygon = if (n < 2) this else
+  { val res = Polygon.uninitialised(numVerts * n)
     iUntilForeach(numVerts){ i =>
-      res.setElemUnsafe(i * 2, vert(i))
-      val newElem = vert(i).midPt(vert(i + 1))
-      res.setElemUnsafe(i * 2 + 1, newElem)
+      val ls: LineSeg = vert(i).lineSegTo(vert(i + 1))
+      iUntilForeach(n) { j =>
+        res.setElemUnsafe(i * n + j, ls.fractionalPoint(j.toDouble / n))
+        val newElem = vert(i).midPt(vert(i + 1))
+        res.setElemUnsafe(i * 2 + 1, newElem)
+      }
     }
     res
   }
@@ -397,7 +401,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var rightAcc = scx + startWidth / 2
     var bottomAcc = scy - startHeight / 2
     var topAcc = scy + startHeight / 2
-    val poly2 = vertsDouble
+    val multi = 3
+    val poly2 = vertsMultiply(multi)
     poly2.vertsForeach{vt =>
       vt.x - scx match{
         case 0 => { leftAcc = scx; rightAcc = scx }

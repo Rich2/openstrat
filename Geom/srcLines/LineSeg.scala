@@ -5,39 +5,58 @@ import pWeb._, Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLikeDbl4[Pt2] with LineLike with
-CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
-{ override type ThisT = LineSeg
+CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem {
+  override type ThisT = LineSeg
+
   override def typeStr: String = "LineSeg"
+
   override def name1: String = "start"
+
   override def name2: String = "end"
+
   override implicit def show1: Show[Pt2] = Pt2.persistEv
+
   override implicit def show2: Show[Pt2] = Pt2.persistEv
+
   override def tellDepth: Int = 2
+
   override def tell1: Pt2 = startPt
+
   override def tell2: Pt2 = endPt
+
   override def dbl1: Double = startX
+
   override def dbl2: Double = startY
+
   override def dbl3: Double = endX
+
   override def dbl4: Double = endY
+
   def startPt: Pt2 = startX pp startY
+
   def endPt: Pt2 = endX pp endY
 
   /*override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }*/
 
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(startX, startY, endX, endY)
+
   def ptsTrans(f: Pt2 => Pt2): LineSeg = LineSeg(f(pStart), f(pEnd))
-  def shortArray: Array[Short] = Array(startX.toShort, startY.toShort,endX.toShort,endY.toShort)
+
+  def shortArray: Array[Short] = Array(startX.toShort, startY.toShort, endX.toShort, endY.toShort)
+
   def isHorizontal: Boolean = startY == endY
+
   def isVertical: Boolean = startX == endX
 
   /** Checks whether a forward horizontal ray crosses this polygon side. */
-  def rayIntersection(pt: Pt2): Boolean = None match{
+  def rayIntersection(pt: Pt2): Boolean = None match {
     case _ if pt.y > startY & pt.y > endY => false //Check if point is above the polygon side, above beg pt and end pt
     case _ if pt.y < startY & pt.y < endY => false //Check if point is  below the polygon side, below beg pt and end pt
     case _ if 0.000001 > (endY - startY).abs => false /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
      of the polygon that the point can measured as outside */
-    case _ => { val ptDeltaY: Double = pt.y - startY
+    case _ => {
+      val ptDeltaY: Double = pt.y - startY
       val deltaX: Double = endX - startX //Not entirely sure what's going on here
       val lineX: Double = startX + (deltaX * ptDeltaY / (endY - startY)) //
       pt.x > lineX
@@ -46,6 +65,13 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem
 
   /** The mid or half way point of this lineSeg. */
   def midPt: Pt2 = Pt2((startX + endX) / 2, (startY + endY) / 2)
+
+  /** Returns a point part way along this [[LinsSeg]] expects a [[Double]] of range 0 => 1. */
+  def fractionalPoint(fraction: Double): Pt2 = fraction match
+  { case f if f <= 0 => startPt
+    case f if f >= 1 => endPt
+    case f => Pt2((startPt.x * (1.0 - f) + endPt.x * f) / f,  (startPt.y * (1.0 - f) + endPt.y * f) / f)
+  }
 
   /** The angle of this line segment. */
   def angle: Angle = vec.angle
