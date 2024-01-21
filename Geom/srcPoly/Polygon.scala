@@ -31,6 +31,16 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    *  vertex 0.5. */
   final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
 
+  override def verts: Arr[Pt2] =
+  { val newArray: Array[Double] = new Array[Double](numVerts * 2)
+    var i = 0
+    while (i < numVerts)
+    { newArray(i * 2) = vertX(i)
+      newArray(i * 2 + 1) = vertY(i)
+    }
+    new Pt2Arr(newArray)
+  }
+
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   final override def vertsForeach[U](f: Pt2 => U): Unit = ssForeach(f)
 
@@ -82,8 +92,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
 
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: Arr[_]](f: (Pt2, Int) => BB)(implicit build: BuilderArrFlat[BB]): BB = {
-    val buff: build.BuffT = build.newBuff()
+  def vertsIFlatMap[BB <: Arr[_]](f: (Pt2, Int) => BB)(implicit build: BuilderArrFlat[BB]): BB =
+  { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     vertsForeach { v =>
       val newElems = f(v, i)
@@ -105,13 +115,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     build.buffToSeqLike(buff)
   }
 
-  def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
+  //def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
 
-  def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B = {
+  /*def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B = {
     var acc = init
     vertsForeach { v => acc = f(acc, v) }
     acc
-  }
+  }*/
 
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
@@ -369,7 +379,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def approx(that: Any, precision: Double): Boolean = ???
 
   def pointsAttrib: XmlAtt =
-  { val vertStr: String = vertsFoldLeft((acc, v) => acc -- v.x.str + "," + (-v.y).str)
+  { val vertStr: String = verts.foldLeft((acc, v) => acc -- v.x.str + "," + (-v.y).str)
     XmlAtt("points", vertStr)
   }
 

@@ -88,17 +88,10 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
    * traits / classes. */
   override def reflect(lineLike: LineLike): PolygonGen = map(_.reflect(lineLike))
 
-  /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
-   * return type will be narrowed in some, but not all descendant Polygon types. */
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGen = map(_.xyScale(xOperand, yOperand))
-
-  /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
-   * classes and traits. */
   override def shearX(operand: Double): PolygonGen = map(_.xShear(operand))
-
-  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
-   * traits. */
   override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))
+  override def verts: Arr[Pt2] = new Pt2Arr(unsafeArray)
 }
 
 /** Companion object for [[PolygonGen]]. */

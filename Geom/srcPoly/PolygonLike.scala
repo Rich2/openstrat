@@ -15,6 +15,8 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   /** Checks this polygon has at least 3 vertices. */
   def vertsMin3: Boolean = numVerts >= 3
 
+  def verts: Arr[VT]
+
   /** Performs the side effecting function on the value of each vertex. */
   def vertsForeach[U](f: VT => U): Unit
 
@@ -41,11 +43,11 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
    * signature. */
-  def vertsPrevForEach[U](f: (VT, VT) => U): Unit = if (numVerts >= 2) {
-    f(ssLast, vert(0))
+  def vertsPrevForEach[U](f: (VT, VT) => U): Unit = if (numVerts >= 2)
+  { f(ssLast, vert(0))
     var i = 2
-    while (i <= numVerts) {
-      f(vert(i - 2), vert(i - 1))
+    while (i <= numVerts)
+    { f(vert(i - 2), vert(i - 1))
       i += 1
     }
   }
