@@ -76,6 +76,8 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
     res
   }
 
+  def sides: Arr[SideT]
+
   def sidesForeach[U](f: SideT => U): Unit
 }
 

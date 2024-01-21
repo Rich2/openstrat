@@ -331,6 +331,12 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
+  def bestOfGet(init: A @uncheckedVariance)(f1: A => Boolean)(f2: (A, A) => Boolean): A =
+  { var res = init
+    foreach{a => if (f1(a) && f2(res, a)) res = a}
+    res
+  }
+
   def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: BuilderArrMap[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(f(a), ev.buffGrow(buff, a)))

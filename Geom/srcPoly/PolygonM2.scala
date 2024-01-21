@@ -31,6 +31,8 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     res
   }
 
+  override def sides: LineSegM2Arr = ???
+
   override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
 
   def revY: PolygonM2 = map(_.revY)

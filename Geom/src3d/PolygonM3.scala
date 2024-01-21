@@ -14,6 +14,34 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   override def fElemStr: PtM3 => String = _.toString
   def xyPlane: PolygonM2 = map(_.xy)
 
+  override def sides: LineSegM3Arr =
+  { val newLen = numVerts * 6
+    val newArray: Array[Double] = new Array[Double](newLen)
+    val x0 = vertX(0)
+    newArray(0) = x0
+    newArray(newLen - 3) = x0
+    val y0 = vertY(0)
+    newArray(1) = y0
+    newArray(newLen - 2) = y0
+    val z0 = vertZ(0)
+    newArray(2) = z0
+    newArray(newLen - 1) = z0
+    var i = 1
+    while(i < numVerts)
+    { val x = vertX(i)
+      newArray(i * 3) = x
+      newArray((i + 1) * 3) = x
+      val y = vertY(i)
+      newArray(i * 3 + 1) = y
+      newArray((i + 1) * 3 + 1) = y
+      val z = vertZ(i)
+      newArray(i * 3 + 2) = z
+      newArray((i + 1) * 3 + 2) = z
+      i += 1
+    }
+    new LineSegM3Arr(newArray)
+  }
+
   /** All vertices have a non negative Z component. */
   def zAllNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
 
@@ -51,6 +79,19 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
       i += 1
     }
   }
+
+
+  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
+  def vertX(index: Int): Double = unsafeArray(index * 3)
+
+  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
+   * override the implementation in sub classes. */
+  def vertY(index: Int): Double = unsafeArray(index * 3 + 1)
+
+  /** Returns the Z component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
+   * override the implementation in sub classes. */
+  def vertZ(index: Int): Double = unsafeArray(index * 3 + 2)
+
 
   def toXY: PolygonM2 = map(_.xy)
 

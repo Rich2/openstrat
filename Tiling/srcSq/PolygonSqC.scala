@@ -53,6 +53,8 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
     ???
   }
 
+  override def sides: LineSegSCArr = ???
+
   override def sidesForeach[U](f: LineSegSC => U): Unit = ???
 }
 

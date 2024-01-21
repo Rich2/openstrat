@@ -82,7 +82,17 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     res
   }
 
+  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
+  def vertX(index: Int): Double = unsafeArray(index * 2)
+
+  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
+   * override the implementation in sub classes. */
+  def vertY(index: Int): Double = unsafeArray(index * 2 + 1)
+
+
   @inline def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
+
+  override def sides: LineSegArr = ???
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
@@ -150,13 +160,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     sidesForeach{ s => acc = f(acc, s) }
     acc
   }
-
-  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def vertX(index: Int): Double = unsafeArray(index * 2)
-
-  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
-   * override the implementation in sub classes. */
-  def vertY(index: Int): Double = unsafeArray(index * 2 + 1)
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   final def v0x: Double = unsafeArray(0)
@@ -359,7 +362,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var topAcc = scy + startHeight / 2
     val multi = 3
     val poly2 = vertsMultiply(multi)
-    poly2.vertsForeach{vt =>
+    //val leftAcc2 = vert
+    /*poly2.vertsForeach{vt =>
       vt.x - scx match{
         case 0 => { leftAcc = scx; rightAcc = scx }
         case x if x < 0 && x > leftAcc => leftAcc = x
@@ -370,7 +374,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
         case y if y < 0 && y > bottomAcc => bottomAcc = y
         case y if y > 0 && y < topAcc => topAcc = y
       }
-    }
+    }*/
     Rect.lrbt(leftAcc, rightAcc, bottomAcc, topAcc)
   }
 }

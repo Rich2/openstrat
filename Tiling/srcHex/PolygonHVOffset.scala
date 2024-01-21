@@ -21,6 +21,8 @@ class PolygonHVOffset(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with 
   override def fromArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
   override def verts: HVOffsetArr = new HVOffsetArr(unsafeArray)
 
+  override def sides: Arr[LineSegHVAndOffset] = ???
+
   @inline def side(index: Int): LineSegHVAndOffset = LineSegHVAndOffset(vert(index), ife(index == numVerts - 1, vert(0), vert(index + 1)))
 
   override def sidesForeach[U](f: LineSegHVAndOffset => U): Unit =

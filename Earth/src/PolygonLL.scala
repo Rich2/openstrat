@@ -41,6 +41,8 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
    * signature. */
   override def vertsPrevForEach[U](f: (LatLong, LatLong) => U): Unit = ???
 
+  override def sides: LineSegLLArr = ???
+
   override def sidesForeach[U](f: LineSegLL => U): Unit = ???
 }
 

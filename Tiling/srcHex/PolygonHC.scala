@@ -63,6 +63,8 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
     ???
   }
 
+  override def sides: LineSegHCArr = ???
+
   override def sidesForeach[U](f: LineSegHC => U): Unit = ???
 }
 
