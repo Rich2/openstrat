@@ -17,7 +17,7 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val h3d: PolygonDraw = HexParrY(231, 231, 0).draw(lineColour = DarkBlue)
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
-  { val verts: GraphicElems = hr.vertsIFlatMap{ (pt, i) => pt.textArrowToward(hr.cen, "V" + i.str) }
+  { val verts: GraphicElems = hr.verts.iFlatMap{ (i, pt) => pt.textArrowToward(hr.cen, "V" + i.str) }
     val sides: GraphicElems = hr.sidesIFlatMap{ (side, i) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
     verts ++ sides +% hr.draw(lineColour = colour) +% TextFixed(hr.str, 12, hr.cen, colour)
   }

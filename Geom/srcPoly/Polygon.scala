@@ -69,31 +69,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     build.buffToSeqLike(buff)
   }
 
-
-  /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: Arr[_]](f: (Pt2, Int) => BB)(implicit build: BuilderArrFlat[BB]): BB =
-  { val buff: build.BuffT = build.newBuff()
-    var i: Int = 0
-    vertsForeach { v =>
-      val newElems = f(v, i)
-      build.buffGrowArr(buff, newElems)
-      i += 1
-    }
-    build.buffToSeqLike(buff)
-  }
-
-  /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: Arr[_]](iInit: Int)(f: (Pt2, Int) => BB)(implicit build: BuilderArrFlat[BB]): BB = {
-    val buff: build.BuffT = build.newBuff()
-    var i: Int = iInit
-    vertsForeach { v =>
-      val newElems = f(v, i)
-      build.buffGrowArr(buff, newElems)
-      i += 1
-    }
-    build.buffToSeqLike(buff)
-  }
-
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
 
