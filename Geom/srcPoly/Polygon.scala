@@ -10,7 +10,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 {
   override type SideT = LineSeg
 
-  def rightX: Double = vertsFold(v0x)((acc, pt) => acc.max(pt.x))
+  def rightX: Double = verts.foldLeft(v0x)((acc, pt) => acc.max(pt.x))
 
   final def vLastX: Double = unsafeArray(numVerts - 2)
   final def vLastY: Double = unsafeArray(numVerts - 1)
@@ -55,31 +55,10 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  override def vertsIForeach[U](f: (Int, Pt2) => U): Unit =
-  { var i = 0
-    vertsForeach{ v =>
-      f(i, v)
-      i += 1
-    }
-  }
-
-  override def vertsFold[B](init: B)(f: (B, Pt2) => B): B =
-  { var res = init
-    vertsForeach(v => res = f(res, v))
-    res
-  }
-
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val acc = build.uninitialised(numVerts)
     var i = 0
     vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
-    acc
-  }
-
-  def vertsIMap[B, ArrB <: Arr[B]](f: (Pt2, Int) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
-  { val acc = build.uninitialised(numVerts)
-    var i = 0
-    vertsForeach { v => acc.setElemUnsafe(i, f(v, i)); i += 1 }
     acc
   }
 
@@ -114,14 +93,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     }
     build.buffToSeqLike(buff)
   }
-
-  //def vertsFoldLeft[B](f: (B, Pt2) => B)(implicit default: DefaultValue[B]): B = vertsFoldLeft(default.default)(f)
-
-  /*def vertsFoldLeft[B](init: B)(f: (B, Pt2) => B): B = {
-    var acc = init
-    vertsForeach { v => acc = f(acc, v) }
-    acc
-  }*/
 
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)

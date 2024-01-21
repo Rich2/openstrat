@@ -21,14 +21,6 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     }
   }
 
-  override def vertsIForeach[U](f: (Int, PtM2) => U): Unit =
-  { var count = 0
-    vertsForeach{ v =>
-      f(count, v)
-      count += 1
-    }
-  }
-
   override def vertsMap[B, ArrB <: Arr[B]](f: PtM2 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
@@ -36,12 +28,6 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
       builder.indexSet(res, count, f(v))
       count += 1
     }
-    res
-  }
-
-  override def vertsFold[B](init: B)(f: (B, PtM2) => B): B =
-  { var res = init
-    vertsForeach(v => res = f(res, v))
     res
   }
 

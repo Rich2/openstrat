@@ -20,14 +20,6 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
     }
   }
 
-  override def vertsIForeach[U](f: (Int, SqCoord) => U): Unit =
-  { var i = 0
-    vertsForeach{ vert =>
-      f(i, vert)
-      i += 1
-    }
-  }
-
   override def vertsMap[B, ArrB <: Arr[B]](f: SqCoord => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
     var count = 0
@@ -35,12 +27,6 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
       builder.indexSet(res, count, f(v))
       count += 1
     }
-    res
-  }
-
-  override def vertsFold[B](init: B)(f: (B, SqCoord) => B): B =
-  { var res = init
-    vertsForeach(v => res = f(res, v))
     res
   }
 

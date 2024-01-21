@@ -24,15 +24,6 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
     }
   }
 
-  /** Index with foreach on the vertices .Performs the side effecting function on the index with the [[LatLong]] value of each vertex. */
-  override def vertsIForeach[U](f: (Int, LatLong) => U): Unit =
-  { var count = 0
-    vertsForeach{ v =>
-      f(count, v)
-      count += 1
-    }
-  }
-
   /** Maps the [[LatLong]] values of each vertex to an immutable Array like sequence of type B. */
   override def vertsMap[B, ArrB <: Arr[B]](f: LatLong => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
   { val res = builder.uninitialised(numVerts)
@@ -41,12 +32,6 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
       builder.indexSet(res, count, f(v))
       count += 1
     }
-    res
-  }
-
-  override def vertsFold[B](init: B)(f: (B, LatLong) => B): B =
-  { var res = init
-    vertsForeach(v => res = f(res, v))
     res
   }
 

@@ -20,24 +20,12 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   /** Performs the side effecting function on the value of each vertex. */
   def vertsForeach[U](f: VT => U): Unit
 
-  /** Index with foreach on each vertx. Applies the side effecting function on the index with the value of each vertex. Note the function signature
-   *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
-   *  => B signature. */
-  def vertsIForeach[U](f: (Int, VT) => U): Unit
-
   /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
    * @tparam B The element type of the returned sequence.
    * @tparam ArrB The type of the immutable Array like sequence of B.
    * @return the immutable sequence collection by applying the supplied function to each vertex. */
   def vertsMap[B, ArrB <: Arr[B]](f: VT => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB = ssMap(f)
 
-  /** Folds over the vertices.
-   * @tparam B type of the accumulator return value of this method. */
-  def vertsFold[B](init: B)(f: (B, VT) => B): B =
-  { var res = init
-    vertsForeach(v => res = f(res, v))
-    res
-  }
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
@@ -55,7 +43,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   /** Maps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
   def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(numVerts)
-    vertsIForeach((i, a) => build.indexSet(res, i, f(a)))
+    verts.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
@@ -93,7 +81,6 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
 
 trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqSpecValueN[VT]
 { override def vertsForeach[U](f: VT => U): Unit = ssForeach(f)
-  override def vertsIForeach[U](f: (Int, VT) => U): Unit = ssIForeach(f)
   override def numVerts: Int = ssLength
 }
 
