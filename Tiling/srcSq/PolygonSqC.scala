@@ -9,6 +9,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   override def typeStr: String = "PolygonSqC"
   override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
   def vertNum: Int = unsafeArray.length / 2
+  override def verts: SqCoordArr = new SqCoordArr(unsafeArray)
 
   /** Performs the side effecting function on the [[SqCoord]] value of each vertex. */
   override def vertsForeach[U](f: SqCoord => U): Unit =

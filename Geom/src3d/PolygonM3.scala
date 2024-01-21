@@ -18,6 +18,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   def zAllNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
 
   def zAllNeg: Boolean = vertsForAll(_.zMetres < 0)
+  override def verts: PtM3Arr = new PtM3Arr(unsafeArray)
 
   /** Performs the side effecting function on the [[PtM3]] value of each vertex.  */
   override def vertsForeach[U](f: PtM3 => U): Unit =
