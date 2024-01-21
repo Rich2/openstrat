@@ -9,6 +9,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   override def typeStr: String = "PolygonHC"
   override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
   def vertNum: Int = unsafeArray.length / 2
+  override def verts: HCoordArr = new HCoordArr(unsafeArray)
 
   /** Performs the side effecting function on the [[HCoord]] value of each vertex. */
   override def vertsForeach[U](f: HCoord => U): Unit =

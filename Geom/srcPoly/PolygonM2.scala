@@ -10,6 +10,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   override def typeStr: String = "PolygonMs"
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
+  override def verts: PtM2Arr = new PtM2Arr(unsafeArray)
 
   /** Performs the side effecting function on the [[PtM2]] value of each vertex. */
   override def vertsForeach[U](f: PtM2 => U): Unit =
