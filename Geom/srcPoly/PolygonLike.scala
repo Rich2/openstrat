@@ -10,10 +10,10 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   type SideT <: LineSegLike[VT]
 
   /** The number of vertices and also the number of sides in this Polygon. */
-  def vertsNum: Int
+  def numVerts: Int
 
   /** Checks this polygon has at least 3 vertices. */
-  def vertsMin3: Boolean = vertsNum >= 3
+  def vertsMin3: Boolean = numVerts >= 3
 
   /** Performs the side effecting function on the value of each vertex. */
   def vertsForeach[U](f: VT => U): Unit
@@ -41,10 +41,10 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
    * signature. */
-  def vertsPrevForEach[U](f: (VT, VT) => U): Unit = if (vertsNum >= 2) {
+  def vertsPrevForEach[U](f: (VT, VT) => U): Unit = if (numVerts >= 2) {
     f(ssLast, vert(0))
     var i = 2
-    while (i <= vertsNum) {
+    while (i <= numVerts) {
       f(vert(i - 2), vert(i - 1))
       i += 1
     }
@@ -52,7 +52,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
 
   /** Maps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
   def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
-  { val res = build.uninitialised(vertsNum)
+  { val res = build.uninitialised(numVerts)
     vertsIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
@@ -73,13 +73,13 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   }
 
   /** Returns the vertex of the given index. Cycles around if the index is out of range, vert 3 retruns vert 0 on a triangle. */
-  def vert(index: Int): VT = ssIndex(index %% vertsNum)
+  def vert(index: Int): VT = ssIndex(index %% numVerts)
 
   /** This method should be overridden in final classes. */
   def vertsForAll(f: VT => Boolean): Boolean =
   { var count = 0
     var res = true
-    while (count < vertsNum & res)
+    while (count < numVerts & res)
     { if (!f(vert(count))) res = false
       count += 1
     }
@@ -92,7 +92,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
 trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqSpecValueN[VT]
 { override def vertsForeach[U](f: VT => U): Unit = ssForeach(f)
   override def vertsIForeach[U](f: (Int, VT) => U): Unit = ssIForeach(f)
-  override def vertsNum: Int = ssLength
+  override def numVerts: Int = ssLength
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */

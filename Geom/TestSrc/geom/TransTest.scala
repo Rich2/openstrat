@@ -33,7 +33,7 @@ object TransTest extends TestSuite
     val rs1a = rs1.slateX(2)
 
     test("test2")
-    { rs1a(1).shape.vertsNum ==> 4
+    { rs1a(1).shape.numVerts ==> 4
       rs1a(1).shape.cenPt ==> Pt2(2, 0)
     }
   }

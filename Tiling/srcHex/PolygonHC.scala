@@ -13,7 +13,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   /** Performs the side effecting function on the [[HCoord]] value of each vertex. */
   override def vertsForeach[U](f: HCoord => U): Unit =
   { var count = 0
-    while (count < vertsNum)
+    while (count < numVerts)
     { f(vert(count))
       count += 1
     }
@@ -28,7 +28,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: HCoord => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
-  { val res = builder.uninitialised(vertsNum)
+  { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
       builder.indexSet(res, count, f(v))

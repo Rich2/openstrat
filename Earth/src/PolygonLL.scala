@@ -17,7 +17,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
   override def vertsForeach[U](f: LatLong => U): Unit =
   { var count = 0
-    while (count < vertsNum)
+    while (count < numVerts)
     { f(vert(count))
       count += 1
     }
@@ -34,7 +34,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
 
   /** Maps the [[LatLong]] values of each vertex to an immutable Array like sequence of type B. */
   override def vertsMap[B, ArrB <: Arr[B]](f: LatLong => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
-  { val res = builder.uninitialised(vertsNum)
+  { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
       builder.indexSet(res, count, f(v))

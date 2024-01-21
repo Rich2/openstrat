@@ -10,13 +10,13 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   def y1: Double = shape.v0y
 
   /** The number of vertices. */
-  def vertsNum: Int = shape.vertsNum
+  def vertsNum: Int = shape.numVerts
 
   /** Checks for 2 or more vertices */
-  def ifv2: Boolean = shape.vertsNum >= 2
+  def ifv2: Boolean = shape.numVerts >= 2
 
   /** Checks for 3 or more vertices */
-  def ifv3: Boolean = shape.vertsNum >= 3
+  def ifv3: Boolean = shape.numVerts >= 3
   def xVertsArray: Array[Double] = shape.elem1sArray
   def yVertsArray: Array[Double] = shape.elem2sArray
   @inline def vertsForeach(f: Pt2 => Unit): Unit = shape.vertsForeach(f)

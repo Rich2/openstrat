@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour.Black
 
@@ -12,8 +12,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   def rightX: Double = vertsFold(v0x)((acc, pt) => acc.max(pt.x))
 
-  final def vLastX: Double = unsafeArray(vertsNum - 2)
-  final def vLastY: Double = unsafeArray(vertsNum - 1)
+  final def vLastX: Double = unsafeArray(numVerts - 2)
+  final def vLastY: Double = unsafeArray(numVerts - 1)
 
   /** The last vertex. The default convention places this just anti clockwise of 12 o'clock. */
   def vLast: Pt2 = vLastX pp vLastY
@@ -60,14 +60,14 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
-  { val acc = build.uninitialised(vertsNum)
+  { val acc = build.uninitialised(numVerts)
     var i = 0
     vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
     acc
   }
 
   def vertsIMap[B, ArrB <: Arr[B]](f: (Pt2, Int) => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
-  { val acc = build.uninitialised(vertsNum)
+  { val acc = build.uninitialised(numVerts)
     var i = 0
     vertsForeach { v => acc.setElemUnsafe(i, f(v, i)); i += 1 }
     acc
@@ -120,9 +120,9 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   final def unsafeVert(index: Int): Pt2 = ssIndex(index)
 
   def dropVert(v: Int): Polygon =
-  { val res = PolygonGen.uninitialised(vertsNum - 1)
+  { val res = PolygonGen.uninitialised(numVerts - 1)
     iUntilForeach(v){i => res.setElemUnsafe(i, vert(i)) }
-    iUntilForeach(v + 1, vertsNum){i => res.setElemUnsafe(i - 1, vert(i)) }
+    iUntilForeach(v + 1, numVerts){ i => res.setElemUnsafe(i - 1, vert(i)) }
     res
   }
 
@@ -131,13 +131,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
   { var i = 0
-    while (i < vertsNum) { f(side(i)); i += 1 }
+    while (i < numVerts) { f(side(i)); i += 1 }
   }
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def iForeachSide(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
   { var i = 0
-    while (i < vertsNum)
+    while (i < numVerts)
     { f(side(i), i + initCount)
       i += 1
     }
@@ -146,8 +146,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: BuilderArrMap[A, AA]): AA =
   { var i: Int = 0
-    val res = build.uninitialised(vertsNum)
-    while (i < vertsNum)
+    val res = build.uninitialised(numVerts)
+    while (i < numVerts)
     { res.setElemUnsafe(i, f(side(i)))
       i += 1
     }
@@ -157,8 +157,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesIMap[A, AA <: Arr[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: BuilderArrMap[A, AA]): AA =
   { var i = 0
-    val res = build.uninitialised(vertsNum)
-    while (i < vertsNum)
+    val res = build.uninitialised(numVerts)
+    while (i < numVerts)
     { res.setElemUnsafe(i, f(side(i), i + initCount))
       i += 1
     }
@@ -299,7 +299,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def cenVec: Vec2 = boundingRect.cenVec
 
   def sline(index: Int): LineSeg =
-  { val startVertNum: Int = ife(index == 1, vertsNum, index - 1)
+  { val startVertNum: Int = ife(index == 1, numVerts, index - 1)
     LineSeg(vert(startVertNum), vert(index))
   }
 
@@ -348,19 +348,19 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
-  { val res = PolygonGen.uninitialised(vertsNum + 1)
+  { val res = PolygonGen.uninitialised(numVerts + 1)
     iUntilForeach(insertionPoint - 1){ i => res.setElemUnsafe(i, vert(i)) }
     res.setElemUnsafe(insertionPoint, newVec)
-    iUntilForeach(insertionPoint, vertsNum){ i => res.setElemUnsafe(i + 1, vert(i)) }
+    iUntilForeach(insertionPoint, numVerts){ i => res.setElemUnsafe(i + 1, vert(i)) }
     res
   }
 
   /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
-  { val res = PolygonGen.uninitialised(vertsNum + newVecs.length)
+  { val res = PolygonGen.uninitialised(numVerts + newVecs.length)
     iUntilForeach(insertionPoint){ i => res.setElemUnsafe(i, vert(i)) }
     newVecs.iForeach((i, elem) => res.setElemUnsafe(insertionPoint + i, elem))
-    iUntilForeach(insertionPoint, vertsNum){ i => res.setElemUnsafe(i + newVecs.length, vert(i)) }
+    iUntilForeach(insertionPoint, numVerts){ i => res.setElemUnsafe(i + newVecs.length, vert(i)) }
     res
   }
 
@@ -374,6 +374,44 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   override def attribs: RArr[XmlAtt] = RArr(pointsAttrib)
+
+  def vertsDouble: Polygon =
+  { val res = Polygon.uninitialised(numVerts * 2)
+    iUntilForeach(numVerts){ i =>
+      res.setElemUnsafe(i * 2, vert(i))
+      val newElem = vert(i).midPt(vert(i + 1))
+      res.setElemUnsafe(i * 2 + 1, newElem)
+    }
+    res
+  }
+
+  /** Approximation for an inner rectangle given a starting centre. */
+  def innerRectApprox(startCen: Pt2): Rect =
+  { val scx = startCen.x
+    val scy = startCen.y
+    val br = boundingRect
+    val initMargin = 0.8
+    val startWidth = br.width * initMargin
+    val startHeight = br.height * initMargin
+    var leftAcc = scx - startWidth / 2
+    var rightAcc = scx + startWidth / 2
+    var bottomAcc = scy - startHeight / 2
+    var topAcc = scy + startHeight / 2
+    val poly2 = vertsDouble
+    poly2.vertsForeach{vt =>
+      vt.x - scx match{
+        case 0 => { leftAcc = scx; rightAcc = scx }
+        case x if x < 0 && x > leftAcc => leftAcc = x
+        case x if x > 0 && x < rightAcc => rightAcc = x
+      }
+      vt.y - scy match{
+        case 0 => { bottomAcc = scy; topAcc = scy }
+        case y if y < 0 && y > bottomAcc => bottomAcc = y
+        case y if y > 0 && y < topAcc => topAcc = y
+      }
+    }
+    Rect.lrbt(leftAcc, rightAcc, bottomAcc, topAcc)
+  }
 }
 
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */

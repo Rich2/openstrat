@@ -15,9 +15,9 @@ package object pglobe
   {
     /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
     def earthZPosXYModify: PolygonM2 = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
-    { case n if n == thisPoly.vertsNum => thisPoly.toXY
+    { case n if n == thisPoly.numVerts => thisPoly.toXY
       case 0 => PolygonM2.empty
-      case _ if thisPoly.vertsNum < 2 => PolygonM2.empty
+      case _ if thisPoly.numVerts < 2 => PolygonM2.empty
       case _ => thisPoly.earthZPosXYModifyInefficient
     }
 

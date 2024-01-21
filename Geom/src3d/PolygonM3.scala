@@ -22,7 +22,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   /** Performs the side effecting function on the [[PtM3]] value of each vertex.  */
   override def vertsForeach[U](f: PtM3 => U): Unit =
   { var count = 0
-    while (count < vertsNum)
+    while (count < numVerts)
     { f(vert(count))
       count += 1
     }
@@ -37,7 +37,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: PtM3 => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
-  { val res = builder.uninitialised(vertsNum)
+  { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
       builder.indexSet(res, count, f(v))
@@ -56,10 +56,10 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
    *  with each vertex. The previous vertex to the first vertex is the last vertex of this [[PolygonM3]]. Note the function signature (previous,
    *  vertex) => U follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
-  override def vertsPrevForEach[U](f: (PtM3, PtM3) => U): Unit = if (vertsNum >= 2)
+  override def vertsPrevForEach[U](f: (PtM3, PtM3) => U): Unit = if (numVerts >= 2)
   { f(ssLast, vert(0))
     var i = 2
-    while (i <= vertsNum){
+    while (i <= numVerts){
       f(vert(i - 2), vert(i - 1))
       i += 1
     }

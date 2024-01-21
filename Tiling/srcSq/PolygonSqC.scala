@@ -13,7 +13,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   /** Performs the side effecting function on the [[SqCoord]] value of each vertex. */
   override def vertsForeach[U](f: SqCoord => U): Unit =
   { var count = 0
-    while (count < vertsNum)
+    while (count < numVerts)
     { f(vert(count))
       count += 1
     }
@@ -28,7 +28,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: SqCoord => B)(implicit builder: BuilderArrMap[B, ArrB]): ArrB =
-  { val res = builder.uninitialised(vertsNum)
+  { val res = builder.uninitialised(numVerts)
     var count = 0
     vertsForeach{ v =>
       builder.indexSet(res, count, f(v))

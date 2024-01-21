@@ -5,7 +5,7 @@ package ostrat; package geom
 trait Triangle extends Polygon3Plus
 { type ThisT <: Triangle
 	override def typeStr: String = "Triangle"
-	override def vertsNum: Int = 3
+	override def numVerts: Int = 3
 
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
 	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))

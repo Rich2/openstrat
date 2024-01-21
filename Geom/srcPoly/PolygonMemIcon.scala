@@ -14,7 +14,7 @@ trait PolygonYMirror extends Polygon
   def rtLine: LinePath
 
   /** The number of vertices and also the number of sides in this Polygon. */
-  override def vertsNum: Int = ???
+  override def numVerts: Int = ???
 }
 
 /** An unscaled polygon that is symmetrical about the Y axis. */
