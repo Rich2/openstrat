@@ -1,12 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._
 
 /** A canvas that is not divided up into panels. A panel is a portion of the canvas that has its own origin and is clipped. */
 abstract class CanvasNoPanels(val title: String) extends CanvasUser with PanelLike
 {
-  override def width = canv.width
-  override def height = canv.height
+  override def width: Double = canv.width
+  override def height: Double = canv.height
    
   canv.mouseUp = (posn, button) => mouseUp(button, actives.filter(_.ptInside(posn)).map(_.pointerId), posn)
       
