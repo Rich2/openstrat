@@ -4,7 +4,7 @@ import ostrat._, geom._, pgui._, Colour._
 
 case class LsA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A8")
 {
-  //Lets copy the values across form the previous lesson.
+  //Lets copy the values across from the previous lesson.
   val pt1 = -200 pp 200
   val arcCentre = 0 pp 200
   val pt2 = 0 pp 400

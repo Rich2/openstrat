@@ -13,15 +13,15 @@ object Lessons extends GuiLaunch
   }
 
   def theMap(inp: String): (CanvasPlatform => Any, String) = inp match
-  { case "A1" => (LsCircles(_), "JavaFx Demonstration Canvas A1")
-    case "A2" => (LsCircles2(_), "JavaFx Demonstration Canvas 1b")
-    case "A3" => (LsA1(_), "JavaFx Demonstration Canvas A1 Summary")
-    case "A4" => (LsA2(_), "JavaFx Demonstration Canvas 2")
+  { case "A1" => (LsCircles(_), "JavaFx Circles")
+    case "A2" => (LsCircles2(_), "JavaFx Circles2")
+    case "A3" => (LsCircles3(_), "JavaFx Demonstration Canvas A1 Summary")
+    case "A4" => (LsPolygons(_), "JavaFx Demonstration Canvas 2")
     case "A5" => (LsA3a(_), "JavaFx Demonstration Canvas 3a")
     case "A6" => (LsA3(_), "JavaFx Demonstration Canvas 3")
     case "A7" => (LsA4(_), "JavaFx Demonstration Canvas 4")
     case "A8" => (LsA5(_), "JavaFx Demonstration Canvas 5")
-    case "A9" => (LsA6(_), "JavaFx Demonstration Canvas 6")
+    case "A9" => (LsEllipses(_), "JavaFx Demonstration Canvas 6")
     case "A10" => (LsA7(_), "JavaFx Demonstration Canvas 7")
     case "A11" => (LsA8(_), "JavaFx Demonstration Canvas 8")
     case "A12" => (LsA9(_), "JavaFx Demonstration Canvas 9")
@@ -53,6 +53,6 @@ object Lessons extends GuiLaunch
     case "E1" => (learn.LsE1(_), "JavaFx Demonstration Games 1") //Building turn based games.
     case "E2" => (learn.LsE2(_), "JavaFx Demonstration Games 2")
 
-    case _ => (LsA1(_), "JavaFx Demonstration Canvas A1 Summary")
+    case _ => (LsCircles3(_), "JavaFx Demonstration Canvas A1 Summary")
   }
 }

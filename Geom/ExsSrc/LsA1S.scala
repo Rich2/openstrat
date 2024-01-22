@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._, pWeb._
 
-object LsA1 extends GraphicsA
+object LsCircles3 extends GraphicsA
 { val title = "Lesson A1"
 
   val output = RArr(
@@ -21,7 +21,7 @@ object LsA1 extends GraphicsA
   override val page: HtmlPage = HtmlPage(head, HtmlBody.str(bodyStr))
 }
 
-case class LsA1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
+case class LsCircles3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
 {
-  repaint(LsA1.output)
+  repaint(LsCircles3.output)
 }
