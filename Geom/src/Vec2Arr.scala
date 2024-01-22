@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -37,9 +37,9 @@ object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
 {  override def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
 
   implicit val arrFlatBuilderImplicit: BuilderArrFlat[Vec2Arr] =  new BuilderArrDbl2Flat[Vec2Arr]
-  { override type BuffT = BuffVec2
+  { override type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
-    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)
   }
 
   /** [[Show]] type class instance / evidence for [[Vec2Arr]]. */
@@ -70,11 +70,11 @@ object Vec2Arr extends CompanionSeqLikeDbl2[Vec2, Vec2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Vec2]]s collections. */
-final class BuffVec2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[Vec2]
+final class Vec2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[Vec2]
 { override def typeStr: String = "BuffVec2"
   def newElem(d1: Double, d2: Double): Vec2 = Vec2(d1, d2)
 }
 
-object BuffVec2 extends CompanionBuffDbl2[Vec2, BuffVec2]
-{ override def fromBuffer(buffer: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(buffer)
+object Vec2Buff extends CompanionBuffDbl2[Vec2, Vec2Buff]
+{ override def fromBuffer(buffer: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(buffer)
 }

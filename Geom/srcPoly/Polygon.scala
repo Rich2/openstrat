@@ -92,7 +92,27 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   @inline def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
-  override def sides: LineSegArr = ???
+  override def sides: LineSegArr =
+  { val newLen = numVerts * 4
+    val newArray: Array[Double] = new Array[Double](newLen)
+    val x0 = vertX(0)
+    newArray(0) = x0
+    newArray(newLen - 2) = x0
+    val y0 = vertY(0)
+    newArray(1) = y0
+    newArray(newLen - 1) = y0
+    var i = 1
+    while (i < numVerts)
+    { val x = vertX(i)
+      newArray(i * 2) = x
+      newArray((i + 1) * 2) = x
+      val y = vertY(i)
+      newArray(i * 2 + 1) = y
+      newArray((i + 1) * 2 + 1) = y
+      i += 1
+    }
+    new LineSegArr(newArray)
+  }
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
@@ -349,7 +369,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** Approximation for an inner rectangle given a starting centre. */
-  def innerRectApprox(startCen: Pt2): Rect =
+  def innerRectApprox(startCen: Pt2, ratio: Double): Rect =
   { val scx = startCen.x
     val scy = startCen.y
     val br = boundingRect
@@ -362,19 +382,17 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var topAcc = scy + startHeight / 2
     val multi = 3
     val poly2 = vertsMultiply(multi)
-    //val leftAcc2 = vert
-    /*poly2.vertsForeach{vt =>
-      vt.x - scx match{
-        case 0 => { leftAcc = scx; rightAcc = scx }
-        case x if x < 0 && x > leftAcc => leftAcc = x
-        case x if x > 0 && x < rightAcc => rightAcc = x
+    val trBuff: Vec2Buff = Vec2Buff()
+    val brBuff: Vec2Buff = Vec2Buff()
+    val blBuff: Vec2Buff = Vec2Buff()
+    val tlBuff: Vec2Buff = Vec2Buff()
+    poly2.vertsForeach{vt => (  startCen >> vt) match
+      { case p if p.isTopRight => trBuff.grow(p)
+        case p if p.isBottomRight => brBuff.grow(p)
+        case p if p.isTopleft => tlBuff.grow(p)
+        case p => blBuff.grow(p)
       }
-      vt.y - scy match{
-        case 0 => { bottomAcc = scy; topAcc = scy }
-        case y if y < 0 && y > bottomAcc => bottomAcc = y
-        case y if y > 0 && y < topAcc => topAcc = y
-      }
-    }*/
+    }
     Rect.lrbt(leftAcc, rightAcc, bottomAcc, topAcc)
   }
 }

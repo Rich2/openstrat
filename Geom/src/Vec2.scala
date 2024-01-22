@@ -92,6 +92,11 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
 
   /** The magnitude of this vector2Like. */
   def magnitude: Double = math.sqrt(x * x + y * y)
+
+  def isTopRight: Boolean = x >= 0 && y >= 0
+  def isBottomRight: Boolean = x >= 0 && y <= 0
+  def isBottomLeft: Boolean = x <= 0 && y <= 0
+  def isTopleft: Boolean = x <= 0 && y >= 0
 }
 
 /** Companion object for [[Vec2]] contains apply factory, unapply extractor and implicit [[Persist instances. */
@@ -103,9 +108,9 @@ object Vec2
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
   implicit val buildImplicit: BuilderArrDbl2Map[Vec2, Vec2Arr] = new BuilderArrDbl2Map[Vec2, Vec2Arr]
-  { override type BuffT = BuffVec2
+  { override type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
-    override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(buffer)
+    override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(buffer)
   }
 
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Vec2]]s. */
