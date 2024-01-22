@@ -335,15 +335,24 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     val bounds = boundingRect
     var trPt: Pt2 = bounds.topRight
     def trLim(inp: Pt2): Double = (inp.x - scx).min((inp.y - scy) * ratio)
+    var brPt: Pt2 = bounds.bottomRight
+    def brLim(inp: Pt2): Double = (inp.x - scx).min((scy - inp.y) * ratio)
+    var tlPt: Pt2 = bounds.topLeft
+    def tlLim(inp: Pt2): Double = (scx - scx).min((inp.y - scy) * ratio)
+    var blPt: Pt2 = bounds.bottomLeft
+    def blLim(inp: Pt2): Double = (scx - inp.x).min((scy - inp.y) * ratio)
     poly2.vertsForeach{vt => vt match
       { case p if p.isTopRight => if(trLim(p) < trLim(trPt)) trPt = p
-        case p if p.isBottomRight => //brBuff.grow(p)
-        case p if p.isTopleft => //tlBuff.grow(p)
-        case p => //blBuff.grow(p)
+        case p if p.isBottomRight => if(brLim(p) < brLim(brPt)) brPt = p
+        case p if p.isTopleft => if(tlLim(p) < tlLim(tlPt)) tlPt = p
+        case p => if(blLim(p) < blLim(blPt)) blPt = p
       }
     }
-    ???//
-    // Rect.lrbt(leftAcc, rightAcc, bottomAcc, topAcc)
+    val left = tlPt.x.max(blPt.x)
+    val right = trPt.x.min(brPt.x)
+    val top = tlPt.y.min(trPt.y)
+    val bottom = blPt.y.max(brPt.y)
+    Rect.lrbt(left, right, bottom, top)
   }
 }
 

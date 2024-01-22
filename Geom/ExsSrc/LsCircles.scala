@@ -1,8 +1,9 @@
-/* Copyright 2018-21 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsA1a
+/** Circles are simple. */
+object LsCircles
 {
   val arr = RArr(
     Circle(200, 0, 0).fill(SeaGreen),
@@ -13,6 +14,6 @@ object LsA1a
   )
 }
 
-case class LsA1a(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1a")
-{ repaint(LsA1a.arr)
+case class LsCircles(canv: CanvasPlatform) extends CanvasNoPanels("Circles are simple")
+{ repaint(LsCircles.arr)
 }

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, pParse._, pgui._
 
@@ -6,29 +6,29 @@ object Lessons extends GuiLaunch
 {
   override def settingStr: String = "lessons"
 
-  override def default: (CanvasPlatform => Any, String) = (LsA1a(_), "JavaFx Demonstration Canvas A1")
+  override def default: (CanvasPlatform => Any, String) = (LsCircles(_), "JavaFx Demonstration Canvas A1")
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
     case it: IdentifierToken => theMap(it.srcStr)
     case _ => theMap("")
   }
 
-  def theMap(inp: String): (CanvasPlatform => Any, String) = inp match {
-    case "A1a" => (LsA1a(_), "JavaFx Demonstration Canvas A1")
-    case "A1b" => (LsA1b(_), "JavaFx Demonstration Canvas 1b")
-    case "A1" => (LsA1(_), "JavaFx Demonstration Canvas A1 Summary")
-    case "A2" => (LsA2(_), "JavaFx Demonstration Canvas 2")
-    case "A3a" => (LsA3a(_), "JavaFx Demonstration Canvas 3a")
-    case "A3" => (LsA3(_), "JavaFx Demonstration Canvas 3")
-    case "A4" => (LsA4(_), "JavaFx Demonstration Canvas 4")
-    case "A5" => (LsA5(_), "JavaFx Demonstration Canvas 5")
-    case "A6" => (LsA6(_), "JavaFx Demonstration Canvas 6")
-    case "A7" => (LsA7(_), "JavaFx Demonstration Canvas 7")
-    case "A8" => (LsA8(_), "JavaFx Demonstration Canvas 8")
-    case "A9" => (LsA9(_), "JavaFx Demonstration Canvas 9")
-    case "A10" => (LsA10(_), "JavaFx Demonstration Canvas 10")
-    case "A11" => (LsA11(_), "Reflecting a point across a Line")
-    case "A12" => (LsA12(_), "Hexagons")
-    case "A13" => (LsA13(_), "Floor tiling Squares with diags")
+  def theMap(inp: String): (CanvasPlatform => Any, String) = inp match
+  { case "A1" => (LsCircles(_), "JavaFx Demonstration Canvas A1")
+    case "A2" => (LsCircles2(_), "JavaFx Demonstration Canvas 1b")
+    case "A3" => (LsA1(_), "JavaFx Demonstration Canvas A1 Summary")
+    case "A4" => (LsA2(_), "JavaFx Demonstration Canvas 2")
+    case "A5" => (LsA3a(_), "JavaFx Demonstration Canvas 3a")
+    case "A6" => (LsA3(_), "JavaFx Demonstration Canvas 3")
+    case "A7" => (LsA4(_), "JavaFx Demonstration Canvas 4")
+    case "A8" => (LsA5(_), "JavaFx Demonstration Canvas 5")
+    case "A9" => (LsA6(_), "JavaFx Demonstration Canvas 6")
+    case "A10" => (LsA7(_), "JavaFx Demonstration Canvas 7")
+    case "A11" => (LsA8(_), "JavaFx Demonstration Canvas 8")
+    case "A12" => (LsA9(_), "JavaFx Demonstration Canvas 9")
+    case "A13" => (LsA10(_), "JavaFx Demonstration Canvas 10")
+    case "A14" => (LsA11(_), "Reflecting a point across a Line")
+    case "A15" => (LsA12(_), "Hexagons")
+    case "A16" => (LsA13(_), "Floor tiling Squares with diags")
 
     case "B1" => (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
     case "B2" => (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")
