@@ -83,7 +83,8 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
   def head2: Double = unsafeArray(1)
   def getPair(index: Int): (Double, Double) = (unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
-  def foreachPairTail[U](f: (Double, Double) => U): Unit =
+  /** Foreachs over the [[Double]] pairs of the tail of this [[Arr]]. */
+  def tailPairsForeach[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < length) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }

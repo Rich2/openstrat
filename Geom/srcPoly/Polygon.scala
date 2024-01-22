@@ -31,7 +31,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    *  vertex 0.5. */
   final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
 
-  override def verts: Arr[Pt2] =
+  override def verts: Pt2Arr =
   { val newArray: Array[Double] = new Array[Double](numVerts * 2)
     var i = 0
     while (i < numVerts)
@@ -44,13 +44,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   final override def vertsForeach[U](f: Pt2 => U): Unit = ssForeach(f)
 
-  /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  final def vertsTailForeach[U](f: Pt2 => U): Unit = ssTailForeach(f)
-
-  /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. For maximum efficiency
-   * override the implementation in sub classes. */
-  final def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = vertsTailForeach(v => f(v.x, v.y))
-
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
@@ -60,13 +53,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var i = 0
     vertsForeach{ v => acc.setElemUnsafe(i, f(v)); i += 1 }
     acc
-  }
-
-  /** flatMap to an immutable Arr. */
-  def vertsFlatMap[BB <: Arr[_]](f: Pt2 => BB)(implicit build: BuilderArrFlat[BB]): BB =
-  { val buff: build.BuffT = build.newBuff()
-    vertsForeach(v => build.buffGrowArr(buff, f(v)))
-    build.buffToSeqLike(buff)
   }
 
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
@@ -151,36 +137,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     res
   }
 
-  /** FlatMaps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: Arr[_]](f: (LineSeg, Int) => AA)(implicit build: BuilderArrFlat[AA]): AA = {
-    var i: Int = 0
-    val buff = build.newBuff()
-    sidesForeach { side =>
-      val newElems = f(side, i)
-      build.buffGrowArr(buff, newElems)
-      i += 1
-    }
-    build.buffToSeqLike(buff)
-  }
-
-  /** FlatMaps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: Arr[_]](initCount: Int)(f: (LineSeg, Int) => AA)(implicit build: BuilderArrFlat[AA]): AA =
-  { var i: Int = initCount
-    val buff = build.newBuff()
-    sidesForeach { side =>
-      val newElems = f(side, i)
-      build.buffGrowArr(buff, newElems)
-      i += 1
-    }
-    build.buffToSeqLike(buff)
-  }
-
-  def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
-  { var acc: A = init
-    sidesForeach{ s => acc = f(acc, s) }
-    acc
-  }
-
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   final def v0x: Double = unsafeArray(0)
 
@@ -195,7 +151,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   override def boundingRect: Rect =
   { var minX, maxX = v0x
     var minY, maxY = v0y
-    vertsTailForeach{v =>
+    verts.tailForeach{v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)
       minY = minY.min(v.y)
@@ -206,17 +162,16 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   override def boundingWidth: Double =
   { var minX, maxX = v0x
-    vertsTailForeach { v =>
+    verts.tailForeach { v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)
     }
     maxX - minX
   }
 
-
   override def boundingHeight: Double =
   { var minY, maxY = v0y
-    vertsTailForeach { v =>
+    verts.tailForeach { v =>
       minY = minY.min(v.y)
       maxY = maxY.max(v.y)
     }
@@ -270,7 +225,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Determines if the parameter point lies inside this Polygon. */
   def ptInside(pt: Pt2): Boolean =
-  { val num = sidesFold(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
+  { val num = sides.foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
     num.isOdd
   }
   /** The centre point of this Polygon. The default centre for Polygons is the centre of the bounding rectangle. */

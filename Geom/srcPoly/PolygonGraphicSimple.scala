@@ -61,8 +61,7 @@ object PolygonGraphicSimple
 /** A pointable polygon without visual. */
 case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphicSimple
 { override type ThisT = PolygonActive
-  override def ptsTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.vertsTrans(f), pointerId)
-//  override def boundingRect: Rect = shape.boundingRect
+  override def ptsTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.map(f), pointerId)
 
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}

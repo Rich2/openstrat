@@ -91,7 +91,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGen = map(_.xyScale(xOperand, yOperand))
   override def shearX(operand: Double): PolygonGen = map(_.xShear(operand))
   override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))
-  override def verts: Arr[Pt2] = new Pt2Arr(unsafeArray)
+  override def verts: Pt2Arr = new Pt2Arr(unsafeArray)
 }
 
 /** Companion object for [[PolygonGen]]. */

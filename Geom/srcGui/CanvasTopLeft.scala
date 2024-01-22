@@ -37,7 +37,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.negY.slateXY(width / 2, height / 2))
   final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.ptsTrans(tlCen))
 
-  final override def clip(pts: Polygon): Unit = tlClip(pts.vertsTrans(tlCen))
+  final override def clip(pts: Polygon): Unit = tlClip(pts.map(tlCen))
 
   protected[this] def tlPolyFill(pf: PolygonFill): Unit
   protected[this] def tlPolyDraw(pd: PolygonDraw): Unit

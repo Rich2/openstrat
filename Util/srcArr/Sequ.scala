@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
@@ -396,7 +396,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     result
   }
 
-  /** Foreachs over the tail of this sequence. */
+  /** Foreachs over the tail of this sequence. Performs a side effecting function on each element of this sequence excluding the first. */
   def tailForeach[U](f: A => U): Unit =
   { var count = 1
     while(count < length) { f(apply(count)); count += 1 }

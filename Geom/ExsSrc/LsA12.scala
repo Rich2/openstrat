@@ -18,7 +18,7 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
   { val verts: GraphicElems = hr.verts.iFlatMap{ (i, pt) => pt.textArrowToward(hr.cen, "V" + i.str) }
-    val sides: GraphicElems = hr.sidesIFlatMap{ (side, i) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
+    val sides: GraphicElems = hr.sides.iFlatMap{ (i, side) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
     verts ++ sides +% hr.draw(lineColour = colour) +% TextFixed(hr.str, 12, hr.cen, colour)
   }
 
