@@ -16,7 +16,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
-  @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
+  @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   override def attribs: RArr[XmlAtt] = ???
 

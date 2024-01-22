@@ -37,4 +37,9 @@ trait Vec2Like extends Any with TellElemDbl2 with ApproxDbl
 
   def doublesSeq = Seq(x, y)
   def toPair: (Double, Double) = (x, y)
+
+  def isTopRight: Boolean = x >= 0 && y >= 0
+  def isBottomRight: Boolean = x >= 0 && y <= 0
+  def isBottomLeft: Boolean = x <= 0 && y <= 0
+  def isTopleft: Boolean = x <= 0 && y >= 0
 }

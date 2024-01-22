@@ -37,6 +37,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     while (i < numVerts)
     { newArray(i * 2) = vertX(i)
       newArray(i * 2 + 1) = vertY(i)
+      i += 1
     }
     new Pt2Arr(newArray)
   }
@@ -46,7 +47,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a
    * new transformed Polygon */
-  def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
+  def vertsTrans(f: Pt2 => Pt2): Polygon = new PolygonGen(arrTrans(f))
 
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB =
   { val acc = build.uninitialised(numVerts)
@@ -327,28 +328,22 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   def innerRectApprox(startCen: Pt2, ratio: Double): Rect =
   { val scx = startCen.x
     val scy = startCen.y
-    val br = boundingRect
     val initMargin = 0.8
-    val startWidth = br.width * initMargin
-    val startHeight = br.height * initMargin
-    var leftAcc = scx - startWidth / 2
-    var rightAcc = scx + startWidth / 2
-    var bottomAcc = scy - startHeight / 2
-    var topAcc = scy + startHeight / 2
     val multi = 3
     val poly2 = vertsMultiply(multi)
-    val trBuff: Vec2Buff = Vec2Buff()
-    val brBuff: Vec2Buff = Vec2Buff()
-    val blBuff: Vec2Buff = Vec2Buff()
-    val tlBuff: Vec2Buff = Vec2Buff()
-    poly2.vertsForeach{vt => (  startCen >> vt) match
-      { case p if p.isTopRight => trBuff.grow(p)
-        case p if p.isBottomRight => brBuff.grow(p)
-        case p if p.isTopleft => tlBuff.grow(p)
-        case p => blBuff.grow(p)
+
+    val bounds = boundingRect
+    var trPt: Pt2 = bounds.topRight
+    def trLim(inp: Pt2): Double = (inp.x - scx).min((inp.y - scy) * ratio)
+    poly2.vertsForeach{vt => vt match
+      { case p if p.isTopRight => if(trLim(p) < trLim(trPt)) trPt = p
+        case p if p.isBottomRight => //brBuff.grow(p)
+        case p if p.isTopleft => //tlBuff.grow(p)
+        case p => //blBuff.grow(p)
       }
     }
-    Rect.lrbt(leftAcc, rightAcc, bottomAcc, topAcc)
+    ???//
+    // Rect.lrbt(leftAcc, rightAcc, bottomAcc, topAcc)
   }
 }
 

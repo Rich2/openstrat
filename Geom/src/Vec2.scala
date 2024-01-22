@@ -92,11 +92,6 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
 
   /** The magnitude of this vector2Like. */
   def magnitude: Double = math.sqrt(x * x + y * y)
-
-  def isTopRight: Boolean = x >= 0 && y >= 0
-  def isBottomRight: Boolean = x >= 0 && y <= 0
-  def isBottomLeft: Boolean = x <= 0 && y <= 0
-  def isTopleft: Boolean = x <= 0 && y >= 0
 }
 
 /** Companion object for [[Vec2]] contains apply factory, unapply extractor and implicit [[Persist instances. */
