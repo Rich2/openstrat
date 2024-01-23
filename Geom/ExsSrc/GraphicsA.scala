@@ -10,19 +10,17 @@ trait LessonPage
 }
 
 trait GraphicsA extends LessonPage
-{
-  def title: String
+{ def title: String
   def output: GraphicElems
-
-  //def pair: (CanvasPlatform => Any, String) = (apply(_), title)
 }
 
 trait GraphicsAE extends GraphicsA
 {
   def output: GraphicElems
 
-  case class Canv(canv: CanvasPlatform) extends CanvasNoPanels(title)
-  {
-    repaint(output)
+  def canv = new Canv(_, output)
+
+  class Canv(val canv: CanvasPlatform, frame: GraphicElems) extends CanvasNoPanels(title)
+  { repaint(frame)
   }
 }

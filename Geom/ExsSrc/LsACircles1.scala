@@ -18,12 +18,6 @@ object LsACircles1 extends GraphicsAE
   """<h1>Lesson A1</h1>
   |<p>This lesson covers Circles and Ellipses. As with the other lessons there will be a summary for those familiar with Scala and anumber of step
   |by step parts for those new to Scala, programming or geometry and graphics. </p>""".stripMargin
+
   override val page: HtmlPage = HtmlPage(head, HtmlBody.str(bodyStr))
-
-
-}
-
-case class LsACircles1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
-{
-  repaint(LsACircles1.output)
 }

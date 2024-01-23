@@ -6,7 +6,7 @@ object Lessons extends GuiLaunch
 {
   override def settingStr: String = "lessons"
 
-  override def default: (CanvasPlatform => Any, String) = (LsACircles1(_), "JavaFx" -- LsACircles1.title)
+  override def default: (CanvasPlatform => Any, String) = (LsACircles1.canv, "JavaFx" -- LsACircles1.title)
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) =
   {
     val obj = expr match
@@ -14,7 +14,7 @@ object Lessons extends GuiLaunch
       case it: IdentifierToken => theMap(it.srcStr)
       case _ => theMap("")
     }
-    (obj.Canv, "JavaFx" -- obj.title)
+    (obj.canv, "JavaFx" -- obj.title)
   }
 
   def theMap(inp: String): GraphicsAE = inp match
