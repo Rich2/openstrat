@@ -13,3 +13,7 @@ trait GraphicsA extends LessonPage
 
   //def pair: (CanvasPlatform => Any, String) = (apply(_), title)
 }
+
+trait GraphicsAE extends GraphicsA{
+  
+}

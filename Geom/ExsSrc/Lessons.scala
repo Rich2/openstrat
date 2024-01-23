@@ -6,22 +6,23 @@ object Lessons extends GuiLaunch
 {
   override def settingStr: String = "lessons"
 
-  override def default: (CanvasPlatform => Any, String) = (LsCircles(_), "JavaFx Demonstration Canvas A1")
+  override def default: (CanvasPlatform => Any, String) = (LsACircles1(_), "JavaFx Demonstration Canvas A1")
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
     case it: IdentifierToken => theMap(it.srcStr)
     case _ => theMap("")
   }
 
   def theMap(inp: String): (CanvasPlatform => Any, String) = inp match
-  { case "A1" => (LsCircles(_), "JavaFx Circles")
-    case "A2" => (LsCircles2(_), "JavaFx Circles2")
+  {
+    case "A1" => (LsACircles1(_), "JavaFx Circles")
+    case "A2" => (LsACircles2(_), "JavaFx Circles2")
     case "A3" => (LsCircles3(_), "JavaFx Demonstration Canvas A1 Summary")
     case "A4" => (LsPolygons(_), "JavaFx Demonstration Canvas 2")
     case "A5" => (LsA3a(_), "JavaFx Demonstration Canvas 3a")
     case "A6" => (LsA3(_), "JavaFx Demonstration Canvas 3")
     case "A7" => (LsA4(_), "JavaFx Demonstration Canvas 4")
     case "A8" => (LsA5(_), "JavaFx Demonstration Canvas 5")
-    case "A9" => (LsEllipses(_), "JavaFx Demonstration Canvas 6")
+    case "A9" => (LsAText(_), "JavaFx Demonstration Canvas 6")
     case "A10" => (LsA7(_), "JavaFx Demonstration Canvas 7")
     case "A11" => (LsA8(_), "JavaFx Demonstration Canvas 8")
     case "A12" => (LsA9(_), "JavaFx Demonstration Canvas 9")

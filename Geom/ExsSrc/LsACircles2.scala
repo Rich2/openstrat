@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pgui._, Colour._
 
 /** More stuff with circles. */
-case class LsCircles2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1b")
+case class LsACircles2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1b")
 {
   val cs = RArr(
     Circle(200).draw(lineColour = SeaGreen),

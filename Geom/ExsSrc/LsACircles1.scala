@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pgui._, Colour._
 
 /** Circles are simple. */
-object LsCircles
+object LsACircles1
 {
   val arr = RArr(
     Circle(200, 0, 0).fill(SeaGreen),
@@ -14,6 +14,6 @@ object LsCircles
   )
 }
 
-case class LsCircles(canv: CanvasPlatform) extends CanvasNoPanels("Circles are simple")
-{ repaint(LsCircles.arr)
+case class LsACircles1(canv: CanvasPlatform) extends CanvasNoPanels("Circles are simple")
+{ repaint(LsACircles1.arr)
 }

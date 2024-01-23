@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._, BaseLine._//{Alphabetic, Bottom, Middle, Top}
 
-case class LsEllipses(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
+case class LsAText(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
 {
   //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
   val ptStart: Pt2 = -100 pp 50
