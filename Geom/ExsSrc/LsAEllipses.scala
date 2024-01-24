@@ -1,9 +1,18 @@
 /* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat._, geom._, pgui._, Colour._, pWeb._
+
+object LsAEllipses extends GraphicsA
+{
+  override def title: String = "Ellipses"
+
+  override def canv: CanvasPlatform => Any = LsAEllipses(_)
+
+  override def page: HtmlPage = ???
+}
 
 /** Lesson A3. Unfinished. */
-case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
+case class LsAEllipses(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
 { val x1 = 100
   val y1 = 200
   val c0: Ellipse = Circle(60)

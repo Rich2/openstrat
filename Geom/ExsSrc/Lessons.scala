@@ -17,12 +17,12 @@ object Lessons extends GuiLaunch
     (obj.canv, "JavaFx" -- obj.title)
   }
 
-  def theMap(inp: String): GraphicsAE = inp match
+  def theMap(inp: String): GraphicsA = inp match
   {
     case "A1" => LsACircles1
     case "A2" => LsACircles2
-//    case "A3" => (LsCircles3(_), "JavaFx Demonstration Canvas A1 Summary")
-//    case "A4" => (LsPolygons(_), "JavaFx Demonstration Canvas 2")
+    case "A3" => LsAEllipses
+    case "A4" => LsPolygons
 //    case "A5" => (LsA3a(_), "JavaFx Demonstration Canvas 3a")
 //    case "A6" => (LsA3(_), "JavaFx Demonstration Canvas 3")
 //    case "A7" => (LsA4(_), "JavaFx Demonstration Canvas 4")

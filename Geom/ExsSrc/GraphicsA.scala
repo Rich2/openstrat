@@ -11,14 +11,15 @@ trait LessonPage
 
 trait GraphicsA extends LessonPage
 { def title: String
-  def output: GraphicElems
+
+  def canv: CanvasPlatform => Any
 }
 
 trait GraphicsAE extends GraphicsA
 {
   def output: GraphicElems
 
-  def canv = new Canv(_, output)
+  def canv: CanvasPlatform => Any = new Canv(_, output)
 
   class Canv(val canv: CanvasPlatform, frame: GraphicElems) extends CanvasNoPanels(title)
   { repaint(frame)
