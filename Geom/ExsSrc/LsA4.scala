@@ -11,8 +11,12 @@ import ostrat._, geom._, pgui._, Colour._
 // The associated commands will appear / disappear from the screen.
 
 /** Lesson A4. */
-case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
+object LsA18 extends GraphicsAE//CanvasNoPanels("Lesson A4")
 {
+  override def title: String = "What"
+
+  override def bodyStr: String = ???
+
   val c1St = 100 pp 200
   val c1Cen = 100 pp 100
   val c1End = 200 pp 100
@@ -43,7 +47,8 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
     c1, c2,
     c3d, c4d, e1, e2
   )
-  repaint(stuff ++ c1StText ++ c2StText ++ e1StArrow ++ e2StArrow ++ c4Text)
+
+  override def output: GraphicElems = stuff ++ c1StText ++ c2StText ++ e1StArrow ++ e2StArrow ++ c4Text
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the

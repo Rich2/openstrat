@@ -1,10 +1,13 @@
-/* Copyright 2018-23 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat._, geom._, Colour._
 
 /** Lesson A12. */
-case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
-{
+object LsAHexEnum extends GraphicsAE
+{ override def title: String = "Hexagon enumeration"
+
+  override def bodyStr: String = """Hexagon enumeration."""
+
   val c1: CircleDraw = Circle(200).draw()
   val c2: CircleDraw = Circle(231).draw(lineColour = DarkBlue)
 
@@ -39,5 +42,5 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val h8 = HexReg(220, DegVec90, gap, -270)
   val h8d = hexGraphics(h8, Colour.GoldenRod)
 
-  repaint(htv ++ hts +% hd +% c1 +% c2 ++ hc +% h3d ++ h4d ++ h5d ++ h6d ++ h7d ++ h8d)
+  override def output: GraphicElems = htv ++ hts +% hd +% c1 +% c2 ++ hc +% h3d ++ h4d ++ h5d ++ h6d ++ h7d ++ h8d
 }
