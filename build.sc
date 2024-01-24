@@ -10,7 +10,7 @@ trait Common extends ScalaModule
 trait CommonJvm extends Common
 { 
   def sources = T.sources(millSourcePath / "src", millSourcePath / "srcJvm", millSourcePath / "srcExs", millSourcePath / "srcExsJvm",
-    millSourcePath / 'srcFx)
+    millSourcePath / "srcFx")
 
   /*trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.10")
@@ -28,12 +28,12 @@ trait CommonJs extends ScalaJSModule with Common
 
 object Util extends CommonJvm// with PublishModule
 { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcArr, millSourcePath / 'srcRArr, millSourcePath / 'srcParse, millSourcePath / 'srcPersist, millSourcePath / 'srcJvm)
+  def sources = T.sources(millSourcePath / "src", millSourcePath / "srcArr", millSourcePath / "srcRArr", millSourcePath / "srcParse", millSourcePath / "srcPersist", millSourcePath / "srcJvm")
 }
 
 object UtilJs extends CommonJs
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Util.millSourcePath / 'src)
+  def sources = T.sources(Util.millSourcePath / "src")
 }
 
 object Geom extends CommonJvm
@@ -60,18 +60,18 @@ object Geom extends CommonJvm
 
 object GeomJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
-  def sources = T.sources(Geom.millSourcePath / 'src, Geom.millSourcePath / 'srcJs, Geom.millSourcePath / 'srcExs)
+  def sources = T.sources(Geom.millSourcePath / "src", Geom.millSourcePath / "srcJs", Geom.millSourcePath / "srcExs")
 }
 
 object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom)  
  // object test extends InnerTests
-  def sources = T.sources(Tiling.millSourcePath / 'src)
+  def sources = T.sources(Tiling.millSourcePath / "src")
 }
 
 object TilingJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
-  def sources = T.sources(Tiling.millSourcePath / 'src, Tiling.millSourcePath / 'srcJs, Tiling.millSourcePath / 'srcExs)
+  def sources = T.sources(Tiling.millSourcePath / "src", Tiling.millSourcePath / "srcJs", Tiling.millSourcePath / "srcExs")
 }
 
 object World extends CommonJvm
@@ -82,21 +82,21 @@ object World extends CommonJvm
 
 object WorldJs extends CommonJs
 { def moduleDeps = Seq(TilingJs)
-  def sources = T.sources(World.millSourcePath / 'src, World.millSourcePath / 'srcJs, World.millSourcePath / 'srcExs)
+  def sources = T.sources(World.millSourcePath / "src", World.millSourcePath / "srcJs", World.millSourcePath / "srcExs")
 }
 
 object Dev extends CommonJvm
 { def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
-  def resources = T.sources(millSourcePath / 'User)  
+  def sources = T.sources(millSourcePath / "src", millSourcePath / "srcJvm")
+  def resources = T.sources(millSourcePath / "User")  
 }
 
 object DevJs extends CommonJs
 { def moduleDeps = Seq(WorldJs)
-  def sources = T.sources(Dev.millSourcePath / 'src, Dev.millSourcePath / 'srcJs)
+  def sources = T.sources(Dev.millSourcePath / "src", Dev.millSourcePath / "srcJs")
 } 
 //def run() = Dev.runBackground()
 //def test = Geom.test
-def jsfast = DevJs.fastOpt
-def jsfull = DevJs.fullOpt
+def jsfast = DevJs.fastLinkJS
+def jsfull = DevJs.fullLinkJS
