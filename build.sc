@@ -9,15 +9,15 @@ trait Common extends ScalaModule
 
 trait CommonJvm extends Common
 { 
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcExsJvm,
+  def sources = T.sources(millSourcePath / "src", millSourcePath / "srcJvm", millSourcePath / "srcExs", millSourcePath / "srcExsJvm",
     millSourcePath / 'srcFx)
 
-  trait InnerTests extends Tests
+  /*trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.10")
     def testFrameworks = Seq("utest.runner.Framework") 
     def sources = T.sources(millSourcePath / 'src)
     def resources = T.sources(millSourcePath / 'res)
-  }
+  }*/
 }
 
 trait CommonJs extends ScalaJSModule with Common
@@ -28,7 +28,7 @@ trait CommonJs extends ScalaJSModule with Common
 
 object Util extends CommonJvm// with PublishModule
 { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcAnyVal, millSourcePath / 'srcJvm)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcArr, millSourcePath / 'srcRArr, millSourcePath / 'srcParse, millSourcePath / 'srcPersist, millSourcePath / 'srcJvm)
 }
 
 object UtilJs extends CommonJs
@@ -55,7 +55,7 @@ object Geom extends CommonJvm
     "--add-modules", "javafx.controls"
   )
   
-  object test extends InnerTests  
+  //object test extends InnerTests
 }
 
 object GeomJs extends CommonJs
@@ -65,7 +65,7 @@ object GeomJs extends CommonJs
 
 object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom)  
-  object test extends InnerTests
+ // object test extends InnerTests
   def sources = T.sources(Tiling.millSourcePath / 'src)
 }
 
@@ -77,7 +77,7 @@ object TilingJs extends CommonJs
 object World extends CommonJvm
 { def moduleDeps = Seq(Tiling) 
 
-  object test extends InnerTests
+  //object test extends InnerTests
 }
 
 object WorldJs extends CommonJs
@@ -97,6 +97,6 @@ object DevJs extends CommonJs
   def sources = T.sources(Dev.millSourcePath / 'src, Dev.millSourcePath / 'srcJs)
 } 
 //def run() = Dev.runBackground()
-def test = Geom.test
+//def test = Geom.test
 def jsfast = DevJs.fastOpt
 def jsfull = DevJs.fullOpt
