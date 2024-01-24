@@ -13,6 +13,10 @@ trait GraphicsA extends LessonPage
 { def title: String
 
   def canv: CanvasPlatform => Any
+  def bodyStr: String
+
+  override def page: HtmlPage = HtmlPage(head, HtmlBody(HtmlH1(title), HtmlP(bodyStr)))
+  def head: HtmlHead = HtmlHead(RArr(HtmlTitle(title)))
 }
 
 trait GraphicsAE extends GraphicsA

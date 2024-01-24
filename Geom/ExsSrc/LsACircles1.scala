@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._, pWeb._
+import ostrat._, geom._, Colour._, pWeb._
 
 object LsACircles1 extends GraphicsAE
 { val title = "Circles 1"
@@ -13,11 +13,7 @@ object LsACircles1 extends GraphicsAE
     Circle(40, 0, -220).fill(DarkGoldenRod),
   )
 
-  val head: HtmlHead = HtmlHead(RArr(HtmlTitle(title)))
   val bodyStr: String =
-  """<h1>Lesson A1</h1>
-  |<p>This lesson covers Circles and Ellipses. As with the other lessons there will be a summary for those familiar with Scala and anumber of step
-  |by step parts for those new to Scala, programming or geometry and graphics. </p>""".stripMargin
-
-  override val page: HtmlPage = HtmlPage(head, HtmlBody.str(bodyStr))
+  """This lesson covers Circles and Ellipses. As with the other lessons there will be a summary for those familiar with Scala and anumber of step
+  |by step parts for those new to Scala, programming or geometry and graphics.""".stripMargin
 }

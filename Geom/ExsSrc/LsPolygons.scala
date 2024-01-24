@@ -3,9 +3,11 @@ package learn
 import ostrat._, geom._, Colour._, pWeb._
 
 /** Lesson Polygons. */
-object LsPolygons extends GraphicsAE//(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
+object LsPolygons extends GraphicsAE
 {
   override def title: String = "Polygons"
+
+  override def bodyStr: String = ???
 
   val sq0 = Sqlign(100).fill(Red)
   val sq1 = Square(100 / 2.sqrt, 45.degsVec).fill(Pink)
@@ -21,6 +23,4 @@ object LsPolygons extends GraphicsAE//(canv: CanvasPlatform) extends CanvasNoPan
     Triangle(-100 pp 0, 0 pp -200, -300 pp -400).fill(Violet),
     rg, rd, sq0, sq1, sq2, sq3, pr.draw(), ls.draw(lineColour = DarkGreen), prr.draw(lineColour = Brown),
   )
-
-  override def page: HtmlPage = ???
 }

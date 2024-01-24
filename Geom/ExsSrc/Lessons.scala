@@ -7,6 +7,7 @@ object Lessons extends GuiLaunch
   override def settingStr: String = "lessons"
 
   override def default: (CanvasPlatform => Any, String) = (LsACircles1.canv, "JavaFx" -- LsACircles1.title)
+
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) =
   {
     val obj = expr match

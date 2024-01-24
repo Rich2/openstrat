@@ -7,6 +7,8 @@ object LsACircles2 extends GraphicsAE
 {
   override def title: String = "Circles 2"
 
+  override def bodyStr: String = """"""
+
   val output = RArr(
     Circle(200).draw(lineColour = SeaGreen),
     Circle(140, 50, 80).draw(4, Orange),
@@ -14,6 +16,4 @@ object LsACircles2 extends GraphicsAE
     Circle(160, -250, 150).fillDraw(Turquoise, Black, 3),
     Circle(80, 0, -220).fillDraw(DarkGoldenRod, Violet, 12),
   )
-
-  override def page: HtmlPage = ???
 }
