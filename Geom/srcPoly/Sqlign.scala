@@ -51,9 +51,9 @@ object Sqlign
     new Sqlign(array)
   }
 
-  def apply(width: Double, xCen: Double, yCen: Double): Sqlign = {
-    val w = width / 2
-    val array = Array[Double](xCen - w, yCen + w, xCen + w, yCen + w, xCen + w, yCen - w, xCen - w, yCen - w)
+  def apply(width: Double, cenX: Double, cenY: Double): Sqlign =
+  { val w = width / 2
+    val array = Array[Double](cenX - w, cenY + w, cenX + w, cenY + w, cenX + w, cenY - w, cenX - w, cenY - w)
     new Sqlign(array)
   }
 

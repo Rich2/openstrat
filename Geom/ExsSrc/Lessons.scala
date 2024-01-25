@@ -21,8 +21,8 @@ object Lessons extends GuiLaunch
   def theMap(inp: String): GraphicsA = inp match
   {
     case "A1" => LsACircles1
-    case "A2" => LsACircles2
-    case "A3" => LsASquares
+    case "A2" => LsASquares
+    case "A3" => LsACircles2
     case "A4" => LsAPolygons
 
     case "A6" => LsARotation
