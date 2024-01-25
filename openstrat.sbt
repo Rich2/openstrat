@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.1snap"
+val versionStr = "0.3.1"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.3"
