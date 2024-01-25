@@ -2,8 +2,12 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-case class LsA7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
+object LsAShapes2 extends GraphicsAE//(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
 {
+  override def title: String = "Shapes2"
+
+  override def bodyStr: String = ???
+
   val pt1 = -200 pp 200
   val arcCentre = 0 pp 200
   val pt2 = 0 pp 400
@@ -12,8 +16,8 @@ case class LsA7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
   val ctrl1 = 150 pp -125
   val ctrl2 = -175 pp -250
   val pt5 = -200 pp -200
-  
-  repaints(
+
+  override def output: GraphicElems = RArr(
       //A shape is just a closed sequence of curve segments */
       ShapeGenOld(LineTail(pt1), ArcTail(arcCentre, pt2), ArcTail(arcCentre, pt3), LineTail(pt4), BezierTail(ctrl1, ctrl2, pt5)).fill(Pink),
       TextFixed("pt1", 16, pt1),

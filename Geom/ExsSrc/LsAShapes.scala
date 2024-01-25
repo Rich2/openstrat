@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, Colour._
 
-object LsA8Shapes extends GraphicsAE
+object LsAShapes extends GraphicsAE
 { override def title: String = "Shapes"
 
   override def bodyStr: String = "Shapes"

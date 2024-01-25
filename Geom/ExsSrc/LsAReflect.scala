@@ -1,10 +1,14 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat._, geom._, Colour._
 
-/** Lesson A11. */
-case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Reflecting a point across a Line")
+/** Reflection transformation lesson. */
+object LsAReflect extends GraphicsAE
 {
+  override def title: String = "Reflection"
+
+  override def bodyStr: String = "Reflection transformation"
+
   val line1 = LineSeg(-300, 0, 300, 400)
   val redLine = line1.draw(0.25, Red)
   val p1 = -100 pp 200
@@ -54,5 +58,6 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
 
 
   val aa = RArr(ccl1, ccl1r, r1, r1r)
-  repaint(aa ++ c1 ++ c1r +% cd1 +% cd2 +% cd3 +% redLine)
+
+  override def output: GraphicElems = aa ++ c1 ++ c1r +% cd1 +% cd2 +% cd3 +% redLine
 }
