@@ -1,9 +1,9 @@
 /* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, Colour._, pWeb._
+import ostrat._, geom._, Colour._
 
 /** Lesson Polygons. */
-object LsPolygons extends GraphicsAE
+object LsAPolygons extends GraphicsAE
 {
   override def title: String = "Polygons"
 

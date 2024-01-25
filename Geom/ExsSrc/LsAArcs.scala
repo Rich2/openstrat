@@ -1,3 +1,4 @@
+/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
@@ -10,12 +11,12 @@ import ostrat._, geom._, pgui._, Colour._
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
 
-/** Lesson A4. */
-object LsA18 extends GraphicsAE//CanvasNoPanels("Lesson A4")
+/** Arcs Lesson. */
+object LsAArcs extends GraphicsAE
 {
-  override def title: String = "What"
+  override def title: String = "Arcs"
 
-  override def bodyStr: String = ???
+  override def bodyStr: String = "Arcs"
 
   val c1St = 100 pp 200
   val c1Cen = 100 pp 100

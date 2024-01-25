@@ -1,10 +1,14 @@
-/* Copyright Richard Oliver 2018-22 Licensed under Apache Licence version 2.0. */
+/* Copyright Richard Oliver 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat._, geom._, Colour._
 
-/** Lesson A 13 Empty. */
-case class LsA13(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A13")
-{  
+/** Tiling Lesson. */
+object LsATiling extends GraphicsAE
+{
+  override def title: String = "Tiling"
+
+  override def bodyStr: String = "Tiling experiment"
+
   val rx = 6
   val ry = 4
   val scale = 85
@@ -33,6 +37,6 @@ case class LsA13(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A13")
   val s2t = iToMap(-rx + 1, rx - 1, 2){x =>
     sq2.slateXY(x, ry + 1).fill(Green)
   }
-  val stuff = (s1 ++ s2 ).scale(scale)
-  repaint(stuff)
+
+  override def output: GraphicElems = (s1 ++ s2 ).scale(scale)
 }

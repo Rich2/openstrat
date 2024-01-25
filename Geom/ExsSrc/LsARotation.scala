@@ -1,5 +1,6 @@
+/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat._, geom._, Colour._
 
 /* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It
  *  doesn't do anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment.
@@ -10,9 +11,13 @@ import ostrat._, geom._, pgui._, Colour._
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
  
-case class LsA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
+object LsARotation extends GraphicsAE
 {
-//  val c1 = CArc(0, 100, 0, 0, 3)
+  override def title: String = "Rotation"
+
+  override def bodyStr: String = "Rotation"
+
+  //  val c1 = CArc(0, 100, 0, 0, 3)
 //  val d1 = c1.draw(2, Red)
 //  val c2 = c1.slate(200, 50)
 //  val d2 = c2.draw(2, Orange)
@@ -37,7 +42,7 @@ case class LsA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
   val p225 = ps.rotateAbout(cc, 225.degsVec)
   val p270 = ps.rotateAbout(cc, 270.degsVec)
 
-  repaints(cd, ps.toText(10, Pink), p90.toText(10, Red), p135.toText(10, Brown), p180.toText(10, Green),
+  override def output: GraphicElems = RArr(cd, ps.toText(10, Pink), p90.toText(10, Red), p135.toText(10, Brown), p180.toText(10, Green),
     p225.toText(10, Orange), p270.toText(10, Blue))
 }
 

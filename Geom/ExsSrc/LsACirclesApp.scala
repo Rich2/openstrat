@@ -1,8 +1,9 @@
-/* Copyright 2018-21 Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, Colour._
 
-object LsA1sApp extends App
+/** Not sure if this is still useful. */
+object LsACirclesApp extends App
 {
   val cfs = RArr(Circle(100, 0, 0).fill(SeaGreen),
   Circle(70, 50, 80).fill(Orange),

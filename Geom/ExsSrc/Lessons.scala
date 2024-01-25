@@ -23,23 +23,19 @@ object Lessons extends GuiLaunch
     case "A1" => LsACircles1
     case "A2" => LsACircles2
     case "A3" => LsASquares
-    case "A4" => LsPolygons
-//    case "A5" => (LsA3a(_), "JavaFx Demonstration Canvas 3a")
-//    case "A6" => (LsA3(_), "JavaFx Demonstration Canvas 3")
-//    case "A7" => (LsA4(_), "JavaFx Demonstration Canvas 4")
-//    case "A8" => (LsA5(_), "JavaFx Demonstration Canvas 5")
-//    case "A9" => (LsAText(_), "JavaFx Demonstration Canvas 6")
+    case "A4" => LsAPolygons
+
+    case "A6" => LsARotation
     case "A7" => LsAShapes2
     case "A8" => LsAShapes
     case "A9" => LsABeziers
     case "A10" => LsADiagram
     case "A11" => LsAReflect
     case "A12" => LsAHexEnum
-//    case "A16" => (LsA13(_), "Floor tiling Squares with diags")
-    case "A18" => LsA18
+    case "A13" => LsATiling
+    case "A18" => LsAArcs
     case "A19" => LsAEllipses
-
-//
+    
 //    case "B1" => (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
 //    case "B2" => (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")
 //    case "B3" => (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")
