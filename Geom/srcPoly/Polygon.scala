@@ -326,26 +326,26 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Approximation for an inner rectangle given a starting centre. */
   def innerRectApprox(startCen: Pt2, ratio: Double): Rect =
-  { val scx = startCen.x
-    val scy = startCen.y
+  { val cx = startCen.x
+    val cy = startCen.y
     val initMargin = 0.8
     val multi = 3
     val poly2 = vertsMultiply(multi)
 
     val bounds = boundingRect
     var trPt: Pt2 = bounds.topRight
-    def trLim(inp: Pt2): Double = (inp.x - scx).min((inp.y - scy) * ratio)
+    def trLim(inp: Pt2): Double = (inp.x - cx).max((inp.y - cy) * ratio)
     var brPt: Pt2 = bounds.bottomRight
-    def brLim(inp: Pt2): Double = (inp.x - scx).min((scy - inp.y) * ratio)
+    def brLim(inp: Pt2): Double = (inp.x - cx).max((cy - inp.y) * ratio)
     var tlPt: Pt2 = bounds.topLeft
-    def tlLim(inp: Pt2): Double = (scx - scx).min((inp.y - scy) * ratio)
+    def tlLim(inp: Pt2): Double = (cx - inp.x).max((inp.y - cy) * ratio)
     var blPt: Pt2 = bounds.bottomLeft
-    def blLim(inp: Pt2): Double = (scx - inp.x).min((scy - inp.y) * ratio)
+    def blLim(inp: Pt2): Double = (cx - inp.x).max((cy - inp.y) * ratio)
     poly2.vertsForeach{vt => vt match
-      { case p if p.isTopRight => if(trLim(p) < trLim(trPt)) trPt = p
-        case p if p.isBottomRight => if(brLim(p) < brLim(brPt)) brPt = p
-        case p if p.isTopleft => if(tlLim(p) < tlLim(tlPt)) tlPt = p
-        case p => if(blLim(p) < blLim(blPt)) blPt = p
+      { case vt if vt.isTopRight => if(trLim(vt) < trLim(trPt)) trPt = vt
+        case vt if vt.isBottomRight => if(brLim(vt) < brLim(brPt)) brPt = vt
+        case vt if vt.isTopleft => if(tlLim(vt) < tlLim(tlPt)) tlPt = vt
+        case vt => if(blLim(vt) < blLim(blPt)) blPt = vt
       }
     }
     val left = tlPt.x.max(blPt.x)
