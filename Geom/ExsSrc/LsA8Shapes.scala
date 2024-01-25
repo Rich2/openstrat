@@ -1,9 +1,12 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat._, geom._, Colour._
 
-case class LsA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A8")
-{
+object LsA8Shapes extends GraphicsAE
+{ override def title: String = "Shapes"
+
+  override def bodyStr: String = "Shapes"
+
   //Lets copy the values across from the previous lesson.
   val pt1 = -200 pp 200
   val arcCentre = 0 pp 200
@@ -22,5 +25,6 @@ case class LsA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A8")
   val sf4 = sf3.slateXY(-250, 200)
   val sf5 = sf4.slateX(-100).copy(colour = Green)
   val sf6 = sf5.negY.copy(colour = Red)
-  repaints(sf1, sf2, sf3, sf4, sf5, sf6)
+
+  override def output: GraphicElems = RArr(sf1, sf2, sf3, sf4, sf5, sf6)
 }

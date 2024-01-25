@@ -30,9 +30,9 @@ object Lessons extends GuiLaunch
 //    case "A8" => (LsA5(_), "JavaFx Demonstration Canvas 5")
 //    case "A9" => (LsAText(_), "JavaFx Demonstration Canvas 6")
 //    case "A10" => (LsA7(_), "JavaFx Demonstration Canvas 7")
-//    case "A11" => (LsA8(_), "JavaFx Demonstration Canvas 8")
-//    case "A12" => (LsA9(_), "JavaFx Demonstration Canvas 9")
-//    case "A13" => (LsA10(_), "JavaFx Demonstration Canvas 10")
+    case "A8" => LsA8Shapes
+    case "A9" => LsABeziers
+    case "A10" => LsADiagram
 //    case "A14" => (LsA11(_), "Reflecting a point across a Line")
     case "A12" => LsAHexEnum
 //    case "A16" => (LsA13(_), "Floor tiling Squares with diags")
