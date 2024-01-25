@@ -6,7 +6,7 @@ object Lessons extends GuiLaunch
 {
   override def settingStr: String = "lessons"
 
-  override def default: (CanvasPlatform => Any, String) = (LsACircles1.canv, "JavaFx" -- LsACircles1.title)
+  override def default: (CanvasPlatform => Any, String) = (LsACircles.canv, "JavaFx" -- LsACircles.title)
 
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) =
   {
@@ -20,7 +20,7 @@ object Lessons extends GuiLaunch
 
   def theMap(inp: String): GraphicsA = inp match
   {
-    case "A1" => LsACircles1
+    case "A1" => LsACircles
     case "A2" => LsASquares
     case "A3" => LsACircles2
     case "A4" => LsAPolygons
@@ -35,6 +35,7 @@ object Lessons extends GuiLaunch
     case "A13" => LsATiling
     case "A18" => LsAArcs
     case "A19" => LsAEllipses
+    case "A20" => LsAInner
     
 //    case "B1" => (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
 //    case "B2" => (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")
@@ -59,6 +60,6 @@ object Lessons extends GuiLaunch
 //    case "E1" => (learn.LsE1(_), "JavaFx Demonstration Games 1") //Building turn based games.
 //    case "E2" => (learn.LsE2(_), "JavaFx Demonstration Games 2")
 
-    case _ => LsACircles1
+    case _ => LsACircles
   }
 }
