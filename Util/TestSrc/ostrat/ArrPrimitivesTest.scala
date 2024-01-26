@@ -28,9 +28,14 @@ object ArrPrimitivesTest extends TestSuite
     val ints4 = ints1.flatMap(a => IntArr(a + 10, a + 20, a + 30))
     val longs2 = ints1.flatMap(a => LongArr(a + 100, a + 200, a + 300))
 
-    "Bind" -
+    test("Bind") -
     { assert(ints4 === IntArr(11, 21, 31, 12, 22, 32, 13, 23, 33, 14, 24, 34))
       longs2.length ==> 12
+    }
+
+    val sort1 = IntArr(4, 3, 8, 7, 2).sortBy(_ > _)
+    test("sortBy"){
+      assert(sort1 === IntArr(2, 3, 4, 7, 8))
     }
   }
 }

@@ -19,6 +19,27 @@ trait Arr[+A] extends Any with Sequ[A]
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => setElemUnsafe(i, a) }
 
   def headOrNone: Any = ife(length ==0, None, apply(0))
+
+  /** Takes greater than function. */
+  def sortBy(f: (A, A) => Boolean)(implicit build: BuilderArrMap[A, ThisT] @uncheckedVariance): ThisT ={
+    val res = build.uninitialised(length)
+    val placed = new Array[Boolean](length)
+    iUntilForeach(length){ i =>
+      var j = 0
+      var target = -1
+      while(target < 0)
+      { if(!placed(j)) target = j
+        j += 1
+      }
+      while (j < length)
+      { if (!placed(j) && f(apply(target), apply(j))) target = j
+        j += 1
+      }
+      res.setElemsUnsafe(i, apply(target))
+      placed(target) = true
+    }
+    res
+  }
 }
 
 case class ArrCounters[A](arr: Arr[A])
