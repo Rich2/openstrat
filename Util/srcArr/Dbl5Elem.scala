@@ -77,7 +77,7 @@ trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[_]] extends BuilderSeqLikeDbl5[ArrB] wi
 
 /** Helper class for companion objects of final [[SeqSpecDbl5]] classes. */
 abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5[A]] extends CompanionSeqLikeDblN[A, ArrA]
-{ override def elemNumDbls: Int = 5
+{ override def numElemDbls: Int = 5
 
   def apply(elems: A*): ArrA =
   { val length = elems.length

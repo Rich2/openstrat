@@ -129,7 +129,7 @@ trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[_]] extends BuilderSeqLikeDbl2[ArrB] wi
 
 /** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
 trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends CompanionSeqLikeDblN[A, AA]
-{ final def elemNumDbls: Int = 2
+{ final def numElemDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
   def apply(elems: A*): AA =

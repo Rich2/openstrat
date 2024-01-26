@@ -88,7 +88,7 @@ abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends
      res
    }
 
-  override def elemNumDbls: Int = 4
+  override def numElemDbls: Int = 4
 
   /** Constructs the [[SeqLikeDbl4]] from a sequence of [[Tuple4]]s. */
   def tuple4s(tuples: (Double, Double, Double, Double)*): AA =

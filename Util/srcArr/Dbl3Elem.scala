@@ -24,7 +24,7 @@ trait SeqLikeDbl3[A <: Dbl3Elem] extends Any with SeqLikeDblN[A]
 
 /** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
 abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] extends CompanionSeqLikeDblN[A, ArrA]
-{ final override def elemNumDbls: Int = 3
+{ final override def numElemDbls: Int = 3
 
   def apply(elems: A*): ArrA =
   { val length = elems.length

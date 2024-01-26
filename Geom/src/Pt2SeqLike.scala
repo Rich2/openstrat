@@ -62,6 +62,8 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
   /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
   implicit lazy val unshowEv: UnshowSeq[Pt2, Pt2Arr] = UnshowSeq[Pt2, Pt2Arr]()
 
+  implicit val eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.unsafeArray.sameElements(a2.unsafeArray)
+
   implicit val slateImplicit: Slate[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2Arr] = (obj: Pt2Arr, angle: AngleVec) => obj.rotate(angle)

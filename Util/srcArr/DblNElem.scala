@@ -141,29 +141,30 @@ trait BuilderArrDblNFlat[ArrB <: ArrDblN[_]] extends BuilderSeqLikeDblN[ArrB] wi
 /** Helper trait for Companion objects of [[ArrDblN]] classes. */
 trait CompanionSeqLikeDblN[A <: DblNElem, AA <: SeqLikeDblN[A]]
 { /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
-  def elemNumDbls: Int
+  def numElemDbls: Int
 
   /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArray(array: Array[Double]): AA
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  def uninitialised(length: Int): AA = fromArray(new Array[Double](length * elemNumDbls))
+  def uninitialised(length: Int): AA = fromArray(new Array[Double](length * numElemDbls))
 
   def empty: AA = fromArray(new Array[Double](0))
 
   /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is
    *  incorrect. */
-  def fromDbls(elems: Double*): AA =
-  { val arrLen: Int = elems.length
-    if (arrLen % elemNumDbls != 0) excep(
-      s"$arrLen Double values is not a correct number for the creation of this objects defining sequence, must be a multiple of $elemNumDbls")
+  def fromDbls(inp: Double*): AA =
+  { val arrLen: Int = inp.length
+    if (arrLen % numElemDbls != 0) excep(
+      s"$arrLen Double values is not a correct number for the creation of this objects defining sequence, must be a multiple of $numElemDbls")
 
-    val array = Array[Double](elems.length)
-    var count: Int = 0
+    val array = new Array[Double](inp.length)
+    var i: Int = 0
 
-    while (count < arrLen)
-    { array(count) = elems(count)
-      count += 1
+    while (i < arrLen)
+    { val newEl = inp(i)
+      array(i) = newEl
+      i += 1
     }
     fromArray(array)
   }

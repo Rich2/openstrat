@@ -67,7 +67,7 @@ trait ArrDbl7[A <: Dbl7Elem] extends Any with ArrDblN[A] with SeqLikeDbl7[A]
 
 /** Helper class for companion objects of final [[SeqSpecDbl7]] sequence-defined classes. */
 abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7[A]] extends CompanionSeqLikeDblN[A, ArrA]
-{ override def elemNumDbls: Int = 7
+{ override def numElemDbls: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)
 
   def apply(elems: A*): ArrA =

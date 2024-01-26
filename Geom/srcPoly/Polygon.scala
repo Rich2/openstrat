@@ -325,10 +325,12 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   { val cx = startCen.x
     val cy = startCen.y
     val initMargin = 0.8
-    val multi = 4
+    val multi = 2
     val fOrder: (Pt2, Pt2) => Boolean = (p1, p2) => (p1.x - cx).abs + (p1.y - cy).abs < (p2.x - cx).abs + (p2.y - cy).abs
     val verts2: Pt2Arr = vertsMultiply(multi).verts
     val verts3: Pt2Arr = verts.sortBy(fOrder)
+    debvar(verts2.length)
+    debvar(verts3.length)
 
     val bounds = boundingRect
     var left = bounds.left
@@ -336,7 +338,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var bottom = bounds.bottom
     var top = bounds.top
 
-    verts2.foreach{vt => vt match
+    verts3.foreach{vt => vt match
       {
         case vt if vt.isTopRight && vt.x < right && vt.y < top =>
           if ((vt.x - cx) > (vt.y - cy) * ratio) right = vt.x else top = vt.y
