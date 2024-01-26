@@ -321,16 +321,14 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** Approximation for an inner rectangle given a starting centre. */
-  def innerRectApprox(startCen: Pt2, ratio: Double): Rect =
+  def innerRect(startCen: Pt2, ratio: Double): Rect =
   { val cx = startCen.x
     val cy = startCen.y
     val initMargin = 0.8
-    val multi = 2
+    val multi = 4
     val fOrder: (Pt2, Pt2) => Boolean = (p1, p2) => (p1.x - cx).abs + (p1.y - cy).abs < (p2.x - cx).abs + (p2.y - cy).abs
     val verts2: Pt2Arr = vertsMultiply(multi).verts
-    val verts3: Pt2Arr = verts.sortBy(fOrder)
-    debvar(verts2.length)
-    debvar(verts3.length)
+    val verts3: Pt2Arr = verts2.sortBy(fOrder)
 
     val bounds = boundingRect
     var left = bounds.left
@@ -349,14 +347,12 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
         case vt if vt.isTopleft && vt.x > left && vt.y < top =>
           if ((cx - vt.x) > (vt.y - cy) * ratio) left = vt.x else top = vt.y
 
-        //case vt => if(blLim(vt) < blLim(blPt)) blPt = vt
+        case vt if vt.isBottomLeft && vt.x > left && vt.y > bottom =>
+          if ((cx - vt.x) > (cy - vt.y) * ratio) left = vt.x else bottom = vt.y
+
         case _ =>
       }
     }
-//    val leftOld = tlPt.x.max(blPt.x)
-//    val rightOld = trPt.x.min(brPt.x)
-//    val topOld = tlPt.y.min(trPt.y)
-//    val bottomOld = blPt.y.max(brPt.y)
     Rect.lrbt(left, right, bottom, top)
   }
 }
