@@ -331,9 +331,14 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     val initMargin = 0.8
     val multi = 3
     val fOrder: (Pt2, Pt2) => Boolean = (p1, p2) => (p1.x - cx).abs + (p1.y - cy).abs < (p2.x - cx).abs + (p2.y - cy).abs
-    val poly2 = vertsMultiply(multi)
+    val verts2 = vertsMultiply(multi).verts
 
     val bounds = boundingRect
+    var left = bounds.left
+    var right = bounds.right
+    var bottom = bounds.bottom
+    val top = bounds.top
+
     var trPt: Pt2 = bounds.topRight
     def trLim(inp: Pt2): Double = (inp.x - cx).max((inp.y - cy) * ratio)
     var brPt: Pt2 = bounds.bottomRight
@@ -342,18 +347,18 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     def tlLim(inp: Pt2): Double = (cx - inp.x).max((inp.y - cy) * ratio)
     var blPt: Pt2 = bounds.bottomLeft
     def blLim(inp: Pt2): Double = (cx - inp.x).max((cy - inp.y) * ratio)
-    poly2.vertsForeach{vt => vt match
+    verts2.foreach{vt => vt match
       { case vt if vt.isTopRight => if(trLim(vt) < trLim(trPt)) trPt = vt
         case vt if vt.isBottomRight => if(brLim(vt) < brLim(brPt)) brPt = vt
         case vt if vt.isTopleft => if(tlLim(vt) < tlLim(tlPt)) tlPt = vt
         case vt => if(blLim(vt) < blLim(blPt)) blPt = vt
       }
     }
-    val left = tlPt.x.max(blPt.x)
-    val right = trPt.x.min(brPt.x)
-    val top = tlPt.y.min(trPt.y)
-    val bottom = blPt.y.max(brPt.y)
-    Rect.lrbt(left, right, bottom, top)
+    val leftOld = tlPt.x.max(blPt.x)
+    val rightOld = trPt.x.min(brPt.x)
+    val topOld = tlPt.y.min(trPt.y)
+    val bottomOld = blPt.y.max(brPt.y)
+    Rect.lrbt(leftOld, rightOld, bottomOld, topOld)
   }
 }
 
