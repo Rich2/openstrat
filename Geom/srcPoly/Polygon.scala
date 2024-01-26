@@ -315,11 +315,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   { val res = Polygon.uninitialised(numVerts * n)
     iUntilForeach(numVerts){ i =>
       val ls: LineSeg = vert(i).lineSegTo(vert(i + 1))
-      iUntilForeach(n) { j =>
-        res.setElemUnsafe(i * n + j, ls.fractionalPoint(j.toDouble / n))
-        val newElem = vert(i).midPt(vert(i + 1))
-        res.setElemUnsafe(i * 2 + 1, newElem)
-      }
+      iUntilForeach(n) { j => res.setElemUnsafe(i * n + j, ls.fractionalPoint(j.toDouble / n)) }
     }
     res
   }
@@ -329,10 +325,10 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   { val cx = startCen.x
     val cy = startCen.y
     val initMargin = 0.8
-    val multi = 2
+    val multi = 4
     val fOrder: (Pt2, Pt2) => Boolean = (p1, p2) => (p1.x - cx).abs + (p1.y - cy).abs < (p2.x - cx).abs + (p2.y - cy).abs
-    val verts2 = vertsMultiply(multi).verts
-    val verts3 = verts.sortBy(fOrder)
+    val verts2: Pt2Arr = vertsMultiply(multi).verts
+    val verts3: Pt2Arr = verts.sortBy(fOrder)
 
     val bounds = boundingRect
     var left = bounds.left
@@ -340,14 +336,17 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var bottom = bounds.bottom
     var top = bounds.top
 
-
     verts2.foreach{vt => vt match
       {
-        case vt if vt.isTopRight && vt.x < right && vt. y < top =>
+        case vt if vt.isTopRight && vt.x < right && vt.y < top =>
           if ((vt.x - cx) > (vt.y - cy) * ratio) right = vt.x else top = vt.y
 
-        //case vt if vt.isBottomRight => if(brLim(vt) < brLim(brPt)) brPt = vt
-        //case vt if vt.isTopleft => if(tlLim(vt) < tlLim(tlPt)) tlPt = vt
+        case vt if vt.isBottomRight && vt.x < right && vt.y > bottom =>
+          if ((vt.x - cx) > (cy - vt.y) * ratio) right = vt.x else bottom = vt.y
+
+        case vt if vt.isTopleft && vt.x > left && vt.y < top =>
+          if ((cx - vt.x) > (vt.y - cy) * ratio) left = vt.x else top = vt.y
+
         //case vt => if(blLim(vt) < blLim(blPt)) blPt = vt
         case _ =>
       }

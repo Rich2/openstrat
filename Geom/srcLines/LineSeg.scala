@@ -70,7 +70,7 @@ CurveSeg with Tell2[Pt2, Pt2] with AffinePreserve with BoundedElem {
   def fractionalPoint(fraction: Double): Pt2 = fraction match
   { case f if f <= 0 => startPt
     case f if f >= 1 => endPt
-    case f => Pt2((startPt.x * (1.0 - f) + endPt.x * f) / f,  (startPt.y * (1.0 - f) + endPt.y * f) / f)
+    case f => Pt2((startPt.x * (1.0 - f) + endPt.x * f),  (startPt.y * (1.0 - f) + endPt.y * f))
   }
 
   /** The angle of this line segment. */
