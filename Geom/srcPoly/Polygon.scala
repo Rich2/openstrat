@@ -330,6 +330,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     val cy = startCen.y
     val initMargin = 0.8
     val multi = 3
+    val fOrder: (Pt2, Pt2) => Boolean = (p1, p2) => (p1.x - cx).abs + (p1.y - cy).abs < (p2.x - cx).abs + (p2.y - cy).abs
     val poly2 = vertsMultiply(multi)
 
     val bounds = boundingRect

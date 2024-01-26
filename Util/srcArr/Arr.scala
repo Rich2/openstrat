@@ -20,23 +20,24 @@ trait Arr[+A] extends Any with Sequ[A]
 
   def headOrNone: Any = ife(length ==0, None, apply(0))
 
-  /** Takes greater than function. */
-  def sortBy(f: (A, A) => Boolean)(implicit build: BuilderArrMap[A, ThisT] @uncheckedVariance): ThisT ={
-    val res = build.uninitialised(length)
+  /** Returns a new [[Arr]] sorted from least to greatest. Takes a function detrmining if the first value is greater than the second. */
+  def sortBy(f: (A, A) => Boolean)(implicit build: BuilderArrMap[A, ThisT] @uncheckedVariance): ThisT =
+  { val res = build.uninitialised(length)
     val placed = new Array[Boolean](length)
+
     iUntilForeach(length){ i =>
       var j = 0
-      var target = -1
-      while(target < 0)
-      { if(!placed(j)) target = j
+      var leastIndex = -1
+      while(leastIndex < 0)
+      { if(!placed(j)) leastIndex = j
         j += 1
       }
       while (j < length)
-      { if (!placed(j) && f(apply(target), apply(j))) target = j
+      { if (!placed(j) && f(apply(leastIndex), apply(j))) leastIndex = j
         j += 1
       }
-      res.setElemsUnsafe(i, apply(target))
-      placed(target) = true
+      res.setElemsUnsafe(i, apply(leastIndex))
+      placed(leastIndex) = true
     }
     res
   }
