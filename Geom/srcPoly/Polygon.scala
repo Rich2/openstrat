@@ -224,9 +224,15 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    *  traits. */
   override def shearY(operand: Double): Polygon = map(_.xShear(operand))
 
+  def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
+  { var acc: A = init
+    sidesForeach{ s => acc = f(acc, s) }
+    acc
+  }
+
   /** Determines if the parameter point lies inside this Polygon. */
   def ptInside(pt: Pt2): Boolean =
-  { val num = sides.foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
+  { val num = sidesFold(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
     num.isOdd
   }
   /** The centre point of this Polygon. The default centre for Polygons is the centre of the bounding rectangle. */
