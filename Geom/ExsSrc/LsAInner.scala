@@ -9,5 +9,7 @@ object LsAInner extends GraphicsAE{
   val hd = hex.draw()
   val bd = hex.boundingRect.draw(1, Red)
   val hi = hex.innerRectApprox(Pt2(0, 0), 1)
-  override def output: GraphicElems = RArr(hd, bd, hi.fill(Blue))
+  val hex2 = hex.vertsMultiply(3)
+  val ccs = hex2.vertsMap(Circle(20, _).fill(Violet))
+  override def output: GraphicElems = RArr(hd, bd, hi.draw(2, Blue)) ++ ccs
 }

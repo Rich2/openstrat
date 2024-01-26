@@ -329,36 +329,34 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   { val cx = startCen.x
     val cy = startCen.y
     val initMargin = 0.8
-    val multi = 3
+    val multi = 2
     val fOrder: (Pt2, Pt2) => Boolean = (p1, p2) => (p1.x - cx).abs + (p1.y - cy).abs < (p2.x - cx).abs + (p2.y - cy).abs
     val verts2 = vertsMultiply(multi).verts
+    val verts3 = verts.sortBy(fOrder)
 
     val bounds = boundingRect
     var left = bounds.left
     var right = bounds.right
     var bottom = bounds.bottom
-    val top = bounds.top
+    var top = bounds.top
 
-    var trPt: Pt2 = bounds.topRight
-    def trLim(inp: Pt2): Double = (inp.x - cx).max((inp.y - cy) * ratio)
-    var brPt: Pt2 = bounds.bottomRight
-    def brLim(inp: Pt2): Double = (inp.x - cx).max((cy - inp.y) * ratio)
-    var tlPt: Pt2 = bounds.topLeft
-    def tlLim(inp: Pt2): Double = (cx - inp.x).max((inp.y - cy) * ratio)
-    var blPt: Pt2 = bounds.bottomLeft
-    def blLim(inp: Pt2): Double = (cx - inp.x).max((cy - inp.y) * ratio)
+
     verts2.foreach{vt => vt match
-      { case vt if vt.isTopRight => if(trLim(vt) < trLim(trPt)) trPt = vt
-        case vt if vt.isBottomRight => if(brLim(vt) < brLim(brPt)) brPt = vt
-        case vt if vt.isTopleft => if(tlLim(vt) < tlLim(tlPt)) tlPt = vt
-        case vt => if(blLim(vt) < blLim(blPt)) blPt = vt
+      {
+        case vt if vt.isTopRight && vt.x < right && vt. y < top =>
+          if ((vt.x - cx) > (vt.y - cy) * ratio) right = vt.x else top = vt.y
+
+        //case vt if vt.isBottomRight => if(brLim(vt) < brLim(brPt)) brPt = vt
+        //case vt if vt.isTopleft => if(tlLim(vt) < tlLim(tlPt)) tlPt = vt
+        //case vt => if(blLim(vt) < blLim(blPt)) blPt = vt
+        case _ =>
       }
     }
-    val leftOld = tlPt.x.max(blPt.x)
-    val rightOld = trPt.x.min(brPt.x)
-    val topOld = tlPt.y.min(trPt.y)
-    val bottomOld = blPt.y.max(brPt.y)
-    Rect.lrbt(leftOld, rightOld, bottomOld, topOld)
+//    val leftOld = tlPt.x.max(blPt.x)
+//    val rightOld = trPt.x.min(brPt.x)
+//    val topOld = tlPt.y.min(trPt.y)
+//    val bottomOld = blPt.y.max(brPt.y)
+    Rect.lrbt(left, right, bottom, top)
   }
 }
 
