@@ -15,7 +15,7 @@ object Cross
 
   def blah(scale: Double, cen: Pt2 = Pt2Z): LineSegArr = apply.scale(scale).slate(cen)
 
-  def draw(scale: Double, cen: Pt2 = Pt2Z, lineWidth: Double = 2, colour: Colour): RArr[LineSegDraw] = ??? //blah(scale, cen).draw(lineWidth, colour)
+  def draw(scale: Double, cen: Pt2 = Pt2Z, lineWidth: Double = 2, colour: Colour = Colour.Black): RArr[LineSegDraw] = apply(scale, cen)
 
   /** Diagonal cross with a width and height of 1. */
   def diag: LineSegArr = LineSegArr.tuple4s((-0.5, -0.5, 0.5, 0.5), (-0.5, 0.5, 0.5, -0.5))

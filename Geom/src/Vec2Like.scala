@@ -35,11 +35,17 @@ trait Vec2Like extends Any with TellElemDbl2 with ApproxDbl
   /** The dot product of this and the operand vector. */
   @inline def dot(operand: Vec2Like): Double = x * operand.x + y * operand.y
 
-  def doublesSeq = Seq(x, y)
   def toPair: (Double, Double) = (x, y)
 
+  /** x >= 0 && y >= 0 */
   def isTopRight: Boolean = x >= 0 && y >= 0
+
+  /** x >= 0 && y <= 0 */
   def isBottomRight: Boolean = x >= 0 && y <= 0
+
+  /** x <= 0 && y <= 0 */
   def isBottomLeft: Boolean = x <= 0 && y <= 0
+
+  /** x <= 0 && y >= 0 */
   def isTopleft: Boolean = x <= 0 && y >= 0
 }

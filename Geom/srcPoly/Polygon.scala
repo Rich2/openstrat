@@ -327,7 +327,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Approximation for an inner rectangle given a starting centre. */
   def innerRect(startCen: Pt2, ratio: Double): Rect =
-  { val cx = startCen.x
+  { val cen = startCen
+    val cx = startCen.x
     val cy = startCen.y
     val initMargin = 0.8
     val multi = 4
@@ -335,24 +336,24 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     val verts2: Pt2Arr = vertsMultiply(multi).verts
     val verts3: Pt2Arr = verts2.sortBy(fOrder)
 
-    val bounds = boundingRect
-    var left = bounds.left
-    var right = bounds.right
-    var bottom = bounds.bottom
-    var top = bounds.top
+    val bounds: Rect = boundingRect
+    var left: Double = bounds.left
+    var right: Double = bounds.right
+    var bottom: Double = bounds.bottom
+    var top: Double = bounds.top
 
     verts3.foreach{vt => vt match
       {
-        case vt if vt.isTopRight && vt.x < right && vt.y < top =>
+        case vt if (cen >> vt).isTopRight && vt.x < right && vt.y < top =>
           if ((vt.x - cx) > (vt.y - cy) * ratio) right = vt.x else top = vt.y
 
-        case vt if vt.isBottomRight && vt.x < right && vt.y > bottom =>
+        case vt if (cen >> vt).isBottomRight && vt.x < right && vt.y > bottom =>
           if ((vt.x - cx) > (cy - vt.y) * ratio) right = vt.x else bottom = vt.y
 
-        case vt if vt.isTopleft && vt.x > left && vt.y < top =>
+        case vt if (cen >> vt).isTopleft && vt.x > left && vt.y < top =>
           if ((cx - vt.x) > (vt.y - cy) * ratio) left = vt.x else top = vt.y
 
-        case vt if vt.isBottomLeft && vt.x > left && vt.y > bottom =>
+        case vt if (cen >> vt).isBottomLeft && vt.x > left && vt.y > bottom =>
           if ((cx - vt.x) > (cy - vt.y) * ratio) left = vt.x else bottom = vt.y
 
         case _ =>
