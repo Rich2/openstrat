@@ -65,6 +65,12 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   override def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double): RectCompound =
     RectCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
+
+  def spacedPts(nx: Int, ny: Int): Pt2Arr = ijToMap(1, nx)(1, ny) { (i, j) =>
+    val x = (left * i + right * (nx + 1 - i)) / (nx + 1)
+    val y = (bottom * j + top * (ny + 1 - j)) / (ny + 1)
+    Pt2(x, y)
+  }
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */

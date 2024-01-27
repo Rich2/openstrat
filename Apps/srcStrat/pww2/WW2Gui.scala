@@ -20,7 +20,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   override def frame: GraphicElems =
   {
     def units: GraphicElems = armies.projSomesHcPtMap { (armies, hc, pt) =>
-      val pt2 = tilePolys.a1GetA2(hc).innerRect(pt, 1.5).cen
+      val pt2 = tilePolys.a1GetA2(hc).inRectFrom(pt, 1.5).cen
       val str: String = pixPerTile.scaledStr(170, armies.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, armies.toString)
       val head: Lunit = armies.head
       val ref = ife(armies.length == 1, HCenPair(hc, head), HCenPair(hc, armies))

@@ -325,8 +325,15 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     res
   }
 
+  def inRect(ratio: Double): Rect =
+  {
+    val bd: Rect = boundingRect
+    val cens = ijToMap(1, 5)(1, 5){(i, j) => Pt2((bd.left * (6 - i) + bd.right * i)/6.0, (bd.bottom * (6 - j) + bd.top * j)/6.0)}
+    ???
+  }
+
   /** Approximation for an inner rectangle given a starting centre. */
-  def innerRect(startCen: Pt2, ratio: Double): Rect =
+  def inRectFrom(startCen: Pt2, ratio: Double): Rect =
   { val cen = startCen
     val cx = startCen.x
     val cy = startCen.y

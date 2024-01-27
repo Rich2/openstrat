@@ -23,7 +23,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
     def units: GraphicElems = armies.projSomesHcPtMap { (army, hc, pt) =>
       val poly = pf.tilePolys.a1GetA2(hc)
-      val pt2 = poly.innerRect(pt, 1).cen
+      val pt2 = poly.inRectFrom(pt, 1).cen
       /** Bounding rectangle centre. */
       val brc = poly.boundCen
       Circle(proj.pixelsPerTile / 2).fillActiveText(army.colour, HCenPair(hc, army), army.num.str, 4, army.contrastBW).slate(pt2)
