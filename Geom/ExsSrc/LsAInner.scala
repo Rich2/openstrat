@@ -11,5 +11,7 @@ object LsAInner extends GraphicsAE
   val hi = hex.innerRect(Pt2(0, 0), 2)
   val hex2 = hex.vertsMultiply(4)
   val ccs = hex2.vertsMap(Circle(15, _).fill(Violet))
-  override def output: GraphicElems = RArr(hd, bd, hi.draw(2, Blue)) ++ ccs
+
+  val sides = hex.slateX(500).sides.iMap{ (i, ls) => ls.draw(2, Colours.rainbow(i)) }
+  override def output: GraphicElems = RArr(hd, bd, hi.draw(2, Blue)) ++ sides ++ ccs
 }

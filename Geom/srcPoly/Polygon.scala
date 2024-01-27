@@ -76,7 +76,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    * override the implementation in sub classes. */
   def vertY(index: Int): Double = unsafeArray(index * 2 + 1)
 
-
   @inline def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
   override def sides: LineSegArr =
@@ -91,11 +90,11 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     var i = 1
     while (i < numVerts)
     { val x = vertX(i)
-      newArray(i * 2) = x
-      newArray((i + 1) * 2) = x
+      newArray(i * 4 - 2) = x
+      newArray(i * 4) = x
       val y = vertY(i)
-      newArray(i * 2 + 1) = y
-      newArray((i + 1) * 2 + 1) = y
+      newArray(i * 4 - 1) = y
+      newArray(i * 4 + 1) = y
       i += 1
     }
     new LineSegArr(newArray)
