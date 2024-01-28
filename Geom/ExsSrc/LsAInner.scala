@@ -20,5 +20,6 @@ object LsAInner extends GraphicsAE
   val in2: Rect = ipoly.inRectFrom(icen, 1)
   val out2 = ipoly.boundingRect.draw(1, Green)
   val in2d = in2.draw(1, Blue)
-  override def output: GraphicElems = RArr(hd, brd, hi.draw(2, Blue), ipd, in2d) ++ ccs ++ cross
+  val in2d2 = ipoly.inRect(1).draw(2, Violet)
+  override def output: GraphicElems = RArr(hd, brd, hi.draw(2, Blue), ipd, in2d, in2d2) ++ ccs ++ cross
 }
