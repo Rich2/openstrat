@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
@@ -52,7 +52,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills ++ sideDraws ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines +% outerLines
+    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills/* ++ sideDraws*/ ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines +% outerLines
   }
 
   override def selectedStr: String = selected match

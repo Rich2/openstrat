@@ -11,7 +11,6 @@ object LsAInner extends GraphicsAE
   val brd = br.draw(1, Red)
   val hi = hex.inRectFrom(Pt2(0, 0), 2)
   val sps = br.spacedPts(5, 5)
-  //val hex2 = hex.vertsMultiply(4)
   val ccs = sps.map(Circle(10, _).fill(Violet))
   val ipoly = PolygonGen.fromDbls(400,400, 450,380, 455,280, 520,280, 520,230, 450,220, 460,100, 300,0)
   val ipd = ipoly.draw()
