@@ -16,10 +16,10 @@ object LsAInner extends GraphicsAE
   val ipoly = PolygonGen.fromDbls(400,400, 450,380, 455,280, 520,280, 520,230, 450,220, 460,100, 300,0)
   val ipd = ipoly.draw()
   val icen = 470 pp 260
-  val cross: RArr[LineSegDraw] = Cross(0.8, icen)
+  val cross = Cross.draw(icen)
   val in2: Rect = ipoly.inRectFrom(icen, 1)
   val out2 = ipoly.boundingRect.draw(1, Green)
   val in2d = in2.draw(1, Blue)
   val in2d2 = ipoly.inRect(1).draw(2, Violet)
-  override def output: GraphicElems = RArr(hd, brd, hi.draw(2, Blue), ipd, in2d, in2d2) ++ ccs ++ cross
+  override def output: GraphicElems = RArr(hd, brd, hi.draw(2, Blue), ipd, in2d, in2d2) ++ ccs +% cross
 }

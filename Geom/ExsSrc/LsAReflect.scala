@@ -13,8 +13,8 @@ object LsAReflect extends GraphicsAE
   val redLine = line1.draw(0.25, Red)
   val p1 = -100 pp 200
 
-  val c1: RArr[LineSegDraw] = Cross(1, p1)
-  val c1r = Cross(1, p1.reflect(line1))
+  val c1 = Cross.draw(p1)
+  val c1r = Cross.draw(p1.reflect(line1))
   val rect = Rect(200, 100, 200, 200)
   val r1 = rect.fill(Red)
   val r1r = rect.reflect(line1).fill(Orange)
@@ -59,5 +59,5 @@ object LsAReflect extends GraphicsAE
 
   val aa = RArr(ccl1, ccl1r, r1, r1r)
 
-  override def output: GraphicElems = aa ++ c1 ++ c1r +% cd1 +% cd2 +% cd3 +% redLine
+  override def output: GraphicElems = aa +% c1 +% c1r +% cd1 +% cd2 +% cd3 +% redLine
 }

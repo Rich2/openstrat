@@ -1,22 +1,39 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** This just a temporary start. */
+/** Utility object, contains various methods for creating crosses. */
 object Cross
-{
-  /** Temporary start. */
-  def apply(scale: Double = 1, cen: Pt2 = Pt2Z): RArr[LineSegDraw] =
-  { val lh = LineSeg(-10 pp 0, 10 pp 0)
-    val rh =  LineSeg(0 pp 10, 0 pp -10)
-    LineSegArr(lh, rh).map(_.scale(scale).slate(cen).draw(lineWidth = 2))
+{ /** apply method ofr square cross with a width and height of the scale parameter. */
+  def apply(cen: Pt2 = Pt2Z, scale: Double = 10): LineSegArr = apply(cen.x, cen.y, scale)
+
+  /** apply method for square cross with a width and height of the scale parameter. */
+  def apply(cenX: Double, cenY: Double, scale: Double): LineSegArr =
+  { val delta = scale / 2
+    LineSegArr.tuple4s((cenX - delta, cenY, cenX + delta, cenY), (cenX, cenY - delta, cenX, cenY + delta))
   }
-  /** Square cross with a width and height of 1. */
-  def apply: LineSegArr = LineSegArr.tuple4s((-0.5, 0, 0.5, 0), (0, -0.5, 0, 0.5))
 
-  def blah(scale: Double, cen: Pt2 = Pt2Z): LineSegArr = apply.scale(scale).slate(cen)
+  /** Draws a square cross with a width and height of the scale parameter. */
+  def draw(cen: Pt2 = Pt2Z, scale: Double = 10, lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw =
+    apply(cen.x, cen.y, scale).draw(lineWidth, colour)
 
-  def draw(scale: Double, cen: Pt2 = Pt2Z, lineWidth: Double = 2, colour: Colour = Colour.Black): RArr[LineSegDraw] = apply(scale, cen)
+  /** Draws a square cross with a width and height of the scale parameter. */
+  def draw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LinesDraw =
+    apply(cenX, cenY, scale).draw(lineWidth, colour)
 
-  /** Diagonal cross with a width and height of 1. */
-  def diag: LineSegArr = LineSegArr.tuple4s((-0.5, -0.5, 0.5, 0.5), (-0.5, 0.5, 0.5, -0.5))
+  /** Diagonal cross with a width and height of the scale parameter. */
+  def diag(cen: Pt2 = Pt2Z, scale: Double = 10): LineSegArr = diag(cen.x, cen.y, scale)
+
+  /** Diagonal cross with a width and height of the scale parameter.. */
+  def diag(cenX: Double, cenY: Double, scale: Double): LineSegArr =
+  { val delta = scale / 2
+    LineSegArr.tuple4s((cenX - delta, cenY - delta, cenX + delta, cenY + delta), (cenX - delta, cenY + delta, cenX + delta, cenY - delta))
+  }
+
+  /** Draws a diagonal cross with a width and height of the scale parameter. */
+  def diagDraw(cen: Pt2 = Pt2Z, scale: Double = 10, lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw =
+    diag(cen.x, cen.y, scale).draw(lineWidth, colour)
+
+  /** Draws a diagonal cross with a width and height of the scale parameter. */
+  def diagDraw(cenX: Double, cenY: Double, scale: Double, lineWidth: Double, colour: Colour): LinesDraw =
+    diag(cenX, cenY, scale).draw(lineWidth, colour)
 }

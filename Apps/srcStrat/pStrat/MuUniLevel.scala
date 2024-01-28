@@ -16,7 +16,7 @@ object TheatreArmy extends LuUniLevel
 { override val int1: Int = 14
   override def topStr: String = "XXXX"
   override def toString: String = "Field Army"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-5, 5, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-5, 5, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 500000 - 1 million men. */
@@ -24,7 +24,7 @@ object ArmyGroup extends LuUniLevel
 { override val int1: Int = 15
   override def topStr: String = "XXXXX"
   override def toString: String = "Army Group"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-4, 2, 4){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-4, 2, 4){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 200000 - 500000. 1914 German 1st Army 320000. */
@@ -32,7 +32,7 @@ object FieldArmy extends LuUniLevel
 { override val int1: Int = 14
   override def topStr: String = "XXXX"
   override def toString: String = "Field Army"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-3, 3, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-3, 3, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 100000 - 200000. */
@@ -40,7 +40,7 @@ object FieldArmette extends LuUniLevel
 { override val int1: Int = 14
   override def topStr: String = "XXX|"
   override def toString: String = "Field Army"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-3, 3, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-3, 3, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 50000 - 100000 men. A large Corps or a small field army. */
@@ -48,7 +48,7 @@ object Corps extends LuUniLevel
 { override val int1: Int = 13
   override def topStr: String = "XXX"
   override def toString: String = "Corps"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-2, 2, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-2, 2, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 20000 - 50000 men. A large divsion such as US WWI or a small corps. */
@@ -56,7 +56,7 @@ object Corpette extends LuUniLevel
 { override val int1: Int = 13
   override def topStr: String = "XX|"
   override def toString: String = "Corps"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-2, 2, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-2, 2, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 10000 - 20000 men. World War 1 16000 -18000. */
@@ -64,7 +64,7 @@ object Division extends LuUniLevel
 { override val int1: Int = 12
   override def topStr: String = "XX"
   override def toString: String = "Division"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-1, 1, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-1, 1, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 5000 - 10000 men. A small division or large brigade. Roman legion 6600 fighting men + 1320 slaves. Soviet WW2 Rifle Division. */
@@ -72,7 +72,7 @@ object Divisette extends LuUniLevel
 { override val int1: Int = 12
   override def topStr: String = "X|"
   override def toString: String = "Divisette"
-  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-1, 1, 2){ i => Cross.diag.scale(1.5).slateX(i) } )
+  override def drawables: RArr[Drawable] = RArr(iToFlatMap(-1, 1, 2){ i => Cross.diag(i, 0, 1.5) } )
 }
 
 /** 2000 - 5000 men. Napoleonic Brigades tended to be 2000 to 3000 men. */
@@ -80,7 +80,7 @@ object Brigade extends LuUniLevel
 { override val int1: Int = 11
   override def topStr: String = "X"
   override def toString: String = "Brigade"
-  override def drawables: RArr[Drawable] = RArr(Cross.diag.scale(1.5))
+  override def drawables: RArr[Drawable] = RArr(Cross.diag(Pt2Z, 1.5))
 }
 
 /** 1000 - 2000 men. Small brigade, regiment or very large battalion. */
