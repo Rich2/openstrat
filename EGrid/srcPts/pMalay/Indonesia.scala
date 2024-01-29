@@ -57,33 +57,48 @@ object Sulawesi extends EArea2("Sulawesi", -2.16 ll 120.58, jungle)
 
 /** [[polygonLL]] graphical representation of the island of Java. Depends on nothing. */
 object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
-{ val swJava: LatLong = -6.83 ll 105.24
-  val nwJava: LatLong = -5.88 ll 106.04
-  val pasuruan = -7.627 ll 112.919
+{ val pasuruan: LatLong = -7.627 ll 112.919
   val ePulauMadura: LatLong = -6.96 ll 114.11
   val seJava: LatLong = -8.75 ll 114.58
+  val p30: LatLong = -8.382 ll 111.701
+  val p40: LatLong = -7.382 ll 106.405
+  val p44: LatLong = -6.993 ll 106.377
+  val swJava: LatLong = -6.83 ll 105.24
+  val nwJava: LatLong = -5.88 ll 106.04
+  val p65: LatLong = -5.920 ll 107.007
+  val p72: LatLong = -6.245 ll 108.348
+  val p75: LatLong = -6.758 ll 108.599
+  val p80: LatLong = -6.931 ll 110.462
+  val p82: LatLong = -6.448 ll 110.722
 
-  override val polygonLL: PolygonLL = PolygonLL(swJava, nwJava, ePulauMadura, pasuruan, seJava)
+  override val polygonLL: PolygonLL = PolygonLL(ePulauMadura, pasuruan, seJava, p30, p40, p44, swJava, nwJava, p65, p72, p75, p80, p82)
 }
 
-/** [[polygonLL]] graphical representation of the island of Sumatra. Depends on nothing. */
-object NewGuinea extends EArea2("NewGuinea", -5.19 ll 141.03, hillyJungle)
+/** [[polygonLL]] graphical representation of the island of New Guinea. Depends on nothing. */
+object NewGuinea extends EArea2("New Guinea", -5.19 ll 141.03, hillyJungle)
 { val waigeoWest: LatLong = -0.113 ll 130.295
   val waigeoNorth: LatLong = -0.007 ll 130.814
   val manokwari: LatLong = -0.73 ll 133.98
   val sCenderawasih: LatLong = -3.39 ll 135.33
   val tebe: LatLong = -1.46 ll 137.93
+  val papuaNW = -2.606 ll 141
   val madang: LatLong = -4.85 ll 145.78
   val p40: LatLong = -5.918 ll 147.339
-  val eNewGuinea: LatLong = -10.23 ll 150.87
+  val east: LatLong = -10.23 ll 150.87
+
   val hulaBlackSand: LatLong = -10.103 ll 147.726
+  val p53: LatLong = -8.067 ll 146.031
   val morigo: LatLong = -7.83 ll 143.98
   val saibai: LatLong = -9.32 ll 142.63
+  val p55: LatLong = -9.231 ll 141.135
+  val p60 = -8.113 ll 139.951
   val southWest: LatLong = -8.431 ll 137.655
   val p70: LatLong = -7.518 ll 138.145
+  val heilwigMouth: LatLong = -5.359 ll 137.866
   val aindua: LatLong = -4.46 ll 135.21
+  val p85: LatLong = -4.083 ll 132.915
   val wNewGuinea: LatLong = -0.82 ll 130.45
 
-  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth, tebe, madang, p40, eNewGuinea, hulaBlackSand,
-    morigo, saibai, southWest, p70, aindua, wNewGuinea)
+  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth, manokwari, sCenderawasih, tebe, papuaNW, madang, p40, east,
+    hulaBlackSand, p53, morigo, saibai, p55, p60, southWest, p70, heilwigMouth, aindua, p85, wNewGuinea)
 }

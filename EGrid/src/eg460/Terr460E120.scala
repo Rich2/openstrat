@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle8 35075.382 km² => 57981.753km², includes Taiwan,
  *  Isle4 14495.438km² <= 8768.845km². Palawan 12189 km2.*/
 object Terr460E120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e120(96)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e120(94)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -40,12 +40,13 @@ object Terr460E120 extends Long460Terrs
       TRow(106, sea * 2, Isle4(mtain), Isle(mtain), Isle8(mtain)),
       TRow(104, sea * 2, mtain, sea, hillyJungle),
       TRow(102, sea, hillyJungle * 2),
-      VRow(101, BendIn(4606, HVDR), Mouth(4608, HVUR)),
+      VRow(101, BendIn(4606, HVDR), Mouth(4608, HVUR), MouthRt(4618, HVDL, 7), BendIn(4620, HVDn, 13), BendIn(4622, HVDL, 13)),
       TRow(100, sea, hillyJungle, jungle, mtain, sea, sea, hillyJungle),
-      VRow(99, BendIn(4596, HVDL, 7)),
-      TRow(98, SideB(), sea, jungle, sea, hillyJungle),
-      VRow(97, MouthRt(4594, HVDL), BendIn(4596, HVUL)),
+      VRow(99, BendIn(4596, HVDL, 7), Mouth(4622, HVDn)),
+      TRow(98, SideB(), sea, jungle, sea, hillyJungle, sea * 2, mtain),
+      VRow(97, MouthRt(4594, HVDL), BendIn(4596, HVUL), Mouth(4600, HVUL, sea, 7), Mouth(4602, HVDR, sea, 5), MouthLt(4620, HVUL), BendOut(4622, HVDL, 7)),
       TRow(96, hillyJungle * 2),
+      VRow(95, BendIn(4622, HVUR, 13), MouthRt(4624, HVDR)),
     )
   }
   help.run
