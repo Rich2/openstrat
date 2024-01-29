@@ -10,8 +10,9 @@ object Congo extends EArea2("Congo", -7 ll 24, jungle)
   val bouemba: LatLong = 2.09 ll 9.76
 
   override def polygonLL: PolygonLL = LinePathLL(wAfricaEquator, bouemba, WestAfricaSouth.cAfricaNW,
-    WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++
-    LakeTanganyika.westCoast |++| LinePathLL(AngloaZambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, AngloaZambia.benjoMouth)
+    WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaNE, AfricaHorn.lakeTurkanaNW, AfricaHorn.lakeTurkanaSouth, LakeVictoria.kisuma,
+    LakeVictoria.north, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++ LakeTanganyika.westCoast |++|
+    LinePathLL(AngloaZambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, AngloaZambia.benjoMouth)
 }
 
 /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and

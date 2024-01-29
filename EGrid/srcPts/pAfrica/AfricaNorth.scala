@@ -44,7 +44,8 @@ object AfricaCentral extends EArea2("Central Africa", 10 ll 32, savannah)
 
   val cAfricaNE: LatLong = WestAfricaSouth.cAfricaN * 32.east
 
-  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, cAfricaNE)
+  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, AfricaHorn.tekeze, AfricaHorn.lakeChamoSouth,
+    AfricaHorn.lakeTurkanaNW, cAfricaNE)
 }
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
