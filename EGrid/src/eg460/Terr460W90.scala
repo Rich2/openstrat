@@ -1,11 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile scale 460km.
  * Isle10 120974.276km² <= 57981.753km² Cuba. */
 object Terr460W90 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w90(96)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w90(94)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -56,6 +56,7 @@ object Terr460W90 extends Long460Terrs
       TRow(100, sea * 6, hillyJungle),
       TRow(98, sea * 5, mtain, jungle),
       TRow(96, sea * 6, mtain),
+      TRow(94, sea * 6, mtain),
     )
   }
   help.run
