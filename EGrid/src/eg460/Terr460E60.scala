@@ -43,6 +43,8 @@ object Terr460E60 extends Long460Terrs
       VRow(107, BendAll(2548, HVUp, sea, 7), BendAll(2550, HVDn, sea, 7)),
       TRow(106, hillyDesert),
       TRow(104, desert),
+      VRow(101, BendOut(2546, HVDR), MouthRt(2548, HVUR)),
+      VRow(99, BendIn(2546, HVUL, 13)),
     )
   }
   help.run
