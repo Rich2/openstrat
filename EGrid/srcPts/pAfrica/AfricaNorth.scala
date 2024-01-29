@@ -2,6 +2,21 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.Maghreb]]. */
+object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, desert)
+{ val southWest: LatLong = 17 ll -16.27
+  val nouakchott: LatLong = 18.078 ll -16.02
+  val nouadhibouBay: LatLong = 21.28 ll -16.90
+  val nouadhibou: LatLong = 20.77 ll -17.05
+  val nou2: LatLong = 21.27 ll -17.04
+  val boujdour: LatLong = 26.13 ll -14.50
+  val p80: LatLong = 28.741 ll -11.074
+  val p90: LatLong = 29.235 ll -10.328
+
+  override val polygonLL: PolygonLL = PolygonLL(pMed.Maghreb.southEast, pMed.SaharaCentral.southWest, southWest, nouakchott, nouadhibouBay,
+    nouadhibou, nou2, boujdour, p80, p90, pMed.Maghreb.agadir)
+}
+
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */
 object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, savannah)
 { val cAfricaN: Latitude = 4.53.north
@@ -24,33 +39,33 @@ object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, savannah)
 }
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
-object EastAfricaSouth extends EArea2("East Africa\nsouth", 10 ll 32, savannah)
-{ val dankalia: LatLong = 14 ll 41.66// eAfricaN
-  val berbera: LatLong = 10 ll 44
+object AfricaCentral extends EArea2("Central Africa", 10 ll 32, savannah)
+{
+
+  val cAfricaNE: LatLong = WestAfricaSouth.cAfricaN * 32.east
+
+  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, cAfricaNE)
+}
+
+/** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
+object AfricaHorn extends EArea2("Horn of Africa", 10 ll 32, sahel)
+{
+  val p0 = 15.514 ll 39.484
+  val dankalia: LatLong = 14 ll 41.66// eAfricaN
   val p33: LatLong = 12.89 ll 42.99
+  val berbera: LatLong = 10 ll 44
   val hornAfrica: LatLong = 12 ll 51
   val iskushuban1: LatLong = 10.44 ll 51.41
   val iskushuban2: LatLong = 10.31 ll 50.90
   val rasMacbar: LatLong = 9.47 ll 50.85
+  val p50: LatLong = WestAfricaSouth.cAfricaN * 48.east
+  val equatorEast: LatLong = 0.0 ll 42.4
 
-  val southEast: LatLong = WestAfricaSouth.cAfricaN * 48.east
-  val cAfricaNE: LatLong = WestAfricaSouth.cAfricaN * 32.east
+  val lakeTurkanaSouth: LatLong = 2.406 ll 36.550
+  val lakeTurkanaNW: LatLong = 4.483 ll 35.960
+  val lakeChamoSouth: LatLong = 5.708 ll 37.486
+  val tekeze: LatLong = 13.808 ll 38.317
 
-  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.westAfricaPtSE, pMed.SaharaCentral.southEast, pMed.SaharaEast.southEast, dankalia, p33, berbera, hornAfrica, iskushuban1,
-    iskushuban2, rasMacbar, southEast, cAfricaNE)
-}
-
-/** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.Maghreb]]. */
-object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, desert)
-{ val southWest: LatLong = 17 ll -16.27
-  val nouakchott: LatLong = 18.078 ll -16.02
-  val nouadhibouBay: LatLong = 21.28 ll -16.90
-  val nouadhibou: LatLong = 20.77 ll -17.05
-  val nou2: LatLong = 21.27 ll -17.04
-  val boujdour: LatLong = 26.13 ll -14.50
-  val p80: LatLong = 28.741 ll -11.074
-  val p90: LatLong = 29.235 ll -10.328
-
-  override val polygonLL: PolygonLL = PolygonLL(pMed.Maghreb.southEast, pMed.SaharaCentral.southWest, southWest, nouakchott, nouadhibouBay,
-    nouadhibou, nou2, boujdour, p80, p90, pMed.Maghreb.agadir)
+  val polygonLL: PolygonLL = PolygonLL(p0, dankalia, p33, berbera, hornAfrica, iskushuban1, iskushuban2, rasMacbar, p50, equatorEast,
+    LakeVictoria.kusa, LakeVictoria.kisuma, lakeTurkanaSouth, lakeTurkanaNW, lakeChamoSouth, tekeze)
 }

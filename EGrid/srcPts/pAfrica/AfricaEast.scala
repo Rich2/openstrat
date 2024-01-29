@@ -7,9 +7,11 @@ object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, Lake)
 { val southEast: LatLong = -2.23 ll 33.84
   val katongaMouth: LatLong =  -0.14 ll 31.94
   val east: LatLong = -0.39 ll 34.26
+  val kusa = -0.326 ll 34.819
+  val kisuma = -0.106 ll 34.723
   val north: LatLong = 0.34 ll 33.34
   val southWest: LatLong = -2.64 ll 31.76
-  val southEastAfrica: LinePathLL = LinePathLL(southWest, southEast, east, north, katongaMouth)
+  val southEastAfrica: LinePathLL = LinePathLL(southWest, southEast, east, kusa, kisuma, north, katongaMouth)
 
   override def polygonLL: PolygonLL = southEastAfrica.reverse.toPolygon
 }
@@ -54,7 +56,7 @@ object LakeMweru extends EArea2("Lake\nMweru", -8.952 ll 28.770, Lake)
 
 /** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
 object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, land)
-{ val eAfricaEquator: LatLong = 0.0 ll 42.4
+{
   val mombassa: LatLong = -4.03 ll 39.28
   val saadani: LatLong = -6.042 ll 38.780
   val bagamoyo: LatLong = -6.439 ll 38.909
@@ -62,8 +64,8 @@ object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, 
   val royumaMouth: LatLong = -10.469 ll 40.436
   val seNacala: LatLong = -14.4 ll 40.3
 
-  override def polygonLL: PolygonLL = LinePathLL(eAfricaEquator, mombassa, saadani, bagamoyo, p40, royumaMouth, seNacala, SouthAfrica.sAfricaNE, SouthAfrica.cAfricaSE) ++
-    LakeTanganyika.eastCoast ++ LakeVictoria.southEastAfrica |++| LinePathLL(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast)
+  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, seNacala, SouthAfrica.sAfricaNE, SouthAfrica.cAfricaSE) ++
+    LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa) //LakeVictoria.southEastAfrica// |++| LinePathLL(AfricaCentral.cAfricaNE)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */

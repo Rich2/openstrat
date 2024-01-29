@@ -113,9 +113,8 @@ object SaharaEast extends EArea2("SaharaEast", 24 ll 25, desert)
   val p5: LatLong = 29.59 ll 32.34
   val p20: LatLong = 23.95 ll 35.76
   val p30: LatLong = 18.83 ll 37.44
+  val p35: LatLong = 17 ll 39.4
 
-  val southEast: LatLong = 17 ll 39.4
-
-  override val polygonLL: PolygonLL = PolygonLL(Sinai.portSaid, Sinai.suez, p5, p20, p30, southEast,SaharaCentral.southEast,
-    SaharaCentral.elAgheila, p80, benghazi, p85, derna, p86, p90, baltim)
+  override val polygonLL: PolygonLL = PolygonLL(Sinai.portSaid, Sinai.suez, p5, p20, p30, p35, pAfrica.AfricaHorn.p0,
+    pAfrica.AfricaHorn.tekeze, SaharaCentral.southEast, SaharaCentral.elAgheila, p80, benghazi, p85, derna, p86, p90, baltim)
 }
