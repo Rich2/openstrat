@@ -39,3 +39,8 @@ object Mountains extends Lelev
 { override def str = "Mountains"
   override def colour = Gray
 }
+
+object MountLakes extends Lelev
+{ override def str = "MountLakes"
+  override def colour = Mountains.colour.average(Lake.colour)
+}
