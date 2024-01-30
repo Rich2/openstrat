@@ -31,6 +31,7 @@ object Terr460E90 extends Long460Terrs
       TRow(116, desert, desert, hillyDesert, mtain * 3),
       TRow(114, hilly, land, hillySavannah, savannah, hillyJungle, mtain),
       TRow(112, hillySavannah * 2, Cape(3, 1, Land(Level, Tropical)), hillySavannah, mtain * 2),
+      VRow(111, Mouth(3598, HVUL)),
       TRow(110, savannah, hillySavannah, sea * 2, hillyJungle, mtain),
       VRow(109, Mouth(3590, HVUp)),
       TRow(108, sahel, savannah, sea * 3, Cape(4, 1, mtain), hillySavannah),
