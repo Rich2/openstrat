@@ -37,9 +37,13 @@ object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, Lake)
 
 /** [[PolygonLL]] graphic object for Lake Tanganyika depends on nothing. */
 object LakeMalawi extends EArea2("Lake\nMalawi", -12.044 ll 34.461, Lake)
-{
-  val north = -9.493 ll 34.039
-  override def polygonLL: PolygonLL = PolygonLL(north)
+{ val north: LatLong = -9.493 ll 34.039
+  val east: LatLong = -11.572 ll 34.960
+  val south: LatLong = -14.418 ll 35.236
+  val southWest: LatLong = -14.287 ll 34.688
+  val west: LatLong = -12.169 ll 34.025
+
+  override def polygonLL: PolygonLL = PolygonLL(north, east, south, southWest, west)
 }
 
 /** [[PolygonLL]] graphic object for Lake Mweru depends on nothing. */
@@ -62,10 +66,20 @@ object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, 
   val bagamoyo: LatLong = -6.439 ll 38.909
   val p40: LatLong = -6.865 ll 39.476
   val royumaMouth: LatLong = -10.469 ll 40.436
-  val seNacala: LatLong = -14.4 ll 40.3
+  //val seNacala: LatLong = -14.4 ll 40.3
 
-  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, seNacala, SouthAfrica.sAfricaNE, SouthAfrica.cAfricaSE) ++
-    LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa) //LakeVictoria.southEastAfrica// |++| LinePathLL(AfricaCentral.cAfricaNE)
+  override def polygonLL: PolygonLL = LinePathLL(AfricaHorn.equatorEast, mombassa, saadani, bagamoyo, p40, royumaMouth, ZimMoz.northEast,
+    LakeMalawi.south, LakeMalawi.east, LakeMalawi.north) ++
+    LakeTanganyika.eastCoast |++| LinePathLL(LakeVictoria.southWest, LakeVictoria.southEast, LakeVictoria.east, LakeVictoria.kusa)
+}
+
+/** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
+object ZimMoz extends EArea2("Mozambique", -2.17 ll 36.64, savannah)
+{
+  val northEast = -14.413 ll 40.805
+  val p15: LatLong = -17 ll 39.06
+
+  override def polygonLL: PolygonLL = PolygonLL(northEast, p15, SouthAfrica.beira, SouthAfrica.p95, LakeMalawi.southWest, LakeMalawi.south)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */

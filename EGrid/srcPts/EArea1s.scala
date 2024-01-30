@@ -40,7 +40,7 @@ object AfricaNorth extends EArea1("AfricaNorth", 18.19 ll 15)
 object AfricaSouth extends EArea1("AfricanSouth", -16.14 ll 24.36)
 { import pAfrica. _
   override val a2Arr: RArr[EArea2] = RArr(LakeVictoria, LakeTanganyika, LakeMalawi, LakeMweru, SouthAfrica, Congo, AngloaZambia, centralAfricaEast,
-    Zanzibar, Madagascar)
+    ZimMoz, Zanzibar, Madagascar)
 }
 
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */

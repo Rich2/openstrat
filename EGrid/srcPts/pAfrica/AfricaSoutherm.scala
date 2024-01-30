@@ -3,12 +3,12 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
-object SouthAfrica extends EArea2("South Africa", -25 ll 24, savannah)
+object SouthAfrica extends EArea2("South Africa", -25 ll 24, sahel)
 { val sAfricaN: Latitude = 17.south
 
   val sAfricaNW: LatLong = - 17 ll 11.76
-  val cAfricaSE: LatLong = sAfricaN * 31.east
-  val sAfricaNE: LatLong = -17 ll 39.06
+  val p95: LatLong = sAfricaN * 31.east
+
   val agulhas: LatLong = -34.83 ll 20.00
   val capeTown: LatLong = -34 ll 19
   val nNamibia: LatLong = -17.12 ll 11.3
@@ -18,7 +18,7 @@ object SouthAfrica extends EArea2("South Africa", -25 ll 24, savannah)
   val richardsBay: LatLong = -29 ll 32
   val portLiz: LatLong = -34 ll 26
 
-  override def polygonLL: PolygonLL = PolygonLL(agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane, maputo, richardsBay,
+  override def polygonLL: PolygonLL = PolygonLL(agulhas, capeTown, nNamibia, sAfricaNW, p95, beira, inhambane, maputo, richardsBay,
     portLiz)
 }
 

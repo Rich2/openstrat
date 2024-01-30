@@ -24,6 +24,6 @@ object AngloaZambia extends EArea2("AngolaZambia", -7 ll 24, savannah)
  // val luanda: LatLong = -8.35 ll 13.15
   val benjoMouth = -8.752 ll 13.393
   override def polygonLL: PolygonLL = PolygonLL(LakeMweru.southWest, LakeMweru.southEast, LakeMweru.p20, LakeMweru.northEast, wantipaNW,
-    LakeTanganyika.southWest, LakeTanganyika.south, SouthAfrica.cAfricaSE, SouthAfrica.sAfricaNW, baiaFarta, benjoMouth,
+    LakeTanganyika.southWest, LakeTanganyika.south, LakeMalawi.north, LakeMalawi.west, LakeMalawi.southWest, SouthAfrica.p95, SouthAfrica.sAfricaNW, baiaFarta, benjoMouth,
   )
 }
