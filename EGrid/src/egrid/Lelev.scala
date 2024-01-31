@@ -22,7 +22,7 @@ object Lelev
 
 /** Level ground with lakes. */
 case object LandLakes extends Lelev
-{ override def str = "WetLand"
+{ override def str = "LandLakes"
   override def colour: Colour = Turquoise
 }
 
@@ -47,11 +47,11 @@ object Mountains extends Lelev
 /** Hilly ground with lakes / swamps. */
 object HillyLakes extends Lelev
 { override def str = "HillyLakes"
-  override def colour = Hilly.colour.average(Lake.colour)
+  override def colour = Hilly.colour//.average(Lake.colour)
 }
 
 /** Mountainous terrain with lakes. */
 object MountLakes extends Lelev
 { override def str = "MountLakes"
-  override def colour = Mountains.colour.average(Lake.colour)
+  override def colour = Mountains.colour//.average(Lake.colour)
 }

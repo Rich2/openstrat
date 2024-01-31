@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer, geom._, pgui._, reflect.ClassTag
  * So [[HSepB]] on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
  * So [[HSepC]] on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
 trait HSep extends HCenOrSep with TSep
-{ override def typeStr: String = "HSide"
+{ override def typeStr: String = "HSep"
 
   /** Is a side that goes from top left to bottom right. */
   def isTypeA: Boolean
@@ -107,7 +107,7 @@ object HSep
   implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): HSepBuilderArrPairMap[B2] = new HSepBuilderArrPairMap[B2]
 
   /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[HSep]]. */
-  implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSide", "r", _.r, "c", _.c, apply)
+  implicit val persistEv: PersistInt2Both[HSep] = PersistInt2Both[HSep]("HSep", "r", _.r, "c", _.c, apply)
 }
 
 /** A hex tiles separator that slants down from left to right. r.div4Rem1 & c.div4Rem1 | r.div4Rem3 & c.div4Rem3 */

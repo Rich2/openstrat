@@ -21,8 +21,9 @@ object Terr220W90 extends Long220Terrs
       TRow(160, savannah, taigaLakes, taiga, taigaLakes * 3, taiga * 2, taigaLakes),
       VRow(159, BendIn(9718, HVUR, 6, lake), Mouth(9720, HVDR, lake)),
       TRow(158, savannah * 2, taigaLakes * 3, taiga * 3, taigaLakes),
-      TRow(156, savannah * 2, taiga, taigaLakes),
-      TRow(154, land * 3, taiga * 7),//Unchecked
+      TRow(156, savannah * 2, taiga, taigaLakes, hillyLakesTaiga, mtainLakes, hillyLakesTaiga * 2, taigaLakes, hillyLakesTaiga),
+      VRow(155, MouthLt(9728, HVDL, 7, lake), BendOut(9730, HVDn, 7, lake), BendInOut(9732, HVUp, 13, 6, lake), BendInOut(9734, HVDn, 9, 6, lake), MouthLt(9736, HVDR, 6, lake)),
+      TRow(154, savannah * 3, Land(LandLakes, Savannah, LandFree), taiga * 3, mtainLakes, hillyLakesTaiga, mtainLakes),
     )
   }
   help.run
