@@ -13,6 +13,7 @@ object Terr220W90 extends Long220Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(166, wetTaiga * 3, taiga * 2, sea * 2, wetTaiga),
+      TRow(164, wetTaiga * 3, taiga * 3, taiga * 2),
 
       VRow(163, MouthRt(9720, HVUp, 7, lake)),
       TRow(162, taiga, wetTaiga, taiga, wetTaiga * 3, taiga, sea * 2),//part checked
