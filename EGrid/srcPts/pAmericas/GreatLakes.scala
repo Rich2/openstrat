@@ -30,21 +30,27 @@ object LakeWinnipeg extends EArea2("Lake Winnipeg", 52.78 ll -97.83, Lake)
 /** Simple graphic for Lake Superior. No dependencies */
 object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
 { val east: LatLong = 46.52 ll -84.61
+  val grandMarais = 47.748 ll -90.347
   val michipicoten: LatLong = 47.96 ll -84.86
   val north: LatLong = 48.80 ll -87.31
+  val northEast: LatLong = 48.751 ll -86.420
+  val p10: LatLong = 47.963 ll -85.811
   val west48: LatLong = 48.00 ll -89.57
   val west: LatLong = 46.77 ll -92.11
 
   /** The north coast of Lake Superior in a clockwise direction, shares both west and east [[LatLong]] points with southCoast. */
-  val northCoast: LinePathLL = LinePathLL(west, west48, north, michipicoten, east)
+  val northCoast: LinePathLL = LinePathLL(west, grandMarais, west48, north, northEast, p10, michipicoten, east)
 
-  val p10: LatLong = 46.96 ll -90.86
+  val p35: LatLong = 46.96 ll -90.86
   val montrealMouth: LatLong = 46.57 ll -90.42
+  val p50: LatLong = 46.966 ll -88.144
   val highRock : LatLong = 47.42 ll -87.71
   val chocolayMouth: LatLong = 46.50 ll -87.35
+  val whitefishPoint = 46.770 ll -84.954
+  val p52: LatLong = 46.485 ll -85.030
 
   /** The south coast of Lake Superior in a clockwise direction, shares both east and west [[LatLong]] points with northCoast. */
-  val southCoast: LinePathLL = LinePathLL(east, chocolayMouth, highRock, montrealMouth, p10, west)
+  val southCoast: LinePathLL = LinePathLL(east, p52, whitefishPoint, chocolayMouth, p50, highRock, montrealMouth, p35, west)
 
   override def polygonLL: PolygonLL = northCoast |++| southCoast.inner
 }
