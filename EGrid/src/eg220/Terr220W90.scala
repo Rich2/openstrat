@@ -13,11 +13,12 @@ object Terr220W90 extends Long220Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(166, wetTaiga * 3, taiga * 2, sea * 2, wetTaiga),
+      VRow(165, MouthRt(9736, HVUL, 7),ThreeDown(9738, 0, 7, 7), BendOut(9740, HVUL, 7)),
       TRow(164, wetTaiga * 3, taiga * 3, taiga * 2),
-
-      VRow(163, MouthRt(9720, HVUp, 7, lake)),
-      TRow(162, taiga, wetTaiga, taiga, wetTaiga * 3, taiga, sea * 2),//part checked
-      TRow(160, land * 2, taiga * 5, Cape(1, 1, taiga), taiga),//Unchecked
+      VRow(163, MouthRt(9720, HVUp, 7, lake), BendInOut(9738, HVUR, 13, 6), BendInOut(9740, HVDL, 13, 4)),
+      TRow(162, taiga, wetTaiga, taiga, wetTaiga * 3, taiga, wetTaiga * 2),
+      VRow(161, BendIn(9718, HVDR, 6, lake), BendIn(9720, HVUL, 6, lake), BendInOut(9740, HVUR, 11, 7), MouthLt(9742, HVDR, 7)),
+      TRow(160, land, wetTaiga, taiga, wetTaiga * 3, taiga * 2, wetTaiga),//Unchecked
       TRow(158, land * 2, taiga * 7),//Unchecked
       TRow(156, land * 2, taiga * 3, lake, taiga * 4),//Unchecked
       TRow(154, land * 3, taiga * 7),//Unchecked
