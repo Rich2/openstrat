@@ -16,6 +16,8 @@ object CanadaNorthEast extends EArea2("CanadaNorthEast", 53.71 ll -70, tundra)
   val katavik50: LatLong = 58.82 ll -66.44
   val ungavaE: LatLong = 60.49 ll -64.74
   val labrador50: LatLong = 54.54 ll -57.30
+  val spottedIsland = 53.519 ll -55.750
+  val northCove = 53.780 ll -56.482
   val labrador60: LatLong = 52.10 ll -55.72
   val labrador70: LatLong = 50.27 ll -59.91
   val septlles: LatLong = 50.23 ll -66.37
@@ -23,7 +25,7 @@ object CanadaNorthEast extends EArea2("CanadaNorthEast", 53.71 ll -70, tundra)
   val quebecCity: LatLong = 47.02 ll -70.80
 
   override val polygonLL: PolygonLL = PolygonLL(jamesBayS, eastMainMouth, jamesBayMouthEast, hudsonBayEast, nunavut120, hudsonBayMouthE,
-    ungavaW, koksoakMouth, ungavaS, katavik50,ungavaE, labrador50, labrador60,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
+    ungavaW, koksoakMouth, ungavaS, katavik50,ungavaE, labrador50, northCove, spottedIsland, labrador60,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
 }
 
 /** [[polygonLL]] graphical representation for south east Canada. Depends on nothing. */
