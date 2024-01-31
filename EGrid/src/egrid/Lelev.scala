@@ -20,26 +20,37 @@ object Lelev
   given CanEqual[Lelev, Lelev] = CanEqual.derived
 }
 
-case object WetLand extends Lelev
+/** Level ground with lakes. */
+case object LandLakes extends Lelev
 { override def str = "WetLand"
   override def colour: Colour = Turquoise
 }
 
+/** Level ground. */
 case object Level extends Lelev
 { override def str = "Level"
   override def colour: Colour = White
 }
 
+/** Hilly terrain. */
 object Hilly extends Lelev
 { override def str = "Hilly"
   override def colour: Colour = Brown
 }
 
+/** Mountainous terrain. */
 object Mountains extends Lelev
 { override def str = "Mountains"
   override def colour = Gray
 }
 
+/** Hilly ground with lakes / swamps. */
+object HillyLakes extends Lelev
+{ override def str = "HillyLakes"
+  override def colour = Hilly.colour.average(Lake.colour)
+}
+
+/** Mountainous terrain with lakes. */
 object MountLakes extends Lelev
 { override def str = "MountLakes"
   override def colour = Mountains.colour.average(Lake.colour)

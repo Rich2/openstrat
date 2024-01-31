@@ -12,15 +12,16 @@ object Terr220W90 extends Long220Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(166, wetTaiga * 3, taiga * 2, sea * 2, wetTaiga),
+      TRow(166, taigaLakes * 3, taiga * 2, sea * 2, taigaLakes),
       VRow(165, MouthRt(9736, HVUL, 7),ThreeDown(9738, 0, 7, 7), BendOut(9740, HVUL, 7)),
-      TRow(164, wetTaiga * 3, taiga * 3, taiga * 2),
+      TRow(164, taigaLakes * 3, taiga * 3, taiga * 2),
       VRow(163, MouthRt(9720, HVUp, 7, lake), BendInOut(9738, HVUR, 13, 6), BendInOut(9740, HVDL, 13, 4)),
-      TRow(162, taiga, wetTaiga, taiga, wetTaiga * 3, taiga, wetTaiga * 2),
+      TRow(162, taiga, taigaLakes, taiga, taigaLakes * 3, taiga, taigaLakes * 2),
       VRow(161, BendIn(9718, HVDR, 6, lake), BendIn(9720, HVUL, 6, lake), BendInOut(9740, HVUR, 11, 7), MouthLt(9742, HVDR, 7)),
-      TRow(160, savannah, wetTaiga, taiga, wetTaiga * 3, taiga * 2, wetTaiga),
-      TRow(158, savannah * 2, wetTaiga * 3),
-      TRow(156, land * 2, taiga * 3, lake, taiga * 4),//Unchecked
+      TRow(160, savannah, taigaLakes, taiga, taigaLakes * 3, taiga * 2, taigaLakes),
+      VRow(159, BendIn(9718, HVUR, 6, lake), Mouth(9720, HVDR, lake)),
+      TRow(158, savannah * 2, taigaLakes * 3, taiga * 3, taigaLakes),
+      TRow(156, savannah * 2, taiga, taigaLakes),
       TRow(154, land * 3, taiga * 7),//Unchecked
     )
   }
