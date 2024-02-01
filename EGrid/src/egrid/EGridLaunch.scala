@@ -131,6 +131,7 @@ object EGridLaunch extends GuiLaunchMore
 
       case 105 => EGrid220.scen5
 
+      case 108 => EGrid220.scen8
       case 109 => EGrid220.scen9
       case 110 => EGrid220.scen10
       case 111 => EGrid220.scen11

@@ -60,12 +60,7 @@ object EGrid220
 //  { val grid: EGridLongFull = Terr220W150.grid
 //    EScenBasic(grid, Terr220W150.terrs, Terr220W150.sTerrs, Terr220W150.corners, "220km 150W")
 //  }
-//
-//  def scen8: EScenBasic =
-//  { val grid: EGridLongFull = Terr220W120.grid
-//    EScenBasic(grid, Terr220W120.terrs, Terr220W120.sTerrs, Terr220W120.corners, "220km 120W")
-//  }
-//
+  def scen8: EScenBasic = EScenBasic(Terr220W120.grid, Terr220W120.terrs, Terr220W120.sTerrs, Terr220W120.corners, "220km 120W")
   def scen9: EScenBasic = EScenBasic(Terr220W90.grid, Terr220W90.terrs, Terr220W90.sTerrs, Terr220W90.corners, "220km 90W")
   def scen10: EScenBasic = EScenBasic(Terr220W60.grid, Terr220W60.terrs, Terr220W60.sTerrs, Terr220W60.corners, "220km 60W")
   def scen11: EScenBasic = EScenBasic(Terr220W30.grid, Terr220W30.terrs, Terr220W30.sTerrs, Terr220W30.corners, "220km 30W")
