@@ -116,6 +116,8 @@ flat = false;
 101 = HGView(156, 1536; 22.5);//220Km 30°E
 
 109 = HGView(156, 9728; 32);//220Km 90°W
+110 = HGView(156, 10752; 30);//220km 60°W
+111 = HGView(160, 11778; 24);//220km 30°W
 
 112 = HGView(150, 1520; 22.5);//220km Europe 0°E - 30°E
 114 = HGView(158, 9746; 24);//220km North America 90°W - 60°W
