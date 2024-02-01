@@ -33,23 +33,38 @@ object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, land)
     p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, capeSanBlas, p70, gulfPort)
 }
 
-/** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaWest]], [[CanadaSouthWest]], [[LakeWinnipeg]], [[CanadaCentral]],
+/** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]], [[CanadaCentral]],
  *  [[LakeSuperior]] and [[UsaEast]]. */
 object UsaMid extends EArea2("United States\nmid", 40 ll -97.0, land)
 { val newOrleansSE: LatLong = 29.38 ll -89.57
   val calcasieuMouth = 29.76 ll -93.34
   val galveston: LatLong = 29.31 ll -94.77
 
-  override def polygonLL: PolygonLL = PolygonLL(LakeSuperior.west, UsaEast.gulfPort, newOrleansSE, calcasieuMouth, galveston, UsaWest.southEast,
+  override def polygonLL: PolygonLL = PolygonLL(LakeSuperior.west, UsaEast.gulfPort, newOrleansSE, calcasieuMouth, galveston, UsaSouthWest.southEast,
     CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
 }
 
 /** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthWest]] and [[Baja]]. */
-object UsaWest extends EArea2("United States\nwest", 40.0 ll -108.0, desert)
+object UsaNorthWest extends EArea2("United States\nnorth west", 45.5 ll -108.0, hillySahel)
+{ val montanaEast: Longitude = 104.04.west
+  val wyomingNorth: Latitude = 45.north
+  val montanaSE: LatLong =  wyomingNorth * montanaEast
+  val wyomingEast = 104.053.west
+  val wyomingNE: LatLong = wyomingNorth * wyomingEast
+
+  val wyomingSE = 41 ll -104.053
+
+  override def polygonLL: PolygonLL = PolygonLL(CanadaSouthWest.montanaNE, montanaSE, wyomingNE, wyomingSE
+  )
+}
+
+/** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthWest]] and [[Baja]]. */
+object UsaSouthWest extends EArea2("United States\nsouth west", 40.0 ll -108.0, sahel)
 { val sanDiego: LatLong = 32.57 ll -117.11
   val carlsbad: LatLong = 33.16 ll -117.36
   val pointVicente: LatLong = 33.74 ll -118.41
   val conceptionPoint: LatLong = 34.45 ll -120.47
+  val cypressPoint: LatLong = 36.580 ll -121.977
   val pointReyes: LatLong = 38.00 ll -123.02
   val pointArena: LatLong = 38.95 ll -123.74
   val humboldt: LatLong = 40.44 ll -124.40
@@ -59,8 +74,8 @@ object UsaWest extends EArea2("United States\nwest", 40.0 ll -108.0, desert)
   val southEast = 29.31 ll -104
   val rockyPoint: LatLong = 31.16 ll -113.02
 
-  override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, pointReyes, pointArena, humboldt, capeBlanco,
-    neahBay, CanadaSouthWest.w49th, CanadaSouthWest.montanaNE, southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
+  override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, cypressPoint, pointReyes, pointArena, humboldt, capeBlanco,
+    neahBay, CanadaSouthWest.w49th, southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
 
   val lasVegas: LocationLL = LocationLL("Las Vegas", 36.17, -115.14, 2)
   val denver: LocationLL = LocationLL("Denver", 39.74, -105, 2)
