@@ -1,6 +1,7 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
+/** Globe extensions class for [[Int]]s. */
 class IntGlobeExtensions(thisInt: Int)
 { /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Int]] is the latitude specified in degrees. The operand
  * parameter is the longitude specified in degrees. */
@@ -23,6 +24,7 @@ class IntGlobeExtensions(thisInt: Int)
   def south: Latitude = Latitude.apply(-thisInt)
 }
 
+/** Globe extensions class for [[Double]]s. */
 class DoubleGlobeExtensions(thisDouble: Double)
 {
   /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Double]] is the latitude specified in degrees. The operand

@@ -124,6 +124,7 @@ flat = false;
 
 112 = HGView(150, 1520; 22.5);//220km Europe 0°E - 30°E
 114 = HGView(158, 9746; 24);//220km North America 90°W - 60°W
+115 = HGView(150, 9714; 25);//220km North America 120°W - 90°W
 116 = HGView(140, 530; 24);//220km All longitudes
 
 120 = HGView(286, 512; 25);//160km 0°E

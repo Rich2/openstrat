@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -68,19 +68,19 @@ object Nunavut extends EArea2("Nunavut", 67.00 ll -96.58, tundra)
     nunavut88, navut20, naujaat10, naujaat12, nunavut90, nunavut92, naujaat15, naujaat17, rockHouseIsland)
 }
 
-/** [[polygonLL]] graphical representation for Rheindeer Lake. Depends on nothing. */
+/** [[polygonLL]] graphical representation for Reindeer Lake. Depends on nothing. */
 object ReindeerLake extends EArea2("Reindeer\nLake", 66.00 ll -120.25, Lake)
-{
-  val north = 58.136 ll -101.994
-  val beaver = 57.437 ll -102.192
-  val southEast = 56.359 ll -102.954
-  val southWest = 56.363 ll -103.056
-  val p55 = 56.445 ll -103.069
-  val p75 = 57.478 ll -102.618
+{  val north: LatLong = 58.136 ll -101.994
+  val beaver: LatLong = 57.437 ll -102.192
+  val southEast: LatLong = 56.359 ll -102.954
+  val southWest: LatLong = 56.363 ll -103.056
+  val p55: LatLong = 56.445 ll -103.069
+  val p75: LatLong = 57.478 ll -102.618
+
   override def polygonLL: PolygonLL = PolygonLL(north, beaver, southEast, southWest, p55, p75)
 }
 
-  /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
+/** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
 object GreatBearLake extends EArea2("Great Bear\nLake", 66.00 ll -120.25, Lake)
 { val north: LatLong = 67.04 ll -119.80
   val p20: LatLong = 66.86 ll -119.45
@@ -99,7 +99,7 @@ object GreatSlaveLake extends EArea2("Great Slave\nLake", 61.66 ll -113.83, Lake
 { val north: LatLong = 62.96 ll -110.42
   val east: LatLong = 62.77 ll -108.91
   val south: LatLong = 60.83 ll -115.58
-  val bigIslandEast = 61.13 ll -116.44
+  val bigIslandEast: LatLong = 61.13 ll -116.44
   val p70: LatLong = 61.88 ll -114.59
   val northWest: LatLong = 62.76 ll -116.00
   val p80: LatLong = 61.99 ll -113.50
@@ -121,16 +121,21 @@ object CanadaNorthWest extends EArea2("Canada\n north west", 64.051 ll -129.98, 
 }
 
 object CanadaSouthWest extends EArea2("Canada\n south west", 55 ll -110, taiga)
-{ val montanaNE = 49 ll -104
-  val w49th: LatLong = 49 ll -125.66
-  val vancouverNW = 50.77 ll -128.38
-  val p50 = 54.71 ll -132.81
+{ val montanaNE: LatLong = 49 ll -104
+  val w49th: LatLong = 49 ll -122.754
+  val vancouverIslandSouth: LatLong = 48.310 ll -123.563
+  val vancouverIslandWest: LatLong = 50.776 ll -128.428
+  val priceIslandSouth: LatLong = 52.290 ll -128.677
+  val kunghitIslandSouth: LatLong = 51.944 ll -131.027
+  val p50: LatLong = 54.71 ll -132.81
   val eggIsland : LatLong= 59.91 ll -94.85
 
   val churchillMouth = 58.79 ll -94.20
   val manitoba10 = 58.75 ll -93.24
-  val nelsonMouth = 57.09 ll -92.47
+  val nelsonMouth: LatLong = 57.09 ll -92.47
+
   override def polygonLL: PolygonLL = PolygonLL(CanadaNorthWest.yakut50, GreatSlaveLake.northWest, GreatSlaveLake.p70, GreatSlaveLake.bigIslandEast,
-    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10,
-    nelsonMouth, LakeWinnipeg.northWest, LakeWinnipeg.p75, LakeWinnipeg.redMouth, montanaNE, w49th, vancouverNW, p50)
+    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth,
+    LakeWinnipeg.northWest, LakeWinnipeg.p75, LakeWinnipeg.redMouth, montanaNE, w49th, vancouverIslandSouth, vancouverIslandWest, priceIslandSouth,
+    kunghitIslandSouth, p50)
 }

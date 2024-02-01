@@ -20,6 +20,15 @@ object Scen220NorthAmerica extends EScenLongMulti
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
+/** 220km terrain only scenario for North America. 2 grid system for 120°W and 90°W. */
+object Scen220NorthAmerica2 extends EScenLongMulti
+{ override val title: String = "220km North America 120°W - 90°W"
+  override implicit val gridSys: EGrid220LongMulti = EGrid220.multi(2, 8, 150, 152)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+}
+
 /** 220km terrain only scenario for Atlantic and South America. 4 Grid system from 90°W to 0°E. */
 object Scen220Atlantic extends EScenLongMulti
 { override val title: String = "320km Atlantic 120°W - 30°W"
