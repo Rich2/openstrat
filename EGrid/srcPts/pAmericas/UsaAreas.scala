@@ -41,20 +41,28 @@ object UsaMid extends EArea2("United States\nmid", 40 ll -97.0, land)
   val galveston: LatLong = 29.31 ll -94.77
 
   override def polygonLL: PolygonLL = PolygonLL(LakeSuperior.west, UsaEast.gulfPort, newOrleansSE, calcasieuMouth, galveston, UsaSouthWest.southEast,
-    CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
+    UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE, CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
 }
 
 /** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthWest]] and [[Baja]]. */
 object UsaNorthWest extends EArea2("United States\nnorth west", 45.5 ll -108.0, hillySahel)
 { val montanaEast: Longitude = 104.04.west
   val wyomingNorth: Latitude = 45.north
-  val montanaSE: LatLong =  wyomingNorth * montanaEast
   val wyomingEast = 104.053.west
+  val wyomingSouth: Latitude = 41.north
+  val wyomingWest: Longitude = 111.046.west
+
+  val montanaSE: LatLong =  wyomingNorth * montanaEast
   val wyomingNE: LatLong = wyomingNorth * wyomingEast
+  val wyomingSE: LatLong = wyomingSouth * wyomingEast
+  val wyomingSW: LatLong = wyomingSouth * wyomingWest
 
-  val wyomingSE = 41 ll -104.053
+  val humboldt: LatLong = 40.44 ll -124.40
+  val capeBlanco: LatLong = 42.84 ll -124.56
+  val neahBay: LatLong = 48.37 ll -124.67
 
-  override def polygonLL: PolygonLL = PolygonLL(CanadaSouthWest.montanaNE, montanaSE, wyomingNE, wyomingSE
+  override def polygonLL: PolygonLL = PolygonLL(CanadaSouthWest.montanaNE, montanaSE, wyomingNE, wyomingSE, wyomingSW,
+    humboldt, capeBlanco, neahBay, CanadaSouthWest.w49th,
   )
 }
 
@@ -67,15 +75,14 @@ object UsaSouthWest extends EArea2("United States\nsouth west", 40.0 ll -108.0, 
   val cypressPoint: LatLong = 36.580 ll -121.977
   val pointReyes: LatLong = 38.00 ll -123.02
   val pointArena: LatLong = 38.95 ll -123.74
-  val humboldt: LatLong = 40.44 ll -124.40
-  val capeBlanco: LatLong = 42.84 ll -124.56
-  val neahBay: LatLong = 48.37 ll -124.67
+
+
 
   val southEast = 29.31 ll -104
   val rockyPoint: LatLong = 31.16 ll -113.02
 
-  override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, cypressPoint, pointReyes, pointArena, humboldt, capeBlanco,
-    neahBay, CanadaSouthWest.w49th, southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
+  override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, cypressPoint, pointReyes, pointArena,
+    southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
 
   val lasVegas: LocationLL = LocationLL("Las Vegas", 36.17, -115.14, 2)
   val denver: LocationLL = LocationLL("Denver", 39.74, -105, 2)
