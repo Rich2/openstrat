@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for central Canada. Depends on [[CanadaNorthEast]]. */
+/** [[polygonLL]] graphical representation for central Canada. Depends on [[Quebecia]]. */
 object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, taiga)
 { val manitoba20: LatLong = 57.26 ll -90.89
   val jamesBayNW: LatLong = 55.07 ll -82.31
@@ -10,7 +10,7 @@ object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, taiga)
   val moosoneeMouth: LatLong = 51.36 ll -80.40
 
   override def polygonLL: PolygonLL = LinePathLL(CanadaSouthWest.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
-    CanadaNorthEast.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++| LinePathLL(LakeWinnipeg.redMouth,
+    Quebecia.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++| LinePathLL(LakeWinnipeg.redMouth,
     LakeWinnipeg.winnipegMouth, LakeWinnipeg.bloodveinMouth, LakeWinnipeg.playGreenMouth, LakeWinnipeg.north, LakeWinnipeg.northWest)
 }
 

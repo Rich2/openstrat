@@ -15,11 +15,15 @@ object Terr220W60 extends Long220Terrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(164, taigaLakes, hillyLakesTaiga * 3),
       VRow(163, MouthRt(10758, HVUL, 7), BendIn(10760, HVDL, 13)),
-      TRow(162, taigaLakes, hillyLakesTaiga * 5),
-      TRow(160, taiga * 3, hillyTaiga),//Unchecked
-      TRow(158, hillyTaiga),//Unchecked
-      TRow(156, hillyTaiga * 2),//Unchecked
-      TRow(154, land),//Unchecked
+      TRow(162, taigaLakes, hillyLakesTaiga * 5, SideB()),
+      VRow(161, BendOut(10758, HVDR, 7), BendIn(10760, HVUL, 13)),
+      TRow(160, hillyLakesTaiga * 2, mtainLakes * 2, hillyLakesTaiga * 2),
+      VRow(159, MouthRt(10752, HVDL, 7), BendIn(10754, HVDn, 13), BendIn(10756, HVUp, 13), ThreeUp(10758, 0, 7, 7), MouthLt(10760, HVDR, 7)),
+      TRow(158, hillyLakesTaiga, mtainLakes, sea * 2, mtain, hillyLakesTaiga),
+      VRow(157, MouthLt(10742, HVDL), MouthRt(10744, HVUR, 7)),
+      TRow(156, mtainLakes, hillyTaiga, mtain, sea * 2, hillyLakesTaiga * 2),
+      VRow(155, Mouth(10748, HVDL), MouthLt(10750, HVUR, 7)),
+      TRow(154, taiga, hillyTaiga * 4),
     )
   }
   help.run

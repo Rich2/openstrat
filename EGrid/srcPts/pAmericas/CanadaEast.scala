@@ -3,32 +3,42 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for north east Canada. Depends on [[NewBrunswick]]. */
-object CanadaNorthEast extends EArea2("CanadaNorthEast", 53.71 ll -70, tundra)
+object Quebecia extends EArea2("Quebec", 53.71 ll -70, taiga)
 { val jamesBayS: LatLong = 51.14 ll -79.79
   val eastMainMouth: LatLong = 52.24 ll -78.56
   val jamesBayMouthEast: LatLong = 54.63 ll -79.74
-  val hudsonBayEast: LatLong = 56.46 ll -76.52
-  val nunavut120: LatLong = 58.68 ll -78.69
-  val hudsonBayMouthE: LatLong = 62.57 ll -77.99
-  val ungavaW: LatLong = 61.04 ll -69.56
-  val koksoakMouth: LatLong = 58.90 ll -69.38
-  val ungavaS: LatLong = 58.26 ll -67.45
+
   val katavik50: LatLong = 58.82 ll -66.44
   val ungavaE: LatLong = 60.49 ll -64.74
   val labrador50: LatLong = 54.54 ll -57.30
   val spottedIsland = 53.519 ll -55.750
   val northCove = 53.780 ll -56.482
   val labrador60: LatLong = 52.10 ll -55.72
+  val isleAuBois = 51.378 ll -57.136
   val labrador70: LatLong = 50.27 ll -59.91
   val septlles: LatLong = 50.23 ll -66.37
   val pointeDesMonts: LatLong = 49.31 ll -67.38
   val quebecCity: LatLong = 47.02 ll -70.80
 
-  override val polygonLL: PolygonLL = PolygonLL(jamesBayS, eastMainMouth, jamesBayMouthEast, hudsonBayEast, nunavut120, hudsonBayMouthE,
-    ungavaW, koksoakMouth, ungavaS, katavik50,ungavaE, labrador50, northCove, spottedIsland, labrador60,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
+  override val polygonLL: PolygonLL = PolygonLL(jamesBayS, eastMainMouth, jamesBayMouthEast, Ungava.southWest, Ungava.southEast, katavik50,ungavaE,
+    labrador50, northCove, spottedIsland, labrador60, isleAuBois,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
 }
 
-/** [[polygonLL]] graphical representation for south east Canada. Depends on nothing. */
+/** [[polygonLL]] graphical representation for north east Canada. Depends on [[NewBrunswick]]. */
+object Ungava extends EArea2("Ungava", 59.882 ll -73.658, tundra)
+{
+  val southWest = 56.169 ll -76.652
+  val hudsonBayEast: LatLong = 56.46 ll -76.52
+  val nunavut120: LatLong = 58.68 ll -78.69
+  val hudsonBayMouthE: LatLong = 62.57 ll -77.99
+  val ungavaW: LatLong = 61.04 ll -69.56
+  val koksoakMouth: LatLong = 58.90 ll -69.38
+  val southEast: LatLong = 58.300 ll -67.436
+
+  override val polygonLL: PolygonLL = PolygonLL(southWest, hudsonBayEast, nunavut120, hudsonBayMouthE, ungavaW, koksoakMouth, southEast)
+}
+
+  /** [[polygonLL]] graphical representation for south east Canada. Depends on nothing. */
 object NovaScotia extends EArea2("Nova Scotia", 45.12 ll -63.58, taiga)
 { val northWest: LatLong = 46.90 ll -64.72
   val edwardIIslandNorth: LatLong = 47.06 ll -64.00
@@ -69,11 +79,11 @@ object NewBrunswick extends EArea2("New/nBrunswick", 47.2 ll -66.93, taiga)
     restigoucheMouth, p60, nepisiguitMouth, miscouNorth, NovaScotia.northWest, NovaScotia.stAndrews, maineE)
 }
 
-/** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[CanadaNorthEast]]. */
+/** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[Quebecia]]. */
 object CanadaSouthEast extends EArea2("CanadaSouthEast", 46.68 ll -77.21, taiga)
 {
   override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++
-    LinePathLL(CanadaNorthEast.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast |++| LakeErie.eastCanadaCoast
+    LinePathLL(Quebecia.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast |++| LakeErie.eastCanadaCoast
 }
 
 /** [[polygonLL]] graphical representation for Newfoundland. Depends on nothing. */
@@ -83,9 +93,12 @@ object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, taiga)
   val p10: LatLong = 50.15 ll -56.16
   val p20: LatLong = 49.25 ll -53.47
   val east: LatLong = 47.52 ll -52.64
+  val southEast: LatLong = 46.650 ll -53.098
+  val langlade = 46.799 ll -56.340
+  val p55: LatLong = 47.538 ll -56.801
   val southWest: LatLong = 47.62 ll -59.30
   val capGeorge: LatLong = 48.46 ll -59.27
   val savageCove: LatLong = 51.33 ll -56.70
 
-  override def polygonLL: PolygonLL = PolygonLL(north, pollardsPoint, p10, p20, east, southWest, capGeorge, savageCove)
+  override def polygonLL: PolygonLL = PolygonLL(north, pollardsPoint, p10, p20, east, southEast, langlade, p55, southWest, capGeorge, savageCove)
 }

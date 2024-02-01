@@ -58,7 +58,7 @@ object AmericasFarNorth extends EArea1("Far North\nAmerica", 61 ll -109)
   override val a2Arr: RArr[EArea2] = lakes ++
     RArr(Alaska, CanadaNorthWest, CanadaNorthWest, EllesmereIsland, GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut, CanadaSouthWest,
       ReindeerLake, CanadaCentral, BanksIsland, MelvilleIsland, VictoriaIsland, PrinceWalesIsland, SouthamptonIsland, CanadaSouthEast, NewBrunswick,
-      NovaScotia, CanadaNorthEast, DevonIsland, BaffinIsland, NewFoundland)
+      NovaScotia, Quebecia, DevonIsland, BaffinIsland, NewFoundland, Ungava)
 }
 
 object AmericasNearNorth extends EArea1("North America", 49 ll -100)
