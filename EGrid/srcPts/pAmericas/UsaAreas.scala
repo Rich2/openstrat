@@ -13,36 +13,54 @@ object Florida extends EArea2("Florida", 28.29 ll -81.59, jungle)
   override def polygonLL: PolygonLL = PolygonLL(stJohnsMouth, seFlorida, swFlorida, wakullaMouth)
 }
 
-
 /** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthEast]], [[LakeSuperior]], [[LakeMichigan]],
  *  [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
 object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, land)
 { val p10: LatLong = 42.41 ll -71.00
   val chatham: LatLong = 41.67 ll -69.95
   val stattenS: LatLong = 40.50 ll -74.25
-  val stumpyPoint: LatLong = 35.69 ll -75.73
 
+  override def polygonLL: PolygonLL =
+    LakeMichigan.coastEast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
+    p10, chatham, stattenS, UsaSouth.northEast, UsaSouth.northWest)
+}
+
+/** [polygonLL]] Graphical object for the United States South. Dependant on [[Florida]]. */
+object UsaSouth extends EArea2("United States\nThe South", 34.479 ll -83.109, land)
+{ val northEast = 36.987 ll -76.303
+  val capeHenry: LatLong = 36.928 ll -76.006
+  val stumpyPoint: LatLong = 35.69 ll -75.73
   /** Camden County Georgia USA */
   val NAtlanticSW: LatLong = 31 ll  -81.47
-
   val capeSanBlas: LatLong = 29.67 ll -85.35
   val p70: LatLong = 30.39 ll -86.65
   val gulfPort: LatLong = 30.37 ll -89.08
+  val northWest: LatLong = 36.679 ll -88.070
 
-  override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++
-    LakeMichigan.coast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
-    p10, chatham, stattenS, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth, capeSanBlas, p70, gulfPort)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, capeHenry, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth,
+    capeSanBlas, p70, gulfPort, northWest)
 }
 
 /** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
- *  [[CanadaCentral]],  [[LakeSuperior]] and [[UsaEast]]. */
-object UsaMid extends EArea2("United States\nmid", 40 ll -97.0, land)
-{ val newOrleansSE: LatLong = 29.38 ll -89.57
+ * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaEast]]. */
+object UsaMidWest extends EArea2("United States\nMid West", 44 ll -97.0, savannah)
+{
+  override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++ LakeMichigan.coastWest |++|
+    LinePathLL(UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE,
+      CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
+}
+
+/** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
+ * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaEast]]. */
+object UsaPrariesSouth extends EArea2("US Praries\nsouth", 35 ll -97.0, sahel)
+{
+  val northEast = 40 ll -87.532
+  val newOrleansSE: LatLong = 29.38 ll -89.57
   val calcasieuMouth: LatLong = 29.76 ll -93.34
   val galveston: LatLong = 29.31 ll -94.77
 
-  override def polygonLL: PolygonLL = PolygonLL(LakeSuperior.west, UsaEast.gulfPort, newOrleansSE, calcasieuMouth, galveston, UsaSouthWest.southEast,
-    UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE, CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, UsaSouth.northWest, UsaSouth.gulfPort, newOrleansSE, calcasieuMouth, galveston,
+    UsaSouthWest.southEast, UsaSouthWest.kansasNW)
 }
 
 /** [polygonLL]] Graphical object for the northwest of the United States. Dependant on [[CanadaSouthWest]]. */
@@ -85,11 +103,12 @@ object UsaSouthWest extends EArea2("United States\nsouth west", 40.0 ll -108.0, 
   val pointArena: LatLong = 38.95 ll -123.74
   val humboldt: LatLong = 40.44 ll -124.40
 
+  val kansasNW = 40 ll -102.051
   val southEast: LatLong = 29.31 ll -104
   val rockyPoint: LatLong = 31.16 ll -113.02
 
   override def polygonLL: PolygonLL = PolygonLL(sanDiego, carlsbad, pointVicente, conceptionPoint, cypressPoint, elkhornMouth, p80, pigeonPoint, pointReyes, pointArena, humboldt,
-    UsaNorthWest.oregonSW, UsaNorthWest.idahoSE, UsaNorthWest.wyomingSW, UsaNorthWest.wyomingSE, southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
+    UsaNorthWest.oregonSW, UsaNorthWest.idahoSE, UsaNorthWest.wyomingSW, UsaNorthWest.wyomingSE, kansasNW, southEast, rockyPoint, Baja.coloradoMouthWest, Baja.ensenada)
 
   val lasVegas: LocationLL = LocationLL("Las Vegas", 36.17, -115.14, 2)
   val denver: LocationLL = LocationLL("Denver", 39.74, -105, 2)

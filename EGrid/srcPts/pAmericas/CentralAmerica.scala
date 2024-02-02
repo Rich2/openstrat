@@ -13,7 +13,7 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, hilly)
   val grandeDeSantiagoMouth = 21.64 ll -105.45
   val cAmericaNW: LatLong = 22.8 ll -105.97
 
-  override def polygonLL: PolygonLL = PolygonLL(UsaMid.galveston, brownsville, puntaJerez, caboRojo, MexicoEast.coatzacoalcosMouth,
+  override def polygonLL: PolygonLL = PolygonLL(UsaPrariesSouth.galveston, brownsville, puntaJerez, caboRojo, MexicoEast.coatzacoalcosMouth,
     MexicoEast.tehuantepecMouth, pochutala, manzanillo, puntaDelMario, grandeDeSantiagoMouth, cAmericaNW, UsaSouthWest.rockyPoint, UsaSouthWest.southEast)
 }
 

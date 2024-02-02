@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -26,10 +26,9 @@ object Quebecia extends EArea2("Quebec", 53.71 ll -70, taiga)
     codIsland, tununggayualokIsland, labrador50, northCove, spottedIsland, labrador60, isleAuBois,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
 }
 
-/** [[polygonLL]] graphical representation for north east Canada. Depends on [[NewBrunswick]]. */
+/** [[polygonLL]] graphical representation for north east Canada. Depends on nothing. */
 object Ungava extends EArea2("Ungava", 59.882 ll -73.658, tundra)
-{
-  val southWest = 56.169 ll -76.652
+{ val southWest: LatLong = 56.169 ll -76.652
   val hudsonBayEast: LatLong = 56.46 ll -76.52
   val nunavut120: LatLong = 58.68 ll -78.69
   val hudsonBayMouthE: LatLong = 62.57 ll -77.99
