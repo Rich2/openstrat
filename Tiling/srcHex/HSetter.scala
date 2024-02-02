@@ -172,7 +172,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setMouth2(row + 1, c - 2, magnitude)
+      { corners.setMouth2(row + 1, c - 2, magnitude, magnitude)
         sTerrs.set(row, c + 2, sTerr)
       }
     }
@@ -214,7 +214,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setMouth2Lt(row + 1, c - 2, magnitude)
+      { corners.setMouth2(row + 1, c - 2, magnitude, 0)
         sTerrs.set(row, c + 2, sTerr)
       }
     }
@@ -255,7 +255,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setMouth2Rt(row + 1, c - 2, magnitude)
+      { corners.setMouth2(row + 1, c - 2, 0, magnitude)
         sTerrs.set(row, c + 2, sTerr)
       }
     }
@@ -300,7 +300,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       }
 
       case HVUL =>
-      { corners.setMouth2(row + 1, c - 2, magLeft)
+      { corners.setMouth2(row + 1, c - 2, magLeft, magRight)
         sTerrs.set(row, c + 2, sTerr)
       }
     }
