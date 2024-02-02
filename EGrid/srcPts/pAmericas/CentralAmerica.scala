@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaEast]] and [[AmericasCentral]]. */
+/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[AmericasCentral]]. */
 object Mexico extends EArea2("Mexico", 24 ll -102.4, hilly)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
@@ -17,7 +17,7 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, hilly)
     MexicoEast.tehuantepecMouth, pochutala, manzanillo, puntaDelMario, grandeDeSantiagoMouth, cAmericaNW, UsaSouthWest.rockyPoint, UsaSouthWest.southEast)
 }
 
-/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaEast]] and [[AmericasCentral]]. */
+/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[AmericasCentral]]. */
 object MexicoEast extends EArea2("MexicoEast", 17 ll -91, hillyJungle)
 { val coatzacoalcosMouth: LatLong = 18.16 ll -94.41
   val champeton: LatLong = 19.36 ll -90.71

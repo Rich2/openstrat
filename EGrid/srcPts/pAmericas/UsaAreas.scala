@@ -8,21 +8,33 @@ object Florida extends EArea2("Florida", 28.29 ll -81.59, jungle)
   val seFlorida: LatLong = 25.34 ll -80.39
   val swFlorida: LatLong = 25.19 ll -81.13
 
-  val wakullaMouth = 30.09 ll -83.99
+  val wakullaMouth: LatLong = 30.09 ll -83.99
 
   override def polygonLL: PolygonLL = PolygonLL(stJohnsMouth, seFlorida, swFlorida, wakullaMouth)
 }
 
 /** [polygonLL]] Graphical object for the east of the United States. Dependant on [[CanadaSouthEast]], [[LakeSuperior]], [[LakeMichigan]],
  *  [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
-object UsaEast extends EArea2("United States\neast", 39.8 ll -85.0, land)
-{ val p10: LatLong = 42.41 ll -71.00
+object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, land)
+{ val marshallPoint: LatLong = 43.916 ll -69.258
+  val landsEnd: LatLong = 42.635 ll -70.594
+  val nahantEast: LatLong = 42.419 ll -70.902
+  val p10: LatLong = 42.41 ll -71.00
   val chatham: LatLong = 41.67 ll -69.95
+  val quinniapacMouth: LatLong = 41.257 ll -72.917
+  val pineIsland: LatLong = 40.898 ll -73.764
+  val plumIsland: LatLong = 41.190 ll -72.163
+  val montaukPoint: LatLong = 41.070 ll -71.856
+  val saltaire: LatLong = 40.635 ll -73.195
+
   val stattenS: LatLong = 40.50 ll -74.25
+  val sandyHookNorth: LatLong = 40.478 ll -74.016
+  val sedgeIslandSouth: LatLong = 39.766 ll -74.097
 
   override def polygonLL: PolygonLL =
     LakeMichigan.coastEast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
-    p10, chatham, stattenS, UsaSouth.northEast, UsaSouth.northWest)
+      marshallPoint, landsEnd, nahantEast, p10, chatham, quinniapacMouth, pineIsland, plumIsland, montaukPoint,saltaire, stattenS, sandyHookNorth,
+      sedgeIslandSouth, UsaSouth.northEast, UsaSouth.northWest)
 }
 
 /** [polygonLL]] Graphical object for the United States South. Dependant on [[Florida]]. */
@@ -42,7 +54,7 @@ object UsaSouth extends EArea2("United States\nThe South", 34.479 ll -83.109, la
 }
 
 /** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
- * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaEast]]. */
+ * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
 object UsaMidWest extends EArea2("United States\nMid West", 44 ll -97.0, savannah)
 {
   override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++ LakeMichigan.coastWest |++|
@@ -51,10 +63,10 @@ object UsaMidWest extends EArea2("United States\nMid West", 44 ll -97.0, savanna
 }
 
 /** [polygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
- * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaEast]]. */
+ * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
 object UsaPrariesSouth extends EArea2("US Praries\nsouth", 35 ll -97.0, sahel)
 {
-  val northEast = 40 ll -87.532
+  val northEast: LatLong = 40 ll -87.532
   val newOrleansSE: LatLong = 29.38 ll -89.57
   val calcasieuMouth: LatLong = 29.76 ll -93.34
   val galveston: LatLong = 29.31 ll -94.77
@@ -103,7 +115,7 @@ object UsaSouthWest extends EArea2("United States\nsouth west", 40.0 ll -108.0, 
   val pointArena: LatLong = 38.95 ll -123.74
   val humboldt: LatLong = 40.44 ll -124.40
 
-  val kansasNW = 40 ll -102.051
+  val kansasNW: LatLong = 40 ll -102.051
   val southEast: LatLong = 29.31 ll -104
   val rockyPoint: LatLong = 31.16 ll -113.02
 
