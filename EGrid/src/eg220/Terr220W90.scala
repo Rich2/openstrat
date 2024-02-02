@@ -4,7 +4,7 @@ import prid.phex._, egrid._, WTiles._
 
 /** 220km terrain for 105° west to 75° west centred on 90° west. */
 object Terr220W90 extends Long220Terrs
-{ override implicit val grid: EGrid220LongFull = EGrid220.w90(150, 166)
+{ override implicit val grid: EGrid220LongFull = EGrid220.w90(146, 166)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -37,6 +37,8 @@ object Terr220W90 extends Long220Terrs
         Mouth(9744, HVDL, lake), MouthLt(9746, HVUR, 7, lake)),
 
       TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, forest, hillyForest * 2),
+      VRow(149, Mouth(9732, HVDn, lake, 7), MouthRt(9738, HVDL, 6, lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake), MouthRt(9744, HVUR, 6, lake)),
+      TRow(148, sahel * 2, savannah, hillySavannah * 3, savannah * 3, mtain * 2),
     )
   }
   help.run
