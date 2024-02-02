@@ -198,46 +198,18 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 4. */
-  def setMouth4(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 4, HVDR, HVUp, magnitude, magnitude)
-    setCorner(r - 2, c - 2, 0, HVDR, magnitude)
-    setCorner(r, c - 4, 2, HVUp, magnitude)
-  }
-
-  /** Sets the end of a side terrain at vertex for all 3 tiles left. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
-   * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 4. */
-  def setMouth4Lt(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 4, HVDR, HVUp, magnitude, 0)
-    setCorner(r - 2, c - 2, 0, HVDR, magnitude)
-  }
-
-  /** Sets the end of a side terrain at vertex for all 3 tiles right. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
-   * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 4. */
-  def setMouthRt4(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 4, HVDR, HVUp, 0, magnitude)
-    setCorner(r, c - 4, 2, HVUp, magnitude)
+  def setMouth4(r: Int, c: Int, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit =
+  { setCornerPair(r, c, 4, HVDR, HVUp, magLeft, magRight)
+    setCorner(r - 2, c - 2, 0, HVDR, magLeft)
+    setCorner(r, c - 4, 2, HVUp, magRight)
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
    * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
-  def setMouth5(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 5, HVDn, HVUR, magnitude, magnitude)
-    setCorner(r, c - 4, 1, HVDn, magnitude)
-    setCorner(r + 2, c - 2, 3, HVUR, magnitude)
-  }
-
-  /** Sets the end of a side terrain at vertex for all 3 tiles left. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
-   * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
-  def setMouth5Lt(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 5, HVDn, HVUR, magnitude, 0)
-    setCorner(r, c - 4, 1, HVDn, magnitude)
-  }
-
-  /** Sets the end of a side terrain at vertex for all 3 tiles right. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
-   * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
-  def setMouth5Rt(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCornerPair(r, c, 5, HVDn, HVUR, 0, magnitude)
-    setCorner(r + 2, c - 2, 3, HVUR, magnitude)
+  def setMouth5(r: Int, c: Int, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit =
+  { setCornerPair(r, c, 5, HVDn, HVUR, magLeft, magRight)
+    setCorner(r, c - 4, 1, HVDn, magLeft)
+    setCorner(r + 2, c - 2, 3, HVUR, magRight)
   }
 
   /** Sets the end of a side terrain from off the [[HGrid]] at what would have been vertex 3 for the other 2 tiles. For example the the mouth of
