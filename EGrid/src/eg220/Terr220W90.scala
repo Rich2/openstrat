@@ -22,11 +22,21 @@ object Terr220W90 extends Long220Terrs
       VRow(159, BendIn(9718, HVUR, 6, lake), Mouth(9720, HVDR, lake)),
       TRow(158, savannah * 2, taigaLakes * 3, taiga * 3, taigaLakes),
       TRow(156, savannah * 2, taiga, taigaLakes, hillyLakesTaiga, mtainLakes, hillyLakesTaiga * 2, taigaLakes, hillyLakesTaiga),
-      VRow(155, MouthLt(9728, HVDL, 7, lake), BendOut(9730, HVDn, 7, lake), BendInOut(9732, HVUp, 13, 6, lake), BendInOut(9734, HVDn, 9, 6, lake), MouthLt(9736, HVDR, 6, lake)),
+
+      VRow(155, MouthLt(9728, HVDL, 7, lake), BendOut(9730, HVDn, 7, lake), BendInOut(9732, HVUp, 13, 6, lake), BendInOut(9734, HVDn, 9, 6, lake),
+        MouthLt(9736, HVDR, 6, lake)),
+
       TRow(154, savannah * 3, Land(LandLakes, Savannah, LandFree), taiga * 3, mtainLakes, hillyLakesTaiga, mtainLakes),
-      VRow(153, Mouth(9732, HVUL, lake), BendIn(9734, HVDL, 13, lake)),
-      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, taiga),
-      TRow(150, savannah, savannah),
+
+      VRow(153, Mouth(9732, HVUL, lake), BendIn(9734, HVDL, 13, lake), Mouth(9736, HVUL, lake), ThreeDown(9738, 6, 6, 6, lake),
+        BendAll(9740, HVDn, lake, 8, 3), MouthLt(9742, HVDR, 7, lake)),
+
+      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SideB(lake), taiga, forest, Land(LandLakes, Temperate, Forest) * 2),
+
+      VRow(151, BendAll(9732, HVDR, lake, 6, 7), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), MouthLt(9740, HVDR, 7, lake),
+        Mouth(9744, HVDL, lake), MouthLt(9746, HVUR, 7, lake)),
+
+      TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, forest, hillyForest * 2),
     )
   }
   help.run

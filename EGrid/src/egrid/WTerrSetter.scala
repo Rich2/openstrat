@@ -135,7 +135,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   object BendAll
   {
-    def apply(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3): BendAll = new BendAll(c, dirn, terr, 3, 3)
+    def apply(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3): BendAll = new BendAll(c, dirn, terr, magnitude, magnitude)
 
     def apply(c: Int, dirn: HVDirn, terr: WSideSome, magIn: Int, magOut: Int): BendAll = new BendAll(c, dirn, terr, magIn, magOut)
   }

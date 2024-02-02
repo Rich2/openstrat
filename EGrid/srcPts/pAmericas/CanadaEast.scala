@@ -9,7 +9,9 @@ object Quebecia extends EArea2("Quebec", 53.71 ll -70, taiga)
   val jamesBayMouthEast: LatLong = 54.63 ll -79.74
 
   val katavik50: LatLong = 58.82 ll -66.44
-  val ungavaE: LatLong = 60.49 ll -64.74
+  val ungavaNE: LatLong = 60.49 ll -64.74
+  val codIsland: LatLong = 57.781 ll -61.659
+  val tununggayualokIsland: LatLong = 56.095 ll -60.956
   val labrador50: LatLong = 54.54 ll -57.30
   val spottedIsland = 53.519 ll -55.750
   val northCove = 53.780 ll -56.482
@@ -20,8 +22,8 @@ object Quebecia extends EArea2("Quebec", 53.71 ll -70, taiga)
   val pointeDesMonts: LatLong = 49.31 ll -67.38
   val quebecCity: LatLong = 47.02 ll -70.80
 
-  override val polygonLL: PolygonLL = PolygonLL(jamesBayS, eastMainMouth, jamesBayMouthEast, Ungava.southWest, Ungava.southEast, katavik50,ungavaE,
-    labrador50, northCove, spottedIsland, labrador60, isleAuBois,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
+  override val polygonLL: PolygonLL = PolygonLL(jamesBayS, eastMainMouth, jamesBayMouthEast, Ungava.southWest, Ungava.southEast, katavik50, ungavaNE,
+    codIsland, tununggayualokIsland, labrador50, northCove, spottedIsland, labrador60, isleAuBois,  labrador70, septlles, pointeDesMonts, quebecCity, NewBrunswick.east)
 }
 
 /** [[polygonLL]] graphical representation for north east Canada. Depends on [[NewBrunswick]]. */
