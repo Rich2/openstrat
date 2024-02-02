@@ -47,14 +47,18 @@ object NovaScotia extends EArea2("Nova Scotia", 45.12 ll -63.58, taiga)
   val capeGeorge: LatLong = 45.89 ll -61.93
   val phantomPoint: LatLong = 47.04 ll -60.60
   val capeDauphin: LatLong = 46.34 ll -60.42
+
   val scatarieEast: LatLong = 46.03 ll -59.68
+  val andrewIsland = 45.301 ll -60.943
+  val baldRock = 44.459 ll -63.572
   val south: LatLong = 43.41 ll -65.62
+  val cheboguePoint = 43.734 ll -66.119
   val whipplePoint: LatLong = 44.24 ll -66.39
   val p75: LatLong = 45.33 ll -64.94
   val stAndrews: LatLong = 45.02 ll -66.86
 
-  override val polygonLL: PolygonLL = PolygonLL(northWest, edwardIIslandNorth, edwardIIslandEast, capeGeorge, phantomPoint, capeDauphin, scatarieEast, south,
-    whipplePoint, p75, stAndrews)
+  override val polygonLL: PolygonLL = PolygonLL(northWest, edwardIIslandNorth, edwardIIslandEast, capeGeorge, phantomPoint, capeDauphin, scatarieEast,
+    andrewIsland, baldRock, south, cheboguePoint, whipplePoint, p75, stAndrews)
 }
 
 /** [[polygonLL]] graphical representation for south east Canada. Depends on [[NovaScotia]]. */

@@ -19,8 +19,15 @@ object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, l
 { val marshallPoint: LatLong = 43.916 ll -69.258
   val landsEnd: LatLong = 42.635 ll -70.594
   val nahantEast: LatLong = 42.419 ll -70.902
-  val p10: LatLong = 42.41 ll -71.00
+  val thacherIsland = 42.639 ll -70.573
+  val deerIsland = 42.344 ll -70.953
+  val scituateNeck = 42.253 ll -70.767
+  val brantRock = 42.082 ll -70.639
+  val racePoint = 42.082 ll -70.207
   val chatham: LatLong = 41.67 ll -69.95
+  val natucketIsland = 41.255 ll -69.972
+  val sakonnetPoint = 41.456 ll -71.194
+
   val quinniapacMouth: LatLong = 41.257 ll -72.917
   val pineIsland: LatLong = 40.898 ll -73.764
   val plumIsland: LatLong = 41.190 ll -72.163
@@ -30,11 +37,18 @@ object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, l
   val stattenS: LatLong = 40.50 ll -74.25
   val sandyHookNorth: LatLong = 40.478 ll -74.016
   val sedgeIslandSouth: LatLong = 39.766 ll -74.097
+  val barnegat: LatLong = 39.759 ll -74.100
+  val capeMayPoint: LatLong = 38.932 ll -74.962
+  val delawareMouth = 39.270 ll -75.342
+  val capeHenlopen = 38.803 ll -75.092
+  val delawareSE = 38.451 ll -75.049
+  val fishermanIsland = 37.085 ll -75.961
 
   override def polygonLL: PolygonLL =
-    LakeMichigan.coastEast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east, NewBrunswick.maineE,
-      marshallPoint, landsEnd, nahantEast, p10, chatham, quinniapacMouth, pineIsland, plumIsland, montaukPoint,saltaire, stattenS, sandyHookNorth,
-      sedgeIslandSouth, UsaSouth.northEast, UsaSouth.northWest)
+    LakeMichigan.coastEast ++ LakeHuron.usCoastSouth ++ LakeErie.usCoast ++ LakeOntario.usCoast |++| LinePathLL(NewBrunswick.east,
+      NewBrunswick.maineE, marshallPoint, landsEnd, nahantEast, thacherIsland, deerIsland, scituateNeck, brantRock, racePoint, chatham, natucketIsland, sakonnetPoint, quinniapacMouth, pineIsland, plumIsland,
+      montaukPoint, saltaire, stattenS, sandyHookNorth, sedgeIslandSouth, barnegat, capeMayPoint, delawareMouth, capeHenlopen, delawareSE,
+      fishermanIsland, UsaSouth.northEast, UsaSouth.northWest)
 }
 
 /** [polygonLL]] Graphical object for the United States South. Dependant on [[Florida]]. */
@@ -42,7 +56,6 @@ object UsaSouth extends EArea2("United States\nThe South", 34.479 ll -83.109, la
 { val northEast = 36.987 ll -76.303
   val capeHenry: LatLong = 36.928 ll -76.006
   val stumpyPoint: LatLong = 35.69 ll -75.73
-  /** Camden County Georgia USA */
   val NAtlanticSW: LatLong = 31 ll  -81.47
   val capeSanBlas: LatLong = 29.67 ll -85.35
   val p70: LatLong = 30.39 ll -86.65
