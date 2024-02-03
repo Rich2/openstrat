@@ -123,7 +123,7 @@ flat = false;
 111 = HGView(160, 11778; 24);//220km 30°W
 
 112 = HGView(150, 1520; 22.5);//220km Europe 0°E - 30°E
-114 = HGView(158, 9746; 24);//220km North America 90°W - 60°W
+114 = HGView(154, 9746; 24);//220km North America 90°W - 60°W
 115 = HGView(150, 9714; 25);//220km North America 120°W - 90°W
 116 = HGView(140, 530; 24);//220km All longitudes
 
