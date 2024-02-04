@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** Helper trait for setting an [[LayerHcRefSys]], [[HSideLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
@@ -24,10 +24,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
       corners.setNCornersIn(row, c, 6, 0, magnitude)
-      //iUntilForeach(6) { i => corners.setCornerIn(row, c, i, magnitude) }
       iUntilForeach(6) { i =>
-        val side = HCen(row, c).side(i)
-        sTerrs.set(side, sTerr)
+        val sep: HSep = HCen(row, c).sep(i)
+        sTerrs.set(sep, sTerr)
       }
     }
   }
@@ -90,7 +89,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
       iUntilForeach(-1, numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
-        val side = HCen(row, c).side(i)
+        val side = HCen(row, c).sep(i)
         sTerrs.set(side, sideTerrs)
       }
     }
@@ -121,10 +120,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
       corners.setCornerIn(row, c, indentIndex, 7)
       corners.setCornerIn(row, c, oppositeIndex, 7)
 
-      sTerrs.set(HCen(row, c).side(indentIndex - 1), sideTerrs1)
-      sTerrs.set(HCen(row, c).side(indentIndex), sideTerrs1)
-      sTerrs.set(HCen(row, c).side(indentIndex - 4), sideTerrs2)
-      sTerrs.set(HCen(row, c).side(indentIndex + 3), sideTerrs2)
+      sTerrs.set(HCen(row, c).sep(indentIndex - 1), sideTerrs1)
+      sTerrs.set(HCen(row, c).sep(indentIndex), sideTerrs1)
+      sTerrs.set(HCen(row, c).sep(indentIndex - 4), sideTerrs2)
+      sTerrs.set(HCen(row, c).sep(indentIndex + 3), sideTerrs2)
     }
   }
 

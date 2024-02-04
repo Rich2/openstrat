@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, pgui._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -70,25 +70,25 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
   def vertsIn(magnitude: Int): PolygonHVOffset =
     PolygonHVOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
 
-  /** Up right side. From vert 0 to vert 1. */
+  /** Up right separator. From vert 0 to vert 1. */
   def s0: HSep = HSep(r + 1, c + 1)
 
-  /** Right side. From vert 1 to vert 2. */
+  /** Right separator. From vert 1 to vert 2. */
   def s1: HSep = HSep(r, c + 2)
 
-  /** Down right side. From vert 2 to vert 3. */
+  /** Down right separator. From vert 2 to vert 3. */
   def s2: HSep = HSep(r - 1, c + 1)
 
-  /** Down left side. From vert 3 to vert 4. */
+  /** Down left separator. From vert 3 to vert 4. */
   def s3: HSep = HSep(r - 1, c - 1)
 
-  /** Left side. From vert 4 to vert 5. */
+  /** Left separator. From vert 4 to vert 5. */
   def s4: HSep = HSep(r, c - 2)
 
-  /** Up left side. From vert 5 to vert 0. */
+  /** Up left separator. From vert 5 to vert 0. */
   def s5: HSep = HSep(r + 1, c - 1)
 
-  def side(index: Int): HSep = (index %% 6) match
+  def sep(index: Int): HSep = (index %% 6) match
   { case 0 => s0
     case 1 => s1
     case 2 => s2
