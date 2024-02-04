@@ -66,7 +66,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Cape / headland / peninsula for [[WTile]]s. */
-  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land = Land(Level, Temperate, CivMix), val sideTerrs: Water = Sea) extends
+  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land = Land(Level, Temperate, CivMix), val sepTerrs: Water = Sea) extends
     TRunner with CapeBase
 
   object Cape

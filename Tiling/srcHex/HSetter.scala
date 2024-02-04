@@ -63,7 +63,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
   /** Sets a side in the tile row. This is type B side. */
   trait SideBBase
-  { /** The Side terrain. */
+  { /** The [[HSep]] separator terrain. */
     def sTerr: SST
 
     def run(row: Int, c: Int): Unit = sTerrs.set(row, c - 2, sTerr)
@@ -80,8 +80,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     /** The terrain of the main tile, typically a type of land. */
     def terr: TT
 
-    /** The terrain of the sides, typically a type of water. */
-    def sideTerrs: SST
+    /** The terrain of the [[HSep]] separators, typically a type of water. */
+    def sepTerrs: SST
 
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
@@ -89,8 +89,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 
       iUntilForeach(-1, numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
-        val side = HCen(row, c).sep(i)
-        sTerrs.set(side, sideTerrs)
+        val sep: HSep = HCen(row, c).sep(i)
+        sTerrs.set(sep, sepTerrs)
       }
     }
   }

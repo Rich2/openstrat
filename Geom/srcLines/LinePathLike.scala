@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import annotation._
 
@@ -148,6 +148,19 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Int]. */
   def polygonFromArray(array: Array[Int]): PolygonT
+
+  override def init: ThisT =
+  { val newLen = (numVerts - 1).max0
+    val newArrayLen = newLen * elemProdSize
+    val newArray: Array[Int] = new Array[Int](newArrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    while(i < newLen)
+    { res.setElemUnsafe(i, ssIndex(i))
+      i += 1
+    }
+    res
+  }
 
   override def inner: ThisT =
   { val newArrayLen = (numVerts - 2).max0 * elemProdSize
