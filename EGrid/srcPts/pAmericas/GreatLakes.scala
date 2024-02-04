@@ -99,12 +99,12 @@ object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, Lake)
 
   val maumeeMouth: LatLong = 41.70 ll -83.47
   val south: LatLong = 41.38 ll -82.49
-  val edgeWater = 41.488 ll -81.739
+  val edgeWater: LatLong = 41.488 ll -81.739
   val east: LatLong = 42.78 ll -78.85
 
-  val usCoast: LinePathLL = LinePathLL(detroitMouth, maumeeMouth, south, edgeWater, east, niagraMouth)
+  val southCoast: LinePathLL = LinePathLL(maumeeMouth, south, edgeWater, east, niagraMouth)
 
-  override def polygonLL: PolygonLL = eastCanadaCoast.reverse |++<| usCoast.inner
+  override def polygonLL: PolygonLL = eastCanadaCoast.reverse |++<| southCoast.init
 }
 /** Graphical display for Lake Ontario. No dependencies. */
 object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, Lake)

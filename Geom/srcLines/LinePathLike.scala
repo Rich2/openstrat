@@ -20,6 +20,10 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
    * and therefore sometimes need to be excluded when appending. */
   def inner: ThisT
 
+  /** This line path with the last vertex's removed. This can be useful for borders where the end points may show up in multiple line paths and
+   * therefore sometimes need to be excluded when appending. */
+  def init: ThisT
+
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
 
@@ -53,6 +57,19 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
   def polygonFromArray(array: Array[Double]): PolygonT
+
+  override def init: ThisT =
+  { val newLen = (numVerts - 1).max0
+    val newArrayLen = newLen * elemProdSize
+    val newArray = new Array[Double](newArrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    while(i < newLen)
+    { res.setElemUnsafe(i, ssIndex(i))
+      i += 1
+    }
+    res
+  }
 
   override def inner: ThisT =
   { val newArrayLen = (numVerts - 2).max0 * elemProdSize
