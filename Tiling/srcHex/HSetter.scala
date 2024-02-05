@@ -16,7 +16,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   { /** The tile terrain. typically land terrain. */
     def terr: TT
 
-    /** The Side terrain, Typically water terrain, */
+    /** The [[HSep]] separator terrain, Typically water terrain, */
     def sTerr: SST
 
     def magnitude: Int
@@ -31,32 +31,32 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
   trait IsleBase extends IsleNBase
   { override def magnitude: Int = 6
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
   trait Isle8Base extends IsleNBase
   { override def magnitude: Int = 8
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
   trait Isle6Base extends IsleNBase
   { override def magnitude: Int = 10
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
   trait Isle5Base extends IsleNBase
   { override def magnitude: Int = 11
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
   trait Isle4Base extends IsleNBase
   { override def magnitude: Int = 12
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
   trait Isle3Base extends IsleNBase
   { override def magnitude: Int = 13
   }
@@ -107,23 +107,24 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     /** The terrain of the main tile, typically a type of land. */
     def terr: TT
 
-    /** The terrain of the sides, next to the index vertex, typically a type of water. */
-    def sideTerrs1: SST
+    /** The terrain of the [[HSep]]s, next to the index vertex, typically a type of water. */
+    def sepTerrs1: SST
 
-    /** The terrain of the sides, next to the opposite vertex typically a type of water. */
-    def sideTerrs2: SST
+    /** The terrain of the [[HSep]]s, next to the opposite vertex typically a type of water. */
+    def sepTerrs2: SST
 
     /** Sets the [[HCen]] terrain. Sets the two opposite [[HCorner]]s and sets the four [[HSep]] terrains adjacent to the pulled in vertices. The
-     * side terrains can be different on either side of the isthmus. For eample it could be sea on one side and fresh water lake on the other. */
+     * [[HSep]] terrains can be different on either [[HSep]] of the isthmus. For eample it could be sea on one [[HSep]] and fresh water lake on the
+     * other. */
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
       corners.setCornerIn(row, c, indentIndex, 7)
       corners.setCornerIn(row, c, oppositeIndex, 7)
 
-      sTerrs.set(HCen(row, c).sep(indentIndex - 1), sideTerrs1)
-      sTerrs.set(HCen(row, c).sep(indentIndex), sideTerrs1)
-      sTerrs.set(HCen(row, c).sep(indentIndex - 4), sideTerrs2)
-      sTerrs.set(HCen(row, c).sep(indentIndex + 3), sideTerrs2)
+      sTerrs.set(HCen(row, c).sep(indentIndex - 1), sepTerrs1)
+      sTerrs.set(HCen(row, c).sep(indentIndex), sepTerrs1)
+      sTerrs.set(HCen(row, c).sep(indentIndex - 4), sepTerrs2)
+      sTerrs.set(HCen(row, c).sep(indentIndex + 3), sepTerrs2)
     }
   }
 
@@ -131,11 +132,11 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   { /** The C coordinate of the vertex. */
     def c: Int
 
-    /** The terrain of the left most side of the junction. */
+    /** The terrain of the left most [[HSep]] of the junction. */
     def sTerr: SST
   }
 
-  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -177,7 +178,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthLtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -219,7 +220,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthRtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -260,7 +261,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthLtRtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -305,7 +306,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the side terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthSpecBase extends VertSetBase
   { /** The direction of the mouth. */
     def mouthDirn: HVDirnPrimary
@@ -364,7 +365,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets all the corners of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is specified
+  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is specified
    *  by the direction of the inside of the bend. */
   trait BendInOutBase extends VertSetBase
   {
@@ -415,7 +416,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     override def magOut: Int = magnitude
   }
 
-  /** Sets the 2 outer corners of the bend for side terrain, Also sets the left most of the sides of the bend vertex. The orientation of the bend is
+  /** Sets the 2 outer corners of the bend for [[HSep]] terrain, Also sets the left most of the [[HSep]]s of the bend vertex. The orientation of the bend is
    * specified by the direction of the inside of the bend. */
   trait BendOutBase extends VertSetBase
   { /** The magnitude of the offset for the 2 outer corners of the bend vertex. */
@@ -454,7 +455,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Sets only the inside corner of Vertex for a bend side terrain, Sets the left most of the sides of this vertex. The orientation of the bend is
+  /** Sets only the inside corner of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is
    *  specified by the direction of the inside of the bend. */
   trait BendInBase extends VertSetBase
   {  def magnitude: Int
@@ -496,7 +497,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
+  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. */
   trait ThreeWayBase extends VertSetBase
   { def magnitude: Int
 
@@ -506,13 +507,15 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
+  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. */
   trait ThreeUpBase extends VertSetBase
-  {
+  { /** The magnitude of the [[HVUR]] up-right offset. */
     def magUR: Int
 
+    /** The magnitude of the [[HVDn]] down offset. */
     def magDn: Int
 
+    /** The magnitude of the [[HVUL]] up-left offset. */
     def magUL: Int
 
     def run(row: Int): Unit =
@@ -524,7 +527,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   }
 
 
-    /** Used for setting a vertex where 3 side terrains meet. Also sets the left most side. */
+    /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. */
   trait ThreeDownBase
   { def c: Int
     def st: SST
@@ -540,7 +543,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
     }
   }
 
-  /** This is for setting sides on the edge of grids that sit within the hex area of the tile on the neighbouring grid. */
+  /** This is for setting [[HSep]]s on the edge of grids that sit within the hex area of the tile on the neighbouring grid. */
   trait SetSideBase
   { def c: Int
     def terr: SST

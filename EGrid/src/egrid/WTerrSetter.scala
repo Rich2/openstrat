@@ -79,7 +79,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Isthmus for [[WTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
-  class Isthmus private(val indentIndex: Int, val terr: Land = Land(), val sideTerrs1: Water = Sea, val sideTerrs2: Water = Sea) extends TRunner with
+  class Isthmus private(val indentIndex: Int, val terr: Land = Land(), val sepTerrs1: Water = Sea, val sepTerrs2: Water = Sea) extends TRunner with
     IsthmusBase
 
   object Isthmus
