@@ -220,7 +220,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. This trait is provided to model real
+   * world geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait MouthRtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -261,7 +262,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. This trait is provided to model real
+   * world geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait MouthLtRtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -365,14 +367,18 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is specified
-   *  by the direction of the inside of the bend. */
+  /** Sets all the corners of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is
+   *  specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably
+   *  superfluous for created worlds / terrain. */
   trait BendInOutBase extends VertSetBase
-  {
+  { /** The magnitude of the offset for inside of the bend. */
     def magIn: Int
-    def magOut: Int
-    def dirn: HVDirn
 
+    /** The magnitude of the offset for the outside of bend. */
+    def magOut: Int
+
+    /** The direction of the inside of the bend [[HCen]] from the [[HVert]] of the bend. */
+    def dirn: HVDirn
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
@@ -410,7 +416,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   }
 
   trait BendAllBase extends BendInOutBase
-  {  def magnitude: Int
+  { /** The magnitude of the offsets for both the inside and outside of the bend. */
+    def magnitude: Int
 
     override def magIn: Int = magnitude
     override def magOut: Int = magnitude
@@ -455,8 +462,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets only the inside corner of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is
-   *  specified by the direction of the inside of the bend. */
+  /** Sets only the inside corner of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the
+   *  bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is
+   *  probably superfluous for created worlds / terrain. */
   trait BendInBase extends VertSetBase
   {  def magnitude: Int
 
@@ -507,7 +515,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. */
+  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
+   *  geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeUpBase extends VertSetBase
   { /** The magnitude of the [[HVUR]] up-right offset. */
     def magUR: Int
@@ -527,7 +536,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   }
 
 
-    /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. */
+  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
+   * geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeDownBase
   { def c: Int
     def st: SST

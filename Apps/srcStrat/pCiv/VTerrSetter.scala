@@ -4,7 +4,7 @@ import prid._, phex._
 
 /** Helper class for setting  [[LayerHcRefSys]][VTile], [[HSepLayer]][VSep] and [[HCornerLayer]] at the same time." */
 abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSep, VSepSome], val corners: HCornerLayer) extends
-HSetter[VTile, VSep, VSepSome]
+  HSetter[VTile, VSep, VSepSome]
 { implicit val grid: HGrid = gridIn
 
   sealed trait RowBase
@@ -14,6 +14,7 @@ HSetter[VTile, VSep, VSepSome]
   trait TRunner extends TRowElem
   { def run (row: Int, c: Int): Unit
   }
+
   trait TRunnerExtra extends TRunner
 
   case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner with IsleBase
@@ -61,8 +62,8 @@ HSetter[VTile, VSep, VSepSome]
         case Multiple(value: TRunnerExtra, _) => value.run(row, c)
         case multi => multi.foreach { help =>
           if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
-          help match {
-            case wt: VTile => tileRun(row, c, wt)
+          help match
+          { case wt: VTile => tileRun(row, c, wt)
             case il: TRunner => il.run(row, c)
             case _ =>
           }
