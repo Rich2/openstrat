@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 /** Data layer for [[HSep]]s of an [[HGridSys]]. */
-class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
+class HSepLayer[A](val unsafeArray: Array[A]) extends HSepLayerAny[A]
 { /** apply index method returns the data from this layer for the given [[HSep]]. */
   def apply(hs: HSep)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.sepLayerArrayIndex(hs))
 
@@ -34,21 +34,21 @@ class HSideLayer[A](val unsafeArray: Array[A]) extends HSideLayerAny[A]
       }
     }
 
-  /** Spawns a new [[HSideLayer]] data layer for the child [[HGridSys]] from this [[HSideLayer]]. */
-  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HSideLayer[A] =
+  /** Spawns a new [[HSepLayer]] data layer for the child [[HGridSys]] from this [[HSepLayer]]. */
+  def spawn(parentGridSys: HGridSys, childGridSys: HGridSys)(implicit ct: ClassTag[A]): HSepLayer[A] =
   { val array: Array[A] = new Array[A](childGridSys.numSides)
     childGridSys.sepsForeach { sc => array(childGridSys.sepLayerArrayIndex(sc)) = apply(sc)(parentGridSys) }
-    new HSideLayer[A](array)
+    new HSepLayer[A](array)
   }
 }
 
-object HSideLayer
+object HSepLayer
 {
-  def apply[A](initial: A)(implicit ct: ClassTag[A], gridSys: HGridSys): HSideLayer[A] = apply[A](gridSys, initial)(ct)
+  def apply[A](initial: A)(implicit ct: ClassTag[A], gridSys: HGridSys): HSepLayer[A] = apply[A](gridSys, initial)(ct)
 
-  def apply[A](gridSys: HGridSys, initial: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
+  def apply[A](gridSys: HGridSys, initial: A)(implicit ct: ClassTag[A]): HSepLayer[A] =
   { val newArray = new Array[A](gridSys.numSides)
     iUntilForeach(gridSys.numSides)(newArray(_) = initial)
-    new HSideLayer[A](newArray)
+    new HSepLayer[A](newArray)
   }
 }

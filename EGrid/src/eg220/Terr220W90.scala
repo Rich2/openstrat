@@ -31,7 +31,7 @@ object Terr220W90 extends Long220Terrs
       VRow(153, Mouth(9732, HVUL, lake), BendIn(9734, HVDL, 13, lake), Mouth(9736, HVUL, lake), ThreeDown(9738, 6, 6, 6, lake),
         BendInOut(9740, HVDn, 8, 3, lake), MouthLt(9742, HVDR, 7, lake)),
 
-      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SideB(lake), taiga, forest, Land(LandLakes, Temperate, Forest) * 2),
+      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, forest, Land(LandLakes, Temperate, Forest) * 2),
 
       VRow(151, BendInOut(9732, HVDR, 6, 7, lake), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), MouthLt(9740, HVDR, 7, lake),
         Mouth(9744, HVDL, lake), BendIn(9746, HVDn, 13, lake), Mouth(9748, HVDR, lake)),

@@ -2,8 +2,8 @@
 package ostrat; package pzug
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class ZugTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[ZugTerr], val sTerrs: HSideLayer[HSideBoolLayer], val corners: HCornerLayer)
+/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSide] and [[HCornerLayer]] at the same time." */
+abstract class ZugTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[ZugTerr], val sTerrs: HSepLayer[HSideBoolLayer], val corners: HCornerLayer)
 {
   sealed trait RowBase
 

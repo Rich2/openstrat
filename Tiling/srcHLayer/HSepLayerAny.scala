@@ -1,8 +1,7 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
 
-trait HSideLayerAny[A]
+trait HSepLayerAny[A]
 {
   def unsafeArray: Array[A]
 
@@ -38,14 +37,14 @@ trait HSideLayerAny[A]
     }
   }
 
-  /** Swts the [[HSep]]s specified by their Int parameters to rhe given value. */
-  def setSomeInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit =
-  {  val len = hSideInts.length / 2
+  /** Sets multiple [[HSep]]s specified by their r and c [[Int]] components parameters to the same given value. */
+  def setSomeRC(value: A, hSeps: Int*)(implicit grid: HGridSys): Unit =
+  { val len = hSeps.length / 2
     iUntilForeach(0, len * 2, 2) { i =>
-      val r = hSideInts(i)
-      val c = hSideInts(i + 1)
-      r %% 4 match {
-        case 1 | 3 if c.div4Rem1 | c.div4Rem3 =>
+      val r = hSeps(i)
+      val c = hSeps(i + 1)
+      r %% 4 match
+      { case 1 | 3 if c.div4Rem1 | c.div4Rem3 =>
         case 0 if c.div4Rem2 =>
         case 2 if c.div4Rem0 =>
         case _ => excep(s"$r, $c is not a valid hex side tile coordinate.")

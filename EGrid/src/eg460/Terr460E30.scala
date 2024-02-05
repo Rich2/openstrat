@@ -31,7 +31,7 @@ object Terr460E30 extends Long460Terrs
       VRow(123, BendOut(1528, HVDL), Mouth(1532, HVUp)),
       TRow(122, hillySavannah, Cape(4, 1, hillySavannah), hillySahel, mtain, mtain),
       VRow(121, Mouth(1528, HVDn)),
-      TRow(120, SideB(), sea, Isle3(hillySavannah), Cape(3, 2, hillySavannah), hillySavannah, desert),
+      TRow(120, SepB(), sea, Isle3(hillySavannah), Cape(3, 2, hillySavannah), hillySavannah, desert),
       VRow(119, Mouth(1526,HVDn),  Mouth(1528, HVDL), BendOut(1532, HVUp), BendOut(1536, HVUp), BendOut(1540, HVDL)),
       TRow(118, sahel, Cape(0, 1, sahel), Cape(0, 1, sahel), Cape(0, 2, sahel), savannah, desert),
       VRow(117, Mouth(1534, HVDL, Scarp), Mouth(1536, HVUR, Scarp), Mouth(1538, HVUp), Mouth(1540, HVDn), MouthRt(1542, HVUp), Mouth(1550, HVUp)),

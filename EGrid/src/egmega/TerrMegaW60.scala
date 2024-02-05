@@ -17,7 +17,7 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(114, Cape(0, 3, taiga)),
       TRow(112, Cape(2, 2,taiga), sea),
       VRow(109, Mouth(10748, HVUL)),
-      TRow(108, SideB(), sea * 2),
+      TRow(108, SepB(), sea * 2),
 
       TRow(102, jungle, sea * 2),
       TRow(100, jungle * 2, jungle),

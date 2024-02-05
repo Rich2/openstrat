@@ -27,7 +27,7 @@ object Terr460W120 extends Long460Terrs
       VRow(129, BendOut(8698, HVDL)),
       TRow(128, Cape(4, 1, mtain), mtain, savannah * 2),
       VRow(127, BendOut(8700, HVDL)),
-      TRow(126, sea, SideB(), mtain, mtain * 2),
+      TRow(126, sea, SepB(), mtain, mtain * 2),
       VRow(125, BendOut(8700, HVUL)),
       TRow(124, sea, Cape(4, 2, mtain), hillyDesert, hillySavannah, hillySahel),
       VRow(123, BendOut(8700, HVDL)),

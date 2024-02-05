@@ -89,13 +89,13 @@ trait EGridMulti extends EGridSys with HGridMulti
     else ind
   }
 
-  /** Spawns a new [[HSideLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideLayer pairs. */
-  def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSideLayer[A])], defaultA: A)(implicit ct: ClassTag[A]): HSideLayer[A] =
-  { val res = HSideLayer[A](this, defaultA)
+  /** Spawns a new [[HSepLayer]] for this [[EGridMulti]], from an [[Arr]] of HGrid-HSideLayer pairs. */
+  def sidesFromPairsSpawn[A](sidePairs: RArr[(HGrid, HSepLayer[A])], defaultA: A)(implicit ct: ClassTag[A]): HSepLayer[A] =
+  { val res = HSepLayer[A](this, defaultA)
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
-      val lay: HSideLayer[A] = pair._2
+      val lay: HSepLayer[A] = pair._2
       m.sidesForeach { hs =>
         val value: A = lay(hs)(origGrid)
         res.set(ThisMulti, hs, value)

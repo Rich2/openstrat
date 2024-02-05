@@ -1,7 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** Helper trait for setting an [[LayerHcRefSys]], [[HSideLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
+/** Helper trait for setting an [[LayerHcRefSys]], [[HSepLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
  *  terrain to be laid out in systematic row order. */
 trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
 { implicit def grid: HGrid
@@ -61,8 +61,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
   { override def magnitude: Int = 13
   }
 
-  /** Sets a side in the tile row. This is type B side. */
-  trait SideBBase
+  /** Sets an [[HSepB]] separator in the tile row. */
+  trait SepBBase
   { /** The [[HSep]] separator terrain. */
     def sTerr: SST
 

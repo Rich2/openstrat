@@ -34,7 +34,7 @@ object Civ1 extends CivScenStart
       VRow(7, Mouth(22, HVUL, River), ThreeWay(24, River), ThreeWay(26, River), BendAll(28, HVUp, River), BendAll(30, HVDn, River),
         BendAll(32, HVUp, River), BendAll(34, HVDn, River), BendAll(36, HVUp, River), BendAll(38, HVDn, River), Mouth(40, HVDR, River)),
 
-      TRow(6, Plain * 5, SideB(River)),
+      TRow(6, Plain * 5, SepB(River)),
       VRow(5, Mouth(22, HVDL, River), BendAll(24, HVUL, River)),
       TRow(4, Hill * 3, Plain * 7),
     )

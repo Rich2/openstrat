@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
+/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSide] and [[HCornerLayer]] at the same time." */
 abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSide, WSideSome], val corners: HCornerLayer) extends
   HSetter[WTile, WSide, WSideSome]
 {
@@ -88,7 +88,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
       new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }
 
-  case class SideB(sTerr: Water = Sea) extends TRunnerExtra with SideBBase
+  case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem

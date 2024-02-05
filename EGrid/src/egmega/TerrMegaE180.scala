@@ -16,7 +16,7 @@ object TerrMegaE180 extends LongMegaTerrs
       VRow(117, Mouth(6658, HVUp)),
       TRow(116, Cape(2, 1, hillyTundra)),
       VRow(115, Mouth(6654, HVUL),  BendIn(6656, HVUp)),
-      TRow(114, SideB(), sea),
+      TRow(114, SepB(), sea),
       TRow(90, Isle8(hilly)),
     )
   }

@@ -2,7 +2,7 @@
 package ostrat; package pCiv
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSideLayer]][WSide] and [[HCornerLayer]] at the same time." */
+/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSide] and [[HCornerLayer]] at the same time." */
 abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSide, VSideSome], val corners: HCornerLayer) extends
 HSetter[VTile, VSide, VSideSome]
 { implicit val grid: HGrid = gridIn
@@ -37,7 +37,7 @@ HSetter[VTile, VSide, VSideSome]
       new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }
 
-  case class SideB(sTerr: VSideSome = Sea) extends TRunnerExtra with SideBBase
+  case class SepB(sTerr: VSideSome = Sea) extends TRunnerExtra with SepBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem

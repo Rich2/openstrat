@@ -8,7 +8,7 @@ trait LayerHsOpt
 }
 
 /** Data layer for [[HSep]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
-class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSideLayerAny[A]
+class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSepLayerAny[A]
 { type KeyT = HGridSys
 
   /** apply index method returns the data from this layer for the given [[HSep]]. */

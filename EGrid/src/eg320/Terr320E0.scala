@@ -51,7 +51,7 @@ object Terr320E0 extends Long320Terrs
       VRow(125, BendAll(500, HVUL)),
       TRow(124, sea, Cape(5, 1, hillyDesert), hilly, desert * 6),
       VRow(123, SetSide(495), BendOut(498, HVUL)),
-      TRow(122, SideB(), Cape(5, 1, desert), desert * 8),
+      TRow(122, SepB(), Cape(5, 1, desert), desert * 8),
       VRow(121, SetSide(495)),
       TRow(120, desert * 5, hillyDesert * 2, desert * 2),
       TRow(118, desert * 9),

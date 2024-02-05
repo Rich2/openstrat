@@ -106,7 +106,7 @@ object Terr80E30  extends Long80Terrs
       mtain),
 
       VRow(419, SetSide(1471)),
-      TRow(418, SideB(), sea * 7, hilly, sea * 5, hilly * 5, mtain, hilly * 2, Cape(3, 1) * 2, hilly, desert * 2, land, desert * 3, hillyDesert * 2, mtain),
+      TRow(418, SepB(), sea * 7, hilly, sea * 5, hilly * 5, mtain, hilly * 2, Cape(3, 1) * 2, hilly, desert * 2, land, desert * 3, hillyDesert * 2, mtain),
       VRow(417, Mouth(1564, HVUR)),
 
       TRow(416, sea * 10, sea * 4, Isle(hilly), sea, Cape(2, 3, mtain), sea * 2, Cape(3, 2, mtain), Cape(2, 2, mtain), sea * 2, hilly, land,

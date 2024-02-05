@@ -17,7 +17,7 @@ object Terr220W60 extends Long220Terrs
       VRow(165, BendOut(10752, HVUR), MouthLt(10754, HVDR)),
       TRow(164, taigaLakes, hillyLakesTaiga * 3),
       VRow(163, MouthRt(10758, HVUL, 7), BendIn(10760, HVDL, 13)),
-      TRow(162, taigaLakes, hillyLakesTaiga * 5, SideB()),
+      TRow(162, taigaLakes, hillyLakesTaiga * 5, SepB()),
       VRow(161, BendOut(10758, HVDR, 7), BendIn(10760, HVUL, 13)),
       TRow(160, hillyLakesTaiga * 2, mtainLakes * 2, hillyLakesTaiga * 2),
       VRow(159, BendIn(10752, HVDR, 13), BendIn(10754, HVDn, 13), BendIn(10756, HVUp, 13), ThreeUp(10758, 0, 7, 7), MouthLt(10760, HVDR, 7)),
