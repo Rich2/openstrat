@@ -7,7 +7,7 @@ trait EScenBasic extends HSysScen
 { override def gridSys: EGridSys
 
   val terrs: LayerHcRefSys[WTile]
-  val sTerrs: LayerHSOptSys[WSide, WSideSome]
+  val sTerrs: LayerHSOptSys[WSep, WSepSome]
   val corners: HCornerLayer
   def title: String = "EScenBasic"
 }
@@ -15,10 +15,10 @@ trait EScenBasic extends HSysScen
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
 {
-  def apply(gridSys: EGridSys, terrs: LayerHcRefSys[WTile], sTerrs: LayerHSOptSys[WSide, WSideSome], offsets: HCornerLayer, title: String = "EScenBasic"): EScenBasic =
+  def apply(gridSys: EGridSys, terrs: LayerHcRefSys[WTile], sTerrs: LayerHSOptSys[WSep, WSepSome], offsets: HCornerLayer, title: String = "EScenBasic"): EScenBasic =
     new EScenWarmImp(gridSys, terrs, sTerrs, offsets, title)
 
-  class EScenWarmImp(val gridSys: EGridSys, override val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSide, WSideSome], override val corners: HCornerLayer,
+  class EScenWarmImp(val gridSys: EGridSys, override val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome], override val corners: HCornerLayer,
                      override val title: String = "EScenWarm") extends EScenBasic
 }
 
@@ -34,7 +34,7 @@ trait LongTerrs
   /** The tile terrain, */
   def terrs: LayerHcRefSys[WTile]
 
-  def sTerrs: LayerHSOptSys[WSide, WSideSome]
+  def sTerrs: LayerHSOptSys[WSep, WSepSome]
 
   def corners: HCornerLayer
 }

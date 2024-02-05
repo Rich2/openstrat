@@ -21,7 +21,7 @@ package object eg220
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine
 
-  def fullTerrsSideLayerSpawn(implicit subSys: EGrid220LongMulti): LayerHSOptSys[WSide, WSideSome] =
+  def fullTerrsSideLayerSpawn(implicit subSys: EGrid220LongMulti): LayerHSOptSys[WSep, WSepSome] =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
       val ft = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)

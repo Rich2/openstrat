@@ -9,7 +9,7 @@ trait VTile extends VTileHelper with Coloured
   def isWater: Boolean
 }
 
-trait Water extends VTile with VSideSome
+trait Water extends VTile with VSepSome
 { override def isWater: Boolean = true
 }
 

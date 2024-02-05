@@ -74,7 +74,7 @@ object WTiles
 }
 
 /** A common trait for Ocean and Lake. */
-trait Water extends WTile with WSideSome
+trait Water extends WTile with WSepSome
 { override def isLand: Boolean = false
 }
 

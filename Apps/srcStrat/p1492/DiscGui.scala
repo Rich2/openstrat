@@ -6,7 +6,7 @@ case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFla
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: LayerHcRefSys[WTile] = scen.terrs
-  val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
+  val sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
   val corners = scen.corners
 
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))

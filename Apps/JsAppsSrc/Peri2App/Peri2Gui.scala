@@ -16,7 +16,7 @@ class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFla
 
   override def terrs: LayerHcRefSys[WTile] = scen.terrs
 
-  override def sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
+  override def sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
 
   override def corners: HCornerLayer = scen.corners
 

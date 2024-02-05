@@ -18,7 +18,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   proj match { case ep: HSysProjectionEarth => ep.irrOn = true; case _ => }
 
   val terrs: LayerHcRefSys[WTile] = scen.terrs
-  val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
+  val sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match

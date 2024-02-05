@@ -5,7 +5,7 @@ import prid.phex._, egrid._, eg13._
 object PeriScen1 extends PeriScenStart
 { override implicit val gridSys: EGridSys = Scen13All.gridSys
   override val terrs: LayerHcRefSys[WTile] = Scen13All.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen13All.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Scen13All.sTerrs
   override val corners: HCornerLayer = Scen13All.corners
   //override val armies: HCenOptLayer[Army] = HCenOptLayer[Army]()
   override val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet, NOrange)
@@ -18,7 +18,7 @@ object PeriScen2 extends PeriScenStart
   override implicit val gridSys: EGrid13LongFull = EGrid13.e0(100, 104)
   override val nations: RArr[Nation] = RArr(NRed, NBlue, NViolet)
   override val terrs: LayerHcRefSys[WTile] = Terr13E0.terrs.spawn(Terr13E0.grid, gridSys)
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr13E0.sTerrs.spawn(Terr13E0.grid, gridSys)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr13E0.sTerrs.spawn(Terr13E0.grid, gridSys)
   override val corners: HCornerLayer = Terr13E0.corners.spawn(Terr13E0.grid, gridSys)
 }
 
@@ -30,7 +30,7 @@ object PeriScen3 extends PeriScenStart
     ft.terrs.spawn(ft.grid, gridSys.grids(i))
   }.combine
 
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] =
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] =
   { val arr = iToMap(0, 2) { i =>
     val ft: Long13Terrs = fullTerrs(i)
     (ft.grid, ft.sTerrs)
@@ -53,7 +53,7 @@ object PeriScen3 extends PeriScenStart
 object PeriScen4 extends PeriScen{
   override implicit val gridSys: EGridSys = EGrid13.e30(104, 106)
   override val terrs: LayerHcRefSys[WTile] = Terr13E30.terrs.spawn(Terr13E30.grid, gridSys)
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr13E30.sTerrs.spawn(Terr13E30.grid, gridSys)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr13E30.sTerrs.spawn(Terr13E30.grid, gridSys)
   override val corners: HCornerLayer = Terr13E30.corners.spawn(Terr13E30.grid, gridSys)
   override val armies: LayerHcOptSys[Army] = LayerHcOptSys[Army]()
 }

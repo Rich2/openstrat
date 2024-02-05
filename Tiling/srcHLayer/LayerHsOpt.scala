@@ -7,8 +7,8 @@ trait LayerHsOpt
   type KeyT <: HCenStruct
 }
 
-/** Data layer for [[HSep]]s of an [[HGridSys]] where there is are [[HSideSome]] and [[HSideNone]] types. */
-class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSepLayerAny[A]
+/** Data layer for [[HSep]]s of an [[HGridSys]] where there is are [[HSepSome]] and [[HSepNone]] types. */
+class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLayerAny[A]
 { type KeyT = HGridSys
 
   /** apply index method returns the data from this layer for the given [[HSep]]. */
@@ -21,7 +21,7 @@ class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSepL
   def someOnlyHSPolyMap(proj: HSysProjection, corners: HCornerLayer)(f: (HSep, Polygon) => GraphicElem)(implicit gridSys: HGridSys): GraphicElems =
     proj.sidesOptMap { hs =>
       apply(hs) match
-      { case _: HSideSome =>
+      { case _: HSepSome =>
         { val poly = corners.sidePoly(hs).project(proj)
           Some(f(hs, poly))
         }
@@ -34,7 +34,7 @@ class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSepL
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
-          sa: HSideSome => {
+          sa: HSepSome => {
           val poly = corners.sidePoly(hs).project(proj)
           Some(f(sa.asInstanceOf[SA], poly))
         }
@@ -47,7 +47,7 @@ class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSepL
     proj.sidesOptMap { hs =>
       apply(hs) match {
         case
-          sa: HSideSome =>
+          sa: HSepSome =>
         { val poly = corners.sidePoly(hs).project(proj)
           Some(f(sa.asInstanceOf[SA], hs, poly))
         }
@@ -65,10 +65,10 @@ class LayerHSOptSys[A, SA <: HSideSome](val unsafeArray: Array[A]) extends HSepL
 
 object LayerHSOptSys
 {
-  def apply[A, SA <: HSideSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): LayerHSOptSys[A, SA] =
+  def apply[A, SA <: HSepSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): LayerHSOptSys[A, SA] =
     apply[A, SA](gridSys, defaultValue)(ct)
 
-  def apply[A, SA <: HSideSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
+  def apply[A, SA <: HSepSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
   { val newArray = new Array[A](gridSys.numSides)
     iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
     new LayerHSOptSys[A, SA](newArray)

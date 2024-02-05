@@ -14,7 +14,7 @@ import prid._, phex._, egrid._, WTiles._
 object Terr220E0 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
@@ -70,14 +70,14 @@ object Terr220E0 extends Long220Terrs
 object BritReg220
 { def britGrid: EGrid220Long = EGrid220Long.reg(156, 170, 0, 500, 520)
   def britTerrs: LayerHcRefSys[WTile] = Terr220E0.terrs.spawn(Terr220E0.grid, britGrid)
-  def britSTerrs: LayerHSOptSys[WSide, WSideSome] = Terr220E0.sTerrs.spawn(Terr220E0.grid, britGrid)
+  def britSTerrs: LayerHSOptSys[WSep, WSepSome] = Terr220E0.sTerrs.spawn(Terr220E0.grid, britGrid)
   def britCorners: HCornerLayer = Terr220E0.corners.spawn(Terr220E0.grid, britGrid)
 
   def regScen: EScenBasic = new EScenBasic
   { override def title: String = "Regular Britain"
     override implicit val gridSys: EGrid220Long = britGrid
     override val terrs: LayerHcRefSys[WTile] = britTerrs
-    override val sTerrs: LayerHSOptSys[WSide, WSideSome] = britSTerrs
+    override val sTerrs: LayerHSOptSys[WSep, WSepSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
   }
 }

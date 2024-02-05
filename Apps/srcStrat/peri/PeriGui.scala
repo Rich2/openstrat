@@ -8,7 +8,7 @@ class PeriGui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat
 
   override def terrs: LayerHcRefSys[WTile] = scen.terrs
 
-  override def sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
+  override def sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
 
   override def corners: HCornerLayer = scen.corners
 

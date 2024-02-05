@@ -7,7 +7,7 @@ object Scen320Europe extends EScenLongMulti
 { override val title: String = "320km Europe 0°E - 30°E"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 0, 120)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -16,7 +16,7 @@ object Scen320ChinaJapan extends EScenLongMulti
 { override val title: String = "320km China - Japan 90°E - 150°E"
   implicit override val gridSys: EGrid320LongMulti = EGrid320.multi(3, 3, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -25,7 +25,7 @@ object Scen320NorthAmerica extends EScenLongMulti
 { override val title: String = "320km North America 150°W - 60°W"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 7, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -34,7 +34,7 @@ object Scen320Africa extends EScenLongMulti
 { override val title: String = "320km Africa 30°W - 60°E"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 11, 118)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -43,7 +43,7 @@ object Scen320India extends EScenLongMulti
 { override val title: String = "320km India 60°E - 90°E"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(2, 2, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -52,7 +52,7 @@ object Scen320Atlantic extends EScenLongMulti
 { override val title: String = "320km Atlantic 120°W - 30°W"
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(4, 9, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -61,6 +61,6 @@ object Scen320All extends EScenLongMulti
 { override val title: String = "320km all longitude terrain only scenario."
   override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(12, 0, 124)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = fullTerrsSideLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

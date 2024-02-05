@@ -7,7 +7,7 @@ trait WW1Scen extends HSysTurnScen
 { ThisScen =>
   def title: String = "WWI scenario."
   val terrs: LayerHcRefSys[WTile]
-  val sTerrs: LayerHSOptSys[WSide, WSideSome]
+  val sTerrs: LayerHSOptSys[WSep, WSepSome]
   val corners: HCornerLayer
   val lunits: LayerHcRArr[Lunit]
 
@@ -37,7 +37,7 @@ object WW1Scen1 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E0.grid
   override val terrs: LayerHcRefSys[WTile] = Terr120E0.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr120E0.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr120E0.sTerrs
   override val corners: HCornerLayer = Terr120E0.corners
   override val lunits: LayerHcRArr[Lunit] = LayerHcRArr()
   lunits.set1(310, 514, Army(pStrat.Britain, 1))
@@ -50,7 +50,7 @@ object WW1Scen2 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid120LongFull = Terr120E30.grid
   override val terrs: LayerHcRefSys[WTile] = Terr120E30.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr120E30.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr120E30.sTerrs
   override val corners: HCornerLayer = Terr120E30.corners
   override val lunits: LayerHcRArr[Lunit] = LayerHcRArr()
 }

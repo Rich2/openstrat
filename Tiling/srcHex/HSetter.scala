@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 /** Helper trait for setting an [[LayerHcRefSys]], [[HSepLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
  *  terrain to be laid out in systematic row order. */
-trait HSetter[TT <: AnyRef, ST, SST <: ST with HSideSome]
+trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
 { implicit def grid: HGrid
 
   def terrs: LayerHcRefSys[TT]

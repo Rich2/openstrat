@@ -7,7 +7,7 @@ object Terr220W60 extends Long220Terrs
 {
   override implicit val grid: EGrid220LongFull = EGrid220.w60(144, 166)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)

@@ -7,7 +7,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 { statusText = "Welcome to Civ Rise."
   implicit val gridSys: HGridSys = scen.gridSys
   val terrs: LayerHcRefSys[VTile] = scen.terrs
-  val sTerrs: LayerHSOptSys[VSide, VSideSome] = scen.sTerrs
+  val sTerrs: LayerHSOptSys[VSide, VSepSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   val lunits: LayerHcRArr[Warrior] = scen.lunits
 
@@ -25,13 +25,13 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
       def t2: VTile = terrs(hs.tileRt)
 
       sTerrs(hs) match
-      { case VSideNone if t1.colour == t2.colour =>
+      { case VSepNone if t1.colour == t2.colour =>
         { val cs: (HCen, Int, Int) = hs.cornerNums
           val ls1: LineSeg = corners.sideLine(cs._1, cs._2, cs._3)
           Some(ls1.draw(lineColour = t1.contrastBW))
         }
-        case _: VSideSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVOffset).draw(lineColour = t1.contrastBW))
-        case _: VSideSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVOffset).draw(lineColour = t2.contrastBW))
+        case _: VSepSome if t1.isWater => Some(hs.leftCorners(corners).map(proj.transHVOffset).draw(lineColour = t1.contrastBW))
+        case _: VSepSome if t2.isWater => Some(hs.rightCorners(corners).map(proj.transHVOffset).draw(lineColour = t2.contrastBW))
         case _ => None
       }
     }

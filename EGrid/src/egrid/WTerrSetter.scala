@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSide, WSideSome], val corners: HCornerLayer) extends
-  HSetter[WTile, WSide, WSideSome]
+/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSep] and [[HCornerLayer]] at the same time." */
+abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome], val corners: HCornerLayer) extends
+  HSetter[WTile, WSep, WSepSome]
 {
   implicit val grid: HGrid = gridIn
 
@@ -18,50 +18,50 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   trait TRunnerExtra extends TRunner
 
-  /** Sets the side terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
   case class Isle(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with IsleBase
 
   object Isle
-  { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle = Isle(Land(elev, biome, landUse), sTerr)
   }
-  /** Sets the side terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
   case class Isle8(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle8Base
 
   object Isle8
-  { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle8 = Isle8(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
   case class Isle6(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle6Base
 
   object Isle6
-  { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle6 = Isle6(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
   case class Isle5(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle6Base
 
   object Isle5
-  { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle5 = Isle5(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
   case class Isle4(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle4Base
 
   object Isle4
-  { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle4 = Isle4(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Sets the side terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
   case class Isle3(terr: Land = Land(Level, Temperate, CivMix), sTerr: Water = Sea) extends TRunner with Isle3Base
 
   object Isle3
-  { /** Factory apply method for Isle. Sets the side terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle3 = Isle3(Land(elev, biome, landUse), sTerr)
   }
 
@@ -78,12 +78,12 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
       new Cape(indentStartIndex, 1, Land(elev, biome, landUse), sideTerrs)
   }
 
-  /** Isthmus for [[WTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
+  /** Isthmus for [[WTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 [[HSep]] terrains. */
   class Isthmus private(val indentIndex: Int, val terr: Land = Land(), val sepTerrs1: Water = Sea, val sepTerrs2: Water = Sea) extends TRunner with
     IsthmusBase
 
   object Isthmus
-  { /** Factory apply method for Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
+  { /** Factory apply method for Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 [[HSep]] terrains. */
     def apply(indentIndex: Int, terr: Land = Land(), sideTerrs1: Water = Sea, sideTerrs2: Water = Sea): Isthmus =
       new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }
@@ -121,59 +121,59 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
-  case class SetSide(c: Int, terr: WSideSome = Sea) extends  VRowElem with SetSideBase
-  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
-  case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSideSome = Sea) extends VRowElem with MouthLtBase
-  case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSideSome = Sea) extends VRowElem with MouthRtBase
-  case class MouthLtRt(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSideSome = Sea) extends VRowElem with MouthLtRtBase
+  case class SetSide(c: Int, terr: WSepSome = Sea) extends  VRowElem with SetSideBase
+  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
+  case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthLtBase
+  case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
+  case class MouthLtRt(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 
-  case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSideSome = Sea, magnitude1: Int = 3,
+  case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3,
                        magnitude2: Int = 3) extends VRowElem with MouthSpecBase
 
-  /** Sets all the corners of Vertex for a bend side terrain with a default offset of 3. Also sets the left most of the sides of this vertex with a
+  /** Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this vertex with a
    *  default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  case class BendAll(val c: Int, val dirn: HVDirn, val sTerr: WSideSome, val magnitude: Int) extends VRowElem with BendAllBase
+  case class BendAll(val c: Int, val dirn: HVDirn, val sTerr: WSepSome, val magnitude: Int) extends VRowElem with BendAllBase
 
   object BendAll
   {
-    def apply(c: Int, dirn: HVDirn, terr: WSideSome = Sea, magnitude: Int = 3): BendAll =
+    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea, magnitude: Int = 3): BendAll =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
       new BendAll(c, dirn, terr, magnitude)
     }
   }
 
-  /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, max 7, Also sets the left most of the sides of the bend vertex, with
+  /** Sets the 2 outer corners of the bend for [[HSep]] terrain with a default offset of 6, max 7, Also sets the left most of the [[HSep]]s of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendOutBase
+  class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSepSome = Sea) extends VRowElem with BendOutBase
 
   object BendOut
   {
-    def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSideSome = Sea): BendOut =
+    def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSepSome = Sea): BendOut =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
       new BendOut(c, dirn, magnitude, terr)
     }
   }
 
-  /** Sets the 2 outer corners of the bend for side terrain with a default offset of 6, Also sets the left most of the sides of the bend vertex, with
+  /** Sets the 2 outer corners of the bend for [[HSep]] terrain with a default offset of 6, Also sets the left most of the [[HSep]]s of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendInBase
+  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSepSome = Sea) extends VRowElem with BendInBase
 
   object BendIn
   {
-    def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSideSome = Sea): BendIn =
+    def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSepSome = Sea): BendIn =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 13, magnitude.toString -- "magnitude, magnitude values > 13 not allowed.")
       new BendIn(c, dirn, magnitude, terr)
     }
   }
 
-  class BendInOut(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val sTerr: WSideSome = Sea) extends VRowElem with BendInOutBase
+  class BendInOut(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val sTerr: WSepSome = Sea) extends VRowElem with BendInOutBase
 
   object BendInOut
   {
-    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, terr: WSideSome = Sea): BendInOut =
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, terr: WSepSome = Sea): BendInOut =
     { ifExcep(magIn < 0, magIn.str -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magOut < 0, magOut.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magIn > 13, magIn.str -- "magnitude, magnitude values > 13 not allowed.")
@@ -183,17 +183,17 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
-  case class VertRightsLeft(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsLeftBase
+  case class VertRightsLeft(c: Int, terr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsLeftBase
 
   /** Used for setting a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
-  case class VertLeftsRight(c: Int, terr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase
+  case class VertLeftsRight(c: Int, terr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase
 
-  /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
-  case class ThreeWay(c: Int, sTerr: WSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
+  /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
+  case class ThreeWay(c: Int, sTerr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
 
-  /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
-  case class ThreeDown(c: Int, magUp: Int, magDR: Int, magDL: Int, st: WSideSome = Sea) extends VRowElem with ThreeDownBase
+  /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
+  case class ThreeDown(c: Int, magUp: Int, magDR: Int, magDL: Int, st: WSepSome = Sea) extends VRowElem with ThreeDownBase
 
-  /** Sets a vertex where 3 side terrains meet. Also sets the left most side terrain, the default is [[Sea]]. */
-  case class ThreeUp(c: Int, magUR: Int, magDn: Int, magUL: Int, sTerr: WSideSome = Sea) extends VRowElem with ThreeUpBase
+  /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
+  case class ThreeUp(c: Int, magUR: Int, magDn: Int, magUL: Int, sTerr: WSepSome = Sea) extends VRowElem with ThreeUpBase
 }

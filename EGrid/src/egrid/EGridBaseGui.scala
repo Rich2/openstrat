@@ -5,7 +5,7 @@ import geom._, prid._, phex._
 abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 { implicit val gridSys: HGridSys
   def terrs: LayerHcRefSys[WTile]
-  def sTerrs: LayerHSOptSys[WSide, WSideSome]
+  def sTerrs: LayerHSOptSys[WSep, WSepSome]
   def corners: HCornerLayer
   implicit def proj: HSysProjection
 
@@ -29,12 +29,12 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 
     sTerrs(hs) match
     {
-      case WSideNone if t1.colour == t2.colour =>
+      case WSepNone if t1.colour == t2.colour =>
       { val ls1: Option[LineSeg] = hs.projCornersSideLine(proj, corners)
         ls1.map(_.draw(lineColour = t1.contrastBW))
       }
-      case _: WSideSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))
-      case _: WSideSome if t2.isWater => hs.rightCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t2.contrastBW))
+      case _: WSepSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))
+      case _: WSepSome if t2.isWater => hs.rightCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t2.contrastBW))
       case _ => None
     }
   }
@@ -66,12 +66,12 @@ abstract class EGridBaseGui(title: String)  extends HGridSysGui(title)
 
       sTerrs(hs) match
       {
-        case WSideNone if t1.colour == t2.colour =>
+        case WSepNone if t1.colour == t2.colour =>
         { val ls1: Option[LineSeg] = hs.projCornersSideLine(proj, corners)
           ls1.map(_.draw(lineColour = t1.contrastBW))
         }
-        case _: WSideSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))
-        case _: WSideSome if t2.isWater => hs.rightCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t2.contrastBW))
+        case _: WSepSome if t1.isWater => hs.leftCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t1.contrastBW))
+        case _: WSepSome if t2.isWater => hs.rightCorners(corners).mapOpt(proj.transOptHVOffset).map(_.draw(lineColour = t2.contrastBW))
         case _ => None
       }
     }

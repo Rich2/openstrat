@@ -9,7 +9,7 @@ trait WW2Scen extends HSysTurnScen
   override def toString = title
   override implicit val gridSys: EGridSys
   val terrs: LayerHcRefSys[WTile]
-  val sTerrs: LayerHSOptSys[WSide, WSideSome]
+  val sTerrs: LayerHSOptSys[WSep, WSepSome]
   val corners: HCornerLayer
   def lunitSts: LayerHcRArr[Lunit]
 
@@ -43,7 +43,7 @@ object WW2Scen1 extends WW2Scen
 
   override implicit val gridSys: EGrid460LongMulti = Scen460All.gridSys
   override val terrs: LayerHcRefSys[WTile] = Scen460All.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460All.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Scen460All.sTerrs
   override val corners: HCornerLayer = Scen460All.corners
 
   val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr[Lunit]()
@@ -67,7 +67,7 @@ object WW2Scen2 extends WW2Scen
 
   override implicit val gridSys = Scen460Europe.gridSys
   override val terrs: LayerHcRefSys[WTile] = Scen460Europe.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Scen460Europe.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Scen460Europe.sTerrs
   override val corners: HCornerLayer = Scen460Europe.corners
   val lunitSts: LayerHcRArr[Lunit] = LayerHcRArr()
 }

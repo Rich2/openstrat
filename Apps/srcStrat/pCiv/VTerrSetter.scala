@@ -3,8 +3,8 @@ package ostrat; package pCiv
 import prid._, phex._
 
 /** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSide, VSideSome], val corners: HCornerLayer) extends
-HSetter[VTile, VSide, VSideSome]
+abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSide, VSepSome], val corners: HCornerLayer) extends
+HSetter[VTile, VSide, VSepSome]
 { implicit val grid: HGrid = gridIn
 
   sealed trait RowBase
@@ -37,7 +37,7 @@ HSetter[VTile, VSide, VSideSome]
       new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }
 
-  case class SepB(sTerr: VSideSome = Sea) extends TRunnerExtra with SepBBase
+  case class SepB(sTerr: VSepSome = Sea) extends TRunnerExtra with SepBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem
@@ -76,11 +76,11 @@ HSetter[VTile, VSide, VSideSome]
   {  terrs.set(row, c, tile)
   }
 
-  case class SetSide(c: Int, terr: VSideSome = Sea) extends VRowElem with SetSideBase
-  case class ThreeWay(c: Int, sTerr: VSideSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
-  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: VSideSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
+  case class SetSide(c: Int, terr: VSepSome = Sea) extends VRowElem with SetSideBase
+  case class ThreeWay(c: Int, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
+  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
 
-  case class BendAll(c: Int, dirn: HVDirn, sTerr: VSideSome = Sea) extends VRowElem with BendAllBase
+  case class BendAll(c: Int, dirn: HVDirn, sTerr: VSepSome = Sea) extends VRowElem with BendAllBase
   { override def magnitude: Int = 3
   }
 }

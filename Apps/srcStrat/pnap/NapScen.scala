@@ -13,7 +13,7 @@ object NapScen1 extends NapScen
 
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
   override val terrs: LayerHcRefSys[WTile] = Terr80E0.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr80E0.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
 
   override val corps: LayerHcOptSys[Corps] = LayerHcOptSys()
@@ -26,7 +26,7 @@ object NapScen2 extends NapScen
 
   override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
   override val terrs: LayerHcRefSys[WTile] = Terr80E0.terrs
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = Terr80E0.sTerrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr80E0.sTerrs
   override val corners: HCornerLayer = Terr80E0.corners
 
   override val corps: LayerHcOptSys[Corps] = LayerHcOptSys()

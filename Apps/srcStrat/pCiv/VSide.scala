@@ -7,16 +7,16 @@ trait VSide extends Coloured
 object VSide
 {
   implicit val defaultValueEv: DefaultValue[VSide] = new DefaultValue[VSide]
-  { override def default: VSide = VSideNone
+  { override def default: VSide = VSepNone
   }
 }
 
-case object VSideNone extends VSide with HSideNone
+case object VSepNone extends VSide with HSepNone
 { override val colour: Colour = Black
 }
 
-trait VSideSome extends VSide with HSideSome
+trait VSepSome extends VSide with HSepSome
 
-object River extends VSideSome
+object River extends VSepSome
 { override def colour: Colour = Blue
 }

@@ -6,7 +6,7 @@ case class BC305Gui(canv: CanvasPlatform, scenIn: BCScen, viewIn: HGView, isFlat
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: LayerHcRefSys[WTile] = scen.terrs
-  val sTerrs: LayerHSOptSys[WSide, WSideSome] = scen.sTerrs
+  val sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
   val corners = scen.corners
   def armies: LayerHcOptSys[Legion] = scen.armies
 

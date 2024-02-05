@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
 /** Hex tile indented on a number of its vertices, representing an island or a headland and its surrounding waters or similarly geometrically
@@ -31,9 +31,9 @@ trait HcIndent6 extends HcIndentN
   override def indentedSideIndexForeach(f: Int => Unit): Unit = iUntilForeach(6)(f)
 }
 
-trait HSideOpt
+trait HSepOpt
 
-trait HSideNone extends HSideOpt
+trait HSepNone extends HSepOpt
 
 /** This trait is purely to tag an object as a something. */
-trait HSideSome extends HSideOpt
+trait HSepSome extends HSepOpt

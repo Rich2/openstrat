@@ -9,7 +9,7 @@ object Terr160E0 extends Long160Terrs
   /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
 
-  override val sTerrs: LayerHSOptSys[WSide, WSideSome] = LayerHSOptSys[WSide, WSideSome]()
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
@@ -53,13 +53,13 @@ object Terr160E0 extends Long160Terrs
 /** 16okm terrain scenario for Britain */
 object Brit160
 { def britTerrs: LayerHcRefSys[WTile] = Terr160E0.terrs.spawn(Terr160E0.grid, EGrid160.britGrid)
-  def britSTerrs: LayerHSOptSys[WSide, WSideSome] =Terr160E0.sTerrs.spawn(Terr160E0.grid, EGrid160.britGrid)
+  def britSTerrs: LayerHSOptSys[WSep, WSepSome] =Terr160E0.sTerrs.spawn(Terr160E0.grid, EGrid160.britGrid)
   def britCorners: HCornerLayer = Terr160E0.corners.spawn(Terr160E0.grid, EGrid160.britGrid)
 
   def britScen: EScenBasic = new EScenBasic
   { override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
     override val terrs: LayerHcRefSys[WTile] = britTerrs
-    override val sTerrs: LayerHSOptSys[WSide, WSideSome] = britSTerrs
+    override val sTerrs: LayerHSOptSys[WSep, WSepSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
   }
 }
