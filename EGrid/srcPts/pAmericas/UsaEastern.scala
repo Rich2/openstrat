@@ -32,29 +32,31 @@ object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, h
   val sandyHookNorth: LatLong = 40.478 ll -74.016
   val sedgeIslandSouth: LatLong = 39.766 ll -74.097
   val barnegat: LatLong = 39.759 ll -74.100
-
-
-  val delawareMouth: LatLong = 39.270 ll -75.342
-  val capeHenlopen: LatLong = 38.803 ll -75.092
-  val delawareSE: LatLong = 38.451 ll -75.049
-  val fishermanIsland: LatLong = 37.085 ll -75.961
+  val capeMayPoint: LatLong = 38.932 ll -74.962
+  val fortHoward: LatLong = 39.196 ll -76.443
+  val covePoint: LatLong = 38.385 ll -76.381
+  val littleWicomicaMouth: LatLong = 37.890 ll -76.236
 
   override def polygonLL: PolygonLL = LakeErie.southCoast ++ LakeOntario.usCoast |++|
     LinePathLL(NewBrunswick.east, NewBrunswick.maineE, marshallPoint, landsEnd, nahantEast, thacherIsland, deerIsland, scituateNeck, brantRock,
       racePoint, chatham, natucketIsland, sakonnetPoint, quinniapacMouth, pineIsland, plumIsland, montaukPoint, saltaire, stattenS, sandyHookNorth,
-      sedgeIslandSouth, barnegat, Delmarva.northEast, Delmarva.northWest,
-      delawareMouth, capeHenlopen, delawareSE, fishermanIsland, UsaSouth.northEast, UsaSouth.northWest, LakeMichigan.south)
+      sedgeIslandSouth, barnegat, capeMayPoint, Delmarva.northEast, Delmarva.northWest, fortHoward, covePoint, littleWicomicaMouth,
+      UsaSouth.northEast, UsaSouth.northWest, LakeMichigan.south)
 }
 
-/** [[PolygonLL]] Graphical object for the north east of the United States. Dependant on [[UsaSouth]] [[CanadaSouthEast]], [[LakeMichigan]],
- *  [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
+/** [[PolygonLL]] Graphical object for the north east of the United States. Dependant on nothing. */
 object Delmarva extends EArea2("Delmarva Peninsula", 38.777 ll -75.233, land)
 {
   val northEast: LatLong = 39.589 ll -75.599
-  val capeMayPoint: LatLong = 38.932 ll -74.962
+  val capeHenlopen: LatLong = 38.803 ll -75.092
+  val delawareSE: LatLong = 38.451 ll -75.049
+  val assateagueHook: LatLong = 37.852 ll -75.382
+  val fishermanIsland: LatLong = 37.085 ll -75.961
+  val p70: LatLong = 37.925 ll -75.896
+  val taylorsIsland: LatLong = 38.481 ll -76.333
   val northWest: LatLong = 39.592 ll -75.945
 
-  override def polygonLL: PolygonLL = PolygonLL(northEast, capeMayPoint, northWest)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, capeHenlopen, delawareSE, assateagueHook, fishermanIsland, p70, taylorsIsland, northWest)
 }
 
 /** [[PolygonLL]] Graphical object for the United States South. Dependant on [[Florida]]. */

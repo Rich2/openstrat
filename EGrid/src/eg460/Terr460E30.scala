@@ -40,7 +40,7 @@ object Terr460E30 extends Long460Terrs
       TRow(114, desert * 3, sahel, Cape(4, 1, hillySahel), desert),
       VRow(113, BendOut(1542, HVDL)),
       TRow(112, desert * 3, hillyDesert, Cape(4, 1, hillyDesert), desert),
-      VRow(111, BendAll(1544, HVDL, sea, 5, 7)),
+      VRow(111, BendInOut(1544, HVDL, 5, 7)),
       TRow(110, desert, hillyDesert, desert * 2, hillySahel, hillySahel),
       VRow(109, BendIn(1544, HVUR, 13), BendOut(1546, HVDL, 7)),
       TRow(108, desert * 4, sahel, hillySahel, Cape(3, 2, hillySahel)),
