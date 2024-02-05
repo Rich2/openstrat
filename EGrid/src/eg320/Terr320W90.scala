@@ -16,7 +16,7 @@ object Terr320W90 extends Long320Terrs
       TRow(164, mtain),
       TRow(162, SeaIceWinter,  mtain),
       TRow(160, Isle(tundra), SeaIceWinter),
-      VRow(156, SetSide(9722)),
+      VRow(156, SetSep(9722)),
       TRow(158, Cape(4, 4, tundra, SeaIceWinter), Cape(4, 1, tundra, SeaIceWinter), Cape(0, 2, tundra, SeaIceWinter)),
       TRow(156, sea, Cape(1, 1, tundra), Cape(3, 2, tundra)),
       TRow(154, tundra * 3, sea),

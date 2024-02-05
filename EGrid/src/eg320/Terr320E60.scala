@@ -18,7 +18,7 @@ object Terr320E60 extends Long320Terrs
       TRow(160, Cape(5, 1, tundra, SeaIceWinter), sea),
       TRow(158, Cape(2, 4, tundra), sea, tundra),
       TRow(156, sea * 2, tundra),
-      VRow(155, SetSide(2553)),
+      VRow(155, SetSep(2553)),
       TRow(154, SepB(), tundra * 4),
       TRow(152, taiga * 4),
       TRow(150, taiga * 4),

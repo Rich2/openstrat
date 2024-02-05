@@ -25,11 +25,11 @@ object Terr13E60 extends Long13Terrs
       TRow(102, Cape(0, 3, desert), sea),
       VRow(101, BendOut(2558, HVDR)),
       TRow(100, SepB(), sea * 2),
-      VRow(99, SetSide(2557)),
+      VRow(99, SetSep(2557)),
       TRow(98, SepB(), sea * 2),
-      VRow(97, SetSide(2557)),
+      VRow(97, SetSep(2557)),
       TRow(96, SepB(), sea * 2),
-      VRow(95, SetSide(2557)),
+      VRow(95, SetSep(2557)),
       VRow(87,Mouth(2558, HVUR), Mouth(2560, HVDL, wice), Mouth(2564, HVDR, wice)),
       TRow(86, Cape(0, 1, ice, wice))
     )

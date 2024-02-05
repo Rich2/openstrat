@@ -14,7 +14,7 @@ object Terr640W60 extends Long640Terrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(130, tundra),
       TRow(128, tundra),
-      VRow(127, SetSide(10748)),
+      VRow(127, SetSep(10748)),
       TRow(126, SepB(), Cape(2, 2, tundra), Cape(3, 4, hillyTundra)),
       VRow(123, Mouth(10748, HVDR)),
       TRow(124, Cape(5, 4, Mountains(Tundra)), sea),
@@ -23,7 +23,7 @@ object Terr640W60 extends Long640Terrs
       VRow(119, Mouth(10750, HVUL), Mouth(10752, HVDR)),
       TRow(118, Cape(2, 2, taiga), sea),
       VRow(117, Mouth(10748, HVUL)),
-      VRow(109, SetSide(10745)),
+      VRow(109, SetSep(10745)),
       TRow(108, SepB()),
       VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAll(10750, HVUp)),
       TRow(104, Cape(0, 1, hillyJungle), Cape(0, 1, jungle), Cape(0, 2, jungle)),

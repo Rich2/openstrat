@@ -8,7 +8,7 @@ trait CivScen  extends HSysTurnScen
 
   /** tile terrain. */
   val terrs: LayerHcRefSys[VTile]
-  val sTerrs: LayerHSOptSys[VSide, VSepSome]
+  val sTerrs: LayerHSOptSys[VSep, VSepSome]
   val corners: HCornerLayer
   val lunits: LayerHcRArr[Warrior]
 }
@@ -22,7 +22,7 @@ trait CivScenStart extends CivScen
 object Civ1 extends CivScenStart
 { override implicit val gridSys: HGrid = HGridRect.minMax(2, 12, 4, 40)
   override val terrs: LayerHcRefSys[VTile] = LayerHcRefSys[VTile](Plain)
-  override val sTerrs: LayerHSOptSys[VSide, VSepSome] = LayerHSOptSys[VSide, VSepSome]()
+  override val sTerrs: LayerHSOptSys[VSep, VSepSome] = LayerHSOptSys[VSep, VSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)
@@ -51,7 +51,7 @@ object Civ2 extends CivScenStart
 { override val title: String = "CivRise Scen 2"
   override implicit val gridSys: HGrid = HGridRect.minMax(2, 14, 4, 42)
   val terrs: LayerHcRefSys[VTile] = LayerHcRefSys[VTile](Sea)
-  override val sTerrs: LayerHSOptSys[VSide, VSepSome] = LayerHSOptSys[VSide, VSepSome]()
+  override val sTerrs: LayerHSOptSys[VSep, VSepSome] = LayerHSOptSys[VSep, VSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
 
   val help = new VTerrSetter(gridSys, terrs, sTerrs, corners)

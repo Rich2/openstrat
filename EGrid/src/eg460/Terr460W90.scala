@@ -16,7 +16,7 @@ object Terr460W90 extends Long460Terrs
       TRow(146, SeaIcePerm),
       TRow(144, Isle(mtain)),
       TRow(142, Isle(mtain)),
-      VRow(141, SetSide(9727), ThreeWay(9730)),
+      VRow(141, SetSep(9727), ThreeWay(9730)),
       TRow(140, SepB(), hillyTundra, SepB(), hillyTundra),
       VRow(139, BendIn(9726, HVUL), BendOut(9724, HVUp), Mouth(9728, HVDL), ThreeWay(9730)),
       TRow(138, tundra, Cape(0, 3, hillyTundra)),

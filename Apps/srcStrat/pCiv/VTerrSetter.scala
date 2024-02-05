@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
 import prid._, phex._
 
-/** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSide] and [[HCornerLayer]] at the same time." */
-abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSide, VSepSome], val corners: HCornerLayer) extends
-HSetter[VTile, VSide, VSepSome]
+/** Helper class for setting  [[LayerHcRefSys]][VTile], [[HSepLayer]][VSep] and [[HCornerLayer]] at the same time." */
+abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val sTerrs: LayerHSOptSys[VSep, VSepSome], val corners: HCornerLayer) extends
+HSetter[VTile, VSep, VSepSome]
 { implicit val grid: HGrid = gridIn
 
   sealed trait RowBase
@@ -76,7 +76,7 @@ HSetter[VTile, VSide, VSepSome]
   {  terrs.set(row, c, tile)
   }
 
-  case class SetSide(c: Int, terr: VSepSome = Sea) extends VRowElem with SetSideBase
+  case class SetSep(c: Int, terr: VSepSome = Sea) extends VRowElem with SetSepBase
   case class ThreeWay(c: Int, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
   case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
 

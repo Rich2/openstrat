@@ -7,7 +7,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 { statusText = "Welcome to Civ Rise."
   implicit val gridSys: HGridSys = scen.gridSys
   val terrs: LayerHcRefSys[VTile] = scen.terrs
-  val sTerrs: LayerHSOptSys[VSide, VSepSome] = scen.sTerrs
+  val sTerrs: LayerHSOptSys[VSep, VSepSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   val lunits: LayerHcRArr[Warrior] = scen.lunits
 

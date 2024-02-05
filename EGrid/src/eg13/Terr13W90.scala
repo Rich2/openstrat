@@ -21,7 +21,7 @@ object Terr13W90 extends Long13Terrs
       TRow(106, savannah, Cape(2, 1)),
       VRow(105, Mouth(9726, HVDL)),
       TRow(104, Cape(0, 2, hillyJungle), sea),
-      VRow(103, SetSide(9725), BendOut(9730, HVUR), BendOut(9732, HVUp)),
+      VRow(103, SetSep(9725), BendOut(9730, HVUR), BendOut(9732, HVUp)),
       TRow(102, sea, Cape(3, 2, hillyJungle)),
       VRow(101, Mouth(9732, HVUR)),
       TRow(100, sea, Cape(5, 1, hillyJungle)),

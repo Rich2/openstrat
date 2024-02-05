@@ -17,7 +17,7 @@ object Terr13E150 extends Long13Terrs
       TRow(108, Isle(hillyForest)),
       TRow(106, sea, sea),
       TRow(102, SepB()),
-      VRow(101, SetSide(5628)),
+      VRow(101, SetSep(5628)),
       TRow(100, SepB(), sea * 2),
       VRow(99, BendOut(5628, HVDL), Mouth(5630, HVDn)),
       TRow(98, Cape(3, 2, hillyJungle), sea),

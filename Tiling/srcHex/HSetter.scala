@@ -544,7 +544,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   }
 
   /** This is for setting [[HSep]]s on the edge of grids that sit within the hex area of the tile on the neighbouring grid. */
-  trait SetSideBase
+  trait SetSepBase
   { def c: Int
     def terr: SST
     def run(row: Int): Unit = sTerrs.set(row, c, terr)

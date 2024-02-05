@@ -21,7 +21,7 @@ object Terr13E120 extends Long13Terrs
       TRow(106, hilly),
       TRow(104, Isle4(hillyJungle), sea),
       TRow(102, SepB(), sea, Isle6(hillyJungle)),
-      VRow(101, BendIn(4604, HVDn), SetSide(4605)),
+      VRow(101, BendIn(4604, HVDn), SetSep(4605)),
       TRow(100, SepB(), hillyJungle, Cape(4, 4, hillyJungle)),
       VRow(99, BendIn(4604, HVDR), ThreeWay(4606), BendOut(4612, HVDL), Mouth(4614, HVDn)),
       TRow(98, Cape(1, 3, hillyJungle), sea),
