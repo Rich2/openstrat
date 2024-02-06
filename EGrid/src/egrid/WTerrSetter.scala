@@ -128,7 +128,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class MouthLtRt(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 
   case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3,
-                       magnitude2: Int = 3) extends VRowElem with MouthSpecBase
+    magnitude2: Int = 3) extends VRowElem with MouthSpecBase
 
   /** Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this vertex with a
    *  default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */

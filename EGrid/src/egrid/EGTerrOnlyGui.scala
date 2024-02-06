@@ -12,7 +12,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(true)
-
+  var sideDrawOn: Boolean = false
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
   proj match { case ep: HSysProjectionEarth => ep.irrOn = true; case _ => }
@@ -52,7 +52,9 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills/* ++ sideDraws*/ ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines +% outerLines
+    def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sideDraws, RArr[GraphicElem]())
+
+    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills ++ sideDraws2 ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines +% outerLines
   }
 
   override def selectedStr: String = selected match
@@ -71,8 +73,14 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     case (_, _, h) => deb("Other; " + h.toString)
   }
 
+  def showSideDraw: PolygonCompound = clickButton("S") { b =>
+    sideDrawOn = !sideDrawOn
+    repaint()
+    statusText = ife(sideDrawOn, "Side Draw on", "Side Draw off")
+    thisTop()
+  }
 //  def repaint(): Unit = mainRepaint(frame)
-  def thisTop(): Unit = reTop(proj.buttons)
+  def thisTop(): Unit = reTop(proj.buttons +% showSideDraw)
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
