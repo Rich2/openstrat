@@ -78,7 +78,7 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val unsafeArray: Array[Double]) extends Square
+  final class SquareImp(val arrayUnsafe: Array[Double]) extends Square
   { override type ThisT = SquareImp
 
     override def fromArray(array: Array[Double]): SquareImp = new SquareImp(array)

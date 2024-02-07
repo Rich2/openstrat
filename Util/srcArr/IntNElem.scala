@@ -48,24 +48,24 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
 
   final override def drop(n: Int): ThisT =
   { val nn = n.max0.min(length)
-    val newLen = (unsafeLength - elemProdSize * nn)
+    val newLen = (arrayLen - elemProdSize * nn)
     val newArray = new Array[Int](newLen)
-    unsafeArray.copyDropToArray(nn * elemProdSize, newArray)
+    arrayUnsafe.copyDropToArray(nn * elemProdSize, newArray)
     fromArray(newArray)
   }
 
   final override def dropRight(n: Int): ThisT =
   { val nn = n.max0.min(length)
-    val newArrayLen = (unsafeLength - elemProdSize * nn)
+    val newArrayLen = (arrayLen - elemProdSize * nn)
     val newArray = new Array[Int](newArrayLen)
-    unsafeArray.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     fromArray(newArray)
   }
 
   @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
-  { val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
-    unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, unsafeLength)
+  { val newArray: Array[Int] = new Array(arrayLen + operand.arrayLen)
+    arrayUnsafe.copyToArray(newArray)
+    operand.arrayUnsafe.copyToArray(newArray, arrayLen)
     fromArray(newArray)
   }
 
@@ -81,7 +81,7 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
       if(length == 0) new Array[Int](0)
       else
       { val array = new Array[Int](elemProdSize)
-        iUntilForeach(elemProdSize){i => array(i) = unsafeArray(unsafeLength - elemProdSize + i) }
+        iUntilForeach(elemProdSize){i => array(i) = arrayUnsafe(arrayLen - elemProdSize + i) }
         array
       }
     fromArray(array)
@@ -117,7 +117,7 @@ trait BuilderArrIntNMap[B <: IntNElem, ArrB <: ArrIntN[B]] extends BuilderSeqLik
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrIntNFlat[ArrB <: ArrIntN[_]] extends BuilderSeqLikeIntN[ArrB] with BuilderArrValueNFlat[ArrB]
 {  final override def buffToSeqLike(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
+  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.arrayUnsafe); () }
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
@@ -126,7 +126,7 @@ trait BuffIntN[A <: IntNElem] extends Any with BuffValueN[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
+  override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.arrayUnsafe); () }
   override def length = unsafeBuffer.length / elemProdSize
 }
 

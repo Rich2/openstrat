@@ -21,7 +21,7 @@ trait SeqLikeDbl7[A <: Dbl7Elem] extends Any with SeqLikeDblN[A]
 { def elemProdSize: Int = 7
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
-    unsafeArray.setIndex7(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
+    arrayUnsafe.setIndex7(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5, newElem.dbl6, newElem.dbl7)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl7Elem]]s. */
@@ -34,22 +34,22 @@ trait SeqSpecDbl7[A <: Dbl7Elem] extends Any with SeqLikeDbl7[A] with SeqSpecDbl
 
   def ssIndex(index: Int): A =
   { val offset = 7 * index
-    ssElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
-      unsafeArray(offset + 5), unsafeArray(offset + 6))
+    ssElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
+      arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
   }
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
 trait ArrDbl7[A <: Dbl7Elem] extends Any with ArrDblN[A] with SeqLikeDbl7[A]
-{ def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
-  def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5); def head7: Double = unsafeArray(6)
-  final override def length: Int = unsafeArray.length / 7
+{ def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2); def head4: Double = arrayUnsafe(3)
+  def head5: Double = arrayUnsafe(4); def head6: Double = arrayUnsafe(5); def head7: Double = arrayUnsafe(6)
+  final override def length: Int = arrayUnsafe.length / 7
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))
 
   def apply(index: Int): A =
   { val offset = 7 * index
-    newElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
-      unsafeArray(offset + 5), unsafeArray(offset + 6))
+    newElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),
+      arrayUnsafe(offset + 5), arrayUnsafe(offset + 6))
   }
 
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
@@ -58,8 +58,8 @@ trait ArrDbl7[A <: Dbl7Elem] extends Any with ArrDblN[A] with SeqLikeDbl7[A]
     (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Double](unsafeLength + 7)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Double](arrayLen + 7)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex7(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4, operand.dbl5, operand.dbl6, operand.dbl7)
     fromArray(newArray)
   }
@@ -75,7 +75,7 @@ abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7[A]] exten
     val res = uninitialised(length)
     var i: Int = 0
     while (i < length)
-    { res.unsafeArray.setIndex7(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4, elems(i).dbl5, elems(i).dbl6, elems(i).dbl7)
+    { res.arrayUnsafe.setIndex7(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4, elems(i).dbl5, elems(i).dbl6, elems(i).dbl7)
       i += 1
     }
     res
@@ -85,7 +85,7 @@ abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7[A]] exten
   { val arrLen: Int = elems.length
     val res = uninitialised(elems.length / 7)
     var count: Int = 0
-    while (count < arrLen) { res.unsafeArray(count) = elems(count); count += 1 }
+    while (count < arrLen) { res.arrayUnsafe(count) = elems(count); count += 1 }
     res
   }
 
@@ -96,9 +96,9 @@ abstract class CompanionSeqLikeDbl7[A <: Dbl7Elem, ArrA <: SeqLikeDbl7[A]] exten
      
      while (count < list.length)
      { val offset = count * 7      
-       res.unsafeArray(offset) = rem.head.dbl1; res.unsafeArray(offset +  1) = rem.head.dbl2; res.unsafeArray(offset +  2) = rem.head.dbl3;
-       res.unsafeArray(offset + 3) = rem.head.dbl4; res.unsafeArray(offset + 4) = rem.head.dbl5; res.unsafeArray(offset + 5) = rem.head.dbl6;
-       res.unsafeArray(offset + 7) = rem.head.dbl7
+       res.arrayUnsafe(offset) = rem.head.dbl1; res.arrayUnsafe(offset +  1) = rem.head.dbl2; res.arrayUnsafe(offset +  2) = rem.head.dbl3;
+       res.arrayUnsafe(offset + 3) = rem.head.dbl4; res.arrayUnsafe(offset + 4) = rem.head.dbl5; res.arrayUnsafe(offset + 5) = rem.head.dbl6;
+       res.arrayUnsafe(offset + 7) = rem.head.dbl7
        count += 1
        rem = rem.tail
      }

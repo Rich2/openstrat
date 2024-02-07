@@ -32,7 +32,7 @@ object LineSegSC
 
 /** Compact immutable Array[Int] based collection class for [[LineSegSC]]s. LineSegSqC is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegSCArr(val unsafeArray: Array[Int]) extends ArrInt4[LineSegSC]
+class LineSegSCArr(val arrayUnsafe: Array[Int]) extends ArrInt4[LineSegSC]
 { type ThisT = LineSegSCArr
   def fromArray(array: Array[Int]): LineSegSCArr = new LineSegSCArr(array)
   override def typeStr: String = "Line2s"

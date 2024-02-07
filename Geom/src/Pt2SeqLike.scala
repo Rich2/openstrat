@@ -6,11 +6,11 @@ import collection.mutable.ArrayBuffer
 trait Pt2SeqLike extends Any with PointDbl2SeqLike[Pt2] with SeqLikeDbl2[Pt2]
 {
   def arrTrans(f: Pt2 => Pt2): Array[Double] =
-  { val newArray = new Array[Double](unsafeArray.length)
+  { val newArray = new Array[Double](arrayUnsafe.length)
     var count = 0
-    while (count < unsafeArray.length)
+    while (count < arrayUnsafe.length)
     {
-      val newVec = f(unsafeArray(count) pp unsafeArray(count + 1))
+      val newVec = f(arrayUnsafe(count) pp arrayUnsafe(count + 1))
       newArray(count) = newVec.x
       newArray(count + 1) = newVec.y
       count += 2
@@ -26,14 +26,14 @@ trait Pt2SeqSpec extends Any with Pt2SeqLike with SeqSpecDbl2[Pt2]
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2Arr(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqLike with ArrDbl2[Pt2]
+final class Pt2Arr(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2SeqLike with ArrDbl2[Pt2]
 { type ThisT = Pt2Arr
   def fromArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
   override def typeStr: String = "Pt2s"
 
-  @inline def lengthFull: Int = unsafeArray.length / 2
-  @inline def toPolygon: PolygonGen = new PolygonGen(unsafeArray)
-  @inline def toLinePath: LinePath = new LinePath(unsafeArray)
+  @inline def lengthFull: Int = arrayUnsafe.length / 2
+  @inline def toPolygon: PolygonGen = new PolygonGen(arrayUnsafe)
+  @inline def toLinePath: LinePath = new LinePath(arrayUnsafe)
 
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2]] this will be thee type of the elements of the sequence. */
   override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
@@ -62,7 +62,7 @@ object Pt2Arr extends CompanionSeqLikeDbl2[Pt2, Pt2Arr]
   /** [[Unshow]] type class instance / evidence for [[Pt2Arr]] */
   implicit lazy val unshowEv: UnshowSeq[Pt2, Pt2Arr] = UnshowSeq[Pt2, Pt2Arr]()
 
-  implicit val eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.unsafeArray.sameElements(a2.unsafeArray)
+  implicit val eqTEv: EqT[Pt2Arr] = (a1, a2) => a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
 
   implicit val slateImplicit: Slate[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2Arr] = (obj: Pt2Arr, operand: Double) => obj.scale(operand)

@@ -15,7 +15,7 @@ trait Dbl2Elem extends Any with DblNElem
 /** A Sequence like class of [[Dbl2Elem]] elements that can be constructed from 2 [[Double]]s. */
 trait SeqLikeDbl2[A <: Dbl2Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 2
-  override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.dbl1, newElem.dbl2)
+  override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[Dbl2Elem]]s. */
@@ -25,33 +25,33 @@ trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDbl
   def ssElem(d1: Double, d2: Double): A
 
 
-  override def ssIndex(index: Int): A = ssElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def ssIndex(index: Int): A = ssElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](ssLength)
     var count = 0
-    while(count < ssLength){ res(count) = unsafeArray(count * 2); count += 1 }
+    while(count < ssLength){ res(count) = arrayUnsafe(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
   { val res = new Array[Double](ssLength)
     var count = 0
-    while(count < ssLength){ res(count) = unsafeArray(count * 2 + 1); count += 1 }
+    while(count < ssLength){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
 
   def ssForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < ssLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
+    while(count < ssLength) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
   def unsafeMap(f: A => A): Array[Double] =
-  { val newArray: Array[Double] = new Array[Double](unsafeArray.length)
-    iUntilForeach(0, unsafeLength, 2){ i =>
-      val newElem = f(ssElem(unsafeArray(i), unsafeArray(i + 1)))
+  { val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+    iUntilForeach(0, arrayLen, 2){ i =>
+      val newElem = f(ssElem(arrayUnsafe(i), arrayUnsafe(i + 1)))
       newArray(i) = newElem.dbl1
       newArray(i + 1) = newElem.dbl2
     }
@@ -60,17 +60,17 @@ trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDbl
 
   /** Maps the 1st [[Double]] of each element to a new [[Array]][Double], copies the 2nd elements. */
   def unsafeD1Map(f: Double => Double): Array[Double] = {
-    val newArray: Array[Double] = new Array[Double](unsafeArray.length)
-    iUntilForeach(0, unsafeLength, 2){ i => newArray(i) = f(unsafeArray(i)) }
-    iUntilForeach(1, unsafeLength, 2){ i => newArray(i) = unsafeArray(i) }
+    val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+    iUntilForeach(0, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
+    iUntilForeach(1, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
     newArray
   }
 
   /** Maps the 2nd [[Double]] of each element with the parameter function to a new [[Array]][Double], copies the 1st [[Double]] of each element. */
   def unsafeD2Map(f: Double => Double): Array[Double] = {
-    val newArray: Array[Double] = new Array[Double](unsafeArray.length)
-    iUntilForeach(0, unsafeLength, 2){ i => newArray(i) = unsafeArray(i) }
-    iUntilForeach(1, unsafeLength, 2){ i => newArray(i) = f(unsafeArray(i)) }
+    val newArray: Array[Double] = new Array[Double](arrayUnsafe.length)
+    iUntilForeach(0, arrayLen, 2){ i => newArray(i) = arrayUnsafe(i) }
+    iUntilForeach(1, arrayLen, 2){ i => newArray(i) = f(arrayUnsafe(i)) }
     newArray
   }
 }
@@ -78,24 +78,24 @@ trait SeqSpecDbl2[A <: Dbl2Elem] extends Any with SeqLikeDbl2[A] with SeqSpecDbl
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
 trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
 { type ThisT <: ArrDbl2[A]
-  final override def length: Int = unsafeArray.length / 2
-  def head1: Double = unsafeArray(0)
-  def head2: Double = unsafeArray(1)
-  def getPair(index: Int): (Double, Double) = (unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  final override def length: Int = arrayUnsafe.length / 2
+  def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
+  def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   /** Foreachs over the [[Double]] pairs of the tail of this [[Arr]]. */
   def tailPairsForeach[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < length) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
+    while(count < length) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
-  override def apply(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def apply(index: Int): A = seqDefElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Double](unsafeLength + 2)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Double](arrayLen + 2)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex2(length, operand.dbl1, operand.dbl2)
     fromArray(newArray)
   }
@@ -114,7 +114,7 @@ trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2[_]] extends BuilderSeqLikeDblN[BB]
 /** Builder for [[SeqLike]]s with [[Dbl2Elem]] elements via the map method. Hence the type of the element is known at the call site. */
 trait BuilderSeqLikeDbl2Map[B <: Dbl2Elem, BB <: SeqLikeDbl2[B]] extends BuilderSeqLikeDbl2[BB] with BuilderSeqLikeDblNMap[B, BB]
 { type BuffT <: BuffDbl2[B]
-  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex2(index, newElem.dbl1, newElem.dbl2)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.dbl1, newElem.dbl2)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2]] final classes. Instances for the [[BuilderArrMap]] type
@@ -137,7 +137,7 @@ trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends Companio
     val res = uninitialised(length)
     var i: Int = 0
     while (i < length)
-    { res.unsafeArray.setIndex2(i, elems(i).dbl1, elems(i).dbl2)
+    { res.arrayUnsafe.setIndex2(i, elems(i).dbl1, elems(i).dbl2)
       i += 1
     }
     res

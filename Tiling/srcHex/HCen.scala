@@ -162,14 +162,14 @@ object HCen
 }
 
 /** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
-class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[HCen]
+class HCenArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HCen]
 { type ThisT = HCenArr
   override def newElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
   override def typeStr: String = "HCenArr"
   override def fElemStr: HCen => String = _.toString
 
-  def ===(operand: HCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
+  def ===(operand: HCenArr): Boolean = arrayUnsafe.sameElements(operand.arrayUnsafe)
 }
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */

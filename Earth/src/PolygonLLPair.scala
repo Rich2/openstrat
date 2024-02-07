@@ -7,7 +7,7 @@ class PolygonLLPair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends Polyg
 }
 
 object PolygonLLPair
-{ def apply[A2](poly: PolygonLL, a2: A2): PolygonLLPair[A2] = new PolygonLLPair[A2](poly.unsafeArray, a2)
+{ def apply[A2](poly: PolygonLL, a2: A2): PolygonLLPair[A2] = new PolygonLLPair[A2](poly.arrayUnsafe, a2)
 }
 
 final class PolygonLLPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends

@@ -12,8 +12,8 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   def rightX: Double = verts.foldLeft(v0x)((acc, pt) => acc.max(pt.x))
 
-  final def vLastX: Double = unsafeArray(numVerts - 2)
-  final def vLastY: Double = unsafeArray(numVerts - 1)
+  final def vLastX: Double = arrayUnsafe(numVerts - 2)
+  final def vLastY: Double = arrayUnsafe(numVerts - 1)
 
   /** The last vertex. The default convention places this just anti clockwise of 12 o'clock. */
   def vLast: Pt2 = vLastX pp vLastY
@@ -70,11 +70,11 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def vertX(index: Int): Double = unsafeArray(index * 2)
+  def vertX(index: Int): Double = arrayUnsafe(index * 2)
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def vertY(index: Int): Double = unsafeArray(index * 2 + 1)
+  def vertY(index: Int): Double = arrayUnsafe(index * 2 + 1)
 
   @inline override def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
@@ -97,10 +97,10 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. */
-  final def v0x: Double = unsafeArray(0)
+  final def v0x: Double = arrayUnsafe(0)
 
   /** The Y component of vertex v1, will throw on a 0 vertices polygon.  */
-  final def v0y: Double = unsafeArray(1)
+  final def v0y: Double = arrayUnsafe(1)
 
   /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the
    * polygon or the vertex immediately anti clockwise if there is no vertex in this position. */
@@ -342,7 +342,7 @@ object Polygon
 
   def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 
-  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
+  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.arrayUnsafe, p2.arrayUnsafe)
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)

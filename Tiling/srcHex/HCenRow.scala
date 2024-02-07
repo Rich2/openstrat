@@ -75,7 +75,7 @@ object HCenRow
   }
 }
 
-class HCenRowArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt3[HCenRow]
+class HCenRowArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt3[HCenRow]
 { override type ThisT = HCenRowArr
   override def typeStr: String = "HCenRowArr"
   override def newElem(i1: Int, i2: Int, i3: Int): HCenRow = new HCenRow(i1, i2, i3)

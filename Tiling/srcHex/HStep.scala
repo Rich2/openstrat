@@ -116,7 +116,7 @@ case object HexUL extends HStep
   override def reverse: HStep = HexDR
 }
 /** An Arr of hex step directions. */
-class HStepLikeArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[HStepLike] {
+class HStepLikeArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStepLike] {
   override type ThisT = HStepLikeArr
 
   override def typeStr: String = "HStepLikeArr"
@@ -149,13 +149,13 @@ object HStepLikeBuff
 }
 
 /** An Arr of hex step directions. */
-class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[HStep]
+class HStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[HStep]
 { override type ThisT = HStepArr
   override def typeStr: String = "HSteps"
   override def newElem(intValue: Int): HStep = HStep.fromInt(intValue)
   override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
   override def fElemStr: HStep => String = _.toString
-  def segsNum: Int = unsafeArray.length
+  def segsNum: Int = arrayUnsafe.length
 
   def segHCsForeach(start: HCen)(f: LineSegHC => Unit): Unit = segHCsForeach(start.r, start.c)(f)
 
@@ -167,7 +167,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[HStep]
     var c2: Int = 0
 
     while (count < segsNum)
-    { val step = HStep.fromInt(unsafeArray(count))
+    { val step = HStep.fromInt(arrayUnsafe(count))
       r2 = r1 + step.tr
       c2 = c1 + step.tc
       val hls = LineSegHC(r1, c1, r2, c2)

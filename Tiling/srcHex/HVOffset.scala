@@ -153,7 +153,7 @@ trait HVOffsetSeqLike extends SeqLikeInt3[HVOffset]
   final override def fElemStr: HVOffset => String = _.toString
 }
 
-class HVOffsetArr(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with ArrInt3[HVOffset]
+class HVOffsetArr(val arrayUnsafe: Array[Int]) extends HVOffsetSeqLike with ArrInt3[HVOffset]
 { override type ThisT = HVOffsetArr
   override def typeStr: String = "HVAndOffsetArr"
   override def fromArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)

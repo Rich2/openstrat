@@ -4,24 +4,24 @@ import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Vec2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Vec2Arr(val unsafeArray: Array[Double]) extends /*AffinePreserve with*/ ArrDbl2[Vec2]
+final class Vec2Arr(val arrayUnsafe: Array[Double]) extends /*AffinePreserve with*/ ArrDbl2[Vec2]
 { type ThisT = Vec2Arr
   def fromArray(array: Array[Double]): Vec2Arr = new Vec2Arr(array)
   override def typeStr: String = "Vec2s"
 
-  @inline def lengthFull: Int = unsafeArray.length / 2
-  @inline def toPolygon: PolygonGen = new PolygonGen(unsafeArray)
-  @inline def toLinePath: LinePath = new LinePath(unsafeArray)
+  @inline def lengthFull: Int = arrayUnsafe.length / 2
+  @inline def toPolygon: PolygonGen = new PolygonGen(arrayUnsafe)
+  @inline def toLinePath: LinePath = new LinePath(arrayUnsafe)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def ptsTrans(f: Vec2 => Vec2): Vec2Arr =  new Vec2Arr(arrTrans(f))
 
   def arrTrans(f: Vec2 => Vec2): Array[Double] =
-  { val newArray = new Array[Double](unsafeArray.length)
+  { val newArray = new Array[Double](arrayUnsafe.length)
     var count = 0
-    while (count < unsafeArray.length)
+    while (count < arrayUnsafe.length)
     {
-      val newVec = f(unsafeArray(count) vv unsafeArray(count + 1))
+      val newVec = f(arrayUnsafe(count) vv arrayUnsafe(count + 1))
       newArray(count) = newVec.x
       newArray(count + 1) = newVec.y
       count += 2

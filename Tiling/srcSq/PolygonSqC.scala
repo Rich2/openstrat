@@ -3,13 +3,13 @@ package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec with PolygonLikeInt2[SqCoord]
+class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec with PolygonLikeInt2[SqCoord]
 { override type ThisT = PolygonSqC
   override type SideT = LineSegSC
   override def typeStr: String = "PolygonSqC"
   override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
-  def vertNum: Int = unsafeArray.length / 2
-  override def verts: SqCoordArr = new SqCoordArr(unsafeArray)
+  def vertNum: Int = arrayUnsafe.length / 2
+  override def verts: SqCoordArr = new SqCoordArr(arrayUnsafe)
 
   /** Performs the side effecting function on the [[SqCoord]] value of each vertex. */
   override def vertsForeach[U](f: SqCoord => U): Unit =
@@ -70,8 +70,8 @@ object PolygonSqC extends CompanionSeqLikeInt2[SqCoord, PolygonSqC]
     override type BuffT = PolygonSqCBuff
     override def newBuff(length: Int): PolygonSqCBuff = PolygonSqCBuff(length)
     override def uninitialised(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
-    override def indexSet(seqLike: PolygonSqCArr, index: Int, newElem: PolygonSqC): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.unsafeArray
-    override def buffGrow(buff: PolygonSqCBuff, newElem: PolygonSqC): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
+    override def indexSet(seqLike: PolygonSqCArr, index: Int, newElem: PolygonSqC): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
+    override def buffGrow(buff: PolygonSqCBuff, newElem: PolygonSqC): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
     override def buffToSeqLike(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuffer.toArray)
   }
 }
@@ -80,7 +80,7 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[Polyg
 { override type ThisT = PolygonSqCArr
   override def typeStr: String = "PolygonSqCArr"
   override def length: Int = unsafeArrayOfArrays.length
-  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeArrayOfArrays(i) = newElem.unsafeArray
+  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeArrayOfArrays(i) = newElem.arrayUnsafe
   override def fElemStr: PolygonSqC => String = _.toString
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeArrayOfArrays(index))
 }
@@ -88,7 +88,7 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[Polyg
 class PolygonSqCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonSqC]
 { override type ThisT = PolygonSqCBuff
   override def typeStr: String = "PolygonSqCBuff"
-  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeBuffer(i) = newElem.unsafeArray
+  override def setElemUnsafe(i: Int, newElem: PolygonSqC): Unit = unsafeBuffer(i) = newElem.arrayUnsafe
   override def fElemStr: PolygonSqC => String = _.toString
   override def fromArrayInt(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 }

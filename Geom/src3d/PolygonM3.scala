@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
  *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2]]s on world
  *  maps. */
-final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with PolygonLikeDbl3[PtM3]
+final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLikeDbl3[PtM3]
 { override type ThisT = PolygonM3
   override type SideT = LineSegM3
   override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
@@ -18,7 +18,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   def zAllNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
 
   def zAllNeg: Boolean = vertsForAll(_.zMetres < 0)
-  override def verts: PtM3Arr = new PtM3Arr(unsafeArray)
+  override def verts: PtM3Arr = new PtM3Arr(arrayUnsafe)
 
   /** Performs the side effecting function on the [[PtM3]] value of each vertex.  */
   override def vertsForeach[U](f: PtM3 => U): Unit =
@@ -53,15 +53,15 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   }
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def vertX(index: Int): Double = unsafeArray(index * 3)
+  def vertX(index: Int): Double = arrayUnsafe(index * 3)
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def vertY(index: Int): Double = unsafeArray(index * 3 + 1)
+  def vertY(index: Int): Double = arrayUnsafe(index * 3 + 1)
 
   /** Returns the Z component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def vertZ(index: Int): Double = unsafeArray(index * 3 + 2)
+  def vertZ(index: Int): Double = arrayUnsafe(index * 3 + 2)
 
   def toXY: PolygonM2 = map(_.xy)
 
@@ -82,8 +82,8 @@ object PolygonM3 extends CompanionSeqLikeDbl3[PtM3, PolygonM3]
     override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
-    override def indexSet(seqLike: PolygonM3Arr, index: Int, newElem: PolygonM3): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.unsafeArray
-    override def buffGrow(buff: PolygonM3Buff, newElem: PolygonM3): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
+    override def indexSet(seqLike: PolygonM3Arr, index: Int, newElem: PolygonM3): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
+    override def buffGrow(buff: PolygonM3Buff, newElem: PolygonM3): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
     override def buffToSeqLike(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 

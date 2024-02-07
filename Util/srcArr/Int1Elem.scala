@@ -13,12 +13,12 @@ trait Int1Elem extends Any with IntNElem
 
 trait SeqLikeInt1[A <: Int1Elem] extends Any with SeqLikeIntN[A]
 { final override def elemProdSize: Int = 1
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = { unsafeArray(index) = newElem.int1 }
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = { arrayUnsafe(index) = newElem.int1 }
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
 trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1[A] with SeqSpecIntN[A]
-{ final override def ssIndex(index: Int): A = ssElem(unsafeArray(index))
+{ final override def ssIndex(index: Int): A = ssElem(arrayUnsafe(index))
 
   /** Constructs an element of the specifing sequence from an [[Int]] value. */
   def ssElem(intValue: Int): A
@@ -26,17 +26,17 @@ trait SeqSpecInt1[A <: Int1Elem] extends Any with SeqLikeInt1[A] with SeqSpecInt
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
 trait ArrInt1[A <: Int1Elem] extends Any with ArrIntN[A] with SeqLikeInt1[A]
-{ final override def length: Int = unsafeArray.length
+{ final override def length: Int = arrayUnsafe.length
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](length + 1)
-    unsafeArray.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand.int1
     fromArray(newArray)
   }
 
   def newElem(intValue: Int): A
-  final override def apply(index: Int): A = newElem(unsafeArray(index))
+  final override def apply(index: Int): A = newElem(arrayUnsafe(index))
   final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
@@ -65,7 +65,7 @@ trait BuilderArrInt1[ArrB <: ArrInt1[_]] extends BuilderSeqLikeIntN[ArrB]
  *  the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt1[ArrT] with BuilderArrIntNMap[A, ArrT]
 { type BuffT <: BuffInt1[A]
-  final override def indexSet(seqLike: ArrT, index: Int, newElem: A): Unit =  seqLike.unsafeArray(index) = newElem.int1
+  final override def indexSet(seqLike: ArrT, index: Int, newElem: A): Unit =  seqLike.arrayUnsafe(index) = newElem.int1
   final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.int1); () }
 }
 
@@ -86,7 +86,7 @@ trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1[A]] extends Compan
     var count: Int = 0
 
     while (count < arrLen)
-    { res.unsafeArray(count) = elems(count).int1
+    { res.arrayUnsafe(count) = elems(count).int1
       count += 1
     }
     res

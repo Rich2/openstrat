@@ -16,7 +16,7 @@ trait SeqLikeDblN[A <: DblNElem] extends Any with SeqLikeValueN[A] with ArrayDbl
   def fromArray(array: Array[Double]): ThisT
 
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
-  @inline final def unsafeLength: Int = unsafeArray.length
+  @inline final def arrayLen: Int = arrayUnsafe.length
 }
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
@@ -32,19 +32,19 @@ trait SeqSpecDblN[A <: DblNElem] extends Any with SeqLikeDblN[A] with SeqSpecVal
 
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
   def unsafeReverseArray: Array[Double] =
-  { val res = new Array[Double](unsafeLength)
+  { val res = new Array[Double](arrayLen)
     iUntilForeach(ssLength){ i =>
       val origIndex = i * elemProdSize
       val resIndex = (ssLength - i - 1) * elemProdSize
-      iUntilForeach(elemProdSize){j => res(resIndex + j) = unsafeArray(origIndex + j) }
+      iUntilForeach(elemProdSize){j => res(resIndex + j) = arrayUnsafe(origIndex + j) }
     }
     res
   }
 
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
-  { val acc = new Array[Double](unsafeLength + appendProductsLength * elemProdSize)
-    unsafeArray.copyToArray(acc)
+  { val acc = new Array[Double](arrayLen + appendProductsLength * elemProdSize)
+    arrayUnsafe.copyToArray(acc)
     acc
   }
 }
@@ -70,23 +70,23 @@ trait ArrDblN[A <: DblNElem] extends Any with SeqLikeDblN[A] with ArrValueN[A]
 
   final override def drop(n: Int): ThisT =
   { val nn = n.max0.min(length)
-    val newLen = (unsafeLength - elemProdSize * nn)
+    val newLen = (arrayLen - elemProdSize * nn)
     val newArray = new Array[Double](newLen)
-    unsafeArray.copyDropToArray(nn * elemProdSize, newArray)
+    arrayUnsafe.copyDropToArray(nn * elemProdSize, newArray)
     fromArray(newArray)
   }
 
   final override def dropRight(n: Int): ThisT =
   { val nn = n.max0
-    val newArray = new Array[Double]((unsafeLength - elemProdSize * nn).max0)
-    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i) = unsafeArray(i) }
+    val newArray = new Array[Double]((arrayLen - elemProdSize * nn).max0)
+    iUntilForeach(arrayLen - elemProdSize * nn) { i => newArray(i) = arrayUnsafe(i) }
     fromArray(newArray)
   }
 
   @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
-  { val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
-    unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, unsafeLength)
+  { val newArray: Array[Double] = new Array(arrayLen + operand.arrayLen)
+    arrayUnsafe.copyToArray(newArray)
+    operand.arrayUnsafe.copyToArray(newArray, arrayLen)
     fromArray(newArray)
   }
 }
@@ -99,7 +99,7 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
   def length: Int = unsafeBuffer.length / elemProdSize
   def toArray: Array[Double] = unsafeBuffer.toArray[Double]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
+  override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.arrayUnsafe); () }
   def toArr(implicit build: BuilderArrDblNMap[A, ArrT]): ArrT = build.fromDblArray(unsafeBuffer.toArray)
 }
 
@@ -119,7 +119,7 @@ trait BuilderSeqLikeDblNMap[B <: DblNElem, BB <: SeqLikeDblN[B]] extends Builder
 
   override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
   { var ii = 0
-    newElem.dblForeach { d => seqLike.unsafeArray(index * elemProdSize + ii); ii += 1}
+    newElem.dblForeach { d => seqLike.arrayUnsafe(index * elemProdSize + ii); ii += 1}
   }
 }
 
@@ -135,7 +135,7 @@ trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderSeqLik
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait BuilderArrDblNFlat[ArrB <: ArrDblN[_]] extends BuilderSeqLikeDblN[ArrB] with BuilderArrValueNFlat[ArrB]
 { //final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.arrayUnsafe); () }
 }
 
 /** Helper trait for Companion objects of [[ArrDblN]] classes. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -6,10 +6,10 @@ import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
  * Array[Int]s. */
 trait ArrayIntBacked extends Any
 { /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
-  def unsafeArray: Array[Int]
+  def arrayUnsafe: Array[Int]
 
   /** The length of the backing Array. */
-  final def unsafeLength: Int = unsafeArray.length
+  final def arrayLen: Int = arrayUnsafe.length
 }
 
 /** Base trait for collections of elements that are based on [[array]][Int]s, backed by an underlying Array[Array[Int]]. */
@@ -19,7 +19,7 @@ trait ArrayIntBackedArr[A <: ArrayIntBacked] extends Any with Arr[A]
   override final def length: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Int]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Int]](length))
-  final def setElemUnsafe(i: Int, newElem: A): Unit = unsafeArrayOfArrays(i) = newElem.unsafeArray
+  final def setElemUnsafe(i: Int, newElem: A): Unit = unsafeArrayOfArrays(i) = newElem.arrayUnsafe
 }
 
 /** This is the builder for Arrays Arrays of Int. It is not the builder for Arrays of Int.  */
@@ -27,14 +27,14 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] exte
 { @inline def fromArray(array: Array[Array[Int]]): ArrT
   type BuffT <: ArrayIntBuff[A]
   @inline override def uninitialised(length: Int): ArrT = fromArray(new Array[Array[Int]](length))
-  override def indexSet(seqLike: ArrT, index: Int, newElem: A): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.unsafeArray
+  override def indexSet(seqLike: ArrT, index: Int, newElem: A): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
   override def buffToSeqLike(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
-  override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.unsafeArray); () }
+  override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.arrayUnsafe); () }
 }
 
 /** Eqt instances for objects that are defined by [[Array]][Int]s. */
 class EqArrayIntBacked[ArrT <: ArrayIntBacked] extends EqT[ArrT]
-{ override def eqT(a1: ArrT, a2: ArrT): Boolean = a1.unsafeArray.sameElements(a2.unsafeArray)
+{ override def eqT(a1: ArrT, a2: ArrT): Boolean = a1.arrayUnsafe.sameElements(a2.arrayUnsafe)
 }
 
 object EqArrayIntBacked
@@ -48,7 +48,7 @@ trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with BuffSequ[A]
 
   def unsafeBuffer: ArrayBuffer[Array[Int]]
   override final def length: Int = unsafeBuffer.length
-  final override def grow(newElem: A): Unit = unsafeBuffer.append(newElem.unsafeArray)
+  final override def grow(newElem: A): Unit = unsafeBuffer.append(newElem.arrayUnsafe)
   inline final override def apply(index: Int): A = fromArrayInt(unsafeBuffer(index))
   def arrayArrayInt: Array[Array[Int]] = unsafeBuffer.toArray
 }
@@ -79,7 +79,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   /** Returns a new uninitialised [[PairArrFinalA1]] of the same final type. */
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
-  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayArrayInts(index) = value.unsafeArray }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayArrayInts(index) = value.arrayUnsafe }
 
   override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Array[Int]](length)
@@ -98,7 +98,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   final override def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT = {
     val newA1Array = new Array[Array[Int]](length + 1)
     a1ArrayArrayInts.copyToArray(newA1Array)
-    newA1Array(length) = a1.unsafeArray
+    newA1Array(length) = a1.arrayUnsafe
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2

@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A quasi line path specified in 3D metre points. The points do not have to lie within the same plane. I'm not sure how useful this class will
  *  prove. It has been created for the intermediary step of converting from [[LinePathLL]]s to [[LinePathM2]]s on world maps. */
-class LinePathM3(val unsafeArray: Array[Double]) extends AnyVal with LinePathDbl3[PtM3]
+class LinePathM3(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl3[PtM3]
 { override type ThisT = LinePathM3
   override type PolygonT = PolygonM3
   override def typeStr: String = "LinePathM3"

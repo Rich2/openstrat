@@ -104,7 +104,7 @@ object HCenArrLayer extends HCenArrLayerLowPrioity
   { override val arrBBuild: BuilderArrIntNMap[B, ArrB] = intNArrMapBuilder
     override def uninitialised(gridSys: HGridSys): HCenIntNArrLayer[B, ArrB] =
       new HCenIntNArrLayer[B, ArrB](new Array[Array[Int]](gridSys.numTiles), gridSys)
-    override def iSet(layer: HCenIntNArrLayer[B, ArrB], i: Int, arr: ArrB): Unit = layer.outerArrayUnsafe(i) = arr.unsafeArray
+    override def iSet(layer: HCenIntNArrLayer[B, ArrB], i: Int, arr: ArrB): Unit = layer.outerArrayUnsafe(i) = arr.arrayUnsafe
   }
 }
 

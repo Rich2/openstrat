@@ -3,14 +3,14 @@ package ostrat; package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqSpec with LinePathDbl2[Pt2]
+final class LinePath(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2SeqSpec with LinePathDbl2[Pt2]
 { override type ThisT = LinePath
   override type PolygonT = Polygon
   override def typeStr: String = "LinePath"
   def fromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def polygonFromArray(array: Array[Double]): Polygon = new PolygonGen(array)
-  @inline def xStart: Double = unsafeArray(0)
-  @inline def yStart: Double = unsafeArray(1)
+  @inline def xStart: Double = arrayUnsafe(0)
+  @inline def yStart: Double = arrayUnsafe(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
 
   def ptsTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
@@ -18,7 +18,7 @@ final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with
   def vertsTailForeach(f: (Double, Double) => Unit): Unit =
   { var count = 1
     while (count < numVerts)
-    { f(unsafeArray(count *2), unsafeArray( count * 2 + 1))
+    { f(arrayUnsafe(count *2), arrayUnsafe( count * 2 + 1))
       count += 1      
     }
   }
@@ -29,7 +29,7 @@ final class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: PolygonGen =
   { val acc: Array[Double] = appendArray(ssLength)
-    var count = unsafeLength
+    var count = arrayLen
 
     ssReverseForeach { orig =>
       acc(count) = - orig.x

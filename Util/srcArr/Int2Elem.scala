@@ -13,27 +13,27 @@ trait Int2Elem extends Any with IntNElem
 /** Specialised immutable flat [[Array]][Int] based classes. */
 trait SeqLikeInt2[A <: Int2Elem] extends Any with SeqLikeIntN[A]
 { override def elemProdSize: Int = 2
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex2(index, newElem.int1, newElem.int2)
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)
   def newElem(i1: Int, i2: Int): A
 }
 
 /** A specialised immutable, flat [[Array]][Int] based trait defined by a data sequence of a type of [[Int2Elem]]s. */
 trait SeqSpecInt2[A <: Int2Elem] extends Any with SeqLikeInt2[A] with SeqSpecIntN[A]
-{ final override def ssIndex(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+{ final override def ssIndex(index: Int): A = newElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   final override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
 trait ArrInt2[A <: Int2Elem] extends Any with ArrIntN[A] with SeqLikeInt2[A]
-{ def head1: Int = unsafeArray(0)
-  def head2: Int = unsafeArray(1)
-  final override def length: Int = unsafeArray.length / 2
-  final override def apply(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+{ def head1: Int = arrayUnsafe(0)
+  def head2: Int = arrayUnsafe(1)
+  final override def length: Int = arrayUnsafe.length / 2
+  final override def apply(index: Int): A = newElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 
   @targetName("append") final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Int](unsafeLength + 2)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Int](arrayLen + 2)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex2(length, operand.int1, operand.int2)
     fromArray(newArray)
   }
@@ -48,7 +48,7 @@ trait BuilderSeqLikeInt2[BB <: SeqLike[_]] extends BuilderSeqLikeIntN[BB]
 /** Builds [[SeqLikeInt2]] objects via the map method. */
 trait BuilderSeqLikeInt2Map[B <: Int2Elem, BB <: SeqLikeInt2[B]] extends BuilderSeqLikeInt2[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt2[B]
-  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex2(index, newElem.int1, newElem.int2)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex2(index, newElem.int1, newElem.int2)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append2(newElem.int1, newElem.int2)
 }
 
@@ -87,7 +87,7 @@ trait CompanionSeqLikeInt2[A <: Int2Elem, ArrA <: SeqLikeInt2[A]] extends Compan
   { val res = uninitialised(elems.length)
     var i: Int = 0
     while (i < elems.length)
-    { res.unsafeArray.setIndex2(i, elems(i).int1, elems(i).int2)
+    { res.arrayUnsafe.setIndex2(i, elems(i).int1, elems(i).int2)
       i += 1
     }
     res

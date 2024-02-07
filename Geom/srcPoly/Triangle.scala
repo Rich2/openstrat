@@ -51,9 +51,9 @@ object Triangle
 { def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleImp(x1, y1, x2, y2, x3, y3)
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
-	final class TriangleImp(val unsafeArray: Array[Double]) extends Triangle with AffinePreserve
+	final class TriangleImp(val arrayUnsafe: Array[Double]) extends Triangle with AffinePreserve
 	{ override type ThisT = TriangleImp
-		override def fromArray(array: Array[Double]): TriangleImp = new TriangleImp(unsafeArray)
+		override def fromArray(array: Array[Double]): TriangleImp = new TriangleImp(arrayUnsafe)
 
 		override def vertsTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v0), f(v1), f(v2))
 

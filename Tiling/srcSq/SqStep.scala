@@ -159,14 +159,14 @@ case class SqAndStep(r1: Int, c1: Int, step: SqStep)
 }
 
 /** An Arr of hex step directions. */
-class SqStepArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[SqStep]
+class SqStepArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[SqStep]
 { override type ThisT = SqStepArr
   override def typeStr: String = "SqSteps"
   override def newElem(intValue: Int): SqStep = SqStep.fromInt(intValue)
   override def fromArray(array: Array[Int]): SqStepArr = new SqStepArr(array)
   override def fElemStr: SqStep => String = _.toString
 
-  def segsNum: Int = unsafeArray.length
+  def segsNum: Int = arrayUnsafe.length
 
   def segSqCsForeach(start: SqCen)(f: LineSegSC => Unit): Unit = segSqCsForeach(start.r, start.c)(f)
 
@@ -178,7 +178,7 @@ class SqStepArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[SqStep]
     var c2: Int = 0
 
     while (count < segsNum)
-    { val step = SqStep.fromInt(unsafeArray(count))
+    { val step = SqStep.fromInt(arrayUnsafe(count))
       r2 = r1 + step.tr
       c2 = c1 + step.tc
       val hls = LineSegSC(r1, c1, r2, c2)

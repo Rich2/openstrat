@@ -98,7 +98,7 @@ trait BuilderArrPairIntNMap[B1 <: IntNElem, ArrB1 <: ArrIntN[B1], B2, B <: PairI
   def a1IntNum: Int
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
-  final override def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB = arrFromArrays(b1Arr.unsafeArray, b2s)
+  final override def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB = arrFromArrays(b1Arr.arrayUnsafe, b2s)
 
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
   final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Int](length * a1IntNum), new Array[B2](length))

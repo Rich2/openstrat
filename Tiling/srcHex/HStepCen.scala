@@ -30,7 +30,7 @@ object HStepCen
   }
 }
 
-class HStepCenArr(val unsafeArray: Array[Int]) extends ArrInt3[HStepCen]
+class HStepCenArr(val arrayUnsafe: Array[Int]) extends ArrInt3[HStepCen]
 { override type ThisT = HStepCenArr
   override def newElem(int1: Int, int2: Int, int3: Int): HStepCen = new HStepCen(int1, int2, int3)
   override def fromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)

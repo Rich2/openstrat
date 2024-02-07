@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, pParse._
 
@@ -49,9 +49,6 @@ object SeqLike
     }
   }
 }
-
-//trait BufferWrap[A] extends Any
-
 
 /** Base trait for all specialist Array buffer classes. Note there is no growArr methods on Buff. These methods are placed in the builders inheriting
  *  from [[BuilderSeqLike]]. */

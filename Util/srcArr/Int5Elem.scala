@@ -23,7 +23,7 @@ trait SeqLikeInt5[A <: Int5Elem] extends Any with SeqLikeIntN[A]
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
 
   override def setElemUnsafe(index: Int, newElem: A): Unit =
-    unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
+    arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 }
 
 /** A compound object that is not a sequence but is specified / defined by an [[Int5Elem]] sequence.  */
@@ -33,27 +33,27 @@ trait SeqSpecInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with SeqSpecInt
     (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
   override def ssIndex(index: Int): A =
-    newElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3), unsafeArray(5 * index + 4))
+    newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int5Elem]]s. */
 trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with ArrIntN[A]
-{ final override def length: Int = unsafeArray.length / 5
+{ final override def length: Int = arrayUnsafe.length / 5
 
   override def apply(index: Int): A =
-    newElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3), unsafeArray(5 * index + 4))
+    newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 
   def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4) & (a1.int5 == a2.int5)
 
-  def head1: Int = unsafeArray(0)
-  def head2: Int = unsafeArray(1)
-  def head3: Int = unsafeArray(2)
-  def head4: Int = unsafeArray(3)
-  def head5: Int = unsafeArray(4)
+  def head1: Int = arrayUnsafe(0)
+  def head2: Int = arrayUnsafe(1)
+  def head3: Int = arrayUnsafe(2)
+  def head4: Int = arrayUnsafe(3)
+  def head5: Int = arrayUnsafe(4)
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Int](unsafeLength + 5)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Int](arrayLen + 5)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex5(length, operand.int1, operand.int2, operand.int3, operand.int4, operand.int5)
     fromArray(newArray)
   }
@@ -89,7 +89,7 @@ trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends Builder
 { type BuffT <: BuffInt5[B]
 
   final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit =
-    seqLike.unsafeArray.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
+    seqLike.arrayUnsafe.setIndex5(index, newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
 
   final override def buffGrow(buff: BuffT, newElem: B): Unit =
     buff.unsafeBuffer.append5(newElem.int1, newElem.int2, newElem.int3, newElem.int4, newElem.int5)
@@ -113,7 +113,7 @@ abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends Companio
   { val res = uninitialised(elems.length)
     var i: Int = 0
     while (i < elems.length)
-    { res.unsafeArray.setIndex5(i, elems(i).int1, elems(i).int2, elems(i).int3, elems(i).int4, elems(i / 5).int5)
+    { res.arrayUnsafe.setIndex5(i, elems(i).int1, elems(i).int2, elems(i).int3, elems(i).int4, elems(i / 5).int5)
       i += 1
     }
     res

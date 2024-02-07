@@ -151,16 +151,16 @@ object HVertLow
 trait HVertSeqLike extends Any with SeqLikeInt2[HVert]
 { override def newElem(int1: Int, int2: Int): HVert = HVert.apply(int1, int2)
   override def fElemStr: HVert => String = _.str
-  def vertNum: Int = unsafeArray.length / 2
+  def vertNum: Int = arrayUnsafe.length / 2
 }
 
 /** An array[Int] based collection for HVert. */
-class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike with ArrInt2[HVert]
+class HVertArr(val arrayUnsafe: Array[Int]) extends AnyVal with HVertSeqLike with ArrInt2[HVert]
 { type ThisT = HVertArr
   override def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
-  def toPolygon: PolygonHC = new PolygonHC(unsafeArray)
+  def toPolygon: PolygonHC = new PolygonHC(arrayUnsafe)
 }
 
 object HVertArr extends CompanionSeqLikeInt2[HVert, HVertArr]

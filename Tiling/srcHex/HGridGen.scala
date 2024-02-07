@@ -185,7 +185,7 @@ object HGridGen
         array(2 * i) = hr.cStart
         array(2 * i + 1) = hr.cEnd
       }
-      new HGridGen(ra.unsafeArray(0), array)
+      new HGridGen(ra.arrayUnsafe(0), array)
     }
     new UnshowFromArr[HCenRow, HCenRowArr, HGridGen]("HGridIrr", f)
   }

@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Tell2[Double, Pt2]
+final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[Double, Pt2]
 { override type ThisT = HexParrY
   override def fromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 

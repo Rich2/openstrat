@@ -44,7 +44,7 @@ object Vec2M
   }
 }
 
-class Vec2MArr(override val unsafeArray: Array[Double]) extends ArrDbl2[Vec2M]
+class Vec2MArr(override val arrayUnsafe: Array[Double]) extends ArrDbl2[Vec2M]
 { override type ThisT = Vec2MArr
   override def seqDefElem(d1: Double, d2: Double): Vec2M = new Vec2M(d1, d2)
   override def fromArray(array: Array[Double]): Vec2MArr = new Vec2MArr(array)

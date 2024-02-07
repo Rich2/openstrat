@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A Dodecahedron aligned with the X and Y Axis so v0 is vertically up from the centre and v6 vertically down. */
-class DoDeclign(val unsafeArray: Array[Double]) extends AnyVal with Polygon6Plus
+class DoDeclign(val arrayUnsafe: Array[Double]) extends AnyVal with Polygon6Plus
 { override type ThisT = DoDeclign
   override def typeStr: String = "DoDeclign"
   override def fromArray(array: Array[Double]): DoDeclign = new DoDeclign(array)

@@ -102,7 +102,7 @@ object HexReg
   def apoToArea(a: Double): Double = 2.0 * 3.sqrt * a.squared
 
   /** Implementation class for the [[HexReg]] trait. */
-  final class HexRegImp(val unsafeArray: Array[Double]) extends HexReg with Tell2[Pt2, Pt2]
+  final class HexRegImp(val arrayUnsafe: Array[Double]) extends HexReg with Tell2[Pt2, Pt2]
   { override type ThisT = HexRegImp
 
     override def fromArray(array: Array[Double]): HexRegImp = new HexRegImp(array)

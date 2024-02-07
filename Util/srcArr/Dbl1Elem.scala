@@ -14,14 +14,14 @@ trait Dbl1Elem extends Any with DblNElem
 trait ArrDbl1[A <: Dbl1Elem] extends Any with ArrDblN[A]
 { final override def elemProdSize: Int = 1
   def newElem(dblValue: Double): A
-  final override def length: Int = unsafeArray.length
-  final override def apply(index: Int): A = newElem(unsafeArray(index))
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray(index) = newElem.dbl1
+  final override def length: Int = arrayUnsafe.length
+  final override def apply(index: Int): A = newElem(arrayUnsafe(index))
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe(index) = newElem.dbl1
   override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](length + 1)
-    unsafeArray.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand.dbl1
     fromArray(newArray)
   }

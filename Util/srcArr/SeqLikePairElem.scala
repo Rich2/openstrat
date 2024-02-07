@@ -43,7 +43,7 @@ trait SeqLikeDblNPairArr[A1E <: DblNElem, A1 <: SeqLikeDblN[A1E], A1Arr <: Arr[A
 
   override def a1Index(index: Int): A1 = a1FromArrayDbl(a1ArrayDbls(index))
   override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Double]](length), new Array[A2](length))
-  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayDbls(index) = value.unsafeArray }
+  final override def setA1Unsafe(index: Int, value: A1): Unit = { a1ArrayDbls(index) = value.arrayUnsafe }
 
   override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Array[Double]](length)
@@ -59,7 +59,7 @@ trait SeqLikeDblNPairArr[A1E <: DblNElem, A1 <: SeqLikeDblN[A1E], A1Arr <: Arr[A
   final override def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
   { val newA1Array = new Array[Array[Double]](length + 1)
     a1ArrayDbls.copyToArray(newA1Array)
-    newA1Array(length) = a1.unsafeArray
+    newA1Array(length) = a1.arrayUnsafe
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2
@@ -76,7 +76,7 @@ trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], B2, B <: SeqL
   final def growArr(newElems: SeqLikeDblNPairArr[B1E, B1, _, B2, B]): Unit = { newElems.a1ArrayDbls.foreach(b1Buffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
 
-  final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.unsafeArray); b2Buffer.append(b2) }
+  final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }
 }
 
 trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPairElem[B1E, B1, B2], ArrB <: PairArrFinalA1[B1, ArrB1, B2, B]] extends
@@ -87,7 +87,7 @@ trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], ArrB1 <
   /** Construct the final target [[Arr]] type from an Array of Arrays of Doubles and an Array of B2. */
   def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[B2]): ArrB
 
-  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
   final override def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB = fromArrays(b1Buff.arrayArrayDbl, b2Buffer.toArray)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.b1Buffer.append(newElem.a1ArrayDbl); buff.b2Buffer.append(newElem.a2) }
 }
@@ -108,7 +108,7 @@ trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: SeqLikeIntN[B1E], B2, B <: SeqL
   final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1ArrayArrayInts.foreach(b1Buffer.append(_))
     newPairArr.a2Array.foreach(b2Buffer.append(_)) }
 
-  final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.unsafeArray); b2Buffer.append(b2) }
+  final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }
 }
 
 trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: SeqLikeIntN[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2], ArrB <: PairArrFinalA1[B1, ArrB1, B2, B]] extends
@@ -119,7 +119,7 @@ trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: SeqLikeIntN[B1E], ArrB1 <
   /** Construct the final target [[Arr]] type from an Array of Arrays of [[Int]]s and an Array of B2. */
   def fromArrays(arrayArrayInt: Array[Array[Int]], a2Array: Array[B2]): ArrB
 
-  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
   final override def arrFromBuffs(b1Buff: B1BuffT, b2Buffer: ArrayBuffer[B2]): ArrB = fromArrays(b1Buff.arrayArrayInt, b2Buffer.toArray)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.b1Buffer.append(newElem.a1ArrayInt); buff.b2Buffer.append(newElem.a2) }
 }

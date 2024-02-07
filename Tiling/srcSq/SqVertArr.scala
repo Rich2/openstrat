@@ -6,15 +6,15 @@ import collection.mutable.ArrayBuffer
 trait SqVertSeqLike extends Any with SeqLikeInt2[SqVert]
 { override def newElem(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
-  def vertNum: Int = unsafeArray.length / 2
+  def vertNum: Int = arrayUnsafe.length / 2
 }
 
 /** An array[Int] based collection for SqVert. */
-class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike with ArrInt2[SqVert]
+class SqVertArr(val arrayUnsafe: Array[Int]) extends AnyVal with SqVertSeqLike with ArrInt2[SqVert]
 { type ThisT = SqVertArr
   override def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)
-  def toPolygon: PolygonSqC = new PolygonSqC(unsafeArray)
+  def toPolygon: PolygonSqC = new PolygonSqC(arrayUnsafe)
 }
 
 object SqVertArr extends CompanionSeqLikeInt2[SqVert, SqVertArr]

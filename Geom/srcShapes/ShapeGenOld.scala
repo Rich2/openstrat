@@ -6,7 +6,7 @@ import Colour.Black
  *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
  *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
  *  a BezierSeg. */
-class ShapeGenOld(val unsafeArray: Array[Double]) extends SeqSpecDbl7[CurveTail] with AffinePreserve
+class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTail] with AffinePreserve
 { type ThisT = ShapeGenOld
   def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"
@@ -21,20 +21,20 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends SeqSpecDbl7[CurveTail]
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
   { val newArray = new Array[Double](ssLength * 7)
     def setMiddle(offset: Int): Unit =
-    { val newMiddle: Pt2 = f(unsafeArray(offset + 3) pp unsafeArray(offset + 4))
+    { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) pp arrayUnsafe(offset + 4))
       newArray(offset + 3) = newMiddle.x
       newArray(offset + 4) = newMiddle.y
     }
 
     def setEnd(offset: Int): Unit =
-    { val newEnd: Pt2 = f(unsafeArray(offset + 5) pp unsafeArray(offset + 6))
+    { val newEnd: Pt2 = f(arrayUnsafe(offset + 5) pp arrayUnsafe(offset + 6))
       newArray(offset + 5) = newEnd.x
       newArray(offset + 6) = newEnd.y
     }
 
     (0 until ssLength).foreach{ index =>
       val offset = index * 7
-      unsafeArray(offset) match
+      arrayUnsafe(offset) match
       {
         case 10 =>
         { newArray(offset) = 10
@@ -49,7 +49,7 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends SeqSpecDbl7[CurveTail]
 
         case 12 =>
         { newArray(offset) = 12
-          val newControl1: Pt2 = f(unsafeArray(offset + 1) pp unsafeArray(offset + 2))
+          val newControl1: Pt2 = f(arrayUnsafe(offset + 1) pp arrayUnsafe(offset + 2))
           newArray(offset + 1) = newControl1.x
           newArray(offset + 2) = newControl1.y
           setMiddle(offset)

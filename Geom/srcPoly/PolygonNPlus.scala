@@ -8,11 +8,11 @@ trait Polygon3Plus extends Any with Polygon
 
   /** The X component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
       immediately clockwise from 12 o'clock. */
-  final def v1x: Double = unsafeArray(2)
+  final def v1x: Double = arrayUnsafe(2)
 
   /** The Y component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with vertex immediately
    *  clockwise from 12 o'clock. */
-  final def v1y: Double = unsafeArray(3)
+  final def v1y: Double = arrayUnsafe(3)
 
   /** The v1 Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1 immediately clockwise from 12
    *  o'clock. */
@@ -20,11 +20,11 @@ trait Polygon3Plus extends Any with Polygon
 
   /** The X component of the v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with vertex 1 immediately
    *  clockwise from 12 o'clock. */
-  final def v2x: Double = unsafeArray(4)
+  final def v2x: Double = arrayUnsafe(4)
 
   /** The Y component of the v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with vertex immediately
    *  clockwise from 12 o'clock. */
-  final def v2y: Double = unsafeArray(5)
+  final def v2y: Double = arrayUnsafe(5)
 
   /** The v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or immediately clockwise
    * from 12 o'clock. */
@@ -63,11 +63,11 @@ trait Polygon4Plus extends Any with Polygon3Plus with SeqSpecDbl2[Pt2]
 
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with vertex 1 immediately
       clockwise from 12 o'clock. */
-  final def v3x: Double = unsafeArray(6)
+  final def v3x: Double = arrayUnsafe(6)
 
   /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with vertex 1 immediately
    *  clockwise from 12 o'clock. */
-  final def v3y: Double = unsafeArray(7)
+  final def v3y: Double = arrayUnsafe(7)
 
   /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 1 immediately clockwise from 12
    *  o'clock. */
@@ -88,10 +88,10 @@ trait Polygon5Plus extends Any with Polygon4Plus with SeqSpecDbl2[Pt2]
 { type ThisT <: Polygon5Plus
 
   /** The X component of the vertex 4. */
-  final def v4x: Double = unsafeArray(8)
+  final def v4x: Double = arrayUnsafe(8)
 
   /** The Y component of the vertex 4. */
-  final def v4y: Double = unsafeArray(9)
+  final def v4y: Double = arrayUnsafe(9)
 
   /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 1 immediately clockwise from 12
    *  o'clock. */
@@ -115,10 +115,10 @@ trait Polygon6Plus extends Any with Polygon5Plus
 { type ThisT <: Polygon6Plus
 
   /** The X component of the 6th Vertex. */
-  final def v5x: Double = unsafeArray(10)
+  final def v5x: Double = arrayUnsafe(10)
 
   /** The Y component of the 6th Vertex. */
-  final def v5y: Double = unsafeArray(11)
+  final def v5y: Double = arrayUnsafe(11)
 
   /** Vertex 5. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 1 immediately clockwise from 12
    *  o'clock. */

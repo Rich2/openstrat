@@ -18,28 +18,28 @@ trait SeqLikeInt3[A <: Int3Elem] extends Any with SeqLikeIntN[A]
   def newElem(i1: Int, i2: Int, i3: Int): A
 
   override def elemProdSize: Int = 3
-  final override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
+  final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int3Elem]]s. */
 trait SeqSpecInt3[A <: Int3Elem] extends Any with SeqLikeInt3[A] with SeqSpecIntN[A]
-{ final override def ssIndex(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+{ final override def ssIndex(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
   final override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */
 trait ArrInt3[A <: Int3Elem] extends Any with ArrIntN[A] with SeqLikeInt3[A]
-{ def head1: Int = unsafeArray(0)
-  def head2: Int = unsafeArray(1)
-  def head3: Int = unsafeArray(2)
-  final override def length: Int = unsafeArray.length / 3
+{ def head1: Int = arrayUnsafe(0)
+  def head2: Int = arrayUnsafe(1)
+  def head3: Int = arrayUnsafe(2)
+  final override def length: Int = arrayUnsafe.length / 3
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
-  final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  final override def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
   @targetName("append") final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Int](unsafeLength + 3)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Int](arrayLen + 3)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex3(length, operand.int1, operand.int2, operand.int3)
     fromArray(newArray)
   }
@@ -68,7 +68,7 @@ trait BuilderSeqLikeInt3[BB <: SeqLikeInt3[_]] extends BuilderSeqLikeIntN[BB]
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s via the map method, meaning the element type is known at the call site.. */
 trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SeqLikeInt3[B]] extends BuilderSeqLikeInt3[BB] with BuilderSeqLikeIntNMap[B, BB]
 { type BuffT <: BuffInt3[B]
-  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.int1, newElem.int2, newElem.int3)
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append3(newElem.int1, newElem.int2, newElem.int3)
 }
 
@@ -96,7 +96,7 @@ abstract class CompanionSeqLikeInt3[A <: Int3Elem, ArrA <: SeqLikeInt3[A]] exten
     var i: Int = 0
 
     while (i < elems.length)
-    { res.unsafeArray.setIndex3(i, elems(i).int1, elems(i).int2, elems(i).int3)
+    { res.arrayUnsafe.setIndex3(i, elems(i).int1, elems(i).int2, elems(i).int3)
       i += 1
     }
     res

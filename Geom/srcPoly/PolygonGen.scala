@@ -4,12 +4,12 @@ import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2SeqLike with AffinePreserve with SeqSpecDbl2[Pt2]
+final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2SeqLike with AffinePreserve with SeqSpecDbl2[Pt2]
 { override type ThisT = PolygonGen
 
   override def fromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   override def typeStr: String = "Polygon"
-  override def numVerts: Int = unsafeArray.length / 2
+  override def numVerts: Int = arrayUnsafe.length / 2
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
@@ -25,7 +25,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
     case _ => false
   }
 
-  def eq(obj: PolygonGen): Boolean = unsafeArray.sameElements(obj.unsafeArray)
+  def eq(obj: PolygonGen): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = ssTailFold(v0.x)((acc, el) => acc.min(el.x))
   def maxX: Double = ssTailFold(v0.x)((acc, el) => acc.max(el.x))
   def minY: Double = ssTailFold(v0.y)((acc, el) => acc.min(el.y))
@@ -91,14 +91,14 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2S
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGen = map(_.xyScale(xOperand, yOperand))
   override def shearX(operand: Double): PolygonGen = map(_.xShear(operand))
   override def shearY(operand: Double): PolygonGen = map(_.xShear(operand))
-  override def verts: Pt2Arr = new Pt2Arr(unsafeArray)
+  override def verts: Pt2Arr = new Pt2Arr(arrayUnsafe)
 }
 
 /** Companion object for [[PolygonGen]]. */
 object PolygonGen extends CompanionSeqLikeDbl2[Pt2, PolygonGen]
 { override def fromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
-  implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
+  implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.arrayUnsafe, p2.arrayUnsafe)
 
   implicit val buildArrMapEv: BuilderArrMap[PolygonGen, PolygonGenArr] = new BuilderMapArrArrayDbl[PolygonGen, PolygonGenArr]
   { override type BuffT = PolygonGenBuff

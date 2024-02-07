@@ -3,23 +3,23 @@ package ostrat; package prid; package phex
 import annotation._, geom._, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HStepPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
-{ def startR: Int = unsafeArray(0)
-  def startC: Int = unsafeArray(1)
-  def startCen = HCen(unsafeArray(0), unsafeArray(1))
-  def length: Int = unsafeArray.length - 2
+class HStepPath(val arrayUnsafe: Array[Int]) extends ArrayIntBacked
+{ def startR: Int = arrayUnsafe(0)
+  def startC: Int = arrayUnsafe(1)
+  def startCen = HCen(arrayUnsafe(0), arrayUnsafe(1))
+  def length: Int = arrayUnsafe.length - 2
 
   /** Gets the first [[HStep]] wills throw on an empty path. */
-  def getHead: HStep = HStep.fromInt(unsafeArray(2))
+  def getHead: HStep = HStep.fromInt(arrayUnsafe(2))
 
   /** Gets the [[HStep]] at the given index, will throw if the element doesn't exist. */
-  def index(index: Int): HStep = HStep.fromInt(unsafeArray(index + 2))
+  def index(index: Int): HStep = HStep.fromInt(arrayUnsafe(index + 2))
 
   def tail(newStart: HCen): HStepPath =
   { val newArray = new Array[Int]((length - 1).max0 + 2)
     newArray(0) = newStart.r
     newArray(1) = newStart.c
-    iUntilForeach(1, length)(i => newArray(i + 1) = unsafeArray(i + 2))
+    iUntilForeach(1, length)(i => newArray(i + 1) = arrayUnsafe(i + 2))
     new HStepPath(newArray)
   }
 

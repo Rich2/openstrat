@@ -19,7 +19,7 @@ trait Dbl3Elem extends Any with DblNElem
 /** A Sequence like class of [[Dbl3Elem]] elements that can be constructed from 3 [[Double]]s. */
 trait SeqLikeDbl3[A <: Dbl3Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize = 3
-  override def setElemUnsafe(index: Int, newElem: A): Unit = unsafeArray.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
+  override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
 /** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
@@ -31,7 +31,7 @@ abstract class CompanionSeqLikeDbl3[A <: Dbl3Elem, ArrA <: SeqLikeDbl3[A]] exten
     val res = uninitialised(length)
     var i: Int = 0
     while (i < length)
-    { res.unsafeArray.setIndex3(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3)
+    { res.arrayUnsafe.setIndex3(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3)
       i += 1
     }
     res
@@ -44,26 +44,26 @@ trait SeqSpecDbl3[A <: Dbl3Elem] extends Any with SeqLikeDbl3[A] with SeqSpecDbl
   def ssElem(d1: Double, d2: Double, d3: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  override def ssIndex(index: Int): A = ssElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  override def ssIndex(index: Int): A = ssElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
 trait ArrDbl3[A <: Dbl3Elem] extends Any with ArrDblN[A] with SeqLikeDbl3[A]
-{ final override def length: Int = unsafeArray.length / 3
-  def head1: Double = unsafeArray(0)
-  def head2: Double = unsafeArray(1)
-  def head3: Double = unsafeArray(2)
+{ final override def length: Int = arrayUnsafe.length / 3
+  def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
+  def head3: Double = arrayUnsafe(2)
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
 
   /** Method for creating new elements from 3 [[Double]]s. */
   def newElem(d1: Double, d2: Double, d3: Double): A
 
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  final override def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Double](unsafeLength + 3)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Double](arrayLen + 3)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex3(length, operand.dbl1, operand.dbl2, operand.dbl3)
     fromArray(newArray)
   }
@@ -77,7 +77,7 @@ trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3[_]] extends BuilderSeqLikeDblN[BB]
 
 trait BuilderSeqLikeDbl3Map[B <: Dbl3Elem, BB <: SeqLikeDbl3[B]] extends BuilderSeqLikeDbl3[BB] with BuilderSeqLikeDblNMap[B, BB]
 { type BuffT <: Dbl3Buff[B]
-  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.unsafeArray.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
+  final override def indexSet(seqLike: BB, index: Int, newElem: B): Unit = seqLike.arrayUnsafe.setIndex3(index, newElem.dbl1, newElem.dbl2, newElem.dbl3)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl3]] final classes. Instances for the [[BuilderArrMap]] type class, for classes /

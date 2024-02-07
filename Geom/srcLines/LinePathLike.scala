@@ -80,12 +80,12 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     res
   }
 
-  @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
+  @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
   @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
-  { val newArray = new Array[Double](unsafeLength + elemProdSize)
-    unsafeArray.copyToArray(newArray)
-    var i = unsafeLength
+  { val newArray = new Array[Double](arrayLen + elemProdSize)
+    arrayUnsafe.copyToArray(newArray)
+    var i = arrayLen
     op.dblForeach { d =>
       newArray(i) = d
       i += 1
@@ -93,12 +93,12 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     fromArray(newArray)
   }
 
-  @targetName("appendToPolygon") final override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+  @targetName("appendToPolygon") final override def |++|(operand: ThisT): PolygonT = polygonFromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
   @targetName("appendVertToPolygon") final override def |+|[AA >: VT](op: VT): PolygonT =
-  { val newArray = new Array[Double](unsafeLength + elemProdSize)
-    unsafeArray.copyToArray(newArray)
-    var i = unsafeLength
+  { val newArray = new Array[Double](arrayLen + elemProdSize)
+    arrayUnsafe.copyToArray(newArray)
+    var i = arrayLen
     op.dblForeach { d =>
       newArray(i) = d
       i += 1
@@ -107,8 +107,8 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   }
 
   @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT =
-  { val newArray = new Array[Double](unsafeLength + operand.unsafeLength)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Double](arrayLen + operand.arrayLen)
+    arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
     var i = ssLength
     operand.ssReverseForeach{vt =>
@@ -118,14 +118,14 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     res
   }
 
-  override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
+  override def toPolygon: PolygonT = polygonFromArray(arrayUnsafe)
 
   @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
-    polygonFromArray((this ++< operand).unsafeArray)
+    polygonFromArray((this ++< operand).arrayUnsafe)
 
   @targetName("prependVert") @inline final override def %: (operand: VT): ThisT =
-  { val newArray = new Array[Double](unsafeLength + elemProdSize)
-    Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
+  { val newArray = new Array[Double](arrayLen + elemProdSize)
+    Array.copy(arrayUnsafe, 0, newArray, elemProdSize, arrayLen)
     var i = 0
     operand.dblForeach{d => newArray(i) = d; i += 1 }
     fromArray(newArray)
@@ -171,12 +171,12 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     res
   }
 
-  @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(unsafeArray ++ operand.unsafeArray)
+  @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
   @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
-  { val newArray = new Array[Int](unsafeLength + elemProdSize)
-    unsafeArray.copyToArray(newArray)
-    var i = unsafeLength
+  { val newArray = new Array[Int](arrayLen + elemProdSize)
+    arrayUnsafe.copyToArray(newArray)
+    var i = arrayLen
     op.intForeach { ii =>
       newArray(i) = ii
       i += 1
@@ -185,16 +185,16 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
   }
 
   @targetName("prependVert") @inline final override def %:(operand: VT): ThisT = {
-    val newArray = new Array[Int](unsafeLength + elemProdSize)
-    Array.copy(unsafeArray, 0, newArray, elemProdSize, unsafeLength)
+    val newArray = new Array[Int](arrayLen + elemProdSize)
+    Array.copy(arrayUnsafe, 0, newArray, elemProdSize, arrayLen)
     var i = 0
     operand.intForeach { j => newArray(i) = j; i += 1 }
     fromArray(newArray)
   }
 
   @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT = {
-    val newArray = new Array[Int](unsafeLength + operand.unsafeLength)
-    unsafeArray.copyToArray(newArray)
+    val newArray = new Array[Int](arrayLen + operand.arrayLen)
+    arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
     var i = ssLength
     operand.ssReverseForeach { vt =>
@@ -204,13 +204,13 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     res
   }
 
-  @inline override def toPolygon: PolygonT = polygonFromArray(unsafeArray)
-  @targetName("appendToPolygon") @inline override def |++|(operand: ThisT): PolygonT = polygonFromArray(unsafeArray ++ operand.unsafeArray)
+  @inline override def toPolygon: PolygonT = polygonFromArray(arrayUnsafe)
+  @targetName("appendToPolygon") @inline override def |++|(operand: ThisT): PolygonT = polygonFromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
   @targetName("appendVertToPolygon") override def |+|[AA >: VT](op: VT): PolygonT =
-  { val newArray = new Array[Int](unsafeLength + elemProdSize)
-    unsafeArray.copyToArray(newArray)
-    var i = unsafeLength
+  { val newArray = new Array[Int](arrayLen + elemProdSize)
+    arrayUnsafe.copyToArray(newArray)
+    var i = arrayLen
     op.intForeach { ii =>
       newArray(i) = ii
       i += 1
@@ -219,7 +219,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
   }
 
   @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
-    polygonFromArray((this ++< operand).unsafeArray)
+    polygonFromArray((this ++< operand).arrayUnsafe)
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with SeqSpecInt2[VT]

@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** This class needs replacing. */
-class CurveSegDists(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl7[DistCurveTail]
+class CurveSegDists(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl7[DistCurveTail]
 { type ThisT = CurveSegDists
   override def fromArray(array: Array[Double]): CurveSegDists = new CurveSegDists(array)
   override def typeStr: String = "CurvedSegDists"

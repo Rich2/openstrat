@@ -37,7 +37,7 @@ object SqCenStep
   }
 }
 
-class SqCenStepArr(val unsafeArray: Array[Int]) extends ArrInt3[SqCenStep]
+class SqCenStepArr(val arrayUnsafe: Array[Int]) extends ArrInt3[SqCenStep]
 { override type ThisT = SqCenStepArr
   override def typeStr: String = "SqCenStepArr"
   override def newElem(int1: Int, int2: Int, int3: Int): SqCenStep = new SqCenStep(int1, int2, int3)

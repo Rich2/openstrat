@@ -61,7 +61,7 @@ object LineSegM3
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegM3Arr(val unsafeArray: Array[Double]) extends ArrDbl6[LineSegM3]
+class LineSegM3Arr(val arrayUnsafe: Array[Double]) extends ArrDbl6[LineSegM3]
 { type ThisT = LineSegM3Arr
   def fromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
   override def typeStr: String = "LineSegM3Arr"

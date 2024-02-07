@@ -14,12 +14,12 @@ object LineSegHVAndOffset
 }
 
 /** A polygon where the vertices are specified in [[HVOffset]]s. */
-class PolygonHVOffset(val unsafeArray: Array[Int]) extends HVOffsetSeqLike with PolygonLikeInt3[HVOffset]
+class PolygonHVOffset(val arrayUnsafe: Array[Int]) extends HVOffsetSeqLike with PolygonLikeInt3[HVOffset]
 { override type ThisT = PolygonHVOffset
   override type SideT = LineSegHVAndOffset
   override def typeStr: String = "HVAndOffsetPolygon"
   override def fromArray(array: Array[Int]): PolygonHVOffset = new PolygonHVOffset(array)
-  override def verts: HVOffsetArr = new HVOffsetArr(unsafeArray)
+  override def verts: HVOffsetArr = new HVOffsetArr(arrayUnsafe)
 
   override def sides: Arr[LineSegHVAndOffset] = ???
 

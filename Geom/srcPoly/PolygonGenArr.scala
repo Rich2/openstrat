@@ -20,7 +20,7 @@ object PolygonGenArr
     var count = 0
 
     while (count < input.length)
-    { array(count) = input(count).unsafeArray
+    { array(count) = input(count).arrayUnsafe
       count += 1
     }
     new PolygonGenArr(array)

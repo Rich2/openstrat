@@ -102,7 +102,7 @@ trait HCoordSeqLike extends Any with SeqLikeInt2[HCoord]
 trait HCoordSeqSpec extends Any with HCoordSeqLike with SeqSpecInt2[HCoord]
 
 /** Specialised sequence class for [[HCoord]]. */
-class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[HCoord] with HCoordSeqLike
+class HCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[HCoord] with HCoordSeqLike
 { type ThisT = HCoordArr
   override def typeStr: String = "HCoordArr"
   override def fromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)

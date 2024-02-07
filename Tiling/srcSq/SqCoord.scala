@@ -41,7 +41,7 @@ trait SqCoordSeqLike extends Any with SeqLikeInt2[SqCoord]
 trait SqCoordSeqSpec extends Any with SqCoordSeqLike with SeqSpecInt2[SqCoord]
 
 /** Specialised sequence class for [[SqCoord]]. */
-class SqCoordArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[SqCoord] with SqCoordSeqLike
+class SqCoordArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[SqCoord] with SqCoordSeqLike
 { type ThisT = SqCoordArr
   override def typeStr: String = "SqCoords"
   override def fromArray(array: Array[Int]): SqCoordArr = new SqCoordArr(array)

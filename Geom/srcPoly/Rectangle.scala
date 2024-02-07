@@ -93,14 +93,14 @@ object Rectangle
     val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
     val cen = sd4Cen midPt sd2Cen
     val verts = Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
-    new RectangleImp(verts.unsafeArray)
+    new RectangleImp(verts.arrayUnsafe)
   }
 
   def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = new RectangleImp(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
 
   /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
   def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] =
-    Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).unsafeArray
+    Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).arrayUnsafe
 
   def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 
@@ -145,7 +145,7 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val unsafeArray: Array[Double]) extends Rectangle//S2S4
+  final class RectangleImp(val arrayUnsafe: Array[Double]) extends Rectangle//S2S4
   { override type ThisT = RectangleImp
     override def fromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))

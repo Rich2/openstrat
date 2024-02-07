@@ -65,14 +65,14 @@ object SqCen
 }
 
 /** An efficient array[Int] based collection for [[SqCen]]s hex grid centre coordinates. */
-class SqCenArr(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2[SqCen]
+class SqCenArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2[SqCen]
 { type ThisT = SqCenArr
   override def newElem(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
   override def fromArray(array: Array[Int]): SqCenArr = new SqCenArr(array)
   override def typeStr: String = "SqCens"
   override def fElemStr: SqCen => String = _.toString
 
-  def ===(operand: SqCenArr): Boolean = unsafeArray.sameElements(operand.unsafeArray)
+  def ===(operand: SqCenArr): Boolean = arrayUnsafe.sameElements(operand.arrayUnsafe)
 }
 
 object SqCenPairArr1

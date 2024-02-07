@@ -26,7 +26,7 @@ object MyDbl2Elem
   }
 }
 
-final class MyDbl2Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2[MyDbl2Elem]
+final class MyDbl2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[MyDbl2Elem]
 { type ThisT = MyDbl2Arr
   def typeStr = "Mines"
   def fromArray(array: Array[Double]): MyDbl2Arr = new MyDbl2Arr(array)

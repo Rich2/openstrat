@@ -18,7 +18,7 @@ trait SeqLikeDbl5[A <: Dbl5Elem] extends Any with SeqLikeDblN[A]
 { def elemProdSize: Int = 5
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
-    unsafeArray.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
+    arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
@@ -27,8 +27,8 @@ trait SeqSpecDbl5[A <: Dbl5Elem] extends Any with SeqLikeDbl5[A] with SeqSpecDbl
    * sequence. */
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
-  def ssIndex(index: Int): A = ssElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
-    unsafeArray(5 * index + 4))
+  def ssIndex(index: Int): A = ssElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
+    arrayUnsafe(5 * index + 4))
 
   override def ssElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
@@ -37,18 +37,18 @@ trait SeqSpecDbl5[A <: Dbl5Elem] extends Any with SeqLikeDbl5[A] with SeqSpecDbl
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
 trait ArrDbl5[A <: Dbl5Elem] extends Any with ArrDblN[A] with SeqLikeDbl5[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-  final override def length: Int = unsafeArray.length / 5
-  def head1: Double = unsafeArray(0)
-  def head2: Double = unsafeArray(1)
-  def head3: Double = unsafeArray(2)
-  def head4: Double = unsafeArray(3)
-  def head5: Double = unsafeArray(4)
+  final override def length: Int = arrayUnsafe.length / 5
+  def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
+  def head3: Double = arrayUnsafe(2)
+  def head4: Double = arrayUnsafe(3)
+  def head5: Double = arrayUnsafe(4)
 
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Double](unsafeLength + 5)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Double](arrayLen + 5)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex5(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4, operand.dbl5)
     fromArray(newArray)
   }
@@ -66,7 +66,7 @@ trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLik
 { type BuffT <: BuffDbl5[B]
 
   override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
-    seqLike.unsafeArray.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
+    seqLike.arrayUnsafe.setIndex5(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4, newElem.dbl5)
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDbl5]] final classes. Instances for the [[BuilderArrMap]] type

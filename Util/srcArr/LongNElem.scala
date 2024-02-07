@@ -16,7 +16,7 @@ trait SeqLikeLongN[A <: LongNElem] extends Any with SeqLikeValueN[A]
   def longBufferAppend(buffer: ArrayBuffer[Long], elem: A): Unit
 
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Long](length * elemProdSize))
-  @inline final def unsafeLength: Int = unsafeArray.length
+  @inline final def arrayLen: Int = unsafeArray.length
 }
 
 /** A compound object defined / specified by a sequence of [[LongN]] elements. */
@@ -27,8 +27,8 @@ trait ArrLongN[A <: LongNElem] extends Any with SeqLikeLongN[A] with ArrValueN[A
 {
   final override def drop(n: Int): ThisT =
   { val nn = n.max0
-    val newArray = new Array[Long]((unsafeLength - elemProdSize * nn).max0)
-    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i) = unsafeArray(i + elemProdSize * nn) }
+    val newArray = new Array[Long]((arrayLen - elemProdSize * nn).max0)
+    iUntilForeach(arrayLen - elemProdSize * nn) { i => newArray(i) = unsafeArray(i + elemProdSize * nn) }
     fromArray(newArray)
   }
 }

@@ -43,7 +43,7 @@ object LineSegHC
 
 /** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegHCArr(val unsafeArray: Array[Int]) extends ArrInt4[LineSegHC]
+class LineSegHCArr(val arrayUnsafe: Array[Int]) extends ArrInt4[LineSegHC]
 { type ThisT = LineSegHCArr
   def fromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
   override def typeStr: String = "Line2s"

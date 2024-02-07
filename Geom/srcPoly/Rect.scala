@@ -147,7 +147,7 @@ object Rect
   }
 
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final class RectImp(val unsafeArray: Array[Double]) extends Rect
+  final class RectImp(val arrayUnsafe: Array[Double]) extends Rect
   { type ThisT = RectImp
 
     override def fromArray(array: Array[Double]): RectImp = new RectImp(array)
@@ -222,7 +222,7 @@ object NoBounds extends Rect
   override def height: Double = -1
   override def fromArray(array: Array[Double]): Rect = new Rect.RectImp(array)
 
-  override val unsafeArray: Array[Double] =
+  override val arrayUnsafe: Array[Double] =
   { import Double.{MaxValue => v }
     Array[Double](-v, -v, -v, v, v, v, v, -v)
   }

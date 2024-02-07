@@ -3,7 +3,7 @@ package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
 /** Specialist Arr, immutable sequence Array[Int] based class for [[Colour]]s. */
-final class Colours(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1[Colour]
+final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1[Colour]
 { type ThisT = Colours
   override def fromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"

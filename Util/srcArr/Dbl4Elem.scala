@@ -18,7 +18,7 @@ trait SeqLikeDbl4[A <: Dbl4Elem] extends Any with SeqLikeDblN[A]
 { override def elemProdSize: Int = 4
 
   final override def setElemUnsafe(index: Int, newElem: A): Unit =
-    unsafeArray.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+    arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
@@ -27,15 +27,15 @@ trait Dbl4SeqSpec[A <: Dbl4Elem] extends Any with SeqLikeDbl4[A] with SeqSpecDbl
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
-  override def ssIndex(index: Int): A = ssElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+  override def ssIndex(index: Int): A = ssElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
-{ def head1: Double = unsafeArray(0)
-  def head2: Double = unsafeArray(1)
-  def head3: Double = unsafeArray(2)
-  def head4: Double = unsafeArray(3)
-  final override def length: Int = unsafeArray.length / 4
+{ def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
+  def head3: Double = arrayUnsafe(2)
+  def head4: Double = arrayUnsafe(3)
+  final override def length: Int = arrayUnsafe.length / 4
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 
   /** Method for creating new elements from 4 [[Double]]s. */
@@ -44,11 +44,11 @@ trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 
   override def apply(index: Int): A =
-    newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+    newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Double](unsafeLength + 4)
-    unsafeArray.copyToArray(newArray)
+  { val newArray = new Array[Double](arrayLen + 4)
+    arrayUnsafe.copyToArray(newArray)
     newArray.setIndex4(length, operand.dbl1, operand.dbl2, operand.dbl3, operand.dbl4)
     fromArray(newArray)
   }
@@ -66,7 +66,7 @@ trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends BuilderArrDbl
 { type BuffT <: BuffDbl4[B]
 
   final override def indexSet(seqLike: ArrB, index: Int, newElem: B): Unit =
-    seqLike.unsafeArray.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
+    seqLike.arrayUnsafe.setIndex4(index, newElem.dbl1, newElem.dbl2, newElem.dbl3, newElem.dbl4)
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
@@ -82,7 +82,7 @@ abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends
     val res = uninitialised(length)
     var i: Int = 0
     while (i < length)
-    { res.unsafeArray.setIndex4(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4)
+    { res.arrayUnsafe.setIndex4(i, elems(i).dbl1, elems(i).dbl2, elems(i).dbl3, elems(i).dbl4)
       i += 1
     }
      res
@@ -96,7 +96,7 @@ abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends
     val res = uninitialised(length)
     var i: Int = 0
     while (i < length) {
-      res.unsafeArray.setIndex4(i, tuples(i)._1, tuples(i)._2, tuples(i)._3, tuples(i)._4)
+      res.arrayUnsafe.setIndex4(i, tuples(i)._1, tuples(i)._2, tuples(i)._3, tuples(i)._4)
       i += 1
     }
     res

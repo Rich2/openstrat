@@ -3,14 +3,14 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
-final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with PolygonLikeDbl2[PtM2]
+final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLikeDbl2[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM2
   def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def typeStr: String = "PolygonM2"
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
-  override def verts: PtM2Arr = new PtM2Arr(unsafeArray)
+  override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
 
   /** Performs the side effecting function on the [[PtM2]] value of each vertex. */
   override def vertsForeach[U](f: PtM2 => U): Unit =
@@ -54,8 +54,8 @@ object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
   { override type BuffT = PolygonM2Buff
     override def newBuff(length: Int): PolygonM2Buff = PolygonM2Buff(length)
     override def uninitialised(length: Int): PolygonM2Arr = new PolygonM2Arr(new Array[Array[Double]](length))
-    override def indexSet(seqLike: PolygonM2Arr, index: Int, newElem: PolygonM2): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.unsafeArray
-    override def buffGrow(buff: PolygonM2Buff, newElem: PolygonM2): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
+    override def indexSet(seqLike: PolygonM2Arr, index: Int, newElem: PolygonM2): Unit = seqLike.unsafeArrayOfArrays(index) = newElem.arrayUnsafe
+    override def buffGrow(buff: PolygonM2Buff, newElem: PolygonM2): Unit = buff.unsafeBuffer.append(newElem.arrayUnsafe)
     override def buffToSeqLike(buff: PolygonM2Buff): PolygonM2Arr = new PolygonM2Arr(buff.unsafeBuffer.toArray)
   }
 
