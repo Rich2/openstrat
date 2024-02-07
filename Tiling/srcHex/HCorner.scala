@@ -28,14 +28,14 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   /** Returns the second, going clockwise [[HVOffsetDelta]] of this corner if there is a second [[HVOffsetDelta]] on this [[HCorner]] else returns first. */
   def vLast(hVert: HVert): HvOffset = ife(numVerts == 2, v2(hVert), v1(hVert))
 
-  def verts(hVert: HVert): HvRelOffsetArr = unsafeInt %% 4 match
-  { case 0 => HvRelOffsetArr(HvOffset.none(hVert))
-    case 1 | 3 => HvRelOffsetArr(v1(hVert))
+  def verts(hVert: HVert): HvOffsetArr = unsafeInt %% 4 match
+  { case 0 => HvOffsetArr(HvOffset.none(hVert))
+    case 1 | 3 => HvOffsetArr(v1(hVert))
 
     case 2 =>
     { val r1: HvOffset = v1(hVert)
       val r2: HvOffset = v2(hVert)
-      HvRelOffsetArr(r1, r2)
+      HvOffsetArr(r1, r2)
     }
     case n  => excep(s"$n is an invalid value for offsets.")
   }

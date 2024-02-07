@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -101,4 +101,16 @@ abstract class CompanionSeqLikeInt3[A <: Int3Elem, ArrA <: SeqLikeInt3[A]] exten
     }
     res
   }
+}
+
+/** Helper trait for Companion objects of buffers of [[Int3Elem]]s. */
+trait CompanionBuffInt3[A <: Int3Elem, AA <: BuffInt3[A]] extends CompanionBuffIntN[A, AA]
+{
+  override def apply(elems: A*): AA =
+  { val buffer: ArrayBuffer[Int] =  new ArrayBuffer[Int](elems.length * 3 + 6)
+    elems.foreach{ elem => buffer.append3(elem.int1, elem.int2, elem.int3) }
+    fromBuffer(buffer)
+  }
+
+  final override def elemNumInts: Int = 3
 }

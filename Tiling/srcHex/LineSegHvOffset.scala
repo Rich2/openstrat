@@ -12,3 +12,27 @@ class LineSegHvOffset(val int1: Int, val int2: Int, val int3: Int, val int4: Int
 object LineSegHvOffset
 { def apply(v1: HvOffset, v2: HvOffset): LineSegHvOffset = new LineSegHvOffset(v1.int1, v1.int2, v1.int3, v2.int1, v2.int2, v2.int3)
 }
+
+trait LineSegHvOffsetSeqLike extends Any with SeqLikeInt6[LineSegHvOffset]
+
+/** Specialised sequence class for [[HvOffset]]. */
+class LineSegHvOffsetArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt6[LineSegHvOffset] with LineSegHvOffsetSeqLike
+{ type ThisT = LineSegHvOffsetArr
+  override def typeStr: String = "HvOffsetArr"
+  override def fromArray(array: Array[Int]): LineSegHvOffsetArr = new LineSegHvOffsetArr(array)
+
+  override def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): LineSegHvOffset = new LineSegHvOffset(i1, i2, i3, i4, i5, i6)
+
+  override def fElemStr: LineSegHvOffset => String = ???
+}
+
+/** Specialised sequence buffer class for [[HvOffset]]. */
+class LineSegHvOffsetBuff(val unsafeBuffer: ArrayBuffer[Int] = BufferInt()) extends AnyVal with BuffInt6[LineSegHvOffset]
+{ type ArrT = LineSegHvOffsetArr
+  override def typeStr: String = "HvOffsetBuff"
+  override def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): LineSegHvOffset = new LineSegHvOffset(i1, i2, i3, i4, i5, i6)
+}
+
+object LineSegHvOffsetBuff extends CompanionBuffInt6[LineSegHvOffset, LineSegHvOffsetBuff]
+{ override def fromBuffer(buffer: ArrayBuffer[Int]): LineSegHvOffsetBuff = new LineSegHvOffsetBuff(buffer)
+}

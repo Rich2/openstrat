@@ -115,10 +115,10 @@ object HvOffset
   def none(r: Int, c: Int) = new HvOffset(r, c, 0)
   def none(hVert: HVert) = new HvOffset(hVert.r, hVert.c, 0)
 
-  implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HvOffset, HvRelOffsetArr]  = new BuilderArrInt3Map[HvOffset, HvRelOffsetArr]
+  implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HvOffset, HvOffsetArr]  = new BuilderArrInt3Map[HvOffset, HvOffsetArr]
   { type BuffT = HVOffsetBuff
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVOffsetBuff = new HVOffsetBuff(buffer)
-    override def fromIntArray(array: Array[Int]): HvRelOffsetArr = new HvRelOffsetArr(array)
+    override def fromIntArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
   }
 
   /** Implicit type class instance / evidence for the [[HvOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
@@ -128,26 +128,25 @@ object HvOffset
   implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
-trait HvRelOffsetSeqLike extends SeqLikeInt3[HvOffset]
-{
-  final override def newElem(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
+trait HvOffsetSeqLike extends Any with SeqLikeInt3[HvOffset]
+{ final override def newElem(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
   final override def fElemStr: HvOffset => String = _.toString
 }
 
-class HvRelOffsetArr(val arrayUnsafe: Array[Int]) extends HvRelOffsetSeqLike with ArrInt3[HvOffset]
-{ override type ThisT = HvRelOffsetArr
+class HvOffsetArr(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike with ArrInt3[HvOffset]
+{ override type ThisT = HvOffsetArr
   override def typeStr: String = "HVAndOffsetArr"
-  override def fromArray(array: Array[Int]): HvRelOffsetArr = new HvRelOffsetArr(array)
+  override def fromArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
 }
 
-object HvRelOffsetArr extends CompanionSeqLikeInt3 [HvOffset, HvRelOffsetArr]
-{ override def fromArray(array: Array[Int]): HvRelOffsetArr = new HvRelOffsetArr(array)
+object HvOffsetArr extends CompanionSeqLikeInt3 [HvOffset, HvOffsetArr]
+{ override def fromArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
 }
 
 /** Specialised [[BuffSequ]] class for [[HvOffset]]s. The [[HVert]] with offset class. */
 class HVOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HvOffset]
 { override type ThisT = HVOffsetBuff
-  override type ArrT = HvRelOffsetArr
+  override type ArrT = HvOffsetArr
   override def typeStr: String = "HVAndoffsetBuff"
   override def newElem(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
 }

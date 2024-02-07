@@ -355,8 +355,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val p3: HvOffset = cornerV1(hcLt, vi3)
         val vi4 = lvi %% 6
         val p4: HvOffset = cornerV1(hcLt, vi4)
-        val arr1: HvRelOffsetArr = ife(isSpecial(hcRt, vi) & isSpecial(hcLt, vi4), HvRelOffsetArr(hcRt.vExact(vi), p1, p2), HvRelOffsetArr(p1, p2))
-        val arr2: HvRelOffsetArr = ife(isSpecial(hcRt, vi2) & isSpecial(hcLt, vi3), HvRelOffsetArr(hcRt.vExact(vi2), p3, p4), HvRelOffsetArr(p3, p4))
+        val arr1: HvOffsetArr = ife(isSpecial(hcRt, vi) & isSpecial(hcLt, vi4), HvOffsetArr(hcRt.vExact(vi), p1, p2), HvOffsetArr(p1, p2))
+        val arr2: HvOffsetArr = ife(isSpecial(hcRt, vi2) & isSpecial(hcLt, vi3), HvOffsetArr(hcRt.vExact(vi2), p3, p4), HvOffsetArr(p3, p4))
         (arr1 ++ arr2).toPolygon
       }
     }
