@@ -11,31 +11,31 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   override def toString: String = "HCorner " + numVerts
 
   /** Returns the first, going clockwise and possibly only [[HVOffsetDelta]] of this corner */
-  def v1(hVert: HVert): HVOffset =
+  def v1(hVert: HVert): HvRelOffset =
   { val dirn = HVDirnOpt.fromInt((unsafeInt %% 64) / 4)
     val magnitude = (unsafeInt %% 1024) / 64
-    HVOffset(hVert, dirn, magnitude)
+    HvRelOffset(hVert, dirn, magnitude)
   }
 
   /** Returns the second, going clockwise [[HVOffsetDelta]] of this corner. throws an exception if there is only 1. */
-  def v2(hVert: HVert): HVOffset =
+  def v2(hVert: HVert): HvRelOffset =
   { if(numVerts < 2) excep(s"Trying to access the second HVOffset for a Corner that has only $numVerts.")
     val dirn = HVDirnOpt.fromInt((unsafeInt %% 32768) / 2048)
     val magnitude = (unsafeInt %% 524288) / 32768
-    HVOffset(hVert, dirn, magnitude)
+    HvRelOffset(hVert, dirn, magnitude)
   }
 
   /** Returns the second, going clockwise [[HVOffsetDelta]] of this corner if there is a second [[HVOffsetDelta]] on this [[HCorner]] else returns first. */
-  def vLast(hVert: HVert): HVOffset = ife(numVerts == 2, v2(hVert), v1(hVert))
+  def vLast(hVert: HVert): HvRelOffset = ife(numVerts == 2, v2(hVert), v1(hVert))
 
-  def verts(hVert: HVert): HVOffsetArr = unsafeInt %% 4 match
-  { case 0 => HVOffsetArr(HVOffset.none(hVert))
-    case 1 | 3 => HVOffsetArr(v1(hVert))
+  def verts(hVert: HVert): HvRelOffsetArr = unsafeInt %% 4 match
+  { case 0 => HvRelOffsetArr(HvRelOffset.none(hVert))
+    case 1 | 3 => HvRelOffsetArr(v1(hVert))
 
     case 2 =>
-    { val r1: HVOffset = v1(hVert)
-      val r2: HVOffset = v2(hVert)
-      HVOffsetArr(r1, r2)
+    { val r1: HvRelOffset = v1(hVert)
+      val r2: HvRelOffset = v2(hVert)
+      HvRelOffsetArr(r1, r2)
     }
     case n  => excep(s"$n is an invalid value for offsets.")
   }

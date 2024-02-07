@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
-/** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
-class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
+/** The relative offset from an [[HVert]] towards a neighbouring [[HCen]] or [[HVert]], defined in [[Int]]s. */
+class HvRelOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 { /** The r or row component of the [[HVert]]. */
   inline def r: Int = int1
 
@@ -22,6 +22,7 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   def hvDirn: HVDirnOpt = delta.hvDirn
 
   def vHigh: Boolean = None match
+
   { case _ if r.div4Rem1 & c.div4Rem0 => true
     case _ if r.div4Rem3 & c.div4Rem2 => true
     case _ if r.div4Rem1 & c.div4Rem2 => false
@@ -29,7 +30,7 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case _ => excep(s"r = $r, c = $c Invalid valuse for HVert.")
   }
 
-  def target: HCoord = hvDirn match
+  /*def target: HCoord = hvDirn match
   { case HVUp if vHigh => HVertLow(r + 2, c)
     case HVUp => HCen(r + 1, c)
     case HVUR if vHigh => HCen(r + 1, c + 2)
@@ -47,7 +48,7 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     //case HVLt if vHigh => HCen(r + 1, c - 2)
     case HVLt => HVert(r, c - 4)
     case HVExact => vert
-  }
+  }*/
 
   /** The [[HCen]] the [[HVDirn]] points to if it is coming from the correct type of [[HVert]]. */
   def hCen: HCen = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
@@ -84,7 +85,7 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     }
   }
 
-  /** Converts this [[HVOffset]] to a [[PtM3]] using an [[HVert]] to [[PtM3]] function.  */
+  /** Converts this [[HvRelOffset]] to a [[PtM3]] using an [[HVert]] to [[PtM3]] function.  */
   def toPtM3(f: HCoord => PtM3)(implicit hSys: HGridSys): PtM3 = hvDirn match {
     case HVExact => f(vert)
     case hd: HVDirn => hSys.vertToCoordFind(vert, hd) match {
@@ -104,13 +105,13 @@ class HVOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   }
 }
 
-  /** Companion object for [[HVOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor
+  /** Companion object for [[HvRelOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor
  * directly. */
-object HVOffset
+object HvRelOffset
 {
-  def apply(hVert: HVert, hvDirn: HVDirnOpt, offset: Int): HVOffset = apply(hVert.r, hVert.c, hvDirn, offset)
+  def apply(hVert: HVert, hvDirn: HVDirnOpt, offset: Int): HvRelOffset = apply(hVert.r, hVert.c, hvDirn, offset)
 
-  def apply(r: Int, c: Int, hvDirn: HVDirnOpt, magnitude: Int): HVOffset =
+  def apply(r: Int, c: Int, hvDirn: HVDirnOpt, magnitude: Int): HvRelOffset =
   { val magnitude2 = ife(magnitude < 0, -magnitude, magnitude)
     val dirn2 = ife(magnitude < 0, hvDirn.opposite, hvDirn)
 
@@ -128,45 +129,45 @@ object HVOffset
     }
 
     val hVertOffset = HVOffsetDelta(dirn2, magnitude3)
-    new HVOffset(r, c, hVertOffset)
+    new HvRelOffset(r, c, hVertOffset)
   }
 
-  def none(r: Int, c: Int) = new HVOffset(r, c, 0)
-  def none(hVert: HVert) = new HVOffset(hVert.r, hVert.c, 0)
+  def none(r: Int, c: Int) = new HvRelOffset(r, c, 0)
+  def none(hVert: HVert) = new HvRelOffset(hVert.r, hVert.c, 0)
 
-  implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HVOffset, HVOffsetArr]  = new BuilderArrInt3Map[HVOffset, HVOffsetArr]
+  implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HvRelOffset, HvRelOffsetArr]  = new BuilderArrInt3Map[HvRelOffset, HvRelOffsetArr]
   { type BuffT = HVOffsetBuff
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVOffsetBuff = new HVOffsetBuff(buffer)
-    override def fromIntArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
+    override def fromIntArray(array: Array[Int]): HvRelOffsetArr = new HvRelOffsetArr(array)
   }
 
-  /** Implicit type class instance / evidence for the [[HVOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  /** Implicit type class instance / evidence for the [[HvRelOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonHVAndOffsetMapBuilder = new PolygonHVAndOffsetMapBuilder
 
-  /** Implicit type class instance / evidence for the [[HVOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  /** Implicit type class instance / evidence for the [[HvRelOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
-trait HVOffsetSeqLike extends SeqLikeInt3[HVOffset]
+trait HvRelOffsetSeqLike extends SeqLikeInt3[HvRelOffset]
 {
-  final override def newElem(int1: Int, int2: Int, int3: Int): HVOffset = new HVOffset(int1, int2, int3)
-  final override def fElemStr: HVOffset => String = _.toString
+  final override def newElem(int1: Int, int2: Int, int3: Int): HvRelOffset = new HvRelOffset(int1, int2, int3)
+  final override def fElemStr: HvRelOffset => String = _.toString
 }
 
-class HVOffsetArr(val arrayUnsafe: Array[Int]) extends HVOffsetSeqLike with ArrInt3[HVOffset]
-{ override type ThisT = HVOffsetArr
+class HvRelOffsetArr(val arrayUnsafe: Array[Int]) extends HvRelOffsetSeqLike with ArrInt3[HvRelOffset]
+{ override type ThisT = HvRelOffsetArr
   override def typeStr: String = "HVAndOffsetArr"
-  override def fromArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
+  override def fromArray(array: Array[Int]): HvRelOffsetArr = new HvRelOffsetArr(array)
 }
 
-object HVOffsetArr extends CompanionSeqLikeInt3 [HVOffset, HVOffsetArr]
-{ override def fromArray(array: Array[Int]): HVOffsetArr = new HVOffsetArr(array)
+object HvRelOffsetArr extends CompanionSeqLikeInt3 [HvRelOffset, HvRelOffsetArr]
+{ override def fromArray(array: Array[Int]): HvRelOffsetArr = new HvRelOffsetArr(array)
 }
 
-/** Specialised [[BuffSequ]] class for [[HVOffset]]s. The [[HVert]] with offset class. */
-class HVOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HVOffset]
+/** Specialised [[BuffSequ]] class for [[HvRelOffset]]s. The [[HVert]] with offset class. */
+class HVOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HvRelOffset]
 { override type ThisT = HVOffsetBuff
-  override type ArrT = HVOffsetArr
+  override type ArrT = HvRelOffsetArr
   override def typeStr: String = "HVAndoffsetBuff"
-  override def newElem(int1: Int, int2: Int, int3: Int): HVOffset = new HVOffset(int1, int2, int3)
+  override def newElem(int1: Int, int2: Int, int3: Int): HvRelOffset = new HvRelOffset(int1, int2, int3)
 }

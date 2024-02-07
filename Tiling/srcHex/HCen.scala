@@ -28,21 +28,21 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
   /** The polygon of this hex tile if it is part of a regular grid. */
   def polygonReg: Polygon = verts.mapPolygon(_.toPt2Reg)
 
-  def v0Offset(dirn: HVDirnOpt, magnitude: Int): HVOffset = HVOffset(r + 1, c, dirn, magnitude)
-  def v1Offset(dirn: HVDirnOpt, magnitude: Int): HVOffset = HVOffset(r + 1, c + 2, dirn, magnitude)
-  def v2Offset(dirn: HVDirnOpt, magnitude: Int): HVOffset = HVOffset(r - 1, c + 2, dirn, magnitude)
-  def v3Offset(dirn: HVDirnOpt, magnitude: Int): HVOffset = HVOffset(r - 1, c, dirn, magnitude)
-  def v4Offset(dirn: HVDirnOpt, magnitude: Int): HVOffset = HVOffset(r - 1, c - 2, dirn, magnitude)
-  def v5Offset(dirn: HVDirnOpt, magnitude: Int): HVOffset = HVOffset(r + 1, c - 2, dirn, magnitude)
+  def v0Offset(dirn: HVDirnOpt, magnitude: Int): HvRelOffset = HvRelOffset(r + 1, c, dirn, magnitude)
+  def v1Offset(dirn: HVDirnOpt, magnitude: Int): HvRelOffset = HvRelOffset(r + 1, c + 2, dirn, magnitude)
+  def v2Offset(dirn: HVDirnOpt, magnitude: Int): HvRelOffset = HvRelOffset(r - 1, c + 2, dirn, magnitude)
+  def v3Offset(dirn: HVDirnOpt, magnitude: Int): HvRelOffset = HvRelOffset(r - 1, c, dirn, magnitude)
+  def v4Offset(dirn: HVDirnOpt, magnitude: Int): HvRelOffset = HvRelOffset(r - 1, c - 2, dirn, magnitude)
+  def v5Offset(dirn: HVDirnOpt, magnitude: Int): HvRelOffset = HvRelOffset(r + 1, c - 2, dirn, magnitude)
 
-  def v0In(magnitude: Int): HVOffset = HVOffset(r + 1, c, HVDn, magnitude)
-  def v1In(magnitude: Int): HVOffset = HVOffset(r + 1, c + 2, HVDL, magnitude)
-  def v2In(magnitude: Int): HVOffset = HVOffset(r - 1, c + 2, HVUL, magnitude)
-  def v3In(magnitude: Int): HVOffset = HVOffset(r - 1, c, HVUp, magnitude)
-  def v4In(magnitude: Int): HVOffset = HVOffset(r - 1, c - 2, HVUR, magnitude)
-  def v5In(magnitude: Int): HVOffset = HVOffset(r + 1, c - 2, HVDR, magnitude)
+  def v0In(magnitude: Int): HvRelOffset = HvRelOffset(r + 1, c, HVDn, magnitude)
+  def v1In(magnitude: Int): HvRelOffset = HvRelOffset(r + 1, c + 2, HVDL, magnitude)
+  def v2In(magnitude: Int): HvRelOffset = HvRelOffset(r - 1, c + 2, HVUL, magnitude)
+  def v3In(magnitude: Int): HvRelOffset = HvRelOffset(r - 1, c, HVUp, magnitude)
+  def v4In(magnitude: Int): HvRelOffset = HvRelOffset(r - 1, c - 2, HVUR, magnitude)
+  def v5In(magnitude: Int): HvRelOffset = HvRelOffset(r + 1, c - 2, HVDR, magnitude)
 
-  def vIn(vert: Int, magnitude: Int): HVOffset = vert %% 6 match
+  def vIn(vert: Int, magnitude: Int): HvRelOffset = vert %% 6 match
   { case 0 => v0In(magnitude)
     case 1 => v1In(magnitude)
     case 2 => v2In(magnitude)
@@ -51,14 +51,14 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
     case 5 => v5In(magnitude)
   }
 
-  def v0Exact: HVOffset = HVOffset(r + 1, c, HVExact, 0)
-  def v1Exact: HVOffset = HVOffset(r + 1, c + 2, HVExact, 0)
-  def v2Exact: HVOffset = HVOffset(r - 1, c + 2, HVExact, 0)
-  def v3Exact: HVOffset = HVOffset(r - 1, c, HVExact, 0)
-  def v4Exact: HVOffset = HVOffset(r - 1, c - 2, HVExact, 0)
-  def v5Exact: HVOffset = HVOffset(r + 1, c - 2, HVExact, 0)
+  def v0Exact: HvRelOffset = HvRelOffset(r + 1, c, HVExact, 0)
+  def v1Exact: HvRelOffset = HvRelOffset(r + 1, c + 2, HVExact, 0)
+  def v2Exact: HvRelOffset = HvRelOffset(r - 1, c + 2, HVExact, 0)
+  def v3Exact: HvRelOffset = HvRelOffset(r - 1, c, HVExact, 0)
+  def v4Exact: HvRelOffset = HvRelOffset(r - 1, c - 2, HVExact, 0)
+  def v5Exact: HvRelOffset = HvRelOffset(r + 1, c - 2, HVExact, 0)
 
-  def vExact(vert: Int): HVOffset = vert %% 6 match
+  def vExact(vert: Int): HvRelOffset = vert %% 6 match
   { case 0 => v0Exact
     case 1 => v1Exact
     case 2 => v2Exact
@@ -67,8 +67,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
     case 5 => v5Exact
   }
 
-  def vertsIn(magnitude: Int): PolygonHVOffset =
-    PolygonHVOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
+  def vertsIn(magnitude: Int): PolygonHvRelOffset =
+    PolygonHvRelOffset(v0In(magnitude), v1In(magnitude), v2In(magnitude), v3In(magnitude), v4In(magnitude), v5In(magnitude))
 
   /** Up right separator. From vert 0 to vert 1. */
   def s0: HSep = HSep(r + 1, c + 1)

@@ -12,22 +12,22 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
   def unsafeIndex(cenR: Int, cenC: Int, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(cenR, cenC) * 6 + vertNum
 
-  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVOffset]]s. */
+  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HvRelOffset]]s. */
   def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(unsafeIndex(hCen, vertNum)))
 
-  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVOffset]]s. */
+  /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HvRelOffset]]s. */
   def corner(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HCorner =
     new HCorner(unsafeArray(gridSys.layerArrayIndex(hCenR, hCenC) * 6 + vertNum))
 
-  /** Returns the first and possibly only single [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
-  def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
+  /** Returns the first and possibly only single [[HvRelOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
+  def cornerV1(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HvRelOffset = corner(hCen, vertNum).v1(hCen.verts(vertNum))
 
-  /** Returns the last [[HVOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
-  def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
+  /** Returns the last [[HvRelOffset]] for an [[HCorner]]. This is used for drawing [[HSep]] hex side line segments. */
+  def cornerVLast(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HvRelOffset = corner(hCen, vertNum).vLast(hCen.verts(vertNum))
 
   def isSpecial(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Boolean = corner(hCen, vertNum).isSpecial
 
-  /** Produces an [[HSep]]'s line segment specified in [[HVOffset]] coordinates. */
+  /** Produces an [[HSep]]'s line segment specified in [[HvRelOffset]] coordinates. */
   def sideLineHVAndOffset(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit gridSys: HGridSys): LineSegHVAndOffset =
     LineSegHVAndOffset(cornerVLast(hCen, vertNum1), cornerV1(hCen, vertNum2))
 
@@ -37,8 +37,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
   def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }
-  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
-  def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVOffset = tilePoly(HCen(cenR, cenC))
+  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHvRelOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
+  def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHvRelOffset = tilePoly(HCen(cenR, cenC))
 
   /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirnOpt, magnitude: Int = 3)(implicit grid: HGrid): Unit =
@@ -322,8 +322,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     hVert.adjHCenCorners.foreach{pair => setCorner(pair._1, pair._2, dirn2, mag3)}
   }
 
-  /** Returns the [[PolygonHVOffset]] [[PolygonLike]] for the given [[HSep]]. */
-  def sidePoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHVOffset = hs.tileLtOpt match
+  /** Returns the [[PolygonHvRelOffset]] [[PolygonLike]] for the given [[HSep]]. */
+  def sidePoly(hs: HSep)(implicit gridSys: HGridSys): PolygonHvRelOffset = hs.tileLtOpt match
   {
     case None =>
     { val (hcRt, vi) = hs.tileRtAndVert
@@ -331,7 +331,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       val p2 = cornerV1(hcRt, (vi - 1) %% 6)
       val p3 = hs.vertLower.noOffset
       val p4 = hs.vertUpper.noOffset
-      PolygonHVOffset(hcRt.vExact(vi), p1, p2, p3, p4)
+      PolygonHvRelOffset(hcRt.vExact(vi), p1, p2, p3, p4)
     }
 
     case Some(hcLt) => hs.tileRtOpt match
@@ -342,7 +342,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val p2 = hs.vertLower.noOffset
         val p3 = cornerV1(hcLt, (vi + 1) %% 6)
         val p4 = cornerV1(hcLt, vi)
-        PolygonHVOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
+        PolygonHvRelOffset(p1, p2, hcLt.vExact((vi + 1) %% 6), p3, p4)
       }
 
       case Some(_) =>
@@ -350,13 +350,13 @@ final class HCornerLayer(val unsafeArray: Array[Int])
         val (hcLt, lvi) = hs.tileLtAndVertFromRt(hcRt.r)
         val p1 = cornerV1(hcRt, vi)
         val vi2 = (vi - 1) %% 6
-        val p2: HVOffset = cornerV1(hcRt, vi2)
+        val p2: HvRelOffset = cornerV1(hcRt, vi2)
         val vi3 = (lvi + 1) %% 6
-        val p3: HVOffset = cornerV1(hcLt, vi3)
+        val p3: HvRelOffset = cornerV1(hcLt, vi3)
         val vi4 = lvi %% 6
-        val p4: HVOffset = cornerV1(hcLt, vi4)
-        val arr1: HVOffsetArr = ife(isSpecial(hcRt, vi) & isSpecial(hcLt, vi4), HVOffsetArr(hcRt.vExact(vi), p1, p2), HVOffsetArr(p1, p2))
-        val arr2: HVOffsetArr = ife(isSpecial(hcRt, vi2) & isSpecial(hcLt, vi3), HVOffsetArr(hcRt.vExact(vi2), p3, p4), HVOffsetArr(p3, p4))
+        val p4: HvRelOffset = cornerV1(hcLt, vi4)
+        val arr1: HvRelOffsetArr = ife(isSpecial(hcRt, vi) & isSpecial(hcLt, vi4), HvRelOffsetArr(hcRt.vExact(vi), p1, p2), HvRelOffsetArr(p1, p2))
+        val arr2: HvRelOffsetArr = ife(isSpecial(hcRt, vi2) & isSpecial(hcLt, vi3), HvRelOffsetArr(hcRt.vExact(vi2), p3, p4), HvRelOffsetArr(p3, p4))
         (arr1 ++ arr2).toPolygon
       }
     }

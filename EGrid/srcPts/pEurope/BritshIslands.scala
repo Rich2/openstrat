@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] Graphical representation of Ireland. Depends on nothing. */
+/** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
 object Ireland extends EArea2("Ireland", 53.36 ll -7.63, land)
 { val north: LatLong = 55.38 ll -7.37
   val torHead: LatLong = 55.19 ll -6.06
@@ -27,6 +27,6 @@ object Ireland extends EArea2("Ireland", 53.36 ll -7.63, land)
   val malinBeg: LatLong = 54.66 ll -8.79
   val p95: LatLong = 55.16 ll -8.28
 
-  override val polygonLL = PolygonLL(north, torHead, skernaghanPoint, laganMouth, greyPoint, nIrelandE, stJohnsPoint, dundalk, p25, wicklowHead, southEast, harryLock, baltimore, dunquin,
-    loopHead, p65, rockIsland, p70, ardoone, derkmorePoint, malinBeg, p95)
+  override val polygonLL = PolygonLL(north, torHead, skernaghanPoint, laganMouth, greyPoint, nIrelandE, stJohnsPoint, dundalk, p25, wicklowHead,
+    southEast, harryLock, baltimore, dunquin, loopHead, p65, rockIsland, p70, ardoone, derkmorePoint, malinBeg, p95)
 }
