@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -13,34 +13,6 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtM3 => String = _.toString
   def xyPlane: PolygonM2 = map(_.xy)
-
-  override def sides: LineSegM3Arr =
-  { val newLen = numVerts * 6
-    val newArray: Array[Double] = new Array[Double](newLen)
-    val x0 = vertX(0)
-    newArray(0) = x0
-    newArray(newLen - 3) = x0
-    val y0 = vertY(0)
-    newArray(1) = y0
-    newArray(newLen - 2) = y0
-    val z0 = vertZ(0)
-    newArray(2) = z0
-    newArray(newLen - 1) = z0
-    var i = 1
-    while(i < numVerts)
-    { val x = vertX(i)
-      newArray(i * 3) = x
-      newArray((i + 1) * 3) = x
-      val y = vertY(i)
-      newArray(i * 3 + 1) = y
-      newArray((i + 1) * 3 + 1) = y
-      val z = vertZ(i)
-      newArray(i * 3 + 2) = z
-      newArray((i + 1) * 3 + 2) = z
-      i += 1
-    }
-    new LineSegM3Arr(newArray)
-  }
 
   /** All vertices have a non negative Z component. */
   def zAllNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
@@ -80,7 +52,6 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     }
   }
 
-
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   def vertX(index: Int): Double = unsafeArray(index * 3)
 
@@ -92,10 +63,15 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
    * override the implementation in sub classes. */
   def vertZ(index: Int): Double = unsafeArray(index * 3 + 2)
 
-
   def toXY: PolygonM2 = map(_.xy)
 
-  override def sidesForeach[U](f: LineSegM3 => U): Unit = ??? //if (vertsNum >= 2)
+  override def sidesForeach[U](f: LineSegM3 => U): Unit =
+  { var i = 0
+    while (i < numVerts) { f(side(i)); i += 1 }
+  }
+
+  @inline override def side(index: Int): LineSegM3 = LineSegM3(vert(index), vert(index + 1))
+  override def sides: LineSegM3Arr = new LineSegM3Arr(arrayForSides)
 }
 
 /** Companion object for [[PolygonM3]]. Contains apply factory method fromArrayDbl and Persist Implicit. */

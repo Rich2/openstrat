@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
@@ -63,9 +63,13 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
     ???
   }
 
+  @inline override def side(index: Int): LineSegHC = LineSegHC(vert(index), vert(index + 1))
   override def sides: LineSegHCArr = ???
 
-  override def sidesForeach[U](f: LineSegHC => U): Unit = ???
+  override def sidesForeach[U](f: LineSegHC => U): Unit =
+  { var i = 0
+    while (i < numVerts) { f(side(i)); i += 1 }
+  }
 }
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonHC]] trait. */

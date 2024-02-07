@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import geom._, collection.mutable.ArrayBuffer
 
@@ -41,9 +41,13 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
    * signature. */
   override def vertsPrevForEach[U](f: (LatLong, LatLong) => U): Unit = ???
 
-  override def sides: LineSegLLArr = ???
+  @inline override def side(index: Int): LineSegLL = LineSegLL(vert(index), vert(index + 1))
+  override def sides: LineSegLLArr = new LineSegLLArr(arrayForSides)
 
-  override def sidesForeach[U](f: LineSegLL => U): Unit = ???
+  override def sidesForeach[U](f: LineSegLL => U): Unit =
+  { var i = 0
+    while (i < numVerts) { f(side(i)); i += 1 }
+  }
 }
 
 /** Companion object for the [[PolygonLL]] class. */

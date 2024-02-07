@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
@@ -53,9 +53,13 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
     ???
   }
 
+  @inline override def side(index: Int): LineSegSC = LineSegSC(vert(index), vert(index + 1))
   override def sides: LineSegSCArr = ???
 
-  override def sidesForeach[U](f: LineSegSC => U): Unit = ???
+  override def sidesForeach[U](f: LineSegSC => U): Unit =
+  { var i = 0
+    while (i < numVerts) { f(side(i)); i += 1 }
+  }
 }
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonSqC]] trait. */

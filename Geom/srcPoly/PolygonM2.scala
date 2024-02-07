@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -7,7 +7,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 { type ThisT = PolygonM2
   type SideT = LineSegM2
   def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
-  override def typeStr: String = "PolygonMs"
+  override def typeStr: String = "PolygonM2"
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
   override def verts: PtM2Arr = new PtM2Arr(unsafeArray)
@@ -31,9 +31,13 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     res
   }
 
-  override def sides: LineSegM2Arr = ???
+  @inline override def side(index: Int): LineSegM2 = LineSegM2(vert(index), vert(index + 1))
+  override def sides: LineSegM2Arr = new LineSegM2Arr(arrayForSides)
 
-  override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
+  override def sidesForeach[U](f: LineSegM2 => U): Unit =
+  { var i = 0
+    while (i < numVerts) { f(side(i)); i += 1 }
+  }
 
   def revY: PolygonM2 = map(_.revY)
   def revYIf(cond: Boolean): PolygonM2 = ife(cond, revY, this)

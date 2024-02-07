@@ -76,43 +76,13 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
    * override the implementation in sub classes. */
   def vertY(index: Int): Double = unsafeArray(index * 2 + 1)
 
-  @inline def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
+  @inline override def side(index: Int): LineSeg = LineSeg(vert(index), vert(index + 1))
 
-  override def sides: LineSegArr =
-  { val newLen = numVerts * 4
-    val newArray: Array[Double] = new Array[Double](newLen)
-    val x0 = vertX(0)
-    newArray(0) = x0
-    newArray(newLen - 2) = x0
-    val y0 = vertY(0)
-    newArray(1) = y0
-    newArray(newLen - 1) = y0
-    var i = 1
-    while (i < numVerts)
-    { val x = vertX(i)
-      newArray(i * 4 - 2) = x
-      newArray(i * 4) = x
-      val y = vertY(i)
-      newArray(i * 4 - 1) = y
-      newArray(i * 4 + 1) = y
-      i += 1
-    }
-    new LineSegArr(newArray)
-  }
+  override def sides: LineSegArr = new LineSegArr(arrayForSides)
 
-  /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
   { var i = 0
     while (i < numVerts) { f(side(i)); i += 1 }
-  }
-
-  /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def iForeachSide(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
-  { var i = 0
-    while (i < numVerts)
-    { f(side(i), i + initCount)
-      i += 1
-    }
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
@@ -121,17 +91,6 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
     val res = build.uninitialised(numVerts)
     while (i < numVerts)
     { res.setElemUnsafe(i, f(side(i)))
-      i += 1
-    }
-    res
-  }
-
-  /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIMap[A, AA <: Arr[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: BuilderArrMap[A, AA]): AA =
-  { var i = 0
-    val res = build.uninitialised(numVerts)
-    while (i < numVerts)
-    { res.setElemUnsafe(i, f(side(i), i + initCount))
       i += 1
     }
     res

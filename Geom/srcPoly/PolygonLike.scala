@@ -76,9 +76,10 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
     res
   }
 
-  def sides: Arr[SideT]
 
+  def side(index: Int): SideT
   def sidesForeach[U](f: SideT => U): Unit
+  def sides: Arr[SideT]
 }
 
 trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqSpecValueN[VT]
@@ -88,12 +89,67 @@ trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqS
 
 /** A polygon whose elements are defined by [[Double]]s. */
 trait PolygonLikeDblN[VT <: DblNElem] extends Any with PolygonValueN[VT] with SeqSpecDblN[VT]
+{ /** Creates the [[Array]][Double] need to implememnt the sides method. */
+  protected def arrayForSides: Array[Double]
+}
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
 trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl2[VT]
+{
+  protected override def arrayForSides: Array[Double] =
+  { val newLen = numVerts * 4
+    val newArray: Array[Double] = new Array[Double](newLen)
+    val x0 = unsafeArray(0)
+    newArray(0) = x0
+    newArray(newLen - 2) = x0
+    val y0 = unsafeArray(1)
+    newArray(1) = y0
+    newArray(newLen - 1) = y0
+    var i = 1
+    while (i < numVerts)
+    { val x = unsafeArray(i * 2)
+      newArray(i * 4 - 2) = x
+      newArray(i * 4) = x
+      val y = unsafeArray(i * 2 + 1)
+      newArray(i * 4 - 1) = y
+      newArray(i * 4 + 1) = y
+      i += 1
+    }
+    newArray
+  }
+}
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
 trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl3[VT]
+{
+  protected override def arrayForSides: Array[Double] = {
+    val newLen = numVerts * 6
+    val newArray: Array[Double] = new Array[Double](newLen)
+    val x0 = unsafeArray(0)
+    newArray(0) = x0
+    newArray(newLen - 3) = x0
+    val y0 = unsafeArray(1)
+    newArray(1) = y0
+    newArray(newLen - 2) = y0
+    val z0 = unsafeArray(2)
+    newArray(2) = z0
+    newArray(newLen - 1) = z0
+    var i = 1
+    while (i < numVerts) {
+      val x = unsafeArray(i * 3)
+      newArray(i * 3) = x
+      newArray((i + 1) * 3) = x
+      val y = unsafeArray(i * 3 + 1)
+      newArray(i * 3 + 1) = y
+      newArray((i + 1) * 3 + 1) = y
+      val z = unsafeArray(i * 3 + 2)
+      newArray(i * 3 + 2) = z
+      newArray((i + 1) * 3 + 2) = z
+      i += 1
+    }
+    newArray
+  }
+}
 
 /** A polygon whose elements are defined by [[Inte]]s. */
 trait PolygonLikeIntN[VT <: IntNElem] extends Any with PolygonValueN[VT] with SeqSpecIntN[VT]

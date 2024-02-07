@@ -16,7 +16,7 @@ object LsAHexEnum extends GraphicsAE
   val htv: RArr[CircleFill] = h1.vertsMap(v => Circle(25, v).fill(Pink))
   val hts: RArr[TextFixed] = h1.vertsMap(v => TextFixed(v.str0, 15, v))
   val h2: HexParrX = h1.slateX(-400)
-  val hc: RArr[LineSegDraw] = h2.sidesIMap() { (s, i) => s.draw(2, Colours.rainbow.cycleGet(i)) }
+  val hc: RArr[LineSegDraw] = h2.sides.iMap { (i, s) => s.draw(2, Colours.rainbow.cycleGet(i)) }
   val h3d: PolygonDraw = HexParrY(231, 231, 0).draw(lineColour = DarkBlue)
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
