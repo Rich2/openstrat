@@ -113,10 +113,10 @@ package object ostrat
     { case Good(t) => t
       case a =>
       { println(a)
-        loop(io.StdIn.readLine ("That was not a single "+ ev.typeStr + ". Please enter " + artStr).asType[T])
+        loop(scala.io.StdIn.readLine ("That was not a single "+ ev.typeStr + ". Please enter " + artStr).asType[T])
       }
     }
-    loop(io.StdIn.readLine ("Please enter " + artStr).asType[T])
+    loop(scala.io.StdIn.readLine ("Please enter " + artStr).asType[T])
   }
 
   def readInt: Int = readT[Int]

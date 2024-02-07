@@ -30,7 +30,7 @@ package object pjvm
   }
    
   /** Attempts to load text file into a [[String]]. */
-  def loadTextFile(pathFileName: String): EMon[String] = eTry(io.Source.fromFile(pathFileName).mkString)
+  def loadTextFile(pathFileName: String): EMon[String] = eTry(scala.io.Source.fromFile(pathFileName).mkString)
 
   /** Attempts to load a value of the specified type from an RSON format file. */
   def fromRsonFileFind[A: Unshow](fileName: String): EMon[A] = loadTextFile(fileName).findType[A]
@@ -76,7 +76,7 @@ package object pjvm
 
   /** Function object apply method to get statements from a Java build resource. */
   def statementsFromResource(fileName: String): EMon[RArr[Statement]] =
-    eTry(io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatements(_, fileName))
+    eTry(scala.io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))

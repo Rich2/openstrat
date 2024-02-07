@@ -155,8 +155,8 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingEx
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
-  libraryDependencies ++= Seq(
 
+  libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
     "dev.zio" %% "zio" % "2.0.17",
@@ -192,8 +192,12 @@ lazy val FlagsJs = jsApp("Flags").settings(Compile/unmanagedSourceDirectories +=
 lazy val CivRiseJs = jsApp("CivRise").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp")
 lazy val ChessJs = jsApp("Chess").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp")
 
-val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid", "Dev")
-val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Earth/srcPts", "Dev/srcGrand")
+val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid", "Apps", "Dev")
+
+val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly",
+  "Geom/srcShapes", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans", "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq",
+  "Tiling/srcSqLayer", "EGrid/srcPts", "Dev/srcGrand", "Apps/srcStrat")
+
 val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src", m + "/ExsSrc")) ::: specDirs
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
@@ -210,8 +214,15 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
+  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
   Compile/doc/scalacOptions ++= Seq("-groups"),
   publish/skip := true,
+  libraryDependencies ++= Seq(
+    "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
+    "dev.zio" %% "zio" % "2.0.17",
+    "dev.zio" %% "zio-http" % "3.0.0-RC2",
+  ),
 )
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
