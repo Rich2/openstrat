@@ -6,10 +6,10 @@ import collection.mutable.ArrayBuffer
 final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLikeDbl2[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM2
-  def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def typeStr: String = "PolygonM2"
+  def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
-  override def fElemStr: PtM2 => String = _.str
+  override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
 
   /** Performs the side effecting function on the [[PtM2]] value of each vertex. */
@@ -59,28 +59,6 @@ object PolygonM2 extends CompanionSeqLikeDbl2[PtM2, PolygonM2]
     override def buffToSeqLike(buff: PolygonM2Buff): PolygonM2Arr = new PolygonM2Arr(buff.unsafeBuffer.toArray)
   }
 
-  /** Both [[Show]] amd [[Unshoe]] type class instances / evidence for [[PolygonM2]] objects. */
+  /** Both [[Show]] amd [[Unshow]] type class instances / evidence for [[PolygonM2]] objects. */
   implicit lazy val persistEv: PersistSeqSpecBoth[PtM2, PolygonM2] = PersistSeqSpecBoth[PtM2, PolygonM2]("PolygonM2")
-}
-
-/** Arr of [[PolygonM2]]s. */
-class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrArrayDbl[PolygonM2]
-{ override type ThisT = PolygonM2Arr
-  override def typeStr: String = "PolygonMArr"
-  override def fElemStr: PolygonM2 => String = _.toString
-  override def apply(index: Int): PolygonM2 = new PolygonM2(unsafeArrayOfArrays(index))
-  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM2Arr = new PolygonM2Arr(array)
-}
-
-/** Buff of [[PolygonM2]]s. */
-class PolygonM2Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with BuffArrayDbl[PolygonM2]
-{ override type ThisT = PolygonM2Buff
-  override def typeStr: String = "PolygonMBuff"
-  override def fElemStr: PolygonM2 => String = _.toString
-  override def fromArrayDbl(array: Array[Double]): PolygonM2 = new PolygonM2(array)
-}
-
-/** Companion object of the [[PolygonM2Buff]] class, a Buff of [[PolygonM2]]s, contains factory apply method. */
-object PolygonM2Buff
-{ def apply(initLen: Int = 4): PolygonM2Buff = new PolygonM2Buff(new ArrayBuffer[Array[Double]](initLen))
 }

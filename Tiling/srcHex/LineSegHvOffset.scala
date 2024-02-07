@@ -23,7 +23,7 @@ class LineSegHvOffsetArr(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt
 
   override def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): LineSegHvOffset = new LineSegHvOffset(i1, i2, i3, i4, i5, i6)
 
-  override def fElemStr: LineSegHvOffset => String = ???
+  override def fElemStr: LineSegHvOffset => String = _.toString
 }
 
 /** Specialised sequence buffer class for [[HvOffset]]. */

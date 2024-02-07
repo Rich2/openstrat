@@ -116,8 +116,8 @@ object HvOffset
   def none(hVert: HVert) = new HvOffset(hVert.r, hVert.c, 0)
 
   implicit val sarrMapBuilderImplicit: BuilderArrInt3Map[HvOffset, HvOffsetArr]  = new BuilderArrInt3Map[HvOffset, HvOffsetArr]
-  { type BuffT = HVOffsetBuff
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVOffsetBuff = new HVOffsetBuff(buffer)
+  { type BuffT = HvOffsetBuff
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HvOffsetBuff = new HvOffsetBuff(buffer)
     override def fromIntArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
   }
 
@@ -135,7 +135,7 @@ trait HvOffsetSeqLike extends Any with SeqLikeInt3[HvOffset]
 
 class HvOffsetArr(val arrayUnsafe: Array[Int]) extends HvOffsetSeqLike with ArrInt3[HvOffset]
 { override type ThisT = HvOffsetArr
-  override def typeStr: String = "HVAndOffsetArr"
+  override def typeStr: String = "HVvOffsetArr"
   override def fromArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
 }
 
@@ -144,8 +144,8 @@ object HvOffsetArr extends CompanionSeqLikeInt3 [HvOffset, HvOffsetArr]
 }
 
 /** Specialised [[BuffSequ]] class for [[HvOffset]]s. The [[HVert]] with offset class. */
-class HVOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HvOffset]
-{ override type ThisT = HVOffsetBuff
+class HvOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends BuffInt3[HvOffset]
+{ override type ThisT = HvOffsetBuff
   override type ArrT = HvOffsetArr
   override def typeStr: String = "HVAndoffsetBuff"
   override def newElem(int1: Int, int2: Int, int3: Int): HvOffset = new HvOffset(int1, int2, int3)
