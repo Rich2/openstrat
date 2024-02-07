@@ -57,17 +57,17 @@ trait HSep extends HCenOrSep with TSep
   /** Not sure about this method. */
   def cornerNums(implicit sys: HGridSys): (HCen, Int, Int)
 
-  def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset
+  def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset
 
-  def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset
+  def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset
 
-  def sideLineHVAndOffSet(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset = {
+  def sideLineHVAndOffSet(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset = {
     val cs: (HCen, Int, Int) = cornerNums
     corners.sideLineHVAndOffset(cs._1, cs._2, cs._3)
   }
 
   def projCornersSideLine(proj: HSysProjection, corners: HCornerLayer): Option[LineSeg] = {
-    val ls1: LineSegHVAndOffset = sideLineHVAndOffSet(corners)(proj.parent)
+    val ls1: LineSegHvOffset = sideLineHVAndOffSet(corners)(proj.parent)
     ls1.mapOpt(proj.transOptHVOffset(_))
   }
 
@@ -132,13 +132,13 @@ class HSepA(val r: Int, val c: Int) extends HSep
   override def unsafeTiles: (HCen, HCen) = (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileLt), (tileLt, 0, 1), (tileRt, 3, 4))
 
-  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
-    if(sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 0), corners.cornerV1(tileLt, 1))
-    else LineSegHVAndOffset(tileLt.v0Exact, tileLt.v1Exact)
+  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
+    if(sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerV1(tileLt, 0), corners.cornerV1(tileLt, 1))
+    else LineSegHvOffset(tileLt.v0Exact, tileLt.v1Exact)
 
-  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
-    if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 3), corners.cornerV1(tileRt, 4))
-    else LineSegHVAndOffset(tileRt.v3Exact, tileRt.v4Exact)
+  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
+    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerV1(tileRt, 3), corners.cornerV1(tileRt, 4))
+    else LineSegHvOffset(tileRt.v3Exact, tileRt.v4Exact)
 
   override def anglePerpRt: Angle = 60.degs
   override def anglePerpLt: Angle = -120.degs
@@ -169,13 +169,13 @@ class HSepB(val r: Int, val c: Int) extends HSep
   override def unsafeTiles: (HCen, HCen) = (HCen(r, c - 2), HCen(r, c + 2))
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt), (tileRt, 4, 5), (tileLt, 1, 2))
 
-  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
-    if (sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 1), corners.cornerV1(tileLt, 2))
-    else LineSegHVAndOffset(tileLt.v1Exact, tileLt.v2Exact)
+  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
+    if (sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerV1(tileLt, 1), corners.cornerV1(tileLt, 2))
+    else LineSegHvOffset(tileLt.v1Exact, tileLt.v2Exact)
 
-  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
-    if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 4), corners.cornerV1(tileRt, 5))
-    else LineSegHVAndOffset(tileRt.v4Exact, tileRt.v5Exact)
+  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
+    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerV1(tileRt, 4), corners.cornerV1(tileRt, 5))
+    else LineSegHvOffset(tileRt.v4Exact, tileRt.v5Exact)
 
   override def anglePerpRt: Angle = 0.degs
   override def anglePerpLt: Angle = 180.degs
@@ -211,13 +211,13 @@ class HSepC(val r: Int, val c: Int) extends HSep
   override def unsafeTiles: (HCen, HCen) = (HCen(r + 1, c - 1), HCen(r - 1, c + 1))
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt),(tileRt, 5, 0),  (tileLt, 2, 3))
 
-  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
-    if (sys.hCenExists(tileLt)) LineSegHVAndOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))
-    else LineSegHVAndOffset(tileLt.v2Exact, tileLt.v3Exact)
+  override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
+    if (sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerV1(tileLt, 2), corners.cornerV1(tileLt, 3))
+    else LineSegHvOffset(tileLt.v2Exact, tileLt.v3Exact)
 
-  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHVAndOffset =
-    if (sys.hCenExists(tileRt)) LineSegHVAndOffset(corners.cornerV1(tileRt, 5), corners.cornerV1(tileRt, 0))
-    else LineSegHVAndOffset(tileRt.v5Exact, tileRt.v0Exact)
+  override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
+    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerV1(tileRt, 5), corners.cornerV1(tileRt, 0))
+    else LineSegHvOffset(tileRt.v5Exact, tileRt.v0Exact)
 
   override def anglePerpRt: Angle = -60.degs
   override def anglePerpLt: Angle = 120.degs

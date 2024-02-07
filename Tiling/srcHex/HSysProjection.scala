@@ -37,7 +37,7 @@ trait HSysProjection extends TSysProjection
 
   /** Produces the hex tile polygons modified by the [[HCornerLayer]] parameter. Polygons not visible in the projection should be excluded. */
   def hCenPolygons(corners: HCornerLayer): HCenPairArr[Polygon] = gChild.optMapPair{hc =>
-    val poly: PolygonHvRelOffset = corners.tilePoly(hc)(parent)
+    val poly: PolygonHvOffset = corners.tilePoly(hc)(parent)
     poly.optMap(transOptHVOffset(_))
   }
 
@@ -58,11 +58,11 @@ trait HSysProjection extends TSysProjection
   /** Generally unsafe. Transforms an [[HCoord]] to a [[Pt2]]. Only use for [[HCoord]]s that are guaranteed displayed by the projection. */
   def transCoord(hc: HCoord): Pt2
 
-  def transHVOffset(hvo: HvRelOffset): Pt2 = hvo.toPt2(transCoord)(parent)
-  def transOptHVOffset(hvo: HvRelOffset): Option[Pt2]
+  def transHVOffset(hvo: HvOffset): Pt2 = hvo.toPt2(transCoord)(parent)
+  def transOptHVOffset(hvo: HvOffset): Option[Pt2]
 
-  def transPolygonHVOffset(inp: PolygonHvRelOffset): Polygon = inp.toPolygon(transCoord)(parent)
-  def transOptPolygonHVOffset(inp: PolygonHvRelOffset): Option[Polygon] = inp.optMap(transOptHVOffset(_))
+  def transPolygonHVOffset(inp: PolygonHvOffset): Polygon = inp.toPolygon(transCoord)(parent)
+  def transOptPolygonHVOffset(inp: PolygonHvOffset): Option[Polygon] = inp.optMap(transOptHVOffset(_))
 
   def transOptLineSeg(seg: LineSegHC): Option[LineSeg]
   def transLineSeg(seg: LineSegHC): LineSeg

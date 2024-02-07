@@ -30,7 +30,7 @@ sealed trait HVert extends Any with HCoord with TCoord
     case _ => false
   }
 
-  def noOffset: HvRelOffset = HvRelOffset.none(this)
+  def noOffset: HvOffset = HvOffset.none(this)
 
   def dirnTo(hvDirn: HVDirn): HCoord
 
