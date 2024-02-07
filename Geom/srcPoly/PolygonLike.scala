@@ -76,8 +76,9 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
     res
   }
 
-
+  /** Returns a side of the appropriate type for the [[PolygonLike]] from the goven index. The index cycles. */
   def side(index: Int): SideT
+
   def sidesForeach[U](f: SideT => U): Unit
   def sides: Arr[SideT]
 }
@@ -89,7 +90,7 @@ trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with SeqS
 
 /** A polygon whose elements are defined by [[Double]]s. */
 trait PolygonLikeDblN[VT <: DblNElem] extends Any with PolygonValueN[VT] with SeqSpecDblN[VT]
-{ /** Creates the [[Array]][Double] need to implememnt the sides method. */
+{ /** Creates the [[Array]][Double] need to implement the sides method. */
   protected def arrayForSides: Array[Double]
 }
 
@@ -122,8 +123,8 @@ trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
 trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with SeqSpecDbl3[VT]
 {
-  protected override def arrayForSides: Array[Double] = {
-    val newLen = numVerts * 6
+  protected override def arrayForSides: Array[Double] =
+  { val newLen = numVerts * 6
     val newArray: Array[Double] = new Array[Double](newLen)
     val x0 = arrayUnsafe(0)
     newArray(0) = x0
@@ -151,11 +152,66 @@ trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with 
   }
 }
 
-/** A polygon whose elements are defined by [[Inte]]s. */
+/** A polygon whose elements are defined by [[Int]]s. */
 trait PolygonLikeIntN[VT <: IntNElem] extends Any with PolygonValueN[VT] with SeqSpecIntN[VT]
+{ /** Creates the [[Array]][Int] need to implement the sides method. */
+  protected def arrayForSides: Array[Int]
+}
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
 trait PolygonLikeInt2[VT <: Int2Elem] extends Any with PolygonLikeIntN[VT] with SeqSpecInt2[VT]
+{ /** Creates the [[Array]][Int] need to implement the sides method. */
+  override protected def arrayForSides: Array[Int] =
+  { val newLen = numVerts * 4
+    val newArray: Array[Int] = new Array[Int](newLen)
+    val x0 = arrayUnsafe(0)
+    newArray(0) = x0
+    newArray(newLen - 2) = x0
+    val y0 = arrayUnsafe(1)
+    newArray(1) = y0
+    newArray(newLen - 1) = y0
+    var i = 1
+    while (i < numVerts) {
+      val x = arrayUnsafe(i * 2)
+      newArray(i * 4 - 2) = x
+      newArray(i * 4) = x
+      val y = arrayUnsafe(i * 2 + 1)
+      newArray(i * 4 - 1) = y
+      newArray(i * 4 + 1) = y
+      i += 1
+    }
+    newArray
+  }
+}
 
 /** A polygon whose elements are defined by 3 [[int]]s. */
 trait PolygonLikeInt3[VT <: Int3Elem] extends Any with PolygonLikeIntN[VT] with SeqSpecInt3[VT]
+{ /** Creates the [[Array]][Int] need to implement the sides method. */
+  override protected def arrayForSides: Array[Int] =
+  { val newLen = numVerts * 6
+    val newArray: Array[Int] = new Array[Int](newLen)
+    val x0 = arrayUnsafe(0)
+    newArray(0) = x0
+    newArray(newLen - 3) = x0
+    val y0 = arrayUnsafe(1)
+    newArray(1) = y0
+    newArray(newLen - 2) = y0
+    val z0 = arrayUnsafe(2)
+    newArray(2) = z0
+    newArray(newLen - 1) = z0
+    var i = 1
+    while (i < numVerts) {
+      val x = arrayUnsafe(i * 3)
+      newArray(i * 3) = x
+      newArray((i + 1) * 3) = x
+      val y = arrayUnsafe(i * 3 + 1)
+      newArray(i * 3 + 1) = y
+      newArray((i + 1) * 3 + 1) = y
+      val z = arrayUnsafe(i * 3 + 2)
+      newArray(i * 3 + 2) = z
+      newArray((i + 1) * 3 + 2) = z
+      i += 1
+    }
+    newArray
+  }
+}

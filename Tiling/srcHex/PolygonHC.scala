@@ -64,7 +64,7 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with HCoordSeqSpec w
   }
 
   @inline override def side(index: Int): LineSegHC = LineSegHC(vert(index), vert(index + 1))
-  override def sides: LineSegHCArr = ???
+  override def sides: LineSegHCArr = new LineSegHCArr(arrayForSides)
 
   override def sidesForeach[U](f: LineSegHC => U): Unit =
   { var i = 0

@@ -54,7 +54,7 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec
   }
 
   @inline override def side(index: Int): LineSegSC = LineSegSC(vert(index), vert(index + 1))
-  override def sides: LineSegSCArr = ???
+  override def sides: LineSegSCArr = new LineSegSCArr(arrayForSides)
 
   override def sidesForeach[U](f: LineSegSC => U): Unit =
   { var i = 0
