@@ -192,13 +192,13 @@ lazy val FlagsJs = jsApp("Flags").settings(Compile/unmanagedSourceDirectories +=
 lazy val CivRiseJs = jsApp("CivRise").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp")
 lazy val ChessJs = jsApp("Chess").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp")
 
-val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid", "Apps", "Dev")
+val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid")//, "Apps")//, "Dev")
 
 val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly",
   "Geom/srcShapes", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans", "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq",
-  "Tiling/srcSqLayer", "EGrid/srcPts", "Dev/srcGrand", "Apps/srcStrat")
+  "Tiling/srcSqLayer", "EGrid/srcPts")//, "Apps/srcStrat")
 
-val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src", m + "/ExsSrc")) ::: specDirs
+val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src"/*, m + "/ExsSrc"*/)) ::: specDirs
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
@@ -210,7 +210,7 @@ bothDoc :=
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s =>
-    List(s + "/JvmSrc")) ::: List("Util/srcRArr", "Geom/JvmFxSrc", "Dev/JvmFxSrc")).map(s => baseDir.value / s),
+    List(s + "/JvmSrc")) ::: List("Util/srcRArr", "Geom/JvmFxSrc"/*, "Dev/JvmFxSrc"*/)).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
