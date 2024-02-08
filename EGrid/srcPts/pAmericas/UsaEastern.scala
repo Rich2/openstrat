@@ -63,24 +63,31 @@ object Delmarva extends EArea2("Delmarva Peninsula", 38.777 ll -75.233, land)
 object UsaSouth extends EArea2("United States\nThe South", 34.479 ll -83.109, land)
 { val northEast: LatLong = 36.987 ll -76.303
   val capeHenry: LatLong = 36.928 ll -76.006
-  val stumpyPoint: LatLong = 35.69 ll -75.73
+  val rodanthe: LatLong = 35.591 ll -75.460
+  val hatterasSE: LatLong = 35.221 ll -75.525
+  val capeLookout: LatLong = 34.582 ll -76.533
+  val capeFear: LatLong = 33.843 ll -77.958
+  val p40: LatLong = 33.900 ll -78.382
+  val p45: LatLong = 33.207 ll -79.173
+  val morrisNorth = 32.742 ll -79.872
   val NAtlanticSW: LatLong = 31 ll  -81.47
   val capeSanBlas: LatLong = 29.67 ll -85.35
   val p70: LatLong = 30.39 ll -86.65
   val gulfPort: LatLong = 30.37 ll -89.08
   val northWest: LatLong = 36.679 ll -88.070
 
-  override def polygonLL: PolygonLL = PolygonLL(northEast, capeHenry, stumpyPoint, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth,
+  override def polygonLL: PolygonLL = PolygonLL(northEast, capeHenry, rodanthe, hatterasSE, capeLookout, capeFear, p40, p45, morrisNorth, NAtlanticSW, Florida.stJohnsMouth, Florida.wakullaMouth,
     capeSanBlas, p70, gulfPort, northWest)
 }
 
 /** [[PolygonLL]] Graphical object for Florida. Dependant on nothing. */
 object Florida extends EArea2("Florida", 28.29 ll -81.59, jungle)
 { val stJohnsMouth: LatLong = 30.40 ll -81.40
+  val p35 = 26.796 ll -80.031
   val seFlorida: LatLong = 25.34 ll -80.39
   val swFlorida: LatLong = 25.19 ll -81.13
 
   val wakullaMouth: LatLong = 30.09 ll -83.99
 
-  override def polygonLL: PolygonLL = PolygonLL(stJohnsMouth, seFlorida, swFlorida, wakullaMouth)
+  override def polygonLL: PolygonLL = PolygonLL(stJohnsMouth, p35, seFlorida, swFlorida, wakullaMouth)
 }
