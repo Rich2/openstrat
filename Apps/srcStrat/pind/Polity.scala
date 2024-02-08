@@ -1,5 +1,5 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pnap
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pind
 import Colour._
 
 trait Polity extends TellSimple

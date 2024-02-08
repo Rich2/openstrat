@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pnap
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pind
 import pgui._, prid._, phex._, pParse._
 
 /** Scenario selector and launcher for Y1783. */
-object NapLaunch extends GuiLaunchMore
+object IndRevLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "y1783"
 

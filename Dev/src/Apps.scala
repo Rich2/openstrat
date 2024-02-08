@@ -21,7 +21,7 @@ object Apps
     ("G3h", gThree.h3p.G3HLaunch),
     ("Z", pzug.ZugLaunch),
     ("DG", pDung.DungLaunch),
-    ("NA", pnap.NapLaunch),
+    ("IR", pind.IndRevLaunch),
     ("W2", pww2.WW2Launch),
     ("DI", p1492.DiscLaunch),
     ("SO", psors.SorsLaunch),
