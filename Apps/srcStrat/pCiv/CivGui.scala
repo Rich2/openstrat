@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
 import geom._, prid._, phex._, pgui._
 
@@ -10,10 +10,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   val sTerrs: LayerHSOptSys[VSep, VSepSome] = scen.sTerrs
   val corners: HCornerLayer = scen.corners
   val lunits: LayerHcRArr[Warrior] = scen.lunits
-
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
-  //def view: HGView()
-  //proj.setView(viewIn)
 
   def frame: GraphicElems =
   { def tileFillActives: GraphicElems = terrs.projHCenPolyMap(proj, corners){ (hc, poly, t) => poly.fillActive(t.colour, hc) }

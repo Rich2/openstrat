@@ -31,7 +31,7 @@ object AppsPage extends HtmlPage
 
   val y1492: HtmlLi = HtmlLi.linkAndText("../y1492.html", "AD1492", "A grand strategy game with a start point of 1492. It also uses an 160km scale world map.")
 
-  val y1783: HtmlLi = HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses an 80km scale world"
+  val y1783: HtmlLi = HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses a 220km scale world"
     -- "map. This is the second game that most interests me.")
 
   val zug: HtmlLi = HtmlLi.linkAndText("../zug.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale.")
