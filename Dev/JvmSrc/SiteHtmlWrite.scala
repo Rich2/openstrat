@@ -5,6 +5,7 @@ import pjvm._
 /** Object for creating openstrat documentation. */
 object SiteHtmlWrite extends App
 {
+  deb("Starting SiteHtmlWrite")
   val sett = findDevSettingT[DirPathAbs]("projPath")
 
   sett.forGoodForBad { path =>

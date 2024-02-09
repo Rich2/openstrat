@@ -35,8 +35,6 @@ object TilingPage extends HtmlPage
 
   def exs: HtmlLi = HtmlLi("Example games to demonstrate the use of the design principles and code of this module.")
 
-
-
   def terms2: HtmlOl = HtmlOl(HtmlLi("<b>ScenWorld</b> The universe of the scenario. Entities within the scenario universe have no knowledge of entities in" --
     "the GameWorld or the OutWorld."),
     HtmlLi("<b>GameWorld</b> the universe of the players in the game. The assignment of PlayerControl. The time dead lines and time credits for" --
@@ -78,7 +76,7 @@ object TilingPage extends HtmlPage
 
 object CoordSystem extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, svg1)
+  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, Svg1())
 
   val p1 = HtmlP("""So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board
   | game Diplomacy the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,
@@ -103,10 +101,12 @@ object CoordSystem extends HtmlSection
   | English Channel, or La Manche at its narrowest point still does not occupy a full hex at this scale.""".stripMargin)
 
   def p4: HtmlP = HtmlP(
-    """The hex tile coordinate system
-      | not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to each of the separating borders
-      | between the hexs and to each of the vertices of the tiles.""".stripMargin)
+    """The hex tile coordinate system not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to
+    | each of the separating borders between the hexs and to each of the vertices of the tiles.""".stripMargin)
+}
 
+object Svg1
+{
   val grid: HGridRect = HGridRect(3, 6)
   val seps: LineSegHCArr = grid.sepLineSegHCs
   val sc = 60
@@ -116,5 +116,5 @@ object CoordSystem extends HtmlSection
   val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
   val stuff = (cens).scale(sc)
 
-  val svg1: HtmlSvg = HtmlSvg.autoHorrVert(100, 40, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
+  def apply(): HtmlSvg = HtmlSvg.autoHorrVert(100, 40, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
 }
