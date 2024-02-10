@@ -1,10 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
-case class RectCompound(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectGraphic with RectangleCompound
+trait RectCompound extends RectGraphic with RectangleCompound
 {
+  override def shape: Rect
+
   /*override def svgElem: SvgRect = SvgRect(shape.negY.slateXY(0, boundingRect.bottom + boundingRect.top).
     attribs ++ facets.flatMap(_.attribs))*/
   override def mainSvgElem: SvgRect = SvgRect(attribs)
@@ -34,11 +36,20 @@ case class RectCompound(shape: Rect, facets: RArr[GraphicFacet], children: RArr[
     RectCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand) )
 
   override def addChildren(newChildren: Arr[GraphicElem]): RectCompound = RectCompound(shape, facets, children ++ newChildren)
+
+  def htmlSvg: HtmlSvg =
+  { val atts = RArr(WidthAtt(shape.width), HeightAtt(shape.height), ViewBox(shape.left, -shape.top, shape.width, shape.height), CentreBlockAtt)
+    val svgElems = children.flatMap(_.svgElems)
+    new HtmlSvg(svgElems, atts)
+  }
 }
 
 /** Companion object for the RectCompound trait, contains implicit instances for 2D geometric transformation type classes. */
 object RectCompound
 {
+  def apply(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()): RectCompound =
+    RectCompoundImp(shape, facets, children)
+
   implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: ScaleXY[RectCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
@@ -51,4 +62,6 @@ object RectCompound
     override def rotate180(obj: RectCompound): RectCompound = obj.rotate180
     override def rotate270(obj: RectCompound): RectCompound = obj.rotate270
   }
+
+  case class RectCompoundImp(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectCompound
 }

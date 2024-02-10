@@ -76,7 +76,7 @@ object TilingPage extends HtmlPage
 
 object CoordSystem extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, Svg1())
+  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)// Svg1())
 
   val p1 = HtmlP("""So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board
   | game Diplomacy the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,
@@ -94,27 +94,27 @@ object CoordSystem extends HtmlSection
   | right I increase by 2 column units. If I go up-right I go up 1 row and right 1 column. If I then go down-right I down 1 and right anther column
   | giving the same result of same row coordinate but column increased by 2. """.stripMargin)
 
-  val p3 = HtmlP("""So things are still pretty simple right? A hex is either land orits water. A hex is either hilly or or its not. If we were
+  val p3 = HtmlP("""So things are still pretty simple right? A hex is either land or its water. A hex is either hilly or or its not. If we were
   | creating some kind of low level Dungeons and Dragons type game a square could be either be rock which you can not enter of the open space of a
   | room or a cavern which you can enter. Unfortunately this is not going to work at least for real world maps. So I have mapped Britain at a number
   | of scales including 80km hex tiles. At this scale mainland Britain occupies 15 hex rows from Cornwall to the north of Scotland. However the
   | English Channel, or La Manche at its narrowest point still does not occupy a full hex at this scale.""".stripMargin)
 
-  def p4: HtmlP = HtmlP(
-    """The hex tile coordinate system not only allows each hex tile to be given its own unique coordinate, but also assigns a unique coordinate to
-    | each of the separating borders between the hexs and to each of the vertices of the tiles.""".stripMargin)
+  def p4: HtmlP = HtmlP("""The hex tile coordinate system not only allows each hex tile to be given its own unique coordinate, but also assigns a
+  | unique coordinate to each of the separating borders between the hexs and to each of the vertices of the tiles.""".stripMargin)
 }
 
-object Svg1
-{
-  val grid: HGridRect = HGridRect(3, 6)
+object GridGraphic1 extends RectCompound
+{ val grid: HGridRect = HGridRect(3, 6)
   val seps: LineSegHCArr = grid.sepLineSegHCs
   val sc = 60
   val seps2: LinesDraw = seps.map(_.lineSeg).draw(2).scale(sc)
   val cens: RArr[TextFixed] = grid.map { hc => hc.toPt2Reg.textAt(hc.strSemi, 10, Black) }
   val spt: RArr[GraphicSvgElem] = grid.sepsFlatMap{ sep => sep.toPt2Reg.scale(sc).textArrow(sep.strSemi, sep.anglePerpRt, 25, Blue, 10) }
   val vts = grid.vertsFlatMap{ hv => hv.toPt2Reg.scale(sc).textArrow(hv.strSemi, hv.angleOppLeft, 25, Green, 10) }
-  val stuff = (cens).scale(sc)
+  val children: RArr[GraphicElem] = seps2 %: cens.scale(sc) ++ spt ++ vts
 
-  def apply(): HtmlSvg = HtmlSvg.autoHorrVert(100, 40, seps2 %: stuff ++ spt ++ vts, RArr(CentreBlockAtt))
+  override def shape: Rect = Rect.bounding(children).addHorrVertMargin(100, 40)
+
+  override def facets: RArr[GraphicFacet] = RArr()
 }
