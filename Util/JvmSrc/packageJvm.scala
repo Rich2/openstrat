@@ -5,7 +5,7 @@ import pParse._
 /** This package is for JavaFx code.*/
 package object pjvm
 { val userHomeDir: String = System.getProperty("user.home")
-  val yourDir: String = userHomeDir -/- "AppData/Local/OpenStratData"
+  val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
   lazy val devSettingsStatements: EMon[RArr[Statement]] = statementsFromResource("DevSettings.rson")
@@ -24,7 +24,7 @@ package object pjvm
   { import java.io._
     val dir = new File(path)
     if (!dir.exists) dir.mkdirs
-    val pw = new PrintWriter(new File(path -/- fileName))
+    val pw = new PrintWriter(new File(path / fileName))
     pw.write(output)
     pw.close
   }
@@ -60,18 +60,18 @@ package object pjvm
     var opw: Option[FileWriter] = None
     try {
       new File(path).mkdir()
-      opw = Some(new FileWriter(new File(path -/- fileName)))
+      opw = Some(new FileWriter(new File(path / fileName)))
       opw.get.write(content)
     }
 
     catch { case e: Throwable => eStr = e.toString }
     finally{ opw.foreach(_.close()) }
-    if (eStr == "") Good("Successfully written file to " + path -/- fileName) else Bad(StrArr(eStr))
+    if (eStr == "") Good("Successfully written file to " + path / fileName) else Bad(StrArr(eStr))
   }
 
   def homeWrite(dir: String, fileName: String, str: String): EMon[String] =
   { val h = System.getProperty("user.home")
-    fileWrite(h -/- dir , fileName, str)
+    fileWrite(h / dir , fileName, str)
   }
 
   /** Function object apply method to get statements from a Java build resource. */

@@ -1,12 +1,16 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class ExtensionsString(val thisString: String) extends AnyVal
-{
+{ /** Parses this [[String]] into RSON tokens. */
   def parseTokens: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String")
+
+  /** Parses this [[String]] into RSON statements. */
   def parseStatements: EArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+
+  /** Parses this [[String]] into an RSON expression. */
   def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
@@ -38,11 +42,10 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
 
+  /** Attempts to parse this [[String]] into an RSON expression of the given type. */
   def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
- // def asSeqMultiple[A, R <: Arr[A]](implicit evA: Unshow[A], build: BuilderArrMap[A, R]): EMon[R] =
-  //  thisString.asType[RArr[Multiple[A]]].map(ms => ms.toArr)
-
+  /** Replaces newline characters into space characters. */
   def newLinesToSpaces: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */
@@ -131,7 +134,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def ind4: String = "    " + thisString
   
   /** Concatenates a '/' character and then the other String. Useful for constructing directory/ folder paths on the Web, Linux and Unix */      
-  def -/-(other: String): String = thisString + "/" + other
+  def /(other: String): String = thisString + "/" + other
 
   /** Appends a colon character, a space then the operand String wit */
   def -:-(other: String): String = thisString + ": " + other
