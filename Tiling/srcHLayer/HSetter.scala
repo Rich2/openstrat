@@ -516,12 +516,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    *  geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeUpBase extends VertSetBase
-  {
+  { /** Separator terrain for the [[HSep]] that is up from the [[HVert]]. */
     def upTerr: SST
 
+    /** Separator terrain for the [[HSep]] that is down-right from the [[HVert]]. */
     def downRightTerr: SST
 
-    /** The terrain of the left most [[HSep]] of the junction. */
+    /** Separator terrain for [[HSep]] down-left from the [[HVert]]. */
     def downLeftTerr: SST
 
     /** The magnitude of the [[HVUR]] up-right offset. */
@@ -545,13 +546,23 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    * geographic / terrain features and is probably superfluous for created worlds / terrain. */
-  trait ThreeDownBase
-  { def c: Int
+  trait ThreeDownBase extends VertSetBase
+  {/** Separator terrain for the [[HSep]] that is up-right from the [[HVert]]. */
     def upRightTerr: SST
+
+    /** Separator terrain for the [[HSep]] that is down from the [[HVert]]. */
     def downTerr: SST
+
+    /** Separator terrain for the [[HSep]] that is up-left from the [[HVert]]. */
     def upLeftTerr: SST
+
+    /** The magnitude of the [[HVUp]] up offset. */
     def magUp: Int
+
+    /** The magnitude of the [[HVDR]] down-right offset. */
     def magDR: Int
+
+    /** The magnitude of the [[HVDL]] down-left offset. */
     def magDL: Int
 
     def run(row: Int): Unit =
