@@ -27,7 +27,7 @@ object Terr460E120 extends Long460Terrs
       TRow(124, desert * 2, sahel, hillyForest, mtain),
       VRow(123, Mouth(4608, HVUp), BendOut(4616, HVDR), Mouth(4618, HVUR)),
       TRow(122, mtain, land, Cape(3, 2, hilly), mtain),
-      VRow(121, Mouth(4612, HVUR), ThreeWay(4616), BendOut(4618, HVUp), BendOut(4620, HVUL)),
+      VRow(121, Mouth(4612, HVUR), ThreeUp(4616, 0, 13, 6), BendOut(4618, HVUp), BendOut(4620, HVUL)),
       TRow(120, hillySavannah, land, Cape(2, 1, hilly), Cape(4, 2, hilly), Cape(4, 3, hilly)),
       VRow(119, Mouth(4608, HVDL), Mouth(4616, HVDR)),
       TRow(118, mtain, land * 2, Cape(0, 3), sea, Cape(3, 1, hilly)),
