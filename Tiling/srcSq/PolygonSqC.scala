@@ -36,19 +36,14 @@ class PolygonSqC(val arrayUnsafe: Array[Int]) extends AnyVal with SqCoordSeqSpec
    * signature. */
   override def vertsPrevForEach[U](f: (SqCoord, SqCoord) => U): Unit = ???
 
-  /** This applies the index value in a circular manner. So the 6th index of a Sqexagon is applied at vertex 0, 7 at 1 and -1 at 5. */
-  def circularIndex(inp: Int): Int = inp %% vertNum
-
   def toPolygon(f: SqCoord => Pt2): Polygon =
-  {
-    val res = PolygonGen.uninitialised(ssLength)
+  { val res = PolygonGen.uninitialised(ssLength)
     ssIForeach((i, hv) => res.setElemUnsafe(i, f(hv)))
     res
   }
 
   def combine(operand: PolygonSqC): Option[PolygonSqC] =
-  {
-    var starts: Option[(Int, Int)] = None
+  { var starts: Option[(Int, Int)] = None
     val a = ssIndex(0)
     ???
   }
