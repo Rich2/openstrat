@@ -24,7 +24,7 @@ object Terr13E120 extends Long13Terrs
       TRow(102, SepB(), sea, hillyJungle),
       VRow(101, BendIn(4604, HVDn), SetSep(4605), MouthLtRt(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
       TRow(100, SepB(), hillyJungle, SepB(), hillyJungle),
-      VRow(99, BendIn(4604, HVDR), ThreeWay(4606), BendAll(4608, HVUp), ThreeUp(4610, 7, 7, 7), BendOut(4612, HVDL), Mouth(4614, HVDn)),
+      VRow(99, BendIn(4604, HVDR), ThreeUp(4606, 1, 7, 6), BendAll(4608, HVUp), ThreeUp(4610, 7, 7, 7), BendOut(4612, HVDL), Mouth(4614, HVDn)),
       TRow(98, hillyJungle * 2),
       VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 7, 7, 0), BendAll(4608, HVDn), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13)),
       TRow(96, SepB(), desert, sahel),
