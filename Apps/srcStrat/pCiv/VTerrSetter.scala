@@ -81,7 +81,14 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   case class ThreeWay(c: Int, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
   case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
 
-  case class BendAll(c: Int, dirn: HVDirn, sTerr: VSepSome = Sea) extends VRowElem with BendAllBase
+  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendAllBase
   { override def magnitude: Int = 3
+  }
+
+  object BendAll
+  {
+    def apply(c: Int, dirn: HVDirn, sTerr: VSepSome = Sea): BendAll = new BendAll(c, dirn, sTerr, sTerr)
+
+    def apply(c: Int, dirn: HVDirn, leftTerr: VSepSome, rightTerr: VSepSome): BendAll = new BendAll(c, dirn, leftTerr, rightTerr)
   }
 }

@@ -436,7 +436,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   /** Sets all the corners of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the bend is
    *  specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is probably
    *  superfluous for created worlds / terrain. */
-  trait BendInOutBase extends VertSetBase
+  trait BendInOutBase extends BendBase
   { /** The magnitude of the offset for inside of the bend. */
     def magIn: Int
 
@@ -446,40 +446,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     /** The direction of the inside of the bend [[HCen]] from the [[HVert]] of the bend. */
     def dirn: HVDirn
 
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
-
-    def run(row: Int): Unit = dirn match
-    { case HVUR =>
-      { corners.setBend4All(row + 1, c + 2, magIn, magOut)
-        sTerrs.setIf(row + 1, c, sTerr)
-      }
-
-      case HVDR =>
-      { corners.setBend5All(row - 1, c + 2, magIn, magOut)
-        sTerrs.set(row - 1, c, sTerr)
-      }
-
-      case HVDn =>
-      { corners.setBend0All(row - 1, c, magIn, magOut)
-        sTerrs.setIf(row, c - 1, sTerr)
-      }
-
-      case HVDL =>
-      { corners.setBend1All(row - 1, c - 2, magIn, magOut)
-        sTerrs.set(row, c - 1, sTerr)
-      }
-
-      case HVUL =>
-      { corners.setBend2All(row + 1, c - 2, magIn, magOut)
-        sTerrs.setIf(row, c - 1, sTerr)
-      }
-
-      case HVUp =>
-      { corners.setBend3All(row + 1, c, magIn, magOut)
-        sTerrs.setIf(row, c - 1, sTerr)
-      }
-
+    override def setCorners(row: Int): Unit = dirn match
+    { case HVUR => corners.setBend4All(row + 1, c + 2, magIn, magOut)
+      case HVDR => corners.setBend5All(row - 1, c + 2, magIn, magOut)
+      case HVDn => corners.setBend0All(row - 1, c, magIn, magOut)
+      case HVDL => corners.setBend1All(row - 1, c - 2, magIn, magOut)
+      case HVUL => corners.setBend2All(row + 1, c - 2, magIn, magOut)
+      case HVUp => corners.setBend3All(row + 1, c, magIn, magOut)
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
   }
@@ -497,12 +470,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   trait BendOutBase extends BendBase
   { /** The magnitude of the offset for the 2 outer corners of the bend vertex. */
     def magnitude: Int
-
-    /** The direction of the inside of the bend. */
-//    def dirn: HVDirn
-//
-//    /** The terrain of the left most [[HSep]] of the junction. */
-//    def sTerr: SST
 
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR => corners.setBend4Out(row + 1, c + 2, magnitude)

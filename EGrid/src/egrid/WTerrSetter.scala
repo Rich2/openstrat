@@ -132,14 +132,16 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this vertex with a
    *  default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  case class BendAll(val c: Int, val dirn: HVDirn, val sTerr: WSepSome, val magnitude: Int) extends VRowElem with BendAllBase
+  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome, val magnitude: Int) extends VRowElem with BendAllBase
 
   object BendAll
   {
-    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea, magnitude: Int = 3): BendAll =
+    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea, magnitude: Int = 3): BendAll = apply(c, dirn, terr, terr, magnitude)
+
+    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome, magnitude: Int): BendAll =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
-      new BendAll(c, dirn, terr, magnitude)
+      new BendAll(c, dirn, leftTerr, rightTerr, magnitude)
     }
   }
 
@@ -173,16 +175,18 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
-  class BendInOut(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val sTerr: WSepSome = Sea) extends VRowElem with BendInOutBase
+  class BendInOut(val c: Int, val dirn: HVDirn, val magIn: Int, val magOut: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
 
   object BendInOut
   {
-    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, terr: WSepSome = Sea): BendInOut =
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, terr: WSepSome = Sea): BendInOut = apply(c, dirn, magIn, magOut, terr, terr)
+
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magOut: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendInOut =
     { ifExcep(magIn < 0, magIn.str -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magOut < 0, magOut.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magIn > 13, magIn.str -- "magnitude, magnitude values > 13 not allowed.")
       ifExcep(magOut > 7, magOut.str -- "magnitude, outer bend magnitude values > 7 not allowed.")
-      new BendInOut(c, dirn, magIn, magOut, terr)
+      new BendInOut(c, dirn, magIn, magOut, leftTerr, rightTerr)
     }
   }
 
