@@ -31,11 +31,14 @@ object Terr320E30 extends Long320Terrs
       TRow(142, land * 6),
       TRow(140, land * 6),
       TRow(138, mtain * 2, hilly, land * 3, desert),
-      VRow(137, Mouth(1522, HVUp), Mouth(1540, HVUR), BendAll(1542, HVDR), Mouth(1544, HVUR)),
-      TRow(136, hilly, land * 2, Cape(2), Cape(3, 3), Cape(3, 2), land),
-      VRow(135, SetSep(1523), BendAll(1522, HVUR), BendOut(1536, HVDR), ThreeWay(1542), Mouth(1546, HVUR)),
+      VRow(137, Mouth(1522, HVUp), MouthLtRt(1538, HVUp, 3, 7), BendAll(1542, HVDR), Mouth(1544, HVUR)),
+      TRow(136, hilly, land * 2, land, land, land, land),
+
+      VRow(135, SetSep(1523), BendAll(1522, HVUR), BendOut(1536, HVDR, 7), ThreeUp(1538, 7, 0, 13), BendIn(1540, HVUp, 10), ThreeUp(1542, 7, 0, 7),
+        MouthRt(1544, HVDR, 7)),
+
       TRow(134, Cape(4, 1, hilly), hilly, hilly, sea * 3, mtain),
-      VRow(133, Mouth(1530, HVUp), Mouth(1536, HVDn)),
+      VRow(133, Mouth(1530, HVUp), MouthLt(1536, HVDn, 7)),
       TRow(132, Cape(1, 2, hilly), hilly, Cape(4, 1, hilly), hilly * 4),
       VRow(131, VertLeftsRight(1522), Mouth(1528, HVDR)),
       TRow(130, Cape(2, 4, hilly), Cape(3, 4, hilly), Cape(1, 3, hilly), Cape(3, 2, hilly), hilly * 4),
