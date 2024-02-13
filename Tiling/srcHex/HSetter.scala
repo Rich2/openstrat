@@ -131,9 +131,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   trait VertSetBase
   { /** The C coordinate of the vertex. */
     def c: Int
-
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
   }
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
@@ -143,6 +140,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
 
     /** The magnitude of the offsets. */
     def magnitude: Int
+
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
 
     /** Sets the 3 corners for the [[HVert]] and sets the [[HSep]].  */
     def run(row: Int): Unit = dirn match
@@ -186,6 +186,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     /** The magnitude of the offsets. */
     def magnitude: Int
 
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUp =>
@@ -229,6 +231,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     /** The magnitude of the offsets. */
     def magnitude: Int
 
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
+
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, 0, magnitude)
@@ -267,6 +272,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   trait MouthLtRtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
+
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
 
     /** The magnitude of the left offset. */
     def magLeft: Int
@@ -316,6 +324,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     def dirn1: HVDirn
 
     def dirn2: HVDirn
+
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
 
     /** The magnitude of the 1st offset of the mouth. */
     def magnitude1: Int
@@ -380,6 +391,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     /** The direction of the inside of the bend [[HCen]] from the [[HVert]] of the bend. */
     def dirn: HVDirn
 
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
+
     def run(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setBend4All(row + 1, c + 2, magIn, magOut)
@@ -432,6 +446,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     /** The direction of the inside of the bend. */
     def dirn: HVDirn
 
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
+
     /** Runs the setting actions.  */
     def run(row: Int): Unit = dirn match
     { case HVUR =>
@@ -469,6 +486,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   {  def magnitude: Int
 
     def dirn: HVDirn
+
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
@@ -509,6 +529,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   trait ThreeWayBase extends VertSetBase
   { def magnitude: Int
 
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
+
     def run(row: Int): Unit =
     { corners.setVertEqual(row, c, magnitude)
       sTerrs.set(row, c - 1, sTerr)
@@ -518,7 +541,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    *  geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeUpBase extends VertSetBase
-  { /** The magnitude of the [[HVUR]] up-right offset. */
+  { /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
+
+    /** The magnitude of the [[HVUR]] up-right offset. */
     def magUR: Int
 
     /** The magnitude of the [[HVDn]] down offset. */
@@ -534,8 +560,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
       sTerrs.set(row, c - 1, sTerr)
     }
   }
-
-
+  
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    * geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeDownBase
