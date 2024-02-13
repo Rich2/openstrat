@@ -200,7 +200,17 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class ThreeWay(c: Int, sTerr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
 
   /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
-  case class ThreeDown(c: Int, magUp: Int, magDR: Int, magDL: Int, st: WSepSome = Sea) extends VRowElem with ThreeDownBase
+  class ThreeDown(val c: Int, val magUp: Int, val magDR: Int, val magDL: Int, val upRightTerr: WSepSome, val downTerr: WSepSome,
+    val upLeftTerr: WSepSome) extends VRowElem with ThreeDownBase
+
+  object ThreeDown
+  {
+    def apply(c: Int, magUp: Int, magDR: Int, magDL: Int, sTerr: WSepSome = Sea): ThreeDown =
+      new ThreeDown(c, magUp, magDR, magDL, sTerr, sTerr, sTerr)
+
+    def apply(c: Int, magUp: Int, magDR: Int, magDL: Int, upRightTerr: WSepSome, downTerr: WSepSome, upLeftTerr: WSepSome): ThreeDown =
+      new ThreeDown(c, magUp, magDR, magDL, upRightTerr, downTerr, upLeftTerr)
+  }
 
   /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
   class ThreeUp(val c: Int, val magUR: Int, val magDn: Int, val magUL: Int, val upTerr: WSepSome, val downRightTerr: WSepSome,

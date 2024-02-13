@@ -547,7 +547,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
    * geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeDownBase
   { def c: Int
-    def st: SST
+    def upRightTerr: SST
+    def downTerr: SST
+    def upLeftTerr: SST
     def magUp: Int
     def magDR: Int
     def magDL: Int
@@ -556,7 +558,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     { grid.hCenExistsIfDo(row + 1, c) { corners.setCornerIn(row + 1, c, 3, magUp) }
       grid.hCenExistsIfDo(row - 1, c + 2) { corners.setCornerIn(row - 1, c + 2, 5, magDR) }
       grid.hCenExistsIfDo(row - 1, c - 2) { corners.setCornerIn(row - 1, c -2, 1, magDL) }
-      sTerrs.set(row, c - 1, st)
+      sTerrs.set(row, c + 1, upRightTerr)
+      sTerrs.set(row - 1, c, downTerr)
+      sTerrs.set(row, c - 1, upLeftTerr)
     }
   }
 
