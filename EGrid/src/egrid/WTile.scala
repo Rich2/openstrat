@@ -111,7 +111,7 @@ object TerrainNone extends WTile with TellSimple
 /** Winter sea ice. */
 object SeaIceWinter extends Water with TellSimple
 { override def str = "SeaIceWinter"
-  override def colour = LightSkyBlue.average(White).average(White)
+  override def colour = LightSkyBlue//.average(White).average(White)
 }
 
 /** All year round sea ice sheet. */

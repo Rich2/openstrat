@@ -406,7 +406,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
 
       case HVDR =>
       { sTerrs.set(row - 1, c, leftTerr)
-        sTerrs.set(row, c + 1, leftTerr)
+        sTerrs.set(row, c + 1, rightTerr)
       }
 
       case HVDn =>
