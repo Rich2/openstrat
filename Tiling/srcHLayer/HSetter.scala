@@ -516,8 +516,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    *  geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeUpBase extends VertSetBase
-  { /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
+  {
+    def upTerr: SST
+
+    def downRightTerr: SST
+
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def downLeftTerr: SST
 
     /** The magnitude of the [[HVUR]] up-right offset. */
     def magUR: Int
@@ -532,7 +537,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     { grid.hCenExistsIfDo(row + 1, c + 2){ corners.setCornerIn(row + 1, c + 2, 4, magUR) }
       grid.hCenExistsIfDo(row - 1, c){ corners.setCornerIn(row - 1, c, 0, magDn) }
       grid.hCenExistsIfDo(row + 1, c - 2){ corners.setCornerIn(row + 1, c - 2, 2, magUL) }
-      sTerrs.set(row, c - 1, sTerr)
+      sTerrs.set(row + 1, c, upTerr)
+      sTerrs.set(row, c + 1, downRightTerr)
+      sTerrs.set(row, c - 1, downLeftTerr)
     }
   }
   
