@@ -494,42 +494,23 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
 
   /** Sets the 2 outer corners of the bend for [[HSep]] terrain, Also sets the left most of the [[HSep]]s of the bend vertex. The orientation of the bend is
    * specified by the direction of the inside of the bend. */
-  trait BendOutBase extends VertSetBase
+  trait BendOutBase extends BendBase
   { /** The magnitude of the offset for the 2 outer corners of the bend vertex. */
     def magnitude: Int
 
     /** The direction of the inside of the bend. */
-    def dirn: HVDirn
+//    def dirn: HVDirn
+//
+//    /** The terrain of the left most [[HSep]] of the junction. */
+//    def sTerr: SST
 
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
-
-    /** Runs the setting actions.  */
-    def run(row: Int): Unit = dirn match
-    { case HVUR =>
-      { corners.setBend4Out(row + 1, c + 2, magnitude)
-        sTerrs.setIf(row + 1, c, sTerr)
-      }
-      case HVDR =>
-      { corners.setBend5Out(row - 1, c + 2, magnitude)
-        sTerrs.set(row - 1, c, sTerr)
-      }
-      case HVDn =>
-      { corners.setVert0Out(row - 1, c, magnitude)
-        sTerrs.setIf(row, c - 1, sTerr)
-      }
-      case HVDL =>
-      { corners.setBend1Out(row - 1, c - 2, magnitude)
-        sTerrs.set(row, c - 1, sTerr)
-      }
-      case HVUL =>
-      { corners.setBend2Out(row + 1, c - 2, magnitude)
-        sTerrs.setIf(row, c - 1, sTerr)
-      }
-      case HVUp =>
-      { corners.setBend3Out(row + 1, c, magnitude)
-        sTerrs.setIf(row, c - 1, sTerr)
-      }
+    override def setCorners(row: Int): Unit = dirn match
+    { case HVUR => corners.setBend4Out(row + 1, c + 2, magnitude)
+      case HVDR => corners.setBend5Out(row - 1, c + 2, magnitude)
+      case HVDn => corners.setVert0Out(row - 1, c, magnitude)
+      case HVDL => corners.setBend1Out(row - 1, c - 2, magnitude)
+      case HVUL => corners.setBend2Out(row + 1, c - 2, magnitude)
+      case HVUp => corners.setBend3Out(row + 1, c, magnitude)
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
   }
