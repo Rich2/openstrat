@@ -158,14 +158,16 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Sets the 2 outer corners of the bend for [[HSep]] terrain with a default offset of 6, Also sets the left most of the [[HSep]]s of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val sTerr: WSepSome = Sea) extends VRowElem with BendInBase
+  class BendIn(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInBase
 
   object BendIn
   {
-    def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSepSome = Sea): BendIn =
+    def apply(c: Int, dirn: HVDirn, magnitude: Int = 6, terr: WSepSome = Sea): BendIn = apply(c, dirn, magnitude, terr, terr)
+
+    def apply(c: Int, dirn: HVDirn, magnitude: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendIn =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 13, magnitude.toString -- "magnitude, magnitude values > 13 not allowed.")
-      new BendIn(c, dirn, magnitude, terr)
+      new BendIn(c, dirn, magnitude, leftTerr, rightTerr)
     }
   }
 

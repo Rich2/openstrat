@@ -479,46 +479,56 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets only the inside corner of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of the
-   *  bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and is
-   *  probably superfluous for created worlds / terrain. */
+  /** Sets only the inside [[HCorner]] of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of
+   *  the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and
+   *  is probably superfluous for created worlds / terrain. */
   trait BendInBase extends VertSetBase
-  {  def magnitude: Int
+  { def magnitude: Int
 
+    /** The direction of the [[HCen]] at the inside of the bend from the HVert. */
     def dirn: HVDirn
 
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
+    /** The terrain of the left [[HSep]] of the junction as seen from from the inside of the bend. */
+    def leftTerr: SST
+
+    /** The terrain of the right [[HSep]] of the junction as seen from from the inside of the bend. */
+    def rightTerr: SST
 
     def run(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magnitude)
-        sTerrs.setIf(row + 1, c, sTerr)
+        sTerrs.setIf(row + 1, c, leftTerr)
+        sTerrs.setIf(row, c + 1, rightTerr)
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magnitude)
-        sTerrs.set(row - 1, c, sTerr)
+        sTerrs.set(row - 1, c, leftTerr)
+        sTerrs.set(row, c + 1, leftTerr)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magnitude)
-        sTerrs.setIf(row, c - 1, sTerr)
+        sTerrs.setIf(row, c - 1, leftTerr)
+        sTerrs.setIf(row, c + 1, rightTerr)
       }
 
       case HVDL =>
       { corners.setCornerIn(row - 1, c - 2, 1, magnitude)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.set(row, c - 1, leftTerr)
+        sTerrs.set(row - 1, c, rightTerr)
       }
 
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magnitude)
-        sTerrs.setIf(row, c - 1, sTerr)
+        sTerrs.setIf(row, c - 1, leftTerr)
+        sTerrs.setIf(row + 1, c, rightTerr)
       }
 
       case HVUp =>
       { corners.setCornerIn(row + 1, c, 3, magnitude)
-        sTerrs.setIf(row, c - 1, sTerr)
+        sTerrs.setIf(row, c + 1, leftTerr)
+        sTerrs.setIf(row, c - 1, rightTerr)
       }
 
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
