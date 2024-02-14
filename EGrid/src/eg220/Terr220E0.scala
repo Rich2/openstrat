@@ -23,6 +23,7 @@ object Terr220E0 extends Long220Terrs
       TRow(202, SeaIcePerm),
       TRow(200, SeaIcePerm),
       TRow(198, SeaIcePerm),
+      TRow(192, sea, mtain),
       TRow(178, sea * 4, Cape(4, 2, hillyTaiga)),
       TRow(176, sea * 5, hillyTaiga),
       TRow(174, sea * 5, hillyTaiga),
