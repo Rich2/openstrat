@@ -420,8 +420,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
       }
 
       case HVUL =>
-      { sTerrs.setIf(row, c - 1, leftTerr)
-        sTerrs.setIf(row + 1, c, rightTerr)
+      { sTerrs.setIf(row + 1, c, leftTerr)
+        sTerrs.setIf(row, c - 1, rightTerr)
+
       }
 
       case HVUp =>
