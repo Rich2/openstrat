@@ -78,7 +78,25 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   case class SetSep(c: Int, terr: VSepSome = Sea) extends VRowElem with SetSepBase
-  case class ThreeWay(c: Int, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
+
+  class ThreeUp(val c: Int, val upTerr: VSepSome, val downRightTerr: VSepSome, val downLeftTerr: VSepSome, val magUR: Int, val magDn: Int, val magUL: Int)
+    extends VRowElem with ThreeUpBase
+
+  object ThreeUp
+  { def apply(c: Int, sTerr: VSepSome = Sea): ThreeUp = new ThreeUp(c, sTerr, sTerr, sTerr, 3, 3, 3)
+    def apply(c: Int, upTerr: VSepSome, downRightTerr: VSepSome, downLeftTerr: VSepSome): ThreeUp = new ThreeUp(c, upTerr, downRightTerr, downLeftTerr, 3, 3, 3)
+  }
+
+  case class ThreeDown(val c: Int, val upRightTerr: VSepSome, val downTerr: VSepSome, val upLeftTerr: VSepSome, val magUp: Int, val magDR: Int, val magDL: Int)
+    extends VRowElem with ThreeDownBase
+
+  object ThreeDown
+  { def apply(c: Int, sTerr: VSepSome = Sea): ThreeDown = new ThreeDown(c, sTerr, sTerr, sTerr, 3, 3, 3)
+
+    def apply(c: Int, upRightTerr: VSepSome, downTerr: VSepSome, upLeftTerr: VSepSome): ThreeDown =
+      new ThreeDown(c, upRightTerr, downTerr, upLeftTerr, 3, 3, 3)
+  }
+
   case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
 
   class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendAllBase

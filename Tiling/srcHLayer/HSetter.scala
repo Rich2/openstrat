@@ -500,19 +500,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. */
-  trait ThreeWayBase extends VertSetBase
-  { def magnitude: Int
-
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
-
-    def run(row: Int): Unit =
-    { corners.setVertEqual(row, c, magnitude)
-      sTerrs.set(row, c - 1, sTerr)
-    }
-  }
-
   /** Used for setting a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]]. This trait is provided to model real world
    *  geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait ThreeUpBase extends VertSetBase

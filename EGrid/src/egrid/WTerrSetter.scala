@@ -3,8 +3,8 @@ package ostrat; package egrid
 import prid._, phex._
 
 /** Helper class for setting  [[LayerHcRefSys]][WTile], [[HSepLayer]][WSep] and [[HCornerLayer]] at the same time." */
-abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome], val corners: HCornerLayer) extends
-  HSetter[WTile, WSep, WSepSome]
+abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome], val corners: HCornerLayer)
+  extends HSetter[WTile, WSep, WSepSome]
 {
   implicit val grid: HGrid = gridIn
 
@@ -195,9 +195,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Used for setting a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
   case class VertLeftsRight(c: Int, terr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase
-
-  /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
-  case class ThreeWay(c: Int, sTerr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with ThreeWayBase
 
   /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
   class ThreeDown(val c: Int, val magUp: Int, val magDR: Int, val magDL: Int, val upRightTerr: WSepSome, val downTerr: WSepSome,
