@@ -1,11 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of Findland. Depends on [[SwedenNorth]] and [[Baltland]]. */
+/** [[polygonLL]] graphical representation of Kola Peninsula. Depends on nothing. */
 object KolaPeninsula extends EArea2("KolaPeninsula", 67.80 ll 36.52, tundra)
-{
-  val northWest: LatLong = 69.50 ll 31.81
+{ val northWest: LatLong = 69.50 ll 31.81
   val p5: LatLong = 69.95 ll 31.93
   val p7: LatLong = 69.73 ll 33.10
   val p15: LatLong = 69.46 ll 32.90
@@ -26,7 +25,7 @@ object KolaPeninsula extends EArea2("KolaPeninsula", 67.80 ll 36.52, tundra)
     tetrino, olenitsa, umbaWest, luvenga, kandalasaksha)
 }
 
-/** [[polygonLL]] graphical representation of Findland. Depends on [[KolaPeninsula]], [[SwedenNorth]] and [[Baltland]]. */
+/** [[polygonLL]] graphical representation of Finland. Depends on [[KolaPeninsula]], [[SwedenNorth]] and [[Baltland]]. */
 object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, taiga)
 { val lisyNos = 60.01 ll 29.96
   val laskovyy = 60.15 ll 29.92
@@ -83,9 +82,8 @@ object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, taiga)
 
 /** [[polygonLL]] graphical representation of north Sweden. Depends on [[SwedenSouth]]. */
 object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, taiga)
-{
-  val haparanda = 65.77 ll 24.17
-  val ranea = 65.86 ll 22.36
+{ val haparanda: LatLong = 65.77 ll 24.17
+  val ranea: LatLong = 65.86 ll 22.36
 
   /** Start of West Baltic Coast. */
   val hertsonEast = 65.53 ll 22.39
@@ -112,8 +110,11 @@ object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val ytreSula = 61.04 ll 4.63
   val bremangerlandet = 61.85 ll 4.82
   val wRunde = 62.41 ll 5.58
+  val bud = 62.910 ll 6.903
   val svelllingen = 63.79 ll 8.68
   val uthaug = 63.72 ll 9.55
+  val p75 = 64.885 ll 10.728
+  val p78 = 66.011 ll 12.146
   val bodo = 67.26 ll 14.32
   val hadseloya = 68.56 ll 14.63
   val nordskot = 67.82 ll 14.70
@@ -128,9 +129,9 @@ object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val nordkapp = 71.16 ll 25.78
   val lakselv = 70.05 ll 25.00
 
-  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand,
-    junibosand, holick, SwedenSouth.gavie,
+  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
+    holick, SwedenSouth.gavie,
     /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
-    /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
+    /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, bud, svelllingen, uthaug, p75, p78, bodo, nordskot, baroya,
     /* North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
 }
