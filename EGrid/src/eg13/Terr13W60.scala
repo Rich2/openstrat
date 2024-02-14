@@ -38,7 +38,7 @@ object Terr13W60 extends Long13Terrs
       TRow(92, Cape(1, 2, savannah)),
       VRow(91, Mouth(10752, HVDL)),
       VRow(89, SetSep(10750)),
-      VRow(87, SetSep(10750), Mouth(10756, HVDL, wice)),
+      VRow(87, SetSep(10750), Mouth(10756, HVDL, 3, wice)),
       TRow(86, wice),
     )
   }

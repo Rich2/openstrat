@@ -22,7 +22,7 @@ object Terr320E30 extends Long320Terrs
       TRow(152, Cape(2,1, taiga), taiga, Cape(1, 2, taiga), taiga),
       VRow(151, BendAll(1532, HVDR), Mouth(1540, HVDL)),
       TRow(150, Cape(2, 1, taiga), taiga * 3),
-      VRow(149, Mouth(1536, HVUL, Lake), Mouth(1538, HVDR, Lake)),
+      VRow(149, Mouth(1536, HVUL, 3, Lake), Mouth(1538, HVDR, 3, Lake)),
       VRow(147, Mouth(1534, HVUR)),
       TRow(148, Cape(2, 1, taiga), Cape(3, 3, taiga), taiga * 3),
       TRow(146, Cape(5, 2), taiga * 4),

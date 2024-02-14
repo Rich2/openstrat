@@ -17,7 +17,7 @@ object Terr13E60 extends Long13Terrs
       TRow(110, desert),
       VRow(109, Mouth(2558, HVUp)),
       TRow(108, SepB(Lake), desert),
-      VRow(107, Mouth(2558, HVDn, Lake), Mouth(2556, HVDR)),
+      VRow(107, Mouth(2558, HVDn, 3, Lake), Mouth(2556, HVDR)),
       TRow(106, desert, hilly),
       VRow(105, Mouth(2556, HVUL), BendAll(2558, HVUp), BendAll(2560, HVDn)),
       TRow(104, Cape(1, 3, hillyDesert), Cape(4, 1)),
@@ -30,7 +30,7 @@ object Terr13E60 extends Long13Terrs
       VRow(97, SetSep(2557)),
       TRow(96, SepB(), sea * 2),
       VRow(95, SetSep(2557)),
-      VRow(87,Mouth(2558, HVUR), Mouth(2560, HVDL, wice), Mouth(2564, HVDR, wice)),
+      VRow(87,Mouth(2558, HVUR), Mouth(2560, HVDL, 3, wice), Mouth(2564, HVDR, 3, wice)),
       TRow(86, Cape(0, 1, ice, wice))
     )
   }

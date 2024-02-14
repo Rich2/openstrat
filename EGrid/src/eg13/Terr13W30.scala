@@ -33,7 +33,7 @@ object Terr13W30 extends Long13Terrs
       TRow(94, SepB(), sea * 2),
       VRow(93, SetSep(11772)),
       TRow(92, SepB(), sea),
-      VRow(87, Mouth(11776, HVDL, wice), BendOut(11780, HVUp, 6, wice)),
+      VRow(87, Mouth(11776, HVDL, 3, wice), BendOut(11780, HVUp, 6, wice)),
       TRow(86, Cape(0, 1, ice, wice))
     )
   }

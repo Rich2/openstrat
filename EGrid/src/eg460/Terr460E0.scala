@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle 234173.269km² <= 112236.892km².
  *  Isle10 120974.276km² <= 57981.753km². Ireland
  *  Isle8 57981.753km² <= 35075.382km². Sardinia. Sicily no hex avaliabe
- *  Isle3 8768.845km² <= 4473.900km² Corsica no hex available. */
+ *  Isle3 8768.845km² <= 4473.900km² Balearic Islands 5040km², Corsica no hex available. */
 object Terr460E0 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e0(94)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
@@ -33,15 +33,21 @@ object Terr460E0 extends Long460Terrs
       TRow(126, sea, land, land, hilly),
       VRow(125, Mouth(506, HVDL), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR), Mouth(518, HVUp)),
       TRow(124, sea, hilly, hilly, hilly, hilly),
-      VRow(123, MouthLt(504, HVUp, 7), Mouth(514, HVUL), BendOut(524, HVDL)),
-      TRow(122, hillySavannah, sahel, sea, Isle8(hillySavannah), Cape(4, 1, hillySavannah)),
-      VRow(121, MouthRt(504, HVDn, 7), BendIn(510, HVDR, 13), BendIn(512, HVDn, 13), BendAll(514, HVUp), Mouth(524, HVDn)),
-      TRow(120, sea, hilly, hillySavannah, Cape(0, 1, hillySavannah), Cape(0, 2, hillySavannah)),
-      VRow(119, BendIn(506, HVUR, 13), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), Mouth(522, HVDn)),
+
+      VRow(123, MouthLt(504, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10),
+        BendInOut(520, HVDL, 3, 7), BendOut(524, HVDL)),
+
+      TRow(122, hillySavannah, sahel, hillySavannah, hillySavannah, hillySavannah),
+
+      VRow(121, MouthRt(504, HVDn, 7), BendIn(510, HVDR, 13), ThreeUp(512, 13, 13, 0), BendInOut(514, HVUp, 13, 3), ThreeUp(516, 13, 8, 13),
+        BendIn(518, HVUp, 10), ThreeUp(520, 6, 3, 3), BendIn(522, HVDL, 11), Mouth(524, HVDn)),
+
+      TRow(120, sea, hilly, hillySavannah, hillySavannah, hillySavannah),
+      VRow(119, BendIn(506, HVUR, 13), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), MouthLt(522, HVDn, 7)),
       TRow(118, sea, hillySahel, hillyDesert, desert, desert, sahel),
-      VRow(117, SetSep(501), Mouth(504, HVUR)),
-      TRow(116, Cape(5, 1, hillyDesert), desert * 5),
-      VRow(115, SetSep(501)),
+      VRow(117, BendIn(500, HVDn, 13), ThreeDown(502, 0, 10, 13), MouthLt(504, HVUR)),
+      TRow(116, hillyDesert, desert * 5),
+      VRow(115, BendIn(500, HVUp, 13), BendIn(502, HVUL, 13)),
       TRow(114, desert * 4, hillyDesert, desert),
       TRow(112, desert * 6),
       TRow(110, desert * 6),

@@ -122,7 +122,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   case class SetSep(c: Int, terr: WSepSome = Sea) extends  VRowElem with SetSepBase
-  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
+
+  /** Creates an [[HSep]] separator terrain mouth. Magnitude should be between 3 and 7. Sets the 3 [[HCorner]]s and the [[HSep]]. The magnitude
+   *  parameter comes before the terrain type parameter as this is designed primarily for modeling existing terrain rather than pure creation.  */
+  case class Mouth(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
+
   case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthLtBase
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
   case class MouthLtRt(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase

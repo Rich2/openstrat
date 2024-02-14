@@ -20,7 +20,7 @@ object Terr640E30 extends Long640Terrs {
       TRow(122, land, land),
       TRow(120, land * 3),
       TRow(118, land, Cape(2, 3), land),
-      VRow(119, Mouth(1536, HVUp), Mouth(1540, HVUp), Mouth(1544, HVUp, Lake)),
+      VRow(119, Mouth(1536, HVUp), Mouth(1540, HVUp), Mouth(1544, HVUp, 3, Lake)),
       VRow(117, BendAll(1544, HVUR, Lake)),
       TRow(116, hilly, hilly, hilly),
       VRow(115, SetSep(1529), Mouth(1536, HVUp)),
@@ -35,9 +35,9 @@ object Terr640E30 extends Long640Terrs {
       TRow(102, jungle * 2, Land(Level, Savannah, Forest), hillySavannah, sahel),
       VRow(101, Mouth(1546, HVUp)),
       TRow(100, jungle * 2, hillyJungle, hillySavannah, Cape(2, 1, hillySavannah)),
-      VRow(99, Mouth(1536, HVUp, lake), BendOut(1544, HVDR)),
+      VRow(99, Mouth(1536, HVUp, 3, lake), BendOut(1544, HVDR)),
       TRow(98, hillyJungle * 2, savannah, hillySavannah),
-      VRow(97, Mouth(1536, HVDn, lake)),
+      VRow(97, Mouth(1536, HVDn, 3, lake)),
       TRow(96, savannah, jungle * 2, hillySavannah),
     )
   }
