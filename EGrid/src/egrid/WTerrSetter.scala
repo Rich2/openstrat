@@ -66,16 +66,15 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Cape / headland / peninsula for [[WTile]]s. */
-  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land = Land(Level, Temperate, CivMix), val sepTerrs: Water = Sea) extends
-    TRunner with CapeBase
+  class Cape (val indentStartIndex: Int, val numIndentedVerts: Int, val magnitude: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
 
   object Cape
   {
     def apply(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, terr, sideTerrs)
+      new Cape(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
 
-    def apply(indentStartIndex: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
-      new Cape(indentStartIndex, 1, Land(elev, biome, landUse), sideTerrs)
+    def apply(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
+      new Cape(indentStartIndex, numIndentedVerts, 7, Land(elev, biome, landUse), sideTerrs)
   }
 
   case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase

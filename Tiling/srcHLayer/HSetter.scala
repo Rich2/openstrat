@@ -86,6 +86,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     /** The number of indented vertices. */
     def numIndentedVerts: Int
 
+    /** The magnitude of the [[HCorner]] indents. */
+    def magnitude: Int
+
     /** The terrain of the main tile, typically a type of land. */
     def terr: TT
 
@@ -94,7 +97,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
 
     def run(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
-      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, 7)
+      corners.setNCornersIn(row, c, numIndentedVerts, indentStartIndex, magnitude)
 
       iUntilForeach(-1, numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
