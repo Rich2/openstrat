@@ -78,16 +78,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
       new Cape(indentStartIndex, 1, Land(elev, biome, landUse), sideTerrs)
   }
 
-  /** Isthmus for [[WTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 [[HSep]] terrains. */
-  class Isthmus private(val indentIndex: Int, val terr: Land = Land(), val sepTerrs1: Water = Sea, val sepTerrs2: Water = Sea) extends TRunner with
-    IsthmusBase
-
-  object Isthmus
-  { /** Factory apply method for Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 [[HSep]] terrains. */
-    def apply(indentIndex: Int, terr: Land = Land(), sideTerrs1: Water = Sea, sideTerrs2: Water = Sea): Isthmus =
-      new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
-  }
-
   case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 

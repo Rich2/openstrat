@@ -12,6 +12,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
 
   def corners: HCornerLayer
 
+  /** Sets the [[HSep]] separators terrain and [[HCorner]]s for an Island or geometrically analogous terrain, with a radius set in the sub traits. Only use
+   * these classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s.  */
   trait IsleNBase
   { /** The tile terrain. typically land terrain. */
     def terr: TT
@@ -31,32 +33,38 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. Only use these classes for hexs where there is no
+   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait IsleBase extends IsleNBase
   { override def magnitude: Int = 6
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. Only use these classes for hexs where there is no
+   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle8Base extends IsleNBase
   { override def magnitude: Int = 8
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. Only use* these classes for hexs where there is no
+   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle6Base extends IsleNBase
   { override def magnitude: Int = 10
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. Only use these classes for hexs where there is no
+   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle5Base extends IsleNBase
   { override def magnitude: Int = 11
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. Only use these classes for hexs where there is no
+   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle4Base extends IsleNBase
   { override def magnitude: Int = 12
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. Only use these classes for hexs where there is no
+   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle3Base extends IsleNBase
   { override def magnitude: Int = 13
   }
@@ -69,7 +77,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     def run(row: Int, c: Int): Unit = sTerrs.set(row, c - 2, sTerr)
   }
 
-  /** Base trait for capes / headlands / peninsulas. */
+  /** Base trait for capes / headlands / peninsulas. Only use these classes for [[HVert]]s where there is no offset for any of the adjacent hex's [[HCorner]]s
+   *  on shared [[HVert]]s. */
   trait CapeBase
   { /** The number of the first vertex to be indented. */
     def indentStartIndex: Int
@@ -95,8 +104,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Base trait [Isthmus](https://en.wikipedia.org/wiki/Isthmus). Generally this will be used for Isthmuses, but it can be used for any [[HCen]] and
-   * [[HSep]] terrain that fits the geometry. */
+  /** Needs removing. Base trait [Isthmus](https://en.wikipedia.org/wiki/Isthmus). Generally this will be used for Isthmuses, but it can be used for any
+   *  [[HCen]] and [[HSep]] terrain that fits the geometry. */
   trait IsthmusBase
   { /** The number of the first vertex to be indented. */
     def indentIndex: Int
