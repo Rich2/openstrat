@@ -42,8 +42,8 @@ object Terr80E0 extends Long80Terrs
       VRow(479, Mouth(550, HVUL), BendAll(552, HVDL)),
       TRow(478, sea * 6, hilly, land * 3, sea * 7, land * 2, Cape(4, 3), land * 2, sea),
       VRow(477, BendIn(484, HVDR, 13), MouthLt(484, HVUR, 7), Mouth(492, HVUL), ThreeDown(494, 3, 10, 3), Mouth(496, HVUR), Mouth(552, HVDn)),
-      TRow(476, sea * 4, mtain, hilly, land, hilly, hilly * 2, land, sea * 7, land, Cape(1), Cape(2, 3), sea * 2),
-      VRow(475, MouthRt(480, HVDL, 7), BendOut(482, HVUL, 7), BendInOut(494, HVUR, 8, 3), BendIn(496, HVDL, 8)),
+      TRow(476, sea * 4, mtain, hilly, land, hilly, hilly * 2, land, sea * 7, land, land/*1*/, land, sea * 2),//Check
+      VRow(475, MouthRt(480, HVDL, 7), BendOut(482, HVUL, 7), BendInOut(494, HVUR, 8, 3), BendIn(496, HVDL, 8), BendIn(546, HVUR), Mouth(548, HVDR, 7)),
       TRow(474, sea * 4, land, land * 2, hilly, SepB(), sea, hilly, land, hilly, sea * 7, land * 2, sea * 3),
       VRow(473, BendIn(494, HVDR, 7), BendIn(496, HVUL, 13)),
       TRow(472, sea * 3, land * 4, sea * 2, land, hilly, Cape(1, 2), sea * 6, land * 6),

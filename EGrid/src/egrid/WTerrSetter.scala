@@ -70,7 +70,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   object Cape
   {
-    def apply(indentStartIndex: Int, numIndentedVerts: Int = 1, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
+    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
       new Cape(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
 
     def apply(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
