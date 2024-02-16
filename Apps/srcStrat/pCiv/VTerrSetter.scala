@@ -17,7 +17,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
 
   trait TRunnerExtra extends TRunner
 
-  case class Isle(terr: Land = Plain, sTerr: Water = Sea) extends TRunner with IsleBase
+  case class Isle(terr: Land = Plain, sepTerrs: Water = Sea) extends TRunner with IsleBase
 
   /** Needs removing. */
   class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase

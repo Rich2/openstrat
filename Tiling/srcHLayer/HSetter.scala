@@ -18,8 +18,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   { /** The tile terrain. typically land terrain. */
     def terr: TT
 
-    /** The [[HSep]] separator terrain, Typically water terrain, */
-    def sTerr: SST
+    /** The [[HSep]] separator terrains, Typically water terrain, */
+    def sepTerrs: SST
 
     def magnitude: Int
 
@@ -28,7 +28,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
       corners.setNCornersIn(row, c, 6, 0, magnitude)
       iUntilForeach(6) { i =>
         val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.set(sep, sTerr)
+        sTerrs.set(sep, sepTerrs)
       }
     }
   }
