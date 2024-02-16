@@ -70,11 +70,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   object Cape
   {
-    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
-
-    def apply(indentStartIndex: Int, numIndentedVerts: Int, elev: Lelev, biome: Climate, landUse: LandUse, sideTerrs: Water): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, 7, Land(elev, biome, landUse), sideTerrs)
+    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(), sideTerrs: Water = Sea): Cape = new Cape(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
   }
 
   case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase
