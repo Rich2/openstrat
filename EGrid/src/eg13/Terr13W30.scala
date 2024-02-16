@@ -1,8 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 45° west to 15° west centred on 30° west. 130km per hex tile. */
+/** [[WTile]] terrain for 45° west to 15° west centred on 30° west. 130km per hex tile.
+ * Isle8 243930.488km² => 463086.787km², British Isles combined 315159 km²
+ * Isle4 70034.730km² => 115771.696km², Iceland 103000 km² */
 object Terr13W30 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.w30(86)
@@ -13,10 +15,10 @@ object Terr13W30 extends Long13Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      VRow(113, BendOut(11780, HVUL)),
-      TRow(112, SepB(), sea),
-      VRow(111, SetSep(11774), Mouth(11778, HVDn)),
-      TRow(110, SepB(), sea),
+      VRow(113, ThreeDown(11778, 0, 13, 12)),
+      TRow(112, hillyTundra),
+      VRow(111),
+      TRow(110, land),
       VRow(109, SetSep(11774), Mouth(11780, HVUR)),
       TRow(108, sea),
       VRow(105, BendAll(11780, HVUL)),

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
@@ -14,10 +14,10 @@ object Terr13E0 extends Long13Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(114, Cape(5, 2, hillyTundra)),
-      VRow(113, BendOut(512, HVUL)),
-      TRow(112, Cape(5, 1, hillyTaiga)),
-      VRow(111, Mouth(510, HVDn)),
+      TRow(114, hillyTundra),
+      VRow(113, ThreeDown(510, 0, 13, 12), BendOut(512, HVUL)),
+      TRow(112, hillyTaiga),
+      VRow(111),
       TRow(110, land),
       VRow(109, Mouth(512, HVUR)),
       TRow(108, Cape(3, 3, hilly)),
