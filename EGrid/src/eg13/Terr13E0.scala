@@ -3,7 +3,9 @@ package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 1300km, a C scale of 375km. A hex tile area of 1.463582932 million km² A minimum Island area of
- *  243930.488km², which excludes, Great Britain. */
+ *  Isle8 243930.488km² => 463086.787km², British Isles combined 315159 km²
+ *  243930.488km², which excludes, Great Britain.
+ *  Isle4 70034.730km² => 115771.696km², Iceland 101826km², Ireland 84421km². */
 object Terr13E0 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.e0(86)
