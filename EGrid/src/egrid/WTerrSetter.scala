@@ -19,11 +19,16 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   trait TRunnerExtra extends TRunner
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-  case class Isle(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with IsleBase
+  case class Isle10(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle10Base
 
-  object Isle
+  object Isle10
   { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle = Isle(Land(elev, biome, landUse), sTerr)
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle10 = Isle10(Land(elev, biome, landUse), sTerr)
+
+    /** Used for setting part of an island of radius 10/16 of the full radius of a hex where or more of the [[HVert]]s need to be set independently due to
+     *  complications of neighbouring hexs. Uses the [[CapeBase]] trait for the implementation. */
+    def part(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(Level, Temperate, CivMix), sTerrs: Water = Sea): IslePart =
+      new IslePart(indentStartIndex, numIndentedVerts, 16 - 10, terr, sTerrs)
   }
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
   case class Isle8(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle8Base

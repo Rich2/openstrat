@@ -25,7 +25,7 @@ object Terr320W30 extends Long320Terrs
       TRow(150, Land(Hilly, IceCap, LandFree)),
       VRow(149, BendOut(11770, HVDR, 7), BendIn(11772, HVUL, 13)),
       TRow(148, Cape(2, 2, tundra)),
-      TRow(122, sea * 8, Isle(hilly)),
+      TRow(122, sea * 8, Isle10(hilly)),
       TRow(118, sea * 8, desert),
     )
   }

@@ -18,7 +18,7 @@ object Terr13E180 extends Long13Terrs
       TRow(112, Cape(2, 2, hillyTundra)),
       VRow(111, BendAll(6658, HVUR)),
       TRow(108, SepB(), sea),
-      TRow(92, Isle(hilly)),
+      TRow(92, Isle10(hilly)),
       VRow(87, Mouth(6656, HVDR, 3, wice)),
       TRow(86, wice)
     )

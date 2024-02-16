@@ -33,38 +33,38 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     }
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. Only use these classes for hexs where there is no
-   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
-  trait IsleBase extends IsleNBase
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 10/16 of the radius of the hex. Only use these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle10Base extends IsleNBase
   { override def magnitude: Int = 6
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. Only use these classes for hexs where there is no
-   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 8/16 of the radius of the hex. Only use these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle8Base extends IsleNBase
   { override def magnitude: Int = 8
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. Only use* these classes for hexs where there is no
-   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 6/16 of the radius of the hex. Only use* these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle6Base extends IsleNBase
   { override def magnitude: Int = 10
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. Only use these classes for hexs where there is no
-   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 5/16 of the radius of the hex. Only use these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle5Base extends IsleNBase
   { override def magnitude: Int = 11
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. Only use these classes for hexs where there is no
-   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 4/16 of the radius of the hex. Only use these
+   * classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle4Base extends IsleNBase
   { override def magnitude: Int = 12
   }
 
-  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. Only use these classes for hexs where there is no
-   *  offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 3/16 of the radius of the hex. Only use these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle3Base extends IsleNBase
   { override def magnitude: Int = 13
   }

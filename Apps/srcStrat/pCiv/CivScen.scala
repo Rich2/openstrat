@@ -60,7 +60,7 @@ object Civ2 extends CivScenStart
       VRow(13, BendAll(18, HVUp), BendAll(22, HVUp)),
       TRow(12, Sea * 3, Cape(3, 4, Hill), Isthmus(0), Cape(0, 4, Hill), Sea * 4),
       VRow(11, Mouth(12, HVDR), BendAll(18, HVDn), BendAll(22, HVDn)),
-      TRow(10, Plain, Cape(5, 2), Sea * 4, Isle() * 2, Sea * 2),
+      TRow(10, Plain, Cape(5, 2), Sea * 4, Isle10() * 2, Sea * 2),
       VRow(9, Mouth(8, HVDn), Mouth(18, HVDL)),
       TRow(8, Plain * 4, Cape(0, 4), Sea * 3, Plain, Sea),
       VRow(7, Mouth(18, HVUL), Mouth(28, HVDR), Mouth(40, HVUp, River)),
