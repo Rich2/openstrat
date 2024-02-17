@@ -21,7 +21,7 @@ trait HtmlP extends HtmlUnvoid
 
 /** Copied from old needs checking. */
 object HtmlP
-{
+{ /** Factory apply method for for creating HTML paragraphs. */
   def apply(strIn: String, attsIn: XmlAtt*): HtmlP = new HtmlP
   { def str: String = strIn
     def con1: XConText = str.xCon
@@ -40,7 +40,7 @@ case class HtmlScript(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) exten
 { override def tag: String = "script"
 }
 
-/** Companon object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
+/** Companion object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
 object HtmlScript
 { /** Sets the link for a Javascript script file. */
   def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeAtt.js, SrcAtt(src)))
@@ -49,6 +49,7 @@ object HtmlScript
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
 }
 
+/** HTML bold element. */
 case class HtmlB(str: String) extends HtmlInline
 { override def tag: String = "b"
 
