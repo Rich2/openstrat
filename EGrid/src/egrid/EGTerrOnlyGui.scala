@@ -58,8 +58,8 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   }
 
   override def selectedStr: String = selected match
-  { case hc: HCen => hc.rcStr -- terrs(hc).strSemi
-    case sc: HSep => sc.rcStr -- sTerrs(sc).strSemi
+  { case hc: HCen => "Hex" -- hc.rcStr -- terrs(hc).strSemi
+    case sc: HSep => "Sep" -- sc.rcStr -- sTerrs(sc).strSemi
     case _ => super.selectedStr
   }
 
