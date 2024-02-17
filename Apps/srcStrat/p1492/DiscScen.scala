@@ -12,6 +12,7 @@ object DiscScen1 extends DiscScen
   override val terrs: LayerHcRefSys[WTile] = Scen320All.terrs
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Scen320All.sTerrs
   override val corners: HCornerLayer = Scen320All.corners
+  override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
 }
 
 object DiscScen2 extends DiscScen
@@ -20,4 +21,5 @@ object DiscScen2 extends DiscScen
   override val terrs: LayerHcRefSys[WTile] = Terr320E30.terrs
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr320E30.sTerrs
   override val corners: HCornerLayer = Terr320E30.corners
+  override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
 }

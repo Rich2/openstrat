@@ -6,9 +6,9 @@ import prid._, phex._, egrid._, WTiles._
  *  118241.335km² */
 object Terr640E30 extends Long640Terrs {
   override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
     override val rowDatas: RArr[RowBase] = RArr(

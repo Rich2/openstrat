@@ -7,9 +7,9 @@ import prid._, phex._, egrid._, WTiles._
  * Isle4 115771.696km² <= 70034.730km². Most of Luzon (109,965 km2) excluding the south plus Taiwan. */
 object Terr13E120 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e120(86)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

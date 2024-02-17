@@ -9,9 +9,9 @@ import prid._, phex._, egrid._, WTiles._
  *  Faroes + Orkneys 2389km². */
 object Terr460E0 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e0(94)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

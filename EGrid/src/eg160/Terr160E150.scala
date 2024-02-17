@@ -5,9 +5,9 @@ import prid._, phex._, egrid._, WTiles._
 /** Terrain for 160km 120 west. Created elevations, but may need forests. */
 object Terr160E150 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e150(252, 272)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

@@ -9,4 +9,5 @@ object Scen80Europe extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+  override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
 }

@@ -9,9 +9,9 @@ import prid._, phex._, egrid._, WTiles._
 object Terr320E0 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -73,5 +73,6 @@ object BritReg320
     override val terrs: LayerHcRefSys[WTile] = britTerrs
     override val sTerrs: LayerHSOptSys[WSep, WSepSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
+    override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
   }
 }

@@ -6,11 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * Isle 463086.787km² => 966193.420km². Madagascar 587,041km².
  *  */
 object Terr13E30 extends Long13Terrs
-{
-  override implicit val grid: EGrid13LongFull = EGrid13.e30(86)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+{ override implicit val grid: EGrid13LongFull = EGrid13.e30(86)
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -41,4 +37,6 @@ object Terr13E30 extends Long13Terrs
     )
   }
   help.run
+
+  names.setRow(108, "Turkey")
 }

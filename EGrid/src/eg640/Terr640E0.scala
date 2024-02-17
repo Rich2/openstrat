@@ -6,9 +6,9 @@ import prid._, phex._, egrid._, WTiles._
  *  A minimum island area of 59120.667km², which includes Britain but excludes Ireland and Sicily-Corsica. */
 object Terr640E0 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e0(96)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

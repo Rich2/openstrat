@@ -20,7 +20,7 @@ package object eg13
     ft.terrs.spawn(ft.grid, subSys.grids(i))
   }.combine
 
-  def fullTerrsSideLayerSpawn(implicit subSys: EGrid13LongMulti): LayerHSOptSys[WSep, WSepSome] =
+  def fullTerrsSepLayerSpawn(implicit subSys: EGrid13LongMulti): LayerHSOptSys[WSep, WSepSome] =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
     val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)
@@ -31,5 +31,10 @@ package object eg13
   def fullTerrsCornerLayerSpawn(implicit subSys: EGrid13LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>
     val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.corners.spawn(ft.grid, subSys.grids(i))
+  }.combine
+
+  def fullNamesHCenLayerSpawn(implicit subSys: EGrid13LongMulti): LayerHcRefSys[String] = iToMap(0, subSys.numGrids - 1) { i =>
+    val ft: Long13Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
+    ft.names.spawn(ft.grid, subSys.grids(i))
   }.combine
 }

@@ -6,9 +6,9 @@ import prid.phex._, egrid._, WTiles._
  *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Isle]].  */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-  override val corners: HCornerLayer = HCornerLayer()
+//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
+//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -60,5 +60,6 @@ object BritReg120
     override val terrs: LayerHcRefSys[WTile] = britTerrs
     override val sTerrs: LayerHSOptSys[WSep, WSepSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
+    override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
   }
 }
