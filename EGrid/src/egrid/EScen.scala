@@ -6,20 +6,28 @@ import prid._, phex._
 trait EScenBasic extends HSysScen
 { def title: String = "EScenBasic"
   override def gridSys: EGridSys
-  val terrs: LayerHcRefSys[WTile]
-  val sTerrs: LayerHSOptSys[WSep, WSepSome]
-  val corners: HCornerLayer
-  lazy val names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  def terrs: LayerHcRefSys[WTile]
+  def sTerrs: LayerHSOptSys[WSep, WSepSome]
+  def corners: HCornerLayer
+  def names: LayerHcRefSys[String]
 }
+/*trait EScenBasicEmpty// extends EScenBasic
+{/** The grid used. */
+  implicit val grid: EGridLongFull
+  override lazy val terrs: LayerHcRefSys[WTile] = LayerHcRefSys(grid, Sea)
+  override lazy val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome][WTile](grid)
+  override lazy val corners: HCornerLayer = HCornerLayer()(grid)
+  override lazy val names: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
+}*/
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
 {
-  def apply(gridSys: EGridSys, terrs: LayerHcRefSys[WTile], sTerrs: LayerHSOptSys[WSep, WSepSome], offsets: HCornerLayer, title: String = "EScenBasic"): EScenBasic =
-    new EScenWarmImp(gridSys, terrs, sTerrs, offsets, title)
+  def apply(gridSys: EGridSys, terrs: LayerHcRefSys[WTile], sTerrs: LayerHSOptSys[WSep, WSepSome], offsets: HCornerLayer, names: LayerHcRefSys[String],
+    title: String = "EScenBasic"): EScenBasic = new EScenWarmImp(gridSys, terrs, sTerrs, offsets, names, title)
 
-  class EScenWarmImp(val gridSys: EGridSys, override val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome], override val corners: HCornerLayer,
-                     override val title: String = "EScenWarm") extends EScenBasic
+  class EScenWarmImp(val gridSys: EGridSys, override val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome],
+    override val corners: HCornerLayer, val names: LayerHcRefSys[String], override val title: String = "EScenWarm") extends EScenBasic
 }
 
 trait EScenLongMulti extends EScenBasic

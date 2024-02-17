@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egmega
-import egrid._
+import prid.phex._, egrid._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 640Km */
 abstract class EGridMegaLong(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
@@ -45,4 +45,8 @@ object EGridMegaLongFull
 /** Terrain data grid for [[EGridMegaLongFull]]s. */
 trait LongMegaTerrs extends LongTerrs
 { override implicit val grid: EGridMegaLongFull
+  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys(grid, Sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome][WTile](grid)
+  override val corners: HCornerLayer = HCornerLayer()(grid)
+  val names: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
 }

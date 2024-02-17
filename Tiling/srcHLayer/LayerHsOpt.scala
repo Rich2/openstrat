@@ -68,6 +68,12 @@ object LayerHSOptSys
   def apply[A, SA <: HSepSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): LayerHSOptSys[A, SA] =
     apply[A, SA](gridSys, defaultValue)(ct)
 
+  def apply[A, SA <: HSepSome](gridSys: HGridSys)(implicit ct: ClassTag[A], defaultValue: DefaultValue[A]): LayerHSOptSys[A, SA] =
+  { val newArray = new Array[A](gridSys.numSides)
+    iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
+    new LayerHSOptSys[A, SA](newArray)
+  }
+
   def apply[A, SA <: HSepSome](gridSys: HGridSys, defaultValue: DefaultValue[A])(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
   { val newArray = new Array[A](gridSys.numSides)
     iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
