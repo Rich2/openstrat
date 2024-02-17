@@ -1,13 +1,13 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** HTML TABLE element class. */
+/** HTML table element. */
 case class HtmlTable(val contents: RArr[HtmlRow], val attribs: RArr[XmlAtt] = RArr()) extends HtmlMultiLine
 { override def tag: String = "table"
 }
 
 object HtmlTable
-{
+{ /** Factory apply method for creating HTML table elements. */
   def apply(contents: HtmlRow*):  HtmlTable = new HtmlTable(contents.toArr)
   def width100(contents: HtmlRow*):  HtmlTable = new HtmlTable(contents.toArr, RArr(WidthAtt("100%")))
 }
