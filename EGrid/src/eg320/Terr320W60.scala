@@ -27,7 +27,7 @@ object Terr320W60 extends Long320Terrs
       TRow(144, taiga * 3, sea * 2),
       TRow(142, taiga * 3, Cape(1, 3, taiga), sea * 2),
       TRow(140, taiga, Cape(2, 3, taiga), sea, Cape(1, 1, taiga), sea * 2),
-      VRow(139, MouthOld(10744, HVDL), BendAll(10746, HVDn)),
+      VRow(139, MouthOld(10744, HVDL), BendAllOld(10746, HVDn)),
       TRow(138, taiga * 2, sea, Cape(3, 3, taiga), Cape(1, 3, taiga), sea * 2),
       TRow(136, hillyTaiga, taiga, taiga, Cape(0, 4, taiga), sea * 3),
       VRow(135, MouthOld(10738, HVUR, 3, Lake)),

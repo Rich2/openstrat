@@ -18,7 +18,7 @@ object Terr460E150 extends Long460Terrs
       TRow(136, mtain, hillyTaiga, mtain),
       VRow(135, MouthOld(5636, HVUp)),
       TRow(134, mtain, Cape(2, 1, mtain), mtain),
-      VRow(133, BendOut(5638, HVDR), BendAll(5640, HVDn)),
+      VRow(133, BendOut(5638, HVDR), BendAllOld(5640, HVDn)),
       TRow(132, Cape(2, 1, mtain), sea, Cape(5, 1, hillyTaiga)),
       VRow(131, MouthOld(5634, HVDn), VertRightsLeft(5638, sea, 7)),
       TRow(130, mtain, sea * 2, Cape(1, 2, mtain)),

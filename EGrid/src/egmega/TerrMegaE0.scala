@@ -21,7 +21,7 @@ object TerrMegaE0 extends LongMegaTerrs
       TRow(114, land),
       TRow(112, land, hilly),
       TRow(110, Cape(3, 3, hilly), Cape(5, 3, savannah)),
-      VRow(109, BendAll(512, HVUL), BendOut(516, HVUR)),
+      VRow(109, BendAllOld(512, HVUL), BendOut(516, HVUR)),
       TRow(108, hilly, desert),
       TRow(106, desert * 3),
       TRow(104, desert * 3),

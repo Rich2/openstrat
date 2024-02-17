@@ -20,7 +20,7 @@ object TerrMegaW30 extends LongMegaTerrs
       TRow(98, Cape(0, 3, desert), sea * 2),
       VRow(97, BendOut(11774, HVDR)),
       TRow(96, Cape(2, 1), sea * 2),
-      VRow(95, BendAll(11772, HVDR)),
+      VRow(95, BendAllOld(11772, HVDR)),
       VRow(93, BendOut(11772, HVDR), SetSep(11773)),
       VRow(91, SetSep(11773)),
       TRow(82, ice)

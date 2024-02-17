@@ -21,7 +21,7 @@ object Terr460E0 extends Long460Terrs
       VRow(141, BendIn(512, HVUL, 13)),
       VRow(137, MouthLt(514, HVUp)),
       TRow(136, sea * 2, hillyTaiga),
-      VRow(135, MouthOld(506, HVUR), BendIn(512, HVDR, 13), BendOut(514, HVUL), BendAll(520, HVDR)),
+      VRow(135, MouthOld(506, HVUR), BendIn(512, HVDR, 13), BendOut(514, HVUL), BendAllOld(520, HVDR)),
       TRow(134, sea, mtain, land),
       VRow(133, BendIn(506, HVDR, 13), MouthLt(508, HVUR), BendIn(512, HVUR, 13), BendOut(514, HVDL)),
       TRow(132, hilly, sea, forest),

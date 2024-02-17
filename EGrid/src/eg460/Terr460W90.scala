@@ -32,7 +32,7 @@ object Terr460W90 extends Long460Terrs
       TRow(128, taigaLakes * 2, taiga, taigaLakes),
       VRow(127, MouthOld(9728, HVDL, 3, lake), MouthOld(9732, HVDR, 3, lake)),
       TRow(126, savannah, taiga, Cape(0, 1, taiga, lake), hillyTaiga),
-      VRow(125, BendAll(9730, HVDR, lake), BendOut(9732, HVDn, 6, lake), MouthOld(9734, HVDR, 3, lake)),
+      VRow(125, BendAllOld(9730, HVDR, lake), BendOut(9732, HVDn, 6, lake), MouthOld(9734, HVDR, 3, lake)),
       TRow(124, hillySavannah, savannah, hilly, land, land),
       VRow(123, MouthOld(9730, HVDn, 3, lake)),
       TRow(122, savannah * 3, mtain, hilly),

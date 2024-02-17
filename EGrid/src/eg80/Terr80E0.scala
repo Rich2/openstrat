@@ -39,7 +39,7 @@ object Terr80E0 extends Long80Terrs
       TRow(484, sea * 5, hilly, mtain, hillyForest, hilly, sea * 9, Cape(5, 4), Cape(4, 1), land * 2),
       TRow(482, sea * 6, mtain * 2, hilly, sea * 8, land * 2, sea, Cape(4, 1), land),
       TRow(480, sea * 7, hilly * 3, sea * 8, land * 2, sea, land * 2),
-      VRow(479, BendInOut(544, HVDR, 13, 4), BendInOut(546, HVUL, 5, 7), MouthOld(550, HVUL), BendAll(552, HVDL)),
+      VRow(479, BendInOut(544, HVDR, 13, 4), BendInOut(546, HVUL, 5, 7), MouthOld(550, HVUL), BendAllOld(552, HVDL)),
       TRow(478, sea * 6, hilly, land * 3, sea * 7, land * 2, land * 2, land, sea),
 
       VRow(477, BendIn(484, HVDR, 13), MouthLt(484, HVUR, 7), MouthOld(492, HVUL), ThreeDown(494, 3, 10, 3), MouthOld(496, HVUR), BendIn(544, HVUR, 13),
@@ -59,7 +59,7 @@ object Terr80E0 extends Long80Terrs
         BendIn(500, HVDn, 13), MouthOld(502, HVDR), MouthOld(514, HVDL), BendIn(516, HVDn), ThreeDown(518, 0, 13, 6), BendIn(520, HVDn, 13), MouthOld(522, HVDR)),
 
       TRow(464, sea * 9, land, land * 4, SepB(), land * 3, hilly * 7, land, hilly),
-      VRow(463, BendIn(492, HVDR, 13), MouthLt(494, HVUR, 7), BendAll(516, HVDR), BendIn(518, HVUL)),
+      VRow(463, BendIn(492, HVDR, 13), MouthLt(494, HVUR, 7), BendAllOld(516, HVDR), BendIn(518, HVUL)),
       TRow(462, sea * 8, hilly, hilly, Cape(3, 1, hilly), Cape(3, 1), Cape(2, 2), sea, land, land * 3, hilly * 8),
       VRow(461, BendIn(490, HVDR), BendOut(492, HVUL), MouthOld(514, HVDL), BendOut(516, HVUL, 7)),
       TRow(460, sea * 7, hilly, sea * 5, land * 3, hilly * 10),

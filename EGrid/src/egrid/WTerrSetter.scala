@@ -145,26 +145,55 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
 
   /** Will change name to Mouth. Holding for now to avoid confusing tooling. */
-  case class MouthLtRt(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
+  case class Mouth(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 
   case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3,
     magnitude2: Int = 3) extends VRowElem with MouthSpecBase
 
-  /** Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this vertex with a
-   *  default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome, val magnitude: Int) extends VRowElem with BendAllBase
+  /** This is deprecated Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this
+   *  vertex with a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
+  class BendAllOld(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome, val magnitude: Int) extends VRowElem with BendAllBase
 
-  object BendAll
+  object BendAllOld
   {
-    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea, magnitude: Int = 3): BendAll = apply(c, dirn, terr, terr, magnitude)
+    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea, magnitude: Int = 3): BendAllOld = apply(c, dirn, terr, terr, magnitude)
 
-    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome, magnitude: Int): BendAll =
+    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome, magnitude: Int): BendAllOld =
     { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
-      new BendAll(c, dirn, leftTerr, rightTerr, magnitude)
+      new BendAllOld(c, dirn, leftTerr, rightTerr, magnitude)
     }
   }
 
+  /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. */
+  class BendMin(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendAllBase
+  { def magnitude: Int = 3
+  }
+
+  object BendMin
+  { /** Factory apply method ofr creating bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16, where both [[HSep]]s have the same value. There
+     * is a name overload where both [[HSep]] layer values are specified. */
+    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea): BendMin = new BendMin(c, dirn, terr, terr)
+
+    /** Factory apply method ofr creating bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16, where the 2 [[HSep]] layer values are specified.
+     * There is a name overload where 1 [[HSep]] layer value is given for both. That will be the most common use case. */
+    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome): BendMin = new BendMin(c, dirn, leftTerr, rightTerr)
+  }
+
+  /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 7/16. */
+  class BendMax(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendAllBase
+  { def magnitude: Int = 7
+  }
+
+  object BendMax
+  { /** Factory apply method ofr creating bend connecting 2 [[HSeps]], with an inner and outer offset of 7/16, where both [[HSep]]s have the same value. There
+     * is a name overload where both [[HSep]] layer values are specified. */
+    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea): BendMax = new BendMax(c, dirn, terr, terr)
+
+    /** Factory apply method ofr creating bend connecting 2 [[HSeps]], with an inner and outer offset of 7/16, where the 2 [[HSep]] layer values are specified.
+     * There is a name overload where 1 [[HSep]] layer value is given for both. That will be the most common use case. */
+    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome): BendMax = new BendMax(c, dirn, leftTerr, rightTerr)
+  }
   /** Sets the 2 outer corners of the bend for [[HSep]] terrain with a default offset of 6, max 7, Also sets the left most of the [[HSep]]s of the bend vertex, with
    * a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
   class BendOut(val c: Int, val dirn: HVDirn, val magnitude: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendOutBase
