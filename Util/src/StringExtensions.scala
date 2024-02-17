@@ -4,7 +4,10 @@ import pParse._
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class ExtensionsString(val thisString: String) extends AnyVal
-{ /** Parses this [[String]] into RSON tokens. */
+{
+  def emptyMap(nullSubstitute: String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
+
+  /** Parses this [[String]] into RSON tokens. */
   def parseTokens: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */

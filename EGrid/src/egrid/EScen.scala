@@ -4,12 +4,12 @@ import prid._, phex._
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 trait EScenBasic extends HSysScen
-{ override def gridSys: EGridSys
-
+{ def title: String = "EScenBasic"
+  override def gridSys: EGridSys
   val terrs: LayerHcRefSys[WTile]
   val sTerrs: LayerHSOptSys[WSep, WSepSome]
   val corners: HCornerLayer
-  def title: String = "EScenBasic"
+  lazy val names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */

@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
-import egrid._
+import prid.phex._, egrid._
 
 /** object for creating earth grids with 640km hexs, with a c scale of 80km. */
 object EGrid13
@@ -44,5 +44,11 @@ object EGrid13
   def scen8: EScenBasic = EScenBasic(Terr13W120.grid, Terr13W120.terrs, Terr13W120.sTerrs, Terr13W120.corners, "1300 120W")
   def scen9: EScenBasic = EScenBasic(Terr13W90.grid, Terr13W90.terrs, Terr13W90.sTerrs, Terr13W90.corners, "1300 90W")
   def scen10: EScenBasic = EScenBasic(Terr13W60.grid, Terr13W60.terrs, Terr13W60.sTerrs, Terr13W60.corners, "1300 60W")
-  def scen11: EScenBasic = EScenBasic(Terr13W30.grid, Terr13W30.terrs, Terr13W30.sTerrs, Terr13W30.corners, "1300 30W")
+
+  def scen11: EScenBasic =
+  { val res = EScenBasic(Terr13W30.grid, Terr13W30.terrs, Terr13W30.sTerrs, Terr13W30.corners, "1300 30W")
+    val names:LayerHcRefSys[String] = res.names
+    names.setRow(114, "Iceland")(res.gridSys.asInstanceOf[HGrid])
+    res
+  }
 }

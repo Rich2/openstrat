@@ -24,7 +24,7 @@ object Terr13E0 extends Long13Terrs
       TRow(110, land),
       VRow(109, ThreeDown(510, 12, 6, 0), MouthLt(514, HVUp)),
       TRow(108, hilly),
-      VRow(107, BendIn(508, HVDR, 8), BendOut(510, HVUL, 7)),
+      VRow(107, BendIn(508, HVDR, 8), ThreeUp(510, 6, 10, 0), BendIn(512, HVUp, 10), BendIn(514, HVUL)),
       TRow(106, savannah, sahel),
       VRow(105, BendAllOld(508, HVUL)),
       TRow(104, desert * 2),
