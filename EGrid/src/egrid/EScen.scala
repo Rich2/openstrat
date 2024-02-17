@@ -40,9 +40,9 @@ trait LongTerrs
   implicit val grid: EGridLongFull
 
   /** The tile terrain, */
-  def terrs: LayerHcRefSys[WTile]
+  lazy val terrs: LayerHcRefSys[WTile] = LayerHcRefSys(grid, Sea)
 
-  def sTerrs: LayerHSOptSys[WSep, WSepSome]
-
-  def corners: HCornerLayer
+  lazy val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome](grid, WSepNone)
+  lazy val corners: HCornerLayer = HCornerLayer()(grid)
+  lazy val names: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
 }

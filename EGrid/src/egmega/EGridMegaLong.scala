@@ -45,8 +45,4 @@ object EGridMegaLongFull
 /** Terrain data grid for [[EGridMegaLongFull]]s. */
 trait LongMegaTerrs extends LongTerrs
 { override implicit val grid: EGridMegaLongFull
-  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys(grid, Sea)
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome][WTile](grid)
-  override val corners: HCornerLayer = HCornerLayer()(grid)
-  val names: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
 }

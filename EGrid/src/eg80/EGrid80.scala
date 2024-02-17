@@ -30,6 +30,6 @@ object EGrid80
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 80km. */
   def e30(rBottomCen: Int, rTopCen: Int = 582): EGrid80LongFull = new EGrid80LongFull(rBottomCen, rTopCen, 1)
 
-  def scen0: EScenBasic = EScenBasic(Terr80E0.grid, Terr80E0.terrs, Terr80E0.sTerrs, Terr80E0.corners, "80km 0E")
-  def scen1: EScenBasic = EScenBasic(Terr80E30.grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners)
+  def scen0: EScenBasic = EScenBasic(Terr80E0.grid, Terr80E0.terrs, Terr80E0.sTerrs, Terr80E0.corners, Terr80E0.names, "80km 0E")
+  def scen1: EScenBasic = EScenBasic(Terr80E30.grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners, Terr80E0.names)
 }

@@ -66,11 +66,11 @@ class LayerHSOptSys[A, SA <: HSepSome](val unsafeArray: Array[A]) extends HSepLa
 object LayerHSOptSys
 {
   def apply[A, SA <: HSepSome]()(implicit ct: ClassTag[A], defaultValue: DefaultValue[A], gridSys: HGridSys): LayerHSOptSys[A, SA] =
-    apply[A, SA](gridSys, defaultValue)(ct)
+    apply[A, SA](gridSys, defaultValue.default)(ct)
 
-  def apply[A, SA <: HSepSome](gridSys: HGridSys)(implicit ct: ClassTag[A], defaultValue: DefaultValue[A]): LayerHSOptSys[A, SA] =
+  def apply[A, SA <: HSepSome](gridSys: HGridSys, value: A)(implicit ct: ClassTag[A]): LayerHSOptSys[A, SA] =
   { val newArray = new Array[A](gridSys.numSides)
-    iUntilForeach(gridSys.numSides)(newArray(_) = defaultValue.default)
+    iUntilForeach(gridSys.numSides)(newArray(_) = value)
     new LayerHSOptSys[A, SA](newArray)
   }
 
