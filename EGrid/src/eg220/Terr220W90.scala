@@ -19,7 +19,7 @@ object Terr220W90 extends Long220Terrs
       TRow(162, taiga, taigaLakes, taiga, taigaLakes * 3, taiga, taigaLakes * 2),
       VRow(161, BendIn(9718, HVDR, 6, lake), BendIn(9720, HVUL, 6, lake), BendInOut(9740, HVUR, 11, 7), MouthLt(9742, HVDR, 7)),
       TRow(160, savannah, taigaLakes, taiga, taigaLakes * 3, taiga * 2, taigaLakes),
-      VRow(159, BendIn(9718, HVUR, 6, lake), Mouth(9720, HVDR, 3, lake)),
+      VRow(159, BendIn(9718, HVUR, 6, lake), MouthOld(9720, HVDR, 3, lake)),
       TRow(158, savannah * 2, taigaLakes * 3, taiga * 3, taigaLakes),
       TRow(156, savannah * 2, taiga, taigaLakes, hillyLakesTaiga, mtainLakes, hillyLakesTaiga * 2, taigaLakes, hillyLakesTaiga),
 
@@ -28,16 +28,16 @@ object Terr220W90 extends Long220Terrs
 
       TRow(154, savannah * 3, Land(LandLakes, Savannah, LandFree), taiga * 3, mtainLakes, hillyLakesTaiga, mtainLakes),
 
-      VRow(153, Mouth(9732, HVUL, 3, lake), BendIn(9734, HVDL, 13, lake), Mouth(9736, HVUL, 3, lake), ThreeDown(9738, 6, 6, 6, lake),
+      VRow(153, MouthOld(9732, HVUL, 3, lake), BendIn(9734, HVDL, 13, lake), MouthOld(9736, HVUL, 3, lake), ThreeDown(9738, 6, 6, 6, lake),
         BendInOut(9740, HVDn, 8, 3, lake), MouthLt(9742, HVDR, 7, lake)),
 
       TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, forest, Land(LandLakes, Temperate, Forest) * 2),
 
       VRow(151, BendInOut(9732, HVDR, 6, 7, lake), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), MouthLt(9740, HVDR, 7, lake),
-        Mouth(9744, HVDL, 3, lake), BendIn(9746, HVDn, 13, lake), Mouth(9748, HVDR, 3, lake)),
+        MouthOld(9744, HVDL, 3, lake), BendIn(9746, HVDn, 13, lake), MouthOld(9748, HVDR, 3, lake)),
 
       TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, forest, hillyForest * 2),
-      VRow(149, MouthLtRt(9732, HVDn, 4, 7, lake), Mouth(9738, HVDL, 3,lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake), MouthRt(9744, HVUR, 6, lake)),
+      VRow(149, MouthLtRt(9732, HVDn, 4, 7, lake), MouthOld(9738, HVDL, 3,lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake), MouthRt(9744, HVUR, 6, lake)),
       TRow(148, sahel * 2, savannah, hillySavannah * 3, savannah * 3, hillyForest, mtain),
       VRow(147, BendAll(9752, HVDR)),
       TRow(146, sahel, savannah * 2, hillySavannah * 2, savannah * 3, mtain * 2, hilly),

@@ -15,19 +15,19 @@ object TerrMegaE150 extends LongMegaTerrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(118, hillyTundra),
       TRow(116, hillyTundra),
-      VRow(115, Mouth(5632, HVUp), Mouth(5634, HVUL), BendIn(5636, HVUp)),
+      VRow(115, MouthOld(5632, HVUp), MouthOld(5634, HVUL), BendIn(5636, HVUp)),
       TRow(114, Cape(1, 4, hillyTaiga)),
       TRow(110, Cape(5, 4, hilly), sea),
       VRow(109, BendOut(5630, HVDR)),
       TRow(108, SepB(), sea * 2),
 
-      VRow(101, Mouth(5626, HVDL)),
+      VRow(101, MouthOld(5626, HVDL)),
       TRow(100, Cape(0, 2, hillyJungle), sea * 2),
       TRow(98, Cape(3, 2, hillyJungle), sea * 2),
       TRow(96, Cape(0, 1, savannah), sea * 2),
       TRow(94, savannah, sea * 2),
       TRow(92, forest, sea),
-      VRow(91, Mouth(5632, HVUp)),
+      VRow(91, MouthOld(5632, HVUp)),
       TRow(90, Cape(2, 3, savannah), sea),
       TRow(82, ice)
     )

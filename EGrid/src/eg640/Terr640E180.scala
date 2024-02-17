@@ -15,7 +15,7 @@ object Terr640E180 extends Long640Terrs
       TRow(128, Cape(0, 2, tundra)),
       VRow(127, BendOut(6658, HVUR)),
       TRow(126, hillyTundra, Cape(1, 3, tundra)),
-      VRow(125, Mouth(6656, HVUL)),
+      VRow(125, MouthOld(6656, HVUL)),
       TRow(124, sea, Cape(3, 3, hillyTundra)),
       TRow(122, SepB()),
     )

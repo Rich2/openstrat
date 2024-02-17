@@ -13,7 +13,7 @@ object TerrMegaW150 extends LongMegaTerrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(118, tundra),
-      VRow(117, Mouth(7678, HVUp)),
+      VRow(117, MouthOld(7678, HVUp)),
       TRow(116, SepB(), hillyTaiga),
     )
   }

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
@@ -18,14 +18,14 @@ object Terr13E90 extends Long13Terrs
       TRow(110, mtain),
       TRow(108, hillyDesert),
       TRow(106, mtain, mtain),
-      TRow(104, Cape(3, 1, jungle), hillyJungle),
-      VRow(103, BendAll(3580, HVDL), Mouth(3582, HVUL), Mouth(3586, HVUR)),
-      TRow(102, Cape(1, 4, hillyJungle), Cape(4, 2, jungle)),
-      VRow(101, BendIn(3586, HVUp), BendIn(3588, HVDn)),
-      TRow(100, sea, Cape(1, 1, jungle)),
+      TRow(104, jungle, hillyJungle),
+      VRow(103, MouthLt(3580, HVDR), MouthMax(3584, HVUp)),
+      TRow(102, hillyJungle, jungle),
+      VRow(101, MouthLt(3580, HVUL), BendIn(3582, HVUp), ThreeUp(3584, 13, 0, 13), BendIn(3586, HVUp), BendIn(3588, HVDn)),
+      TRow(100, sea, jungle),
       VRow(99, BendIn(3588, HVDR), ThreeUp(3590, 1, 7, 6)),
       VRow(95, BendOut(3590, HVUL)),
-      VRow(87, Mouth(3584, HVDR, 3, wice)),
+      VRow(87, MouthOld(3584, HVDR, 3, wice)),
       TRow(86, ice)
     )
   }

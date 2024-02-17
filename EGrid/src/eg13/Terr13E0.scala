@@ -29,13 +29,13 @@ object Terr13E0 extends Long13Terrs
       TRow(104, desert * 2),
       VRow(103),
       TRow(102, savannah * 2),
-      VRow(101, Mouth(514, HVUp)),
+      VRow(101, MouthOld(514, HVUp)),
       TRow(100, sea, jungle),
-      VRow(99, Mouth(514, HVDn)),
+      VRow(99, MouthOld(514, HVDn)),
       TRow(98, sea * 2),
-      VRow(97, Mouth(516, HVUR)),
+      VRow(97, MouthOld(516, HVUR)),
       TRow(96, sea, Cape(4, 2, desert)),
-      VRow(95, Mouth(516, HVDR)),
+      VRow(95, MouthOld(516, HVDR)),
       VRow(87, BendOut(512, HVUp, 6, wice), BendOut(516, HVUp, 6, wice)),
       TRow(86, Cape(0, 1, ice, wice))
     )

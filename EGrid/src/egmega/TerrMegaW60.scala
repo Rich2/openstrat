@@ -16,7 +16,7 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(116, Cape(1, 4, tundra)),
       TRow(114, Cape(0, 3, taiga)),
       TRow(112, Cape(2, 2,taiga), sea),
-      VRow(109, Mouth(10748, HVUL)),
+      VRow(109, MouthOld(10748, HVUL)),
       TRow(108, SepB(), sea * 2),
 
       TRow(102, jungle, sea * 2),
@@ -27,9 +27,9 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(94, Land(Mountains, Savannah), savannah, Cape(2, 1, savannah)),
       VRow(93, BendOut(10758, HVDR)),
       TRow(92, hillySavannah, Cape(2, 2, savannah)),
-      VRow(91, Mouth(10754, HVUL)),
+      VRow(91, MouthOld(10754, HVUL)),
       TRow(90, hillySavannah, sea),
-      VRow(89, Mouth(10748, HVUR)),
+      VRow(89, MouthOld(10748, HVUR)),
       TRow(82, wice)
     )
   }

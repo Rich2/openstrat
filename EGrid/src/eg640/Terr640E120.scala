@@ -17,7 +17,7 @@ object Terr640E120 extends Long640Terrs
       TRow(128, tundra),
       TRow(126, hillyTaiga, hillyTaiga),
       TRow(124, hillyTaiga, hillyTaiga),
-      VRow(123, Mouth(4614, HVUL)),
+      VRow(123, MouthOld(4614, HVUL)),
       TRow(122, mtain, hillyTaiga),
       TRow(120, mtain, hilly, hilly),
       TRow(118, desert, savannah, hilly),
@@ -30,7 +30,7 @@ object Terr640E120 extends Long640Terrs
       TRow(104, SepB(), Cape(1, 3, jungle), sea, Isle3(mtain), Isle10(hillyJungle)),
       TRow(102, sea, Cape(0, 2, hillyJungle)),
       TRow(100, Cape(3, 4, hillyJungle), jungle, Cape(4, 3, hillyJungle), sea, Cape(4, 4, hillyJungle)),
-      VRow(99, Mouth(4618, HVDn)),
+      VRow(99, MouthOld(4618, HVDn)),
       TRow(98, Cape(4, 4, hillyJungle), sea, Cape(1, 4, hillyJungle), sea, Cape(3, 2, hillyJungle)),
     )
   }

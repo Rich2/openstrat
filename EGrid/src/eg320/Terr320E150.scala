@@ -30,7 +30,7 @@ object Terr320E150 extends Long320Terrs
       TRow(136, sea, Cape(5, 3, hillyForest), sea * 5),
       TRow(134, Cape(3, 3, hillyForest), Cape(2, 2, hillyForest), sea * 5),
       TRow(132, sea, Cape(0, 2, hilly), sea * 5),
-      VRow(131, Mouth(5626, HVDn)),
+      VRow(131, MouthOld(5626, HVDn)),
       TRow(130, hilly, Cape(2, 1, hilly), sea * 6),
       TRow(128, Cape(2, 2, hilly), sea * 7),
     )

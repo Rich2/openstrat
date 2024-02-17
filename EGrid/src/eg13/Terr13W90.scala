@@ -15,20 +15,20 @@ object Terr13W90 extends Long13Terrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(114, Isle10(tundra)),
       TRow(112, Cape(1, 2, taiga)),
-      VRow(111, Mouth(9728, HVDL)),
+      VRow(111, MouthOld(9728, HVDL)),
       TRow(110, forest),
       TRow(108, land),
       TRow(106, savannah, Cape(2, 1)),
-      VRow(105, Mouth(9726, HVDL)),
+      VRow(105, MouthOld(9726, HVDL)),
       TRow(104, Cape(0, 2, hillyJungle), sea),
       VRow(103, SetSep(9725), BendOut(9730, HVUR), BendOut(9732, HVUp)),
       TRow(102, sea, Cape(3, 2, hillyJungle)),
-      VRow(101, Mouth(9732, HVUR)),
+      VRow(101, MouthOld(9732, HVUR)),
       TRow(100, sea, Cape(5, 1, hillyJungle)),
-      VRow(99, Mouth(9730, HVDn)),
-      VRow(91, Mouth(9730, HVUR)),
+      VRow(99, MouthOld(9730, HVDn)),
+      VRow(91, MouthOld(9730, HVUR)),
       TRow(90, Cape(3, 3, mtain)),
-      VRow(87, Mouth(9728, HVDR, 3, wice)),
+      VRow(87, MouthOld(9728, HVDR, 3, wice)),
       TRow(86, ice)
     )
   }
