@@ -1,12 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 460km. A hex tile area of 354724.005km².
- *  Isle 234173.269km² <= 112236.892km².
- *  Isle10 120974.276km² <= 57981.753km². Ireland
- *  Isle8 57981.753km² <= 35075.382km². Sardinia. Sicily no hex avaliabe
- *  Isle3 8768.845km² <= 4473.900km² Balearic Islands 5040km², Corsica no hex available. */
+/** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 460km. A hex tile area of 183250.975km².
+ *  Isle10 57981.753km² => 120974.276km². Ireland
+ *  Isle8 35075.382km² => 57981.753km² <=. Sardinia. Sicily no hex available
+ *  Isle3 4473.900km² => 8768.845km² 4473.900km². Balearic Islands 5040km², Corsica no hex available.
+ *  Faroes + Orkneys 2389km². */
 object Terr460E0 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e0(94)
   override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)

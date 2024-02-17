@@ -4,12 +4,12 @@ import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 460km, a C scale of 115km. A hex tile area of 183250.975km².
  *  A maximum Isle size of 120974.276km² excludes South Island(NZ), Java
- *  Isle10 120974.276km² <= 57981.753km²
- *  Isle8 57981.753km² <= 35075.382km²
- *  Isle6 35075.382km² <= 21653.679km²
- *  Isle5 21653.679km² <= 14495.438km²
- *  Isle4 14495.438km² <= 8768.845km²
- *  Isle3 8768.845km² <= 4473.900km² */
+ *  Isle10 57981.753km² => 120974.276km².
+ *  Isle8 35075.382km² => 57981.753km².
+ *  Isle6 35075.382km² => 21653.679km².
+ *  Isle5 14495.438km² => 21653.679km².
+ *  Isle4 8768.845km² => 14495.438km².
+ *  Isle3 4473.900km² => 8768.845km². */
 package object eg460
 {
   val fullTerrs: RArr[Long460Terrs] = RArr(Terr460E0, Terr460E30, Terr460E60, Terr460E90, Terr460E120, Terr460E150,Terr460E180, Terr460W150,
