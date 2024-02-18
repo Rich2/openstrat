@@ -1,13 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag
+import reflect.ClassTag
 
 /** Reference data layer for [[HCen]] hex tile structure. */
-trait LayerHcRef[A <: AnyRef] extends Any
+trait LayerHcRef[A <: AnyRef] extends Any with TCenLayer[A]
 { type KeyT <: HexStruct
-
-  /** The backing [[Array]] for the data elements of [[HCen]] structure. */
-  def arrayUnsafe: Array[A]
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
    * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
@@ -27,7 +24,53 @@ trait LayerHcRef[A <: AnyRef] extends Any
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature.  */
   def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HexStruct): Unit = gSys.iForeach{ (i, hc) => f(hc, arrayUnsafe(i)); () }
+  /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
+   *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
+   *  element) => B signature. */
+  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
+  { val res = build.uninitialised(length)
+    grid.iForeach{ (i, hc) =>
+      val newElem = f(hc, apply(hc))
+      res.setElemUnsafe(i, newElem)
+    }
+    res
+  }
 
+  /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
+   * [[Arr]] will be between 0 and the length of this [[LayerHcRefSys]]. */
+  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
+  { val buff = build.newBuff()
+    grid.iForeach { (i, hc) =>
+      f(apply(hc), hc).foreach(build.buffGrow(buff, _))
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
+   *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
+   *  element) => B signature. */
+  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: KeyT, build: BuilderArrFlat[BB]): BB =
+  { val buff = build.newBuff()
+    grid.iForeach{ (i, hc) =>
+      val newElems = f(hc, apply(hc))
+      build.buffGrowArr(buff, newElems)
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
+   * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
+   * element) => B signature. */
+  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: KeyT, build: BuilderArrFlat[BB]): BB =
+  { val buff = build.newBuff()
+    gridSys.iForeach { (i, hc) =>
+      f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit key: KeyT, proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
+    proj.hCenFlatMap{ hc => f(hc, apply(hc)(key)) }
 }
 
 /** Reference data layer for [[HCenRow]]. */

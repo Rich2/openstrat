@@ -7,62 +7,7 @@ import geom._, reflect.ClassTag
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
 class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerHcRef[A] with TCenLayer[A]
-{ override type ThisT = LayerHcRefSys[A]
-  override type KeyT = HGridSys
-  override def typeStr: String = "HCenLayer"
-
-  override def fromArray(array: Array[A]): LayerHcRefSys[A] = new LayerHcRefSys[A](array)
-
-  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = "Not implemented"
-
-  /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
-   *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
-   *  element) => B signature. */
-  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
-  { val res = build.uninitialised(length)
-    grid.iForeach{ (i, hc) =>
-      val newElem = f(hc, apply(hc))
-      res.setElemUnsafe(i, newElem)
-    }
-    res
-  }
-
-  /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
-   * [[Arr]] will be between 0 and the length of this [[LayerHcRefSys]]. */
-  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
-  { val buff = build.newBuff()
-    grid.iForeach { (i, hc) =>
-      f(apply(hc), hc).foreach(build.buffGrow(buff, _))
-    }
-    build.buffToSeqLike(buff)
-  }
-
-  /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
-   *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
-   *  element) => B signature. */
-  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: KeyT, build: BuilderArrFlat[BB]): BB =
-  { val buff = build.newBuff()
-    grid.iForeach{ (i, hc) =>
-      val newElems = f(hc, apply(hc))
-      build.buffGrowArr(buff, newElems)
-    }
-    build.buffToSeqLike(buff)
-  }
-
-  /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
-   * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
-   * element) => B signature. */
-  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: KeyT, build: BuilderArrFlat[BB]): BB =
-  { val buff = build.newBuff()
-    gridSys.iForeach { (i, hc) =>
-      f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
-    }
-    build.buffToSeqLike(buff)
-  }
-
-  def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
-    proj.hCenFlatMap{hc => f(hc, apply(hc)(proj.parent)) }
+{  override type KeyT = HGridSys
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */

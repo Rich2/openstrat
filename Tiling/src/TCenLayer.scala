@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** An Array of tile centre data of type A. An appropriate [[SqGrid]] or [[HGrid]] is required to utilise its functionality. */
-trait TCenLayer[A <: AnyRef] extends Any with RefsSeqLike[A]
+trait TCenLayer[A <: AnyRef] extends Any// with RefsSeqLike[A]
 { /** The mutable backing Array. End users should rarely if ever have to access this field */
   def arrayUnsafe: Array[A]
 
@@ -16,7 +16,7 @@ trait TCenLayer[A <: AnyRef] extends Any with RefsSeqLike[A]
    *  or Array. It does not utilise the grid [[TGrid]] from which this [[TCenLayer]] was created. */
   def foreach[U](f: A => U): Unit = arrayUnsafe.foreach(f)
 
-  override def ssForeach[U](f: A => U): Unit = foreach(f)
+ // override def ssForeach[U](f: A => U): Unit = foreach(f)
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the [[HCenArr]] class like a
    *  standard Arr or Array. It does not utilise the grid HGrid from which this HCenArr was created. */

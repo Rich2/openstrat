@@ -1,17 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import reflect.ClassTag
 
 /** A [[SqGridSys]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGridSys]] as an implicit
  * parameter. */
 class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with TCenLayer[A]
-{ override type ThisT = SqCenLayer[A]
-  override def typeStr: String = "SqCenLayer"
-  override def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
+{ def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
   def apply(sc: SqCen)(implicit gSys: SqGridSys): A = arrayUnsafe(gSys.layerArrayIndex(sc))
-
-  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = "Not implemented"
 
   /** Set tile row from the [[SqCen]]. */
   final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(startCen.r, startCen.c, multiValues: _*)(grid)
