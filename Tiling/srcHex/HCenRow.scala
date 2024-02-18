@@ -29,6 +29,8 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruc
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
   def hVertPolygon: PolygonHC = new PolygonHC(setHVertArray)
 
+  override def foreach(f: HCen => Unit): Unit = iToForeach(cStart, cEnd, 4)(c => f(HCen(r, c)))
+
   /** Creates the backing Array[Int] of [[HVert]]s for this HCenRow. This same array can be used inside an [[HVertArr]] or a [[PolygonHC]] class. */
   def setHVertArray: Array[Int] =
   { val res = new Array[Int]((numTiles * 4 + 2) * 2)

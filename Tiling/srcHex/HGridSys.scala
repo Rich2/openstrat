@@ -154,9 +154,6 @@ trait HGridSys extends HexStruct with TGridSys
    *  departure and the tile of arrival. */
   def getHCost(startCen: HCen, endCen: HCen): Int
 
-  /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
-  def foreach(f: HCen => Unit): Unit
-
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   def iForeach(f: (Int, HCen) => Unit): Unit
 

@@ -35,4 +35,6 @@ trait HexStruct extends TCenStruct
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCoordExists(r: Int, c:Int): Boolean
 
+  /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
+  def foreach(f: HCen => Unit): Unit
 }
