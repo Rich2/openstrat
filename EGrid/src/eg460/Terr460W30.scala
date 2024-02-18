@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
@@ -7,11 +7,8 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle3 from 8768.845km² down to 4473.900km² includes the Canaries. */
 object Terr460W30 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.w30(94)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
 
-  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  val terrSet: WTerrSetter = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(146, ice),
@@ -23,7 +20,7 @@ object Terr460W30 extends Long460Terrs
       TRow(138, ice),
       VRow(137, BendAllOld(11776, HVDR, SeaIceWinter)),
       TRow(136, ice, sea, mtain),
-      VRow(135, BendAllOld(11772, HVDR, SeaIceWinter), BendIn(11774, HVUL, 13, SeaIceWinter), MouthOld(11778, HVUL), MouthOld(11782, HVUR)),
+      VRow(135, BendAllOld(11772, HVDR, SeaIceWinter), BendIn(11774, HVUL, 13, SeaIceWinter), MouthOld(11778, HVUL), BendIn(11780, HVUp), MouthRt(11782, HVUR)),
       VRow(133, BendIn(11770, HVUp, 6, SeaIceWinter), BendIn(11772, HVUL, 6, SeaIceWinter)),
       VRow(129, MouthOld(11786, HVDR)),
       VRow(117, BendIn(11786, HVDR, 13), BendIn(11788, HVDn, 13), ThreeDown(11790, 0, 10, 13)),
@@ -46,5 +43,5 @@ object Terr460W30 extends Long460Terrs
       TRow(94, hillySavannah),
     )
   }
-  help.run
+  terrSet.run
 }

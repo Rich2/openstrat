@@ -54,7 +54,6 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   override type KeyT = HGridSys
   override def typeStr: String = "HCenLayer"
 
-
   def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
   override def fromArray(array: Array[A]): LayerHcRefSys[A] = new LayerHcRefSys[A](array)
