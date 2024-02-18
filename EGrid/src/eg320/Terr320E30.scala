@@ -1,13 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale of 320km. */
 object Terr320E30 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e30(118)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -18,15 +15,15 @@ object Terr320E30 extends Long320Terrs
       TRow(156, Cape(5, 2, hillyTundra), Cape(0, 2, hillyTundra), sea),
       VRow(155, MouthOld(1538, HVDn)),
       TRow(154, hillyTaiga, taiga * 2, Cape(0, 4, tundra)),
-      VRow(153, MouthOld(1534, HVUp)),
-      TRow(152, Cape(2,1, taiga), taiga, Cape(1, 2, taiga), taiga),
-      VRow(151, BendAllOld(1532, HVDR), MouthOld(1540, HVDL)),
-      TRow(150, Cape(2, 1, taiga), taiga * 3),
-      VRow(149, MouthOld(1536, HVUL, 3, Lake), MouthOld(1538, HVDR, 3, Lake)),
-      VRow(147, MouthOld(1534, HVUR)),
-      TRow(148, Cape(2, 1, taiga), Cape(3, 3, taiga), taiga * 3),
-      TRow(146, Cape(5, 2), taiga * 4),
-      VRow(145, SetSep(1527)),
+      VRow(153, MouthRt(1534, HVUp, 7)),
+      TRow(152, taiga, taiga * 2, taiga),
+      VRow(151, BendOut(1532, HVDR, 7), BendIn(1534, HVUL, 13), MouthOld(1540, HVDL)),
+      TRow(150, taiga, taiga * 3),
+      VRow(149, BendOut(1530, HVDR, 7), BendIn(1532, HVUL, 13), MouthOld(1536, HVUL, 3, Lake), MouthOld(1538, HVDR, 3, Lake)),
+      VRow(147, ThreeUp(1530, 13, 0, 10), MouthRt(1534, HVUR, 7)),
+      TRow(148, taiga, taiga, taiga * 3),
+      TRow(146, land, taiga * 4),
+      VRow(145, BendOut(1526, HVUp, 7)),
       TRow(144, land * 5),
       TRow(142, land * 6),
       TRow(140, land * 6),
