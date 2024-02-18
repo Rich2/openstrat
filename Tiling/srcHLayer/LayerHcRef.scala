@@ -22,6 +22,12 @@ trait LayerHcRef[A <: AnyRef] extends Any
 
   def set(hc: HCen, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value }
+
+  /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
+   *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
+   *  => B signature.  */
+  def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HexStruct): Unit = gSys.iForeach{ (i, hc) => f(hc, arrayUnsafe(i)); () }
+
 }
 
 /** Reference data layer for [[HCenRow]]. */

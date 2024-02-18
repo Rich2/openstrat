@@ -16,15 +16,10 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = "Not implemented"
 
-  /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
-   *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
-   *  => B signature.  */
-  def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HexStruct): Unit = gSys.iForeach{ (i, hc) => f(hc, arrayUnsafe(i)); () }
-
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: HGridSys, build: BuilderArrMap[B, BB]): BB =
+  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
   { val res = build.uninitialised(length)
     grid.iForeach{ (i, hc) =>
       val newElem = f(hc, apply(hc))
@@ -35,7 +30,7 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
    * [[Arr]] will be between 0 and the length of this [[LayerHcRefSys]]. */
-  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: BuilderArrMap[B, BB]): BB =
+  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (i, hc) =>
       f(apply(hc), hc).foreach(build.buffGrow(buff, _))
@@ -46,7 +41,7 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
   /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: HGridSys, build: BuilderArrFlat[BB]): BB =
+  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: KeyT, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach{ (i, hc) =>
       val newElems = f(hc, apply(hc))
@@ -58,7 +53,7 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
   /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    * element) => B signature. */
-  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: HGridSys, build: BuilderArrFlat[BB]): BB =
+  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: KeyT, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     gridSys.iForeach { (i, hc) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
@@ -197,11 +192,10 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
    *  tile data values. */
   def sideMap[B, BB <: Arr[B]](f1: (HSep, A) => B, f2: (HSep, A, A) => B)(implicit grid: HGrid, build: BuilderArrMap[B, BB]): BB =
     grid.sepsMap{ hs => hs.unsafeTiles match
-    {
-      case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
-      case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
-      case (_, c2) => f1(hs, apply(c2))
-    }
+      { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
+        case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
+        case (_, c2) => f1(hs, apply(c2))
+      }
     }
 
   /** Maps the links or inner sides to an immutable Array, using the data of this HCenArr. It takes a function for the links or inner sides of the
@@ -217,10 +211,10 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
    *  tile data values. */
   def sideFlatMap[BB <: Arr[_]](f1: (HSep, A) => BB, f2: (HSep, A, A) => BB)(implicit grid: HGridSys, build: BuilderArrFlat[BB]): BB =
     grid.sepsFlatMap{ hs => hs.unsafeTiles match
-    { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
-      case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
-      case (_, c2) => f1(hs, apply(c2))
-    }
+      { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
+        case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
+        case (_, c2) => f1(hs, apply(c2))
+      }
     }
 
   /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSep]] and the
@@ -284,8 +278,8 @@ class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
       }
     }
 
-  def ++(operand: LayerHcRefSys[A])(implicit ct: ClassTag[A]): LayerHcRefSys[A] = {
-    val newArray = Array.concat(arrayUnsafe, operand.arrayUnsafe)
+  def ++(operand: LayerHcRefSys[A])(implicit ct: ClassTag[A]): LayerHcRefSys[A] =
+  { val newArray = Array.concat(arrayUnsafe, operand.arrayUnsafe)
     new LayerHcRefSys[A](newArray)
   }
 }
