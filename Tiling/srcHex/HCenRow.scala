@@ -31,6 +31,12 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruc
 
   override def foreach(f: HCen => Unit): Unit = iToForeach(cStart, cEnd, 4)(c => f(HCen(r, c)))
 
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  override def iForeach(f: (Int, HCen) => Unit): Unit = ???
+
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  override def iForeach(init: Int)(f: (Int, HCen) => Unit): Unit = ???
+
   /** Creates the backing Array[Int] of [[HVert]]s for this HCenRow. This same array can be used inside an [[HVertArr]] or a [[PolygonHC]] class. */
   def setHVertArray: Array[Int] =
   { val res = new Array[Int]((numTiles * 4 + 2) * 2)
