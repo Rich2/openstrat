@@ -4,11 +4,11 @@ import reflect.ClassTag
 
 /** A [[SqGridSys]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGridSys]] as an implicit
  * parameter. */
-class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenLayer[A]
+class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with TCenLayer[A]
 { override type ThisT = SqCenLayer[A]
   override def typeStr: String = "SqCenLayer"
   override def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
-  def apply(sc: SqCen)(implicit gSys: SqGridSys): A = unsafeArray(gSys.layerArrayIndex(sc))
+  def apply(sc: SqCen)(implicit gSys: SqGridSys): A = arrayUnsafe(gSys.layerArrayIndex(sc))
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = "Not implemented"
@@ -22,7 +22,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
     multiValues.iForeachSingle { (i, e) =>
       val c = cStart + i * 2
       val dataI = grid.layerArrayIndex(r, c)
-      unsafeArray(dataI) = e
+      arrayUnsafe(dataI) = e
     }
     SqCen(r, cStart + (multiValues.numSingles - 1) * 2)
   }
@@ -33,7 +33,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
     multiValues.iForeachSingle{(i, el) =>
       val c = cStart - i * 2
       val index = grid.layerArrayIndex(r, c)
-      unsafeArray(index) = el
+      arrayUnsafe(index) = el
     }
     SqCen(r, cStart - (multiValues.numSingles - 1) * 2)
   }
@@ -46,7 +46,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
     multiValues.iForeachSingle{(i, el) =>
       val r: Int = rStart + i * 2
       val index = grid.layerArrayIndex(r, c)
-      unsafeArray(index) =  el
+      arrayUnsafe(index) =  el
     }
     SqCen(rStart + (multiValues.numSingles - 1) * 2, c)
   }
@@ -58,7 +58,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
     multiValues.iForeachSingle{(i, el) =>
       val r = rStart - i * 2
       val index = grid.layerArrayIndex(r, c)
-      unsafeArray(index) = el
+      arrayUnsafe(index) = el
     }
     SqCen(c, rStart - (multiValues.numSingles - 1) * 2)
   }
@@ -82,7 +82,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
 
   /** Sets a rectangle of tiles to the same terrain type. */
   def setRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SqGrid): Unit =
-    ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => unsafeArray(grid.layerArrayIndex(y, c)) =  tileValue }
+    ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => arrayUnsafe(grid.layerArrayIndex(y, c)) =  tileValue }
 }
 
 object SqCenLayer

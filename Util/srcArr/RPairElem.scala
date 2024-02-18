@@ -106,7 +106,7 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends BuilderArrPa
   override def b1ArrBuilder: BuilderArrMap[B1, RArr[B1]] = BuilderArrMap.rMapImplicit
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
-  override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.unsafeArray, b2s)
+  override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.arrayUnsafe, b2s)
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit = ???

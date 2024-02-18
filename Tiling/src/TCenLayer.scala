@@ -4,17 +4,17 @@ package ostrat; package prid
 /** An Array of tile centre data of type A. An appropriate [[SqGrid]] or [[HGrid]] is required to utilise its functionality. */
 trait TCenLayer[A <: AnyRef] extends Any with RefsSeqLike[A]
 { /** The mutable backing Array. End users should rarely if ever have to access this field */
-  def unsafeArray: Array[A]
+  def arrayUnsafe: Array[A]
 
   /** The number of tile centres this array of data represents. */
-  final def length: Int = unsafeArray.length
+  final def length: Int = arrayUnsafe.length
 
   /** Set all tiles to the given value. */
-  final def mutSetAll(value: A): Unit = iUntilForeach(length){i => unsafeArray(i) = value }
+  final def mutSetAll(value: A): Unit = iUntilForeach(length){i => arrayUnsafe(i) = value }
 
   /** For each element in the underlying array performs the side effecting function. This method treats the [[TCenLayer]] class like a standard Arr
    *  or Array. It does not utilise the grid [[TGrid]] from which this [[TCenLayer]] was created. */
-  def foreach[U](f: A => U): Unit = unsafeArray.foreach(f)
+  def foreach[U](f: A => U): Unit = arrayUnsafe.foreach(f)
 
   override def ssForeach[U](f: A => U): Unit = foreach(f)
 

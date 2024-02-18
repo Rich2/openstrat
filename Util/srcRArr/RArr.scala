@@ -5,31 +5,31 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 /** This is a common trait for [[RArr]] and tiling data layer classes in the Tiling module. */
 trait RefsSeqLike[+A] extends Any with SeqLike[A]
 { type ThisT <: RefsSeqLike[A]
-  def unsafeArray: Array[A] @uncheckedVariance
+  def arrayUnsafe: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
   override final def fElemStr: A @uncheckedVariance => String = _.toString
-  override final def setElemUnsafe(i: Int, newElem: A @uncheckedVariance) : Unit = unsafeArray(i) = newElem
+  override final def setElemUnsafe(i: Int, newElem: A @uncheckedVariance) : Unit = arrayUnsafe(i) = newElem
 }
 
 /** The immutable Array based class for types without there own specialised [[Arr]] collection classes. It inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.3.0 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with Arr[A] with RefsSeqLike[A]
+final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVal with Arr[A] with RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "RArr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
-  override def length: Int = unsafeArray.length
+  override def length: Int = arrayUnsafe.length
 
   def eqs(other: Any): Boolean = other match
-  { case a: RArr[_] => unsafeArray.sameElements(a.unsafeArray)
+  { case a: RArr[_] => arrayUnsafe.sameElements(a.arrayUnsafe)
     case _ => false
   }
 
-  override def apply(index: Int): A = unsafeArray(index)
+  override def apply(index: Int): A = arrayUnsafe(index)
 
   /** Same map. Maps from this Arr[A] to a new Arr[A]. */
   def smap(f: A => A @uncheckedVariance): RArr[A] =
-  { val newArray: Array[A] = unsafeArray.clone()
+  { val newArray: Array[A] = arrayUnsafe.clone()
     iForeach({(i, el) => newArray(i) = f(el) })
     new RArr[A](newArray)
   }
@@ -48,7 +48,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
 
   /** Copies the backing Array to the operand Array. */
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
-  { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
+  { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
 
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = fromArray(new Array[A](length))//.asInstanceOf[Array[A]])
@@ -58,7 +58,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   { val n2 = n.max0
     val newLen: Int = (length - n2).max0
     val newArray = new Array[A](newLen)
-    iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i + n2))
+    iUntilForeach(newLen)(i => newArray(i) = arrayUnsafe(i + n2))
     new RArr(newArray)
   }
 
@@ -67,7 +67,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   { val n2 = n.max0
     val newLen: Int = (length - n2).max0
     val newArray = new Array[A](newLen)
-    iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i))
+    iUntilForeach(newLen)(i => newArray(i) = arrayUnsafe(i))
     new RArr(newArray)
   }
 
@@ -76,9 +76,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newLen = length + op.length
     val newArray = new Array[AA](newLen)
-    unsafeArray.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     op match
-    { case ra: RArr[_] => ra.asInstanceOf[RArr[AA]].unsafeArray.copyToArray(newArray, length)
+    { case ra: RArr[_] => ra.asInstanceOf[RArr[AA]].arrayUnsafe.copyToArray(newArray, length)
       case op => op.iForeach  { (i, el) => newArray(length + 1) = el }
     }
     new RArr(newArray)
@@ -88,7 +88,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   @targetName("append") @inline
   def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
-    unsafeArray.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     newArray(length) = op
     new RArr(newArray)
   }
@@ -98,7 +98,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   @inline @targetName("prepend") def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
-    unsafeArray.copyToArray(newArray, 1)
+    arrayUnsafe.copyToArray(newArray, 1)
     new RArr(newArray)
   }
 
@@ -170,7 +170,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   def take(n: Int, start: Int = 0)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
   { val newLen: Int = n - (n + start - length).min0
     val newArray = new Array[A](newLen)
-    System.arraycopy(unsafeArray, start, newArray, 0, newLen)
+    System.arraycopy(arrayUnsafe, start, newArray, 0, newLen)
     new RArr[A](newArray)
   }
 
@@ -180,7 +180,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   { val newArray = new Array[A](n)
     var i = 0
     while (i < n)
-    { newArray(i) = unsafeArray((start + i) %% length)
+    { newArray(i) = arrayUnsafe((start + i) %% length)
       i += 1
     }
     new RArr[A](newArray)
@@ -199,7 +199,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
       case _ => continue = false
     }
     val array2 = new Array[A](length - i)
-    Array.copy(unsafeArray, i, array2, 0, length - i)
+    Array.copy(arrayUnsafe, i, array2, 0, length - i)
     (buff.toArr, new RArr[A](array2))
   }
 }
@@ -312,11 +312,11 @@ case object RArr1Tail
 class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends BuilderArrMap[B, RArr[B]] with BuilderArrFlat[RArr[B]]
 { type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
-  override def indexSet(seqLike: RArr[B], index: Int, newElem: B): Unit = seqLike.unsafeArray(index) = newElem
+  override def indexSet(seqLike: RArr[B], index: Int, newElem: B): Unit = seqLike.arrayUnsafe(index) = newElem
   override def newBuff(length: Int = 4): RBuff[B] = new RBuff(new ArrayBuffer[B](length))
   override def buffGrow(buff: RBuff[B], newElem: B): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: RBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
+  override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.arrayUnsafe.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 /** R for stored by reference. The default [[BuffSequ]] class for types without their own specialist sequence classes. */

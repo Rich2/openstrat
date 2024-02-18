@@ -7,25 +7,25 @@ trait LayerHcRef[A <: AnyRef] extends Any
 { type KeyT <: HexStruct
 
   /** The backing [[Array]] for the data elements of [[HCen]] structure. */
-  def unsafeArray: Array[A]
+  def arrayUnsafe: Array[A]
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
    * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
-  def apply(hc: HCen)(implicit key: KeyT): A = unsafeArray(key.layerArrayIndex(hc))
+  def apply(hc: HCen)(implicit key: KeyT): A = arrayUnsafe(key.layerArrayIndex(hc))
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. */
-  def apply(key: KeyT, hc: HCen): A = unsafeArray(key.layerArrayIndex(hc))
+  def apply(key: KeyT, hc: HCen): A = arrayUnsafe(key.layerArrayIndex(hc))
 
-  def rc(r: Int, c: Int)(implicit key: KeyT): A = unsafeArray(key.layerArrayIndex(r, c))
+  def rc(r: Int, c: Int)(implicit key: KeyT): A = arrayUnsafe(key.layerArrayIndex(r, c))
 
-  def rc(key: KeyT, r: Int, c: Int): A = unsafeArray(key.layerArrayIndex(r, c))
+  def rc(key: KeyT, r: Int, c: Int): A = arrayUnsafe(key.layerArrayIndex(r, c))
 
-  def set(hc: HCen, value: A)(implicit gridSys: HexStruct): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
-  def set(r: Int, c: Int, value: A)(implicit gridSys: HexStruct): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
+  def set(hc: HCen, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(hc)) = value }
+  def set(r: Int, c: Int, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value }
 }
 
 /** Reference data layer for [[HCenRow]]. */
-class LayerHcRefRow[A <: AnyRef](val row: Int, val unsafeArray: Array[A]) extends LayerHcRef[A]
+class LayerHcRefRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extends LayerHcRef[A]
 { override type KeyT = HCenRow
 }
 
@@ -39,13 +39,13 @@ object LayerHcRefRow
 
   /** Implicit [[Show]] type class instances / evidence for [[LayerHcRefRow]]. */
   implicit def showEv[A <: AnyRef](implicit evA: Show[A]): Show1Repeat[Int, A, LayerHcRefRow[A]] =
-    Show1ArrayRepeat[Int, A, LayerHcRefRow[A]]("HRow", "row", _.row, "values", lhr => lhr.unsafeArray)
+    Show1ArrayRepeat[Int, A, LayerHcRefRow[A]]("HRow", "row", _.row, "values", lhr => lhr.arrayUnsafe)
 
   /** Implicit [[Unahow]] type class instances / evidence for [[LayerHcRefRow]]. */
   implicit def unshowEv[A <: AnyRef](implicit evA: Unshow[A], ct: ClassTag[A]): Unshow1Repeat[Int, A, LayerHcRefRow[A]] =
     Unshow1Repeat[Int, A, LayerHcRefRow[A]]("HRow", "row", "values",  (r, seq) => new LayerHcRefRow[A](r, seq.toArray))(Unshow.intSubset(_.isEven), evA)
 
-  implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRefRow[A]] = (lr1, lr2) => lr1.unsafeArray === lr2.unsafeArray
+  implicit def eqTEv[A <: AnyRef](implicit evA: EqT[A]): EqT[LayerHcRefRow[A]] = (lr1, lr2) => lr1.arrayUnsafe === lr2.arrayUnsafe
 }
 
 class HCenRowLayer[A <: AnyRef](val r: Int, val unsafeArray: Array[A])(implicit val show2: Show[A]) extends Tell2Repeat[Int, A]

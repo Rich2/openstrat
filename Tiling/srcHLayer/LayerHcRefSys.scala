@@ -2,16 +2,14 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
-
 /** Reference data layer for [[HGridSys]]. An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
-class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with LayerHcRef[A] with TCenLayer[A]
+class LayerHcRefSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with LayerHcRef[A] with TCenLayer[A]
 { override type ThisT = LayerHcRefSys[A]
   override type KeyT = HGridSys
   override def typeStr: String = "HCenLayer"
-
 
   override def fromArray(array: Array[A]): LayerHcRefSys[A] = new LayerHcRefSys[A](array)
 
@@ -21,7 +19,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature.  */
-  def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HGridSys): Unit = gSys.iForeach{ (i, hc) => f(hc, unsafeArray(i)); () }
+  def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HexStruct): Unit = gSys.iForeach{ (i, hc) => f(hc, arrayUnsafe(i)); () }
 
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
@@ -60,9 +58,9 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    * element) => B signature. */
-  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit grid: HGridSys, build: BuilderArrFlat[BB]): BB = {
-    val buff = build.newBuff()
-    grid.iForeach { (i, hc) =>
+  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: HGridSys, build: BuilderArrFlat[BB]): BB =
+  { val buff = build.newBuff()
+    gridSys.iForeach { (i, hc) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
     }
     build.buffToSeqLike(buff)
@@ -78,7 +76,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tileMultis.iForeachSingle { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
+    tileMultis.iForeachSingle { (i, e) =>  val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
@@ -88,7 +86,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
+    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
@@ -100,7 +98,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
+    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
@@ -109,7 +107,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   inline def setRowSame(row: Int, value: A)(implicit grid: HGrid): Unit = setRowSame(grid, row, value)
 
   /** Fills in the whole given row, with the same given value. This method has anme overload where the grid is passed implicitly. */
-  def setRowSame(grid: HGrid, row: Int, value: A): Unit =  grid.rowForeach(row){hc => unsafeArray(grid.layerArrayIndex(hc)) = value}
+  def setRowSame(grid: HGrid, row: Int, value: A): Unit =  grid.rowForeach(row){hc => arrayUnsafe(grid.layerArrayIndex(hc)) = value}
 
   /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens
    * overflows the row end. */
@@ -117,7 +115,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val rightC = cStart + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
-    iToForeach(cStart, rightC, 4) { c => unsafeArray(grid.layerArrayIndex(row, c)) = tileValue }
+    iToForeach(cStart, rightC, 4) { c => arrayUnsafe(grid.layerArrayIndex(row, c)) = tileValue }
     HCen(row, rightC)
   }
 
@@ -127,7 +125,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   { val rightC = grid.rowLeftCenC(row) + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if (rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
-    iToForeach(grid.rowLeftCenC(row), rightC, 4) { c => unsafeArray(grid.layerArrayIndex(row, c)) = tileValue }
+    iToForeach(grid.rowLeftCenC(row), rightC, 4) { c => arrayUnsafe(grid.layerArrayIndex(row, c)) = tileValue }
     HCen(row, rightC)
   }
 
@@ -287,7 +285,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     }
 
   def ++(operand: LayerHcRefSys[A])(implicit ct: ClassTag[A]): LayerHcRefSys[A] = {
-    val newArray = Array.concat(unsafeArray, operand.unsafeArray)
+    val newArray = Array.concat(arrayUnsafe, operand.arrayUnsafe)
     new LayerHcRefSys[A](newArray)
   }
 }
@@ -310,7 +308,7 @@ object LayerHcRefSys
     { val newLen = thisArr.sumBy(_.length)
       val newArray = new Array[A](newLen)
       var i = 0
-      thisArr.foreach{ar => ar.unsafeArray.copyToArray(newArray, i); i += ar.length}
+      thisArr.foreach{ar => ar.arrayUnsafe.copyToArray(newArray, i); i += ar.length}
       new LayerHcRefSys[A](newArray)
     }
   }
