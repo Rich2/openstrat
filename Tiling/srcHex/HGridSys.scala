@@ -34,18 +34,6 @@ trait HGridSys extends HCenStruct with TGridSys
     i
   }
 
-  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
-  final def hCoordExists(hc: HCoord): Boolean = hCoordExists(hc.r, hc.c)
-
-  /** Boolean. True if the specified hex centre exists in this hex grid. */
-  def hCoordExists(r: Int, c:Int): Boolean
-
-  /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
-  def hCenExistsIfDo(hc: HCen)(proc: => Unit): Unit = if(hCenExists(hc)) proc
-
-  /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
-  def hCenExistsIfDo(r: Int, c: Int)(proc: => Unit): Unit = if(hCenExists(r, c)) proc
-
   def coordCen: HCoord
   def hCenSteps(hCen: HCen): HStepArr
 

@@ -18,11 +18,9 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStru
   override def tell3: Int = cEnd
   def cLen: Int = (cEnd - cStart).max0
 
-  /** The number of tiles [[HCen]]s in this row. */
   override def numTiles: Int = ((cEnd - cStart + 4) / 4).max0
-
-  /** Boolean. True if the specified hex centre exists in this hex grid. */
   override def hCenExists(r: Int, c: Int): Boolean = r == this.r && c >= cStart && c <= cEnd
+  override def hCoordExists(r: Int, c: Int): Boolean = (r <= this.r + 1 || r >= this.r - 1) && (c <= cEnd + 2 && c >= cStart - 2)
 
   override def layerArrayIndex(r: Int, c: Int): Int = (c - cStart) / 4
 
