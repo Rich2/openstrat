@@ -9,16 +9,8 @@ trait EScenBasic extends HSysScen
   def terrs: LayerHcRefSys[WTile]
   def sTerrs: LayerHSOptSys[WSep, WSepSome]
   def corners: HCornerLayer
-  def names: LayerHcRefSys[String]
+  def hexNames: LayerHcRefSys[String]
 }
-/*trait EScenBasicEmpty// extends EScenBasic
-{/** The grid used. */
-  implicit val grid: EGridLongFull
-  override lazy val terrs: LayerHcRefSys[WTile] = LayerHcRefSys(grid, Sea)
-  override lazy val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome][WTile](grid)
-  override lazy val corners: HCornerLayer = HCornerLayer()(grid)
-  override lazy val names: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
-}*/
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
@@ -27,7 +19,7 @@ object EScenBasic
     title: String = "EScenBasic"): EScenBasic = new EScenWarmImp(gridSys, terrs, sTerrs, offsets, names, title)
 
   class EScenWarmImp(val gridSys: EGridSys, override val terrs: LayerHcRefSys[WTile], val sTerrs: LayerHSOptSys[WSep, WSepSome],
-    override val corners: HCornerLayer, val names: LayerHcRefSys[String], override val title: String = "EScenWarm") extends EScenBasic
+    override val corners: HCornerLayer, val hexNames: LayerHcRefSys[String], override val title: String = "EScenWarm") extends EScenBasic
 }
 
 trait EScenLongMulti extends EScenBasic
@@ -44,5 +36,5 @@ trait LongTerrs
 
   lazy val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome](grid, WSepNone)
   lazy val corners: HCornerLayer = HCornerLayer()(grid)
-  lazy val names: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
+  lazy val hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](grid, "")
 }

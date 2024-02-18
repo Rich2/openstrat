@@ -38,5 +38,5 @@ object Terr13E30 extends Long13Terrs
   }
   help.run
 
-  names.setRow(108, "Turkey")
+  hexNames.setRow(108, "Turkey")
 }

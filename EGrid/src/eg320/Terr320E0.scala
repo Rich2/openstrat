@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
@@ -7,11 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  *  not be a sea hex as the majority of the hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex.
  *  Given that it is a land hex by geographical area it must be assigned to France. */
 object Terr320E0 extends Long320Terrs
-{
-  override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+{ override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -59,6 +55,8 @@ object Terr320E0 extends Long320Terrs
     )
   }
   help.run
+
+  hexNames.setRow(140, "", "English West Country", "" * 4)
 }
 
 object BritReg320
@@ -73,6 +71,6 @@ object BritReg320
     override val terrs: LayerHcRefSys[WTile] = britTerrs
     override val sTerrs: LayerHSOptSys[WSep, WSepSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
-    override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+    override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
   }
 }

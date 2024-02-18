@@ -58,7 +58,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   }
 
   override def selectedStr: String = selected match
-  { case hc: HCen => scen.names(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
+  { case hc: HCen => scen.hexNames(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
     case sc: HSep => "Sep" -- sc.rcStr -- sTerrs(sc).strSemi
     case _ => super.selectedStr
   }
@@ -80,7 +80,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     statusText = ife(sideDrawOn, "Side Draw on", "Side Draw off")
     thisTop()
   }
-//  def repaint(): Unit = mainRepaint(frame)
+
   def thisTop(): Unit = reTop(proj.buttons +% showSideDraw)
 
   proj.getFrame = () => frame

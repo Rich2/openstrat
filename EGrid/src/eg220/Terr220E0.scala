@@ -101,6 +101,6 @@ object BritReg220
     override val terrs: LayerHcRefSys[WTile] = britTerrs
     override val sTerrs: LayerHSOptSys[WSep, WSepSome] = britSTerrs
     override val corners: HCornerLayer = britCorners
-    override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+    override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
   }
 }

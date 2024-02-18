@@ -43,5 +43,5 @@ object Terr13E0 extends Long13Terrs
   }
   help.run
 
-  names.setRow(110, "Middle Western Europe")
+  hexNames.setRow(110, "Middle Western Europe")
 }

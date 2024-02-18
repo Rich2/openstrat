@@ -39,14 +39,14 @@ object EGrid160
     new EGrid160LongPart(280, 0, array)
   }
 
-  def scen0: EScenBasic = EScenBasic(Terr160E0.grid, Terr160E0.terrs, Terr160E0.sTerrs, Terr160E0.corners, Terr160E0.names, "!60km 0E")
-  def scen1: EScenBasic = EScenBasic(Terr160E30.grid, Terr160E30.terrs, Terr160E30.sTerrs, Terr160E30.corners, Terr160E0.names, "!60km 30E")
+  def scen0: EScenBasic = EScenBasic(Terr160E0.grid, Terr160E0.terrs, Terr160E0.sTerrs, Terr160E0.corners, Terr160E0.hexNames, "!60km 0E")
+  def scen1: EScenBasic = EScenBasic(Terr160E30.grid, Terr160E30.terrs, Terr160E30.sTerrs, Terr160E30.corners, Terr160E0.hexNames, "!60km 30E")
 
-  def scen4: EScenBasic = EScenBasic(Terr160E120.grid, Terr160E120.terrs, Terr160E120.sTerrs, Terr160E120.corners, Terr160E0.names)
-  def scen5: EScenBasic = EScenBasic(Terr160E150.grid, Terr160E150.terrs, Terr160E150.sTerrs, Terr160E150.corners, Terr160E0.names)
+  def scen4: EScenBasic = EScenBasic(Terr160E120.grid, Terr160E120.terrs, Terr160E120.sTerrs, Terr160E120.corners, Terr160E0.hexNames)
+  def scen5: EScenBasic = EScenBasic(Terr160E150.grid, Terr160E150.terrs, Terr160E150.sTerrs, Terr160E150.corners, Terr160E0.hexNames)
 
-  def scen8: EScenBasic = EScenBasic(Terr160W120.grid, Terr160W120.terrs, Terr160W120.sTerrs, Terr160W120.corners, Terr160E0.names, "!60km 120W")
-  def scen9: EScenBasic = EScenBasic(Terr160W90.grid, Terr160W90.terrs, Terr160W90.sTerrs, Terr160W90.corners, Terr160E0.names)
-  def scen10: EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners, Terr160E0.names)
-  def scen11: EScenBasic = EScenBasic(Terr160W30.grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners, Terr160E0.names)
+  def scen8: EScenBasic = EScenBasic(Terr160W120.grid, Terr160W120.terrs, Terr160W120.sTerrs, Terr160W120.corners, Terr160E0.hexNames, "!60km 120W")
+  def scen9: EScenBasic = EScenBasic(Terr160W90.grid, Terr160W90.terrs, Terr160W90.sTerrs, Terr160W90.corners, Terr160E0.hexNames)
+  def scen10: EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners, Terr160E0.hexNames)
+  def scen11: EScenBasic = EScenBasic(Terr160W30.grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners, Terr160E0.hexNames)
 }

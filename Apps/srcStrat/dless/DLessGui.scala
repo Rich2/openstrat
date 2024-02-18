@@ -45,7 +45,8 @@ class DLessGui(val canv: CanvasPlatform, val game: DLessGame, val settings: DLes
   statusText = "Welcome to Diceless"
 
   override def selectedStr: String = selected match
-  { case hc: HCen => hc.rcStr -- terrs(hc).strSemi
+  { case hc: HCen => scen.hexNames(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
+    case sc: HSep => "Sep" -- sc.rcStr -- sTerrs(sc).strSemi
     case _ => super.selectedStr
   }
 

@@ -15,7 +15,7 @@ object NapScen1 extends NapScen
   override val terrs: LayerHcRefSys[WTile] = Terr220E0.terrs
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr220E0.sTerrs
   override val corners: HCornerLayer = Terr220E0.corners
-  override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
   override val corps: LayerHcOptSys[Corps] = LayerHcOptSys()
   corps.setSomeMut(160, 512, Corps(Britain))
   corps.setSomeMut(156, 516, Corps(France))
@@ -28,6 +28,6 @@ object NapScen2 extends NapScen
   override val terrs: LayerHcRefSys[WTile] = Terr220E0.terrs
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr220E0.sTerrs
   override val corners: HCornerLayer = Terr220E0.corners
-  override def names: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
   override val corps: LayerHcOptSys[Corps] = LayerHcOptSys()
 }
