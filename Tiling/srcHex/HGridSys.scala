@@ -13,9 +13,6 @@ trait HGridSys extends HCenStruct with TGridSys
     i
   }
 
-  /** The number of [[HCorner]]s in this [[HGridSys]], 6 for each [[HCen]]. */
-  def numCorners: Int = numTiles * 6
-
   /** The number of sides in the hex grid system. */
   final lazy val numSides: Int =
   { var i = 0
@@ -36,15 +33,6 @@ trait HGridSys extends HCenStruct with TGridSys
     edgesForeach(_ => i += 1)
     i
   }
-
-  /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
-  final override def yRatio: Double = 3.sqrt
-
-  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
-  final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
-
-  /** Boolean. True if the specified hex centre exists in this hex grid. */
-  def hCenExists(r: Int, c:Int): Boolean
 
   /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def hCoordExists(hc: HCoord): Boolean = hCoordExists(hc.r, hc.c)

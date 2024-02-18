@@ -2,15 +2,6 @@
 package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer
 
-trait HCenStruct
-{ /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
-   * Array SeqDef data. */
-  def layerArrayIndex(r: Int, c: Int): Int
-
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   * data. */
-  @inline final def layerArrayIndex(hc: HCen): Int = layerArrayIndex(hc.r, hc.c)
-}
 
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
 final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStruct with TellInt3 with Int3Elem with SpecialT
@@ -28,7 +19,10 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStru
   def cLen: Int = (cEnd - cStart).max0
 
   /** The number of tiles [[HCen]]s in this row. */
-  def numTiles: Int = ((cEnd - cStart + 4) / 4).max0
+  override def numTiles: Int = ((cEnd - cStart + 4) / 4).max0
+
+  /** Boolean. True if the specified hex centre exists in this hex grid. */
+  override def hCenExists(r: Int, c: Int): Boolean = r == this.r && c >= cStart && c <= cEnd
 
   override def layerArrayIndex(r: Int, c: Int): Int = (c - cStart) / 4
 
