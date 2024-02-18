@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
-final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HCenStruct with TellInt3 with Int3Elem with SpecialT
+final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruct with TellInt3 with Int3Elem with SpecialT
 { override def typeStr: String = "HCenRow"
   inline override def int1: Int = r
   inline override def int2: Int = cStart

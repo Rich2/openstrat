@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag
 
 /** Reference data layer for [[HCen]] hex tile structure. */
 trait LayerHcRef[A <: AnyRef] extends Any
-{ type KeyT <: HCenStruct
+{ type KeyT <: HexStruct
 
   /** The backing [[Array]] for the data elements of [[HCen]] structure. */
   def unsafeArray: Array[A]
@@ -19,6 +19,9 @@ trait LayerHcRef[A <: AnyRef] extends Any
   def rc(r: Int, c: Int)(implicit key: KeyT): A = unsafeArray(key.layerArrayIndex(r, c))
 
   def rc(key: KeyT, r: Int, c: Int): A = unsafeArray(key.layerArrayIndex(r, c))
+
+  def set(hc: HCen, value: A)(implicit gridSys: HexStruct): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
+  def set(r: Int, c: Int, value: A)(implicit gridSys: HexStruct): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
 }
 
 /** Reference data layer for [[HCenRow]]. */
@@ -54,8 +57,7 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
   override type KeyT = HGridSys
   override def typeStr: String = "HCenLayer"
 
-  def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
-  def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
+
   override def fromArray(array: Array[A]): LayerHcRefSys[A] = new LayerHcRefSys[A](array)
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
@@ -125,8 +127,8 @@ class LayerHcRefSys[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
-  final def setRowEndUnchecked(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen = {
-    val numTiles = tileMultis.numSingles
+  final def setRowEndUnchecked(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  { val numTiles = tileMultis.numSingles
     val cStart = grid.rowRightCenC(row) - numTiles * 4 + 4
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)

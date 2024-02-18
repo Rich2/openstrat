@@ -1,7 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-trait HCenStruct extends TCenStruct
+trait HexStruct extends TCenStruct
 {
   /** The number of [[HCorner]]s in this [[HGridSys]], 6 for each [[HCen]]. */
   final def numCorners: Int = numTiles * 6

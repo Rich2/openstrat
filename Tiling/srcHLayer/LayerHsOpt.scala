@@ -4,7 +4,7 @@ import geom._, reflect.ClassTag
 
 trait LayerHsOpt
 {
-  type KeyT <: HCenStruct
+  type KeyT <: HexStruct
 }
 
 /** Data layer for [[HSep]]s of an [[HGridSys]] where there is are [[HSepSome]] and [[HSepNone]] types. */

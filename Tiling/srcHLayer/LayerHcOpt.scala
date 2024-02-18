@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
 trait LayerHcOpt[A <: AnyRef] extends Any with LayerTcOpt[A]
-{ type KeyT <: HCenStruct
+{ type KeyT <: HexStruct
 }
 
 /** [[HCen]] layer for a hex row. */

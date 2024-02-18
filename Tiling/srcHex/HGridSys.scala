@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, reflect.ClassTag, pgui._
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
-trait HGridSys extends HCenStruct with TGridSys
+trait HGridSys extends HexStruct with TGridSys
 { /** Returns the most appropriate [[HSysProjection]] for this HGridSys. */
   def projection: Panel => HSysProjection = HSysProjectionFlat(this, _)
 
