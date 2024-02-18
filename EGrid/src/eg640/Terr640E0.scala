@@ -25,7 +25,7 @@ object Terr640E0 extends Long640Terrs
       TRow(120, sea, land * 2),
       VRow(119, MouthLt(508, HVUp, 7)),
       TRow(118, hilly, land, hilly),
-      VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), BendInOut(514, HVDR, 13, 3), MouthOld(516, HVUR)),
+      VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), Bend(514, HVDR, 13, 3), MouthOld(516, HVUR)),
       TRow(116, hilly, hilly, mtain),
       VRow(115, MouthRt(506, HVDn, 7), MouthRt(508, HVDL), BendIn(510, HVDn, 10), BendAllOld(512, HVUp), ThreeUp(514, 13, 3, 10), BendIn(516, HVUp, 11)),
       TRow(114, sea, hilly, hilly, Cape(0, 2, hilly)),

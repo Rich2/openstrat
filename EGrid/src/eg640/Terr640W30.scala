@@ -16,7 +16,7 @@ object Terr640W30 extends Long640Terrs
       TRow(130, ice),
       VRow(129, BendOut(11778, HVDR), BendIn(11780, HVUL, 13)),
       TRow(128, ice),
-      VRow(127, BendInOut(11776, HVDR, 6, 4), BendIn(11778, HVUL, 9)),
+      VRow(127, Bend(11776, HVDR, 6, 4), BendIn(11778, HVUL, 9)),
       TRow(126, ice, hillyTundra),
       VRow(125, BendOut(11774, HVDR), ThreeUp(11776, 11, 0, 13), BendIn(11778, HVUp, 8)),
       VRow(123, BendIn(11772, HVUp, 13), BendIn(11774, HVUL, 9)),

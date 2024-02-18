@@ -51,17 +51,17 @@ object Terr220E0 extends Long220Terrs
       TRow(164, sea, land, hilly, land, sea * 2, land, sea),
 
       VRow(163, BendIn(504, HVDR, 13), ThreeUp(506, 3, 13, 3), MouthOld(508, HVDR), BendOut(514, HVUR, 7), ThreeDown(516, 0, 13, 13), BendIn(518, HVDn, 13),
-        BendInOut(520,HVUp, 3, 3), MouthLt(522, HVUR, 7)),
+        Bend(520,HVUp, 3, 3), MouthLt(522, HVUR, 7)),
 
       TRow(162, sea, land, hilly, land * 2, land * 4),
-      VRow(161, MouthLt(498, HVUp), BendIn(504, HVUR, 13), MouthOld(506, HVDR), BendIn(514, HVDR, 13), BendInOut(516, HVUL, 13, 7)),
+      VRow(161, MouthLt(498, HVUp), BendIn(504, HVUR, 13), MouthOld(506, HVDR), BendIn(514, HVDR, 13), Bend(516, HVUL, 13, 7)),
       TRow(160, sea, land, sea, land * 2, land * 2, hilly, land),
 
       VRow(159, BendIn(498, HVUR, 13), BendIn(500, HVUp, 13), MouthRt(502, HVUR, 7), BendIn(504, HVDR, 6), MouthOld(506, HVUR), BendIn(508, HVDR, 12),
-        BendIn(510, HVDn, 13), BendInOut(512, HVUp, 1, 7), BendInOut(514, HVUL, 3, 3)),
+        BendIn(510, HVDn, 13), Bend(512, HVUp, 1, 7), Bend(514, HVUL, 3, 3)),
 
       TRow(158, sea * 2, hilly, land * 2, hilly * 4),
-      VRow(157, BendIn(504, HVUR, 13), BendIn(506, HVUp, 13), BendInOut(508, HVUL, 13, 7)),
+      VRow(157, BendIn(504, HVUR, 13), BendIn(506, HVUp, 13), Bend(508, HVUL, 13, 7)),
       TRow(156, sea * 3, land * 3, hilly * 2, land, hilly),
       VRow(155, MouthOld(506, HVUL), BendOut(508, HVDL)),
       TRow(154, sea * 4, land * 2, hilly, mtain * 3),
@@ -70,7 +70,7 @@ object Terr220E0 extends Long220Terrs
       TRow(152, sea * 4, land, hilly, mtain, hilly, land, hilly),
       VRow(151, BendIn(530, HVUR, 13), BendOut(532, HVDL, 7)),
       TRow(150, sea, Cape(4, 3, hilly), hilly * 4, hilly, Cape(2, 2, hilly), Cape(4, 5, hilly), hilly, mtain),
-      VRow(149, BendOut(518, HVDR), BendOut(520, HVDn), BendOut(526, HVUp), BendIn(532, HVUR, 13), BendIn(534, HVUp, 13), BendInOut(536, HVDn, 6, 7)),
+      VRow(149, BendOut(518, HVDR), BendOut(520, HVDn), BendOut(526, HVUp), BendIn(532, HVUR, 13), BendIn(534, HVUp, 13), Bend(536, HVDn, 6, 7)),
       TRow(148, sea * 2, mtain, sahel, hillySavannah * 3, sea, Cape(4, 3, hilly), sea, hilly),
       VRow(147, MouthLt(514, HVUL), ThreeDown(516, 13, 6, 0), ThreeUp(518, 0, 6, 13), BendOut(524, HVDL), MouthLt(530, HVUL, 7), MouthRt(532, HVDR, 7)),
       TRow(146, sea, hillySavannah, hilly, hillySavannah * 2, sea, hillySavannah, sea, Cape(1, 4, hilly), sea * 2),

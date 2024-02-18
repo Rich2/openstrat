@@ -19,7 +19,7 @@ object Terr13E30 extends Long13Terrs
       TRow(108, hilly),
       VRow(107, ThreeUp(1534, 6, 6, 0), MouthOld(1536, HVDR), MouthRt(1538, HVDn, 7, lake)),
       TRow(106, sahel, sahel),
-      VRow(105, MouthLt(1536, HVUL), BendInOut(1538, HVDL, 2, 4), MouthLt(1540, HVUL), BendIn(1542, HVUp)),
+      VRow(105, MouthLt(1536, HVUL), Bend(1538, HVDL, 2, 4), MouthLt(1540, HVUL), BendIn(1542, HVUp)),
       TRow(104, desert * 2),
       VRow(103, BendIn(1538, HVUR, 10), BendOut(1540, HVUp), BendIn(1542, HVDn, 12)),
       TRow(102, savannah, Hilly(Savannah)),
