@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import reflect.ClassTag
 
 /** Reference data layer for [[HCen]] hex tile structure. */
-trait LayerHcRef[A <: AnyRef] extends Any with TCenLayer[A]
+trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
 { type KeyT <: HexStruct
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
