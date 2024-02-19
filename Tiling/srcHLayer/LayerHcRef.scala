@@ -4,18 +4,18 @@ import reflect.ClassTag
 
 /** Reference data layer for [[HCen]] hex tile structure. */
 trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
-{ type KeyT <: HexStruct
+{ //type KeyT <: HexStruct
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
    * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
-  def apply(hc: HCen)(implicit key: KeyT): A = arrayUnsafe(key.layerArrayIndex(hc))
+  def apply(hc: HCen)(implicit key: HexStruct): A = arrayUnsafe(key.layerArrayIndex(hc))
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. */
-  def apply(key: KeyT, hc: HCen): A = arrayUnsafe(key.layerArrayIndex(hc))
+  def apply(key: HexStruct, hc: HCen): A = arrayUnsafe(key.layerArrayIndex(hc))
 
-  def rc(r: Int, c: Int)(implicit key: KeyT): A = arrayUnsafe(key.layerArrayIndex(r, c))
+  def rc(r: Int, c: Int)(implicit key: HexStruct): A = arrayUnsafe(key.layerArrayIndex(r, c))
 
-  def rc(key: KeyT, r: Int, c: Int): A = arrayUnsafe(key.layerArrayIndex(r, c))
+  def rc(key: HexStruct, r: Int, c: Int): A = arrayUnsafe(key.layerArrayIndex(r, c))
 
   def set(hc: HCen, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value }
@@ -27,7 +27,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
+  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: HexStruct, build: BuilderArrMap[B, BB]): BB =
   { val res = build.uninitialised(length)
     grid.iForeach{ (i, hc) =>
       val newElem = f(hc, apply(hc))
@@ -38,7 +38,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
    * [[Arr]] will be between 0 and the length of this [[LayerHcRefSys]]. */
-  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: KeyT, build: BuilderArrMap[B, BB]): BB =
+  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HexStruct, build: BuilderArrMap[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (i, hc) =>
       f(apply(hc), hc).foreach(build.buffGrow(buff, _))
@@ -49,7 +49,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
   /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: KeyT, build: BuilderArrFlat[BB]): BB =
+  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: HexStruct, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach{ (i, hc) =>
       val newElems = f(hc, apply(hc))
@@ -61,7 +61,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
   /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    * element) => B signature. */
-  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: KeyT, build: BuilderArrFlat[BB]): BB =
+  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: HexStruct, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     gridSys.iForeach { (i, hc) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
@@ -69,13 +69,13 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
     build.buffToSeqLike(buff)
   }
 
-  def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit key: KeyT, proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
+  def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit key: HexStruct, proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
     proj.hCenFlatMap{ hc => f(hc, apply(hc)(key)) }
 }
 
 /** Reference data layer for [[HCenRow]]. */
 class LayerHcRefRow[A <: AnyRef](val row: Int, val arrayUnsafe: Array[A]) extends LayerHcRef[A]
-{ override type KeyT = HCenRow
+{ //override type KeyT = HCenRow
 }
 
 object LayerHcRefRow
