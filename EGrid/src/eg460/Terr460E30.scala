@@ -1,14 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 183250975km².
- *  Isle3 4473.900km² => 8768.845km², includes Crete. */
+ *  Isle3 4473.900km² => 8768.845km². Crete 8450km². */
 object Terr460E30 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e30(94)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -27,13 +24,13 @@ object Terr460E30 extends Long460Terrs
       TRow(130, land * 4),
       TRow(128, land * 2, hilly, land),
       TRow(126, land, hilly, savannah, land),
-      VRow(125, MouthOld(1542, HVUp)),
+      VRow(125, SetSep(1527), MouthOld(1542, HVUp)),
       TRow(124, Cape(4, 1, mtain), hilly, sea * 2, Cape(4, 1, mtain)),
       VRow(123, BendOut(1528, HVDL), MouthOld(1532, HVUp)),
       TRow(122, hillySavannah, Cape(4, 1, hillySavannah), hillySahel, mtain, mtain),
-      VRow(121, MouthOld(1528, HVDn)),
+      VRow(121, Mouth(1528, HVDn, 3, 7)),
       TRow(120, SepB(), sea, Isle3(hillySavannah), Cape(3, 2, hillySavannah), hillySavannah, desert),
-      VRow(119, MouthLt(1526, HVDn, 7),  MouthOld(1528, HVDL), BendOut(1532, HVUp), BendOut(1536, HVUp), BendOut(1540, HVDL)),
+      VRow(119, MouthLt(1526, HVDn, 7),  MouthRt(1528, HVDL, 7), BendOut(1532, HVUp), BendOut(1536, HVUp), BendOut(1540, HVDL)),
       TRow(118, sahel, Cape(0, 1, sahel), Cape(0, 1, sahel), Cape(0, 2, sahel), savannah, desert),
       VRow(117, MouthOld(1534, HVDL, 3, Scarp), MouthOld(1536, HVUR, 3, Scarp), MouthOld(1538, HVUp), MouthOld(1540, HVDn), MouthRt(1542, HVUp), MouthOld(1550, HVUp)),
       TRow(116, desert * 2, sahel, desert, desert, desert),

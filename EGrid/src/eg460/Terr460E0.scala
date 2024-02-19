@@ -26,9 +26,9 @@ object Terr460E0 extends Long460Terrs
       TRow(130, land, hilly, sea, land),
       VRow(129, BendIn(504, HVUR, 10), MouthRt(506, HVDR), MouthRt(508, HVDn), MouthRt(514, HVUp)),
       TRow(128, sea, land, land, hilly),
-      VRow(127, MouthOld(508, HVUp), MouthLt(510, HVUL, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
+      VRow(127, MouthLt(508, HVUp, 7), MouthLt(510, HVUL, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
       TRow(126, sea, land, land, hilly),
-      VRow(125, MouthOld(506, HVDL), ThreeUp(508, 13, 13, 0), MouthOld(510, HVDR), MouthOld(518, HVUp)),
+      VRow(125, MouthMin(506, HVDL), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
       TRow(124, sea, hilly, hilly, hilly, hilly),
 
       VRow(123, MouthLt(504, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10),
@@ -37,7 +37,7 @@ object Terr460E0 extends Long460Terrs
       TRow(122, hillySavannah, sahel, hillySavannah, hillySavannah, hillySavannah),
 
       VRow(121, MouthRt(504, HVDn, 7), BendIn(510, HVDR, 13), ThreeUp(512, 13, 13, 0), Bend(514, HVUp, 13, 3), ThreeUp(516, 13, 8, 13),
-        BendIn(518, HVUp, 10), ThreeUp(520, 6, 3, 3), BendIn(522, HVDL, 11), MouthOld(524, HVDn)),
+        BendIn(518, HVUp, 10), ThreeUp(520, 6, 3, 3), BendIn(522, HVDL, 11), Mouth(524, HVDn,4 ,7)),
 
       TRow(120, sea, hilly, hillySavannah, hillySavannah, hillySavannah),
       VRow(119, BendIn(506, HVUR, 13), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), MouthLt(522, HVDn, 7)),
