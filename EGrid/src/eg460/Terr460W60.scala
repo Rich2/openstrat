@@ -6,9 +6,10 @@ import prid._, phex._, egrid._, WTiles._
  * Isle10 120974.276km² <= 57981.753km² Hispaniola 76192km². */
 object Terr460W60 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.w60(94)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

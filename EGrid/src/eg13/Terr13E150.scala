@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
@@ -6,9 +6,10 @@ import prid._, phex._, egrid._, WTiles._
  *  km² A minimum Island area of 243930.488km². Japan has an area of 377,973 km², entitling it to 1 Island hex not 2. */
 object Terr13E150 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e150(86)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

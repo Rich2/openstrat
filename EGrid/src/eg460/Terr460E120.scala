@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
@@ -8,9 +8,10 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle4 14495.438km² <= 8768.845km². Palawan 12189 km2.*/
 object Terr460E120 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e120(94)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

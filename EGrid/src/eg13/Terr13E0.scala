@@ -7,11 +7,11 @@ import prid._, phex._, egrid._, WTiles._
  *  243930.488km², which excludes, Great Britain.
  *  Isle4 70034.730km² => 115771.696km², Iceland 101826km², Ireland 84421km². */
 object Terr13E0 extends Long13Terrs
-{
-  override implicit val grid: EGrid13LongFull = EGrid13.e0(86)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+{ override implicit val grid: EGrid13LongFull = EGrid13.e0(86)
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -43,5 +43,9 @@ object Terr13E0 extends Long13Terrs
   }
   help.run
 
-  hexNames.setRow(110, "Middle Western Europe")
+  { import hexNames.{ setRow => str}
+    str(112, "Europe north east")
+    str(110, "Europe Middle Western")
+    str(108, "Europe south west")
+  }
 }

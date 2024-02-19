@@ -5,11 +5,10 @@ import prid._, phex._, egrid._, WTiles._
 /** 160km terrain for 0 degrees east. Majorca is big enough at this scale to qualify as Island. Lesbos is not. */
 object Terr160E0 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
-
-  /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(

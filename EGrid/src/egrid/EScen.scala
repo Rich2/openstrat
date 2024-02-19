@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import prid._, phex._
 
@@ -31,10 +31,15 @@ trait LongTerrs
 { /** The grid used. */
   implicit val grid: EGridLongFull
 
-  /** The tile terrain, */
-  lazy val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid(grid, Sea)
+  /** The tiles terrains. */
+  def terrs: LayerHcRefGrid[WTile]
 
-  lazy val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome](grid, WSepNone)
-  lazy val corners: HCornerLayer = HCornerLayer()(grid)
-  lazy val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String](grid, "")
+  /** The separators terrain. */
+  def sTerrs: LayerHSOptSys[WSep, WSepSome]
+
+  /** The [[HCorner]]s */
+  def corners: HCornerLayer
+
+  /** Place names for the tiles. */
+  def hexNames: LayerHcRefGrid[String]
 }

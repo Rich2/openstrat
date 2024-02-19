@@ -6,8 +6,11 @@ import prid._, phex._, egrid._, WTiles._
  * Isle8 243930.488km² => 463086.787km², British Isles combined 315159 km²
  * Isle4 70034.730km² => 115771.696km², Iceland 103000 km², Ireland 84421km². */
 object Terr13W30 extends Long13Terrs
-{
-  override implicit val grid: EGrid13LongFull = EGrid13.w30(86)
+{ override implicit val grid: EGrid13LongFull = EGrid13.w30(86)
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -39,4 +42,10 @@ object Terr13W30 extends Long13Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(114, "Iceland")
+    str(112, "Greenland south")
+    str(110, "Ireland")
+  }
 }

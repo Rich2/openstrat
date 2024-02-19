@@ -7,8 +7,11 @@ import prid._, phex._, egrid._, WTiles._
  *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
  *  area it must be assigned to France  */
 object Terr13W60 extends Long13Terrs
-{
-  override implicit val grid: EGrid13LongFull = EGrid13.w60(86)
+{ override implicit val grid: EGrid13LongFull = EGrid13.w60(86)
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

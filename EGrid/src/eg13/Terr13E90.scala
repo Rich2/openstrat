@@ -4,11 +4,12 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 75 east to 105 east, centred on 90° east. */
 object Terr13E90 extends Long13Terrs
-{
-  override implicit val grid: EGrid13LongFull = EGrid13.e90(86)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+{ override implicit val grid: EGrid13LongFull = EGrid13.e90(86)
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
+
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

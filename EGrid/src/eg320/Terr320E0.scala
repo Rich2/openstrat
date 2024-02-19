@@ -8,6 +8,10 @@ import prid._, phex._, egrid._, WTiles._
  *  Given that it is a land hex by geographical area it must be assigned to France. */
 object Terr320E0 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

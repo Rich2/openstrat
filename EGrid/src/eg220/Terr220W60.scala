@@ -4,11 +4,11 @@ import prid.phex._, egrid._, WTiles._
 
 /** 220km [[WTile]] terrain for 75° west to 45° west, centred on 60° west.  */
 object Terr220W60 extends Long220Terrs
-{
-  override implicit val grid: EGrid220LongFull = EGrid220.w60(140, 166)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
+{ override implicit val grid: EGrid220LongFull = EGrid220.w60(140, 166)
+  override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
+  override val corners: HCornerLayer = HCornerLayer()
+  override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {

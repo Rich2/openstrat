@@ -270,6 +270,9 @@ class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with
 object LayerHcRefGrid
 {
   /** Apply factory method for [[LayerHcRefSys]]. */
+  def apply[A <: AnyRef]()(implicit ct: ClassTag[A], gridSys: HGrid, defaultValue: DefaultValue[A]): LayerHcRefGrid[A] = apply(gridSys, defaultValue.default)(ct)
+
+  /** Apply factory method for [[LayerHcRefSys]]. */
   def apply[A <: AnyRef](value: A)(implicit ct: ClassTag[A], gridSys: HGrid): LayerHcRefGrid[A] = apply(gridSys, value)(ct)
 
   /** Apply factory method for [[LayerHcRefSys]]. */
