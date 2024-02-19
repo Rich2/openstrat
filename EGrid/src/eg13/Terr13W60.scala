@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
@@ -9,20 +9,18 @@ import prid._, phex._, egrid._, WTiles._
 object Terr13W60 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.w60(86)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(114, Cape(4, 1, ice)),
-      TRow(112, Cape(5, 3, hillyTaiga)),
-      VRow(111, ThreeDown(10756, 12, 12, 13)),
-      TRow(110, Cape(1, 3, hillyForest)),
-      VRow(109, MouthOld(10752, HVUL), ThreeUp(10756, 12, 0, 13)),
-      TRow(108, sea),
-      TRow(106, SepB(), sea * 2),
+      TRow(114, ice),
+      TRow(112, hillyTaiga),
+      VRow(111, BendOut(10754, HVUR, 7), ThreeDown(10756, 12, 12, 13)),
+      TRow(110, hillyForest),
+      VRow(109, MouthLt(10752, HVUL), ThreeDown(10754, 13, 0, 13), ThreeUp(10756, 12, 0, 13)),
+      TRow(108, hilly),
+      VRow(107, MouthLt(10750, HVUL), BendIn(10752, HVUp, 13), BendIn(10754, HVUL, 13)),
+      TRow(106, sea * 2),
       VRow(105, SetSep(10748)),
       TRow(104, SepB(), sea * 2),
       VRow(103, MouthOld(10752, HVDR), BendOut(10748, HVUp)),

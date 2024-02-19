@@ -8,9 +8,6 @@ import prid._, phex._, egrid._, WTiles._
 object Terr13W30 extends Long13Terrs
 {
   override implicit val grid: EGrid13LongFull = EGrid13.w30(86)
-//  override val terrs: LayerHcRefSys[WTile] = LayerHcRefSys[WTile](sea)
-//  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
-//  override val corners: HCornerLayer = HCornerLayer()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
@@ -19,10 +16,10 @@ object Terr13W30 extends Long13Terrs
       TRow(114, hillyTundra),
       VRow(113, BendIn(11776, HVUR, 12), ThreeDown(11778, 12, 0, 13), BendIn(11780, HVUL, 12)),
       TRow(112, mtain),
-      VRow(111, ThreeDown(11776, 12, 12, 13), ThreeUp(11778, 5, 12, 12), BendIn(11780, HVDL, 12)),
+      VRow(111, BendIn(11774, HVUR), ThreeDown(11776, 12, 12, 13), ThreeUp(11778, 5, 12, 12), BendIn(11780, HVDL, 12)),
       TRow(110, land),
       VRow(109, ThreeUp(11776, 12, 0, 13), ThreeDown(11778, 12, 6, 0), BendIn(11780, HVUL, 12)),
-      TRow(108, sea),
+      TRow(108, SepB()),
       VRow(105, BendIn(11778, HVDR, 13), BendAllOld(11780, HVUL)),
       TRow(104, sea, desert),
       VRow(103, MouthRt(11778, HVDn, 7)),
