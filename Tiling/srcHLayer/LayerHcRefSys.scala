@@ -25,19 +25,7 @@ trait LayerHcRefSys[A <: AnyRef] extends Any with LayerHcRef[A] with LayerTcRef[
     val cStart = grid.rowRightCenC(row) - numTiles * 4 + 4
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
-    if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
-    HCen(row, cStart + (numTiles - 1) * 4)
-  }
-
-  /** Fills in the whole given row. An exception is thrown if the tile values don't match with the
-   *  end of the row. */
-  final def setRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
-  { val numTiles = tileMultis.numSingles
-    val cStart: Int = grid.rowLeftCenC(row)
-    val endValues = cStart + numTiles * 4 - 4
-    val rowEnd = grid.rowRightCenC(row)
-    if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
+    if (rowEnd > endValues) debexc(s"Row $row last data column ${endValues} > $rowEnd the grid row end.")
     tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
@@ -263,6 +251,18 @@ class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with
   { val array: Array[A] = new Array[A](childGridSys.numTiles)
     childGridSys.foreach { hc => array(childGridSys.layerArrayIndex(hc)) = apply(hc)(parentGridSys) }
     new LayerHcRefMulti[A](array)
+  }
+
+  /** Fills in the whole given row. An exception is thrown if the tile values don't match with the
+   *  end of the row. */
+  final def setRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  { val numTiles = tileMultis.numSingles
+    val cStart: Int = grid.rowLeftCenC(row)
+    val endValues = cStart + numTiles * 4 - 4
+    val rowEnd = grid.rowRightCenC(row)
+    if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
+    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
+    HCen(row, cStart + (numTiles - 1) * 4)
   }
 }
 

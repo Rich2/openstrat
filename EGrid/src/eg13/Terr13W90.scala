@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
@@ -14,8 +14,8 @@ object Terr13W90 extends Long13Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(114, Isle10(tundra)),
-      TRow(112, Cape(1, 2, taiga)),
-      VRow(111, MouthOld(9728, HVDL)),
+      TRow(112, taiga),
+      VRow(111, MouthLt(9730, HVDn, 7)),
       TRow(110, forest),
       TRow(108, land),
       TRow(106, savannah, Cape(2, 1)),
@@ -33,4 +33,9 @@ object Terr13W90 extends Long13Terrs
     )
   }
   help.run
+
+  {
+    hexNames.setRow(108, "US North West")
+    hexNames.setRow(106, "US South Central", "US South East" )
+  }
 }
