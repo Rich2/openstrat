@@ -37,8 +37,8 @@ object Terr460E0 extends Long460Terrs
       VRow(125, MouthMin(506, HVDL), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
       TRow(124, sea, hilly, hilly, hilly, hilly),
 
-      VRow(123, MouthLt(504, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10),
-        Bend(520, HVDL, 3, 7), BendOut(524, HVDL)),
+      VRow(123, MouthLt(504, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10), Bend(520, HVDL, 3, 7),
+        BendOut(524, HVDL)),
 
       TRow(122, hillySavannah, sahel, hillySavannah, hillySavannah, hillySavannah),
 
