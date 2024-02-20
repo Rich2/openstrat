@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -30,15 +30,15 @@ object Ukraine extends EArea2("Ukraine", 49 ll 34, land)
 
 /** [[PolygonLL]] graphic for the Sea of Azov, depends on nothing. */
 object AzovSea extends EArea2("AzovSea", 46.13 ll 36.80, sea)
-{ val northEast = 47.28 ll 39.20
-  val zaymoObryv = 47.02 ll 39.29
+{ val northEast: LatLong = 47.28 ll 39.20
+  val zaymoObryv: LatLong = 47.02 ll 39.29
   val azovSE: LatLong = 45.35 ll 37.46
-  val dolzhanskaya = 46.67 ll 37.75
+  val dolzhanskaya: LatLong = 46.67 ll 37.75
   val llich: LatLong = 45.41 ll 36.76
-  val straitsEast = 45.44 ll 36.79
-  val straitsWest = 45.44 ll 36.60
-  val kamyanske = 45.28 ll 35.53
-  val henichesk = 46.17 ll 34.82
+  val straitsEast: LatLong = 45.44 ll 36.79
+  val straitsWest: LatLong = 45.44 ll 36.60
+  val kamyanske: LatLong = 45.28 ll 35.53
+  val henichesk: LatLong = 46.17 ll 34.82
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, zaymoObryv, dolzhanskaya, azovSE, llich, straitsEast, straitsWest, kamyanske, henichesk)
 }
@@ -49,11 +49,13 @@ object RussiaSouth extends EArea2("RussiaSouth", 45.00 ll 42.57, land)
   val sumqayit: LatLong = 40.64 ll 49.55
   val blackSeaE: LatLong = 41.84 ll 41.77
   val p60: LatLong = 42.74 ll 41.44
+  val bzipiMouth: LatLong = 43.187 ll 40.280
+  val mzymtaMouth: LatLong = 43.415 ll 39.923
   val p70: LatLong = 44.53 ll 38.09
   val p72: LatLong = 44.95 ll 37.29
   val p75: LatLong = 45.11 ll 36.73
   val p77: LatLong = 45.20 ll 36.60
 
-  override val polygonLL: PolygonLL = PolygonLL(AzovSea.northEast, Ukraine.caspianW, p10, sumqayit, blackSeaE, p60, p70, p72, p75, p77,
+  override val polygonLL: PolygonLL = PolygonLL(AzovSea.northEast, Ukraine.caspianW, p10, sumqayit, blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72, p75, p77,
     AzovSea.straitsEast, AzovSea.llich, AzovSea.azovSE, AzovSea.dolzhanskaya, AzovSea.zaymoObryv)
 }
