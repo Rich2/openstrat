@@ -18,8 +18,9 @@ object Terr460E0 extends Long460Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(146, SeaIcePerm),
-      VRow(143, BendIn(512, HVDL, 13), MouthOld(510, HVUL)),
-      VRow(141, BendIn(512, HVUL, 13)),
+      VRow(145, BendIn(510, HVDR, 6, SeaIceWinter)),
+      VRow(143, BendOut(510, HVUL, 6, SeaIceWinter), BendIn(512, HVDL, 13, SeaIceWinter)),
+      VRow(141, BendIn(512, HVUL, 13, SeaIceWinter)),
       VRow(137, MouthLt(514, HVUp)),
       TRow(136, sea * 2, hillyTaiga),
       VRow(135, MouthRt(506, HVUR), BendIn(512, HVDR, 13), BendOut(514, HVUL), BendAllOld(520, HVDR)),
