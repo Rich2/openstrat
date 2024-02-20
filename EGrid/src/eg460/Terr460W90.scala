@@ -45,10 +45,14 @@ object Terr460W90 extends Long460Terrs
       TRow(114, hillySahel, Cape(2, 1, hillySavannah)),
       VRow(113, BendOut(9722, HVDR), MouthOld(9730, HVDR), BendOut(9738, HVUp)),
       TRow(112, hillySavannah, sea, Cape(5, 2, savannah), sea, Cape(3, 4, hillyJungle), Cape(0, 4, jungle)),
-      VRow(111, MouthOld(9724, HVDL), BendOut(9726, HVUL), BendOut(9738, HVDn)),
+      VRow(111, BendOut(9716, HVDL), MouthOld(9724, HVDL), BendOut(9726, HVUL), BendOut(9738, HVDn)),
       TRow(110, mtain, hillyJungle, savannah, jungle),
-      TRow(108, sea * 3, mtain, hillyJungle),
-      VRow(107, MouthOld(9734, HVUL), BendIn(9736, HVDL, 10), BendIn(9740, HVDR, 10), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
+      VRow(109, BendIn(9716, HVUR, 13), MouthRt(9718, HVDR), MouthLt(9722, HVUp, 7)),
+      TRow(108, sea * 2, mtain * 2, hillyJungle),
+
+      VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), MouthRt(9728, HVDR, 7), MouthOld(9734, HVUL), BendIn(9736, HVDL, 10),
+        BendIn(9740, HVDR, 10), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
+      
       TRow(106, sea * 4, mtain, sea, hillyJungle),
       VRow(105, MouthOld(9734, HVUp), MouthOld(9736, HVDn), MouthOld(9740, HVDn)),
       TRow(104, sea * 5, mtain, hillyJungle),
