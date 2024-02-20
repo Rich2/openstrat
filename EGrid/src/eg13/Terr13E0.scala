@@ -47,5 +47,6 @@ object Terr13E0 extends Long13Terrs
     str(112, "Europe north east")
     str(110, "Europe Middle Western")
     str(108, "Europe south west")
+    str(106, "Morocco", "Algeria")
   }
 }

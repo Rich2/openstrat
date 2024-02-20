@@ -260,7 +260,7 @@ class LayerHcRefGrid[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with
     val cStart: Int = grid.rowLeftCenC(row)
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
-    if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
+    if (endValues > rowEnd) debexc(s"Row $row last data column ${endValues} > $rowEnd the grid row end.")
     tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; arrayUnsafe(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }

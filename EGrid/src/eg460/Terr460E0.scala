@@ -4,7 +4,8 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 460km. A hex tile area of 183250.975km².
  *  Isle10 57981.753km² => 120974.276km². Ireland
- *  Isle8 35075.382km² => 57981.753km² <=. Sardinia. Sicily no hex available
+ *  Isle8 35075.382km² => 57981.753km². Sicily no hex available
+ *  Isle6 21653.679km² = > 35075.382km². (Sardinia 24090 km²) + (Corsica 8722 km²) = 32812.
  *  Isle3 4473.900km² => 8768.845km² 4473.900km². Balearic Islands 5040km², Corsica no hex available.
  *  Faroes + Orkneys 2389km². */
 object Terr460E0 extends Long460Terrs
@@ -70,4 +71,8 @@ object Terr460E0 extends Long460Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(120, "", "Spain south")
+  }
 }
