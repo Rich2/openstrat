@@ -30,6 +30,14 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def part(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(Level, Temperate, CivMix), sTerrs: Water = Sea): IslePart =
       new IslePart(indentStartIndex, numIndentedVerts, 16 - 10, terr, sTerrs)
   }
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
+  case class Isle9(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle9Base
+
+  object Isle9
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle9 = Isle9(Land(elev, biome, landUse), sTerr)
+  }
+
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
   case class Isle8(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle8Base
 
@@ -38,6 +46,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle8 = Isle8(Land(elev, biome, landUse), sTerr)
   }
 
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 7/16 of the radius of the hex. */
+  case class Isle7(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle7Base
+
+  object Isle7
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 7/16 of the radius of the hex. */
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle7 = Isle7(Land(elev, biome, landUse), sTerr)
+  }
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
   case class Isle6(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle6Base
 
