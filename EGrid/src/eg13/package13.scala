@@ -6,7 +6,7 @@ import prid.phex._, egrid._
  *  A maximum Isle area of 966193.420km², which excludes Greenland
  *  Isle10 515970.154km² => 966193.420km². New Guinea, Borneo, Madagascar.
  *  Isle9 413061.979km² => 515970.154km². Baffin Island, Sumatra
- *  Isle8 321588.046km² => 413061.979km². .
+ *  Isle8 321588.046km² => 413061.979km².
  *  Isle7 241548.355km² => 321588.046km² Philippines combined 300000km², New Zealand combined 268021km².
  *  Isle6 172942.905km² => 243930.488km². Honshu, Victoria Island, Great Britain, Ellesmere Island.
  *  Isle5 115771.696km² => 172942.905km². Sulawesi, South Island(NZ), Java.

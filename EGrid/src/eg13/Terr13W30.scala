@@ -2,9 +2,8 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 45° west to 15° west centred on 30° west. 130km per hex tile.
- * Isle8 243930.488km² => 463086.787km², British Isles combined 315159 km²
- * Isle4 70034.730km² => 115771.696km², Iceland 103000 km², Ireland 84421km². */
+/** 1300km [[WTile]] terrain for 45° west to 15° west centred on 30° west. A hex tile area of 1.463582932 million km²
+ * Isle4 70034.730km² => 115771.696km², Iceland 103000km², Ireland 84421km². */
 object Terr13W30 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.w30(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
