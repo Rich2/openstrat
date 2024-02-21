@@ -2,7 +2,8 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 165° west to 135° west, centred on 150° wast. Hex tile scale 640km.  */
+/** [[WTile]] terrain terrain for 165° west to 135° west, centred on 150° wast. Hex tile scale 640km.
+ * [[Isle5]] 28059.223km² => 41915.629km². Hawaii 28311 km² */
 object Terr640W150 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.w150(96)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -13,13 +14,14 @@ object Terr640W150 extends Long640Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-//      TRow(130, ice),
       VRow(129, BendOut(7682, HVUp)),
       TRow(128, Cape(5, 2, tundra)),
       VRow(127, SetSep(7676)),
       TRow(126, SepB(), hillyTundra, taiga),
       TRow(124, hillyTundra, mtain),
-      TRow(122, Cape(2, 4, hillyTundra), sea),
+      VRow(123, BendOut(7680, HVDR, 7), BendOut(7682, HVDn, 7)),
+      TRow(122, hillyTundra, sea),
+      TRow(108, Isle5(mtain)),
     )
   }
   help.run
