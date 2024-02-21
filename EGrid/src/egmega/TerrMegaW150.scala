@@ -2,7 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 165° west to 135° west, centred on 150° west. Hex tile scale 1 Megametre or 1000km. */
+/** [[WTile]] terrain for 165° west to 135° west, centred on 150° west. Hex tile scale 1 Megametre or 1000km.
+ * Isle3 21143.198km² => 41440.668km². Hawaii 28,311 km². */
 object TerrMegaW150 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.w150(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -16,7 +17,12 @@ object TerrMegaW150 extends LongMegaTerrs
       TRow(118, tundra),
       VRow(117, MouthOld(7678, HVUp)),
       TRow(116, SepB(), hillyTaiga),
+      TRow(106, Isle3(mtain)),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(106, "Hawaii")
+  }
 }

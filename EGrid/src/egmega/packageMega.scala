@@ -11,7 +11,7 @@ import prid.phex._, egrid._
  * Isle6 102333.079km² => 142928.020km². Java, North Island(NZ), Luzon or Cuba.
  * Isle5 68503.962km² => 102333.079km².
  * Isle4 41440.668km² => 68503.962km².
- * Isle3 21143.198km² => 21143.198km². */
+ * Isle3 21143.198km² => 41440.668km². */
 package object egmega
 {
   val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180, TerrMegaW150,
