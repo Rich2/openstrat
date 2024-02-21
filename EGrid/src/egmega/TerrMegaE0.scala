@@ -14,11 +14,11 @@ object TerrMegaE0 extends LongMegaTerrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      VRow(119, BendOut(516, HVUp)),
-      TRow(118, Cape(5, 2, hillyTundra)),
-      VRow(117, BendOut(512, HVUL)),
-      TRow(116, Cape(3, 3, hillyTaiga)),
-      VRow(115, MouthOld(514, HVUR)),
+      VRow(119, BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendOut(516, HVUp)),
+      TRow(118, hillyTundra),
+      VRow(117, BendIn(510, HVDR), BendOut(512, HVUL, 7)),
+      TRow(116, hillyTaiga),
+      VRow(115, MouthRt(510, HVDn, 7)),
       TRow(114, land),
       TRow(112, land, hilly),
       TRow(110, Cape(3, 3, hilly), Cape(5, 3, savannah)),
@@ -43,4 +43,10 @@ object TerrMegaE0 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(116, "Europe north west")
+    str(114, "Europe middle west")
+    str(110, "Europe south west")
+  }
 }
