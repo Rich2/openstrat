@@ -73,6 +73,8 @@ object Terr460E0 extends Long460Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(124, "", "Spain north west")
+    str(122, "Portugal")
     str(120, "", "Spain south")
   }
 }
