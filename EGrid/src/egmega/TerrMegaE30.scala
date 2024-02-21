@@ -22,9 +22,10 @@ object TerrMegaE30 extends LongMegaTerrs
       VRow(115, MouthOld(1534, HVUR)),
       TRow(114, land),
       TRow(112, hilly, land),
-      TRow(110, Cape(3, 1, hilly), hilly),
-      VRow(109, BendOut(1532, HVUR), MouthOld(1538, HVDR)),
-      TRow(108, Cape(0, 1), desert),
+      VRow(111, BendIn(1532, HVDL, 13)),
+      TRow(110, hilly, hilly),
+      VRow(109, BendOut(1532, HVUR), Bend(1534, HVUp, 8, 3), BendIn(1536, HVDn, 13), MouthOld(1538, HVDR)),
+      TRow(108, land, desert),
       VRow(107, MouthOld(1538, HVUL), BendAllOld(1540, HVDL)),
       TRow(106, desert * 3),
       VRow(105, BendAllOld(1540, HVUR), BendAllOld(1542, HVDL)),
@@ -45,20 +46,8 @@ object TerrMegaE30 extends LongMegaTerrs
     )
   }
   help.run
-}
 
-/*
-object BritReg
-{ def britGrid: EGridMegaLong = EGridMegaLong.reg(138, 148, 0, 504, 520)
-  def britTerrs: HCenLayer[WTile] = TerrMegaE0.terrs.spawn(TerrMegaE0.grid, britGrid)
-  def britSTerrs: HSideOptLayer[WSide, WSideSome] =TerrMegaE0.sTerrs.spawn(TerrMegaE0.grid, britGrid)
-  def britCorners: HCornerLayer =TerrMegaE0.corners.spawn(TerrMegaE0.grid, britGrid)
-
-  def regScen: EScenBasic = new EScenBasic
-  {  override def title: String = "Regular Britain"
-    override implicit val gridSys: EGridMegaLong = britGrid
-    override val terrs: HCenLayer[WTile] = britTerrs
-    override val sTerrs: HSideOptLayer[WSide, WSideSome] = britSTerrs
-    override val corners: HCornerLayer = britCorners
+  { import hexNames.{ setRow => str}
+    str(110, "Greece", "Turkey")
   }
-}*/
+}

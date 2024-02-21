@@ -39,10 +39,22 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
   { override def magnitude: Int = 6
   }
 
+  /** Sets the [[HCen]] terrain, the  [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 9/16 of the radius of the hex. Only use these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle9Base extends IsleNBase
+  { override def magnitude: Int = 7
+  }
+
   /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 8/16 of the radius of the hex. Only use these
    *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle8Base extends IsleNBase
   { override def magnitude: Int = 8
+  }
+
+  /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 7/16 of the radius of the hex. Only use these
+   *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
+  trait Isle7Base extends IsleNBase
+  { override def magnitude: Int = 7
   }
 
   /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 6/16 of the radius of the hex. Only use* these

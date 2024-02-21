@@ -21,8 +21,9 @@ object TerrMegaE0 extends LongMegaTerrs
       VRow(115, MouthRt(510, HVDn, 7)),
       TRow(114, land),
       TRow(112, land, hilly),
-      TRow(110, Cape(3, 3, hilly), Cape(5, 3, savannah)),
-      VRow(109, BendAllOld(512, HVUL), BendOut(516, HVUR)),
+      VRow(111, MouthLt(508, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendIn(516, HVDL, 13)),
+      TRow(110, hilly, savannah),
+      VRow(109, BendIn(508, HVUR, 10), BendIn(510, HVUp), BendMin(512, HVUL), BendOut(516, HVUR), BendOut(518, HVUp, 3)),
       TRow(108, hilly, desert),
       TRow(106, desert * 3),
       TRow(104, desert * 3),
@@ -45,8 +46,9 @@ object TerrMegaE0 extends LongMegaTerrs
   help.run
 
   { import hexNames.{ setRow => str}
-    str(116, "Europe north west")
-    str(114, "Europe middle west")
-    str(110, "Europe south west")
+    str(116, "Scandanavia west")
+    str(114, "Europe north west")
+    str(112, "France", "Alps")
+    str(110, "Iberia", "Algeria")
   }
 }
