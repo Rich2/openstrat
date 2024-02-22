@@ -33,7 +33,7 @@ object Terr640E0 extends Long640Terrs
       VRow(113, MouthOld(520, HVDn)),
       TRow(112, hillyDesert, desert * 3),
       TRow(110, desert * 2, hillyDesert, desert),
-      VRow(109, MouthOld(504, HVUR)),
+      VRow(109),
       TRow(108, desert * 4),
       TRow(106, sahel * 5),
       TRow(104, Land(Hilly, Savannah, Forest), Land(Level, Savannah, Forest) * 3, Land(Hilly, Savannah, Forest)),
