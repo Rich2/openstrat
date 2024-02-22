@@ -63,8 +63,17 @@ object AmericasFarNorth extends EArea1("Far North\nAmerica", 61 ll -109)
 
 object AmericasNearNorth extends EArea1("North America", 49 ll -100)
 { import pAmericas._
-  override val a2Arr: RArr[EArea2] = RArr(UsaSouthWest, UsaNorthWest, UsaMidWest, UsaNorthEast, MicheganLower, Delmarva, UsaSouth, UsaPrariesSouth,
-    Florida, Baja, Mexico, MexicoEast, AmericasCentral, Cuba, Jamaica)
+  override val a2Arr: RArr[EArea2] = RArr(UsaSouthWest, UsaNorthWest, UsaMidWest, UsaNorthEast, MicheganLower, Delmarva, UsaSouth, UsaPrariesSouth, Florida)
+}
+
+object AmericasCentral extends EArea1("Americas Central", 19.563 ll -89.167)
+{ import pAmericas._
+  override val a2Arr: RArr[EArea2] = RArr(Baja, Mexico, MexicoEast, ElSalPanama, Cuba, Hispaniola, Jamaica)
+}
+
+object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
+{ import pAmericas._
+  override val a2Arr: RArr[EArea2] = RArr(SouthAmericaSouth, SouthAmericaMiddle, SouthAmericaWest, ColomVenez, SouthAmericaEast)
 }
 
 object AsiaMain extends EArea1("Asia", 60 ll 65)
@@ -83,11 +92,6 @@ object AsiaEast extends EArea1("Asia", 60 ll 100)
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 { import pOceans._
   override val a2Arr: RArr[EArea2] = RArr(Greenland, Artic, Svalbard, Nordauslandet)
-}
-
-object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
-{ import pAmericas._
-  override val a2Arr: RArr[EArea2] = RArr(SouthAmericaSouth, SouthAmericaMiddle, SouthAmericaWest, ColomVenez, SouthAmericaEast)
 }
 
 object Australasia extends EArea1("Australasia", -23 ll 130)

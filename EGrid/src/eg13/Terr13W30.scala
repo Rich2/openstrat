@@ -29,7 +29,7 @@ object Terr13W30 extends Long13Terrs
       TRow(100, SepB(), sea * 2),
       VRow(99, BendIn(11774, HVUR), BendIn(11776, HVDL, 8)),
       TRow(98, jungle, SepB(), sea),
-      VRow(97, BendAllOld(11774, HVDR), BendIn(11776, HVUL, 13)),
+      VRow(97, MouthLt(11776, HVDn, 7)),
       TRow(96, SepB(), sea * 2),
       VRow(95, SetSep(11772)),
       TRow(94, SepB(), sea * 2),

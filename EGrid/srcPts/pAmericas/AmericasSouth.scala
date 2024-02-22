@@ -42,7 +42,7 @@ object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0
     SouthAmericaSouth.northEast, SouthAmericaSouth.northWest, puntaLavapie, curamilla, lenguaDeVaca, northWest)
 }
 
-/** [[polygonLL]] graphical representation for Columbia dnd Venezuela . Dependant on [[AmericasCentral]]. */
+/** [[polygonLL]] graphical representation for Columbia dnd Venezuela . Dependant on [[ElSalPanama]]. */
 object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtain)
 { val southDegs: Double = -2.665
 
@@ -64,10 +64,10 @@ object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtain)
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
   override val polygonLL: PolygonLL = PolygonLL(nColumbia, caracas, caicara, margaritaE, trinidadNE, northEast, manus,
-    southWest, punaSouth, p20, sanLorenzo, p90, puntaTortuga, p95, bahiaSolano10, AmericasCentral.sePanama, AmericasCentral.nePanama)
+    southWest, punaSouth, p20, sanLorenzo, p90, puntaTortuga, p95, bahiaSolano10, ElSalPanama.sePanama, ElSalPanama.nePanama)
 }
 
-/** [[polygonLL]] graphical representation for the north west of South America. Dependant on [[SouthAmericaMiddle]] [[AmericasCentral]]. */
+/** [[polygonLL]] graphical representation for the north west of South America. Dependant on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
 object SouthAmericaWest extends EArea2("South America\nwest", -20 ll -70.0, jungle)
 { val nChile: LatLong = -18 ll -70
   val p60: LatLong = -13.91 ll -76.39
@@ -81,7 +81,7 @@ object SouthAmericaWest extends EArea2("South America\nwest", -20 ll -70.0, jung
     SouthAmericaMiddle.northWest, nChile, p60, p61, p68, p70, nPeru, west, ColomVenez.southWest)
 }
 
-/** [[polygonLL]] graphical representation for the east of South America. Dependant on [[AmericasCentral]]. */
+/** [[polygonLL]] graphical representation for the east of South America. Dependant on [[ElSalPanama]]. */
 object SouthAmericaEast extends EArea2("South America\neast", -10.04 ll -45.81, jungle)
 { val nAmapa: LatLong = 4.39 ll -51.51
   val amazonMouthS: LatLong = -0.18 ll -49.3

@@ -2,8 +2,8 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1300km. Baffin Island appears at this scale by Cuba is too
- *  small. */
+/** 1300km [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile area 1.463582932 million km².
+ * Isle6 172942.905km² => 243930.488km². (Cuba 105806km²) + (Hispaniola 76479km²) + (Jamaica	11188km²) = 193473km². */
 object Terr13W90 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.w90(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)

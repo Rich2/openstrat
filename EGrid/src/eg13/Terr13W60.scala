@@ -32,7 +32,7 @@ object Terr13W60 extends Long13Terrs
       TRow(100, jungle, jungle),
       VRow(99, BendIn(10758, HVUR)),
       TRow(98, hilly, land),
-      VRow(97, BendAllOld(10758, HVDR)),
+      //VRow(97, BendOut(10758, HVDR)),
       TRow(96, hilly, land),
       TRow(94, mtain, land),
       VRow(93, BendOut(10754, HVDR, 7), BendIn(10756, HVUL, 12)),
