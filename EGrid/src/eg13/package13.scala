@@ -3,7 +3,7 @@ package ostrat
 import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 1300km, a C scale of 375km. A hex tile area of 1.463582932 million km².
- *  A maximum Isle area of 966193.420km², which excludes Greenland
+ *  A maximum Isle area of 966193.420km², excludes Greenland
  *  Isle10 515970.154km² => 966193.420km². New Guinea, Borneo, Madagascar.
  *  Isle9 413061.979km² => 515970.154km². Baffin Island, Sumatra
  *  Isle8 321588.046km² => 413061.979km².
