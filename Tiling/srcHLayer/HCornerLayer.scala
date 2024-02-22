@@ -197,8 +197,8 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r - 2, c - 2, 1, HVUL, magRight)
   }
 
-  /** Sets the end of an [[HSep]] terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a
-   *  wall it would be the hex tile looking at the end of the wall. The vertex for this tile would be 4. */
+  /** Sets the end of an [[HSep]] terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a  wall it
+   *  would be the hex tile looking at the end of the wall. The vertex for this tile would be 4. */
   def setMouth4(r: Int, c: Int, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit =
   { setCornerPair(r, c, 4, HVDR, HVUp, magLeft, magRight)
     setCorner(r - 2, c - 2, 0, HVDR, magLeft)
