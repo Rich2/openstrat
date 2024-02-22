@@ -38,7 +38,8 @@ object Terr640E0 extends Long640Terrs
       TRow(106, sahel * 5),
       TRow(104, Land(Hilly, Savannah, Forest), Land(Level, Savannah, Forest) * 3, Land(Hilly, Savannah, Forest)),
       TRow(102, jungle, jungle * 2, jungle, jungle),
-      VRow(101, BendOut(508, HVDn), BendOut(512, HVDn)),
+      VRow(101, MouthLt(504, HVUL, 7), BendIn(506, HVUp, 11), BendOut(508, HVDn), BendIn(510, HVUp, 13), BendOut(512, HVDn, 7), BendIn(514, HVUp, 13),
+        BendOut(516, HVDn), MouthRt(518, HVDR)),
       TRow(100, sea * 4, hillyJungle),
       TRow(98, sea * 4, hillyJungle),
       TRow(96, sea * 4, Cape(4, 2, hillySavannah))

@@ -23,19 +23,25 @@ object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, savannah)
   val cAfricaNW: LatLong = cAfricaN * 8.89.east
   val sangana: LatLong = 4.31 ll 5.99
   val aiyetoro: LatLong = 6.20 ll 4.66
+  val ketaLagoon: LatLong = 5.789 ll 0.925
   val capeThreePoints: LatLong = 4.73 ll -2.09
   val liberia: LatLong = 4.18 ll -7.22
+  val mambaPoint: LatLong = 6.313 ll -10.817
+  val mania: LatLong = 7.635 ll -13.065
   val sierraLeone: LatLong = 8.11 ll -13.11
+  val conakry: LatLong = 9.508 ll -13.718
+  val iihaDeOrango: LatLong = 11.089 ll -16.247
+  val diembereng: LatLong = 12.482 ll -16.792
   val dakar: LatLong = 14.30 ll -17.2
   val keurMassene: LatLong = 16.7 ll -16.38
 
   /** The south east corner of West Africa. */
   val westAfricaPtSE: LatLong = 4.53 ll 16.75
 
-  val westAfricaSouthCoast: LinePathLL = LinePathLL(sangana, aiyetoro, capeThreePoints, liberia)
+  val westAfricaSouthCoast: LinePathLL = LinePathLL(sangana, aiyetoro, ketaLagoon, capeThreePoints, liberia)
 
-  override val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene,
-    SaharaWest.southWest, pMed.SaharaCentral.southWest, pMed.SaharaCentral.southEast, westAfricaPtSE, cAfricaNW)
+  override val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, mambaPoint, mania, sierraLeone, conakry, iihaDeOrango,
+    diembereng, dakar, keurMassene, SaharaWest.southWest, pMed.SaharaCentral.southWest, pMed.SaharaCentral.southEast, westAfricaPtSE, cAfricaNW)
 }
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
