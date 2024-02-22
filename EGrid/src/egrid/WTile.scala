@@ -64,8 +64,12 @@ object WTiles
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
 
+  /** Shorthand for [[IceCap]]. */
   val ice: Land = Land(Level, IceCap, LandFree)
+
+  /** Short hand for [[SeaIceWinter]]. */
   val wice: Water = SeaIceWinter
+
   val sea: Water = Sea
   val lake: Water = Lake
 
