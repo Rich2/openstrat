@@ -2,8 +2,9 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 640km. A hex tile area of 709448.010km² . A minimum island area of
- *  118241.335km² */
+/** 640km [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile area of 709448.010km² .
+ *  [[Isle3]] 8660.254km² => 16974.097km².
+ *  Below 8660.254km² Crete 8450km². */
 object Terr640E30 extends Long640Terrs {
   override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -28,10 +29,12 @@ object Terr640E30 extends Long640Terrs {
       TRow(114, sea, sea, Cape(4, 1, hilly), hilly),
       VRow(113, MouthOld(1528, HVDn), MouthOld(1534, HVDL), MouthOld(1538, HVDR)),
       TRow(112, desert, Cape(0, 1), desert * 2),
-      VRow(111, MouthOld(1538, HVUL), MouthOld(1546, HVUL)),
+      VRow(111, MouthOld(1538, HVUL), MouthLt(1546, HVUL, 7)),
       TRow(110, desert * 2, Cape(1, 1, desert), Cape(4, 1, desert)),
       TRow(108, desert, desert, Cape(1, 1, desert), desert),
+      VRow(107, Bend(1542, HVUR, 7, 3), Bend(1544, HVDL, 10, 1)),
       TRow(106, sahel * 3, savannah, hillyDesert),
+      VRow(105, BendIn(1544, HVUR), Bend(1546, HVUp, 4, 6), Bend(1548, HVDn, 10, 4)),
       TRow(104, Land(Level, Savannah, Forest), savannah, savannah, hillySavannah, hillySahel),
       TRow(102, jungle * 2, Land(Level, Savannah, Forest), hillySavannah, sahel),
       VRow(101, MouthOld(1546, HVUp)),
