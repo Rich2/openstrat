@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
 import egrid._
 
@@ -34,15 +34,15 @@ object EGrid640
   def w30(rBottomCen: Int, rTopCen: Int = 130): EGrid640LongFull = EGrid640LongFull(rBottomCen, rTopCen,11)
 
   def scen0: EScenBasic = EScenBasic(Terr640E0.grid, Terr640E0.terrs, Terr640E0.sTerrs, Terr640E0.corners, Terr640E0.hexNames, "640km 0E")
-  def scen1: EScenBasic = EScenBasic(Terr640E30.grid, Terr640E30.terrs, Terr640E30.sTerrs, Terr640E30.corners, Terr640E0.hexNames, "640km 30E")
-  def scen2: EScenBasic = EScenBasic(Terr640E60.grid, Terr640E60.terrs, Terr640E60.sTerrs, Terr640E60.corners, Terr640E0.hexNames, "640km 60E")
-  def scen3: EScenBasic = EScenBasic(Terr640E90.grid, Terr640E90.terrs, Terr640E90.sTerrs, Terr640E90.corners, Terr640E0.hexNames, "640km 90E")
-  def scen4: EScenBasic = EScenBasic(Terr640E120.grid, Terr640E120.terrs, Terr640E120.sTerrs, Terr640E120.corners, Terr640E0.hexNames, "640km 120E")
-  def scen5: EScenBasic = EScenBasic(Terr640E150.grid, Terr640E150.terrs, Terr640E150.sTerrs, Terr640E150.corners, Terr640E0.hexNames, "640km 150E")
-  def scen6: EScenBasic = EScenBasic(Terr640E180.grid, Terr640E180.terrs, Terr640E180.sTerrs, Terr640E180.corners, Terr640E0.hexNames, "640km 180E")
-  def scen7: EScenBasic = EScenBasic(Terr640W150.grid, Terr640W150.terrs, Terr640W150.sTerrs, Terr640W150.corners, Terr640E0.hexNames, "640km 150W")
-  def scen8: EScenBasic = EScenBasic(Terr640W120.grid, Terr640W120.terrs, Terr640W120.sTerrs, Terr640W120.corners, Terr640E0.hexNames, "640km 120W")
-  def scen9: EScenBasic = EScenBasic(Terr640W90.grid, Terr640W90.terrs, Terr640W90.sTerrs, Terr640W90.corners, Terr640E0.hexNames, "640km 90W")
-  def scen10: EScenBasic = EScenBasic(Terr640W60.grid, Terr640W60.terrs, Terr640W60.sTerrs, Terr640W60.corners, Terr640E0.hexNames, "640km 60W")
-  def scen11: EScenBasic = EScenBasic(Terr640W30.grid, Terr640W30.terrs, Terr640W30.sTerrs, Terr640W30.corners, Terr640E0.hexNames, "640km 30W")
+  def scen1: EScenBasic = EScenBasic(Terr640E30.grid, Terr640E30.terrs, Terr640E30.sTerrs, Terr640E30.corners, Terr640E30.hexNames, "640km 30E")
+  def scen2: EScenBasic = EScenBasic(Terr640E60.grid, Terr640E60.terrs, Terr640E60.sTerrs, Terr640E60.corners, Terr640E60.hexNames, "640km 60E")
+  def scen3: EScenBasic = EScenBasic(Terr640E90.grid, Terr640E90.terrs, Terr640E90.sTerrs, Terr640E90.corners, Terr640E90.hexNames, "640km 90E")
+  def scen4: EScenBasic = EScenBasic(Terr640E120.grid, Terr640E120.terrs, Terr640E120.sTerrs, Terr640E120.corners, Terr640E120.hexNames, "640km 120E")
+  def scen5: EScenBasic = EScenBasic(Terr640E150.grid, Terr640E150.terrs, Terr640E150.sTerrs, Terr640E150.corners, Terr640E150.hexNames, "640km 150E")
+  def scen6: EScenBasic = EScenBasic(Terr640E180.grid, Terr640E180.terrs, Terr640E180.sTerrs, Terr640E180.corners, Terr640E180.hexNames, "640km 180E")
+  def scen7: EScenBasic = EScenBasic(Terr640W150.grid, Terr640W150.terrs, Terr640W150.sTerrs, Terr640W150.corners, Terr640W150.hexNames, "640km 150W")
+  def scen8: EScenBasic = EScenBasic(Terr640W120.grid, Terr640W120.terrs, Terr640W120.sTerrs, Terr640W120.corners, Terr640W120.hexNames, "640km 120W")
+  def scen9: EScenBasic = EScenBasic(Terr640W90.grid, Terr640W90.terrs, Terr640W90.sTerrs, Terr640W90.corners, Terr640W90.hexNames, "640km 90W")
+  def scen10: EScenBasic = EScenBasic(Terr640W60.grid, Terr640W60.terrs, Terr640W60.sTerrs, Terr640W60.corners, Terr640W60.hexNames, "640km 60W")
+  def scen11: EScenBasic = EScenBasic(Terr640W30.grid, Terr640W30.terrs, Terr640W30.sTerrs, Terr640W30.corners, Terr640W30.hexNames, "640km 30W")
 }

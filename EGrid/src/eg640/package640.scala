@@ -34,4 +34,9 @@ package object eg640
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     ft.corners.spawn(ft.grid, subSys.grids(i))
   }.combine
+
+  def fullNamesHCenLayerSpawn(implicit subSys: EGrid640LongMulti): LayerHcRefSys[String] = iToMap(0, subSys.numGrids - 1) { i =>
+    val ft: Long640Terrs = fullTerrs((i + subSys.headGridInt) %% 12)
+    ft.hexNames.spawn(ft.grid, subSys.grids(i))
+  }.combine
 }

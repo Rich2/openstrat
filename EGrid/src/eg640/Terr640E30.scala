@@ -14,7 +14,7 @@ object Terr640E30 extends Long640Terrs {
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(128, Cape(5, 3, tundra)),
+      TRow(128, tundra),
       TRow(126, taiga * 2),
       VRow(125, BendOut(1534, HVDR), MouthOld(1536, HVUR)),
       TRow(124, land, taiga),
@@ -25,12 +25,12 @@ object Terr640E30 extends Long640Terrs {
       VRow(119, MouthOld(1536, HVUp), MouthOld(1540, HVUp), MouthOld(1544, HVUp, 3, Lake)),
       VRow(117, BendAllOld(1544, HVUR, Lake)),
       TRow(116, hilly, hilly, hilly),
-      VRow(115, SetSep(1529), MouthOld(1536, HVUp)),
-      TRow(114, sea, sea, Cape(4, 1, hilly), hilly),
-      VRow(113, MouthOld(1528, HVDn), MouthOld(1534, HVDL), MouthOld(1538, HVDR)),
-      TRow(112, desert, Cape(0, 1), desert * 2),
+      VRow(115, SetSep(1529)),
+      TRow(114, sea * 2, hillySavannah * 2),
+      VRow(113, MouthOld(1528, HVDn), MouthOld(1534, HVDL), BendIn(1536, HVDn, 13), Mouth(1538, HVDR, 1, 7)),
+      TRow(112, desert, land, desert * 2),
       VRow(111, MouthOld(1538, HVUL), MouthLt(1546, HVUL, 7)),
-      TRow(110, desert * 2, Cape(1, 1, desert), Cape(4, 1, desert)),
+      TRow(110, desert * 2, Cape(1, 1, desert), desert),
       TRow(108, desert, desert, Cape(1, 1, desert), desert),
       VRow(107, Bend(1542, HVUR, 7, 3), Bend(1544, HVDL, 10, 1)),
       TRow(106, sahel * 3, savannah, hillyDesert),
@@ -47,4 +47,8 @@ object Terr640E30 extends Long640Terrs {
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(116, "Greece", "Turkey east")
+  }
 }
