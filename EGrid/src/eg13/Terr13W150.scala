@@ -18,7 +18,7 @@ object Terr13W150 extends Long13Terrs
       VRow(113, BendIn(7678, HVDL, 6, SeaIceWinter)),
       TRow(112, hillyTundra),
       VRow(111, BendIn(7678, HVUL, 13, SeaIceWinter)),
-      VRow(109, MouthOld(7684, HVUR)),
+      VRow(109, MouthLt(7682, HVUp, 7)),
       TRow(92, SepB(), sea),
       VRow(87, MouthOld(7684, HVDL, 3, wice)),
       TRow(86, wice)
