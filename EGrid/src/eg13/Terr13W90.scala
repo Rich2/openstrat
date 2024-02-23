@@ -19,10 +19,11 @@ object Terr13W90 extends Long13Terrs
       VRow(111, MouthLt(9730, HVDn, 7)),
       TRow(110, forest),
       TRow(108, land),
-      TRow(106, savannah, Cape(2, 1)),
-      VRow(105, MouthOld(9726, HVDL)),
-      TRow(104, Cape(0, 2, hillyJungle), sea),
-      VRow(103, SetSep(9725), BendOut(9730, HVUR), BendOut(9732, HVUp)),
+      VRow(107),
+      TRow(106, savannah, land),
+      VRow(105, Mouth(9728, HVUL, 6, 7), ThreeDown(9730, 8, 10, 7), BendIn(9732, HVDn, 10), BendIn(9734, HVDL, 10)),
+      TRow(104, hillyJungle, hillyJungle),
+      VRow(103, Bend(9730, HVUR, 10, 4), Bend(9732, HVUp, 10, 4), ThreeUp(9734, 0, 10, 8)),
       TRow(102, sea, hillyJungle),
       VRow(101),
       TRow(100, sea, hillyJungle),
@@ -38,8 +39,9 @@ object Terr13W90 extends Long13Terrs
   }
   help.run
 
-  {
-    hexNames.setRow(108, "US North West")
-    hexNames.setRow(106, "US South Central", "US South East" )
+  { import hexNames.{ setRow => str}
+    str(108, "US North West")
+    str(106, "US South Central", "US Deep South")
+    str(104, "Yucatan", "Cuba")
   }
 }
