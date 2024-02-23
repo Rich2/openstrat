@@ -18,10 +18,16 @@ object Climate
   given CanEqual[Climate, Climate] = CanEqual.derived
 }
 
-/** Temperate climate with out intense dry season. */
+/** Do. Temperate oceanic climate  with out intense dry season. */
 case object Temperate extends Climate
 { def colour: Colour = LightGreen
   override def str = "Temperate"
+}
+
+/** Dc. Temperate continental climate with out intense dry season. */
+case object Continental extends Climate
+{ def colour: Colour = LightGreen
+  override def str = "Continental"
 }
 
 /** Desert climate and biome. */
