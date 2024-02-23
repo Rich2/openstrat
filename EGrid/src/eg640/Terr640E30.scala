@@ -30,16 +30,17 @@ object Terr640E30 extends Long640Terrs {
       TRow(112, desert, Cape(0, 1), desert * 2),
       VRow(111, MouthOld(1538, HVUL), MouthOld(1546, HVUL)),
       TRow(110, desert * 2, Cape(1, 1, desert), Cape(4, 1, desert)),
-      TRow(108, desert, desert, Cape(1, 1, desert), Cape(4, 1, desert)),
-      TRow(106, sahel * 3, Cape(1, 1, savannah), Cape(3, 2, hillyDesert)),
+      TRow(108, desert, desert, Cape(1, 1, desert), desert),
+      TRow(106, sahel * 3, savannah, hillyDesert),
       TRow(104, Land(Level, Savannah, Forest), savannah, savannah, hillySavannah, hillySahel),
       TRow(102, jungle * 2, Land(Level, Savannah, Forest), hillySavannah, sahel),
       VRow(101, MouthOld(1546, HVUp)),
-      TRow(100, jungle * 2, hillyJungle, hillySavannah, Cape(2, 1, hillySavannah)),
-      VRow(99, MouthOld(1536, HVUp, 3, lake), BendOut(1544, HVDR)),
+      TRow(100, jungle * 2, hillyJungle, hillySavannah, hillySavannah),
+      VRow(99, MouthMin(1536, HVUp, lake), BendOut(1544, HVDR), BendIn(1546, HVUL, 13)),
       TRow(98, hillyJungle * 2, savannah, hillySavannah),
-      VRow(97, MouthOld(1536, HVDn, 3, lake)),
-      TRow(96, savannah, jungle * 2, hillySavannah),
+      VRow(97, MouthMin(1536, HVDn, lake), BendOut(1544, HVUR, 7), BendIn(1546, HVDL, 13)),
+      TRow(96, savannah, jungle * 2, hillySavannah * 2),
+      VRow(95, BendIn(1546, HVUL, 13)),
     )
   }
   help.run

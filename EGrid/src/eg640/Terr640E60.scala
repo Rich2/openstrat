@@ -30,10 +30,11 @@ object Terr640E60 extends Long640Terrs
       VRow(109, MouthOld(2564, HVUR)),
       TRow(108, sahel, sea * 2, Cape(4, 1, savannah)),
       VRow(107, BendOut(2568, HVDL)),
-      TRow(106, Cape(2, 2, desert), sea * 3, Cape(4, 1, savannah)),
-      TRow(104, Cape(0, 1, desert)),
+      TRow(106, desert, sea * 3, savannah),
+      TRow(104, desert),
       VRow(101, MouthOld(2550, HVUp)),
-
+      VRow(97, BendIn(2550, HVDL, 13)),
+      VRow(95, BendIn(2550, HVUL, 13)),
     )
   }
   help.run

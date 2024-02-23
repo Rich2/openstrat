@@ -42,7 +42,7 @@ object Terr640E0 extends Long640Terrs
         BendOut(516, HVDn), MouthRt(518, HVDR)),
       TRow(100, sea * 4, hillyJungle),
       TRow(98, sea * 4, hillyJungle),
-      TRow(96, sea * 4, Cape(4, 2, hillySavannah))
+      TRow(96, sea * 4, hillySavannah)
     )
   }
   help.run
