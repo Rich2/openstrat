@@ -25,7 +25,7 @@ object TerrMegaE30 extends LongMegaTerrs
       VRow(111, BendIn(1532, HVDL, 13)),
       TRow(110, hilly, hilly),
       VRow(109, BendOut(1532, HVUR), Bend(1534, HVUp, 8, 3), BendIn(1536, HVDn, 13), MouthOld(1538, HVDR)),
-      TRow(108, land, desert),
+      TRow(108, savannah, desert),
       VRow(107, MouthOld(1538, HVUL), BendAllOld(1540, HVDL)),
       TRow(106, desert * 3),
       VRow(105, BendAllOld(1540, HVUR), BendAllOld(1542, HVDL)),
@@ -36,12 +36,9 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(98, jungle * 2, sea),
       TRow(96, land * 2, Cape(1, 3)),
       VRow(95, MouthOld(1538, HVUL)),
-      TRow(94, desert, Cape(1, 2), Cape(4, 2)),
-      TRow(92, Cape(2, 2, hilly), sea),
-      TRow(90, sea * 2),
-      TRow(88, sea * 2),
-      TRow(86, sea),
-      TRow(84, sea),
+      TRow(94, desert, land, land),
+      TRow(92, hillySavannah, sea),
+      VRow(91, MouthRt(1532, HVDR, 7), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13)),
       TRow(82, ice),
     )
   }
@@ -49,5 +46,7 @@ object TerrMegaE30 extends LongMegaTerrs
 
   { import hexNames.{ setRow => str}
     str(110, "Greece", "Turkey")
+    str(108, "Cairo")
+    str(92, "Durban")
   }
 }
