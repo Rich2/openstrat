@@ -34,7 +34,7 @@ object TerrMegaE0 extends LongMegaTerrs
       TRow(98, sea * 2, SepB(), jungle),
       VRow(97, BendOut(516, HVUL)),
       TRow(96, sea * 2, hillySavannah),
-      TRow(94, sea * 2, desert),
+      TRow(94, sea * 2, hillyDesert),
       VRow(93, BendIn(514, HVDR, 7)),
       TRow(92, sea, hillySavannah),
       VRow(91, BendIn(514, HVUR, 13), MouthRt(516, HVDR, 7)),
