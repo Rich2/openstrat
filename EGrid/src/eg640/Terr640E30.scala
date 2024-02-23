@@ -3,16 +3,17 @@ package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
 /** 640km [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile area of 709448.010km² .
- *  [[Isle3]] 8660.254km² => 16974.097km².
- *  Below 8660.254km² Crete 8450km². */
-object Terr640E30 extends Long640Terrs {
-  override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
+ *  [[Isle3]] 8660.254km² => 16974.097km². (Crete 8450km²) + (Rhodes 1401km²) = 9851km²
+ *  Below 8660.254km²   */
+object Terr640E30 extends Long640Terrs
+{ override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
-  val help = new WTerrSetter(grid, terrs, sTerrs, corners) {
+  val help = new WTerrSetter(grid, terrs, sTerrs, corners)
+  {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(128, tundra),
       TRow(126, taiga * 2),
@@ -23,11 +24,11 @@ object Terr640E30 extends Long640Terrs {
       TRow(120, land * 3),
       TRow(118, land, Cape(2, 3), land),
       VRow(119, MouthOld(1536, HVUp), MouthOld(1540, HVUp), MouthOld(1544, HVUp, 3, Lake)),
-      VRow(117, BendAllOld(1544, HVUR, Lake)),
+      VRow(117, MouthRt(1534, HVUp), BendAllOld(1544, HVUR, Lake)),
       TRow(116, hilly, hilly, hilly),
-      VRow(115, SetSep(1529)),
-      TRow(114, sea * 2, hillySavannah * 2),
-      VRow(113, MouthOld(1528, HVDn), MouthOld(1534, HVDL), BendIn(1536, HVDn, 13), Mouth(1538, HVDR, 1, 7)),
+      VRow(115, SetSep(1529), BendIn(1532, HVDR, 13), ThreeUp(1534, 0, 13, 6), BendIn(1536, HVDL, 13)),
+      TRow(114, sea, mtain, hillySavannah * 2),
+      VRow(113, MouthOld(1528, HVDn), BendIn(1532, HVUR, 13), BendIn(1534, HVUp, 13), ThreeUp(1536, 12, 8, 13), Mouth(1538, HVDR, 1, 7)),
       TRow(112, desert, land, desert * 2),
       VRow(111, MouthOld(1538, HVUL), MouthLt(1546, HVUL, 7)),
       TRow(110, desert * 2, Cape(1, 1, desert), desert),
@@ -49,6 +50,8 @@ object Terr640E30 extends Long640Terrs {
   help.run
 
   { import hexNames.{ setRow => str}
+    str(118, "Balkans", "Crimea")
     str(116, "Greece", "Turkey east")
+    str(114, "", "Crete")
   }
 }
