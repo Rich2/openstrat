@@ -27,17 +27,16 @@ object Terr640E0 extends Long640Terrs
       TRow(120, sea, level * 2),
       VRow(119, MouthLt(508, HVUp, 7)),
       TRow(118, hilly, level, hilly),
-      VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), Bend(514, HVDR, 11, 3), Bend(516, HVDn, 11, 2)),
-      TRow(116, hilly, hilly, mtainOld),
+      VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), Bend(514, HVDR, 11, 3), Bend(516, HVDn, 11, 2), BendIn(518, HVDL, 11)),
+      TRow(116, hilly, hilly, mtainSubtropical),
 
-      VRow(115, MouthRt(506, HVDn, 7), MouthRt(508, HVDL), BendIn(510, HVDn, 10), BendAllOld(512, HVUp), ThreeUp(514, 13, 3, 10), BendIn(516, HVUp, 11),
-        BendIn(518, HVDn, 11), BendIn(520, HVDL, 13)),
+      VRow(115, MouthRt(506, HVDn, 7), MouthRt(508, HVDL), BendIn(510, HVDn, 10), BendAllOld(512, HVUp), ThreeUp(514, 11, 3, 10), BendIn(516, HVUp, 11),
+        ThreeUp(518, 0, 6, 11), BendIn(520, HVDL, 13)),
 
       TRow(114, sea, hilly, hilly, hilly),
       VRow(113, MouthLt(520, HVDn, 6)),
       TRow(112, hillyDesert, desert * 3),
       TRow(110, desert * 2, hillyDesert, desert),
-      VRow(109),
       TRow(108, desert * 4),
       TRow(106, sahel * 5),
       TRow(104, Land(Hilly, Savannah, Forest), Land(Level, Savannah, Forest) * 3, Land(Hilly, Savannah, Forest)),
@@ -50,4 +49,10 @@ object Terr640E0 extends Long640Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(124, "Scotland", "Scandanavia south")
+    str(122, "British Isles")
+    str(116, "Portugal", "Spain east", "Sardinia-Corsica")
+  }
 }
