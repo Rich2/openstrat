@@ -38,22 +38,28 @@ case object Boreal extends Climate
   override def colour: Colour = DarkCyan
 }
 
+/** Köppen BWk cold desert climate classification. Average annual temperature less than 18°C. */
+case object DesertCold extends Climate
+{ override def str: String = "DesertCold"
+  override def colour: Colour = LemonChiffon
+}
+
 /** Trewartha Dc Temperate Continental classification. No intense dry season. The coldest monthly mean temperature reaches below 0 °C. */
 case object Continental extends Climate
 { def colour: Colour = LightGreen
   override def str: String = "Continental"
 }
 
+/** Köppen BSk Dry Semi-Arid Cold climate classification. Assumes a northern latitude with a significantly colder northern winter. */
+case object Steppe extends Climate
+{ override def str: String = "Steppe"
+  override def colour: Colour = YellowGreen
+}
+
 /** Trewartha Do Temperate oceanic climate classification. No intense dry season. The coldest monthly mean temperature reaches is not below 0 °C. */
 case object Temperate extends Climate
 { def colour: Colour = LightGreen
   override def str: String = "Temperate"
-}
-
-/** Köppen BWk cold desert climate classification. Average annual temperature less than 18°C. */
-case object DesertCold extends Climate
-{ override def str: String = "DesertCold"
-  override def colour: Colour = LemonChiffon
 }
 
 /** Köppen BWh hot desert climate classification. Average annual temperature above 18°C. */
@@ -68,11 +74,6 @@ case object Sahel extends Climate
   override def colour: Colour = LemonChiffon.average(YellowGreen)
 }
 
-/** Köppen BSk Dry Semi-Arid Cold climate classification. Assumes a northern latitude with a significantly colder northern winter. */
-case object Steppe extends Climate
-{ override def str: String = "Steppe"
-  override def colour: Colour = YellowGreen
-}
 
 /** Köppen BSh Dry Semi-Arid hot climate classification. */
 case object Savannah extends Climate

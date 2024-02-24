@@ -3,7 +3,8 @@ package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 15° west to 15° east, centred on 0° east. Hex tile scale 640km. A hex tile area of 354724.005km².
- *  A minimum island area of 59120.667km², which includes Britain but excludes Ireland and Sicily-Corsica. */
+ *  A minimum island area of 59120.667km², which
+ *  [[Isle5]] 28059.223km² => 41915.629km². (Sardinia 24090km²) + (Corsica.8722km²) = 32812. */
 object Terr640E0 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e0(96)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -26,11 +27,14 @@ object Terr640E0 extends Long640Terrs
       TRow(120, sea, level * 2),
       VRow(119, MouthLt(508, HVUp, 7)),
       TRow(118, hilly, level, hilly),
-      VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), Bend(514, HVDR, 13, 3), MouthOld(516, HVUR)),
+      VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), Bend(514, HVDR, 11, 3), Bend(516, HVDn, 11, 2)),
       TRow(116, hilly, hilly, mtainOld),
-      VRow(115, MouthRt(506, HVDn, 7), MouthRt(508, HVDL), BendIn(510, HVDn, 10), BendAllOld(512, HVUp), ThreeUp(514, 13, 3, 10), BendIn(516, HVUp, 11)),
-      TRow(114, sea, hilly, hilly, Cape(0, 2, hilly)),
-      VRow(113, MouthOld(520, HVDn)),
+
+      VRow(115, MouthRt(506, HVDn, 7), MouthRt(508, HVDL), BendIn(510, HVDn, 10), BendAllOld(512, HVUp), ThreeUp(514, 13, 3, 10), BendIn(516, HVUp, 11),
+        BendIn(518, HVDn, 11), BendIn(520, HVDL, 13)),
+
+      TRow(114, sea, hilly, hilly, hilly),
+      VRow(113, MouthLt(520, HVDn, 6)),
       TRow(112, hillyDesert, desert * 3),
       TRow(110, desert * 2, hillyDesert, desert),
       VRow(109),
