@@ -26,20 +26,20 @@ object Terr320E120 extends Long320Terrs
       TRow(146, hillyTaiga, mtain, taiga, hillyTaiga * 2),
       TRow(144, mtain, hillyTaiga * 4),
       TRow(142, hillyTaiga, taiga, hillyTaiga * 2, taiga, hillyTaiga),
-      TRow(140, hillyTaiga, land, hillyTaiga * 2, taiga, hillyTaiga),
-      TRow(138, desert * 2, land, hilly, land, taiga * 2),
-      TRow(136, land * 7),
-      TRow(134, land * 6, sea),
+      TRow(140, hillyTaiga, level, hillyTaiga * 2, taiga, hillyTaiga),
+      TRow(138, desert * 2, level, hilly, level, taiga * 2),
+      TRow(136, level * 7),
+      TRow(134, level * 6, sea),
       VRow(133, MouthOld(4610, HVUp)),
-      TRow(132, land * 3, Cape(2, 2, hilly), Cape(3, 1, hilly), hilly, sea),
-      TRow(130, desert, land * 3, Cape(0, 3), Cape(4, 2, hilly), Cape(1, 2, hilly), sea),
+      TRow(132, level * 3, Cape(2, 2, hilly), Cape(3, 1, hilly), hilly, sea),
+      TRow(130, desert, level * 3, Cape(0, 3), Cape(4, 2, hilly), Cape(1, 2, hilly), sea),
       VRow(131, MouthOld(4606, HVUL), MouthOld(4614, HVUR)),
-      TRow(130, desert, land * 3, Cape(0, 3), Cape(4, 2, hilly), Cape(1, 2, hilly), sea),
-      TRow(128, land * 3, land/*2*/, sea, Cape(2, 3, hilly), sea, hilly),//check land and first hilly
+      TRow(130, desert, level * 3, Cape(0, 3), Cape(4, 2, hilly), Cape(1, 2, hilly), sea),
+      TRow(128, level * 3, level/*2*/, sea, Cape(2, 3, hilly), sea, hilly),//check land and first hilly
       VRow(127, MouthOld(4608, HVDL)),
-      TRow(126, mtain, hilly, land * 2, Cape(0, 2), sea * 2, hilly),
+      TRow(126, mtain, hilly, level * 2, Cape(0, 2), sea * 2, hilly),
       VRow(125, MouthOld(4612, HVDn)),
-      TRow(124, hilly, mtain, land, hilly * 2),
+      TRow(124, hilly, mtain, level, hilly * 2),
     )
   }
   help.run

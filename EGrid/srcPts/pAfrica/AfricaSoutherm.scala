@@ -23,7 +23,7 @@ object SouthAfrica extends EArea2("South Africa", -25 ll 24, sahel)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
-object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, land)
+object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, level)
 { val north: LatLong = -11.95 ll 49.26
   val east: LatLong = -15.33 ll 50.48
   val southEast: LatLong = -25.03 ll 46.99

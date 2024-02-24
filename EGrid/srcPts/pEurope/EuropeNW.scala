@@ -18,7 +18,7 @@ object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hilly)
 }
 
 /** Belgium and Luxembourg. Depends on Alsace. */
-object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, land)
+object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, level)
 { val northWest: LatLong = 51.09 ll 2.54
   val coastEast: LatLong = 51.36 ll 3.37
   val north: LatLong = 51.49 ll 5.04
@@ -29,7 +29,7 @@ object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, land)
 }
 
 /** Displays most of France. Depends on [[Alsace]] and [[BelgLux]]. */
-object Frankia extends EArea2("Frankia", 47.28 ll 1.93, land)
+object Frankia extends EArea2("Frankia", 47.28 ll 1.93, level)
 { val southWest: LatLong = divN45 ll -1.29
   val southEast: LatLong = divN45 ll 5.53
   val sLAmelie: LatLong = 45.47 ll -1.15

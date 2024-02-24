@@ -13,17 +13,17 @@ object Terr220W60 extends Long220Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(166, hillyLakesTaiga, mtainLakes, hillyLakesTaiga, mtain),
+      TRow(166, hillyLakesTaiga, mtainLakesTaiga, hillyLakesTaiga, mtain),
       VRow(165, BendOut(10752, HVUR), MouthLt(10754, HVDR)),
       TRow(164, taigaLakes, hillyLakesTaiga * 3),
       VRow(163, MouthRt(10758, HVUL, 7), BendIn(10760, HVDL, 13)),
       TRow(162, taigaLakes, hillyLakesTaiga * 5, SepB()),
       VRow(161, BendOut(10758, HVDR, 7), BendIn(10760, HVUL, 13)),
-      TRow(160, hillyLakesTaiga * 2, mtainLakes * 2, hillyLakesTaiga * 2),
+      TRow(160, hillyLakesTaiga * 2, mtainLakesTaiga * 2, hillyLakesTaiga * 2),
       VRow(159, BendIn(10752, HVDR, 13), BendIn(10754, HVDn, 13), BendIn(10756, HVUp, 13), ThreeUp(10758, 0, 7, 7), MouthLt(10760, HVDR, 7)),
-      TRow(158, hillyLakesTaiga, mtainLakes, sea * 2, mtain, hillyLakesTaiga),
+      TRow(158, hillyLakesTaiga, mtainLakesTaiga, sea * 2, mtain, hillyLakesTaiga),
       VRow(157, MouthLt(10742, HVDL), MouthRt(10744, HVUR, 7), MouthRt(10752, HVDn, 7)),
-      TRow(156, mtainLakes, hillyTaiga, mtain, sea * 2, hillyLakesTaiga * 2),
+      TRow(156, mtainLakesTaiga, hillyTaiga, mtain, sea * 2, hillyLakesTaiga * 2),
       VRow(155, MouthOld(10748, HVDL), MouthLt(10750, HVUR, 7)),
       TRow(154, taiga, hillyTaiga * 4),
       TRow(152, hillyTaiga, hillyLakesTaiga, taigaLakes, hillyLakesTaiga),

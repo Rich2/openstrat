@@ -50,11 +50,11 @@ object WTileTest extends TestSuite
 
     test("W Seqs")
     { assert("Seq(sea; forest)".asType[RArr[WTile]] === Good(RArr(sea, forest)))
-      assert(RArr(land, lake, Land(Hilly, Savannah)) === RArr(land, lake , Land(Hilly, Savannah)))
-      assert(Good(RArr(land, lake, Land(Hilly, Savannah))) === Good(RArr(land, lake , Land(Hilly, Savannah))))
-      assert(er1 === Good(RArr(land, lake , hillySavannah)))
+      assert(RArr(level, lake, Land(Hilly, Savannah)) === RArr(level, lake , Land(Hilly, Savannah)))
+      assert(Good(RArr(level, lake, Land(Hilly, Savannah))) === Good(RArr(level, lake , Land(Hilly, Savannah))))
+      assert(er1 === Good(RArr(level, lake , hillySavannah)))
       assert("Seq(sea * 2; lake)".asType[RArr[Water]] === Good(RArr(sea, sea, lake)))
-      assert("Seq(hilly * 2; land * 3)".asType[RArr[Land]] === Good(RArr(hilly, hilly, land, land, land)))
+      assert("Seq(hilly * 2; land * 3)".asType[RArr[Land]] === Good(RArr(hilly, hilly, level, level, level)))
       assert("Seq(hilly * 2; lake * 2; forest)".asType[RArr[WTile]] === Good(RArr(hilly, hilly, lake, lake, forest)))
     }
   }

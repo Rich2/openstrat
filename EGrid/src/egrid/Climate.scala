@@ -62,7 +62,7 @@ case object Desert extends Climate
   override def colour: Colour = LemonChiffon
 }
 
-/** Semi Desert climate and biome. */
+/** Semi hot desert climate and biome. This is kind of intermediatry between Köppen BWh and BSh. */
 case object Sahel extends Climate
 { override def str: String = "Sahel"
   override def colour: Colour = LemonChiffon.average(YellowGreen)

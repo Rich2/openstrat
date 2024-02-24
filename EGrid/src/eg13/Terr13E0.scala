@@ -20,7 +20,7 @@ object Terr13E0 extends Long13Terrs
       VRow(113, ThreeDown(510, 0, 13, 12), BendOut(512, HVUL)),
       TRow(112, hillyTaiga),
       VRow(111, ThreeUp(510, 5, 12, 12), BendIn(512, HVDL, 12)),
-      TRow(110, land),
+      TRow(110, level),
       VRow(109, ThreeDown(510, 12, 6, 0), MouthLt(514, HVUp)),
       TRow(108, hilly),
       VRow(107, BendIn(508, HVDR, 8), ThreeUp(510, 6, 10, 0), BendIn(512, HVUp, 10), BendIn(514, HVUL)),

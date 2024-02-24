@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Manchura. */
-object Manchuria extends EArea2("Manchuria", 58 ll 128, land)
+object Manchuria extends EArea2("Manchuria", 58 ll 128, level)
 { val udaMouth: LatLong = 54.72 ll 135.28
   val khab10: LatLong = 54.64 ll 136.81
   val khab15: LatLong = 54.28 ll 139.75

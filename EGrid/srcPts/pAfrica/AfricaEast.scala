@@ -59,7 +59,7 @@ object LakeMweru extends EArea2("Lake\nMweru", -8.952 ll 28.770, Lake)
 }
 
 /** [[PolygonLL]] graphic object for the east of central Africa. Depends on [[SouthAfrica]], [[LakeTanganyika]] and  [[LakeVictoria]]. */
-object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, land)
+object centralAfricaEast extends EArea2("Central Africa\neast", -2.17 ll 36.64, level)
 {
   val mombassa: LatLong = -4.03 ll 39.28
   val saadani: LatLong = -6.042 ll 38.780
@@ -83,7 +83,7 @@ object ZimMoz extends EArea2("Mozambique", -2.17 ll 36.64, savannah)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
-object Zanzibar extends EArea2("Zanzibar", -6.112 ll 39.341, land)
+object Zanzibar extends EArea2("Zanzibar", -6.112 ll 39.341, level)
 { val north: LatLong = -5.721 ll 39.302
   val p25: LatLong = -6.126 ll 39.509
   val p40: LatLong = -6.383 ll 39.580

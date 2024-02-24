@@ -19,7 +19,7 @@ object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -70.22,
 }
 
 /** [[polygonLL]] graphical representation for middle South America. Depends on [[SouthAmericaSouth]]. */
-object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0, land)
+object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0, level)
 { val north: Latitude = 21.south
   val nwAmericaE: Longitude = 58.west
 

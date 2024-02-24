@@ -35,7 +35,7 @@ object WTile
 
 /** Object to provide short names for various [[WTile]] values. */
 object WTiles
-{ val land: Land = Land(Level, Temperate, CivMix)
+{ val level: Land = Land(Level, Temperate, CivMix)
   val hilly: Land = Land(Hilly, Temperate, CivMix)
   val forest: Land = Land(Level, Temperate, Forest)
   val hillyForest: Land = Land(Hilly, Temperate, Forest)
@@ -55,11 +55,14 @@ object WTiles
   val sahel: Land = Land(Level, Sahel, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
   val mtain: Land = Land(Mountains, Boreal, Forest)
-  val mtainLakes: Land = Land(MountLakes, Boreal, Forest)
+  val mtainTundra: Land = Land(Mountains, Tundra, LandFree)
+  val mtainTaiga: Land = Land(Mountains, Boreal, Forest)
+  val mtainJungle: Land = Land(Mountains, Tropical, Forest)
+  val mtainLakesTaiga: Land = Land(MountLakes, Boreal, Forest)
 
   /** Sequence of short hand words for [[Land]]. */
-  lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](land, hilly, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
-    hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtain)
+  lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](level, hilly, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
+    hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtain, mtainTundra, mtainTaiga, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
