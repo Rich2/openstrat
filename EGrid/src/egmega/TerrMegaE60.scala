@@ -21,9 +21,10 @@ object TerrMegaE60 extends LongMegaTerrs
       TRow(108, hillyDesert * 2),
       TRow(106, desert, sea, level),
       TRow(104, hillyDesert, sea * 2),
-      VRow(97, BendIn(2554, HVDR)),
+      VRow(97, BendMouth(2554, HVDR, 6, 7), BendIn(2556, HVDn), BendIn(2558, HVDL, 13)),
       TRow(96, hillySavannah),
-      VRow(95, BendIn(2554, HVUL, 13)),
+      VRow(95, BendIn(2554, HVUL, 13), BendIn(2556, HVDR), BendIn(2558, HVUL, 13)),
+      VRow(93, SetSep(2557)),
       TRow(82, ice)
     )
   }
