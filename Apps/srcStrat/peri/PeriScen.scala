@@ -64,7 +64,7 @@ object PeriScen
       val jLands = lands(j)
       val armyNum = jLands.a2.climate match{
         case Desert | Tundra => 1
-        case Taiga | Tropical => 2
+        case Boreal | Tropical => 2
         case _ => 3
       }
       val army = Army(nats.indexCycle(i), armyNum)

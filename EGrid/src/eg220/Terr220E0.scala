@@ -34,7 +34,7 @@ object Terr220E0 extends Long220Terrs
       VRow(173, BendIn(514, HVDR, 13), BendOut(516, HVUL, 7)),
       TRow(172, sea, Isle3(mtain), sea * 2, mtain, hillyTaiga, taiga),
       VRow(171, BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendIn(512, HVDL, 13), BendIn(514, HVUR, 13), BendOut(516, HVDL)),
-      TRow(170, sea * 2, Land(Hilly, Taiga, CivMix), sea, hillyTaiga, taiga * 2),
+      TRow(170, sea * 2, Land(Hilly, Boreal, CivMix), sea, hillyTaiga, taiga * 2),
 
       VRow(169, BendIn(502, HVDR, 13), BendIn(504, HVDn, 13), ThreeDown(506, 0, 6, 6), ThreeUp(508, 7, 7, 0), ThreeDown(510, 7, 0, 7), BendIn(512, HVUL, 13),
         MouthRt(516, HVDn, 7)),

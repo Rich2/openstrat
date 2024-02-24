@@ -34,7 +34,7 @@ object Terr460W60 extends Long460Terrs
       VRow(127, MouthOld(10748, HVDL), BendAllOld(10750, HVDn, sea, 7), ThreeDown(10752, 13, 0, 6), BendIn(10754, HVUL, 13)),
       TRow(126, hillyTaiga, hillyTaiga, Cape(2, 3, mtain)),
       VRow(125, BendIn(10746, HVDR, 8), MouthOld(10748, HVUR), MouthOld(10750, HVUp)),
-      TRow(124, hillyForest, Land(LandLakes, Taiga, Forest)),
+      TRow(124, hillyForest, Land(LandLakes, Boreal, Forest)),
       VRow(123, BendIn(10746, HVUR, 10), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
       VRow(113, SetSep(10741)),
       TRow(112, SepB()),

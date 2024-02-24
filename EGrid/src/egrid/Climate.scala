@@ -13,24 +13,49 @@ object Climate
   implicit lazy val showEv: ShowTell[Climate] = ShowTellSimple[Climate]("Climate")
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Climate]]. */
-  implicit lazy val unshowEv: UnshowSingletons[Climate] = UnshowSingletons[Climate]("Climate", Temperate, Desert, Sahel, Savannah, Taiga, Tundra, Tropical)
+  implicit lazy val unshowEv: UnshowSingletons[Climate] = UnshowSingletons[Climate]("Climate", Temperate, Desert, Sahel, Savannah, Boreal, Tundra, Tropical)
 
   given CanEqual[Climate, Climate] = CanEqual.derived
 }
 
-/** Do. Temperate oceanic climate  with out intense dry season. */
-case object Temperate extends Climate
-{ def colour: Colour = LightGreen
-  override def str = "Temperate"
+/** Trewartha Fi Ice cap classification. All year round snow. */
+case object IceCap extends Climate
+{ override def str = "IceCap"
+  override def colour = White
 }
 
-/** Dc. Temperate continental climate with out intense dry season. */
+
+/** Trewartha Ft Tundra climate classification. Too cold and dry for [[Forest]] */
+case object Tundra extends Climate
+{ override def str = "Tundra"
+  override def colour = Plum.average(Thistle)
+}
+
+/** Trewartha E Boreal climate classification. Subartic or Boreal Taiga climate. Normally has [[Forest]]. */
+case object Boreal extends Climate
+{ override def str = "Boreal"
+  override def colour = DarkCyan
+}
+
+/** Trewartha Dc Temperate Continental classification. No intense dry season. The coldest monthly mean temperature reaches below 0 °C. */
 case object Continental extends Climate
 { def colour: Colour = LightGreen
   override def str = "Continental"
 }
 
-/** Desert climate and biome. */
+/** Trewartha Do Temperate oceanic climate classification. No intense dry season. The coldest monthly mean temperature reaches is not below 0 °C. */
+case object Temperate extends Climate
+{ def colour: Colour = LightGreen
+  override def str = "Temperate"
+}
+
+/** Köppen BWk cold desert climate classification. Average annual temperature less than 18°C. */
+case object DesertCold extends Climate
+{ override def str = "DesertCold"
+  override def colour = LemonChiffon
+}
+
+/** Köppen BWh hot desert climate classification. Average annual temperature above 18°C. */
 case object Desert extends Climate
 { override def str = "Desert"
   override def colour = LemonChiffon
@@ -52,22 +77,4 @@ case object Savannah extends Climate
 case object Tropical extends Climate
 { override def str = "Tropical"
   override def colour = YellowGreen
-}
-
-/** Ice cap / all year round snow. */
-case object IceCap extends Climate
-{ override def str = "IceCap"
-  override def colour = White
-}
-
-/** Taiga climate normally has [[Forest]]. */
-case object Taiga extends Climate
-{ override def str = "Taiga"
-  override def colour = DarkCyan
-}
-
-/** Tundra climate, no [[Foresr]] */
-case object Tundra extends Climate
-{ override def str = "Tundra"
-  override def colour = Plum.average(Thistle)
 }

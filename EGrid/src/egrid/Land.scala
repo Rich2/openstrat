@@ -24,16 +24,16 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   override def colour: Colour = elev match
   { case Mountains => Mountains.colour
     case MountLakes => MountLakes.colour
-    case Hilly if climate == Taiga => Taiga.colour.average(Hilly.colour)
+    case Hilly if climate == Boreal => Boreal.colour.average(Hilly.colour)
     case Hilly if landUse == Forest => Chocolate.average(Forest.colour)
     case Hilly => Chocolate.average(climate.colour)
     case HillyLakes if landUse == Forest => Chocolate.average(Forest.colour)
     case HillyLakes => HillyLakes.colour
     case LandLakes if climate == Tundra => LandLakes.colour.average(Tundra.colour)
-    case LandLakes if climate == Taiga => LandLakes.colour.average(Taiga.colour)
+    case LandLakes if climate == Boreal => LandLakes.colour.average(Boreal.colour)
     case LandLakes => LandLakes.colour
     case Level if climate == Tropical && landUse == Forest => DarkGreen
-    case Level if climate == Taiga => Taiga.colour
+    case Level if climate == Boreal => Boreal.colour
     case Level if landUse == Forest => Forest.colour
     case _ => climate.colour
 
