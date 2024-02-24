@@ -62,6 +62,12 @@ case object Temperate extends Climate
   override def str: String = "Temperate"
 }
 
+/** Trewartha C Subtropical climate classification. No intense dry season. Category may be split up later. */
+case object Subtropical extends Climate
+{ def colour: Colour = LightGreen
+  override def str: String = "Subtropical"
+}
+
 /** Köppen BWh hot desert climate classification. Average annual temperature above 18°C. */
 case object Desert extends Climate
 { override def str: String = "Desert"
