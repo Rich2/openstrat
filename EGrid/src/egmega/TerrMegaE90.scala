@@ -18,7 +18,7 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(114, taiga),
       TRow(112, hillyDesert, desert),
       TRow(110, desert, hillyDesert),
-      TRow(108, mtain * 2),
+      TRow(108, mtainOld * 2),
       TRow(106, jungle * 3),
       VRow(105, MouthOld(3592, HVUL)),
       TRow(104, jungle, sea, jungle),

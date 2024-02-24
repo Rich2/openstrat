@@ -17,13 +17,13 @@ object Terr460W150 extends Long460Terrs
       TRow(144, SeaIceWinter),
       TRow(142, SeaIceWinter),
       TRow(140, SeaIceWinter * 2),
-      TRow(138, SepB(), hillyTundra, mtain),
-      TRow(136, hillyTaiga * 2, mtain),
-      TRow(134, hillyTaiga, Cape(3, 1, mtain), mtain),
+      TRow(138, SepB(), hillyTundra, mtainOld),
+      TRow(136, hillyTaiga * 2, mtainOld),
+      TRow(134, hillyTaiga, Cape(3, 1, mtainOld), mtainOld),
       VRow(133, BendOut(7674, HVDL), BendAllOld(7678, HVDR), BendOut(7680, HVDn), MouthOld(7684, HVUR)),
       TRow(132, Cape(2, 3, hillyTundra)),
       VRow(129, MouthLt(7688, HVUL, 7), BendOut(7690, HVDL)),
-      TRow(112, sea, Isle6(mtain)),
+      TRow(112, sea, Isle6(mtainOld)),
     )
   }
   help.run

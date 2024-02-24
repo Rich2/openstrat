@@ -28,10 +28,10 @@ object Terr13W90 extends Long13Terrs
       VRow(101, MouthLt(9728, HVUL, 7), BendOut(9730, HVDL, 7)),
       TRow(100, sea, hillyJungle),
       VRow(99, BendIn(9728, HVDR, 13), BendOut(9730, HVUL, 6)),
-      TRow(98, sea, mtain),
+      TRow(98, sea, mtainOld),
       VRow(97, BendIn(9728, HVUR, 13), MouthRt(9730, HVDR, 7)),
       VRow(91, BendIn(9728, HVDR, 13), MouthRt(9730, HVUR)),
-      TRow(90, mtain),
+      TRow(90, mtainOld),
       VRow(89, BendIn(9728, HVUR, 13), MouthRt(9730, HVDR, 7)),
       VRow(87, MouthOld(9728, HVDR, 3, wice)),
       TRow(86, ice)

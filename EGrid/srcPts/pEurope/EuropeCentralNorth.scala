@@ -38,7 +38,7 @@ object Germania extends EArea2("Germania", 50.50 ll 11.11, level)
 }
 
 /** Displays the Alps, depends on [[Alsace]], [[Frankia]] and [[ItalyNorth]]. */
-object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtain)
+object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtainOld)
 { val steyr: LatLong = 48.04 ll 14.14
   val vienna: LatLong = 48.22 ll 16.41
   val zagreb: LatLong = 45.78 ll 15.97

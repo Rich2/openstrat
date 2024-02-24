@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Devon Island and Axal Heiberg Island. Depends on nothing. */
-object EllesmereIsland extends EArea2("Ellsesmere Island", 80.24 ll -79.37, mtain)
+object EllesmereIsland extends EArea2("Ellsesmere Island", 80.24 ll -79.37, mtainOld)
 { val north = 83.08 ll -70.18
   val east  = 82.27 ll -61.23
   val p30 = 79.57 ll -73.19

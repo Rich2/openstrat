@@ -25,7 +25,7 @@ object Terr460E0 extends Long460Terrs
       VRow(137, MouthLt(514, HVUp)),
       TRow(136, sea * 2, hillyTaiga),
       VRow(135, MouthRt(506, HVUR), BendIn(512, HVDR, 13), BendOut(514, HVUL), Bend(520, HVDR, 4, 5, SeaIceWinter, sea)),
-      TRow(134, sea, mtain, level),
+      TRow(134, sea, mtainOld, level),
       VRow(133, BendIn(506, HVDR, 13), MouthLt(508, HVUR), BendIn(512, HVUR, 13), BendOut(514, HVDL)),
       TRow(132, hilly, sea, forest),
       VRow(131, BendIn(504, HVDR), ThreeUp(506, 7, 7, 0), BendOut(508, HVDL), BendIn(514, HVUR, 13), BendIn(516, HVUp, 13), BendIn(518, HVUL)),
@@ -63,11 +63,11 @@ object Terr460E0 extends Long460Terrs
       VRow(101, BendIn(518, HVDR, 13), BendOut(520, HVUL)),
       TRow(100, sea * 5, hillyJungle * 2),
       VRow(99, BendIn(518, HVUR, 13), BendOut(520, HVDL)),
-      TRow(98,sea * 5, mtain, hillyJungle),
+      TRow(98,sea * 5, mtainOld, hillyJungle),
       VRow(97, BendIn(520, HVUR, 13), BendOut(522, HVDL, 7)),
       TRow(96, sea * 6, hillyJungle),
       VRow(95, BendIn(522, HVUR, 13), MouthRt(524, HVDR)),
-      TRow(94, sea * 6, mtain),
+      TRow(94, sea * 6, mtainOld),
     )
   }
   help.run

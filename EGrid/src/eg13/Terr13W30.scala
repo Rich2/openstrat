@@ -17,7 +17,7 @@ object Terr13W30 extends Long13Terrs
       VRow(115, BendIn(11776, HVDR, 12), BendIn(11778, HVDn, 12), BendIn(11780, HVDL, 12)),
       TRow(114, hillyTundra),
       VRow(113, BendIn(11776, HVUR, 12), ThreeDown(11778, 12, 0, 13), BendIn(11780, HVUL, 12)),
-      TRow(112, mtain),
+      TRow(112, mtainOld),
       VRow(111, BendIn(11774, HVUR), ThreeDown(11776, 12, 12, 13), ThreeUp(11778, 5, 12, 12), BendIn(11780, HVDL, 12)),
       TRow(110, level),
       VRow(109, ThreeUp(11776, 12, 0, 13), ThreeDown(11778, 12, 6, 0), BendIn(11780, HVUL, 12)),

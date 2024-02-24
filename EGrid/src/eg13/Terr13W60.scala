@@ -31,7 +31,7 @@ object Terr13W60 extends Long13Terrs
       TRow(98, hilly, level),
       //VRow(97, BendOut(10758, HVDR)),
       TRow(96, hilly, level),
-      TRow(94, mtain, level),
+      TRow(94, mtainOld, level),
       VRow(93, BendOut(10754, HVDR, 7), BendIn(10756, HVUL, 12)),
       TRow(92, savannah),
       VRow(91, MouthRt(10750, HVUR), MouthRt(10752, HVDL), BendIn(10754, HVUL, 13)),

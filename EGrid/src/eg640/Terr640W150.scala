@@ -19,10 +19,10 @@ object Terr640W150 extends Long640Terrs
       //VRow(127, SetSep(7676)),
       TRow(126, hillyTundra, taiga),
       VRow(125, BendIn(7676, HVUL, 13, SeaIceWinter)),
-      TRow(124, hillyTundra, mtain),
+      TRow(124, hillyTundra, mtainOld),
       VRow(123, BendOut(7680, HVDR, 7), BendOut(7682, HVDn, 7)),
       TRow(122, hillyTundra, sea),
-      TRow(108, Isle5(mtain)),
+      TRow(108, Isle5(mtainOld)),
     )
   }
   help.run

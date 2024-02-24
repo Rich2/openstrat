@@ -54,7 +54,11 @@ object WTiles
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val sahel: Land = Land(Level, Sahel, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
-  val mtain: Land = Land(Mountains, Boreal, Forest)
+
+  /** deprecated use one of the specialised shorthands instead.  */
+  val mtainOld: Land = Land(Mountains, Boreal, Forest)
+
+  val mtainIce: Land = Land(Mountains, IceCap, LandFree)
   val mtainTundra: Land = Land(Mountains, Tundra, LandFree)
   val mtainTaiga: Land = Land(Mountains, Boreal, Forest)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
@@ -62,7 +66,7 @@ object WTiles
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](level, hilly, forest, hillyForest, desert, hillyDesert, jungle, hillyJungle, taiga,
-    hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtain, mtainTundra, mtainTaiga, mtainJungle)
+    hillyTaiga, tundra, hillyTundra, savannah, hillySavannah, sahel, hillySahel, mtainOld, mtainIce, mtainTundra, mtainTaiga, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)

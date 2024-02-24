@@ -35,14 +35,14 @@ object Terr320E30 extends Long320Terrs
       TRow(144, level * 5),
       TRow(142, level * 6),
       TRow(140, level * 6),
-      TRow(138, mtain * 2, hilly, level * 3, desert),
+      TRow(138, mtainOld * 2, hilly, level * 3, desert),
       VRow(137, MouthOld(1522, HVUp), Mouth(1538, HVUp, 3, 7), BendAllOld(1542, HVDR), MouthOld(1544, HVUR)),
       TRow(136, hilly, level * 2, level, level, level, level),
 
       VRow(135, SetSep(1523), BendAllOld(1522, HVUR), BendOut(1536, HVDR, 7), ThreeUp(1538, 7, 0, 13), BendIn(1540, HVUp, 10), ThreeUp(1542, 7, 0, 7),
         MouthRt(1544, HVDR, 7)),
 
-      TRow(134, Cape(4, 1, hilly), hilly, hilly, sea * 3, mtain),
+      TRow(134, Cape(4, 1, hilly), hilly, hilly, sea * 3, mtainOld),
       VRow(133, MouthOld(1530, HVUp), MouthLt(1536, HVDn, 7)),
       TRow(132, Cape(1, 2, hilly), hilly, Cape(4, 1, hilly), hilly * 4),
       VRow(131, VertLeftsRight(1522), MouthOld(1528, HVDR)),

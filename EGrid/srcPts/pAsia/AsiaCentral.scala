@@ -15,12 +15,12 @@ object Kazak extends EArea2("Kazak", 47 ll 60, desert)
     volodarsky, pEurope.Ukraine.caspianW, pEurope.Baltland.southEast)
 }
 
-object Himalayas extends EArea2("Himalayas", degs(32, 75), mtain)
+object Himalayas extends EArea2("Himalayas", degs(32, 75), mtainOld)
 {
   override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
 }
 
-object Kyrgyyzstan extends EArea2("Kyrgyzstan", degs(47, 76), mtain)
+object Kyrgyyzstan extends EArea2("Kyrgyzstan", degs(47, 76), mtainOld)
 { val p10: LatLong = 39.377 ll 75.528
   val p20 = 37.381 ll 77.418
   val islamabad = 33.749 ll 73.19

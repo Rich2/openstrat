@@ -17,7 +17,7 @@ object Terr640W60 extends Long640Terrs
       TRow(128, tundra),
       TRow(126, tundra, hillyTundra),
       VRow(125, BendOut(10758, HVDR)),
-      TRow(124, Mountains(Tundra), mtain),
+      TRow(124, Mountains(Tundra), mtainOld),
       VRow(123, MouthOld(10748, HVDR), BendIn(10756, HVUp, 13), BendIn(10758, HVUL, 9)),
       TRow(122, taiga, sea),
       TRow(120, taiga, taiga),

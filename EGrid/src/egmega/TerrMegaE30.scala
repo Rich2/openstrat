@@ -34,6 +34,7 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(102, jungle * 2, hilly),
       TRow(100, jungle * 2, level),
       TRow(98, jungle * 2, sea),
+      VRow(97, BendIn(1542, HVDR)),
       TRow(96, level * 2, hillySavannah),
       VRow(95, Bend(1540, HVDR, 7, 7), BendIn(1542, HVUL, 13)),
       TRow(94, sahel, hillySavannah, hillySavannah),

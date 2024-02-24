@@ -27,7 +27,7 @@ object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, level)
 }
 
 /** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */
-object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtain)
+object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtainOld)
 { val johnOGroats: LatLong = 58.62 ll -3.08
   val girnigoe: LatLong = 58.47 ll -3.05
   val inverness: LatLong = 57.49 ll -4.22

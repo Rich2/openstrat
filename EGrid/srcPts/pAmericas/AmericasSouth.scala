@@ -43,7 +43,7 @@ object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0
 }
 
 /** [[polygonLL]] graphical representation for Columbia dnd Venezuela . Dependant on [[ElSalPanama]]. */
-object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtain)
+object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtainOld)
 { val southDegs: Double = -2.665
 
   val nColumbia: LatLong = 12.19 ll -71.27

@@ -15,8 +15,8 @@ object Terr460W90 extends Long460Terrs
   {
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(146, SeaIcePerm),
-      TRow(144, Isle10(mtain)),
-      TRow(142, Isle10(mtain)),
+      TRow(144, Isle10(mtainOld)),
+      TRow(142, Isle10(mtainOld)),
       VRow(141, SetSep(9727), ThreeDown(9730, 13, 0, 6)),
       TRow(140, SepB(), hillyTundra, SepB(), hillyTundra),
       VRow(139, BendIn(9726, HVUL), BendOut(9724, HVUp), MouthOld(9728, HVDL), ThreeUp(9730, 0, 6, 6)),
@@ -36,8 +36,8 @@ object Terr460W90 extends Long460Terrs
       VRow(125, BendAllOld(9730, HVDR, lake), BendOut(9732, HVDn, 6, lake), MouthOld(9734, HVDR, 3, lake)),
       TRow(124, hillySavannah, savannah, hilly, level, level),
       VRow(123, MouthOld(9730, HVDn, 3, lake)),
-      TRow(122, savannah * 3, mtain, hilly),
-      TRow(120, sahel, hillySavannah, savannah, mtain, hilly),
+      TRow(122, savannah * 3, mtainOld, hilly),
+      TRow(120, sahel, hillySavannah, savannah, mtainOld, hilly),
       TRow(118, desert, savannah, level * 3),
       VRow(117, MouthOld(9730, HVUp, 3, lake), MouthOld(9736, HVUL)),
       TRow(116, savannah, level, Cape(2, 2), sea, Cape(1, 2, jungle)),
@@ -46,22 +46,22 @@ object Terr460W90 extends Long460Terrs
       VRow(113, BendOut(9722, HVDR), MouthOld(9730, HVDR), BendOut(9738, HVUp)),
       TRow(112, hillySavannah, sea, Cape(5, 2, savannah), sea, Cape(3, 4, hillyJungle), Cape(0, 4, jungle)),
       VRow(111, BendOut(9716, HVDL), MouthOld(9724, HVDL), BendOut(9726, HVUL), BendOut(9738, HVDn)),
-      TRow(110, mtain, hillyJungle, savannah, jungle),
+      TRow(110, mtainOld, hillyJungle, savannah, jungle),
       VRow(109, BendIn(9716, HVUR, 13), MouthRt(9718, HVDR), MouthLt(9722, HVUp, 7)),
-      TRow(108, sea * 2, mtain * 2, hillyJungle),
+      TRow(108, sea * 2, mtainOld * 2, hillyJungle),
 
       VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), MouthRt(9728, HVDR, 7), MouthOld(9734, HVUL), BendIn(9736, HVDL, 10),
         BendIn(9740, HVDR, 10), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
       
-      TRow(106, sea * 4, mtain, sea, hillyJungle),
+      TRow(106, sea * 4, mtainOld, sea, hillyJungle),
       VRow(105, MouthOld(9734, HVUp), MouthOld(9736, HVDn), MouthOld(9740, HVDn)),
-      TRow(104, sea * 5, mtain, hillyJungle),
+      TRow(104, sea * 5, mtainOld, hillyJungle),
       VRow(103, BendIn(9734, HVUR, 10), BendIn(9736, HVUp, 10), BendOut(9738, HVDn, 7), MouthOld(9740, HVDR)),
-      TRow(102, sea * 6, mtain),
+      TRow(102, sea * 6, mtainOld),
       TRow(100, sea * 6, hillyJungle),
-      TRow(98, sea * 5, mtain, jungle),
-      TRow(96, sea * 6, mtain),
-      TRow(94, sea * 6, mtain),
+      TRow(98, sea * 5, mtainOld, jungle),
+      TRow(96, sea * 6, mtainOld),
+      TRow(94, sea * 6, mtainOld),
     )
   }
   help.run

@@ -40,10 +40,10 @@ object Terr640W90 extends Long640Terrs
       VRow(105, MouthLt(9724, HVUL, 7), BendIn(9726, HVUp, 13), MouthOld(9728, HVUR), BendOut(9738, HVUp)),
       TRow(104, sea * 3, Cape(4, 1, hillyJungle), Cape(0, 1, hillyJungle)),
       VRow(103, MouthRt(9732, HVDR, 7)),
-      TRow(102, sea * 4, mtain),
-      TRow(100, sea * 4, Cape(5, 1, mtain)),
-      TRow(98, sea * 3, Cape(4, 2, mtain), jungle),
-      TRow(96, sea * 4, Cape(4, 1, mtain)),
+      TRow(102, sea * 4, mtainOld),
+      TRow(100, sea * 4, Cape(5, 1, mtainOld)),
+      TRow(98, sea * 3, Cape(4, 2, mtainOld), jungle),
+      TRow(96, sea * 4, Cape(4, 1, mtainOld)),
     )
   }
   help.run

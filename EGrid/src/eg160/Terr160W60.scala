@@ -15,7 +15,7 @@ object Terr160W60 extends Long160Terrs
       TRow(320, sea * 3, ice * 2),
       TRow(318, sea * 3, ice * 2),
       TRow(316, sea * 3, ice * 3),
-      TRow(314, mtain, sea * 3, ice * 2),
+      TRow(314, mtainOld, sea * 3, ice * 2),
     )
   }
   help.run

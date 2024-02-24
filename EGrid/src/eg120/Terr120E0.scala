@@ -15,15 +15,15 @@ object Terr120E0 extends Long120Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(344, sea * 9, mtain),
-      TRow(342, sea * 10, mtain) ,
-      TRow(340, sea * 10, mtain),
+      TRow(344, sea * 9, mtainOld),
+      TRow(342, sea * 10, mtainOld) ,
+      TRow(340, sea * 10, mtainOld),
       TRow(338, sea * 9, hillyTundra * 2),
       TRow(336, sea * 9, hillyTaiga * 2, taiga),
-      TRow(334, sea * 8, mtain, hillyTaiga * 3),
-      TRow(332, sea * 3, Isle10(hilly), sea * 4, mtain, mtain, hillyTaiga, taiga * 2),
-      TRow(330, sea * 5, Isle10(hilly), sea * 2, mtain * 4, hillyTaiga),
-      TRow(328, sea * 6, sea * 3, mtain, hillyTaiga * 3),
+      TRow(334, sea * 8, mtainOld, hillyTaiga * 3),
+      TRow(332, sea * 3, Isle10(hilly), sea * 4, mtainOld, mtainOld, hillyTaiga, taiga * 2),
+      TRow(330, sea * 5, Isle10(hilly), sea * 2, mtainOld * 4, hillyTaiga),
+      TRow(328, sea * 6, sea * 3, mtainOld, hillyTaiga * 3),
       TRow(326, sea * 5, Isle10(hilly), sea * 3, hillyTaiga, hillyTaiga, taiga * 3),
       VRow(325, BendOut(530, HVDR)),
       TRow(324, sea * 3, level, hilly, sea * 4, hillyTaiga, hillyTaiga, sea, level * 2),
@@ -43,8 +43,8 @@ object Terr120E0 extends Long120Terrs
       TRow(306, sea * 8, Cape(5, 3), Cape(5, 1), level * 2, hilly * 6),
       VRow(305, MouthOld(512, HVDn)),
       TRow(304, sea * 6, level * 5, hilly * 4, level, hilly * 2),
-      TRow(302, sea * 6, Cape(3, 3), level * 4, hilly * 2, hillyForest, hilly * 2, mtain * 2),
-      TRow(300, sea * 8, level * 4, hilly * 2, mtain * 4, hilly),
+      TRow(302, sea * 6, Cape(3, 3), level * 4, hilly * 2, hillyForest, hilly * 2, mtainOld * 2),
+      TRow(300, sea * 8, level * 4, hilly * 2, mtainOld * 4, hilly),
     )
   }
   help.run
