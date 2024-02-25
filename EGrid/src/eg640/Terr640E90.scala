@@ -28,11 +28,16 @@ object Terr640E90 extends Long640Terrs
       TRow(108, hillySavannah, sea, Land(Hilly, Tropical), Land(Hilly, Tropical, Forest)),
       TRow(106, CapeOld(2, 1, savannah), sea * 2, hillyJungle, hillyJungle),
       VRow(105, MouthOld(3592, HVUL)),
-      TRow(104, CapeOld(2, 3, savannah), sea * 3, CapeOld(1, 2, hillyJungle)),
-      TRow(102, sea * 3, CapeOld(3, 2, hillyJungle)),
+      TRow(104, savannah, sea * 3, CapeOld(1, 2, hillyJungle)),
+      TRow(102, hillyJungle, sea * 2, CapeOld(3, 2, hillyJungle)),
       TRow(100, sea * 4, CapeOld(0, 2, hillyJungle)),
       TRow(98, sea * 4, CapeOld(1, 4, jungle))
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(104, "India south")
+    str(102, "Sri Lanka")
+  }
 }
