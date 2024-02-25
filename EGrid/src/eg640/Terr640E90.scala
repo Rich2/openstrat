@@ -29,6 +29,7 @@ object Terr640E90 extends Long640Terrs
       TRow(106, savannah, sea * 2, hillyJungle, hillyJungle),
       VRow(105, MouthOld(3592, HVUL)),
       TRow(104, savannah, sea * 3, CapeOld(1, 2, hillyJungle)),
+      VRow(103, BendIn(3574, HVUR), ThreeDown(3576, 6, 11, 0), ThreeUp(3578, 0, 11, 11), BendIn(3580, HVDL, 11)),
       TRow(102, hillyJungle, sea * 2, CapeOld(3, 2, hillyJungle)),
       VRow(101, BendIn(3576, HVUR, 9), BendIn(3578, HVUp, 9), BendIn(3580, HVUL, 9)),
       TRow(100, sea * 4, CapeOld(0, 2, hillyJungle)),
