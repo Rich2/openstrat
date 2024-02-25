@@ -88,10 +88,13 @@ object SouthAmericaEast extends EArea2("South America\neast", -10.04 ll -45.81, 
   val marajoMouth: LatLong = -0.430 ll -48.136
   val p10: LatLong = -2.34 ll -43.32
   val pedraFurada: LatLong = -2.784 ll -40.500
-  val paraiba: LatLong = -7.15 ll -34.82
+  val p25: LatLong = -5.152 ll -35.496
+  val caboBranco: LatLong = -7.146 ll -34.796
+  val paulista: LatLong = -7.918 ll -34.820
+  val p50 = -9.078 ll -35.245
   val p70: LatLong = -13.23 ll -38.94
   val jequitinhonhaMouth: LatLong = -15.84 ll -38.85
 
-  override val polygonLL: PolygonLL = PolygonLL(ColomVenez.northEast, nAmapa, amazonMouthS, marajoMouth, p10, pedraFurada, paraiba, p70, jequitinhonhaMouth,
-    SouthAmericaMiddle.sSAmericaNE, SouthAmericaMiddle.nwSAmericaES, ColomVenez.manus)
+  override val polygonLL: PolygonLL = PolygonLL(ColomVenez.northEast, nAmapa, amazonMouthS, marajoMouth, p10, pedraFurada, p25, caboBranco, paulista, p50, p70,
+    jequitinhonhaMouth, SouthAmericaMiddle.sSAmericaNE, SouthAmericaMiddle.nwSAmericaES, ColomVenez.manus)
 }
