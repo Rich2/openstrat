@@ -2,7 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1 megametre or 1000km. */
+/** [[WTile]] terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 1 megametre or 1000km.
+ * Isle4 41440.668km² => 68503.962km². SriLanka 65610 km² */
 object TerrMegaE90 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e90(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -20,9 +21,11 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(110, desert, hillyDesert),
       TRow(108, mtainOld * 2),
       TRow(106, jungle * 3),
-      VRow(105, MouthOld(3592, HVUL)),
+      VRow(105, BendMin(3582, HVDR), Mouth(3584, HVUR, 2, 4), MouthOld(3592, HVUL)),
       TRow(104, jungle, sea, jungle),
-      TRow(102, sea, sea, Cape(2, 1, hillyJungle)),
+      VRow(103, MouthRt(3578, HVUR), BendIn(3580, HVDR, 12), ThreeUp(3582, 0, 12, 13), BendIn(3584, HVDL, 12)),
+      TRow(102, hillyJungle, sea, hillyJungle),
+      VRow(101, BendIn(3578, HVUp, 13), ThreeUp(3580, 12, 0, 8), BendIn(3582, HVUp, 12), BendIn(3584, HVUL, 12)),
       TRow(100, sea * 2, Cape(4, 4, jungle)),
       VRow(99, BendOut(3588, HVDL)),
       TRow(98, sea * 2, Cape(1, 4, hillyJungle)),
@@ -31,4 +34,9 @@ object TerrMegaE90 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(102, "India south")
+    str(102, "Sri Lanka")
+  }
 }

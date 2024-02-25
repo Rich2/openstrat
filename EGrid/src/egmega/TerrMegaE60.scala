@@ -21,9 +21,11 @@ object TerrMegaE60 extends LongMegaTerrs
       TRow(108, hillyDesert * 2),
       VRow(107, MouthLt(2558, HVUL), BendIn(2560, HVDL, 6)),
       TRow(106, desert, mtainDesert, hillySavannah),
-      VRow(105, BendIn(2554, HVDL, 13), BendIn(2560, HVUR, 13)),
+      VRow(105, BendIn(2554, HVDL, 13), BendIn(2560, HVUR, 13), MouthRt(2562, HVDR, 7)),
       TRow(104, hillyDesert, sea * 2),
-      VRow(103, BendOut(2554, HVUR), BendIn(2556, HVUp, 13), MouthRt(2558, HVUR, 7)),
+      VRow(103, BendOut(2554, HVUR), BendIn(2556, HVUp, 13), MouthRt(2558, HVUR, 7), BendIn(2564, HVDR, 13), MouthRt(2566, HVUR), BendIn(2568, HVDR, 12)),
+      TRow(102, sea * 2, hillySavannah),
+      VRow(101, BendIn(2564, HVUR, 13), BendIn(2566, HVUp, 13), ThreeUp(2568, 12, 0, 8)),
       VRow(97, BendMouth(2554, HVDR, 6, 7), BendIn(2556, HVDn), BendIn(2558, HVDL, 13)),
       TRow(96, hillySavannah),
       VRow(95, BendIn(2554, HVUL, 13), BendIn(2556, HVDR), BendIn(2558, HVUL, 13)),
@@ -32,4 +34,8 @@ object TerrMegaE60 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(102, "" * 2, "Kerala")
+  }
 }
