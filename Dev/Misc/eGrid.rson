@@ -41,7 +41,7 @@ flat = false;
 33 = HGView(105, 4608; 23.5);//1Mm China-Japan 90°E - 150°E
 34 = HGView(108, 9728; 28);//1Mm North America 150°W - 60°W
 35 = HGView(105, 1536; 23.5);//1Mm Africa, Middle East, Europe 30°W - 60°E
-
+36 = HGView(106, 2564; 32);//1Mm India 60°E - 90°E
 37 = HGView(100, 11776; 35);//1Mm Atlantic 90°W - 0°E
 38 = HGView(110, 6656; 35);//1Mm Date Line 150°E - 150°E
 39 = HGView(105, 512; 23.5);//1Mm All Longitudes
