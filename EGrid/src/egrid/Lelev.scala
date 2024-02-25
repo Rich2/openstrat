@@ -21,7 +21,7 @@ object Lelev
 }
 
 /** Level ground with lakes. */
-case object LandLakes extends Lelev
+case object LevelLakes extends Lelev
 { override def str = "LandLakes"
   override def colour: Colour = Turquoise
 }

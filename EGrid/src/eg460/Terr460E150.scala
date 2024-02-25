@@ -17,7 +17,7 @@ object Terr460E150 extends Long460Terrs
       TRow(144, SeaIceWinter),
       TRow(142, SeaIceWinter),
       TRow(140, tundra, SeaIceWinter),
-      TRow(138, tundra, tundraLakes),
+      TRow(138, tundra, lakesTundra),
       TRow(136, mtainOld, hillyTaiga, mtainOld),
       VRow(135, MouthOld(5636, HVUp)),
       TRow(134, mtainOld, CapeOld(2, 1, mtainOld), mtainOld),

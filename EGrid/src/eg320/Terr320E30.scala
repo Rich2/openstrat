@@ -24,9 +24,9 @@ object Terr320E30 extends Long320Terrs
       VRow(153, MouthRt(1534, HVUp, 7), MouthMin(1538, HVDL, SeaIceWinter), BendIn(1540, HVDn, 13, SeaIceWinter), ThreeDown(1542, 3, 3, 3, SeaIceWinter),
         BendIn(1544, HVUL, 9, SeaIceWinter)),
 
-      TRow(152, taiga, taiga, taigaLakes, taiga),
+      TRow(152, taiga, taiga, lakesTaiga, taiga),
       VRow(151, BendOut(1532, HVDR, 7), BendIn(1534, HVUL, 13), MouthLt(1542, HVDn, 7, SeaIceWinter)),
-      TRow(150, taiga, taigaLakes * 3),
+      TRow(150, taiga, lakesTaiga * 3),
       VRow(149, BendOut(1530, HVDR, 7), BendIn(1532, HVUL, 13), MouthOld(1536, HVUL, 3, Lake), MouthOld(1538, HVDR, 3, Lake)),
       VRow(147, Bend(1528, HVDR, 13, 3), ThreeUp(1530, 13, 0, 10), BendIn(1532, HVUp, 13), MouthRt(1534, HVUR, 7)),
       TRow(148, taiga, taiga, taiga * 3),

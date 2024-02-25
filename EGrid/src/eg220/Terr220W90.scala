@@ -13,26 +13,26 @@ object Terr220W90 extends Long220Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(166, taigaLakes * 3, taiga * 2, sea * 2, taigaLakes),
+      TRow(166, lakesTaiga * 3, taiga * 2, sea * 2, lakesTaiga),
       VRow(165, MouthRt(9736, HVUL, 7),ThreeDown(9738, 0, 7, 7), BendOut(9740, HVUL, 7)),
-      TRow(164, taigaLakes * 3, taiga * 3, taiga * 2),
+      TRow(164, lakesTaiga * 3, taiga * 3, taiga * 2),
       VRow(163, MouthRt(9720, HVUp, 7, lake), Bend(9738, HVUR, 13, 6), Bend(9740, HVDL, 13, 4)),
-      TRow(162, taiga, taigaLakes, taiga, taigaLakes * 3, taiga, taigaLakes * 2),
+      TRow(162, taiga, lakesTaiga, taiga, lakesTaiga * 3, taiga, lakesTaiga * 2),
       VRow(161, BendIn(9718, HVDR, 6, lake), BendIn(9720, HVUL, 6, lake), Bend(9740, HVUR, 11, 7), MouthLt(9742, HVDR, 7)),
-      TRow(160, savannah, taigaLakes, taiga, taigaLakes * 3, taiga * 2, taigaLakes),
+      TRow(160, savannah, lakesTaiga, taiga, lakesTaiga * 3, taiga * 2, lakesTaiga),
       VRow(159, BendIn(9718, HVUR, 6, lake), MouthOld(9720, HVDR, 3, lake)),
-      TRow(158, savannah * 2, taigaLakes * 3, taiga * 3, taigaLakes),
-      TRow(156, savannah * 2, taiga, taigaLakes, hillyLakesTaiga, mtainLakesTaiga, hillyLakesTaiga * 2, taigaLakes, hillyLakesTaiga),
+      TRow(158, savannah * 2, lakesTaiga * 3, taiga * 3, lakesTaiga),
+      TRow(156, savannah * 2, taiga, lakesTaiga, hillyLakesTaiga, mtainLakesTaiga, hillyLakesTaiga * 2, lakesTaiga, hillyLakesTaiga),
 
       VRow(155, Mouth(9728, HVDL, 7, 3, lake), BendOut(9730, HVDn, 7, lake), Bend(9732, HVUp, 13, 6, lake), Bend(9734, HVDn, 9, 6, lake),
         MouthLt(9736, HVDR, 6, lake)),
 
-      TRow(154, savannah * 3, Land(LandLakes, Savannah, LandFree), taiga * 3, mtainLakesTaiga, hillyLakesTaiga, mtainLakesTaiga),
+      TRow(154, savannah * 3, Land(LevelLakes, Savannah, LandFree), taiga * 3, mtainLakesTaiga, hillyLakesTaiga, mtainLakesTaiga),
 
       VRow(153, MouthOld(9732, HVUL, 3, lake), BendIn(9734, HVDL, 13, lake), MouthOld(9736, HVUL, 3, lake), ThreeDown(9738, 6, 6, 6, lake),
         Bend(9740, HVDn, 8, 3, lake), MouthLt(9742, HVDR, 7, lake)),
 
-      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, forest, Land(LandLakes, Temperate, Forest) * 2),
+      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, forest, Land(LevelLakes, Temperate, Forest) * 2),
 
       VRow(151, Bend(9732, HVDR, 6, 7, lake), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), MouthLt(9740, HVDR, 7, lake),
         MouthOld(9744, HVDL, 3, lake), BendIn(9746, HVDn, 13, lake), MouthOld(9748, HVDR, 3, lake)),
