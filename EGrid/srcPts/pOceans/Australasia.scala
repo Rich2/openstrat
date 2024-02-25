@@ -47,7 +47,7 @@ object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
     nuytsland1, nuytsland2, windyHarbour)
 }
 /** [[polygonLL]] graphical representation of the North Ilsand of New Zealand. Depends on nothing. */
-object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, level)
+object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, plain)
 { val capeReinga: LatLong = -34.42 ll 172.68
   val teHapua: LatLong = -34.41 ll 173.05
   val aukland: LatLong = -36.83 ll 174.81
@@ -61,7 +61,7 @@ object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, level)
 }
 
 /** [[polygonLL]] graphical representation of the South Island of New Zealand. Depends on nothing. */
-object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, level)
+object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, plain)
 { val swNewZealand: LatLong = -45.98 ll 166.47
   val puponga: LatLong = -40.51 ll 172.72
   val capeCambell: LatLong = -41.73 ll 174.27

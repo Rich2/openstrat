@@ -15,20 +15,20 @@ object Lelev
   implicit lazy val showEv: ShowTell[Lelev] = ShowTellSimple[Lelev]("Lelev")
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Lelev]]. */
-  implicit lazy val unshowEV: UnshowSingletons[Lelev] = UnshowSingletons[Lelev]("Lelev", Level, Hilly, Mountains)
+  implicit lazy val unshowEV: UnshowSingletons[Lelev] = UnshowSingletons[Lelev]("Lelev", Plain, Hilly, Mountains)
 
   given CanEqual[Lelev, Lelev] = CanEqual.derived
 }
 
-/** Level ground with lakes. */
-case object LevelLakes extends Lelev
+/** Plain / flatland with lakes. */
+case object PlainLakes extends Lelev
 { override def str = "LandLakes"
   override def colour: Colour = Turquoise
 }
 
-/** Level ground. */
-case object Level extends Lelev
-{ override def str = "Level"
+/** Plain or flatland. */
+case object Plain extends Lelev
+{ override def str = "Plain"
   override def colour: Colour = White
 }
 

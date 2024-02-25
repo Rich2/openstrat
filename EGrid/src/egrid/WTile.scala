@@ -36,20 +36,20 @@ object WTile
 /** Object to provide short names for various [[WTile]] values. */
 object WTiles
 {
-  val lakesTundra: Land = Land(LevelLakes, Tundra, LandFree)
-  val lakesTaiga: Land = Land(LevelLakes, Boreal, Forest)
+  val lakesTundra: Land = Land(PlainLakes, Tundra, LandFree)
+  val lakesTaiga: Land = Land(PlainLakes, Boreal, Forest)
 
   /** Shorthand for [[IceCap]]. */
-  val ice: Land = Land(Level, IceCap, LandFree)
+  val ice: Land = Land(Plain, IceCap, LandFree)
 
-  val tundra: Land = Land(Level, Tundra, LandFree)
-  val taiga: Land = Land(Level, Boreal, Forest)
-  val level: Land = Land(Level, Temperate, CivMix)
-  val forest: Land = Land(Level, Temperate, Forest)
-  val savannah: Land = Land(Level, Savannah, CivMix)
-  val sahel: Land = Land(Level, Sahel, CivMix)
-  val desert: Land = Land(Level, Desert, LandFree)
-  val jungle: Land = Land(Level, Tropical, Forest)
+  val tundra: Land = Land(Plain, Tundra, LandFree)
+  val taiga: Land = Land(Plain, Boreal, Forest)
+  val plain: Land = Land(Plain, Temperate, CivMix)
+  val forest: Land = Land(Plain, Temperate, Forest)
+  val savannah: Land = Land(Plain, Savannah, CivMix)
+  val sahel: Land = Land(Plain, Sahel, CivMix)
+  val desert: Land = Land(Plain, Desert, LandFree)
+  val jungle: Land = Land(Plain, Tropical, Forest)
 
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
   val hillyTaiga: Land = Land(Hilly, Boreal, Forest)
@@ -58,6 +58,7 @@ object WTiles
   val hillyDesert: Land = Land(Hilly, Desert, LandFree)
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
+  val hillySubForest: Land = Land(Hilly, Subtropical, Forest)
   val hillyJungle: Land = Land(Hilly, Tropical, Forest)
 
   val hillyLakesTaiga: Land = Land(HillyLakes, Boreal, Forest)
@@ -75,7 +76,7 @@ object WTiles
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
-    ice, tundra, taiga, level, forest, savannah, sahel, desert, jungle,
+    ice, tundra, taiga, plain, forest, savannah, sahel, desert, jungle,
     hillyTundra, hillyTaiga, hilly, hillyForest, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
     mtainOld, mtainIce, mtainTundra, mtainTaiga, mtainSub, mtainDesert, mtainJungle)
 

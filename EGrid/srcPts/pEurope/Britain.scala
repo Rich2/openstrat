@@ -17,7 +17,7 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hilly)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
-object England extends EArea2("England", 52.73 ll -1.26, level)
+object England extends EArea2("England", 52.73 ll -1.26, plain)
 { val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
   val holbeach: LatLong = 52.89 ll 0.08
