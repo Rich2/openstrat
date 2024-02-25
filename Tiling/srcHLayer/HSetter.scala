@@ -472,12 +472,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST with HSepSome]
     def dirn: HVDirn
 
     override def setCorners(row: Int): Unit = dirn match
-    { case HVUR => corners.setBend4All(row + 1, c + 2, magIn, magOut)
-      case HVDR => corners.setBend5All(row - 1, c + 2, magIn, magOut)
-      case HVDn => corners.setBend0All(row - 1, c, magIn, magOut)
-      case HVDL => corners.setBend1All(row - 1, c - 2, magIn, magOut)
-      case HVUL => corners.setBend2All(row + 1, c - 2, magIn, magOut)
-      case HVUp => corners.setBend3All(row + 1, c, magIn, magOut)
+    { case HVUR => corners.setBend4(row + 1, c + 2, magIn, magOut)
+      case HVDR => corners.setBend5(row - 1, c + 2, magIn, magOut)
+      case HVDn => corners.setBend0(row - 1, c, magIn, magOut)
+      case HVDL => corners.setBend1(row - 1, c - 2, magIn, magOut)
+      case HVUL => corners.setBend2(row + 1, c - 2, magIn, magOut)
+      case HVUp => corners.setBend3(row + 1, c, magIn, magOut)
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
   }
