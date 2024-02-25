@@ -22,21 +22,21 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(112, taiga, hillyTaiga),
       TRow(110, savannah, hillyTaiga),
       VRow(109, MouthOld(4608, HVUL), BendIn(4612, HVUL), BendOut(4614, HVDR)),
-      TRow(108, Cape(1, 2), Cape(2, 4, hilly)),
-      TRow(106, Cape(2, 2, hillyJungle), sea * 2),
+      TRow(108, CapeOld(1, 2), CapeOld(2, 4, hilly)),
+      TRow(106, CapeOld(2, 2, hillyJungle), sea * 2),
       VRow(105, MouthOld(4604, HVUL)),
-      TRow(104, Cape(1, 2, jungle), Isle6(hillyJungle)),
+      TRow(104, CapeOld(1, 2, jungle), Isle6(hillyJungle)),
 
-      TRow(102, Cape(5, 4, hillyJungle), Isle8(hillyJungle), sea),
+      TRow(102, CapeOld(5, 4, hillyJungle), Isle8(hillyJungle), sea),
       VRow(101, MouthOld(4614, HVDL)),
-      TRow(100, Cape(4, 2, hillyJungle), Isle10(hillyJungle), sea),
+      TRow(100, CapeOld(4, 2, hillyJungle), Isle10(hillyJungle), sea),
       TRow(98, Isle6(hillyJungle)),
       VRow(97, SetSep(4603)),
       TRow(96, sea, sea, savannah),
       VRow(95, MouthOld(4606, HVUR)),
-      TRow(94, Cape(5, 1, desert), desert, sahel),
+      TRow(94, CapeOld(5, 1, desert), desert, sahel),
       VRow(93, BendIn(4604, HVUR), BendOut(4606, HVDL)),
-      TRow(92, Cape(3, 2, savannah), desert),
+      TRow(92, CapeOld(3, 2, savannah), desert),
       TRow(82, ice)
     )
   }

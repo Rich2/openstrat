@@ -21,12 +21,12 @@ object Terr13W120 extends Long13Terrs
       VRow(107, MouthRt(8702, HVDn, 7)),
       TRow(106, sea, hillyDesert),
       VRow(105, MouthLt(8704, HVUL, 7), BendOut(8706, HVDL)),
-      TRow(104, sea, Cape(3, 2, hillySahel)),
+      TRow(104, sea, CapeOld(3, 2, hillySahel)),
       VRow(103, MouthRt(8708, HVDR, 7)),
       VRow(91, BendIn(8708, HVDR, 13)),
       VRow(89, BendIn(8708, HVUR, 13)),
       VRow(87, MouthOld(8704, HVDL, 3, wice), MouthOld(8708, HVDR, 3, wice)),
-      TRow(86, Cape(0, 1, ice, wice))
+      TRow(86, CapeOld(0, 1, ice, wice))
     )
   }
   help.run

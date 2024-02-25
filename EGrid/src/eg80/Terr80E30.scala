@@ -15,9 +15,9 @@ object Terr80E30  extends Long80Terrs
   
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
-      TRow(556, Cape(1, 1, mtainOld), ice, Cape(2, 1, ice), sea * 4),
+      TRow(556, CapeOld(1, 1, mtainOld), ice, CapeOld(2, 1, ice), sea * 4),
       VRow(555, BendOut(1526, HVUR)),
-      TRow(554, Cape(1, 2, mtainOld), Cape(2, 3, ice), sea * 5),
+      TRow(554, CapeOld(1, 2, mtainOld), CapeOld(2, 3, ice), sea * 5),
       TRow(552, ice, sea * 7),
       TRow(550, mtainOld, sea * 7),
       TRow(548, mtainOld, sea * 8),
@@ -43,11 +43,11 @@ object Terr80E30  extends Long80Terrs
       TRow(494, taiga * 2, sea * 2, taiga * 6, Lake * 2, taiga * 8),
       TRow(492, taiga * 2, sea * 2, taiga, sea * 4, taiga * 11),
       TRow(490, taiga * 2, sea * 4, level * 15),
-      TRow(488, taiga, sea * 4, Cape(1, 2), level * 15),
-      TRow(486, level, sea * 4, Cape(2, 2), sea, level * 15),
-      TRow(484, level, sea, level, sea, Cape(5, 2), sea, level * 16),
-      TRow(482, level, sea * 3, Cape(5, 1), level * 17),
-      TRow(480, level, sea * 3, Cape(4, 2), level * 18),
+      TRow(488, taiga, sea * 4, CapeOld(1, 2), level * 15),
+      TRow(486, level, sea * 4, CapeOld(2, 2), sea, level * 15),
+      TRow(484, level, sea, level, sea, CapeOld(5, 2), sea, level * 16),
+      TRow(482, level, sea * 3, CapeOld(5, 1), level * 17),
+      TRow(480, level, sea * 3, CapeOld(4, 2), level * 18),
       TRow(478, sea * 4, level * 19),
       TRow(476, sea * 4, level * 19),
       TRow(474, sea, level * 23),
@@ -63,22 +63,22 @@ object Terr80E30  extends Long80Terrs
       TRow(454, level * 7, mtainOld * 2, hilly * 3, level * 15),
       TRow(452, mtainOld, level * 6, hilly, mtainOld * 2, hilly * 3, level * 15),
       VRow(451, MouthOld(1570, HVUR)),
-      TRow(450, hilly, level * 5, hilly * 3, mtainOld * 2, hilly * 3, level * 7, sea, Cape(5, 1), level * 5),
+      TRow(450, hilly, level * 5, hilly * 3, mtainOld * 2, hilly * 3, level * 7, sea, CapeOld(5, 1), level * 5),
       TRow(448, hilly, level, hilly, level * 3, hilly * 3, mtainOld, hilly, level * 3, sea * 2, level * 2, sea * 3, level * 7),
       TRow(446, hilly * 2, level * 4, mtainOld * 4, hilly * 1, level * 3, sea * 3, level * 2, sea * 2, level * 8),
       VRow(445, MouthOld(1562, HVUp)),
-      TRow(444, hilly * 3, level * 3, hilly * 4, level * 4, sea * 4, hilly * 2, Cape(2, 2), Cape(2, 3), level * 4, hilly, level * 2),
+      TRow(444, hilly * 3, level * 3, hilly * 4, level * 4, sea * 4, hilly * 2, CapeOld(2, 2), CapeOld(2, 3), level * 4, hilly, level * 2),
       VRow(433, MouthOld(1478, HVDL)),
       TRow(442, mtainOld * 3, hilly * 5, level * 5, sea * 9, mtainOld * 2, hilly * 2, level * 3),
       TRow(440, hilly, mtainOld * 4, hilly, mtainOld, level * 3, hilly * 2, level, sea * 11, mtainOld * 3, hilly, level * 2),
-      TRow(438, sea, Cape(3, 2, mtainOld), mtainOld * 4, hilly, mtainOld * 2, hilly * 4, sea * 13, mtainOld * 3, level),
-      TRow(436, Sea * 2, Cape(3, 2, mtainOld), mtainOld, hilly * 2, mtainOld * 2, hilly * 2, level * 2, sea * 14, level, hilly, mtainOld * 2),
+      TRow(438, sea, CapeOld(3, 2, mtainOld), mtainOld * 4, hilly, mtainOld * 2, hilly * 4, sea * 13, mtainOld * 3, level),
+      TRow(436, Sea * 2, CapeOld(3, 2, mtainOld), mtainOld, hilly * 2, mtainOld * 2, hilly * 2, level * 2, sea * 14, level, hilly, mtainOld * 2),
 
-      TRow(434, Cape(1, 2, hilly), sea * 3, hilly, mtainOld, hilly * 2, mtainOld, hilly * 2, level, hilly, sea * 4, hilly * 4, sea * 6, hilly, mtainOld,
+      TRow(434, CapeOld(1, 2, hilly), sea * 3, hilly, mtainOld, hilly * 2, mtainOld, hilly * 2, level, hilly, sea * 4, hilly * 4, sea * 6, hilly, mtainOld,
         hilly * 2),
 
       VRow(433, BendIn(1490, HVDR, 13)),
-      TRow(432, hilly, Cape(0, 2), sea * 2, hilly, mtainOld, hilly * 6, level * 2, hilly, hilly * 7, level, hilly * 8),
+      TRow(432, hilly, CapeOld(0, 2), sea * 2, hilly, mtainOld, hilly * 6, level * 2, hilly, hilly * 7, level, hilly * 8),
       VRow(431, MouthRt(1486, HVUL), ThreeDown(1488, 0, 13, 10), BendOut(1490, HVUL, 7)),
 
       TRow(430, hilly, savannah * 2, mtainOld, hilly, mtainOld, hilly, level, hilly * 2, sea, hilly, sea, hilly * 2, mtainOld * 5, hilly * 3, mtainOld * 4, hilly * 3,
@@ -94,12 +94,12 @@ object Terr80E30  extends Long80Terrs
       TRow(426, sea, hilly, sea * 3, hilly, mtainOld, level, hilly, sea * 3, hilly * 2, mtainOld, hilly * 2, desert, hillyDesert * 7, mtainOld * 2, hilly,
       hillyDesert * 2, mtainOld, hillyDesert),
 
-      TRow(424, Cape(5, 1, hilly), sea * 4, hilly, mtainOld, hilly * 2, sea * 3, hilly * 5, hillyDesert, desert * 2, hillyDesert * 6, mtainOld * 2, hillyDesert, lake,
+      TRow(424, CapeOld(5, 1, hilly), sea * 4, hilly, mtainOld, hilly * 2, sea * 3, hilly * 5, hillyDesert, desert * 2, hillyDesert * 6, mtainOld * 2, hillyDesert, lake,
       hillyDesert, mtainOld),
 
       VRow(423, BendAllOld(1500, HVUp)),
 
-      TRow(422, Cape(2, 4, mtainOld), sea * 4, Isle10(hilly), Cape(4, 3, hilly), Cape(0, 2, mtainOld), hilly * 2, sea * 2, hilly * 7, desert,
+      TRow(422, CapeOld(2, 4, mtainOld), sea * 4, Isle10(hilly), CapeOld(4, 3, hilly), CapeOld(0, 2, mtainOld), hilly * 2, sea * 2, hilly * 7, desert,
         hillyDesert, desert, mtainOld, hilly, hillyDesert, mtainOld, level * 2, hillyDesert, mtainOld * 2, hillyDesert),
 
       VRow(421, MouthOld(1504, HVDn)),
@@ -108,13 +108,13 @@ object Terr80E30  extends Long80Terrs
       mtainOld),
 
       VRow(419, SetSep(1471)),
-      TRow(418, SepB(), sea * 7, hilly, sea * 5, hilly * 5, mtainOld, hilly * 2, Cape(3, 1) * 2, hilly, desert * 2, level, desert * 3, hillyDesert * 2, mtainOld),
+      TRow(418, SepB(), sea * 7, hilly, sea * 5, hilly * 5, mtainOld, hilly * 2, CapeOld(3, 1) * 2, hilly, desert * 2, level, desert * 3, hillyDesert * 2, mtainOld),
       VRow(417, MouthOld(1564, HVUR)),
 
-      TRow(416, sea * 10, sea * 4, Isle10(hilly), sea, Cape(2, 3, mtainOld), sea * 2, Cape(3, 2, mtainOld), Cape(2, 2, mtainOld), sea * 2, hilly, level,
+      TRow(416, sea * 10, sea * 4, Isle10(hilly), sea, CapeOld(2, 3, mtainOld), sea * 2, CapeOld(3, 2, mtainOld), CapeOld(2, 2, mtainOld), sea * 2, hilly, level,
         desert * 7, hillyDesert),
 
-      TRow(414, sea * 9, hilly, sea * 10, Cape(5, 4, hilly), sea, hilly * 2, desert * 8, hillyDesert),
+      TRow(414, sea * 9, hilly, sea * 10, CapeOld(5, 4, hilly), sea, hilly * 2, desert * 8, hillyDesert),
       TRow(412, sea * 10, hilly * 2, sea * 7, hilly, level, sea * 2, hilly, desert * 10),
       TRow(410, sea * 11, sea * 12, hilly, hillyDesert, desert * 9),
     )

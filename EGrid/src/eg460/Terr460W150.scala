@@ -19,9 +19,9 @@ object Terr460W150 extends Long460Terrs
       TRow(140, SeaIceWinter * 2),
       TRow(138, SepB(), hillyTundra, mtainOld),
       TRow(136, hillyTaiga * 2, mtainOld),
-      TRow(134, hillyTaiga, Cape(3, 1, mtainOld), mtainOld),
+      TRow(134, hillyTaiga, CapeOld(3, 1, mtainOld), mtainOld),
       VRow(133, BendOut(7674, HVDL), BendAllOld(7678, HVDR), BendOut(7680, HVDn), MouthOld(7684, HVUR)),
-      TRow(132, Cape(2, 3, hillyTundra)),
+      TRow(132, CapeOld(2, 3, hillyTundra)),
       VRow(129, MouthLt(7688, HVUL, 7), BendOut(7690, HVDL)),
       TRow(112, sea, Isle6(mtainOld)),
     )

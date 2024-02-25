@@ -24,11 +24,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   object Isle10
   { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle10 = Isle10(Land(elev, biome, landUse), sTerr)
-
-    /** Used for setting part of an island of radius 10/16 of the full radius of a hex where or more of the [[HVert]]s need to be set independently due to
-     *  complications of neighbouring hexs. Uses the [[CapeBase]] trait for the implementation. */
-    def part(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(Level, Temperate, CivMix), sTerrs: Water = Sea): IslePart =
-      new IslePart(indentStartIndex, numIndentedVerts, 16 - 10, terr, sTerrs)
   }
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
   case class Isle9(terr: Land = Land(Level, Temperate, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle9Base
@@ -89,24 +84,15 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     /** Factory apply method for [[Isle3]]. Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an island, with a radius of 3/16 of the
      *  radius of the hex. */
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle3 = Isle3(Land(elev, biome, landUse), sTerr)
-
-    /** Used for setting part of an island of radius 3 where or more of the [[HVert]]s need to be set independantly due to complications of neighbouring hexs.
-     *  Uses the [[CapeBase]] trait for the implementation. */
-    def part(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(Level, Temperate, CivMix), sTerrs: Water = Sea): IslePart =
-      new IslePart(indentStartIndex, numIndentedVerts, 16 - 3, terr, sTerrs)
   }
 
-  /** Used for setting part of an island where or more of the [[HVert]]s need to be set independantly due to complications of neighbouring hexs. Uses the
-   * [[CapeBase]] trait for the implementation. */
-  class IslePart(val indentStartIndex: Int, val numIndentedVerts: Int, val magnitude: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
+  /** Deprecated Cape / headland / peninsula for [[WTile]]s. */
+  class CapeOld(val indentStartIndex: Int, val numIndentedVerts: Int, val magnitude: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
 
-  /** Cape / headland / peninsula for [[WTile]]s. */
-  class Cape(val indentStartIndex: Int, val numIndentedVerts: Int, val magnitude: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
-
-  object Cape
+  object CapeOld
   {
-    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(), sideTerrs: Water = Sea): Cape =
-      new Cape(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
+    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(), sideTerrs: Water = Sea): CapeOld =
+      new CapeOld(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
   }
 
   case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase

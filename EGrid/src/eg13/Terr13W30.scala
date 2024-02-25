@@ -36,7 +36,7 @@ object Terr13W30 extends Long13Terrs
       VRow(93, BendIn(11772, HVUL, 12), SetSep(11773)),
       VRow(91, BendIn(11774, HVUL, 13)),
       VRow(87, MouthOld(11776, HVDL, 3, wice), BendOut(11780, HVUp, 6, wice)),
-      TRow(86, Cape(0, 1, ice, wice))
+      TRow(86, CapeOld(0, 1, ice, wice))
     )
   }
   help.run

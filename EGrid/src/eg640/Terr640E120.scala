@@ -23,16 +23,16 @@ object Terr640E120 extends Long640Terrs
       TRow(120, mtainOld, hilly, hilly),
       TRow(118, desert, savannah, hilly),
       VRow(117, BendOut(4614, HVDR)),
-      TRow(116, hillySahel, hillySavannah, Cape(2, 1, hilly)),
-      TRow(114, hilly, level, sea, Cape(3, 3, hilly)),
+      TRow(116, hillySahel, hillySavannah, CapeOld(2, 1, hilly)),
+      TRow(114, hilly, level, sea, CapeOld(3, 3, hilly)),
       TRow(112, level, hilly, sea * 2),
       TRow(110, Land(Hilly, Savannah), hillySavannah, sea, sea),
       TRow(106, sea * 2, Isle10(hillyJungle)),
-      TRow(104, SepB(), Cape(1, 3, jungle), sea, Isle3(mtainOld), Isle10(hillyJungle)),
-      TRow(102, sea, Cape(0, 2, hillyJungle)),
-      TRow(100, Cape(3, 4, hillyJungle), jungle, Cape(4, 3, hillyJungle), sea, Cape(4, 4, hillyJungle)),
+      TRow(104, SepB(), CapeOld(1, 3, jungle), sea, Isle3(mtainOld), Isle10(hillyJungle)),
+      TRow(102, sea, CapeOld(0, 2, hillyJungle)),
+      TRow(100, CapeOld(3, 4, hillyJungle), jungle, CapeOld(4, 3, hillyJungle), sea, CapeOld(4, 4, hillyJungle)),
       VRow(99, MouthOld(4618, HVDn)),
-      TRow(98, Cape(4, 4, hillyJungle), sea, Cape(1, 4, hillyJungle), sea, Cape(3, 2, hillyJungle)),
+      TRow(98, CapeOld(4, 4, hillyJungle), sea, CapeOld(1, 4, hillyJungle), sea, CapeOld(3, 2, hillyJungle)),
     )
   }
   help.run
