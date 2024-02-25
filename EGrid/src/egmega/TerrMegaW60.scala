@@ -20,7 +20,7 @@ object TerrMegaW60 extends LongMegaTerrs
       VRow(109, MouthOld(10748, HVUL)),
       TRow(108, SepB(), sea * 2),
 
-      TRow(102, jungle, sea * 2),
+      TRow(102, jungle, hillyJungle, sea),
       TRow(100, jungle * 2, jungle),
       TRow(98, jungle * 2, jungle),
       TRow(96, hillySavannah, Land(Level, Tropical, CivMix), jungle),
