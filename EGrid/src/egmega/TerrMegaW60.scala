@@ -2,7 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 75° west to 45° west, centred on 60° west. Hex tile scale 1 Megametre or 1000km. */
+/** [[WTile]] terrain for 75° west to 45° west, centred on 60° west. Hex tile scale 1 Megametre or 1000km.
+ * Isle5 68503.962km² => 102333.079km². Hispaniola 76,192 km². */
 object TerrMegaW60 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.w60(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -19,7 +20,7 @@ object TerrMegaW60 extends LongMegaTerrs
       TRow(112, CapeOld(2, 2,taiga), sea),
       VRow(109, MouthOld(10748, HVUL)),
       TRow(108, SepB(), sea * 2),
-
+      TRow(104, hillyJungle),
       TRow(102, jungle, hillyJungle, sea),
       TRow(100, jungle * 2, jungle),
       TRow(98, jungle * 2, jungle),

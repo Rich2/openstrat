@@ -29,9 +29,9 @@ object TerrMegaW30 extends LongMegaTerrs
       TRow(100, hillySavannah),
       VRow(99, BendOut(11774, HVUR, 7), BendIn(11776, HVDL, 13)),
       TRow(98, hillySavannah),
-      VRow(97, BendOut(11774, HVDR)),
+      VRow(97, BendOut(11774, HVDR, 7), BendIn(11776, HVUL, 13)),
       TRow(96, hillyJungle),
-      VRow(95, BendAllOld(11772, HVDR)),
+      //VRow(95, BendAllOld(11772, HVDR)),
       VRow(93, BendOut(11772, HVDR), SetSep(11773)),
       VRow(91, SetSep(11773)),
       TRow(82, ice)
