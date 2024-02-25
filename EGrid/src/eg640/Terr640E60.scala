@@ -33,7 +33,7 @@ object Terr640E60 extends Long640Terrs
       TRow(106, desert, sea * 3, savannah),
       VRow(105, Bend(2550, HVUp, 4, 6), Bend(2552, HVDn, 10, 4), BendIn(2554, HVUp, 13), MouthRt(2556, HVUR, 7)),
       TRow(104, desert),
-      VRow(101, MouthOld(2550, HVUp)),
+      VRow(101, MouthOld(2550, HVUp), BendIn(2572, HVUR, 9)),
       VRow(97, BendIn(2550, HVDL, 13)),
       VRow(95, BendIn(2550, HVUL, 13)),
     )
