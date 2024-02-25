@@ -3,7 +3,7 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 460km.
- * Isle10 120974.276km² <= 57981.753km² Sri Lanka */
+ * Isle10 57981.753km² => 120974.276km². Sri Lanka 65610km². */
 object Terr460E90 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e90(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)

@@ -7,7 +7,7 @@ import prid.phex._, egrid._
  *  [[Isle10]] 125054.068km² => 234173.269km². Honshu, Victoria Island, Great Britain, Ellesmere Island, Sulawesi, South Island(NZ), Java.
  *  [[Isle9]] 100112.536km² => 125054.068km².
  *  [[Isle8]] 77942.286km² => 100112.536km².
- *  [[Isle7]] 58543.317km² => 77942.286km²
+ *  [[Isle7]] 58543.317km² => 77942.286km².
  *  [[Isle6]] 41915.629km² => 58543.317km².
  *  [[Isle5]] 28059.223km² => 41915.629km².
  *  [[Isle4]] 16974.097km² => 28059.223km².
