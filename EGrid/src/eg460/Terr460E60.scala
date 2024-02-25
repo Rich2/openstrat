@@ -48,7 +48,7 @@ object Terr460E60 extends Long460Terrs
       TRow(110, desert, hillyDesert),
       VRow(109, BendOut(2554, HVDR), MouthRt(2556, HVUR)),
       TRow(108, mtainOld, mtainOld),
-      VRow(107, BendAllOld(2548, HVUp, sea, 7), BendAllOld(2550, HVDn, sea, 7), BendIn(2552, HVUp, 13), BendIn(2554, HVUL, 13)),
+      VRow(107, BendIn(2546, HVDn, 13), Bend(2548, HVUp, 12, 7), Bend(2550, HVDn, 10, 7), BendIn(2552, HVUp, 13), BendIn(2554, HVUL, 13)),
       TRow(106, hillyDesert),
       TRow(104, desert),
       VRow(101, BendOut(2546, HVDR), MouthRt(2548, HVUR)),
