@@ -4,14 +4,14 @@ import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 1 megametre, a C scale of 250km. A hex tile area of 866025.403 km².
  * Maximum Isle area 571712.082km² which excludes New Guinea, Borneo, Madagascar.
- * Isle10 305307.783km² => 571712.082km². Baffin Island, Sumatra,
- * Isle9 244415.372km² => 305307.783km².
+ * [[Isle10]] 305307.783km² => 571712.082km². Baffin Island, Sumatra,
+ * [[Isle9]] 244415.372km² => 305307.783km².
  * [[Isle8]] 190288.785km² => 244415.372km². Includes New Zealand combined 268,021 km², Honshu, Victoria Island, Great Britain, Ellesmere Island.
- * Isle7 142928.020km² => 190288.785km². Sulawesi, South Island(NZ)
+ * [[Isle7]] 142928.020km² => 190288.785km². Sulawesi, South Island(NZ)
  * [[Isle6]] 102333.079km² => 142928.020km². Java, North Island(NZ), Luzon or Cuba.
- * Isle5 68503.962km² => 102333.079km².
- * Isle4 41440.668km² => 68503.962km².
- * Isle3 21143.198km² => 41440.668km². */
+ * [[Isle5]] 68503.962km² => 102333.079km².
+ * [[Isle4]] 41440.668km² => 68503.962km².
+ * [[Isle3]] 21143.198km² => 41440.668km². */
 package object egmega
 {
   val fullTerrs: RArr[LongMegaTerrs] = RArr(TerrMegaE0, TerrMegaE30, TerrMegaE60, TerrMegaE90, TerrMegaE120, TerrMegaE150,TerrMegaE180, TerrMegaW150,

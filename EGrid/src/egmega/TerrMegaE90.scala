@@ -39,7 +39,7 @@ object TerrMegaE90 extends LongMegaTerrs
   help.run
 
   { import hexNames.{ setRow => str}
-    str(102, "India south")
+    str(104, "India south")
     str(102, "Sri Lanka")
   }
 }
