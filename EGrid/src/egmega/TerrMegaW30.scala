@@ -3,6 +3,7 @@ package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 1000km.
+ * Isle6 102333.079km² => 142928.020km². Iceland 103125km².
  * Isle3 21143.198km² => 21143.198km².
  * Below min 21143.198km². Canaries 7492 km². */
 object TerrMegaW30 extends LongMegaTerrs
