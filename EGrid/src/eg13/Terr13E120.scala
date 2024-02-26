@@ -29,11 +29,14 @@ object Terr13E120 extends Long13Terrs
       TRow(100, SepB(), hillyJungle, SepB(), hillyJungle),
       VRow(99, BendIn(4604, HVDR), ThreeUp(4606, 1, 7, 6), BendAllOld(4608, HVUp), ThreeUp(4610, 7, 7, 7), BendOut(4612, HVDL), MouthOld(4614, HVDn)),
       TRow(98, hillyJungle * 2),
-      VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 7, 7, 0), BendAllOld(4608, HVDn), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13)),
+
+      VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 7, 7, 0), BendAllOld(4608, HVDn), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
+        BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
+
       TRow(96, SepB(), desert, sahel),
       VRow(95, BendIn(4604, HVDR, 13), BendOut(4606, HVUL)),
       TRow(94, savannah, desert),
-      VRow(93, BendIn(4604, HVUR, 13), MouthRt(4606, HVDR, 7)),// MouthWestRt(4606, 7)),
+      VRow(93, BendIn(4604, HVUR, 13), MouthRt(4606, HVDR, 7)),
       VRow(87, MouthOld(4612, HVDL, 3, wice)),
       TRow(86, ice)
     )
