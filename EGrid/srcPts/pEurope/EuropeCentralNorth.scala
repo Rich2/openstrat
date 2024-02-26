@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** Displays Netherlands depends on [[BelgLux]]. */
-object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, temperate)
+object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, oceanic)
 { val rootunmerroog = 53.539 ll 6.604
   val eemshaven: LatLong = 53.439 ll 6.881
 
@@ -22,7 +22,7 @@ object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, temperate)
 }
 
 /** Displays roughly Germany on map. Depends on [[Alsace]], [[Frankia]] and [[BelgLux]]. */
-object Germania extends EArea2("Germania", 50.50 ll 11.11, temperate)
+object Germania extends EArea2("Germania", 50.50 ll 11.11, oceanic)
 { val p80: LatLong = 53.506 ll 7.048
   val borkum = 53.594 ll 6.641
   val cuxhaven: LatLong = 53.88 ll 8.66

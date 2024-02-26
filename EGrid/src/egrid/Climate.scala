@@ -13,7 +13,7 @@ object Climate
   implicit lazy val showEv: ShowTell[Climate] = ShowTellSimple[Climate]("Climate")
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Climate]]. */
-  implicit lazy val unshowEv: UnshowSingletons[Climate] = UnshowSingletons[Climate]("Climate", Temperate, Desert, Sahel, Savannah, Boreal, Tundra, Tropical)
+  implicit lazy val unshowEv: UnshowSingletons[Climate] = UnshowSingletons[Climate]("Climate", Oceanic, DesertHot, Sahel, Savannah, Boreal, Tundra, Tropical)
 
   given CanEqual[Climate, Climate] = CanEqual.derived
 }
@@ -23,7 +23,6 @@ case object IceCap extends Climate
 { override def str: String = "IceCap"
   override def colour: Colour = White
 }
-
 
 /** Trewartha Ft Tundra climate classification. Too cold and dry for [[Forest]] */
 case object Tundra extends Climate
@@ -38,28 +37,37 @@ case object Boreal extends Climate
   override def colour: Colour = DarkCyan
 }
 
+/** Köppen BW desert climate classification. */
+trait Desert extends Climate
+
 /** Köppen BWk cold desert climate classification. Average annual temperature less than 18°C. */
-case object DesertCold extends Climate
+case object DesertCold extends Desert
 { override def str: String = "DesertCold"
   override def colour: Colour = LemonChiffon
 }
 
+/** Trewartha D Temperate classification. */
+trait Temperate extends Climate
+
 /** Trewartha Dc Temperate Continental classification. No intense dry season. The coldest monthly mean temperature reaches below 0 °C. */
-case object Continental extends Climate
+case object Continental extends Temperate
 { def colour: Colour = LightGreen
   override def str: String = "Continental"
 }
 
+/** Köppen BSk. Trewartha Bs. Dry Semi-Arid climate classification. */
+trait SemiArid extends Climate
+
 /** Köppen BSk Dry Semi-Arid Cold climate classification. Assumes a northern latitude with a significantly colder northern winter. */
-case object Steppe extends Climate
+case object Steppe extends SemiArid
 { override def str: String = "Steppe"
   override def colour: Colour = YellowGreen
 }
 
 /** Trewartha Do Temperate oceanic climate classification. No intense dry season. The coldest monthly mean temperature reaches is not below 0 °C. */
-case object Temperate extends Climate
+case object Oceanic extends Temperate
 { def colour: Colour = LightGreen
-  override def str: String = "Temperate"
+  override def str: String = "Oceanic"
 }
 
 /** Trewartha C Subtropical climate classification. No intense dry season. Category may be split up later. */
@@ -69,7 +77,7 @@ case object Subtropical extends Climate
 }
 
 /** Köppen BWh hot desert climate classification. Average annual temperature above 18°C. */
-case object Desert extends Climate
+case object DesertHot extends Desert
 { override def str: String = "Desert"
   override def colour: Colour = LemonChiffon
 }
@@ -82,7 +90,7 @@ case object Sahel extends Climate
 
 
 /** Köppen BSh Dry Semi-Arid hot climate classification. */
-case object Savannah extends Climate
+case object Savannah extends SemiArid
 { override def str: String = "Savannah"
   override def colour: Colour = YellowGreen
 }

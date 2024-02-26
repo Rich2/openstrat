@@ -3,7 +3,7 @@ package ostrat; package pEarth; package middleEast
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Kurdistan depends on [[Anatolia]]. */
-object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, hillyTemp)
+object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, hillyOce)
 { val p70: LatLong = 41.10 ll 39.42
   val yorosBurnu: LatLong = 41.107 ll 39.419
   val surmene: LatLong = 40.91 ll 40.12
@@ -15,7 +15,7 @@ object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, hillyTemp)
 }
 
 /** [[PolygonLL]] graphic for the Caucasus, depends on [[Kurdistan]] and [[pEurope.Ukraine]]. */
-object Armenia extends EArea2("Armenia", 40.0 ll 45.0, hillyTemp)
+object Armenia extends EArea2("Armenia", 40.0 ll 45.0, hillyOce)
 {
   val baku: LatLong = 40.44 ll 50.21
   val sangachal: LatLong = 40.18 ll 49.47
@@ -50,7 +50,7 @@ object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, Lake)
 }
 
 /** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
-object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyTemp)
+object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
 { val northEast: LatLong = 41.27 ll 37.01
   val yukanbumaz: LatLong = 36.94 ll 36.04
   val p10: LatLong = 36.54 ll 35.34
@@ -103,7 +103,7 @@ object Iraq extends EArea2("Iraq", 34.0 ll 44.5, desert)
 }
 
 /** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
-object Persia extends EArea2("Persia", 32.4 ll 60, hillyTemp)
+object Persia extends EArea2("Persia", 32.4 ll 60, hillyOce)
 { /** 38.86N */
   //val persiaN = 38.86.north
 

@@ -48,30 +48,36 @@ object WTiles
   /** [[Plain]] [[Steppe]] [[LandFree]] */
   val steppe: Land = Land(Plain, Steppe, LandFree)
 
-  /** [[Plain]] [[Temperate]] [[CivMix]] */
-  val temperate: Land = Land(Plain, Temperate, CivMix)
+  /** [[Plain]] [[Oceanic]] [[CivMix]] */
+  val oceanic: Land = Land(Plain, Oceanic, CivMix)
 
-  /** [[Plain]] [[Temperate]] [[Forest]] */
-  val tempForest: Land = Land(Plain, Temperate, Forest)
+  /** [[Plain]] [[Oceanic]] [[Forest]] */
+  val oceForest: Land = Land(Plain, Oceanic, Forest)
+
+  /** [[Plain]] [[Subtropical]] [[CivMix]] */
+  val subtrop: Land = Land(Plain, Subtropical, CivMix)
 
   val savannah: Land = Land(Plain, Savannah, CivMix)
   val sahel: Land = Land(Plain, Sahel, CivMix)
-  val desert: Land = Land(Plain, Desert, LandFree)
+  val desert: Land = Land(Plain, DesertHot, LandFree)
   val jungle: Land = Land(Plain, Tropical, Forest)
 
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
   val hillyTaiga: Land = Land(Hilly, Boreal, Forest)
 
+  /** [[Hilly]] [[Continental]] [[CivMix]] */
+  val hillyCont: Land = Land(Hilly, Continental, CivMix)
+
   /** [[Hilly]] [[Continental]] [[Forest]] */
   val hillyContForest: Land = Land(Hilly, Continental, Forest)
 
-  /** [[Hilly]] [[Temperate]] [[CivMix]] */
-  val hillyTemp: Land = Land(Hilly, Temperate, CivMix)
+  /** [[Hilly]] [[Oceanic]] [[CivMix]] */
+  val hillyOce: Land = Land(Hilly, Oceanic, CivMix)
 
-  /** [[Hilly]] [[Temperate]] [[Forest]] */
-  val hillyTempForest: Land = Land(Hilly, Temperate, Forest)
+  /** [[Hilly]] [[Oceanic]] [[Forest]] */
+  val hillyOceForest: Land = Land(Hilly, Oceanic, Forest)
 
-  val hillyDesert: Land = Land(Hilly, Desert, LandFree)
+  val hillyDesert: Land = Land(Hilly, DesertHot, LandFree)
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
   val hillySubForest: Land = Land(Hilly, Subtropical, Forest)
@@ -86,14 +92,14 @@ object WTiles
   val mtainTundra: Land = Land(Mountains, Tundra, LandFree)
   val mtainTaiga: Land = Land(Mountains, Boreal, Forest)
   val mtainSub: Land = Land(Mountains, Subtropical, Forest)
-  val mtainDesert: Land = Land(Mountains, Desert, LandFree)
+  val mtainDesert: Land = Land(Mountains, DesertHot, LandFree)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
   val mtainLakesTaiga: Land = Land(MountLakes, Boreal, Forest)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
-    ice, tundra, taiga, steppe, temperate, tempForest, savannah, sahel, desert, jungle,
-    hillyTundra, hillyTaiga, hillyContForest, hillyTemp, hillyTempForest, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
+    ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, desert, jungle,
+    hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
     mtainOld, mtainIce, mtainTundra, mtainTaiga, mtainSub, mtainDesert, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */

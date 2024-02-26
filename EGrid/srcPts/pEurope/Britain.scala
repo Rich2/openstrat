@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of Wales. Depends on nothing. */
-object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyTemp)
+object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
 { val liverpool: LatLong = 53.44 ll -3.02
   val chepstow: LatLong = 51.61 ll -2.68
   val nashPoint: LatLong = 51.40 ll -3.56
@@ -17,7 +17,7 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyTemp)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
-object England extends EArea2("England", 52.73 ll -1.26, temperate)
+object England extends EArea2("England", 52.73 ll -1.26, oceanic)
 { val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
   val holbeach: LatLong = 52.89 ll 0.08

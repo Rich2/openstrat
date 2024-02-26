@@ -15,7 +15,7 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   override def show2: Show[Climate] = Climate.showEv
   override def show3: Show[LandUse] = LandUse.showEv
   override def opt1: Option[Lelev] = Some(Plain)
-  override def opt2: Option[Climate] = Some(Temperate)
+  override def opt2: Option[Climate] = Some(Oceanic)
   override def opt3: Option[LandUse] = Some(CivMix)
   override def tellDepth: Int = 2
 
@@ -43,12 +43,11 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
 /** Companion object for [[Land]], contains factory apply method and type class instance for [[Show]], [[Unshow]] and [[EqT]], */
 object Land
 { /** Factory apply method for [[Land]] objects. */
-  def apply(elev: Lelev = Plain, biome: Climate = Temperate, landUse: LandUse = CivMix): Land = new Land(elev, biome, landUse)
+  def apply(elev: Lelev, climate: Climate, landUse: LandUse = CivMix): Land = new Land(elev, climate, landUse)
 
   /** Implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Land]]. */
   implicit lazy val persistEv: Persist3Both[Lelev, Climate, LandUse, Land] =
-    Persist3Both.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate", _.climate, "use", _.landUse, WTiles.landWords, apply,
-    Some(CivMix),  Some(Temperate), Some(Plain))
+    Persist3Both.shorts[Lelev, Climate, LandUse, Land]("Land", "elev", _.elev, "climate", _.climate, "use", _.landUse, WTiles.landWords, apply, Some(CivMix))
 
   /** Implicit [[EqT]] type class instance / evidence for [[Land]]. */
   implicit val eqEv: EqT[Land] = (a1, a2) => a1.elev == a2.elev && a1.climate == a1.climate && a1.landUse == a2.landUse

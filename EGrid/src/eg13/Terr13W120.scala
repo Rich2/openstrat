@@ -17,7 +17,7 @@ object Terr13W120 extends Long13Terrs
       TRow(112, mtainOld),
       TRow(110, hillyTaiga),
       VRow(109, MouthLt(8702, HVUp, 7)),
-      TRow(108, hillyTempForest),
+      TRow(108, hillyOceForest),
       VRow(107, MouthRt(8702, HVDn, 7)),
       TRow(106, sea, hillyDesert),
       VRow(105, MouthLt(8704, HVUL, 7), BendOut(8706, HVDL)),

@@ -63,7 +63,7 @@ object PeriScen
       val j = rand.nextInt(i + 1)
       val jLands = lands(j)
       val armyNum = jLands.a2.climate match{
-        case Desert | Tundra => 1
+        case DesertHot | Tundra => 1
         case Boreal | Tropical => 2
         case _ => 3
       }

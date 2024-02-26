@@ -19,7 +19,7 @@ object Terr160W30 extends Long160Terrs
       TRow(312, ice * 5, sea * 2),
       TRow(310, ice * 4, sea * 3),
       TRow(308, ice * 3, sea * 5),
-      TRow(306, ice * 2, sea * 4, hillyTemp * 2),
+      TRow(306, ice * 2, sea * 4, hillyOce * 2),
       TRow(304, ice, sea * 4, tundra * 3),
       TRow(302, ice, sea * 5, tundra * 3),
       TRow(300, tundra, sea * 8),

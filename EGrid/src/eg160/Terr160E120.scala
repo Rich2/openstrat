@@ -13,17 +13,17 @@ object Terr160E120 extends Long160Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rowDatas: RArr[RowBase] = RArr(
-      TRow(272, desert * 3, hillyDesert * 3, hillyTemp, desert, temperate * 2, hillyTemp * 2, temperate, hillyTempForest),
-      TRow(270, temperate * 14, sea),
-      TRow(268, temperate * 13, sea * 2),
-      TRow(266, temperate * 12, sea * 3),
-      TRow(264, temperate * 12, sea * 3),
-      TRow(262, temperate * 7, sea * 4, hillyTemp * 2, sea * 3),
-      TRow(260, temperate * 9, sea, hillyTemp * 3, sea * 3),
-      TRow(258, temperate * 9, sea * 2, hillyTemp * 2, sea * 3),
-      TRow(256, temperate * 8, sea * 4, hillyTemp * 2, sea, hillyTemp * 2),
-      TRow(254, temperate * 8, sea * 6, hillyTemp * 3),
-      TRow(252, temperate * 9, sea * 5, hillyTemp * 2, sea),
+      TRow(272, desert * 3, hillyDesert * 3, hillyOce, desert, oceanic * 2, hillyOce * 2, oceanic, hillyOceForest),
+      TRow(270, oceanic * 14, sea),
+      TRow(268, oceanic * 13, sea * 2),
+      TRow(266, oceanic * 12, sea * 3),
+      TRow(264, oceanic * 12, sea * 3),
+      TRow(262, oceanic * 7, sea * 4, hillyOce * 2, sea * 3),
+      TRow(260, oceanic * 9, sea, hillyOce * 3, sea * 3),
+      TRow(258, oceanic * 9, sea * 2, hillyOce * 2, sea * 3),
+      TRow(256, oceanic * 8, sea * 4, hillyOce * 2, sea, hillyOce * 2),
+      TRow(254, oceanic * 8, sea * 6, hillyOce * 3),
+      TRow(252, oceanic * 9, sea * 5, hillyOce * 2, sea),
     )
   }
   help.run

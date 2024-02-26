@@ -32,7 +32,7 @@ object Terr320W60 extends Long320Terrs
       TRow(138, taiga * 2, sea, CapeOld(3, 3, taiga), CapeOld(1, 3, taiga), sea * 2),
       TRow(136, hillyTaiga, taiga, taiga, CapeOld(0, 4, taiga), sea * 3),
       VRow(135, MouthOld(10738, HVUR, 3, Lake)),
-      TRow(134, CapeOld(2, 2, hillyTempForest), sea * 6),
+      TRow(134, CapeOld(2, 2, hillyOceForest), sea * 6),
       TRow(132, sea * 7),
     )
   }

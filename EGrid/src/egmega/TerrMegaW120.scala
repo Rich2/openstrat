@@ -21,7 +21,7 @@ object TerrMegaW120 extends LongMegaTerrs
       TRow(110, sea, hillySahel),
       TRow(108, sea, hillySahel),
 
-      TRow(106, sea * 2, hillyTemp),
+      TRow(106, sea * 2, hillyOce),
       VRow(105, MouthOld(8708, HVUL), BendOut(8710, HVDL)),
     )
   }

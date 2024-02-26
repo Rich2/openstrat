@@ -7,7 +7,7 @@ trait Lelev extends TellSimple with Coloured
 { override def typeStr: String = "Lelev"
 
   /** Apply method for land from this [[Lelev]]. */
-  def apply(biome: Climate = Temperate, landUse: LandUse = LandFree): Land = Land(this, biome, landUse)
+  def apply(biome: Climate = Oceanic, landUse: LandUse = LandFree): Land = Land(this, biome, landUse)
 }
 
 object Lelev

@@ -77,7 +77,7 @@ object UsaPrariesSouth extends EArea2("Uunited States Praries\nsouth", 35 ll -97
 }
 
 /** [[PolygonLL]] graphical representation for Baja. Depends on nothing. */
-object Baja extends EArea2("Baja", 27.80 ll -113.31, temperate)
+object Baja extends EArea2("Baja", 27.80 ll -113.31, oceanic)
 { val coloradoMouthWest: LatLong = 31.76 ll -114.82
   val cabotPulmo: LatLong = 23.37 ll -109.44
   val sanLucas: LatLong = 22.87 ll -109.91

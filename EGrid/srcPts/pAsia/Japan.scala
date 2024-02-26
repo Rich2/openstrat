@@ -13,7 +13,7 @@ object sakhalin extends EArea2("Sakhalin", 50.94 ll 142.90, taiga)
   override val polygonLL = PolygonLL(sakhalinN, sakhalinW, poronayask, sakhalinS, pogibi, sakhalinNE)
 }
 
-object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hillyTemp)
+object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hillyOce)
 { val north = 45.5 ll 141.93
   val p10 = 44.34 ll 145.33
   val east = 43.36 ll 145.74
@@ -24,7 +24,7 @@ object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hillyTemp)
   override val polygonLL = PolygonLL(north, p10, east, southEast, capeChikyu, south, p90)
 }
 
-object Honshu extends EArea2("Honshu", 36.28 ll 138.71, hillyTemp)
+object Honshu extends EArea2("Honshu", 36.28 ll 138.71, hillyOce)
 { val oma = 41.49 ll 140.94
   val p5 = 41.43 ll 141.46
   val p10 = 39.55 ll 142.06
@@ -56,7 +56,7 @@ object Honshu extends EArea2("Honshu", 36.28 ll 138.71, hillyTemp)
   override val polygonLL = PolygonLL(oma, p5, p10, p15, naruseMouth, takaseMouth, p16, choshi, p18, p22, p24, p25, capeKute, capeAhizuri, p45, p60, p65, p68, p70, p72, kashiwazaki, p85, p90, capeTappi)
 }
 
-object Kyshu extends EArea2("Kyushu", 32.80 ll 131.02, hillyTemp)
+object Kyshu extends EArea2("Kyushu", 32.80 ll 131.02, hillyOce)
 { val north = 33.95 ll 130.83
   val northWest = 33.69 ll 131.59
   val sKyshu = 31.08 ll 130.75

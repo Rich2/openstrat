@@ -21,7 +21,7 @@ object Terr13E180 extends Long13Terrs
       TRow(112, hillyTundra),
       VRow(111, BendOut(6656, HVDR, 7, SeaIceWinter), BendIn(6658, HVUL, 13, SeaIceWinter)),
       VRow(109, ThreeDown(6654, 13, 0, 8), BendIn(6656, HVUL, 13, SeaIceWinter, sea)),
-      TRow(92, Isle10(hillyTemp)),
+      TRow(92, Isle10(hillyOce)),
       VRow(87, MouthOld(6656, HVDR, 3, wice)),
       TRow(86, wice)
     )
