@@ -100,19 +100,19 @@ object WTiles
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
     ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, desert, jungle,
     hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
-    mtainOld, mtainIce, mtainTundra, mtainTaiga, mtainSub, mtainDesert, mtainJungle)
+    mtainIce, mtainTundra, mtainTaiga, mtainSub, mtainDesert, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
 
   /** Short hand for [[SeaIceWinter]]. */
-  val wice: Water = SeaIceWinter
+  val siceWin: Water = SeaIceWinter
 
   val sea: Water = Sea
   val lake: Water = Lake
 
   /** Sequence of short hand words for [[Water]]. */
-  lazy val waterWords: ArrPairStr[Water] = ArrPairStr[Water](("sea", sea), ("lake", lake), ("wice,", wice))
+  lazy val waterWords: ArrPairStr[Water] = ArrPairStr[Water](("sea", sea), ("lake", lake), ("wice,", siceWin))
 }
 
 /** A common trait for Ocean and Lake. */

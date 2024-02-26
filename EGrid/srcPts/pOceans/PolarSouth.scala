@@ -61,7 +61,7 @@ object AntarticaWest extends EArea2("Antartica\nWest", -80 ll -100, ice)
 }
 
 /** [[polygonLL]] graphical representation of Weddel Sea seasonal ice. Depends on [[AntarticaEast]] and [[AntarticaWest]]. */
-object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, wice)
+object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, siceWin)
 { val northWest: LatLong = -63 ll AntarticaWest.joinvilleEast.longDegs
   val ow50: LatLong = -63 ll -50
   val ow40: LatLong = -63 ll -40
@@ -74,7 +74,7 @@ object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, wice)
 }
 
 /** [[polygonLL]] graphical representation of Weddel Sea seasonal ice. Depends on [[AntarticaEast]] and [[AntarticaWest]]. */
-object RossSeaIce extends EArea2("Ross Sea\nIce", -70 ll -165, wice)
+object RossSeaIce extends EArea2("Ross Sea\nIce", -70 ll -165, siceWin)
 { val northEast: LatLong = -63 ll AntarticaWest.w143.longDegs
   val northWest: LatLong = -63 ll AntarticaEast.e170.longDegs
   val oe180: LatLong = -63 ll 180

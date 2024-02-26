@@ -37,7 +37,7 @@ object Terr13E120 extends Long13Terrs
       VRow(95, BendIn(4604, HVDR, 13), BendOut(4606, HVUL)),
       TRow(94, savannah, desert),
       VRow(93, BendIn(4604, HVUR, 13), MouthRt(4606, HVDR, 7)),
-      VRow(87, MouthOld(4612, HVDL, 3, wice)),
+      VRow(87, MouthOld(4612, HVDL, 3, siceWin)),
       TRow(86, ice)
     )
   }
