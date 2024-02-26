@@ -26,7 +26,7 @@ object Terr13E90 extends Long13Terrs
       TRow(100, sea, jungle),
       VRow(99, BendIn(3588, HVDR), ThreeUp(3590, 1, 7, 6)),
       VRow(95, BendOut(3590, HVUL)),
-      VRow(87, MouthOld(3584, HVDR, 3, siceWin)),
+      VRow(87, MouthRt(3582, HVUL, 7, siceWin), BendIn(3584, HVUp, 7, siceWin), BendOut(3586, HVDn, 7, siceWin), BendIn(3588, HVUp, 13, siceWin)),
       TRow(86, ice)
     )
   }
