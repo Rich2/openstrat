@@ -29,9 +29,9 @@ object TerrMegaE120 extends LongMegaTerrs
 
       TRow(102, CapeOld(5, 4, hillyJungle), Isle8(hillyJungle), sea),
       VRow(101, MouthOld(4614, HVDL)),
-      TRow(100, CapeOld(4, 2, hillyJungle), Isle10(hillyJungle), sea),
-      TRow(98, Isle6(hillyJungle)),
-      VRow(97, SetSep(4603)),
+      TRow(100, hillyJungle, Isle10(hillyJungle), hillyJungle),
+      TRow(98, Isle6(hillyJungle), sea, jungle),
+      VRow(97),
       TRow(96, sea, sea, savannah),
       VRow(95, MouthOld(4606, HVUR)),
       TRow(94, CapeOld(5, 1, desert), desert, sahel),

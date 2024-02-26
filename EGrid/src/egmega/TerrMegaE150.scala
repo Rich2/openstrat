@@ -23,9 +23,10 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(108, SepB(), sea * 2),
 
       VRow(101, MouthOld(5626, HVDL)),
-      TRow(100, CapeOld(0, 2, hillyJungle), sea * 2),
-      TRow(98, CapeOld(3, 2, hillyJungle), sea * 2),
-      TRow(96, CapeOld(0, 1, savannah), sea * 2),
+      TRow(100, hillyJungle, sea * 2),
+      TRow(98, hillyJungle, sea * 2),
+      VRow(97, MouthRt(5630, HVDR, 7)),
+      TRow(96, savannah),
       TRow(94, savannah, sea * 2),
       TRow(92, oceForest, sea),
       VRow(91, MouthOld(5632, HVUp)),
