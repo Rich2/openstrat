@@ -23,14 +23,14 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(108, SepB(), sea * 2),
 
       VRow(101, MouthOld(5626, HVDL)),
-      TRow(100, hillyJungle, sea * 2),
-      TRow(98, hillyJungle, sea * 2),
-      VRow(97, MouthRt(5630, HVDR, 7)),
+      TRow(100, hillyJungle),
+      TRow(98, hillyJungle),
+      VRow(97, Bend(5628, HVDn, 6, 6), MouthRt(5630, HVDR, 7)),
       TRow(96, savannah),
-      TRow(94, savannah, sea * 2),
-      TRow(92, oceForest, sea),
+      TRow(94, savannah),
+      TRow(92, oceForest),
       VRow(91, MouthOld(5632, HVUp)),
-      TRow(90, CapeOld(2, 3, savannah), sea),
+      TRow(90, savannah),
       TRow(82, ice)
     )
   }
