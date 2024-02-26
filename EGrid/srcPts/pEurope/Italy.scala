@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Italy depends on [[ItalySouth]]. */
-object ItalyNorth extends EArea2("ItalyNorth", 43.61 ll 11.82, hilly)
+object ItalyNorth extends EArea2("ItalyNorth", 43.61 ll 11.82, hillyTemp)
 { val venice: LatLong = 45.42 ll 12.21
   val ven1: LatLong = 44.96 ll 12.55
   val cervia: LatLong = 44.25 ll 12.35
@@ -30,7 +30,7 @@ object ItalyNorth extends EArea2("ItalyNorth", 43.61 ll 11.82, hilly)
 }
 
 /** [[PolygonLL]] graphic for the south of Italy depends on [[ItalyHeel]] and [[ItalyToe]]. */
-object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hilly)
+object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hillyTemp)
 { val siponto: LatLong = 41.60 ll 15.89
   val barletta: LatLong = 41.32 ll 16.28
 

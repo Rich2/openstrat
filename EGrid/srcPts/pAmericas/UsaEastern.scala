@@ -9,7 +9,7 @@ object MicheganLower extends EArea2("Lower Peninsular", 43.585 ll -84.611, taiga
 
 /** [[PolygonLL]] Graphical object for the north east of the United States. Dependant on [[UsaSouth]] [[CanadaSouthEast]], [[LakeMichigan]],
  *  [[LakeHuron]], [[LakeErie]] and [[LakeOntario]]. */
-object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, hilly)
+object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, hillyTemp)
 { val marshallPoint: LatLong = 43.916 ll -69.258
   val landsEnd: LatLong = 42.635 ll -70.594
   val nahantEast: LatLong = 42.419 ll -70.902
@@ -45,7 +45,7 @@ object UsaNorthEast extends EArea2("United States\nnorth east", 39.8 ll -85.0, h
 }
 
 /** [[PolygonLL]] Graphical object for the north east of the United States. Dependant on nothing. */
-object Delmarva extends EArea2("Delmarva Peninsula", 38.777 ll -75.233, plain)
+object Delmarva extends EArea2("Delmarva Peninsula", 38.777 ll -75.233, temperate)
 {
   val northEast: LatLong = 39.589 ll -75.599
   val capeHenlopen: LatLong = 38.803 ll -75.092
@@ -60,7 +60,7 @@ object Delmarva extends EArea2("Delmarva Peninsula", 38.777 ll -75.233, plain)
 }
 
 /** [[PolygonLL]] Graphical object for the United States South. Dependant on [[Florida]]. */
-object UsaSouth extends EArea2("United States\nThe South", 34.479 ll -83.109, plain)
+object UsaSouth extends EArea2("United States\nThe South", 34.479 ll -83.109, temperate)
 { val northEast: LatLong = 36.987 ll -76.303
   val capeHenry: LatLong = 36.928 ll -76.006
   val rodanthe: LatLong = 35.591 ll -75.460

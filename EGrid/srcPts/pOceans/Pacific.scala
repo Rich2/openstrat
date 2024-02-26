@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, egrid._, WTiles._
 
-object Hawaii extends EArea2("Hawaii", 20.85 ll -156.92, plain)
+object Hawaii extends EArea2("Hawaii", 20.85 ll -156.92, temperate)
 { val sHawaii: LatLong = 18.91 ll -155.68
   val nwHawaii: LatLong = 21.57 ll -158.28
   val nHawaii: LatLong = 21.71 ll -157.97

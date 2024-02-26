@@ -22,7 +22,7 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(112, taiga, hillyTaiga),
       TRow(110, savannah, hillyTaiga),
       VRow(109, MouthOld(4608, HVUL), BendIn(4612, HVUL), BendOut(4614, HVDR)),
-      TRow(108, CapeOld(1, 2), CapeOld(2, 4, hilly)),
+      TRow(108, CapeOld(1, 2), CapeOld(2, 4, hillyTemp)),
       TRow(106, CapeOld(2, 2, hillyJungle), sea * 2),
       VRow(105, MouthOld(4604, HVUL)),
       TRow(104, CapeOld(1, 2, jungle), Isle6(hillyJungle)),

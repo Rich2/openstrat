@@ -18,7 +18,7 @@ object TerrMegaE180 extends LongMegaTerrs
       TRow(116, CapeOld(2, 1, hillyTundra)),
       VRow(115, MouthOld(6654, HVUL),  BendIn(6656, HVUp)),
       TRow(114, SepB(), sea),
-      TRow(90, Isle8(hilly)),
+      TRow(90, Isle8(hillyTemp)),
     )
   }
   help.run

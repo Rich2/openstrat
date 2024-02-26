@@ -44,8 +44,16 @@ object WTiles
 
   val tundra: Land = Land(Plain, Tundra, LandFree)
   val taiga: Land = Land(Plain, Boreal, Forest)
-  val plain: Land = Land(Plain, Temperate, CivMix)
-  val forest: Land = Land(Plain, Temperate, Forest)
+
+  /** [[Plain]] [[Steppe]] [[LandFree]] */
+  val steppe: Land = Land(Plain, Steppe, LandFree)
+
+  /** [[Plain]] [[Temperate]] [[CivMix]] */
+  val temperate: Land = Land(Plain, Temperate, CivMix)
+
+  /** [[Plain]] [[Temperate]] [[Forest]] */
+  val tempForest: Land = Land(Plain, Temperate, Forest)
+
   val savannah: Land = Land(Plain, Savannah, CivMix)
   val sahel: Land = Land(Plain, Sahel, CivMix)
   val desert: Land = Land(Plain, Desert, LandFree)
@@ -53,8 +61,16 @@ object WTiles
 
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
   val hillyTaiga: Land = Land(Hilly, Boreal, Forest)
-  val hilly: Land = Land(Hilly, Temperate, CivMix)
-  val hillyForest: Land = Land(Hilly, Temperate, Forest)
+
+  /** [[Hilly]] [[Continental]] [[Forest]] */
+  val hillyContForest: Land = Land(Hilly, Continental, Forest)
+
+  /** [[Hilly]] [[Temperate]] [[CivMix]] */
+  val hillyTemp: Land = Land(Hilly, Temperate, CivMix)
+
+  /** [[Hilly]] [[Temperate]] [[Forest]] */
+  val hillyTempForest: Land = Land(Hilly, Temperate, Forest)
+
   val hillyDesert: Land = Land(Hilly, Desert, LandFree)
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
@@ -76,8 +92,8 @@ object WTiles
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
-    ice, tundra, taiga, plain, forest, savannah, sahel, desert, jungle,
-    hillyTundra, hillyTaiga, hilly, hillyForest, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
+    ice, tundra, taiga, steppe, temperate, tempForest, savannah, sahel, desert, jungle,
+    hillyTundra, hillyTaiga, hillyContForest, hillyTemp, hillyTempForest, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
     mtainOld, mtainIce, mtainTundra, mtainTaiga, mtainSub, mtainDesert, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */

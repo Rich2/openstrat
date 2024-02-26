@@ -28,7 +28,7 @@ object Terr460E60 extends Long460Terrs
       TRow(136, taiga, hillyTaiga, taiga),
       TRow(134, taiga * 3),
       TRow(132, taiga, hillyTaiga, taiga),
-      TRow(130, plain * 4),
+      TRow(130, temperate * 4),
       TRow(128, savannah, sahel * 2, savannah),
       TRow(126, sahel, sahel * 3),
       VRow(125, BendOut(2554, HVDR), MouthOld(2556, HVUR)),

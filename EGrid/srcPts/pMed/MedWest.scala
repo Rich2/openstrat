@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
+object Majorca extends EArea2("Majorca", 39.59 ll 3.01, temperate)
 { val south: LatLong = 39.26 ll 3.05
   val palma: LatLong = 39.56 ll 2.63
   val portalsVells: LatLong = 39.45 ll 2.51
@@ -15,7 +15,7 @@ object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
+object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, temperate)
 { val sSicily: LatLong = 36.66 ll 15.08
   val kartibubbo: LatLong = 37.56 ll 12.67
   val marsala: LatLong = 37.80 ll 12.42
@@ -31,7 +31,7 @@ object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
 }
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
-object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
+object Canarias extends EArea2("Canarias", 27.96 ll -15.60, temperate)
 { val elHierro: LatLong = 27.72 ll -18.15
   val laPalma: LatLong = 28.85 ll -17.92
   val lanzarote: LatLong = 29.24 ll -13.47
@@ -42,7 +42,7 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hilly)
+object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hillyTemp)
 { val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
   val p10: LatLong = 42.57 ll 9.53
@@ -58,7 +58,7 @@ object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hilly)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hilly)
+object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hillyTemp)
 { val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62

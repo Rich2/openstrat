@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
-object Ireland extends EArea2("Ireland", 53.36 ll -7.63, plain)
+object Ireland extends EArea2("Ireland", 53.36 ll -7.63, temperate)
 { val north: LatLong = 55.38 ll -7.37
   val torHead: LatLong = 55.19 ll -6.06
   val skernaghanPoint: LatLong = 54.859 ll -5.762

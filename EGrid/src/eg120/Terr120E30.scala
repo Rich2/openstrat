@@ -16,17 +16,17 @@ object Terr120E30 extends Long120Terrs
       TRow(348, CapeOld(5, 2, mtainOld), tundra * 4, CapeOld(0, 2, hillyTundra), sea * 2),
       TRow(346, mtainOld),
 
-      TRow(314, plain * 10, plain * 6),
-      TRow(312, plain * 10, plain * 6),
-      TRow(314, plain),
+      TRow(314, temperate * 10, temperate * 6),
+      TRow(312, temperate * 10, temperate * 6),
+      TRow(314, temperate),
 
-      TRow(286, hilly, plain, hilly * 3, sea, hilly * 2, hilly * 13),
-      TRow(284, hilly, sea * 2, hilly * 3, sea * 2, hilly * 13),
-      TRow(282, hilly, sea * 2, hilly * 3, sea * 2, hilly * 13),
-      TRow(280, sea * 4, hilly * 2, sea * 2, hilly * 14),
-      TRow(278, sea * 5, hilly, sea * 9, hilly * 7),
-      TRow(276, sea * 6, hilly * 2, sea * 7, hilly * 7),
-      TRow(274, sea * 8, sea * 5, hilly, sea, hilly * 7),
+      TRow(286, hillyTemp, temperate, hillyTemp * 3, sea, hillyTemp * 2, hillyTemp * 13),
+      TRow(284, hillyTemp, sea * 2, hillyTemp * 3, sea * 2, hillyTemp * 13),
+      TRow(282, hillyTemp, sea * 2, hillyTemp * 3, sea * 2, hillyTemp * 13),
+      TRow(280, sea * 4, hillyTemp * 2, sea * 2, hillyTemp * 14),
+      TRow(278, sea * 5, hillyTemp, sea * 9, hillyTemp * 7),
+      TRow(276, sea * 6, hillyTemp * 2, sea * 7, hillyTemp * 7),
+      TRow(274, sea * 8, sea * 5, hillyTemp, sea, hillyTemp * 7),
     )
   }
   help.run

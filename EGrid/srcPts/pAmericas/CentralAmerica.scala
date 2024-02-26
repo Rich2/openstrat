@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[ElSalPanama]]. */
-object Mexico extends EArea2("Mexico", 24 ll -102.4, hilly)
+object Mexico extends EArea2("Mexico", 24 ll -102.4, hillyTemp)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
   val caboRojo: LatLong = 21.57 ll -97.33

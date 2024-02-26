@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Taiwan depends on nothing. */
-object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hilly)
+object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hillyTemp)
 { val north: LatLong = 25.29 ll 121.57
   val northEast: LatLong = 25.01 ll 122.01
   val south: LatLong = 21.90 ll 120.86

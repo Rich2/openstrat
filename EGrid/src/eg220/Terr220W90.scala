@@ -32,18 +32,18 @@ object Terr220W90 extends Long220Terrs
       VRow(153, MouthOld(9732, HVUL, 3, lake), BendIn(9734, HVDL, 13, lake), MouthOld(9736, HVUL, 3, lake), ThreeDown(9738, 6, 6, 6, lake),
         Bend(9740, HVDn, 8, 3, lake), MouthLt(9742, HVDR, 7, lake)),
 
-      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, forest, Land(PlainLakes, Temperate, Forest) * 2),
+      TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, tempForest, Land(PlainLakes, Temperate, Forest) * 2),
 
       VRow(151, Bend(9732, HVDR, 6, 7, lake), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), MouthLt(9740, HVDR, 7, lake),
         MouthOld(9744, HVDL, 3, lake), BendIn(9746, HVDn, 13, lake), MouthOld(9748, HVDR, 3, lake)),
 
-      TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, forest, hillyForest * 2),
+      TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, tempForest, hillyTempForest * 2),
       VRow(149, Mouth(9732, HVDn, 4, 7, lake), MouthOld(9738, HVDL, 3,lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake), MouthRt(9744, HVUR, 6, lake)),
-      TRow(148, sahel * 2, savannah, hillySavannah * 3, savannah * 3, hillyForest, mtainOld),
+      TRow(148, sahel * 2, savannah, hillySavannah * 3, savannah * 3, hillyTempForest, mtainOld),
       VRow(147, BendAllOld(9752, HVDR)),
-      TRow(146, sahel, savannah * 2, hillySavannah * 2, savannah * 3, mtainOld * 2, hilly),
+      TRow(146, sahel, savannah * 2, hillySavannah * 2, savannah * 3, mtainOld * 2, hillyTemp),
       VRow(145, MouthLt(9752, HVDn)),
-      TRow(144, sahel * 2, savannah, hillySavannah, hillyForest * 2, savannah, hillyForest, mtainOld * 2, hilly),
+      TRow(144, sahel * 2, savannah, hillySavannah, hillyTempForest * 2, savannah, hillyTempForest, mtainOld * 2, hillyTemp),
       TRow(142, hillyDesert, sahel * 2, hillySavannah, mtainOld),
     )
   }

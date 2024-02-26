@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of Shetland. Depends on nothing. */
-object Shetland extends EArea2("Shetland", 60.34 ll -1.23, plain)
+object Shetland extends EArea2("Shetland", 60.34 ll -1.23, temperate)
 { val south: LatLong = 59.85 ll -1.27
   val sSoundsound: LatLong = 60.20 ll -1.34
   val sSilwick: LatLong = 60.14 ll -1.46
@@ -16,7 +16,7 @@ object Shetland extends EArea2("Shetland", 60.34 ll -1.23, plain)
 }
 
 /** [[PolygonLL]] graphical representation of the Orkney's. */
-object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, plain)
+object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, temperate)
 { val north: LatLong = 59.38 ll -2.88
   val stronsayE: LatLong = 59.09 ll -2.53
   val south: LatLong = 58.73 ll -2.96
@@ -63,7 +63,7 @@ object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtain
 }
 
 /** [[polygonLL]] graphical representation of Scottish lowlands. Depends on [[ScotlandHigh]]. */
-object ScotlandLow extends EArea2("Scotland\nlowlands", 56.82 ll -4.07, hilly)
+object ScotlandLow extends EArea2("Scotland\nlowlands", 56.82 ll -4.07, hillyTemp)
 { val archerfield: LatLong = 56.06 ll -2.81
   val tantallion: LatLong = 56.05 ll -2.65
   val stAbbs: LatLong = 55.91 ll -2.14
@@ -93,7 +93,7 @@ object IsleLewis extends EArea2("Lewis", 57.83 ll -6.09, hillyTundra)
 }
 
 /** [[polygonLL]] graphical representation of Uist islands. Depends on nothing. */
-object Uist extends EArea2("Uist", 57.384 ll -7.32, plain)
+object Uist extends EArea2("Uist", 57.384 ll -7.32, temperate)
 {
   val pabbay: LatLong = 57.785 ll -7.225
   val northEast: LatLong = 57.660 ll -7.047
@@ -105,7 +105,7 @@ object Uist extends EArea2("Uist", 57.384 ll -7.32, plain)
 }
 
 /** [[polygonLL]] graphical representation of Islay, jura and Colonsay islands. Depends on nothing. */
-object IslayJura extends EArea2("Islay Jura", 55.879 ll -6.006, plain)
+object IslayJura extends EArea2("Islay Jura", 55.879 ll -6.006, temperate)
 { val juraNorth = 56.149 ll -5.709
   val islaySouth = 55.580 ll -6.293
   val portahaven: LatLong = 55.671 ll -6.514

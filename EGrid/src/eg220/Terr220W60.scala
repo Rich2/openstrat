@@ -30,7 +30,7 @@ object Terr220W60 extends Long220Terrs
       VRow(151, BendOut(10740, HVDR, 6), MouthRt(10742, HVUR, 7), MouthLt(10748, HVDL, 7), MouthRt(10750, HVUR, 7)),
       TRow(150, hillyTaiga * 2),
       VRow(149, BendOut(10738, HVDR, 7), BendIn(10740, HVUL, 13)),
-      TRow(148, hilly * 2),
+      TRow(148, hillyTemp * 2),
       VRow(147, BendAllOld(10732, HVDR), BendOut(10734, HVDn, 7), BendIn(10736, HVUp, 13), BendIn(10738, HVUL, 10)),
       VRow(145, MouthLt(10732, HVDn)),
     )

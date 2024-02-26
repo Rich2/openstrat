@@ -3,7 +3,7 @@ package ostrat; package pEarth;package middleEast
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for the Levant depends on [[Kurdistan]] and [[Sinai]]. */
-object Levant extends EArea2("Levant", 33 ll 35.5, hilly)
+object Levant extends EArea2("Levant", 33 ll 35.5, hillyTemp)
 { val damascus: LatLong = 33.51 ll 36.82
   val ashkelon = 31.68 ll 34.56
   val haifa = 32.83 ll 34.98

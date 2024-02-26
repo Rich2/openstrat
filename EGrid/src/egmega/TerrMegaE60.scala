@@ -15,7 +15,7 @@ object TerrMegaE60 extends LongMegaTerrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(118, tundra),
       TRow(116, taiga),
-      TRow(114, plain),
+      TRow(114, temperate),
       TRow(112, desert * 2),
       TRow(110, desert * 2),
       TRow(108, hillyDesert * 2),

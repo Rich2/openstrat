@@ -18,7 +18,7 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(116, hillyTundra),
       VRow(115, MouthOld(5632, HVUp), MouthOld(5634, HVUL), BendIn(5636, HVUp)),
       TRow(114, CapeOld(1, 4, hillyTaiga)),
-      TRow(110, CapeOld(5, 4, hilly), sea),
+      TRow(110, CapeOld(5, 4, hillyTemp), sea),
       VRow(109, BendOut(5630, HVDR)),
       TRow(108, SepB(), sea * 2),
 
@@ -27,7 +27,7 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(98, CapeOld(3, 2, hillyJungle), sea * 2),
       TRow(96, CapeOld(0, 1, savannah), sea * 2),
       TRow(94, savannah, sea * 2),
-      TRow(92, forest, sea),
+      TRow(92, tempForest, sea),
       VRow(91, MouthOld(5632, HVUp)),
       TRow(90, CapeOld(2, 3, savannah), sea),
       TRow(82, ice)
