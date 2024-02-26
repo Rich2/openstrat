@@ -3,8 +3,8 @@ package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 1 megametre or 1000km.
- * Isle8 274015.850km² <= 165762.674km². Most of Philippines excluding Luzon and Palawan.
- * Isle6 165762.674km² <= 102333.079km² Luzon. */
+ * [[Isle8]] 190288.785km² => 244415.372km². Most of Philippines excluding Luzon and Palawan.
+ * [[Isle6]] 102333.079km² => 142928.020km². Luzon 109965km2. */
 object TerrMegaE120 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e120(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -24,11 +24,11 @@ object TerrMegaE120 extends LongMegaTerrs
       VRow(109, MouthOld(4608, HVUL), BendIn(4612, HVUL), BendOut(4614, HVDR)),
       TRow(108, subtrop, hillySub),
       TRow(106, hillyJungle),
-      VRow(105, MouthOld(4604, HVUL)),
+      VRow(105, MouthRt(4604, HVUL, 7)),
       TRow(104, jungle, Isle6(hillyJungle)),
-
+      VRow(103, Bend(4604, HVDR, 13, 5)),
       TRow(102, hillyJungle, Isle8(hillyJungle), sea),
-      VRow(101, ThreeDown(4602, 0, 13, 6), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
+      VRow(101, ThreeDown(4602, 0, 10, 6), Bend(4604, HVUL, 13, 5), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
       TRow(100, hillyJungle, Isle10(hillyJungle), hillyJungle),
       TRow(98, Isle6(hillyJungle), sea, jungle),
       VRow(97, BendIn(4614, HVUp, 13), Bend(4616, HVDn, 6, 6)),
