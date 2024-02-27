@@ -35,6 +35,7 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(98, sea * 2, hillyJungle),
       VRow(95, BendIn(3592, HVDR, 12)),
       VRow(93, BendOut(3592, HVUR)),
+      VRow(91, MouthRt(3590, HVDn, 7)),
       TRow(82, ice)
     )
   }

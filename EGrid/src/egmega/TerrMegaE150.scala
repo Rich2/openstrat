@@ -31,8 +31,9 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(96, savannah),
       TRow(94, savannah),
       TRow(92, oceForest),
-      VRow(91, MouthOld(5632, HVUp)),
-      TRow(90, savannah),
+      VRow(91, BendOut(5628, HVDL, 7)),
+      TRow(90, hillySavannah),
+      VRow(89, BendIn(5628, HVUR, 13), MouthRt(5630, HVDR, 7)),
       TRow(82, ice)
     )
   }
