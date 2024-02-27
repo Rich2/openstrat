@@ -127,9 +127,15 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   val rowDatas: RArr[RowBase]
 
-  def run: Unit = rowDatas.foreach{
-    case data: TRow => tRowRun(data)
-    case data: VRow => data.edits.foreach(_.run(data.row))
+  def run: Unit =
+  { rowDatas.foreach{
+      case data: TRow => tRowRun(data)
+      case data: VRow =>
+    }
+    rowDatas.foreach{
+      case data: TRow =>
+      case data: VRow => data.edits.foreach(_.run(data.row))
+    }
   }
 
   def tRowRun(inp: TRow): Unit =
