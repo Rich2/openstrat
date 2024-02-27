@@ -9,7 +9,7 @@ object TilingTryApp
     deb("Hello TilingTryApp")
     val scs = DblArr(1300, 1000, 640, 460, 320, 220, 160, 120, 80)
     val sc: Double = scs.find(_ == inp).getOrElse(1000)
-    val isl = DblArr(16, 13.0, 10.5, 9.5, 8.5, 7.5, 6.5, 5.5, 4.5, 3.5, 2.5)
+    val isl = DblArr(16, 13.5, 12.5, 11.5, 10.5, 9.5, 8.5, 7.5, 6.5, 5.5, 4.5, 3.5, 2.5)
 
     val a460 = tileScaleToArea(sc)
     println(sc + "km")
