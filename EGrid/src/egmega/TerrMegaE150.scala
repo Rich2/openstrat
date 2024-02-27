@@ -2,8 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile scale 1 megametre or 1000km. The Kamchatka peninsula at 270,000 km²
- * passes the 144337km² minimum. */
+/** 1Mm [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile ares of 866025.403 km².
+ * [[Isle5]] 68503.962km² => 102333.079km². Salakhin 72,492 km². */
 object TerrMegaE150 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e150(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -18,9 +18,10 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(116, hillyTundra),
       VRow(115, MouthOld(5632, HVUp), MouthOld(5634, HVUL), BendIn(5636, HVUp)),
       TRow(114, CapeOld(1, 4, hillyTaiga)),
-      TRow(110, CapeOld(5, 4, hillyOce), sea),
-      VRow(109, BendOut(5630, HVDR)),
-      TRow(108, SepB(), sea * 2),
+      VRow(111, Bend(5628, HVDR, 13, 5)),
+      TRow(110, hillyCont),
+      VRow(109, BendIn(5628, HVUL), BendOut(5630, HVDR)),
+      //TRow(108, SepB(), sea * 2),
 
       VRow(101, BendOut(5626, HVUp, 7), BendIn(5628, HVDn, 13), BendIn(5630, HVDL, 13)),
       TRow(100, hillyJungle),
