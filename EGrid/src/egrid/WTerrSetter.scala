@@ -17,6 +17,29 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   trait TRunnerExtra extends TRunner
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex. */
+  case class Isle13(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle13Base
+
+  object Isle13
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex. */
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle13 = Isle13(Land(elev, biome, landUse), sTerr)
+  }
+
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 12/16 of the radius of the hex. */
+  case class Isle12(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle10Base
+
+  object Isle12
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 12/16 of the radius of the hex. */
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle12 = Isle12(Land(elev, biome, landUse), sTerr)
+  }
+
+  /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
+  case class Isle11(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle11Base
+
+  object Isle11
+  { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 11/16 of the radius of the hex. */
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle11 = Isle11(Land(elev, biome, landUse), sTerr)
+  }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
   case class Isle10(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle10Base
