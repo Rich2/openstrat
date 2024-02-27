@@ -35,6 +35,7 @@ object Terr13E150 extends Long13Terrs
       TRow(96, hillySavannah, sea),
       VRow(95, MouthLt(5634, HVDn, 7)),
       TRow(94, savannah, sea),
+      TRow(92, hillyOce),
       VRow(87, Bend(5630, HVDn, 6, 7, siceWin), BendIn(5632, HVUp, 13, siceWin), BendMax(5634, HVDn, siceWin), BendMax(5636, HVUp, siceWin)),
       TRow(86, CapeOld(0, 1, ice, siceWin))
     )
