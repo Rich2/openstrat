@@ -33,9 +33,12 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(104, jungle, hillyJungle),
       VRow(103, Bend(4604, HVDR, 13, 5), ThreeUp(4606, 10, 13, 13), ThreeDown(4608, 10, 8, 13), ThreeUp(4610, 0, 8, 10), BendIn(4612, HVDL, 8)),
       TRow(102, hillyJungle, hillyJungle),
-      VRow(101, ThreeDown(4602, 0, 6, 6), Bend(4604, HVUL, 13, 5), BendIn(4606, HVDR, 9), ThreeUp(4608, 8, 9, 0), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
+
+      VRow(101, ThreeDown(4602, 0, 6, 6), Bend(4604, HVUL, 13, 5), BendIn(4606, HVDR, 9), ThreeUp(4608, 8, 9, 0), ThreeDown(4610, 8, 13, 9),
+        ThreeUp(4612, 0, 13, 8), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
+
       TRow(100, hillyJungle, hillyJungle, hillyJungle),
-      VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0), ThreeDown(4608, 9, 11, 10)),
+      VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0), ThreeDown(4608, 9, 11, 10), ThreeUp(4610, 13, 11, 9)),
       TRow(98, hillyJungle, mtainJungle, jungle),
 
       VRow(97, BendIn(4602, HVUp, 13), ThreeUp(4604, 10, 0, 13), ThreeDown(4606, 10, 13, 0), ThreeUp(4608, 11, 13, 10), Bend(4610, HVUp, 11, 7),
@@ -58,7 +61,7 @@ object TerrMegaE120 extends LongMegaTerrs
     str(106, "China south", "Taiwan")
     str(104, "Vietnam", "Luzon")
     str(102,"Borneo north", "Philippines south")
-    str(100, "Borneo west", "Sulawesi")
+    str(100, "Borneo west", "Sulawesi", "Papua west")
     str(98, "Java", "Lesser Sunda")
   }
 }
