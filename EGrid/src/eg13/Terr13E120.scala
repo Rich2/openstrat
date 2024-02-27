@@ -43,4 +43,8 @@ object Terr13E120 extends Long13Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(98, "Javas")
+  }
 }

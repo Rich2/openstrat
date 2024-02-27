@@ -3,13 +3,29 @@ package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
-object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
-{ val capeLeeuwin: LatLong = -34.36 ll 115.13
-  val wAustralia: LatLong = -22.58 ll 113.95
+object WesternAustralia extends EArea2("Western\nAustralia", -24.839 ll 124, desert)
+{ val northEast: LatLong = -14.879 ll 129
+  val southEast: LatLong = -31.687 ll 129
+  val nuytsland1: LatLong = -32.96 ll 124.33
+  val nuytsland2: LatLong = -33.86 ll 123.63
+  val westCapeHowe: LatLong = -35.129 ll 117.612
+  val windyHarbour: LatLong = -34.84 ll 116
+  val capeLeeuwin: LatLong = -34.367 ll 115.137
+  val capeNaturaliste: LatLong = -33.530 ll 115.004
+  val dirkHartog: LatLong = -25.516 ll 112.938
+  val west: LatLong = -22.58 ll 113.95
+
   val eightyMile: LatLong = -19.41 ll 121.24
   val couloumbPoint: LatLong = -17.30 ll 122.12
   val drysdaleRiver: LatLong = -13.77 ll 126.95
-  val victoriaMouth: LatLong = -15.13 ll 129.65
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, nuytsland1, nuytsland2, westCapeHowe, windyHarbour, capeLeeuwin, capeNaturaliste,
+    dirkHartog, west, eightyMile, couloumbPoint, drysdaleRiver)
+}
+
+/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
+{ val victoriaMouth: LatLong = -15.13 ll 129.65
   val thamarrurr: LatLong = -14.42 ll 129.36
   val coxPeninsular: LatLong = -12.41 ll 130.64
   val nAustralia: LatLong = -12.01 ll 133.56
@@ -37,14 +53,10 @@ object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
   val sleaford: LatLong = -34.92 ll 135.64
   val smokyBay: LatLong = -32.52 ll 133.86
   val yalata: LatLong = -31.35 ll 131.21
-  val nuytsland1: LatLong = -32.96 ll 124.33
-  val nuytsland2: LatLong = -33.86 ll 123.63
-  val windyHarbour: LatLong = -34.84 ll 116
 
-  override val polygonLL: PolygonLL = PolygonLL(capeLeeuwin, wAustralia, eightyMile, couloumbPoint, drysdaleRiver, victoriaMouth, thamarrurr,
-    coxPeninsular, nAustralia, eastArnhem, limmen, karumba, nQueensland, nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia,
-    wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata,
-    nuytsland1, nuytsland2, windyHarbour)
+  override val polygonLL: PolygonLL = PolygonLL(WesternAustralia.northEast, victoriaMouth, thamarrurr, coxPeninsular, nAustralia, eastArnhem, limmen, karumba,
+    nQueensland, nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia, wilsonsProm, barwonHeads, capeOtway, portMacdonnell,
+    carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast)
 }
 
 /** [[polygonLL]] graphical representation of Tasmania. Depends on nothing. */
