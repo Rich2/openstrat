@@ -2,7 +2,9 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 1300km or 1.3 MegaMetres.
+/** 1300km [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex area 1463582.932km².
+ * Isle13 893300.129km² => 1041945.271km². (Borneo 748168km²) + (Sulawesi 180681km²) = 928849km²
+ * Isle12 756089.229km² => 893300.129km².
  * Isle6 243930.488km² <= 172942.905km². Most of Philippines (300000 km²).
  * Isle4 115771.696km² <= 70034.730km². Most of Luzon (109,965 km2) excluding the south plus Taiwan. */
 object Terr13E120 extends Long13Terrs
@@ -24,8 +26,8 @@ object Terr13E120 extends Long13Terrs
       TRow(106, hillyOce),
       TRow(104, Isle4(hillyJungle), sea),
       VRow(103, BendIn(4610, HVDn), BendIn(4612, HVDL, 13)),
-      TRow(102, SepB(), sea, hillyJungle),
-      VRow(101, BendIn(4604, HVDn), SetSep(4605), Mouth(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
+      TRow(102, sea, hillyJungle),
+      VRow(101, BendIn(4604, HVDn), BendIn(4606, HVDL, 7), Mouth(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
       TRow(100, SepB(), hillyJungle, SepB(), hillyJungle),
       VRow(99, BendIn(4604, HVDR), ThreeUp(4606, 1, 7, 6), BendAllOld(4608, HVUp), ThreeUp(4610, 7, 7, 7), BendOut(4612, HVDL), MouthOld(4614, HVDn)),
       TRow(98, hillyJungle * 2),
@@ -45,6 +47,6 @@ object Terr13E120 extends Long13Terrs
   help.run
 
   { import hexNames.{ setRow => str}
-    str(98, "Javas")
+    str(98, "Javas", "Lesser Sunda")
   }
 }
