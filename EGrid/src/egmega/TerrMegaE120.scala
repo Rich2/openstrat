@@ -35,24 +35,28 @@ object TerrMegaE120 extends LongMegaTerrs
       TRow(102, hillyJungle, hillyJungle),
       VRow(101, ThreeDown(4602, 0, 6, 6), Bend(4604, HVUL, 13, 5), BendIn(4606, HVDR, 9), ThreeUp(4608, 8, 9, 0), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
       TRow(100, hillyJungle, hillyJungle, hillyJungle),
-      VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0)),
+      VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0), ThreeDown(4608, 9, 11, 10)),
       TRow(98, hillyJungle, mtainJungle, jungle),
-      VRow(97, BendIn(4602, HVUp, 13), ThreeUp(4604, 10, 0, 13), BendIn(4614, HVUp, 13), Bend(4616, HVDn, 6, 6)),
-      TRow(96, sea, sea, savannah),
-      VRow(95, MouthOld(4606, HVUR)),
-      TRow(94, CapeOld(5, 1, desert), desert, sahel),
-      VRow(93, BendIn(4604, HVUR), BendOut(4606, HVDL)),
-      TRow(92, CapeOld(3, 2, savannah), desert),
+
+      VRow(97, BendIn(4602, HVUp, 13), ThreeUp(4604, 10, 0, 13), ThreeDown(4606, 10, 13, 0), ThreeUp(4608, 11, 13, 10), Bend(4610, HVUp, 11, 7),
+        BendIn(4614, HVUp, 13), Bend(4616, HVDn, 6, 6)),
+
+      TRow(96, sea, hillySavannah, savannah),
+      VRow(95, BendIn(4604, HVDR, 12), BendOut(4606, HVUL, 7)),
+      TRow(94, desert, desert, sahel),
+      VRow(93, BendIn(4604, HVUR, 13), BendOut(4606, HVDL, 7)),
+      TRow(92, savannah, desert),
       TRow(82, ice)
     )
   }
   help.run
 
   { import hexNames.{ setRow => str}
-    str(110, "", "Korea")
-    str(108, "", "Japan south")
-    str(106, "", "Taiwan")
-    str(104, "", "Luzon")
+    str(112, "Manchuria")
+    str(110, "China north", "Korea")
+    str(108, "China east", "Japan south")
+    str(106, "China south", "Taiwan")
+    str(104, "Vietnam", "Luzon")
     str(102,"Borneo north", "Philippines south")
     str(100, "Borneo west", "Sulawesi")
     str(98, "Java", "Lesser Sunda")

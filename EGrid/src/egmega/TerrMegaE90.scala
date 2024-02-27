@@ -33,6 +33,7 @@ object TerrMegaE90 extends LongMegaTerrs
       VRow(99, BendOut(3588, HVDL, 7), BendIn(3590, HVUR), ThreeDown(3592, 6, 10, 8)),
       VRow(97, BendIn(3588, HVUR, 13), BendIn(3590, HVUp, 13), ThreeUp(3592, 10, 0, 13)),
       TRow(98, sea * 2, hillyJungle),
+      VRow(95, BendIn(3592, HVDR, 12)),
       VRow(93, BendOut(3592, HVUR)),
       TRow(82, ice)
     )
@@ -40,7 +41,7 @@ object TerrMegaE90 extends LongMegaTerrs
   help.run
 
   { import hexNames.{ setRow => str}
-    str(104, "India south")
-    str(102, "Sri Lanka")
+    str(104, "India south", "", "Burma")
+    str(102, "Sri Lanka", "", "Thailand")
   }
 }
