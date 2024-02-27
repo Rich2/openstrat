@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -46,8 +46,21 @@ object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
     wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata,
     nuytsland1, nuytsland2, windyHarbour)
 }
+
+/** [[polygonLL]] graphical representation of Tasmania. Depends on nothing. */
+object Tasmania extends EArea2("Tasmania", -24.45 ll 134.47, mtainTaiga)
+{ val capePortland: LatLong = -40.738 ll 147.976
+  val tasman: LatLong = -43.242 ll 148.005
+  val south: LatLong = -43.640 ll 146.828
+  val southWest: LatLong = -43.570 ll 146.032
+  val hunterNW: LatLong = -40.483 ll 144.712
+  val merseyBluff: LatLong = -41.158 ll 146.355
+
+  override val polygonLL: PolygonLL = PolygonLL(capePortland, tasman, south, southWest, hunterNW, merseyBluff)
+}
+
 /** [[polygonLL]] graphical representation of the North Ilsand of New Zealand. Depends on nothing. */
-object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, oceanic)
+object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, hillyOce)
 { val capeReinga: LatLong = -34.42 ll 172.68
   val teHapua: LatLong = -34.41 ll 173.05
   val aukland: LatLong = -36.83 ll 174.81
@@ -61,7 +74,7 @@ object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, oceanic)
 }
 
 /** [[polygonLL]] graphical representation of the South Island of New Zealand. Depends on nothing. */
-object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, oceanic)
+object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, hillyOceForest)
 { val swNewZealand: LatLong = -45.98 ll 166.47
   val puponga: LatLong = -40.51 ll 172.72
   val capeCambell: LatLong = -41.73 ll 174.27
