@@ -40,4 +40,9 @@ object TerrMegaW90 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(106, "" * 2, "Cuba")
+    str(104, "", "Guatemala")
+  }
 }

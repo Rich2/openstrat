@@ -36,4 +36,8 @@ object TerrMegaW60 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(104, "Hispaniola")
+  }
 }

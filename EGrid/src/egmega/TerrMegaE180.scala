@@ -22,4 +22,8 @@ object TerrMegaE180 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(90, "New Zealand")
+  }
 }

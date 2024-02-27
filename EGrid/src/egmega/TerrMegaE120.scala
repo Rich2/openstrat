@@ -38,7 +38,8 @@ object TerrMegaE120 extends LongMegaTerrs
         ThreeUp(4612, 0, 13, 8), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
 
       TRow(100, hillyJungle, hillyJungle, hillyJungle),
-      VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0), ThreeDown(4608, 9, 11, 10), ThreeUp(4610, 13, 11, 9)),
+      VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0), ThreeDown(4608, 9, 11, 10), ThreeUp(4610, 13, 11, 9),
+        Bend(4612, HVDL, 11, 7)),
       TRow(98, hillyJungle, mtainJungle, jungle),
 
       VRow(97, BendIn(4602, HVUp, 13), ThreeUp(4604, 10, 0, 13), ThreeDown(4606, 10, 13, 0), ThreeUp(4608, 11, 13, 10), Bend(4610, HVUp, 11, 7),
