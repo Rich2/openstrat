@@ -23,7 +23,7 @@ object TerrMegaE120 extends LongMegaTerrs
       VRow(115, MouthOld(4612, HVUp)),
       TRow(114, taiga),
       TRow(112, taiga, hillyTaiga),
-      VRow(111, MouthMin(4608, HVUp), Bend(4612, HVDR, 13, 5)),
+      VRow(111, MouthMin(4608, HVUp), Bend(4612, HVDR, 7, 5), ThreeUp(4614, 11, 0, 7)),
       TRow(110, savannah, hillyTaiga),
       VRow(109, BendIn(4608, HVUR), ThreeDown(4610, 0, 10, 7), BendIn(4612, HVUL), BendOut(4614, HVDR)),
       TRow(108, subtrop, hillySub),
@@ -49,6 +49,8 @@ object TerrMegaE120 extends LongMegaTerrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(110, "", "Korea")
+    str(108, "", "Japan south")
     str(106, "", "Taiwan")
     str(104, "", "Luzon")
     str(102,"Borneo north", "Philippines south")

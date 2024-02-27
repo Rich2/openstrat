@@ -17,12 +17,12 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(118, hillyTundra),
       TRow(116, hillyTundra),
       VRow(115, MouthOld(5632, HVUp), MouthOld(5634, HVUL), BendIn(5636, HVUp)),
-      TRow(114, CapeOld(1, 4, hillyTaiga)),
-      VRow(111, Bend(5628, HVDR, 13, 5)),
+      TRow(114, hillyTaiga),
+      VRow(113, BendIn(5630, HVDR, 11), ThreeUp(5632, 13, 11, 0), ThreeDown(5634, 6, 0, 11)),
+      TRow(112, hillyTaiga),
+      VRow(111, Bend(5628, HVDR, 7, 5), ThreeUp(5630, 11, 0, 7), ThreeDown(5632, 11, 0, 12), BendIn(5634, HVUL, 11)),
       TRow(110, hillyCont),
-      VRow(109, BendIn(5628, HVUL), BendOut(5630, HVDR)),
-      //TRow(108, SepB(), sea * 2),
-
+      VRow(109, BendIn(5628, HVUL), BendOut(5630, HVDR), BendIn(5632, HVUL, 13)),
       VRow(101, BendOut(5626, HVUp, 7), BendIn(5628, HVDn, 13), BendIn(5630, HVDL, 13)),
       TRow(100, hillyJungle),
       VRow(99, BendOut(5630, HVUR, 7), MouthLt(5632, HVDR, 7)),
@@ -37,4 +37,10 @@ object TerrMegaE150 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(114, "Kamchatka")
+    str(112, "Salakhin")
+    str(110, "Japan north")
+  }
 }
