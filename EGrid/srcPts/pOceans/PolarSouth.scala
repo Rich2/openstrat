@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -61,7 +61,7 @@ object AntarticaWest extends EArea2("Antartica\nWest", -80 ll -100, ice)
 }
 
 /** [[polygonLL]] graphical representation of Weddel Sea seasonal ice. Depends on [[AntarticaEast]] and [[AntarticaWest]]. */
-object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, siceWin)
+object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, SeaIcePerm)
 { val northWest: LatLong = -63 ll AntarticaWest.joinvilleEast.longDegs
   val ow50: LatLong = -63 ll -50
   val ow40: LatLong = -63 ll -40

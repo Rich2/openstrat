@@ -37,8 +37,12 @@ object Terr13W60 extends Long13Terrs
       VRow(91, MouthRt(10750, HVUR), MouthRt(10752, HVDL), BendIn(10754, HVUL, 13)),
       VRow(89, MouthRt(10750, HVDR, 7)),
       VRow(87, BendIn(10750, HVDn, 13, siceWin), BendIn(10752, HVUp, 13, siceWin), BendOut(10754, HVDn, 7, siceWin), BendMax(10756, HVUp, siceWin)),
-      TRow(86, siceWin),
+      TRow(86, SeaIcePerm),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(114, "Greenland north")
+  }
 }

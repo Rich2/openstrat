@@ -32,10 +32,10 @@ object Terr13E30 extends Long13Terrs
       VRow(99, BendOut(1540, HVDR, 7), BendIn(1542, HVUL, 13)),
       TRow(98, jungle, jungle),
       VRow(97, BendIn(1538, HVDR), ThreeUp(1540, 0, 6, 6), BendIn(1542, HVDL)),
-      TRow(96, hillyOce, oceForest),
-      VRow(95, BendIn(1538, HVUR), BendIn(1540, HVUp), BendIn(1542, HVUL)),
+      TRow(96, hillySavannah, hillySavannah),
+      VRow(95, BendIn(1532, HVDL), BendIn(1538, HVUR), BendIn(1540, HVUp), BendIn(1542, HVUL)),
       TRow(94, oceanic, sea),
-      VRow(93, MouthRt(1534, HVDR)),
+      VRow(93, BendIn(1532, HVUR), MouthRt(1534, HVDR)),
       TRow(88, siceWin),
       VRow(87, BendIn(1534, HVDn, 12, siceWin), BendMin(1536, HVUp, siceWin)),
       TRow(86, ice)
@@ -43,5 +43,12 @@ object Terr13E30 extends Long13Terrs
   }
   help.run
 
-  hexNames.setRow(108, "Turkey")
+  { import hexNames.{ setRow => str}
+    str(112, "Baltic lands")
+    str(110, "Rus")
+    str(108, "Turkey")
+    str(106, "Libya")
+    str(104, "Sudan", "Arabia")
+  }
+
 }

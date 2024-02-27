@@ -36,4 +36,12 @@ object Terr13E60 extends Long13Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(110, "Kazakstan")
+    str(108, "Uzbekistan")
+    str(106, "Persia", "Mughalstan")
+    str(104, "Oman")
+    str(102, "Africa Horn")
+  }
 }

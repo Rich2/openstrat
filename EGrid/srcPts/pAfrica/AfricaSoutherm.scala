@@ -7,19 +7,23 @@ object SouthAfrica extends EArea2("South Africa", -25 ll 24, sahel)
 { val sAfricaN: Latitude = 17.south
 
   val sAfricaNW: LatLong = - 17 ll 11.76
-  val p95: LatLong = sAfricaN * 31.east
-
-  val agulhas: LatLong = -34.83 ll 20.00
-  val capeTown: LatLong = -34 ll 19
-  val nNamibia: LatLong = -17.12 ll 11.3
   val beira: LatLong = -19.35 ll 34.3
   val inhambane: LatLong = -23.38 ll 35.2
   val maputo: LatLong = -25.4 ll 32.2
   val richardsBay: LatLong = -29 ll 32
   val portLiz: LatLong = -34 ll 26
+  val agulhas: LatLong = -34.83 ll 20.00
+  val capeOfGoodHope: LatLong = -34.356 ll 18.476
+  val capeColumbine: LatLong = -32.825 ll 17.844
+  val shelleyPoint: LatLong = -32.701 ll 17.967
+  val p65: LatLong = -27.727 ll 15.535
+  val p72: LatLong = -23.983 ll 14.457
+  val swakopmund: LatLong = -22.674 ll 14.520
+  val nNamibia: LatLong = -17.252 ll 11.751
+  val p95: LatLong = sAfricaN * 31.east
 
-  override def polygonLL: PolygonLL = PolygonLL(agulhas, capeTown, nNamibia, sAfricaNW, p95, beira, inhambane, maputo, richardsBay,
-    portLiz)
+  override def polygonLL: PolygonLL = PolygonLL(beira, inhambane, maputo, richardsBay, portLiz, agulhas, capeOfGoodHope, capeColumbine, shelleyPoint, p65, p72,
+    swakopmund, nNamibia, sAfricaNW, p95)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
