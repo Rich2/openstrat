@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle8]] 190288.785km² => 244415.372km². Most of Philippines excluding Luzon and Palawan.
  * [[Isle7]] 142928.020km² => 190288.785km². Sulawesi 186216.16km².
  * [[Isle6]] 102333.079km² => 142928.020km². Luzon 109965km², Java 138,800km².
- * [[Isle5]] 68503.962km² => 102333.079km². Lesser Sunda Islands estimate.
+ * [[Isle5]] 68503.962km² => 102333.079km². Lesser Sunda Islands estimate 80000km.
  * [[Isle3]] 21143.198km² => 41440.668km². Taiwan 36197km², */
 object TerrMegaE120 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e120(82)

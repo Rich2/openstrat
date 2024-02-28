@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  * Isle9 413061.979km² => 515970.154km². Sumatra 443065kmm².
  * Isle6 243930.488km² <= 172942.905km². Most of Philippines (300000 km²).
  * Isle5 115771.696km² => 172942.905km². Java 138794km².
- * Isle4 115771.696km² <= 70034.730km². Most of Luzon (109,965 km2) excluding the south plus Taiwan. */
+ * Isle4 70034.730km² => 115771.696km². Most of Luzon (109,965 km2) excluding the south plus Taiwan, Lesser Sunda Islands estimate 80000km, */
 object Terr13E120 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e120(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -31,10 +31,10 @@ object Terr13E120 extends Long13Terrs
       TRow(102, sea, hillyJungle),
       VRow(101, BendIn(4604, HVDn), BendIn(4606, HVDL, 7), Mouth(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
       TRow(100, SepB(), hillyJungle, SepB(), hillyJungle),
-      VRow(99, ThreeDown(4604, 7, 11, 0), ThreeUp(4606, 1, 7, 6), BendAllOld(4608, HVUp), ThreeUp(4610, 7, 7, 7), BendOut(4612, HVDL), MouthOld(4614, HVDn)),
+      VRow(99, ThreeDown(4604, 7, 12, 0), ThreeUp(4606, 1, 12, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2), MouthOld(4614, HVDn)),
       TRow(98, hillyJungle * 2),
 
-      VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 7, 7, 0), BendAllOld(4608, HVDn), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
+      VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 12, 7, 0), ThreeUp(4608, 12, 90, 11), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
         BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
 
       TRow(96, SepB(), desert, sahel),
