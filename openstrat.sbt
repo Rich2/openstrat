@@ -8,7 +8,7 @@ val scalaMinor = "1"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).aggregate(Dev, WW2Js).settings(
+lazy val root = (project in file(".")).aggregate(Util, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).aggregate(Dev).settings(
   publish/skip := true,
   ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(Util),
   ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
@@ -176,22 +176,6 @@ def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugi
 )
 
 lazy val GenAppJs = jsApp("GenApp")
-lazy val DicelessJs = jsApp("Diceless").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp")
-lazy val UnitLocJs = jsApp("UnitLoc").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp")
-lazy val BC305Js = jsApp("BC305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App")
-lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp")
-lazy val ZugJs = jsApp("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp")
-lazy val WW1Js = jsApp("WW1").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App")
-lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App")
-lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1783App")
-lazy val SorsJs = jsApp("Sors").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp")
-lazy val PericuloJs = jsApp("Periculo").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp")
-lazy val Peri2Js = jsApp("Peri2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App")
-lazy val Y1492Js = jsApp("Y1492").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1492App")
-lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp")
-lazy val FlagsJs = jsApp("Flags").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp")
-lazy val CivRiseJs = jsApp("CivRise").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp")
-lazy val ChessJs = jsApp("Chess").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp")
 
 val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid")//, "Apps")//, "Dev")
 

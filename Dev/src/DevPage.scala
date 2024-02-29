@@ -9,7 +9,7 @@ object DevPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, intellij, miscTitle, p6, table, p7, credits)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbtJs, intellij, miscTitle, p6, table, p7, credits)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
 
@@ -66,6 +66,27 @@ object DevPage extends HtmlPage
     "examples on the richstrat.com website are available plus others.The second command will also rebuild on source changes in similar manner." --
     "However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window" --
     "after the fastOptJS command has finished the rebuild.")
+
+  def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt",
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp""""),
+    HtmlLi("""
+  lazy val UnitLocJs = jsApp("UnitLoc").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp")
+  lazy val BC305Js = jsApp("BC305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App")
+  lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp")
+  lazy val ZugJs = jsApp("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp")
+  lazy val WW1Js = jsApp("WW1").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App")
+  lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App")
+  lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1783App")
+  lazy val SorsJs = jsApp("Sors").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp")
+  lazy val PericuloJs = jsApp("Periculo").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp")
+  lazy val Peri2Js = jsApp("Peri2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App")
+  lazy val Y1492Js = jsApp("Y1492").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1492App")
+  lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp")
+  lazy val FlagsJs = jsApp("Flags").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp")
+  lazy val CivRiseJs = jsApp("CivRise").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp")
+  lazy val ChessJs = jsApp("Chess").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp")
+  """)
+  )
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",
     HtmlLi("File => Editor => General -> Other -> tick Show quick documentation on mouse move."),
