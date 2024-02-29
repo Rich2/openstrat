@@ -67,25 +67,23 @@ object DevPage extends HtmlPage
     "However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window" --
     "after the fastOptJS command has finished the rebuild.")
 
-  def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt",
+  def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App""""),
-    HtmlLi("""
-  lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp")
-  lazy val ZugJs = jsApp("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp")
-  lazy val WW1Js = jsApp("WW1").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App")
-  lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App")
-  lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1783App")
-  lazy val SorsJs = jsApp("Sors").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp")
-  lazy val PericuloJs = jsApp("Periculo").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp")
-  lazy val Peri2Js = jsApp("Peri2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App")
-  lazy val Y1492Js = jsApp("Y1492").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1492App")
-  lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp")
-  lazy val FlagsJs = jsApp("Flags").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp")
-  lazy val CivRiseJs = jsApp("CivRise").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp")
-  lazy val ChessJs = jsApp("Chess").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp")
-  """)
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1783App""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1492App""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp""""),
+    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp"""")
   )
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",
