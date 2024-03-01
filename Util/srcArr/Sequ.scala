@@ -193,7 +193,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Specialised flatMap to a [[Arr]]. */
-  def flatMap[ArrB <: Arr[_]](f: A => ArrB)(implicit ev: BuilderArrFlat[ArrB]): ArrB =
+  def flatMap[ArrB <: Arr[?]](f: A => ArrB)(implicit ev: BuilderArrFlat[ArrB]): ArrB =
   { val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
       val newVals = f(a)

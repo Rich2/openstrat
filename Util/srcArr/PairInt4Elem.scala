@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -60,9 +60,9 @@ trait BuffPairInt4[B1 <: Int4Elem, B2, B <: PairInt4Elem[B1, B2]] extends BuffPa
 }
 
 /** Base trait for builders of [[ArrPairInt4]] objects by both map and flatMap methods. */
-trait BuilderArrPairInt4[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, _]] extends
+trait BuilderArrPairInt4[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends
 BuilderArrPairIntN[B1, ArrB1, B2, ArrB]
-{ type BuffT <: BuffPairInt4[B1, B2, _]
+{ type BuffT <: BuffPairInt4[B1, B2, ?]
   type B1BuffT <: BuffInt4[B1]
 }
 
@@ -84,7 +84,7 @@ trait BuilderArrPairInt4Flat[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: A
 
 trait Int4PairArrCompanion[A1 <: Int4Elem]
 {
-  def seqToArrays[A2](pairs: Seq[PairInt4Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairInt4Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

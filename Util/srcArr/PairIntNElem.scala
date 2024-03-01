@@ -62,7 +62,7 @@ trait ArrPairIntN[A1 <: IntNElem, ArrA1 <: ArrIntN[A1], A2, A <: PairIntNElem[A1
 trait BuffPairIntN[B1 <: IntNElem, B2, B <: PairIntNElem[B1, B2]] extends BuffPair[B1, B2, B]
 { def b1IntBuffer: ArrayBuffer[Int]
 
-  final def growArr(newElems: ArrPairIntN[B1, _, B2, B]): Unit =
+  final def growArr(newElems: ArrPairIntN[B1, ?, B2, B]): Unit =
   { newElems.a1ArrayInt.foreach(b1IntBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_))
   }

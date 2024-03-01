@@ -111,4 +111,4 @@ trait BuilderArrValueNMap[B <: ValueNElem, ArrB <: ArrValueN[B]] extends Builder
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueN]] final classes. Instances for the [[BuilderArrFlat] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait BuilderArrValueNFlat[ArrB <: ArrValueN[_]] extends BuilderSeqLikeValueN[ArrB] with BuilderArrFlat[ArrB]
+trait BuilderArrValueNFlat[ArrB <: ArrValueN[?]] extends BuilderSeqLikeValueN[ArrB] with BuilderArrFlat[ArrB]

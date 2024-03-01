@@ -60,7 +60,7 @@ trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Rep
 class Show1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val fArg1: A => A1, val repeatName: String, fArrayR: A => Array[Ar],
   val opt1: Option[A1] = None)(implicit val show1Ev: Show[A1], val showEvR: Show[Ar]) extends Show1PlusOptRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
 {
-  override def fixedfieldShows: RArr[Show[_]] = RArr(show1Ev)
+  override def fixedfieldShows: RArr[Show[?]] = RArr(show1Ev)
   override def showForeach(obj: A, f: Ar => Unit): Unit = fArrayR(obj).foreach(f)
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, reflect.ClassTag
 
@@ -31,7 +31,7 @@ trait Show4Plus[A1, A2, A3, A4, A] extends Show3Plus[A1, A2, A3, A] with Persist
 
 /** Show type class for 4 parameter case classes. */
 trait Show4[A1, A2, A3, A4, A] extends Persist4[A1,A2, A3, A4] with Show4Plus[A1, A2, A3, A4, A]
-{ override def fieldShows: RArr[Show[_]] = RArr(show1Ev, show2Ev, show3Ev, showEv4)
+{ override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev, show3Ev, showEv4)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt4 match
   { case Some(a4) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && a4 == fArg4(obj) => StrArr()

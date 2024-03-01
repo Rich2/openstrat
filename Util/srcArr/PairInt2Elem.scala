@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
@@ -90,7 +90,7 @@ trait BuilderArrPairInt2Map[B1 <: Int2Elem, ArrB1 <: ArrInt2[B1], B2, B <: PairI
 /** Helper trait for the companion objects of instantiable [[ArrPairInt2]] classes.  */
 trait CompanionArrPairInt2[A1 <: Int2Elem]
 {
-  def seqToArrays[A2](pairs: Seq[PairInt2Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairInt2Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 2)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
@@ -124,7 +124,7 @@ package object ostrat
 
   /** Shortcut method to create [[ArrayBuffer]] with initial values. Buffer or buffer references the standard library's [[ArrayBuffer]] where as buff
    *  or Buff is used to reference openstrat variable length mutable collection classes. */
-  @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp :_*)
+  @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp*)
 
   /** Constructs a new [[ArrayBuffer]][A]. */
   @inline def Buffer[A <: AnyRef](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
@@ -138,7 +138,7 @@ package object ostrat
   /** Constructs a new [[ArrayBuffer]][Long]. */
   @inline def BufferLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
 
-  type RefTag[A] = AnyRef with reflect.ClassTag[A]
+  type RefTag[A] = AnyRef & reflect.ClassTag[A]
 
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
