@@ -65,7 +65,7 @@ trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPa
 }
 
 /** Common trait for builders of [[ArrPairDbl4]] objects via the map and flatMap methods. */
-trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
+trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
 BuilderArrPairDblN[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairDbl4[B1, B2, ?]
 }
@@ -91,7 +91,7 @@ trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1]] extends Compani
 {
   override def elemNumDbls: Int = 4
 
-  def seqToArrays[A2](pairs: Seq[PairDbl4Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairDbl4Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

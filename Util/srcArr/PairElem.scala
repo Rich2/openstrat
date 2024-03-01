@@ -65,7 +65,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Just a flatMap method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type ArrB. */
-  def pairFlatMap[ArrB <: Arr[_]](f: (A1, A2) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB = {
+  def pairFlatMap[ArrB <: Arr[?]](f: (A1, A2) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB = {
     val buff = build.newBuff()
     pairForeach { (a1, a2) =>
       val newBs = f(a1, a2)
@@ -83,7 +83,7 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrFinalA1]] of [[PairFinalA1Elem]][B1, A2]. Then flattens
    * these new [[PairArrFinalA1]]s to make a single [[PairArrFinalA1]] */
-  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrFinalA1[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrFinalA1[B1, ArrB1, A2, ?]](f: A1 => ArrB1)(implicit
     build: BuilderArrPairFlat[B1, ArrB1, A2, ArrB]): ArrB = {
     val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }

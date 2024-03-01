@@ -7,7 +7,7 @@ package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
   type EArr[A <: AnyRef] = EMon[RArr[A]]
   type RefsMulti[A <: AnyRef] = RArr[Multiple[A]]
-  type ShowEq[A] = Show[A] with EqT[A]
+  type ShowEq[A] = Show[A] & EqT[A]
   type AnyRefs = RArr[AnyRef]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
@@ -263,7 +263,7 @@ package object ostrat
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value until the iUntil paraemter value in integer steps of
    * iStep. Default step value is 1. Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter,
    * where iFrom is 0 and iStep is 1. */
-  def iUntilFlatMap[AA <: Arr[_]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iUntilFlatMap[AA <: Arr[?]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iFrom, iUntil, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
@@ -271,7 +271,7 @@ package object ostrat
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 until the iUntil parameter value in integer steps of 1. Throws on non
    *  termination. Method name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
-  def iUntilFlatMap[AA <: Arr[_]](iUntil: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iUntilFlatMap[AA <: Arr[?]](iUntil: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iUntil){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)

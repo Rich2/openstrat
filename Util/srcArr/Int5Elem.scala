@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -78,7 +78,7 @@ trait BuffInt5[A <: Int5Elem] extends Any with BuffIntN[A]
 }
 
 /** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
-trait BuilderSeqLikeInt5[BB <: SeqLikeInt5[_]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt5[BB <: SeqLikeInt5[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt5[_]
   final override def elemProdSize: Int = 5
 }
@@ -101,7 +101,7 @@ trait BuilderSeqLikeInt5Map[B <: Int5Elem, BB <: SeqLikeInt5[B]] extends Builder
 trait BuilderArrInt5Map[B <: Int5Elem, ArrB <: ArrInt5[B]] extends BuilderSeqLikeInt5Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
 /** Builder for [[Arr]]s with [[Int5]] elements via the flatMap method. */
-trait BuilderArrInt5Flat[ArrB <: ArrInt5[_]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt5Flat[ArrB <: ArrInt5[?]] extends BuilderSeqLikeInt5[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt5]] final classes to extend. */
 abstract class CompanionArrInt5[A <: Int5Elem, M <: ArrInt5[A]] extends CompanionSeqLikeIntN[A, M]

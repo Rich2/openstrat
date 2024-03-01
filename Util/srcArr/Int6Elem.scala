@@ -82,7 +82,7 @@ trait BuffInt6[A <: Int6Elem] extends Any with BuffIntN[A]
 
 /** Builder for [[SeqLike]]s with [[Int6Elem]]s */
 trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[_]] extends BuilderSeqLikeIntN[BB]
-{ type BuffT <: BuffInt6[_]
+{ type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
 

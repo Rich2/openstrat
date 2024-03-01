@@ -36,7 +36,7 @@ trait BuffPairDblN[B1 <: DblNElem, B2, B <: PairDblNElem[B1, B2]] extends BuffPa
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]
 
-  final def growArr(newElems: ArrPairDblN[B1, _, B2, B]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
+  final def growArr(newElems: ArrPairDblN[B1, ?, B2, B]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.dblForeach(b1DblBuffer.append(_)); b2Buffer.append(b2) }
@@ -45,7 +45,7 @@ trait BuffPairDblN[B1 <: DblNElem, B2, B <: PairDblNElem[B1, B2]] extends BuffPa
 /** Base trait for builders of [[ArrPairDblN]] objects by both map and flatMap methods. */
 trait BuilderArrPairDblN[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPairDblN[B1, ArrB1, B2, ?]] extends
 BuilderArrPair[B1, ArrB1, B2, ArrB]
-{ type BuffT <: BuffPairDblN[B1, B2, _]
+{ type BuffT <: BuffPairDblN[B1, B2, ?]
   type B1BuffT <: BuffDblN[B1]
 
   /** Constructs the [[Arr]] class from an [[Array]][Double] object for the first components of the pairs and an [[Array]][B2] for the second

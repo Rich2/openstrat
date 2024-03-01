@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -106,7 +106,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
 }
 
 /** Base trait for Builders for [[SeqLike]]s with [[Dbl2Elem]] elements via both map and flatMap methods. */
-trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2[_]] extends BuilderSeqLikeDblN[BB]
+trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2[?]] extends BuilderSeqLikeDblN[BB]
 { type BuffT <: BuffDbl2[_]
   final override def elemProdSize = 2
 }

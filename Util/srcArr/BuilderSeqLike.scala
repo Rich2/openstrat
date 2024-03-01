@@ -1,12 +1,12 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
-trait BuilderSeqLike[BB <: SeqLike[_]] extends BuilderColl[BB]
+trait BuilderSeqLike[BB <: SeqLike[?]] extends BuilderColl[BB]
 { /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
    *  BuffProdHomo. */
-  type BuffT <: BuffSequ[_]
+  type BuffT <: BuffSequ[?]
 }
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
@@ -72,7 +72,7 @@ trait BuilderArrMapPriority2
 
 /** Builds [[SeqLike]] objects via flatMap methods. Hence the type of the element of the sequence or specifiying sequence is not known at the call
  *  site. */
-trait BuilderSeqLikeFlat[BB <: SeqLike[_]] extends BuilderSeqLike[BB]
+trait BuilderSeqLikeFlat[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[BuilderArrMap]][BB] type class where the instance
@@ -103,7 +103,7 @@ trait BuilderArrFlatPriority2
 }
 
 /** Builds [[SeqSpec]] objects via flatMap methods. Hence the type of the element of the specifying sequence is not known at the call site. */
-trait BuilderSeqSpecFlat[ArrB <: Arr[_], BB <: SeqSpec[_]] extends BuilderSeqLike[BB]
+trait BuilderSeqSpecFlat[ArrB <: Arr[?], BB <: SeqSpec[?]] extends BuilderSeqLike[BB]
 {
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: BB): Unit
