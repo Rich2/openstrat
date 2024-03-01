@@ -34,7 +34,7 @@ object AppsPage extends HtmlPage
 
   def otherTiled: RArr[HtmlInline] = RArr(
     HtmlH2("Other Tiled Map Applications."),
-    HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
+    HtmlLi.linkAndText("../otherapps/unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText("../zug.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),
     HtmlLi.linkAndText("../dungeon.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale."),
     HtmlLi.linkAndText("../civrise.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --

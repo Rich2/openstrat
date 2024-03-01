@@ -123,18 +123,9 @@ class ExtensionsString(val thisString: String) extends AnyVal
   
   /** Concatenates a newline special character followed by spaces to this string. */
   def nli(indent: Int): String = thisString + "\n" + indent.spaces
-  
-  /** prepends a newline special character and spaces to this string */
-  def preNl(indent: Int): String = thisString + "\n" + indent.spaces
-  
-  /** Prepends a newline special character to this String */
-  def preNl: String = "\n" + thisString
-  
-  /** Prepends 2 spaces to string */   
-  def ind2: String = "  " + thisString
-  
-  /** Prepends 4 spaces to string */
-  def ind4: String = "    " + thisString
+
+  /** Prepends the operand [[String]] if the predicate is true. */
+  def ifPrepend(pred: Boolean, operand: => String): String = if(pred) operand + thisString else thisString
   
   /** Concatenates a '/' character and then the other String. Useful for constructing directory/ folder paths on the Web, Linux and Unix */      
   def /(other: String): String = thisString + "/" + other

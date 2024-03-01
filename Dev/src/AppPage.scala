@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "") extends HtmlPage
+class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "", directoryLevel: Int = 0) extends HtmlPage
 {
   val fileNameStem: String = ife(fileNameStemIn == "", JsMainStemName.toLowerCase(), fileNameStemIn) // + ".js"
 
@@ -17,8 +17,8 @@ class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextI
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStemName == JsMainStemName)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(_.htmlFileName)
-    val pairs2: ArrPairStr[String] = PairStrElem("Home", "index.html") %: pairs1
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(_.htmlFileName.ifPrepend(directoryLevel == 1, "../"))
+    val pairs2: ArrPairStr[String] = PairStrElem("Home", "index.html".ifPrepend(directoryLevel == 1, "../")) %: pairs1
     AppPage.topMenu(pairs2)
   }
 
@@ -33,14 +33,17 @@ object AppPage
    * which defaults to the first parameter. */
   def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): AppPage = new AppPage(appStemName, fileNameIn, linkTextIn)
 
-  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator"), AppPage("Diceless", "dicelessapp"),
+  def d1(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): AppPage = new AppPage(appStemName, fileNameIn, linkTextIn, 1)
+
+  val allTops: RArr[AppPage] = RArr(AppPage.d1("UnitLoc", "unitlocapp", "Unit Locator"), AppPage("Diceless", "dicelessapp"),
     AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"),
     AppPage("Flags"), AppPage("Dungeon"), AppPage("CivRise", "civrise", "Civ Rise"))
 
-  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"), AppPage("EG1300", "eg1300app",
-    "1300km Hex Earth"))
+  val eGrids: RArr[AppPage] = RArr(AppPage.d1("EG1300", "eg1300app", "1300km Hex Earth"))
 
-  def all: RArr[AppPage] = allTops ++ others
+  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"))
+
+  def all: RArr[AppPage] = allTops ++ eGrids ++ others
 
   val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.linkText)(_.htmlFileName)
 
