@@ -3,9 +3,9 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "", directoryLevel: Int = 0) extends HtmlPage
+class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "", val locStr: String = "/") extends HtmlPage
 {
-  val fileNameStem: String = ife(fileNameStemIn == "", JsMainStemName.toLowerCase(), fileNameStemIn) // + ".js"
+  val fileNameStem: String = ife(fileNameStemIn == "", JsMainStemName.toLowerCase(), fileNameStemIn)
 
   def htmlFileName: String = fileNameStem + ".html"
 
@@ -13,12 +13,12 @@ class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextI
 
   val linkText: String = ife(linkTextIn == "", JsMainStemName, linkTextIn)
 
-  override def head: HtmlHead = HtmlHead.titleCss(linkText, "only")
+  override def head: HtmlHead = HtmlHead.titleCss(linkText, "/only")
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStemName == JsMainStemName)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(_.htmlFileName.ifPrepend(directoryLevel == 1, "../"))
-    val pairs2: ArrPairStr[String] = PairStrElem("Home", "index.html".ifPrepend(directoryLevel == 1, "../")) %: pairs1
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(locStr + _.htmlFileName)
+    val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
 
@@ -31,15 +31,14 @@ object AppPage
    * which "JsApp" [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The
    * default is the lower case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces
    * which defaults to the first parameter. */
-  def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): AppPage = new AppPage(appStemName, fileNameIn, linkTextIn)
+  def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = "", locStr: String = "/"): AppPage =
+    new AppPage(appStemName, fileNameIn, linkTextIn, locStr)
 
-  def d1(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): AppPage = new AppPage(appStemName, fileNameIn, linkTextIn, 1)
-
-  val allTops: RArr[AppPage] = RArr(AppPage.d1("UnitLoc", "unitlocapp", "Unit Locator"), AppPage("Diceless", "dicelessapp"),
+  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", "/otherapps"), AppPage("Diceless", "dicelessapp"),
     AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"),
     AppPage("Flags"), AppPage("Dungeon"), AppPage("CivRise", "civrise", "Civ Rise"))
 
-  val eGrids: RArr[AppPage] = RArr(AppPage.d1("EG1300", "eg1300app", "1300km Hex Earth"))
+  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", "/egrids"))
 
   val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"))
 
