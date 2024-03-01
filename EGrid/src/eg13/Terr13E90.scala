@@ -20,7 +20,7 @@ object Terr13E90 extends Long13Terrs
       TRow(108, hillyDesert),
       TRow(106, mtainOld, mtainOld),
       TRow(104, jungle, hillyJungle),
-      VRow(103, MouthLt(3580, HVDR), MouthMax(3584, HVUp)),
+      VRow(103, MouthLt(3580, HVDR), MouthMax(3584, HVUp), MouthLt(3590, HVUL, 7)),
       TRow(102, hillyJungle, jungle),
       VRow(101, MouthLt(3580, HVUL), BendIn(3582, HVUp), ThreeUp(3584, 13, 0, 13), BendIn(3586, HVDR, 7), BendIn(3588, HVDn, 7), BendIn(3590, HVDL, 7)),
       TRow(100, sea, jungle),
