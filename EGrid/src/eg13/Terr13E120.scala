@@ -49,6 +49,7 @@ object Terr13E120 extends Long13Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(102, "", "Philippines")
     str(100, "Borneo")
     str(98, "Java", "Lesser Sunda")
   }

@@ -25,8 +25,14 @@ object AppsPage extends HtmlPage
     HtmlLi.linkAndText("../ww1.html", "World War I Game", "A 120km hex game."),
     HtmlLi.linkAndText("../sors.html", "Sors Imperiorum", "A game where empires appear at set times according to history. Uses 220km hex scale"),
     HtmlLi.linkAndText("../y1492.html", "AD1492", "A grand strategy game with a start point of 1492. It also uses an 160km scale world map."),
+
     HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses a 220km scale world"
-      -- "map. This is the second game that most interests me."))
+      -- "map. This is the second game that most interests me."),
+
+    HtmlLi.linkAndText("../eg1300app.html", "EGrid 1300km", "1300km hex scale world."),
+
+  )
+
 
   def otherTiled: RArr[HtmlInline] = RArr(
     HtmlH2("Other Tiled Map Applications."),
