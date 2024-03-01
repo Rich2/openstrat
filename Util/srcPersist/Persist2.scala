@@ -33,7 +33,7 @@ trait Show2PlusFixed[A1, A2, A] extends Show1PlusFixed[A1, A] with Persist2Plus[
 
 /** [[Show]] type class for 2 parameter case classes. */
 trait Show2[A1, A2, A] extends Show2PlusFixed[A1, A2, A] with Persist2[A1, A2]
-{ override def fieldShows: RArr[Show[_]] = RArr(show1Ev, show2Ev)
+{ override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt2 match
   { case Some(a2) if opt1 == Some(fArg1(obj)) && a2 == fArg2(obj) => StrArr()

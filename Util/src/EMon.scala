@@ -119,15 +119,15 @@ object EMon
     }
   }
 
-  implicit class RArrExtensions(thisEMon: EMon[Arr[_]]){
+  implicit class RArrExtensions(thisEMon: EMon[Arr[?]]){
     def printArrLines: Unit = thisEMon match{
       case Good(arr) => arr.foreach(println)
       case Bad(errs) => println(errs)
     }
   }
 
-  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[EMon[A]] = (em1, em2) => (em1, em2) match {
-    case (Good(a1), Good(a2)) => evA.eqT(a1, a2)
+  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[EMon[A]] = (em1, em2) => (em1, em2) match
+  { case (Good(a1), Good(a2)) => evA.eqT(a1, a2)
     case (Bad(errs1), Bad(errs2)) => false
     case _ => false
   }

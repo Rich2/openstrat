@@ -73,7 +73,7 @@ trait SeqLikeDblNPairBuff[B1E <: DblNElem, B1 <: SeqLikeDblN[B1E], B2, B <: SeqL
 
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayDbl); b2Buffer.append(newElem.a2) }
 
-  final def growArr(newElems: SeqLikeDblNPairArr[B1E, B1, _, B2, B]): Unit = { newElems.a1ArrayDbls.foreach(b1Buffer.append(_))
+  final def growArr(newElems: SeqLikeDblNPairArr[B1E, B1, ?, B2, B]): Unit = { newElems.a1ArrayDbls.foreach(b1Buffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }

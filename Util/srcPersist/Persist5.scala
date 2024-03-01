@@ -30,7 +30,7 @@ trait Show5Plus[A1, A2, A3, A4, A5, A] extends Show4Plus[A1, A2, A3, A4, A] with
 
 /** [[Show]] type class for 5 parameter case classes. */
 trait Show5[A1, A2, A3, A4, A5, A] extends Persist5[A1, A2, A3, A4, A5] with Show5Plus[A1, A2, A3, A4, A5, A]
-{ override def fieldShows: RArr[Show[_]] = RArr(show1Ev, show2Ev, show3Ev, showEv4, showEv5)
+{ override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev, show3Ev, showEv4, showEv5)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt5 match
   { case Some(a5) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && opt3 == Some(fArg3(obj)) && opt4 == Some(fArg4(obj)) &&

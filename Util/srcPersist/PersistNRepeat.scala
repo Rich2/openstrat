@@ -20,7 +20,7 @@ trait ShowNRepeat[Ar, A] extends ShowCompound[A] with PersistNRepeat[Ar]
 { /** Show type class instance for the 2nd Show field. */
   implicit def showEvR: Show[Ar]
 
-  def fixedfieldShows: RArr[Show[_]]
+  def fixedfieldShows: RArr[Show[?]]
 
   /** Foreach's all the elements of the sequence like object that is being shown. */
   def showForeach(obj: A, f: Ar => Unit): Unit

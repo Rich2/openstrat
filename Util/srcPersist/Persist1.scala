@@ -39,7 +39,7 @@ trait Persist1Repeat[A1, Ar, A] extends Persist1PlusRepeat[A1, Ar] with PersistN
 /** [[Show]] type class instances / evidence for objects with 1 fixed component and a repeated parameter. */
 trait Show1Repeat[A1, Ar, A] extends Show1PlusRepeat[A1, Ar, A] with Persist1Repeat[A1, Ar, A]
 {
-  override def fixedfieldShows: RArr[Show[_]] = RArr(show1Ev)
+  override def fixedfieldShows: RArr[Show[?]] = RArr(show1Ev)
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): StrArr =

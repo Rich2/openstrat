@@ -31,7 +31,7 @@ trait Show3Plus[A1, A2, A3, A] extends Show2PlusFixed[A1, A2, A] with Persist3Pl
 
 /** Show type class for 3 parameter case classes. */
 trait Show3[A1, A2, A3, A] extends Show3Plus[A1, A2, A3, A] with Persist3[A1, A2, A3] with ShowNFixed[A]
-{ override def fieldShows: RArr[Show[_]] = RArr(show1Ev, show2Ev, show3Ev)
+{ override def fieldShows: RArr[Show[?]] = RArr(show1Ev, show2Ev, show3Ev)
 
   override def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr = opt3 match
   { case Some(a3) if opt1 == Some(fArg1(obj)) && opt2 == Some(fArg2(obj)) && a3 == fArg3(obj) => StrArr()

@@ -92,7 +92,7 @@ trait BuffValueN[A <: ValueNElem] extends Any with BuffSequ[A]
 }
 
 /** Base trait for all [[SeqLikeValueN]] builders. */
-trait BuilderSeqLikeValueN[BB <: SeqLike[_]] extends BuilderSeqLike[BB]
+trait BuilderSeqLikeValueN[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
 { def elemProdSize: Int
 }
 
@@ -100,7 +100,7 @@ trait BuilderSeqLikeValueN[BB <: SeqLike[_]] extends BuilderSeqLike[BB]
 trait BuilderSeqLikeValueNMap[B <: ValueNElem, BB <: SeqLike[B]] extends BuilderSeqLikeValueN[BB] with BuilderSeqLikeMap[B, BB]
 
 /** Constructs [[SeqLikeValueN]] objects via flatMap method. Element type not known at call site. */
-trait BuilderSeqLikeValueNFlat[BB <: SeqLikeValueN[_]] extends BuilderSeqLikeValueN[BB] with BuilderSeqLikeFlat[BB]
+trait BuilderSeqLikeValueNFlat[BB <: SeqLikeValueN[?]] extends BuilderSeqLikeValueN[BB] with BuilderSeqLikeFlat[BB]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[BuilderArrMap]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
