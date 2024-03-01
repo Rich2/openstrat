@@ -155,8 +155,8 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
     while(res == "" & i < ps.length) if (thisDouble >= ps(i)._1) res = ps(i)._2 else i += 1
     res
   }
-  def scaledStr(i1: Double, s1: String, pairs: (Double, String)*): String = scaledStr((i1, s1) +: pairs :_*)
-  def scaledStr(i1: Double, s1: String, i2:Double, s2: String, pairs: (Double, String)*): String = scaledStr(List((i1, s1), (i2, s2)) ++: pairs :_*)
+  def scaledStr(i1: Double, s1: String, pairs: (Double, String)*): String = scaledStr((i1, s1) +: pairs*)
+  def scaledStr(i1: Double, s1: String, i2:Double, s2: String, pairs: (Double, String)*): String = scaledStr(List((i1, s1), (i2, s2)) ++: pairs*)
   def scaledStr(i1: Double, s1: String, i2:Double, s2: String, i3: Double, s3: String, pairs: (Double, String)*): String =
-    scaledStr(List((i1, s1), (i2, s2), (i3, s3)) ++: pairs :_*)
+    scaledStr(List((i1, s1), (i2, s2), (i3, s3)) ++: pairs*)
 }
