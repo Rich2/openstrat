@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse._
 
 /** Base trait for [[TellN]], [[ShowN]] and [[UnshowN]] which share the paramNames property. */
 trait PersistN extends Any with Persist
@@ -17,7 +17,7 @@ trait PersistNFixed extends Any with PersistN
 /** The base trait for the persistence of algebraic product types, including case classes. */
 trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
 {
-  def fieldShows: RArr[Show[_]]
+  def fieldShows: RArr[Show[?]]
 
   /** Produces the [[String]]s to represent the values of the components of this N component [[Show]]. */
   def strs(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): StrArr

@@ -61,7 +61,7 @@ trait BuffInt3[A <: Int3Elem] extends Any with BuffIntN[A]
 
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s. */
 trait BuilderSeqLikeInt3[BB <: SeqLikeInt3[_]] extends BuilderSeqLikeIntN[BB]
-{ type BuffT <: BuffInt3[_]
+{ type BuffT <: BuffInt3[?]
   final override def elemProdSize: Int = 3
 }
 
@@ -83,7 +83,7 @@ trait BuilderArrInt3Map[B <: Int3Elem, ArrB <: ArrInt3[B]] extends BuilderSeqLik
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[BuilderArrFlat] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int3Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait BuilderArrInt3Flat[ArrB <: ArrInt3[_]] extends BuilderSeqLikeInt3[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt3Flat[ArrB <: ArrInt3[?]] extends BuilderSeqLikeInt3[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Helper class for companion objects of final [[SeqSpecInt3]] classes. */
 abstract class CompanionSeqLikeInt3[A <: Int3Elem, ArrA <: SeqLikeInt3[A]] extends CompanionSeqLikeIntN[A, ArrA]
