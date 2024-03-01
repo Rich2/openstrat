@@ -36,11 +36,15 @@ object AppPage
   def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = "", locStr: String = "/"): AppPage =
     new AppPage(appStemName, fileNameIn, linkTextIn, locStr)
 
-  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", "/otherapps"), AppPage("Diceless", "dicelessapp"),
-    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2", "ww2app", "WW2", "/tiledworld/"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"),
-    AppPage("Flags"), AppPage("Dungeon"), AppPage("CivRise", "civrise", "Civ Rise"))
+  val egameDir: String = "/earthgames/"
+  val egrDir: String = "/egrids/"
 
-  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", "/egrids"), AppPage("EG1000", "eg1000app", "1000km Hex Earth", "/egrids"))
+  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", "/otherapps"), AppPage("Diceless", "dicelessapp"),
+    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2", "ww2app", "WW2", egameDir),
+    AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Flags"), AppPage("Dungeon"),
+    AppPage("CivRise", "civrise", "Civ Rise"))
+
+  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir))
 
   val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"))
 
