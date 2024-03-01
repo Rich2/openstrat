@@ -9,10 +9,7 @@ object AppsPage extends HtmlPage
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", list)
 
-  def list: HtmlOl = HtmlOl(unitLoc %: stratList ++ otherTiled ++ otherApps)
-
-  def unitLoc: HtmlLi =
-    HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time.")
+  def list: HtmlOl = HtmlOl(stratList ++ egrids ++ otherTiled ++ otherApps)
 
   def stratList: RArr[HtmlInline] = RArr(HtmlH2("Strategy Games using tiled world maps."),
     HtmlLi.linkAndText("../dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name" --
@@ -28,14 +25,16 @@ object AppsPage extends HtmlPage
 
     HtmlLi.linkAndText("../y1783.html", "AD1783", "A grand strategy game with a start point of 1783. It also uses a 220km scale world"
       -- "map. This is the second game that most interests me."),
-
-    HtmlLi.linkAndText("../eg1300app.html", "EGrid 1300km", "1300km hex scale world."),
-
   )
 
+  def egrids: RArr[HtmlInline] = RArr(
+    HtmlH2("World Hex Grids."),
+    HtmlLi.linkAndText("../egrids/eg1300app.html", "EGrid 1300km", "1300km hex scale world."),
+  )
 
   def otherTiled: RArr[HtmlInline] = RArr(
     HtmlH2("Other Tiled Map Applications."),
+    HtmlLi.linkAndText("../unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText("../zug.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),
     HtmlLi.linkAndText("../dungeon.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale."),
     HtmlLi.linkAndText("../civrise.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --

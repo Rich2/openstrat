@@ -34,10 +34,11 @@ object AppPage
   def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = ""): AppPage = new AppPage(appStemName, fileNameIn, linkTextIn)
 
   val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator"), AppPage("Diceless", "dicelessapp"),
-    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Flags"), AppPage("Dungeon"),
-    AppPage("CivRise", "civrise", "Civ Rise"))
+    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"),
+    AppPage("Flags"), AppPage("Dungeon"), AppPage("CivRise", "civrise", "Civ Rise"))
 
-  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"), AppPage("EG1300", "eg1300app", "1300km Hex Earth"))
+  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"), AppPage("EG1300", "eg1300app",
+    "1300km Hex Earth"))
 
   def all: RArr[AppPage] = allTops ++ others
 
