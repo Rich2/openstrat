@@ -16,7 +16,7 @@ object AppsPage extends HtmlPage
       "suggests no random element."),
     HtmlLi.linkAndText("../periculoapp.html", "Periculo Fundatuso", "A simple consecutive turn, world map game that has some grounding in earth" --
       "geography."),
-    HtmlLi.linkAndText("../ww2.html", "World War II Game", "Using 460km scale."),
+    HtmlLi.linkAndText("/tiledworld/ww2app.html", "World War II Game", "Using 460km scale."),
     HtmlLi.linkAndText("../bc305.html", "BC305", "A grand strategy game with a start point of 305BC. It uses an 80km scale world"
       -- "map. This is the game that most interests me."),
     HtmlLi.linkAndText("../ww1.html", "World War I Game", "A 120km hex game."),

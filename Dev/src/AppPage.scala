@@ -3,11 +3,13 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "", val locStr: String = "/") extends HtmlPage
+class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "", val dirStr: String = "/") extends HtmlPage
 {
   val fileNameStem: String = ife(fileNameStemIn == "", JsMainStemName.toLowerCase(), fileNameStemIn)
 
   def htmlFileName: String = fileNameStem + ".html"
+
+  def htmlLoc: String = dirStr + htmlFileName
 
   def jsFileName: String = fileNameStem + ".js"
 
@@ -17,7 +19,7 @@ class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextI
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStemName == JsMainStemName)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(locStr + _.htmlFileName)
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(dirStr + _.htmlFileName)
     val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
@@ -35,7 +37,7 @@ object AppPage
     new AppPage(appStemName, fileNameIn, linkTextIn, locStr)
 
   val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", "/otherapps"), AppPage("Diceless", "dicelessapp"),
-    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"),
+    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2", "ww2app", "WW2", "/tiledworld/"), AppPage("BC305"), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"),
     AppPage("Flags"), AppPage("Dungeon"), AppPage("CivRise", "civrise", "Civ Rise"))
 
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", "/egrids"), AppPage("EG1000", "eg1000app", "1000km Hex Earth", "/egrids"))
@@ -44,7 +46,7 @@ object AppPage
 
   def all: RArr[AppPage] = allTops ++ eGrids ++ others
 
-  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.linkText)(_.htmlFileName)
+  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.linkText)(_.htmlLoc)
 
   def topMenu(pairs: ArrPairStr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }
