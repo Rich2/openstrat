@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -78,7 +78,7 @@ trait BuilderArrPairDbl3[B1 <: Dbl3Elem, ArrB1 <: ArrDbl3[B1], B2, B <: PairDbl3
 trait CompanionArrPairDbl3[A1 <: Dbl3Elem, ArrA1 <: ArrDbl3[A1]] extends CompanionArrPairDblN[A1, ArrA1]
 { override def elemNumDbls: Int = 3
 
-  def seqToArrays[A2](pairs: Seq[PairDbl3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[PairDbl3Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

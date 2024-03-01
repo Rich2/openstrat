@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -89,7 +89,7 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
 }
 
 /** Common trait for building [[SeqLike]] objects with [[IntNElem]] elements via map and flatMap methods. */
-trait BuilderSeqLikeIntN[BB <: SeqLike[_]] extends BuilderSeqLikeValueN[BB]
+trait BuilderSeqLikeIntN[BB <: SeqLike[?]] extends BuilderSeqLikeValueN[BB]
 { type BuffT <:  BuffIntN[_]
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   def fromIntArray(array: Array[Int]): BB
@@ -106,7 +106,7 @@ trait BuilderSeqLikeIntNMap[B <: IntNElem, BB <: SeqLikeIntN[B]] extends Builder
 
 /** Constructs [[SeqLikeIntN]] objects via flatMap method. Type of element known not known at at call site. Hence implicit look up will be in the
  * in the [[SeqLike]]'s companion object. */
-trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntN[_]] extends BuilderSeqLikeIntN[BB] with BuilderSeqLikeValueNFlat[BB]
+trait BuilderSeqLikeIntNFlat[BB <: SeqLikeIntN[?]] extends BuilderSeqLikeIntN[BB] with BuilderSeqLikeValueNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntN]] final classes. Instances for the [[BuilderArrMap]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

@@ -225,7 +225,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of
    * putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should
    * be overridden in sub classes. */
-  def iFlatMap[ArrB <: Arr[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
+  def iFlatMap[ArrB <: Arr[?]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
     while (count < length)

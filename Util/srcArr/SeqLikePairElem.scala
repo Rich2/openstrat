@@ -97,15 +97,13 @@ trait SeqLikeIntNPairElem[A1E <: IntNElem, A1 <: SeqLikeIntN[A1E], A2] extends S
 trait SeqLikeIntNPairArr[A1E <: IntNElem, A1 <: SeqLikeIntN[A1E], ArrA1 <: Arr[A1], A2, A <: SeqLikeIntNPairElem[A1E, A1, A2]] extends
   SeqLikePairArr[A1E, A1, ArrA1, A2, A] with ArrayIntBackedPairArr[A1, ArrA1, A2, A]
 { type ThisT <: SeqLikeIntNPairArr[A1E, A1, ArrA1, A2, A]
-  //override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Int]](length), new Array[A2](length))
-
 }
 
 trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: SeqLikeIntN[B1E], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
 { def b1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
 
-  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1ArrayArrayInts.foreach(b1Buffer.append(_))
+  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, ?, B2, B]): Unit = { newPairArr.a1ArrayArrayInts.foreach(b1Buffer.append(_))
     newPairArr.a2Array.foreach(b2Buffer.append(_)) }
 
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.arrayUnsafe); b2Buffer.append(b2) }

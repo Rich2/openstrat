@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -43,7 +43,7 @@ trait BuffPairDblN[B1 <: DblNElem, B2, B <: PairDblNElem[B1, B2]] extends BuffPa
 }
 
 /** Base trait for builders of [[ArrPairDblN]] objects by both map and flatMap methods. */
-trait BuilderArrPairDblN[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPairDblN[B1, ArrB1, B2, _]] extends
+trait BuilderArrPairDblN[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPairDblN[B1, ArrB1, B2, ?]] extends
 BuilderArrPair[B1, ArrB1, B2, ArrB]
 { type BuffT <: BuffPairDblN[B1, B2, _]
   type B1BuffT <: BuffDblN[B1]

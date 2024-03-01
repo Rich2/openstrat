@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -175,9 +175,9 @@ trait ArrPair[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 }
 
 /** Base trait for building [[ArrPair]] objects via map and flatMap methods. */
-trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]] extends BuilderSeqLike[ArrB]
+trait BuilderArrPair[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]] extends BuilderSeqLike[ArrB]
 {
-  type BuffT <: BuffPair[B1, B2, _]
+  type BuffT <: BuffPair[B1, B2, ?]
 
   /** The type of the [[BuffSequ]] for accumulating B1s. */
   type B1BuffT <: BuffSequ[B1]

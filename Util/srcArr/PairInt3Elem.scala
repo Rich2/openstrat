@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -73,7 +73,7 @@ trait BuilderArrPairInt3Map[B1 <: Int3Elem, ArrB1 <: ArrInt3[B1], B2, B <: PairI
 /** Helper trait for companion objects of instantiable [[PairInt3]] classes. */
 trait CompanionArrPairInt3[A1 <: Int3Elem]
 {
-  def pairsToArrays[A2](pairs: Seq[PairInt3Elem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def pairsToArrays[A2](pairs: Seq[PairInt3Elem[?, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
@@ -85,8 +85,8 @@ trait CompanionArrPairInt3[A1 <: Int3Elem]
     (intsArray, a2Array)
   }
 
-  def tuplesToArrays[A2](pairs: Seq[(Int3Elem, A2)])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) = {
-    val intsArray = new Array[Int](pairs.length * 3)
+  def tuplesToArrays[A2](pairs: Seq[(Int3Elem, A2)])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  { val intsArray = new Array[Int](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
     pairs.foreach { p =>

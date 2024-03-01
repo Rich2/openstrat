@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, reflect.ClassTag
 
@@ -67,8 +67,7 @@ trait BuffPairDbl4[B1 <: Dbl4Elem, B2, B <: PairDbl4Elem[B1, B2]] extends BuffPa
 /** Common trait for builders of [[ArrPairDbl4]] objects via the map and flatMap methods. */
 trait BuilderArrPairDbl4[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
 BuilderArrPairDblN[B1, ArrB1, B2, ArrB]
-{ type BuffT <: BuffPairDbl4[B1, B2, _]
-
+{ type BuffT <: BuffPairDbl4[B1, B2, ?]
 }
 
 /** Builder for [[ArrPairDbl4]] objects via the map f: A => PairB method. */
@@ -85,7 +84,7 @@ BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with  BuilderArrPairDblNMap[B1, ArrB1, B
 }
 
 /** Builder for [[ArrPairDbl4]] objects via the flatMap f: A => ArrPairB method. */
-trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, _]] extends
+trait BuilderArrPairDbl4Flat[B1 <: Dbl4Elem, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: ArrPairDbl4[B1, ArrB1, B2, ?]] extends
   BuilderArrPairDbl4[B1, ArrB1, B2, ArrB] with BuilderArrPairDblNFlat[B1, ArrB1, B2, ArrB]
 
 trait Dbl4PairArrCompanion[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1]] extends CompanionArrPairDblN[A1, ArrA1]
