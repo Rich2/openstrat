@@ -338,7 +338,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */
 object Polygon
 {
-  def apply(pts: Pt2 *): Polygon = PolygonGen(pts: _*)
+  def apply(pts: Pt2 *): Polygon = PolygonGen(pts*)
 
   def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 

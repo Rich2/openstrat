@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._, Colour._
 
@@ -21,7 +21,7 @@ trait CmdBarGui extends CanvasPanelled
 
   val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barThickness, canv.bottomLeft))
   def mainRepaint(els: RArr[GraphicElem]): Unit = mainPanel.repaint(els)
-  def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
+  def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els*)
   def mainWidth: Double = mainPanel.width
   def mainHeight: Double = mainPanel.height
 

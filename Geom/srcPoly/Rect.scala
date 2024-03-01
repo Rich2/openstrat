@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, ostrat.Colour.Black
 
@@ -128,7 +128,7 @@ object Rect
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
   def cenV0(cen: Pt2, v0: Pt2): Rect = ???// new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
 
-  def bounding(inp: Arr[_]): Rect = inp.foldLeft{(acc, el) => el match
+  def bounding(inp: Arr[?]): Rect = inp.foldLeft{(acc, el) => el match
     { case be: BoundedElem => acc || be.boundingRect
       case _ => acc
     }

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._
 
@@ -39,37 +39,37 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def clip(pts: Polygon): Unit = tlClip(pts.map(tlCen))
 
-  protected[this] def tlPolyFill(pf: PolygonFill): Unit
-  protected[this] def tlPolyDraw(pd: PolygonDraw): Unit
-  protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
+  protected def tlPolyFill(pf: PolygonFill): Unit
+  protected def tlPolyDraw(pd: PolygonDraw): Unit
+  protected def tlLinePathDraw(pod: LinePathDraw): Unit
 
-  protected[this] def tlLineDraw(ld: LineSegDraw): Unit
+  protected def tlLineDraw(ld: LineSegDraw): Unit
 
-  protected[this] def tlCArcDraw(cad: CArcDraw): Unit
-  protected[this] def tlEArcDraw(ead: EArcDraw): Unit
+  protected def tlCArcDraw(cad: CArcDraw): Unit
+  protected def tlEArcDraw(ead: EArcDraw): Unit
 
-  protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
-  protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
+  protected def tlLinesDraw(lsd: LinesDraw): Unit
+  protected def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
-  protected[this] def tlShapeFill(sgf: ShapeGenFillOld): Unit
+  protected def tlShapeFill(sgf: ShapeGenFillOld): Unit
 
-  protected[this] def tlShapeDraw(sgd: ShapeGenDrawOld): Unit
+  protected def tlShapeDraw(sgd: ShapeGenDrawOld): Unit
 
-  protected[this] def tlCircleFill(cf: CircleFill): Unit
-  protected[this] def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit
-  protected[this] def tlCircleDraw(cd: CircleDraw): Unit
+  protected def tlCircleFill(cf: CircleFill): Unit
+  protected def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit
+  protected def tlCircleDraw(cd: CircleDraw): Unit
   
-  protected[this] def tlEllipseFill(ef: EllipseFill): Unit
-  protected[this] def tlEllipseDraw(ed: EllipseDraw): Unit
-  protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit
+  protected def tlEllipseFill(ef: EllipseFill): Unit
+  protected def tlEllipseDraw(ed: EllipseDraw): Unit
+  protected def tlBezierDraw(bezierDraw: BezierDraw): Unit
    
   protected def tlTextGraphic(tg: TextGraphic): Unit
-  protected[this] def tlTextOutline(tl: TextOutline): Unit
+  protected def tlTextOutline(tl: TextOutline): Unit
 
-  protected[this] def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Pt2(x - width / 2, height / 2 - y), mb)
-  protected[this] def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Pt2(x - width / 2, height / 2 - y), mb)
-  protected[this] def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Pt2(x - width / 2, height / 2 - y), mb)
-  protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Pt2(x - width / 2, height / 2 - y), mb)
+  protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Pt2(x - width / 2, height / 2 - y), mb)
+  protected def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Pt2(x - width / 2, height / 2 - y), mb)
+  protected def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Pt2(x - width / 2, height / 2 - y), mb)
+  protected def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Pt2(x - width / 2, height / 2 - y), mb)
    
-  protected[this] def tlClip(pts: Polygon): Unit
+  protected def tlClip(pts: Polygon): Unit
 }

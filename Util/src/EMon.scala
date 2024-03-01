@@ -119,7 +119,8 @@ object EMon
     }
   }
 
-  implicit class RArrExtensions(thisEMon: EMon[Arr[?]]){
+  implicit class RArrExtensions(thisEMon: EMon[Arr[?]])
+  {
     def printArrLines: Unit = thisEMon match{
       case Good(arr) => arr.foreach(println)
       case Bad(errs) => println(errs)

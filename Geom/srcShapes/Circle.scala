@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, math.Pi, Colour.Black
 
@@ -66,7 +66,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   def rAttrib: XmlAtt = XmlAtt("r", radius.toString)
   override def attribs: RArr[XmlAtt] = RArr(cxAttrib, cyAttrib, rAttrib)
 
-  private[this] def rr2: Double = diameter * 2.sqrt
+  private def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)
   override def bottomRight: Pt2 = Pt2(rr2, -rr2)
   override def bottomLeft: Pt2 = Pt2(-rr2, -rr2)

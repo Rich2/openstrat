@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
 import geom._, pgui._, pjvm._, javafx._, scene._
 
@@ -65,14 +65,14 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   /** Needs mod */
-  override protected[this] def tlPolyDraw(pd: PolygonDraw): Unit =
+  override protected def tlPolyDraw(pd: PolygonDraw): Unit =
   { //gc.beginPath
     gc.setStroke(toFxColor(pd.lineColour))
     gc.setLineWidth(pd.lineWidth)
     gc.strokePolygon(pd.xVertsArray, pd.yVertsArray, pd.vertsNum)
   }
 
-  override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
+  override protected def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.lineTo)
@@ -81,7 +81,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
    
-  override protected[this] def tlLineDraw(ld: LineSegDraw): Unit =
+  override protected def tlLineDraw(ld: LineSegDraw): Unit =
   { gc.beginPath
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
@@ -91,7 +91,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   /** The javaFx documentation. */
-  override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
+  override protected def tlCArcDraw(cad: CArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(cad.xStart, cad.yStart)
     gc.arc(cad.xCen, cad.yCen, cad.radius, cad.radius, cad.curveSeg.startDegsYDown, cad.curveSeg.angleDeltaYDown.degs)
@@ -100,7 +100,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   /** The javaFx documentation. */
-  override protected[this] def tlEArcDraw(ead: EArcDraw): Unit =
+  override protected def tlEArcDraw(ead: EArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ead.xStart, ead.yStart)
     debvar(ead.curveSeg.startDegsYDown)
@@ -140,7 +140,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeOval(ed.cenX - ed.shape.radius1, ed.cenY - ed.shape.radius2, ed.shape.diameter1, ed.shape.diameter2)
   }    
     
-  override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
+  override protected def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath
     gc.moveTo(dld.xStart, dld.yStart)
     gc.lineTo(dld.xEnd, dld.yEnd)
@@ -173,7 +173,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     }
   }
 
-  override protected[this] def tlBezierDraw(bd: BezierDraw): Unit =
+  override protected def tlBezierDraw(bd: BezierDraw): Unit =
   { gc.setStroke(toFxColor(bd.colour))
     gc.setLineWidth(bd.lineWidth)
     gc.beginPath
@@ -192,7 +192,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
    
-  protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
+  protected def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.setLineWidth(lsd.lineWidth)
@@ -200,7 +200,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
    
-  override protected[this] def tlTextOutline(to: TextOutline): Unit =
+  override protected def tlTextOutline(to: TextOutline): Unit =
   { gc.setTextAlign(text.TextAlignment.CENTER)
     gc.setTextBaseline(fxBaseline(to.baseLine))
     gc.setStroke(toFxColor(to.colour))
@@ -209,7 +209,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
    
-  private[this] def segsPath(sgo: ShapeGenOld): Unit =
+  private def segsPath(sgo: ShapeGenOld): Unit =
   { gc.beginPath
     var startPt = sgo.segLast.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -223,7 +223,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.closePath
   }
    
-  override protected[this] def tlShapeFill(sgf: ShapeGenFillOld): Unit =
+  override protected def tlShapeFill(sgf: ShapeGenFillOld): Unit =
   { segsPath(sgf.shape)
     gc.setFill(toFxColor(sgf.colour))
     gc.fill()
@@ -246,7 +246,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def timeOut(f: () => Unit, millis: Integer): Unit = new Timeline(new KeyFrame(util.Duration.millis(millis.doubleValue()),
     (ae: event.ActionEvent) => f())).play
    
-  override protected[this] def tlClip(poly: Polygon): Unit =
+  override protected def tlClip(poly: Polygon): Unit =
   { gc.beginPath
     gc.moveTo(poly.v0x, poly.v0y)
     poly.verts.tailPairsForeach(gc.lineTo)

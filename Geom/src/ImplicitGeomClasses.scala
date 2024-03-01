@@ -12,7 +12,7 @@ class IntGeomImplicit(thisInt: Int)
 
   /** Succinct syntax for creating 2 dimensional vectors, [[Vec2]]s from 2 numbers. Note the low precedence of this method relative to most numerical
       operators. A third number as example {{{3.1 vv 4 vv -7.25}}} can be used to create a [[Vec3]]. */
-  @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
+  @inline infix def vv(y: Double): Vec2 = Vec2(thisInt, y)
 
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
   def degs: Angle = Angle(thisInt)
