@@ -72,7 +72,7 @@ trait BuilderArrDbl4Map[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends BuilderArrDbl
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl4Flat[ArrB <: Dbl4Arr[_]] extends BuilderArrDbl4[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl4Flat[ArrB <: Dbl4Arr[?]] extends BuilderArrDbl4[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
 abstract class CompanionSeqLikeDbl4[A <: Dbl4Elem, AA <: SeqLikeDbl4[A]] extends CompanionSeqLikeDblN[A, AA]

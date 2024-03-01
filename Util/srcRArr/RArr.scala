@@ -154,7 +154,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
     optElem.fld(this, this +% _)
 
   def appendsOption(optElem: Option[RArr[A]]@uncheckedVariance)(implicit @unused ct: ClassTag[A] @uncheckedVariance ): RArr[A] =
-    optElem.fld(this, ++ _)
+    optElem.fld(this, s => this ++ s)
 
   def concatsOption[AA >: A <: AnyRef](optElems: Option[RArr[AA]])(implicit ct: ClassTag[AA]): RArr[AA] =
     optElems.fld[RArr[AA]](this, this ++ _)

@@ -9,7 +9,7 @@ package object ostrat
   type RefsMulti[A <: AnyRef] = RArr[Multiple[A]]
   type ShowEq[A] = Show[A] & EqT[A]
   type AnyRefs = RArr[AnyRef]
-  type Not[T] = { type L[U] = U NotSubTypeOf T }
+  type Not[T] = { type L[U] = NotSubTypeOf[U, T] }
 
   val TwoPower0: Int = 1
   val TwoPower1: Int = 2

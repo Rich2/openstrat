@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
@@ -107,7 +107,7 @@ object ArrHead4
 /** Extractor function object for a Good Arr Sequence of length 0. */
 case object GoodArr0
 { /** Extractor method for a Good Arr Sequence of length 0. */
-  def unapply(eArr: EMon[Arr[_]]): Boolean = eArr match
+  def unapply(eArr: EMon[Arr[?]]): Boolean = eArr match
   { case Good(Arr0()) => true
     case _ => false
   }

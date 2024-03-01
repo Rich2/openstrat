@@ -8,7 +8,7 @@ class IntGeomImplicit(thisInt: Int)
 
   /** Succinct syntax for creating 2 dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical
    * operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [[Pt3]]. */
-  @inline def pp(y: Double): Pt2 = Pt2(thisInt, y)
+  @inline infix def pp(y: Double): Pt2 = Pt2(thisInt, y)
 
   /** Succinct syntax for creating 2 dimensional vectors, [[Vec2]]s from 2 numbers. Note the low precedence of this method relative to most numerical
       operators. A third number as example {{{3.1 vv 4 vv -7.25}}} can be used to create a [[Vec3]]. */
@@ -38,7 +38,7 @@ class DoubleImplicitGeom(thisDouble: Double)
 
   /** Succinct syntax for creating 2 dimensional vectors, [[Vec2]]s from 2 numbers. Note the low precedence of this method relative to most numerical
    *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
-  @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
+  @inline infix def vv(y: Double): Vec2 = Vec2(thisDouble, y)
 
   def radians: Angle = Angle.radians(thisDouble)
 
