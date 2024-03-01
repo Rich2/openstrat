@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -54,8 +54,8 @@ trait Dbl4Arr[A <: Dbl4Elem] extends Any with ArrDblN[A] with SeqLikeDbl4[A]
   }
 }
 
-trait BuilderArrDbl4[ArrB <: Dbl4Arr[_]] extends BuilderArrDblN[ArrB]
-{ type BuffT <: BuffDbl4[_]
+trait BuilderArrDbl4[ArrB <: Dbl4Arr[?]] extends BuilderArrDblN[ArrB]
+{ type BuffT <: BuffDbl4[?]
   final override def elemProdSize = 4
 }
 

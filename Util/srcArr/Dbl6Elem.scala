@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -86,8 +86,8 @@ abstract class CompanionSqLikeDbl6[A <: Dbl6Elem, ArrA <: SeqLikeDbl6[A]] extend
 }
 
 /** Builder for [[SeqLikeDbl6]] types. */
-trait BuilderSeqLikeDbl6[BB <: ArrDbl6[_]] extends BuilderSeqLikeDblN[BB]
-{ type BuffT <: BuffDbl6[_]
+trait BuilderSeqLikeDbl6[BB <: ArrDbl6[?]] extends BuilderSeqLikeDblN[BB]
+{ type BuffT <: BuffDbl6[?]
   final override def elemProdSize = 6
 }
 
@@ -105,7 +105,7 @@ trait BuilderArrDbl6Map[B <: Dbl6Elem, ArrB <: ArrDbl6[B]] extends BuilderSeqLik
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl6Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl6Flat[ArrB <: ArrDbl6[_]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl6Flat[ArrB <: ArrDbl6[?]] extends BuilderSeqLikeDbl6[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait BuffDbl6[A <: Dbl6Elem] extends Any with BuffDblN[A]

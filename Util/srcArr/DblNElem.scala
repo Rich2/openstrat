@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -104,8 +104,8 @@ trait BuffDblN[A <: DblNElem] extends Any with BuffValueN[A]
 }
 
 /** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
-trait BuilderSeqLikeDblN[BB <: SeqLike[_]] extends BuilderSeqLikeValueN[BB]
-{ type BuffT <: BuffDblN[_]
+trait BuilderSeqLikeDblN[BB <: SeqLike[?]] extends BuilderSeqLikeValueN[BB]
+{ type BuffT <: BuffDblN[?]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
@@ -123,7 +123,7 @@ trait BuilderSeqLikeDblNMap[B <: DblNElem, BB <: SeqLikeDblN[B]] extends Builder
   }
 }
 
-trait BuilderArrDblN[ArrB <: ArrDblN[_]] extends BuilderSeqLikeDblN[ArrB]
+trait BuilderArrDblN[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB]
 
 /** Trait for creating the sequence builder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderArrMap]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -133,7 +133,7 @@ trait BuilderArrDblNMap[B <: DblNElem, ArrB <: ArrDblN[B]] extends BuilderSeqLik
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblN]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[BuilderArrFlat] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDblNFlat[ArrB <: ArrDblN[_]] extends BuilderSeqLikeDblN[ArrB] with BuilderArrValueNFlat[ArrB]
+trait BuilderArrDblNFlat[ArrB <: ArrDblN[?]] extends BuilderSeqLikeDblN[ArrB] with BuilderArrValueNFlat[ArrB]
 { //final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.arrayUnsafe); () }
 }

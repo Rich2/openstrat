@@ -77,7 +77,7 @@ trait BuilderSeqLikeFlat[BB <: SeqLike[?]] extends BuilderSeqLike[BB]
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[BuilderArrMap]][BB] type class where the instance
  *  should go into the B companion object. */
-trait BuilderArrFlat[ArrB <: Arr[_]] extends BuilderSeqLikeFlat[ArrB] with BuilderSeqLike[ArrB]
+trait BuilderArrFlat[ArrB <: Arr[?]] extends BuilderSeqLikeFlat[ArrB] with BuilderSeqLike[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }

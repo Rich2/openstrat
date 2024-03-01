@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, scala.collection.mutable.ArrayBuffer
 
@@ -70,8 +70,8 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any with ArrDblN[A] with SeqLikeDbl3[A]
 }
 
 /** Constructs [[SeqLikeDbl3]] objects. */
-trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3[_]] extends BuilderSeqLikeDblN[BB]
-{ type BuffT <: Dbl3Buff[_]
+trait BuilderSeqLikeDbl3[BB <: SeqLikeDbl3[?]] extends BuilderSeqLikeDblN[BB]
+{ type BuffT <: Dbl3Buff[?]
   final override def elemProdSize = 3
 }
 
@@ -88,7 +88,7 @@ trait BuilderArrDbl3Map[B <: Dbl3Elem, ArrB <: ArrDbl3[B]] extends BuilderSeqLik
 /** Trait for creating the [[BuilderArrFlat]] type class instances for [[ArrDbl3]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl3Flat[ArrB <: ArrDbl3[_]] extends BuilderSeqLikeDbl3[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl3Flat[ArrB <: ArrDbl3[?]] extends BuilderSeqLikeDbl3[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
 trait Dbl3Buff[A <: Dbl3Elem] extends Any with BuffDblN[A]

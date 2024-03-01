@@ -246,7 +246,7 @@ package object ostrat
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in steps of iStep parameter.
    *  Default step value is 1. Throws on non termination. Method name over loaded with a first parameter list of a single iTo parameter, where iFrom
    *  is 0 and iStep is 1. */
-  def iToFlatMap[AA <: Arr[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iToFlatMap[AA <: Arr[?]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
@@ -254,7 +254,7 @@ package object ostrat
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 to the iTo parameter value steps of 1. Throws on non termination.Method name
    *  over loaded with a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
-  def iToFlatMap[AA <: Arr[_]](iTo: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
+  def iToFlatMap[AA <: Arr[?]](iTo: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iTo){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)

@@ -79,7 +79,7 @@ BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNMap[B1, ArrB1, B
 }
 
 /** Builders for [[ArrPairInt4]] objects by flatMap f: A => ArrPairB method. */
-trait BuilderArrPairInt4Flat[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, _]] extends
+trait BuilderArrPairInt4Flat[B1 <: Int4Elem, ArrB1 <: ArrInt4[B1], B2, ArrB <: ArrPairInt4[B1, ArrB1, B2, ?]] extends
   BuilderArrPairInt4[B1, ArrB1, B2, ArrB] with  BuilderArrPairIntNFlat[B1, ArrB1, B2, ArrB]
 
 trait Int4PairArrCompanion[A1 <: Int4Elem]

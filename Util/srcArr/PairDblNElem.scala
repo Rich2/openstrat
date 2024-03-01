@@ -75,7 +75,7 @@ BuilderArrPairDblN[B1, ArrB1, B2, ArrB] with BuilderArrPairMap[B1, ArrB1, B2, B,
 }
 
 /** Builder for [[ArrPairDblN]] objects by both flatMap f: A => ArrpairB methods. */
-trait BuilderArrPairDblNFlat[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPairDblN[B1, ArrB1, B2, _]] extends
+trait BuilderArrPairDblNFlat[B1 <: DblNElem, ArrB1 <: ArrDblN[B1], B2, ArrB <: ArrPairDblN[B1, ArrB1, B2, ?]] extends
 BuilderArrPairDblN[B1, ArrB1, B2, ArrB] with BuilderArrPairFlat[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayDbl.foreach(buff.b1DblBuffer.append(_))

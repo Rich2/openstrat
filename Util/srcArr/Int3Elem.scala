@@ -60,7 +60,7 @@ trait BuffInt3[A <: Int3Elem] extends Any with BuffIntN[A]
 }
 
 /** Builder for [[SeqLike]]s with [[Int3Elem]]s. */
-trait BuilderSeqLikeInt3[BB <: SeqLikeInt3[_]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt3[BB <: SeqLikeInt3[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt3[?]
   final override def elemProdSize: Int = 3
 }
@@ -72,7 +72,7 @@ trait BuilderSeqLikeInt3Map[B <: Int3Elem, BB <: SeqLikeInt3[B]] extends Builder
   final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.unsafeBuffer.append3(newElem.int1, newElem.int2, newElem.int3)
 }
 
-trait BuilderSeqLikeInt3Flat[BB <: SeqLikeInt3[_]] extends BuilderSeqLikeInt3[BB] with BuilderSeqLikeIntNFlat[BB]
+trait BuilderSeqLikeInt3Flat[BB <: SeqLikeInt3[?]] extends BuilderSeqLikeInt3[BB] with BuilderSeqLikeIntNFlat[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrInt3]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,

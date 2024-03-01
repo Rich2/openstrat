@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -55,8 +55,8 @@ trait BuffInt1[A <: Int1Elem] extends Any with BuffIntN[A]
 }
 
 /** Base trait for constructing [[Arr]]s with [[Int1Elem]] elements via both map and flatMap methods. */
-trait BuilderArrInt1[ArrB <: ArrInt1[_]] extends BuilderSeqLikeIntN[ArrB]
-{ type BuffT <: BuffInt1[_]
+trait BuilderArrInt1[ArrB <: ArrInt1[?]] extends BuilderSeqLikeIntN[ArrB]
+{ type BuffT <: BuffInt1[?]
   final override def elemProdSize: Int = 1
 }
 
@@ -72,7 +72,7 @@ trait BuilderArrInt1Map[A <: Int1Elem, ArrT <: ArrInt1[A]] extends BuilderArrInt
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrInt1]] final classes. Instances for the [[BuilderArrMap]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[BuilderArrFlat] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrIn1Flat[ArrT <: ArrInt1[_]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
+trait BuilderArrIn1Flat[ArrT <: ArrInt1[?]] extends BuilderArrInt1[ArrT] with BuilderArrIntNFlat[ArrT]
 
 /** Helper class for companion objects of final [[SeqLikeInt1]] classes. */
 trait CompanionSeqLikeInt1[A <: Int1Elem, ArrA <: SeqLikeInt1[A]] extends CompanionSeqLikeIntN[A, ArrA]

@@ -107,7 +107,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
 
 /** Base trait for Builders for [[SeqLike]]s with [[Dbl2Elem]] elements via both map and flatMap methods. */
 trait BuilderSeqLikeDbl2[BB <: SeqLikeDbl2[?]] extends BuilderSeqLikeDblN[BB]
-{ type BuffT <: BuffDbl2[_]
+{ type BuffT <: BuffDbl2[?]
   final override def elemProdSize = 2
 }
 
@@ -125,7 +125,7 @@ trait BuilderArrDbl2Map[B <: Dbl2Elem, ArrB <: ArrDbl2[B]] extends BuilderSeqLik
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrDbl2]] final classes. Instances for [[BuilderArrFlat] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[_]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl2Flat[ArrB <: ArrDbl2[?]] extends BuilderSeqLikeDbl2[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrDbl2]] final classes to extend. */
 trait CompanionSeqLikeDbl2[A <: Dbl2Elem, AA <: SeqLikeDbl2[A]] extends CompanionSeqLikeDblN[A, AA]

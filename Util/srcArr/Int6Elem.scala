@@ -81,7 +81,7 @@ trait BuffInt6[A <: Int6Elem] extends Any with BuffIntN[A]
 }
 
 /** Builder for [[SeqLike]]s with [[Int6Elem]]s */
-trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[_]] extends BuilderSeqLikeIntN[BB]
+trait BuilderSeqLikeInt6[BB <: SeqLikeInt6[?]] extends BuilderSeqLikeIntN[BB]
 { type BuffT <: BuffInt6[?]
   final override def elemProdSize: Int = 6
 }
@@ -103,7 +103,7 @@ trait BuilderSeqLikeInt6Map[B <: Int6Elem, BB <: SeqLikeInt6[B]] extends Builder
 trait BuilderArrInt6Map[B <: Int6Elem, ArrB <: ArrInt6[B]] extends BuilderSeqLikeInt6Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
 /** Builder of [[ArrInt6]] objects via the flatMap f: A => ArrB method. */
-trait BuilderArrInt6Flat[ArrB <: ArrInt6[_]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt6Flat[ArrB <: ArrInt6[?]] extends BuilderSeqLikeInt6[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt6]] final classes to extend. */
 abstract class CompanionArrInt6[A <: Int6Elem, M <: ArrInt6[A]] extends CompanionSeqLikeIntN[A, M]

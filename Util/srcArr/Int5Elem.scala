@@ -79,7 +79,7 @@ trait BuffInt5[A <: Int5Elem] extends Any with BuffIntN[A]
 
 /** Base trait for map and flatMap builders for [[SeqLike]]s with [[Int5Elem]]s. */
 trait BuilderSeqLikeInt5[BB <: SeqLikeInt5[?]] extends BuilderSeqLikeIntN[BB]
-{ type BuffT <: BuffInt5[_]
+{ type BuffT <: BuffInt5[?]
   final override def elemProdSize: Int = 5
 }
 

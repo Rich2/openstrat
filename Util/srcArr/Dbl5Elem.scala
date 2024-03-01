@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -54,8 +54,8 @@ trait ArrDbl5[A <: Dbl5Elem] extends Any with ArrDblN[A] with SeqLikeDbl5[A]
   }
 }
 
-trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5[_]] extends BuilderSeqLikeDblN[BB]
-{ type BuffT <: BuffDbl5[_]
+trait BuilderSeqLikeDbl5[BB <: SeqLikeDbl5[?]] extends BuilderSeqLikeDblN[BB]
+{ type BuffT <: BuffDbl5[?]
   final override def elemProdSize: Int = 5
 }
 
@@ -73,7 +73,7 @@ trait BuilderArrDbl5Map[B <: Dbl5Elem, ArrB <: ArrDbl5[B]] extends BuilderSeqLik
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl5Elem]]. Instances for
  *  [[BuilderArrFlat] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[_]] extends BuilderSeqLikeDbl5[ArrB] with BuilderArrDblNFlat[ArrB]
+trait BuilderArrDbl5Flat[ArrB <: ArrDbl5[?]] extends BuilderSeqLikeDbl5[ArrB] with BuilderArrDblNFlat[ArrB]
 
 /** Helper class for companion objects of final [[SeqSpecDbl5]] classes. */
 abstract class CompanionSeqLikeDbl5[A <: Dbl5Elem, ArrA <: SeqLikeDbl5[A]] extends CompanionSeqLikeDblN[A, ArrA]

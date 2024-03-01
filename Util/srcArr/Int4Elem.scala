@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -73,8 +73,8 @@ trait BuffInt4[A <: Int4Elem] extends Any with BuffIntN[A]
 }
 
 /** Base trait for builders of [[SeqLikeInt4]] objects via both map and flatMap methods. */
-trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[_]] extends BuilderSeqLikeIntN[BB]
-{ type BuffT <: BuffInt4[_]
+trait BuilderSeqLikeInt4[BB <: SeqLikeInt4[?]] extends BuilderSeqLikeIntN[BB]
+{ type BuffT <: BuffInt4[?]
   final override def elemProdSize: Int = 4
 }
 
@@ -93,7 +93,7 @@ trait BuilderSeqLikeInt4Map[B <: Int4Elem, BB <: SeqLikeInt4[B]] extends Builder
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait BuilderArrInt4Map[B <: Int4Elem, ArrB <: ArrInt4[B]] extends BuilderSeqLikeInt4Map[B, ArrB] with BuilderArrIntNMap[B, ArrB]
 
-trait BuilderArrInt4Flat[ArrB <: ArrInt4[_]] extends BuilderSeqLikeInt4[ArrB] with BuilderArrIntNFlat[ArrB]
+trait BuilderArrInt4Flat[ArrB <: ArrInt4[?]] extends BuilderSeqLikeInt4[ArrB] with BuilderArrIntNFlat[ArrB]
 
 /** Class for the singleton companion objects of [[ArrInt4]] final classes to extend. */
 trait CompanionArrInt4[A <: Int4Elem, M <: ArrInt4[A]] extends CompanionSeqLikeIntN[A, M]

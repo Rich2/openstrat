@@ -226,5 +226,5 @@ trait BuilderArrPairMapPriority2
 
 /** Builder for [[ArrPair]] objects via the flatMap f: A => ArrPairB, method. Hence the call site doesn't know the type of the [[PairElem]]s that will
  *  make up the final [[Arr]] object. */
-trait BuilderArrPairFlat[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, _]] extends BuilderArrPair[B1, ArrB1, B2, ArrB] with
+trait BuilderArrPairFlat[B1, ArrB1 <: Arr[B1], B2, ArrB <: ArrPair[B1, ArrB1, B2, ?]] extends BuilderArrPair[B1, ArrB1, B2, ArrB] with
   BuilderArrFlat[ArrB]
