@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, reflect.ClassTag
 
@@ -142,7 +142,7 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   /** [[SqCen]] with Some flatMap. FlatMaps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type ArrB. Returns an
    *  immutable Array based collection of type ArrB. */
-  def scSomesFlatMap[ArrB <: Arr[_]](f: (SqCen, A) => ArrB)(implicit gridSys: SqGridSys, build: BuilderArrFlat[ArrB]): ArrB =
+  def scSomesFlatMap[ArrB <: Arr[?]](f: (SqCen, A) => ArrB)(implicit gridSys: SqGridSys, build: BuilderArrFlat[ArrB]): ArrB =
   { var buff = build.newBuff()
 
     gridSys.foreach { sc =>
@@ -177,8 +177,8 @@ class SqCenOptLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[SqCen]] to an [[option]] of a [[Arr]], collects only the
    * [[Some]]'s values returned by the function. */
-  def someSCOptFlatMap[ArrB <: Arr[_]](f: (A, SqCen) => Option[ArrB])(implicit gridSys: SqGridSys, build: BuilderArrFlat[ArrB]): ArrB = {
-    val buff = build.newBuff()
+  def someSCOptFlatMap[ArrB <: Arr[?]](f: (A, SqCen) => Option[ArrB])(implicit gridSys: SqGridSys, build: BuilderArrFlat[ArrB]): ArrB =
+  { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
       val a: A = arrayUnsafe(gridSys.layerArrayIndex(hc))

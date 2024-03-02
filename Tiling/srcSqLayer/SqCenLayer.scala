@@ -9,7 +9,7 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
   def apply(sc: SqCen)(implicit gSys: SqGridSys): A = arrayUnsafe(gSys.layerArrayIndex(sc))
 
   /** Set tile row from the [[SqCen]]. */
-  final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(startCen.r, startCen.c, multiValues: _*)(grid)
+  final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(startCen.r, startCen.c, multiValues*)(grid)
 
   /** Note set Row starts with the r (row) parameter. */
   final def setRow(r: Int, cStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
@@ -33,7 +33,7 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
     SqCen(r, cStart - (multiValues.numSingles - 1) * 2)
   }
 
-  final def setRowBack(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRowBack(startCen.r, startCen.c, multiValues: _*)(grid)
+  final def setRowBack(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRowBack(startCen.r, startCen.c, multiValues*)(grid)
 
   /** Set part column of data. */
   final def setColumn[ArrA <: Arr[A]](c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
@@ -46,7 +46,7 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
     SqCen(rStart + (multiValues.numSingles - 1) * 2, c)
   }
 
-  final def setColumn(startCen: SqCen, multis: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumn(startCen.c, startCen.r, multis: _*)(grid)
+  final def setColumn(startCen: SqCen, multis: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumn(startCen.c, startCen.r, multis*)(grid)
 
   final def setColumnDown(c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
   {
@@ -58,9 +58,9 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
     SqCen(c, rStart - (multiValues.numSingles - 1) * 2)
   }
 
-  def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumnDown(startCen.c, startCen.r, tileValues: _*)(grid)
+  def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumnDown(startCen.c, startCen.r, tileValues*)(grid)
 
-  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns:_*)
+  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns*)
 
   def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen =
   {

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -19,10 +19,10 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(unsafeMap(f))
 
   /** The X component of the centre. */
-  override def cenX: Double = v0x aver v2x
+  override def cenX: Double = v0x \/ v2x
 
   /** The Y component of the centre. */
-  override def cenY: Double = v0y aver v2y
+  override def cenY: Double = v0y \/ v2y
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double = v3.distTo(v0)
@@ -91,7 +91,7 @@ object Rectangle
   def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle =
   { val rtVec: Vec2 = sd4Cen >/> sd2Cen
     val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
-    val cen = sd4Cen midPt sd2Cen
+    val cen = sd4Cen \/ sd2Cen
     val verts = Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
     new RectangleImp(verts.arrayUnsafe)
   }

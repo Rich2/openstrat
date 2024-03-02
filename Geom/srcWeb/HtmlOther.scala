@@ -1,7 +1,5 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-
-
 
 /** HTML A anchor element. */
 class HtmlA(val link: String, val contents: RArr[XCon], otherAttribs: RArr[XmlAtt] = RArr()) extends HtmlInline
@@ -27,10 +25,12 @@ object HtmlP
     def con1: XConText = str.xCon
     override val attribs: RArr[XmlAtt] = attsIn.toArr
     override def contents: RArr[XCon] = RArr(con1)
+
     override def out(indent: Int, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = con1.outLines(indent + 2, openUnclosed.length) match
     { case TextIn1Line(text, _) => indent.spaces + openUnclosed + text + closeTag
       case TextIn2Line(text, _) => indent.spaces + openUnclosed + text + closeTag
       case TextInMultiLines(text, _) => indent.spaces + openUnclosed + text --- indent.spaces + closeTag
+      case a => excep(a.toString + "in out method not implemented.")
     }
   }
 }

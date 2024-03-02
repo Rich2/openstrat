@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import math.Pi
+import math.Pi, annotation.targetName
 
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
@@ -65,14 +65,8 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   /** Returns the square root of this Double. */
   def sqrt: Double = math.sqrt(thisDouble)
 
-  def aver(operand: Double) = (thisDouble + operand) / 2
+  @targetName("average") def \/(operand: Double): Double = (thisDouble + operand) / 2
 
-  /** String representation for Double that drops the decimal point and zero for integer values. */
-  /*def str: String = thisDouble.toLong match
-  { case l if l == thisDouble => l.toString
-    case _ => thisDouble.toString
-  }
-*/
   def str0: String = f"$thisDouble%1.0f"
   def str1: String = f"$thisDouble%1.1f"
   def str2: String = f"$thisDouble%1.2f"

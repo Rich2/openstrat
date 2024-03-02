@@ -37,20 +37,20 @@ trait Polygon3Plus extends Any with Polygon
   final def side2: LineSeg = LineSeg(v2, vert(3))
 
   /** The X component of the centre or half way point of side 1 of this polygon. The midway point between v0 and v1. */
-  final def sd1CenX: Double = v0x aver v1x
+  final def sd1CenX: Double = v0x \/ v1x
 
   /** The Y component of the centre or half way point of side 1 of this polygon. the midway point between v1 and v2. */
-  final def sd1CenY: Double = v0y aver v1y
+  final def sd1CenY: Double = v0y \/ v1y
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
    * vertex 1.5 */
   final def sd1Cen: Pt2 = sd1CenX pp sd1CenY
 
   /** The X component of the centre or half way point of side 2 of this polygon. */
-  final def sd2CenX: Double = v1x aver v2x
+  final def sd2CenX: Double = v1x \/ v2x
 
   /** The Y component of the centre or half way point of side 2 of this polygon. */
-  final def sd2CenY: Double = v1y aver v2y
+  final def sd2CenY: Double = v1y \/ v2y
 
   /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
    *  vertex 2.5. */
@@ -74,10 +74,10 @@ trait Polygon4Plus extends Any with Polygon3Plus with SeqSpecDbl2[Pt2]
   final def v3: Pt2 = v3x pp v3y
 
   /** The X component of the centre or half way point of side 3 of this polygon. */
-  final def sd3CenX: Double = v2x aver v3x
+  final def sd3CenX: Double = v2x \/ v3x
 
   /** The Y component of the centre or half way point of side 3 of this polygon. */
-  final def sd3CenY: Double = v2y aver v3y
+  final def sd3CenY: Double = v2y \/ v3y
 
   /** The centre or half way point of side 3 of this polygon. */
   final def sd3Cen: Pt2 = sd3CenX pp sd3CenY
@@ -99,11 +99,11 @@ trait Polygon5Plus extends Any with Polygon4Plus with SeqSpecDbl2[Pt2]
 
   /** The X component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
    *  thought of as vertex 4.5. */
-  final def sd4CenX: Double = v3x aver v4x
+  final def sd4CenX: Double = v3x \/ v4x
 
   /** The Y component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
    *  thought of as vertex 4.5. */
-  final def sd4CenY: Double = v3y aver v4y
+  final def sd4CenY: Double = v3y \/ v4y
 
   /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be thought of as
    * vertex 4.5. */
@@ -125,10 +125,10 @@ trait Polygon6Plus extends Any with Polygon5Plus
   final def v5: Pt2 = v5x pp v5y
 
   /** The X component of the centre or half way point of side 6 of this polygon. */
-  final def sd5CenX: Double = v4x aver v5x
+  final def sd5CenX: Double = v4x \/ v5x
 
   /** The Y component of the centre or half way point of side 5 of this polygon. */
-  final def sd5CenY: Double = v4y aver v5y
+  final def sd5CenY: Double = v4y \/ v5y
 
   /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v5 vertex and ends at the v6 vertex. This can be thought of as
    * vertex 5.5. */

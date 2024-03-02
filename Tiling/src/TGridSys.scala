@@ -55,10 +55,10 @@ trait TGridSys extends TCenStruct
   final def width: Double = right - left
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
-  def xCen: Double = left aver right
+  def xCen: Double = left \/ right
 
   /** The centre of this grid in the y axis. For [[SqGrid]]s this will be equal to the cCen [[Int]] value, but this is not the case for [[HGrid]]s. */
-  @inline def yCen: Double = bottom aver top
+  @inline def yCen: Double = bottom \/ top
 
   /** The centre point as a [[Vec2]]. Not sure why this id implemented here. */
   def cenVec: Vec2 = Vec2(xCen, yCen)

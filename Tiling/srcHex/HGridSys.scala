@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag, pgui._
 
@@ -199,7 +199,7 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** flatMaps over each Hex Separator's coordinate [[HSep]]. */
-  final def sepsFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def sepsFlatMap[ArrT <: Arr[?]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     sepsForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
@@ -220,7 +220,7 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** flatMaps  over each inner hex Separator's coordinate [[HSep]].. */
-  final def linksFlatMap[ArrT <: Arr[_]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def linksFlatMap[ArrT <: Arr[?]](f: HSep => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)
@@ -278,7 +278,7 @@ trait HGridSys extends HexStruct with TGridSys
   }
 
   /** flatMaps over each Hex vertex's coordinate [[HVert]]. */
-  final def vertsFlatMap[ArrT <: Arr[_]](f: HVert => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def vertsFlatMap[ArrT <: Arr[?]](f: HVert => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     vertsForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToSeqLike(buff)

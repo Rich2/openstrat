@@ -88,7 +88,7 @@ trait HexStruct extends TCenStruct
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: Arr[_]](f: HCen => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def flatMap[ArrT <: Arr[?]](f: HCen => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToSeqLike(buff)
@@ -96,7 +96,7 @@ trait HexStruct extends TCenStruct
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The normal flatMap functions is only applied if the condtion of the first
    * function is true. */
-  final def ifFlatMap[ArrT <: Arr[_]](f1: HCen => Boolean)(f2: HCen => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def ifFlatMap[ArrT <: Arr[?]](f1: HCen => Boolean)(f2: HCen => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach { hCen => if(f1(hCen)) build.buffGrowArr(buff, f2(hCen)) }
     build.buffToSeqLike(buff)

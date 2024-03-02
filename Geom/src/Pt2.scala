@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag
+import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, annotation.targetName
 
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
@@ -52,8 +52,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   /** Gives the anlge from the operand point to this point. */
   def angleFromYDown(operand: Pt2): Angle = (this << operand).angleYDown
 
-  /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
-  def midPt(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
+  /** The mid point or average of this and the operand Pt2. The mid point between this point and the operand second point. */
+  @targetName("midPoint") def \/(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
 

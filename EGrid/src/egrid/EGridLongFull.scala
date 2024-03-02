@@ -19,7 +19,7 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
       val lt: LatLong = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, hc.c)))
       val rtLongDbl: Double = rt.longMilliSecs
       val ltLongDbl: Double = (lt.long + 30.east).milliSecs
-      val longMilliSecs = rtLongDbl aver ltLongDbl
+      val longMilliSecs = rtLongDbl \/ ltLongDbl
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)//Left in for time being
 
       LatLong(rt.lat, (lt.long + 30.east).midPt(rt.long))
@@ -30,7 +30,7 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
       val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, hc.c)))
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
-      val longMilliSecs = ltLong aver rtLong
+      val longMilliSecs = ltLong \/ rtLong
       LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)//Left in for time being.
 
       LatLong(rt.lat, (lt.long - 30.east).midPt(rt.long))

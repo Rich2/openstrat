@@ -22,10 +22,10 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   final def side0: LineSeg = LineSeg(v0, vert(1))
 
   /** The X component of the centre or half way point of side 0 of this polygon. */
-  final def sd0CenX: Double = v0x aver vertX(1)
+  final def sd0CenX: Double = v0x \/ vertX(1)
 
   /** The Y component of the centre or half way point of side 0 of this polygon. */
-  final def sd0CenY: Double = v0y aver vertY(1)
+  final def sd0CenY: Double = v0y \/ vertY(1)
 
   /** The centre or half way point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as
    *  vertex 0.5. */

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
@@ -18,7 +18,7 @@ trait HSysProjection extends TSysProjection
   def hCenIfMap[B, ArrB <: Arr[B]](f1: HCen => Boolean)(f2: HCen => B)(implicit build: BuilderArrMap[B, ArrB]): ArrB = gChild.ifMap(f1)(f2)
 
   /** FlatMaps the [[HCen]]s visible in this projection. */
-  def hCenFlatMap[ArrB <: Arr[_]](f: HCen => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB = gChild.flatMap(f)
+  def hCenFlatMap[ArrB <: Arr[?]](f: HCen => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB = gChild.flatMap(f)
 
   /** Maps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. */
   def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
@@ -30,7 +30,7 @@ trait HSysProjection extends TSysProjection
 
   /** IfFlatMaps the [[HCen]]s visible in this projection with their respective projected [[Pt2]]s. The flatMapping function is only applied if the
    *  first function condition is true */
-  def hCensIfPtFlatMap[ArrB <: Arr[_]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
+  def hCensIfPtFlatMap[ArrB <: Arr[?]](f1: HCen => Boolean)(f2: (HCen, Pt2) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
     gChild.ifFlatMap(hc => f1(hc) && transOptCoord(hc).nonEmpty)(hc => f2(hc, transCoord(hc)))
 
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems

@@ -15,7 +15,7 @@ trait EGridLongPart extends EGridLong
       val lt = hCoordMiddleLL(HCoord(hc.r, fullGrid.rowLeftCoordC(hc.r, c)))
       val rtLong = rt.longMilliSecs
       val ltLong = (lt.long + 30.east).milliSecs
-      val longMilliSecs = rtLong aver ltLong
+      val longMilliSecs = rtLong \/ ltLong
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
     }
 
@@ -24,7 +24,7 @@ trait EGridLongPart extends EGridLong
       val rt = hCoordMiddleLL(HCoord(hc.r, fullGrid.rowRightCoordC(hc.r, c)))
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
-      val longMilliSecs = ltLong aver rtLong
+      val longMilliSecs = ltLong \/ rtLong
       LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)
     }
 

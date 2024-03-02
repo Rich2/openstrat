@@ -61,7 +61,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
   /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    * element) => B signature. */
-  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit gridSys: HexStruct, build: BuilderArrFlat[BB]): BB =
+  def hcOptFlatMap[BB <: Arr[?]](f: (HCen, A) => Option[BB])(implicit gridSys: HexStruct, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     gridSys.iForeach { (i, hc) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
@@ -69,7 +69,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
     build.buffToSeqLike(buff)
   }
 
-  def projHCenFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit key: HexStruct, proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
+  def projHCenFlatMap[BB <: Arr[?]](f: (HCen, A) => BB)(implicit key: HexStruct, proj: HSysProjection, build: BuilderArrFlat[BB]): BB =
     proj.hCenFlatMap{ hc => f(hc, apply(hc)(key)) }
 }
 

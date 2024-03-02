@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon. a = √3 * r / 2. r = 2 * √3 * a. */
@@ -6,8 +6,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 
-  final override def cenX: Double = v0x aver v3x
-  final override def cenY: Double = v0y aver v3y
+  final override def cenX: Double = v0x \/ v3x
+  final override def cenY: Double = v0y \/ v3y
   final override def cen: Pt2 = cenX pp cenY
   def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
 

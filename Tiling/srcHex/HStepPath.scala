@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import annotation._, geom._, reflect.ClassTag
 
@@ -111,7 +111,7 @@ class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayInt
 
 object HDirnPathPair
 { /** Factory apply method with alternative name overload where start row and colum passed separately. */
-  def apply[A2](a2: A2, startCen: HCen, steps: HStep*): HDirnPathPair[A2] = apply[A2](a2,startCen.r, startCen.c, steps:_*)
+  def apply[A2](a2: A2, startCen: HCen, steps: HStep*): HDirnPathPair[A2] = apply[A2](a2,startCen.r, startCen.c, steps*)
 
   /** Factory apply method with alternative name overload where [[HCen]] passes as single parameter. */
   def apply[A2](a2: A2, startR: Int, startC: Int, steps: HStep*): HDirnPathPair[A2] =

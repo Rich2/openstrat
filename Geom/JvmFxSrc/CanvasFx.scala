@@ -146,7 +146,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.lineTo(dld.xEnd, dld.yEnd)
     gc.setStroke(toFxColor(dld.colour))
     gc.setLineWidth(dld.lineWidth)
-    gc.setLineDashes(dld.dashArr :_*)
+    gc.setLineDashes(dld.dashArr*)
     gc.stroke()
     gc.setLineDashes()
   }

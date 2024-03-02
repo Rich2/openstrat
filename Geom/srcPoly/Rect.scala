@@ -157,8 +157,8 @@ object Rect
 
     def width: Double = (v0x - v3x).abs
     def height: Double = (v0y - v1y).abs
-    override def cenX: Double = v0x aver v2x
-    override def cenY: Double = v0y aver v2y
+    override def cenX: Double = v0x \/ v2x
+    override def cenY: Double = v0y \/ v2y
     override def vertsTrans(f: Pt2 => Pt2): RectImp = mapRectImp(f)
     override def width1: Double = width
     override def width2: Double = height
