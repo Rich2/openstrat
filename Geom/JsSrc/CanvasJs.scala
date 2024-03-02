@@ -88,7 +88,7 @@ object CanvasJs extends CanvasTopLeft
     case fillRadial: FillRadial => ???
   }
 
-  override protected[this] def tlPolyFill(pf: PolygonFill): Unit =
+  override protected def tlPolyFill(pf: PolygonFill): Unit =
   { gc.beginPath()
     gc.moveTo(pf.x1, pf.y1)
     pf.shape.verts.tailPairsForeach(gc.lineTo)
@@ -107,7 +107,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
+  override protected def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath()
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)
@@ -116,7 +116,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected[this] def tlLineDraw(ld: LineSegDraw): Unit =
+  override protected def tlLineDraw(ld: LineSegDraw): Unit =
   { gc.beginPath()
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
@@ -125,7 +125,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
   
-  override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
+  override protected def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath()
     gc.moveTo(dld.xStart, dld.yStart)
     gc.lineTo(dld.xEnd, dld.yEnd)
@@ -137,7 +137,7 @@ object CanvasJs extends CanvasTopLeft
   }
 
   /** Web canvases view of anti clockwise is itself mirrored. */
-  override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
+  override protected def tlCArcDraw(cad: CArcDraw): Unit =
   { /*val ca = cad.arc
     gc.beginPath()
     gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.clock)
@@ -146,7 +146,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()*/
   }
 
-  override protected[this] def tlEArcDraw(ead: EArcDraw): Unit = ???
+  override protected def tlEArcDraw(ead: EArcDraw): Unit = ???
 
   override protected def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
@@ -187,7 +187,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
+  override protected def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.lineWidth = lsd.lineWidth
@@ -195,7 +195,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected[this] def tlBezierDraw(bd: BezierDraw): Unit =
+  override protected def tlBezierDraw(bd: BezierDraw): Unit =
   { gc.beginPath()
     gc.moveTo(bd.xStart, bd.yStart)
     gc.strokeStyle = bd.colour.webStr
@@ -204,7 +204,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
    
-  private[this] def segsPath(segs: ShapeGenOld): Unit =
+  private def segsPath(segs: ShapeGenOld): Unit =
   { gc.beginPath()
     var startPt = segs.segLast.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -219,13 +219,13 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath()
   }
    
-  override protected[this] def tlShapeFill(sgf: ShapeGenFillOld): Unit =
+  override protected def tlShapeFill(sgf: ShapeGenFillOld): Unit =
   { segsPath(sgf.shape)
     gc.fillStyle = sgf.colour.webStr
     gc.fill()
   }
    
-  override protected[this] def tlShapeDraw(sgd: ShapeGenDrawOld): Unit =
+  override protected def tlShapeDraw(sgd: ShapeGenDrawOld): Unit =
   { segsPath(sgd.shape)
     gc.strokeStyle = sgd.lineColour.webStr
     gc.lineWidth = sgd.lineWidth
@@ -240,7 +240,7 @@ object CanvasJs extends CanvasTopLeft
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
 
-  override protected[this] def tlTextOutline(to: TextOutline): Unit =
+  override protected def tlTextOutline(to: TextOutline): Unit =
   { gc.strokeStyle = to.colour.webStr
     gc.lineWidth = to.lineWidth
     gc.textAlign = to.align.jsStr
@@ -251,7 +251,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
-  override protected[this] def tlClip(poly: Polygon): Unit =
+  override protected def tlClip(poly: Polygon): Unit =
   { gc.beginPath()
     gc.moveTo(poly.v0x, poly.v0y)
     poly.verts.tailPairsForeach(gc.lineTo)

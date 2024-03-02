@@ -13,8 +13,8 @@ object TilingTryApp
     val isl = DblArr(16, 13.5, 12.5, 11.5, 10.5, 9.5, 8.5, 7.5, 6.5, 5.5, 4.5, 3.5, 2.5)
 
     val a460 = tileScaleToArea(sc)
-    println(sc + "km")
-    val isl1 = isl.map{ i => (i, i.squared * a460 / 256) }.map(p => p._1 + ", " + p._2)
+    println(sc.str + "km")
+    val isl1 = isl.map{ i => (i, i.squared * a460 / 256) }.map(p => p._1.str + ", " + p._2)
     isl1.foreach(println)
   }
 }

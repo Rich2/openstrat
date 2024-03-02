@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package s2p
 import prid._, psq._, gPlay._
 
@@ -9,7 +9,7 @@ case class CounterState(counter: Counter, steps: SqStepArr)
 
 object CounterState
 {
-  def apply(player: Counter, steps: SqStep*): CounterState = new CounterState(player, SqStepArr(steps: _*))
+  def apply(player: Counter, steps: SqStep*): CounterState = new CounterState(player, SqStepArr(steps*))
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */

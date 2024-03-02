@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
@@ -9,7 +9,7 @@ case class CounterState(counter: Counter, steps: HStepArr)
 }
 
 object CounterState
-{ def apply(counter: Counter, steps: HStep*): CounterState = CounterState(counter, HStepArr(steps: _*))
+{ def apply(counter: Counter, steps: HStep*): CounterState = CounterState(counter, HStepArr(steps*))
 }
 
 /** Class may not be needed. A class identifying a [[Counter]] and an [[HCen]] hex coordinate position. */

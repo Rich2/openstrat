@@ -38,10 +38,11 @@ object AppPage
 
   val egameDir: String = "/earthgames/"
   val egrDir: String = "/egrids/"
+  val otDir: String = "/otherapps/"
 
-  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", "/otherapps"), AppPage("Diceless", "dicelessapp"),
+  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", otDir), AppPage("Diceless", "dicelessapp"),
     AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2", "ww2app", "WW2", egameDir),
-    AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Flags"), AppPage("Dungeon"),
+    AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets"), AppPage("Zug", "zugapp", "ZugFuhrer", otDir), AppPage("Flags"), AppPage("Dungeon"),
     AppPage("CivRise", "civrise", "Civ Rise"))
 
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir),

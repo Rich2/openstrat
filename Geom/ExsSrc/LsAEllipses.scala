@@ -23,7 +23,8 @@ case class LsAEllipses(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val c1 = Circle(200).fill(Green)
 
   val c1d = c1.scale2.toDraw()
-  val circles: RArr[CircleGraphicSimple with CanvElem] = RArr(c1, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
+  val circles: RArr[CircleGraphicSimple & CanvElem] =
+    RArr(c1, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
   val crosses =  Pt2Arr(0 pp 0, -100 pp 0, 100 pp 0, 0 pp 100).flatMap(Cross.diag(_)).draw()
 
   val el1: EllipseFill = Ellipse(200, 100, -300 pp 0).fill(Red)
