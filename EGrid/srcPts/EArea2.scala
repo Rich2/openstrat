@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -29,7 +29,7 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile = ocea
 object EArea2
 {
   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EArea2(symName, cen, terr)
-  { val polygonLL = PolygonLL(latLongArgs: _*)
+  { val polygonLL = PolygonLL(latLongArgs*)
   }
 
   def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EArea2(symName, cen, terr)

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
@@ -18,7 +18,7 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
   }
 
   def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)
-  def ll (longDegs: Double): LatLong = LatLong.milliSecs(milliSecs, longDegs.degsToMilliSecs)
+  infix def ll (longDegs: Double): LatLong = LatLong.milliSecs(milliSecs, longDegs.degsToMilliSecs)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Latitude]
 

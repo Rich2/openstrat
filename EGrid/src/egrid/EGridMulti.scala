@@ -53,7 +53,7 @@ trait EGridMulti extends EGridSys with HGridMulti
 
   def gridMansMap[A, AA <: Arr[A]](f: ManT => A)(implicit build: BuilderArrMap[A, AA]): AA = gridMans.map(f)
 
-  def gridMansFlatMap[AA <: Arr[_]](f: ManT => AA)(implicit build: BuilderArrFlat[AA]): AA = gridMans.flatMap(f)
+  def gridMansFlatMap[AA <: Arr[?]](f: ManT => AA)(implicit build: BuilderArrFlat[AA]): AA = gridMans.flatMap(f)
 
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
 
