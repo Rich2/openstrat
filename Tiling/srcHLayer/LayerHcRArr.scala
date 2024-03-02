@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
@@ -40,7 +40,16 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
     values.iForeach((i, v) => newElem(i) = v)
     outerArrayUnsafe(gridSys.layerArrayIndex(r, c)) = newElem
   }
+
   def setSame(value: A, hcs: HCen*): Unit = hcs.foreach{ hc => setArr(hc, value) }
+
+  def setSameInts(value: A, hcs: Int*): Unit =
+  { var i = 0
+    while (i < hcs.length / 2) hcs.foreach { hc =>
+      setArr(HCen(hcs(i * 2), hcs(i * 2 + 1)), value)
+      i += 1
+    }
+  }
 
   /** Prepends to tile's [[Arr]]. */
   def prepend(r: Int, c: Int, value: A): Unit = prepend(HCen(r, c), value)
@@ -84,7 +93,7 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def headsFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit build: BuilderArrFlat[BB]): BB =
+  def headsFlatMap[BB <: Arr[?]](f: (HCen, A) => BB)(implicit build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     gridSys.foreach { r =>
       val el:RArr[A] = apply(r)
@@ -94,7 +103,7 @@ class LayerHcRArr[A](val outerArrayUnsafe: Array[Array[A]], val gridSys: HGridSy
   }
 
   /** FlatMaps the head values of the [[Arr]], if the [[Arr]] is none empty, with the corresponding [[HCen]] to a [[Seqimut]]. */
-  def headsHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  def headsHcFlatMap[ArrT <: Arr[?]](f: (A, HCen) => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       if (noneEmptyTile(hc)) {

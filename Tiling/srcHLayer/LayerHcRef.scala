@@ -49,7 +49,7 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
   /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: HexStruct, build: BuilderArrFlat[BB]): BB =
+  def hcFlatMap[BB <: Arr[?]](f: (HCen, A) => BB)(implicit grid: HexStruct, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach{ (i, hc) =>
       val newElems = f(hc, apply(hc))

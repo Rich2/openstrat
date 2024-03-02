@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
@@ -411,7 +411,7 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
   }
 
   /** FlatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Arr]]. Drops the [[None]] values . */
-  def somesHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: BuilderArrFlat[ArrT]): ArrT =
+  def somesHcFlatMap[ArrT <: Arr[?]](f: (A, HCen) => ArrT)(implicit gridSys: HGridSys, build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff()
     gridSys.foreach { hc =>
       val a = arrayUnsafe(gridSys.layerArrayIndex(hc))
@@ -425,7 +425,7 @@ class LayerHcOptSys[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with 
 
   /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
    *  [[Some]]'s values returned by the function. */
-  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit gridSys: HGridSys, build: BuilderArrFlat[ArrB]): ArrB =
+  def someHCOptFlatMap[ArrB <: Arr[?]](f: (A, HCen) => Option[ArrB])(implicit gridSys: HGridSys, build: BuilderArrFlat[ArrB]): ArrB =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>

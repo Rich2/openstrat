@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
@@ -83,8 +83,8 @@ trait HCenArrLayer[A, ArrA <: Arr[A]]
   }
 
   /** FlatMaps the elements of each [[Arr]] with the corresponding [[HCen]] to a [[Arr]]. */
-  def mapHcFlatMap[ArrT <: Arr[_]](f: (A, HCen) => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT = {
-    val buff = build.newBuff()
+  def mapHcFlatMap[ArrT <: Arr[?]](f: (A, HCen) => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  { val buff = build.newBuff()
     gridSys.foreach { hc =>
       apply(hc).foreach { a =>
         val newVal = f(a, hc)

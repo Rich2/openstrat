@@ -30,7 +30,7 @@ trait TGridSys extends TCenStruct
   }
 
   /** flatMaps over each r row coordinate number. */
-  final def allRsFlatMap[ArrT <: Arr[_]](f: Int => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
+  final def allRsFlatMap[ArrT <: Arr[?]](f: Int => ArrT)(implicit build: BuilderArrFlat[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     allRsforeach{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToSeqLike(buff)

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
 /** Package for square tile grids. */
@@ -7,13 +7,6 @@ package object psq
   /** The square centre step values. */
   val scSteps: RArr[SqStep] = RArr(SqUp, SqUR, SqRt, SqDR, SqDn, SqDL, SqLt, SqUL)
 
-  implicit class IntGridImplicit(thisInt: Int)
-  { /** Syntax for succinct [[SqCen]] notation. */
-    def sc (c: Int): SqCen = SqCen(thisInt, c)
-
-    /** Syntax for succinct [[SqSep]] notation. */
-    def ss (c: Int): SqSep = SqSep(thisInt, c)
-  }
   implicit class ArrExtensions(thisArr: RArr[AnyRef])
   { /** Finds the first [[SqCen]] in this sequence */
     def sqCenFind: Option[SqCen] =

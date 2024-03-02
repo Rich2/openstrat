@@ -60,7 +60,7 @@ class SqCenLayer[A <: AnyRef](val arrayUnsafe: Array[A]) extends AnyVal with Lay
 
   def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumnDown(startCen.c, startCen.r, tileValues*)(grid)
 
-  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns*)
+  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(SqCen(startR, startC), value, dirns*)
 
   def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqStepPerp]*)(implicit grid: SqGrid): SqCen =
   {

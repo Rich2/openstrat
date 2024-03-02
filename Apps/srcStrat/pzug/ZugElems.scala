@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pzug
 import prid._, phex._
 
@@ -56,14 +56,20 @@ type Action = HStepArr | ZugAction
 
 trait ZugAction
 
-case class Fire(hCen: HCen) extends ZugAction
-{ override def toString: String = "Fire" + hCen.rcStr
+case class Fire(r: Int, c: Int) extends ZugAction
+{ def hCen: HCen = HCen(r, c)
+  override def toString: String = "Fire" + hCen.rcStr
+}
+
+object Fire
+{
+  def apply(hCen: HCen): Fire = new Fire(hCen.r, hCen.c)
 }
 
 case class Move(dirns: HStepArr) extends ZugAction
 
 object Move
-{ def apply(dirns: HStep*): ZugAction = new Move(HStepArr(dirns:_*))
+{ def apply(dirns: HStep*): ZugAction = new Move(HStepArr(dirns*))
 }
 
 object NoAction extends ZugAction
