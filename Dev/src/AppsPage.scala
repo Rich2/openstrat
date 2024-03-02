@@ -41,16 +41,15 @@ object AppsPage extends HtmlPage
     HtmlLi.linkAndText(otDir + "unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText(otDir + "zugapp.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),
     HtmlLi.linkAndText("/dungeon.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale."),
-    HtmlLi.linkAndText("/civrise.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
+    HtmlLi.linkAndText(otDir + "civriseapp.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
       "generalised side terrain"),
     HtmlH2("Other Applications."))
 
   def otherApps: RArr[HtmlLi] = RArr(
     HtmlLi("Geometry and Graphics Tutorials"),
-    HtmlLi.linkAndText("../planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just" --
-      "because its different."),
+    HtmlLi.linkAndText("/planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
     HtmlLi("Simultaneous turn, tile based tutorial games."),
-    HtmlLi.linkAndText("../flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did" --
+    HtmlLi.linkAndText("/flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did" --
       "most of the work on this."),
-    HtmlLi.linkAndText("../chess.html", "Chess", "Not completed."))
+    HtmlLi.linkAndText("/chess.html", "Chess", "Not completed."))
 }

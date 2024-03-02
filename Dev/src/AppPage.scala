@@ -43,7 +43,7 @@ object AppPage
   val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", otDir), AppPage("Diceless", "dicelessapp"),
     AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2", "ww2app", "WW2", egameDir),
     AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets"), AppPage("Zug", "zugapp", "ZugFuhrer", otDir), AppPage("Flags"), AppPage("Dungeon"),
-    AppPage("CivRise", "civrise", "Civ Rise"))
+    AppPage("CivRise", "civriseapp", "Civ Rise", otDir))
 
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir),
     AppPage("EG640", "eg640app", "640km Hex Earth", egrDir))
