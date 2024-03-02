@@ -1,11 +1,11 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
 import pjvm._, javafx._, stage._, scene._, canvas._, pParse._, pDev._
 
 /** Name should possibly be DevAppFx. */
 object DevApp
 {
-  def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart], args: _*)
+  def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart], args*)
 }
 
 class AppStart extends application.Application
