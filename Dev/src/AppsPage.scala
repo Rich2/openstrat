@@ -12,8 +12,8 @@ object AppsPage extends HtmlPage
   def list: HtmlOl = HtmlOl(stratList ++ egrids ++ otherTiled ++ otherApps)
 
   def stratList: RArr[HtmlInline] = RArr(HtmlH2("Strategy Games using tiled world maps."),
-    HtmlLi.linkAndText("../dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name" --
-      "suggests no random element."),
+    HtmlLi.linkAndText(egameDir + "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"
+      -- "no random element."),
     HtmlLi.linkAndText("../periculoapp.html", "Periculo Fundatuso", "A simple consecutive turn, world map game that has some grounding in earth" --
       "geography."),
     HtmlLi.linkAndText(egameDir + "ww2app.html", "World War II Game", "Using 460km scale."),
