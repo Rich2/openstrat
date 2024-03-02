@@ -19,7 +19,7 @@ class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextI
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStemName == JsMainStemName)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(dirStr + _.htmlFileName)
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(_.htmlLoc)
     val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
@@ -44,7 +44,8 @@ object AppPage
     AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets"), AppPage("Zug", "zug", "ZugFuhrer"), AppPage("Flags"), AppPage("Dungeon"),
     AppPage("CivRise", "civrise", "Civ Rise"))
 
-  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir))
+  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir),
+    AppPage("EG640", "eg640app", "640km Hex Earth", egrDir))
 
   val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"))
 
