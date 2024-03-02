@@ -74,15 +74,17 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG640App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640JsApp")""".stripMargin),
 
-    HtmlLi(
-      """set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
-      |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessJsApp")""".stripMargin),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessJsApp")""".stripMargin),
 
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App""""),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW1JsApp")""".stripMargin),
+
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1783App""""),
     HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp""""),

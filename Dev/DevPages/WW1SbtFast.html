@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-  <title>OpenStrat: WW1</title>
+  <title>OpenStrat: WW2</title>
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width'> 
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
@@ -19,7 +19,7 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../SbtDir/GenAppJs/target/scala-3.4.0/genappjs-opt.js?"+Date.now().toString());
+    script.setAttribute("src", "../SbtDir/GenAppJs/target/scala-3.4.0/genappjs-fastopt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
     WW1JsApp.main();
@@ -27,4 +27,4 @@
   </script>
 </body>
   
-</html>
+</html>	

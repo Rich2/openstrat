@@ -48,7 +48,7 @@ object AppPage
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir),
     AppPage("EG640", "eg640app", "640km Hex Earth", egrDir))
 
-  val others: RArr[AppPage] = RArr(AppPage("WW1"), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"))
+  val others: RArr[AppPage] = RArr(AppPage("WW1", "ww1app", "WW1", egameDir), AppPage("Sors"), AppPage("Y1783"), AppPage("Y1492"), AppPage("Chess"))
 
   def all: RArr[AppPage] = allTops ++ eGrids ++ others
 

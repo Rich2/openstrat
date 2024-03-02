@@ -21,7 +21,7 @@ object AppsPage extends HtmlPage
     HtmlLi.linkAndText(egameDir + "bc305app.html", "BC305", "A grand strategy game with a start point of 305BC. It uses an 80km scale world map. This is the" --
       "game that most interests me."),
 
-    HtmlLi.linkAndText("/ww1.html", "World War I Game", "A 120km hex game."),
+    HtmlLi.linkAndText(egameDir + "ww1app.html", "World War I Game", "A 120km hex game."),
     HtmlLi.linkAndText("/sors.html", "Sors Imperiorum", "A game where empires appear at set times according to history. Uses 220km hex scale"),
     HtmlLi.linkAndText("/y1492.html", "AD1492", "A grand strategy game with a start point of 1492. It also uses an 160km scale world map."),
 
