@@ -14,7 +14,7 @@ object AppsPage extends HtmlPage
   def stratList: RArr[HtmlInline] = RArr(HtmlH2("Strategy Games using tiled world maps."),
     HtmlLi.linkAndText(egameDir + "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"
       -- "no random element."),
-    HtmlLi.linkAndText("../periculoapp.html", "Periculo Fundatuso", "A simple consecutive turn, world map game that has some grounding in earth" --
+    HtmlLi.linkAndText(egameDir + "periculoapp.html", "Periculo Fundatuso", "A simple consecutive turn, world map game that has some grounding in earth" --
       "geography."),
     HtmlLi.linkAndText(egameDir + "ww2app.html", "World War II Game", "Using 460km scale."),
 
@@ -47,7 +47,7 @@ object AppsPage extends HtmlPage
 
   def otherApps: RArr[HtmlLi] = RArr(
     HtmlLi("Geometry and Graphics Tutorials"),
-    HtmlLi.linkAndText("/planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
+    HtmlLi.linkAndText(otDir + "planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
     HtmlLi("Simultaneous turn, tile based tutorial games."),
     HtmlLi.linkAndText("/flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did" --
       "most of the work on this."),

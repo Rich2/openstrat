@@ -41,8 +41,8 @@ object AppPage
   val otDir: String = "/otherapps/"
 
   val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", otDir), AppPage("Diceless", "dicelessapp", "DiceLess", egameDir),
-    AppPage("Periculo", "periculoapp", "Periculo Fundato"), AppPage("WW2", "ww2app", "WW2", egameDir),
-    AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets"), AppPage("Zug", "zugapp", "ZugFuhrer", otDir),
+    AppPage("Periculo", "periculoapp", "Periculo Fundato", egameDir), AppPage("WW2", "ww2app", "WW2", egameDir),
+    AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets", "planets", "Planets", otDir), AppPage("Zug", "zugapp", "ZugFuhrer", otDir),
     AppPage("Flags", "flags", "Flags", otDir), AppPage("Dungeon"),
     AppPage("CivRise", "civriseapp", "Civ Rise", otDir))
 
