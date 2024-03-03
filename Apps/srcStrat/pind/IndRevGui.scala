@@ -2,7 +2,7 @@
 package ostrat; package pind
 import geom._, prid._, phex._, pgui._, egrid._
 
-case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1783 Gui")
+case class IndRevGui(canv: CanvasPlatform, scenIn: IndRevScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1783 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   def terrs: LayerHcRefSys[WTile] = scen.terrs

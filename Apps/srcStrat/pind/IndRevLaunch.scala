@@ -7,7 +7,7 @@ object IndRevLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "y1783"
 
-  override def default: (CanvasPlatform => Any, String) = (NapGui(_, NapScen1, NapScen1.defaultView()), "JavaFx AD1783")
+  override def default: (CanvasPlatform => Any, String) = (IndRevGui(_, IndRevScen1, IndRevScen1.defaultView()), "JavaFx AD1783")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
@@ -15,12 +15,12 @@ object IndRevLaunch extends GuiLaunchMore
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
-    val scen: NapScen = num match
-    { case 1 => NapScen1
-      case 2 => NapScen2
-      case _ => NapScen1
+    val scen: IndRevScen = num match
+    { case 1 => IndRevScen1
+      case 2 => IndRevScen2
+      case _ => IndRevScen1
     }
 
-    (NapGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") + " JavaFx")
+    (IndRevGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") + " JavaFx")
   }
 }

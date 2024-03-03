@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-  <title>OpenStrat: 1783</title>
+  <title>OpenStrat: IndRev full</title>
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width'> 
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
@@ -19,10 +19,10 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../SbtDir/Y1783Js/target/scala-3.3.0/y1783js-opt.js?"+Date.now().toString());
+    script.setAttribute("src", "../SbtDir/GenAppJs/target/scala-3.4.0/genappjs-opt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
-    Y1783JsApp.main();
+    IndRevJsApp.main();
   });
   </script>
 </body>

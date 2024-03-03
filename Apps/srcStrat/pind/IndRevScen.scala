@@ -2,13 +2,13 @@
 package ostrat; package pind
 import prid._, phex._, egrid._, eg220._
 
-trait NapScen extends EScenBasic with HSysTurnScen
+trait IndRevScen extends EScenBasic with HSysTurnScen
 {
-  override def title: String = "AD1783"
+  override def title: String = "IndRev"
   val corps: LayerHcOptSys[Corps]
 }
 
-object NapScen1 extends NapScen
+object IndRevScen1 extends IndRevScen
 { override def turn: Int = 0
 
   override implicit def gridSys: EGrid220LongFull = Terr220E0.grid
@@ -21,7 +21,7 @@ object NapScen1 extends NapScen
   corps.setSomeMut(156, 516, Corps(France))
 }
 
-object NapScen2 extends NapScen
+object IndRevScen2 extends IndRevScen
 { override def turn: Int = 0
 
   override implicit def gridSys: EGrid220LongFull = Terr220E0.grid
