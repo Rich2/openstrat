@@ -1,12 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package p1492
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pdiscov
 import prid._, phex._, egrid._, eg320._
 
-trait DiscScen extends EScenBasic with HSysTurnScen
-{
-}
+trait DiscovScen extends EScenBasic with HSysTurnScen
 
-object DiscScen1 extends DiscScen
+object DiscovScen1 extends DiscovScen
 { override def turn: Int = 0
   override implicit def gridSys =  Scen320All.gridSys// Terr320E0.grid
   override val terrs: LayerHcRefSys[WTile] = Scen320All.terrs
@@ -15,7 +13,7 @@ object DiscScen1 extends DiscScen
   override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
 }
 
-object DiscScen2 extends DiscScen
+object DiscovScen2 extends DiscovScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid320LongFull = Terr320E30.grid
   override val terrs: LayerHcRefSys[WTile] = Terr320E30.terrs

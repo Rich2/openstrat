@@ -68,8 +68,8 @@ object DevPage extends HtmlPage
     "after the fastOptJS command has finished the rebuild.")
 
   def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG1300App""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG1000App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG1300App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG1000App""""),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG640App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640JsApp")""".stripMargin),
@@ -77,15 +77,15 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessJsApp")""".stripMargin),
 
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp""""),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW1JsApp")""".stripMargin),
 
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App""""),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/IndRevApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.IndRevJsApp")""".stripMargin),
@@ -93,10 +93,12 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DungeonApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.DungeonJsApp")""".stripMargin),
 
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App""""),
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Y1492App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App""""),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DiscovApp"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DiscovJsApp")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.PlanetsJsApp")""".stripMargin),
@@ -104,10 +106,10 @@ object DevPage extends HtmlPage
     HtmlLi(""" set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.FlagsJsApp")""".stripMargin),
 
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp"
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.CivRiseJsApp")""".stripMargin),
 
-    HtmlLi("""Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp"""")
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp"""")
   )
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",

@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package p1492
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pdiscov
 import geom._, prid._, phex._, pgui._, egrid._
 
-case class DiscGui(canv: CanvasPlatform, scenIn: DiscScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1492 Gui")
+case class DiscovGui(canv: CanvasPlatform, scenIn: DiscovScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("AD1492 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: LayerHcRefSys[WTile] = scen.terrs
