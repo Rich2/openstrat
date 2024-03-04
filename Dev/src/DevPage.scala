@@ -93,7 +93,9 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DungeonApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.DungeonJsApp")""".stripMargin),
 
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.SorsJsApp")""".stripMargin),
+
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp""""),
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App""""),
 
