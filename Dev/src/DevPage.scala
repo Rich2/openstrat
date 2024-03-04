@@ -111,7 +111,8 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.CivRiseJsApp")""".stripMargin),
 
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp"""")
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.ChessApp")""".stripMargin)
   )
 
   def intellij: HtmlUlWithLH = HtmlUlWithLH("For IntellliJ useful options:",

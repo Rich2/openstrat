@@ -51,7 +51,6 @@ object AppsPage extends HtmlPage
     HtmlLi("Geometry and Graphics Tutorials"),
     HtmlLi.linkAndText(otDir + "planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
     HtmlLi("Simultaneous turn, tile based tutorial games."),
-    HtmlLi.linkAndText("/flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did" --
-      "most of the work on this."),
-    HtmlLi.linkAndText("/chess.html", "Chess", "Not completed."))
+    HtmlLi.linkAndText("/flags.html", "Flags", "Just some flags using the graphics module. Thanks to Rod and Stephen who did most of the work on this."),
+    HtmlLi.linkAndText(otDir + "chessapp.html", "Chess", "Not completed."))
 }
