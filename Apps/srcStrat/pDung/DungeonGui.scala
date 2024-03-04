@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDung
 import pgui._, prid._, psq._, geom._
 
@@ -15,7 +15,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   val tiles: GraphicElems = gSys.map{ sc => sc.polygonReg.fillActiveTextAbs(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
   def sls: LinesDraw = proj.sidesDraw(2, Colour.White)
   def players: RArr[PolygonCompound] = scen.characs.scSomesMap{ (sqc, cs) =>
-    val poly1: Polygon = Rect(1.5, 1).insVerts(1, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cs.facing.angle - Angle.up)
+    val poly1: Polygon = Rect(1.5, 1).insVerts(0, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cs.facing.angle - Angle.up)
     val poly2: Polygon = poly1.scale( 0.75).slate(sqc.toPt2Reg)
     poly2.fillActiveDrawText(cs.charac.colour, cs, cs.charac.iden.toString, 16, 2.0, cs.charac.colour.contrast)
   }

@@ -255,11 +255,12 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
   }
 
   /** Insert vertices before the specified insertion vertex. */
-  def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
-  { val res = PolygonGen.uninitialised(numVerts + newVecs.length)
+  def insVerts(insertionPoint: Int, newPts: Pt2 *): Polygon =
+  { val newLen = numVerts + newPts.length
+    val res = PolygonGen.uninitialised(newLen)
     iUntilForeach(insertionPoint){ i => res.setElemUnsafe(i, vert(i)) }
-    newVecs.iForeach((i, elem) => res.setElemUnsafe(insertionPoint + i, elem))
-    iUntilForeach(insertionPoint, numVerts){ i => res.setElemUnsafe(i + newVecs.length, vert(i)) }
+    newPts.iForeach((i, elem) => res.setElemUnsafe(insertionPoint + i, elem))
+    iUntilForeach(insertionPoint, numVerts){ i => res.setElemUnsafe(i + newPts.length, vert(i)) }
     res
   }
 
