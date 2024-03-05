@@ -4,6 +4,5 @@ import scalajs.js.annotation._, egrid._, eg640._, prid.phex._
 
 @JSExportTopLevel("EG640JsApp")
 object EG640JsApp
-{
-  @JSExport def main(): Unit = { EGTerrOnlyGui(CanvasJs, Scen640All, HGView(115, 512, 25), false); () }
+{ @JSExport def main(): Unit = { EGTerrOnlyGui(CanvasJs, Scen640All, HGView(115, 512, 25), false); () }
 } 

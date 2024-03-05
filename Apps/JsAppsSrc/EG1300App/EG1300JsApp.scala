@@ -4,6 +4,5 @@ import scalajs.js.annotation._, egrid._, eg13._, prid.phex._
 
 @JSExportTopLevel("EG1300JsApp")
 object EG1300JsApp
-{
-  @JSExport def main(): Unit = { EGTerrOnlyGui(CanvasJs, Scen13All, HGView(102, 512, 27), false); () }
+{ @JSExport def main(): Unit = { EGTerrOnlyGui(CanvasJs, Scen13All, HGView(102, 512, 27), false); () }
 } 

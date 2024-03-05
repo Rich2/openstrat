@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pWeb._
 
-/** HTML page for Dev Module. */
+/** HTML documentation page for Dev Module. */
 object DevPage extends HtmlPage
 {
   override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
