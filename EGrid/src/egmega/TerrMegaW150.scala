@@ -17,6 +17,7 @@ object TerrMegaW150 extends LongMegaTerrs
       TRow(118, tundra),
       VRow(117, MouthOld(7678, HVUp)),
       TRow(116, SepB(), hillyTaiga),
+      VRow(111, BendIn(7684, HVDR, 13), MouthLt(7686, HVUR, 7)),
       TRow(106, Isle3(mtainOld)),
     )
   }
