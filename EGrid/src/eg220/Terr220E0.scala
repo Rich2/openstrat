@@ -12,7 +12,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle3 1023.330km² <= 2005.728km² Faroe Islands 1,399 km²
  *  Smaller Isle of Man. */
 object Terr220E0 extends Long220Terrs
-{ override implicit val grid: EGrid220LongFull = EGrid220.e0(132, 202)
+{ override implicit val grid: EGrid220LongFull = EGrid220.e0(132)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
