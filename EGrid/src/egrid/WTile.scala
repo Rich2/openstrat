@@ -84,6 +84,7 @@ object WTiles
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
   val hillySubForest: Land = Land(Hilly, Subtropical, Forest)
+  val hillyTrop: Land = Land(Hilly, Tropical)
   val hillyJungle: Land = Land(Hilly, Tropical, Forest)
 
   val hillyLakesTaiga: Land = Land(HillyLakes, Boreal, Forest)

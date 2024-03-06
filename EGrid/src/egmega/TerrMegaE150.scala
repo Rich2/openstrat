@@ -20,7 +20,7 @@ object TerrMegaE150 extends LongMegaTerrs
       TRow(114, hillyTaiga),
       VRow(113, BendIn(5630, HVDR, 11), ThreeUp(5632, 13, 11, 0), ThreeDown(5634, 6, 0, 11)),
       TRow(112, hillyTaiga),
-      VRow(111, Bend(5628, HVDR, 7, 5), ThreeUp(5630, 11, 0, 7), ThreeDown(5632, 11, 0, 12), BendIn(5634, HVUL, 11)),
+      VRow(111, Bend(5628, HVDR, 7, 5), Bend(5630, HVUL, 4, 7), BendOut(5632, HVDR, 7), BendIn(5634, HVUL, 11)),
       TRow(110, hillyCont),
       VRow(109, BendIn(5628, HVUL), BendOut(5630, HVDR), BendIn(5632, HVUL, 13)),
       VRow(101, BendOut(5626, HVUp, 7), BendIn(5628, HVDn, 13), BendIn(5630, HVDL, 13)),

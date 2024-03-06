@@ -51,10 +51,10 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("~ Util/test; Tiling/test; Dev/test", "Rerun tests on Util module."),
 
     HtmlLi.sbtAndText("DocMain/doc", "Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in" --
-      "Dev/SbtDir/DocMain/target/scala-3.3.1/api/".htmlPath),
+      "Dev/SbtDir/DocMain/target/scala-3.4.0/api/".htmlPath),
 
     HtmlLi.sbtAndText("DocJs/doc", "Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in" --
-      "Dev/SbtDir/DocJs/target/DocMain/target/scala-3.3.1/api/".htmlPath),
+      "Dev/SbtDir/DocJs/target/DocMain/target/scala-3.4.0/api/".htmlPath),
 
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
@@ -73,6 +73,9 @@ object DevPage extends HtmlPage
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG640App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640JsApp")""".stripMargin),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG460App"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG460JsApp")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessJsApp")""".stripMargin),
