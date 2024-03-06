@@ -70,10 +70,13 @@ object DevPage extends HtmlPage
   //project GenAppJs
 
   def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG1300App""""),
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG1000App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1300App"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1300JsApp")""".stripMargin),
 
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/EG640App"
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1000App"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1000JsApp")""".stripMargin),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG640App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640JsApp")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG460App"
