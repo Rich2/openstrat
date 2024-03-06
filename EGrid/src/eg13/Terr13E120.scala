@@ -6,6 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * Isle13 893300.129km² => 1041945.271km². (Borneo 748168km²) + (Sulawesi 180681km²) = 928849km²
  * Isle12 756089.229km² => 893300.129km².
  * Isle9 413061.979km² => 515970.154km². Sumatra 443065kmm².
+ * Isle8 321588.046km² => 413061.979km². Japan combined 377973 km².
  * Isle6 243930.488km² <= 172942.905km². Most of Philippines (300000 km²).
  * Isle5 115771.696km² => 172942.905km². Java 138794km².
  * Isle4 70034.730km² => 115771.696km². Most of Luzon (109,965 km2) excluding the south plus Taiwan, Lesser Sunda Islands estimate 80000km, */
@@ -25,8 +26,9 @@ object Terr13E120 extends Long13Terrs
       TRow(110, hillyTaiga),
       VRow(109, BendIn(4610, HVDR, 8), ThreeUp(4612, 13, 8, 0)),
       TRow(108, hillyOceForest),
-      TRow(106, hillyOce),
-      VRow(105, MouthRt(4610, HVUp, 7)),
+      VRow(107, BendIn(4608, HVDR, 13), BendIn(4610, HVUL)),
+      TRow(106, hillyOce, hillySubForest),
+      VRow(105, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), BendOut(4612, HVDn, 7)),
       TRow(104, hillyJungle, sea),
       VRow(103, MouthLt(4606, HVUL, 7), ThreeDown(4608, 13, 6, 0), ThreeUp(4610, 0, 6, 13), BendIn(4612, HVDL, 13)),
       TRow(102, sea, hillyJungle),
@@ -50,6 +52,7 @@ object Terr13E120 extends Long13Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(106, "", "Japan south")
     str(104, "", "Guandong")
     str(102, "", "Philippines")
     str(100, "Borneo")
