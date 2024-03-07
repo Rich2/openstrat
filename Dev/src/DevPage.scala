@@ -67,8 +67,6 @@ object DevPage extends HtmlPage
     "However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window" --
     "after the fastOptJS command has finished the rebuild.")
 
-  //project GenAppJs
-
   def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1300App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1300AppJs")""".stripMargin),
@@ -90,6 +88,9 @@ object DevPage extends HtmlPage
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG220NAmerica"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG220NAmericaJs")""".stripMargin),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG160Europe"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG160EuropeJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessAppJs")""".stripMargin),
