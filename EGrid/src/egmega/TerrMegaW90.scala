@@ -28,7 +28,7 @@ object TerrMegaW90 extends LongMegaTerrs
       TRow(106, sahel, sea, hillyJungle),
       VRow(105, Bend(9722, HVDL, 2, 4)),
       TRow(104, hillyJungle, jungle, sea),
-      VRow(103, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn), BendOut(9728, HVDL)),
+      VRow(103, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn), BendOut(9728, HVDL), Mouth(9732, HVDL, 2, 4), ThreeUp(9734, 11, 6, 0)),
       TRow(102, sea, jungle, jungle),
       VRow(101, MouthOld(9732, HVUR)),
       TRow(100, sea * 2, CapeOld(4, 2, hillyJungle)),

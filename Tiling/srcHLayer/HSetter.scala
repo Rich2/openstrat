@@ -564,10 +564,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def magMouth: Int
 
     override def setCorners(row: Int): Unit = dirn match
-    { case HVUR => corners.setCornerIn(row + 1, c + 2, 4, magIn)
+    { case HVUR =>
+      { corners.setCornerIn(row + 1, c + 2, 4, magIn)
+        corners.setMouth0(row - 1, c, 0, magMouth)
+      }
 
-      case HVDR =>{
-        corners.setCornerIn(row - 1, c + 2, 5, magIn)
+      case HVDR =>
+      { corners.setCornerIn(row - 1, c + 2, 5, magIn)
         corners.setMouth3(row + 1, c, 0, magMouth)
       }
 

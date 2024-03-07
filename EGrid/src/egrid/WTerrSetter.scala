@@ -271,7 +271,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class BendMouth(val c: Int, val dirn: HVDirn, val magIn: Int, val magMouth: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendMouthBase
+  class BendMouth(val c: Int, val dirn: HVDirn, val magIn: Int, val magMouth: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+    BendMouthBase
 
   object BendMouth
   {

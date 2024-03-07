@@ -21,7 +21,7 @@ object TerrMegaW60 extends LongMegaTerrs
       VRow(109, MouthOld(10748, HVUL)),
       TRow(108, SepB(), sea * 2),
       TRow(104, hillyJungle),
-      VRow(103, BendIn(10756, HVDL, 13)),
+      VRow(103, ThreeUp(10746, 11, 6, 0), BendIn(10748, HVUp, 13), ThreeUp(10750, 0, 6, 11), Bend(10752, HVUp, 4, 2), BendIn(10754, HVDn, 13), BendIn(10756, HVDL, 13)),
       TRow(102, jungle, hillyJungle, sea),
       VRow(101, BendMin(10756, HVUR), BendOut(10758, HVUp, 7), BendIn(10760, HVDn, 13)),
       TRow(100, jungle * 2, jungle),
