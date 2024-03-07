@@ -3,28 +3,30 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val JsMainStemName: String, fileNameStemIn: String = "", linkTextIn: String = "", val dirStr: String = "/") extends HtmlPage
+class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends HtmlPage
 {
-  val fileNameStem: String = ife(fileNameStemIn == "", JsMainStemName.toLowerCase(), fileNameStemIn)
+  val htmlTitle: String = htmlTitleIn.emptyMap(JsMainStem)
 
-  def htmlFileName: String = fileNameStem + ".html"
+  val htmlFileStem: String = htmlFileStemIn.emptyMap(JsMainStem.toLowerCase)
+
+  def htmlFileName: String = htmlFileStem + ".html"
 
   def htmlLoc: String = dirStr + htmlFileName
 
-  def jsFileName: String = fileNameStem + ".js"
+  def jsFileName: String = jsFileStem + ".js"
 
-  val linkText: String = ife(linkTextIn == "", JsMainStemName, linkTextIn)
+  val jsFileStem: String = jsFileStemIn.emptyMap(JsMainStem.toLowerCase)
 
-  override def head: HtmlHead = HtmlHead.titleCss(linkText, "/only")
+  override def head: HtmlHead = HtmlHead.titleCss(htmlTitle, "/only")
 
   def topMenu: HtmlUl =
-  { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStemName == JsMainStemName)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.linkText)(_.htmlLoc)
+  { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStem == JsMainStem)
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.jsFileStem)(_.htmlLoc)
     val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
 
-  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(JsMainStemName + "JsApp"))
+  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(JsMainStem + "Js"))
 }
 
 object AppPage
@@ -33,29 +35,27 @@ object AppPage
    * which "JsApp" [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The
    * default is the lower case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces
    * which defaults to the first parameter. */
-  def apply(appStemName: String, fileNameIn: String = "", linkTextIn: String = "", locStr: String = "/"): AppPage =
-    new AppPage(appStemName, fileNameIn, linkTextIn, locStr)
+  def apply(jsMainStem: String, dirStr: String = "/", htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
+    new AppPage(jsMainStem, dirStr, htmlTitleIn, htmlFileNameStem, jsFileStem)
 
   val egameDir: String = "/earthgames/"
   val egrDir: String = "/egrids/"
   val otDir: String = "/otherapps/"
 
-  val allTops: RArr[AppPage] = RArr(AppPage("UnitLoc", "unitlocapp", "Unit Locator", otDir), AppPage("Diceless", "dicelessapp", "DiceLess", egameDir),
-    AppPage("Periculo", "periculoapp", "Periculo Fundato", egameDir), AppPage("WW2", "ww2app", "WW2", egameDir),
-    AppPage("BC305", "bc305app", "BC305", egameDir), AppPage("Planets", "planets", "Planets", otDir), AppPage("Zug", "zugapp", "ZugFuhrer", otDir),
-    AppPage("Flags", "flags", "Flags", otDir), AppPage("Dungeon", "dungeonapp", "Dungeon game", otDir),
-    AppPage("CivRise", "civriseapp", "Civ Rise", otDir))
+  val allTops: RArr[AppPage] = RArr(AppPage("UnitLocApp", otDir, "Unit Locator"), AppPage("DicelessApp", egameDir, "DiceLess"),
+    AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("WW2App", egameDir), AppPage("BC305App", egameDir), AppPage("Planets", otDir),
+    AppPage("ZugApp", otDir, "ZugFuhrer"), AppPage("Flags", otDir), AppPage("DungeonApp", otDir, "Dungeon game"),  AppPage("CivRiseApp", otDir, "Civ Rise"))
 
-  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", "eg1300app", "1300km Hex Earth", egrDir), AppPage("EG1000", "eg1000app", "1000km Hex Earth", egrDir),
-    AppPage("EG640", "eg640app", "640km Hex Earth", egrDir), AppPage("EG460", "eg460app", "460km Hex Earth", egrDir),
-    AppPage("EG320", "eg320app", "320km Hex Earth", egrDir), AppPage("EG220", "eg220app", "220km Hex Europe", egrDir))
+  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", egameDir, "1300km Hex Earth"), AppPage("EG1000App", egrDir, "1000km Hex Earth"),
+    AppPage("EG640App", egrDir, "640km Hex Earth"), AppPage("EG460App", egrDir, "460km Hex Earth"), AppPage("EG320App", egrDir, "320km Hex Earth"),
+    AppPage("EG220Europe", egrDir), AppPage("EG220NAmerica", egrDir, "220km Hex North America"))
 
-  val others: RArr[AppPage] = RArr(AppPage("WW1", "ww1app", "WW1", egameDir), AppPage("Sors", "sorsapp", "Sors Imperiorum", egameDir),
-    AppPage("IndRev", "indrevapp", "IndRev", egameDir), AppPage("Discov", "discovapp", "Age of Discovery", egameDir), AppPage("Chess", "chessapp", "Chess", otDir))
+  val others: RArr[AppPage] = RArr(AppPage("WW1App", egameDir), AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
+    AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))
 
   def all: RArr[AppPage] = allTops ++ eGrids ++ others
 
-  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.linkText)(_.htmlLoc)
+  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.jsFileStem)(_.htmlLoc)
 
   def topMenu(pairs: ArrPairStr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }
