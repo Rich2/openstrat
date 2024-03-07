@@ -22,11 +22,15 @@ object TerrMegaW120 extends LongMegaTerrs
       TRow(110, hillyOce, hillySahel),
       VRow(109, BendIn(8700, HVUR, 13), BendOut(8702, HVDL, 7)),
       TRow(108, hillySub, hillySahel),
-      VRow(107, BendIn(8702, HVUR, 13), BendOut(8704, HVDL, 7)),
+      VRow(107, BendIn(8702, HVUR, 13), BendOut(8704, HVDL, 7), Mouth(8708, HVUp, 2, 4)),
       TRow(106, sea, hillySahel, hillySahel),
-      VRow(105, MouthLt(8708, HVUL), Bend(8710, HVDL, 2, 4)),
+      VRow(105, BendIn(8704, HVUR, 13), BendIn(8706, HVUp, 13), ThreeUp(8708, 9, 0, 6), Bend(8710, HVDL, 2, 4)),
       VRow(103, BendIn(8710, HVUR, 13), BendIn(8712, HVUp, 13)),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(106, "" , "Baja")
+  }
 }
