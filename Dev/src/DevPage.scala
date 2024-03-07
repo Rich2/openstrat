@@ -71,16 +71,16 @@ object DevPage extends HtmlPage
 
   def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1300App"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1300JsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1300AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1000App"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1000JsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1000AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG640App"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640JsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG640AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG460App"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG460JsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG460AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG320App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG320AppJs")""".stripMargin),
@@ -92,7 +92,7 @@ object DevPage extends HtmlPage
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG220NAmericaJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/UnitLocApp""""),
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/BC305App""""),
@@ -100,33 +100,33 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp""""),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW1JsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW1AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App""""),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/IndRevApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.IndRevJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.IndRevAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DungeonApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DungeonJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DungeonAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/SorsApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.SorsJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.SorsAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PericuloApp""""),
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/Peri2App""""),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DiscovApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DiscovJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.DiscovAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.PlanetsJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.PlanetsAppJs")""".stripMargin),
 
     HtmlLi(""" set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/FlagsApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.FlagsJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.FlagsAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/CivRiseApp"
-    |<br>set Compile/mainClass:= Some("ostrat.pSJs.CivRiseJsApp")""".stripMargin),
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.CivRiseAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ChessApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.ChessApp")""".stripMargin)

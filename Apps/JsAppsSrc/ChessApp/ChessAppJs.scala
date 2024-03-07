@@ -2,7 +2,7 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pchess._
 
-@JSExportTopLevel("ChessJsApp")
-object ChessJsApp
+@JSExportTopLevel("ChessAppJs")
+object ChessAppJs
 { @JSExport def main(): Unit = ChessGui(CanvasJs, ChessStart)
 } 
