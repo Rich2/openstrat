@@ -30,11 +30,10 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
 }
 
 object AppPage
-{
-  /** Factory apply method for [[AppPage]] class. The first parameter is the stem of the name of the main function function in the JavaScript file, to
-   * which "JsApp" [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The
-   * default is the lower case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces
-   * which defaults to the first parameter. */
+{ /** Factory apply method for [[AppPage]] class. The first parameter is the stem of the name of the main function function in the JavaScript file, to which
+   * "JsApp" [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the
+   * lower case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
+   * parameter. */
   def apply(jsMainStem: String, dirStr: String = "/", htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
     new AppPage(jsMainStem, dirStr, htmlTitleIn, htmlFileNameStem, jsFileStem)
 
@@ -48,7 +47,8 @@ object AppPage
 
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", egameDir, "1300km Hex Earth"), AppPage("EG1000App", egrDir, "1000km Hex Earth"),
     AppPage("EG640App", egrDir, "640km Hex Earth"), AppPage("EG460App", egrDir, "460km Hex Earth"), AppPage("EG320App", egrDir, "320km Hex Earth"),
-    AppPage("EG220Europe", egrDir), AppPage("EG220NAmerica", egrDir, "220km Hex North America"), AppPage("EG160Europe", egrDir), AppPage("EG120Europe", egrDir))
+    AppPage("EG220Europe", egrDir), AppPage("EG220NAmerica", egrDir, "220km Hex North America"), AppPage("EG160Europe", egrDir), AppPage("EG120Europe", egrDir),
+    AppPage("EG80Europe", egrDir))
 
   val others: RArr[AppPage] = RArr(AppPage("WW1App", egameDir), AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
     AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))
