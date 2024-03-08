@@ -18,11 +18,11 @@ object Terr640W60 extends Long640Terrs
       TRow(126, tundra, hillyTundra),
       VRow(125, BendOut(10758, HVDR)),
       TRow(124, Mountains(Tundra), mtainOld),
-      VRow(123, MouthOld(10748, HVDR), BendIn(10756, HVUp, 13), BendIn(10758, HVUL, 9)),
+      VRow(123, MouthOld(10748, HVDR), ThreeDown(10756, 13, 0, 13), BendIn(10758, HVUL, 9)),
       TRow(122, taiga, hillyLakesTaiga),
-      VRow(121),
+      VRow(121, Bend(10754, HVDR, 4, 2), ThreeUp(10756, 0, 13, 13), BendIn(10758, HVDL, 13)),
       TRow(120, taiga * 2, hillyLakesTaiga),
-      VRow(119, MouthLt(10750, HVUL, 7), BendIn(10752, HVUp)),
+      VRow(119, MouthLt(10750, HVUL, 7), BendIn(10752, HVUp, 13), BendIn(10754, HVUL, 13), MouthLt(10756, HVDL), BendIn(10758, HVUL, 13)),
       TRow(118, taiga, sea),
       TRow(116, hillyCont),
       VRow(117),
@@ -39,4 +39,8 @@ object Terr640W60 extends Long640Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(120, "" * 2, "Newfoundland")
+  }
 }
