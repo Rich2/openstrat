@@ -24,7 +24,7 @@ object Terr640W90 extends Long640Terrs
       TRow(120, taiga * 3),
       VRow(119, MouthOld(9728, HVDL, 3, Lake), MouthOld(9730, HVUR, 3, Lake), MouthOld(9732, HVUp, 3, Lake)),
       TRow(118, taiga, taiga, taiga),
-      VRow(117, MouthOld(9732, HVDn, 3, Lake), MouthOld(9736, HVUL)),
+      VRow(117, MouthOld(9732, HVDn, 3, Lake)),
       TRow(116, savannah, savannah, hillyOce),
       TRow(114, sahel, savannah, oceanic, oceanic),
       TRow(112, savannah, oceanic, jungle, sea),
