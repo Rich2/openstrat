@@ -160,15 +160,14 @@ object EGridLaunch extends GuiLaunchMore
       case 134 => Scen160NorthAmerica
       case 135 => Scen160Africa
 
-      case 135 => Scen160Africa
       case 138 => Brit160.britScen
 
       case 140 => EGrid120.scen0
       case 141 => EGrid120.scen1
       case 142 => EGrid120.scen2
 
-      case 152 => Scen120S0E1
-      case 153 => Scen120S0E2
+      case 152 => Scen120Europe
+      case 153 => Scen120Africa
       case 154 => Scen120S0E1North
 
       case 160 => EGrid80.scen0

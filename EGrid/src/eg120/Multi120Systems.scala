@@ -12,7 +12,7 @@ object Grids120S0E1 extends EGrid120LongMulti
 }
 
 /** Scenario for 2 Grid system for 0°E and 30°E. */
-object Scen120S0E1 extends EScenLongMulti
+object Scen120Europe extends EScenLongMulti
 { override val title: String = "120km 0°E - 30°E"
   override implicit val gridSys: EGrid120LongMulti = EGrid120.multi(2, 0, 300, 314)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
@@ -22,7 +22,7 @@ object Scen120S0E1 extends EScenLongMulti
 }
 
 /** Scenario for 3 Grid system for 0°E, 30°E and 60°E */
-object Scen120S0E2 extends EScenLongMulti
+object Scen120Africa extends EScenLongMulti
 { override val title: String = "120km 0°E - 60°E"
   override implicit val gridSys: EGrid120LongMulti = EGrid120.multi(3, 0, 300, 314)// Grids120S0E2
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn

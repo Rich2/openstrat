@@ -92,6 +92,12 @@ object DevPage extends HtmlPage
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG160Europe"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG160EuropeJs")""".stripMargin),
 
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG160Europe"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG160EuropeJs")""".stripMargin),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG120Europe"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG120EuropeJs")""".stripMargin),
+
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.DicelessAppJs")""".stripMargin),
 

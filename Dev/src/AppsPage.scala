@@ -41,6 +41,7 @@ object AppsPage extends HtmlPage
     HtmlLi.linkAndText(egrDir + "eg220europe.html", "EGrid Europe 220km", "220km hex scale Europe."),
     HtmlLi.linkAndText(egrDir + "eg220namerica.html", "EGrid North America 220km", "220km hex scale North America."),
     HtmlLi.linkAndText(egrDir + "eg160europe.html", "EGrid Europe 160km", "160km hex scale Europe."),
+    HtmlLi.linkAndText(egrDir + "eg120europe.html", "EGrid Europe 120km", "120km hex scale Europe."),
   )
 
   def otherTiled: RArr[HtmlInline] = RArr(
