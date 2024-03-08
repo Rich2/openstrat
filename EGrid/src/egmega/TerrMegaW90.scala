@@ -23,7 +23,7 @@ object TerrMegaW90 extends LongMegaTerrs
       TRow(114, taiga),
       TRow(112, taiga, taiga),
       TRow(110, savannah, hillyOce),
-      VRow(109),
+      VRow(109, MouthRt(9734, HVUp, 7)),
       TRow(108, subtrop * 2),
       VRow(107, BendOut(9728, HVDR, 7), Mouth(9730, HVUR, 2, 4), BendIn(9732, HVDR, 10), ThreeUp(9734, 0, 11, 10), BendIn(9736, HVDL, 10)),
       TRow(106, sahel, sea, hillyJungle),
