@@ -24,12 +24,13 @@ object Terr640W60 extends Long640Terrs
       TRow(120, taiga * 2, hillyLakesTaiga),
       VRow(119, MouthLt(10750, HVUL, 7), BendIn(10752, HVUp, 13), BendIn(10754, HVUL, 13), MouthLt(10756, HVDL), BendIn(10758, HVUL, 13)),
       TRow(118, taiga, sea),
+      VRow(117, BendOut(10750, HVDR, 7), MouthRt(10752, HVUR, 7)),
       TRow(116, hillyCont),
-      VRow(117),
+      VRow(115, MouthLt(10746, HVUL), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
       VRow(109, BendIn(10746, HVDL, 6), ThreeUp(10744, 0, 13, 13)),
       VRow(107, BendIn(10746, HVUL, 7)),
       VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAllOld(10750, HVUp)),
-      TRow(104, CapeOld(0, 1, hillyJungle), CapeOld(0, 1, jungle), CapeOld(0, 2, jungle)),
+      TRow(104, hillyJungle, jungle, jungle),
       VRow(103, BendOut(10754, HVUR), BendOut(10756, HVUp)),
       TRow(102, savannah, hillyJungle, jungle, CapeOld(0, 2, hillyJungle)),
       VRow(101, BendOut(10760, HVUR), MouthOld(10762, HVDR)),
@@ -42,5 +43,6 @@ object Terr640W60 extends Long640Terrs
 
   { import hexNames.{ setRow => str}
     str(120, "" * 2, "Newfoundland")
+    str(116, "New York")
   }
 }
