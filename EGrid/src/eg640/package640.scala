@@ -3,15 +3,18 @@ package ostrat
 import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 640km, a C scale of 160km. A hex tile area of 354724.005km².
- * Island maximum 234173.269km²
- *  [[Isle10]] 125054.068km² => 234173.269km². Honshu, Victoria Island, Great Britain, Ellesmere Island, Sulawesi, South Island(NZ), Java.
- *  [[Isle9]] 100112.536km² => 125054.068km².
- *  [[Isle8]] 77942.286km² => 100112.536km².
- *  [[Isle7]] 58543.317km² => 77942.286km².
- *  [[Isle6]] 41915.629km² => 58543.317km².
- *  [[Isle5]] 28059.223km² => 41915.629km².
- *  [[Isle4]] 16974.097km² => 28059.223km².
- *  [[Isle3]] 8660.254km² => 16974.097km². */
+ * Island maximum 252533.007km²
+ * [[Isle13]] 216506.350km² => 252533.007km²
+ * [[Isle12]] 183250.975km² => 216506.350km²
+ * [[Isle11]] 152766.881km² => 183250.975km²
+ * [[Isle10]] 125054.068km² => 152766.881km². Honshu, Victoria Island, Great Britain, Ellesmere Island, Sulawesi, South Island(NZ), Java.
+ * [[Isle9]] 100112.536km² => 125054.068km².
+ * [[Isle8]] 77942.286km² => 100112.536km².
+ * [[Isle7]] 58543.317km² => 77942.286km².
+ * [[Isle6]] 41915.629km² => 58543.317km².
+ * [[Isle5]] 28059.223km² => 41915.629km².
+ * [[Isle4]] 16974.097km² => 28059.223km².
+ * [[Isle3]] 8660.254km² => 16974.097km². */
 package object eg640
 {
   val fullTerrs: RArr[Long640Terrs] = RArr(Terr640E0, Terr640E30, Terr640E60, Terr640E90, Terr640E120, Terr640E150,Terr640E180, Terr640W150,

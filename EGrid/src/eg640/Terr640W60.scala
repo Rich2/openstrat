@@ -29,7 +29,7 @@ object Terr640W60 extends Long640Terrs
       VRow(115, MouthLt(10746, HVUL), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
       VRow(109, BendIn(10746, HVDL, 6), ThreeUp(10744, 0, 13, 13)),
       VRow(107, BendIn(10746, HVUL, 7)),
-      VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAllOld(10750, HVUp)),
+      VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAllOld(10750, HVUp), BendIn(10754, HVDL, 13)),
       TRow(104, hillyJungle, jungle, jungle),
       VRow(103, BendOut(10754, HVUR), BendOut(10756, HVUp)),
       TRow(102, savannah, hillyJungle, jungle, CapeOld(0, 2, hillyJungle)),
