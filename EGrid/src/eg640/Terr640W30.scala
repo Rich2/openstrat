@@ -29,8 +29,8 @@ object Terr640W30 extends Long640Terrs
       TRow(108, sea * 3, desert),
       VRow(107, BendIn(11782, HVUR, 13), BendMin(11784, HVDL)),
       TRow(106, sea * 4, sahel),
-      VRow(101, MouthOld(11766, HVDR), MouthLt(11788, HVUL, 7)),
-      VRow(99, MouthOld(11770, HVUL)),
+      VRow(101, MouthLt(11766, HVDR, 7), MouthLt(11788, HVUL, 7)),
+      VRow(99, MouthRt(11770, HVUL, 7), MouthLt(11772, HVDR, 7)),
       TRow(98, hillySahel),
       TRow(96, hillySavannah, hillySavannah),
     )
