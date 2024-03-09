@@ -2,7 +2,8 @@
 package ostrat; package eg220
 import prid.phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 34294.605km². A minimum island size of 1/6 5715.767km². */
+/** 220km [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 41915.629km².
+ * [[Isle7]] 6917.716km² => 9209.977km². Crete 8450 km². */
 object Terr220E30 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e30(132)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -51,11 +52,13 @@ object Terr220E30 extends Long220Terrs
       VRow(145, BendOut(1518, HVDR, 7), BendIn(1520, HVUL, 13), MouthOld(1522, HVDL), MouthOld(1524, HVUR), BendIn(1530, HVDL, 13), BendMax(1528, HVUR)),
       TRow(144, hillyOce, sea, hillyOce, hillySavannah, hillyOce * 4, hillyDesert, oceanic, mtainOld),
 
-      VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), MouthLt(1526, HVUL, 7), BendIn(1528, HVUp, 13), BendIn(1530, HVUL, 13),
+      VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13),
           MouthOld(1544, HVUp)),
 
-      TRow(142, sea * 5, CapeOld(2, 3, hillyOce), sea, CapeOld(2, 3, hillyOce), CapeOld(4, 1, hillyOce), desert * 3),
-      TRow(140, sea * 3, Isle10(hillyOce), sea * 2, Isle10(hillyOce), sea, hillyOce, desert * 3),
+      TRow(142, sea * 3, mtainSub, sea, CapeOld(2, 3, hillyOce), sea, CapeOld(2, 3, hillyOce), CapeOld(4, 1, hillyOce), desert * 3),
+      VRow(141, BendOut(1526, HVDL)),
+      TRow(140, sea * 3, mtainSub, sea * 2, Isle10(hillyOce), sea, hillyOce, desert * 3),
+      VRow(139, BendIn(1526, HVUR, 13), BendIn(1528, HVUp, 13), BendIn(1530, HVUL, 13)),
       TRow(138, sea * 2, CapeOld(5, 3, desert), sea * 5, hillyOce, desert * 3),
       TRow(136, desert, sea, desert * 4, oceanic, hillyDesert, desert * 5),
       VRow(135, MouthOld(1540, HVUp), MouthOld(1544, HVUp)),
