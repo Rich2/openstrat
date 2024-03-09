@@ -2,7 +2,8 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 640km.  */
+/** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 640km.
+ * [[Isle8]] 77942.286km² => 100112.536km². (Hispaniola 76192km²) + (Puerto Rico 8897km²) = 85089km². */
 object Terr640W60 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.w60(96)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -28,6 +29,7 @@ object Terr640W60 extends Long640Terrs
       TRow(116, hillyCont),
       VRow(115, MouthLt(10746, HVUL), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
       VRow(109, BendIn(10746, HVDL, 6), ThreeUp(10744, 0, 13, 13)),
+      TRow(108, Isle8(hillyJungle)),
       VRow(107, BendIn(10746, HVUL, 7)),
       VRow(105, BendOut(10742, HVUp), BendOut(10746, HVUp), BendAllOld(10750, HVUp), BendIn(10754, HVDL, 13)),
       TRow(104, hillyJungle, jungle, jungle),
@@ -44,5 +46,6 @@ object Terr640W60 extends Long640Terrs
   { import hexNames.{ setRow => str}
     str(120, "" * 2, "Newfoundland")
     str(116, "New York")
+    str(108, "Hispaniola")
   }
 }
