@@ -2,7 +2,19 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. An area of 49883.063km. A minimum Island area of 1/6 8313.844km, which
+/** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. A hex tile area of 88681.001km.
+ *  A minimum Island area of 1/6 8313.844km, which88681.001
+ *  [[Tile13]] 54126.587km² => 63133.251km².
+ *  [[Tile12]] 45812.743km² => 54126.587km².
+ *  [[Tile11]] 38191.720km² => 45812.743km².
+ *  [[Tile10]] 31263.517km² => 38191.720km².
+ *  [[Tile9]] 25028.134km² => 31263.517km².
+ *  [[Tile8]] 19485.571km² => 25028.134km².
+ *  [[Tile7]] 14635.829km² => 19485.571km².
+ *  [[Tile6]] 10478.907km² => 14635.829km².
+ *  [[Tile5]] 7014.805km² => 10478.907km².
+ *  [[Tile4]] 4243.524km² => 7014.805km².
+ *  [[Tile3]] 2165.063km² => 4243.524km².
  *  includes Crete but excludes Zealand and Mallorca.  */
 package object eg320
 {

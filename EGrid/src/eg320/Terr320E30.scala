@@ -2,7 +2,8 @@
 package ostrat; package eg320
 import prid.phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale of 320km. */
+/** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale of 320km.
+ * [[Tile5]] 7014.805km² => 10478.907km². Crete 8450 km². */
 object Terr320E30 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e30(118)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -42,11 +43,11 @@ object Terr320E30 extends Long320Terrs
       VRow(135, SetSep(1523), BendAllOld(1522, HVUR), BendOut(1536, HVDR, 7), ThreeUp(1538, 7, 0, 13), BendIn(1540, HVUp, 10), ThreeUp(1542, 7, 0, 7),
         MouthRt(1544, HVDR, 7)),
 
-      TRow(134, CapeOld(4, 1, hillyOce), hillyOce, hillyOce, sea * 3, mtainOld),
+      TRow(134, hillyOce, hillyOce, hillyOce, sea * 3, mtainOld),
       VRow(133, MouthOld(1530, HVUp), MouthLt(1536, HVDn, 7)),
-      TRow(132, CapeOld(1, 2, hillyOce), hillyOce, CapeOld(4, 1, hillyOce), hillyOce * 4),
-      VRow(131, VertLeftsRight(1522), MouthOld(1528, HVDR)),
-      TRow(130, CapeOld(2, 4, hillyOce), CapeOld(3, 4, hillyOce), CapeOld(1, 3, hillyOce), CapeOld(3, 2, hillyOce), hillyOce * 4),
+      TRow(132, hillyOce, hillyOce, CapeOld(4, 1, hillyOce), hillyOce * 4),
+      VRow(131, VertLeftsRight(1522), BendIn(1532, HVDL, 13)),
+      TRow(130, hillyOce, hillyOce, hillyOce, hillyOce, hillyOce * 4),
       VRow(129, BendAllOld(1528, HVDn), MouthOld(1536, HVUR)),
       TRow(128, sea * 2, Isle10(hillySavannah), sea, Isle10(hillyOce), hillyOce, desert * 2),
       VRow(127, BendAllOld(1528, HVUp)),
@@ -60,4 +61,8 @@ object Terr320E30 extends Long320Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    //str(114, "Barents lands")
+  }
 }
