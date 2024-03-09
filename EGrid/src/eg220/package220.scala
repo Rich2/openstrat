@@ -2,15 +2,18 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 220km, a C scale of 80km. A tile area of 41915.629km².
- * A maximum Isle area of 27670.864km²
- * Isle 13262.367km² <= 27670.864km²
- * Isle8 8022.913km² <= 13262.367km²
- * Isle6 4952.921km² <= 8022.913km²
- * Isle5 3315.591km² <= 4952.921km²
- * Isle4 2005.728km² <= 3315.591km²
- * Isle3 1023.330km² <= 2005.728km²
- * A minimum island size of 1/6 5715.767km². */
+/** Hex tile grids for Earth with a hex scale of 220km, a C scale of 55km. A tile area of 41915.629km².
+ * [[Tile13]] 25583.269km² => 29840.326km².
+ * [[Tile12]] 25583.269km² => 25583.269km².
+ * [[Tile11]] 18051.555km² => 25583.269km².
+ * [[Ilse10]] 14776.896km² => 18051.555km².
+ * [[Isle9]] 11829.704km² => 14776.896km².
+ * [[Isle8]] 9209.977km² => 11829.704km².
+ * [[Isle7]] 6917.716km² => 9209.977km².
+ * [[Isle6]] 4952.921km² => 6917.716km².
+ * [[Isle5]] 3315.591km² => 4952.921km².
+ * [[Isle4]] 2005.728km² => 3315.591km².
+ * [[Isle3]] 1023.330km² => 2005.728km². */
 package object eg220
 {
   val fullTerrs: RArr[Long220Terrs] = RArr(Terr220E0, Terr220E30, null, null, null, null, null,
