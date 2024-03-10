@@ -3,7 +3,8 @@ package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
 /** 320km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. Hex tile scale of 320km.
- * [[Tile9]] 25028.134km² => 31263.517km². Sardinia 24090km².
+ * [[Tile9]] 25028.134km² => 31263.517km². Sicily 25711km².
+ * [[Tile8]] 19485.571km² => 25028.134km². Sardinia 24090km².
  * [[Tile5]] 7014.805km² => 10478.907km². Corsica 8722km².
  * [[Tile4]] 4243.524km² => 7014.805km². Balearic Islands 5040km². */
 object Terr320E0 extends Long320Terrs
@@ -47,19 +48,18 @@ object Terr320E0 extends Long320Terrs
       VRow(137, MouthOld(526, HVUp)),
       TRow(136, sea * 3, oceanic, hillyOce, mtainOld, oceanic),
 
-      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), MouthMin(516, HVUp), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11),
+      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), MouthMin(516, HVUp), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11), BendIn(524, HVDL, 13),
         BendAllOld(526, HVUR), BendIn(528, HVDL, 13)),
 
       TRow(134, hillyOce * 3, hillySub, mtainSavannah, mtainSavannah, hillySavannah),
 
-      VRow(133, BendIn(500, HVUR, 13), Bend(514, HVDR, 12, 6), ThreeUp(516, 13, 12, 6), ThreeDown(518, 13, 7, 12), ThreeUp(520, 11, 7, 13),
-        ThreeDown(522, 11, 0, 7), BendIn(524, HVUL, 11)),
+      VRow(133, BendIn(500, HVUR, 13), Bend(514, HVDR, 12, 6), ThreeUp(516, 13, 12, 6), ThreeDown(518, 13, 8, 12), ThreeUp(520, 11, 8, 13),
+        ThreeDown(522, 11, 0, 8), BendIn(524, HVUL, 11)),
 
       TRow(132, sea, hillySub, hillySavannah * 2, hillySavannah, mtainSavannah, sea),
 
-      VRow(131, BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 7, 13, 12), Bend(520, HVUp, 7, 7),
-        ThreeUp(522, 0, 13, 7),
-        MouthSpec(526, HVUL, HVRt, HVLt)),
+      VRow(131, BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 8, 13, 12), Bend(520, HVUp, 8, 7),
+        ThreeUp(522, 0, 13, 8), MouthSpec(526, HVUL, HVRt, HVLt)),
 
       TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainSavannah, hillySavannah, hillySavannah),
       VRow(129, Bend(510, HVUp, 9, 6), Bend(512, HVUL, 13, 6)),
@@ -82,6 +82,7 @@ object Terr320E0 extends Long320Terrs
     str(140, "", "English West Country", "" * 4)
     str(134, "" * 5, "Corsica")
     str(132, "" * 4, "Balearics", "Sardinia")
+    str(130, "" * 7, "Sicily")
   }
 }
 
