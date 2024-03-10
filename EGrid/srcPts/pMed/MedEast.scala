@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -104,17 +104,21 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hillyOce)
 /** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
 object SaharaEast extends EArea2("SaharaEast", 24 ll 25, desert)
 { val p80: LatLong = 31.14 ll 20.18
+
   val benghazi: LatLong = 32.12 ll 20.05
   val p85: LatLong = 32.94 ll 21.71
   val derna: LatLong = 32.93 ll 22.15
   val p86: LatLong = 32.61 ll 23.12
+  val sidiiBarrani: LatLong = 31.628 ll 25.903
+  val miniHasheesh: LatLong = 31.373 ll 27.339
   val p90: LatLong = 30.82 ll 29.09
+  val p92: LatLong = 31.478 ll 30.376
   val baltim: LatLong = 31.60 ll 31.01
   val p5: LatLong = 29.59 ll 32.34
   val p20: LatLong = 23.95 ll 35.76
   val p30: LatLong = 18.83 ll 37.44
   val p35: LatLong = 17 ll 39.4
 
-  override val polygonLL: PolygonLL = PolygonLL(Sinai.portSaid, Sinai.suez, p5, p20, p30, p35, pAfrica.AfricaHorn.p0,
-    pAfrica.AfricaHorn.tekeze, SaharaCentral.southEast, SaharaCentral.elAgheila, p80, benghazi, p85, derna, p86, p90, baltim)
+  override val polygonLL: PolygonLL = PolygonLL(Sinai.portSaid, Sinai.suez, p5, p20, p30, p35, pAfrica.AfricaHorn.p0, pAfrica.AfricaHorn.tekeze,
+    SaharaCentral.southEast, SaharaCentral.elAgheila, p80, benghazi, p85, derna, p86, sidiiBarrani, miniHasheesh, p90, p92, baltim)
 }

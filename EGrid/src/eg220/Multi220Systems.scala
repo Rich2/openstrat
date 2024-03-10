@@ -9,7 +9,7 @@ object Scen220Europe extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }
 
 /** 220km terrain only scenario for North America. 2 grid system for 90°W and 60°W. */
@@ -19,7 +19,7 @@ object Scen220NorthAmerica extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }
 
 /** 220km terrain only scenario for North America. 2 grid system for 120°W and 90°W. */
@@ -29,7 +29,7 @@ object Scen220NorthAmerica2 extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }
 
 /** 220km terrain only scenario for Atlantic and South America. 4 Grid system from 90°W to 0°E. */
@@ -39,5 +39,5 @@ object Scen220Atlantic extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }

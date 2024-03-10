@@ -55,7 +55,7 @@ object Terr320E0 extends Long320Terrs
       VRow(129, MouthOld(516, HVDn)),
       TRow(128, sea, CapeOld(5, 2, hillyOce), CapeOld(0, 1, hillyOce), hillyOce * 3, CapeOld(1, 1, hillySavannah), sea),
       VRow(127, BendOut(502, HVUL), MouthOld(526, HVDn)),
-      TRow(126, sea, oceanic/*5*/, mtainOld, hillyDesert, sahel * 4),
+      TRow(126, sea, sahel, mtainOld, hillyDesert, sahel * 4),
       VRow(125, BendAllOld(500, HVUL)),
       TRow(124, sea, CapeOld(5, 1, hillyDesert), hillyOce, desert * 6),
       VRow(123, SetSep(495), BendOut(498, HVUL)),
@@ -67,7 +67,9 @@ object Terr320E0 extends Long320Terrs
   }
   help.run
 
-  hexNames.setRow(140, "", "English West Country", "" * 4)
+  { import hexNames.{setRow => str}
+    str(140, "", "English West Country", "" * 4)
+  }
 }
 
 object BritReg320

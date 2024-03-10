@@ -59,13 +59,18 @@ object Terr220E30 extends Long220Terrs
       VRow(141, BendOut(1526, HVDL)),
       TRow(140, sea * 3, mtainSub, sea * 2, Isle10(hillyOce), sea, hillyOce, desert * 3),
       VRow(139, BendIn(1526, HVUR, 13), BendIn(1528, HVUp, 13), BendIn(1530, HVUL, 13)),
-      TRow(138, sea * 2, CapeOld(5, 3, desert), sea * 5, hillyOce, desert * 3),
-      TRow(136, desert, sea, desert * 4, oceanic, hillyDesert, desert * 5),
+      TRow(138, sea * 2, sahel, desert, sea * 4, hillyOce, desert * 3),
+      VRow(137, MouthRt(1514, HVDL), BendIn(1516, HVDn, 13)),
+      TRow(136, desert * 6, savannah, hillyDesert, desert * 5),
       VRow(135, MouthOld(1540, HVUp), MouthOld(1544, HVUp)),
-      TRow(134, desert * 6, oceanic, desert, hillyDesert, hillyDesert, desert * 3),
+      TRow(134, desert * 6, sahel, desert, hillyDesert, hillyDesert, desert * 3),
       VRow(133, BendAllOld(1540, HVUR), MouthOld(1542, HVDR), MouthOld(1544, HVDn)),
-      TRow(132, desert * 6, oceanic, desert, sea, desert * 4),
+      TRow(132, desert * 6, sahel, desert, sea, desert * 4),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(142, "" * 3, "Crete west")
+  }
 }
