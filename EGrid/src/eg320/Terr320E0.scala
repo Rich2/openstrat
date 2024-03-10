@@ -47,10 +47,11 @@ object Terr320E0 extends Long320Terrs
       VRow(137, MouthOld(526, HVUp)),
       TRow(136, sea * 3, oceanic, hillyOce, mtainOld, oceanic),
 
-      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), MouthMin(516, HVUp), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11), BendIn(524, HVDL, 11),
-        BendAllOld(526, HVUR)),
+      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), MouthMin(516, HVUp), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11),
+        BendAllOld(526, HVUR), BendIn(528, HVDL, 13)),
 
-      TRow(134, hillyOce * 3, hillySub, mtainSavannah, mtainSavannah, hillyOce),
+      TRow(134, hillyOce * 3, hillySub, mtainSavannah, mtainSavannah, hillySavannah),
+
       VRow(133, BendIn(500, HVUR, 13), Bend(514, HVDR, 12, 6), ThreeUp(516, 13, 12, 6), ThreeDown(518, 13, 7, 12), ThreeUp(520, 11, 7, 13),
         ThreeDown(522, 11, 0, 7), BendIn(524, HVUL, 11)),
 

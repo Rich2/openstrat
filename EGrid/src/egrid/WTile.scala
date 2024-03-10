@@ -49,6 +49,9 @@ object WTiles
   val steppe: Land = Land(Plain, Steppe, LandFree)
 
   /** [[Plain]] [[Oceanic]] [[CivMix]] */
+  val continental: Land = Land(Plain, Continental, CivMix)
+
+  /** [[Plain]] [[Oceanic]] [[CivMix]] */
   val oceanic: Land = Land(Plain, Oceanic, CivMix)
 
   /** [[Plain]] [[Oceanic]] [[Forest]] */
@@ -97,7 +100,7 @@ object WTiles
   val mtainTaiga: Land = Land(Mountains, Boreal, Forest)
   val mtainContForest: Land = Land(Mountains, Continental, Forest)
   val mtainOceForest: Land = Land(Mountains, Oceanic, Forest)
-  val mtainSub: Land = Land(Mountains, Subtropical, Forest)
+  val mtainSubForest: Land = Land(Mountains, Subtropical, Forest)
   val mtainSavannah: Land = Land(Mountains, Savannah)
   val mtainDesert: Land = Land(Mountains, DesertHot, LandFree)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
@@ -107,7 +110,7 @@ object WTiles
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
     ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, desert, jungle,
     hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySub, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
-    mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSub, mtainDesert, mtainJungle)
+    mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSubForest, mtainDesert, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
