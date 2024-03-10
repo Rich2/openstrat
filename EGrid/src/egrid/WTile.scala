@@ -98,6 +98,7 @@ object WTiles
   val mtainContForest: Land = Land(Mountains, Continental, Forest)
   val mtainOceForest: Land = Land(Mountains, Oceanic, Forest)
   val mtainSub: Land = Land(Mountains, Subtropical, Forest)
+  val mtainSavannah: Land = Land(Mountains, Savannah)
   val mtainDesert: Land = Land(Mountains, DesertHot, LandFree)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
   val mtainLakesTaiga: Land = Land(MountLakes, Boreal, Forest)

@@ -3,7 +3,9 @@ package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
 /** 320km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. Hex tile scale of 320km.
- * [[Tile5]] 7014.805km² => 10478.907km². Corsica 8722 km² */
+ * [[Tile9]] 25028.134km² => 31263.517km². Sardinia 24090km².
+ * [[Tile5]] 7014.805km² => 10478.907km². Corsica 8722km².
+ * [[Tile4]] 4243.524km² => 7014.805km². Balearic Islands 5040km². */
 object Terr320E0 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -44,13 +46,13 @@ object Terr320E0 extends Long320Terrs
       TRow(138, sea * 2, oceanic * 2, hillyOce, mtainOld * 2),
       VRow(137, MouthOld(526, HVUp)),
       TRow(136, sea * 3, oceanic, hillyOce, mtainOld, oceanic),
-      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), MouthOld(516, HVUp), BendAllOld(526, HVUR)),
+      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), BendAllOld(526, HVUR)),
       TRow(134, hillyOce * 3, hillySub, sea, Isle10(hillyOce), hillyOce),
-      VRow(133, BendIn(500, HVUR, 13), BendOut(514, HVDR)),
-      TRow(132, sea, hillySub, hillySavannah * 2, sea, Isle10(hillyOce), sea),
-      VRow(131, MouthSpec(526, HVUL, HVRt, HVLt)),
-      TRow(130, sea, hillyTrop, hillySavannah * 2, sea, CapeOld(5, 2, mtainOld), CapeOld(0, 2, hillyOce), CapeOld(3, 2, hillyOce)),
-      VRow(129),
+      VRow(133, BendIn(500, HVUR, 13), Bend(514, HVDR, 12, 6)),
+      TRow(132, sea, hillySub, hillySavannah * 2, hillySavannah, mtainSavannah, sea),
+      VRow(131, BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), MouthSpec(526, HVUL, HVRt, HVLt)),
+      TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainOld, CapeOld(0, 2, hillyOce), CapeOld(3, 2, hillyOce)),
+      VRow(129, Bend(510, HVUp, 9, 6), Bend(512, HVUL, 13, 6)),
       TRow(128, sea, hillySub, CapeOld(0, 1, hillyOce), hillyOce * 3, CapeOld(1, 1, hillySavannah), sea),
       TRow(128, sea, hillySub * 4, hillySahel, CapeOld(1, 1, hillySavannah), sea),
       VRow(127, BendOut(502, HVUL), MouthOld(526, HVDn)),
@@ -69,7 +71,7 @@ object Terr320E0 extends Long320Terrs
   { import hexNames.{setRow => str}
     str(140, "", "English West Country", "" * 4)
     str(134, "" * 5, "Corsica")
-    str(132, "" * 5, "Sardinia")
+    str(132, "" * 4, "Balearics", "Sardinia")
   }
 }
 
