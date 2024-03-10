@@ -2,10 +2,8 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° west to 15° east, centred on 0° east. Hex tile scale of 320km. So one of the principles of these terrain grids is that
- *  tiles and tile sides should be specified according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should
- *  not be a sea hex as the majority of the hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex.
- *  Given that it is a land hex by geographical area it must be assigned to France. */
+/** 320km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. Hex tile scale of 320km.
+ * [[Tile5]] 7014.805km² => 10478.907km². Corsica 8722 km² */
 object Terr320E0 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -69,6 +67,8 @@ object Terr320E0 extends Long320Terrs
 
   { import hexNames.{setRow => str}
     str(140, "", "English West Country", "" * 4)
+    str(134, "" * 5, "Corsica")
+    str(132, "" * 5, "Sardinia")
   }
 }
 
