@@ -46,12 +46,21 @@ object Terr320E0 extends Long320Terrs
       TRow(138, sea * 2, oceanic * 2, hillyOce, mtainOld * 2),
       VRow(137, MouthOld(526, HVUp)),
       TRow(136, sea * 3, oceanic, hillyOce, mtainOld, oceanic),
-      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), BendAllOld(526, HVUR)),
-      TRow(134, hillyOce * 3, hillySub, sea, Isle10(hillyOce), hillyOce),
-      VRow(133, BendIn(500, HVUR, 13), Bend(514, HVDR, 12, 6)),
+
+      VRow(135, BendIn(500, HVDR, 13), MouthLt(502, HVUR, 7), MouthMin(516, HVUp), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11), BendIn(524, HVDL, 11),
+        BendAllOld(526, HVUR)),
+
+      TRow(134, hillyOce * 3, hillySub, mtainSavannah, mtainSavannah, hillyOce),
+      VRow(133, BendIn(500, HVUR, 13), Bend(514, HVDR, 12, 6), ThreeUp(516, 13, 12, 6), ThreeDown(518, 13, 7, 12), ThreeUp(520, 11, 7, 13),
+        ThreeDown(522, 11, 0, 7), BendIn(524, HVUL, 11)),
+
       TRow(132, sea, hillySub, hillySavannah * 2, hillySavannah, mtainSavannah, sea),
-      VRow(131, BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), MouthSpec(526, HVUL, HVRt, HVLt)),
-      TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainOld, CapeOld(0, 2, hillyOce), CapeOld(3, 2, hillyOce)),
+
+      VRow(131, BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 7, 13, 12), Bend(520, HVUp, 7, 7),
+        ThreeUp(522, 0, 13, 7),
+        MouthSpec(526, HVUL, HVRt, HVLt)),
+
+      TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainSavannah, hillySavannah, hillySavannah),
       VRow(129, Bend(510, HVUp, 9, 6), Bend(512, HVUL, 13, 6)),
       TRow(128, sea, hillySub, CapeOld(0, 1, hillyOce), hillyOce * 3, CapeOld(1, 1, hillySavannah), sea),
       TRow(128, sea, hillySub * 4, hillySahel, CapeOld(1, 1, hillySavannah), sea),
