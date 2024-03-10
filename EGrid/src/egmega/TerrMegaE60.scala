@@ -26,7 +26,7 @@ object TerrMegaE60 extends LongMegaTerrs
       VRow(103, BendOut(2554, HVUR), BendIn(2556, HVUp, 13), MouthRt(2558, HVUR, 7), BendIn(2564, HVDR, 13), MouthRt(2566, HVUR), BendIn(2568, HVDR, 12)),
       TRow(102, sea * 2, hillySavannah),
       VRow(101, BendIn(2564, HVUR, 13), BendIn(2566, HVUp, 13), ThreeUp(2568, 12, 0, 8)),
-      VRow(97, BendMouth(2554, HVDR, 6, 7), BendIn(2556, HVDn), BendIn(2558, HVDL, 13)),
+      VRow(97, BendInLt(2554, HVDR, 6, 7), BendIn(2556, HVDn), BendIn(2558, HVDL, 13)),
       TRow(96, hillySavannah),
       VRow(95, BendIn(2554, HVUL, 13), BendIn(2556, HVDR), BendIn(2558, HVUL, 13)),
       VRow(93, SetSep(2557)),

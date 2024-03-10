@@ -52,11 +52,11 @@ object Terr220E30 extends Long220Terrs
       VRow(145, BendOut(1518, HVDR, 7), BendIn(1520, HVUL, 13), MouthOld(1522, HVDL), MouthOld(1524, HVUR), BendIn(1530, HVDL, 13), BendMax(1528, HVUR)),
       TRow(144, hillyOce, sea, hillyOce, hillySavannah, hillyOce * 4, hillyDesert, oceanic, mtainOld),
 
-      VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13),
+      VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), BendInRt(1526, HVDn, 13, 6), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13),
           MouthOld(1544, HVUp)),
 
       TRow(142, sea * 3, mtainSub, sea, CapeOld(2, 3, hillyOce), sea, CapeOld(2, 3, hillyOce), CapeOld(4, 1, hillyOce), desert * 3),
-      VRow(141, BendOut(1526, HVDL)),
+      VRow(141, BendIn(1524, HVUR, 13), BendOut(1526, HVDL), BendIn(1528, HVUR), BendIn(1530, HVDL, 13)),
       TRow(140, sea * 3, mtainSub, sea * 2, Isle10(hillyOce), sea, hillyOce, desert * 3),
       VRow(139, BendIn(1526, HVUR, 13), BendIn(1528, HVUp, 13), BendIn(1530, HVUL, 13)),
       TRow(138, sea * 2, sahel, desert, sea * 4, hillyOce, desert * 3),
@@ -72,5 +72,6 @@ object Terr220E30 extends Long220Terrs
 
   { import hexNames.{ setRow => str}
     str(142, "" * 3, "Crete west")
+    str(140, "" * 3, "Crete east")
   }
 }

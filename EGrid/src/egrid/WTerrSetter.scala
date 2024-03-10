@@ -271,19 +271,36 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
-  class BendMouth(val c: Int, val dirn: HVDirn, val magIn: Int, val magMouth: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
-    BendMouthBase
+  class BendInLt(val c: Int, val dirn: HVDirn, val magIn: Int, val magMouth: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+    BendInLtBase
 
-  object BendMouth
+  object BendInLt
   {
-    def apply(c: Int, dirn: HVDirn, magIn: Int, magMouth: Int, terr: WSepSome = Sea): Bend = apply(c, dirn, magIn, magMouth, terr, terr)
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magMouth: Int, terr: WSepSome = Sea): BendInLt = apply(c, dirn, magIn, magMouth, terr, terr)
 
-    def apply(c: Int, dirn: HVDirn, magIn: Int, magMouth: Int, leftTerr: WSepSome, rightTerr: WSepSome): Bend =
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magMouth: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendInLt =
     { ifExcep(magIn < 0, magIn.str -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magMouth < 0, magMouth.toString -- "magnitude, negative magnitude values not allowed.")
       ifExcep(magIn > 13, magIn.str -- "magnitude, magnitude values > 13 not allowed.")
       ifExcep(magMouth > 7, magMouth.str -- "magnitude, outer bend magnitude values > 7 not allowed.")
-      new Bend(c, dirn, magIn, magMouth, leftTerr, rightTerr)
+      new BendInLt(c, dirn, magIn, magMouth, leftTerr, rightTerr)
+    }
+  }
+
+  /** Bend at junction of 2 [[HSep]]s. Sets the [[HSep]] terrains and the 3 [[HCorner]]s of the [[HVert]]. */
+  class BendInRt(val c: Int, val dirn: HVDirn, val magIn: Int, val magMouth: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with
+    BendInRtBase
+
+  object BendInRt
+  {
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magMouth: Int, terr: WSepSome = Sea): BendInRt = apply(c, dirn, magIn, magMouth, terr, terr)
+
+    def apply(c: Int, dirn: HVDirn, magIn: Int, magMouth: Int, leftTerr: WSepSome, rightTerr: WSepSome): BendInRt =
+    { ifExcep(magIn < 0, magIn.str -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magMouth < 0, magMouth.toString -- "magnitude, negative magnitude values not allowed.")
+      ifExcep(magIn > 13, magIn.str -- "magnitude, magnitude values > 13 not allowed.")
+      ifExcep(magMouth > 7, magMouth.str -- "magnitude, outer bend magnitude values > 7 not allowed.")
+      new BendInRt(c, dirn, magIn, magMouth, leftTerr, rightTerr)
     }
   }
 
