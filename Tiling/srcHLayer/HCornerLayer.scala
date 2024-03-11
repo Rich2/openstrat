@@ -190,6 +190,18 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       setCorner(r - 1, c, 0, HVDL, magRight)
     }
 
+    case HVDn =>
+    { setCornerPair(r + 1, c, 3, HVUR, HVUL, magLeft, magRight)
+      setCorner(r - 1, c + 2, 5, HVUR, magLeft)
+      setCorner(r - 1, c - 2, 1, HVUL, magRight)
+    }
+
+    case HVDL => {
+      setCornerPair(r + 1, c + 2, 4, HVDR, HVUp, magLeft, magRight)
+      setCorner(r - 1, c, 0, HVDR, magLeft)
+      setCorner(r + 1, c - 2, 2, HVUp, magRight)
+  }
+
     case HVUL =>
     { setCornerPair(r - 1, c + 2, 5, HVDn, HVUR, magLeft, magRight)
       setCorner(r - 1, c - 2, 1, HVDn, magLeft)

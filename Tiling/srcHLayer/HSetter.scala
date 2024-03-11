@@ -200,28 +200,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def magRt: Int
 
     def run(row: Int): Unit =
-    {
-      corners.setVertSource(row, c, dirn, magLt, magRt)
-      dirn match {
-        case HVUp => sTerrs.set(row + 1, c, sTerr)
+    { corners.setVertSource(row, c, dirn, magLt, magRt)
+      dirn match
+      { case HVUp => sTerrs.set(row + 1, c, sTerr)
         case HVUR => sTerrs.set(row, c + 1, sTerr)
-
         case HVDR => sTerrs.set(row, c + 1, sTerr)
-
-        case HVDn => {
-          debnotimp()
-          corners.setMouth0(row - 1, c, magLt, magRt)
-          sTerrs.set(row + 1, c, sTerr)
-          debnotimp()
-        }
-
-        case HVDL => {
-          debnotimp()
-          corners.setMouth1(row - 1, c - 2, magLt, magRt)
-          sTerrs.set(row, c + 1, sTerr)
-          debnotimp()
-        }
-
+        case HVDn => sTerrs.set(row - 1, c, sTerr)
+        case HVDL => sTerrs.set(row, c - 1, sTerr)
         case HVUL => sTerrs.set(row, c - 2, sTerr)
       }
     }
