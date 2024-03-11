@@ -172,11 +172,18 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   def setVertSource(r: Int, c: Int, dirn: HVDirn, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit = dirn match
   {
-    /*case HVUp =>
-    { setCornerPair(r, c, 0, HVDL, HVDR, magLeft, magRight)
-      setCorner(r + 2, c - 2, 2, HVDL, magLeft)
-      setCorner(r + 2, c + 2, 4, HVDR, magRight)
-    }*/
+    case HVUp =>
+    { setCornerPair(r - 1, c, 0, HVDL, HVDR, magLeft, magRight)
+      setCorner(r + 1, c - 2, 2, HVDL, magLeft)
+      setCorner(r + 1, c + 2, 4, HVDR, magRight)
+    }
+
+    case HVUR =>
+    { setCornerPair(r - 1, c - 2, 1, HVUL, HVDn, magLeft, magRight)
+      setCorner(r + 1, c, 3, HVUL, magLeft)
+      setCorner(r - 1, c + 2, 5, HVDn, magRight)
+    }
+
     case HVDR =>
     { setCornerPair(r + 1, c - 2, 2, HVUp, HVDL, magLeft, magRight)
       setCorner(r + 1, c + 2, 4, HVUp, magLeft)

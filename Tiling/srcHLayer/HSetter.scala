@@ -203,19 +203,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     {
       corners.setVertSource(row, c, dirn, magLt, magRt)
       dirn match {
-        case HVUp => {
-          debnotimp()
-          corners.setMouth3(row + 1, c, magLt, magRt)
-          sTerrs.set(row - 1, c, sTerr)
-
-        }
-
-        case HVUR => {
-          debnotimp()
-          corners.setMouth4(row + 1, c + 2, magLt, magRt)
-          sTerrs.set(row, c - 1, sTerr)
-          debnotimp()
-        }
+        case HVUp => sTerrs.set(row + 1, c, sTerr)
+        case HVUR => sTerrs.set(row, c + 1, sTerr)
 
         case HVDR => sTerrs.set(row, c + 1, sTerr)
 
