@@ -99,7 +99,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
       new ThreeDown(c, upRightTerr, downTerr, upLeftTerr, 3, 3, 3)
   }
 
-  case class Mouth(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magnitude: Int = 3) extends VRowElem with MouthBase
+  /** Source or end point for a river or straits. */
   case class Source(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VRowElem with SourceBase
 
   class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendAllBase
