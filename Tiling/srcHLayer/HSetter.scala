@@ -187,6 +187,65 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   }
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
+  trait SourceLtBase extends VertSetBase
+  { /** The direction of the [[HSep]] from the [[HVert]]. */
+    def dirn: HVDirnPrimary
+
+    /** The magnitude of the offsets. */
+    def magnitude: Int
+
+    /** The terrain of the left most [[HSep]] of the junction. */
+    def sTerr: SST
+
+    def run(row: Int): Unit =
+    {
+      corners.setVertSource(row + 1, c - 2, dirn, magnitude, 0)
+      dirn match {
+      case HVUp => {
+        debnotimp()
+        corners.setMouth3(row + 1, c, magnitude, 0)
+        sTerrs.set(row - 1, c, sTerr)
+
+      }
+
+      case HVUR => {
+        debnotimp()
+        corners.setMouth4(row + 1, c + 2, magnitude, 0)
+        sTerrs.set(row, c - 1, sTerr)
+        debnotimp()
+      }
+
+      case HVDR => { //debnotimp()
+        //corners.setMouth5(row - 1, c + 2, magnitude, 0)
+        //sTerrs.set(row, c - 1, sTerr)
+        sTerrs.set(row, c + 1, sTerr)
+      }
+
+      case HVDn => {
+        debnotimp()
+        corners.setMouth0(row - 1, c, magnitude, 0)
+        sTerrs.set(row + 1, c, sTerr)
+        debnotimp()
+      }
+
+      case HVDL => {
+        debnotimp()
+        corners.setMouth1(row - 1, c - 2, magnitude, 0)
+        sTerrs.set(row, c + 1, sTerr)
+        debnotimp()
+      }
+
+      case HVUL => {
+        debnotimp()
+        corners.setMouth2(row + 1, c - 2, magnitude, 0)
+        sTerrs.set(row, c + 2, sTerr)
+        debnotimp()
+      }
+    }
+    }
+  }
+
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary

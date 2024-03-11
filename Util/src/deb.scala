@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import quoted.*
 
@@ -13,6 +13,10 @@ def debbImpl(using Quotes) = '{ println($posnStrImpl) }
 /** Simple macro to create a debug [[Exception]], inserts the [[String]] preceded by source code position. */
 inline def debexc(str: String): Nothing = ${ debexcImpl('str) }
 def debexcImpl(expr: Expr[String])(using Quotes) = '{ throw new Exception($posnStrImpl + " " + $expr) }
+
+/** Simple macro to create a debug [[Exception]], inserts the [[String]] "Not Implemented" preceded by source code position. */
+inline def debnotimp(): Nothing = ${ debNotimplImpl() }
+def debNotimplImpl()(using Quotes) = '{ throw new Exception($posnStrImpl + " Not implemented") }
 
 /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
 inline def debvar(expr: Any): Unit = ${ debvarImpl('expr) }

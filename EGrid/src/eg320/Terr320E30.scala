@@ -52,7 +52,7 @@ object Terr320E30 extends Long320Terrs
       TRow(126, sea, sahel, sahel, sea * 2, hillySavannah, desert * 2),
       VRow(125, MouthOld(1524, HVDn), MouthLt(1532, HVDn), MouthOld(1540, HVDn)),
       TRow(124, sahel * 4, savannah, desert * 4),
-      VRow(123, MouthOld(1538, HVUL), MouthOld(1540, HVDR)),
+      VRow(123, SourceLt(1538, HVDR), MouthOld(1540, HVDR)),
       TRow(122, desert * 4, savannah, sea, desert * 3),
       TRow(120, desert * 6, sea, desert * 2),
       TRow(118, desert * 5, hillyDesert, sea, hillyDesert, desert),

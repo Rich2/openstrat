@@ -170,6 +170,21 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   def setVertEqual(hv: HVert, magnitude: Int)(implicit grid: HGrid): Unit = setVertEqual(HVert(hv.r, hv.c), magnitude)
 
+  def setVertSource(r: Int, c: Int, dirn: HVDirn, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit = dirn match
+  {
+    /*case HVUp =>
+    { setCornerPair(r, c, 0, HVDL, HVDR, magLeft, magRight)
+      setCorner(r + 2, c - 2, 2, HVDL, magLeft)
+      setCorner(r + 2, c + 2, 4, HVDR, magRight)
+    }*/
+    case HVDR =>
+    { setCornerPair(r, c, 2, HVUp, HVDL, magLeft, magRight)
+      setCorner(r, c + 4, 4, HVUp, magLeft)
+      setCorner(r - 2, c + 2, 0, HVDL, magRight)
+    }
+    case _ => debexc("Not implemented")
+  }
+
   /** Sets the end of an [[HSep]] terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall it
    *  would be the hex tile looking at the end of the wall. The vertex for this tile would be 0. */
   def setMouth0(r: Int, c: Int, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit =
