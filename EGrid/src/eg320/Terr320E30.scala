@@ -44,13 +44,13 @@ object Terr320E30 extends Long320Terrs
       TRow(134, hillyOce, hillyOce, hillyOce, mtainSubForest, mtainSavannah, mtainSubForest, mtainSavannah),
       VRow(133, BendIn(1524, HVUR, 8), BendIn(1526, HVDL, 13), MouthOld(1530, HVUp), MouthMax(1536, HVDn)),
       TRow(132, hillySavannah, hillyOce, CapeOld(4, 1, hillyOce), hillyOce * 4),
-      VRow(131, VertLeftsRight(1522), BendMax(1524, HVDR), BendIn(1526, HVUL, 13), BendIn(1532, HVDL, 13)),
+      VRow(131, VertLeftsRight(1522), BendMax(1524, HVDR), ThreeUp(1526, 0, 6, 13), MouthLt(1528, HVDR), BendIn(1532, HVDL, 13)),
       TRow(130, hillyOce, hillyOce, hillyOce, hillyOce, hillyOce * 4),
-      VRow(129, ThreeUp(1524, 13, 0, 13), MouthOld(1536, HVUR)),
-      TRow(128, sea * 2, Isle10(hillySavannah), sea, Isle10(hillyOce), hillyOce, desert * 2),
-      VRow(127, BendAllOld(1528, HVUp)),
-      TRow(126, sea, CapeOld(5, 2, sahel), CapeOld(0, 2, sahel), sea * 2, CapeOld(5, 1, hillyOce), desert * 2),
-      VRow(125, MouthOld(1524, HVDn), MouthOld(1532, HVDn), MouthOld(1540, HVDn)),
+      VRow(129, ThreeUp(1524, 13, 0, 13), ThreeDown(1530, 13, 11, 0), ThreeUp(1532, 6, 11, 13), BendIn(1534, HVDL, 13)),
+      TRow(128, sea * 2, mtainSavannah, sea, hillySavannah, hillySub, desert * 2),
+      VRow(127, BendOut(1528, HVUp, 7), ThreeUp(1530, 11, 13, 0), ThreeDown(1532, 11, 0, 13), BendIn(1534, HVUL, 11)),
+      TRow(126, sea, sahel, sahel, sea * 2, hillySavannah, desert * 2),
+      VRow(125, MouthOld(1524, HVDn), MouthLt(1532, HVDn), MouthOld(1540, HVDn)),
       TRow(124, sahel * 4, savannah, desert * 4),
       VRow(123, MouthOld(1538, HVUL), MouthOld(1540, HVDR)),
       TRow(122, desert * 4, savannah, sea, desert * 3),
@@ -62,5 +62,6 @@ object Terr320E30 extends Long320Terrs
 
   { import hexNames.{ setRow => str}
     str(132, "Italy south")
+    str(128, "" * 2, "Crete", "", "Cyprus")
   }
 }
