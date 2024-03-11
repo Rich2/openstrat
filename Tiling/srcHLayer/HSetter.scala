@@ -186,63 +186,65 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def c: Int
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
-  trait SourceLtBase extends VertSetBase
-  { /** The direction of the [[HSep]] from the [[HVert]]. */
+  trait SourceBase extends VertSetBase
+  { /** The terrain of the [[HSep]] from this end point oe source. */
+    def sTerr: SST
+
+    /** The direction from the [[HVert]] along the [[HSep]]. */
     def dirn: HVDirnPrimary
 
-    /** The magnitude of the offsets. */
-    def magnitude: Int
+    /** The magnitude of the offset to the left of the [[HVert]] as viewed from the source. */
+    def magLt: Int
 
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
+    /** The magnitude of the offset to the right of the [[HVert]] as viewed from the source. */
+    def magRt: Int
 
     def run(row: Int): Unit =
     {
-      corners.setVertSource(row + 1, c - 2, dirn, magnitude, 0)
+      corners.setVertSource(row, c, dirn, magLt, magRt)
       dirn match {
-      case HVUp => {
-        debnotimp()
-        corners.setMouth3(row + 1, c, magnitude, 0)
-        sTerrs.set(row - 1, c, sTerr)
+        case HVUp => {
+          debnotimp()
+          corners.setMouth3(row + 1, c, magLt, magRt)
+          sTerrs.set(row - 1, c, sTerr)
 
-      }
+        }
 
-      case HVUR => {
-        debnotimp()
-        corners.setMouth4(row + 1, c + 2, magnitude, 0)
-        sTerrs.set(row, c - 1, sTerr)
-        debnotimp()
-      }
+        case HVUR => {
+          debnotimp()
+          corners.setMouth4(row + 1, c + 2, magLt, magRt)
+          sTerrs.set(row, c - 1, sTerr)
+          debnotimp()
+        }
 
-      case HVDR => { //debnotimp()
-        //corners.setMouth5(row - 1, c + 2, magnitude, 0)
-        //sTerrs.set(row, c - 1, sTerr)
-        sTerrs.set(row, c + 1, sTerr)
-      }
+        case HVDR => sTerrs.set(row, c + 1, sTerr)
 
-      case HVDn => {
-        debnotimp()
-        corners.setMouth0(row - 1, c, magnitude, 0)
-        sTerrs.set(row + 1, c, sTerr)
-        debnotimp()
-      }
+        case HVDn => {
+          debnotimp()
+          corners.setMouth0(row - 1, c, magLt, magRt)
+          sTerrs.set(row + 1, c, sTerr)
+          debnotimp()
+        }
 
-      case HVDL => {
-        debnotimp()
-        corners.setMouth1(row - 1, c - 2, magnitude, 0)
-        sTerrs.set(row, c + 1, sTerr)
-        debnotimp()
-      }
+        case HVDL => {
+          debnotimp()
+          corners.setMouth1(row - 1, c - 2, magLt, magRt)
+          sTerrs.set(row, c + 1, sTerr)
+          debnotimp()
+        }
 
-      case HVUL => {
-        debnotimp()
-        corners.setMouth2(row + 1, c - 2, magnitude, 0)
-        sTerrs.set(row, c + 2, sTerr)
-        debnotimp()
+        case HVUL => sTerrs.set(row, c - 2, sTerr)
       }
     }
-    }
+  }
+
+  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
+  trait SourceLtBase extends SourceBase
+  { /** The magnitude of the left offsets. */
+    def magnitude: Int
+
+    override def magLt: Int = magnitude
+    override def magRt: Int = 0
   }
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */

@@ -178,10 +178,17 @@ final class HCornerLayer(val unsafeArray: Array[Int])
       setCorner(r + 2, c + 2, 4, HVDR, magRight)
     }*/
     case HVDR =>
-    { setCornerPair(r, c, 2, HVUp, HVDL, magLeft, magRight)
-      setCorner(r, c + 4, 4, HVUp, magLeft)
-      setCorner(r - 2, c + 2, 0, HVDL, magRight)
+    { setCornerPair(r + 1, c - 2, 2, HVUp, HVDL, magLeft, magRight)
+      setCorner(r + 1, c + 2, 4, HVUp, magLeft)
+      setCorner(r - 1, c, 0, HVDL, magRight)
     }
+
+    case HVUL =>
+    { setCornerPair(r - 1, c + 2, 5, HVDn, HVUR, magLeft, magRight)
+      setCorner(r - 1, c - 2, 1, HVDn, magLeft)
+      setCorner(r + 1, c, 3, HVUR, magRight)
+    }
+
     case _ => debexc("Not implemented")
   }
 

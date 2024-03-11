@@ -44,7 +44,7 @@ object Terr320E30 extends Long320Terrs
       TRow(134, hillyOce, hillyOce, hillyOce, mtainSubForest, mtainSavannah, mtainSubForest, mtainSavannah),
       VRow(133, BendIn(1524, HVUR, 8), BendIn(1526, HVDL, 13), MouthOld(1530, HVUp), MouthMax(1536, HVDn)),
       TRow(132, hillySavannah, hillyOce, CapeOld(4, 1, hillyOce), hillyOce * 4),
-      VRow(131, VertLeftsRight(1522), BendMax(1524, HVDR), ThreeUp(1526, 0, 6, 13), MouthLt(1528, HVDR), BendIn(1532, HVDL, 13)),
+      VRow(131, VertLeftsRight(1522), BendMax(1524, HVDR), ThreeUp(1526, 0, 6, 13), SourceLt(1528, HVUL), BendIn(1532, HVDL, 13)),
       TRow(130, hillyOce, hillyOce, hillyOce, hillyOce, hillyOce * 4),
       VRow(129, ThreeUp(1524, 13, 0, 13), ThreeDown(1530, 13, 11, 0), ThreeUp(1532, 6, 11, 13), BendIn(1534, HVDL, 13)),
       TRow(128, sea * 2, mtainSavannah, sea, hillySavannah, hillySub, desert * 2),
