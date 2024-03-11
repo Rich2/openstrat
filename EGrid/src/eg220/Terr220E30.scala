@@ -3,6 +3,7 @@ package ostrat; package eg220
 import prid.phex._, egrid._, WTiles._
 
 /** 220km [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 41915.629km².
+ * [[Isle8]] 9209.977km² => 11829.704km². Cyprus 9251km².
  * [[Isle7]] 6917.716km² => 9209.977km². Crete 8450 km². */
 object Terr220E30 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e30(132)
@@ -52,19 +53,25 @@ object Terr220E30 extends Long220Terrs
       VRow(145, BendOut(1518, HVDR, 7), BendIn(1520, HVUL, 13), MouthOld(1522, HVDL), MouthOld(1524, HVUR), BendIn(1530, HVDL, 13), BendMax(1528, HVUR)),
       TRow(144, hillyOce, sea, hillyOce, hillySavannah, hillyOce * 4, hillyDesert, oceanic, mtainOld),
 
-      VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), BendInRt(1526, HVDn, 13, 6), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13),
-          MouthOld(1544, HVUp)),
+      VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), BendInRt(1526, HVDn, 13, 6),
+        ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13), MouthOld(1544, HVUp)),
 
-      TRow(142, sea * 3, mtainSubForest, sea, CapeOld(2, 3, hillyOce), sea, CapeOld(2, 3, hillyOce), CapeOld(4, 1, hillyOce), desert * 3),
-      VRow(141, BendIn(1524, HVUR, 13), BendOut(1526, HVDL), BendIn(1528, HVUR), BendIn(1530, HVDL, 13)),
-      TRow(140, sea * 3, mtainSubForest, sea * 2, Isle10(hillyOce), sea, hillyOce, desert * 3),
-      VRow(139, MouthRt(1520, HVDL, 7), BendIn(1522, HVDn, 11), BendOut(1524, HVUp, 7), ThreeUp(1526, 13, 13, 0), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13)),
+      TRow(142, sea * 3, mtainSubForest, sea, mtainSavannah * 2, hillySavannah, hillyTrop, desert * 3),
+
+      VRow(141, BendIn(1524, HVUR, 13), BendOut(1526, HVDL), BendIn(1528, HVUR), BendIn(1530, HVDL, 13), SourceLt(1532, HVDR, 7), BendIn(1534, HVUp, 13),
+        BendOut(1536, HVDn, 7), ThreeDown(1538, 13, 8, 0), Bend(1540, HVDn, 8, 7), ThreeDown(1542, 13, 0, 8), ThreeUp(1544, 9, 0, 13)),
+
+      TRow(140, sea * 3, mtainSubForest, sea * 2, hillySavannah, sea, hillySavannah, desert * 3),
+
+      VRow(139, MouthRt(1520, HVDL, 7), BendIn(1522, HVDn, 11), BendOut(1524, HVUp, 7), ThreeUp(1526, 13, 13, 0), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13),
+        BendIn(1538, HVUR, 8), BendIn(1540, HVUp, 8), BendIn(1542, HVUL, 8)),
+
       TRow(138, sea * 2, sahel, desert, sea * 4, hillyOce, desert * 3),
-      VRow(137, MouthRt(1514, HVDL), BendIn(1516, HVDn, 13), Mouth(1528, HVDn, 4, 2), MouthRt(1532, HVUL, 7), BendOut(1534, HVUp, 7), MouthLt(1536, HVUR, 7)),
+      VRow(137, MouthRt(1514, HVDL), BendIn(1516, HVDn, 13), SourceLt(1518, HVUL, 7), Mouth(1528, HVDn, 4, 2), MouthRt(1532, HVUL, 7), BendOut(1534, HVUp, 7), MouthLt(1536, HVUR, 7)),
       TRow(136, desert * 6, savannah, hillyDesert, desert * 5),
-      VRow(135, MouthOld(1540, HVUp), MouthOld(1544, HVUp)),
+      VRow(135, SourceLt(1540, HVDn), SourceLt(1544, HVDn)),
       TRow(134, desert * 6, sahel, desert, hillyDesert, hillyDesert, desert * 3),
-      VRow(133, BendAllOld(1540, HVUR), MouthOld(1542, HVDR), MouthOld(1544, HVDn)),
+      VRow(133, BendIn(1540, HVUR, 13), MouthOld(1542, HVDR), MouthOld(1544, HVDn)),
       TRow(132, desert * 6, sahel, desert, sea, desert * 4),
     )
   }
@@ -72,6 +79,6 @@ object Terr220E30 extends Long220Terrs
 
   { import hexNames.{ setRow => str}
     str(142, "" * 3, "Crete west")
-    str(140, "" * 3, "Crete east")
+    str(140, "" * 3, "Crete east", "" * 2, "Cyprus")
   }
 }

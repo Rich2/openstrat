@@ -4,6 +4,7 @@ import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale of 320km.
  * [[Tile9]] 25028.134km² => 31263.517km². Sicily 25711km².
+
  * [[Tile5]] 7014.805km² => 10478.907km². Crete 8450 km². */
 object Terr320E30 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e30(118)
