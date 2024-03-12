@@ -46,8 +46,11 @@ object Terr220E30 extends Long220Terrs
       VRow(153, MouthOld(1540, HVUR)),
       TRow(152, hillyOce * 2, oceanic * 2, sea, CapeOld(3, 3), CapeOld(1, 3), CapeOld(3, 2, hillyOce), oceanic * 2),
       TRow(150, hillyOce, hillyOce * 3, sea * 5, CapeOld(4, 1, mtainOld), hillyOce),
-      VRow(149, BendIn(1514, HVUp, 13), Bend(1516, HVDn, 6, 7), Bend(1518, HVDL, 13, 7), MouthRt(1534, HVDL), BendOut(1538, HVUp, 7), MouthLt(1540, HVUR, 7), MouthOld(1554, HVDR)),
-      TRow(148, hillyOce * 2, oceanic, hillyOce * 2, CapeOld(0, 1, hillyOce), mtainOld, hillyOce * 2, CapeOld(0, 1, mtainOld), hillyOce),
+
+      VRow(149, BendIn(1514, HVUp, 13), Bend(1516, HVDn, 6, 7), Bend(1518, HVDL, 13, 7), MouthRt(1534, HVDL), BendIn(1536, HVDn, 13), BendOut(1538, HVUp, 7),
+        MouthLt(1540, HVUR, 7), MouthOld(1554, HVDR)),
+
+      TRow(148, hillyOce * 2, oceanic, hillyOce * 2, hillySubForest, mtainSubForest, hillySubForest, mtainOld, hillyOce),
       VRow(147, Bend(1518, HVUR, 10, 2), BendIn(1520, HVDL, 13), Bend(1528, HVDR, 13, 6), Mouth(1530, HVUR, 5, 1), MouthLt(1532, HVDL, 7), MouthRt(1534, HVUR)),
       TRow(146, hillyOce, hillyOce * 2, hillyOce * 2, hillyDesert * 3, mtainOld, hillyDesert * 2),
       VRow(145, BendOut(1518, HVDR, 7), BendIn(1520, HVUL, 13), MouthOld(1522, HVDL), MouthOld(1524, HVUR), BendIn(1530, HVDL, 13), BendMax(1528, HVUR)),

@@ -533,9 +533,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     /** The magnitude of the offset for the outside of bend. */
     def magOut: Int
 
-    /** The direction of the inside of the bend [[HCen]] from the [[HVert]] of the bend. */
-    def dirn: HVDirn
-
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR => corners.setBend4(row + 1, c + 2, magIn, magOut)
       case HVDR => corners.setBend5(row - 1, c + 2, magIn, magOut)

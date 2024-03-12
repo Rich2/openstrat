@@ -1,6 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
-import prid._, phex._, egrid._, eg80._
+import prid._, phex._, egrid._, eg220._
 
 /** Game scario for BC305. */
 trait BCScen extends HSysTurnScen
@@ -38,21 +38,21 @@ trait BCScen extends HSysTurnScen
 /** Scenario 1 for BC305. This scenario will bedeveloped into the main game. */
 object BCScen1 extends BCScen
 { override def turn: Int = 0
-  override implicit def gridSys: EGrid80LongMulti = EGrid80.multi(2, 0, 418)
+  override implicit def gridSys: EGrid220LongMulti =  EGrid220.multi(2, 0, 134, 154)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   override val armies: LayerHcOptSys[Legion] = LayerHcOptSys()
-  armies.setSomeMut(434,562, Rome.lg(1) )
-  armies.setSomeMut(434,566, Rome.lg(2))
-  armies.setSomeMut(418,1502, Sparta.lg(1))
+  armies.setSomeMut(148,532, Rome.lg(1) )
+  armies.setSomeMut(148,1516, Rome.lg(2))
+  armies.setSomeMut(144,1524, Sparta.lg(1))
 }
 
 object BCScen2 extends BCScen
 { override def turn: Int = 0
-  override implicit def gridSys: EGrid80LongFull = Terr80E0.grid
-  override val terrs: LayerHcRefSys[WTile] = Terr80E0.terrs
-  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr80E0.sTerrs
-  override val corners: HCornerLayer = Terr80E0.corners
+  override implicit def gridSys: EGrid220LongFull = Terr220E30.grid
+  override val terrs: LayerHcRefSys[WTile] = Terr220E30.terrs
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = Terr220E30.sTerrs
+  override val corners: HCornerLayer = Terr220E30.corners
   override val armies: LayerHcOptSys[Legion] = LayerHcOptSys()
 }

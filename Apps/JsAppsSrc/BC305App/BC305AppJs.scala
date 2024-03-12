@@ -4,5 +4,5 @@ import scalajs.js.annotation._, p305._, prid.phex._
 
 @JSExportTopLevel("BC305AppJs")
 object BC305AppJs
-{ @JSExport def main(): Unit = BC305Gui(CanvasJs, BCScen1, HGView(432, 1488, 20))
+{ @JSExport def main(): Unit = BC305Gui(CanvasJs, BCScen1, HGView(144, 1525, 26))
 } 
