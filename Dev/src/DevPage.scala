@@ -110,12 +110,15 @@ object DevPage extends HtmlPage
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.BC305AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/GlApp""""),
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp""""),
+
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/ZugApp"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.ZugAppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW1AppJs")""".stripMargin),
 
-    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App""""),
+    HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App"
+    |<br>set Compile/mainClass:= Some("ostrat.pSJs.WW2AppJs")""".stripMargin),
 
     HtmlLi("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/IndRevApp"
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.IndRevAppJs")""".stripMargin),

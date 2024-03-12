@@ -45,7 +45,7 @@ object Terr220E30 extends Long220Terrs
       TRow(154, oceanic * 2, hillyOce * 2, oceanic * 3, CapeOld(2, 3), oceanic * 2),
       VRow(153, MouthOld(1540, HVUR)),
       TRow(152, hillyOce * 2, oceanic * 2, sea, CapeOld(3, 3), CapeOld(1, 3), CapeOld(3, 2, hillyOce), oceanic * 2),
-      TRow(150, hillyOce, hillyOce * 3, sea * 5, CapeOld(4, 1, mtainOld), hillyOce),
+      TRow(150, hillyOce, hillyOce * 3, sea * 5, mtainOld, hillyOce),
 
       VRow(149, BendIn(1514, HVUp, 13), Bend(1516, HVDn, 6, 7), Bend(1518, HVDL, 13, 7), MouthRt(1534, HVDL), BendIn(1536, HVDn, 13), BendOut(1538, HVUp, 7),
         MouthLt(1540, HVUR, 7), MouthOld(1554, HVDR)),
