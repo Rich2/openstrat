@@ -139,7 +139,8 @@ object EGridLaunch extends GuiLaunchMore
       case 112 => Scen220Europe
 
       case 114 => Scen220NorthAmerica
-      case 115 => Scen220NorthAmerica2
+      case 115 => Scen220Africa
+      case 116 => Scen220NorthAmerica2
 
       case 117 => Scen220Atlantic
       case 118 => BritReg220.regScen
