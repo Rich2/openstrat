@@ -30,12 +30,13 @@ object Terr320W30 extends Long320Terrs
       VRow(123, BendIn(11792, HVDR, 11), BendIn(11794, HVDn, 11), ThreeDown(11796, 0, 7, 11)),
       TRow(122, sea * 8, mtainSavannah),
       VRow(121, BendIn(11792, HVUR, 11), BendIn(11794, HVUp, 11), BendIn(11796, HVUL, 11)),
+      VRow(119, SourceLt(11792, HVDn, 7)),
       TRow(118, sea * 8, desert),
     )
   }
   help.run
 
-  { import hexNames.{setRow => str}
+  { import hexNames.{ setRow => str }
     str(122, "" * 8, "Canaries")
   }
 }
