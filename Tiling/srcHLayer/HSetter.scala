@@ -207,7 +207,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
         case HVDR => sTerrs.set(row, c + 1, sTerr)
         case HVDn => sTerrs.set(row - 1, c, sTerr)
         case HVDL => sTerrs.set(row, c - 1, sTerr)
-        case HVUL => sTerrs.set(row, c - 2, sTerr)
+        case HVUL => sTerrs.set(row, c - 1, sTerr)
       }
     }
   }
