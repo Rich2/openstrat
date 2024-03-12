@@ -547,14 +547,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  trait BendAllBase extends BendInOutBase
-  { /** The magnitude of the offsets for both the inside and outside of the bend. */
-    def magnitude: Int
-
-    override def magIn: Int = magnitude
-    override def magOut: Int = magnitude
-  }
-
   /** Sets the 2 outer corners of the bend for [[HSep]] terrain, Also sets the left most of the [[HSep]]s of the bend vertex. The orientation of the bend is
    * specified by the direction of the inside of the bend. */
   trait BendOutBase extends BendBase

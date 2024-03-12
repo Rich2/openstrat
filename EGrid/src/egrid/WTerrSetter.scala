@@ -190,7 +190,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** This is deprecated Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this
    *  vertex with a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendAllOld(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome, val magnitude: Int) extends VRowElem with BendAllBase
+  class BendAllOld(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome, val magnitude: Int) extends VRowElem with BendInOutBase
+  { override def magIn: Int = magnitude
+    override def magOut: Int = magnitude
+  }
 
   object BendAllOld
   {
@@ -204,8 +207,9 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. */
-  class BendMin(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendAllBase
-  { def magnitude: Int = 3
+  class BendMin(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
+  { override def magIn: Int = 3
+    override def magOut: Int = 3
   }
 
   object BendMin
@@ -219,8 +223,9 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 7/16. */
-  class BendMax(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendAllBase
-  { def magnitude: Int = 7
+  class BendMax(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
+  { override def magIn: Int = 13
+    override def magOut: Int = 7
   }
 
   object BendMax

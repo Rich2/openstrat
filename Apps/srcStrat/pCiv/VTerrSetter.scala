@@ -102,8 +102,9 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   /** Source or end point for a river or straits. */
   case class Source(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VRowElem with SourceBase
 
-  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendAllBase
-  { override def magnitude: Int = 3
+  class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendInOutBase
+  { override def magIn: Int = 3
+    override def magOut: Int = 3
   }
 
   object BendAll
