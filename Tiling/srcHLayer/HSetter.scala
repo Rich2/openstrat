@@ -214,20 +214,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait SourceLtBase extends SourceBase
-  { /** The magnitude of the left offsets. */
-    def magnitude: Int
-
-    override def magLt: Int = magnitude
-    override def magRt: Int = 0
+  { override def magRt: Int = 0
   }
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait SourceRtBase extends SourceBase
-  { /** The magnitude of the left offsets. */
-    def magnitude: Int
-
-    override def magLt: Int = 0
-    override def magRt: Int = magnitude
+  { override def magLt: Int = 0
   }
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */

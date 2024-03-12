@@ -171,11 +171,17 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   { override def magnitude: Int = 7
   }
 
-  case class SourceLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceLtBase
+  case class Source(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+  case class SourceLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceLtBase
   case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthLtBase
-  case class SourceRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceRtBase
+  case class SourceRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceRtBase
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
 
+  /** [[HSep]] end point or source with a left and right magnitude of 3. */
+  case class SourceMin(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+  { override def magLt: Int = 3
+    override def magRt: Int = 3
+  }
   /** Will change name to Mouth. Holding for now to avoid confusing tooling. */
   case class Mouth(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 
