@@ -16,8 +16,7 @@ import prid.phex._, egrid._
  * [[Isle3]] 1023.330km² => 2005.728km². */
 package object eg220
 {
-  val fullTerrs: RArr[Long220Terrs] = RArr(Terr220E0, Terr220E30, null, null, null, null, null,
-    null, Terr220W120, Terr220W90, Terr220W60, Terr220W30)
+  val fullTerrs: RArr[Long220Terrs] = RArr(Terr220E0, Terr220E30, Terr220E60, null, null, null, null, null, Terr220W120, Terr220W90, Terr220W60, Terr220W30)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid220LongMulti): LayerHcRefSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
