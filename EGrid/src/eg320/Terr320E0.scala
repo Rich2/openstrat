@@ -67,7 +67,7 @@ object Terr320E0 extends Long320Terrs
         Bend(512, HVUL, 11, 4), BendIn(524, HVUR, 13), ThreeDown(526, 13, 0, 11), ThreeUp(528, 10, 6, 0)),
 
       TRow(128, sea, hillySub * 4, hillySahel, hillySavannah, sea),
-      VRow(127, BendIn(500, HVDR, 10), BendOut(502, HVUL), SourceLt(526, HVUp)),
+      VRow(127, BendIn(500, HVDR, 10), BendOut(502, HVUL), BendOut(526, HVUR, 7), SourceLt(528, HVUL, 7)),
       TRow(126, sea, sahel, mtainOld, hillyDesert, sahel * 4),
       VRow(125, BendIn(498, HVDR, 13), BendMin(500, HVUL)),
       TRow(124, sea, hillyDesert, hillyDesert, desert * 6),

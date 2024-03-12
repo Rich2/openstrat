@@ -119,17 +119,19 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, desert)
     plageLota, capAlAouna, lePointNoir, capSerat, p25, capTarf, tunis, p27)
 }
 
-/** [[PolygonLL]] graphic for Canaries depends on [[Maghreb]]. */
+/** [[PolygonLL]] graphic for Sahara central depends on [[Maghreb]]. */
 object SaharaCentral extends EArea2("SaharaCentral", 26 ll 16, desert)
-{ val p80: LatLong = 31.07 ll 17.39
-  val elAgheila: LatLong = 30.12 ll 19.08
-  val southEast: LatLong = 17 ll 16.75
+{ val southEast: LatLong = 17 ll 16.75
   val southWest: LatLong = 17 ll 10.08
-
   val p84: LatLong = 33.89 ll 10.75
-  val p85: LatLong = 33.82 ll 11.05
-  val misrata: LatLong = 32.37 ll 15.03
+  val djerbaMidun: LatLong = 33.825 ll 11.052
+  val tripoli: LatLong = 32.911 ll 13.194
+  val misrata: LatLong = 32.373 ll 15.213
   val buerat: LatLong = 31.41 ll 15.72
+  val p80: LatLong = 31.07 ll 17.39
+  val elAgheila: LatLong = 30.12 ll 19.08
+  val p90: LatLong = 30.780 ll 18.187
 
-  override val polygonLL: PolygonLL = PolygonLL(p80, elAgheila, southEast, southWest, Maghreb.southEast, Maghreb.p35, p84, p85, misrata, buerat)
+  override val polygonLL: PolygonLL = PolygonLL(elAgheila, southEast, southWest, Maghreb.southEast, Maghreb.p35, p84, djerbaMidun, tripoli, misrata, buerat,
+    p80, p90)
 }
