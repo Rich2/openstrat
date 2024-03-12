@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** 320km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. Hex tile scale of 320km.
  * [[Tile9]] 25028.134km² => 31263.517km². Sicily 25711km².
  * [[Tile8]] 19485.571km² => 25028.134km². Sardinia 24090km².
- * [[Tile5]] 7014.805km² => 10478.907km². Corsica 8722km².
+ * [[Tile5]] 7014.805km² => 10478.907km². Canaries 7492km², Corsica 8722km².
  * [[Tile4]] 4243.524km² => 7014.805km². Balearic Islands 5040km². */
 object Terr320E0 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e0(118)
@@ -68,9 +68,9 @@ object Terr320E0 extends Long320Terrs
       TRow(126, sea, sahel, mtainOld, hillyDesert, sahel * 4),
       VRow(125, BendAllOld(500, HVUL)),
       TRow(124, sea, hillyDesert, hillyDesert, desert * 6),
-      VRow(123, SetSep(495), BendOut(498, HVUL)),
+      VRow(123, BendIn(494, HVDn, 11), ThreeDown(496, 0, 7, 11), BendOut(498, HVUL)),
       TRow(122, SepB(), desert, desert * 8),
-      VRow(121, SetSep(495)),
+      VRow(121, BendIn(494, HVUp, 11), BendIn(496, HVUL, 11)),
       TRow(120, desert * 5, hillyDesert * 2, desert * 2),
       TRow(118, desert * 9),
     )
