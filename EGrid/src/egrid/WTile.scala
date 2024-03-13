@@ -80,8 +80,12 @@ object WTiles
   /** [[Hilly]] [[Continental]] [[CivMix]] */
   val hillyCont: Land = Land(Hilly, Continental, CivMix)
 
+
   /** [[Hilly]] [[Continental]] [[Forest]] */
   val hillyContForest: Land = Land(Hilly, Continental, Forest)
+
+  /** [[Hilly]] [[DesertCold]] [[LandFree]] */
+  val hillyDescold: Land = Land(Hilly, DesertHot, LandFree)
 
   /** [[Hilly]] [[Oceanic]] [[CivMix]] */
   val hillyOce: Land = Land(Hilly, Oceanic, CivMix)
@@ -92,7 +96,9 @@ object WTiles
   /** [[Hilly]] [[Subtropical]] [[CivMix]] */
   val hillySub: Land = Land(Hilly, Subtropical)
 
-  val hillyDesert: Land = Land(Hilly, DesertHot, LandFree)
+  /** [[Hilly]] [[DesertHot]] [[LandFree]] */
+  val hillyDeshot: Land = Land(Hilly, DesertHot, LandFree)
+
   val hillySavannah: Land = Land(Hilly, Savannah, CivMix)
   val hillySahel: Land = Land(Hilly, Sahel, CivMix)
   val hillySubForest: Land = Land(Hilly, Subtropical, Forest)
@@ -119,7 +125,7 @@ object WTiles
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
     ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, deshot, jungle,
-    hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySub, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
+    hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySub, hillySavannah, hillySahel, hillyDeshot, hillyJungle, hillyLakesTaiga,
     mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSubForest, mtainDesert, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */

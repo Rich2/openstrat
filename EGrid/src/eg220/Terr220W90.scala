@@ -44,7 +44,7 @@ object Terr220W90 extends Long220Terrs
       TRow(146, sahel, savannah * 2, hillySavannah * 2, savannah * 3, mtainOld * 2, hillyOce),
       VRow(145, MouthLt(9752, HVDn)),
       TRow(144, sahel * 2, savannah, hillySavannah, hillyOceForest * 2, savannah, hillyOceForest, mtainOld * 2, hillyOce),
-      TRow(142, hillyDesert, sahel * 2, hillySavannah, mtainOld),
+      TRow(142, hillyDeshot, sahel * 2, hillySavannah, mtainOld),
     )
   }
   help.run

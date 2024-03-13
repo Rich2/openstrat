@@ -26,15 +26,15 @@ object Terr320E90 extends Long320Terrs
       TRow(146, taiga * 5),
       TRow(144, taiga, oceanic * 4),
       TRow(142, deshot, oceanic, hillyOce * 3, mtainOld),
-      TRow(140, oceanic, mtainOld, hillyDesert, deshot, mtainOld, hillyOce),
-      TRow(138, deshot * 3, hillyDesert, deshot, hillyDesert, deshot),
+      TRow(140, oceanic, mtainOld, hillyDeshot, deshot, mtainOld, hillyOce),
+      TRow(138, deshot * 3, hillyDeshot, deshot, hillyDeshot, deshot),
       TRow(136, mtainOld * 2, deshot * 5),
       TRow(134, mtainOld * 3, deshot * 4),
       TRow(132, deshot * 7),
-      TRow(130, deshot * 3, hillyDesert * 5),
-      TRow(128, hillyDesert * 6, hillyOce, mtainOld),
-      TRow(126, mtainOld, hillyDesert * 4, mtainOld * 3),
-      TRow(124, oceanic, mtainOld, hillyDesert * 2, mtainOld * 4, hillyOce),
+      TRow(130, deshot * 3, hillyDeshot * 5),
+      TRow(128, hillyDeshot * 6, hillyOce, mtainOld),
+      TRow(126, mtainOld, hillyDeshot * 4, mtainOld * 3),
+      TRow(124, oceanic, mtainOld, hillyDeshot * 2, mtainOld * 4, hillyOce),
     )
   }
   help.run

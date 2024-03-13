@@ -80,10 +80,10 @@ object Terr220E0 extends Long220Terrs
       VRow(143, MouthLt(500, HVUp, 7), BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendOut(512, HVUp, 7), MouthLt(514, HVUR, 7)),
       TRow(142, sea * 3, hillyOce, sea, hillySavannah * 6, sea),
       VRow(141, ThreeUp(500, 13, 13, 0), BendIn(502, HVUp, 13), MouthRt(504, HVUR, 7), MouthRt(508, HVDn, 7), MouthOld(530, HVDL)),
-      TRow(140, sea * 2, hillySavannah, hillyOce, hillyDesert * 2, deshot * 2, hillyDesert * 2, sea * 2),
-      TRow(138, sea * 2, oceanic, deshot, hillyDesert, deshot * 7),
+      TRow(140, sea * 2, hillySavannah, hillyOce, hillyDeshot * 2, deshot * 2, hillyDeshot * 2, sea * 2),
+      TRow(138, sea * 2, oceanic, deshot, hillyDeshot, deshot * 7),
       TRow(136, sea * 2, mtainOld * 3, deshot * 8),
-      TRow(134, sea, hillyDesert * 2, deshot * 10),
+      TRow(134, sea, hillyDeshot * 2, deshot * 10),
       TRow(132, sea, deshot * 12)
     )
   }

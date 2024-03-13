@@ -24,7 +24,7 @@ object Terr640E60 extends Long640Terrs
       TRow(116, sahel, sahel * 2),
       VRow(115, MouthLt(2556, HVDL, 6, Lake), BendIn(2558, HVUL, 13, lake)),
       TRow(114, hillySahel, hillySahel, Land(Mountains, DesertHot), Land(Mountains, Sahel)),
-      TRow(112, hillyDesert, hillyDesert, Land(Mountains, DesertHot), savannah),
+      TRow(112, hillyDeshot, hillyDeshot, Land(Mountains, DesertHot), savannah),
       VRow(111, MouthLt(2554, HVUL, 7), BendOut(2556, HVUp, 7), BendIn(2558, HVDn, 9), BendIn(2560, HVDL, 13)),
       TRow(110, sahel, sahel, sahel, savannah),
       VRow(109, BendIn(2560, HVUR, 13), BendIn(2562, HVUp, 13), BendOut(2564, HVDn, 7), Bend(2566, HVDL, 5, 1)),

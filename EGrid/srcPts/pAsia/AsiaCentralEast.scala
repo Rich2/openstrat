@@ -20,7 +20,7 @@ object Manchuria extends EArea2("Manchuria", 58 ll 128, oceanic)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDesert)
+object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDeshot)
 { val south: LatLong = 36.505 ll 80.950
 
   override val polygonLL: PolygonLL = PolygonLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, south, Kyrgyyzstan.p20, Kyrgyyzstan.p10,

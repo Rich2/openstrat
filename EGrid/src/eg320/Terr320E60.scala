@@ -37,12 +37,12 @@ object Terr320E60 extends Long320Terrs
       TRow(132, mtainOld, Lake, deshot * 3, mtainOld * 2),
       TRow(130, mtainOld, CapeOld(1, 1, mtainOld, Lake), CapeOld(5, 1, deshot, Lake), deshot * 3, mtainOld * 2),
       VRow(129, MouthOld(2552, HVDn, 3, Lake)),
-      TRow(128, hillyDesert, deshot * 5, mtainOld * 2),
+      TRow(128, hillyDeshot, deshot * 5, mtainOld * 2),
       TRow(126, deshot, mtainOld, deshot * 5, oceanic),
       TRow(124, deshot, oceanic, mtainOld, deshot * 4, oceanic * 2),
       VRow(123, MouthOld(2546, HVUL)),
-      TRow(122, CapeOld(1, 1, deshot), CapeOld(3, 2, hillyDesert), CapeOld(3, 1, mtainOld), deshot * 3, oceanic, deshot * 2),
-      TRow(120, deshot * 2, sea, CapeOld(0, 2, hillyDesert), sea * 2, hillyDesert, oceanic, deshot),
+      TRow(122, CapeOld(1, 1, deshot), CapeOld(3, 2, hillyDeshot), CapeOld(3, 1, mtainOld), deshot * 3, oceanic, deshot * 2),
+      TRow(120, deshot * 2, sea, CapeOld(0, 2, hillyDeshot), sea * 2, hillyDeshot, oceanic, deshot),
       TRow(118, deshot * 4, sea * 3, oceanic * 2),
     )
   }

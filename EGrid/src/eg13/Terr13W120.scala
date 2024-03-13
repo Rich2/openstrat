@@ -19,7 +19,7 @@ object Terr13W120 extends Long13Terrs
       VRow(109, MouthLt(8702, HVUp, 7)),
       TRow(108, hillyOceForest),
       VRow(107, MouthRt(8702, HVDn, 7)),
-      TRow(106, sea, hillyDesert),
+      TRow(106, sea, hillyDeshot),
       VRow(105, MouthLt(8704, HVUL, 7), BendOut(8706, HVDL)),
       TRow(104, sea, hillySahel),
       VRow(103, BendIn(8706, HVUR, 13), MouthRt(8708, HVDR, 7)),

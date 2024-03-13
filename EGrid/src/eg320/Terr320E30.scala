@@ -61,7 +61,7 @@ object Terr320E30 extends Long320Terrs
       VRow(123, SourceLt(1538, HVDR), MouthOld(1540, HVDR)),
       TRow(122, deshot * 4, savannah, sea, deshot * 3),
       TRow(120, deshot * 6, sea, deshot * 2),
-      TRow(118, deshot * 5, hillyDesert, sea, hillyDesert, deshot),
+      TRow(118, deshot * 5, hillyDeshot, sea, hillyDeshot, deshot),
     )
   }
   help.run

@@ -23,7 +23,7 @@ object Terr220W120 extends Long220Terrs
 //      VRow(153, Mouth(8702, HVDL, Lake), Mouth(8704, HVUR, Lake)),
       TRow(152, sea * 3, mtainOld * 5, hillySahel, mtainOld),
       VRow(151, MouthLt(8696, HVUp, 7)),
-      TRow(150, sea * 3, mtainOld, hillySavannah, hillySahel * 3, mtainOld, sahel, hillyDesert),
+      TRow(150, sea * 3, mtainOld, hillySavannah, hillySahel * 3, mtainOld, sahel, hillyDeshot),
 //      VRow(149, Mouth(8706, HVDL, Lake), BendAll(8708, HVUL, Lake)),
 //      TRow(148, hillyTaiga * 2, taiga * 3),
 //      TRow(146, mtain, taiga * 4),

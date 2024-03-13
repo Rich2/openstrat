@@ -17,7 +17,7 @@ object Terr13E90 extends Long13Terrs
       TRow(114, tundra),
       TRow(112, taiga),
       TRow(110, mtainOld),
-      TRow(108, hillyDesert),
+      TRow(108, hillyDeshot),
       TRow(106, mtainOld, mtainOld),
       TRow(104, jungle, hillyJungle),
       VRow(103, MouthLt(3580, HVDR), MouthMax(3584, HVUp), MouthLt(3590, HVUL, 7)),
