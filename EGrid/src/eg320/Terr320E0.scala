@@ -70,12 +70,12 @@ object Terr320E0 extends Long320Terrs
       VRow(127, BendIn(500, HVDR, 10), BendOut(502, HVUL), BendOut(526, HVUR, 7), SourceLt(528, HVUL, 7)),
       TRow(126, sea, sahel, mtainOld, hillyDesert, sahel * 4),
       VRow(125, BendIn(498, HVDR, 13), BendMin(500, HVUL)),
-      TRow(124, sea, hillyDesert, hillyDesert, desert * 6),
+      TRow(124, sea, hillyDesert, hillyDesert, deshot * 6),
       VRow(123, BendIn(494, HVDn, 11), ThreeDown(496, 0, 7, 11), BendOut(498, HVUL)),
-      TRow(122, SepB(), desert, desert * 8),
+      TRow(122, SepB(), deshot, deshot * 8),
       VRow(121, BendIn(494, HVUp, 11), BendIn(496, HVUL, 11)),
-      TRow(120, desert * 5, hillyDesert * 2, desert * 2),
-      TRow(118, desert * 9),
+      TRow(120, deshot * 5, hillyDesert * 2, deshot * 2),
+      TRow(118, deshot * 9),
     )
   }
   help.run

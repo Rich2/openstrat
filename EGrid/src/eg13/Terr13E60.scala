@@ -24,7 +24,7 @@ object Terr13E60 extends Long13Terrs
       VRow(105, MouthLt(2556, HVUL), BendIn(2558, HVUp), BendIn(2560, HVDn), BendIn(2562, HVDL, 13)),
       TRow(104, hillyDesert, savannah),
       VRow(103, BendOut(2556, HVUp), BendIn(2558, HVDn, 12), ThreeDown(2560, 13, 0, 13), ThreeUp(2562, 13, 0, 13), SourceLt(2564, HVUL)),
-      TRow(102, desert),
+      TRow(102, deshot),
       VRow(101, BendOut(2558, HVDR), BendIn(2560, HVUL, 13), MouthLt(2564, HVUL), BendIn(2566, HVUp)),
       VRow(99, BendOut(2556, HVDR, 7), BendIn(2558, HVUL, 13)),
       VRow(97, ThreeUp(2556, 0, 6, 6), BendIn(2558, HVDL)),

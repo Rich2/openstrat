@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
-object Kazak extends EArea2("Kazak", 47 ll 60, desert)
+object Kazak extends EArea2("Kazak", 47 ll 60, deshot)
 {
   val bautino = degs(44.53, 50.24)
   val kendirliBay = degs(42.73, 52.74)

@@ -31,7 +31,7 @@ object Terr320W30 extends Long320Terrs
       TRow(122, sea * 8, mtainSavannah),
       VRow(121, BendIn(11792, HVUR, 11), BendIn(11794, HVUp, 11), BendIn(11796, HVUL, 11)),
       VRow(119, SourceLt(11792, HVDn, 7)),
-      TRow(118, sea * 8, desert),
+      TRow(118, sea * 8, deshot),
     )
   }
   help.run

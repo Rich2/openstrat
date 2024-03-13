@@ -28,7 +28,7 @@ object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDesert)
 }
 
 /** [[polygonLL]] graphical representation of Mongolia, depends on [[Manchuria]], [[SiberiaSouth]] and [[LakeBaikal]]. */
-object Mongolia extends EArea2("Mongolia", 42 ll 115, desert)
+object Mongolia extends EArea2("Mongolia", 42 ll 115, deshot)
 { val southEast: LatLong = 41.096 ll 114.088
   val p50: LatLong = 39.860 ll 106.965
   val southWest: LatLong = 40.022 ll 96.864

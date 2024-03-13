@@ -35,9 +35,9 @@ object Terr640E0 extends Long640Terrs
 
       TRow(114, sea, hillyOce, hillyOce, hillyOce),
       VRow(113, MouthLt(520, HVDn, 6)),
-      TRow(112, hillyDesert, desert * 3),
-      TRow(110, desert * 2, hillyDesert, desert),
-      TRow(108, desert * 4),
+      TRow(112, hillyDesert, deshot * 3),
+      TRow(110, deshot * 2, hillyDesert, deshot),
+      TRow(108, deshot * 4),
       TRow(106, sahel * 5),
       TRow(104, Land(Hilly, Savannah, Forest), Land(Plain, Savannah, Forest) * 3, Land(Hilly, Savannah, Forest)),
       TRow(102, jungle, jungle * 2, jungle, jungle),

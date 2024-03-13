@@ -95,7 +95,7 @@ object Caspian extends EArea2("CaspianSea", 42.10 ll 50.64, Sea)
 }
 
 /** [[PolygonLL]] graphic for Iraq depends on [[Levant]]. */
-object Iraq extends EArea2("Iraq", 34.0 ll 44.5, desert)
+object Iraq extends EArea2("Iraq", 34.0 ll 44.5, deshot)
 { override def toString: String = "Iraq"
 
   override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, Kurdistan.cizre, LakeVan.southEast, Caspian.southWest, Persia.mahshahr, Arabia.alFaw,

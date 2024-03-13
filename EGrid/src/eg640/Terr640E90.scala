@@ -21,7 +21,7 @@ object Terr640E90 extends Long640Terrs
       TRow(122, oceForest, mtainOld),
       TRow(120, savannah, sahel, sahel),
       TRow(118, sahel, hillyDesert, hillyDesert),
-      TRow(116, desert, desert, hillyDesert),
+      TRow(116, deshot, deshot, hillyDesert),
       TRow(114, Land(Mountains, DesertHot, LandFree), hillyDesert, hillyDesert, mtainOld),
       TRow(112, mtainOld, Land(Mountains, DesertHot, LandFree), mtainOld, hillyOce),
       TRow(110, savannah, savannah, Land(Hilly, Savannah, Forest), Land(Mountains, Tropical, Forest)),

@@ -21,7 +21,7 @@ object TerrMegaW30 extends LongMegaTerrs
       VRow(111, MouthLt(11780, HVUp, 7)),
       VRow(109, BendIn(11780, HVUR, 10), BendIn(11782, HVUp)),
       VRow(107, MouthLt(11780, HVUp, 7)),
-      TRow(106, sea * 2, desert),
+      TRow(106, sea * 2, deshot),
       VRow(105, BendIn(11778, HVDR, 13), BendOut(11780, HVUL, 7)),
       TRow(104, sea * 2, sahel),
       VRow(103, BendIn(11778, HVUR, 13), BendOut(11780, HVDL, 7)),

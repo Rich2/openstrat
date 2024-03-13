@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.Maghreb]]. */
-object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, desert)
+object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, deshot)
 { val southWest: LatLong = 17 ll -16.27
   val nouakchott: LatLong = 18.078 ll -16.02
   val nouadhibouBay: LatLong = 21.28 ll -16.90

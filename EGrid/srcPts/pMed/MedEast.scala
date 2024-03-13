@@ -89,7 +89,7 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
- object Sinai extends EArea2("Sinai", 29.88 ll 33.75, desert)
+ object Sinai extends EArea2("Sinai", 29.88 ll 33.75, deshot)
 { val deadSeaSE: LatLong = 30.97 ll 35.37
   val eilat: LatLong = 29.54 ll 34.98
   val south: LatLong = 27.73 ll 34.25
@@ -102,7 +102,7 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
-object SaharaEast extends EArea2("SaharaEast", 24 ll 25, desert)
+object SaharaEast extends EArea2("SaharaEast", 24 ll 25, deshot)
 { val p5: LatLong = 29.59 ll 32.34
   val p20: LatLong = 23.95 ll 35.76
   val p30: LatLong = 18.83 ll 37.44

@@ -36,11 +36,11 @@ object Terr320W90 extends Long320Terrs
       TRow(136, oceanic * 5, lake, taiga),
       VRow(135, BendAllOld(9730, HVUR, Lake), MouthOld(9732, HVDR, 3, Lake), MouthOld(9740, HVDL, 3, Lake), MouthOld(9742, HVUR, 3, Lake)),
       TRow(134, oceanic * 6, hillyOceForest),
-      TRow(132, desert, oceanic * 4, hillyOceForest, hillyOce),
-      TRow(130, desert, oceanic * 5, hillyOce, oceanic),
-      TRow(128, desert, oceanic * 3, hillyOce * 2, oceanic, sea),
-      TRow(126, desert, oceanic * 6, sea),
-      TRow(124, desert, oceanic * 5, jungle, sea * 2),
+      TRow(132, deshot, oceanic * 4, hillyOceForest, hillyOce),
+      TRow(130, deshot, oceanic * 5, hillyOce, oceanic),
+      TRow(128, deshot, oceanic * 3, hillyOce * 2, oceanic, sea),
+      TRow(126, deshot, oceanic * 6, sea),
+      TRow(124, deshot, oceanic * 5, jungle, sea * 2),
     )
   }
   help.run

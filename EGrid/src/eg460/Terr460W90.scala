@@ -38,7 +38,7 @@ object Terr460W90 extends Long460Terrs
       VRow(123, MouthOld(9730, HVDn, 3, lake)),
       TRow(122, savannah * 3, mtainOld, hillyOce),
       TRow(120, sahel, hillySavannah, savannah, mtainOld, hillyOce),
-      TRow(118, desert, savannah, oceanic * 3),
+      TRow(118, deshot, savannah, oceanic * 3),
       VRow(117, MouthOld(9730, HVUp, 3, lake), MouthOld(9736, HVUL)),
       TRow(116, savannah, oceanic, CapeOld(2, 2), sea, CapeOld(1, 2, jungle)),
       VRow(115, BendOut(9724, HVDR), BendOut(9726, HVDn)),

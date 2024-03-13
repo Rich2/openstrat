@@ -37,7 +37,7 @@ object Terr320E30 extends Long320Terrs
       TRow(144, oceanic * 5),
       TRow(142, oceanic * 6),
       TRow(140, oceanic * 6),
-      TRow(138, mtainOld * 2, hillyOce, oceanic * 3, desert),
+      TRow(138, mtainOld * 2, hillyOce, oceanic * 3, deshot),
       VRow(137, SourceRt(1522, HVDn), Mouth(1538, HVUp, 3, 7), BendAllOld(1542, HVDR), MouthOld(1544, HVUR)),
       TRow(136, hillyCont, continental * 3, steppe, steppe * 2),
       VRow(135, BendOut(1522, HVUR, 7), BendIn(1524, HVDL, 13), BendMax(1536, HVDR), ThreeUp(1538, 7, 13, 13), Bend(1540, HVUp, 10, 7), ThreeUp(1542, 7, 13, 7)),
@@ -50,18 +50,18 @@ object Terr320E30 extends Long320Terrs
       VRow(129, ThreeUp(1520, 10, 6, 0), BendIn(1522, HVUp, 13), ThreeUp(1524, 13, 0, 13), BendIn(1526, HVUp, 10), ThreeDown(1530, 13, 11, 0), ThreeUp(1532, 6, 11, 13),
         BendIn(1534, HVDL, 13), BendIn(1538, HVDR, 11), BendIn(1540, HVDn, 11), Bend(1542, HVDL, 11, 4)),
 
-      TRow(128, sea * 2, mtainSavannah, sea, hillySavannah, hillySub, desert * 2),
+      TRow(128, sea * 2, mtainSavannah, sea, hillySavannah, hillySub, deshot * 2),
 
       VRow(127, SourceLt(1520, HVUL, 7), BendIn(1524, HVDR, 7), BendIn(1526, HVDn, 10), BendOut(1528, HVUp, 7), ThreeUp(1530, 11, 13, 0),
         ThreeDown(1532, 11, 0, 13), BendIn(1534, HVUL, 11), BendIn(1538, HVUR, 11), ThreeDown(1540, 11, 13, 0), Bend(1542, HVUL, 11, 3)),
 
-      TRow(126, sea, sahel, sahel, sea * 2, hillySavannah, desert * 2),
+      TRow(126, sea, sahel, sahel, sea * 2, hillySavannah, deshot * 2),
       VRow(125, SourceMin(1522, HVUR), Bend(1524, HVUL, 4, 2), MouthLt(1532, HVDn), SourceRt(1540, HVUp)),
-      TRow(124, sahel * 4, savannah, desert * 4),
+      TRow(124, sahel * 4, savannah, deshot * 4),
       VRow(123, SourceLt(1538, HVDR), MouthOld(1540, HVDR)),
-      TRow(122, desert * 4, savannah, sea, desert * 3),
-      TRow(120, desert * 6, sea, desert * 2),
-      TRow(118, desert * 5, hillyDesert, sea, hillyDesert, desert),
+      TRow(122, deshot * 4, savannah, sea, deshot * 3),
+      TRow(120, deshot * 6, sea, deshot * 2),
+      TRow(118, deshot * 5, hillyDesert, sea, hillyDesert, deshot),
     )
   }
   help.run

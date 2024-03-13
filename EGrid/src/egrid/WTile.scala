@@ -51,6 +51,9 @@ object WTiles
   /** [[Plain]] [[Oceanic]] [[CivMix]] */
   val continental: Land = Land(Plain, Continental, CivMix)
 
+  /** [[Plain]] [[DesertCold]] [[LandFree]] */
+  val descold: Land = Land(Plain, DesertCold, LandFree)
+
   /** [[Plain]] [[Oceanic]] [[CivMix]] */
   val oceanic: Land = Land(Plain, Oceanic, CivMix)
 
@@ -62,7 +65,10 @@ object WTiles
 
   val savannah: Land = Land(Plain, Savannah, CivMix)
   val sahel: Land = Land(Plain, Sahel, CivMix)
-  val desert: Land = Land(Plain, DesertHot, LandFree)
+
+  /** [[Plain]] [[DesertHot]] [[LandFree]] */
+  val deshot: Land = Land(Plain, DesertHot, LandFree)
+
   val jungle: Land = Land(Plain, Tropical, Forest)
 
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
@@ -112,7 +118,7 @@ object WTiles
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
-    ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, desert, jungle,
+    ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, deshot, jungle,
     hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySub, hillySavannah, hillySahel, hillyDesert, hillyJungle, hillyLakesTaiga,
     mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSubForest, mtainDesert, mtainJungle)
 

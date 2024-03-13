@@ -77,7 +77,7 @@ object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for west Sahara depends on nothing. */
-object Maghreb extends EArea2("Maghreb", 33 ll 2.32, desert)
+object Maghreb extends EArea2("Maghreb", 33 ll 2.32, deshot)
 { val neTunis: LatLong = 37.07 ll 11.04
   val p28: LatLong = 36.87 ll 11.14
   val p30: LatLong = 36.46 ll 10.81
@@ -120,7 +120,7 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, desert)
 }
 
 /** [[PolygonLL]] graphic for Sahara central depends on [[Maghreb]]. */
-object SaharaCentral extends EArea2("SaharaCentral", 26 ll 16, desert)
+object SaharaCentral extends EArea2("SaharaCentral", 26 ll 16, deshot)
 { val southEast: LatLong = 17 ll 16.75
   val southWest: LatLong = 17 ll 10.08
   val p84: LatLong = 33.89 ll 10.75

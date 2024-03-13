@@ -40,9 +40,9 @@ object Terr13E120 extends Long13Terrs
       VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 12, 7, 0), ThreeUp(4608, 12, 90, 11), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
         BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
 
-      TRow(96, SepB(), desert, sahel),
+      TRow(96, SepB(), deshot, sahel),
       VRow(95, BendIn(4604, HVDR, 13), BendOut(4606, HVUL)),
-      TRow(94, savannah, desert),
+      TRow(94, savannah, deshot),
       VRow(93, BendIn(4604, HVUR, 13), MouthRt(4606, HVDR, 7)),
       VRow(91, MouthLt(4610, HVUL, 7), BendIn(4612, HVUp, 13)),
       VRow(87, BendOut(4606, HVDn, 7, siceWin), BendIn(4608, HVUp, 13, siceWin), Bend(4610, HVDn, 6, 7, siceWin), BendIn(4612, HVUp, 13, siceWin)),

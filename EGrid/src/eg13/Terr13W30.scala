@@ -23,7 +23,7 @@ object Terr13W30 extends Long13Terrs
       VRow(109, ThreeUp(11776, 12, 0, 13), ThreeDown(11778, 12, 6, 0), BendIn(11780, HVUL, 12)),
       TRow(108, SepB()),
       VRow(105, BendIn(11778, HVDR, 13), Bend(11780, HVUL, 4, 2)),
-      TRow(104, sea, desert),
+      TRow(104, sea, deshot),
       VRow(103, MouthRt(11778, HVDn, 7)),
       VRow(101, BendIn(11774, HVDL, 13)),
       TRow(100, SepB(), sea * 2),

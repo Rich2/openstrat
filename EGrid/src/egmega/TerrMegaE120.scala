@@ -47,9 +47,9 @@ object TerrMegaE120 extends LongMegaTerrs
 
       TRow(96, sea, hillySavannah, savannah),
       VRow(95, BendIn(4604, HVDR, 12), BendOut(4606, HVUL, 7)),
-      TRow(94, desert, desert, sahel),
+      TRow(94, deshot, deshot, sahel),
       VRow(93, BendIn(4604, HVUR, 13), BendOut(4606, HVDL, 7)),
-      TRow(92, savannah, desert),
+      TRow(92, savannah, deshot),
       VRow(91, MouthRt(4606, HVDn, 7), MouthLt(4608, HVDL, 7), Bend(4610, HVDn, 5, 1), BendOut(4612, HVDL, 7)),
       VRow(89, BendIn(4612, HVUR, 13), MouthRt(4614, HVDR, 7)),
       TRow(82, ice)

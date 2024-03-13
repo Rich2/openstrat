@@ -20,7 +20,7 @@ object Levant extends EArea2("Levant", 33 ll 35.5, hillySavannah)
 }
 
 /** [[PolygonLL]] graphic for Arabian Peninsular. Depends on [[Levant]]. */
-object Arabia extends EArea2("Arabia", 25 ll 45.0, desert)
+object Arabia extends EArea2("Arabia", 25 ll 45.0, deshot)
 { val salwa: LatLong = 24.71 ll 50.77
   val nQatar: LatLong = 26.15 ll 51.26
   val doha: LatLong = 25.25 ll 51.61

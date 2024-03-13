@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
-object WesternAustralia extends EArea2("Western\nAustralia", -24.839 ll 124, desert)
+object WesternAustralia extends EArea2("Western\nAustralia", -24.839 ll 124, deshot)
 { val northEast: LatLong = -14.879 ll 129
   val southEast: LatLong = -31.687 ll 129
   val nuytsland1: LatLong = -32.96 ll 124.33

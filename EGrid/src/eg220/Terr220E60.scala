@@ -11,39 +11,12 @@ object Terr220E60 extends Long220Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rowDatas: RArr[RowBase] = RArr(
-//      TRow(166, SeaIcePerm),
-//      TRow(164, SeaIceWinter),
-//      TRow(162, SeaIceWinter * 2),
-//      TRow(160, tundra, SeaIceWinter),
-//      TRow(158, hillyTundra, SeaIceWinter, tundra),
-//      TRow(156, SeaIceWinter * 2, tundra),
-//      VRow(155, SetSep(2553, SeaIceWinter)),
-//      TRow(154, tundra * 4),
-//      VRow(153, BendIn(2552, HVUL, 9, SeaIceWinter)),
-//      TRow(152, taiga * 4),
-//      TRow(150, taiga * 4),
-      TRow(148, hillySavannah, mtainSavannah),
-      TRow(146, hillySavannah),
-//      TRow(144, oceForest * 5),
-//      TRow(142, oceanic * 6),
-//      TRow(140, oceanic * 2, desert * 3, oceanic),
-//      TRow(138, oceanic, desert * 6),
-//      VRow(137, BendMax(2550, HVDR, lake), Source(2552, HVDL, 7, 4, Lake)),
-//      TRow(136, sahel, sahel, desert * 5),
-//      VRow(135, SourceLt(2550, HVUp, 7, lake)),
-//      TRow(134, Lake, desert * 5, mtainOld),
-//      TRow(132, mtainOld, Lake, desert * 3, mtainOld * 2),
-//      TRow(130, mtainOld, CapeOld(1, 1, mtainOld, Lake), CapeOld(5, 1, desert, Lake), desert * 3, mtainOld * 2),
-//      VRow(129, MouthOld(2552, HVDn, 3, Lake)),
-//      TRow(128, hillyDesert, desert * 5, mtainOld * 2),
-//      TRow(126, desert, mtainOld, desert * 5, oceanic),
-//      TRow(124, desert, oceanic, mtainOld, desert * 4, oceanic * 2),
-//      VRow(123, MouthOld(2546, HVUL)),
-//      TRow(122, CapeOld(1, 1, desert), CapeOld(3, 2, hillyDesert), CapeOld(3, 1, mtainOld), desert * 3, oceanic, desert * 2),
-//      TRow(120, desert * 2, sea, CapeOld(0, 2, hillyDesert), sea * 2, hillyDesert, oceanic, desert),
-//      TRow(118, desert * 4, sea * 3, oceanic * 2),
+  { override val rowDatas: RArr[RowBase] = RArr(
+    TRow(154, steppe * 2, descold * 8),
+    TRow(152, sea, descold * 3, steppe, descold, steppe, descold * 3),
+    TRow(150, hillySteppe, sea, descold * 2, steppe, descold * 3, hillySteppe * 3),
+    TRow(148, hillySavannah, mtainSavannah, sea, descold * 5, steppe, mtainSteppe, mtainTaiga),
+    TRow(146, hillySavannah),
     )
   }
 

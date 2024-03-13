@@ -40,7 +40,7 @@ object Terr220E30 extends Long220Terrs
     TRow(162, oceanic * 9),
     TRow(160, oceanic * 3, oceForest, oceanic * 5),
     TRow(158, hillyOce * 2, oceanic * 7),
-    TRow(156, oceanic * 2, mtainOld, oceanic * 6, desert),
+    TRow(156, oceanic * 2, mtainOld, oceanic * 6, deshot),
     VRow(155, SourceRt(1548, HVDn)),
     TRow(154, oceanic * 2, hillyOce * 2, continental, steppe * 3, steppe * 2),
 
@@ -66,26 +66,26 @@ object Terr220E30 extends Long220Terrs
     VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), BendInRt(1526, HVDn, 13, 6),
       ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13), MouthOld(1544, HVUp)),
 
-    TRow(142, sea * 3, mtainSubForest, sea, mtainSavannah * 2, hillySavannah, hillyTrop, desert * 3),
+    TRow(142, sea * 3, mtainSubForest, sea, mtainSavannah * 2, hillySavannah, hillyTrop, deshot * 3),
 
     VRow(141, BendIn(1524, HVUR, 13), BendOut(1526, HVDL), BendIn(1528, HVUR), BendIn(1530, HVDL, 13), SourceLt(1532, HVDR, 7), BendIn(1534, HVUp, 13),
       BendOut(1536, HVDn, 7), ThreeDown(1538, 13, 8, 0), Bend(1540, HVDn, 8, 7), ThreeDown(1542, 13, 0, 8), ThreeUp(1544, 9, 0, 13)),
 
-    TRow(140, sea * 3, mtainSubForest, sea * 2, hillySavannah, sea, hillySavannah, desert * 3),
+    TRow(140, sea * 3, mtainSubForest, sea * 2, hillySavannah, sea, hillySavannah, deshot * 3),
 
     VRow(139, MouthRt(1520, HVDL, 7), BendIn(1522, HVDn, 11), BendOut(1524, HVUp, 7), ThreeUp(1526, 13, 13, 0), ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13),
       BendIn(1538, HVUR, 8), BendIn(1540, HVUp, 8), BendIn(1542, HVUL, 8)),
 
-    TRow(138, sea * 2, sahel, desert, sea * 4, hillyOce, desert * 3),
+    TRow(138, sea * 2, sahel, deshot, sea * 4, hillyOce, deshot * 3),
 
     VRow(137, MouthRt(1514, HVDL), BendIn(1516, HVDn, 13), SourceLt(1518, HVUL, 7), Mouth(1528, HVDn, 4, 2), MouthRt(1532, HVUL, 7), BendOut(1534, HVUp, 7),
       SourceLt(1536, HVDL, 7)),
 
-    TRow(136, desert * 6, savannah, hillyDesert, desert * 5),
+    TRow(136, deshot * 6, savannah, hillyDesert, deshot * 5),
     VRow(135, SourceLt(1540, HVDn), SourceLt(1544, HVDn)),
-    TRow(134, desert * 6, sahel, desert, hillyDesert, hillyDesert, desert * 3),
+    TRow(134, deshot * 6, sahel, deshot, hillyDesert, hillyDesert, deshot * 3),
     VRow(133, BendIn(1540, HVUR, 13), MouthOld(1542, HVDR), MouthOld(1544, HVDn)),
-    TRow(132, desert * 6, sahel, desert, sea, desert * 4),
+    TRow(132, deshot * 6, sahel, deshot, sea, deshot * 4),
     )
   }
   help.run
