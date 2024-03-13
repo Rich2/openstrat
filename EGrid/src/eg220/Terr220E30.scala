@@ -14,17 +14,17 @@ object Terr220E30 extends Long220Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rowDatas: RArr[RowBase] = RArr(
-    VRow(183, BendIn(1528, HVDR, 12), BendIn(1530, HVDn, 13), MouthRt(1532, HVDR), MouthRt(1534, HVUL, 7), MouthLt(1536, HVDR)),
+    VRow(183, BendIn(1528, HVDR, 12), BendIn(1530, HVDn, 13), MouthRt(1532, HVDR), MouthRt(1534, HVUL, 7), SourceLt(1536, HVUL)),
     TRow(182, hillyTundra, hillyTundra, sea * 3),
     VRow(181, MouthRt(1528, HVDn), MouthRt(1540, HVUL, 7), MouthLt(1542, HVDR, 7)),
     TRow(180, hillyTundra, taiga, tundra, hillyTundra, sea),
     VRow(179, MouthLt(1544, HVUp, 7)),
     TRow(178, taiga * 4, tundra),
-    VRow(177, Mouth(1530, HVUp, 7, 1, SeaIceWinter), MouthRt(1540, HVUL), ThreeDown(1542, 3, 13, 13), BendOut(1544, HVUL, 7)),
+    VRow(177, Source(1530, HVDn, 7, 1, SeaIceWinter), SourceRt(1540, HVDR, 6, siceWin), ThreeDown(1542, 3, 13, 13, siceWin), BendOut(1544, HVUL, 7, siceWin)),
     TRow(176, taiga, taiga * 2, taiga, taiga, taiga),
-    VRow(175, BendIn(1528, HVDR, 13), Bend(1530, HVUL, 3, 7, SeaIceWinter, sea), BendOut(1542, HVUR, 7), MouthLt(1544, HVDR)),
+    VRow(175, BendIn(1528, HVDR, 13), Bend(1530, HVUL, 3, 7, SeaIceWinter, sea), SourceMax(1542, HVUp, siceWin)),
     TRow(174, taiga, taiga, taiga * 4),
-    VRow(173, Bend(1526, HVDR, 12, 5), BendIn(1528, HVUL), MouthOld(1540, HVUL, 3, Lake), BendAllOld(1542, HVDL, Lake)),
+    VRow(173, Bend(1526, HVDR, 12, 5), BendIn(1528, HVUL), MouthOld(1540, HVUL, 3, Lake), BendIn(1542, HVDL, 6, Lake)),
     TRow(172, taiga, taiga, taiga * 5),
     VRow(171, Bend(1526, HVUR, 7, 7), BendIn(1528, HVDL, 13), MouthOld(1536, HVDL, 3, Lake), MouthOld(1538, HVUR, 3, Lake), MouthOld(1542, HVDn, 3, Lake)),
     TRow(170, hillyLakesTaiga, taiga, taiga, taiga * 4),
