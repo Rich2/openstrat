@@ -18,6 +18,7 @@ object Terr220E60 extends Long220Terrs
     TRow(148, hillySavannah, mtainSavannah, sea, descold * 5, steppe, mtainSteppe, mtainTaiga),
     TRow(146, hillySavannah, sea, hillyDescold, descold * 3, steppe, hillySteppe, mtainSteppe * 2, mtainTundra),
     TRow(144, hillyDeshot, mtainSavannah, sea, hillySteppe, hillyDescold, descold * 2, steppe, hillySteppe, mtainSteppe, mtainTundra),
+    TRow(142, hillyDeshot * 2),
     )
   }
 

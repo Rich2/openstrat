@@ -39,6 +39,7 @@ object AppsPage extends HtmlPage
     HtmlLi.linkAndText(egrDir + "eg460app.html", "EGrid 460km", "460km hex scale world."),
     HtmlLi.linkAndText(egrDir + "eg320app.html", "EGrid 320km", "320km hex scale world."),
     HtmlLi.linkAndText(egrDir + "eg220europe.html", "EGrid Europe 220km", "220km hex scale Europe."),
+    HtmlLi.linkAndText(egrDir + "eg220europewide.html", "EGrid Europe wide 220km", "220km hex scale Europe wide."),
     HtmlLi.linkAndText(egrDir + "eg220namerica.html", "EGrid North America 220km", "220km hex scale North America."),
     HtmlLi.linkAndText(egrDir + "eg160europe.html", "EGrid Europe 160km", "160km hex scale Europe."),
     HtmlLi.linkAndText(egrDir + "eg120europe.html", "EGrid Europe 120km", "120km hex scale Europe."),

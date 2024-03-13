@@ -46,7 +46,7 @@ object AfricaSouth extends EArea1("AfricanSouth", -16.14 ll 24.36)
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object MiddleEast  extends EArea1("MiddleEast", 20.18 ll -0.65)
 { import middleEast._
-  override val a2Arr = RArr(Anatolia, Kurdistan, LakeVan, Armenia, Levant, Arabia, Persia, Iraq, LakeTuz)
+  override val a2Arr = RArr(Anatolia, Kurdistan, LakeVan, Armenia, Levant, Arabia, Persia, Caspian, Iraq, LakeTuz)
 }
 
 object AmericasFarNorth extends EArea1("Far North\nAmerica", 61 ll -109)

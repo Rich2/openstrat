@@ -84,7 +84,7 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Caspian Sea depends on nothing. */
-object Caspian extends EArea2("CaspianSea", 42.10 ll 50.64, Sea)
+object Caspian extends EArea2("CaspianSea", 42.10 ll 50.64, lake)
 { val north: LatLong = 47.05 ll 51.36
   val northEast: LatLong = 46.66 ll 53.03
   val persiaN: LatLong = 38.86 ll 53.99
