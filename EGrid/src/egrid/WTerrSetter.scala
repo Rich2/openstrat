@@ -204,12 +204,12 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   object BendAllOld
   {
-    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea, magnitude: Int = 3): BendAllOld = apply(c, dirn, terr, terr, magnitude)
+    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea): BendAllOld = apply(c, dirn, terr, terr)
 
-    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome, magnitude: Int): BendAllOld =
-    { ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
-      ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
-      new BendAllOld(c, dirn, leftTerr, rightTerr, magnitude)
+    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome): BendAllOld =
+    { //ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
+      //ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
+      new BendAllOld(c, dirn, leftTerr, rightTerr, 3)
     }
   }
 
