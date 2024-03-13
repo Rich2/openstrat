@@ -95,7 +95,6 @@ object Caspian extends EArea2("Caspian Sea", 42.10 ll 50.64, lake)
   val sumqayit: LatLong = 40.635 ll 49.553
   val armeniaCoast = LinePathLL(southWest, sangachal, baku, sumqayit)
 
-
   val p75: LatLong = 43.982 ll 47.862
   val p77: LatLong = 44.001 ll 47.372
   val west: LatLong = 44.53 ll 46.65
@@ -106,5 +105,5 @@ object Caspian extends EArea2("Caspian Sea", 42.10 ll 50.64, lake)
 
   val volgaCoast: LinePathLL = LinePathLL(west, p90, volodarsky, north)
 
-  override val polygonLL: PolygonLL = kazakCoast.init ++ persianCoast.init ++ armeniaCoast.init ++ russiaSouthCost.init |++| volgaCoast.init
+  override val polygonLL: PolygonLL = kazakCoast.init ++- persianCoast ++- armeniaCoast ++- russiaSouthCost |++-| volgaCoast
 }
