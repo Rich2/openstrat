@@ -1,23 +1,15 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
 object Kazak extends EArea2("Kazak", 47 ll 60, deshot)
-{
-  val bautino = degs(44.53, 50.24)
-  val kendirliBay = degs(42.73, 52.74)
-  val mangystau = degs(45.48, 52.78)
-  val volodarsky = degs(46.39, 49.03)
-
-  override val polygonLL: PolygonLL = PolygonLL(SiberiaWest.p75, SiberiaWest.p55, Kyrgyyzstan.issykKulWest, Kyrgyyzstan.north, Kyrgyyzstan.northWest, Kyrgyyzstan.p65,
-    middleEast.Persia.north, middleEast.Caspian.persiaN, kendirliBay, bautino, mangystau, middleEast.Caspian.northEast, middleEast.Caspian.north,
-    volodarsky, pEurope.Ukraine.caspianW, pEurope.Baltland.southEast)
+{ override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, Kyrgyyzstan.issykKulWest, Kyrgyyzstan.north, Kyrgyyzstan.northWest,
+    Kyrgyyzstan.p65) ++ middleEast.Caspian.kazakCoast.reverse |++| LinePathLL(pEurope.Baltland.southEast)
 }
 
 object Himalayas extends EArea2("Himalayas", degs(32, 75), mtainOld)
-{
-  override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
+{ override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
 }
 
 object Kyrgyyzstan extends EArea2("Kyrgyzstan", degs(47, 76), mtainOld)

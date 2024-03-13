@@ -71,11 +71,12 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, oceanic)
   val koydaEast: LatLong = 66.41 ll 43.24
   val mezenMouth: LatLong = 66.07 ll 44.10
   val southEast: LatLong = 52 ll 45
+  val voronezh = 51.539 ll 39.147
    
   override val polygonLL: PolygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, osvalki, ovsi, kolka, meinsils, mersrags, kesterclems, jurmala, saulkrasti, parnu, lao,
     virtsu, noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,
     pudozhgorskiy, chelmuzhiEast,
-    /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast,
+    /* North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast, voronezh,
     Polandia.cenEast)
 
   val konigsberg: LatLong = 54.71 ll 20.45

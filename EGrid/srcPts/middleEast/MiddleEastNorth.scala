@@ -87,11 +87,19 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
 object Caspian extends EArea2("CaspianSea", 42.10 ll 50.64, lake)
 { val north: LatLong = 47.05 ll 51.36
   val northEast: LatLong = 46.66 ll 53.03
+  val mangystau = degs(45.48, 52.78)
+  val bautino: LatLong = 44.53 ll 50.24
+  val kendirliBay = degs(42.73, 52.74)
   val persiaN: LatLong = 38.86 ll 53.99
-  val southEast: LatLong = degs(36.92, 54.03)
-  val southWest = 37.41 ll 50.03
 
-  override val polygonLL: PolygonLL = PolygonLL(north, northEast, persiaN, southEast, southWest)
+  val kazakCoast = LinePathLL(north, northEast, mangystau, bautino, kendirliBay, persiaN)
+
+  val southEast: LatLong = 36.92 ll 54.03
+  val southWest: LatLong = 37.41 ll 50.03
+  val west: LatLong = 44.53 ll 46.65
+  val volodarsky: LatLong = 46.39 ll 49.03
+
+  override val polygonLL: PolygonLL = kazakCoast |++| LinePathLL(southEast, southWest, west, volodarsky)
 }
 
 /** [[PolygonLL]] graphic for Iraq depends on [[Levant]]. */
