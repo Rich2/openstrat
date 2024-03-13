@@ -18,7 +18,7 @@ object Terr13E30 extends Long13Terrs
       VRow(115, BendOut(1536, HVUp, 7), BendIn(1538, HVDn, 13, sea, SeaIceWinter), BendOut(1540, HVUp, 6, siceWin)),
       TRow(114, tundra),
       TRow(112, taiga),
-      TRow(110, oceanic),
+      TRow(110, continental),
       VRow(109, MouthLt(1534, HVUp), MouthLt(1538, HVUp, 7, lake)),
       TRow(108, hillyOce),
       VRow(107, ThreeUp(1534, 6, 6, 0), MouthOld(1536, HVDR), MouthRt(1538, HVDn, 7, lake)),
