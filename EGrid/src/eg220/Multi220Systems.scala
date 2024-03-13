@@ -25,7 +25,7 @@ object Scen220NorthAmerica extends EScenLongMulti
 /** 220km terrain only scenario Europe. 4 Grid system for 30°W, 0°E, 30°E, 60°. */
 object Scen220Africa extends EScenLongMulti
 { override val title: String = "220km Europe 0E - 30E"
-  override implicit val gridSys: EGrid220LongMulti = EGrid220.multi(4, 11, 134, 154)
+  override implicit val gridSys: EGrid220LongMulti = EGrid220.multi(4, 11, 142, 154)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
