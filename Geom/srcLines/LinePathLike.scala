@@ -24,12 +24,15 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
    *  sometimes need to be excluded when appending. */
   def init: ThisT
 
-  /** This line path with the first and last vertex's removed. This can be useful for borders where the end points may show up in multiple line paths
-   * and therefore sometimes need to be excluded when appending. */
+  /** This line path with the first and last vertex's removed. This can be useful for borders where the end points may show up in multiple line paths* and
+   *  therefore sometimes need to be excluded when appending. */
   def inner: ThisT
 
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
+
+  /** Appends the init of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
+  @targetName("appendInit") def ++- (operand: ThisT): ThisT = ???
 
   /** Appends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
   @targetName("appendVert") def +%[AA >: VT](op: VT): ThisT
