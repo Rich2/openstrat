@@ -40,7 +40,7 @@ object Terr220W90 extends Long220Terrs
       TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, oceForest, hillyOceForest * 2),
       VRow(149, Mouth(9732, HVDn, 4, 7, lake), MouthOld(9738, HVDL, 3,lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake), MouthRt(9744, HVUR, 6, lake)),
       TRow(148, sahel * 2, savannah, hillySavannah * 3, savannah * 3, hillyOceForest, mtainOld),
-      VRow(147, BendAllOld(9752, HVDR)),
+      VRow(147, BendMin(9752, HVDR)),
       TRow(146, sahel, savannah * 2, hillySavannah * 2, savannah * 3, mtainOld * 2, hillyOce),
       VRow(145, MouthLt(9752, HVDn)),
       TRow(144, sahel * 2, savannah, hillySavannah, hillyOceForest * 2, savannah, hillyOceForest, mtainOld * 2, hillyOce),
