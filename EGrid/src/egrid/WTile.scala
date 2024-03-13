@@ -101,6 +101,7 @@ object WTiles
   val mtainIce: Land = Land(Mountains, IceCap, LandFree)
   val mtainTundra: Land = Land(Mountains, Tundra, LandFree)
   val mtainTaiga: Land = Land(Mountains, Boreal, Forest)
+  val mtainSteppe: Land = Land(Mountains, Steppe, LandFree)
   val mtainContForest: Land = Land(Mountains, Continental, Forest)
   val mtainOceForest: Land = Land(Mountains, Oceanic, Forest)
   val mtainSubForest: Land = Land(Mountains, Subtropical, Forest)
