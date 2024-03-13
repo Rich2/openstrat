@@ -182,6 +182,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   { override def magLt: Int = 3
     override def magRt: Int = 3
   }
+
+  /** [[HSep]] end point or source with a left and right magnitude of 7. */
+  case class SourceMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+  { override def magLt: Int = 7
+    override def magRt: Int = 7
+  }
+
   /** Will change name to Mouth. Holding for now to avoid confusing tooling. */
   case class Mouth(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 

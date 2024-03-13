@@ -16,13 +16,17 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
     res
   }
 
+  /** This line path with the first vertex removed. This can be useful for borders where the end points may show up in multiple line paths and therefore
+   *  sometimes need to be excluded when appending. */
+  def tail: ThisT
+
+  /** This line path with the last vertex removed. This can be useful for borders where the end points may show up in multiple line paths and therefore
+   *  sometimes need to be excluded when appending. */
+  def init: ThisT
+
   /** This line path with the first and last vertex's removed. This can be useful for borders where the end points may show up in multiple line paths
    * and therefore sometimes need to be excluded when appending. */
   def inner: ThisT
-
-  /** This line path with the last vertex's removed. This can be useful for borders where the end points may show up in multiple line paths and
-   * therefore sometimes need to be excluded when appending. */
-  def init: ThisT
 
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
@@ -57,6 +61,19 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Double]. */
   def polygonFromArray(array: Array[Double]): PolygonT
+
+  override def tail: ThisT =
+  { val newLen = (numVerts - 1).max0
+    val newArrayLen = newLen * elemProdSize
+    val newArray = new Array[Double](newArrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    while(i < newLen)
+    { res.setElemUnsafe(i, ssIndex(i + 1))
+      i += 1
+    }
+    res
+  }
 
   override def init: ThisT =
   { val newLen = (numVerts - 1).max0
@@ -148,6 +165,19 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
 
   /** Constructs a [[PolygonLike]] for this vertex type from an [[Array]][Int]. */
   def polygonFromArray(array: Array[Int]): PolygonT
+
+  override def tail: ThisT =
+  { val newLen = (numVerts - 1).max0
+    val newArrayLen = newLen * elemProdSize
+    val newArray: Array[Int] = new Array[Int](newArrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    while(i < newLen)
+    { res.setElemUnsafe(i, ssIndex(i + 1))
+      i += 1
+    }
+    res
+  }
 
   override def init: ThisT =
   { val newLen = (numVerts - 1).max0

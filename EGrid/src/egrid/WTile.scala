@@ -69,6 +69,9 @@ object WTiles
   val hillyTaiga: Land = Land(Hilly, Boreal, Forest)
 
   /** [[Hilly]] [[Continental]] [[CivMix]] */
+  val hillySteppe: Land = Land(Hilly, Steppe, CivMix)
+
+  /** [[Hilly]] [[Continental]] [[CivMix]] */
   val hillyCont: Land = Land(Hilly, Continental, CivMix)
 
   /** [[Hilly]] [[Continental]] [[Forest]] */

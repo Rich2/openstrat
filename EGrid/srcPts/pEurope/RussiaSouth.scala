@@ -32,15 +32,18 @@ object Ukraine extends EArea2("Ukraine", 49 ll 34, oceanic)
 object AzovSea extends EArea2("AzovSea", 46.13 ll 36.80, sea)
 { val northEast: LatLong = 47.28 ll 39.20
   val zaymoObryv: LatLong = 47.02 ll 39.29
-  val azovSE: LatLong = 45.35 ll 37.46
   val dolzhanskaya: LatLong = 46.67 ll 37.75
+  val pereprava: LatLong = 46.266 ll 38.284
+  val azovSE: LatLong = 45.35 ll 37.46
   val llich: LatLong = 45.41 ll 36.76
   val straitsEast: LatLong = 45.44 ll 36.79
   val straitsWest: LatLong = 45.44 ll 36.60
   val kamyanske: LatLong = 45.28 ll 35.53
   val henichesk: LatLong = 46.17 ll 34.82
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, zaymoObryv, dolzhanskaya, azovSE, llich, straitsEast, straitsWest, kamyanske, henichesk)
+  val eastCoast: LinePathLL = LinePathLL(northEast, zaymoObryv, dolzhanskaya, pereprava, azovSE, llich, straitsEast)
+
+  override val polygonLL: PolygonLL = eastCoast |++| LinePathLL(straitsWest, kamyanske, henichesk)
 }
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */
@@ -56,6 +59,6 @@ object RussiaSouth extends EArea2("RussiaSouth", 45.00 ll 42.57, oceanic)
   val p75: LatLong = 45.11 ll 36.73
   val p77: LatLong = 45.20 ll 36.60
 
-  override val polygonLL: PolygonLL = PolygonLL(AzovSea.northEast, Ukraine.caspianW, p10, sumqayit, blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72, p75, p77,
-    AzovSea.straitsEast, AzovSea.llich, AzovSea.azovSE, AzovSea.dolzhanskaya, AzovSea.zaymoObryv)
+  override val polygonLL: PolygonLL = LinePathLL(AzovSea.northEast, Ukraine.caspianW, p10, sumqayit, blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72, p75,
+    p77) |++<| AzovSea.eastCoast.tail
 }
