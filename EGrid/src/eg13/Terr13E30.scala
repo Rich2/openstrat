@@ -19,9 +19,9 @@ object Terr13E30 extends Long13Terrs
       TRow(114, tundra),
       TRow(112, taiga),
       TRow(110, continental),
-      VRow(109, MouthLt(1534, HVUp), MouthLt(1538, HVUp, 7, lake)),
-      TRow(108, hillyOce),
-      VRow(107, ThreeUp(1534, 6, 6, 0), MouthOld(1536, HVDR), MouthRt(1538, HVDn, 7, lake)),
+      VRow(109, SourceLt(1534, HVDn), SourceLt(1538, HVDn, 7, lake)),
+      TRow(108, hillyCont),
+      VRow(107, ThreeUp(1534, 6, 6, 0), Source(1536, HVUL, 7, 3), SourceRt(1538, HVUp, 7, lake)),
       TRow(106, sahel, sahel),
       VRow(105, MouthLt(1536, HVUL), Bend(1538, HVDL, 2, 4), MouthLt(1540, HVUL), BendIn(1542, HVUp)),
       TRow(104, deshot * 2),
@@ -47,8 +47,9 @@ object Terr13E30 extends Long13Terrs
     str(112, "Baltic lands")
     str(110, "Rus")
     str(108, "Turkey")
-    str(106, "Libya")
+    str(106, "Libya", "Middle East")
     str(104, "Sudan", "Arabia")
+    str(102, "Central Africa")
   }
 
 }

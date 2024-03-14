@@ -21,7 +21,7 @@ object Terr13E0 extends Long13Terrs
       TRow(112, hillyTaiga),
       VRow(111, ThreeUp(510, 5, 12, 12), BendIn(512, HVDL, 12)),
       TRow(110, oceanic),
-      VRow(109, ThreeDown(510, 12, 6, 0), MouthLt(514, HVUp)),
+      VRow(109, ThreeDown(510, 12, 6, 0), SourceLt(514, HVDn)),
       TRow(108, hillyOce),
       VRow(107, BendIn(508, HVDR, 8), ThreeUp(510, 6, 10, 0), BendIn(512, HVUp, 10), BendIn(514, HVUL)),
       TRow(106, savannah, sahel),
@@ -48,5 +48,7 @@ object Terr13E0 extends Long13Terrs
     str(110, "Europe Middle Western")
     str(108, "Europe south west")
     str(106, "Morocco", "Algeria")
+    str(104, "Mauritania", "Songhai")
+    str(102,"Côte d'Ivoire", "Nigeria")
   }
 }
