@@ -11,28 +11,27 @@ object Terr13E60 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rowDatas: RArr[RowBase] = RArr(
-      VRow(115, BendOut(2560, HVUp, 6, SeaIceWinter), SourceLt(2562, HVDL, 7, SeaIceWinter)),
-      TRow(114, tundra),
-      TRow(112, taiga),
-      TRow(110, sahel),
-      VRow(109, SourceLt(2558, HVDn, 7, lake)),
-      TRow(108, sahel),
-      VRow(107, SourceRt(2558, HVUp, 7, lake)),
-      TRow(106, sahel, hillySahel),
-      VRow(105, MouthLt(2556, HVUL), BendIn(2558, HVUp), BendIn(2560, HVDn), BendIn(2562, HVDL, 13)),
-      TRow(104, hillyDeshot, savannah),
-      VRow(103, BendOut(2556, HVUp), BendIn(2558, HVDn, 12), ThreeDown(2560, 13, 0, 13), ThreeUp(2562, 13, 0, 13), SourceLt(2564, HVUL)),
-      TRow(102, deshot),
-      VRow(101, BendOut(2558, HVDR), BendIn(2560, HVUL, 13), MouthLt(2564, HVUL), BendIn(2566, HVUp)),
-      VRow(99, BendOut(2556, HVDR, 7), BendIn(2558, HVUL, 13)),
-      VRow(97, ThreeUp(2556, 0, 6, 6), BendIn(2558, HVDL)),
-      TRow(96, sea * 2),
-      VRow(95, BendIn(2556, HVUp), BendIn(2558, HVUL)),
-      TRow(88, SeaIceWinter),
-      VRow(87, SourceRt(2562, HVDR, 7, siceWin), BendIn(2564, HVUp, 7, siceWin)),
-      TRow(86, ice)
+  { override val rowDatas: RArr[RowBase] = RArr(
+    VRow(115, BendOut(2560, HVUp, 6, SeaIceWinter), SourceLt(2562, HVDL, 7, SeaIceWinter)),
+    TRow(114, tundra),
+    TRow(112, taiga),
+    TRow(110, sahel),
+    VRow(109, SourceLt(2558, HVDn, 7, lake)),
+    TRow(108, sahel),
+    VRow(107, SourceRt(2558, HVUp, 7, lake)),
+    TRow(106, sahel, hillySahel),
+    VRow(105, SourceLt(2556, HVDR), BendIn(2558, HVUp), BendIn(2560, HVDn), BendIn(2562, HVDL, 13)),
+    TRow(104, hillyDeshot, savannah),
+    VRow(103, BendOut(2556, HVUp), BendIn(2558, HVDn, 12), ThreeDown(2560, 13, 0, 13), ThreeUp(2562, 13, 0, 13), SourceLt(2564, HVUL)),
+    TRow(102, deshot),
+    VRow(101, BendOut(2558, HVDR), BendIn(2560, HVUL, 13), SourceLt(2564, HVDR), BendIn(2566, HVUp)),
+    VRow(99, BendOut(2556, HVDR, 7), BendIn(2558, HVUL, 13)),
+    VRow(97, ThreeUp(2556, 0, 6, 6), BendIn(2558, HVDL)),
+    TRow(96, sea * 2),
+    VRow(95, BendIn(2556, HVUp), BendIn(2558, HVUL)),
+    TRow(88, SeaIceWinter),
+    VRow(87, SourceRt(2562, HVDR, 7, siceWin), BendIn(2564, HVUp, 7, siceWin)),
+    TRow(86, ice)
     )
   }
   help.run
@@ -41,7 +40,7 @@ object Terr13E60 extends Long13Terrs
     str(110, "Kazakstan")
     str(108, "Uzbekistan")
     str(106, "Persia", "Mughalstan")
-    str(104, "Oman")
+    str(104, "Oman", "India west")
     str(102, "Africa Horn")
   }
 }
