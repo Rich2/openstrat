@@ -11,29 +11,32 @@ object Terr320W60 extends Long320Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rowDatas: RArr[RowBase] = RArr(
-      TRow(166, ice),
-      TRow(164, CapeOld(5, 1, ice, SeaIceWinter)),
-      TRow(162, CapeOld(4, 1, ice, SeaIceWinter), ice),
-      TRow(160, SeaIceWinter, ice),
-      TRow(158, sea, ice * 2),
-      TRow(156, tundra, sea, ice),
-      TRow(154, tundra * 2, sea, ice),
-      TRow(152, tundra, sea * 2, ice),
-      TRow(150, sea * 3, CapeOld(4, 2, tundra)),
-      TRow(148, taiga, CapeOld(5, 3, mtainOld), sea * 2, CapeOld(3, 2, tundra)),
-      VRow(147, MouthOld(10746, HVDn)),
-      TRow(146, taiga, hillyTaiga, sea * 3),
-      TRow(144, taiga * 3, sea * 2),
-      TRow(142, taiga * 3, CapeOld(1, 3, taiga), sea * 2),
-      TRow(140, taiga, CapeOld(2, 3, taiga), sea, CapeOld(1, 1, taiga), sea * 2),
-      VRow(139, MouthOld(10744, HVDL), BendAllOld(10746, HVDn)),
-      TRow(138, taiga * 2, sea, CapeOld(3, 3, taiga), CapeOld(1, 3, taiga), sea * 2),
-      TRow(136, hillyTaiga, taiga, taiga, CapeOld(0, 4, taiga), sea * 3),
-      VRow(135, MouthOld(10738, HVUR, 3, Lake)),
-      TRow(134, CapeOld(2, 2, hillyOceForest), sea * 6),
-      TRow(132, sea * 7),
+  { override val rowDatas: RArr[RowBase] = RArr(
+    TRow(166, ice),
+    TRow(164, CapeOld(5, 1, ice, SeaIceWinter)),
+    TRow(162, CapeOld(4, 1, ice, SeaIceWinter), ice),
+    TRow(160, SeaIceWinter, ice),
+    TRow(158, sea, ice * 2),
+    TRow(156, tundra, sea, ice),
+    TRow(154, tundra * 2, sea, ice),
+    TRow(152, tundra, sea * 2, ice),
+    TRow(150, sea * 3, CapeOld(4, 2, tundra)),
+    TRow(148, taiga, CapeOld(5, 3, mtainOld), sea * 2, CapeOld(3, 2, tundra)),
+    VRow(147, MouthOld(10746, HVDn)),
+    TRow(146, taiga, hillyTaiga, sea * 3),
+    TRow(144, taiga * 3, sea * 2),
+    TRow(142, taiga * 3, taiga, sea * 2),
+    VRow(141, BendMin(10754, HVDR), Source(10756, HVDL, 1, 5), SourceRt(10758, HVDn, 7)),
+    TRow(140, taiga, mtainLakesTaiga, hillyLakesTaiga, taiga, sea * 2),
+
+    VRow(139, SourceLt(10746, HVDR), BendIn(10748, HVUp, 13), BendMax(10750, HVDn), ThreeDown(10752, 13, 2, 13), BendIn(10754, HVUL), BendIn(10758, HVUR),
+      BendIn(10760, HVDL, 10)),
+
+    TRow(138, taiga * 2, hillyContForest, taiga, taiga, sea * 2),
+    TRow(136, hillyTaiga, taiga, taiga, taiga, sea * 3),
+    VRow(135, MouthOld(10738, HVUR, 3, Lake)),
+    TRow(134, hillyContForest),
+    TRow(132, hillyCont),
     )
   }
   help.run
