@@ -18,35 +18,36 @@ object Terr13E120 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rowDatas: RArr[RowBase] = RArr(
-      VRow(115, MouthRt(4610, HVUL, 7, SeaIceWinter), BendOut(4612, HVUp, 7, SeaIceWinter)),
-      TRow(114, hillyTundra),
-      TRow(112, taiga),
-      TRow(110, hillyTaiga),
-      VRow(109, BendIn(4610, HVDR, 8), ThreeUp(4612, 13, 8, 0)),
-      TRow(108, hillyOceForest),
-      VRow(107, BendIn(4608, HVDR, 13), BendIn(4610, HVUL)),
-      TRow(106, hillyOce, hillySubForest),
-      VRow(105, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), BendOut(4612, HVDn, 7)),
-      TRow(104, hillyJungle, sea),
-      VRow(103, SourceLt(4606, HVDR, 7), ThreeDown(4608, 13, 6, 0), ThreeUp(4610, 0, 6, 13), BendIn(4612, HVDL, 13)),
-      TRow(102, sea, hillyJungle),
-      VRow(101, BendIn(4604, HVDn), BendIn(4606, HVDL, 7), Mouth(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
-      TRow(100, hillyJungle, hillyJungle),
-      VRow(99, ThreeDown(4604, 7, 12, 0), ThreeUp(4606, 1, 12, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2), MouthOld(4614, HVDn)),
-      TRow(98, hillyJungle * 2),
+  { override val rowDatas: RArr[RowBase] = RArr(
+    VRow(115, MouthRt(4610, HVUL, 7, SeaIceWinter), BendOut(4612, HVUp, 7, SeaIceWinter)),
+    TRow(114, hillyTundra),
+    TRow(112, taiga),
+    TRow(110, hillyTaiga),
+    VRow(109, BendIn(4610, HVDR, 8), ThreeUp(4612, 13, 8, 0)),
+    TRow(108, hillyOceForest),
+    VRow(107, BendIn(4608, HVDR, 13), BendIn(4610, HVUL)),
+    TRow(106, hillyOce, hillySubForest),
+    VRow(105, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), BendOut(4612, HVDn, 7)),
+    TRow(104, hillyJungle, sea),
+    VRow(103, SourceLt(4606, HVDR, 7), ThreeDown(4608, 13, 6, 0), ThreeUp(4610, 0, 6, 13), BendIn(4612, HVDL, 13)),
+    TRow(102, sea, hillyJungle),
+    VRow(101, BendIn(4604, HVDn), BendIn(4606, HVDL, 7), Mouth(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
+    TRow(100, hillyJungle, hillyJungle),
 
-      VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 12, 7, 0), ThreeUp(4608, 12, 90, 11), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
-        BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
+    VRow(99, ThreeDown(4604, 7, 12, 0), ThreeUp(4606, 1, 12, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2)),
 
-      TRow(96, SepB(), deshot, sahel),
-      VRow(95, BendIn(4604, HVDR, 13), BendOut(4606, HVUL)),
-      TRow(94, savannah, deshot),
-      VRow(93, BendIn(4604, HVUR, 13), MouthRt(4606, HVDR, 7)),
-      VRow(91, MouthLt(4610, HVUL, 7), BendIn(4612, HVUp, 13)),
-      VRow(87, BendOut(4606, HVDn, 7, siceWin), BendIn(4608, HVUp, 13, siceWin), Bend(4610, HVDn, 6, 7, siceWin), BendIn(4612, HVUp, 13, siceWin)),
-      TRow(86, ice)
+    TRow(98, hillyJungle * 2),
+
+    VRow(97, BendIn(4604, HVUR, 13), ThreeDown(4606, 12, 7, 0), ThreeUp(4608, 12, 90, 11), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13),
+      BendIn(4612, HVUp, 13), Bend(4614, HVDn, 13, 7)),
+
+    TRow(96, SepB(), deshot, sahel),
+    VRow(95, BendIn(4604, HVDR, 13), BendOut(4606, HVUL)),
+    TRow(94, savannah, deshot),
+    VRow(93, BendIn(4604, HVUR, 13), MouthRt(4606, HVDR, 7)),
+    VRow(91, MouthLt(4610, HVUL, 7), BendIn(4612, HVUp, 13)),
+    VRow(87, BendOut(4606, HVDn, 7, siceWin), BendIn(4608, HVUp, 13, siceWin), Bend(4610, HVDn, 6, 7, siceWin), BendIn(4612, HVUp, 13, siceWin)),
+    TRow(86, ice)
     )
   }
   help.run

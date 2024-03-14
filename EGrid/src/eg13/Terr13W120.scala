@@ -11,22 +11,21 @@ object Terr13W120 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rowDatas: RArr[RowBase] = RArr(
-      TRow(114, tundra),
-      TRow(112, mtainTaiga),
-      TRow(110, hillyTaiga),
-      VRow(109, MouthLt(8702, HVUp, 7)),
-      TRow(108, hillyOceForest),
-      VRow(107, MouthRt(8702, HVDn, 7)),
-      TRow(106, sea, hillyDeshot),
-      VRow(105, MouthLt(8704, HVUL, 7), BendOut(8706, HVDL)),
-      TRow(104, sea, hillySahel),
-      VRow(103, BendIn(8706, HVUR, 13), MouthRt(8708, HVDR, 7)),
-      VRow(91, BendIn(8708, HVDR, 13)),
-      VRow(89, BendIn(8708, HVUR, 13)),
-      VRow(87, MouthRt(8704, HVDL, 7, siceWin), BendIn(8706, HVDn, 13, SeaIceWinter), BendOut(8708, HVUp, 7, SeaIceWinter)),
-      TRow(86, ice)
+  { override val rowDatas: RArr[RowBase] = RArr(
+    TRow(114, tundra),
+    TRow(112, mtainTaiga),
+    TRow(110, hillyTaiga),
+    VRow(109, MouthLt(8702, HVUp, 7)),
+    TRow(108, hillyOceForest),
+    VRow(107, MouthRt(8702, HVDn, 7)),
+    TRow(106, sea, hillyDeshot),
+    VRow(105, MouthLt(8704, HVUL, 7), BendOut(8706, HVDL)),
+    TRow(104, sea, hillySahel),
+    VRow(103, BendIn(8706, HVUR, 13), MouthRt(8708, HVDR, 7)),
+    VRow(91, BendIn(8708, HVDR, 13)),
+    VRow(89, BendIn(8708, HVUR, 13)),
+    VRow(87, MouthRt(8704, HVDL, 7, siceWin), BendIn(8706, HVDn, 13, SeaIceWinter), BendOut(8708, HVUp, 7, SeaIceWinter)),
+    TRow(86, ice)
     )
   }
   help.run
