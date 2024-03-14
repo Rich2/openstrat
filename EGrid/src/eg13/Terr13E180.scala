@@ -13,17 +13,16 @@ object Terr13E180 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rowDatas: RArr[RowBase] = RArr(
-      VRow(115, BendIn(6656, HVDR, 13, siceWin), BendIn(6658, HVDn, 13, siceWin)),
-      TRow(114, hillyTundra),
-      VRow(113, BendIn(6656, HVUR, 13, siceWin), BendIn(6658, HVDL, 6, siceWin)),
-      TRow(112, hillyTundra),
-      VRow(111, BendOut(6656, HVDR, 7, siceWin), BendIn(6658, HVUL, 13, siceWin)),
-      VRow(109, ThreeDown(6654, 13, 0, 8), BendIn(6656, HVUL, 13, siceWin, sea)),
-      TRow(92, Isle7(hillyOce)),
-      VRow(87, BendMax(6654, HVDn, siceWin), BendMax(6656, HVUp, siceWin)),
-      TRow(86, siceWin)
+  { override val rowDatas: RArr[RowBase] = RArr(
+    VRow(115, BendIn(6656, HVDR, 13, siceWin), BendIn(6658, HVDn, 13, siceWin)),
+    TRow(114, hillyTundra),
+    VRow(113, BendIn(6656, HVUR, 13, siceWin), BendIn(6658, HVDL, 6, siceWin)),
+    TRow(112, hillyTundra),
+    VRow(111, BendOut(6656, HVDR, 7, siceWin), BendIn(6658, HVUL, 13, siceWin)),
+    VRow(109, ThreeDown(6654, 13, 0, 8), BendIn(6656, HVUL, 13, siceWin, sea)),
+    TRow(92, Isle7(hillyOce)),
+    VRow(87, BendMax(6654, HVDn, siceWin), BendMax(6656, HVUp, siceWin)),
+    TRow(86, siceWin)
     )
   }
   help.run

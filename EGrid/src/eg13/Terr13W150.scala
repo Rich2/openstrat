@@ -2,8 +2,7 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 75 East to 105 East. 1300km per hex tile.
- * Isle3 35732.005km² => 70034.730km².
+/** 1300km [[WTile]] terrain for 75 East to 105 East.
  * Below 35732.005km². Hawaii 28311km². */
 object Terr13W150 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.w150(86)

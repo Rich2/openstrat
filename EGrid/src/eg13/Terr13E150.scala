@@ -2,9 +2,8 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile scale 1300km or 1.3Megametre. A hex tile area of 1.463582932 million km².
- * A maximum Isle area of 966193.420km²
- * Isle8 321588.046km² => 413061.979km². Japan combined 377973 km². */
+/** 1300Km [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile area of 1.463582932 million km².
+ * [[Isle8]] 321588.046km² => 413061.979km². Japan combined 377973 km². */
 object Terr13E150 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e150(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
