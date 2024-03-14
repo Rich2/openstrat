@@ -30,10 +30,10 @@ object Terr13E120 extends Long13Terrs
       TRow(106, hillyOce, hillySubForest),
       VRow(105, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), BendOut(4612, HVDn, 7)),
       TRow(104, hillyJungle, sea),
-      VRow(103, MouthLt(4606, HVUL, 7), ThreeDown(4608, 13, 6, 0), ThreeUp(4610, 0, 6, 13), BendIn(4612, HVDL, 13)),
+      VRow(103, SourceLt(4606, HVDR, 7), ThreeDown(4608, 13, 6, 0), ThreeUp(4610, 0, 6, 13), BendIn(4612, HVDL, 13)),
       TRow(102, sea, hillyJungle),
       VRow(101, BendIn(4604, HVDn), BendIn(4606, HVDL, 7), Mouth(4608, HVUL, 7, 3), ThreeDown(4610, 7, 7, 7), ThreeUp(4612, 0, 7, 7), BendIn(4614, HVDL, 13)),
-      TRow(100, SepB(), hillyJungle, SepB(), hillyJungle),
+      TRow(100, hillyJungle, hillyJungle),
       VRow(99, ThreeDown(4604, 7, 12, 0), ThreeUp(4606, 1, 12, 6), ThreeDown(4608, 0, 12, 11), ThreeUp(4610, 7, 12, 7), Bend(4612, HVDL, 12, 2), MouthOld(4614, HVDn)),
       TRow(98, hillyJungle * 2),
 
@@ -55,7 +55,7 @@ object Terr13E120 extends Long13Terrs
     str(106, "", "Japan south")
     str(104, "", "Guandong")
     str(102, "", "Philippines")
-    str(100, "Borneo")
+    str(100, "Borneo", "New Guinee east")
     str(98, "Java", "Lesser Sunda")
   }
 }

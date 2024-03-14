@@ -22,11 +22,11 @@ object Terr13E90 extends Long13Terrs
       TRow(104, jungle, hillyJungle),
       VRow(103, SourceLt(3580, HVUL), SourceMax(3584, HVDn), SourceLt(3590, HVDR, 7)),
       TRow(102, hillyJungle, jungle),
-      VRow(101, MouthLt(3580, HVUL), BendIn(3582, HVUp), ThreeUp(3584, 13, 0, 13), BendIn(3586, HVDR, 7), BendIn(3588, HVDn, 7), BendIn(3590, HVDL, 7)),
+      VRow(101, SourceLt(3580, HVDR), BendIn(3582, HVUp), ThreeUp(3584, 13, 0, 13), BendIn(3586, HVDR, 7), BendIn(3588, HVDn, 7), BendIn(3590, HVDL, 7)),
       TRow(100, sea, jungle),
       VRow(99, BendIn(3586, HVUR, 7), ThreeDown(3588, 7, 11, 0), ThreeUp(3590, 1, 7, 6)),
       VRow(95, BendOut(3590, HVUL)),
-      VRow(87, MouthRt(3582, HVUL, 7, siceWin), BendIn(3584, HVUp, 7, siceWin), BendOut(3586, HVDn, 7, siceWin), BendIn(3588, HVUp, 13, siceWin)),
+      VRow(87, SourceRt(3582, HVDR, 7, siceWin), BendIn(3584, HVUp, 7, siceWin), BendOut(3586, HVDn, 7, siceWin), BendIn(3588, HVUp, 13, siceWin)),
       TRow(86, ice)
     )
   }

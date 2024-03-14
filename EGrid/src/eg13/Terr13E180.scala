@@ -2,8 +2,8 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 175° east to 175° west, centred on 180° east. Hex tile scale 1300km or 1.3 Megametre. A hex tile area of 1.463582932 million
- *  km² A minimum Island area of 243930.488km². New Zealand has a land area of 268021km2 so qualifies as an islamd. */
+/** 1300km [[WTile]] terrain for 175° east to 175° west, centred on 180° east. Hex tile area 1.463582932 million km²,
+ *  [[Isle7]] 241548.355km² => 321588.046km². New Zealand has a land area of 268021km2*/
 object Terr13E180 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e180(86)
 
@@ -21,7 +21,7 @@ object Terr13E180 extends Long13Terrs
       TRow(112, hillyTundra),
       VRow(111, BendOut(6656, HVDR, 7, siceWin), BendIn(6658, HVUL, 13, siceWin)),
       VRow(109, ThreeDown(6654, 13, 0, 8), BendIn(6656, HVUL, 13, siceWin, sea)),
-      TRow(92, Isle10(hillyOce)),
+      TRow(92, Isle7(hillyOce)),
       VRow(87, BendMax(6654, HVDn, siceWin), BendMax(6656, HVUp, siceWin)),
       TRow(86, siceWin)
     )

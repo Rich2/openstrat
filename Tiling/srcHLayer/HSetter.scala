@@ -83,7 +83,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 7/16 of the radius of the hex. Only use these
    *  classes for hexs where there is no offset for any of the adjacent hex's [[HCorner]]s on shared [[HVert]]s. */
   trait Isle7Base extends IsleNSmallBase
-  { override def magnitude: Int = 7
+  { override def magnitude: Int = 9
   }
 
   /** Sets the [[HCen]] terrain, the [[HSep]] terrains and the [[HCorner]]s for an Island, with a radius of 6/16 of the radius of the hex. Only use* these
