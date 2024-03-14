@@ -2,32 +2,6 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for Alaska. Depends on Nothing. */
-object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
-{  val northEast = 69.45 ll -141
-  val yakut10: LatLong = 59.93 ll -141.03
-  val susitnaMouth = 61.25 ll -150.61
-  val p20 = 57.18 ll -156.35
-  val nikolski = 52.88 ll -168.94
-  val portHeiden = 57.63 ll -157.69
-  val kvichakMouth = 58.87 ll -157.05
-  val capeNewenham = 58.57 ll -161.73
-  val p30: LatLong = 60.50 ll -164.55
-  val p33: LatLong = 61.60 ll -166.18
-  val koyuk: LatLong = 64.93 ll -161.19
-  val p40: LatLong = 64.65 ll -166.39
-  val capeDouglas: LatLong = 65.0 ll -166.70
-  val teller: LatLong = 65.26 ll -166.36
-  val imurukMouth: LatLong = 65.23 ll -166.04
-  val brevig: LatLong = 65.34 ll -166.50
-  val west: LatLong = 65.66 ll -168.11
-  val northWest: LatLong = 70.11 ll -161.87
-  val p10: LatLong = 70.11 ll -143.20
-
-  override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, susitnaMouth, p20, nikolski, portHeiden, kvichakMouth, capeNewenham, p30, p33,
-    koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
-}
-
 /** [[polygonLL]] graphical representation for nunavut territory Canada. Depends on Nothing. */
 object Nunavut extends EArea2("Nunavut", 67.00 ll -96.58, tundra)
 { val northWest = 68.27 ll -108.77
