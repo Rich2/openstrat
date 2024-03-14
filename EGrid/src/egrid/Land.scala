@@ -22,7 +22,8 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   override def isLand: Boolean = true
 
   override def colour: Colour = elev match
-  { case Mountains => Mountains.colour
+  { case Mountains if climate == IceCap => Mountains.colour.average(White)
+    case Mountains => Mountains.colour
     case MountLakes => MountLakes.colour
     case Hilly if climate == Boreal => Boreal.colour.average(Hilly.colour)
     case Hilly if landUse == Forest => Chocolate.average(Forest.colour)
