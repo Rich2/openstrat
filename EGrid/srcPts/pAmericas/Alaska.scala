@@ -11,9 +11,10 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, hillyTaiga)
   val capeNewenham: LatLong = 58.57 ll -161.73
   val p27: LatLong = 58.649 ll -162.169
   val nunivak = 60.211 ll -167.348
-  //val p30: LatLong = 60.50 ll -164.55
   val p33: LatLong = 61.60 ll -166.18
   val p37: LatLong = 63.239 ll -164.349
+  val stuart = 63.633 ll -162.425
+  val p38 = 63.502 ll -161.141
   val koyuk: LatLong = 64.93 ll -161.19
   val p40: LatLong = 64.65 ll -166.39
   val capeDouglas: LatLong = 65.0 ll -166.70
@@ -32,7 +33,7 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, hillyTaiga)
   val p10: LatLong = 70.11 ll -143.20
 
   override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, susitnaMouth, AleutPenisula.northEast, AleutPenisula.kvichakMouth, capeNewenham, p27,
-    nunivak, p33, p37, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, p60, capeEspenberg, p63, kiwalik, p67, pointHope, p69, northWest, p10)
+    nunivak, p33, p37, stuart, p38, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, p60, capeEspenberg, p63, kiwalik, p67, pointHope, p69, northWest, p10)
 }
 
 /** [[polygonLL]] graphical representation for Alaska / Aleutian Peninsula. Depends on Nothing. */

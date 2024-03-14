@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -74,56 +74,72 @@ object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
   )
 }
 
-/** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
+/** [[polygonLL]] graphical representation of far east Asia. Depends on [[Kamchatka]]. */
 object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, hillyTundra)
-{ val farAsiaW = 141.6.east
+{ val farAsiaW: Longitude = 141.6.east
 
   val ustYansky: LatLong = 72.81.north * farAsiaW
-  val sakha43 = 72.11 ll 149.64
-  val sundrunMouth = 70.81 ll 152.56
-  val sakha45 = 71.07 ll 157.19
-  val sakha48 = 70.26 ll 160.11
-  val sakha50 = 69.82 ll 159.7
-  val chukotka10 = 69.47 ll 166.93
-  val chukotka20 = 70.03 ll 168.49
-  val chukatka21 = 69.87 ll 169.42
-  val chukatka24 = 69.21 ll 168.31
-  val chukatka27 = 69.04 ll 171.05
-  val chukatka29 = 70.09 ll 170.61
-  val chukotka30 = 69.86 ll 176.12
-  val iultinsky10 = 67.38 ll -174.97
-  val eSiberia = 66.07 ll -170.24
+  val sakha43: LatLong = 72.11 ll 149.64
+  val sundrunMouth: LatLong = 70.81 ll 152.56
+  val sakha45: LatLong = 71.07 ll 157.19
+  val sakha48: LatLong = 70.26 ll 160.11
+  val sakha50: LatLong = 69.82 ll 159.7
+  val chukotka10: LatLong = 69.47 ll 166.93
+  val chukotka20: LatLong = 70.03 ll 168.49
+  val chukatka21: LatLong = 69.87 ll 169.42
+  val chukatka24: LatLong = 69.21 ll 168.31
+  val chukatka27: LatLong = 69.04 ll 171.05
+  val chukatka29: LatLong = 70.09 ll 170.61
+  val chukotka30: LatLong = 69.86 ll 176.12
+  val iultinsky10: LatLong = 67.38 ll -174.97
+  val east: LatLong = 66.123 ll -169.683
 
-  val seProvidensky = 64.29 ll -173.08
-  val iultinsky20 = 66.18 ll -179.61
-  val anadyrMouth = 64.74 ll 177.58
-  val anadyrsky10 = 62.29 ll 179.11
-  val anadyrsky20 = 62.44 ll 176.63
-  val kamchatka10 = 59.96 ll 170.31
-  val kamchatka20 = 60.05 ll 163.82
-  val nachikiMouth = 57.84 ll 162.14
-  val kamchatka30 = 57.79 ll 163.25
-  val sKamchatka = 51.20 ll 156.89
-  val wKamchatka = 55.97 ll 155.67
-  val kamchatka40 = 60.42 ll 161.95
-  val kamchatka50 = 60.91 ll 163.78
+  val p40: LatLong = 65.615 ll -170.581
+  val p43: LatLong = 64.761 ll -172.071
+  val seProvidensky: LatLong = 64.265 ll -173.073
+  val enmmelen: LatLong = 65.003 ll -175.891
+  val iultinsky20: LatLong = 66.18 ll -179.61
+  val p46: LatLong = 65.243 ll -179.549
+  val anadyrMouth: LatLong = 64.74 ll 177.58
+  val p48: LatLong = 64.324 ll 178.344
+  val p51: LatLong = 62.824 ll 179.568
+  val anadyrsky10: LatLong = 62.29 ll 179.11
+  val anadyrsky20: LatLong = 62.44 ll 176.63
 
-  val penzhinsky = 62.76 ll 164.60
-  val kamchatka55 = 62.55 ll 163.26
-  val magadan5 = 60.60 ll 160.17
-  val magadan7 = 61.94 ll 160.37
-  val magadan10 = 61.81 ll 157.48
-  val magadan15 = 59.88 ll 154.19
-  val magadan20 = 59.19 ll 155.17
-  val magadan25 = 58.86 ll 151.39
-  val magadan30 = 59.61 ll 151.37
-  val magadan40 = 59.24 ll 148.93
-  val okhotaMouth = 59.33 ll 143.07
-  val okhotsky2 = 59.42 ll 142.17
+  val penzhinsky: LatLong = 62.76 ll 164.60
+  val kamchatka55: LatLong = 62.55 ll 163.26
+  val magadan5: LatLong = 60.60 ll 160.17
+  val magadan7: LatLong = 61.94 ll 160.37
+  val magadan10: LatLong = 61.81 ll 157.48
+  val magadan15: LatLong = 59.88 ll 154.19
+  val magadan20: LatLong = 59.19 ll 155.17
+  val magadan25: LatLong = 58.86 ll 151.39
+  val magadan30: LatLong = 59.61 ll 151.37
+  val magadan40: LatLong = 59.24 ll 148.93
+  val okhotaMouth: LatLong = 59.33 ll 143.07
+  val okhotsky2: LatLong = 59.42 ll 142.17
   val okhotsky: LatLong = 58.73.north * farAsiaW
 
-  override val polygonLL = PolygonLL(ustYansky, sakha43, sundrunMouth, sakha45, sakha48, sakha50, chukotka10,
-  chukotka20, chukatka21, chukatka24, chukatka27, chukatka29, chukotka30, iultinsky10, eSiberia,
-  seProvidensky, iultinsky20, anadyrMouth, anadyrsky10, anadyrsky20, kamchatka10, kamchatka20, nachikiMouth, kamchatka30, sKamchatka,
-  wKamchatka, kamchatka40, kamchatka50, penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
+  override val polygonLL = PolygonLL(ustYansky, sakha43, sundrunMouth, sakha45, sakha48, sakha50, chukotka10, chukotka20, chukatka21, chukatka24, chukatka27,
+    chukatka29, chukotka30, iultinsky10, east,
+    p40, p43, seProvidensky, enmmelen, iultinsky20, p46, anadyrMouth, p48, p51, anadyrsky10, anadyrsky20, Kamchatka.northEast, Kamchatka.penzhinaMouth,
+    penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
+}
+
+/** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
+object Kamchatka extends EArea2("kamchatka", 56.483 ll 159.556, hillyTaiga)
+{
+  val northEast: LatLong = 62.036 ll 175.268
+  val kamchatka10: LatLong = 59.96 ll 170.31
+  val kamchatka20: LatLong = 60.05 ll 163.82
+  val nachikiMouth: LatLong = 57.84 ll 162.14
+  val kamchatka30: LatLong = 57.79 ll 163.25
+  val sKamchatka: LatLong = 51.20 ll 156.89
+  val wKamchatka: LatLong = 55.97 ll 155.67
+  val kamchatka40: LatLong = 60.42 ll 161.95
+  val kamchatka50: LatLong = 60.91 ll 163.78
+  val penzhinaMouth: LatLong = 62.467 ll 165.094
+
+  override val polygonLL = PolygonLL(northEast, kamchatka10, kamchatka20, nachikiMouth, kamchatka30, sKamchatka,  wKamchatka, kamchatka40, kamchatka50,
+    penzhinaMouth)
 }
