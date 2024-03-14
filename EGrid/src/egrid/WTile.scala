@@ -35,20 +35,19 @@ object WTile
 
 /** Object to provide short names for various [[WTile]] values. */
 object WTiles
-{
-  val lakesTundra: Land = Land(PlainLakes, Tundra, LandFree)
-  val lakesTaiga: Land = Land(PlainLakes, Boreal, Forest)
-
-  /** Shorthand for [[IceCap]]. */
+{ /** [[Plain]] [[IceCap]] [[LandFree]] */
   val ice: Land = Land(Plain, IceCap, LandFree)
 
+  /** [[Plain]] [[Tundra]] [[LandFree]] */
   val tundra: Land = Land(Plain, Tundra, LandFree)
+
+  /** [[Plain]] [[Taiga]] [[Forest]] */
   val taiga: Land = Land(Plain, Boreal, Forest)
 
   /** [[Plain]] [[Steppe]] [[LandFree]] */
   val steppe: Land = Land(Plain, Steppe, LandFree)
 
-  /** [[Plain]] [[Oceanic]] [[CivMix]] */
+  /** [[Plain]] [[Continental]] [[CivMix]] */
   val continental: Land = Land(Plain, Continental, CivMix)
 
   /** [[Plain]] [[DesertCold]] [[LandFree]] */
@@ -69,17 +68,29 @@ object WTiles
   /** [[Plain]] [[DesertHot]] [[LandFree]] */
   val deshot: Land = Land(Plain, DesertHot, LandFree)
 
+  /** [[Plain]] [[Tropical]] [[Forest]] */
   val jungle: Land = Land(Plain, Tropical, Forest)
 
+  /** [[PlainLakes]] [[Tundra]] [[LandFree]] */
+  val lakesTundra: Land = Land(PlainLakes, Tundra, LandFree)
+
+  /** [[PlainLakes]] [[Boreal]] [[Forest]] */
+  val lakesTaiga: Land = Land(PlainLakes, Boreal, Forest)
+
+  /** [[Plain]] [[Continental]] [[Forest]] */
+  val lakesContForest: Land = Land(PlainLakes, Continental, Forest)
+
+  /** [[Hilly]] [[Tundra]] [[LandFree]] */
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
+
+  /** [[Hilly]] [[Boreal]] [[Forest]] */
   val hillyTaiga: Land = Land(Hilly, Boreal, Forest)
 
-  /** [[Hilly]] [[Continental]] [[CivMix]] */
+  /** [[Hilly]] [[Steppe]] [[CivMix]] */
   val hillySteppe: Land = Land(Hilly, Steppe, CivMix)
 
   /** [[Hilly]] [[Continental]] [[CivMix]] */
   val hillyCont: Land = Land(Hilly, Continental, CivMix)
-
 
   /** [[Hilly]] [[Continental]] [[Forest]] */
   val hillyContForest: Land = Land(Hilly, Continental, Forest)

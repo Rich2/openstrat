@@ -35,7 +35,10 @@ object Terr320W60 extends Long320Terrs
     TRow(138, taiga * 2, hillyContForest, taiga, taiga, sea * 2),
     VRow(137, Bend(10752, HVUR, 10, 2), ThreeDown(10754, 13, 0, 13)),
     TRow(136, hillyTaiga, taiga, taiga, taiga, sea * 3),
-    VRow(135, BendOut(10744, HVDR, 7), SourceRt(10746, HVDL, 7), SourceLt(10748, HVUR, 7), BendOut(10750, HVDn, 7), BendIn(10752, HVUp, 13), BendIn(10754, HVUL, 13)),
+
+    VRow(135, SourceRt(10738, HVDL, 6, lake), BendOut(10744, HVDR, 7), SourceRt(10746, HVDL, 7), SourceLt(10748, HVUR, 7), BendOut(10750, HVDn, 7),
+      BendIn(10752, HVUp, 13), BendIn(10754, HVUL, 13)),
+
     TRow(134, hillyContForest),
     VRow(133, BendOut(10742, HVDR), BendIn(10744, HVUL, 13)),
     TRow(132, hillyCont),
