@@ -194,7 +194,7 @@ object SeaIceWinter extends Water with TellSimple
 }
 
 /** All year round sea ice sheet. */
-case object SeaIcePerm extends WTile with TellSimple
+case object SeaIcePerm extends WTile with Water with TellSimple
 { override def str = "SeaIce"
   override def colour = White
   override def isLand: Boolean = false
