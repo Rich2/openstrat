@@ -43,6 +43,7 @@ object HtmlLi
 
   def bashAndText(bashStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlBashInline(bashStr), str2.xCon))
   def sbtAndText(sbtStr: String, str2: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr), str2.xCon))
+  def sbt(sbtStr: String): HtmlLi = new HtmlLi(RArr(HtmlSbtInline(sbtStr)))
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
