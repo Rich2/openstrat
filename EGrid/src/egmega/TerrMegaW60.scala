@@ -17,7 +17,9 @@ object TerrMegaW60 extends LongMegaTerrs
     override val rowDatas: RArr[RowBase] = RArr(
       TRow(118, ice),
       TRow(116, mtainOld),
+      VRow(115, ThreeUp(10754, 6, 13, 0), BendIn(10756, HVDL, 13)),
       TRow(114, taiga),
+      VRow(113, BendIn(10756, HVUL, 13)),
       TRow(112, taiga, sea),
       VRow(111, MouthLt(10752, HVDL, 7), MouthRt(10754, HVUR, 7)),
       VRow(109, MouthRt(10750, HVUp, 7)),

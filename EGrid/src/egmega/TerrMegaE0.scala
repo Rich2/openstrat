@@ -2,8 +2,8 @@
 package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15° West to 15° East, centred on 0° East. Hex tile scale 1 Megametre or 1000km. The Mediterranean has not been given a hex
- * tile. Making 110, 514 an island causes problems. */
+/** [[WTile]] terrain for 15° West to 15° East, centred on 0° East. Hex tile scale 1 Megametre or 1000km.
+ * [[Isle5]] 68503.962km² => 102333.079km². Ireland 84421km². */
 object TerrMegaE0 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e0(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
