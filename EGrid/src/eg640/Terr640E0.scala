@@ -21,7 +21,7 @@ object Terr640E0 extends Long640Terrs
       TRow(126, sea, hillyTaiga),
       VRow(125, BendIn(510, HVDR, 13), ThreeUp(512, 13, 13, 0), BendIn(514, HVDL, 13), MouthRt(518, HVUp)),
       TRow(124, mtainOld, taiga),
-      VRow(123, BendIn(508, HVDR, 10), BendOut(510, HVUL), BendIn(512, HVDR, 13), ThreeUp(514, 0, 6, 13), BendOut(516, HVUp), BendAllOld(518, HVUL)),
+      VRow(123, BendIn(508, HVDR, 10), BendOut(510, HVUL), BendIn(512, HVDR, 13), ThreeUp(514, 0, 6, 13), BendOut(516, HVUp), Bend(518, HVUL, 2, 4)),
       TRow(122, oceanic * 2),
       VRow(121, MouthRt(508, HVDn), MouthRt(510, HVDL, 7), BendOut(512, HVUL, 7)),
       TRow(120, sea, oceanic * 2),
@@ -52,7 +52,7 @@ object Terr640E0 extends Long640Terrs
 
   { import hexNames.{ setRow => str}
     str(124, "Scotland", "Scandanavia south")
-    str(122, "British Isles")
+    str(122, "British Isles", "Denmark")
     str(116, "Portugal", "Spain east", "Sardinia-Corsica")
   }
 }
