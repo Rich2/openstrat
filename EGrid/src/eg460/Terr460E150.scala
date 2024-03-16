@@ -36,7 +36,7 @@ object Terr460E150 extends Long460Terrs
       VRow(121, BendOut(5622, HVUp), BendOut(5624, HVUL), BendOut(5626, HVDR), BendIn(5628, HVUL, 13)),
       TRow(120, hillyOce),
       VRow(119, BendIn(5626, HVUL, 10)),
-      VRow(117, MouthOld(5620, HVUR)),
+      VRow(117, MouthOld(5620, HVUR), SourceRt(5620, HVDL, 7)),
       VRow(101, BendIn(5618, HVDL, 13)),
       VRow(99, MouthOld(5618, HVDn)),
       TRow(98, hillyJungle * 2),
