@@ -4,8 +4,8 @@ import prid._, phex._, egrid._, WTiles._
 
 /** 460km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. A hex tile area of 183250.975km².
  *  Isle 120974.276km² down to 57981.753km²
- *  Isle8 35075.382 km² => 57981.753km², includes Taiwan,
- *  Isle4 14495.438km² <= 8768.845km². Palawan 12189 km2.*/
+ *  [[Isle7]] 30243.569km² => 40265.106km². Taiwan 36197km².
+ *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km².*/
 object Terr460E120 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e120(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -36,7 +36,7 @@ object Terr460E120 extends Long460Terrs
       TRow(118, mtainOld, oceanic * 2, oceanic, sea, hillyOce),
       VRow(117, SourceLt(4612, HVUp, 7), SourceRt(4616, HVDR), BendIn(4618, HVUp, 13), SourceRt(4620, HVDL, 7)),
       TRow(116, mtainOld, hillyOce, mtainOld),
-      TRow(114, mtainOld * 2, CapeOld(2, 1, mtainOld), Isle8(mtainOld)),
+      TRow(114, mtainOld * 2, mtainOld, Isle7(hillyJungle)),
       TRow(112, hillyJungle),
       VRow(111, MouthOld(4598, HVUL), ThreeDown(4600, 6, 0, 7), MouthRt(4602, HVUR, 7)),
       TRow(110, mtainOld, SepB(), sea * 2, CapeOld(0, 3, hillyJungle)),
