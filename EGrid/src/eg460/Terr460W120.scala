@@ -38,7 +38,7 @@ object Terr460W120 extends Long460Terrs
       TRow(120, sea * 2, hillySavannah, hillySahel * 2),
       VRow(119, MouthLt(8702, HVUL), BendOut(8704, HVDL)),
       TRow(118, sea * 3, CapeOld(4, 1, hillySahel), hillyDeshot, hillySahel),
-      VRow(117, BendOut(8706, HVDL), MouthOld(8708, HVUL), BendAllOld(8710, HVDL)),
+      VRow(117, BendOut(8706, HVDL), MouthOld(8708, HVUL), Bend(8710, HVDL, 3, 4)),
       TRow(116, sea * 3, CapeOld(4, 1, hillySahel), CapeOld(4, 1, hillySahel), hillySahel),
       VRow(115, BendOut(8708, HVDL), BendOut(8712, HVDL)),
       TRow(114, sea * 4, hillySahel, mtainOld),
