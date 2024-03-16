@@ -192,26 +192,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   /** Will change name to Mouth. Holding for now to avoid confusing tooling. */
   case class Mouth(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 
-  case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3,
-    magnitude2: Int = 3) extends VRowElem with MouthSpecBase
-
-  /** This is deprecated Sets all the corners of Vertex for a bend [[HSep]] terrain with a default offset of 3. Also sets the left most of the [[HSep]]s of this
-   *  vertex with a default terrain of [[Sea]]. The orientation of the bend is specified by the direction of the inside of the bend. */
-  class BendAllOld(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome, val magnitude: Int) extends VRowElem with BendInOutBase
-  { override def magIn: Int = magnitude
-    override def magOut: Int = magnitude
-  }
-
-  object BendAllOld
-  {
-    def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea): BendAllOld = apply(c, dirn, terr, terr)
-
-    def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome): BendAllOld =
-    { //ifExcep(magnitude < 0, magnitude.toString -- "magnitude, negative magnitude values not allowed.")
-      //ifExcep(magnitude > 7, magnitude.toString -- "magnitude, magnitude values > 7 not allowed.")
-      new BendAllOld(c, dirn, leftTerr, rightTerr, 3)
-    }
-  }
+  case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3, magnitude2: Int = 3) extends
+    VRowElem with MouthSpecBase
 
   /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. */
   class BendMin(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
