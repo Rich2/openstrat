@@ -19,7 +19,7 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(114, taiga),
       TRow(112, hillyDeshot, deshot),
       TRow(110, deshot, hillyDeshot),
-      TRow(108, mtainOld * 2),
+      TRow(108, hillyDescold, hillySteppe),
       TRow(106, jungle * 3),
       VRow(105, BendMin(3582, HVDR), Mouth(3584, HVUR, 2, 4), MouthRt(3592, HVUL, 7)),
       TRow(104, jungle, sea, jungle),

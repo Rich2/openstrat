@@ -19,7 +19,7 @@ object TerrMegaW150 extends LongMegaTerrs
     TRow(116, SepB(siceWin), hillyTaiga),
     VRow(111, BendIn(7684, HVDR, 13), MouthLt(7686, HVUR, 7)),
     VRow(109, BendIn(7684, HVUR, 13)),
-      TRow(106, Isle3(mtainOld)),
+    TRow(106, Isle3(mtainOld)),
     )
   }
   help.run
