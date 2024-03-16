@@ -32,7 +32,7 @@ object Terr640W90 extends Long640Terrs
       TRow(116, savannah, savannah, hillyOce),
       TRow(114, sahel, savannah, oceanic, oceanic),
       TRow(112, savannah, oceanic, jungle, sea),
-      VRow(111, BendAllOld(9724, HVDR), BendOut(9726, HVDn), BendIn(9728, HVUp, 13), BendOut(9730, HVDn, 7), BendOut(9732, HVDL, 7), BendIn(9736, HVDL, 13)),
+      VRow(111/*, BendAllOld(9724, HVDR)*/, SourceLt(9726, HVDR, 7), BendIn(9728, HVUp, 13), BendOut(9730, HVDn, 7), BendOut(9732, HVDL, 7), BendIn(9736, HVDL, 13)),
       TRow(110, sahel, sea * 2, jungle),
 
       VRow(109, MouthOld(9720, HVUR), BendOut(9724, HVUR), BendOut(9726, HVUp, 7), MouthLt(9728, HVUR), BendIn(9730, HVDR, 13), ThreeUp(9732, 13, 13, 0),
