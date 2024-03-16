@@ -58,10 +58,13 @@ object Terr80E0 extends Long80Terrs
     VRow(465, MouthLt(482, HVDL, 7), BendOut(484, HVDn, 7), BendIn(486, HVUp, 13), MouthRt(488, HVUR, 7), MouthRt(498, HVDL, 7),
       BendIn(500, HVDn, 13), MouthOld(502, HVDR), MouthOld(514, HVDL), BendIn(516, HVDn), ThreeDown(518, 0, 13, 6), BendIn(520, HVDn, 13), MouthOld(522, HVDR)),
 
-    TRow(464, sea * 9, oceanic, oceanic * 4, SepB(), oceanic * 3, hillyOce * 7, oceanic, hillyOce),
-    VRow(463, BendIn(492, HVDR, 13), MouthLt(494, HVUR, 7), BendAllOld(516, HVDR), BendIn(518, HVUL)),
-    TRow(462, sea * 8, hillyOce, hillyOce, CapeOld(3, 1, hillyOce), CapeOld(3, 1), CapeOld(2, 2), sea, oceanic, oceanic * 3, hillyOce * 8),
-    VRow(461, BendIn(490, HVDR), BendOut(492, HVUL), MouthOld(514, HVDL), BendOut(516, HVUL, 7)),
+    TRow(464, sea * 9, oceanic, oceanic * 4, oceanic * 3, hillyOce * 7, oceanic, hillyOce),
+    VRow(463, BendIn(492, HVDR, 13), MouthLt(494, HVUR, 7), Bend(516, HVDR, 10, 7), Bend(518, HVUL, 8, 1)),
+    TRow(462, sea * 8, hillyOce, hillyOce, hillyOce, oceanic, oceanic, hillyOce, oceanic, oceanic * 3, hillyOce * 8),
+
+    VRow(461, BendIn(490, HVDR), BendOut(492, HVUL), SourceLt(500, HVDR, 7), BendIn(502, HVUp, 13), BendOut(504, HVDn, 7), BendIn(506, HVUp, 13),
+      BendOut(508, HVDn, 7), BendIn(510, HVUp, 13), BendOut(512, HVDn, 7), BendInLt(514, HVUp, 13, 7), BendMax(516, HVUL)),
+
     TRow(460, sea * 7, hillyOce, sea * 5, oceanic * 3, hillyOce * 10),
     VRow(459, BendIn(490, HVUR, 13), BendIn(492, HVUp, 13), MouthRt(494, HVUR, 7), MouthOld(508, HVDL), MouthOld(512, HVDR)),
     TRow(458, sea * 11, CapeOld(4, 2), CapeOld(0, 1), oceanic * 6, hillyOce * 3, oceanic, hillyOce * 3, oceanic),

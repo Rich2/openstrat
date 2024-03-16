@@ -586,19 +586,19 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The magnitude of the offset on the inside [[HCorner]]. */
     def magIn: Int
 
-    def magMouth: Int
+    def magSource: Int
 
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        corners.setMouth0(row - 1, c, 0, magMouth)
+        corners.setMouth0(row - 1, c, 0, magSource)
         debexc("Not Implemented")
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setCorner(row - 1, c - 2, 1, HVUL, magMouth)
-        corners.setCorner(row + 1, c, 3, HVUL, magMouth)
+        corners.setCorner(row - 1, c - 2, 1, HVUL, magSource)
+        corners.setCorner(row + 1, c, 3, HVUL, magSource)
       }
 
       case HVDn =>
@@ -616,7 +616,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       }
       case HVUp => {
         corners.setCornerIn(row + 1, c, 3, magIn)
-        debexc("Not Implemented")
+        corners.setCorner(row - 1, c + 2, 5, HVDn, magSource)
+        corners.setCorner(row - 1, c - 2, 1, HVDn, magSource)
+//        debexc("Not Implemented")
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
@@ -626,30 +628,30 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The magnitude of the offset on the inside [[HCorner]]. */
     def magIn: Int
 
-    def magMouth: Int
+    def magSource: Int
 
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        corners.setMouth0(row - 1, c, 0, magMouth)
+        corners.setMouth0(row - 1, c, 0, magSource)
         debexc("Not Implemented")
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setMouth3(row + 1, c, 0, magMouth)
+        corners.setMouth3(row + 1, c, 0, magSource)
         debexc("Not Implemented")
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
-        corners.setCorner(row + 1, c + 2, 4, HVUp, magMouth)
+        corners.setCorner(row + 1, c + 2, 4, HVUp, magSource)
       }
 
       case HVDL =>
       { corners.setCornerIn(row - 1, c - 2, 1, magIn)
-        corners.setCorner(row - 1, c + 2, 5, HVUR, magMouth)
-        corners.setCorner(row + 1, c, 3, HVUR, magMouth)
+        corners.setCorner(row - 1, c + 2, 5, HVUR, magSource)
+        corners.setCorner(row + 1, c, 3, HVUR, magSource)
       }
       case HVUL =>{
         corners.setCornerIn(row + 1, c - 2, 2, magIn)
