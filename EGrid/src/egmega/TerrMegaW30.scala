@@ -19,7 +19,7 @@ object TerrMegaW30 extends LongMegaTerrs
     VRow(119, SourceRt(11778, HVDR, 7), BendIn(11780, HVDL, 13)),
     TRow(118, mtainIce),
     VRow(117, BendOut(11778, HVDR, 7), BendIn(11780, HVUL, 13)),
-    TRow(116, tundra),
+    TRow(116, SepB(siceWin), tundra),
     VRow(115, ThreeDown(11776, 13, 11, 13), ThreeUp(11778, 0, 11, 13)),
     TRow(114, oceanic),
     VRow(113, BendIn(11776, HVUR, 11), BendIn(11778, HVUp, 11)),
