@@ -159,8 +159,6 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingEx
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
-    "dev.zio" %% "zio" % "2.0.17",
-    "dev.zio" %% "zio-http" % "3.0.0-RC2",
     ),
 )
 
@@ -177,11 +175,10 @@ def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugi
 
 lazy val GenAppJs = jsApp("GenApp")
 
-val moduleDirs: List[String] = List("Util", "Geom", "Earth", "Tiling", "EGrid")//, "Apps")//, "Dev")
+val moduleDirs: List[String] = List("Util", "Geom")//, "Earth", "Tiling", "EGrid")//, "Apps")//, "Dev")
 
-val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly",
-  "Geom/srcShapes", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans", "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq",
-  "Tiling/srcSqLayer", "EGrid/srcPts")//, "Apps/srcStrat")
+val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly", "Geom/srcShapes",
+  "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans")//, "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq", "Tiling/srcSqLayer", "EGrid/srcPts")//, "Apps/srcStrat")
 
 val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src"/*, m + "/ExsSrc"*/)) ::: specDirs
 
@@ -205,8 +202,6 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
-    "dev.zio" %% "zio" % "2.0.17",
-    "dev.zio" %% "zio-http" % "3.0.0-RC2",
   ),
 )
 

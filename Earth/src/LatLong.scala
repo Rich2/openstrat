@@ -17,7 +17,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
 
  def andDirn(dirn: Boolean = true): LatLongDirn = LatLongDirn.milliSecs(dbl1, dbl2, dirn)
 
-  override def str: String = latDegStr appendCommas(longDegStr)
+  override def str: String = latDegStr.appendCommas(longDegStr)
   def persistName = "LatLong"
   def persistMems: Seq[Double] = Seq(latRadians, longRadians)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]

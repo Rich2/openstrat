@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import zio._
+/*import zio._
 
 package object pDev
 { def packStr: String = "This is pDev"
@@ -14,4 +14,4 @@ package object pDev
       case None => ZIO.fail(NoneExc)
     }
   }
-}
+}*/

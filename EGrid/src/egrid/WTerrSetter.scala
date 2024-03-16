@@ -206,7 +206,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
      * is a name overload where both [[HSep]] layer values are specified. */
     def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea): BendMin = new BendMin(c, dirn, terr, terr)
 
-    /** Factory apply method ofr creating bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16, where the 2 [[HSep]] layer values are specified.
+    /** Factory apply method for creating bend, connecting 2 [[HSeps]], with an inner and outer offset of 3/16, where the 2 [[HSep]] layer values are specified.
      * There is a name overload where 1 [[HSep]] layer value is given for both. That will be the most common use case. */
     def apply(c: Int, dirn: HVDirn, leftTerr: WSepSome, rightTerr: WSepSome): BendMin = new BendMin(c, dirn, leftTerr, rightTerr)
   }
