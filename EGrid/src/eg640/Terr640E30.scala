@@ -51,6 +51,7 @@ object Terr640E30 extends Long640Terrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(126, "Scandanva central")
     str(118, "Balkans", "Crimea")
     str(116, "Greece", "Turkey east")
     str(114, "", "Crete")

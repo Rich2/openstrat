@@ -19,9 +19,9 @@ object Terr640W30 extends Long640Terrs
       TRow(130, ice),
       VRow(129, BendOut(11778, HVDR), BendIn(11780, HVUL, 13)),
       TRow(128, ice),
-      VRow(127, Bend(11776, HVDR, 6, 4), BendIn(11778, HVUL, 9)),
+      VRow(127, Bend(11776, HVDR, 6, 4), ThreeUp(11778, 0, 10, 9)),
       TRow(126, ice, hillyTundra),
-      VRow(125, BendOut(11774, HVDR), ThreeUp(11776, 11, 0, 13), BendIn(11778, HVUp, 8)),
+      VRow(125, BendOut(11774, HVDR), ThreeUp(11776, 11, 0, 13), BendIn(11778, HVUp, 6), SourceRt(11780, HVDL)),
       VRow(123, BendIn(11772, HVUp, 13), ThreeDown(11774, 13, 0, 13)),
       VRow(121, BendIn(11770, HVDL, 13), SetSep(11771)),
       VRow(119, BendIn(11770, HVUL, 13)),
@@ -36,4 +36,8 @@ object Terr640W30 extends Long640Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(126, "", "Iceland")
+  }
 }

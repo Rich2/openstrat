@@ -109,7 +109,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle3 = Isle3(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Deprecated Cape / headland / peninsula for [[WTile]]s. */
+  /** Deprecated Cape / headland / peninsula for [[WTile]]s. Capes may be useful for creating terrain, but are not helpful for modelling real world terrain or
+   * terrain from a pre existing fantasy world such as Middle Earth or the Game of Thrones world. */
   class CapeOld(val indentStartIndex: Int, val numIndentedVerts: Int, val magnitude: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
 
   object CapeOld
@@ -157,24 +158,33 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
+  /** Sets the [[HSep]] separator at the given position. This should only be needed for setting the [[HSep]] on the left hand side of an [[EGrid]] where the
+   * join with the grid to the left is not regular. */
   case class SetSep(c: Int, terr: WSepSome = Sea) extends  VRowElem with SetSepBase
 
   /** Deprecated. Creates an [[HSep]] separator terrain mouth. Magnitude should be between 3 and 7. Sets the 3 [[HCorner]]s and the [[HSep]]. The magnitude
    *  parameter comes before the terrain type parameter as this is designed primarily for modeling existing terrain rather than pure creation.  */
   case class MouthOld(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
 
+  /** Deprecated. Replace with [[SourceMin]] reversing the dirn. */
   case class MouthMin(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
   { override def magnitude: Int = 3
   }
 
+  /** Deprecated. Replace with [[SourceMax]] reversing the dirn. */
   case class MouthMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
   { override def magnitude: Int = 7
   }
 
   case class Source(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
   case class SourceLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceLtBase
+
+  /** Deprecated. Replace with [[SourceLt]] reversing the dirn. */
   case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthLtBase
+
   case class SourceRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceRtBase
+
+  /** Deprecated. Replace with [[SourceRt]] reversing the dirn. */
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
 
   /** [[HSep]] end point or source with a left and right magnitude of 3. */
@@ -189,9 +199,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     override def magRt: Int = 7
   }
 
-  /** Will change name to Mouth. Holding for now to avoid confusing tooling. */
+  /** Deprecated. Replace with [[Source]] reversing the dirn. */
   case class Mouth(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
 
+  /** Deprecated. Replacement unclear at moment. */
   case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3, magnitude2: Int = 3) extends
     VRowElem with MouthSpecBase
 
