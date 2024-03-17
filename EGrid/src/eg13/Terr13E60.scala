@@ -30,7 +30,7 @@ object Terr13E60 extends Long13Terrs
     TRow(96, sea * 2),
     VRow(95, BendIn(2556, HVUp), BendIn(2558, HVUL)),
     TRow(88, SeaIceWinter),
-    VRow(87, SourceRt(2562, HVDR, 7, siceWin), BendIn(2564, HVUp, 7, siceWin)),
+    VRow(87, SourceLt(2558, HVDL, 7, siceWin), SourceRt(2562, HVDR, 7, siceWin), BendIn(2564, HVUp, 7, siceWin)),
     TRow(86, ice)
     )
   }

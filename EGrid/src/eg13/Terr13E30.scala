@@ -35,7 +35,7 @@ object Terr13E30 extends Long13Terrs
     TRow(94, hillySavannah, sea),
     VRow(93, BendIn(1532, HVUR), MouthRt(1534, HVDR)),
     TRow(88, siceWin),
-    VRow(87, BendIn(1534, HVDn, 12, siceWin), BendMin(1536, HVUp, siceWin)),
+    VRow(87, BendIn(1534, HVDn, 12, siceWin), BendMin(1536, HVUp, siceWin), SourceLt(1538, HVDL, 7, siceWin)),
     TRow(86, ice)
     )
   }

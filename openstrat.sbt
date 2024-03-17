@@ -1,4 +1,4 @@
-/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+ /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 val versionStr = "0.3.2snap"
 ThisBuild/version := versionStr
