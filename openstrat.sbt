@@ -175,10 +175,10 @@ def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugi
 
 lazy val GenAppJs = jsApp("GenApp")
 
-val moduleDirs: List[String] = List("Util", "Geom")//, "Earth", "Tiling", "EGrid")//, "Apps")//, "Dev")
+val moduleDirs: List[String] = List("Util")//, "Geom")//, "Earth", "Tiling", "EGrid")//, "Apps")//, "Dev")
 
-val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly", "Geom/srcShapes",
-  "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans")//, "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq", "Tiling/srcSqLayer", "EGrid/srcPts")//, "Apps/srcStrat")
+val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist")//, "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly", "Geom/srcShapes",
+  //"Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans")//, "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq", "Tiling/srcSqLayer", "EGrid/srcPts")//, "Apps/srcStrat")
 
 val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src"/*, m + "/ExsSrc"*/)) ::: specDirs
 
@@ -189,20 +189,17 @@ bothDoc :=
   println("Main docs and Js docs built")
 }
 
-lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
+lazy val DocMain = Project("DocMain", file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s =>
-    List(s + "/JvmSrc")) ::: List("Util/srcRArr", "Geom/JvmFxSrc"/*, "Dev/JvmFxSrc"*/)).map(s => baseDir.value / s),
+    List(s + "/JvmSrc")) ::: List("Util/srcRArr"/*, "Geom/JvmFxSrc", "Dev/JvmFxSrc"*/)).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
+  //libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
-  Compile/doc/scalacOptions ++= Seq("-groups"),
-  publish/skip := true,
-  libraryDependencies ++= Seq(
-    "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
-    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
-  ),
+  //Compile/doc/scalacOptions ++= Seq("-groups"),
+  //publish/skip := true,
+  //libraryDependencies ++= Seq("io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1", "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"),
 )
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
