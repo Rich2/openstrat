@@ -12,7 +12,7 @@ object Terr13W90 extends Long13Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rowDatas: RArr[RowBase] = RArr(
+  { override val rows: RArr[RowBase] = RArr(
     VRow(115, BendIn(9728, HVDR, 6, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVDL, 13, siceWin)),
     TRow(114, SepB(siceWin), tundra),
     VRow(113, BendIn(9728, HVUR, 7, siceWin), BendOut(9730, HVUp, 6, siceWin), ThreeUp(9732, 4, 13, 2, siceWin, sea, siceWin)),

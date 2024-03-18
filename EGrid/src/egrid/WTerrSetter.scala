@@ -119,21 +119,26 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
       new CapeOld(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
   }
 
+  /** Creates an [[HSepB]], an [[HSep]] of the vertical alignment. The only place this should be needed is on the left or west edge of an [[EGrid]]. Otherwise
+   * the [[HSep]]s should be set in the [[VRow]]s along with [[HCorner]]s using bends and sources and threeways. */
   case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase
+
+  /** Sets terrain along a row of [[HVert]]s and in the [[HSepB]]s in the rows immediately below and above. */
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem
   { def run(row: Int): Unit
   }
 
-  val rowDatas: RArr[RowBase]
+  /** The [[TRow]] tile rows and [[VRow]] vertex rows data layer setter values. */
+  val rows: RArr[RowBase]
 
   def run: Unit =
-  { rowDatas.foreach{
+  { rows.foreach{
       case data: TRow => tRowRun(data)
       case data: VRow =>
     }
-    rowDatas.foreach{
+    rows.foreach{
       case data: TRow =>
       case data: VRow => data.edits.foreach(_.run(data.row))
     }
@@ -162,6 +167,30 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
    * join with the grid to the left is not regular. */
   case class SetSep(c: Int, terr: WSepSome = Sea) extends  VRowElem with SetSepBase
 
+  /** [[HSep]] source end point or terminal. */
+  case class Source(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+
+  /** [[HSep]] source end point or terminal offset to the left as views from the [[HVert]] looking down the [[HSep]]. */
+  case class SourceLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceLtBase
+
+  /** Deprecated. Replace with [[SourceLt]] reversing the dirn. */
+  case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthLtBase
+
+  /** [[HSep]] source end point or terminal offset to the left as views from the [[HVert]] looking down the [[HSep]]. */
+  case class SourceRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceRtBase
+
+  /** [[HSep]] end point or source with a left and right magnitude of 3. */
+  case class SourceMin(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+  { override def magLt: Int = 3
+    override def magRt: Int = 3
+  }
+
+  /** [[HSep]] end point or source with a left and right magnitude of 7. */
+  case class SourceMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+  { override def magLt: Int = 7
+    override def magRt: Int = 7
+  }
+
   /** Deprecated. Creates an [[HSep]] separator terrain mouth. Magnitude should be between 3 and 7. Sets the 3 [[HCorner]]s and the [[HSep]]. The magnitude
    *  parameter comes before the terrain type parameter as this is designed primarily for modeling existing terrain rather than pure creation.  */
   case class MouthOld(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
@@ -175,29 +204,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class MouthMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
   { override def magnitude: Int = 7
   }
-
-  case class Source(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
-  case class SourceLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceLtBase
-
-  /** Deprecated. Replace with [[SourceLt]] reversing the dirn. */
-  case class MouthLt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthLtBase
-
-  case class SourceRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceRtBase
-
   /** Deprecated. Replace with [[SourceRt]] reversing the dirn. */
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
-
-  /** [[HSep]] end point or source with a left and right magnitude of 3. */
-  case class SourceMin(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
-  { override def magLt: Int = 3
-    override def magRt: Int = 3
-  }
-
-  /** [[HSep]] end point or source with a left and right magnitude of 7. */
-  case class SourceMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
-  { override def magLt: Int = 7
-    override def magRt: Int = 7
-  }
 
   /** Deprecated. Replace with [[Source]] reversing the dirn. */
   case class Mouth(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with MouthLtRtBase
