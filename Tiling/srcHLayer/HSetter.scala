@@ -356,8 +356,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. This trait is provided to model real
-   * world geographic / terrain features and is probably superfluous for created worlds / terrain. */
+  /** Deprecated re[place with source. Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. This trait is
+   *  provided to model real world geographic / terrain features and is probably superfluous for created worlds / terrain. */
   trait MouthLtRtBase extends VertSetBase
   { /** The direction of the mouth. */
     def dirn: HVDirnPrimary
@@ -405,7 +405,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
+  /**  deprecated replace with source Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
   trait MouthSpecBase extends VertSetBase
   { /** The direction of the mouth. */
     def mouthDirn: HVDirnPrimary
