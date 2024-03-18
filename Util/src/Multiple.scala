@@ -1,8 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import ostrat.pParse._, annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
+/** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. To create a Multiple instance follow the
+ * value by the "*" symbol followed by an integer. There is a n implicit conversion from an object of type to a Multiple of type T with quantity of 1. */
 case class Multiple[+A](value: A, num: Int)
 { /** multiply the [[Multiple]] number with the operand. */
   def * (operand: Int): Multiple[A] = Multiple(value, num * operand)

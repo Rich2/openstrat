@@ -197,7 +197,7 @@ lazy val DocMain = Project("DocMain", file("Dev/SbtDir/DocMain")).settings(sett3
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
-  //Compile/doc/scalacOptions ++= Seq("-groups"),
+  Compile/doc/scalacOptions ++= Seq("-project-version", "0.3.2snap", "-groups"),
   //publish/skip := true,
   //libraryDependencies ++= Seq("io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1", "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"),
 )
