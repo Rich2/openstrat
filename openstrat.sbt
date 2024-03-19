@@ -39,7 +39,7 @@ def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.1" % "test" withSources(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.2" % "test" withSources(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
@@ -49,7 +49,7 @@ def exsJvmProj(srcsStr: String) = proj(srcsStr, srcsStr + "Exs").settings(
   Compile/unmanagedSourceDirectories := List("ExsSrc", "ExsJvmSrc").map(moduleDir.value / _),
   resourceDirectory := moduleDir.value / "ExsRes",
   Test/unmanagedResourceDirectories := List(moduleDir.value / "ExsRes", (Test/resourceDirectory).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.1" % "test" withSources(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.2" % "test" withSources(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
