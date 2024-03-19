@@ -2,7 +2,8 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 165° east to 165° west, centred on 180° east. Hex tile scale of 320km. */
+/** [[WTile]] terrain for 165° east to 165° west, centred on 180° east. Hex tile scale of 320km.
+ * [[Tile3]] 2165.063km² => 4243.524km². Nunivak. 4226.8km2. */
 object Terr320E180 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e180(120)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)

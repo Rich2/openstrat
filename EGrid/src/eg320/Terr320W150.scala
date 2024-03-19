@@ -23,7 +23,7 @@ object Terr320W150 extends Long320Terrs
       TRow(152, taiga * 3, hillyTaiga),
       TRow(150, hillyTundra, mtainOld * 2, taiga),
       TRow(148, hillyTaiga * 2, sea * 2, mtainOld),
-      VRow(147, MouthOld(7674, HVUR)),
+      VRow(147, BendIn(7672, HVDR, 13), Source(7674, HVDL, 5, 1)),
       TRow(146, hillyTundra, sea * 3, mtainOld),
       TRow(144, hillyTaiga, sea * 4),
       VRow(143, MouthOld(7670, HVUL)),
