@@ -18,7 +18,7 @@ object Terr320E180 extends Long320Terrs
     TRow(162, SeaIceWinter * 2),
     TRow(160, SeaIceWinter * 2),
     TRow(158, SeaIceWinter * 3),
-    TRow(156, tundra, SeaIceWinter * 2),
+    TRow(156, tundra, hillyTundra, SeaIceWinter),
     TRow(154, tundra * 2, tundra, SeaIceWinter),
     VRow(153, Source(6662, HVDn, 6, 2, siceWin)),
     TRow(152, tundra, hillyTundra, tundra, taiga),
