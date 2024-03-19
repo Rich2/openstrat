@@ -2,9 +2,10 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** 640km [[WTile]] terrain terrain for 45° west to 15° west, centred on 30° wast. Hex tile area of 354724.005km²
+/** 640km [[WTile]] terrain terrain for 45° west to 15° west, centred on 30° wast. Hex tile area of 354724.005km².
+ * [[Isle9]] 100112.536km² => 125054.068km². Iceland 103125km².
  * [[Isle3]] 8660.254km² => 16974.097km².
- * Canaries 7,492 km². */
+ * Below 8660.254km² Canaries 7,492 km². */
 object Terr640W30 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.w30(96)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -19,7 +20,7 @@ object Terr640W30 extends Long640Terrs
       TRow(130, ice),
       VRow(129, BendOut(11778, HVDR), BendIn(11780, HVUL, 13)),
       TRow(128, ice),
-      VRow(127, Bend(11776, HVDR, 6, 4), ThreeUp(11778, 0, 10, 9)),
+      VRow(127, Bend(11776, HVDR, 10, 4), ThreeUp(11778, 0, 6, 9)),
       TRow(126, ice, hillyTundra),
       VRow(125, BendOut(11774, HVDR), ThreeUp(11776, 11, 0, 13), BendIn(11778, HVUp, 6), SourceRt(11780, HVDL)),
       VRow(123, BendIn(11772, HVUp, 13), ThreeDown(11774, 13, 0, 13)),
