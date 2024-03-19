@@ -128,18 +128,23 @@ object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, hillyTundra)
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
 object Kamchatka extends EArea2("kamchatka", 56.483 ll 159.556, hillyTaiga)
-{
-  val northEast: LatLong = 62.036 ll 175.268
-  val kamchatka10: LatLong = 59.96 ll 170.31
-  val kamchatka20: LatLong = 60.05 ll 163.82
+{ val northEast: LatLong = 62.036 ll 175.268
+  val p10: LatLong = 59.96 ll 170.31
+  val p16: LatLong = 59.815 ll 166.136
+  val p18: LatLong = 59.797 ll 164.833
+  val p24: LatLong = 58.887 ll 164.644
   val nachikiMouth: LatLong = 57.84 ll 162.14
-  val kamchatka30: LatLong = 57.79 ll 163.25
-  val sKamchatka: LatLong = 51.20 ll 156.89
-  val wKamchatka: LatLong = 55.97 ll 155.67
-  val kamchatka40: LatLong = 60.42 ll 161.95
-  val kamchatka50: LatLong = 60.91 ll 163.78
+  val p30: LatLong = 57.79 ll 163.25
+  val p35: LatLong = 56.189 ll 163.337
+  val p39: LatLong = 54.852 ll 162.145
+  val p45: LatLong = 53.103 ll 160.031
+  val south: LatLong = 51.20 ll 156.89
+  val p53: LatLong = 55.089 ll 155.579
+  val west: LatLong = 55.97 ll 155.67
+  val p56: LatLong = 57.733 ll 156.796
+  val p67: LatLong = 60.42 ll 161.95
+  val p70: LatLong = 60.91 ll 163.78
   val penzhinaMouth: LatLong = 62.467 ll 165.094
 
-  override val polygonLL = PolygonLL(northEast, kamchatka10, kamchatka20, nachikiMouth, kamchatka30, sKamchatka,  wKamchatka, kamchatka40, kamchatka50,
-    penzhinaMouth)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, p10, p16, p18, p24, nachikiMouth, p30, p35, p39, p45, south, p53, west, p56, p67, p70, penzhinaMouth)
 }
