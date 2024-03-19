@@ -62,6 +62,15 @@ object Scen320Atlantic extends EScenLongMulti
   override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }
 
+/** 320km terrain only scenario for the Date Line. 3 grids across the Dateline for 150°E, 180°E, and 150°W. */
+object Scen320DateLine extends EScenLongMulti
+{ override val title: String = "320km Date Line 150°E - 150°W"
+  override implicit val gridSys: EGrid320LongMulti = EGrid320.multi(3, 5, 124)
+  override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
+}
 /** Just terrain scenario for all longitudes grid system. */
 object Scen320All extends EScenLongMulti
 { override val title: String = "320km all longitude terrain only scenario."

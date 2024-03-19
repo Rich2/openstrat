@@ -109,7 +109,7 @@ flat = false;
 95 = HGView(150, 520; 22);//320km Africa, Middle East, Europe 30°W - 60°E
 96 = HGView(148, 3584; 32);//320km India 60°E - 90°E
 97 = HGView(135, 10752; 21);//320km Atlantic, South America 3 grids 90°W - 0°E
-98 = HGView(143, 512; 42);//320Km British Isles and surrounding.
+98 = HGView(148, 6656; 30);//320km Date Line 150°E - 150°W
 99 = HGView(150, 512; 21);//320km All longitudes
 
 100 = HGView(156, 512; 22.5);//220Km 0°E
