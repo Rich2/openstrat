@@ -132,7 +132,16 @@ trait HGrid extends TGrid with HGridSys with Tell
     case _ => rowLeftCenC(row - 1) min (rowLeftCenC(row + 1) - 2)
   }
 
-  //def hCoordExists(hCoord: HCoord): Boolean = hCoordExists(hCoord.r, hCoord.c)
+  override def hSepExists(r: Int, c: Int): Boolean = None match
+  { case _ if r > topSepR => false
+    case _ if r < bottomSepR => false
+    case _ if r.isEven => (c <= rowRightCenC(r) + 2) & (c >= rowLeftCenC(r) - 2)
+    case _ if r == topSepR => c <= (rowRightCenC(r - 1) + 1) & c >= (rowLeftCenC(r - 1) - 1)
+    case _ if r == bottomSepR => (c <= rowRightCenC(r + 1) + 1) & (c >= rowLeftCenC(r + 1) - 1)
+    case _ if c > rowRightCenC(r - 1).max(rowRightCenC(r + 1)) + 1 => false
+    case _ if c < rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1 => false
+    case _ => true
+  }
 
   def hCoordExists(r: Int, c: Int): Boolean = None match
   { case _ if r > topSepR => false
@@ -176,7 +185,6 @@ trait HGrid extends TGrid with HGridSys with Tell
     val rDnHC = rowRightCenC(rDn)
     ife(rUp %% 4 == 0, rUpHC.min(rDnHC + 2), (rUpHC + 2).min(rDnHC))
   }
-
 
   override def hCenSteps(hCen: HCen): HStepArr = HStep.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 

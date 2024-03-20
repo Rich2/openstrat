@@ -237,7 +237,7 @@ trait HGridSys extends HexStruct with TGridSys
   final def seps: HSepArr = sepsMap(hs => hs)
 
   /** Does the [[HSep]] hex tile separator exist within this[[HGridSys]]. */
-  def sepExists(r: Int, c: Int): Boolean = sepExists(HSep(r, c))
+  def hSepExists(r: Int, c: Int): Boolean = sepExists(HSep(r, c))
 
   /** Does the [[HSep]] hex tile separator exist within this[[HGridSys]]. */
   def sepExists(hs: HSep): Boolean = hCenExists(hs.tileLtReg) | hCenExists(hs.tileRtReg)

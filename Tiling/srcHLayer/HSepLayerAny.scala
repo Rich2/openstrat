@@ -31,7 +31,7 @@ trait HSepLayerAny[A]
   }
 
   def setIf(r: Int, c: Int, value: A)(implicit grid: HGrid): Unit =
-  { if(grid.sepExists(r, c))
+  { if(grid.hSepExists(r, c))
     { val i = grid.sepLayerArrayIndex(r, c)
        unsafeArray(i) = value
     }

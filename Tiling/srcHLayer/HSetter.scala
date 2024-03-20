@@ -691,7 +691,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       grid.hCenExistsIfDo(row - 1, c){ corners.setCornerIn(row - 1, c, 0, magDn) }
       grid.hCenExistsIfDo(row + 1, c - 2){ corners.setCornerIn(row + 1, c - 2, 2, magUL) }
       sTerrs.set(row + 1, c, upTerr)
-      sTerrs.set(row, c + 1, downRightTerr)
+      grid.hSepExistsIfDo(row, c + 1){ sTerrs.set(row, c + 1, downRightTerr) }
       sTerrs.set(row, c - 1, downLeftTerr)
     }
   }

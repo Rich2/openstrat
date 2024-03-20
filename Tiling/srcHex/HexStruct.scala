@@ -23,11 +23,23 @@ trait HexStruct extends TCenStruct
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
 
+  /** Boolean. True if the [[HSep]] hex separator exists in this hex grid. */
+  final def hSepExists(hc: HSep): Boolean = hSepExists(hc.r, hc.c)
+
+  /** Boolean. True if the specified hex separator exists in this hex grid. */
+  def hSepExists(r: Int, c:Int): Boolean
+
   /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
   def hCenExistsIfDo(hc: HCen)(proc: => Unit): Unit = if(hCenExists(hc)) proc
 
   /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
   def hCenExistsIfDo(r: Int, c: Int)(proc: => Unit): Unit = if(hCenExists(r, c)) proc
+
+  /** If the given [[HSep]] exists within this [[HGridSys]], perform the side effecting function. */
+  def hSepExistsIfDo(hc: HSep)(proc: => Unit): Unit = if(hSepExists(hc)) proc
+
+  /** If the given [[HCen]] exists within this [[HGridSys]], perform the side effecting function. */
+  def hSepExistsIfDo(r: Int, c: Int)(proc: => Unit): Unit = if(hSepExists(r, c)) proc
 
   /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def hCoordExists(hc: HCoord): Boolean = hCoordExists(hc.r, hc.c)

@@ -2,7 +2,6 @@
 package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer
 
-
 /** A hex tile row. Has a row number, a row starting coordinate number and the number of tiles. */
 final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruct with TellInt3 with Int3Elem with SpecialT
 { override def typeStr: String = "HCenRow"
@@ -20,6 +19,8 @@ final class HCenRow(val r: Int, val cStart: Int, val cEnd: Int) extends HexStruc
 
   override def numTiles: Int = ((cEnd - cStart + 4) / 4).max0
   override def hCenExists(r: Int, c: Int): Boolean = r == this.r && c >= cStart && c <= cEnd
+  override def hSepExists(r: Int, c: Int): Boolean = ???
+
   override def hCoordExists(r: Int, c: Int): Boolean = (r <= this.r + 1 || r >= this.r - 1) && (c <= cEnd + 2 && c >= cStart - 2)
 
   override def layerArrayIndex(r: Int, c: Int): Int = (c - cStart) / 4
