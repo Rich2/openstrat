@@ -6,10 +6,13 @@ package ostrat; package prid; package phex
 trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 { implicit def grid: HGrid
 
+  /** The [[LayerHcRefSys]]. The [[HCen]] tile values. */
   def terrs: LayerHcRefSys[TT]
 
+  /** The [[LayerHSOptSys]]. The [[HSep]] separator values. */
   def sTerrs: LayerHSOptSys[ST, SST]
 
+  /** The [[HCorner]] layer to set the vertices of the [[HSep]]s. */
   def corners: HCornerLayer
 
   trait IsleNBase
@@ -39,7 +42,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       corners.setNCornersIn(row, c, 6, 0, magnitude)
       iUntilForeach(6) { i =>
         val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.set(sep, sepTerrs)
+        sTerrs.setExists(grid, sep, sepTerrs)
       }
     }
   }
@@ -115,7 +118,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The [[HSep]] separator terrain. */
     def sTerr: SST
 
-    def run(row: Int, c: Int): Unit = sTerrs.set(row, c - 2, sTerr)
+    def run(row: Int, c: Int): Unit = sTerrs.setExists(grid, row, c - 2, sTerr)
   }
 
   /** Base trait for capes / headlands / peninsulas. Only use these classes for [[HVert]]s where there is no offset for any of the adjacent hex's [[HCorner]]s
@@ -143,7 +146,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       iUntilForeach(-1, numIndentedVerts) { i0 =>
         val i: Int = (indentStartIndex + i0) %% 6
         val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.set(sep, sepTerrs)
+        sTerrs.setExists(grid, sep, sepTerrs)
       }
     }
   }
@@ -174,10 +177,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       corners.setCornerIn(row, c, indentIndex, 7)
       corners.setCornerIn(row, c, oppositeIndex, 7)
 
-      sTerrs.set(HCen(row, c).sep(indentIndex - 1), sepTerrs1)
-      sTerrs.set(HCen(row, c).sep(indentIndex), sepTerrs1)
-      sTerrs.set(HCen(row, c).sep(indentIndex - 4), sepTerrs2)
-      sTerrs.set(HCen(row, c).sep(indentIndex + 3), sepTerrs2)
+      sTerrs.setExists(grid, HCen(row, c).sep(indentIndex - 1), sepTerrs1)
+      sTerrs.setExists(grid, HCen(row, c).sep(indentIndex), sepTerrs1)
+      sTerrs.setExists(grid, HCen(row, c).sep(indentIndex - 4), sepTerrs2)
+      sTerrs.setExists(grid, HCen(row, c).sep(indentIndex + 3), sepTerrs2)
     }
   }
 
@@ -202,12 +205,12 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def run(row: Int): Unit =
     { corners.setVertSource(row, c, dirn, magLt, magRt)
       dirn match
-      { case HVUp => sTerrs.set(row + 1, c, sTerr)
-        case HVUR => sTerrs.set(row, c + 1, sTerr)
-        case HVDR => sTerrs.set(row, c + 1, sTerr)
-        case HVDn => sTerrs.set(row - 1, c, sTerr)
-        case HVDL => sTerrs.set(row, c - 1, sTerr)
-        case HVUL => sTerrs.set(row, c - 1, sTerr)
+      { case HVUp => sTerrs.setExists(grid, row + 1, c, sTerr)
+        case HVUR => sTerrs.setExists(grid, row, c + 1, sTerr)
+        case HVDR => sTerrs.setExists(grid, row, c + 1, sTerr)
+        case HVDn => sTerrs.setExists(grid, row - 1, c, sTerr)
+        case HVDL => sTerrs.setExists(grid, row, c - 1, sTerr)
+        case HVUL => sTerrs.setExists(grid, row, c - 1, sTerr)
       }
     }
   }
@@ -237,32 +240,32 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, magnitude, magnitude)
-        sTerrs.set(row - 1, c, sTerr)
+        sTerrs.setExists(grid, row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setMouth4(row + 1, c + 2, magnitude, magnitude)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setMouth5(row - 1, c + 2, magnitude, magnitude)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setMouth0(row - 1, c, magnitude, magnitude)
-        sTerrs.set(row + 1, c, sTerr)
+        sTerrs.setExists(grid, row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setMouth1(row - 1, c - 2, magnitude, magnitude)
-        sTerrs.set(row, c + 1, sTerr)
+        sTerrs.setExists(grid, row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setMouth2(row + 1, c - 2, magnitude, magnitude)
-        sTerrs.set(row, c + 2, sTerr)
+        sTerrs.setExists(grid, row, c + 2, sTerr)
       }
     }
   }
@@ -281,32 +284,32 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, magnitude, 0)
-        sTerrs.set(row - 1, c, sTerr)
+        sTerrs.setExists(grid, row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setMouth4(row + 1, c + 2, magnitude, 0)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setMouth5(row - 1, c + 2, magnitude, 0)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setMouth0(row - 1, c, magnitude, 0)
-        sTerrs.set(row + 1, c, sTerr)
+        sTerrs.setExists(grid, row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setMouth1(row - 1, c - 2, magnitude, 0)
-        sTerrs.set(row, c + 1, sTerr)
+        sTerrs.setExists(grid, row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setMouth2(row + 1, c - 2, magnitude, 0)
-        sTerrs.set(row, c + 2, sTerr)
+        sTerrs.setExists(grid, row, c + 2, sTerr)
       }
     }
   }
@@ -326,32 +329,32 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, 0, magnitude)
-        sTerrs.set(row - 1, c, sTerr)
+        sTerrs.setExists(grid, row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setMouth4(row + 1, c + 2, 0, magnitude)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setMouth5(row - 1, c + 2, 0, magnitude)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setMouth0(row - 1, c, 0, magnitude)
-        sTerrs.set(row + 1, c, sTerr)
+        sTerrs.setExists(grid, row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setMouth1(row - 1, c - 2, 0, magnitude)
-        sTerrs.set(row, c + 1, sTerr)
+        sTerrs.setExists(grid, row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setMouth2(row + 1, c - 2, 0, magnitude)
-        sTerrs.set(row, c + 2, sTerr)
+        sTerrs.setExists(grid, row, c + 2, sTerr)
       }
     }
   }
@@ -375,32 +378,32 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def run(row: Int): Unit = dirn match
     { case HVUp =>
       { corners.setMouth3(row + 1, c, magLeft, magRight)
-        sTerrs.set(row - 1, c, sTerr)
+        sTerrs.setExists(grid, row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setMouth4(row + 1, c + 2, magLeft, magRight)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setMouth5(row - 1, c + 2, magLeft, magRight)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setMouth0(row - 1, c, magLeft, magRight)
-        sTerrs.set(row + 1, c, sTerr)
+        sTerrs.setExists(grid, row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setMouth1(row - 1, c - 2, magLeft, magRight)
-        sTerrs.set(row, c + 1, sTerr)
+        sTerrs.setExists(grid, row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setMouth2(row + 1, c - 2, magLeft, magRight)
-        sTerrs.set(row, c + 2, sTerr)
+        sTerrs.setExists(grid, row, c + 2, sTerr)
       }
     }
   }
@@ -427,42 +430,42 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       { corners.setCorner(row - 1, c + 2, 5, dirn1, magnitude1)
         corners.setCorner(row - 1, c - 2, 1, dirn2, magnitude2)
         corners.setCornerPair(row + 1, c, 3, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row - 1, c, sTerr)
+        sTerrs.setExists(grid, row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setCorner(row - 1, c, 0, dirn1, magnitude1)
         corners.setCorner(row + 1, c - 2, 2, dirn2, magnitude2)
         corners.setCornerPair(row + 1, c + 2, 4, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setCorner(row - 1, c - 2, 1, dirn1, magnitude1)
         corners.setCorner(row + 1, c, 3, dirn2, magnitude2)
         corners.setCornerPair(row - 1, c + 2, 5, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c - 1, sTerr)
+        sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setCorner(row + 1, c - 2, 2, dirn1, magnitude1)
         corners.setCorner(row + 1, c + 2, 4, dirn2, magnitude2)
         corners.setCornerPair(row - 1, c, 0, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row + 1, c, sTerr)
+        sTerrs.setExists(grid, row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setCorner(row + 1, c, 3, dirn1, magnitude1)
         corners.setCorner(row - 1, c + 2, 5, dirn2, magnitude2)
         corners.setCornerPair(row - 1, c - 2, 1, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c + 1, sTerr)
+        sTerrs.setExists(grid, row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setCorner(row + 1, c + 2, 4, dirn1, magnitude1)
         corners.setCorner(row - 1, c, 0, dirn2, magnitude2)
         corners.setCornerPair(row + 1, c - 2, 2, dirn1, dirn2, magnitude1, magnitude2)
-        sTerrs.set(row, c + 2, sTerr)
+        sTerrs.setExists(grid, row, c + 2, sTerr)
       }
     }
   }
@@ -690,9 +693,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     { grid.hCenExistsIfDo(row + 1, c + 2){ corners.setCornerIn(row + 1, c + 2, 4, magUR) }
       grid.hCenExistsIfDo(row - 1, c){ corners.setCornerIn(row - 1, c, 0, magDn) }
       grid.hCenExistsIfDo(row + 1, c - 2){ corners.setCornerIn(row + 1, c - 2, 2, magUL) }
-      sTerrs.set(row + 1, c, upTerr)
+      sTerrs.setExists(grid, row + 1, c, upTerr)
       sTerrs.setExists(grid, row, c + 1, downRightTerr)
-      sTerrs.set(row, c - 1, downLeftTerr)
+      sTerrs.setExists(grid, row, c - 1, downLeftTerr)
     }
   }
   
@@ -721,9 +724,9 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     { grid.hCenExistsIfDo(row + 1, c) { corners.setCornerIn(row + 1, c, 3, magUp) }
       grid.hCenExistsIfDo(row - 1, c + 2) { corners.setCornerIn(row - 1, c + 2, 5, magDR) }
       grid.hCenExistsIfDo(row - 1, c - 2) { corners.setCornerIn(row - 1, c -2, 1, magDL) }
-      sTerrs.set(row, c + 1, upRightTerr)
-      sTerrs.set(row - 1, c, downTerr)
-      sTerrs.set(row, c - 1, upLeftTerr)
+      sTerrs.setExists(grid, row, c + 1, upRightTerr)
+      sTerrs.setExists(grid, row - 1, c, downTerr)
+      sTerrs.setExists(grid, row, c - 1, upLeftTerr)
     }
   }
 
@@ -731,7 +734,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   trait SetSepBase
   { def c: Int
     def terr: SST
-    def run(row: Int): Unit = sTerrs.set(row, c, terr)
+    def run(row: Int): Unit = sTerrs.setExists(grid, row, c, terr)
   }
 
   /** Used for setting the a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
