@@ -489,34 +489,34 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
     def setSeparators(row: Int): Unit = dirn match
     { case HVUR =>
-      { sTerrs.setIf(row, c + 1, leftTerr)
-        sTerrs.setIf(row + 1, c, rightTerr)
+      { sTerrs.setExists(grid, row, c + 1, leftTerr)
+        sTerrs.setExists(grid, row + 1, c, rightTerr)
       }
 
       case HVDR =>
-      { sTerrs.set(row - 1, c, leftTerr)
-        sTerrs.set(row, c + 1, rightTerr)
+      { sTerrs.setExists(grid, row - 1, c, leftTerr)
+        sTerrs.setExists(grid, row, c + 1, rightTerr)
       }
 
       case HVDn =>
-      { sTerrs.setIf(row, c - 1, leftTerr)
-        sTerrs.setIf(row, c + 1, rightTerr)
+      { sTerrs.setExists(grid, row, c - 1, leftTerr)
+        sTerrs.setExists(grid, row, c + 1, rightTerr)
       }
 
       case HVDL =>
-      { sTerrs.set(row, c - 1, leftTerr)
-        sTerrs.set(row - 1, c, rightTerr)
+      { sTerrs.setExists(grid, row, c - 1, leftTerr)
+        sTerrs.setExists(grid, row - 1, c, rightTerr)
       }
 
       case HVUL =>
-      { sTerrs.setIf(row + 1, c, leftTerr)
-        sTerrs.setIf(row, c - 1, rightTerr)
+      { sTerrs.setExists(grid, row + 1, c, leftTerr)
+        sTerrs.setExists(grid, row, c - 1, rightTerr)
 
       }
 
       case HVUp =>
-      { sTerrs.setIf(row, c + 1, leftTerr)
-        sTerrs.setIf(row, c - 1, rightTerr)
+      { sTerrs.setExists(grid, row, c + 1, leftTerr)
+        sTerrs.setExists(grid, row, c - 1, rightTerr)
       }
 
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
@@ -691,7 +691,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       grid.hCenExistsIfDo(row - 1, c){ corners.setCornerIn(row - 1, c, 0, magDn) }
       grid.hCenExistsIfDo(row + 1, c - 2){ corners.setCornerIn(row + 1, c - 2, 2, magUL) }
       sTerrs.set(row + 1, c, upTerr)
-      grid.hSepExistsIfDo(row, c + 1){ sTerrs.set(row, c + 1, downRightTerr) }
+      sTerrs.setExists(grid, row, c + 1, downRightTerr)
       sTerrs.set(row, c - 1, downLeftTerr)
     }
   }

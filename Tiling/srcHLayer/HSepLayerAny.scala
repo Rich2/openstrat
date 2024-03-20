@@ -23,17 +23,19 @@ trait HSepLayerAny[A]
     unsafeArray(i) = value
   }
 
-  def setIf(hs: HSep, value: A)(implicit grid: HGrid): Unit =
+  /** Set [[HSep]] if the [[HSep]] exists in the given [[HGrid]]. */
+  def setExists(grid: HGrid, hs: HSep, value: A): Unit =
   { if(grid.sepExists(hs))
     { val i = grid.sepLayerArrayIndex(hs)
       unsafeArray(i) = value
     }
   }
 
-  def setIf(r: Int, c: Int, value: A)(implicit grid: HGrid): Unit =
+  /** Set [[HSep]] if the [[HSep]] exists in the given [[HGrid]]. */
+  def setExists(grid: HGrid, r: Int, c: Int, value: A): Unit =
   { if(grid.hSepExists(r, c))
     { val i = grid.sepLayerArrayIndex(r, c)
-       unsafeArray(i) = value
+      unsafeArray(i) = value
     }
   }
 
