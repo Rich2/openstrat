@@ -5,23 +5,17 @@ trait HSepLayerAny[A]
 {
   def unsafeArray: Array[A]
 
-  def set(hs: HSep, value: A)(implicit grid: HGridSys): Unit =
-  { val i = grid.sepLayerArrayIndex(hs)
-    if (i >= unsafeArray.length) deb(s"$hs")
-    unsafeArray(i) = value
-  }
+  /** Sets the value in the;ayer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
+  def set(hs: HSep, value: A)(implicit grid: HGridSys): Unit = if(grid.hSepExists(hs)) unsafeArray(grid.sepLayerArrayIndex(hs)) = value
+    else excep(s"$hs doesn't exist in this grid")
 
-  def set(r: Int, c: Int, value: A)(implicit grid: HGridSys): Unit =
-  { val i = grid.sepLayerArrayIndex(r, c)
-    if (i >= unsafeArray.length) deb(s"$r, $c")
-    unsafeArray(i) = value
-  }
+  /** Sets the value in the;ayer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
+  def set(r: Int, c: Int, value: A)(implicit grid: HGridSys): Unit = if (grid.hSepExists(r, c)) unsafeArray(grid.sepLayerArrayIndex(r, c)) = value
+    else excep(s"$r, $c doesn't exist in this grid")
 
-  def set(grid: HGridSys, hs: HSep, value: A): Unit =
-  { val i = grid.sepLayerArrayIndex(hs)
-    if (i >= unsafeArray.length) deb(s"$hs")
-    unsafeArray(i) = value
-  }
+  /** Sets the value in the;ayer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
+  def set(grid: HGridSys, hs: HSep, value: A): Unit = if (grid.hSepExists(hs)) unsafeArray(grid.sepLayerArrayIndex(hs)) = value
+    else excep(s"$hs doesn't exist in this grid")
 
   /** Set [[HSep]] if the [[HSep]] exists in the given [[HGrid]]. */
   def setExists(grid: HGrid, hs: HSep, value: A): Unit =
