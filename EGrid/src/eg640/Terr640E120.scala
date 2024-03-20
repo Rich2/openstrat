@@ -20,7 +20,7 @@ object Terr640E120 extends Long640Terrs
     TRow(128, tundra),
     TRow(126, hillyTaiga, hillyTaiga),
     TRow(124, hillyTaiga, hillyTaiga),
-    VRow(123, MouthRt(4612, HVDL, 7), BendIn(4614, HVDn, 13)),
+    VRow(123, MouthRt(4612, HVDL, 7, siceWin), BendIn(4614, HVDn, 13, siceWin)),
     TRow(122, mtainOld, hillyTaiga),
     TRow(120, mtainOld, hillyOce, hillyOce),
     TRow(118, deshot, steppe, hillyOce),

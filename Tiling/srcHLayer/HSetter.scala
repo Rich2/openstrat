@@ -489,8 +489,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
     def setSeparators(row: Int): Unit = dirn match
     { case HVUR =>
-      { sTerrs.setIf(row + 1, c, leftTerr)
-        sTerrs.setIf(row, c + 1, rightTerr)
+      { sTerrs.setIf(row, c + 1, leftTerr)
+        sTerrs.setIf(row + 1, c, rightTerr)
       }
 
       case HVDR =>

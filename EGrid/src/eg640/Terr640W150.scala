@@ -20,8 +20,9 @@ object Terr640W150 extends Long640Terrs
     TRow(126, hillyTundra, taiga),
     VRow(125, BendIn(7676, HVUL, 13, SeaIceWinter)),
     TRow(124, hillyTundra, mtainOld),
-    VRow(123, BendOut(7676, HVDL, 7, siceWin), BendOut(7680, HVDR, 7), BendOut(7682, HVDn, 7)),
+    VRow(123, ThreeDown(7676, 13, 13, 0, siceWin), Source(7678, HVDL, 4, 2, siceWin), BendOut(7680, HVDR, 7), BendOut(7682, HVDn, 7)),
     TRow(122, hillyTundra, sea),
+    VRow(121, BendIn(7676, HVUR, 13, sea, siceWin), BendIn(7678, HVUp, 13)),
     TRow(108, Isle5(mtainOld)),
     )
   }
