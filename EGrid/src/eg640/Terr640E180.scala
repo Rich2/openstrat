@@ -11,14 +11,16 @@ object Terr640E180 extends Long640Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rows: RArr[RowBase] = RArr(
-      TRow(128, tundra),
-      VRow(127, BendOut(6658, HVUR)),
-      TRow(126, hillyTundra, tundra),
-      VRow(125, MouthLt(6656, HVUL, 7, SeaIceWinter), ThreeDown(6658, 13, 13, 0, SeaIceWinter), BendIn(6660, HVUL, 13, SeaIceWinter)),
-      TRow(124, sea, hillyTundra),
-      TRow(122, SepB()),
+  { override val rows: RArr[RowBase] = RArr(
+    TRow(130, siceWin),
+    VRow(129, BendOut(6654, HVUp, 7, siceWin), BendIn(6656, HVDn, 13, siceWin), ThreeDown(6658, 0, 8, 13, siceWin)),
+    TRow(128, tundra),
+    VRow(127, BendOut(6658, HVUR), BendIn(6660, HVDL, 8, siceWin)),
+    TRow(126, hillyTundra, tundra),
+    VRow(125, MouthLt(6656, HVUL, 7, SeaIceWinter), ThreeDown(6658, 13, 13, 0, SeaIceWinter), BendIn(6660, HVUL, 13, SeaIceWinter)),
+    TRow(124, siceWin, hillyTundra),
+    VRow(123, BendMin(6652, HVDR, siceWin), SourceRt(6654, HVDL, 7, siceWin), BendIn(6658, HVUR, 13, siceWin), BendOut(6660, HVDL, 7, siceWin)),
+    TRow(122, SepB()),
     )
   }
   help.run
