@@ -345,8 +345,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
-  class ThreeUp(val c: Int, val magUR: Int, val magDn: Int, val magUL: Int, val upTerr: WSepSome, val downRightTerr: WSepSome,
-    val downLeftTerr: WSepSome) extends VRowElem with ThreeUpBase
+  class ThreeUp(val c: Int, val magUR: Int, val magDn: Int, val magUL: Int, val upTerr: WSepSome, val downRightTerr: WSepSome, val downLeftTerr: WSepSome)
+    extends VRowElem with ThreeUpBase
 
   object ThreeUp
   {
