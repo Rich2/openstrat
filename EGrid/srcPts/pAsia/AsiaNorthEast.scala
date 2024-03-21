@@ -75,7 +75,7 @@ object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
 }
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on [[Kamchatka]]. */
-object FeAsia extends EArea2("FEAsia", 66.22 ll 159.68, hillyTundra)
+object FeAsia extends EArea2("far east\nAsia", 66.22 ll 159.68, hillyTundra)
 { val farAsiaW: Longitude = 141.6.east
 
   val ustYansky: LatLong = 72.81.north * farAsiaW

@@ -81,7 +81,7 @@ object GreatSlaveLake extends EArea2("Great Slave\nLake", 61.66 ll -113.83, Lake
   override def polygonLL: PolygonLL = PolygonLL(north, east, south, bigIslandEast, p70, northWest, p80)
 }
 
-  /** [[polygonLL]] graphical representation for north west Canada. Depends on [[Alaska]]. */
+  /** [[polygonLL]] graphical representation for north west Canada. Depends on [[AlaskaNorth]]. */
 object CanadaNorthWest extends EArea2("Canada\n north west", 64.051 ll -129.98, taiga)
 { val yakut50: LatLong = 60 ll -139.60
   val yakut10: LatLong = 68.90 ll -136.53
@@ -90,7 +90,7 @@ object CanadaNorthWest extends EArea2("Canada\n north west", 64.051 ll -129.98, 
   val raeMouth: LatLong = 67.92 ll -115.34
   val hudsonBay60W: LatLong = 60 ll -94.82
 
-  override def polygonLL: PolygonLL = PolygonLL(yakut50, Alaska.yakut10, Alaska.northEast, yakut10, inuvik10, nunavut10, raeMouth, Nunavut.northWest,
+  override def polygonLL: PolygonLL = PolygonLL(yakut50, AlaskaSouth.p5, AlaskaNorth.southEast, AlaskaNorth.northEast, yakut10, inuvik10, nunavut10, raeMouth, Nunavut.northWest,
     Nunavut.rockHouseIsland, hudsonBay60W, GreatSlaveLake.east, GreatSlaveLake.north, GreatSlaveLake.p80, GreatSlaveLake.northWest)
 }
 
