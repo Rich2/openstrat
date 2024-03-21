@@ -47,8 +47,8 @@ object HtmlLi
 }
 
 /** Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a section. */
-class HtmlOlWithLH(val head: XCon, items: RArr[HtmlLi]) extends HtmlSection
-{ override def contents: RArr[XCon] = RArr(head, orderedList)
+class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
+{ override def contents: RArr[XCon] = RArr(header, orderedList)
   override def attribs: RArr[XmlAtt] = RArr()
 
   def orderedList: HtmlOl = HtmlOl(items)

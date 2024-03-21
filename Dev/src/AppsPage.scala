@@ -4,14 +4,11 @@ import pWeb._, AppPage.{ egameDir, egrDir, otDir }
 
 /** The top level HTML documentation page for the apps. */
 object AppsPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
+{ override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", list)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, egrids, otherTiled, otherApps)
 
-  def list: HtmlOl = HtmlOl(stratList ++ egrids ++ otherTiled ++ otherApps)
-
-  def stratList: RArr[HtmlInline] = RArr(HtmlH2("Strategy Games using tiled world maps."),
+  def stratList: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Strategy Games using tiled world maps."),
     HtmlLi.linkAndText(egameDir + "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"
       -- "no random element."),
     HtmlLi.linkAndText(egameDir + "periculoapp.html", "Periculo Fundatuso", "A simple consecutive turn, world map game that has some grounding in earth" --
@@ -31,8 +28,7 @@ object AppsPage extends HtmlPage
       "is the second game that most interests me."),
   )
 
-  def egrids: RArr[HtmlInline] = RArr(
-    HtmlH2("World Hex Grids."),
+  def egrids: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("World Hex Grids."),
     HtmlLi.linkAndText(egrDir + "eg1300app.html", "EGrid 1300km", "1300km hex scale world."),
     HtmlLi.linkAndText(egrDir + "eg1000app.html", "EGrid 1000km", "1000km hex scale world."),
     HtmlLi.linkAndText(egrDir + "eg640app.html", "EGrid 640km", "640km hex scale world."),
@@ -46,16 +42,15 @@ object AppsPage extends HtmlPage
     HtmlLi.linkAndText(egrDir + "eg80europe.html", "EGrid Europe 80km", "80km hex scale Europe."),
   )
 
-  def otherTiled: RArr[HtmlInline] = RArr(
-    HtmlH2("Other Tiled Map Applications."),
+  def otherTiled: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Tiled Map Applications."),
     HtmlLi.linkAndText(otDir + "unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText(otDir + "zugapp.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),
     HtmlLi.linkAndText(otDir + "dungeonapp.html", "Dungeon Game", "A Tactical strategy game on square tiles with a 0.5 metre tile scale."),
     HtmlLi.linkAndText(otDir + "civriseapp.html", "Civ Rise", "A 4X strategy game using hexs. Its main use so far has been to develop a" --
-      "generalised side terrain"),
-    HtmlH2("Other Applications."))
+      "generalised side terrain")
+  )
 
-  def otherApps: RArr[HtmlLi] = RArr(
+  def otherApps: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Apps"),
     HtmlLi("Geometry and Graphics Tutorials"),
     HtmlLi.linkAndText(otDir + "planets.html", "Planets", "Mostly knocked togethor quickly some time back. I've included it next just because its different."),
     HtmlLi("Simultaneous turn, tile based tutorial games."),
