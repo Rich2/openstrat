@@ -170,6 +170,7 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
   def setVertEqual(hv: HVert, magnitude: Int)(implicit grid: HGrid): Unit = setVertEqual(HVert(hv.r, hv.c), magnitude)
 
+  /** Set the 3 [[HCorner]]s of an [[HSep]] source or end point. */
   def setVertSource(r: Int, c: Int, dirn: HVDirn, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit = dirn match
   {
     case HVUp =>
