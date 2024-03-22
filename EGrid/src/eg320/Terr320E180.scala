@@ -23,9 +23,10 @@ object Terr320E180 extends Long320Terrs
     VRow(153, Source(6662, HVDn, 6, 2, siceWin)),
     TRow(152, tundra, hillyTundra, tundra, taiga),
     VRow(151, ThreeUp(6662, 13, 13, 11)),
-    TRow(150, tundra * 2, sea, tundra),
+    TRow(150, tundra * 2, siceWin, tundra),
     TRow(148, tundra, sea * 3, tundra),
-    VRow(144, SetSep(6646))
+    VRow(145, BendOut(6646, HVDR, 7, siceWin)),
+    //VRow(144, SetSep(6646))
     )
   }
   help.run

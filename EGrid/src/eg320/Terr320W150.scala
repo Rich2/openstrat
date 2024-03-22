@@ -2,7 +2,8 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 165° west to 135° wast, centred on 150° west. Hex tile scale of 320km. */
+/** [[WTile]] terrain for 165° west to 135° wast, centred on 150° west. Hex tile scale of 320km.
+ * [[Tile6]] 10478.907km² => 14635.829km². Kodiak archipelago 13890km². */
 object Terr320W150 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.w150(120)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -11,23 +12,26 @@ object Terr320W150 extends Long320Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rows: RArr[RowBase] = RArr(
-      TRow(166, SeaIcePerm),
-      TRow(164, SeaIceWinter),
-      TRow(162, SeaIceWinter * 2),
-      TRow(160, SeaIceWinter * 2),
-      TRow(158, SeaIceWinter * 3),
-      TRow(156, tundra * 2, CapeOld(0, 1, tundra, SeaIceWinter)),
-      TRow(154, hillyTaiga * 3, taiga),
-      TRow(152, taiga * 3, hillyTaiga),
-      TRow(150, hillyTundra, mtainOld * 2, taiga),
-      TRow(148, hillyTaiga * 2, sea * 2, mtainOld),
-      VRow(147, BendIn(7672, HVDR, 13), Source(7674, HVDL, 5, 1)),
-      TRow(146, hillyTundra, sea * 3, mtainOld),
-      TRow(144, hillyTaiga, sea * 4),
-      VRow(143, MouthOld(7670, HVUL)),
+  { override val rows: RArr[RowBase] = RArr(
+    TRow(166, SeaIcePerm),
+    TRow(164, SeaIceWinter),
+    TRow(162, SeaIceWinter * 2),
+    TRow(160, SeaIceWinter * 2),
+    TRow(158, SeaIceWinter * 3),
+    TRow(156, tundra * 2, CapeOld(0, 1, tundra, SeaIceWinter)),
+    TRow(154, hillyTaiga * 3, taiga),
+    TRow(152, taiga * 3, hillyTaiga),
+    TRow(150, hillyTundra, mtainOld * 2, taiga),
+    TRow(148, hillyTaiga * 2, sea * 2, mtainOld),
+    VRow(147, BendIn(7672, HVDR, 13), Source(7674, HVDL, 5, 1)),
+    TRow(146, hillyTundra, sea * 3, mtainOld),
+    TRow(144, hillyTaiga, sea * 4),
+    VRow(143, MouthOld(7670, HVUL)),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(146, "", "Kodiak Archipelago")
+  }
 }
