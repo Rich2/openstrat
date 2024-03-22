@@ -40,6 +40,7 @@ object TerrMegaW30 extends LongMegaTerrs
     VRow(95, Bend(11772, HVDR, 4, 2), BendIn(11774, HVUL, 13)),
     VRow(93, BendOut(11772, HVDR), SetSep(11773)),
     VRow(91, SetSep(11773)),
+    TRow(84, siceWin),
     TRow(82, ice)
     )
   }

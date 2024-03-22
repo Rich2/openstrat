@@ -40,6 +40,7 @@ object TerrMegaE0 extends LongMegaTerrs
       VRow(93, BendIn(514, HVDR, 13), BendOut(516, HVUL, 7)),
       TRow(92, sea, hillySavannah),
       VRow(91, BendIn(514, HVUR, 13), MouthRt(516, HVDR, 7)),
+      TRow(84, siceWin),
       TRow(82, ice),
     )
   }

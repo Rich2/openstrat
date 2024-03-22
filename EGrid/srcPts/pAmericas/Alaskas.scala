@@ -32,11 +32,12 @@ object AlaskaNorth extends EArea2("Alaska north", 66.33 ll -151.16, hillyTaiga)
     pointHope, p69, northWest, p10)
 }
 
-/** [[polygonLL]] graphical representation for south Alaska. Depends on Nothing. */
+/** [[polygonLL]] graphical representation for south Alaska. Depends on [[AlaskaNorth]] and [[AleutPenisula]]. */
 object AlaskaSouth extends EArea2("Alaska south", 63.261 ll -151.041, hillyTaiga)
 { val p5: LatLong = 59.93 ll -141.03
   val p10: LatLong = 60.013 ll -143.905
-  val perlIsland = 59.104 ll -151.702
+  val montagueIsland: LatLong = 59.773 ll -147.859
+  val perlIsland: LatLong = 59.104 ll -151.702
   val capeNewenham: LatLong = 58.57 ll -161.73
   val p27: LatLong = 58.649 ll -162.169
   val kuskokwimMouth: LatLong = 60.019 ll -162.347
@@ -47,7 +48,7 @@ object AlaskaSouth extends EArea2("Alaska south", 63.261 ll -151.041, hillyTaiga
   val stuart: LatLong = 63.633 ll -162.425
   val p38: LatLong = 63.502 ll -161.141
   
-  override def polygonLL: PolygonLL = PolygonLL(AlaskaNorth.southEast, p5, p10, perlIsland, AleutPenisula.northEast, AleutPenisula.kvichakMouth, capeNewenham,
+  override def polygonLL: PolygonLL = PolygonLL(AlaskaNorth.southEast, p5, p10, montagueIsland, perlIsland, AleutPenisula.northEast, AleutPenisula.kvichakMouth, capeNewenham,
     p27, kuskokwimMouth, p29, p31, p33, p37, stuart, p38, AlaskaNorth.southWest)
 }
 
@@ -78,20 +79,26 @@ object Nunivak extends EArea2("Nunivak", 60.119 ll -166.351, hillyTaiga)
 /** [[polygonLL]] graphical representation for Alaska / Aleutian Peninsula. Depends on Nothing. */
 object AleutPenisula extends EArea2("Aleut Peninsula", 57.797 ll -156.728, hillyTundra)
 { val northEast: LatLong = 58.916 ll -153.337
-  val marmot: LatLong = 58.248 ll -151.800
-  val chiniak: LatLong = 57.618 ll -152.164
-  val sitkinak: LatLong = 56.535 ll -153.891
   val p20: LatLong = 57.18 ll -156.35
+  val p35: LatLong = 55.996 ll -158.434
+  val unimak48 = 54.402 ll -164.742
+  val capeShanchef = 54.598 ll -164.928
+  val p52: LatLong = 54.916 ll -164.491
   val nikolski: LatLong = 52.88 ll -168.94
+  val p60: LatLong = 55.889 ll -161.804
   val portHeiden: LatLong = 57.63 ll -157.69
   val kvichakMouth: LatLong = 58.87 ll -157.05
 
-  override def polygonLL: PolygonLL = PolygonLL(northEast, marmot, chiniak, sitkinak, p20, nikolski, portHeiden, kvichakMouth)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, p20, p35, unimak48, capeShanchef, p52, p60, portHeiden, kvichakMouth)
 }
 
-/** [[polygonLL]] graphical representation for Alaska / Aleutian Peninsula. Depends on Nothing. */
+/** [[polygonLL]] graphical representation for Kodiak Island. Depends on Nothing. */
 object KodiakIsland extends EArea2("Kodiak Island", 57.568 ll -153.276, mtainTaiga)
-{
-  val north = 58.631 ll -152.352
-  override def polygonLL: PolygonLL = PolygonLL(north)
+{ val north: LatLong = 58.631 ll -152.352
+  val east: LatLong = 57.590 ll -152.160
+  val sitkinak: LatLong = 56.555 ll -153.880
+  val tugidak: LatLong = 56.403 ll -154.749
+  val p60: LatLong = 57.349 ll -154.792
+
+  override def polygonLL: PolygonLL = PolygonLL(north, east, sitkinak, tugidak, p60)
 }

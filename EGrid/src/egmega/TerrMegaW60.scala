@@ -40,6 +40,7 @@ object TerrMegaW60 extends LongMegaTerrs
     VRow(91, MouthOld(10754, HVUL)),
     TRow(90, hillySavannah, sea),
     VRow(89, MouthOld(10748, HVUR)),
+    TRow(84, siceWin),
     TRow(82, siceWin)
     )
   }

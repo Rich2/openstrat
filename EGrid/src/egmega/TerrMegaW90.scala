@@ -38,6 +38,7 @@ object TerrMegaW90 extends LongMegaTerrs
     VRow(89, MouthOld(9732, HVUR)),
     TRow(88, sea, CapeOld(5, 1, hillyTaiga)),
     VRow(87, MouthOld(9730, HVDn)),
+    TRow(82, SeaIcePerm)
     )
   }
   help.run

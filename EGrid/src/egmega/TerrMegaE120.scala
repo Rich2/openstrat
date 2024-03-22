@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 1 megametre or 1000km.
  * [[Isle8]] 190288.785km² => 244415.372km². Most of Philippines excluding Luzon and Palawan.
- * [[Isle7]] 142928.020km² => 190288.785km². Sulawesi 186216.16km².
+ * [[Isle7]] 142928.020km² => 190288.785km². NZ South Island 145836km². Sulawesi 186216.16km².
  * [[Isle6]] 102333.079km² => 142928.020km². Luzon 109965km², Java 138,800km².
  * [[Isle5]] 68503.962km² => 102333.079km². Lesser Sunda Islands estimate 80000km.
  * [[Isle3]] 21143.198km² => 41440.668km². Taiwan 36197km², */
@@ -17,6 +17,7 @@ object TerrMegaE120 extends LongMegaTerrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
+    VRow(119, SourceRt(4610, HVDR, 7, siceWin), BendMin(4612, HVUp, siceWin)),
     TRow(118, hillyTundra),
     TRow(116, hillyTaiga),
     VRow(115, SourceMax(4612, HVDn)),
