@@ -2,31 +2,53 @@
 package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of the Artic. Depends on nothing. */
-case object Artic extends EArea2("Artic", 89.9 ll 0, ice)
-{ val long0: LatLong = 82 ll 0
-  val long15: LatLong = 82 ll 15
-  val long30: LatLong = 82 ll 30
-  val long45: LatLong = 82 ll 45
-  val long60: LatLong = 82 ll 60
-  val long75: LatLong = 82 ll 75
-  val long90: LatLong = 82 ll 90
-  val long105: LatLong = 82 ll 105
-  val long120: LatLong = 82 ll 120
-  val long135: LatLong = 82 ll 135
-  val long150: LatLong = 82 ll 150
+/** [[polygonLL]] graphical representation of the western Artic. Depends on [[Greenland]], [[ArticNear]] and [[ArticFar]]. */
+case object ArticWest extends EArea2("Artic west", 85 ll -90, ice)
+{ val long240: LatLong = 82 ll 240
+  val long255: LatLong = 82 ll 255
+  val long270: LatLong = 82 ll 270
+  val long285: LatLong = 82 ll 285
+
+  override val polygonLL: PolygonLL = PolygonLL(ArticFar.long225, long240, long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland,
+    ArticNear.north315, ArticNear.north225)
+}
+
+/** [[polygonLL]] graphical representation of the far from Greenwich Artic. Depends on [[ArticNear]] and [[ArticEast]]. */
+case object ArticFar extends EArea2("Artic far", 85 ll 180, ice)
+{ val long150: LatLong = 82 ll 150
   val long165: LatLong = 82 ll 165
   val long180: LatLong = 82 ll 180
   val long195: LatLong = 82 ll 195
   val long210: LatLong = 82 ll 210
   val long225: LatLong = 82 ll 225
-  val long240: LatLong = 82 ll 240
-  val long255: LatLong = 82 ll 255
-  val long270: LatLong = 82 ll 270
-  val long285: LatLong = 82 ll 285
 
-  override val polygonLL: PolygonLL = PolygonLL(long0, long15, long30, long45, long60, long75, long90, long105, long120, long135, long150, long165, long180, long195, long210, long225, long240,
-    long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland, Greenland.neGreenland)
+  override val polygonLL: PolygonLL = PolygonLL(ArticEast.long135, long150, long165, long180, long195, long210, long225, ArticNear.north225, ArticNear.north135)
+}
+/** [[polygonLL]] graphical representation of the near to Greenwich Artic. Depends on [[Greenland]]. */
+case object ArticNear extends EArea2("Artic near", 85 ll 0, ice)
+{ val long0: LatLong = 82 ll 0
+  val long15: LatLong = 82 ll 15
+  val long30: LatLong = 82 ll 30
+  val long45: LatLong = 82 ll 45
+  val north45: LatLong = 89 ll 45
+  val north135: LatLong = 89 ll 135
+  val north225: LatLong = 89 ll -135
+  val north315: LatLong = 89 ll -45
+
+  override val polygonLL: PolygonLL = PolygonLL(Greenland.nGreenland, Greenland.neGreenland, long0, long15, long30, long45, north45, north135, north225,
+    north315)
+}
+
+/** [[polygonLL]] graphical representation of the eastern Artic. Depends on [[ArticNear]]. */
+case object ArticEast extends EArea2("Artic east", 85 ll 0, ice)
+{ val long60: LatLong = 82 ll 60
+  val long75: LatLong = 82 ll 75
+  val long90: LatLong = 82 ll 90
+  val long105: LatLong = 82 ll 105
+  val long120: LatLong = 82 ll 120
+  val long135: LatLong = 82 ll 135
+
+  override val polygonLL: PolygonLL = PolygonLL(ArticNear.long45, long60, long75, long90, long105, long120, long135, ArticNear.north135, ArticNear.north45)
 }
 
 /** [[polygonLL]] graphical representation of Svalbard Island. Depends on nothing. */
