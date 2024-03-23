@@ -95,7 +95,7 @@ object AsiaEast extends EArea1("Asia", 60 ll 100)
 /** Polar regions. */
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 { import pOceans._
-  override val a2Arr: RArr[EArea2] = RArr(Greenland, Artic, Svalbard, Nordauslandet)
+  override val a2Arr: RArr[EArea2] = RArr(Greenland, Artic, Svalbard, Nordauslandet, SevernayaZemyla)
 }
 
 object Australasia extends EArea1("Australasia", -23 ll 130)

@@ -29,60 +29,43 @@ case object Artic extends EArea2("Artic", 89.9 ll 0, ice)
     long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland, Greenland.neGreenland)
 }
 
-/** [[polygonLL]] graphical representation of Greenland. Depends on nothing. */
-object Greenland extends EArea2("Greenland", 75 ll -42, ice)
-{ val neGreenland: LatLong = 81.44 ll -11.77
-  val p10: LatLong = 75.036 ll -17.426
-  val semersooq: LatLong = 70.03 ll -23.07
-  val p35: LatLong = 68.819 ll -25.906
-  val p37: LatLong = 67.858 ll -32.180
-  val p39 = 67.056 ll -33.424
-  val kulusuk: LatLong = 65.53 ll -37.05
-
-  val ortit: LatLong = 65.260 ll -39.516
-  val p42 = 63.691 ll -40.521
-  val p44: LatLong = 61.865 ll -42.095
-  val sGreenland: LatLong = 59.87 ll -43.95
-
-  val swGreenland: LatLong = 60.82 ll -48.07
-  val kanqeq = 64.119 ll -52.090
-  val p72: LatLong = 66.339 ll -53.702
-  val aasiaat: LatLong = 68.68 ll -53.00
-  val diskoIsland: LatLong = 69.713 ll -54.961
-  val p73: LatLong = 71.695 ll -55.864
-  val p74: LatLong = 73.635 ll -57.026
-  val p75: LatLong = 75.73 ll -58.98
-  val p80: LatLong = 76.082 ll -68.409
-  val northumberland: LatLong = 77.414 ll -72.508
-  val wGreenland: LatLong = 78.166 ll -72.977
-  val p85: LatLong =  78.515 ll -72.572
-  val nwGreenland: LatLong = 80.33 ll -67.27
-  val nGreenland: LatLong = 83.60 ll -34.19
-
-  override val polygonLL: PolygonLL = PolygonLL(neGreenland, p10, semersooq, p35, p37, p39, kulusuk, ortit, p42, p44, sGreenland, swGreenland, kanqeq, p72, aasiaat, diskoIsland, p73, p74, p75, p80, northumberland, wGreenland, p85,
-    nwGreenland, nGreenland)
-}
-
+/** [[polygonLL]] graphical representation of Svalbard Island. Depends on nothing. */
 object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
-{ val south = 76.59 ll 16.70
-  val wSpitsbergen = 79.54 ll 10.64
-  val nSpitzbergen = 79.87 ll 13.75
-  val north = 80.06 ll 16.23
-  val east = 78.83 ll 21.51
-  val sEdgeoya = 77.25 ll 22.67
+{ val south: LatLong = 76.59 ll 16.70
+  val wSpitsbergen: LatLong = 79.54 ll 10.64
+  val nSpitzbergen: LatLong = 79.87 ll 13.75
+  val north: LatLong = 80.06 ll 16.23
+  val east: LatLong = 78.83 ll 21.51
+  val sEdgeoya: LatLong = 77.25 ll 22.67
   val pt1: LatLong = 78.47 ll 18.93
    
   val polygonLL: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
-}      
+}
 
+/** [[polygonLL]] graphical representation of Nordauslandet Island. Depends on nothing. */
 object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, ice)
-{ val south = 79.22 ll 23.61
-  val southWest = 79.36 ll 20.76
-  val northWest = 80.13 ll 17.72
-  val north1 = 80.50 ll 19.65
-  val north2 = 80.00 ll 22.23
-  val north3 = 80.51 ll 22.79
+{ val south: LatLong = 79.22 ll 23.61
+  val southWest: LatLong = 79.36 ll 20.76
+  val northWest: LatLong = 80.13 ll 17.72
+  val north1: LatLong = 80.50 ll 19.65
+  val north2: LatLong = 80.00 ll 22.23
+  val north3 : LatLong= 80.51 ll 22.79
   val northEast: LatLong = 80.15 ll 26.83
-   
+
   val polygonLL: PolygonLL = PolygonLL(south, southWest, northWest, north1, north2, north3, northEast)
+}
+
+/** [[polygonLL]] graphical representation of the Severnaya Zemlya archipelago. Depends on nothing. */
+object SevernayaZemyla extends EArea2("Severnaya Zemyla", 79.593 ll 96.400, ice)
+{ val north: LatLong = 81.269 ll 95.705
+  val komsomoletsEast: LatLong = 80.790 ll 97.881
+  val octoberNE: LatLong = 80.0588 ll 99.305
+  val malyTaymyr: LatLong = 78.017 ll 107.563
+  val southWest: LatLong = 77.948 ll 99.516
+  val west: LatLong = 79.543 ll 90.523
+  val pioneerNW: LatLong  = 80.068 ll 91.023
+  val komsomoletsNW: LatLong  = 80.930 ll 93.174
+  val p95: LatLong = 81.243 ll 95.177
+
+  val polygonLL: PolygonLL = PolygonLL(north, komsomoletsEast, octoberNE, malyTaymyr, southWest, west, pioneerNW, komsomoletsNW, p95)
 }
