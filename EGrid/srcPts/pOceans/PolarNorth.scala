@@ -4,10 +4,10 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of the near to Greenwich Artic. Depends on [[Greenland]]. */
 case object ArticNear extends EArea2("Artic near", 85 ll 0, ice)
-{ val south0: LatLong = 82 ll 0
-  val south15: LatLong = 82 ll 15
-  val south30: LatLong = 82 ll 30
-  val south45: LatLong = 82 ll 45
+{ val south0: LatLong = 81.5 ll 0
+  val south15: LatLong = 81.5 ll 15
+  val south30: LatLong = 81.5 ll 30
+  val south45: LatLong = 81.5 ll 45
   val north45: LatLong = 89 ll 45
   val north135: LatLong = 89 ll 135
   val north225: LatLong = 89 ll -135
@@ -18,34 +18,35 @@ case object ArticNear extends EArea2("Artic near", 85 ll 0, ice)
 
 /** [[polygonLL]] graphical representation of the eastern Artic. Depends on [[ArticNear]]. */
 case object ArticEast extends EArea2("Artic east", 85 ll 0, ice)
-{ val south135: LatLong = 82 ll 135
-  val south120: LatLong = 82 ll 120
-  val south105: LatLong = 82 ll 105
-  val south90: LatLong = 82 ll 90
-  val south75: LatLong = 82 ll 75
-  val south60: LatLong = 82 ll 60
+{ val south135: LatLong = 79 ll 135
+  val south120: LatLong = 79 ll 120
+  val south110: LatLong = 79 ll 110
+  val south90: LatLong = 80.5 ll 90
+  val south75: LatLong = 81 ll 75
+  val south60: LatLong = 81 ll 60
 
-  override val polygonLL: PolygonLL = PolygonLL(ArticNear.north135, south135, south120, south105, south90, south75, south60, ArticNear.south45, ArticNear.north45)
+  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north135, south135, south120, south110) ++< SevernayaZemyla.coast1 ++< SevernayaZemyla.coast2 |++|
+    LinePathLL(south90, south75, south60, ArticNear.south45, ArticNear.north45)
 }
 
 /** [[polygonLL]] graphical representation of the far from Greenwich Artic. Depends on [[ArticNear]] and [[ArticEast]]. */
 case object ArticFar extends EArea2("Artic far", 85 ll 180, ice)
-{ val south150: LatLong = 82 ll 150
-  val south165: LatLong = 82 ll 165
-  val south180: LatLong = 82 ll 180
-  val south195: LatLong = 82 ll 195
-  val south210: LatLong = 82 ll 210
-  val south225: LatLong = 82 ll 225
+{ val south150: LatLong = 79 ll 150
+  val south165: LatLong = 79 ll 165
+  val south180: LatLong = 79 ll 180
+  val south195: LatLong = 79 ll 195
+  val south210: LatLong = 79 ll 210
+  val south225: LatLong = 79 ll 225
 
-  override val polygonLL: PolygonLL = PolygonLL(ArticEast.south135, south150, south165, south180, south195, south210, south225, ArticNear.north225, ArticNear.north135)
+  override val polygonLL: PolygonLL = PolygonLL(ArticNear.north225, south225, south210, south195, south180, south165, south150, ArticEast.south135, ArticNear.north135)
 }
 
 /** [[polygonLL]] graphical representation of the western Artic. Depends on [[Greenland]], [[ArticNear]] and [[ArticFar]]. */
 case object ArticWest extends EArea2("Artic west", 85 ll -90, ice)
-{ val long240: LatLong = 82 ll 240
-  val long255: LatLong = 82 ll 255
-  val long270: LatLong = 82 ll 270
-  val long285: LatLong = 82 ll 285
+{ val long240: LatLong = 79 ll 240
+  val long255: LatLong = 79 ll 255
+  val long270: LatLong = 79 ll 270
+  val long285: LatLong = 79 ll 285
 
   override val polygonLL: PolygonLL = PolygonLL(ArticFar.south225, long240, long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland,
     ArticNear.north315, ArticNear.north225)
@@ -82,12 +83,19 @@ object SevernayaZemyla extends EArea2("Severnaya Zemyla", 79.593 ll 96.400, ice)
 { val north: LatLong = 81.269 ll 95.705
   val komsomoletsEast: LatLong = 80.790 ll 97.881
   val octoberNE: LatLong = 80.0588 ll 99.305
+  val bolshevikNE = 78.794 ll 105.275
+
+  val coast1 = LinePathLL(north, komsomoletsEast, octoberNE, bolshevikNE)
+
   val malyTaymyr: LatLong = 78.017 ll 107.563
   val southWest: LatLong = 77.948 ll 99.516
   val west: LatLong = 79.543 ll 90.523
+
   val pioneerNW: LatLong  = 80.068 ll 91.023
   val komsomoletsNW: LatLong  = 80.930 ll 93.174
   val p95: LatLong = 81.243 ll 95.177
 
-  val polygonLL: PolygonLL = PolygonLL(north, komsomoletsEast, octoberNE, malyTaymyr, southWest, west, pioneerNW, komsomoletsNW, p95)
+  val coast2 = LinePathLL(pioneerNW, komsomoletsNW, p95)
+
+  val polygonLL: PolygonLL = coast1 ++ LinePathLL(malyTaymyr, southWest, west) |++| coast2
 }
