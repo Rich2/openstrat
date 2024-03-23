@@ -14,10 +14,11 @@ object Terr320W120 extends Long320Terrs
   {
     override val rows: RArr[RowBase] = RArr(
       TRow(166, SeaIcePerm),
-      TRow(164, SeaIceWinter),
+      TRow(164, SeaIcePerm),
+      VRow(163, SourceRt(8704, HVUR, 7, SeaIcePerm)),
       TRow(162, SeaIceWinter, tundra),
-      TRow(160, CapeOld(5, 4, tundra, SeaIceWinter), CapeOld(1, 4, tundra, SeaIceWinter)),
-      TRow(158, CapeOld(2, 4, tundra, SeaIceWinter), CapeOld(4, 3, tundra, SeaIceWinter), CapeOld(0, 2, tundra, SeaIceWinter)),
+      TRow(160, tundra * 2),
+      TRow(158, tundra, tundra * 2),
       TRow(156, CapeOld(0, 1, tundra, SeaIceWinter), CapeOld(0, 2, tundra, SeaIceWinter), CapeOld(2, 3, tundra, SeaIceWinter)),
       TRow(154, tundra * 4),
       VRow(153, MouthOld(8702, HVDL, 3, Lake), MouthOld(8704, HVUR, 3, Lake)),
