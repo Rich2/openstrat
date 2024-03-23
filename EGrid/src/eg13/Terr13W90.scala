@@ -15,7 +15,7 @@ object Terr13W90 extends Long13Terrs
   { override val rows: RArr[RowBase] = RArr(
     VRow(115, BendIn(9728, HVDR, 6, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVDL, 13, siceWin)),
     TRow(114, SepB(siceWin), tundra),
-    VRow(113, BendIn(9728, HVUR, 7, siceWin), BendOut(9730, HVUp, 6, siceWin), ThreeUp(9732, 4, 13, 2, siceWin, sea, siceWin)),
+    VRow(113, BendIn(9728, HVUR, 7, siceWin), BendOut(9730, HVUp, 6, siceWin), ThreeUp(9732, 4, 13, 2, siceWin)),
     TRow(112, taiga),
     VRow(111),
     TRow(110, taiga),
@@ -30,7 +30,7 @@ object Terr13W90 extends Long13Terrs
     VRow(99, BendIn(9728, HVDR, 13), BendOut(9730, HVUL, 6)),
     TRow(98, sea, mtainSavannah),
     VRow(97, BendIn(9728, HVUR, 13), SourceRt(9730, HVUL, 7)),
-    VRow(91, BendIn(9728, HVDR, 13), MouthRt(9730, HVUR)),
+    VRow(91, BendIn(9728, HVDR, 13), SourceLt(9730, HVDL)),
     TRow(90, mtainSteppe),
     VRow(89, BendIn(9728, HVUR, 13), MouthRt(9730, HVDR, 7)),
     VRow(87, BendIn(9726, HVDn, 13, siceWin), BendOut(9728, HVUp, 7, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVUp, 13, siceWin)),
