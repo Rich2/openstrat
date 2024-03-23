@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid._, phex._, egrid._, WTiles._
 
@@ -14,8 +14,10 @@ object Terr320E90 extends Long320Terrs
   {
     override val rows: RArr[RowBase] = RArr(
       TRow(166, SeaIcePerm),
-      TRow(164, SeaIceWinter),
-      TRow(162, SeaIceWinter * 2),
+      TRow(164, ice),
+      VRow(163, BendIn(3584, HVDR, 13, siceWin)),
+      TRow(162, SeaIceWinter, tundra),
+      VRow(161, BendOut(3584, HVUL, 7, siceWin)),
       TRow(160, hillyTundra * 2),
       TRow(158, tundra * 3),
       TRow(156, taiga, hillyTaiga * 2),
