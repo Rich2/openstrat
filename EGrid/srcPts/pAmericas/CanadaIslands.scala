@@ -1,6 +1,21 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
+
+/** [[polygonLL]] graphical representation for Devon Island and Axal Heiberg Island. Depends on nothing. */
+object RingnesIslands extends EArea2("RingnesIslands", 78.473 ll -100.940, hillyTundra)
+{ val ellefNorth: LatLong = 79.367 ll -103.886
+  val amundNorth: LatLong = 78.813 ll -97.866
+  val haigThomas: LatLong = 78.184 ll -94.308
+  val cornwallEast: LatLong = 77.657 ll -93.085
+  val cornwallSE: LatLong = 77.446 ll -93.530
+  val cornwallSW: LatLong = 77.501 ll -96.060
+  val amundSW: LatLong = 77.798 ll -97.131
+  val ellefSW: LatLong = 77.747 ll -102.377
+  val ellefWest: LatLong = 78.488 ll -104.945
+
+  override val polygonLL: PolygonLL = PolygonLL(ellefNorth, amundNorth, haigThomas, cornwallEast, cornwallSE, cornwallSW, amundSW, ellefSW, ellefWest)
+}
 
 /** [[polygonLL]] graphical representation for Devon Island and Axal Heiberg Island. Depends on nothing. */
 object EllesmereIsland extends EArea2("Ellsesmere Island", 80.24 ll -79.37, mtainIce)
