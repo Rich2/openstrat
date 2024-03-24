@@ -30,8 +30,12 @@ object Greenland extends EArea2("Greenland", 75 ll -42, ice)
   val wGreenland: LatLong = 78.166 ll -72.977
   val p85: LatLong =  78.515 ll -72.572
   val nwGreenland: LatLong = 80.33 ll -67.27
+  val naresNorth = 82.079 ll -59.599
+  val p90 = 82.366 ll -55.227
   val nGreenland: LatLong = 83.60 ll -34.19
 
-  override val polygonLL: PolygonLL = PolygonLL(neGreenland, p10, semersooq, p35, p37, p39, kulusuk, ortit, p42, p44, sGreenland, swGreenland, kanqeq, p72, aasiaat, diskoIsland, p73, p74, p75, p80, northumberland, wGreenland, p85,
-    nwGreenland, nGreenland)
+  val northCoast = LinePathLL(naresNorth, p90, nGreenland, neGreenland)
+
+  override val polygonLL: PolygonLL = LinePathLL(neGreenland, p10, semersooq, p35, p37, p39, kulusuk, ortit, p42, p44, sGreenland, swGreenland, kanqeq, p72,
+    aasiaat, diskoIsland, p73, p74, p75, p80, northumberland, wGreenland, p85, nwGreenland) |++-| northCoast
 }

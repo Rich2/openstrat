@@ -17,16 +17,30 @@ object RingnesIslands extends EArea2("RingnesIslands", 78.473 ll -100.940, hilly
   override val polygonLL: PolygonLL = PolygonLL(ellefNorth, amundNorth, haigThomas, cornwallEast, cornwallSE, cornwallSW, amundSW, ellefSW, ellefWest)
 }
 
-/** [[polygonLL]] graphical representation for Devon Island and Axal Heiberg Island. Depends on nothing. */
+/** [[polygonLL]] graphical representation for Ellesmere Island and Axel Heiberg Island. Depends on nothing. */
 object EllesmereIsland extends EArea2("Ellsesmere Island", 80.24 ll -79.37, mtainIce)
-{ val north = 83.08 ll -70.18
-  val east  = 82.27 ll -61.23
-  val p30 = 79.57 ll -73.19
-  val southEast = 76.51 ll -78.33
-  val southWest = 76.49 ll -90.04
-  val west = 80.35 ll -96.71
+{ val east: LatLong = 82.27 ll -61.23
+  val p10: LatLong = 81.440 ll -64.604
+  val p30: LatLong = 79.57 ll -73.19
+  val southEast: LatLong = 76.51 ll -78.33
 
-  override val polygonLL: PolygonLL = PolygonLL(north, east, p30, southEast, southWest, west)
+  val northKentSW: LatLong = 76.486 ll -90.022
+  val p55: LatLong = 77.128 ll -88.283
+  val p58: LatLong = 77.845 ll -88.203
+  val p62: LatLong = 78.166 ll -88.888
+  val p64: LatLong = 78.213 ll -92.051
+
+  val west: LatLong = 80.038 ll -100.150
+  val p70: LatLong = 80.377 ll -96.693
+  val p75: LatLong = 81.345 ll -94.118
+  val p78: LatLong = 81.730 ll -91.680
+  val p85: LatLong = 82.895 ll -80.027
+  val north: LatLong = 83.08 ll -70.18
+  val p5: LatLong = 82.788 ll -63.585
+
+  val northCoast: LinePathLL = LinePathLL(west, p70, p75, p78, p85,north, p5, east)
+
+  override val polygonLL: PolygonLL = LinePathLL(east, p10, p30, southEast, northKentSW, p55, p58, p62, p64) |++-| northCoast
 }
 
 /** [[polygonLL]] graphical representation for Devon Island. Depends on nothing. */
@@ -56,16 +70,26 @@ object BanksIsland extends EArea2("Banks Island", 73.12 ll -121.13, tundra)
   override val polygonLL: PolygonLL = PolygonLL(p0, p10, p18, p30, south, southWest, northWest, north)
 }
 
+/** [[polygonLL]] graphical representation for Meckenzie Island, Borden Island and Brock Island. Depends on nothing. */
+object MackenzieIslands extends EArea2("Mackenzie Islands", 75.43 ll -110.86, tundra)
+{ val bordenNorth: LatLong = 78.759 ll -110.423
+  val bordenNE: LatLong = 78.559 ll -109.335
+  val southEast: LatLong = 77.573 ll -110.077
+  val south: LatLong = 77.335 ll -112.012
+  val west: LatLong = 77.958 ll -115.077
+  override val polygonLL: PolygonLL = PolygonLL(bordenNorth, bordenNE, southEast, south, west)
+}
+
 /** [[polygonLL]] graphical representation for Melville Island. Depends on nothing. */
 object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, tundra)
-{ val north: LatLong = 76.83 ll -108.75
+{
   val northWest: LatLong = 75.86 ll -105.44
   val southWest: LatLong = 75.06 ll -105.99
   val south: LatLong = 74.41 ll -113.00
   val patricSouthWest: LatLong = 75.98 ll -122.63
   val patricNorthWest: LatLong = 77.32 ll -119.17
 
-  override val polygonLL: PolygonLL = PolygonLL(north, northWest, southWest, south, patricSouthWest, patricNorthWest)
+  override val polygonLL: PolygonLL = PolygonLL(northWest, southWest, south, patricSouthWest, patricNorthWest)
 }
 
 /** [[polygonLL]] graphical representation for Victoria Island. Depends on nothing. */
