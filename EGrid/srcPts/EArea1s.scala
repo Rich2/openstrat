@@ -1,4 +1,4 @@
-/* Copyright 2018-24Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._
 
@@ -94,12 +94,12 @@ object AsiaEast extends EArea1("Asia", 60 ll 100)
 
 /** Polar regions. */
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
-{ import pOceans._
+{ import noceans._
   override val a2Arr: RArr[EArea2] = RArr(Greenland, ArticNear, ArticWest, ArticEast, ArticFar, Svalbard, Nordauslandet, SevernayaZemyla)
 }
 
 object Australasia extends EArea1("Australasia", -23 ll 130)
-{ import pOceans._
+{ import soceans._
   override val a2Arr: RArr[EArea2] = RArr(WesternAustralia, Australia, Tasmania, NZNorthIsland, NZSouthIsland)
 }
 
@@ -111,15 +111,15 @@ object MalayArch extends EArea1("MalayArchAustralasia", 0.762 ll 123.068)
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */
 object NorthAtantic extends EArea1("NAtlantic", 60 ll -30)
-{ override val a2Arr: RArr[EArea2] = RArr(Iceland)
+{ override val a2Arr: RArr[EArea2] = RArr(noceans.Iceland)
 }
 
 object PacificTop extends EArea1("Pacific", 0 ll 175)
-{ import pOceans._
+{ import noceans._
   override val a2Arr: RArr[EArea2] = RArr(Hawaii)
 }
 
 object PolarSouth extends EArea1("PolarSouth", -89.9 ll 0)
-{ import pOceans._
+{ import soceans._
   override val a2Arr: RArr[EArea2] = RArr(AntarticaEast, AntarticaWest, RossSeaIce, WeddelSeaIce)
 }

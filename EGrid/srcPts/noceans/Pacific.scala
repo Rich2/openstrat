@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pOceans
+package ostrat; package pEarth; package noceans
 import geom._, pglobe._, egrid._, WTiles._
 
 object Hawaii extends EArea2("Hawaii", 20.85 ll -156.92, oceanic)

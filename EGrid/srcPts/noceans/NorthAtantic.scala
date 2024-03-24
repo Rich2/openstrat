@@ -1,5 +1,5 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package noceans
 import geom._, pglobe._, egrid._, WTiles._
 
 object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)
