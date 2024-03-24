@@ -80,10 +80,9 @@ object MackenzieIslands extends EArea2("Mackenzie Islands", 75.43 ll -110.86, tu
   override val polygonLL: PolygonLL = PolygonLL(bordenNorth, bordenNE, southEast, south, west)
 }
 
-/** [[polygonLL]] graphical representation for Melville Island. Depends on nothing. */
+/** [[polygonLL]] graphical representation for Melville Island and Prince Patrick Island. Depends on nothing. */
 object MelvilleIsland extends EArea2("Melville Island", 75.43 ll -110.86, tundra)
-{
-  val northWest: LatLong = 75.86 ll -105.44
+{ val northWest: LatLong = 75.86 ll -105.44
   val southWest: LatLong = 75.06 ll -105.99
   val south: LatLong = 74.41 ll -113.00
   val patricSouthWest: LatLong = 75.98 ll -122.63
@@ -140,8 +139,18 @@ object BaffinIsland extends EArea2("Baffin Island", 69.55 ll -72.64, tundra)
   val p4: LatLong = 72.65 ll -86.70
   val p12: LatLong = 73.73 ll -82.82
   val bylotNE: LatLong = 73.67 ll -78.13
+  val p14: LatLong = 72.071 ll -74.249
   val p20: LatLong = 70.54 ll -68.31
+  val p22: LatLong = 69.253 ll - 66.677
+  val p24: LatLong = 68.714 ll -67.689
+  val p26 = 68.042 ll -64.938
+
   val east: LatLong = 66.67 ll -61.29
+  val p28: LatLong = 64.927 ll -63.627
+  val p29: LatLong = 66.276 ll -67.132
+  val p31: LatLong = 64.732 ll -65.543
+  val lemieux: LatLong = 63.598 ll -63.970
+
   val southEast: LatLong = 61.88 ll -65.96
   val p35: LatLong = 64.37 ll -74.67
   val p40: LatLong = 64.43 ll -78.02
@@ -150,5 +159,6 @@ object BaffinIsland extends EArea2("Baffin Island", 69.55 ll -72.64, tundra)
   val p70: LatLong = 70.50 ll -88.72
   val p80: LatLong = 73.58 ll -88.21
 
-  override def polygonLL: PolygonLL = PolygonLL(p3, p4, p12, bylotNE, p20, east, southEast, p35, p40, p47, p60, p70, p80)
+  override def polygonLL: PolygonLL = PolygonLL(p3, p4, p12, bylotNE, p14, p20, p22, p24, p26, east, p28, p29, p31, lemieux, southEast, p35, p40, p47, p60, p70,
+    p80)
 }

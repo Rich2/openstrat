@@ -11,22 +11,21 @@ object Terr640W120 extends Long640Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  {
-    override val rows: RArr[RowBase] = RArr(
-//      TRow(130, ice),
-      VRow(129, BendOut(8702, HVUp), MouthOld(8704, HVUR)),
-      TRow(128, tundra),
-      TRow(126, taiga * 2),
-      TRow(124, taiga * 2),
-      TRow(122, hillyTaiga, taiga),
-      TRow(120, sea, hillyTaiga, savannah),
-      TRow(118, CapeOld(4, 2, mtainOld), mtainOld, hillySahel),
-      TRow(116, sea, hillySavannah, hillyDeshot),
-      TRow(114, sea * 2, hillySahel, hillyDeshot),
-      TRow(112, sea * 2, hillySahel, hillySahel),
-      TRow(110, sea * 3, CapeOld(3, 2, hillyDeshot)),
-      VRow(109, MouthOld(8712, HVUR)),
-      TRow(108, sea * 3, CapeOld(3, 3, Land(Mountains, Savannah))),
+  { override val rows: RArr[RowBase] = RArr(
+    TRow(130, hillyTundra),
+    VRow(129, BendOut(8702, HVUp, 7, siceWin), BendOut(8704, HVDn, 7, siceWin), ThreeDown(8706, 13, 6, 0, siceWin)),
+    TRow(128, tundra),
+    TRow(126, taiga * 2),
+    TRow(124, taiga * 2),
+    TRow(122, hillyTaiga, taiga),
+    TRow(120, sea, hillyTaiga, savannah),
+    TRow(118, CapeOld(4, 2, mtainOld), mtainOld, hillySahel),
+    TRow(116, sea, hillySavannah, hillyDeshot),
+    TRow(114, sea * 2, hillySahel, hillyDeshot),
+    TRow(112, sea * 2, hillySahel, hillySahel),
+    TRow(110, sea * 3, CapeOld(3, 2, hillyDeshot)),
+    VRow(109, MouthOld(8712, HVUR)),
+    TRow(108, sea * 3, CapeOld(3, 3, Land(Mountains, Savannah))),
     )
   }
   help.run
