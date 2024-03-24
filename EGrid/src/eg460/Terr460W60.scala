@@ -15,9 +15,9 @@ object Terr460W60 extends Long460Terrs
   { override val rows: RArr[RowBase] = RArr(
     VRow(147, BendOut(10752, HVUp, 7, SeaIcePerm)),
     TRow(146, ice),
-    TRow(144, SepB(), ice),
-    VRow(143, SetSep(10751)),
-    TRow(142, SepB(), ice),
+    TRow(144, ice),
+    VRow(143, Source(10750, HVDR, 5, 1, SeaIcePerm), BendIn(10752, HVDL, 13, SeaIcePerm, siceWin)),
+    TRow(142, ice),
     TRow(140, mtainTundra, ice),
     VRow(139),
     TRow(138, SepB(), hillyTundra, mtainOld),
