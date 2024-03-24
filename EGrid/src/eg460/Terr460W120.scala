@@ -15,9 +15,12 @@ object Terr460W120 extends Long460Terrs
     VRow(147, SourceRt(8708, HVUR, 7, SeaIcePerm)),
     TRow(146, SeaIcePerm),
     TRow(144, SeaIcePerm),
-    VRow(143, BendIn(8704, HVDR, 6, siceWin, SeaIcePerm)),
+    VRow(143, BendIn(8704, HVDR, 6, siceWin, SeaIcePerm), Bend(8706, HVDn, 7, 2, SeaIcePerm), BendIn(8708, HVDL, 8, SeaIcePerm)),
     TRow(142, hillyTundra),
-    VRow(141, BendIn(8702, HVDR, 6, siceWin), ThreeUp(8704, 13, 6, 0, siceWin), BendIn(8710, HVDL)),
+
+    VRow(141, BendIn(8702, HVDR, 6, siceWin), ThreeUp(8704, 11, 6, 0, siceWin), BendIn(8706, HVUp, 9 , siceWin),
+      ThreeUp(8708, 0, 6, 9, SeaIcePerm, siceWin, siceWin), BendIn(8710, HVDL)),
+
     TRow(140, tundra, lakesTundra),
 
     VRow(139, BendIn(8702, HVUR, 8, siceWin), BendIn(8704, HVUp, 13, siceWin), BendIn(8706, HVDn, 13, siceWin), BendOut(8708, HVUp, 7, siceWin),
