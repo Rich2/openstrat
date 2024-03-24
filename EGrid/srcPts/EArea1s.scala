@@ -50,19 +50,23 @@ object MiddleEast  extends EArea1("MiddleEast", 20.18 ll -0.65)
 }
 
 object Alaska extends EArea1("Alaska", 66.276 ll -151.410)
-{
-  import pAmericas._
+{ import pAmericas._
   override val a2Arr: RArr[EArea2] = RArr(StLawrenceIsland, AlaskaNorth, AlaskaSouth, Nunivak, AleutPenisula, KodiakIsland)
 }
 
-object AmericasFarNorth extends EArea1("Far North\nAmerica", 61 ll -109)
+object CanadaIslands extends EArea1("Canada Islands", 75.16 ll -94.87)
+{ import pAmericas._
+  override val a2Arr: RArr[EArea2] = RArr(EllesmereIsland, RingnesIslands, MackenzieIslands, BanksIsland, MelvilleIsland, VictoriaIsland, PrinceWalesIsland,
+    SouthamptonIsland,  DevonIsland, BaffinIsland)
+}
+
+object Canada extends EArea1("Canada", 61 ll -109)
 { import pAmericas._
   val ensenada: LatLong = 31.74 ll -116.73
   val greatLakes: RArr[EArea2] = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
 
-  override val a2Arr: RArr[EArea2] = greatLakes ++ RArr(CanadaNorthWest, CanadaNorthWest, EllesmereIsland, RingnesIslands, MackenzieIslands,
-    GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut, CanadaSouthWest, ReindeerLake, CanadaCentral, BanksIsland, MelvilleIsland, VictoriaIsland,
-    PrinceWalesIsland, SouthamptonIsland, CanadaSouthEast, NewBrunswick, NovaScotia,  Quebecia, DevonIsland, BaffinIsland, NewFoundland, Ungava)
+  override val a2Arr: RArr[EArea2] = greatLakes ++ RArr(CanadaNorthWest, CanadaNorthWest, GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut, CanadaSouthWest,
+    ReindeerLake, CanadaCentral, CanadaSouthEast, NewBrunswick, NovaScotia,  Quebecia,NewFoundland, Ungava)
 }
 
 object AmericasNearNorth extends EArea1("North America", 49 ll -100)
