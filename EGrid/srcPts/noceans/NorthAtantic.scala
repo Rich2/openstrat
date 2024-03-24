@@ -2,6 +2,7 @@
 package ostrat; package pEarth; package noceans
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[polygonLL]] graphical representation of Iceland. Depends on nothing. */
 object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)
 { val reykjavik = 64.17 ll -21.75
   val w1 = 64.75 ll -22.30

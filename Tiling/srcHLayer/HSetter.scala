@@ -619,11 +619,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
         corners.setCornerIn(row + 1, c - 2, 2, magIn)
         debexc("Not Implemented")
       }
-      case HVUp => {
-        corners.setCornerIn(row + 1, c, 3, magIn)
+      case HVUp =>
+      { corners.setCornerIn(row + 1, c, 3, magIn)
         corners.setCorner(row - 1, c + 2, 5, HVDn, magSource)
         corners.setCorner(row - 1, c - 2, 1, HVDn, magSource)
-//        debexc("Not Implemented")
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
