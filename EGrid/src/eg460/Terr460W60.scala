@@ -18,7 +18,7 @@ object Terr460W60 extends Long460Terrs
     TRow(144, ice),
     VRow(143, Source(10750, HVDR, 5, 1, SeaIcePerm), BendIn(10752, HVDL, 13, SeaIcePerm, siceWin)),
     TRow(142, ice),
-    VRow(141, BendIn(10750, HVDR, 13, siceWin)),
+    VRow(141, BendIn(10750, HVDR, 13, siceWin)),//Special needed BendOut(10752, HVUL, 7, siceWin)),
     TRow(140, mtainTundra, ice),
     VRow(139, BendIn(10748, HVDL, 8, siceWin), BendIn(10750, HVUR, 13, siceWin), BendMax(10752, HVDL, siceWin)),
     TRow(138, hillyTundra, mtainOld),

@@ -18,7 +18,11 @@ object Terr320W150 extends Long320Terrs
     TRow(162, SeaIceWinter * 2),
     TRow(160, SeaIceWinter * 2),
     TRow(158, SeaIceWinter * 3),
-    TRow(156, tundra * 2, CapeOld(0, 1, tundra, SeaIceWinter)),
+
+    VRow(157, Bend(7678, HVUp, 2, 4, siceWin), BendIn(7680, HVDn, 12, siceWin), Bend(7682, HVUp, 1, 5, siceWin), BendIn(7684, HVDn, 13, siceWin),
+      BendOut(7686, HVUp, 7, siceWin)),
+
+    TRow(156, tundra * 3),
     TRow(154, hillyTaiga * 3, taiga),
     TRow(152, taiga * 3, hillyTaiga),
     VRow(151, ThreeDown(7672, 13, 1, 12, siceWin), Source(7674, HVDL, 2, 7, siceWin)),

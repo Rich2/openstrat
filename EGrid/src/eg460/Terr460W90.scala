@@ -21,13 +21,17 @@ object Terr460W90 extends Long460Terrs
       BendIn(9732, HVDL, 13, SeaIcePerm, siceWin)),
 
     TRow(142, hillyTundra),
+
     VRow(141, SetSep(9727, siceWin), BendIn(9728, HVUR, 6, SeaIcePerm), ThreeDown(9730, 10, 0, 6, siceWin, siceWin, SeaIcePerm),
-      ThreeUp(9732, 0, 10, 12, siceWin)),
+      ThreeUp(9732, 0, 10, 12, siceWin), BendIn(9734, HVDL, 10, siceWin)),
+
     TRow(140, hillyTundra, hillyTundra),
+
     VRow(139, BendOut(9724, HVUp, 7, siceWin), BendMax(9726, HVUL, siceWin), Source(9728, HVUR, 4, 2, siceWin), ThreeUp(9730, 0, 6, 6, siceWin),
       BendIn(9732, HVDL, 8, siceWin)),
+
     TRow(138, tundra, hillyTundra),
-    VRow(137, BendMin(9730, HVDR, siceWin)),
+    VRow(137, BendMin(9730, HVDR, siceWin), BendIn(9732, HVUL, 9, siceWin)),
     TRow(136, lakesTundra * 2, hillyTundra),
     VRow(135, BendOut(9728, HVDR, 6, siceWin), BendIn(9730, HVUL, 10, siceWin), BendIn(9732, HVDR, 6, siceWin)),
     TRow(134, lakesTundra, siceWin, lakesTundra),

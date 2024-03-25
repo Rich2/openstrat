@@ -19,6 +19,7 @@ object Terr320W120 extends Long320Terrs
       TRow(162, SeaIceWinter, tundra),
       TRow(160, tundra * 2),
       TRow(158, tundra, tundra * 2),
+      VRow(157, BendOut(8698, HVUp, 7, siceWin)),
       TRow(156, tundra, tundra, tundra),
       TRow(154, tundra * 4),
       VRow(153, MouthOld(8702, HVDL, 3, Lake), MouthOld(8704, HVUR, 3, Lake)),
