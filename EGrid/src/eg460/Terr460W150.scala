@@ -32,7 +32,7 @@ object Terr460W150 extends Long460Terrs
 
     TRow(130, hillyTaiga),
     VRow(129, BendIn(7672, HVUR, 13), BendIn(7674, HVUp, 13), BendIn(7676, HVUL, 13), MouthLt(7688, HVUL, 7), BendOut(7690, HVDL)),
-    TRow(112, sea, Isle6(mtainOld)),
+    TRow(112, sea, Isle6(mtainSavannah)),
     )
   }
   help.run
