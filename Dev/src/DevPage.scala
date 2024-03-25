@@ -4,37 +4,30 @@ import pWeb._
 
 /** HTML documentation page for Dev Module. */
 object DevPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
-
+{ override def head: HtmlHead = HtmlHead.titleCss("Dev Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Dev Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, p1, p2, p3, p4, sbt1, sbt2, p5, sbtJs, intellij, miscTitle, p6, table, p7, credits)
-
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Dev module contains"), appSel, siteGen)
-
   def appSel: HtmlLi = HtmlLi("JavaFx application selection and developer settings for the different apps.")
-
   def siteGen: HtmlLi = HtmlLi("Generates the HTML files for the website, including this file.")
-
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
   def p1: HtmlP = HtmlP("It currently works on JavaFx and web page. Using canvas on both platforms. See" --
     """<a href="../api/index.html">Scala Docs</a> and See <a href="../apiJs/index.html">Scala Docs for JavaScript target.</a>")""")
 
-  def p2: HtmlP = HtmlP("The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider" --
-    "applicability. The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental" --
-    "stage. This is in accordance with the original vision, part of which was to explore the possibilities of an Algebra of Tiling.")
+  def p2: HtmlP = HtmlP("The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability." --
+    "The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance" --
+    "with the original vision, part of which was to explore the possibilities of an Algebra of Tiling.")
 
-  def p3: HtmlP = HtmlP("I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project" --
-    "is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use" --
-    "immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of" --
-    "elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel" --
-    "Scala is, and in particular Scala 3 will be the ideal language to explore these questions.")
+  def p3: HtmlP = HtmlP("I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to" --
+    "explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When" --
+    "to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness," --
+    "readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3" --
+    "will be the ideal language to explore these questions.")
 
-  def p4: HtmlP = HtmlP("Scala currently set to 3.4.0. Jdk 11+, 11 preferred. Scala.Js set to 1.15.0. Scala native set to 0.4.16. Sbt currently" --
-    "set to 1.9.9 (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update" --
-    "your Mill to 0.11.6.")
+  def p4: HtmlP = HtmlP("Scala currently set to 3.4.0. Jdk 11+, 11 preferred. Scala.Js set to 1.16.0. Scala native set to 0.4.16. Sbt currently set to 1.9.9" --
+    "(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to 0.11.6.")
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
@@ -59,13 +52,12 @@ object DevPage extends HtmlPage
     HtmlLi.sbtAndText("bothDoc", "Will perform both the above tasks.")
   )
 
-  def p5: HtmlP = HtmlP("The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command" --
-    "will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes.Copy the" --
-    "Dev/Misc/DevSettings.rson".htmlPath -- "file to the" -- "Dev/User".htmlPath -- "folder. Creating the directory and its" +
-    " parents if not already existing. Change the appStr setting in"-- "Dev/User/DevSettings.rson".htmlPath -- "to change the application. All the" --
-    "examples on the richstrat.com website are available plus others.The second command will also rebuild on source changes in similar manner." --
-    "However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window" --
-    "after the fastOptJS command has finished the rebuild.")
+  def p5: HtmlP = HtmlP("The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build" --
+    "and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes.Copy the" --
+    "Dev/Misc/DevSettings.rson".htmlPath -- "file to the" -- "Dev/User".htmlPath -- "folder. Creating the directory and its parents if not already existing." --
+    "Change the appStr setting in"-- "Dev/User/DevSettings.rson".htmlPath -- "to change the application. All the examples on the richstrat.com website are" --
+    "available plus others.The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make" --
+    "a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.")
 
   def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
     HtmlLi.sbt("project GenAppJs"),

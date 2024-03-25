@@ -22,7 +22,7 @@
 
 <h3>Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.4.0 Jdk 11+, 17 preferred. Scala.Js set to 1.15.0 Scala Native set to 0.4.16 Sbt currently set to 1.9.9 Git Bash. Update your Mill
+<p>Scala currently set to 3.4.0 Jdk 11+, 17 preferred. Scala.Js set to 1.16.0 Scala Native set to 0.4.16 Sbt currently set to 1.9.9 Git Bash. Update your Mill
      to 0.11.6</p>
 
 </body>
