@@ -1,12 +1,12 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb._, AppPage.{ egameDir, egrDir, otDir }
+import pWeb._, AppPage.{ egameDir, otDir }
 
 /** The top level HTML documentation page for the apps. */
 object AppsPage extends HtmlPage
 { override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
-  def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, egrids, otherTiled, otherApps)
+  def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, otherTiled, otherApps)
 
   def stratList: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Strategy Games using tiled world maps."),
     HtmlLi.linkAndText(egameDir + "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"
@@ -28,19 +28,6 @@ object AppsPage extends HtmlPage
       "is the second game that most interests me."),
   )
 
-  def egrids: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("World Hex Grids."),
-    HtmlLi.linkAndText(egrDir + "eg1300app.html", "EGrid 1300km", "1300km hex scale world."),
-    HtmlLi.linkAndText(egrDir + "eg1000app.html", "EGrid 1000km", "1000km hex scale world."),
-    HtmlLi.linkAndText(egrDir + "eg640app.html", "EGrid 640km", "640km hex scale world."),
-    HtmlLi.linkAndText(egrDir + "eg460app.html", "EGrid 460km", "460km hex scale world."),
-    HtmlLi.linkAndText(egrDir + "eg320app.html", "EGrid 320km", "320km hex scale world."),
-    HtmlLi.linkAndText(egrDir + "eg220europe.html", "EGrid Europe 220km", "220km hex scale Europe."),
-    HtmlLi.linkAndText(egrDir + "eg220europewide.html", "EGrid Europe wide 220km", "220km hex scale Europe wide."),
-    HtmlLi.linkAndText(egrDir + "eg220namerica.html", "EGrid North America 220km", "220km hex scale North America."),
-    HtmlLi.linkAndText(egrDir + "eg160europe.html", "EGrid Europe 160km", "160km hex scale Europe."),
-    HtmlLi.linkAndText(egrDir + "eg120europe.html", "EGrid Europe 120km", "120km hex scale Europe."),
-    HtmlLi.linkAndText(egrDir + "eg80europe.html", "EGrid Europe 80km", "80km hex scale Europe."),
-  )
 
   def otherTiled: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Tiled Map Applications."),
     HtmlLi.linkAndText(otDir + "unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
