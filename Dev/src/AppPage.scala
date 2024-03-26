@@ -29,6 +29,7 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
   override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(JsMainStem + "Js"))
 }
 
+/** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links.. Longer term may need reorganisation, */
 object AppPage
 { /** Factory apply method for [[AppPage]] class. The first parameter is the stem of the name of the main function function in the JavaScript file, to which
    * "JsApp" [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the
@@ -41,6 +42,7 @@ object AppPage
   val egrDir: String = "/egrids/"
   val otDir: String = "/otherapps/"
 
+  /** list of app links to go in the page headers. */
   val allTops: RArr[AppPage] = RArr(AppPage("UnitLocApp", otDir, "Unit Locator"), AppPage("DicelessApp", egameDir, "DiceLess"),
     AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("WW2App", egameDir), AppPage("BC305App", egameDir), AppPage("Planets", otDir),
     AppPage("ZugApp", otDir, "ZugFuhrer"), AppPage("Flags", otDir), AppPage("DungeonApp", otDir, "Dungeon game"),  AppPage("CivRiseApp", otDir, "Civ Rise"))
