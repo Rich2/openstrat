@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
-object Ireland extends EArea2("Ireland", 53.36 ll -7.63, oceanic)
+object IrelandNorth extends EArea2("Ireland north", 53.36 ll -7.63, oceanic)
 { val north: LatLong = 55.38 ll -7.37
   val torHead: LatLong = 55.19 ll -6.06
   val skernaghanPoint: LatLong = 54.859 ll -5.762
@@ -29,4 +29,10 @@ object Ireland extends EArea2("Ireland", 53.36 ll -7.63, oceanic)
 
   override val polygonLL = PolygonLL(north, torHead, skernaghanPoint, laganMouth, greyPoint, nIrelandE, stJohnsPoint, dundalk, p25, wicklowHead,
     southEast, harryLock, baltimore, dunquin, loopHead, p65, rockIsland, p70, ardoone, derkmorePoint, malinBeg, p95)
+}
+
+/** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
+object IrelandSouth extends EArea2("Irelandsouth ", 53.0 ll -7.63, hillyOce)
+{
+  override val polygonLL = PolygonLL()
 }
