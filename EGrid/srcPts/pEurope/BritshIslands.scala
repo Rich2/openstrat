@@ -35,11 +35,16 @@ object IrelandSouth extends EArea2("Irelandsouth ", 53.0 ll -7.63, hillyOce)
   val baltimore: LatLong = 51.47 ll -9.37
   val derryNafinnia: LatLong = 51.449 ll -9.820
 
-  val dunquin: LatLong = 52.11 ll -10.45
+  val durseyPoint: LatLong = 51.579 ll -10.234
+  val bruff: LatLong = 51.883 ll -10.429
+  val SleaHead: LatLong = 52.097 ll -10.455
+  val sybilHead: LatLong = 52.180 ll -10.472
+  val ballycurrane: LatLong = 52.315 ll -10.013
+
   val loopHead: LatLong = 52.56 ll -9.94
   val p90: LatLong = 52.93 ll -9.47
   val northWest: LatLong = 53.273 ll -8.934
 
   override val polygonLL: PolygonLL = PolygonLL(liffeyMouth, wicklowHead, southEast, harryLock, robertsHead, baltimore, derryNafinnia,
-    dunquin, loopHead, p90, northWest)
+    durseyPoint, bruff, SleaHead, sybilHead, ballycurrane, loopHead, p90, northWest)
 }
