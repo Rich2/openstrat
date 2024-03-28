@@ -15,14 +15,19 @@ object IrelandNorth extends EArea2("Ireland north", 53.36 ll -7.63, oceanic)
   val p25: LatLong = 53.56 ll -6.08
 
   val rockIsland: LatLong = 53.15 ll -9.86
-  val p70: LatLong = 53.41 ll -10.18
+  val p60: LatLong = 53.41 ll -10.18
+  val p63: LatLong = 53.544 ll -10.199
+  val p66: LatLong = 53.610 ll -10.051
+  val p69: LatLong = 53.613 ll -9.905
   val ardoone: LatLong = 54.30 ll -10.00
   val derkmorePoint: LatLong = 54.27 ll -8.65
   val malinBeg: LatLong = 54.66 ll -8.79
+  val p75: LatLong = 54.622 ll -8.166
+  val tullymore = 54.568 ll -8.457
   val p95: LatLong = 55.16 ll -8.28
 
   override val polygonLL = PolygonLL(north, torHead, skernaghanPoint, laganMouth, greyPoint, nIrelandE, stJohnsPoint, dundalk, p25, IrelandSouth.liffeyMouth,
-    IrelandSouth.northWest, rockIsland, p70, ardoone, derkmorePoint, malinBeg, p95)
+    IrelandSouth.northWest, rockIsland, p60, p63, p66, p69, ardoone, derkmorePoint, p75, tullymore, malinBeg, p95)
 }
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
