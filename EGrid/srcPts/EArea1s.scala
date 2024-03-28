@@ -2,20 +2,22 @@
 package ostrat; package pEarth
 import geom._, pglobe._
 
-/** 20North, 0 East */
+/** Top level grouping for north west European areas. */
 object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(IrelandNorth, England, ScotlandLow, ScotlandHigh, Wales, Orkneys, IslayJura, Uist, IsleLewis, Shetland, Faroe,
-    JanMayen, Frankia, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland, Polandia, Baltland, Ukraine, SwedenSouth,
-    SwedenNorth, Oland)
+  override val a2Arr: RArr[EArea2] = RArr(IrelandNorth, IrelandSouth, England, ScotlandLow, ScotlandHigh, Wales, Orkneys, IslayJura, Uist, IsleLewis, Shetland,
+    Faroe, JanMayen, Frankia, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth,
+    Oland)
 }
 
+/** Top level grouping for north east European areas. */
 object EuropeEast extends EArea1("EuropeEast", 60 ll 60)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, Greece, BalkansWest, BalkansEast, Finlandia, KolaPeninsula, Gotland, Saaremaa,
-    Hiiumaa, Crimea, MarmaraSea, Peloponnese)
+  override val a2Arr: RArr[EArea2] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, Greece, BalkansWest, BalkansEast, Finlandia, KolaPeninsula, Gotland,
+    Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 
+/** Top level grouping for south west European areas. */
 object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
 { import pEurope._
   override val a2Arr: RArr[EArea2] = RArr(FranceSouth, IberiaNorth, IberiaSouth, ItalyNorth, ItalySouth, ItalyHeel, ItalyToe)
