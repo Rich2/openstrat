@@ -23,7 +23,7 @@ object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, oceanic)
   val hoyS: LatLong = 58.77 ll -3.29
   val marwick: LatLong = 59.10 ll -3.36
 
-  override val polygonLL = PolygonLL(north, stronsayE, south, hoyS, marwick)
+  override val polygonLL: PolygonLL = PolygonLL(north, stronsayE, south, hoyS, marwick)
 }
 
 /** [[polygonLL]] graphical representation of Scotland. Depends on nothing. */

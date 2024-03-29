@@ -6,16 +6,25 @@ import geom._, pglobe._, egrid._, WTiles._
 object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
 { val liverpool: LatLong = 53.44 ll -3.02
   val chepstow: LatLong = 51.61 ll -2.68
+  val lavernock: LatLong = 51.405 ll -3.169
   val nashPoint: LatLong = 51.40 ll -3.56
+  val p25: LatLong = 51.535 ll -4.205
   val p35: LatLong = 51.598 ll -4.926
   val skomer: LatLong = 51.739 ll -5.313
   val stDavids: LatLong = 51.88 ll -5.31
+  val p50: LatLong = 52.133 ll -4.688
   val aberaeron: LatLong = 52.25 ll -4.26
+  val tonfanu: LatLong = 52.612 ll -4.128
   val criccieth: LatLong = 52.92 ll -4.23
   val mynydd: LatLong = 52.79 ll -4.77
-  val anglesey: LatLong = 53.39 ll -4.54
+  val southStack: LatLong = 53.307 ll -4.700
+  val carmelHead: LatLong = 53.404 ll -4.572
+  val angleseaNE: LatLong = 53.417 ll -4.287
+  val angleseaEast: LatLong = 53.310 ll -4.040
+  val p80: LatLong = 53.342 ll -3.868
 
-  override val polygonLL: PolygonLL = PolygonLL(liverpool, chepstow, nashPoint, p35, skomer, stDavids, aberaeron, criccieth, mynydd, anglesey)
+  override val polygonLL: PolygonLL = PolygonLL(liverpool, chepstow, lavernock, nashPoint, p25, p35, skomer, stDavids, p50, aberaeron, tonfanu, criccieth,
+    mynydd, southStack, carmelHead,angleseaNE, angleseaEast, p80)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
