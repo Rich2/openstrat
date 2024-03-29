@@ -20,16 +20,21 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
 object EnglandNorth extends EArea2("England north",  53.632 ll -1.581, hillyOce)
-{ val scarborough: LatLong = 54.28 ll -0.39
+{ val p20: LatLong = 54.483 ll -0.577
+  val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
+
+  val p30: LatLong = 53.621 ll 0.142
+  val p33: LatLong = 53.520 ll 0.076
+  val donnaNook: LatLong = 53.467 ll 0.182
   val holbeach: LatLong = 52.89 ll 0.08
 
   val kentMouth: LatLong = 54.19 ll -2.86
   val sBarrow: LatLong = 54.04 ll -3.20
   val stBeesHead: LatLong = 54.51 ll -3.63
 
-  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, scarborough, flamborough, holbeach, EnglandSouth.neneMouth, Wales.chepstow,
-    Wales.liverpool,  kentMouth, sBarrow, stBeesHead, ScotlandLow.solwayMouth,
+  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, p20, scarborough, flamborough, p30, p33, donnaNook, holbeach, EnglandSouth.neneMouth,
+    Wales.chepstow, Wales.liverpool,  kentMouth, sBarrow, stBeesHead, ScotlandLow.solwayMouth,
   )
 
    val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)

@@ -28,27 +28,34 @@ object Terr120E0 extends Long120Terrs
     TRow(324, sea * 3, oceanic, hillyOce, sea * 4, hillyTaiga, hillyTaiga, sea, oceanic * 2),
     VRow(323, ThreeDown(528, 13, 10, 0), Bend(530, HVUL, 13, 7), MouthRt(534, HVUL), BendIn(536, HVDL, 13)),
     TRow(322, sea * 3, hillyOce, hillyOce * 2, sea * 5, oceanic * 2, oceanic * 2),
+    VRow(321, SourceRt(508, HVDR, 7), BendIn(510, HVDL, 13)),
     TRow(320, sea * 4, oceanic * 2, hillyOce, sea * 4, oceanic, oceanic, sea, oceanic),
-    VRow(319, BendIn(492, HVDR, 13), BendIn(494, HVDn, 13), BendOut(496, HVUp), BendIn(498, HVDn, 13), BendIn(500, HVDL, 13)),
-    TRow(318, sea * 2, Land(MountLakes, Oceanic), oceanic, hillyOce, hillyOce, sea * 5, oceanic, oceanic, oceanic, sea),
-    VRow(317, SourceRt(490, HVUR, 7), BendOut(492, HVUL, 7), Bend(500, HVUR, 4, 2), BendIn(502, HVDL, 13)),
-    TRow(316, sea * 2, oceanic, oceanic * 2, hillyOce, oceanic, sea * 5, oceanic, sea * 3),
-    VRow(315, BendMax(500, HVDR), ThreeUp(502, 13, 13, 13), SourceMax(504, HVUL)),
-    TRow(314, sea * 2, oceanic, oceanic * 2, hillyOce, oceanic * 2, sea * 3, CapeOld(5, 2), oceanic * 4),
+
+    VRow(319, BendIn(492, HVDR, 13), BendIn(494, HVDn, 13), BendOut(496, HVUp), BendIn(498, HVDn, 13), BendIn(500, HVDL, 13), BendOut(510, HVUR, 7),
+      BendIn(512, HVDL, 13)),
+
+    TRow(318, sea * 2, Land(MountLakes, Oceanic), oceanic, hillyOce, hillyOce, oceanic, sea * 4, oceanic, oceanic, oceanic, sea),
+    VRow(317, SourceRt(490, HVUR, 7), BendOut(492, HVUL, 7), Bend(500, HVUR, 4, 2), BendIn(502, HVDL, 13), BendOut(512,HVUR, 7), BendIn(514, HVDL, 13)),
+    TRow(316, sea * 2, oceanic, oceanic * 2, hillyOce, oceanic, hillyOce, sea * 4, oceanic, sea * 3),
+    VRow(315, BendMax(500, HVDR), ThreeUp(502, 13, 13, 13), SourceMax(504, HVUL), SourceLt(514, HVUp, 7)),
+    TRow(314, sea * 2, oceanic, oceanic * 2, hillyOce, oceanic * 2, sea * 3, oceanic * 5),
     VRow(313, SourceMax(500, HVUp)),
     TRow(312, sea, hillyOce, oceanic * 2, sea, hillyOce, oceanic * 3, sea, oceanic * 6),
     VRow(311, SourceRt(486, HVUp, 7), SourceRt(496, HVDn, 7)),
     TRow(310, sea * 2, hillyOce * 2, sea, hillyOce, oceanic * 3, sea, oceanic * 3, hillyOce * 2, oceanic * 2),
 
     VRow(309, SourceLt(488, HVDR, 7), BendIn(490, HVUp, 13), BendOut(492, HVDn, 7), BendIn(494, HVUp, 13), BendIn(496, HVUL, 13), BendIn(498, HVDR, 13),
-      BendInRt(500, HVDn, 13, 7), BendIn(502, HVUp, 13), SourceRt(504, HVDL)),
+      BendInRt(500, HVDn, 13, 7), BendIn(502, HVUp, 13), SourceRt(504, HVDL), BendIn(514, HVDR, 9), BendInRt(516, HVUL, 3, 7)),
 
-    TRow(308, sea * 5, hillyOce * 2, oceanic * 2, CapeOld(5, 2), oceanic * 2, hillyOce * 5),
-    VRow(307, SourceRt(498, HVUp), SourceLt(504, HVUR, 7), BendOut(506, HVDn, 7)),
+    TRow(308, sea * 5, hillyOce * 2, oceanic * 2, oceanic * 3, hillyOce * 5),
+
+    VRow(307, SourceRt(498, HVUp), SourceLt(504, HVUR, 7), BendOut(506, HVDn, 7), BendInLt(508, HVUp, 13, 6), BendMax(510, HVDn), BendMax(512, HVUp),
+      BendMax(514, HVUL)),
+
     TRow(306, sea * 8, oceanic, oceanic * 3, hillyOce * 6),
-    VRow(305, MouthOld(512, HVDn)),
+    VRow(305),
     TRow(304, sea * 6, oceanic * 5, hillyOce * 4, oceanic, hillyOce * 2),
-    TRow(302, sea * 6, CapeOld(3, 3), oceanic * 4, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainOld * 2),
+    TRow(302, sea * 6, oceanic * 5, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainOld * 2),
     TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainOld * 4, hillyOce),
     )
   }
