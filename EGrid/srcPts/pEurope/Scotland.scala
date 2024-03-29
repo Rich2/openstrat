@@ -30,17 +30,24 @@ object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, oceanic)
 object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtainOce)
 { val johnOGroats: LatLong = 58.62 ll -3.08
   val girnigoe: LatLong = 58.47 ll -3.05
+  val sarclet: LatLong = 58.371 ll -3.108
+  val clythness: LatLong = 58.309 ll -3.211
   val inverness: LatLong = 57.49 ll -4.22
   val lossieMouth: LatLong = 57.72 ll -3.33
   val aberdeenshire: LatLong = 57.58 ll -1.85
-  val craighead = 56.279 ll -2.586
-  val firthForth: LatLong = 56.00 ll -3.39
+  val girdleNess: LatLong = 57.140 ll -2.046
+  val ethieMains: LatLong = 56.625 ll -2.479
+  val tayMouthLt: LatLong = 56.464 ll -2.735
+  val tayMouthRt: LatLong = 56.444 ll -2.806
+  val craighead: LatLong = 56.279 ll -2.586
+  val pettyCur: LatLong = 56.062 ll -3.173
+  val inchGarvie: LatLong = 56.00 ll -3.383
 
-  val prestwick = 55.497 ll -4.620
-  val buteSouth = 55.722 ll -5.029
-  val arranSE = 55.445 ll -5.101
+  val prestwick: LatLong = 55.497 ll -4.620
+  val buteSouth: LatLong = 55.722 ll -5.029
+  val arranSE: LatLong = 55.445 ll -5.101
   val sKintyre: LatLong = 55.29 ll -5.77
-  val addMouth = 56.091 ll -5.547
+  val addMouth: LatLong = 56.091 ll -5.547
 
   val wScarba: LatLong = 56.17 ll -5.75
   val kerrera: LatLong = 56.38 ll -5.58
@@ -56,9 +63,9 @@ object ScotlandHigh extends EArea2("Scotland\n highlands", 56.82 ll -4.07, mtain
   val nwScotland: LatLong = 58.61 ll -4.99
   val eileanNahRon: LatLong = 58.560 ll -4.341
 
-  override val polygonLL: PolygonLL = PolygonLL(johnOGroats, girnigoe, inverness, lossieMouth, aberdeenshire, craighead, firthForth,
-    prestwick, buteSouth, arranSE, sKintyre, addMouth, wScarba, kerrera, wMull, canna, wRum,
-    wSkye, nSkye, nRona, fearnmore, p95, nwScotland, eileanNahRon
+  override val polygonLL: PolygonLL = PolygonLL(johnOGroats, girnigoe, sarclet, clythness, inverness, lossieMouth, aberdeenshire, girdleNess, ethieMains,
+    tayMouthLt, tayMouthRt, craighead, pettyCur, inchGarvie, prestwick, buteSouth, arranSE, sKintyre, addMouth, wScarba, kerrera, wMull, canna, wRum, wSkye,
+    nSkye, nRona, fearnmore, p95, nwScotland, eileanNahRon
   )
 }
 
@@ -77,7 +84,7 @@ object ScotlandLow extends EArea2("Scotland\nlowlands", 56.82 ll -4.07, hillyOce
   val cairngaan: LatLong = 54.63 ll -4.88
   val northCairn: LatLong = 55.00 ll -5.15
 
-  override val polygonLL: PolygonLL = PolygonLL(ScotlandHigh.firthForth, archerfield, tantallion, stAbbs, bamburgh, tyneMouth,
+  override val polygonLL: PolygonLL = PolygonLL(ScotlandHigh.inchGarvie, archerfield, tantallion, stAbbs, bamburgh, tyneMouth,
     solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ScotlandHigh.prestwick)
 }
 
