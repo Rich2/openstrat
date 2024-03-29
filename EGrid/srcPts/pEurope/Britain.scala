@@ -17,15 +17,35 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
-object England extends EArea2("England", 52.73 ll -1.26, oceanic)
+object EnglandNorth extends EArea2("England north",  53.632 ll -1.581, hillyOce)
 { val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
   val holbeach: LatLong = 52.89 ll 0.08
+
+  val kentMouth: LatLong = 54.19 ll -2.86
+  val sBarrow: LatLong = 54.04 ll -3.20
+  val stBeesHead: LatLong = 54.51 ll -3.63
+
+  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, scarborough, flamborough, holbeach, EnglandSouth.neneMouth, Wales.chepstow,
+    Wales.liverpool,  kentMouth, sBarrow, stBeesHead, ScotlandLow.solwayMouth,
+  )
+
+   val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
+   override val places: LocationLLArr = LocationLLArr(london)
+}
+
+/** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
+object EnglandSouth extends EArea2("England south", 51.632 ll -0.679, oceanic)
+{ val neneMouth: LatLong = 52.825 ll 0.216
   val ouseMouth: LatLong = 52.80 ll 0.35
   val hunstanton: LatLong = 52.97 ll 0.53
   val cromer: LatLong = 52.93 ll 1.30
   val horsey: LatLong = 52.75 ll 1.66
   val lowestoft: LatLong = 52.48 ll 1.76
+  val p25: LatLong = 52.087 ll 1.579
+  val p30: LatLong = 51.777 ll 1.132
+  val p32: LatLong = 51.739 ll 0.947
+
   val foulness: LatLong = 51.61 ll 0.95
   val nwGrain: LatLong = 51.48 ll 0.48
   val nekent: LatLong = 51.38 ll 1.43
@@ -44,19 +64,13 @@ object England extends EArea2("England", 52.73 ll -1.26, oceanic)
   val lizard: LatLong = 49.95 ll -5.20
   val penzance: LatLong = 50.06 ll -5.68
   val trevoseHead: LatLong = 50.55 ll -5.03
+  val hartlandPoint: LatLong = 51.022 ll -4.525
+  val peppercombe: LatLong = 50.995 ll -4.308
   val nwDevon: LatLong = 51.18 ll -4.19
   val parrettMouth: LatLong = 51.21 ll -3.01
 
-  val kentMouth: LatLong = 54.19 ll -2.86
-  val sBarrow: LatLong = 54.04 ll -3.20
-  val stBeesHead: LatLong = 54.51 ll -3.63
-
-  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, scarborough, flamborough, holbeach, ouseMouth, hunstanton, cromer, horsey,
-    lowestoft, foulness, nwGrain, nekent, dover,
+  override val polygonLL: PolygonLL = PolygonLL(neneMouth, ouseMouth, hunstanton, cromer, horsey, lowestoft, p25, p30, p32, foulness, nwGrain, nekent, dover,
     dungeness, beachyHead, ventnor, bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard, penzance, trevoseHead,
-    nwDevon, parrettMouth, Wales.chepstow,  Wales.liverpool,  kentMouth, sBarrow, stBeesHead, ScotlandLow.solwayMouth,
+    hartlandPoint, peppercombe, nwDevon, parrettMouth, Wales.chepstow,
   )
-
-   val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
-   override val places: LocationLLArr = LocationLLArr(london)
 }

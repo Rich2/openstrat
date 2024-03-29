@@ -26,7 +26,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
 
   import pEurope._
-  val london: LatLong = England.london.a1
+  val london: LatLong = EnglandNorth.london.a1
   val paris: LatLong = Frankia.paris.a1
   val berlin: LatLong = Germania.berlin.a1
   val conns1: LineSegLLArr = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
