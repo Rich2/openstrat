@@ -1,11 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** Alsace Lorraine, no map dependencies. */
 object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hillyOce)
-{
-  val northWest: LatLong = 49.50 ll 5.89
+{ val northWest: LatLong = 49.50 ll 5.89
   val luxSE: LatLong = 49.46 ll 6.37
   val east: LatLong = 48.97 ll 8.23
   val basel: LatLong = 47.56 ll 7.58
@@ -20,12 +19,13 @@ object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hillyOce)
 /** Belgium and Luxembourg. Depends on Alsace. */
 object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, oceanic)
 { val northWest: LatLong = 51.09 ll 2.54
+  val zeebrugge: LatLong = 51.339 ll 3.185
   val coastEast: LatLong = 51.36 ll 3.37
   val north: LatLong = 51.49 ll 5.04
   val aachen: LatLong = 50.78 ll 6.08
   val p10: LatLong = 49.50 ll 5.47
 
-  override val polygonLL: PolygonLL = PolygonLL(northWest, coastEast, north, aachen, Alsace.luxSE, Alsace.northWest, p10)
+  override val polygonLL: PolygonLL = PolygonLL(northWest, zeebrugge, coastEast, north, aachen, Alsace.luxSE, Alsace.northWest, p10)
 }
 
 /** Displays most of France. Depends on [[Alsace]] and [[BelgLux]]. */

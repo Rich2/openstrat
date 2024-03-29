@@ -429,42 +429,42 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     { case HVUp =>
       { corners.setCorner(row - 1, c + 2, 5, dirn1, magnitude1)
         corners.setCorner(row - 1, c - 2, 1, dirn2, magnitude2)
-        corners.setCornerPair(row + 1, c, 3, dirn1, dirn2, magnitude1, magnitude2)
+        corners.setCornerPair(row + 1, c, 3, dirn1, magnitude1, dirn2, magnitude2)
         sTerrs.setExists(grid, row - 1, c, sTerr)
       }
 
       case HVUR =>
       { corners.setCorner(row - 1, c, 0, dirn1, magnitude1)
         corners.setCorner(row + 1, c - 2, 2, dirn2, magnitude2)
-        corners.setCornerPair(row + 1, c + 2, 4, dirn1, dirn2, magnitude1, magnitude2)
+        corners.setCornerPair(row + 1, c + 2, 4, dirn1, magnitude1, dirn2, magnitude2)
         sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDR =>
       { corners.setCorner(row - 1, c - 2, 1, dirn1, magnitude1)
         corners.setCorner(row + 1, c, 3, dirn2, magnitude2)
-        corners.setCornerPair(row - 1, c + 2, 5, dirn1, dirn2, magnitude1, magnitude2)
+        corners.setCornerPair(row - 1, c + 2, 5, dirn1, magnitude1, dirn2, magnitude2)
         sTerrs.setExists(grid, row, c - 1, sTerr)
       }
 
       case HVDn =>
       { corners.setCorner(row + 1, c - 2, 2, dirn1, magnitude1)
         corners.setCorner(row + 1, c + 2, 4, dirn2, magnitude2)
-        corners.setCornerPair(row - 1, c, 0, dirn1, dirn2, magnitude1, magnitude2)
+        corners.setCornerPair(row - 1, c, 0, dirn1, magnitude1, dirn2, magnitude2)
         sTerrs.setExists(grid, row + 1, c, sTerr)
       }
 
       case HVDL =>
       { corners.setCorner(row + 1, c, 3, dirn1, magnitude1)
         corners.setCorner(row - 1, c + 2, 5, dirn2, magnitude2)
-        corners.setCornerPair(row - 1, c - 2, 1, dirn1, dirn2, magnitude1, magnitude2)
+        corners.setCornerPair(row - 1, c - 2, 1, dirn1, magnitude1, dirn2, magnitude2)
         sTerrs.setExists(grid, row, c + 1, sTerr)
       }
 
       case HVUL =>
       { corners.setCorner(row + 1, c + 2, 4, dirn1, magnitude1)
         corners.setCorner(row - 1, c, 0, dirn2, magnitude2)
-        corners.setCornerPair(row + 1, c - 2, 2, dirn1, dirn2, magnitude1, magnitude2)
+        corners.setCornerPair(row + 1, c - 2, 2, dirn1, magnitude1, dirn2, magnitude2)
         sTerrs.setExists(grid, row, c + 2, sTerr)
       }
     }
@@ -622,7 +622,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       case HVUp =>
       { corners.setCornerIn(row + 1, c, 3, magIn)
         corners.setCorner(row - 1, c + 2, 5, HVDn, magSource)
-        corners.setCorner(row - 1, c - 2, 1, HVDn, magSource)
+        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, magSource)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
@@ -659,7 +659,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       }
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
-        corners.setCorner(row + 1, c + 2, 4, HVDR, magSource)
+        corners.setCornerPair(row + 1, c + 2, 4, HVDR, magSource, HVExact, 0)
         corners.setCorner(row - 1, c, 0, HVDR, magSource)
         //debexc("Not Implemented")
       }

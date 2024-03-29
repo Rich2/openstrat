@@ -41,11 +41,11 @@ object Terr120E0 extends Long120Terrs
     TRow(314, sea * 2, oceanic, oceanic * 2, hillyOce, oceanic * 2, sea * 3, oceanic * 5),
     VRow(313, SourceMax(500, HVUp)),
     TRow(312, sea, hillyOce, oceanic * 2, sea, hillyOce, oceanic * 3, sea, oceanic * 6),
-    VRow(311, SourceRt(486, HVUp, 7), SourceRt(496, HVDn, 7)),
-    TRow(310, sea * 2, hillyOce * 2, sea, hillyOce, oceanic * 3, sea, oceanic * 3, hillyOce * 2, oceanic * 2),
+    VRow(311, SourceRt(486, HVUp, 7), SourceRt(496, HVDn, 7), Bend(516, HVDR, 13, 6), ThreeUp(518, 0, 13, 13), SourceLt(520, HVUL)),
+    TRow(310, sea * 2, hillyOce * 2, sea, hillyOce, oceanic * 3, oceanic * 4, hillyOce * 2, oceanic * 2),
 
     VRow(309, SourceLt(488, HVDR, 7), BendIn(490, HVUp, 13), BendOut(492, HVDn, 7), BendIn(494, HVUp, 13), BendIn(496, HVUL, 13), BendIn(498, HVDR, 13),
-      BendInRt(500, HVDn, 13, 7), BendIn(502, HVUp, 13), SourceRt(504, HVDL), BendIn(514, HVDR, 9), BendInRt(516, HVUL, 3, 7)),
+      BendInRt(500, HVDn, 13, 7), BendIn(502, HVUp, 13), SourceRt(504, HVDL), BendIn(514, HVDR, 9), Bend(516, HVUL, 2, 7)),
 
     TRow(308, sea * 5, hillyOce * 2, oceanic * 2, oceanic * 3, hillyOce * 5),
 

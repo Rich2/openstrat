@@ -170,11 +170,11 @@ class HSepB(val r: Int, val c: Int) extends HSep
   override def cornerNums(implicit sys: HGridSys): (HCen, Int, Int) = ife(sys.hCenExists(tileRt), (tileRt, 4, 5), (tileLt, 1, 2))
 
   override def leftCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
-    if (sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerV1(tileLt, 1), corners.cornerV1(tileLt, 2))
+    if (sys.hCenExists(tileLt)) LineSegHvOffset(corners.cornerVLast(tileLt, 1), corners.cornerV1(tileLt, 2))
     else LineSegHvOffset(tileLt.v1Exact, tileLt.v2Exact)
 
   override def rightCorners(corners: HCornerLayer)(implicit sys: HGridSys): LineSegHvOffset =
-    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerV1(tileRt, 4), corners.cornerV1(tileRt, 5))
+    if (sys.hCenExists(tileRt)) LineSegHvOffset(corners.cornerVLast(tileRt, 4), corners.cornerV1(tileRt, 5))
     else LineSegHvOffset(tileRt.v4Exact, tileRt.v5Exact)
 
   override def anglePerpRt: Angle = 0.degs
