@@ -7,13 +7,15 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
 { val liverpool: LatLong = 53.44 ll -3.02
   val chepstow: LatLong = 51.61 ll -2.68
   val nashPoint: LatLong = 51.40 ll -3.56
+  val p35: LatLong = 51.598 ll -4.926
+  val skomer: LatLong = 51.739 ll -5.313
   val stDavids: LatLong = 51.88 ll -5.31
   val aberaeron: LatLong = 52.25 ll -4.26
   val criccieth: LatLong = 52.92 ll -4.23
   val mynydd: LatLong = 52.79 ll -4.77
   val anglesey: LatLong = 53.39 ll -4.54
 
-  override val polygonLL: PolygonLL = PolygonLL(liverpool, chepstow, nashPoint, stDavids, aberaeron, criccieth, mynydd, anglesey)
+  override val polygonLL: PolygonLL = PolygonLL(liverpool, chepstow, nashPoint, p35, skomer, stDavids, aberaeron, criccieth, mynydd, anglesey)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
@@ -53,6 +55,8 @@ object EnglandSouth extends EArea2("England south", 51.632 ll -0.679, oceanic)
 
   val dungeness: LatLong = 50.91 ll 0.98
   val beachyHead: LatLong = 50.73 ll 0.24
+  val selsey: LatLong = 50.722 ll -0.788
+  val bembridgePoint = 50.684 ll -1.069
   val ventnor: LatLong = 50.57 ll -1.29
   val bournemouth: LatLong = 50.71 ll -1.89
   val swanage: LatLong = 50.59 ll -1.95
@@ -70,7 +74,7 @@ object EnglandSouth extends EArea2("England south", 51.632 ll -0.679, oceanic)
   val parrettMouth: LatLong = 51.21 ll -3.01
 
   override val polygonLL: PolygonLL = PolygonLL(neneMouth, ouseMouth, hunstanton, cromer, horsey, lowestoft, p25, p30, p32, foulness, nwGrain, nekent, dover,
-    dungeness, beachyHead, ventnor, bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard, penzance, trevoseHead,
-    hartlandPoint, peppercombe, nwDevon, parrettMouth, Wales.chepstow,
+    dungeness, beachyHead, selsey, bembridgePoint, ventnor, bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard, penzance,
+    trevoseHead, hartlandPoint, peppercombe, nwDevon, parrettMouth, Wales.chepstow,
   )
 }
