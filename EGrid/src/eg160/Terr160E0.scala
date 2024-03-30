@@ -2,8 +2,10 @@
 package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
-/** 160km terrain for 0 degrees east.
- * 541.265km² =>1060.881km² South Uist 320.3km² North Uist 303km² Benbcuala 82.03km² Berneray 10.1km² Grimsay 8.33km² = 723.76km² */
+/** 160km [[WTile]] terrain for 15° west to 15° east, centred on 0° east.
+ * [[Isle5]] 1753.701km² => 2619.726km². Isle of Lewis 2224 km².
+ * [[Isle4]] 1060.881km² => 1753.701km².
+ * [[Isle3]] 541.265km² => 1060.881km². South Uist 320.3km² + North Uist 303km² + Benbcuala 82.03km² + Berneray 10.1km² + Grimsay 8.33km² = 723.76km² */
 object Terr160E0 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -21,10 +23,11 @@ object Terr160E0 extends Long160Terrs
     TRow(300, sea * 6, CapeOld(5, 1,  mtainOld), hillyTaiga * 2),
     TRow(298, sea * 6, CapeOld(4, 2, mtainOld), mtainOld, hillyTaiga * 2),
     TRow(296, sea * 6, hillyTaiga * 2, taiga * 2),
-    VRow(295, MouthOld(528, HVUp)),
+    VRow(295, BendIn(500, HVDR, 11), BendIn(502, HVDn, 11), ThreeDown(504, 0, 13, 11), SourceLt(506, HVDL, 7), SourceRt(528, HVDn, 7)),
     TRow(294, sea * 2, hillyOce, hillyOce, sea * 3, hillyOce, CapeOld(2, 2, hillyTaiga), taiga),
+    VRow(293, BendIn(498, HVDR, 13), ThreeUp(500, 11, 13, 0), ThreeDown(502, 11, 3, 13), Bend(504, HVUL, 11, 1), SourceRt(506, HVUR), BendIn(508, HVDn, 8)),
     TRow(292, sea * 2, hillyOce, hillyOce, hillyOce, sea * 4, CapeOld(5, 4), oceanic),
-    VRow(291, BendIn(498, HVUR, 13), ThreeDown(500, 13, 13, 0)),
+    VRow(291, BendIn(498, HVUR, 13), ThreeDown(500, 13, 13, 0), BendIn(502, HVUL, 13)),
     TRow(290, sea * 2, hillyOce, hillyOce, sea * 4, oceanic, Isle10(), oceanic),
     VRow(289, SourceRt(498, HVUR, 7), ThreeUp(500, 8, 8, 0), Bend(502, HVDL, 1, 5)),
     TRow(288, sea * 2, oceanic, hillyOce, oceanic, sea * 4, oceanic, sea),
@@ -52,6 +55,11 @@ object Terr160E0 extends Long160Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(294, "" * 2, "Isle of Lewis")
+    str(292, "" * 2, "Uist")
+  }
 }
 
 /** 16okm terrain scenario for Britain */

@@ -9,7 +9,7 @@ object Scen160Europe extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }
 
 /** 160km scenario for 2 Grid system for 120°E and 150°E */
@@ -19,7 +19,7 @@ object Scen160ChinaJapan extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }
 
 
@@ -40,5 +40,5 @@ object Scen160Africa extends EScenLongMulti
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
-  override def hexNames: LayerHcRefSys[String] = LayerHcRefSys[String](gridSys, "")
+  override def hexNames: LayerHcRefSys[String] = fullNamesHCenLayerSpawn
 }

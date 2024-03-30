@@ -2,7 +2,7 @@
 package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
-/** 1300 km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. A hex tile area of 1.463582932 million km²
+/** 1300km [[WTile]] terrain for 15° west to 15° east, centred on 0° east. A hex tile area of 1.463582932 million km²
  *  [[Isle7]] 241548.355km² => 321588.046km², British Isles combined 315159km²
  *  [[Isle4]] 70034.730km² => 115771.696km², Iceland 101826km², Ireland 84421km². */
 object Terr13E0 extends Long13Terrs
