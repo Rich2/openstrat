@@ -2,7 +2,8 @@
 package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
-/** 160km terrain for 0 degrees east. Majorca is big enough at this scale to qualify as Island. Lesbos is not. */
+/** 160km terrain for 0 degrees east.
+ * 541.265km² =>1060.881km² South Uist 320.3km² North Uist 303km² Benbcuala 82.03km² Berneray 10.1km² Grimsay 8.33km² = 723.76km² */
 object Terr160E0 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -22,7 +23,8 @@ object Terr160E0 extends Long160Terrs
     TRow(296, sea * 6, hillyTaiga * 2, taiga * 2),
     VRow(295, MouthOld(528, HVUp)),
     TRow(294, sea * 2, hillyOce, hillyOce, sea * 3, hillyOce, CapeOld(2, 2, hillyTaiga), taiga),
-    TRow(292, sea * 3, hillyOce, CapeOld(1, 2, hillyOce), sea * 4, CapeOld(5, 4), oceanic),
+    TRow(292, sea * 2, hillyOce, hillyOce, hillyOce, sea * 4, CapeOld(5, 4), oceanic),
+    VRow(291, BendIn(498, HVUR, 13), ThreeDown(500, 13, 13, 0)),
     TRow(290, sea * 2, hillyOce, hillyOce, sea * 4, oceanic, Isle10(), oceanic),
     VRow(289, SourceRt(498, HVUR, 7), ThreeUp(500, 8, 8, 0), Bend(502, HVDL, 1, 5)),
     TRow(288, sea * 2, oceanic, hillyOce, oceanic, sea * 4, oceanic, sea),
