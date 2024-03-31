@@ -2,8 +2,8 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, WTiles._
 
-/** 80 Km tile width grid centred on the Greenwich meridian, 0°E form 15°W to 15°E. Covers North West Europe. The c or column offset is 512 which is G0
- *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
+/** 80 Km tile width grid centred on the Greenwich meridian, 0°E from 15°W to 15°E. Tile aree 5542.562km².
+ *  [[Isle5]] 438.425km² => 654.931km². Isle of Man 572km². */
 object Terr80E0 extends Long80Terrs
 { implicit val grid: EGrid80LongFull = EGrid80.e0(416, 582)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -46,8 +46,11 @@ object Terr80E0 extends Long80Terrs
       BendOut(546, HVDL), MouthOld(552, HVDn)),
 
     TRow(476, sea * 4, mtainOld, hillyOce, oceanic, hillyOce, hillyOce * 2, oceanic, sea * 7, oceanic * 2, oceanic, sea * 2),
-    VRow(475, MouthRt(480, HVDL, 7), BendOut(482, HVUL, 7), Bend(494, HVUR, 8, 3), BendIn(496, HVDL, 8), BendIn(546, HVUR), MouthOld(548, HVDR, 7)),
-    TRow(474, sea * 4, oceanic, oceanic * 2, hillyOce, SepB(), sea, hillyOce, oceanic, hillyOce, sea * 7, oceanic * 2, sea * 3),
+
+    VRow(475, MouthRt(480, HVDL, 7), BendOut(482, HVUL, 7), Bend(494, HVUR, 8, 3), ThreeDown(496, 2, 11, 10), BendIn(498, HVDn, 11), BendIn(546, HVUR),
+      MouthOld(548, HVDR, 7)),
+
+    TRow(474, sea * 4, oceanic, oceanic * 2, hillyOce, hillyOce, hillyOce, oceanic, hillyOce, sea * 7, oceanic * 2, sea * 3),
     VRow(473, BendIn(494, HVDR, 7), BendIn(496, HVUL, 13), BendIn(514, HVDL, 13)),
     TRow(472, sea * 3, oceanic * 4, sea * 2, oceanic, hillyOce, oceanic, sea * 5, oceanic * 7),
     VRow(471, Source(492, HVUR, 4, 2), BendIn(494, HVUL, 13), BendIn(512, HVDR, 13), ThreeUp(514, 0, 13, 12), SourceLt(516, HVUL, 7)),

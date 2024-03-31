@@ -56,12 +56,12 @@ object IrelandSouth extends EArea2("Irelandsouth", 53.0 ll -7.63, hillyOce)
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
 object IsleMan extends EArea2("Isle of Man", 54.243 ll -4.506, hillyOce)
-{
-  val north: LatLong = 54.418 ll -4.364
-  val maughold = 54.299 ll -4.310
+{ val north: LatLong = 54.418 ll -4.364
+  val maughold: LatLong = 54.299 ll -4.310
   val southEast: LatLong = 54.053 ll -4.624
   val southWest: LatLong = 54.045 ll -4.823
-  val peel = 54.227 ll -4.698
+  val peel: LatLong = 54.227 ll -4.698
+  val northWest: LatLong = 54.361 ll -4.543
 
-  override val polygonLL: PolygonLL = PolygonLL(north, maughold, southEast, southWest, peel)
+  override val polygonLL: PolygonLL = PolygonLL(north, maughold, southEast, southWest, peel, northWest)
 }

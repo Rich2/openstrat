@@ -3,7 +3,8 @@ package ostrat; package eg120
 import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15 West to 15 East.
- * [[Isle5]] 986.457km² => 1473.596km². Orkney Islands 990 km², Shetland, Faroe Islands 1399km². */
+ * [[Isle5]] 986.457km² => 1473.596km². Orkney Islands 990 km², Shetland, Faroe Islands 1399km².
+ * [[Isle3]] 304.462km² => 596.745km². Isle of Man 572km². */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
