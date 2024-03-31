@@ -5,9 +5,9 @@ import geom._, pglobe._
 /** Top level grouping for north west European areas. */
 object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 { import pEurope._
-  override val a2Arr: RArr[EArea2] = RArr(IrelandNorth, IrelandSouth, EnglandNorth, EnglandSouth, ScotlandLow, ScotlandHigh, Wales, Orkneys, IslayJura, Uist,
-    IsleLewis, Shetland, Faroe, JanMayen, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland, Polandia, Baltland, Ukraine,
-    SwedenSouth, SwedenNorth, Oland, IsleMan)
+  override val a2Arr: RArr[EArea2] = RArr(IrelandNorth, IrelandSouth, EnglandNorth, EnglandMiddle, EnglandSouth, ScotlandLow, ScotlandHigh, Wales, Orkneys,
+    IslayJura, Uist, IsleLewis, Shetland, Faroe, JanMayen, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland, Polandia,
+    Baltland, Ukraine, SwedenSouth, SwedenNorth, Oland, IsleMan)
 }
 
 /** Top level grouping for north east European areas. */

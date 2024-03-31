@@ -47,11 +47,11 @@ object Terr80E0 extends Long80Terrs
 
     TRow(476, sea * 4, mtainOld, hillyOce, oceanic, hillyOce, hillyOce * 2, oceanic, sea * 7, oceanic * 2, oceanic, sea * 2),
 
-    VRow(475, MouthRt(480, HVDL, 7), BendOut(482, HVUL, 7), Bend(494, HVUR, 8, 3), ThreeDown(496, 2, 11, 10), BendIn(498, HVDn, 11), BendIn(546, HVUR),
-      MouthOld(548, HVDR, 7)),
+    VRow(475, MouthRt(480, HVDL, 7), BendOut(482, HVUL, 7), Bend(494, HVUR, 8, 3), ThreeDown(496, 2, 11, 10), BendIn(498, HVDn, 11), Bend(500, HVDL, 11, 2),
+      BendIn(546, HVUR), MouthOld(548, HVDR, 7)),
 
     TRow(474, sea * 4, oceanic, oceanic * 2, hillyOce, hillyOce, hillyOce, oceanic, hillyOce, sea * 7, oceanic * 2, sea * 3),
-    VRow(473, BendIn(494, HVDR, 7), BendIn(496, HVUL, 13), BendIn(514, HVDL, 13)),
+    VRow(473, BendIn(494, HVDR, 7), ThreeUp(496, 11, 0, 13), BendIn(498, HVUp, 11), BendIn(514, HVDL, 13)),
     TRow(472, sea * 3, oceanic * 4, sea * 2, oceanic, hillyOce, oceanic, sea * 5, oceanic * 7),
     VRow(471, Source(492, HVUR, 4, 2), BendIn(494, HVUL, 13), BendIn(512, HVDR, 13), ThreeUp(514, 0, 13, 12), SourceLt(516, HVUL, 7)),
     TRow(470, sea * 4, oceanic * 3, sea, hillyOce * 2, oceanic * 3, sea * 3, oceanic * 9),
@@ -98,6 +98,10 @@ object Terr80E0 extends Long80Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(474, "" * 8, "Isle of Man")
+  }
 }
 
 /** Object for scenarios covering the western front at 80km. */
