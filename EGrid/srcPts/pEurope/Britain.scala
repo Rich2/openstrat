@@ -8,15 +8,18 @@ object EnglandNorth extends EArea2("England north",  53.632 ll -1.581, hillyOce)
   val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
   val p30: LatLong = 53.621 ll 0.142
-  val humberMouth = 53.552 ll 0.077
+  val humberMouth: LatLong = 53.552 ll 0.077
 
   val merseyMouth: LatLong = 53.448 ll -3.033
+  val formby: LatLong = 53.554 ll -3.105
+  val fleetwood: LatLong = 53.920 ll -3.049
   val kentMouth: LatLong = 54.19 ll -2.86
+  val humphreyHead: LatLong = 54.151 ll -2.831
   val sBarrow: LatLong = 54.04 ll -3.20
   val stBeesHead: LatLong = 54.51 ll -3.63
 
-  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, p20, scarborough, flamborough, p30,humberMouth, merseyMouth, kentMouth, sBarrow,
-    stBeesHead, ScotlandLow.solwayMouth)
+  override val polygonLL: PolygonLL = PolygonLL(ScotlandLow.tyneMouth, p20, scarborough, flamborough, p30,humberMouth, merseyMouth,formby, fleetwood, kentMouth,
+    humphreyHead, sBarrow, stBeesHead, ScotlandLow.solwayMouth)
 
    val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
    override val places: LocationLLArr = LocationLLArr(london)
@@ -24,7 +27,8 @@ object EnglandNorth extends EArea2("England north",  53.632 ll -1.581, hillyOce)
 
 /** [[polygonLL]] Graphical representation of Wales. Depends on nothing. */
 object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
-{
+{ val talacre: LatLong = 53.355 ll -3.315
+  val deeMouth: LatLong = 53.246 ll -3.104
   val p5: LatLong = 52.75 ll -3
   val chepstow: LatLong = 51.61 ll -2.68
   val lavernock: LatLong = 51.405 ll -3.169
@@ -43,15 +47,14 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
   val angleseaNE: LatLong = 53.417 ll -4.287
   val angleseaEast: LatLong = 53.310 ll -4.040
   val p80: LatLong = 53.342 ll -3.868
-  val northEast: LatLong = 53.246 ll -3.104
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, p5, chepstow, lavernock, nashPoint, p25, p35, skomer, stDavids, p50, aberaeron, tonfanu, criccieth,
-    mynydd, southStack, carmelHead,angleseaNE, angleseaEast, p80)
+  override val polygonLL: PolygonLL = PolygonLL(talacre, deeMouth, p5, chepstow, lavernock, nashPoint, p25, p35, skomer, stDavids, p50, aberaeron, tonfanu,
+    criccieth, mynydd, southStack, carmelHead,angleseaNE, angleseaEast, p80)
 }
 
 /** [[polygonLL]] graphical representation of England middle. Depends on [[EnglandNorth]] and [[Wales]]. */
 object EnglandMiddle extends EArea2("England middle",  53.632 ll -1.581, deshot)
-{  val p2: LatLong = 53.520 ll 0.076
+{ val p2: LatLong = 53.520 ll 0.076
   val donnaNook: LatLong = 53.467 ll 0.182
   val holbeach: LatLong = 52.89 ll 0.08
   val neneMouth: LatLong = 52.825 ll 0.216
@@ -68,13 +71,12 @@ object EnglandMiddle extends EArea2("England middle",  53.632 ll -1.581, deshot)
   val wirralNW = 53.386 ll -3.198
 
   override val polygonLL: PolygonLL = PolygonLL(EnglandNorth.humberMouth, p2, donnaNook, holbeach, neneMouth, ouseMouth, hunstanton, cromer, horsey, lowestoft,
-    p25, p30, p32, foulness, EnglandSouth.northEast, Wales.chepstow, Wales.p5, Wales.northEast, wirralNW, EnglandNorth.merseyMouth)
+    p25, p30, p32, foulness, EnglandSouth.northEast, Wales.chepstow, Wales.p5, Wales.deeMouth, wirralNW, EnglandNorth.merseyMouth)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
 object EnglandSouth extends EArea2("England south", 51.632 ll -0.679, oceanic)
-{
-  val northEast: LatLong = 51.494 ll 0.474
+{ val northEast: LatLong = 51.494 ll 0.474
   val nwGrain: LatLong = 51.48 ll 0.48
   val nekent: LatLong = 51.38 ll 1.43
   val dover: LatLong = 51.15 ll 1.38

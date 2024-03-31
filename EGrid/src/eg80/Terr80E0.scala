@@ -13,9 +13,9 @@ object Terr80E0 extends Long80Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    TRow(556, sea *6, CapeOld(4, 2, mtainOld)),
-    TRow(554, sea * 6, mtainOld),
-    TRow(552, sea * 7, mtainOld),
+    TRow(556, sea * 6, mtainTundra),
+    TRow(554, sea * 6, mtainIce),
+    TRow(552, sea * 7, mtainTundra),
 
     TRow(518, sea * 14, taiga),
     TRow(516, sea * 15, taiga),
@@ -42,7 +42,7 @@ object Terr80E0 extends Long80Terrs
     VRow(479, Bend(544, HVDR, 13, 4), Bend(546, HVUL, 5, 7), SourceLt(550, HVDR), Bend(552, HVDL, 5, 1)),
     TRow(478, sea * 6, hillyOce, oceanic * 3, sea * 7, oceanic * 2, oceanic * 2, oceanic, sea),
 
-    VRow(477, BendIn(484, HVDR, 13), SourceLt(484, HVDL, 7), MouthOld(492, HVUL), ThreeDown(494, 3, 10, 3), BendIn(496, HVUL, 7), BendIn(544, HVUR, 13),
+    VRow(477, BendIn(484, HVDR, 13), SourceLt(484, HVDL, 7), Source(492, HVDR, 7, 5), ThreeDown(494, 3, 10, 3), Source(496, HVDL, 5, 2), BendIn(544, HVUR, 13),
       BendOut(546, HVDL), MouthOld(552, HVDn)),
 
     TRow(476, sea * 4, mtainOld, hillyOce, oceanic, hillyOce, hillyOce * 2, oceanic, sea * 7, oceanic * 2, oceanic, sea * 2),
@@ -51,7 +51,7 @@ object Terr80E0 extends Long80Terrs
       BendIn(546, HVUR), MouthOld(548, HVDR, 7)),
 
     TRow(474, sea * 4, oceanic, oceanic * 2, hillyOce, hillyOce, hillyOce, oceanic, hillyOce, sea * 7, oceanic * 2, sea * 3),
-    VRow(473, BendIn(494, HVDR, 7), ThreeUp(496, 11, 0, 13), BendIn(498, HVUp, 11), BendIn(514, HVDL, 13)),
+    VRow(473, BendIn(494, HVDR, 7), ThreeUp(496, 11, 0, 13), BendIn(498, HVUp, 11), ThreeUp(500, 7, 0, 11), BendIn(514, HVDL, 13)),
     TRow(472, sea * 3, oceanic * 4, sea * 2, oceanic, hillyOce, oceanic, sea * 5, oceanic * 7),
     VRow(471, Source(492, HVUR, 4, 2), BendIn(494, HVUL, 13), BendIn(512, HVDR, 13), ThreeUp(514, 0, 13, 12), SourceLt(516, HVUL, 7)),
     TRow(470, sea * 4, oceanic * 3, sea, hillyOce * 2, oceanic * 3, sea * 3, oceanic * 9),
