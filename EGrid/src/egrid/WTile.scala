@@ -116,7 +116,14 @@ object WTiles
   val hillyTrop: Land = Land(Hilly, Tropical)
   val hillyJungle: Land = Land(Hilly, Tropical, Forest)
 
+  /** [[HillyLakes]] [[Boreal]] [[Forest]] */
   val hillyLakesTaiga: Land = Land(HillyLakes, Boreal, Forest)
+
+  /** [[HillyLakes]] [[Oceanic]] [[CivMix]] */
+  val hillyLakesOce: Land = Land(HillyLakes, Oceanic, CivMix)
+
+  /** [[HillyLakes]] [[Oceanic]] [[Forest]] */
+  val hillyLakesOceForest: Land = Land(HillyLakes, Oceanic, Forest)
 
   /** deprecated use one of the specialised shorthands instead.  */
   val mtainOld: Land = Land(Mountains, Boreal, Forest)

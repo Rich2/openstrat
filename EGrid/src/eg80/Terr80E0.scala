@@ -3,7 +3,9 @@ package ostrat; package eg80
 import prid._, phex._, egrid._, WTiles._
 
 /** 80 Km tile width grid centred on the Greenwich meridian, 0°E from 15°W to 15°E. Tile aree 5542.562km².
- *  [[Isle5]] 438.425km² => 654.931km². Isle of Man 572km². */
+ * [[Isle8]] 1217.848km² => 1564.258km². Faroe Islands 1399km², Shetlands 1466km².
+ * [[Isle7]] 914.739km² => 1217.848km². Orkneys 990km².
+ * [[Isle5]] 438.425km² => 654.931km². Isle of Man 572km². */
 object Terr80E0 extends Long80Terrs
 { implicit val grid: EGrid80LongFull = EGrid80.e0(416, 582)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -22,21 +24,21 @@ object Terr80E0 extends Long80Terrs
     TRow(514, sea * 15, taiga),
     TRow(512, sea * 15, taiga),
     TRow(510, sea * 15, taiga * 2),
-    TRow(508, CapeOld(1, 3, hillyTundra), sea * 14, taiga * 2),
+    TRow(508, hillyTundra, sea * 14, taiga * 2),
     TRow(506, sea * 15, taiga * 3),
     TRow(504, sea * 14, taiga * 4),
     TRow(502, sea * 13, taiga * 5),
     TRow(500, sea * 13, taiga * 6),
-    TRow(498, sea * 4, Isle10(hillyOce), sea * 7, taiga * 7),
-    TRow(496, sea * 13, taiga * 7),
-    TRow(494, sea * 9, CapeOld(5, 4, hillyOce), sea * 3, taiga * 7),
-    TRow(492, sea * 8, CapeOld(2, 4, hillyOce), sea * 4, taiga * 6),
+    TRow(498, sea * 4, Isle8(mtainOce), sea * 7, taiga * 7),
+    TRow(496, sea * 12, mtainOceForest, taiga * 7),
+    TRow(494, sea * 9, Isle8(hillyOce), sea * 3, taiga * 7),
+    TRow(492, sea * 13, taiga * 6),
     TRow(490, sea * 14, taiga * 3, hillyTaiga, taiga * 3),
-    VRow(489, SourceRt(498, HVUR, 7), BendIn(500, HVDn, 13)),
-    TRow(488, sea * 7, CapeOld(1, 1, hillyOce), Isle10(hillyOce), sea * 6, taiga * 2, sea, CapeOld(4, 1), taiga * 2),
-    TRow(486, sea * 6, Isle10(hillyOce), mtainOld, hillyOce, sea * 7, CapeOld(2, 3, hillyTaiga), sea * 2, CapeOld(4, 1), oceanic * 2),
+    VRow(489, SourceRt(498, HVUR, 7), BendIn(500, HVDn, 13), ThreeDown(502, 11, 13, 0), BendIn(504, HVDn, 11), BendIn(506, HVDL, 11)),
+    TRow(488, sea * 7, hillyOce, hillyOce, sea * 5, hillyLakesOce, taiga * 2, sea, oceanic, taiga * 2),
+    TRow(486, sea * 6, Isle10(hillyOce), mtainOld, hillyOce, sea * 6, hillyLakesOceForest * 2, sea * 2, oceanic, oceanic * 2),
     VRow(485, SourceLt(502, HVUR, 7), BendInRt(504, HVUL, 13, 7)),
-    TRow(484, sea * 5, hillyOce, mtainOld, hillyOceForest, hillyOce, sea * 9, CapeOld(5, 4), CapeOld(4, 1), oceanic * 2),
+    TRow(484, sea * 5, hillyOce, mtainOld, hillyOceForest, hillyOce, sea * 9, oceanic, oceanic, oceanic * 2),
     TRow(482, sea * 6, mtainOld * 2, hillyOce * 2, sea * 7, oceanic * 2, sea, CapeOld(4, 1), oceanic),
     TRow(480, sea * 7, hillyOce * 3, sea * 8, oceanic * 2, sea, oceanic * 2),
     VRow(479, Bend(544, HVDR, 13, 4), Bend(546, HVUL, 5, 7), SourceLt(550, HVDR), Bend(552, HVDL, 5, 1)),
@@ -100,6 +102,9 @@ object Terr80E0 extends Long80Terrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(498, "" * 4, "Faroes")
+    str(494, "" * 9, "Shetlands")
+    str(488, "" * 8, "Orkneys")
     str(474, "" * 8, "Isle of Man")
   }
 }
