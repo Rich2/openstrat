@@ -3,7 +3,7 @@ package ostrat
 import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 160km, a C scale of 40km. A tile area of 22170.250km.
- * [[Isle13]] 13531.646km² => km².
+ * [[Isle13]] 13531.646km² => 15783.312km².
  * [[Isle12]] 11453.185km² => 13531.646km².
  * [[Isle11]] 9547.930km² => 11453.185km².
  * [[Isle10]] 7815.879km² => 9547.930km².
@@ -16,7 +16,8 @@ import prid.phex._, egrid._
  * [[Isle3]] 541.265km² => 1060.881km². */
 package object eg160
 {
-  val fullTerrs: RArr[Long160Terrs] = RArr(Terr160E0, Terr160E30, null, null, Terr160E120, Terr160E150, null, null, Terr160W120, Terr160W90, Terr160W60, Terr160W30)
+  val fullTerrs: RArr[Long160Terrs] = RArr(Terr160E0, Terr160E30, null, null, Terr160E120, Terr160E150, null, null, Terr160W120, Terr160W90, Terr160W60,
+    Terr160W30)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid160LongMulti): LayerHcRefSys[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)

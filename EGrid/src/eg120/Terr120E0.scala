@@ -2,8 +2,8 @@
 package ostrat; package eg120
 import prid.phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15 West to 15 East. The Faroe Islands and the Shetland Islands are large enough to qualify as an island. The Orkney's are
- *  probably not, even with the mainland that comes into the hex, but for the sake of Scapa FLow they will be an [[Isle]].  */
+/** [[WTile]] terrain for 15 West to 15 East.
+ * [[Isle5]] 986.457km² => 1473.596km². Orkney Islands 990 km², Shetland, Faroe Islands 1399km². */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(300)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -20,10 +20,10 @@ object Terr120E0 extends Long120Terrs
     TRow(338, sea * 9, hillyTundra * 2),
     TRow(336, sea * 9, hillyTaiga * 2, taiga),
     TRow(334, sea * 8, mtainOld, hillyTaiga * 3),
-    TRow(332, sea * 3, Isle10(hillyOce), sea * 4, mtainOld, mtainOld, hillyTaiga, taiga * 2),
-    TRow(330, sea * 5, Isle10(hillyOce), sea * 2, mtainOld * 4, hillyTaiga),
+    TRow(332, sea * 3, Isle5(hillyOce), sea * 4, mtainOld, mtainOld, hillyTaiga, taiga * 2),
+    TRow(330, sea * 5, Isle5(hillyOce), sea * 2, mtainOld * 4, hillyTaiga),
     TRow(328, sea * 6, sea * 3, mtainOld, hillyTaiga * 3),
-    TRow(326, sea * 5, Isle10(hillyOce), sea * 3, hillyTaiga, hillyTaiga, taiga * 3),
+    TRow(326, sea * 5, Isle5(hillyOce), sea * 3, hillyTaiga, hillyTaiga, taiga * 3),
     VRow(325, BendOut(530, HVDR)),
     TRow(324, sea * 3, oceanic, hillyOce, sea * 4, hillyTaiga, hillyTaiga, sea, oceanic * 2),
     VRow(323, ThreeDown(528, 13, 10, 0), Bend(530, HVUL, 13, 7), MouthRt(534, HVUL), BendIn(536, HVDL, 13)),
@@ -60,6 +60,12 @@ object Terr120E0 extends Long120Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(332, "" * 3, "Faroes")
+    str(330, "" * 5, "Shetlands")
+    str(326, "" * 5, "Orkneys")
+  }
 }
 
 object BritReg120

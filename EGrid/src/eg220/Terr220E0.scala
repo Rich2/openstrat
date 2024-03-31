@@ -47,7 +47,7 @@ object Terr220E0 extends Long220Terrs
       TRow(166, sea * 2, hillyOce * 2, sea * 2, oceanic, oceanic),
 
       VRow(165, MouthRt(502, HVDL), ThreeUp(504, 6, 9, 0), BendIn(506, HVDL, 7), BendOut(512, HVUR, 7), BendIn(514, HVDL, 13), MouthRt(520, HVDn, 7),
-        BendIn(524, HVUR, 13), MouthOld(526, HVDR), MouthOld(530, HVDL, 7)),
+        BendIn(524, HVUR, 13), SourceRt(526, HVUL), SourceMax(530, HVUR)),
 
       TRow(164, sea, oceanic, hillyOce, oceanic, sea * 2, oceanic, sea),
 
