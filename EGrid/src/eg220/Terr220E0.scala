@@ -2,15 +2,13 @@
 package ostrat; package eg220
 import prid._, phex._, egrid._, WTiles._
 
-/** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 41915.629km². Sicily is ~75% of a tile.
- * A minimum island size of 27670.864km².
- *  Isle 13262.367km² <= 27670.864km².
- *  Isle8 8022.913km² <= 13262.367km²
- *  Isle6 4952.921km² <= 8022.913km² Zealand 7180km² is large enough to qualify, but shares its hex with Jutland.
- *  Isle5 3315.591km² <= 4952.921km² Mallorca 3640km².
- *  [[Isle4]] 2005.728km² <= 3315.591km². Outer Hebrides 3071km².
- *  [[Isle3]] 1023.330km² <= 2005.728km². Faroe Islands 1,399 km²
- *  Smaller Isle of Man. */
+/** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 41915.629km².
+ * [[Isle7]] 6917.716km² => 9209.977km². Zealand 7180km² shares its hex with Jutland.
+ * [[Isle6]] 4952.921km² => 6917.716km².
+ * [[Isle5]] 3315.591km² => 4952.921km².Mallorca 3640km².
+ * [[Isle4]] 2005.728km² => 3315.591km². Outer Hebrides 3071km².
+ * [[Isle3]] 1023.330km² => 2005.728km². Faroe Islands 1399 km².
+ * Below 1023.330km². Isle of Man 572km². */
 object Terr220E0 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e0(132)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -80,7 +78,9 @@ object Terr220E0 extends Long220Terrs
     TRow(144, sea * 2, savannah, hillySavannah, hillySahel * 2, sea * 4, hillySavannah),
     VRow(143, MouthLt(500, HVUp, 7), BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendMax(512, HVUp), BendInRt(514, HVUL, 13, 7)),
     TRow(142, sea * 3, hillyOce, mtainSavannah, hillySavannah * 6, sea),
-    VRow(141, BendIn(498, HVDR, 13), ThreeUp(500, 13, 13, 0), BendIn(502, HVUp, 13), MouthRt(504, HVUR, 7), MouthRt(508, HVDn, 7), MouthOld(530, HVDL)),
+
+    VRow(141, BendIn(498, HVDR, 13), ThreeUp(500, 13, 13, 0), BendIn(502, HVUp, 13), BendOut(504, HVDn, 7), BendIn(506, HVUp, 13), BendIn(508, HVUL, 13)),
+
     TRow(140, sea * 2, hillySavannah, hillyOce, hillyDeshot * 2, deshot * 2, hillyDeshot * 2, sea * 2),
     TRow(138, sea * 2, oceanic, deshot, hillyDeshot, deshot * 7),
     TRow(136, sea * 2, mtainOld * 3, deshot * 8),

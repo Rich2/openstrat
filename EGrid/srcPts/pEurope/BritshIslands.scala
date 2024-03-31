@@ -31,7 +31,7 @@ object IrelandNorth extends EArea2("Ireland north", 53.36 ll -7.63, oceanic)
 }
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
-object IrelandSouth extends EArea2("Irelandsouth ", 53.0 ll -7.63, hillyOce)
+object IrelandSouth extends EArea2("Irelandsouth", 53.0 ll -7.63, hillyOce)
 { val liffeyMouth: LatLong = 53.342 ll -6.188
   val wicklowHead: LatLong = 52.97 ll -6.00
   val southEast: LatLong = 52.17 ll -6.36
@@ -52,4 +52,16 @@ object IrelandSouth extends EArea2("Irelandsouth ", 53.0 ll -7.63, hillyOce)
 
   override val polygonLL: PolygonLL = PolygonLL(liffeyMouth, wicklowHead, southEast, harryLock, robertsHead, baltimore, derryNafinnia,
     durseyPoint, bruff, SleaHead, sybilHead, ballycurrane, loopHead, p90, northWest)
+}
+
+/** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
+object IsleMan extends EArea2("Isle of Man", 54.243 ll -4.506, hillyOce)
+{
+  val north: LatLong = 54.418 ll -4.364
+  val maughold = 54.299 ll -4.310
+  val southEast: LatLong = 54.053 ll -4.624
+  val southWest: LatLong = 54.045 ll -4.823
+  val peel = 54.227 ll -4.698
+
+  override val polygonLL: PolygonLL = PolygonLL(north, maughold, southEast, southWest, peel)
 }

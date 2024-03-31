@@ -5,7 +5,8 @@ import prid._, phex._, egrid._, WTiles._
 /** 160km [[WTile]] terrain for 15° west to 15° east, centred on 0° east.
  * [[Isle5]] 1753.701km² => 2619.726km². Isle of Lewis 2224 km².
  * [[Isle4]] 1060.881km² => 1753.701km².
- * [[Isle3]] 541.265km² => 1060.881km². South Uist 320.3km² + North Uist 303km² + Benbcuala 82.03km² + Berneray 10.1km² + Grimsay 8.33km² = 723.76km² */
+ * [[Isle3]] 541.265km² => 1060.881km². Isle of Man 572km².
+ * South Uist 320.3km² + North Uist 303km² + Benbcuala 82.03km² + Berneray 10.1km² + Grimsay 8.33km² =723.76km² */
 object Terr160E0 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
