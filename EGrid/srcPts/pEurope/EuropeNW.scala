@@ -29,37 +29,37 @@ object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, oceanic)
 }
 
 /** Displays most of France. Depends on [[Alsace]] and [[BelgLux]]. */
-object Frankia extends EArea2("Frankia", 47.28 ll 1.93, oceanic)
+object FranceNorth extends EArea2("France north", 47.28 ll 1.93, oceanic)
 { val southWest: LatLong = divN45 ll -1.29
   val southEast: LatLong = divN45 ll 5.53
   val sLAmelie: LatLong = 45.47 ll -1.15
-  val royan = 45.61 ll -1.04
-  val laCoubre = 45.69 ll -1.23
-  val laRochelle = 46.15 ll -1.22
-  val niortaise = 46.30 ll -1.13
-  val sablesdOlonne = 46.49 ll -1.80
-  val penmarch = 47.80 ll -4.37
-  val vilaineMouth = 47.49 ll -2.44
-  val brest = 48.42 ll - 4.73
-  val landunvez = 48.56 ll -4.72
-  val pleubian = 48.86 ll -3.10
-  val yffiniac = 48.49 ll -2.68
-  val capFrehel = 48.68 ll -2.31
-  val pointeDuGrouin = 48.71 ll -1.84
-  val vildeLaMarine = 48.61 ll -1.84
-  val avranches = 48.66 ll -1.45
-  val cabaneVauban = 48.74 ll -1.57
-  val auderville = 49.73 ll -1.94
-  val gatteville = 49.69 ll -1.26
-  val carentan = 49.36 ll -1.16
-  val cabourg = 49.29 ll -0.18
-  val villierville = 49.40 ll 0.13
-  val seineMouth = 49.43 ll 0.23
-  val wLeHavre = 49.51 ll 0.06
-  val capAntifer = 49.69 ll 0.16
+  val royan: LatLong = 45.61 ll -1.04
+  val laCoubre: LatLong = 45.69 ll -1.23
+  val laRochelle: LatLong = 46.15 ll -1.22
+  val niortaise: LatLong = 46.30 ll -1.13
+  val sablesdOlonne: LatLong = 46.49 ll -1.80
+  val penmarch: LatLong = 47.80 ll -4.37
+  val vilaineMouth: LatLong = 47.49 ll -2.44
+  val brest: LatLong = 48.42 ll - 4.73
+  val landunvez: LatLong = 48.56 ll -4.72
+  val pleubian: LatLong = 48.86 ll -3.10
+  val yffiniac: LatLong = 48.49 ll -2.68
+  val capFrehel: LatLong = 48.68 ll -2.31
+  val pointeDuGrouin: LatLong = 48.71 ll -1.84
+  val vildeLaMarine: LatLong = 48.61 ll -1.84
+  val avranches: LatLong = 48.66 ll -1.45
+  val cabaneVauban: LatLong = 48.74 ll -1.57
+  val auderville: LatLong = 49.73 ll -1.94
+  val gatteville: LatLong = 49.69 ll -1.26
+  val carentan: LatLong = 49.36 ll -1.16
+  val cabourg: LatLong = 49.29 ll -0.18
+  val villierville: LatLong = 49.40 ll 0.13
+  val seineMouth: LatLong = 49.43 ll 0.23
+  val wLeHavre: LatLong = 49.51 ll 0.06
+  val capAntifer: LatLong = 49.69 ll 0.16
   val cayeux: LatLong = 50.18 ll 1.49
-  val capGrisNez = 50.87 ll 1.58
-  val calais = 50.93 ll 1.74
+  val capGrisNez: LatLong = 50.87 ll 1.58
+  val calais: LatLong = 50.93 ll 1.74
 
   val bourgeEnBresse: LatLong = 46.20 ll 5.22
 

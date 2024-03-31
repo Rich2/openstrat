@@ -21,7 +21,7 @@ object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, oceanic)
     nooderhaaksEast, p80, rootunmerroog, eemshaven, westerwodenseeMouth)
 }
 
-/** Displays roughly Germany on map. Depends on [[Alsace]], [[Frankia]] and [[BelgLux]]. */
+/** Displays roughly Germany on map. Depends on [[Alsace]], [[FranceNorth]] and [[BelgLux]]. */
 object Germania extends EArea2("Germania", 50.50 ll 11.11, oceanic)
 { val p80: LatLong = 53.506 ll 7.048
   val borkum = 53.594 ll 6.641
@@ -37,7 +37,7 @@ object Germania extends EArea2("Germania", 50.50 ll 11.11, oceanic)
   override val places: LocationLLArr = LocationLLArr(berlin)
 }
 
-/** Displays the Alps, depends on [[Alsace]], [[Frankia]] and [[ItalyNorth]]. */
+/** Displays the Alps, depends on [[Alsace]], [[FranceNorth]] and [[ItalyNorth]]. */
 object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtainOld)
 { val steyr: LatLong = 48.04 ll 14.14
   val vienna: LatLong = 48.22 ll 16.41
@@ -49,7 +49,7 @@ object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtainOld)
   val petraLigure: LatLong = 44.14 ll 8.28
   val imperia: LatLong = 43.89 ll 8.06
       
-  val polygonLL: PolygonLL = PolygonLL(FranceSouth.stRaphael, FranceSouth.orangeCrossing, FranceSouth.montelimar, Frankia.southEast,
-    Frankia.bourgeEnBresse, Alsace.southWest, Alsace.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, ItalyNorth.venice, ItalyNorth.voltri,
+  val polygonLL: PolygonLL = PolygonLL(FranceSouth.stRaphael, FranceSouth.orangeCrossing, FranceSouth.montelimar, FranceNorth.southEast,
+    FranceNorth.bourgeEnBresse, Alsace.southWest, Alsace.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, ItalyNorth.venice, ItalyNorth.voltri,
     petraLigure, imperia)
 }

@@ -6,6 +6,7 @@ import geom._, pglobe._, pgui._, Colour._
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
 { statusText = "Welcome to world map, constructed from irregular areas."
 
+  debvar(viewIn.scale)
   /** Scale in km / pixel */
   var scale: Length = viewIn.scale
 
@@ -27,7 +28,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
   import pEurope._
   val london: LatLong = EnglandNorth.london.a1
-  val paris: LatLong = Frankia.paris.a1
+  val paris: LatLong = FranceNorth.paris.a1
   val berlin: LatLong = Germania.berlin.a1
   val conns1: LineSegLLArr = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
   val conns2: LineSegM3Arr = conns1.map(_.map(_.toMetres3))
