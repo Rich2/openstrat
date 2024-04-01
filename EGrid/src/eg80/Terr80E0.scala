@@ -33,7 +33,7 @@ object Terr80E0 extends Long80Terrs
     TRow(496, sea * 12, mtainOceForest, taiga * 7),
     TRow(494, sea * 9, Isle8(hillyOce), sea * 3, taiga * 7),
     TRow(492, sea * 13, taiga * 6),
-    TRow(490, sea * 14, taiga * 3, hillyTaiga, taiga * 3),
+    TRow(490, sea * 13, mtainOceForest, taiga * 3, hillyTaiga, taiga * 3),
     VRow(489, SourceRt(498, HVUR, 7), BendIn(500, HVDn, 13), ThreeDown(502, 11, 13, 0), BendIn(504, HVDn, 11), BendIn(506, HVDL, 11)),
     TRow(488, sea * 7, hillyOce, hillyOce, sea * 5, hillyLakesOce, taiga * 2, sea, oceanic, taiga * 2),
     TRow(486, sea * 6, Isle10(hillyOce), mtainOld, hillyOce, sea * 6, hillyLakesOceForest * 2, sea * 2, oceanic, oceanic * 2),

@@ -1,5 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
+import Colour._
 
 /** Currently this describes forrestion and land use. */
 trait LandUse extends TellSimple
@@ -29,4 +30,6 @@ case object LandFree extends LandUse
 case object Forest extends LandUse
 { def str = "Forest"
   def colour: Colour = Colour.ForestGreen
+  def taigaColour: Colour = DarkCyan
+  def jungleColour: Colour = DarkGreen
 }

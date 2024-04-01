@@ -22,23 +22,22 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
   override def isLand: Boolean = true
 
   override def colour: Colour = elev match
-  { case Mountains if climate == IceCap => Mountains.colour.average(White)
-    case Mountains if climate == Boreal && landUse == Forest => Mountains.colour.average(Boreal.colour)
+  { case _: MountainsLike if climate == IceCap => Mountains.colour.average(White)
+    case _: MountainsLike if climate == Boreal && landUse == Forest => Mountains.colour.average(Forest.taigaColour)
+    case _: MountainsLike if climate == Tropical && landUse == Forest => Mountains.colour.average(Forest.jungleColour)
+    case _: MountainsLike if landUse == Forest => Mountains.colour.average(Forest.colour)
     case Mountains => Mountains.colour
     case MountLakes => MountLakes.colour
-    case Hilly if climate == Boreal => Boreal.colour.average(Hilly.colour)
-    case Hilly if landUse == Forest => Chocolate.average(Forest.colour)
-    case Hilly => Chocolate.average(climate.colour)
-    case HillyLakes if landUse == Forest => Chocolate.average(Forest.colour)
-    case HillyLakes => HillyLakes.colour
-    case PlainLakes if climate == Tundra => PlainLakes.colour.average(Tundra.colour)
-    case PlainLakes if climate == Boreal => PlainLakes.colour.average(Boreal.colour)
+    case _: HillyLike if climate == Boreal => Forest.taigaColour.average(Hilly.colour)
+    case _: HillyLike if climate == Tropical => Forest.jungleColour.average(Hilly.colour)
+    case _: HillyLike if landUse == Forest => Chocolate.average(Forest.colour)
+    case Hilly | HillyLakes => Chocolate.average(climate.colour)
+    case _: PlainLike if climate == Boreal && landUse == Forest => Forest.taigaColour
+    case _: PlainLike if climate == Tropical && landUse == Forest => Forest.jungleColour
+    case _: PlainLike if landUse == Forest => Forest.colour
+    case PlainLakes => PlainLakes.colour.average(climate.colour)
     case PlainLakes => PlainLakes.colour
-    case Plain if climate == Tropical && landUse == Forest => DarkGreen
-    case Plain if climate == Boreal => Boreal.colour
-    case Plain if landUse == Forest => Forest.colour
     case _ => climate.colour
-
   }
 }
 

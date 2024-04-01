@@ -30,11 +30,14 @@ case object Tundra extends Climate
   override def colour: Colour = Plum.average(Thistle)
 }
 
+trait TemperateLike extends Climate
+{ def colour: Colour = LightGreen
+}
+
 /** Trewartha E Boreal climate classification. Subartic or Boreal Taiga climate. Normally has [[Forest]]. Assumes a northern latitude with a significantly
  *  colder northern winter. */
-case object Boreal extends Climate
+case object Boreal extends TemperateLike
 { override def str: String = "Boreal"
-  override def colour: Colour = DarkCyan
 }
 
 /** Köppen BW desert climate classification. */
@@ -47,12 +50,11 @@ case object DesertCold extends Desert
 }
 
 /** Trewartha D Temperate classification. */
-trait Temperate extends Climate
+trait Temperate extends TemperateLike
 
 /** Trewartha Dc Temperate Continental classification. No intense dry season. The coldest monthly mean temperature reaches below 0 °C. */
-case object Continental extends Temperate
-{ def colour: Colour = LightGreen
-  override def str: String = "Continental"
+case object Continental extends TemperateLike
+{ override def str: String = "Continental"
 }
 
 /** Köppen BSk. Trewartha Bs. Dry Semi-Arid climate classification. */
@@ -66,8 +68,7 @@ case object Steppe extends SemiArid
 
 /** Trewartha Do Temperate oceanic climate classification. No intense dry season. The coldest monthly mean temperature reaches is not below 0 °C. */
 case object Oceanic extends Temperate
-{ def colour: Colour = LightGreen
-  override def str: String = "Oceanic"
+{ override def str: String = "Oceanic"
 }
 
 /** Trewartha C Subtropical climate classification. No intense dry season. Category may be split up later. */
