@@ -24,7 +24,10 @@ object Terr640E30 extends Long640Terrs
     TRow(120, oceanic * 3),
     TRow(118, oceanic, oceanic, oceanic),
     VRow(119, MouthMin(1536, HVUp), MouthLt(1544, HVUp, 7, Lake)),
-    VRow(117, BendIn(1530, HVDL, 11), MouthRt(1534, HVUp), Bend(1536, HVUR, 12, 7), BendIn(1538, HVUp, 13), Mouth(1540, HVUR, 7, 6), BendMin(1544, HVUR, Lake)),
+
+    VRow(117, BendIn(1530, HVDL, 11), MouthRt(1534, HVUp), Bend(1536, HVUR, 12, 7), BendIn(1538, HVUp, 13), Mouth(1540, HVUR, 7, 6),
+      BendMin(1544, HVUR, 3, Lake)),
+
     TRow(116, hillyOce, hillyOce, hillyOce),
     VRow(115, SetSep(1529), BendIn(1532, HVDR, 13), ThreeUp(1534, 0, 13, 6), BendIn(1536, HVDL, 13)),
     TRow(114, sea, mtainOld, hillySavannah * 2),

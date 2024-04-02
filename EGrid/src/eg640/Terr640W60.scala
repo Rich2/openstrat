@@ -19,7 +19,7 @@ object Terr640W60 extends Long640Terrs
     VRow(127, BendIn(10750, HVUR, 13, siceWin), Bend(10752, HVDL, 2, 7, siceWin)),
     TRow(126, tundra, hillyTundra),
 
-    VRow(125, Bend(10748, HVDn, 4, 5, siceWin), BendMin(10750, HVUp, siceWin), ThreeUp(10752, 13, 13, 2, siceWin), BendMax(10754, HVDL, siceWin),
+    VRow(125, Bend(10748, HVDn, 4, 5, siceWin), BendMin(10750, HVUp, 3, siceWin), ThreeUp(10752, 13, 13, 2, siceWin), BendMax(10754, HVDL, siceWin),
       BendOut(10758, HVDR)),
 
     TRow(124, mtainTundra, mtainTundra),

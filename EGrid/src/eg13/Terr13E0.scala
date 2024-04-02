@@ -35,7 +35,7 @@ object Terr13E0 extends Long13Terrs
     TRow(96, sea, sahel),
     VRow(95, BendIn(514, HVUR, 13), BendIn(516, HVDL)),
     TRow(88, siceWin),
-    VRow(87, BendMax(510, HVDn, siceWin), BendOut(512, HVUp, 6, siceWin), BendIn(514, HVDn, 12, siceWin), BendMin(516, HVUp, siceWin)),
+    VRow(87, BendMax(510, HVDn, siceWin), BendOut(512, HVUp, 6, siceWin), BendIn(514, HVDn, 12, siceWin), BendMin(516, HVUp, 3, siceWin)),
     TRow(86, ice)
     )
   }

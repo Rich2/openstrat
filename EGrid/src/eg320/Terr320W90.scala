@@ -25,7 +25,7 @@ object Terr320W90 extends Long320Terrs
     TRow(148, taiga, tundra, siceWin * 2, lakesTundra),
 
     VRow(147, BendOut(9726, HVUR, 7, siceWin), BendOut(9728, HVUp, 7, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVDL, 13, siceWin),
-      BendIn(9734, HVUR, 13, siceWin), BendMin(9736, HVDL, siceWin)),
+      BendIn(9734, HVUR, 13, siceWin), BendMin(9736, HVDL, 3, siceWin)),
 
     TRow(146, taiga * 2, tundra, siceWin, taiga),
     VRow(145, BendOut(9732, HVUR, 7, siceWin), ThreeDown(9734, 2, 13, 4, siceWin), BendOut(9736, HVUL, 7, siceWin)),
