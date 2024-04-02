@@ -7,14 +7,20 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, hillyOce)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
   val caboRojo: LatLong = 21.57 ll -97.33
+  val puntaRockoPartido: LatLong = 18.708 ll -95.188
   val pochutala: LatLong = 15.76 ll -96.50
+  val maldonado: LatLong = 16.325 ll -98.568
+  val papagayoMouth: LatLong = 16.684 ll -99.607
+  val p70: LatLong = 18.328 ll -103.429
   val manzanillo: LatLong = 19.15 ll -104
-  val puntaDelMario = 20.41 ll -105.69
-  val grandeDeSantiagoMouth = 21.64 ll -105.45
+  val puntaDelMario: LatLong = 20.41 ll -105.69
+  val grandeDeSantiagoMouth: LatLong = 21.64 ll -105.45
   val cAmericaNW: LatLong = 22.8 ll -105.97
+  val p90: LatLong = 25.952 ll -109.445
 
-  override def polygonLL: PolygonLL = PolygonLL(UsaPrariesSouth.galveston, brownsville, puntaJerez, caboRojo, MexicoEast.coatzacoalcosMouth,
-    MexicoEast.tehuantepecMouth, pochutala, manzanillo, puntaDelMario, grandeDeSantiagoMouth, cAmericaNW, UsaSouthWest.rockyPoint, UsaSouthWest.southEast)
+  override def polygonLL: PolygonLL = PolygonLL(UsaPrariesSouth.galveston, brownsville, puntaJerez, caboRojo, puntaRockoPartido, MexicoEast.coatzacoalcosMouth,
+    MexicoEast.tehuantepecMouth, pochutala, maldonado, papagayoMouth, p70, manzanillo, puntaDelMario, grandeDeSantiagoMouth, cAmericaNW, p90,
+    UsaSouthWest.rockyPoint, UsaSouthWest.southEast)
 }
 
 /** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[ElSalPanama]]. */

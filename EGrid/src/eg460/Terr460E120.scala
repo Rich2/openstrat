@@ -38,7 +38,7 @@ object Terr460E120 extends Long460Terrs
     TRow(114, mtainOld * 2, mtainOld, Isle7(hillyJungle)),
     TRow(112, hillyJungle),
     VRow(111, MouthOld(4598, HVUL), ThreeDown(4600, 6, 0, 7), MouthRt(4602, HVUR, 7)),
-    TRow(110, mtainOld, SepB(), sea * 2, CapeOld(0, 3, hillyJungle)),
+    TRow(110, mtainOld, SepB(), sea * 2, hillyJungle),
     VRow(109, MouthOld(4598, HVDL), BendIn(4600, HVUL, 13)),
     TRow(108, hillyJungle, sea * 2, CapeOld(4, 2, hillyJungle)),
     TRow(106, sea * 2, Isle4(mtainOld), Isle10(mtainOld), Isle8(mtainOld)),
