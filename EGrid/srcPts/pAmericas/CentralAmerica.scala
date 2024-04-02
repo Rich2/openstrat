@@ -7,7 +7,9 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, hillyOce)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
   val caboRojo: LatLong = 21.57 ll -97.33
+  val p40: LatLong = 18.686 ll -95.956
   val puntaRockoPartido: LatLong = 18.708 ll -95.188
+
   val pochutala: LatLong = 15.76 ll -96.50
   val maldonado: LatLong = 16.325 ll -98.568
   val papagayoMouth: LatLong = 16.684 ll -99.607
@@ -18,26 +20,33 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, hillyOce)
   val cAmericaNW: LatLong = 22.8 ll -105.97
   val p90: LatLong = 25.952 ll -109.445
 
-  override def polygonLL: PolygonLL = PolygonLL(UsaPrariesSouth.galveston, brownsville, puntaJerez, caboRojo, puntaRockoPartido, MexicoEast.coatzacoalcosMouth,
+  override def polygonLL: PolygonLL = PolygonLL(UsaPrariesSouth.galveston, brownsville, puntaJerez, caboRojo, p40, puntaRockoPartido, MexicoEast.coatzacoalcosMouth,
     MexicoEast.tehuantepecMouth, pochutala, maldonado, papagayoMouth, p70, manzanillo, puntaDelMario, grandeDeSantiagoMouth, cAmericaNW, p90,
     UsaSouthWest.rockyPoint, UsaSouthWest.southEast)
 }
 
-/** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[ElSalPanama]]. */
+/** [[polygonLL]] graphical representation for most of Mexico. Dependant on nothing. */
 object MexicoEast extends EArea2("MexicoEast", 17 ll -91, hillyJungle)
-{ val coatzacoalcosMouth: LatLong = 18.16 ll -94.41
-  val champeton: LatLong = 19.36 ll -90.71
-  val nwYucatan: LatLong = 21.01 ll -90.3
-  val p30 = 21.62 ll -88.14
-  val neYucatan: LatLong = 21.48 ll -86.97
-  val p40 = 16.4 ll -88.23
+{ val yucatanNE: LatLong = 21.48 ll -86.97
+  val cozumelNorth: LatLong = 20.590 ll -86.724
+  val cozumelSouth: LatLong = 20.272 ll -86.988
+  val laExoeranza: LatLong = 20.328 ll -87.354
+  val pajaros: LatLong = 19.598 ll -87.410
+  val belizeCity = 17.495 ll -88.181
+  val p20: LatLong = 16.4 ll -88.23
   val seBelize: LatLong = 15.88 ll -88.91
+
   val elSalvadoreW: LatLong = 13.75 ll -90.13
   val swGuatemala: LatLong = 14.55 ll -92.21
   val tehuantepecMouth: LatLong = 16.19 ll -95.15
+  val coatzacoalcosMouth: LatLong = 18.16 ll -94.41
+  val p65: LatLong = 18.897 ll -91.383
+  val champeton: LatLong = 19.36 ll -90.71
+  val nwYucatan: LatLong = 21.01 ll -90.3
+  val p95: LatLong = 21.62 ll -88.14
 
-  override def polygonLL: PolygonLL = PolygonLL(coatzacoalcosMouth, champeton, nwYucatan, p30, neYucatan, p40, seBelize, elSalvadoreW, swGuatemala,
-    tehuantepecMouth)
+  override def polygonLL: PolygonLL = PolygonLL(yucatanNE, cozumelNorth, cozumelSouth, laExoeranza, pajaros,belizeCity, p20, seBelize, elSalvadoreW,
+    swGuatemala, tehuantepecMouth, coatzacoalcosMouth, p65, champeton, nwYucatan, p95)
 }
 
 /** [[polygonLL]] graphical representation for central America from El Salvadore to Panama. Depends on [[MexicoEast]]. */
