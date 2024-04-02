@@ -3,7 +3,7 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 75° west to 45° west, centred on 60° wast. Hex tile scale 460km.
- * Isle10 120974.276km² <= 57981.753km² Hispaniola 76192km². */
+ * [[Isle10]] 64603.127km² => 78919.609km². Hispaniola 76192km². */
 object Terr460W60 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.w60(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -40,10 +40,10 @@ object Terr460W60 extends Long460Terrs
     VRow(125, BendIn(10746, HVDR, 8), MouthOld(10748, HVUR), MouthOld(10750, HVUp), BendIn(10752, HVUR, 13), BendIn(10754, HVUp, 13), SourceRt(10756, HVDL, 7)),
     TRow(124, hillyOceForest, Land(PlainLakes, Boreal, Forest)),
     VRow(123, BendIn(10746, HVUR, 10), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
-    VRow(113, SetSep(10741)),
-    TRow(112, SepB()),
-    TRow(110, Isle10(mtainOld)),
-    TRow(108),
+    VRow(113, BendIn(10740, HVDn, 13), BendIn(10742, HVDL, 13)),
+    VRow(111, ThreeDown(10740, 6, 6, 12), ThreeUp(10742, 0, 6, 6), BendIn(10744, HVDL)),
+    TRow(110, hillyJungle),
+    VRow(109, BendIn(10740, HVUR), BendIn(10742, HVUp), BendIn(10744, HVUL)),
     VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13), MouthOld(10752, HVDR)),
     TRow(106, hillySavannah * 3),
     TRow(104, mtainOld, savannah, hillyJungle * 2),
@@ -57,4 +57,8 @@ object Terr460W60 extends Long460Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(110, "Hispaniola")
+  }
 }

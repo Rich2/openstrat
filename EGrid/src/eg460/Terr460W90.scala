@@ -2,8 +2,8 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile scale 460km.
- * Isle10 120974.276km² <= 57981.753km² Cuba. */
+/** 460km [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile area 183250.975km².
+ * [[Isle4]] 8768.845km² => 14495.438km². Jamaica 10,991 km². */
 object Terr460W90 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.w90(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -53,11 +53,17 @@ object Terr460W90 extends Long460Terrs
     TRow(116, savannah, subtrop * 2, sea, jungle),
     VRow(115, BendOut(9724, HVDR), BendOut(9726, HVDn)),
     TRow(114, hillySahel, CapeOld(2, 1, hillySavannah)),
-    VRow(113, BendOut(9722, HVDR, 7), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), BendOut(9738, HVUp)),
+
+    VRow(113, BendOut(9722, HVDR, 7), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), SourceRt(9736, HVDR), BendMin(9738, HVUp, 5),
+      BendIn(9740, HVDn, 13), BendIn(9742, HVDL, 13)),
+
     TRow(112, hillySavannah, sea, savannah, sea, hillyJungle, jungle),
-    VRow(111, BendOut(9716, HVDL), SourceRt(9724, HVUR), BendOut(9726, HVUL, 7), BendOut(9738, HVDn)),
-    TRow(110, mtainOld, hillyJungle, savannah, jungle),
-    VRow(109, BendIn(9716, HVUR, 10), SourceRt(9718, HVUL, 7), SourceLt(9722, HVDn, 7)),
+
+    VRow(111, BendOut(9716, HVDL), SourceRt(9724, HVUR), BendOut(9726, HVUL, 7), SourceLt(9734, HVDR, 7), ThreeDown(9736, 13, 12, 0), Bend(9738, HVDn, 12, 5),
+      ThreeDown(9740, 6, 6, 12), ThreeUp(9742, 0, 6, 6)),
+
+    TRow(110, mtainJungle, hillyJungle, savannah, jungle, sea, hillyJungle),
+    VRow(109, BendIn(9716, HVUR, 10), SourceRt(9718, HVUL, 7), SourceLt(9722, HVDn, 7), BendIn(9736, HVUR, 12), BendIn(9738, HVUp, 12), BendIn(9740, HVUL, 12)),
     TRow(108, sea * 2, mtainOld * 2, hillyJungle),
 
     VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), MouthRt(9728, HVDR, 7), MouthOld(9734, HVUL), BendIn(9736, HVDL, 10),
@@ -75,4 +81,9 @@ object Terr460W90 extends Long460Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(112, "" * 4, "Cuba west", "Cuba east")
+    str(110, "" * 5, "Jamaica")
+  }
 }
