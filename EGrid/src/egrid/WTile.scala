@@ -116,6 +116,9 @@ object WTiles
   val hillyTrop: Land = Land(Hilly, Tropical)
   val hillyJungle: Land = Land(Hilly, Tropical, Forest)
 
+  /** [[HillyLakes]] [[Continental]] [[Forest]] */
+  val hillyLakesContForest: Land = Land(HillyLakes, Continental, Forest)
+
   /** [[HillyLakes]] [[Boreal]] [[Forest]] */
   val hillyLakesTaiga: Land = Land(HillyLakes, Boreal, Forest)
 
@@ -140,6 +143,9 @@ object WTiles
   val mtainDesert: Land = Land(Mountains, DesertHot, LandFree)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
   val mtainLakesTaiga: Land = Land(MountLakes, Boreal, Forest)
+  val mtainLakesCont: Land = Land(MountLakes, Continental, LandFree)
+  val mtainLakesContForest: Land = Land(MountLakes, Continental, Forest)
+  val mtainLakesOceForest: Land = Land(MountLakes, Oceanic, Forest)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
