@@ -214,14 +214,15 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class MouthSpec(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3, magnitude2: Int = 3) extends
     VRowElem with MouthSpecBase
 
-  /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. */
+  /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. [[BendMin]] just exists for a convenient way of setting values. */
   class BendMin(val c: Int, val dirn: HVDirn, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
   { override def magIn: Int = 3
     override def magOut: Int = 3
   }
 
+  /** Companion object for [[BendMin]] class, contains 2 factory apply method name overloads. */
   object BendMin
-  { /** Factory apply method ofr creating bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16, where both [[HSep]]s have the same value. There
+  { /** Factory apply method for creating bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16, where both [[HSep]]s have the same value. There
      * is a name overload where both [[HSep]] layer values are specified. */
     def apply(c: Int, dirn: HVDirn, terr: WSepSome = Sea): BendMin = new BendMin(c, dirn, terr, terr)
 
