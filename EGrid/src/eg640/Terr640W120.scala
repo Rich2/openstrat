@@ -21,15 +21,20 @@ object Terr640W120 extends Long640Terrs
     TRow(128, tundra),
     TRow(126, taiga * 2),
     TRow(124, taiga * 2),
+    VRow(123, BendIn(8700, HVDL)),
     TRow(122, hillyTaiga, taiga),
-    TRow(120, sea, hillyTaiga, savannah),
-    TRow(118, CapeOld(4, 2, mtainOld), mtainOld, hillySahel),
+    VRow(121, BendIn(8698, HVDR, 13), BendOut(8700, HVUL, 6)),
+    TRow(120, mtainOceForest, hillyTaiga, savannah),
+    VRow(119, BendIn(8698, HVUR, 13), BendOut(8700, HVDL, 7)),
+    TRow(118, mtainOceForest, mtainSavannah, hillySahel),
+    VRow(117, SourceRt(8700,HVUp, 7)),
     TRow(116, sea, hillySavannah, hillyDeshot),
     TRow(114, sea * 2, hillySahel, hillyDeshot),
     TRow(112, sea * 2, hillySahel, hillySahel),
-    TRow(110, sea * 3, CapeOld(3, 2, hillyDeshot)),
-    VRow(109, MouthOld(8712, HVUR)),
-    TRow(108, sea * 3, CapeOld(3, 3, Land(Mountains, Savannah))),
+    TRow(110, sea * 3, hillyDeshot),
+    VRow(109, SourceLt(8708, HVDR, 7), BendOut(8710, HVDL, 7)),
+    TRow(108, sea * 3, mtainSavannah),
+    VRow(107, BendIn(8710, HVUR, 13), SourceRt(8712, HVUL, 7))
     )
   }
   help.run
