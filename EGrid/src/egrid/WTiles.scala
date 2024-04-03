@@ -49,6 +49,9 @@ object WTiles
   /** [[Plain]] [[Continental]] [[Forest]] */
   val lakesContForest: Land = Land(PlainLakes, Continental, Forest)
 
+  /** [[PlainLakes]] [[Tropical]] [[Forest]] */
+  val lakesJungle: Land = Land(PlainLakes, Tropical, Forest)
+
   /** [[Hilly]] [[Tundra]] [[LandFree]] */
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
 

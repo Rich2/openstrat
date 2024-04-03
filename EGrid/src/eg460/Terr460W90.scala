@@ -45,17 +45,21 @@ object Terr460W90 extends Long460Terrs
     TRow(126, savannah, taiga, taiga, hillyTaiga),
     VRow(125, Bend(9730, HVDR, 5, 2, lake), BendMin(9732, HVDn, 3, lake), SourceLt(9734, HVUL, 6, lake)),
     TRow(124, hillySavannah, savannah, hillyOce, oceanic, oceanic),
-    VRow(123, MouthOld(9730, HVDn, 3, lake)),
+    VRow(123, SourceMin(9730, HVUp, 3, lake), SourceMin(9740, HVDn, 4)),
     TRow(122, savannah * 3, mtainOld, hillyOce),
+    VRow(121, SourceMin(9738, HVUR, 2), BendIn(9740, HVUL, 9)),
     TRow(120, sahel, hillySavannah, savannah, mtainOld, hillyOce),
     TRow(118, deshot, savannah, oceanic * 3),
-    VRow(117, SourceRt(9730, HVDn), MouthOld(9736, HVUL)),
+    VRow(117, SourceRt(9730, HVDn), SourceMax(9736, HVDR),BendIn(9738, HVDL, 13)),
     TRow(116, savannah, subtrop * 2, sea, jungle),
-    VRow(115, BendOut(9724, HVDR), BendOut(9726, HVDn), BendIn(9728, HVUp, 13), BendIn(9730, HVUL, 13)),
-    TRow(114, hillySahel, hillySavannah),
 
-    VRow(113, BendOut(9722, HVDR, 7), BendIn(9724, HVUL, 13), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), SourceRt(9736, HVDR), BendMin(9738, HVUp, 5),
-      BendIn(9740, HVDn, 13), BendIn(9742, HVDL, 13)),
+    VRow(115, BendOut(9724, HVDR, 7), BendOut(9726, HVDn, 7), BendIn(9728, HVUp, 13), BendIn(9730, HVUL, 13), BendIn(9732, HVDR, 13), SourceMin(9734, HVDL, 5),
+      SourceLt(9738, HVUp, 7)),
+
+    TRow(114, hillySahel, hillySavannah, sea * 2, lakesJungle),
+
+    VRow(113, BendOut(9722, HVDR, 7), BendIn(9724, HVUL, 13), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), BendIn(9732, HVUR, 13),
+      BendIn(9734, HVUp, 13), Bend(9736, HVDn, 4, 7), BendMin(9738, HVUp, 5), BendIn(9740, HVDn, 13), BendIn(9742, HVDL, 13)),
 
     TRow(112, hillySavannah, sea, savannah, sea, hillyJungle, jungle),
 
