@@ -8,6 +8,7 @@ object Manchuria extends EArea2("Manchuria", 58 ll 128, oceanic)
   val khab10: LatLong = 54.64 ll 136.81
   val khab15: LatLong = 54.28 ll 139.75
   val khab20: LatLong = 53.29 ll 141.42
+  val p25: LatLong = 51.956 ll 141.418
   val khab30: LatLong = 48.46 ll 140.16
   val primorsky10: LatLong = 45.82 ll 137.68
   val nakhodka: LatLong = 42.69 ll 133.14
@@ -15,7 +16,7 @@ object Manchuria extends EArea2("Manchuria", 58 ll 128, oceanic)
   val jinzhou: LatLong = 40.93 ll 121.22
   val hulunbir: LatLong = 49.265 ll 119.752
 
-  override val polygonLL = LinePathLL(Yakutia.khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka, vladivostok,
+  override val polygonLL = LinePathLL(Yakutia.khabarovsk, udaMouth, khab10, khab15, khab20, p25, khab30, primorsky10, nakhodka, vladivostok,
     Korea.northEast, Korea.liaoheMouth,jinzhou, Mongolia.southEast, hulunbir) |++<| LakeBaikal.eastCoast // |++| LinePathLL(Manchuria.lensk)
 }
 

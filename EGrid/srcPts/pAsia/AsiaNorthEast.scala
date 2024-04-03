@@ -60,13 +60,13 @@ object LakeBaikal extends EArea2("Lake Baikal", 53.463 ll 108.157, lake)
 /** [[PolygonLL]] graphic for Yakutz area depends on [[FEAsia]], [[LakeBaikal]], [[SiberiaSouth]] and [[SiberiaNorth]]. */
 object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
 { val bulunsky10: LatLong = 72.85 ll 122.47
-  val dunayNorth = 73.93 ll 124.68
-  val bulunsky20 = 73.08 ll 129.27
+  val dunayNorth: LatLong = 73.93 ll 124.68
+  val bulunsky20: LatLong = 73.08 ll 129.27
 
   val bukhta: LatLong = 70.70 ll 131.07
-  val sakha20 = 71.94 ll 132.77
-  val sakha30 = 71.36 ll 134.38
-  val sakha40 = 71.96 ll 138.71
+  val sakha20: LatLong = 71.94 ll 132.77
+  val sakha30: LatLong = 71.36 ll 134.38
+  val sakha40 : LatLong= 71.96 ll 138.71
   val khabarovsk: LatLong = 55 ll 134.73
 
   override val polygonLL: PolygonLL = PolygonLL(FeAsia.ustYansky, FeAsia.okhotsky, khabarovsk, LakeBaikal.north, SiberiaSouth.lensk, SiberiaNorth.southEast, SiberiaNorth.anabarHead, SiberiaNorth.anabarMouth,
@@ -120,8 +120,8 @@ object FeAsia extends EArea2("far east\nAsia", 66.22 ll 159.68, hillyTundra)
   val okhotsky2: LatLong = 59.42 ll 142.17
   val okhotsky: LatLong = 58.73.north * farAsiaW
 
-  override val polygonLL = PolygonLL(ustYansky, sakha43, sundrunMouth, sakha45, sakha48, sakha50, chukotka10, chukotka20, chukatka21, chukatka24, chukatka27,
-    chukatka29, chukotka30, iultinsky10, east,
+  override val polygonLL: PolygonLL = PolygonLL(ustYansky, sakha43, sundrunMouth, sakha45, sakha48, sakha50, chukotka10, chukotka20, chukatka21, chukatka24,
+    chukatka27, chukatka29, chukotka30, iultinsky10, east,
     p40, p43, seProvidensky, enmmelen, iultinsky20, p46, anadyrMouth, p48, p51, anadyrsky10, anadyrsky20, Kamchatka.northEast, Kamchatka.penzhinaMouth,
     penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
 }
