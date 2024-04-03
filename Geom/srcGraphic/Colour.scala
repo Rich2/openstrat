@@ -82,7 +82,11 @@ def contrast2(other: Colour): Colour =
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
   def hasName: Boolean = Colour.valueToStr.contains(this)
 
-  def average(operand: Colour): Colour = Colour.fromInts((red + operand.red)/2, (green + operand.green)/2, (blue + operand.blue)/2, (alpha + operand.alpha)/2)
+  def average(operand: Colour): Colour =
+    Colour.fromInts((red + operand.red) / 2, (green + operand.green) / 2, (blue + operand.blue) / 2, (alpha + operand.alpha) / 2)
+
+  def aver2To1(operand: Colour): Colour =
+    Colour.fromInts((red * 2 + operand.red) / 3, (green * 2 + operand.green) / 3, (blue * 2 + operand.blue) / 3, (alpha * 2 + operand.alpha) / 3)
 }
 
 /** This trait provides a few handy methods for classes with the colour member */

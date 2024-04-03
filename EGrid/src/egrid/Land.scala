@@ -29,7 +29,7 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
     case Mountains => Mountains.colour
     case MountLakes => MountLakes.colour
     case _: HillyLike if climate == Boreal => Forest.taigaColour.average(Hilly.colour)
-    case _: HillyLike if climate == Tropical => Forest.jungleColour.average(Hilly.colour)
+    case _: HillyLike if climate == Tropical => Forest.jungleColour.aver2To1(Chocolate)
     case _: HillyLike if landUse == Forest => Chocolate.average(Forest.colour)
     case Hilly | HillyLakes => Chocolate.average(climate.colour)
     case _: PlainLike if climate == Boreal && landUse == Forest => Forest.taigaColour
