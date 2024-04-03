@@ -51,10 +51,10 @@ object Terr460W90 extends Long460Terrs
     TRow(118, deshot, savannah, oceanic * 3),
     VRow(117, SourceRt(9730, HVDn), MouthOld(9736, HVUL)),
     TRow(116, savannah, subtrop * 2, sea, jungle),
-    VRow(115, BendOut(9724, HVDR), BendOut(9726, HVDn)),
-    TRow(114, hillySahel, CapeOld(2, 1, hillySavannah)),
+    VRow(115, BendOut(9724, HVDR), BendOut(9726, HVDn), BendIn(9728, HVUp, 13), BendIn(9730, HVUL, 13)),
+    TRow(114, hillySahel, hillySavannah),
 
-    VRow(113, BendOut(9722, HVDR, 7), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), SourceRt(9736, HVDR), BendMin(9738, HVUp, 5),
+    VRow(113, BendOut(9722, HVDR, 7), BendIn(9724, HVUL, 13), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), SourceRt(9736, HVDR), BendMin(9738, HVUp, 5),
       BendIn(9740, HVDn, 13), BendIn(9742, HVDL, 13)),
 
     TRow(112, hillySavannah, sea, savannah, sea, hillyJungle, jungle),
