@@ -25,7 +25,7 @@ object Terr320W120 extends Long320Terrs
     TRow(152, taiga * 3, tundra),
     VRow(151, SourceLt(8708, HVDn, 6, Lake)),
     TRow(150, mtainOld, taiga * 3),
-    VRow(149, SourceMin(8706, HVUR, Lake), BendMin(8708, HVUL, 3, Lake)),
+    VRow(149, SourceMin(8706, HVUR, 3, Lake), BendMin(8708, HVUL, 3, Lake)),
     TRow(148, hillyTaiga * 2, taiga * 3),
     TRow(146, mtainOld, taiga * 4),
     TRow(144, mtainOld, taiga * 4),

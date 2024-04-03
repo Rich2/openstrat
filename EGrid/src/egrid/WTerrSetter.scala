@@ -180,9 +180,16 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class SourceRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with SourceRtBase
 
   /** [[HSep]] end point or source with a left and right magnitude of 3. */
-  case class SourceMin(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with SourceBase
-  { override def magLt: Int = 3
-    override def magRt: Int = 3
+  class SourceMin(val c: Int, val dirn: HVDirnPrimary, val magLt: Int, val sTerr: WSepSome = Sea) extends VRowElem with SourceBase
+  { override def magRt: Int = 6 - magLt
+  }
+
+  object SourceMin
+  {
+    def apply(c: Int, dirn: HVDirnPrimary, magLt: Int = 3, sTerr: WSepSome = Sea): SourceMin =
+    { ifExcep(magLt < 0 || magLt > 6, s"magLt = $magLt. Value must be tween 9 and 6")
+      new SourceMin(c, dirn, magLt, sTerr)
+    }
   }
 
   /** [[HSep]] end point or source with a left and right magnitude of 7. */

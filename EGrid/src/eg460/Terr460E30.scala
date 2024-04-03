@@ -30,10 +30,13 @@ object Terr460E30 extends Long460Terrs
       TRow(130, oceanic * 4),
       TRow(128, oceanic * 2, hillyOce, oceanic),
       TRow(126, oceanic, hillyOce, savannah, oceanic),
-      VRow(125, SetSep(1527), MouthMax(1536, HVUL), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
+      VRow(125, SetSep(1527), SourceMin(1536, HVDR), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
       TRow(124, mtainOld, hillyOce, hillySavannah, mtainOld, mtainOld),
-      VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), MouthOld(1532, HVUp), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR), MouthRt(1544, HVDR)),
-      TRow(122, hillySavannah, CapeOld(4, 1, hillySavannah), hillySahel, mtainOld, mtainOld),
+
+      VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), MouthOld(1532, HVUp), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR),
+        MouthRt(1544, HVDR)),
+
+      TRow(122, hillySavannah, hillySavannah, hillySahel, mtainOld, mtainOld),
       VRow(121, Mouth(1528, HVDn, 3, 7), BendIn(1530, HVDR, 13), ThreeUp(1532, 6, 13, 0), BendIn(1534, HVDL, 13)),
       TRow(120, SepB(), sea, hillySavannah, hillySavannah, hillySavannah, deshot),
 
@@ -69,6 +72,7 @@ object Terr460E30 extends Long460Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(122, "Greece", "Marmara")
     str(120, "Ionian Sea", "Crete")
   }
 }

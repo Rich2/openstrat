@@ -28,7 +28,7 @@ object Terr320E150 extends Long320Terrs
     TRow(144, sea * 3, hillyTaiga * 2),
     VRow(143, BendIn(5640, HVDR, 6, siceWin), BendIn(5642, HVUL, 11, siceWin)),
     TRow(142, taiga * 2, sea * 2, hillyTaiga),
-    VRow(141, SourceMin(5638, HVUR, siceWin), BendIn(5640, HVUL, 7, siceWin)),
+    VRow(141, SourceMin(5638, HVUR, 3, siceWin), BendIn(5640, HVUL, 7, siceWin)),
     TRow(140, taiga),
     TRow(138, CapeOld(2, 2, taiga), sea * 6),
     TRow(136, mtainContForest, hillyContForest),
