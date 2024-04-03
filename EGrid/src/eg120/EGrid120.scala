@@ -29,12 +29,11 @@ object EGrid120
 //  def w120(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 8)
 //  def w90(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 9)
 //  def w60(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 10)
-//  def w30(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen,11)
+  def w30(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen,11)
 //
   def scen0: EScenBasic = EScenBasic(Terr120E0.grid, Terr120E0.terrs, Terr120E0.sTerrs, Terr120E0.corners, Terr120E0.hexNames, "120km 0E")
-
-  def scen1: EScenBasic = EScenBasic(Terr120E30.grid, Terr120E30.terrs, Terr120E30.sTerrs, Terr120E30.corners, Terr120E0.hexNames, "120km 30E")
-  def scen2: EScenBasic = EScenBasic(Terr120E60.grid, Terr120E60.terrs, Terr120E60.sTerrs, Terr120E60.corners, Terr120E0.hexNames, "120km 60E")
+  def scen1: EScenBasic = EScenBasic(Terr120E30.grid, Terr120E30.terrs, Terr120E30.sTerrs, Terr120E30.corners, Terr120E30.hexNames, "120km 30E")
+  def scen2: EScenBasic = EScenBasic(Terr120E60.grid, Terr120E60.terrs, Terr120E60.sTerrs, Terr120E60.corners, Terr120E60.hexNames, "120km 60E")
 
 //
 //  def scen2: EScenBasic =
@@ -82,8 +81,6 @@ object EGrid120
 //    EScenBasic(grid, Terr120W60.terrs, Terr120W60.sTerrs, Terr120W60.corners, "120km 60W")
 //  }
 //
-//  def scen11: EScenBasic =
-//  { val grid: EGridLongFull = Terr120W30.grid
-//    EScenBasic(grid, Terr120W30.terrs, Terr120W30.sTerrs, Terr120W30.corners, "120km 30W")
+  def scen11: EScenBasic = EScenBasic(Terr120W30.grid, Terr120W30.terrs, Terr120W30.sTerrs, Terr120W30.corners, Terr120W30.hexNames, "120km 30W")
 //  }
 }

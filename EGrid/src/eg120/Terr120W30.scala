@@ -2,17 +2,17 @@
 package ostrat; package eg120
 import prid._, phex._, egrid._, WTiles._
 
-object Terr120E60 extends Long120Terrs
-{ override implicit val grid: EGrid120LongFull = EGrid120.e60(284, 286)
+object Terr120W30 extends Long120Terrs
+{ override implicit val grid: EGrid120LongFull = EGrid120.w30(284, 286)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-    TRow(286, mtainSavannah, sahel, hillySahel, lake * 2),
-    TRow(284, mtainSavannah, hillySahel, savannah, lake * 3),
+  {
+    override val rows: RArr[RowBase] = RArr(
+
     )
   }
   help.run
