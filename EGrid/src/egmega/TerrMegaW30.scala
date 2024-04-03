@@ -37,9 +37,10 @@ object TerrMegaW30 extends LongMegaTerrs
     TRow(98, hillySavannah),
     VRow(97, BendOut(11774, HVDR, 7), BendIn(11776, HVUL, 13)),
     TRow(96, hillyJungle),
-    VRow(95, Bend(11772, HVDR, 4, 2), BendIn(11774, HVUL, 13)),
+    VRow(95, BendMin(11772, HVDR, 5), BendIn(11774, HVUL, 13)),
     VRow(93, BendOut(11772, HVDR), SetSep(11773)),
-    VRow(91, SetSep(11773)),
+    TRow(92, SepB()),
+    VRow(91, SourceLt(11772, HVUR, 7)),
     TRow(84, siceWin),
     TRow(82, ice)
     )
