@@ -42,10 +42,13 @@ object Terr320E60 extends Long320Terrs
     TRow(126, sahel, hillyDeshot, deshot * 5, oceanic),
     TRow(124, deshot, sahel, hillyDeshot, deshot * 4, oceanic * 2),
     VRow(123, SourceLt(2546, HVDR), Bend(2548, HVDL, 9, 7)),
-    TRow(122, deshot, hillyDeshot, hillyDeshot, deshot * 3, oceanic, deshot * 2),
+    TRow(122, deshot, hillyDeshot, hillyDeshot, hillySahel, deshot * 2, oceanic, deshot * 2),
     VRow(121, Bend(2548, HVUR, 13, 1), Bend(2550, HVUp, 13, 2), BendIn(2552, HVDn, 13), Bend(2554, HVUp, 5, 4), BendMin(2556, HVDn), BendIn(2558, HVDL, 13)),
     TRow(120, deshot * 3, hillyDeshot, hillySahel * 2, hillyDeshot, oceanic, deshot),
-    VRow(119, BendMax(2558, HVUR), BendInRt(2560, HVUp, 13, 7)),
+
+    VRow(119, BendMax(2558, HVUR), BendInRt(2560, HVUp, 13, 7), BendOut(2562, HVDn, 7), BendIn(2564, HVUp, 13), BendOut(2566, HVDn, 7), BendIn(2568, HVUp, 13),
+      SourceLt(2570, HVDL, 7)),
+
     TRow(118, deshot * 4, sea * 3, oceanic * 2),
     )
   }
