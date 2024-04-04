@@ -41,11 +41,14 @@ object Terr320E30 extends Long320Terrs
       VRow(137, SourceRt(1522, HVDn), Mouth(1538, HVUp, 3, 7), BendIn(1542, HVDR), SourceRt(1544, HVDL)),
       TRow(136, hillyCont, continental * 3, steppe, steppe * 2),
       VRow(135, BendOut(1522, HVUR, 7), BendIn(1524, HVDL, 13), BendMax(1536, HVDR), ThreeUp(1538, 7, 13, 13), Bend(1540, HVUp, 10, 7), ThreeUp(1542, 7, 13, 7)),
-      TRow(134, hillyOce, hillyOce, hillyOce, mtainSubForest, mtainSavannah, mtainSubForest, mtainSavannah),
-      VRow(133, BendIn(1524, HVUR, 8), BendIn(1526, HVDL, 13), MouthOld(1530, HVUp), MouthMax(1536, HVDn)),
-      TRow(132, hillySavannah, hillyOce, CapeOld(4, 1, hillyOce), hillyOce * 4),
-      VRow(131, BendIn(1520, HVDR), VertLeftsRight(1522), BendMax(1524, HVDR), ThreeUp(1526, 0, 6, 13), SourceLt(1528, HVUL), BendIn(1532, HVDL, 13)),
-      TRow(130, hillyOce, hillyOce, hillyOce, hillyOce, hillyOce * 4),
+      TRow(134, mtainContForest, hillyContForest, hillyCont, mtainSubForest, mtainSavannah, mtainSubForest, mtainSavannah),
+      VRow(133, BendIn(1524, HVUR, 8), BendIn(1526, HVDL, 13), SourceMin(1530, HVDn), SourceMax(1536, HVUp)),
+      TRow(132, hillySavannah, hillySub, hillySavannah, mtainSavannah, hillySahel * 3),
+
+      VRow(131, BendIn(1520, HVDR), VertLeftsRight(1522), BendMax(1524, HVDR), ThreeUp(1526, 0, 6, 13), SourceLt(1528, HVUL), Bend(1530, HVUR, 10, 4),
+        BendIn(1532, HVDL, 12)),
+
+      TRow(130, hillySavannah, mtainSub, hillySavannah, mtainSavannah, hillyOce * 4),
 
       VRow(129, ThreeUp(1520, 10, 6, 0), BendIn(1522, HVUp, 13), ThreeUp(1524, 13, 0, 13), BendIn(1526, HVUp, 10), ThreeDown(1530, 13, 11, 0), ThreeUp(1532, 6, 11, 13),
         BendIn(1534, HVDL, 13), BendIn(1538, HVDR, 11), BendIn(1540, HVDn, 11), Bend(1542, HVDL, 11, 4)),
