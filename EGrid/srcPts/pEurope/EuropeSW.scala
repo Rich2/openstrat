@@ -14,10 +14,12 @@ object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, oceanic)
   val laSeyneSurMer: LatLong = 43.04 ll 5.85
   val fosSurMer: LatLong = 43.42 ll 4.94
   val laGrandeMotte: LatLong = 43.55 ll 4.05
-  val narbonne = 43.14 ll 3.08
+  val narbonne: LatLong = 43.14 ll 3.08
 
-  override val polygonLL = PolygonLL(IberiaNorth.laNivelleMouth, FranceNorth.southWest, FranceNorth.southEast, montelimar, orangeCrossing, stRaphael, frejus,
-    laBastideBlanche, capBenat, laSeyneSurMer, fosSurMer, laGrandeMotte, narbonne, IberiaNorth.laMassaneMouth)
+  val capBreton = 43.656 ll -1.446
+
+  override val polygonLL = PolygonLL(FranceNorth.southWest, FranceNorth.southEast, montelimar, orangeCrossing, stRaphael, frejus,
+    laBastideBlanche, capBenat, laSeyneSurMer, fosSurMer, laGrandeMotte, narbonne, IberiaNorth.laMassaneMouth, IberiaNorth.laNivelleMouth, capBreton)
 }
 
 /** [[PolygonLL]] graphic depends on nothing. */
@@ -52,7 +54,7 @@ object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, hillySub)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */
-object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hillySub)
+object IberiaNorth extends EArea2("Iberia north", 41 ll -3.5, hillySub)
 { val laMassaneMouth: LatLong = 42.54 ll 3.05
   val neSpain: LatLong = 42.18 ll 3.06
   val begur: LatLong = 41.95 ll 3.22
@@ -66,16 +68,19 @@ object IberiaNorth extends EArea2("Iberia", 41 ll -3.5, hillySub)
 
   val p50: LatLong = 40.19 ll -8.91
   val espinho: LatLong = 41.02 ll -8.64
+  val p53: LatLong = 41.412 ll -8.788
   val p55: LatLong = 42.11 ll -8.90
   val p62: LatLong = 42.52 ll -9.04
   val escaselas: LatLong = 42.92 ll -9.29
   val malipica: LatLong = 43.34 ll -8.83
   val carino: LatLong = 43.76 ll -7.86
   val fozMouth: LatLong = 43.57 ll -7.24
+  val caboPenas: LatLong = 43.658 ll -5.844
   val santander: LatLong = 43.49 ll -3.81
   val p80: LatLong = 43.46 ll -2.75
+  val p90: LatLong = 43.310 ll -2.227
   val laNivelleMouth: LatLong = 43.39 ll -1.67
 
-  override val polygonLL = PolygonLL(neSpain, begur, barcelona, cambrills, ebroMouth, p37, p40, p42, IberiaSouth.valencia, IberiaSouth.mondegoMouth,
-    p50, espinho, p55, p62, escaselas, malipica, carino, fozMouth, santander, p80, laNivelleMouth, laMassaneMouth)
+  override val polygonLL = PolygonLL(neSpain, begur, barcelona, cambrills, ebroMouth, p37, p40, p42, IberiaSouth.valencia, IberiaSouth.mondegoMouth, p50,
+    espinho, p53, p55, p62, escaselas, malipica, carino, fozMouth, caboPenas, santander, p80, p90, laNivelleMouth, laMassaneMouth)
 }
