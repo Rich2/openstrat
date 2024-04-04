@@ -109,16 +109,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle3 = Isle3(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Deprecated Cape / headland / peninsula for [[WTile]]s. Capes may be useful for creating terrain, but are not helpful for modelling real world terrain or
-   * terrain from a pre existing fantasy world such as Middle Earth or the Game of Thrones world. */
-  class CapeOld(val indentStartIndex: Int, val numIndentedVerts: Int, val magnitude: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
-
-  object CapeOld
-  {
-    def apply(indentStartIndex: Int, numIndentedVerts: Int, terr: Land = Land(Plain, Oceanic), sideTerrs: Water = Sea): CapeOld =
-      new CapeOld(indentStartIndex, numIndentedVerts, 7, terr, sideTerrs)
-  }
-
   /** Creates an [[HSepB]], an [[HSep]] of the vertical alignment. The only place this should be needed is on the left or west edge of an [[EGrid]]. Otherwise
    * the [[HSep]]s should be set in the [[VRow]]s along with [[HCorner]]s using bends and sources and threeways. */
   case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase
