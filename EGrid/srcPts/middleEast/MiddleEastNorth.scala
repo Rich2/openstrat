@@ -86,8 +86,9 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
 object Iraq extends EArea2("Iraq", 34.0 ll 44.5, deshot)
 { override def toString: String = "Iraq"
 
-  override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, Kurdistan.cizre, LakeVan.southEast, pEurope.Caspian.southWest, Persia.mahshahr, ArabiaNorth.alFaw,
-  pMed.Sinai.eilat, pMed.Sinai.deadSeaSE)
+  import pMed.Sinai
+  override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, Kurdistan.cizre, LakeVan.southEast, pEurope.Caspian.southWest, Persia.mahshahr,
+    ArabiaNorth.alFaw, Sinai.eilat, Sinai.deadSeaSE)
 }
 
 /** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
@@ -95,11 +96,17 @@ object Persia extends EArea2("Persia", 32.4 ll 60, hillyOce)
 { val mahshahr: LatLong = 30.22.north * Armenia.asiaMinorE
   val north: LatLong = 38.285 ll 57.209
   val southEast: LatLong = 25.179 ll 61.618
+  val p40: LatLong = 25.415 ll 59.030
   val kuhmobarak: LatLong = 25.80 ll 57.30
-  val nHormuz: LatLong = 27.17 ll 56.47
-  val nwHormuz: LatLong = 26.49 ll 54.79
+  val nwHormuz: LatLong = 27.131 ll 56.780
+  val hormuzNorth: LatLong = 27.152 ll 56.557
+  val larak = 26.859 ll 56.403
+  val hengam = 26.611 ll 55.863
+  val queshmSouth = 26.541 ll 55.889
+  val hendorabi = 26.663 ll 53.639
   val zeydan: LatLong = 27.88 ll 51.50
 
-  override val polygonLL: PolygonLL = LinePathLL(mahshahr) ++< pEurope.Caspian.persianCoast |++| LinePathLL(north, pAsia.Kyrgyyzstan.p65,
-    pAsia.Kyrgyyzstan.southWest, southEast,  kuhmobarak, nHormuz, nwHormuz, zeydan)
+  import pAsia.Kyrgyyzstan
+  override val polygonLL: PolygonLL = LinePathLL(mahshahr) ++< pEurope.Caspian.persianCoast |++| LinePathLL(north, Kyrgyyzstan.p65, Kyrgyyzstan.southWest,
+    southEast, p40,  kuhmobarak, nwHormuz, hormuzNorth, larak, hengam, queshmSouth, hendorabi, zeydan)
 }
