@@ -14,18 +14,19 @@ object Terr80E30  extends Long80Terrs
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
   
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
-  { override val rows: RArr[RowBase] = RArr(
-      TRow(556, mtainOld, ice, CapeOld(2, 1, ice), sea * 4),
+  {
+    override val rows: RArr[RowBase] = RArr(
+      TRow(556, mtainOld, ice, ice),
       VRow(555, BendOut(1526, HVUR)),
-      TRow(554, mtainOld, ice, sea * 5),
-      TRow(552, ice, sea * 7),
-      TRow(550, mtainOld, sea * 7),
-      TRow(548, mtainOld, sea * 8),
+      TRow(554, mtainOld, ice),
+      TRow(552, ice),
+      TRow(550, mtainOld),
+      TRow(548, mtainOld),
 
-      TRow(526, sea * 2, taiga * 4, sea * 7),
-      TRow(524, sea, taiga * 5, sea * 8),
-      TRow(522, sea, taiga * 8, sea * 5),
-      TRow(520, taiga * 11, sea * 4),
+      TRow(526, sea * 2, taiga * 4),
+      TRow(524, sea, taiga * 5),
+      TRow(522, sea, taiga * 8),
+      TRow(520, taiga * 11),
       TRow(518, taiga * 12, sea * 2, taiga),
       TRow(516, taiga * 13, sea * 2, taiga),
       TRow(514, taiga * 14, sea * 2),
@@ -63,7 +64,7 @@ object Terr80E30  extends Long80Terrs
       TRow(454, oceanic * 7, mtainOld * 2, hillyOce * 3, oceanic * 15),
       TRow(452, mtainOld, oceanic * 6, hillyOce, mtainOld * 2, hillyOce * 3, oceanic * 15),
       VRow(451, MouthOld(1570, HVUR)),
-      TRow(450, hillyOce, oceanic * 5, hillyOce * 3, mtainOld * 2, hillyOce * 3, oceanic * 7, sea, CapeOld(5, 1), oceanic * 5),
+      TRow(450, hillyOce, oceanic * 5, hillyOce * 3, mtainOld * 2, hillyOce * 3, oceanic * 7, sea, steppe, oceanic * 5),
       TRow(448, hillyOce, oceanic, hillyOce, oceanic * 3, hillyOce * 3, mtainOld, hillyOce, oceanic * 3, sea * 2, oceanic * 2, sea * 3, oceanic * 7),
       TRow(446, hillyOce * 2, oceanic * 4, mtainOld * 4, hillyOce * 1, oceanic * 3, sea * 3, oceanic * 2, sea * 2, oceanic * 8),
       VRow(445, MouthOld(1562, HVUp)),
