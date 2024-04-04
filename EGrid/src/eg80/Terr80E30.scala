@@ -15,9 +15,9 @@ object Terr80E30  extends Long80Terrs
   
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-      TRow(556, CapeOld(1, 1, mtainOld), ice, CapeOld(2, 1, ice), sea * 4),
+      TRow(556, mtainOld, ice, CapeOld(2, 1, ice), sea * 4),
       VRow(555, BendOut(1526, HVUR)),
-      TRow(554, CapeOld(1, 2, mtainOld), CapeOld(2, 3, ice), sea * 5),
+      TRow(554, mtainOld, ice, sea * 5),
       TRow(552, ice, sea * 7),
       TRow(550, mtainOld, sea * 7),
       TRow(548, mtainOld, sea * 8),
@@ -43,11 +43,11 @@ object Terr80E30  extends Long80Terrs
       TRow(494, taiga * 2, sea * 2, taiga * 6, Lake * 2, taiga * 8),
       TRow(492, taiga * 2, sea * 2, taiga, sea * 4, taiga * 11),
       TRow(490, taiga * 2, sea * 4, oceanic * 15),
-      TRow(488, taiga, sea * 4, CapeOld(1, 2), oceanic * 15),
-      TRow(486, oceanic, sea * 4, CapeOld(2, 2), sea, oceanic * 15),
-      TRow(484, oceanic, sea, oceanic, sea, CapeOld(5, 2), sea, oceanic * 16),
-      TRow(482, oceanic, sea * 3, CapeOld(5, 1), oceanic * 17),
-      TRow(480, oceanic, sea * 3, CapeOld(4, 2), oceanic * 18),
+      TRow(488, taiga, sea * 4, continental * 16),
+      TRow(486, oceanic, sea * 4, continental, sea, continental * 15),
+      TRow(484, oceanic, sea, oceanic, sea, continental, sea, continental * 16),
+      TRow(482, oceanic, sea * 3, continental * 18),
+      TRow(480, oceanic, sea * 3, continental * 19),
       TRow(478, sea * 4, oceanic * 19),
       TRow(476, sea * 4, oceanic * 19),
       TRow(474, sea, oceanic * 23),

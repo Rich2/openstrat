@@ -99,7 +99,10 @@ object Terr80E0 extends Long80Terrs
     TRow(424, sea * 5, oceanic * 5, hillyOce * 6, sea * 16),
     TRow(422, sea * 6, oceanic * 2, hillyOce * 4, hillyDeshot, hillyOce, hillyDeshot, oceanic, sea * 14, hillyOce, mtainOld),
     TRow(420, sea * 7, hillyOce, oceanic * 3, hillyDeshot, hillyOce * 4, sea * 14, hillyOce * 3),
-    TRow(418, sea * 8, oceanic, hillyOce * 2, mtainOld * 2, hillyDeshot, sea * 5, hillyOce, mtainOld, sea, mtainOld * 2, hillyOce, mtainOld, hillyOce * 2, sea * 4, CapeOld(1, 4, hillyOce)),
+
+    TRow(418, sea * 8, oceanic, hillyOce * 2, mtainOld * 2, hillyDeshot, sea * 5, hillyOce, mtainOld, sea, mtainOld * 2, hillyOce, mtainOld, hillyOce * 2,
+      sea * 4, hillyOce),
+
     TRow(416, sea * 9, hillyOce * 2, sea * 6, mtainOld, hillyOce * 7, mtainOld, hillyOce * 2, hillyDeshot, sea * 4),
     )
   }
