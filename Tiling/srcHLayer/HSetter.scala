@@ -644,13 +644,14 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setMouth3(row + 1, c, 0, magSource)
-        debexc("Not Implemented")
+        corners.setCorner(row + 1, c, 3, HVUL, magSource)
+        corners.setCornerPair(row - 1, c - 2, 1, HVUL, magSource, HVExact, 0)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
         corners.setCorner(row + 1, c + 2, 4, HVUp, magSource)
+        debexc("Not Implemented")
       }
 
       case HVDL =>

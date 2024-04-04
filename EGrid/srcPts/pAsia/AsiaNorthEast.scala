@@ -6,10 +6,10 @@ import geom._, pglobe._, egrid._, WTiles._
 object SiberiaNorth extends EArea2("SiberiaNorth", 70 ll 95, tundra)
 { val krasnoyarsk: LatLong = 77.43 ll 103.99
   val kras10: LatLong = 76.62 ll 112.46
-  val kras20 = 75.38 ll 113.69
-  val khatangaMouth = 73.21 ll 106.23
-  val khat10 = 74.02 ll 110.26
-  val sakha10 = 74.00 ll 112.83
+  val kras20: LatLong = 75.38 ll 113.69
+  val khatangaMouth: LatLong = 73.21 ll 106.23
+  val khat10: LatLong = 74.02 ll 110.26
+  val sakha10: LatLong = 74.00 ll 112.83
   val anabarMouth: LatLong = 73.534 ll 113.478
   val anabarHead: LatLong = 70.774 ll 113.337
   val southEast: LatLong = 66.877 ll 114.084

@@ -19,6 +19,9 @@ object WTiles
   /** [[Plain]] [[Continental]] [[CivMix]] */
   val continental: Land = Land(Plain, Continental, CivMix)
 
+  /** [[Plain]] [[Continental]] [[Forest]] */
+  val contForest: Land = Land(Plain, Continental, Forest)
+
   /** [[Plain]] [[DesertCold]] [[LandFree]] */
   val descold: Land = Land(Plain, DesertCold, LandFree)
 

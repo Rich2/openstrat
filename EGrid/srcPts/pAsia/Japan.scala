@@ -5,28 +5,37 @@ import geom._, pglobe._, egrid._, WTiles._
 object sakhalin extends EArea2("Sakhalin", 50.94 ll 142.90, taiga)
 { val north: LatLong = 54.38 ll 142.73
   val p6: LatLong = 52.832 ll 143.334
+  val p15: LatLong = 52.159 ll 143.139
   val west: LatLong = 49.07 ll 144.37
   val poronayask: LatLong = 49.21 ll 143.09
   val p45: LatLong = 46.847 ll 143.433
   val southEast: LatLong = 46.024 ll 143.415
+  val p55: LatLong = 46.735 ll 142.707
+
   val south: LatLong = 45.89 ll 142.08
   val p77: LatLong = 48.767 ll 141.848
+  val p82: LatLong = 50.541 ll 142.047
   val pogibi: LatLong = 52.22 ll 141.64
   val northEast: LatLong = 53.39 ll 141.70
 
-  override val polygonLL: PolygonLL = PolygonLL(north, p6, west, poronayask, p45, southEast, south, p77, pogibi, northEast)
+  override val polygonLL: PolygonLL = PolygonLL(north, p6, p15, west, poronayask, p45, southEast, p55, south, p77, p82, pogibi, northEast)
 }
 
 object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hillyOce)
 { val north: LatLong = 45.5 ll 141.93
-  val p10: LatLong = 44.34 ll 145.33
+  val p10: LatLong = 43.931 ll 144.790
+  val p20: LatLong = 44.34 ll 145.33
   val east: LatLong = 43.36 ll 145.74
   val southEast: LatLong = 41.94 ll 143.24
   val capeChikyu: LatLong = 42.30 ll 141.00
+  val p60: LatLong = 41.809 ll 141.180
   val south: LatLong = 41.40 ll 140.20
-  val p90: LatLong = 41.59 ll 139.98
+  val p80: LatLong = 41.59 ll 139.98
+  val capeKamui: LatLong = 43.332 ll 140.339
+  val p85: LatLong = 43.724 ll 141.330
+  val northWest: LatLong = 45.210 ll 141.565
 
-  override val polygonLL: PolygonLL = PolygonLL(north, p10, east, southEast, capeChikyu, south, p90)
+  override val polygonLL: PolygonLL = PolygonLL(north, p10, p20, east, southEast, capeChikyu, p60, south, p80, capeKamui, p85, northWest)
 }
 
 object Honshu extends EArea2("Honshu", 36.28 ll 138.71, hillyOce)
