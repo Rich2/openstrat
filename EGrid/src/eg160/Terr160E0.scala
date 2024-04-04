@@ -51,7 +51,7 @@ object Terr160E0 extends Long160Terrs
     TRow(268, sea * 3, hillyOce, oceanic, hillyDeshot * 2, mtainOld * 2, sea * 3, Isle10(hillyOce), hillyOce * 2),
     TRow(266, sea * 2, hillyOce * 2, deshot, hillyDeshot * 2, hillyOce, sea * 3, hillyOce, sea * 2, hillyOce),
     VRow(265, BendOut(514, HVDR)),
-    TRow(264, sea * 2, hillySubForest, hillyOce * 2, hillyDeshot, hillyOce, CapeOld(2, 1, hillyOce), sea, Isle10(hillyOce), sea * 2, hillyOce, sea * 2),
+    TRow(264, sea * 2, hillySubForest, hillyOce * 2, hillyDeshot, hillyOce, hillyOce, sea, Isle10(hillyOce), sea * 2, hillyOce, sea * 2),
     TRow(262, sea * 3, oceanic * 2, hillyOce * 3)
     )
   }
