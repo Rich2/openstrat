@@ -86,7 +86,7 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
 object Iraq extends EArea2("Iraq", 34.0 ll 44.5, deshot)
 { override def toString: String = "Iraq"
 
-  override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, Kurdistan.cizre, LakeVan.southEast, pEurope.Caspian.southWest, Persia.mahshahr, Arabia.alFaw,
+  override val polygonLL: PolygonLL = PolygonLL(Levant.damascus, Kurdistan.cizre, LakeVan.southEast, pEurope.Caspian.southWest, Persia.mahshahr, ArabiaNorth.alFaw,
   pMed.Sinai.eilat, pMed.Sinai.deadSeaSE)
 }
 
