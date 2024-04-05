@@ -16,12 +16,12 @@ object Terr80E30  extends Long80Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rows: RArr[RowBase] = RArr(
-      TRow(556, mtainOld, ice, ice),
+      TRow(556, mtainDepr, ice, ice),
       VRow(555, BendOut(1526, HVUR)),
-      TRow(554, mtainOld, ice),
+      TRow(554, mtainDepr, ice),
       TRow(552, ice),
-      TRow(550, mtainOld),
-      TRow(548, mtainOld),
+      TRow(550, mtainDepr),
+      TRow(548, mtainDepr),
 
       TRow(526, sea * 2, taiga * 4),
       TRow(524, sea, taiga * 5),
@@ -59,61 +59,61 @@ object Terr80E30  extends Long80Terrs
       TRow(464, oceanic * 26),
       TRow(462, hillyOce, oceanic * 25),
       TRow(460, hillyOce, oceanic * 25),
-      TRow(458, hillyOce * 3, mtainOld * 3, oceanic * 21),
-      TRow(456, hillyOce, oceanic, hillyOce * 4, mtainOld * 2, hillyOce, oceanic * 18),
-      TRow(454, oceanic * 7, mtainOld * 2, hillyOce * 3, oceanic * 15),
-      TRow(452, mtainOld, oceanic * 6, hillyOce, mtainOld * 2, hillyOce * 3, oceanic * 15),
+      TRow(458, hillyOce * 3, mtainDepr * 3, oceanic * 21),
+      TRow(456, hillyOce, oceanic, hillyOce * 4, mtainDepr * 2, hillyOce, oceanic * 18),
+      TRow(454, oceanic * 7, mtainDepr * 2, hillyOce * 3, oceanic * 15),
+      TRow(452, mtainDepr, oceanic * 6, hillyOce, mtainDepr * 2, hillyOce * 3, oceanic * 15),
       VRow(451, MouthOld(1570, HVUR)),
-      TRow(450, hillyOce, oceanic * 5, hillyOce * 3, mtainOld * 2, hillyOce * 3, oceanic * 7, sea, steppe, oceanic * 5),
-      TRow(448, hillyOce, oceanic, hillyOce, oceanic * 3, hillyOce * 3, mtainOld, hillyOce, oceanic * 3, sea * 2, oceanic * 2, sea * 3, oceanic * 7),
-      TRow(446, hillyOce * 2, oceanic * 4, mtainOld * 4, hillyOce * 1, oceanic * 3, sea * 3, oceanic * 2, sea * 2, oceanic * 8),
+      TRow(450, hillyOce, oceanic * 5, hillyOce * 3, mtainDepr * 2, hillyOce * 3, oceanic * 7, sea, steppe, oceanic * 5),
+      TRow(448, hillyOce, oceanic, hillyOce, oceanic * 3, hillyOce * 3, mtainDepr, hillyOce, oceanic * 3, sea * 2, oceanic * 2, sea * 3, oceanic * 7),
+      TRow(446, hillyOce * 2, oceanic * 4, mtainDepr * 4, hillyOce * 1, oceanic * 3, sea * 3, oceanic * 2, sea * 2, oceanic * 8),
       VRow(445, MouthOld(1562, HVUp)),
       TRow(444, hillyOce * 3, oceanic * 3, hillyOce * 4, oceanic * 4, sea * 4, hillyOce * 2, steppe, steppe, oceanic * 4, hillyOce, oceanic * 2),
       VRow(433, MouthOld(1478, HVDL)),
-      TRow(442, mtainOld * 3, hillyOce * 5, oceanic * 5, sea * 9, mtainOld * 2, hillyOce * 2, oceanic * 3),
-      TRow(440, hillyOce, mtainOld * 4, hillyOce, mtainOld, oceanic * 3, hillyOce * 2, oceanic, sea * 11, mtainOld * 3, hillyOce, oceanic * 2),
-      TRow(438, sea, mtainOld, mtainOld * 4, hillyOce, mtainOld * 2, hillyOce * 4, sea * 13, mtainOld * 3, oceanic),
-      TRow(436, Sea * 2, mtainOld, mtainOld, hillyOce * 2, mtainOld * 2, hillyOce * 2, oceanic * 2, sea * 14, oceanic, hillyOce, mtainOld * 2),
+      TRow(442, mtainDepr * 3, hillyOce * 5, oceanic * 5, sea * 9, mtainDepr * 2, hillyOce * 2, oceanic * 3),
+      TRow(440, hillyOce, mtainDepr * 4, hillyOce, mtainDepr, oceanic * 3, hillyOce * 2, oceanic, sea * 11, mtainDepr * 3, hillyOce, oceanic * 2),
+      TRow(438, sea, mtainDepr, mtainDepr * 4, hillyOce, mtainDepr * 2, hillyOce * 4, sea * 13, mtainDepr * 3, oceanic),
+      TRow(436, Sea * 2, mtainDepr, mtainDepr, hillyOce * 2, mtainDepr * 2, hillyOce * 2, oceanic * 2, sea * 14, oceanic, hillyOce, mtainDepr * 2),
 
-      TRow(434, hillyOce, sea * 3, hillyOce, mtainOld, hillyOce * 2, mtainOld, hillyOce * 2, oceanic, hillyOce, sea * 4, hillyOce * 4, sea * 6, hillyOce,
-        mtainOld, hillyOce * 2),
+      TRow(434, hillyOce, sea * 3, hillyOce, mtainDepr, hillyOce * 2, mtainDepr, hillyOce * 2, oceanic, hillyOce, sea * 4, hillyOce * 4, sea * 6, hillyOce,
+        mtainDepr, hillyOce * 2),
 
       VRow(433, BendIn(1490, HVDR, 13)),
-      TRow(432, hillyOce, savannah, sea * 2, hillyOce, mtainOld, hillyOce * 6, oceanic * 2, hillyOce, hillyOce * 7, oceanic, hillyOce * 8),
+      TRow(432, hillyOce, savannah, sea * 2, hillyOce, mtainDepr, hillyOce * 6, oceanic * 2, hillyOce, hillyOce * 7, oceanic, hillyOce * 8),
       VRow(431, MouthRt(1486, HVUL), ThreeDown(1488, 0, 13, 10), BendOut(1490, HVUL, 7)),
 
-      TRow(430, hillyOce, savannah * 2, mtainOld, hillyOce, mtainOld, hillyOce, oceanic, hillyOce * 2, sea, hillyOce, sea, hillyOce * 2, mtainOld * 5,
-        hillyOce * 3, mtainOld * 4, hillyOce * 3, mtainOld),
+      TRow(430, hillyOce, savannah * 2, mtainDepr, hillyOce, mtainDepr, hillyOce, oceanic, hillyOce * 2, sea, hillyOce, sea, hillyOce * 2, mtainDepr * 5,
+        hillyOce * 3, mtainDepr * 4, hillyOce * 3, mtainDepr),
 
       VRow(429, BendIn(1488, HVUR, 13), BendOut(1490, HVDL, 7), MouthLt(1504, HVUL), Bend(1506, HVDL, 4, 7)),
 
-      TRow(428, hillyOce, sea, sea * 2, mtainOld * 2, hillyOce * 2, hillyOce * 2, sea, hillyOce * 3, mtainOld, hillyOce * 4, hillyDeshot * 2, hillyOce * 4, hillyDeshot * 2,
+      TRow(428, hillyOce, sea, sea * 2, mtainDepr * 2, hillyOce * 2, hillyOce * 2, sea, hillyOce * 3, mtainDepr, hillyOce * 4, hillyDeshot * 2, hillyOce * 4, hillyDeshot * 2,
       hillyOce * 3, oceanic),
 
       VRow(427, MouthRt(1490, HVDn), BendIn(1506, HVUR)),
 
-      TRow(426, sea, hillyOce, sea * 3, hillyOce, mtainOld, oceanic, hillyOce, sea * 3, hillyOce * 2, mtainOld, hillyOce * 2, deshot, hillyDeshot * 7,
-        mtainOld * 2, hillyOce, hillyDeshot * 2, mtainOld, hillyDeshot),
+      TRow(426, sea, hillyOce, sea * 3, hillyOce, mtainDepr, oceanic, hillyOce, sea * 3, hillyOce * 2, mtainDepr, hillyOce * 2, deshot, hillyDeshot * 7,
+        mtainDepr * 2, hillyOce, hillyDeshot * 2, mtainDepr, hillyDeshot),
 
-      TRow(424, hillySavannah, sea * 4, hillyOce, mtainOld, hillyOce * 2, sea * 3, hillyOce * 5, hillyDeshot, deshot * 2, hillyDeshot * 6, mtainOld * 2,
-        hillyDeshot, lake, hillyDeshot, mtainOld),
+      TRow(424, hillySavannah, sea * 4, hillyOce, mtainDepr, hillyOce * 2, sea * 3, hillyOce * 5, hillyDeshot, deshot * 2, hillyDeshot * 6, mtainDepr * 2,
+        hillyDeshot, lake, hillyDeshot, mtainDepr),
 
       VRow(423, Bend(1500, HVUp, 5, 1)),
 
-      TRow(422, mtainOld, sea * 4, Isle10(hillyOce), hillyOce, mtainOld, hillyOce * 2, sea * 2, hillyOce * 7, deshot,
-        hillyDeshot, deshot, mtainOld, hillyOce, hillyDeshot, mtainOld, oceanic * 2, hillyDeshot, mtainOld * 2, hillyDeshot),
+      TRow(422, mtainDepr, sea * 4, Isle10(hillyOce), hillyOce, mtainDepr, hillyOce * 2, sea * 2, hillyOce * 7, deshot,
+        hillyDeshot, deshot, mtainDepr, hillyOce, hillyDeshot, mtainDepr, oceanic * 2, hillyDeshot, mtainDepr * 2, hillyDeshot),
 
       VRow(421, MouthOld(1504, HVDn)),
 
-      TRow(420, sea * 7, hillyOce * 2, sea * 4, hillyOce, mtainOld, hillyOce * 2, mtainOld, hillyOce, oceanic, deshot, hillyOce * 2, mtainOld, hillyOce * 2,
-        oceanic * 2, deshot * 4, mtainOld),
+      TRow(420, sea * 7, hillyOce * 2, sea * 4, hillyOce, mtainDepr, hillyOce * 2, mtainDepr, hillyOce, oceanic, deshot, hillyOce * 2, mtainDepr, hillyOce * 2,
+        oceanic * 2, deshot * 4, mtainDepr),
 
       VRow(419, SetSep(1471)),
 
-      TRow(418, SepB(), sea * 7, hillyOce, sea * 5, hillyOce * 5, mtainOld, hillyOce * 2, savannah, hillySavannah, hillyOce, deshot * 2, oceanic, deshot * 3,
-        hillyDeshot * 2, mtainOld), VRow(417, MouthOld(1564, HVUR)),
+      TRow(418, SepB(), sea * 7, hillyOce, sea * 5, hillyOce * 5, mtainDepr, hillyOce * 2, savannah, hillySavannah, hillyOce, deshot * 2, oceanic, deshot * 3,
+        hillyDeshot * 2, mtainDepr), VRow(417, MouthOld(1564, HVUR)),
 
-      TRow(416, sea * 10, sea * 4, Isle10(hillyOce), sea, mtainOld, sea * 2, mtainOld, mtainOld, sea * 2, hillyOce, oceanic, deshot * 7, hillyDeshot),
+      TRow(416, sea * 10, sea * 4, Isle10(hillyOce), sea, mtainDepr, sea * 2, mtainDepr, mtainDepr, sea * 2, hillyOce, oceanic, deshot * 7, hillyDeshot),
       TRow(414, sea * 9, hillyOce, sea * 10, hillyOce, sea, hillyOce * 2, deshot * 8, hillyDeshot),
       TRow(412, sea * 10, hillyOce * 2, sea * 7, hillyOce, oceanic, sea * 2, hillyOce, deshot * 10),
       TRow(410, sea * 11, sea * 12, hillyOce, hillyDeshot, deshot * 9),

@@ -30,7 +30,7 @@ object Visayas extends EArea2("Visayas Islands", 13.259 ll 122.615, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation of Palawan and nearby smaller islands. Depends on nothing. */
-object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtainOld)
+object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtainDepr)
 { val busangaNW: LatLong = 12.327 ll 119.980
   val busangaNE: LatLong = 12.064 ll 120.338
   val dumaranE: LatLong = 10.568 ll 119.997
@@ -44,7 +44,7 @@ object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtainOld)
 }
 
 /** [[polygonLL]] graphical representation of Samar and nearby smaller islands. Depends on nothing. */
-object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtainOld)
+object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtainDepr)
 { val batagNE: LatLong = 12.685 ll 125.063
   val samarSE: LatLong = 10.939 ll 125.837
   val panonSouth: LatLong = 9.911 ll 125.282

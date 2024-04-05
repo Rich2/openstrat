@@ -24,14 +24,17 @@ object Terr460E0 extends Long460Terrs
     VRow(137, MouthLt(514, HVUp)),
     TRow(136, sea * 2, hillyTaiga),
     VRow(135, MouthRt(506, HVUR), BendIn(512, HVDR, 13), BendOut(514, HVUL), Bend(520, HVDR, 4, 5, SeaIceWinter, sea)),
-    TRow(134, sea, mtainOld, oceanic),
-    VRow(133, BendIn(506, HVDR, 13), MouthLt(508, HVUR), BendIn(512, HVUR, 13), BendOut(514, HVDL)),
-    TRow(132, hillyOce, sea, oceForest),
-    VRow(131, BendIn(504, HVDR), ThreeUp(506, 7, 7, 0), BendOut(508, HVDL), BendIn(514, HVUR, 13), BendIn(516, HVUp, 13), BendIn(518, HVUL)),
+    TRow(134, sea, mtainDepr, oceanic),
+    VRow(133, BendIn(506, HVDR, 13), MouthLt(508, HVUR), BendInLt(512, HVUR, 13, 7), Bend(514, HVDL, 13, 5)),
+    TRow(132, mtainOce, hillyOce, oceForest),
+
+    VRow(131, BendIn(504, HVDR, 13), ThreeUp(506, 13, 13, 0), BendOut(508, HVDL), SourceLt(512, HVUR, 7), ThreeUp(514, 13, 0, 13), BendIn(516, HVUp, 13),
+      BendIn(518, HVUL)),
+
     TRow(130, oceanic, hillyOce, sea, oceanic),
-    VRow(129, BendIn(504, HVUR, 10), MouthRt(506, HVDR), MouthRt(508, HVDn), MouthRt(514, HVUp)),
-    TRow(128, sea, oceanic, oceanic, hillyOce),
-    VRow(127, MouthLt(508, HVUp, 7), MouthLt(510, HVUL, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
+    VRow(129, BendIn(504, HVUR, 13), ThreeDown(506, 6, 13, 0), BendOut(508, HVUL, 7), SourceRt(514, HVDn)),
+    TRow(128, hillyOce, oceanic, oceanic, hillyOce),
+    VRow(127, BendIn(506, HVUR, 13), ThreeDown(508, 13, 6, 0), Bend(510, HVDn, 1, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
     TRow(126, sea, oceanic, oceanic, hillyOce),
     VRow(125, MouthMin(506, HVDL), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
     TRow(124, sea, hillyOce, hillyOce, hillyOce, hillyOce),
@@ -62,16 +65,19 @@ object Terr460E0 extends Long460Terrs
     VRow(101, BendIn(518, HVDR, 13), BendOut(520, HVUL)),
     TRow(100, sea * 5, hillyJungle * 2),
     VRow(99, BendIn(518, HVUR, 13), BendOut(520, HVDL)),
-    TRow(98,sea * 5, mtainOld, hillyJungle),
+    TRow(98,sea * 5, mtainDepr, hillyJungle),
     VRow(97, BendIn(520, HVUR, 13), BendOut(522, HVDL, 7)),
     TRow(96, sea * 6, hillyJungle),
     VRow(95, BendIn(522, HVUR, 13), MouthRt(524, HVDR)),
-    TRow(94, sea * 6, mtainOld),
+    TRow(94, sea * 6, mtainDepr),
     )
   }
   help.run
 
   { import hexNames.{ setRow => str }
+    str(132, "Scotland west", "Scotland east")
+    str(130, "Ireland", "England north")
+    str(128, "England south west", "England south east")
     str(124, "", "Spain north west")
     str(122, "Portugal")
     str(120, "", "Spain south")

@@ -21,7 +21,7 @@ object Terr320W60 extends Long320Terrs
     TRow(154, tundra * 2, sea, ice),
     TRow(152, tundra, sea, mtainTundra, ice),
     TRow(150, sea * 3, tundra),
-    TRow(148, taiga, mtainOld, sea * 2, tundra),
+    TRow(148, taiga, mtainDepr, sea * 2, tundra),
     VRow(147, MouthOld(10746, HVDn)),
     TRow(146, taiga, hillyTaiga, sea * 3),
     TRow(144, taiga * 3, sea * 2),

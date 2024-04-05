@@ -58,7 +58,7 @@ object ItalyHeel extends EArea2("Italy Heel", 40.81 ll 15.86, savannah)
 }
 
 /** [[PolygonLL]] graphic for the toe of Italy depends on nothing. */
-object ItalyToe extends EArea2("Italy Toe", 40.81 ll 15.86, mtainOld)
+object ItalyToe extends EArea2("Italy Toe", 40.81 ll 15.86, mtainDepr)
 { val northEast: LatLong = 40.079 ll 16.605
   val bruscata: LatLong = 39.76 ll 16.48
   val mirto: LatLong = 39.62 ll 16.77

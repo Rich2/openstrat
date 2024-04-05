@@ -15,15 +15,15 @@ object Terr120E0 extends Long120Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    TRow(344, sea * 9, mtainOld),
-    TRow(342, sea * 10, mtainOld) ,
-    TRow(340, sea * 10, mtainOld),
+    TRow(344, sea * 9, mtainDepr),
+    TRow(342, sea * 10, mtainDepr) ,
+    TRow(340, sea * 10, mtainDepr),
     TRow(338, sea * 9, hillyTundra * 2),
     TRow(336, sea * 9, hillyTaiga * 2, taiga),
-    TRow(334, sea * 8, mtainOld, hillyTaiga * 3),
-    TRow(332, sea * 3, Isle5(hillyOce), sea * 4, mtainOld, mtainOld, hillyTaiga, taiga * 2),
-    TRow(330, sea * 5, Isle5(hillyOce), sea * 2, mtainOld * 4, hillyTaiga),
-    TRow(328, sea * 6, sea * 3, mtainOld, hillyTaiga * 3),
+    TRow(334, sea * 8, mtainDepr, hillyTaiga * 3),
+    TRow(332, sea * 3, Isle5(hillyOce), sea * 4, mtainDepr, mtainDepr, hillyTaiga, taiga * 2),
+    TRow(330, sea * 5, Isle5(hillyOce), sea * 2, mtainDepr * 4, hillyTaiga),
+    TRow(328, sea * 6, sea * 3, mtainDepr, hillyTaiga * 3),
     TRow(326, sea * 5, Isle5(hillyOce), sea * 3, hillyTaiga, hillyTaiga, taiga * 3),
     VRow(325, BendOut(530, HVDR)),
     TRow(324, sea * 3, oceanic, hillyOce, sea * 4, hillyTaiga, hillyTaiga, sea, oceanic * 2),
@@ -56,8 +56,8 @@ object Terr120E0 extends Long120Terrs
     TRow(306, sea * 8, oceanic, oceanic * 3, hillyOce * 6),
     VRow(305),
     TRow(304, sea * 6, oceanic * 5, hillyOce * 4, oceanic, hillyOce * 2),
-    TRow(302, sea * 6, oceanic * 5, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainOld * 2),
-    TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainOld * 4, hillyOce),
+    TRow(302, sea * 6, oceanic * 5, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainDepr * 2),
+    TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainDepr * 4, hillyOce),
 
     TRow(286, sea * 3, subtrop, mtainSubForest),
     TRow(284, sea * 4, savannah, hillySavannah),

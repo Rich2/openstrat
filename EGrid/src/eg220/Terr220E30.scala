@@ -40,7 +40,7 @@ object Terr220E30 extends Long220Terrs
     TRow(162, oceanic * 9),
     TRow(160, oceanic * 3, oceForest, oceanic * 5),
     TRow(158, hillyOce * 2, oceanic * 7),
-    TRow(156, oceanic * 2, mtainOld, oceanic * 6, deshot),
+    TRow(156, oceanic * 2, mtainDepr, oceanic * 6, deshot),
     VRow(155, SourceRt(1548, HVDn)),
     TRow(154, oceanic * 2, hillyOce * 2, continental, steppe * 3, steppe * 2),
 
@@ -59,9 +59,9 @@ object Terr220E30 extends Long220Terrs
 
     TRow(148, hillyOce * 2, oceanic, hillyOce * 2, hillySubForest, mtainSubForest, hillySubForest, mtainSavannah, hillySavannah, mtainSavannah),
     VRow(147, Bend(1518, HVUR, 10, 2), BendIn(1520, HVDL, 13), Bend(1528, HVDR, 13, 6), Mouth(1530, HVUR, 5, 1), MouthLt(1532, HVDL, 7), MouthRt(1534, HVUR)),
-    TRow(146, hillyOce, hillyOce * 2, hillyOce * 2, hillyDeshot * 3, mtainOld, hillyDeshot * 2),
+    TRow(146, hillyOce, hillyOce * 2, hillyOce * 2, hillyDeshot * 3, mtainDepr, hillyDeshot * 2),
     VRow(145, BendOut(1518, HVDR, 7), BendIn(1520, HVUL, 13), MouthOld(1522, HVDL), MouthOld(1524, HVUR), BendIn(1530, HVDL, 13), BendMax(1528, HVUR)),
-    TRow(144, hillyOce, sea, hillyOce, hillySavannah, hillyOce * 4, hillyDeshot, oceanic, mtainOld),
+    TRow(144, hillyOce, sea, hillyOce, hillySavannah, hillyOce * 4, hillyDeshot, oceanic, mtainDepr),
 
     VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1524, HVDR, 13), BendInRt(1526, HVDn, 13, 6),
       ThreeDown(1528, 13, 0, 13), BendIn(1530, HVUL, 13), MouthOld(1544, HVUp)),

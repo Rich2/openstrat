@@ -46,9 +46,9 @@ object Terr460W90 extends Long460Terrs
     VRow(125, Bend(9730, HVDR, 5, 2, lake), BendMin(9732, HVDn, 3, lake), SourceLt(9734, HVUL, 6, lake)),
     TRow(124, hillySavannah, savannah, hillyOce, oceanic, oceanic),
     VRow(123, SourceMin(9730, HVUp, 3, lake), SourceMin(9740, HVDn, 4)),
-    TRow(122, savannah * 3, mtainOld, hillyOce),
+    TRow(122, savannah * 3, mtainDepr, hillyOce),
     VRow(121, SourceMin(9738, HVUR, 2), BendIn(9740, HVUL, 9)),
-    TRow(120, sahel, hillySavannah, savannah, mtainOld, hillyOce),
+    TRow(120, sahel, hillySavannah, savannah, mtainDepr, hillyOce),
     TRow(118, deshot, savannah, oceanic * 3),
     VRow(117, SourceRt(9730, HVDn), SourceMax(9736, HVDR),BendIn(9738, HVDL, 13)),
     TRow(116, savannah, subtrop * 2, sea, jungle),
@@ -68,20 +68,20 @@ object Terr460W90 extends Long460Terrs
 
     TRow(110, mtainJungle, hillyJungle, savannah, jungle, sea, hillyJungle),
     VRow(109, BendIn(9716, HVUR, 10), SourceRt(9718, HVUL, 7), SourceLt(9722, HVDn, 7), BendIn(9736, HVUR, 12), BendIn(9738, HVUp, 12), BendIn(9740, HVUL, 12)),
-    TRow(108, sea * 2, mtainOld * 2, hillyJungle),
+    TRow(108, sea * 2, mtainDepr * 2, hillyJungle),
 
     VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), MouthRt(9728, HVDR, 7), MouthOld(9734, HVUL), BendIn(9736, HVDL, 10),
       BendIn(9740, HVDR, 10), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
 
-    TRow(106, sea * 4, mtainOld, sea, hillyJungle),
+    TRow(106, sea * 4, mtainDepr, sea, hillyJungle),
     VRow(105, MouthOld(9734, HVUp), MouthOld(9736, HVDn), MouthOld(9740, HVDn)),
-    TRow(104, sea * 5, mtainOld, hillyJungle),
+    TRow(104, sea * 5, mtainDepr, hillyJungle),
     VRow(103, BendIn(9734, HVUR, 10), BendIn(9736, HVUp, 10), BendOut(9738, HVDn, 7), MouthOld(9740, HVDR)),
-    TRow(102, sea * 6, mtainOld),
+    TRow(102, sea * 6, mtainDepr),
     TRow(100, sea * 6, hillyJungle),
-    TRow(98, sea * 5, mtainOld, jungle),
-    TRow(96, sea * 6, mtainOld),
-    TRow(94, sea * 6, mtainOld),
+    TRow(98, sea * 5, mtainDepr, jungle),
+    TRow(96, sea * 6, mtainDepr),
+    TRow(94, sea * 6, mtainDepr),
     )
   }
   help.run

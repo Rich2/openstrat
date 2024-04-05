@@ -16,7 +16,7 @@ object Terr460E30 extends Long460Terrs
     override val rows: RArr[RowBase] = RArr(
       TRow(146, SeaIcePerm),
       VRow(145, BendIn(1534, HVUp, 13), Bend(1536, HVDn, 7, 4, sea, SeaIceWinter), BendIn(1538, HVDL, 13, SeaIceWinter)),
-      TRow(144, mtainOld),
+      TRow(144, mtainDepr),
       VRow(143, MouthLt(1538, HVDn, 7, SeaIceWinter), MouthRt(1540, HVDL, 7)),
       VRow(139, MouthRt(1538, HVUL, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
       TRow(138, hillyTundra, hillyTundra),
@@ -31,12 +31,12 @@ object Terr460E30 extends Long460Terrs
       TRow(128, oceanic * 2, hillyOce, oceanic),
       TRow(126, oceanic, hillyOce, savannah, oceanic),
       VRow(125, SetSep(1527), SourceMin(1536, HVDR), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
-      TRow(124, mtainOld, hillyOce, hillySavannah, mtainOld, mtainOld),
+      TRow(124, mtainDepr, hillyOce, hillySavannah, mtainDepr, mtainDepr),
 
       VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), MouthOld(1532, HVUp), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR),
         MouthRt(1544, HVDR)),
 
-      TRow(122, hillySavannah, hillySavannah, hillySahel, mtainOld, mtainOld),
+      TRow(122, hillySavannah, hillySavannah, hillySahel, mtainDepr, mtainDepr),
       VRow(121, Mouth(1528, HVDn, 3, 7), BendIn(1530, HVDR, 13), ThreeUp(1532, 6, 13, 0), BendIn(1534, HVDL, 13)),
       TRow(120, SepB(), sea, hillySavannah, hillySavannah, hillySavannah, deshot),
 
@@ -55,8 +55,8 @@ object Terr460E30 extends Long460Terrs
       VRow(109, BendIn(1544, HVUR, 13), BendOut(1546, HVDL, 7)),
       TRow(108, deshot * 4, sahel, hillySahel, hillySahel),
       VRow(107, BendIn(1546, HVUR, 13), BendIn(1548, HVUp, 13), BendIn(1550, HVDn, 13), Bend(1552, HVUp, 12, 7)),
-      TRow(106, savannah * 2, sahel, savannah, mtainOld, hillySahel, hillySahel),
-      TRow(104, savannah * 5, mtainOld, hillySahel),
+      TRow(106, savannah * 2, sahel, savannah, mtainDepr, hillySahel, hillySahel),
+      TRow(104, savannah * 5, mtainDepr, hillySahel),
       TRow(102, hillyJungle * 3, hillySavannah, hillySahel * 2, savannah),
       VRow(101, BendOut(1550, HVDR), MouthRt(1552, HVUR)),
       TRow(100, jungle, hillyJungle * 3, hillySavannah * 2, savannah),

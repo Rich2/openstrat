@@ -22,11 +22,11 @@ object Terr320E30 extends Long320Terrs
     VRow(155, MouthRt(1542, HVUL, 7, SeaIceWinter), BendIn(1544, HVDL, 11, SeaIceWinter)),
     TRow(154, hillyTaiga, taiga, hillyLakesTaiga, tundra),
 
-    VRow(153, MouthRt(1534, HVUp, 7), MouthMin(1538, HVDL, SeaIceWinter), BendIn(1540, HVDn, 13, SeaIceWinter), ThreeDown(1542, 3, 3, 3, SeaIceWinter),
-      BendIn(1544, HVUL, 9, SeaIceWinter)),
+    VRow(153, SourceRt(1534, HVDn, 7, siceWin), SourceMin(1538, HVUR, 3, SeaIceWinter), BendIn(1540, HVDn, 13, SeaIceWinter),
+      ThreeDown(1542, 3, 3, 3, SeaIceWinter), BendIn(1544, HVUL, 9, SeaIceWinter)),
 
     TRow(152, taiga, taiga, lakesTaiga, taiga),
-    VRow(151, BendOut(1532, HVDR, 7), BendIn(1534, HVUL, 13), MouthLt(1542, HVDn, 7, SeaIceWinter)),
+    VRow(151, BendOut(1532, HVDR, 7, sea, siceWin), BendIn(1534, HVUL, 13, siceWin), SourceLt(1542, HVUp, 7, SeaIceWinter)),
     TRow(150, taiga, lakesTaiga * 3),
     VRow(149, BendOut(1530, HVDR, 7), BendIn(1532, HVUL, 13), MouthOld(1536, HVUL, 3, Lake), MouthOld(1538, HVDR, 3, Lake)),
     VRow(147, Bend(1528, HVDR, 13, 3), ThreeUp(1530, 13, 0, 10), BendIn(1532, HVUp, 13), MouthRt(1534, HVUR, 7)),
@@ -36,7 +36,7 @@ object Terr320E30 extends Long320Terrs
     TRow(144, oceanic * 5),
     TRow(142, oceanic * 6),
     TRow(140, oceanic * 6),
-    TRow(138, mtainOld * 2, hillyOce, oceanic * 3, deshot),
+    TRow(138, mtainDepr * 2, hillyOce, oceanic * 3, deshot),
     VRow(137, SourceRt(1522, HVDn), Mouth(1538, HVUp, 3, 7), BendIn(1542, HVDR), SourceRt(1544, HVDL)),
     TRow(136, hillyCont, continental * 3, steppe, steppe * 2),
     VRow(135, BendOut(1522, HVUR, 7), BendIn(1524, HVDL, 13), BendMax(1536, HVDR), ThreeUp(1538, 7, 13, 13), Bend(1540, HVUp, 10, 7), ThreeUp(1542, 7, 13, 7)),

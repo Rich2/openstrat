@@ -20,7 +20,7 @@ object Terr640E0 extends Long640Terrs
       VRow(127, SetSep(509), SourceLt(512, HVDn, 7)),
       TRow(126, sea, hillyTaiga),
       VRow(125, SourceRt(508, HVDL), BendIn(510, HVDR, 13), ThreeUp(512, 13, 13, 0), BendIn(514, HVDL, 13), MouthRt(518, HVUp)),
-      TRow(124, mtainOld, taiga),
+      TRow(124, mtainDepr, taiga),
       VRow(123, BendIn(508, HVDR, 10), BendOut(510, HVUL), BendIn(512, HVDR, 13), ThreeUp(514, 0, 6, 13), BendOut(516, HVUp), Bend(518, HVUL, 2, 4)),
       TRow(122, oceanic * 2),
       VRow(121, MouthRt(508, HVDn), MouthRt(510, HVDL, 7), BendOut(512, HVUL, 7)),

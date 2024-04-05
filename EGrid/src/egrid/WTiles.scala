@@ -104,7 +104,7 @@ object WTiles
   val hillyLakesOceForest: Land = Land(HillyLakes, Oceanic, Forest)
 
   /** deprecated use one of the specialised shorthands instead.  */
-  val mtainOld: Land = Land(Mountains, Boreal, Forest)
+  val mtainDepr: Land = Land(Mountains, Boreal, Forest)
 
   val mtainIce: Land = Land(Mountains, IceCap, LandFree)
   val mtainTundra: Land = Land(Mountains, Tundra, LandFree)
