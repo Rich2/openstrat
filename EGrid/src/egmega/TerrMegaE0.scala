@@ -29,7 +29,7 @@ object TerrMegaE0 extends LongMegaTerrs
       TRow(106, deshot * 3),
       TRow(104, sahel, deshot * 2),
       TRow(102, jungle * 3),
-      VRow(101, BendIn(506, HVUp, 13), SourceMin(508, HVDL), SourceRt(512, HVDR), BendOut(514, HVDL, 7)),
+      VRow(101, BendIn(506, HVUp, 13), OrigMin(508, HVDL), OrigRt(512, HVDR), BendOut(514, HVDL, 7)),
       TRow(100, sea * 2, jungle),
       VRow(99, BendIn(514, HVUR, 13), BendOut(516, HVDL)),
       TRow(98, sea * 2, SepB(), jungle),

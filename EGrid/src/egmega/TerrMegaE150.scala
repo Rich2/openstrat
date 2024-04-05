@@ -16,7 +16,7 @@ object TerrMegaE150 extends LongMegaTerrs
     VRow(119, BendMin(5632, HVUp, 3, siceWin), BendIn(5634, HVDn, 13, siceWin), BendIn(5636, HVDL, 11, siceWin)),
     TRow(118, hillyTundra),
     TRow(116, hillyTundra),
-    VRow(115, SourceMax(5632, HVDn), BendOut(5636, HVDR, 7, siceWin)),
+    VRow(115, OrigMax(5632, HVDn), BendOut(5636, HVDR, 7, siceWin)),
     TRow(114, hillyTaiga),
     VRow(113, BendIn(5630, HVDR, 11), ThreeUp(5632, 13, 11, 0), ThreeDown(5634, 6, 0, 11, siceWin, sea, sea), BendIn(5636, HVUL, 13, siceWin)),
     TRow(112, hillyTaiga),
@@ -27,14 +27,14 @@ object TerrMegaE150 extends LongMegaTerrs
     TRow(100, hillyJungle),
     VRow(99, BendOut(5630, HVUR, 7), MouthLt(5632, HVDR, 7)),
     TRow(98, hillyJungle),
-    VRow(97, BendIn(5626, HVUp, 13), Bend(5628, HVDn, 6, 6), SourceRt(5630, HVUL, 7)),
+    VRow(97, BendIn(5626, HVUp, 13), Bend(5628, HVDn, 6, 6), OrigRt(5630, HVUL, 7)),
     TRow(96, savannah),
     TRow(94, savannah),
     VRow(93, Mouth(5634, HVUp, 1, 5)),
     TRow(92, oceForest),
-    VRow(91, BendOut(5628, HVDL, 7), SourceLt(5634, HVUp, 7)),
+    VRow(91, BendOut(5628, HVDL, 7), OrigLt(5634, HVUp, 7)),
     TRow(90, hillySavannah),
-    VRow(89, BendIn(5628, HVUR, 13), SourceRt(5630, HVUL, 7)),
+    VRow(89, BendIn(5628, HVUR, 13), OrigRt(5630, HVUL, 7)),
       TRow(82, ice)
     )
   }

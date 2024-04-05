@@ -35,7 +35,7 @@ object Terr320E0 extends Long320Terrs
     TRow(146, mtainDepr, hillyOce, sea, oceanic, oceForest),
 
     VRow(145, BendIn(502, HVDR, 13), ThreeUp(504, 13, 13, 0), BendOut(506, HVDL, 7), BendOut(512, HVUR, 7), BendIn(514, HVDL, 13), BendIn(516, HVUR, 13),
-      SourceMin(518, HVUL, 4), BendIn(520, HVUR), BendOut(522, HVUp, 7), Bend(524, HVUL, 2, 7)),
+      OrigMin(518, HVUL, 4), BendIn(520, HVUR), BendOut(522, HVUp, 7), Bend(524, HVUL, 2, 7)),
 
     TRow(144, hillyOce, oceanic, oceanic, sea, oceanic),
     VRow(143, MouthRt(502, HVDn, 7), BendIn(506, HVUR, 13), BendIn(508, HVDL, 7), BendOut(514, HVUR, 7), BendIn(516, HVDL, 13)),
@@ -44,10 +44,10 @@ object Terr320E0 extends Long320Terrs
     TRow(140, sea, hillyOce, oceanic, oceanic * 3),
     VRow(139, BendIn(506, HVUR, 13), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13)),
     TRow(138, sea * 2, oceanic * 2, hillyOce, mtainDepr * 2),
-    VRow(137, SourceRt(526, HVDn)),
+    VRow(137, OrigRt(526, HVDn)),
     TRow(136, sea * 3, oceanic, hillyOce, mtainDepr, oceanic),
 
-    VRow(135, BendIn(500, HVDR, 13), SourceLt(502, HVDL, 7), SourceMin(516, HVDn), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11), BendIn(524, HVDL, 13),
+    VRow(135, BendIn(500, HVDR, 13), OrigLt(502, HVDL, 7), OrigMin(516, HVDn), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11), BendIn(524, HVDL, 13),
       BendOut(526, HVUR, 7), BendIn(528, HVDL, 13)),
 
     TRow(134, hillyOce * 3, hillySub, mtainSavannah, mtainSavannah, hillySavannah),
@@ -57,7 +57,7 @@ object Terr320E0 extends Long320Terrs
 
     TRow(132, sea, hillySub, hillySavannah * 2, hillySavannah, mtainSavannah, sea),
 
-    VRow(131, SourceLt(500, HVDn, 7), BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 8, 13, 12), Bend(520, HVUp, 8, 7),
+    VRow(131, OrigLt(500, HVDn, 7), BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 8, 13, 12), Bend(520, HVUp, 8, 7),
       ThreeUp(522, 0, 13, 8), BendInRt(524, HVDL, 11, 7), MouthSpec(526, HVUL, HVRt, HVLt)),
 
     TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainSavannah, hillySavannah, hillySavannah),
@@ -66,7 +66,7 @@ object Terr320E0 extends Long320Terrs
       Bend(512, HVUL, 11, 4), BendIn(524, HVUR, 13), ThreeDown(526, 13, 0, 11), ThreeUp(528, 10, 6, 0)),
 
     TRow(128, sea, hillySub * 4, hillySahel, hillySavannah, sea),
-    VRow(127, BendIn(500, HVDR, 10), BendOut(502, HVUL), BendOut(526, HVUR, 7), SourceLt(528, HVUL, 7)),
+    VRow(127, BendIn(500, HVDR, 10), BendOut(502, HVUL), BendOut(526, HVUR, 7), OrigLt(528, HVUL, 7)),
     TRow(126, sea, sahel, mtainDepr, hillyDeshot, sahel * 4),
     VRow(125, BendIn(498, HVDR, 13), BendMin(500, HVUL)),
     TRow(124, sea, hillyDeshot, hillyDeshot, deshot * 6),

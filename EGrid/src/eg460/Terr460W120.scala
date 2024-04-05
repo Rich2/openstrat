@@ -12,7 +12,7 @@ object Terr460W120 extends Long460Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    VRow(147, SourceRt(8708, HVUR, 7, SeaIcePerm)),
+    VRow(147, OrigRt(8708, HVUR, 7, SeaIcePerm)),
     TRow(146, SeaIcePerm),
     TRow(144, SeaIcePerm),
     VRow(143, BendIn(8704, HVDR, 6, siceWin, SeaIcePerm), Bend(8706, HVDn, 7, 2, SeaIcePerm), BendIn(8708, HVDL, 8, SeaIcePerm)),
@@ -27,9 +27,9 @@ object Terr460W120 extends Long460Terrs
       BendIn(8710, HVUL)),
 
     TRow(138, lakesTundra * 2),
-    VRow(137, SourceLt(8702, HVUR, 6, lake), SourceLt(8704, HVDL, 6, lake)),
+    VRow(137, OrigLt(8702, HVUR, 6, lake), OrigLt(8704, HVDL, 6, lake)),
     TRow(136, mtainTundra, lakesTaiga, lakesTundra),
-    VRow(135, SourceRt(8706, HVDR, 6, lake), SourceRt(8708, HVUL, 6, lake)),
+    VRow(135, OrigRt(8706, HVDR, 6, lake), OrigRt(8708, HVUL, 6, lake)),
     TRow(134, mtainDepr, lakesTaiga, lakesTundra),
     TRow(132, mtainDepr, hillyTaiga * 2),
     TRow(130, mtainDepr, hillyTaiga, taiga * 2),
@@ -45,7 +45,7 @@ object Terr460W120 extends Long460Terrs
     TRow(120, sea * 2, hillySavannah, hillySahel * 2),
     VRow(119, MouthLt(8702, HVUL), BendOut(8704, HVDL)),
     TRow(118, sea * 3, hillySahel, hillyDeshot, hillySahel),
-    VRow(117, BendIn(8704, HVUR, 13), BendOut(8706, HVDL), SourceLt(8708, HVDR), Bend(8710, HVDL, 3, 4)),
+    VRow(117, BendIn(8704, HVUR, 13), BendOut(8706, HVDL), OrigLt(8708, HVDR), Bend(8710, HVDL, 3, 4)),
     TRow(116, sea * 3, hillySahel, hillySahel, hillySahel),
     VRow(115, BendIn(8706, HVUR, 13), BendOut(8708, HVDL), BendIn(8710, HVUR, 13), BendOut(8712, HVDL)),
     TRow(114, sea * 4, hillySahel, mtainDepr),

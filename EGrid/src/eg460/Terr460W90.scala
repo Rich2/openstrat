@@ -13,11 +13,11 @@ object Terr460W90 extends Long460Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    VRow(147, SourceRt(9728, HVUR, 7, SeaIcePerm), BendIn(9730, HVDn, 13, SeaIcePerm), BendOut(9732, HVUp, 7, SeaIcePerm)),
+    VRow(147, OrigRt(9728, HVUR, 7, SeaIcePerm), BendIn(9730, HVDn, 13, SeaIcePerm), BendOut(9732, HVUp, 7, SeaIcePerm)),
     TRow(146, mtainIce),
     TRow(144, mtainTundra),
 
-    VRow(143, Bend(9726, HVDn, 7, 2, SeaIcePerm), BendIn(9728, HVDL, 8, SeaIcePerm), Source(9730, HVDR, 5, 1, SeaIcePerm),
+    VRow(143, Bend(9726, HVDn, 7, 2, SeaIcePerm), BendIn(9728, HVDL, 8, SeaIcePerm), Orig(9730, HVDR, 5, 1, SeaIcePerm),
       BendIn(9732, HVDL, 13, SeaIcePerm, siceWin)),
 
     TRow(142, hillyTundra),
@@ -27,7 +27,7 @@ object Terr460W90 extends Long460Terrs
 
     TRow(140, hillyTundra, hillyTundra),
 
-    VRow(139, BendOut(9724, HVUp, 7, siceWin), BendMax(9726, HVUL, siceWin), Source(9728, HVUR, 4, 2, siceWin), ThreeUp(9730, 0, 6, 6, siceWin),
+    VRow(139, BendOut(9724, HVUp, 7, siceWin), BendMax(9726, HVUL, siceWin), Orig(9728, HVUR, 4, 2, siceWin), ThreeUp(9730, 0, 6, 6, siceWin),
       BendIn(9732, HVDL, 8, siceWin)),
 
     TRow(138, tundra, hillyTundra),
@@ -39,35 +39,35 @@ object Terr460W90 extends Long460Terrs
     TRow(132, lakesTaiga, taiga, lakesTaiga),
     VRow(131, BendIn(9730, HVUR, 13, siceWin), BendOut(9732, HVDL, 7, siceWin)),
     TRow(130, lakesTaiga * 3, lakesTaiga),
-    VRow(129, BendIn(9732, HVUR, 13, siceWin), Source(9734, HVUL, 1, 5, siceWin)),
+    VRow(129, BendIn(9732, HVUR, 13, siceWin), Orig(9734, HVUL, 1, 5, siceWin)),
     TRow(128, lakesTaiga * 2, taiga, lakesTaiga),
-    VRow(127, SourceRt(9728, HVUR, 7, lake), BendIn(9730, HVDn, 13, lake), MouthOld(9732, HVDR, 3, lake)),
+    VRow(127, OrigRt(9728, HVUR, 7, lake), BendIn(9730, HVDn, 13, lake), MouthOld(9732, HVDR, 3, lake)),
     TRow(126, savannah, taiga, taiga, hillyTaiga),
-    VRow(125, Bend(9730, HVDR, 5, 2, lake), BendMin(9732, HVDn, 3, lake), SourceLt(9734, HVUL, 6, lake)),
+    VRow(125, Bend(9730, HVDR, 5, 2, lake), BendMin(9732, HVDn, 3, lake), OrigLt(9734, HVUL, 6, lake)),
     TRow(124, hillySavannah, savannah, hillyOce, oceanic, oceanic),
-    VRow(123, SourceMin(9730, HVUp, 3, lake), SourceMin(9740, HVDn, 4)),
+    VRow(123, OrigMin(9730, HVUp, 3, lake), OrigMin(9740, HVDn, 4)),
     TRow(122, savannah * 3, mtainDepr, hillyOce),
-    VRow(121, SourceMin(9738, HVUR, 2), BendIn(9740, HVUL, 9)),
+    VRow(121, OrigMin(9738, HVUR, 2), BendIn(9740, HVUL, 9)),
     TRow(120, sahel, hillySavannah, savannah, mtainDepr, hillyOce),
     TRow(118, deshot, savannah, oceanic * 3),
-    VRow(117, SourceRt(9730, HVDn), SourceMax(9736, HVDR),BendIn(9738, HVDL, 13)),
+    VRow(117, OrigRt(9730, HVDn), OrigMax(9736, HVDR),BendIn(9738, HVDL, 13)),
     TRow(116, savannah, subtrop * 2, sea, jungle),
 
-    VRow(115, BendOut(9724, HVDR, 7), BendOut(9726, HVDn, 7), BendIn(9728, HVUp, 13), BendIn(9730, HVUL, 13), BendIn(9732, HVDR, 13), SourceMin(9734, HVDL, 5),
-      SourceLt(9738, HVUp, 7)),
+    VRow(115, BendOut(9724, HVDR, 7), BendOut(9726, HVDn, 7), BendIn(9728, HVUp, 13), BendIn(9730, HVUL, 13), BendIn(9732, HVDR, 13), OrigMin(9734, HVDL, 5),
+      OrigLt(9738, HVUp, 7)),
 
     TRow(114, hillySahel, hillySavannah, sea * 2, lakesJungle),
 
-    VRow(113, BendOut(9722, HVDR, 7), BendIn(9724, HVUL, 13), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), SourceLt(9730, HVUL, 7), BendIn(9732, HVUR, 13),
+    VRow(113, BendOut(9722, HVDR, 7), BendIn(9724, HVUL, 13), BendIn(9726, HVDR, 13), BendIn(9728, HVDn, 13), OrigLt(9730, HVUL, 7), BendIn(9732, HVUR, 13),
       BendIn(9734, HVUp, 13), Bend(9736, HVDn, 4, 7), BendMin(9738, HVUp, 5), BendIn(9740, HVDn, 13), BendIn(9742, HVDL, 13)),
 
     TRow(112, hillySavannah, sea, savannah, sea, hillyJungle, jungle),
 
-    VRow(111, BendOut(9716, HVDL), SourceRt(9724, HVUR), BendOut(9726, HVUL, 7), SourceLt(9734, HVDR, 7), ThreeDown(9736, 13, 12, 0), Bend(9738, HVDn, 12, 5),
+    VRow(111, BendOut(9716, HVDL), OrigRt(9724, HVUR), BendOut(9726, HVUL, 7), OrigLt(9734, HVDR, 7), ThreeDown(9736, 13, 12, 0), Bend(9738, HVDn, 12, 5),
       ThreeDown(9740, 6, 6, 12), ThreeUp(9742, 0, 6, 6)),
 
     TRow(110, mtainJungle, hillyJungle, savannah, jungle, sea, hillyJungle),
-    VRow(109, BendIn(9716, HVUR, 10), SourceRt(9718, HVUL, 7), SourceLt(9722, HVDn, 7), BendIn(9736, HVUR, 12), BendIn(9738, HVUp, 12), BendIn(9740, HVUL, 12)),
+    VRow(109, BendIn(9716, HVUR, 10), OrigRt(9718, HVUL, 7), OrigLt(9722, HVDn, 7), BendIn(9736, HVUR, 12), BendIn(9738, HVUp, 12), BendIn(9740, HVUL, 12)),
     TRow(108, sea * 2, mtainDepr * 2, hillyJungle),
 
     VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), MouthRt(9728, HVDR, 7), MouthOld(9734, HVUL), BendIn(9736, HVDL, 10),

@@ -16,7 +16,7 @@ object TerrMegaW30 extends LongMegaTerrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    VRow(119, SourceRt(11778, HVDR, 7), BendIn(11780, HVDL, 13)),
+    VRow(119, OrigRt(11778, HVDR, 7), BendIn(11780, HVDL, 13)),
     TRow(118, mtainIce),
     VRow(117, BendOut(11778, HVDR, 7), BendIn(11780, HVUL, 13)),
     TRow(116, SepB(siceWin), tundra),
@@ -40,7 +40,7 @@ object TerrMegaW30 extends LongMegaTerrs
     VRow(95, BendMin(11772, HVDR, 5), BendIn(11774, HVUL, 13)),
     VRow(93, BendOut(11772, HVDR), SetSep(11773)),
     TRow(92, SepB()),
-    VRow(91, SourceLt(11772, HVUR, 7)),
+    VRow(91, OrigLt(11772, HVUR, 7)),
     TRow(84, siceWin),
     TRow(82, ice)
     )

@@ -17,16 +17,16 @@ object Terr13W120 extends Long13Terrs
     VRow(113, BendIn(8708, HVUR, 6, siceWin)),
     TRow(112, mtainTaiga),
     TRow(110, hillyTaiga),
-    VRow(109, SourceLt(8702, HVDn, 7)),
+    VRow(109, OrigLt(8702, HVDn, 7)),
     TRow(108, hillyOceForest),
-    VRow(107, SourceRt(8702, HVUp, 7)),
+    VRow(107, OrigRt(8702, HVUp, 7)),
     TRow(106, sea, hillyDeshot),
-    VRow(105, SourceLt(8704, HVDR, 7), BendOut(8706, HVDL)),
+    VRow(105, OrigLt(8704, HVDR, 7), BendOut(8706, HVDL)),
     TRow(104, sea, hillySahel),
-    VRow(103, BendIn(8706, HVUR, 13), SourceRt(8708, HVUL, 7)),
+    VRow(103, BendIn(8706, HVUR, 13), OrigRt(8708, HVUL, 7)),
     VRow(91, BendIn(8708, HVDR, 13)),
     VRow(89, BendIn(8708, HVUR, 13)),
-    VRow(87, SourceRt(8704, HVUR, 7, siceWin), BendIn(8706, HVDn, 13, SeaIceWinter), BendOut(8708, HVUp, 7, SeaIceWinter)),
+    VRow(87, OrigRt(8704, HVUR, 7, siceWin), BendIn(8706, HVDn, 13, SeaIceWinter), BendOut(8708, HVUp, 7, SeaIceWinter)),
     TRow(86, ice)
     )
   }

@@ -12,18 +12,18 @@ object Terr640W90 extends Long640Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    VRow(131, SourceLt(9730, HVDR, 7, SeaIcePerm), BendIn(9732, HVDL, 13, SeaIcePerm)),
+    VRow(131, OrigLt(9730, HVDR, 7, SeaIcePerm), BendIn(9732, HVDL, 13, SeaIcePerm)),
     TRow(130, hillyTundra),
 
     VRow(129, ThreeDown(9726, 13, 6, 0, siceWin), ThreeUp(9728, 6, 0, 13, SeaIcePerm), ThreeDown(9730, 13, 13, 6, SeaIcePerm, siceWin, SeaIcePerm),
       BendIn(9732, HVUL, 13, SeaIcePerm)),
 
     TRow(128, tundra),
-    VRow(127, SourceRt(9726, HVUp, 7, siceWin), BendIn(9728, HVDR, 8, siceWin), BendIn(9730, HVUL, 6, siceWin)),
+    VRow(127, OrigRt(9726, HVUp, 7, siceWin), BendIn(9728, HVDR, 8, siceWin), BendIn(9730, HVUL, 6, siceWin)),
     TRow(126, tundra, tundra),
     VRow(125, Bend(9728, HVUR, 5, 1, siceWin), ThreeDown(9730, 3, 13, 13, siceWin), Bend(9732, HVDn, 4, 5, siceWin), BendMin(9734, HVUp, 3, siceWin)),
     TRow(124, taiga, tundra),
-    VRow(123, SourceMax(9730, HVUp, siceWin)),
+    VRow(123, OrigMax(9730, HVUp, siceWin)),
     TRow(122, taiga * 2),
     TRow(120, taiga * 3),
     VRow(119, MouthOld(9728, HVDL, 3, Lake), MouthOld(9730, HVUR, 3, Lake), MouthOld(9732, HVUp, 3, Lake)),
@@ -41,9 +41,9 @@ object Terr640W90 extends Long640Terrs
     TRow(108, jungle * 2, hillyJungle * 2),
     VRow(107, Bend(9730, HVUR, 13, 3), BendIn(9732, HVUp, 13), BendOut(9734, HVDn), BendIn(9736, HVUp, 13), BendIn(9738, HVUL, 7)),
     TRow(106, sea, Land(Hilly, Savannah, Forest), Land(Hilly, Savannah, Forest)),
-    VRow(105, SourceLt(9724, HVDR, 7), BendIn(9726, HVUp, 13), Mouth(9728, HVUR, 4, 2), MouthRt(9734, HVDL, 7), BendIn(9736, HVDn, 13), BendOut(9738, HVUp, 7)),
+    VRow(105, OrigLt(9724, HVDR, 7), BendIn(9726, HVUp, 13), Mouth(9728, HVUR, 4, 2), MouthRt(9734, HVDL, 7), BendIn(9736, HVDn, 13), BendOut(9738, HVUp, 7)),
     TRow(104, sea * 3, hillyJungle, hillyJungle),
-    VRow(103, SourceLt(9730, HVDR, 7), SourceRt(9732, HVUL, 7), Source(9736, HVDn, 3, 3)),
+    VRow(103, OrigLt(9730, HVDR, 7), OrigRt(9732, HVUL, 7), Orig(9736, HVDn, 3, 3)),
     TRow(102, sea * 4, mtainDepr),
     VRow(101, BendIn(9734, HVDR), BendMin(9736, HVUL, 5)),
     TRow(100, sea * 4, mtainDepr),

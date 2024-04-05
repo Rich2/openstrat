@@ -44,11 +44,11 @@ object Terr220E0 extends Long220Terrs
     TRow(166, sea * 2, hillyOce * 2, sea * 2, oceanic, oceanic),
 
     VRow(165, MouthRt(502, HVDL), ThreeUp(504, 6, 9, 0), BendIn(506, HVDL, 7), BendOut(512, HVUR, 7), BendIn(514, HVDL, 13), MouthRt(520, HVDn, 7),
-      BendIn(524, HVUR, 13), SourceRt(526, HVUL), SourceMax(530, HVUR)),
+      BendIn(524, HVUR, 13), OrigRt(526, HVUL), OrigMax(530, HVUR)),
 
     TRow(164, sea, oceanic, hillyOce, oceanic, sea * 2, oceanic, sea),
 
-    VRow(163, BendIn(504, HVDR, 13), ThreeUp(506, 3, 13, 3), Source(508, HVUL, 6, 4), BendOut(514, HVUR, 7), ThreeDown(516, 0, 13, 13), BendIn(518, HVDn, 13),
+    VRow(163, BendIn(504, HVDR, 13), ThreeUp(506, 3, 13, 3), Orig(508, HVUL, 6, 4), BendOut(514, HVUR, 7), ThreeDown(516, 0, 13, 13), BendIn(518, HVDn, 13),
       Bend(520,HVUp, 3, 3), MouthLt(522, HVUR, 7)),
 
     TRow(162, sea, oceanic, hillyOce, oceanic * 2, oceanic * 4),
@@ -61,11 +61,11 @@ object Terr220E0 extends Long220Terrs
     TRow(158, sea * 2, hillyOce, oceanic * 2, hillyOce * 4),
     VRow(157, BendIn(504, HVUR, 13), BendIn(506, HVUp, 13), Bend(508, HVUL, 13, 7)),
     TRow(156, sea * 3, oceanic * 3, hillyOce * 2, oceanic, hillyOce),
-    VRow(155, Source(506, HVDR, 4, 2), BendOut(508, HVDL)),
+    VRow(155, Orig(506, HVDR, 4, 2), BendOut(508, HVDL)),
     TRow(154, sea * 4, oceanic * 2, hillyOce, mtainDepr * 3),
-    VRow(153, BendIn(508, HVUR), Source(510, HVUL, 4, 2), Source(530, HVDn, 6, 1)),
+    VRow(153, BendIn(508, HVUR), Orig(510, HVUL, 4, 2), Orig(530, HVDn, 6, 1)),
     TRow(152, sea * 4, oceanic, hillyOce, mtainDepr, hillyOce, oceanic, hillyOce),
-    VRow(151, BendIn(496, HVDR, 13), SourceLt(498, HVDL, 7), BendIn(530, HVUR, 13), BendOut(532, HVDL, 7)),
+    VRow(151, BendIn(496, HVDR, 13), OrigLt(498, HVDL, 7), BendIn(530, HVUR, 13), BendOut(532, HVDL, 7)),
     TRow(150, sea, hillyOce, hillyOce * 4, hillyOce, hillyOce, hillyOce, hillyOce, mtainDepr),
     VRow(149, BendIn(496, HVUR, 13), BendOut(518, HVDR), BendOut(520, HVDn), BendOut(526, HVUp), BendIn(532, HVUR, 13), BendIn(534, HVUp, 13), Bend(536, HVDn, 6, 7)),
     TRow(148, sea * 2, mtainDepr, sahel, hillySavannah * 3, sea, hillyOce, sea, hillyOce),
@@ -74,7 +74,7 @@ object Terr220E0 extends Long220Terrs
       MouthRt(532, HVDR, 7)),
 
     TRow(146, sea, hillySavannah, hillyOce, hillySavannah * 2, sea, hillySavannah, sea, hillyOce, sea * 2),
-    VRow(145, SourceLt(496, HVUp, 7), SourceRt(514, HVDn, 7)),
+    VRow(145, OrigLt(496, HVUp, 7), OrigRt(514, HVDn, 7)),
     TRow(144, sea * 2, savannah, hillySavannah, hillySahel * 2, sea * 4, hillySavannah),
     VRow(143, MouthLt(500, HVUp, 7), BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendMax(512, HVUp), BendInRt(514, HVUL, 13, 7)),
     TRow(142, sea * 3, hillyOce, mtainSavannah, hillySavannah * 6, sea),

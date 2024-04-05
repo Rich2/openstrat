@@ -23,12 +23,12 @@ object Terr640W60 extends Long640Terrs
       BendOut(10758, HVDR)),
 
     TRow(124, mtainTundra, mtainTundra),
-    VRow(123, Source(10752, HVUR, 2, 4, siceWin), ThreeUp(10754, 13, 13, 13, siceWin), ThreeDown(10756, 13, 0, 13, siceWin), BendIn(10758, HVUL, 9, siceWin)),
+    VRow(123, Orig(10752, HVUR, 2, 4, siceWin), ThreeUp(10754, 13, 13, 13, siceWin), ThreeDown(10756, 13, 0, 13, siceWin), BendIn(10758, HVUL, 9, siceWin)),
     TRow(122, taiga, hillyLakesTaiga),
     VRow(121, Bend(10754, HVDR, 4, 2, siceWin), ThreeUp(10756, 0, 13, 13, sea, sea, siceWin), BendIn(10758, HVDL, 13)),
     TRow(120, taiga * 2, hillyLakesTaiga),
 
-    VRow(119, SourceLt(10750, HVDR, 7, siceWin), BendIn(10752, HVUp, 13, siceWin), BendIn(10754, HVUL, 13, siceWin), SourceLt(10756, HVUR),
+    VRow(119, OrigLt(10750, HVDR, 7, siceWin), BendIn(10752, HVUp, 13, siceWin), BendIn(10754, HVUL, 13, siceWin), OrigLt(10756, HVUR),
       BendIn(10758, HVUL, 13, siceWin, sea)),
 
     TRow(118, taiga, sea),

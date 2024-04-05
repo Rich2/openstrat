@@ -30,7 +30,7 @@ object Terr460E30 extends Long460Terrs
       TRow(130, oceanic * 4),
       TRow(128, oceanic * 2, hillyOce, oceanic),
       TRow(126, oceanic, hillyOce, savannah, oceanic),
-      VRow(125, SetSep(1527), SourceMin(1536, HVDR), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
+      VRow(125, SetSep(1527), OrigMin(1536, HVDR), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
       TRow(124, mtainDepr, hillyOce, hillySavannah, mtainDepr, mtainDepr),
 
       VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), MouthOld(1532, HVUp), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR),

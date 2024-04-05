@@ -17,11 +17,11 @@ object Terr13E30 extends Long13Terrs
     TRow(114, tundra),
     TRow(112, taiga),
     TRow(110, continental),
-    VRow(109, SourceLt(1534, HVDn), SourceLt(1538, HVDn, 7, lake)),
+    VRow(109, OrigLt(1534, HVDn), OrigLt(1538, HVDn, 7, lake)),
     TRow(108, hillyCont),
-    VRow(107, ThreeUp(1534, 6, 6, 0), Source(1536, HVUL, 7, 3), SourceRt(1538, HVUp, 7, lake)),
+    VRow(107, ThreeUp(1534, 6, 6, 0), Orig(1536, HVUL, 7, 3), OrigRt(1538, HVUp, 7, lake)),
     TRow(106, sahel, sahel),
-    VRow(105, SourceLt(1536, HVDR), Bend(1538, HVDL, 2, 4), SourceLt(1540, HVDR), BendIn(1542, HVUp)),
+    VRow(105, OrigLt(1536, HVDR), Bend(1538, HVDL, 2, 4), OrigLt(1540, HVDR), BendIn(1542, HVUp)),
     TRow(104, deshot * 2),
     VRow(103, BendIn(1538, HVUR, 10), BendOut(1540, HVUp), BendIn(1542, HVDn, 12)),
     TRow(102, savannah, Hilly(Savannah)),
@@ -35,7 +35,7 @@ object Terr13E30 extends Long13Terrs
     TRow(94, hillySavannah, sea),
     VRow(93, BendIn(1532, HVUR), MouthRt(1534, HVDR)),
     TRow(88, siceWin),
-    VRow(87, BendIn(1534, HVDn, 12, siceWin), BendMin(1536, HVUp, 3, siceWin), SourceLt(1538, HVDL, 7, siceWin)),
+    VRow(87, BendIn(1534, HVDn, 12, siceWin), BendMin(1536, HVUp, 3, siceWin), OrigLt(1538, HVDL, 7, siceWin)),
     TRow(86, ice)
     )
   }

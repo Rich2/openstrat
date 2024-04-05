@@ -21,9 +21,9 @@ object Terr320W30 extends Long320Terrs
       TRow(158, ice * 2, SeaIceWinter),
       TRow(156, ice * 2, SeaIceWinter),
       TRow(154, ice, tundra, sea * 2),
-      VRow(153, BendOut(11774, HVDR, 7), BendIn(11776, HVUL, 10), SourceLt(11778, HVDn,7)),
+      VRow(153, BendOut(11774, HVDR, 7), BendIn(11776, HVUL, 10), OrigLt(11778, HVDn,7)),
       TRow(152, Land(Hilly, IceCap, LandFree), sea, hillyTundra, hillyTundra),
-      VRow(151, BendOut(11772, HVDR, 7), BendIn(11774, HVUL, 13), BendIn(11786, HVUL), BendIn(11778, HVUR, 13), SourceRt(11780, HVUL)),
+      VRow(151, BendOut(11772, HVDR, 7), BendIn(11774, HVUL, 13), BendIn(11786, HVUL), BendIn(11778, HVUR, 13), OrigRt(11780, HVUL)),
       TRow(150, Land(Hilly, IceCap, LandFree)),
       VRow(149, BendOut(11770, HVDR, 7), BendIn(11772, HVUL, 13)),
       TRow(148, tundra),
@@ -31,7 +31,7 @@ object Terr320W30 extends Long320Terrs
       VRow(123, BendIn(11792, HVDR, 11), BendIn(11794, HVDn, 11), ThreeDown(11796, 0, 7, 11)),
       TRow(122, sea * 8, mtainSavannah),
       VRow(121, BendIn(11792, HVUR, 11), BendIn(11794, HVUp, 11), BendIn(11796, HVUL, 11)),
-      VRow(119, SourceLt(11792, HVDn, 7)),
+      VRow(119, OrigLt(11792, HVDn, 7)),
       TRow(118, sea * 8, deshot),
     )
   }

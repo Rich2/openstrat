@@ -28,18 +28,18 @@ object Terr460E0 extends Long460Terrs
     VRow(133, BendIn(506, HVDR, 13), MouthLt(508, HVUR), BendInLt(512, HVUR, 13, 7), Bend(514, HVDL, 13, 5)),
     TRow(132, mtainOce, hillyOce, oceForest),
 
-    VRow(131, BendIn(504, HVDR, 13), ThreeUp(506, 13, 13, 0), BendOut(508, HVDL), SourceLt(512, HVUR, 7), ThreeUp(514, 13, 0, 13), BendIn(516, HVUp, 13),
+    VRow(131, BendIn(504, HVDR, 13), ThreeUp(506, 13, 13, 0), BendOut(508, HVDL), OrigLt(512, HVUR, 7), ThreeUp(514, 13, 0, 13), BendIn(516, HVUp, 13),
       BendIn(518, HVUL)),
 
     TRow(130, oceanic, hillyOce, sea, oceanic),
-    VRow(129, BendIn(504, HVUR, 13), ThreeDown(506, 6, 13, 0), BendOut(508, HVUL, 7), SourceRt(514, HVDn)),
+    VRow(129, BendIn(504, HVUR, 13), ThreeDown(506, 6, 13, 0), BendOut(508, HVUL, 7), OrigRt(514, HVDn)),
     TRow(128, hillyOce, oceanic, oceanic, hillyOce),
     VRow(127, BendIn(506, HVUR, 13), ThreeDown(508, 13, 6, 0), Bend(510, HVDn, 1, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
     TRow(126, sea, oceanic, oceanic, hillyOce),
-    VRow(125, SourceMin(506, HVUR), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
+    VRow(125, OrigMin(506, HVUR), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
     TRow(124, sea, hillyOce, hillyOce, hillyOce, hillyOce),
 
-    VRow(123, SourceLt(504, HVDn, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10), Bend(520, HVDL, 3, 7),
+    VRow(123, OrigLt(504, HVDn, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10), Bend(520, HVDL, 3, 7),
       BendOut(524, HVDL)),
 
     TRow(122, hillySavannah, sahel, hillySavannah, hillySavannah, hillySavannah),
@@ -48,7 +48,7 @@ object Terr460E0 extends Long460Terrs
       BendIn(518, HVUp, 10), ThreeUp(520, 6, 3, 3), BendIn(522, HVDL, 11), Mouth(524, HVDn,4 ,7)),
 
     TRow(120, sea, hillyOce, hillySavannah, hillySavannah, hillySavannah),
-    VRow(119, SourceRt(504, HVUR, 7), ThreeUp(506, 13, 6, 0), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), MouthLt(522, HVDn, 7)),
+    VRow(119, OrigRt(504, HVUR, 7), ThreeUp(506, 13, 6, 0), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), MouthLt(522, HVDn, 7)),
     TRow(118, sea, hillySahel, hillyDeshot, deshot, deshot, sahel),
     VRow(117, BendIn(500, HVDn, 13), BendInRt(502, HVDL, 13, 7)),
     TRow(116, hillyDeshot, deshot * 5),

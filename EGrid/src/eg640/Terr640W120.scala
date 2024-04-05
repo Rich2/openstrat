@@ -12,7 +12,7 @@ object Terr640W120 extends Long640Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    VRow(131, SourceRt(8706, HVDR, 7, SeaIcePerm), BendIn(8708, HVDL, 13, SeaIcePerm)),
+    VRow(131, OrigRt(8706, HVDR, 7, SeaIcePerm), BendIn(8708, HVDL, 13, SeaIcePerm)),
     TRow(130, hillyTundra),
 
     VRow(129, BendOut(8702, HVUp, 7, siceWin), BendOut(8704, HVDn, 7, siceWin), ThreeDown(8706, 13, 6, 0, SeaIcePerm, siceWin, siceWin),
@@ -27,14 +27,14 @@ object Terr640W120 extends Long640Terrs
     TRow(120, mtainOceForest, hillyTaiga, savannah),
     VRow(119, BendIn(8698, HVUR, 13), BendOut(8700, HVDL, 7)),
     TRow(118, mtainOceForest, mtainSavannah, hillySahel),
-    VRow(117, SourceRt(8700,HVUp, 7)),
+    VRow(117, OrigRt(8700,HVUp, 7)),
     TRow(116, sea, hillySavannah, hillyDeshot),
     TRow(114, sea * 2, hillySahel, hillyDeshot),
     TRow(112, sea * 2, hillySahel, hillySahel),
     TRow(110, sea * 3, hillyDeshot),
-    VRow(109, SourceLt(8708, HVDR, 7), BendOut(8710, HVDL, 7)),
+    VRow(109, OrigLt(8708, HVDR, 7), BendOut(8710, HVDL, 7)),
     TRow(108, sea * 3, mtainSavannah),
-    VRow(107, BendIn(8710, HVUR, 13), SourceRt(8712, HVUL, 7))
+    VRow(107, BendIn(8710, HVUR, 13), OrigRt(8712, HVUL, 7))
     )
   }
   help.run
