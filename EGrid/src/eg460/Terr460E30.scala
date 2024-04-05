@@ -37,14 +37,14 @@ object Terr460E30 extends Long460Terrs
         MouthRt(1544, HVDR)),
 
       TRow(122, hillySavannah, hillySavannah, hillySahel, mtainDepr, mtainDepr),
-      VRow(121, Mouth(1528, HVDn, 3, 7), BendIn(1530, HVDR, 13), ThreeUp(1532, 6, 13, 0), BendIn(1534, HVDL, 13)),
+      VRow(121, Orig(1528, HVUp, 3, 7), BendIn(1530, HVDR, 13), ThreeUp(1532, 6, 13, 0), BendIn(1534, HVDL, 13)),
       TRow(120, SepB(), sea, hillySavannah, hillySavannah, hillySavannah, deshot),
 
-      VRow(119, MouthRt(1528, HVDL, 7), ThreeUp(1530, 13, 11, 0), Bend(1532, HVUp, 13, 7), ThreeUp(1534, 13, 13, 13), Bend(1536, HVUp, 13, 7),
+      VRow(119, OrigRt(1528, HVUR, 7), ThreeUp(1530, 13, 11, 0), Bend(1532, HVUp, 13, 7), ThreeUp(1534, 13, 13, 13), Bend(1536, HVUp, 13, 7),
         BendIn(1538, HVDn, 13), Mouth(1540, HVDR, 7, 2)),
 
       TRow(118, sahel, sahel, sahel, sahel, savannah, deshot),
-      VRow(117, MouthOld(1534, HVDL, 3, Scarp), MouthOld(1536, HVUR, 3, Scarp), MouthMin(1538, HVUp), MouthLt(1550, HVUp)),
+      VRow(117, OrigMin(1534, HVUR, 3, Scarp), OrigMin(1536, HVDL, 3, Scarp), OrigMin(1538, HVDn), OrigLt(1550, HVDn)),
       TRow(116, deshot * 2, sahel, deshot, deshot * 2),
       VRow(115, BendIn(1538, HVUR, 8), Bend(1540, HVDL, 1, 7), BendIn(1550, HVUR, 13)),
       TRow(114, deshot * 3, sahel, hillySahel, deshot),

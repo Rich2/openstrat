@@ -36,7 +36,7 @@ object Terr460E0 extends Long460Terrs
     TRow(128, hillyOce, oceanic, oceanic, hillyOce),
     VRow(127, BendIn(506, HVUR, 13), ThreeDown(508, 13, 6, 0), Bend(510, HVDn, 1, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
     TRow(126, sea, oceanic, oceanic, hillyOce),
-    VRow(125, OrigMin(506, HVUR), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
+    VRow(125, OrigMin(506, HVUR), ThreeUp(508, 13, 13, 0), Orig(510, HVUL, 5, 7), OrigMin(518, HVDn), OrigRt(520, HVDR), BendIn(522, HVDL, 7)),
     TRow(124, sea, hillyOce, hillyOce, hillyOce, hillyOce),
 
     VRow(123, OrigLt(504, HVDn, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10), Bend(520, HVDL, 3, 7),
