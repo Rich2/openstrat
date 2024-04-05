@@ -1,5 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import reflect.ClassTag
 
 /** [[Tell]] trait for classes with 2+ Show parameters. */
 trait Tell2Plused[A1, A2] extends Any with TellN with Persist2Plus[A1, A2]
@@ -167,4 +168,29 @@ trait Tell2Repeat[A1, A2] extends Tell
   }
 
   override def tellDepth: Int = 3
+}
+
+/** Class to provide both [[Show]] and [[Unshow]] type class instances for [[Tell2]] objects. */
+class PersistTell2[A1, A2, A <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
+  val shortKeys: ArrPairStr[A], val newT: (A1, A2) => A, override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1Ev: Unshow[A1],
+  val unshow2Ev: Unshow[A2]) extends PersistTell[A] with ShowTell2[A1, A2, A] with Unshow2[A1, A2, A]
+{ override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+}
+
+object PersistTell2
+{ /** Factory apply method for creating [[PersistTell2]] type type class instances / evidence. */
+  def apply[A1, A2, A <: Tell2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+    implicit unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], classTag: ClassTag[A]): PersistTell2[A1, A2, A] =
+    new PersistTell2[A1, A2, A](typeStr, name1, name2, ArrPairStr[A](), newT, opt2, opt1)
+
+  /** Factory method for creating [[PersistTell2]] type type class instances / evidence with short labels. */
+  def shorts[A1, A2, A <: Tell2[A1, A2]](typeStr: String, name1: String, name2: String, shorts: ArrPairStr[A], newT: (A1, A2) => A, opt2: Option[A2] = None,
+    opt1: Option[A1] = None)(implicit unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2], classTag: ClassTag[A]): PersistTell2[A1, A2, A] =
+    new PersistTell2[A1, A2, A](typeStr, name1, name2, shorts, newT, opt2, opt1)
+
+  /** Factory method for creating [[PersistTell2]] type class instances / evidence, by explicitly passing the [[Unshow]] type class instances for the two
+   * components. */
+  def explicit[A1, A2, A <: Tell2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => A,unshow1Ev: Unshow[A1], unshow2Ev: Unshow[A2],
+    opt2: Option[A2] = None,opt1: Option[A1] = None)(implicit ct: ClassTag[A]): PersistTell2[A1, A2, A] =
+    new PersistTell2[A1, A2, A](typeStr, name1, name2, ArrPairStr[A](), newT, opt2, opt1)(unshow1Ev, unshow2Ev)
 }

@@ -63,3 +63,7 @@ object ShowTellSum
   { override def typeStr: String = typeStrIn
   }
 }
+
+/** Type class inatances for both [[Show]] and [[Unshow]]. Only use this class where all possilbe requirements have PersistBoth instances. Do not use
+ * it for such types as Sequences where all the potential components are not known. */
+trait PersistTell[A <: Tell] extends ShowTell[A] with Unshow[A]
