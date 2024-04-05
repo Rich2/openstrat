@@ -194,11 +194,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
    *  parameter comes before the terrain type parameter as this is designed primarily for modeling existing terrain rather than pure creation.  */
   case class MouthOld(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
 
-  /** Deprecated. Replace with [[OrigMin]] reversing the dirn. */
-  case class MouthMin(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
-  { override def magnitude: Int = 3
-  }
-
   /** Deprecated. Replace with [[OrigRt]] reversing the dirn. */
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase
 

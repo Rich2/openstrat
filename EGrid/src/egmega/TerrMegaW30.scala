@@ -31,7 +31,10 @@ object TerrMegaW30 extends LongMegaTerrs
     TRow(104, sea * 2, sahel),
     VRow(103, BendIn(11778, HVUR, 13), BendOut(11780, HVDL, 7)),
     TRow(102, sea * 2, hillyJungle),
-    VRow(101, BendOut(11770, HVUp, 7), BendIn(11772, HVDn, 13), BendIn(11774, HVDL, 13), BendIn(11780, HVUR, 13), BendIn(11782, HVUp, 13), MouthMin(11784, HVUR)),
+
+    VRow(101, BendOut(11770, HVUp, 7), BendIn(11772, HVDn, 13), BendIn(11774, HVDL, 13), BendIn(11780, HVUR, 13), BendIn(11782, HVUp, 13),
+      OrigMin(11784, HVDL)),
+
     TRow(100, hillySavannah),
     VRow(99, BendOut(11774, HVUR, 7), BendIn(11776, HVDL, 13)),
     TRow(98, hillySavannah),

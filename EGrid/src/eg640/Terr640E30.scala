@@ -23,7 +23,7 @@ object Terr640E30 extends Long640Terrs
     TRow(122, oceanic, oceanic),
     TRow(120, oceanic * 3),
     TRow(118, oceanic, oceanic, oceanic),
-    VRow(119, MouthMin(1536, HVUp), MouthLt(1544, HVUp, 7, Lake)),
+    VRow(119, OrigMin(1536, HVDn), OrigLt(1544, HVDn, 6, Lake)),
 
     VRow(117, BendIn(1530, HVDL, 11), MouthRt(1534, HVUp), Bend(1536, HVUR, 12, 7), BendIn(1538, HVUp, 13), Mouth(1540, HVUR, 7, 6),
       BendMin(1544, HVUR, 3, Lake)),
@@ -42,11 +42,11 @@ object Terr640E30 extends Long640Terrs
     VRow(105, BendIn(1544, HVUR), Bend(1546, HVUp, 4, 6), Bend(1548, HVDn, 10, 4)),
     TRow(104, Land(Plain, Savannah, Forest), savannah, savannah, hillySavannah, hillySahel),
     TRow(102, jungle * 2, Land(Plain, Savannah, Forest), hillySavannah, sahel),
-    VRow(101, MouthOld(1546, HVUp)),
+    VRow(101, OrigMin(1546, HVDn, 5)),
     TRow(100, jungle * 2, hillyJungle, hillySavannah, hillySavannah),
-    VRow(99, MouthMin(1536, HVUp, lake), BendOut(1544, HVDR), BendIn(1546, HVUL, 13)),
+    VRow(99, OrigMin(1536, HVDn, 3, lake), BendOut(1544, HVDR), BendIn(1546, HVUL, 13)),
     TRow(98, hillyJungle * 2, savannah, hillySavannah),
-    VRow(97, MouthMin(1536, HVDn, lake), BendOut(1544, HVUR, 7), BendIn(1546, HVDL, 13)),
+    VRow(97, OrigMin(1536, HVUp, 3, lake), BendOut(1544, HVUR, 7), BendIn(1546, HVDL, 13)),
     TRow(96, savannah, jungle * 2, hillySavannah * 2),
     VRow(95, BendIn(1546, HVUL, 13)),
     )
