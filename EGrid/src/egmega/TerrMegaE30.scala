@@ -16,15 +16,14 @@ object TerrMegaE30 extends LongMegaTerrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rows: RArr[RowBase] = RArr(
-      VRow(119, BendOut(1536, HVUp), MouthOld(1538, HVUR)),
+      VRow(119, BendOut(1536, HVUp), SourceLt(1538, HVDL, 7)),
       TRow(118, tundra),
       TRow(116, taiga),
-      VRow(115, MouthOld(1534, HVUR)),
-      TRow(114, oceanic),
+      TRow(114, continental),
       TRow(112, hillyOce, oceanic),
       VRow(111, BendIn(1532, HVDL, 13)),
       TRow(110, hillyOce, hillyOce),
-      VRow(109, BendOut(1532, HVUR), Bend(1534, HVUp, 8, 3), BendIn(1536, HVDn, 13), MouthOld(1538, HVDR)),
+      VRow(109, BendOut(1532, HVUR), Bend(1534, HVUp, 8, 3), BendIn(1536, HVDn, 13), SourceLt(1538, HVUL)),
       TRow(108, savannah, deshot),
       VRow(107, Mouth(1538, HVUL, 1, 5), BendIn(1540, HVDL, 13)),
       TRow(106, deshot * 3),
@@ -32,7 +31,7 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(104, deshot * 3),
       VRow(103, BendOut(1542, HVUR), BendIn(1544, HVUp, 13)),
       TRow(102, jungle * 2, hillyOce),
-      TRow(100, jungle * 2, savannah),
+      TRow(100, jungle * 2, sahel),
       TRow(98, jungle * 2, sea),
       VRow(97, BendInLt(1542, HVDR, 6, 7)),
       TRow(96, savannah, hillySavannah * 2),
