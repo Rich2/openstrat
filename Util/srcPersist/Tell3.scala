@@ -52,3 +52,16 @@ trait TellDbl3 extends Any with Tell3[Double, Double, Double]
   final override implicit def show2: Show[Double] = Show.doubleEv
   final override implicit def show3: Show[Double] = Show.doubleEv
 }
+
+/** Type class trait for Showing [[Tell2]] objects. */
+trait ShowTell3[A1, A2, A3, R <: Tell3[A1, A2, A3]] extends ShowTell[R]
+
+object ShowTell3
+{
+  def apply[A1, A2, A3, R <: Tell3[A1, A2, A3]](typeStr: String)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3]): ShowTell3[A1, A2, A3, R] =
+    new ShowTell3Imp[A1, A2, A3, R](typeStr)
+
+  /** Implementation class for the general cases of the [[ShowTell2]] trait. */
+  class ShowTell3Imp[A1, A2, A3, R<: Tell3[A1, A2, A3]](val typeStr: String)(implicit val show1: Show[A1], val show2: Show[A2], val show3: Show[A3]) extends
+    ShowTell3[A1, A2, A3, R]
+}
