@@ -3,7 +3,7 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 460km.
- * Isle10 57981.753km² => 120974.276km². Sri Lanka 65610km². */
+ * [[Isle10]] 64603.127km² => 78919.609km². Sri Lanka 65610km². */
 object Terr460E90 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e90(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -32,14 +32,18 @@ object Terr460E90 extends Long460Terrs
     TRow(116, deshot, deshot, hillyDeshot, mtainDepr * 3),
     TRow(114, hillyOce, oceanic, hillySavannah, savannah, hillyJungle, mtainDepr),
     TRow(112, hillySavannah * 2, Land(Plain, Tropical), hillySavannah, mtainDepr * 2),
-    VRow(111, MouthOld(3598, HVUL)),
+    VRow(111, BendMin(3580, HVDR, 4), BendOut(3582, HVDn, 7), MouthOld(3598, HVUL)),
     TRow(110, savannah, hillySavannah, sea * 2, hillyJungle, mtainDepr),
-    VRow(109, MouthOld(3590, HVUp)),
+    VRow(109, BendOut(3578, HVDR, 7), BendIn(3580, HVUL, 13), MouthOld(3590, HVUp)),
     TRow(108, sahel, savannah, sea * 3, mtainDepr, hillySavannah),
+    VRow(107, BendOut(3576, HVDR, 7), BendIn(3578, HVUL, 13)),
     TRow(106, savannah, sea * 4, mtainDepr, jungle),
-    VRow(105, BendIn(3590, HVDR), MouthOld(3592, HVUR), MouthOld(3594, HVDL)),
-    TRow(104, hillySavannah, Isle10(hillyJungle), sea * 3, hillyJungle),
-    VRow(103, BendIn(3590, HVUR, 13), BendOut(3592, HVDL, 7)),
+    VRow(105, BendOut(3570, HVDL, 7), Bend(3574, HVDR, 6, 7), ThreeUp(3576, 0, 6, 11), BendIn(3578, HVDL), BendIn(3590, HVDR), MouthOld(3592, HVUR), MouthOld(3594, HVDL)),
+    TRow(104, hillySavannah, hillyJungle, sea * 3, hillyJungle),
+
+    VRow(103, BendIn(3570, HVUR, 13), BendIn(3572, HVUp, 13), ThreeUp(3574, 6, 0, 13), BendIn(3576, HVUp), BendIn(3578, HVUL), BendIn(3590, HVUR, 13),
+      BendOut(3592, HVDL, 7)),
+
     TRow(102, sea * 4, hillyJungle, hillyJungle),
     VRow(101, BendIn(3588, HVUR, 13), BendOut(3590, HVDL, 7), BendIn(3592, HVUR, 13), BendIn(3594, HVUp, 13), MouthOld(3596, HVUR)),
     TRow(100, sea * 5, hillyJungle, hillyJungle),
@@ -49,4 +53,8 @@ object Terr460E90 extends Long460Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(104, "", "Sri Lanka")
+  }
 }

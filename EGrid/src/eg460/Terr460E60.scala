@@ -45,14 +45,22 @@ object Terr460E60 extends Long460Terrs
     TRow(112, deshot * 2, hillySahel, sea, savannah, savannah),
     VRow(111, BendOut(2560, HVDR, 7), BendIn(2562, HVUL, 13), BendIn(2566, HVUR, 13), ThreeDown(2568, 13, 13, 0), Orig(2570, HVDL, 6, 2)),
     TRow(110, deshot, hillyDeshot, deshot, sea * 2, mtainSavannah),
-    VRow(109, BendOut(2554, HVDR), BendOut(2556, HVDn), BendIn(2558, HVUp, 13), BendIn(2560, HVUL, 13), BendIn(2568, HVUR, 13)),
+    VRow(109, BendOut(2554, HVDR), BendOut(2556, HVDn), BendIn(2558, HVUp, 13), BendIn(2560, HVUL, 13), BendIn(2568, HVUR, 13), BendOut(2570, HVDL, 7)),
     TRow(108, mtainDepr, mtainDepr, sea * 4, hillySavannah),
-    VRow(107, BendIn(2546, HVDn, 13), Bend(2548, HVUp, 12, 7), Bend(2550, HVDn, 10, 7), BendIn(2552, HVUp, 13), BendIn(2554, HVUL, 13)),
+
+    VRow(107, BendIn(2546, HVDn, 13), Bend(2548, HVUp, 12, 7), Bend(2550, HVDn, 10, 7), BendIn(2552, HVUp, 13), BendIn(2554, HVUL, 13), BendIn(2570, HVUR, 13),
+      BendOut(2572, HVDL, 7)),
+
     TRow(106, hillyDeshot, sea * 5, hillySavannah),
+    VRow(105, BendIn(2572, HVUR, 13), BendOut(2574, HVDL, 7)),
     TRow(104, deshot),
     VRow(101, BendOut(2546, HVDR), MouthRt(2548, HVUR)),
     VRow(99, BendIn(2546, HVUL, 13)),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str }
+    str(112, "" * 2, "Oman east")
+  }
 }
