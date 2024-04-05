@@ -49,7 +49,7 @@ object Terr460W60 extends Long460Terrs
     TRow(106, hillySavannah * 3),
     TRow(104, mtainDepr, savannah, hillyJungle * 2),
     TRow(102, jungle, hillyJungle * 2, jungle, hillyJungle),
-    VRow(101, MouthRt(10762, HVDL), BendIn(10764, HVDn, 13), BendIn(10766, HVDL, 13)),
+    VRow(101, OrigRtRevDepr(10762, HVDL), BendIn(10764, HVDn, 13), BendIn(10766, HVDL, 13)),
     TRow(100, jungle * 3, hillyJungle, mtainDepr, hillyJungle, jungle),
     VRow(99, OrigMinRevDepr(10766, HVDn)),
     TRow(98, jungle * 4, hillyJungle * 2, jungle),

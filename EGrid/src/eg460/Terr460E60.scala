@@ -15,7 +15,7 @@ object Terr460E60 extends Long460Terrs
     TRow(146, SeaIcePerm),
     VRow(145, BendIn(2558, HVDL, 13, SeaIceWinter)),
     TRow(144, SeaIceWinter),
-    VRow(143, MouthLt(2558, HVDn, 7, SeaIceWinter), MouthRt(2560, HVDL, 7), BendIn(2562, HVDn, 10, sea, SeaIceWinter), ThreeDown(2564, 0, 13, 13, SeaIceWinter)),
+    VRow(143, MouthLt(2558, HVDn, 7, SeaIceWinter), OrigRtRevDepr(2560, HVDL, 7), BendIn(2562, HVDn, 10, sea, SeaIceWinter), ThreeDown(2564, 0, 13, 13, SeaIceWinter)),
     TRow(142, ice),
     VRow(141, BendOut(2562, HVDR, 7, SeaIceWinter), BendIn(2564, HVUL, 13, SeaIceWinter)),
     TRow(140, mtainDepr, tundra),
@@ -54,7 +54,7 @@ object Terr460E60 extends Long460Terrs
     TRow(106, hillyDeshot, sea * 5, hillySavannah),
     VRow(105, BendIn(2572, HVUR, 13), BendOut(2574, HVDL, 7)),
     TRow(104, deshot),
-    VRow(101, BendOut(2546, HVDR), MouthRt(2548, HVUR)),
+    VRow(101, BendOut(2546, HVDR), OrigRtRevDepr(2548, HVUR)),
     VRow(99, BendIn(2546, HVUL, 13)),
     )
   }

@@ -20,7 +20,7 @@ object Terr320E0 extends Long320Terrs
     TRow(164, SeaIceWinter),
     TRow(162, SeaIceWinter * 2),
     TRow(160, SeaIceWinter),
-    VRow(157, MouthRt(518, HVDL, 7), MouthLt(520, HVUR, 7)),
+    VRow(157, OrigRtRevDepr(518, HVDL, 7), MouthLt(520, HVUR, 7)),
     TRow(156, sea * 3),
     TRow(154, sea * 4),
     TRow(152, sea * 3, hillyTaiga),
@@ -29,7 +29,7 @@ object Terr320E0 extends Long320Terrs
     VRow(149, MouthLt(514, HVUp, 7)),
     TRow(148, sea * 3, hillyTaiga, taiga),
 
-    VRow(147, BendIn(504, HVDR, 13), MouthLt(506, HVUR, 7), MouthRt(512, HVUp, 7), MouthRt(514, HVDn, 7), BendIn(516, HVDR, 13), BendIn(518, HVDn, 13),
+    VRow(147, BendIn(504, HVDR, 13), MouthLt(506, HVUR, 7), OrigRtRevDepr(512, HVUp, 7), OrigRtRevDepr(514, HVDn, 7), BendIn(516, HVDR, 13), BendIn(518, HVDn, 13),
       Bend(520, HVDL, 5, 1), Bend(524, HVDR, 13, 3)),
 
     TRow(146, mtainDepr, hillyOce, sea, oceanic, oceForest),
@@ -38,9 +38,9 @@ object Terr320E0 extends Long320Terrs
       OrigMin(518, HVUL, 4), BendIn(520, HVUR), BendOut(522, HVUp, 7), Bend(524, HVUL, 2, 7)),
 
     TRow(144, hillyOce, oceanic, oceanic, sea, oceanic),
-    VRow(143, MouthRt(502, HVDn, 7), BendIn(506, HVUR, 13), BendIn(508, HVDL, 7), BendOut(514, HVUR, 7), BendIn(516, HVDL, 13)),
+    VRow(143, OrigRtRevDepr(502, HVDn, 7), BendIn(506, HVUR, 13), BendIn(508, HVDL, 7), BendOut(514, HVUR, 7), BendIn(516, HVDL, 13)),
     TRow(142, sea, oceanic, oceanic, oceanic, oceanic * 2),
-    VRow(141, Mouth(506, HVDL, 7, 7), BendIn(508, HVUL, 11), BendIn(510, HVDR, 13), BendIn(512, HVDn), BendIn(514, HVUp), BendIn(516, HVUL, 13)),
+    VRow(141, OrigRevDepr(506, HVDL, 7, 7), BendIn(508, HVUL, 11), BendIn(510, HVDR, 13), BendIn(512, HVDn), BendIn(514, HVUp), BendIn(516, HVUL, 13)),
     TRow(140, sea, hillyOce, oceanic, oceanic * 3),
     VRow(139, BendIn(506, HVUR, 13), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13)),
     TRow(138, sea * 2, oceanic * 2, hillyOce, mtainDepr * 2),
@@ -58,7 +58,7 @@ object Terr320E0 extends Long320Terrs
     TRow(132, sea, hillySub, hillySavannah * 2, hillySavannah, mtainSavannah, sea),
 
     VRow(131, OrigLt(500, HVDn, 7), BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 8, 13, 12), Bend(520, HVUp, 8, 7),
-      ThreeUp(522, 0, 13, 8), BendInRt(524, HVDL, 11, 7), MouthSpec(526, HVUL, HVRt, HVLt)),
+      ThreeUp(522, 0, 13, 8), BendInRt(524, HVDL, 11, 7), OrigSpecRevDepr(526, HVUL, HVRt, HVLt)),
 
     TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainSavannah, hillySavannah, hillySavannah),
 

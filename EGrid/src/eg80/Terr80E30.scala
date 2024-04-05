@@ -80,7 +80,7 @@ object Terr80E30  extends Long80Terrs
 
       VRow(433, BendIn(1490, HVDR, 13)),
       TRow(432, hillyOce, savannah, sea * 2, hillyOce, mtainDepr, hillyOce * 6, oceanic * 2, hillyOce, hillyOce * 7, oceanic, hillyOce * 8),
-      VRow(431, MouthRt(1486, HVUL), ThreeDown(1488, 0, 13, 10), BendOut(1490, HVUL, 7)),
+      VRow(431, OrigRtRevDepr(1486, HVUL), ThreeDown(1488, 0, 13, 10), BendOut(1490, HVUL, 7)),
 
       TRow(430, hillyOce, savannah * 2, mtainDepr, hillyOce, mtainDepr, hillyOce, oceanic, hillyOce * 2, sea, hillyOce, sea, hillyOce * 2, mtainDepr * 5,
         hillyOce * 3, mtainDepr * 4, hillyOce * 3, mtainDepr),
@@ -90,7 +90,7 @@ object Terr80E30  extends Long80Terrs
       TRow(428, hillyOce, sea, sea * 2, mtainDepr * 2, hillyOce * 2, hillyOce * 2, sea, hillyOce * 3, mtainDepr, hillyOce * 4, hillyDeshot * 2, hillyOce * 4, hillyDeshot * 2,
       hillyOce * 3, oceanic),
 
-      VRow(427, MouthRt(1490, HVDn), BendIn(1506, HVUR)),
+      VRow(427, OrigRtRevDepr(1490, HVDn), BendIn(1506, HVUR)),
 
       TRow(426, sea, hillyOce, sea * 3, hillyOce, mtainDepr, oceanic, hillyOce, sea * 3, hillyOce * 2, mtainDepr, hillyOce * 2, deshot, hillyDeshot * 7,
         mtainDepr * 2, hillyOce, hillyDeshot * 2, mtainDepr, hillyDeshot),

@@ -21,9 +21,9 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(110, deshot, hillyDeshot),
       TRow(108, hillyDescold, hillySteppe),
       TRow(106, jungle * 3),
-      VRow(105, BendMin(3582, HVDR), Mouth(3584, HVUR, 2, 4), MouthRt(3592, HVUL, 7)),
+      VRow(105, BendMin(3582, HVDR), OrigRevDepr(3584, HVUR, 2, 4), OrigRtRevDepr(3592, HVUL, 7)),
       TRow(104, jungle, sea, jungle),
-      VRow(103, MouthRt(3578, HVUR), BendIn(3580, HVDR, 12), ThreeUp(3582, 0, 12, 13), BendIn(3584, HVDL, 12), Bend(3592, HVDR, 13, 5)),
+      VRow(103, OrigRtRevDepr(3578, HVUR), BendIn(3580, HVDR, 12), ThreeUp(3582, 0, 12, 13), BendIn(3584, HVDL, 12), Bend(3592, HVDR, 13, 5)),
       TRow(102, hillyJungle, sea, hillyJungle),
 
       VRow(101, BendIn(3578, HVUp, 13), ThreeUp(3580, 12, 0, 8), BendIn(3582, HVUp, 12), BendIn(3584, HVUL, 12), OrigLt(3586, HVDn), OrigMin(3588, HVDR),
@@ -35,7 +35,7 @@ object TerrMegaE90 extends LongMegaTerrs
       TRow(98, sea * 2, hillyJungle),
       VRow(95, BendIn(3592, HVDR, 12)),
       VRow(93, BendOut(3592, HVUR)),
-      VRow(91, MouthRt(3590, HVDn, 7)),
+      VRow(91, OrigRtRevDepr(3590, HVDn, 7)),
       TRow(82, ice)
     )
   }

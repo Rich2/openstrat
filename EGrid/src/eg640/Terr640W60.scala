@@ -32,7 +32,7 @@ object Terr640W60 extends Long640Terrs
       BendIn(10758, HVUL, 13, siceWin, sea)),
 
     TRow(118, taiga, sea),
-    VRow(117, BendOut(10750, HVDR, 7), MouthRt(10752, HVUR, 7)),
+    VRow(117, BendOut(10750, HVDR, 7), OrigRtRevDepr(10752, HVUR, 7)),
     TRow(116, hillyCont),
     VRow(115, MouthLt(10746, HVUL), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
     VRow(109, BendIn(10746, HVDL, 6), ThreeUp(10744, 0, 13, 13)),

@@ -25,7 +25,7 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(110, hillyOce, hillyOce),
       VRow(109, BendOut(1532, HVUR), Bend(1534, HVUp, 8, 3), BendIn(1536, HVDn, 13), OrigLt(1538, HVUL)),
       TRow(108, savannah, deshot),
-      VRow(107, Mouth(1538, HVUL, 1, 5), BendIn(1540, HVDL, 13)),
+      VRow(107, OrigRevDepr(1538, HVUL, 1, 5), BendIn(1540, HVDL, 13)),
       TRow(106, deshot * 3),
       VRow(105, BendOut(1540, HVUR, 7), BendIn(1542, HVDL, 13)),
       TRow(104, deshot * 3),
@@ -39,7 +39,7 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(94, sahel, hillySavannah, hillySavannah),
       VRow(93, BendOut(1538, HVDR, 7), ThreeUp(1540, 13, 0, 13), BendIn(1542, HVUp, 10), BendIn(1544, HVUL, 7)),
       TRow(92, hillySavannah, sea),
-      VRow(91, MouthRt(1532, HVDR, 7), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13)),
+      VRow(91, OrigRtRevDepr(1532, HVDR, 7), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13)),
       TRow(82, ice),
     )
   }
