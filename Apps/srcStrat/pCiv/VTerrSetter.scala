@@ -99,8 +99,8 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
       new ThreeDown(c, upRightTerr, downTerr, upLeftTerr, 3, 3, 3)
   }
 
-  /** Source or end point for a river or straits. */
-  case class Source(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VRowElem with SourceBase
+  /** Sets the orign / end poiont of an [[HSep]] tile separator terrain for a river or straits. */
+  case class Orig(c: Int, dirn: HVDirnPrimary, sTerr: VSepSome = Sea, magLt: Int = 3, magRt: Int = 3) extends VRowElem with OrigBase
 
   class BendAll(val c: Int, val dirn: HVDirn, val leftTerr: VSepSome, val rightTerr: VSepSome) extends VRowElem with BendInOutBase
   { override def magIn: Int = 3

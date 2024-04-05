@@ -189,7 +189,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def c: Int
   }
 
-  trait SourceBase extends VertSetBase
+  /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. */
+  trait OrigBase extends VertSetBase
   { /** The terrain of the [[HSep]] from this end point oe source. */
     def sTerr: SST
 
@@ -215,13 +216,15 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
-  trait SourceLtBase extends SourceBase
+  /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. This is offset to the
+   *  left from the same view. */
+  trait OrigLtBase extends OrigBase
   { override def magRt: Int = 0
   }
 
-  /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
-  trait SourceRtBase extends SourceBase
+  /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. This is offset to the
+   *  right from the same view. */
+  trait OrigRtBase extends OrigBase
   { override def magLt: Int = 0
   }
 
