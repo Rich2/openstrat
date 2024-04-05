@@ -30,7 +30,7 @@ object Terr460E60 extends Long460Terrs
     TRow(130, oceanic * 4),
     TRow(128, savannah, sahel * 2, savannah),
     TRow(126, sahel, sahel * 3),
-    VRow(125, BendOut(2554, HVDR), MouthOld(2556, HVUR)),
+    VRow(125, BendOut(2554, HVDR), OrigMinRevDepr(2556, HVUR)),
     TRow(124, hillySavannah, sahel * 3, hillySavannah),
     VRow(123, Bend(2554, HVUR, 4, 7), BendIn(2556, HVDL, 13)),
     TRow(122, savannah, deshot, sahel, mtainDepr * 2),

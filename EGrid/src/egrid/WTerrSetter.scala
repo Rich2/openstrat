@@ -190,9 +190,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     override def magRt: Int = 7
   }
 
-  /** Deprecated. Creates an [[HSep]] separator terrain mouth. Magnitude should be between 3 and 7. Sets the 3 [[HCorner]]s and the [[HSep]]. The magnitude
-   *  parameter comes before the terrain type parameter as this is designed primarily for modeling existing terrain rather than pure creation.  */
-  case class MouthOld(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
+  /** Deprecated. Reverse the direction and replace with [[OrigMin]] [[OrigLi]], [[OrigRt]] or[[Orig]]. */
+  case class OrigMinRevDepr(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with MouthBase
 
   /** Deprecated. Replace with [[OrigRt]] reversing the dirn. */
   case class MouthRt(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with MouthRtBase

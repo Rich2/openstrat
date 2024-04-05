@@ -32,7 +32,7 @@ object Terr320W150 extends Long320Terrs
     VRow(147, ThreeUp(7670, 12, 0, 13, siceWin), BendIn(7672, HVDR, 13), Orig(7674, HVDL, 5, 1)),
     TRow(146, hillyTundra, sea * 3, mtainDepr),
     TRow(144, hillyTaiga, sea * 4),
-    VRow(143, MouthOld(7670, HVUL)),
+    VRow(143, OrigMinRevDepr(7670, HVUL)),
     )
   }
   help.run

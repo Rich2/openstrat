@@ -29,7 +29,7 @@ object Terr640E150 extends Long640Terrs
     TRow(116, hillyOce, sea * 2),
     VRow(115),
     TRow(114, hillyOce, sea * 3),
-    VRow(99, MouthOld(5622, HVDn)),
+    VRow(99, OrigMinRevDepr(5622, HVDn)),
     TRow(98, hillyJungle),
     )
   }
