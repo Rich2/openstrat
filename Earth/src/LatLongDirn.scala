@@ -38,7 +38,9 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn:
   def subLong(delta: AngleVec): LatLongDirn = addLongVec(-delta)
 }
 
-object LatLongDirn{
+object LatLongDirn
+{
+  //def apply()
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
    * values are negative. */

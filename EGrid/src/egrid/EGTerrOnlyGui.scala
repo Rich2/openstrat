@@ -3,14 +3,14 @@ package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
 /** Displays grids on world as well as land mass outlines. */
-class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends EGridBaseGui/*GlobeGui*/("Grid World")
+class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends EGridBaseGui("Grid World")
 { val scen: EScenBasic = scenIn
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
 
   var scale: Length = gridSys.cScale / viewIn.pixelsPerC
-  def gScale: Double = gridSys.cScale / scale
-  def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
+ // def gScale: Double = gridSys.cScale / scale
+  //def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(true)
   var sideDrawOn: Boolean = false
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
