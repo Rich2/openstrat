@@ -25,10 +25,7 @@ object HGView
 { def apply(r: Int, c: Int, cPScale: Double = 50, orientUp: Boolean = true): HGView = new HGView(r, c, cPScale, orientUp)
   def apply(hCoord: HCoord, pxScale: Double, orientUp: Boolean): HGView = new HGView(hCoord.r, hCoord.c, pxScale, orientUp)
 
-  /** Implicit [[Show]] type class instance / evidence for [[HGView]].  */
-  implicit val showEv: ShowTell3[HCoord, Double, Boolean, HGView] = ShowTell3[HCoord, Double, Boolean, HGView]("HGView")
-
-  /** Implicit [[Unshow]] type class instance / evidence for [[HGView]].  */
-  implicit val unshowEv: Unshow3[HCoord, Double, Boolean, HGView] =
-    Unshow3[HCoord, Double, Boolean, HGView]("HGView", "hCoord", "cPScale", "northUp", apply, Some(true))
+  /** Implicit [[Show]] and [[Unshow]] type class instance / evidence for [[HGView]]. */
+  implicit val persistEv: PersistTell3[HCoord, Double, Boolean, HGView] =
+    PersistTell3[HCoord, Double, Boolean, HGView]("HGView", "hCoord", "cPScale", "northUp", apply, Some(true))
 }

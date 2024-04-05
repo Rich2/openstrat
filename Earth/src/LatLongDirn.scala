@@ -39,10 +39,7 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn:
 }
 
 object LatLongDirn
-{
-  //def apply()
-
-  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
+{ /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
    * values are negative. */
   def degs(lat: Double, long: Double, dirn: Boolean = true): LatLongDirn = milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs, dirn)
 

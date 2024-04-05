@@ -149,8 +149,8 @@ trait Tell2Repeat[A1, A2] extends Tell
 
   override def str: String = tell(ShowStdNoSpace)
 
-  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = {
-    def semisStr = tellElemStrs(ShowCommas, maxPlaces).mkStr("; ")
+  override def tell(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
+  { def semisStr = tellElemStrs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match
     { case ShowSemis => semisStr
@@ -171,9 +171,9 @@ trait Tell2Repeat[A1, A2] extends Tell
 }
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for [[Tell2]] objects. */
-class PersistTell2[A1, A2, A <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
-  val shortKeys: ArrPairStr[A], val newT: (A1, A2) => A, override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1Ev: Unshow[A1],
-  val unshow2Ev: Unshow[A2]) extends PersistTell[A] with ShowTell2[A1, A2, A] with Unshow2[A1, A2, A]
+class PersistTell2[A1, A2, A <: Tell2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val shortKeys: ArrPairStr[A], val newT: (A1, A2) => A,
+  override val opt2: Option[A2], opt1In: Option[A1])(implicit val unshow1Ev: Unshow[A1], val unshow2Ev: Unshow[A2]) extends PersistTell[A] with
+  ShowTell2[A1, A2, A] with Unshow2[A1, A2, A]
 { override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 }
 
