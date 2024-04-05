@@ -36,10 +36,10 @@ object Terr460E0 extends Long460Terrs
     TRow(128, hillyOce, oceanic, oceanic, hillyOce),
     VRow(127, BendIn(506, HVUR, 13), ThreeDown(508, 13, 6, 0), Bend(510, HVDn, 1, 7), BendIn(512, HVUp, 9), BendIn(514, HVUL, 6)),
     TRow(126, sea, oceanic, oceanic, hillyOce),
-    VRow(125, MouthMin(506, HVDL), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
+    VRow(125, SourceMin(506, HVUR), ThreeUp(508, 13, 13, 0), Mouth(510, HVDR, 5, 7), MouthMin(518, HVUp), MouthRt(520, HVUL), BendIn(522, HVDL, 7)),
     TRow(124, sea, hillyOce, hillyOce, hillyOce, hillyOce),
 
-    VRow(123, MouthLt(504, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10), Bend(520, HVDL, 3, 7),
+    VRow(123, SourceLt(504, HVDn, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), ThreeDown(516, 13, 13, 13), ThreeUp(518, 13, 0, 10), Bend(520, HVDL, 3, 7),
       BendOut(524, HVDL)),
 
     TRow(122, hillySavannah, sahel, hillySavannah, hillySavannah, hillySavannah),
@@ -48,9 +48,9 @@ object Terr460E0 extends Long460Terrs
       BendIn(518, HVUp, 10), ThreeUp(520, 6, 3, 3), BendIn(522, HVDL, 11), Mouth(524, HVDn,4 ,7)),
 
     TRow(120, sea, hillyOce, hillySavannah, hillySavannah, hillySavannah),
-    VRow(119, MouthRt(504, HVDL, 7), ThreeUp(506, 13, 6, 0), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), MouthLt(522, HVDn, 7)),
+    VRow(119, SourceRt(504, HVUR, 7), ThreeUp(506, 13, 6, 0), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), MouthLt(522, HVDn, 7)),
     TRow(118, sea, hillySahel, hillyDeshot, deshot, deshot, sahel),
-    VRow(117, BendIn(500, HVDn, 13), ThreeDown(502, 0, 10, 13), MouthLt(504, HVUR)),
+    VRow(117, BendIn(500, HVDn, 13), BendInRt(502, HVDL, 13, 7)),
     TRow(116, hillyDeshot, deshot * 5),
     VRow(115, BendIn(500, HVUp, 13), BendIn(502, HVUL, 13)),
     TRow(114, deshot * 4, hillyDeshot, deshot),
