@@ -32,7 +32,9 @@ object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, oceanic)
   val east: LatLong = -15.33 ll 50.48
   val southEast: LatLong = -25.03 ll 46.99
   val south: LatLong = -25.60 ll 45.16
+  val andavadoaka: LatLong = -22.051 ll 43.239
   val tambohorano: LatLong = -17.51 ll 43.93
+  val vilamatsa: LatLong = -16.187 ll 44.450
 
-  override def polygonLL: PolygonLL = PolygonLL(north, east, southEast, south, tambohorano)
+  override def polygonLL: PolygonLL = PolygonLL(north, east, southEast, south, andavadoaka, tambohorano, vilamatsa)
 }
