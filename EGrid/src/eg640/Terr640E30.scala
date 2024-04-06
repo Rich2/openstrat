@@ -17,7 +17,7 @@ object Terr640E30 extends Long640Terrs
     VRow(129, OrigRt(1534, HVUR, 7), BendIn(1536, HVDn, 9)),
     TRow(128, tundra),
     TRow(126, taiga * 2),
-    VRow(125, OrigRtRevDepr(1534, HVUp)),
+    VRow(125, OrigRt(1534, HVDn, 7)),
     TRow(124, oceanic, taiga),
     VRow(123, BendOut(1532, HVUp), Bend(1534, HVUL, 4, 2)),
     TRow(122, oceanic, oceanic),

@@ -3,7 +3,7 @@ package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
 /** Displays grids on world as well as land mass outlines. */
-class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends EGridBaseGui("Grid World")
+class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean = true) extends EGridBaseGui("Grid World")
 { val scen: EScenBasic = scenIn
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
@@ -15,7 +15,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   var sideDrawOn: Boolean = false
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
-  proj match { case ep: HSysProjectionEarth => ep.irrOn = true; case _ => }
+  proj match { case ep: HSysProjectionEarth => ep.irrOn = irregsOn; case _ => }
 
   val terrs: LayerHcRefSys[WTile] = scen.terrs
   val sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
@@ -93,5 +93,6 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
 }
 
 object EGTerrOnlyGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean): EGTerrOnlyGui = new EGTerrOnlyGui(canv,grid, view, isFlat)
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean, irregsOn: Boolean = true): EGTerrOnlyGui =
+    new EGTerrOnlyGui(canv,grid, view, isFlat, irregsOn)
 }

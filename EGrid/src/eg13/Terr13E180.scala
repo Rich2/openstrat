@@ -26,4 +26,8 @@ object Terr13E180 extends Long13Terrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(92, "New Zealand")
+  }
 }
