@@ -74,3 +74,14 @@ object UnshowSingletons
   class UnshowSingletonsImp[+A <: TellSimple](val typeStr: String, val shortKeys: ArrPairStr[A @uncheckedVariance], val singletons: RArr[A]) extends
     UnshowSingletons[A]
 }
+
+class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) extends PersistBothSimple [Boolean](typeStr)
+{
+  override def strT(obj: Boolean): String = ife(obj, typeStr, falseStr)
+
+  override def fromExpr(expr: Expr): EMon[Boolean] = expr match
+  { case IdentifierToken(str) if str == "true" || str == trueStr => Good(true)
+    case IdentifierToken(str) if str == "false" || str == falseStr => Good(false)
+    case _ => expr.exprParseErr[Boolean]
+  }
+}

@@ -2,6 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
+object NorthSouth extends PersistBooleanNamed("NorthSouth", "NorthUp", "SouthUp")
+
 /** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels per delta Cs scale. */
 class HGView(val r: Int, val c: Int, val pixelsPerC: Double, val northUp: Boolean) extends Tell3[HCoord, Double, Boolean]
 { def hCoord: HCoord = HCoord(r, c)
@@ -27,5 +29,6 @@ object HGView
 
   /** Implicit [[Show]] and [[Unshow]] type class instance / evidence for [[HGView]]. */
   implicit val persistEv: PersistTell3[HCoord, Double, Boolean, HGView] =
-    PersistTell3[HCoord, Double, Boolean, HGView]("HGView", "hCoord", "cPScale", "northUp", apply, Some(true))
+    PersistTell3.explicit[HCoord, Double, Boolean, HGView]("HGView", "hCoord", "cPScale", "northUp", apply, HCoord.unshowEv, PersistBoth.doubleEv, NorthSouth,
+      Some(true))
 }
