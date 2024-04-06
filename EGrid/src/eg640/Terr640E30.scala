@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  [[Isle3]] 8660.254km² => 16974.097km². (Crete 8450km²) + (Rhodes 1401km²) = 9851km²
  *  Below 8660.254km²   */
 object Terr640E30 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e30(96)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e30(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -25,13 +25,12 @@ object Terr640E30 extends Long640Terrs
     TRow(118, oceanic, oceanic, oceanic),
     VRow(119, OrigMin(1536, HVDn), OrigLt(1544, HVDn, 6, Lake)),
 
-    VRow(117, BendIn(1530, HVDL, 11), OrigRtRevDepr(1534, HVUp), Bend(1536, HVUR, 12, 7), BendIn(1538, HVUp, 13), OrigRevDepr(1540, HVUR, 7, 6),
-      BendMin(1544, HVUR, 3, Lake)),
+    VRow(117, BendIn(1530, HVDL, 11), Bend(1536, HVUR, 12, 7), BendIn(1538, HVUp, 13), Orig(1540, HVDL, 7, 6),  BendMin(1544, HVUR, 3, Lake)),
 
     TRow(116, hillyOce, hillyOce, hillyOce),
-    VRow(115, SetSep(1529), BendIn(1532, HVDR, 13), ThreeUp(1534, 0, 13, 6), BendIn(1536, HVDL, 13)),
-    TRow(114, sea, mtainDepr, hillySavannah * 2),
-    VRow(113, OrigMinRevDepr(1528, HVDn), BendIn(1532, HVUR, 13), BendIn(1534, HVUp, 13), ThreeUp(1536, 12, 8, 13), OrigRevDepr(1538, HVDR, 1, 7)),
+    VRow(115, SetSep(1529), BendIn(1532, HVDR, 13), BendIn(1534, HVDn, 13), BendIn(1536, HVDL, 13)),
+    TRow(114, sea, mtainSavannah, hillySavannah * 2),
+    VRow(113, BendMin(1528, HVUR, 1), OrigMin(1530, HVUL, 4), BendIn(1532, HVUR, 13), BendIn(1534, HVUp, 13), ThreeUp(1536, 12, 8, 13), Orig(1538, HVUL, 1, 7)),
     TRow(112, deshot, oceanic, deshot * 2),
     VRow(111, MouthLt(1538, HVUL), BendIn(1540, HVDL, 8), MouthLt(1546, HVUL, 7)),
     TRow(110, deshot * 2, deshot, deshot),
@@ -49,6 +48,7 @@ object Terr640E30 extends Long640Terrs
     VRow(97, OrigMin(1536, HVUp, 3, lake), BendOut(1544, HVUR, 7), BendIn(1546, HVDL, 13)),
     TRow(96, savannah, jungle * 2, hillySavannah * 2),
     VRow(95, BendIn(1546, HVUL, 13)),
+    TRow(94, savannah * 2, hillySavannah, savannah, hillySavannah),
     )
   }
   help.run

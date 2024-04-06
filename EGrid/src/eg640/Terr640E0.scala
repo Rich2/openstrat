@@ -33,7 +33,7 @@ object Terr640E0 extends Long640Terrs
       ThreeUp(518, 0, 6, 11), BendIn(520, HVDL, 13)),
 
     TRow(114, sea, hillyOce, hillyOce, hillyOce),
-    VRow(113, MouthLt(520, HVDn, 6)),
+    VRow(113, BendMin(520, HVUR, 1), OrigMin(522, HVUL, 4)),
     TRow(112, hillyDeshot, deshot * 3),
     TRow(110, deshot * 2, hillyDeshot, deshot),
     TRow(108, deshot * 4),
