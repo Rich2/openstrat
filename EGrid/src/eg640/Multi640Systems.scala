@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** 640km terrain only scenario for Europe. 2 Grid system for 0°E and 30°E */
 object Scen640Europe extends EScenLongMulti
 { override val title: String = "640km Europe 0°E - 30°E"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(2, 0, 94)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(2, 0, 86)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
@@ -35,7 +35,7 @@ object Scen640NorthAmerica extends EScenLongMulti
 /** 640km terrain only scenario for Africa, Middle East and Europe. 4 grid system for 30W 0°E, 30°E and 60°E. */
 object Scen640Africa extends EScenLongMulti
 { override val title: String = "640km Africa 30°W - 60°E"
-  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 11, 96)
+  override implicit val gridSys: EGrid640LongMulti = EGrid640.multi(4, 11, 92)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
