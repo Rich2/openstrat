@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle8]] 321588.046km² => 413061.979km². Japan combined 377973 km².
  * [[Isle7]] 241548.355km² => 321588.046km². Most of Philippines 300000km².
  * [[Isle6]] 172942.905km² => 243930.488km².
- * [[Isle5]] 115771.696km² => 172942.905km². Java 138794km².
+ * [[Isle5]] 115771.696km² => 172942.905km². Java 138794km² + Bali 5780km² + Lambok 4607.68km² and Sumbawa 15414km².
  * [[Isle4]] 70034.730km² => 115771.696km². Most of Luzon (109,965 km2) excluding the south plus Taiwan, Lesser Sunda Islands estimate 80000km, */
 object Terr13E120 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e120(86)

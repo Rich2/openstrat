@@ -4,8 +4,9 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 1 megametre or 1000km.
  * [[Isle8]] 190288.785km² => 244415.372km². Most of Philippines excluding Luzon and Palawan.
- * [[Isle7]] 142928.020km² => 190288.785km². NZ South Island 145836km². Sulawesi 186216.16km².
- * [[Isle6]] 102333.079km² => 142928.020km². Luzon 109965km², Java 138,800km².
+ * [[Isle7]] 142928.020km² => 190288.785km². Java 138,800km² + Bali 5780km² + Lambok 4607.68km² and Sumbawa 15414km².
+ * NZ South Island 145836km². Sulawesi 186216.16km².
+ * [[Isle6]] 102333.079km² => 142928.020km². Luzon 109965km².
  * [[Isle5]] 68503.962km² => 102333.079km². Lesser Sunda Islands estimate 80000km.
  * [[Isle3]] 21143.198km² => 41440.668km². Taiwan 36197km², */
 object TerrMegaE120 extends LongMegaTerrs
@@ -38,12 +39,12 @@ object TerrMegaE120 extends LongMegaTerrs
       ThreeUp(4612, 0, 13, 8), BendOut(4614, HVUp, 7), BendIn(4616, HVDn, 13)),
 
     TRow(100, hillyJungle, hillyJungle, hillyJungle),
-    VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 10, 8), ThreeUp(4606, 9, 10, 0), ThreeDown(4608, 9, 11, 10), ThreeUp(4610, 13, 11, 9),
+    VRow(99, BendIn(4602, HVUR), ThreeDown(4604, 6, 9, 8), ThreeUp(4606, 9, 9, 0), ThreeDown(4608, 9, 11, 9), ThreeUp(4610, 13, 11, 9),
       Bend(4612, HVDL, 11, 7)),
 
     TRow(98, hillyJungle, mtainJungle, jungle),
 
-    VRow(97, BendIn(4602, HVUp, 13), ThreeUp(4604, 10, 0, 13), ThreeDown(4606, 10, 13, 0), ThreeUp(4608, 11, 13, 10), Bend(4610, HVUp, 11, 7),
+    VRow(97, BendIn(4602, HVUp, 13), ThreeUp(4604, 9, 0, 13), ThreeDown(4606, 9, 13, 0), ThreeUp(4608, 11, 13, 9), Bend(4610, HVUp, 11, 7),
       ThreeUp(4612, 13, 5, 11), BendIn(4614, HVUp, 13), Bend(4616, HVDn, 6, 6)),
 
     TRow(96, sea, hillySavannah, savannah),

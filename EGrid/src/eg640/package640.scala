@@ -2,7 +2,7 @@
 package ostrat
 import prid.phex._, egrid._
 
-/** Hex tile grids for Earth with a hex scale of 640km, a C scale of 160km. A hex tile area of 354724.005km².
+/** Hex tile grids for Earth with a hex scale of 640km, a C scale of 160km. Hex tile area of 354724.005km².
  * Island maximum 252533.007km²
  * [[Isle13]] 216506.350km² => 252533.007km²
  * [[Isle12]] 183250.975km² => 216506.350km²

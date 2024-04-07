@@ -15,7 +15,7 @@ object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
   override val polygonLL: PolygonLL = PolygonLL(nSumatra, neSumatra, tanjungDatuk, eSumatra, seSumatra, hutan, p70)
 }
 
-/** [[polygonLL]] graphical representation of the island of Java. Depends on nothing. */
+/** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
 object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
 { val ePulauMadura: LatLong = -6.96 ll 114.11
   val pasuruan: LatLong = -7.627 ll 112.919
@@ -52,33 +52,56 @@ object Sumbawa extends EArea2("Sumbawa", -8725 ll 117.442, jungle)
   override val polygonLL: PolygonLL = PolygonLL(north, sangeangeIsland, kelpaIsland, southWest, south, lombokSW, lambokNW)
 }
 
-/** [[polygonLL]] graphical representation of the islands of Flores 14731.67km² . Depends on nothing. */
+/** [[polygonLL]] graphical representation of the islands of Flores 14731.67km², + others 1500km². Depends on nothing. */
 object Flores extends EArea2("Flores", -8.671 ll 121.858, mtainJungle)
 { val north: LatLong = -8.241 ll 120.428
   val northEast: LatLong = -8.064 ll 122.865
-  val alorNE = -8.147 ll 125.095
-  val alorSE = -8.335 ll 125.124
+  val unknownEast = -8.245 ll 123.922
   val p50: LatLong = -8.610 ll 122.893
   val komodoSW = -8.733 ll 119.382
   val komodoNW: LatLong = -8.450 ll 119.432
 
-  override val polygonLL: PolygonLL = PolygonLL(north, northEast, alorNE, alorSE, p50, komodoSW, komodoNW)
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, unknownEast, p50, komodoSW, komodoNW)
 }
 
- /** [[polygonLL]] graphical representation of Lesser Sunda Islands except eastern islands. Depends on nothing. */
-object LesserSunda extends EArea2("Lesser Sunda", -8.538 ll 118.510, jungle)
-{
-  val wetarNorth: LatLong = -7.559 ll 126.627
-  val timorEast: LatLong = -8.402 ll 127.288
-  val roteSE: LatLong = -10.936 ll 122.848
+/** [[polygonLL]] graphical representation of the Alor Island 2124.93km² + others 600km². Depends on nothing. */
+object AlorIsland extends EArea2("Alor", -8.671 ll 121.858, mtainJungle)
+{ val alorNE: LatLong = -8.147 ll 125.095
+  val alorSE: LatLong = -8.327 ll 125.124
+  val southWest: LatLong = -8.548 ll 124.064
+  val west: LatLong = -8.366 ll 123.900
+  val northWest: LatLong = -8.191 ll 124.253
 
-  override val polygonLL: PolygonLL = PolygonLL(wetarNorth, timorEast, roteSE)
+  override val polygonLL: PolygonLL = PolygonLL(alorNE, alorSE, southWest, west, northWest)
+}
+
+/** [[polygonLL]] graphical representation of Wetar Island 2651.8km²  f Lessar Sunda Islands. Depends on nothing. */
+object Wetar extends EArea2("Wetar", -7.788 ll 126.363, jungle)
+{ val north: LatLong = -7.559 ll 126.627
+  val east: LatLong = -7.733 ll 126.841
+  val southEast: LatLong = -7.973 ll 126.464
+  val liranSouth: LatLong = -8.058 ll 125.735
+  val reong: LatLong = -7.658 ll 125.124
+
+  override val polygonLL: PolygonLL = PolygonLL(north, east, southEast, liranSouth, reong)
+}
+
+ /** [[polygonLL]] graphical representation of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends on
+  * nothing. */
+object Timor extends EArea2("Timor", -8.538 ll 118.510, jungle)
+{ val east: LatLong = -8.412 ll 127.288
+  val toineke: LatLong = -10.168 ll 124.393
+  val roteSW: LatLong = -10.936 ll 122.848
+  val roteNW: LatLong = -10.783 ll 122.810
+  val northWest: LatLong = -9.631 ll 123.671
+  val kuikora: LatLong = -8.642 ll 125.124
+
+  override val polygonLL: PolygonLL = PolygonLL(east, toineke, roteSW, roteNW, northWest, kuikora)
 }
 
 /** [[polygonLL]] graphical representation of Sumba Island 11243.78km²  in the Lesser Sunda Islands. Depends on nothing. */
 object Sumba extends EArea2("Sumba", -9.720 ll 120.031, jungle)
-{
-  val north: LatLong = -9.276 ll 119.935
+{ val north: LatLong = -9.276 ll 119.935
   val east: LatLong = -10.033 ll 120.845
   val south: LatLong = -10.315 ll 120.453
   val west: LatLong = -9.552 ll 118.925

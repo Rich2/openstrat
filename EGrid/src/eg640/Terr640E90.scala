@@ -36,7 +36,8 @@ object Terr640E90 extends Long640Terrs
     TRow(102, hillyJungle, sea * 2, hillyJungle, hillyJungle),
     VRow(101, BendIn(3576, HVUR, 9), BendIn(3578, HVUp, 9), BendIn(3580, HVUL, 9), BendOut(3592, HVUR), ThreeDown(3594, 0, 13, 8)),
     TRow(100, sea * 4, hillyJungle),
-    TRow(98, sea * 4, jungle)
+    TRow(98, sea * 4, jungle),
+    VRow(97, ThreeDown(3594, 11, 6, 0)),
     )
   }
   help.run

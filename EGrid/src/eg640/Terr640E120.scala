@@ -2,9 +2,11 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 640km.
- * Isle 234173.269km² <= 112236.892km². Luzon+, southern Philippines
+/** 640km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile area of 354724.005km².
+ * [[Isle10]] 125054.068km² => 152766.881km². Java 124413km² + Bali 5780km².
+ * [[Isle9]] 100112.536km² => 125054.068km². Luzon+ 109,965 km², southern Philippines
  * [[Isle5]] 28059.223km² => 41915.629km². Taiwan 36197km².
+ * Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
  * Isle3 [[Isle3]] 8660.254km² => 16974.097km². Palawan- (12,188.6 km2). */
 object Terr640E120 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e120(94)
@@ -39,12 +41,20 @@ object Terr640E120 extends Long640Terrs
     VRow(105, BendIn(4598, HVDL, 13), OrigRt(4602, HVDn, 7)),
     TRow(104, SepB(), jungle, sea, Isle3(mtainJungle), Isle10(hillyJungle)),
     VRow(103, BendOut(4598, HVUR, 7), ThreeDown(4600, 13, 0, 13), BendIn(4602, HVUL, 13)),
-    TRow(102, sea, hillyJungle),
+    TRow(102, sea, hillyJungle, hillyJungle),
     VRow(101, ThreeDown(4598, 0, 13, 8), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13), BendIn(4618, HVDL, 9)),
     TRow(100, hillyJungle, jungle, hillyJungle, sea, hillyJungle),
     VRow(99, OrigMin(4618, HVUp, 2)),
     TRow(98, hillyJungle, sea, hillyJungle, sea, hillyJungle),
+    VRow(97, ThreeDown(4598, 13, 6, 0)),
+    TRow(96, hillyJungle * 2, mtainJungle, mtainJungle),
+    VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7)),
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(102, "", "Borneo north", "Mindanao")
+    str(96, "" * 3, "Timor")
+  }
 }
