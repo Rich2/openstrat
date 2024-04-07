@@ -114,7 +114,7 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
 /** Malay archipelago. */
 object MalayArch extends EArea1("MalayArchAustralasia", 0.762 ll 123.068)
 { import pMalay._
-  override val a2Arr: RArr[EArea2] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, Sumbawa, Sumba, LesserSunda, NewGuinea, Luzon, Palawan, Visayas, Samar,
+  override val a2Arr: RArr[EArea2] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, Sumbawa, Sumba, Flores, LesserSunda, NewGuinea, Luzon, Palawan, Visayas, Samar,
     Mindano)
 }
 

@@ -52,6 +52,19 @@ object Sumbawa extends EArea2("Sumbawa", -8725 ll 117.442, jungle)
   override val polygonLL: PolygonLL = PolygonLL(north, sangeangeIsland, kelpaIsland, southWest, south, lombokSW, lambokNW)
 }
 
+/** [[polygonLL]] graphical representation of the islands of Flores 14731.67km² . Depends on nothing. */
+object Flores extends EArea2("Flores", -8.671 ll 121.858, mtainJungle)
+{ val north: LatLong = -8.241 ll 120.428
+  val northEast: LatLong = -8.064 ll 122.865
+  val alorNE = -8.147 ll 125.095
+  val alorSE = -8.335 ll 125.124
+  val p50: LatLong = -8.610 ll 122.893
+  val komodoSW = -8.733 ll 119.382
+  val komodoNW: LatLong = -8.450 ll 119.432
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, alorNE, alorSE, p50, komodoSW, komodoNW)
+}
+
  /** [[polygonLL]] graphical representation of Lesser Sunda Islands except eastern islands. Depends on nothing. */
 object LesserSunda extends EArea2("Lesser Sunda", -8.538 ll 118.510, jungle)
 {
