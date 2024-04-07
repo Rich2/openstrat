@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
-import geom._, pglobe._, LatLong._, egrid._, WTiles._
+import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
 object Kazak extends EArea2("Kazak", 47 ll 60, deshot)
@@ -8,12 +8,17 @@ object Kazak extends EArea2("Kazak", 47 ll 60, deshot)
     Kyrgyyzstan.p65, middleEast.Persia.north) ++ pEurope.Caspian.kazakCoast.reverse |++| LinePathLL(RusNorth.p50)
 }
 
-object Himalayas extends EArea2("Himalayas", degs(32, 75), mtainTundra)
-{ override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, Yunnan.northEast, Yunnan.northWest, India.indiaNE, India.kotdwar,
+object Himalayas extends EArea2("Himalayas", 32 ll 75, mtainTundra)
+{ override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar,
   Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
 }
 
-object Kyrgyyzstan extends EArea2("Kyrgyzstan", degs(47, 76), mtainSavannah)
+object TibetEast extends EArea2("Tibet east", 32 ll 75, mtainTaiga)
+{
+  override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWest, Mongolia.south, Yunnan.northEast, Yunnan.northWest)
+}
+
+object Kyrgyyzstan extends EArea2("Kyrgyzstan", 47 ll 76, mtainSavannah)
 { val p10: LatLong = 39.377 ll 75.528
   val p20: LatLong = 37.381 ll 77.418
   val islamabad: LatLong = 33.749 ll 73.19

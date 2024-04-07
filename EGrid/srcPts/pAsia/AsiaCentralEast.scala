@@ -33,11 +33,12 @@ object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDeshot)
 object Mongolia extends EArea2("Mongolia", 42 ll 115, deshot)
 { val southEast: LatLong = 41.096 ll 114.088
   val p50: LatLong = 39.860 ll 106.965
+  val south: LatLong = 37.310 ll 103.875
   val southWest: LatLong = 40.022 ll 96.864
   val southWestOffical: LatLong = 42.745 ll 96.383
   val west: LatLong = 49.170 ll 87.821
 
-  override val polygonLL: PolygonLL = LakeBaikal.southCoast.reverse |++| LinePathLL(Manchuria.hulunbir, southEast, p50, southWest, southWestOffical,
+  override val polygonLL: PolygonLL = LakeBaikal.southCoast.reverse |++| LinePathLL(Manchuria.hulunbir, southEast, p50, south, southWest, southWestOffical,
     west, SiberiaSouth.khuvsgulLakeN)
 }
 
