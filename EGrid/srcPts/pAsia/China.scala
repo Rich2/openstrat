@@ -26,10 +26,12 @@ object China extends EArea2("China", 30.0 ll 105.5, hillySub)
   val p40: LatLong = 20.470 ll 110.535
   val xuwen: LatLong = 20.24 ll 110.18
   val yingzaiMouth: LatLong = 21.45 ll 109.90
+  val baihai: LatLong = 21.444 ll 109.053
+  val liuMouth: LatLong = 21.605 ll 109.037
 
   override val polygonLL: PolygonLL = PolygonLL(Manchuria.jinzhou, qinhuangdao, luanheMouth, huituo, duliujianMouth, p5, jiolaiMouth, p10, rongcheng, p12,
-    haitzhou, p15, p18, putuo, p25, suanyu, longhai, dashwei, hongKong, wuchuan, p40, xuwen, yingzaiMouth, IndoChina.beilunMouth, IndoChina.north,
-    Yunnan.northEast, Mongolia.south, Mongolia.p50, Mongolia.southEast)
+    haitzhou, p15, p18, putuo, p25, suanyu, longhai, dashwei, hongKong, wuchuan, p40, xuwen, yingzaiMouth, baihai, liuMouth, IndoChina.beilunMouth,
+    IndoChina.north, Yunnan.northEast, Mongolia.south, Mongolia.p50, Mongolia.southEast)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
