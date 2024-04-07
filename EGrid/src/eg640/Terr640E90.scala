@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** 640km [[WTile]] terrain terrain for 75° east to 105° east, centred on 90° east. A hex tile area of 354724.005km².
  *  [[Isle7]] 58543.317km² => 77942.286km². Sri Lanka 65610km². */
 object Terr640E90 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e90(92)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e90(90)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -29,8 +29,10 @@ object Terr640E90 extends Long640Terrs
       TRow(106, savannah, sea * 2, hillyJungle, hillyJungle),
       VRow(105, Bend(3574, HVDL, 4, 2), Bend(3578, HVDR, 1, 5), BendIn(3580, HVUL, 13), OrigRtRevDepr(3592, HVUL), BendIn(3594, HVDL, 13)),
       TRow(104, savannah, sea * 3, hillyJungle),
-      VRow(103, BendIn(3574, HVUR), ThreeDown(3576, 6, 11, 0), ThreeUp(3578, 0, 11, 11), BendIn(3580, HVDL, 11), OrigRtRevDepr(3588, HVDL), BendIn(3590, HVDn, 13),
+
+      VRow(103, BendIn(3574, HVUR), ThreeDown(3576, 6, 11, 0), ThreeUp(3578, 0, 11, 11), BendIn(3580, HVDL, 11), OrigRt(3588, HVUR), BendIn(3590, HVDn, 13),
         BendIn(3592, HVDL, 13), BendOut(3594, HVUR, 7), ThreeDown(3596, 13, 0, 13)),
+
       TRow(102, hillyJungle, sea * 2, hillyJungle, hillyJungle),
       VRow(101, BendIn(3576, HVUR, 9), BendIn(3578, HVUp, 9), BendIn(3580, HVUL, 9), BendOut(3592, HVUR), ThreeDown(3594, 0, 13, 8)),
       TRow(100, sea * 4, hillyJungle),
