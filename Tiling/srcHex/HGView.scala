@@ -16,7 +16,7 @@ class HGView(val r: Int, val c: Int, val pixelsPerC: Double, val northUp: Boolea
   inline override def tell2: Double = pixelsPerC
   override def name3: String = "northUp"
   override def tell3: Boolean = northUp
-  override implicit def show1: Show[HCoord] = HCoord.persistImplicit
+  override implicit def show1: Show[HCoord] = HCoord.persistEv
   override implicit def show2: Show[Double] = Show.doubleEv
   override def show3: Show[Boolean] = Show.booleanEv
   override def tellDepth: Int = 3
@@ -29,6 +29,6 @@ object HGView
 
   /** Implicit [[Show]] and [[Unshow]] type class instance / evidence for [[HGView]]. */
   implicit val persistEv: PersistTell3[HCoord, Double, Boolean, HGView] =
-    PersistTell3.explicit[HCoord, Double, Boolean, HGView]("HGView", "hCoord", "cPScale", "northUp", apply, HCoord.unshowEv, PersistBoth.doubleEv, NorthSouth,
+    PersistTell3.explicit[HCoord, Double, Boolean, HGView]("HGView", "hCoord", "cPScale", "northUp", apply, HCoord.persistEv, PersistBoth.doubleEv, NorthSouth,
       Some(true))
 }

@@ -20,7 +20,7 @@ object TerrMegaW150 extends LongMegaTerrs
     VRow(115, OrigLt(7680, HVDn, 7)),
     TRow(114, mtainTundra),
     VRow(113, BendIn(7680, HVUR, 13), OrigRt(7682, HVUL, 7)),
-    VRow(111, BendIn(7684, HVDR, 13), MouthLt(7686, HVUR, 7)),
+    VRow(111, BendIn(7684, HVDR, 13), OrigLtRevDepr(7686, HVUR, 7)),
     VRow(109, BendIn(7684, HVUR, 13)),
     TRow(106, Isle3(mtainJungle)),
     TRow(82, SeaIcePerm)

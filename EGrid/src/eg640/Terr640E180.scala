@@ -17,7 +17,7 @@ object Terr640E180 extends Long640Terrs
     TRow(128, tundra),
     VRow(127, BendOut(6658, HVUR), BendIn(6660, HVDL, 8, siceWin)),
     TRow(126, hillyTundra, tundra),
-    VRow(125, MouthLt(6656, HVUL, 7, SeaIceWinter), ThreeDown(6658, 13, 13, 0, SeaIceWinter), BendIn(6660, HVUL, 13, SeaIceWinter)),
+    VRow(125, OrigLtRevDepr(6656, HVUL, 7, SeaIceWinter), ThreeDown(6658, 13, 13, 0, SeaIceWinter), BendIn(6660, HVUL, 13, SeaIceWinter)),
     TRow(124, siceWin, hillyTundra),
     VRow(123, BendMin(6652, HVDR, 3, siceWin), OrigRt(6654, HVDL, 7, siceWin), BendIn(6658, HVUR, 13, siceWin), ThreeDown(6660, 13, 13, 0, siceWin),
       Orig(6662, HVDL, 4, 2, siceWin)),

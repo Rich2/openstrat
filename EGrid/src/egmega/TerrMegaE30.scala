@@ -39,7 +39,7 @@ object TerrMegaE30 extends LongMegaTerrs
       TRow(94, sahel, hillySavannah, hillySavannah),
       VRow(93, BendOut(1538, HVDR, 7), ThreeUp(1540, 13, 0, 13), BendIn(1542, HVUp, 10), BendIn(1544, HVUL, 7)),
       TRow(92, hillySavannah, sea),
-      VRow(91, OrigRtRevDepr(1532, HVDR, 7), MouthLt(1536, HVDL, 7), BendIn(1538, HVUL, 13)),
+      VRow(91, OrigRtRevDepr(1532, HVDR, 7), OrigLtRevDepr(1536, HVDL, 7), BendIn(1538, HVUL, 13)),
       TRow(82, ice),
     )
   }

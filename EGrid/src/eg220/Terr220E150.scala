@@ -24,7 +24,7 @@ object Terr220E150 extends Long220Terrs
       TRow(150, sea, mtainDepr, hillyOceForest),
       VRow(149, OrigRtRevDepr(5616, HVDn, 7), OrigRtRevDepr(5618, HVDL), BendIn(5620, HVDn, 13), BendIn(5622, HVDL, 13)),
       TRow(148, sea * 2, mtainDepr),
-      VRow(147, MouthLt(5622, HVDn, 7)),
+      VRow(147, OrigLtRevDepr(5622, HVDn, 7)),
       TRow(146, sea, mtainDepr),
       TRow(144, sea, mtainDepr),
       TRow(142, mtainDepr, hillyOce),

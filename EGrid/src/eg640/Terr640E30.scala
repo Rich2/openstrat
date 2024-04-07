@@ -32,7 +32,7 @@ object Terr640E30 extends Long640Terrs
     TRow(114, sea, mtainSavannah, hillySavannah * 2),
     VRow(113, BendMin(1528, HVUR, 1), OrigMin(1530, HVUL, 4), BendIn(1532, HVUR, 13), BendIn(1534, HVUp, 13), ThreeUp(1536, 12, 8, 13), Orig(1538, HVUL, 1, 7)),
     TRow(112, deshot, oceanic, deshot * 2),
-    VRow(111, MouthLt(1538, HVUL), BendIn(1540, HVDL, 8), MouthLt(1546, HVUL, 7)),
+    VRow(111, OrigLtRevDepr(1538, HVUL), BendIn(1540, HVDL, 8), OrigLtRevDepr(1546, HVUL, 7)),
     TRow(110, deshot * 2, deshot, deshot),
     VRow(109, Bend(1540, HVUR, 6, 1), BendIn(1542, HVDL, 11)),
     TRow(108, deshot * 3, deshot),
@@ -47,10 +47,13 @@ object Terr640E30 extends Long640Terrs
     TRow(98, hillyJungle * 2, savannah, hillySavannah),
     VRow(97, OrigMin(1536, HVUp, 3, lake), BendOut(1544, HVUR, 7), BendIn(1546, HVDL, 13)),
     TRow(96, savannah, jungle * 2, hillySavannah * 2),
-    VRow(95, BendIn(1546, HVUL, 13)),
+    VRow(95, Bend(1544, HVDR, 13, 6), BendInRt(1546, HVUL, 13, 7)),
     TRow(94, savannah * 2, hillySavannah, savannah, hillySavannah),
+    VRow(93, Bend(1542, HVDR, 13, 6), Bend(1544, HVUL, 8, 5)),
     TRow(92, savannah * 2, jungle, hillySavannah),
     TRow(90, deshot, savannah * 2),
+    TRow(88, sahel, hillySavannah),
+    TRow(86, hillySavannah * 2)
     )
   }
   help.run

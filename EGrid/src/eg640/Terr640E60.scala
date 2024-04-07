@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 45° east to 75° east, centred on 60° east. Hex tile scale 640km.  */
 object Terr640E60 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e60(92)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e60(90)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -21,10 +21,10 @@ object Terr640E60 extends Long640Terrs
     TRow(118, sahel, sahel * 2),
     VRow(117, BendMin(2556, HVUR, 3, Lake), BendIn(2558, HVDL, 13, lake)),
     TRow(116, sahel, sahel * 2),
-    VRow(115, MouthLt(2556, HVDL, 6, Lake), BendIn(2558, HVUL, 13, lake)),
+    VRow(115, OrigLtRevDepr(2556, HVDL, 6, Lake), BendIn(2558, HVUL, 13, lake)),
     TRow(114, hillySahel, hillySahel, Land(Mountains, DesertHot), Land(Mountains, Sahel)),
     TRow(112, hillyDeshot, hillyDeshot, Land(Mountains, DesertHot), savannah),
-    VRow(111, MouthLt(2554, HVUL, 7), BendOut(2556, HVUp, 7), BendIn(2558, HVDn, 9), BendIn(2560, HVDL, 13)),
+    VRow(111, OrigLtRevDepr(2554, HVUL, 7), BendOut(2556, HVUp, 7), BendIn(2558, HVDn, 9), BendIn(2560, HVDL, 13)),
     TRow(110, sahel, sahel, sahel, savannah),
     VRow(109, BendIn(2560, HVUR, 13), BendIn(2562, HVUp, 13), BendOut(2564, HVDn, 7), Bend(2566, HVDL, 5, 1)),
     TRow(108, sahel, sea * 2, savannah),
@@ -35,7 +35,7 @@ object Terr640E60 extends Long640Terrs
     VRow(103, BendIn(2570, HVUR), ThreeDown(2572, 6, 11, 0)),
     VRow(101, OrigMinRevDepr(2550, HVUp), BendIn(2572, HVUR, 9)),
     VRow(97, BendIn(2550, HVDL, 13)),
-    VRow(95, BendIn(2550, HVUL, 13)),
+    VRow(95, BendInRt(2550, HVUL, 13, 7), OrigRt(2554, HVDR, 7), BendIn(2556, HVDL, 13)),
     TRow(94, hillyJungle),
     )
   }

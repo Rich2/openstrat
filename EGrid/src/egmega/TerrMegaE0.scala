@@ -22,7 +22,7 @@ object TerrMegaE0 extends LongMegaTerrs
       TRow(114, SepB(), oceanic),
       VRow(113, SetSep(511)),
       TRow(112, oceanic, hillyOce),
-      VRow(111, MouthLt(508, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendIn(516, HVDL, 13)),
+      VRow(111, OrigLtRevDepr(508, HVUp, 7), BendIn(512, HVDR, 13), BendIn(514, HVDn, 13), BendIn(516, HVDL, 13)),
       TRow(110, hillyOce, savannah),
       VRow(109, BendIn(508, HVUR, 10), BendIn(510, HVUp), BendMin(512, HVUL), BendOut(516, HVUR), BendOut(518, HVUp, 3)),
       TRow(108, hillySavannah, sahel),

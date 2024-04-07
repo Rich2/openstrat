@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
@@ -73,11 +73,8 @@ object HCoord
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCoordBuff = HCoordBuff()
   }
 
-  /** Implicit [[Show]] type class instance /evidence for [[HCoord]]. */
-  implicit val persistImplicit: ShowTellInt2[HCoord] = ShowTellInt2[HCoord]("HCoord")
-
-  /** Implicit [[Unshow]] type class instance /evidence for [[HCoord]]. */
-  implicit val unshowEv: UnshowInt2[HCoord] = UnshowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
+  /** Implicit [[Show]] and [[Unshow]] type class instances /evidence for [[HCoord]]. */
+  implicit val persistEv: PersistTellInt2[HCoord] = PersistTellInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonInt2MapBuilder[HCoord, PolygonHC] = new PolygonInt2MapBuilder[HCoord, PolygonHC]

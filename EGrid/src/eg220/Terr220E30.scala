@@ -16,9 +16,9 @@ object Terr220E30 extends Long220Terrs
   { override val rows: RArr[RowBase] = RArr(
     VRow(183, BendIn(1528, HVDR, 12), BendIn(1530, HVDn, 13), OrigRtRevDepr(1532, HVDR), OrigRtRevDepr(1534, HVUL, 7), OrigLt(1536, HVUL)),
     TRow(182, hillyTundra, hillyTundra, sea * 3),
-    VRow(181, OrigRtRevDepr(1528, HVDn), OrigRtRevDepr(1540, HVUL, 7), MouthLt(1542, HVDR, 7)),
+    VRow(181, OrigRtRevDepr(1528, HVDn), OrigRtRevDepr(1540, HVUL, 7), OrigLtRevDepr(1542, HVDR, 7)),
     TRow(180, hillyTundra, taiga, tundra, hillyTundra, sea),
-    VRow(179, MouthLt(1544, HVUp, 7)),
+    VRow(179, OrigLtRevDepr(1544, HVUp, 7)),
     TRow(178, taiga * 4, tundra),
     VRow(177, Orig(1530, HVDn, 7, 1, SeaIceWinter), OrigRt(1540, HVDR, 6, siceWin), ThreeDown(1542, 3, 13, 13, siceWin), BendOut(1544, HVUL, 7, siceWin)),
     TRow(176, taiga, taiga * 2, taiga, taiga, taiga),
@@ -58,7 +58,7 @@ object Terr220E30 extends Long220Terrs
       BendOut(1538, HVUp, 7), OrigLt(1540, HVDL, 7), ThreeUp(1548, 13, 13, 0), BendMax(1550, HVUp), BendMax(1552, HVDn), OrigMin(1554, HVUL)),
 
     TRow(148, hillyOce * 2, oceanic, hillyOce * 2, hillySubForest, mtainSubForest, hillySubForest, mtainSavannah, hillySavannah, mtainSavannah),
-    VRow(147, Bend(1518, HVUR, 10, 2), BendIn(1520, HVDL, 13), Bend(1528, HVDR, 13, 6), OrigRevDepr(1530, HVUR, 5, 1), MouthLt(1532, HVDL, 7), OrigRtRevDepr(1534, HVUR)),
+    VRow(147, Bend(1518, HVUR, 10, 2), BendIn(1520, HVDL, 13), Bend(1528, HVDR, 13, 6), OrigRevDepr(1530, HVUR, 5, 1), OrigLtRevDepr(1532, HVDL, 7), OrigRtRevDepr(1534, HVUR)),
     TRow(146, hillyOce, hillyOce * 2, hillyOce * 2, hillyDeshot * 3, mtainDepr, hillyDeshot * 2),
     VRow(145, BendOut(1518, HVDR, 7), BendIn(1520, HVUL, 13), OrigMinRevDepr(1522, HVDL), OrigMinRevDepr(1524, HVUR), BendIn(1530, HVDL, 13), BendMax(1528, HVUR)),
     TRow(144, hillyOce, sea, hillyOce, hillySavannah, hillyOce * 4, hillyDeshot, oceanic, mtainDepr),

@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle3]] 8660.254km² => 16974.097km².
  * Below 8660.254km² Canaries 7,492 km². */
 object Terr640W30 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.w30(92)
+{ override implicit val grid: EGrid640LongFull = EGrid640.w30(90)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -26,12 +26,12 @@ object Terr640W30 extends Long640Terrs
     TRow(122, SepB(siceWin)),
     VRow(121, SetSep(11771)),
     VRow(119, BendIn(11770, HVUL, 13)),
-    VRow(109, MouthLt(11782, HVUp, 7)),
+    VRow(109, OrigLtRevDepr(11782, HVUp, 7)),
     TRow(108, sea * 3, deshot),
     VRow(107, BendIn(11782, HVUR, 13), BendMin(11784, HVDL)),
     TRow(106, sea * 4, sahel),
-    VRow(101, MouthLt(11766, HVDR, 7), MouthLt(11788, HVUL, 7)),
-    VRow(99, OrigRtRevDepr(11770, HVUL, 7), MouthLt(11772, HVDR, 7)),
+    VRow(101, OrigLtRevDepr(11766, HVDR, 7), OrigLtRevDepr(11788, HVUL, 7)),
+    VRow(99, OrigRtRevDepr(11770, HVUL, 7), OrigLtRevDepr(11772, HVDR, 7)),
     TRow(98, hillySahel),
     TRow(96, hillySavannah, hillySavannah),
     )

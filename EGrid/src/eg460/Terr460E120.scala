@@ -49,7 +49,7 @@ object Terr460E120 extends Long460Terrs
     TRow(100, sea, hillyJungle, jungle, mtainDepr, sea, sea, hillyJungle),
     VRow(99, BendIn(4596, HVDL, 7), OrigRtRevDepr(4606, HVDn, 7), OrigMinRevDepr(4622, HVDn)),
     TRow(98, SepB(), sea, jungle, sea, hillyJungle, sea * 2, mtainDepr),
-    VRow(97, OrigRtRevDepr(4594, HVDL), BendIn(4596, HVUL), OrigMinRevDepr(4600, HVUL, 7, sea), OrigMinRevDepr(4602, HVDR, 5, sea), MouthLt(4620, HVUL), BendOut(4622, HVDL, 7)),
+    VRow(97, OrigRtRevDepr(4594, HVDL), BendIn(4596, HVUL), OrigMinRevDepr(4600, HVUL, 7, sea), OrigMinRevDepr(4602, HVDR, 5, sea), OrigLtRevDepr(4620, HVUL), BendOut(4622, HVDL, 7)),
     TRow(96, hillyJungle * 2),
     VRow(95, BendIn(4622, HVUR, 13), OrigRtRevDepr(4624, HVDR)),
     )

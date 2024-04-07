@@ -32,7 +32,7 @@ object Terr160E0 extends Long160Terrs
     TRow(290, sea * 2, hillyOce, hillyOce, sea * 4, oceanic, Isle10(), oceanic),
     VRow(289, OrigRt(498, HVUR, 7), ThreeUp(500, 8, 8, 0), Bend(502, HVDL, 1, 5)),
     TRow(288, sea * 2, oceanic, hillyOce, oceanic, sea * 4, oceanic, sea),
-    VRow(287, BendIn(502, HVUR, 13), ThreeDown(504, 10, 13, 12), Orig(506, HVDL, 1, 6), BendIn(520, HVDR, 13),  BendIn(522, HVDn, 13), MouthLt(524, HVDR, 7)),
+    VRow(287, BendIn(502, HVUR, 13), ThreeDown(504, 10, 13, 12), Orig(506, HVDL, 1, 6), BendIn(520, HVDR, 13),  BendIn(522, HVDn, 13), OrigLtRevDepr(524, HVDR, 7)),
     TRow(286, sea * 2, oceanic, oceanic, oceanic * 2, sea * 2, oceanic * 4),
     VRow(285, BendIn(504, HVUL, 13), OrigRt(516, HVDR, 7), ThreeDown(518, 0, 10, 13)),
     TRow(284, sea, oceanic * 2, hillyOce, oceanic * 3, oceanic * 5),
