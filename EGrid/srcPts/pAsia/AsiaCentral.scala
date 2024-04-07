@@ -8,11 +8,12 @@ object Kazak extends EArea2("Kazak", 47 ll 60, deshot)
     Kyrgyyzstan.p65, middleEast.Persia.north) ++ pEurope.Caspian.kazakCoast.reverse |++| LinePathLL(RusNorth.p50)
 }
 
-object Himalayas extends EArea2("Himalayas", degs(32, 75), mtainDepr)
-{ override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, India.indiaNE, India.kotdwar, Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
+object Himalayas extends EArea2("Himalayas", degs(32, 75), mtainTundra)
+{ override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, Yunnan.northEast, Yunnan.northWest, India.indiaNE, India.kotdwar,
+  Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
 }
 
-object Kyrgyyzstan extends EArea2("Kyrgyzstan", degs(47, 76), mtainDepr)
+object Kyrgyyzstan extends EArea2("Kyrgyzstan", degs(47, 76), mtainSavannah)
 { val p10: LatLong = 39.377 ll 75.528
   val p20: LatLong = 37.381 ll 77.418
   val islamabad: LatLong = 33.749 ll 73.19

@@ -1,22 +1,21 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for Taiwan depends on nothing. */
-object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hillyOce)
-{ val north: LatLong = 25.29 ll 121.57
-  val northEast: LatLong = 25.01 ll 122.01
-  val south: LatLong = 21.90 ll 120.86
-  val west: LatLong = 23.10 ll 120.04
-  val p10: LatLong = 25.05 ll 121.06
+/** [[PolygonLL]] graphic for IndoChina depends on [[MalayPeninsula]]. */
+object Burma extends EArea2("Burma", 16.11 ll 103.75, hillyJungle)
+{ val p80: LatLong = 15.733 ll 95.429
+  val pathein: LatLong = 16.17 ll 94.31
+  val sonadia: LatLong = 21.538 ll 91.841
+  val chittagong: LatLong = 22.74 ll 91.54
 
-  override val polygonLL: PolygonLL = PolygonLL(north, northEast, south, west, p10)
+  override val polygonLL: PolygonLL = PolygonLL(Yunnan.northWest, IndoChina.northWest, p80, pathein, sonadia, chittagong, India.magdhara, India.indiaNE)
 }
-
 
 /** [[PolygonLL]] graphic for IndoChina depends on [[MalayPeninsula]]. */
 object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
-{ val beilunMouth: LatLong = 21.50 ll 108.08
+{ val north: LatLong = 23.389 ll 105.324
+  val beilunMouth: LatLong = 21.50 ll 108.08
   val dienChau: LatLong = 18.99 ll 105.56
   val p25: LatLong = 15.243 ll 108.939
   val eVietnam: LatLong = 12.93 ll 109.37
@@ -28,13 +27,12 @@ object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
 
   val lethabaukMau: LatLong = 13.553 ll 98.121
   val sittangMouth: LatLong = 17.36 ll 96.89
-  val p80: LatLong = 15.733 ll 95.429
-  val pathein: LatLong = 16.17 ll 94.31
-  val sonadia: LatLong = 21.538 ll 91.841
-  val chittagong: LatLong = 22.74 ll 91.54
 
-  override val polygonLL: PolygonLL = PolygonLL(beilunMouth, dienChau, p25, eVietnam, p30, sVietnam, p40, khaoLaemPu, bankok, MalayPeninsula.maeKongMouth,
-    MalayPeninsula.northWest, lethabaukMau, sittangMouth, p80, pathein, sonadia, chittagong)
+
+  val northWest = 21.507 ll 100.133
+
+  override val polygonLL: PolygonLL = PolygonLL(north, beilunMouth, dienChau, p25, eVietnam, p30, sVietnam, p40, khaoLaemPu, bankok, MalayPeninsula.maeKongMouth,
+    MalayPeninsula.northWest, lethabaukMau, sittangMouth, northWest)
 }
 
 /** [[PolygonLL]] graphic for Maly Peninsula depends on nothing. */

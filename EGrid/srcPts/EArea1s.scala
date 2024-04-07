@@ -88,14 +88,15 @@ object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
 
 object AsiaMain extends EArea1("Asia", 60 ll 65)
 { import pAsia._
-  override val a2Arr: RArr[EArea2] = RArr(RusNorth, SiberiaWest, SiberiaNorth, SevernyIsland, Pakistan, India, SriLanka, Himalayas, Kyrgyyzstan, SiberiaSouth)
+  override val a2Arr: RArr[EArea2] = RArr(RusNorth, SiberiaWest, SiberiaNorth, SevernyIsland, Pakistan, India, SriLanka, Burma, Himalayas, Kyrgyyzstan,
+    SiberiaSouth)
 }
 
 /** Asia East. North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object AsiaEast extends EArea1("Asia", 60 ll 100)
 { import pAsia._
-  override val a2Arr: RArr[EArea2] = RArr(Manchuria, Mongolia, Xinjiang, China, Hainan, IndoChina, Korea, Yakutia, FeAsia, Kamchatka, sakhalin, Hokkaido,
-    Honshu, Kyshu, Taiwan, Kazak, MalayPeninsula, LakeBaikal)
+  override val a2Arr: RArr[EArea2] = RArr(Manchuria, Mongolia, Xinjiang, China, Yunnan, Hainan, IndoChina, Korea, Yakutia, FeAsia, Kamchatka, sakhalin,
+    Hokkaido, Honshu, Kyshu, Taiwan, Kazak, MalayPeninsula, LakeBaikal)
 }
 
 /** Polar regions. */
