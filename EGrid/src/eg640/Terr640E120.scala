@@ -49,7 +49,7 @@ object Terr640E120 extends Long640Terrs
     VRow(97, ThreeDown(4598, 13, 6, 0)),
     TRow(96, hillyJungle * 2, mtainJungle, mtainJungle),
     VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7)),
-    TRow(94, sea * 3, savannah * 2),
+    TRow(94, sea * 2, sahel, savannah * 2),
     )
   }
   help.run

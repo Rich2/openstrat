@@ -108,7 +108,8 @@ object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 /** Australasia. Australia and New Zealand. */
 object Australasia extends EArea1("Australasia", -23 ll 130)
 { import soceans._
-  override val a2Arr: RArr[EArea2] = RArr(WesternAustralia, Australia, Tasmania, NZNorthIsland, NZSouthIsland)
+  override val a2Arr: RArr[EArea2] = RArr(WesternAustralia, AustraliaNorthTerr, Queensland, SouthAustralia, AustraliaSouthEast, Tasmania, NZNorthIsland,
+    NZSouthIsland)
 }
 
 /** Malay archipelago. */

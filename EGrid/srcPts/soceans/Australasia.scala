@@ -14,49 +14,88 @@ object WesternAustralia extends EArea2("Western\nAustralia", -24.839 ll 124, des
   val capeNaturaliste: LatLong = -33.530 ll 115.004
   val dirkHartog: LatLong = -25.516 ll 112.938
   val west: LatLong = -22.58 ll 113.95
-
+  val legendreIsland: LatLong = -20.354 ll 116.835
   val eightyMile: LatLong = -19.41 ll 121.24
   val couloumbPoint: LatLong = -17.30 ll 122.12
+  val dempierNorth = -16.360 ll 123.033
+  val degerandoIsland = -15.337 ll 124.188
   val drysdaleRiver: LatLong = -13.77 ll 126.95
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, nuytsland1, nuytsland2, westCapeHowe, windyHarbour, capeLeeuwin, capeNaturaliste,
-    dirkHartog, west, eightyMile, couloumbPoint, drysdaleRiver)
+    dirkHartog, west, legendreIsland, eightyMile, couloumbPoint, dempierNorth, degerandoIsland, drysdaleRiver)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object Australia extends EArea2("Australia", -24.45 ll 134.47, sahel)
+object AustraliaNorthTerr extends EArea2("Australia\nNorthern Territory", -23 ll 134.6, sahel)
 { val victoriaMouth: LatLong = -15.13 ll 129.65
   val thamarrurr: LatLong = -14.42 ll 129.36
   val coxPeninsular: LatLong = -12.41 ll 130.64
+
   val nAustralia: LatLong = -12.01 ll 133.56
   val eastArnhem: LatLong = -12.31 ll 136.92
   val limmen: LatLong = -14.73 ll 135.36
-  val karumba: LatLong = -17.52 ll 140.8
-  val nQueensland: LatLong = -11 ll 142.43
+  val northEast: LatLong = -16.544 ll 138
 
+  val southEast: LatLong = -26 ll 138
+  val southWest: LatLong = -26 ll 129
+
+  override val polygonLL: PolygonLL = PolygonLL(WesternAustralia.northEast, victoriaMouth, thamarrurr, coxPeninsular, nAustralia, eastArnhem, limmen,
+    northEast, southEast, southWest
+    )
+}
+
+/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+object Queensland extends EArea2("Queensland", -27.1 ll 146.73, sahel)
+{ val nQueensland: LatLong = -11 ll 142.43
+  val p5: LatLong = -12.840 ll 143.531
   val nKennedy: LatLong = -14.49 ll 143.95
   val capeMelville: LatLong = -14.17 ll 144.51
+  val p11: LatLong = -17.643 ll 146.142
   val coolbie: LatLong = -18.86 ll 146.27
+  val p15: LatLong = -19.406 ll 147.473
   val harveyBay: LatLong = -25.29 ll 152.89
+  val doubleIslandPoint: LatLong = -25.932 ll 153.191
   val brisbane: LatLong = -27.05 ll 153.03
   val byronBay: LatLong = -28.64 ll 153.62
-  val seAustralia: LatLong = -37.4 ll 149.58
+
+  val bynoeMouth: LatLong = -17.153 ll 140.732
+  val p95: LatLong = -13.895 ll 141.483
+
+  override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p11, coolbie, p15, harveyBay, doubleIslandPoint, brisbane, byronBay,
+    AustraliaSouthEast.northEast, SouthAustralia.cameronPoint, SouthAustralia.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast, bynoeMouth,
+    p95)
+}
+
+/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+object SouthAustralia extends EArea2("South Austraia", -27.1 ll 146.73, sahel)
+{ val northEast: LatLong = -26 ll 141
+  val cameronPoint = -29 ll 141
+  val sleaford: LatLong = -34.92 ll 135.64
+  val smokyBay: LatLong = -32.52 ll 133.86
+  val yalata: LatLong = -31.35 ll 131.21
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, cameronPoint, AustraliaSouthEast.portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast,
+    AustraliaNorthTerr.southWest)
+}
+
+/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+object AustraliaSouthEast extends EArea2("Australia\nsouth east", -27.1 ll 146.73, savannah)
+{
+  val northEast: LatLong = -29 ll 153.476
+  val southEast: LatLong = -37.4 ll 149.58
 
   val wilsonsProm: LatLong = -39.12 ll 146.38
   val barwonHeads: LatLong = -38.27 ll 144.53
   val capeOtway: LatLong = -38.85 ll 143.51
   val portMacdonnell: LatLong = -38.06 ll 140.66
   val carpenterRocks: LatLong = -37.89 ll 140.28
-  val capeJaffa: LatLong = -36.96 ll 139.67
+  val p75: LatLong = -36.958 ll 139.672
   val hardwicke: LatLong = -34.91 ll 137.46
   val portAugusta: LatLong = -32.53 ll 137.77
-  val sleaford: LatLong = -34.92 ll 135.64
-  val smokyBay: LatLong = -32.52 ll 133.86
-  val yalata: LatLong = -31.35 ll 131.21
 
-  override val polygonLL: PolygonLL = PolygonLL(WesternAustralia.northEast, victoriaMouth, thamarrurr, coxPeninsular, nAustralia, eastArnhem, limmen, karumba,
-    nQueensland, nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia, wilsonsProm, barwonHeads, capeOtway, portMacdonnell,
-    carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast)
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, p75, hardwicke,
+    portAugusta, SouthAustralia.cameronPoint)
 }
 
 /** [[polygonLL]] graphical representation of Tasmania. Depends on nothing. */
