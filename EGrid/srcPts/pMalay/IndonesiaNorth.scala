@@ -6,15 +6,23 @@ import geom._, pglobe._, egrid._, WTiles._
 object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
 { val nBorneo: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
+  val borderEast = 4.165 ll 117.906
   val cenEast: LatLong = 1.022 ll 118.986
+  val p20: LatLong =  -0.761 ll 117.613
+  val p25: LatLong = -2.177 ll 116.589
   val southEast: LatLong = -4.03 ll 116.09
+  val p45: LatLong = -4.172 ll 114.650
   val southWest: LatLong = -2.96 ll 110.29
+  val p55: LatLong = -1.259 ll 109.398
   val p60: LatLong = 0.816 ll 108.841
   val nwSarawak: LatLong = 2.08 ll 109.64
   val batangLuparMouth: LatLong = 1.512 ll 110.988
   val p70: LatLong = 2.798 ll 111.333
+  val p75 = 3.268 ll 113.058
+  val kulalaBaram: LatLong = 4.598 ll 113.973
 
-  override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, cenEast, southEast, southWest, p60, nwSarawak, batangLuparMouth, p70)
+  override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, borderEast, cenEast, p20, p25, southEast, p45, southWest, p55, p60, nwSarawak,
+    batangLuparMouth, p70, p75, kulalaBaram)
 }
 
 /** [[polygonLL]] graphical representation of the island of Sulawesi. Depends on nothing. */

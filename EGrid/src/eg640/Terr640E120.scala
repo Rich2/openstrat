@@ -42,13 +42,14 @@ object Terr640E120 extends Long640Terrs
     TRow(104, SepB(), jungle, sea, Isle3(mtainJungle), Isle10(hillyJungle)),
     VRow(103, BendOut(4598, HVUR, 7), ThreeDown(4600, 13, 0, 13), BendIn(4602, HVUL, 13)),
     TRow(102, sea, hillyJungle, hillyJungle),
-    VRow(101, ThreeDown(4598, 0, 13, 8), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13), BendIn(4618, HVDL, 9)),
+    VRow(101, ThreeDown(4598, 0, 13, 8), ThreeUp(4600, 0, 10, 13), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13), BendIn(4618, HVDL, 9)),
     TRow(100, hillyJungle, jungle, hillyJungle, sea, hillyJungle),
     VRow(99, OrigMin(4618, HVUp, 2)),
     TRow(98, hillyJungle, sea, hillyJungle, sea, hillyJungle),
     VRow(97, ThreeDown(4598, 13, 6, 0)),
     TRow(96, hillyJungle * 2, mtainJungle, mtainJungle),
     VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7)),
+    TRow(94, sea * 3, savannah * 2),
     )
   }
   help.run
