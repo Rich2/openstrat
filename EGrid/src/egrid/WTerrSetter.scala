@@ -126,10 +126,10 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   def run: Unit =
   { rows.foreach{
       case data: TRow => tRowRun(data)
-      case data: VRow =>
+      case _: VRow =>
     }
     rows.foreach{
-      case data: TRow =>
+      case _: TRow =>
       case data: VRow => data.edits.foreach(_.run(data.row))
     }
   }

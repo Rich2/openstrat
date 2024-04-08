@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of Luzon and nearby smaller islands. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Luzon 109965km² + Mindoro 10572km² + Catanduanes 1523km² + Marinduque 952km². Depends on nothing. */
 object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
 { val north: LatLong = 18.650 ll 120.844
   val northEast: LatLong = 18.522 ll 122.225
@@ -54,7 +54,7 @@ object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtainDepr)
   override val polygonLL: PolygonLL = PolygonLL(batagNE, samarSE, panonSouth, higatanganNW, northWest)
 }
 
-/** [[polygonLL]] graphical representation of Mindanao and nearby smaller islands. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Mindanao 97530 km²  nearby smaller islands. Depends on nothing. */
 object Mindano extends EArea2("Mindano", 7.729 ll 125.011, hillyJungle)
 { val north: LatLong = 9.824 ll 125.441
   val capeSanAgustin: LatLong = 6.269 ll 126.193
