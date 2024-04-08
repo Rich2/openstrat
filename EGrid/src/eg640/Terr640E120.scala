@@ -5,9 +5,11 @@ import prid._, phex._, egrid._, WTiles._
 /** 640km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile area of 354724.005km².
  * [[Isle10]] 125054.068km² => 152766.881km². Java 124413km² + Bali 5780km².
  * [[Isle9]] 100112.536km² => 125054.068km². Luzon 109965km² + Mindoro 10572km² + Catanduanes 1523km² + Marinduque 952km²
+ * [[Isle6]] 41915.629km² => 58543.317km². Sumbawa 15414km² + Lambok 4607.68km² + Flores 14731.67km², + others 1500km² + Sumba Island 11243.78km²
  * [[Isle5]] 28059.223km² => 41915.629km². Taiwan 36197km².
- * Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
- * Isle3 [[Isle3]] 8660.254km² => 16974.097km². Palawan- (12,188.6 km2). */
+ * [[Isle5]] 28059.223km² => 41915.629km².Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
+ * [[Isle5]] 28059.223km² => 41915.629km².
+ * [[Isle3]] 8660.254km² => 16974.097km². Palawan-12,188.6km². */
 object Terr640E120 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e120(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -39,7 +41,7 @@ object Terr640E120 extends Long640Terrs
     VRow(107, OrigRt(4602, HVUp), OrigLt(4604, HVUR, 7), BendIn(4606, HVUL, 13)),
     TRow(106, sea * 2, Isle9(hillyJungle)),
     VRow(105, BendIn(4598, HVDL, 13), OrigRt(4602, HVDn, 7)),
-    TRow(104, SepB(), jungle, sea, Isle3(mtainJungle), Isle10(hillyJungle)),
+    TRow(104, SepB(), jungle, sea, Isle3(mtainJungle), Isle9(hillyJungle)),
     VRow(103, BendOut(4598, HVUR, 7), ThreeDown(4600, 13, 0, 13), BendIn(4602, HVUL, 13)),
     TRow(102, sea, hillyJungle, hillyJungle),
     VRow(101, ThreeDown(4598, 0, 13, 8), ThreeUp(4600, 0, 10, 13), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13), BendIn(4618, HVDL, 9)),
@@ -56,7 +58,8 @@ object Terr640E120 extends Long640Terrs
 
   { import hexNames.{ setRow => str}
     str(106, "" * 2, "Luzon")
+    str(104, "" * 2, "Palawan", "Philippines central")
     str(102, "", "Borneo north", "Mindanao")
-    str(96, "" * 3, "Timor")
+    str(96, "Java west", "Java east", "Sumbawa", "Timor")
   }
 }

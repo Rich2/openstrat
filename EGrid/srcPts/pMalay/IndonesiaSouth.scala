@@ -39,7 +39,7 @@ object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
     p82)
 }
 
-/** [[polygonLL]] graphical representation of the islands of Lambok 4607.68km² and Sumbawa 15414km². Depends on nothing. */
+/** [[polygonLL]] graphical representation of the islands of Sumbawa 15414km² + Lambok 4607.68km². Depends on nothing. */
 object Sumbawa extends EArea2("Sumbawa", -8725 ll 117.442, jungle)
 { val north: LatLong = -8.080 ll 117.925
   val sangeangeIsland: LatLong = -8.138 ll 119.093
@@ -99,7 +99,7 @@ object Timor extends EArea2("Timor", -8.538 ll 118.510, jungle)
   override val polygonLL: PolygonLL = PolygonLL(east, toineke, roteSW, roteNW, northWest, kuikora)
 }
 
-/** [[polygonLL]] graphical representation of Sumba Island 11243.78km²  in the Lesser Sunda Islands. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Sumba Island 11243.78km² in the Lesser Sunda Islands. Depends on nothing. */
 object Sumba extends EArea2("Sumba", -9.720 ll 120.031, jungle)
 { val north: LatLong = -9.276 ll 119.935
   val east: LatLong = -10.033 ll 120.845
