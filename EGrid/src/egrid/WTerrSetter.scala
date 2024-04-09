@@ -158,7 +158,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class SetSep(c: Int, terr: WSepSome = Sea) extends  VRowElem with SetSepBase
 
   /** origin / end point of [[HSep]] hex tile separator. */
-  case class Orig(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with OrigBase
+  case class Orig(c: Int, dirn: HVDirnPrimary, magLt: Int, magRt: Int, sTerr: WSepSome = Sea) extends VRowElem with OrigLtRtBase
 
   /** Origin / end point of an [[HSep]] hex tile separator, offset to the left as viewed from the [[HVert]] looking down the [[HSep]]. */
   case class OrigLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigLtBase
@@ -170,7 +170,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   case class OrigRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigRtBase
 
   /** Origin / end point of an [[HSep]] hex tile separator, with a minimum combined offset of 6. */
-  class OrigMin(val c: Int, val dirn: HVDirnPrimary, val magLt: Int, val sTerr: WSepSome) extends VRowElem with OrigBase
+  class OrigMin(val c: Int, val dirn: HVDirnPrimary, val magLt: Int, val sTerr: WSepSome) extends VRowElem with OrigLtRtBase
   { override def magRt: Int = 6 - magLt
   }
 
@@ -185,7 +185,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Origin / end point of an [[HSep]] separator with a left and right magnitude of 7. */
-  case class OrigMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with OrigBase
+  case class OrigMax(c: Int, dirn: HVDirnPrimary, sTerr: WSepSome = Sea) extends VRowElem with OrigLtRtBase
   { override def magLt: Int = 7
     override def magRt: Int = 7
   }

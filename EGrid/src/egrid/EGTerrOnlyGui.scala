@@ -54,7 +54,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
 
     def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sideDraws, RArr[GraphicElem]())
 
-    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills ++ sideDraws2 ++ sideActives ++ lines2 ++ rcTexts2 ++ irrLines +% outerLines
+    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
   }
 
   override def selectedStr: String = selected match

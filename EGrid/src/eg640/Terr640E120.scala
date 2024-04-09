@@ -46,13 +46,13 @@ object Terr640E120 extends Long640Terrs
     TRow(102, sea, hillyJungle, hillyJungle),
     VRow(101, ThreeDown(4598, 0, 13, 8), ThreeUp(4600, 0, 10, 13), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13), BendIn(4618, HVDL, 9)),
     TRow(100, hillyJungle, jungle, hillyJungle, sea, hillyJungle),
-    VRow(99, OrigMin(4618, HVUp, 2)),
+    VRow(99, OrigMin(4618, HVUp, 2), BendIn(4612, HVDL, 13)),
     TRow(98, hillyJungle, sea, hillyJungle, sea, hillyJungle),
     VRow(97, ThreeDown(4598, 13, 6, 0)),
     TRow(96, hillyJungle * 2, Isle6(mtainJungle), Isle5(mtainJungle)),
 
-    VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7), BendIn(4604, HVUp, 13), BendIn(4608, HVDR, 13), BendIn(4610, HVDn, 13),
-      BendOut(4612, HVUp, 5), BendInRt(4614, HVUL, 11, 7)),
+    VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7), BendIn(4604, HVUp, 13), BendIn(4606, HVUL, 13), BendIn(4608, HVDR, 13),
+      BendIn(4610, HVDn, 13), BendOut(4612, HVUp, 5), OrigLt(4614, HVDL)),// BendInRt(4614, HVUL, 11, 7, siceWin, sea)),
 
     TRow(94, sea * 2, sahel, savannah * 2),
     )

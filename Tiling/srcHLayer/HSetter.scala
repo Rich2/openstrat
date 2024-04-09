@@ -189,14 +189,28 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def c: Int
   }
 
-  /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. */
   trait OrigBase extends VertSetBase
-  { /** The terrain of the [[HSep]] from this end point oe source. */
+  {
+    /** The terrain of the [[HSep]] from this end point oe source. */
     def sTerr: SST
 
     /** The direction from the [[HVert]] along the [[HSep]]. */
     def dirn: HVDirnPrimary
 
+    def setOrigSep(row: Int): Unit = dirn match
+    { case HVUp => sTerrs.setExists(grid, row + 1, c, sTerr)
+      case HVUR => sTerrs.setExists(grid, row, c + 1, sTerr)
+      case HVDR => sTerrs.setExists(grid, row, c + 1, sTerr)
+      case HVDn => sTerrs.setExists(grid, row - 1, c, sTerr)
+      case HVDL => sTerrs.setExists(grid, row, c - 1, sTerr)
+      case HVUL => sTerrs.setExists(grid, row, c - 1, sTerr)
+    }
+  }
+
+
+  /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. */
+  trait OrigLtRtBase extends OrigBase
+  {
     /** The magnitude of the offset to the left of the [[HVert]] as viewed from the source. */
     def magLt: Int
 
@@ -205,26 +219,25 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
     def run(row: Int): Unit =
     { corners.setVertSource(row, c, dirn, magLt, magRt)
-      dirn match
-      { case HVUp => sTerrs.setExists(grid, row + 1, c, sTerr)
-        case HVUR => sTerrs.setExists(grid, row, c + 1, sTerr)
-        case HVDR => sTerrs.setExists(grid, row, c + 1, sTerr)
-        case HVDn => sTerrs.setExists(grid, row - 1, c, sTerr)
-        case HVDL => sTerrs.setExists(grid, row, c - 1, sTerr)
-        case HVUL => sTerrs.setExists(grid, row, c - 1, sTerr)
-      }
+      setOrigSep(row)
     }
+
   }
 
   /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. This is offset to the
    *  left from the same view. */
   trait OrigLtBase extends OrigBase
-  { override def magRt: Int = 0
+  { /** The magnitude of the offset to the left of the [[HVert]] as viewed from the source. */
+    def magLt: Int
+    def run(row: Int): Unit =
+    { corners.setSourceLt(row, c, dirn, magLt)
+      setOrigSep(row)
+    }
   }
 
   /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. This is offset to the
    *  right from the same view. */
-  trait OrigRtBase extends OrigBase
+  trait OrigRtBase extends OrigLtRtBase
   { override def magLt: Int = 0
   }
 
@@ -664,7 +677,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       }
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
-        corners.setCornerPair(row + 1, c + 2, 4, HVDR, magSource, HVExact, 0)
+       // corners.setCornerPair(row + 1, c + 2, 4, HVDR, magSource, HVExact, 0)
         corners.setCorner(row - 1, c, 0, HVDR, magSource)
       }
 

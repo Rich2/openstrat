@@ -211,6 +211,52 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
     case _ => debexc("Not implemented")
   }
+  /** Set the 3 [[HCorner]]s of an [[HSep]] source or end point. */
+  def setSourceLt(r: Int, c: Int, dirn: HVDirn, magLeft: Int)(implicit grid: HGrid): Unit = dirn match
+  {
+    case HVUp =>
+    { //setCornerPair(r - 1, c, 0, HVDL, magLeft, HVExact, 0)
+      setCorner(r + 1, c - 2, 2, HVDL, magLeft)
+    }
+
+    case HVUR =>
+    { //setCornerPair(r - 1, c - 2, 1, HVUL, magLeft, HVExact, 0)
+      setCorner(r + 1, c, 3, HVUL, magLeft)
+    }
+
+    case HVDR =>
+    { //setCornerPair(r + 1, c - 2, 2, HVUp, magLeft, HVExact, 0)
+      setCorner(r + 1, c + 2, 4, HVUp, magLeft)
+    }
+
+    case HVDn =>
+    { //setCornerPair(r + 1, c, 3, HVUR, magLeft, HVExact, 0)
+      setCorner(r - 1, c + 2, 5, HVUR, magLeft)
+    }
+
+    case HVDL => {
+      //setCornerPair(r + 1, c + 2, 4, HVDR, magLeft, HVExact, 0)
+      setCorner(r - 1, c, 0, HVDR, magLeft)
+    }
+
+    case HVUL =>
+    { //setCornerPair(r - 1, c + 2, 5, HVDn, magLeft, HVExact, 0)
+      setCorner(r - 1, c - 2, 1, HVDn, magLeft)
+    }
+
+    case _ => debexc("Not implemented")
+  }
+
+  /** Set the single [[HCorner]]s of an [[HSep]] source or end point. */
+  def setSourceRt(r: Int, c: Int, dirn: HVDirn, magRight: Int)(implicit grid: HGrid): Unit = dirn match
+  { case HVUp => setCorner(r + 1, c + 2, 4, HVDR, magRight)
+    case HVUR => setCorner(r - 1, c + 2, 5, HVDn, magRight)
+    case HVDR => setCorner(r - 1, c, 0, HVDL, magRight)
+    case HVDn =>   setCorner(r - 1, c - 2, 1, HVUL, magRight)
+    case HVDL =>  setCorner(r + 1, c - 2, 2, HVUp, magRight)
+    case HVUL => setCorner(r + 1, c, 3, HVUR, magRight)
+    case _ => debexc("Not implemented")
+  }
 
   /** Sets the end of an [[HSep]] terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall it
    *  would be the hex tile looking at the end of the wall. The vertex for this tile would be 0. */
