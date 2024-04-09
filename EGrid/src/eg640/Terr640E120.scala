@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle9]] 100112.536km² => 125054.068km². Luzon 109965km² + Mindoro 10572km² + Catanduanes 1523km² + Marinduque 952km²
  * [[Isle6]] 41915.629km² => 58543.317km². Sumbawa 15414km² + Lambok 4607.68km² + Flores 14731.67km², + others 1500km² + Sumba Island 11243.78km²
  * [[Isle5]] 28059.223km² => 41915.629km². Taiwan 36197km².
- * [[Isle5]] 28059.223km² => 41915.629km².Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
+ * [[Isle5]] 28059.223km² => 41915.629km². Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
  * [[Isle5]] 28059.223km² => 41915.629km².
  * [[Isle3]] 8660.254km² => 16974.097km². Palawan-12,188.6km². */
 object Terr640E120 extends Long640Terrs
@@ -49,8 +49,11 @@ object Terr640E120 extends Long640Terrs
     VRow(99, OrigMin(4618, HVUp, 2)),
     TRow(98, hillyJungle, sea, hillyJungle, sea, hillyJungle),
     VRow(97, ThreeDown(4598, 13, 6, 0)),
-    TRow(96, hillyJungle * 2, mtainJungle, mtainJungle),
-    VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7)),
+    TRow(96, hillyJungle * 2, Isle6(mtainJungle), Isle5(mtainJungle)),
+
+    VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7), BendIn(4604, HVUp, 13), BendIn(4608, HVDR, 13), BendIn(4610, HVDn, 13),
+      BendOut(4612, HVUp, 5), BendInRt(4614, HVUL, 11, 7)),
+
     TRow(94, sea * 2, sahel, savannah * 2),
     )
   }
