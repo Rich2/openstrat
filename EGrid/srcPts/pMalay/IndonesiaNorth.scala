@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -6,7 +6,7 @@ import geom._, pglobe._, egrid._, WTiles._
 object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
 { val nBorneo: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
-  val borderEast = 4.165 ll 117.906
+  val borderEast: LatLong = 4.165 ll 117.906
   val cenEast: LatLong = 1.022 ll 118.986
   val p20: LatLong =  -0.761 ll 117.613
   val p25: LatLong = -2.177 ll 116.589
@@ -18,7 +18,7 @@ object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
   val nwSarawak: LatLong = 2.08 ll 109.64
   val batangLuparMouth: LatLong = 1.512 ll 110.988
   val p70: LatLong = 2.798 ll 111.333
-  val p75 = 3.268 ll 113.058
+  val p75: LatLong = 3.268 ll 113.058
   val kulalaBaram: LatLong = 4.598 ll 113.973
 
   override val polygonLL: PolygonLL = PolygonLL(nBorneo, northEast, borderEast, cenEast, p20, p25, southEast, p45, southWest, p55, p60, nwSarawak,
@@ -56,7 +56,7 @@ object NewGuinea extends EArea2("New Guinea", -5.19 ll 141.03, hillyJungle)
   val morigo: LatLong = -7.83 ll 143.98
   val saibai: LatLong = -9.32 ll 142.63
   val p55: LatLong = -9.231 ll 141.135
-  val p60 = -8.113 ll 139.951
+  val p60: LatLong = -8.113 ll 139.951
   val southWest: LatLong = -8.431 ll 137.655
   val p70: LatLong = -7.518 ll 138.145
   val heilwigMouth: LatLong = -5.359 ll 137.866
