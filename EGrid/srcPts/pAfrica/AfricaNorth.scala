@@ -21,8 +21,10 @@ object SaharaWest extends EArea2("SaharaWest", 22 ll -5.50, deshot)
 object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, savannah)
 { val cAfricaN: Latitude = 4.53.north
   val cAfricaNW: LatLong = cAfricaN * 8.89.east
+  val walkersIsland: LatLong = 4.881 ll 5.149
   val sangana: LatLong = 4.31 ll 5.99
   val aiyetoro: LatLong = 6.20 ll 4.66
+  val denu: LatLong = 6.093 ll 1.154
   val ketaLagoon: LatLong = 5.789 ll 0.925
   val capeThreePoints: LatLong = 4.73 ll -2.09
   val liberia: LatLong = 4.18 ll -7.22
@@ -38,7 +40,7 @@ object WestAfricaSouth extends EArea2("West Africa\nsouth", 11 ll 0, savannah)
   /** The south east corner of West Africa. */
   val westAfricaPtSE: LatLong = 4.53 ll 16.75
 
-  val westAfricaSouthCoast: LinePathLL = LinePathLL(sangana, aiyetoro, ketaLagoon, capeThreePoints, liberia)
+  val westAfricaSouthCoast: LinePathLL = LinePathLL(walkersIsland, sangana, aiyetoro, denu, ketaLagoon, capeThreePoints, liberia)
 
   override val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, mambaPoint, mania, sierraLeone, conakry, iihaDeOrango,
     diembereng, dakar, keurMassene, SaharaWest.southWest, pMed.SaharaCentral.southWest, pMed.SaharaCentral.southEast, westAfricaPtSE, cAfricaNW)

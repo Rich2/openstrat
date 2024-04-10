@@ -41,7 +41,7 @@ object AfricaNorth extends EArea1("AfricaNorth", 18.19 ll 15)
 /** The southern part of Africa below approximately 5 degrees north, roughly triangular in shape. */
 object AfricaSouth extends EArea1("AfricanSouth", -16.14 ll 24.36)
 { import pAfrica. _
-  override val a2Arr: RArr[EArea2] = RArr(LakeVictoria, LakeTanganyika, LakeMalawi, LakeMweru, SouthAfrica, Congo, AngloaZambia, centralAfricaEast,
+  override val a2Arr: RArr[EArea2] = RArr(LakeVictoria, LakeTanganyika, LakeMalawi, LakeMweru, SouthAfrica, Congo, AngloaZambia, FernandoPo, centralAfricaEast,
     ZimMoz, Zanzibar, Madagascar)
 }
 

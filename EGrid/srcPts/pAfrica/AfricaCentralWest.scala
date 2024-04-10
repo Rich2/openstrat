@@ -2,19 +2,33 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[PolygonLL]] graphic object for the island of Bioko / FernandoPo. Depends on nothing. */
+object FernandoPo extends EArea2("Congo", -7 ll 24, jungle)
+{ val north: LatLong = 3.788 ll 8.713
+  val northEast: LatLong = 3.761 ll 8.988
+  val southEast: LatLong = 3.209 ll 8.675
+  val southWest: LatLong = 3.276 ll 8.444
+  val p60: LatLong = 3.465 ll 8.458
+
+  override def polygonLL: PolygonLL = PolygonLL(north, northEast,southEast, southWest, p60)
+}
+
 /** [[PolygonLL]] graphic object for the west of cnetral Africa. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  *  [[LakeVictoria]]. */
 object Congo extends EArea2("Congo", -7 ll 24, jungle)
-{ val wAfricaEquator: LatLong = 0.0 ll 9.13
-
-  val bouemba: LatLong = 2.09 ll 9.76
-  val bambou: LatLong = -4.661 ll 11.783
+{ val bambou: LatLong = -4.661 ll 11.783
   val gabonSouth: LatLong = -3.957 ll 11.153
 
-  override def polygonLL: PolygonLL = LinePathLL(wAfricaEquator, bouemba, WestAfricaSouth.cAfricaNW,
+  val wAfricaEquator: LatLong = 0.0 ll 9.13
+  val caboSanJuan: LatLong = 1.172 ll 9.341
+  val bouemba: LatLong = 2.09 ll 9.76
+  val londgi: LatLong = 3.076 ll 9.965
+
+  override def polygonLL: PolygonLL = LinePathLL(
     WestAfricaSouth.westAfricaPtSE, AfricaCentral.cAfricaNE, AfricaHorn.lakeTurkanaNW, AfricaHorn.lakeTurkanaSouth, LakeVictoria.kisuma,
     LakeVictoria.north, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++ LakeTanganyika.westCoast |++|
-    LinePathLL(AngloaZambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, AngloaZambia.benjoMouth, bambou, gabonSouth)
+    LinePathLL(AngloaZambia.wantipaNW, LakeMweru.northEast, LakeMweru.north, LakeMweru.west, LakeMweru.southWest, AngloaZambia.benjoMouth, bambou, gabonSouth,
+      wAfricaEquator, caboSanJuan, bouemba, londgi, WestAfricaSouth.cAfricaNW)
 }
 
 /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
