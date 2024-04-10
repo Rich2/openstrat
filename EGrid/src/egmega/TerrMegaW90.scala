@@ -3,9 +3,9 @@ package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
 /** 1 Mm [[WTile]] terrain for 105° west to 75° west, centred on 90° west. Hex tile scale 1 Megametre or 1000km. Hex tile area of 866025.403 km².
- *  Isle6 102333.079km² => 142928.020km². Cuba 109884km².
- *  Isle5 68503.962km² => 102333.079km². Hispaniola 76192 km².
- *  Isle3 21143.198km² => 41440.668km².
+ *  [[Isle6]] 102333.079km² => 142928.020km². Cuba 109884km².
+ *  [[Isle5]] 68503.962km² => 102333.079km². Hispaniola 76192 km².
+ *  [[Isle3]] 21143.198km² => 41440.668km².
  *  Below 21143.198km², Jamaica 10991km². */
 object TerrMegaW90 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.w90(82)
@@ -22,18 +22,18 @@ object TerrMegaW90 extends LongMegaTerrs
     TRow(116, taiga),
     TRow(114, taiga),
     TRow(112, taiga, taiga),
-    TRow(110, savannah, hillyOce),
-    VRow(109, OrigRtRevDepr(9734, HVUp, 7)),
+    TRow(110, steppe, hillyOce),
+    VRow(109, OrigRt(9734, HVDn, 7)),
     TRow(108, subtrop * 2),
-    VRow(107, BendOut(9728, HVDR, 7), OrigRevDepr(9730, HVUR, 2, 4), BendIn(9732, HVDR, 10), ThreeUp(9734, 0, 11, 10), BendIn(9736, HVDL, 10)),
-    TRow(106, sahel, sea, hillyJungle),
-    VRow(105, Bend(9722, HVDL, 2, 4), OrigLtRevDepr(9728,HVDn, 7), BendIn(9732, HVUR, 10), ThreeDown(9734, 10, 11, 0), ThreeUp(9736, 0, 11, 10)),
+    VRow(107, BendOut(9728, HVDR, 7), Orig(9730, HVDL, 2, 4), BendIn(9732, HVDR, 10), ThreeUp(9734, 0, 11, 10)),
+    TRow(106, sahel, sea, Isle6(hillyJungle)),
+    VRow(105, Bend(9722, HVDL, 2, 4), OrigLt(9728,HVUp, 7), BendIn(9732, HVUR, 10), ThreeDown(9734, 10, 11, 0), ThreeUp(9736, 0, 11, 10)),
     TRow(104, hillyJungle, jungle, sea),
-    VRow(103, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn), BendOut(9728, HVDL), OrigRevDepr(9732, HVDL, 2, 4), ThreeUp(9734, 11, 6, 0)),
+    VRow(103, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn), BendOut(9728, HVDL), OrigMin(9732, HVUR, 2), ThreeUp(9734, 11, 6, 0)),
     TRow(102, sea, jungle, jungle),
     VRow(101, BendIn(9728, HVUR, 13), ThreeDown(9730, 13, 13, 0), Orig(9732, HVDL, 7, 6)),
     TRow(100, sea * 2, hillyJungle),
-    VRow(99, OrigRtRevDepr(9730, HVDn, 7)),
+    VRow(99, OrigRt(9730, HVUp, 7)),
     TRow(98, sea * 2, hillyJungle),
     VRow(89, OrigLt(9730, HVDn, 7)),
     TRow(88, sea, hillyTaiga),
@@ -44,6 +44,7 @@ object TerrMegaW90 extends LongMegaTerrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(108, "Mississippi", "US South")
     str(106, "" * 2, "Cuba")
     str(104, "", "Guatemala")
   }

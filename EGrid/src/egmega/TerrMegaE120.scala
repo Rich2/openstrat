@@ -52,8 +52,8 @@ object TerrMegaE120 extends LongMegaTerrs
     TRow(94, deshot, deshot, sahel),
     VRow(93, BendIn(4604, HVUR, 13), BendOut(4606, HVDL, 7)),
     TRow(92, savannah, deshot),
-    VRow(91, OrigRtRevDepr(4606, HVDn, 7), OrigLtRevDepr(4608, HVDL, 7), Bend(4610, HVDn, 5, 1), BendOut(4612, HVDL, 7)),
-    VRow(89, BendIn(4612, HVUR, 13), OrigRtRevDepr(4614, HVDR, 7)),
+    VRow(91, OrigRt(4606, HVUp, 7), OrigLt(4608, HVUR, 7), Bend(4610, HVDn, 5, 1), BendOut(4612, HVDL, 7)),
+    VRow(89, BendIn(4612, HVUR, 13), OrigRt(4614, HVUL, 7)),
     TRow(82, ice)
     )
   }

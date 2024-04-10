@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain for 45° west to 15° west, centred on 30° west. Hex tile scale 1 Megametre or 1000km.
  * [[Isle6]] 102333.079km² => 142928.020km². Iceland 103125km².
  * [[Isle5]] 68503.962km² => 102333.079km². Ireland 84421km².
- * Isle3 21143.198km² => 21143.198km².
+ * [[Isle3]] 21143.198km² => 21143.198km².
  * Below min 21143.198km². Canaries 7492 km². */
 object TerrMegaW30 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.w30(82)
@@ -21,11 +21,10 @@ object TerrMegaW30 extends LongMegaTerrs
     VRow(117, BendOut(11778, HVDR, 7), BendIn(11780, HVUL, 13)),
     TRow(116, SepB(siceWin), tundra),
     VRow(115, ThreeDown(11776, 13, 11, 13), ThreeUp(11778, 0, 11, 13), BendIn(11780, HVDL, 11)),
-    TRow(114, oceanic),
-    VRow(113, BendIn(11776, HVUR, 11), BendIn(11778, HVUp, 11), BendIn(11780, HVUL, 11)),
-    VRow(111, OrigLtRevDepr(11780, HVUp, 7)),
+    TRow(114, Isle5(oceanic)),
+    VRow(111, OrigLt(11780, HVDn, 7)),
     VRow(109, BendIn(11780, HVUR, 10), BendIn(11782, HVUp)),
-    VRow(107, OrigLtRevDepr(11780, HVUp, 7)),
+    VRow(107, OrigLt(11780, HVDn, 7)),
     TRow(106, sea * 2, deshot),
     VRow(105, BendIn(11778, HVDR, 13), BendOut(11780, HVUL, 7)),
     TRow(104, sea * 2, sahel),
@@ -49,4 +48,8 @@ object TerrMegaW30 extends LongMegaTerrs
     )
   }
   help.run
+
+  { import hexNames.{ setRow => str}
+    str(114, "Ireland")
+  }
 }

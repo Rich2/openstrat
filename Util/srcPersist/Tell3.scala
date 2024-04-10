@@ -1,7 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
-import scala.reflect.ClassTag
+import reflect.ClassTag
 
 /** [[Tell]] trait for classes with 3+ Show parameters. */
 trait Tell3Plused[A1, A2, A3] extends Any with Tell2Plused[A1, A2] with Persist3Plus[A1, A2, A3]
@@ -35,7 +34,6 @@ trait Tell3[A1, A2, A3] extends Any with Tell3Plused[A1, A2, A3]
       case Some(v3) if v3 == tell3 => StrArr(s1, s2)
       case _ => StrArr(s1, s2, s3)
     }
-
   }
 }
 
@@ -67,7 +65,6 @@ object ShowTell3
   class ShowTell3Imp[A1, A2, A3, R<: Tell3[A1, A2, A3]](val typeStr: String)(implicit val show1: Show[A1], val show2: Show[A2], val show3: Show[A3]) extends
     ShowTell3[A1, A2, A3, R]
 }
-
 
 /** Class to provide both [[Show]] and [[Unshow]] type class instances for [[Tell3]] objects. */
 class PersistTell3[A1, A2, A3, A <: Tell3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
