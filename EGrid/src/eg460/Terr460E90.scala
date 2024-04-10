@@ -32,7 +32,7 @@ object Terr460E90 extends Long460Terrs
     TRow(116, deshot, deshot, hillyDeshot, mtainDepr * 3),
     TRow(114, hillyOce, oceanic, hillySavannah, savannah, hillyJungle, mtainDepr),
     TRow(112, hillySavannah * 2, Land(Plain, Tropical), hillySavannah, mtainDepr * 2),
-    VRow(111, BendMin(3580, HVDR, 4), BendOut(3582, HVDn, 7), OrigMinRevDepr(3598, HVUL)),
+    VRow(111, BendMin(3580, HVDR, 4), BendOut(3582, HVDn, 7)),
     TRow(110, savannah, hillySavannah, sea * 2, hillyJungle, mtainDepr),
     VRow(109, BendOut(3578, HVDR, 7), BendIn(3580, HVUL, 13), OrigMinRevDepr(3590, HVUp)),
     TRow(108, sahel, savannah, sea * 3, mtainDepr, hillySavannah),

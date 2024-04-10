@@ -13,9 +13,9 @@ object Himalayas extends EArea2("Himalayas", 32 ll 75, mtainTundra)
   Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
 }
 
+/** [[polygonLL]] graphical representation of eastern Tibet depends on [[Mongolia]], [[China]], [[Yunnan]]. */
 object TibetEast extends EArea2("Tibet east", 32 ll 75, mtainTaiga)
-{
-  override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWest, Mongolia.south, Yunnan.northEast, Yunnan.northWest)
+{ override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWest, Mongolia.south, China.northWest, Yunnan.northEast, Yunnan.northWest)
 }
 
 object Kyrgyyzstan extends EArea2("Kyrgyzstan", 47 ll 76, mtainSavannah)
