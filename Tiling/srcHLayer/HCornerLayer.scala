@@ -211,39 +211,15 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 
     case _ => debexc("Not implemented")
   }
-  /** Set the 3 [[HCorner]]s of an [[HSep]] source or end point. */
+
+  /** Set the [[HCorner]] of an [[HSep]] source or end point. */
   def setSourceLt(r: Int, c: Int, dirn: HVDirn, magLeft: Int)(implicit grid: HGrid): Unit = dirn match
-  {
-    case HVUp =>
-    { //setCornerPair(r - 1, c, 0, HVDL, magLeft, HVExact, 0)
-      setCorner(r + 1, c - 2, 2, HVDL, magLeft)
-    }
-
-    case HVUR =>
-    { //setCornerPair(r - 1, c - 2, 1, HVUL, magLeft, HVExact, 0)
-      setCorner(r + 1, c, 3, HVUL, magLeft)
-    }
-
-    case HVDR =>
-    { //setCornerPair(r + 1, c - 2, 2, HVUp, magLeft, HVExact, 0)
-      setCorner(r + 1, c + 2, 4, HVUp, magLeft)
-    }
-
-    case HVDn =>
-    { //setCornerPair(r + 1, c, 3, HVUR, magLeft, HVExact, 0)
-      setCorner(r - 1, c + 2, 5, HVUR, magLeft)
-    }
-
-    case HVDL => {
-      //setCornerPair(r + 1, c + 2, 4, HVDR, magLeft, HVExact, 0)
-      setCorner(r - 1, c, 0, HVDR, magLeft)
-    }
-
-    case HVUL =>
-    { //setCornerPair(r - 1, c + 2, 5, HVDn, magLeft, HVExact, 0)
-      setCorner(r - 1, c - 2, 1, HVDn, magLeft)
-    }
-
+  { case HVUp => setCorner(r + 1, c - 2, 2, HVDL, magLeft)
+    case HVUR => setCorner(r + 1, c, 3, HVUL, magLeft)
+    case HVDR => setCorner(r + 1, c + 2, 4, HVUp, magLeft)
+    case HVDn => setCorner(r - 1, c + 2, 5, HVUR, magLeft)
+    case HVDL => setCorner(r - 1, c, 0, HVDR, magLeft)
+    case HVUL => setCorner(r - 1, c - 2, 1, HVDn, magLeft)
     case _ => debexc("Not implemented")
   }
 

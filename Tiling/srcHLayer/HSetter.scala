@@ -237,8 +237,14 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
   /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. This is offset to the
    *  right from the same view. */
-  trait OrigRtBase extends OrigLtRtBase
-  { override def magLt: Int = 0
+  trait OrigRtBase extends OrigBase
+  { /** The magnitude of the offset to the right of the [[HVert]] as viewed from the source. */
+    def magRt: Int
+
+    def run(row: Int): Unit =
+    { corners.setSourceRt(row, c, dirn, magRt)
+      setOrigSep(row)
+    }
   }
 
   /** Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
@@ -667,7 +673,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
         corners.setCorner(row + 1, c + 2, 4, HVUp, magSource)
-        debexc("Not Implemented")
       }
 
       case HVDL =>
@@ -677,7 +682,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       }
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
-       // corners.setCornerPair(row + 1, c + 2, 4, HVDR, magSource, HVExact, 0)
         corners.setCorner(row - 1, c, 0, HVDR, magSource)
       }
 
