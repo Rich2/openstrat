@@ -30,6 +30,7 @@ object China extends EArea2("China", 30.0 ll 105.5, hillySub)
   val longhai: LatLong = 24.26 ll 118.14
   val dashwei: LatLong = 22.938 ll 116.502
   val hongKong: LatLong = 22.44 ll 114.16
+  val weijiadaoIsland: LatLong = 21.565 ll 112.802
   val wuchuan: LatLong = 21.381 ll 110.750
   val p40: LatLong = 20.470 ll 110.535
   val xuwen: LatLong = 20.24 ll 110.18
@@ -40,8 +41,8 @@ object China extends EArea2("China", 30.0 ll 105.5, hillySub)
   val northWest: LatLong = 34.742 ll 106.413
 
   override val polygonLL: PolygonLL = PolygonLL(
-    haitzhou, p15, p18, putuo, p25, suanyu, longhai, dashwei, hongKong, wuchuan, p40, xuwen, yingzaiMouth, baihai, liuMouth, IndoChina.beilunMouth,
-    IndoChina.north, Yunnan.northEast, northWest)
+    haitzhou, p15, p18, putuo, p25, suanyu, longhai, dashwei, hongKong, weijiadaoIsland, wuchuan, p40, xuwen, yingzaiMouth, baihai, liuMouth,
+    IndoChina.beilunMouth, IndoChina.north, Yunnan.northEast, northWest)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
