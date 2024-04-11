@@ -18,8 +18,9 @@ object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, p10, jomaigEast, calintaanSouth, puntaTumaquip, llinSouth, southWest, northWest)
 }
 
-/** [[polygonLL]] graphical representation of Visayas Philippines islands. Depends on nothing. */
-object Visayas extends EArea2("Visayas Islands", 13.259 ll 122.615, hillyJungle)
+/** [[polygonLL]] graphical representation of western Visayas islands 38353.27km². Negros 13309.60km², Panay 12011km², Cebu 4943.72km², Bohol 4820.95km². Masbat
+ *  3268km². Part of Philippines islands. Depends on nothing. */
+object VisayasWest extends EArea2("Visayas Islands\n west", 13.259 ll 122.615, hillyJungle)
 { val negrosS: LatLong = 9.043 ll 123.013
   val panayNW: LatLong = 11.897 ll 121.887
   val ticaoN: LatLong = 12.691 ll 123.621
@@ -43,8 +44,9 @@ object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtainDepr)
   override val polygonLL: PolygonLL = PolygonLL(busangaNW, busangaNE, dumaranE, bugsukSE, balabacSE, balabacSW, balabacWest, p80)
 }
 
-/** [[polygonLL]] graphical representation of Samar and nearby smaller islands. Depends on nothing. */
-object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtainDepr)
+/** [[polygonLL]] graphical representation of Samar-Leyte 21332.41km². Samar 13428.8km² Leyte 7367.6km² Biliran 536.01km² and nearby smaller islands. Depends on
+ *  nothing. */
+object SamarLeyte extends EArea2("Samar-Leyte", 11.536 ll 125.121, mtainJungle)
 { val batagNE: LatLong = 12.685 ll 125.063
   val samarSE: LatLong = 10.939 ll 125.837
   val panonSouth: LatLong = 9.911 ll 125.282
@@ -54,7 +56,7 @@ object Samar extends EArea2("Samar Island", 11.536 ll 125.121, mtainDepr)
   override val polygonLL: PolygonLL = PolygonLL(batagNE, samarSE, panonSouth, higatanganNW, northWest)
 }
 
-/** [[polygonLL]] graphical representation of Mindanao 97530 km²  nearby smaller islands. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Mindanao 97530km²  nearby smaller islands. Depends on nothing. */
 object Mindano extends EArea2("Mindano", 7.729 ll 125.011, hillyJungle)
 { val north: LatLong = 9.824 ll 125.441
   val capeSanAgustin: LatLong = 6.269 ll 126.193
