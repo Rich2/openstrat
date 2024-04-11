@@ -27,16 +27,17 @@ object Terr640E120 extends Long640Terrs
     VRow(123, OrigRt(4612, HVUR, 7, siceWin), BendIn(4614, HVDn, 13, siceWin)),
     TRow(122, hillyTaiga, hillyTaiga),
     TRow(120, mtainTaiga, hillyOce, hillyOce),
+    VRow(119, Bend(4616, HVDR, 7, 1)),
     TRow(118, deshot, steppe, hillyOce),
-    VRow(117, Bend(4614, HVDR, 10, 7)),
+    VRow(117, BendIn(4616, HVUL, 8), Bend(4614, HVDR, 10, 7)),
     TRow(116, hillySahel, hillySavannah, hillyOce),
     VRow(115, BendIn(4608, HVDR, 13), Orig(4610, HVDL, 5, 4), BendIn(4612, HVDR, 13), BendIn(4614, HVUL, 13)),
     TRow(114, hillyOce, oceanic, hillyContForest, hillyOce),
     VRow(113, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), Bend(4612, HVUL, 3, 5)),
     TRow(112, oceanic, hillyOce, sea * 2),
-    VRow(111, BendIn(4608, HVDR, 11), ThreeUp(4610, 2, 11, 4), BendIn(4612, HVDL, 11)),
-    TRow(110, hillySavannah * 2, hillySubForest),
-    VRow(109, OrigLt(4602, HVDn), BendOut(4606, HVDR, 7), ThreeUp(4608, 11, 0, 9), BendIn(4610, HVUp, 11), BendIn(4612, HVUL, 11)),
+    VRow(111, ThreeUp(4610, 2, 11, 4)),
+    TRow(110, hillySavannah * 2, Isle5(hillySubForest)),
+    VRow(109, OrigLt(4602, HVDn), BendOut(4606, HVDR, 7), BendIn(4608, HVUL, 7)),
     TRow(108, hillyTrop),
     VRow(107, OrigRt(4602, HVUp), OrigLt(4604, HVUR, 7), BendIn(4606, HVUL, 13)),
     TRow(106, sea * 2, Isle9(hillyJungle)),
@@ -60,6 +61,7 @@ object Terr640E120 extends Long640Terrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(114, "" * 2, "Korea south", "Japan west")
     str(106, "" * 2, "Luzon")
     str(104, "" * 2, "Palawan", "Philippines central")
     str(102, "", "Borneo north", "Mindanao")
