@@ -3,6 +3,7 @@ package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
 /** 640km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile area of 354724.005km².
+ * [[Isle12]] 183250.975km² => 216506.350km². Sulawesi 186216.16km².
  * [[Isle10]] 125054.068km² => 152766.881km². Java 124413km² + Bali 5780km².
  * [[Isle9]] 100112.536km² => 125054.068km². Luzon 109965km² + Mindoro 10572km² + Catanduanes 1523km² + Marinduque 952km²
  * [[Isle8]] 77942.286km² => 100112.536km². Mindanao 97530km².
@@ -46,13 +47,16 @@ object Terr640E120 extends Long640Terrs
     TRow(106, sea * 2, Isle9(hillyJungle)),
     VRow(105, BendIn(4598, HVDL, 13), OrigRt(4602, HVDn, 7)),
     TRow(104, SepB(), jungle, sea, Isle3(mtainJungle), Isle7(hillyJungle)),
-    VRow(103, BendOut(4598, HVUR, 7), ThreeDown(4600, 13, 0, 13), BendIn(4602, HVUL, 13)),
-    TRow(102, sea, hillyJungle, Isle8(hillyJungle)),
-    VRow(101, ThreeDown(4598, 0, 13, 8), ThreeUp(4600, 0, 10, 13), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13), BendIn(4618, HVDL, 9)),
-    TRow(100, hillyJungle, jungle, hillyJungle, sea, hillyJungle),
-    VRow(99, OrigMin(4618, HVUp, 2), BendIn(4612, HVDL, 13)),
-    TRow(98, hillyJungle, sea, hillyJungle, sea, hillyJungle),
-    VRow(97, ThreeDown(4598, 13, 6, 0)),
+    VRow(103, BendOut(4598, HVUR, 7), ThreeDown(4600, 13, 13, 13), ThreeUp(4602, 0, 13, 13), BendOut(4604, HVUp, 7), BendIn(4606, HVDn), BendIn(4608, HVDL)),
+    TRow(102, jungle, hillyJungle, Isle8(hillyJungle)),
+
+    VRow(101, ThreeDown(4598, 0, 13, 8), BendOut(4600, HVUL, 7), BendIn(4606, HVDR, 13), BendIn(4608, HVDn, 12), BendIn(4614, HVDR, 12), BendIn(4616, HVDn, 13),
+      BendIn(4618, HVDL, 9)),
+
+    TRow(100, hillyJungle * 2, hillyJungle, sea, hillyJungle),
+    VRow(99, BendIn(4598, HVUR, 13), BendOut(4600, HVDL, 7), BendIn(4606, HVUR, 13), OrigMin(4618, HVUp, 2), BendIn(4612, HVDL, 13)),
+    TRow(98, jungle, sea, hillyJungle, sea, hillyJungle),
+    VRow(97, ThreeDown(4598, 13, 6, 0), BendIn(4600, HVUR, 13), BendIn(4602, HVUp, 13)),
     TRow(96, hillyJungle * 2, Isle6(mtainJungle), Isle5(mtainJungle)),
 
     VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7), BendIn(4604, HVUp, 13), BendIn(4606, HVUL, 13), BendIn(4608, HVDR, 13),
@@ -68,6 +72,7 @@ object Terr640E120 extends Long640Terrs
     str(106, "" * 2, "Luzon")
     str(104, "" * 2, "Palawan", "Visayas")
     str(102, "", "Borneo north", "Mindanao")
+    str(100, "Borneo west", "Borneo east")
     str(96, "Java west", "Java east", "Sumbawa", "Timor")
   }
 }

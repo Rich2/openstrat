@@ -25,7 +25,7 @@ object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
     batangLuparMouth, p70, p75, kulalaBaram)
 }
 
-/** [[polygonLL]] graphical representation of the island of Sulawesi. Depends on nothing. */
+/** [[polygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
 object Sulawesi extends EArea2("Sulawesi", -2.16 ll 120.58, jungle)
 { val seSulawesi: LatLong = -5.41 ll 119.38
   val nwSulawesi: LatLong = 0.72 ll 120.06
