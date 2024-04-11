@@ -3,7 +3,8 @@ package ostrat; package egmega
 import prid._, phex._, egrid._, WTiles._
 
 /** 1Mm [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile ares of 866025.403 km².
- * [[Isle5]] 68503.962km² => 102333.079km². Salakhin 72,492 km². */
+ * [[Isle5]] 68503.962km² => 102333.079km². Salakhin 72,492 km².
+ * [[Isle4]] 41440.668km² => 68503.962km². New Britain 42548.6km². */
 object TerrMegaE150 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e150(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -25,8 +26,8 @@ object TerrMegaE150 extends LongMegaTerrs
     VRow(109, BendIn(5628, HVUL), BendOut(5630, HVDR), BendIn(5632, HVUL, 13)),
     VRow(101, BendOut(5626, HVUp, 7), BendIn(5628, HVDn, 13), BendIn(5630, HVDL, 13)),
     TRow(100, hillyJungle),
-    VRow(99, BendOut(5630, HVUR, 7), OrigLt(5632, HVUL, 7)),
-    TRow(98, hillyJungle),
+    VRow(99, BendOut(5630, HVUR, 7), BendIn(5632, HVDL, 7)),
+    TRow(98, hillyJungle, Isle4(hillyJungle)),
     VRow(97, BendIn(5626, HVUp, 13), Bend(5628, HVDn, 6, 6), OrigRt(5630, HVUL, 7)),
     TRow(96, savannah),
     TRow(94, savannah),
@@ -44,5 +45,6 @@ object TerrMegaE150 extends LongMegaTerrs
     str(114, "Kamchatka")
     str(112, "Salakhin")
     str(110, "Japan north")
+    str(98, "New Guinee east", "New Britain")
   }
 }

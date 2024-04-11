@@ -54,16 +54,19 @@ object Terr640E120 extends Long640Terrs
       BendIn(4618, HVDL, 9)),
 
     TRow(100, hillyJungle * 2, hillyJungle, sea, hillyJungle),
-    VRow(99, BendIn(4598, HVUR, 13), BendOut(4600, HVDL, 7), BendIn(4606, HVUR, 13), OrigMin(4618, HVUp, 2), BendIn(4612, HVDL, 13)),
+
+    VRow(99, BendIn(4598, HVUR, 13), BendOut(4600, HVDL, 7), BendIn(4606, HVUR, 13), OrigMin(4618, HVUp, 2), BendIn(4612, HVDL, 13), BendIn(4614, HVUR, 8),
+      BendMin(4616, HVDL)),
+
     TRow(98, jungle, sea, hillyJungle, sea, hillyJungle),
 
     VRow(97, ThreeDown(4598, 13, 6, 0), BendIn(4600, HVUR, 13), BendIn(4602, HVUp, 13), OrigRt(4604, HVDL, 7), OrigLt(4608, HVDR), BendIn(4610, HVUp, 13),
-      BendIn(4612, HVUL, 13)),
+      BendIn(4612, HVUL, 13), BendIn(4616, HVUR, 13), ThreeDown(4618, 13, 13, 0), OrigRt(4620, HVDL, 7)),
 
     TRow(96, hillyJungle * 2, Isle6(mtainJungle), Isle5(mtainJungle)),
 
     VRow(95, BendIn(4598, HVUR, 13), BendIn(4600, HVUp, 13), BendOut(4602, HVDn, 7), BendIn(4604, HVUp, 13), BendIn(4606, HVUL, 13), BendIn(4608, HVDR, 13),
-      BendIn(4610, HVDn, 13), BendOut(4612, HVUp, 5), OrigLt(4614, HVDL)),// BendInRt(4614, HVUL, 11, 7, siceWin, sea)),
+      BendIn(4610, HVDn, 13), BendOut(4612, HVUp, 5), OrigLt(4614, HVDL)),
 
     TRow(94, sea * 2, sahel, savannah * 2),
     )
@@ -75,7 +78,8 @@ object Terr640E120 extends Long640Terrs
     str(106, "" * 2, "Luzon")
     str(104, "" * 2, "Palawan", "Visayas")
     str(102, "", "Borneo north", "Mindanao")
-    str(100, "Borneo west", "Borneo east")
+    str(100, "Borneo west", "Borneo east", "Sulawesi north", "", "New Guinee north west")
+    str(98, "Borneo south", "", "Sulawesi south", "", "New Guinee west")
     str(96, "Java west", "Java east", "Sumbawa", "Timor")
   }
 }

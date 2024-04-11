@@ -36,5 +36,6 @@ object TerrMegaE60 extends LongMegaTerrs
 
   { import hexNames.{ setRow => str}
     str(102, "" * 2, "Kerala")
+    str(96, "Madagascar north")
   }
 }

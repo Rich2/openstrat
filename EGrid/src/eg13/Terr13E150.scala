@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** 1300Km [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile area of 1.463582932 million km².
  * [[Isle8]] 321588.046km² => 413061.979km². Japan combined 377973 km².
- * [[Isle3]] 35732.005km² => 70034.730km². New Britian 42548.6km². */
+ * [[Isle3]] 35732.005km² => 70034.730km². New Britain 42548.6km². */
 object Terr13E150 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e150(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -30,7 +30,7 @@ object Terr13E150 extends Long13Terrs
     VRow(101, BendIn(5622, HVDL, 9)),
     TRow(100, Isle3(hillyJungle)),
     VRow(99, Bend(5628, HVDL, 12, 2)),
-    TRow(98, hillyJungle, sea),
+    TRow(98, hillyJungle),
     VRow(97, ThreeUp(5628, 13, 0, 12),  BendIn(5630, HVUp, 13), Bend(5632, HVDn, 13, 7), BendIn(5634, HVDL, 13)),
     TRow(96, hillySavannah, sea),
     VRow(95, OrigLt(5634, HVUp, 7)),
@@ -48,6 +48,6 @@ object Terr13E150 extends Long13Terrs
     str(108, "Japan north")
     str(106, "Japan central")
     str(100, "New Britain")
-    str(98,"New Guinee west")
+    str(98,"New Guinee east")
   }
 }
