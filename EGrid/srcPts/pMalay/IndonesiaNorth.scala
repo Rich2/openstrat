@@ -46,7 +46,7 @@ object NewGuinea extends EArea2("New Guinea", -5.19 ll 141.03, hillyJungle)
   val manokwari: LatLong = -0.73 ll 133.98
   val sCenderawasih: LatLong = -3.39 ll 135.33
   val tebe: LatLong = -1.46 ll 137.93
-  val papuaNW = -2.606 ll 141
+  val papuaNW: LatLong = -2.606 ll 141
   val madang: LatLong = -4.85 ll 145.78
   val p40: LatLong = -5.918 ll 147.339
   val p42: LatLong = -6.402 ll 147.843
@@ -67,4 +67,17 @@ object NewGuinea extends EArea2("New Guinea", -5.19 ll 141.03, hillyJungle)
 
   override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth, manokwari, sCenderawasih, tebe, papuaNW, madang, p40, p42, east,
     hulaBlackSand, p53, morigo, saibai, p55, p60, southWest, p70, heilwigMouth, aindua, p85, wNewGuinea)
+}
+
+/** [[polygonLL]] graphical representation 42548.6km² of New Britain 35144.6km² and New Ireland 7404km². Depends on nothing. */
+object NewBritain extends EArea2("New Britain", -5.251 ll 151.402, hillyJungle)
+{ val newHanoverIsland: LatLong = -2.360 ll 150.190
+  val newIreland20: LatLong = -3.977 ll 152.926
+  val newIrelandSouth: LatLong = -4.840 ll 152.882
+  val baronga: LatLong = -6.246 ll 150.463
+  val umbolWest: LatLong = -5.502 ll 147.754
+  val p75: LatLong = -5.480 ll 150.908
+  val takis = -4.213 ll 151.489
+
+  override val polygonLL: PolygonLL = PolygonLL(newHanoverIsland, newIreland20, newIrelandSouth, baronga, umbolWest, p75, takis)
 }
