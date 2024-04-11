@@ -49,6 +49,7 @@ object NewGuinea extends EArea2("New Guinea", -5.19 ll 141.03, hillyJungle)
   val papuaNW = -2.606 ll 141
   val madang: LatLong = -4.85 ll 145.78
   val p40: LatLong = -5.918 ll 147.339
+  val p42: LatLong = -6.402 ll 147.843
   val east: LatLong = -10.23 ll 150.87
 
   val hulaBlackSand: LatLong = -10.103 ll 147.726
@@ -64,6 +65,6 @@ object NewGuinea extends EArea2("New Guinea", -5.19 ll 141.03, hillyJungle)
   val p85: LatLong = -4.083 ll 132.915
   val wNewGuinea: LatLong = -0.82 ll 130.45
 
-  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth, manokwari, sCenderawasih, tebe, papuaNW, madang, p40, east,
+  override val polygonLL: PolygonLL = PolygonLL(waigeoWest, waigeoNorth, manokwari, sCenderawasih, tebe, papuaNW, madang, p40, p42, east,
     hulaBlackSand, p53, morigo, saibai, p55, p60, southWest, p70, heilwigMouth, aindua, p85, wNewGuinea)
 }
