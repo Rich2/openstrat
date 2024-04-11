@@ -36,9 +36,9 @@ object Terr640E90 extends Long640Terrs
     TRow(102, hillyJungle, sea * 2, hillyJungle, hillyJungle),
     VRow(101, BendIn(3576, HVUR, 9), BendIn(3578, HVUp, 9), BendIn(3580, HVUL, 9), BendOut(3592, HVUR), ThreeDown(3594, 0, 13, 8), ThreeUp(3596, 0, 10, 13)),
     TRow(100, sea * 4, hillyJungle),
-    VRow(99, OrigLt(3590, HVDR, 7), BendMin(3592, HVDL, 5)),
+    VRow(99, OrigLt(3590, HVDR, 7), BendMin(3592, HVDL, 5), BendIn(3596, HVDL, 8)),
     TRow(98, sea * 4, jungle),
-    VRow(97, BendIn(3592, HVUR, 13), ThreeDown(3594, 11, 6, 0)),
+    VRow(97, BendIn(3592, HVUR, 13), ThreeDown(3594, 11, 6, 0), BendIn(3596, HVUL, 8)),
     VRow(95),
     )
   }
@@ -46,6 +46,8 @@ object Terr640E90 extends Long640Terrs
 
   { import hexNames.{ setRow => str}
     str(104, "India south")
-    str(102, "Sri Lanka")
+    str(102, "Sri Lanka", "" * 2, "Sumatra north")
+    str(100, "" * 4, "Sumatra middle")
+    str(98, "" * 4, "Sumatra south")
   }
 }
