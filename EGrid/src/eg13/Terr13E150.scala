@@ -3,7 +3,8 @@ package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
 /** 1300Km [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile area of 1.463582932 million km².
- * [[Isle8]] 321588.046km² => 413061.979km². Japan combined 377973 km². */
+ * [[Isle8]] 321588.046km² => 413061.979km². Japan combined 377973 km².
+ * [[Isle3]] 35732.005km² => 70034.730km². New Britian 42548.6km². */
 object Terr13E150 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.e150(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -27,6 +28,7 @@ object Terr13E150 extends Long13Terrs
     VRow(105, BendOut(5628, HVDn, 7), BendIn(5630, HVUp, 13), BendIn(5632, HVUL, 13)),
     VRow(103, BendIn(5628, HVDL, 13)),
     VRow(101, BendIn(5622, HVDL, 9)),
+    TRow(100, Isle3(hillyJungle)),
     VRow(99, Bend(5628, HVDL, 12, 2)),
     TRow(98, hillyJungle, sea),
     VRow(97, ThreeUp(5628, 13, 0, 12),  BendIn(5630, HVUp, 13), Bend(5632, HVDn, 13, 7), BendIn(5634, HVDL, 13)),
@@ -45,6 +47,7 @@ object Terr13E150 extends Long13Terrs
   { import hexNames.{ setRow => str}
     str(108, "Japan north")
     str(106, "Japan central")
+    str(100, "New Britain")
     str(98,"New Guinee west")
   }
 }
