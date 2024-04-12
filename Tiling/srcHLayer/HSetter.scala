@@ -610,41 +610,45 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The magnitude of the offset on the inside [[HCorner]]. */
     def magIn: Int
 
-    def magSource: Int
+    /** The magnitude of the offset on the origin [[HCorner]]. */
+    def OrigMag: Int
 
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        corners.setCorner(row - 1, c, 0, HVDL, magSource)
-        corners.setCornerPair(row + 1, c - 2, 2, HVExact, 0, HVDL, magSource)
+        corners.setCorner(row - 1, c, 0, HVDL, OrigMag)
+        corners.setCornerPair(row + 1, c - 2, 2, HVExact, 0, HVDL, OrigMag)
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setCorner(row - 1, c - 2, 1, HVUL, magSource)
-        corners.setCorner(row + 1, c, 3, HVUL, magSource)
+        corners.setCorner(row - 1, c - 2, 1, HVUL, OrigMag)
+        corners.setCorner(row + 1, c, 3, HVUL, OrigMag)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
-        corners.setCornerPair(row + 1, c + 2, 4, HVExact, 0, HVUp, magSource)
-        corners.setCorner(row + 1, c - 2, 2, HVUp, magSource)
+        corners.setCornerPair(row + 1, c + 2, 4, HVExact, 0, HVUp, OrigMag)
+        corners.setCorner(row + 1, c - 2, 2, HVUp, OrigMag)
       }
 
       case HVDL =>
       { corners.setCornerIn(row - 1, c - 2, 1, magIn)
-        corners.setCorner(row + 1, c, 3, HVUL, magSource)
-        corners.setCorner(row - 1, c + 2, 5, HVUL, magSource)
+        corners.setCorner(row + 1, c, 3, HVUL, OrigMag)
+        corners.setCorner(row - 1, c + 2, 5, HVUL, OrigMag)
       }
 
-      case HVUL =>{
-        corners.setCornerIn(row + 1, c - 2, 2, magIn)
-        debexc("Not Implemented")
+      case HVUL =>
+      { corners.setCornerIn(row + 1, c - 2, 2, magIn)
+        corners.setCorner(row + 1, c + 2, 4, HVDR, OrigMag)
+        corners.setCornerPair(row - 1, c, 0, HVDR, OrigMag, HVExact, 0)
+        //corners.setCorner(row - 1, c, 0, HVExact, 0)
       }
+
       case HVUp =>
       { corners.setCornerIn(row + 1, c, 3, magIn)
-        corners.setCorner(row - 1, c + 2, 5, HVDn, magSource)
-        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, magSource)
+        corners.setCorner(row - 1, c + 2, 5, HVDn, OrigMag)
+        corners.setCornerPair(row - 1, c - 2, 1, HVExact, 0, HVDn, OrigMag)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }
@@ -654,40 +658,41 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The magnitude of the offset on the inside [[HCorner]]. */
     def magIn: Int
 
-    def magSource: Int
+    /** The magnitude of the offset on the origin [[HCorner]]. */
+    def origMag: Int
 
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        corners.setMouth0(row - 1, c, 0, magSource)
+        corners.setMouth0(row - 1, c, 0, origMag)
         debexc("Not Implemented")
       }
 
       case HVDR =>
       { corners.setCornerIn(row - 1, c + 2, 5, magIn)
-        corners.setCorner(row + 1, c, 3, HVUL, magSource)
-        corners.setCornerPair(row - 1, c - 2, 1, HVUL, magSource, HVExact, 0)
+        corners.setCorner(row + 1, c, 3, HVUL, origMag)
+        corners.setCornerPair(row - 1, c - 2, 1, HVUL, origMag, HVExact, 0)
       }
 
       case HVDn =>
       { corners.setCornerIn(row - 1, c, 0, magIn)
-        corners.setCorner(row + 1, c + 2, 4, HVUp, magSource)
+        corners.setCorner(row + 1, c + 2, 4, HVUp, origMag)
       }
 
       case HVDL =>
       { corners.setCornerIn(row - 1, c - 2, 1, magIn)
-        corners.setCorner(row - 1, c + 2, 5, HVUR, magSource)
-        corners.setCorner(row + 1, c, 3, HVUR, magSource)
+        corners.setCorner(row - 1, c + 2, 5, HVUR, origMag)
+        corners.setCorner(row + 1, c, 3, HVUR, origMag)
       }
       case HVUL =>
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
-        corners.setCorner(row - 1, c, 0, HVDR, magSource)
+        corners.setCorner(row - 1, c, 0, HVDR, origMag)
       }
 
       case HVUp =>
       { corners.setCornerIn(row + 1, c, 3, magIn)
-        corners.setCorner(row - 1, c - 2, 1, HVDn, magSource)
-        corners.setCornerPair(row - 1, c + 2, 5, HVDn, magSource, HVExact, 0)
+        corners.setCorner(row - 1, c - 2, 1, HVDn, origMag)
+        corners.setCornerPair(row - 1, c + 2, 5, HVDn, origMag, HVExact, 0)
       }
       case HVLt | HVRt => excep("HVLt and HVRt not implemented")
     }

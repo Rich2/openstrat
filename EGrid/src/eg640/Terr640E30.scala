@@ -51,6 +51,7 @@ object Terr640E30 extends Long640Terrs
     TRow(94, savannah * 2, hillySavannah, savannah, hillySavannah),
     VRow(93, Bend(1542, HVDR, 13, 6), Bend(1544, HVUL, 8, 5)),
     TRow(92, savannah * 2, jungle, hillySavannah),
+    VRow(91, BendOut(1540, HVDR), BendInLt(1542, HVUL, 13, 7)),
     TRow(90, deshot, savannah * 2),
     TRow(88, sahel, hillySavannah),
     TRow(86, hillySavannah * 2)
