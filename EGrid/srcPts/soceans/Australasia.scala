@@ -45,14 +45,16 @@ object AustraliaNorthTerr extends EArea2("Australia\nNorthern Territory", -23 ll
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object Queensland extends EArea2("Queensland", -27.1 ll 146.73, sahel)
+object Queensland extends EArea2("Queensland", -21.28 ll 144.5, sahel)
 { val nQueensland: LatLong = -11 ll 142.43
   val p5: LatLong = -12.840 ll 143.531
   val nKennedy: LatLong = -14.49 ll 143.95
   val capeMelville: LatLong = -14.17 ll 144.51
-  val p11: LatLong = -17.643 ll 146.142
+  val p9: LatLong = -14.945 ll 145.347
+  val p14: LatLong = -17.643 ll 146.142
   val coolbie: LatLong = -18.86 ll 146.27
-  val p15: LatLong = -19.406 ll 147.473
+  val p18: LatLong = -19.406 ll 147.473
+  val p25: LatLong = -22.683 ll 150.831
   val harveyBay: LatLong = -25.29 ll 152.89
   val doubleIslandPoint: LatLong = -25.932 ll 153.191
   val brisbane: LatLong = -27.05 ll 153.03
@@ -61,7 +63,7 @@ object Queensland extends EArea2("Queensland", -27.1 ll 146.73, sahel)
   val bynoeMouth: LatLong = -17.153 ll 140.732
   val p95: LatLong = -13.895 ll 141.483
 
-  override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p11, coolbie, p15, harveyBay, doubleIslandPoint, brisbane, byronBay,
+  override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p9, p14, coolbie, p18, p25, harveyBay, doubleIslandPoint, brisbane, byronBay,
     AustraliaSouthEast.northEast, SouthAustralia.cameronPoint, SouthAustralia.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast, bynoeMouth,
     p95)
 }
