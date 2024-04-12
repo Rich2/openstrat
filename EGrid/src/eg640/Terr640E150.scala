@@ -37,7 +37,10 @@ object Terr640E150 extends Long640Terrs
     TRow(98, hillyJungle * 2, Isle6(hillyJungle)),
     VRow(97, OrigRt(5624, HVDL, 7), ThreeDown(5622, 13, 13, 0), BendOut(5632, HVUR, 7), BendIn(5634, HVDL, 13)),
     TRow(96, jungle, jungle, mtainJungle),
-    VRow(95, BendIn(5622, HVUR, 13), BendIn(5624, HVUp, 13), BendOut(5626, HVDn, 7), BendIn(5628, HVUp, 13), BendMax(5630, HVDn), ThreeDown(5632, 13, 0, 13), BendIn(5634, HVUL, 13)),
+
+    VRow(95, BendIn(5622, HVUR, 13), BendIn(5624, HVUp, 13), BendOut(5626, HVDn, 7), BendIn(5628, HVUp, 13), BendMax(5630, HVDn), ThreeDown(5632, 13, 0, 13),
+      BendIn(5634, HVUL, 13)),
+
     TRow(94, savannah, hillySavannah),
     VRow(93, Orig(5630, HVUR, 4, 4), ThreeUp(5632, 0, 13, 13), BendIn(5634, HVDL, 13)),
     TRow(92, savannah, hillySavannah),

@@ -69,7 +69,7 @@ object Terr640E120 extends Long640Terrs
       BendIn(4610, HVDn, 13), BendOut(4612, HVUp, 5), OrigLt(4614, HVDL)),
 
     TRow(94, sea * 2, sahel, savannah * 2),
-    VRow(93, BendOut(4608, HVUL, 7)),
+    VRow(93, OrigRt(4606, HVUR, 7), BendOut(4608, HVUL, 7)),
     TRow(92, sea, sahel * 3),
     TRow(90, sea, sahel, deshot * 2),
     )
