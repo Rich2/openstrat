@@ -32,7 +32,7 @@ object Terr13W90 extends Long13Terrs
     VRow(97, BendIn(9728, HVUR, 13), OrigRt(9730, HVUL, 7)),
     VRow(91, BendIn(9728, HVDR, 13), OrigLt(9730, HVDL)),
     TRow(90, mtainSteppe),
-    VRow(89, BendIn(9728, HVUR, 13), OrigRtRevDepr(9730, HVDR, 7)),
+    VRow(89, BendIn(9728, HVUR, 13), OrigRt(9730, HVUL, 7)),
     VRow(87, BendIn(9726, HVDn, 13, siceWin), BendOut(9728, HVUp, 7, siceWin), BendIn(9730, HVDn, 13, siceWin), BendIn(9732, HVUp, 13, siceWin)),
     TRow(86, ice)
     )

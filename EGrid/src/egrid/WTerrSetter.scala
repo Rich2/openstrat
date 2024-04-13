@@ -163,9 +163,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   /** Origin / end point of an [[HSep]] hex tile separator, offset to the left as viewed from the [[HVert]] looking down the [[HSep]]. */
   case class OrigLt(c: Int, dirn: HVDirnPrimary, magLt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigLtBase
 
-  /** Deprecated. Replace with [[OrigLt]] reversing the dirn. */
-  case class OrigLtRevDepr(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigLtBaseRevDepr
-
   /** Origin / end point of an [[HSep]] hex tile separator, offset to the right as viewed from the [[HVert]] looking down the [[HSep]]. */
   case class OrigRt(c: Int, dirn: HVDirnPrimary, magRt: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigRtBase
 
@@ -193,6 +190,8 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   /** Deprecated. Reverse the direction and replace with [[OrigMin]] [[OrigLi]], [[OrigRt]] or[[Orig]]. */
   case class OrigMinRevDepr(c: Int, dirn: HVDirnPrimary, magnitude: Int = 3, sTerr: WSepSome = Sea) extends VRowElem with OrigBaseRevDepr
 
+  /** Deprecated. Replace with [[OrigLt]] reversing the dirn. */
+  case class OrigLtRevDepr(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigLtBaseRevDepr
   /** Deprecated. Reverse the direction and replace with [[OrigRt]]. */
   case class OrigRtRevDepr(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigRtBaseRevDepr
 
