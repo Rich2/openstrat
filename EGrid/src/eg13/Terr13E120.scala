@@ -22,6 +22,7 @@ object Terr13E120 extends Long13Terrs
     VRow(115, OrigRt(4610, HVDR, 7, SeaIceWinter), BendOut(4612, HVUp, 7, SeaIceWinter)),
     TRow(114, hillyTundra),
     TRow(112, taiga),
+    VRow(111, Orig(4612, HVDn, 7, 3)),
     TRow(110, hillyTaiga),
     VRow(109, BendIn(4610, HVDR, 8), ThreeUp(4612, 13, 8, 0)),
     TRow(108, hillyOceForest),

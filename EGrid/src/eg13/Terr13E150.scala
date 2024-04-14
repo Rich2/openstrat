@@ -18,7 +18,7 @@ object Terr13E150 extends Long13Terrs
     TRow(114, hillyTundra),
     VRow(113, BendIn(5636, HVUR, 13, siceWin)),
     TRow(112, hillyTundra),
-    VRow(111, BendOut(5636, HVDR, 7, siceWin)),
+    VRow(111, Orig(5632, HVDn, 7, 3), BendOut(5636, HVDR, 7, siceWin)),
     TRow(110, hillyTaiga),
     VRow(109, BendIn(5630, HVDR, 8), ThreeUp(5632, 13, 8, 0), ThreeDown(5634, 13, 0, 8), BendIn(5634, HVDL, 13), BendIn(5636, HVUL, 13, siceWin, sea)),
     VRow(101, ThreeUp(5628, 0, 7, 9), OrigLt(5630, HVUL, 7)),

@@ -24,7 +24,7 @@ object Terr220E0 extends Long220Terrs
     TRow(192, sea, mtainDepr),
     VRow(179, OrigLt(520, HVDn, 7)),
     TRow(178, sea * 4, hillyTaiga),
-    VRow(177, OrigRtRevDepr(520, HVDn, 7)),
+    VRow(177, OrigRt(520, HVUp, 7)),
     TRow(176, sea * 5, hillyTaiga),
     VRow(175, BendIn(516, HVDR, 13), BendIn(518, HVDn, 13), OrigLt(520, HVUL)),
     TRow(174, sea * 4, mtainDepr, hillyTaiga),
