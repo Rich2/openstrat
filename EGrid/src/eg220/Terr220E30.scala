@@ -18,7 +18,7 @@ object Terr220E30 extends Long220Terrs
     TRow(182, hillyTundra, hillyTundra, sea * 3),
     VRow(181, OrigRt(1528, HVUp), OrigRt(1540, HVDR, 7), OrigLt(1542, HVUL, 7)),
     TRow(180, hillyTundra, taiga, tundra, hillyTundra, sea),
-    VRow(179, OrigLtRevDepr(1544, HVUp, 7)),
+    VRow(179, OrigLt(1544, HVDn, 7)),
     TRow(178, taiga * 4, tundra),
     VRow(177, Orig(1530, HVDn, 7, 1, SeaIceWinter), OrigRt(1540, HVDR, 6, siceWin), ThreeDown(1542, 3, 13, 13, siceWin), BendOut(1544, HVUL, 7, siceWin)),
     TRow(176, taiga, taiga * 2, taiga, taiga, taiga),
