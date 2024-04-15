@@ -35,8 +35,10 @@ object Terr640W30 extends Long640Terrs
     TRow(98, hillySahel),
     VRow(97, OrigRt(11774, HVDn, 7)),
     TRow(96, hillySavannah, hillySavannah),
-    VRow(95, BendOut(11772, HVDR), BendIn(11774, HVUL, 13)),
-    TRow(94, hillySavannah)
+    VRow(95, BendOut(11772, HVDR, 7), BendIn(11774, HVUL, 13)),
+    TRow(94, hillySavannah),
+    VRow(93, BendOut(11772, HVUR, 7), BendIn(11774, HVDL, 13)),
+    TRow(92, hillyJungle),
     )
   }
   help.run
