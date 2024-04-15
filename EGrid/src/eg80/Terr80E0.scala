@@ -66,7 +66,7 @@ object Terr80E0 extends Long80Terrs
       BendIn(500, HVDn, 13), OrigMin(502, HVUL), OrigMin(514, HVUR), BendIn(516, HVDn), ThreeDown(518, 0, 13, 6), BendIn(520, HVDn, 13), OrigMin(522, HVUL)),
 
     TRow(464, sea * 9, oceanic, oceanic * 4, oceanic * 3, hillyOce * 7, oceanic, hillyOce),
-    VRow(463, BendIn(492, HVDR, 13), OrigLtRevDepr(494, HVUR, 7), Bend(516, HVDR, 10, 7), Bend(518, HVUL, 8, 1)),
+    VRow(463, BendIn(492, HVDR, 13), OrigLt(494, HVDL, 7), Bend(516, HVDR, 10, 7), Bend(518, HVUL, 8, 1)),
     TRow(462, sea * 8, hillyOce, hillyOce, hillyOce, oceanic, oceanic, hillyOce, oceanic, oceanic * 3, hillyOce * 8),
 
     VRow(461, BendIn(490, HVDR), BendOut(492, HVUL), OrigLt(500, HVDR, 7), BendIn(502, HVUp, 13), BendOut(504, HVDn, 7), BendIn(506, HVUp, 13),
