@@ -29,20 +29,23 @@ object Terr220W90 extends Long220Terrs
 
       TRow(154, savannah * 3, Land(PlainLakes, Savannah, LandFree), taiga * 3, mtainLakesTaiga, hillyLakesTaiga, mtainLakesTaiga),
 
-      VRow(153, OrigMinRevDepr(9732, HVUL, 3, lake), BendIn(9734, HVDL, 13, lake), OrigMinRevDepr(9736, HVUL, 3, lake), ThreeDown(9738, 6, 6, 6, lake),
-        Bend(9740, HVDn, 8, 3, lake), OrigLtRevDepr(9742, HVDR, 7, lake)),
+      VRow(153, OrigMin(9732, HVDR, 3, lake), BendIn(9734, HVDL, 13, lake), OrigMin(9736, HVDR, 3, lake), ThreeDown(9738, 6, 6, 6, lake),
+        Bend(9740, HVDn, 8, 3, lake), OrigLt(9742, HVUL, 7, lake)),
 
       TRow(152, hillySavannah, savannah * 2, hillySavannah, savannah * 2, SepB(lake), taiga, oceForest, Land(PlainLakes, Oceanic, Forest) * 2),
 
-      VRow(151, Bend(9732, HVDR, 6, 7, lake), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), OrigLtRevDepr(9740, HVDR, 7, lake),
-        OrigMinRevDepr(9744, HVDL, 3, lake), BendIn(9746, HVDn, 13, lake), OrigMinRevDepr(9748, HVDR, 3, lake)),
+      VRow(151, Bend(9732, HVDR, 6, 7, lake), BendIn(9734, HVUL, 13, lake), BendIn(9738, HVUR, 6, lake), OrigLt(9740, HVUL, 7, lake),
+        OrigMin(9744, HVUR, 3, lake), BendIn(9746, HVDn, 13, lake), OrigMin(9748, HVUL, 3, lake)),
 
       TRow(150, sahel, savannah * 3, hillySavannah, savannah * 3, oceForest, hillyOceForest * 2),
-      VRow(149, OrigRevDepr(9732, HVDn, 4, 7, lake), OrigMinRevDepr(9738, HVDL, 3,lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake), OrigRtRevDepr(9744, HVUR, 6, lake)),
+
+      VRow(149, Orig(9732, HVUp, 4, 7, lake), OrigMin(9738, HVUR, 3,lake), BendIn(9740, HVDn, 13, lake), BendIn(9742, HVUp, 13, lake),
+        OrigRt(9744, HVDL, 6, lake)),
+
       TRow(148, sahel * 2, savannah, hillySavannah * 3, savannah * 3, hillyOceForest, mtainDepr),
       VRow(147, BendMin(9752, HVDR)),
       TRow(146, sahel, savannah * 2, hillySavannah * 2, savannah * 3, mtainDepr * 2, hillyOce),
-      VRow(145, OrigLtRevDepr(9752, HVDn)),
+      VRow(145, OrigLt(9752, HVUp)),
       TRow(144, sahel * 2, savannah, hillySavannah, hillyOceForest * 2, savannah, hillyOceForest, mtainDepr * 2, hillyOce),
       TRow(142, hillyDeshot, sahel * 2, hillySavannah, mtainDepr),
     )
