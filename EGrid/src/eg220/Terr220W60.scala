@@ -14,25 +14,25 @@ object Terr220W60 extends Long220Terrs
   {
     override val rows: RArr[RowBase] = RArr(
       TRow(166, hillyLakesTaiga, mtainLakesTaiga, hillyLakesTaiga, mtainDepr),
-      VRow(165, BendOut(10752, HVUR), OrigLtRevDepr(10754, HVDR)),
+      VRow(165, BendOut(10752, HVUR), OrigLt(10754, HVUL)),
       TRow(164, lakesTaiga, hillyLakesTaiga * 3),
-      VRow(163, OrigRtRevDepr(10758, HVUL, 7), BendIn(10760, HVDL, 13)),
+      VRow(163, OrigRt(10758, HVDR, 7), BendIn(10760, HVDL, 13)),
       TRow(162, lakesTaiga, hillyLakesTaiga * 5, SepB()),
       VRow(161, BendOut(10758, HVDR, 7), BendIn(10760, HVUL, 13)),
       TRow(160, hillyLakesTaiga * 2, mtainLakesTaiga * 2, hillyLakesTaiga * 2),
       VRow(159, BendIn(10752, HVDR, 13), BendIn(10754, HVDn, 13), BendIn(10756, HVUp, 13), ThreeUp(10758, 0, 7, 7), OrigLtRevDepr(10760, HVDR, 7)),
       TRow(158, hillyLakesTaiga, mtainLakesTaiga, sea * 2, mtainDepr, hillyLakesTaiga),
-      VRow(157, OrigLtRevDepr(10742, HVDL), OrigRtRevDepr(10744, HVUR, 7), OrigRtRevDepr(10752, HVDn, 7)),
+      VRow(157, OrigLt(10742, HVUR), OrigRt(10744, HVDL, 7), OrigRt(10752, HVUp, 7)),
       TRow(156, mtainLakesTaiga, hillyTaiga, mtainDepr, sea * 2, hillyLakesTaiga * 2),
-      VRow(155, OrigMinRevDepr(10748, HVDL), OrigLtRevDepr(10750, HVUR, 7)),
+      VRow(155, OrigMin(10748, HVUR), OrigLt(10750, HVDL, 7)),
       TRow(154, taiga, hillyTaiga * 4),
       TRow(152, hillyTaiga, hillyLakesTaiga, lakesTaiga, hillyLakesTaiga),
-      VRow(151, BendOut(10740, HVDR, 6), OrigRtRevDepr(10742, HVUR, 7), OrigLtRevDepr(10748, HVDL, 7), OrigRtRevDepr(10750, HVUR, 7)),
+      VRow(151, BendOut(10740, HVDR, 6), OrigRt(10742, HVDL, 7), OrigLt(10748, HVUR, 7), OrigRt(10750, HVDL, 7)),
       TRow(150, hillyTaiga * 2),
       VRow(149, BendOut(10738, HVDR, 7), BendIn(10740, HVUL, 13)),
       TRow(148, hillyOce * 2),
       VRow(147, BendMin(10732, HVDR), BendOut(10734, HVDn, 7), BendIn(10736, HVUp, 13), BendIn(10738, HVUL, 10)),
-      VRow(145, OrigLtRevDepr(10732, HVDn)),
+      VRow(145, OrigLt(10732, HVUp)),
     )
   }
   help.run
