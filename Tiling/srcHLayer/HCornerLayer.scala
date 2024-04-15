@@ -234,20 +234,6 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     case _ => debexc("Not implemented")
   }
 
-  /** Sets the end of an [[HSep]] terrain from off the [[HGrid]] at what would have been vertex 3 for the other 2 tiles. For example the the mouth of Straits
-   *  the given [[HCen]] is the sea tile, for a wall it would be the hex tile looking at the end of the wall. */
-  def setMouth3OffGrid(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCorner(r - 2, c + 2, 5, HVDR, magnitude)
-    setCorner(r - 2, c - 2, 1, HVDL, magnitude)
-  }
-
-  /** Sets the end of an [[HSep]] terrain from off the [[HGrid]] at what would have been vertex 4 for the other 2 tiles. For example the the mouth of Straits
-   *  the given [[HCen]] is the sea tile, for a wall it would be the hex tile looking at the end of the wall. */
-  def setMouth4OffGrid(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  { setCorner(r - 2, c - 2, 0, HVDn, magnitude)
-    setCorner(r, c - 4, 2, HVUL, magnitude)
-  }
-
   /** Sets thr corner in at the specified vertex if the specified [[HCen]] exists. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int)(implicit grid: HGrid): Unit =
   { val dirn = HVDirn.inFromVertIndex(vertNum)

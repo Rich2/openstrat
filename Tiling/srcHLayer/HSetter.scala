@@ -247,68 +247,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /**  deprecated replace with source Sets the mouth in the given direction and the [[HSep]] terrain in the opposite direction from the vertex. */
-  trait OrigSpecBaseRevDepr extends VertSetBase
-  { /** The direction of the mouth. */
-    def mouthDirn: HVDirnPrimary
-
-    def dirn1: HVDirn
-
-    def dirn2: HVDirn
-
-    /** The terrain of the left most [[HSep]] of the junction. */
-    def sTerr: SST
-
-    /** The magnitude of the 1st offset of the mouth. */
-    def magnitude1: Int
-
-    def magnitude2: Int
-
-    def run(row: Int): Unit = mouthDirn match
-    { case HVUp =>
-      { corners.setCorner(row - 1, c + 2, 5, dirn1, magnitude1)
-        corners.setCorner(row - 1, c - 2, 1, dirn2, magnitude2)
-        corners.setCornerPair(row + 1, c, 3, dirn1, magnitude1, dirn2, magnitude2)
-        sTerrs.setExists(grid, row - 1, c, sTerr)
-      }
-
-      case HVUR =>
-      { corners.setCorner(row - 1, c, 0, dirn1, magnitude1)
-        corners.setCorner(row + 1, c - 2, 2, dirn2, magnitude2)
-        corners.setCornerPair(row + 1, c + 2, 4, dirn1, magnitude1, dirn2, magnitude2)
-        sTerrs.setExists(grid, row, c - 1, sTerr)
-      }
-
-      case HVDR =>
-      { corners.setCorner(row - 1, c - 2, 1, dirn1, magnitude1)
-        corners.setCorner(row + 1, c, 3, dirn2, magnitude2)
-        corners.setCornerPair(row - 1, c + 2, 5, dirn1, magnitude1, dirn2, magnitude2)
-        sTerrs.setExists(grid, row, c - 1, sTerr)
-      }
-
-      case HVDn =>
-      { corners.setCorner(row + 1, c - 2, 2, dirn1, magnitude1)
-        corners.setCorner(row + 1, c + 2, 4, dirn2, magnitude2)
-        corners.setCornerPair(row - 1, c, 0, dirn1, magnitude1, dirn2, magnitude2)
-        sTerrs.setExists(grid, row + 1, c, sTerr)
-      }
-
-      case HVDL =>
-      { corners.setCorner(row + 1, c, 3, dirn1, magnitude1)
-        corners.setCorner(row - 1, c + 2, 5, dirn2, magnitude2)
-        corners.setCornerPair(row - 1, c - 2, 1, dirn1, magnitude1, dirn2, magnitude2)
-        sTerrs.setExists(grid, row, c + 1, sTerr)
-      }
-
-      case HVUL =>
-      { corners.setCorner(row + 1, c + 2, 4, dirn1, magnitude1)
-        corners.setCorner(row - 1, c, 0, dirn2, magnitude2)
-        corners.setCornerPair(row + 1, c - 2, 2, dirn1, magnitude1, dirn2, magnitude2)
-        sTerrs.setExists(grid, row, c + 2, sTerr)
-      }
-    }
-  }
-
   /** Sets only the inside [[HCorner]] of Vertex for a bend [[HSep]] terrain, Sets the left most of the [[HSep]]s of this vertex. The orientation of
    *  the bend is specified by the direction of the inside of the bend. This trait is provided to model real world geographic / terrain features and
    *  is probably superfluous for created worlds / terrain. */

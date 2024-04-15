@@ -58,7 +58,7 @@ object Terr320E0 extends Long320Terrs
     TRow(132, sea, hillySub, hillySavannah * 2, hillySavannah, mtainSavannah, sea),
 
     VRow(131, OrigLt(500, HVDn, 7), BendIn(512, HVDR, 13), ThreeUp(514, 12, 13, 13), Bend(516, HVUp, 12, 7), ThreeUp(518, 8, 13, 12), Bend(520, HVUp, 8, 7),
-      ThreeUp(522, 0, 13, 8), BendInRt(524, HVDL, 11, 7), OrigSpecRevDepr(526, HVUL, HVRt, HVLt)),
+      ThreeUp(522, 0, 13, 8), BendInRt(524, HVDL, 11, 7)),// OrigSpecRevDepr(526, HVUL, HVRt, HVLt)),
 
     TRow(130, sea, hillyTrop, hillySavannah * 2, hillySavannah, mtainSavannah, hillySavannah, hillySavannah),
 

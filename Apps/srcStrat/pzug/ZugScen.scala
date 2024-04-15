@@ -53,7 +53,7 @@ object Zug1 extends ZugScenStart
 
   sTerrs.setTruesInts(14,36,  13,35,  12,34,  11,35,  10,36,  9,37,  9,39,  9,41,  9,43,  9,45,  9,47)
 
-  corners.setMouth3OffGrid(16, 36, 1)
+  corners.setVertOrig(15, 36, HVDn, 1, 1)
   corners.setBend2(14, 34, 1, 1)
   corners.setBend5(12, 36, 1, 1)
   corners.setBend4(12, 36, 1, 1)
@@ -64,7 +64,7 @@ object Zug1 extends ZugScenStart
   corners.setBend3(10, 42, 1, 1)
   corners.setBend0(8, 44, 1, 1)
   corners.setBend3(10, 46, 1, 1)
-  corners.setMouth4OffGrid(10, 50, 1)
+  corners.setVertOrig(9, 48, HVDL, 1, 1)
 
   val lunits: LayerHcRArr[Squad] = LayerHcRArr[Squad]()
   setSquadMove(2, 30, Britain, HexLt, HexLt)

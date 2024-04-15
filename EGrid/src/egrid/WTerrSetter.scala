@@ -187,10 +187,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     override def magRt: Int = 7
   }
 
-  /** Deprecated. Replacement unclear at moment. */
-  case class OrigSpecRevDepr(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3, magnitude2: Int = 3)
-    extends VRowElem with OrigSpecBaseRevDepr
-
   /** Bend connecting 2 [[HSeps]], with an inner and outer offset of 3/16. [[BendMin]] just exists for a convenient way of setting values. */
   class BendMin(val c: Int, val dirn: HVDirn, val magIn: Int, val leftTerr: WSepSome, val rightTerr: WSepSome) extends VRowElem with BendInOutBase
   { override def magOut: Int = 6 - magIn
