@@ -218,7 +218,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def magRt: Int
 
     def run(row: Int): Unit =
-    { corners.setVertSource(row, c, dirn, magLt, magRt)
+    { corners.setVertOrig(row, c, dirn, magLt, magRt)
       setOrigSep(row)
     }
 
@@ -230,7 +230,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The magnitude of the offset to the left of the [[HVert]] as viewed from the source. */
     def magLt: Int
     def run(row: Int): Unit =
-    { corners.setSourceLt(row, c, dirn, magLt)
+    { corners.setOrigLt(row, c, dirn, magLt)
       setOrigSep(row)
     }
   }
@@ -242,7 +242,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def magRt: Int
 
     def run(row: Int): Unit =
-    { corners.setSourceRt(row, c, dirn, magRt)
+    { corners.setOrigRt(row, c, dirn, magRt)
       setOrigSep(row)
     }
   }
@@ -482,7 +482,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     override def setCorners(row: Int): Unit = dirn match
     { case HVUR =>
       { corners.setCornerIn(row + 1, c + 2, 4, magIn)
-        corners.setMouth0(row - 1, c, 0, origMag)
         debexc("Not Implemented")
       }
 
