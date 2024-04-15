@@ -20,7 +20,7 @@ object Terr640E150 extends Long640Terrs
     TRow(126, mtainTundra, hillyTaiga),
     TRow(124, hillyTaiga, hillyTaiga),
 
-    VRow(123, OrigRtRevDepr(5628, HVDL, 7, siceWin), BendIn(5630, HVDn, 13, siceWin), ThreeDown(5632, 11, 13, 13), BendMin(5636, HVDR, 3, siceWin),
+    VRow(123, OrigRt(5628, HVUR, 7, siceWin), BendIn(5630, HVDn, 13, siceWin), ThreeDown(5632, 11, 13, 13), BendMin(5636, HVDR, 3, siceWin),
       OrigRt(5638, HVDL, 7, siceWin)),
 
     TRow(122, hillyTaiga, hillyTaiga),
