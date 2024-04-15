@@ -196,9 +196,6 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   /** Deprecated. Reverse the direction and replace with [[OrigRt]]. */
   case class OrigRtRevDepr(c: Int, dirn: HVDirnPrimary, magnitude: Int = 6, sTerr: WSepSome = Sea) extends VRowElem with OrigRtBaseRevDepr
 
-  /** Deprecated. Replace with [[Orig]] reversing the dirn. */
-  case class OrigRevDepr(c: Int, dirn: HVDirnPrimary, magLeft: Int, magRight: Int, sTerr: WSepSome = Sea) extends VRowElem with OrigLtRtBaseRevDepr
-
   /** Deprecated. Replacement unclear at moment. */
   case class OrigSpecRevDepr(c: Int, mouthDirn: HVDirnPrimary, dirn1: HVDirn, dirn2: HVDirn, sTerr: WSepSome = Sea, magnitude1: Int = 3, magnitude2: Int = 3)
     extends VRowElem with OrigSpecBaseRevDepr

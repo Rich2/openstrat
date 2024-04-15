@@ -27,7 +27,7 @@ object Terr460W60 extends Long460Terrs
     VRow(135, BendIn(10754, HVUR, 10), BendMin(10756, HVDL)),
     TRow(134, sea * 2, mtainTundra),
 
-    VRow(133, OrigMinRevDepr(10752, HVUL), BendIn(10754, HVDL, 13), BendIn(10756, HVUR, 12, siceWin, sea), BendIn(10758, HVUp, 6, SeaIceWinter),
+    VRow(133, OrigMin(10752, HVDR), BendIn(10754, HVDL, 13), BendIn(10756, HVUR, 12, siceWin, sea), BendIn(10758, HVUp, 6, SeaIceWinter),
       BendIn(10760, HVUL, 6, SeaIceWinter)),
 
     TRow(132, lakesTaiga, mtainTundra),
@@ -37,7 +37,7 @@ object Terr460W60 extends Long460Terrs
     TRow(128, mtainDepr, mtainDepr, hillyTaiga),
     VRow(127, OrigMax(10750, HVDR), ThreeDown(10752, 13, 0, 6), BendIn(10754, HVUL, 13)),
     TRow(126, hillyTaiga, hillyTaiga, mtainDepr),
-    VRow(125, BendIn(10746, HVDR, 8), OrigMinRevDepr(10748, HVUR), OrigMinRevDepr(10750, HVUp), BendIn(10752, HVUR, 13), BendIn(10754, HVUp, 13), OrigRt(10756, HVDL, 7)),
+    VRow(125, BendIn(10746, HVDR, 8), OrigMin(10748, HVDL), OrigMin(10750, HVDn), BendIn(10752, HVUR, 13), BendIn(10754, HVUp, 13), OrigRt(10756, HVDL, 7)),
     TRow(124, hillyOceForest, Land(PlainLakes, Boreal, Forest)),
     VRow(123, OrigMin(10744, HVDn, 4), BendIn(10746, HVUR, 10), BendIn(10748, HVUp, 13), BendIn(10750, HVUL, 13)),
     VRow(121, OrigMin(10742, HVUR, 2), BendIn(10744, HVUL, 9)),
@@ -45,13 +45,16 @@ object Terr460W60 extends Long460Terrs
     VRow(111, ThreeDown(10740, 6, 6, 12), ThreeUp(10742, 0, 6, 6), BendIn(10744, HVDL)),
     TRow(110, hillyJungle),
     VRow(109, BendIn(10740, HVUR), BendIn(10742, HVUp), BendIn(10744, HVUL)),
-    VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13), OrigMinRevDepr(10752, HVDR)),
+
+    VRow(107, BendOut(10740, HVUp), BendIn(10742, HVDn), BendOut(10744, HVUp, 7), BendIn(10746, HVDn, 13), BendOut(10748, HVUp, 7), BendIn(10750, HVDn, 13),
+      OrigMin(10752, HVUL)),
+
     TRow(106, hillySavannah * 3),
     TRow(104, mtainDepr, savannah, hillyJungle * 2),
     TRow(102, jungle, hillyJungle * 2, jungle, hillyJungle),
-    VRow(101, OrigRtRevDepr(10762, HVDL), BendIn(10764, HVDn, 13), BendIn(10766, HVDL, 13)),
+    VRow(101, OrigRt(10762, HVUR), BendIn(10764, HVDn, 13), BendIn(10766, HVDL, 13)),
     TRow(100, jungle * 3, hillyJungle, mtainDepr, hillyJungle, jungle),
-    VRow(99, OrigMinRevDepr(10766, HVDn)),
+    VRow(99, OrigMin(10766, HVUp)),
     TRow(98, jungle * 4, hillyJungle * 2, jungle),
     TRow(96, jungle * 3, hillyJungle * 3, hillySavannah),
     TRow(94, jungle * 2, hillyJungle, hillySavannah * 2, hillyJungle, hillySavannah),
