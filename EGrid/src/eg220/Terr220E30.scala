@@ -78,7 +78,7 @@ object Terr220E30 extends Long220Terrs
 
     TRow(138, sea * 2, sahel, deshot, sea * 4, hillyOce, deshot * 3),
 
-    VRow(137, OrigRt(1514, HVUR), BendIn(1516, HVDn, 13), OrigLt(1518, HVUL, 7), OrigRevDepr(1528, HVDn, 4, 2), OrigRt(1532, HVDR, 7), BendOut(1534, HVUp, 7),
+    VRow(137, OrigRt(1514, HVUR), BendIn(1516, HVDn, 13), OrigLt(1518, HVUL, 7), Orig(1528, HVUp, 4, 2), OrigRt(1532, HVDR, 7), BendOut(1534, HVUp, 7),
       OrigLt(1536, HVDL, 7)),
 
     TRow(136, deshot * 6, savannah, hillyDeshot, deshot * 5),

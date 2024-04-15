@@ -14,18 +14,18 @@ object Terr220W90 extends Long220Terrs
   {
     override val rows: RArr[RowBase] = RArr(
       TRow(166, lakesTaiga * 3, taiga * 2, sea * 2, lakesTaiga),
-      VRow(165, OrigRtRevDepr(9736, HVUL, 7),ThreeDown(9738, 0, 7, 7), BendOut(9740, HVUL, 7)),
+      VRow(165, OrigRt(9736, HVDR, 7),ThreeDown(9738, 0, 7, 7), BendOut(9740, HVUL, 7)),
       TRow(164, lakesTaiga * 3, taiga * 3, taiga * 2),
-      VRow(163, OrigRtRevDepr(9720, HVUp, 7, lake), Bend(9738, HVUR, 13, 6), Bend(9740, HVDL, 13, 4)),
+      VRow(163, OrigRt(9720, HVDn, 7, lake), Bend(9738, HVUR, 13, 6), Bend(9740, HVDL, 13, 4)),
       TRow(162, taiga, lakesTaiga, taiga, lakesTaiga * 3, taiga, lakesTaiga * 2),
-      VRow(161, BendIn(9718, HVDR, 6, lake), BendIn(9720, HVUL, 6, lake), Bend(9740, HVUR, 11, 7), OrigLtRevDepr(9742, HVDR, 7)),
+      VRow(161, BendIn(9718, HVDR, 6, lake), BendIn(9720, HVUL, 6, lake), Bend(9740, HVUR, 11, 7), OrigLt(9742, HVUL, 7)),
       TRow(160, savannah, lakesTaiga, taiga, lakesTaiga * 3, taiga * 2, lakesTaiga),
-      VRow(159, BendIn(9718, HVUR, 6, lake), OrigMinRevDepr(9720, HVDR, 3, lake)),
+      VRow(159, BendIn(9718, HVUR, 6, lake), OrigMin(9720, HVUL, 3, lake)),
       TRow(158, savannah * 2, lakesTaiga * 3, taiga * 3, lakesTaiga),
       TRow(156, savannah * 2, taiga, lakesTaiga, hillyLakesTaiga, mtainLakesTaiga, hillyLakesTaiga * 2, lakesTaiga, hillyLakesTaiga),
 
-      VRow(155, OrigRevDepr(9728, HVDL, 7, 3, lake), BendOut(9730, HVDn, 7, lake), Bend(9732, HVUp, 13, 6, lake), Bend(9734, HVDn, 9, 6, lake),
-        OrigLtRevDepr(9736, HVDR, 6, lake)),
+      VRow(155, Orig(9728, HVUR, 7, 3, lake), BendOut(9730, HVDn, 7, lake), Bend(9732, HVUp, 13, 6, lake), Bend(9734, HVDn, 9, 6, lake),
+        OrigLt(9736, HVUL, 6, lake)),
 
       TRow(154, savannah * 3, Land(PlainLakes, Savannah, LandFree), taiga * 3, mtainLakesTaiga, hillyLakesTaiga, mtainLakesTaiga),
 
