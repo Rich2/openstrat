@@ -32,7 +32,7 @@ object Terr460E30 extends Long460Terrs
     VRow(125, SetSep(1527), OrigMin(1536, HVDR), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
     TRow(124, mtainDepr, hillyOce, hillySavannah, mtainDepr, mtainDepr),
 
-    VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), OrigMin(1532, HVDn), OrigLtRevDepr(1536, HVDL, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR),
+    VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), OrigMin(1532, HVDn), OrigLt(1536, HVUR, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR),
       OrigRt(1544, HVUL)),
 
     TRow(122, hillySavannah, hillySavannah, hillySahel, mtainDepr, mtainDepr),
@@ -57,15 +57,14 @@ object Terr460E30 extends Long460Terrs
     TRow(106, savannah * 2, sahel, savannah, mtainDepr, hillySahel, hillySahel),
     TRow(104, savannah * 5, mtainDepr, hillySahel),
     TRow(102, hillyJungle * 3, hillySavannah, hillySahel * 2, savannah),
-    VRow(101, BendOut(1550, HVDR), OrigRtRevDepr(1552, HVUR)),
+    VRow(101, BendOut(1550, HVDR), OrigRt(1552, HVDL)),
     TRow(100, jungle, hillyJungle * 3, hillySavannah * 2, savannah),
-    VRow(99, OrigMin(1538, HVDR, 3, lake), OrigMinRevDepr(1540, HVDR, 3, lake), BendIn(1548, HVDR, 7), BendIn(1550, HVUL, 13)),
+    VRow(99, OrigMin(1538, HVDR, 3, lake), OrigMin(1540, HVUL, 3, lake), BendIn(1548, HVDR, 7), BendIn(1550, HVUL, 13)),
     TRow(98, hillyJungle * 3, hillySavannah * 3),
     VRow(97, OrigRt(1536, HVDR, 6, lake), BendIn(1538, HVDL, 6, lake), BendOut(1546, HVDR, 7), BendIn(1548, HVUL, 13)),
     TRow(96, hillyJungle * 4, hillySavannah * 2),
-    VRow(95, OrigLt(1538, HVUp, 6, lake), OrigMinRevDepr(1540, HVUp, 3, lake), BendOut(1546, HVUR), BendIn(1548, HVDL, 13)),
+    VRow(95, OrigLt(1538, HVUp, 6, lake), OrigMin(1540, HVDn, 3, lake), BendOut(1546, HVUR), BendIn(1548, HVDL, 13)),
     TRow(94, hillyJungle * 6),
-    VRow(93)
     )
   }
   help.run
