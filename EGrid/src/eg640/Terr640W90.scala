@@ -34,13 +34,13 @@ object Terr640W90 extends Long640Terrs
     VRow(111, Bend(9724, HVDR, 5, 1), BendOut(9726, HVDn, 7), BendIn(9728, HVUp, 13), BendOut(9730, HVDn, 7), BendOut(9732, HVDL, 7), BendIn(9736, HVDL, 13)),
     TRow(110, sahel, sea * 2, jungle),
 
-    VRow(109, Bend(9724, HVUR, 2, 4), BendOut(9726, HVUp, 7), OrigLtRevDepr(9728, HVUR), BendIn(9730, HVDR, 13), ThreeUp(9732, 13, 13, 0), Bend(9734, HVUp, 13, 3),
+    VRow(109, Bend(9724, HVUR, 2, 4), BendOut(9726, HVUp, 7), OrigLt(9728, HVDL), BendIn(9730, HVDR, 13), ThreeUp(9732, 13, 13, 0), Bend(9734, HVUp, 13, 3),
       ThreeUp(9736, 0, 13, 13), BendIn(9738, HVDL, 6)),
 
     TRow(108, hillySavannah, jungle, hillyJungle * 2),
     VRow(107, Bend(9730, HVUR, 13, 3), BendIn(9732, HVUp, 13), BendOut(9734, HVDn), BendIn(9736, HVUp, 13), BendIn(9738, HVUL, 7)),
     TRow(106, sea, hillyJungle * 2),
-    VRow(105, OrigLt(9724, HVDR, 7), BendIn(9726, HVUp, 13), OrigRevDepr(9728, HVUR, 4, 2), OrigRtRevDepr(9734, HVDL, 7), BendIn(9736, HVDn, 13), BendOut(9738, HVUp, 7)),
+    VRow(105, OrigLt(9724, HVDR, 7), BendIn(9726, HVUp, 13), Orig(9728, HVDL, 4, 2), OrigRt(9734, HVUR, 7), BendIn(9736, HVDn, 13), BendOut(9738, HVUp, 7)),
     TRow(104, sea * 3, hillyJungle, hillyJungle),
     VRow(103, OrigLt(9730, HVDR, 7), OrigRt(9732, HVUL, 7), Orig(9736, HVDn, 3, 3)),
     TRow(102, sea * 4, mtainDepr),

@@ -32,7 +32,7 @@ object Terr460W30 extends Long460Terrs
       VRow(117, BendIn(11786, HVDR, 13), BendIn(11788, HVDn, 13), ThreeDown(11790, 0, 10, 13)),
       TRow(116, sea * 5, mtainDepr),
       VRow(115, BendIn(11786, HVUR, 13), BendIn(11788, HVUp, 13), BendIn(11790, HVUL, 13)),
-      VRow(113, OrigLtRevDepr(11786, HVUp)),
+      VRow(113, OrigLt(11786, HVDn)),
       TRow(112, sea * 5, deshot),
       VRow(111, BendIn(11784, HVDR, 13), BendOut(11786, HVUL, 7)),
       TRow(110, sea * 5, sahel),
