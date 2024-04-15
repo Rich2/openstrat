@@ -49,11 +49,12 @@ object Terr460E120 extends Long460Terrs
     TRow(106, sea * 2, Isle4(mtainDepr), Isle10(mtainDepr), Isle5(hillyJungle)),
     TRow(104, sea * 2, mtainDepr, sea, hillyJungle),
     TRow(102, sea, hillyJungle * 2),
-    VRow(101, BendIn(4606, HVDR), OrigMinRevDepr(4608, HVUR), OrigRtRevDepr(4618, HVDL, 7), BendIn(4620, HVDn, 13), BendIn(4622, HVDL, 13)),
+    VRow(101, BendIn(4606, HVDR), OrigMin(4608, HVDL), OrigRt(4618, HVUR, 7), BendIn(4620, HVDn, 13), BendIn(4622, HVDL, 13)),
     TRow(100, sea, hillyJungle, jungle, mtainDepr, sea, sea, hillyJungle),
-    VRow(99, BendIn(4596, HVDL, 7), OrigRtRevDepr(4606, HVDn, 7), OrigMinRevDepr(4622, HVDn)),
+    VRow(99, BendIn(4596, HVDL, 7), OrigRt(4606, HVUp, 7), OrigMin(4622, HVUp)),
     TRow(98, SepB(), sea, jungle, sea, hillyJungle, sea * 2, mtainDepr),
-    VRow(97, OrigRtRevDepr(4594, HVDL), BendIn(4596, HVUL), OrigMinRevDepr(4600, HVUL, 7, sea), OrigMinRevDepr(4602, HVDR, 5, sea), OrigLtRevDepr(4620, HVUL), BendOut(4622, HVDL, 7)),
+
+    VRow(97, OrigRt(4594, HVUR), BendIn(4596, HVUL), OrigMinRevDepr(4600, HVUL, 7, sea), OrigMinRevDepr(4602, HVDR, 5, sea), OrigLtRevDepr(4620, HVUL), BendOut(4622, HVDL, 7)),
     TRow(96, hillyJungle * 2),
     VRow(95, BendIn(4622, HVUR, 13), OrigRtRevDepr(4624, HVDR)),
     )

@@ -21,11 +21,11 @@ object Terr460E0 extends Long460Terrs
     VRow(145, BendOut(512, HVDn, 6, SeaIceWinter, sea), BendIn(510, HVDR, 6, SeaIceWinter), BendIn(514, HVUp, 13), Bend(516, HVDn, 7, 4, sea, SeaIceWinter)),
     VRow(143, BendOut(510, HVUL, 6, SeaIceWinter), BendIn(512, HVDL, 13, SeaIceWinter)),
     VRow(141, BendIn(512, HVUL, 13, SeaIceWinter)),
-    VRow(137, OrigLtRevDepr(514, HVUp)),
+    VRow(137, OrigLt(514, HVDn, 7)),
     TRow(136, sea * 2, hillyTaiga),
-    VRow(135, OrigRtRevDepr(506, HVUR), BendIn(512, HVDR, 13), BendOut(514, HVUL), Bend(520, HVDR, 4, 5, SeaIceWinter, sea)),
+    VRow(135, OrigRt(506, HVDL), BendIn(512, HVDR, 13), BendOut(514, HVUL), Bend(520, HVDR, 4, 5, SeaIceWinter, sea)),
     TRow(134, sea, mtainDepr, oceanic),
-    VRow(133, BendIn(506, HVDR, 13), OrigLtRevDepr(508, HVUR), BendInLt(512, HVUR, 13, 7), Bend(514, HVDL, 13, 5)),
+    VRow(133, BendIn(506, HVDR, 13), OrigLt(508, HVDL), BendInLt(512, HVUR, 13, 7), Bend(514, HVDL, 13, 5)),
     TRow(132, mtainOce, hillyOce, oceForest),
 
     VRow(131, BendIn(504, HVDR, 13), ThreeUp(506, 13, 13, 0), BendOut(508, HVDL), OrigLt(512, HVUR, 7), ThreeUp(514, 13, 0, 13), BendIn(516, HVUp, 13),
@@ -48,7 +48,7 @@ object Terr460E0 extends Long460Terrs
       BendIn(518, HVUp, 10), ThreeUp(520, 6, 3, 3), BendIn(522, HVDL, 11), OrigRevDepr(524, HVDn,4 ,7)),
 
     TRow(120, sea, hillyOce, hillySavannah, hillySavannah, hillySavannah),
-    VRow(119, OrigRt(504, HVUR, 7), ThreeUp(506, 13, 6, 0), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), OrigLtRevDepr(522, HVDn, 7)),
+    VRow(119, OrigRt(504, HVUR, 7), ThreeUp(506, 13, 6, 0), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13), OrigLt(522, HVUp, 7)),
     TRow(118, sea, hillySahel, hillyDeshot, deshot, deshot, sahel),
     VRow(117, BendIn(500, HVDn, 13), BendInRt(502, HVDL, 13, 7)),
     TRow(116, hillyDeshot, deshot * 5),

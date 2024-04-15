@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid.phex._, egrid._, WTiles._
 
@@ -32,7 +32,7 @@ object Terr320W90 extends Long320Terrs
     TRow(144, taiga * 3, taiga, taiga),
     VRow(143, OrigLt(9720, HVDn, 6, Lake), BendIn(9734, HVUR, 13, siceWin), Bend(9736, HVDL, 9, 4, siceWin)),
     TRow(142, taiga * 4, taiga, taiga),
-    VRow(141, BendIn(9720, HVUR, 7, Lake), OrigMinRevDepr(9722, HVDR, 3, Lake), OrigRt(9736, HVUp, 7, siceWin)),
+    VRow(141, BendIn(9720, HVUR, 7, Lake), OrigMin(9722, HVUL, 3, Lake), OrigRt(9736, HVUp, 7, siceWin)),
     TRow(140, oceanic, taiga * 5),
     VRow(139, BendIn(9728, HVDR, 13, lake), BendIn(9730, HVDn, 13, lake), BendIn(9732, HVDL, 13, Lake)),
     TRow(138, oceanic * 2, taiga, continental, taiga * 3),
