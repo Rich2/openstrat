@@ -85,12 +85,12 @@ object Terr80E30  extends Long80Terrs
       TRow(430, hillyOce, savannah * 2, mtainDepr, hillyOce, mtainDepr, hillyOce, oceanic, hillyOce * 2, sea, hillyOce, sea, hillyOce * 2, mtainDepr * 5,
         hillyOce * 3, mtainDepr * 4, hillyOce * 3, mtainDepr),
 
-      VRow(429, BendIn(1488, HVUR, 13), BendOut(1490, HVDL, 7), OrigLtRevDepr(1504, HVUL), Bend(1506, HVDL, 4, 7)),
+      VRow(429, BendIn(1488, HVUR, 13), BendOut(1490, HVDL, 7), OrigLt(1504, HVDR), Bend(1506, HVDL, 4, 7)),
 
-      TRow(428, hillyOce, sea, sea * 2, mtainDepr * 2, hillyOce * 2, hillyOce * 2, sea, hillyOce * 3, mtainDepr, hillyOce * 4, hillyDeshot * 2, hillyOce * 4, hillyDeshot * 2,
-      hillyOce * 3, oceanic),
+      TRow(428, hillyOce, sea, sea * 2, mtainDepr * 2, hillyOce * 2, hillyOce * 2, sea, hillyOce * 3, mtainDepr, hillyOce * 4, hillyDeshot * 2, hillyOce * 4,
+        hillyDeshot * 2, hillyOce * 3, oceanic),
 
-      VRow(427, OrigRtRevDepr(1490, HVDn), BendIn(1506, HVUR)),
+      VRow(427, OrigRt(1490, HVUp), BendIn(1506, HVUR)),
 
       TRow(426, sea, hillyOce, sea * 3, hillyOce, mtainDepr, oceanic, hillyOce, sea * 3, hillyOce * 2, mtainDepr, hillyOce * 2, deshot, hillyDeshot * 7,
         mtainDepr * 2, hillyOce, hillyDeshot * 2, mtainDepr, hillyDeshot),
@@ -103,7 +103,7 @@ object Terr80E30  extends Long80Terrs
       TRow(422, mtainDepr, sea * 4, Isle10(hillyOce), hillyOce, mtainDepr, hillyOce * 2, sea * 2, hillyOce * 7, deshot,
         hillyDeshot, deshot, mtainDepr, hillyOce, hillyDeshot, mtainDepr, oceanic * 2, hillyDeshot, mtainDepr * 2, hillyDeshot),
 
-      VRow(421, OrigMinRevDepr(1504, HVDn)),
+      VRow(421, OrigMin(1504, HVUp)),
 
       TRow(420, sea * 7, hillyOce * 2, sea * 4, hillyOce, mtainDepr, hillyOce * 2, mtainDepr, hillyOce, oceanic, deshot, hillyOce * 2, mtainDepr, hillyOce * 2,
         oceanic * 2, deshot * 4, mtainDepr),
@@ -111,7 +111,7 @@ object Terr80E30  extends Long80Terrs
       VRow(419, SetSep(1471)),
 
       TRow(418, SepB(), sea * 7, hillyOce, sea * 5, hillyOce * 5, mtainDepr, hillyOce * 2, savannah, hillySavannah, hillyOce, deshot * 2, oceanic, deshot * 3,
-        hillyDeshot * 2, mtainDepr), VRow(417, OrigMinRevDepr(1564, HVUR)),
+        hillyDeshot * 2, mtainDepr), VRow(417, OrigMin(1564, HVDL)),
 
       TRow(416, sea * 10, sea * 4, Isle10(hillyOce), sea, mtainDepr, sea * 2, mtainDepr, mtainDepr, sea * 2, hillyOce, oceanic, deshot * 7, hillyDeshot),
       TRow(414, sea * 9, hillyOce, sea * 10, hillyOce, sea, hillyOce * 2, deshot * 8, hillyDeshot),

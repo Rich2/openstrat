@@ -24,7 +24,7 @@ object TerrMegaE30 extends LongMegaTerrs
     TRow(110, hillyOce, hillyOce),
     VRow(109, BendOut(1532, HVUR), Bend(1534, HVUp, 8, 3), BendIn(1536, HVDn, 13), OrigLt(1538, HVUL)),
     TRow(108, savannah, deshot),
-    VRow(107, OrigRevDepr(1538, HVUL, 1, 5), BendIn(1540, HVDL, 13)),
+    VRow(107, Orig(1538, HVDR, 1, 5), BendIn(1540, HVDL, 13)),
     TRow(106, deshot * 3),
     VRow(105, BendOut(1540, HVUR, 7), BendIn(1542, HVDL, 13)),
     TRow(104, deshot * 3),

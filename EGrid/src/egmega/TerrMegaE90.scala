@@ -20,7 +20,7 @@ object TerrMegaE90 extends LongMegaTerrs
     TRow(110, deshot, hillyDeshot),
     TRow(108, hillyDescold, hillySteppe),
     TRow(106, jungle * 3),
-    VRow(105, BendMin(3582, HVDR), OrigRevDepr(3584, HVUR, 2, 4), OrigRt(3592, HVDR, 7)),
+    VRow(105, BendMin(3582, HVDR), Orig(3584, HVDL, 2, 4), OrigRt(3592, HVDR, 7)),
     TRow(104, jungle, sea, jungle),
     VRow(103, BendIn(3580, HVDR, 12), ThreeUp(3582, 0, 12, 13), BendIn(3584, HVDL, 12), Bend(3592, HVDR, 13, 5)),
     TRow(102, hillyJungle, sea, hillyJungle),
