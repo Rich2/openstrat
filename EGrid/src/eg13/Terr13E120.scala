@@ -25,9 +25,9 @@ object Terr13E120 extends Long13Terrs
     VRow(111, Orig(4612, HVDn, 7, 3)),
     TRow(110, hillyTaiga),
     VRow(109, BendIn(4610, HVDR, 8), ThreeUp(4612, 13, 8, 0)),
-    TRow(108, hillyOceForest),
+    TRow(108, hillyContForest),
     VRow(107, BendIn(4608, HVDR, 13), BendIn(4610, HVUL)),
-    TRow(106, hillyOce, hillySubForest),
+    TRow(106, hillySub, hillySubForest),
     VRow(105, BendIn(4608, HVUR, 13), ThreeDown(4610, 13, 0, 6), BendOut(4612, HVDn, 7)),
     TRow(104, hillyJungle, sea),
     VRow(103, OrigLt(4606, HVDR, 7), ThreeDown(4608, 13, 9, 0), ThreeUp(4610, 0, 9, 13)),
@@ -52,10 +52,13 @@ object Terr13E120 extends Long13Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(110, "Manchuria north")
     str(106, "", "Japan south")
     str(104, "", "Guandong")
     str(102, "", "Philippines")
     str(100, "Borneo", "Guinee west")
     str(98, "Java", "Lesser Sunda")
+    str(96, "Australia north west", "Australia north midst")
+    str(94, "Australia south west", "Australia south midst")
   }
 }

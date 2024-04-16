@@ -22,7 +22,7 @@ object TerrMegaE150 extends LongMegaTerrs
     VRow(113, BendIn(5630, HVDR, 11), ThreeUp(5632, 13, 11, 0), ThreeDown(5634, 6, 0, 11, siceWin, sea, sea), BendIn(5636, HVUL, 13, siceWin)),
     TRow(112, hillyTaiga),
     VRow(111, Bend(5628, HVDR, 7, 5), Bend(5630, HVUL, 4, 7), BendOut(5632, HVDR, 7), BendIn(5634, HVUL, 11)),//),
-    TRow(110, hillyCont),
+    TRow(110, hillyContForest),
     VRow(109, BendIn(5628, HVUL), BendOut(5630, HVDR), BendIn(5632, HVUL, 13)),
     VRow(101, BendOut(5626, HVUp, 7), BendIn(5628, HVDn, 13), BendIn(5630, HVDL, 13)),
     TRow(100, hillyJungle),
@@ -46,5 +46,6 @@ object TerrMegaE150 extends LongMegaTerrs
     str(112, "Salakhin")
     str(110, "Japan north")
     str(98, "New Guinee east", "New Britain")
+    str(96, "Australia north east")
   }
 }

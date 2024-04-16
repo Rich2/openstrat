@@ -25,7 +25,7 @@ object TerrMegaE120 extends LongMegaTerrs
     TRow(114, taiga),
     TRow(112, taiga, hillyTaiga),
     VRow(111, OrigLt(4608, HVDn), Bend(4612, HVDR, 7, 5), Bend(4614, HVUL, 4, 7)),
-    TRow(110, savannah, hillyTaiga),
+    TRow(110, savannah, hillyContForest),
     VRow(109, BendIn(4608, HVUR), ThreeDown(4610, 0, 10, 7), BendIn(4612, HVUL), BendOut(4614, HVDR)),
     TRow(108, subtrop, hillySub),
     VRow(107, Bend(4608, HVDR, 13, 1), ThreeUp(4610, 13, 13, 8), ThreeDown(4612, 13, 0, 13), BendIn(4614, HVUL, 13)),
@@ -68,5 +68,8 @@ object TerrMegaE120 extends LongMegaTerrs
     str(102,"Borneo north", "Philippines south")
     str(100, "Borneo west", "Sulawesi", "Papua west")
     str(98, "Java", "Lesser Sunda")
+    str(96, "", "north west", "Australia north midst")
+    str(94, "Australia far west", "Australia midth west", "Australia central")
+    str(92, "Australia south east")
   }
 }

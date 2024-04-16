@@ -22,7 +22,7 @@ object Terr13E150 extends Long13Terrs
     TRow(110, hillyTaiga),
     VRow(109, BendIn(5630, HVDR, 8), ThreeUp(5632, 13, 8, 0), ThreeDown(5634, 13, 0, 8), BendIn(5634, HVDL, 13), BendIn(5636, HVUL, 13, siceWin, sea)),
     VRow(101, ThreeUp(5628, 0, 7, 9), OrigLt(5630, HVUL, 7)),
-    TRow(108, hillyOceForest),
+    TRow(108, hillyContForest),
     VRow(107, BendOut(5630, HVDR, 7), BendOut(5632, HVDR, 7), BendIn(5634, HVUL, 13)),
     TRow(106, hillySubForest),
     VRow(105, BendOut(5628, HVDn, 7), BendIn(5630, HVUp, 13), BendIn(5632, HVUL, 13)),
@@ -49,5 +49,8 @@ object Terr13E150 extends Long13Terrs
     str(106, "Japan central")
     str(100, "New Britain")
     str(98,"New Guinee east")
+    str(96, "Australia north east")
+    str(94, "Australia midst east")
+    str(92, "Australia south east")
   }
 }
