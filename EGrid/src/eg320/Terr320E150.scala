@@ -40,7 +40,7 @@ object Terr320E150 extends Long320Terrs
     TRow(132, sea, mtainContForest),
     VRow(131, BendIn(5616, HVDR, 13), BendIn(5618, HVDn, 13), OrigLt(5626, HVUp, 7)),
     TRow(130, hillyOce, hillyOce),
-    VRow(129, BendOut(5616, HVUL, 7)),
+    VRow(129, BendOut(5616, HVUL, 7), OrigRt(5624, HVDL, 7)),
     TRow(128, hillyOce),
     )
   }
