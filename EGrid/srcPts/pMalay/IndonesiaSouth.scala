@@ -86,7 +86,7 @@ object Wetar extends EArea2("Wetar", -7.788 ll 126.363, jungle)
   override val polygonLL: PolygonLL = PolygonLL(north, east, southEast, liranSouth, reong)
 }
 
- /** [[polygonLL]] graphical representation of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends on
+ /** [[polygonLL]] graphical representation 32057.1km² of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends on
   * nothing. */
 object Timor extends EArea2("Timor", -8.538 ll 118.510, jungle)
 { val east: LatLong = -8.412 ll 127.288

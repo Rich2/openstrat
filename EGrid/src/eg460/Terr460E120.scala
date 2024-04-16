@@ -4,9 +4,10 @@ import prid._, phex._, egrid._, WTiles._
 
 /** 460km [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. A hex tile area of 183250.975km².
  *  Isle 120974.276km² down to 57981.753km²
- *  [[Isle7]] 30243.569km² => 40265.106km². Taiwan 36197km².
+ *  [[Isle7]] 30243.569km² => 40265.106km². Timor Island + Rote Island 32057.1km², Taiwan 36197km².
  *  [[Isle5]] 14495.438km² => 21653.679km². Samar 13429km² + Leyte 7367.6km² = 20796.6.
- *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km². */
+ *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km².
+ *  [[Isle3]] 4473.900km² => 8768.845km².*/
 object Terr460E120 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e120(94)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -57,6 +58,7 @@ object Terr460E120 extends Long460Terrs
     VRow(97, OrigRt(4594, HVUR), BendIn(4596, HVUL), OrigMax(4600, HVDR), Orig(4602, HVUL, 6, 7), OrigLt(4620, HVDR), BendOut(4622, HVDL, 7)),
     TRow(96, hillyJungle * 2),
     VRow(95, BendIn(4622, HVUR, 13), OrigRt(4624, HVDR)),
+    TRow(94, sea * 4, Isle7(mtainJungle)),
     )
   }
   help.run
@@ -64,5 +66,6 @@ object Terr460E120 extends Long460Terrs
   { import hexNames.{ setRow => str}
     str(114, "" * 3, "Taiwan")
     str(106, "" * 4, "Samar")
+    str(94, "" * 4, "Timor")
   }
 }
