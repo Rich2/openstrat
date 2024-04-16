@@ -32,7 +32,7 @@ object Terr320E0 extends Long320Terrs
     VRow(147, BendIn(504, HVDR, 13), OrigLt(506, HVDL, 7), OrigRt(512, HVDn, 7), OrigRt(514, HVUp, 7), BendIn(516, HVDR, 13), BendIn(518, HVDn, 13),
       Bend(520, HVDL, 5, 1), Bend(524, HVDR, 13, 3)),
 
-    TRow(146, mtainDepr, hillyOce, sea, oceanic, oceForest),
+    TRow(146, mtainOce, hillyOce, sea, oceanic, oceForest),
 
     VRow(145, BendIn(502, HVDR, 13), ThreeUp(504, 13, 13, 0), BendOut(506, HVDL, 7), BendOut(512, HVUR, 7), BendIn(514, HVDL, 13), BendIn(516, HVUR, 13),
       OrigMin(518, HVUL, 4), BendIn(520, HVUR), BendOut(522, HVUp, 7), Bend(524, HVUL, 2, 7)),
@@ -44,11 +44,11 @@ object Terr320E0 extends Long320Terrs
     TRow(140, sea, hillyOce, oceanic, oceanic * 3),
     VRow(139, BendIn(506, HVUR, 13), BendIn(508, HVUp, 13), BendIn(510, HVUL, 13)),
     TRow(138, sea * 2, oceanic * 2, hillyOce, mtainDepr * 2),
-    VRow(137, OrigRt(526, HVDn)),
+    VRow(137, OrigLt(508, HVDR, 7), BendOut(510, HVDL, 7), OrigRt(526, HVDn)),
     TRow(136, sea * 3, oceanic, hillyOce, mtainDepr, oceanic),
 
-    VRow(135, BendIn(500, HVDR, 13), OrigLt(502, HVDL, 7), OrigMin(516, HVDn), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11), BendIn(524, HVDL, 13),
-      BendOut(526, HVUR, 7), BendIn(528, HVDL, 13)),
+    VRow(135, BendIn(500, HVDR, 13), OrigLt(502, HVDL, 7), OrigMin(510, HVUp, 2), OrigMin(516, HVDn), Bend(520, HVDR, 11, 5), BendIn(522, HVDn, 11),
+      BendIn(524, HVDL, 13), BendOut(526, HVUR, 7), BendIn(528, HVDL, 13)),
 
     TRow(134, hillyOce * 3, hillySub, mtainSavannah, mtainSavannah, hillySavannah),
 
@@ -80,6 +80,7 @@ object Terr320E0 extends Long320Terrs
   help.run
 
   { import hexNames.{setRow => str}
+    str(142,"", "Ireland south", "Wales", "England east")
     str(140, "", "English West Country", "" * 4)
     str(136, "" * 3, "Gascogne")
     str(134, "" * 4, "Provence", "Corsica")
