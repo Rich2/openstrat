@@ -28,7 +28,6 @@ object AppsPage extends HtmlPage
       "is the second game that most interests me."),
   )
 
-
   def otherTiled: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Other Tiled Map Applications."),
     HtmlLi.linkAndText(otDir + "unitlocapp.html", "Unit Locator", "Locates military units and gives information for a given date and time."),
     HtmlLi.linkAndText(otDir + "zugapp.html", "Zug Fuhrer", "A Tactical strategy game with a 20 metre hex scale."),

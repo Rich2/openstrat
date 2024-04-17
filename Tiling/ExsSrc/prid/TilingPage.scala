@@ -63,12 +63,12 @@ object TilingPage extends HtmlPage
       HtmlLi("Add subsidary Intentions."),
       HtmlLi(RArr(HtmlUlWithLH.strs("Resolve Segment",
         "Accumulate. Aggregate the intentions in their TargetTiles.",
-        "Ajudicate. Determine the outcome of the Intentions and processes.",
+        "Adjudicate. Determine the outcome of the Intentions and processes.",
         "Consolidate. Create a new game state from the outcomes of the Intentions on the TargetTile. No Movement is implemented during this stage.",
         "Distribute. Distribute the movement effects of the resolution of the TargetTiles on the SourceTiles in the Consilidated Game State. Moving" --
           "entities from SourceTiles to TargetTiles when appropriate."
       ))),
-      HtmlLi("Repeat Resolve Segement till the given number of segments has been repeated."),
+      HtmlLi("Repeat Resolve Segment till the given number of segments has been repeated."),
       HtmlLi("Inform the players, human and AI, of the Turn resolution.")
     )
   }
@@ -76,7 +76,7 @@ object TilingPage extends HtmlPage
 
 object CoordSystem extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)// Svg1())
+  override def contents: RArr[XCon] = RArr(HtmlH2("Coordinate System"), p1, p2, p3, p4, GridGraphic1.htmlSvg)
 
   val p1 = HtmlP("""So the primary focus of this project is regular tiling. Some strategy games use irregular tiling systems such as the old board
   | game Diplomacy the grand strategy Paradox Interactive game series Victoria, Europa Universals and Hearts of Iron, or the classic board game Risk,

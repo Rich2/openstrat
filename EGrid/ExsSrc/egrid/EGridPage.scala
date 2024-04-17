@@ -23,6 +23,7 @@ object EGridPage extends HtmlPage
     HtmlLi.linkAndText(egrDir + "eg160europe.html", "EGrid Europe 160km", "160km hex scale Europe."),
     HtmlLi.linkAndText(egrDir + "eg120europe.html", "EGrid Europe 120km", "120km hex scale Europe."),
     HtmlLi.linkAndText(egrDir + "eg80europe.html", "EGrid Europe 80km", "80km hex scale Europe."),
+    HtmlLi.linkAndText(egrDir + "earthapp.html", "Earth areas", "Earth irregular areas."),
   )
 
 
