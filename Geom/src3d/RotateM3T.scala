@@ -2,7 +2,7 @@
 package ostrat; package geom
 import reflect.ClassTag
 
-/** Type class for 3D [[Length]] geometric rotation transformations of objects of type T. */
+/** Type class for 3D [[Metres]] geometric rotation transformations of objects of type T. */
 trait RotateM3T[T]
 { /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
   def rotateXT(obj: T, angle: AngleVec): T
@@ -57,7 +57,7 @@ class RotateM3Extensions[T](value: T, ev: RotateM3T[T])
   def rotateZ180: T = ev.rotateZ180T(value)
 }
 
-/** Implementations for Type class for 3D [[Length]] geometric rotation transformations of objects of type T. */
+/** Implementations for Type class for 3D [[Metres]] geometric rotation transformations of objects of type T. */
 trait RotateM3TPtPt[T] extends RotateM3T[T]
 { def fptp(obj: T, f: PtM3 => PtM3): T
   override def rotateXT(obj: T, angle: AngleVec): T = fptp(obj, _.rotateX(angle))

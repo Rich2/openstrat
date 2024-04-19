@@ -94,8 +94,8 @@ object Angle
   { /** Subtracting one angle of inclination from another angle of inclination returns an angle of rotation. */
     def - (operand: Angle): AngleVec = AngleVec.milliSecs(thisAngle.milliSecs - operand.milliSecs)
 
-    def toPtM2(operand: Length): PtM2 = PtM2(operand * thisAngle.cos, operand * thisAngle.sin)
-    def toPtM3(operand: Length, zValue: Length = 0.metres): PtM3 = PtM3(operand * thisAngle.cos, operand * thisAngle.sin, zValue)
+    def toPtM2(operand: Metres): PtM2 = PtM2(operand * thisAngle.cos, operand * thisAngle.sin)
+    def toPtM3(operand: Metres, zValue: Metres = 0.metres): PtM3 = PtM3(operand * thisAngle.cos, operand * thisAngle.sin, zValue)
   }
 
   /** 90 degrees angle of inclination. */

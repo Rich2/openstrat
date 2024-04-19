@@ -6,7 +6,7 @@ import geom._, pglobe._, egrid._, WTiles._
 abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
 { override def toString = name.appendCommas(terr.toString)
   def aStrs: StrArr = StrArr(name)
-  def textScale: Length = 15000.metres
+  def textScale: Metres = 15000.metres
   override def colour = terr.colour
 
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */

@@ -9,7 +9,7 @@ package object pglobe
   implicit def doubleGlobeToExtensions(thisDouble: Double): DoubleGlobeExtensions = new DoubleGlobeExtensions(thisDouble)
 
   /** Method for creating a 2d background or outline for the earth. */
-  def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
+  def earth2DEllipse(scale: Metres): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonM3)
   {
@@ -27,17 +27,17 @@ package object pglobe
       thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
         {
           case true if prev.zNeg =>
-          { val y: Length = (prev.y + v.y) / 2
+          { val y: Metres = (prev.y + v.y) / 2
             val ratio = (1 - (y / EarthAvRadius).squared).sqrt
-            val x: Length = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            val x: Metres = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
             buff.grow(PtM2(x, y))
             buff.grow(v.xy)
           }
 
           case false if prev.zPos =>
-          { val y: Length = (prev.y + v.y) / 2
+          { val y: Metres = (prev.y + v.y) / 2
             val ratio: Double = (1 - (y / EarthAvRadius).squared).sqrt //gets cosine value from sine value
-            val x: Length = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            val x: Metres = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
             buff.grow(PtM2(x, y))
           }
 

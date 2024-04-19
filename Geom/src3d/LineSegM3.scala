@@ -16,19 +16,19 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   override def dbl4 = xEndMs
   override def dbl5 = yEndMs
   override def dbl6 = zEndMs
-  def xStart: Length = Length(xStartMs)
-  def yStart: Length = Length(yStartMs)
-  def zStart: Length = Length(zStartMs)
-  def xEnd: Length = Length(xEndMs)
-  def yEnd: Length = Length(yEndMs)
-  def zEnd: Length = Length(zEndMs)
+  def xStart: Metres = Metres(xStartMs)
+  def yStart: Metres = Metres(yStartMs)
+  def zStart: Metres = Metres(zStartMs)
+  def xEnd: Metres = Metres(xEndMs)
+  def yEnd: Metres = Metres(yEndMs)
+  def zEnd: Metres = Metres(zEndMs)
   def zsPos: Boolean = zStart.pos && zEnd.pos
 
   /** Takes the X and Y components. */
   def xy: LineSegM2 = new LineSegM2(xStartMs, yStartMs, xEndMs, yEndMs)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
-  def xyLineSeg(scale: Length): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
+  def xyLineSeg(scale: Metres): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
 }
 
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */

@@ -2,7 +2,7 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** 3 dimensional point specified using metres [[Length]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
+/** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
 final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends PointDbl3
 { override type ThisT = PtM3
@@ -14,9 +14,9 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def dbl1: Double = xMetres
   def dbl2: Double = yMetres
   def dbl3: Double = zMetres
-  def x: Length = Length(xMetres)
-  def y: Length = Length(yMetres)
-  def z: Length = Length(zMetres)
+  def x: Metres = Metres(xMetres)
+  def y: Metres = Metres(yMetres)
+  def z: Metres = Metres(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: PtM3): Area = x * operand.x + y * operand.y + z * operand.z
@@ -28,14 +28,14 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def zPos: Boolean = z.pos
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
-  def / (operator: Length): Pt3 = Pt3(x / operator, y / operator, z / operator)
+  def / (operator: Metres): Pt3 = Pt3(x / operator, y / operator, z / operator)
 
   /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
   def toXYIfZPositive: Option[PtM2] = ifZPos(Some(PtM2(x, y)), None)
 
   /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtM3]] point. */
   def xRotateRadians(rotationRadians: Double): PtM3 =
-  { val scalar: Length = Length(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
+  { val scalar: Metres = Metres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
     val ang0 = None match {//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
@@ -88,9 +88,9 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   }
 
   /** The distance in the XY plane from an operand [[PtM2]], the default being from the origin. */
-  def xyLengthFrom(operand: PtM2 = PtM2.origin): Length = {
+  def xyLengthFrom(operand: PtM2 = PtM2.origin): Metres = {
     val sq = xMetres.squared + yMetres.squared
-    Length(sq.sqrt)
+    Metres(sq.sqrt)
   }
 
   override def lineSegTo(endPt: PtM3): LineSegM3 = LineSegM3(this, endPt)
@@ -101,7 +101,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
 object PtM3
 {
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
-  def apply(x: Length, y: Length, z: Length): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
+  def apply(x: Metres, y: Metres, z: Metres): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
 
 
 

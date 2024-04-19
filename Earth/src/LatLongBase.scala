@@ -65,9 +65,9 @@ trait LatLongBase
 
   def longDegStr: String = longDegs.abs.str2 + longLetter
 
-  def polarRadius: Length = EarthPolarRadius
+  def polarRadius: Metres = EarthPolarRadius
 
-  def equatorialRadius: Length = EarthEquatorialRadius
+  def equatorialRadius: Metres = EarthEquatorialRadius
 
   def latDegMinStr: String = {
     val (degs, mins) = latRadians.abs.toDegsMins

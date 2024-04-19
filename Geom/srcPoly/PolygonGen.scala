@@ -51,7 +51,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
     res
   }
 
-  def distScale(distRatio: Length): PolygonM2 = map[PtM2, PolygonM2](p => p.toMetres(distRatio))
+  def distScale(distRatio: Metres): PolygonM2 = map[PtM2, PolygonM2](p => p.toMetres(distRatio))
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */

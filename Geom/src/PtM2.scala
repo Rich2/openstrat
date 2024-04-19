@@ -2,25 +2,25 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
-/** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
+/** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
 final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDbl2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "Pt2M"
   override def name1: String = "x"
   override def name2: String = "y"
-  def x: Length = Length(xMetresNum)
-  def y: Length = Length(yMetresNum)
+  def x: Metres = Metres(xMetresNum)
+  def y: Metres = Metres(yMetresNum)
   override def tell1: Double = xMetresNum
   override def tell2: Double = yMetresNum
   def + (op: Vec2M): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
   def - (op: PtM2): PtM2 = PtM2(x - op.x, y - op.y)
-  def addXY (otherX: Length, otherY: Length): PtM2 = PtM2(x + otherX, y + otherY)
-  def subXY (otherX: Length, otherY: Length): PtM2 = PtM2(x - otherX, y - otherY)
-  def addX(adj: Length): PtM2 = PtM2(x + adj, y)
-  def addY(adj: Length): PtM2 = PtM2(x, y + adj)
-  def subX(adj: Length): PtM2 = PtM2(x - adj, y)
-  def subY(adj: Length): PtM2 = PtM2(x, y - adj)
+  def addXY (otherX: Metres, otherY: Metres): PtM2 = PtM2(x + otherX, y + otherY)
+  def subXY (otherX: Metres, otherY: Metres): PtM2 = PtM2(x - otherX, y - otherY)
+  def addX(adj: Metres): PtM2 = PtM2(x + adj, y)
+  def addY(adj: Metres): PtM2 = PtM2(x, y + adj)
+  def subX(adj: Metres): PtM2 = PtM2(x - adj, y)
+  def subY(adj: Metres): PtM2 = PtM2(x, y - adj)
   def * (operator: Double): PtM2 = PtM2(x * operator, y * operator)
   def / (operator: Double): PtM2 = PtM2(x / operator, y / operator)
   //def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
@@ -69,12 +69,12 @@ object PtM2
 { /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
   def metresNum(xMetres: Double, yMetres: Double): PtM2 = new PtM2(xMetres, yMetres)
 
-  def apply(x: Length, y: Length): PtM2 = new PtM2(x.metresNum, y.metresNum)
+  def apply(x: Metres, y: Metres): PtM2 = new PtM2(x.metresNum, y.metresNum)
 
   def origin: PtM2 = new PtM2(0, 0)
 
   implicit class Metres2Implicit(thisMetres2: PtM2)
-  { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
   /** [[Show]] type class instance / evidence for [[PTM2]]. */

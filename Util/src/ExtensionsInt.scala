@@ -4,23 +4,23 @@ import math.Pi
 
 /** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
-{ /** Returns this [[Int]] value in [[Length]]. */
-  @inline def metres: Length = Length(thisInt)
+{ /** Returns this [[Int]] value in [[Metres]]. */
+  @inline def metres: Metres = Metres(thisInt)
 
   /** Extension methods multiplies this scalar [[Int]] by the operand in metres */
-  @inline def * (operator: Length): Length = Length(thisInt * operator.metresNum)
+  @inline def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
-  /** Returns this [[Int]] value in [[Length]] kilometres. */
-  @inline def kMetres: Length = Length(thisInt * 1000.0)
+  /** Returns this [[Int]] value in [[Metres]] kilometres. */
+  @inline def kMetres: Metres = Metres(thisInt * 1000.0)
 
-  /** Returns this [[Int]] value in [[Length]] or millions of kilometres. */
-  @inline def gMetres: Length = Length(thisInt * 1000000000.0)
+  /** Returns this [[Int]] value in [[Metres]] or millions of kilometres. */
+  @inline def gMetres: Metres = Metres(thisInt * 1000000000.0)
 
-  /** Returns this [[Int]] value in [[Length]]. */
-  @inline def miles: Length = new Length(thisInt * 1609.344)
+  /** Returns this [[Int]] value in [[Metres]]. */
+  @inline def miles: Metres = new Metres(thisInt * 1609.344)
 
-  /** Returns this [[Int]] value in [[Length]] millions of miles. */
-  @inline def mMiles: Length = new Length(thisInt * 1609344000.0)
+  /** Returns this [[Int]] value in [[Metres]] millions of miles. */
+  @inline def mMiles: Metres = new Metres(thisInt * 1609344000.0)
 
   /** Returns the value or 0, if this Int less than 0. */
   def max0: Int = ife(thisInt > 0, thisInt, 0)

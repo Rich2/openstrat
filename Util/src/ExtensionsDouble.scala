@@ -5,25 +5,25 @@ import math.Pi, annotation.targetName
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 { /** Method to be removed, prefer kMetres. */
-  def km: Length = new Length(thisDouble * 1000)
+  def km: Metres = new Metres(thisDouble * 1000)
 
-  /** Returns this [[Double]] value in [[Length]]. */
-  @inline def metres: Length = new Length(thisDouble)
+  /** Returns this [[Double]] value in [[Metres]]. */
+  @inline def metres: Metres = new Metres(thisDouble)
 
   /** Extension methods multiplies this scalar [[Double]] by the operand in metres */
-  @inline def * (operator: Length): Length = new Length(thisDouble * operator.metresNum)
+  @inline def * (operator: Metres): Metres = new Metres(thisDouble * operator.metresNum)
 
-  /** Returns this [[Int]] value in [[Length]] kilometres. */
-  @inline def kMetres: Length = Length(thisDouble * 1000)
+  /** Returns this [[Int]] value in [[Metres]] kilometres. */
+  @inline def kMetres: Metres = Metres(thisDouble * 1000)
 
-  /** Returns this [[Double]] value in [[Length]] or millions of kilometres. */
-  @inline def gMetres: Length = new Length(thisDouble * 1000000000)
+  /** Returns this [[Double]] value in [[Metres]] or millions of kilometres. */
+  @inline def gMetres: Metres = new Metres(thisDouble * 1000000000)
 
-  /** Returns this [[Double]] value in [[Length]]. */
-  @inline def miles: Length = new Length(thisDouble * 1609.344)
+  /** Returns this [[Double]] value in [[Metres]]. */
+  @inline def miles: Metres = new Metres(thisDouble * 1609.344)
 
-  /** Returns this [[Double]] value of millions of miles in [[Length]]. */
-  @inline def mMiles: Length = new Length(thisDouble * 1609344000)
+  /** Returns this [[Double]] value of millions of miles in [[Metres]]. */
+  @inline def mMiles: Metres = new Metres(thisDouble * 1609344000)
 
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =

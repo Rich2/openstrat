@@ -4,20 +4,20 @@ import Colour._
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mercury_(planet)">Mercury</a>. */
 object Mercury extends Planet
-{ override val avSunDist: Length = 36.mMiles
+{ override val avSunDist: Metres = 36.mMiles
   override val name: String = "Mercury"
   override def colour: Colour = Colour.LightGray
 }
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Venus_(planet)">Venus</a>. */
 object Venus extends Planet
-{ override val avSunDist: Length = 67.2.mMiles
+{ override val avSunDist: Metres = 67.2.mMiles
   override val name: String = "Venus"
   override def colour: Colour = White
 }
 
 object Earth extends Planet
-{ override val avSunDist: Length = 93.01.mMiles
+{ override val avSunDist: Metres = 93.01.mMiles
   override val name: String = "Earth"
   override def colour: Colour = Blue
 
@@ -30,37 +30,37 @@ object Earth extends Planet
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mars_(planet)">Mars</a>. */
 object Mars extends Planet
-{ override val avSunDist: Length = 141.6.mMiles
+{ override val avSunDist: Metres = 141.6.mMiles
   override val name: String = "Mars"
   override def colour: Colour = Red
 }
 
 object Jupiter extends Planet
-{ override val avSunDist: Length = 483.6.mMiles
+{ override val avSunDist: Metres = 483.6.mMiles
   override val name: String = "Jupiter"
   override def colour: Colour = LightSalmon
 }
 
 object Saturn extends Planet
-{ override val avSunDist: Length = 886.7.mMiles
+{ override val avSunDist: Metres = 886.7.mMiles
   override val name: String = "Saturn"
   override def colour: Colour = Colour.LightYellow
 }
 
 object Uranus extends Planet
-{ override val avSunDist: Length = 1784.0.mMiles
+{ override val avSunDist: Metres = 1784.0.mMiles
   override val name: String = "Uranus"
   override def colour: Colour = Colour.Khaki
 }
 
 object Neptune extends Planet
-{ override val avSunDist: Length = 2794.4.mMiles
+{ override val avSunDist: Metres = 2794.4.mMiles
   override val name: String = "Neptune"
   override def colour: Colour = Colour.Aquamarine
 }
 
 object Pluto extends Planet
-{ override val avSunDist: Length = 3674.5.mMiles
+{ override val avSunDist: Metres = 3674.5.mMiles
   override val name: String = "Pluto"
   override def colour: Colour = Colour.MediumVioletRed
 }

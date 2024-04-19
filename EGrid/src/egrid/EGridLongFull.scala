@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** An earth grid covering a full 30 degree longitude range for the non polar regions. */
-abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, cScale: Length, rOffset: Int) extends EGridLong(rBottomCen,
+abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, cScale: Metres, rOffset: Int) extends EGridLong(rBottomCen,
   longGridIndex, cScale, rOffset, EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (longGridIndex %% 12) * 1024 + 512, cScale))
 {
   override def hCoordLL(hc: HCoord): LatLong = hc match
@@ -44,7 +44,7 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
 object EGridLongFull
 {
   /** Returns the min and max columns of a tile row in an EGrid80Km grid for a given y (latitude) with a given c offset. */
-  def tileRowMinMaxC(r: Int, rOffset: Int, cOffset: Int, cScale: Length): (Int, Int) =
+  def tileRowMinMaxC(r: Int, rOffset: Int, cOffset: Int, cScale: Metres): (Int, Int) =
   {
     val startC: Int = ife(r %% 4 == 0, 0, 2)
     val hexDelta: Double = EGridLong.cDelta(r - rOffset, 4, cScale)
@@ -65,7 +65,7 @@ object EGridLongFull
   }
 
   /** Copied from Old. This would seem to return the Array that has the irregular HexGrid row specifications. */
-  def getBounds(rTileMin: Int, rTileMax: Int, rOffset: Int, c0Offset: Int, cScale: Length): Array[Int] =
+  def getBounds(rTileMin: Int, rTileMax: Int, rOffset: Int, c0Offset: Int, cScale: Metres): Array[Int] =
   { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).max0)
     iToForeach(rTileMin, rTileMax, 2){ r =>
       val p: Int = (r - rTileMin)

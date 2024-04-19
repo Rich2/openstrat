@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** An Earth grid covering all or part of a 30 degree range of longitude for the non polar regions. */
-abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Length, val rOffset: Int, rowArray: Array[Int]) extends
+abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Metres, val rOffset: Int, rowArray: Array[Int]) extends
   EGrid(rBottomCen, rowArray, cScale)
 { /** The C column coordinate of the middle of the full grid. */
   def cOffset: Int = (longGridIndex %% 12) * 1024 + 512
@@ -20,25 +20,25 @@ abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Length
 
 object EGridLong
 { /** The key method to get the longitude delta for c based from 0° longitude. */
-  def hCenToLatLong0(inp: HCoord, cOffset: Int, cScale: Length): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset, cScale)
+  def hCenToLatLong0(inp: HCoord, cOffset: Int, cScale: Metres): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset, cScale)
 
   /** The key method to get the longitude delta for c based from 0° longitude. */
-  def hCenToLatLong0(r: Int, c: Int, cOffset: Int, cScale: Length): LatLong =
+  def hCenToLatLong0(r: Int, c: Int, cOffset: Int, cScale: Metres): LatLong =
   { val ym = r * cScale * math.sqrt(3)
     val latRadians: Double = ym / EarthPolarRadius
     val longDelta = colToLongDelta(latRadians, c, cOffset, cScale)
     LatLong.radians(latRadians, longDelta)
   }
 
-  def colToLongDelta(latRadians: Double, c: Int, cOffset: Int, cScale: Length): Double =
+  def colToLongDelta(latRadians: Double, c: Int, cOffset: Int, cScale: Metres): Double =
   { val xm = (c - cOffset) * cScale
     xm / (EarthEquatorialRadius * math.cos(latRadians))
   }
 
-  def hCoordToLatLong0(r: Int, c: Int, cScale: Length): LatLong = hCoordToLatLong0(HCoord(r, c), cScale)
+  def hCoordToLatLong0(r: Int, c: Int, cScale: Metres): LatLong = hCoordToLatLong0(HCoord(r, c), cScale)
 
   /** Copied from pGrid. The key method to get the longitude delta for x based from 0 degs longitude. */
-  def hCoordToLatLong0(inp: HCoord, cScale: Length): LatLong =
+  def hCoordToLatLong0(inp: HCoord, cScale: Metres): LatLong =
   { val adj: Pt2 = inp.toPt2Reg
     val d2: PtM2 = adj.toMetres(cScale)
     val latRadians: Double = d2.y / EarthPolarRadius
@@ -48,7 +48,7 @@ object EGridLong
   }
 
   /** Returns the longitudinal delta for a given c at a given y (latitude) for an EGrid80Km Hex Grid. */
-  def cDelta(r: Int, c: Int, cScale: Length): Double =
+  def cDelta(r: Int, c: Int, cScale: Metres): Double =
   { val ll = hCenToLatLong0(HCoord(r, c), 0, cScale)
     ll.longDegs
   }

@@ -4,7 +4,7 @@ import egrid._, prid._, phex._
 
 /** An Earth grid system where the hex tiles are 120km across. A C scale of 55km. Maybe a single hrx or multiple hex grids. */
 trait EGrid120Sys extends EGridSys
-{ override val cScale: Length = 30.kMetres
+{ override val cScale: Metres = 30.kMetres
 }
 
 /** Grid systems for 120km [[EGrid]]s. */
