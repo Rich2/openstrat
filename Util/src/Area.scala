@@ -2,13 +2,36 @@
 package ostrat
 
 trait Area extends Any
+{
+  def metresSqNum: Double
+  def kMetresSqNum: Double
+}
 
 trait AreaMetric extends Any with Area with MetricUnits
+{
+  def + (op: AreaMetric): AreaMetric
+}
 
-/** Not sure about this class. */
-class MetresSq(val metresSq: Double) extends AnyVal with AreaMetric
-{ def + (op: MetresSq): MetresSq = new MetresSq(metresSq + op.metresSq)
-  def - (op: MetresSq): MetresSq = new MetresSq(metresSq - op.metresSq)
-  def * (operand: Double): MetresSq = new MetresSq(metresSq * operand)
-  def / (operand: Double): MetresSq = new MetresSq(metresSq / operand)
+/** Square metres  a measure of [[Area]]. */
+class MetresSq(val metresSqNum: Double) extends AnyVal with AreaMetric
+{
+  override def + (op: AreaMetric): MetresSq = new MetresSq(metresSqNum + op.metresSqNum)
+  def - (op: MetresSq): MetresSq = new MetresSq(metresSqNum - op.metresSqNum)
+  def * (operand: Double): MetresSq = new MetresSq(metresSqNum * operand)
+  def / (operand: Double): MetresSq = new MetresSq(metresSqNum / operand)
+
+  override def kMetresSqNum: Double = metresSqNum / 1000000
+}
+
+/** Square kilometres  a measure of [[Area]]. */
+class KMetresSq(val kMetresSqNum: Double) extends AnyVal with AreaMetric
+{
+  override def +(op: AreaMetric): KMetresSq = KMetresSq(kMetresSqNum = op.kMetresSqNum)
+
+  override def metresSqNum: Double = kMetresSqNum * 1000000
+}
+
+object KMetresSq
+{
+  def apply(kMetresSqNum: Double): KMetresSq = new KMetresSq(kMetresSqNum)
 }
