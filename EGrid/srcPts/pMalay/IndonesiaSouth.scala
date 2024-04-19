@@ -16,7 +16,7 @@ object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
+object javaIsland extends Area2Island("Java", -7.39 ll 110.03, jungle, KMetresSq(124413))
 { val ePulauMadura: LatLong = -6.96 ll 114.11
   val pasuruan: LatLong = -7.627 ll 112.919
   val baliNorth: LatLong = -8.061 ll 115.184
