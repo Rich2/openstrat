@@ -1,23 +1,30 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat;
 
-trait Length extends Any
+trait Length extends Any with Ordered[Length]
 {
-  def numMetres: Double
+  def metresNum: Double
+
+  def kMetresNum: Double
 }
 
 trait MetricUnits extends Any
 
 trait MetricLength extends Any with Length with MetricUnits
+{
+  def +(operand: MetricLength): MetricLength
+
+  def -(operand: MetricLength): MetricLength
+}
 
 /** Length can be negative. The underlying data is stored in metres. */
-final class Metres(val metresNum: Double) extends AnyVal with Ordered[Metres] with MetricLength
+final class Metres(val metresNum: Double) extends AnyVal with MetricLength
 { def typeStr: String = "Metres"
 
   override def toString: String = metresNum.str + "m"
   def str = "Length".appendParenth(metresNum.toString)
-  def +(operand: Metres): Metres = Metres(metresNum + operand.metresNum)
-  def -(operand: Metres): Metres = Metres(metresNum - operand.metresNum)
+  override def +(operand: MetricLength): Metres = Metres(metresNum + operand.metresNum)
+  override def -(operand: MetricLength): Metres = Metres(metresNum - operand.metresNum)
   def unary_- : Metres = Metres(-metresNum)
   def *(operand: Double): Metres = Metres(metresNum * operand)
   def /(operand: Double): Metres = Metres(metresNum / operand)
@@ -30,13 +37,7 @@ final class Metres(val metresNum: Double) extends AnyVal with Ordered[Metres] wi
   def min(operand: Metres): Metres = ife(metresNum < operand.metresNum, this, operand)
   def kmStr2 = (metresNum / 1000).str2 + "km"
 
-  override def numMetres: Double = metresNum
-
-  override def compare(that: Metres): Int = metresNum match
-  { case l if l == that.metresNum => 0
-    case l if l > that.metresNum => 1
-    case _ => -1
-  }
+  override def compare(that: Length): Int = metresNum.compare(that.metresNum)
 
   def pos: Boolean = metresNum >= 0
   def neg: Boolean = metresNum < 0
@@ -60,10 +61,17 @@ object Metres
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
-final class KMetres(val kMetresNum: Double) extends AnyVal with Ordered[Length] with MetricLength {
-  def typeStr: String = "Metres"
+final class KMetres(val kMetresNum: Double) extends AnyVal with MetricLength
+{ def typeStr: String = "Metres"
 
-  override def compare(that: Length): Int = ???
+  override def compare(that: Length): Int = kMetresNum.compare(that.kMetresNum)
 
-  override def numMetres: Double = ???
+  override def metresNum: Double = kMetresNum * 1000
+
+  override def +(operand: MetricLength): KMetres = KMetres(kMetresNum = operand.kMetresNum)
+  override def -(operand: MetricLength): KMetres = KMetres(kMetresNum - operand.kMetresNum)
+}
+
+object KMetres{
+  def apply(kMetresNum: Double): KMetres = new KMetres(kMetresNum)
 }
