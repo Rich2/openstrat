@@ -32,7 +32,7 @@ final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends lengt
   def / (operator: Double): Vec2M = new Vec2M(xMetresNum / operator, yMetresNum / operator)
   def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: Vec2M): Area = x * operand.x + y * operand.y
+  @inline def dot(operand: Vec2M): MetresSq = x * operand.x + y * operand.y
 }
 
 object Vec2M

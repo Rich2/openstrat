@@ -6,6 +6,8 @@ trait Length extends Any with Ordered[Length]
   def metresNum: Double
 
   def kMetresNum: Double
+
+  def unary_- : Length
 }
 
 trait MetricUnits extends Any
@@ -15,6 +17,8 @@ trait MetricLength extends Any with Length with MetricUnits
   def +(operand: MetricLength): MetricLength
 
   def -(operand: MetricLength): MetricLength
+
+  override def unary_- : MetricLength
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
@@ -25,7 +29,7 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
   def str = "Length".appendParenth(metresNum.toString)
   override def +(operand: MetricLength): Metres = Metres(metresNum + operand.metresNum)
   override def -(operand: MetricLength): Metres = Metres(metresNum - operand.metresNum)
-  def unary_- : Metres = Metres(-metresNum)
+  override def unary_- : Metres = Metres(-metresNum)
   def *(operand: Double): Metres = Metres(metresNum * operand)
   def /(operand: Double): Metres = Metres(metresNum / operand)
   @inline def yardsNum: Double = metresNum * 1.09361
@@ -52,7 +56,7 @@ object Metres
 { def apply(metres: Double): Metres = new Metres(metres)
 
   implicit class MetreExtensions(thisMetres: Metres)
-  { def * (operand: Metres): Area = new Area(thisMetres.metresNum * operand.metresNum)
+  { def * (operand: Metres): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
     def / (operand: Metres): Double = thisMetres.metresNum / operand.metresNum
 
   }
@@ -70,6 +74,7 @@ final class KMetres(val kMetresNum: Double) extends AnyVal with MetricLength
 
   override def +(operand: MetricLength): KMetres = KMetres(kMetresNum = operand.kMetresNum)
   override def -(operand: MetricLength): KMetres = KMetres(kMetresNum - operand.kMetresNum)
+  override def unary_- : KMetres = KMetres(-kMetresNum)
 }
 
 object KMetres{

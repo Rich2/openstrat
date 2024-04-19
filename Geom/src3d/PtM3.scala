@@ -19,7 +19,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def z: Metres = Metres(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: PtM3): Area = x * operand.x + y * operand.y + z * operand.z
+  @inline def dot(operand: PtM3): MetresSq = x * operand.x + y * operand.y + z * operand.z
   def xy: PtM2 = new PtM2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg

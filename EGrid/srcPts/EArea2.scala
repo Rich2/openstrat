@@ -37,4 +37,4 @@ object EArea2
   }
 }
 
-abstract class Area2Island(name: String, cen: LatLong, terr: WTile, area: Area) extends EArea2(name, cen, terr)
+abstract class Area2Island(name: String, cen: LatLong, terr: WTile, area: MetresSq) extends EArea2(name, cen, terr)
