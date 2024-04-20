@@ -8,6 +8,8 @@ trait Length extends Any with Ordered[Length]
   def kMetresNum: Double
 
   def unary_- : Length
+
+  def addLength(operand: Length): Length
 }
 
 trait MetricUnits extends Any
@@ -15,8 +17,10 @@ trait MetricUnits extends Any
 trait MetricLength extends Any with Length with MetricUnits
 {
   def +(operand: MetricLength): MetricLength
-
+  override def addLength(operand: Length): MetricLength
   def -(operand: MetricLength): MetricLength
+
+
 
   override def unary_- : MetricLength
 }
@@ -26,8 +30,9 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
 { def typeStr: String = "Metres"
 
   override def toString: String = metresNum.str + "m"
-  def str = "Length".appendParenth(metresNum.toString)
+  def str: String = "Length".appendParenth(metresNum.toString)
   override def +(operand: MetricLength): Metres = Metres(metresNum + operand.metresNum)
+  override def addLength(operand: Length): Metres = Metres(metresNum + operand.metresNum)
   override def -(operand: MetricLength): Metres = Metres(metresNum - operand.metresNum)
   override def unary_- : Metres = Metres(-metresNum)
   def *(operand: Double): Metres = Metres(metresNum * operand)
@@ -61,7 +66,7 @@ object Metres
   }
 }
 
-/** Length can be negative. The underlying data is stored in metres. */
+/** Measurement of [[Length]] in Kilometres. can be negative. */
 final class KMetres(val kMetresNum: Double) extends AnyVal with MetricLength
 { def typeStr: String = "Metres"
 
@@ -70,10 +75,12 @@ final class KMetres(val kMetresNum: Double) extends AnyVal with MetricLength
   override def metresNum: Double = kMetresNum * 1000
 
   override def +(operand: MetricLength): KMetres = KMetres(kMetresNum = operand.kMetresNum)
+  override def addLength(operand: Length): KMetres = KMetres(kMetresNum = operand.kMetresNum)
   override def -(operand: MetricLength): KMetres = KMetres(kMetresNum - operand.kMetresNum)
   override def unary_- : KMetres = KMetres(-kMetresNum)
 }
 
-object KMetres{
+object KMetres
+{
   def apply(kMetresNum: Double): KMetres = new KMetres(kMetresNum)
 }
