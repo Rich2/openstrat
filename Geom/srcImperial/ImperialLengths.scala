@@ -5,7 +5,15 @@ package ostrat; package geom; package impunits
 trait ImperialUnits extends Any
 
 trait ImperialLength extends Any with Length with ImperialUnits
-{
+{ /** The number of yards in this length */
+  def yardsNum: Double
+
+  /** The number of miles in this length */
+  def milesNum: Double
+
+  /** The number of MegaMiles in this length */
+  def megaMilesNum: Double
+
   /** Add a [[Length]] defined in [[ImperialLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
   def +(operand: ImperialLength): ImperialLength
 
@@ -15,11 +23,7 @@ trait ImperialLength extends Any with Length with ImperialUnits
   override def addLength(operand: Length): ImperialLength
   override def subLength(operand: Length): ImperialLength
   override def *(operand: Double): ImperialLength
-
-  def yardsNum: Double
-  def milesNum: Double
-  def megaMilesNum: Double
-
+  override def /(operand: Double): ImperialLength
   override def unary_- : ImperialLength
   override def kiloMetresNum: Double = metresNum / 1000
 }

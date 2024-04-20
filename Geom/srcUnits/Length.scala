@@ -22,6 +22,9 @@ trait Length extends Any with Ordered[Length]
   /** Multiply by the given scalar. */
   def *(operand: Double): Length
 
+  /** Divide by the given scalar. */
+  def /(operand: Double): Length
+
   /** Converts this [[Length]] to [[Metres]]. */
   def toMetres: Metres = Metres(metresNum)
 }
@@ -39,6 +42,7 @@ trait MetricLength extends Any with Length with MetricUnits
   override def subLength(operand: Length): MetricLength
   override def unary_- : MetricLength
   override def *(operand: Double): MetricLength
+  override def /(operand: Double): MetricLength
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
@@ -98,9 +102,10 @@ final class KiloMetres(val kiloMetresNum: Double) extends AnyVal with MetricLeng
   override def subLength(operand: Length): KiloMetres = KiloMetres(kiloMetresNum - operand.kiloMetresNum)
   override def unary_- : KiloMetres = KiloMetres(-kiloMetresNum)
   override def *(operand: Double): KiloMetres = KiloMetres(kiloMetresNum * operand)
+  override def /(operand: Double): KiloMetres = KiloMetres(kiloMetresNum / operand)
 }
 
 object KiloMetres
-{
+{ /** Factory apply method for kilometres. */
   def apply(kMetresNum: Double): KiloMetres = new KiloMetres(kMetresNum)
 }
