@@ -1,8 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import impunits._
 
 /** Extension methods class for [[Double]], for the geom package. */
-class DoubleGeomImplicit(thisDouble: Double)
+class GeomDoubleImplicits(thisDouble: Double)
 {
   /** Method to be removed, prefer kMetres. */
   def km: Metres = new Metres(thisDouble * 1000)
@@ -19,12 +20,11 @@ class DoubleGeomImplicit(thisDouble: Double)
   /** Returns this [[Double]] value in [[Metres]] or millions of kilometres. */
   @inline def gMetres: Metres = new Metres(thisDouble * 1000000000)
 
-  /** Returns this [[Double]] value in [[Metres]]. */
-  @inline def miles: Metres = new Metres(thisDouble * 1609.344)
+  /** Returns this [[Double]] value in [[Miles]]. */
+  @inline def miles: Miles = new Miles(thisDouble)
 
   /** Returns this [[Double]] value of millions of miles in [[Metres]]. */
-  @inline def mMiles: Metres = new Metres(thisDouble * 1609344000)
-
+  @inline def mMilesDepr: Metres = new Metres(thisDouble * 1609344000)
 
   /** Succinct syntax for creating 2 dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical
    *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */

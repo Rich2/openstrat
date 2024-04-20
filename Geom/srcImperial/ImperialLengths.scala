@@ -25,18 +25,15 @@ object ImperialLength
 
   /** Converts miles to metres. */
   val milesToMetres: Double = yardsInMile * yardsToMetres
-
 }
 
-/** Length can be negative. The underlying data is stored in metres. */
+/** [[Length]] measured in yards. Can be negative. */
 final class Yards(val yardsNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Yards"
 
   override def compare(that: Length): Int = yardsNum.compare(that.yardsNum)
   override def +(operand: ImperialLength): Yards = Yards(yardsNum + operand.yardsNum)
-
-  override def addLength(operand: Length): Yards = ???
-
+  override def addLength(operand: Length): Yards = Yards(yardsNum + operand.yardsNum)
   override def -(operand: ImperialLength): Yards = Yards(yardsNum - operand.yardsNum)
   override def unary_- : Yards = Yards(-yardsNum)
 
