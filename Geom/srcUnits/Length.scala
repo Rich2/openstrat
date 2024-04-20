@@ -10,6 +10,8 @@ trait Length extends Any with Ordered[Length]
   def unary_- : Length
 
   def addLength(operand: Length): Length
+
+  def toMetres: Metres = Metres(metresNum)
 }
 
 trait MetricUnits extends Any

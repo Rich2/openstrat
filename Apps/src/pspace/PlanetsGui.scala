@@ -28,13 +28,13 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
   }
 
   statusText = "Choose centreing body."
-  val maxOrbit: Metres = 3700.millionMilesDepr
+  val maxOrbit: Metres = 3700.megaMiles.toMetres
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
-  var scale: Metres = 0.5.mMilesDepr
-  val scaleMax: Metres = 10.millionMilesDepr
-  val scaleMin: Metres = 0.1.mMilesDepr
+  var scale: Metres = 0.5.megaMiles.toMetres
+  val scaleMax: Metres = 10.megaMiles.toMetres
+  val scaleMin: Metres = 0.1.megaMiles.toMetres
   var elapsed: Int = 0
   val nowt: Instant = Instant.now()
   //val num = 1234567890L

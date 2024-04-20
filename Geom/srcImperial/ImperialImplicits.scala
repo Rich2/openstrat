@@ -13,7 +13,6 @@ implicit class LengthImperialImplicit(val thisLength: Length)
     case l => l.metresNum * ImperialLength.milesToMetres
   }
 
-
   def megaMilesNum: Double = thisLength match
   { case iunit: ImperialLength => iunit.megaMilesNum
     case l => l.metresNum * ImperialLength.milesToMetres / 1000000

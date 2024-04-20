@@ -27,9 +27,7 @@ final class Miles(val milesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
   override def compare(that: Length): Int = kMetresNum.compare(that.kMetresNum)
   override def +(operand: ImperialLength): Miles = Miles(milesNum + operand.milesNum)
-
   override def addLength(operand: Length): Miles = Miles(milesNum + operand.milesNum)
-
   override def -(operand: ImperialLength): Miles = Miles(milesNum - operand.milesNum)
   override def unary_- : Miles = Miles(-milesNum)
 
@@ -39,22 +37,22 @@ final class Miles(val milesNum: Double) extends AnyVal with ImperialLength
 }
 
 object Miles
-{
+{ /** Factory apply method for creating [[Miles]] [[Length]] instances. */
   def apply(milesNum: Double): Miles = new Miles(milesNum)
 }
 
-/** Length can be negative. The underlying data is stored in metres. */
+/** [[Length]] measured in millions of miles. Can be negative. */
 final class MegaMiles(val megaMilesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
   override def compare(that: Length): Int = kMetresNum.compare(that.kMetresNum)
   override def +(operand: ImperialLength): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
-  override def addLength(operand: Length): Miles = Miles(megaMilesNum + operand.milesNum)
+  override def addLength(operand: Length): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
   override def -(operand: ImperialLength): MegaMiles = MegaMiles(megaMilesNum - operand.megaMilesNum)
   override def unary_- : MegaMiles = MegaMiles(-megaMilesNum)
 
-  override def metresNum: Double = milesNum * yardsToMetres/ yardsInMile
-  override def yardsNum: Double = milesNum * yardsInMile
-  override def milesNum: Double = megaMilesNum / 1000000
+  override def metresNum: Double = megaMilesNum * 1000000 * yardsInMile * yardsToMetres
+  override def yardsNum: Double = megaMilesNum * yardsInMile * 1000000
+  override def milesNum: Double = megaMilesNum * 1000000
 }
 
 object MegaMiles

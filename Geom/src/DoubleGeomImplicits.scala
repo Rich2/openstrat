@@ -23,8 +23,8 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value in [[Miles]]. */
   @inline def miles: Miles = new Miles(thisDouble)
 
-  /** Returns this [[Double]] value of millions of miles in [[Metres]]. */
-  @inline def mMilesDepr: Metres = new Metres(thisDouble * 1609344000)
+  /** Returns this [[Double]] value of [[MegaMiles]] millions of miles. */
+  @inline def megaMiles: MegaMiles = new MegaMiles(thisDouble)
 
   /** Succinct syntax for creating 2 dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical
    *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */

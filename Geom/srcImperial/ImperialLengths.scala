@@ -22,7 +22,7 @@ object ImperialLength
   val yardsToMetres: Double = 0.9144
 
   /** The number of yards in a mile. */
-  val yardsInMile: Double = 1760000
+  val yardsInMile: Double = 1760
 
   /** Converts miles to metres. */
   val milesToMetres: Double = yardsInMile * yardsToMetres

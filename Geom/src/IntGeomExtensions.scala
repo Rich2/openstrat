@@ -17,14 +17,11 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Metres]] or millions of kilometres. */
   @inline def gMetres: Metres = Metres(thisInt * 1000000000.0)
 
-  /** Returns this [[Int]] value in [[Metres]]. */
+  /** Returns this [[Int]] value in [[Miles]]. */
   @inline def miles: Miles = Miles(thisInt)
 
-  /** Returns this [[Int]] value in [[Metres]] millions of miles. */
-  @inline def millionMilesDepr: Metres = new Metres(thisInt * 1609344000.0)
-
-  /** Returns this [[Int]] value in [[Metres]] millions of miles. */
-  @inline def millionMiles: Metres = new Metres(thisInt * 1609344000.0)
+  /** Returns this [[Int]] value in [[MegaMiles]] millions of miles. */
+  @inline def megaMiles: MegaMiles = MegaMiles(thisInt)
 
   def ° : Angle = Angle(thisInt)
 
