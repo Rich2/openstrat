@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 trait Length extends Any with Ordered[Length]
@@ -56,12 +56,9 @@ object Metres
 { def apply(metres: Double): Metres = new Metres(metres)
 
   implicit class MetreExtensions(thisMetres: Metres)
-  { def * (operand: Metres): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
-    def / (operand: Metres): Double = thisMetres.metresNum / operand.metresNum
-
+  { def * (operand: MetricLength): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
+    def / (operand: MetricLength): Double = thisMetres.metresNum / operand.metresNum
   }
-
-  //implicit object DistPersist extends PersistDbl1[Metres]("Dist", "metres",_.metres, new Metres(_))
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
