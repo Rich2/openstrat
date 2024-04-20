@@ -106,7 +106,7 @@ package object geom
   type GraphicElems = RArr[GraphicElem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
-  implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
+  implicit def doubleToImplicitGeom(thisDouble: Double): DoubleGeomImplicit = new DoubleGeomImplicit(thisDouble)
 
   implicit class AnyGeomImplicit(thisAny: Any)
   {

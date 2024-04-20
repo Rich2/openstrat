@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pspace
-import Colour._
+import geom._, Colour._
 
 /** Solar System body includes the Sun, the Planets, Dwarf planets and their moons. */
 sealed trait SSBody extends Coloured

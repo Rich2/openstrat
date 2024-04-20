@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egmega
-import egrid._, prid._, phex._
+import geom._, egrid._, prid._, phex._
 
 /** An Earth grid system where the hex tiles are 80km across. A C scale of 20km. Maybe a single hrx or multiple hex grids. */
 trait EGridMegaSys extends EGridSys
