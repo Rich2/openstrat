@@ -8,6 +8,9 @@ trait Length extends Any with Ordered[Length]
   /** The number of kilometres in this [[Length]]. */
   def kiloMetresNum: Double
 
+  /** The number of Megametres in this [[Length]]. */
+  def megaMetresNum: Double
+
   /** The negative of this [[Lenght]] */
   def unary_- : Length
 
@@ -27,6 +30,9 @@ trait Length extends Any with Ordered[Length]
 
   /** Converts this [[Length]] to [[Metres]]. */
   def toMetres: Metres = Metres(metresNum)
+
+  /** Converts this [[Length]] to [[Metres]]. */
+  def toKiloMetres: KiloMetres = KiloMetres(kiloMetresNum)
 }
 
 trait MetricUnits extends Any
@@ -73,14 +79,15 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
   def pos: Boolean = metresNum >= 0
   def neg: Boolean = metresNum < 0
 
-  @inline def kiloMetresNum: Double = metresNum / 1000
-  @inline def mMetresNum: Double = metresNum / 1000000
+  @inline override def kiloMetresNum: Double = metresNum / 1000
+  @inline def megaMetresNum: Double = metresNum / 1000000
   @inline def gMetresNum: Double = metresNum / 1000000000
 }
 
 /** Companion object for the [[Metres]] class. */
 object Metres
-{ def apply(metres: Double): Metres = new Metres(metres)
+{ /** Factory apply method for [[Metres]]. */
+  def apply(metres: Double): Metres = new Metres(metres)
 
   implicit class MetreExtensions(thisMetres: Metres)
   { def * (operand: MetricLength): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
@@ -95,6 +102,7 @@ final class KiloMetres(val kiloMetresNum: Double) extends AnyVal with MetricLeng
   override def compare(that: Length): Int = kiloMetresNum.compare(that.kiloMetresNum)
 
   override def metresNum: Double = kiloMetresNum * 1000
+  override def megaMetresNum: Double = kiloMetresNum / 1000
 
   override def +(operand: MetricLength): KiloMetres = KiloMetres(kMetresNum = operand.kiloMetresNum)
   override def addLength(operand: Length): KiloMetres = KiloMetres(kiloMetresNum + operand.kiloMetresNum)
