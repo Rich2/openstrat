@@ -1,7 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package impunits
 
-/** British Imperial system of measurment units. */
+/** British Imperial system of measurement units. */
 trait ImperialUnits extends Any
 
 trait ImperialLength extends Any with Length with ImperialUnits
@@ -9,11 +9,12 @@ trait ImperialLength extends Any with Length with ImperialUnits
   /** Add a [[Length]] defined in [[ImperialLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
   def +(operand: ImperialLength): ImperialLength
 
-  /** Subtrct a [[Length]] defined in [[ImperialLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
+  /** Subtract a [[Length]] defined in [[ImperialLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
   def -(operand: ImperialLength): ImperialLength
 
   override def addLength(operand: Length): ImperialLength
   override def subLength(operand: Length): ImperialLength
+  override def *(operand: Double): ImperialLength
 
   def yardsNum: Double
   def milesNum: Double

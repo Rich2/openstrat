@@ -19,6 +19,10 @@ trait Length extends Any with Ordered[Length]
    * developer that they are mixing different measurement unit systems. */
   def subLength(operand: Length): Length
 
+  /** Multiply by the given scalar. */
+  def *(operand: Double): Length
+
+  /** Converts this [[Length]] to [[Metres]]. */
   def toMetres: Metres = Metres(metresNum)
 }
 
@@ -34,6 +38,7 @@ trait MetricLength extends Any with Length with MetricUnits
   override def addLength(operand: Length): MetricLength
   override def subLength(operand: Length): MetricLength
   override def unary_- : MetricLength
+  override def *(operand: Double): MetricLength
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
@@ -92,6 +97,7 @@ final class KiloMetres(val kiloMetresNum: Double) extends AnyVal with MetricLeng
   override def -(operand: MetricLength): KiloMetres = KiloMetres(kiloMetresNum - operand.kiloMetresNum)
   override def subLength(operand: Length): KiloMetres = KiloMetres(kiloMetresNum - operand.kiloMetresNum)
   override def unary_- : KiloMetres = KiloMetres(-kiloMetresNum)
+  override def *(operand: Double): KiloMetres = KiloMetres(kiloMetresNum * operand)
 }
 
 object KiloMetres
