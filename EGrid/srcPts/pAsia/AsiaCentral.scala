@@ -3,22 +3,22 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Khazakstan, depends on [[middleEast.Caspian]], [[middleEast.Persia]], [[SiberiaWest]] and [[Kyrgyyzstan]]. */
-object Kazak extends EArea2("Kazak", 47 ll 60, deshot)
+object Kazak extends EarthArea("Kazak", 47 ll 60, deshot)
 { override val polygonLL: PolygonLL = LinePathLL(SiberiaWest.p75, SiberiaWest.p55, Kyrgyyzstan.issykKulWest, Kyrgyyzstan.north, Kyrgyyzstan.northWest,
     Kyrgyyzstan.p65, middleEast.Persia.north) ++ pEurope.Caspian.kazakCoast.reverse |++| LinePathLL(RusNorth.p50)
 }
 
-object Himalayas extends EArea2("Himalayas", 32 ll 75, mtainTundra)
+object Himalayas extends EarthArea("Himalayas", 32 ll 75, mtainTundra)
 { override val polygonLL: PolygonLL = PolygonLL(Xinjiang.south, Mongolia.southWest, Yunnan.northWest, India.indiaNE, India.kotdwar,
   Kyrgyyzstan.islamabad, Kyrgyyzstan.p20)
 }
 
 /** [[polygonLL]] graphical representation of eastern Tibet depends on [[Mongolia]], [[China]], [[Yunnan]]. */
-object TibetEast extends EArea2("Tibet east", 32 ll 75, mtainTaiga)
+object TibetEast extends EarthArea("Tibet east", 32 ll 75, mtainTaiga)
 { override val polygonLL: PolygonLL = PolygonLL(Mongolia.southWest, Mongolia.south, China.northWest, Yunnan.northEast, Yunnan.northWest)
 }
 
-object Kyrgyyzstan extends EArea2("Kyrgyzstan", 47 ll 76, mtainSavannah)
+object Kyrgyyzstan extends EarthArea("Kyrgyzstan", 47 ll 76, mtainSavannah)
 { val p10: LatLong = 39.377 ll 75.528
   val p20: LatLong = 37.381 ll 77.418
   val islamabad: LatLong = 33.749 ll 73.19

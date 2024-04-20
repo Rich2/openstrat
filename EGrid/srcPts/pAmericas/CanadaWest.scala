@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for nunavut territory Canada. Depends on Nothing. */
-object Nunavut extends EArea2("Nunavut", 67.00 ll -96.58, tundra)
+object Nunavut extends EarthArea("Nunavut", 67.00 ll -96.58, tundra)
 { val northWest = 68.27 ll -108.77
   val nunavut15: LatLong = 67.68 ll -101.53
   val nunavut17: LatLong = 68.55 ll -97.80
@@ -43,7 +43,7 @@ object Nunavut extends EArea2("Nunavut", 67.00 ll -96.58, tundra)
 }
 
 /** [[polygonLL]] graphical representation for Reindeer Lake. Depends on nothing. */
-object ReindeerLake extends EArea2("Reindeer\nLake", 66.00 ll -120.25, Lake)
+object ReindeerLake extends EarthArea("Reindeer\nLake", 66.00 ll -120.25, Lake)
 {  val north: LatLong = 58.136 ll -101.994
   val beaver: LatLong = 57.437 ll -102.192
   val southEast: LatLong = 56.359 ll -102.954
@@ -55,7 +55,7 @@ object ReindeerLake extends EArea2("Reindeer\nLake", 66.00 ll -120.25, Lake)
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object GreatBearLake extends EArea2("Great Bear\nLake", 66.00 ll -120.25, Lake)
+object GreatBearLake extends EarthArea("Great Bear\nLake", 66.00 ll -120.25, Lake)
 { val north: LatLong = 67.04 ll -119.80
   val p20: LatLong = 66.86 ll -119.45
   val p30: LatLong = 66.40 ll -120.51
@@ -69,7 +69,7 @@ object GreatBearLake extends EArea2("Great Bear\nLake", 66.00 ll -120.25, Lake)
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object GreatSlaveLake extends EArea2("Great Slave\nLake", 61.66 ll -113.83, Lake)
+object GreatSlaveLake extends EarthArea("Great Slave\nLake", 61.66 ll -113.83, Lake)
 { val north: LatLong = 62.96 ll -110.42
   val east: LatLong = 62.77 ll -108.91
   val south: LatLong = 60.83 ll -115.58
@@ -82,7 +82,7 @@ object GreatSlaveLake extends EArea2("Great Slave\nLake", 61.66 ll -113.83, Lake
 }
 
   /** [[polygonLL]] graphical representation for north west Canada. Depends on [[AlaskaNorth]]. */
-object CanadaNorthWest extends EArea2("Canada\n north west", 64.051 ll -129.98, taiga)
+object CanadaNorthWest extends EarthArea("Canada\n north west", 64.051 ll -129.98, taiga)
 { val yakut50: LatLong = 60 ll -139.60
   val yakut10: LatLong = 68.90 ll -136.53
   val inuvik10: LatLong = 70.56 ll -128.00
@@ -94,7 +94,7 @@ object CanadaNorthWest extends EArea2("Canada\n north west", 64.051 ll -129.98, 
     Nunavut.rockHouseIsland, hudsonBay60W, GreatSlaveLake.east, GreatSlaveLake.north, GreatSlaveLake.p80, GreatSlaveLake.northWest)
 }
 
-object CanadaSouthWest extends EArea2("Canada\n south west", 55 ll -110, taiga)
+object CanadaSouthWest extends EarthArea("Canada\n south west", 55 ll -110, taiga)
 { val montanaNE: LatLong = 49 ll -104
   val w49th: LatLong = 49 ll -122.754
   val vancouverIslandSouth: LatLong = 48.310 ll -123.563

@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for the south of France depends on [[IberiaNorth]] and [[FranceNorth]]. */
-object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, oceanic)
+object FranceSouth extends EarthArea("FranceSouth", 44.54 ll 2.53, oceanic)
 { val montelimar: LatLong = 44.55 ll 4.71
   val orangeCrossing: LatLong = 44.07 ll 4.76
 
@@ -23,7 +23,7 @@ object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, oceanic)
 }
 
 /** [[PolygonLL]] graphic depends on nothing. */
-object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, hillySub)
+object IberiaSouth extends EarthArea("IberiaSouth", 38.48 ll -4.55, hillySub)
 { val valencia: LatLong = 39.45 ll -0.32
   val xabia: LatLong = 38.74 ll 0.22
   val p15: LatLong = 38.43 ll -0.39
@@ -54,7 +54,7 @@ object IberiaSouth extends EArea2("IberiaSouth", 38.48 ll -4.55, hillySub)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */
-object IberiaNorth extends EArea2("Iberia north", 41 ll -3.5, hillySub)
+object IberiaNorth extends EarthArea("Iberia north", 41 ll -3.5, hillySub)
 { val laMassaneMouth: LatLong = 42.54 ll 3.05
   val neSpain: LatLong = 42.18 ll 3.06
   val begur: LatLong = 41.95 ll 3.22

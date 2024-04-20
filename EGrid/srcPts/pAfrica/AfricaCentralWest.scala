@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic object for the island of Bioko / FernandoPo. Depends on nothing. */
-object FernandoPo extends EArea2("Congo", -7 ll 24, jungle)
+object FernandoPo extends EarthArea("Congo", -7 ll 24, jungle)
 { val north: LatLong = 3.788 ll 8.713
   val northEast: LatLong = 3.761 ll 8.988
   val southEast: LatLong = 3.209 ll 8.675
@@ -15,7 +15,7 @@ object FernandoPo extends EArea2("Congo", -7 ll 24, jungle)
 
 /** [[PolygonLL]] graphic object for the west of cnetral Africa. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  *  [[LakeVictoria]]. */
-object Congo extends EArea2("Congo", -7 ll 24, jungle)
+object Congo extends EarthArea("Congo", -7 ll 24, jungle)
 { val bambou: LatLong = -4.661 ll 11.783
   val gabonSouth: LatLong = -3.957 ll 11.153
 
@@ -33,7 +33,7 @@ object Congo extends EArea2("Congo", -7 ll 24, jungle)
 
 /** [[PolygonLL]] graphic object for the west of Angola - Zambia. Depends on [[SouthAfrica]], [[WestAfricaSouth]], [[LakeTanganyika]] and
  *  [[LakeVictoria]]. */
-object AngloaZambia extends EArea2("AngolaZambia", -7 ll 24, savannah)
+object AngloaZambia extends EarthArea("AngolaZambia", -7 ll 24, savannah)
 {
   val wantipaNW = -8.538 ll 29.670
   val baiaFarta: LatLong = -12.81 ll 13.01

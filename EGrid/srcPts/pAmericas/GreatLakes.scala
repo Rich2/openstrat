@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for central Canada. Depends on [[Quebecia]]. */
-object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, taiga)
+object CanadaCentral extends EarthArea("Canada\n central", 52.37 ll -86.94, taiga)
 { val manitoba20: LatLong = 57.26 ll -90.89
   val jamesBayNW: LatLong = 55.07 ll -82.31
   val attapiskatMouth: LatLong = 52.97 ll -82.26
@@ -15,7 +15,7 @@ object CanadaCentral extends EArea2("Canada\n central", 52.37 ll -86.94, taiga)
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object LakeWinnipeg extends EArea2("Lake Winnipeg", 52.78 ll -97.83, Lake)
+object LakeWinnipeg extends EarthArea("Lake Winnipeg", 52.78 ll -97.83, Lake)
 { val north: LatLong = 53.86 ll -98.46
   val playGreenMouth: LatLong = 53.70 ll -97.86
   val bloodveinMouth: LatLong = 51.79 ll -96.72
@@ -28,7 +28,7 @@ object LakeWinnipeg extends EArea2("Lake Winnipeg", 52.78 ll -97.83, Lake)
 }
 
 /** Simple graphic for Lake Superior. No dependencies */
-object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
+object LakeSuperior extends EarthArea("Lake Superior", 47.5 ll -88, Lake)
 { val east: LatLong = 46.52 ll -84.61
   val grandMarais = 47.748 ll -90.347
   val michipicoten: LatLong = 47.96 ll -84.86
@@ -56,7 +56,7 @@ object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, Lake)
 }
 
 /** Graphical display for Lake Huron. No dependencies. */
-object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, Lake)
+object LakeHuron extends EarthArea("Lake Huron", 44.80 ll -82.4, Lake)
 { val northEast: LatLong = 45.89 ll -80.75
   val killarney: LatLong = 45.99 ll -81.43
   val fitzwilliam: LatLong = 45.45 ll -81.79
@@ -87,7 +87,7 @@ object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, Lake)
 }
 
 /** Graphical display for Lake Erie. No dependencies. */
-object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, Lake)
+object LakeErie extends EarthArea("Lake Erie", 42.24 ll -81.03, Lake)
 { val niagraMouth: LatLong = 42.89 ll -78.91
   val portDover: LatLong = 42.784 ll -80.220
   val longPoint: LatLong = 42.58 ll -80.44
@@ -107,7 +107,7 @@ object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, Lake)
   override def polygonLL: PolygonLL = eastCanadaCoast.reverse |++<| southCoast.init
 }
 /** Graphical display for Lake Ontario. No dependencies. */
-object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, Lake)
+object LakeOntario extends EarthArea("Lake Ontario", 43.65 ll -77.84, Lake)
 { val wolfeSW: LatLong = 44.10 ll -76.44
   val northEast: LatLong = 44.20 ll -76.51
   val irondequoitMout = 43.236 ll -77.534
@@ -126,7 +126,7 @@ object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, Lake)
 }
 
 /** Graphical display for Lake Michigan. No dependencies. */
-object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, Lake)
+object LakeMichigan extends EarthArea("Lake Michigan", 43.82 ll -87.1, Lake)
 { val mouthNorth: LatLong = 45.84 ll -84.75
   val north: LatLong = 46.10 ll -85.42
   val northWest: LatLong = 45.91 ll -86.97

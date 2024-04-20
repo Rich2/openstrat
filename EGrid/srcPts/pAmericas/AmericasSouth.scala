@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for south Argentine and south Chile. Depends on nothing. */
-object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -70.22, savannah)
+object SouthAmericaSouth extends EarthArea("South America\nsouth", -27.0 ll -70.22, savannah)
 { val northEast: LatLong = -40.76 ll -65.02
   val fuegoEast: LatLong = -54.66 ll -65.14
   val swArgentine: LatLong = -54.28 ll -65.06
@@ -19,7 +19,7 @@ object SouthAmericaSouth extends EArea2("South America\nsouth", -27.0 ll -70.22,
 }
 
 /** [[polygonLL]] graphical representation for middle South America. Depends on [[SouthAmericaSouth]]. */
-object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0, oceanic)
+object SouthAmericaMiddle extends EarthArea("South America\nmiddle", -27.0 ll -56.0, oceanic)
 { val north: Latitude = 21.south
   val nwAmericaE: Longitude = 58.west
 
@@ -43,7 +43,7 @@ object SouthAmericaMiddle extends EArea2("South America\nmiddle", -27.0 ll -56.0
 }
 
 /** [[polygonLL]] graphical representation for Columbia dnd Venezuela . Dependant on [[ElSalPanama]]. */
-object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtainDepr)
+object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, mtainDepr)
 { val southDegs: Double = -2.665
 
   val nColumbia: LatLong = 12.19 ll -71.27
@@ -68,7 +68,7 @@ object ColomVenez extends EArea2("Columbia and\nVenezuela", 0 ll -70.0, mtainDep
 }
 
 /** [[polygonLL]] graphical representation for the north west of South America. Dependant on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
-object SouthAmericaWest extends EArea2("South America\nwest", -20 ll -70.0, jungle)
+object SouthAmericaWest extends EarthArea("South America\nwest", -20 ll -70.0, jungle)
 { val nChile: LatLong = -18 ll -70
   val p60: LatLong = -13.91 ll -76.39
   val p61 = -13.461 ll -76.187
@@ -82,7 +82,7 @@ object SouthAmericaWest extends EArea2("South America\nwest", -20 ll -70.0, jung
 }
 
 /** [[polygonLL]] graphical representation for the east of South America. Dependant on [[ElSalPanama]]. */
-object SouthAmericaEast extends EArea2("South America\neast", -10.04 ll -45.81, jungle)
+object SouthAmericaEast extends EarthArea("South America\neast", -10.04 ll -45.81, jungle)
 { val nAmapa: LatLong = 4.39 ll -51.51
   val amazonMouthS: LatLong = -0.18 ll -49.3
   val marajoMouth: LatLong = -0.430 ll -48.136

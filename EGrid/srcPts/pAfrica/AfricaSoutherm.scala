@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic object for southern Africa depends on nothing. */
-object SouthAfrica extends EArea2("South Africa", -25 ll 24, sahel)
+object SouthAfrica extends EarthArea("South Africa", -25 ll 24, sahel)
 { val sAfricaN: Latitude = 17.south
 
   val sAfricaNW: LatLong = - 17 ll 11.76
@@ -27,7 +27,7 @@ object SouthAfrica extends EArea2("South Africa", -25 ll 24, sahel)
 }
 
 /** [[PolygonLL]] graphic object for Madagascar depends on nothing. */
-object Madagascar extends EArea2("Madagascar", -19.42 ll 46.57, oceanic)
+object Madagascar extends EarthArea("Madagascar", -19.42 ll 46.57, oceanic)
 { val north: LatLong = -11.95 ll 49.26
   val east: LatLong = -15.33 ll 50.48
   val southEast: LatLong = -25.03 ll 46.99

@@ -2,7 +2,7 @@
 package ostrat; package pEarth
 import geom._, pglobe._, egrid._, WTiles._
 
-object sakhalin extends EArea2("Sakhalin", 50.94 ll 142.90, taiga)
+object sakhalin extends EarthArea("Sakhalin", 50.94 ll 142.90, taiga)
 { val north: LatLong = 54.38 ll 142.73
   val p6: LatLong = 52.832 ll 143.334
   val p15: LatLong = 52.159 ll 143.139
@@ -21,7 +21,7 @@ object sakhalin extends EArea2("Sakhalin", 50.94 ll 142.90, taiga)
   override val polygonLL: PolygonLL = PolygonLL(north, p6, p15, west, poronayask, p45, southEast, p55, south, p77, p82, pogibi, northEast)
 }
 
-object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hillyOce)
+object Hokkaido extends EarthArea("Hokkaido", 43.50 ll 142.95, hillyOce)
 { val north: LatLong = 45.5 ll 141.93
   val p10: LatLong = 43.931 ll 144.790
   val p20: LatLong = 44.34 ll 145.33
@@ -38,7 +38,7 @@ object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, p10, p20, east, southEast, capeChikyu, p60, south, p80, capeKamui, p85, northWest)
 }
 
-object Honshu extends EArea2("Honshu", 36.28 ll 138.71, hillyOce)
+object Honshu extends EarthArea("Honshu", 36.28 ll 138.71, hillyOce)
 { val oma: LatLong = 41.49 ll 140.94
   val p5: LatLong = 41.43 ll 141.46
   val p10: LatLong = 39.55 ll 142.06
@@ -71,7 +71,7 @@ object Honshu extends EArea2("Honshu", 36.28 ll 138.71, hillyOce)
     p65, p68, p70, p72, kashiwazaki, p85, p90, capeTappi)
 }
 
-object Kyshu extends EArea2("Kyushu", 32.80 ll 131.02, hillyOce)
+object Kyshu extends EarthArea("Kyushu", 32.80 ll 131.02, hillyOce)
 { val north: LatLong = 33.95 ll 130.83
   val northWest: LatLong = 33.69 ll 131.59
   val sKyshu: LatLong = 31.08 ll 130.75

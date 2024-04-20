@@ -3,7 +3,7 @@ package ostrat; package pEarth; package noceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of the near to Greenwich Artic. Depends on [[Greenland]]. */
-case object ArticNear extends EArea2("Artic near", 85 ll 0, ice)
+case object ArticNear extends EarthArea("Artic near", 85 ll 0, ice)
 { val south0: LatLong = 81.5 ll 0
   val south15: LatLong = 81.5 ll 15
   val south30: LatLong = 81.5 ll 30
@@ -17,7 +17,7 @@ case object ArticNear extends EArea2("Artic near", 85 ll 0, ice)
 }
 
 /** [[polygonLL]] graphical representation of the eastern Artic. Depends on [[ArticNear]]. */
-case object ArticEast extends EArea2("Artic east", 85 ll 0, ice)
+case object ArticEast extends EarthArea("Artic east", 85 ll 0, ice)
 { val south135: LatLong = 79 ll 135
   val south120: LatLong = 79 ll 120
   val south110: LatLong = 79 ll 110
@@ -30,7 +30,7 @@ case object ArticEast extends EArea2("Artic east", 85 ll 0, ice)
 }
 
 /** [[polygonLL]] graphical representation of the far from Greenwich Artic. Depends on [[ArticNear]] and [[ArticEast]]. */
-case object ArticFar extends EArea2("Artic far", 85 ll 180, ice)
+case object ArticFar extends EarthArea("Artic far", 85 ll 180, ice)
 { val south150: LatLong = 79 ll 150
   val south165: LatLong = 79 ll 165
   val south180: LatLong = 79 ll 180
@@ -42,7 +42,7 @@ case object ArticFar extends EArea2("Artic far", 85 ll 180, ice)
 }
 
 /** [[polygonLL]] graphical representation of the western Artic. Depends on [[Greenland]], [[ArticNear]] and [[ArticFar]]. */
-case object ArticWest extends EArea2("Artic west", 85 ll -90, ice)
+case object ArticWest extends EarthArea("Artic west", 85 ll -90, ice)
 { val south255: LatLong = 79 ll 255
 
   import pAmericas.MackenzieIslands
@@ -51,7 +51,7 @@ case object ArticWest extends EArea2("Artic west", 85 ll -90, ice)
 }
 
 /** [[polygonLL]] graphical representation of Svalbard Island. Depends on nothing. */
-object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
+object Svalbard extends EarthArea("Svalbard", 78.94 ll 17.78, ice)
 { val south: LatLong = 76.59 ll 16.70
   val wSpitsbergen: LatLong = 79.54 ll 10.64
   val nSpitzbergen: LatLong = 79.87 ll 13.75
@@ -64,7 +64,7 @@ object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
 }
 
 /** [[polygonLL]] graphical representation of Nordauslandet Island. Depends on nothing. */
-object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, ice)
+object Nordauslandet extends EarthArea("Nordauslandet", 79.85 ll 23.71, ice)
 { val south: LatLong = 79.22 ll 23.61
   val southWest: LatLong = 79.36 ll 20.76
   val northWest: LatLong = 80.13 ll 17.72
@@ -77,7 +77,7 @@ object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, ice)
 }
 
 /** [[polygonLL]] graphical representation of the Severnaya Zemlya archipelago. Depends on nothing. */
-object SevernayaZemyla extends EArea2("Severnaya Zemyla", 79.593 ll 96.400, ice)
+object SevernayaZemyla extends EarthArea("Severnaya Zemyla", 79.593 ll 96.400, ice)
 { val north: LatLong = 81.269 ll 95.705
   val komsomoletsEast: LatLong = 80.790 ll 97.881
   val octoberNE: LatLong = 80.0588 ll 99.305

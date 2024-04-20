@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Sumatra. Depends on nothing. */
-object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
+object Sumatra extends EarthArea("Sumatra", -0.02 ll 101.63, jungle)
 { val nSumatra: LatLong = 5.65 ll 95.43
   val neSumatra: LatLong = 5.24 ll 97.49
   val tanjungDatuk: LatLong = -0.005 ll 103.812
@@ -16,7 +16,7 @@ object Sumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object javaIsland extends Area2Island("Java", -7.39 ll 110.03, jungle, KMetresSq(124413))
+object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle, 124413)
 { val ePulauMadura: LatLong = -6.96 ll 114.11
   val pasuruan: LatLong = -7.627 ll 112.919
   val baliNorth: LatLong = -8.061 ll 115.184
@@ -40,7 +40,7 @@ object javaIsland extends Area2Island("Java", -7.39 ll 110.03, jungle, KMetresSq
 }
 
 /** [[polygonLL]] graphical representation of the islands of Sumbawa 15414km² + Lambok 4607.68km². Depends on nothing. */
-object Sumbawa extends EArea2("Sumbawa", -8725 ll 117.442, jungle)
+object Sumbawa extends EarthArea("Sumbawa", -8725 ll 117.442, jungle)
 { val north: LatLong = -8.080 ll 117.925
   val sangeangeIsland: LatLong = -8.138 ll 119.093
   val kelpaIsland: LatLong = -8.664 ll 119.238
@@ -53,7 +53,7 @@ object Sumbawa extends EArea2("Sumbawa", -8725 ll 117.442, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the islands of Flores 14731.67km², + others 1500km². Depends on nothing. */
-object Flores extends EArea2("Flores", -8.671 ll 121.858, mtainJungle)
+object Flores extends EarthArea("Flores", -8.671 ll 121.858, mtainJungle)
 { val north: LatLong = -8.241 ll 120.428
   val northEast: LatLong = -8.064 ll 122.865
   val unknownEast = -8.245 ll 123.922
@@ -65,7 +65,7 @@ object Flores extends EArea2("Flores", -8.671 ll 121.858, mtainJungle)
 }
 
 /** [[polygonLL]] graphical representation of the Alor Island 2124.93km² + others 600km². Depends on nothing. */
-object AlorIsland extends EArea2("Alor", -8.671 ll 121.858, mtainJungle)
+object AlorIsland extends EarthArea("Alor", -8.671 ll 121.858, mtainJungle)
 { val alorNE: LatLong = -8.147 ll 125.095
   val alorSE: LatLong = -8.327 ll 125.124
   val southWest: LatLong = -8.548 ll 124.064
@@ -76,7 +76,7 @@ object AlorIsland extends EArea2("Alor", -8.671 ll 121.858, mtainJungle)
 }
 
 /** [[polygonLL]] graphical representation of Wetar Island 2651.8km²  f Lessar Sunda Islands. Depends on nothing. */
-object Wetar extends EArea2("Wetar", -7.788 ll 126.363, jungle)
+object Wetar extends EarthArea("Wetar", -7.788 ll 126.363, jungle)
 { val north: LatLong = -7.559 ll 126.627
   val east: LatLong = -7.733 ll 126.841
   val southEast: LatLong = -7.973 ll 126.464
@@ -88,7 +88,7 @@ object Wetar extends EArea2("Wetar", -7.788 ll 126.363, jungle)
 
  /** [[polygonLL]] graphical representation 32057.1km² of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends on
   * nothing. */
-object Timor extends EArea2("Timor", -8.538 ll 118.510, jungle)
+object Timor extends EarthArea("Timor", -8.538 ll 118.510, jungle)
 { val east: LatLong = -8.412 ll 127.288
   val toineke: LatLong = -10.168 ll 124.393
   val roteSW: LatLong = -10.936 ll 122.848
@@ -100,7 +100,7 @@ object Timor extends EArea2("Timor", -8.538 ll 118.510, jungle)
 }
 
 /** [[polygonLL]] graphical representation of Sumba Island 11243.78km² in the Lesser Sunda Islands. Depends on nothing. */
-object Sumba extends EArea2("Sumba", -9.720 ll 120.031, jungle)
+object Sumba extends EarthArea("Sumba", -9.720 ll 120.031, jungle)
 { val north: LatLong = -9.276 ll 119.935
   val east: LatLong = -10.033 ll 120.845
   val south: LatLong = -10.315 ll 120.453

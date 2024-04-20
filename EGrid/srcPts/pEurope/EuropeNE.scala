@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphical representation for Poland and adjacent territory. */
-object Polandia extends EArea2("Polandia", 50.07 ll 20.13, oceanic)
+object Polandia extends EarthArea("Polandia", 50.07 ll 20.13, oceanic)
 { val mielno: LatLong = 54.26 ll 16.06
   val jaroslawiec: LatLong = 54.54 ll 16.53
   val jastrzebia: LatLong = 54.83 ll 18.33
@@ -29,7 +29,7 @@ object Polandia extends EArea2("Polandia", 50.07 ll 20.13, oceanic)
 }
 
 /** [[PolygonLL]] graphical representation for the Baltic states and adjacent territory. */
-object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, oceanic)
+object Baltland extends EarthArea("BaltLand", 56.46 ll 27.83, oceanic)
 { val klaipeda: LatLong = 55.73 ll 21.08
   val ziemupe: LatLong = 56.83 ll 21.06
   val osvalki = 57.047 ll 21.408
@@ -84,7 +84,7 @@ object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, oceanic)
 }
 
 /** [[PolygonLL]] graphical representation for the island of Goland. */
-object Gotland extends EArea2("Gotland", 57.46 ll 18.47, oceanic)
+object Gotland extends EarthArea("Gotland", 57.46 ll 18.47, oceanic)
 { val southWest: LatLong = 56.90 ll 18.12
   val west: LatLong = 57.26 ll 18.09
   val tofta: LatLong = 57.53 ll 18.10
@@ -95,7 +95,7 @@ object Gotland extends EArea2("Gotland", 57.46 ll 18.47, oceanic)
 }
 
 /** [[PolygonLL]] graphical representation for the island of Saaremaa. */
-object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, oceanic)
+object Saaremaa extends EarthArea("Saaremaa", 58.43 ll 22.52, oceanic)
 { val south: LatLong = 57.91 ll 22.03
   val uudibe: LatLong = 58.15 ll 22.21
   val west: LatLong = 58.03 ll 21.82
@@ -109,7 +109,7 @@ object Saaremaa extends EArea2("Saaremaa", 58.43 ll 22.52, oceanic)
 }
 
 /** [[PolygonLL]] graphical representation for the island of Hiiumaa. */
-object Hiiumaa extends EArea2("Hiiumaa", 58.90 ll 22.63, oceanic)
+object Hiiumaa extends EarthArea("Hiiumaa", 58.90 ll 22.63, oceanic)
 { val west: LatLong = 58.92 ll 22.04
   val north: LatLong = 59.08 ll 22.65
   val sarve: LatLong = 58.83 ll 23.05

@@ -5,7 +5,7 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 /** Displays grids on world as well as land mass outlines. */
 class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean = true) extends EGridBaseGui("Grid World")
 { val scen: EScenBasic = scenIn
-  val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
+  val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
 
   var scale: Metres = gridSys.cScale / viewIn.pixelsPerC

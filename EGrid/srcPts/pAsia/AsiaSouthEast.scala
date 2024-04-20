@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for IndoChina depends on [[MalayPeninsula]]. */
-object Burma extends EArea2("Burma", 16.11 ll 103.75, hillyJungle)
+object Burma extends EarthArea("Burma", 16.11 ll 103.75, hillyJungle)
 { val p80: LatLong = 15.733 ll 95.429
   val pathein: LatLong = 16.17 ll 94.31
   val sonadia: LatLong = 21.538 ll 91.841
@@ -13,7 +13,7 @@ object Burma extends EArea2("Burma", 16.11 ll 103.75, hillyJungle)
 }
 
 /** [[PolygonLL]] graphic for IndoChina depends on [[MalayPeninsula]]. */
-object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
+object IndoChina extends EarthArea("IndoChina", 16.11 ll 103.75, jungle)
 { val north: LatLong = 23.389 ll 105.324
   val beilunMouth: LatLong = 21.50 ll 108.08
   val p15: LatLong = 19.920 ll 106.122
@@ -37,7 +37,7 @@ object IndoChina extends EArea2("IndoChina", 16.11 ll 103.75, jungle)
 }
 
 /** [[PolygonLL]] graphic for Maly Peninsula depends on nothing. */
-object MalayPeninsula extends EArea2("MaylayPeninsula", 4.84 ll 102, hillyJungle)
+object MalayPeninsula extends EarthArea("MaylayPeninsula", 4.84 ll 102, hillyJungle)
 { val maeKongMouth: LatLong = 13.358 ll 100.009
   val p15: LatLong = 12.187 ll 100.018
   val tongNode = 9.303 ll 99.837

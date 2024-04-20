@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object ChinaNorth extends EArea2("China north", 40.0 ll 105.5, hillySteppe)
+object ChinaNorth extends EarthArea("China north", 40.0 ll 105.5, hillySteppe)
 { val qinhuangdao: LatLong = 39.92 ll 119.61
   val luanheMouth: LatLong = 39.43 ll 119.30
   val huituo: LatLong = 39.19 ll 118.98
@@ -20,7 +20,7 @@ object ChinaNorth extends EArea2("China north", 40.0 ll 105.5, hillySteppe)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object China extends EArea2("China", 30.0 ll 105.5, hillySub)
+object China extends EarthArea("China", 30.0 ll 105.5, hillySub)
 { val haitzhou: LatLong = 34.95 ll 119.20
   val p15: LatLong = 34.30 ll 120.28
   val p18 : LatLong = 31.71 ll 121.98
@@ -46,7 +46,7 @@ object China extends EArea2("China", 30.0 ll 105.5, hillySub)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object Yunnan extends EArea2("Yunnan", 30.0 ll 105.5, mtainSavannah)
+object Yunnan extends EarthArea("Yunnan", 30.0 ll 105.5, mtainSavannah)
 {
   val northEast: LatLong = 29.546 ll 103.475
   val northWest: LatLong = 27.499 ll 97.887
@@ -54,7 +54,7 @@ object Yunnan extends EArea2("Yunnan", 30.0 ll 105.5, mtainSavannah)
 }
 
 /** [[PolygonLL]] graphic for Hainan, depends on nothing. */
-object Hainan extends EArea2("Hainan", 30.0 ll 105.5, hillySub)
+object Hainan extends EarthArea("Hainan", 30.0 ll 105.5, hillySub)
 {
   val north: LatLong = 20.150 ll 110.685
   val east = 19.641 ll 111.046
@@ -66,7 +66,7 @@ object Hainan extends EArea2("Hainan", 30.0 ll 105.5, hillySub)
 }
 
 /** [[PolygonLL]] graphic for Taiwan depends on nothing. */
-object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hillyOce)
+object Taiwan extends EarthArea("Taiwan", 23.85 ll 120.99, hillyOce)
 { val north: LatLong = 25.29 ll 121.57
   val northEast: LatLong = 25.01 ll 122.01
   val south: LatLong = 21.90 ll 120.86

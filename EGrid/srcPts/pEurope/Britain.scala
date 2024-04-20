@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of England north. Depends on [[ScotlandLow]]. */
-object EnglandNorth extends EArea2("England north",  53.632 ll -1.581, hillyOce)
+object EnglandNorth extends EarthArea("England north",  53.632 ll -1.581, hillyOce)
 { val p20: LatLong = 54.483 ll -0.577
   val scarborough: LatLong = 54.28 ll -0.39
   val flamborough: LatLong = 54.11 ll -0.07
@@ -26,7 +26,7 @@ object EnglandNorth extends EArea2("England north",  53.632 ll -1.581, hillyOce)
 }
 
 /** [[polygonLL]] Graphical representation of Wales. Depends on nothing. */
-object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
+object Wales extends EarthArea("Wales", 52.40 ll -3.50, hillyOce)
 { val talacre: LatLong = 53.355 ll -3.315
   val deeMouth: LatLong = 53.246 ll -3.104
   val p5: LatLong = 52.75 ll -3
@@ -53,7 +53,7 @@ object Wales extends EArea2("Wales", 52.40 ll -3.50, hillyOce)
 }
 
 /** [[polygonLL]] graphical representation of England middle. Depends on [[EnglandNorth]] and [[Wales]]. */
-object EnglandMiddle extends EArea2("England middle",  53.632 ll -1.581, deshot)
+object EnglandMiddle extends EarthArea("England middle",  53.632 ll -1.581, deshot)
 { val p2: LatLong = 53.520 ll 0.076
   val donnaNook: LatLong = 53.467 ll 0.182
   val holbeach: LatLong = 52.89 ll 0.08
@@ -75,7 +75,7 @@ object EnglandMiddle extends EArea2("England middle",  53.632 ll -1.581, deshot)
 }
 
 /** [[polygonLL]] graphical representation of England. Depends on [[ScotlandHigh]] and [[Wales]]. */
-object EnglandSouth extends EArea2("England south", 51.632 ll -0.679, oceanic)
+object EnglandSouth extends EarthArea("England south", 51.632 ll -0.679, oceanic)
 { val northEast: LatLong = 51.494 ll 0.474
   val nwGrain: LatLong = 51.48 ll 0.48
   val nekent: LatLong = 51.38 ll 1.43

@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
-object IrelandNorth extends EArea2("Ireland north", 53.36 ll -7.63, oceanic)
+object IrelandNorth extends EarthArea("Ireland north", 53.36 ll -7.63, oceanic)
 { val north: LatLong = 55.38 ll -7.37
   val torHead: LatLong = 55.19 ll -6.06
   val skernaghanPoint: LatLong = 54.859 ll -5.762
@@ -31,7 +31,7 @@ object IrelandNorth extends EArea2("Ireland north", 53.36 ll -7.63, oceanic)
 }
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
-object IrelandSouth extends EArea2("Irelandsouth", 53.0 ll -7.63, hillyOce)
+object IrelandSouth extends EarthArea("Irelandsouth", 53.0 ll -7.63, hillyOce)
 { val liffeyMouth: LatLong = 53.342 ll -6.188
   val wicklowHead: LatLong = 52.97 ll -6.00
   val southEast: LatLong = 52.17 ll -6.36
@@ -55,7 +55,7 @@ object IrelandSouth extends EArea2("Irelandsouth", 53.0 ll -7.63, hillyOce)
 }
 
 /** [[polygonLL]] Graphical representation of the island of Ireland. Depends on nothing. */
-object IsleMan extends EArea2("Isle of Man", 54.243 ll -4.506, hillyOce)
+object IsleMan extends EarthArea("Isle of Man", 54.243 ll -4.506, hillyOce)
 { val north: LatLong = 54.418 ll -4.364
   val maughold: LatLong = 54.299 ll -4.310
   val southEast: LatLong = 54.053 ll -4.624

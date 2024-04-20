@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Manchura. */
-object Manchuria extends EArea2("Manchuria", 58 ll 128, oceanic)
+object Manchuria extends EarthArea("Manchuria", 58 ll 128, oceanic)
 { val udaMouth: LatLong = 54.72 ll 135.28
   val khab10: LatLong = 54.64 ll 136.81
   val khab15: LatLong = 54.28 ll 139.75
@@ -22,7 +22,7 @@ object Manchuria extends EArea2("Manchuria", 58 ll 128, oceanic)
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */
-object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDeshot)
+object Xinjiang extends EarthArea("Xinjiang", 42 ll 85, hillyDeshot)
 { val south: LatLong = 36.505 ll 80.950
 
   override val polygonLL: PolygonLL = PolygonLL(Mongolia.west, Mongolia.southWestOffical, Mongolia.southWest, south, Kyrgyyzstan.p20, Kyrgyyzstan.p10,
@@ -30,7 +30,7 @@ object Xinjiang extends EArea2("Xinjiang", 42 ll 85, hillyDeshot)
 }
 
 /** [[polygonLL]] graphical representation of Mongolia, depends on [[Manchuria]], [[SiberiaSouth]] and [[LakeBaikal]]. */
-object Mongolia extends EArea2("Mongolia", 42 ll 115, deshot)
+object Mongolia extends EarthArea("Mongolia", 42 ll 115, deshot)
 { val southEast: LatLong = 41.096 ll 114.088
   val p50: LatLong = 39.860 ll 106.965
   val south: LatLong = 37.310 ll 103.875
@@ -43,7 +43,7 @@ object Mongolia extends EArea2("Mongolia", 42 ll 115, deshot)
 }
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
-object Korea extends EArea2("Korea", 37.77 ll 127.55, hillyOce)
+object Korea extends EarthArea("Korea", 37.77 ll 127.55, hillyOce)
 { val northEast: LatLong = 41.49 ll 129.65
   val kaima: LatLong = 40.84 ll 129.71
   val hwaDo: LatLong =39.76 ll 127.54

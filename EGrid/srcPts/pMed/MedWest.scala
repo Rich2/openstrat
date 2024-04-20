@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Majorca extends EArea2("Majorca", 39.59 ll 3.01, oceanic)
+object Majorca extends EarthArea("Majorca", 39.59 ll 3.01, oceanic)
 { val south: LatLong = 39.26 ll 3.05
   val palma: LatLong = 39.56 ll 2.63
   val portalsVells: LatLong = 39.45 ll 2.51
@@ -15,7 +15,7 @@ object Majorca extends EArea2("Majorca", 39.59 ll 3.01, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, oceanic)
+object Sicily extends EarthArea("Sicily", cen = 37.58 ll 14.27, oceanic)
 { val sSicily: LatLong = 36.66 ll 15.08
   val kartibubbo: LatLong = 37.56 ll 12.67
   val marsala: LatLong = 37.80 ll 12.42
@@ -31,7 +31,7 @@ object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
-object Canarias extends EArea2("Canarias", 27.96 ll -15.60, oceanic)
+object Canarias extends EarthArea("Canarias", 27.96 ll -15.60, oceanic)
 { val elHierro: LatLong = 27.72 ll -18.15
   val laPalma: LatLong = 28.85 ll -17.92
   val lanzarote: LatLong = 29.24 ll -13.47
@@ -42,7 +42,7 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hillyOce)
+object Corsica extends EarthArea("Corsica", 42.18 ll 9.17, hillyOce)
 { val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
   val p10: LatLong = 42.57 ll 9.53
@@ -58,7 +58,7 @@ object Corsica extends EArea2("Corsica", 42.18 ll 9.17, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hillyOce)
+object Sardina extends EarthArea("Sardina", 40.12 ll 9.07, hillyOce)
 { val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62
@@ -77,7 +77,7 @@ object Sardina extends EArea2("Sardina", 40.12 ll 9.07, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for west Sahara depends on nothing. */
-object Maghreb extends EArea2("Maghreb", 33 ll 2.32, hillySahel)
+object Maghreb extends EarthArea("Maghreb", 33 ll 2.32, hillySahel)
 { val neTunis: LatLong = 37.07 ll 11.04
   val p28: LatLong = 36.87 ll 11.14
   val p30: LatLong = 36.46 ll 10.81
@@ -120,7 +120,7 @@ object Maghreb extends EArea2("Maghreb", 33 ll 2.32, hillySahel)
 }
 
 /** [[PolygonLL]] graphic for Sahara central depends on [[Maghreb]]. */
-object SaharaCentral extends EArea2("SaharaCentral", 26 ll 16, deshot)
+object SaharaCentral extends EarthArea("SaharaCentral", 26 ll 16, deshot)
 { val southEast: LatLong = 17 ll 16.75
   val southWest: LatLong = 17 ll 10.08
   val p84: LatLong = 33.89 ll 10.75

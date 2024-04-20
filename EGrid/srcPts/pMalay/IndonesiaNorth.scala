@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of the island of Borneo. Depends on nothing. */
-object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
+object Borneo extends EarthArea("Borneo", 0.63 ll 114.132, jungle)
 { val nBorneo: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
   val borderEast: LatLong = 4.165 ll 117.906
@@ -26,7 +26,7 @@ object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Sulawesi 186216.16km². Depends on nothing. */
-object Sulawesi extends EArea2("Sulawesi", -2.16 ll 120.58, jungle)
+object Sulawesi extends EarthArea("Sulawesi", -2.16 ll 120.58, jungle)
 { val seSulawesi: LatLong = -5.41 ll 119.38
   val nwSulawesi: LatLong = 0.72 ll 120.06
   val neSulawesi: LatLong = 1.67 ll 125.15
@@ -40,7 +40,7 @@ object Sulawesi extends EArea2("Sulawesi", -2.16 ll 120.58, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of New Guinea. Depends on nothing. */
-object GuineaWest extends EArea2("West Guinea", -5.19 ll 141.03, hillyJungle)
+object GuineaWest extends EarthArea("West Guinea", -5.19 ll 141.03, hillyJungle)
 { val waigeoWest: LatLong = -0.113 ll 130.295
   val waigeoNorth: LatLong = -0.007 ll 130.814
   val manokwari: LatLong = -0.73 ll 133.98
@@ -63,7 +63,7 @@ object GuineaWest extends EArea2("West Guinea", -5.19 ll 141.03, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation for Papua New Guinea. Depends on nothing. */
-object PapuaNewGuinea extends EArea2("Papua New Guinea", -5.448 ll 143.578, hillyJungle)
+object PapuaNewGuinea extends EarthArea("Papua New Guinea", -5.448 ll 143.578, hillyJungle)
 { val madang: LatLong = -4.85 ll 145.78
   val saidor: LatLong = -5.614 ll 146.473
   val p10: LatLong = -5.918 ll 147.339
@@ -85,7 +85,7 @@ object PapuaNewGuinea extends EArea2("Papua New Guinea", -5.448 ll 143.578, hill
 }
 
 /** [[polygonLL]] graphical representation 42548.6km² of New Britain 35144.6km² and New Ireland 7404km². Depends on nothing. */
-object NewBritain extends EArea2("New Britain", -5.251 ll 151.402, hillyJungle)
+object NewBritain extends EarthArea("New Britain", -5.251 ll 151.402, hillyJungle)
 { val newHanoverIsland: LatLong = -2.360 ll 150.190
   val newIreland20: LatLong = -3.977 ll 152.926
   val newIrelandSouth: LatLong = -4.840 ll 152.882

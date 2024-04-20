@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** Alsace Lorraine, no map dependencies. */
-object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hillyOce)
+object Alsace extends EarthArea("Alsace", 48.75 ll 7.42, hillyOce)
 { val northWest: LatLong = 49.50 ll 5.89
   val luxSE: LatLong = 49.46 ll 6.37
   val east: LatLong = 48.97 ll 8.23
@@ -17,7 +17,7 @@ object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hillyOce)
 }
 
 /** Belgium and Luxembourg. Depends on Alsace. */
-object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, oceanic)
+object BelgLux extends EarthArea("BelgLux", 50.6 ll 4.78, oceanic)
 { val northWest: LatLong = 51.09 ll 2.54
   val zeebrugge: LatLong = 51.339 ll 3.185
   val coastEast: LatLong = 51.36 ll 3.37
@@ -29,7 +29,7 @@ object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, oceanic)
 }
 
 /** Displays most of France. Depends on [[Alsace]] and [[BelgLux]]. */
-object FranceNorth extends EArea2("France north", 47.28 ll 1.93, oceanic)
+object FranceNorth extends EarthArea("France north", 47.28 ll 1.93, oceanic)
 { val southWest: LatLong = divN45 ll -1.29
   val southEast: LatLong = divN45 ll 5.53
   val sLAmelie: LatLong = 45.47 ll -1.15

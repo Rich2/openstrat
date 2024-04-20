@@ -3,7 +3,7 @@ package ostrat; package pEarth; package noceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Greenland. Depends on nothing. */
-object Greenland extends EArea2("Greenland", 75 ll -42, ice)
+object Greenland extends EarthArea("Greenland", 75 ll -42, ice)
 { val neGreenland: LatLong = 81.44 ll -11.77
   val p10: LatLong = 75.036 ll -17.426
   val semersooq: LatLong = 70.03 ll -23.07

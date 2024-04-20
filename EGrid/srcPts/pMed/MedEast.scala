@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Crete depends on nothing. */
-object Cephalonia extends EArea2("Cephalonia", 38.22 ll 20.59, hillyOce)
+object Cephalonia extends EarthArea("Cephalonia", 38.22 ll 20.59, hillyOce)
 { val north: LatLong = 38.50 ll 20.66
   val southEast: LatLong = 38.11 ll 20.82
   val southWest: LatLong = 38.18 ll 20.34
@@ -13,7 +13,7 @@ object Cephalonia extends EArea2("Cephalonia", 38.22 ll 20.59, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Crete depends on nothing. */
-object Crete extends EArea2("Crete", 35.23 ll 24.92, hillyOce)
+object Crete extends EarthArea("Crete", 35.23 ll 24.92, hillyOce)
 { val northEast: LatLong = 35.32 ll 26.31
   val southEast: LatLong = 35.02 ll 26.19
   val p10: LatLong = 34.92 ll 24.73
@@ -26,7 +26,7 @@ object Crete extends EArea2("Crete", 35.23 ll 24.92, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Corfu depends on nothing. */
-object Corfu extends EArea2("Corfu", 39.63 ll 19.82, hillyOce)
+object Corfu extends EarthArea("Corfu", 39.63 ll 19.82, hillyOce)
 { val north: LatLong = 39.82 ll 19.85
   val northEast: LatLong = 39.78 ll 19.96
   val gouvia: LatLong = 39.65 ll 19.84
@@ -40,7 +40,7 @@ object Corfu extends EArea2("Corfu", 39.63 ll 19.82, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Lesbos depends on nothing. */
-object Lesbos extends EArea2("Lesbos", 39.19 ll 26.30, hillyOce)
+object Lesbos extends EarthArea("Lesbos", 39.19 ll 26.30, hillyOce)
 { val north: LatLong = 39.39 ll 26.34
   val northEast: LatLong = 39.34 ll 26.42
   val southEast: LatLong = 39.02 ll 26.61
@@ -53,7 +53,7 @@ object Lesbos extends EArea2("Lesbos", 39.19 ll 26.30, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Chios depends on nothing. */
-object Chios extends EArea2("Chios", 38.19 ll 26.30, hillyOce)
+object Chios extends EarthArea("Chios", 38.19 ll 26.30, hillyOce)
 { val north: LatLong = 38.60 ll 26.00
   val northEast: LatLong = 38.55 ll 26.16
   val p20: LatLong = 38.33 ll 26.16
@@ -65,7 +65,7 @@ object Chios extends EArea2("Chios", 38.19 ll 26.30, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Cyprus depends on nothing. */
-object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, hillyOce)
+object Cyprus extends EarthArea("Cyprus", 34.98 ll 33.15, hillyOce)
 { val northEast: LatLong = 35.69 ll 34.58
   val southEast: LatLong = 34.96 ll 34.09
   val p30: LatLong = 34.57 ll 33.04
@@ -76,7 +76,7 @@ object Cyprus extends EArea2("Cyprus", 34.98 ll 33.15, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Rhodes depends on nothing. */
-object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hillyOce)
+object Rhodes extends EarthArea("Rhodes", 36.22 ll 27.95, hillyOce)
 { val north: LatLong = 36.46 ll 28.22
   val akraLindos: LatLong = 36.05 ll 28.09
   val p40: LatLong = 35.93 ll 27.86
@@ -89,7 +89,7 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
- object Sinai extends EArea2("Sinai", 29.88 ll 33.75, deshot)
+ object Sinai extends EarthArea("Sinai", 29.88 ll 33.75, deshot)
 { val deadSeaSE: LatLong = 30.97 ll 35.37
   val eilat: LatLong = 29.54 ll 34.98
   val south: LatLong = 27.73 ll 34.25
@@ -102,7 +102,7 @@ object Rhodes extends EArea2("Rhodes", 36.22 ll 27.95, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
-object SaharaEast extends EArea2("SaharaEast", 24 ll 25, deshot)
+object SaharaEast extends EarthArea("SaharaEast", 24 ll 25, deshot)
 { val p5: LatLong = 29.59 ll 32.34
   val p20: LatLong = 23.95 ll 35.76
   val p30: LatLong = 18.83 ll 37.44

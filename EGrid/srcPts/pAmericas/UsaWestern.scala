@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] Graphical object for the northwest of the United States. Dependant on [[CanadaSouthWest]]. */
-object UsaNorthWest extends EArea2("United States\nnorth west", 45.5 ll -108.0, hillySahel)
+object UsaNorthWest extends EarthArea("United States\nnorth west", 45.5 ll -108.0, hillySahel)
 { val montanaEast: Longitude = 104.04.west
   val wyomingNorth: Latitude = 45.north
   val wyomingEast: Longitude = 104.053.west
@@ -30,7 +30,7 @@ object UsaNorthWest extends EArea2("United States\nnorth west", 45.5 ll -108.0, 
 
 /** [[PolygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
  * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
-object UsaMidWest extends EArea2("United States\nMid West", 44 ll -97.0, savannah)
+object UsaMidWest extends EarthArea("United States\nMid West", 44 ll -97.0, savannah)
 {
   override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++ LakeMichigan.coastWest |++|
     LinePathLL(UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE,
@@ -38,7 +38,7 @@ object UsaMidWest extends EArea2("United States\nMid West", 44 ll -97.0, savanna
 }
 
 /** [[PolygonLL]] graphical object for the southwest of the United States. Dependant on [[CanadaNorthhWest]] and [[Baja]]. */
-object UsaSouthWest extends EArea2("United States\nsouth west", 40.0 ll -108.0, hillySahel)
+object UsaSouthWest extends EarthArea("United States\nsouth west", 40.0 ll -108.0, hillySahel)
 { val sanDiego: LatLong = 32.57 ll -117.11
   val carlsbad: LatLong = 33.16 ll -117.36
   val pointVicente: LatLong = 33.74 ll -118.41
@@ -66,7 +66,7 @@ object UsaSouthWest extends EArea2("United States\nsouth west", 40.0 ll -108.0, 
 }
 
 /** [[PolygonLL]] Graphical object for the United States south Praries. Dependant on [[UsaSouthWest]], [[UsaSouth]], and [[UsaNorthEast]]. */
-object UsaPrariesSouth extends EArea2("Uunited States Praries\nsouth", 35 ll -97.0, sahel)
+object UsaPrariesSouth extends EarthArea("Uunited States Praries\nsouth", 35 ll -97.0, sahel)
 { val northEast: LatLong = 40 ll -87.532
   val newOrleansSE: LatLong = 29.38 ll -89.57
   val calcasieuMouth: LatLong = 29.76 ll -93.34
@@ -77,7 +77,7 @@ object UsaPrariesSouth extends EArea2("Uunited States Praries\nsouth", 35 ll -97
 }
 
 /** [[PolygonLL]] graphical representation for Baja. Depends on nothing. */
-object Baja extends EArea2("Baja", 27.80 ll -113.31, oceanic)
+object Baja extends EarthArea("Baja", 27.80 ll -113.31, oceanic)
 { val coloradoMouthWest: LatLong = 31.76 ll -114.82
   val cabotPulmo: LatLong = 23.37 ll -109.44
   val sanLucas: LatLong = 22.87 ll -109.91

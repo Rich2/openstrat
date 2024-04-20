@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Alaska. Depends on Nothing. */
-object AlaskaNorth extends EArea2("Alaska north", 66.33 ll -151.16, hillyTaiga)
+object AlaskaNorth extends EarthArea("Alaska north", 66.33 ll -151.16, hillyTaiga)
 {
   val south = 64.691.north
 
@@ -33,7 +33,7 @@ object AlaskaNorth extends EArea2("Alaska north", 66.33 ll -151.16, hillyTaiga)
 }
 
 /** [[polygonLL]] graphical representation for south Alaska. Depends on [[AlaskaNorth]] and [[AleutPenisula]]. */
-object AlaskaSouth extends EArea2("Alaska south", 63.261 ll -151.041, hillyTaiga)
+object AlaskaSouth extends EarthArea("Alaska south", 63.261 ll -151.041, hillyTaiga)
 { val p5: LatLong = 59.93 ll -141.03
   val p10: LatLong = 60.013 ll -143.905
   val montagueIsland: LatLong = 59.773 ll -147.859
@@ -53,7 +53,7 @@ object AlaskaSouth extends EArea2("Alaska south", 63.261 ll -151.041, hillyTaiga
 }
 
 /** [[polygonLL]] graphical representation for St Lawrence Island. Depends on Nothing. */
-object StLawrenceIsland extends EArea2("St Lawrence", 63.420 ll -170.218, tundra)
+object StLawrenceIsland extends EarthArea("St Lawrence", 63.420 ll -170.218, tundra)
 { val northWest: LatLong = 63.785 ll -171.742
   val savoonga: LatLong = 63.697 ll -170.484
   val east: LatLong = 63.296 ll -168.689
@@ -65,7 +65,7 @@ object StLawrenceIsland extends EArea2("St Lawrence", 63.420 ll -170.218, tundra
 }
 
 /** [[polygonLL]] graphical representation for Nunivak Island. Depends on Nothing. */
-object Nunivak extends EArea2("Nunivak", 60.119 ll -166.351, hillyTaiga)
+object Nunivak extends EarthArea("Nunivak", 60.119 ll -166.351, hillyTaiga)
 { val north: LatLong = 60.439 ll -166.147
   val northEast: LatLong = 60.295 ll -165.692
   val southEast: LatLong = 59.923 ll -165.566
@@ -77,7 +77,7 @@ object Nunivak extends EArea2("Nunivak", 60.119 ll -166.351, hillyTaiga)
 }
 
 /** [[polygonLL]] graphical representation for Alaska / Aleutian Peninsula. Depends on Nothing. */
-object AleutPenisula extends EArea2("Aleut Peninsula", 57.797 ll -156.728, hillyTundra)
+object AleutPenisula extends EarthArea("Aleut Peninsula", 57.797 ll -156.728, hillyTundra)
 { val northEast: LatLong = 58.916 ll -153.337
   val p20: LatLong = 57.18 ll -156.35
   val p35: LatLong = 55.996 ll -158.434
@@ -93,7 +93,7 @@ object AleutPenisula extends EArea2("Aleut Peninsula", 57.797 ll -156.728, hilly
 }
 
 /** [[polygonLL]] graphical representation for Kodiak Island. Depends on Nothing. */
-object KodiakIsland extends EArea2("Kodiak Island", 57.568 ll -153.276, mtainTaiga)
+object KodiakIsland extends EarthArea("Kodiak Island", 57.568 ll -153.276, mtainTaiga)
 { val north: LatLong = 58.631 ll -152.352
   val east: LatLong = 57.590 ll -152.160
   val sitkinak: LatLong = 56.555 ll -153.880

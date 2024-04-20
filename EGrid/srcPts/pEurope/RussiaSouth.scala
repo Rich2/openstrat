@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Crimea depends on nothing. */
-object Crimea extends EArea2("Crimea", 45.33 ll 34.15, oceanic)
+object Crimea extends EarthArea("Crimea", 45.33 ll 34.15, oceanic)
 { val kerch: LatLong = 45.39 ll 36.63
   val southEast: LatLong = 45.10 ll 36.45
   val p40: LatLong = 44.79 ll 35.08
@@ -20,7 +20,7 @@ object Crimea extends EArea2("Crimea", 45.33 ll 34.15, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Ukraine depends on [[AzovSea]], [[Baltland]], [[Crimea]] [[BalkansEast]] and [[Polandia]]. */
-object Ukraine extends EArea2("Ukraine", 49 ll 34, oceanic)
+object Ukraine extends EarthArea("Ukraine", 49 ll 34, oceanic)
 {
   val koblev: LatLong = 46.63 ll 31.18
 
@@ -29,7 +29,7 @@ object Ukraine extends EArea2("Ukraine", 49 ll 34, oceanic)
 }
 
 /** [[PolygonLL]] graphic for the Sea of Azov, depends on nothing. */
-object AzovSea extends EArea2("AzovSea", 46.13 ll 36.80, sea)
+object AzovSea extends EarthArea("AzovSea", 46.13 ll 36.80, sea)
 { val northEast: LatLong = 47.28 ll 39.20
   val zaymoObryv: LatLong = 47.02 ll 39.29
   val dolzhanskaya: LatLong = 46.67 ll 37.75
@@ -47,13 +47,13 @@ object AzovSea extends EArea2("AzovSea", 46.13 ll 36.80, sea)
 }
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */
-object VolgaRegion extends EArea2("Volga Region", 45.00 ll 42.57, steppe)
+object VolgaRegion extends EarthArea("Volga Region", 45.00 ll 42.57, steppe)
 { override val polygonLL: PolygonLL = LinePathLL(pAsia.RusNorth.p50) ++< Caspian.volgaCoast |++| LinePathLL(AzovSea.northEast, Baltland.voronezh,
     Baltland.southEast)
 }
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */
-object RussiaSouth extends EArea2("Russia South", 45.00 ll 42.57, oceanic)
+object RussiaSouth extends EarthArea("Russia South", 45.00 ll 42.57, oceanic)
 { val blackSeaE: LatLong = 41.84 ll 41.77
   val p60: LatLong = 42.74 ll 41.44
   val bzipiMouth: LatLong = 43.187 ll 40.280
@@ -68,7 +68,7 @@ object RussiaSouth extends EArea2("Russia South", 45.00 ll 42.57, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Caspian Sea depends on nothing. */
-object Caspian extends EArea2("Caspian Sea", 42.10 ll 50.64, lake)
+object Caspian extends EarthArea("Caspian Sea", 42.10 ll 50.64, lake)
 { val north: LatLong = 47.05 ll 51.36
   val p4: LatLong = 46.782 ll 52.268
   val northEast: LatLong = 46.66 ll 53.03

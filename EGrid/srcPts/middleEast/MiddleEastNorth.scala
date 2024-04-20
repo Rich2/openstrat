@@ -3,7 +3,7 @@ package ostrat; package pEarth; package middleEast
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Kurdistan depends on [[Anatolia]]. */
-object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, hillyOce)
+object Kurdistan extends EarthArea("Kurdistan", 39.36 ll 40.00, hillyOce)
 { val p70: LatLong = 41.10 ll 39.42
   val yorosBurnu: LatLong = 41.107 ll 39.419
   val surmene: LatLong = 40.91 ll 40.12
@@ -15,7 +15,7 @@ object Kurdistan extends EArea2("Kurdistan", 39.36 ll 40.00, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for the Caucasus, depends on [[Kurdistan]] and [[pEurope.Ukraine]]. */
-object Armenia extends EArea2("Armenia", 40.0 ll 45.0, hillyOce)
+object Armenia extends EarthArea("Armenia", 40.0 ll 45.0, hillyOce)
 {
   val asiaMinorE: Longitude = 50.03.east
   import pEurope.Caspian
@@ -24,7 +24,7 @@ object Armenia extends EArea2("Armenia", 40.0 ll 45.0, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. */
-object LakeVan extends EArea2("LakeVan", 38.62 ll 42.90, Lake)
+object LakeVan extends EarthArea("LakeVan", 38.62 ll 42.90, Lake)
 { val north: LatLong =  39.00 ll 43.39
   val northEast: LatLong = 38.94 ll 43.65
   val southEast: LatLong = 38.31 ll 43.12
@@ -36,7 +36,7 @@ object LakeVan extends EArea2("LakeVan", 38.62 ll 42.90, Lake)
 }
 
 /** [[PolygonLL]] graphic for Lake Van depends on nothing. Sit on top of [[Anatolia]] */
-object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, Lake)
+object LakeTuz extends EarthArea("LakeTuz", 38.79 ll 33.56, Lake)
 { val northEast: LatLong = 39.12 ll 33.34
   val p10: LatLong = 38.99 ll 33.46
   val southEast: LatLong = 38.60 ll 33.49
@@ -48,7 +48,7 @@ object LakeTuz extends EArea2("LakeTuz", 38.79 ll 33.56, Lake)
 }
 
 /** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
-object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
+object Anatolia extends EarthArea("Anatolia", 39.00 ll 32.50, hillyOce)
 { val northEast: LatLong = 41.27 ll 37.01
   val yukanbumaz: LatLong = 36.94 ll 36.04
   val p10: LatLong = 36.54 ll 35.34
@@ -83,7 +83,7 @@ object Anatolia extends EArea2("Anatolia", 39.00 ll 32.50, hillyOce)
 
 
 /** [[PolygonLL]] graphic for Iraq depends on [[Levant]]. */
-object Iraq extends EArea2("Iraq", 34.0 ll 44.5, deshot)
+object Iraq extends EarthArea("Iraq", 34.0 ll 44.5, deshot)
 { override def toString: String = "Iraq"
 
   import pMed.Sinai
@@ -92,7 +92,7 @@ object Iraq extends EArea2("Iraq", 34.0 ll 44.5, deshot)
 }
 
 /** [[PolygonLL]] graphic for Persia. Depends on [[Caspian]] and [[pAsia.India]]. */
-object Persia extends EArea2("Persia", 32.4 ll 60, hillyOce)
+object Persia extends EarthArea("Persia", 32.4 ll 60, hillyOce)
 { val mahshahr: LatLong = 30.22.north * Armenia.asiaMinorE
   val north: LatLong = 38.285 ll 57.209
   val southEast: LatLong = 25.179 ll 61.618

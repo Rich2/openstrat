@@ -3,7 +3,7 @@ package ostrat; package pEarth; package soceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of east Antarctica. Depends on nothing. */
-object AntarticaEast extends EArea2("Antartica East", -89.91 ll 0, ice)
+object AntarticaEast extends EarthArea("Antartica East", -89.91 ll 0, ice)
 { val filchnerNorth = -77.888 ll -37.453
   val w12: LatLong = -70.710 ll -11.645
   val w1: LatLong = -69.654 ll -0.541
@@ -39,7 +39,7 @@ object AntarticaEast extends EArea2("Antartica East", -89.91 ll 0, ice)
 }
 
 /** [[polygonLL]] graphical representation of east Antarctica. Depends on [[AntarticaEast]]. */
-object AntarticaWest extends EArea2("Antartica\nWest", -80 ll -100, ice)
+object AntarticaWest extends EarthArea("Antartica\nWest", -80 ll -100, ice)
 { val w156: LatLong =  -77.37 ll -156.41
   val w143: LatLong = -74.533 ll -143.411
   val w127: LatLong = -74.85 ll -127.23
@@ -61,7 +61,7 @@ object AntarticaWest extends EArea2("Antartica\nWest", -80 ll -100, ice)
 }
 
 /** [[polygonLL]] graphical representation of Weddel Sea seasonal ice. Depends on [[AntarticaEast]] and [[AntarticaWest]]. */
-object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, SeaIcePerm)
+object WeddelSeaIce extends EarthArea("Weddel Sea\nIce", -70 ll -40, SeaIcePerm)
 { val northWest: LatLong = -63 ll AntarticaWest.joinvilleEast.longDegs
   val ow50: LatLong = -63 ll -50
   val ow40: LatLong = -63 ll -40
@@ -74,7 +74,7 @@ object WeddelSeaIce extends EArea2("Weddel Sea\nIce", -70 ll -40, SeaIcePerm)
 }
 
 /** [[polygonLL]] graphical representation of Weddel Sea seasonal ice. Depends on [[AntarticaEast]] and [[AntarticaWest]]. */
-object RossSeaIce extends EArea2("Ross Sea\nIce", -70 ll -165, siceWin)
+object RossSeaIce extends EarthArea("Ross Sea\nIce", -70 ll -165, siceWin)
 { val northEast: LatLong = -63 ll AntarticaWest.w143.longDegs
   val northWest: LatLong = -63 ll AntarticaEast.e170.longDegs
   val oe180: LatLong = -63 ll 180

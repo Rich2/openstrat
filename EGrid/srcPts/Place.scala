@@ -1,13 +1,6 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._, collection.mutable.ArrayBuffer, reflect.ClassTag
-
-/** A first level area of the Earth, a large area such as North West Europe. */
-abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymbolKey
-{ def neighbs: RArr[EArea1] = RArr()
-  def a2Arr: RArr[EArea2]
-  def places: LocationLLArr = a2Arr.flatMap(_.places)(LocationLLArr.flatArrBuilderImplicit)
-}
 
 case class Place(name: String, level: Int)
 

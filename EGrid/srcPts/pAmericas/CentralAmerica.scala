@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for most of Mexico. Dependant on [[UsaSouthWest]], [[UsaNorthEast]] and [[ElSalPanama]]. */
-object Mexico extends EArea2("Mexico", 24 ll -102.4, hillyOce)
+object Mexico extends EarthArea("Mexico", 24 ll -102.4, hillyOce)
 { val brownsville: LatLong = 25.98 ll -97.26
   val puntaJerez: LatLong = 22.89 ll -97.77
   val caboRojo: LatLong = 21.57 ll -97.33
@@ -26,7 +26,7 @@ object Mexico extends EArea2("Mexico", 24 ll -102.4, hillyOce)
 }
 
 /** [[polygonLL]] graphical representation for most of Mexico. Dependant on nothing. */
-object MexicoEast extends EArea2("MexicoEast", 17 ll -91, hillyJungle)
+object MexicoEast extends EarthArea("MexicoEast", 17 ll -91, hillyJungle)
 { val yucatanNE: LatLong = 21.48 ll -86.97
   val cozumelNorth: LatLong = 20.590 ll -86.724
   val cozumelSouth: LatLong = 20.272 ll -86.988
@@ -50,7 +50,7 @@ object MexicoEast extends EArea2("MexicoEast", 17 ll -91, hillyJungle)
 }
 
 /** [[polygonLL]] graphical representation for central America from El Salvadore to Panama. Depends on [[MexicoEast]]. */
-object ElSalPanama extends EArea2("CAmerica", 14.62 ll -86.84, jungle)
+object ElSalPanama extends EarthArea("CAmerica", 14.62 ll -86.84, jungle)
 { val p10 = 15.968 ll -85.040
   val eHonduras: LatLong = 15.0 ll -83.17
 

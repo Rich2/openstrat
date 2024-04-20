@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for north east Canada. Depends on [[NewBrunswick]]. */
-object Quebecia extends EArea2("Quebec", 53.71 ll -70, taiga)
+object Quebecia extends EarthArea("Quebec", 53.71 ll -70, taiga)
 { val jamesBayS: LatLong = 51.14 ll -79.79
   val eastMainMouth: LatLong = 52.24 ll -78.56
   val jamesBayMouthEast: LatLong = 54.63 ll -79.74
@@ -27,7 +27,7 @@ object Quebecia extends EArea2("Quebec", 53.71 ll -70, taiga)
 }
 
 /** [[polygonLL]] graphical representation for north east Canada. Depends on nothing. */
-object Ungava extends EArea2("Ungava", 59.882 ll -73.658, tundra)
+object Ungava extends EarthArea("Ungava", 59.882 ll -73.658, tundra)
 { val southWest: LatLong = 56.169 ll -76.652
   val hudsonBayEast: LatLong = 56.46 ll -76.52
   val nunavut120: LatLong = 58.68 ll -78.69
@@ -40,7 +40,7 @@ object Ungava extends EArea2("Ungava", 59.882 ll -73.658, tundra)
 }
 
   /** [[polygonLL]] graphical representation for south east Canada. Depends on nothing. */
-object NovaScotia extends EArea2("Nova Scotia", 45.12 ll -63.58, taiga)
+object NovaScotia extends EarthArea("Nova Scotia", 45.12 ll -63.58, taiga)
 { val northWest: LatLong = 46.90 ll -64.72
   val edwardIIslandNorth: LatLong = 47.06 ll -64.00
   val edwardIIslandEast: LatLong = 46.45 ll -61.97
@@ -62,7 +62,7 @@ object NovaScotia extends EArea2("Nova Scotia", 45.12 ll -63.58, taiga)
 }
 
 /** [[polygonLL]] graphical representation for south east Canada. Depends on [[NovaScotia]]. */
-object NewBrunswick extends EArea2("New/nBrunswick", 47.2 ll -66.93, taiga)
+object NewBrunswick extends EarthArea("New/nBrunswick", 47.2 ll -66.93, taiga)
 { val east: LatLong = 46.90 ll -70.86
   val p12: LatLong = 47.00 ll -70.58
   val grandMetis: LatLong = 48.64 ll -68.15
@@ -85,14 +85,14 @@ object NewBrunswick extends EArea2("New/nBrunswick", 47.2 ll -66.93, taiga)
 }
 
 /** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[Quebecia]]. */
-object CanadaSouthEast extends EArea2("CanadaSouthEast", 46.68 ll -77.21, taiga)
+object CanadaSouthEast extends EarthArea("CanadaSouthEast", 46.68 ll -77.21, taiga)
 {
   override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++
     LinePathLL(Quebecia.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast |++| LakeErie.eastCanadaCoast
 }
 
 /** [[polygonLL]] graphical representation for Newfoundland. Depends on nothing. */
-object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, taiga)
+object NewFoundland extends EarthArea("Newfoundland", 48.72 ll -56.16, taiga)
 { val north: LatLong = 51.63 ll -55.43
   val pollardsPoint: LatLong = 49.75 ll -56.92
   val p10: LatLong = 50.15 ll -56.16

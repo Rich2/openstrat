@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of north Siberia.Depends on nothing. */
-object SiberiaNorth extends EArea2("SiberiaNorth", 70 ll 95, tundra)
+object SiberiaNorth extends EarthArea("SiberiaNorth", 70 ll 95, tundra)
 { val krasnoyarsk: LatLong = 77.43 ll 103.99
   val kras10: LatLong = 76.62 ll 112.46
   val kras20: LatLong = 75.38 ll 113.69
@@ -25,7 +25,7 @@ object SiberiaNorth extends EArea2("SiberiaNorth", 70 ll 95, tundra)
 }
 
 /** [[polygonLL]] graphical representation of south Siberia.Depends on [[SiberiaNorth]] and [[LakeBaikal]]. */
-object SiberiaSouth extends EArea2("SiberiaSouth", 60 ll 92, taiga)
+object SiberiaSouth extends EarthArea("SiberiaSouth", 60 ll 92, taiga)
 { val lensk: LatLong = 60.709 ll 114.92
   val khuvsgulLakeN: LatLong = 51.616 ll 100.542
   val southWest = 49.208 ll 82.144
@@ -35,7 +35,7 @@ object SiberiaSouth extends EArea2("SiberiaSouth", 60 ll 92, taiga)
 }
 
 /** [[polygonLL]] graphical representation of Korea.Depends on nothing. */
-object LakeBaikal extends EArea2("Lake Baikal", 53.463 ll 108.157, lake)
+object LakeBaikal extends EarthArea("Lake Baikal", 53.463 ll 108.157, lake)
 { val north: LatLong = 55.872 ll 109.742
   val northEast: LatLong = 55.670 ll 109.963
   val east: LatLong = 54.157 ll 109.556
@@ -58,7 +58,7 @@ object LakeBaikal extends EArea2("Lake Baikal", 53.463 ll 108.157, lake)
 }
 
 /** [[PolygonLL]] graphic for Yakutz area depends on [[FEAsia]], [[LakeBaikal]], [[SiberiaSouth]] and [[SiberiaNorth]]. */
-object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
+object Yakutia extends EarthArea("Yakutia", 64 ll 115, taiga)
 { val bulunsky10: LatLong = 72.85 ll 122.47
   val dunayNorth: LatLong = 73.93 ll 124.68
   val bulunsky20: LatLong = 73.08 ll 129.27
@@ -75,7 +75,7 @@ object Yakutia extends EArea2("Yakutia", 64 ll 115, taiga)
 }
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on [[Kamchatka]]. */
-object FeAsia extends EArea2("far east\nAsia", 66.22 ll 159.68, hillyTundra)
+object FeAsia extends EarthArea("far east\nAsia", 66.22 ll 159.68, hillyTundra)
 { val farAsiaW: Longitude = 141.6.east
 
   val ustYansky: LatLong = 72.81.north * farAsiaW
@@ -127,7 +127,7 @@ object FeAsia extends EArea2("far east\nAsia", 66.22 ll 159.68, hillyTundra)
 }
 
 /** [[polygonLL]] graphical representation of far east Asia. Depends on nothing. */
-object Kamchatka extends EArea2("kamchatka", 56.483 ll 159.556, hillyTaiga)
+object Kamchatka extends EarthArea("kamchatka", 56.483 ll 159.556, hillyTaiga)
 { val northEast: LatLong = 62.036 ll 175.268
   val p10: LatLong = 59.96 ll 170.31
   val p16: LatLong = 59.815 ll 166.136

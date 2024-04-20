@@ -3,7 +3,7 @@ package ostrat; package pEarth; package soceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
-object WesternAustralia extends EArea2("Western\nAustralia", -24.839 ll 124, deshot)
+object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, deshot)
 { val northEast: LatLong = -14.879 ll 129
   val southEast: LatLong = -31.687 ll 129
   val nuytsland1: LatLong = -32.96 ll 124.33
@@ -26,7 +26,7 @@ object WesternAustralia extends EArea2("Western\nAustralia", -24.839 ll 124, des
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object AustraliaNorthTerr extends EArea2("Australia\nNorthern Territory", -23 ll 134.6, sahel)
+object AustraliaNorthTerr extends EarthArea("Australia\nNorthern Territory", -23 ll 134.6, sahel)
 { val victoriaMouth: LatLong = -15.13 ll 129.65
   val thamarrurr: LatLong = -14.42 ll 129.36
   val coxPeninsular: LatLong = -12.41 ll 130.64
@@ -45,7 +45,7 @@ object AustraliaNorthTerr extends EArea2("Australia\nNorthern Territory", -23 ll
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object Queensland extends EArea2("Queensland", -21.28 ll 144.5, sahel)
+object Queensland extends EarthArea("Queensland", -21.28 ll 144.5, sahel)
 { val nQueensland: LatLong = -11 ll 142.43
   val p5: LatLong = -12.840 ll 143.531
   val nKennedy: LatLong = -14.49 ll 143.95
@@ -69,7 +69,7 @@ object Queensland extends EArea2("Queensland", -21.28 ll 144.5, sahel)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object SouthAustralia extends EArea2("South Austraia", -27.1 ll 146.73, sahel)
+object SouthAustralia extends EarthArea("South Austraia", -27.1 ll 146.73, sahel)
 { val northEast: LatLong = -26 ll 141
   val cameronPoint = -29 ll 141
   val sleaford: LatLong = -34.92 ll 135.64
@@ -81,7 +81,7 @@ object SouthAustralia extends EArea2("South Austraia", -27.1 ll 146.73, sahel)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
-object AustraliaSouthEast extends EArea2("Australia\nsouth east", -27.1 ll 146.73, savannah)
+object AustraliaSouthEast extends EarthArea("Australia\nsouth east", -27.1 ll 146.73, savannah)
 {
   val northEast: LatLong = -29 ll 153.476
   val southEast: LatLong = -37.4 ll 149.58
@@ -101,7 +101,7 @@ object AustraliaSouthEast extends EArea2("Australia\nsouth east", -27.1 ll 146.7
 }
 
 /** [[polygonLL]] graphical representation of Tasmania. Depends on nothing. */
-object Tasmania extends EArea2("Tasmania", -24.45 ll 134.47, mtainOceForest)
+object Tasmania extends EarthArea("Tasmania", -24.45 ll 134.47, mtainOceForest)
 { val capePortland: LatLong = -40.738 ll 147.976
   val tasman: LatLong = -43.242 ll 148.005
   val south: LatLong = -43.640 ll 146.828
@@ -113,7 +113,7 @@ object Tasmania extends EArea2("Tasmania", -24.45 ll 134.47, mtainOceForest)
 }
 
 /** [[polygonLL]] graphical representation of the North Ilsand of New Zealand. Depends on nothing. */
-object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, hillyOce)
+object NZNorthIsland extends EarthArea("NewZealandNIsland", -38.66 ll 176, hillyOce)
 { val capeReinga: LatLong = -34.42 ll 172.68
   val teHapua: LatLong = -34.41 ll 173.05
   val aukland: LatLong = -36.83 ll 174.81
@@ -127,7 +127,7 @@ object NZNorthIsland extends EArea2("NewZealandNIsland", -38.66 ll 176, hillyOce
 }
 
 /** [[polygonLL]] graphical representation of the South Island of New Zealand. Depends on nothing. */
-object NZSouthIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, hillyOceForest)
+object NZSouthIsland extends EarthArea("NewZealandSIsland", -43.68 ll 171.00, hillyOceForest)
 { val swNewZealand: LatLong = -45.98 ll 166.47
   val puponga: LatLong = -40.51 ll 172.72
   val capeCambell: LatLong = -41.73 ll 174.27

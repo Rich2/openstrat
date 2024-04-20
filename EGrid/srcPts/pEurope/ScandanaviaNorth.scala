@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Kola Peninsula. Depends on nothing. */
-object KolaPeninsula extends EArea2("KolaPeninsula", 67.80 ll 36.52, tundra)
+object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
 { val northWest: LatLong = 69.50 ll 31.81
   val p5: LatLong = 69.95 ll 31.93
   val p7: LatLong = 69.73 ll 33.10
@@ -26,7 +26,7 @@ object KolaPeninsula extends EArea2("KolaPeninsula", 67.80 ll 36.52, tundra)
 }
 
 /** [[polygonLL]] graphical representation of Finland. Depends on [[KolaPeninsula]], [[SwedenNorth]] and [[Baltland]]. */
-object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, taiga)
+object Finlandia extends EarthArea("Finlandia", 65.56 ll 29.95, taiga)
 { val lisyNos = 60.01 ll 29.96
   val laskovyy = 60.15 ll 29.92
   val ozerki = 60.18 ll 29.01
@@ -81,7 +81,7 @@ object Finlandia extends EArea2("Finlandia", 65.56 ll 29.95, taiga)
 
 
 /** [[polygonLL]] graphical representation of north Sweden. Depends on [[SwedenSouth]]. */
-object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, taiga)
+object SwedenNorth extends EarthArea("SwedenNorth", 62.75 ll 14.30, taiga)
 { val haparanda: LatLong = 65.77 ll 24.17
   val ranea: LatLong = 65.86 ll 22.36
 

@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Greece depends on [[Peloponnese]]. */
-object Greece extends EArea2("Greece", 39.54 ll 21.62, hillyOce)
+object Greece extends EarthArea("Greece", 39.54 ll 21.62, hillyOce)
 { val northEast: LatLong = 40.46 ll 22.59
   val p20: LatLong = 39.19 ll 23.35
   val nEuboea: LatLong = 39.03 ll 23.31
@@ -31,7 +31,7 @@ object Greece extends EArea2("Greece", 39.54 ll 21.62, hillyOce)
 }
 
 /** Balkans polygon depends on [[Alpsland]] and [[Greece]]. */
-object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, hillyOce)
+object BalkansWest extends EarthArea("BalkansWest", 44.0 ll 19.65, hillyOce)
 { val northEast: LatLong = 46.0 ll 22.59
   val shengjin: LatLong = 41.80 ll 19.59
   val dubrovnik: LatLong = 42.65 ll 18.06
@@ -50,7 +50,7 @@ object BalkansWest extends EArea2("BalkansWest", 44.0 ll 19.65, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for east Balkans depends on [[BalkansWest]], [[Alpsland]] and [[Greece]]. */
-object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, oceanic)
+object BalkansEast extends EarthArea("BalkansEast", 44.0 ll 25.5, oceanic)
 { val odessa: LatLong = 46.48 ll 30.74
   val ochakivskeMouth: LatLong = 45.46 ll 29.78
   val p10: LatLong = 44.84 ll 29.59
@@ -79,7 +79,7 @@ object BalkansEast extends EArea2("BalkansEast", 44.0 ll 25.5, oceanic)
 }
 
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
-object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hillyOce)
+object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, hillyOce)
 { val ePeninsular: LatLong = 38.04 ll 23.56
   val kechries = 37.88 ll 22.99
   val p1: LatLong = 37.44 ll 23.51
@@ -98,7 +98,7 @@ object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.10, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Marmara Sea, depends on nothing. */
-object MarmaraSea extends EArea2("Marmara", 40.73 ll 28.21, sea)
+object MarmaraSea extends EarthArea("Marmara", 40.73 ll 28.21, sea)
 { val istanbul: LatLong = 41.00 ll 29.00
   val darica: LatLong = 40.76 ll 28.36
   val bandirama: LatLong = 40.35 ll 27.96

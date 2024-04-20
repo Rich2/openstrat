@@ -3,7 +3,7 @@ package ostrat; package pEarth;package middleEast
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for the Levant depends on [[Kurdistan]] and [[Sinai]]. */
-object Levant extends EArea2("Levant", 33 ll 35.5, hillySavannah)
+object Levant extends EarthArea("Levant", 33 ll 35.5, hillySavannah)
 { val damascus: LatLong = 33.51 ll 36.82
   val ashkelon: LatLong = 31.68 ll 34.56
   val haifa: LatLong = 32.825 ll 34.955
@@ -20,7 +20,7 @@ object Levant extends EArea2("Levant", 33 ll 35.5, hillySavannah)
 }
 
 /** [[PolygonLL]] graphic for Arabian Peninsular. Depends on [[ArabiaSouth]] and [[Levant]]. */
-object ArabiaNorth extends EArea2("Arabia north", 26.438 ll 43.106, deshot)
+object ArabiaNorth extends EarthArea("Arabia north", 26.438 ll 43.106, deshot)
 { val alFaw: LatLong = 29.93 ll 48.47
   val rasAlKhair: LatLong = 27.550 ll 49.201
   val dammam: LatLong = 26.496 ll 50.216
@@ -36,7 +36,7 @@ object ArabiaNorth extends EArea2("Arabia north", 26.438 ll 43.106, deshot)
 }
 
 /** [[PolygonLL]] graphic for Arabian Peninsular. Depends on nothing. */
-object ArabiaSouth extends EArea2("Arabia south", 19.192 ll 50.439, deshot)
+object ArabiaSouth extends EarthArea("Arabia south", 19.192 ll 50.439, deshot)
 { val p5: LatLong = 24.295 ll 51.296
   val rasGhumeis: LatLong = 24.358 ll 51.577
   val sirBaniyas: LatLong = 24.371 ll 52.617

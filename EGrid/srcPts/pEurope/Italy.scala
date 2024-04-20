@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Italy depends on [[ItalySouth]]. */
-object ItalyNorth extends EArea2("ItalyNorth", 43.61 ll 11.82, hillyOce)
+object ItalyNorth extends EarthArea("ItalyNorth", 43.61 ll 11.82, hillyOce)
 { val venice: LatLong = 45.42 ll 12.21
   val ven1: LatLong = 44.96 ll 12.55
   val cervia: LatLong = 44.25 ll 12.35
@@ -30,7 +30,7 @@ object ItalyNorth extends EArea2("ItalyNorth", 43.61 ll 11.82, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for the south of Italy depends on [[ItalyHeel]] and [[ItalyToe]]. */
-object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hillyOce)
+object ItalySouth extends EarthArea("ItalySouth", 40.81 ll 15.86, hillyOce)
 { val siponto: LatLong = 41.60 ll 15.89
   val barletta: LatLong = 41.32 ll 16.28
 
@@ -42,7 +42,7 @@ object ItalySouth extends EArea2("ItalySouth", 40.81 ll 15.86, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for the heel of Italy depends on nothing. */
-object ItalyHeel extends EArea2("Italy Heel", 40.81 ll 15.86, savannah)
+object ItalyHeel extends EarthArea("Italy Heel", 40.81 ll 15.86, savannah)
 { val north = 40.905 ll 17.350
   val brindisi: LatLong = 40.65 ll 17.97
   val otranto: LatLong = 40.12 ll 18.45
@@ -58,7 +58,7 @@ object ItalyHeel extends EArea2("Italy Heel", 40.81 ll 15.86, savannah)
 }
 
 /** [[PolygonLL]] graphic for the toe of Italy depends on nothing. */
-object ItalyToe extends EArea2("Italy Toe", 40.81 ll 15.86, mtainDepr)
+object ItalyToe extends EarthArea("Italy Toe", 40.81 ll 15.86, mtainDepr)
 { val northEast: LatLong = 40.079 ll 16.605
   val bruscata: LatLong = 39.76 ll 16.48
   val mirto: LatLong = 39.62 ll 16.77

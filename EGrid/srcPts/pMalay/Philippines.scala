@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Luzon 109965km² + Mindoro 10572km² + Catanduanes 1523km² + Marinduque 952km². Depends on nothing. */
-object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
+object Luzon extends EarthArea("Philippines North", 16.779 ll 121.353, hillyJungle)
 { val north: LatLong = 18.650 ll 120.844
   val northEast: LatLong = 18.522 ll 122.225
   val p10: LatLong = 17.141 ll 122.510
@@ -20,7 +20,7 @@ object Luzon extends EArea2("Philippines North", 16.779 ll 121.353, hillyJungle)
 
 /** [[polygonLL]] graphical representation of western Visayas islands 38353.27km². Negros 13309.60km², Panay 12011km², Cebu 4943.72km², Bohol 4820.95km². Masbat
  *  3268km². Part of Philippines islands. Depends on nothing. */
-object VisayasWest extends EArea2("Visayas Islands\n west", 13.259 ll 122.615, hillyJungle)
+object VisayasWest extends EarthArea("Visayas Islands\n west", 13.259 ll 122.615, hillyJungle)
 { val negrosS: LatLong = 9.043 ll 123.013
   val panayNW: LatLong = 11.897 ll 121.887
   val ticaoN: LatLong = 12.691 ll 123.621
@@ -31,7 +31,7 @@ object VisayasWest extends EArea2("Visayas Islands\n west", 13.259 ll 122.615, h
 }
 
 /** [[polygonLL]] graphical representation of Palawan and nearby smaller islands. Depends on nothing. */
-object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtainDepr)
+object Palawan extends EarthArea("Palawan Island", 9.478 ll 118.360, mtainDepr)
 { val busangaNW: LatLong = 12.327 ll 119.980
   val busangaNE: LatLong = 12.064 ll 120.338
   val dumaranE: LatLong = 10.568 ll 119.997
@@ -46,7 +46,7 @@ object Palawan extends EArea2("Palawan Island", 9.478 ll 118.360, mtainDepr)
 
 /** [[polygonLL]] graphical representation of Samar-Leyte 21332.41km². Samar 13428.8km² Leyte 7367.6km² Biliran 536.01km² and nearby smaller islands. Depends on
  *  nothing. */
-object SamarLeyte extends EArea2("Samar-Leyte", 11.536 ll 125.121, mtainJungle)
+object SamarLeyte extends EarthArea("Samar-Leyte", 11.536 ll 125.121, mtainJungle)
 { val batagNE: LatLong = 12.685 ll 125.063
   val samarSE: LatLong = 10.939 ll 125.837
   val panonSouth: LatLong = 9.911 ll 125.282
@@ -57,7 +57,7 @@ object SamarLeyte extends EArea2("Samar-Leyte", 11.536 ll 125.121, mtainJungle)
 }
 
 /** [[polygonLL]] graphical representation of Mindanao 97530km²  nearby smaller islands. Depends on nothing. */
-object Mindano extends EArea2("Mindano", 7.729 ll 125.011, hillyJungle)
+object Mindano extends EarthArea("Mindano", 7.729 ll 125.011, hillyJungle)
 { val north: LatLong = 9.824 ll 125.441
   val capeSanAgustin: LatLong = 6.269 ll 126.193
   val balutSE = 5.366 ll 125.419
