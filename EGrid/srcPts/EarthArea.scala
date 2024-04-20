@@ -39,5 +39,5 @@ object EarthArea
 
 abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile, val kMetresSqNum: Double) extends EarthArea(name, cen, terr)
 {
-  def area: KMetresSq = KMetresSq(kMetresSqNum)
+  def area: KiloMetresSq = KiloMetresSq(kMetresSqNum)
 }

@@ -2,9 +2,9 @@
 package ostrat; package pEarth; package soceans
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
+/** [[polygonLL]] graphical representation of Australia. Depends on [[AustraliaNorthTerr]]. */
 object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, deshot)
-{ val northEast: LatLong = -14.879 ll 129
+{
   val southEast: LatLong = -31.687 ll 129
   val nuytsland1: LatLong = -32.96 ll 124.33
   val nuytsland2: LatLong = -33.86 ll 123.63
@@ -21,27 +21,25 @@ object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, 
   val degerandoIsland = -15.337 ll 124.188
   val drysdaleRiver: LatLong = -13.77 ll 126.95
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, nuytsland1, nuytsland2, westCapeHowe, windyHarbour, capeLeeuwin, capeNaturaliste,
-    dirkHartog, west, legendreIsland, eightyMile, couloumbPoint, dempierNorth, degerandoIsland, drysdaleRiver)
+  override val polygonLL: PolygonLL = PolygonLL(AustraliaNorthTerr.northWest, AustraliaNorthTerr.southWest, southEast, nuytsland1, nuytsland2, westCapeHowe,
+    windyHarbour, capeLeeuwin, capeNaturaliste, dirkHartog, west, legendreIsland, eightyMile, couloumbPoint, dempierNorth, degerandoIsland, drysdaleRiver)
 }
 
-/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+/** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
 object AustraliaNorthTerr extends EarthArea("Australia\nNorthern Territory", -23 ll 134.6, sahel)
-{ val victoriaMouth: LatLong = -15.13 ll 129.65
-  val thamarrurr: LatLong = -14.42 ll 129.36
-  val coxPeninsular: LatLong = -12.41 ll 130.64
-
-  val nAustralia: LatLong = -12.01 ll 133.56
+{ val north: LatLong = -12.01 ll 133.56
   val eastArnhem: LatLong = -12.31 ll 136.92
   val limmen: LatLong = -14.73 ll 135.36
   val northEast: LatLong = -16.544 ll 138
 
   val southEast: LatLong = -26 ll 138
   val southWest: LatLong = -26 ll 129
+  val northWest: LatLong = -14.879 ll 129
+  val victoriaMouth: LatLong = -15.13 ll 129.65
+  val thamarrurr: LatLong = -14.42 ll 129.36
+  val coxPeninsular: LatLong = -12.41 ll 130.64
 
-  override val polygonLL: PolygonLL = PolygonLL(WesternAustralia.northEast, victoriaMouth, thamarrurr, coxPeninsular, nAustralia, eastArnhem, limmen,
-    northEast, southEast, southWest
-    )
+  override val polygonLL: PolygonLL = PolygonLL(north, eastArnhem, limmen, northEast, southEast, southWest, northWest, victoriaMouth, thamarrurr, coxPeninsular)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
@@ -63,12 +61,12 @@ object Queensland extends EarthArea("Queensland", -21.28 ll 144.5, sahel)
   val bynoeMouth: LatLong = -17.153 ll 140.732
   val p95: LatLong = -13.895 ll 141.483
 
-  override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p9, p14, coolbie, p18, p25, harveyBay, doubleIslandPoint, brisbane, byronBay,
-    AustraliaSouthEast.northEast, SouthAustralia.cameronPoint, SouthAustralia.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast, bynoeMouth,
-    p95)
+  override val polygonLL: PolygonLL = PolygonLL(nQueensland, p5, nKennedy, capeMelville, p9, p14, coolbie, p18, p25, harveyBay, doubleIslandPoint, brisbane,
+    byronBay, AustraliaSouthEast.northEast, SouthAustralia.cameronPoint, SouthAustralia.northEast, AustraliaNorthTerr.southEast, AustraliaNorthTerr.northEast,
+    bynoeMouth, p95)
 }
 
-/** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
+/** [[polygonLL]] graphical representation of Australia. Depends on [[AustraliaSouthEast]], [[WesternAustralia]], [[AustraliaNorthTerr]]. */
 object SouthAustralia extends EarthArea("South Austraia", -27.1 ll 146.73, sahel)
 { val northEast: LatLong = -26 ll 141
   val cameronPoint = -29 ll 141
@@ -77,7 +75,7 @@ object SouthAustralia extends EarthArea("South Austraia", -27.1 ll 146.73, sahel
   val yalata: LatLong = -31.35 ll 131.21
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, cameronPoint, AustraliaSouthEast.portAugusta, sleaford, smokyBay, yalata, WesternAustralia.southEast,
-    AustraliaNorthTerr.southWest)
+    AustraliaNorthTerr.southWest, AustraliaNorthTerr.southEast)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
@@ -98,40 +96,4 @@ object AustraliaSouthEast extends EarthArea("Australia\nsouth east", -27.1 ll 14
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, p75, hardwicke,
     portAugusta, SouthAustralia.cameronPoint)
-}
-
-/** [[polygonLL]] graphical representation of Tasmania. Depends on nothing. */
-object Tasmania extends EarthArea("Tasmania", -24.45 ll 134.47, mtainOceForest)
-{ val capePortland: LatLong = -40.738 ll 147.976
-  val tasman: LatLong = -43.242 ll 148.005
-  val south: LatLong = -43.640 ll 146.828
-  val southWest: LatLong = -43.570 ll 146.032
-  val hunterNW: LatLong = -40.483 ll 144.712
-  val merseyBluff: LatLong = -41.158 ll 146.355
-
-  override val polygonLL: PolygonLL = PolygonLL(capePortland, tasman, south, southWest, hunterNW, merseyBluff)
-}
-
-/** [[polygonLL]] graphical representation of the North Ilsand of New Zealand. Depends on nothing. */
-object NZNorthIsland extends EarthArea("NewZealandNIsland", -38.66 ll 176, hillyOce)
-{ val capeReinga: LatLong = -34.42 ll 172.68
-  val teHapua: LatLong = -34.41 ll 173.05
-  val aukland: LatLong = -36.83 ll 174.81
-  val eCape: LatLong = -37.69 ll 178.54
-  val capePalliser: LatLong = -41.61 ll 175.29
-  val makara: LatLong = -41.29 ll 174.62
-  val himtangi: LatLong = -40.36 ll 175.22
-  val capeEgmont: LatLong = -39.28 ll 173.75
-
-  override val polygonLL: PolygonLL = PolygonLL(capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
-}
-
-/** [[polygonLL]] graphical representation of the South Island of New Zealand. Depends on nothing. */
-object NZSouthIsland extends EarthArea("NewZealandSIsland", -43.68 ll 171.00, hillyOceForest)
-{ val swNewZealand: LatLong = -45.98 ll 166.47
-  val puponga: LatLong = -40.51 ll 172.72
-  val capeCambell: LatLong = -41.73 ll 174.27
-  val slopePoint: LatLong = -46.67 ll 169.00
-
-  override val polygonLL: PolygonLL = PolygonLL(swNewZealand, puponga, capeCambell, slopePoint)
 }
