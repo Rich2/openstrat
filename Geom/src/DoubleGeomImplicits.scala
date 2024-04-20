@@ -3,7 +3,7 @@ package ostrat; package geom
 import impunits._
 
 /** Extension methods class for [[Double]], for the geom package. */
-class GeomDoubleImplicits(thisDouble: Double)
+class GeomDoubleExtensions(thisDouble: Double)
 {
   /** Method to be removed, prefer kMetres. */
   def km: Metres = new Metres(thisDouble * 1000)

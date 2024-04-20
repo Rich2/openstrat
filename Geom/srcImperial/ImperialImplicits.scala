@@ -3,13 +3,19 @@ package ostrat; package geom; package impunits
 
 implicit class LengthImperialImplicit(val thisLength: Length)
 {
-  def yardsNum: Double = thisLength match{
-    case iunit: ImperialLength => iunit.yardsNum
+  def yardsNum: Double = thisLength match
+  { case iunit: ImperialLength => iunit.yardsNum
     case l => l.metresNum * ImperialLength.yardsToMetres
   }
 
-  def milesNum: Double = thisLength match{
-    case iunit: ImperialLength => iunit.milesNum
+  def milesNum: Double = thisLength match
+  { case iunit: ImperialLength => iunit.milesNum
     case l => l.metresNum * ImperialLength.milesToMetres
+  }
+
+
+  def megaMilesNum: Double = thisLength match
+  { case iunit: ImperialLength => iunit.megaMilesNum
+    case l => l.metresNum * ImperialLength.milesToMetres / 1000000
   }
 }

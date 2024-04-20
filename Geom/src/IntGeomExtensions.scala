@@ -1,8 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import impunits._
 
 /** Extension methods class for [[Int]], for the geom package. */
-class IntGeomImplicit(thisInt: Int)
+class IntGeomExtensions(thisInt: Int)
 {
   /** Returns this [[Int]] value in [[Metres]]. */
   @inline def metres: Metres = Metres(thisInt)
@@ -17,10 +18,13 @@ class IntGeomImplicit(thisInt: Int)
   @inline def gMetres: Metres = Metres(thisInt * 1000000000.0)
 
   /** Returns this [[Int]] value in [[Metres]]. */
-  @inline def miles: Metres = new Metres(thisInt * 1609.344)
+  @inline def miles: Miles = Miles(thisInt)
 
   /** Returns this [[Int]] value in [[Metres]] millions of miles. */
-  @inline def mMiles: Metres = new Metres(thisInt * 1609344000.0)
+  @inline def millionMilesDepr: Metres = new Metres(thisInt * 1609344000.0)
+
+  /** Returns this [[Int]] value in [[Metres]] millions of miles. */
+  @inline def millionMiles: Metres = new Metres(thisInt * 1609344000.0)
 
   def ° : Angle = Angle(thisInt)
 

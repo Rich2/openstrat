@@ -4,7 +4,7 @@ import geom._, Colour._
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mercury_(planet)">Mercury</a>. */
 object Mercury extends Planet
-{ override val avSunDist: Metres = 36.mMiles
+{ override val avSunDist: Metres = 36.millionMilesDepr
   override val name: String = "Mercury"
   override def colour: Colour = Colour.LightGray
 }

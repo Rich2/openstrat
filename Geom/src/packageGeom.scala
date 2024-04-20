@@ -105,8 +105,8 @@ package object geom
   val EarthAvRadius: Metres = EarthAvDiameter / 2
   type GraphicElems = RArr[GraphicElem]
 
-  implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
-  implicit def doubleToImplicitGeom(thisDouble: Double): GeomDoubleImplicits = new GeomDoubleImplicits(thisDouble)
+  implicit def intToImplicitGeom(thisInt: Int): IntGeomExtensions = new IntGeomExtensions(thisInt)
+  implicit def doubleToImplicitGeom(thisDouble: Double): GeomDoubleExtensions = new GeomDoubleExtensions(thisDouble)
 
   implicit class AnyGeomImplicit(thisAny: Any)
   {
