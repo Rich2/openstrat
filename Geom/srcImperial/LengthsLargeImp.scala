@@ -10,6 +10,7 @@ final class Yards(val yardsNum: Double) extends AnyVal with ImperialLength
   override def +(operand: ImperialLength): Yards = Yards(yardsNum + operand.yardsNum)
   override def addLength(operand: Length): Yards = Yards(yardsNum + operand.yardsNum)
   override def -(operand: ImperialLength): Yards = Yards(yardsNum - operand.yardsNum)
+  override def subLength(operand: Length): Yards = Yards(yardsNum - operand.yardsNum)
   override def unary_- : Yards = Yards(-yardsNum)
 
   override def metresNum: Double = yardsNum * yardsToMetres
@@ -25,10 +26,11 @@ object Yards
 /** Length can be negative. The underlying data is stored in metres. */
 final class Miles(val milesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
-  override def compare(that: Length): Int = kMetresNum.compare(that.kMetresNum)
+  override def compare(that: Length): Int = kiloMetresNum.compare(that.kiloMetresNum)
   override def +(operand: ImperialLength): Miles = Miles(milesNum + operand.milesNum)
   override def addLength(operand: Length): Miles = Miles(milesNum + operand.milesNum)
   override def -(operand: ImperialLength): Miles = Miles(milesNum - operand.milesNum)
+  override def subLength(operand: Length): Miles = Miles(milesNum - operand.milesNum)
   override def unary_- : Miles = Miles(-milesNum)
 
   override def metresNum: Double = milesNum * yardsToMetres/ yardsInMile
@@ -44,10 +46,11 @@ object Miles
 /** [[Length]] measured in millions of miles. Can be negative. */
 final class MegaMiles(val megaMilesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
-  override def compare(that: Length): Int = kMetresNum.compare(that.kMetresNum)
+  override def compare(that: Length): Int = kiloMetresNum.compare(that.kiloMetresNum)
   override def +(operand: ImperialLength): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
   override def addLength(operand: Length): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
   override def -(operand: ImperialLength): MegaMiles = MegaMiles(megaMilesNum - operand.megaMilesNum)
+  override def subLength(operand: Length): MegaMiles = MegaMiles(megaMilesNum - operand.megaMilesNum)
   override def unary_- : MegaMiles = MegaMiles(-megaMilesNum)
 
   override def metresNum: Double = megaMilesNum * 1000000 * yardsInMile * yardsToMetres
