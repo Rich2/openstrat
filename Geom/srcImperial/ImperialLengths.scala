@@ -27,6 +27,7 @@ trait ImperialLength extends Any with Length with ImperialUnits
   override def unary_- : ImperialLength
   override def kiloMetresNum: Double = metresNum / 1000
   override def megaMetresNum: Double = metresNum / 1000000
+  override def gigaMetresNum: Double = metresNum / 1000000000
 }
 
 object ImperialLength

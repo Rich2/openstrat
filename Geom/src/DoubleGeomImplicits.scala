@@ -17,8 +17,8 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Int]] value in [[Metres]] kilometres. */
   @inline def kMetres: Metres = Metres(thisDouble * 1000)
 
-  /** Returns this [[Double]] value in [[Metres]] or millions of kilometres. */
-  @inline def gMetres: Metres = new Metres(thisDouble * 1000000000)
+  /** Returns this [[Int]] value in [[GigaMetres]]. */
+  @inline def gigaMetres = GigaMetres(thisDouble)
 
   /** Returns this [[Double]] value in [[Miles]]. */
   @inline def miles: Miles = new Miles(thisDouble)

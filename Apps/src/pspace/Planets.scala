@@ -30,13 +30,13 @@ object Earth extends Planet
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mars_(planet)">Mars</a>. */
 object Mars extends Planet
-{ override val avSunDist: Metres = 141.6.megaMiles.toMetres
+{ override val avSunDist: GigaMetres = 227.900000.gigaMetres
   override val name: String = "Mars"
   override def colour: Colour = Red
 }
 
 object Jupiter extends Planet
-{ override val avSunDist: Metres = 483.6.megaMiles.toMetres
+{ override val avSunDist: MetricLength = 483.6.megaMiles.toMetres
   override val name: String = "Jupiter"
   override def colour: Colour = LightSalmon
 }
