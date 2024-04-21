@@ -35,8 +35,11 @@ trait Length extends Any with Ordered[Length]
   def toKiloMetres: KiloMetres = KiloMetres(kiloMetresNum)
 }
 
+/** Metric units of measurement. Many convenent operators are provided for metric units. Operations that mix units from different measurment system are gnerally
+ * provided with named operators, to highlight the programmer is doing this. */
 trait MetricUnits extends Any
 
+/** A metric measurement of [[Length]] such as [[Metres]] or the [[KiloMetres]] */
 trait MetricLength extends Any with Length with MetricUnits
 { /** Add a [[Length]] defined in [[MetricLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
   def +(operand: MetricLength): MetricLength
@@ -49,6 +52,14 @@ trait MetricLength extends Any with Length with MetricUnits
   override def unary_- : MetricLength
   override def *(operand: Double): MetricLength
   override def /(operand: Double): MetricLength
+}
+
+object MetricLength
+{
+  implicit class MetreExtensions(thisMetres: MetricLength)
+  { def * (operand: MetricLength): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
+    def / (operand: MetricLength): Double = thisMetres.metresNum / operand.metresNum
+  }
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
@@ -89,10 +100,7 @@ object Metres
 { /** Factory apply method for [[Metres]]. */
   def apply(metres: Double): Metres = new Metres(metres)
 
-  implicit class MetreExtensions(thisMetres: Metres)
-  { def * (operand: MetricLength): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
-    def / (operand: MetricLength): Double = thisMetres.metresNum / operand.metresNum
-  }
+
 }
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
