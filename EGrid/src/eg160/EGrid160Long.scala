@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
 import egrid._, geom._, pglobe._, prid.phex._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 320Km */
 abstract class EGrid160Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 40.kMetres, 200, rowArray)
+  EGridLong(rBottomCen, cenLongInt, 40.kiloMetres, 200, rowArray)
 
 object EGrid160Long
 {

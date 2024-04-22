@@ -4,7 +4,7 @@ import geom._, egrid._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 120Km */
 abstract class EGrid120Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 35.kMetres, 200, rowArray) with EGrid120Sys
+  EGridLong(rBottomCen, cenLongInt, 35.kiloMetres, 200, rowArray) with EGrid120Sys
 
 object EGrid120Long
 {
