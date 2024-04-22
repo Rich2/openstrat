@@ -29,7 +29,7 @@ class EGrid120LongPart(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray:
 }
 
 /** A main non-polar grid with a hex span of 120Km */
-class EGrid120LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends EGridLongFull(rBottomCen, rTopCen, cenLongInt, 30.kMetres, 200)
+class EGrid120LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends EGridLongFull(rBottomCen, rTopCen, cenLongInt, 30.kiloMetres, 200)
 
 object EGrid120LongFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid120LongFull(rBottomCen, rTopCen, cenLongInt)

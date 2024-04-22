@@ -53,8 +53,8 @@ object EGridLongFull
     def loop(cAcc: Int): (Int, Int) =
     { val longDegsAcc: Double = EGridLong.cDelta(r - rOffset, cAcc, cScale)
       val overlapRatio = (longDegsAcc - margin) / hexDelta
-      val res: (Int, Int) = longDegsAcc match {
-        case lds if (lds < margin) => loop(cAcc + 4)
+      val res: (Int, Int) = longDegsAcc match
+      { case lds if (lds < margin) => loop(cAcc + 4)
         case _ if overlapRatio < 0.5 => (-cAcc, cAcc)
         case _ => (4 - cAcc, cAcc)
       }

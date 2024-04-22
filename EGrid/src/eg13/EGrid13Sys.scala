@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg13
 import geom._, egrid._, prid.phex._
 
 /** An Earth grid system where the hex tiles are 80km across. A C scale of 20km. Maybe a single hrx or multiple hex grids. */
 trait EGrid13Sys extends EGridSys
-{ override val cScale: Metres = 325.kMetres
+{ override val cScale: MetricLength = 325.kiloMetres
 }
 
 /** Grid systems for 13km [[EGrid]]s. */
