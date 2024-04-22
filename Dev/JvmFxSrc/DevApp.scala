@@ -24,19 +24,19 @@ class AppStart extends application.Application
 
     val pair = eExpr match
     {
-      case Good(it: IdentifierToken) => Apps.launchs.findChars(it.srcStr) match {
+      case Good(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match {
         case Some(launch) => {
           val fSett: EMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
           val eSett: EMon[AssignMemExpr] = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
           eSett.fold(launch.default)(launch(_))
         }
-        case _ => Apps.ids.a1FindA2(it.srcStr) match
+        case _ => AppSelector.ids.a1FindA2(it.srcStr) match
         { case Some(pair) => pair
-          case _ => deb(it.str + ": Identifier"); Apps.default
+          case _ => deb(it.str + ": Identifier"); AppSelector.default
         }
       }
-      case Good(expr) => { debvar(expr); Apps.default }
-      case _ => { debvar(eExpr); Apps.default }
+      case Good(expr) => { debvar(expr); AppSelector.default }
+      case _ => { debvar(eExpr); AppSelector.default }
     }
 
     val newAlt = CanvasFx(canvasCanvas, jScene)

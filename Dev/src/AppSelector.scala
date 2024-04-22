@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pgui._, pStrat._
 
 /** Object for selecting various JavaFx apps / examples at run time. */
-object Apps
+object AppSelector
 { /** Matches the [[String]] for the identifier in DevSettings.rson to a list of Apps. */
   val launchs: ArrPairStr[GuiLaunch] = ArrPairStr[GuiLaunch](
     ("L", learn.Lessons),
@@ -30,10 +30,11 @@ object Apps
     ("Go", pgo.GoLaunch),
     ("CH", pchess.ChessLaunch),
     ("DR", pchess.pdraughts.DraughtsLaunch),
+    ("PL", pspace.PlanetLaunch),
   )
 
   val ids: ArrPairStr[(CanvasPlatform => Any, String)] = ArrPairStr(
-    ("PL", (pspace.PlanetsGui(_), "JavaFx Planets")),
+
     ("FL", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y1", (pZero.TessGui(_), "Tess")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),

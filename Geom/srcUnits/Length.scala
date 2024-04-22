@@ -50,6 +50,12 @@ trait MetricLength extends Any with Length with MetricUnits
   /** Subtract a [[Length]] defined in [[MetricLength]] units. Use subLength method if you wish to mix units from different unit measurement systems. */
   def -(operand: MetricLength): MetricLength
 
+  /** Returns the max length of this and the operand length in the units of this object. */
+  def max(operand: MetricLength): MetricLength
+
+  /** Returns the max length of this and the operand length in the units of this object. */
+  def min(operand: MetricLength): MetricLength
+
   override def addLength(operand: Length): MetricLength
   override def subLength(operand: Length): MetricLength
   override def unary_- : MetricLength
@@ -76,16 +82,14 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
   override def -(operand: MetricLength): Metres = Metres(metresNum - operand.metresNum)
   override def subLength(operand: Length): Metres = Metres(metresNum - operand.metresNum)
   override def unary_- : Metres = Metres(-metresNum)
-  def *(operand: Double): Metres = Metres(metresNum * operand)
-  def /(operand: Double): Metres = Metres(metresNum / operand)
+  override def *(operand: Double): Metres = Metres(metresNum * operand)
+  override def /(operand: Double): Metres = Metres(metresNum / operand)
   @inline def yardsNum: Double = metresNum * 1.09361
   @inline def milesNum: Double = metresNum / 1609.34
-  @inline def mMilesNum: Double = metresNum / 1609340000
 
-  /** Returns the max length of this and the operand length in [[Metres]]. */
-  def max(operand: Metres): Metres = new Metres(metresNum.max(operand.metresNum))
+  override def max(operand: MetricLength): Metres = Metres(metresNum.max(operand.metresNum))
+  override def min(operand: MetricLength): Metres = ife(metresNum < operand.metresNum, this, operand.toMetres)
 
-  def min(operand: Metres): Metres = ife(metresNum < operand.metresNum, this, operand)
   def kmStr2 = (metresNum / 1000).str2 + "km"
 
   override def compare(that: Length): Int = metresNum.compare(that.metresNum)
@@ -102,8 +106,6 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
 object Metres
 { /** Factory apply method for [[Metres]]. */
   def apply(metres: Double): Metres = new Metres(metres)
-
-
 }
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
@@ -120,6 +122,8 @@ final class KiloMetres(val kiloMetresNum: Double) extends AnyVal with MetricLeng
   override def unary_- : KiloMetres = KiloMetres(-kiloMetresNum)
   override def *(operand: Double): KiloMetres = KiloMetres(kiloMetresNum * operand)
   override def /(operand: Double): KiloMetres = KiloMetres(kiloMetresNum / operand)
+  override def max(operand: MetricLength): KiloMetres = KiloMetres(kiloMetresNum.max(operand.kiloMetresNum))
+  override def min(operand: MetricLength): KiloMetres = ???// ife(kiloMetresNum < operand.kiloMetresNum, this, operand.tokiloMetres)
 }
 
 object KiloMetres
@@ -141,6 +145,10 @@ final class MegaMetres(val megaMetresNum: Double) extends AnyVal with MetricLeng
   override def unary_- : MegaMetres = MegaMetres(-megaMetresNum)
   override def *(operand: Double): MegaMetres = MegaMetres(megaMetresNum * operand)
   override def /(operand: Double): MegaMetres = MegaMetres(megaMetresNum / operand)
+  override def max(operand: MetricLength): MegaMetres = MegaMetres(megaMetresNum.max(operand.megaMetresNum))
+
+  /** Returns the max length of this and the operand length in the units of this object. */
+  override def min(operand: MetricLength): MetricLength = ???
 }
 
 object MegaMetres
@@ -165,6 +173,10 @@ final class GigaMetres(val gigaMetresNum: Double) extends AnyVal with MetricLeng
   override def unary_- : GigaMetres = GigaMetres(-gigaMetresNum)
   override def *(operand: Double): GigaMetres = GigaMetres(gigaMetresNum * operand)
   override def /(operand: Double): GigaMetres = GigaMetres(gigaMetresNum / operand)
+  override def max(operand: MetricLength): GigaMetres = GigaMetres(gigaMetresNum.max(operand.gigaMetresNum))
+
+  /** Returns the max length of this and the operand length in the units of this object. */
+  override def min(operand: MetricLength): MetricLength = ???
 }
 
 object GigaMetres
