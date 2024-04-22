@@ -5,12 +5,9 @@ import ImperialLength._
 /** [[Length]] measured in yards. Can be negative. */
 final class Yards(val yardsNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Yards"
-
   override def compare(that: Length): Int = yardsNum.compare(that.yardsNum)
-  override def +(operand: ImperialLength): Yards = Yards(yardsNum + operand.yardsNum)
-  override def addLength(operand: Length): Yards = Yards(yardsNum + operand.yardsNum)
-  override def -(operand: ImperialLength): Yards = Yards(yardsNum - operand.yardsNum)
-  override def subLength(operand: Length): Yards = Yards(yardsNum - operand.yardsNum)
+  override def +(operand: Length): Yards = Yards(yardsNum + operand.yardsNum)
+  override def -(operand: Length): Yards = Yards(yardsNum - operand.yardsNum)
   override def unary_- : Yards = Yards(-yardsNum)
   override def *(operand: Double): Yards = Yards(yardsNum * operand)
   override def /(operand: Double): Yards = Yards(yardsNum / operand)
@@ -28,10 +25,8 @@ object Yards
 final class Miles(val milesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
   override def compare(that: Length): Int = kiloMetresNum.compare(that.kiloMetresNum)
-  override def +(operand: ImperialLength): Miles = Miles(milesNum + operand.milesNum)
-  override def addLength(operand: Length): Miles = Miles(milesNum + operand.milesNum)
-  override def -(operand: ImperialLength): Miles = Miles(milesNum - operand.milesNum)
-  override def subLength(operand: Length): Miles = Miles(milesNum - operand.milesNum)
+  override def +(operand: Length): Miles = Miles(milesNum + operand.milesNum)
+  override def -(operand: Length): Miles = Miles(milesNum - operand.milesNum)
   override def unary_- : Miles = Miles(-milesNum)
   override def *(operand: Double): Miles = Miles(milesNum * operand)
   override def /(operand: Double): Miles = Miles(milesNum / operand)
@@ -49,10 +44,8 @@ object Miles
 final class MegaMiles(val megaMilesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
   override def compare(that: Length): Int = kiloMetresNum.compare(that.kiloMetresNum)
-  override def +(operand: ImperialLength): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
-  override def addLength(operand: Length): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
-  override def -(operand: ImperialLength): MegaMiles = MegaMiles(megaMilesNum - operand.megaMilesNum)
-  override def subLength(operand: Length): MegaMiles = MegaMiles(megaMilesNum - operand.megaMilesNum)
+  override def +(operand: Length): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)
+  override def -(operand: Length): MegaMiles = MegaMiles(megaMilesNum - operand.megaMilesNum)
   override def unary_- : MegaMiles = MegaMiles(-megaMilesNum)
   override def *(operand: Double): MegaMiles = MegaMiles(megaMilesNum * operand)
   override def /(operand: Double): MegaMiles = MegaMiles(megaMilesNum / operand)

@@ -14,14 +14,8 @@ trait ImperialLength extends Any with Length with ImperialUnits
   /** The number of MegaMiles in this length */
   def megaMilesNum: Double
 
-  /** Add a [[Length]] defined in [[ImperialLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
-  def +(operand: ImperialLength): ImperialLength
-
-  /** Subtract a [[Length]] defined in [[ImperialLength]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
-  def -(operand: ImperialLength): ImperialLength
-
-  override def addLength(operand: Length): ImperialLength
-  override def subLength(operand: Length): ImperialLength
+  override def +(operand: Length): ImperialLength
+  override def -(operand: Length): ImperialLength
   override def *(operand: Double): ImperialLength
   override def /(operand: Double): ImperialLength
   override def unary_- : ImperialLength

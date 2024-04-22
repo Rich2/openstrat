@@ -8,5 +8,8 @@ object PlanetLaunch  extends GuiLaunchMore
 
   override def settingStr: String = "planets"
 
-  override def default: (CanvasPlatform => Any, String) = (PlanetsGui(_), "JavaFx Planets")
+  override def default: (CanvasPlatform => Any, String) =
+  {
+    (PlanetsGui(_), "JavaFx Planets")
+  }
 }
