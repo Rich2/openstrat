@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._, pgui._, pParse._
 
@@ -14,7 +14,7 @@ object EarthBasicLaunch extends GuiLaunchMore
       val scale = sts.findSettingElse[Double]("scale", 10)
       val lat: Double = sts.findSettingElse("latitude", 40)
       val long: Double = sts.findSettingElse("longitude", 10)
-      EarthView(lat ll long, scale * 1.km, true)
+      EarthView(lat ll long, scale.kiloMetres, true)
     }
     val view = sts.findType[EarthView].getElse(multisett)
     (cv => EarthBasicGui(cv, view), "JavaFx Earth")

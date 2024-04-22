@@ -4,11 +4,12 @@ import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
 /** Graphical user interface for Unit Locator. */
 case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(50, 12, 1.2)) extends GlobeGui("The Earth in irregular tiles")
-{ /** Scale in km / pixel */
-  var scale: Metres = viewIn.scale
+{
+  /** Scale in km / pixel */
+    var scale: MetricLength = viewIn.scale
 
   /** Scale accounting for whether the display has north up or down. */
-  def dirnScale: Metres = ife(northUp, scale, -scale)
+  def dirnScale: MetricLength = ife(northUp, scale, -scale)
 
   val scaleMin: MetricLength = 0.2.kiloMetres
   val scaleMax: MetricLength = 100.kiloMetres
@@ -69,7 +70,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
       else None
     }
 
-    def units2: GraphicElems = ifScale(8.km, units1)
+    def units2: GraphicElems = ifScale(8.kiloMetres, units1)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 

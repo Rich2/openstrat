@@ -5,17 +5,11 @@ import impunits._
 /** Extension methods class for [[Double]], for the geom package. */
 class GeomDoubleExtensions(thisDouble: Double)
 {
-  /** Method to be removed, prefer kMetres. */
-  def km: Metres = new Metres(thisDouble * 1000)
-
-  /** Returns this [[Double]] value in [[Metres]]. */
-  @inline def metres: Metres = new Metres(thisDouble)
-
   /** Extension methods multiplies this scalar [[Double]] by the operand in metres */
   @inline def * (operator: Metres): Metres = new Metres(thisDouble * operator.metresNum)
 
-  /** Returns this [[Int]] value in [[Metres]] kilometres. */
-  //@inline def kMetresDepr: Metres = Metres(thisDouble * 1000)
+  /** Returns this [[Double]] value in [[Metres]]. */
+  @inline def metres: Metres = new Metres(thisDouble)
 
   /** Returns this [[Int]] value in [[KiloMetres]]. */
   @inline def kiloMetres: KiloMetres = KiloMetres(thisDouble)

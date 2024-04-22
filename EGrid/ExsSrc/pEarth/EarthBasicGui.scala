@@ -8,13 +8,13 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
   debvar(viewIn.scale)
   /** Scale in km / pixel */
-  var scale: Metres = viewIn.scale
+  var scale: MetricLength = viewIn.scale
 
   /** Scale accounting for whether the display has north up or down. */
-  def dirnScale: Metres = ife(northUp, scale, -scale)
+  def dirnScale: MetricLength = ife(northUp, scale, -scale)
 
   val scaleMin: MetricLength = 0.2.kiloMetres
-  val scaleMax: Metres = 100.kMetres
+  val scaleMax: MetricLength = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)

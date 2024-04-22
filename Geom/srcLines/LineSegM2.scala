@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -27,7 +27,7 @@ object LineSegM2
 
   implicit class LineSegMExtensions(val thisSeg: LineSegM2)
   {
-    def /(operand: Metres): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
+    def /(operand: MetricLength): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
   }
 
   /** [[Show]] type class instance / evidence for [[LineSegM2]]. */

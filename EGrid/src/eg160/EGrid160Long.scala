@@ -24,7 +24,7 @@ object EGrid160Long
 
 /** A main non-polar grid with a hex span of 160Km */
 class EGrid160LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridLongFull(rBottomCen, rTopCen, cenLongInt, 40.kMetres, 200)
+  EGridLongFull(rBottomCen, rTopCen, cenLongInt, 40.kiloMetres, 200)
 
 object EGrid160LongFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160LongFull(rBottomCen, rTopCen, cenLongInt)

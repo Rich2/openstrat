@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import pgui._
 
@@ -7,9 +7,9 @@ abstract class GlobeGui(val title: String) extends CmdBarGui
   def northUp: Boolean = focus.dirn
 
   /** The length normally shown in kms per pixel. */
-  var scale: Metres
+  var scale: MetricLength
 
-  def ifScale(minScale: Metres, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
+  def ifScale(minScale: MetricLength, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
 
   def scaleStr = s"scale = ${scale.kiloMetresNum.str2} km/pixel"
   def repaint(): Unit

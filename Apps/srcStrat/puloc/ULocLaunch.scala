@@ -14,7 +14,7 @@ object ULocLaunch extends GuiLaunchMore
     { val scale = sts.findSettingElse[Double]("scale", 2)
       val lat: Double = sts.findSettingElse("latitude", 50)
       val long: Double = sts.findSettingElse("longitude", 10)
-      EarthView(lat ll long, scale * 1.km, true)
+      EarthView(lat ll long, scale.kiloMetres, true)
     }
 
     val view: EarthView = sts.findType[EarthView].getElse(multisett)

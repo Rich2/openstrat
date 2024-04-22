@@ -1,9 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import egrid._, geom._, prid.phex._// pglobe._
+import egrid._, geom._, prid.phex._
 
 trait EGrid160Sys extends EGridSys
-{ override val cScale: Metres = 40.kMetres
+{ override val cScale: MetricLength = 40.kiloMetres
 }
 
 /** A main non-polar grid with a hex span of 80Km */

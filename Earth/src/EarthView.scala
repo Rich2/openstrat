@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
 /** A view of the Earth. Currently North can only be up or down. */
@@ -6,13 +6,13 @@ class EarthView (val latDegs: Double, val longDegs: Double, val scaleKm: Double,
 {
   def latLong: LatLong = LatLong.degs(latDegs, longDegs)
   def latLongDirn: LatLongDirn = LatLongDirn.degs(latDegs, longDegs)
-  def scale: Metres = scaleKm * 1.km
+  def scale: MetricLength = scaleKm.kiloMetres
 }
 
 object EarthView
 {
   def apply(latDegs: Double, longDegs: Double, kms: Double, up: Boolean = true): EarthView = new EarthView(latDegs, longDegs, kms, up)
-  def apply(latLong: LatLong, scale: Metres, up: Boolean): EarthView = new EarthView(latLong.latDegs, latLong.longDegs, scale.kiloMetresNum, up)
+  def apply(latLong: LatLong, scale: MetricLength, up: Boolean): EarthView = new EarthView(latLong.latDegs, latLong.longDegs, scale.kiloMetresNum, up)
 
   /** Not sure about the scale .metres parameter conversion */
   implicit val show3Ev: Show3[LatLong, Double, Boolean, EarthView] =
