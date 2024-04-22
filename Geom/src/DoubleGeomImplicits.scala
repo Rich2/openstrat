@@ -15,11 +15,13 @@ class GeomDoubleExtensions(thisDouble: Double)
   @inline def * (operator: Metres): Metres = new Metres(thisDouble * operator.metresNum)
 
   /** Returns this [[Int]] value in [[Metres]] kilometres. */
-  @inline def kMetresDepr: Metres = Metres(thisDouble * 1000)
+  //@inline def kMetresDepr: Metres = Metres(thisDouble * 1000)
 
   /** Returns this [[Int]] value in [[KiloMetres]]. */
-  @inline def kiloMetres = KiloMetres(thisDouble)
+  @inline def kiloMetres: KiloMetres = KiloMetres(thisDouble)
 
+  /** Returns this [[Int]] value in [[MegaMetres]]. */
+  @inline def megaMetres: MegaMetres = MegaMetres(thisDouble)
 
   /** Returns this [[Int]] value in [[GigaMetres]]. */
   @inline def gigaMetres = GigaMetres(thisDouble)

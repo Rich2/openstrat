@@ -10,7 +10,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   var irrOn: Boolean = false
   def northUp: Boolean = focus.dirn
   def southUp: Boolean = !focus.dirn
-  def metresPerPixel: Metres = parent.cScale / pixelsPerC
+  def metresPerPixel: MetricLength = parent.cScale / pixelsPerC
 
   def setMetresPerPixel(value: Metres): Unit = pixelsPerC = parent.cScale / value
 

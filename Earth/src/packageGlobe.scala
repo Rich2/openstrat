@@ -9,7 +9,7 @@ package object pglobe
   implicit def doubleGlobeToExtensions(thisDouble: Double): DoubleGlobeExtensions = new DoubleGlobeExtensions(thisDouble)
 
   /** Method for creating a 2d background or outline for the earth. */
-  def earth2DEllipse(scale: Metres): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
+  def earth2DEllipse(scale: MetricLength): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonM3)
   {

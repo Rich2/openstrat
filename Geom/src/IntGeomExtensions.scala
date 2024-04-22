@@ -8,6 +8,9 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Metres]]. */
   @inline def metres: Metres = Metres(thisInt)
 
+  /** Returns this [[Int]] value in [[Metres]]. */
+  @inline def kiloMetres: KiloMetres = KiloMetres(thisInt)
+
   /** Extension methods multiplies this scalar [[Int]] by the operand in metres */
   @inline def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 

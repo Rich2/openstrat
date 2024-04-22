@@ -8,7 +8,7 @@ trait EGridSys extends HGridSys
   override def projection: Panel => HSysProjection = HSysProjectionEarth(this, _)
 
   /** The length of one column coordinate delta */
-  def cScale: Metres
+  def cScale: MetricLength
 
   /** hex coordinate to latitude and longitude. */
   def hCoordLL(hc: HCoord): LatLong
@@ -25,5 +25,5 @@ trait EGridSys extends HGridSys
 }
 
 /** A hex grid on the surface of the earth. */
-abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Metres) extends HGridGen(bottomTileRow, unsafeRowsArray) with
+abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: MetricLength) extends HGridGen(bottomTileRow, unsafeRowsArray) with
   EGridSys

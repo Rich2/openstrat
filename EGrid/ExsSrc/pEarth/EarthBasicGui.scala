@@ -13,7 +13,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   /** Scale accounting for whether the display has north up or down. */
   def dirnScale: Metres = ife(northUp, scale, -scale)
 
-  val scaleMin: Metres = 0.2.kMetresDepr
+  val scaleMin: MetricLength = 0.2.kiloMetres//kMetresDepr
   val scaleMax: Metres = 100.kMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
