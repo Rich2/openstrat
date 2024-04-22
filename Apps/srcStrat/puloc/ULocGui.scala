@@ -10,7 +10,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   /** Scale accounting for whether the display has north up or down. */
   def dirnScale: Metres = ife(northUp, scale, -scale)
 
-  val scaleMin: Metres = 0.2.kMetres
+  val scaleMin: Metres = 0.2.kMetresDepr
   val scaleMax: Metres = 100.kMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 

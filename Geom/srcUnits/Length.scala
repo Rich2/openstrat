@@ -111,7 +111,7 @@ final class KiloMetres(val kiloMetresNum: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): KiloMetres = KiloMetres(kiloMetresNum * operand)
   override def /(operand: Double): KiloMetres = KiloMetres(kiloMetresNum / operand)
   override def max(operand: MetricLength): KiloMetres = KiloMetres(kiloMetresNum.max(operand.kiloMetresNum))
-  override def min(operand: MetricLength): KiloMetres = ???// ife(kiloMetresNum < operand.kiloMetresNum, this, operand.tokiloMetres)
+  override def min(operand: MetricLength): KiloMetres = KiloMetres(kiloMetresNum.min(operand.kiloMetresNum))
 }
 
 object KiloMetres
@@ -132,9 +132,7 @@ final class MegaMetres(val megaMetresNum: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): MegaMetres = MegaMetres(megaMetresNum * operand)
   override def /(operand: Double): MegaMetres = MegaMetres(megaMetresNum / operand)
   override def max(operand: MetricLength): MegaMetres = MegaMetres(megaMetresNum.max(operand.megaMetresNum))
-
-  /** Returns the max length of this and the operand length in the units of this object. */
-  override def min(operand: MetricLength): MetricLength = ???
+  override def min(operand: MetricLength): MetricLength = MegaMetres(megaMetresNum.min(operand.megaMetresNum))
 }
 
 object MegaMetres
@@ -158,9 +156,7 @@ final class GigaMetres(val gigaMetresNum: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): GigaMetres = GigaMetres(gigaMetresNum * operand)
   override def /(operand: Double): GigaMetres = GigaMetres(gigaMetresNum / operand)
   override def max(operand: MetricLength): GigaMetres = GigaMetres(gigaMetresNum.max(operand.gigaMetresNum))
-
-  /** Returns the max length of this and the operand length in the units of this object. */
-  override def min(operand: MetricLength): MetricLength = ???
+  override def min(operand: MetricLength): MetricLength = GigaMetres(gigaMetresNum.min(operand.gigaMetresNum))
 }
 
 object GigaMetres

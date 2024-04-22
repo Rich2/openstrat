@@ -74,7 +74,7 @@ object PtM2
   def origin: PtM2 = new PtM2(0, 0)
 
   implicit class Metres2Implicit(thisMetres2: PtM2)
-  { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  { def / (operator: MetricLength): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
   /** [[Show]] type class instance / evidence for [[PTM2]]. */
