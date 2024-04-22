@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package puloc
 import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 
@@ -11,7 +11,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   def dirnScale: Metres = ife(northUp, scale, -scale)
 
   val scaleMin: MetricLength = 0.2.kiloMetres
-  val scaleMax: Metres = 100.kMetres
+  val scaleMax: MetricLength = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)

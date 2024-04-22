@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
@@ -20,18 +20,18 @@ abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Metric
 
 object EGridLong
 { /** The key method to get the longitude delta for c based from 0° longitude. */
-  def hCenToLatLong0(inp: HCoord, cOffset: Int, cScale: Metres): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset, cScale)
+  def hCenToLatLong0(inp: HCoord, cOffset: Int, cScale: MetricLength): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset, cScale)
 
   /** The key method to get the longitude delta for c based from 0° longitude. */
-  def hCenToLatLong0(r: Int, c: Int, cOffset: Int, cScale: Metres): LatLong =
-  { val ym = r * cScale * math.sqrt(3)
+  def hCenToLatLong0(r: Int, c: Int, cOffset: Int, cScale: MetricLength): LatLong =
+  { val ym = cScale * r * math.sqrt(3)
     val latRadians: Double = ym / EarthPolarRadius
     val longDelta = colToLongDelta(latRadians, c, cOffset, cScale)
     LatLong.radians(latRadians, longDelta)
   }
 
-  def colToLongDelta(latRadians: Double, c: Int, cOffset: Int, cScale: Metres): Double =
-  { val xm = (c - cOffset) * cScale
+  def colToLongDelta(latRadians: Double, c: Int, cOffset: Int, cScale: MetricLength): Double =
+  { val xm = cScale  * (c - cOffset)
     xm / (EarthEquatorialRadius * math.cos(latRadians))
   }
 
@@ -48,7 +48,7 @@ object EGridLong
   }
 
   /** Returns the longitudinal delta for a given c at a given y (latitude) for an EGrid80Km Hex Grid. */
-  def cDelta(r: Int, c: Int, cScale: Metres): Double =
+  def cDelta(r: Int, c: Int, cScale: MetricLength): Double =
   { val ll = hCenToLatLong0(HCoord(r, c), 0, cScale)
     ll.longDegs
   }
