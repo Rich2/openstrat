@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egmega
 import geom._, egrid._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 640Km */
 abstract class EGridMegaLong(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 250.kMetres, 100, rowArray) with EGridMegaSys
+  EGridLong(rBottomCen, cenLongInt, 250.kiloMetres, 100, rowArray) with EGridMegaSys
 
 object EGridMegaLong
 {
@@ -30,7 +30,7 @@ class EGridMegaLongPart(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray
 
 /** A main non-polar grid with a hex span of MegaKm */
 class EGridMegaLongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridLongFull(rBottomCen, rTopCen, cenLongInt, 250.kMetres, 100)
+  EGridLongFull(rBottomCen, rTopCen, cenLongInt, 250.kiloMetres, 100)
 
 object EGridMegaLongFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGridMegaLongFull(rBottomCen, rTopCen, cenLongInt)
