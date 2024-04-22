@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -10,12 +10,12 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   def startPt: PtM3 = new PtM3(xStartMs, yStartMs, zStartMs)
   def endPt: PtM3 = new PtM3(xEndMs, yEndMs, zEndMs)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
-  override def dbl1 = xStartMs
-  override def dbl2 = yStartMs
-  override def dbl3 = zStartMs
-  override def dbl4 = xEndMs
-  override def dbl5 = yEndMs
-  override def dbl6 = zEndMs
+  override def dbl1: Double = xStartMs
+  override def dbl2: Double = yStartMs
+  override def dbl3: Double = zStartMs
+  override def dbl4: Double = xEndMs
+  override def dbl5: Double = yEndMs
+  override def dbl6: Double = zEndMs
   def xStart: Metres = Metres(xStartMs)
   def yStart: Metres = Metres(yStartMs)
   def zStart: Metres = Metres(zStartMs)

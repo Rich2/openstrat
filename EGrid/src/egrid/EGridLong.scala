@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** An Earth grid covering all or part of a 30 degree range of longitude for the non polar regions. */
-abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Metres, val rOffset: Int, rowArray: Array[Int]) extends
+abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: MetricLength, val rOffset: Int, rowArray: Array[Int]) extends
   EGrid(rBottomCen, rowArray, cScale)
 { /** The C column coordinate of the middle of the full grid. */
   def cOffset: Int = (longGridIndex %% 12) * 1024 + 512
@@ -35,10 +35,10 @@ object EGridLong
     xm / (EarthEquatorialRadius * math.cos(latRadians))
   }
 
-  def hCoordToLatLong0(r: Int, c: Int, cScale: Metres): LatLong = hCoordToLatLong0(HCoord(r, c), cScale)
+  def hCoordToLatLong0(r: Int, c: Int, cScale: MetricLength): LatLong = hCoordToLatLong0(HCoord(r, c), cScale)
 
   /** Copied from pGrid. The key method to get the longitude delta for x based from 0 degs longitude. */
-  def hCoordToLatLong0(inp: HCoord, cScale: Metres): LatLong =
+  def hCoordToLatLong0(inp: HCoord, cScale: MetricLength): LatLong =
   { val adj: Pt2 = inp.toPt2Reg
     val d2: PtM2 = adj.toMetres(cScale)
     val latRadians: Double = d2.y / EarthPolarRadius

@@ -8,17 +8,20 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Metres]]. */
   @inline def metres: Metres = Metres(thisInt)
 
-  /** Returns this [[Int]] value in [[Metres]]. */
+  /** Returns this [[Int]] value in [[KiloMetres]]. */
   @inline def kiloMetres: KiloMetres = KiloMetres(thisInt)
+
+  /** Returns this [[Int]] value in [[MegaMetres]]. */
+  @inline def megaMetres: MegaMetres = MegaMetres(thisInt)
+
+  /** Returns this [[Int]] value in [[GigaMetres]]. */
+  @inline def gigaMetres: GigaMetres = GigaMetres(thisInt)
 
   /** Extension methods multiplies this scalar [[Int]] by the operand in metres */
   @inline def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
   /** Returns this [[Int]] value in [[Metres]] kilometres. */
   @inline def kMetres: Metres = Metres(thisInt * 1000.0)
-
-  /** Returns this [[Int]] value in [[Metres]] or millions of kilometres. */
-  @inline def gMetres: Metres = Metres(thisInt * 1000000000.0)
 
   /** Returns this [[Int]] value in [[Miles]]. */
   @inline def miles: Miles = Miles(thisInt)
