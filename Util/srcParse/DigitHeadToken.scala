@@ -6,7 +6,7 @@ trait DigitHeadToken extends OpExprMemToken
 
 trait DigitHeadAlphaToken extends DigitHeadToken
 
-class DigitHeadAlphaTokenGen(val startPosn: TextPosn, val numStr: String, val alphaStr: String) extends DigitHeadAlphaToken
+case class DigitHeadAlphaTokenGen(val startPosn: TextPosn, val numStr: String, val alphaStr: String) extends DigitHeadAlphaToken
 {
   override def exprName: String = "DigitHeadAlpha"
 

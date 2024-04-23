@@ -10,7 +10,7 @@ object lexRawNumberToken
     case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString, isNeg)
     case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString, isNeg)
     case CharsOff1Tail(l, tail) if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, str + l.toString, isNeg)
-    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("lexRawnumberToken: Badly formed number token.")
+    case CharsOff1Tail(LetterOrUnderscoreChar(l), tail) => lexDigitHeadToken(tail, tp, str, isNeg, l.toString)// tp.bad3("lexRawnumberToken: Badly formed number token.")
     case _ if isNeg => Good3(rem, tp.addStr(str).right1, NegBase10Token(tp, str))
     case _ => Good3(rem, tp.addStr(str), NatBase10Token(tp, str))
   }
@@ -52,6 +52,7 @@ object lexDigitHeadToken
 {
   def apply(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
     rem match {
-    case _ => Good3(rem, tp.addStr(digitsStr), NatBase10Token(tp, digitsStr))
+      case CharsOff1Tail(LetterOrUnderscoreChar(l), tail) => apply(tail, tp, digitsStr, isNeg, alphaStr + l)
+      case _ => Good3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
   }
 }

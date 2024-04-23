@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Sequence of point separated number sequences. Includes fixed point decimal numbers, IPv4 notation nad version nunbers. */
+/** Sequence of point separated number sequences. Includes fixed point decimal numbers, IPv4 notation and version nunbers. */
 trait DigitSeqsCode extends ClauseMemExprToken
 { /** The digit sequences of the code. For example "2.13.7" gives Strings("2", "13", "7"). */
   def digitSeqs: StrArr
