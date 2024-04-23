@@ -47,3 +47,11 @@ object parseDeciFrac
     }
   }
 }
+
+object lexDigitHeadToken
+{
+  def apply(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
+    rem match {
+    case _ => Good3(rem, tp.addStr(digitsStr), NatBase10Token(tp, digitsStr))
+  }
+}
