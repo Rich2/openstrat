@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 
 /** Function object for parsing a raw number, could be a normal decimal, hexadecimal or trigdual number. Not all natural numbers are
@@ -10,7 +10,7 @@ object lexRawNumberToken
     case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString, isNeg)
     case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString, isNeg)
     case CharsOff1Tail(l, tail) if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, str + l.toString, isNeg)
-    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("lexRawnumberToken: Badly formed number token.")
     case _ if isNeg => Good3(rem, tp.addStr(str).right1, NegBase10Token(tp, str))
     case _ => Good3(rem, tp.addStr(str), NatBase10Token(tp, str))
   }

@@ -18,7 +18,10 @@ class GeomDoubleExtensions(thisDouble: Double)
   @inline def megaMetres: MegaMetres = MegaMetres(thisDouble)
 
   /** Returns this [[Int]] value in [[GigaMetres]]. */
-  @inline def gigaMetres = GigaMetres(thisDouble)
+  @inline def gigaMetres: GigaMetres = GigaMetres(thisDouble)
+
+  /** Returns this [[Double]] value in [[Yards]]. */
+  @inline def yardes: Yards = new Yards(thisDouble)
 
   /** Returns this [[Double]] value in [[Miles]]. */
   @inline def miles: Miles = new Miles(thisDouble)

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** Common trait for all tokens that can be valid hexadecimal natural numbers as well as valid base32 numbers. */
@@ -54,8 +54,8 @@ trait ValidRawBase32NatToken extends ValidRawBase32IntToken
 
 object ValidRawBase32NatToken
 {
-  def unapply(input: Any): Option[Int] = input match {
-    case vrbit: ValidRawBase32NatToken => Some(vrbit.asBase32Int)
+  def unapply(input: Any): Option[Int] = input match
+  { case vrbit: ValidRawBase32NatToken => Some(vrbit.asBase32Int)
     case _ => None
   }
 }
@@ -71,4 +71,3 @@ case class RawBase32NegToken(startPosn: TextPosn, srcStr: String) extends ValidR
 { override def exprName: String = "Base32Raw"
   override def digitsStr: String = srcStr
 }
-
