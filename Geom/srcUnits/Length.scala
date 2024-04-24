@@ -119,7 +119,7 @@ object Kilometres
 { /** Factory apply method for kilometres. */
   def apply(kilometresNum: Double): Kilometres = new Kilometres(kilometresNum)
 
-  val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
+  implicit val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
   { override def typeStr: String = "Kilometres"
 
     override def fromExpr(expr: Expr): EMon[Kilometres] = expr match
