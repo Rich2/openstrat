@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
@@ -18,7 +18,7 @@ case object EmptyStringExpr extends Expr
 trait AssignMemExpr extends Expr with AssignMem
 {
   def toStatements: RArr[Statement] = this match{
-    case es: ExprSeq => es.exprs.map{expr => StatementNoneEmpty(expr) }
+    case es: ExprSeqExpr => es.exprs.map{expr => StatementNoneEmpty(expr) }
     case st: Statement => RArr(st)
     case expr => RArr(StatementNoneEmpty(expr))
   }
@@ -36,13 +36,13 @@ trait CompoundExpr extends Expr with TextSpanCompound
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr
 
-/** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
-trait ExprSeq extends ColonMemExpr
+/** A sequence of expressions that is itslef an expression. It can be a sequence of Statements or a Sequence of Clauses. */
+trait ExprSeqExpr extends ColonMemExpr
 { def exprs: RArr[Expr]
 }
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
-trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
+trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeqExpr
 { def exprs: RArr[AssignMemExpr]
 }
 

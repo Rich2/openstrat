@@ -32,7 +32,7 @@ trait BlockMemToken extends BlockMem with Token
 /** A [[Token]] that is an AssignMem expression. */
 trait AssignMemExprToken extends Token with AssignMemExpr
 
-trait EmptyExprToken extends BlockMemToken with ClauseMemExprToken with ExprSeq
+trait EmptyExprToken extends BlockMemToken with ClauseMemExprToken with ExprSeqExpr
 { override def exprs: RArr[Expr] = RArr()
 }
 

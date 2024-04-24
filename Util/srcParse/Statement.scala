@@ -91,7 +91,7 @@ object Statement
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = findSettingExpr(settingStr).flatMap {
       case IdentifierToken(str) => Good(StrArr(str))
-      case exprSeq: ExprSeq =>
+      case exprSeq: ExprSeqExpr =>
       { val opt = exprSeq.exprs.optAllMap{expr => expr match
           { case IdentifierToken(str) => Some(str)
             case _ => None
