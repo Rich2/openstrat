@@ -5,6 +5,12 @@ package ostrat; package pParse
 trait DigitHeadToken extends OpExprMemToken
 
 trait DigitHeadAlphaToken extends DigitHeadToken
+{
+  def numStr: String
+  def alphaStr: String
+
+  def num = numStr.toInt
+}
 
 case class DigitHeadAlphaTokenGen(val startPosn: TextPosn, val numStr: String, val alphaStr: String) extends DigitHeadAlphaToken
 {

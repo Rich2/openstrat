@@ -12,7 +12,7 @@ class EarthView (val latDegs: Double, val longDegs: Double, val scaleKm: Double,
 object EarthView
 {
   def apply(latDegs: Double, longDegs: Double, kms: Double, up: Boolean = true): EarthView = new EarthView(latDegs, longDegs, kms, up)
-  def apply(latLong: LatLong, scale: MetricLength, up: Boolean): EarthView = new EarthView(latLong.latDegs, latLong.longDegs, scale.kiloMetresNum, up)
+  def apply(latLong: LatLong, scale: MetricLength, up: Boolean): EarthView = new EarthView(latLong.latDegs, latLong.longDegs, scale.kilometresNum, up)
 
   /** Not sure about the scale .metres parameter conversion */
   implicit val show3Ev: Show3[LatLong, Double, Boolean, EarthView] =

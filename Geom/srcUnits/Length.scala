@@ -1,20 +1,21 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import pParse._
 
 trait Length extends Any with Ordered[Length]
 { /** The number of metres in this [[Length]]. */
   def metresNum: Double
 
   /** The number of kilometres in this [[Length]]. */
-  def kiloMetresNum: Double
+  def kilometresNum: Double
 
   /** The number of Megametres in this [[Length]]. */
-  def megaMetresNum: Double
+  def megametresNum: Double
 
   /** The number of Gigametres in this [[Length]]. */
-  def gigaMetresNum: Double
+  def gigametresNum: Double
 
-  /** The negative of this [[Lenght]] */
+  /** The negative of this [[Length]] */
   def unary_- : Length
 
   /** Add a [[Length]] defined in [[Length]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
@@ -33,14 +34,14 @@ trait Length extends Any with Ordered[Length]
   def toMetres: Metres = Metres(metresNum)
 
   /** Converts this [[Length]] to [[Metres]]. */
-  def toKiloMetres: KiloMetres = KiloMetres(kiloMetresNum)
+  def toKiloMetres: Kilometres = Kilometres(kilometresNum)
 }
 
 /** Metric units of measurement. Many convenient operators are provided for metric units. Operations that mix units from different measurment system are gnerally
  * provided with named operators, to highlight the programmer is doing this. */
 trait MetricUnits extends Any
 
-/** A metric measurement of [[Length]] such as [[Metres]] or the [[KiloMetres]] */
+/** A metric measurement of [[Length]] such as [[Metres]] or the [[Kilometres]] */
 trait MetricLength extends Any with Length with MetricUnits
 { override def +(operand: Length): MetricLength
   override def -(operand: Length): MetricLength
@@ -87,9 +88,9 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
   def pos: Boolean = metresNum >= 0
   def neg: Boolean = metresNum < 0
 
-  @inline override def kiloMetresNum: Double = metresNum / 1000
-  @inline override def megaMetresNum: Double = metresNum / 1000000
-  @inline override def gigaMetresNum: Double = metresNum / 1000000000
+  @inline override def kilometresNum: Double = metresNum / 1000
+  @inline override def megametresNum: Double = metresNum / 1000000
+  @inline override def gigametresNum: Double = metresNum / 1000000000
 }
 
 /** Companion object for the [[Metres]] class. */
@@ -99,67 +100,76 @@ object Metres
 }
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
-final class KiloMetres(val kiloMetresNum: Double) extends AnyVal with MetricLength
-{ def typeStr: String = "KiloMetres"
-  override def compare(that: Length): Int = kiloMetresNum.compare(that.kiloMetresNum)
-  override def metresNum: Double = kiloMetresNum * 1000
-  override def megaMetresNum: Double = kiloMetresNum / 1000
-  override def gigaMetresNum: Double = kiloMetresNum / 1000000
-  override def +(operand: Length): KiloMetres = KiloMetres(kMetresNum = operand.kiloMetresNum)
-  override def -(operand: Length): KiloMetres = KiloMetres(kiloMetresNum - operand.kiloMetresNum)
-  override def unary_- : KiloMetres = KiloMetres(-kiloMetresNum)
-  override def *(operand: Double): KiloMetres = KiloMetres(kiloMetresNum * operand)
-  override def /(operand: Double): KiloMetres = KiloMetres(kiloMetresNum / operand)
-  override def max(operand: MetricLength): KiloMetres = KiloMetres(kiloMetresNum.max(operand.kiloMetresNum))
-  override def min(operand: MetricLength): KiloMetres = KiloMetres(kiloMetresNum.min(operand.kiloMetresNum))
+final class Kilometres(val kilometresNum: Double) extends AnyVal with MetricLength
+{ def typeStr: String = "Kilometres"
+  override def compare(that: Length): Int = kilometresNum.compare(that.kilometresNum)
+  override def metresNum: Double = kilometresNum * 1000
+  override def megametresNum: Double = kilometresNum / 1000
+  override def gigametresNum: Double = kilometresNum / 1000000
+  override def +(operand: Length): Kilometres = Kilometres(kilometresNum = operand.kilometresNum)
+  override def -(operand: Length): Kilometres = Kilometres(kilometresNum - operand.kilometresNum)
+  override def unary_- : Kilometres = Kilometres(-kilometresNum)
+  override def *(operand: Double): Kilometres = Kilometres(kilometresNum * operand)
+  override def /(operand: Double): Kilometres = Kilometres(kilometresNum / operand)
+  override def max(operand: MetricLength): Kilometres = Kilometres(kilometresNum.max(operand.kilometresNum))
+  override def min(operand: MetricLength): Kilometres = Kilometres(kilometresNum.min(operand.kilometresNum))
 }
 
-object KiloMetres
+object Kilometres
 { /** Factory apply method for kilometres. */
-  def apply(kMetresNum: Double): KiloMetres = new KiloMetres(kMetresNum)
+  def apply(kilometresNum: Double): Kilometres = new Kilometres(kilometresNum)
+
+  val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
+  { override def typeStr: String = "Kilometres"
+
+    override def fromExpr(expr: Expr): EMon[Kilometres] = expr match
+    { case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Good(Kilometres(dh.num))
+      case _ => bad1(expr, "Kilometre not found")
+    }
+  }
 }
 
 /** Measurement of [[Length]] in Megametres. can be negative. */
-final class MegaMetres(val megaMetresNum: Double) extends AnyVal with MetricLength
-{ def typeStr: String = "MegaMetres"
-  override def compare(that: Length): Int = megaMetresNum.compare(that.megaMetresNum)
-  override def metresNum: Double = megaMetresNum * 1000000
-  override def kiloMetresNum: Double = megaMetresNum * 1000
-  override def gigaMetresNum: Double = megaMetresNum / 1000
-  override def +(operand: Length): MegaMetres = MegaMetres(kMetresNum = operand.megaMetresNum)
-  override def -(operand: Length): MegaMetres = MegaMetres(megaMetresNum - operand.megaMetresNum)
-  override def unary_- : MegaMetres = MegaMetres(-megaMetresNum)
-  override def *(operand: Double): MegaMetres = MegaMetres(megaMetresNum * operand)
-  override def /(operand: Double): MegaMetres = MegaMetres(megaMetresNum / operand)
-  override def max(operand: MetricLength): MegaMetres = MegaMetres(megaMetresNum.max(operand.megaMetresNum))
-  override def min(operand: MetricLength): MetricLength = MegaMetres(megaMetresNum.min(operand.megaMetresNum))
+final class Megametres(val megametresNum: Double) extends AnyVal with MetricLength
+{ def typeStr: String = "Megametres"
+  override def compare(that: Length): Int = megametresNum.compare(that.megametresNum)
+  override def metresNum: Double = megametresNum * 1000000
+  override def kilometresNum: Double = megametresNum * 1000
+  override def gigametresNum: Double = megametresNum / 1000
+  override def +(operand: Length): Megametres = Megametres(megametresNum = operand.megametresNum)
+  override def -(operand: Length): Megametres = Megametres(megametresNum - operand.megametresNum)
+  override def unary_- : Megametres = Megametres(-megametresNum)
+  override def *(operand: Double): Megametres = Megametres(megametresNum * operand)
+  override def /(operand: Double): Megametres = Megametres(megametresNum / operand)
+  override def max(operand: MetricLength): Megametres = Megametres(megametresNum.max(operand.megametresNum))
+  override def min(operand: MetricLength): MetricLength = Megametres(megametresNum.min(operand.megametresNum))
 }
 
-object MegaMetres
-{ /** Factory apply method for megametres. */
-  def apply(kMetresNum: Double): MegaMetres = new MegaMetres(kMetresNum)
+object Megametres
+{ /** Factory apply method for [[Megametres]]. */
+  def apply(megametresNum: Double): Megametres = new Megametres(megametresNum)
 }
 
 /** Measurement of [[Length]] in Gigametres. can be negative. */
-final class GigaMetres(val gigaMetresNum: Double) extends AnyVal with MetricLength
-{ def typeStr: String = "Metres"
+final class GigaMetres(val gigametresNum: Double) extends AnyVal with MetricLength
+{ def typeStr: String = "Gigametres"
 
-  override def compare(that: Length): Int = gigaMetresNum.compare(that.gigaMetresNum)
+  override def compare(that: Length): Int = gigametresNum.compare(that.gigametresNum)
 
-  override def metresNum: Double = gigaMetresNum * 1000000000
-  override def kiloMetresNum: Double = gigaMetresNum * 1000000
-  override def megaMetresNum: Double = gigaMetresNum * 1000
+  override def metresNum: Double = gigametresNum * 1000000000
+  override def kilometresNum: Double = gigametresNum * 1000000
+  override def megametresNum: Double = gigametresNum * 1000
 
-  override def +(operand: Length): GigaMetres = GigaMetres(gigaMetresNum = operand.gigaMetresNum)
-  override def -(operand: Length): GigaMetres = GigaMetres(gigaMetresNum - operand.gigaMetresNum)
-  override def unary_- : GigaMetres = GigaMetres(-gigaMetresNum)
-  override def *(operand: Double): GigaMetres = GigaMetres(gigaMetresNum * operand)
-  override def /(operand: Double): GigaMetres = GigaMetres(gigaMetresNum / operand)
-  override def max(operand: MetricLength): GigaMetres = GigaMetres(gigaMetresNum.max(operand.gigaMetresNum))
-  override def min(operand: MetricLength): MetricLength = GigaMetres(gigaMetresNum.min(operand.gigaMetresNum))
+  override def +(operand: Length): GigaMetres = GigaMetres(gigametresNum = operand.gigametresNum)
+  override def -(operand: Length): GigaMetres = GigaMetres(gigametresNum - operand.gigametresNum)
+  override def unary_- : GigaMetres = GigaMetres(-gigametresNum)
+  override def *(operand: Double): GigaMetres = GigaMetres(gigametresNum * operand)
+  override def /(operand: Double): GigaMetres = GigaMetres(gigametresNum / operand)
+  override def max(operand: MetricLength): GigaMetres = GigaMetres(gigametresNum.max(operand.gigametresNum))
+  override def min(operand: MetricLength): MetricLength = GigaMetres(gigametresNum.min(operand.gigametresNum))
 }
 
 object GigaMetres
-{ /** Factory apply method for gigametres. */
-  def apply(gigaMetresNum: Double): GigaMetres = new GigaMetres(gigaMetresNum)
+{ /** Factory apply method for [[Gigametres]]. */
+  def apply(gigametresNum: Double): GigaMetres = new GigaMetres(gigametresNum)
 }

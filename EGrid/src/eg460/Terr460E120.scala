@@ -57,7 +57,7 @@ object Terr460E120 extends Long460Terrs
 
     VRow(97, OrigRt(4594, HVUR), BendIn(4596, HVUL), OrigMax(4600, HVDR), Orig(4602, HVUL, 6, 7), OrigLt(4620, HVDR), BendOut(4622, HVDL, 7)),
     TRow(96, hillyJungle * 2),
-    VRow(95, BendIn(4622, HVUR, 13), OrigRt(4624, HVDR)),
+    VRow(95, OrigLt(4594, HVDR, 7), BendIn(4596, HVUp, 13), BendMin(4598, HVDn, 4), OrigRt(4600, HVUL, 7), BendIn(4622, HVUR, 13), OrigRt(4624, HVDR)),
     TRow(94, sea * 4, Isle7(mtainJungle)),
     )
   }
@@ -66,6 +66,7 @@ object Terr460E120 extends Long460Terrs
   { import hexNames.{ setRow => str}
     str(114, "" * 3, "Taiwan")
     str(106, "" * 4, "Samar")
+    str(96, "Java west", "Java east")
     str(94, "" * 4, "Timor")
   }
 }
