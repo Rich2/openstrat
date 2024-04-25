@@ -7,13 +7,10 @@ final class PtKm2(val xKilometresNum: Double, val yKilometresNum: Double) extend
 { override type ThisT = PtKm2
   override type LineSegT = LineSegKm2
   override def typeStr: String = ???
-
   override def slate(operand: PtLength2): PtLength2 = ???
   override def slateFrom(operand: PtLength2): PtLength2 = ???
-
   override def +(operand: VecLength2): PtLength2 = ???
   override def -(operand: VecLength2): PtLength2 = ???
-
   override def addXY(otherX: Length, otherY: Length): PtLength2 = ???
   override def subXY(otherX: Length, otherY: Length): PtLength2 = ???
   override def addX(operand: Length): PtLength2 = ???
@@ -28,9 +25,8 @@ final class PtKm2(val xKilometresNum: Double, val yKilometresNum: Double) extend
   override def rotate180: PtLength2 = ???
   override def rotate180If(cond: Boolean): PtLength2 = ???
   override def rotate180IfNot(cond: Boolean): PtLength2 = ???
-
+  override def rotate(a: AngleVec): PtLength2 = ???
+  override def rotateRadians(r: Double): PtLength2 = ???
   override def lineSegTo(endPt: PtKm2): LineSegKm2 = ???
   override def lineSegFrom(startPt: PtKm2): LineSegKm2 = ???
-
-
 }

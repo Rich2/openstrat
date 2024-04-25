@@ -12,7 +12,6 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def slateFrom(operand: PtLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def + (operand: VecLength2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
-
   override def addXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
   override def addX(operand: Length): PtM2 = new PtM2(xMetresNum + operand.metresNum, y.metresNum)
@@ -25,14 +24,11 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
   override def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
-
-  /** Rotates th point 180 degrees around the origin if the condition is true. */
   override def rotate180If(cond: Boolean): PtM2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtM2 = ife(cond, this, rotate180)
+  override def rotate(a: AngleVec): PtM2 =  PtM2.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
-  def rotate(a: AngleVec): PtM2 =  PtM2.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
-
-  def rotateRadians(r: Double): PtM2 =
+  override def rotateRadians(r: Double): PtM2 =
   { val newX = xMetresNum * cos(r) - yMetresNum * sin(r)
     val newY =
     { val ya = xMetresNum * sin(r)
@@ -41,9 +37,6 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
     }
     PtM2.metresNum(newX, newY)
   }
-
-  /** Currently not working for angles greater than Pi / 2 */
-  //def toLatLong: LatLong = LatLong.radians(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
 
   override def lineSegTo(endPt: PtM2): LineSegM2 = LineSegM2(this, endPt)
   override def lineSegFrom(startPt: PtM2): LineSegM2 = LineSegM2(startPt, this)

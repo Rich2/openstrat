@@ -27,4 +27,8 @@ trait PtLength2 extends VecPtLength2 with PointDbl2
 
   /** Rotates th point 180 degrees around the origin if the condition is false. */
   def rotate180IfNot(cond: Boolean): PtLength2
+
+  def rotate(a: AngleVec): PtLength2
+
+  def rotateRadians(r: Double): PtLength2
 }
