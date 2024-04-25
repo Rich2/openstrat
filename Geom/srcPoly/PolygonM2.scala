@@ -8,7 +8,7 @@ final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with Polygo
   type SideT = LineSegM2
   override def typeStr: String = "PolygonM2"
   def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
-  override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
+  override def ssElem(d1: Double, d2: Double): PtM2 = PtM2.metresNum(d1, d2)
   override def fElemStr: PtM2 => String = _.toString
   override def verts: PtM2Arr = new PtM2Arr(arrayUnsafe)
 
