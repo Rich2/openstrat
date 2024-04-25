@@ -2,9 +2,8 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
-
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
-final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with VecM2Like with PointDbl2 with TellElemDbl2
+final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with VecM2Like with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "PtM2"
@@ -16,12 +15,12 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLengt
 
   override def addXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
-  override def addX(operand: Length): PtM2 = PtM2.metresNum(xMetresNum + operand.metresNum, y.metresNum)
-  def addY(operand: Metres): PtM2 = PtM2(x, y + operand)
-  def subX(operand: Metres): PtM2 = PtM2(x - operand, y)
-  def subY(operand: Metres): PtM2 = PtM2(x, y - operand)
-  def * (operand: Double): PtM2 = PtM2(x * operand, y * operand)
-  def / (operator: Double): PtM2 = PtM2(x / operator, y / operator)
+  override def addX(operand: Length): PtM2 = new PtM2(xMetresNum + operand.metresNum, y.metresNum)
+  override def addY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum + operand.metresNum)
+  override def subX(operand: Length): PtM2 = new PtM2(xMetresNum - operand.metresNum, yMetresNum)
+  override def subY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum - operand.metresNum)
+  override def * (operand: Double): PtM2 = new PtM2(xMetresNum * operand, yMetresNum * operand)
+  override def / (operator: Double): PtM2 = new PtM2(xMetresNum / operator, yMetresNum / operator)
   def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
@@ -105,7 +104,7 @@ class PtM2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtM2]
 { type ThisT = PtM2Arr
   override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
   override def typeStr: String = "Metres2s"
-  override def seqDefElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): PtM2 = PtM2.metresNum(d1, d2)
   override def fElemStr: PtM2 => String = _.str
 }
 
@@ -124,7 +123,7 @@ object PtM2Arr extends CompanionSeqLikeDbl2[PtM2, PtM2Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */
 final class BuffPtM2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2[PtM2]
 { override def typeStr: String = "BuffPtMetre2"
-  def newElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
+  def newElem(d1: Double, d2: Double): PtM2 = PtM2.metresNum(d1, d2)
 }
 
 object BuffPtM2
