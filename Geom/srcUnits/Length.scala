@@ -151,7 +151,7 @@ object Megametres
 }
 
 /** Measurement of [[Length]] in Gigametres. can be negative. */
-final class GigaMetres(val gigametresNum: Double) extends AnyVal with MetricLength
+final class Gigametres(val gigametresNum: Double) extends AnyVal with MetricLength
 { def typeStr: String = "Gigametres"
 
   override def compare(that: Length): Int = gigametresNum.compare(that.gigametresNum)
@@ -160,16 +160,16 @@ final class GigaMetres(val gigametresNum: Double) extends AnyVal with MetricLeng
   override def kilometresNum: Double = gigametresNum * 1000000
   override def megametresNum: Double = gigametresNum * 1000
 
-  override def +(operand: Length): GigaMetres = GigaMetres(gigametresNum = operand.gigametresNum)
-  override def -(operand: Length): GigaMetres = GigaMetres(gigametresNum - operand.gigametresNum)
-  override def unary_- : GigaMetres = GigaMetres(-gigametresNum)
-  override def *(operand: Double): GigaMetres = GigaMetres(gigametresNum * operand)
-  override def /(operand: Double): GigaMetres = GigaMetres(gigametresNum / operand)
-  override def max(operand: MetricLength): GigaMetres = GigaMetres(gigametresNum.max(operand.gigametresNum))
-  override def min(operand: MetricLength): MetricLength = GigaMetres(gigametresNum.min(operand.gigametresNum))
+  override def +(operand: Length): Gigametres = Gigametres(gigametresNum = operand.gigametresNum)
+  override def -(operand: Length): Gigametres = Gigametres(gigametresNum - operand.gigametresNum)
+  override def unary_- : Gigametres = Gigametres(-gigametresNum)
+  override def *(operand: Double): Gigametres = Gigametres(gigametresNum * operand)
+  override def /(operand: Double): Gigametres = Gigametres(gigametresNum / operand)
+  override def max(operand: MetricLength): Gigametres = Gigametres(gigametresNum.max(operand.gigametresNum))
+  override def min(operand: MetricLength): MetricLength = Gigametres(gigametresNum.min(operand.gigametresNum))
 }
 
-object GigaMetres
+object Gigametres
 { /** Factory apply method for [[Gigametres]]. */
-  def apply(gigametresNum: Double): GigaMetres = new GigaMetres(gigametresNum)
+  def apply(gigametresNum: Double): Gigametres = new Gigametres(gigametresNum)
 }

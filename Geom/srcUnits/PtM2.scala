@@ -2,11 +2,15 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
-trait PtLength2 {
+trait PtLength2
+{
   def xMetresNum: Double
   def yMetresNum: Double
   def xKiloMetresNum: Double
   def yKiloMetresNum: Double
+
+  def addXY (otherX: Length, otherY: Length): PtLength2
+  def subXY (otherX: Length, otherY: Length): PtLength2
 }
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
@@ -25,10 +29,10 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLengt
 
   override def tell1: Double = xMetresNum
   override def tell2: Double = yMetresNum
-  def + (op: Vec2M): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
+  def + (op: VecM2): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
   def - (op: PtM2): PtM2 = PtM2(x - op.x, y - op.y)
-  def addXY (otherX: Metres, otherY: Metres): PtM2 = PtM2(x + otherX, y + otherY)
-  def subXY (otherX: Metres, otherY: Metres): PtM2 = PtM2(x - otherX, y - otherY)
+  override def addXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
+  override def subXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
   def addX(adj: Metres): PtM2 = PtM2(x + adj, y)
   def addY(adj: Metres): PtM2 = PtM2(x, y + adj)
   def subX(adj: Metres): PtM2 = PtM2(x - adj, y)

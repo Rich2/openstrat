@@ -39,16 +39,22 @@ class MetresSq(val metresSqNum: Double) extends AnyVal with AreaMetric
   override def kiloMetresSqNum: Double = metresSqNum / 1000000
 }
 
+object MetresSq
+{
+  /** Factory apply method for constructing measurement of areas specified in square metres. */
+  def apply(metresSqNum: Double): MetresSq = new MetresSq(metresSqNum)
+}
+
 /** Square kilometres a measure of [[Area]]. */
-class KiloMetresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric
-{ override def +(op: AreaMetric): KiloMetresSq = KiloMetresSq(kiloMetresSqNum + op.kiloMetresSqNum)
-  override def -(op: AreaMetric): KiloMetresSq = KiloMetresSq(kiloMetresSqNum - op.kiloMetresSqNum)
-  override def * (operand: Double): KiloMetresSq = new KiloMetresSq(kiloMetresSqNum * operand)
-  override def / (operand: Double): KiloMetresSq = new KiloMetresSq(kiloMetresSqNum / operand)
+class KilometresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric
+{ override def +(op: AreaMetric): KilometresSq = KilometresSq(kiloMetresSqNum + op.kiloMetresSqNum)
+  override def -(op: AreaMetric): KilometresSq = KilometresSq(kiloMetresSqNum - op.kiloMetresSqNum)
+  override def * (operand: Double): KilometresSq = new KilometresSq(kiloMetresSqNum * operand)
+  override def / (operand: Double): KilometresSq = new KilometresSq(kiloMetresSqNum / operand)
   override def metresSqNum: Double = kiloMetresSqNum * 1000000
 }
 
-object KiloMetresSq
+object KilometresSq
 { /** Factory apply method for creating units of square kilometres. */
-  def apply(kMetresSqNum: Double): KiloMetresSq = new KiloMetresSq(kMetresSqNum)
+  def apply(kMetresSqNum: Double): KilometresSq = new KilometresSq(kMetresSqNum)
 }

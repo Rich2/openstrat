@@ -10,6 +10,9 @@ final class PtKM2(val xKiloMetresNum: Double, val yKiloMetresNum: Double) extend
   override def xMetresNum: Double = xKiloMetresNum * 1000
   override def yMetresNum: Double = yKiloMetresNum * 1000
 
+  override def addXY(otherX: Length, otherY: Length): PtLength2 = ???
+  override def subXY(otherX: Length, otherY: Length): PtLength2 = ???
+
   /** Element 1 of this Tell2+ element product. */
   override def tell1: Double = ???
 

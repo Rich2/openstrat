@@ -4,20 +4,20 @@ import geom._, Colour._
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mercury_(planet)">Mercury</a>. */
 object Mercury extends Planet
-{ override val avSunDist: GigaMetres = 57.909175.gigaMetres
+{ override val avSunDist: Gigametres = 57.909175.gigaMetres
   override val name: String = "Mercury"
   override def colour: Colour = Colour.LightGray
 }
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Venus_(planet)">Venus</a>. */
 object Venus extends Planet
-{ override val avSunDist: GigaMetres = 108.208930.gigaMetres
+{ override val avSunDist: Gigametres = 108.208930.gigaMetres
   override val name: String = "Venus"
   override def colour: Colour = White
 }
 
 object Earth extends Planet
-{ override val avSunDist: GigaMetres = 149.597890.gigaMetres// 93.01.megaMiles.toMetres
+{ override val avSunDist: Gigametres = 149.597890.gigaMetres// 93.01.megaMiles.toMetres
   override val name: String = "Earth"
   override def colour: Colour = Blue
 
@@ -30,13 +30,13 @@ object Earth extends Planet
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mars_(planet)">Mars</a>. */
 object Mars extends Planet
-{ override val avSunDist: GigaMetres = 227.936640.gigaMetres
+{ override val avSunDist: Gigametres = 227.936640.gigaMetres
   override val name: String = "Mars"
   override def colour: Colour = Red
 }
 
 object Jupiter extends Planet
-{ override val avSunDist: GigaMetres = 778.412010.gigaMetres
+{ override val avSunDist: Gigametres = 778.412010.gigaMetres
   override val name: String = "Jupiter"
   override def colour: Colour = LightSalmon
 }
