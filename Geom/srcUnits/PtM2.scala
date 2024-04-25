@@ -2,40 +2,13 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
-/** A 2 dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
-trait PtLength2
-{
-  def xMetresNum: Double
-  def yMetresNum: Double
-  def xKiloMetresNum: Double
-  def yKiloMetresNum: Double
-  def slate(operand: PtLength2): PtLength2
-  def slateFrom(operand: PtLength2): PtLength2
-  def + (operand: VecLength2): PtLength2
-  def - (operand: VecLength2): PtLength2
-  def addXY (otherX: Length, otherY: Length): PtLength2
-  def subXY (otherX: Length, otherY: Length): PtLength2
-  def addX(operand: Length): PtLength2
-}
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
-final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with PointDbl2 with TellElemDbl2
+final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with VecM2Like with PointDbl2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "PtM2"
 
-  /** The X axis component of this point. */
-  def x: Metres = Metres(xMetresNum)
-
-  /** The Y axis component of this point. */
-  def y: Metres = Metres(yMetresNum)
-
-  override def name1: String = "x"
-  override def name2: String = "y"
-  override def tell1: Double = xMetresNum
-  override def tell2: Double = yMetresNum
-  override def xKiloMetresNum: Double = xMetresNum / 1000
-  override def yKiloMetresNum: Double = yMetresNum / 1000
   override def slate(operand: PtLength2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def slateFrom(operand: PtLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def + (operand: VecLength2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
@@ -74,11 +47,6 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLengt
 
   /** Currently not working for angles greater than Pi / 2 */
   //def toLatLong: LatLong = LatLong.radians(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
-
-  def xPos: Boolean = x.pos
-  def xNeg: Boolean = x.neg
-  def yPos: Boolean = y.pos
-  def yNeg: Boolean = y.neg
 
   /** [[LineSegM2]] from this point to the parameter point. */
   override def lineSegTo(endPt: PtM2): LineSegM2 = LineSegM2(this, endPt)

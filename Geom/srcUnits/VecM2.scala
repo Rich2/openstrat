@@ -2,27 +2,8 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-trait VecLength2
-{
-  def xMetresNum: Double
-  def yMetresNum: Double
-  def xKilometresNum: Double
-  def yKilometresNum: Double
-  def + (op: VecLength2): VecLength2
-  def - (operand: VecLength2): VecLength2
-  def * (operator: Double): VecLength2
-  def / (operator: Double): VecLength2
-  def magnitude: Length
-
-  /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: VecLength2): Area
-}
-
-/** A 2 dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecLength2 with TellElemDbl2
-{ override def typeStr: String = "VecM2"
-
-  /** The X component of this 2 dimensional [[Metres]] vector. */
+trait VecM2Like extends VecLength2Like
+{ /** The X component of this 2 dimensional [[Metres]] vector. */
   def x: Metres = Metres(xMetresNum)
 
   /** The Y component of this 2 dimensional [[Metres]] vector. */
@@ -30,10 +11,17 @@ final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extend
 
   override def xKilometresNum: Double = xMetresNum / 1000
   override def yKilometresNum: Double = yMetresNum / 1000
-  override def name1: String = "x"
-  override def name2: String = "y"
   override def tell1: Double = xMetresNum
   override def tell2: Double = yMetresNum
+  override def xPos: Boolean = x.pos
+  override def xNeg: Boolean = x.neg
+  override def yPos: Boolean = y.pos
+  override def yNeg: Boolean = y.neg
+}
+
+/** A 2 dimensional vector specified in metres as units rather than pure scalar numbers. */
+final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extends VecLength2 with VecM2Like
+{ override def typeStr: String = "VecM2"
   override def + (operand: VecLength2): VecM2 = new VecM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLength2): VecM2 = new VecM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def * (operator: Double): VecM2 = new VecM2(xMetresNum * operator, yMetresNum * operator)

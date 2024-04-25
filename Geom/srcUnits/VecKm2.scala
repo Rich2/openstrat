@@ -2,11 +2,9 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A 2 dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecLength2 with TellElemDbl2
-{ override def typeStr: String = "VecKm2"
-
-  /** The X component of this 2 dimensional [[Metres]] vector. */
+/** Common trait for [[VecKm2]] and [[PtKm2]] */
+trait VecKm2Like extends VecLength2Like
+{ /** The X component of this 2 dimensional [[Metres]] vector. */
   def x: Kilometres = Kilometres(xKilometresNum)
 
   /** The Y component of this 2 dimensional [[Metres]] vector. */
@@ -14,10 +12,18 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
 
   override def xMetresNum: Double = xKilometresNum * 1000
   override def yMetresNum: Double = yKilometresNum * 1000
-  override def name1: String = "x"
-  override def name2: String = "y"
   override def tell1: Double = xKilometresNum
   override def tell2: Double = yKilometresNum
+  override def xPos: Boolean = xKilometresNum >= 0
+  override def xNeg: Boolean = xKilometresNum <= 0
+  override def yPos: Boolean = yKilometresNum >= 0
+  override def yNeg: Boolean = yKilometresNum <= 0
+}
+
+/** A 2 dimensional vector specified in metres as units rather than pure scalar numbers. */
+final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecKm2Like with VecLength2// with TellElemDbl2
+{ override def typeStr: String = "VecKm2"
+
   override def + (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)
   override def - (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def * (operator: Double): VecKm2 = new VecKm2(xKilometresNum * operator, yKilometresNum * operator)
