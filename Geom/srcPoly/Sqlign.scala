@@ -21,7 +21,7 @@ final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square with R
   override def width2: Double = width
   override def height: Double = width
   override def rotation: AngleVec = 0.degsVec
-  override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen.slate(offset))
+  override def slate(offset: VecPt2): Sqlign = Sqlign(width, cen.slate(offset))
 
   override def slateXY(xDelta: Double, yDelta: Double): Sqlign = Sqlign(width, cenX + xDelta, cenY + yDelta)
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen.scale(operand))

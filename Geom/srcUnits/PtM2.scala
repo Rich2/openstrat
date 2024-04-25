@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
-final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with VecM2Like with TellElemDbl2
+final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with VecPtM2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "PtM2"
@@ -21,7 +21,9 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def subY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum - operand.metresNum)
   override def * (operand: Double): PtM2 = new PtM2(xMetresNum * operand, yMetresNum * operand)
   override def / (operator: Double): PtM2 = new PtM2(xMetresNum / operator, yMetresNum / operator)
-  def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
+  override def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
+  override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
+  override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
   def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
@@ -53,8 +55,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   /** [[LinSegM]] from the parameter point to this point. */
   override def lineSegFrom(startPt: PtM2): LineSegM2 = LineSegM2(startPt, this)
 
-  def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
-  def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
+
 }
 
 /** Companion object for [[PtM2]] class contains factory methods. */

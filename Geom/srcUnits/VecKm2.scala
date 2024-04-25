@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Common trait for [[VecKm2]] and [[PtKm2]] */
-trait VecKm2Like extends VecLength2Like
+trait VecPtKm2 extends VecPtLength2
 { /** The X component of this 2 dimensional [[Metres]] vector. */
   def x: Kilometres = Kilometres(xKilometresNum)
 
@@ -21,7 +21,7 @@ trait VecKm2Like extends VecLength2Like
 }
 
 /** A 2 dimensional vector specified in metres as units rather than pure scalar numbers. */
-final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecKm2Like with VecLength2// with TellElemDbl2
+final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2 with VecLength2// with TellElemDbl2
 { override def typeStr: String = "VecKm2"
 
   override def + (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum + operand.xKilometresNum, yKilometresNum + operand.yKilometresNum)

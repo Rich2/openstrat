@@ -5,7 +5,7 @@ import reflect.ClassTag
 /** The type class trait for transforming an object in 2d geometry. Note overrides necessary to preserve type. */
 trait AffineTrans[T] extends TransSim[T]
 { def trans(obj: T, f: Pt2 => Pt2):  T
-  override def slate(obj: T, offset: Vec2Like): T = trans(obj, _.slate(offset))
+  override def slate(obj: T, offset: VecPt2): T = trans(obj, _.slate(offset))
   override def scale(obj: T, operand: Double): T = trans(obj, _.scale(operand))
   def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Pt2(v.x * yScale, v.y * xScale))
   override def rotate(obj: T, angle: AngleVec): T = trans(obj, _.rotate(angle))

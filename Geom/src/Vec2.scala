@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer, math.{Pi, atan}
 /** A 2 dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed
  * to the absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points.
  * Thanks to René Descartes for this great idea. */
-class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
+class Vec2(val x: Double, val y: Double) extends VecPt2 with ApproxDbl
 { override def typeStr: String = "Vec2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
 

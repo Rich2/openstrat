@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
-trait Vec2Like extends Any with TellElemDbl2 with ApproxDbl
+trait VecPt2 extends Any with TellElemDbl2 with ApproxDbl
 { /** The x component of this 2D vector / point. */
   def x: Double
 
@@ -14,26 +14,26 @@ trait Vec2Like extends Any with TellElemDbl2 with ApproxDbl
   @inline final override def tell1: Double = x
   @inline final override def tell2: Double = y
 
-  def yScale(factor: Double): Vec2Like
-  def xScale(factor: Double): Vec2Like
-  def xyScale(xOperand: Double, yOperand: Double): Vec2Like
-  
-  @inline def scale(factor: Double): Vec2Like
+  def yScale(factor: Double): VecPt2
+  def xScale(factor: Double): VecPt2
+  def xyScale(xOperand: Double, yOperand: Double): VecPt2
+
+  @inline def scale(factor: Double): VecPt2
 
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
-  @inline def rotate90: Vec2Like
+  @inline def rotate90: VecPt2
 
   /** Rotates the vector 180 degrees or Pi radians. */
-  @inline def rotate180: Vec2Like
+  @inline def rotate180: VecPt2
 
   /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
-  @inline def rotate270: Vec2Like
+  @inline def rotate270: VecPt2
 
   /** Rotates this vector through the given angle around the origin. */
-  def rotate(a: AngleVec): Vec2Like
+  def rotate(a: AngleVec): VecPt2
 
   /** The dot product of this and the operand vector. */
-  @inline def dot(operand: Vec2Like): Double = x * operand.x + y * operand.y
+  @inline def dot(operand: VecPt2): Double = x * operand.x + y * operand.y
 
   def toPair: (Double, Double) = (x, y)
 

@@ -1,7 +1,8 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait VecLength2Like extends TellElemDbl2
+/** Common base trait fro [[VecLength2]] and [[PtLength2]]. */
+trait VecPtLength2 extends TellElemDbl2
 {
   override def name1: String = "x"
   override def name2: String = "y"
@@ -15,7 +16,7 @@ trait VecLength2Like extends TellElemDbl2
   def yNeg: Boolean
 }
 
-trait VecLength2 extends VecLength2Like
+trait VecLength2 extends VecPtLength2
 { def + (op: VecLength2): VecLength2
   def - (operand: VecLength2): VecLength2
   def * (operator: Double): VecLength2

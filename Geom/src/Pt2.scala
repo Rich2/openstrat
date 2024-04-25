@@ -5,7 +5,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, a
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
  *  can be used to translate the point. */
-final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
+final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2
 { override type ThisT = Pt2
   override type LineSegT = LineSeg
   override def typeStr: String = "Pt2"
@@ -61,13 +61,13 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
-  def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
+  def slate(operand: VecPt2): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** 2D geometric translation transformation on this [[Pt2]], returns a new [[Pt2]] measured from the operand as new origin. */
-  def slateFrom(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
+  def slateFrom(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
-  def origin(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
+  def origin(operand: VecPt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
   def xyOrigin(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)

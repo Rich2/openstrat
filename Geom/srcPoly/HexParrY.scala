@@ -26,7 +26,7 @@ final class HexParrY(val arrayUnsafe: Array[Double]) extends Hexlign with Tell2[
   override def vertsTrans(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(unsafeMap(f))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slate(delta: Vec2Like): HexParrY = vertsTrans(_.slate(delta))
+  override def slate(delta: VecPt2): HexParrY = vertsTrans(_.slate(delta))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def slateXY(xDelta: Double, yDelta: Double): HexParrY = vertsTrans(_.xySlate(xDelta, yDelta))

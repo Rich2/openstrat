@@ -59,7 +59,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2S
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2Like): PolygonGen = map(_.slate(offset))
+  override def slate(offset: VecPt2): PolygonGen = map(_.slate(offset))
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */

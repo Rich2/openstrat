@@ -143,7 +143,7 @@ trait Polygon extends Any with Shape with BoundedElem with Approx[Double] with P
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  def slate(offset: Vec2Like): Polygon = map(_.slate(offset))
+  def slate(offset: VecPt2): Polygon = map(_.slate(offset))
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
    *  return type of this method will be narrowed further in descendant traits / classes. */

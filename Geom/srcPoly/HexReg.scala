@@ -28,7 +28,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Tell
 
   /** A Hexagon has 6 vertices. */
   final override def numVerts: Int = 6
-  override def slate(delta: Vec2Like): HexReg = mapHexReg(_.slate(delta))
+  override def slate(delta: VecPt2): HexReg = mapHexReg(_.slate(delta))
   override def slateXY(xDelta: Double, yDelta: Double): HexReg = mapHexReg(_.addXY(xDelta, yDelta))
   override def scale(operand: Double): HexReg = mapHexReg(_.scale(operand))
   override def negY: HexReg = HexReg.fromArray(unsafeNegY)

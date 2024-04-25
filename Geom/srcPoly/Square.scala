@@ -15,7 +15,7 @@ trait Square extends Rectangle
   override def vertsTrans(f: Pt2 => Pt2): Square = Square.fromArray(unsafeMap(f))
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Vec2Like): Square = vertsTrans(_.slate(offset))
+  override def slate(offset: VecPt2): Square = vertsTrans(_.slate(offset))
 
   /** Translate geometric transformation on a Square returns a Square. */
   override def slateXY(xDelta: Double, yDelta: Double): Square = vertsTrans(_.addXY(xDelta, yDelta))

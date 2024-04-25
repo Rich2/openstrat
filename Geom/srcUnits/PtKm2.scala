@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** A 2 dimensional point specified in [[Kilometres]] as units rather than pure scalar numbers. */
-final class PtKm2(val xKilometresNum: Double, val yKilometresNum: Double) extends VecKm2Like with PtLength2
+final class PtKm2(val xKilometresNum: Double, val yKilometresNum: Double) extends VecPtKm2 with PtLength2
 { override type ThisT = PtKm2
   override type LineSegT = LineSegKm2
   override def typeStr: String = ???
@@ -22,8 +22,12 @@ final class PtKm2(val xKilometresNum: Double, val yKilometresNum: Double) extend
   override def subY(operand: Length): PtLength2 = ???
   override def *(operand: Double): PtLength2 = ???
   override def /(operator: Double): PtLength2 = ???
+  override def revY: PtLength2 = ???
+  override def revYIf(cond: Boolean): PtLength2 = ???
+  override def magnitude: Length = ???
 
   override def lineSegTo(endPt: PtKm2): LineSegKm2 = ???
-
   override def lineSegFrom(startPt: PtKm2): LineSegKm2 = ???
+
+
 }
