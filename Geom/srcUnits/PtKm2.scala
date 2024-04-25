@@ -25,6 +25,9 @@ final class PtKm2(val xKilometresNum: Double, val yKilometresNum: Double) extend
   override def revY: PtLength2 = ???
   override def revYIf(cond: Boolean): PtLength2 = ???
   override def magnitude: Length = ???
+  override def rotate180: PtLength2 = ???
+  override def rotate180If(cond: Boolean): PtLength2 = ???
+  override def rotate180IfNot(cond: Boolean): PtLength2 = ???
 
   override def lineSegTo(endPt: PtKm2): LineSegKm2 = ???
   override def lineSegFrom(startPt: PtKm2): LineSegKm2 = ???
