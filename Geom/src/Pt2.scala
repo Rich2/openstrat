@@ -63,6 +63,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
   def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
+  /** 2D geometric translation transformation on this [[Pt2]], returns a new [[Pt2]] measured from the operand as new origin. */
+  def slateFrom(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
+
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
   def origin(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
 

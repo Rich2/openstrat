@@ -15,7 +15,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
   def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
 
   /** Translates a point from map position to Canvas Display position */
-  def toCanv(mapPoint: PtM2): Pt2 = (mapPoint - mapFocus) / scale
+  def toCanv(mapPoint: PtM2): Pt2 = mapPoint.slateFrom(mapFocus) / scale
 
   /** Translates an array of map points to an array of Canvas Display positions */
   def arrCanv(inp: PtM2Arr): Polygon = inp.mapPolygon(toCanv(_))

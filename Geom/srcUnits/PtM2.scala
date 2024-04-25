@@ -9,7 +9,10 @@ trait PtLength2
   def yMetresNum: Double
   def xKiloMetresNum: Double
   def yKiloMetresNum: Double
-
+  def slate(operand: PtLength2): PtLength2
+  def slateFrom(operand: PtLength2): PtLength2
+  def + (operand: VecLength2): PtLength2
+  def - (operand: VecLength2): PtLength2
   def addXY (otherX: Length, otherY: Length): PtLength2
   def subXY (otherX: Length, otherY: Length): PtLength2
   def addX(operand: Length): PtLength2
@@ -33,8 +36,11 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLengt
   override def tell2: Double = yMetresNum
   override def xKiloMetresNum: Double = xMetresNum / 1000
   override def yKiloMetresNum: Double = yMetresNum / 1000
-  def + (operand: VecM2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
-  def - (operand: PtM2): PtM2 = PtM2(x - operand.x, y - operand.y)
+  override def slate(operand: PtLength2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum - operand.yMetresNum)
+  override def slateFrom(operand: PtLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
+  override def + (operand: VecLength2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
+  override def - (operand: VecLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
+
   override def addXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
   override def addX(operand: Length): PtM2 = PtM2.metresNum(xMetresNum + operand.metresNum, y.metresNum)

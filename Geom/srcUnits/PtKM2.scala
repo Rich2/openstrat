@@ -10,6 +10,12 @@ final class PtKM2(val xKiloMetresNum: Double, val yKiloMetresNum: Double) extend
   override def xMetresNum: Double = xKiloMetresNum * 1000
   override def yMetresNum: Double = yKiloMetresNum * 1000
 
+  override def slate(operand: PtLength2): PtLength2 = ???
+  override def slateFrom(operand: PtLength2): PtLength2 = ???
+
+  override def +(operand: VecLength2): PtLength2 = ???
+  override def -(operand: VecLength2): PtLength2 = ???
+
   override def addXY(otherX: Length, otherY: Length): PtLength2 = ???
   override def subXY(otherX: Length, otherY: Length): PtLength2 = ???
 
