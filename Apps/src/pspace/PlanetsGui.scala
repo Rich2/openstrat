@@ -1,9 +1,9 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pspace
 import geom._, pgui._, Colour._, java.time._
 
 /** Simple Solar system model application. */
-case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with Length2Gui
+case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
 {
   val margin = 35
   var mapFocus: PtM2 = PtM2(0.metres, 0.metres)

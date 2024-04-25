@@ -43,7 +43,7 @@ trait FloatPtToken extends DeciFracToken
   def exp: Int = ife(expPos, expAbs, -expAbs)
 }
 
-/** Positive Floaiting point fractional number token. */
+/** Positive Floating point fractional number token. */
 final case class FloatPtPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, expPos: Boolean, expStr: String, trail: String) extends FloatPtToken
 { override def srcStr: String = dgs1 + "." + dgs2 + "e" + expStr
   override def exprName: String = "FloatPtPos"

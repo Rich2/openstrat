@@ -1,9 +1,16 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
+trait PtLength2 {
+  def xMetresNum: Double
+  def yMetresNum: Double
+  def xKiloMetresNum: Double
+  def yKiloMetresNum: Double
+}
+
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
-final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDbl2 with TellElemDbl2
+final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with PointDbl2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
   override def typeStr: String = "Pt2M"
@@ -11,6 +18,11 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDb
   override def name2: String = "y"
   def x: Metres = Metres(xMetresNum)
   def y: Metres = Metres(yMetresNum)
+
+  override def xKiloMetresNum: Double = ???
+
+  override def yKiloMetresNum: Double = ???
+
   override def tell1: Double = xMetresNum
   override def tell2: Double = yMetresNum
   def + (op: Vec2M): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)

@@ -2,9 +2,12 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
+trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
+
 /** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
-class LineSegM2(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLikeDbl4[PtM2] with Dbl4Elem
+class LineSegM2(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLength2[PtM2] with LineSegLikeDbl4[PtM2] with
+  Dbl4Elem
 { def xStart: Metres = Metres(xStartMetres)
   def yStart: Metres = Metres(yStartMetres)
   def xEnd: Metres = Metres(xEndMetres)
