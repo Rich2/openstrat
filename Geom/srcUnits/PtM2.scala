@@ -2,6 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
+/** A 2 dimensional point specified in units of [[Length]] rather than pure scalar numbers. */
 trait PtLength2
 {
   def xMetresNum: Double
@@ -11,35 +12,38 @@ trait PtLength2
 
   def addXY (otherX: Length, otherY: Length): PtLength2
   def subXY (otherX: Length, otherY: Length): PtLength2
+  def addX(operand: Length): PtLength2
 }
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
 final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with PointDbl2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
-  override def typeStr: String = "Pt2M"
-  override def name1: String = "x"
-  override def name2: String = "y"
+  override def typeStr: String = "PtM2"
+
+  /** The X axis component of this point. */
   def x: Metres = Metres(xMetresNum)
+
+  /** The Y axis component of this point. */
   def y: Metres = Metres(yMetresNum)
 
-  override def xKiloMetresNum: Double = ???
-
-  override def yKiloMetresNum: Double = ???
-
+  override def name1: String = "x"
+  override def name2: String = "y"
   override def tell1: Double = xMetresNum
   override def tell2: Double = yMetresNum
-  def + (op: VecM2): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
-  def - (op: PtM2): PtM2 = PtM2(x - op.x, y - op.y)
+  override def xKiloMetresNum: Double = xMetresNum / 1000
+  override def yKiloMetresNum: Double = yMetresNum / 1000
+  def + (operand: VecM2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
+  def - (operand: PtM2): PtM2 = PtM2(x - operand.x, y - operand.y)
   override def addXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
   override def subXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
-  def addX(adj: Metres): PtM2 = PtM2(x + adj, y)
-  def addY(adj: Metres): PtM2 = PtM2(x, y + adj)
-  def subX(adj: Metres): PtM2 = PtM2(x - adj, y)
-  def subY(adj: Metres): PtM2 = PtM2(x, y - adj)
-  def * (operator: Double): PtM2 = PtM2(x * operator, y * operator)
+  override def addX(operand: Length): PtM2 = PtM2.metresNum(xMetresNum + operand.metresNum, y.metresNum)
+  def addY(operand: Metres): PtM2 = PtM2(x, y + operand)
+  def subX(operand: Metres): PtM2 = PtM2(x - operand, y)
+  def subY(operand: Metres): PtM2 = PtM2(x, y - operand)
+  def * (operand: Double): PtM2 = PtM2(x * operand, y * operand)
   def / (operator: Double): PtM2 = PtM2(x / operator, y / operator)
-  //def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
+  def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
   def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
