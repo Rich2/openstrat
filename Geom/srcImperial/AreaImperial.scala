@@ -3,12 +3,24 @@ package ostrat; package geom; package impunits
 
 /** Quantity of area specified in [[MetricUnits]]. */
 trait AreaImperial extends Any with Area with ImperialUnits
-{ /** Add an [[Area]] defined in [[LengthMetric]] units. Use addArea method if you wish to mix units from different unit measurement systems. */
-  def + (op: AreaMetric): AreaMetric
+{ override def + (operand: Area): AreaImperial
+  override def - (operand: Area): AreaImperial
+  override def * (operand: Double): AreaImperial
+  override def / (operand: Double): AreaImperial
 
-  /** Subtract an [[Area]] defined in [[LengthMetric]] units. Use subArea method if you wish to mix units from different unit measurement systems. */
-  def - (op: AreaMetric): AreaMetric
+  /** the number of metres square in this area. */
+  override def metresSqNum: Double = ???
 
-  override def * (operand: Double): AreaMetric
-  override def / (operand: Double): AreaMetric
+  /** the number of kilometres square in this area. */
+  override def kiloMetresSqNum: Double = ???
+}
+
+/** Square miles a measure of [[Area]]. */
+class MilesSq(val milesSqNum: Double) extends AnyVal with AreaImperial
+{ override def + (operand: Area): MilesSq = new MilesSq(milesSqNum + operand.milesSqNum)
+  override def - (operand: Area): MilesSq = new MilesSq(milesSqNum - operand.milesSqNum)
+  override def * (operand: Double): MilesSq = new MilesSq(milesSqNum * operand)
+  def / (operand: Double): MilesSq = new MilesSq(milesSqNum / operand)
+
+  //override def kiloMilesSqNum: Double = milesSqNum / 1000000
 }

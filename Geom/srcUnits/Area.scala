@@ -9,9 +9,23 @@ trait Area extends Any
   /** the number of kilometres square in this area. */
   def kiloMetresSqNum: Double
 
+  /** the number of square miles in this area. */
+  def milesSqNum: Double
+
+  /** Adds an [[Area]] returning an [[Area]] in the units of the this subject. */
+  def + (operand: Area): Area
+
+  /** Subtracts an [[Area]] returning an [[Area]] in the units of the this subject. */
+  def - (operand: Area): Area
+
   /** Multiply this [[Area]] by a scalar. */
   def * (operand: Double): Area
 
   /** Divide this [[Area]] by a scalar. */
   def / (operand: Double): Area
+}
+
+object Area
+{
+  def sqKmToMiles: Double = 0.386102
 }

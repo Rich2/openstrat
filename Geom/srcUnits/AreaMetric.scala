@@ -3,21 +3,17 @@ package ostrat; package geom
 
 /** Quantity of area specified in [[MetricUnits]]. */
 trait AreaMetric extends Any with Area with MetricUnits
-{ /** Add an [[Area]] defined in [[LengthMetric]] units. Use addArea method if you wish to mix units from different unit measurement systems. */
-  def + (op: AreaMetric): AreaMetric
-
-  /** Subtract an [[Area]] defined in [[LengthMetric]] units. Use subArea method if you wish to mix units from different unit measurement systems. */
-  def - (op: AreaMetric): AreaMetric
-
+{ override def + (operand: Area): Area
+  override def - (operand: Area): AreaMetric
   override def * (operand: Double): AreaMetric
   override def / (operand: Double): AreaMetric
+  override def milesSqNum: Double = kiloMetresSqNum * Area.sqKmToMiles
 }
 
 /** Square metres  a measure of [[Area]]. */
 class MetresSq(val metresSqNum: Double) extends AnyVal with AreaMetric
-{
-  override def + (op: AreaMetric): MetresSq = new MetresSq(metresSqNum + op.metresSqNum)
-  override def - (op: AreaMetric): MetresSq = new MetresSq(metresSqNum - op.metresSqNum)
+{ override def + (operand: Area): MetresSq = new MetresSq(metresSqNum + operand.metresSqNum)
+  override def - (operand: Area): MetresSq = new MetresSq(metresSqNum - operand.metresSqNum)
   override def * (operand: Double): MetresSq = new MetresSq(metresSqNum * operand)
   def / (operand: Double): MetresSq = new MetresSq(metresSqNum / operand)
 
@@ -32,8 +28,8 @@ object MetresSq
 
 /** Square kilometres a measure of [[Area]]. */
 class KilometresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric
-{ override def +(op: AreaMetric): KilometresSq = KilometresSq(kiloMetresSqNum + op.kiloMetresSqNum)
-  override def -(op: AreaMetric): KilometresSq = KilometresSq(kiloMetresSqNum - op.kiloMetresSqNum)
+{ override def +(operand: Area): KilometresSq = KilometresSq(kiloMetresSqNum + operand.kiloMetresSqNum)
+  override def -(operand: Area): KilometresSq = KilometresSq(kiloMetresSqNum - operand.kiloMetresSqNum)
   override def * (operand: Double): KilometresSq = new KilometresSq(kiloMetresSqNum * operand)
   override def / (operand: Double): KilometresSq = new KilometresSq(kiloMetresSqNum / operand)
   override def metresSqNum: Double = kiloMetresSqNum * 1000000
