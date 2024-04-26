@@ -16,7 +16,6 @@ class MetresSq(val metresSqNum: Double) extends AnyVal with AreaMetric
   override def - (operand: Area): MetresSq = new MetresSq(metresSqNum - operand.metresSqNum)
   override def * (operand: Double): MetresSq = new MetresSq(metresSqNum * operand)
   def / (operand: Double): MetresSq = new MetresSq(metresSqNum / operand)
-
   override def kiloMetresSqNum: Double = metresSqNum / 1000000
 }
 

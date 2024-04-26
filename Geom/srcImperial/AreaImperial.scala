@@ -11,9 +11,10 @@ trait AreaImperial extends Any with Area with ImperialUnits
   /** the number of metres square in this area. */
   override def metresSqNum: Double = ???
 
-  /** the number of kilometres square in this area. */
-  override def kiloMetresSqNum: Double = ???
+  override def kiloMetresSqNum: Double = milesSqNum * Area.sqMileToKm
 }
+
+
 
 /** Square miles a measure of [[Area]]. */
 class MilesSq(val milesSqNum: Double) extends AnyVal with AreaImperial

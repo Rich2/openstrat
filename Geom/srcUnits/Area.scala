@@ -28,4 +28,6 @@ trait Area extends Any
 object Area
 {
   def sqKmToMiles: Double = 0.386102
+
+  def sqMileToKm: Double = 2.58999
 }
