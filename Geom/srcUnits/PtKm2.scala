@@ -71,13 +71,13 @@ object PtKm2
   { override type BuffT = BuffPtKm2
     override def fromDblArray(array: Array[Double]): LinePathKm2 = new LinePathKm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(inp)
-  }
+  }*/
 
   implicit val polygonBuildImplicit: PolygonDbl2MapBuilder[PtKm2, PolygonKm2] = new PolygonDbl2MapBuilder[PtKm2, PolygonKm2]
   { override type BuffT = BuffPtKm2
     override def fromDblArray(array: Array[Double]): PolygonKm2 = new PolygonKm2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtKm2 = new BuffPtKm2(inp)
-  }*/
+  }
 
   /** Implicit instance for the [[PolygonKm2Pair]] builder. This has to go in the [[PtKm2]] companion object so it can be found by an A => B function
    * where PtKm2 is the type B parameter. */
