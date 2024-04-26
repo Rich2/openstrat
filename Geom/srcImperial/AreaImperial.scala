@@ -8,13 +8,39 @@ trait AreaImperial extends Any with Area with ImperialUnits
   override def * (operand: Double): AreaImperial
   override def / (operand: Double): AreaImperial
 
-  /** the number of metres square in this area. */
+  def yardsSqNum: Double
+  def milesSqNum: Double
   override def metresSqNum: Double = ???
 
   override def kiloMetresSqNum: Double = milesSqNum * Area.sqMileToKm
 }
 
+object AreaImperial
+{
 
+}
+
+
+/** Square yards a measure of [[Area]]. */
+class YardsSq(val yardsSqNum: Double) extends AnyVal with AreaImperial
+{ import YardsSq.{ fromArea => ysfa }
+  override def + (operand: Area): YardsSq = new YardsSq(yardsSqNum + ysfa(operand))
+  override def - (operand: Area): YardsSq = new YardsSq(yardsSqNum - ysfa(operand))
+  override def * (operand: Double): YardsSq = new YardsSq(yardsSqNum * operand)
+  def / (operand: Double): YardsSq = new YardsSq(yardsSqNum / operand)
+  override def milesSqNum: Double = yardsSqNum / (1760 * 1760 * 9)
+}
+
+object YardsSq
+{ /** Conversion factor from metres to yards. */
+  val fromMetres: Double = 1.19599
+
+  /** Number of square yards in the given area. */
+  def fromArea(input: Area): Double = input match
+  { case ai: AreaImperial => ai.yardsSqNum
+    case ar => ar.metresSqNum * YardsSq.fromMetres
+  }
+}
 
 /** Square miles a measure of [[Area]]. */
 class MilesSq(val milesSqNum: Double) extends AnyVal with AreaImperial
@@ -23,5 +49,5 @@ class MilesSq(val milesSqNum: Double) extends AnyVal with AreaImperial
   override def * (operand: Double): MilesSq = new MilesSq(milesSqNum * operand)
   def / (operand: Double): MilesSq = new MilesSq(milesSqNum / operand)
 
-  //override def kiloMilesSqNum: Double = milesSqNum / 1000000
+  override def yardsSqNum: Double = ???
 }
