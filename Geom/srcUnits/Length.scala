@@ -27,6 +27,9 @@ trait Length extends Any with Ordered[Length]
   /** Multiply by the given scalar. */
   def *(operand: Double): Length
 
+  /** Multiply by another [[Length]] to produce an area. */
+  def mulByLength(operand: Length): Area
+
   /** Divide by the given scalar. */
   def /(operand: Double): Length
 
@@ -42,7 +45,9 @@ trait Length extends Any with Ordered[Length]
 object Length
 {
   implicit class LengthExtensions(thisLength: Length)
-  { /** Convenience extension operator to divide by a [[Length]] to return a scalar. Defers to the divByLength class method. */
+  {
+
+    /** Convenience extension operator to divide by a [[Length]] to return a scalar. Defers to the divByLength class method. */
     def / (operand: Length): Double = thisLength.divByLength(operand)
   }
 }

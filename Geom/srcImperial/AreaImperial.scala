@@ -26,7 +26,10 @@ class YardsSq(val yardsSqNum: Double) extends AnyVal with AreaImperial
 }
 
 object YardsSq
-{ /** Conversion factor from metres to yards. */
+{
+  def apply(squareYardsNum: Double): YardsSq = new YardsSq(squareYardsNum)
+
+  /** Conversion factor from metres to yards. */
   val fromMetres: Double = 1.19599
 
   /** Number of square yards in the given area. */
