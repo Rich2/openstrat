@@ -12,8 +12,8 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def slateFrom(operand: PtLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
   override def + (operand: VecLength2): PtM2 = new PtM2(xMetresNum + operand.xMetresNum, yMetresNum + operand.yMetresNum)
   override def - (operand: VecLength2): PtM2 = new PtM2(xMetresNum - operand.xMetresNum, yMetresNum - operand.yMetresNum)
-  override def addXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
-  override def subXY (otherX: Length, otherY: Length): PtM2 = PtM2.metresNum(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
+  override def addXY (otherX: Length, otherY: Length): PtM2 = new PtM2(xMetresNum + otherX.metresNum, yMetresNum + otherY.metresNum)
+  override def subXY (otherX: Length, otherY: Length): PtM2 = new PtM2(xMetresNum - otherX.metresNum, yMetresNum - otherY.metresNum)
   override def addX(operand: Length): PtM2 = new PtM2(xMetresNum + operand.metresNum, y.metresNum)
   override def addY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum + operand.metresNum)
   override def subX(operand: Length): PtM2 = new PtM2(xMetresNum - operand.metresNum, yMetresNum)
@@ -35,7 +35,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
       val yb = yMetresNum * cos(r)
       ya + yb
     }
-    PtM2.metresNum(newX, newY)
+    new PtM2(newX, newY)
   }
 
   override def lineSegTo(endPt: PtM2): LineSegM2 = LineSegM2(this, endPt)
