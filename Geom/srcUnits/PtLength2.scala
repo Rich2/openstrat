@@ -32,3 +32,10 @@ trait PtLength2 extends VecPtLength2 with PointDbl2
 
   def rotateRadians(r: Double): PtLength2
 }
+
+object PtLength2
+{
+  implicit class Metres2Implicit(thisPtLength2: PtLength2)
+  { def / (operator: Length): Pt2 = Pt2(thisPtLength2.xMetresNum / operator.metresNum, thisPtLength2.yMetresNum / operator.metresNum)
+  }
+}

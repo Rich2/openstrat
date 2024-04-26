@@ -26,11 +26,6 @@ object LineSegM2
   def apply(startDist2: PtM2, endDist2: PtM2): LineSegM2 =
     new LineSegM2(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
 
-  implicit class LineSegMExtensions(val thisSeg: LineSegM2)
-  {
-    def /(operand: MetricLength): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
-  }
-
   /** [[Show]] type class instance / evidence for [[LineSegM2]]. */
   implicit val showEv: Show2[PtM2, PtM2, LineSegM2] = Show2[PtM2, PtM2, LineSegM2]("LineSegM2", "start", _.startPt, "end", _.endPt)
 

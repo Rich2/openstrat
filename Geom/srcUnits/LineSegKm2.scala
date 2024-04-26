@@ -4,34 +4,33 @@ import collection.mutable.ArrayBuffer
 
 /** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
-class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLength2[PtKm2] with
-  LineSegLikeDbl4[PtKm2] with Dbl4Elem
+class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double) extends
+  LineSegLength2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem
 { def xStart: Kilometres = Kilometres(xStartKilometresNum)
   def yStart: Kilometres = Kilometres(yStartKilometresNum)
-  def xEnd: Metres = Metres(xEndMetres)
-  def yEnd: Metres = Metres(yEndMetres)
-  def startPt: PtKm2 = ???//PtKM2(xStart, yStart)
-  def endPt: PtKm2 = ??? //PtKM2(xEnd, yEnd)
+  def xEnd: Kilometres = Kilometres(xEndKilometresNum)
+  def yEnd: Kilometres = Kilometres(yEndKilometresNum)
+  def startPt: PtKm2 = PtKm2.kilometresNum(xStartKilometresNum, yStartKilometresNum)
+  def endPt: PtKm2 = PtKm2.kilometresNum(xEndKilometresNum, yEndKilometresNum)
 
   override def xStartMetresNum: Double = xStartKilometresNum * 1000
   override def yStartMetresNum: Double = yStartKilometresNum * 1000
 
   override def dbl1: Double = xStartKilometresNum
   override def dbl2: Double = yStartKilometresNum
-  override def dbl3: Double = xEndMetres
-  override def dbl4: Double = yEndMetres
+  override def dbl3: Double = xEndKilometresNum
+  override def dbl4: Double = yEndKilometresNum
 }
 
 /** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
  * an extension method. */
 object LineSegKm2
 {
-  def apply(startDist2: PtKm2, endDist2: PtKm2): LineSegKm2 = ???
-    //new LineSegKM2(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
+  def apply(startPt: PtKm2, endPt: PtKm2): LineSegKm2 = new LineSegKm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
   implicit class LineSegMExtensions(val thisSeg: LineSegKm2)
   {
-    def /(operand: MetricLength): LineSeg = ???// LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
+    //def /(operand: MetricLength): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
   }
 
   /** [[Show]] type class instance / evidence for [[LineSegKm2]]. */

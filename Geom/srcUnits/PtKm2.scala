@@ -47,7 +47,7 @@ object PtKm2
 { /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
   def kilometresNum(xKilometres: Double, yKilometres: Double): PtKm2 = new PtKm2(xKilometres, yKilometres)
 
-  def apply(x: Metres, y: Metres): PtKm2 = new PtKm2(x.metresNum, y.metresNum)
+  def apply(x: Kilometres, y: Kilometres): PtKm2 = new PtKm2(x.kilometresNum, y.kilometresNum)
 
   def origin: PtKm2 = new PtKm2(0, 0)
 
