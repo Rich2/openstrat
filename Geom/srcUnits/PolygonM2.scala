@@ -1,9 +1,13 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer
+
+trait PolygonLength2[VT <: PtLength2] extends Any with PolygonLikeDbl2[VT]
+{ type ThisT <: PolygonLength2[VT]
+  type SideT <: LineSegLength2[VT]
+}
 
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
-final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLikeDbl2[PtM2]
+final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength2[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM2
   override def typeStr: String = "PolygonM2"
