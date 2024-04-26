@@ -3,7 +3,7 @@ package ostrat; package eg80
 import geom._, egrid._, pglobe._, prid.phex._
 
 trait EGrid80Sys extends EGridSys
-{ override val cScale: MetricLength = 20.kiloMetres
+{ override val cScale: LengthMetric = 20.kiloMetres
 }
 
 /** A main non-polar grid with a hex span of 80Km */

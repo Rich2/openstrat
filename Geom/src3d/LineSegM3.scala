@@ -28,7 +28,7 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   def xy: LineSegM2 = new LineSegM2(xStartMs, yStartMs, xEndMs, yEndMs)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
-  def xyLineSeg(scale: MetricLength): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
+  def xyLineSeg(scale: LengthMetric): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
 }
 
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */

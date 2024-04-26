@@ -16,6 +16,6 @@ object LineSegLength2
 {
   implicit class LineSegLength2Extensions[VT <: PtLength2](val thisSeg: LineSegLength2[VT])
   {
-    def /(operand: MetricLength): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
+    def /(operand: LengthMetric): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
   }
 }

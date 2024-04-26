@@ -7,31 +7,31 @@ import pParse._
 trait MetricUnits extends Any
 
 /** A metric measurement of [[Length]] such as [[Metres]] or the [[Kilometres]] */
-trait MetricLength extends Any with Length with MetricUnits
-{ override def +(operand: Length): MetricLength
-  override def -(operand: Length): MetricLength
+trait LengthMetric extends Any with Length with MetricUnits
+{ override def +(operand: Length): LengthMetric
+  override def -(operand: Length): LengthMetric
 
   /** Returns the max length of this and the operand length in the units of this object. */
-  def max(operand: MetricLength): MetricLength
+  def max(operand: LengthMetric): LengthMetric
 
   /** Returns the max length of this and the operand length in the units of this object. */
-  def min(operand: MetricLength): MetricLength
+  def min(operand: LengthMetric): LengthMetric
 
-  override def unary_- : MetricLength
-  override def *(operand: Double): MetricLength
-  override def /(operand: Double): MetricLength
+  override def unary_- : LengthMetric
+  override def *(operand: Double): LengthMetric
+  override def /(operand: Double): LengthMetric
 }
 
-object MetricLength
+object LengthMetric
 {
-  implicit class MetreExtensions(thisMetres: MetricLength)
-  { def * (operand: MetricLength): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
+  implicit class MetreExtensions(thisMetres: LengthMetric)
+  { def * (operand: LengthMetric): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
    // def / (operand: MetricLength): Double = thisMetres.metresNum / operand.metresNum
   }
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
-final class Metres(val metresNum: Double) extends AnyVal with MetricLength
+final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
 { def typeStr: String = "Metres"
   override def toString: String = metresNum.str + "m"
   def str: String = "Length".appendParenth(metresNum.toString)
@@ -44,8 +44,8 @@ final class Metres(val metresNum: Double) extends AnyVal with MetricLength
   @inline def yardsNum: Double = metresNum * 1.09361
   @inline def milesNum: Double = metresNum / 1609.34
 
-  override def max(operand: MetricLength): Metres = Metres(metresNum.max(operand.metresNum))
-  override def min(operand: MetricLength): Metres = ife(metresNum < operand.metresNum, this, operand.toMetres)
+  override def max(operand: LengthMetric): Metres = Metres(metresNum.max(operand.metresNum))
+  override def min(operand: LengthMetric): Metres = ife(metresNum < operand.metresNum, this, operand.toMetres)
 
   def kmStr2 = (metresNum / 1000).str2 + "km"
 
@@ -66,7 +66,7 @@ object Metres
 }
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
-final class Kilometres(val kilometresNum: Double) extends AnyVal with MetricLength
+final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetric
 { def typeStr: String = "Kilometres"
   override def compare(that: Length): Int = kilometresNum.compare(that.kilometresNum)
   override def metresNum: Double = kilometresNum * 1000
@@ -78,8 +78,8 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): Kilometres = Kilometres(kilometresNum * operand)
   override def /(operand: Double): Kilometres = Kilometres(kilometresNum / operand)
   override def divByLength(operand: Length): Double = kilometresNum / operand.kilometresNum
-  override def max(operand: MetricLength): Kilometres = Kilometres(kilometresNum.max(operand.kilometresNum))
-  override def min(operand: MetricLength): Kilometres = Kilometres(kilometresNum.min(operand.kilometresNum))
+  override def max(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.max(operand.kilometresNum))
+  override def min(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.min(operand.kilometresNum))
 }
 
 object Kilometres
@@ -97,7 +97,7 @@ object Kilometres
 }
 
 /** Measurement of [[Length]] in Megametres. can be negative. */
-final class Megametres(val megametresNum: Double) extends AnyVal with MetricLength
+final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetric
 { def typeStr: String = "Megametres"
   override def compare(that: Length): Int = megametresNum.compare(that.megametresNum)
   override def metresNum: Double = megametresNum * 1000000
@@ -109,8 +109,8 @@ final class Megametres(val megametresNum: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): Megametres = Megametres(megametresNum * operand)
   override def /(operand: Double): Megametres = Megametres(megametresNum / operand)
   override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
-  override def max(operand: MetricLength): Megametres = Megametres(megametresNum.max(operand.megametresNum))
-  override def min(operand: MetricLength): MetricLength = Megametres(megametresNum.min(operand.megametresNum))
+  override def max(operand: LengthMetric): Megametres = Megametres(megametresNum.max(operand.megametresNum))
+  override def min(operand: LengthMetric): LengthMetric = Megametres(megametresNum.min(operand.megametresNum))
 }
 
 object Megametres
@@ -119,7 +119,7 @@ object Megametres
 }
 
 /** Measurement of [[Length]] in Gigametres. can be negative. */
-final class Gigametres(val gigametresNum: Double) extends AnyVal with MetricLength
+final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetric
 { def typeStr: String = "Gigametres"
 
   override def compare(that: Length): Int = gigametresNum.compare(that.gigametresNum)
@@ -134,8 +134,8 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): Gigametres = Gigametres(gigametresNum * operand)
   override def /(operand: Double): Gigametres = Gigametres(gigametresNum / operand)
   override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
-  override def max(operand: MetricLength): Gigametres = Gigametres(gigametresNum.max(operand.gigametresNum))
-  override def min(operand: MetricLength): MetricLength = Gigametres(gigametresNum.min(operand.gigametresNum))
+  override def max(operand: LengthMetric): Gigametres = Gigametres(gigametresNum.max(operand.gigametresNum))
+  override def min(operand: LengthMetric): LengthMetric = Gigametres(gigametresNum.min(operand.gigametresNum))
 }
 
 object Gigametres

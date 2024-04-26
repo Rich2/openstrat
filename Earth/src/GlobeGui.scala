@@ -7,9 +7,9 @@ abstract class GlobeGui(val title: String) extends CmdBarGui
   def northUp: Boolean = focus.dirn
 
   /** The length normally shown in kms per pixel. */
-  var scale: MetricLength
+  var scale: LengthMetric
 
-  def ifScale(minScale: MetricLength, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
+  def ifScale(minScale: LengthMetric, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
 
   def scaleStr = s"scale = ${scale.kilometresNum.str2} km/pixel"
   def repaint(): Unit

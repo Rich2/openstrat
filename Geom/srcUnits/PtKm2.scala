@@ -53,7 +53,7 @@ object PtKm2
   def origin: PtKm2 = new PtKm2(0, 0)
 
   implicit class Metres2Implicit(thisMetres2: PtKm2)
-  { def / (operator: MetricLength): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  { def / (operator: LengthMetric): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
   /** [[Show]] type class instance / evidence for [[PTKm2]]. */

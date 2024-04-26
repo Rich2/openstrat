@@ -76,7 +76,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
-  @inline def toMetres(factor: MetricLength): PtM2 = PtM2(x * factor.toMetres, y * factor.toMetres)
+  @inline def toMetres(factor: LengthMetric): PtM2 = PtM2(x * factor.toMetres, y * factor.toMetres)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 

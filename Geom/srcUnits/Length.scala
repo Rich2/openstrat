@@ -21,7 +21,7 @@ trait Length extends Any with Ordered[Length]
   /** Add a [[Length]] defined in [[Length]] units. Use addLength method if you wish to mix units from different unit measurement systems. */
   def +(operand: Length): Length
 
-  /** Subtract a [[Length]] defined in [[MetricLength]] units. Use subLength method if you wish to mix units from different unit measurement systems. */
+  /** Subtract a [[Length]] defined in [[LengthMetric]] units. Use subLength method if you wish to mix units from different unit measurement systems. */
   def -(operand: Length): Length
 
   /** Multiply by the given scalar. */
@@ -41,7 +41,7 @@ trait Length extends Any with Ordered[Length]
 
 object Length
 {
-  implicit class MetreExtensions(thisLength: Length)
+  implicit class LengthExtensions(thisLength: Length)
   { /** Convenience extension operator to divide by a [[Length]] to return a scalar. Defers to the divByLength class method. */
     def / (operand: Length): Double = thisLength.divByLength(operand)
   }

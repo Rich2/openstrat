@@ -15,7 +15,7 @@ sealed trait SSBody extends Coloured
 trait SSPrimaryBody extends SSBody
 
 trait Planet extends SSPrimaryBody
-{ val avSunDist: MetricLength
+{ val avSunDist: LengthMetric
   trait Moon extends SSBody
   def moons: RArr[Moon] = RArr()
 }

@@ -8,7 +8,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
 
-  var scale: MetricLength = gridSys.cScale / viewIn.pixelsPerC
+  var scale: LengthMetric = gridSys.cScale / viewIn.pixelsPerC
  // def gScale: Double = gridSys.cScale / scale
   //def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(true)

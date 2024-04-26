@@ -1,9 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package impunits
-import ImperialLength._
+import LengthImperial._
 
 /** [[Length]] measured in yards. Can be negative. */
-final class Yards(val yardsNum: Double) extends AnyVal with ImperialLength
+final class Yards(val yardsNum: Double) extends AnyVal with LengthImperial
 { def typeStr: String = "Yards"
   override def compare(that: Length): Int = yardsNum.compare(that.yardsNum)
   override def +(operand: Length): Yards = Yards(yardsNum + operand.yardsNum)
@@ -23,7 +23,7 @@ object Yards
 }
 
 /** Length can be negative. The underlying data is stored in metres. */
-final class Miles(val milesNum: Double) extends AnyVal with ImperialLength
+final class Miles(val milesNum: Double) extends AnyVal with LengthImperial
 { def typeStr: String = "Miles"
   override def compare(that: Length): Int = kilometresNum.compare(that.kilometresNum)
   override def +(operand: Length): Miles = Miles(milesNum + operand.milesNum)
@@ -43,7 +43,7 @@ object Miles
 }
 
 /** [[Length]] measured in millions of miles. Can be negative. */
-final class MegaMiles(val megaMilesNum: Double) extends AnyVal with ImperialLength
+final class MegaMiles(val megaMilesNum: Double) extends AnyVal with LengthImperial
 { def typeStr: String = "Miles"
   override def compare(that: Length): Int = kilometresNum.compare(that.kilometresNum)
   override def +(operand: Length): MegaMiles = MegaMiles(megaMilesNum + operand.megaMilesNum)

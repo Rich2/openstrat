@@ -6,13 +6,13 @@ import geom._, pglobe._, pEarth._, pgui._, Colour._, pStrat.InfantryCounter
 case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = EarthView(50, 12, 1.2)) extends GlobeGui("The Earth in irregular tiles")
 {
   /** Scale in km / pixel */
-    var scale: MetricLength = viewIn.scale
+    var scale: LengthMetric = viewIn.scale
 
   /** Scale accounting for whether the display has north up or down. */
-  def dirnScale: MetricLength = ife(northUp, scale, -scale)
+  def dirnScale: LengthMetric = ife(northUp, scale, -scale)
 
-  val scaleMin: MetricLength = 0.2.kiloMetres
-  val scaleMax: MetricLength = 100.kiloMetres
+  val scaleMin: LengthMetric = 0.2.kiloMetres
+  val scaleMax: LengthMetric = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
