@@ -11,6 +11,7 @@ final class Yards(val yardsNum: Double) extends AnyVal with ImperialLength
   override def unary_- : Yards = Yards(-yardsNum)
   override def *(operand: Double): Yards = Yards(yardsNum * operand)
   override def /(operand: Double): Yards = Yards(yardsNum / operand)
+  override def divByLength(operand: Length): Double = yardsNum / operand.yardsNum
   override def metresNum: Double = yardsNum * yardsToMetres
   override def milesNum: Double = yardsNum / yardsInMile
   override def megaMilesNum: Double = yardsNum / (yardsInMile * 1000000)
@@ -30,6 +31,7 @@ final class Miles(val milesNum: Double) extends AnyVal with ImperialLength
   override def unary_- : Miles = Miles(-milesNum)
   override def *(operand: Double): Miles = Miles(milesNum * operand)
   override def /(operand: Double): Miles = Miles(milesNum / operand)
+  override def divByLength(operand: Length): Double = milesNum / operand.milesNum
   override def metresNum: Double = milesNum * yardsToMetres/ yardsInMile
   override def yardsNum: Double = milesNum * yardsInMile
   override def megaMilesNum: Double = milesNum / 1000000
@@ -49,6 +51,7 @@ final class MegaMiles(val megaMilesNum: Double) extends AnyVal with ImperialLeng
   override def unary_- : MegaMiles = MegaMiles(-megaMilesNum)
   override def *(operand: Double): MegaMiles = MegaMiles(megaMilesNum * operand)
   override def /(operand: Double): MegaMiles = MegaMiles(megaMilesNum / operand)
+  override def divByLength(operand: Length): Double = megaMilesNum / operand.megaMilesNum
   override def metresNum: Double = megaMilesNum * 1000000 * yardsInMile * yardsToMetres
   override def yardsNum: Double = megaMilesNum * yardsInMile * 1000000
   override def milesNum: Double = megaMilesNum * 1000000

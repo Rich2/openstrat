@@ -15,6 +15,7 @@ trait PtLength2 extends VecPtLength2 with PointDbl2
   def subY(operand: Length): PtLength2
   def * (operand: Double): PtLength2
   def / (operator: Double): PtLength2
+  def divByLength(operator: Length): Pt2
   def magnitude: Length
   def revY: PtLength2
   def revYIf(cond: Boolean): PtLength2

@@ -20,6 +20,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def subY(operand: Length): PtM2 = new PtM2(xMetresNum, yMetresNum - operand.metresNum)
   override def * (operand: Double): PtM2 = new PtM2(xMetresNum * operand, yMetresNum * operand)
   override def / (operator: Double): PtM2 = new PtM2(xMetresNum / operator, yMetresNum / operator)
+  override def divByLength(operator: Length): Pt2 = Pt2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
   override def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
   override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
