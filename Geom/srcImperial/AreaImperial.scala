@@ -15,12 +15,6 @@ trait AreaImperial extends Any with Area with ImperialUnits
   override def kiloMetresSqNum: Double = milesSqNum * Area.sqMileToKm
 }
 
-object AreaImperial
-{
-
-}
-
-
 /** Square yards a measure of [[Area]]. */
 class YardsSq(val yardsSqNum: Double) extends AnyVal with AreaImperial
 { import YardsSq.{ fromArea => ysfa }

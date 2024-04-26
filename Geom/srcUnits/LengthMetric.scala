@@ -26,7 +26,6 @@ object LengthMetric
 {
   implicit class MetreExtensions(thisMetres: LengthMetric)
   { def * (operand: LengthMetric): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
-   // def / (operand: MetricLength): Double = thisMetres.metresNum / operand.metresNum
   }
 }
 
