@@ -1,6 +1,5 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pParse._
 
 trait Length extends Any with Ordered[Length]
 { /** The number of metres in this [[Length]]. */
@@ -45,7 +44,8 @@ trait Length extends Any with Ordered[Length]
 object Length
 {
   implicit class LengthExtensions(thisLength: Length)
-  {
+  { /** Extension operator method to produce [[Area]], multiplying this [[Length]] by an operand [[Length]]. */
+    def *(operand: Length): Area = thisLength.mulByLength(operand)
 
     /** Convenience extension operator to divide by a [[Length]] to return a scalar. Defers to the divByLength class method. */
     def / (operand: Length): Double = thisLength.divByLength(operand)

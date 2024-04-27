@@ -45,6 +45,12 @@ class MilesSq(val milesSqNum: Double) extends AnyVal with AreaImperial
   override def - (operand: Area): MilesSq = new MilesSq(milesSqNum - operand.milesSqNum)
   override def * (operand: Double): MilesSq = new MilesSq(milesSqNum * operand)
   def / (operand: Double): MilesSq = new MilesSq(milesSqNum / operand)
+  override def yardsSqNum: Double = milesSqNum * MilesSq.yardsSqNum
+}
+object MilesSq
+{
+  def apply(milesSqNum: Double): MilesSq = new MilesSq(milesSqNum)
 
-  override def yardsSqNum: Double = ???
+  /** The number of square yards in a square mile  */
+  val yardsSqNum: Double = 1760 * 1760
 }

@@ -24,8 +24,8 @@ trait LengthMetric extends Any with Length with MetricUnits
 
 object LengthMetric
 {
-  implicit class MetreExtensions(thisMetres: LengthMetric)
-  { def * (operand: LengthMetric): MetresSq = new MetresSq(thisMetres.metresNum * operand.metresNum)
+  implicit class LengthMetricExtensions(thisLength: LengthMetric)
+  { def * (operand: LengthMetric): AreaMetric = thisLength.mulByLength(operand)
   }
 }
 
@@ -63,6 +63,11 @@ final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
 object Metres
 { /** Factory apply method for [[Metres]]. */
   def apply(metres: Double): Metres = new Metres(metres)
+
+  implicit class LengthMetricExtensions(thisLength: Metres)
+  { /** Extension operator method to produce [[MetresSq]], multiplying this [[Length]] by an operand [[Length]]. */
+    def *(operand: LengthMetric): MetresSq = thisLength.mulByLength(operand)
+  }
 }
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
@@ -86,6 +91,11 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
 object Kilometres
 { /** Factory apply method for kilometres. */
   def apply(kilometresNum: Double): Kilometres = new Kilometres(kilometresNum)
+
+  implicit class LengthMetricExtensions(thisLength: Kilometres)
+  { /** Extension operator method to produce [[KilometresSq]], multiplying this [[Kilometres]] by an operand [[Length]]. */
+    def *(operand: Length): KilometresSq = thisLength.mulByLength(operand)
+  }
 
   implicit val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
   { override def typeStr: String = "Kilometres"
