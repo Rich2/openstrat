@@ -86,6 +86,9 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
   override def divByLength(operand: Length): Double = kilometresNum / operand.kilometresNum
   override def max(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.max(operand.kilometresNum))
   override def min(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.min(operand.kilometresNum))
+
+  def pos: Boolean = kilometresNum >= 0
+  def neg: Boolean = kilometresNum < 0
 }
 
 object Kilometres

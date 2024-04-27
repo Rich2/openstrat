@@ -2,24 +2,6 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait PtLength3 extends PointDbl3
-{ type ThisT <: PtLength3
-
-  /** Number of metres in the X component of this point. */
-  def xMetresNum: Double
-
-  /** Number of metres in the Y component of this point. */
-  def yMetresNum: Double
-
-  /** Number of metres in the Z component of this point. */
-  def zMetresNum: Double
-
-  def / (operator: Length): Pt3
-
-  def lineSegTo(endPt: PtLength3): LineSegLength3[? <: PtLength3]
-  def lineSegFrom(startPt: PtLength3): LineSegLength3[? <: PtLength3]
-}
-
 /** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
 final class PtM3(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum: Double) extends PtLength3
@@ -32,6 +14,16 @@ final class PtM3(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum:
   def dbl1: Double = xMetresNum
   def dbl2: Double = yMetresNum
   def dbl3: Double = zMetresNum
+
+  /** Number of metres in the X component of this point. */
+  override def xKilometresNum: Double = ???
+
+  /** Number of metres in the Y component of this point. */
+  override def yKilometresNum: Double = ???
+
+  /** Number of metres in the Z component of this point. */
+  override def zKilometresNum: Double = ???
+
   def x: Metres = Metres(xMetresNum)
   def y: Metres = Metres(yMetresNum)
   def z: Metres = Metres(zMetresNum)
