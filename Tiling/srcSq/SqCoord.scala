@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
@@ -12,10 +12,10 @@ trait SqCoord extends Any with TCoord
   override def toPt2Reg: Pt2 = Pt2(c, r)
 
   /** [[LineSegSC]] from this point to the parameter point. */
-  override def lineSegTo(endPt: SqCoord): LineSegSC = LineSegSC(this, endPt)
+  def lineSegTo(endPt: SqCoord): LineSegSC = LineSegSC(this, endPt)
 
   /** [[LinSegLike]] from the parameter point to this point. */
-  override def lineSegFrom(startPt: SqCoord): LineSegSC = LineSegSC(startPt, this)
+  def lineSegFrom(startPt: SqCoord): LineSegSC = LineSegSC(startPt, this)
 }
 
 object SqCoord

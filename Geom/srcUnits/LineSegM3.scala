@@ -44,8 +44,11 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */
 object LineSegM3
 {
-   def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetresNum, pStart.yMetresNum, pStart.zMetresNum,
-       pEnd.xMetresNum, pEnd.yMetresNum, pEnd.zMetresNum)
+   def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetresNum, pStart.yMetresNum, pStart.zMetresNum, pEnd.xMetresNum, pEnd.yMetresNum,
+     pEnd.zMetresNum)
+
+  def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, zStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double, zEndMetresNum: Double):
+    LineSegM3 = new LineSegM3(xStartMetresNum, yStartMetresNum, zStartMetresNum, xEndMetresNum, yEndMetresNum, zEndMetresNum)
 
   /** Implicit instance / evidence for [[BuilderArrMap]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
   implicit val buildEv: BuilderArrDbl6Map[LineSegM3, LineSegM3Arr] = new BuilderArrDbl6Map[LineSegM3, LineSegM3Arr]

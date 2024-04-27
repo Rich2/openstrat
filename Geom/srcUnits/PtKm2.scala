@@ -39,8 +39,8 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
     new PtKm2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtKm2): LineSegKm2 = LineSegKm2(this, endPt)
-  override def lineSegFrom(startPt: PtKm2): LineSegKm2 = LineSegKm2(startPt, this)
+  def lineSegTo(endPt: PtKm2): LineSegKm2 = LineSegKm2(this, endPt)
+  def lineSegFrom(startPt: PtKm2): LineSegKm2 = LineSegKm2(startPt, this)
 }
 
 /** Companion object for [[PtKm2]] class contains factory methods. */

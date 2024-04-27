@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A point in a space. So [[Pt2]]s are points in 2D space. [[Pt3]]s are points in 3D space. LatLongs are points in a 2D curved space. */
@@ -8,12 +8,6 @@ trait Point extends Any
 
   /** The type of [[LineSegLike]] that this [[Point]] can start or ends. */
   type LineSegT <: LineSegLike[ThisT]
-
-  /** [[LineSegLike]] from this point to the parameter point. */
-  def lineSegTo(endPt: ThisT): LineSegT
-
-  /** [[LinSegLike]] from the parameter point to this point. */
-  def lineSegFrom(startPt: ThisT): LineSegT
 }
 
 trait PointSeqLike[PT <: Point] extends Any with SeqLike[PT]

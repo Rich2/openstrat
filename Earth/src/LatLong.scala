@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -111,8 +111,8 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
     PtM3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
   }
 
-  override def lineSegTo(endPt: LatLong): LineSegLL = LineSegLL(this, endPt)
-  override def lineSegFrom(startPt: LatLong): LineSegLL = LineSegLL(startPt, this)
+  def lineSegTo(endPt: LatLong): LineSegLL = LineSegLL(this, endPt)
+  def lineSegFrom(startPt: LatLong): LineSegLL = LineSegLL(startPt, this)
 }
 
 /** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */

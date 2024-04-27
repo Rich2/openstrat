@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._
 
@@ -48,10 +48,10 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 w
   }
 
   /** [[LineSeg3]] from this point to the parameter point. */
-  override def lineSegTo(endPt: Pt3): LineSeg3 = LineSeg3(this, endPt)
+  def lineSegTo(endPt: Pt3): LineSeg3 = LineSeg3(this, endPt)
 
   /** [[LineSeg3]] from the parameter point to this point. */
-  override def lineSegFrom(startPt: Pt3): LineSeg3 = LineSeg3(startPt, this)
+  def lineSegFrom(startPt: Pt3): LineSeg3 = LineSeg3(startPt, this)
 }
 
 /** Companion object for [[Pt3]] class. Contains apply, unapply factory methods and Persist type class instance. */

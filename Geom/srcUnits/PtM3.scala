@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -15,6 +15,9 @@ trait PtLength3 extends PointDbl3
   def zMetresNum: Double
 
   def / (operator: Length): Pt3
+
+  def lineSegTo(endPt: PtLength3): LineSegLength3
+  def lineSegFrom(startPt: PtLength3): LineSegLength3
 }
 
 /** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
@@ -108,8 +111,11 @@ final class PtM3(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum:
     Metres(sq.sqrt)
   }
 
-  override def lineSegTo(endPt: PtM3): LineSegM3 = LineSegM3(this, endPt)
-  override def lineSegFrom(startPt: PtM3): LineSegM3 = LineSegM3(startPt, this)
+  override def lineSegTo(endPt: PtLength3): LineSegM3 =
+    LineSegM3.metresNum(xMetresNum, yMetresNum, zMetresNum, endPt.xMetresNum, endPt.yMetresNum, endPt.zMetresNum)
+
+  override def lineSegFrom(startPt: PtLength3): LineSegM3 =
+    LineSegM3.metresNum(startPt.xMetresNum, startPt.yMetresNum, startPt.zMetresNum, xMetresNum, yMetresNum, zMetresNum)
 }
 
 /** Companion object for the [[PtM3] class. the 3D point measure in metres length. */

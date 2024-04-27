@@ -39,8 +39,8 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
     new PtM2(newX, newY)
   }
 
-  override def lineSegTo(endPt: PtM2): LineSegM2 = LineSegM2(this, endPt)
-  override def lineSegFrom(startPt: PtM2): LineSegM2 = LineSegM2(startPt, this)
+  def lineSegTo(endPt: PtM2): LineSegM2 = LineSegM2(this, endPt)
+  def lineSegFrom(startPt: PtM2): LineSegM2 = LineSegM2(startPt, this)
 }
 
 /** Companion object for [[PtM2]] class contains factory methods. */
