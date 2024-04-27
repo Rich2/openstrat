@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-trait LineSegLength3 extends LineSegLike[PtM3] with Dbl6Elem
+trait LineSegLength3[VT <: PtLength3] extends LineSegLike[VT] with Dbl6Elem
 {
   def xStartMetresNum: Double
   def yStartMetresNum: Double
@@ -14,7 +14,7 @@ trait LineSegLength3 extends LineSegLike[PtM3] with Dbl6Elem
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
 class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double,
-  val zEndMetresNum: Double) extends LineSegLength3
+  val zEndMetresNum: Double) extends LineSegLength3[PtM3]
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def startPt: PtM3 = new PtM3(xStartMetresNum, yStartMetresNum, zStartMetresNum)

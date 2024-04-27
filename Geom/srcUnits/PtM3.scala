@@ -16,8 +16,8 @@ trait PtLength3 extends PointDbl3
 
   def / (operator: Length): Pt3
 
-  def lineSegTo(endPt: PtLength3): LineSegLength3
-  def lineSegFrom(startPt: PtLength3): LineSegLength3
+  def lineSegTo(endPt: PtLength3): LineSegLength3[? <: PtLength3]
+  def lineSegFrom(startPt: PtLength3): LineSegLength3[? <: PtLength3]
 }
 
 /** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid

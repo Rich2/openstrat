@@ -2,10 +2,16 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
+/** A [[PolygonLike]] with [[PtLength3]] vertices. */
+trait PolygonLength3[VT <: PtLength3] extends Any with PolygonLikeDbl3[VT]
+{ type ThisT <: PolygonLength3[VT]
+  type SideY <: LineSegLength3[VT]
+}
+
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
  *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2]]s on world
  *  maps. */
-final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLikeDbl3[PtM3]
+final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtM3]
 { override type ThisT = PolygonM3
   override type SideT = LineSegM3
   override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
