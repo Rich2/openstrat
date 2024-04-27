@@ -4,8 +4,8 @@ import collection.mutable.ArrayBuffer
 
 /** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
-class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double) extends LineSegLength2[PtM2] with
-  LineSegLikeDbl4[PtM2] with Dbl4Elem
+class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double) extends LineSegLength2[PtM2]
+  with LineSegLikeDbl4[PtM2] with Dbl4Elem
 { override def xStart: Metres = Metres(xStartMetresNum)
   override def yStart: Metres = Metres(yStartMetresNum)
   override def xEnd: Metres = Metres(xEndMetresNum)
@@ -20,6 +20,11 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, xEndMe
   override def dbl2: Double = yStartMetresNum
   override def dbl3: Double = xEndMetresNum
   override def dbl4: Double = yEndMetresNum
+
+  override def xStartKilometresNum: Double = xStartMetresNum / 1000
+  override def yStartKilometresNum: Double = yStartMetresNum / 1000
+  override def xEndKilometresNum: Double = xEndMetresNum / 1000
+  override def yEndKilometresNum: Double = yEndMetresNum / 1000
 }
 
 /** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
@@ -28,6 +33,8 @@ object LineSegM2
 {
   def apply(startDist2: PtM2, endDist2: PtM2): LineSegM2 =
     new LineSegM2(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
+
+  //def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double)
 
   /** [[Show]] type class instance / evidence for [[LineSegM2]]. */
   implicit val showEv: Show2[PtM2, PtM2, LineSegM2] = Show2[PtM2, PtM2, LineSegM2]("LineSegM2", "start", _.startPt, "end", _.endPt)

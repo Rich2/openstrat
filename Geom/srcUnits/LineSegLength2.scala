@@ -9,9 +9,16 @@ trait LineSegLength2[VT <: PtLength2] extends LineSegLike[VT]
   def yEnd: Length
   def startPt: VT
   def endPt: VT
-  def xStartMetresNum: Double
-  def yStartMetresNum: Double
 
   /** Divides by a [[Length]] to produce a scalar [[LineSeg]]. */
   def / (operand: Length): LineSeg
+
+  def xStartMetresNum: Double
+  def yStartMetresNum: Double
+  def xEndMetresNum: Double
+  def yEndMetresNum: Double
+  def xStartKilometresNum: Double
+  def yStartKilometresNum: Double
+  def xEndKilometresNum: Double
+  def yEndKilometresNum: Double
 }

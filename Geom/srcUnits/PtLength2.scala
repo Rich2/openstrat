@@ -19,6 +19,8 @@ trait PtLength2 extends VecPtLength2 with PointDbl2
   def magnitude: Length
   def revY: PtLength2
   def revYIf(cond: Boolean): PtLength2
+  //def lineSegTo(endPt: PtLength2): LineSegLength2[? <: PtLength2]
+  //def lineSegFrom(startPt: PtLength2): LineSegLength2[_ <: PtLength2]
 
   /** Rotates the point 180 degrees around the origin by negating the X and Y components. */
   def rotate180: PtLength2
