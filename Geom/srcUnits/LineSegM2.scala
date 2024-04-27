@@ -30,11 +30,11 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
 /** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
  * an extension method. */
 object LineSegM2
-{
-  def apply(startDist2: PtM2, endDist2: PtM2): LineSegM2 =
-    new LineSegM2(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
+{ /** Factory apply method for [[LineSegM2]]. To construct from scalar quantities use the metresNum method. */
+  def apply(startPt: PtM2, endPt: PtM2): LineSegM2 = new LineSegM2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
-  //def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double)
+  def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double): LineSegM2 =
+    new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 
   /** [[Show]] type class instance / evidence for [[LineSegM2]]. */
   implicit val showEv: Show2[PtM2, PtM2, LineSegM2] = Show2[PtM2, PtM2, LineSegM2]("LineSegM2", "start", _.startPt, "end", _.endPt)
