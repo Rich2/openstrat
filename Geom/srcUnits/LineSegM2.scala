@@ -30,9 +30,17 @@ class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xE
 /** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
  * an extension method. */
 object LineSegM2
-{ /** Factory apply method for [[LineSegM2]]. To construct from scalar quantities use the metresNum method. */
-  def apply(startPt: PtM2, endPt: PtM2): LineSegM2 = new LineSegM2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
+{
+  /** Factory apply method for constructing [[LineSegM2]]s from the start and end points. There is an apply overload to construct from the X and Y components of
+   * the start and end points. To construct from scalar quantities use the metresNum method. */
+  def apply(startPt: PtLength2, endPt: PtLength2): LineSegM2 = new LineSegM2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
+  /** Factory apply method for constructing [[LineSegM2]]s from the X and Y components of the start and end points. There is an apply overload to construct from
+   * the start and end points.To construct from scalar quantities use the metresNum method. */
+  def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegM2 =
+    new LineSegM2(xStartPt.metresNum, yStartPt.metresNum, xEndPt.metresNum, yEndPt.metresNum)
+
+  /** Factory method for constructing [[LineSegM2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
   def metresNum(xStartMetresNum: Double, yStartMetresNum: Double, xEndMetresNum: Double, yEndMetresNum: Double): LineSegM2 =
     new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 

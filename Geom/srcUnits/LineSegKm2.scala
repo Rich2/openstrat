@@ -32,10 +32,6 @@ object LineSegKm2
 {
   def apply(startPt: PtKm2, endPt: PtKm2): LineSegKm2 = new LineSegKm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
-  implicit class LineSegMExtensions(val thisSeg: LineSegKm2)
-  {
-    //def /(operand: MetricLength): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
-  }
 
   /** [[Show]] type class instance / evidence for [[LineSegKm2]]. */
   implicit val showEv: Show2[PtKm2, PtKm2, LineSegKm2] = ???//Show2[PtKM2, PtKM2, LineSegKM2]("LineSegKM2", "start", _.startPt, "end", _.endPt)
