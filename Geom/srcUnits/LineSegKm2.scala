@@ -29,9 +29,18 @@ class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
 /** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
  * an extension method. */
 object LineSegKm2
-{
+{ /** Factory apply method for constructing [[LineSegKm2]]s from the start and end points. There is an apply overload to construct from the X and Y components of
+   * the start and end points. To construct from scalar quantities use the metresNum method. */
   def apply(startPt: PtKm2, endPt: PtKm2): LineSegKm2 = new LineSegKm2(startPt.xMetresNum, startPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 
+  /** Factory apply method for constructing [[LineSegKm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
+   * from the start and end points.To construct from scalar quantities use the metresNum method. */
+  def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegKm2 =
+    new LineSegKm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
+
+  /** Factory method for constructing [[LineSegKm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
+  def kilometresNum(xStartKilometresNum: Double, yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double): LineSegM2 =
+    new LineSegM2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)
 
   /** [[Show]] type class instance / evidence for [[LineSegKm2]]. */
   implicit val showEv: Show2[PtKm2, PtKm2, LineSegKm2] = ???//Show2[PtKM2, PtKM2, LineSegKM2]("LineSegKM2", "start", _.startPt, "end", _.endPt)
