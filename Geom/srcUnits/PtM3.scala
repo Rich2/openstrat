@@ -2,25 +2,40 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
+trait PtLength3 extends PointDbl3
+{ type ThisT <: PtLength3
+
+  /** Number of metres in the X component of this point. */
+  def xMetresNum: Double
+
+  /** Number of metres in the Y component of this point. */
+  def yMetresNum: Double
+
+  /** Number of metres in the Z component of this point. */
+  def zMetresNum: Double
+
+  def / (operator: Length): Pt3
+}
+
 /** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
-final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends PointDbl3
+final class PtM3(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum: Double) extends PtLength3
 { override type ThisT = PtM3
   override type LineSegT = LineSegM3
   def typeStr: String = "Metres3"
-  override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
-  def kmStr: String = typeStr.appendParenthSemis((xMetres / 1000).str2, (yMetres / 1000).str2, (zMetres / 1000).str2)
+  override def toString: String = typeStr.appendParenthSemis(xMetresNum.str2, yMetresNum.str2, zMetresNum.str2)
+  def kmStr: String = typeStr.appendParenthSemis((xMetresNum / 1000).str2, (yMetresNum / 1000).str2, (zMetresNum / 1000).str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
-  def dbl1: Double = xMetres
-  def dbl2: Double = yMetres
-  def dbl3: Double = zMetres
-  def x: Metres = Metres(xMetres)
-  def y: Metres = Metres(yMetres)
-  def z: Metres = Metres(zMetres)
+  def dbl1: Double = xMetresNum
+  def dbl2: Double = yMetresNum
+  def dbl3: Double = zMetresNum
+  def x: Metres = Metres(xMetresNum)
+  def y: Metres = Metres(yMetresNum)
+  def z: Metres = Metres(zMetresNum)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: PtM3): MetresSq = x * operand.x + y * operand.y + z * operand.z
-  def xy: PtM2 = PtM2.metresNum(xMetres, yMetres)
+  def xy: PtM2 = PtM2.metresNum(xMetresNum, yMetresNum)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
   def yPos: Boolean = y.pos
@@ -28,7 +43,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def zPos: Boolean = z.pos
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
-  def / (operator: Metres): Pt3 = Pt3(x / operator, y / operator, z / operator)
+  def / (operator: Length): Pt3 = Pt3(x / operator, y / operator, z / operator)
 
   /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
   def toXYIfZPositive: Option[PtM2] = ifZPos(Some(PtM2(x, y)), None)
@@ -89,7 +104,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
 
   /** The distance in the XY plane from an operand [[PtM2]], the default being from the origin. */
   def xyLengthFrom(operand: PtM2 = PtM2.origin): Metres = {
-    val sq = xMetres.squared + yMetres.squared
+    val sq = xMetresNum.squared + yMetresNum.squared
     Metres(sq.sqrt)
   }
 
@@ -112,7 +127,7 @@ object PtM3
   }
 
   /** [[Show]] type class instance / evidence for [[PTM3]]. */
-  implicit lazy val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetres, "y", _.yMetres, "z", _.zMetres)
+  implicit lazy val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetresNum, "y", _.yMetresNum, "z", _.zMetresNum)
 
   /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
   implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metres)

@@ -2,30 +2,40 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
+trait LineSegLength3 extends LineSegLike[PtM3] with Dbl6Elem
+{
+  def xStartMetresNum: Double
+  def yStartMetresNum: Double
+  def zStartMetresNum: Double
+  def xEndMetresNum: Double
+  def yEndMetresNum: Double
+  def zEndMetresNum: Double
+}
+
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
-class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends LineSegLike[PtM3] with
-  Dbl6Elem
+class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double,
+  val zEndMetresNum: Double) extends LineSegLength3
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
-  def startPt: PtM3 = new PtM3(xStartMs, yStartMs, zStartMs)
-  def endPt: PtM3 = new PtM3(xEndMs, yEndMs, zEndMs)
+  def startPt: PtM3 = new PtM3(xStartMetresNum, yStartMetresNum, zStartMetresNum)
+  def endPt: PtM3 = new PtM3(xEndMetresNum, yEndMetresNum, zEndMetresNum)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
-  override def dbl1: Double = xStartMs
-  override def dbl2: Double = yStartMs
-  override def dbl3: Double = zStartMs
-  override def dbl4: Double = xEndMs
-  override def dbl5: Double = yEndMs
-  override def dbl6: Double = zEndMs
-  def xStart: Metres = Metres(xStartMs)
-  def yStart: Metres = Metres(yStartMs)
-  def zStart: Metres = Metres(zStartMs)
-  def xEnd: Metres = Metres(xEndMs)
-  def yEnd: Metres = Metres(yEndMs)
-  def zEnd: Metres = Metres(zEndMs)
+  override def dbl1: Double = xStartMetresNum
+  override def dbl2: Double = yStartMetresNum
+  override def dbl3: Double = zStartMetresNum
+  override def dbl4: Double = xEndMetresNum
+  override def dbl5: Double = yEndMetresNum
+  override def dbl6: Double = zEndMetresNum
+  def xStart: Metres = Metres(xStartMetresNum)
+  def yStart: Metres = Metres(yStartMetresNum)
+  def zStart: Metres = Metres(zStartMetresNum)
+  def xEnd: Metres = Metres(xEndMetresNum)
+  def yEnd: Metres = Metres(yEndMetresNum)
+  def zEnd: Metres = Metres(zEndMetresNum)
   def zsPos: Boolean = zStart.pos && zEnd.pos
 
   /** Takes the X and Y components. */
-  def xy: LineSegM2 = new LineSegM2(xStartMs, yStartMs, xEndMs, yEndMs)
+  def xy: LineSegM2 = new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
   def xyLineSeg(scale: LengthMetric): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
@@ -34,8 +44,8 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */
 object LineSegM3
 {
-   def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
-       pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
+   def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetresNum, pStart.yMetresNum, pStart.zMetresNum,
+       pEnd.xMetresNum, pEnd.yMetresNum, pEnd.zMetresNum)
 
   /** Implicit instance / evidence for [[BuilderArrMap]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
   implicit val buildEv: BuilderArrDbl6Map[LineSegM3, LineSegM3Arr] = new BuilderArrDbl6Map[LineSegM3, LineSegM3Arr]

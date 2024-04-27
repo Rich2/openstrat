@@ -15,9 +15,9 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with Polygo
   def xyPlane: PolygonM2 = map(_.xy)
 
   /** All vertices have a non negative Z component. */
-  def zAllNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
+  def zAllNonNeg: Boolean = vertsForAll(_.zMetresNum >= 0)
 
-  def zAllNeg: Boolean = vertsForAll(_.zMetres < 0)
+  def zAllNeg: Boolean = vertsForAll(_.zMetresNum < 0)
   override def verts: PtM3Arr = new PtM3Arr(arrayUnsafe)
 
   /** Performs the side effecting function on the [[PtM3]] value of each vertex.  */
