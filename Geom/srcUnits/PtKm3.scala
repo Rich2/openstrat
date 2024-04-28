@@ -2,12 +2,11 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** 3 dimensional point specified usingMetre metres [[Kilometres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
- *  confusion with the LL ending which is short for Latitude-longitude. */
+/** 3 dimensional point specified using [[Kilometres]] as units rather than scalars. */
 final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zKilometresNum: Double) extends PtLength3
 { override type ThisT = PtKm3
   override type LineSegT = LineSegKm3
-  def typeStr: String = "Kilometres3"
+  def typeStr: String = "PtKm3"
   override def toString: String = typeStr.appendParenthSemis(xKilometresNum.str2, yKilometresNum.str2, zKilometresNum.str2)
   def kmStr: String = typeStr.appendParenthSemis((xKilometresNum / 1000).str2, (yKilometresNum / 1000).str2, (zKilometresNum / 1000).str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Kilometres3]
@@ -38,8 +37,8 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
 
   /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtKm3]] point. */
   def xRotateRadians(rotationRadians: Double): PtKm3 =
-  { val scalar: Kilometres = Kilometres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
-    if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
+  { val len: Kilometres = Kilometres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
+    if(len > EarthEquatorialRadius * 1.05) throw excep("scalar: " + len.toString)
 
     val ang0 = None match {//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
       case _ if z.neg && y.neg => atan(y / z) + Pi
@@ -47,7 +46,7 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
       case _ => atan(y / z)//This operates on the standard atan range -Pi/2 to pi/2
     }
     val ang1 = ang0 + rotationRadians
-    ???//    PtKm3(x, sin(ang1) * scalar, cos(ang1) * scalar)
+    PtKm3(x, len * sin(ang1), len * cos(ang1))
   }
 
   /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
