@@ -5,7 +5,8 @@ import impunits._
 /** Extension methods class for [[Double]], for the geom package. */
 class GeomDoubleExtensions(thisDouble: Double)
 {
-  /** Extension methods multiplies this scalar [[Double]] by the operand [[Length]] */
+  /** Extension methods multiplies this scalar [[Double]] by the operand [[Length]]. If you want a more precise return type such as [[Netres]] or [[Miles]] put
+   * the [[Length]] object first */
   @inline def * (operator: Length): Length = operator * thisDouble
 
   /** Returns this [[Double]] value in [[Metres]]. */

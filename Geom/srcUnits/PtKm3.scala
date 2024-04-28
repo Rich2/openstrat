@@ -102,13 +102,18 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
     LineSegKm3.kilometresNum(startPt.xKilometresNum, startPt.yKilometresNum, startPt.zKilometresNum, xKilometresNum, yKilometresNum, zKilometresNum)
 }
 
-/** Companion object for the [[PtKm3] class. the 3D point measure in metres length. */
+/** Companion object for the [[PtKm3]] the 3 dimensional space point class. Contains factory methods and implicit type class instances. */
 object PtKm3
-{
-  def kilometres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
-  def apply(x: Kilometres, y: Kilometres, z: Kilometres): PtKm3 = new PtKm3(x.metresNum, y.metresNum, z.metresNum)
+{  /** Factory apply method for constructing 3D points specified in [[Kilometres]], from its component axes specified in [[Length]]s. if you want to construct
+   * from scalars use the kilometresNum method. */
+  def apply(x: Length, y: Length, z: Length): PtKm3 = new PtKm3(x.kilometresNum, y.kilometresNum, z.kilometresNum)
 
-  implicit val arrBuilderImplicit: BuilderArrDbl3Map[PtKm3, PtKm3Arr] = new BuilderArrDbl3Map[PtKm3, PtKm3Arr]
+  /** Factory method for constructing 3D points specified in [[Kilometres]], from its component axes input as [[Length]]s. if you want to construct from
+   * [[Length]] classes components use the apply method. */
+  def kilometres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
+
+  /** [[BuilderArrMap]] type class instance / evidence for [[PtKm3]]. */
+  implicit val builderArrEv: BuilderArrDbl3Map[PtKm3, PtKm3Arr] = new BuilderArrDbl3Map[PtKm3, PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(buffer)
@@ -236,7 +241,7 @@ class PtKm3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Arra
 class PtKm3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairDbl3[PtKm3, PtKm3Arr, B2, PtKm3Pair[B2], PtKm3PairArr[B2]]
 { override type BuffT = PtKm3PairBuff[B2]
   override type B1BuffT = PtKm3Buff
-  override def b1ArrBuilder: BuilderArrMap[PtKm3, PtKm3Arr] = PtKm3.arrBuilderImplicit
+  override def b1ArrBuilder: BuilderArrMap[PtKm3, PtKm3Arr] = PtKm3.builderArrEv
   override def arrFromArrAndArray(b1Arr: PtKm3Arr, b2s: Array[B2]): PtKm3PairArr[B2] = new PtKm3PairArr[B2](b1Arr.arrayUnsafe, b2s)
   override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): PtKm3PairArr[B2] = new PtKm3PairArr[B2](a1ArrayDbl, a2Array)
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtKm3PairBuff[B2] = new PtKm3PairBuff[B2](a1Buffer, a2Buffer)
