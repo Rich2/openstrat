@@ -1,8 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A quasi line path specified in 2D metre points. The points do not have to lie within the same plane. I'm not sure how useful this class will
- *  prove. It has been created for the intermediary step of converting from [[LinePathLL]]s to [[LinePathM2]]s on world maps. */
+ *  prove. It has been created for the intermediary step of converting from [[LinePathLL]]s to [[LinePath]]s on world maps. */
 final class LinePathM2(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl2[PtM2]
 { override type ThisT = LinePathM2
   override type PolygonT = PolygonM2

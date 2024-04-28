@@ -9,13 +9,15 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   implicit val gridSys: EGridSys = scen.gridSys
 
   var scale: LengthMetric = gridSys.cScale / viewIn.pixelsPerC
- // def gScale: Double = gridSys.cScale / scale
-  //def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(true)
   var sideDrawOn: Boolean = false
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
   proj match { case ep: HSysProjectionEarth => ep.irrOn = irregsOn; case _ => }
+  statusText = scen.title
+  val m1 = PtM3.metresNum(1, 1, 1)
+  val pp1 = Pt3(1, 1, 1)
+  m1 == pp1
 
   val terrs: LayerHcRefSys[WTile] = scen.terrs
   val sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs

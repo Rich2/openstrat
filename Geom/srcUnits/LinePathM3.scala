@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A quasi line path specified in 3D metre points. The points do not have to lie within the same plane. I'm not sure how useful this class will
@@ -7,7 +7,7 @@ class LinePathM3(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl
 { override type ThisT = LinePathM3
   override type PolygonT = PolygonM3
   override def typeStr: String = "LinePathM3"
-  override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
+  override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metresNum(d1, d2, d3)
   override def fromArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
   override def polygonFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def fElemStr: PtM3 => String = _.toString

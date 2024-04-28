@@ -14,7 +14,7 @@ trait PolygonLength3[VT <: PtLength3] extends Any with PolygonLikeDbl3[VT]
 final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength3[PtM3]
 { override type ThisT = PolygonM3
   override type SideT = LineSegM3
-  override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
+  override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metresNum(d1, d2, d3)
   override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtM3 => String = _.toString
