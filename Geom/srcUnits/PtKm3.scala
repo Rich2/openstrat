@@ -14,16 +14,9 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
   def dbl1: Double = xKilometresNum
   def dbl2: Double = yKilometresNum
   def dbl3: Double = zKilometresNum
-
-  /** Number of metres in the X component of this point. */
-  override def xMetresNum: Double = ???
-
-  /** Number of metres in the Y component of this point. */
-  override def yMetresNum: Double = ???
-
-  /** Number of metres in the Z component of this point. */
-  override def zMetresNum: Double = ???
-
+  override def xMetresNum: Double = xKilometresNum * 1000
+  override def yMetresNum: Double = yKilometresNum * 1000
+  override def zMetresNum: Double = zKilometresNum * 1000
   def x: Kilometres = Kilometres(xKilometresNum)
   def y: Kilometres = Kilometres(yKilometresNum)
   def z: Kilometres = Kilometres(zKilometresNum)
@@ -113,38 +106,38 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
 /** Companion object for the [[PtKm3] class. the 3D point measure in metres length. */
 object PtKm3
 {
-  def metres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
+  def kilometres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
   def apply(x: Kilometres, y: Kilometres, z: Kilometres): PtKm3 = new PtKm3(x.metresNum, y.metresNum, z.metresNum)
 
-  /*implicit val arrBuilderImplicit: BuilderArrDbl3Map[PtKm3, PtKm3Arr] = new BuilderArrDbl3Map[PtKm3, PtKm3Arr]
+  implicit val arrBuilderImplicit: BuilderArrDbl3Map[PtKm3, PtKm3Arr] = new BuilderArrDbl3Map[PtKm3, PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(buffer)
-  }*/
+  }
 
   /** [[Show]] type class instance / evidence for [[PTKm3]]. */
   implicit lazy val showEv: ShowDbl3[PtKm3] = ShowDbl3[PtKm3]("PtKm3", "x", _.xKilometresNum, "y", _.yKilometresNum, "z", _.zKilometresNum)
 
   /** [[Unshow]] type class instance / evidence for [[PTKm3]]. */
-  implicit lazy val unshowEv: UnshowDbl3[PtKm3] = UnshowDbl3[PtKm3]("PtKm3", "x", "y", "z", metres)
+  implicit lazy val unshowEv: UnshowDbl3[PtKm3] = UnshowDbl3[PtKm3]("PtKm3", "x", "y", "z", kilometres)
 
-  //implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtKm3PairArrMapBuilder[B2] = new PtKm3PairArrMapBuilder[B2]
+  implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtKm3PairArrMapBuilder[B2] = new PtKm3PairArrMapBuilder[B2]
 
   /** Implicit instance for the [[PolygonKm3Pair]] builder. This has to go in the [[PtKm3]] companion object so it can be found by an A => B function
    * where PtKm3 is the type B parameter. */
-  //implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonKm3PairBuilder[A2] = new PolygonKm3PairBuilder[A2]
+  implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonKm3PairBuilder[A2] = new PolygonKm3PairBuilder[A2]
 
-  /*implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtKm3, LinePathKm3] = new LinePathDbl3MapBuilder[PtKm3, LinePathKm3]
+  implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtKm3, LinePathKm3] = new LinePathDbl3MapBuilder[PtKm3, LinePathKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): LinePathKm3 = new LinePathKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
-  }*/
+  }
 
-  /*implicit val polygonBuildImplicit: PolygonDbl3MapBuilder[PtKm3, PolygonKm3] = new PolygonDbl3MapBuilder[PtKm3, PolygonKm3]
+  implicit val polygonBuildImplicit: PolygonDbl3MapBuilder[PtKm3, PolygonKm3] = new PolygonDbl3MapBuilder[PtKm3, PolygonKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
-  }*/
+  }
 
-  //implicit val lineSegBuildEv: LineSegLikeMapBuilder[PtKm3, LineSegKm3] = LineSegKm3(_, _)
+  implicit val lineSegBuildEv: LineSegLikeMapBuilder[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }

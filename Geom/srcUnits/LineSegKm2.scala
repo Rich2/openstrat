@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
+/** A 2 dimensional line segment measured in kilometres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
 class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val xEndKilometresNum: Double, val yEndKilometresNum: Double) extends
   LineSegLength2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem

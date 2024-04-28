@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
+/** A line segment in 3 dimensional space specified in kilometres. A straight line between two points in 3D. */
 class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val zStartKilometresNum: Double, val xEndKilometresNum: Double,
   val yEndKilometresNum: Double, val zEndKilometresNum: Double) extends LineSegLength3[PtKm3]
 { def typeStr: String = "LineDist3"

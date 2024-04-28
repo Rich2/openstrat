@@ -14,16 +14,9 @@ final class PtM3(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum:
   def dbl1: Double = xMetresNum
   def dbl2: Double = yMetresNum
   def dbl3: Double = zMetresNum
-
-  /** Number of metres in the X component of this point. */
-  override def xKilometresNum: Double = ???
-
-  /** Number of metres in the Y component of this point. */
-  override def yKilometresNum: Double = ???
-
-  /** Number of metres in the Z component of this point. */
-  override def zKilometresNum: Double = ???
-
+  override def xKilometresNum: Double = xMetresNum / 1000
+  override def yKilometresNum: Double = yMetresNum / 1000
+  override def zKilometresNum: Double = zMetresNum / 1000
   def x: Metres = Metres(xMetresNum)
   def y: Metres = Metres(yMetresNum)
   def z: Metres = Metres(zMetresNum)
@@ -113,7 +106,7 @@ final class PtM3(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum:
 /** Companion object for the [[PtM3] class. the 3D point measure in metres length. */
 object PtM3
 {
-  def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
+  def metresNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
   def apply(x: Metres, y: Metres, z: Metres): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
 
 
@@ -128,7 +121,7 @@ object PtM3
   implicit lazy val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetresNum, "y", _.yMetresNum, "z", _.zMetresNum)
 
   /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
-  implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metres)
+  implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metresNum)
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
 
