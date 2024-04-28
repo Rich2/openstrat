@@ -105,15 +105,16 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
 
 /** Companion object for the [[PtM3]] class. the 3D point measure in metres length. */
 object PtM3
-{ /** Factory apply method for constructing 3D points specified in [[Metres]], from its component axes speified in [[Length]]s. if you want to construct from
+{ /** Factory apply method for constructing 3D points specified in [[Metres]], from its component axes specified in [[Length]]s. if you want to construct from
    * scalars use the metresNum method. */
   def apply(x: Length, y: Length, z: Length): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
 
   /** Factory method for constructing 3D points specified in [[Metres]], from its component axes measured in numbers of metres. if you want to construct from
-   * [[Length]] classes componets use the apply method. */
+   * [[Length]] classes components use the apply method. */
   def metresNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 
-  implicit val arrBuilderImplicit: BuilderArrDbl3Map[PtM3, PtM3Arr] = new BuilderArrDbl3Map[PtM3, PtM3Arr]
+  /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PTM3]].  */
+  implicit val builderArrEv: BuilderArrDbl3Map[PtM3, PtM3Arr] = new BuilderArrDbl3Map[PtM3, PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def buffFromBufferDbl(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
@@ -242,7 +243,7 @@ class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Array
 class PtM3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends BuilderArrPairDbl3[PtM3, PtM3Arr, B2, PtM3Pair[B2], PtM3PairArr[B2]]
 { override type BuffT = PtM3PairBuff[B2]
   override type B1BuffT = PtM3Buff
-  override def b1ArrBuilder: BuilderArrMap[PtM3, PtM3Arr] = PtM3.arrBuilderImplicit
+  override def b1ArrBuilder: BuilderArrMap[PtM3, PtM3Arr] = PtM3.builderArrEv
   override def arrFromArrAndArray(b1Arr: PtM3Arr, b2s: Array[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](b1Arr.arrayUnsafe, b2s)
   override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](a1ArrayDbl, a2Array)
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtM3PairBuff[B2] = new PtM3PairBuff[B2](a1Buffer, a2Buffer)
