@@ -13,11 +13,11 @@ trait LineSegLike[VT] extends ValueNElem
   def endPt: VT
 
   /** Transforms this [[LineSegLike]] into a [[LineSegLike]] of type LB, by mapping the vertices to vertices of type VB. */
-  def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeMapBuilder[VB, LB]): LB = build.newSeg(f(startPt), f(endPt))
+  def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeBuilderMap[VB, LB]): LB = build.newSeg(f(startPt), f(endPt))
 
   /** Optionally Transforms this [[LineSegLike]] into a [[LineSegLike]] of type LB, by mapping the vertices to vertices of type VB, as long as both
    * vertices map to a [[Some]] result. */
-  def mapOpt[VB, LB <: LineSegLike[VB]](f: VT => Option[VB])(implicit build: LineSegLikeMapBuilder[VB, LB]): Option[LB] =
+  def mapOpt[VB, LB <: LineSegLike[VB]](f: VT => Option[VB])(implicit build: LineSegLikeBuilderMap[VB, LB]): Option[LB] =
     f(startPt).flatMap{ p1 => f(endPt).map(p2 =>build.newSeg(p1, p2)) }
 }
 
@@ -27,8 +27,8 @@ trait LineSegLikeBuff[VT, B <: LineSegLike[VT]] extends Any
 
 /** Builder for [[LineSegLike]] map operations. Note this is a builder for [[LineSegLike]] not a [[LineSegLikeArr]] so unlike most builders it does
  * not inherit from [[BuilderSeqLike]]. */
-trait LineSegLikeMapBuilder[VT, ST <: LineSegLike[VT]]
-{
+trait LineSegLikeBuilderMap[VT, ST <: LineSegLike[VT]]
+{ /** Utility method to construct the new [[LineSegLike]] for the new [[Point]] type. */
   def newSeg(vStart: VT, vEnd: VT): ST
 }
 

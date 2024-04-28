@@ -41,7 +41,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   }
 
   /** Maps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
-  def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
+  def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
   { val res = build.uninitialised(numVerts)
     verts.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -56,7 +56,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
 
   /** Optionally maps the vertices of this [[PolygonLike]] to vertices of a new to PolygonLike class of type BB. If the new [[PolygonLike]] has at
    *  least 3 vertices returns [[Some]] else returns [[None]]. */
-  def optMap[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => Option[B])(implicit build: PolygonLikeMapBuilder[B, BB]): Option[BB] = {
+  def optMap[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => Option[B])(implicit build: PolygonLikeBuilderMap[B, BB]): Option[BB] = {
     val buff = build.newBuff()
     vertsForeach(a =>f(a).foreach(v => build.buffGrow(buff, v)))
     if(buff.length >= 3) Some(build.buffToSeqLike(buff)) else None

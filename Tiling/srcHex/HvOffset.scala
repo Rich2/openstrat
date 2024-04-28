@@ -121,10 +121,10 @@ object HvOffset
     override def fromIntArray(array: Array[Int]): HvOffsetArr = new HvOffsetArr(array)
   }
 
-  /** Implicit type class instance / evidence for the [[HvOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  /** Implicit type class instance / evidence for the [[HvOffset]] type class instance of [[PolygonLikeBuilderMap]]. */
   implicit val polygonBuildEv: PolygonHVAndOffsetMapBuilder = new PolygonHVAndOffsetMapBuilder
 
-  /** Implicit type class instance / evidence for the [[HvOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  /** Implicit type class instance / evidence for the [[HvOffset]] type class instance of [[PolygonLikeBuilderMap]]. */
   implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 

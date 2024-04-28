@@ -127,8 +127,8 @@ object PtKm3
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtKm3PairArrMapBuilder[B2] = new PtKm3PairArrMapBuilder[B2]
 
-  /** Implicit instance for the [[PolygonKm3Pair]] builder. This has to go in the [[PtKm3]] companion object so it can be found by an A => B function
-   * where PtKm3 is the type B parameter. */
+  /** Implicit instance for the [[PolygonKm3Pair]] builder. This has to go in the [[PtKm3]] companion object so it can be found by an A => B function where
+   * [[PtKm3]] is the type B parameter. */
   implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonKm3PairBuilder[A2] = new PolygonKm3PairBuilder[A2]
 
   implicit val linePathBuildImplicit: LinePathDbl3MapBuilder[PtKm3, LinePathKm3] = new LinePathDbl3MapBuilder[PtKm3, LinePathKm3]
@@ -137,13 +137,16 @@ object PtKm3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl3MapBuilder[PtKm3, PolygonKm3] = new PolygonDbl3MapBuilder[PtKm3, PolygonKm3]
+  /** [[PolygonLikeBuilderMap]] type class instance evidence for [[PtKm3]]. This is used to map to a [[PolygonKm3]]. */
+  implicit val polygonBuildMapEv: PolygonDbl3BuilderMap[PtKm3, PolygonKm3] = new PolygonDbl3BuilderMap[PtKm3, PolygonKm3]
   { override type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PolygonKm3 = new PolygonKm3(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
   }
 
-  implicit val lineSegBuildEv: LineSegLikeMapBuilder[PtKm3, LineSegKm3] = LineSegKm3(_, _)
+  /** Implicit [[LineSegLikeBuilderMap]] type class instance / evidence for [[PtKm3]] points. Note rhis is used to map to a [[LineSegKm3]] not a
+   * [[LinsSegKm3Arr]]. */
+  implicit val lineSegBuildEv: LineSegLikeBuilderMap[PtKm3, LineSegKm3] = LineSegKm3(_, _)
 }
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */

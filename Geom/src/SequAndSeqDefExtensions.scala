@@ -12,7 +12,7 @@ class SeqSpecExtensions[A](val thisSeqSpec : SeqSpec[A])
   }
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
-  def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
   { val res = build.uninitialised(thisSeqSpec.ssLength)
     thisSeqSpec.ssIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -24,7 +24,7 @@ class SeqSpecExtensions[A](val thisSeqSpec : SeqSpec[A])
     res
   }
 
-  def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeMapBuilder[A, AA]): AA =
+  def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeBuilderMap[A, AA]): AA =
   { val res = build.uninitialised(thisSeqSpec.ssLength)
     thisSeqSpec.ssIForeach((i, a) => build.indexSet(res, i, a))
     res
@@ -41,7 +41,7 @@ class SequExtensions[A](val al : Sequ[A])
   }
 
   /** Maps the elements of tbis sequence to [[PolygonLike]] vertices, returning a [[PolygonLike]] class of type BB. */
-  def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeBuilderMap[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -70,7 +70,7 @@ class SequExtensions[A](val al : Sequ[A])
   }
 
   /** Converts this collection of data elements to [[PolygonLike]] class of type BB. */
-  def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeMapBuilder[A, AA]): AA =
+  def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeBuilderMap[A, AA]): AA =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, a))
     res

@@ -141,13 +141,13 @@ package object geom
   }
 
   implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: BuffDblN[A])
-  { /** Extension method to create Polygons from [[BuffDblN]]. Takes an implicit [[PolygonDblNMapBuilder]] parameter to return the [[PolygonLikeDblN]] */
-    def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNMapBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
+  { /** Extension method to create Polygons from [[BuffDblN]]. Takes an implicit [[PolygonDblNBuilderMap]] parameter to return the [[PolygonLikeDblN]] */
+    def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNBuilderMap[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
   }
 
   implicit class BuffIntExtensionsImplicit[A <: IntNElem](val thisBuff: BuffIntN[A])
-  { /** Extension method to create Polygons from [[BuffIntN]]. Takes an implicit [[PolygonIntNMapBuilder]] parameter to return the [[PolygonLikeIntN]] */
-    def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNMapBuilder[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
+  { /** Extension method to create Polygons from [[BuffIntN]]. Takes an implicit [[PolygonIntNBuilderMap]] parameter to return the [[PolygonLikeIntN]] */
+    def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNBuilderMap[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
   }
 
   implicit class MetreExtensionsImplicit(thisMetres: Metres)
@@ -166,7 +166,7 @@ package object geom
     }
 
     /** Converts to a [[PolygonLike]] with points of type A. */
-    def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonLikeMapBuilder[A, AA]): AA =
+    def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonLikeBuilderMap[A, AA]): AA =
     { val len = thisIter.size
       val res = builder.uninitialised(len)
       thisIter.iForeach((i, a) => res.setElemUnsafe(i, a))
@@ -280,7 +280,7 @@ package object geom
 
   /** Maps a range of Ints to [[PolygonLike]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non termination. Method
    * name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
-  def iUntilPolygonLikeMap[A, AA <: PolygonLike[A]](iUntil: Int)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA = {
+  def iUntilPolygonLikeMap[A, AA <: PolygonLike[A]](iUntil: Int)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA = {
     val iLen = (iUntil).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -290,7 +290,7 @@ package object geom
 
   /** Maps a range of Ints to a [[PolygonLike]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws
    * on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
-  def iUntilpolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA =
+  def iUntilpolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -301,7 +301,7 @@ package object geom
   /** Maps over a range of Ints to a [[PolygonLike]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step
    *  value is 1.Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and
    * iStep is 1. */
-  def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA =
+  def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
     var index = 0
@@ -311,7 +311,7 @@ package object geom
 
   /** Maps over a range of Ints to a [[PolygonLike]][A]. From 0 to to the iTo value in steps of 1. Throws on non termination. Method name over loaded
    *  with a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
-  def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iTo: Int)(f: Int => A)(implicit ev: PolygonLikeMapBuilder[A, AA]): AA = {
+  def iToPolygonLikeMap[A, AA <: PolygonLike[A]](iTo: Int)(f: Int => A)(implicit ev: PolygonLikeBuilderMap[A, AA]): AA = {
     val iLen = (iTo + 1).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0

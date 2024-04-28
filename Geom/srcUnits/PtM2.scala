@@ -72,7 +72,7 @@ object PtM2
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl2MapBuilder[PtM2, PolygonM2] = new PolygonDbl2MapBuilder[PtM2, PolygonM2]
+  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[PtM2, PolygonM2] = new PolygonDbl2BuilderMap[PtM2, PolygonM2]
   { override type BuffT = BuffPtM2
     override def fromDblArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffPtM2 = new BuffPtM2(inp)

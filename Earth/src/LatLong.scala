@@ -178,12 +178,12 @@ object LatLong
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl2MapBuilder[LatLong, PolygonLL] = new PolygonDbl2MapBuilder[LatLong, PolygonLL]
+  implicit val polygonBuildImplicit: PolygonDbl2BuilderMap[LatLong, PolygonLL] = new PolygonDbl2BuilderMap[LatLong, PolygonLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
   implicit def polygonLLPairbuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonLLPairBuilder[A2] = new PolygonLLPairBuilder[A2]
-  implicit val lineSegEv: LineSegLikeMapBuilder[LatLong, LineSegLL] = LineSegLL(_, _)
+  implicit val lineSegEv: LineSegLikeBuilderMap[LatLong, LineSegLL] = LineSegLL(_, _)
 }

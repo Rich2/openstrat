@@ -126,8 +126,8 @@ object PolygonM3Buff
 { def apply(initLen: Int = 4): PolygonM3Buff = new PolygonM3Buff(new ArrayBuffer[Array[Double]](initLen))
 }
 
-/** Speccialised effeicnet class for pairs where the first ocmponent of the pair is a [[PolygonM3]], a polygon in £d space poits specified in metre
- * scales. */
+/** Specialised efficient class for pairs where the first component of the pair is a [[PolygonM3]], a polygon in 3D space whose [[Point]]s are specified in
+ * [[Metrea]]. */
 class PolygonM3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtM3, PolygonM3, A2] with SpecialT {
   override def a1: PolygonM3 = new PolygonM3(a1ArrayDbl)
 }
@@ -160,7 +160,7 @@ final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def newBuff(length: Int): PolygonM3PairBuff[A2] = new PolygonM3PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonM3PairBuff[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 
-  override def b1Builder: PolygonLikeMapBuilder[PtM3, PolygonM3] = PtM3.polygonBuildImplicit
+  override def b1Builder: PolygonLikeBuilderMap[PtM3, PolygonM3] = PtM3.polygonBuildImplicit
   override def b1ArrBuilder: BuilderArrMap[PolygonM3, PolygonM3Arr] = PolygonM3.arrBuildImplicit
   override def arrFromArrAndArray(b1Arr: PolygonM3Arr, b2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
   override def newB1Buff(): PolygonM3Buff = PolygonM3Buff()

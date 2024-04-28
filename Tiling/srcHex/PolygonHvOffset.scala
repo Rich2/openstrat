@@ -34,6 +34,6 @@ trait PolgonHVAndOffsetCommonBuilder extends BuilderSeqLikeInt3[PolygonHvOffset]
   override def fromIntBuffer(inp: ArrayBuffer[Int]): HvOffsetBuff = new HvOffsetBuff(inp)
 }
 
-class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3MapBuilder[HvOffset, PolygonHvOffset]
+class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3BuilderMap[HvOffset, PolygonHvOffset]
 
 class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3FlatBuilder[HvOffset, PolygonHvOffset]

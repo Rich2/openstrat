@@ -281,7 +281,7 @@ object Pt2
   }
 
   /** Implicit instance evidence for [[PolygonLike]] map builder. */
-  implicit val polygonMapBuildEv: PolygonLikeMapBuilder[Pt2, PolygonGen] = new PolygonLikeMapBuilder[Pt2, PolygonGen] with BuilderSeqLikeDbl2Map[Pt2, PolygonGen]
+  implicit val polygonMapBuildEv: PolygonLikeBuilderMap[Pt2, PolygonGen] = new PolygonLikeBuilderMap[Pt2, PolygonGen] with BuilderSeqLikeDbl2Map[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
@@ -290,7 +290,7 @@ object Pt2
   /** Implicit instance for the [[PolygonGenPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function
    * where Pt2 is the type B parameter. */
   implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonGenPairBuilder[A2] = new PolygonGenPairBuilder[A2]
-  implicit val lineSegBuildEv: LineSegLikeMapBuilder[Pt2, LineSeg] = LineSeg(_, _)
+  implicit val lineSegBuildEv: LineSegLikeBuilderMap[Pt2, LineSeg] = LineSeg(_, _)
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
