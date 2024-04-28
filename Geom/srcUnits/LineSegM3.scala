@@ -7,8 +7,8 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
   val zEndMetresNum: Double) extends LineSegLength3[PtM3]
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
-  def startPt: PtM3 = new PtM3(xStartMetresNum, yStartMetresNum, zStartMetresNum)
-  def endPt: PtM3 = new PtM3(xEndMetresNum, yEndMetresNum, zEndMetresNum)
+  def startPt: PtM3 = PtM3.metresNum(xStartMetresNum, yStartMetresNum, zStartMetresNum)
+  def endPt: PtM3 = PtM3.metresNum(xEndMetresNum, yEndMetresNum, zEndMetresNum)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
   override def dbl1: Double = xStartMetresNum
   override def dbl2: Double = yStartMetresNum

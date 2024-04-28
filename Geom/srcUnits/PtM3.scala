@@ -125,7 +125,8 @@ object PtM3
   /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
   implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metresNum)
 
-  implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
+  /** [[]] */
+  implicit def builderArrPairImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
 
   /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function
    * where PtM3 is the type B parameter. */
