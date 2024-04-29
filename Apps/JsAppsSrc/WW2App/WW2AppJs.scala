@@ -2,7 +2,7 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pww2._, prid.phex._
 
-@JSExportTopLevel("WW2JsApp")
-object WW2JsApp
+@JSExportTopLevel("WW2AppJs")
+object WW2AppJs
 { @JSExport def main(): Unit = { WW2Gui(CanvasJs, WW2Scen1, HGView(125, 1528, 22)); () }
 } 
