@@ -257,8 +257,11 @@ object Pt2
   { def * (operand: Metres): PtM2 = PtM2.metresNum(thisPt.x * operand.metresNum, thisPt.y * operand.metresNum)
   }
 
-  def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))
-  def circlePtClockwise(angle: Double): Pt2 = Pt2(cos(angle), - sin(angle))
+  /** Returns point on a circle of radius 1 from the angle in radians. Gives an anti clockwise effect. */
+  def circlePt(radiansNum: Double): Pt2 = Pt2(cos(radiansNum), sin(radiansNum))
+
+  /** Returns point on a circle of radius 1 from the negative of the angle in radians. Gives a clockwise effect. */
+  def circlePtClockwise(radiansNum: Double): Pt2 = Pt2(cos(radiansNum), - sin(radiansNum))
 
   /** implicit [[Show]] and [[Unshow]] type class instances / evidence for [[Pt2]]s. */
   implicit val persistEv: PersistDbl2Both[Pt2] = PersistDbl2Both[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
