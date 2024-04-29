@@ -54,7 +54,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
     {
       case p: Planet =>
       { val auRatio: Double = p.avSunDist / Earth.avSunDist
-        Pt2.circlePtClockwise(0.001 * elapsed / math.sqrt(auRatio.cubed)).toMetres(p.avSunDist)
+        Pt2.circlePt(0.001 * elapsed / math.sqrt(auRatio.cubed)).toMetres(p.avSunDist)
       }
       case _ => PtM2(0.metres, 0.metres)
     }
