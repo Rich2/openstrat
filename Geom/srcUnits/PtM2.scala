@@ -45,14 +45,14 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
 
 /** Companion object for [[PtM2]] class contains factory methods. */
 object PtM2
-{ /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
+{ /** Factory apply method to create 2 dimeensional point specified in [[Metres]]. If you want to consttuct from scalars use the metresNum method. */
+  def apply(x: Length, y: Length): PtM2 = new PtM2(x.metresNum, y.metresNum)
+
+  /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
   def metresNum(xMetres: Double, yMetres: Double): PtM2 = new PtM2(xMetres, yMetres)
 
-  def apply(x: Metres, y: Metres): PtM2 = new PtM2(x.metresNum, y.metresNum)
-
+  /** The origin of this 2 dimensional space. */
   def origin: PtM2 = new PtM2(0, 0)
-
-
 
   /** [[Show]] type class instance / evidence for [[PTM2]]. */
   implicit val persistEv: ShowTellDbl2[PtM2] = ShowTellDbl2[PtM2]("Metres2")
@@ -94,8 +94,7 @@ class PtM2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2[PtM2]
 
 /** Companion object for the [[PtM2Arr]] class. Contains implicit Instance for Persist type class. */
 object PtM2Arr extends CompanionSeqLikeDbl2[PtM2, PtM2Arr]
-{
-  override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
+{ override def fromArray(array: Array[Double]): PtM2Arr = new PtM2Arr(array)
 
   /** [[Show]] type class instance / evidence for [[PtM2Arr]]. */
   implicit lazy val showEv: ShowSequ[PtM2, PtM2Arr] = ShowSequ[PtM2, PtM2Arr]()
