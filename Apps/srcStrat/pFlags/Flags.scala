@@ -5,6 +5,7 @@ import geom._, Colour._
 /** The flag trait is a builder for Graphic Elements and sequences of Graphic Elements, representing the flag, it is not itself. */
 trait Flag
 { def name: String
+  override def toString: String = name -- "flag"
   def ratio: Double
   def apply(): GraphicElems
   def rect: Rect = Rect(ratio, 1)
