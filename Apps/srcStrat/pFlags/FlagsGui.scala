@@ -4,13 +4,13 @@ import geom._, pgui._, Colour._
 
 /** A shortcut application to display some flags. */
 case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
-{
-  backColour = Gray
+{ backColour = Gray
   var big: Flag = UnitedStates
   val bigScale:Double = 600
   val smallScale: Double = 100
   def bigRect: RectCompound = big.compoundStr.scale(bigScale).slateY(canv.top - bigScale / 2)
   val margin: Double = 10
+
   val flagsArr: RArr[Flag] = RArr(PapuaNewGuinea, Eritrea, India, Iraq, CCCP, CzechRepublic, Colombia, Chile, Cyprus, Armenia, Austria, Belgium,
     Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, UnitedKingdom, UnitedStates, WhiteFlag,
     CommonShapesInFlags)

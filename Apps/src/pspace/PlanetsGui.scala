@@ -4,9 +4,8 @@ import geom._, pgui._, Colour._, java.time._
 
 /** Simple Solar system model application. */
 case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
-{
-  val margin = 35
-  var mapFocus: PtM2 = PtM2(0.metres, 0.metres)
+{ val margin = 35
+  var mapFocus: PtM2 = PtM2.origin
 
   val bZoomIn: PolygonCompound = clickButton("+")(zoomInCmd)
   val bZoomOut: PolygonCompound = clickButton("-")(zoomOutCmd)
