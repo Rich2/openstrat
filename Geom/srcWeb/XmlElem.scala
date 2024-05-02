@@ -17,15 +17,19 @@ trait XmlNoAtts extends XmlElem
 
 trait XmlMultiNoAtts extends XmlMulti with XmlNoAtts
 
-abstract class XmlElemSimple(val tag: String) extends Xml1Lineable
-{ def str: String
-  override def attribs: RArr[XmlAtt] = RArr()
+class XmlElemSimple(val tag: String, val str: String) extends Xml1Lineable
+{ override def attribs: RArr[XmlAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str.xCon)
 }
 
 object XmlElemSimple
 {
-  def apply(tag: String, strIn: String): XmlElemSimple = new XmlElemSimple(tag)
-  { override def str: String = strIn
-  }
+  def apply(tag: String, str: String): XmlElemSimple = new XmlElemSimple(tag, str)
+}
+
+class XmlVersion(versionStr: String) extends XmlElemSimple("version", versionStr)
+
+object XmlVersion
+{
+  def apply(versionStr: String): XmlVersion = new XmlVersion(versionStr)
 }
