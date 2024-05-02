@@ -22,3 +22,10 @@ abstract class XmlElemSimple(val tag: String) extends Xml1Lineable
   override def attribs: RArr[XmlAtt] = RArr()
   override def contents: RArr[XCon] = RArr(str.xCon)
 }
+
+object XmlElemSimple
+{
+  def apply(tag: String, strIn: String): XmlElemSimple = new XmlElemSimple(tag)
+  { override def str: String = strIn
+  }
+}
