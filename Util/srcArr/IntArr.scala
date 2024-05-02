@@ -1,9 +1,8 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, pParse._
 
-/** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
- *  widened. */
+/** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be widened. */
 final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[Int]
 { type ThisT = IntArr
   override def typeStr: String = "Ints"
@@ -82,8 +81,10 @@ object IntArr
       acc
     }
 
+  /** [[Show]] type class instance / evidence for [[IntArr]]. */
   implicit val showEv: ShowSequ[Int, IntArr] = ShowSequ[Int, IntArr]()
 
+  /** [[Unshow]] type class instance / evidence for [[IntArr]]. */
   implicit val unshowEv: Unshow[IntArr] = new Unshow[IntArr]
   { override def typeStr: String = "Seq"
 
