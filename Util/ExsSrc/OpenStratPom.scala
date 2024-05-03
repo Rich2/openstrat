@@ -2,10 +2,9 @@
 package ostrat
 import ostrat.pWeb._
 
-class OpenStratPom(val groupStr: String, val artifactStr: String, versionStr: String) extends PomProject
-{
-  override def artifactId: ArtifactId = ArtifactId(artifactStr)
+class OpenStratPom(val artifactStr: String, versionStr: String) extends PomProject
+{ override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override val groudId: GroupId = GroupId("com.richstrat")
-
-  override def modelVersion: XmlElem = ???
+  override def version: XmlVersion = XmlVersion(versionStr)
+  override def dependencies: RArr[PomDep] = RArr(ScalaLibDependency("3.4.1"))
 }

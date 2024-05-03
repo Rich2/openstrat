@@ -2,22 +2,23 @@
 package ostrat; package pWeb
 
 trait PomProject extends XmlMulti
-{ def artifactId: ArtifactId// = ArtifactId(artifactStr)
-  val groudId: GroupId //= GroupId(groupStr)
-  def version: XmlVersion = XmlVersion("4.0.0")
-  def modelVersion: XmlElem// = XmlElemSimple("modelVersion", modelVersionStr)
+{ def artifactId: ArtifactId
+  val groudId: GroupId
+  def version: XmlVersion
+  def modelVersion: XmlElem = XmlElemSimple("modelVersion", "4.0.0")
   override def tag: String = "project"
   override def attribs: RArr[XmlAtt] = RArr()
-
+  def dependencies: RArr[PomDep]
+  def dependenciesElem: PomDepenencies = ???
   override def contents: RArr[XCon] = RArr(modelVersion, groudId, artifactId, version)
 }
 
 trait PomDep extends XmlMulti
 { override def tag: String = "dependency"
   override def attribs: RArr[XmlAtt] = RArr()
-  def artifactId: ArtifactId// = ArtifactId(artifactStr)
-  val groupId: GroupId// = GroupId(groupStr)
-  def version: XmlVersion// = XmlVersion(versionStr)
+  def artifactId: ArtifactId
+  val groupId: GroupId
+  def version: XmlVersion
   override def contents: RArr[XCon] = RArr(groupId, artifactId, version)
 }
 
@@ -39,6 +40,10 @@ class ScalaLibDependency(val versionStr: String) extends PomDep
 { override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
   override val groupId: GroupId = ScalaGroupId
   override def version: XmlVersion = XmlVersion(versionStr)
+}
+
+object ScalaLibDependency{
+  def apply(versionStr: String): ScalaLibDependency = new ScalaLibDependency(versionStr)
 }
 
 class ArtifactId(artifactStr: String) extends XmlElemSimple("artifactId", artifactStr)
