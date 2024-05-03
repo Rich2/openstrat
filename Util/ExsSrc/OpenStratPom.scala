@@ -2,11 +2,11 @@
 package ostrat
 import ostrat.pWeb._
 
-class OpenStratPom extends PomProject {
-  override def artifactId: ArtifactId = ???
-
-  override val groudId: GroupId = ???
+class OpenStratPom(val groupStr: String, val artifactStr: String, versionStr: String) extends PomProject
+{
+  override def artifactId: ArtifactId = ArtifactId(artifactStr)
+  override val groudId: GroupId = GroupId("com.richstrat")
 
   override def modelVersion: XmlElem = ???
 }
-//(val groupStr: String, val artifactStr: String, versionStr: String, val modelVersionStr: String = )
+//
