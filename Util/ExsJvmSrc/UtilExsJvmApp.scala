@@ -5,5 +5,7 @@ object UtilExsJvmApp extends App
 { deb("Starting ExsJvmApp")
   val circ: geom.Circle = geom.Circle(10)
   debvar(circ)
-  fileWrite("/ldat/Temp", "Util.pom", new OpenStratPom("rutil", "0.3.2").out())
+  val sbtDir = sbtDirPath()
+  debvar(sbtDir)
+  sbtDir.forGood{str => fileWrite(str / "poms", "Util.pom", new OpenStratPom("rutil", "0.3.2").out()) }
 }
