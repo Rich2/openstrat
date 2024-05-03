@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** This package is for JavaFx code.*/
-package object pjvm
+package object utiljvm
 { val userHomeDir: String = System.getProperty("user.home")
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
 

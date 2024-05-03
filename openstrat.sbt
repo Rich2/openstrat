@@ -74,7 +74,7 @@ lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
 )
 
 lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
-  Compile/mainClass:= Some("ostrat.UtilExsApp"),
+  Compile/mainClass:= Some("ostrat.UtilExsJvmApp"),
 )
 
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(

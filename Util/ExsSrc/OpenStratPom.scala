@@ -9,4 +9,3 @@ class OpenStratPom(val groupStr: String, val artifactStr: String, versionStr: St
 
   override def modelVersion: XmlElem = ???
 }
-//

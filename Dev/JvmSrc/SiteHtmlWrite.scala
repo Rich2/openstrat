@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import prid._, pjvm._, pWeb._
+import prid._, utiljvm._, pWeb._
 
 /** Object for creating openstrat documentation. */
 object SiteHtmlWrite extends App

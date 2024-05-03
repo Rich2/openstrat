@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
-import pjvm._
+import utiljvm._
 
 object homeHtmlWrite
 { /** A quick and crude method for creating / overwriting an html file in the user's home directory. It takes 2 strings. The first is used for the
