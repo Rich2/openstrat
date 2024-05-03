@@ -21,6 +21,13 @@ class PomDep(val groupStr: String, val artifactStr: String, val versionStr: Stri
   override def contents: RArr[XCon] = RArr(groudId, artifactId, version)
 }
 
+class PomDepenencies(val depenencies: RArr[PomDep]) extends XmlMulti
+{ override def tag: String = "Dependencies"
+  override def attribs: RArr[XmlAtt] = RArr()
+
+  override def contents: RArr[PomDep] = depenencies
+}
+
 class ArtifactId(artifactStr: String) extends XmlElemSimple("artifactId", artifactStr)
 object ArtifactId { def apply(artifactStr: String): ArtifactId = new ArtifactId(artifactStr) }
 
