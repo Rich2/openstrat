@@ -1,11 +1,11 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-class PomProject(val groupStr: String, val artifactStr: String, versionStr: String, val modelVersionStr: String = "4.0.0") extends XmlMulti
-{ def artifactId: ArtifactId = ArtifactId(artifactStr)
-  val groudId: GroupId = GroupId(groupStr)
-  def version: XmlVersion = XmlVersion(versionStr)
-  def modelVersion = XmlElemSimple("modelVersion", modelVersionStr)
+trait PomProject extends XmlMulti
+{ def artifactId: ArtifactId// = ArtifactId(artifactStr)
+  val groudId: GroupId //= GroupId(groupStr)
+  def version: XmlVersion = XmlVersion("4.0.0")
+  def modelVersion: XmlElem// = XmlElemSimple("modelVersion", modelVersionStr)
   override def tag: String = "project"
   override def attribs: RArr[XmlAtt] = RArr()
 
