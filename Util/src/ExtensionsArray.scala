@@ -1,12 +1,14 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
-{ /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the
-   * tail value */
-  def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
+{ /** This method and "fHead" removes the need for headOption in the majority of cases. */
+  def headElse(ifEmpty: => A): A = if (thisArray.length == 0) ifEmpty else thisArray(0)
+
+  /** This method and "fHead" removes the need for headOption in the majority of cases. */
+  def headElseMap[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
 
   /** maps to a [[Arr]] of B. */
   def mapArr[B, BB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, BB]): BB ={
@@ -16,11 +18,11 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   }
 
   /** foreach loop with counter */
-  def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit = {
-    var counter = count
+  def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
+  { var counter = count
     var rem = thisArray
-    while (rem.nonEmpty) {
-      f(rem.head, counter)
+    while (rem.nonEmpty)
+    { f(rem.head, counter)
       counter += 1
       rem = rem.tail
     }
