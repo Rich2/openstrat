@@ -39,7 +39,7 @@ def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.2" % "test" withSources(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.3" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
@@ -49,13 +49,13 @@ def exsJvmProj(srcsStr: String) = proj(srcsStr, srcsStr + "Exs").settings(
   Compile/unmanagedSourceDirectories := List("ExsSrc", "ExsJvmSrc").map(moduleDir.value / _),
   resourceDirectory := moduleDir.value / "ExsRes",
   Test/unmanagedResourceDirectories := List(moduleDir.value / "ExsRes", (Test/resourceDirectory).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.2" % "test" withSources(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.3" % "test"  withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
 def jsProj(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
   Compile/unmanagedSourceDirectories := List("src", "JsSrc").map(moduleDir.value / _),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.1.0") withSources(),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.0")  withSources() withJavadoc(),
 )
 
 def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(
@@ -99,7 +99,7 @@ def geomSett = List(
 )
 
 lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
   )
 
 lazy val GeomExs = exsJvmProj("Geom").dependsOn(Geom).settings(
@@ -157,8 +157,8 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, EarthExs, TilingEx
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 
   libraryDependencies ++= Seq(
-    "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
-    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1",
+    "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0" withSources() withJavadoc(),
     ),
 )
 
@@ -168,8 +168,8 @@ def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugi
   Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Apps/srcStrat" ::
     List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
-    "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
-    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
+    "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0 withSources() withJavadoc()"
   ),
 )
 
@@ -198,8 +198,6 @@ lazy val DocMain = Project("DocMain", file("Dev/SbtDir/DocMain")).settings(sett3
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
   Compile/doc/scalacOptions ++= Seq("-project-version", "0.3.2snap", "-groups"),
-  //publish/skip := true,
-  //libraryDependencies ++= Seq("io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1", "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"),
 )
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
@@ -214,7 +212,7 @@ lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlug
     Seq(arr)
   }.taskValue,
 
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.0.0" withSources(),
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0" withSources() withJavadoc(),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   Compile/doc/scalacOptions ++= Seq("-groups"),
