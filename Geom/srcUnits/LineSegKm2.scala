@@ -42,11 +42,8 @@ object LineSegKm2
   def kilometresNum(xStartKilometresNum: Double, yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double): LineSegKm2 =
     new LineSegKm2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)
 
-  /** [[Show]] type class instance / evidence for [[LineSegKm2]]. */
-  implicit val showEv: Show2[PtKm2, PtKm2, LineSegKm2] = ???//Show2[PtKM2, PtKM2, LineSegKM2]("LineSegKM2", "start", _.startPt, "end", _.endPt)
-
-  /** [[Unshow]] type class instance / evidence for [[LineSegKm2]]. */
-  implicit val unshowEv: Unshow2[PtKm2, PtKm2, LineSegKm2] = ???// Unshow2[PtKM2, PtKM2, LineSegKM2]("Line2", "start", "end", apply)
+  /** [[Show]] and [[Unshow]] type class instances / evidence for [[LineSegKm2]]. */
+  implicit val persistEv: Persist2Both[PtKm2, PtKm2, LineSegKm2] = Persist2Both[PtKm2, PtKm2, LineSegKm2]("LineSegKM2", "start", _.startPt, "end", _.endPt, LineSegKm2(_, _))
 
   /** Implicit instance / evidence for [[BuilderArrMap]] type class. */
   implicit val buildEv: BuilderArrDbl4Map[LineSegKm2, LineSegKm2Arr] = new BuilderArrDbl4Map[LineSegKm2, LineSegKm2Arr]
