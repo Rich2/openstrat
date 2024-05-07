@@ -2,8 +2,8 @@
 package ostrat; package pEarth; package pMalay
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation of the island of Borneo. Depends on nothing. */
-object Borneo extends EarthArea("Borneo", 0.63 ll 114.132, jungle)
+/** [[polygonLL]] graphical representation of the island of Borneo. 743330km². Depends on nothing. */
+object Borneo extends EarthAreaIsland("Borneo", 0.63 ll 114.132, jungle, 743330)
 { val nBorneo: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
   val borderEast: LatLong = 4.165 ll 117.906
