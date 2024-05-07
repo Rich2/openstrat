@@ -7,7 +7,7 @@ import pParse._
 trait MetricUnits extends Any
 
 /** A metric measurement of [[Length]] such as [[Metres]] or the [[Kilometres]] */
-trait LengthMetric extends Any with Length with MetricUnits
+trait LengthMetric extends Any with Length with MetricUnits with TellDblBased
 { override def +(operand: Length): LengthMetric
   override def -(operand: Length): LengthMetric
   override def mulByLength(operand: Length): AreaMetric
@@ -31,9 +31,9 @@ object LengthMetric
 
 /** Length can be negative. The underlying data is stored in metres. */
 final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
-{ def typeStr: String = "Metres"
-  override def toString: String = metresNum.str + "m"
-  def str: String = "Length".appendParenth(metresNum.toString)
+{ override def typeStr: String = "Metres"
+  override def unitsDbl: Double = metresNum
+  override def endingStr: String = "m"
   override def +(operand: Length): Metres = Metres(metresNum + operand.metresNum)
   override def -(operand: Length): Metres = Metres(metresNum - operand.metresNum)
   override def unary_- : Metres = Metres(-metresNum)
@@ -72,7 +72,9 @@ object Metres
 
 /** Measurement of [[Length]] in Kilometres. can be negative. */
 final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetric
-{ def typeStr: String = "Kilometres"
+{ override def typeStr: String = "Kilometres"
+  override def unitsDbl: Double = kilometresNum
+  override def endingStr: String = "km"
   override def compare(that: Length): Int = kilometresNum.compare(that.kilometresNum)
   override def metresNum: Double = kilometresNum * 1000
   override def megametresNum: Double = kilometresNum / 1000
@@ -112,7 +114,9 @@ object Kilometres
 
 /** Measurement of [[Length]] in Megametres. can be negative. */
 final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetric
-{ def typeStr: String = "Megametres"
+{ override def typeStr: String = "Megametres"
+  override def unitsDbl: Double = megametresNum
+  override def endingStr: String = "Mm"
   override def compare(that: Length): Int = megametresNum.compare(that.megametresNum)
   override def metresNum: Double = megametresNum * 1000000
   override def kilometresNum: Double = megametresNum * 1000
@@ -135,8 +139,9 @@ object Megametres
 
 /** Measurement of [[Length]] in Gigametres. can be negative. */
 final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetric
-{ def typeStr: String = "Gigametres"
-
+{ override def typeStr: String = "Gigametres"
+  override def unitsDbl: Double = gigametresNum
+  override def endingStr: String = "Gm"
   override def compare(that: Length): Int = gigametresNum.compare(that.gigametresNum)
 
   override def metresNum: Double = gigametresNum * 1000000000
