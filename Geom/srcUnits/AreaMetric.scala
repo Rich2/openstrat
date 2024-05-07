@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Quantity of area specified in [[MetricUnits]]. */
-trait AreaMetric extends Any with Area with MetricUnits
+trait AreaMetric extends Any with Area with MetricUnits with TellDblBased
 { override def + (operand: Area): Area
   override def - (operand: Area): AreaMetric
   override def * (operand: Double): AreaMetric
@@ -12,7 +12,10 @@ trait AreaMetric extends Any with Area with MetricUnits
 
 /** Square metres  a measure of [[Area]]. */
 class MetresSq(val metresSqNum: Double) extends AnyVal with AreaMetric
-{ override def + (operand: Area): MetresSq = new MetresSq(metresSqNum + operand.metresSqNum)
+{ override def typeStr: String = "Metres"
+  override def unitsDbl: Double = metresSqNum
+  override def endingStr: String = "m²"
+  override def + (operand: Area): MetresSq = new MetresSq(metresSqNum + operand.metresSqNum)
   override def - (operand: Area): MetresSq = new MetresSq(metresSqNum - operand.metresSqNum)
   override def * (operand: Double): MetresSq = new MetresSq(metresSqNum * operand)
   def / (operand: Double): MetresSq = new MetresSq(metresSqNum / operand)
@@ -26,7 +29,7 @@ object MetresSq
 }
 
 /** Square kilometres a measure of [[Area]]. */
-class KilometresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric with TellDblBased
+class KilometresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric
 { override def typeStr: String = "Kilometres"
   override def unitsDbl: Double = kiloMetresSqNum
   override def endingStr: String = "km²"
