@@ -33,6 +33,23 @@ trait Tell extends Any with Persist
   def str3: String = tell(ShowStdNoSpace, 3, 3)
 }
 
+trait TellDblBased extends Any with Tell
+{
+  def endingStr: String
+
+  def unitsDbl: Double
+
+  override def str: String = tell(ShowStd, -1, -1)
+
+  override def tellDepth: Int = 1
+
+  override def tell(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
+    case st => Show.doubleEv.show(unitsDbl, ShowStd, maxPlaces, minPlaces) + endingStr
+  }
+
+  override def toString: String = tell(ShowStd, -1, -1)
+}
+
 /** A sub trait of the [[Show]] sub class where the type parameter extends [[Tell]]. This allows this [[Show]] type class to delegate to the [[Tell]]
  * object for the implementation of its strT and Show methods. It is better to use [[Tell]] and [[ShowTell]] for types you control rather than have
  * the toString method delegate to the [[Show]] type class instance in the companion object. Potentially that can create initialisation order
