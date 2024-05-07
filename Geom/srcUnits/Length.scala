@@ -34,6 +34,9 @@ trait Length extends Any with Ordered[Length]
 
   def divByLength(operand: Length): Double
 
+  def pos: Boolean
+  def neg: Boolean
+
   /** Converts this [[Length]] to [[Metres]]. */
   def toMetres: Metres = Metres(metresNum)
 

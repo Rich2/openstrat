@@ -43,17 +43,11 @@ final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
   override def divByLength(operand: Length): Double = metresNum / operand.metresNum
   @inline def yardsNum: Double = metresNum * 1.09361
   @inline def milesNum: Double = metresNum / 1609.34
-
   override def max(operand: LengthMetric): Metres = Metres(metresNum.max(operand.metresNum))
   override def min(operand: LengthMetric): Metres = ife(metresNum < operand.metresNum, this, operand.toMetres)
-
-  def kmStr2 = (metresNum / 1000).str2 + "km"
-
   override def compare(that: Length): Int = metresNum.compare(that.metresNum)
-
-  def pos: Boolean = metresNum >= 0
-  def neg: Boolean = metresNum < 0
-
+  override def pos: Boolean = metresNum >= 0
+  override def neg: Boolean = metresNum < 0
   @inline override def kilometresNum: Double = metresNum / 1000
   @inline override def megametresNum: Double = metresNum / 1000000
   @inline override def gigametresNum: Double = metresNum / 1000000000
@@ -88,9 +82,8 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
   override def divByLength(operand: Length): Double = kilometresNum / operand.kilometresNum
   override def max(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.max(operand.kilometresNum))
   override def min(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.min(operand.kilometresNum))
-
-  def pos: Boolean = kilometresNum >= 0
-  def neg: Boolean = kilometresNum < 0
+  override def pos: Boolean = kilometresNum >= 0
+  override def neg: Boolean = kilometresNum < 0
 }
 
 object Kilometres
@@ -129,7 +122,9 @@ final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetr
   override def /(operand: Double): Megametres = Megametres(megametresNum / operand)
   override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
   override def max(operand: LengthMetric): Megametres = Megametres(megametresNum.max(operand.megametresNum))
-  override def min(operand: LengthMetric): LengthMetric = Megametres(megametresNum.min(operand.megametresNum))
+  override def min(operand: LengthMetric): Megametres = Megametres(megametresNum.min(operand.megametresNum))
+  override def pos: Boolean = megametresNum >= 0
+  override def neg: Boolean = megametresNum < 0
 }
 
 object Megametres
@@ -155,7 +150,9 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetr
   override def /(operand: Double): Gigametres = Gigametres(gigametresNum / operand)
   override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
   override def max(operand: LengthMetric): Gigametres = Gigametres(gigametresNum.max(operand.gigametresNum))
-  override def min(operand: LengthMetric): LengthMetric = Gigametres(gigametresNum.min(operand.gigametresNum))
+  override def min(operand: LengthMetric): Gigametres = Gigametres(gigametresNum.min(operand.gigametresNum))
+  override def pos: Boolean = gigametresNum >= 0
+  override def neg: Boolean = gigametresNum < 0
 }
 
 object Gigametres

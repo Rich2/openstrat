@@ -40,6 +40,8 @@ final class Yards(val yardsNum: Double) extends AnyVal with LengthImperial
   override def divByLength(operand: Length): Double = yardsNum / nfl(operand)
   override def milesNum: Double = yardsNum / Miles.toYards
   override def megaMilesNum: Double = yardsNum / (Miles.toYards * 1000000)
+  override def pos: Boolean = yardsNum >= 0
+  override def neg: Boolean = yardsNum < 0
 }
 
 object Yards
@@ -72,6 +74,8 @@ final class Miles(val milesNum: Double) extends AnyVal with LengthImperial
   override def metresNum: Double = milesNum * Yards.toMetres * Miles.toYards
   override def yardsNum: Double = milesNum * Miles.toYards
   override def megaMilesNum: Double = milesNum / 1000000
+  override def pos: Boolean = megaMilesNum >= 0
+  override def neg: Boolean = megaMilesNum < 0
 }
 
 object Miles
@@ -107,6 +111,8 @@ final class MegaMiles(val megaMilesNum: Double) extends AnyVal with LengthImperi
   override def metresNum: Double = megaMilesNum * 1000000 * Miles.toYards * Yards.toMetres
   override def yardsNum: Double = megaMilesNum * Miles.toYards * 1000000
   override def milesNum: Double = megaMilesNum * 1000000
+  override def pos: Boolean = megaMilesNum >= 0
+  override def neg: Boolean = megaMilesNum < 0
 }
 
 object MegaMiles
