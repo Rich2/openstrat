@@ -32,7 +32,12 @@ def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/"
 def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings(
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
-  artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => artifact.name + "-" + module.revision + "." + artifact.extension }
+  artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
+    val cl = artifact.classifier match {
+      case Some(st) => "-" + st
+      case _ => ""
+    }
+    artifact.name + "-" + module.revision + cl + "." + artifact.extension }
 )
 
 def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
@@ -69,15 +74,18 @@ def utilSett = List(
 )
 
 lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
+  name := "rutil",
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
 )
 
 lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
+  name := "rutilexs",
   Compile/mainClass:= Some("ostrat.UtilExsJvmApp"),
 )
 
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
+  name := "rutiljs",
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
