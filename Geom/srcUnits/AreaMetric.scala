@@ -27,7 +27,8 @@ object MetresSq
 
 /** Square kilometres a measure of [[Area]]. */
 class KilometresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric
-{ override def +(operand: Area): KilometresSq = KilometresSq(kiloMetresSqNum + operand.kiloMetresSqNum)
+{ override def toString: String = kiloMetresSqNum.str0 + "km²"
+  override def +(operand: Area): KilometresSq = KilometresSq(kiloMetresSqNum + operand.kiloMetresSqNum)
   override def -(operand: Area): KilometresSq = KilometresSq(kiloMetresSqNum - operand.kiloMetresSqNum)
   override def * (operand: Double): KilometresSq = new KilometresSq(kiloMetresSqNum * operand)
   override def / (operand: Double): KilometresSq = new KilometresSq(kiloMetresSqNum / operand)
