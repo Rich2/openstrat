@@ -21,6 +21,12 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Int]] value in [[Gigametres]]. */
   @inline def gigaMetres: Gigametres = Gigametres(thisDouble)
 
+  /** Returns this [[Double]] value in [[KilometresSq]]. */
+  @inline def kilometresSq: KilometresSq = KilometresSq(thisDouble)
+
+  /** Returns this [[Int]] value in [[KilometresSq]]. */
+  @inline def `km²`: KilometresSq = KilometresSq(thisDouble)
+
   /** Returns this [[Double]] value in [[Yards]]. */
   @inline def yardes: Yards = new Yards(thisDouble)
 

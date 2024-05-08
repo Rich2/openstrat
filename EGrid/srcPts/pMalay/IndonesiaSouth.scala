@@ -16,8 +16,12 @@ object Sumatra extends EarthArea("Sumatra", -0.02 ll 101.63, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle, 124413)
-{ val ePulauMadura: LatLong = -6.96 ll 114.11
+object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle)
+{ val javaArea: KilometresSq = 124413.kilometresSq
+  val baliArea: KilometresSq = 5780.kilometresSq
+  val area: KilometresSq = javaArea + baliArea
+
+  val ePulauMadura: LatLong = -6.96 ll 114.11
   val pasuruan: LatLong = -7.627 ll 112.919
   val baliNorth: LatLong = -8.061 ll 115.184
   val baliWest: LatLong = -8.377 ll 115.709
@@ -40,8 +44,12 @@ object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle, 12441
 }
 
 /** [[polygonLL]] graphical representation of the islands of Sumbawa 15414km² + Lambok 4607.68km². Depends on nothing. */
-object Sumbawa extends EarthArea("Sumbawa", -8725 ll 117.442, jungle)
-{ val north: LatLong = -8.080 ll 117.925
+object Sumbawa extends EarthAreaIsland("Sumbawa", -8725 ll 117.442, jungle)
+{ val sumbawaArea = 15414.kilometresSq
+  val lambokArea = 4607.68.kilometresSq
+  override def area: KilometresSq = sumbawaArea + lambokArea
+
+  val north: LatLong = -8.080 ll 117.925
   val sangeangeIsland: LatLong = -8.138 ll 119.093
   val kelpaIsland: LatLong = -8.664 ll 119.238
   val southWest: LatLong = -8.829 ll 118.944

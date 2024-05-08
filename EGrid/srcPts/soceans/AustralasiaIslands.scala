@@ -3,8 +3,10 @@ package ostrat; package pEarth; package soceans
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Tasmania 68401km². Depends on nothing. */
-object Tasmania extends EarthAreaIsland("Tasmania", -24.45 ll 134.47, mtainOceForest, 68401)
-{ val capePortland: LatLong = -40.738 ll 147.976
+object Tasmania extends EarthAreaIsland("Tasmania", -24.45 ll 134.47, mtainOceForest)
+{ override val area: KilometresSq = 68401.kilometresSq
+
+  val capePortland: LatLong = -40.738 ll 147.976
   val tasman: LatLong = -43.242 ll 148.005
   val south: LatLong = -43.640 ll 146.828
   val southWest: LatLong = -43.570 ll 146.032
