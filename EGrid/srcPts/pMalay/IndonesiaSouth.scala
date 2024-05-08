@@ -61,8 +61,12 @@ object Sumbawa extends EarthAreaIsland("Sumbawa", -8725 ll 117.442, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the islands of Flores 14731.67km², + others 1500km². Depends on nothing. */
-object Flores extends EarthArea("Flores", -8.671 ll 121.858, mtainJungle)
-{ val north: LatLong = -8.241 ll 120.428
+object Flores extends EarthAreaIsland("Flores", -8.671 ll 121.858, mtainJungle)
+{ val floresArea: KilometresSq = 14731.67.kilometresSq
+  val otherIslandAreas: KilometresSq = 1500.kilometresSq
+  override val area: KilometresSq = floresArea + otherIslandAreas
+
+  val north: LatLong = -8.241 ll 120.428
   val northEast: LatLong = -8.064 ll 122.865
   val unknownEast = -8.245 ll 123.922
   val p50: LatLong = -8.610 ll 122.893
@@ -73,8 +77,12 @@ object Flores extends EarthArea("Flores", -8.671 ll 121.858, mtainJungle)
 }
 
 /** [[polygonLL]] graphical representation of the Alor Island 2124.93km² + others 600km². Depends on nothing. */
-object AlorIsland extends EarthArea("Alor", -8.671 ll 121.858, mtainJungle)
-{ val alorNE: LatLong = -8.147 ll 125.095
+object AlorIsland extends EarthAreaIsland("Alor", -8.671 ll 121.858, mtainJungle)
+{ val alorArea: KilometresSq = 2124.93.kilometresSq
+  val otherIslandAreas: KilometresSq = 600.kilometresSq
+  override val area: KilometresSq = alorArea + otherIslandAreas
+
+  val alorNE: LatLong = -8.147 ll 125.095
   val alorSE: LatLong = -8.327 ll 125.124
   val southWest: LatLong = -8.548 ll 124.064
   val west: LatLong = -8.366 ll 123.900
@@ -94,10 +102,14 @@ object Wetar extends EarthArea("Wetar", -7.788 ll 126.363, jungle)
   override val polygonLL: PolygonLL = PolygonLL(north, east, southEast, liranSouth, reong)
 }
 
- /** [[polygonLL]] graphical representation 32057.1km² of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends on
-  * nothing. */
-object Timor extends EarthArea("Timor", -8.538 ll 118.510, jungle)
-{ val east: LatLong = -8.412 ll 127.288
+ /** [[polygonLL]] graphical representation 32057.1km² of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends
+  *  on nothing. */
+object Timor extends EarthAreaIsland("Timor", -8.538 ll 118.510, jungle)
+{ val timorArea: KilometresSq = 30777.kilometresSq
+  val roteArea: KilometresSq = 1280.10.kilometresSq
+  override val area: KilometresSq = timorArea + roteArea
+
+  val east: LatLong = -8.412 ll 127.288
   val toineke: LatLong = -10.168 ll 124.393
   val roteSW: LatLong = -10.936 ll 122.848
   val roteNW: LatLong = -10.783 ll 122.810
