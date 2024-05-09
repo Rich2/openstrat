@@ -54,6 +54,7 @@ object Terr640W90 extends Long640Terrs
     TRow(94, sea * 4, mtainSahel),
     VRow(93, BendIn(9736, HVUR, 13), BendIn(9738, HVDL)),
     VRow(91, BendMin(9738, HVUL, 2)),
+    VRow(89, BendIn(9736, HVUR, 13), OrigMin(9738, HVUL, 5)),
     )
   }
   help.run
