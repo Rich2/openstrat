@@ -1,6 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg640
-import prid._, phex._, egrid._, WTiles._
+import prid._
+import phex._
+import egrid.{WTerrSetter, _}
+import WTiles._
 
 /** 640km [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile area of 709448.010km² .
  *  [[Isle3]] 8660.254km² => 16974.097km². (Crete 8450km²) + (Rhodes 1401km²) = 9851km²
@@ -53,8 +56,11 @@ object Terr640E30 extends Long640Terrs
     TRow(92, savannah * 2, jungle, hillySavannah),
     VRow(91, BendOut(1540, HVDR), BendInLt(1542, HVUL, 13, 7)),
     TRow(90, deshot, savannah * 2),
+    VRow(89, BendOut(1538, HVDR), BendIn(1540, HVUL, 13)),
     TRow(88, sahel, hillySavannah),
-    TRow(86, hillySavannah * 2)
+    VRow(87, BendOut(1528, HVDL, 7), BendOut(1536, HVDR, 7), BendIn(1538, HVUL, 13)),
+    TRow(86, hillySavannah * 2),
+    VRow(85, BendIn(1528, HVUR, 13), BendIn(1530, HVUp, 13), BendOut(1532, HVDn, 7), BendIn(1534, HVUp, 13), BendIn(1536, HVUL, 13)),
     )
   }
   help.run

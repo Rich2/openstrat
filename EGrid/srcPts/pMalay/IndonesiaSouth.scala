@@ -120,8 +120,10 @@ object Timor extends EarthAreaIsland("Timor", -8.538 ll 118.510, jungle)
 }
 
 /** [[polygonLL]] graphical representation of Sumba Island 11243.78km² in the Lesser Sunda Islands. Depends on nothing. */
-object Sumba extends EarthArea("Sumba", -9.720 ll 120.031, jungle)
-{ val north: LatLong = -9.276 ll 119.935
+object Sumba extends EarthAreaIsland("Sumba", -9.720 ll 120.031, jungle)
+{ override def area: KilometresSq = 11243.78.kilometresSq
+
+  val north: LatLong = -9.276 ll 119.935
   val east: LatLong = -10.033 ll 120.845
   val south: LatLong = -10.315 ll 120.453
   val west: LatLong = -9.552 ll 118.925

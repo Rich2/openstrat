@@ -51,7 +51,9 @@ object Terr640E0 extends Long640Terrs
     VRow(93, OrigLt(518, HVDn, 7)),
     TRow(92, sea * 3, hillySahel),
     VRow(91, OrigRt(518, HVUp, 7)),
+    VRow(89, BendIn(518, HVDR, 13), OrigMin(520, HVDL, 1)),
     TRow(88, sea * 3, hillySahel),
+    VRow(87, BendIn(518, HVUR, 13), BendOut(520, HVDL, 7))
     )
   }
   help.run

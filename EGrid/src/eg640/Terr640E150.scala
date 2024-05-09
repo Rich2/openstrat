@@ -44,7 +44,7 @@ object Terr640E150 extends Long640Terrs
     TRow(94, savannah, hillySavannah),
     VRow(93, Orig(5630, HVUR, 4, 4), ThreeUp(5632, 0, 13, 13), BendIn(5634, HVDL, 13)),
     TRow(92, savannah, hillySavannah),
-    VRow(91, BendOut(5634, HVUR, 7)),
+    VRow(91, BendOut(5634, HVUR, 7), BendIn(5636, HVDL, 13)),
     TRow(90, deshot, savannah, hillySavannah),
     )
   }
