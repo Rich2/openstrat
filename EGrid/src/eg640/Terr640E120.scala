@@ -15,7 +15,7 @@ import prid._, phex._, egrid._, WTiles._
  *
  * [[Isle3]] 8660.254km² => 16974.097km². Palawan-12,188.6km². */
 object Terr640E120 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e120(90)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e120(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
