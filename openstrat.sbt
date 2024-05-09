@@ -169,8 +169,8 @@ def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugi
   Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Apps/srcStrat" ::
     List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
-    "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
-    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0 withSources() withJavadoc()"
+    //"io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
+    //"io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0 withSources() withJavadoc()"
   ),
 )
 

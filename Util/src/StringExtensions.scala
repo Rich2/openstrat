@@ -49,7 +49,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
   /** Replaces newline characters into space characters. */
-  def newLinesToSpaces: String = thisString.map { case '\n' => ' '; case c => c }
+  def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */
   def asDbl: EMon[Double] = asType[Double]
@@ -148,7 +148,6 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def enCurly: String = "{" + thisString + "}" 
   
   def words: Array[String] = thisString.split("\\s+")
-  def toLowerWords: Array[String] = thisString.toLowerCase.words
   
   def remove2ndDot: String =
   { val (s1, s2) = thisString.span(_ != '.')         

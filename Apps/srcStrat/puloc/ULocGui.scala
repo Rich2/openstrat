@@ -80,7 +80,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) => {
       selected = cl.headOrNone
-      statusText = selectedStr.newLinesToSpaces
+      statusText = selectedStr.oneLine
       thisTop()
     }
 
