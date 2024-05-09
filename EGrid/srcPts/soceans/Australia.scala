@@ -4,15 +4,20 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[AustraliaNorthTerr]]. */
 object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, deshot)
-{
-  val southEast: LatLong = -31.687 ll 129
+{ val southEast: LatLong = -31.687 ll 129
   val nuytsland1: LatLong = -32.96 ll 124.33
   val nuytsland2: LatLong = -33.86 ll 123.63
   val westCapeHowe: LatLong = -35.129 ll 117.612
   val windyHarbour: LatLong = -34.84 ll 116
   val capeLeeuwin: LatLong = -34.367 ll 115.137
   val capeNaturaliste: LatLong = -33.530 ll 115.004
-  val dirkHartog: LatLong = -25.516 ll 112.938
+  val busselton: LatLong =  -33.630 ll 115.388
+  val p60: LatLong = -32.681 ll 115.607
+  val p64: LatLong = -30.509 ll 115.058
+  val p68: LatLong = -28.111 ll 114.175
+  val dirkHartog1: LatLong = -25.516 ll 112.938
+  val dirkHartogN: LatLong = -25.481 ll 112.907
+  val capePeron: LatLong = -25.503 ll 113.510
   val west: LatLong = -22.58 ll 113.95
   val legendreIsland: LatLong = -20.354 ll 116.835
   val eightyMile: LatLong = -19.41 ll 121.24
@@ -22,7 +27,8 @@ object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, 
   val drysdaleRiver: LatLong = -13.77 ll 126.95
 
   override val polygonLL: PolygonLL = PolygonLL(AustraliaNorthTerr.northWest, AustraliaNorthTerr.southWest, southEast, nuytsland1, nuytsland2, westCapeHowe,
-    windyHarbour, capeLeeuwin, capeNaturaliste, dirkHartog, west, legendreIsland, eightyMile, couloumbPoint, dempierNorth, degerandoIsland, drysdaleRiver)
+    windyHarbour, capeLeeuwin, capeNaturaliste, busselton, p60, p64, p68, dirkHartog1, dirkHartogN, capePeron, west, legendreIsland, eightyMile, couloumbPoint,
+    dempierNorth, degerandoIsland, drysdaleRiver)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
@@ -80,10 +86,12 @@ object SouthAustralia extends EarthArea("South Austraia", -27.1 ll 146.73, sahel
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */
 object AustraliaSouthEast extends EarthArea("Australia\nsouth east", -27.1 ll 146.73, savannah)
-{
-  val northEast: LatLong = -29 ll 153.476
-  val southEast: LatLong = -37.4 ll 149.58
-
+{ val northEast: LatLong = -29 ll 153.476
+  val sealRocks: LatLong = -32.440 ll 152.538
+  val greenCape: LatLong = -37.257 ll 150.047
+  val victoriaEast: LatLong = -37.505 ll 149.976
+  val p40: LatLong = -37.542 ll 149.906
+  val p45: LatLong = -37.934 ll 147.822
   val wilsonsProm: LatLong = -39.12 ll 146.38
   val barwonHeads: LatLong = -38.27 ll 144.53
   val capeOtway: LatLong = -38.85 ll 143.51
@@ -94,6 +102,6 @@ object AustraliaSouthEast extends EarthArea("Australia\nsouth east", -27.1 ll 14
   val portAugusta: LatLong = -32.53 ll 137.77
 
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, p75, hardwicke,
-    portAugusta, SouthAustralia.cameronPoint)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, sealRocks, greenCape, victoriaEast, p40, p45, wilsonsProm, barwonHeads, capeOtway, portMacdonnell,
+    carpenterRocks, p75, hardwicke, portAugusta, SouthAustralia.cameronPoint)
 }
