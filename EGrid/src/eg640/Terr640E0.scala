@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  A minimum island area of 59120.667km², which
  *  [[Isle5]] 28059.223km² => 41915.629km². (Sardinia 24090km²) + (Corsica.8722km²) = 32812. */
 object Terr640E0 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e0(86)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e0(76)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()

@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle3]] 8660.254km² => 16974.097km².
  * Below 8660.254km² Canaries 7,492 km². */
 object Terr640W30 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.w30(86)
+{ override implicit val grid: EGrid640LongFull = EGrid640.w30(80)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
