@@ -12,7 +12,6 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle5]] 28059.223km² => 41915.629km². Taiwan 36197km².
  * [[Isle5]] 28059.223km² => 41915.629km². Timor Island 30777km² + Rote Island 1280.10km² + Wetar Island 2651.8km² + Alor Island 2124.93km² + others 600km²
  * [[Isle5]] 28059.223km² => 41915.629km².
- *
  * [[Isle3]] 8660.254km² => 16974.097km². Palawan-12,188.6km². */
 object Terr640E120 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e120(86)
@@ -72,7 +71,11 @@ object Terr640E120 extends Long640Terrs
     VRow(93, OrigRt(4606, HVUR, 7), BendOut(4608, HVUL, 7)),
     TRow(92, sea, sahel * 3),
     TRow(90, sea, sahel, deshot * 2),
+    VRow(89, BendIn(4602, HVDR, 13), OrigRt(4604, HVDL)),
     TRow(88, savannah * 2, sahel * 2),
+    VRow(87, BendIn(4602, HVUR, 13), BendOut(4604, HVDL, 7), OrigRt(4612, HVDn, 7)),
+    TRow(86, sea, hillySavannah, savannah),
+    VRow(85, BendIn(4604, HVUR, 13), BendIn(4606, HVUp, 13), BendOut(4608, HVDn, 7), BendIn(4610, HVUp, 13), BendIn(4612, HVUL, 13)),
     )
   }
   help.run
