@@ -7,7 +7,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle7]] 58543.317km² => 77942.286km². Tasmania 68401 km².
  * [[Isle6]] 41915.629km² => 58543.317km². New Britain 42548.6km². */
 object Terr640E150 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e150(82)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e150(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -49,8 +49,14 @@ object Terr640E150 extends Long640Terrs
     TRow(90, deshot, savannah, hillySavannah),
     VRow(89, OrigLt(5636, HVUp, 7)),
     TRow(88, deshot, hillySavannah),
+    VRow(87, OrigRt(5624, HVDn, 7)),
     TRow(86, savannah, hillySavannah),
+    VRow(85, BendIn(5624, HVUR), BendOut(5626, HVDL, 7)),
+    TRow(84, hillyOce),
+    VRow(83, BendIn(5626, HVUR, 13), BendIn(5628, HVUp, 13), BendInLt(5630, HVDn, 9, 7)),
     TRow(82, Isle7(hillyOce)),
+    TRow(72, SeaIcePerm),
+    TRow(70, SeaIcePerm)
     )
   }
   help.run

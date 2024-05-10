@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** 640km [[WTile]] terrain terrain for 75° east to 105° east, centred on 90° east. A hex tile area of 354724.005km².
  *  [[Isle7]] 58543.317km² => 77942.286km². Sri Lanka 65610km². */
 object Terr640E90 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e90(76)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e90(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -39,7 +39,8 @@ object Terr640E90 extends Long640Terrs
     VRow(99, OrigLt(3590, HVDR, 7), BendMin(3592, HVDL, 5), BendIn(3596, HVDL, 8)),
     TRow(98, sea * 4, jungle),
     VRow(97, BendIn(3592, HVUR, 13), ThreeDown(3594, 11, 6, 0), BendIn(3596, HVUL, 8)),
-    VRow(95),
+    TRow(72, SeaIcePerm),
+    TRow(70, SeaIcePerm)
     )
   }
   help.run
