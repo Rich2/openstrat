@@ -9,7 +9,7 @@ import WTiles._
  *  [[Isle3]] 8660.254km² => 16974.097km². (Crete 8450km²) + (Rhodes 1401km²) = 9851km²
  *  Below 8660.254km²   */
 object Terr640E30 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.e30(76)
+{ override implicit val grid: EGrid640LongFull = EGrid640.e30(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -61,6 +61,8 @@ object Terr640E30 extends Long640Terrs
     VRow(87, BendOut(1528, HVDL, 7), BendOut(1536, HVDR, 7), BendIn(1538, HVUL, 13)),
     TRow(86, hillySavannah * 2),
     VRow(85, BendIn(1528, HVUR, 13), BendIn(1530, HVUp, 13), BendOut(1532, HVDn, 7), BendIn(1534, HVUp, 13), BendIn(1536, HVUL, 13)),
+    TRow(72, SeaIcePerm),
+    TRow(70, SeaIcePerm)
     )
   }
   help.run
