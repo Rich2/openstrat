@@ -15,31 +15,48 @@ object SouthAmericaMiddle extends EarthArea("South America\nmiddle", -27.0 ll -5
   val puntaDelEste: LatLong = -35 ll -54
   val buenosAires: LatLong = -34 ll -59
   val sBuenos: LatLong = -36 ll -57
-
+  val marDelPlata: LatLong = -38.076 ll -57.542
+  val trinidadIsland = -39.226 ll -61.876
+  val p45: LatLong = -40.584 ll -62.175
+  val p48: LatLong = -41.136 ll -63.046
   val puntaLavapie: LatLong = -37.15 ll -73.59
   val curamilla: LatLong = -33.10 ll -71.74
   val lenguaDeVaca : LatLong= -30.24 ll -71.63
 
   val northWest: LatLong = north * 70.16.west
 
-  override val polygonLL: PolygonLL = PolygonLL(nwSAmericaES, sSAmericaNE, grutaAzul, taquari, barra, puntaDelEste, buenosAires, sBuenos,
-    SouthAmericaSouth.northEast, SouthAmericaSouth.northWest, puntaLavapie, curamilla, lenguaDeVaca, northWest)
+  override val polygonLL: PolygonLL = PolygonLL(nwSAmericaES, sSAmericaNE, grutaAzul, taquari, barra, puntaDelEste, buenosAires, sBuenos, marDelPlata,
+    trinidadIsland, p45, p48, SouthAmericaSouth.northEast, SouthAmericaSouth.northWest, puntaLavapie, curamilla, lenguaDeVaca, northWest)
 }
 
 /** [[polygonLL]] graphical representation for south Argentine and south Chile. Depends on nothing. */
 object SouthAmericaSouth extends EarthArea("South America\nsouth", -27.0 ll -70.22, savannah)
 { val northEast: LatLong = -40.76 ll -65.02
-  val fuegoEast: LatLong = -54.66 ll -65.14
-  val swArgentine: LatLong = -54.28 ll -65.06
+  val cabotBlanco = -47.201 ll -65.735
+  val puntaMedanosa = -48.115 ll -65.923
+  val puntaNorte = -42.075 ll -63.759
+  val southEast: LatLong = -52.331 ll -68.355
+  val p40: LatLong = -52.386 ll -69.486
+  val p45: LatLong = -52.834 ll -70.627
+  val furia: LatLong = -55.470 ll -72.312
+  val p70: LatLong = -52.741 ll -74.712
 
-  /** Southern most point of Chile. */
-  val sChile: LatLong = -55.26 ll -69.48
-
-  val cabotBlanco: LatLong = -47.20 ll -65.75
   val islaEsmeralda : LatLong= -48.86 ll -75.62
   val northWest = -39.97 ll -73.67
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast,cabotBlanco, swArgentine, fuegoEast, sChile, islaEsmeralda, northWest)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, puntaNorte, cabotBlanco, puntaMedanosa, southEast, p40, p45, furia, p70, islaEsmeralda, northWest)
+}
+
+/** [[polygonLL]] graphical representation for the Falkland Islands 12173km². Depends on nothing. */
+object DelFuego extends EarthArea("Tierra del Fuego", -51.781 ll -59.211, hillySteppe)
+{
+  val north: LatLong = -52.451 ll -69.413
+  val east: LatLong = -54.657 ll -65.125
+  val hornos = -55.977 ll -67.273
+  val west: LatLong = -54.644 ll -72.078
+  val p65 = -54.437 ll -70.922
+
+  override def polygonLL: PolygonLL = PolygonLL(north, east, hornos, west, p65)
 }
 
 /** [[polygonLL]] graphical representation for the Falkland Islands 12173km². Depends on nothing. */
