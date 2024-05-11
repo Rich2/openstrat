@@ -27,9 +27,9 @@ object XmlElemSimple
   def apply(tag: String, str: String): XmlElemSimple = new XmlElemSimple(tag, str)
 }
 
-class XmlVersion(versionStr: String) extends XmlElemSimple("version", versionStr)
+class VersionElem(versionStr: String) extends XmlElemSimple("version", versionStr)
 
-object XmlVersion
+object VersionElem
 {
-  def apply(versionStr: String): XmlVersion = new XmlVersion(versionStr)
+  def apply(versionStr: String): VersionElem = new VersionElem(versionStr)
 }

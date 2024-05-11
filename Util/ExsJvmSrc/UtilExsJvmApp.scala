@@ -7,9 +7,18 @@ object UtilExsJvmApp
   def main(args: Array[String]): Unit =
   {
     deb("Starting ExsJvmApp")
+    val versionStr = "0.3.3"
+    val oDir = args.headOption
+    println(oDir)
 
-    val sbtDir = sbtDirPath()
-    debvar(sbtDir)
-    sbtDir.forGood { str => fileWrite(str / "poms", "Util.pom", new OpenStratPom("rutil", "0.3.2").out()) }
+    def makePom(dirStr: String, name: String, versionStr: String, depStrs: String*): EMon[String] =
+      fileWrite(dirStr / "poms", name + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+
+    oDir.foreach { dirStr =>
+      println(dirStr.length)
+      val res = makePom(dirStr / "poms", "rutil", versionStr)
+        //fileWrite(dirStr / "poms", "rutil.pom", new OpenStratPomProject("rutil", "0.3.3").out())
+      println(res)
+    }
   }
 }

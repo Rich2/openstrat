@@ -4,7 +4,7 @@ package ostrat; package pWeb
 trait PomProject extends XmlMulti
 { def artifactId: ArtifactId
   val groudId: GroupId
-  def version: XmlVersion
+  def version: VersionElem
   def modelVersion: XmlElem = XmlElemSimple("modelVersion", "4.0.0")
   override def tag: String = "project"
   override def attribs: RArr[XmlAtt] = RArr()
@@ -18,7 +18,7 @@ trait PomDep extends XmlMulti
   override def attribs: RArr[XmlAtt] = RArr()
   def artifactId: ArtifactId
   val groupId: GroupId
-  def version: XmlVersion
+  def version: VersionElem
   override def contents: RArr[XCon] = RArr(groupId, artifactId, version)
 }
 
@@ -39,7 +39,7 @@ object ScalaGroupId extends GroupId("org.scala-lang")
 class ScalaLibDependency(val versionStr: String) extends PomDep
 { override def artifactId: ArtifactId = ArtifactId("scala3-library_3")
   override val groupId: GroupId = ScalaGroupId
-  override def version: XmlVersion = XmlVersion(versionStr)
+  override def version: VersionElem = VersionElem(versionStr)
 }
 
 object ScalaLibDependency{
