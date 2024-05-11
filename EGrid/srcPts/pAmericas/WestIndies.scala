@@ -2,9 +2,11 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for Cuba. Depends on nothing. */
-object Cuba extends EarthArea("Cuba", 21.97 ll -78.96, jungle)
-{ val west: LatLong = 21.86 ll -84.95
+/** [[polygonLL]] graphical representation for Cuba 109884km². Depends on nothing. */
+object Cuba extends EarthAreaIsland("Cuba", 21.97 ll -78.96, jungle)
+{ override val area: KilometresSq = 109884.kilometresSq
+
+  val west: LatLong = 21.86 ll -84.95
   val havana: LatLong = 23.14 ll -82.39
   val p15 = 22.967 ll -79.827
   val east: LatLong = 20.22 ll -74.13
