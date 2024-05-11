@@ -39,6 +39,7 @@ object TerrMegaW60 extends LongMegaTerrs
     TRow(92, hillySavannah, savannah),
     VRow(91, OrigLt(10756, HVUR, 7), BendIn(10758, HVUL, 13)),
     TRow(90, hillySavannah, sea),
+    VRow(85, BendMax(10750, HVUp), Bend(10752, HVDn, 13, 4), BendOut(10754, HVUp, 7)),
     TRow(84, siceWin),
     TRow(82, siceWin)
     )
