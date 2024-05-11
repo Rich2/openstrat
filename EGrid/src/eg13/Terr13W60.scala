@@ -3,7 +3,8 @@ package ostrat; package eg13
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15 West to 15 East.
- * Isle6 172942.905km² => 243930.488km². (Cuba 105806km²) + (Hispaniola 76479km²) + (Jamaica	11188km²) = 193473km².  */
+ * Isle6 172942.905km² => 243930.488km². (Cuba 105806km²) + (Hispaniola 76479km²) + (Jamaica	11188km²) = 193473km².
+ * Below 35732.005km² Falklands 12173km². */
 object Terr13W60 extends Long13Terrs
 { override implicit val grid: EGrid13LongFull = EGrid13.w60(86)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -34,7 +35,7 @@ object Terr13W60 extends Long13Terrs
       TRow(94, mtainDesert, oceanic),
       VRow(93, BendOut(10754, HVDR, 7), BendIn(10756, HVUL, 12)),
       TRow(92, savannah),
-      VRow(91, OrigRt(10750, HVDL), OrigRt(10752, HVUR), BendIn(10754, HVUL, 13)),
+      VRow(91, OrigMin(10750, HVDL, 1), OrigRt(10752, HVUR), BendIn(10754, HVUL, 13)),
       VRow(89, OrigRt(10750, HVUL, 7)),
       VRow(87, BendIn(10750, HVDn, 13, siceWin), BendIn(10752, HVUp, 13, siceWin), BendOut(10754, HVDn, 7, siceWin), BendMax(10756, HVUp, siceWin)),
       TRow(86, SeaIcePerm),
