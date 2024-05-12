@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 
-/** Creates a 2D projection from  hexgrids projected on on to the Earth */
+/** Creates a 2D projection from hex grids projected on on to the Earth */
 case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProjection
 {
   override type SysT = EGridSys
@@ -59,8 +59,6 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   }
 
   override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast, showIrr)
-
-
 
   override def tilePolygons: PolygonGenArr =
   { val r1: PolygonHCArr = gChild.map(_.hVertPolygon)

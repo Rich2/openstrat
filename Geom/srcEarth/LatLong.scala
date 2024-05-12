@@ -104,11 +104,18 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
     r1.toXYIfZPositive
   }
 
-  /** Converts to Metres3 where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
+  /** Converts to [[PtM3]] where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
   def toMetres3: PtM3 =
   { /** This factor reduces the value of X and Z as latitudes move towards the Poles. */
     val clat = latRadians.cos.abs
     PtM3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
+  }
+
+  /** Converts to [[PtKm3]] where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
+  def toKm3: PtKm3 =
+  { /** This factor reduces the value of X and Z as latitudes move towards the Poles. */
+    val clat = latRadians.cos.abs
+    PtKm3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
   }
 
   def lineSegTo(endPt: LatLong): LineSegLL = LineSegLL(this, endPt)
