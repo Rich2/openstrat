@@ -55,7 +55,10 @@ object Terr640W90 extends Long640Terrs
     VRow(93, BendIn(9736, HVUR, 13), BendIn(9738, HVDL)),
     VRow(91, BendMin(9738, HVUL, 2)),
     VRow(89, BendIn(9736, HVUR, 13), OrigMin(9738, HVUL, 5)),
+    VRow(87, BendIn(9736, HVDR, 10), OrigRt(9738, HVDL)),
+    VRow(83, BendIn(9732, HVDR, 13), OrigMin(9734, HVDL, 4)),
     TRow(82, sea * 2, mtainOceForest),
+    VRow(81, OrigRt(9732, HVUp, 7)),
     TRow(70, SeaIcePerm)
     )
   }

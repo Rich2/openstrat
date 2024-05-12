@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle8]] 77942.286km² => 100112.536km². (Hispaniola 76192km²) + (Puerto Rico 8897km²) = 85089km².
  * [[Isle3]] 8660.254km² => 16974.097km². Falkland Islands 12173km². */
 object Terr640W60 extends Long640Terrs
-{ override implicit val grid: EGrid640LongFull = EGrid640.w60(80)
+{ override implicit val grid: EGrid640LongFull = EGrid640.w60(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -56,10 +56,16 @@ object Terr640W60 extends Long640Terrs
     TRow(90, mtainDesert, savannah * 2, hillySavannah),
     VRow(89, BendIn(10744, HVUR, 13), OrigMin(10746, HVUL, 5), OrigLt(10760, HVDR, 7)),
     TRow(88, hillySahel, subtrop * 2),
+    VRow(87, BendIn(10744, HVDR, 10), OrigRt(10746, HVDL)),
     TRow(86, hillySahel, savannah, subtrop),
-    VRow(85, BendOut(10754, HVDR, 7), OrigRt(10756, HVDL, 7)),
+    VRow(85, OrigRt(10744, HVUp), BendOut(10754, HVDR, 7), OrigRt(10756, HVDL, 7)),
     TRow(84, hillySavannah, savannah),
+    VRow(83, OrigMin(10746, HVDL, 4)),
+    TRow(82, hillySahel),
     TRow(80, sea, Isle3(hillySteppe)),
+    TRow(74, ice * 2),
+    TRow(72, ice),
+    TRow(70, SeaIcePerm)
     )
   }
   help.run

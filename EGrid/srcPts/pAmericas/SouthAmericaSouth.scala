@@ -32,25 +32,35 @@ object SouthAmericaMiddle extends EarthArea("South America\nmiddle", -27.0 ll -5
 /** [[polygonLL]] graphical representation for south Argentine and south Chile. Depends on nothing. */
 object SouthAmericaSouth extends EarthArea("South America\nsouth", -27.0 ll -70.22, savannah)
 { val northEast: LatLong = -40.76 ll -65.02
-  val cabotBlanco = -47.201 ll -65.735
-  val puntaMedanosa = -48.115 ll -65.923
-  val puntaNorte = -42.075 ll -63.759
+  val puntaNorte: LatLong = -42.075 ll -63.759
+  val puntaDelgada: LatLong = -42.764 ll -63.634
+  val p16: LatLong = -45.061 ll -65.585
+  val p20: LatLong = -46.048 ll -67.620
+  val p21: LatLong = -46.573 ll -67.415
+  val p22: LatLong = -47.034 ll -66.704
+  val cabotBlanco: LatLong = -47.201 ll -65.735
+  val puntaMedanosa: LatLong = -48.115 ll -65.923
+  val p25: LatLong = -49.914 ll -67.817
+  val p29: LatLong = -50.331 ll -68.876
   val southEast: LatLong = -52.331 ll -68.355
   val p40: LatLong = -52.386 ll -69.486
   val p45: LatLong = -52.834 ll -70.627
   val furia: LatLong = -55.470 ll -72.312
+  val islaCarlos: LatLong = -54.076 ll -73.473
+  val p60: LatLong = -53.597 ll -73.854
   val p70: LatLong = -52.741 ll -74.712
-
+  val p74: LatLong = -50.660 ll -75.520
+  val covadonga: LatLong = -49.001 ll -75.685
   val islaEsmeralda : LatLong= -48.86 ll -75.62
-  val northWest = -39.97 ll -73.67
+  val northWest: LatLong = -39.97 ll -73.67
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, puntaNorte, cabotBlanco, puntaMedanosa, southEast, p40, p45, furia, p70, islaEsmeralda, northWest)
+  override val polygonLL: PolygonLL = PolygonLL(northEast, puntaNorte, puntaDelgada, p16, p20, p21, p22, cabotBlanco, puntaMedanosa, p25, p29, southEast, p40,
+    p45, furia, islaCarlos, p60, p70, p74, covadonga, islaEsmeralda, northWest)
 }
 
 /** [[polygonLL]] graphical representation for the Falkland Islands 12173km². Depends on nothing. */
 object DelFuego extends EarthArea("Tierra del Fuego", -51.781 ll -59.211, hillySteppe)
-{
-  val north: LatLong = -52.451 ll -69.413
+{ val north: LatLong = -52.451 ll -69.413
   val east: LatLong = -54.657 ll -65.125
   val hornos = -55.977 ll -67.273
   val west: LatLong = -54.644 ll -72.078
