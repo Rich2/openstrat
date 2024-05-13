@@ -41,7 +41,7 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings
 )
 
 def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
@@ -106,8 +106,13 @@ def geomSett = List(
 )
 
 lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
+  //libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
   )
+
+ lazy val GeomFx = mainJvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
+   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/JvmFxSrc",
+   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
+ )
 
 lazy val GeomExs = exsJvmProj("Geom").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
@@ -150,7 +155,7 @@ def appsSett = List(
 lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, TilingExs, EGridExs, Apps).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, GeomFx, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 

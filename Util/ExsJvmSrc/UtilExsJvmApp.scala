@@ -19,7 +19,6 @@ object UtilExsJvmApp
       println(makePom(dirStr, "rutil", versionStr))
       println(makePom(dirStr, "geom", versionStr, "rutil"))
       println(makePom(dirStr, "tiling", versionStr, "rutil", "geom"))
-
     }
   }
 }
