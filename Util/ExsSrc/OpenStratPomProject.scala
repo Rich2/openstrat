@@ -15,5 +15,5 @@ class OpenStratPomProject(val artifactStr: String, val versionStr: String, modul
 { override def artifactId: ArtifactId = ArtifactId(artifactStr)
   override val groudId: GroupId = GroupId("com.richstrat")
   override def version: VersionElem = VersionElem(versionStr)
-  override def dependencies: RArr[PomDep] = moduleStrs.map(s => OpenStratPomDep(artifactStr, versionStr)) +% ScalaLibDependency("3.4.1")
+  override def dependencies: RArr[PomDep] = moduleStrs.map(s => OpenStratPomDep(s, versionStr)) +% ScalaLibDependency("3.4.1")
 }

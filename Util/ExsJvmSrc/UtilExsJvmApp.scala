@@ -12,12 +12,14 @@ object UtilExsJvmApp
     println(oDir)
 
     def makePom(dirStr: String, name: String, versionStr: String, depStrs: String*): EMon[String] =
-      fileWrite(dirStr, name + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+      fileWrite(dirStr, name + "-" + versionStr + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
 
     oDir.foreach { dirStr =>
       println(dirStr.length)
-      val res = makePom(dirStr, "rutil", versionStr)
-      println(res)
+      println(makePom(dirStr, "rutil", versionStr))
+      println(makePom(dirStr, "geom", versionStr, "rutil"))
+      println(makePom(dirStr, "tiling", versionStr, "rutil", "geom"))
+
     }
   }
 }
