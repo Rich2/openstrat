@@ -9,8 +9,8 @@ trait PomProject extends XmlMulti
   override def tag: String = "project"
   override def attribs: RArr[XmlAtt] = RArr()
   def dependencies: RArr[PomDep]
-  def dependenciesElem: PomDepenencies = ???
-  override def contents: RArr[XCon] = RArr(modelVersion, groudId, artifactId, version)
+  def dependenciesElem: PomDepenenciesElem = PomDepenenciesElem(dependencies)
+  override def contents: RArr[XCon] = RArr(modelVersion, groudId, artifactId, version, dependenciesElem)
 }
 
 trait PomDep extends XmlMulti
@@ -27,11 +27,14 @@ object PomDep
   //(val groupStr: String, val artifactStr: String, val versionStr: String)
 }
 
-class PomDepenencies(val depenencies: RArr[PomDep]) extends XmlMulti
+class PomDepenenciesElem(val dependencies: RArr[PomDep]) extends XmlMulti
 { override def tag: String = "Dependencies"
   override def attribs: RArr[XmlAtt] = RArr()
+  override def contents: RArr[PomDep] = dependencies
+}
 
-  override def contents: RArr[PomDep] = depenencies
+object PomDepenenciesElem{
+  def apply(dependencies: RArr[PomDep]): PomDepenenciesElem = new PomDepenenciesElem(dependencies)
 }
 
 object ScalaGroupId extends GroupId("org.scala-lang")
