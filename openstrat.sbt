@@ -168,11 +168,16 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, TilingExs, EGridEx
     "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0" withSources() withJavadoc(),
     ),
-)
+  )
 
 lazy val DevFx = mainJvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmFxSrc",
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
+)
+
+lazy val DevServ = Project("DevServ", file("Dev/SbtDir/DevServ")).dependsOn(Dev).settings(sett3).settings(
+  libraryDependencies += "dev.zio" %% "zio" % "2.1.0" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC6" withSources() withJavadoc(),
 )
 
 lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
