@@ -62,9 +62,9 @@ object SouthAmericaSouth extends EarthArea("South America\nsouth", -27.0 ll -70.
 object DelFuego extends EarthArea("Tierra del Fuego", -51.781 ll -59.211, hillySteppe)
 { val north: LatLong = -52.451 ll -69.413
   val east: LatLong = -54.657 ll -65.125
-  val hornos = -55.977 ll -67.273
+  val hornos: LatLong = -55.977 ll -67.273
   val west: LatLong = -54.644 ll -72.078
-  val p65 = -54.437 ll -70.922
+  val p65: LatLong = -54.437 ll -70.922
 
   override def polygonLL: PolygonLL = PolygonLL(north, east, hornos, west, p65)
 }
