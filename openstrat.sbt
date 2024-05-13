@@ -155,8 +155,8 @@ def appsSett = List(
 lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, GeomFx, TilingExs, EGridExs, Apps).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
+lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, TilingExs, EGridExs, Apps).settings(
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -168,6 +168,11 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, GeomFx, TilingExs,
     "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0" withSources() withJavadoc(),
     ),
+)
+
+lazy val DevFx = mainJvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmFxSrc",
+  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
 lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
