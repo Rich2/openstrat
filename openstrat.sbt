@@ -105,9 +105,7 @@ def geomSett = List(
     "srcEarth").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
 )
 
-lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
-  //libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
-  )
+lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett)
 
  lazy val GeomFx = mainJvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
    Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/JvmFxSrc",
@@ -175,9 +173,10 @@ lazy val DevFx = mainJvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-lazy val DevServ = Project("DevServ", file("Dev/SbtDir/DevServ")).dependsOn(Dev).settings(sett3).settings(
+lazy val ServZio = Project("ServZio", file("Dev/SbtDir/ServZio")).dependsOn(Dev).settings(sett3).settings(
   libraryDependencies += "dev.zio" %% "zio" % "2.1.0" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC6" withSources() withJavadoc(),
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmServZioSrc",
 )
 
 lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
