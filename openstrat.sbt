@@ -1,6 +1,6 @@
  /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.4snap"
+val versionStr = "0.3.3snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.4"
@@ -82,7 +82,6 @@ lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
 lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
   name := "rutilexs",
   Compile/mainClass:= Some("ostrat.UtilExsJvmApp"),
-  version := "0.3.3snap"
 )
 
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
@@ -114,7 +113,6 @@ lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett)
 
 lazy val GeomExs = exsJvmProj("Geom").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
-  version := "0.3.3snap"
 )
 
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)

@@ -202,7 +202,8 @@ class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtKm3
 object PtKm3Arr extends CompanionSeqLikeDbl3[PtKm3, PtKm3Arr]
 { override def fromArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
 
-  implicit val arrFlatBuilderImplicit: BuilderArrDbl3Flat[PtKm3Arr] = new BuilderArrDbl3Flat[PtKm3Arr]
+  /** [[BuilderArrFlat]] type class instance / evidence for [[PtKm3]]s. Provides builder for flatMaps with A => [[PtKm3Arr]] functions. */
+  implicit val builderArrFlatEv: BuilderArrDbl3Flat[PtKm3Arr] = new BuilderArrDbl3Flat[PtKm3Arr]
   { type BuffT = PtKm3Buff
     override def fromDblArray(array: Array[Double]): PtKm3Arr = new PtKm3Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtKm3Buff = new PtKm3Buff(inp)
@@ -216,10 +217,11 @@ final class PtKm3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with
 }
 
 object PtKm3Buff
-{
+{ /** Facotry apply method for [[PtKm3Buff]]s. */
   def apply(initSize: Int = 4): PtKm3Buff = new PtKm3Buff(new ArrayBuffer[Double](initSize * 3))
 }
 
+/** [[PairElem]] class for use as logical elements of the efficient [[PtKm3Arr]] class. */
 class PtKm3Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, val a2: A2) extends PointDbl3Pair[PtKm3, A2]
 { override def a1: PtKm3 = new PtKm3(a1Dbl1, a1Dbl2, a1Dbl3)
 }
