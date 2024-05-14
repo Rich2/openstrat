@@ -6,7 +6,9 @@ trait HtmlPage
 {
   def head: HtmlHead
   def body: HtmlBody
-  def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 150)
+  def htmlElem: HtmlHtml = HtmlHtml(head, body)
+  def out: String = "<!doctype html>\n" + htmlElem.out(0, 150)
+  def zioOut: String = "\n" + htmlElem.out(0, 150)
 }
 
 /** Companion object for the [[HtmlHead]] class. */
@@ -16,6 +18,7 @@ object HtmlPage
   { override val head: HtmlHead = headIn
     override val body: HtmlBody = bodyIn
   }
+
   /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
   def titleOnly(title: String, bodyContent: String): HtmlPage = new HtmlPage{
     override val head: HtmlHead = HtmlHead.title(title)
