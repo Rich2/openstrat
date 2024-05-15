@@ -22,7 +22,14 @@ case class CssTextAlign(align: TextAlign) extends CssDec
 
 object CssTextCentre extends CssTextAlign(CenAlign)
 
-case class CssFontSize(valueStr: String) extends CssDec
-{
-  override def prop: String = "font-size"
+trait CssFontSize extends CssDec
+{ override def prop: String = "font-size"
+}
+
+object CssFontSize{
+
+}
+
+case class CssFontSizePx(pixels: Double) extends CssFontSize
+{  override def valueStr: String = pixels.str + "px"
 }
