@@ -71,6 +71,6 @@ object CssOl
 trait CssClassesRule extends CssRule
 {
   def firstClassName: String
-  def otherClassNames: Seq[String]
-  final override def selec: String = (firstClassName +: otherClassNames).map("." + _).strComma
+  def otherClassNames: RArr[String]
+  //final override def selec: String = (firstClassName %: otherClassNames).map("." + _).strComma
 }

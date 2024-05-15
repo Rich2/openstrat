@@ -34,7 +34,6 @@ object CssClassesRule
    }
 }
 
-
 object CssClassRule 
 {
    def apply(classNameIn: String, cssDecsIn: CssDec*): CssClassRule = new CssClassRule
