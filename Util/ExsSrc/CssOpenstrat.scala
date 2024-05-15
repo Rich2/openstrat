@@ -5,12 +5,11 @@ import pWeb._, Colour._
 object CssOpenstrat
 {
   def apply(): String = body.out --- endStr
-
-  def body: CssBody = CssBody(RArr(CssBGColour(Ivory), CssFontSize("18px")))
+  def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize("18px"))
+  def h1: CssH1 = CssH1()
 
     def endStr: String =
   """
-
   h1
   { text-align: center;
     font-size: 44px;

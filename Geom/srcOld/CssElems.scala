@@ -68,8 +68,6 @@ case class CssWidthCent(valInt: Int)extends CssDec
   def valStr = valInt.toString + "%"
 }
 
-
-
 trait CssTextAlign extends CssDec { def prop = "text-align" }
 object CssTextAlignCentre extends CssTextAlign { def valStr = "center" }
 object CssMargin
