@@ -23,4 +23,14 @@ package object pWeb
 
     //def htH2: HtmlH2 = HtmlH2(thisString)
   }
+
+  implicit class IntWebExtensions(thisInt: Int)
+  { def px: CssPx = CssPx(thisInt)
+    def em: CssEm = CssEm(thisInt)
+  }
+
+  implicit class DoubleWebExtensions(thisDouble: Double)
+  { def px: CssPx = CssPx(thisDouble)
+    def em: CssEm = CssEm(thisDouble)
+  }
 }

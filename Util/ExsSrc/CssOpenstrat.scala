@@ -5,8 +5,9 @@ import pWeb._, Colour._
 object CssOpenstrat
 {
   def apply(): String = body.out ---- h1.out ---- endStr
-  def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSizePx(18))
-  def h1: CssH1 = CssH1(CssTextCentre, CssFontSizePx(44))
+  def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize(18.px))
+  def h1: CssH1 = CssH1(CssTextCentre, CssFontSize(44.px))
+
 
   def endStr: String =
   """
