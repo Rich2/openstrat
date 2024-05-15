@@ -4,16 +4,9 @@ import zio._, Console._, http._, ostrat._, geom._, prid.phex._
 
 object HelloWorld extends ZIOAppDefault
 {
-  val handHome = handler(myHtml(pDev.IndexPage.out))
+  val handHome = handler(Response.text(pDev.IndexPage.out).addHeader(Header.ContentType(MediaType.text.html)))
   val pt: Pt2 = ostrat.geom.Pt2(4, 5)
   val hex1: HCen = HCen(4, 4)
-
-  def myHtml(data: String, status: Status = Status.Ok): Response =
-    Response(
-      status,
-      ???,//http.Response.contentTypeHtml,
-      Body.fromString(data),
-    )
 
   val routes: Routes[Any, Response] = Routes(
     Method.GET / "" -> handHome,
