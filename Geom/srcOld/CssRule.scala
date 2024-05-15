@@ -54,19 +54,6 @@ trait CssClassRule extends CssRule
    final override def selector = "." + className
 }
 
-
-object CssBody
-{
-   def apply(cssDecsIn: CssDec*): CssBody = new CssBody
-   {
-      val cssDecs = cssDecsIn
-   }
-}
-trait CssBody extends CssRule
-{ 
-   def selector = "body"
-}
-
 object CssP
 {
    def apply(cssDecsIn: CssDec*): CssP = new CssP

@@ -68,10 +68,7 @@ case class CssWidthCent(valInt: Int)extends CssDec
   def valStr = valInt.toString + "%"
 }
 
-case class CssBackColour(colour: Colour) extends CssDec
-{ def prop = "background-color"
-  def valStr = colour.hexStr
-}
+
 
 trait CssTextAlign extends CssDec { def prop = "text-align" }
 object CssTextAlignCentre extends CssTextAlign { def valStr = "center" }

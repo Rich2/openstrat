@@ -1,13 +1,15 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pWeb._, Colour._
 
 object CssOpenstrat
 {
-  def apply(): String =
-"""body {
-   background-color: Ivory;
-   font-size: 18px;
-}
+  def apply(): String = body.out --- endStr
+
+  def body: CssBody = CssBody(RArr(CssBGColour(Ivory), CssFontSize("18px")))
+
+    def endStr: String =
+  """
 
   h1
   { text-align: center;
