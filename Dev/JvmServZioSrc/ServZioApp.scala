@@ -2,17 +2,19 @@
 package ostrat; package pszio
 import zio._, Console._, http._, ostrat._, geom._, prid.phex._
 
-object HelloWorld extends ZIOAppDefault
+object ServZioApp extends ZIOAppDefault
 {
   val handHome = handler(Response.text(pDev.IndexPage.out).addHeader(Header.ContentType(MediaType.text.html)))
   val pt: Pt2 = ostrat.geom.Pt2(4, 5)
   val hex1: HCen = HCen(4, 4)
+  val css = handler(Response.text(CssOpenstrat()).addHeader(Header.ContentType(MediaType.text.css)))
 
   val routes: Routes[Any, Response] = Routes(
     Method.GET / "" -> handHome,
     Method.GET / "index.html" -> handHome,
     Method.GET / "index.htm" -> handHome,
     Method.GET / "index" -> handHome,
+    Method.GET / "Documentation/documentation.css" -> css,
     Method.GET / "geom.html" -> handler(Response.html(s"This is a pt: $pt"))
   )
   val app: HttpApp[Any] = routes.toHttpApp
