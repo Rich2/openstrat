@@ -14,6 +14,14 @@ trait CssRule
   def out: String = selec + propsStr
 }
 
+trait CssRules
+{
+  def rules: RArr[CssRule]
+  def endStr: String = ""
+
+  def apply(): String = rules.foldStr(_.out, "\n\n") ---- endStr
+}
+
 /** CSS rule for the body. */
 case class CssBody(props: RArr[CssDec]) extends CssRule
 { override def selec: String = "body"
@@ -32,4 +40,14 @@ case class CssH1(props: RArr[CssDec]) extends CssRule
 object CssH1
 {
   def apply(props: CssDec*): CssH1 = new CssH1(props.toArr)
+}
+
+/** CSS rule for the OL ordered list. */
+case class CssOl(props: RArr[CssDec]) extends CssRule
+{ override def selec: String = "ol"
+}
+
+object CssOl
+{
+  def apply(props: CssDec*): CssOl = new CssOl(props.toArr)
 }

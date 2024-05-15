@@ -2,14 +2,15 @@
 package ostrat
 import pWeb._, Colour._
 
-object CssOpenstrat
+object CssOpenstrat extends CssRules
 {
-  def apply(): String = body.out ---- h1.out ---- endStr
+  override def rules: RArr[CssRule] = RArr(body, h1, ol)
+
   def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize(18.px))
   def h1: CssH1 = CssH1(CssTextCentre, CssFontSize(44.px))
+  def ol = CssOl()
 
-
-  def endStr: String =
+  override def endStr: String =
   """
   ol {
     padding-left: 1em;
