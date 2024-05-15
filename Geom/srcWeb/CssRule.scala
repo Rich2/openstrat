@@ -11,6 +11,8 @@ trait CssRule
     case 1 => s" { ${props.head.out} }"
     case _ => "\n{ " + props.foldStr(_.out, "\n  ") + " \n}"
   }
+
+  def isMultiLine = props.length > 1
   def out: String = selec + propsStr
 }
 
@@ -19,7 +21,21 @@ trait CssRules
   def rules: RArr[CssRule]
   def endStr: String = ""
 
-  def apply(): String = rules.foldStr(_.out, "\n\n") ---- endStr
+  def apply(): String = rules.length match
+  {
+    case 0 => endStr
+    case 1 => rules(0).out --- endStr
+    case _ =>
+    { var acc: String = rules(0).out
+      var prev: Boolean = rules(0).isMultiLine
+      iUntilForeach(1, rules.length){ i =>
+        val curr = rules(i)
+        if(prev && !curr.isMultiLine) acc = acc --- curr.out else acc = acc ---- curr.out
+        prev = curr.isMultiLine
+      }
+      acc ---- endStr
+    }
+  }
 }
 
 /** CSS rule for the body. */

@@ -413,13 +413,13 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** foldLeft over the tail of this sequence. */
-  def tailfold[B](initial: B)(f: (B, A) => B) =
+  def tailfold[B](initial: B)(f: (B, A) => B): B =
   { var acc: B = initial
     tailForeach(a => acc = f(acc, a))
     acc
   }
 
-  def foldHeadTail[B](initVal: B)(f: A => B, fAcc: (B, B) => B) =
+  def foldHeadTail[B](initVal: B)(f: A => B, fAcc: (B, B) => B): B =
   { var acc = initVal
     if (this.nonEmpty)
     { acc = fAcc(acc, f(head))
