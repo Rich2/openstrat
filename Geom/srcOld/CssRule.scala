@@ -33,12 +33,7 @@ object CssClassesRule
       override val cssDecs = cssDecsIn
    }
 }
-trait CssClassesRule extends CssRule
-{
-   def firstClassName: String
-   def otherClassNames: Seq[String]
-   final override def selector = (firstClassName +: otherClassNames).map("." + _).commaFold
-}
+
 
 object CssClassRule 
 {

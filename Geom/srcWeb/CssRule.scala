@@ -30,7 +30,7 @@ trait CssRules
       var prev: Boolean = rules(0).isMultiLine
       iUntilForeach(1, rules.length){ i =>
         val curr = rules(i)
-        if(prev && !curr.isMultiLine) acc = acc --- curr.out else acc = acc ---- curr.out
+        if(prev || curr.isMultiLine)  acc = acc ---- curr.out else acc = acc --- curr.out
         prev = curr.isMultiLine
       }
       acc ---- endStr
@@ -66,4 +66,11 @@ case class CssOl(props: RArr[CssDec]) extends CssRule
 object CssOl
 {
   def apply(props: CssDec*): CssOl = new CssOl(props.toArr)
+}
+
+trait CssClassesRule extends CssRule
+{
+  def firstClassName: String
+  def otherClassNames: Seq[String]
+  final override def selec: String = (firstClassName +: otherClassNames).map("." + _).strComma
 }

@@ -8,14 +8,10 @@ object CssOpenstrat extends CssRules
 
   def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize(18.px))
   def h1: CssH1 = CssH1(CssTextCentre, CssFontSize(44.px))
-  def ol = CssOl()
+  def ol = CssOl(CssPadLt(1.em))
 
   override def endStr: String =
   """
-  ol {
-    padding-left: 1em;
-  }​
-
   ol li {
     margin-bottom 2em;
     margin-top 2em;
