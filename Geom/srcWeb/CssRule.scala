@@ -16,9 +16,9 @@ trait CssRule
   def out: String = selec + propsStr
 }
 
+/** A list of CssRules with a possibe end [[String]]. */
 trait CssRules
-{
-  def rules: RArr[CssRule]
+{ def rules: RArr[CssRule]
   def endStr: String = ""
 
   def apply(): String = rules.length match
@@ -44,7 +44,7 @@ case class CssBody(props: RArr[CssDec]) extends CssRule
 }
 
 object CssBody
-{
+{ /** Factory apply method for CSS rule for the HTML body. */
   def apply(props: CssDec*): CssBody = new CssBody(props.toArr)
 }
 
@@ -54,17 +54,17 @@ case class CssH1(props: RArr[CssDec]) extends CssRule
 }
 
 object CssH1
-{
+{ /** Factory apply method for CSS rule for H1 headers. */
   def apply(props: CssDec*): CssH1 = new CssH1(props.toArr)
 }
 
-/** CSS rule for the OL ordered list. */
+/** CSS rule for OL ordered lists. */
 case class CssOl(props: RArr[CssDec]) extends CssRule
 { override def selec: String = "ol"
 }
 
 object CssOl
-{
+{ /** Factory apply method for CSS rule for the OL ordered list. */
   def apply(props: CssDec*): CssOl = new CssOl(props.toArr)
 }
 
