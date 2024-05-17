@@ -12,7 +12,7 @@ object GeomPage extends HtmlPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses)
 
   def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
-    geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons)
+    geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
 
   def geomItme: HtmlLi = HtmlLi("Geometry. Immutable classes for points, lines and shapes. These classes build on the Array based collections" +
     " from the Util module.")
@@ -38,6 +38,9 @@ object GeomPage extends HtmlPage
     " possible.")
 
   def lessons: HtmlLi = HtmlLi("Series of lessons / tutorials in geometry and graphics.")
+
+  def earth: HtmlLi = HtmlLi("Earth geometry. This is for Earth maps. Allows the manipulation of latitude and longitude allowing free conversion" +
+    "between them and 2D and 3D coordinates.")
 
   val svgMargin = 50
 

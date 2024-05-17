@@ -17,7 +17,7 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "index" -> handHome,
     Method.GET / "Documentation/documentation.css" -> css,
     Method.GET / "Documentation/util.html" -> hPage(UtilPage.out),
-    Method.GET / "geom.html" -> handler(Response.html(s"This is a pt: $pt"))
+    Method.GET / "Documentation/geom.html" -> hPage(geom.GeomPage.out),//handler(Response.html(s"This is a pt: $pt"))
   )
   val app: HttpApp[Any] = routes.toHttpApp
 

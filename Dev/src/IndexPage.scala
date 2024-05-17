@@ -18,7 +18,7 @@ object IndexPage extends HtmlPage
   def devInfo = HtmlA("Documentation/dev.html", "Info for developers here.")
   def begInfo = HtmlA("Documentation/newdevs.html", "Info for new developers here.")
 
-  def menu: HtmlOlWithLH = HtmlOlWithLH(intro.xCon, util, geom, tile, earth, egrid, apps, dev)
+  def menu: HtmlOlWithLH = HtmlOlWithLH(intro.xCon, util, geom, tile, egrid, apps, dev)
 
   def intro: String = "<b>The Code is currently organised into 7 modules.</b> Each module can build artifacts for Jvm and JavaFx and for the" +
     " JavaScript platform and the Web."
@@ -31,8 +31,6 @@ object IndexPage extends HtmlPage
   def tile: HtmlLi = HtmlLi.linkAndText("Documentation/tiling.html", "Tiling Module", "Depends on Util and Geom modules. Encodes tile Grids, both" +
     " square and hexagonal, as well as systems of grids.")
 
-  def earth: HtmlLi = HtmlLi.linkAndText("Documentation/earth.html", "Earth Module", "This module is for Earth maps. Allows the manipulation of" +
-    " latitude and longitude allowing free conversion between them and 2D and 3D coordinates.")
 
   def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/egrid.html", "EGrid Module", "Tiling of the whole world in Hex grids, defining the changes" +
     " over the course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined" +
