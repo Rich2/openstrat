@@ -4,7 +4,8 @@ import zio._, Console._, http._, ostrat._, geom._, prid.phex._
 
 object ServZioApp extends ZIOAppDefault
 {
-  val handHome = handler(Response.text(pDev.IndexPage.out).addHeader(Header.ContentType(MediaType.text.html)))
+  def hPage(str: String) = handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.html)))
+  val handHome = hPage(pDev.IndexPage.out)
   val pt: Pt2 = ostrat.geom.Pt2(4, 5)
   val hex1: HCen = HCen(4, 4)
   val css = handler(Response.text(CssOpenstrat()).addHeader(Header.ContentType(MediaType.text.css)))
@@ -15,6 +16,7 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "index.htm" -> handHome,
     Method.GET / "index" -> handHome,
     Method.GET / "Documentation/documentation.css" -> css,
+    Method.GET / "Documentation/util.html" -> hPage(UtilPage.out),
     Method.GET / "geom.html" -> handler(Response.html(s"This is a pt: $pt"))
   )
   val app: HttpApp[Any] = routes.toHttpApp

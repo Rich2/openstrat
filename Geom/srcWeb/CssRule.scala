@@ -18,12 +18,14 @@ trait CssRule
 
 /** A list of CssRules with a possibe end [[String]]. */
 trait CssRules
-{ def rules: RArr[CssRule]
+{ /** The CSS rules. */
+  def rules: RArr[CssRule]
+
+  /** A [[String at the end of the output to add CSS code that has not been converted into Scala.]] */
   def endStr: String = ""
 
   def apply(): String = rules.length match
-  {
-    case 0 => endStr
+  { case 0 => endStr
     case 1 => rules(0).out --- endStr
     case _ =>
     { var acc: String = rules(0).out
