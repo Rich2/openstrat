@@ -17,6 +17,10 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "Documentation/util.html" -> hPage(UtilPage.out),
     Method.GET / "Documentation/geom.html" -> hPage(geom.GeomPage.out),
     Method.GET / "Documentation/tiling.html" -> hPage(prid.TilingPage.out),
+    Method.GET / "Documentation/egrid.html" -> hPage(egrid.EGridPage.out),
+    Method.GET / "Documentation/apps.html" -> hPage(pDev.AppsPage.out),
+    Method.GET / "Documentation/dev.html" -> hPage(pDev.DevPage.out),
+    Method.GET / "Documentation/newdevs.html" -> hPage(pDev.NewDevsPage.out),
   )
   val app: HttpApp[Any] = routes.toHttpApp
 
