@@ -10,6 +10,13 @@ trait CssDec
 }
 
 /** CSS background-color property. */
+case class CssColour(colour: Colour) extends CssDec
+{ override def prop: String = "color"
+  override def valueStr: String = colour.webStr
+}
+
+
+/** CSS background-color property. */
 case class CssBGColour(colour: Colour) extends CssDec
 { override def prop: String = "background-color"
   override def valueStr: String = colour.webStr

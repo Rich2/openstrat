@@ -70,9 +70,22 @@ object CssOl
   def apply(props: CssDec*): CssOl = new CssOl(props.toArr)
 }
 
-trait CssClassesRule extends CssRule
+/** CSS rule for code. */
+case class CssCode(props: RArr[CssDec]) extends CssRule
+{ override def selec: String = "code"
+}
+
+object CssCode
+{ /** Factory apply method for CSS rule for code. */
+  def apply(props: CssDec*): CssCode = new CssCode(props.toArr)
+}
+
+class CssClassesRule(val classStr: String, val props: RArr[CssDec]) extends CssRule
 {
-  def firstClassName: String
-  def otherClassNames: RArr[String]
-  //final override def selec: String = (firstClassName %: otherClassNames).map("." + _).strComma
+  def selec: String = "." + classStr
+}
+
+object CssClassesRule
+{
+
 }

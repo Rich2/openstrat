@@ -4,11 +4,12 @@ import pWeb._, Colour._
 
 object CssOpenstrat extends CssRules
 {
-  override def rules: RArr[CssRule] = RArr(body, h1, ol)
+  override def rules: RArr[CssRule] = RArr(body, h1, ol, code)
 
   def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize(18.px))
   def h1: CssH1 = CssH1(CssTextCentre, CssFontSize(44.px))
   def ol = CssOl(CssPadLt(1.em))
+  val code = CssCode(CssColour(DarkRed))
 
   override def endStr: String =
   """
@@ -38,7 +39,6 @@ object CssOpenstrat extends CssRules
 
     .lexical { color: DarkBlue; }
 
-  code { color: DarkRed; }
     .sbt { color: DarkGreen; }
     .folder { color: DarkBlue; white-space: nowrap; }
     .path { color: DarkBlue; white-space: nowrap; }
