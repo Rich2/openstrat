@@ -82,10 +82,10 @@ object CssCode
 
 class CssClassesRule(val classStr: String, val props: RArr[CssDec]) extends CssRule
 {
-  def selec: String = "." + classStr
+  override def selec: String = "." + classStr
 }
 
 object CssClassesRule
 {
-
+  def apply(classStr: String, props: CssDec*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
 }

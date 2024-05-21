@@ -4,12 +4,13 @@ import pWeb._, Colour._
 
 object CssOpenstrat extends CssRules
 {
-  override def rules: RArr[CssRule] = RArr(body, h1, ol, code)
+  override def rules: RArr[CssRule] = RArr(body, h1, ol, code, sbt)
 
   def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize(18.px))
   def h1: CssH1 = CssH1(CssTextCentre, CssFontSize(44.px))
   def ol = CssOl(CssPadLt(1.em))
   val code = CssCode(CssColour(DarkRed))
+  val sbt = CssClassesRule("sbt", CssColour(DarkGreen))
 
   override def endStr: String =
   """
