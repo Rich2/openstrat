@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import geom._
 
@@ -7,6 +7,11 @@ trait CssDec
 { def prop: String
   def valueStr: String
   def out: String = prop + ": " + valueStr + ";"
+}
+
+trait CssDecText extends CssDec
+{ def value: CssValue
+  override def valueStr: String = value.str
 }
 
 /** CSS background-color property. */
@@ -29,12 +34,16 @@ case class CssTextAlign(align: TextAlign) extends CssDec
 
 object CssTextCentre extends CssTextAlign(CenAlign)
 
-case class CssFontSize(value: CssValue) extends CssDec
+case class CssFontSize(value: CssValue) extends CssDecText
 { override def prop: String = "font-size"
-  override def valueStr: String = value.str
 }
 
 case class CssPadLt(value: CssValue) extends CssDec
 { override def prop: String = "padding-left"
+  override def valueStr: String = value.str
+}
+
+case class CssSpaces(value: CssValue) extends CssDec
+{ override def prop: String = "white-space"
   override def valueStr: String = value.str
 }
