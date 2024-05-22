@@ -4,20 +4,16 @@ import pWeb._, Colour._
 
 object CssOpenstrat extends CssRules
 {
-  override def rules: RArr[CssRule] = RArr(body, h1, ol, CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), folder)
+  override def rules: RArr[CssRule] = RArr(body, h1, ol, olli, CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), folder)
 
   def body: CssBody = CssBody(CssBGColour(Ivory), CssFontSize(18.px))
   def h1: CssH1 = CssH1(CssTextCentre, CssFontSize(44.px))
   def ol = CssOl(CssPadLt(1.em))
+  val olli = CssRule("ol li", CssMargBot(2.em), CssMargTop(2.em))
   val folder: CssClassesRule = CssClassesRule("folder", CssColour(DarkBlue))
 
   override def endStr: String =
   """
-  ol li {
-    margin-bottom 2em;
-    margin-top 2em;
-  }
-
   ul li {	margin: 0.25em; }
 
   ol > li

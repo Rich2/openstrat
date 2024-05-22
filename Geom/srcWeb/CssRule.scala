@@ -16,6 +16,14 @@ trait CssRule
   def out: String = selec + propsStr
 }
 
+object CssRule
+{
+  def apply(selecIn: String, propsIn: CssDec*): CssRule = new CssRule {
+    override def selec: String = selecIn
+    override def props: RArr[CssDec] = propsIn.toArr
+  }
+}
+
 /** A list of CssRules with a possibe end [[String]]. */
 trait CssRules
 { /** The CSS rules. */

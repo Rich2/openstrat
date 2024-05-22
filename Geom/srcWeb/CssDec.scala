@@ -47,3 +47,13 @@ case class CssSpaces(value: CssValue) extends CssDec
 { override def prop: String = "white-space"
   override def valueStr: String = value.str
 }
+
+case class CssMargTop(value: CssValue) extends CssDec
+{ override def prop: String = "margin-tpp"
+  override def valueStr: String = value.str
+}
+
+case class CssMargBot(value: CssValue) extends CssDec
+{ override def prop: String = "margin-bottom"
+  override def valueStr: String = value.str
+}
