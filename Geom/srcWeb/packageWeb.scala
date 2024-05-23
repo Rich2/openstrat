@@ -33,4 +33,6 @@ package object pWeb
   { def px: CssPx = CssPx(thisDouble)
     def em: CssEm = CssEm(thisDouble)
   }
+
+  def CssMargTopBot(value: CssValue): RArr[CssDec] = RArr(CssMargTop(value), CssMargBot(value))
 }

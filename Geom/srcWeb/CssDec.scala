@@ -20,7 +20,6 @@ case class CssColour(colour: Colour) extends CssDec
   override def valueStr: String = colour.webStr
 }
 
-
 /** CSS background-color property. */
 case class CssBGColour(colour: Colour) extends CssDec
 { override def prop: String = "background-color"
@@ -48,8 +47,13 @@ case class CssSpaces(value: CssValue) extends CssDec
   override def valueStr: String = value.str
 }
 
+case class CssMarg(value: CssValue) extends CssDec
+{ override def prop: String = "margin"
+  override def valueStr: String = value.str
+}
+
 case class CssMargTop(value: CssValue) extends CssDec
-{ override def prop: String = "margin-tpp"
+{ override def prop: String = "margin-top"
   override def valueStr: String = value.str
 }
 

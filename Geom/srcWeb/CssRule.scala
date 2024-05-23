@@ -18,6 +18,11 @@ trait CssRule
 
 object CssRule
 {
+  def apply(selecIn: String, propsIn: RArr[CssDec]): CssRule = new CssRule {
+    override def selec: String = selecIn
+    override def props: RArr[CssDec] = propsIn
+  }
+
   def apply(selecIn: String, propsIn: CssDec*): CssRule = new CssRule {
     override def selec: String = selecIn
     override def props: RArr[CssDec] = propsIn.toArr
