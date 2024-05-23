@@ -100,5 +100,6 @@ class CssClassesRule(val classStr: String, val props: RArr[CssDec]) extends CssR
 
 object CssClassesRule
 {
+  def apply(classStr: String, props: RArr[CssDec]): CssClassesRule = new CssClassesRule(classStr, props)
   def apply(classStr: String, props: CssDec*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
 }

@@ -35,4 +35,5 @@ package object pWeb
   }
 
   def CssMargTopBot(value: CssValue): RArr[CssDec] = RArr(CssMargTop(value), CssMargBot(value))
+  def CssMargLeftRight(value: CssValue): RArr[CssDec] = RArr(CssMargLeft(value), CssMargRight(value))
 }

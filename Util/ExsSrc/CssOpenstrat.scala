@@ -6,24 +6,14 @@ object CssOpenstrat extends CssRules
 {
   override def rules: RArr[CssRule] = RArr(
     CssBody(CssBGColour(Ivory), CssFontSize(18.px)), CssH1(CssTextCentre, CssFontSize(44.px)),
+    CssClassesRule("central", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
+    CssClassesRule("main", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
     CssOl(CssPadLt(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", CssMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), CssClassesRule("folder", CssColour(DarkBlue))
   )
 
   override def endStr: String =
   """
-  .central
-    { max-width: 68em;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .main
-    { max-width: 68em;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
     .lexical { color: DarkBlue; }
 
     .sbt { color: DarkGreen; }

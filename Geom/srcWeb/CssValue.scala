@@ -14,3 +14,7 @@ case class CssEm(numEm: Double) extends CssValue
 {
   override def str: String = numEm.str + "em"
 }
+
+object CssAuto extends CssValue
+{ override def str: String = "auto"
+}

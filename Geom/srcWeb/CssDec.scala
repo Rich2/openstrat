@@ -47,6 +47,11 @@ case class CssSpaces(value: CssValue) extends CssDec
   override def valueStr: String = value.str
 }
 
+case class CssMaxWidth(value: CssValue) extends CssDec
+{ override def prop: String = "max-width"
+  override def valueStr: String = value.str
+}
+
 case class CssMarg(value: CssValue) extends CssDec
 { override def prop: String = "margin"
   override def valueStr: String = value.str
@@ -59,5 +64,15 @@ case class CssMargTop(value: CssValue) extends CssDec
 
 case class CssMargBot(value: CssValue) extends CssDec
 { override def prop: String = "margin-bottom"
+  override def valueStr: String = value.str
+}
+
+case class CssMargLeft(value: CssValue) extends CssDec
+{ override def prop: String = "margin-left"
+  override def valueStr: String = value.str
+}
+
+case class CssMargRight(value: CssValue) extends CssDec
+{ override def prop: String = "margin-right"
   override def valueStr: String = value.str
 }
