@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
@@ -35,7 +35,7 @@ object Colours
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 
   /** All the named colours. */
-  def allNamed: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
+  def allNamed: Colours = strValueKeys.mapArr[Colour, Colours]{case (_, c) => c }
   implicit val arrFlatBuildImplicit: BuilderArrFlat[Colours] = new BuilderArrIn1Flat[Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(array: Array[Int]): Colours = new Colours(array)

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import geom._, pWeb._, collection.mutable.ArrayBuffer, pParse._
 
@@ -12,8 +12,8 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 
   override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
   @inline final override def int1: Int = argbValue
-  def webStr: String = "#" + rgbHexStr + alpha.hexStr2
-  def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)
+  def webStr: String = Colour.strElse(this, "#" + rgbHexStr + alpha.hexStr2)
+  def svgStr: String = Colour.optStr(this).fold(hexStr)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
   def alpha: Int = (argbValue >> 24) & 0xFF
   def red: Int = (argbValue >> 16) & 0xFF // / (256 * 256)
@@ -80,7 +80,7 @@ def contrast2(other: Colour): Colour =
   def modAlpha(newAlpha: Int): Colour = Colour.fromInts(red, green, blue, newAlpha)
   //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
-  def hasName: Boolean = Colour.valueToStr.contains(this)
+  def hasName: Boolean = Colour.valueStrKeys.contains(this)
 
   def average(operand: Colour): Colour =
     Colour.fromInts((red + operand.red) / 2, (green + operand.green) / 2, (blue + operand.blue) / 2, (alpha + operand.alpha) / 2)
@@ -103,14 +103,14 @@ object Colour
   implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
   /** Implicit [[Show]] type class instance / evidence for [[Colour]]. */
-  implicit val showEv: Show[Colour] = ShowSimple[Colour]("Colour", obj => Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c))
+  implicit val showEv: Show[Colour] = ShowSimple[Colour]("Colour", obj => Colour.strElse(obj, obj.hexStr))
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Colour]]. */
   implicit val unshowEv: Unshow[Colour] = new Unshow[Colour]
   { override def typeStr: String = "Colour"
 
     def fromExpr(expr: Expr): EMon[Colour] = expr match {
-      case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
+      case IdentLowerToken(_, typeName) if Colour.strValueKeys.contains(typeName) => Good(Colour.strValueKeys(typeName))
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
       case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStructure(Arr1(st), Parentheses, _, _))) => st.expr match {
         case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))
@@ -119,7 +119,7 @@ object Colour
       case _ => expr.exprParseErr[Colour](this)
     }
 
-    def strT(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
+    def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStr)(c => c)
   }
 
   implicit val arrBuildImplicit: BuilderArrMap[Colour, Colours] = new BuilderArrInt1Map[Colour, Colours]
@@ -135,6 +135,9 @@ object Colour
   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
 
   def pairs: RArr[(Colour, Colour)] = ???
+
+  def optStr(inp: Colour): Option[String] = valueStrKeys.get(inp)
+  def strElse(inp: Colour, elseStr: String): String = optStr(inp).getOrElse(elseStr)
   
    /** named colors & values following CSS Color Module Level 4 - though names are UpperCamelCase here
        - plus 4 non standard colors: BrightSkyBlue, DarkYellow, LemonLime, LightRed*/
@@ -290,7 +293,7 @@ object Colour
    val Yellow: Colour = new Colour(0xFFFFFF00)
    val YellowGreen: Colour = new Colour(0xFF9ACD32)
    
-   val strToValue: Map[String, Colour] = Map(
+   val strValueKeys: Map[String, Colour] = Map(
 ("AntiqueWhite", AntiqueWhite), ("Aqua", Aqua), ("Aquamarine", Aquamarine), ("Azure", Azure), ("Beige", Beige), ("Bisque", Bisque), ("Black", Black),
 ("BlanchedAlmond", BlanchedAlmond), ("Blue", Blue), ("BlueViolet", BlueViolet), ("BrightSkyBlue", BrightSkyBlue), ("Brown", Brown),
 ("BurlyWood", BurlyWood), ("CadetBlue", CadetBlue), ("Chartreuse", Chartreuse), ("Chocolate", Chocolate), ("Coral", Coral),
@@ -321,5 +324,5 @@ object Colour
 ("Tan", Tan), ("Teal", Teal), ("Thistle", Thistle), ("Tomato", Tomato), ("Turquoise", Turquoise), ("Violet", Violet), ("Wheat", Wheat),
 ("White", White), ("WhiteSmoke", WhiteSmoke),("Yellow", Yellow), ("YellowGreen", YellowGreen)    
 )
-  val valueToStr: Map[Colour, String] = strToValue.map(p => (p._2, p._1))
+  val valueStrKeys: Map[Colour, String] = strValueKeys.map(p => (p._2, p._1))
 }

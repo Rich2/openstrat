@@ -9,15 +9,12 @@ object CssOpenstrat extends CssRules
     CssClassesRule("central", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
     CssClassesRule("main", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
     CssOl(CssPadLt(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", CssMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
+    CssClassesRule("lexical", CssColour(DarkBlue)),
     CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), CssClassesRule("folder", CssColour(DarkBlue))
   )
 
   override def endStr: String =
   """
-    .lexical { color: DarkBlue; }
-
-    .sbt { color: DarkGreen; }
-    .folder { color: DarkBlue; white-space: nowrap; }
     .path { color: DarkBlue; white-space: nowrap; }
     .bash { color: DarkRed; white-space: nowrap; }
     .scala { color: Black; white-space: nowrap; font-size:10px; }
