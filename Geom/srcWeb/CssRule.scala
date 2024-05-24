@@ -9,10 +9,11 @@ trait CssRule
   def propsStr: String = props.length match
   { case 0 => " {}"
     case 1 => s" { ${props.head.out} }"
+    case 2 => s" { ${props(0).out} ${props(1).out} }"
     case _ => "\n{ " + props.foldStr(_.out, "\n  ") + " \n}"
   }
 
-  def isMultiLine = props.length > 1
+  def isMultiLine = props.length > 2
   def out: String = selec + propsStr
 }
 

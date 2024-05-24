@@ -10,7 +10,8 @@ object CssOpenstrat extends CssRules
     CssClassesRule("main", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
     CssOl(CssPadLt(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", CssMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssClassesRule("lexical", CssColour(DarkBlue)),
-    CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), CssClassesRule("folder", CssColour(DarkBlue))
+    CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), CssClassesRule("folder", CssColour(DarkBlue)),
+    CssClassesRule("path", CssColour(DarkBlue), CssNoWrap), CssClassesRule("bash", CssColour(DarkRed), CssNoWrap)
   )
 
   override def endStr: String =

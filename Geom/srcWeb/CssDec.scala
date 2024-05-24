@@ -1,6 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import geom._
+import org.w3c.dom.css.CSSValue
 
 /** CSS declaration */
 trait CssDec
@@ -46,6 +47,13 @@ case class CssSpaces(value: CssValue) extends CssDec
 { override def prop: String = "white-space"
   override def valueStr: String = value.str
 }
+
+object CssSpaces
+{
+  def apply(str: String): CssSpaces = new CssSpaces(CssValue(str))
+}
+
+object CssNoWrap extends CssSpaces(CssValue("nowrap"))
 
 case class CssMaxWidth(value: CssValue) extends CssDec
 { override def prop: String = "max-width"

@@ -5,6 +5,12 @@ trait CssValue
 {
   def str: String
 }
+
+object CssValue{
+  def apply(strIn: String): CssValue = new CssValue {
+    override def str: String = strIn
+  }
+}
 case class CssPx(numPx: Double) extends CssValue
 {
   override def str: String = numPx.str + "px"
