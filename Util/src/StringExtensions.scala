@@ -145,7 +145,10 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def enSquare: String = "[" + thisString + "]"
   
   /** encloses string in Curly brackets */
-  def enCurly: String = "{" + thisString + "}" 
+  def enCurly: String = "{" + thisString + "}"
+
+  /** encloses string in Curly brackets */
+  def enCurlyNLs: String = "{\n" + thisString + "\n}"
   
   def words: Array[String] = thisString.split("\\s+")
   

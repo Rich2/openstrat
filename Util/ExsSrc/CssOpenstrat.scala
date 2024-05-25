@@ -4,7 +4,7 @@ import pWeb._, Colour._
 
 object CssOpenstrat extends CssSpec
 {
-  override def rules: RArr[CssRule] = RArr(
+  override def rules: RArr[CssRuleLike] = RArr(
     CssBody(CssBGColour(Ivory), CssFontSize(18.px)), CssH1(CssTextCentre, CssFontSize(44.px)),
     CssClassesRule("central", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
     CssClassesRule("main", CssMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
@@ -12,12 +12,12 @@ object CssOpenstrat extends CssSpec
     CssClassesRule("lexical", CssColour(DarkBlue)),
     CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), CssClassesRule("folder", CssColour(DarkBlue)),
     CssClassesRule("path", CssColour(DarkBlue), CssNoWrap), CssClassesRule("bash", CssColour(DarkRed), CssNoWrap),
-    CssClassesRule("scala", CssColour(Black), CssNoWrap, CssFontSize(10.px))
+    CssClassesRule("scala", CssColour(Black), CssNoWrap, CssFontSize(10.px)), minMed
   )
 
-  def minMed = new CssMedia("min-width:50em") {
+  def minMed: CssMedia = new CssMedia("min-width:50em") {
     /** Media queries can contain only rules not other media queries. */
-    override def rules: RArr[CssRule] = RArr(CssObjectRule("topmenu li"))
+    override def rules: RArr[CssRule] = RArr(CssObjectRule("topmenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), CssPad(0.2.em)))
   }
 
   override def endStr: String =

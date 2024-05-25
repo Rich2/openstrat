@@ -26,6 +26,11 @@ case class CssBGColour(colour: Colour) extends CssDec
   override def valueStr: String = colour.webStr
 }
 
+object CssBGColour
+{
+
+}
+
 case class CssTextAlign(align: TextAlign) extends CssDec
 { override def prop: String = "text-align"
   override def valueStr: String = align.jsStr
@@ -37,6 +42,10 @@ case class CssFontSize(value: CssValue) extends CssDecText
 { override def prop: String = "font-size"
 }
 
+case class CssPad(value: CssValue) extends CssDec
+{ override def prop: String = "padding"
+  override def valueStr: String = value.str
+}
 case class CssPadLt(value: CssValue) extends CssDec
 { override def prop: String = "padding-left"
   override def valueStr: String = value.str
@@ -83,3 +92,9 @@ case class CssMargRight(value: CssValue) extends CssDec
 { override def prop: String = "margin-right"
   override def valueStr: String = value.str
 }
+
+case class CssDisplay(value: CssValue) extends CssDecText
+{ override def prop: String = "display"
+}
+
+object DispInBlock extends CssDisplay(CssInBlock)

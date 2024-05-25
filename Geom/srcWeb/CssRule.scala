@@ -7,7 +7,7 @@ trait CssRuleLike
   def isMultiLine: Boolean
 
   /** The CSS output. */
-  def out: String
+  def out(indent: Int = 0): String
 }
 
 /** Css Rule consisting of selector plus a set of declarations. */
@@ -15,17 +15,17 @@ trait CssRule extends CssRuleLike
 { def selec: String
   def props: RArr[CssDec]
 
-  def propsStr: String = props.length match
+  def propsStr(indent: Int = 0): String = props.length match
   { case 0 => " {}"
     case 1 => s" { ${props.head.out} }"
     case 2 => s" { ${props(0).out} ${props(1).out} }"
-    case _ => "\n{ " + props.foldStr(_.out, "\n  ") + " \n}"
+    case _ => "\n{ " + props.foldStr(_.out, "\n" + indent.spaces) + " \n}"
   }
 
   /** Outputs to  a single line if the rule has 2 or more declarations. */
   override def isMultiLine: Boolean = props.length > 2
 
-  override def out: String = selec + propsStr
+  override def out(indent: Int = 0): String = indent.spaces + selec + propsStr(indent + 2)
 }
 
 object CssRule
