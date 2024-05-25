@@ -92,3 +92,14 @@ object CssClassesRule
   def apply(classStr: String, props: RArr[CssDec]): CssClassesRule = new CssClassesRule(classStr, props)
   def apply(classStr: String, props: CssDec*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
 }
+
+class CssObjectRule(val classStr: String, val props: RArr[CssDec]) extends CssRule
+{
+  override def selec: String = "#" + classStr
+}
+
+object CssObjectRule
+{
+  def apply(classStr: String, props: RArr[CssDec]): CssObjectRule = new CssObjectRule(classStr, props)
+  def apply(classStr: String, props: CssDec*): CssObjectRule = new CssObjectRule(classStr, props.toArr)
+}

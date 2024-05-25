@@ -15,6 +15,11 @@ object CssOpenstrat extends CssSpec
     CssClassesRule("scala", CssColour(Black), CssNoWrap, CssFontSize(10.px))
   )
 
+  def minMed = new CssMedia("min-width:50em") {
+    /** Media queries can contain only rules not other media queries. */
+    override def rules: RArr[CssRule] = RArr(CssObjectRule("topmenu li"))
+  }
+
   override def endStr: String =
   """
   @media (min-width:50em)
