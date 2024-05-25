@@ -1,8 +1,17 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
+trait CssRuleLike
+{
+  /** Outputs to  a single line if the rule has 2 or more declarations. */
+  def isMultiLine: Boolean
+
+  /** The CSS output. */
+  def out: String
+}
+
 /** Css Rule consisting of selector plus a set of declarations. */
-trait CssRule
+trait CssRule extends CssRuleLike
 { def selec: String
   def props: RArr[CssDec]
 
@@ -13,44 +22,23 @@ trait CssRule
     case _ => "\n{ " + props.foldStr(_.out, "\n  ") + " \n}"
   }
 
-  def isMultiLine = props.length > 2
-  def out: String = selec + propsStr
+  /** Outputs to  a single line if the rule has 2 or more declarations. */
+  override def isMultiLine: Boolean = props.length > 2
+
+  override def out: String = selec + propsStr
 }
 
 object CssRule
-{
+{ /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as repeat parameters. */
   def apply(selecIn: String, propsIn: RArr[CssDec]): CssRule = new CssRule {
     override def selec: String = selecIn
     override def props: RArr[CssDec] = propsIn
   }
 
+  /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as an [[RArr]]. */
   def apply(selecIn: String, propsIn: CssDec*): CssRule = new CssRule {
     override def selec: String = selecIn
     override def props: RArr[CssDec] = propsIn.toArr
-  }
-}
-
-/** A list of CssRules with a possibe end [[String]]. */
-trait CssRules
-{ /** The CSS rules. */
-  def rules: RArr[CssRule]
-
-  /** A [[String at the end of the output to add CSS code that has not been converted into Scala.]] */
-  def endStr: String = ""
-
-  def apply(): String = rules.length match
-  { case 0 => endStr
-    case 1 => rules(0).out --- endStr
-    case _ =>
-    { var acc: String = rules(0).out
-      var prev: Boolean = rules(0).isMultiLine
-      iUntilForeach(1, rules.length){ i =>
-        val curr = rules(i)
-        if(prev || curr.isMultiLine)  acc = acc ---- curr.out else acc = acc --- curr.out
-        prev = curr.isMultiLine
-      }
-      acc ---- endStr
-    }
   }
 }
 

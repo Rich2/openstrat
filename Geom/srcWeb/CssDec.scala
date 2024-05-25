@@ -1,7 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 import geom._
-import org.w3c.dom.css.CSSValue
 
 /** CSS declaration */
 trait CssDec
