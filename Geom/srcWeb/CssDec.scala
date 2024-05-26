@@ -10,7 +10,7 @@ trait CssDec
 }
 
 trait CssDecStd extends CssDec
-{ def value: CssValue
+{ def value: CssVal
   final override def valueStr: String = value.str
 }
 
@@ -38,62 +38,39 @@ case class CssTextAlign(align: TextAlign) extends CssDec
 
 object CssTextCentre extends CssTextAlign(CenAlign)
 
-case class CssFontSize(value: CssValue) extends CssDecStd
+case class CssFontSize(value: CssVal) extends CssDecStd
 { override def prop: String = "font-size"
 }
 
-case class CssPad(value: CssValue) extends CssDecStd
-{ override def prop: String = "padding"
-}
-case class CssPadLt(value: CssValue) extends CssDecStd
-{ override def prop: String = "padding-left"
-}
 
-case class CssSpaces(value: CssValue) extends CssDecStd
+case class CssSpaces(value: CssVal) extends CssDecStd
 { override def prop: String = "white-space"
 }
 
 object CssSpaces
 {
-  def apply(str: String): CssSpaces = new CssSpaces(CssValue(str))
+  def apply(str: String): CssSpaces = new CssSpaces(CssVal(str))
 }
 
-object CssNoWrap extends CssSpaces(CssValue("nowrap"))
+object CssNoWrap extends CssSpaces(CssVal("nowrap"))
 
 /** Css max-width declaration. */
-case class DecMaxWidth(value: CssValue) extends CssDecStd
+case class DecMaxWidth(value: CssVal) extends CssDecStd
 { override def prop: String = "max-width"
 }
 
-case class CssMarg(value: CssValue) extends CssDecStd
-{ override def prop: String = "margin"
-}
-
-case class CssMargTop(value: CssValue) extends CssDecStd
-{ override def prop: String = "margin-top"
-}
-
-case class CssMargBot(value: CssValue) extends CssDecStd
-{ override def prop: String = "margin-bottom"
-}
-
-case class CssMargLeft(value: CssValue) extends CssDecStd
-{ override def prop: String = "margin-left"
-}
-
-case class CssMargRight(value: CssValue) extends CssDecStd
-{ override def prop: String = "margin-right"
-}
-
-case class CssDisplay(value: CssValue) extends CssDecStd
+/** Css Display declaration. */
+case class DecDisplay(value: CssVal) extends CssDecStd
 { override def prop: String = "display"
 }
 
-object DispInBlock extends CssDisplay(CssInBlock)
-object DispNone extends CssDisplay(CssNone)
+object DispInBlock extends DecDisplay(CssInBlock)
+object DispBlock extends DecDisplay(CssBlock)
+object DispNone extends DecDisplay(CssNone)
 
-case class DecAlign(value: CssValue) extends CssDecStd
+case class DecAlign(value: CssVal) extends CssDecStd
 { override def prop: String = "text-align"
 }
 
 object DecAlignCen extends DecAlign(CssCentre)
+object DecAlignStart extends DecAlign(CssStart)

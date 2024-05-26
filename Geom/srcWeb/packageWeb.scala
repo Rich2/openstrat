@@ -34,6 +34,11 @@ package object pWeb
     def em: CssEm = CssEm(thisDouble)
   }
 
-  def CssMargTopBot(value: CssValue): RArr[CssDec] = RArr(CssMargTop(value), CssMargBot(value))
-  def CssMargLeftRight(value: CssValue): RArr[CssDec] = RArr(CssMargLeft(value), CssMargRight(value))
+  def CssMargTopBot(value: CssVal): RArr[CssDec] = RArr(DecMargTop(value), DecMargBottom(value))
+
+  /** Css margin-left and margin-right declarations set to same value. */
+  def DecMargLeftRight(value: CssVal): RArr[CssDec] = RArr(DecMargLeft(value), DecMargRight(value))
+
+  /** Css margin-left and margin-right declarations set to auto. */
+  def DecMargLeftRightAuto: RArr[CssDec] = RArr(DecMargLeft(CssAuto), DecMargRight(CssAuto))
 }

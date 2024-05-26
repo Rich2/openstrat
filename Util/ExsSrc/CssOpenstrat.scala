@@ -1,26 +1,29 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pWeb._, Colour._
+import pWeb._
+import Colour._
 
 object CssOpenstrat extends CssSpec
 {
   override def rules: RArr[CssRuleLike] = RArr(
     CssBody(CssBGColour(Ivory), CssFontSize(18.px)), CssH1(CssTextCentre, CssFontSize(44.px)),
-    CssClassesRule("central", DecMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
-    CssClassesRule("main", DecMaxWidth(68.em) %: CssMargLeftRight(CssAuto)),
-    CssOl(CssPadLt(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", CssMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
+    CssClassesRule("central", DecMaxWidth(68.em) %: DecMargLeftRight(CssAuto)),
+    CssClassesRule("main", DecMaxWidth(68.em) %: DecMargLeftRight(CssAuto)),
+    CssOl(DecPadLeft(1.em)), CssRule("ol li", CssMargTopBot(2.em)), CssRule("ul li", DecMarg(0.25.em)), CssRule("ol > li", CssMargTopBot(1.em)),
     CssClassesRule("lexical", CssColour(DarkBlue)),
     CssCode(CssColour(DarkRed)), CssClassesRule("sbt", CssColour(DarkGreen)), CssClassesRule("folder", CssColour(DarkBlue)),
     CssClassesRule("path", CssColour(DarkBlue), CssNoWrap), CssClassesRule("bash", CssColour(DarkRed), CssNoWrap),
-    CssClassesRule("scala", CssColour(Black), CssNoWrap, CssFontSize(10.px)), minMed
+    CssClassesRule("scala", CssColour(Black), CssNoWrap, CssFontSize(10.px)), CssObjectRule("centreBlock", DispBlock %: DecMargLeftRightAuto),
+    CssRule("td th", DecPadRight(2.em), DecAlignStart),
+    minMed
   )
 
   def minMed: CssMedia = new CssMedia("min-width:50em")
   {
     override def rules: RArr[CssRule] = RArr(
-      CssObjectRule("topmenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), CssPad(0.2.em)),
+      CssObjectRule("topmenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder(CssSolid(Yellow))),
       CssObjectRule("topmenu", DecAlignCen, DecMaxWidth(100.em)),
-      CssObjectRule("bottom menu", DispNone)
+      CssObjectRule("bottommenu", DispNone)
     )
   }
 
@@ -41,10 +44,5 @@ object CssOpenstrat extends CssSpec
 
   td, th {padding-right: 2.0em;
   text-align: start;
-}
-  .centreBlock
-  { display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }"""
+}"""
 }
