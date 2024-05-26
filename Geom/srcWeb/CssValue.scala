@@ -32,3 +32,11 @@ object CssAuto extends CssValue
 object CssInBlock extends CssValue
 { override def str: String = "inline-block"
 }
+
+object CssCentre extends  CssValue
+{ override def str: String = "centre"
+}
+
+object CssNone extends  CssValue
+{ override def str: String = "none"
+}

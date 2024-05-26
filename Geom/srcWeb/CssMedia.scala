@@ -9,5 +9,5 @@ abstract class CssMedia(val queryStr: String) extends CssRulesHolder with CssRul
   override def isMultiLine: Boolean = true
 
   /** The CSS output. */
-  override def out(indent: Int = 0): String = "@media " + queryStr.enParenth --- indent.spaces + "{" + "\n  "+ rulesOut(indent + 2) --- indent.spaces + "}"
+  override def out(indent: Int = 0): String = "@media " + queryStr.enParenth --- indent.spaces + "{" + "\n" +  rulesOut(indent + 2) --- indent.spaces + "}"
 }

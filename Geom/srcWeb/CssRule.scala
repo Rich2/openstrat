@@ -19,13 +19,13 @@ trait CssRule extends CssRuleLike
   { case 0 => " {}"
     case 1 => s" { ${props.head.out} }"
     case 2 => s" { ${props(0).out} ${props(1).out} }"
-    case _ => "\n{ " + props.foldStr(_.out, "\n" + indent.spaces) + " \n}"
+    case _ => "\n" + (indent).spaces + "{ " + props.foldStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
   }
 
   /** Outputs to  a single line if the rule has 2 or more declarations. */
   override def isMultiLine: Boolean = props.length > 2
 
-  override def out(indent: Int = 0): String = indent.spaces + selec + propsStr(indent + 2)
+  override def out(indent: Int = 0): String = selec + propsStr(indent)
 }
 
 object CssRule
