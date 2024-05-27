@@ -1,6 +1,6 @@
 /* Copyright 2024 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pszio
-import zio._, Console._, http._
+import zio._, http._
 
 object ServZioApp extends ZIOAppDefault
 {
@@ -22,7 +22,6 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "Documentation/dev.html" -> hPage(pDev.DevPage.out),
     Method.GET / "Documentation/newdevs.html" -> hPage(pDev.NewDevsPage.out),
   )
-  val app: HttpApp[Any] = routes.toHttpApp
 
-  override val run = Server.serve(app).provide(Server.default)
+  def run = Server.serve(routes).provide(Server.default)
 }

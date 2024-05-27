@@ -173,7 +173,7 @@ lazy val DevFx = mainJvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
 
 lazy val ServZio = Project("ServZio", file("Dev/SbtDir/ServZio")).dependsOn(Dev).settings(sett3).settings(
   libraryDependencies += "dev.zio" %% "zio" % "2.1.0" withSources() withJavadoc(),
-  libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC6" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC7" withSources() withJavadoc(),
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmServZioSrc",
 )
 

@@ -16,9 +16,15 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   def svgStr: String = Colour.optStr(this).fold(hexStr)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
   def alpha: Int = (argbValue >> 24) & 0xFF
-  def red: Int = (argbValue >> 16) & 0xFF // / (256 * 256)
-  def green: Int = (argbValue >> 8)  & 0xFF //(argbValue /256) % 256
-  def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
+
+  /** (argbValue * 256 * 256) % 256 */
+  def red: Int = (argbValue >> 16) & 0xFF
+
+  /** (argbValue /256) % 256. */
+  def green: Int = (argbValue >> 8)  & 0xFF
+
+  /** argbValue % 256 */
+  def blue: Int = (argbValue >> 0) & 0xFF
 
   def rgbHexStr = red.hexStr2 + green.hexStr2 + blue.hexStr2
   def hexStr = "0x" + alpha.hexStr2 + rgbHexStr
