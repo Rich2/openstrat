@@ -22,7 +22,7 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   mouseUp = (button: MouseButton, selected: RArr[Any], posn: Pt2) => selected match
   {
     case RArrHead(cen: Pt2/*, tail*/) =>
-    { colour = colour.nextFrom(Colours(Red, Orange, Green))
+    { colour = colour.nextFrom(ColourArr(Red, Orange, Green))
       repaint(gArr +% startText)
     }
       

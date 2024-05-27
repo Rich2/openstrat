@@ -1,6 +1,6 @@
 /* Copyright 2024 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pszio
-import zio._, Console._, http._, ostrat._, geom._, prid.phex._
+import zio._, Console._, http._
 
 object ServZioApp extends ZIOAppDefault
 {

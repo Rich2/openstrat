@@ -12,7 +12,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 
   override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
   @inline final override def int1: Int = argbValue
-  def webStr: String = Colour.strElse(this, "#" + rgbHexStr + alpha.hexStr2)
+  def webStr: String = Colour.strElse(this, "#" + alpha.hexStr2 + rgbHexStr)
   def svgStr: String = Colour.optStr(this).fold(hexStr)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
   def alpha: Int = (argbValue >> 24) & 0xFF
@@ -29,13 +29,13 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   def contrastBW: Colour = ife((red + green + blue) > 128 * 3, Colour.Black, Colour.White)
   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
 
-  def nextFrom(seq: Colours): Colour = seq.findIndex(this) match
+  def nextFrom(seq: ColourArr): Colour = seq.findIndex(this) match
   { case NoInt => seq(0)
     case SomeInt(i) if i >= seq.length - 1 => seq(0)
     case SomeInt(i) => seq(i + 1)
   }
 
-  def nextFromRainbow: Colour = nextFrom(Colours.rainbow)
+  def nextFromRainbow: Colour = nextFrom(ColourArr.rainbow)
 
   /** Returns the colour with the greatest contrast */
   def contrast: Colour =
@@ -122,9 +122,9 @@ object Colour
     def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStr)(c => c)
   }
 
-  implicit val arrBuildImplicit: BuilderArrMap[Colour, Colours] = new BuilderArrInt1Map[Colour, Colours]
+  implicit val arrBuildImplicit: BuilderArrMap[Colour, ColourArr] = new BuilderArrInt1Map[Colour, ColourArr]
   { type BuffT = ColourBuff
-    override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
+    override def fromIntArray(array: Array[Int]): ColourArr = new ColourArr(array)
 
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): ColourBuff = new ColourBuff(buffer)
   }

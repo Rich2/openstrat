@@ -11,6 +11,6 @@ object LsASides extends GraphicsAE
   val hex2 = hex.vertsMultiply(4)
   val ccs = hex2.vertsMap(Circle(15, _).fill(Violet))
 
-  val sides = hex.slateX(500).sides.iMap{ (i, ls) => ls.draw(2, Colours.rainbow(i)) }
+  val sides = hex.slateX(500).sides.iMap{ (i, ls) => ls.draw(2, ColourArr.rainbow(i)) }
   override def output: GraphicElems = RArr(hd) ++ sides ++ ccs
 }
