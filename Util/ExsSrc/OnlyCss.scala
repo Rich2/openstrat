@@ -4,7 +4,7 @@ import pWeb._, Colour._
 
 object OnlyCss  extends CssSpec
 { /** The CSS rules. */
-  override def rules: RArr[CssRuleLike] = RArr()
+  override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh)))
 
   override def endStr: String =
 """

@@ -79,6 +79,9 @@ object DispBlock extends DecDisplay(CssBlock)
 /** Css Display declaration set to none. */
 object DispNone extends DecDisplay(CssNone)
 
+/** Css Display declaration set to flex. */
+object DispFlex extends DecDisplay(CssFlex)
+
 /** Css text-align declaration. */
 case class DecAlign(value: CssVal) extends CssDecStd
 { override def prop: String = "text-align"
@@ -89,3 +92,8 @@ object DecAlignCen extends DecAlign(CssCentre)
 
 /** Css text-align declaration set to start. */
 object DecAlignStart extends DecAlign(CssStart)
+
+/** CSS font-size declaration. */
+case class DecMinHeight(value: CssVal) extends CssDecStd
+{ override def prop: String = "min-height"
+}

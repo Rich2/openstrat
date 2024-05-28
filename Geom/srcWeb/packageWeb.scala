@@ -22,13 +22,27 @@ package object pWeb
   }
 
   implicit class IntWebExtensions(thisInt: Int)
-  { def px: CssPx = CssPx(thisInt)
+  { /** Extensiom method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the
+     * display. For printers and high resolution screens 1px implies multiple device pixels. */
+    def px: CssPx = CssPx(thisInt)
+
+    /** Extensiom method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: CssEm = CssEm(thisInt)
+
+    /** Extensiom method for CSS vh units. Relative to 1% of the height of the viewport */
+    def vh: CssVh = CssVh(thisInt)
   }
 
   implicit class DoubleWebExtensions(thisDouble: Double)
-  { def px: CssPx = CssPx(thisDouble)
+  { /** Extensiom method for CSS px units. Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the
+     * display. For printers and high resolution screens 1px implies multiple device pixels. */
+    def px: CssPx = CssPx(thisDouble)
+
+    /** Extensiom method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: CssEm = CssEm(thisDouble)
+
+    /** Extensiom method for CSS vh units. Relative to 1% of the height of the viewport. */
+    def vh: CssVh = CssVh(thisDouble)
   }
 
   /** Css margin-lop and bottom declarations. */

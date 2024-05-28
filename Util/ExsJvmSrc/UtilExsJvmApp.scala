@@ -9,6 +9,9 @@ object UtilExsJvmApp
     deb("Starting ExsJvmApp")
     val oDir = args.headOption
     println(oDir)
-    oDir.foreach{dirStr => fileWrite(dirStr, "ex1.css", CssOpenstrat()) }
+    oDir.foreach{dirStr =>
+      fileWrite(dirStr, "documentation.css", CssOpenstrat())
+      fileWrite(dirStr, "only.css", OnlyCss())
+    }
   }
 }
