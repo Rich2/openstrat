@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** I'm just trying out a new package, not sure whether will use pWeb. */
@@ -19,9 +19,6 @@ package object pWeb
     def htmlPath: String = "<code class='path'>" + thisString + "</code>"
 
     def htmlBash: String = "<code class='bash'>" + thisString + "</code>"
-    //def h1Str: String = thisString.enTag("h1")
-
-    //def htH2: HtmlH2 = HtmlH2(thisString)
   }
 
   implicit class IntWebExtensions(thisInt: Int)
@@ -34,6 +31,7 @@ package object pWeb
     def em: CssEm = CssEm(thisDouble)
   }
 
+  /** Css margin-lop and bottom declarations. */
   def CssMargTopBot(value: CssVal): RArr[CssDec] = RArr(DecMargTop(value), DecMargBottom(value))
 
   /** Css margin-left and margin-right declarations set to same value. */

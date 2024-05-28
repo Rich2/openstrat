@@ -12,8 +12,11 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 
   override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
   @inline final override def int1: Int = argbValue
-  def webStr: String = Colour.strElse(this, "#" + alpha.hexStr2 + rgbHexStr)
-  def svgStr: String = Colour.optStr(this).fold(hexStr)(_.toLowerCase)
+
+  /** Web # hexadecimal #string CSS and web.  */
+  def webStr: String = Colour.strElse(this, "#" + argbHexStr)
+
+  def svgStr: String = Colour.optStr(this).fold(hexStrX)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
   def alpha: Int = (argbValue >> 24) & 0xFF
 
@@ -26,8 +29,15 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   /** argbValue % 256 */
   def blue: Int = (argbValue >> 0) & 0xFF
 
-  def rgbHexStr = red.hexStr2 + green.hexStr2 + blue.hexStr2
-  def hexStr = "0x" + alpha.hexStr2 + rgbHexStr
+  /** rgb hexadecimal [[String]]. */
+  def rgbHexStr: String = red.hexStr2 + green.hexStr2 + blue.hexStr2
+
+  /** argb hexadecimal [[String]]. */
+  def argbHexStr: String = alpha.hexStr2 + red.hexStr2 + green.hexStr2 + blue.hexStr2
+
+  /** 0x hexadecimal fromat for Scala and other languages. */
+  inline def hexStrX: String = "0x" + argbHexStr
+
   def redGl: Float = (red / 256.toFloat)
   def greenGl:Float = (green / 256.toFloat)
   def blueGl: Float = (blue / 256.toFloat)
@@ -109,7 +119,7 @@ object Colour
   implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
   /** Implicit [[Show]] type class instance / evidence for [[Colour]]. */
-  implicit val showEv: Show[Colour] = ShowSimple[Colour]("Colour", obj => Colour.strElse(obj, obj.hexStr))
+  implicit val showEv: Show[Colour] = ShowSimple[Colour]("Colour", obj => Colour.strElse(obj, obj.hexStrX))
 
   /** Implicit [[Unshow]] type class instance / evidence for [[Colour]]. */
   implicit val unshowEv: Unshow[Colour] = new Unshow[Colour]
@@ -125,7 +135,7 @@ object Colour
       case _ => expr.exprParseErr[Colour](this)
     }
 
-    def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStr)(c => c)
+    def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStrX)(c => c)
   }
 
   implicit val arrBuildImplicit: BuilderArrMap[Colour, ColourArr] = new BuilderArrInt1Map[Colour, ColourArr]
