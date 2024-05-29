@@ -52,6 +52,16 @@ object CssBody
   def apply(props: CssDec*): CssBody = new CssBody(props.toArr)
 }
 
+/** CSS rule for HTML p paragraphs. */
+case class CssP(props: RArr[CssDec]) extends CssRule
+{ override def selec: String = "p"
+}
+
+object CssP
+{ /** Factory apply method for CSS rule for p. */
+  def apply(props: CssDec*): CssP = new CssP(props.toArr)
+}
+
 /** CSS rule for the H1 header. */
 case class CssH1(props: RArr[CssDec]) extends CssRule
 { override def selec: String = "h1"

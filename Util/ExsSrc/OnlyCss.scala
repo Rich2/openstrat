@@ -5,28 +5,11 @@ import pWeb._, Colour._
 object OnlyCss  extends CssSpec
 { /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(DecFontSize(1.5.em)),
-    CssObjectRule("footer", DecAlignCen, DecMarg(0.8.em), DecColour(FireBrick)))
+    CssObjectRule("footer", DecAlignCen, DecMarg(0.8.em), DecColour(FireBrick)), CssRule("ul, ol, p", DecMaxWidth(68.em) %: DecMargLeftRightAuto),
+    CssP(CssMargTopBot(0.5.em)))
 
   override def endStr: String =
 """
-  |#footer
-  |{
-  |	text-align: center;
-  |	margin: 0.8em;
-  |	color: FireBrick;
-  |}
-  |ul, ol, p
-  |{
-  |    max-width: 68em;
-  |    margin-left: auto;
-  |    margin-right: auto;
-  |}
-  |p
-  |{
-  |	margin-top: 0.5em;
-  |    margin-bottom: 0.5em;
-  |}
-  |
   |h1 { text-align: center; }
   |
   |canvas {
@@ -60,6 +43,5 @@ object OnlyCss  extends CssSpec
   |	   border: 0.2em solid green;
   |	}
   |}
-  |
-|""".stripMargin
+  |""".stripMargin
 }
