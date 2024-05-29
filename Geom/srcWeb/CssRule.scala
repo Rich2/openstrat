@@ -103,3 +103,13 @@ object CssObjectRule
   def apply(classStr: String, props: RArr[CssDec]): CssObjectRule = new CssObjectRule(classStr, props)
   def apply(classStr: String, props: CssDec*): CssObjectRule = new CssObjectRule(classStr, props.toArr)
 }
+
+/** CSS rule for button. */
+case class CssButton(props: RArr[CssDec]) extends CssRule
+{ override def selec: String = "button"
+}
+
+object CssButton
+{ /** Factory apply method for CSS rule for the HTML button. */
+  def apply(props: CssDec*): CssButton = new CssButton(props.toArr)
+}

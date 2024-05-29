@@ -8,7 +8,7 @@ trait CssRulesHolder
 
   def rulesOut(indent: Int = 0): String = rules.length match
   { case 0 => ""
-    case 1 => indent.spaces + rules(0).out(indent + 2)
+    case 1 => indent.spaces + rules(0).out(indent)
     case _ =>
     { var acc: String = indent.spaces + rules(0).out(indent)
       var prev: Boolean = rules(0).isMultiLine

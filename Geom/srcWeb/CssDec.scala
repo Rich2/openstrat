@@ -97,3 +97,11 @@ object DecAlignStart extends DecAlign(CssStart)
 case class DecMinHeight(value: CssVal) extends CssDecStd
 { override def prop: String = "min-height"
 }
+
+/** Css flex-direction declaration. */
+case class DecFlexDirn(value: CssVal) extends CssDecStd
+{ override def prop: String = "flex-direction"
+}
+
+/** Css text-align declaration set to start. */
+object DecFlexDirnCol extends DecFlexDirn(CssCol)

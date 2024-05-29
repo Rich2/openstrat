@@ -4,22 +4,10 @@ import pWeb._, Colour._
 
 object OnlyCss  extends CssSpec
 { /** The CSS rules. */
-  override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh)))
+  override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(DecFontSize(1.5.em)))
 
   override def endStr: String =
 """
-  |body
-  |{
-  |	display:flex;
-  |	min-height: 98vh;
-  |	flex-direction: column;
-  |}
-  |
-  |button
-  |{
-  |	font-size: 1.5em;
-  |}
-  |
   |#footer
   |{
   |	text-align: center;

@@ -56,11 +56,18 @@ object CssCentre extends  CssVal
 object CssNone extends  CssVal
 { override def str: String = "none"
 }
+
 /** CSS start value. */
 object CssStart extends  CssVal
 { override def str: String = "start"
 }
+
 /** CSS flex value. */
 object CssFlex extends  CssVal
 { override def str: String = "flex"
+}
+
+/** CSS column value. */
+object CssCol extends  CssVal
+{ override def str: String = "column"
 }
