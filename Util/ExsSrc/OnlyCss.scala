@@ -5,13 +5,11 @@ import pWeb._, Colour._
 object OnlyCss  extends CssSpec
 { /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(DecFontSize(1.5.em)),
-    CssObjectRule("footer", DecAlignCen, DecMarg(0.8.em), DecColour(FireBrick)), CssRule("ul, ol, p", DecMaxWidth(68.em) %: DecMargLeftRightAuto),
-    CssP(CssMargTopBot(0.5.em)))
+    CssObjectRule("footer", DecAlignCen, DecMarg(0.8.em), DecColour(FireBrick)), CssRule("ul, ol, p", DecMaxWidth(68.em), DecMargLeftRightAuto),
+    CssP(CssMargTopBot(0.5.em)), CssH1(DecAlignCen), CssCanvas(DecWidthHeight(100.vh)))
 
   override def endStr: String =
 """
-  |h1 { text-align: center; }
-  |
   |canvas {
   |  height: 100vh;
   |  width: 100vw;

@@ -46,11 +46,11 @@ package object pWeb
   }
 
   /** Css margin-lop and bottom declarations. */
-  def CssMargTopBot(value: CssVal): RArr[CssDec] = RArr(DecMargTop(value), DecMargBottom(value))
+  /*def CssMargTopBotOld(value: CssVal): RArr[CssDec] = RArr(DecMargTop(value), DecMargBottom(value))
 
   /** Css margin-left and margin-right declarations set to same value. */
-  def DecMargLeftRight(value: CssVal): RArr[CssDec] = RArr(DecMargLeft(value), DecMargRight(value))
+  def DecMargLeftRightOld(value: CssVal): RArr[CssDec] = RArr(DecMargLeft(value), DecMargRight(value))
 
   /** Css margin-left and margin-right declarations set to auto. */
-  def DecMargLeftRightAuto: RArr[CssDec] = RArr(DecMargLeft(CssAuto), DecMargRight(CssAuto))
+  def DecMargLeftRightAutoDepr: RArr[CssDec] = RArr(DecMargLeft(CssAuto), DecMargRight(CssAuto))*/
 }

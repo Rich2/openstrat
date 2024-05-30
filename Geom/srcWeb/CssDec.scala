@@ -2,8 +2,13 @@
 package ostrat; package pWeb
 import geom._
 
+trait CssDecs
+{
+  def decs: RArr[CssDec]
+}
+
 /** CSS declaration */
-trait CssDec
+trait CssDec extends CssDecs
 { /** The CSS property */
   def prop: String
 
@@ -12,9 +17,11 @@ trait CssDec
 
   /** The CSS code output. */
   def out: String = prop + ": " + valueStr + ";"
+
+  override def decs: RArr[CssDec] = RArr(this)
 }
 
-/** Standard CSS deccalaration which takes a [[CssVal]] to produce the CSS value output. */
+/** Standard CSS declaration which takes a [[CssVal]] to produce the CSS value output. */
 trait CssDecStd extends CssDec
 { /** The CSS declaration value */
   def value: CssVal
@@ -93,7 +100,22 @@ object DecAlignCen extends DecAlign(CssCentre)
 /** Css text-align declaration set to start. */
 object DecAlignStart extends DecAlign(CssStart)
 
-/** CSS font-size declaration. */
+/** CSS width declaration. */
+case class DecWidth(value: CssVal) extends CssDecStd
+{ override def prop: String = "width"
+}
+
+/** CSS height declaration. */
+case class DecHeight(value: CssVal) extends CssDecStd
+{ override def prop: String = "height"
+}
+
+/** CSS width and height declarations set to same value. */
+case class DecWidthHeight(value: CssVal) extends CssDecs
+{ override def decs: RArr[CssDec] = RArr(DecWidth(value), DecHeight(value))
+}
+
+/** CSS min=height declaration. */
 case class DecMinHeight(value: CssVal) extends CssDecStd
 { override def prop: String = "min-height"
 }
