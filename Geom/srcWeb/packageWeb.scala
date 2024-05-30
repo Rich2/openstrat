@@ -29,6 +29,9 @@ package object pWeb
     /** Extensiom method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: CssEm = CssEm(thisInt)
 
+    /** Extensiom method for CSS vw units. Relative to 1% of the width of the viewport */
+    def vw: CssVw = CssVw(thisInt)
+
     /** Extensiom method for CSS vh units. Relative to 1% of the height of the viewport */
     def vh: CssVh = CssVh(thisInt)
   }
@@ -41,16 +44,10 @@ package object pWeb
     /** Extensiom method for CSS em units. Relative to the font-size of the element (2em means 2 times the size of the current font) */
     def em: CssEm = CssEm(thisDouble)
 
+    /** Extensiom method for CSS vw units. Relative to 1% of the width of the viewport. */
+    def vw: CssVw = CssVw(thisDouble)
+
     /** Extensiom method for CSS vh units. Relative to 1% of the height of the viewport. */
     def vh: CssVh = CssVh(thisDouble)
   }
-
-  /** Css margin-lop and bottom declarations. */
-  /*def CssMargTopBotOld(value: CssVal): RArr[CssDec] = RArr(DecMargTop(value), DecMargBottom(value))
-
-  /** Css margin-left and margin-right declarations set to same value. */
-  def DecMargLeftRightOld(value: CssVal): RArr[CssDec] = RArr(DecMargLeft(value), DecMargRight(value))
-
-  /** Css margin-left and margin-right declarations set to auto. */
-  def DecMargLeftRightAutoDepr: RArr[CssDec] = RArr(DecMargLeft(CssAuto), DecMargRight(CssAuto))*/
 }

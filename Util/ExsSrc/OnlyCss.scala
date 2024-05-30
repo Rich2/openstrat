@@ -6,15 +6,10 @@ object OnlyCss  extends CssSpec
 { /** The CSS rules. */
   override def rules: RArr[CssRuleLike] = RArr(CssBody(DispFlex, DecMinHeight(98.vh), DecFlexDirnCol), CssButton(DecFontSize(1.5.em)),
     CssObjectRule("footer", DecAlignCen, DecMarg(0.8.em), DecColour(FireBrick)), CssRule("ul, ol, p", DecMaxWidth(68.em), DecMargLeftRightAuto),
-    CssP(CssMargTopBot(0.5.em)), CssH1(DecAlignCen), CssCanvas(DecWidthHeight(100.vh)))
+    CssP(CssMargTopBot(0.5.em)), CssH1(DecAlignCen), CssCanvas(DecWidth(100.vw), DecHeight(100.vh), DispBlock))
 
   override def endStr: String =
 """
-  |canvas {
-  |  height: 100vh;
-  |  width: 100vw;
-  | display:block; }
-  |
   |@media (min-width:50em)
   |{
   |	#topmenu li

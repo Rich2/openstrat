@@ -32,9 +32,14 @@ case class CssEm(numEm: Double) extends CssVal
 { override def str: String = numEm.str + "em"
 }
 
+/** CSS value in vw units. Relative to 1% of the width of the viewport. */
+case class CssVw(numVw: Double) extends CssVal
+{ override def str: String = numVw.str + "vw"
+}
+
 /** CSS value in vh units. Relative to 1% of the height of the viewport. */
-case class CssVh(numEm: Double) extends CssVal
-{ override def str: String = numEm.str + "vh"
+case class CssVh(numVh: Double) extends CssVal
+{ override def str: String = numVh.str + "vh"
 }
 
 /** CSS inline-block value. */
