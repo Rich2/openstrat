@@ -27,5 +27,12 @@ trait CssSpec extends CssRulesHolder
 { /** A [[String at the end of the output to add CSS code that has not been converted into Scala.]] */
   def endStr: String = ""
 
-  def apply(): String = { val s1 = rulesOut(); ife(s1 == "", endStr, s1 ---- endStr) }
+  def apply(): String =
+  { val s1 = rulesOut()
+    s1 match
+    { case "" => endStr
+      case s1 if endStr == "" => s1
+      case s1 => s1 ---- endStr
+    }
+  }
 }

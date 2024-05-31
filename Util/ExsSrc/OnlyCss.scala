@@ -27,19 +27,4 @@ object OnlyCss extends CssOpenstrat
       CssObjectRule("bottommenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder("0.2em solid Green")),
     )
   }
-
-  override def endStr: String =
-"""
-  |@media (max-width:50em)
-  |{
-  |	#topmenu { display: none; }
-  |	#bottommenu li
-  |	{
-  |	   display: inline-block;
-  |	   background-color: #dddddd;
-  |	   padding: 0.2em;
-  |	   border: 0.2em solid green;
-  |	}
-  |}
-  |""".stripMargin
 }

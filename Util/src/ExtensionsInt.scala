@@ -150,6 +150,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def roundDownToOdd = thisInt.ifEvenElse(thisInt - 1, thisInt)
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
+
+  /** Hexadecimal representation of this [[Int]] with at least 2 digits, adding 0 to front if required." */
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)
 
   /** Base32 string representation of this Int. */
