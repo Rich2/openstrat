@@ -2,7 +2,7 @@
 package ostrat
 import pWeb._, Colour._
 
-object CssOpenstrat extends CssSpec
+object CssDocmentation extends CssOpenstrat
 {
   override def rules: RArr[CssRuleLike] = RArr(
     CssBody(CssBGColour(Ivory), DecFontSize(18.px)), CssH1(DecTextCentre, DecFontSize(44.px)),
@@ -16,13 +16,4 @@ object CssOpenstrat extends CssSpec
     CssRule("td th", DecPadRight(2.em), DecAlignStart),
     minMed
   )
-
-  def minMed: CssMedia = new CssMedia("min-width: 50em")
-  {
-    override def rules: RArr[CssRule] = RArr(
-      CssObjectRule("topmenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder(CssSolid(Yellow))),
-      CssObjectRule("topmenu", DecAlignCen, DecMaxWidth(100.em)),
-      CssObjectRule("bottommenu", DispNone)
-    )
-  }
 }

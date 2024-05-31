@@ -14,7 +14,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   @inline final override def int1: Int = argbValue
 
   /** Web # hexadecimal #string CSS and web.  */
-  def webStr: String = Colour.strElse(this, "#" + argbHexStr)
+  def webStr: String = Colour.optStr(this).fold("#" + argbHexStr)(_.toLowerCase())
 
   def svgStr: String = Colour.optStr(this).fold(hexStrX)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
@@ -155,8 +155,8 @@ object Colour
   def optStr(inp: Colour): Option[String] = valueStrKeys.get(inp)
   def strElse(inp: Colour, elseStr: String): String = optStr(inp).getOrElse(elseStr)
   
-   /** named colors & values following CSS Color Module Level 4 - though names are UpperCamelCase here
-       - plus 4 non standard colors: BrightSkyBlue, DarkYellow, LemonLime, LightRed*/
+   /** named colors & values following CSS Color Module Level 4 - though names are UpperCamelCase here - plus 4 non standard colors: BrightSkyBlue,
+    * DarkYellow, LemonLime, LightRed*/
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)
    val Aquamarine = new Colour(0xFF7FFFD4)

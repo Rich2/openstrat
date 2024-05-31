@@ -33,6 +33,11 @@ case class DecBorder(value: CssVal) extends CssDecStd
 { override def prop: String = "border"
 }
 
+object DecBorder
+{
+  def apply(valuesStr: String): DecBorder = new DecBorder(CssVal(valuesStr))
+}
+
 /** Css border-style value. */
 trait BorderStyle extends CssVal
 { /** apply method combines border style with colour." */

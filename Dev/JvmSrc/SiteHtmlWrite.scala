@@ -21,7 +21,7 @@ object SiteHtmlWrite extends App
     fileWrite(path2, "egrid.html", egrid.EGridPage.out)
     fileWrite(path2, "dev.html", pDev.DevPage.out)
     fileWrite(path2, "newdevs.html", pDev.NewDevsPage.out)
-    fileWrite(path2, "documentation.css", CssOpenstrat())
+    fileWrite(path2, "documentation.css", CssDocmentation())
   }{
     errs => deb("")
     errs.foreach(println)
