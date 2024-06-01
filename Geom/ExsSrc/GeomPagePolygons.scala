@@ -25,9 +25,9 @@ object GeomPagePolygons extends HtmlSection
 
   val rect1: Rect = Rect(400, 250)
   val rect2: RectDraw = rect1.draw()
-  val verts2: RArr[GraphicSvgElem] = rect1.verts.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str) }
+  val verts2: RArr[GraphicSvgElem] = rect1.verts.iFlatMap { (i, pt) => pt.textArrowToward(Pt2Z, "V" + i.str + "\n" + pt.strSemiNamed()) }
   val sides2: RArr[GraphicSvgElem] = rect1.sides.iFlatMap { (i, sd) => sd.midPt.textArrowAwayFrom(Pt2Z, "Sd" + i.str, colour = polyColour) }
-  val svg2: HtmlSvg = HtmlSvg(rect1.boundingRect.addMargin(svgMargin), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
+  val svg2: HtmlSvg = HtmlSvg(rect1.boundingRect.addMargin(svgMargin).addHorrMargin(200), RArr(rect2, cen) ++ verts2 ++ sides2, RArr(CentreBlockAtt))
 
   def p2: HtmlP = HtmlP(
   """I've included the Scala code below both for the above diagram. If you check the html source code for this web page you will see that it is pretty

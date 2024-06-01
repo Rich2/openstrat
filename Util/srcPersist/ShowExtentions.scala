@@ -20,7 +20,11 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
    *  for case classes with a single member. */
   @inline def strSemi: String = ev.show(thisVal, ShowSemis, -1, 0)
 
+  /** Extension method shows the component values of the object separated by semicolons. */
   @inline def strSemi(maxPlaces: Int, minPlaces: Int = 0): String =  ev.show(thisVal, ShowSemis, maxPlaces, minPlaces)
+
+  /** Extension method shows the namea nd values of rhe components of the object separated by semicolons. */
+  @inline def strSemiNamed(maxPlaces: Int = -1, minPlaces: Int = 0): String =  ev.show(thisVal, ShowSemisNames, maxPlaces, minPlaces)
 
   def strMin: String = ev.show(thisVal, ShowStd)
 

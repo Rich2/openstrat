@@ -233,8 +233,8 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2
 
   /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextFixed]] to this point. The arrow
    * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
-  def textArrowToward(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): RArr[GraphicSvgElem] =
-    textArrow(str, angleFrom(dirnPt), arrowLength, colour, fontSize)
+  def textArrowToward(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14):
+    RArr[GraphicSvgElem] = textArrow(str, angleFrom(dirnPt), arrowLength, colour, fontSize)
 
   /** Creates a [[TextFixed]] and a line segment with an arrow head at the end. The arrow pointing away from the [[TextFixed]] to this point. The arrow
    * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */

@@ -26,12 +26,15 @@ trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
   def shortKeys: ArrPairStr[A]
 
   override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
-  { def semisStr = strs(obj, ShowCommas, maxPlaces).mkSemiSpaceSpecial
+  { def semisStr: String = strs(obj, ShowCommas, maxPlaces).mkSemiSpaceSpecial
+    def namedStrs: StrArr = strs(obj, ShowStdNoSpace, maxPlaces).iMap { (i, s1) => paramNames(i) + " = " + s1 }
     val shortOpt = shortKeys.a2FindA1(obj)
+
     style match
     { case ShowStdNoSpace | ShowSemis | ShowCommas if shortOpt.nonEmpty => shortOpt.get
       case ShowUnderScore => "_"
       case ShowSemis => semisStr
+      case ShowSemisNames => namedStrs.mkStr("; ")// semisStr
       case ShowCommas => strs(obj, ShowStdNoSpace, maxPlaces).mkStr(", ")
 
       case ShowFieldNames =>
