@@ -40,8 +40,12 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   def widthAtt: XmlAtt = WidthAtt(width1)
   def heightAtt: HeightAtt = HeightAtt(width2)
+
+  /** The X component of the bottom left point is used. This becomes the top left point in SVG space. */
   def xAttrib: XXmlAtt = XXmlAtt(v3x)
-  def yAttrib: YXmlAtt = YXmlAtt(v2y)
+
+  /** The Y component of the bottom left point is negated to convert to SVG space and the SVG shape origin of the top left vertex. */
+  def yAttrib: YXmlAtt = YXmlAtt(-v2y)
 
   def diag1: LineSeg = LineSeg(v2, v0)
   def diag2: LineSeg = LineSeg(v3, v1)
