@@ -21,6 +21,16 @@ object CssAuto extends CssGenVal
 { override def str: String = "auto"
 }
 
+/** CSS initial value. */
+object CssInitial extends CssGenVal
+{ override def str: String = "initial"
+}
+
+/** CSS auto value. */
+object CssInherut extends CssGenVal
+{ override def str: String = "inherit"
+}
+
 /** CSS value in px units. Pixels are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers
  *  and high resolution screens 1px implies multiple device pixels. */
 case class CssPx(numPx: Double) extends CssVal
@@ -52,9 +62,27 @@ object CssBlock extends CssVal
 { override def str: String = "block"
 }
 
+/** Legal CSS value for text-align property */
+trait CssTextAlignVal extends CssVal
+
+/** CSS left value. */
+object CssLeft extends  CssTextAlignVal
+{ override def str: String = "left"
+}
+
+/** CSS right value. */
+object CssRight extends  CssTextAlignVal
+{ override def str: String = "right"
+}
+
 /** CSS center value. */
-object CssCentre extends  CssVal
+object CssCentre extends  CssTextAlignVal
 { override def str: String = "center"
+}
+
+/** CSS justify value. */
+object CssJustify extends  CssTextAlignVal
+{ override def str: String = "justify"
 }
 
 /** CSS none value. */

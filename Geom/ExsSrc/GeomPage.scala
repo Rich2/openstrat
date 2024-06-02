@@ -5,7 +5,7 @@ import pWeb._, Colour._
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends HtmlPage
 {
-  override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "https://richstrat.com/Documentation/documentation")
+  override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "/Documentation/documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
 

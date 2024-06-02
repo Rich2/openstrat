@@ -90,15 +90,24 @@ object DispNone extends DecDisplay(CssNone)
 object DispFlex extends DecDisplay(CssFlex)
 
 /** Css text-align declaration. */
-case class DecAlign(value: CssVal) extends CssDecStd
+case class DecAlign(value: CssTextAlignVal | CssGenVal) extends CssDecStd
 { override def prop: String = "text-align"
 }
+
+/** Css text-align declaration set to left. */
+object DecAlignLeft extends DecAlign(CssLeft)
+
+/** Css text-align declaration set to right. */
+object DecAlignRight extends DecAlign(CssRight)
 
 /** Css text-align declaration set to center. */
 object DecAlignCen extends DecAlign(CssCentre)
 
+/** Css text-align declaration set to center. */
+object DecAlignJus extends DecAlign(CssJustify)
+
 /** Css text-align declaration set to start. */
-object DecAlignStart extends DecAlign(CssStart)
+//object DecAlignStart extends DecAlign(CssStart)
 
 /** CSS width declaration. */
 case class DecWidth(value: CssVal) extends CssDecStd

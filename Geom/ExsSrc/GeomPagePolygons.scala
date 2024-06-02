@@ -4,7 +4,7 @@ import pWeb._, Colour._, GeomPage.svgMargin
 
 object GeomPagePolygons extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), p1, svg1, p2, code1, p3, svg2)
+  override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), p1, svg1, p2, code1, p3, svg2, p4)
 
   def p1: HtmlP = HtmlP(
   """Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults. The
@@ -50,7 +50,9 @@ object GeomPagePolygons extends HtmlSection
     "val svg1 = HtmlSvg(dodec1.boundingRect.addMargin(svgMargin), clock, RArr(CentreBlockAtt))<br>"
   )
 
-  def p3: HtmlP = HtmlP(
-    """If there is no vertex at the 12 o'clock / 00 hundred hours postion as in the rectangle below vertex 0 is the first vertex clockwise of 12
-      | o'clock. The other vertices then follow clockwise. The last vertex being immediately anti clockwise of 12 o'clock.""".stripMargin)
+  def p3: HtmlP = HtmlP("""If there is no vertex at the 12 o'clock / 00 hundred hours postion as in the rectangle below vertex 0 is the first vertex
+  |clockwise of 12 o'clock. The other vertices then follow clockwise. The last vertex being immediately anti clockwise of 12 o'clock.""".stripMargin)
+
+  def p4: HtmlP = HtmlP(
+  """The positions of the vertices have been shown above. Note that the positions are speciified relative .""".stripMargin)
 }
