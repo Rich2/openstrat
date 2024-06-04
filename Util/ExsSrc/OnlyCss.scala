@@ -4,7 +4,7 @@ import pWeb._, Colour._
 
 trait CssOpenstrat extends CssSpec
 {
-  def minMed: CssMedia = new CssMedia("min-width: 50em")
+  def minMed: CssMedia = new MediaMinWidth(50.em)
   {
     override def rules: RArr[CssRule] = RArr(
       CssObjectRule("topmenu li", DispInBlock, CssBGColour(Colour(0xFFDDDDDD)), DecPad(0.2.em), DecBorder(CssSolid(Yellow))),

@@ -32,7 +32,7 @@ object DevPage extends HtmlPage
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
   def sbt2: HtmlUl = HtmlUl(
-    HtmlLi.sbtAndText("~ Dev/reStart", "To launch a ScalaFx window. The most useful command for development."),
+    HtmlLi.sbtAndText("~ DevFx/reStart", "To launch a ScalaFx window. The most useful command for development."),
 
     HtmlLi.sbtAndText("~ DicelessJs/fastOptJS", "To rebuild a fast optimised JavaScript file. Use with" --
       "Dev/DevPages/DicelessSbtFast.html".htmlPath),

@@ -12,3 +12,5 @@ abstract class CssMedia(val queryStr: String) extends CssRulesHolder with CssRul
   override def out(indent: Int = 0): String =
     "@media " + queryStr.enParenth --- indent.spaces + "{" + "\n" +  rulesOut(indent + 2) --- indent.spaces + "}"
 }
+
+abstract class MediaMinWidth(val qVal: CssVal) extends CssMedia("min-width:" -- qVal.str)
