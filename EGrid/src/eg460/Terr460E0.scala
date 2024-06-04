@@ -9,7 +9,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle3 4473.900km² => 8768.845km² 4473.900km². Balearic Islands 5040km², Corsica no hex available.
  *  Faroes + Orkneys 2389km². */
 object Terr460E0 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e0(94)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e0(92)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -24,7 +24,7 @@ object Terr460E0 extends Long460Terrs
     VRow(137, OrigLt(514, HVDn, 7)),
     TRow(136, sea * 2, hillyTaiga),
     VRow(135, OrigRt(506, HVDL), BendIn(512, HVDR, 13), BendOut(514, HVUL), Bend(520, HVDR, 4, 5, SeaIceWinter, sea)),
-    TRow(134, sea, mtainDepr, oceanic),
+    TRow(134, sea, mtainLakesOceForest, oceanic),
     VRow(133, BendIn(506, HVDR, 13), OrigLt(508, HVDL), BendInLt(512, HVUR, 13, 7), Bend(514, HVDL, 13, 5)),
     TRow(132, mtainOce, hillyOce, oceForest),
 
@@ -65,11 +65,12 @@ object Terr460E0 extends Long460Terrs
     VRow(101, BendIn(516, HVUR, 13), BendOut(518, HVDL, 7)),
     TRow(100, sea * 5, hillyJungle * 2),
     VRow(99, BendIn(518, HVUR, 13), BendOut(520, HVDL)),
-    TRow(98,sea * 5, mtainDepr, hillyJungle),
+    TRow(98, sea * 5, mtainDepr, hillyJungle),
     VRow(97, BendIn(520, HVUR, 13), BendOut(522, HVDL, 7)),
     TRow(96, sea * 6, hillyJungle),
     VRow(95, BendIn(522, HVUR, 13), OrigMin(524, HVUL)),
     TRow(94, sea * 6, mtainDepr),
+    TRow(92, sea * 6),
     )
   }
   help.run
