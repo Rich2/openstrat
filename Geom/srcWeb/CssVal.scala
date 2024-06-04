@@ -27,7 +27,7 @@ object CssInitial extends CssGenVal
 }
 
 /** CSS auto value. */
-object CssInherut extends CssGenVal
+object CssInherit extends CssGenVal
 { override def str: String = "inherit"
 }
 
