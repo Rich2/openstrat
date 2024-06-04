@@ -1,8 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-import org.w3c.dom.css.CSSValue
-
 /** Css margin declaration. */
 case class DecMarg(value: CssVal) extends CssDecStd
 { override def prop: String = "margin"
@@ -34,7 +32,7 @@ case class DecBorder(value: CssVal) extends CssDecStd
 }
 
 object DecBorder
-{
+{ /** Factory apply method for CSS border declaration */
   def apply(valuesStr: String): DecBorder = new DecBorder(CssVal(valuesStr))
 }
 
