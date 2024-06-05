@@ -42,9 +42,10 @@ object Terr460E150 extends Long460Terrs
       VRow(99, OrigMin(5618, HVUp)),
       TRow(98, hillyJungle * 2),
       VRow(97, BendOut(5618, HVDL, 7)),
-      TRow(96, jungle * 2, mtainDepr),
+      TRow(96, jungle * 2, mtainJungle),
       VRow(95, BendIn(5618, HVUR, 13), OrigRt(5620, HVUL)),
-      TRow(94, sea * 2, mtainDepr),
+      TRow(94, sea * 2, mtainJungle),
+
     )
   }
   help.run
