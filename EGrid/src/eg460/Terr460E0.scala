@@ -65,12 +65,13 @@ object Terr460E0 extends Long460Terrs
     VRow(101, BendIn(516, HVUR, 13), BendOut(518, HVDL, 7)),
     TRow(100, sea * 5, hillyJungle * 2),
     VRow(99, BendIn(518, HVUR, 13), BendOut(520, HVDL)),
-    TRow(98, sea * 5, mtainDepr, hillyJungle),
+    TRow(98, sea * 5, mtainJungle, hillyJungle),
     VRow(97, BendIn(520, HVUR, 13), BendOut(522, HVDL, 7)),
     TRow(96, sea * 6, hillyJungle),
     VRow(95, BendIn(522, HVUR, 13), OrigMin(524, HVUL)),
-    TRow(94, sea * 6, mtainDepr),
-    TRow(92, sea * 6),
+    TRow(94, sea * 6, hillySavannah),
+    VRow(93, BendIn(522, HVDR, 13), OrigMin(524, HVDL, 2)),
+    TRow(92, sea * 6, hillySavannah),
     )
   }
   help.run

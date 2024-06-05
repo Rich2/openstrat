@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 183250975km².
  *  Isle3 4473.900km² => 8768.845km². Crete 8450km². */
 object Terr460E30 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e30(94)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e30(92)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -15,7 +15,7 @@ object Terr460E30 extends Long460Terrs
   { override val rows: RArr[RowBase] = RArr(
     TRow(146, SeaIcePerm),
     VRow(145, BendIn(1534, HVUp, 13), Bend(1536, HVDn, 7, 4, sea, SeaIceWinter), BendIn(1538, HVDL, 13, SeaIceWinter)),
-    TRow(144, mtainDepr),
+    TRow(144, mtainTundra),
     VRow(143, OrigLt(1538, HVUp, 7, SeaIceWinter), OrigRt(1540, HVUR, 7)),
     VRow(139, OrigRt(1538, HVDR, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
     TRow(138, hillyTundra, hillyTundra),
@@ -30,12 +30,12 @@ object Terr460E30 extends Long460Terrs
     TRow(128, oceanic * 2, hillyOce, oceanic),
     TRow(126, oceanic, hillyOce, savannah, oceanic),
     VRow(125, SetSep(1527), OrigMin(1536, HVDR), ThreeDown(1538, 0, 13, 13), BendIn(1540, HVDn, 13), BendIn(1542, HVDL, 13)),
-    TRow(124, mtainDepr, hillyOce, hillySavannah, mtainDepr, mtainDepr),
+    TRow(124, mtainCont, hillyOce, hillySavannah, mtainSubForest, mtainSub),
 
     VRow(123, BendIn(1526, HVUR, 7), BendOut(1528, HVDL), OrigMin(1532, HVDn), OrigLt(1536, HVUR, 7), BendIn(1538, HVUL, 13), BendMax(1542, HVUR),
       OrigRt(1544, HVUL)),
 
-    TRow(122, hillySavannah, hillySavannah, hillySahel, mtainDepr, mtainDepr),
+    TRow(122, hillySavannah, hillySavannah, hillySahel, mtainSavannah * 2),
     VRow(121, Orig(1528, HVUp, 3, 7), BendIn(1530, HVDR, 13), ThreeUp(1532, 6, 13, 0), BendIn(1534, HVDL, 13)),
     TRow(120, SepB(), sea, hillySavannah, hillySavannah, hillySavannah, deshot),
 
@@ -54,8 +54,8 @@ object Terr460E30 extends Long460Terrs
     VRow(109, BendIn(1544, HVUR, 13), BendOut(1546, HVDL, 7)),
     TRow(108, deshot * 4, sahel, hillySahel, hillySahel),
     VRow(107, BendIn(1546, HVUR, 13), BendIn(1548, HVUp, 13), BendIn(1550, HVDn, 13), Bend(1552, HVUp, 12, 7)),
-    TRow(106, savannah * 2, sahel, savannah, mtainDepr, hillySahel, hillySahel),
-    TRow(104, savannah * 5, mtainDepr, hillySahel),
+    TRow(106, savannah * 2, sahel, savannah, mtainSahel, hillySahel, hillySahel),
+    TRow(104, savannah * 5, mtainSahel, hillySahel),
     TRow(102, hillyJungle * 3, hillySavannah, hillySahel * 2, savannah),
     VRow(101, BendOut(1550, HVDR), OrigRt(1552, HVDL)),
     TRow(100, jungle, hillyJungle * 3, hillySavannah * 2, savannah),
@@ -65,6 +65,7 @@ object Terr460E30 extends Long460Terrs
     TRow(96, hillyJungle * 4, hillySavannah * 2),
     VRow(95, OrigLt(1538, HVUp, 6, lake), OrigMin(1540, HVDn, 3, lake), BendOut(1546, HVUR), BendIn(1548, HVDL, 13)),
     TRow(94, hillyJungle * 6),
+    TRow(92, savannah * 2, jungle, hillySavannah * 3),
     )
   }
   help.run
