@@ -119,7 +119,7 @@ object WTiles
   val mtainSubForest: Land = Land(Mountains, Subtropical, Forest)
   val mtainSavannah: Land = Land(Mountains, Savannah)
   val mtainSahel: Land = Land(Mountains, Sahel, LandFree)
-  val mtainDesert: Land = Land(Mountains, DesertHot, LandFree)
+  val mtainDeshot: Land = Land(Mountains, DesertHot, LandFree)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
   val mtainLakesTaiga: Land = Land(MountLakes, Boreal, Forest)
   val mtainLakesCont: Land = Land(MountLakes, Continental, LandFree)
@@ -130,7 +130,7 @@ object WTiles
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
     ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, deshot, jungle,
     hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySub, hillySavannah, hillySahel, hillyDeshot, hillyJungle, hillyLakesTaiga,
-    mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSubForest, mtainDesert, mtainJungle)
+    mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSubForest, mtainDeshot, mtainJungle)
 
   /** Sequence of short hand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)

@@ -53,7 +53,7 @@ object Terr640W60 extends Long640Terrs
     TRow(94, mtainSavannah, jungle, hillySavannah, savannah, hillySavannah),
     TRow(92, hillySahel, jungle, savannah, jungle),
     VRow(91, BendIn(10744, HVDR, 12), BendMin(10746, HVUL, 2)),
-    TRow(90, mtainDesert, savannah * 2, hillySavannah),
+    TRow(90, mtainDeshot, savannah * 2, hillySavannah),
     VRow(89, BendIn(10744, HVUR, 13), OrigMin(10746, HVUL, 5), OrigLt(10760, HVDR, 7)),
     TRow(88, hillySahel, subtrop * 2),
     VRow(87, BendIn(10744, HVDR, 10), OrigRt(10746, HVDL)),

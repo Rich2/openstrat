@@ -32,7 +32,7 @@ object Terr13W60 extends Long13Terrs
       VRow(99, BendIn(10758, HVUR)),
       TRow(98, hillyOce, oceanic),
       TRow(96, hillyOce, oceanic),
-      TRow(94, mtainDesert, oceanic),
+      TRow(94, mtainDeshot, oceanic),
       VRow(93, BendOut(10754, HVDR, 7), BendIn(10756, HVUL, 12)),
       TRow(92, savannah),
       VRow(91, OrigMin(10750, HVDL, 1), OrigRt(10752, HVUR), BendIn(10754, HVUL, 13)),

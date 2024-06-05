@@ -19,7 +19,7 @@ object TerrMegaE60 extends LongMegaTerrs
     TRow(110, deshot * 2),
     TRow(108, hillyDeshot * 2),
     VRow(107, OrigRt(2558, HVDR, 7), BendIn(2560, HVDL)),
-    TRow(106, deshot, mtainDesert, hillySavannah),
+    TRow(106, deshot, mtainDeshot, hillySavannah),
     VRow(105, BendIn(2554, HVDL, 13), BendIn(2560, HVUR, 13), OrigRt(2562, HVUL, 7)),
     TRow(104, hillyDeshot, sea * 2),
     VRow(103, BendOut(2554, HVUR), BendIn(2556, HVUp, 13), OrigRt(2558, HVDL, 7), BendIn(2564, HVDR, 13), BendIn(2568, HVDR, 12)),
