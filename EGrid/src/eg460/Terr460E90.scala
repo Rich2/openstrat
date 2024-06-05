@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 75° east to 105° east, centred on 90° east. Hex tile scale 460km.
  * [[Isle10]] 64603.127km² => 78919.609km². Sri Lanka 65610km². */
 object Terr460E90 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e90(94)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e90(90)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -23,19 +23,19 @@ object Terr460E90 extends Long460Terrs
     TRow(134, taiga, hillyTaiga, taiga),
     TRow(132, taiga * 2, hillyTaiga),
     TRow(130, steppe * 2, hillyTaiga, hillySteppe),
-    TRow(128, mtainDepr * 4),
-    TRow(126, sahel * 2, mtainDepr, hillyDeshot),
-    TRow(124, hillySahel, mtainDepr, hillySahel * 3),
+    TRow(128, mtainSteppe * 4),
+    TRow(126, sahel * 2, mtainSteppe, hillyDeshot),
+    TRow(124, hillySahel, mtainSteppe, hillySahel * 3),
     TRow(122, deshot * 2, hillyDeshot, hillySahel, deshot),
-    TRow(120, mtainDepr, hillyDeshot * 2, mtainDepr * 2),
-    TRow(118, mtainDepr, hillySahel * 2, mtainDepr * 3),
-    TRow(116, deshot, deshot, hillyDeshot, mtainDepr * 3),
-    TRow(114, hillyOce, oceanic, hillySavannah, savannah, hillyJungle, mtainDepr),
-    TRow(112, hillySavannah * 2, Land(Plain, Tropical), hillySavannah, mtainDepr * 2),
+    TRow(120, mtainSteppe, hillyDeshot * 2, mtainSteppe * 2),
+    TRow(118, mtainJungle, hillySahel * 2, mtainSavannah * 3),
+    TRow(116, deshot, deshot, hillyDeshot, mtainJungle * 3),
+    TRow(114, hillyOce, oceanic, hillySavannah, savannah, hillyJungle, mtainJungle),
+    TRow(112, hillySavannah * 2, Land(Plain, Tropical), hillySavannah, mtainJungle * 2),
     VRow(111, BendMin(3580, HVDR, 4), BendOut(3582, HVDn, 7)),
-    TRow(110, savannah, hillySavannah, sea * 2, hillyJungle, mtainDepr),
+    TRow(110, savannah, hillySavannah, sea * 2, hillyJungle, mtainJungle),
     VRow(109, BendOut(3578, HVDR, 7), BendIn(3580, HVUL, 13), OrigMin(3590, HVDn)),
-    TRow(108, sahel, savannah, sea * 3, mtainDepr, hillySavannah),
+    TRow(108, sahel, savannah, sea * 3, mtainJungle, hillySavannah),
     VRow(107, BendOut(3576, HVDR, 7), BendIn(3578, HVUL, 13)),
     TRow(106, savannah, sea * 4, mtainJungle, jungle),
     VRow(105, BendOut(3570, HVDL, 7), Bend(3574, HVDR, 6, 7), ThreeUp(3576, 0, 6, 11), BendIn(3578, HVDL), BendIn(3590, HVDR), OrigMin(3592, HVDL)),
