@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** 460km [[WTile]] terrain terrain for 105° west to 75° west, centred on 90° wast. Hex tile area 183250.975km².
  * [[Isle4]] 8768.845km² => 14495.438km². Jamaica 10,991 km². */
 object Terr460W90 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w90(94)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w90(90)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -73,7 +73,7 @@ object Terr460W90 extends Long460Terrs
     VRow(107, BendIn(9722, HVUR, 13), BendIn(9724, HVUp, 13), BendOut(9726, HVDn, 7), OrigRt(9728, HVUL, 7), OrigMin(9734, HVDR), BendIn(9736, HVDL, 10),
       BendIn(9740, HVDR, 10), BendIn(9742, HVDn, 10), BendOut(9744, HVUp)),
 
-    TRow(106, sea * 4, mtainDepr, sea, hillyJungle),
+    TRow(106, sea * 4, mtainJungle, sea, hillyJungle),
     VRow(105, OrigMin(9734, HVDn), OrigMin(9736, HVUp), OrigMin(9740, HVUp)),
     TRow(104, sea * 5, mtainDepr, hillyJungle),
     VRow(103, BendIn(9734, HVUR, 10), BendIn(9736, HVUp, 10), BendOut(9738, HVDn, 7), OrigMin(9740, HVUL)),
