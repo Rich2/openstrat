@@ -152,7 +152,7 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).sett
   )
 
 lazy val DevFx = jvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmFxSrc",
+  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmFxSrc",
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
