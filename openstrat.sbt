@@ -106,7 +106,7 @@ lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett)
    libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
  )
 
-lazy val GeomExs = exsJvmProj("Geom").dependsOn(Geom).settings(
+lazy val GeomExs = mainJvmProj("GeomExs").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
