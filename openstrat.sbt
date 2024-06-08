@@ -40,22 +40,12 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings
     artifact.name + "-" + module.revision + cl + "." + artifact.extension }
 )
 
-def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
+def jvmProj(srcsStr: String): Project = mainProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.3" % "test" withSources() withJavadoc(),
-  testFrameworks += new TestFramework("utest.runner.Framework"),
-)
-
-def exsJvmProj(srcsStr: String) = proj(srcsStr, srcsStr + "Exs").settings(
-  scalaSource := moduleDir.value / "ExsSrc",
-  Compile/scalaSource := moduleDir.value / "ExsSrc",
-  Compile/unmanagedSourceDirectories := List("ExsSrc", "ExsJvmSrc").map(moduleDir.value / _),
-  resourceDirectory := moduleDir.value / "ExsRes",
-  Test/unmanagedResourceDirectories := List(moduleDir.value / "ExsRes", (Test/resourceDirectory).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.3" % "test"  withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
@@ -73,7 +63,7 @@ def utilSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcArr", "srcPersist", "srcParse").map(s => (ThisBuild/baseDirectory).value / "Util" / s),
 )
 
-lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
+lazy val Util = jvmProj("Util").settings(utilSett).settings(
   name := "rutil",
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcRArr",
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
@@ -99,14 +89,14 @@ def geomSett = List(
     "srcEarth").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
 )
 
-lazy val Geom = mainJvmProj("Geom").dependsOn(Util).settings(geomSett)
+lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
 
- lazy val GeomFx = mainJvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
+ lazy val GeomFx = jvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
    Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/JvmFxSrc",
    libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
  )
 
-lazy val GeomExs = mainJvmProj("GeomExs").dependsOn(Geom).settings(
+lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
@@ -115,18 +105,18 @@ lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => (ThisBuild/baseDirectory).value / "Tiling" / s),
 )
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Geom).settings(tilingSett).settings(
+lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(tilingSett).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/ExsSrc"
 )
-lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
+lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat).settings(tilingSett)
 
-lazy val EGrid = mainJvmProj("EGrid").dependsOn(Tiling).settings(
+lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
 )
 
-lazy val EGridExs = exsJvmProj("EGrid").dependsOn(EGrid)
+lazy val EGridExs = jvmProj("EGridExs").dependsOn(EGrid)
 
 lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
@@ -143,10 +133,10 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
 def appsSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => (ThisBuild/baseDirectory).value / "Apps" / s),
 )
-lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
+lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
+lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
@@ -161,7 +151,7 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).
     ),
   )
 
-lazy val DevFx = mainJvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
+lazy val DevFx = jvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmFxSrc",
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
