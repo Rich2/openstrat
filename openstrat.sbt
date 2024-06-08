@@ -25,6 +25,7 @@ def sett3 = List(
 
 def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(sett3).settings(
   moduleDir := baseDir.value / srcsStr,
+
   Test/scalaSource := moduleDir.value / "TestSrc",
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
@@ -92,7 +93,6 @@ def geomSett = List(
 lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
 
  lazy val GeomFx = jvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
-   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/JvmFxSrc",
    libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
  )
 
@@ -156,10 +156,9 @@ lazy val DevFx = jvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-lazy val ServZio = Project("ServZio", file("Dev/SbtDir/ServZio")).dependsOn(Dev).settings(sett3).settings(
+lazy val ServZio = jvmProj("ServZio").dependsOn(Dev).settings(
   libraryDependencies += "dev.zio" %% "zio" % "2.1.1" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC7" withSources() withJavadoc(),
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmServZioSrc",
 )
 
 lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
