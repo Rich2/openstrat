@@ -23,7 +23,7 @@ def sett3 = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
-def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(sett3).settings(
+def proj(srcsStr: String, nameStr: String) = Project(nameStr, file(nameStr)).settings(sett3).settings(
   moduleDir := baseDir.value / srcsStr,
 
   Test/scalaSource := moduleDir.value / "TestSrc",
@@ -56,7 +56,7 @@ def jsProj(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlug
 )
 
 def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(
-  Compile/unmanagedSourceDirectories := List("src", "NatSrc", "Exs/src").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src").map(moduleDir.value / _),
   Compile/resourceDirectories := List("res", "NatRes").map(moduleDir.value / _),
 )
 
@@ -110,7 +110,6 @@ lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(tilingSett).setting
 )
 lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
-lazy val TilingNat = natProj("Tiling").dependsOn(UtilNat).settings(tilingSett)
 
 lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
@@ -120,10 +119,6 @@ lazy val EGridExs = jvmProj("EGridExs").dependsOn(EGrid)
 
 lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
-)
-
-lazy val EGridNat = natProj("EGrid").dependsOn(TilingNat).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
 lazy val EarthAppJs = jsApp("EarthApp").settings(
@@ -152,7 +147,6 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).sett
   )
 
 lazy val DevFx = jvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
-  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JvmFxSrc",
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
@@ -160,8 +154,6 @@ lazy val ServZio = jvmProj("ServZio").dependsOn(Dev).settings(
   libraryDependencies += "dev.zio" %% "zio" % "2.1.1" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC7" withSources() withJavadoc(),
 )
-
-lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
 
 def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(AppsJs).settings(
   Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Apps/srcStrat" ::
