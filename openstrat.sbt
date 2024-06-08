@@ -79,11 +79,6 @@ lazy val Util = mainJvmProj("Util").settings(utilSett).settings(
   libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" withSources() withJavadoc(),
 )
 
-lazy val UtilExs = exsJvmProj("Util").dependsOn(Geom).settings(
-  name := "rutilexs",
-  Compile/mainClass:= Some("ostrat.UtilExsJvmApp"),
-)
-
 lazy val UtilJs = jsProj("Util").settings(utilSett).settings(
   name := "rutiljs",
   Compile / sourceGenerators += Def.task {
@@ -151,7 +146,7 @@ def appsSett = List(
 lazy val Apps = mainJvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(UtilExs, GeomExs, TilingExs, EGridExs, Apps).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
