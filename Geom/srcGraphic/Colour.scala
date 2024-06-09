@@ -13,8 +13,8 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
   @inline final override def int1: Int = argbValue
 
-  /** Web # hexadecimal #string CSS and web.  */
-  def webStr: String = Colour.optStr(this).fold("#" + rgbHexStr)(_.toLowerCase())
+  /** Web # hexadecimal string CSS and web. */
+  def webStr: String = Colour.optStr(this).fold("#" + rgbaHexStr)(_.toLowerCase())
 
   def svgStr: String = Colour.optStr(this).fold(hexStrX)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
@@ -34,6 +34,9 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 
   /** argb hexadecimal [[String]]. */
   def argbHexStr: String = alpha.hexStr2 + red.hexStr2 + green.hexStr2 + blue.hexStr2
+
+  /** rgba hexadecimal [[String]]. */
+  def rgbaHexStr: String = red.hexStr2 + green.hexStr2 + blue.hexStr2 + alpha.hexStr2
 
   /** 0x hexadecimal fromat for Scala and other languages. */
   inline def hexStrX: String = "0x" + argbHexStr
