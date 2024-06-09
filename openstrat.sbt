@@ -51,7 +51,7 @@ def jvmProj(srcsStr: String): Project = mainProj(srcsStr, srcsStr).settings(
 )
 
 def jsProj(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JsSrc").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", baseDirectory.value / "src"),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.0")  withSources() withJavadoc(),
 )
 
