@@ -4,9 +4,9 @@ import zio._, http._, pWeb._
 
 object ServZioApp extends ZIOAppDefault
 {
-  def hPage(str: String) = handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.html)))
-  val handHome = hPage(pDev.IndexPage.out)
-  def cssHan(spec: CssSpec) = handler(Response.text(spec()).addHeader(Header.ContentType(MediaType.text.css)))
+  def hPage(str: String): Handler[Any, Nothing, Any, Response] = handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.html)))
+  val handHome: Handler[Any, Nothing, Any, Response] = hPage(pDev.IndexPage.out)
+  def cssHan(spec: CssSpec): Handler[Any, Nothing, Any, Response] = handler(Response.text(spec()).addHeader(Header.ContentType(MediaType.text.css)))
 
   val routes: Routes[Any, Response] = Routes(
     Method.GET / "" -> handHome,
@@ -25,5 +25,5 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "earthgames/dicelessapp.html" -> hPage(pDev.AppPage("DicelessApp", "", "DiceLess").out),
   )
 
-  def run = Server.serve(routes).provide(Server.default)
+  def run: ZIO[Any, Throwable, Nothing] = Server.serve(routes).provide(Server.default)
 }
