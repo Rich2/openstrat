@@ -6,11 +6,10 @@ object GeomPagePolygons extends HtmlSection
 {
   override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), p1, svg1, p2, code1, p3, svg2, p4)
 
-  def p1: HtmlP = HtmlP(
-  """Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults. The
-  | vertices of an N sided polygon are numbered from 0 to n - 1. With the vertex 0 appearing at 12 o'clock or 00 hundred hours as in the
-  | dodecahedron below. Vertex 1 appears at the 1 o'clock position, vertex 2 at the 2 o'clock position etc. The middle of side 0 is at 12.30 or
-  | 00.30 hours, the middle of side 1 is at 01.30 hours etc.""".stripMargin)
+  def p1: HtmlP = HtmlP("""Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults.
+  |The vertices of an N sided polygon are numbered from 0 to n - 1. With the vertex 0 appearing at 12 o'clock or 00 hundred hours as in the dodecahedron below.
+  |Vertex 1 appears at the 1 o'clock position, vertex 2 at the 2 o'clock position etc. The middle of side 0 is at 12.30 or 00.30 hours, the middle of side 1 is
+  |at 01.30 hours etc.""".stripMargin)
 
   val width: Int = 250
   val polyColour: Colour = DarkGreen

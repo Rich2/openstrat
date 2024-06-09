@@ -108,6 +108,18 @@ object CssCode
   def apply(props: CssDecs*): CssCode = new CssCode(props.toArr)
 }
 
+/** CSS rule for code. */
+case class CssSvg(propsArr: RArr[CssDecs]) extends CssRule
+{
+  override def selec: String = "svg"
+}
+
+object CssSvg
+{
+  /** Factory apply method for CSS rule for code. */
+    def apply(props: CssDecs*): CssSvg = new CssSvg(props.toArr)
+}
+
 class CssClassesRule(val classStr: String, val propsArr: RArr[CssDecs]) extends CssRule
 {
   override def selec: String = "." + classStr
