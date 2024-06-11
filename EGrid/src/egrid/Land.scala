@@ -36,7 +36,6 @@ case class Land(elev: Lelev, climate: Climate, landUse: LandUse) extends WTile w
     case _: PlainLike if climate == Tropical && landUse == Forest => Forest.jungleColour
     case _: PlainLike if landUse == Forest => Forest.colour
     case PlainLakes => PlainLakes.colour.average(climate.colour)
-    case PlainLakes => PlainLakes.colour
     case _ => climate.colour
   }
 }
