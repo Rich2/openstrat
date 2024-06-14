@@ -8,7 +8,11 @@ trait HttpReq
 
 object HttpReq
 {
-
+  def apply(lines: Sequ[String]): EMon[HttpReq] =
+  { val lh0 = lines(0)
+    val (rt, tail) = lh0.partition(_.isLetter)
+    if (rt.toLowerCase == "get") Good(HttpReqGet(tail.takeWhile(c => !c.isWhitespace))) else badNone("Not get")
+  }
 }
 
 class HttpReqGet(val uri: String) extends HttpReq
