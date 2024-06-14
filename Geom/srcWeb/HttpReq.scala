@@ -10,8 +10,13 @@ object HttpReq
 {
   def apply(lines: Sequ[String]): EMon[HttpReq] =
   { val lh0 = lines(0)
-    val (rt, tail) = lh0.partition(_.isLetter)
-    if (rt.toLowerCase == "get") Good(HttpReqGet(tail.takeWhile(c => !c.isWhitespace))) else badNone("Not get")
+    debvar(lh0)
+    val rt = lh0.takeWhile(_.isLetter)
+    val tail = lh0.drop(rt.length).dropWhile(_.isWhitespace)
+    if (rt.toLowerCase == "get") Good(HttpReqGet(tail.takeWhile(c => !c.isWhitespace)))
+    else {
+      debvar(rt)
+      badNone("Not get") }
   }
 }
 

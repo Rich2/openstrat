@@ -21,18 +21,19 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
   override def run(): Unit =
   { val readbuf: BufferedReader = new BufferedReader(new java.io.InputStreamReader(sock.getInputStream()))
     var line: String = null
-    var acc = StringBuff()
-    while ( { line = readbuf.readLine; line != null && line != "" }) {
-      acc.grow(line)
+    val acc = StringBuff()
+    while ( { line = readbuf.readLine; line != null && line != "" })
+    { acc.grow(line)
       println(line)
     }
     val req = HttpReq(acc)
     req match{
-      case Good(hrg: HttpReqGet) =>
-      case _ =>
+      case Good(hrg: HttpReqGet) => hrg.uri match
+      { case "/" => sock.getOutputStream.write(IndexPage.httpRespBytes("localhost"))
+        case _ => deb("Other URI")
+      }
+      case _ => deb("Other match")
     }
-
-    sock.getOutputStream.write(HttpRespBodied("localhost", HttpConTypePlain, s"Hello, Server with Http! Connection: $cNum").out.getBytes)
     readbuf.close
   }
 }
