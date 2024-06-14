@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import java.net.*, java.io.{ BufferedReader, InputStreamReader }
+import pWeb.*, java.net.*, java.io.{ BufferedReader, InputStreamReader }
 
 object ServRaw extends App
 { deb("Starting")
@@ -26,6 +26,12 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
       acc.grow(line)
       println(line)
     }
+    val req = HttpReq(acc)
+    req match{
+      case Good(hrg: HttpReqGet) =>
+      case _ =>
+    }
+
     sock.getOutputStream.write(s"HTTP/1.1 200 OK\nContent-Type: text/plain\n\nHello, Server with Http! Connection: $cNum".getBytes)
     readbuf.close
   }
