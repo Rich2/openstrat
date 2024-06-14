@@ -19,9 +19,11 @@ object ServRaw extends App
 class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
 {
   override def run(): Unit =
-  { val readbuf: BufferedReader = new java.io.BufferedReader(new java.io.InputStreamReader(sock.getInputStream()))
+  { val readbuf: BufferedReader = new BufferedReader(new java.io.InputStreamReader(sock.getInputStream()))
     var line: String = null
+    var acc = StringBuff()
     while ( { line = readbuf.readLine; line != null && line != "" }) {
+      acc.grow(line)
       println(line)
     }
     sock.getOutputStream.write(s"HTTP/1.1 200 OK\nContent-Type: text/plain\n\nHello, Server with Http! Connection: $cNum".getBytes)
