@@ -32,7 +32,7 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
       case _ =>
     }
 
-    sock.getOutputStream.write(s"HTTP/1.1 200 OK\nContent-Type: text/plain\n\nHello, Server with Http! Connection: $cNum".getBytes)
+    sock.getOutputStream.write(HttpRespBodied("localhost", HttpConTypePlain, s"Hello, Server with Http! Connection: $cNum").out.getBytes)
     readbuf.close
   }
 }
