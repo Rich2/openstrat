@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb.*, java.net.*, java.io.*//{ BufferedReader, InputStreamReader }
+import pWeb.*, java.net.*, java.io.*
 
 object ServRaw extends App
 { deb("Starting")
@@ -9,7 +9,8 @@ object ServRaw extends App
   while(true)
   { val sock: Socket = servSock.accept()
     val conn = new ConnSesh(numConns, sock)
-    conn.run()
+    val thread = new Thread(conn)
+    thread.start()
     numConns += 1
   }
   servSock.close()
@@ -33,14 +34,7 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
           if (acc.nonEmpty) continue = false
           else Thread.sleep(10)
         else
-          if(line == "")
-          { continue = false
-            println("Empty line")
-          }
-          else
-          { acc.grow(line)
-            println(line)
-          }
+          if(line == "") continue = false else acc.grow(line)
       }
       val req = HttpReq(acc)
       req match
