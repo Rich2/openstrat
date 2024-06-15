@@ -13,10 +13,10 @@ trait HttpResp
 class HttpRespBodied(val server: String, val contentType: HttpContentType, val body: String) extends HttpResp
 {
   override def code: Int = 200
-  def conLenLine: String = "ContentLength:" + body.length
-  def conTypeLine: String = "ContentType:" + contentType.out
-
-  override def out: String = "HTTP/1.1 200 OK" --- serverLine --- conLenLine --- conTypeLine ---- body
+  def conLenLine: String = "Content-Length:" + body.length
+  def conTypeLine: String = "Content-Type:" + contentType.out
+  def connLine = "Connection: Keep-Alive"
+  override def out: String = "HTTP/1.1 200 OK" --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
 }
 
 object HttpRespBodied
@@ -40,6 +40,10 @@ trait HttpContentTypeText extends HttpContentType
 
 object HttpConTypeHtml extends HttpContentTypeText
 { override def str2: String = "html"
+}
+
+object HttpConTypeCss extends HttpContentTypeText {
+  override def str2: String = "css"
 }
 
 object HttpConTypePlain extends HttpContentTypeText

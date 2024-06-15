@@ -23,7 +23,7 @@ trait CssRulesHolder
 }
 
 /** A list of CssRules and media queries with a possibe end [[String]]. */
-trait CssSpec extends CssRulesHolder
+trait CssSpec extends CssRulesHolder with HttpContent
 { /** A [[String at the end of the output to add CSS code that has not been converted into Scala.]] */
   def endStr: String = ""
 
@@ -35,4 +35,8 @@ trait CssSpec extends CssRulesHolder
       case s1 => s1 ---- endStr
     }
   }
+
+  override def out: String = rulesOut(0)
+  
+  override def httpResp(server: String): HttpRespBodied = HttpRespBodied(server, HttpConTypeCss, out)
 }
