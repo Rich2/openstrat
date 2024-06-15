@@ -49,3 +49,11 @@ object HttpConTypeCss extends HttpContentTypeText {
 object HttpConTypePlain extends HttpContentTypeText
 { override def str2: String = "plain"
 }
+
+trait HttpContentTypeImage extends HttpContentType
+{ override def str1: String = "image"
+}
+
+object HttpConTypeSvg extends HttpContentTypeImage
+{ override def str2: String = "svg+xml"
+}

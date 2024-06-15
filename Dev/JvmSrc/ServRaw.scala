@@ -34,7 +34,7 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
           if (acc.nonEmpty) continue = false
           else Thread.sleep(10)
         else
-          if(line == "") continue = false else acc.grow(line)
+          if(line == "") continue = false else {acc.grow(line); println(line) }
       }
       val req = HttpReq(acc)
       req match
@@ -52,6 +52,14 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
             outPS.flush()
             deb("Response doc css")
           }
+
+          case "/favicon.ico" =>
+          { val resp = HttpRespBodied("localhost", HttpConTypeSvg, Favicon1()).out
+            outPS.print(resp)
+            outPS.flush()
+            deb("Response favicon")
+          }
+
           case id => deb(s"Other URI |$id|")
         }
         case _ => deb("Other match")
