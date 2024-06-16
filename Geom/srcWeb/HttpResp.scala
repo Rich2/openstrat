@@ -1,6 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
+/** Am HttP Response. The out method givees the [[String]] to send over TCP. */
 trait HttpResp
 {
   def code: Int
@@ -9,19 +10,26 @@ trait HttpResp
   def serverLine: String = "server:" + server
 }
 
-/** Http Response with body */
-class HttpRespBodied(val server: String, val contentType: HttpContentType, val body: String) extends HttpResp
+trait HttpRespBodied extends HttpResp
+{
+  def contentType: HttpContentType
+  def body: String
+  def conLenLine: String = "Content-Length:" + body.length
+}
+
+/** HTTP OK 200 Response with body. */
+class HttpFound(val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
 {
   override def code: Int = 200
-  def conLenLine: String = "Content-Length:" + body.length
+
   def conTypeLine: String = "Content-Type:" + contentType.out
   def connLine = "Connection: Keep-Alive"
   override def out: String = "HTTP/1.1 200 OK" --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
 }
 
-object HttpRespBodied
+object HttpFound
 {
-  def apply(server: String, contentType: HttpContentType, body: String): HttpRespBodied = new HttpRespBodied(server, contentType, body)
+  def apply(server: String, contentType: HttpContentType, body: String): HttpFound = new HttpFound(server, contentType, body)
 }
 
 sealed trait HttpContentType

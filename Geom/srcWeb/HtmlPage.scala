@@ -4,7 +4,7 @@ package ostrat; package pWeb
 trait HttpContent
 {
   def out: String
-  def httpResp(server: String): HttpRespBodied
+  def httpResp(server: String): HttpFound
   def httpRespBytes(server: String): Array[Byte] = httpResp(server).out.getBytes
 }
 
@@ -17,7 +17,7 @@ trait HtmlPage extends HttpContent
   override def out: String = "<!doctype html>\n" + htmlElem.out(0, 150)
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 
-  override def httpResp(server: String): HttpRespBodied = HttpRespBodied(server, HttpConTypeHtml, out)
+  override def httpResp(server: String): HttpFound = HttpFound(server, HttpConTypeHtml, out)
 }
 
 /** Companion object for the [[HtmlHead]] class. */

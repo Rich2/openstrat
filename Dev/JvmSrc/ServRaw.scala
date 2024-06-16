@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb.*, java.net.*, java.io.*
+import pWeb.*, java.net.*, java.io.*, java.time.*
 
 object ServRaw extends App
 { deb("Starting")
@@ -34,9 +34,11 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
           if (acc.nonEmpty) continue = false
           else Thread.sleep(10)
         else
-          if(line == "") continue = false else {acc.grow(line); println(line) }
+          if(line == "") continue = false else acc.grow(line)//; println(line) }
       }
       val req = HttpReq(acc)
+      val time: ZonedDateTime = java.time.Instant.now().atZone(ZoneId.of("GMT"))
+      println(time.getDayOfWeek)
       req match
       { case Good(hrg: HttpReqGet) => hrg.uri match
         { case "/" =>
@@ -54,7 +56,7 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
           }
 
           case "/favicon.ico" =>
-          { val resp = HttpRespBodied("localhost", HttpConTypeSvg, Favicon1()).out
+          { val resp = HttpFound("localhost", HttpConTypeSvg, Favicon1()).out
             outPS.print(resp)
             outPS.flush()
             deb("Response favicon")

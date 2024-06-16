@@ -38,5 +38,5 @@ trait CssSpec extends CssRulesHolder with HttpContent
 
   override def out: String = rulesOut(0)
   
-  override def httpResp(server: String): HttpRespBodied = HttpRespBodied(server, HttpConTypeCss, out)
+  override def httpResp(server: String): HttpFound = HttpFound(server, HttpConTypeCss, out)
 }
