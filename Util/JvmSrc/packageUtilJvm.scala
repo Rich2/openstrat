@@ -84,4 +84,12 @@ package object utiljvm
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
+
+  def httpNow: String =
+  {
+    import java.time.*
+    import java.time.format.TextStyle
+    val time1 = java.time.Instant.now().atZone(ZoneId.of("GMT"))
+    ???
+  }
 }
