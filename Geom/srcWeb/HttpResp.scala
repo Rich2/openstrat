@@ -8,6 +8,8 @@ trait HttpResp
   def out: String
   def server: String
   def serverLine: String = "server:" + server
+  def dateStr: String
+  def dateLine: String = "date:" + dateStr
 }
 
 trait HttpRespBodied extends HttpResp
@@ -18,18 +20,18 @@ trait HttpRespBodied extends HttpResp
 }
 
 /** HTTP OK 200 Response with body. */
-class HttpFound(val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
+class HttpFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
 {
   override def code: Int = 200
 
   def conTypeLine: String = "Content-Type:" + contentType.out
   def connLine = "Connection: Keep-Alive"
-  override def out: String = "HTTP/1.1 200 OK" --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
+  override def out: String = "HTTP/1.1 200 OK" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
 }
 
 object HttpFound
 {
-  def apply(server: String, contentType: HttpContentType, body: String): HttpFound = new HttpFound(server, contentType, body)
+  def apply(dateStr: String, server: String, contentType: HttpContentType, body: String): HttpFound = new HttpFound(dateStr, server, contentType, body)
 }
 
 sealed trait HttpContentType

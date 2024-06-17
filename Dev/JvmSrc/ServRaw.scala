@@ -1,11 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb.*
-
-import java.net.*
-import java.io.*
-import java.time.*
-import java.time.format.TextStyle
+import pWeb.*, utiljvm.*, java.net.*, java.io.*
 
 object ServRaw extends App
 { deb("Starting")
@@ -42,28 +37,26 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
           if(line == "") continue = false else acc.grow(line)//; println(line) }
       }
       val req = HttpReq(acc)
-      val time: ZonedDateTime = java.time.Instant.now().atZone(ZoneId.of("GMT"))
-      val day1 = time.getDayOfWeek
-      val day2 = day1.getDisplayName(TextStyle.SHORT, java.util.Locale.ENGLISH)
-      println(day2)
+
       req match
       { case Good(hrg: HttpReqGet) => hrg.uri match
         { case "/" =>
-          { val repStr: String = IndexPage.httpResp("localhost").out
+          { val repStr: String = IndexPage.httpResp(httpNow, "localhost").out
+            println(repStr)
             outPS.print(repStr)
             outPS.flush()
             deb("Sent Response Index page")
           }
 
           case "/Documentation/documentation.css" =>
-          { val repStr: String = CssDocmentation.httpResp("localhost").out
+          { val repStr: String = CssDocmentation.httpResp(httpNow, "localhost").out
             outPS.print(repStr)
             outPS.flush()
             deb("Response doc css")
           }
 
           case "/favicon.ico" =>
-          { val resp = HttpFound("localhost", HttpConTypeSvg, Favicon1()).out
+          { val resp = HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1()).out
             outPS.print(resp)
             outPS.flush()
             deb("Response favicon")

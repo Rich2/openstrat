@@ -86,10 +86,9 @@ package object utiljvm
   def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 
   def httpNow: String =
-  {
-    import java.time.*
-    import java.time.format.TextStyle
-    val time1 = java.time.Instant.now().atZone(ZoneId.of("GMT"))
-    ???
+  { import java.time.*
+    import java.time.format.*
+    val time: ZonedDateTime = Instant.now().atZone(ZoneId.of("GMT"))
+    time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
   }
 }
