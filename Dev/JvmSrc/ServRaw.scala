@@ -34,35 +34,25 @@ class ConnSesh(val cNum: Int, val sock: Socket) extends Runnable
           if (acc.nonEmpty) continue = false
           else Thread.sleep(10)
         else
-          if(line == "") continue = false else acc.grow(line)//; println(line) }
+          if(line == "") continue = false else acc.grow(line)
       }
       val req = HttpReq(acc)
 
       req match
-      { case Good(hrg: HttpReqGet) => hrg.uri match
-        { case "/" =>
-          { val repStr: String = IndexPage.httpResp(httpNow, "localhost").out
-            println(repStr)
-            outPS.print(repStr)
-            outPS.flush()
-            deb("Sent Response Index page")
+      {
+        case Good(hrg: HttpReqGet) =>
+        {
+          val page: HttpResp = hrg.uri match
+          { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
+            case "/Documentation/documentation.css" => CssDocmentation.httpResp(httpNow, "localhost")
+            case "/favicon.ico" => HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1())
+            case id => HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
           }
-
-          case "/Documentation/documentation.css" =>
-          { val repStr: String = CssDocmentation.httpResp(httpNow, "localhost").out
-            outPS.print(repStr)
-            outPS.flush()
-            deb("Response doc css")
-          }
-
-          case "/favicon.ico" =>
-          { val resp = HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1()).out
-            outPS.print(resp)
-            outPS.flush()
-            deb("Response favicon")
-          }
-
-          case id => deb(s"Other URI |$id|")
+          val repStr: String = page.out
+          println(repStr)
+          outPS.print(repStr)
+          outPS.flush()
+          deb("Sent Response page")
         }
         case _ => deb("Other match")
       }

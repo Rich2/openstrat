@@ -34,36 +34,17 @@ object HttpFound
   def apply(dateStr: String, server: String, contentType: HttpContentType, body: String): HttpFound = new HttpFound(dateStr, server, contentType, body)
 }
 
-sealed trait HttpContentType
-{ def str1: String
-  def str2: String
-  def out: String = str1 / str2
+/** HTTP OK 404 Response with body. */
+class HttpNotFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
+{
+  override def code: Int = 404
+
+  def conTypeLine: String = "Content-Type:" + contentType.out
+  def connLine = "Connection: Keep-Alive"
+  override def out: String = "HTTP/1.1 404 Not Found" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
 }
 
-trait HttpContentTypeApp extends HttpContentType
-{ override def str1: String = "application"
-}
-
-trait HttpContentTypeText extends HttpContentType
-{ override def str1: String = "text"
-}
-
-object HttpConTypeHtml extends HttpContentTypeText
-{ override def str2: String = "html"
-}
-
-object HttpConTypeCss extends HttpContentTypeText {
-  override def str2: String = "css"
-}
-
-object HttpConTypePlain extends HttpContentTypeText
-{ override def str2: String = "plain"
-}
-
-trait HttpContentTypeImage extends HttpContentType
-{ override def str1: String = "image"
-}
-
-object HttpConTypeSvg extends HttpContentTypeImage
-{ override def str2: String = "svg+xml"
+object HttpNotFound
+{
+  def apply(dateStr: String, server: String, contentType: HttpContentType, body: String): HttpNotFound = new HttpNotFound(dateStr, server, contentType, body)
 }

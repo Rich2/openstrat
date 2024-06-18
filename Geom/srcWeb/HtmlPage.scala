@@ -4,7 +4,7 @@ package ostrat; package pWeb
 trait HttpContent
 {
   def out: String
-  def httpResp(dateStr: String, server: String): HttpFound
+  def httpResp(dateStr: String, server: String): HttpRespBodied
   def httpRespBytes(dateStr: String, server: String): Array[Byte] = httpResp(dateStr, server).out.getBytes
 }
 
@@ -17,7 +17,7 @@ trait HtmlPage extends HttpContent
   override def out: String = "<!doctype html>\n" + htmlElem.out(0, 150)
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 
-  override def httpResp(dateStr: String, server: String): HttpFound = HttpFound(dateStr, server, HttpConTypeHtml, out)
+  override def httpResp(dateStr: String, server: String): HttpRespBodied = HttpFound(dateStr, server, HttpConTypeHtml, out)
 }
 
 /** Companion object for the [[HtmlHead]] class. */
@@ -33,6 +33,18 @@ object HtmlPage
     override val head: HtmlHead = HtmlHead.title(title)
     override val body: HtmlBody = HtmlBody(HtmlH1(title), bodyContent.xCon)
   }
+}
+
+trait HtmlPageNotFound extends HtmlPage
+{
+  override def httpResp(dateStr: String, server: String): HttpNotFound = HttpNotFound(dateStr, server, HttpConTypeHtml, out)
+}
+
+case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
+{
+  override def head: HtmlHead = HtmlHead.title("Page not Found")
+
+  override def body: HtmlBody = HtmlBody(HtmlH1("404" -- NotFoundUrl -- "not found on this server"))
 }
 
 /** HTML title element. */
