@@ -139,7 +139,7 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).sett
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pDev.SiteHtmlWrite"),
-  reStart/mainClass	:= Some("ostrat.pDev.ServRaw"),
+  reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),

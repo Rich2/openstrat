@@ -10,6 +10,7 @@ trait HttpResp
   def serverLine: String = "server:" + server
   def dateStr: String
   def dateLine: String = "date:" + dateStr
+  def headerStr: String
 }
 
 trait HttpRespBodied extends HttpResp
@@ -17,6 +18,8 @@ trait HttpRespBodied extends HttpResp
   def contentType: HttpContentType
   def body: String
   def conLenLine: String = "Content-Length:" + body.length
+
+  final override def out: String = headerStr ---- body
 }
 
 /** HTTP OK 200 Response with body. */
@@ -26,7 +29,7 @@ class HttpFound(val dateStr: String, val server: String, val contentType: HttpCo
 
   def conTypeLine: String = "Content-Type:" + contentType.out
   def connLine = "Connection: Keep-Alive"
-  override def out: String = "HTTP/1.1 200 OK" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
+  override def headerStr: String = "HTTP/1.1 200 OK" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine
 }
 
 object HttpFound
@@ -41,7 +44,7 @@ class HttpNotFound(val dateStr: String, val server: String, val contentType: Htt
 
   def conTypeLine: String = "Content-Type:" + contentType.out
   def connLine = "Connection: Keep-Alive"
-  override def out: String = "HTTP/1.1 404 Not Found" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine ---- body
+  override def headerStr: String = "HTTP/1.1 404 Not Found" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine
 }
 
 object HttpNotFound
