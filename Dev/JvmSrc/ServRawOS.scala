@@ -1,10 +1,10 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pWeb.*, utiljvm.*, java.net.*, java.io.*
+import pWeb.*, utiljvm.*
 
 object ServRawOS extends ServRaw
 {
-  override def doResponse(req: EMon[HttpReq], outPS: PrintStream): Unit = req match
+  override def responses(req: EMon[HttpReq]): Option[HttpResp] = req match
   {
     case Good(hrg: HttpReqGet) => {
       val resp: HttpResp = hrg.uri match {
@@ -14,12 +14,10 @@ object ServRawOS extends ServRaw
         case "/favicon.ico" => HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1())
         case id => HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
       }
-      deb(resp.headerStr)
-      outPS.print(resp.out)
-      outPS.flush()
-      deb("Sent Response")
+
+      Some(resp)
     }
-    case _ => deb("Other match")
+    case _ => {deb("Other match"); None }
   }
 
   run()

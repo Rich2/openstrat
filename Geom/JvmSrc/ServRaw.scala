@@ -4,7 +4,7 @@ import utiljvm.*, java.net.*, java.io.*
 
 trait ServRaw extends App
 {
-  def doResponse(req: EMon[HttpReq], outPS: PrintStream): Unit
+  def responses(req: EMon[HttpReq]): Option[HttpResp]
 
   def run(): Unit =
   {
@@ -14,7 +14,7 @@ trait ServRaw extends App
     while (true)
     {
       val sock: Socket = servSock.accept()
-      val conn = new ConnSesh(numConns, sock, doResponse)
+      val conn = new ConnSesh(numConns, sock, responses)
       val thread = new Thread(conn)
       thread.start()
       numConns += 1
@@ -24,7 +24,7 @@ trait ServRaw extends App
   }  
 }
 
-class ConnSesh(val cNum: Int, val sock: Socket, fResp: (req: EMon[HttpReq], outPS: PrintStream) => Unit ) extends Runnable
+class ConnSesh(val cNum: Int, val sock: Socket, fResp: EMon[HttpReq] => Option[HttpResp] ) extends Runnable
 {
   override def run(): Unit =
   {
@@ -44,8 +44,13 @@ class ConnSesh(val cNum: Int, val sock: Socket, fResp: (req: EMon[HttpReq], outP
         else if (line == "") continue = false else acc.grow(line)
       }
       val req = HttpReq(acc)
-      fResp(req, outPS)
-
+      val oResp: Option[HttpResp] = fResp(req)
+      oResp.foreach{ resp =>
+        deb(resp.headerStr)
+        outPS.print(resp.out)
+        outPS.flush()
+        deb("Sent Response")
+      }
 
       reqNum += 1
     }
