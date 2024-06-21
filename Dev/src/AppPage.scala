@@ -42,8 +42,10 @@ object AppPage
   val egrDir: String = "/egrids/"
   val otDir: String = "/otherapps/"
 
+  val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
+  
   /** list of app links to go in the page headers. */
-  val allTops: RArr[AppPage] = RArr(AppPage("UnitLocApp", otDir, "Unit Locator"), AppPage("DicelessApp", egameDir, "DiceLess"),
+  val allTops: RArr[AppPage] = RArr(AppPage("UnitLocApp", otDir, "Unit Locator"), dicelessApp,
     AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("WW2App", egameDir), AppPage("BC305App", egameDir), AppPage("PlanetsApp", otDir),
     AppPage("ZugApp", otDir, "ZugFuhrer"), AppPage("Flags", otDir), AppPage("DungeonApp", otDir, "Dungeon game"),  AppPage("CivRiseApp", otDir, "Civ Rise"))
 

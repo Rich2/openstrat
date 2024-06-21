@@ -20,8 +20,12 @@ object HttpConTypeHtml extends HttpContentTypeText
 { override def str2: String = "html"
 }
 
-object HttpConTypeCss extends HttpContentTypeText {
-  override def str2: String = "css"
+object HttpConTypeCss extends HttpContentTypeText
+{ override def str2: String = "css"
+}
+
+object HttpConTypeJs extends HttpContentTypeText
+{ override def str2: String = "javascript"
 }
 
 object HttpConTypePlain extends HttpContentTypeText
