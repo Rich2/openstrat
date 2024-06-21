@@ -9,6 +9,7 @@ object ServRawOS extends ServRaw
     case Good(hrg: HttpReqGet) => {
       val resp: HttpResp = hrg.uri match {
         case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
+        case "/Documentation/util.html" => UtilPage.httpResp(httpNow, "localhost")
         case "/Documentation/documentation.css" => CssDocmentation.httpResp(httpNow, "localhost")
         case "/favicon.ico" => HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1())
         case id => HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
@@ -20,4 +21,6 @@ object ServRawOS extends ServRaw
     }
     case _ => deb("Other match")
   }
+
+  run()
 }
