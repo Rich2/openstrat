@@ -1,6 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
+/** Base trait for [[CssMedia]] and [[CssRules]]. */
 trait CssRulesHolder
 {
   /** The CSS rules. */
@@ -23,7 +24,7 @@ trait CssRulesHolder
 }
 
 /** A list of CssRules and media queries with a possibe end [[String]]. */
-trait CssSpec extends CssRulesHolder with HttpContent
+trait CssRules extends CssRulesHolder with HttpContent
 { /** A [[String at the end of the output to add CSS code that has not been converted into Scala.]] */
   def endStr: String = ""
 

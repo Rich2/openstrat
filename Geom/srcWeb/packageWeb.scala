@@ -3,13 +3,12 @@ package ostrat
 
 /** I'm just trying out a new package, not sure whether will use pWeb. */
 package object pWeb
-{ def tagVoidStr(tagName: String, attribs: XmlAtt *): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
-  def tagVoidStr(tagName: String, attribs: RArr[XmlAtt]): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
-
+{
   implicit class StringExtension(thisString: String)
   { /** This implicit method allows Strings to be used as XML content. */
     def xCon: XConText = XConText(thisString)
 
+    /** Implicit method to return an HTML bold element */
     def htmlB: HtmlB = HtmlB("thisString")
 
     def xmlAsString: XmlAsString = XmlAsString(thisString)
