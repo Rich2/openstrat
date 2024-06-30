@@ -7,7 +7,7 @@ trait CssVal
 }
 
 object CssVal
-{
+{ /** Factory apply mmethod for creating CSS value. */
   def apply(strIn: String): CssVal = new CssVal
   { override def str: String = strIn
   }

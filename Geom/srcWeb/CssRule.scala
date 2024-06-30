@@ -2,8 +2,7 @@
 package ostrat; package pWeb
 
 trait CssRuleLike
-{
-  /** Outputs to  a single line if the rule has 2 or more declarations. */
+{ /** Outputs to  a single line if the rule has 2 or more declarations. */
   def isMultiLine: Boolean
 
   /** The CSS output. */
@@ -13,42 +12,43 @@ trait CssRuleLike
 /** Css Rule consisting of selector plus a set of declarations. */
 trait CssRule extends CssRuleLike
 { def selec: String
-  def propsArr: RArr[CssDecs]
 
+  /** The CSS declarations of this rule. */
+  def decsArr: RArr[CssDecs]
 
-  def propsStr(indent: Int = 0): String =
-  {
-    val props: RArr[CssDec] = propsArr.flatMap(_.decs)
-    props.length match
+  /** The inner [[String]] of the this rules declarations. */
+  def decsStr(indent: Int = 0): String =
+  { val decs: RArr[CssDec] = decsArr.flatMap(_.decs)
+    decs.length match
     { case 0 => " {}"
-      case 1 => s" { ${props.head.out} }"
-      case 2 => s" { ${props(0).out} ${props(1).out} }"
-      case _ => "\n" + (indent).spaces + "{ " + props.foldStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
+      case 1 => s" { ${decs.head.out} }"
+      case 2 => s" { ${decs(0).out} ${decs(1).out} }"
+      case _ => "\n" + (indent).spaces + "{ " + decs.foldStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
     }
   }
 
   /** Outputs to  a single line if the rule has 2 or more declarations. */
-  override def isMultiLine: Boolean = propsArr.flatMap(_.decs).length > 2
+  override def isMultiLine: Boolean = decsArr.flatMap(_.decs).length > 2
 
-  override def out(indent: Int = 0): String = selec + propsStr(indent)
+  override def out(indent: Int = 0): String = selec + decsStr(indent)
 }
 
 object CssRule
 { /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as repeat parameters. */
   def apply(selecIn: String, propsIn: RArr[CssDecs]): CssRule = new CssRule
   { override def selec: String = selecIn
-    override val propsArr: RArr[CssDecs] = propsIn
+    override val decsArr: RArr[CssDecs] = propsIn
   }
 
   /** Factory apply method for CSS rule. There is an apply overload where the [[CSSDec]]s are passed as an [[RArr]]. */
   def apply(selecIn: String, propsIn: CssDecs*): CssRule = new CssRule
   { override def selec: String = selecIn
-    override def propsArr: RArr[CssDecs] = propsIn.toArr
+    override def decsArr: RArr[CssDecs] = propsIn.toArr
   }
 }
 
 /** CSS rule for the body. */
-case class CssBody(propsArr: RArr[CssDecs]) extends CssRule
+case class CssBody(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "body"
 }
 
@@ -58,7 +58,7 @@ object CssBody
 }
 
 /** CSS rule for HTML p paragraphs. */
-case class CssP(propsArr: RArr[CssDecs]) extends CssRule
+case class CssP(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "p"
 }
 
@@ -69,7 +69,7 @@ object CssP
 
 
 /** CSS rule for HTML canvas. */
-case class CssCanvas(propsArr: RArr[CssDecs]) extends CssRule
+case class CssCanvas(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "canvas"
 }
 
@@ -79,7 +79,7 @@ object CssCanvas
 }
 
 /** CSS rule for the H1 header. */
-case class CssH1(propsArr: RArr[CssDecs]) extends CssRule
+case class CssH1(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "h1"
 }
 
@@ -89,7 +89,7 @@ object CssH1
 }
 
 /** CSS rule for OL ordered lists. */
-case class CssOl(propsArr: RArr[CssDecs]) extends CssRule
+case class CssOl(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "ol"
 }
 
@@ -99,7 +99,7 @@ object CssOl
 }
 
 /** CSS rule for code. */
-case class CssCode(propsArr: RArr[CssDecs]) extends CssRule
+case class CssCode(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "code"
 }
 
@@ -109,7 +109,7 @@ object CssCode
 }
 
 /** CSS rule for code. */
-case class CssSvg(propsArr: RArr[CssDecs]) extends CssRule
+case class CssSvg(decsArr: RArr[CssDecs]) extends CssRule
 {
   override def selec: String = "svg"
 }
@@ -120,7 +120,7 @@ object CssSvg
     def apply(props: CssDecs*): CssSvg = new CssSvg(props.toArr)
 }
 
-class CssClassesRule(val classStr: String, val propsArr: RArr[CssDecs]) extends CssRule
+class CssClassesRule(val classStr: String, val decsArr: RArr[CssDecs]) extends CssRule
 {
   override def selec: String = "." + classStr
 }
@@ -131,7 +131,7 @@ object CssClassesRule
   def apply(classStr: String, props: CssDecs*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
 }
 
-class CssObjectRule(val classStr: String, val propsArr: RArr[CssDecs]) extends CssRule
+class CssObjectRule(val classStr: String, val decsArr: RArr[CssDecs]) extends CssRule
 {
   override def selec: String = "#" + classStr
 }
@@ -143,7 +143,7 @@ object CssObjectRule
 }
 
 /** CSS rule for button. */
-case class CssButton(propsArr: RArr[CssDecs]) extends CssRule
+case class CssButton(decsArr: RArr[CssDecs]) extends CssRule
 { override def selec: String = "button"
 }
 

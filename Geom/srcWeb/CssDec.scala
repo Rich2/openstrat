@@ -2,6 +2,7 @@
 package ostrat; package pWeb
 import geom._
 
+/** base trait */
 trait CssDecs
 {
   def decs: RArr[CssDec]
@@ -61,7 +62,8 @@ case class DecSpaces(value: CssVal) extends CssDecStd
 }
 
 object DecSpaces
-{ def apply(str: String): DecSpaces = new DecSpaces(CssVal(str))
+{ /** Factory apply method for creating CSS white-space declaration. */
+  def apply(str: String): DecSpaces = new DecSpaces(CssVal(str))
 }
 
 /** CSS white-space declaration set to nowrap. */
