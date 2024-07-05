@@ -2,9 +2,9 @@
 package ostrat; package pWeb
 import geom._
 
-/** base trait */
+/** base trait for [[CssDec]] and [[CssDecMulti]], certain scala declarations that translate to multiple CSS Declarations. */
 trait CssDecs
-{
+{ /** The decalation sequence, for [[CssDec]] this will have a sigle member. */
   def decs: RArr[CssDec]
 }
 
@@ -107,9 +107,6 @@ object DecAlignCen extends DecAlign(CssCentre)
 
 /** Css text-align declaration set to center. */
 object DecAlignJus extends DecAlign(CssJustify)
-
-/** Css text-align declaration set to start. */
-//object DecAlignStart extends DecAlign(CssStart)
 
 /** CSS width declaration. */
 case class DecWidth(value: CssVal) extends CssDecStd

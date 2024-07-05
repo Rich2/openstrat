@@ -11,7 +11,8 @@ trait CssRuleLike
 
 /** Css Rule consisting of selector plus a set of declarations. */
 trait CssRule extends CssRuleLike
-{ def selec: String
+{ /** The selector [[String]] for the CSS rule. */
+  def selec: String
 
   /** The CSS declarations of this rule. */
   def decsArr: RArr[CssDecs]
@@ -27,9 +28,7 @@ trait CssRule extends CssRuleLike
     }
   }
 
-  /** Outputs to  a single line if the rule has 2 or more declarations. */
   override def isMultiLine: Boolean = decsArr.flatMap(_.decs).length > 2
-
   override def out(indent: Int = 0): String = selec + decsStr(indent)
 }
 
@@ -66,7 +65,6 @@ object CssP
 { /** Factory apply method for CSS rule for p. */
   def apply(props: CssDecs*): CssP = new CssP(props.toArr)
 }
-
 
 /** CSS rule for HTML canvas. */
 case class CssCanvas(decsArr: RArr[CssDecs]) extends CssRule
@@ -110,23 +108,21 @@ object CssCode
 
 /** CSS rule for code. */
 case class CssSvg(decsArr: RArr[CssDecs]) extends CssRule
-{
-  override def selec: String = "svg"
+{ override def selec: String = "svg"
 }
 
 object CssSvg
-{
-  /** Factory apply method for CSS rule for code. */
-    def apply(props: CssDecs*): CssSvg = new CssSvg(props.toArr)
+{ /** Factory apply method for CSS rule for code. */
+  def apply(props: CssDecs*): CssSvg = new CssSvg(props.toArr)
 }
 
+/** CSS rule for classes. */
 class CssClassesRule(val classStr: String, val decsArr: RArr[CssDecs]) extends CssRule
-{
-  override def selec: String = "." + classStr
+{ override def selec: String = "." + classStr
 }
 
 object CssClassesRule
-{
+{ /** Factory apply method to create rule for single class with [[RArr]] of [[CssDecs]] */
   def apply(classStr: String, props: RArr[CssDecs]): CssClassesRule = new CssClassesRule(classStr, props)
   def apply(classStr: String, props: CssDecs*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
 }
