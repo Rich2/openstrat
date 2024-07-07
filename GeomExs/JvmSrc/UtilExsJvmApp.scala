@@ -10,7 +10,7 @@ object UtilExsJvmApp
     val oDir = args.headOption
     println(oDir)
     oDir.foreach{dirStr =>
-      fileWrite(dirStr, "documentation.css", CssDocmentation())
+      fileWrite(dirStr, "documentation.css", CssDocumentation())
       fileWrite(dirStr, "only.css", OnlyCss())
     }
   }

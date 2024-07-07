@@ -1,10 +1,10 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour._, GeomPage.svgMargin
 
+/** HTML documentation for [[Polygon]]s for the [[GeomPage]]. */
 object GeomPagePolygons extends HtmlSection
-{
-  override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), p1, svg1, p2, code1, p3, svg2, p4)
+{ override def contents: RArr[XCon] = RArr(HtmlH2("Polygons"), p1, svg1, p2, code1, p3, svg2, p4)
 
   def p1: HtmlP = HtmlP("""Polygons are used a lot in this module and in modules that use this module. So it is important to establish conventions or defaults.
   |The vertices of an N sided polygon are numbered from 0 to n - 1. With the vertex 0 appearing at 12 o'clock or 00 hundred hours as in the dodecahedron below.

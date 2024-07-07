@@ -2,7 +2,7 @@
 package ostrat
 import pWeb._, Colour._
 
-object CssDocmentation extends CssOpenstrat
+object CssDocumentation extends CssOpenstrat
 {
   override def rules: RArr[CssRuleLike] = RArr(
     CssBody(CssBGColour(Ivory), DecFontSize(18.px)), CssH1(DecTextCentre, DecFontSize(44.px)), CssP(DecAlignJus),
@@ -12,7 +12,7 @@ object CssDocmentation extends CssOpenstrat
     CssClassesRule("lexical", DecColour(DarkBlue)),
     CssCode(DecColour(DarkRed)), CssClassesRule("sbt", DecColour(DarkGreen)), CssClassesRule("folder", DecColour(DarkBlue)),
     CssClassesRule("path", DecColour(DarkBlue), DecNoWrap), CssClassesRule("bash", DecColour(DarkRed), DecNoWrap),
-    CssClassesRule("scala", DecColour(Black), DecNoWrap, DecFontSize(10.px)), CssObjectRule("centreBlock", DispBlock, DecMargLeftRightAuto),
+    CssClassesRule("scala", DecColour(Black), DecNoWrap, DecFontSize(10.px)), CssIDRule("centreBlock", DispBlock, DecMargLeftRightAuto),
     CssRule("td th", DecPadRight(2.em), DecAlignLeft),
     minMed
   )

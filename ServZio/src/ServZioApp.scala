@@ -16,7 +16,7 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "index.html" -> handHome,
     Method.GET / "index.htm" -> handHome,
     Method.GET / "index" -> handHome,
-    Method.GET / "Documentation/documentation.css" -> cssHan(CssDocmentation),
+    Method.GET / "Documentation/documentation.css" -> cssHan(CssDocumentation),
     Method.GET / "only.css" -> cssHan(OnlyCss),
     Method.GET / "Documentation/util.html" -> hPage(UtilPage.out),
     Method.GET / "Documentation/geom.html" -> hPage(geom.GeomPage.out),

@@ -122,20 +122,24 @@ class CssClassesRule(val classStr: String, val decsArr: RArr[CssDecs]) extends C
 }
 
 object CssClassesRule
-{ /** Factory apply method to create rule for single class with [[RArr]] of [[CssDecs]] */
+{ /** Factory apply method to create rule for single CSS class with [[RArr]] of [[CssDecs]]. There is a name overload which takes repeat parameters of [[CssDecs]]. */
   def apply(classStr: String, props: RArr[CssDecs]): CssClassesRule = new CssClassesRule(classStr, props)
+
+  /** Factory apply method to create rule for single CSS class with [[RArr]] of [[CssDecs]]. There is a name overload which takes an [[RArr]] of [[CssDecs]]. */
   def apply(classStr: String, props: CssDecs*): CssClassesRule = new CssClassesRule(classStr, props.toArr)
 }
 
-class CssObjectRule(val classStr: String, val decsArr: RArr[CssDecs]) extends CssRule
-{
-  override def selec: String = "#" + classStr
+/** CSS rule for IDs. */
+class CssIDRule(val idStr: String, val decsArr: RArr[CssDecs]) extends CssRule
+{ override def selec: String = "#" + idStr
 }
 
-object CssObjectRule
-{
-  def apply(classStr: String, props: RArr[CssDecs]): CssObjectRule = new CssObjectRule(classStr, props)
-  def apply(classStr: String, props: CssDecs*): CssObjectRule = new CssObjectRule(classStr, props.toArr)
+object CssIDRule
+{ /** Factory apply method to create rule for single CSS ID with [[RArr]] of [[CssDecs]]. There is a name overload which takes repeat parameters of [[CssDecs]]. */
+  def apply(classStr: String, props: RArr[CssDecs]): CssIDRule = new CssIDRule(classStr, props)
+
+  /** Factory apply method to create rule for single CSS ID with [[RArr]] of [[CssDecs]]. There is a name overload which takes an [[RArr]] of [[CssDecs]]. */
+  def apply(classStr: String, props: CssDecs*): CssIDRule = new CssIDRule(classStr, props.toArr)
 }
 
 /** CSS rule for button. */

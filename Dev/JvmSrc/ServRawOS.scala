@@ -12,7 +12,7 @@ object ServRawOS extends ServRaw
         case "/earthgames/dicelessapp.html" => AppPage.dicelessApp.httpResp(httpNow, "localhost")
         case "/earthgames/dicelessapp.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/dicelessapp.js").mkString)
         case "/Documentation/util.html" => UtilPage.httpResp(httpNow, "localhost")
-        case "/Documentation/documentation.css" => CssDocmentation.httpResp(httpNow, "localhost")
+        case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")
         case "/only.css" => OnlyCss.httpResp(httpNow, "localhost")
         case "/favicon.ico" => HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1())
         case id => HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
