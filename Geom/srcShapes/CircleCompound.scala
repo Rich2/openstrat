@@ -32,18 +32,14 @@ case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: R
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
 
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
-
   override def rotate(angle: AngleVec): CircleCompound = CircleCompound(shape.rotate(angle), facets, children.rotate(angle))
-
-  override def reflect(lineLike: LineLike): CircleCompound = ??? //CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
+  override def reflect(lineLike: LineLike): CircleCompound = CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
   override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = ???
 
   override def shearX(operand: Double): EllipseCompound = ???
 
   override def shearY(operand: Double): EllipseCompound = ???
-
- // override def slateTo(newCen: Pt2): EllipseCompound = ???
 
   override def addChildren(newChildren: Arr[GraphicElem]): CircleCompound = CircleCompound(shape, facets, children ++ newChildren)
 }
