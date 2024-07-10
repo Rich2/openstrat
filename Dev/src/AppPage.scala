@@ -3,7 +3,8 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends HtmlPage
+class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
+  HtmlPage
 {
   val htmlTitle: String = htmlTitleIn.emptyMap(JsMainStem)
 
@@ -16,6 +17,8 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
   def jsFileName: String = jsFileStem + ".js"
 
   val jsFileStem: String = jsFileStemIn.emptyMap(JsMainStem.toLowerCase)
+
+  def fullHtmlPathStr: String = dirStr + htmlFileName
 
   override def head: HtmlHead = HtmlHead.titleCss(htmlTitle, "/only")
 
@@ -43,10 +46,12 @@ object AppPage
   val otDir: String = "/otherapps/"
 
   val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
-  
+  val ww2App: AppPage = AppPage("WW2App", egameDir)
+  val uLocApp: AppPage = AppPage("UnitLocApp", otDir, "Unit Locator")
+
   /** list of app links to go in the page headers. */
-  val allTops: RArr[AppPage] = RArr(AppPage("UnitLocApp", otDir, "Unit Locator"), dicelessApp,
-    AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("WW2App", egameDir), AppPage("BC305App", egameDir), AppPage("PlanetsApp", otDir),
+  val allTops: RArr[AppPage] = RArr(dicelessApp, ww2App, uLocApp,
+    AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("BC305App", egameDir), AppPage("PlanetsApp", otDir),
     AppPage("ZugApp", otDir, "ZugFuhrer"), AppPage("Flags", otDir), AppPage("DungeonApp", otDir, "Dungeon game"),  AppPage("CivRiseApp", otDir, "Civ Rise"))
 
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", egameDir, "1300km Hex Earth"), AppPage("EG1000App", egrDir, "1000km Hex Earth"),
@@ -58,6 +63,11 @@ object AppPage
     AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))
 
   def all: RArr[AppPage] = allTops ++ eGrids ++ others
+
+  object AllHtmlExtractor
+  {
+    def unapply(inp: String): Option[AppPage] = all.find(_.fullHtmlPathStr == inp)
+  }
 
   val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.jsFileStem)(_.htmlLoc)
 
