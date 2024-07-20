@@ -35,6 +35,9 @@ object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, 
 object AustraliaNorthTerr extends EarthArea("Australia\nNorthern Territory", -23 ll 134.6, sahel)
 { val north: LatLong = -12.01 ll 133.56
   val eastArnhem: LatLong = -12.31 ll 136.92
+  val grooteNW: LatLong = -13.805 ll 136.923
+  val eberrumilya: LatLong = -14.299 ll 136.963
+  val p20: LatLong = -14.188 ll 135.901
   val limmen: LatLong = -14.73 ll 135.36
   val northEast: LatLong = -16.544 ll 138
 
@@ -45,7 +48,8 @@ object AustraliaNorthTerr extends EarthArea("Australia\nNorthern Territory", -23
   val thamarrurr: LatLong = -14.42 ll 129.36
   val coxPeninsular: LatLong = -12.41 ll 130.64
 
-  override val polygonLL: PolygonLL = PolygonLL(north, eastArnhem, limmen, northEast, southEast, southWest, northWest, victoriaMouth, thamarrurr, coxPeninsular)
+  override val polygonLL: PolygonLL = PolygonLL(north, eastArnhem, grooteNW, eberrumilya, p20, limmen, northEast, southEast, southWest, northWest,
+    victoriaMouth, thamarrurr, coxPeninsular)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on [[WesternAustralia]]. */

@@ -125,7 +125,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSep with TCen
 
 /** Companion object of HCen trait, contains HVert values for hex tile 0, 0. As well as apply method and Show implicit. */
 object HCen
-{
+{ /** Factory apply method. */
   def apply(r: Int, c: Int): HCen = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
