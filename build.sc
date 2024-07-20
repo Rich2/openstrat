@@ -2,8 +2,8 @@
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
-{ def version = "0.3.1snap"
-  def scalaVersion = "3.1.0"
+{ def version = "0.3.3snap"
+  def scalaVersion = "3.4.2"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 
@@ -28,7 +28,7 @@ trait CommonJs extends ScalaJSModule with Common
 
 object Util extends CommonJvm// with PublishModule
 { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(millSourcePath / "src", millSourcePath / "srcArr", millSourcePath / "srcRArr", millSourcePath / "srcParse", millSourcePath / "srcPersist", millSourcePath / "srcJvm")
+  def sources = T.sources(millSourcePath / "src", millSourcePath / "srcArr", millSourcePath / "srcRArr", millSourcePath / "srcParse", millSourcePath / "srcPersist", millSourcePath / "JvmSrc")
 }
 
 object UtilJs extends CommonJs
