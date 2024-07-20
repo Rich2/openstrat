@@ -11,6 +11,7 @@ object ServRawOS extends ServRaw
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")
         case "/earthgames/dicelessapp.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/dicelessapp.js").mkString)
+        case "/earthgames/ww2app.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/ww2app.js").mkString)
         case "/Documentation/util.html" => UtilPage.httpResp(httpNow, "localhost")
         case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")
         case "/only.css" => OnlyCss.httpResp(httpNow, "localhost")
