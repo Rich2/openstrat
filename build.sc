@@ -25,19 +25,23 @@ trait CommonJs extends ScalaJSModule with Common
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
 
-object Util extends CommonJvm// with PublishModule
-{ //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources2 = T.sources(millSourcePath / "srcArr", millSourcePath / "srcRArr", millSourcePath / "srcParse",  millSourcePath / "srcPersist")
+trait Util extends Common
+{ def sources2 = T.sources(millSourcePath / "src", millSourcePath / "srcArr", millSourcePath / "srcParse",  millSourcePath / "srcPersist")
+}
+
+object UtilJvm extends Util
+{ 
+  def sources2 = T.sources(millSourcePath / "srcArr",  millSourcePath / "JvmSrc")
   def sources = T.sources{ super.sources() ++ sources2() }
 }
 
-object UtilJs extends CommonJs
+object UtilJs extends CommonJs with Util
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Util.millSourcePath / "src")
+  //def sources = T.sources(Util.millSourcePath / "src")
 }
 
 object Geom extends CommonJvm
-{ def moduleDeps = Seq(Util)
+{ def moduleDeps = Seq(UtilJvm)
   def mainClass = Some("ostrat.WebPage1")
 
   def unmanagedClasspath = T{
