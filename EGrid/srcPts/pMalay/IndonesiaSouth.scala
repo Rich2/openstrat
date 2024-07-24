@@ -17,15 +17,13 @@ object Sumatra extends EarthArea("Sumatra", -0.02 ll 101.63, jungle)
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
 object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle)
-{ val javaArea: KilometresSq = 124413.kilometresSq
-  val baliArea: KilometresSq = 5780.kilometresSq
-  val area: KilometresSq = javaArea + baliArea
+{ override val area: KilometresSq =  124413.kilometresSq
 
   val ePulauMadura: LatLong = -6.96 ll 114.11
   val pasuruan: LatLong = -7.627 ll 112.919
-  val baliNorth: LatLong = -8.061 ll 115.184
-  val baliWest: LatLong = -8.377 ll 115.709
-  val penida: LatLong = -8.811 ll 115.591
+
+  val northWest: LatLong = -7.801 ll 114.451
+  val p27: LatLong = -8.080 ll 114.417
 
   val seJava: LatLong = -8.75 ll 114.58
   val p30: LatLong = -8.382 ll 111.701
@@ -39,8 +37,20 @@ object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle)
   val p80: LatLong = -6.931 ll 110.462
   val p82: LatLong = -6.448 ll 110.722
 
-  override val polygonLL: PolygonLL = PolygonLL(ePulauMadura, pasuruan, baliNorth, baliWest, penida, seJava, p30, p40, p44, swJava, nwJava, p65, p72, p75, p80,
-    p82)
+  override val polygonLL: PolygonLL = PolygonLL(ePulauMadura, pasuruan, northWest, p27, seJava, p30, p40, p44, swJava, nwJava, p65, p72, p75, p80, p82)
+}
+
+/** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
+object BaliIsland extends EarthAreaIsland("Bali", -8.358 ll 115.192, jungle)
+{ override val area: KilometresSq = 5780.kilometresSq
+
+  val baliNorth: LatLong = -8.061 ll 115.184
+  val baliWest: LatLong = -8.377 ll 115.709
+  val penida: LatLong = -8.811 ll 115.591
+  val southWest: LatLong = -8.838 ll 115.088
+  val northWest: LatLong = -8.097 ll 114.435
+
+  override val polygonLL: PolygonLL = PolygonLL(baliNorth, baliWest, penida, southWest, northWest)
 }
 
 /** [[polygonLL]] graphical representation of the islands of Sumbawa 15414km² + Lambok 4607.68km². Depends on nothing. */

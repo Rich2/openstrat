@@ -123,8 +123,8 @@ object Australasia extends EarthRegion("Australasia", -23 ll 130)
 /** Malay archipelago. */
 object MalayArch extends EarthRegion("MalayArchAustralasia", 0.762 ll 123.068)
 { import pMalay._
-  override val a2Arr: RArr[EarthArea] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, Sumbawa, Sumba, Flores, AlorIsland, Wetar, Timor, GuineaWest, PapuaNewGuinea,
-    NewBritain, Luzon, Palawan, VisayasWest, SamarLeyte, Mindano)
+  override val a2Arr: RArr[EarthArea] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, BaliIsland, Sumbawa, Sumba, Flores, AlorIsland, Wetar, Timor, GuineaWest,
+    PapuaNewGuinea, NewBritain, Luzon, Palawan, VisayasWest, SamarLeyte, Mindano)
 }
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */

@@ -141,6 +141,10 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   def irrLines2: GraphicElems = ifTileScale(8, ife(irrOn, irrLines, RArr()))
 
+  def irrActives = irr1.map { a => a._2.map(_ / metresPerPixel).active(a._1) }
+
+  def irrActives2: GraphicElems = ifTileScale(8, ife(irrOn, irrActives, RArr()))
+
   def irrNames: RArr[TextFixed] = irr1.map { pair =>
     val (d, _) = pair
     val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy.rotate180If(southUp) / metresPerPixel
