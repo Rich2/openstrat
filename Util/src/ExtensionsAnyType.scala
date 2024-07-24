@@ -21,6 +21,8 @@ class AnyTypeExtensions[A](thisA: A)
   /** Short hand alternative to a 3 case match statement, throwing an exception id no match. */
   def match3Excep[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B, f3: A => Boolean, v3: => B, excepStr: => String): B =
     if (f1(thisA)) v1 else if (f2(thisA)) v2 else if (f3(thisA)) v3 else throw new Exception(excepStr)
+
+  def toOneLine: String = toString.oneLine
 }
 
 /** Extension methods for Any type A. */

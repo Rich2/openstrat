@@ -16,7 +16,7 @@ object Sumatra extends EarthArea("Sumatra", -0.02 ll 101.63, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle)
+object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, hillyJungle)
 { override val area: KilometresSq =  124413.kilometresSq
 
   val ePulauMadura: LatLong = -6.96 ll 114.11
@@ -41,7 +41,7 @@ object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, jungle)
 }
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
-object BaliIsland extends EarthAreaIsland("Bali", -8.358 ll 115.192, jungle)
+object BaliIsland extends EarthAreaIsland("Bali", -8.358 ll 115.192, hillyJungle)
 { override val area: KilometresSq = 5780.kilometresSq
 
   val baliNorth: LatLong = -8.061 ll 115.184

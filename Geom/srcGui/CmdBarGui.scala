@@ -38,6 +38,9 @@ trait CmdBarGui extends CanvasPanelled
   def mainMouseUp_= (f: (MouseButton, RArr[Any], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
 
   /** Selected takes the type Any, but the value None means nothing selected. */
+  var selectStack: RArr[Any] = RArrAny()
+
+  /** Selected takes the type Any, but the value None means nothing selected. */
   var selected: Any = None
 
   def selectedStr: String = selected match

@@ -4,7 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** A second level area of the Earth. */
 abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
-{ override def toString = name.appendCommas(terr.toString)
+{ override def toString = name.oneLine + ", " + terr.strComma
   def aStrs: StrArr = StrArr(name)
   def textScale: Metres = 15000.metres
   override def colour = terr.colour
@@ -39,5 +39,6 @@ object EarthArea
 
 abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr)
 {
+  override def toString = name.oneLine + ", " + area.str0 + ", " + terr.strComma
   def area: KilometresSq// = KilometresSq(kMetresSqNum)
 }

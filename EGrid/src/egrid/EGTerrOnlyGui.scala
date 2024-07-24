@@ -53,21 +53,24 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def irrFills: GraphicElems = proj match { case ep: HSysProjectionEarth => ep.irrFills; case _ => RArr() }
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
+    def irrActives: GraphicElems = ifGlobe { ep => ep.irrActives2 }
 
     def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sideDraws, RArr[GraphicElem]())
 
-    seas ++ irrFills ++ irrNames ++ tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
+    seas ++ irrFills ++ irrNames ++ irrActives ++ tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
   }
 
-  override def selectedStr: String = selected match
-  { case hc: HCen => scen.hexNames(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
+  override def selectedStr: String = selectStack.toStrsSemiFold {
+    case hc: HCen => scen.hexNames(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
     case sc: HSep => "Sep" -- sc.rcStr -- sTerrs(sc).strSemi
-    case _ => super.selectedStr
+    //case ea: EarthArea => ea.t
+    case obj => obj.toString
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
-    { selected = cl.headOrNone
+    { selectStack = cl
+      selected = cl.headOrNone
       statusText = selectedStr
       thisTop()
     }
