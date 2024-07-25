@@ -2,7 +2,9 @@
 package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 460km.  */
+/** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 460km.
+ * [[Isle7]] 30243.569km² => 40265.106km². New Britain 35144km².
+ * [[Isle4]] 8768.845km² => 14495.438km². New Ireland 8990km². */
 object Terr460E150 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e150(90)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -40,16 +42,23 @@ object Terr460E150 extends Long460Terrs
       VRow(117, OrigMin(5620, HVDL), OrigRt(5620, HVDL, 7)),
       VRow(101, BendIn(5618, HVDL, 13)),
       VRow(99, OrigMin(5618, HVUp)),
-      TRow(98, hillyJungle * 2),
+      TRow(98, hillyJungle * 2, sea, Isle4(mtainJungle)),
       VRow(97, BendOut(5618, HVDL, 7)),
-      TRow(96, jungle * 2, mtainJungle),
+      TRow(96, jungle * 2, mtainJungle, Isle6(mtainJungle)),
       VRow(95, BendIn(5618, HVUR, 13), OrigRt(5620, HVUL)),
       TRow(94, sea * 2, mtainJungle),
-      VRow(93, OrigRt(5626, HVUR), ThreeUp(5628, 13, 13, 0), ThreeDown(5630, 13, 0, 13)),
+      VRow(93, OrigMax(5622, HVDn), OrigRt(5626, HVUR), ThreeUp(5628, 13, 13, 0), ThreeDown(5630, 13, 0, 13)),
       TRow(92, savannah, savannah, hillySavannah),
-      VRow(91, OrigLt(5630, HVUp, 7)),
+      VRow(91, OrigMax(5622, HVUp), OrigLt(5630, HVUp, 7)),
       TRow(90, sahel, savannah),
     )
   }
   help.run
+
+  {
+    import hexNames.{setRow => str}
+    str(98, "" * 3, "New Ireland")
+    str(96, "" * 3, "New Britain")
+
+  }
 }

@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 640km.
  * [[Isle8]] 77942.286km² => 100112.536km². Hokkaido 83423.84km².
  * [[Isle7]] 58543.317km² => 77942.286km². Tasmania 68401 km².
- * [[Isle6]] 41915.629km² => 58543.317km². New Britain 42548.6km². */
+ * [[Isle6]] 41915.629km² => 58543.317km². New Britain 35144km² + New Ireland 8990km² = 44134km². */
 object Terr640E150 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e150(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -35,7 +35,7 @@ object Terr640E150 extends Long640Terrs
     TRow(114, hillySub),
     VRow(113, OrigLt(5626, HVUR, 7), BendIn(5628, HVUL, 13)),
     VRow(99, OrigMin(5622, HVUp)),
-    TRow(98, hillyJungle * 2, Isle6(hillyJungle)),
+    TRow(98, hillyJungle * 2, Isle6(mtainJungle)),
     VRow(97, OrigRt(5624, HVDL, 7), ThreeDown(5622, 13, 13, 0), BendOut(5632, HVUR, 7), BendIn(5634, HVDL, 13)),
     TRow(96, jungle, jungle, mtainJungle),
 

@@ -86,15 +86,28 @@ object PapuaNewGuinea extends EarthArea("Papua New Guinea", -5.448 ll 143.578, h
   )
 }
 
-/** [[polygonLL]] graphical representation 42548.6km² of New Britain 35144.6km² and New Ireland 7404km². Depends on nothing. */
-object NewBritain extends EarthArea("New Britain", -5.251 ll 151.402, hillyJungle)
-{ val newHanoverIsland: LatLong = -2.360 ll 150.190
-  val newIreland20: LatLong = -3.977 ll 152.926
-  val newIrelandSouth: LatLong = -4.840 ll 152.882
+/** [[polygonLL]] graphical representation of New Britain 35144.6km². Depends on nothing. */
+object NewBritain extends EarthAreaIsland("New Britain", -5.251 ll 151.402, hillyJungle)
+{ override val area: KilometresSq = 35144.6.kilometresSq
+
+  val north: LatLong = -4.133 ll 152.166
+  val northEast: LatLong = -4.336 ll 152.404
   val baronga: LatLong = -6.246 ll 150.463
   val umbolWest: LatLong = -5.502 ll 147.754
   val p75: LatLong = -5.480 ll 150.908
   val takis: LatLong = -4.213 ll 151.489
 
-  override val polygonLL: PolygonLL = PolygonLL(newHanoverIsland, newIreland20, newIrelandSouth, baronga, umbolWest, p75, takis)
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, baronga, umbolWest, p75, takis)
+}
+
+/** [[polygonLL]] graphical representation 8990km² of New Ireland 7404km² + 1186km² + 400km². Depends on nothing. */
+object NewIreland extends EarthAreaIsland("New Ireland", -5.251 ll 151.402, hillyJungle)
+{ override val area: KilometresSq = 8990.kilometresSq
+
+  val newHanoverIsland: LatLong = -2.360 ll 150.190
+  val newIreland20: LatLong = -3.977 ll 152.926
+  val south: LatLong = -4.840 ll 152.882
+  val p60: LatLong = -4.182 ll 152.685
+
+  override val polygonLL: PolygonLL = PolygonLL(newHanoverIsland, newIreland20, south, p60)
 }

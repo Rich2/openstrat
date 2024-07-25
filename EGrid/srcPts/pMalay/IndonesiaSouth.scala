@@ -53,21 +53,32 @@ object BaliIsland extends EarthAreaIsland("Bali", -8.358 ll 115.192, hillyJungle
   override val polygonLL: PolygonLL = PolygonLL(baliNorth, baliWest, penida, southWest, northWest)
 }
 
-/** [[polygonLL]] graphical representation of the islands of Sumbawa 15414km² + Lambok 4607.68km². Depends on nothing. */
+/** [[polygonLL]] graphical representation of Lambok island 4607.68km². Depends on nothing. */
+object Lambok extends EarthAreaIsland("Lambok", -8725 ll 117.442, hillyJungle)
+{ val area: KilometresSq = 4607.68.kilometresSq
+
+  val north: LatLong = -8.210 ll 116.351
+  val sulatSouth: LatLong = -8.345 ll 116.743
+  val southEast: LatLong = -8.891 ll 116.570
+  val southWest: LatLong = -8.804 ll 115.835
+  val northWest: LatLong = -8.210 ll 116.350
+
+  override val polygonLL: PolygonLL = PolygonLL(north, sulatSouth, southEast, southWest, northWest)
+}
+
+/** [[polygonLL]] graphical representation of Sumbawa island 15414km². Depends on nothing. */
 object Sumbawa extends EarthAreaIsland("Sumbawa", -8725 ll 117.442, jungle)
-{ val sumbawaArea = 15414.kilometresSq
-  val lambokArea = 4607.68.kilometresSq
-  override def area: KilometresSq = sumbawaArea + lambokArea
+{ override val area: KilometresSq = 15414.kilometresSq
 
   val north: LatLong = -8.080 ll 117.925
   val sangeangeIsland: LatLong = -8.138 ll 119.093
   val kelpaIsland: LatLong = -8.664 ll 119.238
   val southWest: LatLong = -8.829 ll 118.944
   val south: LatLong = -9.104 ll 117.013
-  val lombokSW: LatLong = -8.804 ll 115.835
-  val lambokNW: LatLong = -8.210 ll 116.350
+  val southEast: LatLong = -8.999 ll 116.727
+  val panjangEast: LatLong = -8.447 ll 116.838
 
-  override val polygonLL: PolygonLL = PolygonLL(north, sangeangeIsland, kelpaIsland, southWest, south, lombokSW, lambokNW)
+  override val polygonLL: PolygonLL = PolygonLL(north, sangeangeIsland, kelpaIsland, southWest, south, southEast, panjangEast)
 }
 
 /** [[polygonLL]] graphical representation of the islands of Flores 14731.67km², + others 1500km². Depends on nothing. */

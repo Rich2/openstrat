@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** 1Mm [[WTile]] terrain for 135° east to 165° east, centred on 150° east. Hex tile ares of 866025.403 km².
  * [[Isle5]] 68503.962km² => 102333.079km². Salakhin 72,492 km².
- * [[Isle4]] 41440.668km² => 68503.962km². New Britain 42548.6km². */
+ * [[Isle4]] 41440.668km² => 68503.962km². New Britain 35144km² + New Ireland 8990km² = 44134km². */
 object TerrMegaE150 extends LongMegaTerrs
 { override implicit val grid: EGridMegaLongFull = EGridMega.e150(82)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
