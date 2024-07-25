@@ -50,15 +50,16 @@ object Terr460W60 extends Long460Terrs
       OrigMin(10752, HVUL)),
 
     TRow(106, hillySavannah * 3),
-    TRow(104, mtainDepr, savannah, hillyJungle * 2),
+    TRow(104, mtainJungle, savannah, hillyJungle * 2),
     TRow(102, jungle, hillyJungle * 2, jungle, hillyJungle),
     VRow(101, OrigRt(10762, HVUR), BendIn(10764, HVDn, 13), BendIn(10766, HVDL, 13)),
-    TRow(100, jungle * 3, hillyJungle, mtainDepr, hillyJungle, jungle),
+    TRow(100, jungle * 3, hillyJungle, mtainJungle, hillyJungle, jungle),
     VRow(99, OrigMin(10766, HVUp)),
     TRow(98, jungle * 4, hillyJungle * 2, jungle),
     TRow(96, jungle * 3, hillyJungle * 3, hillySavannah),
     TRow(94, jungle * 2, hillyJungle, hillySavannah * 2, hillyJungle, hillySavannah),
     TRow(92, mtainSahel, mtainSavannah, jungle, hillySavannah * 2, savannah, hillyJungle),
+    TRow(90, hillyDeshot, mtainSahel, jungle * 2, hillySavannah * 2),
     )
   }
   help.run
