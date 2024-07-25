@@ -58,6 +58,7 @@ object Terr460W60 extends Long460Terrs
     TRow(98, jungle * 4, hillyJungle * 2, jungle),
     TRow(96, jungle * 3, hillyJungle * 3, hillySavannah),
     TRow(94, jungle * 2, hillyJungle, hillySavannah * 2, hillyJungle, hillySavannah),
+    TRow(92, mtainSahel, mtainSavannah, jungle, hillySavannah * 2, savannah, hillyJungle),
     )
   }
   help.run

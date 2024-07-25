@@ -113,8 +113,10 @@ object AlorIsland extends EarthAreaIsland("Alor", -8.671 ll 121.858, mtainJungle
 }
 
 /** [[polygonLL]] graphical representation of Wetar Island 2651.8km²  f Lessar Sunda Islands. Depends on nothing. */
-object Wetar extends EarthArea("Wetar", -7.788 ll 126.363, jungle)
-{ val north: LatLong = -7.559 ll 126.627
+object Wetar extends EarthAreaIsland("Wetar", -7.788 ll 126.363, mtainJungle)
+{ override val area: KilometresSq = 2651.8.kilometresSq
+
+  val north: LatLong = -7.559 ll 126.627
   val east: LatLong = -7.733 ll 126.841
   val southEast: LatLong = -7.973 ll 126.464
   val liranSouth: LatLong = -8.058 ll 125.735

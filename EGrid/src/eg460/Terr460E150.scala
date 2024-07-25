@@ -55,8 +55,7 @@ object Terr460E150 extends Long460Terrs
   }
   help.run
 
-  {
-    import hexNames.{setRow => str}
+  { import hexNames.{setRow => str}
     str(98, "" * 3, "New Ireland")
     str(96, "" * 3, "New Britain")
 
