@@ -19,7 +19,7 @@ object Terr460W150 extends Long460Terrs
     TRow(142, SeaIceWinter),
     TRow(140, SeaIceWinter * 2),
     VRow(139, BendIn(7676, HVDL, 13, siceWin)),
-    TRow(138, SepB(siceWin), hillyTundra, mtainDepr),
+    TRow(138, SepB(siceWin), hillyTundra, mtainTaiga),
     VRow(137, SetSep(7675, siceWin)),
     TRow(136, hillyTaiga * 2, mtainTaiga),
     VRow(135, Bend(7674, HVUL, 13, 2, siceWin)),
