@@ -36,7 +36,7 @@ object HtmlP
 }
 
 /** HTML script element. */
-case class HtmlScript(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlInline
+case class HtmlScript(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlInline
 { override def tag: String = "script"
 }
 
@@ -47,6 +47,11 @@ object HtmlScript
 
   /** Sets the function for an external JavaScript call. */
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
+}
+
+/** HTML style element. */
+case class HtmlStyle(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline {
+  override def tag: String = "style"
 }
 
 /** HTML bold element. */

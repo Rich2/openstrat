@@ -9,7 +9,7 @@ case class HtmlHead(contents : RArr[XCon], attribs: RArr[XmlAtt] = RArr()) exten
 
 /** Companion object for the [[HtmlHead]] case class. */
 object HtmlHead
-{ def title(titleStr: String): HtmlHead = new HtmlHead(RArr[XCon](HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth))
+{ //def title(titleStr: String): HtmlHead = new HtmlHead(RArr[XCon](HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth))
 
   def title(titleStr: String, otherContents: XCon*): HtmlHead = new HtmlHead(RArr[XCon](HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth))
   

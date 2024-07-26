@@ -1,6 +1,8 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import utiljvm.*, pWeb.*
+import org.w3c.dom.html.HTMLStyleElement
+import utiljvm.*
+import pWeb.*
 
 object DevHtmls extends App
 {
@@ -21,8 +23,8 @@ object DevHtmls extends App
         |  <style>
         |    body { margin: 0px; overflow: hidden; }
         |  </style>
-        |</head>
-        |<body>
+        |</head>"""
+   val bodyContent = """
         |  <canvas id='scanv'></canvas>
         |  <noscript>
         |    This page will not function properly without Javascript enabled
@@ -37,15 +39,13 @@ object DevHtmls extends App
         |    EG460AppJs.main();
         |  });
         |  </script>
-        |</body>
-        |
-        |</html>
         |""".stripMargin
 
-//    val head = HtmlHead()
-    //val page = HtmlPage()
+    val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlStyle(RArr()))
+    val body = HtmlBody(bodyContent.xCon)
+    val page = HtmlPage(head, body)
     val p2: DirPathAbs = path
-    val res = fileWrite(path / "Dev" / "target", "EG460SbtFast.html", hStr)
+    val res = fileWrite(path / "Dev" / "target", "EG460SbtFast.html", page.out)
     deb(res.toString)
   }{
     strArr => deb(strArr.mkStr(","))
