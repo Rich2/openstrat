@@ -18,7 +18,7 @@ object HtmlUtf8 extends HtmlMeta
   override def attribs: RArr[XmlAtt] = RArr(utf8Attrib)
 }
 
-/** Creates the meta element <meta name="viewport" content="width=device-width,initial-scale=1.0" > */
+/** Creates the meta element name="viewport" content="width=device-width,initial-scale=1.0" */
 object HtmlViewDevWidth extends HtmlMeta
 { val viewPort: XmlAtt = XmlAtt("name", "viewport")
   val content: XmlAtt = XmlAtt("content", "width=device-width,initial-scale=1.0")

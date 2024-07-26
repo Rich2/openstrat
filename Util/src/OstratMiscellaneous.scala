@@ -22,6 +22,8 @@ class DirPathAbs(val arrayUnsafe: Array[String])
   def str: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
 
   override def toString: String = "DirPathAbs" + str.enParenth
+  
+  def / (newDir: String): DirPathAbs = DirPathAbs(arrayUnsafe.appended(newDir))
 }
 
 object DirPathAbs
