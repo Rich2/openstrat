@@ -10,8 +10,20 @@ object ServRawOS extends ServRaw
     { val resp: HttpResp = hrg.uri match
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")
-        case "/earthgames/dicelessapp.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/dicelessapp.js").mkString)
-        case "/earthgames/ww2app.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/ww2app.js").mkString)
+        case JsPathNameStr(pathName) =>
+        { deb("res" + pathName)
+          val oFile = loadTextFile("res" + pathName)
+          debvar(oFile.isGood)
+          oFile match {
+            case Good(str) =>{
+              deb("Js found Length = " + str.length.toString)
+              HttpFound(httpNow, "localhost", HttpConTypeJs, str)
+            }
+            case _ => { deb("Js not found"); HtmlPageNotFoundstd(pathName).httpResp(httpNow, "localhost")}
+          }
+        }
+        //case "/earthgames/dicelessapp.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/earthgames/dicelessapp.js").mkString)
+       // case "/earthgames/ww2app.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/earthgames/ww2app.js").mkString)
         case "/Documentation/util.html" => UtilPage.httpResp(httpNow, "localhost")
         case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")
         case "/only.css" => OnlyCss.httpResp(httpNow, "localhost")
