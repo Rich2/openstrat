@@ -9,14 +9,19 @@ case class HtmlHead(contents : RArr[XCon], attribs: RArr[XmlAtt] = RArr()) exten
 
 /** Companion object for the [[HtmlHead]] case class. */
 object HtmlHead
-{ //def title(titleStr: String): HtmlHead = new HtmlHead(RArr[XCon](HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth))
+{ /** Factory qpply method for creating an HTML head element from repeat parameters. Generally the title and titleCss methods will be more convenient. */
+  def apply(titleStr: String, otherContents: XCon*): HtmlHead = new HtmlHead(otherContents.toArr)
 
-  def title(titleStr: String, otherContents: XCon*): HtmlHead = new HtmlHead(RArr[XCon](HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth))
-  
+  /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter elements. */
+  def title(titleStr: String, otherContents: XCon*): HtmlHead =
+  { val seq = List(HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth) ++ otherContents
+    new HtmlHead(seq.toArr)
+  }
+
+  /** Factory method for creating an HTML head element with [[HtmlTitle]], [[HtmlCssLink]], [[HtmlUtf8]], [[HtmlViewDevWidth]] plus the repeat parameter
+   *  elements. */
   def titleCss(titleStr: String, cssFileStem: String): HtmlHead =
     new HtmlHead(RArr[XCon](HtmlTitle(titleStr), HtmlCssLink(cssFileStem), HtmlUtf8, HtmlViewDevWidth))
-    
-   
 }
 
 /** The HTML body element. */

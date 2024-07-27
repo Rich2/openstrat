@@ -52,3 +52,13 @@ case class SrcAtt(valueStr: String) extends XmlAtt
 case class TextAnchorAtt(valueStr: String) extends XmlAtt
 { override def name: String = "text-anchor"
 }
+
+/** Creates for an HTML / XML content attribute." */
+case class ContentAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "content"
+}
+
+/** Creates for an HTML http-equiv attribute." */
+case class HttpEquivAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "http-equiv"
+}

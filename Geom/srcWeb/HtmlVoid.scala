@@ -18,10 +18,18 @@ object HtmlUtf8 extends HtmlMeta
   override def attribs: RArr[XmlAtt] = RArr(utf8Attrib)
 }
 
+/** Creates the meta element no-cache. */
+object HtmlNoCache extends HtmlMeta
+{ val equiv: XmlAtt = HttpEquivAtt("cache-Control")
+  val content: XmlAtt = ContentAtt("no-cache")
+
+  override def attribs: RArr[XmlAtt] = RArr(equiv, content)
+}
+
 /** Creates the meta element name="viewport" content="width=device-width,initial-scale=1.0" */
 object HtmlViewDevWidth extends HtmlMeta
 { val viewPort: XmlAtt = XmlAtt("name", "viewport")
-  val content: XmlAtt = XmlAtt("content", "width=device-width,initial-scale=1.0")
+  val content: XmlAtt = ContentAtt("width=device-width,initial-scale=1.0")
   override def attribs: RArr[XmlAtt] = RArr(viewPort, content)
 }
 

@@ -1,8 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import org.w3c.dom.html.HTMLStyleElement
-import utiljvm.*
-import pWeb.*
+import utiljvm.*, pWeb.*
 
 object DevHtmls extends App
 {
@@ -41,7 +39,7 @@ object DevHtmls extends App
         |  </script>
         |""".stripMargin
 
-    val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlStyle(RArr()))
+    val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlNoCache, HtmlStyle(RArr()))
     val body = HtmlBody(bodyContent.xCon)
     val page = HtmlPage(head, body)
     val p2: DirPathAbs = path
