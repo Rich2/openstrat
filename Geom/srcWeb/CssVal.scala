@@ -104,3 +104,8 @@ object CssFlex extends  CssVal
 object CssCol extends  CssVal
 { override def str: String = "column"
 }
+
+/** CSS hidden value. */
+object CssHidden extends  CssVal
+{ override def str: String = "hidden"
+}

@@ -135,3 +135,11 @@ case class DecFlexDirn(value: CssVal) extends CssDecStd
 
 /** Css text-align declaration set to start. */
 object DecFlexDirnCol extends DecFlexDirn(CssCol)
+
+/** Css Overflow declaration. */
+case class DecOverflow(value: CssVal) extends CssDecStd
+{ override def prop: String = "overflow"
+}
+
+/** Css Overflow declaration set to inline-block. */
+object DecOverflowHidden extends DecOverflow(CssHidden)

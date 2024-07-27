@@ -35,6 +35,16 @@ object HtmlP
   }
 }
 
+/** HTML noscript element. */
+case class HtmlNoScript(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+{ override def tag: String = "noscript"
+}
+
+object HtmlNoScript
+{
+  def apply(): HtmlNoScript = new HtmlNoScript(RArr("This page will not function properly without Javascript enabled".xCon))
+}
+
 /** HTML script element. */
 case class HtmlScript(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlInline
 { override def tag: String = "script"

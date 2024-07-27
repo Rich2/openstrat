@@ -9,24 +9,8 @@ object DevHtmls extends App
 
   sett.forGoodForBad { path =>
     deb(path.str)
-    val hStr =
-      """<!DOCTYPE html>
-        |<head>
-        |  <title>OpenStrat: 460km All Longitudes full</title>
-        |  <meta charset='UTF-8'>
-        |  <meta name='viewport' content='width=device-width'>
-        |  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-        |  <meta http-equiv="Pragma" content="no-cache"/>
-        |  <meta http-equiv="Expires" content="0"/>
-        |  <style>
-        |    body { margin: 0px; overflow: hidden; }
-        |  </style>
-        |</head>"""
+
    val bodyContent = """
-        |  <canvas id='scanv'></canvas>
-        |  <noscript>
-        |    This page will not function properly without Javascript enabled
-        |  </noscript>
         |  <script type='text/javascript'>
         |  // aid local development in ensuring script not cached during a simple refresh
         |    var script = document.createElement("script");
@@ -39,9 +23,9 @@ object DevHtmls extends App
         |  </script>
         |""".stripMargin
 
-    val style = HtmlStyle(CssBody(DecMarg(0.px)))
+    val style = HtmlStyle(CssBody(DecMarg(0.px), DecOverflowHidden))
     val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlNoCache, style)
-    val body = HtmlBody(bodyContent.xCon)
+    val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), bodyContent.xCon)
     val page = HtmlPage(head, body)
     val p2: DirPathAbs = path
     val res = fileWrite(path / "Dev" / "target", "EG460SbtFast.html", page.out)
