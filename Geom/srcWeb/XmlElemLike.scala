@@ -48,7 +48,8 @@ trait XmlConInline extends XmlElemLike
 
   override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
   { val cons = contents.map(_.outEither(indent, maxLineLen))
-    val middle = cons.length match {
+    val middle = cons.length match
+    { case 0 => ""
       case 1 if cons.head._1 => cons.head._2
       case n => cons.foldLeft("") { (acc, el) => acc --- el._2 } + "\n"
     }

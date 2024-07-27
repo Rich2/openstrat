@@ -57,6 +57,8 @@ object HtmlScript
 
   /** Sets the function for an external JavaScript call. */
   def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
+  
+  def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr.xCon), RArr(TypeAtt.js))
 }
 
 /** HTML style element. */
