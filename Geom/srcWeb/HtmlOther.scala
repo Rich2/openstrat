@@ -50,8 +50,14 @@ object HtmlScript
 }
 
 /** HTML style element. */
-case class HtmlStyle(contents: RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline {
-  override def tag: String = "style"
+case class HtmlStyle(rules: RArr[CssRuleLike], attribs: RArr[XmlAtt] = RArr()) extends HtmlInline
+{ override def tag: String = "style"
+  override def contents: RArr[XCon] = RArr(rules.foldStr(_.out(), "; ").xCon)
+}
+
+object HtmlStyle
+{
+  def apply(rules: CssRuleLike*): HtmlStyle = new HtmlStyle(rules.toArr)
 }
 
 /** HTML bold element. */

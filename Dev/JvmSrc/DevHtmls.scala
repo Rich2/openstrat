@@ -39,7 +39,8 @@ object DevHtmls extends App
         |  </script>
         |""".stripMargin
 
-    val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlNoCache, HtmlStyle(RArr()))
+    val style = HtmlStyle(CssBody(DecMarg(0.px)))
+    val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlNoCache, style)
     val body = HtmlBody(bodyContent.xCon)
     val page = HtmlPage(head, body)
     val p2: DirPathAbs = path

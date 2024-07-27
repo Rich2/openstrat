@@ -10,8 +10,8 @@ case class CssMargTopBot(value: CssVal) extends CssDecMulti
 }
 
 /** Css margin-left and margin-right declarations set to same value. */
-case class DecMargLeftRight(value: CssVal) extends CssDecMulti {
-  override def decs: RArr[CssDec] = RArr(DecMargLeft(value), DecMargRight(value))
+case class DecMargLeftRight(value: CssVal) extends CssDecMulti
+{ override def decs: RArr[CssDec] = RArr(DecMargLeft(value), DecMargRight(value))
 }
 
 /** Css margin-left and margin-right declarations set to auto. */
