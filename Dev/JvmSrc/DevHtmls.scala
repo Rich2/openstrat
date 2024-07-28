@@ -6,7 +6,7 @@ object DevHtmls
 {
   def main(args: Array[String]): Unit =
   { val sett = findDevSettingT[DirPathAbs]("projPath")
-    val names = StrArr("Diceless", "WW2", "EG1300", "EG1000", "EG640", "EG460", "EG320")
+    val names = StrArr("Diceless", "WW1", "WW2", "EG1300", "EG1000", "EG640", "EG460", "EG320")
 
     sett.forGoodForBad { path =>
       deb(path.str)
@@ -33,7 +33,7 @@ object DevHtmls
     |  script.setAttribute("type", "text/javascript");
     |  script.setAttribute("src", "../../GenAppJs/target/scala-$scalaVersionStr/genappjs-${jsStr}opt.js?"+Date.now().toString());
     |  document.getElementsByTagName("head")[0].appendChild(script);
-    |  script.addEventListener('load', function(e) { EG${scale}AppJs.main(); });
+    |  script.addEventListener('load', function(e) { ${scale}AppJs.main(); });
     |""".stripMargin
 
     val style = HtmlStyle(CssBody(DecMarg(0.px), DecOverflowHidden))
