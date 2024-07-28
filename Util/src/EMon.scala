@@ -74,8 +74,8 @@ sealed trait EMon[+A]
   def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMon[A]
 
   /** Creates new errors for an ENone. */
-  def noneMap(newErrs: => StrArr): EMon[A] = this match {
-    case ENone => Bad(newErrs)
+  def noneMap(newErrs: => StrArr): EMon[A] = this match
+  { case ENone => Bad(newErrs)
     case _ => this
   }
 

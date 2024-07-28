@@ -5,16 +5,11 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { deb("Starting DevHtmls")
-    val sett = findDevSettingT[DirPathAbs]("projPath")
-
-
-
-    val names = StrArr("1300", "640", "460")
+  { val sett = findDevSettingT[DirPathAbs]("projPath")
+    val names = StrArr("Diceless", "WW2", "EG1300", "EG1000", "EG640", "EG460", "EG320")
 
     sett.forGoodForBad { path =>
       deb(path.str)
-      debvar(args.length)
       names.filter(name => args.exists(_ == name)).foreach { name => writeFastFull(path, name) }
     } {
       strArr => deb(strArr.mkStr(","))
@@ -46,7 +41,7 @@ object DevHtmls
     val script = HtmlScript.inlineJsStr(noCacheScript)
     val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), script)
     val page = HtmlPage(head, body)
-    val res = fileWrite(path / "Dev" / "target", s"EG${scale}Sbt${htmlStr}.html", page.out)
+    val res = fileWrite(path / "Dev" / "target", s"${scale}Sbt${htmlStr}.html", page.out)
     deb(res.toString)
   }
 }
