@@ -2,27 +2,33 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-object DevHtmls extends App
+object DevHtmls
 {
-  deb("Starting DevHtmls")
-  val sett = findDevSettingT[DirPathAbs]("projPath")
+  def main(args: Array[String]): Unit =
+  { deb("Starting DevHtmls")
+    val sett = findDevSettingT[DirPathAbs]("projPath")
 
-  val scalaVersionStr = "3.4.2"
 
-  sett.forGoodForBad { path =>
-    deb(path.str)
-    writeFastFull(path, "1300")
-  }{
-    strArr => deb(strArr.mkStr(","))
+
+    val names = StrArr("1300", "640", "460")
+
+    sett.forGoodForBad { path =>
+      deb(path.str)
+      debvar(args.length)
+      names.filter(name => args.exists(_ == name)).foreach { name => writeFastFull(path, name) }
+    } {
+      strArr => deb(strArr.mkStr(","))
+    }
   }
 
-  def writeFastFull(path: DirPathAbs, scale: String): Unit = {
-    writeFile(path, true, scale)
+  def writeFastFull(path: DirPathAbs, scale: String): Unit =
+  { writeFile(path, true, scale)
     writeFile(path, false, scale)
   }
 
   def writeFile(path: DirPathAbs, isFast: Boolean, scale: String): Unit =
   {
+    val scalaVersionStr = "3.4.2"
     val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
 
