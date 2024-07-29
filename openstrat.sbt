@@ -142,6 +142,7 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).sett
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
   libraryDependencies ++= Seq(
+    "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided" withSources() withJavadoc(),
     "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0" withSources() withJavadoc(),
     ),
