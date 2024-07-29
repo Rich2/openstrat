@@ -4,7 +4,9 @@ import jakarta.servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, H
 
 class Tommy extends HttpServlet
 {
-  override def doGet(req: HSReq, resp: HSResp): Unit ={
-    
+  override def doGet(req: HSReq, resp: HSResp): Unit =
+  {
+    val ints = IntArr(2, 4, 6)
+    resp.getWriter().println(s"Hello from Servlet: ${ints.str}")
   }
 }

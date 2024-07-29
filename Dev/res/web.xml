@@ -4,14 +4,14 @@
                       https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
   version="6.0"
   metadata-complete="true">  
-     <display-name>Periculo Servlet</display-name>
+     <display-name>Tommy</display-name>
     <servlet>  
-    <servlet-name>PeriServe</servlet-name>
-    <servlet-class>ostrat.pDev.PeriServe</servlet-class>
+    <servlet-name>Tommy</servlet-name>
+    <servlet-class>ostrat.pDev.Tommy</servlet-class>
     </servlet>  
       
     <servlet-mapping>  
-    <servlet-name>PeriServe</servlet-name>
+    <servlet-name>Tommy</servlet-name>
     <url-pattern>/</url-pattern>  
     </servlet-mapping>  
       
