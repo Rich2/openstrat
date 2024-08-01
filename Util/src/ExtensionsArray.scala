@@ -10,12 +10,22 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   /** This method and "fHead" removes the need for headOption in the majority of cases. */
   def headElseMap[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
 
-  /** maps to a [[Arr]] of B. */
-  def mapArr[B, BB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, BB]): BB ={
-    val res = ev.uninitialised(thisArray.length)
-    iForeach{(a, i) => res.setElemUnsafe(i, f(a)) }
+  /** maps to this [[Array]] to an [[Arr]] of B. if this Array is null the Arr will have length 0. */
+  def mapArr[B, ArrB <: Arr[B]](f: A => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
+  { val len: Int = if(thisArray == null) 0 else thisArray.length
+    val res: ArrB = ev.uninitialised(len)
+    var i = 0
+    while (i < len) res.setElemUnsafe(i, f(thisArray(i)))
     res
   }
+
+  /** Extension method to convert to [[RArr]]. If this [[Array]] is null the [[RArr]] will have length 0. */
+  def toRArr(implicit ct: ClassTag[A]) =
+  { val array2 = if (thisArray == null) new Array[A](0) else thisArray
+    new RArr[A](thisArray)
+  }
+
+  //def toArr[ArrA <: Arr[A]](implicit build: BuilderArrMap[A, ArrA]): ArrA = build.
 
   /** foreach loop with counter */
   def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
