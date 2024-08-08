@@ -14,10 +14,11 @@ class Tommy extends HttpServlet
     val cookies2 = currCookies.mapArr(c => c.getName + "=" + c.getValue)
     val body = HtmlBody(s"Hello from Servlet: ${ints.str}".xCon, HtmlP(cookies2.toString))
     val page = HtmlPage(head, body)
-    if (cookies2.empty) {
-      users += 1
+    if (cookies2.empty)
+    { users += 1
       resp.addCookie(Cookie("user", users.toString))
     }
     resp.getWriter().println(page.out)
+
   }
 }

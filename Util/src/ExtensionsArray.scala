@@ -15,7 +15,10 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   { val len: Int = if(thisArray == null) 0 else thisArray.length
     val res: ArrB = ev.uninitialised(len)
     var i = 0
-    while (i < len) res.setElemUnsafe(i, f(thisArray(i)))
+    while (i < len)
+    { res.setElemUnsafe(i, f(thisArray(i)))
+      i += 1
+    }
     res
   }
 
