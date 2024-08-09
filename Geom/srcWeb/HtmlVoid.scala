@@ -55,3 +55,12 @@ object HtmlBr extends HtmlVoid
   /** The attributes of this XML / HTML element. */
   override def attribs: RArr[XmlAtt] = RArr()
 }
+
+class HtmlInput(override val attribs: RArr[XmlAtt]) extends HtmlVoid
+{
+  override def tag: String = "input"
+}
+
+object HtmlInput{
+  def submit(label: String): HtmlInput = new HtmlInput(RArr(TypeSubmitAtt, ValueAtt(label)))
+}

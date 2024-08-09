@@ -22,8 +22,8 @@ object ServRawOS extends ServRaw
             case _ => { deb("Js not found"); HtmlPageNotFoundstd(pathName).httpResp(httpNow, "localhost")}
           }
         }
-        //case "/earthgames/dicelessapp.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/earthgames/dicelessapp.js").mkString)
-       // case "/earthgames/ww2app.js" => HttpFound(httpNow, "localhost", HttpConTypeJs, io.Source.fromFile("res/earthgames/ww2app.js").mkString)
+
+        case "/test" => TestPage.httpResp(httpNow, "localhost")
         case "/Documentation/util.html" => UtilPage.httpResp(httpNow, "localhost")
         case "/Documentation/geom.html" => geom.GeomPage.httpResp(httpNow, "localhost")
         case "/Documentation/tiling.html" => prid.TilingPage.httpResp(httpNow, "localhost")
@@ -32,7 +32,10 @@ object ServRawOS extends ServRaw
         case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")
         case "/only.css" => OnlyCss.httpResp(httpNow, "localhost")
         case "/favicon.ico" => HttpFound(httpNow, "localhost", HttpConTypeSvg, Favicon1())
-        case id => HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
+        case id =>{
+          deb("Page not found.")
+          HtmlPageNotFoundstd(id).httpResp(httpNow, "localhost")
+        }
       }
 
       Some(resp)

@@ -41,9 +41,11 @@ case class TypeAtt(valueStr: String) extends XmlAtt
 { override def name: String = "type"
 }
 
-object TypeAtt
-{ def js: TypeAtt = TypeAtt("text/javascript")
-}
+/** Type attribute set to text/javascript. */
+object TypeJsAtt extends TypeAtt("text/javascript")
+
+/** Type attribute set to submit. */
+object TypeSubmitAtt extends TypeAtt("submit")
 
 case class SrcAtt(valueStr: String) extends XmlAtt
 { override def name: String = "src"
@@ -61,4 +63,12 @@ case class ContentAtt(valueStr: String) extends XmlAtt
 /** Creates for an HTML http-equiv attribute." */
 case class HttpEquivAtt(valueStr: String) extends XmlAtt
 { override def name: String = "http-equiv"
+}
+
+case class NameAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "name"
+}
+
+case class ValueAtt(valueStr: String) extends XmlAtt
+{ override def name: String = "value"
 }

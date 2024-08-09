@@ -53,12 +53,12 @@ case class HtmlScript(contents: RArr[XCon], attribs: RArr[XmlAtt]) extends HtmlI
 /** Companion object for [[HtmlScript]] class, HTML script element Contains factory methods for creating the src and function call elements. */
 object HtmlScript
 { /** Sets the link for a Javascript script file. */
-  def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeAtt.js, SrcAtt(src)))
+  def jsSrc(src: String): HtmlScript = HtmlScript(RArr(), RArr(TypeJsAtt, SrcAtt(src)))
 
   /** Sets the function for an external JavaScript call. */
-  def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeAtt.js))
+  def main(stem: String): HtmlScript = HtmlScript(RArr(XConText(stem + ".main()")), RArr(TypeJsAtt))
   
-  def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr.xCon), RArr(TypeAtt.js))
+  def inlineJsStr(codeStr: String): HtmlScript = HtmlScript(RArr(codeStr.xCon), RArr(TypeJsAtt))
 }
 
 /** HTML style element. */
@@ -101,4 +101,13 @@ case class HtmlH3(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 /** Html H4 header element. */
 case class HtmlH4(str : String, attribs: RArr[XmlAtt] = RArr()) extends HtmlStr
 { def tag = "h4"
+}
+
+class HtmlButton(val contents: RArr[XCon], val attribs: ostrat.RArr[XmlAtt] = RArr()) extends HtmlInline
+{
+  override def tag = "button"
+}
+
+object HtmlButton{
+  def apply(inp: String): HtmlButton = new HtmlButton(RArr(inp.xCon), RArr(TypeSubmitAtt))
 }

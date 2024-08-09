@@ -11,6 +11,7 @@ trait HttpResp
   def dateStr: String
   def dateLine: String = "date:" + dateStr
   def headerStr: String
+  def headerOneLine: String = headerStr.oneLine
 }
 
 trait HttpRespBodied extends HttpResp

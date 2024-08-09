@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import jakarta.servlet.http.{Cookie, HttpServlet, HttpServletRequest as HSReq, HttpServletResponse as HSResp }, pWeb._
 
-/** First openstrat Servlet for Tomcat. */
+/** First openstrat Servlet forDev Tomcat. */
 class Tommy extends HttpServlet
 {
   var users: Int = 0

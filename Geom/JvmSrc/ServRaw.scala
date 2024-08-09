@@ -8,7 +8,7 @@ trait ServRaw extends App
 
   def run(): Unit =
   {
-    deb("Starting")
+    deb("Starting raw server")
     val servSock: ServerSocket = new ServerSocket(8080)
     var numConns: Int = 0
     while (true)
@@ -46,10 +46,9 @@ class ConnSesh(val cNum: Int, val sock: Socket, fResp: EMon[HttpReq] => Option[H
       val req = HttpReq(acc)
       val oResp: Option[HttpResp] = fResp(req)
       oResp.foreach{ resp =>
-        deb(resp.headerStr)
+        deb(resp.headerOneLine)
         outPS.print(resp.out)
         outPS.flush()
-        deb("Sent Response")
       }
 
       reqNum += 1

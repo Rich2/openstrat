@@ -15,15 +15,23 @@ object HttpReq
     val rt = lh0.takeWhile(_.isLetter)
     val tail = lh0.drop(rt.length).dropWhile(_.isWhitespace)
     if (rt.toLowerCase == "get") Good(HttpReqGet(tail.takeWhile(c => !c.isWhitespace)))
-    else {
-      debvar(rt)
-      badNone("Not get") }
+    else
+      if (rt.toLowerCase == "post") Good(HttpReqPost(tail.takeWhile(c => !c.isWhitespace)))
+      else
+      { debvar(rt)
+        badNone("Not get")
+      }
   }
 }
 
 /** HTTP Get Request. */
 class HttpReqGet(val uri: String) extends HttpReq
 { override def method: HttpMethod = HttpGet
+}
+
+/** HTTP Post Request. */
+class HttpReqPost(val uri: String) extends HttpReq
+{ override def method: HttpMethod = HttpPost
 }
 
 /** HttP method type. */
