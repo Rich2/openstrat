@@ -42,7 +42,7 @@ object AppPage
     new AppPage(jsMainStem, dirStr, htmlTitleIn, htmlFileNameStem, jsFileStem)
 
   val egameDir: String = "/earthgames/"
-  val egrDir: String = "/egrids/"
+  val mapDir: String = "/egrids/"
   val otDir: String = "/otherapps/"
 
   val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
@@ -54,10 +54,10 @@ object AppPage
     AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("BC305App", egameDir), AppPage("PlanetsApp", otDir),
     AppPage("ZugApp", otDir, "ZugFuhrer"), AppPage("Flags", otDir), AppPage("DungeonApp", otDir, "Dungeon game"),  AppPage("CivRiseApp", otDir, "Civ Rise"))
 
-  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", egameDir, "1300km Hex Earth"), AppPage("EG1000App", egrDir, "1000km Hex Earth"),
-    AppPage("EG640App", egrDir, "640km Hex Earth"), AppPage("EG460App", egrDir, "460km Hex Earth"), AppPage("EG320App", egrDir, "320km Hex Earth"),
-    AppPage("EG220Europe", egrDir), AppPage("EG220EuropeWide", egrDir), AppPage("EG220NAmerica", egrDir, "220km Hex North America"),
-    AppPage("EG160Europe", egrDir), AppPage("EG120Europe", egrDir), AppPage("EG80Europe", egrDir), AppPage("EarthApp", egrDir))
+  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", mapDir, "1300km Hex Earth"), AppPage("EG1000App", mapDir, "1000km Hex Earth"),
+    AppPage("EG640App", mapDir, "640km Hex Earth"), AppPage("EG460App", mapDir, "460km Hex Earth"), AppPage("EG320App", mapDir, "320km Hex Earth"),
+    AppPage("EG220Europe", mapDir), AppPage("EG220EuropeWide", mapDir), AppPage("EG220NAmerica", mapDir, "220km Hex North America"),
+    AppPage("EG160Europe", mapDir), AppPage("EG120Europe", mapDir), AppPage("EG80Europe", mapDir), AppPage("EarthApp", mapDir))
 
   val others: RArr[AppPage] = RArr(AppPage("WW1App", egameDir), AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
     AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))

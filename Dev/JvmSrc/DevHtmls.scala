@@ -6,7 +6,7 @@ object DevHtmls
 {
   def main(args: Array[String]): Unit =
   { val sett = findDevSettingT[DirPathAbs]("projPath")
-    val names = StrArr("Diceless", "WW1", "WW2", "EG1300", "EG1000", "EG640", "EG460", "EG320")
+    val names = StrArr("Diceless", "WW1", "WW2", "BC305", "EG1300", "EG1000", "EG640", "EG460", "EG320")
 
     sett.forGoodForBad { path =>
       deb(path.str)

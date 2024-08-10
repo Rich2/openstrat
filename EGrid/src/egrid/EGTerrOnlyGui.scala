@@ -52,12 +52,11 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
     def seas: GraphicElems = ifGlobe{ep => RArr(earth2DEllipse(ep.metresPerPixel).fill(LightBlue)) }
     def irrFills: GraphicElems = proj match { case ep: HSysProjectionEarth => ep.irrFills; case _ => RArr() }
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
-    def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
     def irrActives: GraphicElems = ifGlobe { ep => ep.irrActives2 }
 
     def sideDraws2: RArr[GraphicElem] = ife(sideDrawOn, sideDraws, RArr[GraphicElem]())
 
-    seas ++ irrFills ++ irrNames ++ irrActives ++ tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
+    seas ++ irrFills ++ irrActives ++ tileFills ++ tileActives ++ sideFills ++ sideActives ++ lines2 ++ sideDraws2 ++ rcTexts2 ++ irrLines +% outerLines
   }
 
   override def selectedStr: String = selectStack.toStrsSemiFold {
