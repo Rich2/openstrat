@@ -153,7 +153,7 @@ lazy val DevFx = jvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
 )
 
 lazy val ServZio = jvmProj("ServZio").dependsOn(Dev).settings(
-  libraryDependencies += "dev.zio" %% "zio" % "2.1.6" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio" % "2.1.7" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC9" withSources() withJavadoc(),
 )
 
