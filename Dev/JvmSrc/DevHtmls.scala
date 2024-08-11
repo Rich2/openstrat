@@ -11,9 +11,7 @@ object DevHtmls
     sett.forGoodForBad { path =>
       deb(path.str)
       names.filter(name => args.exists(_ == name)).foreach { name => writeFastFull(path, name) }
-    } {
-      strArr => deb(strArr.mkStr(","))
-    }
+    } { strArr => deb(strArr.mkStr(",")) }
   }
 
   def writeFastFull(path: DirPathAbs, scale: String): Unit =
