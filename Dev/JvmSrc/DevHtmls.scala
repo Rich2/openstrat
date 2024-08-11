@@ -39,7 +39,7 @@ object DevHtmls
     val script = HtmlScript.inlineJsStr(noCacheScript)
     val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), script)
     val page = HtmlPage(head, body)
-    val res = fileWrite(path / "Dev" / "target", s"${scale}Sbt${htmlStr}.html", page.out)
+    val res = fileWrite(path / "Dev" / "target" / "DevPages", s"${scale}Sbt${htmlStr}.html", page.out)
     deb(res.toString)
   }
 }
