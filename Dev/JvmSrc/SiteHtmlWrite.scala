@@ -22,8 +22,5 @@ object SiteHtmlWrite extends App
     fileWrite(path2, "dev.html", pDev.DevPage.out)
     fileWrite(path2, "newdevs.html", pDev.NewDevsPage.out)
     fileWrite(path2, "documentation.css", CssDocumentation())
-  }{
-    errs => deb("")
-    errs.foreach(println)
-  }
+  }{ errs => deb("");  errs.foreach(println) }
 }

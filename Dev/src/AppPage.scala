@@ -32,11 +32,11 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
   override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(dirStr + jsFileName), HtmlScript.main(JsMainStem + "Js"))
 }
 
-/** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links.. Longer term may need reorganisation, */
+/** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links. Longer term may need reorganisation, */
 object AppPage
-{ /** Factory apply method for [[AppPage]] class. The first parameter is the stem of the name of the main function function in the JavaScript file, to which
-   * "JsApp" [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the
-   * lower case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
+{ /** Factory apply method for [[AppPage]] class. The first parameter is the stem of the name of the main function in the JavaScript file, to which "JsApp"
+   * [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the lower
+   * case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
    * parameter. */
   def apply(jsMainStem: String, dirStr: String = "/", htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
     new AppPage(jsMainStem, dirStr, htmlTitleIn, htmlFileNameStem, jsFileStem)
