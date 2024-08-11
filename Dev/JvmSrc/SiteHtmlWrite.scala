@@ -4,13 +4,11 @@ import prid._, utiljvm._, pWeb._
 
 /** Object for creating openstrat documentation. */
 object SiteHtmlWrite extends App
-{
-  deb("Starting SiteHtmlWrite")
+{ deb("Starting SiteHtmlWrite")
   GridGraphic1.svgFile("Hi.svg")
-  val sett = findDevSettingT[DirPathAbs]("projPath")
 
-  sett.forGoodForBad { path =>
-    val path2 = path.str / "Dev/SbtDir/Site"
+  projPathProc { path =>
+    val path2 = path.str / "Dev/target/Site"
     fileWrite(path2, "index.html", IndexPage.out)
     AppPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
     fileWrite(path2, "apps.html", AppsPage.out)
@@ -22,5 +20,5 @@ object SiteHtmlWrite extends App
     fileWrite(path2, "dev.html", pDev.DevPage.out)
     fileWrite(path2, "newdevs.html", pDev.NewDevsPage.out)
     fileWrite(path2, "documentation.css", CssDocumentation())
-  }{ errs => deb("");  errs.foreach(println) }
+  }
 }

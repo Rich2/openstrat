@@ -18,6 +18,8 @@ package object utiljvm
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
+  
+  def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
 
   def openstratPath(): EMon[DirPathAbs] = findDevSettingT[DirPathAbs]("projPath")
 

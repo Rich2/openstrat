@@ -5,13 +5,8 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val sett = findDevSettingT[DirPathAbs]("projPath")
-    val names = StrArr("Diceless", "WW1", "WW2", "BC305", "EG1300", "EG1000", "EG640", "EG460", "EG320")
-
-    sett.forGoodForBad { path =>
-      deb(path.str)
-      names.filter(name => args.exists(_ == name)).foreach { name => writeFastFull(path, name) }
-    } { strArr => deb(strArr.mkStr(",")) }
+  { val names = StrArr("Diceless", "WW1", "WW2", "BC305", "EG1300", "EG1000", "EG640", "EG460", "EG320")
+    projPathProc { path => names.filter(name => args.exists(_ == name)).foreach(name => writeFastFull(path, name)) }
   }
 
   def writeFastFull(path: DirPathAbs, scale: String): Unit =
@@ -20,8 +15,7 @@ object DevHtmls
   }
 
   def writeFile(path: DirPathAbs, isFast: Boolean, scale: String): Unit =
-  {
-    val scalaVersionStr = "3.4.2"
+  { val scalaVersionStr = "3.4.2"
     val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
 
