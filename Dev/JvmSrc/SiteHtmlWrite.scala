@@ -8,17 +8,18 @@ object SiteHtmlWrite extends App
   GridGraphic1.svgFile("Hi.svg")
 
   projPathProc { path =>
-    val path2 = path.str / "Dev/target/Site"
-    fileWrite(path2, "index.html", IndexPage.out)
-    AppPage.all.foreach(page => fileWrite(path2, page.htmlFileName, page.out))
-    fileWrite(path2, "apps.html", AppsPage.out)
-    fileWrite(path2, "util.html", UtilPage.out)
-    fileWrite(path2, "geom.html", geom.GeomPage.out)
-    fileWrite(path2, "tiling.html", prid.TilingPage.out)
-    fileWrite(path2, "earth.html", pEarth.EarthPage.out)
-    fileWrite(path2, "egrid.html", egrid.EGridPage.out)
-    fileWrite(path2, "dev.html", pDev.DevPage.out)
-    fileWrite(path2, "newdevs.html", pDev.NewDevsPage.out)
-    fileWrite(path2, "documentation.css", CssDocumentation())
+    val path1: String = path.str / "Dev/target/Site"
+    fileWrite(path1, "index.html", IndexPage.out)
+    AppPage.all.foreach(page => fileWrite(path1 / page.dirStr, page.htmlFileName, page.out))
+    val docPath: String = path1 / "Documentation"
+    fileWrite(docPath, "apps.html", AppsPage.out)
+    fileWrite(docPath, "util.html", UtilPage.out)
+    fileWrite(docPath, "geom.html", geom.GeomPage.out)
+    fileWrite(docPath, "tiling.html", prid.TilingPage.out)
+    fileWrite(docPath, "earth.html", pEarth.EarthPage.out)
+    fileWrite(docPath, "egrid.html", egrid.EGridPage.out)
+    fileWrite(docPath, "dev.html", pDev.DevPage.out)
+    fileWrite(docPath, "newdevs.html", pDev.NewDevsPage.out)
+    fileWrite(docPath, "documentation.css", CssDocumentation())
   }
 }
