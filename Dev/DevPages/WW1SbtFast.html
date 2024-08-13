@@ -19,11 +19,9 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../SbtDir/GenAppJs/target/scala-3.4.0/genappjs-fastopt.js?"+Date.now().toString());
+    script.setAttribute("src", "../../AppsJs/target/scala-3.4.2/appsjs-WW1Js-fastopt/main.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
-    script.addEventListener('load', function(e) {
-    WW1JsApp.main();
-  });
+    script.addEventListener('load', function(e) { WW1AppJs.main(); });
   </script>
 </body>
   

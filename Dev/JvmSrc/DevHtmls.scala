@@ -9,12 +9,12 @@ object DevHtmls
     projPathProc { path => names.filter(name => args.exists(_ == name)).foreach(name => writeFastFull(path, name)) }
   }
 
-  def writeFastFull(path: DirPathAbs, scale: String): Unit =
-  { writeFile(path, true, scale)
-    writeFile(path, false, scale)
+  def writeFastFull(path: DirPathAbs, name: String): Unit =
+  { writeFile(path, true, name)
+    writeFile(path, false, name)
   }
 
-  def writeFile(path: DirPathAbs, isFast: Boolean, scale: String): Unit =
+  def writeFile(path: DirPathAbs, isFast: Boolean, name: String): Unit =
   { val scalaVersionStr = "3.4.2"
     val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
@@ -23,9 +23,9 @@ object DevHtmls
     |  // aid local development in ensuring script not cached during a simple refresh
     |  var script = document.createElement("script");
     |  script.setAttribute("type", "text/javascript");
-    |  script.setAttribute("src", "../../../AppsJs/target/scala-$scalaVersionStr/appsjs-${jsStr}opt.js?"+Date.now().toString());
+    |  script.setAttribute("src", "../../../AppsJs/target/scala-$scalaVersionStr/appsjs-${name}Js-${jsStr}opt/main.js?"+Date.now().toString());
     |  document.getElementsByTagName("head")[0].appendChild(script);
-    |  script.addEventListener('load', function(e) { ${scale}AppJs.main(); });
+    |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });
     |""".stripMargin
 
     val style = HtmlStyle(CssBody(DecMarg(0.px), DecOverflowHidden))
@@ -33,7 +33,7 @@ object DevHtmls
     val script = HtmlScript.inlineJsStr(noCacheScript)
     val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), script)
     val page = HtmlPage(head, body)
-    val res = fileWrite(path / "Dev" / "target" / "DevPages", s"${scale}Sbt${htmlStr}.html", page.out)
+    val res = fileWrite(path / "Dev" / "target" / "DevPages", s"${name}Sbt${htmlStr}.html", page.out)
     deb(res.toString)
   }
 }
