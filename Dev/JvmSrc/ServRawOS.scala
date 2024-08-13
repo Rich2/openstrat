@@ -12,11 +12,9 @@ object ServRawOS extends ServRaw
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")
         case JsPathNameStr(pathName) =>
         { deb("res" + pathName)
-          val oFile = loadTextFile("res" + pathName)
-          debvar(oFile.isGood)
-          oFile match {
-            case Good(str) =>{
-              deb("Js found Length = " + str.length.toString)
+          loadTextFile("res" + pathName) match
+          { case Good(str) =>
+            { deb("Js found Length = " + str.length.toString)
               HttpFound(httpNow, "localhost", HttpConTypeJs, str)
             }
             case _ => { deb("Js not found"); HtmlPageNotFoundstd(pathName).httpResp(httpNow, "localhost")}

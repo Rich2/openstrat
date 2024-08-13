@@ -2,7 +2,7 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pdiscov._, prid.phex._
 
-@JSExportTopLevel("DiscovJsApp")
-object DiscovJsApp
+@JSExportTopLevel("DiscovAppJs")
+object DiscovAppJs
 { @JSExport def main(): Unit = DiscovGui(CanvasJs, DiscovScen1, HGView(138, 522, 25))
 } 

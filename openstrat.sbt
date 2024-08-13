@@ -130,34 +130,40 @@ def appsSett = List(
 )
 lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 
-lazy val DicelessJs = config("DicelessJs") extend(Compile)
-lazy val WW1Js = config("WW1Js") extend(Compile)
-lazy val WW2Js = config("WW2Js") extend(Compile)
-lazy val PlanetsJs = config("PlanetsJs") extend(Compile)
+lazy val Diceless = config("Diceless") extend(Compile)
+lazy val Discov = config("Discov") extend(Compile)
+lazy val WW1 = config("WW1") extend(Compile)
+lazy val WW2 = config("WW2") extend(Compile)
+lazy val Planets = config("Planets") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Apps/src", (ThisBuild/baseDirectory).value / "Apps/srcStrat") :::
     List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
 
-  inConfig(DicelessJs)(Defaults.compileSettings),
-  inConfig(DicelessJs)(ScalaJSPlugin.compileConfigSettings),
-  DicelessJs/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp",
-  DicelessJs/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
+  inConfig(Diceless)(Defaults.compileSettings),
+  inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings),
+  Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp",
+  Diceless/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
 
-  inConfig(WW1Js)(Defaults.compileSettings),
-  inConfig(WW1Js)(ScalaJSPlugin.compileConfigSettings),
-  WW1Js/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App",
-  WW1Js/mainClass:= Some("ostrat.pSJs.WW1AppJs"),
+  inConfig(Discov)(Defaults.compileSettings),
+  inConfig(Discov)(ScalaJSPlugin.compileConfigSettings),
+  Discov/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DiscovApp",
+  Discov/mainClass:= Some("ostrat.pSJs.DiscovAppJs"),
 
-  inConfig(WW2Js)(Defaults.compileSettings),
-  inConfig(WW2Js)(ScalaJSPlugin.compileConfigSettings),
-  WW2Js/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App",
-  WW2Js/mainClass:= Some("ostrat.pSJs.WW2AppJs"),
+  inConfig(WW1)(Defaults.compileSettings),
+  inConfig(WW1)(ScalaJSPlugin.compileConfigSettings),
+  WW1/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App",
+  WW1/mainClass:= Some("ostrat.pSJs.WW1AppJs"),
 
-  inConfig(PlanetsJs)(Defaults.compileSettings),
-  inConfig(PlanetsJs)(ScalaJSPlugin.compileConfigSettings),
-  PlanetsJs/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp",
-  PlanetsJs/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
+  inConfig(WW2)(Defaults.compileSettings),
+  inConfig(WW2)(ScalaJSPlugin.compileConfigSettings),
+  WW2/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App",
+  WW2/mainClass:= Some("ostrat.pSJs.WW2AppJs"),
+
+  inConfig(Planets)(Defaults.compileSettings),
+  inConfig(Planets)(ScalaJSPlugin.compileConfigSettings),
+  Planets/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp",
+  Planets/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
 )
 
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
