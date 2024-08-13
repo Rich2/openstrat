@@ -121,7 +121,7 @@ lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
 )
 
-lazy val EarthAppJs = jsApp("EarthApp").settings(
+lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
 )
 
@@ -129,7 +129,11 @@ def appsSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => (ThisBuild/baseDirectory).value / "Apps" / s),
 )
 lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
-lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs)
+
+lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
+  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Apps/src", (ThisBuild/baseDirectory).value / "Apps/srcStrat") :::
+    List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
+)
 
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
@@ -156,17 +160,6 @@ lazy val ServZio = jvmProj("ServZio").dependsOn(Dev).settings(
   libraryDependencies += "dev.zio" %% "zio" % "2.1.7" withSources() withJavadoc(),
   libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0-RC9" withSources() withJavadoc(),
 )
-
-def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(AppsJs).settings(
-  Compile/unmanagedSourceDirectories := (ThisBuild/baseDirectory).value / "Apps/srcStrat" ::
-    List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
-  libraryDependencies ++= Seq(
-    //"io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
-    //"io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0 withSources() withJavadoc()"
-  ),
-)
-
-lazy val GenAppJs = jsApp("GenApp")
 
 val moduleDirs: List[String] = List("Util", "Geom", "Tiling", "EGrid", "Apps", "Dev")
 

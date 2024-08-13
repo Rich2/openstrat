@@ -5,7 +5,7 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val names = StrArr("Diceless", "WW1", "WW2", "BC305", "Zug", "EG1300", "EG1000", "EG640", "EG460", "EG320")
+  { val names = StrArr("Diceless", "WW1", "WW2", "BC305", "Zug", "Planets", "EG1300", "EG1000", "EG640", "EG460", "EG320")
     projPathProc { path => names.filter(name => args.exists(_ == name)).foreach(name => writeFastFull(path, name)) }
   }
 
@@ -23,7 +23,7 @@ object DevHtmls
     |  // aid local development in ensuring script not cached during a simple refresh
     |  var script = document.createElement("script");
     |  script.setAttribute("type", "text/javascript");
-    |  script.setAttribute("src", "../../../GenAppJs/target/scala-$scalaVersionStr/genappjs-${jsStr}opt.js?"+Date.now().toString());
+    |  script.setAttribute("src", "../../../AppsJs/target/scala-$scalaVersionStr/appsjs-${jsStr}opt.js?"+Date.now().toString());
     |  document.getElementsByTagName("head")[0].appendChild(script);
     |  script.addEventListener('load', function(e) { ${scale}AppJs.main(); });
     |""".stripMargin

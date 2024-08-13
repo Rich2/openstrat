@@ -60,7 +60,7 @@ object DevPage extends HtmlPage
     "a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.")
 
   def sbtJs: HtmlUlWithLH = HtmlUlWithLH("For sbt js apps add the relevant source directory for the app you want to build",
-    HtmlLi.sbt("project GenAppJs"),
+    HtmlLi.sbt("project AppsJs"),
     HtmlLi.sbt("""set Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsAppsSrc/EG1300App";
     |<br>set Compile/mainClass:= Some("ostrat.pSJs.EG1300AppJs")""".stripMargin),
 
