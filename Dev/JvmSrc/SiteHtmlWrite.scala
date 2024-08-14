@@ -8,7 +8,7 @@ object SiteHtmlWrite extends App
   GridGraphic1.svgFile("Hi.svg")
 
   projPathProc { path =>
-    val path1: String = path.str / "Dev/target/Site"
+    val path1: String = path.str / "target/Site"
     fileWrite(path1, "index.html", IndexPage.out)
     AppPage.all.foreach(page => fileWrite(path1 / page.dirStr, page.htmlFileName, page.out))
     val docPath: String = path1 / "Documentation"
