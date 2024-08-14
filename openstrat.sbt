@@ -31,8 +31,6 @@ def proj(srcsStr: String, nameStr: String) = Project(nameStr, file(nameStr)).set
 )
 
 def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings(
-  scalaSource := moduleDir.value / "src",
-  Compile/scalaSource := moduleDir.value / "src",
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
     val cl = artifact.classifier match {
       case Some(st) => "-" + st
@@ -45,8 +43,7 @@ def jvmProj(srcsStr: String): Project = mainProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
-  resourceDirectory := moduleDir.value / "res",
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.3" % "test" withSources() withJavadoc(),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.4" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
@@ -166,13 +163,20 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Planets/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
 )
 
+lazy val allJs = taskKey[Unit]("Task to build all Js assets.")
+allJs :=
+{ val t1 = (AppsJs/Diceless/fullLinkJS).value
+  val t2 = (AppsJs/Discov/fullLinkJS).value
+  println("Built 2 Js files.")
+}
+
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
     List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
+  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "res", (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pDev.SiteHtmlWrite"),
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
