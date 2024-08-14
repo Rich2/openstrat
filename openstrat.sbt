@@ -3,8 +3,9 @@
 val versionStr = "0.3.3snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
-val scalaMajor = "3.4"
-val scalaMinor = "2"
+val scalaMajor: String = "3.4"
+val scalaMinor: String = "2"
+val scalaVersionStr: String = scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
@@ -24,7 +25,7 @@ lazy val siteDir = SettingKey[File]("siteDir")
 ThisBuild/siteDir := tarDir.value / "Site"
 
 def sett3 = List(
-  scalaVersion := scalaMajor + "." + scalaMinor,
+  scalaVersion := scalaVersionStr,
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
@@ -104,23 +105,15 @@ lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
 
 def tilingSett = List(
-  Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => (ThisBuild/baseDirectory).value / "Tiling" / s),
+  Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
 )
-lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(tilingSett).settings(
-  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/ExsSrc"
-)
+lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(tilingSett).settings(Test/unmanagedSourceDirectories += bbDir.value / "Tiling/ExsSrc")
 lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 
-lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
-)
-
+lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 lazy val EGridExs = jvmProj("EGridExs").dependsOn(EGrid)
-
-lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/srcPts",
-)
+lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 
 lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
@@ -172,7 +165,8 @@ allJs :=
 {
   import io.IO.copyFile
   (AppsJs / Diceless / fullLinkJS).value
-  copyFile(bbDir.value / "AppsJs/target/scala-3.4.2/appsjs-Diceless-opt/main.js", siteDir.value / "earthgames/dicelessapp.js")
+  val scStr: String = "scala-" + scalaVersionStr
+  copyFile(bbDir.value / "AppsJs/target" / scStr / "appsjs-Diceless-opt/main.js", siteDir.value / "earthgames/dicelessapp.js")
   (AppsJs/Discov/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target/scala-3.4.2/appsjs-Discov-opt/main.js", siteDir.value / "earthgames/discovapp.js")
   println("Built 2 Js files.")
