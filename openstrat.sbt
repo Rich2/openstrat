@@ -127,11 +127,12 @@ lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 lazy val Diceless = config("Diceless") extend(Compile)
 lazy val Discov = config("Discov") extend(Compile)
 lazy val IndRev = config("IndRev") extend(Compile)
+lazy val Sors = config("Sors") extend(Compile)
 lazy val WW1 = config("WW1") extend(Compile)
 lazy val WW2 = config("WW2") extend(Compile)
 lazy val BC305 = config("BC305") extend(Compile)
-
 lazy val Planets = config("Planets") extend(Compile)
+lazy val Chess = config("Chess") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat") :::
@@ -154,6 +155,11 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   IndRev/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "IndRevApp",
   IndRev/mainClass:= Some("ostrat.pSJs.IndRevAppJs"),
 
+  inConfig(Sors)(Defaults.compileSettings),
+  inConfig(Sors)(ScalaJSPlugin.compileConfigSettings),
+  Sors/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "SorsApp",
+  Sors/mainClass:= Some("ostrat.pSJs.SorsAppJs"),
+
   inConfig(WW1)(Defaults.compileSettings),
   inConfig(WW1)(ScalaJSPlugin.compileConfigSettings),
   WW1/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW1App",
@@ -168,22 +174,35 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   inConfig(Planets)(ScalaJSPlugin.compileConfigSettings),
   Planets/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "PlanetsApp",
   Planets/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
+
+  inConfig(Chess)(Defaults.compileSettings),
+  inConfig(Chess)(ScalaJSPlugin.compileConfigSettings),
+  Chess/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "ChessApp",
+  Chess/mainClass:= Some("ostrat.pSJs.ChessAppJs"),
 )
 
 lazy val allJs = taskKey[Unit]("Task to build all Js assets.")
 allJs :=
 {
   import io.IO.copyFile
-  (AppsJs / Diceless / fullLinkJS).value
   val scStr: String = "scala-" + scalaVersionStr + "/appsjs-"
+  (AppsJs / Diceless / fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "Diceless-opt/main.js"), siteDir.value / "earthgames/dicelessapp.js")
   (AppsJs/Discov/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "Discov-opt/main.js"), siteDir.value / "earthgames/discovapp.js")
   (AppsJs/IndRev/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "IndRev-opt/main.js"), siteDir.value / "earthgames/indrevapp.js")
+  (AppsJs/Sors/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "Sors-opt/main.js"), siteDir.value / "earthgames/sorsapp.js")
   (AppsJs/WW1/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "WW1-opt/main.js"), siteDir.value / "earthgames/ww1app.js")
-  println("Built 3 Js files.")
+  (AppsJs/WW2/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "WW2-opt/main.js"), siteDir.value / "earthgames/ww2app.js")
+  (AppsJs/Planets/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "Planets-opt/main.js"), siteDir.value / "otherapps/planetsapp.js")
+  (AppsJs/Chess/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "Chess-opt/main.js"), siteDir.value / "otherapps/chessapp.js")
+  println("Built 8 Js files.")
 }
 
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(

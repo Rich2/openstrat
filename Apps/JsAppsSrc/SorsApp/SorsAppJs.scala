@@ -2,7 +2,7 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, psors._, prid.phex._
 
-@JSExportTopLevel("SorsJsApp")
-object SorsJsApp
+@JSExportTopLevel("SorsAppJs")
+object SorsAppJs
 { @JSExport def main(): Unit = { SorsGui(CanvasJs, SorsScen1, HGView(160, 520, 24)); () }
 } 
