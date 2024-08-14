@@ -117,8 +117,15 @@ lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSo
 lazy val EGridExs = jvmProj("EGridExs").dependsOn(EGrid)
 lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 
+lazy val EarthIrr = config("EarthIrr") extend(Compile)
+
 lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
+  inConfig(EarthIrr)(Defaults.compileSettings),
+  inConfig(EarthIrr)(ScalaJSPlugin.compileConfigSettings),
+  EarthIrr/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ bbDir.value / "EGrid/JsAppsSrc/EarthApp",
+  EarthIrr/mainClass:= Some("ostrat.pSJs.EarthAppJs"),
+
+  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
 )
 
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
