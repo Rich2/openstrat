@@ -21,5 +21,6 @@ object SiteHtmlWrite extends App
     fileWrite(docPath, "dev.html", pDev.DevPage.out)
     fileWrite(docPath, "newdevs.html", pDev.NewDevsPage.out)
     fileWrite(docPath, "documentation.css", CssDocumentation())
+    fileWrite(path1, "only.css", OnlyCss())
   }
 }

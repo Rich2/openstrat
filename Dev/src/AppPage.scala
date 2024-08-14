@@ -5,22 +5,28 @@ import pWeb._
 /** An HTML Page for running an application. We may want a separate page for the documentation */
 class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
   HtmlPage
-{
-  val htmlTitle: String = htmlTitleIn.emptyMap(JsMainStem)
+{ /** The [[String]] for the HTML title element. */
+  val htmlTitleStr: String = htmlTitleIn.emptyMap(JsMainStem)
 
+  /** HTML file name stem to which the ".html" extension will be added. */
   val htmlFileStem: String = htmlFileStemIn.emptyMap(JsMainStem.toLowerCase)
 
+  /** HTML file name including the ".html" extension. */
   def htmlFileName: String = htmlFileStem + ".html"
 
+  /** The directory location with the website as a [[String]]. */
   def htmlLoc: String = dirStr + htmlFileName
 
-  def jsFileName: String = jsFileStem + ".js"
-
+  /** JavaScript file name stem to which the ".js" extension will be added. */
   val jsFileStem: String = jsFileStemIn.emptyMap(JsMainStem.toLowerCase)
 
-  def fullHtmlPathStr: String = dirStr + htmlFileName
+  /** JavaScript file name including the ".js" extension. */
+  def jsFileName: String = jsFileStem + ".js"
 
-  override def head: HtmlHead = HtmlHead.titleCss(htmlTitle, "/only")
+  /** The HTML path and full file name as a [[String]]. */
+  def htmlPathNameStr: String = dirStr + htmlFileName
+
+  override def head: HtmlHead = HtmlHead.titleCss(htmlTitleStr, "../only")
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStem == JsMainStem)
@@ -29,7 +35,7 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
     AppPage.topMenu(pairs2)
   }
 
-  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(dirStr + jsFileName), HtmlScript.main(JsMainStem + "Js"))
+  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(JsMainStem + "Js"))
 }
 
 /** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links. Longer term may need reorganisation, */
@@ -66,7 +72,7 @@ object AppPage
 
   object AllHtmlExtractor
   {
-    def unapply(inp: String): Option[AppPage] = all.find(_.fullHtmlPathStr == inp)
+    def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp)
   }
 
   val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.jsFileStem)(_.htmlLoc)

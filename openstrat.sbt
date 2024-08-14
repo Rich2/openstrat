@@ -16,7 +16,12 @@ lazy val root = (project in file(".")).aggregate(Util, Tiling, Dev).enablePlugin
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
-ThisBuild/baseDir := (ThisBuild/baseDirectory).value
+lazy val bbDir = SettingKey[File]("bbDir")
+ThisBuild/bbDir := (ThisBuild/baseDirectory).value
+lazy val tarDir = SettingKey[File]("tarDir")
+ThisBuild/tarDir := (ThisBuild/baseDirectory).value / "target"
+lazy val siteDir = SettingKey[File]("siteDir")
+ThisBuild/siteDir := tarDir.value / "Site"
 
 def sett3 = List(
   scalaVersion := scalaMajor + "." + scalaMinor,
@@ -24,8 +29,7 @@ def sett3 = List(
 )
 
 def proj(srcsStr: String, nameStr: String) = Project(nameStr, file(nameStr)).settings(sett3).settings(
-  moduleDir := baseDir.value / srcsStr,
-
+  moduleDir := bbDir.value / srcsStr,
   Test/scalaSource := moduleDir.value / "TestSrc",
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
@@ -165,8 +169,12 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
 
 lazy val allJs = taskKey[Unit]("Task to build all Js assets.")
 allJs :=
-{ val t1 = (AppsJs/Diceless/fullLinkJS).value
-  val t2 = (AppsJs/Discov/fullLinkJS).value
+{
+  import io.IO.copyFile
+  (AppsJs / Diceless / fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target/scala-3.4.2/appsjs-Diceless-opt/main.js", siteDir.value / "earthgames/dicelessapp.js")
+  (AppsJs/Discov/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target/scala-3.4.2/appsjs-Discov-opt/main.js", siteDir.value / "earthgames/discovapp.js")
   println("Built 2 Js files.")
 }
 
@@ -213,7 +221,7 @@ bothDoc :=
 lazy val DocMain = Project("DocMain", file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s => List(s + "/JvmSrc")) :::
-    List("Util/srcRArr", "Geom/JvmFxSrc", "Dev/JvmFxSrc")).map(s => baseDir.value / s),
+    List("Util/srcRArr", "Geom/JvmFxSrc", "Dev/JvmFxSrc")).map(s => bbDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
@@ -223,7 +231,7 @@ lazy val DocMain = Project("DocMain", file("Dev/SbtDir/DocMain")).settings(sett3
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/JsSrc") ::: List("Apps/JsAppSrc")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/JsSrc") ::: List("Apps/JsAppSrc")).map(s => bbDir.value / s),
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
