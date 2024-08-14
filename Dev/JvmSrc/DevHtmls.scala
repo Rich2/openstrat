@@ -5,7 +5,7 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val names = StrArr("Diceless", "Discov", "WW1", "WW2", "BC305", "Zug", "Planets", "EG1300", "EG1000", "EG640", "EG460", "EG320")
+  { val names = StrArr("Diceless", "Discov", "IndRev", "WW1", "WW2", "BC305", "Zug", "Planets", "EG1300", "EG1000", "EG640", "EG460", "EG320")
     projPathProc { path => args.length match
     { case 0 =>
       case _ if args(0).toString == "all" => names.foreach{name => writeFastFull(path, name) }

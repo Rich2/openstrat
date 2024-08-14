@@ -2,8 +2,8 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pind._, prid.phex._
 
-@JSExportTopLevel("IndRevJsApp")
-object IndRevJsApp
+@JSExportTopLevel("IndRevAppJs")
+object IndRevAppJs
 {   
   @JSExport def main(): Unit = IndRevGui(CanvasJs, IndRevScen1, HGView(160, 512, 22))
 } 

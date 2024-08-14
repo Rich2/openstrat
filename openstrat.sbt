@@ -23,6 +23,8 @@ lazy val tarDir = SettingKey[File]("tarDir")
 ThisBuild/tarDir := (ThisBuild/baseDirectory).value / "target"
 lazy val siteDir = SettingKey[File]("siteDir")
 ThisBuild/siteDir := tarDir.value / "Site"
+lazy val jsAppsDir = SettingKey[File]("jsAppsDir")
+ThisBuild/jsAppsDir := bbDir.value / "Apps/JsAppsSrc"
 
 def sett3 = List(
   scalaVersion := scalaVersionStr,
@@ -124,37 +126,47 @@ lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 
 lazy val Diceless = config("Diceless") extend(Compile)
 lazy val Discov = config("Discov") extend(Compile)
+lazy val IndRev = config("IndRev") extend(Compile)
 lazy val WW1 = config("WW1") extend(Compile)
 lazy val WW2 = config("WW2") extend(Compile)
+lazy val BC305 = config("BC305") extend(Compile)
+
 lazy val Planets = config("Planets") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat") :::
     List("Geom", "Earth", "Tiling", "EGrid").map(bbDir.value / _ / "ExsSrc"),
 
+  libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
+
   inConfig(Diceless)(Defaults.compileSettings),
   inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings),
-  Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DicelessApp",
+  Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DicelessApp",
   Diceless/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
 
   inConfig(Discov)(Defaults.compileSettings),
   inConfig(Discov)(ScalaJSPlugin.compileConfigSettings),
-  Discov/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/DiscovApp",
+  Discov/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DiscovApp",
   Discov/mainClass:= Some("ostrat.pSJs.DiscovAppJs"),
+
+  inConfig(IndRev)(Defaults.compileSettings),
+  inConfig(IndRev)(ScalaJSPlugin.compileConfigSettings),
+  IndRev/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "IndRevApp",
+  IndRev/mainClass:= Some("ostrat.pSJs.IndRevAppJs"),
 
   inConfig(WW1)(Defaults.compileSettings),
   inConfig(WW1)(ScalaJSPlugin.compileConfigSettings),
-  WW1/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW1App",
+  WW1/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW1App",
   WW1/mainClass:= Some("ostrat.pSJs.WW1AppJs"),
 
   inConfig(WW2)(Defaults.compileSettings),
   inConfig(WW2)(ScalaJSPlugin.compileConfigSettings),
-  WW2/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/WW2App",
+  WW2/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW2App",
   WW2/mainClass:= Some("ostrat.pSJs.WW2AppJs"),
 
   inConfig(Planets)(Defaults.compileSettings),
   inConfig(Planets)(ScalaJSPlugin.compileConfigSettings),
-  Planets/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ (ThisBuild/baseDirectory).value / "Apps/JsAppsSrc/PlanetsApp",
+  Planets/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "PlanetsApp",
   Planets/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
 )
 
@@ -163,11 +175,15 @@ allJs :=
 {
   import io.IO.copyFile
   (AppsJs / Diceless / fullLinkJS).value
-  val scStr: String = "scala-" + scalaVersionStr
-  copyFile(bbDir.value / "AppsJs/target" / scStr / "appsjs-Diceless-opt/main.js", siteDir.value / "earthgames/dicelessapp.js")
+  val scStr: String = "scala-" + scalaVersionStr + "/appsjs-"
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "Diceless-opt/main.js"), siteDir.value / "earthgames/dicelessapp.js")
   (AppsJs/Discov/fullLinkJS).value
-  copyFile(bbDir.value / "AppsJs/target/scala-3.4.2/appsjs-Discov-opt/main.js", siteDir.value / "earthgames/discovapp.js")
-  println("Built 2 Js files.")
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "Discov-opt/main.js"), siteDir.value / "earthgames/discovapp.js")
+  (AppsJs/IndRev/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "IndRev-opt/main.js"), siteDir.value / "earthgames/indrevapp.js")
+  (AppsJs/WW1/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "WW1-opt/main.js"), siteDir.value / "earthgames/ww1app.js")
+  println("Built 3 Js files.")
 }
 
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
