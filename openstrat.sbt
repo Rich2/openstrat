@@ -63,7 +63,7 @@ def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNati
 )
 
 def utilSett = List(
-  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcPersist", "srcParse").map(s => (ThisBuild/baseDirectory).value / "Util" / s),
+  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcPersist", "srcParse").map(s => bbDir.value / "Util" / s),
 )
 
 lazy val Util = jvmProj("Util").settings(utilSett).settings(
@@ -89,7 +89,7 @@ lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(uti
 
 def geomSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcLines", "srcShapes", "srcPoly", "srcUnits", "srcImperial", "srcTrans", "srcGraphic", "srcWeb", "srcGui",
-    "srcEarth").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
+    "srcEarth").map(s => bbDir.value / "Geom" / s),
 )
 
 lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
@@ -119,9 +119,7 @@ lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
 )
 
-def appsSett = List(
-  Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => (ThisBuild/baseDirectory).value / "Apps" / s),
-)
+def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
 lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 
 lazy val Diceless = config("Diceless") extend(Compile)
@@ -131,8 +129,8 @@ lazy val WW2 = config("WW2") extend(Compile)
 lazy val Planets = config("Planets") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
-  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Apps/src", (ThisBuild/baseDirectory).value / "Apps/srcStrat") :::
-    List("Geom", "Earth", "Tiling", "EGrid").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
+  Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat") :::
+    List("Geom", "Earth", "Tiling", "EGrid").map(bbDir.value / _ / "ExsSrc"),
 
   inConfig(Diceless)(Defaults.compileSettings),
   inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings),
@@ -174,11 +172,11 @@ allJs :=
 
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGridExs, Apps).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
-    List("Util", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
+    List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "res", (ThisBuild/baseDirectory).value / "Dev/User"),
+  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "res", bbDir.value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pDev.SiteHtmlWrite"),
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
@@ -200,8 +198,9 @@ lazy val ServZio = jvmProj("ServZio").dependsOn(Dev).settings(
 
 val moduleDirs: List[String] = List("Util", "Geom", "Tiling", "EGrid", "Apps", "Dev")
 
-val specDirs: List[String] = List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly", "Geom/srcShapes",
-  "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Geom/srcTrans", "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq", "Tiling/srcSqLayer", "EGrid/srcPts", "Apps/srcStrat")
+val specDirs: List[String] =
+  List("Util/srcArr", "Util/srcParse", "Util/srcPersist", "Geom/srcGraphic", "Geom/srcLines", "Geom/srcPoly", "Geom/srcShapes", "Geom/src3d", "Geom/srcGui",
+    "Geom/srcWeb", "Geom/srcTrans", "Tiling/srcHex", "Tiling/srcHLayer", "Tiling/srcSq", "Tiling/srcSqLayer", "EGrid/srcPts", "Apps/srcStrat")
 
 val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src", m + "/ExsSrc")) ::: specDirs
 
