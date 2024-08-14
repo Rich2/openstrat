@@ -6,7 +6,10 @@ object DevHtmls
 {
   def main(args: Array[String]): Unit =
   { val names = StrArr("Diceless", "Discov", "WW1", "WW2", "BC305", "Zug", "Planets", "EG1300", "EG1000", "EG640", "EG460", "EG320")
-    projPathProc { path => names.filter(name => args.exists(_ == name)).foreach(name => writeFastFull(path, name)) }
+    projPathProc { path => args.length match
+    { case 0 =>
+      case _ if args(0).toString == "all" => names.foreach{name => writeFastFull(path, name) }
+      case _ => args.filter( arg => names.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }
   }
 
   def writeFastFull(path: DirPathAbs, name: String): Unit =
