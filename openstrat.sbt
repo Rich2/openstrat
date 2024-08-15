@@ -115,18 +115,23 @@ lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).depe
 
 lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 lazy val EGridExs = jvmProj("EGridExs").dependsOn(EGrid)
-lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
 
 lazy val EarthIrr = config("EarthIrr") extend(Compile)
+lazy val EG1300 = config("EG1300") extend(Compile)
 
-lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs).settings(
+lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts").settings(
   inConfig(EarthIrr)(Defaults.compileSettings),
   inConfig(EarthIrr)(ScalaJSPlugin.compileConfigSettings),
   EarthIrr/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ bbDir.value / "EGrid/JsAppsSrc/EarthApp",
   EarthIrr/mainClass:= Some("ostrat.pSJs.EarthAppJs"),
 
-  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "EGrid/JsSrcApp",
+  inConfig(EG1300)(Defaults.compileSettings),
+  inConfig(EG1300)(ScalaJSPlugin.compileConfigSettings),
+  EG1300/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ bbDir.value / "EGrid/JsAppsSrc/EG1300App",
+  EG1300/mainClass:= Some("ostrat.pSJs.EG1300AppJs"),
 )
+
+//lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs)
 
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
 lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
@@ -190,8 +195,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
 
 lazy val allJs = taskKey[Unit]("Task to build all Js assets.")
 allJs :=
-{
-  import io.IO.copyFile
+{ import io.IO.copyFile
   val scStr: String = "scala-" + scalaVersionStr + "/appsjs-"
   (AppsJs / Diceless / fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "Diceless-opt/main.js"), siteDir.value / "earthgames/dicelessapp.js")
