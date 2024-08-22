@@ -5,7 +5,8 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Planets", "Chess", "EG1300", "EG1000", "EG640", "EG460", "EG320")
+  { val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Planets", "Chess", "Dungeon",
+      "EG1300", "EG1000", "EG640", "EG460", "EG320")
     projPathProc { path => args.length match
     { case 0 =>
       case _ if args(0).toString == "all" => names.foreach{name => writeFastFull(path, name) }
@@ -18,7 +19,7 @@ object DevHtmls
   }
 
   def writeFile(path: DirPathAbs, isFast: Boolean, name: String): Unit =
-  { val scalaVersionStr = "3.4.2"
+  { val scalaVersionStr = "3.5.0"
     val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
 
@@ -32,7 +33,7 @@ object DevHtmls
     |""".stripMargin
 
     val style = HtmlStyle(CssBody(DecMarg(0.px), DecOverflowHidden))
-    val head = HtmlHead.title("OpenStrat: 460km All Longitudes full", HtmlNoCache, style)
+    val head = HtmlHead.title("OpenStrat:" -- name, HtmlNoCache, style)
     val script = HtmlScript.inlineJsStr(noCacheScript)
     val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), script)
     val page = HtmlPage(head, body)
