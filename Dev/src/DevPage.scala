@@ -26,7 +26,7 @@ object DevPage extends HtmlPage
     "readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3" --
     "will be the ideal language to explore these questions.")
 
-  def p4: HtmlP = HtmlP("Scala currently set to 3.4.2. Jdk 11+, 21 preferred. Scala.Js set to 1.16.0. Scala native set to 0.4.16. Sbt currently set to 1.10.1" --
+  def p4: HtmlP = HtmlP("Scala currently set to 3.5.0. Jdk 11+, 21 preferred. Scala.Js set to 1.16.0. Scala native set to 0.4.16. Sbt currently set to 1.10.1" --
     "(uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to 0.11.6.")
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
