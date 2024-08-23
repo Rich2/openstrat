@@ -131,8 +131,6 @@ lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanage
   EG1300/mainClass:= Some("ostrat.pSJs.EG1300AppJs"),
 )
 
-//lazy val EarthAppJs = jsProj("EarthApp").dependsOn(EGridJs)
-
 def appsSett = List(Compile/unmanagedSourceDirectories ++= List("srcStrat").map(s => bbDir.value / "Apps" / s))
 lazy val Apps = jvmProj("Apps").dependsOn(EGrid).settings(appsSett)
 
@@ -143,6 +141,7 @@ lazy val Sors = config("Sors") extend(Compile)
 lazy val WW1 = config("WW1") extend(Compile)
 lazy val WW2 = config("WW2") extend(Compile)
 lazy val BC305 = config("BC305") extend(Compile)
+lazy val Dungeon = config("Dungeon") extend(Compile)
 lazy val Planets = config("Planets") extend(Compile)
 lazy val Chess = config("Chess") extend(Compile)
 
@@ -152,45 +151,33 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
 
   libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
 
-  inConfig(Diceless)(Defaults.compileSettings),
-  inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(Diceless)(Defaults.compileSettings), inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings), Diceless/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
   Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DicelessApp",
-  Diceless/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
-
-  inConfig(Discov)(Defaults.compileSettings),
-  inConfig(Discov)(ScalaJSPlugin.compileConfigSettings),
+  
+  inConfig(Discov)(Defaults.compileSettings), inConfig(Discov)(ScalaJSPlugin.compileConfigSettings), Discov/mainClass:= Some("ostrat.pSJs.DiscovAppJs"),
   Discov/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DiscovApp",
-  Discov/mainClass:= Some("ostrat.pSJs.DiscovAppJs"),
 
-  inConfig(IndRev)(Defaults.compileSettings),
-  inConfig(IndRev)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(IndRev)(Defaults.compileSettings), inConfig(IndRev)(ScalaJSPlugin.compileConfigSettings), IndRev/mainClass:= Some("ostrat.pSJs.IndRevAppJs"),
   IndRev/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "IndRevApp",
-  IndRev/mainClass:= Some("ostrat.pSJs.IndRevAppJs"),
 
-  inConfig(Sors)(Defaults.compileSettings),
-  inConfig(Sors)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(Sors)(Defaults.compileSettings), inConfig(Sors)(ScalaJSPlugin.compileConfigSettings), Sors/mainClass:= Some("ostrat.pSJs.SorsAppJs"),
   Sors/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "SorsApp",
-  Sors/mainClass:= Some("ostrat.pSJs.SorsAppJs"),
 
-  inConfig(WW1)(Defaults.compileSettings),
-  inConfig(WW1)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(WW1)(Defaults.compileSettings), inConfig(WW1)(ScalaJSPlugin.compileConfigSettings), WW1/mainClass:= Some("ostrat.pSJs.WW1AppJs"),
   WW1/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW1App",
-  WW1/mainClass:= Some("ostrat.pSJs.WW1AppJs"),
 
-  inConfig(WW2)(Defaults.compileSettings),
-  inConfig(WW2)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(WW2)(Defaults.compileSettings), inConfig(WW2)(ScalaJSPlugin.compileConfigSettings), WW2/mainClass:= Some("ostrat.pSJs.WW2AppJs"),
   WW2/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW2App",
-  WW2/mainClass:= Some("ostrat.pSJs.WW2AppJs"),
 
-  inConfig(Planets)(Defaults.compileSettings),
-  inConfig(Planets)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(Dungeon)(Defaults.compileSettings), inConfig(Dungeon)(ScalaJSPlugin.compileConfigSettings),
+  Dungeon/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DungeonApp",
+  Dungeon/mainClass:= Some("ostrat.pSJs.DungeonAppJs"),
+
+  inConfig(Planets)(Defaults.compileSettings), inConfig(Planets)(ScalaJSPlugin.compileConfigSettings), Planets/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
   Planets/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "PlanetsApp",
-  Planets/mainClass:= Some("ostrat.pSJs.PlanetsAppJs"),
 
-  inConfig(Chess)(Defaults.compileSettings),
-  inConfig(Chess)(ScalaJSPlugin.compileConfigSettings),
+  inConfig(Chess)(Defaults.compileSettings), inConfig(Chess)(ScalaJSPlugin.compileConfigSettings), Chess/mainClass:= Some("ostrat.pSJs.ChessAppJs"),
   Chess/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "ChessApp",
-  Chess/mainClass:= Some("ostrat.pSJs.ChessAppJs"),
 )
 
 lazy val allJs = taskKey[Unit]("Task to build all Js assets.")
@@ -210,6 +197,8 @@ allJs :=
   (AppsJs/WW2/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "WW2-opt/main.js"), siteDir.value / "earthgames/ww2app.js")
   (AppsJs/Planets/fullLinkJS).value
+  copyFile(bbDir.value / "AppsJs/target" / (scStr + "Dungeon-opt/main.js"), siteDir.value / "otherapps/dungeonapp.js")
+  (AppsJs/Dungeon/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "Planets-opt/main.js"), siteDir.value / "otherapps/planetsapp.js")
   (AppsJs/Chess/fullLinkJS).value
   copyFile(bbDir.value / "AppsJs/target" / (scStr + "Chess-opt/main.js"), siteDir.value / "otherapps/chessapp.js")

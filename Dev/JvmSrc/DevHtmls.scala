@@ -5,7 +5,7 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Planets", "Chess", "Dungeon",
+  { val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess",
       "EG1300", "EG1000", "EG640", "EG460", "EG320")
     projPathProc { path => args.length match
     { case 0 =>
