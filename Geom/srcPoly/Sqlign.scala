@@ -2,7 +2,7 @@
 package ostrat; package geom
 import pWeb._
 
-/** A square aligned to the X and Y axes. */
+/** A square aligned to the X and Y axes. As this is a [[Polygon]] it is implelemented using an [[Array]]. */
 final class Sqlign private(val arrayUnsafe: Array[Double]) extends Square with Rect with Tell2[Double, Pt2]
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"

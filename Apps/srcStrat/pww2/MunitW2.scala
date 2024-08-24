@@ -65,7 +65,7 @@ trait PzArmy extends LuDesig
 { override def uniLevel: LuUniLevel = FieldArmy
   override def structStr: String = "PanzerArmee"
   override def polity: Polity = Germany
-  override def counter: UnitCounter = CavalryCounter
+  override def counter: UnitCounter = ArmourCounter
 }
 
 case class PzArmeeUnNum(idStr: String) extends PzArmy

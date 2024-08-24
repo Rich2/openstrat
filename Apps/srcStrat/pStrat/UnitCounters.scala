@@ -9,6 +9,7 @@ trait UnitCounter
   def str: String
 }
 
+/** Infantry unit counter. */
 object InfantryCounter extends UnitCounter
 {
   def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
@@ -30,14 +31,28 @@ object InfantryCounter extends UnitCounter
   override def str: String = "Infantry"
 }
 
+/** Cavalry unit counter. */
 object CavalryCounter extends UnitCounter
 {
   def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
   { val rect: Rect = Rect(scale, scale * heightRatio)
     val linesColour = fillColour.contrastBW
-    val subj = rect.fillActiveDraw(fillColour, evObj, linesColour, lineWidth)
+    val subj: RectCompound = rect.fillActiveDraw(fillColour, evObj, linesColour, lineWidth)
     subj.addChildren(RArr(rect.diag1.draw(1, linesColour)))
   }
 
   override def str: String = "Cavalry"
+}
+
+/** Armour unit counter, currently using cavalry symbol. */
+object ArmourCounter extends UnitCounter
+{
+  def apply(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
+  { val rect: Rect = Rect(scale, scale * heightRatio)
+    val linesColour = fillColour.contrastBW
+    val subj: RectCompound = rect.fillActiveDraw(fillColour, evObj, linesColour, lineWidth)
+    subj.addChildren(RArr(rect.diag1.draw(1, linesColour)))
+  }
+
+  override def str: String = "Armour"
 }
