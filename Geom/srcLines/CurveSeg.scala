@@ -5,7 +5,10 @@ package ostrat; package geom
  *  provide consistent naming across line segments [[LineSeg]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic beziers
  *  [[Bezier]]s, which require different numbers of points in their specification. */
 trait CurveSeg extends Drawable
-{ /** The X component of the start point of this curve segment often called x1 in other APIs. */
+{ 
+  def boundingRect: Rect = ???
+  
+  /** The X component of the start point of this curve segment often called x1 in other APIs. */
   def startX: Double
 
   /** The Y component of the start point of this curve segment, often called y1 in other APIs. */

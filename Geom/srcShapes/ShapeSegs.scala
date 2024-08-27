@@ -1,23 +1,25 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pWeb._
 
-/** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A
- *  closed sequence of curve segments. */
-class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
-{ override type ThisT = ShapeGen
+/** The new ShapeSegs trait will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed sequence
+ *  of curve segments. Use [[ShapeGen]] for a general implementation of this class, */
+trait ShapeSegs extends Shape
+{ 
+  /** The backing array of [[ShapeSeg]]s. End users should rarely need to access this field. */
+  def unsafeArray: Array[CurveSeg]
 
-  /** The width of the [[BoundingRect]] of this object. */
-  override def boundingWidth: Double = ???
-
-  /** The height of the [[BoundingRect]] of this object. */
-  override def boundingHeight: Double = ???
+  /** The [[ShapeSeg]]s that make up this Shape. */
+  def segs: RArr[CurveSeg] = new RArr(unsafeArray)
+  
+  override def boundingRect: Rect = segs.foldLeft(segs(0).boundingRect)((acc, el) => acc || el.boundingRect)
+  override def boundingWidth: Double = boundingRect.width
+  override def boundingHeight: Double = boundingRect.height
 
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): ShapeDraw = ???
 
   override def attribs: RArr[XmlAtt] = ???
 
-  /** Translate 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slateXY(xDelta: Double, yDelta: Double): ShapeGen = new ShapeGen(unsafeArray.SlateXY(xDelta, yDelta))
 
   /** Uniform scaling 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
@@ -29,7 +31,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 
   /** Rotation 2D geometric transformation on a ShapeGen taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be
    * narrowed in sub traits / classes. */
-  override def rotate(angle: AngleVec): ShapeGen = ???
+  override def rotate(angle: AngleVec): ShapeSegs = ???
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a Shape, returns a Shape. The Return type will be narrowed in sub
    * traits / classes. */
@@ -45,20 +47,28 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def shearY(operand: Double): ShapeGen = ???
 
-  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
-  override def boundingRect: Rect = ???
-
   override def fill(fillColour: Colour): ShapeFill = ???
+
   override def fillInt(intValue: Int): ShapeFill = ???
+
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): ShapeCompound = ???
+
   override def fillActive(fillColour: Colour, pointerID: Any): ShapeCompound = ???
 
   /** [[ShapeCompound]] graphic with a [[FillFacet]], a [[TextFacet]] and a [[ShapeActive]] child. */
   override def fillActiveText(fillColour: Colour, pointerEv: Any, str: String, fontRatio: Double, fontColour: Colour, align: TextAlign,
-    baseLine: BaseLine, minSize: Double): ShapeCompound = ???
+                              baseLine: BaseLine, minSize: Double): ShapeCompound = ???
 
   /** Determines if the parameter point lies inside this [[Circle]]. */
   override def ptInside(pt: Pt2): Boolean = ???
+}
+
+/** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed
+ * sequence of curve segments. */
+final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs with AxisFree
+{ override type ThisT = ShapeGen  
+  override def rotate(angle: AngleVec): ShapeGen = ???
+  override def reflect(lineLike: LineLike): ShapeGen = ???
 }
 
 /** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations.  */
@@ -75,9 +85,9 @@ object ShapeGen
 
   }
 
-  implicit val slateImplicit: Slate[ShapeGen] = (obj: ShapeGen , dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)
+  implicit val slateImplicit: Slate[ShapeGen] = (obj: ShapeGen, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[ShapeGen] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: ScaleXY[ShapeGen] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[ShapeGen] = (obj, lineLike) => obj.reflect(lineLike)
