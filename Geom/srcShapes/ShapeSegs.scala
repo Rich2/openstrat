@@ -5,13 +5,13 @@ import Colour.Black, pWeb._
 /** The new ShapeSegs trait will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed sequence
  *  of curve segments. Use [[ShapeGen]] for a general implementation of this class, */
 trait ShapeSegs extends Shape
-{ 
+{
   /** The backing array of [[ShapeSeg]]s. End users should rarely need to access this field. */
   def unsafeArray: Array[CurveSeg]
 
   /** The [[ShapeSeg]]s that make up this Shape. */
   def segs: RArr[CurveSeg] = new RArr(unsafeArray)
-  
+
   override def boundingRect: Rect = segs.foldLeft(segs(0).boundingRect)((acc, el) => acc || el.boundingRect)
   override def boundingWidth: Double = boundingRect.width
   override def boundingHeight: Double = boundingRect.height
@@ -61,47 +61,51 @@ trait ShapeSegs extends Shape
 
   /** Determines if the parameter point lies inside this [[Circle]]. */
   override def ptInside(pt: Pt2): Boolean = ???
-}
 
-/** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A closed
- * sequence of curve segments. */
-final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs with AxisFree
-{ override type ThisT = ShapeGen  
-  override def rotate(angle: AngleVec): ShapeGen = ???
-  override def reflect(lineLike: LineLike): ShapeGen = ???
+  override def negX: ShapeSegs = ???
+  override def negY: ShapeSegs = ???
+  override def rotate90: ShapeSegs = ???
+  override def rotate180: ShapeSegs = ???
+  override def rotate270: ShapeSegs = ???
 }
-
-/** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations.  */
-object ShapeGen
-{ /** Throws on 0 length var args. */
-  def apply(curveTails: CurveTail*): ShapeGen =
-  {
+/** Companion object of the ShapeSegs class contains implicit instances for 2D geometric transformations. */
+object ShapeSegs
+{
+  /** Throws on 0 length var args. */
+  def apply(curveTails: CurveTail*): ShapeSegs = {
     val array: Array[CurveSeg] = new Array[CurveSeg](curveTails.length)
-    curveTails.iForeach{ (ct, i) => ct match {
-      //case lt: LineTail =>
-      case _ =>
-    } }
+    curveTails.iForeach { (ct, i) =>
+      ct match {
+        //case lt: LineTail =>
+        case _ =>
+      }
+    }
     new ShapeGen(array)
 
   }
 
-  implicit val slateImplicit: Slate[ShapeGen] = (obj: ShapeGen, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen, angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[ShapeGen] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[ShapeGen] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[ShapeGen] = (obj, lineLike) => obj.reflect(lineLike)
+  implicit val slateImplicit: Slate[ShapeSegs] = (obj: ShapeSegs, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[ShapeSegs] = (obj: ShapeSegs, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeSegs] = (obj: ShapeSegs, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[ShapeSegs] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: ScaleXY[ShapeSegs] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val ReflectImplicit: Reflect[ShapeSegs] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: TransAxes[ShapeGen] = new TransAxes[ShapeGen ]
-  { override def negYT(obj: ShapeGen): ShapeGen  = obj.negY
-    override def negXT(obj: ShapeGen): ShapeGen  = obj.negX
-    override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90
-    override def rotate180(obj: ShapeGen): ShapeGen = obj.rotate180
-    override def rotate270(obj: ShapeGen): ShapeGen = obj.rotate270
+  implicit val transAxesImplicit: TransAxes[ShapeSegs] = new TransAxes[ShapeSegs] {
+    override def negYT(obj: ShapeSegs): ShapeSegs = obj.negY
+
+    override def negXT(obj: ShapeSegs): ShapeSegs = obj.negX
+
+    override def rotate90(obj: ShapeSegs): ShapeSegs = obj.rotate90
+
+    override def rotate180(obj: ShapeSegs): ShapeSegs = obj.rotate180
+
+    override def rotate270(obj: ShapeSegs): ShapeSegs = obj.rotate270
   }
 
-  implicit val shearImplicit: Shear[ShapeGen ] = new Shear[ShapeGen ]
-  { override def shearXT(obj: ShapeGen, yFactor: Double): ShapeGen  = obj.shearX(yFactor)
-    override def shearYT(obj: ShapeGen, xFactor: Double): ShapeGen  = obj.shearY(xFactor)
+  implicit val shearImplicit: Shear[ShapeSegs] = new Shear[ShapeSegs] {
+    override def shearXT(obj: ShapeSegs, yFactor: Double): ShapeSegs = obj.shearX(yFactor)
+
+    override def shearYT(obj: ShapeSegs, xFactor: Double): ShapeSegs = obj.shearY(xFactor)
   }
 }
