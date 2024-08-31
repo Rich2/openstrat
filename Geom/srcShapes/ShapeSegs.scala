@@ -72,7 +72,7 @@ trait ShapeSegs extends Shape
 object ShapeSegs
 {
   /** Throws on 0 length var args. */
-  def apply(curveTails: CurveTail*): ShapeSegs = {
+  def apply(curveTails: CurveTailOld*): ShapeSegs = {
     val array: Array[CurveSeg] = new Array[CurveSeg](curveTails.length)
     curveTails.iForeach { (ct, i) =>
       ct match {

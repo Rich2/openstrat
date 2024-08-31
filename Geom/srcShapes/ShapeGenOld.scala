@@ -6,17 +6,17 @@ import Colour.Black
  *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
  *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
  *  a BezierSeg. */
-class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTail] with AffinePreserve
+class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTailOld] with AffinePreserve
 { type ThisT = ShapeGenOld
   def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"
-  override def fElemStr: CurveTail => String = _.toString
+  override def fElemStr: CurveTailOld => String = _.toString
 
   /** Checks if 2 values of the specifying sequence are equal. */
-  override def ssElemEq(a1: CurveTail, a2: CurveTail): Boolean = ???
+  override def ssElemEq(a1: CurveTailOld, a2: CurveTailOld): Boolean = ???
 
-  override def ssElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
-    CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
+  override def ssElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTailOld =
+    CurveTailOld(iMatch, d1, d2, d3, d4, d5, d6)
 
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
   { val newArray = new Array[Double](ssLength * 7)
@@ -101,13 +101,13 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends SeqSpecDbl7[CurveTail]
   }
 
   /** Not sure if this is useful */
-  def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =
+  def tailForeach(fLineSeg: CurveTailOld => Unit, fArcSeg: CurveTailOld => Unit, fBezierSeg: CurveTailOld => Unit): Unit =
     ssForeach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 
-  @inline def segLast: CurveTail = ssLast
+  @inline def segLast: CurveTailOld = ssLast
 }
 
-object ShapeGenOld extends CompanionSeqLikeDbl7[CurveTail, ShapeGenOld]
+object ShapeGenOld extends CompanionSeqLikeDbl7[CurveTailOld, ShapeGenOld]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   override def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
 }

@@ -14,12 +14,12 @@ object CurveTest extends TestSuite
     val ls3 = ls2.slateXY(50, -50)
 
     test("Test1")
-    { ls1 ==> CurveTail(10, 0, 0, 0, 0, 4, 56)
-      as1 ==> CurveTail(11, 0, 0, 4, 4, 6, 4)
+    { ls1 ==> CurveTailOld(10, 0, 0, 0, 0, 4, 56)
+      as1 ==> CurveTailOld(11, 0, 0, 4, 4, 6, 4)
       as2 ==> as3
       as4 ==> ArcTail(13 pp 18, 17 pp 18)
-      ls2 ==> CurveTail(10, 0, 0, 0, 0, -5, -8)
-      ls3 ==> CurveTail(10, 0, 0, 0, 0, 45, -58)
+      ls2 ==> CurveTailOld(10, 0, 0, 0, 0, -5, -8)
+      ls3 ==> CurveTailOld(10, 0, 0, 0, 0, 45, -58)
     }
   }
 }

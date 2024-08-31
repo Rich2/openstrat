@@ -16,7 +16,7 @@ final class ShapeGen(val unsafeArray: Array[CurveSeg]) extends ShapeSegs with Ax
 object ShapeGen
 {
   /** Throws on 0 length var args. */
-    def apply(curveTails: CurveTail*): ShapeGen =
+    def apply(curveTails: CurveTailOld*): ShapeGen =
     { val array: Array[CurveSeg] = new Array[CurveSeg](curveTails.length)
       curveTails.iForeach { (ct, i) =>
         ct match {

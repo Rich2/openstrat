@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** Needs removing. A base trait for DistCurveSeg and DistCurveTail and their associated GraphicElemsDist (these haven't been implemented or precisely
  *  named yet). */
-trait DistCurveSegLike
+trait CurveSegMLikeOld
 { /** Set to Double.NaN if LineSegment. Set to Double.Positive Infinity of ArcSegment, otherwise the x component of the the first bezier control
     *  point. */
   def xC1Metres: Double
@@ -33,27 +33,27 @@ trait DistCurveSegLike
 
 /** Needs removing. A curve segment tail described in distance units rather than scalars. A DistCurveSeg without its starting point which will
  *  normally be supplied by the preceding DistCurveTail. */
-class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
-                    val xEndMetres: Double, val yEndMetres: Double) extends Dbl7Elem with DistCurveSegLike
+class CurveTailMOld(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
+                    val xEndMetres: Double, val yEndMetres: Double) extends Dbl7Elem with CurveSegMLikeOld
 { 
-  def toCurveSeg(f: PtM2 => Pt2): CurveTail = xC1Metres match
+  def toCurveSeg(f: PtM2 => Pt2): CurveTailOld = xC1Metres match
   {
     case 10 =>
     { val endVec = f(pEnd)
-      new CurveTail(10, 0, 0, 0, 0, endVec.x, endVec.y)
+      new CurveTailOld(10, 0, 0, 0, 0, endVec.x, endVec.y)
     }
     
     case 11 =>
     { val cenVec = f(pUses)
       val endVec = f(pEnd)
-      new CurveTail(11, 0, 0, cenVec.x, cenVec.y, endVec.x, endVec.y)
+      new CurveTailOld(11, 0, 0, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
     
     case _ =>
     { val c1Vec = f(pC1)
       val cenVec = f(pUses)
       val endVec = f(pEnd)
-      new CurveTail(12, c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
+      new CurveTailOld(12, c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
   }
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
@@ -66,16 +66,8 @@ class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Do
   @inline override def dbl7 = yEndMetres
 }
 
-/** To be removed. */
-object LineSegDistTail
-{ def apply(endPt: PtM2): DistCurveTail = new DistCurveTail(10, 0, 0, 0, 0, endPt.xMetresNum, endPt.yMetresNum)
+/** To be removed.m */
+object LineSegTailMOld
+{ def apply(endPt: PtM2): CurveTailMOld = new CurveTailMOld(10, 0, 0, 0, 0, endPt.xMetresNum, endPt.yMetresNum)
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
-}
-
-/** To be removed. */
-object ArcSegDistTail
-{
-   def apply(cenPt: PtM2, endPt: PtM2): DistCurveTail =
-      new DistCurveTail(11, 0, 0, cenPt.xMetresNum, cenPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
-//   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
 }
