@@ -9,7 +9,7 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle3 4473.900km² => 8768.845km² 4473.900km². Balearic Islands 5040km², Corsica no hex available.
  *  Faroes + Orkneys 2389km². */
 object Terr460E0 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e0(90)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e0(80)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -74,6 +74,9 @@ object Terr460E0 extends Long460Terrs
     TRow(92, sea * 6, hillySavannah),
     VRow(91, BendIn(520, HVDR, 13), BendMin(522, HVUL, 1)),
     TRow(90, sea * 5, hillySahel),
+    VRow(89, BendIn(520, HVUR, 13), BendOut(522, HVDL, 7)),
+    TRow(88, sea * 5, deshot),
+    VRow(87, BendIn(522, HVUR, 13), OrigLt(524, HVUL)),
     )
   }
   help.run
