@@ -6,10 +6,10 @@ import prid._, phex._, egrid._, WTiles._
  *  Isle 120974.276km² down to 57981.753km²
  *  [[Isle7]] 30243.569km² => 40265.106km². Sumbawa 15414km² + Flores 16231km² = 32645, Timor Island + Rote Island 32057.1km², Taiwan 36197km².
  *  [[Isle5]] 14495.438km² => 21653.679km². Samar 13429km² + Leyte 7367.6km² = 20796.6.
- *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km², Bali 5780km² + Lambok 4607km² = 9967km².
+ *  [[Isle4]] 8768.845km² => 14495.438km². Palawan 12189km², Sumba 11243km², Bali 5780km² + Lambok 4607km² = 9967km².
  *  [[Isle3]] 4473.900km² => 8768.845km². Alor 2724km² + Wetar 2651km² = 5375km². */
 object Terr460E120 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e120(90)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e120(88)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -60,7 +60,7 @@ object Terr460E120 extends Long460Terrs
 
     TRow(96, hillyJungle * 2, Isle4(hillyJungle), Isle7(mtainJungle), Isle3(mtainJungle)),
     VRow(95, OrigLt(4594, HVDR, 7), BendIn(4596, HVUp, 13), BendMin(4598, HVDn, 4), OrigRt(4600, HVUL, 7), BendIn(4622, HVUR, 13), OrigRt(4624, HVDR)),
-    TRow(94, sea * 4, Isle7(mtainJungle)),
+    TRow(94, sea * 3, Isle4(mtainJungle), Isle7(mtainJungle)),
     VRow(93, BendIn(4610, HVDR, 13), BendIn(4612, HVDn, 13), BendOut(4614, HVUp), OrigLt(4616, HVDL, 7)),
     TRow(92, sea * 4, mtainSahel, hillySahel, hillySavannah),
     VRow(91, BendIn(4608, HVDR, 13), BendOut(4610, HVUL, 7)),
@@ -73,6 +73,6 @@ object Terr460E120 extends Long460Terrs
     str(114, "" * 3, "Taiwan")
     str(106, "" * 4, "Samar")
     str(96, "Java west", "Java east", "Bali", "Sumbawa", "Alor")
-    str(94, "" * 4, "Timor")
+    str(94, "" * 3, "Sumba", "Timor")
   }
 }
