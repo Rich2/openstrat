@@ -5,7 +5,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag, a
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
  *  can be used to translate the point. */
-final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2
+final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with CurveTailMax6
 { override type ThisT = Pt2
   override type LineSegT = LineSeg
   override def typeStr: String = "Pt2"
@@ -242,6 +242,9 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2
     textArrow(str, angleTo(dirnPt), arrowLength, colour, fontSize)
 
   def boundingRect: Rect = Rect(0, 0, this)
+
+  override def curveSeg(startPt: Pt2): CurveSeg = LineSeg(startPt, this)
+  override def endPt: Pt2 = this
 }
 
 /** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the
