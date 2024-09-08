@@ -26,6 +26,8 @@ object Terr640E180 extends Long640Terrs
       Orig(6662, HVDL, 4, 2, siceWin)),
 
     TRow(122, SepB()),
+    TRow(92, SepB()),
+    VRow(91, SetSep(6649)),
     TRow(84, Isle9(hillySub)),
     TRow(82, Isle10(hillyOce)),
     TRow(74, sea, SeaIcePerm),

@@ -28,6 +28,8 @@ object Terr460E180 extends Long460Terrs
 
     VRow(131, SetSep(6649, siceWin)),
     TRow(130, SepB(siceWin)),
+    VRow(89, SetSep(6645)),
+    TRow(88, SepB())
     )
   }
   help.run

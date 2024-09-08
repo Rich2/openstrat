@@ -16,6 +16,19 @@ object Tasmania extends EarthAreaIsland("Tasmania", -24.45 ll 134.47, mtainOceFo
   override val polygonLL: PolygonLL = PolygonLL(capePortland, tasman, south, southWest, hunterNW, merseyBluff)
 }
 
+/** [[polygonLL]] graphical representation of Grande Terre, Grande Terr 16372km² + Loyalty Islands 1981km² = New Caledonia 18353km². Depends on nothing. */
+object NewCaldedonia extends EarthAreaIsland("New Caledonia", -21.282 ll 165.369, mtainJungle) {
+  override val area: KilometresSq = 18353.kilometresSq
+
+  val tiya: LatLong = -19.973 ll 163.932
+  val touho: LatLong = -20.794 ll 165.261
+  val p40: LatLong = -22.094 ll 166.943
+  val lleOuen: LatLong = -22.465 ll 166.816
+  val p70: LatLong = -21.556 ll 165.266
+
+  override val polygonLL: PolygonLL = PolygonLL(tiya, touho, p40, lleOuen, p70)
+}
+
 /** [[polygonLL]] graphical representation of the North Island of New Zealand 111583km². Depends on nothing. */
 object NZNorthIsland extends EarthAreaIsland("New Zealand\nNorth Island", -38.66 ll 176, hillyOce)
 { override val area: KilometresSq = 111583.kilometresSq

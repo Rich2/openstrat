@@ -5,7 +5,8 @@ import prid._, phex._, egrid._, WTiles._
 /** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 640km.
  * [[Isle8]] 77942.286km² => 100112.536km². Hokkaido 83423.84km².
  * [[Isle7]] 58543.317km² => 77942.286km². Tasmania 68401 km².
- * [[Isle6]] 41915.629km² => 58543.317km². New Britain 35144km² + New Ireland 8990km² = 44134km². */
+ * [[Isle6]] 41915.629km² => 58543.317km². New Britain 35144km² + New Ireland 8990km² = 44134km².
+ * [[Isle4]] 16974.097km² => 28059.223km². New Caledonia 18353km². */
 object Terr640E150 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e150(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -44,7 +45,7 @@ object Terr640E150 extends Long640Terrs
 
     TRow(94, savannah, hillySavannah),
     VRow(93, Orig(5630, HVUR, 4, 4), ThreeUp(5632, 0, 13, 13), BendIn(5634, HVDL, 13)),
-    TRow(92, savannah, hillySavannah),
+    TRow(92, savannah, hillySavannah, sea, Isle4(hillyJungle)),
     VRow(91, BendOut(5634, HVUR, 7), BendIn(5636, HVDL, 13)),
     TRow(90, deshot, savannah, hillySavannah),
     VRow(89, OrigLt(5636, HVUp, 7)),
@@ -67,5 +68,6 @@ object Terr640E150 extends Long640Terrs
     str(118, "Hokkaido")
     str(98, "New Guinee\ncentral", "New Guinee NE", "New Britain")
     str(96, "New Guinee SW", "New Guinee SM", "new Guinee SE")
+    str(92, "" * 3, "New Caledonia")
   }
 }

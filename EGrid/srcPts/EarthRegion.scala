@@ -10,7 +10,7 @@ abstract class EarthRegion(val name: String, val cen: LatLong) extends Geographi
 }
 
 
-/** Top level grouping for north west European areas. */
+/** Top level grouping for north-west European areas. */
 object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
 { import pEurope._
   override val a2Arr: RArr[EarthArea] = RArr(IrelandNorth, IrelandSouth, EnglandNorth, EnglandMiddle, EnglandSouth, ScotlandLow, ScotlandHigh, Wales, Orkneys,
@@ -18,14 +18,14 @@ object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
     Baltland, Ukraine, SwedenSouth, SwedenNorth, Oland, IsleMan)
 }
 
-/** Top level grouping for north east European areas. */
+/** Top level grouping for north-east European areas. */
 object EuropeEast extends EarthRegion("EuropeEast", 60 ll 60)
 { import pEurope._
   override val a2Arr: RArr[EarthArea] = RArr(RussiaSouth, VolgaRegion, Caspian, AzovSea, Greece, BalkansWest, BalkansEast, Finlandia, KolaPeninsula, Gotland,
     Saaremaa, Hiiumaa, Crimea, MarmaraSea, Peloponnese)
 }
 
-/** Top level grouping for south west European areas. */
+/** Top level grouping for south-west European areas. */
 object EuropeSW extends EarthRegion("EuropeSw", 20 ll 0)
 { import pEurope._
   override val a2Arr: RArr[EarthArea] = RArr(FranceSouth, IberiaNorth, IberiaSouth, ItalyNorth, ItalySouth, ItalyHeel, ItalyToe)
@@ -116,8 +116,8 @@ object PolarNorth extends EarthRegion("NPole", 89.5 ll 0)
 /** Australasia. Australia and New Zealand. */
 object Australasia extends EarthRegion("Australasia", -23 ll 130)
 { import soceans._
-  override val a2Arr: RArr[EarthArea] = RArr(WesternAustralia, AustraliaNorthTerr, Queensland, SouthAustralia, AustraliaSouthEast, Tasmania, NZNorthIsland,
-    NZSouthIsland)
+  override val a2Arr: RArr[EarthArea] = RArr(WesternAustralia, AustraliaNorthTerr, Queensland, SouthAustralia, AustraliaSouthEast, Tasmania, NewCaldedonia,
+    NZNorthIsland, NZSouthIsland)
 }
 
 /** Malay archipelago. */

@@ -4,6 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain terrain for 105° east to 135° east, centred on 120° east. Hex tile scale 460km.
  * [[Isle7]] 30243.569km² => 40265.106km². New Britain 35144km².
+ * [[Isle6]] 21653.679km² => 30243.569km². New Caledonia 18353km².
  * [[Isle4]] 8768.845km² => 14495.438km². New Ireland 8990km². */
 object Terr460E150 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e150(88)
@@ -52,7 +53,7 @@ object Terr460E150 extends Long460Terrs
       VRow(91, OrigMax(5622, HVUp), BendOut(5630, HVUR, 7), BendIn(5632, HVDL, 13)),
       TRow(90, sahel, savannah, hillyJungle),
       VRow(89, BendOut(5632, HVUR, 7), BendIn(5634, HVDL, 13)),
-      TRow(88, sahel, savannah, hillySubForest),
+      TRow(88, sahel, savannah, hillySubForest, sea * 2, Isle6(mtainJungle)),
     )
   }
   help.run
@@ -60,6 +61,6 @@ object Terr460E150 extends Long460Terrs
   { import hexNames.{setRow => str}
     str(98, "" * 3, "New Ireland")
     str(96, "" * 3, "New Britain")
-
+    str(88, "" * 5, "New Caldeonia")
   }
 }
