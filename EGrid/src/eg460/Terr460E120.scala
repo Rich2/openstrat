@@ -65,6 +65,8 @@ object Terr460E120 extends Long460Terrs
     TRow(92, sea * 4, mtainSahel, hillySahel, hillySavannah),
     VRow(91, BendIn(4608, HVDR, 13), BendOut(4610, HVUL, 7)),
     TRow(90, sea * 3, sahel, hillySahel, sahel),
+    VRow(89, OrigLt(4604, HVDL, 7)),
+    TRow(88, sea, hillySahel, deshot * 3, hillySahel),
     )
   }
   help.run

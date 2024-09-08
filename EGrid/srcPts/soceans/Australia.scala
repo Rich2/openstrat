@@ -22,13 +22,15 @@ object WesternAustralia extends EarthArea("Western\nAustralia", -24.839 ll 124, 
   val legendreIsland: LatLong = -20.354 ll 116.835
   val eightyMile: LatLong = -19.41 ll 121.24
   val couloumbPoint: LatLong = -17.30 ll 122.12
-  val dempierNorth = -16.360 ll 123.033
-  val degerandoIsland = -15.337 ll 124.188
+  val dempierNorth: LatLong = -16.360 ll 123.033
+  val marvNorth: LatLong = -17.236 ll 123.544
+  val longIsland: LatLong = -16.534 ll 123.349
+  val degerandoIsland: LatLong = -15.337 ll 124.188
   val drysdaleRiver: LatLong = -13.77 ll 126.95
 
   override val polygonLL: PolygonLL = PolygonLL(AustraliaNorthTerr.northWest, AustraliaNorthTerr.southWest, southEast, nuytsland1, nuytsland2, westCapeHowe,
     windyHarbour, capeLeeuwin, capeNaturaliste, busselton, p60, p64, p68, dirkHartog1, dirkHartogN, capePeron, west, legendreIsland, eightyMile, couloumbPoint,
-    dempierNorth, degerandoIsland, drysdaleRiver)
+    dempierNorth, marvNorth, longIsland, degerandoIsland, drysdaleRiver)
 }
 
 /** [[polygonLL]] graphical representation of Australia. Depends on nothing. */
