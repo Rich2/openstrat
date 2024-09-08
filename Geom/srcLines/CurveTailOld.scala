@@ -5,7 +5,7 @@ package ostrat; package geom
  *  It takes its start point from the pEnd of the previous segment. There is no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all
  *  have their own factory object apply methods. */
 case class CurveTailOld(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
-                        val yEnd: Double) extends Dbl7Elem /*with CurveTailLike*/ with AffinePreserve
+  val yEnd: Double) extends Dbl7Elem /*with CurveTailLike*/ with AffinePreserve
 { override type ThisT = CurveTailOld
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTailOld]
   @inline override def dbl1 = iMatch

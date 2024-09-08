@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. The CArc is intended to function as
- * closely as possible to the functioning of CArcTails in a curve path. Hence the decision to store the three points as fields rather using the [[AngleVec]] of
+ * closely as possible to the functioning of CArcTails in a curve path. Hence, the decision to store the three points as fields rather using the [[AngleVec]] of
  * the arc which would allow less data. This is to avoid calculation / rounding errors in the start and end points, which will be used by other [[CurveSeg]]s in
  * curve paths.
  *  @groupdesc EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc.
@@ -13,13 +13,13 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(cenX, cenY)
 
-  /** Radius of the this circular arc. */
+  /** Radius of this circular arc. */
   def radius: Double = cen.distTo(pStart)
 
   /** The chord of this Arc */
   def chord: LineSeg = pStart.lineSegTo(pEnd)
 
-  /** The mid point of the chord of this arc. */
+  /** The mid-point of the chord of this arc. */
   def chordCen: Pt2 = pStart.\/(pEnd)
 
   def addRotations(delta: Int): CArc = new CArc(startX, startY, cenX, cenY, endX, endY, counter + delta)
@@ -121,7 +121,7 @@ object CArc
 { /** Factory method for creating circular arcs. */
   def apply(pStart: Pt2, cen: Pt2, pEnd: Pt2, counter: Int): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, counter)
 
-  /** Creates a positive direction or anti clockwise circular arc, with an [[AngleVec]] from 0 until 360 degrees. */
+  /** Creates a positive direction or anti-clockwise circular arc, with an [[AngleVec]] from 0 until 360 degrees. */
   def pos(pStart: Pt2, cen: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, ife(pStart == pEnd, 0, 1))
 
   /** Creates a negative direction or clockwise circular arc, with an [[AngleVec]] from 0 until -360 degrees. */
