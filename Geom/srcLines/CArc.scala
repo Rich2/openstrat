@@ -1,15 +1,15 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. The CArc is intended to
- *  function as closely as possible to the functioning of CArcTails in a curve path. Hence the decision to store the three points as fields rather
- *  using the [[AngleVec]] of the arc which would allow less data. This is to avoid calculation /rounding errors in the start and end points, which
- *  will be used by other [[CurveSeg]]s in curve paths.
+/** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. The CArc is intended to function as
+ * closely as possible to the functioning of CArcTails in a curve path. Hence the decision to store the three points as fields rather using the [[AngleVec]] of
+ * the arc which would allow less data. This is to avoid calculation / rounding errors in the start and end points, which will be used by other [[CurveSeg]]s in
+ * curve paths.
  *  @groupdesc EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double,
-                   val counter: Int) extends EArclign
+class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double, val counter: Int) extends
+  EArclign
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(cenX, cenY)
 
@@ -40,16 +40,13 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating Xon this CArc returns a CArc. */
   override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -counter)
 
-  /** Rotation of 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
-   * traits. */
+  /** Rotation of 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate90: CArc = ???
 
-  /** Rotation of 180 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
-   * traits. */
+  /** Rotation of 180 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate180: CArc = ???
 
-  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
-   * traits. */
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate270: CArc = ???
 
   /** 2D Transformation using a [[ProlignMatrix]]. */
@@ -63,51 +60,50 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
 
   /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */
 
-  /** The end of elliptical axis 1. By default this is the right vertex of the Ellipse, so this point on the circle is given although there is no
-   * actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The end of elliptical axis 1. By default this is the right vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
+   * there on this circle, which is a special case of an ellipse. */
   override def axesPt1: Pt2 = cen.addX(radius)
 
-  /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is
-   *  specified as the right of the circle this CArc is based on. */
+  /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is specified as
+   * the right of the circle this CArc is based on. */
   override def axesPt1x: Double = cenX + radius
 
-  /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is
-   *  specified as the right of the circle this CArc is based on. */
+  /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is specified as
+   * the right of the circle this CArc is based on. */
   override def axesPt1y: Double = cenY
 
-  /** The start of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
-   *  actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The start of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no actual
+   * vertex there on this circle, which is a special case of an ellipse. */
   override def axesPt2: Pt2 = cen.subY(radius)
 
-  /** The X component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
-   * axis or a co-vertex for the minor axis.. */
+  /** The X component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the
+   * major axis or a co-vertex for the minor axis. */
   override def axesPt2x: Double = ???
 
-  /** The y component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a
-   * vertex for the major axis or a co-vertex for the minor axis. */
+  /** The y component of the start point of axis 2. By default, this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the
+   * major axis or a co-vertex for the minor axis. */
   override def axesPt2y: Double = ???
 
-  /** The start of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although there is no
-   * actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The start of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although there is no actual vertex
+   * there on this circle, which is a special case of an ellipse. */
   override def axesPt3: Pt2 = cen.subX(radius)
 
-  /** The X component of the start point of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given
-   *  although there is no actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The X component of the start point of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although
+   * there is no actual vertex there on this circle, which is a special case of an ellipse. */
   override def axesPt3x: Double = cenX - radius
 
   override def axesPt3y: Double = cenX
 
-  /** The end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
-   *  actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no actual
+   * vertex there on this circle, which is a special case of an ellipse. */
   override def axesPt4: Pt2 = cen.addY(radius)
 
-
-  /** The X component of the end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given
-   *  although there is no actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The X component of the end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there
+   *  is no actual vertex there on this circle, which is a special case of an ellipse. */
   override def axesPt4x: Double = cenX
 
-  /** The Y component of the end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given
-   *  although there is no actual vertex there on this circle, which is a special case of an ellipse. */
+  /** The Y component of the end of elliptical axis 2. By default, this is the bottom vertex of the Ellipse, so this point on the circle is given although there
+   * is no actual vertex there on this circle, which is a special case of an ellipse. */
   override def axesPt4y: Double = cenY + radius
 
   override def cenP1: Vec2 = cen >> axesPt1
