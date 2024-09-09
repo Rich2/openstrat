@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  *  include Iceland if it was centred.
  *  Isle3 from 8768.845km² down to 4473.900km² includes the Canaries. */
 object Terr460W30 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.w30(90)
+{ override implicit val grid: EGrid460LongFull = EGrid460.w30(80)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -51,8 +51,11 @@ object Terr460W30 extends Long460Terrs
       TRow(94, hillySavannah * 2),
       VRow(93, BendOut(11770, HVDR, 7), BendIn(11772, HVUL, 13)),
       TRow(92, hillySavannah, mtainJungle),
-      VRow(91, BendIn(11770, HVUL, 13)),
+      VRow(91, BendMin(11768, HVDR), BendIn(11770, HVUL, 13)),
       TRow(90, hillyJungle),
+      VRow(89, BendOut(11768, HVUR), BendIn(11770, HVDL, 13)),
+      TRow(88, hillySub),
+      VRow(87, BendIn(11770, HVUL, 13)),
     )
   }
   terrSet.run
