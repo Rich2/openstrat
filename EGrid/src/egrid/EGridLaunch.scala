@@ -11,8 +11,8 @@ object EGridLaunch extends GuiLaunchMore
     (cv => EGTerrOnlyGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view(), false), "JavaFx Eath 80KM Grid")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val scenNum: Int = sts.findSettingElse("scen",1)
-    val isFlat: Boolean = sts.findSettingElse("flat",false)
+  { val scenNum: Int = sts.findSettingElse("scen", 1)
+    val isFlat: Boolean = sts.findSettingElse("flat", false)
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](scenNum)
     
     val scen: EScenBasic = scenNum match

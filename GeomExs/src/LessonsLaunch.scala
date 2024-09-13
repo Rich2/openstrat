@@ -2,20 +2,17 @@
 package learn
 import ostrat._, pParse._, pgui._
 
-object Lessons extends GuiLaunch
+object LessonsLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "lessons"
 
   override def default: (CanvasPlatform => Any, String) = (LsACircles.canv, "JavaFx" -- LsACircles.title)
 
-  override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) =
-  {
-    val obj = expr match
-    {
-      case it: IdentifierToken => theMap(it.srcStr)
-      case _ => theMap("")
-    }
-    (obj.canv, "JavaFx" -- obj.title)
+  override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
+  { val code: String = sts.findSettingElse("code", "A1")
+
+    val res = theMap(code)
+    (res.canv, "JavaFx" -- res.title)
   }
 
   def theMap(inp: String): GraphicsA = inp match

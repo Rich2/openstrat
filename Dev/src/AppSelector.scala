@@ -6,7 +6,7 @@ import pgui._, pStrat._
 object AppSelector
 { /** Matches the [[String]] for the identifier in DevSettings.rson to a list of Apps. */
   val launchs: ArrPairStr[GuiLaunch] = ArrPairStr[GuiLaunch](
-    ("L", learn.Lessons),
+    ("L", learn.LessonsLaunch),
     ("PF", peri.PeriLaunch),
     ("DL", dless.DLessLaunch),
     ("W1", pww1.WW1Launch),
