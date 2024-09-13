@@ -9,7 +9,7 @@ object LessonsLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (LsACircles.canv, "JavaFx" -- LsACircles.title)
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val code: String = sts.findSettingElse("code", "A1")
+  { val code: String = sts.findSettingIdentifierElse("code", "A1")
 
     val res = theMap(code)
     (res.canv, "JavaFx" -- res.title)

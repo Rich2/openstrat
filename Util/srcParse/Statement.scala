@@ -88,6 +88,9 @@ object Statement
       case expr => badNone("Not an identifier.")
     }
 
+    /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
+    def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
+
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = findSettingExpr(settingStr).flatMap {
       case IdentifierToken(str) => Good(StrArr(str))

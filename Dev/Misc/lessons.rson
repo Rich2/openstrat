@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 
-code = "A1"
+code = A1
 
 /* lessons
 case "A1a" => (LsA1a(_), "JavaFx Demonstration Canvas A1")
