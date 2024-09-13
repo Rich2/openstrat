@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._
 
@@ -7,6 +7,6 @@ import ostrat._, geom._, pgui._
 case class LsB1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B1")
 {
   /*This is the simplest time helper method. You merly need to provide a single object that changes over time. Note each time we create a new
-  differenet object. rather than modifying the original. */
+  different object. rather than modifying the original. */
   timedRepaint1(e => TextFixed((e /1000).toString + " Seconds have elapsed", 45, Pt2Z))
 }
