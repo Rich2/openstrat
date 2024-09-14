@@ -25,7 +25,7 @@ object ServRawOS extends ServRaw
         case "/Documentation/util.html" => UtilPage.httpResp(httpNow, "localhost")
         case "/Documentation/geom.html" => geom.GeomPage.httpResp(httpNow, "localhost")
         case "/Documentation/tiling.html" => prid.TilingPage.httpResp(httpNow, "localhost")
-        case "/Documentation/egrid.html" => egrid.EGridPage.httpResp(httpNow, "localhost")
+        case "/Documentation/egrid.html" => EGridPage.httpResp(httpNow, "localhost")
         case "/Documentation/apps.html" => AppsPage.httpResp(httpNow, "localhost")
         case "/Documentation/documentation.css" => CssDocumentation.httpResp(httpNow, "localhost")
         case "/only.css" => OnlyCss.httpResp(httpNow, "localhost")
