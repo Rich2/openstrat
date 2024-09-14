@@ -31,6 +31,8 @@ def sett3 = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
+lazy val Exs = config("Exs") extend(Compile)
+
 def proj(srcsStr: String, nameStr: String) = Project(nameStr, file(nameStr)).settings(sett3).settings(
   moduleDir := bbDir.value / srcsStr,
   Test/scalaSource := moduleDir.value / "TestSrc",
@@ -48,6 +50,8 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings
 
 def jvmProj(srcsStr: String): Project = mainProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
+  inConfig(Exs)(Defaults.compileSettings),
+  Exs/unmanagedSourceDirectories := List("ExsSrc", "Exs/Src").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.4" % "test" withSources() withJavadoc(),
