@@ -15,7 +15,7 @@ object LessonsLaunch extends GuiLaunchMore
     (res.canv, "JavaFx" -- res.title)
   }
 
-  def theMap(inp: String): GraphicsA = inp match
+  def theMap(inp: String): LessonGraphics = inp match
   {
     case "A1" => LsACircles
     case "A2" => LsASquares
@@ -34,7 +34,7 @@ object LessonsLaunch extends GuiLaunchMore
     case "A19" => LsAEllipses
     case "A20" => LsAInner
     
-//    case "B1" => (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
+    case "B1" => LsTimer// (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
 //    case "B2" => (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")
 //    case "B3" => (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")
 //

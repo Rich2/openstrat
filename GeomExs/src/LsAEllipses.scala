@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsAEllipses extends GraphicsA
+object LsAEllipses extends LessonGraphics
 {
   override def title: String = "Ellipses"
 

@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, Colour._
 
-object LsACircles extends GraphicsAE
+object LsACircles extends LessonStatic
 { val title = "Coloured Circles"
 
   val output: RArr[CircleFill] = RArr(

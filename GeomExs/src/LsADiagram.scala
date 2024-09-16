@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._
 
-object LsADiagram extends GraphicsAE
+object LsADiagram extends LessonStatic
 {
   override def title: String = "Diagram"
 

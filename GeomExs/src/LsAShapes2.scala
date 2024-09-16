@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsAShapes2 extends GraphicsAE//(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
+object LsAShapes2 extends LessonStatic//(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
 {
   override def title: String = "Shapes2"
 

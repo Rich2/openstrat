@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, Colour._
 
 /** Tiling Lesson. */
-object LsATiling extends GraphicsAE
+object LsATiling extends LessonStatic
 {
   override def title: String = "Tiling"
 

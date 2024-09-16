@@ -6,7 +6,7 @@ trait LessonPage
 { def page: HtmlPage
 }
 
-trait GraphicsA extends LessonPage
+trait LessonGraphics extends LessonPage
 { def title: String
 
   def canv: CanvasPlatform => Any
@@ -16,7 +16,7 @@ trait GraphicsA extends LessonPage
   def head: HtmlHead = HtmlHead(RArr(HtmlTitle(title)))
 }
 
-trait GraphicsAE extends GraphicsA
+trait LessonStatic extends LessonGraphics
 {
   def output: GraphicElems
 

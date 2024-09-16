@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, Colour._
 
 /** Lesson A12. */
-object LsAHexEnum extends GraphicsAE
+object LsAHexEnum extends LessonStatic
 { override def title: String = "Hexagon enumeration"
 
   override def bodyStr: String = """Hexagon enumeration."""

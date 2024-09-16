@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, Colour._
 
-object LsAInner extends GraphicsAE
+object LsAInner extends LessonStatic
 { override val title: String = "Inner Rect"
   override def bodyStr: String = "Inner rectangles."
   val hex: HexParrX = HexParrX(400)

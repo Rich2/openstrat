@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, Colour._
 
 /** Lesson introducing Squares. */
-object LsASquares extends GraphicsAE
+object LsASquares extends LessonStatic
 {
   override def title: String = "Squares"
 
