@@ -35,7 +35,7 @@ object LessonsLaunch extends GuiLaunchMore
     case "A20" => LsAInner
     
     case "B1" => LsTimer// (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
-//    case "B2" => (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")
+    case "B2" => LsB2//(_), "JavaFx Demonstration Animated Canvas 2")
 //    case "B3" => (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")
 //
 //    case "C1" => (learn.LsC1(_), "JavaFx Demonstration Interactive Canvas 1") //User interactive graphics
