@@ -44,13 +44,13 @@ object LessonsLaunch extends GuiLaunchMore
     case "C4" => LsC4
     case "C5" => LsC5
     case "C6" => LsC6
-//    case "C7" => (learn.LsC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")
-//    case "C8" => (learn.LsC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")
-//
-//    case "D1" => (learn.LsD1(_), "JavaFx Demonstration Persistence 1") //Persistence, saving and retrieving data outside of code
-//    case "D2" => (learn.LsD2(_), "JavaFx Demonstration Persistence 2")
-//    case "D3" => (learn.LsD3(_), "JavaFx Demonstration Persistence 3")
-//    case "D4" => (learn.LsD4(_), "JavaFx Demonstration Persistence 4")
+    case "C7" => LsC7
+    case "C8" => LsC8
+
+    case "D1" => LsD1
+    case "D2" => LsD2
+    case "D3" => LsD3
+    case "D4" => LsD4
 //    case "D5" => (learn.LsD5(_), "JavaFx Demonstration Persistence 5")
 //
 //    case "E1" => (learn.LsE1(_), "JavaFx Demonstration Games 1") //Building turn based games.

@@ -1,9 +1,16 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
+object LsC8 extends LessonGraphics
+{ override def title: String = "Pointer targeting Lesson"
+
+  override def bodyStr: String = """Lesson C3. Pointer in object."""
+
+  override def canv: CanvasPlatform => Any = LsC8Canv(_)
+
 /** This lesson displays an interactive Bezier curve whose points can be dragged and also displays the syntax required to draw it */
-case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More shape dragging.")
+case class LsC8Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More shape dragging.")
 { /** defines the size of the circles that represent the points of the bezier */
   val circleRadius = 15
   case class Drag(var v: Pt2, c: Colour)
@@ -55,4 +62,4 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
 
   /** dragging has finished so reset theDragee */
   mouseUp = (button, clickList, position) => theDragee = None 
-}
+}}
