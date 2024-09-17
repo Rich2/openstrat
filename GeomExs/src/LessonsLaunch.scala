@@ -51,10 +51,10 @@ object LessonsLaunch extends GuiLaunchMore
     case "D2" => LsD2
     case "D3" => LsD3
     case "D4" => LsD4
-//    case "D5" => (learn.LsD5(_), "JavaFx Demonstration Persistence 5")
-//
-//    case "E1" => (learn.LsE1(_), "JavaFx Demonstration Games 1") //Building turn based games.
-//    case "E2" => (learn.LsE2(_), "JavaFx Demonstration Games 2")
+    case "D5" => LsD5
+
+    case "E1" => LsE1
+    case "E2" => LsE2
 
     case _ => LsACircles
   }
