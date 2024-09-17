@@ -16,8 +16,7 @@ object LessonsLaunch extends GuiLaunchMore
   }
 
   def theMap(inp: String): LessonGraphics = inp match
-  {
-    case "A1" => LsACircles
+  { case "A1" => LsACircles
     case "A2" => LsASquares
     case "A3" => LsACircles2
     case "A4" => LsAPolygons
@@ -34,17 +33,17 @@ object LessonsLaunch extends GuiLaunchMore
     case "A19" => LsAEllipses
     case "A20" => LsAInner
     
-    case "B1" => LsTimer// (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
-    case "B2" => LsB2//(_), "JavaFx Demonstration Animated Canvas 2")
-//    case "B3" => (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")
-//
-//    case "C1" => (learn.LsC1(_), "JavaFx Demonstration Interactive Canvas 1") //User interactive graphics
-//    case "C2" => (learn.LsC2(_), "JavaFx Demonstration Interactive Canvas 2")
-//    case "C3" => (learn.LsC3(_), "JavaFx Demonstration Interactive Canvas 3")
-//    case "C3b" => (learn.LsC3b(_), "JavaFx Demonstration Interactive Canvas 3b")
-//    case "C4" => (learn.LsC4(_), "JavaFx Demonstration Interactive Canvas 4")
-//    case "C5" => (learn.LsC5(_), "JavaFx Demonstration Interactive Canvas 5")
-//    case "C6" => (learn.LsC6(_), "JavaFx Demonstration Interactive Canvas 6")
+    case "B1" => LsTimer
+    case "B2" => LsB2
+    case "B3" => LsB3
+
+    case "C1" => LsC1
+    case "C2" => LsC2
+    case "C3" => LsC3
+    case "C3b" => LsC3b
+    case "C4" => LsC4
+    case "C5" => LsC5
+    case "C6" => LsC6
 //    case "C7" => (learn.LsC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")
 //    case "C8" => (learn.LsC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")
 //
