@@ -2,17 +2,21 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._, BaseLine._//{Alphabetic, Bottom, Middle, Top}
 
-case class LsAText(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
-{
-  //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
-  val ptStart: Pt2 = -100 pp 50
-  //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.
-  val ptEnd = 500 pp 300
-  
-  //However if you uncomment the line below you will get a compile error. You have told the compiler you are expecting a Vec2 but given it a number.
-  //val badPoint: Vec2 = 100
+object LsAText extends LessonStatic {
+  override def title: String = "Text"
 
-  val arr = RArr(
+  override def bodyStr: String = "Text"
+
+
+    //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
+    val ptStart: Pt2 = -100 pp 50
+    //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.
+    val ptEnd = 500 pp 300
+
+    //However if you uncomment the line below you will get a compile error. You have told the compiler you are expecting a Vec2 but given it a number.
+    //val badPoint: Vec2 = 100
+
+  override def output: GraphicElems = RArr(
     Bezier(ptStart, 200 pp 350, 0 pp 70, ptEnd).draw(2, Blue),
     Bezier(ptStart, 200 pp 350, 100 pp 270, ptEnd).draw(2, Gray),
     Bezier(ptStart, 100 pp 350, 100 pp 270, ptEnd).draw(2, Violet),
@@ -32,8 +36,5 @@ case class LsAText(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
     TextFixed("middle", 18, 100 pp 150, Black, LeftAlign, Middle),
     TextFixed("bottom", 18, 150 pp 150, Black, LeftAlign, Bottom),
     TextFixed("alphabetic = ", 18, -230 pp 150, Black, LeftAlign, Alphabetic),
-  )
-
-  //So lets use those values above
-  repaint(arr)
+  )   
 }
