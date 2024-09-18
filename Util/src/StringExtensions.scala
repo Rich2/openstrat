@@ -226,3 +226,15 @@ class ExtensionsString(val thisString: String) extends AnyVal
     res
   }
 }
+
+/** Extraction object for extracting a sequence of letters followed by an [[Int]]. */
+object AlphaInt
+{ /** Extractor for extracting a sequence of letters followed by an [[Int]]. */
+  def unapply(inp: String): Option[(String, Int)] =
+  { val (p1, p2) = inp.span(_.isLetter)
+    p2.asInt match
+    { case Good(i) if p1.length > 0 => Some(p1, i)
+      case _ => None
+    }
+  }
+}
