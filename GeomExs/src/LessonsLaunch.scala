@@ -21,47 +21,12 @@ object LessonsLaunch extends GuiLaunchMore
   val dList = RArr(LsD1, LsD2, LsD3, LsD4, LsD5)
   val eList = RArr(LsE1, LsE2)
 
-  def theMap(inp: String): LessonGraphics = inp match
-  { case "A1" => LsACircles
-    case "A2" => LsASquares
-    case "A3" => LsACircles2
-    case "A4" => LsAPolygons
-
-    case "A6" => LsARotation
-    case "A7" => LsAShapes2
-    case "A8" => LsAShapes
-    case "A9" => LsABeziers
-    case "A10" => LsADiagram
-    case "A11" => LsAReflect
-    case "A12" => LsAHexEnum
-    case "A13" => LsATiling
-    case "A18" => LsAArcs
-    case "A19" => LsAEllipses
-    case "A20" => LsAInner
-    
-    case "B1" => LsTimer
-    case "B2" => LsB2
-    case "B3" => LsB3
-
-    case "C1" => LsC1
-    case "C2" => LsC2
-    case "C3" => LsC3
-    case "C3b" => LsC3b
-    case "C4" => LsC4
-    case "C5" => LsC5
-    case "C6" => LsC6
-    case "C7" => LsC7
-    case "C8" => LsC8
-
-    case "D1" => LsD1
-    case "D2" => LsD2
-    case "D3" => LsD3
-    case "D4" => LsD4
-    case "D5" => LsD5
-
-    case "E1" => LsE1
-    case "E2" => LsE2
-
-    case _ => LsACircles
+  def theMap(inp: String): LessonGraphics = inp.findAlphaInt.fold(LsACircles){
+    case ("A", i) => if (i > aList.length || i < 1) aList(0) else aList(i - 1)
+    case ("B", i) => if (i > bList.length || i < 1) bList(0) else bList(i - 1)
+    case ("C", i) => if (i > cList.length || i < 1) cList(0) else cList(i - 1)
+    case ("D", i) => if (i > dList.length || i < 1) dList(0) else dList(i - 1)
+    case ("E", i) => if (i > eList.length || i < 1) eList(0) else eList(i - 1)
+    case _ => aList(0)
   }
 }
