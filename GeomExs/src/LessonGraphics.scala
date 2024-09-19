@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat.*, geom.*, pgui.{CanvasNoPanels, CanvasPlatform }, pWeb.*
+import ostrat.*, geom.*, pgui.*, pWeb.*
 
 trait LessonGraphics
 { def title: String

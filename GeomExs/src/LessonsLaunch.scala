@@ -30,4 +30,12 @@ object LessonsLaunch extends GuiLaunchMore
     case ("E", i) => if (i > eList.length || i < 1) eList(0) else eList(i - 1)
     case _ => aList(0)
   }
+  
+  val rsonText: String =
+  {
+    val als = aList.iMap{ (i, l) => "A" + (i + 1).toString -- aList(i).title }
+    val als2 = als.mkStr("\n")
+    val top = """/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */"""
+    top + "\n\ncode = A1" --- """/*""" --- als2 --- """*/"""
+  }
 }
