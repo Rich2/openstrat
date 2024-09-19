@@ -1,12 +1,12 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pgui._, Colour._
+import ostrat.*, geom.*, pgui.*, Colour.*
 
-object LsAShapes2 extends LessonStatic//(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
+object LsAShapesReproduction extends LessonStatic
 {
-  override def title: String = "Shapes2"
+  override def title: String = "Shapes Reproduction"
 
-  override def bodyStr: String = ???
+  override def bodyStr: String = "Shapes Reproduction"
 
   val pt1 = -200 pp 200
   val arcCentre = 0 pp 200

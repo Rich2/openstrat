@@ -2,9 +2,9 @@
 package learn
 import ostrat._, geom._, Colour._
 
-object LsASides extends LessonStatic
-{ override val title: String = "Inner Rect"
-  override def bodyStr: String = "Inner rectangles."
+object LsAPolygonSides extends LessonStatic
+{ override val title: String = "Polygon Sides"
+  override def bodyStr: String = "Polygon sides."
   val hex: HexParrX = HexParrX(400)
   val hd: PolygonDraw = hex.draw()
 

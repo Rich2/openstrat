@@ -15,9 +15,9 @@ object LessonsLaunch extends GuiLaunchMore
     (res.canv, "JavaFx" -- res.title)
   }
 
-  val aList: RArr[LessonGraphics] = RArr(LsACircles, LsASquares, LsACircles2, LsAPolygons, LsARotation, LsAShapes2, LsAShapes, LsABeziers, LsADiagram,
-    LsAReflect, LsAHexEnum, LsATiling, LsAArcs, LsAEllipses, LsAInner, LsASides, LsAText)
-  val bList = RArr(LsTimer, LsB2, LsB3)
+  val aList: RArr[LessonGraphics] = RArr(LsACircles, LsASquares, LsACircles2, LsAPolygons, LsARotation, LsAShapes, LsAShapesReproduction, LsABeziers, LsADiagram,
+    LsAReflect, LsAHexEnum, LsATiling, LsAArcs, LsAEllipses, LsAInnerRect, LsAPolygonSides, LsAText)
+  val bList = RArr(LsTimer, LsMovingRectangle, LsB3)
   val cList = RArr(LsC1, LsC2, LsC3, LsC3b, LsC4, LsC5, LsC6, LsC7, LsC8)
   val dList = RArr(LsD1, LsD2, LsD3, LsD4, LsD5)
   val eList = RArr(LsE1, LsE2)
@@ -32,10 +32,12 @@ object LessonsLaunch extends GuiLaunchMore
   }
   
   val rsonText: String =
-  {
-    val als = aList.iMap{ (i, l) => "A" + (i + 1).toString -- aList(i).title }
-    val als2 = als.mkStr("\n")
+  { val als = aList.iMap{ (i, l) => "A" + (i + 1).toString -- aList(i).title }.mkStr("\n")
+    val bls = bList.iMap{ (i, l) => "B" + (i + 1).toString -- bList(i).title }.mkStr("\n")
+    val cls = cList.iMap{ (i, l) => "C" + (i + 1).toString -- cList(i).title }.mkStr("\n")
+    val dls = dList.iMap{ (i, l) => "D" + (i + 1).toString -- dList(i).title }.mkStr("\n")
+    val els = eList.iMap{ (i, l) => "E" + (i + 1).toString -- eList(i).title }.mkStr("\n")
     val top = """/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */"""
-    top + "\n\ncode = A1" --- """/*""" --- als2 --- """*/"""
+    top + "\n\ncode = A1" --- """/*""" --- als --- bls --- cls --- dls --- els --- """*/"""
   }
 }

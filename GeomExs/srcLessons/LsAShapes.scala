@@ -3,9 +3,9 @@ package learn
 import ostrat._, geom._, Colour._
 
 object LsAShapes extends LessonStatic
-{ override def title: String = "Shapes"
+{ override def title: String = "Shape creation"
 
-  override def bodyStr: String = "Shapes"
+  override def bodyStr: String = "Shape creation"
 
   //Lets copy the values across from the previous lesson.
   val pt1 = -200 pp 200
