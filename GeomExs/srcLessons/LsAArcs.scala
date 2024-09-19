@@ -2,10 +2,9 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-/* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It
- *  doesn't do anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment.
- *  Hopefully in your
- *   editor or IDE (integrated Developer Environment) the comments will appear in a different colour. */
+/* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It  doesn't do
+   anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment. Hopefully in your
+   editor or IDE (integrated Developer Environment) the comments will appear in a different colour. */
 
 // This is also a comment. Everything after two forward-slashes to the end of line. You can add and remove //s from the beginning of the commands,
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
