@@ -2,10 +2,10 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC7 extends LessonGraphics {
-  override def title: String = "Pointer targeting Lesson"
+object LsBezierChange extends LessonGraphics
+{ override def title: String = "Bezier change"
 
-  override def bodyStr: String = """Lesson C3. Pointer in object."""
+  override def bodyStr: String = """Bezier change."""
 
   override def canv: CanvasPlatform => Any = LsC7Canv(_)
 

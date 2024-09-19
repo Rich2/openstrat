@@ -2,9 +2,9 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC6 extends LessonGraphics
-{ override def title: String = "Pointer targeting Lesson"
-  override def bodyStr: String = """Lesson C3. Pointer in object."""
+object LsKeyUp extends LessonGraphics
+{ override def title: String = "Key up"
+  override def bodyStr: String = """Key up."""
 
   override def canv: CanvasPlatform => Any = LsC6Canv(_)
 
