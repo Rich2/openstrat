@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pgui._
 
 object LsD3 extends LessonGraphics
-{ override def title: String = "Pointer targeting Lesson"
+{ override def title: String = "RSON Lesson 3"
 
   override def bodyStr: String = """Lesson C3. Pointer in object."""
 

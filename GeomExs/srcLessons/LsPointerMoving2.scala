@@ -2,10 +2,10 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC8 extends LessonGraphics
-{ override def title: String = "Pointer targeting Lesson"
+object LsPointerMoving2 extends LessonGraphics
+{ override def title: String = "Pointer moving 2"
 
-  override def bodyStr: String = """Lesson C3. Pointer in object."""
+  override def bodyStr: String = """Pointer mvoing 2."""
 
   override def canv: CanvasPlatform => Any = LsC8Canv(_)
 

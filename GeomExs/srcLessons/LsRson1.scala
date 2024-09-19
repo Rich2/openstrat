@@ -10,10 +10,10 @@ object MText
 { def apply(y: Double, strs: StrArr): RArr[TextFixed] = TextFixed.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
 }
 
-object LsD1 extends LessonGraphics
-{ override def title: String = "Pointer targeting Lesson"
+object LsRson1 extends LessonGraphics
+{ override def title: String = "RSON Lesson 1"
 
-  override def bodyStr: String = """Lesson C3. Pointer in object."""
+  override def bodyStr: String = """RSon Lesson 1."""
 
   override def canv: CanvasPlatform => Any = LsD1Canv(_)
 

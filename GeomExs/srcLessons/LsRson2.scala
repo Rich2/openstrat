@@ -1,9 +1,9 @@
-/* Copyright 2018-242 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._
 
-object LsD2 extends LessonGraphics
-{ override def title: String = "Pointer targeting Lesson"
+object LsRson2 extends LessonGraphics
+{ override def title: String = "RSON Lesson 2"
 
   override def bodyStr: String = """Lesson C3. Pointer in object."""
 
