@@ -2,10 +2,10 @@
 package learn
 import ostrat._, geom._, pgui._
 
-object LsB3 extends LessonGraphics
-{ override def title: String = "Timer Lesson"
+object LsMovingRectangles2 extends LessonGraphics
+{ override def title: String = "Moving Rectangles 2"
 
-  override def bodyStr: String = """"""
+  override def bodyStr: String = """Moving Rectangles 2"""
 
   override def canv: CanvasPlatform => Any = LsB3Canv(_)
   

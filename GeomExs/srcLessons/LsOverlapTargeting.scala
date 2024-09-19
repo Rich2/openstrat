@@ -2,10 +2,10 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC5 extends LessonGraphics {
-  override def title: String = "Pointer targeting Lesson"
+object LsOverlapTargeting extends LessonGraphics
+{ override def title: String = "Targeting overlap Lesson"
 
-  override def bodyStr: String = """Lesson C3. Pointer in object."""
+  override def bodyStr: String = """Targeting overlap objects."""
 
   override def canv: CanvasPlatform => Any = LsC5Canv(_)
 

@@ -2,10 +2,10 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC1 extends LessonGraphics
+object LsMouseClick extends LessonGraphics
 { override def title: String = "Mouse click Lesson"
 
-  override def bodyStr: String = """"""
+  override def bodyStr: String = """Mouse click Lesson"""
 
   override def canv: CanvasPlatform => Any = LsC1Canv(_)
 

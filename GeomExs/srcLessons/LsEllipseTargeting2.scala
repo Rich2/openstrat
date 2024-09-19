@@ -2,11 +2,9 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC4 extends LessonGraphics {
-  override def title: String = "Pointer targeting Lesson"
-
-  override def bodyStr: String = """Lesson C3. Pointer in object."""
-
+object LsEllipseTargeting2 extends LessonGraphics
+{ override def title: String = "Ellipse targeting Lesson 2"
+  override def bodyStr: String = """Pointer at ellipse."""
   override def canv: CanvasPlatform => Any = LsC4Canv(_)
 
   /** This lesson is working, but has what looks like a very dubious implementation. */

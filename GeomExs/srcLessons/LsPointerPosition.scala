@@ -2,13 +2,13 @@
 package learn
 import ostrat._, geom._, pgui._, Colour._
 
-object LsC2 extends LessonGraphics
+object LsPointerPosition extends LessonGraphics
 { override def title: String = "Pointer position Lesson"
-  override def bodyStr: String = """Lesson C2. Shows the location and [[Pt2]] coordinates of the point on the screen the user has clicked."""
+  override def bodyStr: String = """Shows the location and [[Pt2]] coordinates of the point on the screen the user has clicked."""
   override def canv: CanvasPlatform => Any = LsC2Canv(_)
 
-  case class LsC2Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C2") {
-    repaints(TextFixed("Please click on the screen in different places.", 28, 0 pp 200, Green))
+  case class LsC2Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C2")
+  { repaints(TextFixed("Please click on the screen in different places.", 28, 0 pp 200, Green))
     setMouseSimple(pt => repaints(TextFixed("You clicked the screen at: " + pt.tellSemisNames(), 28, pt, Red)))
   }
 }
