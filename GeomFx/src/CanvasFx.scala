@@ -5,8 +5,7 @@ import geom._, pgui._, utiljvm._, javafx._, scene._
 /** A JavaFx implementation of [[CanvasPlatform]]. <a href="https://openjfx.io/index.html">JavaFx 15 documentation</a><br>
  * <a href="https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/canvas/GraphicsContext.html">GraphicContext</a>*/
 case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLeft// with CanvSaver
-{
-  val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
+{ val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
   override def width = canvFx.getWidth.max(100)
   override def height = canvFx.getHeight.max(100)
   
@@ -18,8 +17,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
       case MIDDLE => MiddleButton
       case SECONDARY => RightButton
       case NONE => NoButton
-      // case BACK => BackButton
-      // case FORWARD => ForwardButton
+      case BACK => BackButton
+      case FORWARD => ForwardButton
       case _ => UnknownButton
     }     
   }
@@ -89,8 +88,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineWidth(ld.width)
     gc.stroke()
   }
-
-  /** The javaFx documentation. */
+  
+  /** Implemented in JavaFx top left origin. Circular arc uses beginPath, moveTo, arc, setStroke and stroke methods. */
   override protected def tlCArcDraw(cad: CArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(cad.xStart, cad.yStart)
@@ -98,8 +97,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setStroke(toFxColor(cad.colour))
     gc.stroke()
   }
-
-  /** The javaFx documentation. */
+  
   override protected def tlEArcDraw(ead: EArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ead.xStart, ead.yStart)
