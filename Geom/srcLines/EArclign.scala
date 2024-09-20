@@ -15,24 +15,24 @@ trait EArclign extends EArc
 
   /** Translate 2D geometric transformation on this EArclign returns an EArclign. */
   override def slateXY(xDelta: Double, yDelta: Double): EArclign =
-    EArclign(pStart.xySlate(xDelta, yDelta), cen.xySlate(xDelta, yDelta), xRadius, yRadius, pEnd.xySlate(xDelta, yDelta), counter)
+    EArclign(pStart.xySlate(xDelta, yDelta), cen.xySlate(xDelta, yDelta), xRadius, yRadius, pEnd.xySlate(xDelta, yDelta), rotationsInt)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): EArclign =
-    EArclign(pStart.scale(operand), cen.scale(operand), xRadius * operand, yRadius * operand, pEnd.scale(operand), counter)
+    EArclign(pStart.scale(operand), cen.scale(operand), xRadius * operand, yRadius * operand, pEnd.scale(operand), rotationsInt)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  override def negY: EArclign = EArclign(pStart.negY, cen.negY, xRadius, yRadius, pEnd.negY, -counter)
+  override def negY: EArclign = EArclign(pStart.negY, cen.negY, xRadius, yRadius, pEnd.negY, -rotationsInt)
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: EArclign = EArclign(pStart.negX, cen.negX, xRadius, yRadius, pEnd.negX, -counter)
+  override def negX: EArclign = EArclign(pStart.negX, cen.negX, xRadius, yRadius, pEnd.negX, -rotationsInt)
 
   override def rotate90: EArclign = ???
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): EArclign =
-    EArclign(pStart.prolign(matrix), cen.prolign(matrix), xRadius, yRadius, pEnd.prolign(matrix), counter)
+    EArclign(pStart.prolign(matrix), cen.prolign(matrix), xRadius, yRadius, pEnd.prolign(matrix), rotationsInt)
 }
 
 /** Companion object for [[EArclign]] trait, an arc that is based on Ellipse aligned to the X and Y axes. */
@@ -61,7 +61,7 @@ object EArclign
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
    *  360 degrees and less than -360 degrees. */
   final case class EArclignImp(startX: Double, startY: Double, cenX: Double, cenY: Double, xRadius: Double, yRadius: Double,
-                               endX: Double, endY: Double, counter: Int) extends EArclign
+                               endX: Double, endY: Double, rotationsInt: Int) extends EArclign
   {
     //override def fTrans(f: Vec2 => Vec2): EArclign = ???
 
@@ -98,6 +98,6 @@ object EArclign
     override def cenP3: Vec2 = -xRadius vv 0
     override def cenP4: Vec2 = 0 vv yRadius
 
-    def addRotations(delta: Int): EArclignImp = EArclignImp(startX, startY, cenX, cenY, xRadius, yRadius, endX, endY, counter + delta)
+    def addRotations(delta: Int): EArclignImp = EArclignImp(startX, startY, cenX, cenY, xRadius, yRadius, endX, endY, rotationsInt + delta)
   }
 }

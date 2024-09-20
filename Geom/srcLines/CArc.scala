@@ -8,7 +8,7 @@ package ostrat; package geom
  *  @groupdesc EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double, val counter: Int) extends
+class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double, val rotationsInt: Int) extends
   EArclign
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(cenX, cenY)
@@ -22,23 +22,23 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   /** The mid-point of the chord of this arc. */
   def chordCen: Pt2 = pStart.\/(pEnd)
 
-  def addRotations(delta: Int): CArc = new CArc(startX, startY, cenX, cenY, endX, endY, counter + delta)
+  def addRotations(delta: Int): CArc = new CArc(startX, startY, cenX, cenY, endX, endY, rotationsInt + delta)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineWidth: Double, lineColour: Colour): CArcDraw = CArcDraw(this, lineColour, lineWidth)
   /** Translate 2D geometric transformation on this CArc returns a CArc. */
   override def slateXY(xDelta: Double, yDelta: Double): CArc = CArc(pStart.addXY(xDelta, yDelta), cen.addXY(xDelta, yDelta),
-    pEnd.addXY(xDelta, yDelta), counter)
+    pEnd.addXY(xDelta, yDelta), rotationsInt)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), counter)
+  override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), rotationsInt)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y on this CArc returns a CArc. */
-  override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -counter)
+  override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -rotationsInt)
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating Xon this CArc returns a CArc. */
-  override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -counter)
+  override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -rotationsInt)
 
   /** Rotation of 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in subclasses and traits. */
   override def rotate90: CArc = ???
@@ -53,10 +53,10 @@ class CArc private(val startX: Double, val startY: Double, val cenX: Double, val
   override def prolign(matrix: ProlignMatrix): CArc = ???
 
   /** Rotation 2D geometric transformation on a CArc returns a CArc. */
-  override def rotate(angle: AngleVec): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), counter)
+  override def rotate(angle: AngleVec): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), rotationsInt)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc returns a CArc. */
-  override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), counter)
+  override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), rotationsInt)
 
   /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */
 
