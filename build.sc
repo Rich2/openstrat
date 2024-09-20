@@ -3,7 +3,7 @@ import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
 { def version = "0.3.3snap"
-  def scalaVersion = "3.4.2"
+  def scalaVersion = "3.5.0"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 
@@ -20,7 +20,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.7.1"
+{ def scalaJSVersion = "1.16.0"
   //def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
