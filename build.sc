@@ -9,7 +9,7 @@ trait Common extends ScalaModule
 
 trait CommonJvm extends Common
 { 
-  def sources = T.sources(millSourcePath / "src", millSourcePath / "JvmSrc")
+  //def sources = T.sources(millSourcePath / "src", millSourcePath / "JvmSrc")
 
   /*trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.10")
@@ -26,13 +26,13 @@ trait CommonJs extends ScalaJSModule with Common
 }
 
 trait Util extends Common
-{ def sources2 = T.sources(millSourcePath / "src", millSourcePath / "srcArr", millSourcePath / "srcParse",  millSourcePath / "srcPersist")
+{ def sources1 = T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
 }
 
 object UtilJvm extends Util
 { 
-  def sources2 = T.sources(millSourcePath / "srcArr",  millSourcePath / "JvmSrc")
-  def sources = T.sources{ super.sources() ++ sources2() }
+  def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
+  def sources = T.sources{ sources1() ++ sources2() }
 }
 
 object UtilJs extends CommonJs with Util
