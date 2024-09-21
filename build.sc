@@ -40,16 +40,26 @@ object UtilJs extends CommonJs with Util
   //def sources = T.sources(Util.millSourcePath / "src")
 }
 
-object Geom extends CommonJvm
-{ def moduleDeps = Seq(UtilJvm)
+trait Geom extends Common
+{
+  def sources2 = T.sources(millSourcePath / "src", millSourcePath / "srcEarth", millSourcePath / "srcGraphic",  millSourcePath / "srcGui",
+    millSourcePath / "srcImperial", millSourcePath / "srcLines", millSourcePath / "srcPoly", millSourcePath / "srcShapes", millSourcePath / "srcTrans",
+    millSourcePath / "srcUnits", millSourcePath / "srcWeb")
+
+}
+
+object GeomJvm extends Geom//CommonJvm
+{
+  def moduleDeps = Seq(UtilJvm)
+
   def mainClass = Some("ostrat.WebPage1")
 
-  def unmanagedClasspath = T{
+  def unmanagedClasspath = T {
     import coursier._, parse.DependencyParser
     val fxMod = Dependency(Module(org"org.openjfx", ModuleName("javafx-controls")), "15.0.1")
     val files = Fetch().addDependencies(fxMod).run()
     val pathRefs = files.map(f => PathRef(os.Path(f)))
-    Agg(pathRefs : _*)
+    Agg(pathRefs: _*)
   }
 
   def forkArgs = Seq(
@@ -58,17 +68,17 @@ object Geom extends CommonJvm
 
     "--add-modules", "javafx.controls"
   )
-  
-  //object test extends InnerTests
+
+//object test extends InnerTests
 }
 
-object GeomJs extends CommonJs
+/*object GeomJs extends CommonJs with Geom
 { def moduleDeps = Seq(UtilJs)
   def sources = T.sources(Geom.millSourcePath / "src", Geom.millSourcePath / "srcJs", Geom.millSourcePath / "srcExs")
 }
 
 object Tiling extends CommonJvm
-{ def moduleDeps = Seq(Geom)  
+{ def moduleDeps = Seq(Geom.GeomJvm)
  // object test extends InnerTests
   def sources = T.sources(Tiling.millSourcePath / "src")
 }
@@ -103,4 +113,4 @@ object DevJs extends CommonJs
 //def run() = Dev.runBackground()
 //def test = Geom.test
 def jsfast = DevJs.fastLinkJS
-def jsfull = DevJs.fullLinkJS
+def jsfull = DevJs.fullLinkJS*/
