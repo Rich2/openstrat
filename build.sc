@@ -46,17 +46,21 @@ object UtilJs extends CommonJs with Util
 
 trait Geom extends Common
 {
-  def sources2 = T.sources(millSourcePath / "src", millSourcePath / "srcEarth", millSourcePath / "srcGraphic",  millSourcePath / "srcGui",
-    millSourcePath / "srcImperial", millSourcePath / "srcLines", millSourcePath / "srcPoly", millSourcePath / "srcShapes", millSourcePath / "srcTrans",
-    millSourcePath / "srcUnits", millSourcePath / "srcWeb")
-
+  def sources1 = T.sources(T.workspace / "Geom" / "src", T.workspace / "Geom" / "srcEarth", T.workspace / "Geom" / "srcGraphic",
+    T.workspace / "Geom" / "srcGui", T.workspace / "Geom" / "srcImperial", T.workspace / "Geom" / "srcLines", T.workspace / "Geom" / "srcPoly",
+    T.workspace / "Geom" / "srcShapes", T.workspace / "Geom" / "srcTrans", T.workspace / "Geom" / "srcUnits", T.workspace / "Geom" / "srcWeb")
 }
 
-object GeomJvm extends Geom//CommonJvm
-{
+object GeomJvm extends Geom with CommonJvm
+{ def sources2 = T.sources(T.workspace / "Geom" / "srcJvm")
+  def sources = T.sources { sources1() ++ sources2() }
   def moduleDeps = Seq(UtilJvm)
+  //def mainClass = Some("ostrat.WebPage1")
+}
 
-  def mainClass = Some("ostrat.WebPage1")
+object GeomFx extends CommonJvm
+{ def sources = T.sources(millSourcePath / "src")
+  def moduleDeps = Seq(GeomJvm)
 
   def unmanagedClasspath = T {
     import coursier._, parse.DependencyParser
