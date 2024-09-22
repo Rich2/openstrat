@@ -11,12 +11,12 @@ trait CommonJvm extends Common
 { 
   //def sources = T.sources(millSourcePath / "src", millSourcePath / "JvmSrc")
 
-  /*trait InnerTests extends Tests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.10")
-    def testFrameworks = Seq("utest.runner.Framework") 
-    def sources = T.sources(millSourcePath / 'src)
-    def resources = T.sources(millSourcePath / 'res)
-  }*/
+  trait InnerTests extends ScalaTests
+  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.4")
+    def testFramework = "utest.runner.Framework"
+   // def sources = T.sources(millSourcePath / 'src)
+   // def resources = T.sources(millSourcePath / 'res)
+  }
 }
 
 trait CommonJs extends ScalaJSModule with Common
@@ -29,10 +29,14 @@ trait Util extends Common
 { def sources1 = T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
 }
 
-object UtilJvm extends Util
-{ 
-  def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
+object UtilJvm extends Util with CommonJvm
+{ def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
+
+  object Test extends InnerTests
+  { def sources = T.sources(T.workspace / "Util" / "TestSrc")
+    def resources = T.sources(T.workspace / "Util" / "TestRes")
+  }
 }
 
 object UtilJs extends CommonJs with Util
