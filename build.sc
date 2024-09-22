@@ -3,7 +3,7 @@ import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
 { def version = "0.3.3snap"
-  def scalaVersion = "3.5.0"
+  def scalaVersion = "3.5.1"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 

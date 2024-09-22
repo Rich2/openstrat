@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import java.util.{GregorianCalendar => JGreg}
 
 object TimeSpan
-{ def apply(ticsInMilliSeconds: Long): TimeSpan = TimeSpan(ticsInMilliSeconds)
+{ def apply(ticsInMilliSeconds: Long): TimeSpan = new TimeSpan(ticsInMilliSeconds)
 }
 
 class TimeSpan(val tics: Long) extends AnyVal
