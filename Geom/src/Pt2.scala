@@ -135,7 +135,7 @@ final class Pt2(val x: Double, val y: Double) extends VecPt2 with PointDbl2 with
 
   def toTuple: Tuple2[Double, Double] = (x, y)
 
-  def pp(z: Double): Pt3 = Pt3(x, y, z)
+  infix def pp(z: Double): Pt3 = Pt3(x, y, z)
 
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotate90: Pt2 = Pt2(-y, x)

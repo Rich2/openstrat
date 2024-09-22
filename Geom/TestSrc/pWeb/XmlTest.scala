@@ -5,7 +5,7 @@ import utest._
 /** Also tests the srcToETokens function object. */
 object XmlTest extends TestSuite
 {
-  case class City(str: String) extends XmlElemSimple("City")
+  class City(str: String) extends XmlElemSimple("City", str)
 
   case class Cities(contents: RArr[XCon]) extends XmlMultiNoAtts
   { override def tag: String = "Cities"

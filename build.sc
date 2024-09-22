@@ -25,42 +25,43 @@ trait CommonJs extends ScalaJSModule with Common
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
 
-trait Util extends Common
-{ def sources1 = T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
-}
-
-object UtilJvm extends Util with CommonJvm
-{ def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
+object Util extends CommonJvm
+{ Outer =>
+  def sources1 = T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
+  def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
 
   object Test extends InnerTests
   { def sources = T.sources(T.workspace / "Util" / "TestSrc")
     def resources = T.sources(T.workspace / "Util" / "TestRes")
   }
+
+  object UtilJs extends CommonJs
+  { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+    //def sources = T.sources(Util.millSourcePath / "src")
+  }
 }
 
-object UtilJs extends CommonJs with Util
-{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  //def sources = T.sources(Util.millSourcePath / "src")
-}
-
-trait Geom extends Common
+object Geom extends CommonJvm
 {
   def sources1 = T.sources(T.workspace / "Geom" / "src", T.workspace / "Geom" / "srcEarth", T.workspace / "Geom" / "srcGraphic",
     T.workspace / "Geom" / "srcGui", T.workspace / "Geom" / "srcImperial", T.workspace / "Geom" / "srcLines", T.workspace / "Geom" / "srcPoly",
     T.workspace / "Geom" / "srcShapes", T.workspace / "Geom" / "srcTrans", T.workspace / "Geom" / "srcUnits", T.workspace / "Geom" / "srcWeb")
-}
 
-object GeomJvm extends Geom with CommonJvm
-{ def sources2 = T.sources(T.workspace / "Geom" / "srcJvm")
+  def sources2 = T.sources(T.workspace / "Geom" / "srcJvm")
   def sources = T.sources { sources1() ++ sources2() }
-  def moduleDeps = Seq(UtilJvm)
+  def moduleDeps = Seq(Util)
   //def mainClass = Some("ostrat.WebPage1")
+
+  object Test extends InnerTests
+  { def sources = T.sources(T.workspace / "Geom" / "TestSrc")
+    def resources = T.sources(T.workspace / "Geom" / "TestRes")
+  }
 }
 
 object GeomFx extends CommonJvm
 { def sources = T.sources(millSourcePath / "src")
-  def moduleDeps = Seq(GeomJvm)
+  def moduleDeps = Seq(Geom)
 
   def unmanagedClasspath = T {
     import coursier._, parse.DependencyParser
