@@ -97,7 +97,7 @@ def geomSett = List(
 
 lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
 
-lazy val GeomFx = jvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
+lazy val GeomFx = Project("GeomFx", file("Geom/GeomFx")).dependsOn(Geom).settings(sett3).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
   Compile/unmanagedSourceDirectories += bbDir.value / "Geom/FxSrc"
 )
