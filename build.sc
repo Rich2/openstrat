@@ -27,7 +27,8 @@ trait CommonJs extends ScalaJSModule with Common
 
 object Util extends CommonJvm
 { Outer =>
-  def sources1 = T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
+  def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))
+  // T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
   def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
 
@@ -37,8 +38,9 @@ object Util extends CommonJvm
   }
 
   object UtilJs extends CommonJs
-  { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-    //def sources = T.sources(Util.millSourcePath / "src")
+  { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+    def source2 = T.source(T.workspace / "Util" / "UtilJs" / "srcRArr")
+    def sources = Outer.sources1() :+ source2()//T.sources(Util.millSourcePath / "src")
   }
 }
 
