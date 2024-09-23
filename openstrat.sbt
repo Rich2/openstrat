@@ -99,6 +99,7 @@ lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
 
 lazy val GeomFx = jvmProj("GeomFx").dependsOn(Geom).settings(geomSett).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
+  Compile/unmanagedSourceDirectories += bbDir.value / "Geom/FxSrc"
 )
 
 lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(

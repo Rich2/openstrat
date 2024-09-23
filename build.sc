@@ -14,8 +14,6 @@ trait CommonJvm extends Common
   trait InnerTests extends ScalaTests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.4")
     def testFramework = "utest.runner.Framework"
-   // def sources = T.sources(millSourcePath / 'src)
-   // def resources = T.sources(millSourcePath / 'res)
   }
 }
 
@@ -26,37 +24,34 @@ trait CommonJs extends ScalaJSModule with Common
 }
 
 object Util extends CommonJvm
-{ Outer =>
-  def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))  
+{ def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))  
   def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
 
-  object Test extends InnerTests
+  object test extends InnerTests
   { def sources = T.sources(T.workspace / "Util" / "TestSrc")
     def resources = T.sources(T.workspace / "Util" / "TestRes")
+  }  
+}
+
+object UtilJs extends CommonJs
+{ 
+  def source2 = T{
+    val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
+    val str2 = str.replaceAll("AnyVal with ", "")
+    os.write(T.dest / "RArr.scala", str2)
+    PathRef(T.dest)
   }
 
-  object UtilJs extends CommonJs
-  { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-    def source2 = T{
-      val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
-      val str2 = str.replaceAll("AnyVal with ", "")
-      os.write(T.dest / "RArr.scala", str2)
-      PathRef(T.dest)
-    }
-
-    //.source(T.workspace / "Util" / "UtilJs" / "srcRArr")
-    def sources = Outer.sources1() :+ source2()//T.sources(Util.millSourcePath / "src")
-  }
+  def sources = Util.sources1() :+ source2()
 }
 
 object Geom extends CommonJvm
-{ Outer =>
-
+{
   def sources1 = T.sources(Seq("src", "srcEarth", "srcGraphic", "srcGui", "srcImperial", "srcLines", "srcPoly","srcShapes", "srcTrans", "srcUnits", "srcWeb").
     map(name => PathRef(T.workspace / "Geom" / name)))
 
-  def sources2 = T.sources(T.workspace / "Geom" / "srcJvm")
+  def sources2 = T.sources(T.workspace / "Geom" / "JvmSrc")
   def sources = T.sources { sources1() ++ sources2() }
   def moduleDeps = Seq(Util)
   //def mainClass = Some("ostrat.WebPage1")
@@ -64,17 +59,11 @@ object Geom extends CommonJvm
   object Test extends InnerTests
   { def sources = T.sources(T.workspace / "Geom" / "TestSrc")
     def resources = T.sources(T.workspace / "Geom" / "TestRes")
-  }
-
-  object GeomJs extends CommonJs
-{ def moduleDeps = Seq(Util.UtilJs)
-  def source2 = T.source(T.workspace / "Geom" / "JsSrc") 
-  def sources = Outer.sources1() :+ source2()// T.sources(Geom.millSourcePath / "src", Geom.millSourcePath / "srcJs", Geom.millSourcePath / "srcExs")
-}
+  } 
 }
 
 object GeomFx extends CommonJvm
-{ def sources = T.sources(millSourcePath / "src")
+{ def sources = T.sources(T.workspace / "Geom" / "FxSrc")
   def moduleDeps = Seq(Geom)
 
   def unmanagedClasspath = T {
@@ -85,15 +74,18 @@ object GeomFx extends CommonJvm
     Agg(pathRefs: _*)
   }
 
-  def forkArgs = Seq(
-    "--module-path", sys.env("JAVAFX_HOME") + ":" +
-      "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/15.0.1",
-
+  def forkArgs = Seq("--module-path",
+    sys.env("JAVAFX_HOME") + ":" + "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/15.0.1",
     "--add-modules", "javafx.controls"
   )
-
-//object test extends InnerTests
 }
+
+object GeomJs extends CommonJs
+{ def moduleDeps = Seq(UtilJs)
+  def source2 = T.source(T.workspace / "Geom" / "JsSrc") 
+  def sources = Geom.sources1() :+ source2()
+}
+
 
 /*
 
