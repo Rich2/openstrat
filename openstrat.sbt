@@ -33,8 +33,6 @@ def sett3 = List(
 
 def proj(srcsStr: String, nameStr: String) = Project(nameStr, file(nameStr)).settings(sett3).settings(
   moduleDir := bbDir.value / srcsStr,
-  Test/scalaSource := moduleDir.value / "TestSrc",
-  Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
 
 def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings(
@@ -48,14 +46,17 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings
 
 def jvmProj(srcsStr: String): Project = mainProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _),
+  Test/scalaSource := moduleDir.value / "TestSrc",
+  Test/resourceDirectory :=  moduleDir.value / "TestRes",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.8.4" % "test" withSources() withJavadoc(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
-def jsProj(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
-  Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", baseDirectory.value / "src"),
+def jsProj(name: String) = Project(name + "Js", file(name + "/" + name + "Js")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
+  moduleDir := bbDir.value / name,
+  Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", moduleDir.value /"JsSrc"),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.0")  withSources() withJavadoc(),
 )
 

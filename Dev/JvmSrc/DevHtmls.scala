@@ -5,10 +5,11 @@ import utiljvm.*, pWeb.*
 object DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess",
+  { 
+    val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess",
       "EG1300", "EG1000", "EG640", "EG460", "EG320")
     projPathProc { path => args.length match
-    { case 0 =>
+    { case 0 => deb("No args, no files created.")
       case _ if args(0).toString == "all" => names.foreach{name => writeFastFull(path, name) }
       case _ => args.filter( arg => names.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }
   }
@@ -19,7 +20,7 @@ object DevHtmls
   }
 
   def writeFile(path: DirPathAbs, isFast: Boolean, name: String): Unit =
-  { val scalaVersionStr = "3.5.0"
+  { val scalaVersionStr = "3.5.1"
     val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
 
@@ -27,7 +28,7 @@ object DevHtmls
     |  // aid local development in ensuring script not cached during a simple refresh
     |  var script = document.createElement("script");
     |  script.setAttribute("type", "text/javascript");
-    |  script.setAttribute("src", "../../../AppsJs/target/scala-$scalaVersionStr/appsjs-${name}-${jsStr}opt/main.js?"+Date.now().toString());
+    |  script.setAttribute("src", "../../../Apps/AppsJs/target/scala-$scalaVersionStr/appsjs-${name}-${jsStr}opt/main.js?"+Date.now().toString());
     |  document.getElementsByTagName("head")[0].appendChild(script);
     |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });
     |""".stripMargin
