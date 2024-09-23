@@ -208,8 +208,7 @@ allJs :=
 }
 
 lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) :::
-    List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc").map(moduleDir.value / _) ::: List("Util", "Tiling").map(bbDir.value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
@@ -224,7 +223,8 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).setting
     ),
   )
 
-lazy val DevFx = jvmProj("DevFx").dependsOn(Dev, GeomFx).settings(
+lazy val DevFx =  Project("DevFx", file("Dev/DevFx")).settings(sett3).dependsOn(Dev, GeomFx).settings(
+  Compile/unmanagedSourceDirectories := List(bbDir.value / "Dev/FxSrc"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
