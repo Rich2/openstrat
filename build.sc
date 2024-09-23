@@ -38,7 +38,14 @@ object Util extends CommonJvm
 
   object UtilJs extends CommonJs
   { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-    def source2 = T.source(T.workspace / "Util" / "UtilJs" / "srcRArr")
+    def source2 = T{
+      val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
+      val str2 = str.replaceAll("AnyVal with ", "")
+      os.write(T.dest / "RArr.scala", str2)
+      PathRef(T.dest)
+    }
+
+    //.source(T.workspace / "Util" / "UtilJs" / "srcRArr")
     def sources = Outer.sources1() :+ source2()//T.sources(Util.millSourcePath / "src")
   }
 }
