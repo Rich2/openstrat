@@ -27,8 +27,7 @@ trait CommonJs extends ScalaJSModule with Common
 
 object Util extends CommonJvm
 { Outer =>
-  def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))
-  // T.sources(T.workspace / "Util" / "src", T.workspace / "Util" / "srcArr", T.workspace / "Util" / "srcParse",  T.workspace / "Util" / "srcPersist")
+  def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))  
   def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
 
@@ -45,10 +44,10 @@ object Util extends CommonJvm
 }
 
 object Geom extends CommonJvm
-{
-  def sources1 = T.sources(T.workspace / "Geom" / "src", T.workspace / "Geom" / "srcEarth", T.workspace / "Geom" / "srcGraphic",
-    T.workspace / "Geom" / "srcGui", T.workspace / "Geom" / "srcImperial", T.workspace / "Geom" / "srcLines", T.workspace / "Geom" / "srcPoly",
-    T.workspace / "Geom" / "srcShapes", T.workspace / "Geom" / "srcTrans", T.workspace / "Geom" / "srcUnits", T.workspace / "Geom" / "srcWeb")
+{ Outer =>
+
+  def sources1 = T.sources(Seq("src", "srcEarth", "srcGraphic", "srcGui", "srcImperial", "srcLines", "srcPoly","srcShapes", "srcTrans", "srcUnits", "srcWeb").
+    map(name => PathRef(T.workspace / "Geom" / name)))
 
   def sources2 = T.sources(T.workspace / "Geom" / "srcJvm")
   def sources = T.sources { sources1() ++ sources2() }
@@ -59,6 +58,12 @@ object Geom extends CommonJvm
   { def sources = T.sources(T.workspace / "Geom" / "TestSrc")
     def resources = T.sources(T.workspace / "Geom" / "TestRes")
   }
+
+  object GeomJs extends CommonJs
+{ def moduleDeps = Seq(Util.UtilJs)
+  def source2 = T.source(T.workspace / "Geom" / "JsSrc") 
+  def sources = Outer.sources1() :+ source2()// T.sources(Geom.millSourcePath / "src", Geom.millSourcePath / "srcJs", Geom.millSourcePath / "srcExs")
+}
 }
 
 object GeomFx extends CommonJvm
@@ -83,10 +88,7 @@ object GeomFx extends CommonJvm
 //object test extends InnerTests
 }
 
-/*object GeomJs extends CommonJs with Geom
-{ def moduleDeps = Seq(UtilJs)
-  def sources = T.sources(Geom.millSourcePath / "src", Geom.millSourcePath / "srcJs", Geom.millSourcePath / "srcExs")
-}
+/*
 
 object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom.GeomJvm)
