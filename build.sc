@@ -8,9 +8,7 @@ trait Common extends ScalaModule
 }
 
 trait CommonJvm extends Common
-{ 
-  //def sources = T.sources(millSourcePath / "src", millSourcePath / "JvmSrc")
-
+{
   trait InnerTests extends ScalaTests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.4")
     def testFramework = "utest.runner.Framework"
@@ -19,7 +17,6 @@ trait CommonJvm extends Common
 
 trait CommonJs extends ScalaJSModule with Common
 { def scalaJSVersion = "1.16.0"
-  //def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
 
@@ -86,14 +83,15 @@ object GeomJs extends CommonJs
   def sources = Geom.sources1() :+ source2()
 }
 
+object Tiling extends CommonJvm
+{ def moduleDeps = Seq(Geom) 
+  def sources1 = T.sources(Seq("src", "srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(name => PathRef(T.workspace / "Tiling" / name)))
+  def sources = sources1()
+
+  // object test extends InnerTests
+}
 
 /*
-
-object Tiling extends CommonJvm
-{ def moduleDeps = Seq(Geom.GeomJvm)
- // object test extends InnerTests
-  def sources = T.sources(Tiling.millSourcePath / "src")
-}
 
 object TilingJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
