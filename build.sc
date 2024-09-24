@@ -21,7 +21,7 @@ trait CommonJs extends ScalaJSModule with Common
 }
 
 object Util extends CommonJvm
-{ def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))  
+{ def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))
   def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
 
@@ -51,7 +51,6 @@ object Geom extends CommonJvm
   def sources2 = T.sources(T.workspace / "Geom" / "JvmSrc")
   def sources = T.sources { sources1() ++ sources2() }
   def moduleDeps = Seq(Util)
-  //def mainClass = Some("ostrat.WebPage1")
 
   object Test extends InnerTests
   { def sources = T.sources(T.workspace / "Geom" / "TestSrc")
@@ -79,8 +78,16 @@ object GeomFx extends CommonJvm
 
 object GeomJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
-  def source2 = T.source(T.workspace / "Geom" / "JsSrc") 
+  def source2 = T.source(T.workspace / "Geom" / "JsSrc")
   def sources = Geom.sources1() :+ source2()
+}
+
+object GeomExs extends CommonJvm
+{ def moduleDeps = Seq(Geom)
+  def sources1 = T.sources{ Seq("src", "srcLessons").map(name => PathRef(T.workspace / "Geom" / "GeomExs" / name)) }
+  def source2 = T.source(T.workspace / "Geom" / "GeomExs" / "JvmSrc")
+  def sources = T.sources { sources1() :+ source2() }
+  //def mainClass = Some("ostrat.WebPage1")
 }
 
 object Tiling extends CommonJvm

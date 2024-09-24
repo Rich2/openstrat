@@ -102,7 +102,7 @@ lazy val GeomFx = proj("GeomFx", "Geom/GeomFx").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += bbDir.value / "Geom/FxSrc"
 )
 
-lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
+lazy val GeomExs = proj("GeomExs", "Geom/GeomExs").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += baseDirectory.value / "srcLessons",
   Compile/mainClass:= Some("learn.LsE1App"),
 )
