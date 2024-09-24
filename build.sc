@@ -100,28 +100,37 @@ object TilingExs extends CommonJvm
 { def moduleDeps = Seq(Tiling)
   def sources = T.sources(T.workspace / "Tiling" / "TilingExs" / "src")
   object test extends InnerTests
-  //def mainClass = Some("ostrat.WebPage1")
+  def mainClass = Some("ostrat.pZero.TilingTryApp")
 }
 
-/*
-
-object World extends CommonJvm
-{ def moduleDeps = Seq(Tiling) 
-
-  //object test extends InnerTests
+object EGrid extends CommonJvm
+{ def moduleDeps = Seq(Tiling)
+  def sources1 = T.sources(Seq("src", "srcPts").map(name => PathRef(millSourcePath / name)))
+  def sources = sources1()
+  object test extends InnerTests
 }
 
-object WorldJs extends CommonJs
+object EGridJs extends CommonJs
 { def moduleDeps = Seq(TilingJs)
-  def sources = T.sources(World.millSourcePath / "src", World.millSourcePath / "srcJs", World.millSourcePath / "srcExs")
+  def sources = EGrid.sources1()
+}
+
+object Apps extends CommonJvm
+{ def moduleDeps = Seq(EGrid)
+  def sources1 = T.sources(Seq("src", "srcStrat").map(name => PathRef(millSourcePath / name)))
+  def sources = sources1()
+  object test extends InnerTests
 }
 
 object Dev extends CommonJvm
-{ def moduleDeps = Seq(World)
-  def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / "src", millSourcePath / "srcJvm")
-  def resources = T.sources(millSourcePath / "User")  
+{ def moduleDeps = Seq(GeomExs, TilingExs, EGrid, Apps)
+  def sources1 = T.sources(millSourcePath / "src")
+  def source2 = T.source(millSourcePath / "JvmSrc")
+  def sources = T.sources(sources1() :+ source2())
+  def resources = T.sources(millSourcePath / "res", millSourcePath / "User")
+  //def mainClass = Some("ostrat.pFx.DevApp")
 }
+/*
 
 object DevJs extends CommonJs
 { def moduleDeps = Seq(WorldJs)
