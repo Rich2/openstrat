@@ -103,6 +103,11 @@ object TilingJs extends CommonJs
   def sources = Tiling.sources1()
 }
 
+object TilingExs extends CommonJvm
+{ def moduleDeps = Seq(Tiling)
+  def sources = T.sources(T.workspace / "Tiling" / "TilingExs" / "src")
+  //def mainClass = Some("ostrat.WebPage1")
+}
 
 /*
 

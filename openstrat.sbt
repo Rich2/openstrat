@@ -33,6 +33,10 @@ def sett3 = List(
 
 def proj(nameStr: String, locationStr: String) = Project(nameStr, file(locationStr)).settings(sett3)
 
+def projSub(rootNameStr: String, extStr: String) = proj(rootNameStr + extStr, rootNameStr + "/" + rootNameStr + extStr).settings(
+  Compile/unmanagedSourceDirectories := List(baseDirectory.value / "src", bbDir.value / rootNameStr / (extStr + "Src"))
+)
+
 def mainProj(srcsStr: String, nameStr: String) = proj(nameStr, nameStr).settings(
   moduleDir := bbDir.value / srcsStr,
 
@@ -60,7 +64,8 @@ def jsProj(name: String) = proj(name + "Js", name + "/" + name + "Js").enablePlu
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.0")  withSources() withJavadoc(),
 )
 
-def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(
+def natProj(name: String) = proj(name + "Nat", name + "/" + name + "Nat").enablePlugins(ScalaNativePlugin).settings(
+  moduleDir := bbDir.value / name,
   Compile/unmanagedSourceDirectories := List("src").map(moduleDir.value / _),
   Compile/resourceDirectories := List("res", "NatRes").map(moduleDir.value / _),
 )
@@ -97,12 +102,11 @@ def geomSett = List(
 
 lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
 
-lazy val GeomFx = proj("GeomFx", "Geom/GeomFx").dependsOn(Geom).settings(
+lazy val GeomFx = projSub("Geom", "Fx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
-  Compile/unmanagedSourceDirectories += bbDir.value / "Geom/FxSrc"
 )
 
-lazy val GeomExs = proj("GeomExs", "Geom/GeomExs").dependsOn(Geom).settings(
+lazy val GeomExs = projSub("Geom", "Exs").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += baseDirectory.value / "srcLessons",
   Compile/mainClass:= Some("learn.LsE1App"),
 )
@@ -113,7 +117,7 @@ def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
 )
 lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(tilingSett).settings(Test/unmanagedSourceDirectories += bbDir.value / "Tiling/ExsSrc")
-lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
+lazy val TilingExs = projSub("Tiling", "Exs").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(tilingSett).dependsOn(GeomJs)
 
 lazy val EGrid = jvmProj("EGrid").dependsOn(Tiling).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts")
