@@ -49,11 +49,7 @@ object Geom extends CommonJvm
   def sources2 = T.sources(millSourcePath / "JvmSrc")
   def sources = T.sources { sources1() ++ sources2() }
   def moduleDeps = Seq(Util)
-
   object test extends InnerTests
-  { //def sources = T.sources(T.workspace / "Geom" / "TestSrc")
-    //def resources = T.sources(T.workspace / "Geom" / "TestRes")
-  } 
 }
 
 object GeomFx extends CommonJvm
@@ -92,8 +88,7 @@ object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom) 
   def sources1 = T.sources(Seq("src", "srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(name => PathRef(millSourcePath / name)))
   def sources = sources1()
-
-  // object test extends InnerTests
+  object test extends InnerTests
 }
 
 object TilingJs extends CommonJs
@@ -104,6 +99,7 @@ object TilingJs extends CommonJs
 object TilingExs extends CommonJvm
 { def moduleDeps = Seq(Tiling)
   def sources = T.sources(T.workspace / "Tiling" / "TilingExs" / "src")
+  object test extends InnerTests
   //def mainClass = Some("ostrat.WebPage1")
 }
 
