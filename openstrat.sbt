@@ -31,11 +31,11 @@ def sett3 = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
-def proj(srcsStr: String, nameStr: String) = Project(nameStr, file(nameStr)).settings(sett3).settings(
-  moduleDir := bbDir.value / srcsStr,
-)
+def proj(nameStr: String, locationStr: String) = Project(nameStr, file(locationStr)).settings(sett3)
 
-def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings(
+def mainProj(srcsStr: String, nameStr: String) = proj(nameStr, nameStr).settings(
+  moduleDir := bbDir.value / srcsStr,
+
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
     val cl = artifact.classifier match {
       case Some(st) => "-" + st
@@ -54,7 +54,7 @@ def jvmProj(srcsStr: String): Project = mainProj(srcsStr, srcsStr).settings(
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
-def jsProj(name: String) = Project(name + "Js", file(name + "/" + name + "Js")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
+def jsProj(name: String) = proj(name + "Js", name + "/" + name + "Js").enablePlugins(ScalaJSPlugin).settings(
   moduleDir := bbDir.value / name,
   Compile/unmanagedSourceDirectories := List(moduleDir.value /"src", moduleDir.value /"JsSrc"),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.8.0")  withSources() withJavadoc(),
@@ -97,7 +97,7 @@ def geomSett = List(
 
 lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett)
 
-lazy val GeomFx = Project("GeomFx", file("Geom/GeomFx")).dependsOn(Geom).settings(sett3).settings(
+lazy val GeomFx = proj("GeomFx", "Geom/GeomFx").dependsOn(Geom).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources() withJavadoc(),
   Compile/unmanagedSourceDirectories += bbDir.value / "Geom/FxSrc"
 )
@@ -223,7 +223,7 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).setting
     ),
   )
 
-lazy val DevFx =  Project("DevFx", file("Dev/DevFx")).settings(sett3).dependsOn(Dev, GeomFx).settings(
+lazy val DevFx =  proj("DevFx", "Dev/DevFx").dependsOn(Dev, GeomFx).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Dev/FxSrc"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
