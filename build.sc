@@ -8,10 +8,12 @@ trait Common extends ScalaModule
 }
 
 trait CommonJvm extends Common
-{
+{ Outer =>
   trait InnerTests extends ScalaTests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.4")
     def testFramework = "utest.runner.Framework"
+    def sources = T.sources(Outer.millSourcePath / "TestSrc", millSourcePath / "src")
+    def resources = T.sources(Outer.millSourcePath / "TestRes", millSourcePath / "res")
   }
 }
 
@@ -21,14 +23,10 @@ trait CommonJs extends ScalaJSModule with Common
 }
 
 object Util extends CommonJvm
-{ def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(T.workspace / "Util" / name)))
-  def sources2 = T.sources(T.workspace / "Util" / "srcRArr",  T.workspace / "Util" / "JvmSrc")
+{ def sources1 = T.sources(Seq("src", "srcArr", "srcParse",  "srcPersist").map(name => PathRef(millSourcePath / name)))
+  def sources2 = T.sources(millSourcePath / "srcRArr", millSourcePath / "JvmSrc")
   def sources = T.sources{ sources1() ++ sources2() }
-
   object test extends InnerTests
-  { def sources = T.sources(T.workspace / "Util" / "TestSrc")
-    def resources = T.sources(T.workspace / "Util" / "TestRes")
-  }  
 }
 
 object UtilJs extends CommonJs
@@ -46,15 +44,15 @@ object UtilJs extends CommonJs
 object Geom extends CommonJvm
 {
   def sources1 = T.sources(Seq("src", "srcEarth", "srcGraphic", "srcGui", "srcImperial", "srcLines", "srcPoly","srcShapes", "srcTrans", "srcUnits", "srcWeb").
-    map(name => PathRef(T.workspace / "Geom" / name)))
+    map(name => PathRef(millSourcePath / name)))
 
-  def sources2 = T.sources(T.workspace / "Geom" / "JvmSrc")
+  def sources2 = T.sources(millSourcePath / "JvmSrc")
   def sources = T.sources { sources1() ++ sources2() }
   def moduleDeps = Seq(Util)
 
-  object Test extends InnerTests
-  { def sources = T.sources(T.workspace / "Geom" / "TestSrc")
-    def resources = T.sources(T.workspace / "Geom" / "TestRes")
+  object test extends InnerTests
+  { //def sources = T.sources(T.workspace / "Geom" / "TestSrc")
+    //def resources = T.sources(T.workspace / "Geom" / "TestRes")
   } 
 }
 
@@ -92,7 +90,7 @@ object GeomExs extends CommonJvm
 
 object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom) 
-  def sources1 = T.sources(Seq("src", "srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(name => PathRef(T.workspace / "Tiling" / name)))
+  def sources1 = T.sources(Seq("src", "srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(name => PathRef(millSourcePath / name)))
   def sources = sources1()
 
   // object test extends InnerTests
