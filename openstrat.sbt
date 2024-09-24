@@ -37,7 +37,7 @@ def projSub(rootNameStr: String, extStr: String) = proj(rootNameStr + extStr, ro
   Compile/unmanagedSourceDirectories := List(baseDirectory.value / "src", bbDir.value / rootNameStr / (extStr + "Src"))
 )
 
-def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, nameStr).settings(
+def jvmProj(nameStr: String, srcsStr: String) = proj(nameStr, srcsStr).settings(
   moduleDir := bbDir.value / srcsStr,
 
   artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
@@ -221,7 +221,6 @@ lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).set
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
   libraryDependencies ++= Seq(
-    "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided" withSources() withJavadoc(),
     "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0" withSources() withJavadoc(),
     ),
@@ -229,6 +228,11 @@ lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).set
 
 lazy val DevFx =  projSub("Dev", "Fx").dependsOn(Dev, GeomFx).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
+)
+
+lazy val ServTom = jvmProj("ServTom", "Dev/ServTom").dependsOn(Dev).settings(
+  Compile/unmanagedSourceDirectories := List(baseDirectory.value / "src"),
+  libraryDependencies += "jakarta.servlet" % "jakarta.servlet-api" % "6.0.0" % "provided" withSources() withJavadoc(),
 )
 
 lazy val ServZio = proj("ServZio", "Dev/ServZio").dependsOn(Dev).settings(
