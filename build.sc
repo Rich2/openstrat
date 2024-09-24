@@ -124,19 +124,16 @@ object Apps extends CommonJvm
 
 object Dev extends CommonJvm
 { def moduleDeps = Seq(GeomExs, TilingExs, EGrid, Apps)
-  def sources1 = T.sources(millSourcePath / "src")
+  def source1 = T.source(millSourcePath / "src")
   def source2 = T.source(millSourcePath / "JvmSrc")
-  def sources = T.sources(sources1() :+ source2())
+  def sources = T.sources(Seq(source1(), source2()))
   def resources = T.sources(millSourcePath / "res", millSourcePath / "User")
-  //def mainClass = Some("ostrat.pFx.DevApp")
+  def mainClass = Some("ostrat.pDev.SiteHtmlWrite")
 }
-/*
 
-object DevJs extends CommonJs
-{ def moduleDeps = Seq(WorldJs)
-  def sources = T.sources(Dev.millSourcePath / "src", Dev.millSourcePath / "srcJs")
-} 
+/*
 //def run() = Dev.runBackground()
 //def test = Geom.test
 def jsfast = DevJs.fastLinkJS
-def jsfull = DevJs.fullLinkJS*/
+def jsfull = DevJs.fullLinkJS
+*/
