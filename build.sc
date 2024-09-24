@@ -91,12 +91,13 @@ object Tiling extends CommonJvm
   // object test extends InnerTests
 }
 
-/*
-
 object TilingJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
-  def sources = T.sources(Tiling.millSourcePath / "src", Tiling.millSourcePath / "srcJs", Tiling.millSourcePath / "srcExs")
+  def sources = Tiling.sources1()
 }
+
+
+/*
 
 object World extends CommonJvm
 { def moduleDeps = Seq(Tiling) 
