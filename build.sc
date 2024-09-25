@@ -19,7 +19,8 @@ trait CommonJvm extends Common
 
 trait CommonJs extends ScalaJSModule with Common
 { def scalaJSVersion = "1.16.0"
-  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
+  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.8.0")
+  //def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
 
 object Util extends CommonJvm
@@ -124,8 +125,9 @@ object Apps extends CommonJvm
 
 object AppsJs extends CommonJs
 { def moduleDeps = Seq(EGridJs)
-  def source2 = T.source(PathRef(T.workspace / "Apps" / "JsAppsSrc" / "DicelessApp")) 
-  def sources = Apps.sources1() :+ source2()
+  def sources2 = T.sources(Seq("Geom", "Earth", "Tiling", "EGrid").map(name => PathRef(T.workspace / name / "ExsSrc")))
+  def source3 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "AppSrcs" / "DicelessApp"))
+  def sources = Apps.sources1() :+ source3()
   def mainClass = Some("ostrat.pSJs.DicelessAppJs")
 }
 

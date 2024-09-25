@@ -24,7 +24,7 @@ ThisBuild/tarDir := (ThisBuild/baseDirectory).value / "target"
 lazy val siteDir = SettingKey[File]("siteDir")
 ThisBuild/siteDir := tarDir.value / "Site"
 lazy val jsAppsDir = SettingKey[File]("jsAppsDir")
-ThisBuild/jsAppsDir := bbDir.value / "Apps/JsAppsSrc"
+ThisBuild/jsAppsDir := bbDir.value / "Apps/AppsJs/AppSrcs"
 
 def sett3 = List(
   scalaVersion := scalaVersionStr,
@@ -154,8 +154,7 @@ lazy val Planets = config("Planets") extend(Compile)
 lazy val Chess = config("Chess") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
-  Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat") :::
-    List("Geom", "Earth", "Tiling", "EGrid").map(bbDir.value / _ / "ExsSrc"),
+  Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat"),
 
   libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
 
