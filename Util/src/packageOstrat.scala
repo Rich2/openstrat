@@ -91,6 +91,13 @@ package object ostrat
   /** if-else. If the condition is true, return [[None]], else return [[Some]] of 2nd parameter value. */
   inline def ifNone[A](b: Boolean, vFalse: => A): Option[A] = if (b) None else Some(vFalse)
 
+  /** New lines String. This allows the insertion of multiple new lines into [[String]] concaternation using the + operator. */
+  @inline def nlsStr(num: Int): String =
+  { var res = ""
+    repeat(num){res += '\n'}
+    res
+  }
+
   @inline def excep(str: => String): Nothing = throw new Exception(str)
   @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
   @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
