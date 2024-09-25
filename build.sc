@@ -53,7 +53,7 @@ object Geom extends CommonJvm
 }
 
 object GeomFx extends CommonJvm
-{ def sources = T.sources(T.workspace / "Geom" / "FxSrc")
+{ def sources = T.sources(T.workspace / "Geom" / "GeomFx" / "src")
   def moduleDeps = Seq(Geom)
 
   def unmanagedClasspath = T {
@@ -72,7 +72,7 @@ object GeomFx extends CommonJvm
 
 object GeomJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
-  def source2 = T.source(T.workspace / "Geom" / "JsSrc")
+  def source2 = T.source(T.workspace / "Geom" / "GeomJs" / "src")
   def sources = Geom.sources1() :+ source2()
 }
 

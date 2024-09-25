@@ -111,7 +111,9 @@ lazy val GeomExs = projSub("Geom", "Exs").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
+lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett).settings(
+  Compile/unmanagedSourceDirectories += bbDir.value / "Geom/GeomJs/src",
+)
 
 def tilingSett = List(
   Compile/unmanagedSourceDirectories ++= List("srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(s => bbDir.value / "Tiling" / s),
