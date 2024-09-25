@@ -122,6 +122,13 @@ object Apps extends CommonJvm
   object test extends InnerTests
 }
 
+object AppsJs extends CommonJs
+{ def moduleDeps = Seq(EGridJs)
+  def source2 = T.source(PathRef(T.workspace / "Apps" / "JsAppsSrc" / "DicelessApp")) 
+  def sources = Apps.sources1() :+ source2()
+  def mainClass = Some("ostrat.pSJs.DicelessAppJs")
+}
+
 object Dev extends CommonJvm
 { def moduleDeps = Seq(GeomExs, TilingExs, EGrid, Apps)
   def source1 = T.source(millSourcePath / "src")
