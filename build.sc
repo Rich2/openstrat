@@ -20,7 +20,6 @@ trait CommonJvm extends Common
 trait CommonJs extends ScalaJSModule with Common
 { def scalaJSVersion = "1.16.0"
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.8.0")
-  //def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
 
 object Util extends CommonJvm
@@ -82,7 +81,7 @@ object GeomExs extends CommonJvm
   def sources1 = T.sources{ Seq("src", "srcLessons").map(name => PathRef(T.workspace / "Geom" / "GeomExs" / name)) }
   def source2 = T.source(T.workspace / "Geom" / "GeomExs" / "JvmSrc")
   def sources = T.sources { sources1() :+ source2() }
-  //def mainClass = Some("ostrat.WebPage1")
+  def mainClass = Some("learn.LsE1App")
 }
 
 object Tiling extends CommonJvm
