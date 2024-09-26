@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package peri
 import geom._, prid._, phex._, pgui._, egrid._, org.scalajs.dom._
 
-class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui") {
-  val xhr = new XMLHttpRequest()
+class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFlat: Boolean = false) extends EGridBaseGui("Peri Gui")
+{ val xhr = new XMLHttpRequest()
   xhr.open("POST", "http://37.221.93.158/peri")
   xhr.onload = { (e: Event) =>
     statusText = "Status = " + xhr.status -- xhr.responseType
@@ -22,8 +22,8 @@ class Peri2Gui(val canv: CanvasPlatform, scenIn: PeriScen, viewIn: HGView, isFla
 
   def armies: LayerHcOptSys[Army] = scen.armies
 
-  focus = gridSys.cenVec
-  pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  //focus = gridSys.cenVec
+  //pixPerC = gridSys.fullDisplayScale(mainWidth, mainHeight)
   override implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 

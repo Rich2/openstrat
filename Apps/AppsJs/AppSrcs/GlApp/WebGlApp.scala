@@ -1,12 +1,13 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
-import scalajs._,js.annotation._, org.scalajs.dom._, pGrid._
+import scalajs._,js.annotation._, org.scalajs.dom._//, pGrid._
 
 @JSExportTopLevel("WebGlApp")
 object WebGlApp
 {
   @JSExport def main(args: Array[String]): Unit =
-  { val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
+  {
+    /*val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
     document.body.appendChild(can)
     import raw.WebGLRenderingContext._
     val gl: raw.WebGLRenderingContext = can.getContext("webgl").asInstanceOf[raw.WebGLRenderingContext]
@@ -53,6 +54,6 @@ object WebGlApp
     progDyn.position = gl.getAttribLocation(program, "position")
     gl.enableVertexAttribArray(progDyn.position.asInstanceOf[Int])
     gl.vertexAttribPointer(progDyn.position.asInstanceOf[Int], 2, FLOAT, false, 0, 0)
-    gl.drawArrays(TRIANGLE_FAN, 0, vertices.length / 2)
+    gl.drawArrays(TRIANGLE_FAN, 0, vertices.length / 2)*/
   }
 }

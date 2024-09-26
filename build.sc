@@ -131,8 +131,9 @@ object Apps extends CommonJvm
 
 object AppsJs extends CommonJs
 { def moduleDeps = Seq(EGridJs)  
-  def source2 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "AppSrcs" / "DicelessApp"))
+  def source2 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "AppSrcs"))
   def sources = Apps.sources1() :+ source2()
+  def ivyDeps = Agg(ivy"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
   def mainClass = Some("ostrat.pSJs.DicelessAppJs")
 }
 
