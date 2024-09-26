@@ -85,6 +85,12 @@ object GeomExs extends CommonJvm
   //def mainClass = Some("ostrat.WebPage1")
 }
 
+object GeomExaJs extends CommonJs
+{ def moduleDeps = Seq(UtilJs)
+  def source2 = T.source(T.workspace / "Geom" / "GeomEx" / "GeomExsJs" / "src")
+  def sources = GeomExs.sources1() :+ source2()
+}
+
 object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom) 
   def sources1 = T.sources(Seq("src", "srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(name => PathRef(millSourcePath / name)))
