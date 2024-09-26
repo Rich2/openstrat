@@ -84,6 +84,13 @@ object GeomExs extends CommonJvm
   def mainClass = Some("learn.LsE1App")
 }
 
+object GeomExsJs extends CommonJs
+{ def moduleDeps = Seq(GeomJs)
+  def source2 = T.source(T.workspace / "Geom" / "GeomExs" / "GeomExsJs" / "src")
+  def sources = GeomExs.sources1() :+ source2()
+  def mainClass = Some("learn.LessonAppJs")
+}
+
 object Tiling extends CommonJvm
 { def moduleDeps = Seq(Geom) 
   def sources1 = T.sources(Seq("src", "srcHex", "srcHLayer", "srcSq", "srcSqLayer").map(name => PathRef(millSourcePath / name)))

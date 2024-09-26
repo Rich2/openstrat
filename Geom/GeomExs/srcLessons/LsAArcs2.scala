@@ -11,7 +11,7 @@ import ostrat._, geom._, pgui._, Colour._
 // The associated commands will appear / disappear from the screen.
 
 /** Arcs Lesson. */
-object LsAArcs extends LessonStatic
+object LsAArcs2 extends LessonStatic
 {
   override def title: String = "Arcs"
 
