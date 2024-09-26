@@ -87,7 +87,7 @@ object GeomExs extends CommonJvm
 
 object GeomExsJs extends CommonJs
 { def moduleDeps = Seq(GeomJs)
-  def source2 = T.source(T.workspace / "Geom" / "GeomEx" / "GeomExsJs" / "src")
+  def source2 = T.source(T.workspace / "Geom" / "GeomExs" / "GeomExsJs" / "src")
   def sources = GeomExs.sources1() :+ source2()
   def mainClass = Some("learn.LessonAppJs")
 }
