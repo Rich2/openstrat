@@ -85,10 +85,11 @@ object GeomExs extends CommonJvm
   //def mainClass = Some("ostrat.WebPage1")
 }
 
-object GeomExaJs extends CommonJs
-{ def moduleDeps = Seq(UtilJs)
+object GeomExsJs extends CommonJs
+{ def moduleDeps = Seq(GeomJs)
   def source2 = T.source(T.workspace / "Geom" / "GeomEx" / "GeomExsJs" / "src")
   def sources = GeomExs.sources1() :+ source2()
+  def mainClass = Some("learn.LessonAppJs")
 }
 
 object Tiling extends CommonJvm
