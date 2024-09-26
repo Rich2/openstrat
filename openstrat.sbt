@@ -159,7 +159,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
 
   inConfig(Diceless)(Defaults.compileSettings), inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings), Diceless/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
-  Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DicelessApp",
+  Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value/* / "DicelessApp"*/,
   
   inConfig(Discov)(Defaults.compileSettings), inConfig(Discov)(ScalaJSPlugin.compileConfigSettings), Discov/mainClass:= Some("ostrat.pSJs.DiscovAppJs"),
   Discov/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DiscovApp",
