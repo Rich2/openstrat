@@ -4,5 +4,5 @@ import scalajs.js.annotation._, pCiv._
 
 @JSExportTopLevel("CivRiseAppJs")
 object CivRiseAppJs
-{ @JSExport def main(): Unit = CivGui(CanvasJs, Civ2)
+{ @JSExport def main(args: Array[String]): Unit = CivGui(CanvasJs, Civ2)
 }

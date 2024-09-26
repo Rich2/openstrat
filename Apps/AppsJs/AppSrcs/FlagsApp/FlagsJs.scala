@@ -4,5 +4,5 @@ import scalajs.js.annotation._, pFlags._
 
 @JSExportTopLevel("FlagsJs")
 object FlagsJs
-{ @JSExport def main(): Unit = FlagsGui(CanvasJs)
+{ @JSExport def main(args: Array[String]): Unit = FlagsGui(CanvasJs)
 } 

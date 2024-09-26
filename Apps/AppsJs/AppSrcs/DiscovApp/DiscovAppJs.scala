@@ -4,5 +4,5 @@ import scalajs.js.annotation._, pdiscov._, prid.phex._
 
 @JSExportTopLevel("DiscovAppJs")
 object DiscovAppJs
-{ @JSExport def main(): Unit = DiscovGui(CanvasJs, DiscovScen1, HGView(138, 522, 25))
+{ @JSExport def main(args: Array[String]): Unit = DiscovGui(CanvasJs, DiscovScen1, HGView(138, 522, 25))
 } 

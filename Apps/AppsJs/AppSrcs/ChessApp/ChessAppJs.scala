@@ -4,5 +4,5 @@ import scalajs.js.annotation._, pchess._
 
 @JSExportTopLevel("ChessAppJs")
 object ChessAppJs
-{ @JSExport def main(): Unit = ChessGui(CanvasJs, ChessStart)
+{ @JSExport def main(args: Array[String]): Unit = ChessGui(CanvasJs, ChessStart)
 } 

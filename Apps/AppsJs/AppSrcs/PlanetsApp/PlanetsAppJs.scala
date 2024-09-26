@@ -4,5 +4,5 @@ import scalajs.js.annotation._
 
 @JSExportTopLevel("PlanetsAppJs")
 object PlanetsAppJs
-{ @JSExport def main(): Unit = pspace.PlanetsGui(CanvasJs)
+{ @JSExport def main(args: Array[String]): Unit = pspace.PlanetsGui(CanvasJs)
 }

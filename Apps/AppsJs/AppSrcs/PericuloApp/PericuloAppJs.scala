@@ -4,5 +4,5 @@ import scalajs.js.annotation._, peri._, prid.phex._
 
 @JSExportTopLevel("PericuloAppJs")
 object PericuloAppJs
-{ @JSExport def main(): Unit = { PeriGui(CanvasJs, PeriScen.init(PeriScen1), HGView(102, 1536, 24)); () }
+{ @JSExport def main(args: Array[String]): Unit = { PeriGui(CanvasJs, PeriScen.init(PeriScen1), HGView(102, 1536, 24)); () }
 } 

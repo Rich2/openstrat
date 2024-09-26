@@ -4,5 +4,5 @@ import scalajs.js.annotation._, pzug._
 
 @JSExportTopLevel("ZugAppJs")
 object ZugAppJs
-{ @JSExport def main(): Unit = ZugGui(CanvasJs, Zug1)
+{ @JSExport def main(args: Array[String]): Unit = ZugGui(CanvasJs, Zug1)
 }

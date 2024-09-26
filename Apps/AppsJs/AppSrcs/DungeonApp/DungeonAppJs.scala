@@ -4,5 +4,5 @@ import scalajs.js.annotation._, pDung._
 
 @JSExportTopLevel("DungeonAppJs")
 object DungeonAppJs
-{ @JSExport def main(): Unit = DungeonGui(CanvasJs, Dungeon1)
+{ @JSExport def main(args: Array[String]): Unit = DungeonGui(CanvasJs, Dungeon1)
 } 

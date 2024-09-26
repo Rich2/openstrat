@@ -4,5 +4,5 @@ import scalajs.js.annotation._, psors._, prid.phex._
 
 @JSExportTopLevel("SorsAppJs")
 object SorsAppJs
-{ @JSExport def main(): Unit = { SorsGui(CanvasJs, SorsScen1, HGView(160, 520, 24)); () }
+{ @JSExport def main(args: Array[String]): Unit = { SorsGui(CanvasJs, SorsScen1, HGView(160, 520, 24)); () }
 } 

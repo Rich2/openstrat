@@ -124,10 +124,9 @@ object Apps extends CommonJvm
 }
 
 object AppsJs extends CommonJs
-{ def moduleDeps = Seq(EGridJs)
-  def sources2 = T.sources(Seq("Geom", "Earth", "Tiling", "EGrid").map(name => PathRef(T.workspace / name / "ExsSrc")))
-  def source3 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "AppSrcs" / "DicelessApp"))
-  def sources = Apps.sources1() :+ source3()
+{ def moduleDeps = Seq(EGridJs)  
+  def source2 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "AppSrcs" / "DicelessApp"))
+  def sources = Apps.sources1() :+ source2()
   def mainClass = Some("ostrat.pSJs.DicelessAppJs")
 }
 
