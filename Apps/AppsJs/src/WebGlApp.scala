@@ -2,12 +2,10 @@
 package ostrat; package pSJs
 import scalajs._,js.annotation._, org.scalajs.dom._
 
-@JSExportTopLevel("WebGlApp")
 object WebGlApp
 {
-  @JSExport def main(args: Array[String]): Unit =
-  {
-    val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
+  def main(args: Array[String]): Unit =
+  { val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
     document.body.appendChild(can)
     import org.scalajs.dom.{ WebGLRenderingContext => rc}
     val gl: WebGLRenderingContext = can.getContext("webgl").asInstanceOf[WebGLRenderingContext]

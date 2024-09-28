@@ -2,7 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, puloc._, geom._, pglobe._
 
-@JSExportTopLevel("UnitLocAppJs")
 object UnitLocAppJs
-{ @JSExport def main(args: Array[String]): Unit = ULocGui(CanvasJs, MTime(1939, 9, 15), EarthView(52, 18, 1.6))
+{ def main(args: Array[String]): Unit = ULocGui(CanvasJs, MTime(1939, 9, 15), EarthView(52, 18, 1.6))
 } 

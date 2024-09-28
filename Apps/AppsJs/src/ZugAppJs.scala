@@ -2,7 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pzug._
 
-@JSExportTopLevel("ZugAppJs")
 object ZugAppJs
-{ @JSExport def main(args: Array[String]): Unit = ZugGui(CanvasJs, Zug1)
+{ def main(args: Array[String]): Unit = ZugGui(CanvasJs, Zug1)
 }
