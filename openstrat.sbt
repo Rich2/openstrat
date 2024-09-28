@@ -154,13 +154,13 @@ lazy val Planets = config("Planets") extend(Compile)
 lazy val Chess = config("Chess") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
-  Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat"),
+  Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat", bbDir.value / "Apps/AppsJs/AppSrcs"),
   scalaJSUseMainModuleInitializer := true,
 
   libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
 
   inConfig(Diceless)(Defaults.compileSettings), inConfig(Diceless)(ScalaJSPlugin.compileConfigSettings), Diceless/mainClass:= Some("ostrat.pSJs.DicelessAppJs"),
-  Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value/* / "DicelessApp"*/,
+  //Diceless/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value/* / "DicelessApp"*/,
   
   inConfig(Discov)(Defaults.compileSettings), inConfig(Discov)(ScalaJSPlugin.compileConfigSettings), Discov/mainClass:= Some("ostrat.pSJs.DiscovAppJs"),
   Discov/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DiscovApp",
@@ -175,7 +175,7 @@ lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   WW1/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW1App",
 
   inConfig(WW2)(Defaults.compileSettings), inConfig(WW2)(ScalaJSPlugin.compileConfigSettings), WW2/mainClass:= Some("ostrat.pSJs.WW2AppJs"),
-  WW2/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW2App",
+  //WW2/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "WW2App",
 
   inConfig(Dungeon)(Defaults.compileSettings), inConfig(Dungeon)(ScalaJSPlugin.compileConfigSettings),
   Dungeon/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ jsAppsDir.value / "DungeonApp",

@@ -134,7 +134,17 @@ object AppsJs extends CommonJs
   def source2 = T.source(PathRef(T.workspace / "Apps" / "AppsJs" / "AppSrcs"))
   def sources = Apps.sources1() :+ source2()
   def ivyDeps = Agg(ivy"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
+  
+}
+
+object DicelessJs extends CommonJs
+{ def moduleDeps = Seq(AppsJs)
   def mainClass = Some("ostrat.pSJs.DicelessAppJs")
+}
+
+object WW2Js extends CommonJs
+{ def moduleDeps = Seq(AppsJs)
+  def mainClass = Some("ostrat.pSJs.WW2AppJs")
 }
 
 object Dev extends CommonJvm
