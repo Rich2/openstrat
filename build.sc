@@ -18,7 +18,7 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.16.0"
+{ def scalaJSVersion = "1.17.0"
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.8.0")
 }
 
