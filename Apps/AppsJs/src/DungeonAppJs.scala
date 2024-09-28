@@ -2,7 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pDung._
 
-@JSExportTopLevel("DungeonAppJs")
 object DungeonAppJs
-{ @JSExport def main(args: Array[String]): Unit = DungeonGui(CanvasJs, Dungeon1)
+{ def main(args: Array[String]): Unit = DungeonGui(CanvasJs, Dungeon1)
 } 

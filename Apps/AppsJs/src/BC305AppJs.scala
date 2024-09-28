@@ -2,7 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, p305._, prid.phex._
 
-@JSExportTopLevel("BC305AppJs")
 object BC305AppJs
-{ @JSExport def main(args: Array[String]): Unit = BC305Gui(CanvasJs, BCScen1, HGView(144, 1525, 26))
+{ def main(args: Array[String]): Unit = BC305Gui(CanvasJs, BCScen1, HGView(144, 1525, 26))
 } 
