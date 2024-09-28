@@ -155,6 +155,7 @@ lazy val Chess = config("Chess") extend(Compile)
 
 lazy val AppsJs = jsProj("Apps").dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List(bbDir.value / "Apps/src", bbDir.value / "Apps/srcStrat"),
+  scalaJSUseMainModuleInitializer := true,
 
   libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
 
