@@ -149,6 +149,16 @@ object AppJs extends Module
   object Diceless extends Base { def name = "Diceless" }
   object WW2 extends Base { def name = "WW2" }
   object WW1 extends Base { def name = "WW1" }
+  object BC305 extends Base { def name = "BC305" }
+  object Sors extends Base { def name = "Sors" }
+  object Peri extends Base { def name = "Peri" }
+  object Discov extends Base { def name = "Discov" }
+  object IndRev extends Base { def name = "IndRev" }
+  object UnitLoc extends Base { def name = "UnitLoc" }
+  object CivRise extends Base { def name = "CivRise" }
+  object Zug extends Base { def name = "Zug" }
+  object Dungeon extends Base { def name = "Dungeon" }
+  object Planets extends Base { def name = "Planets" }
 }
 
 object Dev extends CommonJvm
