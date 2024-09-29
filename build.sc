@@ -136,15 +136,19 @@ object AppsJs extends CommonJs
   def ivyDeps = Agg(ivy"io.github.cquiroz::scala-java-time_sjs1:2.6.0")
 }
 
-trait AppJs extends CommonJs
+trait AppsJs extends CommonJs
 { def moduleDeps = Seq(AppsJs)
 }
 
-object DicelessJs extends AppJs
-{ def mainClass = Some("ostrat.pSJs.DicelessAppJs")
-}
-object WW2Js extends AppJs
-{ def mainClass = Some("ostrat.pSJs.WW2AppJs")
+object AppJs extends Module
+{
+  trait Base extends AppsJs
+  { def name: String
+    def mainClass = Some("ostrat.pSJs." + name + "AppJs")
+  }
+  object Diceless extends Base { def name = "Diceless" }
+  object WW2 extends Base { def name = "WW2" }
+  object WW1 extends Base { def name = "WW1" }
 }
 
 object Dev extends CommonJvm
