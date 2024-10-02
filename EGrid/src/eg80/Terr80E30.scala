@@ -98,7 +98,7 @@ object Terr80E30  extends Long80Terrs
       TRow(424, hillySavannah, sea * 4, hillyOce, mtainDepr, hillyOce * 2, sea * 3, hillyOce * 5, hillyDeshot, deshot * 2, hillyDeshot * 6, mtainDepr * 2,
         hillyDeshot, lake, hillyDeshot, mtainDepr),
 
-      VRow(423, Bend(1500, HVUp, 5, 1)),
+      VRow(423, BendIn(1498, HVDn), Bend(1500, HVUp, 5, 1)),
 
       TRow(422, mtainDepr, sea * 4, Isle10(hillyOce), hillyOce, mtainDepr, hillyOce * 2, sea * 2, hillyOce * 7, deshot,
         hillyDeshot, deshot, mtainDepr, hillyOce, hillyDeshot, mtainDepr, oceanic * 2, hillyDeshot, mtainDepr * 2, hillyDeshot),

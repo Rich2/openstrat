@@ -11,7 +11,7 @@ sealed trait Ebbf[E <: Throwable, A]
 }
 
 /** Success, boxes a good value of the desired type. */
-class Succ[E <: Throwable, A](value: A) extends Ebbf[E, A]
+case class Succ[E <: Throwable, A](value: A) extends Ebbf[E, A]
 { override def map[B](f: A => B): Ebbf[E, B] = new Succ[E, B](f(value))
 
   override def flatMap[B](f: A => Ebbf[E, B]): Ebbf[E, B] = f(value) match
@@ -21,9 +21,18 @@ class Succ[E <: Throwable, A](value: A) extends Ebbf[E, A]
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
-class Fail[E <: Throwable, A](val error: E) extends Ebbf[E, A]
+case class Fail[E <: Throwable, A](val error: E) extends Ebbf[E, A]
 { override def map[B](f: A => B): Ebbf[E, B] = new Fail[E, B](error)
   override def flatMap[B](f: A => Ebbf[E, B]): Ebbf[E, B] = new Fail[E, B](error)
 }
 
 type EEMon[A] = Ebbf[Exception, A]
+type SuccE[A] = Succ[Exception, A]
+
+object SuccE
+{
+  def unapply[A](inp: EEMon[A]): Option[A] = inp match{
+    case succ: SuccE[A] => Some(succ.value)
+    case _ => None
+  }
+}

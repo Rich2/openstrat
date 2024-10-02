@@ -28,6 +28,19 @@ object lexSrc
       }
     }
 
+    implicit class Lex3Implicit(e3: EEMon[Lex3])
+    {
+      def append3Loop: Unit = e3 match
+      {
+        case SuccE[Lex3](value) =>
+        { acc.append(value.token)
+          rem = value.co
+          posn = value.tp
+        }
+        case Fail(err) => acc2 = new Bad[ArrayBuffer[Token]](StrArr(err.toString))
+      }
+    }
+
     /** Before this was inlined getting stack overflows. */
     def appendLoop(newToken: Token, charsOff: CharsOff, tpNew: TextPosn): Unit =
     { acc.append(newToken)
