@@ -89,3 +89,9 @@ object lexSrc
     acc2.map(_.toArr)
   }
 }
+
+case class Lex3(co: CharsOff, tp: TextPosn, token: Token)
+
+object Lex3{
+  def s3(co: CharsOff, tp: TextPosn, token: Token): EEMon[Lex3] = Succ(new Lex3(co, tp, token))
+}

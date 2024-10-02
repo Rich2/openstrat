@@ -55,4 +55,10 @@ object lexDigitHeadToken
       case CharsOff1Tail(LetterOrUnderscoreChar(l), tail) => apply(tail, tp, digitsStr, isNeg, alphaStr + l)
       case _ => Good3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
   }
+
+  def alt(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): EEMon[Lex3] =
+    rem match {
+      case CharsOff1Tail(LetterOrUnderscoreChar(l), tail) => alt(tail, tp, digitsStr, isNeg, alphaStr + l)
+      case _ => Lex3.s3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
+    }
 }

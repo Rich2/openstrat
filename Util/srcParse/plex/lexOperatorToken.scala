@@ -26,4 +26,29 @@ object lexOperatorToken
     }
     loop(remOff, tp)
   }
+
+  def alt(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EEMon[Lex3] =
+  {
+    var acc: String = ""
+
+    def loop(remOff: CharsOff, tp: TextPosn): EEMon[Lex3] = remOff match {
+      case CharsOffHead2('/', '/' | '*') => Lex3.s3(remOff, tp, sort)
+      case CharsOff1Tail(OperatorChar(c), tail) => {
+        acc :+= c; loop(tail, tp.right1)
+      }
+      case _ => Lex3.s3(remOff, tp, sort)
+    }
+
+    def sort: Token = acc.last match {
+      case '=' => AsignToken(tp)
+      case ':' => ColonToken(tp)
+      case _ if acc == "/" => SlashToken(tp)
+      case _ => acc.head match {
+        case '|' | '^' | '&' | '=' | '!' | '<' | '>' | ':' | '+' | '-' | '*' | '/' | '%' => OperatorPrec1Token(tp, acc)
+        case _ => OperatorPrec0Token(tp, acc)
+      }
+    }
+
+    loop(remOff, tp)
+  }
 }

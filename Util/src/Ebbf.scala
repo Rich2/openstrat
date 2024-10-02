@@ -25,3 +25,5 @@ class Fail[E <: Throwable, A](val error: E) extends Ebbf[E, A]
 { override def map[B](f: A => B): Ebbf[E, B] = new Fail[E, B](error)
   override def flatMap[B](f: A => Ebbf[E, B]): Ebbf[E, B] = new Fail[E, B](error)
 }
+
+type EEMon[A] = Ebbf[Exception, A]
