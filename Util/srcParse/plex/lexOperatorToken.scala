@@ -27,15 +27,16 @@ object lexOperatorToken
     loop(remOff, tp)
   }*/
 
-  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EEMon[Lex3] =
+  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] =
   { var acc: String = ""
 
-    def loop(remOff: CharsOff, tp: TextPosn): EEMon[Lex3] = remOff match {
-      case CharsOffHead2('/', '/' | '*') => Lex3.s3(remOff, tp, sort)
+    def loop(remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match {
+      case CharsOffHead2('/', '/' | '*') => Succ3(remOff, tp, sort)
       case CharsOff1Tail(OperatorChar(c), tail) => {
-        acc :+= c; loop(tail, tp.right1)
+        acc :+= c;
+        loop(tail, tp.right1)
       }
-      case _ => Lex3.s3(remOff, tp, sort)
+      case _ => Succ3(remOff, tp, sort)
     }
 
     def sort: Token = acc.last match {

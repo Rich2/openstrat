@@ -28,14 +28,12 @@ object lexSrc
       }
     }
 
-    implicit class Lex3Implicit(e3: EEMon[Lex3])
-    {
-      def append3Loop: Unit = e3 match
-      {
-        case SuccE[Lex3](value) =>
-        { acc.append(value.token)
-          rem = value.co
-          posn = value.tp
+    implicit class Ebbf3Implicit(e3: EEMon3[CharsOff, TextPosn, Token]) {
+      def append3Loop: Unit = e3 match {
+        case Succ3 (co, tp, token) => {
+          acc.append (token)
+          rem = co
+          posn = tp
         }
         case Fail(err) => acc2 = new Bad[ArrayBuffer[Token]](StrArr(err.toString))
       }
@@ -101,10 +99,4 @@ object lexSrc
     }
     acc2.map(_.toArr)
   }
-}
-
-case class Lex3(co: CharsOff, tp: TextPosn, token: Token)
-
-object Lex3{
-  def s3(co: CharsOff, tp: TextPosn, token: Token): EEMon[Lex3] = Succ(new Lex3(co, tp, token))
 }

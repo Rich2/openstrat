@@ -35,6 +35,14 @@ object parseBase32
     case _ if isNeg => Good3(rem, tp.addStr(str), RawBase32NegToken(tp, str))
     case _ => Good3(rem, tp.addStr(str), RawBase32NatToken(tp, str))
   }
+
+  def alt(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, ValidRawBase32IntToken] = //???
+  rem match {
+    case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32.alt(tail, tp, l.toString, isNeg)
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.failE("Badly formed raw Base 32 token.")
+    case _ if isNeg => Succ3(rem, tp.addStr(str), RawBase32NegToken(tp, str))
+//    case _ => Good3(rem, tp.addStr(str), RawBase32NatToken(tp, str))
+  }
 }
 
 object parseDeciFrac
@@ -44,6 +52,15 @@ object parseDeciFrac
     case _ => {
       val token = ife(isNeg, DeciFracNegToken(tp, seq1, seq2, ""), DeciFracPosToken(tp, seq1, seq2, ""))
       Good3(rem, tp.addStr(seq1).addStr(seq2).right1, token)
+    }
+  }
+
+  def alt(rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] = rem match
+  {
+    case CharsOff1Tail(d, tail) if d.isDigit => alt(tail, tp, seq1, seq2 + d.toString, isNeg)
+    case _ => {
+      val token = ife(isNeg, DeciFracNegToken(tp, seq1, seq2, ""), DeciFracPosToken(tp, seq1, seq2, ""))
+      Succ3(rem, tp.addStr(seq1).addStr(seq2).right1, token)
     }
   }
 }
@@ -56,9 +73,9 @@ object lexDigitHeadToken
       case _ => Good3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
   }
 
-  def alt(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): EEMon[Lex3] =
+  def alt(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] =
     rem match {
       case CharsOff1Tail(LetterOrUnderscoreChar(l), tail) => alt(tail, tp, digitsStr, isNeg, alphaStr + l)
-      case _ => Lex3.s3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
+      case _ => Succ3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
     }
 }
