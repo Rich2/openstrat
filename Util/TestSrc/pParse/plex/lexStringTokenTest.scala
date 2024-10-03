@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
 import utest._
 
@@ -11,7 +11,7 @@ object lexStringTokenTest extends TestSuite
   val p1 = StrPosn(1, 1)
   val s1 = "\"Hello\""
   val chs1 = s1.toChars
-  val r1: EMon3[CharsOff, TextPosn, StringToken] = lexStringToken(chs1.offsetter0, StrPosn())(chs1)
+  val r1: EEMon3[CharsOff, TextPosn, StringToken] = lexStringToken(chs1.offsetter0, StrPosn())(chs1)
   val s2 = s1 + " AnIdentifier"
   val chs2 = s2.toChars
   val r2 = lexStringToken(chs2.offsetter0, StrPosn())(chs2)
@@ -21,10 +21,10 @@ object lexStringTokenTest extends TestSuite
 
   val tests = Tests {
     test("Test1")
-    { assertMatch(r0){case Good3(CharsOff(2), StrPosn(1, 3), StringToken(p1, s0)) => }
-      assertMatch(r1){case Good3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
-      assertMatch(r2){case Good3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
-      assertMatch(r3){case Good3(CharsOff(13), StrPosn(1, 14), StringToken(StrPosn(1, 5), s3)) => }
+    { assertMatch(r0){case Succ3(CharsOff(2), StrPosn(1, 3), StringToken(p1, s0)) => }
+      assertMatch(r1){case Succ3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
+      assertMatch(r2){case Succ3(CharsOff(7), StrPosn(1, 8), StringToken(p1, s1)) => }
+      assertMatch(r3){case Succ3(CharsOff(13), StrPosn(1, 14), StringToken(StrPosn(1, 5), s3)) => }
     }
 
     //val s4 = "\"Hello"
