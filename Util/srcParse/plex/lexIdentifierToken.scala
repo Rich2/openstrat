@@ -10,40 +10,40 @@ object lexIdentifierToken
 
     def upperHexaLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentUpperHexaToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_))  => upperLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', LetterOrDigitChar(_))  => upperLoopOld(acc + '_', remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(HexaUpperChar(c), tail) => upperHexaLoop(acc + c, tail, tp.right1)
       case CharsOff1Tail(DigitChar(c), tail) => upperHexaLoop(acc + c, tail, tp.right1)
-      case CharsOff1Tail(LetterChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(LetterChar(c), tail) => upperLoopOld(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentUpperHexaToken(tpStart, acc))
     }
 
     def lowerHexaLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentLowerHexaToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoopOld(acc + '_', remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(HexaLowerChar(c), tail) => lowerHexaLoop(acc + c, tail, tp.right1)
-      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoopOld(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentLowerHexaToken(tpStart, acc))
     }
 
     def upperBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match {
       case CharsOff0() => Good3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + "_", remOff.drop1, tp.right1)
+      case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoopOld(acc + "_", remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperBase32Loop(acc + c, tail, tp.right1)
       case CharsOff1Tail(DigitChar(d), tail) => upperBase32Loop(acc + d, tail, tp.right1)
-      case CharsOff1Tail(LetterChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(LetterChar(c), tail) => upperLoopOld(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
     }
 
 
     def lowerBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentLowerBase32OnlyToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoopOld(acc + '_', remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerBase32Loop(acc + c, tail, tp.right1)
-      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoopOld(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
     }
 
@@ -55,21 +55,36 @@ object lexIdentifierToken
       case CharsOffHead(_) => Good3(remOff, tp, IdentUnderToken(tpStart, acc))
     }
 
-    def lowerLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
+    def lowerLoopOld(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoopOld(acc + '_', remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
-      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoopOld(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
     }
 
+    def lowerLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match {
+      case CharsOff0() => Succ3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
+      case CharsOffHead2('_', LetterOrDigitChar(_)) => lowerLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
+      case CharsOffHead(_) => Succ3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
+    }
 
-    def upperLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
+    def upperLoopOld(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_))  => upperLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', LetterOrDigitChar(_))  => upperLoopOld(acc + '_', remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
-      case CharsOff1Tail(LetterOrDigitChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => upperLoopOld(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
+    }
+
+    def upperLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match {
+      case CharsOff0() => Succ3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
+      case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
+      case CharsOffHead(_) => Succ3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
     }
 
     remOff match
@@ -81,11 +96,11 @@ object lexIdentifierToken
 
       case CharsOff1Tail(HexaUpperChar(c1), tail) => upperHexaLoop(c1.toString, tail, tpStart.right1)
       case CharsOff1Tail(Base32UpperChar(c1), tail) => upperBase32Loop(c1.toString(), tail, tpStart.right1)
-      case CharsOff1Tail(LetterUpper(c1), tail)  => upperLoop(c1.toString, tail, tpStart.right1)
+      case CharsOff1Tail(LetterUpper(c1), tail)  => upperLoopOld(c1.toString, tail, tpStart.right1)
 
       case CharsOff1Tail(HexaLowerChar(c1), tail) => lowerHexaLoop(c1.toString, tail, tpStart.right1)
       case CharsOff1Tail(Base32LowerChar(c1), tail) => lowerBase32Loop(c1.toString, tail, tpStart.right1)
-      case CharsOff1Tail(LetterLower(c1), tail) => lowerLoop(c1.toString, tail, tpStart.right1)
+      case CharsOff1Tail(LetterLower(c1), tail) => lowerLoopOld(c1.toString, tail, tpStart.right1)
 
       case CharsOffHead(c) => tpStart.bad3(c.toString + " is not a valid start to an identifier.")
     }

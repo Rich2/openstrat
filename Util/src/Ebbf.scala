@@ -27,13 +27,15 @@ case class Fail[+E <: Throwable, +A](val error: E) extends Ebbf[E, A]
   override def flatMap[B](f: A => Ebbf[E, B] @uncheckedVariance): Ebbf[E, B] = new Fail[E, B](error)
 }
 
+object Fail
+{ def apply[A](errStr: String): FailE[A] = new Fail[Exception, A](new Exception(errStr))
+}
+
 type EEMon[A] = Ebbf[Exception, A]
 type SuccE[A] = Succ[Exception, A]
 type FailE[A] = Fail[Exception, A]
 
-object FailE
-{ def apply[A](errStr: String): FailE[A] = new Fail[Exception, A](new Exception(errStr))
-}
+
 
 object SuccE
 {

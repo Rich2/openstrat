@@ -34,7 +34,7 @@ object TextPosn
     def notImplemented[A] = new Bad[A](StrArr(parseErr("Not implemented.")))
     def bad2[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](StrArr(parseErr(message)))
     def bad3[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr(message)))
-    def failE[A](message: String): FailE[A] = FailE[A](parseErr(message))
+    def fail[A](message: String): FailE[A] = Fail[A](parseErr(message))
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
   
