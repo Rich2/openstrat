@@ -26,13 +26,13 @@ object HexaTokenTest extends TestSuite
 
   val tests = Tests {
     test("Parse")
-    { assertMatch(r1){ case GoodArr1(Ht1) => }
+    { assertMatch(r1){ case SuccEArr1(Ht1) => }
       Ht1.asHexaInt ==> 0x123
       Ht1.getIntStd ==> rr1
       Ht1.asHexaInt ==> rr1
-      assertMatch(r2){ case GoodArr1(Ht2) => }
+      assertMatch(r2){ case SuccEArr1(Ht2) => }
       Ht2.getIntStd ==> rr2
-      assertMatch(r3) { case Bad(_) => }
+      assertMatch(r3) { case Fail(_) => }
     }
 
     val ht1 = Nat0xToken(Sp1, "A")

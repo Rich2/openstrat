@@ -55,6 +55,15 @@ object SuccE
 
 type EEArr[A <: AnyRef] = EEMon[RArr[A]]
 
+/** Extractor function object for a successful Arr Sequence of length 1. */
+object SuccEArr1
+{ /** Extractor method for a Good [[Arr]] Sequence of length 1. */
+  def unapply[A](eArr: EEMon[Arr[A]]): Option[A] = eArr match
+  { case Succ(Arr1(head)) => Some(head)
+    case _ => None
+    }
+}
+
 type EEMon3[A1, A2, A3] = EEMon[(A1, A2, A3)]
 
 implicit class EEMon3Extensions[A1, A2, A3](val thisEE3: EEMon3[A1, A2, A3])

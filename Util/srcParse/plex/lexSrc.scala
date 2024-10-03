@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
  *  but the mutability is fully encapsulated. */
 object lexSrc
 {
-  def str(inp: String): EArr[Token] = apply(inp.toArray, "String").toEMon
+  def str(inp: String): EEArr[Token] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
   def apply(charsIn: Array[Char], fileName: String): EEArr[Token] =
@@ -18,9 +18,10 @@ object lexSrc
 
     implicit class Ebbf3Implicit(e3: EEMon3[CharsOff, TextPosn, Token])
     {
-      def append3Loop: Unit = e3 match {
-        case Succ3 (co, tp, token) => {
-          acc.append (token)
+      def append3Loop: Unit = e3 match
+      {
+        case Succ3 (co, tp, token) =>
+        { acc.append (token)
           rem = co
           posn = tp
         }

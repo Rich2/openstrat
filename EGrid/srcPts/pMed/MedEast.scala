@@ -88,6 +88,18 @@ object Rhodes extends EarthArea("Rhodes", 36.22 ll 27.95, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, akraLindos, p40, south, p50, p65, p70)
 }
 
+object Thasos extends EarthAreaIsland("Thasos", 40.686 ll 24.659, mtainSubForest)
+{ override def area: KilometresSq = 380.kilometresSq
+
+  val north: LatLong = 40.801 ll 24.650
+  val northEast: LatLong = 40.736 ll 24.784
+  val southEast: LatLong = 40.606 ll 24.774
+  val south: LatLong = 40.567 ll 24.644
+  val southWest: LatLong = 40.602 ll 24.530
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, southWest)
+}
+
 /** [[PolygonLL]] graphic for the Sinai peninsular depends on nothing. */
  object Sinai extends EarthArea("Sinai", 29.88 ll 33.75, deshot)
 { val deadSeaSE: LatLong = 30.97 ll 35.37
@@ -101,7 +113,7 @@ object Rhodes extends EarthArea("Rhodes", 36.22 ll 27.95, hillyOce)
   override def toString: String = "Sinai"
 }
 
-/** [[PolygonLL]] graphic for north east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
+/** [[PolygonLL]] graphic for north-east Africa. Depends on [[SaharaCentral]] and [[Sinai]]. */
 object SaharaEast extends EarthArea("SaharaEast", 24 ll 25, deshot)
 { val p5: LatLong = 29.59 ll 32.34
   val p20: LatLong = 23.95 ll 35.76

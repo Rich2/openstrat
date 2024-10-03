@@ -65,7 +65,7 @@ object BalkansEast extends EarthArea("BalkansEast", 44.0 ll 25.5, oceanic)
   val p47: LatLong = 40.66 ll 26.79
   val p50: LatLong = 40.61 ll 26.13
   val p55: LatLong = 40.84 ll 25.96
-  val thasosS: LatLong = 40.57 ll 24.64
+  val p57: LatLong = 40.861 ll 24.629
   val p62: LatLong = 40.74 ll 24.06
   val p66: LatLong = 40.53 ll 23.91
   val p70: LatLong = 40.14 ll 24.40
@@ -74,7 +74,7 @@ object BalkansEast extends EarthArea("BalkansEast", 44.0 ll 25.5, oceanic)
   val thessalonika: LatLong = 40.65 ll 22.9
 
   override val polygonLL: PolygonLL = PolygonLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN,
-    MarmaraSea.istanbul, MarmaraSea.north, MarmaraSea.tekirdag, MarmaraSea.p70, MarmaraSea.dardanellesE, seddElBahr, p40, p47, p50, p55, thasosS, p62,
+    MarmaraSea.istanbul, MarmaraSea.north, MarmaraSea.tekirdag, MarmaraSea.p70, MarmaraSea.dardanellesE, seddElBahr, p40, p47, p50, p55, p57, p62,
     p66, p70, p80, p85, thessalonika, Greece.northEast)
 }
 
