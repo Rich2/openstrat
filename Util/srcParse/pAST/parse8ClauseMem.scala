@@ -10,15 +10,14 @@ object parse8ClauseMem
     val acc: ArrayBuffer[ClauseMem] = Buffer()
 
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
-    { case ArrOff0() => parse9PrefixPlus(acc.toArr)
+    { case ArrOff0() => parse9PrefixPlus(acc.toArr).toEMon
 
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStructure, t2) => {
         val (newExpr, newRem) = parseAlphaBrackets(t2, at, bb)
         acc.append(newExpr)
         loop(newRem)
       }
-
-
+      
       /*{ deb("parse8ClauseMem => AlphaBracketExpr")
         val (bks, tail3) = t2.partitionT[BracketedStructure]
         val abe = AlphaBracketExpr(at, bb %: bks)
