@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
  *  but the mutability is fully encapsulated. */
 object lexSrc
 {
-  def str(inp: String): ErrBiArr[Exception, Token] = apply(inp.toArray, "String")
+  def str(inp: String): ErrBiArr[ExcLexar, Token] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
   def apply(charsIn: Array[Char], fileName: String): ErrBiArr[ExcLexar, Token] =

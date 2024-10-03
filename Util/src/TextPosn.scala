@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
-import ostrat.pParse.ExcLexar
+import pParse.*
 
 case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)
 { /** moves the value of the TextPosn to the right. */
@@ -38,6 +37,7 @@ object TextPosn
     def bad3[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr(message)))
     //def fail[A](message: String): Fail[A] = Fail[A](parseErr(message))
     def failLexar[A](detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(thisTextPosn, detail))
+    def failAst[A](detail: String): Fail[ExcAst, A] = new Fail[ExcAst, A](ExcAst(thisTextPosn, detail))
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
   
