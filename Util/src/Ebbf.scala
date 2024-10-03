@@ -64,6 +64,8 @@ object SuccEArr1
   }
 }
 
+type Ebbf3[E <: Exception, A1, A2, A3] = Ebbf[E, (A1, A2, A3)]
+
 type EEMon3[A1, A2, A3] = EEMon[(A1, A2, A3)]
 
 implicit class EEMon3Extensions[A1, A2, A3](val thisEE3: EEMon3[A1, A2, A3])

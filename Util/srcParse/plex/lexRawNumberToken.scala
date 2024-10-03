@@ -6,7 +6,9 @@ package ostrat; package pParse; package plex
 object lexRawNumberToken
 {
   def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] = rem match
-  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
+  {
+  //Ebbf3[ExcLexar, CharsOff, TextPosn, Token]
+    case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
     case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString, isNeg)
     case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString, isNeg)
     case CharsOff1Tail(l, tail) if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, str + l.toString, isNeg)
@@ -31,7 +33,7 @@ object parseBase32
 {
   def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, ValidRawBase32IntToken] = rem match
   { case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString, isNeg)
-    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.fail("Badly formed raw Base 32 token.")
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.failLexar("Badly formed raw Base 32 token.")
     case _ if isNeg => Succ3(rem, tp.addStr(str), RawBase32NegToken(tp, str))
     case _ => Succ3(rem, tp.addStr(str), RawBase32NatToken(tp, str))
   }
@@ -39,7 +41,8 @@ object parseBase32
 
 object parseDeciFrac
 {
-  def apply(rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] = rem match
+  def apply(rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: CharArr): Ebbf3[ExcLexar, CharsOff, TextPosn, Token] =
+  rem match
   {
     case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, seq1, seq2 + d.toString, isNeg)
     case _ =>
