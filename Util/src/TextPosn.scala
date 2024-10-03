@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import ostrat.pParse.ExcLexar
+
 case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)
 { /** moves the value of the TextPosn to the right. */
   def right(num: Int): TextPosn = TextPosn(fileName, lineNum, linePosn + num)
@@ -27,14 +29,15 @@ object TextPosn
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
   def emptyError[A](errStr: String): Bad[A] = empty.bad(errStr)
 
-  implicit class TextPosnImplicit(thisTP: TextPosn)
+  implicit class TextPosnImplicit(thisTextPosn: TextPosn)
   {
-    def parseErr(detail: String): String = thisTP.fileName -- thisTP.lineNum.toString + ", " + thisTP.linePosn.toString + ": " + detail
+    def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
     def bad[A](message: String): Bad[A] = new Bad[A](StrArr(parseErr(message)))
     def notImplemented[A] = new Bad[A](StrArr(parseErr("Not implemented.")))
     def bad2[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](StrArr(parseErr(message)))
     def bad3[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr(message)))
     def fail[A](message: String): FailE[A] = Fail[A](parseErr(message))
+    def failLexar[A](detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(thisTextPosn, detail))
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
   

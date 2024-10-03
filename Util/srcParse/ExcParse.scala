@@ -3,4 +3,8 @@ package ostrat; package pParse
 
 trait ExcParse extends Exception
 
-trait ExcLexar extends ExcParse
+case class ExcLexar(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with ExcParse
+{
+}
+
+

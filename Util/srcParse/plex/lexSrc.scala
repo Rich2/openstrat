@@ -48,7 +48,7 @@ object lexSrc
       case CharsOff1Tail('{', tail) => appendLoop(CurlyOpenToken(posn), tail, posn.right1)
       case CharsOff1Tail('}', tail) => appendLoop(CurlyCloseToken(posn), tail, posn.right1)
 
-      case CharsOffHead4('.', '.', '.', '.') => acc2 = posn.right(4).fail(".... is not an allowed character sequence.")
+      case CharsOffHead4('.', '.', '.', '.') => acc2 = posn.right(4).failLexar(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(posn), tail, posn.right3)
       case CharsOff2Tail('.', '.', tail) => appendLoop(Dot2Token(posn), tail, posn.right2)
       case CharsOff1Tail('.', tail) => appendLoop(DotToken(posn), tail, posn.right1)
@@ -62,7 +62,7 @@ object lexSrc
       }
 
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(posn, c1), tail, posn.right3)
-      case CharsOff1Tail('\'', _) => acc2 = posn.fail("Unclosed Character literal.")
+      case CharsOff1Tail('\'', _) => acc2 = posn.failLexar("Unclosed Character literal.")
 
       case CharsOff2Tail('/', '*', tail) =>
       {
@@ -85,7 +85,7 @@ object lexSrc
       case CharsOff2Tail('-', DigitChar(d), tail) => lexRawNumberToken(tail, posn, d.toString, true).append3Loop
       case CharsOffHead2('/', LetterOrUnderscoreChar(_) ) => lexPathToken(rem, posn).append3Loop
       case CharsOffHead(c) if isOperator(c) => lexOperatorToken(rem, posn).append3Loop
-      case CharsOffHead(c) => acc2 = posn.fail("Unimplemented character in main loop: " + c.toString)
+      case CharsOffHead(c) => acc2 = posn.failLexar("Unimplemented character in main loop: " + c.toString)
     }
     acc2.map(_.toArr)
   }

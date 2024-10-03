@@ -20,16 +20,16 @@ object Nat0xToken
     def loop(rem: CharsOff, strAcc: String, intAcc: Long): EEMon3[CharsOff, TextPosn, Nat0xToken] = rem match
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0xToken(tp, strAcc))
       case CharsOff1Tail(HexaDigitChar(c, i), tail) => loop(tail, strAcc + c, intAcc * 16 + i)
-      case CharsOffHead(LetterChar(_)) => tp.fail("Badly formed hexadecimal")
+      case CharsOffHead(LetterChar(_)) => tp.failLexar("Badly formed hexadecimal")
       case _ => Succ3(rem, tp.addStr(strAcc), Nat0xToken(tp, strAcc))
     }
 
     rem match
     { case CharsOff3Tail('0', 'x', HexaDigitChar(c, i), tail) => loop (tail, c.toString, i)
-      case CharsOffHead3('0', 'x', WhitespaceChar(_)) => tp.fail("Empty hexademicmal token.")
-      case CharsOffHead3('0', 'x', c) => tp.fail("Badly formed hexademicmal token.")
-      case CharsOff2('0', 'x') => tp.fail("Unclosed hexadecimal token")
-      case _ => tp.fail("Badly formed explicit Hexadecimal literal")
+      case CharsOffHead3('0', 'x', WhitespaceChar(_)) => tp.failLexar("Empty hexademicmal token.")
+      case CharsOffHead3('0', 'x', c) => tp.failLexar("Badly formed hexademicmal token.")
+      case CharsOff2('0', 'x') => tp.failLexar("Unclosed hexadecimal token")
+      case _ => tp.failLexar("Badly formed explicit Hexadecimal literal")
     }
   }
 }

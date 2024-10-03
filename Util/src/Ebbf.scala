@@ -61,7 +61,7 @@ object SuccEArr1
   def unapply[A](eArr: EEMon[Arr[A]]): Option[A] = eArr match
   { case Succ(Arr1(head)) => Some(head)
     case _ => None
-    }
+  }
 }
 
 type EEMon3[A1, A2, A3] = EEMon[(A1, A2, A3)]
