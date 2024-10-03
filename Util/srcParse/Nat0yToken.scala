@@ -21,7 +21,7 @@ object Nat0yToken
       case CharsOff1Tail(DigitChar(c), tail) => loop(tail, strAcc + c)
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
-      case CharsOffHead(LetterChar(_)) => tp.fail("Badly formed hexadecimal")
+      case CharsOffHead(LetterChar(_)) => tp.failLexar("Badly formed hexadecimal")
       case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
@@ -29,8 +29,8 @@ object Nat0yToken
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => upperLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
-      case CharsOffHead(Base32LowerChar(c)) => tp.fail("Can't mix upper and lower case letters in 0y Base32 token.")
-      case CharsOffHead(LetterChar(_)) => tp.fail("Badly formed hexadecimal")
+      case CharsOffHead(Base32LowerChar(c)) => tp.failLexar("Can't mix upper and lower case letters in 0y Base32 token.")
+      case CharsOffHead(LetterChar(_)) => tp.failLexar("Badly formed hexadecimal")
       case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
@@ -38,8 +38,8 @@ object Nat0yToken
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => lowerLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
-      case CharsOffHead(Base32UpperChar(c)) => tp.fail("Can't mix upper and lower case letters in 0y Base32 token.")
-      case CharsOffHead(LetterChar(_)) => tp.fail("Badly formed hexadecimal")
+      case CharsOffHead(Base32UpperChar(c)) => tp.failLexar("Can't mix upper and lower case letters in 0y Base32 token.")
+      case CharsOffHead(LetterChar(_)) => tp.failLexar("Badly formed hexadecimal")
       case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
@@ -47,10 +47,10 @@ object Nat0yToken
     { case CharsOff3Tail('0', 'y', DigitChar(c), tail) => loop (tail, c.toString)
       case CharsOff3Tail('0', 'y', Base32UpperChar(c), tail) => upperLoop (tail, c.toString)
       case CharsOff3Tail('0', 'y', Base32LowerChar(c), tail) => lowerLoop (tail, c.toString)
-      case CharsOffHead3('0', 'y', WhitespaceChar(_)) => tp.fail("Empty hexademicmal token.")
-      case CharsOffHead3('0', 'y', c) => tp.fail("Badly formed hexademicmal token.")
-      case CharsOff2('0', 'x') => tp.fail("Unclosed hexadecimal token")
-      case _ => tp.fail("Badly formed explicit Hexadecimal literal")
+      case CharsOffHead3('0', 'y', WhitespaceChar(_)) => tp.failLexar("Empty hexademicmal token.")
+      case CharsOffHead3('0', 'y', c) => tp.failLexar("Badly formed hexademicmal token.")
+      case CharsOff2('0', 'x') => tp.failLexar("Unclosed hexadecimal token")
+      case _ => tp.failLexar("Badly formed explicit Hexadecimal literal")
     }
   }
 }

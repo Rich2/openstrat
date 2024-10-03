@@ -9,7 +9,7 @@ object lexIdentifierToken
     def upperHexaLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentUpperHexaToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + '_', remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(HexaUpperChar(c), tail) => upperHexaLoop(acc + c, tail, tp.right1)
       case CharsOff1Tail(DigitChar(c), tail) => upperHexaLoop(acc + c, tail, tp.right1)
       case CharsOff1Tail(LetterChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
@@ -19,7 +19,7 @@ object lexIdentifierToken
     def lowerHexaLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentLowerHexaToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => lowerLoop(acc + '_', remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(HexaLowerChar(c), tail) => lowerHexaLoop(acc + c, tail, tp.right1)
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Succ3(remOff, tp, IdentLowerHexaToken(tpStart, acc))
@@ -28,7 +28,7 @@ object lexIdentifierToken
     def upperBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + "_", remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperBase32Loop(acc + c, tail, tp.right1)
       case CharsOff1Tail(DigitChar(d), tail) => upperBase32Loop(acc + d, tail, tp.right1)
       case CharsOff1Tail(LetterChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
@@ -38,7 +38,7 @@ object lexIdentifierToken
     def lowerBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentLowerBase32OnlyToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => lowerLoop(acc + '_', remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerBase32Loop(acc + c, tail, tp.right1)
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Succ3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
@@ -47,7 +47,7 @@ object lexIdentifierToken
     def underLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentUnderToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => underLoop(acc + '_', remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => underLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Succ(remOff, tp, IdentUnderToken(tpStart, acc))
     }
@@ -55,7 +55,7 @@ object lexIdentifierToken
     def lowerLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => lowerLoop(acc + '_', remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Succ3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
     }
@@ -63,14 +63,14 @@ object lexIdentifierToken
     def upperLoop(acc: String, remOff: CharsOff, tp: TextPosn): EEMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Succ3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + '_', remOff.drop1, tp.right1)
-      case CharsOffHead2('_', '_') => tp.right1.fail("Consecutive underscores in Identifier not allowed.")
+      case CharsOffHead2('_', '_') => tp.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Succ3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
     }
 
     remOff match
-    { case CharsOff0() => tpStart.fail("Can not return Token from empty Char Array.")
-      case CharsOffHead2('_', '_') => tpStart.right1.fail("Consecutive underscores in Identifier not allowed.")
+    { case CharsOff0() => tpStart.failLexar("Can not return Token from empty Char Array.")
+      case CharsOffHead2('_', '_') => tpStart.right1.failLexar("Consecutive underscores in Identifier not allowed.")
       case CharsOffHead2('_', LetterOrDigitChar(_)) => underLoop("_", remOff.drop1, tpStart.right1)
       case CharsOff1Tail('_', tail)  => Succ(tail, tpStart.right1, UnderscoreToken(tpStart))
 
@@ -82,7 +82,7 @@ object lexIdentifierToken
       case CharsOff1Tail(Base32LowerChar(c1), tail) => lowerBase32Loop(c1.toString, tail, tpStart.right1)
       case CharsOff1Tail(LetterLower(c1), tail) => lowerLoop(c1.toString, tail, tpStart.right1)
 
-      case CharsOffHead(c) => tpStart.fail(c.toString + " is not a valid start to an identifier.")
+      case CharsOffHead(c) => tpStart.failLexar(c.toString + " is not a valid start to an identifier.")
     }
   }
 }
