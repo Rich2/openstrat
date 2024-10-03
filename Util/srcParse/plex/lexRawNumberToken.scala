@@ -5,10 +5,8 @@ package ostrat; package pParse; package plex
  * parsed with this function object. Raw hex and trigdual numbers can be encoded as alphanumeric identity tokens. */
 object lexRawNumberToken
 {
-  def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] = rem match
-  {
-  //Ebbf3[ExcLexar, CharsOff, TextPosn, Token]
-    case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
+  def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): Ebbf3[ExcLexar, CharsOff, TextPosn, Token] = rem match
+  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
     case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString, isNeg)
     case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString, isNeg)
     case CharsOff1Tail(l, tail) if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, str + l.toString, isNeg)
@@ -54,7 +52,7 @@ object parseDeciFrac
 
 object lexDigitHeadToken
 {
-  def apply(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): EEMon3[CharsOff, TextPosn, Token] =
+  def apply(rem: CharsOff, tp: TextPosn, digitsStr: String, isNeg: Boolean, alphaStr: String)(implicit charArr: CharArr): Ebbf3[ExcLexar, CharsOff, TextPosn, Token] =
     rem match
     { case CharsOff1Tail(LetterOrUnderscoreChar(l), tail) => apply(tail, tp, digitsStr, isNeg, alphaStr + l)
       case _ => Succ3(rem, tp.addStr(digitsStr).addStr(alphaStr), DigitHeadAlphaTokenGen(tp, digitsStr, alphaStr))
