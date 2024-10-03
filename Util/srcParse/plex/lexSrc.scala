@@ -16,18 +16,6 @@ object lexSrc
     var rem: CharsOff = charArr.offsetter0
     var posn: TextPosn = new TextPosn(fileName, 1, 1)
 
-    implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
-    {
-      def append3Loop: Unit = e3 match
-      { case Good3(newChars, newPosn, token) =>
-        { acc.append(token)
-          rem = newChars
-          posn = newPosn
-        }
-        case Bad3(errs) => acc2 = new Bad[ArrayBuffer[Token]](StrArr(errs))
-      }
-    }
-
     implicit class Ebbf3Implicit(e3: EEMon3[CharsOff, TextPosn, Token]) {
       def append3Loop: Unit = e3 match {
         case Succ3 (co, tp, token) => {

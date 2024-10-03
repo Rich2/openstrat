@@ -19,6 +19,7 @@ case class Succ[+E <: Throwable, +A](value: A) extends Ebbf[E, A]
   { case succ: Succ[E, B] => succ
     case fail: Fail[E, B] => fail
   }
+
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
@@ -35,8 +36,6 @@ type EEMon[A] = Ebbf[Exception, A]
 type SuccE[A] = Succ[Exception, A]
 type FailE[A] = Fail[Exception, A]
 
-
-
 object SuccE
 {
   def unapply[A](inp: EEMon[A]): Option[A] = inp match{
@@ -45,12 +44,20 @@ object SuccE
   }
 }
 
+type EEArr[A <: AnyRef] = EEMon[RArr[A]]
+
 type EEMon3[A1, A2, A3] = EEMon[(A1, A2, A3)]
 
-implicit class EEMon3Extensions[A1, A2, A3](val thisEE3: EEMon3[A1, A2, A3]){
-  def toEMon3: EMon3[A1, A2, A3] = thisEE3 match {
+implicit class EEMon3Extensions[A1, A2, A3](val thisEE3: EEMon3[A1, A2, A3])
+{
+  /*def toEMon3: EMon3[A1, A2, A3] = thisEE3 match {
     case Succ3(a1, a2, a3) => Good3(a1, a2, a3)
     case Fail(err) => Bad3(StrArr(err.toString))
+  }*/
+
+  def flatMap3[B1, B2, B3](f: (A1, A2, A3) => EEMon3[B1, B2, B3]): EEMon3[B1, B2, B3] = thisEE3 match
+  { case Succ3(a1, a2, a3) => f(a1, a2, a3)
+    case Fail(err) => Fail(err)
   }
 }
 
