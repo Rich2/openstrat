@@ -47,6 +47,13 @@ object SuccE
 
 type EEMon3[A1, A2, A3] = EEMon[(A1, A2, A3)]
 
+implicit class EEMon3Extensions[A1, A2, A3](val thisEE3: EEMon3[A1, A2, A3]){
+  def toEMon3: EMon3[A1, A2, A3] = thisEE3 match {
+    case Succ3(a1, a2, a3) => Good3(a1, a2, a3)
+    case Fail(err) => Bad3(StrArr(err.toString))
+  }
+}
+
 /** Success for a [[Tuple3]] value. */
 type Succ3[E <: Throwable, A1, A2, A3] = Succ[E, (A1, A2, A3)]
 

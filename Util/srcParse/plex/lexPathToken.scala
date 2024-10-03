@@ -7,7 +7,7 @@ object lexPathToken
   { var buff = StringBuff ()
    def loop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
    {
-     case CharsOffHead2('/', LetterOrUnderscoreChar(_)) => lexIdentifierToken(remOff.drop1, tp.right1).flatMap3{(co, tp, token) =>
+     case CharsOffHead2('/', LetterOrUnderscoreChar(_)) => lexIdentifierToken(remOff.drop1, tp.right1).toEMon3.flatMap3{(co, tp, token) =>
        buff.grow(token.srcStr)
        loop(co, tp)
      }
