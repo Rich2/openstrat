@@ -51,9 +51,9 @@ type ErrBiArr[E <: Throwable, AE <: AnyRef] = ErrBi[E, RArr[AE]]
 type EEArr[A <: AnyRef] = EEMon[RArr[A]]
 
 /** Extractor function object for a successful Arr Sequence of length 1. */
-object SuccEArr1
+object SuccArr1
 { /** Extractor method for a successful [[Arr]] Sequence of length 1. */
-  def unapply[A](eArr: EEMon[Arr[A]]): Option[A] = eArr match
+  def unapply[E<: Throwable, A <: AnyRef](eArr: ErrBiArr[E, A]): Option[A] = eArr match
   { case Succ(Arr1(head)) => Some(head)
     case _ => None
   }
