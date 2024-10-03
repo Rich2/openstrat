@@ -3,12 +3,12 @@ package ostrat
 import scala.annotation.unchecked.uncheckedVariance
 
 /** Biased bifunctor for errors. */
-sealed trait Ebbf[+E <: Throwable, +A]
+sealed trait ErrBi[+E <: Throwable, +A]
 { /** Classic map function as we see on a Scala [[Option]] or [[List]]. */
-  def map[B](f: A => B): Ebbf[E, B]
+  def map[B](f: A => B): ErrBi[E, B]
 
   /** Classic flatMap function as we see on a Scala [[Option]]. */
-  def flatMap[B](f: A => Ebbf[E, B] @uncheckedVariance): Ebbf[E, B]
+  def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B]
 
   def isSucc: Boolean
   
@@ -19,10 +19,10 @@ sealed trait Ebbf[+E <: Throwable, +A]
 }
 
 /** Success, boxes a good value of the desired type. */
-case class Succ[+E <: Throwable, +A](value: A) extends Ebbf[E, A]
-{ override def map[B](f: A => B): Ebbf[E, B] = new Succ[E, B](f(value))
+case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
+{ override def map[B](f: A => B): ErrBi[E, B] = new Succ[E, B](f(value))
 
-  override def flatMap[B](f: A => Ebbf[E, B] @uncheckedVariance): Ebbf[E, B] = f(value) match
+  override def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B] = f(value) match
   { case succ: Succ[E, B] => succ
     case fail: Fail[E, B] => fail
   }
@@ -31,9 +31,9 @@ case class Succ[+E <: Throwable, +A](value: A) extends Ebbf[E, A]
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
-case class Fail[+E <: Throwable, +A](val error: E) extends Ebbf[E, A]
-{ override def map[B](f: A => B): Ebbf[E, B] = new Fail[E, B](error)
-  override def flatMap[B](f: A => Ebbf[E, B] @uncheckedVariance): Ebbf[E, B] = new Fail[E, B](error)
+case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
+{ override def map[B](f: A => B): ErrBi[E, B] = new Fail[E, B](error)
+  override def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B] = new Fail[E, B](error)
   override def isSucc: Boolean = false
 }
 
@@ -41,7 +41,8 @@ object Fail
 { def apply[A](errStr: String): FailE[A] = new Fail[Exception, A](new Exception(errStr))
 }
 
-type EEMon[A] = Ebbf[Exception, A]
+type ExcBi[E <: Exception, A] = ErrBi[E, A]
+type EEMon[A] = ErrBi[Exception, A]
 type SuccE[A] = Succ[Exception, A]
 type FailE[A] = Fail[Exception, A]
 
@@ -52,6 +53,9 @@ object SuccE
     case _ => None
   }
 }
+
+/** [[Exception]] bifunctor for [[RArr]]. */
+type ExcBiArr[E <: Exception, AE <: AnyRef] = ErrBi[E, RArr[AE]]
 
 type EEArr[A <: AnyRef] = EEMon[RArr[A]]
 
@@ -64,7 +68,8 @@ object SuccEArr1
   }
 }
 
-type Ebbf3[E <: Exception, A1, A2, A3] = Ebbf[E, (A1, A2, A3)]
+/** [[Exception]] bifunctor for [[Tuple3]]. */
+type ExcBi3[E <: Exception, A1, A2, A3] = ErrBi[E, (A1, A2, A3)]
 
 type EEMon3[A1, A2, A3] = EEMon[(A1, A2, A3)]
 
@@ -88,7 +93,7 @@ object Succ3
 { /** Factory apply method for creating [[Succ]] with a [[Tuple3]] value. */
   def apply[E <: Throwable, A1, A2, A3](a1: A1, a2: A2, a3: A3): Succ3[E, A1, A2, A3] = new Succ[E, (A1, A2, A3)]((a1, a2, a3))
 
-  /** unapply extractor for success on an [[Ebbf]] with a [[Tuple3]] value type. */
+  /** unapply extractor for success on an [[ErrBi]] with a [[Tuple3]] value type. */
   def unapply[E <: Throwable, A1, A2, A3](inp: EEMon3[A1, A2, A3]): Option[(A1, A2, A3)] = inp match{
     case succ: Succ3[E, A1, A2, A3] => Some(succ.value._1, succ.value._2, succ.value._3)
     case _ => None

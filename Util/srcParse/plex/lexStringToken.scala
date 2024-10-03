@@ -4,11 +4,11 @@ package ostrat; package pParse; package plex
 /** Function object that parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
 object lexStringToken
 { /** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
-  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): Ebbf3[ExcLexar, CharsOff, TextPosn, StringToken] =
+  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ExcBi3[ExcLexar, CharsOff, TextPosn, StringToken] =
   {
     val strAcc: StringBuilder = new StringBuilder()
 
-    def loop(rem: CharsOff): Ebbf3[ExcLexar, CharsOff, TextPosn, StringToken] = rem match
+    def loop(rem: CharsOff): ExcBi3[ExcLexar, CharsOff, TextPosn, StringToken] = rem match
     { case CharsOff0() => tp.failLexar("Unclosed String")
       case CharsOff1Tail('\"', tail2) => Succ3(tail2, tp.right(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
       case CharsOff1('\\') =>  tp.failLexar("Unclosed String ending with unclosed escape Sequence")
