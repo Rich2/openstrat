@@ -19,34 +19,52 @@ object Nat0yToken
     def loop(rem: CharsOff, strAcc: String): EMon3[CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => loop(tail, strAcc + c)
-      case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
-      case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
+      case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoopOld(tail, strAcc + c)
+      case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoopOld(tail, strAcc + c)
       case CharsOffHead(LetterChar(_)) => tp.bad3("Badly formed hexadecimal")
       case _ => Good3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
-    def upperLoop(rem: CharsOff, strAcc: String): EMon3[CharsOff, TextPosn, Nat0yToken] = rem match
+    def upperLoopOld(rem: CharsOff, strAcc: String): EMon3[CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
-      case CharsOff1Tail(DigitChar(c), tail) => upperLoop(tail, strAcc + c)
-      case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
+      case CharsOff1Tail(DigitChar(c), tail) => upperLoopOld(tail, strAcc + c)
+      case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoopOld(tail, strAcc + c)
       case CharsOffHead(Base32LowerChar(c)) => tp.bad3("Can't mix upper and lower case letters in 0y Base32 token.")
       case CharsOffHead(LetterChar(_)) => tp.bad3("Badly formed hexadecimal")
       case _ => Good3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
-    def lowerLoop(rem: CharsOff, strAcc: String): EMon3[CharsOff, TextPosn, Nat0yToken] = rem match
+    def upperLoop(rem: CharsOff, strAcc: String): EEMon3[CharsOff, TextPosn, Nat0yToken] = rem match
+    { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
+      case CharsOff1Tail(DigitChar(c), tail) => upperLoop(tail, strAcc + c)
+      case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
+      case CharsOffHead(Base32LowerChar(c)) => tp.fail("Can't mix upper and lower case letters in 0y Base32 token.")
+      case CharsOffHead(LetterChar(_)) => tp.fail("Badly formed hexadecimal")
+      case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
+    }
+
+    def lowerLoopOld(rem: CharsOff, strAcc: String): EMon3[CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
-      case CharsOff1Tail(DigitChar(c), tail) => lowerLoop(tail, strAcc + c)
-      case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
+      case CharsOff1Tail(DigitChar(c), tail) => lowerLoopOld(tail, strAcc + c)
+      case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoopOld(tail, strAcc + c)
       case CharsOffHead(Base32UpperChar(c)) => tp.bad3("Can't mix upper and lower case letters in 0y Base32 token.")
       case CharsOffHead(LetterChar(_)) => tp.bad3("Badly formed hexadecimal")
       case _ => Good3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
+    def lowerLoop(rem: CharsOff, strAcc: String): EEMon3[CharsOff, TextPosn, Nat0yToken] = rem match
+    { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
+      case CharsOff1Tail(DigitChar(c), tail) => lowerLoop(tail, strAcc + c)
+      case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)
+      case CharsOffHead(Base32UpperChar(c)) => tp.fail("Can't mix upper and lower case letters in 0y Base32 token.")
+      case CharsOffHead(LetterChar(_)) => tp.fail("Badly formed hexadecimal")
+      case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
+    }
+
     rem match
     { case CharsOff3Tail('0', 'y', DigitChar(c), tail) => loop (tail, c.toString)
-      case CharsOff3Tail('0', 'y', Base32UpperChar(c), tail) => upperLoop (tail, c.toString)
-      case CharsOff3Tail('0', 'y', Base32LowerChar(c), tail) => lowerLoop (tail, c.toString)
+      case CharsOff3Tail('0', 'y', Base32UpperChar(c), tail) => upperLoopOld (tail, c.toString)
+      case CharsOff3Tail('0', 'y', Base32LowerChar(c), tail) => lowerLoopOld (tail, c.toString)
       case CharsOffHead3('0', 'y', WhitespaceChar(_)) => tp.bad3("Empty hexademicmal token.")
       case CharsOffHead3('0', 'y', c) => tp.bad3("Badly formed hexademicmal token.")
       case CharsOff2('0', 'x') => tp.bad3("Unclosed hexadecimal token")
