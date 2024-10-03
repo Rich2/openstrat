@@ -79,23 +79,24 @@ object Terr220E0 extends Long220Terrs
     TRow(146, sea, hillySavannah, hillyOce, hillySavannah * 2, sea, Isle6(hillySavannah), sea, hillyOce, sea * 2),
     VRow(145, OrigRt(496, HVUp, 7), OrigRt(514, HVDn, 7), BendIn(530, HVDR, 10), OrigLt(532, HVDL, 7)),
     TRow(144, sea * 2, savannah, hillySavannah, hillySahel * 2, sea * 4, hillySavannah),
-    VRow(143, OrigLt(500, HVDn, 7), BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendMax(512, HVUp), BendInRt(514, HVUL, 13, 7), BendInLt(530, HVUR, 13, 3)),
+    VRow(143, OrigLt(500, HVDn, 7), BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendMax(512, HVUp), BendInRt(514, HVUL, 13, 7), BendInLt(530, HVUR, 13, 2), ThreeDown(532, 10, 0, 13)),
     TRow(142, sea * 3, hillyOce, mtainSavannah, hillySavannah * 6, sea),
 
-    VRow(141, BendIn(498, HVDR, 13), ThreeUp(500, 13, 13, 0), BendIn(502, HVUp, 13), BendOut(504, HVDn, 7), BendIn(506, HVUp, 13), BendIn(508, HVUL, 13)),
+    VRow(141, BendIn(498, HVDR, 13), ThreeUp(500, 13, 13, 0), BendIn(502, HVUp, 13), BendOut(504, HVDn, 7), BendIn(506, HVUp, 13), BendIn(508, HVUL, 13), OrigLt(532, HVUp, 7)),
 
-    TRow(140, sea * 2, hillySavannah, hillyOce, hillyDeshot * 2, deshot * 2, hillyDeshot * 2, sea * 2),
-    TRow(138, sea * 2, oceanic, deshot, hillyDeshot, deshot * 7),
-    TRow(136, sea * 2, mtainDepr * 3, deshot * 8),
+    TRow(140, sea * 2, hillySavannah * 2, hillyDeshot * 2, deshot * 2, hillyDeshot * 2, sea * 2),
+    TRow(138, sea * 2, sahel, hillySavannah, hillyDeshot, deshot * 7),
+    TRow(136, sea * 2, mtainSahel * 2, hillySahel, deshot * 8),
     TRow(134, sea, hillyDeshot * 2, deshot * 10),
-    TRow(132, sea, deshot * 12)
+    VRow(133, BendIn(486, HVDR, 13), OrigLt(488, HVDL, 7)),
+    TRow(132, deshot * 13),
     )
   }
   help.run
 
   { import hexNames.{ setRow => str}
     str(150, "" * 8, "Corsica")
-    str(146, "" * 6, "Majorca")
+    str(146, "" * 6, "Majorca", "", "Sardinia south")
   }
 }
 
