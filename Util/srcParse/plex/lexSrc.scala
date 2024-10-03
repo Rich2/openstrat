@@ -6,17 +6,17 @@ import collection.mutable.ArrayBuffer
  *  but the mutability is fully encapsulated. */
 object lexSrc
 {
-  def str(inp: String): EEArr[Token] = apply(inp.toArray, "String")
+  def str(inp: String): ErrBiArr[Exception, Token] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
-  def apply(charsIn: Array[Char], fileName: String): EEArr[Token] =
+  def apply(charsIn: Array[Char], fileName: String): ErrBiArr[ExcLexar, Token] =
   { implicit val charArr: CharArr = new CharArr(charsIn)
     val acc: ArrayBuffer[Token] = Buffer[Token]()
-    var acc2: EEMon[ArrayBuffer[Token]] = Succ(acc)
+    var acc2: ErrBi[ExcLexar, ArrayBuffer[Token]] = Succ(acc)
     var rem: CharsOff = charArr.offsetter0
     var posn: TextPosn = new TextPosn(fileName, 1, 1)
 
-    implicit class Ebbf3Implicit(e3: ErrBi3[ExcLexar, CharsOff, TextPosn, Token])
+    implicit class E3LexarImplicit(e3: ErrBi3[ExcLexar, CharsOff, TextPosn, Token])
     {
       def append3Loop: Unit = e3 match
       {
@@ -25,7 +25,7 @@ object lexSrc
           rem = co
           posn = tp
         }
-        case Fail(err) => acc2 = Fail(err.toString)
+        case Fail(err) => acc2 = Fail(err)
       }
     }
 

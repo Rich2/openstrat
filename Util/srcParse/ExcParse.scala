@@ -8,3 +8,8 @@ case class ExcAst(tp: TextPosn, detail: String) extends Exception(tp.fileName --
 
 case class ExcLexar(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with
   ExcParse
+
+object FailLexar
+{
+  def apply[A](tp: TextPosn, detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(tp, detail))
+}

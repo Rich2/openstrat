@@ -37,18 +37,8 @@ case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
   override def isSucc: Boolean = false
 }
 
-object Fail
-{ def apply[A](errStr: String): FailE[A] = new Fail[Exception, A](new Exception(errStr))
-}
-
-type EEMon[A] = ErrBi[Exception, A]
-
-type FailE[A] = Fail[Exception, A]
-
 /** Error bifunctor for [[RArr]] values. */
 type ErrBiArr[E <: Throwable, AE <: AnyRef] = ErrBi[E, RArr[AE]]
-
-type EEArr[A <: AnyRef] = EEMon[RArr[A]]
 
 /** Extractor function object for a successful Arr Sequence of length 1. */
 object SuccArr1
