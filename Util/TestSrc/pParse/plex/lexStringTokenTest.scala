@@ -11,7 +11,7 @@ object lexStringTokenTest extends TestSuite
   val p1 = StrPosn(1, 1)
   val s1 = "\"Hello\""
   val chs1 = s1.toChars
-  val r1: ExcBi3[ExcLexar, CharsOff, TextPosn, StringToken] = lexStringToken(chs1.offsetter0, StrPosn())(chs1)
+  val r1: ErrBi3[ExcLexar, CharsOff, TextPosn, StringToken] = lexStringToken(chs1.offsetter0, StrPosn())(chs1)
   val s2 = s1 + " AnIdentifier"
   val chs2 = s2.toChars
   val r2 = lexStringToken(chs2.offsetter0, StrPosn())(chs2)

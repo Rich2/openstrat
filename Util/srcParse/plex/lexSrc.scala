@@ -16,7 +16,7 @@ object lexSrc
     var rem: CharsOff = charArr.offsetter0
     var posn: TextPosn = new TextPosn(fileName, 1, 1)
 
-    implicit class Ebbf3Implicit(e3: ExcBi3[ExcLexar, CharsOff, TextPosn, Token])
+    implicit class Ebbf3Implicit(e3: ErrBi3[ExcLexar, CharsOff, TextPosn, Token])
     {
       def append3Loop: Unit = e3 match
       {

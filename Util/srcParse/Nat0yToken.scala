@@ -14,9 +14,9 @@ case class Nat0yToken(startPosn: TextPosn, digitsStr: String) extends IntStdToke
 object Nat0yToken
 {
   /** Function for parsing explicit Hexadecimal Token, one that begins with the charchters '0y'. */
-  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ExcBi3[ExcLexar, CharsOff, TextPosn, Token] =
+  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] =
   {
-    def loop(rem: CharsOff, strAcc: String): ExcBi3[ExcLexar, CharsOff, TextPosn, Nat0yToken] = rem match
+    def loop(rem: CharsOff, strAcc: String): ErrBi3[ExcLexar, CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => loop(tail, strAcc + c)
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
@@ -25,7 +25,7 @@ object Nat0yToken
       case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
-    def upperLoop(rem: CharsOff, strAcc: String): ExcBi3[ExcLexar, CharsOff, TextPosn, Nat0yToken] = rem match
+    def upperLoop(rem: CharsOff, strAcc: String): ErrBi3[ExcLexar, CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => upperLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperLoop(tail, strAcc + c)
@@ -34,7 +34,7 @@ object Nat0yToken
       case _ => Succ3(rem, tp.addStr(strAcc), Nat0yToken(tp, strAcc))
     }
 
-    def lowerLoop(rem: CharsOff, strAcc: String): ExcBi3[ExcLexar, CharsOff, TextPosn, Nat0yToken] = rem match
+    def lowerLoop(rem: CharsOff, strAcc: String): ErrBi3[ExcLexar, CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))
       case CharsOff1Tail(DigitChar(c), tail) => lowerLoop(tail, strAcc + c)
       case CharsOff1Tail(Base32LowerChar(c), tail) => lowerLoop(tail, strAcc + c)

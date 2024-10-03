@@ -4,10 +4,10 @@ package ostrat; package pParse; package plex
 /** Function object to parse operator token. */
 object lexOperatorToken
 {
-  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ExcBi3[ExcLexar, CharsOff, TextPosn, Token] =
+  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] =
   { var acc: String = ""
 
-    def loop(remOff: CharsOff, tp: TextPosn): ExcBi3[ExcLexar, CharsOff, TextPosn, Token] = remOff match {
+    def loop(remOff: CharsOff, tp: TextPosn): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] = remOff match {
       case CharsOffHead2('/', '/' | '*') => Succ3(remOff, tp, sort)
       case CharsOff1Tail(OperatorChar(c), tail) =>
       { acc :+= c;

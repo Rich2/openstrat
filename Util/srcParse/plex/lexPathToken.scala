@@ -3,9 +3,9 @@ package ostrat; package pParse; package plex
 
 object lexPathToken
 {
-  def apply(remOff: CharsOff, tpStart: TextPosn)(implicit charArr: CharArr): ExcBi3[ExcLexar, CharsOff, TextPosn, Token] =
+  def apply(remOff: CharsOff, tpStart: TextPosn)(implicit charArr: CharArr): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] =
   { var buff = StringBuff ()
-   def loop(remOff: CharsOff, tp: TextPosn): ExcBi3[ExcLexar, CharsOff, TextPosn, Token] = remOff match
+   def loop(remOff: CharsOff, tp: TextPosn): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] = remOff match
    {
      case CharsOffHead2('/', LetterOrUnderscoreChar(_)) => lexIdentifierToken(remOff.drop1, tp.right1).flatMap3{(co, tp, token) =>
        buff.grow(token.srcStr)

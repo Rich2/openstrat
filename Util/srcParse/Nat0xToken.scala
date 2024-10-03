@@ -15,9 +15,9 @@ case class Nat0xToken(startPosn: TextPosn, digitsStr: String) extends NatStdToke
 object Nat0xToken
 {
   /** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0x'. */
-  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ExcBi3[ExcLexar, CharsOff, TextPosn, Token] =
+  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): ErrBi3[ExcLexar, CharsOff, TextPosn, Token] =
   {
-    def loop(rem: CharsOff, strAcc: String, intAcc: Long): ExcBi3[ExcLexar, CharsOff, TextPosn, Nat0xToken] = rem match
+    def loop(rem: CharsOff, strAcc: String, intAcc: Long): ErrBi3[ExcLexar, CharsOff, TextPosn, Nat0xToken] = rem match
     { case CharsOff0() => Succ3(rem, tp.right(strAcc.length + 2), Nat0xToken(tp, strAcc))
       case CharsOff1Tail(HexaDigitChar(c, i), tail) => loop(tail, strAcc + c, intAcc * 16 + i)
       case CharsOffHead(LetterChar(_)) => tp.failLexar("Badly formed hexadecimal")

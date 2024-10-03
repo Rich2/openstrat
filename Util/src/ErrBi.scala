@@ -41,21 +41,12 @@ object Fail
 { def apply[A](errStr: String): FailE[A] = new Fail[Exception, A](new Exception(errStr))
 }
 
-type ExcBi[E <: Exception, A] = ErrBi[E, A]
 type EEMon[A] = ErrBi[Exception, A]
-type SuccE[A] = Succ[Exception, A]
+
 type FailE[A] = Fail[Exception, A]
 
-object SuccE
-{
-  def unapply[A](inp: EEMon[A]): Option[A] = inp match{
-    case succ: SuccE[A] => Some(succ.value)
-    case _ => None
-  }
-}
-
-/** [[Exception]] bifunctor for [[RArr]]. */
-type ExcBiArr[E <: Exception, AE <: AnyRef] = ErrBi[E, RArr[AE]]
+/** Error bifunctor for [[RArr]] values. */
+type ErrBiArr[E <: Throwable, AE <: AnyRef] = ErrBi[E, RArr[AE]]
 
 type EEArr[A <: AnyRef] = EEMon[RArr[A]]
 
@@ -68,18 +59,18 @@ object SuccEArr1
   }
 }
 
-/** [[Exception]] bifunctor for [[Tuple3]]. */
-type ExcBi3[E <: Exception, A1, A2, A3] = ErrBi[E, (A1, A2, A3)]
+/** Error bifunctor for [[Tuple3]]. */
+type ErrBi3[E <: Throwable, A1, A2, A3] = ErrBi[E, (A1, A2, A3)]
 
-/** Extensiion class for [[Exception]] bifunctor for [[Tuple3]]s. */
-implicit class ExcBi3Extensions[E <: Exception, A1, A2, A3](val thisEE3: ExcBi3[E, A1, A2, A3])
+/** Extension class for [[Exception]] bifunctor for [[Tuple3]]s. */
+implicit class ExcBi3Extensions[E <: Throwable, A1, A2, A3](val thisEE3: ErrBi3[E, A1, A2, A3])
 {
   /*def toEMon3: EMon3[A1, A2, A3] = thisEE3 match {
     case Succ3(a1, a2, a3) => Good3(a1, a2, a3)
     case Fail(err) => Bad3(StrArr(err.toString))
   }*/
 
-  def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ExcBi3[E, B1, B2, B3]): ExcBi3[E, B1, B2, B3] = thisEE3 match
+  def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ErrBi3[E, B1, B2, B3]): ErrBi3[E, B1, B2, B3] = thisEE3 match
   { case Succ3(a1, a2, a3) => f(a1, a2, a3)
     case Fail(err) => Fail(err)
   }
@@ -93,7 +84,7 @@ object Succ3
   def apply[E <: Throwable, A1, A2, A3](a1: A1, a2: A2, a3: A3): Succ3[E, A1, A2, A3] = new Succ[E, (A1, A2, A3)]((a1, a2, a3))
 
   /** unapply extractor for success on an [[ErrBi]] with a [[Tuple3]] value type. */
-  def unapply[E <: Exception, A1, A2, A3](inp: ExcBi3[E, A1, A2, A3]): Option[(A1, A2, A3)] = inp match{
+  def unapply[E <: Throwable, A1, A2, A3](inp: ErrBi3[E, A1, A2, A3]): Option[(A1, A2, A3)] = inp match{
     case succ: Succ3[E, A1, A2, A3] => Some(succ.value._1, succ.value._2, succ.value._3)
     case _ => None
   }
