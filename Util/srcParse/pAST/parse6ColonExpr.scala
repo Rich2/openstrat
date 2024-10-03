@@ -5,20 +5,19 @@ import collection.mutable.ArrayBuffer
 /** Function object to parse [[ColonExpr]] from [[AssignMem]]s. */
 object parse6ColonExpr
 { /** Function apply method parses [[ColonExpr]] from [[AssignMem]]s. */
-  def apply(implicit seg: RArr[AssignMem]): EMon[AssignMemExpr] =
-  {
-    val leftAcc: ArrayBuffer[ColonOpMem] = Buffer()
+  def apply(implicit seg: RArr[AssignMem]): ErrBi[ExcAst, AssignMemExpr] =
+  { val leftAcc: ArrayBuffer[ColonOpMem] = Buffer()
     val rightAcc: ArrayBuffer[ColonOpMem] = Buffer()
 
-    def rightLoop(rem: ArrOff[AssignMem], leftExpr: ColonMemExpr, ct: ColonToken): EMon[ColonExpr] = rem match
-    { case ArrOff0() => parse7Clauses(rightAcc.toArr).map{ r => ColonExpr(leftExpr, ct, r) }.toEMon
-      case ArrOff1Tail(ct2: ColonToken, tail) => bad1(ct2, "More than 1 Colon in expression.")
+    def rightLoop(rem: ArrOff[AssignMem], leftExpr: ColonMemExpr, ct: ColonToken): ErrBi[ExcAst, ColonExpr] = rem match
+    { case ArrOff0() => parse7Clauses(rightAcc.toArr).map{ r => ColonExpr(leftExpr, ct, r) }
+      case ArrOff1Tail(ct2: ColonToken, tail) => ct2.startPosn.failAst("More than 1 Colon in expression.")
       case ArrOff1Tail(cm: ColonOpMem, tail) => { rightAcc.append(cm); rightLoop(tail, leftExpr, ct) }
     }
 
-    def leftLoop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
-      case ArrOff0() => parse7Clauses(leftAcc.toArr).toEMon
-      case ArrOff1Tail(ct: ColonToken, tail) => parse7Clauses(leftAcc.toArr).toEMon.flatMap{ leftExpr => rightLoop(tail, leftExpr, ct) }
+    def leftLoop(rem: ArrOff[AssignMem]): ErrBi[ExcAst, AssignMemExpr] = rem match
+    { case ArrOff0() => parse7Clauses(leftAcc.toArr)
+      case ArrOff1Tail(ct: ColonToken, tail) => parse7Clauses(leftAcc.toArr).flatMap{ leftExpr => rightLoop(tail, leftExpr, ct) }
       case ArrOff1Tail(cm: ColonOpMem, tail) => { leftAcc.append(cm); leftLoop(tail) }
     }
 

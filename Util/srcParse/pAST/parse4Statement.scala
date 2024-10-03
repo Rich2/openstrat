@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 import collection.mutable.ArrayBuffer
 
@@ -13,7 +13,7 @@ object parse4Statement
     val acc: ArrayBuffer[StatementMem] = Buffer()
 
     def loop(rem: ArrOff[StatementMem]): EMon[Statement] =
-      rem.headFold(parse5AssignExpr(acc.toArr).map(g => StatementNoneEmpty(g, optSemi))){ (em, tail) =>
+      rem.headFold(parse5AssignExpr(acc.toArr).toEMon.map(g => StatementNoneEmpty(g, optSemi))){ (em, tail) =>
         acc.append(em)
         loop(tail)
       }
