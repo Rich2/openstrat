@@ -8,7 +8,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 
   /** Parses this [[String]] into RSON tokens. */
-  def parseTokens: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String")
+  def parseTokens: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String").toEMon
 
   /** Parses this [[String]] into RSON statements. */
   def parseStatements: EArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))

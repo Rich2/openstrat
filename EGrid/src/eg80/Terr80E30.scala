@@ -90,7 +90,7 @@ object Terr80E30  extends Long80Terrs
       TRow(428, hillyOce, sea, sea * 2, mtainDepr * 2, hillyOce * 2, hillyOce * 2, sea, hillyOce * 3, mtainDepr, hillyOce * 4, hillyDeshot * 2, hillyOce * 4,
         hillyDeshot * 2, hillyOce * 3, oceanic),
 
-      VRow(427, OrigRt(1490, HVUp), BendIn(1506, HVUR)),
+      VRow(427, OrigRt(1490, HVUp), BendIn(1506, HVUR, 13), BendInRt(1508, HVUp, 13, 7)),
 
       TRow(426, sea, hillyOce, sea * 3, hillyOce, mtainDepr, oceanic, hillyOce, sea * 3, hillyOce * 2, mtainDepr, hillyOce * 2, deshot, hillyDeshot * 7,
         mtainDepr * 2, hillyOce, hillyDeshot * 2, mtainDepr, hillyDeshot),

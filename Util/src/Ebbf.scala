@@ -9,6 +9,13 @@ sealed trait Ebbf[+E <: Throwable, +A]
 
   /** Classic flatMap function as we see on a Scala [[Option]]. */
   def flatMap[B](f: A => Ebbf[E, B] @uncheckedVariance): Ebbf[E, B]
+
+  def isSucc: Boolean
+  
+  def toEMon: EMon[A] = this match{
+    case Succ(value) => Good(value)
+    case Fail(err) => Bad(StrArr(err.toString))
+  }
 }
 
 /** Success, boxes a good value of the desired type. */
@@ -20,12 +27,14 @@ case class Succ[+E <: Throwable, +A](value: A) extends Ebbf[E, A]
     case fail: Fail[E, B] => fail
   }
 
+  override def isSucc: Boolean = true
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
 case class Fail[+E <: Throwable, +A](val error: E) extends Ebbf[E, A]
 { override def map[B](f: A => B): Ebbf[E, B] = new Fail[E, B](error)
   override def flatMap[B](f: A => Ebbf[E, B] @uncheckedVariance): Ebbf[E, B] = new Fail[E, B](error)
+  override def isSucc: Boolean = false
 }
 
 object Fail
