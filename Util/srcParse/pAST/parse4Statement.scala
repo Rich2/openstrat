@@ -7,13 +7,13 @@ import collection.mutable.ArrayBuffer
 object parse4Statement
 {
   /** Tries to parse a sequence of [[StatementMem]]s into a Statement. Statement members are either nonBracketTokens or parsed BracketBlocks.  */
-  def apply(memsIn: RArr[StatementMem], optSemi: Option[SemicolonToken]): EMon[Statement] =
+  def apply(memsIn: RArr[StatementMem], optSemi: Option[SemicolonToken]): ErrBi[ExcAst, Statement] =
   {
     implicit val inp = memsIn
     val acc: ArrayBuffer[StatementMem] = Buffer()
 
-    def loop(rem: ArrOff[StatementMem]): EMon[Statement] =
-      rem.headFold(parse5AssignExpr(acc.toArr).toEMon.map(g => StatementNoneEmpty(g, optSemi))){ (em, tail) =>
+    def loop(rem: ArrOff[StatementMem]): ErrBi[ExcAst, Statement] =
+      rem.headFold(parse5AssignExpr(acc.toArr).map(g => StatementNoneEmpty(g, optSemi))){ (em, tail) =>
         acc.append(em)
         loop(tail)
       }

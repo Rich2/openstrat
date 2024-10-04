@@ -16,10 +16,10 @@ object parse3Statements
     { //case ArrOff0() if acc.isEmpty & subAcc.isEmpty => Good(EmptyStringExpr)
       case ArrOff0() if subAcc.isEmpty => Good(StringStatements(acc.toArr))
       case ArrOff0() if acc.isEmpty => parse5AssignExpr(subAcc.toArr).toEMon
-      case ArrOff0() => parse4Statement(subAcc.toArr, None).map(acc :+ _).map(g => StringStatements(g.toArr))
+      case ArrOff0() => parse4Statement(subAcc.toArr, None).map(acc :+ _).toEMon.map(g => StringStatements(g.toArr))
       case ArrOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(StatementEmpty(st)); loop(tail) }
 
-      case ArrOff1Tail(st: SemicolonToken, tail) => parse4Statement(subAcc.toArr, Some(st)).flatMap{ g =>
+      case ArrOff1Tail(st: SemicolonToken, tail) => parse4Statement(subAcc.toArr, Some(st)).toEMon.flatMap{ g =>
         acc.append(g)
         subAcc = Buffer()
         loop(tail)
