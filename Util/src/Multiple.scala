@@ -91,6 +91,12 @@ object Multiple
       case expr => evA.fromExprOld(expr).map(a => Multiple(a, 1))
     }
 
+    override def fromExpr(expr: Expr): ExcMon[Multiple[A]] =  expr match
+    { case InfixOpExpr(left, OperatorPrec1Token(startPosn, "*"), IntExpr(i)) => evA.fromExpr(left).map(a => Multiple(a, i))
+      case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple" => evA.fromExpr(e1).map{ a => Multiple(a, i) }
+      case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
+    }
+
     def fromArrExpr(inp: Arr[Expr]): EMon[RArr[Multiple[A]]] = inp.mapEMon(fromExprOld(_))
 
     /** Collection from [[Arr]] of [[Expr]]. */

@@ -278,8 +278,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => [[EMon]][B]. implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible
-   *  [[BuilderCollMap]] as the first parameter list. */
+  /** Map from A => [[EMon]][B]. implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
+   * first parameter list. */
   def mapEMon[B, ArrB <: Arr[B]](f: A => EMon[B])(implicit ev: BuilderArrMap[B, ArrB]): EMon[ArrB] =
   { val acc = ev.newBuff()
     var continue = true
@@ -288,6 +288,21 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
+  }
+
+  /** Map from A => [[ErrBi]][E, B]. Returns a succesful [[Arr]] of B as long as the function produces no errors, in whihc case it returns a [[Fail]] of the
+   * first error encountered implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
+   * first parameter list. */
+  def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(implicit ev: BuilderArrMap[B, ArrB]): ErrBi[E, ArrB] =
+  { val acc = ev.newBuff()
+    var count = 0
+    var optErr: Option[E] = None
+    while (count < length & optErr == None)
+      f(apply(count)).fold { g => ev.buffGrow(acc, g); count += 1 } { newErr => optErr = Some(newErr) }
+    optErr match
+    { case Some(err) => Fail (err)
+      case None => Succ (ev.buffToSeqLike(acc))
+    }
   }
 
   /** Map from A => [[EMon]][B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */

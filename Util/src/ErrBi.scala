@@ -14,6 +14,10 @@ sealed trait ErrBi[+E <: Throwable, +A]
 
   /** Will perform action if success. Does nothing if [[Fail]]. */
   def forSucc(f: A => Unit): Unit
+
+  /** Fold this [[ErrBi]] into a type B. Takes two function parameters, one converts from A to B as in a normal map method. The second parameter in its own
+   * parameter list converts from the Error type to type B. */
+  @inline def fold[B](fSucc: A => B)(fFail: E => B): B
   
   def toEMon: EMon[A] = this match{
     case Succ(value) => Good(value)
@@ -32,6 +36,7 @@ case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
 
   override def isSucc: Boolean = true
   override def forSucc(f: A => Unit): Unit = f(value)
+  override def fold[B](fSucc: A => B)(fFail: E => B): B = fSucc(value)
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
@@ -40,6 +45,7 @@ case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
   override def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B] = new Fail[E, B](error)
   override def isSucc: Boolean = false
   override def forSucc(f: A => Unit): Unit = {}
+  override def fold[B](fSucc: A => B)(fFail: E => B): B = fFail(error)
 }
 
 type ExcMon[+A] = ErrBi[Exception, A]

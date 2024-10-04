@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -45,6 +45,12 @@ object DirPathAbs
       case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
       case PathToken(_, array) => Good(new DirPathAbs(array))
       case expr => expr.startPosn.bad("Not an absolute path")
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[DirPathAbs] =  expr match {
+      case SlashToken(_) => Succ(new DirPathAbs(Array[String]()))
+      case PathToken(_, array) => Succ(new DirPathAbs(array))
+      case expr => expr.failExc("Not an absolute path")
     }
   }
 }
