@@ -544,6 +544,13 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ev.buffToSeqLike(acc)
   }
 
+  /** maps from A to ErrBi[B], collects the successful values. */
+  def mapCollectSuccs[B, BB <: Arr[B]](f: A => ErrBi[_, B])(implicit ev: BuilderArrMap[B, BB]): BB =
+  { val acc = ev.newBuff()
+    foreach(f(_).forSucc(ev.buffGrow(acc, _)))
+    ev.buffToSeqLike(acc)
+  }
+
   /** Gives the maximum value of this sequence according to the implicit ordering type class instance, which can be passed explicitly. */
   def max[B >: A](implicit ord: math.Ordering[B]): A =
   { var acc = apply(0)

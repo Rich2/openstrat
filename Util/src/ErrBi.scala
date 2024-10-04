@@ -11,6 +11,9 @@ sealed trait ErrBi[+E <: Throwable, +A]
   def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B]
 
   def isSucc: Boolean
+
+  /** Will perform action if success. Does nothing if [[Fail]]. */
+  def forSucc(f: A => Unit): Unit
   
   def toEMon: EMon[A] = this match{
     case Succ(value) => Good(value)
@@ -28,6 +31,7 @@ case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
   }
 
   override def isSucc: Boolean = true
+  override def forSucc(f: A => Unit): Unit = f(value)
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
@@ -35,6 +39,7 @@ case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
 { override def map[B](f: A => B): ErrBi[E, B] = new Fail[E, B](error)
   override def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B] = new Fail[E, B](error)
   override def isSucc: Boolean = false
+  override def forSucc(f: A => Unit): Unit = {}
 }
 
 /** Error bifunctor for [[RArr]] values. */
