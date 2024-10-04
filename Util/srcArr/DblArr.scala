@@ -59,19 +59,19 @@ object DblArr
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
 
-    /*override def fromExpr(expr: Expr): ExcMon[DblArr] = expr match
+    override def fromExpr(expr: Expr): ExcMon[DblArr] = expr match
     { case _: EmptyExprToken => Succ(DblArr())
 
       case AlphaBracketExpr(id1,
       RArr2(BracketedStructure(RArr1(_), brs1, _, _),
       BracketedStructure(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>
-        sts.mapEMon(s => Unshow.doubleEv.fromExprOld(s.expr))(DblArrBuilder)
+        sts.mapErrBi(s => Unshow.doubleEv.fromExpr(s.expr))(DblArrBuilder)
 
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
-        sts.mapEMon(s => Unshow.doubleEv.fromExprOld(s.expr))(DblArrBuilder)
+        sts.mapErrBi(s => Unshow.doubleEv.fromExpr(s.expr))(DblArrBuilder)
 
-      case e => bad1(expr, expr.toString + " unknown Expression for Seq")
-    }*/
+      case e => expr.failExc(expr.toString + " unknown Expression for Seq")
+    }
   }
 }
 
