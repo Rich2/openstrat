@@ -32,9 +32,16 @@ object TextPosn
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
     def bad[A](message: String): Bad[A] = new Bad[A](StrArr(parseErr(message)))
+    
+    /** Produce a failure with a plain [[Exception]] type. */
     def fail[A](message: String): Fail[Exception, A] = Fail[Exception, A](new Exception(message))
+    
+    /** Produce a failure with an [[ExcLexar]] type. */
     def failLexar[A](detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(thisTextPosn, detail))
+
+    /** Produce a failure with an [[ExcLexar]] type. */
     def failAst[A](detail: String): Fail[ExcAst, A] = new Fail[ExcAst, A](ExcAst(thisTextPosn, detail))
+    
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
   
