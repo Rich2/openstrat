@@ -545,7 +545,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** maps from A to ErrBi[B], collects the successful values. */
-  def mapCollectSuccs[B, BB <: Arr[B]](f: A => ErrBi[_, B])(implicit ev: BuilderArrMap[B, BB]): BB =
+  def mapCollectSuccs[B, BB <: Arr[B]](f: A => ErrBi[?, B])(implicit ev: BuilderArrMap[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forSucc(ev.buffGrow(acc, _)))
     ev.buffToSeqLike(acc)

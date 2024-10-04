@@ -32,7 +32,7 @@ object TextPosn
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
     def bad[A](message: String): Bad[A] = new Bad[A](StrArr(parseErr(message)))
-    //def fail[A](message: String): Fail[A] = Fail[A](parseErr(message))
+    def fail[A](message: String): Fail[Exception, A] = Fail[Exception, A](new Exception(message))
     def failLexar[A](detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(thisTextPosn, detail))
     def failAst[A](detail: String): Fail[ExcAst, A] = new Fail[ExcAst, A](ExcAst(thisTextPosn, detail))
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
@@ -45,6 +45,7 @@ object TextPosn
 trait TextSpan
 { def startPosn: TextPosn
   def endPosn: TextPosn
+  def failExc[A](detail: String): FailExc[A] = FailExc(startPosn.shortStr -- detail)
 }
 
 object TextSpan

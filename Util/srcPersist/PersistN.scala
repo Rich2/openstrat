@@ -66,7 +66,7 @@ trait UnshowN[R] extends Unshow[R] with PersistNFixed
   /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
 
-  final override def fromExpr(expr: Expr): EMon[R] = expr match
+  final override def fromExprOld(expr: Expr): EMon[R] = expr match
   { case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
     case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)

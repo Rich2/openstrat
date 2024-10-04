@@ -52,7 +52,7 @@ object PersistBoth
       }
     }
 
-    override def fromExpr(expr: Expr): EMon[Double] = expr match
+    override def fromExprOld(expr: Expr): EMon[Double] = expr match
     { case ValidFracToken(d) => Good(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(-d)
@@ -69,7 +69,7 @@ object PersistBoth
 
     /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be
      * implemented by all instances. */
-    override def fromExpr(expr: Expr): EMon[Boolean] = ???
+    override def fromExprOld(expr: Expr): EMon[Boolean] = ???
   }
 }
 

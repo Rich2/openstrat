@@ -39,12 +39,12 @@ object SeqLike
     val build: BuilderSeqLikeMap[A, AA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExpr(expr: Expr): EMon[AA] = expr match
+    override def fromExprOld(expr: Expr): EMon[AA] = expr match
     { case _: EmptyExprToken => Good(build.uninitialised(0))
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
-        sts.mapEMon(build)(s => evA.fromExpr(s.expr))
-      case AlphaSquareParenth("Seq", _, sts) => sts.mapEMon(build)(s => evA.fromExpr(s.expr))
-      case AlphaParenth("Seq", sts) => sts.mapEMon(build)(s => evA.fromExpr(s.expr))
+        sts.mapEMon(build)(s => evA.fromExprOld(s.expr))
+      case AlphaSquareParenth("Seq", _, sts) => sts.mapEMon(build)(s => evA.fromExprOld(s.expr))
+      case AlphaParenth("Seq", sts) => sts.mapEMon(build)(s => evA.fromExprOld(s.expr))
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
   }

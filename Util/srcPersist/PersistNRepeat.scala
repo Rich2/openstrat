@@ -88,7 +88,7 @@ trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
 {
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A]
 
-  final override def fromExpr(expr: Expr): EMon[A] = expr match
+  final override def fromExprOld(expr: Expr): EMon[A] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)

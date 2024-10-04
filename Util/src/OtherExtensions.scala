@@ -85,6 +85,11 @@ class OptionExtensions[A](thisOption: Option[A])
     case None => Bad(StrArr())
   }
 
+  def toErrBi: ErrBi[Exception, A] = thisOption match {
+    case Some(a) => Succ(a)
+    case None => Fail(NoneExc)
+  }
+
   /** Keeps the same value if [[Some]], lazily takes the parameter value if [[None]]. */
   def replaceNone(newOption: => Option[A]) = thisOption match
   { case None => newOption

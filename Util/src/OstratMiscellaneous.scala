@@ -41,7 +41,7 @@ object DirPathAbs
   implicit val unshowEv:Unshow[DirPathAbs] = new Unshow[DirPathAbs]
   { override def typeStr: String = "DirnPathAbs"
 
-    override def fromExpr(expr: Expr): EMon[DirPathAbs] = expr match {
+    override def fromExprOld(expr: Expr): EMon[DirPathAbs] = expr match {
       case SlashToken(_) => Good(new DirPathAbs(Array[String]()))
       case PathToken(_, array) => Good(new DirPathAbs(array))
       case expr => expr.startPosn.bad("Not an absolute path")

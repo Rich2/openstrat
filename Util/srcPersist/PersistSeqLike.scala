@@ -85,14 +85,14 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
   def unshowAeEv: Unshow[Ae]
   def build: BuilderCollMap[Ae, A]
 
-  override def fromExpr(expr: Expr): EMon[A] = expr match
+  override def fromExprOld(expr: Expr): EMon[A] = expr match
   { case _: EmptyExprToken => Good(build.empty)
 
     case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(unshowAeEv, build)
-    else sts.mapEMon(build)(s => unshowAeEv.fromExpr(s.expr))
+    else sts.mapEMon(build)(s => unshowAeEv.fromExprOld(s.expr))
 
     case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(unshowAeEv, build)
-    else mems.mapEMon(build)(e => unshowAeEv.fromExpr(e))
+    else mems.mapEMon(build)(e => unshowAeEv.fromExprOld(e))
 
     case e => bad1(expr, expr.toString + " unknown Expression for this sequence based class.")
   }
@@ -126,7 +126,7 @@ class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
   val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)(evA, build1)
 
-  override def fromExpr(expr: Expr): EMon[A] = stage.fromExpr(expr).map(f)
+  override def fromExprOld(expr: Expr): EMon[A] = stage.fromExprOld(expr).map(f)
 }
 
 object UnshowFromArr

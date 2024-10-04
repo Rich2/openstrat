@@ -42,6 +42,17 @@ case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
   override def forSucc(f: A => Unit): Unit = {}
 }
 
+type ExcMon[+A] = ErrBi[Exception, A]
+type SuccExc[+A] = Succ[Exception, A]
+type FailExc[+A] = Fail[Exception, A]
+
+object FailExc
+{
+  @inline def apply[A](message: String): FailExc[A] = new Fail[Exception, A](new Exception(message)) 
+}
+
+object NoneExc extends Exception("None")
+
 /** Error bifunctor for [[RArr]] values. */
 type ErrBiArr[E <: Throwable, AE <: AnyRef] = ErrBi[E, RArr[AE]]
 
