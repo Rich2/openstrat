@@ -91,15 +91,26 @@ object IntArr
     override def fromExprOld(expr: Expr): EMon[IntArr] = expr match
     { case _: EmptyExprToken => Good(IntArr())
 
-      case AlphaBracketExpr(id1,
-      RArr2(BracketedStructure(RArr1(_), brs1, _, _),
-      BracketedStructure(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>
-        sts.mapEMon(s => Unshow.intEv.fromExprOld(s.expr))(IntArrBuilder)
+      case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _), BracketedStructure(sts, brs2, _, _)))
+        if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>  sts.mapEMon(s => Unshow.intEv.fromExprOld(s.expr))(IntArrBuilder)
 
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapEMon(s => Unshow.intEv.fromExprOld(s.expr))(IntArrBuilder)
 
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[IntArr] = expr match
+    { case _: EmptyExprToken => Succ(IntArr())
+
+      case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _),
+      BracketedStructure(sts, brs2, _, _))) if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses =>
+        sts.mapErrBi(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+
+      case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
+        sts.mapErrBi(s => Unshow.intEv.fromExpr(s.expr))(IntArrBuilder)
+
+      case e => expr.failExc(expr.toString + " unknown Expression for Seq")
     }
   }
 }
