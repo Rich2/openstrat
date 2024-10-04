@@ -15,7 +15,7 @@ object parse1BlockStructure
     def loop(rem: ArrOff[Token]): EArr[BlockMem] = rem match
     {
       case ArrOff0() => Good(acc.toArr)
-      case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).flatMap { (bracketBlock, remTokens) =>
+      case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).toEMon.flatMap { (bracketBlock, remTokens) =>
         acc.append(bracketBlock)
         loop(remTokens)
       }

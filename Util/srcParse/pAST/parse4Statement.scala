@@ -18,7 +18,6 @@ object parse4Statement
         loop(tail)
       }
 
-
     loop(inp.offset0)
   }
 }

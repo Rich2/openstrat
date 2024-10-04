@@ -49,6 +49,38 @@ object SuccArr1
   }
 }
 
+/** Error bifunctor for [[Tuple2]]. */
+type ErrBi2[E <: Throwable, A1, A2] = ErrBi[E, (A1, A2)]
+
+/** Extension class for [[Exception]] bifunctor for [[Tuple2]]s. */
+implicit class ExcBi2Extensions[E <: Throwable, A1, A2](val thisEE2: ErrBi2[E, A1, A2])
+{
+  /*def toEMon2: EMon3[A1, A2] = thisEE2 match {
+    case Succ2(a1, a2) => Good2(a1)
+    case Fail(err) => Bad2(StrArr(err.toString))
+  }*/
+
+  def t2FlatMap[B1, B2](f: (A1, A2) => ErrBi2[E, B1, B2]): ErrBi2[E, B1, B2] = thisEE2 match
+  { case Succ2(a1, a2) => f(a1, a2)
+    case Fail(err) => Fail(err)
+  }
+}
+
+/** Success for a [[Tuple2]] value. */
+type Succ2[E <: Throwable, A1, A2] = Succ[E, (A1, A2)]
+
+object Succ2
+{
+  /** Factory apply method for creating [[Succ]] with a [[Tuple2]] value. */
+    def apply[E <: Throwable, A1, A2](a1: A1, a2: A2): Succ2[E, A1, A2] = new Succ[E, (A1, A2)]((a1, a2))
+
+  /** unapply extractor for success on an [[ErrBi]] with a [[Tuple3]] value type. */
+  def unapply[E <: Throwable, A1, A2](inp: ErrBi2[E, A1, A2]): Option[(A1, A2)] = inp match
+  { case succ: Succ2[E, A1, A2] => Some(succ.value._1, succ.value._2)
+    case _ => None
+  }
+}
+
 /** Error bifunctor for [[Tuple3]]. */
 type ErrBi3[E <: Throwable, A1, A2, A3] = ErrBi[E, (A1, A2, A3)]
 
