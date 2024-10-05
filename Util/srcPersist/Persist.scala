@@ -56,6 +56,13 @@ object PersistBoth
     { case ValidFracToken(d) => Good(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(-d)
+      case _ => expr.exprParseErrOld[Double]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Double] = expr match
+    { case ValidFracToken(d) => Succ(d)
+      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Succ(d)
+      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Succ(-d)
       case _ => expr.exprParseErr[Double]
     }
   }
@@ -65,11 +72,10 @@ object PersistBoth
     /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
      * rather than a method on the object being shown. */
     override def strT(obj: Boolean): String = ???
-
-
-    /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be
-     * implemented by all instances. */
+    
     override def fromExprOld(expr: Expr): EMon[Boolean] = ???
+
+    override def fromExpr(expr: Expr): ExcMon[Boolean] = ???
   }
 }
 

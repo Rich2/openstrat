@@ -82,6 +82,6 @@ class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) ex
   override def fromExprOld(expr: Expr): EMon[Boolean] = expr match
   { case IdentifierToken(str) if str == "true" || str == trueStr => Good(true)
     case IdentifierToken(str) if str == "false" || str == falseStr => Good(false)
-    case _ => expr.exprParseErr[Boolean]
+    case _ => expr.exprParseErrOld[Boolean]
   }
 }

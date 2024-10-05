@@ -93,7 +93,7 @@ object Unshow extends UnshowPriority2
     { case IntStdToken(i) => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErr[Int]
+      case _ => expr.exprParseErrOld[Int]
     }
   }
 
@@ -104,7 +104,7 @@ object Unshow extends UnshowPriority2
 
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case  NatStdToken(i) => Good(i)
-      case _ => expr.exprParseErr[Int]
+      case _ => expr.exprParseErrOld[Int]
     }
   }
 
@@ -117,7 +117,7 @@ object Unshow extends UnshowPriority2
     { case ValidRawHexaIntToken(i) => Good(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Good(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErr[Int]
+      case _ => expr.exprParseErrOld[Int]
     }
   }
 
@@ -128,7 +128,7 @@ object Unshow extends UnshowPriority2
 
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case ValidRawHexaNatToken(i) => Good(i)
-      case _ => expr.exprParseErr[Int]
+      case _ => expr.exprParseErrOld[Int]
     }
   }
 
@@ -141,7 +141,7 @@ object Unshow extends UnshowPriority2
     { case ValidRawBase32IntToken(i) => Good(i)
       case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Good(i)
       case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErr[Int]
+      case _ => expr.exprParseErrOld[Int]
     }
   }
 
@@ -152,7 +152,7 @@ object Unshow extends UnshowPriority2
 
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case ValidRawBase32NatToken(n) => Good(n)
-      case _ => expr.exprParseErr[Int]
+      case _ => expr.exprParseErrOld[Int]
     }
   }
 
@@ -172,7 +172,7 @@ object Unshow extends UnshowPriority2
     { case ValidPosFracToken(d) => Good(d)
       case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Good(d)
       case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Good(-d)
-      case _ => expr.exprParseErr[Double]
+      case _ => expr.exprParseErrOld[Double]
     }
   }
 
@@ -185,7 +185,7 @@ object Unshow extends UnshowPriority2
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toFloat)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
       case intok: NegBase10Token => Good(intok.getIntStd.toFloat)
-      case  _ => expr.exprParseErr[Float]
+      case  _ => expr.exprParseErrOld[Float]
     }
   }
 
@@ -197,7 +197,7 @@ object Unshow extends UnshowPriority2
     { case NatBase10Token(_, i) => Good(i.toLong)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toLong)
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-i.toLong)
-      case  _ => expr.exprParseErr[Long]
+      case  _ => expr.exprParseErrOld[Long]
     }
   }
 
@@ -208,7 +208,7 @@ object Unshow extends UnshowPriority2
     override def fromExprOld(expr: Expr): EMon[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Good(true)
       case IdentLowerToken(_, str) if str == "false" => Good(false)
-      case _ => expr.exprParseErr[Boolean]
+      case _ => expr.exprParseErrOld[Boolean]
     }
   }
 
@@ -218,7 +218,7 @@ object Unshow extends UnshowPriority2
 
     override def fromExprOld(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
-      case  _ => expr.exprParseErr[String]
+      case  _ => expr.exprParseErrOld[String]
     }
   }
 
@@ -229,7 +229,7 @@ object Unshow extends UnshowPriority2
 
     override def fromExprOld(expr: Expr): EMon[Char] = expr match
     { case CharToken(_, char) => Good(char)
-      case  _ => expr.exprParseErr[Char]
+      case  _ => expr.exprParseErrOld[Char]
     }
   }
 

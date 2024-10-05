@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
@@ -76,7 +76,6 @@ trait TellSeqLike[Ae] extends Tell
     case ShowTyped => typeStr + evA.typeStr.enSquare + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
     case _ => typeStr + tellMap(el => evA.show(el, ShowCommas, maxPlaces, minPlaces)).mkSemiParenth
   }
-
 }
 
 /** [[Unshow]] type classes for SeqLike. This trait actually implements fromExpr method.  */
@@ -88,13 +87,25 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
   override def fromExprOld(expr: Expr): EMon[A] = expr match
   { case _: EmptyExprToken => Good(build.empty)
 
-    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(unshowAeEv, build)
+    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(unshowAeEv.useMultiple) Multiple.collFromArrStatementOld(sts)(unshowAeEv, build)
     else sts.mapEMon(build)(s => unshowAeEv.fromExprOld(s.expr))
 
-    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(unshowAeEv, build)
+    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExprOld(mems)(unshowAeEv, build)
     else mems.mapEMon(build)(e => unshowAeEv.fromExprOld(e))
 
     case e => bad1(expr, expr.toString + " unknown Expression for this sequence based class.")
+  }
+
+  override def fromExpr(expr: Expr): ExcMon[A] = expr match
+  { case _: EmptyExprToken => Succ(build.empty)
+
+    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if (unshowAeEv.useMultiple) Multiple.collFromArrStatement(sts)(unshowAeEv, build)
+    else sts.mapErrBi(build)(s => unshowAeEv.fromExpr(s.expr))
+
+    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExpr(mems)(unshowAeEv, build)
+    else mems.mapErrBi(build)(e => unshowAeEv.fromExpr(e))
+
+    case e => expr.failExc(expr.toString + " unknown Expression for this sequence based class.")
   }
 }
 
