@@ -21,14 +21,20 @@ package object pParse
 
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
-  def srcToEStatements(input: Array[Char], inputSourceName: String): EArr[Statement] =
+  def srcToEStatementsOld(input: Array[Char], inputSourceName: String): EArr[Statement] =
     plex.lexSrc(input, inputSourceName).toEMon.flatMap(tokensToStatementsOld(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
-  def stringToStatements(input: String): EArr[Statement] = stringToTokens(input).flatMap(tokensToStatementsOld(_))
+  def stringToStatementsOld(input: String): EArr[Statement] = stringToTokensOld(input).flatMap(tokensToStatementsOld(_))
+
+  /** Returns an EMon of a sequence of Statements from a String. */
+  def stringToStatements(input: String): ExcMonArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
 
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def stringToTokens(srcStr: String): EArr[Token] = plex.lexSrc(srcStr.toCharArray, "String").toEMon
+  def stringToTokensOld(srcStr: String): EArr[Token] = plex.lexSrc(srcStr.toCharArray, "String").toEMon
+
+  /** Max numbers for long and hexidecimal formats needs to be implemented */
+  def stringToTokens(srcStr: String): ErrBiArr[ExcLexar, Token] = plex.lexSrc(srcStr.toCharArray, "String")
 
   def isOperator(char: Char): Boolean = char match
   { case '+' | '-' | '*' | '/' | '=' | ':'  => true
@@ -51,5 +57,5 @@ package object pParse
   def tokensToExprOld(tokens: RArr[Token]): EMon[Expr] = pAST.parse1BlockStructure(tokens).flatMap{ g => pAST.parse3Statements(g) }.toEMon
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExpr(tokens: RArr[Token]): ExcMon[Expr] = pAST.parse1BlockStructure(tokens).flatMap { g => pAST.parse3Statements(g) }
+  def tokensToExpr(tokens: RArr[Token]): ErrBi[ExcParse, Expr] = pAST.parse1BlockStructure(tokens).flatMap { g => pAST.parse3Statements(g) }
 }

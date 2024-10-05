@@ -90,11 +90,11 @@ sealed trait EMon[+A]
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def findType[A](implicit ev: Unshow[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+  { def findType[A](implicit ev: Unshow[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findType[A]))
     def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
     def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
     def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): EMon[A] =
-      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
+      thisEMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findSetting[A](settingStr)))
     def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
     def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
     def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)

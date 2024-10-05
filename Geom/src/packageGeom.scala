@@ -121,7 +121,7 @@ package object geom
 
   implicit class StringImplictGeom(thisString: String)
   {
-    import pParse.{ stringToStatements => stss}
+    import pParse.{ stringToStatementsOld => stss}
 
     /** Find unique [[Pt2]] expression from this String parsing it as an Sequence of RSON statements. */
     def findPt2: EMon[Pt2] = stss(thisString).flatMap(_.findType[Pt2])

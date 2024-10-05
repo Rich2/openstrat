@@ -16,8 +16,14 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Parses this [[String]] into RSON statements. */
   def parseStatementsOld: EArr[Statement] = parseTokensOld.flatMap(pParse.tokensToStatementsOld(_))
 
+  /** Parses this [[String]] into RSON statements. */
+  def parseStatements: ExcMonArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+
   /** Parses this [[String]] into an RSON expression. */
-  def parseExpr: EMon[Expr] = parseTokensOld.flatMap(pParse.tokensToExprOld(_))
+  def parseExprOld: EMon[Expr] = parseTokensOld.flatMap(pParse.tokensToExprOld(_))
+
+  /** Parses this [[String]] into an RSON expression. */
+  def parseExpr: ErrBi[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))
@@ -49,7 +55,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
-  def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExprOld(g))
+  def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExprOld.flatMap(g => ev.fromExprOld(g))
 
   /** Replaces newline characters into space characters. */
   def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
@@ -161,7 +167,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
     s1 + "." + s2a
   }
   
-  def toTokens: EMon[RArr[pParse.Token]] = pParse.stringToTokens(thisString)
+  def toTokens: EMon[RArr[pParse.Token]] = pParse.stringToTokensOld(thisString)
 
   /** Appends strings with a comma and space separator */
   def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)

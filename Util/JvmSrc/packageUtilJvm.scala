@@ -82,7 +82,7 @@ package object utiljvm
 
   /** Function object apply method to get statements from a Java build resource. */
   def statementsFromResource(fileName: String): EMon[RArr[Statement]] =
-    eTry(scala.io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatements(_, fileName))
+    eTry(scala.io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatementsOld(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
