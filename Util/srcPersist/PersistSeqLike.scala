@@ -138,6 +138,7 @@ class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)
   val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)(evA, build1)
 
   override def fromExprOld(expr: Expr): EMon[A] = stage.fromExprOld(expr).map(f)
+  override def fromExpr(expr: Expr): ExcMon[A] = stage.fromExpr(expr).map(f)
 }
 
 object UnshowFromArr

@@ -659,4 +659,19 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
     res.noneMap1("No Good returned when function applied to this Sequ.")
   }
+
+  /** Takes a function that returns an [[ErrBi]] and returns the first [[Succ]]. */
+  def findSucc[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[ExcNotFound.type, B] =
+  { var res: ErrBi[ExcNotFound.type, B] = NotFound()
+    var i = 0
+    while (i < length && res.isFail)
+    { val bi = f(apply(i))
+       bi match
+       { case Succ(b) => res = Succ[ExcNotFound.type, B](b)
+         case _ =>
+       }
+      i += 1
+    }
+    res
+  }
 }

@@ -35,10 +35,9 @@ object ShowSum2
 
 /** Algebraic sum type for [[Unshow]]. */
 trait UnshowSum[+A] extends Unshow[A]
-{
-  def elems: RArr[Unshow[A]]
-
+{ def elems: RArr[Unshow[A]]
   override def fromExprOld(expr: Expr): EMon[A] = elems.findGood(_.fromExprOld(expr))
+  override def fromExpr(expr: Expr): ErrBi[ExcNotFound.type, A] = elems.findSucc(_.fromExpr(expr))
 
   override def concat[AA >: A](operand: Unshow[AA], newTypeStr: String = typeStr): Unshow[AA] = operand match
   { case uSum: UnshowSum[AA] => UnshowSum[AA](newTypeStr, elems ++ uSum.elems)

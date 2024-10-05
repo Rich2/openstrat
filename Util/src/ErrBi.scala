@@ -11,6 +11,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
   def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B]
 
   def isSucc: Boolean
+  def isFail: Boolean
 
   /** Will perform action if success. Does nothing if [[Fail]]. */
   def forSucc(f: A => Unit): Unit
@@ -35,6 +36,7 @@ case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
   }
 
   override def isSucc: Boolean = true
+  override def isFail: Boolean = false
   override def forSucc(f: A => Unit): Unit = f(value)
   override def fold[B](fSucc: A => B)(fFail: E => B): B = fSucc(value)
 }
@@ -44,6 +46,7 @@ case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
 { override def map[B](f: A => B): ErrBi[E, B] = new Fail[E, B](error)
   override def flatMap[B](f: A => ErrBi[E, B] @uncheckedVariance): ErrBi[E, B] = new Fail[E, B](error)
   override def isSucc: Boolean = false
+  override def isFail: Boolean = true
   override def forSucc(f: A => Unit): Unit = {}
   override def fold[B](fSucc: A => B)(fFail: E => B): B = fFail(error)
 }
@@ -51,6 +54,11 @@ case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
 type ExcMon[+A] = ErrBi[Exception, A]
 type SuccExc[+A] = Succ[Exception, A]
 type FailExc[+A] = Fail[Exception, A]
+object ExcNotFound extends Exception("Not found")
+
+object NotFound{
+  def apply[A](): Fail[ExcNotFound.type, A] = Fail(ExcNotFound)
+}
 
 object FailExc
 {
