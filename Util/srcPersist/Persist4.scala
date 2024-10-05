@@ -116,7 +116,7 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
 { /** Allows this [[Unshow]] instance to create object from it's 4 components. */
   def newT: (A1, A2, A3, A4) => A
 
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
+  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExprOld(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExprOld(name2, sortedExprs(pSeq(1))), opt2.toEMon)

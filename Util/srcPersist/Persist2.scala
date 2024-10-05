@@ -128,12 +128,22 @@ trait Unshow2[A1, A2, A] extends Unshow2Plus[A1, A2, A] with Persist2[A1, A2]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, A2) => A
 
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
+  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExprOld(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExprOld(name2,sortedExprs(pSeq(1))), opt2.toEMon)
     e1.map2(e2)(newT)
   }
+
+  /*protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[A] =
+  {
+    val len: Int = sortedExprs.length
+    val e1: ExcMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
+
+    def e2: ExcMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
+
+    e1.map2(e2)(newT)
+  }*/
 }
 
 object Unshow2

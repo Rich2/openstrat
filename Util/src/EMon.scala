@@ -6,7 +6,7 @@ import scala.annotation.unchecked.uncheckedVariance
  * foreach and forEither. This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are
  * advantages to having a separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the
  * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
- * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
+ * rarely used except as an error handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A]
 { /** Maps the Good case of this EMon with the function. */
   def map[B](f: A => B): EMon[B]

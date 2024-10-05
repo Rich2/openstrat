@@ -61,27 +61,29 @@ trait ShowTellN[A <: TellN] extends ShowNFixed[A] with ShowTell[A]
 
 trait UnshowN[R] extends Unshow[R] with PersistNFixed
 {
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
+  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
+
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[R] = ???
 
   /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
 
   final override def fromExprOld(expr: Expr): EMon[R] = expr match
   { case IdentifierToken(str) => shortKeys.a1FindA2(str).toEMon
-    case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
+    case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeqOld(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
+    case ExprSeqNonEmpty(exprs) => fromExprSeqOld(exprs)
     case _ => expr.exprParseErrOld[R](this)
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: RArr[Expr]): EMon[R] =
+  final def fromExprSeqOld(exprs: RArr[Expr]): EMon[R] =
     if(exprs.length > numParams) Bad(StrArr(exprs.length.toString + s" parameters for $numParams parameter constructor."))
     else
     {
       def exprsLoop(i: Int, usedNames: StrArr): EMon[R] =
         if (i >= exprs.length)
-          if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
+          if (i >= numParams) fromSortedExprsOld(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
           else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
         else exprs(i) match
         { case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
@@ -90,5 +92,26 @@ trait UnshowN[R] extends Unshow[R] with PersistNFixed
           case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
         }
       exprsLoop(0, StrArr())
+     
     }
+
+  /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
+  final def fromExprSeq(exprs: RArr[Expr]): ExcMon[R] =
+     if (exprs.length > numParams) FailExc(exprs.length.toString + s" parameters for $numParams parameter constructor.")
+     else
+     {
+       def exprsLoop(i: Int, usedNames: StrArr): ExcMon[R] =
+         if (i >= exprs.length)
+           if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
+           else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
+         else exprs(i) match
+         {
+           case AsignExprName(name) if !paramNames.contains(name) => exprs(i).failExc("Unrecognised setting identifer name.")
+           case AsignExprName(name) if usedNames.contains(name) => exprs(i).failExc(name + " Multiple parameters of the same name.")
+           case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
+           case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
+         }
+ 
+       exprsLoop(0, StrArr())
+     }
 }
