@@ -69,7 +69,7 @@ object PersistBoth
 
   val boolEv: Show[Boolean] = new PersistBothSimple[Boolean]("Bool")
   {
-    /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+    /** Provides the standard string representation for the object. It's called ShowT to indicate this is a type class method that acts upon an object
      * rather than a method on the object being shown. */
     override def strT(obj: Boolean): String = ???
     

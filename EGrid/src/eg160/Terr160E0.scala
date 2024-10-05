@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle3]] 541.265km² => 1060.881km². Isle of Man 572km².
  * South Uist 320.3km² + North Uist 303km² + Benbcuala 82.03km² + Berneray 10.1km² + Grimsay 8.33km² =723.76km² */
 object Terr160E0 extends Long160Terrs
-{ override implicit val grid: EGrid160LongFull = EGrid160.e0(262)
+{ override implicit val grid: EGrid160LongFull = EGrid160.e0(260)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -46,13 +46,15 @@ object Terr160E0 extends Long160Terrs
     TRow(274, sea * 6, oceanic * 3, hillyOce, mtainDepr * 4),
     VRow(273, Orig(538, HVDn, 2, 7)),
     TRow(272, sea * 6, oceanic, hillyOce * 2, mtainDepr, hillyOce, mtainDepr, oceanic, hillyOce),
-    VRow(271, Bend(538, HVUR, 11, 7), Bend(540, HVDL, 11, 5)),
+    VRow(271, BendIn(492, HVDR, 13), BendIn(494, HVDn, 13), Bend(538, HVUR, 11, 7), Bend(540, HVDL, 11, 5)),
     TRow(270, sea * 2, hillyOce, hillyOce * 3, oceanic * 2, hillyOce * 2, mtainDepr, sea, hillyOce * 2, hillySavannah),
+    VRow(269, OrigRt(492, HVUp, 7)),
     TRow(268, sea * 3, hillyOce, oceanic, hillyDeshot * 2, mtainDepr * 2, sea * 3, Isle10(hillyOce), hillyOce * 2),
     TRow(266, sea * 2, hillyOce * 2, deshot, hillyDeshot * 2, hillyOce, sea * 3, hillyOce, sea * 2, hillyOce),
     VRow(265, BendOut(514, HVDR)),
     TRow(264, sea * 2, hillySubForest, hillyOce * 2, hillyDeshot, hillyOce, hillyOce, sea, Isle10(hillyOce), sea * 2, hillyOce, sea * 2),
-    TRow(262, sea * 3, oceanic * 2, hillyOce * 3)
+    TRow(262, sea * 3, subtrop * 2, hillySub * 3),
+    TRow(260, sea * 2, hillySubForest)
     )
   }
   help.run

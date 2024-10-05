@@ -38,19 +38,23 @@ object IberiaSouth extends EarthArea("IberiaSouth", 38.48 ll -4.55, hillySub)
   val bistroPoint: LatLong = 36.11 ll -5.34
   val tarifa: LatLong = 36.01 ll -5.61
 
-  val chipiona: LatLong = 36.3 ll -6.19
+  val trafalaga: LatLong = 36.181 ll -6.034
+  val chipiona = 36.737 ll -6.442
   val matalascanas: LatLong = 36.966 ll -6.552
   val neuvaUmbria: LatLong = 37.205 ll -7.057
   val daBarreta = 36.960 ll -7.887
-  val swPortugal: LatLong = 37.06 ll -8.34
+  val swPortugal: LatLong = 37.022 ll -8.996
+  val caboSardao: LatLong = 37.598 ll -8.819
+  val p80: LatLong = 37.925 ll -8.806
+  val sines: LatLong = 37.953 ll -8.886
   val comporta: LatLong = 38.38 ll -8.80
-  val estoril: LatLong = 38.71 ll -9.48
-  val p85: LatLong = 38.75 ll -9.47
-  val p87: LatLong = 38.77 ll -9.50
+  val p83: LatLong = 38.488 ll -8.934
+  val caboEspichel: LatLong = 38.413 ll -9.221
+  val caboRaso: LatLong = 38.708 ll -9.485
   val mondegoMouth: LatLong = 40.15 ll -8.87
 
   override val polygonLL = PolygonLL(valencia, xabia, p15, capePalos, p20, southEast, p50, culoDePerros, caboSacratif, malaga, p60, bistroPoint, tarifa,
-    chipiona, matalascanas, neuvaUmbria, daBarreta, swPortugal, comporta, estoril, p85, p87, mondegoMouth)
+    trafalaga, chipiona, matalascanas, neuvaUmbria, daBarreta, swPortugal, caboSardao, p80, sines, comporta, p83, caboEspichel, caboRaso, mondegoMouth)
 }
 
 /** [[PolygonLL]] graphic depends on [[IberiaSouth]]. */

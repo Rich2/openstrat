@@ -254,6 +254,14 @@ object Unshow extends UnshowPriority2
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-i.toLong)
       case  _ => expr.exprParseErrOld[Long]
     }
+
+    override def fromExpr(expr: Expr): ExcMon[Long] = expr match
+    {
+      case NatBase10Token(_, i) => Succ(i.toLong)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Succ(i.toLong)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Succ(-i.toLong)
+      case _ => expr.exprParseErr[Long]
+    }
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Boolean]]. */
@@ -265,6 +273,12 @@ object Unshow extends UnshowPriority2
       case IdentLowerToken(_, str) if str == "false" => Good(false)
       case _ => expr.exprParseErrOld[Boolean]
     }
+
+    override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
+    { case IdentLowerToken(_, str) if str == "true" => Succ(true)
+      case IdentLowerToken(_, str) if str == "false" => Succ(false)
+      case _ => expr.exprParseErr[Boolean]
+    }
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[String]]. */
@@ -274,6 +288,11 @@ object Unshow extends UnshowPriority2
     override def fromExprOld(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
       case  _ => expr.exprParseErrOld[String]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[String] = expr match
+    { case StringToken(_, stringStr) => Succ(stringStr)
+      case _ => expr.exprParseErr[String]
     }
   }
 
@@ -285,6 +304,11 @@ object Unshow extends UnshowPriority2
     override def fromExprOld(expr: Expr): EMon[Char] = expr match
     { case CharToken(_, char) => Good(char)
       case  _ => expr.exprParseErrOld[Char]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Char] = expr match
+    { case CharToken(_, char) => Succ(char)
+      case _ => expr.exprParseErr[Char]
     }
   }
 
@@ -313,7 +337,14 @@ trait UnshowPriority2 extends UnshowPriority3
     { case _: EmptyExprToken => Good(Vector[A]())
       case AlphaSquareParenth("Seq", ts, sts) => sts.mapEMon(s => evA.fromExprOld(s.expr))(build).map(_.toVector)
       case AlphaParenth("Seq", sts) => sts.mapEMon(s => evA.fromExprOld(s.expr))(build).map(_.toVector)
-      case e => bad1(expr, "Unknown Exoression for Seq")
+      case e => bad1(expr, "Unknown Expression for Seq")
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Vector[A]] = expr match
+    { case _: EmptyExprToken => Succ(Vector[A]())
+      case AlphaSquareParenth("Seq", ts, sts) => sts.mapErrBi(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case AlphaParenth("Seq", sts) => sts.mapErrBi(s => evA.fromExpr(s.expr))(build).map(_.toVector)
+      case e => expr.failExc("Unknown Expression for Vector")
     }
   }
 
@@ -325,6 +356,11 @@ trait UnshowPriority2 extends UnshowPriority3
       case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExprOld(hs.expr).map(Some(_))
       case expr => ev.fromExprOld(expr).map(Some(_))
     }
+
+    override def fromExpr(expr: Expr): ExcMon[Some[A]] = expr match
+    { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case expr => ev.fromExpr(expr).map(Some(_))
+    }
   }
 }
 
@@ -333,10 +369,16 @@ trait UnshowPriority3
   implicit val noneUnEv: Unshow[None.type] = new Unshow[None.type]
   { override def typeStr: String = "None"
 
-    def fromExprOld(expr: Expr): EMon[None.type] = expr match
+    override def fromExprOld(expr: Expr): EMon[None.type] = expr match
     { case IdentUpperToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[None.type] = expr match
+    { case IdentUpperToken(_, "None") => Succ(None)
+      case eet: EmptyExprToken => Succ(None)
+      case e => expr.exprParseErr
     }
   }
 }
