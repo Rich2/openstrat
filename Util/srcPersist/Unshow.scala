@@ -132,6 +132,13 @@ object Unshow extends UnshowPriority2
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Good(-i)
       case _ => expr.exprParseErrOld[Int]
     }
+
+    override def fromExpr(expr: Expr): ExcMon[Int] = expr match
+    { case ValidRawHexaIntToken(i) => Succ(i)
+      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Succ(i)
+      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Succ(-i)
+      case _ => expr.exprParseErr[Int]
+    }
   }
 
   /** [[Unshow]] instance for natural non negative [[Int]] in hexadecimal format. This evidence must be passed explicitly. */
@@ -142,6 +149,11 @@ object Unshow extends UnshowPriority2
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case ValidRawHexaNatToken(i) => Good(i)
       case _ => expr.exprParseErrOld[Int]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Int] = expr match
+    { case ValidRawHexaNatToken(i) => Succ(i)
+      case _ => expr.exprParseErr[Int]
     }
   }
 
@@ -156,9 +168,16 @@ object Unshow extends UnshowPriority2
       case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Good(-i)
       case _ => expr.exprParseErrOld[Int]
     }
+
+    override def fromExpr(expr: Expr): ExcMon[Int] = expr match
+    { case ValidRawBase32IntToken(i) => Succ(i)
+      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Succ(i)
+      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Succ(-i)
+      case _ => expr.exprParseErr[Int]
+    }
   }
 
-  /** [[Unshow]] instance for natural non negative [[Int]] in base32 format. This evidence must be passed explicitly. */
+  /** [[Unshow]] instance for natural non-negative [[Int]] in base32 format. This evidence must be passed explicitly. */
   val base32NatEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Base32Nat"
@@ -166,6 +185,11 @@ object Unshow extends UnshowPriority2
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case ValidRawBase32NatToken(n) => Good(n)
       case _ => expr.exprParseErrOld[Int]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Int] = expr match
+    { case ValidRawBase32NatToken(n) => Succ(n)
+      case _ => expr.exprParseErr[Int]
     }
   }
 
