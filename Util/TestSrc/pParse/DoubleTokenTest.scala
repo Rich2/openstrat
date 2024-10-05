@@ -29,7 +29,7 @@ object DoubleTokenTest extends TestSuite
       "-4".asDbl ==> Good(-4)
       assertMatch(s51.parseTokensOld){ case Good(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
       "51".unsafeDigitsToLong ==> 51l
-      s51.findType[Double] ==> Good(51.1)
+      s51.findTypeOld[Double] ==> Good(51.1)
       assertMatch(xeqStr.parseTokensOld){ case Good(Arr3(IdentLowerOnlyToken(_, "x"), AsignToken(_), DeciFracPosToken(_, _, _, _))) => }
       assertMatch("271.562".parseTokensOld){ case Good(Arr1(DeciFracPosToken(sp1, "271", "562", ""))) => }
       //Note this not a legal AST but it doesn't matter for the purpose of lexical tests

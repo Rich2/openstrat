@@ -14,12 +14,22 @@ trait Unshow[+T] extends Persist
   def fromExpr(expr: Expr): ExcMon[T] = ???
 
   /** Trys to build an object of type T from the statement. */
-  final def fromStatement(st: Statement): EMon[T] = fromExprOld(st.expr)
+  final def fromStatementOld(st: Statement): EMon[T] = fromExprOld(st.expr)
 
-  def fromSettingOrExpr(SettingStr: String, expr: Expr): EMon[T] = expr match
+  /** Trys to build an object of type T from the statement. */
+  final def fromStatement(st: Statement): ExcMon[T] = fromExpr(st.expr)
+  
+  def fromSettingOrExprOld(SettingStr: String, expr: Expr): EMon[T] = expr match
   { case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExprOld(rExpr)
     case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExprOld(rExpr)
     case e => fromExprOld(e)
+  }
+
+  def fromSettingOrExpr(SettingStr: String, expr: Expr): ExcMon[T] = expr match
+  {
+    case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
+    case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExpr(rExpr)
+    case e => fromExpr(e)
   }
 
   def fromAnySettingOrExpr(expr: Expr): EMon[T] = expr match
@@ -30,7 +40,7 @@ trait Unshow[+T] extends Persist
 
   /** Produces an [[ArrImut]] of the UnShow type from Statements RArr[Statement]. */
   def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance): ArrT =
-    sts.mapCollectGoods(fromStatement)(arrBuild)
+    sts.mapCollectGoods(fromStatementOld)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):

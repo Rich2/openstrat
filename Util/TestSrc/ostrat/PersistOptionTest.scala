@@ -20,7 +20,7 @@ object PersistOptionTest extends TestSuite
     test("None")
     {
       None.str ==> "None"
-      "None".findType[None.type] ==> Good(None)
+      "None".findTypeOld[None.type] ==> Good(None)
       None.str.enCurly ==> "None".enCurly
       None.show(ShowSemis).enCurly ==> " ".enCurly
       None.show(ShowCommas).enCurly ==> " ".enCurly

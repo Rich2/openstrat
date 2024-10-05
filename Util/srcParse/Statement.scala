@@ -119,7 +119,7 @@ object Statement
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
-    def findType[A](implicit ev: Unshow[A]): EMon[A] = statements.mapUniqueGood(ev.fromStatement(_))
+    def findType[A](implicit ev: Unshow[A]): EMon[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
@@ -127,31 +127,31 @@ object Statement
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
-      ife(statements.length > index, ev.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def intAtIndex(index: Int): EMon[Int] =
-      ife(statements.length > index, Unshow.intEv.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, Unshow.intEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a natural non negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def natAtIndex(index: Int): EMon[Int] =
-      ife(statements.length > index, Unshow.natEv.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, Unshow.natEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def dblAtIndex(index: Int): EMon[Double] =
-      ife(statements.length > index, Unshow.doubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, Unshow.doubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a positive, non negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def posDblAtIndex(index: Int): EMon[Double] =
-      ife(statements.length > index, Unshow.posDoubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, Unshow.posDoubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def boolAtIndex(index: Int): EMon[Boolean] =
-      ife(statements.length > index, Unshow.booleanEv.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, Unshow.booleanEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def longAtIndex(index: Int): EMon[Long] =
-      ife(statements.length > index, Unshow.longEv.fromStatement(statements(index)), badNone("No statement at given index."))
+      ife(statements.length > index, Unshow.longEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */

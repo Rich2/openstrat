@@ -21,9 +21,9 @@ object LsRson2 extends LessonGraphics
     val t1 = tStr.intAtStsIndex(2)
 
     /** Gives the same result as t1 as the Int value ar index 2 is unique. */
-    val t2 = tStr.findType[Int]
+    val t2 = tStr.findTypeOld[Int]
 
-    val t3 = tStr.findType[String]
+    val t3 = tStr.findTypeOld[String]
 
     /** Indexes start at 0. */
     val t4 = tStr.typeAtStsIndex[String](0)
@@ -33,7 +33,7 @@ object LsRson2 extends LessonGraphics
     /** Because Indexes start at 0. There is no element 2 of type String. */
     val t6 = tStr.typeAtStsIndex[String](2)
 
-    val t7 = tStr.findType[Pt2]
+    val t7 = tStr.findTypeOld[Pt2]
     val t8 = tStr.dblAtStsIndex(0)
 
     val topStrs = RArr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
@@ -42,8 +42,8 @@ object LsRson2 extends LessonGraphics
     val arr = Array(4, 5, 6)
     val as = arr.str
     //  val r1 = as.findType[Seq[Int]]//The default constructor for a Seq is List
-    val r2 = as.findType[List[Int]]
-    val r3 = as.findType[Vector[Int]]
+    val r2 = as.findTypeOld[List[Int]]
+    val r3 = as.findTypeOld[Vector[Int]]
     //  val a4 = as.findType[Array[Int]]
     // val r4 = a4//toString method on Array not very helpful
     //val r5 = a4.map(_(1))

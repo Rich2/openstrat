@@ -26,10 +26,10 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def parseExpr: ErrBi[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))
+  def findTypeOld[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatementOld(st))
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
-  def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
+  def findTypeElse[A: Unshow](elseValue: => A): A = findTypeOld[A].getElse(elseValue)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
   def typeAtStsIndex[A: Unshow](index: Int): EMon[A] = thisString.parseStatementsOld.flatMap(_.typeAtIndex[A](index))
@@ -52,7 +52,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
   def longAtStsIndex(index: Int): EMon[Long] = thisString.parseStatementsOld.flatMap(_.longAtIndex(index))
 
-  def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
+  def findTypeDo[A: Unshow](f: A => Unit): Unit = findTypeOld[A].forGood(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
   def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExprOld.flatMap(g => ev.fromExprOld(g))

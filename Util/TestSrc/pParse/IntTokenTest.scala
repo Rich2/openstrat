@@ -32,13 +32,13 @@ object IntTokenTest extends TestSuite
     val st1 = "true; 17; false"
 
     "Find / as Int" -
-    { "17".findType[Int] ==> Good(17)
+    { "17".findTypeOld[Int] ==> Good(17)
       "17".asNat ==> Good(17)
       st1.intAtStsIndex(1) ==> Good(17)
       st1.intAtStsIndex(1) ==> Good(17)
       "true".asBool ==> Good(true)
-      st1.findType[Boolean].isGood ==> false
-      "17; -17".findType[Int].isBad ==> true
+      st1.findTypeOld[Boolean].isGood ==> false
+      "17; -17".findTypeOld[Int].isBad ==> true
       "17; -17".asNat.isBad ==> true
       "25".asInt ==> Good(25)
       "25;".asInt.isBad ==> true

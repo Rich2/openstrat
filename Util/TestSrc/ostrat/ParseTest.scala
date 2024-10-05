@@ -9,12 +9,12 @@ object ParseTest extends TestSuite
 
     "Test1" -
     {
-      "4".findType[Int] ==> Good(4)
-      "-4".findType[Int] ==> Good(-4)
+      "4".findTypeOld[Int] ==> Good(4)
+      "-4".findTypeOld[Int] ==> Good(-4)
       settingStr.findSetting[Int]("x") ==> Good(-5)
       settingStr.findSetting[Int]("y") ==> Good(7)
       settingStr.findIntSetting("y") ==> Good(7)
-      settingStr.findType[Boolean] ==> Good(true)
+      settingStr.findTypeOld[Boolean] ==> Good(true)
     }
     val oi: Option[Int] = Some(50)
 

@@ -8,7 +8,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
   def map[B](f: A => B): ErrBi[E, B]
 
   /** Classic flatMap function as we see on a Scala [[Option]]. */
-  def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B] @uncheckedVariance): ErrBi[EE, B]
+  def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B]
 
   def isSucc: Boolean
   def isFail: Boolean
@@ -30,7 +30,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
 case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
 { override def map[B](f: A => B): ErrBi[E, B] = new Succ[E, B](f(value))
 
-  override def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B] @uncheckedVariance): ErrBi[EE, B] = f(value) match
+  override def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = f(value) match
   { case succ: Succ[E, B] => succ
     case fail: Fail[E, B] => fail
   }
@@ -44,7 +44,7 @@ case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
 case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
 { override def map[B](f: A => B): ErrBi[E, B] = new Fail[E, B](error)
-  override def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B] @uncheckedVariance): ErrBi[EE, B] = new Fail[E, B](error)
+  override def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = new Fail[E, B](error)
   override def isSucc: Boolean = false
   override def isFail: Boolean = true
   override def forSucc(f: A => Unit): Unit = {}
