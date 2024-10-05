@@ -196,6 +196,9 @@ object Unshow extends UnshowPriority2
   def intSubset(pred: Int => Boolean): Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "Int"
     override def fromExprOld(expr: Expr): EMon[Int] = intEv.fromExprOld(expr).flatMap(i => ife(pred(i), Good(i), bad1(expr, s"$i does not fullfll predicate.")))
+
+    override def fromExpr(expr: Expr): ExcMon[Int] =
+      intEv.fromExpr(expr).flatMap(i => ife(pred(i), Succ(i), expr.startPosn.fail(s"$i does not fullfll predicate.")))
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
@@ -211,6 +214,13 @@ object Unshow extends UnshowPriority2
       case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Good(-d)
       case _ => expr.exprParseErrOld[Double]
     }
+
+    override def fromExpr(expr: Expr): ExcMon[Double] = expr match
+    { case ValidPosFracToken(d) => Succ(d)
+      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Succ(d)
+      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Succ(-d)
+      case _ => expr.exprParseErr[Double]
+    }
   }
 
   /** Implicit [[Unshow]] instance / evidence for [[Float]]. */
@@ -223,6 +233,14 @@ object Unshow extends UnshowPriority2
       case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
       case intok: NegBase10Token => Good(intok.getIntStd.toFloat)
       case  _ => expr.exprParseErrOld[Float]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Float] = expr match
+    { case NatBase10Token(_, i) => Succ(i.toFloat)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Succ(i.toFloat)
+      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Succ(-(i.toFloat))
+      case intok: NegBase10Token => Succ(intok.getIntStd.toFloat)
+      case _ => expr.exprParseErr[Float]
     }
   }
 
