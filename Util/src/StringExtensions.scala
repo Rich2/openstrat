@@ -14,10 +14,10 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def parseTokens: ErrBiArr[ExcParse, Token] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */
-  def parseStatementsOld: EArr[Statement] = parseTokensOld.flatMap(pParse.tokensToStatements(_))
+  def parseStatementsOld: EArr[Statement] = parseTokensOld.flatMap(pParse.tokensToStatementsOld(_))
 
   /** Parses this [[String]] into an RSON expression. */
-  def parseExpr: EMon[Expr] = parseTokensOld.flatMap(pParse.tokensToExpr(_))
+  def parseExpr: EMon[Expr] = parseTokensOld.flatMap(pParse.tokensToExprOld(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))

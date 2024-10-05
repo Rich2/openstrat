@@ -47,6 +47,15 @@ object SeqLike
       case AlphaParenth("Seq", sts) => sts.mapEMon(build)(s => evA.fromExprOld(s.expr))
       case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
+
+    override def fromExpr(expr: Expr): ExcMon[AA] = expr match
+    { case _: EmptyExprToken => Succ(build.uninitialised(0))
+      case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
+        sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
+      case AlphaSquareParenth("Seq", _, sts) => sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
+      case AlphaParenth("Seq", sts) => sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
+      case e => expr.failExc(expr.toString + " unknown Expression for Seq")
+    }
   }
 }
 

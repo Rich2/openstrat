@@ -10,7 +10,7 @@ object AstTest extends TestSuite
   val w1 = stringToStatements(s1)
   val t3: RArr[StatementMem & BlockMemToken] = RArr(IdentLowerOnlyToken(Sp1, "x"), AsignToken(StrPosn(1, 3)),
     IdentLowerOnlyToken(StrPosn(1, 5), "y"), SemicolonToken(StrPosn(1, 6)))
-  val a1: EArr[Statement] = tokensToStatements(t3)
+  val a1: EArr[Statement] = tokensToStatementsOld(t3)
 
   val tests = Tests {
     test("Test1")
