@@ -89,11 +89,19 @@ object Unshow extends UnshowPriority2
   class IntEvClass extends Unshow[Int]
   { override def typeStr: String = "Int"
     override val useMultiple: Boolean = false
+    
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case IntStdToken(i) => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
       case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Good(-i)
       case _ => expr.exprParseErrOld[Int]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Int] = expr match
+    { case IntStdToken(i) => Succ(i)
+      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Succ(i)
+      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Succ(-i)
+      case _ => expr.exprParseErr[Int]
     }
   }
 
@@ -105,6 +113,11 @@ object Unshow extends UnshowPriority2
     override def fromExprOld(expr: Expr): EMon[Int] = expr match
     { case  NatStdToken(i) => Good(i)
       case _ => expr.exprParseErrOld[Int]
+    }
+
+    override def fromExpr(expr: Expr): ExcMon[Int] = expr match
+    { case NatStdToken(i) => Succ(i)
+      case _ => expr.exprParseErr[Int]
     }
   }
 

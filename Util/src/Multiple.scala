@@ -123,9 +123,9 @@ object Multiple
   def collFromArrStatementOld[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] =
     unshowEv(evA).collFromArrExprOld(inp.map(_.expr), builderColl)
 
-    /** Collection from [[Arr]] of [[Statement]]. */
-    def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): ExcMon[R] =
-      unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)  
+  /** Collection from [[Arr]] of [[Statement]]. */
+  def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): ExcMon[R] =
+    unshowEv(evA).collFromArrExpr(inp.map(_.expr), builderColl)  
 }
 
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
