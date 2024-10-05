@@ -34,13 +34,13 @@ object TextPosn
     def bad[A](message: String): Bad[A] = new Bad[A](StrArr(parseErr(message)))
     
     /** Produce a failure with a plain [[Exception]] type. */
-    def fail[A](message: String): Fail[Exception, A] = Fail[Exception, A](new Exception(message))
+    def fail(message: String): Fail[Exception] = Fail[Exception](new Exception(message))
     
     /** Produce a failure with an [[ExcLexar]] type. */
-    def failLexar[A](detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(thisTextPosn, detail))
+    def failLexar(detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(thisTextPosn, detail))
 
     /** Produce a failure with an [[ExcLexar]] type. */
-    def failAst[A](detail: String): Fail[ExcAst, A] = new Fail[ExcAst, A](ExcAst(thisTextPosn, detail))
+    def failAst(detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(thisTextPosn, detail))
     
     //def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
@@ -52,7 +52,7 @@ object TextPosn
 trait TextSpan
 { def startPosn: TextPosn
   def endPosn: TextPosn
-  def failExc[A](detail: String): FailExc[A] = FailExc(startPosn.shortStr -- detail)
+  def failExc(detail: String): FailExc = FailExc(startPosn.shortStr -- detail)
 }
 
 object TextSpan

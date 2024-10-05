@@ -10,12 +10,12 @@ case class ExcAst(tp: TextPosn, detail: String) extends Exception(tp.fileName --
 
 object FailAst
 {
-  def apply[A](tp: TextPosn, detail: String): Fail[ExcAst, A] = new Fail[ExcAst, A](ExcAst(tp, detail))
+  def apply(tp: TextPosn, detail: String): Fail[ExcAst] = new Fail[ExcAst](ExcAst(tp, detail))
 }
 case class ExcLexar(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with
   ExcParse
 
 object FailLexar
 {
-  def apply[A](tp: TextPosn, detail: String): Fail[ExcLexar, A] = new Fail[ExcLexar, A](ExcLexar(tp, detail))
+  def apply(tp: TextPosn, detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(tp, detail))
 }

@@ -667,7 +667,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     while (i < length && res.isFail)
     { val bi = f(apply(i))
        bi match
-       { case Succ(b) => res = Succ[ExcNotFound.type, B](b)
+       { case Succ(b) => res = Succ[B](b)
          case _ =>
        }
       i += 1

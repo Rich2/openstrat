@@ -27,42 +27,50 @@ sealed trait ErrBi[+E <: Throwable, +A]
 }
 
 /** Success, boxes a good value of the desired type. */
-case class Succ[+E <: Throwable, +A](value: A) extends ErrBi[E, A]
-{ override def map[B](f: A => B): ErrBi[E, B] = new Succ[E, B](f(value))
+class Succ[+A](val value: A) extends ErrBi[Nothing, A]
+{ override def map[B](f: A => B): ErrBi[Nothing, B] = new Succ[B](f(value))
 
-  override def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = f(value) match
-  { case succ: Succ[E, B] => succ
-    case fail: Fail[E, B] => fail
+  override def flatMap[EE <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = f(value) match
+  { case succ: Succ[B] => succ
+    case fail: Fail[EE] => fail
   }
 
   override def isSucc: Boolean = true
   override def isFail: Boolean = false
   override def forSucc(f: A => Unit): Unit = f(value)
-  override def fold[B](fSucc: A => B)(fFail: E => B): B = fSucc(value)
+  override def fold[B](fSucc: A => B)(fFail: Nothing => B): B = fSucc(value)
+}
+
+object Succ
+{ def apply[A](value: A): Succ[A] = new Succ[A](value)
+
+  def unapply[A](inp: ErrBi[?, A]): Option[A] = inp match
+  { case sa: Succ[A] => Some(sa.value)
+    case _ => None
+  }
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
-case class Fail[+E <: Throwable, +A](val error: E) extends ErrBi[E, A]
-{ override def map[B](f: A => B): ErrBi[E, B] = new Fail[E, B](error)
-  override def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = new Fail[E, B](error)
+case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
+{ override def map[B](f: Nothing => B): ErrBi[E, B] = this// new Fail[E, B](error)
+  override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this// new Fail[E, B](error)
   override def isSucc: Boolean = false
   override def isFail: Boolean = true
-  override def forSucc(f: A => Unit): Unit = {}
-  override def fold[B](fSucc: A => B)(fFail: E => B): B = fFail(error)
+  override def forSucc(f: Nothing => Unit): Unit = {}
+  override def fold[B](fSucc: Nothing => B)(fFail: E => B): B = fFail(error)
 }
 
 type ExcMon[+A] = ErrBi[Exception, A]
-type SuccExc[+A] = Succ[Exception, A]
-type FailExc[+A] = Fail[Exception, A]
+type FailExc = Fail[Exception]
 object ExcNotFound extends Exception("Not found")
 
 object NotFound
-{ def apply[A](): Fail[ExcNotFound.type, A] = Fail(ExcNotFound)
+{ def apply(): Fail[ExcNotFound.type] = Fail(ExcNotFound)
 }
 
 object FailExc
 {
-  @inline def apply[A](message: String): FailExc[A] = new Fail[Exception, A](new Exception(message)) 
+  @inline def apply[A](message: String): FailExc = new Fail[Exception](new Exception(message))
 }
 
 object NoneExc extends Exception("None")
@@ -73,7 +81,7 @@ type ErrBiArr[E <: Throwable, AE <: AnyRef] = ErrBi[E, RArr[AE]]
 /** Extractor function object for a successful Arr Sequence of length 1. */
 object SuccArr1
 { /** Extractor method for a successful [[Arr]] Sequence of length 1. */
-  def unapply[E<: Throwable, A <: AnyRef](eArr: ErrBiArr[E, A]): Option[A] = eArr match
+  def unapply[A <: AnyRef](eArr: ErrBiArr[?, A]): Option[A] = eArr match
   { case Succ(Arr1(head)) => Some(head)
     case _ => None
   }
@@ -87,11 +95,6 @@ type ErrBi2[E <: Throwable, A1, A2] = ErrBi[E, (A1, A2)]
 /** Extension class for [[Exception]] bifunctor for [[Tuple2]]s. */
 implicit class ExcBi2Extensions[E <: Throwable, A1, A2](val thisEE2: ErrBi2[E, A1, A2])
 {
-  /*def toEMon2: EMon3[A1, A2] = thisEE2 match {
-    case Succ2(a1, a2) => Good2(a1)
-    case Fail(err) => Bad2(StrArr(err.toString))
-  }*/
-
   def t2FlatMap[B1, B2](f: (A1, A2) => ErrBi2[E, B1, B2]): ErrBi2[E, B1, B2] = thisEE2 match
   { case Succ2(a1, a2) => f(a1, a2)
     case Fail(err) => Fail(err)
@@ -99,16 +102,15 @@ implicit class ExcBi2Extensions[E <: Throwable, A1, A2](val thisEE2: ErrBi2[E, A
 }
 
 /** Success for a [[Tuple2]] value. */
-type Succ2[E <: Throwable, A1, A2] = Succ[E, (A1, A2)]
+type Succ2[A1, A2] = Succ[(A1, A2)]
 
 object Succ2
-{
-  /** Factory apply method for creating [[Succ]] with a [[Tuple2]] value. */
-    def apply[E <: Throwable, A1, A2](a1: A1, a2: A2): Succ2[E, A1, A2] = new Succ[E, (A1, A2)]((a1, a2))
+{ /** Factory apply method for creating [[Succ]] with a [[Tuple2]] value. */
+  def apply[A1, A2](a1: A1, a2: A2): Succ2[A1, A2] = new Succ[(A1, A2)]((a1, a2))
 
-  /** unapply extractor for success on an [[ErrBi]] with a [[Tuple3]] value type. */
-  def unapply[E <: Throwable, A1, A2](inp: ErrBi2[E, A1, A2]): Option[(A1, A2)] = inp match
-  { case succ: Succ2[E, A1, A2] => Some(succ.value._1, succ.value._2)
+  /** unapply extractor for success on an [[ErrBi]] with a [[Tuple2]] value type. */
+  def unapply[A1, A2](inp: ErrBi2[?, A1, A2]): Option[(A1, A2)] = inp match
+  { case succ: Succ2[A1, A2] => Some(succ.value._1, succ.value._2)
     case _ => None
   }
 }
@@ -119,11 +121,6 @@ type ErrBi3[E <: Throwable, A1, A2, A3] = ErrBi[E, (A1, A2, A3)]
 /** Extension class for [[Exception]] bifunctor for [[Tuple3]]s. */
 implicit class ExcBi3Extensions[E <: Throwable, A1, A2, A3](val thisEE3: ErrBi3[E, A1, A2, A3])
 {
-  /*def toEMon3: EMon3[A1, A2, A3] = thisEE3 match {
-    case Succ3(a1, a2, a3) => Good3(a1, a2, a3)
-    case Fail(err) => Bad3(StrArr(err.toString))
-  }*/
-
   def flatMap3[B1, B2, B3](f: (A1, A2, A3) => ErrBi3[E, B1, B2, B3]): ErrBi3[E, B1, B2, B3] = thisEE3 match
   { case Succ3(a1, a2, a3) => f(a1, a2, a3)
     case Fail(err) => Fail(err)
@@ -131,15 +128,15 @@ implicit class ExcBi3Extensions[E <: Throwable, A1, A2, A3](val thisEE3: ErrBi3[
 }
 
 /** Success for a [[Tuple3]] value. */
-type Succ3[E <: Throwable, A1, A2, A3] = Succ[E, (A1, A2, A3)]
+type Succ3[A1, A2, A3] = Succ[(A1, A2, A3)]
 
 object Succ3
 { /** Factory apply method for creating [[Succ]] with a [[Tuple3]] value. */
-  def apply[E <: Throwable, A1, A2, A3](a1: A1, a2: A2, a3: A3): Succ3[E, A1, A2, A3] = new Succ[E, (A1, A2, A3)]((a1, a2, a3))
+  def apply[A1, A2, A3](a1: A1, a2: A2, a3: A3): Succ3[A1, A2, A3] = new Succ[(A1, A2, A3)]((a1, a2, a3))
 
   /** unapply extractor for success on an [[ErrBi]] with a [[Tuple3]] value type. */
-  def unapply[E <: Throwable, A1, A2, A3](inp: ErrBi3[E, A1, A2, A3]): Option[(A1, A2, A3)] = inp match{
-    case succ: Succ3[E, A1, A2, A3] => Some(succ.value._1, succ.value._2, succ.value._3)
+  def unapply[A1, A2, A3](inp: ErrBi3[?, A1, A2, A3]): Option[(A1, A2, A3)] = inp match{
+    case succ: Succ3[A1, A2, A3] => Some(succ.value._1, succ.value._2, succ.value._3)
     case _ => None
   }
 }
