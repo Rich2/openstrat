@@ -8,40 +8,43 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def emptyMap(nullSubstitute: => String): String = ife(thisString == null || thisString == "", nullSubstitute, thisString)
 
   /** Parses this [[String]] into RSON tokens. */
-  def parseTokens: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String").toEMon
+  def parseTokensOld: EArr[Token] = plex.lexSrc(thisString.toCharArray, "String").toEMon
+
+  /** Parses this [[String]] into RSON tokens. */
+  def parseTokens: ErrBiArr[ExcParse, Token] = plex.lexSrc(thisString.toCharArray, "String")
 
   /** Parses this [[String]] into RSON statements. */
-  def parseStatements: EArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  def parseStatementsOld: EArr[Statement] = parseTokensOld.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
-  def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
+  def parseExpr: EMon[Expr] = parseTokensOld.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatements.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))
+  def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
-  def typeAtStsIndex[A: Unshow](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
+  def typeAtStsIndex[A: Unshow](index: Int): EMon[A] = thisString.parseStatementsOld.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def dblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
+  def dblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatementsOld.flatMap(_.dblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
+  def intAtStsIndex(index: Int): EMon[Int] = thisString.parseStatementsOld.flatMap(_.intAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.natAtIndex(index))
+  def natAtStsIndex(index: Int): EMon[Int] = thisString.parseStatementsOld.flatMap(_.natAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a positive, non negative [[Double]] value from the Statement given by the index. */
-  def posDblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
+  def posDblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatementsOld.flatMap(_.posDblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
-  def boolAtStsIndex(index: Int): EMon[Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
+  def boolAtStsIndex(index: Int): EMon[Boolean] = thisString.parseStatementsOld.flatMap(_.boolAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
-  def longAtStsIndex(index: Int): EMon[Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
+  def longAtStsIndex(index: Int): EMon[Long] = thisString.parseStatementsOld.flatMap(_.longAtIndex(index))
 
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
 
@@ -81,16 +84,16 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Tries to parse this String as a [[Long]] expression. */
   def asLong: EMon[Long] = asType[Long]
 
-  def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
+  def findIntArray: EMon[Array[Int]] = thisString.parseStatementsOld.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSetting[T: Unshow](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+  def findSetting[T: Unshow](settingStr: String): EMon[T] = thisString.parseStatementsOld.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
 
   /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findIntSetting(settingStr: String): EMon[Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))
+  def findIntSetting(settingStr: String): EMon[Int] = thisString.parseStatementsOld.flatMap(_.findSettingInt(settingStr))
 
   /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
@@ -98,7 +101,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    *  RSON Statements. */
-  def findDblSetting(settingStr: String): EMon[Double] = thisString.parseStatements.flatMap(_.findSettingDbl(settingStr))
+  def findDblSetting(settingStr: String): EMon[Double] = thisString.parseStatementsOld.flatMap(_.findSettingDbl(settingStr))
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
@@ -106,7 +109,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    *  RSON Statements. */
-  def findBoolSetting(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
+  def findBoolSetting(settingStr: String): EMon[Boolean] = thisString.parseStatementsOld.flatMap(_.findSettingBool(settingStr))
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */

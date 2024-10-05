@@ -5,10 +5,10 @@ import utest._
 object CommentTest extends TestSuite
 {
   val tests = Tests {
-    val s1 = "//".parseTokens
-    val s2 = "x = 5//".parseTokens
-    val s3 = "x = 5//Some blurb".parseTokens
-    val s4 = "x = //\n5".parseTokens
+    val s1 = "//".parseTokensOld
+    val s2 = "x = 5//".parseTokensOld
+    val s3 = "x = 5//Some blurb".parseTokensOld
+    val s4 = "x = //\n5".parseTokensOld
     val a4 = s4.flatMap(tokensToStatements(_))
     val s5: EMon[Array[Char]] = eTry(io.Source.fromResource("c1.rson").toArray)
     val a5: EArr[Token] = s5.flatMap(g => lexSrc(g, "").toEMon)

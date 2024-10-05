@@ -20,13 +20,13 @@ object IntTokenTest extends TestSuite
     }
 
     test("General")
-    { assertMatch("4".parseTokens){ case Good(Arr1(NatBase10Token(Sp1, "4"))) => }
-      assertMatch("45".parseTokens){ case Good(Arr1(NatBase10Token(Sp1, "45"))) => }
-      assertMatch("4A".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(74))) => }
-      assertMatch("4F5".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(1269))) => }
-      assertMatch("\"45\"".parseTokens){ case Good(Arr1(StringToken(Sp1, "45"))) => }
-      assertMatch("0x11".parseTokens){ case Good(Arr1(Nat0xToken(Sp1, "11"))) => }
-      assertMatch("0y11".parseTokens){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }
+    { assertMatch("4".parseTokensOld){ case Good(Arr1(NatBase10Token(Sp1, "4"))) => }
+      assertMatch("45".parseTokensOld){ case Good(Arr1(NatBase10Token(Sp1, "45"))) => }
+      assertMatch("4A".parseTokensOld){ case Good(Arr1(ValidRawHexaIntToken(74))) => }
+      assertMatch("4F5".parseTokensOld){ case Good(Arr1(ValidRawHexaIntToken(1269))) => }
+      assertMatch("\"45\"".parseTokensOld){ case Good(Arr1(StringToken(Sp1, "45"))) => }
+      assertMatch("0x11".parseTokensOld){ case Good(Arr1(Nat0xToken(Sp1, "11"))) => }
+      assertMatch("0y11".parseTokensOld){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }
     }
 
     val st1 = "true; 17; false"
@@ -45,7 +45,7 @@ object IntTokenTest extends TestSuite
     }
 
     test("Negative")
-    { assertMatch("-4".parseTokens){ case Good(Arr1(NegBase10Token(Sp1, "4"))) => }
+    { assertMatch("-4".parseTokensOld){ case Good(Arr1(NegBase10Token(Sp1, "4"))) => }
       "-4".asInt ==> Good(-4)
       "-4".asNat.isBad ==> true
       "-257".asInt ==> Good(-257)

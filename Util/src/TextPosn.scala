@@ -42,7 +42,7 @@ object TextPosn
     /** Produce a failure with an [[ExcLexar]] type. */
     def failAst[A](detail: String): Fail[ExcAst, A] = new Fail[ExcAst, A](ExcAst(thisTextPosn, detail))
     
-    def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
+    //def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StrArr(parseErr("Not implemented.")))
   }
   
   implicit val persistEV: Persist3Both[String, Int, Int, TextPosn] =

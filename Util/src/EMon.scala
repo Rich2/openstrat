@@ -12,7 +12,7 @@ sealed trait EMon[+A]
   def map[B](f: A => B): EMon[B]
 
   def flatMap[B](f: A => EMon[B]): EMon[B]
-  def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
+  //def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 
   /** 2 type parameters, maps the Good case of this [[EMon]], with the [[Good]] case of an additional [[EMon]] of a different type. */
   def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R]
@@ -158,11 +158,10 @@ final case class Good[+A](val value: A) extends EMon[A]
     e2.map5(e3, e4, e5, e6){ (a2, a3, a4, a5, a6) => f(value, a2, a3, a4, a5, a6) }
 
   override def forGoodForBad(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fGood(value)
-  override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
   override def getElse(elseValue: A @uncheckedVariance): A = value
-  //def value: A
+  
   override def errs: StrArr = StrArr()
   override def toOption: Option[A] = Some(value)
   override def toEither: Either[StrArr, A] = Right(value)
@@ -213,7 +212,7 @@ class Bad[+A](val errs: StrArr) extends EMon[A]
   override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R):
     EMon[R] = Bad[R](errs ++ e2.errs ++ e3.errs ++ e4.errs ++ e5.errs)
 
-  override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
+//  override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse(elseValue: A @uncheckedVariance): A = elseValue
   override def forGood(f: A => Unit): Unit = {}

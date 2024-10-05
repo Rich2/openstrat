@@ -11,7 +11,7 @@ trait Unshow[+T] extends Persist
 
   /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be implemented by
    * all instances. */
-  def fromExpr(expr: Expr): ExcMon[T] = ???
+  def fromExpr(expr: Expr): ExcMon[T]// = ???
 
   /** Trys to build an object of type T from the statement. */
   final def fromStatement(st: Statement): EMon[T] = fromExprOld(st.expr)
