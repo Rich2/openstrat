@@ -34,7 +34,15 @@ object ErrBi
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3 } yield f(s1, s2, s3)
 
   def map4[E <: Throwable, A1, A2, A3, A4, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3], eb4: ErrBi[E, A4])(f: (A1, A2, A3, A4) => B):
-    ErrBi[E, B] = for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4 } yield f(s1, s2, s3, s4)  
+    ErrBi[E, B] = for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4 } yield f(s1, s2, s3, s4)
+
+  def map5[E <: Throwable, A1, A2, A3, A4, A5, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3], eb4: ErrBi[E, A4], eb5: ErrBi[E, A5])(
+    f: (A1, A2, A3, A4, A5) => B): ErrBi[E, B] =
+    for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5 } yield f(s1, s2, s3, s4, s5)
+
+  def map6[E <: Throwable, A1, A2, A3, A4, A5, A6, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3], eb4: ErrBi[E, A4], eb5: ErrBi[E, A5],
+    eb6: ErrBi[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): ErrBi[E, B] =
+    for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
 }
 
 /** Success, boxes a good value of the desired type. */

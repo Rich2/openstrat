@@ -124,6 +124,15 @@ trait Unshow4[A1, A2, A3, A4, A] extends Unshow4Plus[A1,A2, A3, A4, A] with Pers
     def e4: EMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExprOld(name4, sortedExprs(pSeq(3))), opt4.toEMon)
     e1.map4(e2, e3, e4)(newT)
   }
+
+  protected override def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[A] =
+  { val len: Int = sortedExprs.length
+    val e1: ExcMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toErrBi)
+    def e2: ExcMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toErrBi)
+    def e3: ExcMon[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toErrBi)
+    def e4: ExcMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toErrBi)
+    ErrBi.map4(e1, e2, e3, e4)(newT)
+  }
 }
 
 object Unshow4

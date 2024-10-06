@@ -63,7 +63,7 @@ trait UnshowN[R] extends Unshow[R] with PersistNFixed
 {
   protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
 
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[R] = ???
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[R]
 
   /** Single identifiers for values. */
   def shortKeys: ArrPairStr[R]
