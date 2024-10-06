@@ -445,10 +445,21 @@ package object ostrat
     }
     res
   }
+  
+  implicit class OptionCompanionExtensions(thisObj: Option.type)
+  {
+    def map2[A1, A2, B](op1: Option[A1], op2: Option[A2])(f: (A1, A2) => B): Option[B] = op1.flatMap(s1 => op2.map(s2 => f(s1, s2)))
+    
+    def map3[A1, A2, A3, B](op1: Option[A1], op2: Option[A2], op3: Option[A3])(f: (A1, A2, A3) => B): Option[B] =
+      for{ s1 <- op1; s2 <- op2; s3 <- op3 } yield f(s1, s2, s3)
+
+    def map4[A1, A2, A3, A4, B](op1: Option[A1], op2: Option[A2], op3: Option[A3], op4: Option[A4])(f: (A1, A2, A3, A4) => B): Option[B] =
+      for{ s1 <- op1; s2 <- op2; s3 <- op3; s4 <- op4 } yield f(s1, s2, s3, s4)  
+  }
 
   /** Extension class for String interpolation. */
-  implicit class StringContextExtensions(sc: StringContext) {
-    /** String interpolator for base 32 numbers. */
+  implicit class StringContextExtensions(sc: StringContext)
+  { /** String interpolator for base 32 numbers. */
     def t(): Int = sc.parts(0).foldLeft(0){ (acc, ch) =>
       val newDig: Int = ch match {
         case d if d.isDigit => d - '0'
