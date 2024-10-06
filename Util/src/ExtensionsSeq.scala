@@ -1,8 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Extension methods for the Seq[A] class. These are bought into scope by the seqToImplicit method in the package object. */
-class SeqExtensions[A](thisSeq: Seq[A])
+class ExtensionsSeq[A](thisSeq: Seq[A])
 {
   def lenStr: String = thisSeq.length.toString
   /** This needs to be changed to by name parameters when by name varargs are allowed. I think this is coming in 12.3 */

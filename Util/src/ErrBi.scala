@@ -26,6 +26,17 @@ sealed trait ErrBi[+E <: Throwable, +A]
   }
 }
 
+object ErrBi
+{
+  def map2[E <: Throwable, A1, A2, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[E, B] = eb1.flatMap(a1 => eb2.map(a2 => f(a1, a2)))
+
+  def map3[E <: Throwable, A1, A2, A3, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3])(f: (A1, A2, A3) => B): ErrBi[E, B] =
+    for { s1 <- eb1; s2 <- eb2; s3 <- eb3 } yield f(s1, s2, s3)
+
+  def map4[E <: Throwable, A1, A2, A3, A4, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3], eb4: ErrBi[E, A4])(f: (A1, A2, A3, A4) => B):
+    ErrBi[E, B] = for {s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4 } yield f(s1, s2, s3, s4)  
+}
+
 /** Success, boxes a good value of the desired type. */
 class Succ[+A](val value: A) extends ErrBi[Nothing, A]
 { override def map[B](f: A => B): ErrBi[Nothing, B] = new Succ[B](f(value))
@@ -52,7 +63,7 @@ object Succ
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
 case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
-{ override def map[B](f: Nothing => B): ErrBi[E, B] = this// new Fail[E, B](error)
+{ override def map[B](f: Nothing => B): ErrBi[E, B] = this
   override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this// new Fail[E, B](error)
   override def isSucc: Boolean = false
   override def isFail: Boolean = true

@@ -1,7 +1,7 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-class ListExtensions[A](val thisList: List[A]) extends AnyVal
+class ExtensionsList[A](val thisList: List[A]) extends AnyVal
 {   
   def ifAppendList[B >: A](b: Boolean, newElems: => List[B]): List[B] = if (b) thisList ::: newElems else thisList
 

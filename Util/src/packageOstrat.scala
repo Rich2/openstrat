@@ -537,8 +537,8 @@ package object ostrat
   implicit def iterableToExtensions[A](iter: Iterable[A]): IterableExtensions[A] = new IterableExtensions[A](iter)
   implicit def iterableValueNElemToExtensions[A <: ValueNElem](iter: Iterable[A]): IterableValueNElemExtensions[A] = new IterableValueNElemExtensions[A](iter)
   implicit def iterableTuple2ToExtensions[A1, A2](iter: Iterable[(A1, A2)]): IterablePairExtensions[A1, A2] = new IterablePairExtensions[A1, A2](iter)
-  implicit def listToExtensions[A](thisList: List[A]): ListExtensions[A] = new ListExtensions[A](thisList)
-  implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
+  implicit def listToExtensions[A](thisList: List[A]): ExtensionsList[A] = new ExtensionsList[A](thisList)
+  implicit def seqToExtensions[A](thisSeq: Seq[A]): ExtensionsSeq[A] = new ExtensionsSeq(thisSeq)
 
   implicit def charToExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)
   implicit def longToImplicit(i: Long): LongExtensions = new LongExtensions(i)
@@ -548,6 +548,6 @@ package object ostrat
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2[A1, A2, T]): Show2Extensions[A1, A2, T] =
     new Show2Extensions[A1, A2, T](ev, thisVal)
   implicit def stringToExtensions(s: String): ExtensionsString = new ExtensionsString(s)
-  implicit def stringIterableToExtensions(strIter: Iterable[String]): StringIterableExtensions = StringIterableExtensions(strIter)
-  implicit def stringArrayToExtensions(strArray: Array[String]): StringIterableExtensions = StringIterableExtensions(strArray)
+  implicit def stringIterableToExtensions(strIter: Iterable[String]): ExtensionsStringIterable = ExtensionsStringIterable(strIter)
+  implicit def stringArrayToExtensions(strArray: Array[String]): ExtensionsStringIterable = ExtensionsStringIterable(strArray)
 }

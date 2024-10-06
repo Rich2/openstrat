@@ -23,12 +23,20 @@ object Functor
     }
   }
 
-  implicit val someImplicit: Functor[Some] = new Functor[Some] {
-    override def mapT[A, B](fa: Some[A], f: A => B): Some[B] = Some(f(fa.value))
+  implicit val someImplicit: Functor[Some] = new Functor[Some]
+  { override def mapT[A, B](fa: Some[A], f: A => B): Some[B] = Some(f(fa.value))
   }
 
   implicit def eitherImplicit[L]: Functor[({type λ[α] = Either[L, α]})#λ] = new Functor[({type λ[α] = Either[L, α]})#λ]
   { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
+  }
+
+  /*implicit def eitherImplicit[L]: Functor[Either[L, _]] = new Functor[Either[L, _]]
+  { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
+  }*/
+
+  implicit def errBiEv[E <: Throwable]: Functor[({type λ[α] = ErrBi[E, α]})#λ] = new Functor[({type λ[α] = ErrBi[E, α]})#λ]
+  { override def mapT[A, B](fa: ErrBi[E, A], f: A => B): ErrBi[E, B] = fa.map(f)    
   }
 }
 
@@ -39,17 +47,7 @@ trait Apply[F[_]] extends Functor[F]
   def map2[A1, A2, B](fa1: F[A1], fa2: F[A2])(f: (A1, A2) => B): F[B]
 }
 
-object Apply{
-  implicit def errbiEv[E <: Throwable]: Apply[({type λ[α] = ErrBi[E, α]})#λ] = new Apply[({ type λ[α] = ErrBi[E, α] })#λ]{
-
-    override def mapT[A, B](fa: ErrBi[E, A], f: A => B): ErrBi[E, B] = fa.map(f)
-
-    override def map2[A1, A2, B](fa1: ErrBi[E, A1], fa2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[E, B] = fa1 match
-    { case Succ(a1) => fa2 match
-      { case Succ(a2) => Succ(f(a1, a2))
-        case fail: Fail[E] => fail
-      }
-      case fail: Fail[E] => fail 
-    }
-  }
+object Apply
+{
+  
 }
