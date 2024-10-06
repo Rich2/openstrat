@@ -31,3 +31,25 @@ object Functor
   { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
   }
 }
+
+trait Apply[F[_]] extends Functor[F]
+{ /** Given a value and a function in the Apply context, applies the function to the value. */
+  //def ap[A, B](ff: F[(A) ⇒ B])(fa: F[A]): F[B]
+
+  def map2[A1, A2, B](fa1: F[A1], fa2: F[A2])(f: (A1, A2) => B): F[B]
+}
+
+object Apply{
+  implicit def errbiEv[E <: Throwable]: Apply[({type λ[α] = ErrBi[E, α]})#λ] = new Apply[({ type λ[α] = ErrBi[E, α] })#λ]{
+
+    override def mapT[A, B](fa: ErrBi[E, A], f: A => B): ErrBi[E, B] = fa.map(f)
+
+    override def map2[A1, A2, B](fa1: ErrBi[E, A1], fa2: ErrBi[E, A2])(f: (A1, A2) => B): ErrBi[E, B] = fa1 match
+    { case Succ(a1) => fa2 match
+      { case Succ(a2) => Succ(f(a1, a2))
+        case fail: Fail[E] => fail
+      }
+      case fail: Fail[E] => fail 
+    }
+  }
+}
