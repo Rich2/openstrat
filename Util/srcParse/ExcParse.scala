@@ -4,6 +4,11 @@ package ostrat; package pParse
 /** Parser [[Exception]]. */
 trait ExcParse extends Exception
 
+object ExcParse
+{ def apply(message: String): ExcParse = new Exception(message) with ExcParse
+  def apply(tp: TextPosn, detail: String): ExcParse = new Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with ExcParse
+}
+
 /** AST [[Exception]]. */
 case class ExcAst(tp: TextPosn, detail: String) extends Exception(tp.fileName -- tp.lineNum.toString + ", " + tp.linePosn.toString + ": " + detail) with
   ExcParse
@@ -19,3 +24,4 @@ object FailLexar
 {
   def apply(tp: TextPosn, detail: String): Fail[ExcLexar] = new Fail[ExcLexar](ExcLexar(tp, detail))
 }
+

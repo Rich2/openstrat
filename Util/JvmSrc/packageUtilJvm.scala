@@ -11,7 +11,7 @@ package object utiljvm
   lazy val devSettingsStatements: EMon[RArr[Statement]] = statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
+  def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExprOld(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
   def findDevSettingT[A: Unshow](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))

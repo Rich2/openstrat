@@ -45,7 +45,7 @@ trait Unshow[+T] extends Persist
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match
-  { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
+  { case s if s.length == 0 => TextPosn.emptyErrorOld("No values of type found")
     case s if s.length == 1 => Good(s.head)
     case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
@@ -64,7 +64,7 @@ trait Unshow[+T] extends Persist
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
   def settingFromStatements(sts: RArr[Statement], settingStr: String): EMon[T] = sts match
-  { case Arr0() => TextPosn.emptyError("No Statements")
+  { case Arr0() => TextPosn.emptyErrorOld("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
@@ -75,7 +75,7 @@ trait Unshow[+T] extends Persist
 
   /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
   def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMon[T] = sts match
-  { case Arr0() => TextPosn.emptyError("No Statements")
+  { case Arr0() => TextPosn.emptyErrorOld("No Statements")
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t

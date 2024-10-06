@@ -22,9 +22,15 @@ sealed trait Statement extends TextSpan
   final def errGet[A](implicit ev: Unshow[A]): EMon[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExpr(settingName: String): EMon[AssignMemExpr] = this match
+  def settingExprOld(settingName: String): EMon[AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
     case _ => startPosn.bad(settingName -- "not found.")
+  }
+
+  /** Returns the right expression if this Statement is a setting of the given name. */
+  def settingExpr(settingName: String): ErrBi[ExcParse, AssignMemExpr] = this match
+  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Succ(rightExpr)
+    case _ => startPosn.failParse(settingName -- "not found.")
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
@@ -58,19 +64,30 @@ object Statement
     def endPosn = statements.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
-    def findSettingExpr(settingStr: String): EMon[AssignMemExpr] = statements match
-    { case Arr0() => TextPosn.emptyError("No Statements")
-      case Arr1(st1) => st1.settingExpr(settingStr)
-      case sts => sts.map(st => st.settingExpr(settingStr)).collect{ case g @ Good(_) => g } match
+    def findSettingExprOld(settingStr: String): EMon[AssignMemExpr] = statements match
+    { case Arr0() => TextPosn.emptyErrorOld("No Statements")
+      case Arr1(st1) => st1.settingExprOld(settingStr)
+      case sts => sts.map(st => st.settingExprOld(settingStr)).collect{ case g @ Good(_) => g } match
       { case Arr1(t) => t
         case Arr0() => sts.startPosn.bad(settingStr -- "Setting not found.")
         case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "not found.")
       }
     }
 
+    /** Finds a setting [Expr] from this Arr[Statement] extension method. */
+    def findSettingExpr(settingStr: String): ExcMon[AssignMemExpr] = statements match
+    { case Arr0() => TextPosn.failEmpty//("No Statements")
+      case Arr1(st1) => st1.settingExpr(settingStr)
+      case sts => sts.map(st => st.settingExpr(settingStr)).collect { case g @ Succ(_) => g } match
+      { case Arr1(t) => t
+        case Arr0() => sts.startPosn.fail(settingStr -- "Setting not found.")
+        case s3 => sts.startPosn.fail(s3.length.toString -- "settings of" -- settingStr -- "not found.")
+      }
+    }
+
     /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
     def findIntSettingExpr(settingNum: Int): EMon[AssignMemExpr] = statements match {
-      case Arr0() => TextPosn.emptyError("No Statements")
+      case Arr0() => TextPosn.emptyErrorOld("No Statements")
       case Arr1(st1) => st1.intSettingExpr(settingNum)
       case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g@Good(_) => g } match {
         case Arr1(t) => t
@@ -83,7 +100,7 @@ object Statement
     def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): EMon[String] = findSettingExpr(settingStr).flatMap{
+    def findSettingIdentifier(settingStr: String): EMon[String] = findSettingExprOld(settingStr).flatMap{
       case IdentifierToken(str) => Good(str)
       case expr => badNone("Not an identifier.")
     }
@@ -92,7 +109,7 @@ object Statement
     def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = findSettingExpr(settingStr).flatMap {
+    def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = findSettingExprOld(settingStr).flatMap {
       case IdentifierToken(str) => Good(StrArr(str))
       case exprSeq: ExprSeqExpr =>
       { val opt = exprSeq.exprs.optAllMap{expr => expr match
@@ -185,7 +202,7 @@ object Statement
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifier(settingStr: String): EMon[String] = eMon.flatMap {
-      _.findSettingExpr(settingStr).flatMap {
+      _.findSettingExprOld(settingStr).flatMap {
         case IdentifierToken(str) => Good(str)
         case expr => badNone("Not an identifier.")
       }
