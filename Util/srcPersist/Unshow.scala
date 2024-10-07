@@ -25,9 +25,9 @@ trait Unshow[+T] extends Persist
     case e => fromExprOld(e)
   }
 
+  /** Tries to get type from [[Expr]], or from the value [[Expr]] of a setting. */
   def fromSettingOrExpr(SettingStr: String, expr: Expr): ExcMon[T] = expr match
-  {
-    case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
+  { case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
     case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExpr(rExpr)
     case e => fromExpr(e)
   }
