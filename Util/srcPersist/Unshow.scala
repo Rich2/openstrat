@@ -51,9 +51,15 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
-  def settingTFromStatement(settingStr: String, st: Statement): EMon[T] = st match
+  def settingTFromStatementOld(settingStr: String, st: Statement): EMon[T] = st match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExprOld(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
+  }
+
+  /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
+  def settingTFromStatement(settingStr: String, st: Statement): ExcMon[T] = st match
+  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
+    case _ => st.failExc(typeStr -- "not found.")
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
@@ -63,13 +69,25 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatements(sts: RArr[Statement], settingStr: String): EMon[T] = sts match
+  def settingFromStatementsOld(sts: RArr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyErrorOld("No Statements")
-    case Arr1(st1) => settingTFromStatement(settingStr, st1)
-    case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
+    case Arr1(st1) => settingTFromStatementOld(settingStr, st1)
+    case s2 => sts.map(settingTFromStatementOld(settingStr, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+    }
+  }
+
+  /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
+  def settingFromStatements(sts: RArr[Statement], settingStr: String): ExcMon[T] = sts match
+  { case Arr0() => TextPosn.failEmpty// emptyError("No Statements")
+    case Arr1(st1) => settingTFromStatement(settingStr, st1)
+    case s2 => sts.map(settingTFromStatement(settingStr, _)).collect { case g @ Succ(_) => g } match
+    {
+      case Arr1(t) => t
+      case Arr0() => sts.failExc(settingStr -- typeStr -- "Setting not found.")
+      case s3 => sts.failExc(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
 

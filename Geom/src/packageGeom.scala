@@ -130,7 +130,7 @@ package object geom
     def findPt2Else(elseValue: => Pt2) = findPt2.getElse(elseValue)
 
     /** Find unique [[Pt2]] setting of the given name from this String, parsing it as an Sequence of RSON statements. */
-    def findSettingPt2(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSetting[Pt2](setting))
+    def findSettingPt2(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSettingOld[Pt2](setting))
 
     /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON
      *  statements. */

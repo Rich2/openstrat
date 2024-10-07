@@ -13,7 +13,7 @@ object G2HLaunch extends GuiLaunchMore
     (G2HGui(_, G2HGame(G2HScen1, G2HScen1.counterSet), G2HGuiSettings(G2HScen1.defaultView(), G2HScen1.counterSet)), "JavaFx Game Two Hex")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
+  { val oScen: EMon[Int] = sts.findSettingOld[Int]("scen")
     val num: Int = oScen.getElse(1)
     val scen: G2HScen = num match
     { case 1 => G2HScen1

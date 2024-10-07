@@ -29,8 +29,8 @@ sealed trait EMon[+A]
   /** 6 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 5 [[EMon]]s of a different types. */
   def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R]
 
-  /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
-   * unnecessary boxing of primitive values. */
+  /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
+   *  of primitive values. */
   def getElse(elseValue: A @uncheckedVariance): A
 
   def errs: StrArr
@@ -94,7 +94,7 @@ object EMon
     def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
     def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
     def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): EMon[A] =
-      thisEMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findSetting[A](settingStr)))
+      thisEMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findSettingOld[A](settingStr)))
     def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
     def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
     def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)

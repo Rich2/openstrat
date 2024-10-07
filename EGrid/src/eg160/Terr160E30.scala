@@ -38,6 +38,7 @@ object Terr160E30 extends Long160Terrs
     TRow(274, hillyOce * 2, oceanic, hillyOce * 3, oceanic * 4, sea, oceanic * 3),
     TRow(272, hillyOce, oceanic, hillyOce * 2, oceanic * 2, oceanic, sea, hillySavannah, savannah, subtrop, oceanic * 3),
     TRow(270, hillySavannah, hillyOce * 2, oceanic * 4, sea * 4, mtainSub, mtainDepr, hillyOce, oceanic),
+    VRow(269, BendMax(1506, HVUp)),
     TRow(268, sea, mtainDepr, hillyOce * 3, oceanic * 2, sea * 6, oceanic, mtainDepr),
     TRow(266, savannah, hillySavannah, hillyOce * 3, oceanic * 2, hillyOce * 8),
     VRow(265),

@@ -53,16 +53,16 @@ object Terr160E0 extends Long160Terrs
       BendOut(504, HVUp, 7), BendIn(506, HVDn, 13), OrigLt(508, HVUL, 7), Bend(538, HVUR, 11, 7), Bend(540, HVDL, 11, 5)),
     
     TRow(270, sea * 2, hillyOce, hillyOce * 3, oceanic * 2, hillyOce * 2, mtainDepr, sea, hillyOce * 2, hillySavannah),
-    VRow(269, OrigRt(492, HVUp, 7)),
-    TRow(268, sea * 3, hillyOce, oceanic, hillyDeshot * 2, mtainDepr * 2, sea * 3, Isle10(hillyOce), hillyOce * 2),
+    VRow(269, OrigRt(492, HVUp, 7), Bend(540, HVUR, 13, 1), BendMax(542, HVUp)),
+    TRow(268, sea * 3, hillyOce, oceanic, hillyDeshot * 2, mtainSubForest * 2, sea * 3, Isle10(hillySub), hillySub * 2),
     VRow(267, OrigLt(492, HVDn, 7), OrigRt(520, HVDn, 7)),
-    TRow(266, sea * 2, hillyOce * 2, deshot, hillyDeshot * 2, hillyOce, hillySavannah, sea * 2, hillyOce, sea * 2, hillyOce),
+    TRow(266, sea * 2, hillyOce * 2, deshot, hillyDeshot * 2, hillyOce, hillySavannah, sea * 2, hillyOce, sea * 2, hillySub),
     VRow(265, BendIn(490, HVDR, 13), BendOut(492, HVUL, 7), BendOut(514, HVDR), BendOut(516, HVDn, 7), BendIn(518, HVUp, 13), BendIn(520, HVUL, 13)),
     TRow(264, sea * 2, hillySubForest, hillyOce * 2, hillyDeshot, hillyOce, hillyOce, sea, Isle10(hillyOce), sea * 2, hillyOce, sea * 2),
     VRow(263, OrigRt(490, HVUp, 7), OrigMin(512, HVUR), BendIn(514, HVUL, 13)),
     TRow(262, sea * 3, subtrop * 2, hillySub * 3),
     VRow(261, BendIn(490, HVDR, 13), OrigMin(492, HVDL, 5)),
-    TRow(260, sea * 2, hillySubForest, hillySavannah, savannah, hillySavannah * 2),
+    TRow(260, sea * 2, hillySubForest, hillySavannah, savannah, hillySavannah * 2, sea * 7, hillySavannah * 2),
     )
   }
   help.run

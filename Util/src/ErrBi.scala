@@ -19,6 +19,10 @@ sealed trait ErrBi[+E <: Throwable, +A]
   /** Fold this [[ErrBi]] into a type B. Takes two function parameters, one converts from A to B as in a normal map method. The second parameter in its own
    * parameter list converts from the Error type to type B. */
   @inline def fold[B](fSucc: A => B)(fFail: E => B): B
+
+  /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
+   * of primitive values. */
+  def getElse(elseValue: A @uncheckedVariance): A
   
   def toEMon: EMon[A] = this match{
     case Succ(value) => Good(value)
@@ -58,6 +62,7 @@ class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def isFail: Boolean = false
   override def forSucc(f: A => Unit): Unit = f(value)
   override def fold[B](fSucc: A => B)(fFail: Nothing => B): B = fSucc(value)
+  override def getElse(elseValue: A @uncheckedVariance): A = value
 }
 
 object Succ
@@ -77,10 +82,12 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def isFail: Boolean = true
   override def forSucc(f: Nothing => Unit): Unit = {}
   override def fold[B](fSucc: Nothing => B)(fFail: E => B): B = fFail(error)
+  override def getElse(elseValue: Nothing): Nothing = elseValue
 }
 
 type ErrBiThrow[+A] = ErrBi[Throwable, A]
 type ErrBiThrowArr[+A] = ErrBi[Throwable, Arr[A]]
+type ErrBiThrowRArr[+A] = ErrBi[Throwable, RArr[A]]
 type ExcMon[+A] = ErrBi[Exception, A]
 type FailExc = Fail[Exception]
 object ExcNotFound extends Exception("Not found")

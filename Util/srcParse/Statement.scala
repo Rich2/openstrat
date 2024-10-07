@@ -97,7 +97,7 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = ev.settingFromStatements(statements, settingStr)
+    def findSettingOld[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = ev.settingFromStatementsOld(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifier(settingStr: String): EMon[String] = findSettingExprOld(settingStr).flatMap{
@@ -130,10 +130,10 @@ object Statement
       ev.keySettingFromStatements(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = findSetting[T](settingStr).goodOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = findSettingOld[T](settingStr).goodOrOther(findType)
 
     /** Find idnetifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)
+    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
     def findType[A](implicit ev: Unshow[A]): EMon[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
@@ -175,17 +175,17 @@ object Statement
     def findIntArray: EMon[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): EMon[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
+    def findSettingInt(settingStr: String): EMon[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingDbl(settingStr: String): EMon[Double] = Unshow.doubleEv.settingFromStatements(statements, settingStr)
+    def findSettingDbl(settingStr: String): EMon[Double] = Unshow.doubleEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingPosDbl(settingStr: String): EMon[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
+    def findSettingPosDbl(settingStr: String): EMon[Double] = Unshow.posDoubleEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): EMon[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
+    def findSettingBool(settingStr: String): EMon[Boolean] = Unshow.booleanEv.settingFromStatementsOld(statements, settingStr)
   }
 
   /** Extension class for EMon[Arr[Statement]]. */

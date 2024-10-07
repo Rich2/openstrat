@@ -8,20 +8,26 @@ package object utiljvm
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: EMon[RArr[Statement]] = statementsFromResourceOld("DevSettings.rson")
+  lazy val devSettingsStatementsOld: EMon[RArr[Statement]] = statementsFromResourceOld("DevSettings.rson")
+
+  /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
+  lazy val devSettingsStatements: ErrBiThrowRArr[Statement] = statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExprOld(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExprOld(settingStr))
+  def findDevSettingExprOld(settingStr: String): EMon[AssignMemExpr] = devSettingsStatementsOld.flatMap(_.findSettingExprOld(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSettingT[A: Unshow](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
+  def findDevSettingTOld[A: Unshow](settingStr: String): EMon[A] = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
-  def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
-  
-  def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
+  def findDevSettingElseOld[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr)).getElse(elseValue)
 
-  def openstratPath(): EMon[DirPathAbs] = findDevSettingT[DirPathAbs]("projPath")
+  /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
+  //def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
+  
+  def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingTOld[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
+
+  def openstratPath(): EMon[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
 
   def sbtDirPath(): EMon[String] = openstratPath().map(_.str / "Dev/SbtDir")
 
@@ -85,7 +91,7 @@ package object utiljvm
     eTryOld(scala.io.Source.fromResource(fileName).toArray).flatMap(srcToEStatementsOld(_, fileName))
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): ErrBiThrowArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))  
+  def statementsFromResource(fileName: String): ErrBiThrowRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))

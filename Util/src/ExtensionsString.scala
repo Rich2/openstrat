@@ -93,7 +93,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findIntArray: EMon[Array[Int]] = thisString.parseStatementsOld.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSetting[T: Unshow](settingStr: String): EMon[T] = thisString.parseStatementsOld.flatMap(_.findSetting[T](settingStr))
+  def findSetting[T: Unshow](settingStr: String): EMon[T] = thisString.parseStatementsOld.flatMap(_.findSettingOld[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
