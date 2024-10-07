@@ -19,10 +19,15 @@ package object pParse
 { /** type alias for Arr[Token] .*/
   type Tokens = RArr[Token]
 
-  /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist
-   *   will be returned as errors. */
+  /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
+   * returned as errors. */
   def srcToEStatementsOld(input: Array[Char], inputSourceName: String): EArr[Statement] =
     plex.lexSrc(input, inputSourceName).toEMon.flatMap(tokensToStatementsOld(_))
+
+  /** Returns an [[ErrBi]] of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
+   * returned as errors. */
+  def srcToEStatements(input: Array[Char], inputSourceName: String): ErrBi[ExcParse, RArr[Statement]] =
+    plex.lexSrc(input, inputSourceName).flatMap(tokensToStatements(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
   def stringToStatementsOld(input: String): EArr[Statement] = stringToTokensOld(input).flatMap(tokensToStatementsOld(_))

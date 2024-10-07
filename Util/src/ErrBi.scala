@@ -79,6 +79,8 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def fold[B](fSucc: Nothing => B)(fFail: E => B): B = fFail(error)
 }
 
+type ErrBiThrow[+A] = ErrBi[Throwable, A]
+type ErrBiThrowArr[+A] = ErrBi[Throwable, Arr[A]]
 type ExcMon[+A] = ErrBi[Exception, A]
 type FailExc = Fail[Exception]
 object ExcNotFound extends Exception("Not found")

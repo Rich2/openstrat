@@ -8,10 +8,10 @@ package object utiljvm
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: EMon[RArr[Statement]] = statementsFromResource("DevSettings.rson")
+  lazy val devSettingsStatements: EMon[RArr[Statement]] = statementsFromResourceOld("DevSettings.rson")
 
-  /** Find a setting of the given name and and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExprOld(settingStr))
+  /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
+  def findDevSettingExprOld(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExprOld(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
   def findDevSettingT[A: Unshow](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
@@ -36,7 +36,7 @@ package object utiljvm
   }
    
   /** Attempts to load text file into a [[String]]. */
-  def loadTextFile(pathFileName: String): EMon[String] = eTry(scala.io.Source.fromFile(pathFileName).mkString)
+  def loadTextFile(pathFileName: String): EMon[String] = eTryOld(scala.io.Source.fromFile(pathFileName).mkString)
 
   /** Attempts to load a value of the specified type from an RSON format file. */
   def fromRsonFileFind[A: Unshow](fileName: String): EMon[A] = loadTextFile(fileName).findType[A]
@@ -81,11 +81,14 @@ package object utiljvm
   }
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): EMon[RArr[Statement]] =
-    eTry(scala.io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatementsOld(_, fileName))
+  def statementsFromResourceOld(fileName: String): EMon[RArr[Statement]] =
+    eTryOld(scala.io.Source.fromResource(fileName).toArray).flatMap(srcToEStatementsOld(_, fileName))
+
+  /** Function object apply method to get statements from a Java build resource. */
+  def statementsFromResource(fileName: String): ErrBiThrowArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))  
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
+  def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
 
   def httpNow: String =
   { import java.time.*

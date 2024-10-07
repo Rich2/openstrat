@@ -153,8 +153,10 @@ package object ostrat
   def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](StrArr(parseErr(fs.startPosn, detail)))
   def badNone[B](detail: String): Bad[B] = Bad[B](StrArr(detail))
 
-  def eTry[A](res: => A): EMon[A] =
-    try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
+  def eTryOld[A](res: => A): EMon[A] = try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
+
+  /** Catches non-fatal [[Exception]]s and returns them as a [[Fail]]. */
+  def eTry[A](res: => A): ErrBiThrow[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Fail(e) }
 
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).mkComma
 

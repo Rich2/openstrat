@@ -20,14 +20,14 @@ class AppStart extends application.Application
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
-    val eExpr: EMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
+    val eExpr: EMon[pParse.AssignMemExpr] = findDevSettingExprOld("appSet")
 
     val pair = eExpr match
     {
       case Good(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match {
         case Some(launch) => {
           val fSett: EMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
-          val eSett: EMon[AssignMemExpr] = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
+          val eSett: EMon[AssignMemExpr] = fSett.goodOrOther(findDevSettingExprOld(launch.settingStr))
           eSett.fold(launch.default)(launch(_))
         }
         case _ => AppSelector.ids.a1FindA2(it.srcStr) match
