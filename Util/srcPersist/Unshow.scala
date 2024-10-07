@@ -63,9 +63,15 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
-  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): EMon[T] = st match
+  def keySettingFromStatementOld[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): EMon[T] = st match
   { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExprOld(codeExpr) == Good(settingCode) => fromExprOld(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
+  }
+
+  /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
+  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): ExcMon[T] = st match
+  { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Succ(settingCode) => fromExpr(rightExpr)
+    case _ => st.failExc(typeStr -- "not found.")
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
@@ -92,13 +98,24 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
-  def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMon[T] = sts match
+  def keySettingFromStatementsOld[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyErrorOld("No Statements")
-    case Arr1(st1) => keySettingFromStatement(settingCode, st1)
-    case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect{ case g @ Good(_) => g } match
+    case Arr1(st1) => keySettingFromStatementOld(settingCode, st1)
+    case s2 => sts.map(keySettingFromStatementOld(settingCode, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingCode.toString -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
+    }
+  }
+
+  /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
+  def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): ExcMon[T] = sts match
+  { case Arr0() => TextPosn.failEmpty//("No Statements")
+    case Arr1(st1) => keySettingFromStatement(settingCode, st1)
+    case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect { case g @ Succ(_) => g } match
+    { case Arr1(t) => t
+      case Arr0() => sts.failExc(settingCode.toString -- typeStr -- "Setting not found.")
+      case s3 => sts.failExc(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
 

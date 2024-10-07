@@ -123,11 +123,11 @@ object Statement
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMon[VT] = ev.keySettingFromStatements(statements, key)
+    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMon[VT] = ev.keySettingFromStatementsOld(statements, key)
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      ev.keySettingFromStatements(statements, key).getElse(elseValue)
+      ev.keySettingFromStatementsOld(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = findSettingOld[T](settingStr).goodOrOther(findType)
@@ -192,7 +192,7 @@ object Statement
   implicit class eMonArrImplicit(eMon: EMon[RArr[Statement]]) {
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      eMon.fold(elseValue) { statements => ev.keySettingFromStatements(statements, key).getElse(elseValue) }
+      eMon.fold(elseValue) { statements => ev.keySettingFromStatementsOld(statements, key).getElse(elseValue) }
 
     def findType[A](implicit ev: Unshow[A]): EMon[A] = eMon.flatMap(_.findType[A])
 
