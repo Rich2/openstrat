@@ -25,13 +25,11 @@ class AppStart extends application.Application
     
 
     val pair = eExpr match
-    {
-      case Succ(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
-      {
-        case Some(launch) =>
-        { val fSett: EMonOld[FileStatements] = fileStatementsFromResourceOld(launch.settingStr + ".rson")
-          val eSett: EMonOld[AssignMemExpr] = fSett.goodOrOther(findDevSettingExprOld(launch.settingStr))
-          eSett.fold(launch.default)(launch(_))
+    { case Succ(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
+      { case Some(launch) =>
+        { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+          val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
+          eSett.fld(e => launch.default, launch(_))
         }
         case _ => AppSelector.ids.a1FindA2(it.srcStr) match
         { case Some(pair) => pair

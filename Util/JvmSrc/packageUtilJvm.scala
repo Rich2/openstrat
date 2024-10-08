@@ -14,9 +14,6 @@ package object utiljvm
   lazy val devSettingsStatements: ThrowMonRArr[Statement] = statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExprOld(settingStr: String): EMonOld[AssignMemExpr] = devSettingsStatementsOld.flatMap(_.findSettingExprOld(settingStr))
-
-  /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
   def findDevSettingExpr(settingStr: String): ThrowMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
@@ -100,7 +97,7 @@ package object utiljvm
   def statementsFromResource(fileName: String): ThrowMonRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  def fileStatementsFromResourceOld(fileName: String): EMonOld[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
+  //def fileStatementsFromResourceOld(fileName: String): EMonOld[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
