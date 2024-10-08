@@ -298,7 +298,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var count = 0
     var optErr: Option[E] = None
     while (count < length & optErr == None)
-      f(apply(count)).fold { g => ev.buffGrow(acc, g); count += 1 } { newErr => optErr = Some(newErr) }
+      f(apply(count)).fold{ newErr => optErr = Some(newErr) }{ g => ev.buffGrow(acc, g); count += 1 }
     optErr match
     { case Some(err) => Fail (err)
       case None => Succ (ev.buffToSeqLike(acc))
@@ -322,7 +322,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var count = 0
     var optErr: Option[E] = None
     while (count < length & optErr == None)
-      f(apply(count)).fold{ g => ev.buffGrow(acc, g); count += 1 } { newErr => optErr = Some(newErr) }
+      f(apply(count)).fold{ newErr => optErr = Some(newErr) }{ g => ev.buffGrow(acc, g); count += 1 }
     optErr match
     { case Some(err) => Fail(err)
       case None => Succ(ev.buffToSeqLike(acc))
@@ -338,7 +338,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Map from A => B, retuening an [[EMonOld]] of [[List]]. */
-  def mapEMonList[B](f: A => EMonOld[B]): EMonOld[List[B]] =
+  def mapEMonListOld[B](f: A => EMonOld[B]): EMonOld[List[B]] =
   { var acc: List[B] = Nil
     var continue = true
     var count = 0

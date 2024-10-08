@@ -115,7 +115,7 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
       case Match1(exprs) =>
       { val a1 = unshowA1.fromExprOld(exprs(0))
         def reps: EMonOld[List[Ar]] = if (unshowAr.useMultiple) Multiple.collFromArrExprOld(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
-        else exprs.drop1.mapEMonList(unshowAr.fromExprOld)
+        else exprs.drop1.mapEMonListOld(unshowAr.fromExprOld)
         a1.flatMap(a1 => reps.map(l => newT(a1, l)))
       }
 
@@ -149,7 +149,7 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
     case Match1(exprs) =>
     { val a1 = unshowA1.fromExprOld(exprs(0))
       def reps: EMonOld[List[Ar]] = if (unshowAr.useMultiple) Multiple.collFromArrExprOld(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
-      else exprs.drop1.mapEMonList(unshowAr.fromExprOld)
+      else exprs.drop1.mapEMonListOld(unshowAr.fromExprOld)
       a1.flatMap{ a1 => reps.map(list => newT(a1, list.toArray)) }
     }
 

@@ -29,7 +29,7 @@ class AppStart extends application.Application
       case Succ(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
       {
         case Some(launch) =>
-        { val fSett: EMonOld[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+        { val fSett: EMonOld[FileStatements] = fileStatementsFromResourceOld(launch.settingStr + ".rson")
           val eSett: EMonOld[AssignMemExpr] = fSett.goodOrOther(findDevSettingExprOld(launch.settingStr))
           eSett.fold(launch.default)(launch(_))
         }

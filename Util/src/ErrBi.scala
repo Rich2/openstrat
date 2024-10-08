@@ -18,7 +18,12 @@ sealed trait ErrBi[+E <: Throwable, +A]
 
   /** Fold this [[ErrBi]] into a type B. Takes two function parameters, one converts from A to B as in a normal map method. The second parameter in its own
    * parameter list converts from the Error type to type B. */
-  @inline def fold[B](fSucc: A => B)(fFail: E => B): B
+  @inline def fold[B](fFail: E => B)(fSucc: A => B): B
+
+  /** Alternative fold, that only takes one parameter list. this [[ErrBi]] into a type B. Takes two function parameters, one converts from A to B as in a normal
+   *  map method. The second parameter in its own parameter list converts from the Error type to type B. */
+  @inline def fld[B](fFail: E => B, fSucc: A => B): B
+  
 
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
    * of primitive values. */
@@ -64,7 +69,8 @@ class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def isSucc: Boolean = true
   override def isFail: Boolean = false
   override def forSucc(f: A => Unit): Unit = f(value)
-  override def fold[B](fSucc: A => B)(fFail: Nothing => B): B = fSucc(value)
+  override def fold[B](fFail: Nothing => B)(fSucc: A => B): B = fSucc(value)
+  override def fld[B](fFail: Nothing => B, fSucc: A => B): B = fSucc(value)
   override def getElse(elseValue: A @uncheckedVariance): A = value
   override def succOrOther[EE >: Nothing <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = this
 }
@@ -85,7 +91,8 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def isSucc: Boolean = false
   override def isFail: Boolean = true
   override def forSucc(f: Nothing => Unit): Unit = {}
-  override def fold[B](fSucc: Nothing => B)(fFail: E => B): B = fFail(error)
+  override def fold[B](fFail: E => B)(fSucc: Nothing => B): B = fFail(error)
+  override def fld[B](fFail: E => B, fSucc: Nothing => B): B = fFail(error)
   override def getElse(elseValue: Nothing): Nothing = elseValue
   override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
 }

@@ -100,7 +100,11 @@ package object utiljvm
   def statementsFromResource(fileName: String): ThrowMonRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  def fileStatementsFromResource(fileName: String): EMonOld[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
+  def fileStatementsFromResourceOld(fileName: String): EMonOld[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
+
+  /** Function object apply method to get FileStatements from a Java build resource. */
+  def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
+
 
   def httpNow: String =
   { import java.time.*
