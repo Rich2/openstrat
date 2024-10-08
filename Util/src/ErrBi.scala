@@ -23,6 +23,9 @@ sealed trait ErrBi[+E <: Throwable, +A]
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
    * of primitive values. */
   def getElse(elseValue: A @uncheckedVariance): A
+
+  /** Returns this if success, else returns the other [[ErrBi]]. */
+  def succOrOther[EE >: E <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA] @uncheckedVariance): ErrBi[EE, AA]
   
   def toEMon: EMonOld[A] = this match{
     case Succ(value) => Good(value)
@@ -63,6 +66,7 @@ class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def forSucc(f: A => Unit): Unit = f(value)
   override def fold[B](fSucc: A => B)(fFail: Nothing => B): B = fSucc(value)
   override def getElse(elseValue: A @uncheckedVariance): A = value
+  override def succOrOther[EE >: Nothing <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = this
 }
 
 object Succ
@@ -83,6 +87,7 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def forSucc(f: Nothing => Unit): Unit = {}
   override def fold[B](fSucc: Nothing => B)(fFail: E => B): B = fFail(error)
   override def getElse(elseValue: Nothing): Nothing = elseValue
+  override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
 }
 
 /** A Throwable error monad. */

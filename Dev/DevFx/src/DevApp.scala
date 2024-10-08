@@ -22,24 +22,7 @@ class AppStart extends application.Application
     val jScene = new Scene(root, canvWidth, canvHeight)
     //val eExprOld: EMonOld[AssignMemExpr] = findDevSettingExprOld("appSet")
     val eExpr: ThrowMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
-
-    /*val pairOld: (CanvasPlatform => Any, String) = eExprOld match
-    {
-      case Good(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
-      {
-        case Some(launch) =>
-        { val fSett: EMonOld[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
-          val eSett: EMonOld[AssignMemExpr] = fSett.goodOrOther(findDevSettingExprOld(launch.settingStr))
-          eSett.fold(launch.default)(launch(_))
-        }
-        case _ => AppSelector.ids.a1FindA2(it.srcStr) match
-        { case Some(pair) => pair
-          case _ => deb(it.str + ": Identifier"); AppSelector.default
-        }
-      }
-      case Good(expr) => { debvar(expr); AppSelector.default }
-      case _ => { debvar(eExprOld); AppSelector.default }
-    }*/
+    
 
     val pair = eExpr match
     {
