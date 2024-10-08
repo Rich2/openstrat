@@ -11,7 +11,7 @@ object PomsApp
     val oDir = args.headOption
     println(oDir)
 
-    def makePom(dirStr: String, name: String, versionStr: String, depStrs: String*): EMon[String] =
+    def makePom(dirStr: String, name: String, versionStr: String, depStrs: String*): EMonOld[String] =
       fileWrite(dirStr, name + "-" + versionStr + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
 
     oDir.foreach { dirStr =>

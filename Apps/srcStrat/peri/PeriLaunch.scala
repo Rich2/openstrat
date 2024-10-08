@@ -13,7 +13,7 @@ object PeriLaunch extends GuiLaunchMore
   { val num: Int = sts.findSettingElse("scen", 1)
     val isFlat: Boolean = sts.findSettingElse("flat", false)
 
-    val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
+    val oview: EMonOld[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: PeriScen = num match
     { case 1 => PeriScen.init(PeriScen1)

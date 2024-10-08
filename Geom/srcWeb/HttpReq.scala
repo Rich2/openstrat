@@ -9,7 +9,7 @@ trait HttpReq
 
 object HttpReq
 { /** Apply method, finds [[HttpReq]] from [[Strng]]s. */
-  def apply(lines: Sequ[String]): EMon[HttpReq] =
+  def apply(lines: Sequ[String]): EMonOld[HttpReq] =
   { val lh0 = lines(0)
     debvar(lh0)
     val rt = lh0.takeWhile(_.isLetter)

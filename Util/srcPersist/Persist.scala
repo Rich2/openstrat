@@ -52,7 +52,7 @@ object PersistBoth
       }
     }
 
-    override def fromExprOld(expr: Expr): EMon[Double] = expr match
+    override def fromExprOld(expr: Expr): EMonOld[Double] = expr match
     { case ValidFracToken(d) => Good(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(-d)
@@ -73,7 +73,7 @@ object PersistBoth
      * rather than a method on the object being shown. */
     override def strT(obj: Boolean): String = ???
     
-    override def fromExprOld(expr: Expr): EMon[Boolean] = ???
+    override def fromExprOld(expr: Expr): EMonOld[Boolean] = ???
 
     override def fromExpr(expr: Expr): ExcMon[Boolean] = ???
   }

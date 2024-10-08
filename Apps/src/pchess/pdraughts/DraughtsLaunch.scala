@@ -9,7 +9,7 @@ object DraughtsLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (DraughtsGui(_, DraughtsStart), "JavaFx Draughts")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMon[Int] = sts.findSettingOld[Int]("scen")
+  { val oScen: EMonOld[Int] = sts.findSettingOld[Int]("scen")
     val num: Int = oScen.getElse(1)
     num match
     { //case 1 => (ChessGui(_, ChessStart), "JavaFx Chess")

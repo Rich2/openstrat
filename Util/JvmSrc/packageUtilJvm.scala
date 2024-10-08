@@ -8,28 +8,34 @@ package object utiljvm
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatementsOld: EMon[RArr[Statement]] = statementsFromResourceOld("DevSettings.rson")
+  lazy val devSettingsStatementsOld: EMonOld[RArr[Statement]] = statementsFromResourceOld("DevSettings.rson")
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: ErrBiThrowRArr[Statement] = statementsFromResource("DevSettings.rson")
+  lazy val devSettingsStatements: ThrowMonRArr[Statement] = statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExprOld(settingStr: String): EMon[AssignMemExpr] = devSettingsStatementsOld.flatMap(_.findSettingExprOld(settingStr))
+  def findDevSettingExprOld(settingStr: String): EMonOld[AssignMemExpr] = devSettingsStatementsOld.flatMap(_.findSettingExprOld(settingStr))
+
+  /** Find a setting of the given name and return its Expr from the file DevSettings.rson. */
+  def findDevSettingExpr(settingStr: String): ThrowMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSettingTOld[A: Unshow](settingStr: String): EMon[A] = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr))
+  def findDevSettingTOld[A: Unshow](settingStr: String): EMonOld[A] = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr))
+
+  /** Find a setting of the given name and type from the file DevSettings.rson. */
+  def findDevSettingT[A: Unshow](settingStr: String): ThrowMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElseOld[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr)).getElse(elseValue)
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
-  //def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
+  def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
   
   def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingTOld[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
 
-  def openstratPath(): EMon[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
+  def openstratPath(): EMonOld[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
 
-  def sbtDirPath(): EMon[String] = openstratPath().map(_.str / "Dev/SbtDir")
+  def sbtDirPath(): EMonOld[String] = openstratPath().map(_.str / "Dev/SbtDir")
 
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
@@ -42,10 +48,10 @@ package object utiljvm
   }
    
   /** Attempts to load text file into a [[String]]. */
-  def loadTextFile(pathFileName: String): EMon[String] = eTryOld(scala.io.Source.fromFile(pathFileName).mkString)
+  def loadTextFile(pathFileName: String): EMonOld[String] = eTryOld(scala.io.Source.fromFile(pathFileName).mkString)
 
   /** Attempts to load a value of the specified type from an RSON format file. */
-  def fromRsonFileFind[A: Unshow](fileName: String): EMon[A] = loadTextFile(fileName).findType[A]
+  def fromRsonFileFind[A: Unshow](fileName: String): EMonOld[A] = loadTextFile(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
   def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
@@ -55,18 +61,18 @@ package object utiljvm
   def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forGood(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
-  def settFromFile[A: Unshow](settingStr: String, fileName: String): EMon[A] = loadTextFile(fileName).findSetting[A](settingStr)
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): EMonOld[A] = loadTextFile(fileName).findSetting[A](settingStr)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on
    * success. */
-  def fileWrite(path: DirPathAbs, fileName: String, content: String): EMon[String] = fileWrite(path.str, fileName, content)
+  def fileWrite(path: DirPathAbs, fileName: String, content: String): EMonOld[String] = fileWrite(path.str, fileName, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on
    *  success. */
-  def fileWrite(path: String, fileName: String, content: String): EMon[String] =
+  def fileWrite(path: String, fileName: String, content: String): EMonOld[String] =
   { import java.io._
     var eStr: String = ""
     var opw: Option[FileWriter] = None
@@ -81,20 +87,20 @@ package object utiljvm
     if (eStr == "") Good("Successfully written file to " + path / fileName) else Bad(StrArr(eStr))
   }
 
-  def homeWrite(dir: String, fileName: String, str: String): EMon[String] =
+  def homeWrite(dir: String, fileName: String, str: String): EMonOld[String] =
   { val h = System.getProperty("user.home")
     fileWrite(h / dir , fileName, str)
   }
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResourceOld(fileName: String): EMon[RArr[Statement]] =
+  def statementsFromResourceOld(fileName: String): EMonOld[RArr[Statement]] =
     eTryOld(scala.io.Source.fromResource(fileName).toArray).flatMap(srcToEStatementsOld(_, fileName))
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): ErrBiThrowRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
+  def statementsFromResource(fileName: String): ThrowMonRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
+  def fileStatementsFromResource(fileName: String): EMonOld[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
 
   def httpNow: String =
   { import java.time.*

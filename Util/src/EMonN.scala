@@ -1,9 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Specialised [[EMon]] for values of 2 types, instead of using EMon[(A, B)]. */
+/** Specialised [[EMonOld]] for values of 2 types, instead of using EMon[(A, B)]. */
 sealed trait EMon2[+A1, +A2]
-{ def flatMap[B](f: (A1, A2) => EMon[B]): EMon[B]
+{ def flatMap[B](f: (A1, A2) => EMonOld[B]): EMonOld[B]
   def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2]
 }
 

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import utest.{Show => _, _}, WTiles._
 
@@ -38,8 +38,8 @@ object WTileTest extends TestSuite
       "Sea * 5".asType[Multiple[Water]] ==> Good(Multiple(Sea, 5))
       "Lake * 3".asType[Multiple[Water]] ==> Good(Multiple(Lake, 3))
       "Land() * 3".asType[Multiple[Land]] ==> Good(Multiple(Land(), 3))
-      "Land(Hilly) * 3".asType[Multiple[WTile]] ==> Good(Multiple(Land(Hilly), 3))
-      "hilly * 3".asType[Multiple[Land]] ==> Good(Multiple(Land(Hilly), 3))
+      "Land(Hilly) * 3".asType[Multiple[WTile]] ==> Good(Multiple(Land(Hilly, Oceanic), 3))
+      "hilly * 3".asType[Multiple[Land]] ==> Good(Multiple(Land(Hilly, Oceanic), 3))
       "forest * 2".asType[Multiple[Land]] ==> Good(Multiple(oceForest, 2))
       "sea * 2".asType[Multiple[Water]] ==> Good(Multiple(sea, 2))
 

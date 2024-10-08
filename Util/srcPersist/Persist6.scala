@@ -95,14 +95,14 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, A] extends Unshow6Plus[A1, A2, A3, A4, A5,
 { /** Allows this [[Unshow]] instance to create object from it's 6 components. */
   val newT: (A1, A2, A3, A4, A5, A6) => A
 
-  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A] =
+  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMonOld[A] =
   { val len: Int = sortedExprs.length
-    val e1: EMon[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExprOld(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExprOld(name2, sortedExprs(pSeq(1))), opt2.toEMon)
-    def e3: EMon[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExprOld(name3, sortedExprs(pSeq(2))), opt3.toEMon)
-    def e4: EMon[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExprOld(name4, sortedExprs(pSeq(3))), opt4.toEMon)
-    def e5: EMon[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExprOld(name5, sortedExprs(pSeq(4))), opt5.toEMon)
-    def e6: EMon[A6] = ife(len > pSeq(5), unshow6.fromSettingOrExprOld(name6, sortedExprs(pSeq(5))), opt6.toEMon)
+    val e1: EMonOld[A1] = ife(len > pSeq(0), unshow1Ev.fromSettingOrExprOld(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMonOld[A2] = ife(len > pSeq(1), unshow2Ev.fromSettingOrExprOld(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMonOld[A3] = ife(len > pSeq(2), unshow3Ev.fromSettingOrExprOld(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    def e4: EMonOld[A4] = ife(len > pSeq(3), unshow4.fromSettingOrExprOld(name4, sortedExprs(pSeq(3))), opt4.toEMon)
+    def e5: EMonOld[A5] = ife(len > pSeq(4), unshow5.fromSettingOrExprOld(name5, sortedExprs(pSeq(4))), opt5.toEMon)
+    def e6: EMonOld[A6] = ife(len > pSeq(5), unshow6.fromSettingOrExprOld(name6, sortedExprs(pSeq(5))), opt6.toEMon)
     e1.map6(e2, e3, e4, e5, e6)(newT)
   }
 

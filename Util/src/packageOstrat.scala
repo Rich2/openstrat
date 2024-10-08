@@ -5,7 +5,7 @@
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
-  type EArr[A <: AnyRef] = EMon[RArr[A]]  
+  type EArr[A <: AnyRef] = EMonOld[RArr[A]]  
   type RefsMulti[A <: AnyRef] = RArr[Multiple[A]]
   type ShowEq[A] = Show[A] & EqT[A]
   type AnyRefs = RArr[AnyRef]
@@ -116,7 +116,7 @@ package object ostrat
   /** Not sure what this method does. */
   def readT[T](implicit ev: Unshow[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
-    def loop(inp: EMon[T]): T = inp match
+    def loop(inp: EMonOld[T]): T = inp match
     { case Good(t) => t
       case a =>
       { println(a)
@@ -153,10 +153,10 @@ package object ostrat
   def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](StrArr(parseErr(fs.startPosn, detail)))
   def badNone[B](detail: String): Bad[B] = Bad[B](StrArr(detail))
 
-  def eTryOld[A](res: => A): EMon[A] = try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
+  def eTryOld[A](res: => A): EMonOld[A] = try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
 
   /** Catches non-fatal [[Exception]]s and returns them as a [[Fail]]. */
-  def eTry[A](res: => A): ErrBiThrow[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Fail(e) }
+  def eTry[A](res: => A): ThrowMon[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Fail(e) }
 
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).mkComma
 

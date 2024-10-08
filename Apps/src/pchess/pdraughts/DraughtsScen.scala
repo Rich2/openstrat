@@ -6,7 +6,7 @@ trait DraughtsScen extends ChessLikeScen
 { def segNum: Int
   def turn: Int = segNum / 2
   def draughts: SqCenOptLayer[Draught]
-  def resolve(move: SqCenArr): EMon[DraughtsScen] = move match
+  def resolve(move: SqCenArr): EMonOld[DraughtsScen] = move match
   { case _ if move.empty => badNone("Empty Command")
     case _ if move.length == 1 => badNone("No move given.")
     case _ => badNone("Default error.")

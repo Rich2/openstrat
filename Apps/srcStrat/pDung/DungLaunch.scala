@@ -8,7 +8,7 @@ object DungLaunch extends GuiLaunchMore
 
   override def default: (CanvasPlatform => Any, String) = (DungeonGui(_, Dungeon1/*, Dungeon1.grid.defaultView()*/), "JavaFx DungeonGame")
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMon[Int] = sts.findSettingOld[Int]("scen")
+  { val oScen: EMonOld[Int] = sts.findSettingOld[Int]("scen")
     val num: Int = oScen.getElse(1)
 
     val scen: DungeonScen = num match
@@ -16,7 +16,7 @@ object DungLaunch extends GuiLaunchMore
       case 2 => Dungeon1
       case _ => Dungeon1
     }
-    val oview: EMon[SGView] = sts.findKeySetting[Int, SGView](num)
+    val oview: EMonOld[SGView] = sts.findKeySetting[Int, SGView](num)
     (DungeonGui(_, scen/*, oview.getElse(scen.grid.defaultView())*/), "JavaFx Dungeon Game")
   }
 }

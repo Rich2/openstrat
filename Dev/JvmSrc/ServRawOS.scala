@@ -4,7 +4,7 @@ import pWeb.*, utiljvm.*
 
 object ServRawOS extends ServRaw
 {
-  override def responses(req: EMon[HttpReq]): Option[HttpResp] = req match
+  override def responses(req: EMonOld[HttpReq]): Option[HttpResp] = req match
   {
     case Good(hrg: HttpReqGet) =>
     { val resp: HttpResp = hrg.uri match

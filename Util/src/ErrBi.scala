@@ -24,7 +24,7 @@ sealed trait ErrBi[+E <: Throwable, +A]
    * of primitive values. */
   def getElse(elseValue: A @uncheckedVariance): A
   
-  def toEMon: EMon[A] = this match{
+  def toEMon: EMonOld[A] = this match{
     case Succ(value) => Good(value)
     case Fail(err) => Bad(StrArr(err.toString))
   }
@@ -85,10 +85,18 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def getElse(elseValue: Nothing): Nothing = elseValue
 }
 
-type ErrBiThrow[+A] = ErrBi[Throwable, A]
-type ErrBiThrowArr[+A] = ErrBi[Throwable, Arr[A]]
-type ErrBiThrowRArr[+A] = ErrBi[Throwable, RArr[A]]
+/** A Throwable error monad. */
+type ThrowMon[+A] = ErrBi[Throwable, A]
+
+/** A Throwable error monad with an [[Arr]] for success. */
+type ThrowMonArr[+A] = ErrBi[Throwable, Arr[A]]
+
+/** A Throwable error monad with an [[RArr]] for success. */
+type ThrowMonRArr[+A] = ErrBi[Throwable, RArr[A]]
+
+/** An [[Exception]] error monad. */
 type ExcMon[+A] = ErrBi[Exception, A]
+
 type FailExc = Fail[Exception]
 object ExcNotFound extends Exception("Not found")
 

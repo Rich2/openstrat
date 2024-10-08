@@ -2,7 +2,7 @@
 package ostrat; package pParse; package plex
 import collection.mutable.ArrayBuffer
 
-/** More imperative version of Function object for creating an [[EMon]] of Refs of Token from a source. This internally uses a mutable ArrayBuffer,
+/** More imperative version of Function object for creating an [[EMonOld]] of Refs of Token from a source. This internally uses a mutable ArrayBuffer,
  *  but the mutability is fully encapsulated. */
 object lexSrc
 {

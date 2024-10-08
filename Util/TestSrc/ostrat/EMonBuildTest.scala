@@ -5,11 +5,11 @@ import utest._
 object EMonBuildTest  extends TestSuite
 {
   val tests = Tests {
-    val a1: EMon[Int] = Good(5)
+    val a1: EMonOld[Int] = Good(5)
     val a2 = a1.map(_ * 11)
     val a3 = a2.map("Good " + _.toString)
     val b = NoInt
-    val s1: EMon[String] = Good("Hello")
+    val s1: EMonOld[String] = Good("Hello")
 
     test("Test1")
     { a2 ==> Good(55)

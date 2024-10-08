@@ -39,7 +39,7 @@ object SeqLike
     val build: BuilderSeqLikeMap[A, AA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExprOld(expr: Expr): EMon[AA] = expr match
+    override def fromExprOld(expr: Expr): EMonOld[AA] = expr match
     { case _: EmptyExprToken => Good(build.uninitialised(0))
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapEMon(build)(s => evA.fromExprOld(s.expr))

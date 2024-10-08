@@ -19,10 +19,10 @@ sealed trait Statement extends TextSpan
   def noSemi: Boolean = optSemi.isEmpty
 
   /** Not sure what this is meant to be doing, or whether it can be removed. */
-  final def errGet[A](implicit ev: Unshow[A]): EMon[A] = ???
+  final def errGet[A](implicit ev: Unshow[A]): EMonOld[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExprOld(settingName: String): EMon[AssignMemExpr] = this match
+  def settingExprOld(settingName: String): EMonOld[AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
     case _ => startPosn.bad(settingName -- "not found.")
   }
@@ -34,7 +34,7 @@ sealed trait Statement extends TextSpan
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
-  def intSettingExpr(settingNum: Int): EMon[AssignMemExpr] = this match
+  def intSettingExpr(settingNum: Int): EMonOld[AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Good(rightExpr)
     case _ => startPosn.bad(settingNum.str -- "not found.")
   }
@@ -64,7 +64,7 @@ object Statement
     def endPosn = statements.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
-    def findSettingExprOld(settingStr: String): EMon[AssignMemExpr] = statements match
+    def findSettingExprOld(settingStr: String): EMonOld[AssignMemExpr] = statements match
     { case Arr0() => TextPosn.emptyErrorOld("No Statements")
       case Arr1(st1) => st1.settingExprOld(settingStr)
       case sts => sts.map(st => st.settingExprOld(settingStr)).collect{ case g @ Good(_) => g } match
@@ -86,7 +86,7 @@ object Statement
     }
 
     /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
-    def findIntSettingExpr(settingNum: Int): EMon[AssignMemExpr] = statements match {
+    def findIntSettingExpr(settingNum: Int): EMonOld[AssignMemExpr] = statements match {
       case Arr0() => TextPosn.emptyErrorOld("No Statements")
       case Arr1(st1) => st1.intSettingExpr(settingNum)
       case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g@Good(_) => g } match {
@@ -97,10 +97,13 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSettingOld[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = ev.settingFromStatementsOld(statements, settingStr)
+    def findSettingOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = ev.settingFromStatementsOld(statements, settingStr)
+
+    /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
+    def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): EMon[String] = findSettingExprOld(settingStr).flatMap{
+    def findSettingIdentifier(settingStr: String): EMonOld[String] = findSettingExprOld(settingStr).flatMap{
       case IdentifierToken(str) => Good(str)
       case expr => badNone("Not an identifier.")
     }
@@ -109,7 +112,7 @@ object Statement
     def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = findSettingExprOld(settingStr).flatMap {
+    def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
       case IdentifierToken(str) => Good(StrArr(str))
       case exprSeq: ExprSeqExpr =>
       { val opt = exprSeq.exprs.optAllMap{expr => expr match
@@ -123,92 +126,92 @@ object Statement
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMon[VT] = ev.keySettingFromStatementsOld(statements, key)
+    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMonOld[VT] = ev.keySettingFromStatementsOld(statements, key)
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
       ev.keySettingFromStatementsOld(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMon[T] = findSettingOld[T](settingStr).goodOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findType)
 
     /** Find idnetifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
-    def findType[A](implicit ev: Unshow[A]): EMon[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
+    def findType[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
-    def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
+    def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
       ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def intAtIndex(index: Int): EMon[Int] =
+    def intAtIndex(index: Int): EMonOld[Int] =
       ife(statements.length > index, Unshow.intEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a natural non negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def natAtIndex(index: Int): EMon[Int] =
+    def natAtIndex(index: Int): EMonOld[Int] =
       ife(statements.length > index, Unshow.natEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def dblAtIndex(index: Int): EMon[Double] =
+    def dblAtIndex(index: Int): EMonOld[Double] =
       ife(statements.length > index, Unshow.doubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a positive, non negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def posDblAtIndex(index: Int): EMon[Double] =
+    def posDblAtIndex(index: Int): EMonOld[Double] =
       ife(statements.length > index, Unshow.posDoubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def boolAtIndex(index: Int): EMon[Boolean] =
+    def boolAtIndex(index: Int): EMonOld[Boolean] =
       ife(statements.length > index, Unshow.booleanEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def longAtIndex(index: Int): EMon[Long] =
+    def longAtIndex(index: Int): EMonOld[Long] =
       ife(statements.length > index, Unshow.longEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: EMon[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
+    def findIntArray: EMonOld[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): EMon[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingInt(settingStr: String): EMonOld[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingDbl(settingStr: String): EMon[Double] = Unshow.doubleEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingDbl(settingStr: String): EMonOld[Double] = Unshow.doubleEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingPosDbl(settingStr: String): EMon[Double] = Unshow.posDoubleEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingPosDbl(settingStr: String): EMonOld[Double] = Unshow.posDoubleEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): EMon[Boolean] = Unshow.booleanEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingBool(settingStr: String): EMonOld[Boolean] = Unshow.booleanEv.settingFromStatementsOld(statements, settingStr)
   }
 
   /** Extension class for EMon[Arr[Statement]]. */
-  implicit class eMonArrImplicit(eMon: EMon[RArr[Statement]]) {
+  implicit class eMonArrImplicit(eMon: EMonOld[RArr[Statement]]) {
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
       eMon.fold(elseValue) { statements => ev.keySettingFromStatementsOld(statements, key).getElse(elseValue) }
 
-    def findType[A](implicit ev: Unshow[A]): EMon[A] = eMon.flatMap(_.findType[A])
+    def findType[A](implicit ev: Unshow[A]): EMonOld[A] = eMon.flatMap(_.findType[A])
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findType[A].getElse(elseValue))
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): EMon[String] = eMon.flatMap {
+    def findSettingIdentifier(settingStr: String): EMonOld[String] = eMon.flatMap {
       _.findSettingExprOld(settingStr).flatMap {
         case IdentifierToken(str) => Good(str)
         case expr => badNone("Not an identifier.")
       }
     }
 
-    def findSettingIdentifierArr(settingStr: String): EMon[StrArr] = eMon.flatMap {_.findSettingIdentifierArr(settingStr) }
+    def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArr(settingStr) }
   }
 }
 

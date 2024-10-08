@@ -1,12 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Test App for [[EMon]]s. */
+/** Test App for [[EMonOld]]s. */
 object HelloEmon extends App
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
-  val mi1: EMon[Int] = "4".asInt
+  val mi1: EMonOld[Int] = "4".asInt
   mi1.forGood(i => println(i.str))//Something happens
-  val mi2: EMon[Int] = "2.2".asInt
+  val mi2: EMonOld[Int] = "2.2".asInt
   mi2.forGood(i => println(i.str))//Nothing happens.
   val i1: Int = mi2.getElse(0)
   println("You asked for " + i1.str)

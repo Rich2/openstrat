@@ -86,9 +86,9 @@ trait ShowNOptRepeat[Ar, A] extends ShowNRepeat[Ar, A]//ShowCompound[A] with Per
 /** The base trait for the persistence of algebraic product types, where the last component is a repeat parameter. */
 trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
 {
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[A]
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMonOld[A]
 
-  final override def fromExprOld(expr: Expr): EMon[A] = expr match
+  final override def fromExprOld(expr: Expr): EMonOld[A] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
@@ -96,9 +96,9 @@ trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: RArr[Expr]): EMon[A] =
+  final def fromExprSeq(exprs: RArr[Expr]): EMonOld[A] =
   {
-    def exprsLoop(i: Int, usedNames: StrArr): EMon[A] =
+    def exprsLoop(i: Int, usedNames: StrArr): EMonOld[A] =
       if (i >= exprs.length)
         if (i >= numFixedParams) fromSortedExprs(exprs, paramFixedNames.map(pn => usedNames.findIndex(_ == pn)))
         else exprsLoop(i + 1, usedNames +% paramFixedNames.find(u => !usedNames.exists(_ == u)).get)

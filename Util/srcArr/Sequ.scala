@@ -278,9 +278,9 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => [[EMon]][B]. implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
+  /** Map from A => [[EMonOld]][B]. implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
    * first parameter list. */
-  def mapEMon[B, ArrB <: Arr[B]](f: A => EMon[B])(implicit ev: BuilderArrMap[B, ArrB]): EMon[ArrB] =
+  def mapEMon[B, ArrB <: Arr[B]](f: A => EMonOld[B])(implicit ev: BuilderArrMap[B, ArrB]): EMonOld[ArrB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
@@ -305,8 +305,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
   }
 
-  /** Map from A => [[EMon]][B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
-  def mapEMon[B, BB](ev: BuilderCollMap[B, BB])(f: A => EMon[B]): EMon[BB] =
+  /** Map from A => [[EMonOld]][B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
+  def mapEMon[B, BB](ev: BuilderCollMap[B, BB])(f: A => EMonOld[B]): EMonOld[BB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
@@ -337,8 +337,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => B, retuening an [[EMon]] of [[List]]. */
-  def mapEMonList[B](f: A => EMon[B]): EMon[List[B]] =
+  /** Map from A => B, retuening an [[EMonOld]] of [[List]]. */
+  def mapEMonList[B](f: A => EMonOld[B]): EMonOld[List[B]] =
   { var acc: List[B] = Nil
     var continue = true
     var count = 0
@@ -555,18 +555,18 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Takes a function from A to EMon[B]. If the function applied to eqch element produces a single Good, it is returned else returns [[Bad]]. */
-  def mapUniqueGood[B](f: A => EMon[B]): EMon[B] =
+  def mapUniqueGood[B](f: A => EMonOld[B]): EMonOld[B] =
   { var count = 0
-    var acc: EMon[B] = badNone("No elem of type found")
+    var acc: EMonOld[B] = badNone("No elem of type found")
     foreach{a =>
-      val eb: EMon[B] = f(a)
+      val eb: EMonOld[B] = f(a)
       if(eb.isGood){ count += 1; acc = eb }
     }
     ife(count < 2, acc, badNone(s"$count values found"))
   }
 
   /** maps from A to EMon[B], collects the good values. */
-  def mapCollectGoods[B, BB <: Arr[B]](f: A => EMon[B])(implicit ev: BuilderArrMap[B, BB]): BB =
+  def mapCollectGoods[B, BB <: Arr[B]](f: A => EMonOld[B])(implicit ev: BuilderArrMap[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forGood(ev.buffGrow(acc, _)))
     ev.buffToSeqLike(acc)
@@ -648,9 +648,9 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = map(fElemStr).mkString("; ").enParenth
 
-  /** Takes a function that returns an [[EMon]] and returns the first [[Good]]. */
-  def findGood[B](f: A => EMon[B]): EMon[B] =
-  { var res: EMon[B] = ENone
+  /** Takes a function that returns an [[EMonOld]] and returns the first [[Good]]. */
+  def findGood[B](f: A => EMonOld[B]): EMonOld[B] =
+  { var res: EMonOld[B] = ENone
     var i = 0
     while(i < length && res == ENone)
     { val b = f(apply(i))

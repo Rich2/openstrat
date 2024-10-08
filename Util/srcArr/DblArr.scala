@@ -47,7 +47,7 @@ object DblArr
   implicit val unshowEv: Unshow[DblArr] = new Unshow[DblArr]
   { override def typeStr: String = "Seq" + "Dbl"
 
-    override def fromExprOld(expr: Expr): EMon[DblArr] = expr match
+    override def fromExprOld(expr: Expr): EMonOld[DblArr] = expr match
     { case _: EmptyExprToken => Good(DblArr())
 
       case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _), BracketedStructure(sts, brs2, _, _)))

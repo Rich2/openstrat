@@ -20,8 +20,8 @@ object G3HLaunch extends GuiLaunchMore
       case _ => G3HScen1
     }
 
-    val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
-    val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
+    val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("counters")
     val plAll = scen.teamSet
     val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }

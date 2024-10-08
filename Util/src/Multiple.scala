@@ -84,7 +84,7 @@ object Multiple
   { override def typeStr: String = "Multiple"
     override def useMultiple: Boolean = false
 
-    override def fromExprOld(expr: Expr): EMon[Multiple[A]] = expr match
+    override def fromExprOld(expr: Expr): EMonOld[Multiple[A]] = expr match
     { case InfixOpExpr(left, OperatorPrec1Token(startPosn, "*"), IntExpr(i)) => evA.fromExprOld(left).map(a => Multiple(a, i))
       case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple"
         => evA.fromExprOld(e1).map{ a => Multiple(a, i) }
@@ -97,22 +97,22 @@ object Multiple
       case expr => evA.fromExpr(expr).map(a => Multiple(a, 1))
     }
 
-    def fromArrExprOld(inp: Arr[Expr]): EMon[RArr[Multiple[A]]] = inp.mapEMon(fromExprOld(_))
+    def fromArrExprOld(inp: Arr[Expr]): EMonOld[RArr[Multiple[A]]] = inp.mapEMon(fromExprOld(_))
 
     def fromArrExpr(inp: Arr[Expr]): ExcMon[RArr[Multiple[A]]] = inp.mapErrBi(fromExpr(_))
 
     /** Collection from [[Arr]] of [[Expr]]. */
-    def collFromArrExprOld[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): EMon[R] = fromArrExprOld(inp).map(_.toColl(builderColl))
+    def collFromArrExprOld[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): EMonOld[R] = fromArrExprOld(inp).map(_.toColl(builderColl))
 
     /** Collection from [[Arr]] of [[Expr]]. */
     def collFromArrExpr[R](inp: Arr[Expr], builderColl: BuilderCollMap[A, R]): ExcMon[R] = fromArrExpr(inp).map(_.toColl(builderColl))
 
     /** Collection from [[Arr]] of [[Statement]]. */
-    def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderCollMap[A, R]): EMon[R]  = collFromArrExprOld(inp.map(_.expr), builderColl)
+    def collFromArrStatement[R](inp: Arr[Statement], builderColl: BuilderCollMap[A, R]): EMonOld[R]  = collFromArrExprOld(inp.map(_.expr), builderColl)
   }
 
   /** Collection from [[Arr]] of [[Expr]]. */
-  def collFromArrExprOld[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderCollMap[Ae, A]): EMon[A] =
+  def collFromArrExprOld[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderCollMap[Ae, A]): EMonOld[A] =
     unshowEv(evA).fromArrExprOld(inp).map(_.toColl(builderColl))
 
   /** Collection from [[Arr]] of [[Expr]]. */
@@ -120,7 +120,7 @@ object Multiple
     unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))  
 
   /** Collection from [[Arr]] of [[Statement]]. */
-  def collFromArrStatementOld[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMon[R] =
+  def collFromArrStatementOld[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMonOld[R] =
     unshowEv(evA).collFromArrExprOld(inp.map(_.expr), builderColl)
 
   /** Collection from [[Arr]] of [[Statement]]. */

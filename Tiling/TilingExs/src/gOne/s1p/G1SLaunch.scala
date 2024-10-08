@@ -12,7 +12,7 @@ object G1SLaunch extends GuiLaunchMore
     (G1SGui(_, G1SGame(G1SScen1, G1SScen1.counterSet), G1SGuiSettings(G1SScen1.defaultView(), G1SScen1.counterSet)), "JavaFx Game One Squares")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMon[Int] = sts.findSettingOld[Int]("scen")
+  { val oScen: EMonOld[Int] = sts.findSettingOld[Int]("scen")
     val num: Int = oScen.getElse(1)
 
     val scen: G1SScen = num match
@@ -21,8 +21,8 @@ object G1SLaunch extends GuiLaunchMore
       case 3 => G1SScen3
       case _ => G1SScen1
     }
-    val oSetts: EMon[AssignMemExpr] = sts.findIntSettingExpr(num)
-    val sts2: EMon[RArr[Statement]] = oSetts.map(_.toStatements)
+    val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("counters")
     val plAll = scen.counterSet
     val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }

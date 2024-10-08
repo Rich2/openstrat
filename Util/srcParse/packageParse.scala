@@ -59,7 +59,7 @@ package object pParse
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExprOld(tokens: RArr[Token]): EMon[Expr] = pAST.parse1BlockStructure(tokens).flatMap{ g => pAST.parse3Statements(g) }.toEMon
+  def tokensToExprOld(tokens: RArr[Token]): EMonOld[Expr] = pAST.parse1BlockStructure(tokens).flatMap{ g => pAST.parse3Statements(g) }.toEMon
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
   def tokensToExpr(tokens: RArr[Token]): ErrBi[ExcParse, Expr] = pAST.parse1BlockStructure(tokens).flatMap { g => pAST.parse3Statements(g) }

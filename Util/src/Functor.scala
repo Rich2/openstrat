@@ -10,7 +10,7 @@ trait Functor[F[_]]
 /** Companion object for the [[Functor]] type class, contains implicit instances. */
 object Functor
 {
-  implicit def eMonImplicit: Functor[EMon] = new Functor[EMon] { override def mapT[A, B](fa: EMon[A], f: A => B): EMon[B] = fa.map(f) }
+  implicit def eMonImplicit: Functor[EMonOld] = new Functor[EMonOld] { override def mapT[A, B](fa: EMonOld[A], f: A => B): EMonOld[B] = fa.map(f) }
 
   implicit def listImplicit: Functor[List] = new Functor[List] { override def mapT[A, B](fa: List[A], f: A => B): List[B] = fa.map(f) }
 

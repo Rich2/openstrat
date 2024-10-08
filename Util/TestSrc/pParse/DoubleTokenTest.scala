@@ -13,7 +13,7 @@ object DoubleTokenTest extends TestSuite
 
   val xeqStr = "x = 0.4"
   val xSts: EArr[Statement] = xeqStr.parseStatementsOld
-  val xDbl: EMon[Double] = xeqStr.findDblSetting("x")
+  val xDbl: EMonOld[Double] = xeqStr.findDblSetting("x")
   val s51 = "51.1"
 
   val tests = Tests {

@@ -5,7 +5,7 @@ package ostrat; package pParse
  *  clauses that contain each contain an expression. */
 trait Expr extends BlockMem with StatementMem
 { def exprName: String
-  def exprParseErrOld[A](implicit ev: Unshow[A]): EMon[A] = startPosn.bad(ev.typeStr -- "is not available from" -- exprName)
+  def exprParseErrOld[A](implicit ev: Unshow[A]): EMonOld[A] = startPosn.bad(ev.typeStr -- "is not available from" -- exprName)
   def exprParseErr[A](implicit ev: Unshow[A]): ExcMon[A] = startPosn.fail(ev.typeStr -- "is not available from" -- exprName)
 }
 

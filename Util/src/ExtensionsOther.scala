@@ -69,18 +69,18 @@ class OptionExtensions[A](thisOption: Option[A])
 
   def map2[B, C](ob: Option[B])(f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
 
-  def toEMon(errs: StrArr): EMon[A] = thisOption match
+  def toEMon(errs: StrArr): EMonOld[A] = thisOption match
   { case Some(a) => Good(a)
     case None => Bad(errs)
   }
 
   /** Convert to EMon with a single error if [[None]] */
-  def toEMon1(fp: TextSpan, detail: String): EMon[A] = thisOption match
+  def toEMon1(fp: TextSpan, detail: String): EMonOld[A] = thisOption match
   { case Some(a) => Good(a)
     case None => bad1(fp, detail)
   }
 
-  def toEMon: EMon[A] = thisOption match
+  def toEMon: EMonOld[A] = thisOption match
   { case Some(a) => Good(a)
     case None => Bad(StrArr())
   }

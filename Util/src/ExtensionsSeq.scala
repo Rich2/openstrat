@@ -84,9 +84,9 @@ class ExtensionsSeq[A](thisSeq: Seq[A])
     res
   }
   
-  def mapFirstGood[B](f: A => EMon[B], errs: => Bad[B]): EMon[B] =
+  def mapFirstGood[B](f: A => EMonOld[B], errs: => Bad[B]): EMonOld[B] =
   {
-    def loop(rem: List[A]): EMon[B] = rem match
+    def loop(rem: List[A]): EMonOld[B] = rem match
     {
       case Nil => errs
       
