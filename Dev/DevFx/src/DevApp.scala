@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import utiljvm._, javafx._, stage._, scene._, canvas._, pParse._, pDev._
+import utiljvm._, javafx._, stage._, scene._, canvas._, pParse._, pDev._, pgui.*
 
 /** Name should possibly be DevAppFx. */
 object DevApp
@@ -20,14 +20,15 @@ class AppStart extends application.Application
     primaryStage.setX(findDevSettingElseOld("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElseOld("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
-    val eExprOld: EMonOld[AssignMemExpr] = findDevSettingExprOld("appSet")
+    //val eExprOld: EMonOld[AssignMemExpr] = findDevSettingExprOld("appSet")
     val eExpr: ThrowMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
 
-    val pair = eExprOld match
+    /*val pairOld: (CanvasPlatform => Any, String) = eExprOld match
     {
-      case Good(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match {
-        case Some(launch) => {
-          val fSett: EMonOld[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+      case Good(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
+      {
+        case Some(launch) =>
+        { val fSett: EMonOld[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
           val eSett: EMonOld[AssignMemExpr] = fSett.goodOrOther(findDevSettingExprOld(launch.settingStr))
           eSett.fold(launch.default)(launch(_))
         }
@@ -38,6 +39,24 @@ class AppStart extends application.Application
       }
       case Good(expr) => { debvar(expr); AppSelector.default }
       case _ => { debvar(eExprOld); AppSelector.default }
+    }*/
+
+    val pair = eExpr match
+    {
+      case Succ(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
+      {
+        case Some(launch) =>
+        { val fSett: EMonOld[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+          val eSett: EMonOld[AssignMemExpr] = fSett.goodOrOther(findDevSettingExprOld(launch.settingStr))
+          eSett.fold(launch.default)(launch(_))
+        }
+        case _ => AppSelector.ids.a1FindA2(it.srcStr) match
+        { case Some(pair) => pair
+          case _ => deb(it.str + ": Identifier"); AppSelector.default
+        }
+      }
+      case Succ(expr) => { debvar(expr); AppSelector.default }
+      case _ => { debvar(eExpr); AppSelector.default }
     }
 
     val newAlt = CanvasFx(canvasCanvas, jScene)
