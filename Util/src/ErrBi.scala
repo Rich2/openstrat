@@ -31,6 +31,10 @@ sealed trait ErrBi[+E <: Throwable, +A]
 
   /** Returns this if success, else returns the other [[ErrBi]]. */
   def succOrOther[EE >: E <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA] @uncheckedVariance): ErrBi[EE, AA]
+
+  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a value. This
+   * method is implemented in the leaf [[Succ]] and [[Fail]] classes to avoid boxing. */
+  def forSuccForFail(fSucc: A => Unit)(fErr: E => Unit): Unit
   
   def toEMon: EMonOld[A] = this match{
     case Succ(value) => Good(value)
@@ -73,6 +77,7 @@ class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def fld[B](fFail: Nothing => B, fSucc: A => B): B = fSucc(value)
   override def getElse(elseValue: A @uncheckedVariance): A = value
   override def succOrOther[EE >: Nothing <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = this
+  override def forSuccForFail(fSucc: A => Unit)(fErr: Nothing => Unit): Unit = fSucc(value)
 }
 
 object Succ
@@ -95,6 +100,7 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def fld[B](fFail: E => B, fSucc: Nothing => B): B = fFail(error)
   override def getElse(elseValue: Nothing): Nothing = elseValue
   override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
+  override def forSuccForFail(fSucc: Nothing => Unit)(fErr: E => Unit): Unit = fErr(error)
 }
 
 /** A Throwable error monad. */

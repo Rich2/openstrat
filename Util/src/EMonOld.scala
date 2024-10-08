@@ -41,8 +41,8 @@ sealed trait EMonOld[+A]
   /** Fold the EMon of type A into a type of B. */
   @inline def foldErrs[B](fGood: A => B)(fBad: StrArr => B): B
 
-  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a
-   *  value. This method is implemented in the leaf Good classes to avoid boxing. */
+  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a value. This
+   *  method is implemented in the leaf Good classes to avoid boxing. */
   def forGoodForBad(fGood: A => Unit)(fBad: StrArr => Unit): Unit
 
   /** Gets the value of Good, throws exception on Bad. */

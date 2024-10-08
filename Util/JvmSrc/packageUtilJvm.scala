@@ -28,7 +28,9 @@ package object utiljvm
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
   
-  def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingTOld[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
+  def projPathProcOld(f: DirPathAbs => Unit): Unit = findDevSettingTOld[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
+
+  //def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
 
   def openstratPath(): EMonOld[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
 
@@ -97,15 +99,11 @@ package object utiljvm
   def statementsFromResource(fileName: String): ThrowMonRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
-  //def fileStatementsFromResourceOld(fileName: String): EMonOld[FileStatements] = statementsFromResourceOld(fileName).map(FileStatements(_))
-
-  /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 
 
   def httpNow: String =
-  { import java.time.*
-    import java.time.format.*
+  { import java.time.*, java.time.format.*
     val time: ZonedDateTime = Instant.now().atZone(ZoneId.of("GMT"))
     time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
   }
