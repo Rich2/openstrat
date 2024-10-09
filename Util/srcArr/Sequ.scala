@@ -554,8 +554,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ev.buffToSeqLike(acc)
   }
 
-  /** Takes a function from A to EMon[B]. If the function applied to eqch element produces a single Good, it is returned else returns [[Bad]]. */
-  def mapUniqueGood[B](f: A => EMonOld[B]): EMonOld[B] =
+  /** Takes a function from A to EMon[B]. If the function applied to each element produces a single Good, it is returned else returns [[Bad]]. */
+  def mapUniqueGoodOld[B](f: A => EMonOld[B]): EMonOld[B] =
   { var count = 0
     var acc: EMonOld[B] = badNone("No elem of type found")
     foreach{a =>
@@ -563,6 +563,18 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       if(eb.isGood){ count += 1; acc = eb }
     }
     ife(count < 2, acc, badNone(s"$count values found"))
+  }
+
+  /** Takes a function from A to [[ErrBi]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Bad]]. */
+  def mapUniqueSucc[B](f: A => ErrBi[?, B]): ErrBi[ExcFind, B] =
+  { var count = 0
+    var acc: ExcNFTMon[B] = FailNotFound
+    foreach { a => f(a) match
+      { case su: Succ[B] =>  { count += 1; acc = su }
+        case _ =>
+      }
+    }
+    ife(count < 2, acc, FailFoundMulti(count))
   }
 
   /** maps from A to EMon[B], collects the good values. */

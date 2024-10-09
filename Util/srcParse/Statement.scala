@@ -139,7 +139,7 @@ object Statement
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
+    def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGoodOld(ev.fromStatementOld(_))
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
     //def findType[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))

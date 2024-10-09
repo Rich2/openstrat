@@ -133,12 +133,32 @@ type ThrowMonRArr[+A] = ErrBi[Throwable, RArr[A]]
 /** An [[Exception]] error monad. */
 type ExcMon[+A] = ErrBi[Exception, A]
 
+/** Exception from a find search for a type. */
+sealed trait ExcFind extends Exception
+
+/** A [[Fail]] with [[Exception]] type. */
 type FailExc = Fail[Exception]
-object ExcNotFound extends Exception("Not found")
+object ExcNotFound extends Exception("Not found") with ExcFind
 
 object NotFound
 { def apply(): Fail[ExcNotFound.type] = Fail(ExcNotFound)
 }
+
+/** [[ExcNotFound]] singleton type. */
+type ExcNFT = ExcNotFound.type
+
+/** [[ExcNotFound]] error monad. */
+type ExcNFTMon[+A] = ErrBi[ExcNFT, A]
+
+/** A [[Fail]] with a not found Exception. */
+object FailNotFound extends Fail(ExcNotFound)
+
+/** A found multiple values of type [[Exception]]. */
+case class ExcFoundMulti(val num: Int) extends Exception(s"$num values of type found.") with ExcFind
+
+/** A found multiple values of type [[Fail]], */
+class FailFoundMulti(num: Int) extends Fail(ExcFoundMulti(num))
+
 
 object FailExc
 {
