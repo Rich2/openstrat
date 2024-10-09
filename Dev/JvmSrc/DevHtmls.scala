@@ -8,7 +8,7 @@ object DevHtmls
   { 
     val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess",
       "EG1300", "EG1000", "EG640", "EG460", "EG320")
-    projPathProcOld { path => args.length match
+    projPathProc { path => args.length match
     { case 0 => deb("No args, no files created.")
       case _ if args(0).toString == "all" => names.foreach{name => writeFastFull(path, name) }
       case _ => args.filter( arg => names.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }

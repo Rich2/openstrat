@@ -5,7 +5,7 @@ import ostrat.utiljvm.*, pWeb.*
 object RsonLessonsApp extends App
 { deb("RsonLessons App")
   
-  projPathProcOld { path =>    
+  projPathProc { path =>    
     val path1: String = path.str / "Dev/target"
     fileWrite(path1, "lessons.rson", learn.LessonsLaunch.rsonText)
   }

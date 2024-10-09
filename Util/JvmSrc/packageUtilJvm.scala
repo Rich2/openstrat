@@ -32,12 +32,10 @@ package object utiljvm
 
   def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
 
-  def openstratPathOld(): EMonOld[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
-
+  /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
   def openstratPath(): ThrowMon[DirPathAbs] = findDevSettingT[DirPathAbs]("projPath")
 
-  def sbtDirPathOld(): EMonOld[String] = openstratPathOld().map(_.str / "Dev/SbtDir")
-
+  /** Needs removal. */
   def sbtDirPath(): ThrowMon[String] = openstratPath().map(_.str / "Dev/SbtDir")
 
   /** Saves text file to specified file at given path directory. */
