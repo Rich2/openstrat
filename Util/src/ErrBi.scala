@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.annotation.unchecked.uncheckedVariance
+import scala.annotation.unchecked.uncheckedVariance, pParse.*
 
 /** Biased bifunctor for errors. */
 sealed trait ErrBi[+E <: Throwable, +A]
@@ -62,9 +62,9 @@ object ErrBi
     eb6: ErrBi[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): ErrBi[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
 
-  implicit class EMonStringImplicit(thisThrowMon: ThrowMon[String])
-  {
-   // def findType[A](implicit ev: Unshow[A]): EMonOld[A] = thisThrowMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+  implicit class ErrBiStringImplicit[E <: Throwable](thisErrBi: ErrBi[E, String])
+  { /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON. */
+    def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisErrBi.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
 
 //    def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
 //
@@ -180,6 +180,7 @@ object SuccArr1
 }
 
 type ExcMonArr[Ae] = ErrBi[Exception, Arr[Ae]]
+type ExcMonRArr[Ae] = ErrBi[Exception, RArr[Ae]]
 
 /** Error bifunctor for [[Tuple2]]. */
 type ErrBi2[E <: Throwable, A1, A2] = ErrBi[E, (A1, A2)]

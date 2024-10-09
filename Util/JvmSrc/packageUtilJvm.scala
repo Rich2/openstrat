@@ -55,13 +55,13 @@ package object utiljvm
 
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
-  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFindOld(fileName).forGood(f)
+  def fromRsonFileFindForeachOld[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFindOld(fileName).forGood(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
-  def settFromFile[A: Unshow](settingStr: String, fileName: String): EMonOld[A] = loadTextFileOld(fileName).findSetting[A](settingStr)
+  def settFromFileOld[A: Unshow](settingStr: String, fileName: String): EMonOld[A] = loadTextFileOld(fileName).findSetting[A](settingStr)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
-  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
+  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFileOld[A](settingStr, fileName).getElse(elseValue)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on
    * success. */

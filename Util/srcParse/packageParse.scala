@@ -33,7 +33,7 @@ package object pParse
   def stringToStatementsOld(input: String): EArr[Statement] = stringToTokensOld(input).flatMap(tokensToStatementsOld(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
-  def stringToStatements(input: String): ExcMonArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
+  def stringToStatements(input: String): ExcMonRArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
 
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokensOld(srcStr: String): EArr[Token] = plex.lexSrc(srcStr.toCharArray, "String").toEMon
