@@ -35,13 +35,13 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def typeAtStsIndex[A: Unshow](index: Int): EMonOld[A] = thisString.parseStatementsOld.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def dblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.dblAtIndex(index))
+  def dblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.dblAtIndexOld(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsIndex(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.intAtIndex(index))
+  def intAtStsIndex(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.intAtIndexOld(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.natAtIndex(index))
+  def natAtStsIndex(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.natIntAtIndexOLd(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a positive, non negative [[Double]] value from the Statement given by the index. */
   def posDblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.posDblAtIndex(index))

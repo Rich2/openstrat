@@ -142,29 +142,51 @@ object Statement
     def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGoodOld(ev.fromStatementOld(_))
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    //def findType[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
+    def findType[A](implicit ev: Unshow[A]): ErrBi[ExcFind, A] = statements.mapUniqueSucc(ev.fromStatement(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findTypeOld[A].getElse(elseValue)
+    def findTypeElseOld[A](elseValue: A)(implicit ev: Unshow[A]): A = findTypeOld[A].getElse(elseValue)
+
+    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
+     * use elseValue. */
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
       ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def intAtIndex(index: Int): EMonOld[Int] =
+    def intAtIndexOld(index: Int): EMonOld[Int] =
       ife(statements.length > index, Unshow.intEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get a natural non negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def natAtIndex(index: Int): EMonOld[Int] =
+    /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    def intAtIndexd(index: Int): ExcMon[Int] =
+    { val st = statements(index)
+      ife(statements.length > index, Unshow.intEv.fromStatement(st), st.failExc("No statement at given index."))
+    }
+
+    /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    def natIntAtIndexOLd(index: Int): EMonOld[Int] =
       ife(statements.length > index, Unshow.natEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
+    /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    def natIntAtIndex(index: Int): ExcMon[Int] =
+    { val st = statements(index)
+      ife(statements.length > index, Unshow.natEv.fromStatement(st), st.failExc("No statement at given index."))
+    }
+
     /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def dblAtIndex(index: Int): EMonOld[Double] =
+    def dblAtIndexOld(index: Int): EMonOld[Double] =
       ife(statements.length > index, Unshow.doubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get a positive, non negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    def dblAtIndex(index: Int) =
+    { val st = statements(index)
+      ife(statements.length > index, Unshow.doubleEv.fromStatement(st), st.failExc("No statement at given index."))
+    }
+
+    /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def posDblAtIndex(index: Int): EMonOld[Double] =
       ife(statements.length > index, Unshow.posDoubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
