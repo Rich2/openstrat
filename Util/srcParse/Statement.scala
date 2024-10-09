@@ -109,13 +109,16 @@ object Statement
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String) = findSettingExpr(settingStr).flatMap{
+    def findSettingIdentifier(settingStr: String): ErrBi[Exception, String] = findSettingExpr(settingStr).flatMap{
       case IdentifierToken(str) => Succ(str)
       case expr => FailExc("Not an identifier.")
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
-    def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifierOld(settingStr).getElse(elseStr)
+    def findSettingIdentifierElseOld(settingStr: String, elseStr: String): String = findSettingIdentifierOld(settingStr).getElse(elseStr)
+
+    /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
+    def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
@@ -227,17 +230,30 @@ object Statement
     def findIntArray: EMonOld[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): EMonOld[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingIntOld(settingStr: String): EMonOld[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)
+
+    /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
+    def findSettingInt(settingStr: String): ExcMon[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingDbl(settingStr: String): EMonOld[Double] = Unshow.doubleEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingDblOld(settingStr: String): EMonOld[Double] = Unshow.doubleEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingPosDbl(settingStr: String): EMonOld[Double] = Unshow.posDoubleEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingDbl(settingStr: String): ExcMon[Double] = Unshow.doubleEv.settingFromStatements(statements, settingStr)
+
+    /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
+    def findSettingPosDblOld(settingStr: String): EMonOld[Double] = Unshow.posDoubleEv.settingFromStatementsOld(statements, settingStr)
+
+    /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
+    def findSettingPosDbl(settingStr: String): ExcMon[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): EMonOld[Boolean] = Unshow.booleanEv.settingFromStatementsOld(statements, settingStr)
+    def findSettingBoolOld(settingStr: String): EMonOld[Boolean] = Unshow.booleanEv.settingFromStatementsOld(statements, settingStr)
+
+    /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
+     * resolve to Expr[Boolean]. */
+    def findSettingBool(settingStr: String): ExcMon[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
   }
 
   /** Extension class for EMon[Arr[Statement]]. */

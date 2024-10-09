@@ -99,7 +99,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
 
   /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findIntSetting(settingStr: String): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.findSettingInt(settingStr))
+  def findIntSetting(settingStr: String): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.findSettingIntOld(settingStr))
 
   /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
@@ -107,7 +107,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    *  RSON Statements. */
-  def findDblSetting(settingStr: String): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.findSettingDbl(settingStr))
+  def findDblSetting(settingStr: String): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.findSettingDblOld(settingStr))
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
@@ -115,7 +115,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    *  RSON Statements. */
-  def findBoolSetting(settingStr: String): EMonOld[Boolean] = thisString.parseStatementsOld.flatMap(_.findSettingBool(settingStr))
+  def findBoolSetting(settingStr: String): EMonOld[Boolean] = thisString.parseStatementsOld.flatMap(_.findSettingBoolOld(settingStr))
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
