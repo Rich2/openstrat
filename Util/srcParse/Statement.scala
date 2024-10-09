@@ -103,13 +103,19 @@ object Statement
     def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): EMonOld[String] = findSettingExprOld(settingStr).flatMap{
+    def findSettingIdentifierOld(settingStr: String): EMonOld[String] = findSettingExprOld(settingStr).flatMap{
       case IdentifierToken(str) => Good(str)
       case expr => badNone("Not an identifier.")
     }
 
+    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
+    def findSettingIdentifier(settingStr: String) = findSettingExpr(settingStr).flatMap{
+      case IdentifierToken(str) => Succ(str)
+      case expr => FailExc("Not an identifier.")
+    }
+
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
-    def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
+    def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifierOld(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
@@ -187,16 +193,34 @@ object Statement
     }
 
     /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def posDblAtIndex(index: Int): EMonOld[Double] =
+    def posDblAtIndexOld(index: Int): EMonOld[Double] =
       ife(statements.length > index, Unshow.posDoubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
+    /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    def posDblAtIndex(index: Int) =
+    { val st = statements(index)
+      ife(statements.length > index, Unshow.posDoubleEv.fromStatement(st), st.failExc("No statement at given index."))
+    }
+
     /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def boolAtIndex(index: Int): EMonOld[Boolean] =
+    def boolAtIndexOld(index: Int): EMonOld[Boolean] =
       ife(statements.length > index, Unshow.booleanEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
+    /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
+    def boolAtIndex(index: Int) =
+    { val st = statements(index)
+      ife(statements.length > index, Unshow.booleanEv.fromStatement(st), st.failExc("No statement at given index."))
+    }
+
     /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def longAtIndex(index: Int): EMonOld[Long] =
+    def longAtIndexOld(index: Int): EMonOld[Long] =
       ife(statements.length > index, Unshow.longEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
+
+    /** Extension methods tries to get an[[Long]] value from the statement at the specified index of this[[RArr]][Statement].*/
+    def longAtIndex(index: Int): ExcMon[Long] =
+    { val st = statements(index)
+      ife(statements.length > index, Unshow.longEv.fromStatement(st), st.failExc("No statement at given index."))
+    }
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */

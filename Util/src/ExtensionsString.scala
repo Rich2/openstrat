@@ -44,13 +44,13 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def natAtStsIndex(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.natIntAtIndexOLd(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a positive, non negative [[Double]] value from the Statement given by the index. */
-  def posDblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.posDblAtIndex(index))
+  def posDblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.posDblAtIndexOld(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
-  def boolAtStsIndex(index: Int): EMonOld[Boolean] = thisString.parseStatementsOld.flatMap(_.boolAtIndex(index))
+  def boolAtStsIndex(index: Int): EMonOld[Boolean] = thisString.parseStatementsOld.flatMap(_.boolAtIndexOld(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
-  def longAtStsIndex(index: Int): EMonOld[Long] = thisString.parseStatementsOld.flatMap(_.longAtIndex(index))
+  def longAtStsIndex(index: Int): EMonOld[Long] = thisString.parseStatementsOld.flatMap(_.longAtIndexOld(index))
 
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findTypeOld[A].forGood(f)
 
