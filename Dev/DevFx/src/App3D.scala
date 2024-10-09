@@ -3,15 +3,13 @@ package ostrat; package pFx
 import utiljvm._, javafx.scene._, javafx.stage._, canvas._
 
 object App3D
-{
-  def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart3D], args*)
+{ def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart3D], args*)
 }
 
 class AppStart3D extends javafx.application.Application
 {
   override def start(primaryStage: Stage): Unit =
-  {
-    deb("Hi")
+  { deb("Hi")
     val bounds = Screen.getPrimary.getVisualBounds
     val canvWidth: Double = findDevSettingElse("displayWidth", bounds.getWidth - 8)
     val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight - 40)
@@ -26,7 +24,7 @@ class AppStart3D extends javafx.application.Application
     root.getChildren.add(sphere)
     val jScene = new Scene(root, canvWidth, canvHeight)
     jScene.setCamera(camera)
-    val sett = findDevSettingTOld[String]("appStr")
+    val sett = findDevSettingT[String]("appStr")
     primaryStage.setTitle("3D App")
     primaryStage.setScene(jScene)
     primaryStage.show
