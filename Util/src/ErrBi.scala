@@ -64,20 +64,23 @@ object ErrBi
 
   implicit class ErrBiStringImplicit[E <: Throwable](thisErrBi: ErrBi[E, String])
   { /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON. */
-    def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisErrBi.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+    def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisErrBi.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))
 
-//    def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
-//
-//    def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
-//
-//    def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): EMonOld[A] =
-//      thisThrowMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findSettingOld[A](settingStr)))
-//
-//    def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
-//
-//    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
-//
-//    def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
+    /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON or return the elseValue if that fails. */
+    def findTypeElse[A](elseValue: => A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
+
+    /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON and then perform a foreach on the value
+     *  if successful. */
+    def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forSucc(f)
+
+    def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] =
+      thisErrBi.flatMap(str => stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
+
+    def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
+
+    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+
+    def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }  
 }
 
