@@ -30,11 +30,15 @@ package object utiljvm
   
   def projPathProcOld(f: DirPathAbs => Unit): Unit = findDevSettingTOld[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
 
-  //def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
+  def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
 
-  def openstratPath(): EMonOld[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
+  def openstratPathOld(): EMonOld[DirPathAbs] = findDevSettingTOld[DirPathAbs]("projPath")
 
-  def sbtDirPath(): EMonOld[String] = openstratPath().map(_.str / "Dev/SbtDir")
+  def openstratPath(): ThrowMon[DirPathAbs] = findDevSettingT[DirPathAbs]("projPath")
+
+  def sbtDirPathOld(): EMonOld[String] = openstratPathOld().map(_.str / "Dev/SbtDir")
+
+  def sbtDirPath(): ThrowMon[String] = openstratPath().map(_.str / "Dev/SbtDir")
 
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
