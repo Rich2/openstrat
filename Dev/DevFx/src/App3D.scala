@@ -13,13 +13,13 @@ class AppStart3D extends javafx.application.Application
   {
     deb("Hi")
     val bounds = Screen.getPrimary.getVisualBounds
-    val canvWidth: Double = findDevSettingElseOld("displayWidth", bounds.getWidth - 8)
-    val canvHeight = findDevSettingElseOld("displayHeight", bounds.getHeight - 40)
+    val canvWidth: Double = findDevSettingElse("displayWidth", bounds.getWidth - 8)
+    val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight - 40)
     val canvasCanvas: Canvas = new Canvas(canvWidth, canvHeight)
     val root = new Group()
     
-    primaryStage.setX(findDevSettingElseOld("displayX", 0))//Sets default x value
-    primaryStage.setY(findDevSettingElseOld("displayY", 0))//Should set y value but is not working on Linux
+    primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
+    primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val camera = new PerspectiveCamera
     camera.translateZProperty.set(-1000)
     val sphere = new shape.Sphere(150)

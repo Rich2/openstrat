@@ -12,13 +12,13 @@ class AppStart extends application.Application
 {
   override def start(primaryStage: Stage): Unit =
   { val bounds = stage.Screen.getPrimary.getVisualBounds
-    val canvWidth: Double = findDevSettingElseOld("displayWidth", bounds.getWidth - 8)
-    val canvHeight = findDevSettingElseOld("displayHeight", bounds.getHeight)
+    val canvWidth: Double = findDevSettingElse("displayWidth", bounds.getWidth - 8)
+    val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight)
     val canvasCanvas: Canvas = new Canvas(canvWidth, canvHeight)
     val root = new Group()
     root.getChildren.add(canvasCanvas)
-    primaryStage.setX(findDevSettingElseOld("displayX", 0))//Sets default x value
-    primaryStage.setY(findDevSettingElseOld("displayY", 0))//Should set y value but is not working on Linux
+    primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
+    primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     //val eExprOld: EMonOld[AssignMemExpr] = findDevSettingExprOld("appSet")
     val eExpr: ThrowMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")

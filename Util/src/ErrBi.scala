@@ -23,11 +23,13 @@ sealed trait ErrBi[+E <: Throwable, +A]
   /** Alternative fold, that only takes one parameter list. this [[ErrBi]] into a type B. Takes two function parameters, one converts from A to B as in a normal
    *  map method. The second parameter in its own parameter list converts from the Error type to type B. */
   @inline def fld[B](fFail: E => B, fSucc: A => B): B
-  
 
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid unnecessary boxing
    * of primitive values. */
-  def getElse(elseValue: A @uncheckedVariance): A
+  final def getElse(elseValue: A @uncheckedVariance): A = this match{
+    case Succ(a) => a
+    case _ => elseValue
+  }
 
   /** Returns this if success, else returns the other [[ErrBi]]. */
   def succOrOther[EE >: E <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA] @uncheckedVariance): ErrBi[EE, AA]
@@ -75,7 +77,6 @@ class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def forSucc(f: A => Unit): Unit = f(value)
   override def fold[B](fFail: Nothing => B)(fSucc: A => B): B = fSucc(value)
   override def fld[B](fFail: Nothing => B, fSucc: A => B): B = fSucc(value)
-  override def getElse(elseValue: A @uncheckedVariance): A = value
   override def succOrOther[EE >: Nothing <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = this
   override def forFold(fErr: Nothing => Unit)(fSucc: A => Unit): Unit = fSucc(value)
 }
@@ -98,7 +99,6 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def forSucc(f: Nothing => Unit): Unit = {}
   override def fold[B](fFail: E => B)(fSucc: Nothing => B): B = fFail(error)
   override def fld[B](fFail: E => B, fSucc: Nothing => B): B = fFail(error)
-  override def getElse(elseValue: Nothing): Nothing = elseValue
   override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
   override def forFold(fErr: E => Unit)(fSucc: Nothing => Unit): Unit = fErr(error)
 }

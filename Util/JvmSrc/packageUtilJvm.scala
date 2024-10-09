@@ -23,12 +23,10 @@ package object utiljvm
   def findDevSettingT[A: Unshow](settingStr: String): ThrowMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
-  def findDevSettingElseOld[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr)).getElse(elseValue)
+  //def findDevSettingElseOld[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatementsOld.flatMap(_.findSettingOld(settingStr)).getElse(elseValue)
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
-  
-  def projPathProcOld(f: DirPathAbs => Unit): Unit = findDevSettingTOld[DirPathAbs]("projPath").forGoodForBad { path => f(path) } { strArr => deb(strArr.mkStr(",")) }
 
   def projPathProc(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
 
