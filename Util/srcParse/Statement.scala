@@ -227,7 +227,11 @@ object Statement
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: EMonOld[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
+    def findIntArrayOld: EMonOld[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
+
+    /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
+     * Expr[Array[Int]]. */
+    def findIntArray: ExcMon[Array[Int]] = ??? // Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
     def findSettingIntOld(settingStr: String): EMonOld[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)

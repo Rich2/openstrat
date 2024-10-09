@@ -17,7 +17,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def parseStatementsOld: EArr[Statement] = parseTokensOld.flatMap(pParse.tokensToStatementsOld(_))
 
   /** Parses this [[String]] into RSON statements. */
-  def parseStatements: ExcMonArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  def parseStatements: ExcMonRArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
   def parseExprOld: EMonOld[Expr] = parseTokensOld.flatMap(pParse.tokensToExprOld(_))
@@ -90,36 +90,45 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Tries to parse this String as a [[Long]] expression. */
   def asLong: EMonOld[Long] = asType[Long]
 
-  def findIntArray: EMonOld[Array[Int]] = thisString.parseStatementsOld.flatMap(_.findIntArray)
+  def findIntArray: EMonOld[Array[Int]] = thisString.parseStatementsOld.flatMap(_.findIntArrayOld)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSetting[T: Unshow](settingStr: String): EMonOld[T] = thisString.parseStatementsOld.flatMap(_.findSettingOld[T](settingStr))
+  def findSettingOld[T: Unshow](settingStr: String): EMonOld[T] = thisString.parseStatementsOld.flatMap(_.findSettingOld[T](settingStr))
+
+  /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
+  def findSetting[T: Unshow](settingStr: String): ExcMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+
+  /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
+  def findSettingElseOld[T: Unshow](settingStr: String, elseValue: T): T = findSettingOld[T](settingStr).getElse(elseValue)
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
 
   /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findIntSetting(settingStr: String): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.findSettingIntOld(settingStr))
+  def findIntSettingOld(settingStr: String): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.findSettingIntOld(settingStr))
 
-  /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as
-   * RSON Statements. */
+  /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
+  def findIntSetting(settingStr: String) = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))
+
+  /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as RSON
+   * Statements. */
   def findIntSettingElse(settingStr: String, elseValue: Int): Int = findIntSetting(settingStr).getElse(elseValue)
 
-  /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
-   *  RSON Statements. */
-  def findDblSetting(settingStr: String): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.findSettingDblOld(settingStr))
+  /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as RSON
+   * Statements. */
+  def findDblSetting(settingStr: String) = thisString.parseStatements.flatMap(_.findSettingDbl(settingStr))
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
   def findDblSettingElse(settingStr: String, elseValue: Double): Double = findDblSetting(settingStr).getElse(elseValue)
 
-  /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
-   *  RSON Statements. */
-  def findBoolSetting(settingStr: String): EMonOld[Boolean] = thisString.parseStatementsOld.flatMap(_.findSettingBoolOld(settingStr))
+  /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as RSON
+   * Statements. */
+  def findBoolSetting(settingStr: String): ExcMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
-  def findBoolSettingBool(settingStr: String, elseValue: Boolean): Boolean = findBoolSetting(settingStr).getElse(elseValue)
+  def findBoolSettingElse(settingStr: String, elseValue: Boolean): Boolean = findBoolSetting(settingStr).getElse(elseValue)
 
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other

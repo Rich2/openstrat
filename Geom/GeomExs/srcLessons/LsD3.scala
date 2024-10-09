@@ -19,12 +19,12 @@ object LsD3 extends LessonGraphics
     val middleBlock = SText(100, s2)
 
     val c0 = s2.findTypeOld[Boolean]
-    val c1 = s2.findSetting[Boolean]("Open")
+    val c1 = s2.findSettingOld[Boolean]("Open")
 
     /** Just a convenince method for the general one above. */
     val c2 = s2.findBoolSetting("Guilty")
 
-    val c3 = s2.findIntSetting("Posn")
+    val c3 = s2.findIntSettingOld("Posn")
 
     /** Again as [[Pt2]] is such a commonly used type, special methods have been created for convenience. */
     val c4 = s2.findSettingPt2("Posn")
