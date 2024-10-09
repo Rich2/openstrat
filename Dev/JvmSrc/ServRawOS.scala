@@ -12,7 +12,7 @@ object ServRawOS extends ServRaw
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")
         case JsPathNameStr(pathName) =>
         { deb("res" + pathName)
-          loadTextFile("res" + pathName) match
+          loadTextFileOld("res" + pathName) match
           { case Good(str) =>
             { deb("Js found Length = " + str.length.toString)
               HttpFound(httpNow, "localhost", HttpConTypeJs, str)

@@ -61,6 +61,24 @@ object ErrBi
   def map6[E <: Throwable, A1, A2, A3, A4, A5, A6, B](eb1: ErrBi[E, A1], eb2: ErrBi[E, A2], eb3: ErrBi[E, A3], eb4: ErrBi[E, A4], eb5: ErrBi[E, A5],
     eb6: ErrBi[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): ErrBi[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
+
+  implicit class EMonStringImplicit(thisThrowMon: ThrowMon[String])
+  {
+   // def findType[A](implicit ev: Unshow[A]): EMonOld[A] = thisThrowMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+
+//    def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
+//
+//    def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
+//
+//    def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): EMonOld[A] =
+//      thisThrowMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findSettingOld[A](settingStr)))
+//
+//    def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
+//
+//    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+//
+//    def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
+  }  
 }
 
 /** Success, boxes a good value of the desired type. */

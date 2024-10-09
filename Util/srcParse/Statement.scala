@@ -133,17 +133,20 @@ object Statement
       ev.keySettingFromStatementsOld(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findType)
+    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findTypeOld)
 
     /** Find idnetifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
 
-    /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
-    def findType[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
+    /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
+    def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
+
+    /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
+    //def findType[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGood(ev.fromStatementOld(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findTypeOld[A].getElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
@@ -197,11 +200,11 @@ object Statement
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
       eMon.fold(elseValue) { statements => ev.keySettingFromStatementsOld(statements, key).getElse(elseValue) }
 
-    def findType[A](implicit ev: Unshow[A]): EMonOld[A] = eMon.flatMap(_.findType[A])
+    def findType[A](implicit ev: Unshow[A]): EMonOld[A] = eMon.flatMap(_.findTypeOld[A])
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findType[A].getElse(elseValue))
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findTypeOld[A].getElse(elseValue))
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifier(settingStr: String): EMonOld[String] = eMon.flatMap {

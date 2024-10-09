@@ -39,20 +39,26 @@ package object utiljvm
   }
    
   /** Attempts to load text file into a [[String]]. */
-  def loadTextFile(pathFileName: String): EMonOld[String] = eTryOld(scala.io.Source.fromFile(pathFileName).mkString)
+  def loadTextFileOld(pathFileName: String): EMonOld[String] = eTryOld(scala.io.Source.fromFile(pathFileName).mkString)
+
+  /** Attempts to load text file into a [[String]]. */
+  def loadTextFile(pathFileName: String): ThrowMon[String] = eTry(scala.io.Source.fromFile(pathFileName).mkString)
 
   /** Attempts to load a value of the specified type from an RSON format file. */
-  def fromRsonFileFind[A: Unshow](fileName: String): EMonOld[A] = loadTextFile(fileName).findType[A]
+  def fromRsonFileFindOld[A: Unshow](fileName: String): EMonOld[A] = loadTextFileOld(fileName).findType[A]
+
+  /** Attempts to load a value of the specified type from an RSON format file. */
+  //def fromRsonFileFind[A: Unshow](fileName: String): ThrowMon[A] = loadTextFile(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
-  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
+  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFindOld(fileName).getElse(elseValue)
 
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
-  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forGood(f)
+  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFindOld(fileName).forGood(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
-  def settFromFile[A: Unshow](settingStr: String, fileName: String): EMonOld[A] = loadTextFile(fileName).findSetting[A](settingStr)
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): EMonOld[A] = loadTextFileOld(fileName).findSetting[A](settingStr)
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
