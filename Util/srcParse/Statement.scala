@@ -162,15 +162,21 @@ object Statement
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
-    def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
+    def typeAtIndexOld[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
       ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))
+
+    /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
+    def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]) =
+    { val st = statements(index)
+      ife(statements.length > index, ev.fromStatement(st), st.failExc("No statement at given index."))
+    }
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def intAtIndexOld(index: Int): EMonOld[Int] =
       ife(statements.length > index, Unshow.intEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def intAtIndexd(index: Int): ExcMon[Int] =
+    def intAtIndex(index: Int): ExcMon[Int] =
     { val st = statements(index)
       ife(statements.length > index, Unshow.intEv.fromStatement(st), st.failExc("No statement at given index."))
     }

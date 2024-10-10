@@ -34,8 +34,8 @@ object IntTokenTest extends TestSuite
     "Find / as Int" -
     { "17".findTypeOld[Int] ==> Good(17)
       "17".asNat ==> Good(17)
-      st1.intAtStsIndex(1) ==> Good(17)
-      st1.intAtStsIndex(1) ==> Good(17)
+      st1.intAtStsIndexOld(1) ==> Good(17)
+      st1.intAtStsIndexOld(1) ==> Good(17)
       "true".asBoolOld ==> Good(true)
       st1.findTypeOld[Boolean].isGood ==> false
       "17; -17".findTypeOld[Int].isBad ==> true
