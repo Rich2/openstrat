@@ -45,9 +45,9 @@ object LatLongTest extends TestSuite
     test("Latlong Persist")
     {
       ll1.str ==> "44.00N, 46.00E"
-      "LatLong(44; 46)".asType[LatLong] ==> Good(ll1)
-      "44; 46".asType[LatLong] ==> Good(ll1)
-      "-5, -40".asType[LatLong] ==> Good(ll4)
+      "LatLong(44; 46)".asTypeOld[LatLong] ==> Good(ll1)
+      "44; 46".asTypeOld[LatLong] ==> Good(ll1)
+      "-5, -40".asTypeOld[LatLong] ==> Good(ll4)
     }
   }
 }

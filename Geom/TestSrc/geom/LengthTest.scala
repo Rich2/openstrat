@@ -8,7 +8,7 @@ object LengthTest  extends TestSuite
     val ts1 = "4.3km".toTokens
     debvar(ts1)
     test("Length 1"){
-      "4km".asType[Kilometres] ==> Good(Kilometres(4))
+      "4km".asTypeOld[Kilometres] ==> Good(Kilometres(4))
       ts1.isGood ==> true
     }
   }

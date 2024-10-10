@@ -28,9 +28,9 @@ object PersistCollectionsTest  extends TestSuite
     val s2 = "Seq(1; 2; 3)"
     
     test("List2")
-    { "Seq(1; 2; 3)".asType[List[Int]] ==> Good(List(1, 2, 3))
-      "Seq[1; 2; 3]".asType[List[Int]].isBad ==> true
-      "What(1; 2; 3)".asType[List[Int]].isBad ==> true
+    { "Seq(1; 2; 3)".asTypeOld[List[Int]] ==> Good(List(1, 2, 3))
+      "Seq[1; 2; 3]".asTypeOld[List[Int]].isBad ==> true
+      "What(1; 2; 3)".asTypeOld[List[Int]].isBad ==> true
       "Seq[Int](1; 2; 3)".findTypeOld[List[Int]] ==> Good(List(1, 2, 3))
 
       s2.findTypeOld[List[Double]] ==> Good(List(1.0, 2, 3))

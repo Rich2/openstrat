@@ -10,10 +10,10 @@ object EPersistTest  extends TestSuite
 
     test("Test E1")
     {  r1.str ==> rs1
-      "Land(Level; Temperate; MixedUse)".asType[Land] ==> Good(Land())
-      "Land(Level; Temperate)".asType[Land] ==> Good(Land())
-      "Land(Level)".asType[Land] ==> Good(Land())
-      "Land()".asType[Land] ==> Good(Land())
+      "Land(Level; Temperate; MixedUse)".asTypeOld[Land] ==> Good(Land())
+      "Land(Level; Temperate)".asTypeOld[Land] ==> Good(Land())
+      "Land(Level)".asTypeOld[Land] ==> Good(Land())
+      "Land()".asTypeOld[Land] ==> Good(Land())
       //rs1.asType[HCenRowLayer[WTile]] ==> Good(r1)
       4 ==> 4
     }

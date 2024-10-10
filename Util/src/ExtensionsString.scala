@@ -55,51 +55,51 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findTypeOld[A].forGood(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
-  def asType[A](implicit ev: Unshow[A]): EMonOld[A] = parseExprOld.flatMap(g => ev.fromExprOld(g))
+  def asTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = parseExprOld.flatMap(g => ev.fromExprOld(g))
+
+  /** Attempts to parse this [[String]] into an RSON expression of the given type. */
+  def asType[A](implicit ev: Unshow[A]) = parseExpr.flatMap(ev.fromExpr(_))
 
   /** Replaces newline characters into space characters. */
   def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asDbl: EMonOld[Double] = asType[Double]
+  def asDbl: EMonOld[Double] = asTypeOld[Double]
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asPosDbl: EMonOld[Double] = asType[Double](Unshow.posDoubleEv)
+  def asPosDbl: EMonOld[Double] = asTypeOld[Double](Unshow.posDoubleEv)
 
   /** Tries to parse this String as an [[Int]] expression. */
-  def asInt: EMonOld[Int] = asType[Int]
+  def asInt: EMonOld[Int] = asTypeOld[Int]
 
-  /** Tries to parse this String as a natural non negative [[Int]] expression. */
-  def asNat: EMonOld[Int] = asType[Int](Unshow.natEv)
+  /** Tries to parse this String as a natural non-negative [[Int]] expression. */
+  def asNat: EMonOld[Int] = asTypeOld[Int](Unshow.natEv)
 
   /** Tries to parse this String as an [[Int]] in hexadecimal format expression. */
-  def asHexaInt: EMonOld[Int] = asType(Unshow.hexaIntEv)
+  def asHexaInt: EMonOld[Int] = asTypeOld(Unshow.hexaIntEv)
 
   /** Tries to parse this String as a natural non negative [[Int]] in hexadecimal format expression. */
-  def asHexaNat: EMonOld[Int] = asType(Unshow.hexaNatEv)
+  def asHexaNat: EMonOld[Int] = asTypeOld(Unshow.hexaNatEv)
 
   /** Tries to parse this String as an [[Int]] in base32 format expression. */
-  def asBase32Int: EMonOld[Int] = asType(Unshow.base32IntEv)
+  def asBase32Int: EMonOld[Int] = asTypeOld(Unshow.base32IntEv)
 
   /** Tries to parse this String as a natural non negative [[Int]] in base32 format expression. */
-  def asBase32Nat: EMonOld[Int] = asType(Unshow.base32NatEv)
+  def asBase32Nat: EMonOld[Int] = asTypeOld(Unshow.base32NatEv)
 
   /** Tries to parse this String as a [[Boolean]] expression. */
-  def asBool: EMonOld[Boolean] = asType[Boolean]
+  def asBool: EMonOld[Boolean] = asTypeOld[Boolean]
 
   /** Tries to parse this String as a [[Long]] expression. */
-  def asLong: EMonOld[Long] = asType[Long]
+  def asLong: EMonOld[Long] = asTypeOld[Long]
 
-  def findIntArray: EMonOld[Array[Int]] = thisString.parseStatementsOld.flatMap(_.findIntArrayOld)
+  def findIntArray: ErrBi[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
   def findSettingOld[T: Unshow](settingStr: String): EMonOld[T] = thisString.parseStatementsOld.flatMap(_.findSettingOld[T](settingStr))
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
   def findSetting[T: Unshow](settingStr: String): ExcMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
-
-  /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
-  def findSettingElseOld[T: Unshow](settingStr: String, elseValue: T): T = findSettingOld[T](settingStr).getElse(elseValue)
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)

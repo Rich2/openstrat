@@ -17,7 +17,7 @@ object HGridTest extends TestSuite
 
     val ig1: HGridGen = HGridGen.fromTop(6, (2, 10), (4, 8), (6, 6))
     val ig1Str = "HGridIrr(2, 6, 6; 4, 4, 8; 6, 2, 10)"
-    val eg1 = ig1Str.asType[HGridGen]
+    val eg1 = ig1Str.asTypeOld[HGridGen]
 
     test("test HGrid Irr")
     { ig1.str ==> ig1Str

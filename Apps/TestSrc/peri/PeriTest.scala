@@ -10,8 +10,8 @@ object Peri extends TestSuite
     
     test("Path")
     {  army1.str ==> str1
-      "NRed".asType[Nation](Nation.unshowEv(NRed)) ==> Good(NRed)
-      str1.asType[Army](Army.unshowEv(NRed)) ==> Good(army1)
+      "NRed".asTypeOld[Nation](Nation.unshowEv(NRed)) ==> Good(NRed)
+      str1.asTypeOld[Army](Army.unshowEv(NRed)) ==> Good(army1)
     }
   }
 }

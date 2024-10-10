@@ -14,9 +14,9 @@ object HCenTest extends TestSuite
   val tests = Tests {
     test("test1")
     { hc1.str ==> hcs1
-      hcs1.asType[HCen] ==> Good(hc1)
+      hcs1.asTypeOld[HCen] ==> Good(hc1)
       arr1.str ==> arrStr1
-      assert(arrStr1.asType[HCenArr] === Good(arr1))
+      assert(arrStr1.asTypeOld[HCenArr] === Good(arr1))
     }
   }
 }

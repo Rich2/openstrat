@@ -16,14 +16,14 @@ object G1Scen1Test extends TestSuite
     val lr1 = LayerHcOptRow(8, CounterA, CounterB)
     test("os1")
     { g1.str ==> g1Str
-      g1Str.asType[HGridRect] ==> Good(g1)
+      g1Str.asTypeOld[HGridRect] ==> Good(g1)
       lr1.numTiles ==> 2
       lr1.arrayUnsafe(0) ==> CounterA
       lr1.str ==> "HRow(8; CounterA; CounterB)"
       hr1.str ==> "HRow(4; CounterA; ; ; CounterB)"
       LayerHcOptRow[Counter](4, CounterA, None * 2, CounterB, None).str ==> "HRow(4; CounterA; ; ; CounterB; ;)"
-      "HRow(4; CounterA; CounterB; CounterC)".asType[LayerHcOptRow[Counter]] ==> Good(hr2)
-      assert("HRow(4; CounterA; CounterB; CounterD)".asType[LayerHcOptRow[Counter]] != Good(hr2))
+      "HRow(4; CounterA; CounterB; CounterC)".asTypeOld[LayerHcOptRow[Counter]] ==> Good(hr2)
+      assert("HRow(4; CounterA; CounterB; CounterD)".asTypeOld[LayerHcOptRow[Counter]] != Good(hr2))
       //"HRow(4; CounterA; ; ; CounterB)".asType[LayerHcOptRow[Counter]] ==> Good(hr1)
     }
   }
