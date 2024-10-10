@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.Maghreb]]. */
+/** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.MaghrebEast]]. */
 object SaharaWest extends EarthArea("SaharaWest", 22 ll -5.50, deshot)
 { val southWest: LatLong = 17 ll -16.27
   val nouakchott: LatLong = 18.078 ll -16.02
@@ -13,8 +13,8 @@ object SaharaWest extends EarthArea("SaharaWest", 22 ll -5.50, deshot)
   val p80: LatLong = 28.741 ll -11.074
   val p90: LatLong = 29.235 ll -10.328
 
-  override val polygonLL: PolygonLL = PolygonLL(pMed.Maghreb.southEast, pMed.SaharaCentral.southWest, southWest, nouakchott, nouadhibouBay,
-    nouadhibou, nou2, boujdour, p80, p90, pMed.Maghreb.agadir)
+  override val polygonLL: PolygonLL = PolygonLL(pMed.MaghrebEast.southEast, pMed.SaharaCentral.southWest, southWest, nouakchott, nouadhibouBay,
+    nouadhibou, nou2, boujdour, p80, p90, pMed.MaghrebWest.agadir, pMed.MaghrebWest.southEast)
 }
 
 /** [[PolygonLL]] graphic for the south of west Africa, south of the Sahara depends on [[SaharaWest]]. */

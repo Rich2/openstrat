@@ -62,9 +62,9 @@ object Terr160E0 extends Long160Terrs
     VRow(263, OrigRt(490, HVUp, 7), OrigMin(512, HVUR), BendIn(514, HVUL, 13)),
     TRow(262, sea * 3, subtrop * 2, hillySub * 3),
     VRow(261, BendIn(490, HVDR, 13), OrigMin(492, HVDL, 5), OrigLt(538, HVDn, 7)),
-    TRow(260, sea * 2, hillySubForest, hillySavannah, savannah, hillySavannah * 2, sea * 7, hillySavannah * 2),
-    VRow(259, BendIn(490, HVUR, 13), OrigRt(492, HVUL), BendIn(538, HVUR, 13)),
-    TRow(258, sea * 4, hillySavannah, mtainSavannah, sea * 2, mtainSavannah),
+    TRow(260, sea * 2, hillySubForest, hillySavannah, savannah, hillySavannah * 2, sea * 5, hillySavannah, sea, hillySavannah * 2),
+    VRow(259, BendIn(490, HVUR, 13), OrigRt(492, HVUL), BendIn(538, HVUR, 13), BendIn(540, HVUp, 13), OrigMin(542, HVDL)),
+    TRow(258, sea * 4, hillySavannah, mtainSavannah, sea * 2, mtainSavannah, hillySavannah * 4, hillySahel),
     )
   }
   help.run
