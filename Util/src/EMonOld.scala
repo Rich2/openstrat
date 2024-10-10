@@ -106,8 +106,8 @@ object EMonOld
 
   implicit class EMonSeqGen[A, S <: Sequ[A]](thisES: EMonOld[S])
   {
-    /** Method on EMon[SeqGen[A]]. If this is good, the sequence is mapped with a function from A to EMon[B]. If that mapping produces on Good value,
-     * the unique Good value is returned.*/
+    /** Method on EMon[SeqGen[A]]. If this is good, the sequence is mapped with a function from A to EMon[B]. If that mapping produces on Good value, the unique
+     *  Good value is returned.*/
     def seqMapUniqueGood[B](f: A => EMonOld[B]): EMonOld[B] = thisES.flatMap{ thisSeq =>
       var count = 0
       var acc: EMonOld[B] = badNone[B]("No elem of type found")

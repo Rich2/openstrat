@@ -13,8 +13,8 @@ object ParseTest extends TestSuite
       "-4".findTypeOld[Int] ==> Good(-4)
       settingStr.findSettingOld[Int]("x") ==> Good(-5)
       settingStr.findSettingOld[Int]("y") ==> Good(7)
-      settingStr.findIntSettingOld("y") ==> Good(7)
-      settingStr.findTypeOld[Boolean] ==> Good(true)
+      settingStr.findIntSetting("y") ==> Succ(7)
+      settingStr.findType[Boolean] ==> Succ(true)
     }
     val oi: Option[Int] = Some(50)
 

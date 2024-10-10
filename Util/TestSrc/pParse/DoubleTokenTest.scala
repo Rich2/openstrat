@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._
 
@@ -13,7 +13,7 @@ object DoubleTokenTest extends TestSuite
 
   val xeqStr = "x = 0.4"
   val xSts: EArr[Statement] = xeqStr.parseStatementsOld
-  val xDbl: EMonOld[Double] = xeqStr.findDblSettingOld("x")
+  val xDbl: ErrBi[Exception, Double] = xeqStr.findDblSetting("x")
   val s51 = "51.1"
 
   val tests = Tests {
@@ -38,7 +38,7 @@ object DoubleTokenTest extends TestSuite
 
     test("Test 2")
     { assertMatch(xSts) { case Good(Arr1(_)) => }
-      assertMatch(xDbl) { case Good(0.4) => }
+      assertMatch(xDbl) { case Succ(0.4) => }
     }
   }
 

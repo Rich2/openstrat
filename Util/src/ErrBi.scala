@@ -81,11 +81,11 @@ object ErrBi
     def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
 
     def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
-  }  
+  }
 }
 
 /** Success, boxes a good value of the desired type. */
-class Succ[+A](val value: A) extends ErrBi[Nothing, A]
+case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
 { override def map[B](f: A => B): ErrBi[Nothing, B] = new Succ[B](f(value))
 
   override def flatMap[EE <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B] = f(value) match

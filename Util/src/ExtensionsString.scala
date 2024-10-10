@@ -28,8 +28,11 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatementOld(st))
 
+  /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
+  def findType[A](implicit ev: Unshow[A]): ErrBi[Exception, A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }
+
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
-  def findTypeElse[A: Unshow](elseValue: => A): A = findTypeOld[A].getElse(elseValue)
+  def findTypeElseOld[A: Unshow](elseValue: => A): A = findTypeOld[A].getElse(elseValue)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
   def typeAtStsIndex[A: Unshow](index: Int): EMonOld[A] = thisString.parseStatementsOld.flatMap(_.typeAtIndex[A](index))
@@ -85,10 +88,10 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asBase32Int: EMonOld[Int] = asTypeOld(Unshow.base32IntEv)
 
   /** Tries to parse this String as a natural non negative [[Int]] in base32 format expression. */
-  def asBase32Nat: EMonOld[Int] = asTypeOld(Unshow.base32NatEv)
+  def asBase32NatOld: EMonOld[Int] = asTypeOld(Unshow.base32NatEv)
 
   /** Tries to parse this String as a [[Boolean]] expression. */
-  def asBool: EMonOld[Boolean] = asTypeOld[Boolean]
+  def asBoolOld: EMonOld[Boolean] = asTypeOld[Boolean]
 
   /** Tries to parse this String as a [[Long]] expression. */
   def asLong: EMonOld[Long] = asTypeOld[Long]

@@ -5,8 +5,7 @@ import utest._, pParse._
 object LengthTest  extends TestSuite
 {
   val tests = Tests {
-    val ts1 = "4.3km".toTokens
-    debvar(ts1)
+    val ts1 = "4.3km".toTokens    
     test("Length 1"){
       "4km".asTypeOld[Kilometres] ==> Good(Kilometres(4))
       ts1.isGood ==> true
