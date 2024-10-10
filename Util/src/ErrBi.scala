@@ -112,7 +112,7 @@ object Succ
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
-case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
+class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
 { override def map[B](f: Nothing => B): ErrBi[E, B] = this
   override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this// new Fail[E, B](error)
   override def isSucc: Boolean = false
@@ -122,6 +122,24 @@ case class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def fld[B](fFail: E => B, fSucc: Nothing => B): B = fFail(error)
   override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
   override def forFold(fErr: E => Unit)(fSucc: Nothing => Unit): Unit = fErr(error)
+
+  override def equals(obj: Any): Boolean = obj match{
+    case fail: Fail[?] => error == fail.error
+    case _ => false
+  }
+
+  override def hashCode(): Int = "Fail".hashCode + 31 * error.hashCode
+}
+
+object Fail
+{ /** Factory apply method for [[Fail].] */
+  def apply[E <: Throwable](error: E): Fail[E] = new Fail[E](error)
+
+  /** Extractor unapply method for [[Fail]]. */
+  def unapply[E <: Throwable](inp: ErrBi[E, ?]): Option[E] = inp match{
+    case fail: Fail[E] => Some(fail.error)
+    case _ => None
+  }
 }
 
 /** A Throwable error monad. */
@@ -135,33 +153,6 @@ type ThrowMonRArr[+A] = ErrBi[Throwable, RArr[A]]
 
 /** An [[Exception]] error monad. */
 type ExcMon[+A] = ErrBi[Exception, A]
-
-/** Exception from a find search for a type. */
-sealed trait ExcFind extends Exception
-
-/** A [[Fail]] with [[Exception]] type. */
-type FailExc = Fail[Exception]
-object ExcNotFound extends Exception("Not found") with ExcFind
-
-object NotFound
-{ def apply(): Fail[ExcNotFound.type] = Fail(ExcNotFound)
-}
-
-/** [[ExcNotFound]] singleton type. */
-type ExcNFT = ExcNotFound.type
-
-/** [[ExcNotFound]] error monad. */
-type ExcNFTMon[+A] = ErrBi[ExcNFT, A]
-
-/** A [[Fail]] with a not found Exception. */
-object FailNotFound extends Fail(ExcNotFound)
-
-/** A found multiple values of type [[Exception]]. */
-case class ExcFoundMulti(val num: Int) extends Exception(s"$num values of type found.") with ExcFind
-
-/** A found multiple values of type [[Fail]], */
-class FailFoundMulti(num: Int) extends Fail(ExcFoundMulti(num))
-
 
 object FailExc
 {

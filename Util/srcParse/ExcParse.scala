@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** Parser [[Exception]]. */
-trait ExcParse extends Exception
+trait ExcParse extends ExcPersist
 
 object ExcParse
 { def apply(message: String): ExcParse = new Exception(message) with ExcParse

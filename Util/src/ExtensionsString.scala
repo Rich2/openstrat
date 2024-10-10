@@ -38,24 +38,18 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def typeAtStsIndexOld[A: Unshow](index: Int): EMonOld[A] = thisString.parseStatementsOld.flatMap(_.typeAtIndexOld[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
-  //def typeAtStsIndex[A: Unshow](index: Int) = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
-
-  /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def dblAtStsIndexOld(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.dblAtIndexOld(index))
+  def typeAtStsIndex[A: Unshow](index: Int) = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
   def dblAtStsIndex(index: Int): ErrBi[Exception, Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsIndexOld(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.intAtIndexOld(index))
+  def intAtStsIndex(index: Int): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsInde(index: Int): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
+  def natAtStsIndex(index: Int) = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int): EMonOld[Int] = thisString.parseStatementsOld.flatMap(_.natIntAtIndexOLd(index))
-
-  /** Parses this [[String]] into EMon statements and tries to get a positive, non negative [[Double]] value from the Statement given by the index. */
+  /** Parses this [[String]] into EMon statements and tries to get a positive, non-negative [[Double]] value from the Statement given by the index. */
   def posDblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.posDblAtIndexOld(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */

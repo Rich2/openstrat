@@ -168,7 +168,7 @@ object Statement
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]) =
     { val st = statements(index)
-      ife(statements.length > index, ev.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, ev.fromStatement(st), FailNoExprAtN(index, ev))
     }
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -178,7 +178,7 @@ object Statement
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def intAtIndex(index: Int): ExcMon[Int] =
     { val st = statements(index)
-      ife(statements.length > index, Unshow.intEv.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, Unshow.intEv.fromStatement(st), FailNoExprAtN(index, Unshow.intEv))
     }
 
     /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -188,7 +188,7 @@ object Statement
     /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def natIntAtIndex(index: Int): ExcMon[Int] =
     { val st = statements(index)
-      ife(statements.length > index, Unshow.natEv.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, Unshow.natEv.fromStatement(st), FailNoExprAtN(index, Unshow.natEv))
     }
 
     /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -198,7 +198,7 @@ object Statement
     /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def dblAtIndex(index: Int) =
     { val st = statements(index)
-      ife(statements.length > index, Unshow.doubleEv.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, Unshow.doubleEv.fromStatement(st), FailNoExprAtN(index, Unshow.doubleEv))
     }
 
     /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -208,7 +208,7 @@ object Statement
     /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def posDblAtIndex(index: Int) =
     { val st = statements(index)
-      ife(statements.length > index, Unshow.posDoubleEv.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, Unshow.posDoubleEv.fromStatement(st), FailNoExprAtN(index, Unshow.posDoubleEv))
     }
 
     /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -218,7 +218,7 @@ object Statement
     /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def boolAtIndex(index: Int) =
     { val st = statements(index)
-      ife(statements.length > index, Unshow.booleanEv.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, Unshow.booleanEv.fromStatement(st), FailNoExprAtN(index, Unshow.booleanEv))
     }
 
     /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[RArr]][Statement]. */
@@ -228,7 +228,7 @@ object Statement
     /** Extension methods tries to get an[[Long]] value from the statement at the specified index of this[[RArr]][Statement].*/
     def longAtIndex(index: Int): ExcMon[Long] =
     { val st = statements(index)
-      ife(statements.length > index, Unshow.longEv.fromStatement(st), st.failExc("No statement at given index."))
+      ife(statements.length > index, Unshow.longEv.fromStatement(st), FailNoExprAtN(index, Unshow.longEv))
     }
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to

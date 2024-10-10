@@ -18,7 +18,7 @@ object LsRson2 extends LessonGraphics
       7;
       Vec2(2.3; 3.2);
       "Goodbye" """
-    val t1 = tStr.intAtStsIndexOld(2)
+    val t1 = tStr.intAtStsIndex(2)
 
     /** Gives the same result as t1 as the Int value ar index 2 is unique. */
     val t2 = tStr.findTypeOld[Int]
@@ -34,7 +34,7 @@ object LsRson2 extends LessonGraphics
     val t6 = tStr.typeAtStsIndexOld[String](2)
 
     val t7 = tStr.findTypeOld[Pt2]
-    val t8 = tStr.dblAtStsIndexOld(0)
+    val t8 = tStr.dblAtStsIndex(0)
 
     val topStrs = RArr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
     val topBlock = MText(200, topStrs)
