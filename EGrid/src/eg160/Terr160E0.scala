@@ -3,6 +3,8 @@ package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
 /** 160km [[WTile]] terrain for 15° west to 15° east, centred on 0° east.
+ * [[Isle10]] 7815.879km² => 9547.930km² Corsica 8722 km2.
+ * [[Isle8]] 4871.392km² => 6257.033km² Balearic Islands 5040 km2 .
  * [[Isle5]] 1753.701km² => 2619.726km². Isle of Lewis 2224 km².
  * [[Isle4]] 1060.881km² => 1753.701km².
  * [[Isle3]] 541.265km² => 1060.881km². Isle of Man 572km².
@@ -58,7 +60,7 @@ object Terr160E0 extends Long160Terrs
     VRow(267, OrigLt(492, HVDn, 7), OrigRt(520, HVDn, 7)),
     TRow(266, sea * 2, hillyOce * 2, deshot, hillyDeshot * 2, hillyOce, hillySavannah, sea * 2, hillySavannah, sea * 2, hillySub),
     VRow(265, BendIn(490, HVDR, 13), BendOut(492, HVUL, 7), BendOut(514, HVDR), BendOut(516, HVDn, 7), BendIn(518, HVUp, 13), BendIn(520, HVUL, 13)),
-    TRow(264, sea * 2, hillySubForest, hillyOce * 2, hillyDeshot, hillyOce, hillyOce, sea, Isle10(hillyOce), sea * 2, hillySavannah, sea * 2),
+    TRow(264, sea * 2, hillySubForest, hillySub * 2, hillyDeshot, hillyOce, hillyOce, sea, Isle8(hillySavannah), sea * 2, hillySavannah, sea * 2),
     VRow(263, OrigRt(490, HVUp, 7), OrigMin(512, HVUR), BendIn(514, HVUL, 13), OrigLt(528, HVDn , 7)),
     TRow(262, sea * 3, subtrop * 2, hillySub * 3, sea * 4, hillySavannah),
 

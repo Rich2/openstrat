@@ -15,8 +15,10 @@ object Majorca extends EarthArea("Majorca", 39.59 ll 3.01, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
-object Corsica extends EarthArea("Corsica", 42.18 ll 9.17, hillyOce)
-{ val nCorsica: LatLong = 43.00 ll 9.42
+object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
+{ override val area: KilometresSq = 8680.kilometresSq
+
+  val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
   val p10: LatLong = 42.57 ll 9.53
   val olmuccia: LatLong = 41.69 ll 9.40

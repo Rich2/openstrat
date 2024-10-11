@@ -1,5 +1,20 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
+
+sealed trait NorthSouthUp
+{ def northUp: Boolean
+  def southUp: Boolean
+}
+
+object Northward extends NorthSouthUp
+{ override def northUp: Boolean = true
+  override def southUp: Boolean = false
+}
+
+object Southward extends NorthSouthUp
+{ override def northUp: Boolean = false
+  override def southUp: Boolean = true
+}
 
 /** A [[Latitude]] and [[Longitude]] class with a binary north / south direction. */
 class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn: Boolean) extends LatLongBase

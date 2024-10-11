@@ -77,9 +77,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     mainRepaint(seas %: fillActiveTexts ++ sideLines.+%(conns6) ++ locTexts)
   }
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
-      selected = cl.headOrNone
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) =>
+    { selected = cl.headOrNone
       statusText = selectedStr.oneLine
       thisTop()
     }

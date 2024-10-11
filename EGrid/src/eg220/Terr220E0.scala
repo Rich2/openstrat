@@ -3,7 +3,7 @@ package ostrat; package eg220
 import prid._, phex._, egrid._, WTiles._
 
 /** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 41915.629km².
- * [[Isle7]] 6917.716km² => 9209.977km². Zealand 7180km² shares its hex with Jutland. Corsica
+ * [[Isle7]] 6917.716km² => 9209.977km². Zealand 7180km² shares its hex with Jutland, Corsica 8680km².
  * [[Isle6]] 4952.921km² => 6917.716km². Balearic Islands 5040km²
  * [[Isle5]] 3315.591km² => 4952.921km².Mallorca 3640km².
  * [[Isle4]] 2005.728km² => 3315.591km². Outer Hebrides 3071km².

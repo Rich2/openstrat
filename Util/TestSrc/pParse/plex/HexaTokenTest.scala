@@ -48,14 +48,14 @@ object HexaTokenTest extends TestSuite
     }
 
     test("Raw Test")
-    { "10".asHexaInt ==> Good(16)
-      "1A".asHexaNat ==> Good(26)
-      "-5A".asHexaInt ==> Good(-90)
-      "-5A".asHexaNat.isBad ==> true
-      "C0".asHexaInt ==> Good(192)
-      "C0".asHexaNat ==> Good(192)
-      "-C0".asHexaInt ==> Good(-192)
-      "-C0".asHexaNat.isBad ==> true
+    { "10".asHexaInt ==> Succ(16)
+      "1A".asHexaNat ==> Succ(26)
+      "-5A".asHexaInt ==> Succ(-90)
+      "-5A".asHexaNat.isFail ==> true
+      "C0".asHexaInt ==> Succ(192)
+      "C0".asHexaNat ==> Succ(192)
+      "-C0".asHexaInt ==> Succ(-192)
+      "-C0".asHexaNat.isFail ==> true
     }
   }
 }
