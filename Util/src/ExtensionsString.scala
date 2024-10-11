@@ -47,13 +47,13 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def intAtStsIndex(index: Int): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int) = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
+  def natAtStsIndex(index: Int): ErrBi[Exception, Int] = thisString.parseStatements.flatMap(_.natIntAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a positive, non-negative [[Double]] value from the Statement given by the index. */
-  def posDblAtStsIndex(index: Int): EMonOld[Double] = thisString.parseStatementsOld.flatMap(_.posDblAtIndexOld(index))
+  def posDblAtStsIndex(index: Int): ErrBi[Exception, Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
-  def boolAtStsIndex(index: Int): EMonOld[Boolean] = thisString.parseStatementsOld.flatMap(_.boolAtIndexOld(index))
+  def boolAtStsIndex(index: Int) = thisString.parseStatements.flatMap(_.boolAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
   def longAtStsIndex(index: Int): EMonOld[Long] = thisString.parseStatementsOld.flatMap(_.longAtIndexOld(index))
