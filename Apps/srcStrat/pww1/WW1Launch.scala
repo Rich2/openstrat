@@ -10,10 +10,10 @@ object WW1Launch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (WW1Gui(_, WW1Scen1, WW1Scen1.defaultView()), "JavaFx WW1")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val num: Int = sts.findSettingElse("scen", 1)
-    val isFlat: Boolean = sts.findSettingElse("flat", false)
+  { val num: Int = sts.findSettingElseOld("scen", 1)
+    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySetting[Int, HGView](num)
+    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
 
     val scen: WW1Scen = num match
     { case 1 => WW1Scen1

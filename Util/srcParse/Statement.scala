@@ -149,17 +149,30 @@ object Statement
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMonOld[VT] = ev.keySettingFromStatementsOld(statements, key)
+    def findKeySettingOld[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMonOld[VT] = ev.keySettingFromStatementsOld(statements, key)
+
+    /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
+    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): ExcMon[VT] = ev.keySettingFromStatements(statements, key)
+
+    /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
+    def findKeySettingElseOld[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
+      ev.keySettingFromStatementsOld(statements, key).getElse(elseValue)
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      ev.keySettingFromStatementsOld(statements, key).getElse(elseValue)
+      ev.keySettingFromStatements(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findTypeOld)
+    def findSettingOrUniqueTOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findTypeOld)
 
-    /** Find idnetifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
+    /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
+    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): ErrBi[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
+
+    /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
+    def findSettingElseOld[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
+
+    /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
+    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
     def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGoodOld(ev.fromStatementOld(_))
@@ -252,9 +265,6 @@ object Statement
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
     def findIntArray: ExcMon[Array[Int]] = ??? // Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
-
-    /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    //def findSettingIntOld(settingStr: String): EMonOld[Int] = Unshow.intEv.settingFromStatementsOld(statements, settingStr)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
     def findSettingInt(settingStr: String): ExcMon[Int] = Unshow.intEv.settingFromStatements(statements, settingStr)

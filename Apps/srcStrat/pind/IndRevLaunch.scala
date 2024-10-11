@@ -10,10 +10,10 @@ object IndRevLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (IndRevGui(_, IndRevScen1, IndRevScen1.defaultView()), "JavaFx AD1783")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val num: Int = sts.findSettingElse("scen", 1)
-    val isFlat: Boolean = sts.findSettingElse("flat", false)
+  { val num: Int = sts.findSettingElseOld("scen", 1)
+    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySetting[Int, HGView](num)
+    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
 
     val scen: IndRevScen = num match
     { case 1 => IndRevScen1

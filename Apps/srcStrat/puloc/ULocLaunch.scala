@@ -11,14 +11,14 @@ object ULocLaunch extends GuiLaunchMore
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   {
     def multisett: EarthView =
-    { val scale = sts.findSettingElse[Double]("scale", 2)
-      val lat: Double = sts.findSettingElse("latitude", 50)
-      val long: Double = sts.findSettingElse("longitude", 10)
+    { val scale = sts.findSettingElseOld[Double]("scale", 2)
+      val lat: Double = sts.findSettingElseOld("latitude", 50)
+      val long: Double = sts.findSettingElseOld("longitude", 10)
       EarthView(lat ll long, scale.kiloMetres, true)
     }
 
     val view: EarthView = sts.findTypeOld[EarthView].getElse(multisett)
-    val oDate: EMonOld[MTime] = sts.findSettingOrUniqueT[MTime]("date")
+    val oDate: EMonOld[MTime] = sts.findSettingOrUniqueTOld[MTime]("date")
     val date = oDate.getElse(MTime(1930, 9, 15))
     (cv => ULocGui(cv, date, view), "JavaFx Unit Locations")
   }

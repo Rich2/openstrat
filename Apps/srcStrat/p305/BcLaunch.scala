@@ -10,10 +10,10 @@ object BcLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (BC305Gui(_, BCScen1, BCScen1.defaultView()), "JavaFx BC305")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val num: Int = sts.findSettingElse("scen", 1)
-    val isFlat: Boolean = sts.findSettingElse("flat", false)
+  { val num: Int = sts.findSettingElseOld("scen", 1)
+    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySetting[Int, HGView](num)
+    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
 
     val scen: BCScen = num match
     { case 1 => BCScen1
