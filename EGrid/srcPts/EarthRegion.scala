@@ -33,7 +33,7 @@ object EuropeSW extends EarthRegion("EuropeSw", 20 ll 0)
 
 object MediterreaneanWest extends EarthRegion("Mediterranean West", 35.78 ll 18.73)
 { import pMed._
-  override val a2Arr: RArr[EarthArea] = RArr(MaghrebWest, MaghrebEast, SaharaCentral, Canarias, Sicily, Balearics, Sardina, Corsica)
+  override val a2Arr: RArr[EarthArea] = RArr(MaghrebWest, MaghrebEast, SaharaCentral, Canarias, Sicily, Balearics, Sardinia, Corsica)
 }
 
 object MediterraneanEast extends EarthRegion("Mediterranean East", 35.78 ll 18.73)

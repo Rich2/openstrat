@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Balearics extends EarthAreaIsland("Balearics", 39.59 ll 3.01, oceanic)
+object Balearics extends EarthAreaIsland("Balearics", 39.59 ll 3.01, hillySavannah)
 { override def area: KilometresSq = 5040.kilometresSq
 
   val south: LatLong = 39.26 ll 3.05
@@ -35,8 +35,10 @@ object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
 }
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
-object Sardina extends EarthArea("Sardina", 40.12 ll 9.07, hillySub)
-{ val north: LatLong = 41.25 ll 9.23
+object Sardinia extends EarthAreaIsland("Sardinia", 40.12 ll 9.07, hillySub)
+{ override val area: KilometresSq = 24090.kilometresSq
+
+  val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82
   val p20: LatLong = 40.24 ll 9.62
   val capoMonteSanto: LatLong = 40.08 ll 9.74
@@ -56,7 +58,7 @@ object Sardina extends EarthArea("Sardina", 40.12 ll 9.07, hillySub)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EarthAreaIsland("Sicily", cen = 37.58 ll 14.27, oceanic)
+object Sicily extends EarthAreaIsland("Sicily", cen = 37.58 ll 14.27, hillySub)
 { override def area: KilometresSq = 25832.kilometresSq
 
   val sSicily: LatLong = 36.66 ll 15.08

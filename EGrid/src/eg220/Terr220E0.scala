@@ -74,10 +74,10 @@ object Terr220E0 extends Long220Terrs
     TRow(148, sea * 2, mtainSubForest, sahel, hillySavannah * 3, sea, hillySub, sea, hillyOce),
 
     VRow(147, BendIn(496, HVDR, 13), BendMin(498, HVUL), OrigLt(514, HVDR), BendIn(516, HVUp, 13), BendIn(518, HVUL, 13), BendIn(522, HVUR, 13),
-      BendOut(524, HVDL), OrigLt(530, HVDR, 7), OrigRt(532, HVUL, 7)),
+      BendOut(524, HVDL), OrigRt(528, HVDn, 7), OrigLt(530, HVDR, 7), OrigRt(532, HVUL, 7)),
 
     TRow(146, sea, hillySavannah, hillySub, hillySavannah * 2, sea, Isle6(hillySavannah), sea, hillyOce, sea * 2),
-    VRow(145, OrigRt(496, HVUp, 7), OrigRt(514, HVDn, 7), BendIn(530, HVDR, 10), OrigLt(532, HVDL, 7)),
+    VRow(145, OrigRt(496, HVUp, 7), OrigRt(514, HVDn, 7), BendIn(524, HVUR, 7), BendIn(526, HVUp), BendIn(528, HVUL), BendIn(530, HVDR, 10), OrigLt(532, HVDL, 7)),
     TRow(144, sea * 2, savannah, hillySavannah, hillySahel * 2, sea * 4, hillySavannah),
     VRow(143, OrigLt(500, HVDn, 7), BendIn(508, HVDR, 13), BendIn(510, HVDn, 13), BendMax(512, HVUp), BendInRt(514, HVUL, 13, 7), BendInLt(530, HVUR, 13, 2), ThreeDown(532, 10, 0, 13)),
     TRow(142, sea * 3, hillyOce, mtainSavannah, hillySavannah * 6, sea),
