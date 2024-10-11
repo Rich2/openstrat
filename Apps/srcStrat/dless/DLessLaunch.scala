@@ -25,7 +25,7 @@ object DLessLaunch extends GuiLaunchMore
     }
     val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExprOld(num)
     val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1 = sts2.findSettingIdentifierArr("nations")
+    val pls1 = sts2.findSettingIdentifierArrOld("nations")
     val plAll: RArr[Nation] = scen.nationSet
     val pls2: EMonOld[RArr[Nation]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.name.toLowerCase() == st.toLowerCase())) }
     val pls3: RArr[Nation] = pls2.getElse(scen.nationSet)

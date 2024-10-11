@@ -138,6 +138,8 @@ object Colour
       case _ => expr.exprParseErrOld[Colour](this)
     }
 
+    override def fromExpr(expr: Expr): ExcMon[Colour] = ???
+
     def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStrX)(c => c)
   }
 

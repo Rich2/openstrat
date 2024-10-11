@@ -29,7 +29,7 @@ object G1HLaunch extends GuiLaunchMore
 
     val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExprOld(num)
     val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1 = sts2.findSettingIdentifierArr("counters")
+    val pls1 = sts2.findSettingIdentifierArrOld("counters")
     val plAll: RArr[Counter] = scen.counterSet
     val pls2: EMonOld[RArr[Counter]] = pls1.map{arrA => arrA.optMap(st => plAll.find(_.charStr == st))}
     val pls3: RArr[Counter] = pls2.getElse(scen.counterSet)

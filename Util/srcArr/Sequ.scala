@@ -348,6 +348,17 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ife(continue, Good(acc.reverse), Bad(errs))
   }
 
+  /** Map from A => B, returning an [[ErrBi]] of [[List]]. */
+  def mapEMonList[E <: Throwable, B](f: A => ErrBi[E, B]) = ???
+  /*{ var acc: List[B] = Nil
+    var continue = true
+    var count = 0
+    var err1: StrArr = StrArr()
+    while (count < length & continue == true)
+      f(apply(count)).foldDo { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
+    ife(continue, Succ(acc.reverse), Bad(errs))
+  }*/
+
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, ArrB <: Arr[B]](f: (A, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)

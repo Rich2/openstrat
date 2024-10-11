@@ -317,7 +317,35 @@ object Statement
       }
     }
 
-    def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
+    def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
+
+    def findSettingIdentifierArr(settingStr: String) = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
+  }
+
+  /** Extension class for ErrBi[Arr[Statement]]. */
+  implicit class ErrBiArrImplicit[E <: Throwable](thisBi: ErrBi[E, RArr[Statement]])
+  {
+    /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
+    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
+      thisBi.fold(_ => elseValue) { statements => ev.keySettingFromStatements(statements, key).getElse(elseValue) }
+
+    def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisBi.flatMap(_.findType[A])
+
+    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
+     * use elseValue. */
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = thisBi.fold(_ => elseValue)(_.findType[A].getElse(elseValue))
+
+    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
+    def findSettingIdentifier(settingStr: String): ErrBi[Throwable, String] = thisBi.flatMap {
+      _.findSettingExpr(settingStr).flatMap {
+        case IdentifierToken(str) => Succ(str)
+        case expr => expr.failExc("Not an identifier.")
+      }
+    }
+
+    def findSettingIdentifierArrOld(settingStr: String): ErrBi[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
+
+    def findSettingIdentifierArr(settingStr: String): ErrBi[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
   }
 }
 
