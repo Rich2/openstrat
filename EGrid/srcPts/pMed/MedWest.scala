@@ -3,8 +3,10 @@ package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Majorca extends EarthArea("Majorca", 39.59 ll 3.01, oceanic)
-{ val south: LatLong = 39.26 ll 3.05
+object Balearics extends EarthAreaIsland("Balearics", 39.59 ll 3.01, oceanic)
+{ override def area: KilometresSq = 5040.kilometresSq
+
+  val south: LatLong = 39.26 ll 3.05
   val palma: LatLong = 39.56 ll 2.63
   val portalsVells: LatLong = 39.45 ll 2.51
   val santElm: LatLong = 39.59 ll 2.34
@@ -54,8 +56,9 @@ object Sardina extends EarthArea("Sardina", 40.12 ll 9.07, hillySub)
 }
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
-object Sicily extends EarthArea("Sicily", cen = 37.58 ll 14.27, oceanic)
-{
+object Sicily extends EarthAreaIsland("Sicily", cen = 37.58 ll 14.27, oceanic)
+{ override def area: KilometresSq = 25832.kilometresSq
+
   val sSicily: LatLong = 36.66 ll 15.08
   val kartibubbo: LatLong = 37.56 ll 12.67
   val marsala: LatLong = 37.80 ll 12.42

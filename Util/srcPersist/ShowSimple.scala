@@ -62,22 +62,26 @@ trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
 }
 
 object UnshowSingletons
-{ def apply[A <: TellSimple](typeStr: String, singletons: RArr[A])(implicit ct: ClassTag[A]): UnshowSingletons[A] =
+{ 
+  /** Factory apply method for [[UnshowSingletons]], with no short names. For convenience, there is name overload where the singletons are passed as a repeat parameter. */
+  def apply[A <: TellSimple](typeStr: String, singletons: RArr[A])(implicit ct: ClassTag[A]): UnshowSingletons[A] =
     new UnshowSingletonsImp[A](typeStr, ArrPairStr[A](), singletons)
 
+  /** Factory apply method for [[UnshowSingletons]], with no short names. There is a name overload where the singletons are passed as an [[RArr]]. */
   def apply[A <: TellSimple](typeStr: String, singletons: A*)(implicit ct: ClassTag[A]): UnshowSingletons[A] =
     new UnshowSingletonsImp[A](typeStr, ArrPairStr[A](), singletons.toArr)
 
+  /** Factory method for [[UnshowSingletons]], with short names. */
   def shorts[A <: TellSimple](typeStr: String, shortKeys: ArrPairStr[A], singletons: A*)(implicit ct: ClassTag[A]): UnshowSingletons[A] =
     new UnshowSingletonsImp[A](typeStr, shortKeys, singletons.toArr)
 
+  /** General implementation class for the [[UnshowSingletons]] trait. */
   class UnshowSingletonsImp[+A <: TellSimple](val typeStr: String, val shortKeys: ArrPairStr[A @uncheckedVariance], val singletons: RArr[A]) extends
     UnshowSingletons[A]
 }
 
-class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) extends PersistBothSimple [Boolean](typeStr)
-{
-  override def strT(obj: Boolean): String = ife(obj, typeStr, falseStr)
+class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) extends PersistBothSimple[Boolean](typeStr)
+{ override def strT(obj: Boolean): String = ife(obj, typeStr, falseStr)
 
   override def fromExprOld(expr: Expr): EMonOld[Boolean] = expr match
   { case IdentifierToken(str) if str == "true" || str == trueStr => Good(true)
