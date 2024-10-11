@@ -18,8 +18,8 @@ object LsD3 extends LessonGraphics
     val s2 = Setting("Age", 5).ap("Average", -2.1).ap("Open", false).ap("Greeting", "Hello World!").ap("Posn", 2.3 pp -43.8).str
     val middleBlock = SText(100, s2)
 
-    val c0 = s2.findTypeOld[Boolean]
-    val c1 = s2.findSettingOld[Boolean]("Open")
+    val c0 = s2.findType[Boolean]
+    val c1 = s2.findSetting[Boolean]("Open")
 
     /** Just a convenince method for the general one above. */
     val c2 = s2.findBoolSetting("Guilty")

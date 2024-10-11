@@ -103,9 +103,6 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findIntArray: ErrBi[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSettingOld[T: Unshow](settingStr: String): EMonOld[T] = thisString.parseStatementsOld.flatMap(_.findSettingOld[T](settingStr))
-
-  /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
   def findSetting[T: Unshow](settingStr: String): ExcMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */

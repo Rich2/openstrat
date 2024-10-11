@@ -115,13 +115,10 @@ object Statement
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
-    def findSettingIdentifierElseOld(settingStr: String, elseStr: String): String = findSettingIdentifierOld(settingStr).getElse(elseStr)
-
-    /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
     def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
+    def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
       case IdentifierToken(str) => Good(StrArr(str))
       case exprSeq: ExprSeqExpr =>
       { val opt = exprSeq.exprs.optAllMap{expr => expr match
@@ -132,6 +129,23 @@ object Statement
         opt.toEMon
       }
       case expr => badNone("Not an identifier.")
+    }
+
+    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
+    def findSettingIdentifierArr(settingStr: String) = findSettingExpr(settingStr).flatMap {
+      case IdentifierToken(str) => Succ(StrArr(str))
+      case exprSeq: ExprSeqExpr =>
+      {
+        val opt = exprSeq.exprs.optAllMap { expr =>
+          expr match
+          {
+            case IdentifierToken(str) => Some(str)
+            case _ => None
+          }
+        }
+        opt.toErrBi
+      }
+      case expr => failExc("Not an identifier.")
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
@@ -276,7 +290,7 @@ object Statement
       }
     }
 
-    def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArr(settingStr) }
+    def findSettingIdentifierArr(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
   }
 }
 

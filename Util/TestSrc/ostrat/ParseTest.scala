@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -7,12 +7,11 @@ object ParseTest extends TestSuite
   val tests = Tests {
     val settingStr = "x = -5; y = 7; true"
 
-    "Test1" -
-    {
-      "4".findTypeOld[Int] ==> Good(4)
-      "-4".findTypeOld[Int] ==> Good(-4)
-      settingStr.findSettingOld[Int]("x") ==> Good(-5)
-      settingStr.findSettingOld[Int]("y") ==> Good(7)
+    test("Test1")
+    { "4".findType[Int] ==> Succ(4)
+      "-4".findType[Int] ==> Succ(-4)
+      settingStr.findSetting[Int]("x") ==> Succ(-5)
+      settingStr.findSetting[Int]("y") ==> Succ(7)
       settingStr.findIntSetting("y") ==> Succ(7)
       settingStr.findType[Boolean] ==> Succ(true)
     }
