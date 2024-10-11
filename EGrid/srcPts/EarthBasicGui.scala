@@ -6,12 +6,13 @@ import geom._, pglobe._, pgui._, Colour._
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
 { statusText = "Welcome to world map, constructed from irregular areas."
 
-  debvar(viewIn.scale)
   /** Scale in km / pixel */
   var scale: LengthMetric = viewIn.scale
 
+  debvar(scale)
+
   /** Scale accounting for whether the display has north up or down. */
-  def dirnScale: LengthMetric = ife(northUp, scale, -scale)
+  def dirnScale: LengthMetric = nthSth.fld(scale, -scale)
 
   val scaleMin: LengthMetric = 0.2.kiloMetres
   val scaleMax: LengthMetric = 100.kiloMetres

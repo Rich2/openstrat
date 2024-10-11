@@ -4,7 +4,8 @@ import pgui._
 
 abstract class GlobeGui(val title: String) extends CmdBarGui
 { var focus: LatLongDirn
-  def northUp: Boolean = focus.dirn
+  def nthSth: NorthSouthUp = focus.dirn
+  def northUp: Boolean = focus.dirn.northUp  
 
   /** The length normally shown in kms per pixel. */
   var scale: LengthMetric
@@ -41,13 +42,13 @@ abstract class GlobeGui(val title: String) extends CmdBarGui
   }
 
   def goNorth: PolygonCompound = goDirn("\u2191"){ delta =>
-    val newLat: Double = focus.latDegs + ife(northUp, delta , -delta)
-    focus = ife(northUp, focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
+    val newLat: Double = focus.latDegs + nthSth.fld(delta , -delta)
+    focus = nthSth.fld(focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
   }
   def goSouth: PolygonCompound = goDirn("\u2193"){ delta =>
-    val newLat: Double = focus.latDegs + ife(northUp, -delta, delta)
-    focus = ife(northUp, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
+    val newLat: Double = focus.latDegs + nthSth.fld(-delta, delta)
+    focus = nthSth.fld(focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
   }
-  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = ife(northUp, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
-  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = ife(northUp, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
+  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = nthSth.fld(focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
+  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = nthSth.fld(focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
 }

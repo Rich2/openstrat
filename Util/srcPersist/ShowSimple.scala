@@ -85,3 +85,13 @@ class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) ex
     case _ => expr.exprParseErrOld[Boolean]
   }
 }
+
+class PersistBothTellSimple[R <: TellSimple](typeStr: String, val singletons: RArr[R])(implicit ct: ClassTag[R]) extends ShowTellSimple[R](typeStr) with PersistBoth[R] with UnshowSingletons[R]
+{ override def shortKeys: ArrPairStr[R] = ArrPairStr[R]()
+}
+
+object PersistBothTellSimple
+{
+  def apply[R <: TellSimple](typeStr: String, singletons: RArr[R])(implicit ct: ClassTag[R]): PersistBothTellSimple[R] = new PersistBothTellSimple[R](typeStr, singletons)
+  def apply[R <: TellSimple](typeStr: String, singletons: R*)(implicit ct: ClassTag[R]): PersistBothTellSimple[R] = new PersistBothTellSimple[R](typeStr, singletons.toArr)
+}

@@ -9,7 +9,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   implicit val gridSys: EGridSys = scen.gridSys
 
   var scale: LengthMetric = gridSys.cScale / viewIn.pixelsPerC
-  var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(true)
+  var focus: LatLongDirn = gridSys.hCoordLL(viewIn.hCoord).andDirn(viewIn.nthSth)
   var sideDrawOn: Boolean = false
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)

@@ -13,7 +13,7 @@ trait Persist extends Any
   def useMultiple: Boolean = true
 }
 
-/** Type class inatances for both [[Show]] and [[Unshow]]. Only use this class where all possilbe requirements have PersistBoth instances. Do not use
+/** Type class instances for both [[Show]] and [[Unshow]]. Only use this class where all possilbe requirements have PersistBoth instances. Do not use
  * it for such types as Sequences where all the potential components are not known. */
 trait PersistBoth[A] extends Show[A] with Unshow[A]
 

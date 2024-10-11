@@ -1,23 +1,38 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
-sealed trait NorthSouthUp
-{ def northUp: Boolean
+sealed trait NorthSouthUp extends TellSimple
+{ override def typeStr: String = "NthSthUp"
+  def northUp: Boolean
   def southUp: Boolean
+  def rev: NorthSouthUp
+  def fld[B](vNorth: => B, vSouth: => B): B
 }
 
-object Northward extends NorthSouthUp
+object NorthSouthUp{
+  implicit val persistEv: PersistBothTellSimple[NorthSouthUp] = PersistBothTellSimple[NorthSouthUp]("NthSthUP", NorthUp, SouthUp)
+}
+
+object NorthUp extends NorthSouthUp
 { override def northUp: Boolean = true
   override def southUp: Boolean = false
+  override def toString: String = "north-up"
+  override def rev: NorthSouthUp = SouthUp
+  override def fld[B](vNorth: => B, vSouth: => B): B = vNorth
+  override def str: String = "north"
 }
 
-object Southward extends NorthSouthUp
+object SouthUp extends NorthSouthUp
 { override def northUp: Boolean = false
   override def southUp: Boolean = true
+  override def toString: String = "south-up"
+  override def rev: NorthSouthUp = NorthUp
+  override def fld[B](vNorth: => B, vSouth: => B): B = vSouth
+  override def str: String = "south"
 }
 
 /** A [[Latitude]] and [[Longitude]] class with a binary north / south direction. */
-class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn: Boolean) extends LatLongBase
+class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn: NorthSouthUp) extends LatLongBase
 {
   def str: String = latDegStr -- longDegStr
 
@@ -25,9 +40,9 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn:
    * moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   override def addLat(delta: AngleVec): LatLongDirn = (latMilliSecs + delta.milliSecs) % MilliSecsIn360Degs match
   { case a if a > MilliSecsIn270Degs => LatLongDirn.milliSecs(MilliSecsIn360Degs - a, longMilliSecs, dirn)
-    case a if a > MilliSecsIn90Degs => LatLongDirn.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, !dirn)
+    case a if a > MilliSecsIn90Degs => LatLongDirn.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, dirn.rev)
     case a if a < -MilliSecsIn270Degs => LatLongDirn.milliSecs(MilliSecsIn360Degs + a, longMilliSecs, dirn)
-    case a if a < -MilliSecsIn90Degs => LatLongDirn.milliSecs(-MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, !dirn)
+    case a if a < -MilliSecsIn90Degs => LatLongDirn.milliSecs(-MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs, dirn.rev)
     case a => LatLongDirn.milliSecs(a, longMilliSecs, dirn)
   }
 
@@ -56,11 +71,11 @@ class LatLongDirn(val latMilliSecs: Double, val longMilliSecs: Double, val dirn:
 object LatLongDirn
 { /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
    * values are negative. */
-  def degs(lat: Double, long: Double, dirn: Boolean = true): LatLongDirn = milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs, dirn)
+  def degs(lat: Double, long: Double, dirn: NorthSouthUp = NorthUp): LatLongDirn = milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs, dirn)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a
    * degree, where southern and western values are negative. */
-  def milliSecs(lat: Double, long: Double, dirn: Boolean): LatLongDirn = {
+  def milliSecs(lat: Double, long: Double, dirn: NorthSouthUp): LatLongDirn = {
     val lat1 = lat %+- MilliSecsIn180Degs
     val lat2 = lat1 match {
       case l if l > MilliSecsIn90Degs => MilliSecsIn180Degs - l

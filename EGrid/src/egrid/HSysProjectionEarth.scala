@@ -8,8 +8,8 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override type SysT = EGridSys
   var focus: LatLongDirn = LatLongDirn.degs(0, 0)
   var irrOn: Boolean = false
-  def northUp: Boolean = focus.dirn
-  def southUp: Boolean = !focus.dirn
+  def northUp: Boolean = focus.dirn.northUp
+  def southUp: Boolean = focus.dirn.southUp
   def metresPerPixel: LengthMetric = parent.cScale / pixelsPerC
 
   def setMetresPerPixel(value: Metres): Unit = pixelsPerC = parent.cScale / value
@@ -21,7 +21,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   {
     case hv: HGView =>
     { pixelsPerC = hv.pixelsPerC
-      focus = parent.hCoordLLDirn(hv.hCoord, hv.northUp)
+      focus = parent.hCoordLLDirn(hv.hCoord, hv.nthSth)
     }
     //case d: Double => cPScale = d
     case _ =>
