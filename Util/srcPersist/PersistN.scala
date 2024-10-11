@@ -76,6 +76,14 @@ trait UnshowN[R] extends Unshow[R] with PersistNFixed
     case _ => expr.exprParseErrOld[R](this)
   }
 
+  final override def fromExpr(expr: Expr): ExcMon[R] = expr match
+  { case IdentifierToken(str) => shortKeys.a1FindA2(str).toErrBi
+    case AlphaMaybeSquareParenth(typeName, sts) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.fail(typeName -- "does not equal" -- typeStr)
+    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
+    case _ => expr.exprParseErr[R](this)
+  }
+
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
   final def fromExprSeqOld(exprs: RArr[Expr]): EMonOld[R] =
     if(exprs.length > numParams) Bad(StrArr(exprs.length.toString + s" parameters for $numParams parameter constructor."))

@@ -34,9 +34,15 @@ sealed trait Statement extends TextSpan
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
-  def intSettingExpr(settingNum: Int): EMonOld[AssignMemExpr] = this match
+  def intSettingExprOld(settingNum: Int): EMonOld[AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Good(rightExpr)
     case _ => startPosn.bad(settingNum.str -- "not found.")
+  }
+
+  /** Returns the right expression if this Statement is an IntSetting of the given name. */
+  def intSettingExpr(settingNum: Int): ErrBi[Exception, AssignMemExpr] = this match
+  { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Succ(rightExpr)
+    case _ => startPosn.fail(settingNum.str -- "not found.")
   }
 }
 
@@ -86,13 +92,24 @@ object Statement
     }
 
     /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
-    def findIntSettingExpr(settingNum: Int): EMonOld[AssignMemExpr] = statements match {
-      case Arr0() => TextPosn.emptyErrorOld("No Statements")
-      case Arr1(st1) => st1.intSettingExpr(settingNum)
-      case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g@Good(_) => g } match {
+    def findIntSettingExprOld(settingNum: Int): EMonOld[AssignMemExpr] = statements match
+    { case Arr0() => TextPosn.emptyErrorOld("No Statements")
+      case Arr1(st1) => st1.intSettingExprOld(settingNum)
+      case sts => sts.map(st => st.intSettingExprOld(settingNum)).collect { case g@Good(_) => g } match {
         case Arr1(t) => t
         case Arr0() => sts.startPosn.bad(settingNum.str -- "Setting not found.")
         case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
+      }
+    }
+
+    /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
+    def findIntSettingExpr(settingNum: Int): ErrBi[Exception, AssignMemExpr] = statements match
+    { case Arr0() => FailExc("No Statements")
+      case Arr1(st1) => st1.intSettingExpr(settingNum)
+      case sts => sts.map(st => st.intSettingExpr(settingNum)).collect { case g @Succ(_) => g } match
+      { case Arr1(t) => t
+        case Arr0() => sts.startPosn.fail(settingNum.str -- "Setting not found.")
+        case s3 => sts.startPosn.fail(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
       }
     }
 

@@ -21,7 +21,7 @@ object G1SLaunch extends GuiLaunchMore
       case 3 => G1SScen3
       case _ => G1SScen1
     }
-    val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExpr(num)
+    val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExprOld(num)
     val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
     val pls1 = sts2.findSettingIdentifierArr("counters")
     val plAll = scen.counterSet
