@@ -13,8 +13,10 @@ object ExcWrongType extends Exception("Expression has wrong type") with ExcSeman
 /** RSON expression has wrong type [[Expression]] [[Fail]]. */
 object FailWrongType extends Fail[ExcWrongType.type](ExcWrongType)
 
-case class ExcNoExprAtN(index: Int, unshow: Unshow[?]) extends Exception(s"No expression of type ${unshow.typeStr} at index $index") with ExcSemantic
+/** No [[Expr]] at index N [[Exception]]. */
+case class ExcNoExprAtN(index: Int, unshow: Unshow[?]) extends Exception(s"No expression at index $index to find type ${unshow.typeStr}") with ExcSemantic
 
+/** No [[Expr]] at index N [[Fail]]. */
 case class FailNoExprAtN(index: Int, unshow: Unshow[?]) extends Fail[ExcNoExprAtN](ExcNoExprAtN(index, unshow))
 
 /** Exception from a find search for a type. */

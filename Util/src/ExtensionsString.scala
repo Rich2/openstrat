@@ -80,7 +80,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asInt: ErrBi[Exception, Int] = asType[Int]
 
   /** Tries to parse this String as a natural non-negative [[Int]] expression. */
-  def asNat: EMonOld[Int] = asTypeOld[Int](Unshow.natEv)
+  def asNat: ErrBi[Exception, Int] = asType[Int](Unshow.natEv)
 
   /** Tries to parse this String as an [[Int]] in hexadecimal format expression. */
   def asHexaInt: EMonOld[Int] = asTypeOld(Unshow.hexaIntEv)

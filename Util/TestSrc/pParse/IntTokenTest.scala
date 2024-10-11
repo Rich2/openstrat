@@ -32,14 +32,14 @@ object IntTokenTest extends TestSuite
     val st1 = "true; 17; false"
 
     "Find / as Int" -
-    { "17".findTypeOld[Int] ==> Good(17)
-      "17".asNat ==> Good(17)
+    { "17".findType[Int] ==> Succ(17)
+      "17".asNat ==> Succ(17)
       st1.intAtStsIndex(1) ==> Succ(17)
       st1.intAtStsIndex(1) ==> Succ(17)
       "true".asBoolOld ==> Good(true)
       st1.findTypeOld[Boolean].isGood ==> false
       "17; -17".findTypeOld[Int].isBad ==> true
-      "17; -17".asNat.isBad ==> true
+      "17; -17".asNat.isFail ==> true
       "25".asInt ==> Succ(25)
       "25;".asInt.isFail==> true
     }
@@ -47,9 +47,9 @@ object IntTokenTest extends TestSuite
     test("Negative")
     { assertMatch("-4".parseTokens){ case Succ(Arr1(NegBase10Token(Sp1, "4"))) => }
       "-4".asInt ==> Succ(-4)
-      "-4".asNat.isBad ==> true
+      "-4".asNat.isFail ==> true
       "-257".asInt ==> Succ(-257)
-      "-257".asNat.isBad ==> true
+      "-257".asNat.isFail ==> true
     }
   }
 }
