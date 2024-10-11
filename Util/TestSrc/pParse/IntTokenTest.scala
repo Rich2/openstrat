@@ -40,15 +40,15 @@ object IntTokenTest extends TestSuite
       st1.findTypeOld[Boolean].isGood ==> false
       "17; -17".findTypeOld[Int].isBad ==> true
       "17; -17".asNat.isBad ==> true
-      "25".asInt ==> Good(25)
-      "25;".asInt.isBad ==> true
+      "25".asInt ==> Succ(25)
+      "25;".asInt.isFail==> true
     }
 
     test("Negative")
-    { assertMatch("-4".parseTokensOld){ case Good(Arr1(NegBase10Token(Sp1, "4"))) => }
-      "-4".asInt ==> Good(-4)
+    { assertMatch("-4".parseTokens){ case Succ(Arr1(NegBase10Token(Sp1, "4"))) => }
+      "-4".asInt ==> Succ(-4)
       "-4".asNat.isBad ==> true
-      "-257".asInt ==> Good(-257)
+      "-257".asInt ==> Succ(-257)
       "-257".asNat.isBad ==> true
     }
   }

@@ -74,10 +74,10 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asDbl: ErrBi[Exception, Double] = asType[Double]
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asPosDbl: EMonOld[Double] = asTypeOld[Double](Unshow.posDoubleEv)
+  def asPosDbl = asType[Double](Unshow.posDoubleEv)
 
   /** Tries to parse this String as an [[Int]] expression. */
-  def asInt: EMonOld[Int] = asTypeOld[Int]
+  def asInt: ErrBi[Exception, Int] = asType[Int]
 
   /** Tries to parse this String as a natural non-negative [[Int]] expression. */
   def asNat: EMonOld[Int] = asTypeOld[Int](Unshow.natEv)
@@ -251,7 +251,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findAlphaInt: Option[(String, Int)] =
   { val (p1, p2) = thisString.span(_.isLetter)
     p2.asInt match
-    { case Good(i) if p1.length > 0 => Some(p1, i)
+    { case Succ(i) if p1.length > 0 => Some(p1, i)
       case _ => None
     }
   }
