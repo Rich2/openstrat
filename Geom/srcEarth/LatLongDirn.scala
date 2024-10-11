@@ -1,6 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
+/** Binary trait for north or south up. */
 sealed trait NorthSouthUp extends TellSimple
 { override def typeStr: String = "NthSthUp"
   def northUp: Boolean
@@ -9,8 +10,8 @@ sealed trait NorthSouthUp extends TellSimple
   def fld[B](vNorth: => B, vSouth: => B): B
 }
 
-object NorthSouthUp{
-  implicit val persistEv: PersistBothTellSimple[NorthSouthUp] = PersistBothTellSimple[NorthSouthUp]("NthSthUP", NorthUp, SouthUp)
+object NorthSouthUp
+{ implicit val persistEv: PersistBothTellSimple[NorthSouthUp] = PersistBothTellSimple[NorthSouthUp]("NthSthUP", NorthUp, SouthUp)
 }
 
 object NorthUp extends NorthSouthUp

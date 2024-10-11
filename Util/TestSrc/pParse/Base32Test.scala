@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._
 
@@ -48,20 +48,20 @@ object Base32Test extends TestSuite
      }
 
     test("AsBase32")
-    { "9".asBase32Int ==> Good(9)
-      "1A".asBase32Int ==> Good(42)
-      "1A".asBase32NatOld ==> Good(42)
-      "2M".asBase32Int ==> Good(86)
-      "2N".asBase32Int ==> Good(87)
-      "2P".asBase32Int ==> Good(88)
-      "G".asBase32Int ==> Good(16)
-      "G".asBase32NatOld ==> Good(16)
-      "N2".asBase32Int ==> Good(738)
+    { "9".asBase32Int ==> Succ(9)
+      "1A".asBase32Int ==> Succ(42)
+      "1A".asBase32Nat ==> Succ(42)
+      "2M".asBase32Int ==> Succ(86)
+      "2N".asBase32Int ==> Succ(87)
+      "2P".asBase32Int ==> Succ(88)
+      "G".asBase32Int ==> Succ(16)
+      "G".asBase32Nat ==> Succ(16)
+      "N2".asBase32Int ==> Succ(738)
     }
 
     test("Neg AsBase32")
-    { "-N2".asBase32Int ==> Good(-738)
-      "-N2".asBase32NatOld.isBad ==> true
+    { "-N2".asBase32Int ==> Succ(-738)
+      "-N2".asBase32Nat.isFail ==> true
     }
   }
 }

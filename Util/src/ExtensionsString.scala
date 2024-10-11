@@ -89,16 +89,16 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def asHexaNat = asType(Unshow.hexaNatEv)
 
   /** Tries to parse this String as an [[Int]] in base32 format expression. */
-  def asBase32Int: EMonOld[Int] = asTypeOld(Unshow.base32IntEv)
+  def asBase32Int: ErrBi[Exception, Int] = asType(Unshow.base32IntEv)
 
   /** Tries to parse this String as a natural non negative [[Int]] in base32 format expression. */
-  def asBase32NatOld: EMonOld[Int] = asTypeOld(Unshow.base32NatEv)
+  def asBase32Nat: ErrBi[Exception, Int] = asType(Unshow.base32NatEv)
 
   /** Tries to parse this String as a [[Boolean]] expression. */
-  def asBoolOld: EMonOld[Boolean] = asTypeOld[Boolean]
+  def asBool: ErrBi[Exception, Boolean] = asType[Boolean]
 
   /** Tries to parse this String as a [[Long]] expression. */
-  def asLong: EMonOld[Long] = asTypeOld[Long]
+  def asLong: ErrBi[Exception, Long] = asType[Long]
 
   def findIntArray: ErrBi[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
