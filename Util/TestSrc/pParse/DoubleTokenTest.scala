@@ -20,13 +20,13 @@ object DoubleTokenTest extends TestSuite
     test("Test1")
     { assertMatch("4.5".parseTokensOld){ case Good(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
       assertMatch("0.5".parseTokensOld){ case Good(Arr1(DeciFracPosToken(Sp1, "0", "5", ""))) => }
-      "0.4".asDbl ==> Good(0.4)
-      "543.012".asDbl ==> Good(543.012)
+      "0.4".asDbl ==> Succ(0.4)
+      "543.012".asDbl ==> Succ(543.012)
       "543.012".asPosDbl ==> Good(543.012)
-      "-543.012".asDbl ==> Good(-543.012)
+      "-543.012".asDbl ==> Succ(-543.012)
       "-543.012".asPosDbl.isBad ==> true
-        "-0.4".asDbl ==> Good(-0.4)
-      "-4".asDbl ==> Good(-4)
+        "-0.4".asDbl ==> Succ(-0.4)
+      "-4".asDbl ==> Succ(-4)
       assertMatch(s51.parseTokensOld){ case Good(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
       "51".unsafeDigitsToLong ==> 51l
       s51.findTypeOld[Double] ==> Good(51.1)

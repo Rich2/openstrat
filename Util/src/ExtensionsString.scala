@@ -53,12 +53,13 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def posDblAtStsIndex(index: Int): ErrBi[Exception, Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
-  def boolAtStsIndex(index: Int) = thisString.parseStatements.flatMap(_.boolAtIndex(index))
+  def boolAtStsIndex(index: Int): ErrBi[Exception, Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
-  def longAtStsIndex(index: Int): EMonOld[Long] = thisString.parseStatementsOld.flatMap(_.longAtIndexOld(index))
+  def longAtStsIndex(index: Int): ErrBi[Exception, Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
 
-  def findTypeDo[A: Unshow](f: A => Unit): Unit = findTypeOld[A].forGood(f)
+  /** Find type from this [[String]] parsed as a sequence of RSON statements and if succssful run the sdie effecting proceedure on the value.  */
+  def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forSucc(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
   def asTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = parseExprOld.flatMap(g => ev.fromExprOld(g))
@@ -70,7 +71,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def oneLine: String = thisString.map { case '\n' => ' '; case c => c }
 
   /** Tries to parse this String as a [[Double]] expression. */
-  def asDbl: EMonOld[Double] = asTypeOld[Double]
+  def asDbl: ErrBi[Exception, Double] = asType[Double]
 
   /** Tries to parse this String as a [[Double]] expression. */
   def asPosDbl: EMonOld[Double] = asTypeOld[Double](Unshow.posDoubleEv)
