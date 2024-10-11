@@ -37,9 +37,14 @@ sealed trait ErrBi[+E <: Throwable, +A]
   /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a value. This
    * method is implemented in the leaf [[Succ]] and [[Fail]] classes to avoid boxing. */
   def forFold(fErr: E => Unit)(fSucc: A => Unit): Unit
+
+  def get: A = this match
+  { case Succ(value) => value
+    case Fail(exc) => throw(Exception("Attempting to get value from a Fail with " +  exc.toString))
+  }
   
-  def toEMon: EMonOld[A] = this match{
-    case Succ(value) => Good(value)
+  def toEMon: EMonOld[A] = this match
+  { case Succ(value) => Good(value)
     case Fail(err) => Bad(StrArr(err.toString))
   }
 }

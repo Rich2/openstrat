@@ -318,8 +318,6 @@ object Statement
     }
 
     def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
-
-    def findSettingIdentifierArr(settingStr: String) = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
   }
 
   /** Extension class for ErrBi[Arr[Statement]]. */
@@ -342,8 +340,6 @@ object Statement
         case expr => expr.failExc("Not an identifier.")
       }
     }
-
-    def findSettingIdentifierArrOld(settingStr: String): ErrBi[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
 
     def findSettingIdentifierArr(settingStr: String): ErrBi[Throwable, StrArr] = thisBi.flatMap(_.findSettingIdentifierArr(settingStr))
   }
