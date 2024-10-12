@@ -10,6 +10,12 @@ sealed trait ErrBi[+E <: Throwable, +A]
   /** Classic flatMap function as we see on a Scala [[Option]]. */
   def flatMap[EE >: E <: Throwable, B](f: A => ErrBi[EE, B]): ErrBi[EE, B]
 
+  /** Classic flatMap function taking a function from A => [[Option]][B] rather than the standard [[ErrBi]] of B. */
+  def flatOptMap[B](f: A => Option[B]): ErrBi[E | ExcNFT, B] = this match
+  { case Succ(a) => f(a).fld(FailNotFound, b => Succ(b))
+    case fail: Fail[E] => fail
+  }
+
   def isSucc: Boolean
   def isFail: Boolean
 

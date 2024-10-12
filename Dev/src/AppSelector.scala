@@ -48,5 +48,12 @@ object AppSelector
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
   )
 
-  def default: (CanvasPlatform => Any, String) = dless.DLessLaunch.default
+  def defaultApp: GuiLaunch = dless.DLessLaunch
+  def defaultFunc: (CanvasPlatform => Any, String) = defaultApp.default
+
+  def findChars(key: String, minChars: Int = 2): Option[GuiLaunch] = launchs.findChars(key, minChars)
+
+  def findCharsOrDefault(key: String, minChars: Int = 2): GuiLaunch = launchs.findChars(key, minChars).getOrElse(defaultApp)
+
+  def findErrBiCharsOrDefault(eKey: ErrBi[?, String], minChars: Int = 2): GuiLaunch = eKey.flatOptMap(str => findChars(str, minChars)).getElse(defaultApp)
 }

@@ -20,14 +20,19 @@ class AppStart extends application.Application
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
-    val eExpr: ThrowMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
+    def eExpr: ThrowMon[AssignMemExpr] = findDevSettingExpr("appSet")
+    def eExpr2 = eExpr.flatMap{_ match{
+      case (it: IdentifierToken) => Succ(it.srcStr)
+      case _ => FailNotFound
+    }}
     val params: java.util.List[String] = getParameters.getRaw
-    val oApp = ife(params.isEmpty, None, Some(params.getFirst))
-    val oApp2 = oApp.flatMap(str => AppSelector.launchs.findChars(str))
+    val oApp: Option[String] = ife(params.isEmpty, None, Some(params.getFirst))
+    val oApp2: Option[GuiLaunch] = oApp.flatMap(str => AppSelector.findChars(str))
+//    val aApp3 = oApp2.flatMapErrBi(AppSelector.findErrBiCharsOrDefault(eExpr2))
     debvar(oApp2)
 
-    val pair = eExpr match
-    { case Succ(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match
+    val pair: (CanvasPlatform => Any, String) = eExpr match
+    { case Succ(it: IdentifierToken) => AppSelector.findChars(it.srcStr) match
       { case Some(launch) =>
         { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
           val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
@@ -35,11 +40,11 @@ class AppStart extends application.Application
         }
         case _ => AppSelector.ids.a1FindA2(it.srcStr) match
         { case Some(pair) => pair
-          case _ => deb(it.str + ": Identifier"); AppSelector.default
+          case _ => deb(it.str + ": Identifier"); AppSelector.defaultFunc
         }
       }
-      case Succ(expr) => { debvar(expr); AppSelector.default }
-      case _ => { debvar(eExpr); AppSelector.default }
+      case Succ(expr) => { debvar(expr); AppSelector.defaultFunc }
+      case _ => { debvar(eExpr); AppSelector.defaultFunc }
     }
 
     val newAlt = CanvasFx(canvasCanvas, jScene)

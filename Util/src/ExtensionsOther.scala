@@ -95,4 +95,9 @@ class OptionExtensions[A](thisOption: Option[A])
   { case None => newOption
     case _ => this
   }
+  
+  def flatMapErrBi[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[E | ExcNFT, B] = thisOption match
+  { case Some(a) => f(a)
+    case None => FailNotFound
+  }  
 }
