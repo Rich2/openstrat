@@ -309,14 +309,6 @@ object Statement
      * use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findTypeOld[A].getElse(elseValue))
 
-    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): EMonOld[String] = eMon.flatMap {
-      _.findSettingExprOld(settingStr).flatMap {
-        case IdentifierToken(str) => Good(str)
-        case expr => badNone("Not an identifier.")
-      }
-    }
-
     def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
   }
 
