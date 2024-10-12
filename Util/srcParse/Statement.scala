@@ -126,13 +126,13 @@ object Statement
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifier(settingStr: String): ErrBi[Exception, String] = findSettingExpr(settingStr).flatMap{
+    def findSettingIdStr(settingStr: String): ErrBi[Exception, String] = findSettingExpr(settingStr).flatMap{
       case IdentifierToken(str) => Succ(str)
       case expr => FailExc("Not an identifier.")
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
-    def findSettingIdentifierElse(settingStr: String, elseStr: String): String = findSettingIdentifier(settingStr).getElse(elseStr)
+    def findSettingIdStrElse(settingStr: String, elseStr: String): String = findSettingIdStr(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {

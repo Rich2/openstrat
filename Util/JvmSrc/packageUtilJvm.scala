@@ -14,16 +14,19 @@ package object utiljvm
   def findDevSettingExpr(settingStr: String): ThrowMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSettingT[A: Unshow](settingStr: String): ThrowMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
+  def findDevSetting[A: Unshow](settingStr: String): ThrowMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
 
+  /** Find the [[String]] for the Identifer value of o setting of the given name in the file DevSettings.rson. */
+  def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingIdStr(settingStr))
+
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
-  def projPathDo(f: DirPathAbs => Unit): Unit = findDevSettingT[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
+  def projPathDo(f: DirPathAbs => Unit): Unit = findDevSetting[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
 
   /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
-  def openstratPath(): ThrowMon[DirPathAbs] = findDevSettingT[DirPathAbs]("projPath")
+  def openstratPath(): ThrowMon[DirPathAbs] = findDevSetting[DirPathAbs]("projPath")
 
   /** Needs removal. */
   def sbtDirPath(): ThrowMon[String] = openstratPath().map(_.str / "Dev/SbtDir")

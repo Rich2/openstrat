@@ -19,32 +19,20 @@ class AppStart extends application.Application
     root.getChildren.add(canvasCanvas)
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
-    val jScene = new Scene(root, canvWidth, canvHeight)
-    def eExpr: ThrowMon[AssignMemExpr] = findDevSettingExpr("appSet")
-    def eExpr2 = eExpr.flatMap{_ match{
-      case (it: IdentifierToken) => Succ(it.srcStr)
-      case _ => FailNotFound
-    }}
-    val params: java.util.List[String] = getParameters.getRaw
+    val jScene = new Scene(root, canvWidth, canvHeight)    val params: java.util.List[String] = getParameters.getRaw
     val oApp: Option[String] = ife(params.isEmpty, None, Some(params.getFirst))
-    val oApp2: Option[GuiLaunch] = oApp.flatMap(str => AppSelector.findChars(str))
-//    val aApp3 = oApp2.flatMapErrBi(AppSelector.findErrBiCharsOrDefault(eExpr2))
-    debvar(oApp2)
 
-    val pair: (CanvasPlatform => Any, String) = eExpr match
-    { case Succ(it: IdentifierToken) => AppSelector.findChars(it.srcStr) match
-      { case Some(launch) =>
-        { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
-          val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
-          eSett.fld(e => launch.default, launch(_))
-        }
-        case _ => AppSelector.ids.a1FindA2(it.srcStr) match
-        { case Some(pair) => pair
-          case _ => deb(it.str + ": Identifier"); AppSelector.defaultFunc
-        }
-      }
-      case Succ(expr) => { debvar(expr); AppSelector.defaultFunc }
-      case _ => { debvar(eExpr); AppSelector.defaultFunc }
+    /** Tries to get the app Launcher from matching the first arg. */
+    val oApp2: Option[GuiLaunch] = oApp.flatMap(str => AppSelector.findChars(str))
+
+    /** Tries to get the app launcher from matching the first arg, failing that tries to get it from the appSet setting. Else returns the default app. */
+    val launch: GuiLaunch = oApp2.getOrElse(AppSelector.findErrBiCharsOrDefault(findDevSettingIdStr("appSet")))
+    debvar(launch)
+
+    val pair: (CanvasPlatform => Any, String) =
+    { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")
+      val eSett = fSett.succOrOther(findDevSettingExpr(launch.settingStr))
+      eSett.fld(e => launch.default, launch(_))
     }
 
     val newAlt = CanvasFx(canvasCanvas, jScene)
