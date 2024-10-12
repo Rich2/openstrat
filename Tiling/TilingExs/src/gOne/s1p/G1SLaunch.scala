@@ -5,8 +5,7 @@ import pgui._, pParse._, prid._, psq._, gPlay._
 case class G1SGuiSettings(view: SGView, counterSet: RArr[Counter])
 
 object G1SLaunch extends GuiLaunchMore
-{
-  override def settingStr: String = "g1Sq"
+{ override def settingStr: String = "g1Sq"
 
   override def default: (CanvasPlatform => Any, String) =
     (G1SGui(_, G1SGame(G1SScen1, G1SScen1.counterSet), G1SGuiSettings(G1SScen1.defaultView(), G1SScen1.counterSet)), "JavaFx Game One Squares")

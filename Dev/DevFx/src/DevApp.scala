@@ -20,9 +20,11 @@ class AppStart extends application.Application
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
-    //val eExprOld: EMonOld[AssignMemExpr] = findDevSettingExprOld("appSet")
     val eExpr: ThrowMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
-    
+    val params: java.util.List[String] = getParameters.getRaw
+    val oApp = ife(params.isEmpty, None, Some(params.getFirst))
+    val oApp2 = oApp.flatMap(str => AppSelector.launchs.findChars(str))
+    debvar(oApp2)
 
     val pair = eExpr match
     { case Succ(it: IdentifierToken) => AppSelector.launchs.findChars(it.srcStr) match

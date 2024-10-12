@@ -7,9 +7,10 @@ trait GuiLaunch
 { def settingStr: String
   def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String)
   def default: (CanvasPlatform => Any, String)
+  override def toString: String = settingStr -- "launcher"
 }
 
-/** The simplest launcher, not usre that this class really serves any purpose. */
+/** The simplest launcher, not sure that this class really serves any purpose. */
 case class GuiLaunchSimple(settingStr: String, default: (CanvasPlatform => Any, String)) extends GuiLaunch
 {
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = default

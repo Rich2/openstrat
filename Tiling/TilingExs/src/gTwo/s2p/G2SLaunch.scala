@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package s2p
 import pgui._, pParse._, prid._, psq._, gPlay._
 
@@ -6,8 +6,7 @@ import pgui._, pParse._, prid._, psq._, gPlay._
 case class G2SGuiSettings(view: SGView, counterSet: RArr[Counter])
 
 object G2SLaunch extends GuiLaunchMore
-{
-  override def settingStr: String = "G2Sq"
+{  override def settingStr: String = "G2Sq"
 
   override def default: (CanvasPlatform => Any, String) =
     (G2SGui(_, G2SGame(G2SScen1, G2SScen1.counterSet), G2SGuiSettings(G2SScen1.defaultView(), G2SScen1.counterSet)), "JavaFx Game Two Square")

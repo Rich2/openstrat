@@ -4,8 +4,7 @@ import geom._, pglobe._, pgui._, pParse._
 
 /** object to launch EarthBasic Gui. */
 object EarthBasicLaunch extends GuiLaunchMore
-{
-  override def settingStr: String = "earth"
+{ override def settingStr: String = "earth"
   override def default: (CanvasPlatform => Any, String) = (cv => EarthBasicGui.apply(cv), "JavaFx Earth")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
