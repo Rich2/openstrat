@@ -52,6 +52,11 @@ trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
     case e => bad1(e, typeStr -- "not parsed from this Expression")
   }
 
+  override def fromExpr(expr: Expr): ExcMon[A] = expr match
+  { case IdentifierToken(str) => singletons.find(el => el.str == str).orElse(shortKeys.a1FindA2(str)).toErrBi
+    case expr => expr.failExc(typeStr -- "not parsed from this Expression")
+  }
+
   def ++[AA >: A <: TellSimple](operand: UnshowSingletons[AA])(implicit ct: ClassTag[AA]): UnshowSingletons[AA] =
     UnshowSingletons(typeStr, singletons ++ operand.singletons)
 
@@ -88,14 +93,24 @@ class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) ex
     case IdentifierToken(str) if str == "false" || str == falseStr => Good(false)
     case _ => expr.exprParseErrOld[Boolean]
   }
+
+  override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
+  { case IdentifierToken(str) if str == "true" || str == trueStr => Succ(true)
+    case IdentifierToken(str) if str == "false" || str == falseStr => Succ(false)
+    case _ => expr.exprParseErr[Boolean]
+  }
 }
 
-class PersistBothTellSimple[R <: TellSimple](typeStr: String, val singletons: RArr[R])(implicit ct: ClassTag[R]) extends ShowTellSimple[R](typeStr) with PersistBoth[R] with UnshowSingletons[R]
+class PersistBothTellSimple[R <: TellSimple](typeStr: String, val singletons: RArr[R])(implicit ct: ClassTag[R]) extends ShowTellSimple[R](typeStr) with
+  PersistBoth[R] with UnshowSingletons[R]
 { override def shortKeys: ArrPairStr[R] = ArrPairStr[R]()
 }
 
 object PersistBothTellSimple
 {
-  def apply[R <: TellSimple](typeStr: String, singletons: RArr[R])(implicit ct: ClassTag[R]): PersistBothTellSimple[R] = new PersistBothTellSimple[R](typeStr, singletons)
-  def apply[R <: TellSimple](typeStr: String, singletons: R*)(implicit ct: ClassTag[R]): PersistBothTellSimple[R] = new PersistBothTellSimple[R](typeStr, singletons.toArr)
+  def apply[R <: TellSimple](typeStr: String, singletons: RArr[R])(implicit ct: ClassTag[R]): PersistBothTellSimple[R] =
+    new PersistBothTellSimple[R](typeStr, singletons)
+
+  def apply[R <: TellSimple](typeStr: String, singletons: R*)(implicit ct: ClassTag[R]): PersistBothTellSimple[R] =
+    new PersistBothTellSimple[R](typeStr, singletons.toArr)
 }
