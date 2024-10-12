@@ -138,7 +138,15 @@ object Colour
       case _ => expr.exprParseErrOld[Colour](this)
     }
 
-    override def fromExpr(expr: Expr): ExcMon[Colour] = ???
+    override def fromExpr(expr: Expr): ExcMon[Colour] =  expr match {
+      case IdentLowerToken(_, typeName) if Colour.strValueKeys.contains(typeName) => Succ(Colour.strValueKeys(typeName))
+      case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
+      case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStructure(Arr1(st), Parentheses, _, _))) => st.expr match {
+        case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))
+        case _ => expr.exprParseErr[Colour](this)
+      }
+      case _ => expr.exprParseErr[Colour](this)
+    }
 
     def strT(obj: Colour): String = Colour.optStr(obj).fold(obj.hexStrX)(c => c)
   }

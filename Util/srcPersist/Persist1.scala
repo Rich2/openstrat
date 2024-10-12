@@ -179,7 +179,27 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
     }
   }
 
-  override def fromExpr(expr: Expr): ExcMon[A] = ???
+  override def fromExpr(expr: Expr): ExcMon[A] =
+  { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
+    expr match
+    { case Match1(exprs) if exprs.length == 0 => opt1 match
+      {
+        case Some(a1) => Succ(f(a1, new Array[Ar](0)))
+        case None => expr.failExc("No values")
+      }
+
+      case Match1(exprs) =>
+      {val a1 = unshowA1.fromExpr(exprs(0))
+        def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
+        else exprs.drop1.mapErrBiList(unshowAr.fromExpr)
+
+        a1.flatMap { a1 => reps.map(list => newT(a1, list.toArray)) }
+      }
+
+      case AlphaMaybeSquareParenth(name, _) => expr.failExc(s"Wrong name: $name not $typeStr.")
+      case _ => expr.exprParseErr[A](this)
+    }
+  }  
 }
 
 object Unshow1OptRepeat
