@@ -19,7 +19,8 @@ class AppStart extends application.Application
     root.getChildren.add(canvasCanvas)
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
-    val jScene = new Scene(root, canvWidth, canvHeight)    val params: java.util.List[String] = getParameters.getRaw
+    val jScene = new Scene(root, canvWidth, canvHeight)
+    val params: java.util.List[String] = getParameters.getRaw
     val oApp: Option[String] = ife(params.isEmpty, None, Some(params.getFirst))
 
     /** Tries to get the app Launcher from matching the first arg. */

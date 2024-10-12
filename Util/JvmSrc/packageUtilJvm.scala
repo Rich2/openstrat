@@ -51,28 +51,39 @@ package object utiljvm
   def fromRsonFileFindOld[A: Unshow](fileName: String): EMonOld[A] = loadTextFileOld(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file. */
-  //def fromRsonFileFind[A: Unshow](fileName: String): ThrowMon[A] = loadTextFile(fileName).findType[A]
+  def fromRsonFileFind[A: Unshow](fileName: String): ThrowMon[A] = loadTextFile(fileName).findType[A]
 
   /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
-  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFindOld(fileName).getElse(elseValue)
+  def fromRsonFileFindElseOld[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFindOld(fileName).getElse(elseValue)
 
-  /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
-   *  procedure (Unit returning function) with that object of type A */
+  /** Attempts to load a value of the specified type from an RSON format file, in case of failure returns the else default value. */
+  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
+
+  /** Attempts to find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls procedure (Unit returning
+   * function) with that object of type A */
   def fromRsonFileFindForeachOld[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFindOld(fileName).forGood(f)
+
+  /** Attempts to find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls procedure (Unit returning
+   * function) with that object of type A */
+  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forSucc(f)
 
   /** Attempts to load the value of a setting of the specified name from a file. */
   def settFromFileOld[A: Unshow](settingStr: String, fileName: String): EMonOld[A] = loadTextFileOld(fileName).findSetting[A](settingStr)
 
+  /** Attempts to load the value of a setting of the specified name from a file. */
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): ErrBi[Throwable, A] = loadTextFile(fileName).findSetting[A](settingStr)
+
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
-  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFileOld[A](settingStr, fileName).getElse(elseValue)
+  def settFromFileElseOld[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFileOld[A](settingStr, fileName).getElse(elseValue)
 
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on
-   * success. */
-  def fileWrite(path: DirPathAbs, fileName: String, content: String): EMonOld[String] = fileWrite(path.str, fileName, content)
+  /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
+  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on
-   *  success. */
-  def fileWrite(path: String, fileName: String, content: String): EMonOld[String] =
+  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
+  def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[Exception, String] = fileWrite(path.str, fileName, content)
+
+  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
+  def fileWriteOld(path: String, fileName: String, content: String): EMonOld[String] =
   { import java.io._
     var eStr: String = ""
     var opw: Option[FileWriter] = None
@@ -87,21 +98,34 @@ package object utiljvm
     if (eStr == "") Good("Successfully written file to " + path / fileName) else Bad(StrArr(eStr))
   }
 
-  def homeWrite(dir: String, fileName: String, str: String): EMonOld[String] =
-  { val h = System.getProperty("user.home")
-    fileWrite(h / dir , fileName, str)
+  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
+  def fileWrite(path: String, fileName: String, content: String): ErrBi[Exception, String] =
+  { import java.io._
+    var eStr: String = ""
+    var opw: Option[FileWriter] = None
+    try
+    { new File(path).mkdir()
+      opw = Some(new FileWriter(new File(path / fileName)))
+      opw.get.write(content)
+    }
+
+    catch
+    { case e: Throwable => eStr = e.toString
+    }
+    finally { opw.foreach(_.close()) }
+    if (eStr == "") Succ("Successfully written file to " + path / fileName) else FailExc(eStr)
   }
 
-  /** Function object apply method to get statements from a Java build resource. */
-  //def statementsFromResourceOld(fileName: String): EMonOld[RArr[Statement]] =
-   // eTryOld(scala.io.Source.fromResource(fileName).toArray).flatMap(srcToEStatementsOld(_, fileName))
+  def homeWrite(dir: String, fileName: String, str: String): ErrBi[Exception, String] =
+  { val h = System.getProperty("user.home")
+    fileWrite(h / dir, fileName, str)
+  }
 
   /** Function object apply method to get statements from a Java build resource. */
   def statementsFromResource(fileName: String): ThrowMonRArr[Statement] = eTry(io.Source.fromResource(fileName).toArray).flatMap(srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */
   def fileStatementsFromResource(fileName: String): ThrowMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
-
 
   def httpNow: String =
   { import java.time.*, java.time.format.*

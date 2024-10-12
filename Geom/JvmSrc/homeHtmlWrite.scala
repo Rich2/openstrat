@@ -7,7 +7,7 @@ object homeHtmlWrite
    * and the file name. The second is contents of the HTML body element. */
   def apply(dir: String, title: String, bodyContent: String): EMonOld[String] =
   { val home: String = System.getProperty("user.home")
-    fileWrite(home / dir, title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
+    fileWriteOld(home / dir, title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
   }
 }
 
@@ -15,6 +15,6 @@ object opensettHtmlWrite
 {
   def apply(title: String, bodyContent: String): EMonOld[String] =
   { val home: String = System.getProperty("user.home")
-    fileWrite(home + "/opensett", title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
+    fileWriteOld(home + "/opensett", title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
   }
 }

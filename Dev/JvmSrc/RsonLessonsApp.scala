@@ -7,6 +7,6 @@ object RsonLessonsApp extends App
   
   projPathDo { path =>    
     val path1: String = path.str / "Dev/target"
-    fileWrite(path1, "lessons.rson", learn.LessonsLaunch.rsonText)
+    fileWriteOld(path1, "lessons.rson", learn.LessonsLaunch.rsonText)
   }
 }
