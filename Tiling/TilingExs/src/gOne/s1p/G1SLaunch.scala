@@ -20,18 +20,18 @@ object G1SLaunch extends GuiLaunchMore
       case 3 => G1SScen3
       case _ => G1SScen1
     }
-    val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExprOld(num)
-    val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1 = sts2.findSettingIdentifierArrOld("counters")
-    val plAll = scen.counterSet
-    val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
-    val pls3 = pls2.getElse(plAll)
-    val ov = sts2.findType[SGView]
+    val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
+    val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1: ErrBi[Throwable, StrArr] = sts2.findSettingIdentifierArr("counters")
+    val plAll: RArr[Counter] = scen.counterSet
+    val pls2: ErrBi[Throwable, RArr[Counter]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
+    val pls3: RArr[Counter] = pls2.getElse(plAll)
+    val ov: ErrBi[Throwable, SGView] = sts2.findType[SGView]
     debvar(ov)
     val view: SGView = sts2.findTypeElse(scen.gridSys.defaultView())
     debvar(pls3)
-    val settings = G1SGuiSettings(view, pls3)
-    val game = G1SGame(scen, pls3)
+    val settings: G1SGuiSettings = G1SGuiSettings(view, pls3)
+    val game: G1SGame = G1SGame(scen, pls3)
     (G1SGui(_, game, settings), "JavaFx Game One Squares")
   }
 }

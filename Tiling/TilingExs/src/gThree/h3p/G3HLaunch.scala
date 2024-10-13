@@ -20,15 +20,15 @@ object G3HLaunch extends GuiLaunchMore
       case _ => G3HScen1
     }
 
-    val oSetts: EMonOld[AssignMemExpr] = sts.findIntSettingExprOld(num)
-    val sts2: EMonOld[RArr[Statement]] = oSetts.map(_.toStatements)
-    val pls1 = sts2.findSettingIdentifierArrOld("counters")
-    val plAll = scen.teamSet
-    val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
-    val pls3 = pls2.getElse(plAll)
+    val oSetts = sts.findIntSettingExpr(num)
+    val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1: ErrBi[Throwable, StrArr] = sts2.findSettingIdentifierArr("counters")
+    val plAll: RArr[Team] = scen.teamSet
+    val pls2: ErrBi[Throwable, RArr[Team]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
+    val pls3: RArr[Team] = pls2.getElse(plAll)
     val view: HGView = sts2.findTypeElse(scen.gridSys.defaultView())
-    val settings = G3HGuiSettings(view, pls3)
-    val game = G3HGame(scen, pls3)
+    val settings: G3HGuiSettings = G3HGuiSettings(view, pls3)
+    val game: G3HGame = G3HGame(scen, pls3)
     (G3HGui(_, game, settings), "JavaFx Game Three Hexs")
   }
 }
