@@ -83,22 +83,6 @@ package object utiljvm
   def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[Exception, String] = fileWrite(path.str, fileName, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWriteOld(path: String, fileName: String, content: String): EMonOld[String] =
-  { import java.io._
-    var eStr: String = ""
-    var opw: Option[FileWriter] = None
-    try {
-      new File(path).mkdir()
-      opw = Some(new FileWriter(new File(path / fileName)))
-      opw.get.write(content)
-    }
-
-    catch { case e: Throwable => eStr = e.toString }
-    finally{ opw.foreach(_.close()) }
-    if (eStr == "") Good("Successfully written file to " + path / fileName) else Bad(StrArr(eStr))
-  }
-
-  /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
   def fileWrite(path: String, fileName: String, content: String): ErrBi[Exception, String] =
   { import java.io._
     var eStr: String = ""

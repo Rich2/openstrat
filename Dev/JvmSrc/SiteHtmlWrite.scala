@@ -9,18 +9,18 @@ object SiteHtmlWrite extends App
 
   projPathDo { path =>
     val path1: String = path.str / "target/Site"
-    fileWriteOld(path1, "index.html", IndexPage.out)
-    AppPage.all.foreach(page => fileWriteOld(path1 / page.dirStr, page.htmlFileName, page.out))
+    fileWrite(path1, "index.html", IndexPage.out)
+    AppPage.all.foreach(page => fileWrite(path1 / page.dirStr, page.htmlFileName, page.out))
     val docPath: String = path1 / "Documentation"
-    fileWriteOld(docPath, "apps.html", AppsPage.out)
-    fileWriteOld(docPath, "util.html", UtilPage.out)
-    fileWriteOld(docPath, "geom.html", geom.GeomPage.out)
-    fileWriteOld(docPath, "tiling.html", prid.TilingPage.out)
-    fileWriteOld(docPath, "earth.html", pEarth.EarthPage.out)
-    fileWriteOld(docPath, "egrid.html", EGridPage.out)
-    fileWriteOld(docPath, "dev.html", pDev.DevPage.out)
-    fileWriteOld(docPath, "newdevs.html", pDev.NewDevsPage.out)
-    fileWriteOld(docPath, "documentation.css", CssDocumentation())
-    fileWriteOld(path1, "only.css", OnlyCss())
+    fileWrite(docPath, "apps.html", AppsPage.out)
+    fileWrite(docPath, "util.html", UtilPage.out)
+    fileWrite(docPath, "geom.html", geom.GeomPage.out)
+    fileWrite(docPath, "tiling.html", prid.TilingPage.out)
+    fileWrite(docPath, "earth.html", pEarth.EarthPage.out)
+    fileWrite(docPath, "egrid.html", EGridPage.out)
+    fileWrite(docPath, "dev.html", pDev.DevPage.out)
+    fileWrite(docPath, "newdevs.html", pDev.NewDevsPage.out)
+    fileWrite(docPath, "documentation.css", CssDocumentation())
+    fileWrite(path1, "only.css", OnlyCss())
   }
 }
