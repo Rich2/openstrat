@@ -20,7 +20,7 @@ package object utiljvm
   def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
 
   /** Find the [[String]] for the Identifer value of o setting of the given name in the file DevSettings.rson. */
-  def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingIdStr(settingStr))
+  def findDevSettingIdStr(settingStr: String): ThrowMon[String] = devSettingsStatements.flatMap(_.findSettingId(settingStr))
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
   def projPathDo(f: DirPathAbs => Unit): Unit = findDevSetting[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }

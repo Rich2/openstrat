@@ -120,19 +120,13 @@ object Statement
     def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifierOld(settingStr: String): EMonOld[String] = findSettingExprOld(settingStr).flatMap{
-      case IdentifierToken(str) => Good(str)
-      case expr => badNone("Not an identifier.")
-    }
-
-    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdStr(settingStr: String): ErrBi[Exception, String] = findSettingExpr(settingStr).flatMap{
+    def findSettingId(settingStr: String): ErrBi[Exception, String] = findSettingExpr(settingStr).flatMap{
       case IdentifierToken(str) => Succ(str)
       case expr => FailExc("Not an identifier.")
     }
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
-    def findSettingIdStrElse(settingStr: String, elseStr: String): String = findSettingIdStr(settingStr).getElse(elseStr)
+    def findSettingIdElse(settingStr: String, elseStr: String): String = findSettingId(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
