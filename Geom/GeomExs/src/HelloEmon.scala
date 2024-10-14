@@ -18,7 +18,7 @@ object HelloEmon extends App
   println("Counter value is now: " + counter.str)
   mi2.fold{ err => println("The counter was not changed.") }{ counter += _ }
   println("Counter value is now: " + counter.str)
-  println("MyId".parseTokensOld)
+  println("MyId".parseTokens)
   import geom._
   val h13 = HexParrX(640)
   val h13a = h13.area

@@ -5,10 +5,9 @@ import utest._
 object NumAlphaTest extends TestSuite
 {
   val tests = Tests {
-    val i1 = "86km".parseTokensOld
+    val i1 = "86km".parseTokens
     test("Num Alpha 1")
-    {
-      i1.isGood ==> true
+    { i1.isSucc ==> true
     }
   }
 }

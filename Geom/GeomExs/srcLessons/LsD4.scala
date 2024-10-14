@@ -4,11 +4,8 @@ import ostrat._, geom._, pgui._, Colour._
 
 object LsD4 extends LessonGraphics
 { override def title: String = "RSON Lesson 4"
-
   override def bodyStr: String = """Lesson C3. Pointer in object."""
-
   override def canv: CanvasPlatform => Any = LsD4Canv(_)
-
 
   /** Lesson D4 Settings. */
   case class LsD4Canv(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
@@ -27,7 +24,7 @@ object LsD4 extends LessonGraphics
     val c1 = Colour.Azure
     val t3 = t1.fill(c1)
     val s3 = "0xFFFFFFFF";
-    val c3 = s3.parseTokensOld
+    val c3 = s3.parseTokens
     val c4 = s3.parseStatements
     val c5 = s3.findType[Colour]
     val tl1 = Rval(t1) - t2 - c1
