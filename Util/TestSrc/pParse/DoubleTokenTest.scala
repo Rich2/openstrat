@@ -29,11 +29,11 @@ object DoubleTokenTest extends TestSuite
       "-4".asDbl ==> Succ(-4)
       assertMatch(s51.parseTokensOld){ case Good(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
       "51".unsafeDigitsToLong ==> 51l
-      s51.findTypeOld[Double] ==> Good(51.1)
-      assertMatch(xeqStr.parseTokensOld){ case Good(Arr3(IdentLowerOnlyToken(_, "x"), AsignToken(_), DeciFracPosToken(_, _, _, _))) => }
-      assertMatch("271.562".parseTokensOld){ case Good(Arr1(DeciFracPosToken(sp1, "271", "562", ""))) => }
+      s51.findType[Double] ==> Succ(51.1)
+      assertMatch(xeqStr.parseTokens){ case Succ(Arr3(IdentLowerOnlyToken(_, "x"), AsignToken(_), DeciFracPosToken(_, _, _, _))) => }
+      assertMatch("271.562".parseTokens){ case Succ(Arr1(DeciFracPosToken(sp1, "271", "562", ""))) => }
       //Note this not a legal AST but it doesn't matter for the purpose of lexical tests
-      assertMatch("4.5 4.5".parseTokensOld){ case Good(Arr2(DeciFracPosToken(Sp1, "4", "5", ""), DeciFracPosToken(sp5, "4", "5", ""))) => }
+      assertMatch("4.5 4.5".parseTokens){ case Succ(Arr2(DeciFracPosToken(Sp1, "4", "5", ""), DeciFracPosToken(sp5, "4", "5", ""))) => }
     }
 
     test("Test 2")

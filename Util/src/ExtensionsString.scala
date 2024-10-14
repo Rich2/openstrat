@@ -23,7 +23,7 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def parseExpr: ErrBi[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatementOld(st))
+  //def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = thisString.parseStatementsOld.seqMapUniqueGood((st: Statement) => ev.fromStatementOld(st))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findType[A](implicit ev: Unshow[A]): ErrBi[Exception, A] = thisString.parseStatements.flatMap{_.mapUniqueSucc((st: Statement) => ev.fromStatement(st)) }

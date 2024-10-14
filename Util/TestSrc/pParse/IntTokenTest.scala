@@ -37,8 +37,8 @@ object IntTokenTest extends TestSuite
       st1.intAtStsIndex(1) ==> Succ(17)
       st1.intAtStsIndex(1) ==> Succ(17)
       "true".asBool ==> Succ(true)
-      st1.findTypeOld[Boolean].isGood ==> false
-      "17; -17".findTypeOld[Int].isBad ==> true
+      st1.findType[Boolean].isSucc ==> false
+      "17; -17".findType[Int].isFail ==> true
       "17; -17".asNat.isFail ==> true
       "25".asInt ==> Succ(25)
       "25;".asInt.isFail==> true

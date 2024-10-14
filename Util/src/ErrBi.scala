@@ -73,6 +73,12 @@ object ErrBi
     eb6: ErrBi[E, A6])(f: (A1, A2, A3, A4, A5, A6) => B): ErrBi[E, B] =
     for { s1 <- eb1; s2 <- eb2; s3 <- eb3; s4 <- eb4; s5 <- eb5; s6 <- eb6 } yield f(s1, s2, s3, s4, s5, s6)
 
+  implicit def eqTEv[E <: Throwable, A](implicit evA: EqT[A]): EqT[ErrBi[E, A]] = (em1, em2) => (em1, em2) match
+  { case (Succ(a1), Succ(a2)) => evA.eqT(a1, a2)
+    case (Fail(err1), Fail(err2)) => err1 == err2
+    case _ => false
+  }
+
   implicit class ErrBiStringImplicit[E <: Throwable](thisErrBi: ErrBi[E, String])
   { /** Extension method to map this [[ErrBi]] String to find a value of the given type from the String parsed as RSON. */
     def findType[A](implicit ev: Unshow[A]): ErrBi[Throwable, A] = thisErrBi.flatMap(str => stringToStatements(str).flatMap(_.findType[A]))

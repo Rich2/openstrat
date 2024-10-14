@@ -57,12 +57,12 @@ object RArrTest extends TestSuite
     val intArr1 = IntArr(5, 6, 7)
 
     test("Unshow")
-    { ("Seq(5; 6; 7)".findTypeOld[IntArr] === Good(intArr1)) ==> true
-      ("Seq(5; 6; 7)".asTypeOld[IntArr] === Good(intArr1)) ==> true
-      ("Seq[Int](5; 6; 7)".asTypeOld[IntArr] === Good(intArr1)) ==> true
-      ("Seq[Double](5; 6; 7)".asTypeOld[IntArr] === Good(intArr1)) ==> true
-      ("Seq(5; 6; 7)".findTypeOld[DblArr] === Good(DblArr(5, 6, 7))) ==> true
-      ("Seq(-5; 6.27; 7.01)".findTypeOld[DblArr] === Good(DblArr(-5, 6.27, 7.01))) ==> true
+    { ("Seq(5; 6; 7)".findType[IntArr] === Succ(intArr1)) ==> true
+      ("Seq(5; 6; 7)".asType[IntArr] === Succ(intArr1)) ==> true
+      ("Seq[Int](5; 6; 7)".asType[IntArr] === Succ(intArr1)) ==> true
+      ("Seq[Double](5; 6; 7)".asType[IntArr] === Succ(intArr1)) ==> true
+      ("Seq(5; 6; 7)".findType[DblArr] === Succ(DblArr(5, 6, 7))) ==> true
+      ("Seq(-5; 6.27; 7.01)".findType[DblArr] === Succ(DblArr(-5, 6.27, 7.01))) ==> true
     }
   }
 }
