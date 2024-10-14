@@ -92,17 +92,6 @@ object Statement
     }
 
     /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
-    def findIntSettingExprOld(settingNum: Int): EMonOld[AssignMemExpr] = statements match
-    { case Arr0() => TextPosn.emptyErrorOld("No Statements")
-      case Arr1(st1) => st1.intSettingExprOld(settingNum)
-      case sts => sts.map(st => st.intSettingExprOld(settingNum)).collect { case g@Good(_) => g } match {
-        case Arr1(t) => t
-        case Arr0() => sts.startPosn.bad(settingNum.str -- "Setting not found.")
-        case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingNum.str -- "not found.")
-      }
-    }
-
-    /** Finds an IntSetting [Expr] from this Arr[Statement] extension method. */
     def findIntSettingExpr(settingNum: Int): ErrBi[Exception, AssignMemExpr] = statements match
     { case Arr0() => FailExc("No Statements")
       case Arr1(st1) => st1.intSettingExpr(settingNum)
@@ -289,21 +278,6 @@ object Statement
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      * resolve to Expr[Boolean]. */
     def findSettingBool(settingStr: String): ExcMon[Boolean] = Unshow.booleanEv.settingFromStatements(statements, settingStr)
-  }
-
-  /** Extension class for EMon[Arr[Statement]]. */
-  implicit class eMonArrImplicit(eMon: EMonOld[RArr[Statement]]) {
-    /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
-    def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      eMon.fold(elseValue) { statements => ev.keySettingFromStatementsOld(statements, key).getElse(elseValue) }
-
-    def findType[A](implicit ev: Unshow[A]): EMonOld[A] = eMon.flatMap(_.findTypeOld[A])
-
-    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
-     * use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = eMon.fold(elseValue)(_.findTypeOld[A].getElse(elseValue))
-
-    def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = eMon.flatMap {_.findSettingIdentifierArrOld(settingStr) }
   }
 
   /** Extension class for ErrBi[Arr[Statement]]. */
