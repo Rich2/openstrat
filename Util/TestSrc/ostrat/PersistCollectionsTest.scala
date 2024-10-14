@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -28,16 +28,16 @@ object PersistCollectionsTest  extends TestSuite
     val s2 = "Seq(1; 2; 3)"
     
     test("List2")
-    { "Seq(1; 2; 3)".asTypeOld[List[Int]] ==> Good(List(1, 2, 3))
-      "Seq[1; 2; 3]".asTypeOld[List[Int]].isBad ==> true
-      "What(1; 2; 3)".asTypeOld[List[Int]].isBad ==> true
-      "Seq[Int](1; 2; 3)".findTypeOld[List[Int]] ==> Good(List(1, 2, 3))
+    { "Seq(1; 2; 3)".asType[List[Int]] ==> Succ(List(1, 2, 3))
+      "Seq[1; 2; 3]".asType[List[Int]].isFail ==> true
+      "What(1; 2; 3)".asType[List[Int]].isFail ==> true
+      "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Succ(List(1, 2, 3))
 
-      s2.findTypeOld[List[Double]] ==> Good(List(1.0, 2, 3))
-      s2.findTypeOld[List[Int]] ==> Good(List(1, 2, 3))
-      s2.findTypeOld[Seq[Int]] ==> Good(Seq(1, 2, 3))
-      s2.findTypeOld[Vector[Int]] ==> Good(Vector(1, 2, 3))
-      //"Seq()".findType[Nil.type] ==> Good(Nil)
+      s2.findType[List[Double]] ==> Succ(List(1.0, 2, 3))
+      s2.findType[List[Int]] ==> Succ(List(1, 2, 3))
+      s2.findType[Seq[Int]] ==> Succ(Seq(1, 2, 3))
+      s2.findType[Vector[Int]] ==> Succ(Vector(1, 2, 3))
+      //"Seq()".findType[Nil.type] ==> Succ(Nil)
     }
 
     val lts: List[List[Int]] = List(List(1, 2), List(10, 11))

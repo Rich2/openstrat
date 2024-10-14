@@ -20,9 +20,6 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def parseStatements: ExcMonRArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
 
   /** Parses this [[String]] into an RSON expression. */
-  //def parseExprOld: EMonOld[Expr] = parseTokensOld.flatMap(pParse.tokensToExprOld(_))
-
-  /** Parses this [[String]] into an RSON expression. */
   def parseExpr: ErrBi[ExcParse, Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
@@ -33,9 +30,6 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
-
-  /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
-//  def typeAtStsIndexOld[A: Unshow](index: Int): EMonOld[A] = thisString.parseStatementsOld.flatMap(_.typeAtIndexOld[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
   def typeAtStsIndex[A: Unshow](index: Int) = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
