@@ -39,6 +39,7 @@ object RArrTest extends TestSuite
       refs2(2) ==> MyA(7)
       ints3(2) ==> 7
     }
+    
     val a1 = MyA(2)
     val b1 = MyB(3)
     val b2 = MyB(7)

@@ -1,11 +1,10 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._
 
 /** Also tests the srcToETokens function object. */
 object IntTokenTest extends TestSuite
-{
-  val Sp1 = StrPosn(1, 1)
+{ val Sp1 = StrPosn(1, 1)
   val Sp2 = StrPosn(1, 2)
   val Sp3 = StrPosn(1, 3)
   val Sp44 = StrPosn(4, 4)
@@ -31,7 +30,7 @@ object IntTokenTest extends TestSuite
 
     val st1 = "true; 17; false"
 
-    "Find / as Int" -
+    test("Find / as Int")
     { "17".findType[Int] ==> Succ(17)
       "17".asNat ==> Succ(17)
       st1.intAtStsIndex(1) ==> Succ(17)
