@@ -82,7 +82,7 @@ package object geom
   /** The number of thousands of an arc second in a radian = 2.0626480624709636E8. */
   val MilliSecsInRadian: Double = MilliSecsInDeg * 180.0 / Pi
   
-  /** The origin, the intersection of the axes for 2 dimensional vectors. */
+  /** The origin, the intersection of the axes for 2-dimensional vectors. */
   val Pt2Z = Pt2(0, 0)
 
   /** Dist2(0.km, 0.km) constant */
@@ -121,16 +121,16 @@ package object geom
 
   implicit class StringImplictGeom(thisString: String)
   {
-    import pParse.{ stringToStatementsOld => stss}
+    import pParse.{ stringToStatements => stss}
 
     /** Find unique [[Pt2]] expression from this String parsing it as an Sequence of RSON statements. */
-    def findPt2: EMonOld[Pt2] = stss(thisString).flatMap(_.findTypeOld[Pt2])
+    def findPt2 = stss(thisString).flatMap(_.findType[Pt2])
 
     /** Find unique [[Pt2]] expression from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
     def findPt2Else(elseValue: => Pt2) = findPt2.getElse(elseValue)
 
     /** Find unique [[Pt2]] setting of the given name from this String, parsing it as an Sequence of RSON statements. */
-    def findSettingPt2(setting: String): EMonOld[Pt2] = stss(thisString).flatMap(_.findSettingOld[Pt2](setting))
+    def findSettingPt2(setting: String) = stss(thisString).flatMap(_.findSetting[Pt2](setting))
 
     /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON
      *  statements. */

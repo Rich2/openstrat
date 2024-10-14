@@ -163,7 +163,7 @@ object Statement
       ev.keySettingFromStatements(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueTOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findTypeOld)
+    //def findSettingOrUniqueTOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findTypeOld)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): ErrBi[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
@@ -175,22 +175,14 @@ object Statement
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGoodOld(ev.fromStatementOld(_))
+    //def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGoodOld(ev.fromStatementOld(_))
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
     def findType[A](implicit ev: Unshow[A]): ErrBi[ExcFind, A] = statements.mapUniqueSucc(ev.fromStatement(_))
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
-     *  use elseValue. */
-    def findTypeElseOld[A](elseValue: A)(implicit ev: Unshow[A]): A = findTypeOld[A].getElse(elseValue)
-
-    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      * use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
-
-    /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
-    /*def typeAtIndexOld[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
-      ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))*/
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]) =
