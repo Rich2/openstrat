@@ -29,7 +29,7 @@ object LsD4 extends LessonGraphics
     val s3 = "0xFFFFFFFF";
     val c3 = s3.parseTokensOld
     val c4 = s3.parseStatementsOld
-    val c5 = s3.findTypeOld[Colour]
+    val c5 = s3.findType[Colour]
     val tl1 = Rval(t1) - t2 - c1
 
     repaint(SText(200, tl1.str) %: MText(0, StrArr(c1.toString, c3.toString, c4.toString, c5.toString)))

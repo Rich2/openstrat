@@ -116,14 +116,14 @@ package object ostrat
   /** Not sure what this method does. */
   def readT[T](implicit ev: Unshow[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
-    def loop(inp: EMonOld[T]): T = inp match
-    { case Good(t) => t
+    def loop(inp: ErrBi[?, T]): T = inp match
+    { case Succ(t) => t
       case a =>
       { println(a)
-        loop(scala.io.StdIn.readLine ("That was not a single "+ ev.typeStr + ". Please enter " + artStr).asTypeOld[T])
+        loop(scala.io.StdIn.readLine ("That was not a single "+ ev.typeStr + ". Please enter " + artStr).asType[T])
       }
     }
-    loop(scala.io.StdIn.readLine ("Please enter " + artStr).asTypeOld[T])
+    loop(scala.io.StdIn.readLine ("Please enter " + artStr).asType[T])
   }
 
   def readInt: Int = readT[Int]

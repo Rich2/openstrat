@@ -189,8 +189,8 @@ object Statement
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findType[A].getElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
-    def typeAtIndexOld[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
-      ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))
+    /*def typeAtIndexOld[A](index: Int)(implicit ev: Unshow[A]): EMonOld[A] =
+      ife(statements.length > index, ev.fromStatementOld(statements(index)), badNone("No statement at given index."))*/
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]) =
