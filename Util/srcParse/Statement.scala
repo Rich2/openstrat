@@ -199,18 +199,10 @@ object Statement
     }
 
     /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def intAtIndexOld(index: Int): EMonOld[Int] =
-      ife(statements.length > index, Unshow.intEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
-
-    /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def intAtIndex(index: Int): ExcMon[Int] =
     { val st = statements(index)
       ife(statements.length > index, Unshow.intEv.fromStatement(st), FailNoExprAtN(index, Unshow.intEv))
     }
-
-    /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def natIntAtIndexOLd(index: Int): EMonOld[Int] =
-      ife(statements.length > index, Unshow.natEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a natural non-negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def natIntAtIndex(index: Int): ExcMon[Int] =
@@ -219,18 +211,10 @@ object Statement
     }
 
     /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def dblAtIndexOld(index: Int): EMonOld[Double] =
-      ife(statements.length > index, Unshow.doubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
-
-    /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def dblAtIndex(index: Int) =
     { val st = statements(index)
       ife(statements.length > index, Unshow.doubleEv.fromStatement(st), FailNoExprAtN(index, Unshow.doubleEv))
     }
-
-    /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def posDblAtIndexOld(index: Int): EMonOld[Double] =
-      ife(statements.length > index, Unshow.posDoubleEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get a positive, non-negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def posDblAtIndex(index: Int) =
@@ -239,28 +223,16 @@ object Statement
     }
 
     /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def boolAtIndexOld(index: Int): EMonOld[Boolean] =
-      ife(statements.length > index, Unshow.booleanEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
-
-    /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def boolAtIndex(index: Int) =
     { val st = statements(index)
       ife(statements.length > index, Unshow.booleanEv.fromStatement(st), FailNoExprAtN(index, Unshow.booleanEv))
     }
-
-    /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[RArr]][Statement]. */
-    def longAtIndexOld(index: Int): EMonOld[Long] =
-      ife(statements.length > index, Unshow.longEv.fromStatementOld(statements(index)), badNone("No statement at given index."))
 
     /** Extension methods tries to get an[[Long]] value from the statement at the specified index of this[[RArr]][Statement].*/
     def longAtIndex(index: Int): ExcMon[Long] =
     { val st = statements(index)
       ife(statements.length > index, Unshow.longEv.fromStatement(st), FailNoExprAtN(index, Unshow.longEv))
     }
-
-    /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
-     * Expr[Array[Int]]. */
-    def findIntArrayOld: EMonOld[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
