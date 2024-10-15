@@ -121,18 +121,21 @@ trait CanvasPlatform extends RectCenlign
   def gcSave(): Unit
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
-  def loadFile(fileName: String): EMonOld[String]
-  def fromFileFind[A](fileName: String)(implicit ev: Unshow[A]): EMonOld[A] = loadFile(fileName).findType(ev)
+  def loadFile(fileName: String): ErrBi[Throwable, String]
+
+
+  def fromFileFind[A](fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findType(ev)
   def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
   
-  /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
+  /** Attempts to find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
    *  procedure (Unit returning function) with that object of type A */
-  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Unshow[A]): Unit = fromFileFind(fileName)(ev).forGood(f)
-  
-  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]): EMonOld[A] =
-    loadFile(fileName).findSetting(settingStr)(ev)
+  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Unshow[A]): Unit = fromFileFind(fileName)(ev).forSucc(f)
+
+  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findSetting(settingStr)(ev)
+
+  //def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]) = loadFile(fileName).findSetting(settingStr)(ev)
     
-  def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A =
+  def fromFileFindSettingElseOld[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
 
   def rendElems(elems: RArr[GraphicElem]): Unit = elems.foreach(_.rendToCanvas(this))
