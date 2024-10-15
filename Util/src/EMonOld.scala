@@ -86,39 +86,6 @@ sealed trait EMonOld[+A]
   }
 }
 
-/** Companion object for EMon trait contains implicit class for EMon returning extension methods on [[String]] and Show implicit instance. */
-object EMonOld
-{
-  implicit class EMonSeqGen[A, S <: Sequ[A]](thisES: EMonOld[S])
-  {
-    /** Method on EMon[SeqGen[A]]. If this is good, the sequence is mapped with a function from A to EMon[B]. If that mapping produces on Good value, the unique
-     *  Good value is returned.*/
-    def seqMapUniqueGood[B](f: A => EMonOld[B]): EMonOld[B] = thisES.flatMap{ thisSeq =>
-      var count = 0
-      var acc: EMonOld[B] = badNone[B]("No elem of type found")
-      thisSeq.foreach { a =>
-        val eb: EMonOld[B] = f(a)
-        if (eb.isGood) { count += 1; acc = eb }
-      }
-      ife (count < 2, acc, badNone (s"$count values found") )
-    }
-  }
-
-  implicit class RArrExtensions(thisEMon: EMonOld[Arr[?]])
-  {
-    def printArrLines: Unit = thisEMon match{
-      case Good(arr) => arr.foreach(println)
-      case Bad(errs) => println(errs)
-    }
-  }
-
-  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[EMonOld[A]] = (em1, em2) => (em1, em2) match
-  { case (Good(a1), Good(a2)) => evA.eqT(a1, a2)
-    case (Bad(errs1), Bad(errs2)) => false
-    case _ => false
-  }
-}
-
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[Refs[String], +A]. */
 final case class Good[+A](val value: A) extends EMonOld[A]
@@ -163,18 +130,6 @@ final case class Good[+A](val value: A) extends EMonOld[A]
 
   /** Maps over the [[Bad]] errors side of this bifunctor. */
   override def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMonOld[A] = this
-}
-
-object Good
-{
-  implicit def GoodShowImplicit[A](implicit ev: Show[A]): Show[Good[A]] = new Show[Good[A]] with ShowCompound[Good[A]]
-  { override def syntaxDepth(obj: Good[A]): Int = ev.syntaxDepth(obj.value) + 1
-    override def typeStr: String = "Good" + ev.typeStr.enSquare
-
-    override def show(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-  }
-
-  implicit def eqEv[A](implicit evA: EqT[A]): EqT[Good[A]] = (g1, g2) => evA.eqT(g1.value, g2.value)
 }
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
@@ -222,12 +177,6 @@ object Bad
   def unapplySeq(inp: Any): Option[Seq[String]] = inp match
   { case b: Bad[_] => Some(b.errs.toList)
     case _ => None
-  }
-
-  implicit def BadShowImplicit[A](implicit ev: Show[A]): Show[Bad[A]] = new Show[Bad[A]] with ShowCompound[Bad[A]]
-  { override def syntaxDepth(obj: Bad[A]): Int = 2
-    override def typeStr: String = "Bad" + ev.typeStr.enSquare
-    override def show(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
 
