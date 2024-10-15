@@ -45,13 +45,6 @@ trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
 
   def shortKeys: ArrPairStr[A @uncheckedVariance]
 
-  def fromExprOld(expr: Expr): EMonOld[A] = expr match
-  { case IdentifierToken(str) =>
-      singletons.find(el => el.str == str).orElse(shortKeys.a1FindA2(str)).toEMon1(expr, typeStr -- "not parsed from this Expression")
-
-    case e => bad1(e, typeStr -- "not parsed from this Expression")
-  }
-
   override def fromExpr(expr: Expr): ExcMon[A] = expr match
   { case IdentifierToken(str) => singletons.find(el => el.str == str).orElse(shortKeys.a1FindA2(str)).toErrBi
     case expr => expr.failExc(typeStr -- "not parsed from this Expression")

@@ -40,10 +40,10 @@ trait Unshow[+T] extends Persist
 
   /** Produces an [[ArrImut]] of the UnShow type from Statements RArr[Statement]. */
   def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance): ArrT =
-    sts.mapCollectGoods(fromStatementOld)(arrBuild)
+    sts.mapCollectSuccs(fromStatement)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatementsOld[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
     EMonOld[T] = valuesFromStatements(sts) match
   { case s if s.length == 0 => TextPosn.emptyErrorOld("No values of type found")
     case s if s.length == 1 => Good(s.head)

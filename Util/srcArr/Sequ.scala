@@ -562,17 +562,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ev.buffToSeqLike(acc)
   }
 
-  /** Takes a function from A to EMon[B]. If the function applied to each element produces a single Good, it is returned else returns [[Bad]]. */
-  def mapUniqueGoodOld[B](f: A => EMonOld[B]): EMonOld[B] =
-  { var count = 0
-    var acc: EMonOld[B] = badNone("No elem of type found")
-    foreach{a =>
-      val eb: EMonOld[B] = f(a)
-      if(eb.isGood){ count += 1; acc = eb }
-    }
-    ife(count < 2, acc, badNone(s"$count values found"))
-  }
-
   /** Takes a function from A to [[ErrBi]][?, B]. If the function applied to each element produces a single Good, it is returned else returns [[Bad]]. */
   def mapUniqueSucc[B](f: A => ErrBi[?, B]): ErrBi[ExcFind, B] =
   { var count = 0
@@ -667,18 +656,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = map(fElemStr).mkString("; ").enParenth
-
-  /** Takes a function that returns an [[EMonOld]] and returns the first [[Good]]. */
-  //def findGood[B](f: A => EMonOld[B]): EMonOld[B] = ???
-  /*{ var res: EMonOld[B] = ENone
-    var i = 0
-    while(i < length && res == ENone)
-    { val b = f(apply(i))
-      if (b.isGood) res = b
-      i += 1
-    }
-    res.noneMap1("No Good returned when function applied to this Sequ.")
-  }*/
 
   /** Takes a function that returns an [[ErrBi]] and returns the first [[Succ]]. */
   def findSucc[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[ExcNotFound.type, B] =

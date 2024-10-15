@@ -128,16 +128,6 @@ object Colour
   implicit val unshowEv: Unshow[Colour] = new Unshow[Colour]
   { override def typeStr: String = "Colour"
 
-    def fromExprOld(expr: Expr): EMonOld[Colour] = expr match {
-      case IdentLowerToken(_, typeName) if Colour.strValueKeys.contains(typeName) => Good(Colour.strValueKeys(typeName))
-      case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
-      case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStructure(Arr1(st), Parentheses, _, _))) => st.expr match {
-        case Nat0xToken(_, v) => ??? //Good(Colour(v.toInt))
-        case _ => expr.exprParseErrOld[Colour](this)
-      }
-      case _ => expr.exprParseErrOld[Colour](this)
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Colour] =  expr match {
       case IdentLowerToken(_, typeName) if Colour.strValueKeys.contains(typeName) => Succ(Colour.strValueKeys(typeName))
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))
