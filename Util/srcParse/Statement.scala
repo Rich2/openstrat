@@ -103,7 +103,7 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSettingOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = ev.settingFromStatementsOld(statements, settingStr)
+//    def findSettingOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = ev.settingFromStatementsOld(statements, settingStr)
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
     def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
@@ -118,7 +118,7 @@ object Statement
     def findSettingIdElse(settingStr: String, elseStr: String): String = findSettingId(settingStr).getElse(elseStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
+    /*def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
       case IdentifierToken(str) => Good(StrArr(str))
       case exprSeq: ExprSeqExpr =>
       { val opt = exprSeq.exprs.optAllMap{expr => expr match
@@ -129,7 +129,7 @@ object Statement
         opt.toEMon
       }
       case expr => badNone("Not an identifier.")
-    }
+    }*/
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String) = findSettingExpr(settingStr).flatMap {
@@ -169,7 +169,7 @@ object Statement
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): ErrBi[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingElseOld[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
+//    def findSettingElseOld[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)

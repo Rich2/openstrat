@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pww1
 import pgui._, prid._, phex._, pParse._
 
@@ -10,10 +10,10 @@ object WW1Launch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (WW1Gui(_, WW1Scen1, WW1Scen1.defaultView()), "JavaFx WW1")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val num: Int = sts.findSettingElseOld("scen", 1)
-    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
+  { val num: Int = sts.findSettingElse("scen", 1)
+    val isFlat: Boolean = sts.findSettingElse("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
+    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: WW1Scen = num match
     { case 1 => WW1Scen1

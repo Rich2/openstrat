@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 import utest._
 
@@ -37,17 +37,16 @@ object LatLongTest extends TestSuite
     }
 
     val o1 = Longitude.degs(20)
-    test("Longitude"){
-      o1.milliSecs ==> Longitude.milliSecs(o1.milliSecs).milliSecs
+    test("Longitude")
+    { o1.milliSecs ==> Longitude.milliSecs(o1.milliSecs).milliSecs
     }
 
     val ll4 = -5 ll -40
     test("Latlong Persist")
-    {
-      ll1.str ==> "44.00N, 46.00E"
-      "LatLong(44; 46)".asTypeOld[LatLong] ==> Good(ll1)
-      "44; 46".asTypeOld[LatLong] ==> Good(ll1)
-      "-5, -40".asTypeOld[LatLong] ==> Good(ll4)
+    { ll1.str ==> "44.00N, 46.00E"
+      "LatLong(44; 46)".asType[LatLong] ==> Succ(ll1)
+      "44; 46".asType[LatLong] ==> Succ(ll1)
+      "-5, -40".asType[LatLong] ==> Succ(ll4)
     }
   }
 }

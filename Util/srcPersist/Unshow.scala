@@ -75,7 +75,7 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatementsOld(sts: RArr[Statement], settingStr: String): EMonOld[T] = sts match
+  /*def settingFromStatementsOld(sts: RArr[Statement], settingStr: String): EMonOld[T] = sts match
   { case Arr0() => TextPosn.emptyErrorOld("No Statements")
     case Arr1(st1) => settingTFromStatementOld(settingStr, st1)
     case s2 => sts.map(settingTFromStatementOld(settingStr, _)).collect{ case g @ Good(_) => g } match
@@ -83,7 +83,7 @@ trait Unshow[+T] extends Persist
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
-  }
+  }*/
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
   def settingFromStatements(sts: RArr[Statement], settingStr: String): ExcMon[T] = sts match

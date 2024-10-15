@@ -10,10 +10,10 @@ object NormLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (NormGui(_, NormScen1, NormScen1.grid.defaultView()), "JavaFx Diceless")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val num: Int = sts.findSettingElseOld("scen", 1)
-    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
+  { val num: Int = sts.findSettingElse("scen", 1)
+    val isFlat: Boolean = sts.findSettingElse("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
+    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: NormScen = num match
     { case 1 => NormScen1

@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package s1p
 import pgui._, pParse._, prid._, psq._, gPlay._
 
@@ -11,7 +11,7 @@ object G1SLaunch extends GuiLaunchMore
     (G1SGui(_, G1SGame(G1SScen1, G1SScen1.counterSet), G1SGuiSettings(G1SScen1.defaultView(), G1SScen1.counterSet)), "JavaFx Game One Squares")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMonOld[Int] = sts.findSettingOld[Int]("scen")
+  { val oScen = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
 
     val scen: G1SScen = num match

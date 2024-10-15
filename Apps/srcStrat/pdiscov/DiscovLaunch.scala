@@ -4,16 +4,14 @@ import pgui._, prid._, phex._, pParse._
 
 /** Scenario selector and launcher for AD1492. */
 object DiscovLaunch extends GuiLaunchMore
-{
-  override def settingStr: String = "discov"
-
+{ override def settingStr: String = "discov"
   override def default: (CanvasPlatform => Any, String) = (DiscovGui(_, DiscovScen1, DiscovScen1.defaultView()), "JavaFx AD 1492")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val num: Int = sts.findSettingElseOld("scen", 1)
-    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
+  { val num: Int = sts.findSettingElse("scen", 1)
+    val isFlat: Boolean = sts.findSettingElse("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
+    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: DiscovScen = num match
     { case 1 => DiscovScen1
