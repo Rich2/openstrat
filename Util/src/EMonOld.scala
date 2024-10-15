@@ -89,19 +89,6 @@ sealed trait EMonOld[+A]
 /** Companion object for EMon trait contains implicit class for EMon returning extension methods on [[String]] and Show implicit instance. */
 object EMonOld
 {
-  implicit class EMonStringImplicit(thisEMon: EMonOld[String])
-  { def findType[A](implicit ev: Unshow[A]): EMonOld[A] = ???// thisEMon.flatMap(str => pParse.stringToStatementsOld(str).flatMap(_.findTypeOld[A]))
-    def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
-    def findTypeForeach[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
-
-    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
-    def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
-  }
-
-  implicit def showImplicit[A](implicit ev: Show[A]): Show[EMonOld[A]] =
-    ShowSum2("EMon", Good.GoodShowImplicit(ev),
-      Bad.BadShowImplicit(ev))
-
   implicit class EMonSeqGen[A, S <: Sequ[A]](thisES: EMonOld[S])
   {
     /** Method on EMon[SeqGen[A]]. If this is good, the sequence is mapped with a function from A to EMon[B]. If that mapping produces on Good value, the unique
