@@ -548,7 +548,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   def toVector: Vector[A] = toList.toVector
 
-  /** Sums aaccumulating the results of the A => Int function. */
+  /** Sums accumulating the results of the A => Int function. */
   def sumBy(f: A => Int): Int =
   { var acc = 0
     foreach(acc += f(_))
@@ -572,13 +572,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       }
     }
     ife(count < 2, acc, FailFoundMulti(count))
-  }
-
-  /** maps from A to EMon[B], collects the good values. */
-  def mapCollectGoods[B, BB <: Arr[B]](f: A => EMonOld[B])(implicit ev: BuilderArrMap[B, BB]): BB =
-  { val acc = ev.newBuff()
-    foreach(f(_).forGood(ev.buffGrow(acc, _)))
-    ev.buffToSeqLike(acc)
   }
 
   /** maps from A to ErrBi[B], collects the successful values. */

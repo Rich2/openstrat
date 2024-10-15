@@ -103,28 +103,8 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Seq[Ar]) => A = f
 
-  override def fromExprOld(expr: Expr): EMonOld[A] =
+  override def fromExpr(expr: Expr): ExcMon[A] =
   { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
-    expr match
-    { case Match1(exprs) if exprs.length == 0 => opt1 match
-      { case Some(a1) => Good(f(a1, Nil))
-        case None => bad1(expr, "No values")
-      }
-
-      case Match1(exprs) =>
-      { val a1 = unshowA1.fromExprOld(exprs(0))
-        def reps: EMonOld[List[Ar]] = if (unshowAr.useMultiple) Multiple.collFromArrExprOld(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
-        else exprs.drop1.mapEMonListOld(unshowAr.fromExprOld)
-        a1.flatMap(a1 => reps.map(l => newT(a1, l)))
-      }
-
-      case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
-      case _ => expr.exprParseErrOld[A](this)
-    }
-  }
-
-  override def fromExpr(expr: Expr) = ???
-  /*{ val Match1: NamedExprSeq = NamedExprSeq(typeStr)
     expr match
     {
       case Match1(exprs) if exprs.length == 0 => opt1 match
@@ -135,15 +115,15 @@ class Unshow1Repeat[A1, Ar, A](val typeStr: String, val name1: String, val repea
       case Match1(exprs) =>
       { val a1 = unshowA1.fromExpr(exprs(0))
         def reps = if (unshowAr.useMultiple) Multiple.collFromArrExpr(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
-        else exprs.drop1.mapEMonListOld(unshowAr.fromExprOld)
+        else exprs.drop1.mapErrBiList(unshowAr.fromExpr)
 
         a1.flatMap(a1 => reps.map(l => newT(a1, l)))
       }
 
-      case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
-      case _ => expr.exprParseErrOld[A](this)
+      case AlphaMaybeSquareParenth(name, _) => expr.failExc(s"Wrong name: $name not $typeStr.")
+      case _ => expr.exprParseErr[A](this)
     }
-  }*/
+  }
 }
 
 object Unshow1Repeat
@@ -157,27 +137,6 @@ class Unshow1OptRepeat[A1, Ar, A](val typeStr: String, val name1: String, val re
   implicit val unshowA1: Unshow[A1], val unshowAr: Unshow[Ar], ct: ClassTag[Ar]) extends Unshow[A] with Persist1Repeat[A1, Ar, A]
 { /** The function to construct an object of type R from its 2 components." */
   def newT: (A1, Array[Ar]) => A = f
-
-  override def fromExprOld(expr: Expr): EMonOld[A] =
-  {
-    val Match1: NamedExprSeq = NamedExprSeq(typeStr)
-    expr match
-    { case Match1(exprs) if exprs.length == 0 => opt1 match
-    { case Some(a1) => Good(f(a1, new Array[Ar](0)))
-      case None => bad1(expr, "No values")
-    }
-
-    case Match1(exprs) =>
-    { val a1 = unshowA1.fromExprOld(exprs(0))
-      def reps: EMonOld[List[Ar]] = if (unshowAr.useMultiple) Multiple.collFromArrExprOld(exprs.drop1)(unshowAr, BuilderCollMap.listEv)
-      else exprs.drop1.mapEMonListOld(unshowAr.fromExprOld)
-      a1.flatMap{ a1 => reps.map(list => newT(a1, list.toArray)) }
-    }
-
-    case AlphaMaybeSquareParenth(name, _) => bad1(expr, s"Wrong name: $name not $typeStr.")
-    case _ => expr.exprParseErrOld[A](this)
-    }
-  }
 
   override def fromExpr(expr: Expr): ExcMon[A] =
   { val Match1: NamedExprSeq = NamedExprSeq(typeStr)
