@@ -27,8 +27,7 @@ object ShowSum2
 {
   def apply[ST <: AnyRef, A1 <: ST, A2 <: ST](typeIn: String, ev1In: Show[A1], ev2In: Show[A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]):
     ShowSum2[ST, A1, A2] = new ShowSum2[ST, A1, A2](typeIn)(ct1, ct2)
-  { //override def typeStr: String = typeIn
-    override def ev1: Show[A1] = ev1In
+  { override def ev1: Show[A1] = ev1In
     override def ev2: Show[A2] = ev2In
   }
 }
@@ -36,7 +35,7 @@ object ShowSum2
 /** Algebraic sum type for [[Unshow]]. */
 trait UnshowSum[+A] extends Unshow[A]
 { def elems: RArr[Unshow[A]]
-  override def fromExprOld(expr: Expr): EMonOld[A] = elems.findGood(_.fromExprOld(expr))
+  //override def fromExprOld(expr: Expr): EMonOld[A] = ???// elems.findGood(_.fromExprOld(expr))
   override def fromExpr(expr: Expr): ErrBi[ExcNotFound.type, A] = elems.findSucc(_.fromExpr(expr))
 
   override def concat[AA >: A](operand: Unshow[AA], newTypeStr: String = typeStr): Unshow[AA] = operand match

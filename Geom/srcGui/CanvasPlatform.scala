@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._, Colour._
 
@@ -122,8 +122,6 @@ trait CanvasPlatform extends RectCenlign
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
   def loadFile(fileName: String): ErrBi[Throwable, String]
-
-
   def fromFileFind[A](fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findType(ev)
   def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
   
@@ -131,9 +129,7 @@ trait CanvasPlatform extends RectCenlign
    *  procedure (Unit returning function) with that object of type A */
   def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Unshow[A]): Unit = fromFileFind(fileName)(ev).forSucc(f)
 
-  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findSetting(settingStr)(ev)
-
-  //def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]) = loadFile(fileName).findSetting(settingStr)(ev)
+  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Unshow[A]): ErrBi[Throwable, A] = loadFile(fileName).findSetting(settingStr)(ev)  
     
   def fromFileFindSettingElseOld[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Unshow[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)

@@ -73,17 +73,11 @@ sealed trait EMonOld[+A]
 
   def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMonOld[A]
 
-  /** Creates new errors for an ENone. */
-  def noneMap(newErrs: => StrArr): EMonOld[A] = this match
-  { case ENone => Bad(newErrs)
-    case _ => this
-  }
-
   /** Creates a new error for an ENone. */
-  def noneMap1(newErr: => String): EMonOld[A] = this match
+  /*def noneMap1(newErr: => String): EMonOld[A] = this match
   { case ENone => Bad(StrArr(newErr))
     case _ => this
-  }
+  }*/
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
