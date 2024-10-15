@@ -72,12 +72,6 @@ sealed trait EMonOld[+A]
   def goodOrOther[A1 >: A](otherEMon: => EMonOld[A1] @uncheckedVariance): EMonOld[A1]
 
   def badMap(f: Bad[A] => Bad[A] @uncheckedVariance): EMonOld[A]
-
-  /** Creates a new error for an ENone. */
-  /*def noneMap1(newErr: => String): EMonOld[A] = this match
-  { case ENone => Bad(StrArr(newErr))
-    case _ => this
-  }*/
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
@@ -146,8 +140,6 @@ class Bad[+A](val errs: StrArr) extends EMonOld[A]
   override def map6[A2, A3, A4, A5, A6, R](e2: EMonOld[A2], e3: EMonOld[A3], e4: EMonOld[A4], e5: EMonOld[A5], e6: EMonOld[A6])(f: (A, A2, A3, A4, A5, A6) => R):
     EMonOld[R] = Bad[R](errs ++ e2.errs ++ e3.errs ++ e4.errs ++ e5.errs)
 
-//  override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
-
   override def getElse(elseValue: A @uncheckedVariance): A = elseValue
   override def forGood(f: A => Unit): Unit = {}
   override def toOption: Option[A] = None
@@ -173,6 +165,3 @@ object Bad
     case _ => None
   }
 }
-
-/** An [[EMonOld]] corresponding to a [[None]] */
-case object ENone extends Bad[Nothing](StrArr("None"))

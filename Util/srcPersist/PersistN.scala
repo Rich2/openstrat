@@ -61,7 +61,7 @@ trait ShowTellN[A <: TellN] extends ShowNFixed[A] with ShowTell[A]
 
 trait UnshowN[R] extends Unshow[R] with PersistNFixed
 {
-  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMonOld[R]
+  protected def fromSortedExprsOld(sortedExprs: RArr[Expr], pSeq: IntArr): EMonOld[R] = ???
 
   protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[R]
 

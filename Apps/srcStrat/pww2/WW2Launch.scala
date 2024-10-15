@@ -10,11 +10,10 @@ object WW2Launch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (WW2Gui(_, WW2Scen1, WW2Scen1.defaultView()), "JavaFx WW2")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  {
-    val num: Int = sts.findSettingElseOld("scen", 1)
-    val isFlat: Boolean = sts.findSettingElseOld("flat", false)
+  { val num: Int = sts.findSettingElse("scen", 1)
+    val isFlat: Boolean = sts.findSettingElse("flat", false)
 
-    val oview: EMonOld[HGView] = sts.findKeySettingOld[Int, HGView](num)
+    val oview: ExcMon[HGView] = sts.findKeySetting[Int, HGView](num)
     val scen: WW2Scen = num match
     { case 1 => WW2Scen1
       case 2 => WW2Scen2
