@@ -378,13 +378,6 @@ trait UnshowPriority2 extends UnshowPriority3
     val build: BuilderArrMap[A, ArrA] = buildIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
-    override def fromExprOld(expr: Expr): EMonOld[Vector[A]] = expr match
-    { case _: EmptyExprToken => Good(Vector[A]())
-      case AlphaSquareParenth("Seq", ts, sts) => sts.mapEMon(s => evA.fromExprOld(s.expr))(build).map(_.toVector)
-      case AlphaParenth("Seq", sts) => sts.mapEMon(s => evA.fromExprOld(s.expr))(build).map(_.toVector)
-      case e => bad1(expr, "Unknown Expression for Seq")
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Vector[A]] = expr match
     { case _: EmptyExprToken => Succ(Vector[A]())
       case AlphaSquareParenth("Seq", ts, sts) => sts.mapErrBi(s => evA.fromExpr(s.expr))(build).map(_.toVector)

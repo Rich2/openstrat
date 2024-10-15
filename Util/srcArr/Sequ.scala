@@ -278,18 +278,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => [[EMonOld]][B]. implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
-   * first parameter list. */
-  def mapEMon[B, ArrB <: Arr[B]](f: A => EMonOld[B])(implicit ev: BuilderArrMap[B, ArrB]): EMonOld[ArrB] =
-  { val acc = ev.newBuff()
-    var continue = true
-    var count = 0
-    var errs: StrArr = StrArr()
-    while(count < length & continue == true)
-      f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
-    ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
-  }
-
   /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in whihc case it returns a [[Fail]] of the
    * first error encountered implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
    * first parameter list. */

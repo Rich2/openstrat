@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, pParse._
 
@@ -46,18 +46,6 @@ object DblArr
   /** Implicit method for creating [[IntArr]] instances. */
   implicit val unshowEv: Unshow[DblArr] = new Unshow[DblArr]
   { override def typeStr: String = "Seq" + "Dbl"
-
-    override def fromExprOld(expr: Expr): EMonOld[DblArr] = expr match
-    { case _: EmptyExprToken => Good(DblArr())
-
-      case AlphaBracketExpr(id1, RArr2(BracketedStructure(RArr1(_), brs1, _, _), BracketedStructure(sts, brs2, _, _)))
-        if (id1.srcStr == "Seq") && brs1 == SquareBraces && brs2 == Parentheses => sts.mapEMon(s => Unshow.doubleEv.fromExprOld(s.expr))(DblArrBuilder)
-
-      case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
-        sts.mapEMon(s => Unshow.doubleEv.fromExprOld(s.expr))(DblArrBuilder)
-
-      case e => bad1(expr, expr.toString + " unknown Expression for Seq")
-    }
 
     override def fromExpr(expr: Expr): ExcMon[DblArr] = expr match
     { case _: EmptyExprToken => Succ(DblArr())
