@@ -84,18 +84,6 @@ trait UnshowSeqLike[Ae, A] extends Unshow[A]
   def unshowAeEv: Unshow[Ae]
   def build: BuilderCollMap[Ae, A]
 
-  override def fromExprOld(expr: Expr): EMonOld[A] = expr match
-  { case _: EmptyExprToken => Good(build.empty)
-
-    case AlphaMaybeSquareParenth(str1, sts) if str1 == typeStr => if(unshowAeEv.useMultiple) Multiple.collFromArrStatementOld(sts)(unshowAeEv, build)
-    else sts.mapEMon(build)(s => unshowAeEv.fromExprOld(s.expr))
-
-    case ExprSeqNonEmpty(mems) => if (unshowAeEv.useMultiple) Multiple.collFromArrExprOld(mems)(unshowAeEv, build)
-    else mems.mapEMon(build)(e => unshowAeEv.fromExprOld(e))
-
-    case e => bad1(expr, expr.toString + " unknown Expression for this sequence based class.")
-  }
-
   override def fromExpr(expr: Expr): ExcMon[A] = expr match
   { case _: EmptyExprToken => Succ(build.empty)
 

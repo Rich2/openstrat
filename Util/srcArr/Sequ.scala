@@ -304,18 +304,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       case None => Succ (ev.buffToSeqLike(acc))
     }
   }
-
-  /** Map from A => [[EMonOld]][B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
-  def mapEMon[B, BB](ev: BuilderCollMap[B, BB])(f: A => EMonOld[B]): EMonOld[BB] =
-  { val acc = ev.newBuff()
-    var continue = true
-    var count = 0
-    var errs: StrArr = StrArr()
-    while (count < length & continue == true)
-      f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
-    ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
-  }
-
+  
   /** Map from A => [[ErrBi]][E, B]. There is a name overload that implicitly takes a narrower [[BuilderArrMap]] as the second parameter list. */
   def mapErrBi[E <: Throwable, B, BB](ev: BuilderCollMap[B, BB])(f: A => ErrBi[E, B]): ErrBi[E, BB] =
   { val acc = ev.newBuff()
@@ -335,17 +324,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var i = 0
     foreach{ a => res(i) = f(a); i += 1 }
     res
-  }
-
-  /** Map from A => B, retuening an [[EMonOld]] of [[List]]. */
-  def mapEMonListOld[B](f: A => EMonOld[B]): EMonOld[List[B]] =
-  { var acc: List[B] = Nil
-    var continue = true
-    var count = 0
-    var errs: StrArr = StrArr()
-    while(count < length & continue == true)
-      f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
-    ife(continue, Good(acc.reverse), Bad(errs))
   }
 
   /** Map from A => B, returning an [[ErrBi]] of [[List]]. */
