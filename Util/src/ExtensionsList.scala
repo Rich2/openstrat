@@ -13,10 +13,7 @@ class ExtensionsList[A](val thisList: List[A]) extends AnyVal
     }
     loop(thisList, Nil)
   }
-
-  /** Reverses List[A] and puts it inside Good. */
-  def goodReverse: Good[List[A]] = Good(thisList.reverse)
-   
+  
   /** Replaces all instances of the old value with the new value */
   def replace(oldValue: A, newValue: A): List[A] = thisList map { it => if (it == oldValue) newValue else it }
 }

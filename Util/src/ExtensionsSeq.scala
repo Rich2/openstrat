@@ -83,19 +83,4 @@ class ExtensionsSeq[A](thisSeq: Seq[A])
     thisSeq.foreach { orig => res.setElemUnsafe(count, orig); count += 1 }
     res
   }
-  
-  def mapFirstGood[B](f: A => EMonOld[B], errs: => Bad[B]): EMonOld[B] =
-  {
-    def loop(rem: List[A]): EMonOld[B] = rem match
-    {
-      case Nil => errs
-      
-      case ::(h, tail) => f(h) match
-      {
-        case gd @ Good(a) => gd
-        case _ => loop(tail)
-      }
-    }
-    loop(thisSeq.toList)
-  }
 }

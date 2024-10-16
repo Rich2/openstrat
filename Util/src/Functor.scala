@@ -10,8 +10,6 @@ trait Functor[F[_]]
 /** Companion object for the [[Functor]] type class, contains implicit instances. */
 object Functor
 {
-  implicit def eMonImplicit: Functor[EMonOld] = new Functor[EMonOld] { override def mapT[A, B](fa: EMonOld[A], f: A => B): EMonOld[B] = fa.map(f) }
-
   implicit def listImplicit: Functor[List] = new Functor[List] { override def mapT[A, B](fa: List[A], f: A => B): List[B] = fa.map(f) }
 
   implicit def vectorImplicit: Functor[Vector] = new Functor[Vector] { override def mapT[A, B](fa: Vector[A], f: A => B): Vector[B] = fa.map(f) }
@@ -30,10 +28,6 @@ object Functor
   implicit def eitherImplicit[L]: Functor[({type λ[α] = Either[L, α]})#λ] = new Functor[({type λ[α] = Either[L, α]})#λ]
   { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
   }
-
-  /*implicit def eitherImplicit[L]: Functor[Either[L, _]] = new Functor[Either[L, _]]
-  { override def mapT[A, B](fa: Either[L, A], f: A => B): Either[L, B] = fa.map(f)
-  }*/
 
   implicit def errBiEv[E <: Throwable]: Functor[({type λ[α] = ErrBi[E, α]})#λ] = new Functor[({type λ[α] = ErrBi[E, α]})#λ]
   { override def mapT[A, B](fa: ErrBi[E, A], f: A => B): ErrBi[E, B] = fa.map(f)    
