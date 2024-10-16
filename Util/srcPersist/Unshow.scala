@@ -4,12 +4,7 @@ import pParse._, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends Persist
-{
-  /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be implemented by
-   * all instances. */
-  def fromExprOld(expr: Expr): EMonOld[T] = ???
-
-  /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be implemented by
+{ /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be implemented by
    * all instances. */
   def fromExpr(expr: Expr): ExcMon[T]
 
@@ -22,12 +17,6 @@ trait Unshow[+T] extends Persist
     case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExpr(rExpr)
     case e => fromExpr(e)
   }
-
-  /*def fromAnySettingOrExprOld(expr: Expr): EMonOld[T] = expr match
-  { case AsignExpr(ColonExpr(IdentifierToken(_), _, IdentifierToken(_)), _, rExpr) => fromExprOld(rExpr)
-    case AsignExpr(IdentifierToken(_), _, rExpr) => fromExprOld(rExpr)
-    case e => fromExprOld(e)
-  }*/
 
   def fromAnySettingOrExpr(expr: Expr): ExcMon[T] = expr match
   { case AsignExpr(ColonExpr(IdentifierToken(_), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
@@ -52,12 +41,6 @@ trait Unshow[+T] extends Persist
   def settingTFromStatement(settingStr: String, st: Statement): ExcMon[T] = st match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.failExc(typeStr -- "not found.")
-  }
-
-  /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
-  def keySettingFromStatementOld[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): EMonOld[T] = st match
-  { case StatementNoneEmpty(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExprOld(codeExpr) == Good(settingCode) => fromExprOld(rightExpr)
-    case _ => st.startPosn.bad(typeStr -- "not found.")
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */

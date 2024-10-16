@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -52,13 +52,6 @@ object PersistBoth
       }
     }
 
-    override def fromExprOld(expr: Expr): EMonOld[Double] = expr match
-    { case ValidFracToken(d) => Good(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
-      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(-d)
-      case _ => expr.exprParseErrOld[Double]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Double] = expr match
     { case ValidFracToken(d) => Succ(d)
       case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Succ(d)
@@ -72,8 +65,6 @@ object PersistBoth
     /** Provides the standard string representation for the object. It's called ShowT to indicate this is a type class method that acts upon an object
      * rather than a method on the object being shown. */
     override def strT(obj: Boolean): String = ???
-    
-    override def fromExprOld(expr: Expr): EMonOld[Boolean] = ???
 
     override def fromExpr(expr: Expr): ExcMon[Boolean] = ???
   }

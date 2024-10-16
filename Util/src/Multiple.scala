@@ -84,13 +84,6 @@ object Multiple
   { override def typeStr: String = "Multiple"
     override def useMultiple: Boolean = false
 
-    override def fromExprOld(expr: Expr): EMonOld[Multiple[A]] = expr match
-    { case InfixOpExpr(left, OperatorPrec1Token(startPosn, "*"), IntExpr(i)) => evA.fromExprOld(left).map(a => Multiple(a, i))
-      case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple"
-        => evA.fromExprOld(e1).map{ a => Multiple(a, i) }
-      case expr => evA.fromExprOld(expr).map(a => Multiple(a, 1))
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Multiple[A]] =  expr match
     { case InfixOpExpr(left, OperatorPrec1Token(startPosn, "*"), IntExpr(i)) => evA.fromExpr(left).map(a => Multiple(a, i))
       case AlphaMaybeSquareParenth(name,  RArr2(Statement(e1), Statement(IntExpr(i)))) if name == "Multiple" => evA.fromExpr(e1).map{ a => Multiple(a, i) }
@@ -107,16 +100,8 @@ object Multiple
   }
 
   /** Collection from [[Arr]] of [[Expr]]. */
- // def collFromArrExprOld[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderCollMap[Ae, A]): EMonOld[A] =
-   // unshowEv(evA).fromArrExprOld(inp).map(_.toColl(builderColl))
-
-  /** Collection from [[Arr]] of [[Expr]]. */
   def collFromArrExpr[Ae, A](inp: Arr[Expr])(implicit evA: Unshow[Ae], builderColl: BuilderCollMap[Ae, A]): ExcMon[A] =
-    unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))  
-
-  /** Collection from [[Arr]] of [[Statement]]. */
- // def collFromArrStatementOld[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): EMonOld[R] =
-  //  unshowEv(evA).collFromArrExprOld(inp.map(_.expr), builderColl)
+    unshowEv(evA).fromArrExpr(inp).map(_.toColl(builderColl))
 
   /** Collection from [[Arr]] of [[Statement]]. */
   def collFromArrStatement[A, R](inp: Arr[Statement])(implicit evA: Unshow[A], builderColl: BuilderCollMap[A, R]): ExcMon[R] =
