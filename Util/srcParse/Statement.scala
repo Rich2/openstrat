@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The top level compositional unit of Syntax in CRON: Compact Readable Object Notation. A statement can be claused consisting of comma separated
@@ -22,21 +22,9 @@ sealed trait Statement extends TextSpan
   final def errGet[A](implicit ev: Unshow[A]): EMonOld[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExprOld(settingName: String): EMonOld[AssignMemExpr] = this match
-  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
-    case _ => startPosn.bad(settingName -- "not found.")
-  }
-
-  /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): ErrBi[ExcParse, AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Succ(rightExpr)
     case _ => startPosn.failParse(settingName -- "not found.")
-  }
-
-  /** Returns the right expression if this Statement is an IntSetting of the given name. */
-  def intSettingExprOld(settingNum: Int): EMonOld[AssignMemExpr] = this match
-  { case StatementNoneEmpty(AsignExpr(IntExpr(i), _, rightExpr), _) if i == settingNum => Good(rightExpr)
-    case _ => startPosn.bad(settingNum.str -- "not found.")
   }
 
   /** Returns the right expression if this Statement is an IntSetting of the given name. */
@@ -70,17 +58,6 @@ object Statement
     def endPosn = statements.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
-    def findSettingExprOld(settingStr: String): EMonOld[AssignMemExpr] = statements match
-    { case Arr0() => TextPosn.emptyErrorOld("No Statements")
-      case Arr1(st1) => st1.settingExprOld(settingStr)
-      case sts => sts.map(st => st.settingExprOld(settingStr)).collect{ case g @ Good(_) => g } match
-      { case Arr1(t) => t
-        case Arr0() => sts.startPosn.bad(settingStr -- "Setting not found.")
-        case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "not found.")
-      }
-    }
-
-    /** Finds a setting [Expr] from this Arr[Statement] extension method. */
     def findSettingExpr(settingStr: String): ExcMon[AssignMemExpr] = statements match
     { case Arr0() => TextPosn.failEmpty//("No Statements")
       case Arr1(st1) => st1.settingExpr(settingStr)
@@ -103,9 +80,6 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-//    def findSettingOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = ev.settingFromStatementsOld(statements, settingStr)
-
-    /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
     def findSetting[T](settingStr: String)(implicit ev: Unshow[T]): ExcMon[T] = ev.settingFromStatements(statements, settingStr)
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
@@ -116,20 +90,6 @@ object Statement
 
     /** Find Identifier setting of an Identifier from this Arr[Statement] or use the default value provided. Extension method. */
     def findSettingIdElse(settingStr: String, elseStr: String): String = findSettingId(settingStr).getElse(elseStr)
-
-    /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
-    /*def findSettingIdentifierArrOld(settingStr: String): EMonOld[StrArr] = findSettingExprOld(settingStr).flatMap {
-      case IdentifierToken(str) => Good(StrArr(str))
-      case exprSeq: ExprSeqExpr =>
-      { val opt = exprSeq.exprs.optAllMap{expr => expr match
-          { case IdentifierToken(str) => Some(str)
-            case _ => None
-          }
-        }
-        opt.toEMon
-      }
-      case expr => badNone("Not an identifier.")
-    }*/
 
     /** Find Identifier setting of an Identifier from this Arr[Statement]. Extension method. */
     def findSettingIdentifierArr(settingStr: String) = findSettingExpr(settingStr).flatMap {
@@ -149,33 +109,17 @@ object Statement
     }
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySettingOld[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): EMonOld[VT] = ev.keySettingFromStatementsOld(statements, key)
-
-    /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
     def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Unshow[VT]): ExcMon[VT] = ev.keySettingFromStatements(statements, key)
-
-    /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
-    def findKeySettingElseOld[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
-      ev.keySettingFromStatementsOld(statements, key).getElse(elseValue)
 
     /** Find Setting of key type KT type T from this Arr[Statement] or return default value. Extension method. */
     def findKeySettingElse[KT, VT](key: KT, elseValue: => VT)(implicit evST: Unshow[KT], ev: Unshow[VT]): VT =
       ev.keySettingFromStatements(statements, key).getElse(elseValue)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    //def findSettingOrUniqueTOld[T](settingStr: String)(implicit ev: Unshow[T]): EMonOld[T] = findSettingOld[T](settingStr).goodOrOther(findTypeOld)
-
-    /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Unshow[T]): ErrBi[Exception, T] = findSetting[T](settingStr).succOrOther(findType)
 
     /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-//    def findSettingElseOld[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSettingOld[A](settingStr).getElse(elseValue)
-
-    /** Find identifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Unshow[A]): A = findSetting[A](settingStr).getElse(elseValue)
-
-    /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
-    //def findTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = statements.mapUniqueGoodOld(ev.fromStatementOld(_))
 
     /** Find Statement of type T, if it's unique from this Arr[Statement] and return value. */
     def findType[A](implicit ev: Unshow[A]): ErrBi[ExcFind, A] = statements.mapUniqueSucc(ev.fromStatement(_))
