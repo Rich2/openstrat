@@ -13,10 +13,7 @@ trait Unshow[+T] extends Persist
    * all instances. */
   def fromExpr(expr: Expr): ExcMon[T]
 
-  /** Trys to build an object of type T from the statement. */
-  final def fromStatementOld(st: Statement): EMonOld[T] = fromExprOld(st.expr)
-
-  /** Trys to build an object of type T from the statement. */
+  /** Tries to build an object of type T from the statement. */
   final def fromStatement(st: Statement): ExcMon[T] = fromExpr(st.expr)
   
   def fromSettingOrExprOld(SettingStr: String, expr: Expr): EMonOld[T] = expr match
@@ -43,17 +40,12 @@ trait Unshow[+T] extends Persist
     sts.mapCollectSuccs(fromStatement)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatementsOld[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
-    EMonOld[T] = valuesFromStatements(sts) match
-  { case s if s.length == 0 => TextPosn.emptyErrorOld("No values of type found")
-    case s if s.length == 1 => Good(s.head)
-    case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
-  }
-
-  /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
-  def settingTFromStatementOld(settingStr: String, st: Statement): EMonOld[T] = st match
-  { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExprOld(rightExpr)
-    case _ => st.startPosn.bad(typeStr -- "not found.")
+  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: BuilderArrMap[T, ArrT] @uncheckedVariance):
+  ExcMon[T] = valuesFromStatements(sts) match
+  {
+    case s if s.length == 0 => TextPosn.failEmpty// excEmpty("No values of type found")
+    case s if s.length == 1 => Succ(s.head)
+    case s3 => sts.startPosn.failParse(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
@@ -75,17 +67,6 @@ trait Unshow[+T] extends Persist
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  /*def settingFromStatementsOld(sts: RArr[Statement], settingStr: String): EMonOld[T] = sts match
-  { case Arr0() => TextPosn.emptyErrorOld("No Statements")
-    case Arr1(st1) => settingTFromStatementOld(settingStr, st1)
-    case s2 => sts.map(settingTFromStatementOld(settingStr, _)).collect{ case g @ Good(_) => g } match
-    { case Arr1(t) => t
-      case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
-      case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
-    }
-  }*/
-
-  /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
   def settingFromStatements(sts: RArr[Statement], settingStr: String): ExcMon[T] = sts match
   { case Arr0() => TextPosn.failEmpty// emptyError("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
@@ -94,17 +75,6 @@ trait Unshow[+T] extends Persist
       case Arr1(t) => t
       case Arr0() => sts.failExc(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.failExc(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
-    }
-  }
-
-  /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
-  def keySettingFromStatementsOld[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMonOld[T] = sts match
-  { case Arr0() => TextPosn.emptyErrorOld("No Statements")
-    case Arr1(st1) => keySettingFromStatementOld(settingCode, st1)
-    case s2 => sts.map(keySettingFromStatementOld(settingCode, _)).collect{ case g @ Good(_) => g } match
-    { case Arr1(t) => t
-      case Arr0() => sts.startPosn.bad(settingCode.toString -- typeStr -- "Setting not found.")
-      case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
 
@@ -134,13 +104,6 @@ object Unshow extends UnshowPriority2
   class IntEvClass extends Unshow[Int]
   { override def typeStr: String = "Int"
     override val useMultiple: Boolean = false
-    
-    override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
-    { case IntStdToken(i) => Good(i)
-      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
-      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErrOld[Int]
-    }
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
     { case IntStdToken(i) => Succ(i)
@@ -154,11 +117,6 @@ object Unshow extends UnshowPriority2
   val natEv: Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "Nat"
     override val useMultiple: Boolean = false
-
-    override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
-    { case  NatStdToken(i) => Good(i)
-      case _ => expr.exprParseErrOld[Int]
-    }
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
     { case NatStdToken(i) => Succ(i)
@@ -188,8 +146,7 @@ object Unshow extends UnshowPriority2
 
   /** [[Unshow]] instance for natural non negative [[Int]] in hexadecimal format. This evidence must be passed explicitly. */
   val hexaNatEv: Unshow[Int] = new Unshow[Int]
-  {
-    override def typeStr: String = "HexaNat"
+  { override def typeStr: String = "HexaNat"
 
     override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
     { case ValidRawHexaNatToken(i) => Good(i)

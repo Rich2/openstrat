@@ -19,24 +19,13 @@ package object pParse
 { /** type alias for Arr[Token] .*/
   type Tokens = RArr[Token]
 
-  /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
-   * returned as errors. */
-  def srcToEStatementsOld(input: Array[Char], inputSourceName: String) =
-    plex.lexSrc(input, inputSourceName).toEMon.flatMap(tokensToStatementsOld(_))
-
   /** Returns an [[ErrBi]] of a sequence of Statements from a file. This uses the fromString method. Non-fatal exceptions or if the file doesn't exist will be
    * returned as errors. */
   def srcToEStatements(input: Array[Char], inputSourceName: String): ErrBi[ExcParse, RArr[Statement]] =
     plex.lexSrc(input, inputSourceName).flatMap(tokensToStatements(_))
 
   /** Returns an EMon of a sequence of Statements from a String. */
-  //def stringToStatementsOld(input: String): EArr[Statement] = stringToTokensOld(input).flatMap(tokensToStatementsOld(_))
-
-  /** Returns an EMon of a sequence of Statements from a String. */
   def stringToStatements(input: String): ExcMonRArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
-
-  /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def stringToTokensOld(srcStr: String) = plex.lexSrc(srcStr.toCharArray, "String").toEMon
 
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): ErrBiArr[ExcLexar, Token] = plex.lexSrc(srcStr.toCharArray, "String")
@@ -47,9 +36,6 @@ package object pParse
   }
 
   /** Tries to parse a sequence of [[Token]]s to [[Statement]]s. */
-  def tokensToStatementsOld(tokens: RArr[Token]) = pAST.parse1BlockStructure(tokens).flatMap{ g => blockMemsToStatements(g) }.toEMon
-
-  /** Tries to parse a sequence of [[Token]]s to [[Statement]]s. */
   def tokensToStatements(tokens: RArr[Token]): ErrBiArr[ExcParse, Statement] = pAST.parse1BlockStructure(tokens).flatMap { g => blockMemsToStatements(g) }
 
   /** Tries to parse a sequence of block members [[BlockMem]]s to a sequence of [[Statement]]s. */
@@ -57,9 +43,6 @@ package object pParse
     case StringStatements(sts) => sts
     case e => RArr(StatementNoneEmpty(e, None))
   }
-
-  /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExprOld(tokens: RArr[Token]): EMonOld[Expr] = pAST.parse1BlockStructure(tokens).flatMap{ g => pAST.parse3Statements(g) }.toEMon
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
   def tokensToExpr(tokens: RArr[Token]): ErrBi[ExcParse, Expr] = pAST.parse1BlockStructure(tokens).flatMap { g => pAST.parse3Statements(g) }
