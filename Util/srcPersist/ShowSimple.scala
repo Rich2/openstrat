@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
@@ -80,12 +80,6 @@ object UnshowSingletons
 
 class PersistBooleanNamed(typeStr: String, trueStr: String, falseStr: String) extends PersistBothSimple[Boolean](typeStr)
 { override def strT(obj: Boolean): String = ife(obj, typeStr, falseStr)
-
-  override def fromExprOld(expr: Expr): EMonOld[Boolean] = expr match
-  { case IdentifierToken(str) if str == "true" || str == trueStr => Good(true)
-    case IdentifierToken(str) if str == "false" || str == falseStr => Good(false)
-    case _ => expr.exprParseErrOld[Boolean]
-  }
 
   override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
   { case IdentifierToken(str) if str == "true" || str == trueStr => Succ(true)

@@ -22,14 +22,14 @@ object G2SLaunch extends GuiLaunchMore
     }
 
     val oSetts: ErrBi[Exception, AssignMemExpr] = sts.findIntSettingExpr(num)
-    val sts2 = oSetts.map(_.toStatements)
-    val pls1 = sts2.findSettingIdentifierArr("counters")
-    val plAll = scen.counterSet
-    val pls2 = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
-    val pls3 = pls2.getElse(plAll)
+    val sts2: ErrBi[Exception, RArr[Statement]] = oSetts.map(_.toStatements)
+    val pls1: ErrBi[Throwable, StrArr] = sts2.findSettingIdentifierArr("counters")
+    val plAll: RArr[Counter] = scen.counterSet
+    val pls2: ErrBi[Throwable, RArr[Counter]] = pls1.map { arrA => arrA.optMap(st => plAll.find(_.charStr == st)) }
+    val pls3: RArr[Counter] = pls2.getElse(plAll)
     val view: SGView = sts2.findTypeElse(scen.gridSys.defaultView())
     val settings = G2SGuiSettings(view, pls3)
-    val game = G2SGame(scen, pls3)
+    val game: G2SGame = G2SGame(scen, pls3)
     (G2SGui(_, game, settings), "JavaFx Game Two Squares")
   }
 }

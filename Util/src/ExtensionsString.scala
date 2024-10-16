@@ -47,9 +47,6 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forSucc(f)
 
   /** Attempts to parse this [[String]] into an RSON expression of the given type. */
-  def asTypeOld[A](implicit ev: Unshow[A]): EMonOld[A] = parseExpr.toEMon.flatMap(g => ev.fromExprOld(g))
-
-  /** Attempts to parse this [[String]] into an RSON expression of the given type. */
   def asType[A](implicit ev: Unshow[A]) = parseExpr.flatMap(ev.fromExpr(_))
 
   /** Replaces newline characters into space characters. */
