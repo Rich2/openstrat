@@ -124,8 +124,7 @@ class UnshowFromArr[Ae, ArrAe <: Arr[Ae], A](val typeStr: String, f: ArrAe => A)
   build1: BuilderArrMap[Ae, ArrAe]) extends Unshow[A]
 { /** [[Unshow]]s the sequence from which the actual wanted type is mapped. */
   val stage: UnshowSeqLike[Ae, ArrAe] = UnshowSeqLike[Ae, ArrAe](typeStr)(evA, build1)
-
-  override def fromExprOld(expr: Expr): EMonOld[A] = stage.fromExprOld(expr).map(f)
+  
   override def fromExpr(expr: Expr): ExcMon[A] = stage.fromExpr(expr).map(f)
 }
 

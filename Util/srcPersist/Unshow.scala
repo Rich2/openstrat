@@ -15,12 +15,6 @@ trait Unshow[+T] extends Persist
 
   /** Tries to build an object of type T from the statement. */
   final def fromStatement(st: Statement): ExcMon[T] = fromExpr(st.expr)
-  
-  def fromSettingOrExprOld(SettingStr: String, expr: Expr): EMonOld[T] = expr match
-  { case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExprOld(rExpr)
-    case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExprOld(rExpr)
-    case e => fromExprOld(e)
-  }
 
   /** Tries to get type from [[Expr]], or from the value [[Expr]] of a setting. */
   def fromSettingOrExpr(SettingStr: String, expr: Expr): ExcMon[T] = expr match
@@ -29,10 +23,16 @@ trait Unshow[+T] extends Persist
     case e => fromExpr(e)
   }
 
-  def fromAnySettingOrExpr(expr: Expr): EMonOld[T] = expr match
+  /*def fromAnySettingOrExprOld(expr: Expr): EMonOld[T] = expr match
   { case AsignExpr(ColonExpr(IdentifierToken(_), _, IdentifierToken(_)), _, rExpr) => fromExprOld(rExpr)
     case AsignExpr(IdentifierToken(_), _, rExpr) => fromExprOld(rExpr)
     case e => fromExprOld(e)
+  }*/
+
+  def fromAnySettingOrExpr(expr: Expr): ExcMon[T] = expr match
+  { case AsignExpr(ColonExpr(IdentifierToken(_), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
+    case AsignExpr(IdentifierToken(_), _, rExpr) => fromExpr(rExpr)
+    case e => fromExpr(e)
   }
 
   /** Produces an [[ArrImut]] of the UnShow type from Statements RArr[Statement]. */
