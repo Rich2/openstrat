@@ -543,7 +543,7 @@ package object ostrat
   implicit def arrayDblToExtensions(array: Array[Double]): ArrayDblExtensions = new ArrayDblExtensions(array)
   implicit def bufferDblToExtensions(array: ArrayBuffer[Double]): BufferDblExtensions = new BufferDblExtensions(array)
   implicit def bufferRefToExtensions[A <: AnyRef](array: ArrayBuffer[A]): BufferRefExtensions[A] = new BufferRefExtensions(array)
-  implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
+  implicit def booleanToExtensions(b: Boolean): ExtensionsBoolean = new ExtensionsBoolean(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
 
