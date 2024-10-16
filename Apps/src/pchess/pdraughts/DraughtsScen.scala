@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess; package pdraughts
 import prid._, psq._
 
@@ -6,10 +6,10 @@ trait DraughtsScen extends ChessLikeScen
 { def segNum: Int
   def turn: Int = segNum / 2
   def draughts: SqCenOptLayer[Draught]
-  def resolve(move: SqCenArr): EMonOld[DraughtsScen] = move match
-  { case _ if move.empty => badNone("Empty Command")
-    case _ if move.length == 1 => badNone("No move given.")
-    case _ => badNone("Default error.")
+  def resolve(move: SqCenArr): ExcMon[DraughtsScen] = move match
+  { case _ if move.empty => FailExc("Empty Command")
+    case _ if move.length == 1 => FailExc("No move given.")
+    case _ => FailExc("Default error.")
   }
 }
 

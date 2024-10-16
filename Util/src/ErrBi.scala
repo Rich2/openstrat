@@ -48,11 +48,6 @@ sealed trait ErrBi[+E <: Throwable, +A]
   { case Succ(value) => value
     case Fail(exc) => throw(Exception("Attempting to get value from a Fail with " +  exc.toString))
   }
-  
-  def toEMon: EMonOld[A] = this match
-  { case Succ(value) => Good(value)
-    case Fail(err) => Bad(StrArr(err.toString))
-  }
 }
 
 object ErrBi

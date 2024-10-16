@@ -230,8 +230,9 @@ class BufferDblExtensions(thisBuffer: ArrayBuffer[Double]) {
 class BufferRefExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
 { /** Converts this ArrayBuffer straight to an [[RArr]]. */
   @inline def toArr(implicit ct: ClassTag[A]): RArr[A] = new RArr[A](thisBuff.toArray[A])
-
-  def goodRefs(implicit ct: ClassTag[A]): Good[RArr[A]] = Good(new RArr(thisBuff.toArray))
+  
+  /** Utility method to implicitly find the [[ClassTag]] and produced convert to [[RArr]] wrapped in [[Succ]]. */
+  def succRArr(implicit ct: ClassTag[A]): Succ[RArr[A]] = Succ(new RArr(thisBuff.toArray))
 
   def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] =
   {  val len = thisBuff.length

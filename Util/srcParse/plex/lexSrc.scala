@@ -37,7 +37,7 @@ object lexSrc
     }
 
     while(rem.length > 0 && acc2.isSucc)  rem match
-    { case CharsOff0() => acc.goodRefs
+    { case CharsOff0() => acc.succRArr
       case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(posn), tail, posn.right1)
       case CharsOff1Tail(',', tail) => appendLoop(CommaToken(posn), tail, posn.right1)
 
