@@ -158,8 +158,9 @@ class ExtensionsString(val thisString: String) extends AnyVal
     val (s2a, s2b) = s2.drop(1).span(_ != '.')
     s1 + "." + s2a
   }
-  
-  def toTokens: EMonOld[RArr[pParse.Token]] = pParse.stringToTokensOld(thisString)
+
+  /** Extension method. Try to parse this [[String]] into RSON [[Token]]s. */
+  def toTokens: ErrBiArr[ExcLexar, Token] = pParse.stringToTokens(thisString)
 
   /** Appends strings with a comma and space separator */
   def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
