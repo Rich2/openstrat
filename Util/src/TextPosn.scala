@@ -26,15 +26,12 @@ object TextPosn
 { def apply(fileName: String, lineNum: Int, linePosn: Int): TextPosn = new TextPosn(fileName, lineNum, linePosn)
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
-  def emptyErrorOld[A](errStr: String): Bad[A] = empty.bad(errStr)
-
   def excEmpty: ExcParse = ExcParse("Empty object")
   def failEmpty: Fail[ExcParse] = Fail(excEmpty)
 
   implicit class TextPosnImplicit(thisTextPosn: TextPosn)
   {
     def parseErr(detail: String): String = thisTextPosn.fileName -- thisTextPosn.lineNum.toString + ", " + thisTextPosn.linePosn.toString + ": " + detail
-    def bad[A](message: String): Bad[A] = new Bad[A](StrArr(parseErr(message)))
 
     /** Produce a failure with an [[ExcLexar]] type. */
     def failParse(detail: String): Fail[ExcParse] = new Fail[ExcParse](ExcParse(thisTextPosn, detail))

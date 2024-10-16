@@ -104,42 +104,6 @@ object ArrHead4
   def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = ife(arr.length >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
 }
 
-/** Extractor function object for a Good Arr Sequence of length 0. */
-case object GoodArr0
-{ /** Extractor method for a Good Arr Sequence of length 0. */
-  def unapply(eArr: EMonOld[Arr[?]]): Boolean = eArr match
-  { case Good(Arr0()) => true
-    case _ => false
-  }
-}
-
-/** Extractor function object for a Good Arr Sequence of length 1. */
-object GoodArr1
-{ /** Extractor method for a Good [[Arr]] Sequence of length 1. */
-  def unapply[A](eArr: EMonOld[Arr[A]]): Option[A] = eArr match
-  { case Good(Arr1(head)) => Some(head)
-    case _ => None
-  }
-}
-
-object GoodArr2
-{ def unapply[A](eArr: EMonOld[Arr[A]]): Option[(A, A)] = eArr.foldErrs (g => if (g.length == 2) Some((g(0), g(1))) else None)(errs => None)
-}
-
-object GoodArr3
-{ def unapply[A](eArr: EMonOld[Arr[A]]): Option[(A, A, A)] = eArr match
-  { case Good(Arr3(a0, a1, a2)) => Some((a0, a1, a2))
-    case _ => None
-  }
-}
-
-object GoodArr4
-{ def unapply[A](arr: EMonOld[Arr[A]]): Option[(A, A, A, A)] = arr match
-  { case Good(Arr4(a0, a1, a2, a3)) => Some((a0, a1, a2, a3))
-    case _ => None
-  }
-}
-
 /** Immutable heapless iterator for Arr. */
 class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, RArr[A]]
 { override def apply(index: Int)(implicit arr: RArr[A]) = arr(index + offset0)

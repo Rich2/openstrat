@@ -12,8 +12,8 @@ sealed trait ErrBi[+E <: Throwable, +A]
 
   /** Classic flatMap function taking a function from A => [[Option]][B] rather than the standard [[ErrBi]] of B. */
   def flatOptMap[B](f: A => Option[B]): ErrBi[E | ExcNFT, B] = this match
-  { case Succ(a) => f(a).fld(FailNotFound, b => Succ(b))
-    case fail: Fail[E] => fail
+  { case succ: Succ[A] => f(succ.value).fld(FailNotFound, b => Succ(b))
+    case fail: Fail[?] => fail
   }
 
   def isSucc: Boolean
@@ -45,8 +45,8 @@ sealed trait ErrBi[+E <: Throwable, +A]
   def forFold(fErr: E => Unit)(fSucc: A => Unit): Unit
 
   def get: A = this match
-  { case Succ(value) => value
-    case Fail(exc) => throw(Exception("Attempting to get value from a Fail with " +  exc.toString))
+  { case succ: Succ[A] => succ.value
+    case fail: Fail[E] => throw(Exception("Attempting to get value from a Fail with " + fail.error.toString))
   }
 }
 

@@ -150,11 +150,6 @@ package object ostrat
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
 
-//  def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](StrArr(parseErr(fs.startPosn, detail)))
- // def badNone[B](detail: String): Bad[B] = Bad[B](StrArr(detail))
-
-//  def eTryOld[A](res: => A): EMonOld[A] = try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
-
   /** Catches non-fatal [[Exception]]s and returns them as a [[Fail]]. */
   def eTry[A](res: => A): ThrowMon[A] = try Succ[A](res) catch { case scala.util.control.NonFatal(e) => Fail(e) }
 

@@ -18,9 +18,6 @@ sealed trait Statement extends TextSpan
   /** The statement has no semicolon at end. */
   def noSemi: Boolean = optSemi.isEmpty
 
-  /** Not sure what this is meant to be doing, or whether it can be removed. */
-  final def errGet[A](implicit ev: Unshow[A]): EMonOld[A] = ???
-
   /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): ErrBi[ExcParse, AssignMemExpr] = this match
   { case StatementNoneEmpty(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Succ(rightExpr)
@@ -225,7 +222,7 @@ case class StatementEmpty(st: SemicolonToken) extends Statement with TextSpanCom
   override def optSemi: Option[SemicolonToken] = Some(st)
   override def startMem: TextSpan = st
   override def endMem: TextSpan = st
-  def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
+  def asError[A]: FailExc = st.failExc("Empty Statement")
 }
 
 object StatementEmpty
