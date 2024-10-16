@@ -86,25 +86,27 @@ trait ShowNOptRepeat[Ar, A] extends ShowNRepeat[Ar, A]//ShowCompound[A] with Per
 /** The base trait for the persistence of algebraic product types, where the last component is a repeat parameter. */
 trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
 {
-  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMonOld[A]
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): ExcMon[A]  
 
-  final override def fromExprOld(expr: Expr): EMonOld[A] = expr match
-  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+  final override def fromExpr(expr: Expr): ExcMon[A] = expr match
+  {
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => FailExc(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
-    case _ => expr.exprParseErrOld[A](this)
+    case _ => expr.exprParseErr[A](this)
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: RArr[Expr]): EMonOld[A] =
+  final def fromExprSeq(exprs: RArr[Expr]): ExcMon[A] =
   {
-    def exprsLoop(i: Int, usedNames: StrArr): EMonOld[A] =
+    def exprsLoop(i: Int, usedNames: StrArr): ExcMon[A] =
       if (i >= exprs.length)
         if (i >= numFixedParams) fromSortedExprs(exprs, paramFixedNames.map(pn => usedNames.findIndex(_ == pn)))
         else exprsLoop(i + 1, usedNames +% paramFixedNames.find(u => !usedNames.exists(_ == u)).get)
       else exprs(i) match
-      { case AsignExprName(name) if !paramFixedNames.contains(name) => ???// bad1(exprs(i), "Unrecognised setting identifier name.")
-        case AsignExprName(name) if usedNames.contains(name) => ???// bad1(exprs(i), name + " Multiple parameters of the same name.")
+      {
+        case AsignExprName(name) if !paramFixedNames.contains(name) => ??? // bad1(exprs(i), "Unrecognised setting identifier name.")
+        case AsignExprName(name) if usedNames.contains(name) => ??? // bad1(exprs(i), name + " Multiple parameters of the same name.")
         case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
         case _ => exprsLoop(i + 1, usedNames +% paramFixedNames.find(u => !usedNames.exists(_ == u)).get)
       }
