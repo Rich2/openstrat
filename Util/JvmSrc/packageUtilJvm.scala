@@ -40,9 +40,6 @@ package object utiljvm
     pw.write(output)
     pw.close
   }
-   
-  /** Attempts to load text file into a [[String]]. */
-  def loadTextFileOld(pathFileName: String): EMonOld[String] = eTryOld(scala.io.Source.fromFile(pathFileName).mkString)
 
   /** Attempts to load text file into a [[String]]. */
   def loadTextFile(pathFileName: String): ThrowMon[String] = eTry(scala.io.Source.fromFile(pathFileName).mkString)
