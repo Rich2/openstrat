@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, pgui._
 
@@ -52,8 +52,7 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
   /** The visible outer hex sides. */
   override def outerSideLines: LineSegArr = LineSegArr()
 
-  override def transOptLineSeg(seg: LineSegSC): Option[LineSeg] =
-    transOptCoord(seg.startPt).map2(transOptCoord(seg.endPt)) { (p1, p2) => LineSeg(p1, p2) }
+  override def transOptLineSeg(seg: LineSegSC): Option[LineSeg] = Option.map2(transOptCoord(seg.startPt), transOptCoord(seg.endPt)) { (p1, p2) => LineSeg(p1, p2) }
 
   override def setView(view: Any): Unit = view match {
     case hv: SGView => {
