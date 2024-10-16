@@ -129,13 +129,6 @@ object Unshow extends UnshowPriority2
   { override def typeStr: String = "HexaInt"
     override val useMultiple: Boolean = false
 
-    override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
-    { case ValidRawHexaIntToken(i) => Good(i)
-      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Good(i)
-      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErrOld[Int]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
     { case ValidRawHexaIntToken(i) => Succ(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Succ(i)
@@ -148,11 +141,6 @@ object Unshow extends UnshowPriority2
   val hexaNatEv: Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "HexaNat"
 
-    override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
-    { case ValidRawHexaNatToken(i) => Good(i)
-      case _ => expr.exprParseErrOld[Int]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
     { case ValidRawHexaNatToken(i) => Succ(i)
       case _ => expr.exprParseErr[Int]
@@ -164,13 +152,6 @@ object Unshow extends UnshowPriority2
   {
     override def typeStr: String = "Base32Int"
 
-    override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
-    { case ValidRawBase32IntToken(i) => Good(i)
-      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Good(i)
-      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErrOld[Int]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
     { case ValidRawBase32IntToken(i) => Succ(i)
       case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Succ(i)
@@ -181,13 +162,7 @@ object Unshow extends UnshowPriority2
 
   /** [[Unshow]] instance for natural non-negative [[Int]] in base32 format. This evidence must be passed explicitly. */
   val base32NatEv: Unshow[Int] = new Unshow[Int]
-  {
-    override def typeStr: String = "Base32Nat"
-
-    override def fromExprOld(expr: Expr): EMonOld[Int] = expr match
-    { case ValidRawBase32NatToken(n) => Good(n)
-      case _ => expr.exprParseErrOld[Int]
-    }
+  { override def typeStr: String = "Base32Nat"    
 
     override def fromExpr(expr: Expr): ExcMon[Int] = expr match
     { case ValidRawBase32NatToken(n) => Succ(n)
@@ -197,7 +172,6 @@ object Unshow extends UnshowPriority2
 
   def intSubset(pred: Int => Boolean): Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "Int"
-    //override def fromExprOld(expr: Expr): EMonOld[Int] = ???// intEv.fromExprOld(expr).flatMap(i => ife(pred(i), Good(i), bad1(expr, s"$i does not fullfll predicate.")))
 
     override def fromExpr(expr: Expr): ExcMon[Int] =
       intEv.fromExpr(expr).flatMap(i => ife(pred(i), Succ(i), expr.startPosn.fail(s"$i does not fullfll predicate.")))
@@ -210,13 +184,6 @@ object Unshow extends UnshowPriority2
   val posDoubleEv: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "PosDFloat"
 
-    override def fromExprOld(expr: Expr): EMonOld[Double] = expr match
-    { case ValidPosFracToken(d) => Good(d)
-      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Good(d)
-      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Good(-d)
-      case _ => expr.exprParseErrOld[Double]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Double] = expr match
     { case ValidPosFracToken(d) => Succ(d)
       case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Succ(d)
@@ -228,14 +195,6 @@ object Unshow extends UnshowPriority2
   /** Implicit [[Unshow]] instance / evidence for [[Float]]. */
   implicit val floatEv: Unshow[Float] = new Unshow[Float]
   { override def typeStr: String = "SFloat"
-
-    override def fromExprOld(expr: Expr): EMonOld[Float] = expr match
-    { case NatBase10Token(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
-      case intok: NegBase10Token => Good(intok.getIntStd.toFloat)
-      case  _ => expr.exprParseErrOld[Float]
-    }
 
     override def fromExpr(expr: Expr): ExcMon[Float] = expr match
     { case NatBase10Token(_, i) => Succ(i.toFloat)
@@ -250,13 +209,6 @@ object Unshow extends UnshowPriority2
   implicit val longEv: Unshow[Long] = new Unshow[Long]
   { override def typeStr = "Long"
 
-    override def fromExprOld(expr: Expr): EMonOld[Long] = expr match
-    { case NatBase10Token(_, i) => Good(i.toLong)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "+" => Good(i.toLong)
-      case PreOpExpr(op, NatBase10Token(_, i)) if op.srcStr == "-" => Good(-i.toLong)
-      case  _ => expr.exprParseErrOld[Long]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Long] = expr match
     {
       case NatBase10Token(_, i) => Succ(i.toLong)
@@ -270,12 +222,6 @@ object Unshow extends UnshowPriority2
   implicit val booleanEv: Unshow[Boolean] = new Unshow[Boolean]
   { override def typeStr: String = "Bool"
 
-    override def fromExprOld(expr: Expr): EMonOld[Boolean] = expr match
-    { case IdentLowerToken(_, str) if str == "true" => Good(true)
-      case IdentLowerToken(_, str) if str == "false" => Good(false)
-      case _ => expr.exprParseErrOld[Boolean]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Succ(true)
       case IdentLowerToken(_, str) if str == "false" => Succ(false)
@@ -287,11 +233,6 @@ object Unshow extends UnshowPriority2
   implicit val stringEv: Unshow[String] = new Unshow[String]
   { override def typeStr: String = "Str"
 
-    override def fromExprOld(expr: Expr): EMonOld[String] = expr match
-    { case StringToken(_, stringStr) => Good(stringStr)
-      case  _ => expr.exprParseErrOld[String]
-    }
-
     override def fromExpr(expr: Expr): ExcMon[String] = expr match
     { case StringToken(_, stringStr) => Succ(stringStr)
       case _ => expr.exprParseErr[String]
@@ -300,13 +241,7 @@ object Unshow extends UnshowPriority2
 
   /** Implicit [[Unshow]] instance / evidence for [[Char]]. */
   implicit val charEv: Unshow[Char] = new Unshow[Char]
-  {
-    override def typeStr: String = "Char"
-
-    override def fromExprOld(expr: Expr): EMonOld[Char] = expr match
-    { case CharToken(_, char) => Good(char)
-      case  _ => expr.exprParseErrOld[Char]
-    }
+  { override def typeStr: String = "Char"
 
     override def fromExpr(expr: Expr): ExcMon[Char] = expr match
     { case CharToken(_, char) => Succ(char)
@@ -347,11 +282,6 @@ trait UnshowPriority2 extends UnshowPriority3
   implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
   { override def typeStr: String = "Some" + ev.typeStr.enSquare
 
-    override def fromExprOld(expr: Expr): EMonOld[Some[A]] = expr match {
-      case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExprOld(hs.expr).map(Some(_))
-      case expr => ev.fromExprOld(expr).map(Some(_))
-    }
-
     override def fromExpr(expr: Expr): ExcMon[Some[A]] = expr match
     { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
@@ -363,12 +293,6 @@ trait UnshowPriority3
 {
   implicit val noneUnEv: Unshow[None.type] = new Unshow[None.type]
   { override def typeStr: String = "None"
-
-    override def fromExprOld(expr: Expr): EMonOld[None.type] = expr match
-    { case IdentUpperToken(_, "None") => Good(None)
-      case eet: EmptyExprToken => Good(None)
-      case e => ???// bad1(e, "None not found")
-    }
 
     override def fromExpr(expr: Expr): ExcMon[None.type] = expr match
     { case IdentUpperToken(_, "None") => Succ(None)
