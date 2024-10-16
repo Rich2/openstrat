@@ -77,7 +77,7 @@ class OptionExtensions[A](thisOption: Option[A])
   /** Convert to EMon with a single error if [[None]] */
   def toEMon1(fp: TextSpan, detail: String): EMonOld[A] = thisOption match
   { case Some(a) => Good(a)
-    case None => bad1(fp, detail)
+    case None => ???// bad1(fp, detail)
   }
 
   def toEMon: EMonOld[A] = thisOption match

@@ -240,7 +240,7 @@ object Unshow extends UnshowPriority2
 
   def intSubset(pred: Int => Boolean): Unshow[Int] = new Unshow[Int]
   { override def typeStr: String = "Int"
-    override def fromExprOld(expr: Expr): EMonOld[Int] = intEv.fromExprOld(expr).flatMap(i => ife(pred(i), Good(i), bad1(expr, s"$i does not fullfll predicate.")))
+    //override def fromExprOld(expr: Expr): EMonOld[Int] = ???// intEv.fromExprOld(expr).flatMap(i => ife(pred(i), Good(i), bad1(expr, s"$i does not fullfll predicate.")))
 
     override def fromExpr(expr: Expr): ExcMon[Int] =
       intEv.fromExpr(expr).flatMap(i => ife(pred(i), Succ(i), expr.startPosn.fail(s"$i does not fullfll predicate.")))
@@ -410,7 +410,7 @@ trait UnshowPriority3
     override def fromExprOld(expr: Expr): EMonOld[None.type] = expr match
     { case IdentUpperToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
-      case e => bad1(e, "None not found")
+      case e => ???// bad1(e, "None not found")
     }
 
     override def fromExpr(expr: Expr): ExcMon[None.type] = expr match

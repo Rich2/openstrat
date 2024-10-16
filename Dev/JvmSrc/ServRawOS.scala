@@ -4,9 +4,9 @@ import pWeb.*, utiljvm.*
 
 object ServRawOS extends ServRaw
 {
-  override def responses(req: EMonOld[HttpReq]): Option[HttpResp] = req match
+  override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
   {
-    case Good(hrg: HttpReqGet) =>
+    case Succ(hrg: HttpReqGet) =>
     { val resp: HttpResp = hrg.uri match
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")

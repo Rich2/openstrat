@@ -4,7 +4,7 @@ import utiljvm.*, java.net.*, java.io.*
 
 trait ServRaw extends App
 {
-  def responses(req: EMonOld[HttpReq]): Option[HttpResp]
+  def responses(req: ThrowMon[HttpReq]): Option[HttpResp]
 
   def run(): Unit =
   {
@@ -24,7 +24,7 @@ trait ServRaw extends App
   }  
 }
 
-class ConnSesh(val cNum: Int, val sock: Socket, fResp: EMonOld[HttpReq] => Option[HttpResp] ) extends Runnable
+class ConnSesh(val cNum: Int, val sock: Socket, fResp: ThrowMon[HttpReq] => Option[HttpResp] ) extends Runnable
 {
   override def run(): Unit =
   {

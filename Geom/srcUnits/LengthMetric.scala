@@ -98,11 +98,6 @@ object Kilometres
   implicit val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
   { override def typeStr: String = "Kilometres"
 
-    override def fromExprOld(expr: Expr): EMonOld[Kilometres] = expr match
-    { case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Good(Kilometres(dh.num))
-      case _ => bad1(expr, "Kilometre not found")
-    }
-
     override def fromExpr(expr: Expr) = expr match
     { case dh: DigitHeadAlphaToken if dh.alphaStr == "km" => Succ(Kilometres(dh.num))
       case _ => expr.failExc("Kilometre not found")

@@ -9,17 +9,17 @@ trait HttpReq
 
 object HttpReq
 { /** Apply method, finds [[HttpReq]] from [[Strng]]s. */
-  def apply(lines: Sequ[String]): EMonOld[HttpReq] =
+  def apply(lines: Sequ[String]): ThrowMon[HttpReq] =
   { val lh0 = lines(0)
     debvar(lh0)
     val rt = lh0.takeWhile(_.isLetter)
     val tail = lh0.drop(rt.length).dropWhile(_.isWhitespace)
-    if (rt.toLowerCase == "get") Good(HttpReqGet(tail.takeWhile(c => !c.isWhitespace)))
+    if (rt.toLowerCase == "get") Succ(HttpReqGet(tail.takeWhile(c => !c.isWhitespace)))
     else
-      if (rt.toLowerCase == "post") Good(HttpReqPost(tail.takeWhile(c => !c.isWhitespace)))
+      if (rt.toLowerCase == "post") Succ(HttpReqPost(tail.takeWhile(c => !c.isWhitespace)))
       else
       { debvar(rt)
-        badNone("Not get")
+        FailExc("Not get")
       }
   }
 }

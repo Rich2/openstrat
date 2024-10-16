@@ -10,8 +10,8 @@ object CommentTest extends TestSuite
     val s3 = "x = 5//Some blurb".parseTokens
     val s4 = "x = //\n5".parseTokens
     val a4 = s4.flatMap(tokensToStatements(_))
-    val s5: EMonOld[Array[Char]] = eTryOld(io.Source.fromResource("c1.rson").toArray)
-    val a5: EArr[Token] = s5.flatMap(g => lexSrc(g, "").toEMon)
+    val s5 = eTry(io.Source.fromResource("c1.rson").toArray)
+    val a5 = s5.flatMap(g => lexSrc(g, ""))
     //val s6 = "appStr =//\n\"Z0\";"
     //val a6 = s6.parseTokens
 
@@ -23,7 +23,7 @@ object CommentTest extends TestSuite
       assertMatch(s3){ case Succ(Arr3(_, _, _)) => }
       assertMatch(s4){ case Succ(Arr3(IdentLowerToken(_, "x"), AsignToken(_), NatBase10Token(_, _))) => }
       assertMatch(a4){ case Succ(Arr1(_)) => }
-      assertMatch(a5){ case Good(Arr4(_, _, _, _)) => }
+      assertMatch(a5){ case Succ(Arr4(_, _, _, _)) => }
     }
   }
 }

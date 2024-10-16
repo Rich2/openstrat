@@ -103,8 +103,8 @@ trait UnshowNRepeat[AR, A] extends Unshow[A] with PersistNRepeat[AR]
         if (i >= numFixedParams) fromSortedExprs(exprs, paramFixedNames.map(pn => usedNames.findIndex(_ == pn)))
         else exprsLoop(i + 1, usedNames +% paramFixedNames.find(u => !usedNames.exists(_ == u)).get)
       else exprs(i) match
-      { case AsignExprName(name) if !paramFixedNames.contains(name) => bad1(exprs(i), "Unrecognised setting identifier name.")
-        case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
+      { case AsignExprName(name) if !paramFixedNames.contains(name) => ???// bad1(exprs(i), "Unrecognised setting identifier name.")
+        case AsignExprName(name) if usedNames.contains(name) => ???// bad1(exprs(i), name + " Multiple parameters of the same name.")
         case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
         case _ => exprsLoop(i + 1, usedNames +% paramFixedNames.find(u => !usedNames.exists(_ == u)).get)
       }

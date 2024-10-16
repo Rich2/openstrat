@@ -5,7 +5,7 @@
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
-  type EArr[A <: AnyRef] = EMonOld[RArr[A]]  
+  //type EArr[A <: AnyRef] = EMonOld[RArr[A]]  
   type RefsMulti[A <: AnyRef] = RArr[Multiple[A]]
   type ShowEq[A] = Show[A] & EqT[A]
   type AnyRefs = RArr[AnyRef]
