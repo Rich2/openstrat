@@ -159,8 +159,8 @@ lazy val Dev = jvmMainProj("Dev").dependsOn(GeomExs, TilingExs, EGrid, Apps).set
   reStart/mainClass	:= Some("ostrat.pDev.ServRawOS"),
 
   libraryDependencies ++= Seq(
-    "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" withSources() withJavadoc(),
-    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0" withSources() withJavadoc(),
+    "io.github.cquiroz" %%% "scala-java-time" % "2.6.0" withSources() withJavadoc(),
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.6.0" withSources() withJavadoc(),
     ),
   )
 
@@ -177,8 +177,8 @@ lazy val ServCask = projSub("Dev", "ServCask").dependsOn(Dev).settings(
 )
 
 lazy val ServZio = projSub("Dev", "ServZio").dependsOn(Dev).settings(
-  libraryDependencies += "dev.zio" %% "zio" % "2.1.9" withSources() withJavadoc(),
-  libraryDependencies += "dev.zio" %% "zio-http" % "3.0.0" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio" % "2.1.11" withSources() withJavadoc(),
+  libraryDependencies += "dev.zio" %% "zio-http" % "3.0.1" withSources() withJavadoc(),
 )
 
 val moduleDirs: List[String] = List("Util", "Geom", "Tiling", "EGrid", "Apps", "Dev")
