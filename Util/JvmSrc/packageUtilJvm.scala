@@ -4,7 +4,10 @@ import pParse._
 
 /** This package is for Java byte code targets. */
 package object utiljvm
-{ val userHomeDir: String = System.getProperty("user.home")
+{
+  /** [[String]] for the user's home directory. */
+  val userHomeDir: String = System.getProperty("user.home")
+
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
@@ -81,6 +84,7 @@ package object utiljvm
     if (eStr == "") Succ("Successfully written file to " + path / fileName) else FailExc(eStr)
   }
 
+  /** Write a [[String]] to a file in the sub directory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[Exception, String] =
   { val h = System.getProperty("user.home")
     fileWrite(h / dir, fileName, str)
