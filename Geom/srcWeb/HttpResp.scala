@@ -4,10 +4,17 @@ package ostrat; package pWeb
 /** Am HttP Response. The out method givees the [[String]] to send over TCP. */
 trait HttpResp
 {
+  /** HTTP response code. */
   def code: Int
+  
+  /** The [[String]] output of this HTTP response. */
   def out: String
+  
   def server: String
+  
+  /** The server line [[String]] of this HTTP response. */
   def serverLine: String = "server:" + server
+  
   def dateStr: String
   def dateLine: String = "date:" + dateStr
   def headerStr: String
@@ -25,7 +32,7 @@ trait HttpRespBodied extends HttpResp
 
 /** HTTP OK 200 Response with body. */
 class HttpFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
-{
+{ /** HTTP OK 200 response. */
   override def code: Int = 200
 
   def conTypeLine: String = "Content-Type:" + contentType.out
@@ -34,7 +41,7 @@ class HttpFound(val dateStr: String, val server: String, val contentType: HttpCo
 }
 
 object HttpFound
-{
+{ /** Factory apply method to produce HTTP OK 200 Response with body. */
   def apply(dateStr: String, server: String, contentType: HttpContentType, body: String): HttpFound = new HttpFound(dateStr, server, contentType, body)
 }
 
