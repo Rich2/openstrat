@@ -11,7 +11,7 @@ object ServZioApp extends ZIOAppDefault
 //  def getJs(fileName: String) : String = scala.io.Source.fromFile(dir / fileName).getLines.mkString
   //def dljs = getJs("dicelessapp").flatMap(str => handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.javascript))))
 
-  val routes = Routes(
+  val routes: Routes[Any, Nothing] = Routes(
     Method.GET / "" -> handHome,
     Method.GET / "index.html" -> handHome,
     Method.GET / "index.htm" -> handHome,
@@ -26,7 +26,7 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "Documentation/dev.html" -> hPage(pDev.DevPage.out),
     Method.GET / "Documentation/newdevs.html" -> hPage(pDev.NewDevsPage.out),
     Method.GET / "earthgames/dicelessapp.html" -> hPage(pDev.AppPage("DicelessApp", "", "DiceLess").out),
-    Method.GET / "earthgames/dicelessapp.js" -> handler(Response.text(loadTextFile("res" / "earthgames/dicelessapp.js").get).addHeader(Header.ContentType(MediaType.text.javascript)))
+    Method.GET / "earthgames/dicelessapp.js" -> {handler(Response.text(loadTextFile("/CommonSsd/ServerOS/earthgames/dicelessapp.js").get).addHeader(Header.ContentType(MediaType.text.javascript))) }
   )
 
   def run: ZIO[Any, Throwable, Nothing] = Server.serve(routes).provide(Server.default)

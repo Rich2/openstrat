@@ -5,6 +5,8 @@ import pWeb.*, utiljvm.*
 object ServRawOS extends ServRaw
 {
   var resDirStr: String = "~/OpenStratResources"
+  
+  override val port = 8081
 
   override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
   {

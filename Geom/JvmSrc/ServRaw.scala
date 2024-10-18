@@ -2,9 +2,11 @@
 package ostrat; package pWeb
 import utiljvm.*, java.net.*, java.io.*
 
-trait ServRaw// extends App
+trait ServRaw
 {
+  /** The port number. */
   def port: Int = 8080
+  
   def responses(req: ThrowMon[HttpReq]): Option[HttpResp]
 
   def run(): Unit =
