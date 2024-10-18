@@ -1,6 +1,6 @@
 /* Copyright 2024 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pszio
-import zio.*, http.*, pWeb.*
+import zio.*, http.*, pWeb.*, utiljvm.*
 
 object ServZioApp extends ZIOAppDefault
 {
@@ -8,7 +8,7 @@ object ServZioApp extends ZIOAppDefault
   val handHome: Handler[Any, Nothing, Any, Response] = hPage(pDev.IndexPage.out)
   def cssHan(css: CssRules): Handler[Any, Nothing, Any, Response] = handler(Response.text(css()).addHeader(Header.ContentType(MediaType.text.css)))
   val dirStr: ZIO[ZIOAppArgs, Nothing, String] = getArgs.map(strs => strs.headOrElse("/assets"))
-  def getJs(fileName: String): ZIO[ZIOAppArgs, Nothing, String] = dirStr.map(dir => scala.io.Source.fromFile(dir / fileName).getLines.mkString)
+//  def getJs(fileName: String) : String = scala.io.Source.fromFile(dir / fileName).getLines.mkString
   //def dljs = getJs("dicelessapp").flatMap(str => handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.javascript))))
 
   val routes = Routes(
@@ -26,7 +26,7 @@ object ServZioApp extends ZIOAppDefault
     Method.GET / "Documentation/dev.html" -> hPage(pDev.DevPage.out),
     Method.GET / "Documentation/newdevs.html" -> hPage(pDev.NewDevsPage.out),
     Method.GET / "earthgames/dicelessapp.html" -> hPage(pDev.AppPage("DicelessApp", "", "DiceLess").out),
-    //Method.GET / "earthgames/dicelessapp.js" -> getJs("dicelessapp.js").flatMap(str => handler(Response.text(str).addHeader(Header.ContentType(MediaType.text.javascript))))
+    Method.GET / "earthgames/dicelessapp.js" -> handler(Response.text(loadTextFile("res" / "earthgames/dicelessapp.js").get).addHeader(Header.ContentType(MediaType.text.javascript)))
   )
 
   def run: ZIO[Any, Throwable, Nothing] = Server.serve(routes).provide(Server.default)
