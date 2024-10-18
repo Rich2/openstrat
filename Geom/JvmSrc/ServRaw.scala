@@ -2,14 +2,15 @@
 package ostrat; package pWeb
 import utiljvm.*, java.net.*, java.io.*
 
-trait ServRaw extends App
+trait ServRaw// extends App
 {
+  def port: Int = 8080
   def responses(req: ThrowMon[HttpReq]): Option[HttpResp]
 
   def run(): Unit =
   {
     deb("Starting raw server")
-    val servSock: ServerSocket = new ServerSocket(8080)
+    val servSock: ServerSocket = new ServerSocket(port)
     var numConns: Int = 0
     while (true)
     {

@@ -4,6 +4,8 @@ import pWeb.*, utiljvm.*
 
 object ServRawOS extends ServRaw
 {
+  var resDirStr: String = "~/OpenStratResources"
+
   override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
   {
     case Succ(hrg: HttpReqGet) =>
@@ -11,8 +13,10 @@ object ServRawOS extends ServRaw
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")
         case JsPathNameStr(pathName) =>
-        { deb("res" + pathName)
-          loadTextFile("res" + pathName) match
+        {
+          val resPath = resDirStr / pathName
+          deb(resPath)
+          loadTextFile(resPath) match
           { case Succ(str) =>
             { deb("Js found Length = " + str.length.toString)
               HttpFound(httpNow, "localhost", HttpConTypeJs, str)
@@ -41,5 +45,12 @@ object ServRawOS extends ServRaw
     case _ => {deb("Other match"); None }
   }
 
-  run()
+  def main(args: Array[String]): Unit =
+  {
+    val oLoc = args.headOption
+    val locStr: String = oLoc.fld("None", str => str)
+    deb(locStr)
+    oLoc.foreach{a1 => resDirStr = a1}
+    run()
+  }
 }
