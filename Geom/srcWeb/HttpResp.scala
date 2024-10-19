@@ -1,7 +1,7 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** Am HttP Response. The out method givees the [[String]] to send over TCP. */
+/** An HttP Response. The out method gives the [[String]] to send over TCP. */
 trait HttpResp
 {
   /** HTTP response code. */
@@ -46,16 +46,18 @@ object HttpFound
 }
 
 /** HTTP OK 404 Response with body. */
-class HttpNotFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
+class HttpPageNotFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
 {
   override def code: Int = 404
 
-  def conTypeLine: String = "Content-Type:" + contentType.out
-  def connLine = "Connection: Keep-Alive"
-  override def headerStr: String = "HTTP/1.1 404 Not Found" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine
+  /** The Content-Type line in this HTTP response. */
+  def contentTypeLine: String = "Content-Type:" + contentType.out
+  
+  def connectionLine: String = "Connection: Keep-Alive"
+  override def headerStr: String = "HTTP/1.1 404 Not Found" --- dateLine --- connectionLine --- serverLine --- conLenLine --- contentTypeLine
 }
 
-object HttpNotFound
+object HttpPageNotFound
 {
-  def apply(dateStr: String, server: String, contentType: HttpContentType, body: String): HttpNotFound = new HttpNotFound(dateStr, server, contentType, body)
+  def apply(dateStr: String, server: String, contentType: HttpContentType, body: String): HttpPageNotFound = new HttpPageNotFound(dateStr, server, contentType, body)
 }

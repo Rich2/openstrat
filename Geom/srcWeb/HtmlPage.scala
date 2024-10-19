@@ -37,7 +37,7 @@ object HtmlPage
 
 trait HtmlPageNotFound extends HtmlPage
 {
-  override def httpResp(dateStr: String, server: String): HttpNotFound = HttpNotFound(dateStr, server, HttpConTypeHtml, out)
+  override def httpResp(dateStr: String, server: String): HttpPageNotFound = HttpPageNotFound(dateStr, server, HttpConTypeHtml, out)
 }
 
 case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
