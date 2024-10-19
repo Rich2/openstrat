@@ -1,12 +1,14 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
+/** HTTP Heade */
 trait HttpHeadLine
 {
   def out: String
 }
 
-class HttpRespTop(val code: HttpCode, val version: HttpVersion = Http1p1) extends HttpHeadLine
+/** |n HTTP response stus line including the HTTP version and the status code. */
+class HttpStatusLine(val code: HttpCode, val version: HttpVersion = Http1p1) extends HttpHeadLine
 { override def out: String = version.out -- code.out
 }
 
@@ -22,7 +24,8 @@ object Http2 extends HttpVersion("HTTP/2")
 /** HTTP version 3. */
 object Http3 extends HttpVersion("HTTP/3")
 
-trait HttpHeadLine2
+/** HTTP header of header field. */
+trait HttpHeader
 {
   def name: String
   def valueStr: String
@@ -30,3 +33,9 @@ trait HttpHeadLine2
   def out: String = name + ": " + valueStr
 }
 
+class HttpConn(val valueStr: String) extends HttpHeader
+{
+  override def name: String = "Connection"
+}
+
+object HttpAlive extends HttpConn("Keep-Alive")

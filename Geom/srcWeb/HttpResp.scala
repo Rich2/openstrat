@@ -9,7 +9,7 @@ trait HttpResp
   /** HTTP response code. */
   def code: HttpCode
   
-  def top: HttpRespTop = HttpRespTop(code, version)
+  def top: HttpStatusLine = HttpStatusLine(code, version)
   
   /** The [[String]] output of this HTTP response. */
   def out: String

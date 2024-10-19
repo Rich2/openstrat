@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTTP content type. */
-sealed trait HttpContentType extends HttpHeadLine2
+sealed trait HttpContentType extends HttpHeader
 { def str1: String
   def str2: String
   def valueStr = str1 / str2
