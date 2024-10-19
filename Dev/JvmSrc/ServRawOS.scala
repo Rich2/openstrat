@@ -4,7 +4,7 @@ import pWeb.*, utiljvm.*
 
 object ServRawOS extends ServRaw
 {
-  var resDirStr: String = "~/OpenStratResources"
+  var resDirStr: String = "~/ServerOS"
   
   override val port = 8081
 

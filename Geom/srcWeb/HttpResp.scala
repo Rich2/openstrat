@@ -1,11 +1,15 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An HttP Response. The out method gives the [[String]] to send over TCP. */
+/** An HTTP Response. The out method gives the [[String]] to send over TCP. */
 trait HttpResp
-{
+{ /** The HTTP version. */
+  def version: HttpVersion = Http1p1
+  
   /** HTTP response code. */
-  def code: Int
+  def code: HttpCode
+  
+  def top: HttpRespTop = HttpRespTop(code, version)
   
   /** The [[String]] output of this HTTP response. */
   def out: String
@@ -33,11 +37,11 @@ trait HttpRespBodied extends HttpResp
 /** HTTP OK 200 Response with body. */
 class HttpFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
 { /** HTTP OK 200 response. */
-  override def code: Int = 200
+  override def code: HttpCode = HttpOK
 
-  def conTypeLine: String = "Content-Type:" + contentType.out
+//  def conTypeLine: String = "Content-Type:" + contentType.out
   def connLine = "Connection: Keep-Alive"
-  override def headerStr: String = "HTTP/1.1 200 OK" --- dateLine --- connLine --- serverLine --- conLenLine --- conTypeLine
+  override def headerStr: String = top.out --- dateLine --- connLine --- serverLine --- conLenLine --- contentType.out
 }
 
 object HttpFound
@@ -47,14 +51,10 @@ object HttpFound
 
 /** HTTP OK 404 Response with body. */
 class HttpPageNotFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
-{
-  override def code: Int = 404
-
-  /** The Content-Type line in this HTTP response. */
-  def contentTypeLine: String = "Content-Type:" + contentType.out
+{ override def code = Http404
   
   def connectionLine: String = "Connection: Keep-Alive"
-  override def headerStr: String = "HTTP/1.1 404 Not Found" --- dateLine --- connectionLine --- serverLine --- conLenLine --- contentTypeLine
+  override def headerStr: String = "HTTP/1.1" -- Http404.out --- dateLine --- connectionLine --- serverLine --- conLenLine --- contentType.out
 }
 
 object HttpPageNotFound
