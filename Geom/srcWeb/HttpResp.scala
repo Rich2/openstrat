@@ -14,34 +14,30 @@ trait HttpResp
   /** The [[String]] output of this HTTP response. */
   def out: String
   
-  def server: String
-  
-  /** The server line [[String]] of this HTTP response. */
-  def serverLine: String = "server:" + server
-  
   def dateStr: String
-  def dateLine: String = "date:" + dateStr
+  def dateLine: HttpDate = HttpDate(dateStr)
   def headerStr: String
   def headerOneLine: String = headerStr.oneLine
+
+  def serverStr: String
+  def serverLine: HttpServer = HttpServer(serverStr)
 }
 
 trait HttpRespBodied extends HttpResp
 {
   def contentType: HttpContentType
   def body: String
-  def conLenLine: String = "Content-Length:" + body.length
+  def conLen: HttpConLen = HttpConLen(body.length)
 
   final override def out: String = headerStr ---- body
 }
 
 /** HTTP OK 200 Response with body. */
-class HttpFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
+class HttpFound(val dateStr: String, val serverStr: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
 { /** HTTP OK 200 response. */
   override def code: HttpCode = HttpOK
-
-//  def conTypeLine: String = "Content-Type:" + contentType.out
-  def connLine = "Connection: Keep-Alive"
-  override def headerStr: String = top.out --- dateLine --- connLine --- serverLine --- conLenLine --- contentType.out
+  
+  override def headerStr: String = top.out --- dateLine.out --- HttpAlive.out --- serverLine.out --- conLen.out --- contentType.out
 }
 
 object HttpFound
@@ -50,11 +46,10 @@ object HttpFound
 }
 
 /** HTTP OK 404 Response with body. */
-class HttpPageNotFound(val dateStr: String, val server: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
+class HttpPageNotFound(val dateStr: String, val serverStr: String, val contentType: HttpContentType, val body: String) extends HttpRespBodied
 { override def code = Http404
   
-  def connectionLine: String = "Connection: Keep-Alive"
-  override def headerStr: String = "HTTP/1.1" -- Http404.out --- dateLine --- connectionLine --- serverLine --- conLenLine --- contentType.out
+  override def headerStr: String = top.out --- dateLine.out --- HttpAlive.out --- serverLine.out --- conLen.out --- contentType.out
 }
 
 object HttpPageNotFound

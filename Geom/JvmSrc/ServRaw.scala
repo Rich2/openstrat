@@ -15,8 +15,7 @@ trait ServRaw
     val servSock: ServerSocket = new ServerSocket(port)
     var numConns: Int = 0
     while (true)
-    {
-      val sock: Socket = servSock.accept()
+    { val sock: Socket = servSock.accept()
       val conn = new ConnSesh(numConns, sock, responses)
       val thread = new Thread(conn)
       thread.start()

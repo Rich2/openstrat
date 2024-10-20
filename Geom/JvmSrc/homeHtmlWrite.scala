@@ -19,3 +19,5 @@ object opensettHtmlWrite
     fileWrite(home + "/opensett", title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
   }
 }
+
+object HttpNow extends HttpDate(httpNow)
