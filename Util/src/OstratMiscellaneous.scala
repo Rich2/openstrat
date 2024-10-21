@@ -2,6 +2,7 @@
 package ostrat
 import pParse._
 
+/** Not entirely sure what this type class is for */
 trait IsType[A <: AnyRef]
 { def isType(obj: AnyRef): Boolean
   def asType(obj: AnyRef): A

@@ -13,8 +13,8 @@ object DevPage extends HtmlPage
   def siteGen: HtmlLi = HtmlLi("Generates the HTML files for the website, including this file.")
   def miscTitle = HtmlH2("Place to put various notes, so as stuff doesn't get lost. It can be sorted into proper documentation later.")
 
-  def p1: HtmlP = HtmlP("It currently works on JavaFx and web page. Using canvas on both platforms. See" --
-    """<a href="../api/index.html">Scala Docs</a> and See <a href="../apiJs/index.html">Scala Docs for JavaScript target.</a>")""")
+  def p1: HtmlP = HtmlP("""It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="../api/index.html">Scala Docs</a> and See
+    | <a href="../apiJs/index.html">Scala Docs for JavaScript target.</a>")""".stripMargin)
 
   def p2: HtmlP = HtmlP("The Strategy games was the original motivation for the project, but the geometry and graphics library have far wider applicability." --
     "The geometry and graphics are far more developed, while the tiling and strategy games are still in a far more experimental stage. This is in accordance" --
