@@ -10,7 +10,7 @@ object ServRawOS extends ServRaw
 
   override def responses(req: ThrowMon[HttpReq]): Option[HttpResp] = req match
   {
-    case Succ(hrg: HttpReqGet) =>
+    case Succ(hrg: HttpReq) if hrg.method == HttpGet =>
     { val resp: HttpResp = hrg.uri match
       { case "/" | "" | "/index.html" | "index.html" | "/index.htm" | "index.htm" => IndexPage.httpResp(httpNow, "localhost")
         case AppPage.AllHtmlExtractor(page) => page.httpResp(httpNow, "localhost")

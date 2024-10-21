@@ -2,9 +2,9 @@
 package ostrat; package pWeb
 
 /** An HTTP Request. */
-trait HttpReq
+class HttpReq(val method: HttpMethod, val uri: String)
 { /** HTTP method such as GET or POST. */
-  def method: HttpMethod
+  
 }
 
 object HttpReq
@@ -14,9 +14,9 @@ object HttpReq
     debvar(lh0)
     val rt = lh0.takeWhile(_.isLetter)
     val tail = lh0.drop(rt.length).dropWhile(_.isWhitespace)
-    if (rt.toLowerCase == "get") Succ(HttpReqGet(tail.takeWhile(c => !c.isWhitespace)))
+    if (rt.toLowerCase == "get") Succ(new HttpReq(HttpGet, tail.takeWhile(c => !c.isWhitespace)))
     else
-      if (rt.toLowerCase == "post") Succ(HttpReqPost(tail.takeWhile(c => !c.isWhitespace)))
+      if (rt.toLowerCase == "post") Succ(new HttpReq(HttpPost, tail.takeWhile(c => !c.isWhitespace)))
       else
       { debvar(rt)
         FailExc("Not get")
@@ -25,14 +25,14 @@ object HttpReq
 }
 
 /** HTTP Get Request. */
-class HttpReqGet(val uri: String) extends HttpReq
+/*class HttpReqGet(val uri: String) extends HttpReq
 { override def method: HttpMethod = HttpGet
 }
 
 /** HTTP Post Request. */
 class HttpReqPost(val uri: String) extends HttpReq
 { override def method: HttpMethod = HttpPost
-}
+}*/
 
 /** HttP method type. */
 sealed trait HttpMethod
