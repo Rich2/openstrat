@@ -121,4 +121,8 @@ object Terr80E30  extends Long80Terrs
     )
   }
   help.run
+
+  { import hexNames.{setRow => str}
+    str(416, "" * 14, "Rhodes")
+  }
 }

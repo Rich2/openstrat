@@ -57,4 +57,9 @@ object Terr160E30 extends Long160Terrs
     )
   }
   help.run
+
+  { import hexNames.{setRow => str}
+
+    str(256, "" * 5, "Crete west", "Crete East", "" * 3, "Cyprus")
+  }
 }

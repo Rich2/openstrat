@@ -84,6 +84,7 @@ object Terr160E0 extends Long160Terrs
   { import hexNames.{ setRow => str}
     str(294, "" * 2, "Isle of Lewis")
     str(292, "" * 2, "Uist")
+    str(264, "" * 9, "Majorca")
   }
 }
 
