@@ -135,9 +135,12 @@ class ExtensionsString(val thisString: String) extends AnyVal
   def -:-(other: String): String = thisString + ": " + other
 
   def optAppend (optionOther: Option[String]): String = optionOther.fold(thisString)(string2 => thisString + " " + string2)
+
+  /** Encloses this [[String]] within double quote characters. */
   def enquote: String = "\"" + thisString + "\""
+
+  /** Encloses this [[String]] within single quotation characters */
   def enquote1: String = "'" + thisString + "'"
-  def addEnqu(s2: String): String = thisString + s2.enquote
   
   /** encloses string in parentheses */
   def enParenth: String = "(" + thisString + ")"
@@ -150,8 +153,9 @@ class ExtensionsString(val thisString: String) extends AnyVal
 
   /** encloses string in Curly brackets */
   def enCurlyNLs: String = "{\n" + thisString + "\n}"
-  
-  def words: Array[String] = thisString.split("\\s+")
+
+  /** Splits this [[String]] by white space into [[Array]] of words. */
+  def words: StrArr = new StrArr(thisString.split("\\s+"))
   
   def remove2ndDot: String =
   { val (s1, s2) = thisString.span(_ != '.')         
