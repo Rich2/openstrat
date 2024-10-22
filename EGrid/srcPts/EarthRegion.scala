@@ -38,7 +38,7 @@ object MediterreaneanWest extends EarthRegion("Mediterranean West", 35.78 ll 18.
 
 object MediterraneanEast extends EarthRegion("Mediterranean East", 35.78 ll 18.73)
 { import pMed._
-  override val a2Arr: RArr[EarthArea] = RArr(SaharaEast, Sinai, Crete, Corfu, Thasos, Cyprus, Rhodes, Cephalonia, Lesbos, Chios)
+  override val a2Arr: RArr[EarthArea] = RArr(SaharaEast, Sinai, Crete, Corfu, Thasos, Samos, Cyprus, Rhodes, Cephalonia, Lesbos, Chios)
 }
 
 object AfricaNorth extends EarthRegion("AfricaNorth", 18.19 ll 15)
@@ -46,7 +46,7 @@ object AfricaNorth extends EarthRegion("AfricaNorth", 18.19 ll 15)
   override val a2Arr: RArr[EarthArea] = RArr(SaharaWest, AfricaCentral, WestAfricaSouth, AfricaHorn)
 }
 
-/** The southern part of Africa below approximately 5 degrees north, roughly triangular in shape. */
+/** The southern part of Africa below approximately 5° north, roughly triangular. */
 object AfricaSouth extends EarthRegion("AfricanSouth", -16.14 ll 24.36)
 { import pAfrica. _
   override val a2Arr: RArr[EarthArea] = RArr(LakeVictoria, LakeTanganyika, LakeMalawi, LakeMweru, SouthAfrica, Congo, AngloaZambia, FernandoPo, centralAfricaEast,
@@ -56,7 +56,7 @@ object AfricaSouth extends EarthRegion("AfricanSouth", -16.14 ll 24.36)
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object MiddleEast  extends EarthRegion("MiddleEast", 20.18 ll -0.65)
 { import middleEast._
-  override val a2Arr = RArr(Anatolia, Kurdistan, LakeVan, Armenia, Levant, ArabiaNorth, ArabiaSouth, Persia, Iraq, LakeTuz)
+  override val a2Arr = RArr(AnatoliaWest, AnatoliaCentral, LakeEgirdir, Kurdistan, LakeVan, Armenia, Levant, ArabiaNorth, ArabiaSouth, Persia, Iraq, LakeTuz)
 }
 
 object Alaska extends EarthRegion("Alaska", 66.276 ll -151.410)

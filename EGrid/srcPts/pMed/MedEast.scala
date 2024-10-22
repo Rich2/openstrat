@@ -2,9 +2,11 @@
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for Crete depends on nothing. */
-object Cephalonia extends EarthArea("Cephalonia", 38.22 ll 20.59, hillyOce)
-{ val north: LatLong = 38.50 ll 20.66
+/** [[PolygonLL]] graphic for Greek Island of Cephalonia. Depends on nothing. */
+object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSavannah)
+{ override val area: KilometresSq = 773.kilometresSq
+
+  val north: LatLong = 38.50 ll 20.66
   val southEast: LatLong = 38.11 ll 20.82
   val southWest: LatLong = 38.18 ll 20.34
   val northWest: LatLong = 38.36 ll 20.40
@@ -12,9 +14,11 @@ object Cephalonia extends EarthArea("Cephalonia", 38.22 ll 20.59, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, southEast, southWest, northWest)
 }
 
-/** [[PolygonLL]] graphic for Crete depends on nothing. */
-object Crete extends EarthArea("Crete", 35.23 ll 24.92, hillyOce)
-{ val northEast: LatLong = 35.32 ll 26.31
+/** [[PolygonLL]] graphic for Crete. Depends on nothing. */
+object Crete extends EarthAreaIsland("Crete", 35.23 ll 24.92, mtainSavannah)
+{ override val area: KilometresSq = 8450.kilometresSq
+
+  val northEast: LatLong = 35.32 ll 26.31
   val southEast: LatLong = 35.02 ll 26.19
   val p10: LatLong = 34.92 ll 24.73
   val p15: LatLong = 35.09 ll 24.72
@@ -25,9 +29,11 @@ object Crete extends EarthArea("Crete", 35.23 ll 24.92, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
 }
 
-/** [[PolygonLL]] graphic for Corfu depends on nothing. */
-object Corfu extends EarthArea("Corfu", 39.63 ll 19.82, hillyOce)
-{ val north: LatLong = 39.82 ll 19.85
+/** [[PolygonLL]] graphic for Corfu. Depends on nothing. */
+object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
+{ override val area: KilometresSq = 610.9.kilometresSq
+
+  val north: LatLong = 39.82 ll 19.85
   val northEast: LatLong = 39.78 ll 19.96
   val gouvia: LatLong = 39.65 ll 19.84
   val southEast: LatLong = 39.38 ll 20.12
@@ -39,9 +45,11 @@ object Corfu extends EarthArea("Corfu", 39.63 ll 19.82, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, gouvia, southEast, south, p65, capeKefali, capeDrastis)
 }
 
-/** [[PolygonLL]] graphic for Lesbos depends on nothing. */
-object Lesbos extends EarthArea("Lesbos", 39.19 ll 26.30, hillyOce)
-{ val north: LatLong = 39.39 ll 26.34
+/** [[PolygonLL]] graphic for Lesbos. Depends on nothing. */
+object Lesbos extends EarthAreaIsland("Lesbos", 39.19 ll 26.30, hillyOce)
+{ override val area: KilometresSq = 1633.kilometresSq
+
+  val north: LatLong = 39.39 ll 26.34
   val northEast: LatLong = 39.34 ll 26.42
   val southEast: LatLong = 39.02 ll 26.61
   val south: LatLong = 38.96 ll 26.40
@@ -52,9 +60,11 @@ object Lesbos extends EarthArea("Lesbos", 39.19 ll 26.30, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, p70, p75, poseidonsLungs)
 }
 
-/** [[PolygonLL]] graphic for Chios depends on nothing. */
-object Chios extends EarthArea("Chios", 38.19 ll 26.30, hillyOce)
-{ val north: LatLong = 38.60 ll 26.00
+/** [[PolygonLL]] graphic for Chios. Depends on nothing. */
+object Chios extends EarthAreaIsland("Chios", 38.19 ll 26.30, mtainSavannah)
+{ override val area: KilometresSq = 842.3.kilometresSq
+
+  val north: LatLong = 38.60 ll 26.00
   val northEast: LatLong = 38.55 ll 26.16
   val p20: LatLong = 38.33 ll 26.16
   val south: LatLong = 38.15 ll 26.01
@@ -64,9 +74,25 @@ object Chios extends EarthArea("Chios", 38.19 ll 26.30, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, p20, south, southEast, northWest)
 }
 
-/** [[PolygonLL]] graphic for Cyprus depends on nothing. */
-object Cyprus extends EarthArea("Cyprus", 34.98 ll 33.15, hillyOce)
-{ val northEast: LatLong = 35.69 ll 34.58
+/** [[PolygonLL]] graphic for Samos. Depends on nothing. */
+object Samos extends EarthAreaIsland("Samos", 37.748 ll 26.829, mtainSavannah)
+{ override val area: KilometresSq = 477.4.kilometresSq
+
+  val north: LatLong = 37.813 ll 26.741
+  val northEast: LatLong = 37.779 ll 27.066
+  val east: LatLong = 37.712 ll 27.066
+  val p35: LatLong = 37.687 ll 26.952
+  val southEast: LatLong = 37.640 ll 26.878
+  val west: LatLong = 37.731 ll 26.566
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, east, p35, southEast, west)
+}
+
+/** [[PolygonLL]] graphic for Cyprus. Depends on nothing. */
+object Cyprus extends EarthAreaIsland("Cyprus", 34.98 ll 33.15, hillyOce)
+{ override val area: KilometresSq = 9251.kilometresSq
+
+  val northEast: LatLong = 35.69 ll 34.58
   val southEast: LatLong = 34.96 ll 34.09
   val p30: LatLong = 34.57 ll 33.04
   val pontiBaba: LatLong = 35.10 ll 32.28
@@ -75,7 +101,7 @@ object Cyprus extends EarthArea("Cyprus", 34.98 ll 33.15, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p30, pontiBaba, korucamBurnu)
 }
 
-/** [[PolygonLL]] graphic for Rhodes depends on nothing. */
+/** [[PolygonLL]] graphic for Rhodes. Depends on nothing. */
 object Rhodes extends EarthAreaIsland("Rhodes", 36.22 ll 27.95, hillyOce)
 { override val area: KilometresSq = 1400.68.kilometresSq
 
@@ -90,6 +116,7 @@ object Rhodes extends EarthAreaIsland("Rhodes", 36.22 ll 27.95, hillyOce)
   override val polygonLL: PolygonLL = PolygonLL(north, akraLindos, p40, south, p50, p65, p70)
 }
 
+/** [[PolygonLL]] graphic for Thasos island. Depends on nothing. */
 object Thasos extends EarthAreaIsland("Thasos", 40.686 ll 24.659, mtainSubForest)
 { override def area: KilometresSq = 380.kilometresSq
 

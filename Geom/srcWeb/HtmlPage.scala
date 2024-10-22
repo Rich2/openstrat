@@ -2,18 +2,27 @@
 package ostrat; package pWeb
 
 trait HttpContent
-{
+{ /** The output [[String]] in HTML code. */
   def out: String
+
+  /** Create an [[HtmlResp]] response with this HTML as its body. */
   def httpResp(dateStr: String, server: String): HttpRespBodied
+
+  /** Create an [[HtmlResp]] response with this HTML as its body in bytes. */
   def httpRespBytes(dateStr: String, server: String): Array[Byte] = httpResp(dateStr, server).out.getBytes
 }
 
 /** An HTML page, contains a head and a body element */
 trait HtmlPage extends HttpContent
-{
-  def head: HtmlHead
-  def body: HtmlBody
+{ /** The HTML element of this [[HtmlPage]] consisting of an [[HtmlHead]] and an [[HtmlBody]]. */
   def htmlElem: HtmlHtml = HtmlHtml(head, body)
+
+  /** The head of this [[HtmlPage]]. */
+  def head: HtmlHead
+
+  /** The body of this [[HtmlPage]]. */
+  def body: HtmlBody
+
   override def out: String = "<!doctype html>\n" + htmlElem.out(0, 150)
   def zioOut: String = "\n" + htmlElem.out(0, 150)
 
