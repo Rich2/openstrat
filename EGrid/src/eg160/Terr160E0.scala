@@ -10,7 +10,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle3]] 541.265km² => 1060.881km². Isle of Man 572km².
  * South Uist 320.3km² + North Uist 303km² + Benbcuala 82.03km² + Berneray 10.1km² + Grimsay 8.33km² =723.76km² */
 object Terr160E0 extends Long160Terrs
-{ override implicit val grid: EGrid160LongFull = EGrid160.e0(256)
+{ override implicit val grid: EGrid160LongFull = EGrid160.e0(254)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -69,12 +69,14 @@ object Terr160E0 extends Long160Terrs
 
     TRow(260, sea * 2, hillySubForest, hillySavannah, savannah, hillySavannah * 2, sea * 5, hillySavannah * 2, hillySavannah * 2),
 
-    VRow(259, BendIn(490, HVUR, 13), OrigRt(492, HVUL), OrigLt(496, HVDn, 7), BendIn(538, HVUR, 13), OrigLt(538, HVUp, 7), BendIn(540, HVUp, 13),
+    VRow(259, BendIn(490, HVUR, 13), OrigRt(492, HVUL), OrigLt(496, HVDn, 7), Bend(508, HVDR, 13, 5), BendIn(510, HVDn, 13), BendOut(512, HVUp, 7),
+      BendIn(514, HVDn, 10), BendMin(516, HVUp, 5), OrigLt(518, HVDL, 7), BendIn(538, HVUR, 13), OrigLt(538, HVUp, 7), BendIn(540, HVUp, 13),
       OrigMin(542, HVDL)),
 
-    TRow(258, sea * 4, hillySavannah, mtainSavannah, sea * 2, mtainSavannah, hillySavannah * 4, hillySahel),
-    VRow(257, BendIn(496, HVUR, 13), BendIn(498, HVUp, 13), BendOut(500, HVDn), BendIn(502, HVUp, 13)),
-    TRow(256, sea * 5, hillySavannah, hillySahel, hillySavannah, hillySahel),
+    TRow(258, sea * 4, hillySavannah, mtainSavannah, sea, hillySavannah, mtainSavannah, hillySavannah * 4, hillySahel),
+    VRow(257, BendIn(496, HVUR, 13), BendIn(498, HVUp, 13), BendOut(500, HVDn), BendIn(502, HVUp, 13), OrigMax(504, HVDL), OrigMin(506, HVUR, 4), BendOut(508, HVUL, 7)),
+    TRow(256, sea * 5, hillySavannah, hillySahel, hillySavannah, hillySahel * 6, sahel),
+    TRow(254, sea * 3, savannah, hillySavannah),
     )
   }
   help.run

@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked. */
 object Terr160E30 extends Long160Terrs
-{ override implicit val grid: EGrid160LongFull = EGrid160.e30(256)
+{ override implicit val grid: EGrid160LongFull = EGrid160.e30(254)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -45,8 +45,8 @@ object Terr160E30 extends Long160Terrs
     VRow(265, Bend(1512, HVUR, 9, 7), BendIn(1514, HVDL, 13)),
     TRow(264, hillySub, subtrop, hillyOce * 2, sea, hillyOce,  hillyOce * 9),
     VRow(263, BendIn(1512, HVUp, 13), BendIn(1514, HVUL, 13)),
-    TRow(262, hillyOce, sea * 2, hillyOce * 2, sea, hillyOce, hillyOce * 4, hillyOce * 5),
-    TRow(260, sea * 3, hillyOce, sea * 2, hillyOce * 10),
+    TRow(262, mtainSub, sea * 2, hillyOce * 2, sea, hillyOce, hillyOce * 4, hillyOce * 5),
+    TRow(260, sea * 2, hillySub, mtainSavannah, sea * 2, hillyOce * 10),
     TRow(258, sea * 11, hillyOce * 5),
     TRow(256, sea * 5, hillyOce * 2, sea * 3, Isle10(hillyOce), hillyOce * 6),
     )
