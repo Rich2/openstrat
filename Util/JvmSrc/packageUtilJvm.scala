@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse.*, java.io.*
 
 /** This package is for Java byte code targets. */
 package object utiljvm
@@ -36,8 +36,7 @@ package object utiljvm
 
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
-  { import java.io._
-    val dir = new File(path)
+  { val dir: File = new File(path)
     if (!dir.exists) dir.mkdirs
     val pw = new PrintWriter(new File(path / fileName))
     pw.write(output)
@@ -68,8 +67,7 @@ package object utiljvm
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
   def fileWrite(path: String, fileName: String, content: String): ErrBi[Exception, String] =
-  { import java.io._
-    var eStr: String = ""
+  { var eStr: String = ""
     var opw: Option[FileWriter] = None
     try
     { new File(path).mkdir()

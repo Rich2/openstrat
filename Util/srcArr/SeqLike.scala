@@ -2,10 +2,9 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, pParse._
 
-/** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as
- *  classes such as polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by
- *  a sequence of points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes
- *  expandable buffers. */
+/** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as classes such as
+ * polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by a sequence of points, but
+ * is a different type to the Pt2s class which is the immutable sequence class for 2-dimensional points. includes expandable buffers. */
 trait SeqLike[+A] extends Any
 { /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]
@@ -41,8 +40,10 @@ object SeqLike
 
     override def fromExpr(expr: Expr): ExcMon[AA] = expr match
     { case _: EmptyExprToken => Succ(build.uninitialised(0))
+      
       case AlphaBracketExpr(id1, RArr1(BracketedStructure(sts, brs, _, _))) if (id1.srcStr == "Seq") && brs == Parentheses =>
         sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
+        
       case AlphaSquareParenth("Seq", _, sts) => sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
       case AlphaParenth("Seq", sts) => sts.mapErrBi(build)(s => evA.fromExpr(s.expr))
       case e => expr.failExc(expr.toString + " unknown Expression for Seq")
