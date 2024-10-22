@@ -4,7 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** The 80 Km grid centred on 30°E for 15°E to 45°E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current
  * r offset is 300 for the equator.
- *  Isle8 1060.881km² <= 1753.701km² includes Rhodes */
+ *  [[Isle8]] 1217.848km² => 1564.258km².Rhodes 1401km². */
 object Terr80E30  extends Long80Terrs
 {
   override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
@@ -114,7 +114,7 @@ object Terr80E30  extends Long80Terrs
       TRow(418, SepB(), sea * 7, hillyOce, sea * 5, hillyOce * 5, mtainDepr, hillyOce * 2, savannah, hillySavannah, hillyOce, deshot * 2, oceanic, deshot * 3,
         hillyDeshot * 2, mtainDepr), VRow(417, OrigMin(1564, HVDL)),
 
-      TRow(416, sea * 10, sea * 4, Isle10(hillyOce), sea, mtainDepr, sea * 2, mtainDepr, mtainDepr, sea * 2, hillyOce, oceanic, deshot * 7, hillyDeshot),
+      TRow(416, sea * 10, sea * 4, Isle8(mtainSavannah), sea, mtainDepr, sea * 2, mtainDepr, mtainDepr, sea * 2, hillyOce, oceanic, deshot * 7, hillyDeshot),
       TRow(414, sea * 9, hillyOce, sea * 10, hillyOce, sea, hillyOce * 2, deshot * 8, hillyDeshot),
       TRow(412, sea * 10, hillyOce * 2, sea * 7, hillyOce, oceanic, sea * 2, hillyOce, deshot * 10),
       TRow(410, sea * 11, sea * 12, hillyOce, hillyDeshot, deshot * 9),

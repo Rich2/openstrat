@@ -76,8 +76,10 @@ object Cyprus extends EarthArea("Cyprus", 34.98 ll 33.15, hillyOce)
 }
 
 /** [[PolygonLL]] graphic for Rhodes depends on nothing. */
-object Rhodes extends EarthArea("Rhodes", 36.22 ll 27.95, hillyOce)
-{ val north: LatLong = 36.46 ll 28.22
+object Rhodes extends EarthAreaIsland("Rhodes", 36.22 ll 27.95, hillyOce)
+{ override val area: KilometresSq = 1400.68.kilometresSq
+
+  val north: LatLong = 36.46 ll 28.22
   val akraLindos: LatLong = 36.05 ll 28.09
   val p40: LatLong = 35.93 ll 27.86
   val south: LatLong = 35.88 ll 27.76

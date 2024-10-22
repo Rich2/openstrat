@@ -2,7 +2,9 @@
 package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
-/** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked. */
+/** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked.
+ * [[Isle6]] 2619.726km² => 3658.957km². Dodecanese 2714km².
+ * [[Isle4]] 1060.881km² => 1753.701km². Rhodes 1401km² + Karpathos 220km² = 1621km². */
 object Terr160E30 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e30(254)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -46,10 +48,11 @@ object Terr160E30 extends Long160Terrs
     TRow(264, hillySub, subtrop, hillyOce * 2, sea, hillyOce,  hillyOce * 9),
     VRow(263, BendIn(1512, HVUp, 13), BendIn(1514, HVUL, 13)),
     TRow(262, mtainSub, sea * 2, hillyOce * 2, sea, hillyOce, hillyOce * 4, hillyOce * 5),
-    VRow(261, BendIn(1514, HVDR, 13), BendIn(1516, HVDn)),
+    VRow(261, BendIn(1514, HVDR, 13), BendIn(1516, HVDn), BendIn(1518, HVUp), OrigLt(1520, HVDL, 7)),
     TRow(260, sea * 2, hillySub, mtainSavannah, sea * 2, hillyOce * 10),
-    VRow(259, BendIn(1514, HVUR, 13)),
-    TRow(258, sea * 11, hillyOce * 5),
+    VRow(259, BendIn(1514, HVUR, 13), BendOut(1516, HVDL, 7)),
+    TRow(258, sea * 3, hillySavannah, sea * 7, hillyOce * 5),
+    VRow(257, BendIn(1516, HVUR, 13), BendIn(1518, HVUp, 13), OrigRt(1520, HVDL)),
     TRow(256, sea * 5, hillyOce * 2, sea * 3, Isle10(hillyOce), hillyOce * 6),
     )
   }
