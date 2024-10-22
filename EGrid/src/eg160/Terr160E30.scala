@@ -46,7 +46,9 @@ object Terr160E30 extends Long160Terrs
     TRow(264, hillySub, subtrop, hillyOce * 2, sea, hillyOce,  hillyOce * 9),
     VRow(263, BendIn(1512, HVUp, 13), BendIn(1514, HVUL, 13)),
     TRow(262, mtainSub, sea * 2, hillyOce * 2, sea, hillyOce, hillyOce * 4, hillyOce * 5),
+    VRow(261, BendIn(1514, HVDR, 13), BendIn(1516, HVDn)),
     TRow(260, sea * 2, hillySub, mtainSavannah, sea * 2, hillyOce * 10),
+    VRow(259, BendIn(1514, HVUR, 13)),
     TRow(258, sea * 11, hillyOce * 5),
     TRow(256, sea * 5, hillyOce * 2, sea * 3, Isle10(hillyOce), hillyOce * 6),
     )

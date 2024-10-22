@@ -79,22 +79,31 @@ object BalkansEast extends EarthArea("BalkansEast", 44.0 ll 25.5, oceanic)
 }
 
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
-object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, hillyOce)
+object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, mtainSavannah)
 { val ePeninsular: LatLong = 38.04 ll 23.56
-  val kechries = 37.88 ll 22.99
+  val kechries: LatLong = 37.88 ll 22.99
   val p1: LatLong = 37.44 ll 23.51
-  val neaKios = 37.58 ll 22.74
-  val voia =  36.44 ll 23.17
+  val neaKios: LatLong = 37.58 ll 22.74
+  val voia: LatLong =  36.44 ll 23.17
   val eElos: LatLong = 36.79 ll 22.78
-  val wElos = 36.80 ll 22.61
-  val sGreece = 36.38 ll 22.48
-  val koroni = 36.73 ll 21.87
-  val kyllini = 37.93 ll 21.13
-  val rioPio = 38.30 ll 21.77
-  val corinth = 37.94 ll 22.93
+  val wElos: LatLong = 36.80 ll 22.61
+  val sGreece: LatLong = 36.38 ll 22.48
+  val kithira: LatLong = 36.140 ll 22.987
+  val p42: LatLong = 36.385 ll 22.482
+  val p45: LatLong = 36.915 ll 22.126
+  val p52: LatLong = 36.720 ll 21.876
+  val sapientza: LatLong = 36.737 ll 21.695
+
+  val p60: LatLong = 37.168 ll 21.567
+  val kaloNero: LatLong = 37.298 ll 21.694
+  val katakola: LatLong = 37.633 ll 21.310
+  val kyllini: LatLong = 37.93 ll 21.13
+  val rioPio: LatLong = 38.30 ll 21.77
+  val corinth: LatLong = 37.94 ll 22.93
   val nPeninsular: LatLong = 38.15 ll 23.22
 
-  val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
+  val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, kithira, eElos, wElos, sGreece, p42, p45, p52, sapientza, p60, kaloNero, katakola, kyllini, rioPio, corinth,
+    nPeninsular)
 }
 
 /** [[PolygonLL]] graphic for Marmara Sea, depends on nothing. */
