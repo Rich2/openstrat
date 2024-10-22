@@ -24,15 +24,15 @@ object HttpReq
   }
 }
 
-/** HTTP Get Request. */
-/*class HttpReqGet(val uri: String) extends HttpReq
-{ override def method: HttpMethod = HttpGet
+/** HTTP Get Request extractor object. */
+object HttpReqGet
+{ //override def unapply: HttpMethod = HttpGet
 }
 
-/** HTTP Post Request. */
-class HttpReqPost(val uri: String) extends HttpReq
-{ override def method: HttpMethod = HttpPost
-}*/
+/** HTTP Post Request extractor object. */
+object HttpReqPost
+{ //override def method: HttpMethod = HttpPost
+}
 
 /** HttP method type. */
 sealed trait HttpMethod
