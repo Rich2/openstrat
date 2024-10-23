@@ -37,8 +37,18 @@ object EarthArea
   }
 }
 
-abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr)
+trait EarthIslandLike
+{ /** The area of this island or island grouping. */
+  def area: KilometresSq
+}
+
+abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr), EarthIslandLike
 {
   override def toString = name.oneLine + ", " + area.str0 + ", " + terr.strComma
-  def area: KilometresSq// = KilometresSq(kMetresSqNum)
+
+}
+
+class EarthIslandGroup(val parts: RArr[EarthIslandLike]) extends EarthIslandLike
+{
+  override def area: KilometresSq = ???// parts.sumBy()
 }

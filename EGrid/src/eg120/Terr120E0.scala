@@ -4,6 +4,7 @@ import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15 West to 15 East.
  * [[Isle5]] 986.457km² => 1473.596km². Orkneys 990km², Faroe Islands 1399km², Shetlands 1466km².
+ * [[Isle4]] 596.745km² => 986.457km². Menorca 695.8 km², Ibiza 571.6 km².
  * [[Isle3]] 304.462km² => 596.745km². Isle of Man 572km². */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(284)
@@ -64,7 +65,7 @@ object Terr120E0 extends Long120Terrs
     TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainDepr * 4, hillyOce),
 
     TRow(286, sea * 3, subtrop, mtainSubForest, hillySub, hillySavannah * 2, mtainSavannah * 2, hillySavannah, sea * 5, mtainSub, sea * 3),
-    TRow(284, sea * 4, savannah, hillySavannah),
+    TRow(284, sea * 4, savannah, hillySavannah * 3, savannah, hillySavannah * 2, sea),
     )
   }
   help.run
