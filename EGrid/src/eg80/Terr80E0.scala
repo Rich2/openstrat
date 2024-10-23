@@ -73,12 +73,13 @@ object Terr80E0 extends Long80Terrs
       BendOut(508, HVDn, 7), BendIn(510, HVUp, 13), BendOut(512, HVDn, 7), BendInLt(514, HVUp, 13, 7), BendMax(516, HVUL)),
 
     TRow(460, sea * 7, hillyOce, sea * 5, oceanic * 3, hillyOce * 10),
-    VRow(459, BendIn(490, HVUR, 13), BendIn(492, HVUp, 13), OrigRt(494, HVDL, 7), OrigMin(508, HVUR), OrigMin(512, HVUL)),
+    VRow(459, BendIn(490, HVUR, 13), BendIn(492, HVUp, 13), OrigRt(494, HVDL, 7), OrigMin(508, HVUR), BendIn(510, HVDn, 13), OrigMin(512, HVUL)),
     TRow(458, sea * 11, oceanic * 8, hillyOce * 3, oceanic, hillyOce * 3, oceanic),
-    VRow(457),
+    VRow(457, BendIn(494, HVDR, 13), BendIn(496, HVDn, 13)),
     TRow(456, sea * 9, hillyOce, oceanic, oceanic, oceanic * 7, hillyOce * 3, oceanic * 3, hillyOce * 2),
-    VRow(455),
-    TRow(454, sea * 9, oceanic * 10, hillyOceForest * 2, oceanic * 4, hillyOce, mtainDepr),
+    VRow(455, BendIn(492, HVDR, 13)),
+    TRow(454, sea * 8, hillyOce, oceanic * 10, hillyOceForest * 2, oceanic * 4, hillyOce, mtainDepr),
+    VRow(453, BendIn(492, HVUR, 13)),
     TRow(452, sea * 11, oceanic * 9, hillyOce * 2, mtainDepr * 6),
     TRow(450, sea * 12, oceanic * 7, hillyOce, mtainDepr * 8),
     TRow(448, sea * 12, oceanic * 4, hillyOce * 2, oceanic, mtainDepr * 9),
@@ -113,6 +114,7 @@ object Terr80E0 extends Long80Terrs
     str(494, "" * 9, "Shetlands")
     str(488, "" * 8, "Orkneys")
     str(474, "" * 8, "Isle of Man")
+    str(460, "" * 7, "Cornwall west")
   }
 }
 

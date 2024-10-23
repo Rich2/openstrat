@@ -6,7 +6,7 @@ import prid.phex._, egrid._, WTiles._
  * [[Isle5]] 986.457km² => 1473.596km². Orkneys 990km², Faroe Islands 1399km², Shetlands 1466km².
  * [[Isle3]] 304.462km² => 596.745km². Isle of Man 572km². */
 object Terr120E0 extends Long120Terrs
-{ override implicit val grid: EGrid120LongFull = EGrid120.e0(274)
+{ override implicit val grid: EGrid120LongFull = EGrid120.e0(284)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -63,7 +63,7 @@ object Terr120E0 extends Long120Terrs
     TRow(302, sea * 6, oceanic * 5, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainDepr * 2),
     TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainDepr * 4, hillyOce),
 
-    TRow(286, sea * 3, subtrop, mtainSubForest),
+    TRow(286, sea * 3, subtrop, mtainSubForest, hillySub, hillySavannah * 2, mtainSavannah * 2, hillySavannah, sea * 5, mtainSub, sea * 3),
     TRow(284, sea * 4, savannah, hillySavannah),
     )
   }
