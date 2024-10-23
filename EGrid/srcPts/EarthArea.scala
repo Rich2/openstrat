@@ -44,21 +44,27 @@ trait EarthIslandLike
   /** The area of this island or island grouping. */
   def area: KilometresSq
 
-  def grouping: Option[EarthIslandGroup] = None
+  def oGroup: Option[EarthIslandGroup] = None
 
   def groupings: RArr[EarthIslandGroup] =
   { val acc: ArrayBuffer[EarthIslandGroup] = new ArrayBuffer[EarthIslandGroup]()
-    def loop(inp: Option[EarthIslandGroup]): Unit = inp match{
-      case Some(eig) => { acc.append(eig); loop(eig.grouping) }
+    def loop(inp: Option[EarthIslandGroup]): Unit = inp match
+    { case Some(eig) => { acc.append(eig); loop(eig.oGroup) }
       case None =>
     }
-    loop(grouping)
+    loop(oGroup)
     new RArr(acc.toArray)
   }
 }
 
-abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr), EarthIslandLike
-{ override def toString = name.oneLine + ", " + area.str0 + ", " + terr.strComma
+abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr), EarthIslandLike, Selectable
+{ override def toString = name.oneLine + (area.str0 + ", " + terr.strComma).enParenth
+
+  def selectStr: String =
+  { val groupStrs: StrArr = groupings.map(g => g.name -- g.area.str0)
+    val inner = (StrArr(area.str0, terr.strComma) ++ groupStrs).mkStr("; ")
+    name + inner.enParenth
+  }
 }
 
 class EarthIslandGroup(val name: String, val array: Array[EarthIslandLike]) extends EarthIslandLike
@@ -71,5 +77,6 @@ class EarthIslandGroup(val name: String, val array: Array[EarthIslandLike]) exte
 
 object EarthIslandGroup
 {
+  /** Factory apply method for creating [[EarthIslandGroup]] with repeat parameters. */
   def apply(name: String, elems: EarthIslandLike*): EarthIslandGroup = new EarthIslandGroup(name, elems.toArray)
 }

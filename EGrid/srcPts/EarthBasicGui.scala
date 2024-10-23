@@ -53,7 +53,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val fillActiveTexts: RArr[PolygonCompound] = ps5.pairMap{ (p, a2) =>
       val str: String = a2 match {
-        case isle: EarthAreaIsland => isle.name -- isle.area.toString
+        case isle: EarthAreaIsland => isle.selectStr
         case ea => ea.name
       }
       p.fillActiveText(a2.colour, str, a2.name, 10, a2.contrastBW)

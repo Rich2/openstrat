@@ -68,10 +68,13 @@ object ShowTell
   }
 }
 
+/** Shows a sum type that extends Tell, where the different classes traits that make up the sum type can not be distinguished from their components. For example
+ * one might have a human class and a dog class, both consiting of a name and an age field. If we are showing an animal type, just showing the class components
+ * will not distinguish between humans and dogs.*/
 trait ShowTellSum[A <: Tell] extends Show[A]
 { override def strT(obj: A): String = obj.str
   override def syntaxDepth(obj: A): Int = obj.tellDepth
-  override def show(obj: A, way: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(way.full, maxPlaces, minPlaces)
+  override def show(obj: A, style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String = obj.tell(style.full, maxPlaces, minPlaces)
 }
 
 object ShowTellSum

@@ -2,11 +2,29 @@
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
-object Balearics extends EarthIslandGroup("Balearics", Mallorca)
+object Balearics extends EarthIslandGroup("Balearics", Mallorca, Menorca)
+{
+  override def area: KilometresSq = 5040.kilometresSq
+}
 
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
-object Mallorca extends EarthAreaIsland("Balearics", 39.59 ll 3.01, hillySavannah)
-{ override def area: KilometresSq = 5040.kilometresSq
+object Menorca extends EarthAreaIsland("Menorca", 39.977 ll 4.089, hillySavannah)
+{ override def area: KilometresSq = 695.8.kilometresSq
+  override def oGroup: Option[EarthIslandGroup] = Some(Balearics)
+
+  val north: LatLong = 40.088 ll 4.091
+  val capFavaitx: LatLong = 39.996 ll 4.268
+  val southEast: LatLong = 39.811 ll 4.281
+  val southWest: LatLong = 39.921 ll 3.824
+  val northWest: LatLong = 40.051 ll 3.822
+
+  override val polygonLL: PolygonLL = PolygonLL(north, capFavaitx, southEast, southWest, northWest)
+}
+
+/** [[PolygonLL]] graphic for Majorca depends on nothing. */
+object Mallorca extends EarthAreaIsland("Mallorca", 39.59 ll 3.01, hillySavannah)
+{ override def area: KilometresSq = 3640.11.kilometresSq
+  override def oGroup: Option[EarthIslandGroup] = Some(Balearics)
 
   val south: LatLong = 39.26 ll 3.05
   val palma: LatLong = 39.56 ll 2.63

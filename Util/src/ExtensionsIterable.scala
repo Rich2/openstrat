@@ -1,7 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
-import scala.reflect.ClassTag
+import reflect.ClassTag
 
 /** Extension methods for [[Iterable]][A]. */
 class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
@@ -31,7 +30,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     res
   }
 
-  /** Converts to [[RArr]] of A. Most commonly an [[RArr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
+  /** Converts to [[RArr]] of A. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
   def toRArr(implicit ct: ClassTag[A]): RArr[A] =
   { val len = thisIter.size
     val array: Array[A] = new Array[A](len)

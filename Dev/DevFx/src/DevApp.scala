@@ -28,7 +28,6 @@ class AppStart extends application.Application
 
     /** Tries to get the app launcher from matching the first arg, failing that tries to get it from the appSet setting. Else returns the default app. */
     val launch: GuiLaunch = oApp2.getOrElse(AppSelector.findErrBiCharsOrDefault(findDevSettingIdStr("appSet")))
-    debvar(launch)
 
     val pair: (CanvasPlatform => Any, String) =
     { val fSett: ThrowMon[FileStatements] = fileStatementsFromResource(launch.settingStr + ".rson")

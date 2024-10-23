@@ -34,7 +34,7 @@ trait ShowNFixed[A] extends ShowCompound[A] with PersistNFixed
     { case ShowStdNoSpace | ShowSemis | ShowCommas if shortOpt.nonEmpty => shortOpt.get
       case ShowUnderScore => "_"
       case ShowSemis => semisStr
-      case ShowSemisNames => namedStrs.mkStr("; ")// semisStr
+      case ShowSemisNames => namedStrs.mkStr("; ")
       case ShowCommas => strs(obj, ShowStdNoSpace, maxPlaces).mkStr(", ")
 
       case ShowFieldNames =>

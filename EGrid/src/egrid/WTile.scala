@@ -4,9 +4,9 @@ import Colour._
 
 trait WTileHelper
 
-/** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
- * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
- * and other land hexs.  */
+/** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world 320km hex
+ * 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it and other land
+ * hexs. */
 trait WTile extends WTileHelper with Coloured with Tell
 { override def typeStr: String = "WTile"
   def isLand: Boolean
@@ -22,7 +22,7 @@ object WTile
   }
 
   /** [[Show]] type class instance / evidence for [[WTile]]. */
-  implicit val showTEv: ShowTellSum[WTile] = ShowTellSum[WTile]("WTile")
+  implicit val showTEv: ShowTell[WTile] = ShowTell[WTile]("WTile")
 
   /** [[Unshow]] type class instance / evidence for [[WTile]]. */
   implicit val unshowEv: UnshowSum[WTile] = UnshowSum[WTile]("WTile", Land.persistEv, Water.unshowEv)

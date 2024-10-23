@@ -9,8 +9,8 @@ class ShowingExtensions[-A](ev: Show[A], thisVal: A)
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[Show]] type class instances. */
   def show(style: ShowStyle, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.show(thisVal, style, decimalPlaces, minPlaces)
 
-  /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
+  /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only happen if the
+   * syntax depth is less than 3. if it is 3 or greater return the full typed data. */
   @inline def strComma: String = ev.show(thisVal, ShowCommas, -1, 0)
 
   def str2Comma: String = ev.show(thisVal, ShowCommas, 2, 0)

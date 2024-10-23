@@ -4,7 +4,8 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
 /** Displays grids on world as well as land mass outlines. */
 class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean, irregsOn: Boolean = true) extends EGridBaseGui("Grid World")
-{ val scen: EScenBasic = scenIn
+{ deb("Starting EGTerrOnlyGui")
+  val scen: EScenBasic = scenIn
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
 
@@ -62,7 +63,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   override def selectedStr: String = selectStack.toStrsSemiFold {
     case hc: HCen => scen.hexNames(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
     case sc: HSep => "Sep" -- sc.rcStr -- sTerrs(sc).strSemi
-    //case ea: EarthArea => ea.t
+    case sl: Selectable => sl.selectStr
     case obj => obj.toString
   }
 
