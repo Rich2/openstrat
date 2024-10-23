@@ -1,6 +1,8 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.reflect.ClassTag
+
 /** Extension methods for [[Iterable]][A]. */
 class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
@@ -27,6 +29,14 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     val res = builder.uninitialised(len)
     iForeach((i, a) => res.setElemUnsafe(i, a))
     res
+  }
+
+  /** Converts to [[RArr]] of A. Most commonly an [[RArr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
+  def toRArr(implicit ct: ClassTag[A]): RArr[A] =
+  { val len = thisIter.size
+    val array: Array[A] = new Array[A](len)
+    iForeach((i, a) => array(i) = a)
+    new RArr(array)
   }
 
   def sumBy(f: A => Int): Int =

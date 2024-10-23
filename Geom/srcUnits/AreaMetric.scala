@@ -52,4 +52,16 @@ object KilometresSq
       KilometresSq(acc)
     }
   }
+
+  
+}
+
+implicit class arraySumEv[A](thisArray: Array[A])
+{
+  def sumBy(f: A => Area): KilometresSq =
+  {
+    var acc: Double = 0
+    thisArray.foreach(a => acc += f(a).kiloMetresSqNum)
+    KilometresSq(acc)
+  }
 }

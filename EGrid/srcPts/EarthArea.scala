@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*, collection.mutable.ArrayBuffer
 
 /** A second level area of the Earth. */
 abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
@@ -43,14 +43,33 @@ trait EarthIslandLike
   
   /** The area of this island or island grouping. */
   def area: KilometresSq
+
+  def grouping: Option[EarthIslandGroup] = None
+
+  def groupings: RArr[EarthIslandGroup] =
+  { val acc: ArrayBuffer[EarthIslandGroup] = new ArrayBuffer[EarthIslandGroup]()
+    def loop(inp: Option[EarthIslandGroup]): Unit = inp match{
+      case Some(eig) => { acc.append(eig); loop(eig.grouping) }
+      case None =>
+    }
+    loop(grouping)
+    new RArr(acc.toArray)
+  }
 }
 
 abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends EarthArea(name, cen, terr), EarthIslandLike
-{
-  override def toString = name.oneLine + ", " + area.str0 + ", " + terr.strComma
-
+{ override def toString = name.oneLine + ", " + area.str0 + ", " + terr.strComma
 }
 
-class EarthIslandGroup(val name: String, val parts: RArr[EarthIslandLike]) extends EarthIslandLike
-{ override def area: KilometresSq = parts.sumBy(_.area)
+class EarthIslandGroup(val name: String, val array: Array[EarthIslandLike]) extends EarthIslandLike
+{
+  def this(name: String, elems: EarthIslandLike*) = this(name, elems.toArray)
+
+  override def area: KilometresSq = array.sumBy(_.area)
+  def elements: RArr[EarthIslandLike] = new RArr[EarthIslandLike](array)
+}
+
+object EarthIslandGroup
+{
+  def apply(name: String, elems: EarthIslandLike*): EarthIslandGroup = new EarthIslandGroup(name, elems.toArray)
 }

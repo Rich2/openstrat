@@ -2,6 +2,8 @@
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
+object Balearics extends EarthIslandGroup("Balearics", Mallorca)
+
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
 object Mallorca extends EarthAreaIsland("Balearics", 39.59 ll 3.01, hillySavannah)
 { override def area: KilometresSq = 5040.kilometresSq
