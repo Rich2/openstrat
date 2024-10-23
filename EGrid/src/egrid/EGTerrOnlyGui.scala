@@ -63,7 +63,7 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   override def selectedStr: String = selectStack.toStrsSemiFold {
     case hc: HCen => scen.hexNames(hc).emptyMap("Hex") -- hc.rcStr -- terrs(hc).strSemi
     case sc: HSep => "Sep" -- sc.rcStr -- sTerrs(sc).strSemi
-    case sl: Selectable => sl.selectStr
+    case eai: EarthAreaIsland => eai.strWithGroups   
     case obj => obj.toString
   }
 

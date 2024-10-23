@@ -204,19 +204,9 @@ object HCenBuff extends CompanionBuffInt2[HCen, HCenBuff]
 }
 
 /** [[PairElem]] class for [[HCen]]s. Allows for the efficient storage of sequences in [[HCenPairArr]]s. */
-class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HCen, A2] with Selectable
+class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends PairInt2Elem[HCen, A2]
 { override def a1: HCen = HCen(a1Int1, a1Int2)
   override def toString: String = s"$a2; $a1Int1, $a1Int2"
-
-  /** The [[String]] to be displayed in the status bar in a GUI when selected. */
-  override def selectStr: String =
-  { val s1 = a2 match
-    { case sel: Selectable => sel.selectStr
-      case st: Tell => st.str
-      case a => a.toString
-    }
-    s"$s1; ${a1.rcStr}"
-  }
 }
 
 /** Companion object for [[HCenPair]] trait, provides apply and unapply methods. */

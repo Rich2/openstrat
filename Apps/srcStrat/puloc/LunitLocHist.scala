@@ -40,10 +40,9 @@ trait LunitLocHist
 }
 
 /** A [[LunitLocHist]], a military land unit's state at a particular moment in time.  */
-case class LunitState(polity: Polity, desig: String, level: LuUniLevel, loc: LatLong) extends Selectable with Coloured
+case class LunitState(polity: Polity, desig: String, level: LuUniLevel, loc: LatLong) extends Coloured
 { override def colour: Colour = polity.colour
-  def levelName = level.toString
-  override def selectStr: String = s"$polity $desig $levelName"
+  def levelName = level.toString  
 }
 
 trait ArmyNumbered extends LunitLocHist
