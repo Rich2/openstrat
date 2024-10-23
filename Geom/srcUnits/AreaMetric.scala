@@ -43,4 +43,13 @@ class KilometresSq(val kiloMetresSqNum: Double) extends AnyVal with AreaMetric
 object KilometresSq
 { /** Factory apply method for creating units of square kilometres. */
   def apply(kMetresSqNum: Double): KilometresSq = new KilometresSq(kMetresSqNum)
+
+  implicit class SequSumEv[A](thisSeq: Sequ[A])
+  {
+    def sumBy(f: A => Area): KilometresSq =
+    { var acc: Double = 0
+      thisSeq.foreach(a => acc += f(a).kiloMetresSqNum)
+      KilometresSq(acc)
+    }
+  }
 }

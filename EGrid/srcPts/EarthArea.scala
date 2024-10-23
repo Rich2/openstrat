@@ -38,7 +38,10 @@ object EarthArea
 }
 
 trait EarthIslandLike
-{ /** The area of this island or island grouping. */
+{ 
+  def name: String
+  
+  /** The area of this island or island grouping. */
   def area: KilometresSq
 }
 
@@ -48,7 +51,6 @@ abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends 
 
 }
 
-class EarthIslandGroup(val parts: RArr[EarthIslandLike]) extends EarthIslandLike
-{
-  override def area: KilometresSq = ???// parts.sumBy()
+class EarthIslandGroup(val name: String, val parts: RArr[EarthIslandLike]) extends EarthIslandLike
+{ override def area: KilometresSq = parts.sumBy(_.area)
 }

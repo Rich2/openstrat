@@ -2,10 +2,11 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
-/** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time
- *  wrap the platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable
- *  Array to produce an immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound
- *  value types or an AnyVal type. */
+/** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time wrap the
+ * platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an
+ * immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently, this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal
+ * type. Note there is no generalised sumBy[B](f: A => B): B, method included, as it is more runtime efficient to include this as an extension method in the
+ * B companion object of the user created types. */
 trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 { /** The final type of this object. */
   type ThisT <: Sequ[A]
@@ -13,7 +14,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqLike]][A]. */
   def length: Int
 
-  /** Just a handy short cut to give the length of this collection as a string. */
+  /** Just a handy shortcut to give the length of this collection as a string. */
   def lenStr: String = length.toString
 
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
@@ -514,9 +515,16 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   def toVector: Vector[A] = toList.toVector
 
-  /** Sums accumulating the results of the A => Int function. */
+  /** Sums accumulating the results of the A => [[Int]] function. */
   def sumBy(f: A => Int): Int =
   { var acc = 0
+    foreach(acc += f(_))
+    acc
+  }
+
+  /** Sums accumulating the results of the A => [[Double]] function. */
+  def sumBy(f: A => Double): Double =
+  { var acc: Double = 0
     foreach(acc += f(_))
     acc
   }
@@ -583,7 +591,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def toStrsCommaParenth(fToStr: A => String): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
 
-  def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
+  //def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
 
   /** Tries to find te first element of this sequence conforming to the predicate. */
   def find(f: A => Boolean): Option[A] =
