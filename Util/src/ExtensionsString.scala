@@ -178,8 +178,9 @@ class ExtensionsString(val thisString: String) extends AnyVal
     }
   }
 
-  def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
+  /** Append parethesis containing the paremter [[String]]s, separated by semicolons. */
   def appendParenthSemis(innerStrs: String*): String = thisString + innerStrs.mkSemiParenth
+  
   def appendParenth(innerStr: String): String = thisString + innerStr.enParenth
 
   def prependIndefiniteArticle = thisString.find(!_.isWhitespace) match

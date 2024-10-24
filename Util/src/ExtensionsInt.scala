@@ -205,8 +205,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     val rs = (res / 100).toString
     val str1 = res % 100 match
     { case 0 => rs
-      case m if m % 10 == 0 => rs.dotAppend((m / 10).toString)
-      case m => rs.dotAppend((m / 10).toString) + (m % 10).toString
+      case m if m % 10 == 0 => rs + "." + (m/10).str
+      case m => rs + "." + (m/10).str + (m % 10).str
     }
     (thisInt < 0  |!& hundreds < 0).ifMod(str1)("-" + _)
   }
