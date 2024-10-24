@@ -4,8 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
 object Canarias extends EarthArea("Canarias", 27.96 ll -15.60, oceanic)
-{
-  val elHierro: LatLong = 27.72 ll -18.15
+{ val elHierro: LatLong = 27.72 ll -18.15
   val laPalma: LatLong = 28.85 ll -17.92
   val lanzarote: LatLong = 29.24 ll -13.47
   val fuerteventura: LatLong = 28.24 ll -13.94
@@ -76,6 +75,7 @@ object SaharaCentral extends EarthArea("SaharaCentral", 26 ll 16, deshot)
   val southWest: LatLong = 17 ll 10.08
   val p84: LatLong = 33.89 ll 10.75
   val djerbaMidun: LatLong = 33.825 ll 11.052
+  val p87: LatLong = 33.368 ll 11.138
   val tripoli: LatLong = 32.911 ll 13.194
   val misrata: LatLong = 32.373 ll 15.213
   val buerat: LatLong = 31.41 ll 15.72
@@ -83,7 +83,7 @@ object SaharaCentral extends EarthArea("SaharaCentral", 26 ll 16, deshot)
   val elAgheila: LatLong = 30.12 ll 19.08
   val p90: LatLong = 30.780 ll 18.187
 
-  override val polygonLL: PolygonLL = PolygonLL(elAgheila, southEast, southWest, MaghrebEast.southEast, MaghrebEast.p35, p84, djerbaMidun, tripoli, misrata, buerat,
+  override val polygonLL: PolygonLL = PolygonLL(elAgheila, southEast, southWest, MaghrebEast.southEast, MaghrebEast.p35, p84, djerbaMidun, p87, tripoli, misrata, buerat,
     p80, p90)
 }
 

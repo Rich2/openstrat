@@ -3,6 +3,7 @@ package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
 /** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked.
+ * [[Isle10]] 7815.879km² => 9547.930km². Cyprus 9251km².
  * [[Isle6]] 2619.726km² => 3658.957km². Dodecanese 2714km².
  * [[Isle4]] 1060.881km² => 1753.701km². Rhodes 1401km² + Karpathos 220km² = 1621km². */
 object Terr160E30 extends Long160Terrs
@@ -51,15 +52,16 @@ object Terr160E30 extends Long160Terrs
     VRow(261, BendIn(1514, HVDR, 13), BendIn(1516, HVDn), BendIn(1518, HVUp), OrigLt(1520, HVDL, 7)),
     TRow(260, sea * 2, hillySub, mtainSavannah, sea * 2, hillyOce * 10),
     VRow(259, BendIn(1514, HVUR, 13), BendOut(1516, HVDL, 7)),
-    TRow(258, sea * 3, hillySavannah, sea, sea, sea, mtainSavannah, hillySavannah, mtainSavannah, hillySavannah, hillyOce * 5),
+    TRow(258, sea * 3, hillySavannah, sea, sea, Isle6(mtainSavannah), mtainSavannah, hillySavannah, mtainSavannah, hillySavannah, hillyOce * 5),
     VRow(257, BendIn(1516, HVUR, 13), BendIn(1518, HVUp, 13), OrigRt(1520, HVDL)),
-    TRow(256, sea * 5, hillyOce * 2, sea * 3, Isle10(hillyOce), hillyOce * 6),
+    TRow(256, sea * 5, mtainSavannah * 2, sea * 3, Isle10(hillyOce), hillyOce * 6),
+    TRow(254, sea * 11, hillySavannah, sahel, deshot * 2, sahel * 2),
     )
   }
   help.run
 
   { import hexNames.{setRow => str}
-
+    str(258, "" * 6, "Rhodes")
     str(256, "" * 5, "Crete west", "Crete East", "" * 3, "Cyprus")
   }
 }
