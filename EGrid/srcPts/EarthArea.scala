@@ -67,18 +67,9 @@ abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends 
   }
 }
 
-class EarthIslandGroup(val name: String, val array: Array[EarthIslandLike]) extends EarthIslandLike
-{
-  def this(name: String, elems: EarthIslandLike*) = this(name, elems.toArray)
-
-  override def area: KilometresSq = array.sumBy(_.area)
-  def elements: RArr[EarthIslandLike] = new RArr[EarthIslandLike](array)
-
+abstract class EarthIslandGroup(val name: String) extends EarthIslandLike
+{ override def area: KilometresSq = array.sumBy(_.area)
+  def elements: RArr[EarthIslandLike]
+  lazy val array: Array[EarthIslandLike] = elements.arrayUnsafe
   override def toString: String = name
-}
-
-object EarthIslandGroup
-{
-  /** Factory apply method for creating [[EarthIslandGroup]] with repeat parameters. */
-  def apply(name: String, elems: EarthIslandLike*): EarthIslandGroup = new EarthIslandGroup(name, elems.toArray)
 }

@@ -2,6 +2,26 @@
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
+/** The Cyclades, east of the [[Peloponnese]], north of [[Crete]], one of the six island groups of Greece. */
+object Cyclades extends EarthIslandGroup("Cyclades")
+{ override val elements: RArr[EarthIslandLike] = RArr(Naxos)
+  override val area: KilometresSq = 2572.kilometresSq
+}
+
+/** [[PolygonLL]] graphic for Greek, Cyclades island of Naxos. Depends on nothing. */
+object Naxos extends EarthAreaIsland("Naxos", 37.058 ll 25.493, mtainSub)
+{ override val area: KilometresSq = 430.kilometresSq
+  override val oGroup: Some[Cyclades.type] = Some(Cyclades)
+
+  val north: LatLong = 37.203 ll 25.536
+  val northEast: LatLong = 37.110 ll 25.597
+  val southEast: LatLong = 36.958 ll 25.549
+  val south: LatLong = 36.917 ll 25.448
+  val west: LatLong = 37.078 ll 25.337
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, west)
+}
+
 /** [[PolygonLL]] graphic for Greek Island of Cephalonia. Depends on nothing. */
 object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSavannah)
 { override val area: KilometresSq = 773.kilometresSq
