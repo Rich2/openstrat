@@ -85,6 +85,7 @@ object Terr220E0 extends Long220Terrs
     VRow(141, BendIn(498, HVDR, 13), ThreeUp(500, 13, 13, 0), BendIn(502, HVUp, 13), BendOut(504, HVDn, 7), BendIn(506, HVUp, 13), BendIn(508, HVUL, 13), OrigLt(532, HVUp, 7)),
 
     TRow(140, sea * 2, hillySavannah * 2, hillyDeshot * 2, deshot * 2, hillyDeshot * 2, sea * 2),
+    VRow(139, OrigRt(534, HVDR, 7), OrigLt(536, HVUL, 7)),
     TRow(138, sea * 2, sahel, hillySavannah, hillyDeshot, deshot * 7),
     TRow(136, sea * 2, mtainSahel * 2, hillySahel, deshot * 8),
     TRow(134, sea, hillyDeshot * 2, deshot * 10),

@@ -80,10 +80,12 @@ object Terr320E0 extends Long320Terrs
   help.run
 
   { import hexNames.{setRow => str}
+    str(146, "Scotland NE", "Scotland west", "", "Jutland north")
+    str(144, "Ireland north", "England NE", "England NW", "", "Denmark south")
     str(142,"", "Ireland south", "Wales", "England east")
     str(140, "", "English West Country", "" * 4)
     str(136, "" * 3, "Gascogne")
-    str(134, "" * 4, "Provence", "Corsica")
+    str(134, "" * 4, "Provence", "Corsica", "Italy central")
     str(132, "" * 4, "Balearics", "Sardinia")
     str(130, "" * 7, "Sicily")
   }
