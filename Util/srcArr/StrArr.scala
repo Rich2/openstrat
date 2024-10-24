@@ -61,12 +61,14 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   /** Make with new lines. Make 1 string, by appending with "\n" separator from this collection of strings. */
   def mkNewLine: String = mkStr("\n")
 
+  /** Returns new reversed [[StrArr]]. */
   override def reverse: StrArr =
   { val newArray = new Array[String](length)
     iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
     new StrArr(newArray)
   }
 
+  /** Returns new [[StrArr]] with the first N [[String]]s dropped. */
   override def drop(n: Int): StrArr =
   { val nn = n.max0
     val newArray = new Array[String]((length - nn).max0)
@@ -74,18 +76,13 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
+  /** Appends the operand [[StrArr]] to this, return a new [[StrArr]]. */
   @targetName("appendArr") override def ++(operand: StrArr): StrArr =
   { val newArray: Array[String] = new Array[String](length + operand.length)
     var i = 0
-    while (i < length) {
-      newArray(i) = unsafeArray(i)
-      i += 1
-    }
+    while (i < length) { newArray(i) = unsafeArray(i); i += 1 }
     i = 0
-    while (i < operand.length)
-    { newArray(i + length) = unsafeArray(i)
-      i += 1
-    }
+    while (i < operand.length) { newArray(i + length) = operand.unsafeArray(i); i += 1 }
     new StrArr(newArray)
   }
 
@@ -105,6 +102,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
+  /** If operand is a [[Some]] returns [[StrArr]] with the appended [[String]] value, else if [[None]] returns this. */
   def appendOption(optElem: Option[String]): StrArr =
     optElem.fld(this, this +% _)
 

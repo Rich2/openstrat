@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pMed
-import geom._, pglobe._, egrid._, WTiles._
+import geom.*, pglobe.*, egrid.*, WTiles.*
 
 object Balearics extends EarthIslandGroup("Balearics", Mallorca, Menorca)
 {
@@ -10,7 +10,7 @@ object Balearics extends EarthIslandGroup("Balearics", Mallorca, Menorca)
 /** [[PolygonLL]] graphic for Majorca depends on nothing. */
 object Menorca extends EarthAreaIsland("Menorca", 39.977 ll 4.089, hillySavannah)
 { override def area: KilometresSq = 695.8.kilometresSq
-  override def oGroup: Option[EarthIslandGroup] = Some(Balearics)
+  override def oGroup: Some[EarthIslandGroup] = Some(Balearics)
 
   val north: LatLong = 40.088 ll 4.091
   val capFavaitx: LatLong = 39.996 ll 4.268
@@ -36,9 +36,28 @@ object Mallorca extends EarthAreaIsland("Mallorca", 39.59 ll 3.01, hillySavannah
   override val polygonLL: PolygonLL = PolygonLL(south, palma, portalsVells, santElm, capFormentor, east)
 }
 
+/** [[PolygonLL]] graphic for Majorca depends on nothing. */
+object Ibiza extends EarthAreaIsland("Ibiza", 38.990 ll 1.424, hillySavannah)
+{ val area0: KilometresSq = 571.6.kilometresSq
+  val formentera: KilometresSq = 83.24.kilometresSq
+  override val area: KilometresSq = area0 + formentera
+  override def oGroup: Option[EarthIslandGroup] = Some(Balearics)
+
+  val north: LatLong = 39.118 ll 1.532
+  val northEast: LatLong = 39.036 ll 1.620
+  val southEast: LatLong = 38.832 ll 1.405
+  val southWest: LatLong = 38.864 ll 1.194
+  val west: LatLong = 38.958 ll 1.214
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast,  southWest, west)
+}
+
+object SardinaCorsica extends EarthIslandGroup("Sardinia-Corsica", Sardinia, Corsica)
+
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
 object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
 { override val area: KilometresSq = 8680.kilometresSq
+  override def oGroup = Some(SardinaCorsica)
 
   val nCorsica: LatLong = 43.00 ll 9.42
   val bastia: LatLong = 42.70 ll 9.45
@@ -57,6 +76,7 @@ object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
 object Sardinia extends EarthAreaIsland("Sardinia", 40.12 ll 9.07, hillySub)
 { override val area: KilometresSq = 24090.kilometresSq
+  override def oGroup = Some(SardinaCorsica)
 
   val north: LatLong = 41.25 ll 9.23
   val east: LatLong = 40.52 ll 9.82

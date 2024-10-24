@@ -3,8 +3,9 @@ package ostrat; package eg120
 import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15 West to 15 East.
+ * [[Isle7]] 3658.957km² => 4871.392km². Mallorca 3640.11km².
  * [[Isle5]] 986.457km² => 1473.596km². Orkneys 990km², Faroe Islands 1399km², Shetlands 1466km².
- * [[Isle4]] 596.745km² => 986.457km². Menorca 695.8 km², Ibiza 571.6 km².
+ * [[Isle4]] 596.745km² => 986.457km². Menorca 695.8 km², Ibiza + Formentera 654km².
  * [[Isle3]] 304.462km² => 596.745km². Isle of Man 572km². */
 object Terr120E0 extends Long120Terrs
 { override implicit val grid: EGrid120LongFull = EGrid120.e0(284)
@@ -12,7 +13,6 @@ object Terr120E0 extends Long120Terrs
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
   override val hexNames: LayerHcRefGrid[String] = LayerHcRefGrid[String]()
-
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
@@ -64,8 +64,11 @@ object Terr120E0 extends Long120Terrs
     TRow(302, sea * 6, oceanic * 5, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainDepr * 2),
     TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainDepr * 4, hillyOce),
 
-    TRow(286, sea * 3, subtrop, mtainSubForest, hillySub, hillySavannah * 2, mtainSavannah * 2, hillySavannah, sea * 5, mtainSub, sea * 3),
-    TRow(284, sea * 4, savannah, hillySavannah * 3, savannah, hillySavannah * 2, sea),
+    TRow(286, sea * 3, subtrop, mtainSubForest, hillySub, hillySavannah * 2, mtainSavannah * 2, hillySavannah, sea, Isle3(hillySavannah), sea * 3,
+      mtainSub, sea * 3),
+
+    TRow(284, sea * 4, savannah, hillySavannah * 3, savannah, hillySavannah * 2, Isle4(hillySavannah), Isle7(hillySavannah), sea * 3, hillySavannah,
+      mtainSavannah),
     )
   }
   help.run
@@ -74,6 +77,8 @@ object Terr120E0 extends Long120Terrs
     str(332, "" * 3, "Faroes")
     str(330, "" * 5, "Shetlands")
     str(326, "" * 5, "Orkneys")
+    str(286, "" * 12, "Minorca")
+    str(284, "" * 11, "Ibiza", "Mallorca")
   }
 }
 

@@ -61,12 +61,9 @@ abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends 
 { override def toString = name.oneLine + (area.str0 + ", " + terr.strComma).enParenth
 
   def strWithGroups: String =
-  {
-    val groupStrs: StrArr = groupings.map(g => g.name -- g.area.str0)
-    if (groupStrs.length > 0) deb(groupStrs(0))
-    val inner = StrArr(area.str0, terr.strComma) ++ groupStrs
-    val inner2 = inner.mkStr("; ")
-    name + inner2.enParenth
+  { val groupStrs: StrArr = groupings.map(g => g.name -- g.area.str0)
+    val inner: StrArr = StrArr(area.str0, terr.strComma) ++ groupStrs
+    name + inner.mkStr("; ").enParenth    
   }
 }
 
