@@ -84,11 +84,12 @@ object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, mtainSavanna
   val kechries: LatLong = 37.88 ll 22.99
   val p1: LatLong = 37.44 ll 23.51
   val neaKios: LatLong = 37.58 ll 22.74
-  val voia: LatLong =  36.44 ll 23.17
+  val capeMalea: LatLong =  36.438 ll 23.198
+  val elafonisos: LatLong = 36.467 ll 22.926
   val eElos: LatLong = 36.79 ll 22.78
   val wElos: LatLong = 36.80 ll 22.61
   val sGreece: LatLong = 36.38 ll 22.48
-  val kithira: LatLong = 36.140 ll 22.987
+  //val kithira: LatLong = 36.140 ll 22.987
   val p42: LatLong = 36.385 ll 22.482
   val p45: LatLong = 36.915 ll 22.126
   val p52: LatLong = 36.720 ll 21.876
@@ -102,8 +103,8 @@ object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, mtainSavanna
   val corinth: LatLong = 37.94 ll 22.93
   val nPeninsular: LatLong = 38.15 ll 23.22
 
-  val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, kithira, eElos, wElos, sGreece, p42, p45, p52, sapientza, p60, kaloNero, katakola, kyllini, rioPio, corinth,
-    nPeninsular)
+  val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, capeMalea, elafonisos, eElos, wElos, sGreece, p42, p45, p52, sapientza, p60,
+    kaloNero, katakola, kyllini, rioPio, corinth, nPeninsular)
 }
 
 /** [[PolygonLL]] graphic for Marmara Sea, depends on nothing. */

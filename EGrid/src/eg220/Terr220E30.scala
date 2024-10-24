@@ -4,7 +4,9 @@ import prid.phex._, egrid._, WTiles._
 
 /** 220km [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 41915.629km².
  * [[Isle8]] 9209.977km² => 11829.704km². Cyprus 9251km².
- * [[Isle7]] 6917.716km² => 9209.977km². Crete 8450km². */
+ * [[Isle7]] 6917.716km² => 9209.977km². Crete 8450km².
+ * [[Isle4]] 2005.728km² => 3315.591km². Cyclades 2572km².
+ * [[Isle3]] 1023.330km² => 2005.728km². Dodecanese west 1200km². */
 object Terr220E30 extends Long220Terrs
 { override implicit val grid: EGrid220LongFull = EGrid220.e30(132)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -65,9 +67,9 @@ object Terr220E30 extends Long220Terrs
 
     VRow(143, BendIn(1514, HVUR, 6), BendIn(1516, HVUp, 13), BendIn(1518, HVUL, 13), BendIn(1528, HVUp, 13), BendIn(1530, HVUL, 13), OrigMin(1544, HVDn)),
 
-    TRow(142, sea * 5, mtainSavannah * 2, hillySavannah, hillyTrop, deshot * 3),
+    TRow(142, sea * 3, Isle4(mtainSavannah), Isle3(mtainSavannah), mtainSavannah * 2, hillySavannah, hillyTrop, deshot * 3),
 
-    VRow(141, BendIn(1524, HVUR, 13), OrigLt(1532, HVDR, 7), BendIn(1534, HVUp, 13), BendOut(1536, HVDn, 7), ThreeDown(1538, 13, 8, 0), Bend(1540, HVDn, 8, 7),
+    VRow(141, BendIn(1524, HVUR, 13), ThreeUp(1532, 13, 0, 13), BendIn(1534, HVUp, 13), BendOut(1536, HVDn, 7), ThreeDown(1538, 13, 8, 0), Bend(1540, HVDn, 8, 7),
       ThreeDown(1542, 13, 0, 8), ThreeUp(1544, 9, 0, 13)),
 
     TRow(140, sea * 3, Isle7(mtainSubForest), sea * 2, hillySavannah, sea, hillySavannah, deshot * 3),
@@ -91,7 +93,7 @@ object Terr220E30 extends Long220Terrs
 
   { import hexNames.{ setRow => str}
     str(154, "" * 7, "Mariupol")
-    str(142, "" * 3, "Crete west")
-    str(140, "" * 3, "Crete east", "" * 2, "Cyprus")
+    str(142, "" * 3, "Cyclades", "Dodecanese west")
+    str(140, "" * 3, "Crete", "" * 2, "Cyprus")
   }
 }
