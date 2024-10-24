@@ -178,8 +178,6 @@ class ExtensionsString(val thisString: String) extends AnyVal
     }
   }
 
-  def commaInts(ints: Int*): String = ints.foldLeft(thisString)(_ + ", " + _.toString)
-
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
   def appendParenthSemis(innerStrs: String*): String = thisString + innerStrs.mkSemiParenth
   def appendParenth(innerStr: String): String = thisString + innerStr.enParenth
