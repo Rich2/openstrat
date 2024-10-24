@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, WTiles._
 /** 220km [[WTile]] terrain for 15° west to 15° east centred on 0° east. A tile area of 41915.629km².
  * [[Isle7]] 6917.716km² => 9209.977km². Zealand 7180km² shares its hex with Jutland, Corsica 8680km².
  * [[Isle6]] 4952.921km² => 6917.716km². Balearic Islands 5040km²
- * [[Isle5]] 3315.591km² => 4952.921km².Mallorca 3640km².
+ * [[Isle5]] 3315.591km² => 4952.921km². Majorca 3640.11.km² + Menorca  695.8.km² = 4335.9km².
  * [[Isle4]] 2005.728km² => 3315.591km². Outer Hebrides 3071km².
  * [[Isle3]] 1023.330km² => 2005.728km². Faroe Islands 1399 km².
  * Below 1023.330km². Isle of Man 572km². */
