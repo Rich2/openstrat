@@ -15,9 +15,16 @@ object Thasos extends EarthAreaIsland("Thasos", 40.686 ll 24.659, mtainSubForest
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast, south, southWest)
 }
 
+object LesbosChios extends EarthIslandGroup("LesbosChios")
+{ override def elements: RArr[EarthIslandLike] = RArr(Lesbos, Chios)
+  val psara = 45.5.kilometresSq
+  override val area: KilometresSq = super.area + psara
+}
+
 /** [[PolygonLL]] graphic for Lesbos. Depends on nothing. */
 object Lesbos extends EarthAreaIsland("Lesbos", 39.19 ll 26.30, hillyOce)
 { override val area: KilometresSq = 1633.kilometresSq
+  override def oGroup: Some[LesbosChios.type] = Some(LesbosChios)
 
   val north: LatLong = 39.39 ll 26.34
   val northEast: LatLong = 39.34 ll 26.42
@@ -33,6 +40,7 @@ object Lesbos extends EarthAreaIsland("Lesbos", 39.19 ll 26.30, hillyOce)
 /** [[PolygonLL]] graphic for Chios. Depends on nothing. */
 object Chios extends EarthAreaIsland("Chios", 38.19 ll 26.30, mtainSavannah)
 { override val area: KilometresSq = 842.3.kilometresSq
+  override def oGroup: Some[LesbosChios.type] = Some(LesbosChios)
 
   val north: LatLong = 38.60 ll 26.00
   val northEast: LatLong = 38.55 ll 26.16
