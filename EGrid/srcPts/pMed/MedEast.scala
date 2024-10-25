@@ -2,10 +2,33 @@
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
+/** The Ionian islands excluding [[Kythira]] and Antikythira */
+object IonianIs extends EarthIslandGroup("Ionian Islands")
+{ override def elements: RArr[EarthIslandLike] = RArr(Corfu, Cephalonia)
+  override def area: KilometresSq = 2306.94.kilometresSq - Kythira.area2
+}
+
+/** [[PolygonLL]] graphic for Corfu. Depends on nothing. */
+object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
+{ override def oGroup: Some[IonianIs.type] = Some(IonianIs)
+  override val area: KilometresSq = 610.9.kilometresSq
+
+  val north: LatLong = 39.82 ll 19.85
+  val northEast: LatLong = 39.78 ll 19.96
+  val gouvia: LatLong = 39.65 ll 19.84
+  val southEast: LatLong = 39.38 ll 20.12
+  val south: LatLong = 39.36 ll 20.11
+  val p65: LatLong = 39.46 ll 19.87
+  val capeKefali: LatLong = 39.75 ll 19.63
+  val capeDrastis: LatLong = 39.78 ll 19.67
+
+  override val polygonLL: PolygonLL = PolygonLL(north, northEast, gouvia, southEast, south, p65, capeKefali, capeDrastis)
+}
 
 /** [[PolygonLL]] graphic for Greek Island of Cephalonia. Depends on nothing. */
 object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSavannah)
-{ override val area: KilometresSq = 773.kilometresSq
+{ override def oGroup: Some[IonianIs.type] = Some(IonianIs)
+  override val area: KilometresSq = 773.kilometresSq
 
   val north: LatLong = 38.50 ll 20.66
   val southEast: LatLong = 38.11 ll 20.82
@@ -13,18 +36,6 @@ object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSav
   val northWest: LatLong = 38.36 ll 20.40
 
   override val polygonLL: PolygonLL = PolygonLL(north, southEast, southWest, northWest)
-}
-
-/** [[PolygonLL]] graphic for Greek Island of kythira. Depends on nothing. */
-object Kythira extends EarthAreaIsland("Kythira", 36.243 ll 22.989, mtainSavannah)
-{ override val area: KilometresSq = 300.kilometresSq
-
-  val north: LatLong = 36.385 ll 22.950
-  val east: LatLong = 36.249 ll 23.099
-  val southEast: LatLong = 36.130 ll 23.047
-  val southWest: LatLong = 36.200 ll 22.908
-
-  override val polygonLL: PolygonLL = PolygonLL(north, east, southEast, southWest)
 }
 
 /** [[PolygonLL]] graphic for Crete. Depends on nothing. */
@@ -40,22 +51,6 @@ object Crete extends EarthAreaIsland("Crete", 35.23 ll 24.92, mtainSavannah)
   val capeGramvousa: LatLong = 35.62 ll 23.60
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
-}
-
-/** [[PolygonLL]] graphic for Corfu. Depends on nothing. */
-object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
-{ override val area: KilometresSq = 610.9.kilometresSq
-
-  val north: LatLong = 39.82 ll 19.85
-  val northEast: LatLong = 39.78 ll 19.96
-  val gouvia: LatLong = 39.65 ll 19.84
-  val southEast: LatLong = 39.38 ll 20.12
-  val south: LatLong = 39.36 ll 20.11
-  val p65: LatLong = 39.46 ll 19.87
-  val capeKefali: LatLong = 39.75 ll 19.63
-  val capeDrastis: LatLong = 39.78 ll 19.67
-
-  override val polygonLL: PolygonLL = PolygonLL(north, northEast, gouvia, southEast, south, p65, capeKefali, capeDrastis)
 }
 
 /** [[PolygonLL]] graphic for Cyprus. Depends on nothing. */
