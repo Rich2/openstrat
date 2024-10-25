@@ -14,9 +14,10 @@ object Levant extends EarthArea("Levant", 33 ll 35.5, hillySavannah)
   val p57: LatLong = 36.010 ll 35.981
   val p59: LatLong = 36.291 ll 35.783
   val p60: LatLong = 36.321 ll 35.780
+  val iskenderun: LatLong = 36.595 ll 36.162
 
-  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, pMed.Sinai.deadSeaSE, pMed.Sinai.eGaza, ashkelon, haifa, p40, p43, p50, p55, p57, p59, p60,
-    Kurdistan.delicaymouth)
+  override val polygonLL: PolygonLL = PolygonLL(Kurdistan.cizre, damascus, pMed.Sinai.deadSeaSE, pMed.Sinai.eGaza, ashkelon, haifa, p40, p43, p50, p55, p57,
+    p59, p60, iskenderun, Kurdistan.delicaymouth)
 }
 
 /** [[PolygonLL]] graphic for Arabian Peninsular. Depends on [[ArabiaSouth]] and [[Levant]]. */
