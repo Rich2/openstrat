@@ -28,7 +28,7 @@ object DevPage extends HtmlPage
 
   def p4: HtmlP = HtmlP("""Scala currently set to 3.5.2. Jdk 11+, 21 preferred. Scala.Js set to 1.16.0. Scala native set to 0.5.5. Sbt currently set to 1.10.3
   | (uses the openstrat.sbt file). Note(probably due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to
-  | 0.11.12.""".stripMargin)
+  | 0.12.0.""".stripMargin)
 
   def sbt1: HtmlOlWithLH = HtmlOlWithLH("Run <code>sbt</code> in bash from project's root folder.<br>From within the sbt console run:")
 
