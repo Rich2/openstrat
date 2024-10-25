@@ -3,14 +3,14 @@ package ostrat
 import prid.phex._, egrid._
 
 /** Hex tile grids for Earth with a hex scale of 120km, a C scale of 40km. Hex tile area 12470.765km..
- * [[Isle13]] km² => km².
- * [[Isle12]] km² => km²².
- * [[Isle11]] km² => km².
- * [[Isle10]] km² => km².
- * [[Isle9]] km² => km².
- * [[Isle8]] km² => km².
- * [[Isle7]] km² => km².
- * [[Isle6]] 1473.596km² => km².
+ * [[Isle13]] 7611.551km² => 8878.113km².
+ * [[Isle12]] 6442.417km² => 7611.551km².
+ * [[Isle11]] 5370.710km² => 6442.417km².
+ * [[Isle10]] 4396.432km² => 5370.710km².
+ * [[Isle9]] 3519.581km² => 4396.432km².
+ * [[Isle8]] 2740.158km² => 3519.581km².
+ * [[Isle7]] 2058.163km² => 2740.158km².
+ * [[Isle6]] 1473.596km² => 2058.163km².
  * [[Isle5]] 986.457km² => 1473.596km².
  * [[Isle4]] 596.745km² => 986.457km².
  * [[Isle3]] 304.462km² => 596.745km². */

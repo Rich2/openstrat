@@ -2,7 +2,7 @@
 package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
-/** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked.
+/** Terrain at 160km for 15° east to 45° east, centred on 30° east. Land and sea should be correct, but elevation has not been checked.
  * [[Isle10]] 7815.879km² => 9547.930km². [[Cyprus]] 9251km² [[Crete]] 8450km².
  * [[Isle6]] 2619.726km² => 3658.957km². [[Dodecanese]] 2714km².
  * [[Isle5]] 1753.701km² => 2619.726km². [[Cyclades]] 2572km², [[LesbosChios]] 2520km², [[IonianIs]] 1986km².

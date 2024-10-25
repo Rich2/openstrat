@@ -2,7 +2,7 @@
 package ostrat; package eg120
 import prid.phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain for 15 West to 15 East.
+/** [[WTile]] terrain for 15° west to 15° east, centred on 0° east.
  * [[Isle7]] 3658.957km² => 4871.392km². Mallorca 3640.11km².
  * [[Isle5]] 986.457km² => 1473.596km². Orkneys 990km², Faroe Islands 1399km², Shetlands 1466km².
  * [[Isle4]] 596.745km² => 986.457km². Menorca 695.8 km², Ibiza + Formentera 654km².

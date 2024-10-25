@@ -72,7 +72,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle7 = Isle7(Land(elev, biome, landUse), sTerr)
   }
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
-  case class Isle6(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends TRunner with Isle6Base
+  case class Isle6(terr: Land, sepTerrs: Water = Sea) extends TRunner with Isle6Base
 
   object Isle6
   { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
