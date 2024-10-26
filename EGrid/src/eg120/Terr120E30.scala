@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle5]] 986.457km² => 1473.596km². Andros for northern Cyclades 2572km²/2 = 1286km², Naxos for southern Cyclades = 1286km².
  * [[Isle3]] 304.462km² => 596.745km². */
 object Terr120E30 extends Long120Terrs
-{ override implicit val grid: EGrid120LongFull = EGrid120.e30(274, 288)
+{ override implicit val grid: EGrid120LongFull = EGrid120.e30(274, 290)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -16,9 +16,14 @@ object Terr120E30 extends Long120Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
+    TRow(290, mtainSub, sea, mtainSavannah * 4, hillySavannah * 2, mtainSub),
+    VRow(289, BendOut(1500, HVUR, 7), BendIn(1502, HVDL, 13)),
     TRow(288, hillySub, sea, mtainSub, hillySavannah * 4, savannah, hillySavannah, mtainSub),
-    VRow(287, OrigRt(1528, HVUR, 7), Bend(1530, HVDn, 13, 3),  BendIn(1532, HVUp, 12), OrigMin(1534, HVDL)),
-    TRow(286, hillySub, subtrop, mtainSub, mtainSubForest, mtainSavannah, mtainSavannah, sea, mtainSavannah, hillySavannah, mtainSavannah),
+    VRow(287, ThreeDown(1504, 0, 13, 11), OrigRt(1528, HVUR, 7), Bend(1530, HVDn, 13, 3),  BendIn(1532, HVUp, 12), OrigMin(1534, HVDL)),
+
+    TRow(286, hillySub, subtrop, mtainSub, mtainSubForest, mtainSavannah, mtainSavannah, sea, mtainSavannah, hillySavannah, mtainSavannah * 3, mtainSahel,
+      mtainSavannah * 4, mtainSahel * 2, mtainSavannah * 2),
+
     VRow(285, OrigMin(1498, HVUR), BendMax(1500, HVDn), BendIn(1504, HVUR, 13), Bend(1502, HVDL, 13, 6)),
 
     TRow(284, mtainSubForest, mtainSavannah, sea, mtainSub, mtainSubForest, hillySavannah, sea, Isle6(mtainSavannah), mtainSavannah * 2, hillySavannah,
