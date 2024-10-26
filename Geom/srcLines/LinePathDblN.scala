@@ -56,11 +56,24 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     newArray
   }
 
+  def initAppendInitArray(opArray: Array[Double]): Array[Double] =
+  { val init1Len: Int = (arrayUnsafe.length - elemProdSize).max0
+    val init2Len: Int = (opArray.length - elemProdSize).max0
+    val newLen = init1Len + init2Len
+    val newArray = new Array[Double](newLen)
+    arrayUnsafe.copyToArray(newArray, 0, init1Len)
+    Array.copy(opArray, 0, newArray, init1Len, init2Len)
+    newArray
+  }
+
   /** Appends the operand [[LinePathDblN]] of the same type, without its last point to this line path returning a new line path of the same type. */
   @targetName("appendInit") override def ++-(operand: ThisT): ThisT = fromArray(appendInitArray(operand.arrayUnsafe))
 
   /** Appends the operand [[LinePathDblN]] of the same type, without its last point to this line path closing it off to become a [[PolygonDblN]] of the matching type. */
   @targetName("appendInitToPolygon") final override  def |++-|(operand: ThisT): PolygonT = polygonFromArray(appendInitArray(operand.arrayUnsafe))
+
+  /** Appends the operand [[LinePathDblN]] of the same type, without its last point to this line path closing it off to become a [[PolygonDblN]] of the matching type. */
+  @targetName("initAppendInitToPolygon") final override def |-++-|(operand: ThisT): PolygonT = polygonFromArray(initAppendInitArray(operand.arrayUnsafe))
 
   @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)

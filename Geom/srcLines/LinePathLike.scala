@@ -48,8 +48,12 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
    *  polygon. */
   @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
 
-  /** Appends the init of another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. */
+  /** Appends the init of another [[LinePathLike]] of this type, closing the path to return a [[PolygonLike]] of the matching type. */
   @targetName("appendInitToPolygon") def |++-|(operand: ThisT): PolygonT
+
+  /** Appends the init of another [[LinePathLike]] of this type to the init of this [[LinePathLike]], closing the path to return a [[PolygonLike]] of the
+   * matching type. */
+  @targetName("initAppendInitToPolygon") def |-++-|(operand: ThisT): PolygonT
 
   /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT

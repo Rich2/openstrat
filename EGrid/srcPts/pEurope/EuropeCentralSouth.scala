@@ -121,5 +121,5 @@ object MarmaraSea extends EarthArea("Marmara", 40.73 ll 28.21, sea)
 
   val northCoast: LinePathLL = LinePathLL(dardanellesE, p70, tekirdag, north, istanbul)
 
-  override val polygonLL: PolygonLL = southCoast.init |++-| northCoast
+  override val polygonLL: PolygonLL = southCoast |-++-| northCoast
 }
