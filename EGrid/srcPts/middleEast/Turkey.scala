@@ -15,9 +15,8 @@ object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mta
 
   val uzunkum: LatLong = 41.208 ll 30.267
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, LakeEgirdir.north, LakeEgirdir.northWest, LakeEgirdir.p85, AnatoliaSW.northWest, p5, hayirsizAda,
-    p60, p65, akcay, babakale, pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
-    pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, uzunkum)
+  override val polygonLL: PolygonLL = LinePathLL(northEast, LakeEgirdir.north, LakeEgirdir.northWest, LakeEgirdir.p85, AnatoliaSW.northWest, p5, hayirsizAda,
+    p60, p65, akcay, babakale, pEurope.BalkansEast.seddElBahr) ++< pEurope.MarmaraSea.southCoast |++| LinePathLL(pEurope.BalkansEast.bosphorusN, uzunkum)
 }
 
 /** [[PolygonLL]] graphic for south-west Anatolia. depends on nothing. */

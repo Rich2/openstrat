@@ -73,9 +73,8 @@ object BalkansEast extends EarthArea("BalkansEast", 44.0 ll 25.5, oceanic)
   val p85: LatLong = 40.48 ll 22.82
   val thessalonika: LatLong = 40.65 ll 22.9
 
-  override val polygonLL: PolygonLL = PolygonLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN,
-    MarmaraSea.istanbul, MarmaraSea.north, MarmaraSea.tekirdag, MarmaraSea.p70, MarmaraSea.dardanellesE, seddElBahr, p40, p47, p50, p55, p57, p62,
-    p66, p70, p80, p85, thessalonika, Greece.northEast)
+  override val polygonLL: PolygonLL = LinePathLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN) ++<
+    MarmaraSea.northCoast |++| LinePathLL(seddElBahr, p40, p47, p50, p55, p57, p62, p66, p70, p80, p85, thessalonika, Greece.northEast)
 }
 
 /** [[PolygonLL]] graphic for the Peloponnese, depends on nothing. */
@@ -89,7 +88,6 @@ object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, mtainSavanna
   val eElos: LatLong = 36.79 ll 22.78
   val wElos: LatLong = 36.80 ll 22.61
   val sGreece: LatLong = 36.38 ll 22.48
-  //val kithira: LatLong = 36.140 ll 22.987
   val p42: LatLong = 36.385 ll 22.482
   val p45: LatLong = 36.915 ll 22.126
   val p52: LatLong = 36.720 ll 21.876
@@ -110,12 +108,18 @@ object Peloponnese extends EarthArea("Peloponnese", 37.56 ll 22.10, mtainSavanna
 /** [[PolygonLL]] graphic for Marmara Sea, depends on nothing. */
 object MarmaraSea extends EarthArea("Marmara", 40.73 ll 28.21, sea)
 { val istanbul: LatLong = 41.00 ll 29.00
+  val p5: LatLong = 40.757 ll 29.354
   val darica: LatLong = 40.76 ll 28.36
   val bandirama: LatLong = 40.35 ll 27.96
   val dardanellesE: LatLong = 40.23 ll 26.74
+
+  val southCoast: LinePathLL = LinePathLL(istanbul, p5, darica, bandirama, dardanellesE)
+
   val p70: LatLong = 40.85 ll 27.45
   val tekirdag: LatLong = 40.97 ll 27.51
   val north: LatLong = 41.08 ll 28.23
 
-  override val polygonLL: PolygonLL = PolygonLL(istanbul, darica, bandirama, dardanellesE, p70, tekirdag, north)
+  val northCoast: LinePathLL = LinePathLL(dardanellesE, p70, tekirdag, north, istanbul)
+
+  override val polygonLL: PolygonLL = southCoast.init |++-| northCoast
 }
