@@ -22,8 +22,10 @@ object Terr120E30 extends Long120Terrs
     TRow(284, mtainSubForest, mtainSavannah, sea, mtainSub, mtainSubForest, hillySavannah, sea, Isle6(mtainSavannah), mtainSavannah * 2, hillySavannah,
       hillySahel * 4, mtainSahel, mtainSavannah * 2, mtainSahel * 3),
 
-    VRow(283, BendOut(1500, HVDR, 7), BendIn(1502, HVUL, 13)),
-    TRow(282, mtainSavannah, sea * 2, hillySub, mtainSubForest, hillySavannah, sea),
+    VRow(283, BendOut(1500, HVDR, 7), BendIn(1502, HVUL,  13), OrigRt(1572, HVUR, 7, Lake), OrigLt(1574, HVDL, 7, Lake)),
+    TRow(282, mtainSavannah, sea * 2, hillySub, mtainSubForest, hillySavannah, sea, hillySavannah * 2, hillySahel, mtainSahel, hillySahel, sahel,
+      hillySahel * 2, mtainSahel, mtainSavannah, hillySavannah, mtainSavannah, mtainSahel * 2),
+
     VRow(281, OrigLt(1498, HVUR, 7), BendIn(1500, HVUL, 13)),
     TRow(280, sea * 4, mtainSub, mtainSavannah, Isle5(mtainSavannah), sea),
     TRow(278, sea * 5, mtainSavannah, sea, Isle5(mtainSavannah)),
@@ -35,8 +37,7 @@ object Terr120E30 extends Long120Terrs
   }
   help.run
 
-  {
-    import hexNames.{setRow => str}
+  { import hexNames.{setRow => str}
     str(284, "" * 7, "Lesbos")
     str(280, "" * 6, "Andros")
     str(278, "" * 7, "Naxos")
