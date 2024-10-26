@@ -6,6 +6,8 @@ import geom._, pglobe._, LatLong._, egrid._, WTiles._
 object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mtainSavannah)
 { val northEast: LatLong = 41.139 ll 31.342
 
+  val p5: LatLong = 38.444 ll 26.950
+  val hayirsizAda: LatLong = 38.713 ll 26.709
   val p60: LatLong = 38.76 ll 26.94
   val p65: LatLong = 39.27 ll 26.60
   val akcay = 39.58 ll 26.92
@@ -13,8 +15,8 @@ object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mta
 
   val uzunkum: LatLong = 41.208 ll 30.267
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, LakeEgirdir.north, LakeEgirdir.northWest, LakeEgirdir.p85, AnatoliaSW.northWest, p60, p65, akcay,
-    babakale, pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
+  override val polygonLL: PolygonLL = PolygonLL(northEast, LakeEgirdir.north, LakeEgirdir.northWest, LakeEgirdir.p85, AnatoliaSW.northWest, p5, hayirsizAda,
+    p60, p65, akcay, babakale, pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
     pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, uzunkum)
 }
 
@@ -30,13 +32,18 @@ object AnatoliaSW extends EarthArea("Anatolia south-west", 37.468 ll 29.176, mta
   val bodrum: LatLong = 37.06 ll 27.35
   val mycale: LatLong = 37.686 ll 27.017
   val p36: LatLong = 37.723 ll 27.232
-  val p57: LatLong = 38.27 ll 26.23
-  val p58: LatLong = 38.66 ll 26.36
+  val p60: LatLong = 37.839 ll 27.236
+  val p65: LatLong = 38.035 ll 26.871
+  val p67: LatLong = 38.171 ll 26.777
+  val p72: LatLong = 38.104 ll 26.591
+  val p80: LatLong = 38.27 ll 26.23
+  val p85: LatLong = 38.66 ll 26.36
+  val p94: LatLong = 38.367 ll 26.824
 
   val northWest: LatLong = 38.447 ll 27.170
 
   override val polygonLL: PolygonLL = PolygonLL(LakeEgirdir.p85, LakeEgirdir.beydere, LakeEgirdir.southEast, antalya, p15, p20, p25, p28, p32, bodrum, mycale,
-    p36, p57, p58, northWest
+    p36, p60, p65, p67, p72, p80, p85, p94, northWest
   )
 }
 
