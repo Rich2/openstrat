@@ -2,10 +2,25 @@
 package ostrat; package pEarth; package middleEast
 import geom._, pglobe._, LatLong._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]]. */
-object AnatoliaWest extends EarthArea("Anatolia west", 39.00 ll 32.50, mtainSavannah)
+/** [[PolygonLL]] graphic for Anatolia depends on [[pEurope.BalkansEast]] and [[AnatoliaSW]]. */
+object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mtainSavannah)
 { val northEast: LatLong = 41.139 ll 31.342
 
+  val p60: LatLong = 38.76 ll 26.94
+  val p65: LatLong = 39.27 ll 26.60
+  val akcay = 39.58 ll 26.92
+  val babakale: LatLong = 39.48 ll 26.06
+
+  val uzunkum: LatLong = 41.208 ll 30.267
+
+  override val polygonLL: PolygonLL = PolygonLL(northEast, LakeEgirdir.north, LakeEgirdir.northWest, LakeEgirdir.p85, AnatoliaSW.northWest, p60, p65, akcay,
+    babakale, pEurope.BalkansEast.seddElBahr, pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica,
+    pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN, uzunkum)
+}
+
+/** [[PolygonLL]] graphic for south-west Anatolia. depends on nothing. */
+object AnatoliaSW extends EarthArea("Anatolia south-west", 37.468 ll 29.176, mtainOceForest)
+{
   val antalya: LatLong = 36.885 ll 30.702
   val p15: LatLong = 36.801 ll 30.576
   val p20: LatLong = 36.23 ll 30.42
@@ -17,17 +32,11 @@ object AnatoliaWest extends EarthArea("Anatolia west", 39.00 ll 32.50, mtainSava
   val p36: LatLong = 37.723 ll 27.232
   val p57: LatLong = 38.27 ll 26.23
   val p58: LatLong = 38.66 ll 26.36
-  val p60: LatLong = 38.76 ll 26.94
-  val p65: LatLong = 39.27 ll 26.60
-  val akcay = 39.58 ll 26.92
-  val babakale: LatLong = 39.48 ll 26.06
 
-  val uzunkum: LatLong = 41.208 ll 30.267
+  val northWest: LatLong = 38.447 ll 27.170
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, LakeEgirdir.north, LakeEgirdir.northWest, LakeEgirdir.p85, LakeEgirdir.beydere, LakeEgirdir.beydere,
-    LakeEgirdir.southEast, antalya, p15, p20, p25, p28, p32, bodrum, mycale, p36, p57, p58, p60, p65, akcay, babakale, pEurope.BalkansEast.seddElBahr,
-    pEurope.MarmaraSea.dardanellesE, pEurope.MarmaraSea.bandirama, pEurope.MarmaraSea.darica, pEurope.MarmaraSea.istanbul, pEurope.BalkansEast.bosphorusN,
-    uzunkum
+  override val polygonLL: PolygonLL = PolygonLL(LakeEgirdir.p85, LakeEgirdir.beydere, LakeEgirdir.southEast, antalya, p15, p20, p25, p28, p32, bodrum, mycale,
+    p36, p57, p58, northWest
   )
 }
 
@@ -59,7 +68,7 @@ object AnatoliaCentral extends EarthArea("Anatolia central", 39.00 ll 32.50, hil
   val p85: LatLong = 42.01 ll 33.33
   val sinopeN: LatLong = 42.09 ll 34.99
 
-  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, p10, delicayMouth, p20, anamurFeneri, alanya, AnatoliaWest.antalya, LakeEgirdir.southEast,
+  override val polygonLL: PolygonLL = PolygonLL(northEast, yukanbumaz, p10, delicayMouth, p20, anamurFeneri, alanya, AnatoliaSW.antalya, LakeEgirdir.southEast,
     LakeEgirdir.east, LakeEgirdir.north, p70, p75, p77, p85, sinopeN)
 }
 
