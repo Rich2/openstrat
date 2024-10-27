@@ -172,7 +172,7 @@ object Dev extends CommonJvm
 
 object DevFx extends CommonJvm
 { def moduleDeps = Seq(Dev, GeomFx)
-  def sources = T.sources(T.workspace / "Dev" / "FxSrc")
+  def sources = T.sources(T.workspace / "Dev" / "DevFx" / "src")
   def mainClass = Some("ostrat.pFx.DevApp")
 }
 
