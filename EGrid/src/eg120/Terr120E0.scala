@@ -3,12 +3,13 @@ package ostrat; package eg120
 import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° west to 15° east, centred on 0° east.
+ * [[Isle13]] 7611.551km² => 8878.113km². Corsica 8680km².
  * [[Isle7]] 3658.957km² => 4871.392km². Mallorca 3640.11km².
  * [[Isle5]] 986.457km² => 1473.596km². Orkneys 990km², Faroe Islands 1399km², Shetlands 1466km².
  * [[Isle4]] 596.745km² => 986.457km². Menorca 695.8 km², Ibiza + Formentera 654km².
  * [[Isle3]] 304.462km² => 596.745km². Isle of Man 572km². */
 object Terr120E0 extends Long120Terrs
-{ override implicit val grid: EGrid120LongFull = EGrid120.e0(284)
+{ override implicit val grid: EGrid120LongFull = EGrid120.e0(282)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -64,23 +65,34 @@ object Terr120E0 extends Long120Terrs
     TRow(302, sea * 6, oceanic * 5, hillyOce * 2, hillyOceForest, hillyOce * 2, mtainDepr * 2),
     TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainDepr * 4, hillyOce),
     TRow(298, sea * 8, oceanic, hillyOce * 4, mtainCont, hillyOce, mtainCont, hillyCont, oceanic, mtainCont),
-    TRow(296),
+    VRow(297, BendIn(506, HVDR, 13), BendOut(508, HVUL, 7)),
+    TRow(296, sea * 8, oceanic, hillyOce, mtainOce * 2, hillyOce, mtainOce),
     TRow(294, sea * 9, oceanic, hillySavannah, mtainOce * 2, hillyOce, mtainOceForest),
     TRow(292, sea * 3, hillyOce * 2, mtainOceForest * 2, mtainOce, mtainOceForest, hillyOce * 2, hillySub, sea, mtainSubForest, sea * 2, hillySub * 3, sea),
 
-    VRow(291, BendIn(484, HVDR, 13), OrigRt(552, HVUR, 7), ThreeUp(554, 7, 13, 0)),
-    TRow(290, sea * 3, mtainSub, mtainSubForest, hillySub, sahel, hillySavannah * 3, mtainSavannah * 2, sea * 4, mtainSub, hillySavannah * 2, mtainSavannah),
-    VRow(289, BendIn(484, HVUR, 13), BendOut(486, HVDL, 7), BendIn(534, HVDR, 13), BendIn(536, HVDn, 13), OrigLt(538, HVUL, 7)),
+    VRow(291, BendIn(484, HVDR, 13), ThreeUp(538, 13, 3, 3), Bend(540, HVDL, 3, 7), OrigRt(552, HVUR, 7), ThreeUp(554, 7, 13, 0)),
+
+    TRow(290, sea * 3, mtainSub, mtainSubForest, hillySub, sahel, hillySavannah * 3, mtainSavannah * 2, sea * 4, Isle13(mtainSub), hillySavannah * 2,
+      mtainSavannah),
+
+    VRow(289, BendIn(484, HVUR, 13), BendOut(486, HVDL, 7), BendIn(534, HVDR, 13), ThreeUp(536, 3, 13, 3), BendInRt(538, HVUp, 3, 7), ThreeUp(540, 13, 3, 3),
+      BendIn(542, HVUp, 13), BendOut(544, HVDn, 7), BendMin(546, HVDL)),
+
     TRow(288, sea * 3, hillySub, mtainSub, savannah * 2, mtainSavannah, hillySavannah * 3, sea * 4, hillySavannah, sea * 2, hillySub * 2),
-    VRow(287, BendIn(484, HVDR, 13), BendOut(486, HVUL, 7), BendOut(516, HVDR, 7)),
+
+    VRow(287, BendIn(484, HVDR, 13), BendOut(486, HVUL, 7), BendOut(516, HVDR, 7), OrigRt(534, HVUp), BendIn(546, HVUR, 13), BendIn(548, HVUp, 13),
+      BendOut(550, HVDn, 7)),
 
     TRow(286, sea * 3, subtrop, mtainSubForest, hillySub, hillySavannah * 2, mtainSavannah * 2, hillySavannah, sea, Isle3(hillySavannah), sea * 3,
       mtainSub, sea * 3, mtainSub),
 
-    VRow(285, Bend(514, HVDR, 12, 7), ThreeUp(516, 0, 12, 13)),
+    VRow(285, Bend(514, HVDR, 12, 7), ThreeUp(516, 0, 12, 13), OrigLt(534, HVDn, 7), OrigMin(540, HVDR), BendIn(542, HVDL, 13)),
 
     TRow(284, sea * 4, savannah, hillySavannah * 3, savannah, hillySavannah * 2, Isle4(hillySavannah), Isle7(hillySavannah), sea * 3, hillySavannah,
       mtainSavannah),
+
+    VRow(283, BendIn(534, HVUR, 13), OrigRt(536, HVUL, 7), OrigLt(540, HVUR, 7), BendIn(542, HVUL, 13), BendIn(554, HVUR, 13)),
+    TRow(282,sea * 3, hillySub * 2, hillySavannah, savannah, hillySavannah, mtainSavannah, hillySavannah),
     )
   }
   help.run

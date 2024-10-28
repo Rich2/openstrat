@@ -30,7 +30,19 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 
   trait IsleNLargeBase extends IsleNBase
   {
-    override def run(row: Int, c: Int): Unit = ???
+    override def run(row: Int, c: Int): Unit =
+    { terrs.set(row, c, terr)
+      iUntilForeach(6) { i =>
+        val sep: HSep = HCen(row, c).sep(i)
+        sTerrs.setExists(grid, sep, sepTerrs)
+      }
+      corners.setBend0(row, c, magnitude, 6 - magnitude)
+      corners.setBend1(row, c, magnitude, 6 - magnitude)
+      corners.setBend2(row, c, magnitude, 6 - magnitude)
+      corners.setBend3(row, c, magnitude, 6 - magnitude)
+      corners.setBend4(row, c, magnitude, 6 - magnitude)
+      corners.setBend5(row, c, magnitude, 6 - magnitude)
+    }
   }
 
   /** Sets the [[HSep]] separators terrain and [[HCorner]]s for an Island or geometrically analogous terrain, with a radius set in the sub traits. Only use

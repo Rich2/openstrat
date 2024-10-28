@@ -31,7 +31,8 @@ object Terr120E30 extends Long120Terrs
     TRow(284, mtainSubForest, mtainSavannah, sea, mtainSub, mtainSubForest, hillySavannah, sea, Isle6(mtainSavannah), mtainSavannah * 2, hillySavannah,
       hillySahel * 4, mtainSahel, mtainSavannah * 2, mtainSahel * 3),
 
-    VRow(283, BendOut(1500, HVDR, 7), BendIn(1502, HVUL,  13), OrigRt(1572, HVUR, 7, Lake), OrigLt(1574, HVDL, 7, Lake)),
+    VRow(283, BendIn(1494, HVUR, 13), BendOut(1500, HVDR, 7), BendIn(1502, HVUL,  13), OrigRt(1572, HVUR, 7, Lake), OrigLt(1574, HVDL, 7, Lake)),
+    
     TRow(282, mtainSavannah, sea * 2, hillySub, mtainSubForest, hillySavannah, sea, hillySavannah * 2, hillySahel, mtainSahel, hillySahel, sahel,
       hillySahel * 2, mtainSahel, mtainSavannah, hillySavannah, mtainSavannah, mtainSahel * 2),
 

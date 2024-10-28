@@ -4,8 +4,7 @@ import utiljvm._
 
 object GeomExsJvmApp
 { def main(args: Array[String]): Unit =
-  {
-    deb("Starting ExsJvmApp")
+  { deb("Starting GeomExsJvmApp")
     val oDir = args.headOption
     println(oDir)
     oDir.foreach{dirStr =>
