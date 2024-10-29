@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** Scenario for 2 Grid system for 0°E and 30°E. */
 object Scen120Europe extends EScenLongMulti
 { override val title: String = "120km 0°E - 30°E"
-  override implicit val gridSys: EGrid120LongMulti = EGrid120.multi(2, 0, 278, 294)
+  override implicit val gridSys: EGrid120LongMulti = EGrid120.multi(2, 0, 276, 296)
   override val terrs: LayerHcRefSys[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = fullTerrsSideLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn

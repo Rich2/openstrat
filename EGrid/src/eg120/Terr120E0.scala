@@ -66,7 +66,7 @@ object Terr120E0 extends Long120Terrs
     TRow(300, sea * 8, oceanic * 4, hillyOce * 2, mtainDepr * 4, hillyOce),
     TRow(298, sea * 8, oceanic, hillyOce * 4, mtainCont, hillyOce, mtainCont, hillyCont, oceanic, mtainCont),
     VRow(297, BendIn(506, HVDR, 13), BendOut(508, HVUL, 7)),
-    TRow(296, sea * 8, oceanic, hillyOce, mtainOce * 2, hillyOce, mtainOce, hillyOce * 2),
+    TRow(296, sea * 8, oceanic, hillyOce, mtainOce * 2, hillyOce, mtainOce, hillyOce * 2, oceanic * 2, hillySub),
     VRow(295, OrigMin(536, HVDn, 1)),
     TRow(294, sea * 9, oceanic, hillySavannah, mtainOce * 2, hillyOce, mtainOceForest * 3, mtainOce, hillyOce),
     VRow(293, OrigLt(534, HVUR, 7), ThreeUp(536, 13, 0, 13), BendOut(538, HVDL, 7)),
