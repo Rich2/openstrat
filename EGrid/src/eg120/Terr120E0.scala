@@ -9,7 +9,7 @@ import prid.phex._, egrid._, WTiles._
  * [[Isle4]] 596.745km² => 986.457km². Menorca 695.8 km², Ibiza + Formentera 654km².
  * [[Isle3]] 304.462km² => 596.745km². Isle of Man 572km². */
 object Terr120E0 extends Long120Terrs
-{ override implicit val grid: EGrid120LongFull = EGrid120.e0(278)
+{ override implicit val grid: EGrid120LongFull = EGrid120.e0(276)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -101,6 +101,7 @@ object Terr120E0 extends Long120Terrs
     TRow(280, sea * 4, hillySavannah * 6, sea * 7 , hillySavannah, sea, hillySavannah, mtainSavannah, hillySavannah),
     VRow(279, OrigMin(538, HVUp, 2)),
     TRow(278, sea * 6, hillySavannah, mtainSavannah * 2, hillySavannah, sea, mtainSahel, hillySavannah * 2, mtainSavannah, mtainSub, hillySavannah * 3),
+    TRow(276, sea * 6, mtainSavannah, sea * 2, mtainSavannah, hillySavannah * 2, sahel, hillySahel * 2, hillySavannah * 2, hillySahel),
     )
   }
   help.run
