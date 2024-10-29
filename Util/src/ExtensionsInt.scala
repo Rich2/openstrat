@@ -53,11 +53,11 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** multiplies this Int by a quadrillion and returns the result as [[Long]]. */
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
 
-  /** Returns a [[String]] of of the given number of space characters. */
+  /** Returns a [[String]] of the given number of space characters. */
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
 
-  def scaledStr(pairs: (Int, String)*): String = {
-    var res = ""
+  def scaledStr(pairs: (Int, String)*): String =
+  { var res = ""
     var i = 0
     val ps: Seq[(Int, String)] = pairs.sortWith(_._1 > _._1)
     while(res == "" & i < ps.length) if (thisInt >= ps(i)._1) res = ps(i)._2 else i += 1
@@ -98,6 +98,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     if (r < 0) divisor + r else r
   }
 
+  /** Repeat the side effecting procedure this [[Int]] number of times. Extension method. */
   def doTimes(f: () => Unit): Unit =
   { var count: Int = 0
     while(count < thisInt) {f(); count += 1}
