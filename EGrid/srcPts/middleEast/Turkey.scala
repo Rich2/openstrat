@@ -21,8 +21,7 @@ object AnatoliaNW extends EarthArea("Anatolia north-west", 39.469 ll 29.380, mta
 
 /** [[PolygonLL]] graphic for south-west Anatolia. depends on nothing. */
 object AnatoliaSW extends EarthArea("Anatolia south-west", 37.468 ll 29.176, mtainOceForest)
-{
-  val antalya: LatLong = 36.885 ll 30.702
+{ val antalya: LatLong = 36.885 ll 30.702
   val p15: LatLong = 36.801 ll 30.576
   val p20: LatLong = 36.23 ll 30.42
   val p25: LatLong = 36.17 ll 29.69

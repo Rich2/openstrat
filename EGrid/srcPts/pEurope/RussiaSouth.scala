@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Crimea depends on nothing. */
-object Crimea extends EarthArea("Crimea", 45.33 ll 34.15, oceanic)
+object Crimea extends EarthArea("Crimea", 45.33 ll 34.15, steppe)
 { val kerch: LatLong = 45.39 ll 36.63
   val southEast: LatLong = 45.10 ll 36.45
   val p40: LatLong = 44.79 ll 35.08
@@ -20,7 +20,7 @@ object Crimea extends EarthArea("Crimea", 45.33 ll 34.15, oceanic)
 }
 
 /** [[PolygonLL]] graphic for Ukraine depends on [[AzovSea]], [[Baltland]], [[Crimea]] [[BalkansEast]] and [[Polandia]]. */
-object Ukraine extends EarthArea("Ukraine", 49 ll 34, oceanic)
+object Ukraine extends EarthArea("Ukraine", 49 ll 34, continental)
 {
   val koblev: LatLong = 46.63 ll 31.18
 
@@ -53,7 +53,7 @@ object VolgaRegion extends EarthArea("Volga Region", 45.00 ll 42.57, steppe)
 }
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */
-object RussiaSouth extends EarthArea("Russia South", 45.00 ll 42.57, oceanic)
+object RussiaSouth extends EarthArea("Russia South", 45.00 ll 42.57, steppe)
 { val blackSeaE: LatLong = 41.84 ll 41.77
   val p60: LatLong = 42.74 ll 41.44
   val bzipiMouth: LatLong = 43.187 ll 40.280

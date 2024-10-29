@@ -8,7 +8,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle5]] 986.457km² => 1473.596km². Andros for northern Cyclades 2572km²/2 = 1286km², Naxos for southern Cyclades = 1286km².
  * [[Isle3]] 304.462km² => 596.745km². */
 object Terr120E30 extends Long120Terrs
-{ override implicit val grid: EGrid120LongFull = EGrid120.e30(274, 292)
+{ override implicit val grid: EGrid120LongFull = EGrid120.e30(274, 294)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
