@@ -1,4 +1,4 @@
-// build.sc
+ // build.sc
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
