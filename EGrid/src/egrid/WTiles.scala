@@ -121,26 +121,27 @@ object WTiles
   val mtainSahel: Land = Land(Mountains, Sahel, LandFree)
   val mtainDeshot: Land = Land(Mountains, DesertHot, LandFree)
   val mtainJungle: Land = Land(Mountains, Tropical, Forest)
+  val fjordCont: Land = Land(Fjorded, Continental, LandFree)
   val mtainLakesTaiga: Land = Land(MountLakes, Boreal, Forest)
   val mtainLakesCont: Land = Land(MountLakes, Continental, LandFree)
   val mtainLakesContForest: Land = Land(MountLakes, Continental, Forest)
   val mtainLakesOceForest: Land = Land(MountLakes, Oceanic, Forest)
 
-  /** Sequence of short hand words for [[Land]]. */
+  /** Sequence of shorthand words for [[Land]]. */
   lazy val landWordTuples: Seq[(String, Land)] = identStrs[Land](lakesTundra, lakesTaiga,
     ice, tundra, taiga, steppe, oceanic, oceForest, savannah, sahel, deshot, jungle,
     hillyTundra, hillyTaiga, hillyContForest, hillyOce, hillyOceForest, hillySub, hillySavannah, hillySahel, hillyDeshot, hillyJungle, hillyLakesTaiga,
     mtainIce, mtainTundra, mtainTaiga, mtainContForest, mtainOceForest, mtainSubForest, mtainDeshot, mtainJungle)
 
-  /** Sequence of short hand words for [[Land]]. */
+  /** Sequence of shorthand words for [[Land]]. */
   lazy val landWords: ArrPairStr[Land] = landWordTuples.mapPairArr(_._1, _._2)
 
-  /** Short hand for [[SeaIceWinter]]. */
+  /** Shorthand for [[SeaIceWinter]]. */
   val siceWin: Water = SeaIceWinter
 
   val sea: Water = Sea
   val lake: Water = Lake
 
-  /** Sequence of short hand words for [[Water]]. */
+  /** Sequence of shorthand words for [[Water]]. */
   lazy val waterWords: ArrPairStr[Water] = ArrPairStr[Water](("sea", sea), ("lake", lake), ("wice,", siceWin))
 }

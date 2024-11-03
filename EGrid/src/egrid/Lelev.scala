@@ -59,5 +59,11 @@ case object HillyLakes extends HillyLike
 /** Mountainous terrain with lakes. */
 case object MountLakes extends MountainsLike
 { override def str = "MountLakes"
-  override def colour = Mountains.colour//.average(Lake.colour)
+  override def colour = Mountains.colour
+}
+
+/** Mountainous terrain with fjords. */
+case object Fjorded extends MountainsLike
+{ override def str = "Fjorded"
+  override def colour = Mountains.colour
 }
