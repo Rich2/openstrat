@@ -9,7 +9,7 @@ object GeomPage extends HtmlPage
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
 
-  def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses)
+  def central: HtmlDiv = HtmlDiv.classAtt("central", list, GeomPagePolygons, Ellipses, LinePathNames)
 
   def list: HtmlOlWithLH = HtmlOlWithLH.h2("The Geom module contains",
     geomItme, colourItem, graphicItem, compound, trans, canv, svg, web, geom3, lessons, earth)
@@ -67,4 +67,21 @@ object GeomPage extends HtmlPage
     val bounds2: Rect = ellipse1.boundingRect.||(ellipse3.boundingRect).addMargin(svgMargin)
     val svgs2 = HtmlSvg(bounds2, RArr(eg1, eg2, eg3), RArr(CentreBlockAtt))
   }
+}
+
+object LinePathNames extends HtmlSection
+{
+  override def contents: RArr[XCon] = RArr(HtmlH2("Line Paths"))
+
+  val p1 = HtmlP(
+    """Operator naming conventions for sequences and line paths.
+      |
+      |""".stripMargin)
+
+  val list = HtmlUl(
+    HtmlLi(
+      """++ append This is a standard scala operator name for appending a sequence to a sequence and is also used for appending a line path to a line
+      | path.""".stripMargin),
+      HtmlLi("++ append This is a standard scala operator name for appending a sequence to a sequence and is also used for appending a line path to a line path.")
+  )
 }
