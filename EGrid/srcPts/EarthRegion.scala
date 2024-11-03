@@ -15,7 +15,7 @@ object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
 { import pEurope._
   override val a2Arr: RArr[EarthArea] = RArr(IrelandNorth, IrelandSouth, EnglandNorth, EnglandMiddle, EnglandSouth, ScotlandLow, ScotlandHigh, Wales, Orkneys,
     IslayJura, Uist, IsleLewis, Shetland, Faroe, JanMayen, Brittany, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland,
-    Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth, Oland, IsleMan)
+    Polandia, Baltland, Ukraine, SwedenSouth, SwedenMid, SwedenNorth, Oland, IsleMan)
 }
 
 /** Top level grouping for north-east European areas. */

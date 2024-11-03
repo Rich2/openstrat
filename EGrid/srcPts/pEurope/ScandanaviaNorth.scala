@@ -2,9 +2,93 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[polygonLL]] graphical representation of north Sweden and north Norway. Depends on nothing. */
+object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyTundra)
+{ val haparanda: LatLong = 65.77 ll 24.17
+  val balticNW: LatLong = 65.856 ll 22.350
+
+  val vegaoyan: LatLong = 65.615 ll 11.754
+  val p78: LatLong = 66.011 ll 12.146
+  val bodo: LatLong = 67.26 ll 14.32
+  val hadseloya: LatLong = 68.56 ll 14.63
+  val nordskot: LatLong = 67.82 ll 14.70
+  val baroya: LatLong = 68.33 ll 16.03
+
+  /** Start of North Coast */
+  val sorvagen: LatLong = 67.83 ll 12.82
+  val andenes: LatLong = 69.32 ll 16.11
+  val gapoyholman: LatLong = 68.88 ll 16.06
+  val sandsvika: LatLong = 69.37 ll 16.87
+  val torsvag: LatLong = 70.28 ll 19.59
+  val slida: LatLong = 70.392 ll 21.702
+  val p85: LatLong = 70.669 ll 21.979
+  val nordkapp: LatLong = 71.16 ll 25.78
+  val lakselv: LatLong = 70.05 ll 25.00
+
+  override val polygonLL: PolygonLL = PolygonLL(haparanda, balticNW, vegaoyan, p78, bodo, nordskot, baroya,
+    /* North Coast */ sorvagen, andenes, gapoyholman, sandsvika, torsvag, slida, p85, nordkapp, lakselv)
+}
+
+/** [[polygonLL]] graphical representation of Finland. Depends on [[KolaPeninsula]], [[SwedenNorth]] and [[Baltland]]. */
+object Finlandia extends EarthArea("Finlandia", 65.56 ll 29.95, taiga)
+{ val lisyNos: LatLong = 60.01 ll 29.96
+  val laskovyy: LatLong = 60.15 ll 29.92
+  val ozerki: LatLong = 60.18 ll 29.01
+  val baltiyets: LatLong = 60.61 ll 28.38
+  val helsinki: LatLong = 60.15 ll 24.94
+  val hanko: LatLong = 59.82 ll 22.94
+
+  /** Start of East Baltic Coast. */
+  val point1: LatLong = 59.92 ll 22.89
+  val kimitoonSE: LatLong = 60.01 ll 22.76
+  val hyppeis: LatLong = 60.22 ll 21.26
+  val lyperto: LatLong = 60.61 ll 21.16
+  val pooskeri: LatLong = 61.80 ll 21.43
+  val sidebySW: LatLong = 61.99 ll 21.28
+  val wVaasa: LatLong = 63.11 ll 21.47
+  val vasankariWest: LatLong = 64.34 ll 23.93
+  val oulu: LatLong = 65.00 ll 25.41
+  val olhava: LatLong = 65.46 ll 25.33
+
+  /** Start of Barents Sea. */
+  val svaerholt: LatLong = 70.96 ll 26.67
+  val north: LatLong = 71.132 ll 27.647
+  val vardo: LatLong = 70.36 ll 31.12
+  val ekkeroy: LatLong = 70.070 ll 30.165
+  val karlebotn: LatLong = 70.11 ll 28.57
+
+  /** Start of White Sea West. */
+  val kovdaEast: LatLong = 66.66 ll 33.24
+  val keretEast: LatLong = 66.22 ll 34.09
+  val kalgalakshaEast: LatLong = 65.75 ll 35.02
+  val kuzemaEast: LatLong = 65.32 ll 34.51
+  val vygMouth: LatLong = 64.53 ll 34.78
+  val kohezmaNorth: LatLong = 64.38 ll 35.61
+
+  val pusunsaari: LatLong = 61.55 ll 31.43
+  val ladogaNorth: LatLong = 61.61 ll 30.92
+  val ladogaNW: LatLong = 61.17 ll 29.98
+  val ladozhskiy: LatLong = 60.02 ll 31.12
+  val medvezhyegorskNorth: LatLong = 62.91 ll 34.49
+  val medvezhyegorskSouth: LatLong = 62.89 ll 34.44
+  val onega11: LatLong = 62.27 ll 35.60
+  val onega13: LatLong = 61.89 ll 35.32
+  val onega15: LatLong = 62.02 ll 34.73
+  val petrozavodsk: LatLong = 61.81 ll 34.55
+  val shcheleyki: LatLong = 61.14 ll 35.70
+
+  override val polygonLL: PolygonLL = PolygonLL(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
+    /*East Baltic */ point1, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava, SwedenNorth.haparanda,
+    /*Barents Sea */ SwedenNorth.lakselv, svaerholt, north, vardo, ekkeroy, karlebotn, KolaPeninsula.northWest, KolaPeninsula.kandalasaksha,
+    /* White Sea west */ kovdaEast, keretEast, kalgalakshaEast, kuzemaEast, vygMouth, kohezmaNorth,
+    Baltland.onezhsky, Baltland.chelmuzhiEast, medvezhyegorskNorth, medvezhyegorskSouth, onega11, onega13, onega15, petrozavodsk, shcheleyki,
+    Baltland.svirMouth, Baltland.ladogaEast, pusunsaari, ladogaNorth, ladogaNW, ladozhskiy, Baltland.nevaMouth)
+}
+
 /** [[polygonLL]] graphical representation of Kola Peninsula. Depends on nothing. */
 object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
-{ val northWest: LatLong = 69.50 ll 31.81
+{
+  val northWest: LatLong = 69.50 ll 31.81
   val p5: LatLong = 69.95 ll 31.93
   val p7: LatLong = 69.73 ll 33.10
   val p15: LatLong = 69.46 ll 32.90
@@ -25,113 +109,40 @@ object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
     tetrino, olenitsa, umbaWest, luvenga, kandalasaksha)
 }
 
-/** [[polygonLL]] graphical representation of Finland. Depends on [[KolaPeninsula]], [[SwedenNorth]] and [[Baltland]]. */
-object Finlandia extends EarthArea("Finlandia", 65.56 ll 29.95, taiga)
-{ val lisyNos = 60.01 ll 29.96
-  val laskovyy = 60.15 ll 29.92
-  val ozerki = 60.18 ll 29.01
-  val baltiyets = 60.61 ll 28.38
-  val helsinki = 60.15 ll 24.94
-  val hanko = 59.82 ll 22.94
+/** [[polygonLL]] graphical representation of middle (between north and south) Sweden and middle Norway. Depends on [[SwedenNorth]] and [[SwedenSouth]]. */
+object SwedenMid extends EarthArea("Sweden Middle", 64.883 ll 17.125, hillyTaiga)
+{ val hertsonEast: LatLong = 65.53 ll 22.39
+  val ostanbackSouth: LatLong = 64.82 ll 21.15
+  val eLappviken: LatLong = 64.44 ll 21.60
+  val skeppsMalen: LatLong = 63.19 ll 19.03
+  val skeppshamnSouth: LatLong = 62.38 ll 17.74
+  val spikarna: LatLong = 62.36 ll 17.53
+  val bredsand: LatLong = 62.35 ll 17.37
+  val junibosand: LatLong = 62.23 ll 17.65
+  val holick: LatLong = 61.62 ll 17.48
 
-  /** Startof East Baltic Coast. */
-  val point1 = 59.92 ll 22.89
-  val kimitoonSE = 60.01 ll 22.76
-  val hyppeis = 60.22 ll 21.26
-  val lyperto = 60.61 ll 21.16
-  val pooskeri = 61.80 ll 21.43
-  val sidebySW = 61.99 ll 21.28
-  val wVaasa = 63.11 ll 21.47
-  val vasankariWest = 64.34 ll 23.93
-  val oulu = 65.00 ll 25.41
-  val olhava = 65.46 ll 25.33
-
-  /** Start of Barents Sea. */
-  val svaerholt = 70.96 ll 26.67
-  val vardo = 70.36 ll 31.12
-  val karlebotn = 70.11 ll 28.57
-
-  /** Start of White Sea West. */
-  val kovdaEast = 66.66 ll 33.24
-  val keretEast = 66.22 ll 34.09
-  val kalgalakshaEast = 65.75 ll 35.02
-  val kuzemaEast = 65.32 ll 34.51
-  val vygMouth = 64.53 ll 34.78
-  val kohezmaNorth = 64.38 ll 35.61
-
-  val pusunsaari = 61.55 ll 31.43
-  val ladogaNorth = 61.61 ll 30.92
-  val ladogaNW = 61.17 ll 29.98
-  val ladozhskiy = 60.02 ll 31.12
-  val medvezhyegorskNorth = 62.91 ll 34.49
-  val medvezhyegorskSouth = 62.89 ll 34.44
-  val onega11 = 62.27 ll 35.60
-  val onega13 = 61.89 ll 35.32
-  val onega15 = 62.02 ll 34.73
-  val petrozavodsk = 61.81 ll 34.55
-  val shcheleyki = 61.14 ll 35.70
-
-  override val polygonLL = PolygonLL(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
-    /*East Baltic */point1, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava, SwedenNorth.haparanda,
-    /*Barents Sea */ SwedenNorth.lakselv, svaerholt, vardo, karlebotn, KolaPeninsula.northWest, KolaPeninsula.kandalasaksha,
-    /* White Sea west */kovdaEast, keretEast, kalgalakshaEast, kuzemaEast, vygMouth, kohezmaNorth,
-    Baltland.onezhsky, Baltland.chelmuzhiEast, medvezhyegorskNorth, medvezhyegorskSouth, onega11, onega13, onega15, petrozavodsk, shcheleyki,
-    Baltland.svirMouth, Baltland.ladogaEast, pusunsaari, ladogaNorth, ladogaNW, ladozhskiy, Baltland.nevaMouth)
-}
-
-
-/** [[polygonLL]] graphical representation of north Sweden. Depends on [[SwedenSouth]]. */
-object SwedenNorth extends EarthArea("SwedenNorth", 62.75 ll 14.30, taiga)
-{ val haparanda: LatLong = 65.77 ll 24.17
-  val ranea: LatLong = 65.86 ll 22.36
-
-  /** Start of West Baltic Coast. */
-  val hertsonEast = 65.53 ll 22.39
-  val ostanbackSouth = 64.82 ll 21.15
-  val eLappviken = 64.44 ll 21.60
-  val skeppsMalen = 63.19 ll 19.03
-  val skeppshamnSouth = 62.38 ll 17.74
-  val spikarna = 62.36 ll 17.53
-  val bredsand = 62.35 ll 17.37
-  val junibosand = 62.23 ll 17.65
-  val holick = 61.62 ll 17.48
+  val balticWestCoast: LinePathLL = LinePathLL(SwedenNorth.balticNW, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
+    holick, SwedenSouth.gavie)
 
   /** Start of South Coast. */
-  val hvasser = 59.07 ll 10.47
-  val nevlunghavn = 58.96 ll 9.85
-  val lindesnes = 57.98 ll 7.05
-  val flekkeroy = 58.06 ll 8.00
-  val borhag = 58.11 ll 6.55
+  val hvasser: LatLong = 59.07 ll 10.47
+  val nevlunghavn: LatLong = 58.96 ll 9.85
+  val lindesnes: LatLong = 57.98 ll 7.05
+  val flekkeroy: LatLong = 58.06 ll 8.00
+  val borhag: LatLong = 58.11 ll 6.55
 
   /** Start of West Coast. */
-  val bryne = 58.75 ll 5.49
-  val rennesoy = 59.12 ll 5.56
-  val swKarmoy = 59.14 ll 5.19
-  val ytreSula = 61.04 ll 4.63
-  val bremangerlandet = 61.85 ll 4.82
-  val wRunde = 62.41 ll 5.58
-  val bud = 62.910 ll 6.903
-  val svelllingen = 63.79 ll 8.68
-  val uthaug = 63.72 ll 9.55
-  val p75 = 64.885 ll 10.728
-  val p78 = 66.011 ll 12.146
-  val bodo = 67.26 ll 14.32
-  val hadseloya = 68.56 ll 14.63
-  val nordskot = 67.82 ll 14.70
-  val baroya = 68.33 ll 16.03
+  val bryne: LatLong = 58.75 ll 5.49
+  val rennesoy: LatLong = 59.12 ll 5.56
+  val swKarmoy: LatLong = 59.14 ll 5.19
+  val ytreSula: LatLong = 61.04 ll 4.63
+  val bremangerlandet: LatLong = 61.85 ll 4.82
+  val wRunde: LatLong = 62.41 ll 5.58
+  val bud: LatLong = 62.910 ll 6.903
+  val svelllingen: LatLong = 63.79 ll 8.68
+  val uthaug: LatLong = 63.72 ll 9.55
+  val p75: LatLong = 64.885 ll 10.728
 
-  /** Start of North Coast */
-  val sorvagen = 67.83 ll 12.82
-  val andenes = 69.32 ll 16.11
-  val gapoyholman = 68.88 ll 16.06
-  val sandsvika = 69.37 ll 16.87
-  val torsvag = 70.28 ll 19.59
-  val nordkapp = 71.16 ll 25.78
-  val lakselv = 70.05 ll 25.00
-
-  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
-    holick, SwedenSouth.gavie,
-    /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
-    /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, bud, svelllingen, uthaug, p75, p78, bodo, nordskot, baroya,
-    /* North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
+  override val polygonLL: PolygonLL = balticWestCoast |++| LinePathLL(/* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
+    /* West Coast */ bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, bud, svelllingen, uthaug, p75, SwedenNorth.vegaoyan)
 }

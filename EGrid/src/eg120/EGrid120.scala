@@ -17,20 +17,12 @@ object EGrid120
   }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 55Km or hex scale 120km. */
-  def e0(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 0)
+  def e0(rBottomCen: Int, rTopCen: Int = 362): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 0)
 
-  def e30(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 1)
-  def e60(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 2)
-//  def e90(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 3)
-//  def e120(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 4)
-//  def e150(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 5)
-//  def e180(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 6)
-//  def w150(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 7)
-//  def w120(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 8)
-//  def w90(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 9)
-//  def w60(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 10)
+  def e30(rBottomCen: Int, rTopCen: Int = 362): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 1)
+  def e60(rBottomCen: Int, rTopCen: Int = 362): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen, 2)
   def w30(rBottomCen: Int, rTopCen: Int = 360): EGrid120LongFull = EGrid120LongFull(rBottomCen, rTopCen,11)
-//
+
   def scen0: EScenBasic = EScenBasic(Terr120E0.grid, Terr120E0.terrs, Terr120E0.sTerrs, Terr120E0.corners, Terr120E0.hexNames, "120km 0E")
   def scen1: EScenBasic = EScenBasic(Terr120E30.grid, Terr120E30.terrs, Terr120E30.sTerrs, Terr120E30.corners, Terr120E30.hexNames, "120km 30E")
   def scen2: EScenBasic = EScenBasic(Terr120E60.grid, Terr120E60.terrs, Terr120E60.sTerrs, Terr120E60.corners, Terr120E60.hexNames, "120km 60E")
