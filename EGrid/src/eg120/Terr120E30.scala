@@ -52,7 +52,7 @@ object Terr120E30 extends Long120Terrs
       OrigLt(1532, HVDR, 7), OrigRt(1534, HVUL, 7), OrigLt(1538, HVUR, 7), BendOut(1540, HVDn, 7), ThreeDown(1542, 13, 13, 0), BendIn(1544, HVDn, 13),
       Bend(1546, HVUp, 2, 7)),
 
-    TRow(276, sea * 6, mtainSavannah * 2, sea * 4, mtainSavannah, hillySavannah),
+    TRow(276, sea * 6, mtainSavannah * 2, sea * 4, mtainSavannah, hillySavannah, mtainSub, hillySavannah, deshot * 2, sahel, deshot, sahel, hillyDeshot),
     VRow(275, OrigLt(1526, HVUp, 7)),
     TRow(274, sea * 13, mtainSavannah),
     )
