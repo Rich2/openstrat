@@ -47,12 +47,14 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   /** Appends the operand [[LinePathDblN]] of the same type, to this line path returning a new line path of the same type. */
   @targetName("append") final override def ++(operand: ThisT): ThisT = fromArray(arrayUnsafe ++ operand.arrayUnsafe)
 
-  def appendInitArray(opArray: Array[Double]): Array[Double] =
+  /** Implementation helper method for implementation of appendTail and appendTailToPolygon methods. End users should rarely need to use this, but it's been
+   * left public for when it is. */
+  def appendTailArray(opArray: Array[Double]): Array[Double] =
   { val deltaLen: Int = (opArray.length - elemProdSize).max0
     val newLen = arrayLen + deltaLen
     val newArray = new Array[Double](newLen)
     arrayUnsafe.copyToArray(newArray)
-    Array.copy(opArray, 0, newArray, arrayLen, deltaLen )
+    Array.copy(opArray, elemProdSize, newArray, arrayLen, deltaLen )
     newArray
   }
 
@@ -66,13 +68,18 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     newArray
   }
 
-  /** Appends the operand [[LinePathDblN]] of the same type, without its last point to this line path returning a new line path of the same type. */
-  @targetName("appendInit") override def ++-(operand: ThisT): ThisT = fromArray(appendInitArray(operand.arrayUnsafe))
+  /** Appends the tail (without its first point of the operand [[LinePathDblN]] of the same type to this line path. The ++ indicates to append a sequence. The
+   * trailing - indicates to drop the first point of the operand. */
+  @targetName("appendTail") override def ++-(operand: ThisT): ThisT = fromArray(appendTailArray(operand.arrayUnsafe))
 
-  /** Appends the operand [[LinePathDblN]] of the same type, without its last point to this line path closing it off to become a [[PolygonDblN]] of the matching type. */
-  @targetName("appendInitToPolygon") final override  def |++-|(operand: ThisT): PolygonT = polygonFromArray(appendInitArray(operand.arrayUnsafe))
+  /** Appends the tail (without its first point) of the operand [[LinePathDblN]] of the same type, to this line path closing it off to become a [[PolygonDblN]]
+   * of the matching type. The ++ indicates to append a sequence. The leading - indicates to drop the first point of the operand and the enclosing '|'
+   * characters indicate to close the line path into a polygon. */
+  @targetName("appendTailToPolygon") final override def |++-|(operand: ThisT): PolygonT = polygonFromArray(appendTailArray(operand.arrayUnsafe))
 
-  /** Appends the operand [[LinePathDblN]] of the same type, without its last point to this line path closing it off to become a [[PolygonDblN]] of the matching type. */
+  /** Appends the init (without its first point) of the operand [[LinePathDblN]] of the same type, to the init of this line path closing it off to become a
+   * [[PolygonDblN]] of the matching type. The ++ inidcates to append a sequence. The leading - indicates to take the init of this line path. The trailing -
+   * indicates to take the init of the operand. The enclosing '|' characters indicate to close the line path into a polygon. */
   @targetName("initAppendInitToPolygon") final override def |-++-|(operand: ThisT): PolygonT = polygonFromArray(initAppendInitArray(operand.arrayUnsafe))
 
   @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =

@@ -31,9 +31,9 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("append") def ++ (operand: ThisT): ThisT
 
-  /** Appends the init of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. The ++ indicates to append a sequence. the trailing -
-   * indicates to drop the last point. */
-  @targetName("appendInit") def ++- (operand: ThisT): ThisT
+  /** Appends the tail (without its first point) of the operand [[LinePathLike]] of this type. The ++ indicates to append a sequence. The trailing indicates to
+   * drop the first point of the operand. */
+  @targetName("appendTail") def ++- (operand: ThisT): ThisT
 
   /** Appends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
   @targetName("appendVert") def +%[AA >: VT](op: VT): ThisT
@@ -44,12 +44,14 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("appendReverse") def ++<(operand: ThisT): ThisT
 
-  /** Appends another [[LinePathLike]] of this type. Returns a [[PolygonLike]]. ++ indicates append a sequence. The enclosing lines indicate to close the
-   *  polygon. */
+  /** Appends the operand [[LinePathLike]] of this type and closes the path into a [[PolygonLike]] of the matching type. ++ indicates to append a sequence. The
+   * enclosing '|' characters indicate to close the line path into a polygon. */
   @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
 
-  /** Appends the init of another [[LinePathLike]] of this type, closing the path to return a [[PolygonLike]] of the matching type. */
-  @targetName("appendInitToPolygon") def |++-|(operand: ThisT): PolygonT
+  /** Appends the tail (without its first point) of the operand [[LinePathLike]] of this type, closing the path to a [[PolygonLike]] of the matching type. ++
+   *  indicates append a sequence. The trailing - indicates to drop the first point of the operand. The enclosing '|' characters indicate to close the line
+   *  path into a polygon. */
+  @targetName("appendTailToPolygon") def |++-|(operand: ThisT): PolygonT
 
   /** Appends the init of another [[LinePathLike]] of this type to the init of this [[LinePathLike]], closing the path to return a [[PolygonLike]] of the
    * matching type. */

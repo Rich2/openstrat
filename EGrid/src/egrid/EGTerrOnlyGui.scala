@@ -16,9 +16,6 @@ class EGTerrOnlyGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView
   proj.setView(viewIn)
   proj match { case ep: HSysProjectionEarth => ep.irrOn = irregsOn; case _ => }
   statusText = scen.title
-  val m1: PtM3 = PtM3.metresNum(1, 1, 1)
-  val pp1: Pt3 = Pt3(1, 1, 1)
-  m1 == pp1
 
   val terrs: LayerHcRefSys[WTile] = scen.terrs
   val sTerrs: LayerHSOptSys[WSep, WSepSome] = scen.sTerrs
