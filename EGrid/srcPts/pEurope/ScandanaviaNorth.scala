@@ -3,7 +3,7 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of north Sweden and north Norway. Depends on nothing. */
-object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyTundra)
+object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont)
 { val haparanda: LatLong = 65.77 ll 24.17
   val balticNW: LatLong = 65.856 ll 22.350
 
@@ -29,8 +29,29 @@ object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyTund
     /* North Coast */ sorvagen, andenes, gapoyholman, sandsvika, torsvag, slida, p85, nordkapp, lakselv)
 }
 
-/** [[polygonLL]] graphical representation of Finland. Depends on [[KolaPeninsula]], [[SwedenNorth]] and [[Baltland]]. */
-object Finlandia extends EarthArea("Finlandia", 65.56 ll 29.95, taiga)
+/** [[polygonLL]] graphical representation of north Finland and north-east Karelia. Depends on [[KolaPeninsula]] and [[SwedenNorth]]. */
+object FinlandNorth extends EarthArea("Finland North", 67.614 ll 27.638, hillyTundra)
+{ val svaerholt: LatLong = 70.96 ll 26.67
+  val north: LatLong = 71.132 ll 27.647
+  val vardo: LatLong = 70.36 ll 31.12
+  val ekkeroy: LatLong = 70.070 ll 30.165
+  val karlebotn: LatLong = 70.11 ll 28.57
+  val barentsCoast = LinePathLL(svaerholt, north, vardo, ekkeroy, karlebotn, KolaPeninsula.northWest)
+
+  val kovdaEast: LatLong = 66.66 ll 33.24
+  val keretEast: LatLong = 66.22 ll 34.09
+  val kalgalakshaEast: LatLong = 65.75 ll 35.02
+  val southEast: LatLong = 65.356 ll 34.429
+  val whiteSeaCoast: LinePathLL = LinePathLL(KolaPeninsula.kandalasaksha, kovdaEast, keretEast, kalgalakshaEast, southEast)
+
+  val balticNE: LatLong = 65.561 ll 25.212
+
+  override val polygonLL: PolygonLL = barentsCoast ++ whiteSeaCoast |++| LinePathLL(
+    balticNE, SwedenNorth.haparanda, SwedenNorth.lakselv)
+}
+
+/** [[polygonLL]] graphical representation of Finland. Depends on [[FinlandNorth]] and [[Baltland]]. */
+object FinlandSouth extends EarthArea("Finland south", 65.56 ll 29.95, taiga)
 { val lisyNos: LatLong = 60.01 ll 29.96
   val laskovyy: LatLong = 60.15 ll 29.92
   val ozerki: LatLong = 60.18 ll 29.01
@@ -49,19 +70,8 @@ object Finlandia extends EarthArea("Finlandia", 65.56 ll 29.95, taiga)
   val vasankariWest: LatLong = 64.34 ll 23.93
   val oulu: LatLong = 65.00 ll 25.41
   val olhava: LatLong = 65.46 ll 25.33
-
-  /** Start of Barents Sea. */
-  val svaerholt: LatLong = 70.96 ll 26.67
-  val north: LatLong = 71.132 ll 27.647
-  val vardo: LatLong = 70.36 ll 31.12
-  val ekkeroy: LatLong = 70.070 ll 30.165
-  val karlebotn: LatLong = 70.11 ll 28.57
-
+  
   /** Start of White Sea West. */
-  val kovdaEast: LatLong = 66.66 ll 33.24
-  val keretEast: LatLong = 66.22 ll 34.09
-  val kalgalakshaEast: LatLong = 65.75 ll 35.02
-  val kuzemaEast: LatLong = 65.32 ll 34.51
   val vygMouth: LatLong = 64.53 ll 34.78
   val kohezmaNorth: LatLong = 64.38 ll 35.61
 
@@ -78,17 +88,15 @@ object Finlandia extends EarthArea("Finlandia", 65.56 ll 29.95, taiga)
   val shcheleyki: LatLong = 61.14 ll 35.70
 
   override val polygonLL: PolygonLL = PolygonLL(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
-    /*East Baltic */ point1, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava, SwedenNorth.haparanda,
-    /*Barents Sea */ SwedenNorth.lakselv, svaerholt, north, vardo, ekkeroy, karlebotn, KolaPeninsula.northWest, KolaPeninsula.kandalasaksha,
-    /* White Sea west */ kovdaEast, keretEast, kalgalakshaEast, kuzemaEast, vygMouth, kohezmaNorth,
+    /*East Baltic */ point1, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava, FinlandNorth.balticNE,
+    /* White Sea west */FinlandNorth.southEast, vygMouth, kohezmaNorth,
     Baltland.onezhsky, Baltland.chelmuzhiEast, medvezhyegorskNorth, medvezhyegorskSouth, onega11, onega13, onega15, petrozavodsk, shcheleyki,
     Baltland.svirMouth, Baltland.ladogaEast, pusunsaari, ladogaNorth, ladogaNW, ladozhskiy, Baltland.nevaMouth)
 }
 
 /** [[polygonLL]] graphical representation of Kola Peninsula. Depends on nothing. */
 object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
-{
-  val northWest: LatLong = 69.50 ll 31.81
+{ val northWest: LatLong = 69.50 ll 31.81
   val p5: LatLong = 69.95 ll 31.93
   val p7: LatLong = 69.73 ll 33.10
   val p15: LatLong = 69.46 ll 32.90
