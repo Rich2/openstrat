@@ -6,8 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * r offset is 300 for the equator.
  *  [[Isle8]] 1217.848km² => 1564.258km².Rhodes 1401km². */
 object Terr80E30  extends Long80Terrs
-{
-  override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
+{ override implicit val grid: EGrid80LongFull = EGrid80.e30(410)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -16,7 +15,16 @@ object Terr80E30  extends Long80Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   {
     override val rows: RArr[RowBase] = RArr(
-      TRow(556, mtainDepr, ice, ice),
+      TRow(582, SeaIcePerm),
+      TRow(580, SeaIcePerm),
+      TRow(578, SeaIcePerm * 2),
+      TRow(576, SeaIcePerm * 2),
+      TRow(574, SeaIcePerm * 3),
+      TRow(572, SeaIcePerm * 3),
+      TRow(570, SeaIcePerm * 4),
+      TRow(568, SeaIcePerm * 4),
+      TRow(558, mtainTundra),
+      TRow(556, mtainIce, ice * 2),
       VRow(555, BendOut(1526, HVUR)),
       TRow(554, mtainDepr, ice),
       TRow(552, ice),

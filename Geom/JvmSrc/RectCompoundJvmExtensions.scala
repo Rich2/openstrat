@@ -4,5 +4,6 @@ import utiljvm._, geom._
 
 extension(thisCompound: RectCompound)
 {
+  def svgFile(dirPathStr: String, fileName: String): Unit = fileWrite(dirPathStr, fileName, thisCompound.htmlSvg.out())
   def svgFile(fileName: String): Unit = homeWrite("Temp", fileName, thisCompound.htmlSvg.out())
 }

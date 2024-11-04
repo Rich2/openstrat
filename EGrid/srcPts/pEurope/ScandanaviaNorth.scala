@@ -4,9 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of north Sweden and north Norway. Depends on nothing. */
 object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont)
-{
-  /** Start of North Coast */
-  val sorvagen: LatLong = 67.83 ll 12.82
+{ val sorvagen: LatLong = 67.83 ll 12.82
   val andenes: LatLong = 69.32 ll 16.11
   val gapoyholman: LatLong = 68.88 ll 16.06
   val sandsvika: LatLong = 69.37 ll 16.87
@@ -17,8 +15,9 @@ object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont
   val northSeaCoast: LinePathLL = LinePathLL(sorvagen, andenes, gapoyholman, sandsvika, torsvag, slida, p85, ingoya)
 
   val nordkapp: LatLong = 71.16 ll 25.78
+  val p98: LatLong = 70.370 ll 25.092
   val reinoya: LatLong = 70.298 ll 25.309
-  val barentsCoast: LinePathLL = LinePathLL(ingoya, nordkapp, reinoya)
+  val barentsCoast: LinePathLL = LinePathLL(ingoya, nordkapp, p98, reinoya)
 
   val haparanda: LatLong = 65.77 ll 24.17
   val balticNW: LatLong = 65.856 ll 22.350
@@ -31,7 +30,6 @@ object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont
   val baroya: LatLong = 68.33 ll 16.03
 
   override val polygonLL: PolygonLL = northSeaCoast ++- barentsCoast |++| LinePathLL(haparanda, balticNW, vegaoyan, p78, bodo, nordskot, baroya,
-
   )
 }
 
