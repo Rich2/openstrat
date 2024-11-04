@@ -12,7 +12,7 @@ abstract class EarthRegion(val name: String, val cen: LatLong) extends Geographi
 /** Polar regions. */
 object PolarNorth extends EarthRegion("NPole", 89.5 ll 0)
 { import noceans.*
-  override val a2Arr: RArr[EarthArea] = RArr(Greenland, ArticNear, ArticWest, ArticEast, ArticFar, Spitsbergen, Nordauslandet, SevernayaZemyla)
+  override val a2Arr: RArr[EarthArea] = RArr(Greenland, ArticNear, ArticWest, ArticEast, ArticFar, Spitsbergen, EdgeIsland, Nordauslandet, SevernayaZemyla)
 }
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */

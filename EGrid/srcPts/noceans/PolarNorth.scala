@@ -50,28 +50,36 @@ case object ArticWest extends EarthArea("Artic west", 85 ll -90, ice)
     pAmericas.RingnesIslands.ellefNorth, MackenzieIslands.bordenNE, MackenzieIslands.bordenNorth, MackenzieIslands.west, ArticFar.south225, ArticNear.north225)
 }
 
+/** Svalbard island grouping. */
 object SvalBard extends EarthIslandGroup("Svalbard")
-{ override def elements: RArr[EarthIslandLike] = RArr(Spitsbergen)
+{ override def elements: RArr[EarthIslandLike] = RArr(SpitsbergenEdge, Nordauslandet)
 }
 
-/** [[polygonLL]] graphical representation of Spitzbergen, PrinsKarls, edge and Barentsoya islands. Depends on nothing. */
+/** Ilsand grouping for [[Spitsbergen]] and [[EdgeIsland]]. */
+object SpitsbergenEdge extends EarthIslandGroup("Svitsbergen Edge")
+{ override def elements: RArr[EarthIslandLike] = RArr(Spitsbergen, EdgeIsland)
+}
+
+/** [[polygonLL]] graphical representation of Spitsbergen, Barentsoya and PrinsKarls islands. Depends on nothing. */
 object Spitsbergen extends EarthAreaIsland("Spitsbergen", 78.94 ll 17.78, ice)
 { val spitsbergen0: KilometresSq = 39044.kilometresSq
-  val prinsKarls: KilometresSq = 4031.kilometresSq
-  val edge: KilometresSq = 5073.kilometresSq
   val barentsoya: KilometresSq = 1288.kilometresSq
-  override val area: KilometresSq = spitsbergen0 + prinsKarls + edge + barentsoya
-  override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
+  val prinsKarls: KilometresSq = 615.kilometresSq
+  override val area: KilometresSq = spitsbergen0 + barentsoya + prinsKarls
+  override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
 
-  val south: LatLong = 76.59 ll 16.70
-  val wSpitsbergen: LatLong = 79.54 ll 10.64
-  val nSpitzbergen: LatLong = 79.87 ll 13.75
-  val north: LatLong = 80.06 ll 16.23
+  val north: LatLong = 80.059 ll 16.224
   val east: LatLong = 78.83 ll 21.51
-  val sEdgeoya: LatLong = 77.25 ll 22.67
-  val pt1: LatLong = 78.47 ll 18.93
+  val barentsSE: LatLong = 78.286 ll 22.077
+  val barentsSW: LatLong = 78.236 ll 20.738
+  val p30: LatLong = 78.47 ll 18.93
+  val p40: LatLong = 77.510 ll 18.210
+  val south: LatLong = 76.59 ll 16.70
+  val prinsKarlNorth: LatLong = 78.839 ll 10.479
+  val p80: LatLong = 78.971 ll 11.380
+  val northWest: LatLong = 79.758 ll 10.698
    
-  val polygonLL: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
+  val polygonLL: PolygonLL = PolygonLL(north, east, barentsSE, barentsSW, p30, p40, south, prinsKarlNorth, p80, northWest)
 }
 
 /** [[polygonLL]] graphical representation of Nordauslandet and kvitoya islands. Depends on nothing. */
@@ -90,6 +98,19 @@ object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ic
   val northEast: LatLong = 80.15 ll 26.83
 
   val polygonLL: PolygonLL = PolygonLL(south, southWest, northWest, north1, north2, north3, northEast)
+}
+
+/** [[polygonLL]] graphical representation of Edge island. Depends on nothing. */
+object EdgeIsland extends EarthAreaIsland("Edge Island", 77.880 ll 22.652, hillyTundra)
+{ override val area: KilometresSq = 5073.kilometresSq
+  override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
+
+  val north: LatLong = 78.262 ll 22.850
+  val east: LatLong = 77.841 ll 24.239
+  val south: LatLong = 77.249 ll 22.664
+  val northWest: LatLong = 78.117 ll 20.835
+  
+  val polygonLL: PolygonLL = PolygonLL(north, east, south, northWest)
 }
 
 /** [[polygonLL]] graphical representation of the Severnaya Zemlya archipelago. Depends on nothing. */
