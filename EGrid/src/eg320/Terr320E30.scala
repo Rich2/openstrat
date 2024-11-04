@@ -4,6 +4,7 @@ import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale of 320km.
  * [[Tile9]] 25028.134km² => 31263.517km². Sicily 25711km².
+ * [[Tile7]] 14635.829km² => 19485.571km². Nordauslandet 15125km².
  * [[Tile5]] 7014.805km² => 10478.907km². Crete 8450 km². Cyprus 9251km². */
 object Terr320E30 extends Long320Terrs
 { override implicit val grid: EGrid320LongFull = EGrid320.e30(118)
@@ -15,8 +16,10 @@ object Terr320E30 extends Long320Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
     TRow(166, SeaIcePerm),
-    TRow(164, Isle10(Plain, IceCap, LandFree, SeaIceWinter)),
+    TRow(164, Isle7(Plain, IceCap, LandFree, SeaIceWinter)),
+    VRow(163, ThreeDown(1536, 9, 0, 13, SeaIceWinter)),
     TRow(162, Land(Mountains, IceCap, LandFree), SeaIceWinter),
+    VRow(161, OrigLt(1534, HVUR, 7, SeaIceWinter), BendIn(1536, HVUL, 13, SeaIceWinter)),
     VRow(157, OrigRt(1530, HVUR, 7), OrigLt(1532, HVDL, 7), OrigRt(1536, HVDR, 7), OrigLt(1538, HVUL, 7)),
     TRow(156, hillyTundra, hillyTundra, sea),
     VRow(155, OrigRt(1542, HVDR, 7, SeaIceWinter), BendIn(1544, HVDL, 11, SeaIceWinter)),
@@ -69,6 +72,8 @@ object Terr320E30 extends Long320Terrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(164, "Nordauslandet")
+    str(162, "Spitsbergen")
     str(132, "Italy south")
     str(130, "Calabria", "Peloponnesus")
     str(128, "" * 2, "Crete", "", "Cyprus")

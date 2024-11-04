@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -103,15 +103,4 @@ object Faroe extends EarthArea("Faroe", 62.14 ll -6.91, hillyOce)
   val nEysturoy = 62.34 ll -6.98
   val eFugloy = 62.33 ll -6.25
   override val polygonLL: PolygonLL = PolygonLL(sSuduroy, wValgar, nEysturoy, eFugloy)
-}
-
-object JanMayen extends EarthArea("JanMayen", 71.02 ll -8.29, taiga)
-{ val south: LatLong = 70.82 ll -9.03
-  val west: LatLong = 70.86 ll -9.07
-  val susabu = 71.01 ll -8.46
-  val point1: LatLong = 71.08 ll -8.38
-  val northEast: LatLong = 71.16 ll -7.94
-  val southEast: LatLong = 71.02 ll -7.98
-   
-  override val polygonLL: PolygonLL = PolygonLL(south, west, susabu, point1, northEast, southEast)
 }

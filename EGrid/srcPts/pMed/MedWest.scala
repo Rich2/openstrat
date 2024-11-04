@@ -52,6 +52,7 @@ object Ibiza extends EarthAreaIsland("Ibiza", 38.990 ll 1.424, hillySavannah)
   override val polygonLL: PolygonLL = PolygonLL(north, northEast, southEast,  southWest, west)
 }
 
+/** Island grouping of Sardinia and Corsica. */
 object SardinaCorsica extends EarthIslandGroup("Sardinia-Corsica")
 { override val elements: RArr[EarthIslandLike] = RArr(Sardinia, Corsica)
 }

@@ -23,3 +23,15 @@ object Iceland extends EarthArea("Iceland", 64.78 ll -18.07, taiga)
   val polygonLL: PolygonLL = PolygonLL(reykjavik, w1, wIceland, kleifar, breidavik, homstrandir, n1, hrutafjodur, n2, nIceland, n3, eIceland,
     vattames, sIceland, swIceland)
 }
+
+/** [[polygonLL]] graphical representation of Jan Mayen island. Depends on nothing. */
+object JanMayen extends EarthArea("JanMayen", 71.02 ll -8.29, taiga)
+{ val south: LatLong = 70.82 ll -9.03
+  val west: LatLong = 70.86 ll -9.07
+  val susabu = 71.01 ll -8.46
+  val point1: LatLong = 71.08 ll -8.38
+  val northEast: LatLong = 71.16 ll -7.94
+  val southEast: LatLong = 71.02 ll -7.98
+
+  override val polygonLL: PolygonLL = PolygonLL(south, west, susabu, point1, northEast, southEast)
+}

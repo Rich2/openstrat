@@ -3,7 +3,8 @@ package ostrat; package eg460
 import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale 460km. A hex tile area of 183250975km².
- *  Isle3 4473.900km² => 8768.845km². Crete 8450km². */
+ * [[Isle8]] 40265.106km² => 51718.292km². Svalbard 49436km².
+ * [[Isle3]] 4473.900km² => 8768.845km². Crete 8450km². */
 object Terr460E30 extends Long460Terrs
 { override implicit val grid: EGrid460LongFull = EGrid460.e30(88)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -14,9 +15,10 @@ object Terr460E30 extends Long460Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
     TRow(146, SeaIcePerm),
-    VRow(145, BendIn(1534, HVUp, 13), Bend(1536, HVDn, 7, 4, sea, SeaIceWinter), BendIn(1538, HVDL, 13, SeaIceWinter)),
-    TRow(144, mtainTundra),
-    VRow(143, OrigLt(1538, HVUp, 7, SeaIceWinter), OrigRt(1540, HVUR, 7)),
+    VRow(145, BendIn(1534, HVUp, 13), Bend(1536, HVDn, 7, 4, SeaIceWinter, SeaIceWinter), BendIn(1538, HVDL, 8, SeaIceWinter)),
+    TRow(144, Isle8(mtainTundra)),
+    VRow(143, BendIn(1536, HVUp, 8, SeaIceWinter, SeaIceWinter), BendIn(1538, HVUL, 8, SeaIceWinter), OrigRt(1540, HVUR, 7)),
+    TRow(142, SeaIceWinter),
     VRow(139, OrigRt(1538, HVDR, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
     TRow(138, hillyTundra, hillyTundra),
     VRow(137, Orig(1534, HVDn, 2, 4, SeaIceWinter), OrigRt(1538, HVUR, 7, SeaIceWinter), BendIn(1540, HVUL, 6, SeaIceWinter)),

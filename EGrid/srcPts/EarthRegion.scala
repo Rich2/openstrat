@@ -9,12 +9,23 @@ abstract class EarthRegion(val name: String, val cen: LatLong) extends Geographi
   def places: LocationLLArr = a2Arr.flatMap(_.places)(LocationLLArr.flatArrBuilderImplicit)
 }
 
+/** Polar regions. */
+object PolarNorth extends EarthRegion("NPole", 89.5 ll 0)
+{ import noceans.*
+  override val a2Arr: RArr[EarthArea] = RArr(Greenland, ArticNear, ArticWest, ArticEast, ArticFar, Spitsbergen, Nordauslandet, SevernayaZemyla)
+}
+
+/** The North Atlantic. The seas and the land of the north Atlantic. */
+object NorthAtantic extends EarthRegion("NAtlantic", 60 ll -30)
+{ import noceans.*
+  override val a2Arr: RArr[EarthArea] = RArr(Iceland, JanMayen)
+}
 
 /** Top level grouping for north-west European areas. */
 object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
 { import pEurope._
   override val a2Arr: RArr[EarthArea] = RArr(IrelandNorth, IrelandSouth, EnglandNorth, EnglandMiddle, EnglandSouth, ScotlandLow, ScotlandHigh, Wales, Orkneys,
-    IslayJura, Uist, IsleLewis, Shetland, Faroe, JanMayen, Brittany, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland,
+    IslayJura, Uist, IsleLewis, Shetland, Faroe, Brittany, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland,
     Polandia, Baltland, Ukraine, SwedenSouth, SwedenMid, SwedenNorth, Oland, IsleMan)
 }
 
@@ -108,12 +119,6 @@ object AsiaEast extends EarthRegion("Asia", 60 ll 100)
     Kamchatka, sakhalin, Hokkaido, Honshu, Kyshu, Taiwan, Kazak, MalayPeninsula, LakeBaikal)
 }
 
-/** Polar regions. */
-object PolarNorth extends EarthRegion("NPole", 89.5 ll 0)
-{ import noceans._
-  override val a2Arr: RArr[EarthArea] = RArr(Greenland, ArticNear, ArticWest, ArticEast, ArticFar, Svalbard, Nordauslandet, SevernayaZemyla)
-}
-
 /** Australasia. Australia and New Zealand. */
 object Australasia extends EarthRegion("Australasia", -23 ll 130)
 { import soceans._
@@ -126,11 +131,6 @@ object MalayArch extends EarthRegion("MalayArchAustralasia", 0.762 ll 123.068)
 { import pMalay._
   override val a2Arr: RArr[EarthArea] = RArr(Sumatra, Borneo, Sulawesi, javaIsland, BaliIsland, Sumbawa, Lambok, Sumba, Flores, AlorIsland, Wetar, Timor,
     GuineaWest, PapuaNewGuinea, NewBritain, NewIreland, Luzon, Palawan, VisayasWest, SamarLeyte, Mindano)
-}
-
-/** The North Atlantic. The seas and the land of the north Atlantic. */
-object NorthAtantic extends EarthRegion("NAtlantic", 60 ll -30)
-{ override val a2Arr: RArr[EarthArea] = RArr(noceans.Iceland)
 }
 
 object PacificTop extends EarthRegion("Pacific", 0 ll 175)

@@ -50,9 +50,20 @@ case object ArticWest extends EarthArea("Artic west", 85 ll -90, ice)
     pAmericas.RingnesIslands.ellefNorth, MackenzieIslands.bordenNE, MackenzieIslands.bordenNorth, MackenzieIslands.west, ArticFar.south225, ArticNear.north225)
 }
 
-/** [[polygonLL]] graphical representation of Svalbard Island. Depends on nothing. */
-object Svalbard extends EarthArea("Svalbard", 78.94 ll 17.78, ice)
-{ val south: LatLong = 76.59 ll 16.70
+object SvalBard extends EarthIslandGroup("Svalbard")
+{ override def elements: RArr[EarthIslandLike] = RArr(Spitsbergen)
+}
+
+/** [[polygonLL]] graphical representation of Spitzbergen, PrinsKarls, edge and Barentsoya islands. Depends on nothing. */
+object Spitsbergen extends EarthAreaIsland("Spitsbergen", 78.94 ll 17.78, ice)
+{ val spitsbergen0: KilometresSq = 39044.kilometresSq
+  val prinsKarls: KilometresSq = 4031.kilometresSq
+  val edge: KilometresSq = 5073.kilometresSq
+  val barentsoya: KilometresSq = 1288.kilometresSq
+  override val area: KilometresSq = spitsbergen0 + prinsKarls + edge + barentsoya
+  override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
+
+  val south: LatLong = 76.59 ll 16.70
   val wSpitsbergen: LatLong = 79.54 ll 10.64
   val nSpitzbergen: LatLong = 79.87 ll 13.75
   val north: LatLong = 80.06 ll 16.23
@@ -63,9 +74,14 @@ object Svalbard extends EarthArea("Svalbard", 78.94 ll 17.78, ice)
   val polygonLL: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
 }
 
-/** [[polygonLL]] graphical representation of Nordauslandet Island. Depends on nothing. */
-object Nordauslandet extends EarthArea("Nordauslandet", 79.85 ll 23.71, ice)
-{ val south: LatLong = 79.22 ll 23.61
+/** [[polygonLL]] graphical representation of Nordauslandet and kvitoya islands. Depends on nothing. */
+object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ice)
+{ val nordauslandet0: KilometresSq = 14443.kilometresSq
+  val kvitoya: KilometresSq = 682.kilometresSq
+  override val area: KilometresSq = nordauslandet0 + kvitoya
+  override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
+
+  val south: LatLong = 79.22 ll 23.61
   val southWest: LatLong = 79.36 ll 20.76
   val northWest: LatLong = 80.13 ll 17.72
   val north1: LatLong = 80.50 ll 19.65
