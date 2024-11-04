@@ -53,11 +53,13 @@ case object ArticWest extends EarthArea("Artic west", 85 ll -90, ice)
 /** Svalbard island grouping. */
 object SvalBard extends EarthIslandGroup("Svalbard")
 { override def elements: RArr[EarthIslandLike] = RArr(SpitsbergenEdge, Nordauslandet)
+  override val area: KilometresSq = 62045.kilometresSq
 }
 
 /** Ilsand grouping for [[Spitsbergen]] and [[EdgeIsland]]. */
 object SpitsbergenEdge extends EarthIslandGroup("Svitsbergen Edge")
 { override def elements: RArr[EarthIslandLike] = RArr(Spitsbergen, EdgeIsland)
+  override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
 }
 
 /** [[polygonLL]] graphical representation of Spitsbergen, Barentsoya and PrinsKarls islands. Depends on nothing. */

@@ -3,6 +3,7 @@ package ostrat; package eg320
 import prid.phex._, egrid._, WTiles._
 
 /** [[WTile]] terrain for 15° east to 45° east, centred on 30° east. Hex tile scale of 320km.
+ * [[Tile12]] 45812.743km² => 54126.587km². Spitsbergen-edge 46020km²
  * [[Tile9]] 25028.134km² => 31263.517km². Sicily 25711km².
  * [[Tile7]] 14635.829km² => 19485.571km². Nordauslandet 15125km².
  * [[Tile5]] 7014.805km² => 10478.907km². Crete 8450 km². Cyprus 9251km². */
