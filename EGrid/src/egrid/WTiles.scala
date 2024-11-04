@@ -56,6 +56,9 @@ object WTiles
   val lakesJungle: Land = Land(PlainLakes, Tropical, Forest)
 
   /** [[Hilly]] [[Tundra]] [[LandFree]] */
+  val hillyIce: Land = Land(Hilly, IceCap, LandFree)
+
+  /** [[Hilly]] [[Tundra]] [[LandFree]] */
   val hillyTundra: Land = Land(Hilly, Tundra, LandFree)
 
   /** [[Hilly]] [[Boreal]] [[Forest]] */

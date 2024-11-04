@@ -3,8 +3,10 @@ package ostrat; package eg220
 import prid.phex._, egrid._, WTiles._
 
 /** 220km [[WTile]] terrain for 15° east to 45° east centred on 30° east. A tile area of 41915.629km².
+ * [[Isle10]] 14776.896km² => 18051.555km². Nordauslander 15125km².
  * [[Isle8]] 9209.977km² => 11829.704km². Cyprus 9251km².
  * [[Isle7]] 6917.716km² => 9209.977km². Crete 8450km².
+ * [[Isle6]] 4952.921km² => 6917.716km². Edge Island 5073 km².
  * [[Isle4]] 2005.728km² => 3315.591km². Cyclades 2572km².
  * [[Isle3]] 1023.330km² => 2005.728km². Dodecanese west 1200km². */
 object Terr220E30 extends Long220Terrs
@@ -16,6 +18,12 @@ object Terr220E30 extends Long220Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
+    TRow(202, SeaIcePerm),
+    TRow(200, SeaIcePerm),
+    TRow(198, SeaIcePerm),
+    TRow(196, SeaIcePerm),
+    TRow(194, Isle10(hillyIce), SeaIceWinter),
+    TRow(190, Isle6(hillyTundra, SeaIceWinter)),
     VRow(183, BendIn(1528, HVDR, 12), BendIn(1530, HVDn, 13), OrigRt(1532, HVUL), OrigRt(1534, HVDR, 7), OrigLt(1536, HVUL)),
     TRow(182, hillyTundra, hillyTundra, sea * 3),
     VRow(181, OrigRt(1528, HVUp), OrigRt(1540, HVDR, 7), OrigLt(1542, HVUL, 7)),
