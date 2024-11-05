@@ -15,11 +15,13 @@ object Terr460E30 extends Long460Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
     TRow(146, SeaIcePerm),
-    VRow(145, BendIn(1534, HVUp, 13), Bend(1536, HVDn, 7, 4, SeaIceWinter, SeaIceWinter), BendIn(1538, HVDL, 7, SeaIceWinter)),
-    TRow(144, Isle9(mtainTundra)),
-    VRow(143, BendIn(1536, HVUp, 7, SeaIceWinter, SeaIceWinter), BendIn(1538, HVUL, 7, SeaIceWinter), OrigRt(1540, HVUR, 7)),
+    VRow(145, ThreeDown(1534, 9, 7, 0, SeaIceWinter, sea, SeaIceWinter)),
+    TRow(144, Isle9(mtainTundra, SeaIceWinter, SeaIceWinter, SeaIceWinter, SeaIceWinter, sea, SeaIceWinter)),
+    VRow(143, OrigRt(1540, HVUR, 7, SeaIceWinter)),
     TRow(142, SeaIceWinter),
-    VRow(139, OrigRt(1538, HVDR, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
+    VRow(141, BendIn(1534, HVDR, 13), BendIn(1536, HVDn, 13), BendIn(1538, HVDL, 13)),
+    TRow(140, fjordCont),
+    VRow(139, OrigRt(1535, HVUp, 1)/*, OrigRt(1535, HVUp)*/, BendOut(1538, HVUR, 7), ThreeDown(1540, 0, 6, 11, SeaIceWinter, SeaIceWinter, sea)),
     TRow(138, hillyTundra, hillyTundra),
     VRow(137, Orig(1534, HVDn, 2, 4, SeaIceWinter), OrigRt(1538, HVUR, 7, SeaIceWinter), BendIn(1540, HVUL, 6, SeaIceWinter)),
     TRow(136, hillyTaiga, Land(PlainLakes, Boreal, Forest), taiga),
@@ -75,6 +77,7 @@ object Terr460E30 extends Long460Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(144, "Svalbard")
     str(122, "Greece", "Marmara")
     str(120, "Ionian Sea", "Crete")
   }

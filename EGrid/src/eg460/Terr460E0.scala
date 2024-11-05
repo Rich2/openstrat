@@ -18,12 +18,10 @@ object Terr460E0 extends Long460Terrs
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
     TRow(146, SeaIcePerm),
-
-    VRow(145, BendOut(512, HVDn, 6, SeaIceWinter), BendIn(510, HVDR, 6, SeaIceWinter), ThreeDown(514, 13, 7, 0, SeaIceWinter, sea, SeaIceWinter),
-      Bend(516, HVDn, 8, 4, SeaIceWinter)),
-
+    VRow(145, BendOut(512, HVDn, 6, SeaIceWinter), BendIn(510, HVDR, 6, SeaIceWinter), ThreeDown(514, 9, 7, 0, SeaIceWinter, sea, SeaIceWinter)),
     VRow(143, BendOut(510, HVUL, 6, SeaIceWinter), BendIn(512, HVDL, 13, SeaIceWinter)),
     VRow(141, BendIn(512, HVUL, 13, SeaIceWinter)),
+    VRow(139, OrigMin(518, HVUp, 5)),
     VRow(137, OrigLt(514, HVDn, 7)),
     TRow(136, sea * 2, hillyTaiga),
     VRow(135, OrigRt(506, HVDL), BendIn(512, HVDR, 13), BendOut(514, HVUL), Bend(520, HVDR, 4, 5, SeaIceWinter, sea)),

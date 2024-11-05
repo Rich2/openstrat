@@ -15,7 +15,7 @@ object Terr460E60 extends Long460Terrs
     TRow(146, SeaIcePerm),
     VRow(145, BendIn(2558, HVDL, 8, SeaIceWinter)),
     TRow(144, SeaIceWinter),
-    VRow(143, OrigLt(2558, HVUp, 7, SeaIceWinter), OrigRt(2560, HVUR, 7), BendIn(2562, HVDn, 10, sea, SeaIceWinter), ThreeDown(2564, 0, 13, 13, SeaIceWinter)),
+    VRow(143, OrigLt(2558, HVUp, 7, SeaIceWinter), OrigRt(2560, HVUR, 7, SeaIceWinter), BendIn(2562, HVDn, 10, SeaIceWinter), ThreeDown(2564, 0, 13, 13, SeaIceWinter)),
     TRow(142, ice),
     VRow(141, BendOut(2562, HVDR, 7, SeaIceWinter), BendIn(2564, HVUL, 13, SeaIceWinter)),
     TRow(140, mtainTundra, tundra),
@@ -63,6 +63,8 @@ object Terr460E60 extends Long460Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(142, "Severny north")
+    str(140, "Severny south")
     str(112, "" * 2, "Oman east")
   }
 }

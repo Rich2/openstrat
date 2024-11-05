@@ -69,14 +69,19 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
   trait Isle9 extends TRunner with Isle9Base
 
-  case class Isle9Homo(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends Isle9, IsleNBaseHomo
+  case class Isle9Homo(terr: Land, sepTerrs: Water) extends Isle9, IsleNBaseHomo
+
+  case class Isle9Het(terr: Land, sepTerr0: Water, sepTerr1: Water, sepTerr2: Water, sepTerr3: Water, sepTerr4: Water, sepTerr5: Water) extends Isle9
 
   object Isle9
   { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
     def apply(land: Land, sTerr: Water = Sea): Isle9 = Isle9Homo(land, sTerr)
 
     /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
-    //def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle9 = Isle9(Land(elev, biome, landUse), sTerr)
+    def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle9 = Isle9Homo(Land(elev, biome, landUse), sTerr)
+
+    def apply(land: Land, sepTerr0: Water, sepTerr1: Water, sepTerr2: Water, sepTerr3: Water, sepTerr4: Water, sepTerr5: Water): Isle9 =
+      Isle9Het(land, sepTerr0: Water, sepTerr1: Water, sepTerr2: Water, sepTerr3: Water, sepTerr4: Water, sepTerr5: Water)
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
