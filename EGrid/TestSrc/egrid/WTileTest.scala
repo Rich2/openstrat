@@ -22,13 +22,13 @@ object WTileTest extends TestSuite
       "Land(Plain; Oceanic; Forest)".asType[Land] ==> Succ(oceForest)
       "Land(Hilly; Oceanic; MixedUse)".asType[Land] ==> Succ(Land(Hilly, Oceanic))
       "Land(Hilly; Oceanic)".asType[Land] ==> Succ(Land(Hilly, Oceanic))
-      "Land(Hilly)".asType[Land] ==> Succ(Land(Hilly, Oceanic))
-      "Land()".asType[Land] ==> Succ(Land(Plain, Oceanic))
-      "Land(use = Forest)".asType[Land] ==> Succ(Land(Plain, Oceanic, Forest))
-      "Land(use = Forest; elev = Hilly)".asType[Land] ==> Succ(Land(Hilly, Oceanic, Forest))
+      "Land(Hilly; Oceanic)".asType[Land] ==> Succ(Land(Hilly, Oceanic))
+      "Land(Plain; Oceanic)".asType[Land] ==> Succ(Land(Plain, Oceanic))
+      "Land(use = Forest; Plain; Oceanic)".asType[Land] ==> Succ(Land(Plain, Oceanic, Forest))
+      "Land(use = Forest; elev = Hilly; Oceanic)".asType[Land] ==> Succ(Land(Hilly, Oceanic, Forest))
       "Land(use = Forest; climate = Savannah; elev = Hilly)".asType[Land] ==> Succ(Land(Hilly, Savannah, Forest))
       "Land(use = Forest; climate = Savannah; Hilly)".asType[Land] ==> Succ(Land(Hilly, Savannah, Forest))
-      assert("Seq(Lake; Land(Hilly))".asType[RArr[WTile]] === Succ(RArr(Lake, hillyOce)))
+      assert("Seq(Lake; Land(Hilly; Oceanic))".asType[RArr[WTile]] === Succ(RArr(Lake, hillyOce)))
     }
 
     test("Multiple")
@@ -37,25 +37,23 @@ object WTileTest extends TestSuite
       "Land(Hilly; Sahel)".asType[Multiple[Land]] ==> Succ(Multiple(Land(Hilly, Sahel), 1))
       "Sea * 5".asType[Multiple[Water]] ==> Succ(Multiple(Sea, 5))
       "Lake * 3".asType[Multiple[Water]] ==> Succ(Multiple(Lake, 3))
-      "Land() * 3".asType[Multiple[Land]] ==> Succ(Multiple(Land(Plain, Oceanic), 3))
-      "Land(Hilly) * 3".asType[Multiple[WTile]] ==> Succ(Multiple(Land(Hilly, Oceanic), 3))
-      "hilly * 3".asType[Multiple[Land]] ==> Succ(Multiple(Land(Hilly, Oceanic), 3))
-      "forest * 2".asType[Multiple[Land]] ==> Succ(Multiple(oceForest, 2))
+      "Land(Plain; Oceanic) * 3".asType[Multiple[Land]] ==> Succ(Multiple(Land(Plain, Oceanic), 3))
+      "Land(Hilly; Oceanic) * 3".asType[Multiple[WTile]] ==> Succ(Multiple(Land(Hilly, Oceanic), 3))
+      "hillyOce * 3".asType[Multiple[Land]] ==> Succ(Multiple(Land(Hilly, Oceanic), 3))
+      "oceForest * 2".asType[Multiple[Land]] ==> Succ(Multiple(oceForest, 2))
       "sea * 2".asType[Multiple[Water]] ==> Succ(Multiple(sea, 2))
-
     }
 
-    val er1 = "Seq(land; lake; Land(Hilly; Savannah))".asType[RArr[WTile]]
-    println(er1)
+    val er1 = "Seq(oceanic; lake; Land(Hilly; Savannah))".asType[RArr[WTile]]
 
     test("W Seqs")
-    { assert("Seq(sea; forest)".asType[RArr[WTile]] === Succ(RArr(sea, oceForest)))
+    { assert("Seq(sea; oceForest)".asType[RArr[WTile]] === Succ(RArr(sea, oceForest)))
       assert(RArr(oceanic, lake, Land(Hilly, Savannah)) === RArr(oceanic, lake , Land(Hilly, Savannah)))
       assert(Succ(RArr(oceanic, lake, Land(Hilly, Savannah))) === Succ(RArr(oceanic, lake , Land(Hilly, Savannah))))
       assert(er1 === Succ(RArr(oceanic, lake , hillySavannah)))
       assert("Seq(sea * 2; lake)".asType[RArr[Water]] === Succ(RArr(sea, sea, lake)))
-      assert("Seq(hilly * 2; land * 3)".asType[RArr[Land]] === Succ(RArr(hillyOce, hillyOce, oceanic, oceanic, oceanic)))
-      assert("Seq(hilly * 2; lake * 2; forest)".asType[RArr[WTile]] === Succ(RArr(hillyOce, hillyOce, lake, lake, oceForest)))
+      assert("Seq(hillyOce * 2; oceanic * 3)".asType[RArr[Land]] === Succ(RArr(hillyOce, hillyOce, oceanic, oceanic, oceanic)))
+      assert("Seq(hillyOce * 2; lake * 2; oceForest)".asType[RArr[WTile]] === Succ(RArr(hillyOce, hillyOce, lake, lake, oceForest)))
     }
   }
 }

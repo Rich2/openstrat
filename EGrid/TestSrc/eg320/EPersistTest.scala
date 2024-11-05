@@ -12,8 +12,7 @@ object EPersistTest  extends TestSuite
     {  r1.str ==> rs1
       "Land(Plain; Oceanic; MixedUse)".asType[Land] ==> Succ(Land(Plain, Oceanic))
       "Land(Plain; Oceanic)".asType[Land] ==> Succ(Land(Plain, Oceanic))
-      "Land(Plain)".asType[Land] ==> Succ(Land(Plain, Oceanic))
-      "Land()".asType[Land] ==> Succ(Land(Plain, Oceanic))
+      "Land(Plain; Oceanic)".asType[Land] ==> Succ(Land(Plain, Oceanic))
     }
   }
 }
