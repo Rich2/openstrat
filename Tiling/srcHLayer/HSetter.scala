@@ -20,20 +20,56 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     /** The tile terrain. typically land terrain. */
     def terr: TT
 
-    /** The [[HSep]] separator terrains, Typically water terrain, */
-    def sepTerrs: SST
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr0: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr1: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr2: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr3: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr4: SST
+
+    /** The [[HSep]] separator terrain for sep0. Typically, water terrain, */
+    def sepTerr5: SST
 
     def magnitude: Int
 
     def run(row: Int, c: Int): Unit
 
-    def setTerrs(row: Int, c: Int): Unit = {
-      terrs.set(row, c, terr)
-      iUntilForeach(6) { i =>
-        val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.setExists(grid, sep, sepTerrs)
-      }
+    def setTerrs(row: Int, c: Int): Unit =
+    { terrs.set(row, c, terr)
+      val s0 = HSep(row + 1, c + 1)
+      sTerrs.setExists(grid, s0, sepTerr0)
+      val s1 = HSep(row, c + 2)
+      sTerrs.setExists(grid, s1, sepTerr1)
+      val s2 = HSep(row - 1, c + 1)
+      sTerrs.setExists(grid, s2, sepTerr2)
+      val s3 = HSep(row - 1, c - 1)
+      sTerrs.setExists(grid, s3, sepTerr3)
+      val s4 = HSep(row, c - 2)      
+      sTerrs.setExists(grid, s4, sepTerr4)
+      val s5 = HSep(row + 1, c - 1)
+      sTerrs.setExists(grid, s5, sepTerr5)
     }
+  }
+  
+  trait IsleNBaseHomo extends IsleNBase
+  {
+    /** The [[HSep]] separator terrain for all 6 [[HSep]]s. Typically, water terrain, */
+    def sepTerrs: SST
+
+    override def sepTerr0: SST = sepTerrs
+    override def sepTerr1: SST = sepTerrs
+    override def sepTerr2: SST = sepTerrs
+    override def sepTerr3: SST = sepTerrs
+    override def sepTerr4: SST = sepTerrs
+    override def sepTerr5: SST = sepTerrs
   }
 
   trait IsleNLargeBase extends IsleNBase
