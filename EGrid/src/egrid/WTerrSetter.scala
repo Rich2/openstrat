@@ -61,7 +61,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   object Isle10
   { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-    def apply(land: Land = Land(Plain, Oceanic), sTerr: Water = Sea): Isle10 = Isle10Homo(land, sTerr)
+    def apply(land: Land, sTerr: Water = Sea): Isle10 = Isle10Homo(land, sTerr)
 
     /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
     //def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle10 = Isle10(Land(elev, biome, landUse), sTerr)
@@ -73,7 +73,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   object Isle9
   { /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
-    def apply(land: Land, sTerr: Water = Sea): Isle9 = Isle9(land, sTerr)
+    def apply(land: Land, sTerr: Water = Sea): Isle9 = Isle9Homo(land, sTerr)
 
     /** Factory apply method for Isle. Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
     //def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle9 = Isle9(Land(elev, biome, landUse), sTerr)
