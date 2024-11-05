@@ -2,7 +2,8 @@
 package ostrat; package eg640
 import prid._, phex._, egrid._, WTiles._
 
-/** [[WTile]] terrain terrain for 45° east to 75° east, centred on 60° east. Hex tile scale 640km.  */
+/** 640km scale [[WTile]] terrain for 45° east to 75° east, centred on 60° east. Hex tile scale 640km.
+ * [[Isle6]] 41915.629km² => 58543.317km². Severny Island 48904 km². */
 object Terr640E60 extends Long640Terrs
 { override implicit val grid: EGrid640LongFull = EGrid640.e60(70)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
@@ -12,6 +13,8 @@ object Terr640E60 extends Long640Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
+    TRow(130, Isle6(hillyTundra, SeaIceWinter)),
+    VRow(129, BendOut(2558, HVUp, 7, SeaIceWinter), ThreeUp(2560, 10, 13, 0, SeaIceWinter)),
     TRow(128, tundra),
     TRow(126, taiga * 2),
     TRow(124, taiga * 2),

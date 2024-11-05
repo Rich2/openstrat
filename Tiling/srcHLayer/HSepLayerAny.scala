@@ -5,15 +5,15 @@ trait HSepLayerAny[A]
 {
   def unsafeArray: Array[A]
 
-  /** Sets the value in the;ayer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
+  /** Sets the value in the layer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
   def set(hs: HSep, value: A)(implicit grid: HGridSys): Unit = if(grid.hSepExists(hs)) unsafeArray(grid.sepLayerArrayIndex(hs)) = value
     else excep(s"$hs doesn't exist in this grid")
 
-  /** Sets the value in the;ayer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
+  /** Sets the value in the layer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
   def set(r: Int, c: Int, value: A)(implicit grid: HGridSys): Unit = if (grid.hSepExists(r, c)) unsafeArray(grid.sepLayerArrayIndex(r, c)) = value
     else excep(s"$r, $c doesn't exist in this grid")
 
-  /** Sets the value in the;ayer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
+  /** Sets the value in the layer for the given [[HSep]]. Throws exception if [[HSep]] does not exist within the [[HGrid]]. */
   def set(grid: HGridSys, hs: HSep, value: A): Unit = if (grid.hSepExists(hs)) unsafeArray(grid.sepLayerArrayIndex(hs)) = value
     else excep(s"$hs doesn't exist in this grid")
 
