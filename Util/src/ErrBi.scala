@@ -121,6 +121,9 @@ object Succ
   { case sa: Succ[A] => Some(sa.value)
     case _ => None
   }
+
+  /** Implicit evidence for [[EqT]] for type [[Succ]]. */
+  implicit def eqTEv[A](implicit evA: EqT[A]): EqT[Succ[A]] = (su1, su2) => evA.eqT(su1.value, su2.value)
 }
 
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */

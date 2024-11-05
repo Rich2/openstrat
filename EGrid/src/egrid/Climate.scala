@@ -79,7 +79,7 @@ case object Subtropical extends Climate
 
 /** Köppen BWh hot desert climate classification. Average annual temperature above 18°C. */
 case object DesertHot extends Desert
-{ override def str: String = "Desert"
+{ override def str: String = "Deshot"
   override def colour: Colour = LemonChiffon
 }
 
