@@ -26,16 +26,20 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def magnitude: Int
 
     def run(row: Int, c: Int): Unit
+
+    def setTerrs(row: Int, c: Int): Unit = {
+      terrs.set(row, c, terr)
+      iUntilForeach(6) { i =>
+        val sep: HSep = HCen(row, c).sep(i)
+        sTerrs.setExists(grid, sep, sepTerrs)
+      }
+    }
   }
 
   trait IsleNLargeBase extends IsleNBase
   {
     override def run(row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
-      iUntilForeach(6) { i =>
-        val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.setExists(grid, sep, sepTerrs)
-      }
+    { setTerrs(row, c)
       corners.setBend0(row, c, magnitude, 6 - magnitude)
       corners.setBend1(row, c, magnitude, 6 - magnitude)
       corners.setBend2(row, c, magnitude, 6 - magnitude)
@@ -50,12 +54,8 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   trait IsleNSmallBase extends IsleNBase
   {
     override def run(row: Int, c: Int): Unit =
-    { terrs.set(row, c, terr)
+    { setTerrs(row, c)
       corners.setNCornersIn(row, c, 6, 0, magnitude)
-      iUntilForeach(6) { i =>
-        val sep: HSep = HCen(row, c).sep(i)
-        sTerrs.setExists(grid, sep, sepTerrs)
-      }
     }
   }
 
