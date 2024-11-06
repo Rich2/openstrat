@@ -30,10 +30,14 @@ object Terr160E30 extends Long160Terrs
     TRow(326, hillyIce, SeaIceWinter * 3),
     TRow(324, Isle8(hillyTundra, SeaIceWinter), SeaIceWinter * 3),
     TRow(322, SeaIceWinter),
-    VRow(315, BendIn(1528, HVDR, 13), BendIn(1530, HVDn, 13), BendOut(1532, HVUp, 7), BendIn(1534, HVDn, 13), BendIn(1536, HVDL, 13)),
+    VRow(315, BendIn(1528, HVDR, 13), BendIn(1530, HVDn, 13), BendOut(1532, HVUp, 7), BendIn(1534, HVDn, 13), OrigLt(1536, HVUL, 7)),
     TRow(314, sea, mtainTundra, mtainBoreal),
-    VRow(313, OrigMin(1536, HVUp, 1)),
-    TRow(312, mtainBoreal, hillyTundra * 3, sea * 3),
+
+    VRow(313, BendIn(1522, HVDR, 13), BendIn(1524, HVDn, 13), BendMin(1526, HVUp), BendMin(1528, HVUL, 1), OrigRt(1538, HVUR, 7), BendIn(1540, HVDn, 13),
+      BendIn(1542, HVDL, 13)),
+
+    TRow(312, mtainBoreal, hillyTundra * 3, hillyTundra),
+    VRow(311, BendOut(1522, HVUL, 7)),
     TRow(310, hillyTaiga * 2, taiga * 3, sea, taiga),
     TRow(308, hillyTaiga, taiga * 7),
     TRow(306, taiga * 5, sea, taiga * 2),

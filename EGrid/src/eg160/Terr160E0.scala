@@ -32,7 +32,9 @@ object Terr160E0 extends Long160Terrs
     VRow(325, BendIn(516, HVUR, 13, sea, SeaIceWinter), BendOut(518, HVDL, 7)),
     TRow(324, SeaIceWinter * 2, sea, mtainTundra),
     VRow(323, BendIn(518, HVUR, 13), OrigRt(520, HVUL)),
-
+    VRow(311, BendIn(524, HVDR, 13), BendOut(526, HVUL, 7)),
+    TRow(310, sea * 6, mtainCont),
+    VRow(309, OrigRt(524, HVUp, 7)),
     TRow(308, sea * 7, mtainBoreal),
     TRow(306, sea * 7, mtainBoreal),
     TRow(304, sea * 6, mtainOce, mtainLakesTaiga),

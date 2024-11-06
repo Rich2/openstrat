@@ -58,17 +58,28 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       sTerrs.setExists(grid, s5, sepTerr5)
     }
   }
-  
+
+  /** Terrain setter trait for (geometrical) island terrain. where all the [[HSep]] separators have the same terrain type.  */
   trait IsleNBaseHomo extends IsleNBase
-  {
-    /** The [[HSep]] separator terrain for all 6 [[HSep]]s. Typically, water terrain, */
+  { /** The [[HSep]] separator terrain for all 6 [[HSep]]s. Typically, water terrain or a wall on decimetre scale maps. */
     def sepTerrs: SST
 
+    /** The [[HSep]] separator terrain for [[HSep]]0 the island's upper right separator. Typically, water terrain or a wall on decimetre scale maps. */
     override def sepTerr0: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]1 the island's right separator. Typically, water terrain or a wall on decimetre scale maps. */
     override def sepTerr1: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]2 the island's lower right separator. Typically, water terrain or a wall on decimetre scale maps. */
     override def sepTerr2: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]3 the island's lower left separator. Typically, water terrain or a wall on decimetre scale maps. */
     override def sepTerr3: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]4 the island's left separator. Typically, water terrain or a wall on decimetre scale maps. */
     override def sepTerr4: SST = sepTerrs
+
+    /** The [[HSep]] separator terrain for [[HSep]]5 the island's upper left separator. Typically, water terrain or a wall on decimetre scale maps. */
     override def sepTerr5: SST = sepTerrs
   }
 
