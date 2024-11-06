@@ -5,10 +5,10 @@ import egrid._
 /** object for creating earth grids with 120km hexs, with a c scale of 80km. */
 object EGrid120
 { /** Returns an [[RArr]] sequence of 120km full earth grids. */
-  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 360): RArr[EGrid120LongFull] =
+  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 386): RArr[EGrid120LongFull] =
     iUntilMap(startIndex, startIndex + num){ i => EGrid120LongFull(rBottomCen, rTopCen, i %% 12) }
 
-  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 360): EGrid120LongMulti = new EGrid120LongMulti
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 386): EGrid120LongMulti = new EGrid120LongMulti
   { ThisSys =>
     override val grids: RArr[EGridLongFull] = EGrid120.grids(numGridsIn, headInt, bottomR, topR)
     override def headGridInt: Int = headInt
