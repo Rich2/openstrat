@@ -3,7 +3,9 @@ package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
 /** Terrain at 160km for 15° east to 45° east, centred on 30° east. Land and sea should be correct, but elevation has not been checked.
+ * [[Isle13]] 13531.646km² => 15783.312km². Nordauslandet 15125km².
  * [[Isle10]] 7815.879km² => 9547.930km². [[Cyprus]] 9251km² [[Crete]] 8450km².
+ * [[Isle8]] 4871.392km² => 6257.033km². Edge Island 5037km².
  * [[Isle6]] 2619.726km² => 3658.957km². [[Dodecanese]] 2714km².
  * [[Isle5]] 1753.701km² => 2619.726km². [[Cyclades]] 2572km², [[LesbosChios]] 2520km², [[IonianIs]] 1986km².
  * [[Isle4]] 1060.881km² => 1753.701km². [[Rhodes]] 1401km² + Karpathos 220km² = 1621km².
@@ -18,10 +20,19 @@ object Terr160E30 extends Long160Terrs
 
   val help = new WTerrSetter(grid, terrs, sTerrs, corners)
   { override val rows: RArr[RowBase] = RArr(
-    TRow(320, sea * 5),
-    TRow(318, sea * 5),
-    TRow(316, sea * 6),
-    TRow(314, sea * 6),
+    TRow(338, SeaIcePerm),
+    TRow(336, SeaIcePerm),
+    TRow(334, SeaIcePerm * 2),
+    TRow(332, SeaIceWinter * 2),
+    TRow(330, SeaIceWinter * 3),
+    VRow(329, BendOut(1530, HVUp, 7, SeaIceWinter), OrigLt(1532, HVDL, 6, SeaIceWinter)),
+    TRow(328, hillyIce, SeaIceWinter * 2),
+    TRow(326, hillyIce, SeaIceWinter * 3),
+    TRow(324, Isle8(hillyTundra, SeaIceWinter), SeaIceWinter * 3),
+    TRow(322, SeaIceWinter),
+    VRow(315, BendIn(1528, HVDR, 13), BendIn(1530, HVDn, 13), BendOut(1532, HVUp, 7), BendIn(1534, HVDn, 13), BendIn(1536, HVDL, 13)),
+    TRow(314, sea, mtainTundra, mtainBoreal),
+    VRow(313, OrigMin(1536, HVUp, 1)),
     TRow(312, mtainBoreal, hillyTundra * 3, sea * 3),
     TRow(310, hillyTaiga * 2, taiga * 3, sea, taiga),
     TRow(308, hillyTaiga, taiga * 7),

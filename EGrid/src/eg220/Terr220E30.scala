@@ -102,6 +102,8 @@ object Terr220E30 extends Long220Terrs
   help.run
 
   { import hexNames.{ setRow => str}
+    str(194, "Nordauslandet")
+    str(190, "Edge Island")
     str(154, "" * 7, "Mariupol")
     str(142, "" * 3, "Cyclades", "Dodecanese west")
     str(140, "" * 3, "Crete", "" * 2, "Cyprus")

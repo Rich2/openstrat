@@ -57,6 +57,7 @@ object Terr320E60 extends Long320Terrs
 
   { import hexNames.{setRow => str}
     str(158, "Severny south")
+    str(160, "Severny north")
   }
 
 }

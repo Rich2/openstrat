@@ -3,7 +3,7 @@ package ostrat; package eg160
 import prid._, phex._, egrid._, WTiles._
 
 object Terr160W60 extends Long160Terrs
-{ override implicit val grid: EGrid160LongFull = EGrid160.w60(314)
+{ override implicit val grid: EGrid160LongFull = EGrid160.w60(314, 320)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()

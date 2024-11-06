@@ -1,15 +1,15 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import egrid._, geom._, pglobe._, prid.phex._
+import egrid.*
 
 /** object for creating earth grisds with 160km hexs, with a c scale of 80km. */
 object EGrid160
 {
   /** Returns an [[RArr]] sequence of 320km full earth grids. */
-  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 320): RArr[EGrid160LongFull] =
+  def grids(num: Int, startIndex: Int, rBottomCen: Int, rTopCen: Int = 338): RArr[EGrid160LongFull] =
     iUntilMap(startIndex, startIndex + num) { i => EGrid160LongFull(rBottomCen, rTopCen, i %% 12) }
 
-  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 320): EGrid160LongMulti = new EGrid160LongMulti
+  def multi(numGridsIn: Int, headInt: Int, bottomR: Int, topR: Int = 338): EGrid160LongMulti = new EGrid160LongMulti
   { ThisSys =>
     override val grids: RArr[EGridLongFull] = EGrid160.grids(numGridsIn, headInt, bottomR, topR)
     override def headGridInt: Int = headInt
@@ -18,21 +18,21 @@ object EGrid160
   }
 
   /** Factory method for creating a main Earth grid centred on 0° east of scale cScale 40Km or hex scale 160km. */
-  def e0(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 0)
+  def e0(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 0)
 
   /** Factory method for creating a main Earth grid centred on 30° east of scale cScale 40Km or hex scale 160km. */
-  def e30(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,  1)
+  def e30(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,  1)
 
-  def e60(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 2)
-  def e90(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 3)
-  def e120(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 4)
-  def e150(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 5)
-  def e180(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 6)
-  def w150(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 7)
-  def w120(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 8)
-  def w90(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 9)
-  def w60(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
-  def w30(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
+  def e60(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 2)
+  def e90(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 3)
+  def e120(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 4)
+  def e150(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 5)
+  def e180(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 6)
+  def w150(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 7)
+  def w120(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 8)
+  def w90(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 9)
+  def w60(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
+  def w30(rBottomCen: Int, rTopCen: Int = 338): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
 
   def britGrid: EGrid160LongPart =
   { val array = Array[Int](1, 504, 3, 506, 3, 504, 1, 510, 2, 504, 1, 506, 2, 504)
