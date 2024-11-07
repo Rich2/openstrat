@@ -62,8 +62,7 @@ sealed trait HVDirn extends HVDirnOpt
 { override def opposite: HVDirn
 
   override def clock(steps: Int): HVDirn =
-  {
-    val r1 = int1 - 1
+  { val r1 = int1 - 1
     val r2 = (r1 + steps) %% 6
     val r3 = r2 + 1
     HVDirn.fromInt(r3)

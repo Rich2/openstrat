@@ -25,6 +25,7 @@ object Terr120E0 extends Long120Terrs
     TRow(376, SeaIcePerm * 3),
     TRow(374, hillyTundra, SeaIcePerm * 2, SeaIceWinter),
     TRow(372, SeaIcePerm * 2, SeaIceWinter * 2),
+    VRow(371, BendIn(1528, HVDR, 6, SeaIceWinter)),
     TRow(370, SeaIcePerm * 2, SeaIceWinter * 2, mtainTundra),
     TRow(368, SeaIcePerm * 2, SeaIceWinter, sea, mtainTundra),
     TRow(366, SeaIcePerm, SeaIceWinter, sea * 2, mtainTundra),
