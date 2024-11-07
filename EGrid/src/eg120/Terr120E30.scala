@@ -4,6 +4,7 @@ import prid._, phex._, egrid._, WTiles._
 
 /** [[WTile]] 120km scale terrain for 15° east to 45° east, centred on 30° east.
  * [[Isle13]] 7611.551km² => 8878.113km². Crete 8450km².
+ * [[Isle10]] 4396.432km² => 5370.710km². Edgeøya 5,073km².
  * [[Isle6]] 1473.596km² => 2058.163km². Lesbos 1633km².
  * [[Isle5]] 986.457km² => 1473.596km². Andros for northern Cyclades 2572km²/2 = 1286km², Naxos for southern Cyclades = 1286km².
  * [[Isle3]] 304.462km² => 596.745km². */
@@ -19,6 +20,15 @@ object Terr120E30 extends Long120Terrs
     TRow(386, SeaIcePerm),
     TRow(384, SeaIcePerm),
     TRow(382, SeaIcePerm * 2),
+    TRow(380, SeaIcePerm * 2),
+    TRow(378, SeaIcePerm * 2, SeaIceWinter),
+    TRow(376, SeaIcePerm, SeaIceWinter * 2),
+    TRow(374, SeaIceWinter * 4),
+    TRow(372, hillyTundra, SeaIceWinter * 3),
+    TRow(370, hillyIce * 2, SeaIceWinter * 3),
+    TRow(368, hillyIce, SeaIceWinter * 4),
+    TRow(366, Isle10(hillyTundra, SeaIceWinter), SeaIceWinter),
+
     VRow(353, BendIn(1526, HVDR, 13), BendIn(1528, HVDn, 13), BendOut(1530, HVUp, 7), BendIn(1532, HVDn , 13), OrigLt(1534, HVUL, 7)),
     TRow(352, sea, fjordCont * 2),
     TRow(350, fjordCont * 2, mtainLakesCont, hillyCont *2),
@@ -66,6 +76,7 @@ object Terr120E30 extends Long120Terrs
   help.run
 
   { import hexNames.{setRow => str}
+    str(366, "Edgeøya")
     str(284, "" * 7, "Lesbos")
     str(280, "" * 6, "Andros")
     str(278, "" * 7, "Naxos")

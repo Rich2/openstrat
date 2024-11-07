@@ -103,7 +103,7 @@ object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ic
 }
 
 /** [[polygonLL]] graphical representation of Edge island. Depends on nothing. */
-object EdgeIsland extends EarthAreaIsland("Edge Island", 77.880 ll 22.652, hillyTundra)
+object EdgeIsland extends EarthAreaIsland("Edgeøya", 77.880 ll 22.652, hillyTundra)
 { override val area: KilometresSq = 5073.kilometresSq
   override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
 
