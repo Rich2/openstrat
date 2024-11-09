@@ -27,7 +27,7 @@ object Terr460E150 extends Long460Terrs
       TRow(134, mtainTundra * 3),
       VRow(133, OrigRt(5630, HVDn, 7), BendIn(5634, HVDR, 13), Bend(5636, HVUL, 11, 5), Bend(5638, HVDR, 5, 1, siceWin)),
       TRow(132, mtainTaiga, sea, hillyTaiga),
-      VRow(131, OrigLt(5628, HVUR, 7), BendIn(5630, HVUL, 13), OrigRt(5634, HVUp), VertRightsLeft(5638, siceWin, 6), BendIn(5640, HVDL, 10, siceWin)),
+      VRow(131, OrigLt(5628, HVUR, 7), BendIn(5630, HVUL, 13), OrigRt(5634, HVUp), BendLtOut(5638, 6, siceWin), BendIn(5640, HVDL, 10, siceWin)),
       TRow(130, mtainTaiga, sea * 2, hillyTaiga),
       VRow(129, OrigRt(5630, HVDn, 7), OrigLt(5638, HVUR, 7, siceWin), BendIn(5640, HVUL, 13, siceWin)),
       TRow(128, mtainTaiga),

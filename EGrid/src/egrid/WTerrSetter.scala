@@ -354,8 +354,13 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     }
   }
 
-  /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
-  case class VertRightsLeft(c: Int, terr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with VertRightsLeftBase
+  /** Used for setting a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
+  case class BendLtOut(c: Int, magnitude: Int, leftTerr: WSepSome, rightTerr: WSepSome) extends VRowElem with BendLtOutBase
+
+  object BendLtOut
+  { /** Factory apply method to sets a bend out in an [[HVLt]] direction. Normally wanted on the right edge of the grid where 4 hexs share a vertex. */
+    def apply(c: Int, magnitude: Int, terr: WSepSome = Sea): BendLtOut = new BendLtOut(c, magnitude, terr, terr)
+  }
 
   /** Used for setting a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
   case class VertLeftsRight(c: Int, terr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase

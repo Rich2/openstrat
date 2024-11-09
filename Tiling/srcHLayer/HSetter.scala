@@ -313,10 +313,10 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { /** The direction of the [[HCen]] at the inside of the bend from the HVert. */
     def dirn: HVDirn
 
-    /** The terrain of the left [[HSep]] of the junction as seen from from the inside of the bend. */
+    /** The terrain of the left [[HSep]] of the junction as seen from the inside of the bend. */
     def leftTerr: SST
 
-    /** The terrain of the right [[HSep]] of the junction as seen from from the inside of the bend. */
+    /** The terrain of the right [[HSep]] of the junction as seen from the inside of the bend. */
     def rightTerr: SST
 
     final def run(row: Int): Unit =
@@ -457,7 +457,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       { corners.setCornerIn(row + 1, c - 2, 2, magIn)
         corners.setCorner(row + 1, c + 2, 4, HVDR, OrigMag)
         corners.setCornerPair(row - 1, c, 0, HVDR, OrigMag, HVExact, 0)
-        //corners.setCorner(row - 1, c, 0, HVExact, 0)
       }
 
       case HVUp =>
@@ -599,21 +598,33 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     }
   }
 
-  /** Used for setting the a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
-  trait VertRightsLeftBase
+  /** Used for setting the corners of a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
+  trait BendLtOutBase
   { /** The c coordinate of the vertex. */
     def c: Int
 
     /** The magnitude of the offset. */
     def magnitude: Int
 
+    /** The terrain of the left [[HSep]] of the junction as seen from the inside of the bend. */
+    def leftTerr: SST
+
+    /** The terrain of the right [[HSep]] of the junction as seen from the inside of the bend. */
+    def rightTerr: SST
+
     def run(row: Int): Unit = if (HVert.rcISHigh(row, c))
     { corners.setCorner(row + 1, c - 2, 2, HVLt, magnitude)
       corners.setCorner(row - 1, c, 0, HVLt, magnitude)
+      sTerrs.setExists(grid, row - 1, c + 1, leftTerr)
+      sTerrs.setExists(grid, row + 1, c + 1, rightTerr)
+
+
     }
     else
     { corners.setCorner(row + 1, c, 3, HVLt, magnitude)
       corners.setCorner(row - 1, c - 2, 1, HVLt, magnitude)
+      sTerrs.setExists(grid, row - 1, c + 1, leftTerr)
+      sTerrs.setExists(grid, row + 1, c + 1, rightTerr)
     }
   }
 }

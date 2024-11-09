@@ -27,12 +27,12 @@ object Terr120E30 extends Long120Terrs
     VRow(373, BendIn(1530, HVDR, 13, SeaIceWinter),  BendIn(1532, HVDn, 13, SeaIceWinter), BendIn(1534, HVDL, 13, SeaIceWinter)),
     TRow(372, hillyTundra, SeaIceWinter * 3),
 
-    VRow(371, BendIn(1528, HVDR, 6, SeaIceWinter), BendOut(1530, HVUL, 6, SeaIceWinter), BendOut(1534, HVUR, 6, SeaIceWinter),
+    VRow(371, BendMin(1528, HVDR, 3, SeaIceWinter), BendOut(1534, HVUR, 6, SeaIceWinter),
       BendIn(1536, HVDL, 13, SeaIceWinter)),
 
     TRow(370, hillyIce * 2, SeaIceWinter * 3),
 
-    VRow(369, BendIn(1528, HVUR, 8, SeaIceWinter), Orig(1530, HVUL, 1, 7, SeaIceWinter), OrigLt(1532, HVDR, 6, SeaIceWinter),
+    VRow(369, BendIn(1528, HVUR, 9, SeaIceWinter), Orig(1530, HVUL, 1, 7, SeaIceWinter), OrigLt(1532, HVDR, 6, SeaIceWinter),
       BendIn(1534, HVUp, 13, SeaIceWinter), BendIn(1536, HVUL, 13, SeaIceWinter)),
     
     TRow(368, hillyIce, SeaIceWinter * 4),
