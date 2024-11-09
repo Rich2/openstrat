@@ -42,9 +42,9 @@ object Terr13E0 extends Long13Terrs
   help.run
 
   { import hexNames.{ setRow => str}
-    str(114, "Barents lands")
-    str(112, "Europe north east")
-    str(110, "Europe Middle Western")
+    str(114, "Scandanavia north")
+    str(112, "Europe north west")
+    str(110, "Europe middle west")
     str(108, "Europe south west")
     str(106, "Morocco", "Algeria")
     str(104, "Mauritania", "Songhai")

@@ -47,7 +47,7 @@ object TerrMegaE0 extends LongMegaTerrs
 
   { import hexNames.{ setRow => str}
     str(116, "Scandanavia west")
-    str(114, "Europe north west")
+    str(114, "Europe middle west")
     str(112, "France", "Alps")
     str(110, "Iberia", "Algeria")
     str(92, "", "The Cape")

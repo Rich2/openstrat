@@ -24,13 +24,13 @@ object Terr640E0 extends Long640Terrs
     TRow(122, oceanic * 2),
     VRow(121, OrigRt(508, HVUp), OrigRt(510, HVUR, 7), BendOut(512, HVUL, 7)),
     TRow(120, sea, oceanic * 2),
-    VRow(119, OrigLt(508, HVUp, 7)),
+    VRow(119, OrigLt(508, HVDn, 7)),
     TRow(118, hillyOce, oceanic, hillyOce),
     VRow(117, BendIn(506, HVDR, 13), BendOut(508, HVUL), Bend(514, HVDR, 11, 3), Bend(516, HVDn, 11, 2), BendIn(518, HVDL, 11)),
     TRow(116, hillyOce, hillyOce, mtainSubForest),
 
     VRow(115, OrigRt(506, HVUp, 7), OrigRt(508, HVUR), BendIn(510, HVDn, 10), BendMin(512, HVUp), ThreeUp(514, 11, 3, 10), BendIn(516, HVUp, 11),
-      ThreeUp(518, 0, 6, 11), BendIn(520, HVDL, 13)),
+      ThreeUp(518, 0, 8, 11), BendIn(520, HVDL, 13)),
 
     TRow(114, sea, hillyOce, hillyOce, hillyOce),
     VRow(113, BendMin(520, HVUR, 1), OrigMin(522, HVUL, 4)),

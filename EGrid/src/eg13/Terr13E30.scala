@@ -44,7 +44,7 @@ object Terr13E30 extends Long13Terrs
   { import hexNames.{ setRow => str}
     str(112, "Baltic lands")
     str(110, "Rus")
-    str(108, "Turkey")
+    str(108, "Anatolia")
     str(106, "Libya", "Middle East")
     str(104, "Sudan", "Arabia")
     str(102, "Central Africa")
