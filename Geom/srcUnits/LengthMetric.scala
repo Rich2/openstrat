@@ -77,7 +77,7 @@ final class Kilometres(val kilometresNum: Double) extends AnyVal with LengthMetr
   override def -(operand: Length): Kilometres = Kilometres(kilometresNum - operand.kilometresNum)
   override def unary_- : Kilometres = Kilometres(-kilometresNum)
   override def *(operand: Double): Kilometres = Kilometres(kilometresNum * operand)
-  override def mulByLength(operand: Length): KilometresSq = KilometresSq(kilometresNum * operand.kilometresNum)
+  override def mulByLength(operand: Length): Kilare = Kilare(kilometresNum * operand.kilometresNum)
   override def /(operand: Double): Kilometres = Kilometres(kilometresNum / operand)
   override def divByLength(operand: Length): Double = kilometresNum / operand.kilometresNum
   override def max(operand: LengthMetric): Kilometres = Kilometres(kilometresNum.max(operand.kilometresNum))
@@ -91,8 +91,8 @@ object Kilometres
   def apply(kilometresNum: Double): Kilometres = new Kilometres(kilometresNum)
 
   implicit class LengthMetricExtensions(thisLength: Kilometres)
-  { /** Extension operator method to produce [[KilometresSq]], multiplying this [[Kilometres]] by an operand [[Length]]. */
-    def *(operand: Length): KilometresSq = thisLength.mulByLength(operand)
+  { /** Extension operator method to produce [[Kilare]], multiplying this [[Kilometres]] by an operand [[Length]]. */
+    def *(operand: Length): Kilare = thisLength.mulByLength(operand)
   }
 
   implicit val unshow: Unshow[Kilometres] = new Unshow[Kilometres]
@@ -118,7 +118,7 @@ final class Megametres(val megametresNum: Double) extends AnyVal with LengthMetr
   override def -(operand: Length): Megametres = Megametres(megametresNum - operand.megametresNum)
   override def unary_- : Megametres = Megametres(-megametresNum)
   override def *(operand: Double): Megametres = Megametres(megametresNum * operand)
-  override def mulByLength(operand: Length): KilometresSq = KilometresSq(kilometresNum * operand.kilometresNum)
+  override def mulByLength(operand: Length): Kilare = Kilare(kilometresNum * operand.kilometresNum)
   override def /(operand: Double): Megametres = Megametres(megametresNum / operand)
   override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
   override def max(operand: LengthMetric): Megametres = Megametres(megametresNum.max(operand.megametresNum))
@@ -146,7 +146,7 @@ final class Gigametres(val gigametresNum: Double) extends AnyVal with LengthMetr
   override def -(operand: Length): Gigametres = Gigametres(gigametresNum - operand.gigametresNum)
   override def unary_- : Gigametres = Gigametres(-gigametresNum)
   override def *(operand: Double): Gigametres = Gigametres(gigametresNum * operand)
-  override def mulByLength(operand: Length): KilometresSq = KilometresSq(kilometresNum * operand.kilometresNum)
+  override def mulByLength(operand: Length): Kilare = Kilare(kilometresNum * operand.kilometresNum)
   override def /(operand: Double): Gigametres = Gigametres(gigametresNum / operand)
   override def divByLength(operand: Length): Double = megametresNum / operand.megametresNum
   override def max(operand: LengthMetric): Gigametres = Gigametres(gigametresNum.max(operand.gigametresNum))

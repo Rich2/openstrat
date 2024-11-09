@@ -29,7 +29,7 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
   override def * (operator: Double): VecKm2 = new VecKm2(xKilometresNum * operator, yKilometresNum * operator)
   override def / (operator: Double): VecKm2 = new VecKm2(xKilometresNum / operator, yKilometresNum / operator)
   override def magnitude: Kilometres = Kilometres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
-  @inline override def dot(operand: VecLength2): KilometresSq = KilometresSq(xKilometresNum * operand.xKilometresNum + yKilometresNum * operand.yKilometresNum)
+  @inline override def dot(operand: VecLength2): Kilare = Kilare(xKilometresNum * operand.xKilometresNum + yKilometresNum * operand.yKilometresNum)
 }
 
 object VecKm2

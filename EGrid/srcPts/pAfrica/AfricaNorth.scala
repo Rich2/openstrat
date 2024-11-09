@@ -2,6 +2,19 @@
 package ostrat; package pEarth; package pAfrica
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[PolygonLL]] graphic for Canaries depends on nothing. */
+object Canarias extends EarthAreaIsland("Canarias", 27.96 ll -15.60, oceanic)
+{
+  override val area: Kilare = 7493.kilares
+  val elHierro: LatLong = 27.72 ll -18.15
+  val laPalma: LatLong = 28.85 ll -17.92
+  val lanzarote: LatLong = 29.24 ll -13.47
+  val fuerteventura: LatLong = 28.24 ll -13.94
+  val granCanaria: LatLong = 27.74 ll -15.60
+
+  val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
+}
+
 /** [[PolygonLL]] graphic for the west of the Sahara depends on [[pMed.MaghrebEast]]. */
 object SaharaWest extends EarthArea("SaharaWest", 22 ll -5.50, deshot)
 { val southWest: LatLong = 17 ll -16.27
@@ -58,8 +71,7 @@ object AfricaCentral extends EarthArea("Central Africa", 10 ll 32, savannah)
 
 /** [[PolygonLL]] graphic for the south of east Africa. Depends on [[WestAfricaSouth]] [[SaharaCentral]] and [[pMed.SaharaEast]]. */
 object AfricaHorn extends EarthArea("Horn of Africa", 10 ll 32, sahel)
-{
-  val p0 = 15.514 ll 39.484
+{ val p0 = 15.514 ll 39.484
   val dankalia: LatLong = 14 ll 41.66// eAfricaN
   val p33: LatLong = 12.89 ll 42.99
   val berbera: LatLong = 10 ll 44

@@ -2,17 +2,6 @@
 package ostrat; package pEarth; package pMed
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] graphic for Canaries depends on nothing. */
-object Canarias extends EarthArea("Canarias", 27.96 ll -15.60, oceanic)
-{ val elHierro: LatLong = 27.72 ll -18.15
-  val laPalma: LatLong = 28.85 ll -17.92
-  val lanzarote: LatLong = 29.24 ll -13.47
-  val fuerteventura: LatLong = 28.24 ll -13.94
-  val granCanaria: LatLong = 27.74 ll -15.60
-
-  val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
-}
-
 /** [[PolygonLL]] graphic for Mag west Sahara depends on nothing. */
 object MaghrebWest extends EarthArea("Maghreb west", 33 ll 2.32, hillySahel)
 {  val ceuta: LatLong = 35.88 ll -5.31

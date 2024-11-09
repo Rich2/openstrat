@@ -25,7 +25,7 @@ object RusNorth extends EarthArea("NRus", 61 ll 54, taiga)
 
 /**  [[polygonLL]] graphical representation of Severny Island north of Russia. Depends on nothing. */
 object SevernyIsland extends EarthAreaIsland("Severny", 74.38 ll 57.29, hillyTundra)
-{ override val area: KilometresSq = 48904.kilometresSq
+{ override val area: Kilare = 48904.kilares
 
   val wSeverny: LatLong = 71.81 ll 51.49
   val severny1: LatLong = 75.37 ll 57.03

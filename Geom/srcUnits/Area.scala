@@ -6,8 +6,11 @@ trait Area extends Any
 { /** the number of metres square in this area. */
   def metresSqNum: Double
 
-  /** the number of kilometres square in this area. */
-  def kiloMetresSqNum: Double
+  /** the number of kilometres square in this area. kilares follows the same naming convention as hectares. */
+  def kilaresNum: Double
+
+  /** the number of kilometres square in this area. kilares follows the same naming convention as hectares. */
+  def hectaresNum: Double
 
   /** the number of square miles in this area. */
   def milesSqNum: Double

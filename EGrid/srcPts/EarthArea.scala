@@ -42,7 +42,7 @@ trait EarthIslandLike
   def name: String
   
   /** The area of this island or island grouping. */
-  def area: KilometresSq
+  def area: Kilare
 
   def oGroup: Option[EarthIslandGroup] = None
 
@@ -68,7 +68,7 @@ abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends 
 }
 
 abstract class EarthIslandGroup(val name: String) extends EarthIslandLike
-{ override def area: KilometresSq = array.sumBy(_.area)
+{ override def area: Kilare = array.sumBy(_.area)
   def elements: RArr[EarthIslandLike]
   lazy val array: Array[EarthIslandLike] = elements.arrayUnsafe
   override def toString: String = name

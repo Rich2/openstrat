@@ -35,7 +35,7 @@ final class Yards(val yardsNum: Double) extends AnyVal with LengthImperial
   override def -(operand: Length): Yards = Yards(yardsNum - nfl(operand))
   override def unary_- : Yards = Yards(-yardsNum)
   override def *(operand: Double): Yards = Yards(yardsNum * operand)
-  override def mulByLength(operand: Length): YardsSq = YardsSq(yardsNum * nfl(operand))
+  override def mulByLength(operand: Length): Yardare = Yardare(yardsNum * nfl(operand))
   override def /(operand: Double): Yards = Yards(yardsNum / operand)
   override def divByLength(operand: Length): Double = yardsNum / nfl(operand)
   override def milesNum: Double = yardsNum / Miles.toYards
@@ -68,7 +68,7 @@ final class Miles(val milesNum: Double) extends AnyVal with LengthImperial
   override def -(operand: Length): Miles = Miles(milesNum - nfl(operand))
   override def unary_- : Miles = Miles(-milesNum)
   override def *(operand: Double): Miles = Miles(milesNum * operand)
-  override def mulByLength(operand: Length): MilesSq = MilesSq(milesNum * nfl(operand))
+  override def mulByLength(operand: Length): Mileare = Mileare(milesNum * nfl(operand))
   override def /(operand: Double): Miles = Miles(milesNum / operand)
   override def divByLength(operand: Length): Double = milesNum / nfl(operand)
   override def metresNum: Double = milesNum * Yards.toMetres * Miles.toYards
@@ -105,7 +105,7 @@ final class MegaMiles(val megaMilesNum: Double) extends AnyVal with LengthImperi
   override def -(operand: Length): MegaMiles = MegaMiles(megaMilesNum - mmfl(operand))
   override def unary_- : MegaMiles = MegaMiles(-megaMilesNum)
   override def *(operand: Double): MegaMiles = MegaMiles(megaMilesNum * operand)
-  override def mulByLength(operand: Length): MilesSq = MilesSq(milesNum * mmfl(operand) * 1000000.squared)
+  override def mulByLength(operand: Length): Mileare = Mileare(milesNum * mmfl(operand) * 1000000.squared)
   override def /(operand: Double): MegaMiles = MegaMiles(megaMilesNum / operand)
   override def divByLength(operand: Length): Double = megaMilesNum / mmfl(operand)
   override def metresNum: Double = megaMilesNum * 1000000 * Miles.toYards * Yards.toMetres
