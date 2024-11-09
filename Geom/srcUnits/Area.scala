@@ -4,21 +4,21 @@ package ostrat; package geom
 /** Measurement of area. */
 trait Area extends Any
 { /** the number of metres square in this area. */
-  def metresSqNum: Double
+  def metrareNum: Double
 
   /** the number of kilometres square in this area. kilares follows the same naming convention as hectares. */
-  def kilaresNum: Double
+  def kilareNum: Double
 
   /** the number of kilometres square in this area. kilares follows the same naming convention as hectares. */
-  def hectaresNum: Double
+  def hectareNum: Double
 
   /** the number of square miles in this area. */
-  def milesSqNum: Double
+  def mileareNum: Double
 
-  /** Adds an [[Area]] returning an [[Area]] in the units of the this subject. */
+  /** Adds an [[Area]] returning an [[Area]] in the units of this subject. */
   def + (operand: Area): Area
 
-  /** Subtracts an [[Area]] returning an [[Area]] in the units of the this subject. */
+  /** Subtracts an [[Area]] returning an [[Area]] in the units of this subject. */
   def - (operand: Area): Area
 
   /** Multiply this [[Area]] by a scalar. */
@@ -29,8 +29,9 @@ trait Area extends Any
 }
 
 object Area
-{
-  def sqKmToMiles: Double = 0.386102
+{ /** A quantity of km² converted to Mile². */
+  def kilareToMileare: Double = 0.386102
 
-  def sqMileToKm: Double = 2.58999
+  /** A quantity of mile² converted to km². */
+  def mileareToKilare: Double = 2.58999
 }

@@ -17,7 +17,7 @@ class IntGeomExtensions(thisInt: Int)
   /** Returns this [[Int]] value in [[Gigametres]]. */
   @inline def gigaMetres: Gigametres = Gigametres(thisInt)
 
-  /** Returns this [[Int]] value in [[Kilare]], [[Kilometres]]². kilares folows the same naming convention as hectares. */
+  /** Returns this [[Int]] value in [[Kilare]], [[Kilometres]]². kilares folows the same naming convention as [[Hectare]]s. */
   @inline def kilares: Kilare = Kilare(thisInt)
 
   /** Returns this [[Int]] value in [[Kilare]]. */

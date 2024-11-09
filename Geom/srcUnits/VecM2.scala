@@ -28,7 +28,7 @@ final class VecM2 private(val xMetresNum: Double, val yMetresNum: Double) extend
   override def * (operator: Double): VecM2 = new VecM2(xMetresNum * operator, yMetresNum * operator)
   override def / (operator: Double): VecM2 = new VecM2(xMetresNum / operator, yMetresNum / operator)
   override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
-  @inline override def dot(operand: VecLength2): MetresSq = MetresSq(xMetresNum * operand.xMetresNum + yMetresNum * operand.yMetresNum)
+  @inline override def dot(operand: VecLength2): Metrare = Metrare(xMetresNum * operand.xMetresNum + yMetresNum * operand.yMetresNum)
 }
 
 object VecM2

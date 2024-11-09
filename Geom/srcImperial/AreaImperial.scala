@@ -9,11 +9,11 @@ trait AreaImperial extends Any with Area with ImperialUnits
   override def / (operand: Double): AreaImperial
 
   def yardsSqNum: Double
-  def milesSqNum: Double
-  override def metresSqNum: Double = ???
+  def mileareNum: Double
+  override def metrareNum: Double = ???
 
-  override def kilaresNum: Double = milesSqNum * Area.sqMileToKm
-  override def hectaresNum: Double = ???
+  override def kilareNum: Double = mileareNum * Area.mileareToKilare
+  override def hectareNum: Double = ???
 }
 
 /** Square yards a measure of [[Area]]. Follows the same naming convention as Hectares. */
@@ -23,7 +23,7 @@ class Yardare(val yardsSqNum: Double) extends AnyVal with AreaImperial
   override def - (operand: Area): Yardare = new Yardare(yardsSqNum - ysfa(operand))
   override def * (operand: Double): Yardare = new Yardare(yardsSqNum * operand)
   def / (operand: Double): Yardare = new Yardare(yardsSqNum / operand)
-  override def milesSqNum: Double = yardsSqNum / (1760 * 1760 * 9)
+  override def mileareNum: Double = yardsSqNum / (1760 * 1760 * 9)
 }
 
 object Yardare
@@ -36,17 +36,17 @@ object Yardare
   /** Number of square yards in the given area. */
   def fromArea(input: Area): Double = input match
   { case ai: AreaImperial => ai.yardsSqNum
-    case ar => ar.metresSqNum * Yardare.fromMetres
+    case ar => ar.metrareNum * Yardare.fromMetres
   }
 }
 
 /** Square miles a measure of [[Area]]. Follows the same naming convention as Hectares. */
-class Mileare(val milesSqNum: Double) extends AnyVal with AreaImperial
-{ override def + (operand: Area): Mileare = new Mileare(milesSqNum + operand.milesSqNum)
-  override def - (operand: Area): Mileare = new Mileare(milesSqNum - operand.milesSqNum)
-  override def * (operand: Double): Mileare = new Mileare(milesSqNum * operand)
-  def / (operand: Double): Mileare = new Mileare(milesSqNum / operand)
-  override def yardsSqNum: Double = milesSqNum * Mileare.yardsSqNum
+class Mileare(val mileareNum: Double) extends AnyVal with AreaImperial
+{ override def + (operand: Area): Mileare = new Mileare(mileareNum + operand.mileareNum)
+  override def - (operand: Area): Mileare = new Mileare(mileareNum - operand.mileareNum)
+  override def * (operand: Double): Mileare = new Mileare(mileareNum * operand)
+  def / (operand: Double): Mileare = new Mileare(mileareNum / operand)
+  override def yardsSqNum: Double = mileareNum * Mileare.yardsSqNum
 }
 object Mileare
 {

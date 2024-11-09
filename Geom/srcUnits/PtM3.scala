@@ -22,7 +22,7 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   def z: Metres = Metres(zMetresNum)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: PtM3): MetresSq = x * operand.x + y * operand.y + z * operand.z
+  @inline def dot(operand: PtM3): Metrare = x * operand.x + y * operand.y + z * operand.z
   def xy: PtM2 = PtM2.metresNum(xMetresNum, yMetresNum)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg

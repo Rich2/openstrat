@@ -5,13 +5,13 @@ import geom._, pglobe._, egrid._, WTiles._
 /** The Ionian islands excluding [[Kythira]] and Antikythira */
 object IonianIs extends EarthIslandGroup("Ionian Islands")
 { override def elements: RArr[EarthIslandLike] = RArr(Corfu, Cephalonia)
-  override def area: Kilare = 2306.94.kilometresSq - Kythira.area2
+  override def area: Kilare = 2306.94.kilare - Kythira.area2
 }
 
 /** [[PolygonLL]] graphic for Corfu. Depends on nothing. */
 object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
 { override def oGroup: Some[IonianIs.type] = Some(IonianIs)
-  override val area: Kilare = 610.9.kilometresSq
+  override val area: Kilare = 610.9.kilare
 
   val north: LatLong = 39.82 ll 19.85
   val northEast: LatLong = 39.78 ll 19.96

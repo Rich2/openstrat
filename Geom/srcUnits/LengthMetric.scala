@@ -38,7 +38,7 @@ final class Metres(val metresNum: Double) extends AnyVal with LengthMetric
   override def -(operand: Length): Metres = Metres(metresNum - operand.metresNum)
   override def unary_- : Metres = Metres(-metresNum)
   override def *(operand: Double): Metres = Metres(metresNum * operand)
-  override def mulByLength(operand: Length): MetresSq = MetresSq(metresNum * operand.metresNum)
+  override def mulByLength(operand: Length): Metrare = Metrare(metresNum * operand.metresNum)
   override def /(operand: Double): Metres = Metres(metresNum / operand)
   override def divByLength(operand: Length): Double = metresNum / operand.metresNum
   @inline def yardsNum: Double = metresNum * 1.09361
@@ -59,8 +59,8 @@ object Metres
   def apply(metres: Double): Metres = new Metres(metres)
 
   implicit class LengthMetricExtensions(thisLength: Metres)
-  { /** Extension operator method to produce [[MetresSq]], multiplying this [[Length]] by an operand [[Length]]. */
-    def *(operand: LengthMetric): MetresSq = thisLength.mulByLength(operand)
+  { /** Extension operator method to produce [[Metrare]], multiplying this [[Length]] by an operand [[Length]]. */
+    def *(operand: LengthMetric): Metrare = thisLength.mulByLength(operand)
   }
 }
 

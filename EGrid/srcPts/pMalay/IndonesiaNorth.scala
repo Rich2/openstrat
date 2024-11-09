@@ -88,7 +88,7 @@ object PapuaNewGuinea extends EarthArea("Papua New Guinea", -5.448 ll 143.578, h
 
 /** [[polygonLL]] graphical representation of New Britain 35144.6km². Depends on nothing. */
 object NewBritain extends EarthAreaIsland("New Britain", -5.251 ll 151.402, hillyJungle)
-{ override val area: Kilare = 35144.6.kilometresSq
+{ override val area: Kilare = 35144.6.kilare
 
   val north: LatLong = -4.133 ll 152.166
   val northEast: LatLong = -4.336 ll 152.404

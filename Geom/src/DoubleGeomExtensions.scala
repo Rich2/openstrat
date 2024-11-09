@@ -4,8 +4,7 @@ import impunits._
 
 /** Extension methods class for [[Double]], for the geom package. */
 class GeomDoubleExtensions(thisDouble: Double)
-{
-  /** Extension methods multiplies this scalar [[Double]] by the operand [[Length]]. If you want a more precise return type such as [[Netres]] or [[Miles]] put
+{ /** Extension methods multiplies this scalar [[Double]] by the operand [[Length]]. If you want a more precise return type such as [[Netres]] or [[Miles]] put
    * the [[Length]] object first */
   @inline def * (operator: Length): Length = operator * thisDouble
 
@@ -22,7 +21,7 @@ class GeomDoubleExtensions(thisDouble: Double)
   @inline def gigaMetres: Gigametres = Gigametres(thisDouble)
 
   /** Returns this [[Double]] value in [[Kilare]]. */
-  @inline def kilometresSq: Kilare = Kilare(thisDouble)
+  @inline def kilare: Kilare = Kilare(thisDouble)
 
   /** Returns this [[Int]] value in [[Kilare]]. */
   @inline def `km²`: Kilare = Kilare(thisDouble)
@@ -36,12 +35,12 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Returns this [[Double]] value of [[MegaMiles]] millions of miles. */
   @inline def megaMiles: MegaMiles = new MegaMiles(thisDouble)
 
-  /** Succinct syntax for creating 2 dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical
-   *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
+  /** Succinct syntax for creating 2-dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical operators. A
+   * third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
   @inline infix def pp(y: Double): Pt2 = Pt2(thisDouble, y)
 
-  /** Succinct syntax for creating 2 dimensional vectors, [[Vec2]]s from 2 numbers. Note the low precedence of this method relative to most numerical
-   *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
+  /** Succinct syntax for creating 2-dimensional vectors, [[Vec2]]s from 2 numbers. Note the low precedence of this method relative to most numerical operators.
+   * A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
   @inline infix def vv(y: Double): Vec2 = Vec2(thisDouble, y)
 
   def radians: Angle = Angle.radians(thisDouble)
@@ -49,14 +48,14 @@ class GeomDoubleExtensions(thisDouble: Double)
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
   def degs: Angle = Angle(thisDouble)
 
-  /** Degrees rotation anti clockwise. Converts this Double into an [[AngleVec]] a positive angle of rotation. Can return values greater than 360
-   *  degrees and less than -360 degrees. */
+  /** Degrees rotation anti-clockwise. Converts this Double into an [[AngleVec]] a positive angle of rotation. Can return values greater than 360 degrees and
+   * less than -360 degrees. */
   def degsVec: AngleVec = AngleVec(thisDouble)
 
-  /** Degrees rotation clockwise. Converts this Double into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees
-   * and less than -360 degrees. */
+  /** Degrees rotation clockwise. Converts this Double into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees and less
+   * than -360 degrees. */
   def degsClk: AngleVec = AngleVec(-thisDouble)
 
-  /** Multiplication of a 2 dimensional vector by this scalar [[Double]]. */
+  /** Multiplication of a 2-dimensional vector by this scalar [[Double]]. */
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
 }

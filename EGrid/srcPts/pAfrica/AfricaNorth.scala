@@ -4,8 +4,8 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] graphic for Canaries depends on nothing. */
 object Canarias extends EarthAreaIsland("Canarias", 27.96 ll -15.60, oceanic)
-{
-  override val area: Kilare = 7493.kilares
+{ override val area: Kilare = 7493.kilares
+
   val elHierro: LatLong = 27.72 ll -18.15
   val laPalma: LatLong = 28.85 ll -17.92
   val lanzarote: LatLong = 29.24 ll -13.47

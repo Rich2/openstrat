@@ -48,7 +48,7 @@ object NZNorthIsland extends EarthAreaIsland("New Zealand\nNorth Island", -38.66
 /** [[polygonLL]] graphical representation of the South Island of New Zealand and Stewart Island 145836km² + 1747.72km². Depends on nothing. */
 object NZSouthIsland extends EarthAreaIsland("New Zealand\nSouth Island", -43.68 ll 171.00, hillyOceForest)
 { val southArea: Kilare = 145836.kilares
-  val stewartArea: Kilare = 1747.72.kilometresSq
+  val stewartArea: Kilare = 1747.72.kilare
   override val area: Kilare = southArea + stewartArea
 
   val puponga: LatLong = -40.51 ll 172.72

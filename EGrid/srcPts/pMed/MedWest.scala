@@ -9,7 +9,7 @@ object Balearics extends EarthIslandGroup("Balearics")
 
 /** [[PolygonLL]] graphic for Menorca 695.8.km². Depends on nothing. */
 object Menorca extends EarthAreaIsland("Menorca", 39.977 ll 4.089, hillySavannah)
-{ override val area: Kilare = 695.8.kilometresSq
+{ override val area: Kilare = 695.8.kilare
   override val oGroup: Some[EarthIslandGroup] = Some(Balearics)
 
   val north: LatLong = 40.088 ll 4.091
@@ -23,7 +23,7 @@ object Menorca extends EarthAreaIsland("Menorca", 39.977 ll 4.089, hillySavannah
 
 /** [[PolygonLL]] graphic for Majorca 3640.11.km². Depends on nothing. */
 object Mallorca extends EarthAreaIsland("Mallorca", 39.59 ll 3.01, hillySavannah)
-{ override val area: Kilare = 3640.11.kilometresSq
+{ override val area: Kilare = 3640.11.kilare
   override val oGroup: Option[EarthIslandGroup] = Some(Balearics)
 
   val south: LatLong = 39.26 ll 3.05
@@ -38,8 +38,8 @@ object Mallorca extends EarthAreaIsland("Mallorca", 39.59 ll 3.01, hillySavannah
 
 /** [[PolygonLL]] graphic for Ibiza 571.6.km². Depends on nothing. */
 object Ibiza extends EarthAreaIsland("Ibiza", 38.990 ll 1.424, hillySavannah)
-{ val area0: Kilare = 571.6.kilometresSq
-  val formentera: Kilare = 83.24.kilometresSq
+{ val area0: Kilare = 571.6.kilare
+  val formentera: Kilare = 83.24.kilare
   override val area: Kilare = area0 + formentera
   override val oGroup: Option[EarthIslandGroup] = Some(Balearics)
 
