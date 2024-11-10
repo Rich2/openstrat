@@ -265,8 +265,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       case HVUL => sTerrs.setExists(grid, row, c - 1, sTerr)
     }
   }
-
-
+  
   /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. */
   trait OrigLtRtBase extends OrigBase
   {
@@ -280,7 +279,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     { corners.setVertOrig(row, c, dirn, magLt, magRt)
       setOrigSep(row)
     }
-
   }
 
   /** Sets origin / end point of an [[HSep]] hex tile separator. The direction is given by the view from the [[HVert]] deon the [[HSep]]. This is offset to the
