@@ -580,24 +580,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def run(row: Int): Unit = sTerrs.setExists(grid, row, c, terr)
   }
 
-  /** Used for setting the a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
-  trait VertLeftsRightBase
-  { /** The c coordinate of the vertex. */
-    def c: Int
-
-    /** The magnitude of the offset. */
-    def magnitude: Int
-
-    def run(row: Int): Unit = if (HVert.rcISHigh(row, c))
-    { corners.setCorner(row + 1, c + 2, 4, HVRt, magnitude)
-      corners.setCorner(row - 1, c, 0, HVRt, magnitude)
-    }
-    else
-    { corners.setCorner(row + 1, c, 3, HVRt, magnitude)
-      corners.setCorner(row - 1, c + 2, 5, HVRt, magnitude)
-    }
-  }
-
   /** Used for setting the corners of a vertex on the right edge of a grid. Sets the vertex to the left on both hex tiles. */
   trait BendLtOutBase
   { /** The c coordinate of the vertex. */
@@ -617,8 +599,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
       corners.setCorner(row - 1, c, 0, HVLt, magnitude)
       sTerrs.setExists(grid, row - 1, c + 1, leftTerr)
       sTerrs.setExists(grid, row + 1, c + 1, rightTerr)
-
-
     }
     else
     { corners.setCorner(row + 1, c, 3, HVLt, magnitude)

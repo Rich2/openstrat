@@ -362,18 +362,18 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(c: Int, magnitude: Int, terr: WSepSome = Sea): BendLtOut = new BendLtOut(c, magnitude, terr, terr)
   }
 
-  /** Used for setting a vertex on the left edge of a grid. Sets the vertex to the right on both hex tiles. */
-  case class VertLeftsRight(c: Int, terr: WSepSome = Sea, magnitude: Int = 3) extends VRowElem with VertLeftsRightBase
-
-  /** Sets a vertex where 3 [[HSep]] terrains meet. Also sets the left most [[HSep]] terrain, the default is [[Sea]]. */
+  /** Sets a vertex where 3 [[HSep]] terrains meet. Sets the three [[HCorner]]s and the 3 [[HSep]]'s terrain. */
   class ThreeDown(val c: Int, val magUp: Int, val magDR: Int, val magDL: Int, val upRightTerr: WSepSome, val downTerr: WSepSome,
     val upLeftTerr: WSepSome) extends VRowElem with ThreeDownBase
 
   object ThreeDown
   {
-    def apply(c: Int, magUp: Int, magDR: Int, magDL: Int, sTerr: WSepSome = Sea): ThreeDown =
-      new ThreeDown(c, magUp, magDR, magDL, sTerr, sTerr, sTerr)
+    /** Factory apply method to set a vertex where 3 [[HSep]] terrains meet. Sets the three [[HCorner]]s and sets 3 [[HSep]]'s terrain to the same value, the
+     * default being [[Sea]]. There is a name overload to set the three [[HSep]]s to different values. */
+    def apply(c: Int, magUp: Int, magDR: Int, magDL: Int, sTerr: WSepSome = Sea): ThreeDown = new ThreeDown(c, magUp, magDR, magDL, sTerr, sTerr, sTerr)
 
+    /** Factory apply method to sets a vertex where 3 [[HSep]] terrains meet. Sets the three [[HCorner]]s and the 3 [[HSep]]'s terrain. There isa name overload
+     * to set the 3 [[HSep]]s to the same value the default being [[Sea]].. */
     def apply(c: Int, magUp: Int, magDR: Int, magDL: Int, upRightTerr: WSepSome, downTerr: WSepSome, upLeftTerr: WSepSome): ThreeDown =
       new ThreeDown(c, magUp, magDR, magDL, upRightTerr, downTerr, upLeftTerr)
   }
