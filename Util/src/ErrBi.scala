@@ -129,7 +129,7 @@ object Succ
 /** Failure to return a value of the desired type. Boxes a [[Throwable]] error. */
 class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
 { override def map[B](f: Nothing => B): ErrBi[E, B] = this
-  override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this// new Fail[E, B](error)
+  override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this
   override def isSucc: Boolean = false
   override def isFail: Boolean = true
   override def forSucc(f: Nothing => Unit): Unit = {}
@@ -143,6 +143,7 @@ class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
     case _ => false
   }
 
+  override def toString: String = "FailExc" + error.getMessage.enParenth
   override def hashCode(): Int = "Fail".hashCode + 31 * error.hashCode
 }
 

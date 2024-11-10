@@ -29,7 +29,7 @@ package object utiljvm
   def projPathDo(f: DirPathAbs => Unit): Unit = findDevSetting[DirPathAbs]("projPath").forFold{ err => deb(err.toString) }{ path => f(path) }
 
   /** If the project path can be found in Dev/User/DevSettings.rson do the side effect function. */
-  def stagingPathDo(f: DirPathAbs => Unit): Unit = findDevSetting[DirPathAbs]("projPath").forFold { err => deb(err.toString) } { path => f(path) }
+  def stagingPathDo(f: DirPathAbs => Unit): Unit = findDevSetting[DirPathAbs]("stagingPath").forFold { err => deb(err.toString) } { path => f(path) }
 
   /** Possible path to the openstrat directory, if it can be found in Dev/User/DevSettings.rson file. */
   def openstratPath(): ThrowMon[DirPathAbs] = findDevSetting[DirPathAbs]("projPath")
