@@ -178,7 +178,7 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   { override def magnitude: Int = 13
   }
 
-  /** Sets an [[HSepB]] separator in the tile row. */
+  /** Sets an [[HSepB]] separator in the tile row. Make sure you do not add 4 to the column coordinate after applying this. */
   trait SepBBase extends TRowElemBase
   { /** The [[HSep]] separator terrain. */
     def sTerr: SST

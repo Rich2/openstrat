@@ -38,6 +38,7 @@ object Terr320W30 extends Long320Terrs
   help.run
 
   { import hexNames.{ setRow => str }
+    str(152, "" * 2, "Iceland west", "Iceland east")
     str(122, "" * 8, "Canaries")
   }
 }

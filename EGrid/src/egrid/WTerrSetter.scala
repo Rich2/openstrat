@@ -197,8 +197,9 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle3 = Isle3Homo(Land(elev, biome, landUse), sTerr)
   }
 
-  /** Creates an [[HSepB]], an [[HSep]] of the vertical alignment. The only place this should be needed is on the left or west edge of an [[EGrid]]. Otherwise
-   * the [[HSep]]s should be set in the [[VRow]]s along with [[HCorner]]s using bends and sources and threeways. */
+  /** Make sure you do not add 4 to the column coordinate after applying this. Creates an [[HSepB]], an [[HSep]] of the vertical alignment. The only place this
+   * should be needed is on the left or west edge of an [[EGrid]]. Otherwise, the [[HSep]]s should be set in the [[VRow]]s along with [[HCorner]]s using bends
+   * and sources and threeways. */
   case class SepB(sTerr: Water = Sea) extends TRowElem with SepBBase
 
   /** Sets terrain along a row of [[HVert]]s and in the [[HSepB]]s in the rows immediately below and above. */
@@ -227,7 +228,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     var c = grid.rowLeftCenC(row)
     inp.mutlis.foreach { multi =>
       multi match {
-        case Multiple(value : TRowElem, _) => value.run(row, c)
+        case Multiple(value : SepB, _) => value.run(row, c)
         case multi => multi.foreach { help =>
           if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
           help match {
@@ -238,6 +239,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
           c += 4
         }
       }
+
     }
   }
 

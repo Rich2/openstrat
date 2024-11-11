@@ -111,7 +111,7 @@ object PtM3
 
   /** Factory method for constructing 3D points specified in [[Metre]], from its component axes measured in numbers of metres. if you want to construct from
    * [[Length]] classes components use the apply method. */
-  def metresNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
+  def metreNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 
   /** Implicit [[BuilderArrMap]] type class instance / evidence for [[PTM3]].  */
   implicit val builderArrEv: BuilderArrDbl3Map[PtM3, PtM3Arr] = new BuilderArrDbl3Map[PtM3, PtM3Arr]
@@ -124,7 +124,7 @@ object PtM3
   implicit lazy val showEv: ShowDbl3[PtM3] = ShowDbl3[PtM3]("PtM3", "x", _.xMetresNum, "y", _.yMetresNum, "z", _.zMetresNum)
 
   /** [[Unshow]] type class instance / evidence for [[PTM3]]. */
-  implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metresNum)
+  implicit lazy val unshowEv: UnshowDbl3[PtM3] = UnshowDbl3[PtM3]("PtM3", "x", "y", "z", metreNum)
 
   /** [[]] */
   implicit def builderArrPairEv[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
@@ -154,7 +154,7 @@ class PtM3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtM3]
   def fromArray(array: Array[Double]): ThisT = new PtM3Arr(array)
   override def typeStr: String = "Metres3s"
   override def fElemStr: PtM3 => String = _ => "Undefined" //_.str
-  override def newElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metresNum(d1, d2, d3)
+  override def newElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
@@ -211,7 +211,7 @@ object PtM3Arr extends CompanionSeqLikeDbl3[PtM3, PtM3Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
 final class PtM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtM3]
 { override def typeStr: String = "BuffPtMetre3"
-  def newElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metresNum(d1, d2, d3)
+  def newElem(d1: Double, d2: Double, d3: Double): PtM3 = PtM3.metreNum(d1, d2, d3)
 }
 
 object PtM3Buff
@@ -220,7 +220,7 @@ object PtM3Buff
 }
 
 class PtM3Pair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, val a2: A2) extends PointDbl3Pair[PtM3, A2]
-{ override def a1: PtM3 = PtM3.metresNum(a1Dbl1, a1Dbl2, a1Dbl3)
+{ override def a1: PtM3 = PtM3.metreNum(a1Dbl1, a1Dbl2, a1Dbl3)
 }
 
 class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends PointDbl3PairArr[PtM3, PtM3Arr, A2, PtM3Pair[A2]]
@@ -230,7 +230,7 @@ class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ext
   override def a1Arr: PtM3Arr = new PtM3Arr(a1ArrayDbl)
   override def fElemStr: PtM3Pair[A2] => String = _.toString
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): PtM3PairArr[A2] = new PtM3PairArr[A2](a1Array, a2Array)
-  override def newA1(dbl1: Double, dbl2: Double, dbl3: Double): PtM3 = PtM3.metresNum(dbl1, dbl2, dbl3)
+  override def newA1(dbl1: Double, dbl2: Double, dbl3: Double): PtM3 = PtM3.metreNum(dbl1, dbl2, dbl3)
 }
 
 class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends BuffPairDbl3[PtM3, B2, PtM3Pair[B2]]
