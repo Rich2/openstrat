@@ -115,8 +115,10 @@ case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
 }
 
 object Succ
-{ def apply[A](value: A): Succ[A] = new Succ[A](value)
+{ /** Factory apply method for success wraps a raw value. */
+  def apply[A](value: A): Succ[A] = new Succ[A](value)
 
+  /** Extractor for success. */
   def unapply[A](inp: ErrBi[?, A]): Option[A] = inp match
   { case sa: Succ[A] => Some(sa.value)
     case _ => None
