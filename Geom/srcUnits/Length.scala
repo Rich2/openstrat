@@ -6,13 +6,13 @@ trait Length extends Any with Ordered[Length]
   def metresNum: Double
 
   /** The number of kilometres in this [[Length]]. */
-  def kilometresNum: Double
+  def kilometreNum: Double
 
   /** The number of Megametres in this [[Length]]. */
-  def megametresNum: Double
+  def megametreNum: Double
 
   /** The number of Gigametres in this [[Length]]. */
-  def gigametresNum: Double
+  def gigametreNum: Double
 
   /** The negative of this [[Length]] */
   def unary_- : Length
@@ -41,7 +41,7 @@ trait Length extends Any with Ordered[Length]
   def toMetres: Metre = Metre(metresNum)
 
   /** Converts this [[Length]] to [[Metre]]. */
-  def toKiloMetres: Kilometre = Kilometre(kilometresNum)
+  def toKiloMetres: Kilometre = Kilometre(kilometreNum)
 }
 
 object Length

@@ -106,7 +106,7 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
 object PtKm3
 {  /** Factory apply method for constructing 3D points specified in [[Kilometre]], from its component axes specified in [[Length]]s. if you want to construct
    * from scalars use the kilometresNum method. */
-  def apply(x: Length, y: Length, z: Length): PtKm3 = new PtKm3(x.kilometresNum, y.kilometresNum, z.kilometresNum)
+  def apply(x: Length, y: Length, z: Length): PtKm3 = new PtKm3(x.kilometreNum, y.kilometreNum, z.kilometreNum)
 
   /** Factory method for constructing 3D points specified in [[Kilometre]], from its component axes input as [[Length]]s. if you want to construct from
    * [[Length]] classes components use the apply method. */

@@ -23,6 +23,7 @@ object Terr320E0 extends Long320Terrs
     VRow(157, OrigRt(518, HVUR, 7), OrigLt(520, HVDL, 7)),
     TRow(156, sea * 3),
     TRow(154, sea * 4),
+    VRow(153, OrigRt(504, HVDR), BendIn(506, HVDL)),
     TRow(152, sea * 3, hillyTaiga),
     VRow(151, BendIn(506, HVUL)),
     TRow(150, sea * 3, hillyTaiga),

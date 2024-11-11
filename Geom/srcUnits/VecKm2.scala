@@ -35,10 +35,10 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
 object VecKm2
 {
   /** Factory apply method for creating 2 dimensional vectors defined in [[Kilometre]] from the 2 [[Kilometre]] components. */
-  def spply(x: Kilometre, y: Kilometre): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
+  def spply(x: Kilometre, y: Kilometre): VecKm2 = new VecKm2(x.kilometreNum, y.kilometreNum)
 
   /** Factory method for creating 2 dimensional vectors defined in [[Metre]] from the 2 [[Length]] components. */
-  def lengths(x: Length, y: Length): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
+  def lengths(x: Length, y: Length): VecKm2 = new VecKm2(x.kilometreNum, y.kilometreNum)
 
   /** Factory method for creating 2 dimensional vectors defined in [[Metre]] from the scalars of the components. */
   def metresNum(xKilometresNum: Double, yKilometresNum: Double): VecKm2 = new VecKm2(xKilometresNum, yKilometresNum)

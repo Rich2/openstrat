@@ -36,7 +36,7 @@ object LineSegKm2
   /** Factory apply method for constructing [[LineSegKm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
    * from the start and end points.To construct from scalar quantities use the metresNum method. */
   def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegKm2 =
-    new LineSegKm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
+    new LineSegKm2(xStartPt.kilometreNum, yStartPt.kilometreNum, xEndPt.kilometreNum, yEndPt.kilometreNum)
 
   /** Factory method for constructing [[LineSegKm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
   def kilometresNum(xStartKilometresNum: Double, yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double): LineSegKm2 =

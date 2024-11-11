@@ -14,7 +14,8 @@ import prid.phex._, egrid._
  *  [[Isle6]] 21653.679km² => 30243.569km².
  *  [[Isle5]] 14495.438km² => 21653.679km².
  *  [[Isle4]] 8768.845km² => 14495.438km².
- *  [[Isle3]] 4473.900km² => 8768.845km². */
+ *  [[Isle3]] 4473.900km² => 8768.845km².
+ *  Less than 4473.900km². Faroes 1399km² + Shetlands 1467km². */
 package object eg460
 {
   val fullTerrs: RArr[Long460Terrs] = RArr(Terr460E0, Terr460E30, Terr460E60, Terr460E90, Terr460E120, Terr460E150,Terr460E180, Terr460W150,

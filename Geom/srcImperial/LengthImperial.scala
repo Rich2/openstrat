@@ -21,9 +21,9 @@ trait LengthImperial extends Any with Length with ImperialUnits
   override def /(operand: Double): LengthImperial
   override def unary_- : LengthImperial
   override def metresNum: Double = yardsNum * Yards.toMetres
-  override def kilometresNum: Double = metresNum / 1000
-  override def megametresNum: Double = metresNum / 1000000
-  override def gigametresNum: Double = metresNum / 1000000000
+  override def kilometreNum: Double = metresNum / 1000
+  override def megametreNum: Double = metresNum / 1000000
+  override def gigametreNum: Double = metresNum / 1000000000
 }
 
 /** [[Length]] measured in yards. Can be negative. */
@@ -92,7 +92,7 @@ object Miles
 
   def numFromLength(input: Length): Double = input match
   { case li: LengthImperial => li.milesNum
-    case l => l.kilometresNum * fromKilometres
+    case l => l.kilometreNum * fromKilometres
   }
 }
 
@@ -124,6 +124,6 @@ object MegaMiles
 
   def numFromLength(input: Length): Double = input match
   { case li: LengthImperial => li.megaMilesNum
-    case l => l.gigametresNum * fromGigaMetres
+    case l => l.gigametreNum * fromGigaMetres
   }
 }

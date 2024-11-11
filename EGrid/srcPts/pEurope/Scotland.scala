@@ -3,8 +3,10 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of Shetland. Depends on nothing. */
-object Shetland extends EarthArea("Shetland", 60.34 ll -1.23, oceanic)
-{ val south: LatLong = 59.85 ll -1.27
+object Shetland extends EarthAreaIsland("Shetland", 60.34 ll -1.23, oceanic)
+{ override val area: Kilare = 1467.kilare
+
+  val south: LatLong = 59.85 ll -1.27
   val sSoundsound: LatLong = 60.20 ll -1.34
   val sSilwick: LatLong = 60.14 ll -1.46
   val papaStour: LatLong = 60.33 ll -1.73
@@ -16,8 +18,10 @@ object Shetland extends EarthArea("Shetland", 60.34 ll -1.23, oceanic)
 }
 
 /** [[PolygonLL]] graphical representation of the Orkney's. */
-object Orkneys extends EarthArea("Orkneys", 59.06 ll -3.15, oceanic)
-{ val north: LatLong = 59.38 ll -2.88
+object Orkneys extends EarthAreaIsland("Orkneys", 59.06 ll -3.15, oceanic)
+{ override val area: Kilare = 990.kilare
+  
+  val north: LatLong = 59.38 ll -2.88
   val stronsayE: LatLong = 59.09 ll -2.53
   val south: LatLong = 58.73 ll -2.96
   val hoyS: LatLong = 58.77 ll -3.29
