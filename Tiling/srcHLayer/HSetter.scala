@@ -1,8 +1,10 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** Helper trait for setting an [[LayerHcRefSys]], [[HSepLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the
- *  terrain to be laid out in systematic row order. */
+/** Helper trait for setting an [[LayerHcRefSys]], [[HSepLayer]] and a [[HCornerLayer]] at the same time. This allows the basic geometry of the terrain to be
+ *  laid out in systematic row order. There will be tile rows and vertex rows. It is assumed that you will want to specify the values for nearly every tile
+ *  [[HCen]]. Therefore, the column of the tile is determined by its position in the row sequence. It is assumed that the majority of the [[HSep]]s, at least
+ *  initially will have default empty / none values. Hence, the setters for the vertex rows must specify there column. */
 trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
 { implicit def grid: HGrid
 
@@ -15,7 +17,13 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   /** The [[HCorner]] layer to set the vertices of the [[HSep]]s. */
   def corners: HCornerLayer
 
-  trait IsleNBase
+  /** A tile row element. Your tile rows will include these in addition to straight tile values. */
+  trait TRowElemBase
+  { /** Sets [[HCen]] and [[HSep]] data and HCorner values. */
+    def run(row: Int, c: Int): Unit
+  }
+
+  trait IsleNBase extends TRowElemBase
   {
     /** The tile terrain. typically land terrain. */
     def terr: TT
@@ -39,8 +47,6 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
     def sepTerr5: SST
 
     def magnitude: Int
-
-    def run(row: Int, c: Int): Unit
 
     def setTerrs(row: Int, c: Int): Unit =
     { terrs.set(row, c, terr)
@@ -173,11 +179,11 @@ trait HSetter[TT <: AnyRef, ST, SST <: ST & HSepSome]
   }
 
   /** Sets an [[HSepB]] separator in the tile row. */
-  trait SepBBase
+  trait SepBBase extends TRowElemBase
   { /** The [[HSep]] separator terrain. */
     def sTerr: SST
 
-    def run(row: Int, c: Int): Unit = sTerrs.setExists(grid, row, c - 2, sTerr)
+    override def run(row: Int, c: Int): Unit = sTerrs.setExists(grid, row, c - 2, sTerr)
   }
 
   /** Base trait for capes / headlands / peninsulas. Only use these classes for [[HVert]]s where there is no offset for any of the adjacent hex's [[HCorner]]s

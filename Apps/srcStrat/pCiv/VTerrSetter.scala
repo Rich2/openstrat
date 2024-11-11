@@ -9,15 +9,9 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
 
   sealed trait RowBase
 
-  trait TRowElem extends VTileHelper
+  trait TRowElem extends VTileHelper, TRowElemBase
 
-  trait TRunner extends TRowElem
-  { def run (row: Int, c: Int): Unit
-  }
-
-  trait TRunnerExtra extends TRunner
-
-  trait Isle10 extends TRunner with Isle10Base
+  trait Isle10 extends TRowElem with Isle10Base
   case class Isle10Homo(terr: Land, sepTerrs: Water) extends Isle10, IsleNBaseHomo
 
   object Isle10
@@ -25,7 +19,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   /** Needs removing. */
-  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land, val sepTerrs: Water) extends TRunner with CapeBase
+  class Cape private(val indentStartIndex: Int, val numIndentedVerts: Int, val terr: Land, val sepTerrs: Water) extends TRowElem with CapeBase
   { override def magnitude: Int = 7
   }
 
@@ -36,8 +30,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
   }
 
   /** Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
-  class Isthmus private(val indentIndex: Int, val terr: Land = Plain, val sepTerrs1: Water = Sea, val sepTerrs2: Water = Sea) extends TRunner with
-    IsthmusBase
+  class Isthmus private(val indentIndex: Int, val terr: Land = Plain, val sepTerrs1: Water = Sea, val sepTerrs2: Water = Sea) extends TRowElem, IsthmusBase
 
   object Isthmus
   { /** Factory apply method for Isthmus for [[VTile]]s. Sets the [[HCen]] terrain Pulls in opposite vertices and sets 4 side terrains. */
@@ -45,7 +38,7 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
       new Isthmus(indentIndex, terr, sideTerrs1, sideTerrs2)
   }
 
-  case class SepB(sTerr: VSepSome = Sea) extends TRunnerExtra with SepBBase
+  case class SepB(sTerr: VSepSome = Sea) extends TRowElem, SepBBase
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
 
   sealed trait VRowElem
@@ -66,12 +59,12 @@ abstract class VTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[VTile], val s
     var c = grid.rowLeftCenC(row)
     inp.mutlis.foreach { multi =>
       multi match {
-        case Multiple(value: TRunnerExtra, _) => value.run(row, c)
+        case Multiple(value: TRowElem, _) => value.run(row, c)
         case multi => multi.foreach { help =>
           if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
           help match
           { case wt: VTile => tileRun(row, c, wt)
-            case il: TRunner => il.run(row, c)
+            case il: TRowElem => il.run(row, c)
             case _ =>
           }
           c += 4

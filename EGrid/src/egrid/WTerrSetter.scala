@@ -10,16 +10,11 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   sealed trait RowBase
   case class TRow(row: Int, mutlis: Multiple[WTileHelper]*) extends RowBase
-  trait TRowElem extends WTileHelper
 
-  trait TRunner extends TRowElem
-  { def run (row: Int, c: Int): Unit
-  }
-
-  trait TRunnerExtra extends TRunner
+  trait TRowElem extends WTileHelper with TRowElemBase
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex. */
-  trait Isle13 extends TRunner with Isle13Base
+  trait Isle13 extends TRowElem with Isle13Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 13/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle13Homo(terr: Land, sepTerrs: Water) extends Isle13, IsleNBaseHomo
@@ -37,7 +32,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 12/16 of the radius of the hex. */
-  trait Isle12 extends TRunner with Isle10Base
+  trait Isle12 extends TRowElem with Isle10Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 12/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle12Homo(terr: Land, sepTerrs: Water = Sea) extends Isle12, IsleNBaseHomo
@@ -55,7 +50,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-  trait Isle11 extends TRunner, Isle11Base
+  trait Isle11 extends TRowElem, Isle11Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 11/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle11Homo(terr: Land, sepTerrs: Water = Sea) extends Isle11, IsleNBaseHomo
@@ -73,7 +68,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex. */
-  trait Isle10 extends TRunner with Isle10Base
+  trait Isle10 extends TRowElem with Isle10Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 10/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle10Homo(terr: Land, sepTerrs: Water) extends Isle10 with IsleNBaseHomo
@@ -90,7 +85,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     def apply(elev: Lelev, biome: Climate, landUse: LandUse, sTerr: Water): Isle10 = Isle10Homo(Land(elev, biome, landUse), sTerr)
   }
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex. */
-  trait Isle9 extends TRunner with Isle9Base
+  trait Isle9 extends TRowElem with Isle9Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 9/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle9Homo(terr: Land, sepTerrs: Water) extends Isle9, IsleNBaseHomo
@@ -112,7 +107,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex. */
-  trait Isle8 extends TRunner with Isle8Base
+  trait Isle8 extends TRowElem with Isle8Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 8/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle8Homo(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends Isle8, IsleNBaseHomo
@@ -130,7 +125,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 7/16 of the radius of the hex. */
-  trait Isle7 extends TRunner, Isle7Base
+  trait Isle7 extends TRowElem, Isle7Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 7/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle7Homo(terr: Land = Land(Plain, Oceanic, CivMix), sepTerrs: Water = Sea) extends Isle7, IsleNBaseHomo
@@ -144,7 +139,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex. */
-  trait Isle6 extends TRunner with Isle6Base
+  trait Isle6 extends TRowElem with Isle6Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle6Homo(terr: Land, sepTerrs: Water = Sea) extends Isle6, IsleNBaseHomo
@@ -158,7 +153,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 5/16 of the radius of the hex. */
-  trait Isle5 extends TRunner, Isle5Base
+  trait Isle5 extends TRowElem, Isle5Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 6/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle5Homo(terr: Land, sepTerrs: Water = Sea) extends Isle5, IsleNBaseHomo
@@ -172,7 +167,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex. */
-  trait Isle4 extends TRunner with Isle4Base
+  trait Isle4 extends TRowElem with Isle4Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 4/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   case class Isle4Homo(terr: Land, sepTerrs: Water) extends Isle4, IsleNBaseHomo
@@ -186,7 +181,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
   }
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex. */
-  trait Isle3 extends TRunner with Isle3Base
+  trait Isle3 extends TRowElem with Isle3Base
 
   /** Sets the [[HSep]] terrain and corners for an Island, with a radius of 3/16 of the radius of the hex, where all 6 [[HSep]]s have the same terrain. */
   class Isle3Homo(val terr: Land, val sepTerrs: Water) extends Isle3, IsleNBaseHomo
@@ -204,7 +199,7 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
 
   /** Creates an [[HSepB]], an [[HSep]] of the vertical alignment. The only place this should be needed is on the left or west edge of an [[EGrid]]. Otherwise
    * the [[HSep]]s should be set in the [[VRow]]s along with [[HCorner]]s using bends and sources and threeways. */
-  case class SepB(sTerr: Water = Sea) extends TRunnerExtra with SepBBase
+  case class SepB(sTerr: Water = Sea) extends TRowElem with SepBBase
 
   /** Sets terrain along a row of [[HVert]]s and in the [[HSepB]]s in the rows immediately below and above. */
   case class VRow(row: Int, edits: VRowElem*) extends RowBase
@@ -232,12 +227,12 @@ abstract class WTerrSetter(gridIn: HGrid, val terrs: LayerHcRefSys[WTile], val s
     var c = grid.rowLeftCenC(row)
     inp.mutlis.foreach { multi =>
       multi match {
-        case Multiple(value : TRunnerExtra, _) => value.run(row, c)
+        case Multiple(value : TRowElem, _) => value.run(row, c)
         case multi => multi.foreach { help =>
           if (c > grid.rowRightCenC(row)) excep("Too many tiles for row.")
           help match {
             case wt: WTile => terrs.set(row, c, wt)
-            case il: TRunner => il.run(row, c)
+            case il: TRowElem => il.run(row, c)
             case _ =>
           }
           c += 4
