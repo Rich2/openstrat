@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A polygon using verticies specified in [[Kilometres]] rather than scalars. */
+/** A polygon using verticies specified in [[Kilometre]] rather than scalars. */
 final class PolygonKm2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength2[PtKm2]
 { type ThisT = PolygonKm2
   type SideT = LineSegKm2

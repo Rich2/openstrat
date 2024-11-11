@@ -4,21 +4,20 @@ import impunits._
 
 /** Extension methods class for [[Int]], for the geom package. */
 class IntGeomExtensions(thisInt: Int)
-{
-  /** Returns this [[Int]] value in [[Metres]]. */
-  @inline def metres: Metres = Metres(thisInt)
+{ /** Returns this [[Int]] value in [[Metre]]. */
+  @inline def metre: Metre = Metre(thisInt)
 
-  /** Returns this [[Int]] value in [[Kilometres]]. */
-  @inline def kiloMetres: Kilometres = Kilometres(thisInt)
+  /** Returns this [[Int]] value in [[Kilometre]]. */
+  @inline def kiloMetre: Kilometre = Kilometre(thisInt)
 
-  /** Returns this [[Int]] value in [[Megametres]]. */
-  @inline def megaMetres: Megametres = Megametres(thisInt)
+  /** Returns this [[Int]] value in [[Megametre]]. */
+  @inline def megaMetre: Megametre = Megametre(thisInt)
 
-  /** Returns this [[Int]] value in [[Gigametres]]. */
-  @inline def gigaMetres: Gigametres = Gigametres(thisInt)
+  /** Returns this [[Int]] value in [[Gigametre]]. */
+  @inline def gigaMetre: Gigametre = Gigametre(thisInt)
 
-  /** Returns this [[Int]] value in [[Kilare]], [[Kilometres]]². kilares folows the same naming convention as [[Hectare]]s. */
-  @inline def kilares: Kilare = Kilare(thisInt)
+  /** Returns this [[Int]] value in [[Kilare]], [[Kilometre]]². kilares folows the same naming convention as [[Hectare]]s. */
+  @inline def kilare: Kilare = Kilare(thisInt)
 
   /** Returns this [[Int]] value in [[Kilare]]. */
   @inline def `km²`: Kilare = Kilare(thisInt)

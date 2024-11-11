@@ -7,26 +7,26 @@ trait CurveSegMLikeOld
 { /** Set to Double.NaN if LineSegment. Set to Double.Positive Infinity of ArcSegment, otherwise the x component of the the first bezier control
     *  point. */
   def xC1Metres: Double
-  final def xC1: Metres = Metres(xC1Metres)
+  final def xC1: Metre = Metre(xC1Metres)
   def yC1Metres: Double
-  final def yC1: Metres = Metres(yC1Metres)
+  final def yC1: Metre = Metre(yC1Metres)
   final def pC1: PtM2 = PtM2(xC1, yC1)
    
   def xUsesMetres: Double
   /** the x component of the uses point */
-  def xUses: Metres = Metres(xUsesMetres)
+  def xUses: Metre = Metre(xUsesMetres)
   def yUsesMetres: Double
   /** the y component of the uses point */
-  def yUses: Metres = Metres(yUsesMetres)
+  def yUses: Metre = Metre(yUsesMetres)
   /** the x component of the end point */
   /** The uses point. The centre point on an arc segment, control point 2 on a cubic bezier. Not used on line segment. */
   final def pUses: PtM2 = PtM2(xUses, yUses)
    
   def xEndMetres: Double
   def yEndMetres: Double
-  def xEnd: Metres = Metres(xEndMetres)
+  def xEnd: Metre = Metre(xEndMetres)
   /** the y component of the end point */
-  def yEnd: Metres = Metres(yEndMetres)
+  def yEnd: Metre = Metre(yEndMetres)
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
   final def pEnd: PtM2 = PtM2(xEnd, yEnd)
 }

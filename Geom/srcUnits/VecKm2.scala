@@ -4,11 +4,11 @@ import collection.mutable.ArrayBuffer
 
 /** Common trait for [[VecKm2]] and [[PtKm2]] */
 trait VecPtKm2 extends VecPtLength2
-{ /** The X component of this 2 dimensional [[Metres]] vector. */
-  def x: Kilometres = Kilometres(xKilometresNum)
+{ /** The X component of this 2 dimensional [[Metre]] vector. */
+  def x: Kilometre = Kilometre(xKilometresNum)
 
-  /** The Y component of this 2 dimensional [[Metres]] vector. */
-  def y: Kilometres = Kilometres(yKilometresNum)
+  /** The Y component of this 2 dimensional [[Metre]] vector. */
+  def y: Kilometre = Kilometre(yKilometresNum)
 
   override def xMetresNum: Double = xKilometresNum * 1000
   override def yMetresNum: Double = yKilometresNum * 1000
@@ -28,19 +28,19 @@ final class VecKm2 private(val xKilometresNum: Double, val yKilometresNum: Doubl
   override def - (operand: VecLength2): VecKm2 = new VecKm2(xKilometresNum - operand.xKilometresNum, yKilometresNum - operand.yKilometresNum)
   override def * (operator: Double): VecKm2 = new VecKm2(xKilometresNum * operator, yKilometresNum * operator)
   override def / (operator: Double): VecKm2 = new VecKm2(xKilometresNum / operator, yKilometresNum / operator)
-  override def magnitude: Kilometres = Kilometres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
+  override def magnitude: Kilometre = Kilometre(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
   @inline override def dot(operand: VecLength2): Kilare = Kilare(xKilometresNum * operand.xKilometresNum + yKilometresNum * operand.yKilometresNum)
 }
 
 object VecKm2
 {
-  /** Factory apply method for creating 2 dimensional vectors defined in [[Kilometres]] from the 2 [[Kilometres]] components. */
-  def spply(x: Kilometres, y: Kilometres): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
+  /** Factory apply method for creating 2 dimensional vectors defined in [[Kilometre]] from the 2 [[Kilometre]] components. */
+  def spply(x: Kilometre, y: Kilometre): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
 
-  /** Factory method for creating 2 dimensional vectors defined in [[Metres]] from the 2 [[Length]] components. */
+  /** Factory method for creating 2 dimensional vectors defined in [[Metre]] from the 2 [[Length]] components. */
   def lengths(x: Length, y: Length): VecKm2 = new VecKm2(x.kilometresNum, y.kilometresNum)
 
-  /** Factory method for creating 2 dimensional vectors defined in [[Metres]] from the scalars of the components. */
+  /** Factory method for creating 2 dimensional vectors defined in [[Metre]] from the scalars of the components. */
   def metresNum(xKilometresNum: Double, yKilometresNum: Double): VecKm2 = new VecKm2(xKilometresNum, yKilometresNum)
 
   val buildImplicit: BuilderArrMap[VecKm2, VecKm2Arr] = new BuilderArrDbl2Map[VecKm2, VecKm2Arr]

@@ -4,7 +4,7 @@ import geom.*, pglobe.*, egrid.*, WTiles.*
 
 object Balearics extends EarthIslandGroup("Balearics")
 { override val elements: RArr[EarthIslandLike] = RArr(Mallorca, Menorca)
-  override val area: Kilare = 5040.kilares
+  override val area: Kilare = 5040.kilare
 }
 
 /** [[PolygonLL]] graphic for Menorca 695.8.km². Depends on nothing. */
@@ -59,7 +59,7 @@ object SardinaCorsica extends EarthIslandGroup("Sardinia-Corsica")
 
 /** [[PolygonLL]] graphic for Corsica depends on nothing. */
 object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
-{ override val area: Kilare = 8680.kilares
+{ override val area: Kilare = 8680.kilare
   override val oGroup = Some(SardinaCorsica)
 
   val nCorsica: LatLong = 43.00 ll 9.42
@@ -78,7 +78,7 @@ object Corsica extends EarthAreaIsland("Corsica", 42.18 ll 9.17, hillySavannah)
 
 /** [[PolygonLL]] graphic for Sardinia depends on nothing. */
 object Sardinia extends EarthAreaIsland("Sardinia", 40.12 ll 9.07, hillySub)
-{ override val area: Kilare = 24090.kilares
+{ override val area: Kilare = 24090.kilare
   override val oGroup = Some(SardinaCorsica)
 
   val north: LatLong = 41.25 ll 9.23
@@ -102,7 +102,7 @@ object Sardinia extends EarthAreaIsland("Sardinia", 40.12 ll 9.07, hillySub)
 
 /** [[PolygonLL]] graphic for Sicily depends on nothing. */
 object Sicily extends EarthAreaIsland("Sicily", cen = 37.58 ll 14.27, hillySub)
-{ override val area: Kilare = 25832.kilares
+{ override val area: Kilare = 25832.kilare
 
   val sSicily: LatLong = 36.66 ll 15.08
   val kartibubbo: LatLong = 37.56 ll 12.67

@@ -86,7 +86,7 @@ package object geom
   val Pt2Z = Pt2(0, 0)
 
   /** Dist2(0.km, 0.km) constant */
-  val Dist2Z = PtM2(0.metres, 0.metres)
+  val Dist2Z = PtM2(0.metre, 0.metre)
 
   val Sin15: Double = math.sin(Pi/12)
   val Sin30: Double = 0.5
@@ -95,14 +95,14 @@ package object geom
   val Cos60: Double = 0.5
 
   /** The Earths polar radius 6356.7523 km. */
-  val EarthPolarRadius: Metres = 6356752.3.metres
+  val EarthPolarRadius: Metre = 6356752.3.metre
 
   /** The Earths equatorial radius 6378.137 km. */
-  val EarthEquatorialRadius: Metres = 6378137.metres
+  val EarthEquatorialRadius: Metre = 6378137.metre
 
 
-  val EarthAvDiameter: Metres = 12742000.metres
-  val EarthAvRadius: Metres = EarthAvDiameter / 2
+  val EarthAvDiameter: Metre = 12742000.metre
+  val EarthAvRadius: Metre = EarthAvDiameter / 2
   type GraphicElems = RArr[GraphicElem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomExtensions = new IntGeomExtensions(thisInt)
@@ -150,8 +150,8 @@ package object geom
     def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNBuilderMap[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
   }
 
-  implicit class MetreExtensionsImplicit(thisMetres: Metres)
-  {  def / (operand: Metres): Double = thisMetres.metresNum / operand.metresNum
+  implicit class MetreExtensionsImplicit(thisMetres: Metre)
+  {  def / (operand: Metre): Double = thisMetres.metresNum / operand.metresNum
   }
 
   implicit class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal

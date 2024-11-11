@@ -16,12 +16,12 @@ class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   override def dbl4: Double = xEndKilometresNum
   override def dbl5: Double = yEndKilometresNum
   override def dbl6: Double = zEndKilometresNum
-  def xStart: Kilometres = Kilometres(xStartKilometresNum)
-  def yStart: Kilometres = Kilometres(yStartKilometresNum)
-  def zStart: Kilometres = Kilometres(zStartKilometresNum)
-  def xEnd: Kilometres = Kilometres(xEndKilometresNum)
-  def yEnd: Kilometres = Kilometres(yEndKilometresNum)
-  def zEnd: Kilometres = Kilometres(zEndKilometresNum)
+  def xStart: Kilometre = Kilometre(xStartKilometresNum)
+  def yStart: Kilometre = Kilometre(yStartKilometresNum)
+  def zStart: Kilometre = Kilometre(zStartKilometresNum)
+  def xEnd: Kilometre = Kilometre(xEndKilometresNum)
+  def yEnd: Kilometre = Kilometre(yEndKilometresNum)
+  def zEnd: Kilometre = Kilometre(zEndKilometresNum)
   def zsPos: Boolean = zStart.pos && zEnd.pos
 
   /** Takes the X and Y components. */

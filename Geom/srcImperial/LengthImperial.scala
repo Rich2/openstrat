@@ -119,7 +119,7 @@ object MegaMiles
 { /** Factory apply method for [[MegaMiles]]. */
   def apply(megaMilesNum: Double): MegaMiles = new MegaMiles(megaMilesNum)
 
-  /** The number of [[Gigametres]] in a megamile. */
+  /** The number of [[Gigametre]] in a megamile. */
   val fromGigaMetres: Double = 0.621371
 
   def numFromLength(input: Length): Double = input match

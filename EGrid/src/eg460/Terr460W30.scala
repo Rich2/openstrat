@@ -28,7 +28,7 @@ object Terr460W30 extends Long460Terrs
       TRow(136, ice, sea, mtainTundra),
       VRow(135, BendMin(11772, HVDR, 3, SeaIceWinter), BendIn(11774, HVUL, 13, SeaIceWinter), OrigMin(11778, HVDR), BendIn(11780, HVUp), OrigRt(11782, HVDL)),
       VRow(133, BendIn(11770, HVUp, 6, SeaIceWinter), BendIn(11772, HVUL, 6, SeaIceWinter)),
-      VRow(129, OrigMin(11786, HVUL)),
+      //VRow(129, OrigMin(11786, HVUL)),
       VRow(117, BendIn(11786, HVDR, 13), BendIn(11788, HVDn, 13), ThreeDown(11790, 0, 10, 13)),
       TRow(116, sea * 5, mtainSavannah),
       VRow(115, BendIn(11786, HVUR, 13), BendIn(11788, HVUp, 13), BendIn(11790, HVUL, 13)),

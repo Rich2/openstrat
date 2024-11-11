@@ -4,7 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation of the island of Borneo. 743330km². Depends on nothing. */
 object Borneo extends EarthAreaIsland("Borneo", 0.63 ll 114.132, jungle)
-{ override val area: Kilare = 743330.kilares
+{ override val area: Kilare = 743330.kilare
 
   val nBorneo: LatLong = 6.99 ll 117.12
   val northEast: LatLong = 5.382 ll 119.241
@@ -102,7 +102,7 @@ object NewBritain extends EarthAreaIsland("New Britain", -5.251 ll 151.402, hill
 
 /** [[polygonLL]] graphical representation 8990km² of New Ireland 7404km² + 1186km² + 400km². Depends on nothing. */
 object NewIreland extends EarthAreaIsland("New Ireland", -5.251 ll 151.402, hillyJungle)
-{ override val area: Kilare = 8990.kilares
+{ override val area: Kilare = 8990.kilare
 
   val newHanoverIsland: LatLong = -2.360 ll 150.190
   val newIreland20: LatLong = -3.977 ll 152.926

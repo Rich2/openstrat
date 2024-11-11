@@ -17,7 +17,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   
   def metresPerPixel: LengthMetric = parent.cScale / pixelsPerC
 
-  def setMetresPerPixel(value: Metres): Unit = pixelsPerC = parent.cScale / value
+  def setMetresPerPixel(value: Metre): Unit = pixelsPerC = parent.cScale / value
 
   override def pixelsPerTile: Double = pixelsPerC * 4
   override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixelsPerTile >= minScale, elems, RArr[GraphicElem]())

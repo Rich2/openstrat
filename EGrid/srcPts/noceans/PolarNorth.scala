@@ -53,7 +53,7 @@ case object ArticWest extends EarthArea("Artic west", 85 ll -90, ice)
 /** Svalbard island grouping. */
 object SvalBard extends EarthIslandGroup("Svalbard")
 { override def elements: RArr[EarthIslandLike] = RArr(SpitsbergenEdge, Nordauslandet)
-  override val area: Kilare = 62045.kilares
+  override val area: Kilare = 62045.kilare
 }
 
 /** Ilsand grouping for [[Spitsbergen]] and [[EdgeIsland]]. */
@@ -64,9 +64,9 @@ object SpitsbergenEdge extends EarthIslandGroup("Svitsbergen Edge")
 
 /** [[polygonLL]] graphical representation of Spitsbergen, Barentsoya and PrinsKarls islands. Depends on nothing. */
 object Spitsbergen extends EarthAreaIsland("Spitsbergen", 78.94 ll 17.78, ice)
-{ val spitsbergen0: Kilare = 39044.kilares
-  val barentsoya: Kilare = 1288.kilares
-  val prinsKarls: Kilare = 615.kilares
+{ val spitsbergen0: Kilare = 39044.kilare
+  val barentsoya: Kilare = 1288.kilare
+  val prinsKarls: Kilare = 615.kilare
   override val area: Kilare = spitsbergen0 + barentsoya + prinsKarls
   override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
 
@@ -86,8 +86,8 @@ object Spitsbergen extends EarthAreaIsland("Spitsbergen", 78.94 ll 17.78, ice)
 
 /** [[polygonLL]] graphical representation of Nordauslandet and kvitoya islands. Depends on nothing. */
 object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ice)
-{ val nordauslandet0: Kilare = 14443.kilares
-  val kvitoya: Kilare = 682.kilares
+{ val nordauslandet0: Kilare = 14443.kilare
+  val kvitoya: Kilare = 682.kilare
   override val area: Kilare = nordauslandet0 + kvitoya
   override def oGroup: Option[EarthIslandGroup] = Some(SvalBard)
 
@@ -104,7 +104,7 @@ object Nordauslandet extends EarthAreaIsland("Nordauslandet", 79.85 ll 23.71, ic
 
 /** [[polygonLL]] graphical representation of Edge island. Depends on nothing. */
 object EdgeIsland extends EarthAreaIsland("Edgeøya", 77.880 ll 22.652, hillyTundra)
-{ override val area: Kilare = 5073.kilares
+{ override val area: Kilare = 5073.kilare
   override def oGroup: Option[EarthIslandGroup] = Some(SpitsbergenEdge)
 
   val north: LatLong = 78.262 ll 22.850

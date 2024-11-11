@@ -15,17 +15,17 @@ object PolarNorth extends EarthRegion("NPole", 89.5 ll 0)
   override val a2Arr: RArr[EarthArea] = RArr(Greenland, ArticNear, ArticWest, ArticEast, ArticFar, Spitsbergen, EdgeIsland, Nordauslandet, SevernayaZemyla)
 }
 
-/** The North Atlantic. The seas and the land of the north Atlantic. */
+/** The North Atlantic. The seas and the land of the North Atlantic. */
 object NorthAtantic extends EarthRegion("NAtlantic", 60 ll -30)
 { import noceans.*
-  override val a2Arr: RArr[EarthArea] = RArr(Iceland, JanMayen)
+  override val a2Arr: RArr[EarthArea] = RArr(Iceland, JanMayen, Faroe)
 }
 
 /** Top level grouping for north-west European areas. */
 object EuropeNW extends EarthRegion("EuropeNW", 20 ll 0)
 { import pEurope._
   override val a2Arr: RArr[EarthArea] = RArr(IrelandNorth, IrelandSouth, EnglandNorth, EnglandMiddle, EnglandSouth, ScotlandLow, ScotlandHigh, Wales, Orkneys,
-    IslayJura, Uist, IsleLewis, Shetland, Faroe, Brittany, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland,
+    IslayJura, Uist, IsleLewis, Shetland, Brittany, FranceNorth, BelgLux, Alsace, Netherlands, Jutland, Zealand, Funen, Germania, Alpsland,
     Polandia, Baltland, Ukraine, SwedenSouth, SwedenMid, SwedenNorth, Oland, IsleMan)
 }
 

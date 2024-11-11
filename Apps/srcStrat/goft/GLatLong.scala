@@ -5,7 +5,7 @@ import geom._, pglobe._
 /** LatLong for Game of Thrones world. */
 case class GLatLong(latMilliSecs: Double, longMilliSecs: Double)// extends LatLongBase
 {
- def equatorialRadius: Metres = ???
+ def equatorialRadius: Metre = ???
 
- def polarRadius: Metres = ???
+ def polarRadius: Metre = ???
 }

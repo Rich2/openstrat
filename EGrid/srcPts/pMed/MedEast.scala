@@ -28,7 +28,7 @@ object Corfu extends EarthAreaIsland("Corfu", 39.63 ll 19.82, hillyOce)
 /** [[PolygonLL]] graphic for Greek Island of Cephalonia. Depends on nothing. */
 object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSavannah)
 { override def oGroup: Some[IonianIs.type] = Some(IonianIs)
-  override val area: Kilare = 773.kilares
+  override val area: Kilare = 773.kilare
 
   val north: LatLong = 38.50 ll 20.66
   val southEast: LatLong = 38.11 ll 20.82
@@ -40,7 +40,7 @@ object Cephalonia extends EarthAreaIsland("Cephalonia", 38.22 ll 20.59, mtainSav
 
 /** [[PolygonLL]] graphic for Crete. Depends on nothing. */
 object Crete extends EarthAreaIsland("Crete", 35.23 ll 24.92, mtainSavannah)
-{ override val area: Kilare = 8450.kilares
+{ override val area: Kilare = 8450.kilare
 
   val northEast: LatLong = 35.32 ll 26.31
   val southEast: LatLong = 35.02 ll 26.19
@@ -55,7 +55,7 @@ object Crete extends EarthAreaIsland("Crete", 35.23 ll 24.92, mtainSavannah)
 
 /** [[PolygonLL]] graphic for Cyprus. Depends on nothing. */
 object Cyprus extends EarthAreaIsland("Cyprus", 34.98 ll 33.15, hillyOce)
-{ override val area: Kilare = 9251.kilares
+{ override val area: Kilare = 9251.kilare
 
   val northEast: LatLong = 35.69 ll 34.58
   val southEast: LatLong = 34.96 ll 34.09

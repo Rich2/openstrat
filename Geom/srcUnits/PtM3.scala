@@ -2,7 +2,7 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
+/** 3 dimensional point specified using metres [[Metre]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
 final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum: Double) extends PtLength3
 { override type ThisT = PtM3
@@ -17,9 +17,9 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   override def xKilometresNum: Double = xMetresNum / 1000
   override def yKilometresNum: Double = yMetresNum / 1000
   override def zKilometresNum: Double = zMetresNum / 1000
-  def x: Metres = Metres(xMetresNum)
-  def y: Metres = Metres(yMetresNum)
-  def z: Metres = Metres(zMetresNum)
+  def x: Metre = Metre(xMetresNum)
+  def y: Metre = Metre(yMetresNum)
+  def z: Metre = Metre(zMetresNum)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: PtM3): Metrare = x * operand.x + y * operand.y + z * operand.z
@@ -38,7 +38,7 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
 
   /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtM3]] point. */
   def xRotateRadians(rotationRadians: Double): PtM3 =
-  { val scalar: Metres = Metres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
+  { val scalar: Metre = Metre(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
     val ang0 = None match {//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
@@ -91,9 +91,9 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   }
 
   /** The distance in the XY plane from an operand [[PtM2]], the default being from the origin. */
-  def xyLengthFrom(operand: PtM2 = PtM2.origin): Metres = {
+  def xyLengthFrom(operand: PtM2 = PtM2.origin): Metre = {
     val sq = xMetresNum.squared + yMetresNum.squared
-    Metres(sq.sqrt)
+    Metre(sq.sqrt)
   }
 
   override def lineSegTo(endPt: PtLength3): LineSegM3 =
@@ -105,11 +105,11 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
 
 /** Companion object for the [[PtM3]] class. the 3D point measure in metres length. */
 object PtM3
-{ /** Factory apply method for constructing 3D points specified in [[Metres]], from its component axes specified in [[Length]]s. if you want to construct from
+{ /** Factory apply method for constructing 3D points specified in [[Metre]], from its component axes specified in [[Length]]s. if you want to construct from
    * scalars use the metresNum method. */
   def apply(x: Length, y: Length, z: Length): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
 
-  /** Factory method for constructing 3D points specified in [[Metres]], from its component axes measured in numbers of metres. if you want to construct from
+  /** Factory method for constructing 3D points specified in [[Metre]], from its component axes measured in numbers of metres. if you want to construct from
    * [[Length]] classes components use the apply method. */
   def metresNum(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
 

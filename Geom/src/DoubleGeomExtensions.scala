@@ -8,17 +8,17 @@ class GeomDoubleExtensions(thisDouble: Double)
    * the [[Length]] object first. */
   @inline def * (operator: Length): Length = operator * thisDouble
 
-  /** Returns this [[Double]] value in [[Metres]]. */
-  @inline def metres: Metres = new Metres(thisDouble)
+  /** Returns this [[Double]] value in [[Metre]]. */
+  @inline def metre: Metre = new Metre(thisDouble)
 
-  /** Returns this [[Int]] value in [[Kilometres]]. */
-  @inline def kiloMetres: Kilometres = Kilometres(thisDouble)
+  /** Returns this [[Int]] value in [[Kilometre]]. */
+  @inline def kiloMetre: Kilometre = Kilometre(thisDouble)
 
-  /** Returns this [[Int]] value in [[Megametres]]. */
-  @inline def megaMetres: Megametres = Megametres(thisDouble)
+  /** Returns this [[Int]] value in [[Megametre]]. */
+  @inline def megaMetre: Megametre = Megametre(thisDouble)
 
-  /** Returns this [[Int]] value in [[Gigametres]]. */
-  @inline def gigaMetres: Gigametres = Gigametres(thisDouble)
+  /** Returns this [[Int]] value in [[Gigametre]]. */
+  @inline def gigaMetre: Gigametre = Gigametre(thisDouble)
 
   /** Returns this [[Double]] value in [[Kilare]]. */
   @inline def kilare: Kilare = Kilare(thisDouble)

@@ -37,11 +37,11 @@ trait Length extends Any with Ordered[Length]
   def pos: Boolean
   def neg: Boolean
 
-  /** Converts this [[Length]] to [[Metres]]. */
-  def toMetres: Metres = Metres(metresNum)
+  /** Converts this [[Length]] to [[Metre]]. */
+  def toMetres: Metre = Metre(metresNum)
 
-  /** Converts this [[Length]] to [[Metres]]. */
-  def toKiloMetres: Kilometres = Kilometres(kilometresNum)
+  /** Converts this [[Length]] to [[Metre]]. */
+  def toKiloMetres: Kilometre = Kilometre(kilometresNum)
 }
 
 object Length

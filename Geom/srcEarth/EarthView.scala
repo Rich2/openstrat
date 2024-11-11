@@ -6,7 +6,7 @@ class EarthView (val latDegs: Double, val longDegs: Double, val scaleKm: Double,
 {
   def latLong: LatLong = LatLong.degs(latDegs, longDegs)
   def latLongDirn: LatLongDirn = LatLongDirn.degs(latDegs, longDegs)
-  def scale: LengthMetric = scaleKm.kiloMetres
+  def scale: LengthMetric = scaleKm.kiloMetre
 }
 
 object EarthView
@@ -21,5 +21,5 @@ object EarthView
   /** Not sure about the scale .metres parameter conversion */
   implicit val unshowEv: Unshow3[LatLong, Double, Boolean, EarthView] =
     Unshow3[LatLong, Double, Boolean, EarthView]("EarthView", "latLong", "scale", "up",
-      (ll: LatLong, d: Double, b: Boolean) => EarthView(ll, Metres(d * 1000), b))
+      (ll: LatLong, d: Double, b: Boolean) => EarthView(ll, Metre(d * 1000), b))
 }

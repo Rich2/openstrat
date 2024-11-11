@@ -6,7 +6,7 @@ import geom.*, pglobe.*, egrid.*, WTiles.*, collection.mutable.ArrayBuffer
 abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
 { override def toString = name.oneLine + ", " + terr.strComma
   def aStrs: StrArr = StrArr(name)
-  def textScale: Metres = 15000.metres
+  def textScale: Metre = 15000.metre
   override def colour = terr.colour
 
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */

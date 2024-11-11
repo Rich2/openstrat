@@ -6,22 +6,22 @@ object Giza
 {
   trait Pyramid
   { def base: PolygonM2 = ??? // Square.dist(baseLength)
-    def baseLength: Metres
-    def height: Metres
+    def baseLength: Metre
+    def height: Metre
   }
 
   object Great extends Pyramid
-  { val baseLength: Metres = 230.4.metres
-    def height: Metres = 146.5.metres
+  { val baseLength: Metre = 230.4.metre
+    def height: Metre = 146.5.metre
   }
 
   object Khafre extends Pyramid
-  { val baseLength: Metres = 215.5.metres
-    def height: Metres = 136.4.metres
+  { val baseLength: Metre = 215.5.metre
+    def height: Metre = 136.4.metre
   }
 
   object MenKaure
-  { val baseLength: Metres = 108.5.metres
-    def height: Metres = 65.5.metres
+  { val baseLength: Metre = 108.5.metre
+    def height: Metre = 65.5.metre
   }
 }

@@ -6,10 +6,10 @@ import collection.mutable.ArrayBuffer
  *  surface. */
 class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val xEndKilometresNum: Double, val yEndKilometresNum: Double) extends
   LineSegLength2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem
-{ def xStart: Kilometres = Kilometres(xStartKilometresNum)
-  def yStart: Kilometres = Kilometres(yStartKilometresNum)
-  def xEnd: Kilometres = Kilometres(xEndKilometresNum)
-  def yEnd: Kilometres = Kilometres(yEndKilometresNum)
+{ def xStart: Kilometre = Kilometre(xStartKilometresNum)
+  def yStart: Kilometre = Kilometre(yStartKilometresNum)
+  def xEnd: Kilometre = Kilometre(xEndKilometresNum)
+  def yEnd: Kilometre = Kilometre(yEndKilometresNum)
   def startPt: PtKm2 = PtKm2.kilometresNum(xStartKilometresNum, yStartKilometresNum)
   def endPt: PtKm2 = PtKm2.kilometresNum(xEndKilometresNum, yEndKilometresNum)
 
