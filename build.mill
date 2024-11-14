@@ -32,7 +32,7 @@ object Util extends CommonJvm
 object UtilJs extends CommonJs
 { 
   def source2 = T{
-    val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
+    val str = os.read(T.workspace / "Util/srcRArr/RArr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
     os.write(T.dest / "RArr.scala", str2)
     PathRef(T.dest)
@@ -43,7 +43,8 @@ object UtilJs extends CommonJs
 
 object Geom extends CommonJvm
 {
-  def sources1 = T.sources(Seq("src", "srcEarth", "srcGraphic", "srcGui", "srcImperial", "srcLines", "srcPoly","srcShapes", "srcTrans", "srcUnits", "srcWeb").
+  def sources1 = T.sources(
+    Seq("src", "srcLines", "srcShapes", "srcPoly", "srcUnits", "srcImperial", "srcGraphic", "srcGui", "srcTrans", "srcUnits", "srcWeb", "srcEarth").
     map(name => PathRef(millSourcePath / name)))
 
   def sources2 = T.sources(millSourcePath / "JvmSrc")
@@ -120,6 +121,13 @@ object EGrid extends CommonJvm
 object EGridJs extends CommonJs
 { def moduleDeps = Seq(TilingJs)
   def sources = EGrid.sources1()
+  trait Base extends CommonJs
+    { def name: String
+      def sources = T.sources(Seq(PathRef(T.workspace / "EGrid" / "JsAppsSrc" / "EG1300App")))
+      def moduleDeps = Seq(EGridJs)
+      def mainClass = Some("ostrat.pSJs." + name + "AppJs")
+    }
+    object EG1300 extends Base { def name = "EG1300" }
 }
 
 object Apps extends CommonJvm

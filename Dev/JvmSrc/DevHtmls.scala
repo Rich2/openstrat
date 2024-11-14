@@ -6,12 +6,15 @@ object DevHtmls
 {
   def main(args: Array[String]): Unit =
   { 
-    val names = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess",
-      "EG1300", "EG1000", "EG640", "EG460", "EG320")
+    val appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
+
+    val egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
+
+
     projPathDo { path => args.length match
     { case 0 => deb("No args, no files created.")
-      case _ if args(0).toString == "all" => names.foreach{name => writeFastFull(path, name) }
-      case _ => args.filter( arg => names.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }
+      case _ if args(0).toString == "all" => appNames.foreach{name => writeFastFull(path, name) }
+      case _ => args.filter( arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }
   }
 
   def writeFastFull(path: DirPathAbs, name: String): Unit =
@@ -20,7 +23,7 @@ object DevHtmls
   }
 
   def writeFile(path: DirPathAbs, isFast: Boolean, name: String): Unit =
-  { val scalaVersionStr = "3.5.1"
+  { val scalaVersionStr = "3.5.2"
     val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
 
