@@ -2,27 +2,30 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-object DevSbtHtmls
+trait DevHtmls
+{ val scalaVersionStr = "3.5.2"
+  val appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
+  val egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
+}
+
+object DevSbtHtmls extends DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
-    val egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
-
-    projPathDo { path => args.length match
+  {   projPathDo { path => args.length match
     { case 0 => deb("No args, no files created.")
       case _ if args(0).toString == "all" => appNames.foreach{name => writeFastFull(path, name) }
       case _ => args.filter( arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }
   }
 
   def writeFastFull(path: DirPathAbs, name: String): Unit =
-  { writeFile(path, true, name)
-    writeFile(path, false, name)
+  { val fastPage = makeFile(path, true, name)
+    fileWrite(path / "Dev" / "target" / "DevPages", s"${name}SbtFast.html", fastPage.out)
+    val fullPage = makeFile(path, false, name)
+    fileWrite(path / "Dev" / "target" / "DevPages", s"${name}SbtFull.html", fullPage.out)
   }
 
-  def writeFile(path: DirPathAbs, isFast: Boolean, name: String): Unit =
-  { val scalaVersionStr = "3.5.2"
-    val jsStr = ife(isFast, "fast", "")
-    val htmlStr = ife(isFast, "Fast", "Full")
+  def makeFile(path: DirPathAbs, isFast: Boolean, name: String): HtmlPage =
+  { val jsStr = ife(isFast, "fast", "")
 
     val noCacheScript = s"""
     |  // aid local development in ensuring script not cached during a simple refresh
@@ -37,8 +40,6 @@ object DevSbtHtmls
     val head = HtmlHead.title("OpenStrat:" -- name, HtmlNoCache, style)
     val script = HtmlScript.inlineJsStr(noCacheScript)
     val body = HtmlBody(HtmlCanvas.id("scanv"), HtmlNoScript(), script)
-    val page = HtmlPage(head, body)
-    val res = fileWrite(path / "Dev" / "target" / "DevPages", s"${name}Sbt${htmlStr}.html", page.out)
-    deb(res.toString)
+    HtmlPage(head, body)
   }
 }

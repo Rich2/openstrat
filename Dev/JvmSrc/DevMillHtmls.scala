@@ -2,12 +2,10 @@
 package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
-object DevMillHtmls
+object DevMillHtmls extends DevHtmls
 {
   def main(args: Array[String]): Unit =
-  { val appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
-    val egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
-
+  {
     projPathDo { path => args.length match
     { case 0 => deb("No args, no files created.")
       case _ if args(0).toString == "all" =>{
@@ -17,21 +15,20 @@ object DevMillHtmls
       case _ => args.filter( arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path, "AppsJs", arg)) } }
   }
 
-  def writeFastFull(path: DirPathAbs, OuterModuleName: String, name: String): Unit =
-  { writeFile(path, true, name)
-    writeFile(path, false, name)
+  def writeFastFull(path: DirPathAbs, outerModuleName: String, name: String): Unit =
+  { writeFile(path, outerModuleName, true, name)
+    writeFile(path, outerModuleName, false, name)
   }
 
-  def writeFile(path: DirPathAbs, isFast: Boolean, name: String): Unit =
-  { val scalaVersionStr = "3.5.2"
-    val jsStr = ife(isFast, "fast", "")
+  def writeFile(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): Unit =
+  { val jsStr = ife(isFast, "fast", "")
     val htmlStr = ife(isFast, "Fast", "Full")
 
     val noCacheScript = s"""
     |  // aid local development in ensuring script not cached during a simple refresh
     |  var script = document.createElement("script");
     |  script.setAttribute("type", "text/javascript");
-    |  script.setAttribute("src", "../../../Out/AppsJs/target/scala-$scalaVersionStr/appsjs-${name}-${jsStr}opt/main.js?"+Date.now().toString());
+    |  script.setAttribute("src", "../../../Out/$outerModuleName/$name/scala-$scalaVersionStr/appsjs-${name}-${jsStr}opt/main.js?"+Date.now().toString());
     |  document.getElementsByTagName("head")[0].appendChild(script);
     |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });
     |""".stripMargin
