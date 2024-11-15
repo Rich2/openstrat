@@ -2,7 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, egrid._, eg13._, prid.phex._
 
-@JSExportTopLevel("EG1300AppJs")
 object EG1300AppJs
-{ @JSExport def main(): Unit = { EGTerrOnlyGui(CanvasJs, Scen13All, HGView(103, 512, 27), false, false); () }
+{ def main(args: Array[String]): Unit = { EGTerrOnlyGui(CanvasJs, Scen13All, HGView(103, 512, 27), false, false); () }
 } 
