@@ -3,28 +3,33 @@ package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
 trait DevHtmls
-{ val scalaVersionStr = "3.5.2"
-  val appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
-  val egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
+{ def scalaVersionStr = "3.5.2"
+  def appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
+  def egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
+  def toolStr: String
+  def makeFile(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage
+
+  def writeFastFull(path: DirPathAbs, outerModuleName: String, name: String): Unit =
+  { val fastPage = makeFile(path, outerModuleName, true, name)
+    fileWrite(path / "Dev" / "target" / "DevPages", s"$name${toolStr}Fast.html", fastPage.out)
+    val fullPage = makeFile(path, outerModuleName, false, name)
+    fileWrite(path / "Dev" / "target" / "DevPages", s"$name${toolStr}Full.html", fullPage.out)
+  }
 }
 
 object DevSbtHtmls extends DevHtmls
 {
+  override def toolStr: String = "Sbt"
+
   def main(args: Array[String]): Unit =
-  {   projPathDo { path => args.length match
+  {
+    projPathDo { path0 => args.length match
     { case 0 => deb("No args, no files created.")
-      case _ if args(0).toString == "all" => appNames.foreach{name => writeFastFull(path, name) }
-      case _ => args.filter( arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path, arg)) } }
+      case _ if args(0).toString == "all" => appNames.foreach{name => writeFastFull(path0, "AppsJs", name) }
+      case _ => args.filter( arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path0, "EGridJs", arg)) } }
   }
 
-  def writeFastFull(path: DirPathAbs, name: String): Unit =
-  { val fastPage = makeFile(path, true, name)
-    fileWrite(path / "Dev" / "target" / "DevPages", s"${name}SbtFast.html", fastPage.out)
-    val fullPage = makeFile(path, false, name)
-    fileWrite(path / "Dev" / "target" / "DevPages", s"${name}SbtFull.html", fullPage.out)
-  }
-
-  def makeFile(path: DirPathAbs, isFast: Boolean, name: String): HtmlPage =
+  override def makeFile(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =
   { val jsStr = ife(isFast, "fast", "")
 
     val noCacheScript = s"""
