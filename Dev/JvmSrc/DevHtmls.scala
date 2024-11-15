@@ -5,9 +5,11 @@ import utiljvm.*, pWeb.*
 trait DevHtmls
 { def jsPathStr(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): String
   def scalaVersionStr = "3.5.2"
+  def toolStr: String
+  def appOuterModuleName: String
   def appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
   def egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
-  def toolStr: String
+
 
   def main(args: Array[String]): Unit =
   {
@@ -15,7 +17,7 @@ trait DevHtmls
       args.length match
       {
         case 0 => deb("No args, no files created.")
-        case _ if args(0) == "all" => appNames.foreach { name => writeFastFull(path0, "AppsJs", name) }
+        case _ if args(0) == "all" => appNames.foreach { name => writeFastFull(path0, appOuterModuleName, name) }
         case _ => args.filter(arg => appNames.exists(_ == arg)).foreach(arg => writeFastFull(path0, "EGridJs", arg))
       }
     }
@@ -52,6 +54,7 @@ trait DevHtmls
 
 object DevSbtHtmls extends DevHtmls
 { override val toolStr: String = "Sbt"
+  override val appOuterModuleName: String = "AppsJs"
 
   override def jsPathStr(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): String =
   { val jsStr = ife(isFast, "fast", "")
@@ -61,9 +64,9 @@ object DevSbtHtmls extends DevHtmls
 
 object DevMillHtmls extends DevHtmls
 { override val toolStr: String = "Mill"
-
+  override val appOuterModuleName: String = "AppJs"
   override def jsPathStr(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): String =
-  { val jsStr = ife(isFast, "fast", "")
-    s"../../../Out/$outerModuleName/$name/scala-$scalaVersionStr/appsjs-${name}-${jsStr}opt/main.js?"
+  { val jsStr = ife(isFast, "fast", "full")
+    s"../../../out/$outerModuleName/$name/${jsStr}Opt.dest/out.js?"
   }
 }
