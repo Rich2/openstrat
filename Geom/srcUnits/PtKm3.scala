@@ -23,11 +23,11 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: PtKm3): Kilare = x * operand.x + y * operand.y + z * operand.z
   def xy: PtM2 = PtM2.metresNum(xKilometresNum, yKilometresNum)
-  def xPos: Boolean = x.pos
+  def xPos: Boolean = x.nonNeg
   def xNeg: Boolean = x.neg
-  def yPos: Boolean = y.pos
+  def yPos: Boolean = y.nonNeg
   def yNeg: Boolean = y.neg
-  def zPos: Boolean = z.pos
+  def zPos: Boolean = z.nonNeg
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
   def / (operator: Length): Pt3 = Pt3(x / operator, y / operator, z / operator)
@@ -162,7 +162,7 @@ class PtKm3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3[PtKm3
    *  points are moved to the horizon. */
   def earthZPositive: OptEither[PtM2Arr, CurveSegMArrOld] =
   {
-    existsCount(_.z.pos) match
+    existsCount(_.z.nonNeg) match
     { case 0 => NoOptEither
     case n if n == length => SomeA(map(_.xy))
     case n => NoOptEither

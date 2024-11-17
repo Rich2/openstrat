@@ -14,9 +14,9 @@ trait VecPtM2 extends VecPtLength2
   override def yKilometresNum: Double = yMetresNum / 1000
   override def tell1: Double = xMetresNum
   override def tell2: Double = yMetresNum
-  override def xPos: Boolean = x.pos
+  override def xPos: Boolean = x.nonNeg
   override def xNeg: Boolean = x.neg
-  override def yPos: Boolean = y.pos
+  override def yPos: Boolean = y.nonNeg
   override def yNeg: Boolean = y.neg
 }
 

@@ -22,7 +22,7 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
   def xEnd: Metre = Metre(xEndMetresNum)
   def yEnd: Metre = Metre(yEndMetresNum)
   def zEnd: Metre = Metre(zEndMetresNum)
-  def zsPos: Boolean = zStart.pos && zEnd.pos
+  def zsPos: Boolean = zStart.nonNeg && zEnd.nonNeg
 
   /** Takes the X and Y components. */
   def xy: LineSegM2 = new LineSegM2(xStartMetresNum, yStartMetresNum, xEndMetresNum, yEndMetresNum)

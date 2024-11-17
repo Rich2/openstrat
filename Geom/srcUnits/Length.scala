@@ -8,10 +8,10 @@ trait Length extends Any with Ordered[Length]
   /** The number of kilometres in this [[Length]]. */
   def kilometreNum: Double
 
-  /** The number of Megametres in this [[Length]]. */
+  /** The number of megametres in this [[Length]]. */
   def megametreNum: Double
 
-  /** The number of Gigametres in this [[Length]]. */
+  /** The number of gigametres in this [[Length]]. */
   def gigametreNum: Double
 
   /** The negative of this [[Length]] */
@@ -34,7 +34,11 @@ trait Length extends Any with Ordered[Length]
 
   def divByLength(operand: Length): Double
 
+  /** Is the length units greater or equal to zero. */
+  def nonNeg: Boolean
+
   def pos: Boolean
+
   def neg: Boolean
 
   /** Converts this [[Length]] to [[Metre]]. */

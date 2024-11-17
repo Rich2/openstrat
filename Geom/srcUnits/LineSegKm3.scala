@@ -22,7 +22,7 @@ class LineSegKm3(val xStartKilometresNum: Double, val yStartKilometresNum: Doubl
   def xEnd: Kilometre = Kilometre(xEndKilometresNum)
   def yEnd: Kilometre = Kilometre(yEndKilometresNum)
   def zEnd: Kilometre = Kilometre(zEndKilometresNum)
-  def zsPos: Boolean = zStart.pos && zEnd.pos
+  def zsPos: Boolean = zStart.nonNeg && zEnd.nonNeg
 
   /** Takes the X and Y components. */
   def xy: LineSegKm2 = new LineSegKm2(xStartKilometresNum, yStartKilometresNum, xEndKilometresNum, yEndKilometresNum)

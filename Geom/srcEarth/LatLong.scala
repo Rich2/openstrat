@@ -82,7 +82,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
   /** Taking this LatLong as the focus. The focus pont being the point of the Earth that from the view point is at x = 0km aad y = 0km in 2D
    *  coordinates, determines if the parameter point on the globe is Z positive. True if it is facing the viewer false if it is on the far side of the
    *  Earth form the viewer's perspective. */
-  def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
+  def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.nonNeg
 
   /** From focus parameter, converts to 3D metre coordinates. */
   def fromFocusMetres(focus: LatLong): PtM3 = //focus.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
@@ -96,7 +96,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
 
   def optFromFocusDist2(ll: LatLong): Option[PtM2] =
   { val m3 = fromFocusMetres(ll)
-    m3.z.pos.toOption(m3.xy)
+    m3.z.nonNeg.toOption(m3.xy)
   }
 
   def toOptDist2(inp: LatLong): Option[PtM2] =
