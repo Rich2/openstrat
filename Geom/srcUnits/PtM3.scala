@@ -2,15 +2,13 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** 3 dimensional point specified using metres [[Metres]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
- *  confusion with the LL ending which is short for Latitude-longitude. */
+/** 3-dimensional point specified using [[Metres]] as units rather than pure numbers. */
 final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMetresNum: Double) extends PtLength3
 { override type ThisT = PtM3
   override type LineSegT = LineSegM3
   def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetresNum.str2, yMetresNum.str2, zMetresNum.str2)
   def kmStr: String = typeStr.appendParenthSemis((xMetresNum / 1000).str2, (yMetresNum / 1000).str2, (zMetresNum / 1000).str2)
-
   def dbl1: Double = xMetresNum
   def dbl2: Double = yMetresNum
   def dbl3: Double = zMetresNum
@@ -21,8 +19,9 @@ final class PtM3 private(val xMetresNum: Double, val yMetresNum: Double, val zMe
   def y: Metres = Metres(yMetresNum)
   def z: Metres = Metres(zMetresNum)
 
-  /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
+  /** Produces the dot product of this 2-dimensional distance Vector and the operand. */
   @inline def dot(operand: PtM3): Metrares = x * operand.x + y * operand.y + z * operand.z
+  
   def xy: PtM2 = PtM2.metresNum(xMetresNum, yMetresNum)
   def xNonNeg: Boolean = x.nonNeg
   def xNeg: Boolean = x.neg

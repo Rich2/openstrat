@@ -40,9 +40,16 @@ final class HCornerLayer(val unsafeArray: Array[Int])
   def sideLine(hCen: HCen, vertNum1: Int, vertNum2: Int)(implicit proj: HSysProjection): LineSeg =
     sideLineHVAndOffset(hCen, vertNum1, vertNum2)(proj.parent).map(proj.transHVOffset)
 
+  /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] by row and column. */
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
+
+  /** Returns the 6 [[HCorner]]s for the tile. There is a name overload to specify the [[HCen]] asa single parameter. */
   def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): RArr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }
+
+  /** Returns the polygon of the [[HCen]] in [[HvOffset]]s. There is a name overload to specify the [[HCen]] asa single parameter. */
   def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHvOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
+
+  /** Returns the polygon of the [[HCen]] in [[HvOffset]]s. There is a name overload to specify the [[HCen]] by row and column. */
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHvOffset = tilePoly(HCen(cenR, cenC))
 
   /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
@@ -154,9 +161,9 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c - 2, 3, HVUL, magnitude)
   }
 
+  /** Sets the 3 [[HCorner]]s of the [[HVert]] in the 3 [[HCen]]s inward (away from the [[HVert]]) by the same magnitude. */
   def setVertEqual(r: Int, c: Int, magnitude: Int)(implicit grid: HGrid): Unit =
-  {
-    if (HVert.rcISHigh(r, c))
+  { if (HVert.rcISHigh(r, c))
     { grid.hCenExistsIfDo(r + 1, c + 2){ setCornerIn(r + 1, c + 2, 4, magnitude) }
       grid.hCenExistsIfDo(r - 1, c){ setCornerIn(r - 1, c, 0, magnitude) }
       grid.hCenExistsIfDo(r + 1, c - 2){ setCornerIn(r + 1, c - 2, 2, magnitude) }
@@ -168,47 +175,41 @@ final class HCornerLayer(val unsafeArray: Array[Int])
     }
   }
 
+  /** Sets the 3 [[HCorner]]s of the [[HVert]] in the 3 [[HCen]]s inward (away from the [[HVert]]) by the same magnitude. There is a name overload to specify the [[HCen]] by row and column. */
   def setVertEqual(hv: HVert, magnitude: Int)(implicit grid: HGrid): Unit = setVertEqual(HVert(hv.r, hv.c), magnitude)
 
-  /** Set the 3 [[HCorner]]s of an [[HSep]] source or end point. */
+  /** Set the 3 [[HCorner]]s of an [[HSep]] source or end point. There is a name overload to specify the [[HCen]] asa single parameter. */
   def setVertOrig(r: Int, c: Int, dirn: HVDirn, magLeft: Int, magRight: Int)(implicit grid: HGrid): Unit = dirn match
-  {
-    case HVUp =>
+  { case HVUp =>
     { setCornerPair(r - 1, c, 0, HVDL, magLeft, HVDR, magRight)
       setCorner(r + 1, c - 2, 2, HVDL, magLeft)
       setCorner(r + 1, c + 2, 4, HVDR, magRight)
     }
-
     case HVUR =>
     { setCornerPair(r - 1, c - 2, 1, HVUL, magLeft, HVDn, magRight)
       setCorner(r + 1, c, 3, HVUL, magLeft)
       setCorner(r - 1, c + 2, 5, HVDn, magRight)
     }
-
     case HVDR =>
     { setCornerPair(r + 1, c - 2, 2, HVUp, magLeft, HVDL, magRight)
       setCorner(r + 1, c + 2, 4, HVUp, magLeft)
       setCorner(r - 1, c, 0, HVDL, magRight)
     }
-
     case HVDn =>
     { setCornerPair(r + 1, c, 3, HVUR, magLeft, HVUL, magRight)
       setCorner(r - 1, c + 2, 5, HVUR, magLeft)
       setCorner(r - 1, c - 2, 1, HVUL, magRight)
     }
-
-    case HVDL => {
-      setCornerPair(r + 1, c + 2, 4, HVDR, magLeft, HVUp, magRight)
+    case HVDL =>
+    { setCornerPair(r + 1, c + 2, 4, HVDR, magLeft, HVUp, magRight)
       setCorner(r - 1, c, 0, HVDR, magLeft)
       setCorner(r + 1, c - 2, 2, HVUp, magRight)
-  }
-
+    }
     case HVUL =>
     { setCornerPair(r - 1, c + 2, 5, HVDn, magLeft, HVUR, magRight)
       setCorner(r - 1, c - 2, 1, HVDn, magLeft)
       setCorner(r + 1, c, 3, HVUR, magRight)
     }
-
     case _ => debexc("Not implemented")
   }
 
