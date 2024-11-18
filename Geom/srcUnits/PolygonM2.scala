@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** A polygon where the vertices are specified in [[Metre]] rather than scalars. */
+/** A polygon where the vertices are specified in [[Metres]] rather than scalars. */
 final class PolygonM2(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength2[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM2

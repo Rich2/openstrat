@@ -6,7 +6,7 @@ import geom.*, pglobe.*, egrid.*, WTiles.*, collection.mutable.ArrayBuffer
 abstract class EarthArea(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey with Coloured
 { override def toString = name.oneLine + ", " + terr.strComma
   def aStrs: StrArr = StrArr(name)
-  def textScale: Metre = 15000.metre
+  def textScale: Metres = 15000.metres
   override def colour = terr.colour
 
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
@@ -42,7 +42,7 @@ trait EarthIslandLike
   def name: String
   
   /** The area of this island or island grouping. */
-  def area: Kilare
+  def area: Kilares
 
   def oGroup: Option[EarthIslandGroup] = None
 
@@ -68,7 +68,7 @@ abstract class EarthAreaIsland(name: String, cen: LatLong, terr: WTile) extends 
 }
 
 abstract class EarthIslandGroup(val name: String) extends EarthIslandLike
-{ override def area: Kilare = array.sumBy(_.area)
+{ override def area: Kilares = array.sumBy(_.area)
   def elements: RArr[EarthIslandLike]
   lazy val array: Array[EarthIslandLike] = elements.arrayUnsafe
   override def toString: String = name

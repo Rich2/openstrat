@@ -16,12 +16,12 @@ class LineSegM3(val xStartMetresNum: Double, val yStartMetresNum: Double, val zS
   override def dbl4: Double = xEndMetresNum
   override def dbl5: Double = yEndMetresNum
   override def dbl6: Double = zEndMetresNum
-  def xStart: Metre = Metre(xStartMetresNum)
-  def yStart: Metre = Metre(yStartMetresNum)
-  def zStart: Metre = Metre(zStartMetresNum)
-  def xEnd: Metre = Metre(xEndMetresNum)
-  def yEnd: Metre = Metre(yEndMetresNum)
-  def zEnd: Metre = Metre(zEndMetresNum)
+  def xStart: Metres = Metres(xStartMetresNum)
+  def yStart: Metres = Metres(yStartMetresNum)
+  def zStart: Metres = Metres(zStartMetresNum)
+  def xEnd: Metres = Metres(xEndMetresNum)
+  def yEnd: Metres = Metres(yEndMetresNum)
+  def zEnd: Metres = Metres(zEndMetresNum)
   def zsPos: Boolean = zStart.nonNeg && zEnd.nonNeg
 
   /** Takes the X and Y components. */

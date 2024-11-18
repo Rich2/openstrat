@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
-/** A 2 dimensional point specified in [[Kilometre]] as units rather than pure scalar numbers. */
+/** A 2 dimensional point specified in [[Kilometres]] as units rather than pure scalar numbers. */
 final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double) extends PtLength2 with VecPtKm2 with TellElemDbl2
 { override type ThisT = PtKm2
   override type LineSegT = LineSegKm2
@@ -23,7 +23,7 @@ final class PtKm2 private(val xKilometresNum: Double, val yKilometresNum: Double
   override def divByLength(operator: Length): Pt2 = Pt2(xKilometresNum / operator.metresNum, yKilometresNum / operator.metresNum)
   override def revY: PtKm2 = new PtKm2(xKilometresNum, -yKilometresNum)
   override def revYIf(cond: Boolean): PtKm2 = ife(cond, new PtKm2(xKilometresNum, -yKilometresNum), this)
-  override def magnitude: Metre = Metre(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
+  override def magnitude: Metres = Metres(math.sqrt(xKilometresNum.squared + yKilometresNum.squared))
   override def rotate180: PtKm2 = new PtKm2(-xKilometresNum, -yKilometresNum)
   override def rotate180If(cond: Boolean): PtKm2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtKm2 = ife(cond, this, rotate180)
@@ -50,7 +50,7 @@ object PtKm2
 { /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
   def kilometresNum(xKilometres: Double, yKilometres: Double): PtKm2 = new PtKm2(xKilometres, yKilometres)
 
-  def apply(x: Kilometre, y: Kilometre): PtKm2 = new PtKm2(x.kilometreNum, y.kilometreNum)
+  def apply(x: Kilometres, y: Kilometres): PtKm2 = new PtKm2(x.kilometresNum, y.kilometresNum)
 
   def origin: PtKm2 = new PtKm2(0, 0)
 

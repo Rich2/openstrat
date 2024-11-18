@@ -257,7 +257,7 @@ object Pt2
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
   implicit class Pt2Implicit(thisPt: Pt2)
-  { def * (operand: Metre): PtM2 = PtM2.metresNum(thisPt.x * operand.metresNum, thisPt.y * operand.metresNum)
+  { def * (operand: Metres): PtM2 = PtM2.metresNum(thisPt.x * operand.metresNum, thisPt.y * operand.metresNum)
   }
 
   /** Returns point on a circle of radius 1 from the angle in radians. Gives an anti clockwise effect. */

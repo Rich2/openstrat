@@ -14,8 +14,8 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   /** Scale accounting for whether the display has north up or down. */
   def dirnScale: LengthMetric = nthSth.fld(scale, -scale)
 
-  val scaleMin: LengthMetric = 0.2.kiloMetre
-  val scaleMax: LengthMetric = 100.kiloMetre
+  val scaleMin: LengthMetric = 0.2.kiloMetres
+  val scaleMax: LengthMetric = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
@@ -62,7 +62,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
-    val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zPos)
+    val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zNonNeg)
     val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy / scale)
 
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }

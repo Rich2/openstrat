@@ -24,20 +24,20 @@ package object pglobe
     /** Internal method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
     def earthZPosXYModifyInefficient: PolygonM2 =
     { val buff = BuffPtM2()
-      thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
+      thisPoly.vertsPrevForEach((prev, v) => (v.zNonNeg) match
         {
           case true if prev.zNeg =>
-          { val y: Metre = (prev.y + v.y) / 2
+          { val y: Metres = (prev.y + v.y) / 2
             val ratio = (1 - (y / EarthAvRadius).squared).sqrt
-            val x: Metre = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            val x: Metres = ife(v.xNonNeg, EarthAvRadius * ratio, -EarthAvRadius * ratio)
             buff.grow(PtM2(x, y))
             buff.grow(v.xy)
           }
 
-          case false if prev.zPos =>
-          { val y: Metre = (prev.y + v.y) / 2
+          case false if prev.zNonNeg =>
+          { val y: Metres = (prev.y + v.y) / 2
             val ratio: Double = (1 - (y / EarthAvRadius).squared).sqrt //gets cosine value from sine value
-            val x: Metre = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            val x: Metres = ife(v.xNonNeg, EarthAvRadius * ratio, -EarthAvRadius * ratio)
             buff.grow(PtM2(x, y))
           }
 

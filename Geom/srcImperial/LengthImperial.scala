@@ -21,9 +21,9 @@ trait LengthImperial extends Any with Length with ImperialUnits
   override def /(operand: Double): LengthImperial
   override def unary_- : LengthImperial
   override def metresNum: Double = yardsNum * Yards.toMetres
-  override def kilometreNum: Double = metresNum / 1000
-  override def megametreNum: Double = metresNum / 1000000
-  override def gigametreNum: Double = metresNum / 1000000000
+  override def kilometresNum: Double = metresNum / 1000
+  override def megametresNum: Double = metresNum / 1000000
+  override def gigametresNum: Double = metresNum / 1000000000
 }
 
 /** [[Length]] measured in yards. Can be negative. */
@@ -35,7 +35,7 @@ final class Yards(val yardsNum: Double) extends AnyVal with LengthImperial
   override def -(operand: Length): Yards = Yards(yardsNum - nfl(operand))
   override def unary_- : Yards = Yards(-yardsNum)
   override def *(operand: Double): Yards = Yards(yardsNum * operand)
-  override def mulByLength(operand: Length): Yardare = Yardare(yardsNum * nfl(operand))
+  override def mulByLength(operand: Length): Yardares = Yardares(yardsNum * nfl(operand))
   override def /(operand: Double): Yards = Yards(yardsNum / operand)
   override def divByLength(operand: Length): Double = yardsNum / nfl(operand)
   override def milesNum: Double = yardsNum / Miles.toYards
@@ -46,12 +46,13 @@ final class Yards(val yardsNum: Double) extends AnyVal with LengthImperial
 }
 
 object Yards
-{
+{ /** Factory apply method to create [[Yards]] from a [[Double]] */
   def apply(yardsNum: Double): Yards = new Yards(yardsNum)
 
   /** Converts yards to metres. */
   val toMetres: Double = 0.9144
 
+  /** Converts metres to yards. */
   val fromMetres: Double = 1.09361
 
   def numFromLength(input: Length): Double = input match
@@ -69,7 +70,7 @@ final class Miles(val milesNum: Double) extends AnyVal with LengthImperial
   override def -(operand: Length): Miles = Miles(milesNum - nfl(operand))
   override def unary_- : Miles = Miles(-milesNum)
   override def *(operand: Double): Miles = Miles(milesNum * operand)
-  override def mulByLength(operand: Length): Mileare = Mileare(milesNum * nfl(operand))
+  override def mulByLength(operand: Length): Mileares = Mileares(milesNum * nfl(operand))
   override def /(operand: Double): Miles = Miles(milesNum / operand)
   override def divByLength(operand: Length): Double = milesNum / nfl(operand)
   override def metresNum: Double = milesNum * Yards.toMetres * Miles.toYards
@@ -94,7 +95,7 @@ object Miles
 
   def numFromLength(input: Length): Double = input match
   { case li: LengthImperial => li.milesNum
-    case l => l.kilometreNum * fromKilometres
+    case l => l.kilometresNum * fromKilometres
   }
 }
 
@@ -107,7 +108,7 @@ final class MegaMiles(val megaMilesNum: Double) extends AnyVal with LengthImperi
   override def -(operand: Length): MegaMiles = MegaMiles(megaMilesNum - mmfl(operand))
   override def unary_- : MegaMiles = MegaMiles(-megaMilesNum)
   override def *(operand: Double): MegaMiles = MegaMiles(megaMilesNum * operand)
-  override def mulByLength(operand: Length): Mileare = Mileare(milesNum * mmfl(operand) * 1000000.squared)
+  override def mulByLength(operand: Length): Mileares = Mileares(milesNum * mmfl(operand) * 1000000.squared)
   override def /(operand: Double): MegaMiles = MegaMiles(megaMilesNum / operand)
   override def divByLength(operand: Length): Double = megaMilesNum / mmfl(operand)
   override def metresNum: Double = megaMilesNum * 1000000 * Miles.toYards * Yards.toMetres
@@ -122,11 +123,11 @@ object MegaMiles
 { /** Factory apply method for [[MegaMiles]]. */
   def apply(megaMilesNum: Double): MegaMiles = new MegaMiles(megaMilesNum)
 
-  /** The number of [[Gigametre]] in a megamile. */
+  /** The number of [[Gigametres]] in a megamile. */
   val fromGigaMetres: Double = 0.621371
 
   def numFromLength(input: Length): Double = input match
   { case li: LengthImperial => li.megaMilesNum
-    case l => l.gigametreNum * fromGigaMetres
+    case l => l.gigametresNum * fromGigaMetres
   }
 }

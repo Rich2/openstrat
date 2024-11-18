@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
-/** A 2 dimensional point specified in [[Metre]] as units rather than pure scalar numbers. */
+/** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
 final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends PtLength2 with VecPtM2 with TellElemDbl2
 { override type ThisT = PtM2
   override type LineSegT = LineSegM2
@@ -23,7 +23,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
   override def divByLength(operator: Length): Pt2 = Pt2(xMetresNum / operator.metresNum, yMetresNum / operator.metresNum)
   override def revY: PtM2 = new PtM2(xMetresNum, -yMetresNum)
   override def revYIf(cond: Boolean): PtM2 = ife(cond, new PtM2(xMetresNum, -yMetresNum), this)
-  override def magnitude: Metre = Metre(math.sqrt(xMetresNum.squared + yMetresNum.squared))
+  override def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
   override def rotate180: PtM2 = new PtM2(-xMetresNum, -yMetresNum)
   override def rotate180If(cond: Boolean): PtM2 = ife(cond, rotate180, this)
   override def rotate180IfNot(cond: Boolean): PtM2 = ife(cond, this, rotate180)
@@ -45,7 +45,7 @@ final class PtM2 private(val xMetresNum: Double, val yMetresNum: Double) extends
 
 /** Companion object for [[PtM2]] class contains factory methods. */
 object PtM2
-{ /** Factory apply method to create 2 dimeensional point specified in [[Metre]]. If you want to consttuct from scalars use the metresNum method. */
+{ /** Factory apply method to create 2 dimeensional point specified in [[Metres]]. If you want to consttuct from scalars use the metresNum method. */
   def apply(x: Length, y: Length): PtM2 = new PtM2(x.metresNum, y.metresNum)
 
   /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */

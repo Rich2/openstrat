@@ -27,13 +27,13 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
   }
 
   statusText = "Choose centreing body."
-  val maxOrbit: Metre = 3700.megaMiles.toMetres
+  val maxOrbit: Metres = 3700.megaMiles.toMetres
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
-  var scale: LengthMetric = 0.8.gigaMetre// megaMiles.toMetres
-  val scaleMax: Metre = 10.megaMiles.toMetres
-  val scaleMin: Metre = 0.1.megaMiles.toMetres
+  var scale: LengthMetric = 0.8.gigaMetres// megaMiles.toMetres
+  val scaleMax: Metres = 10.megaMiles.toMetres
+  val scaleMin: Metres = 0.1.megaMiles.toMetres
   var elapsed: Int = 0
   val nowt: Instant = Instant.now()
   //val num = 1234567890L
@@ -55,7 +55,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")
       { val auRatio: Double = p.avSunDist / Earth.avSunDist
         Pt2.circlePt(0.001 * elapsed / math.sqrt(auRatio.cubed)).toMetres(p.avSunDist)
       }
-      case _ => PtM2(0.metre, 0.metre)
+      case _ => PtM2(0.metres, 0.metres)
     }
 
     def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(thisBody.colour)

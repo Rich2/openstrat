@@ -101,7 +101,7 @@ final class LatLong(val dbl1: Double, val dbl2: Double) extends LatLongBase with
 
   def toOptDist2(inp: LatLong): Option[PtM2] =
   { val r1: PtM3 = inp.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
-    r1.toXYIfZPositive
+    r1.toXYIfZNonNeg
   }
 
   /** Converts to [[PtM3]] where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */

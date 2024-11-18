@@ -4,7 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] graphical representation for Cuba 109884km². Depends on nothing. */
 object Cuba extends EarthAreaIsland("Cuba", 21.97 ll -78.96, jungle)
-{ override val area: Kilare = 109884.kilare
+{ override val area: Kilares = 109884.kilares
 
   val west: LatLong = 21.86 ll -84.95
   val havana: LatLong = 23.14 ll -82.39

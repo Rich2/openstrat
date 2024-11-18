@@ -11,8 +11,8 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
   /** Scale accounting for whether the display has north up or down. */
   def dirnScale: LengthMetric = ife(northUp, scale, -scale)
 
-  val scaleMin: LengthMetric = 0.2.kiloMetre
-  val scaleMax: LengthMetric = 100.kiloMetre
+  val scaleMin: LengthMetric = 0.2.kiloMetres
+  val scaleMax: LengthMetric = 100.kiloMetres
   var focus: LatLongDirn = viewIn.latLongDirn
 
   val eas: RArr[EarthArea] = earthAllAreas.flatMap(_.a2Arr)
@@ -54,7 +54,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
     }
 
     val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
-    val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zPos)
+    val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zNonNeg)
     val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy / scale)
 
     val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
@@ -62,7 +62,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
 
     def units1: GraphicElems = finds.optMap{ ls =>
       val xyz = ls.loc.toMetres3.fromLatLongFocus(focus)
-      if (xyz.zPos){
+      if (xyz.zNonNeg){
         val pt = (xyz.xy/scale)
         val res = InfantryCounter.level(50, ls, ls.colour, ls.level).slate(pt)
         Some(res)
@@ -70,7 +70,7 @@ case class ULocGui(canv: CanvasPlatform, var date: MTime, viewIn: EarthView = Ea
       else None
     }
 
-    def units2: GraphicElems = ifScale(8.kiloMetre, units1)
+    def units2: GraphicElems = ifScale(8.kiloMetres, units1)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 

@@ -38,7 +38,7 @@ object JanMayen extends EarthArea("JanMayen", 71.02 ll -8.29, taiga)
 
 /** [[PolygonLL]] graphic for the Faroe Islands. */
 object Faroe extends EarthAreaIsland("Faroe", 62.14 ll -6.91, hillyOce)
-{ override val area: Kilare = 1399.kilare
+{ override val area: Kilares = 1399.kilares
   
   val sSuduroy: LatLong = 61.39 ll -6.68
   val wValgar: LatLong = 62.3 ll -7.46

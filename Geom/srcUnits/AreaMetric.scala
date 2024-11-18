@@ -7,74 +7,76 @@ trait AreaMetric extends Any with Area with MetricUnits with TellDblBased
   override def - (operand: Area): AreaMetric
   override def * (operand: Double): AreaMetric
   override def / (operand: Double): AreaMetric
-  override def mileareNum: Double = kilareNum * Area.kilareToMileare
+  override def acresNum: Double = hectaresNum * 0.404686
+  override def milearesNum: Double = kilaresNum * Area.kilaresToMileares
+  override def yardaresNum: Double = metraresNum * 1.19599
 }
 
-/** Square metres a measure of [[Area]]. Following convention this would be a called an Are,  ubt unfortuntely and confusingly this is sometimes used for
+/** Square metres a measure of [[Area]]. Following convention this would be a called an Ares, but unfortunately and confusingly this is sometimes used for
  * 100m². */
-class Metrare(val metrareNum: Double) extends AnyVal with AreaMetric
+class Metrares(val metraresNum: Double) extends AnyVal with AreaMetric
 { override def typeStr: String = "Metres"
-  override def unitsDbl: Double = metrareNum
+  override def unitsDbl: Double = metraresNum
   override def endingStr: String = "m²"
-  override def + (operand: Area): Metrare = new Metrare(metrareNum + operand.metrareNum)
-  override def - (operand: Area): Metrare = new Metrare(metrareNum - operand.metrareNum)
-  override def * (operand: Double): Metrare = new Metrare(metrareNum * operand)
-  def / (operand: Double): Metrare = new Metrare(metrareNum / operand)
-  override def kilareNum: Double = metrareNum / 1000000
-  override def hectareNum: Double = metrareNum / 10000
+  override def + (operand: Area): Metrares = new Metrares(metraresNum + operand.metraresNum)
+  override def - (operand: Area): Metrares = new Metrares(metraresNum - operand.metraresNum)
+  override def * (operand: Double): Metrares = new Metrares(metraresNum * operand)
+  def / (operand: Double): Metrares = new Metrares(metraresNum / operand)
+  override def kilaresNum: Double = metraresNum / 1000000
+  override def hectaresNum: Double = metraresNum / 10000
 }
 
-object Metrare
+object Metrares
 { /** Factory apply method for constructing measurement of areas specified in square metres. */
-  def apply(metresSqNum: Double): Metrare = new Metrare(metresSqNum)
+  def apply(metresSqNum: Double): Metrares = new Metrares(metresSqNum)
 }
 
 /** Square kilometres a measure of [[Area]]. Kilares follows the same naming convention as Hectares. */
-class Hectare(val hectareNum: Double) extends AnyVal with AreaMetric
+class Hectares(val hectaresNum: Double) extends AnyVal with AreaMetric
 { override def typeStr: String = "Hectares"
-  override def unitsDbl: Double = hectareNum
+  override def unitsDbl: Double = hectaresNum
   override def endingStr: String = "ha"
-  override def +(operand: Area): Hectare = Hectare(hectareNum + operand.hectareNum)
-  override def -(operand: Area): Hectare = Hectare(hectareNum - operand.hectareNum)
-  override def *(operand: Double): Hectare = new Hectare(hectareNum * operand)
-  override def /(operand: Double): Hectare = new Hectare(hectareNum / operand)
-  override def kilareNum: Double = hectareNum / 100
-  override def metrareNum: Double = hectareNum * 10000
+  override def +(operand: Area): Hectares = Hectares(hectaresNum + operand.hectaresNum)
+  override def -(operand: Area): Hectares = Hectares(hectaresNum - operand.hectaresNum)
+  override def *(operand: Double): Hectares = new Hectares(hectaresNum * operand)
+  override def /(operand: Double): Hectares = new Hectares(hectaresNum / operand)
+  override def kilaresNum: Double = hectaresNum / 100
+  override def metraresNum: Double = hectaresNum * 10000
 }
 
-/** Square kilometres a measure of [[Area]]. Kilares follows the same naming convention as [[Hectare]]s. */
-class Kilare(val kilareNum: Double) extends AnyVal with AreaMetric
+/** Square kilometres a measure of [[Area]]. Kilares follows the same naming convention as [[Hectares]]s. */
+class Kilares(val kilaresNum: Double) extends AnyVal with AreaMetric
 { override def typeStr: String = "Kilares"
-  override def unitsDbl: Double = kilareNum
+  override def unitsDbl: Double = kilaresNum
   override def endingStr: String = "km²"
-  override def +(operand: Area): Kilare = Kilare(kilareNum + operand.kilareNum)
-  override def -(operand: Area): Kilare = Kilare(kilareNum - operand.kilareNum)
-  override def * (operand: Double): Kilare = new Kilare(kilareNum * operand)
-  override def / (operand: Double): Kilare = new Kilare(kilareNum / operand)
-  override def hectareNum: Double = kilareNum / 100
-  override def metrareNum: Double = kilareNum * 10000
+  override def +(operand: Area): Kilares = Kilares(kilaresNum + operand.kilaresNum)
+  override def -(operand: Area): Kilares = Kilares(kilaresNum - operand.kilaresNum)
+  override def * (operand: Double): Kilares = new Kilares(kilaresNum * operand)
+  override def / (operand: Double): Kilares = new Kilares(kilaresNum / operand)
+  override def hectaresNum: Double = kilaresNum / 100
+  override def metraresNum: Double = kilaresNum * 10000
 }
 
-object Kilare
+object Kilares
 { /** Factory apply method for creating units of square kilometres. */
-  def apply(kMetresSqNum: Double): Kilare = new Kilare(kMetresSqNum)
+  def apply(kMetresSqNum: Double): Kilares = new Kilares(kMetresSqNum)
 
   implicit class SequSumEv[A](thisSeq: Sequ[A])
   {
-    def sumBy(f: A => Area): Kilare =
+    def sumBy(f: A => Area): Kilares =
     { var acc: Double = 0
-      thisSeq.foreach(a => acc += f(a).kilareNum)
-      Kilare(acc)
+      thisSeq.foreach(a => acc += f(a).kilaresNum)
+      Kilares(acc)
     }
   }
 }
 
 implicit class arraySumEv[A](thisArray: Array[A])
 {
-  def sumBy(f: A => Area): Kilare =
+  def sumBy(f: A => Area): Kilares =
   {
     var acc: Double = 0
-    thisArray.foreach(a => acc += f(a).kilareNum)
-    Kilare(acc)
+    thisArray.foreach(a => acc += f(a).kilaresNum)
+    Kilares(acc)
   }
 }

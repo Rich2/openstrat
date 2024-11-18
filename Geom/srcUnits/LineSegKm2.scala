@@ -6,10 +6,10 @@ import collection.mutable.ArrayBuffer
  *  surface. */
 class LineSegKm2(val xStartKilometresNum: Double, val yStartKilometresNum: Double, val xEndKilometresNum: Double, val yEndKilometresNum: Double) extends
   LineSegLength2[PtKm2] with LineSegLikeDbl4[PtKm2] with Dbl4Elem
-{ def xStart: Kilometre = Kilometre(xStartKilometresNum)
-  def yStart: Kilometre = Kilometre(yStartKilometresNum)
-  def xEnd: Kilometre = Kilometre(xEndKilometresNum)
-  def yEnd: Kilometre = Kilometre(yEndKilometresNum)
+{ def xStart: Kilometres = Kilometres(xStartKilometresNum)
+  def yStart: Kilometres = Kilometres(yStartKilometresNum)
+  def xEnd: Kilometres = Kilometres(xEndKilometresNum)
+  def yEnd: Kilometres = Kilometres(yEndKilometresNum)
   def startPt: PtKm2 = PtKm2.kilometresNum(xStartKilometresNum, yStartKilometresNum)
   def endPt: PtKm2 = PtKm2.kilometresNum(xEndKilometresNum, yEndKilometresNum)
 
@@ -36,7 +36,7 @@ object LineSegKm2
   /** Factory apply method for constructing [[LineSegKm2]]s from the X and Y components of the start and end points. There is an apply overload to construct
    * from the start and end points.To construct from scalar quantities use the metresNum method. */
   def apply(xStartPt: Length, yStartPt: Length, xEndPt: Length, yEndPt: Length): LineSegKm2 =
-    new LineSegKm2(xStartPt.kilometreNum, yStartPt.kilometreNum, xEndPt.kilometreNum, yEndPt.kilometreNum)
+    new LineSegKm2(xStartPt.kilometresNum, yStartPt.kilometresNum, xEndPt.kilometresNum, yEndPt.kilometresNum)
 
   /** Factory method for constructing [[LineSegKm2]] from scalar quantities. To construct from [[PtLength2]] quantities use the apply methods. */
   def kilometresNum(xStartKilometresNum: Double, yStartKilometresNum: Double, xEndKilometresNum: Double, yEndKilometresNum: Double): LineSegKm2 =

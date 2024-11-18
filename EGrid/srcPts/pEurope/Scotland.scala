@@ -4,7 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[polygonLL]] Graphical representation of Shetland. Depends on nothing. */
 object Shetland extends EarthAreaIsland("Shetland", 60.34 ll -1.23, oceanic)
-{ override val area: Kilare = 1467.kilare
+{ override val area: Kilares = 1467.kilares
 
   val south: LatLong = 59.85 ll -1.27
   val sSoundsound: LatLong = 60.20 ll -1.34
@@ -19,7 +19,7 @@ object Shetland extends EarthAreaIsland("Shetland", 60.34 ll -1.23, oceanic)
 
 /** [[PolygonLL]] graphical representation of the Orkney's. */
 object Orkneys extends EarthAreaIsland("Orkneys", 59.06 ll -3.15, oceanic)
-{ override val area: Kilare = 990.kilare
+{ override val area: Kilares = 990.kilares
   
   val north: LatLong = 59.38 ll -2.88
   val stronsayE: LatLong = 59.09 ll -2.53

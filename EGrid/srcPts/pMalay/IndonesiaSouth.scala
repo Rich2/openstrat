@@ -17,7 +17,7 @@ object Sumatra extends EarthArea("Sumatra", -0.02 ll 101.63, jungle)
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
 object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, hillyJungle)
-{ override val area: Kilare =  124413.kilare
+{ override val area: Kilares =  124413.kilares
 
   val ePulauMadura: LatLong = -6.96 ll 114.11
   val pasuruan: LatLong = -7.627 ll 112.919
@@ -42,7 +42,7 @@ object javaIsland extends EarthAreaIsland("Java", -7.39 ll 110.03, hillyJungle)
 
 /** [[polygonLL]] graphical representation of the island of Java 124413km² + Bali 5780km². Depends on nothing. */
 object BaliIsland extends EarthAreaIsland("Bali", -8.358 ll 115.192, hillyJungle)
-{ override val area: Kilare = 5780.kilare
+{ override val area: Kilares = 5780.kilares
 
   val baliNorth: LatLong = -8.061 ll 115.184
   val baliWest: LatLong = -8.377 ll 115.709
@@ -55,7 +55,7 @@ object BaliIsland extends EarthAreaIsland("Bali", -8.358 ll 115.192, hillyJungle
 
 /** [[polygonLL]] graphical representation of Lambok island 4607.68km². Depends on nothing. */
 object Lambok extends EarthAreaIsland("Lambok", -8725 ll 117.442, hillyJungle)
-{ val area: Kilare = 4607.68.kilare
+{ val area: Kilares = 4607.68.kilares
 
   val north: LatLong = -8.210 ll 116.351
   val sulatSouth: LatLong = -8.345 ll 116.743
@@ -68,7 +68,7 @@ object Lambok extends EarthAreaIsland("Lambok", -8725 ll 117.442, hillyJungle)
 
 /** [[polygonLL]] graphical representation of Sumbawa island 15414km². Depends on nothing. */
 object Sumbawa extends EarthAreaIsland("Sumbawa", -8725 ll 117.442, jungle)
-{ override val area: Kilare = 15414.kilare
+{ override val area: Kilares = 15414.kilares
 
   val north: LatLong = -8.080 ll 117.925
   val sangeangeIsland: LatLong = -8.138 ll 119.093
@@ -83,9 +83,9 @@ object Sumbawa extends EarthAreaIsland("Sumbawa", -8725 ll 117.442, jungle)
 
 /** [[polygonLL]] graphical representation of the islands of Flores 14731.67km², + others 1500km². Depends on nothing. */
 object Flores extends EarthAreaIsland("Flores", -8.671 ll 121.858, mtainJungle)
-{ val floresArea: Kilare = 14731.67.kilare
-  val otherIslandAreas: Kilare = 1500.kilare
-  override val area: Kilare = floresArea + otherIslandAreas
+{ val floresArea: Kilares = 14731.67.kilares
+  val otherIslandAreas: Kilares = 1500.kilares
+  override val area: Kilares = floresArea + otherIslandAreas
 
   val north: LatLong = -8.241 ll 120.428
   val northEast: LatLong = -8.064 ll 122.865
@@ -99,9 +99,9 @@ object Flores extends EarthAreaIsland("Flores", -8.671 ll 121.858, mtainJungle)
 
 /** [[polygonLL]] graphical representation of the Alor Island 2124.93km² + others 600km². Depends on nothing. */
 object AlorIsland extends EarthAreaIsland("Alor", -8.671 ll 121.858, mtainJungle)
-{ val alorArea: Kilare = 2124.93.kilare
-  val otherIslandAreas: Kilare = 600.kilare
-  override val area: Kilare = alorArea + otherIslandAreas
+{ val alorArea: Kilares = 2124.93.kilares
+  val otherIslandAreas: Kilares = 600.kilares
+  override val area: Kilares = alorArea + otherIslandAreas
 
   val alorNE: LatLong = -8.147 ll 125.095
   val alorSE: LatLong = -8.327 ll 125.124
@@ -114,7 +114,7 @@ object AlorIsland extends EarthAreaIsland("Alor", -8.671 ll 121.858, mtainJungle
 
 /** [[polygonLL]] graphical representation of Wetar Island 2651.8km²  f Lessar Sunda Islands. Depends on nothing. */
 object Wetar extends EarthAreaIsland("Wetar", -7.788 ll 126.363, mtainJungle)
-{ override val area: Kilare = 2651.8.kilare
+{ override val area: Kilares = 2651.8.kilares
 
   val north: LatLong = -7.559 ll 126.627
   val east: LatLong = -7.733 ll 126.841
@@ -128,9 +128,9 @@ object Wetar extends EarthAreaIsland("Wetar", -7.788 ll 126.363, mtainJungle)
  /** [[polygonLL]] graphical representation 32057.1km² of Timor Island 30777km² + Rote Island 1280.10km² of Lesser Sunda Islands except eastern islands. Depends
   *  on nothing. */
 object Timor extends EarthAreaIsland("Timor", -8.538 ll 118.510, jungle)
-{ val timorArea: Kilare = 30777.kilare
-  val roteArea: Kilare = 1280.10.kilare
-  override val area: Kilare = timorArea + roteArea
+{ val timorArea: Kilares = 30777.kilares
+  val roteArea: Kilares = 1280.10.kilares
+  override val area: Kilares = timorArea + roteArea
 
   val east: LatLong = -8.412 ll 127.288
   val toineke: LatLong = -10.168 ll 124.393
@@ -144,7 +144,7 @@ object Timor extends EarthAreaIsland("Timor", -8.538 ll 118.510, jungle)
 
 /** [[polygonLL]] graphical representation of Sumba Island 11243.78km² in the Lesser Sunda Islands. Depends on nothing. */
 object Sumba extends EarthAreaIsland("Sumba", -9.720 ll 120.031, jungle)
-{ override def area: Kilare = 11243.78.kilare
+{ override def area: Kilares = 11243.78.kilares
 
   val north: LatLong = -9.276 ll 119.935
   val east: LatLong = -10.033 ll 120.845

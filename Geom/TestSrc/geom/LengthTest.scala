@@ -7,7 +7,7 @@ object LengthTest  extends TestSuite
   val tests = Tests {
     val ts1: ErrBiArr[ExcLexar, Token] = "4.3km".toTokens
     test("Length 1")
-    { "4km".asType[Kilometre] ==> Succ(Kilometre(4))
+    { "4km".asType[Kilometres] ==> Succ(Kilometres(4))
       ts1.isSucc ==> true
     }
   }

@@ -2,7 +2,7 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** 3 dimensional point specified using [[Kilometre]] as units rather than scalars. */
+/** 3 dimensional point specified using [[Kilometres]] as units rather than scalars. */
 final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zKilometresNum: Double) extends PtLength3
 { override type ThisT = PtKm3
   override type LineSegT = LineSegKm3
@@ -16,12 +16,12 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
   override def xMetresNum: Double = xKilometresNum * 1000
   override def yMetresNum: Double = yKilometresNum * 1000
   override def zMetresNum: Double = zKilometresNum * 1000
-  def x: Kilometre = Kilometre(xKilometresNum)
-  def y: Kilometre = Kilometre(yKilometresNum)
-  def z: Kilometre = Kilometre(zKilometresNum)
+  def x: Kilometres = Kilometres(xKilometresNum)
+  def y: Kilometres = Kilometres(yKilometresNum)
+  def z: Kilometres = Kilometres(zKilometresNum)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: PtKm3): Kilare = x * operand.x + y * operand.y + z * operand.z
+  @inline def dot(operand: PtKm3): Kilares = x * operand.x + y * operand.y + z * operand.z
   def xy: PtM2 = PtM2.metresNum(xKilometresNum, yKilometresNum)
   def xPos: Boolean = x.nonNeg
   def xNeg: Boolean = x.neg
@@ -37,7 +37,7 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
 
   /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtKm3]] point. */
   def xRotateRadians(rotationRadians: Double): PtKm3 =
-  { val len: Kilometre = Kilometre(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
+  { val len: Kilometres = Kilometres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(len > EarthEquatorialRadius * 1.05) throw excep("scalar: " + len.toString)
 
     val ang0 = None match {//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
@@ -90,9 +90,9 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
   }
 
   /** The distance in the XY plane from an operand [[PtM2]], the default being from the origin. */
-  def xyLengthFrom(operand: PtM2 = PtM2.origin): Kilometre = {
+  def xyLengthFrom(operand: PtM2 = PtM2.origin): Kilometres = {
     val sq = xKilometresNum.squared + yKilometresNum.squared
-    Kilometre(sq.sqrt)
+    Kilometres(sq.sqrt)
   }
 
   override def lineSegTo(endPt: PtLength3): LineSegKm3 =
@@ -104,11 +104,11 @@ final class PtKm3(val xKilometresNum: Double, val yKilometresNum: Double, val zK
 
 /** Companion object for the [[PtKm3]] the 3 dimensional space point class. Contains factory methods and implicit type class instances. */
 object PtKm3
-{  /** Factory apply method for constructing 3D points specified in [[Kilometre]], from its component axes specified in [[Length]]s. if you want to construct
+{  /** Factory apply method for constructing 3D points specified in [[Kilometres]], from its component axes specified in [[Length]]s. if you want to construct
    * from scalars use the kilometresNum method. */
-  def apply(x: Length, y: Length, z: Length): PtKm3 = new PtKm3(x.kilometreNum, y.kilometreNum, z.kilometreNum)
+  def apply(x: Length, y: Length, z: Length): PtKm3 = new PtKm3(x.kilometresNum, y.kilometresNum, z.kilometresNum)
 
-  /** Factory method for constructing 3D points specified in [[Kilometre]], from its component axes input as [[Length]]s. if you want to construct from
+  /** Factory method for constructing 3D points specified in [[Kilometres]], from its component axes input as [[Length]]s. if you want to construct from
    * [[Length]] classes components use the apply method. */
   def kilometres(xKilometres: Double, yKilometres: Double, zKilometres: Double): PtKm3 = new PtKm3(xKilometres, yKilometres, zKilometres)
 

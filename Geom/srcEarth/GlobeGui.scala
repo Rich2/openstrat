@@ -12,7 +12,7 @@ abstract class GlobeGui(val title: String) extends CmdBarGui
 
   def ifScale(minScale: LengthMetric, inp: => GraphicElems): GraphicElems = ife(scale < minScale, inp, RArr[GraphicElem]())
 
-  def scaleStr = s"scale = ${scale.kilometreNum.str2} km/pixel"
+  def scaleStr = s"scale = ${scale.kilometresNum.str2} km/pixel"
   def repaint(): Unit
 
   def lat: Latitude = focus.lat

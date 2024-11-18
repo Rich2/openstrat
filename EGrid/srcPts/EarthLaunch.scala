@@ -13,7 +13,7 @@ object EarthBasicLaunch extends GuiLaunchMore
     { val scale: Double = sts.findSettingElse[Double]("scale", 10)
       val lat: Double = sts.findSettingElse("latitude", 40)
       val long: Double = sts.findSettingElse("longitude", 10)
-      EarthView(lat ll long, scale.kiloMetre, true)
+      EarthView(lat ll long, scale.kiloMetres, true)
     }
 
     val view: EarthView = sts.findType[EarthView].getElse(multisett)

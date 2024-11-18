@@ -6,10 +6,10 @@ import collection.mutable.ArrayBuffer
  *  surface. */
 class LineSegM2(val xStartMetresNum: Double, val yStartMetresNum: Double, val xEndMetresNum: Double, val yEndMetresNum: Double) extends LineSegLength2[PtM2]
   with LineSegLikeDbl4[PtM2] with Dbl4Elem
-{ override def xStart: Metre = Metre(xStartMetresNum)
-  override def yStart: Metre = Metre(yStartMetresNum)
-  override def xEnd: Metre = Metre(xEndMetresNum)
-  override def yEnd: Metre = Metre(yEndMetresNum)
+{ override def xStart: Metres = Metres(xStartMetresNum)
+  override def yStart: Metres = Metres(yStartMetresNum)
+  override def xEnd: Metres = Metres(xEndMetresNum)
+  override def yEnd: Metres = Metres(yEndMetresNum)
   override def startPt: PtM2 = PtM2(xStart, yStart)
   override def endPt: PtM2 = PtM2(xEnd, yEnd)
 

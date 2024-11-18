@@ -71,7 +71,7 @@ object DelFuego extends EarthArea("Tierra del Fuego", -51.781 ll -59.211, hillyS
 
 /** [[polygonLL]] graphical representation for the Falkland Islands 12173km². Depends on nothing. */
 object Falklands extends EarthAreaIsland("Falkland\nIslands", -51.781 ll -59.211, hillySteppe)
-{ override val area: Kilare = 12173.kilare
+{ override val area: Kilares = 12173.kilares
 
   val eiNorthWest: LatLong = -51.233 ll -58.970
   val capePembroke: LatLong = -51.682 ll -57.715
