@@ -336,17 +336,15 @@ final class HCornerLayer(val unsafeArray: Array[Int])
 }
 
 object HCornerLayer
-{
+{ /** Factory apply method to construct a layer of [[HCorner]]s with all values set to no offset. */
   def apply()(implicit gridSys: HGridSys): HCornerLayer = new HCornerLayer(new Array[Int](gridSys.numCorners))
 
   implicit class RArrHCornerLayerExtension(val thisArr: RArr[HCornerLayer])
-  {
-    /** Combines by appending the data grids to produce a single layer. */
+  { /** Combines by appending the data grids to produce a single layer. */
     def combine: HCornerLayer =
-    {
-      val newLen = thisArr.sumBy(_.numCorners)
-      val newArray = new Array[Int](newLen)
-      var i = 0
+    { val newLen: Int = thisArr.sumBy(_.numCorners)
+      val newArray: Array[Int] = new Array[Int](newLen)
+      var i: Int = 0
       thisArr.foreach { ar => ar.unsafeArray.copyToArray(newArray, i); i += ar.numCorners }
       new HCornerLayer(newArray)
     }
