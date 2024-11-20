@@ -6,8 +6,8 @@ import reflect.ClassTag
 trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
 { //type KeyT <: HexStruct
 
-  /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
-   * There is an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
+  /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]]. There is
+   * an alternative nme overload where the [[HGridSys]] is passed explicitly as the first parameter. */
   def apply(hc: HCen)(implicit key: HexStruct): A = arrayUnsafe(key.layerArrayIndex(hc))
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. */
@@ -20,13 +20,12 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
   def set(hc: HCen, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HexStruct): Unit = { arrayUnsafe(gridSys.layerArrayIndex(r, c)) = value }
 
-  /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
-   *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
-   *  => B signature.  */
+  /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def hcForeach[U](f: (HCen, A) => U)(implicit gSys: HexStruct): Unit = gSys.iForeach{ (i, hc) => f(hc, arrayUnsafe(i)); () }
-  /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
-   *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
-   *  element) => B signature. */
+  /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function signature
+   * follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B
+   * signature. */
   def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: HexStruct, build: BuilderArrMap[B, BB]): BB =
   { val res = build.uninitialised(length)
     grid.iForeach{ (i, hc) =>
@@ -36,8 +35,8 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
     res
   }
 
-  /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
-   * [[Arr]] will be between 0 and the length of this [[LayerHcRefSys]]. */
+  /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned [[Arr]] will
+   * be between 0 and the length of this [[LayerHcRefSys]]. */
   def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HexStruct, build: BuilderArrMap[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (i, hc) =>
@@ -46,9 +45,9 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
     build.buffToSeqLike(buff)
   }
 
-  /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
-   *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
-   *  element) => B signature. */
+  /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
+   * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) =>
+   * B signature. */
   def hcFlatMap[BB <: Arr[?]](f: (HCen, A) => BB)(implicit grid: HexStruct, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach{ (i, hc) =>
@@ -58,9 +57,9 @@ trait LayerHcRef[A <: AnyRef] extends Any with LayerTcRef[A]
     build.buffToSeqLike(buff)
   }
 
-  /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
-   * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
-   * element) => B signature. */
+  /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
+   * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) =>
+   * B signature. */
   def hcOptFlatMap[BB <: Arr[?]](f: (HCen, A) => Option[BB])(implicit gridSys: HexStruct, build: BuilderArrFlat[BB]): BB =
   { val buff = build.newBuff()
     gridSys.iForeach { (i, hc) =>
