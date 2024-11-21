@@ -31,7 +31,7 @@ object Util extends CommonJvm
 
 object UtilJs extends CommonJs
 { 
-  def source2 = T{
+  def source2 = Task{
     val str = os.read(T.workspace / "Util/srcRArr/RArr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
     os.write(T.dest / "RArr.scala", str2)
@@ -185,3 +185,10 @@ object DevFx extends CommonJvm
 }
 
 def run() = DevFx.runBackground()
+
+def JsApps = Task{
+  import AppJs._
+  Diceless.fullLinkJS()
+  WW2.fullLinkJS()
+  WW1.fullLinkJS()
+}
