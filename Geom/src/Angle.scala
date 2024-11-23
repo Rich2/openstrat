@@ -1,10 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360
- *  degrees, while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add
- *  and subtract, + and - methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would
- *  make no sense. */
+/** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360 degrees,
+ * while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add and subtract, + and -
+ * methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would make no sense. */
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
 { override def typeStr: String = "Angle"
 
@@ -19,7 +18,10 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
 
   def degStr2: String = degs.str2 + "\u00B0"
 
+  /** Adds an angle of rotation to this angle of inclination. It would make no sense to add an angle of inclination. */
   def +(other: AngleVec): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
+
+  /** Subtracts an angle of rotation to this angle of inclination. It would make no sense to subtract an angle of inclination. */
   def -(other: AngleVec): Angle = Angle.milliSecs(milliSecs - other.milliSecs)
 
   override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match {
