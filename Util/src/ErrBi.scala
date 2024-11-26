@@ -145,7 +145,7 @@ class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
     case _ => false
   }
 
-  override def toString: String = "FailExc" + error.getMessage.enParenth
+  override def toString: String = "FailExc" + error.toString.enParenth
   override def hashCode(): Int = "Fail".hashCode + 31 * error.hashCode
 }
 
@@ -173,8 +173,28 @@ type ThrowMonRArr[+A] = ErrBi[Throwable, RArr[A]]
 type ExcMon[+A] = ErrBi[Exception, A]
 
 object FailExc
-{
+{ /** Factory apply method to construct a [[Fail]] with an [[Exception]] type. */
   @inline def apply[A](message: String): FailExc = new Fail[Exception](new Exception(message))
+}
+
+/** Java IO [[Exception]] */
+type IOExc = java.io.IOException
+
+/** A [[java.io.IOException]] error monad. */
+type ExcIOMon[+A] = ErrBi[IOExc, A]
+
+/** A [[Fail]] with [[Exception]] type. */
+type FailExc = Fail[Exception]
+
+/** A [[Fail]] with [[Exception]] type. */
+type FailIO = Fail[IOExc]
+
+object FailIO
+{ /** Factory apply method to construct a [[Fail]] from an [[IOException]] type. */
+  @inline def apply[A](err: IOExc): FailIO = new Fail[IOExc](err)
+
+  /** Factory apply method to construct a [[Fail]] with an [[IOException]] type. */
+  @inline def apply[A](message: String): FailIO = new Fail[IOExc](new IOExc(message))
 }
 
 object NoneExc extends Exception("None")

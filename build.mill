@@ -188,9 +188,8 @@ def run() = DevFx.runBackground()
 
 def JsArtifacts = Task{
   import AppJs._
-
   Diceless.fullLinkJS()
-  os.copy(T.workspace / "out" / "AppJs" / "Diceless" / "fullLinkJS.dest" / "main.js", os.root / "CommonSsd" / "Staging"/ "earthgames" / "dicelessapp.js")
   WW2.fullLinkJS()
   WW1.fullLinkJS()
+  //Dev.runMain("ostrat.pDev.StagingMill")
 }

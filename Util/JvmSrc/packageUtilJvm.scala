@@ -4,8 +4,7 @@ import pParse.*, java.io.*
 
 /** This package is for Java byte code targets. */
 package object utiljvm
-{
-  /** [[String]] for the user's home directory. */
+{ /** [[String]] for the user's home directory. */
   val userHomeDir: String = System.getProperty("user.home")
 
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
@@ -87,8 +86,16 @@ package object utiljvm
     finally { opw.foreach(_.close()) }
     if (eStr == "") Succ("Successfully written file to " + path / fileName) else FailExc(eStr)
   }
+  
+  def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, String] =
+  { import java.nio.file.*
+    var oErr: Option[IOExc] = None
+    try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
+    catch { case e: IOExc => debvar(e); oErr = Some(e) }
+    oErr.fld(Succ("File copied to" -- toStr), FailIO(_))
+  }
 
-  /** Write a [[String]] to a file in the sub directory of the home directory. */
+  /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[Exception, String] =
   { val h = System.getProperty("user.home")
     fileWrite(h / dir, fileName, str)

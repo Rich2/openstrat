@@ -22,8 +22,6 @@ case class FailNoExprAtN(index: Int, unshow: Unshow[?]) extends Fail[ExcNoExprAt
 /** Exception from a find search for a type. */
 sealed trait ExcFind extends Exception
 
-/** A [[Fail]] with [[Exception]] type. */
-type FailExc = Fail[Exception]
 object ExcNotFound extends Exception("Not found") with ExcFind
 
 object NotFound
