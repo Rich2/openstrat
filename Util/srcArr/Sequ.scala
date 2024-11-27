@@ -132,7 +132,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     build.buffToSeqLike(buff)
   }
 
-  /** A map operation where the return type of the [[SeqLike]] is explicitly given by the the second type parameter. */
+  /** A map operation where the return type of the [[SeqLike]] is explicitly given by the second type parameter. */
   def mapTo[B, BB <: SeqLike[B]](build: BuilderSeqLikeMap[B, BB])(f: A => B): BB =
   { val res = build.uninitialised(length)
     var i = 0
@@ -142,8 +142,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Performs a side effecting function on each element of the range of index values for this sequence in order. The function may return Unit. If it does return a non Unit value
    * it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
-  def indexToForeach[U](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => U): Unit = {
-    if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+  def indexToForeach[U](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => U): Unit =
+  { if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
     var i: Int = iFrom
     if (iStep > 0) while (i <= iTo) {
       f(apply(i)); i += iStep
@@ -279,7 +279,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in whihc case it returns a [[Fail]] of the
+  /** Map from A => [[ErrBi]][E, B]. Returns a successful [[Arr]] of B as long as the function produces no errors, in which case it returns a [[Fail]] of the
    * first error encountered implicitly takes a [[BuilderArrMap]]. There is a name overload that explicitly takes a more flexible [[BuilderCollMap]] as the
    * first parameter list. */
   def mapErrBi[E <: Throwable, B, ArrB <: Arr[B]](f: A => ErrBi[E, B])(implicit ev: BuilderArrMap[B, ArrB]): ErrBi[E, ArrB] =

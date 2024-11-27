@@ -44,6 +44,10 @@ sealed trait ErrBi[+E <: Throwable, +A]
    * method is implemented in the leaf [[Succ]] and [[Fail]] classes to avoid boxing. */
   def forFold(fErr: E => Unit)(fSucc: A => Unit): Unit
 
+  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a value. This
+   * method is implemented in the leaf [[Succ]] and [[Fail]] classes to avoid boxing. */
+  def forFld(fErr: E => Unit, fSucc: A => Unit): Unit
+
   def get: A = this match
   { case succ: Succ[A] => succ.value
     case fail: Fail[E] => throw(Exception("Attempting to get value from a Fail with " + fail.error.toString))
@@ -112,6 +116,7 @@ case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
   override def fld[B](fFail: Nothing => B, fSucc: A => B): B = fSucc(value)
   override def succOrOther[EE >: Nothing <: Throwable, AA >: A](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = this
   override def forFold(fErr: Nothing => Unit)(fSucc: A => Unit): Unit = fSucc(value)
+  override def forFld(fErr: Nothing => Unit, fSucc: A => Unit): Unit = fSucc(value)
 }
 
 object Succ
@@ -139,6 +144,7 @@ class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
   override def fld[B](fFail: E => B, fSucc: Nothing => B): B = fFail(error)
   override def succOrOther[EE >: E <: Throwable, AA >: Nothing](otherErrBi: => ErrBi[EE, AA]): ErrBi[EE, AA] = otherErrBi
   override def forFold(fErr: E => Unit)(fSucc: Nothing => Unit): Unit = fErr(error)
+  override def forFld(fErr: E => Unit, fSucc: Nothing => Unit): Unit = fErr(error)
 
   override def equals(obj: Any): Boolean = obj match{
     case fail: Fail[?] => error == fail.error
