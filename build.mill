@@ -191,5 +191,5 @@ def JsArtifacts = Task{
   Diceless.fullLinkJS()
   WW2.fullLinkJS()
   WW1.fullLinkJS()
-  //Dev.runMain("ostrat.pDev.StagingMill")
+  Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
 }
