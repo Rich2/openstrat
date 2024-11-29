@@ -174,19 +174,18 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * B and the method as a whole returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The default start for the index is 0 if
    * just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index.
    * Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods
-   * ' (accumulator, element) => B signature. This method should be overridden in sub classes. */
+   * ' (accumulator, element) => B signature. This method should be overridden in subclasses. */
   def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     iForeach((i, a) => ev.indexSet(res, i, f(i, a)))
     res
   }
 
-  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
-   * element of type B and the method as a whole returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The
-   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
-   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
-   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in sub
-   * classes. */
+  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an element of type
+   * B and the method as a whole returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The default start for the index is 0 if
+   * just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index.
+   * Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
+   * (accumulator, element) => B signature. Ideally this method should be overridden in subclasses. */
   def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     iForeach(startindex)((i, a) => ev.indexSet(res, i, f(i, a)))
@@ -203,12 +202,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     ev.buffToSeqLike(buff)
   }
 
-  /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a
-   * [[Arr]] of elements of type B and the method as a whole flattens and then returns the specialised [[Arr]] of type B. The method has 2
-   * versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The second version name overload takes
-   * an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of
-   * putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should
-   * be overridden in sub classes. */
+  /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a [[Arr]] of
+   * elements of type B and the method as a whole flattens and then returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The
+   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list,
+   * to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen
+   * for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in subclasses. */
   def iFlatMap[ArrB <: Arr[?]](f: (Int, A) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
@@ -220,12 +218,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     build.buffToSeqLike(buff)
   }
 
-  /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a
-   * [[Arr]] of elements of type B and the method as a whole flattens and then returns the specialised [[Arr]] of type B. The method has 2
-   * versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The second version name overload takes
-   * an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of
-   * putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should
-   * be overridden in sub classes. */
+  /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a [[Arr]] of
+   * elements of type B and the method as a whole flattens and then returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The
+   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list,
+   * to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen
+   * for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in subclasses. */
   def iFlatMap[ArrB <: Arr[?]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: BuilderArrFlat[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
@@ -237,8 +234,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     build.buffToSeqLike(buff)
   }
 
-  /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
-   * function from type A and type B to type C. */
+  /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map function from
+   * type A and type B to type C. */
   def zipMap[B, C, ArrC <: Arr[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: BuilderArrMap[C, ArrC]): ArrC =
   { val newLen = length.min(operator.length)
     val res = ev.uninitialised(newLen)
@@ -251,8 +248,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
-   *  the specialised map function from type A and type B and type C to type D. */
+  /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies the
+   * specialised map function from type A and type B and type C to type D. */
   def zipMap2[B, C, D, ArrD <: Arr[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: BuilderArrMap[D, ArrD]): ArrD =
   { val newLen = length.min(operator1.length).min(operator2.length)
     val res = ev.uninitialised(newLen)
@@ -265,9 +262,9 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
+  /** Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
-   *  (accumulator, element) => B signature. */
+   * (accumulator, element) => B signature. */
   def mapWithAcc[B, ArrB <: Arr[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     var accC: C = initC
@@ -405,8 +402,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     while(count < length) { f(apply(count)); count += 1 }
   }
 
-  /** Performs a side effecting function on each element of this sequence excluding the last. The function may return Unit. If it does return a non
-   *  Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  /** Performs a side effecting function on each element of this sequence excluding the last. The function may return Unit. If it does return a non-Unit value
+   * it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def initForeach[U](f: A => U): Unit =
   { var count = 0
     while(count < length - 1)
@@ -431,15 +428,15 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     acc
   }
 
-  /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non Unit
-   *  value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non-Unit value it
+   * is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def reverseForeach[U](f: A => U): Unit =
   { var count = length
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
-  /** Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
-   *  methods' (accumulator, element) => B signature. */
+  /** Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
+   * (accumulator, element) => B signature. */
   def reverseIForeach[U](f: (Int, A) => U): Unit =
   { var count = length
     while(count > 0) { count -= 1; f(count, apply(count)) }
@@ -453,8 +450,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     acc
   }
 
-  /**  Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
-   *  methods' (accumulator, element) => B signature. */
+  /**  Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
+   * (accumulator, element) => B signature. */
   def iForAll(p: (Int, A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
@@ -478,8 +475,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Folds left to a [[String]] accumulator with an initial value of the empty string. The first parameter is a function from A tp String. The second
-   * parameter is a separator [[String]] the 2nd and subsequent A => String values. */
+  /** Folds left to a [[String]] accumulator with an initial value of the empty string. The first parameter is a function from A tp String. The second parameter
+   * is a separator [[String]] the 2nd and subsequent A => String values. */
   def foldStr(f: A => String, seperator: String = ""): String =
   { var acc: String = ""
     var start = true
@@ -570,7 +567,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Gives the maximum value of type B, produced by applying the function from A to B on each element of this collection, or the default value if the
-   *  collection is empty. */
+   * collection is empty. */
   def fMax[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B = if (empty) defaultValue else
   { var acc = f(head)
     tailForeach{ el => acc = cmp.max(acc, f(el)) }
