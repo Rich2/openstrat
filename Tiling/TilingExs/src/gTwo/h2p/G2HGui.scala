@@ -4,7 +4,7 @@ import pgui._, geom._, prid._, phex._
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class G2HGui(canv: CanvasPlatform, game: G2HGame, settings: G2HGuiSettings) extends HGridSysGui("Game Two Hex Gui")
-{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkStr(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen: G2HScen = game.getScen
 

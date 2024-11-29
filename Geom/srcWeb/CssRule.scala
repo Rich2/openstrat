@@ -24,7 +24,7 @@ trait CssRule extends CssRuleLike
     { case 0 => " {}"
       case 1 => s" { ${decs.head.out} }"
       case 2 => s" { ${decs(0).out} ${decs(1).out} }"
-      case _ => "\n" + (indent).spaces + "{ " + decs.foldStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
+      case _ => "\n" + (indent).spaces + "{ " + decs.mkStr(_.out, "\n" + (indent + 2).spaces) + "\n" + indent.spaces + "}"
     }
   }
 

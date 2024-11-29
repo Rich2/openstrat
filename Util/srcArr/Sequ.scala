@@ -475,33 +475,12 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Folds left to a [[String]] accumulator with an initial value of the empty string. The first parameter is a function from A tp String. The second parameter
-   * is a separator [[String]] the 2nd and subsequent A => String values. */
-  def foldStr(f: A => String, seperator: String = ""): String =
-  { var acc: String = ""
-    var start = true
-    foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a) }
-    acc
-  }
-
   /** Counts the number of elements that fulfil the condition A => Boolean */
   def existsCount(f: A => Boolean): Int =
   { var count = 0
     foreach(el => if (f(el)) count += 1)
     count
   }
-
-  /** Not sure about this method. */
-  def mkString(separator: String): String = ife(length == 0, "",
-    { var acc = head.toString
-      var count = 1
-      while(count < length)
-      { acc += separator + apply(count).toString
-        count += 1
-      }
-      acc
-    }
-  )
 
   /** Converts this SeqGen to a [[list]]. */
   def toList: List[A] =
@@ -582,13 +561,29 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     acc
   }
 
-  def toStrsCommaFold(fToStr: A => String): String = foldStr(fToStr, ", ")
-  def toStrsCommaNoSpaceFold(fToStr: A => String): String = foldStr(fToStr, ",")
-  def toStrsSemiFold(fToStr: A => String): String = foldStr(fToStr, "; ")
-  def toStrsCommaParenth(fToStr: A => String): String = toStrsCommaFold(fToStr).enParenth
-  def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
+  /** Applies toString to each element and appends them with given separator. There ia name overload where the first paremter is a function to convert the
+   * elements into [[String]]s. */
+  def mkStr(separator: String = ""): String = mkStr(_.toString, separator)
 
-  //def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
+  /** Applies the function to convert each element to a [[String]] and then appends them with the separator. There is a name overload which uses toString to
+   * replace the first parameter. */
+  def mkStr(f: A => String, separator: String): String =
+    if (length == 0) ""
+    else {
+      var acc = f(head)
+      var count = 1
+      while (count < length) {
+        acc += separator + f(apply(count))
+        count += 1
+      }
+      acc
+    }
+
+  def mkStrCommaed(fToStr: A => String): String = mkStr(fToStr, ", ")
+  def toStrsCommaNoSpaceFold(fToStr: A => String): String = mkStr(fToStr, ",")
+  def toStrsSemiFold(fToStr: A => String): String = mkStr(fToStr, "; ")
+  def toStrsCommaParenth(fToStr: A => String): String = mkStrCommaed(fToStr).enParenth
+  def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
 
   /** Tries to find te first element of this sequence conforming to the predicate. */
   def find(f: A => Boolean): Option[A] =
@@ -619,7 +614,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = map(fElemStr).mkString("; ").enParenth
+  override def elemsStr: String = map(fElemStr).mkStr("; ").enParenth
 
   /** Takes a function that returns an [[ErrBi]] and returns the first [[Succ]]. */
   def findSucc[E <: Throwable, B](f: A => ErrBi[E, B]): ErrBi[ExcNotFound.type, B] =

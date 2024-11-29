@@ -26,7 +26,7 @@ object HeightAtt
 
 case class SvgRotate(degrees: Double, x: Double, y: Double) extends XmlAtt
 { override def name: String = "transform"
-  override def valueStr: String = "rotate" + RArr(degrees, x, y).mkString(" ").enParenth
+  override def valueStr: String = "rotate" + RArr(degrees, x, y).mkStr(" ").enParenth
 }
 
 /** XML attribute for x posn. */

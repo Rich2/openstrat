@@ -12,7 +12,7 @@ case class SqCounter(sqCen: SqCen, value: Counter) extends SqMemShow[Counter]
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class G2SGui(canv: CanvasPlatform, game: G2SGame, settings: G2SGuiSettings) extends SqSysGui("Game Two Hex Gui")
-{def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+{def controlStr: String = settings.counterSet.map(_.charStr).mkStr(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Player to select. Right click on adjacent square to set move."
   var scen: G2SqScen = game.getScen
 

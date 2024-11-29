@@ -109,5 +109,5 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = ssMap(fElemStr).mkString("; ").enParenth
+  override def elemsStr: String = ssMap(fElemStr).mkStr("; ").enParenth
 }

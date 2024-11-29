@@ -5,7 +5,7 @@ import pgui._, prid._, psq._, geom._, gPlay._, Colour.Black
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid and adjacent moves take priority over diagonal
  *  tile steps. */
 case class G1SGui(canv: CanvasPlatform, game: G1SGame, settings: G1SGuiSettings) extends SqSysGui("Game one Square")
-{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkStr(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Player to select. Right click on adjacent square to set move."
   var scen = game.scen
 

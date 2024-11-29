@@ -13,7 +13,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   override def length: Int = unsafeArray.length
 
   /** Make 1 string, by appending with separator from this collection of strings. */
-  def mkStr(separator: String = ""): String = if(empty) "" else
+  override def mkStr(separator: String = ""): String = if(empty) "" else
   { var acc = head
     tailForeach{ s => acc += separator + s }
     acc

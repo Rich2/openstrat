@@ -17,7 +17,7 @@ trait XmlElemLike extends XCon
   /** The content of this XML / HTML element. */
   def contents: RArr[XCon]
 
-  def attribsOut: String = ife(attribs.empty, "", " " + attribs.foldStr(_.str, " "))
+  def attribsOut: String = ife(attribs.empty, "", " " + attribs.mkStr(_.str, " "))
   def openAtts: String = "<" + tag + attribsOut
   def openUnclosed: String = openAtts + ">"
   def openTag: String = openAtts + ">"
@@ -30,7 +30,7 @@ trait XmlLikeMulti extends XmlElemLike
 {
   override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String =
     if (contents.empty) openAtts + "/>"
-    else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+    else openUnclosed.nli(indent + 2) + contents.mkStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
 trait XmlLike1Lineable extends XmlElemLike
@@ -38,7 +38,7 @@ trait XmlLike1Lineable extends XmlElemLike
   override def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = lineLenDefault): String = contents match
   { case RArr0() => openAtts + "/>"
     case RArr1(_) => openUnclosed + contents(0).out(0, 150) + closeTag
-    case _ => openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
+    case _ => openUnclosed.nli(indent + 2) + contents.mkStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
   }
 }
 

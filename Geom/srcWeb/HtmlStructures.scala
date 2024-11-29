@@ -4,7 +4,7 @@ package ostrat; package pWeb
 /** HTML head element. */
 case class HtmlHead(contents : RArr[XCon], attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { override def tag: String = "head"
-  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.foldStr(_.out(indent + 2), "\n") + "\n" + closeTag
+  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.mkStr(_.out(indent + 2), "\n") + "\n" + closeTag
 }  
 
 /** Companion object for the [[HtmlHead]] case class. */
@@ -27,7 +27,7 @@ object HtmlHead
 /** The HTML body element. */
 class HtmlBody(val contents: RArr[XCon], val attribs: RArr[XmlAtt]) extends HtmlUnvoid
 { override def tag: String = "body"
-  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.foldStr(_.out(0), "\n") + n1CloseTag
+  def out(indent: Int = 0, line1Delta: Int = 0, maxLineLen: Int = 150): String = openTag1 + contents.mkStr(_.out(0), "\n") + n1CloseTag
 }
 
 /** Companion object for the [[HTMLBody]] class contains factory methods.  */

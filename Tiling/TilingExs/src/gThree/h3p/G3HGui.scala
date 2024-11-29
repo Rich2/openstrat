@@ -3,7 +3,7 @@ package ostrat; package gThree; package h3p
 import pgui._, prid._, phex._, geom._
 
 case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings) extends HGridSysGui("Game Three Hex Gui")
-{ def controlStr: String = settings.counterSet.map(_.charStr).mkString(", ")
+{ def controlStr: String = settings.counterSet.map(_.charStr).mkStr(", ")
   statusText = "You control players" -- controlStr -- ". Left click on Counter to select. Right click on adjacent Hex to set move."
   var scen: G3HScen = game.getScen
   implicit def gridSys: HGridSys = scen.gridSys
@@ -24,7 +24,7 @@ case class G3HGui(canv: CanvasPlatform, game: G3HGame, settings: G3HGuiSettings)
     def sidesDraw: LinesDraw = proj.sidesDraw()
 
     def unitGraphics: RArr[PolygonCompound] = lunits.projSomesHcPtMap { (rarr, hc, pt) =>
-      val str: String = rarr.head.team.toString --- rarr.foldStr(us => us.lunit.num.str, ", ") --- hc.rcStr
+      val str: String = rarr.head.team.toString --- rarr.mkStr(us => us.lunit.num.str, ", ") --- hc.rcStr
       Rect(pixPerTile * 0.45, proj.pixelsPerTile * 0.3, pt).fillActiveDrawText(rarr.head.colour, rarr, str, pixPerTile / 15, 2.0) }
 
     def texts: RArr[TextFixed] = proj.hCensIfPtMap(lunits.emptyTile(_)){ (hc, pt) => pt.textAt(hc.rcStr, 16, Colour.Black) }
