@@ -112,8 +112,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Takes a map function from A to Option[B] but only returns the [[Arr] of B if all the elements map to a [[Some]]. Hence the ArrB if returned will
-   *  be the same length as this sequence. */
+  /** Takes a map function from A to Option[B] but only returns the [[Arr] of B if all the elements map to a [[Some]]. Hence the ArrB if returned will be the
+   * same length as this sequence. */
   def optAllMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: BuilderArrMap[B, ArrB]): Option[ArrB] =
   { val res = build.uninitialised(length)
     var good = true
@@ -140,8 +140,9 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Performs a side effecting function on each element of the range of index values for this sequence in order. The function may return Unit. If it does return a non Unit value
-   * it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  /** Performs a side effecting function on each element of the range of index values for this sequence in order. The function may return Unit. If it does
+   * return a non-Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
+   * users. */
   def indexToForeach[U](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => U): Unit =
   { if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
     var i: Int = iFrom
@@ -169,12 +170,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     build.arrFromArrAndArray(b1Res, b2Array)
   }
 
-  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
-   * element of type B and the method as a whole returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The
-   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
-   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
-   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
-   * classes. */
+  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an element of type
+   * B and the method as a whole returns the specialised [[Arr]] of type B. The method has 2 versions / name overloads. The default start for the index is 0 if
+   * just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value of the index.
+   * Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods
+   * ' (accumulator, element) => B signature. This method should be overridden in sub classes. */
   def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: BuilderArrMap[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
     iForeach((i, a) => ev.indexSet(res, i, f(i, a)))
