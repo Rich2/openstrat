@@ -303,6 +303,13 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       case None => Succ(ev.buffToSeqLike(acc))
     }
   }
+  
+  /** maps each element to an [[ErrBi]] accumulating successes and errors. */
+  def mapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBi[E, B])(implicit ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
+  { val acc = ErrBiAccBuff[E, B]()
+    foreach{a => acc.append(f(a)) }
+    acc.unbuff
+  }
 
   /** Maps to an Array. */
   def mapArray[B](f: A => B)(implicit ct: ClassTag[B]): Array[B] =
@@ -459,8 +466,8 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     acc
   }
 
-  /** Returns true if this sequence contains a value equal to the parameter value. The passed vvalue for equivlence testing  an be a super type of the
-   * collection type. */
+  /** Returns true if this sequence contains a value equal to the parameter value. The passed value for equivalence testing can be a super type of the element
+   * type. */
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
@@ -468,7 +475,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** maps ValueProduct collection to List */
+  /** maps this [[Sequ]] to a List */
   def mapList[B <: AnyRef](f: A => B): List[B] =
   { var res: List[B] = Nil
     reverseForeach(res ::= f(_))
@@ -482,7 +489,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     count
   }
 
-  /** Converts this SeqGen to a [[list]]. */
+  /** Converts this [[Sequ]] to a [[list]]. */
   def toList: List[A] =
   { var acc: List[A] = Nil
     reverseForeach(acc ::= _)
