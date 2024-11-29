@@ -579,11 +579,14 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       acc
     }
 
-  def mkStrCommaed(fToStr: A => String): String = mkStr(fToStr, ", ")
-  def toStrsCommaNoSpaceFold(fToStr: A => String): String = mkStr(fToStr, ",")
-  def toStrsSemiFold(fToStr: A => String): String = mkStr(fToStr, "; ")
-  def toStrsCommaParenth(fToStr: A => String): String = mkStrCommaed(fToStr).enParenth
-  def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
+  /** Make a [[String]] using comma-space as separators. */
+  def mkStrCommas(fToStr: A => String): String = mkStr(fToStr, ", ")
+
+  /** Make a [[String]] using just commas no spaces as separators. */
+  def mkStrJustCommas(fToStr: A => String): String = mkStr(fToStr, ",")
+
+  /** Make a [[String]] using semicolon-space as separators. */
+  def mkStrSemis(fToStr: A => String): String = mkStr(fToStr, "; ")
 
   /** Tries to find te first element of this sequence conforming to the predicate. */
   def find(f: A => Boolean): Option[A] =
