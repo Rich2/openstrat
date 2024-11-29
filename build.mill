@@ -186,7 +186,7 @@ object DevFx extends CommonJvm
 
 def run() = DevFx.runBackground()
 
-def JsArtifacts = Task{
+def SiteStage = Task{
   import AppJs._
   Diceless.fullLinkJS()
   WW2.fullLinkJS()

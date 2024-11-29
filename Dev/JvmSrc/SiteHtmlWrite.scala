@@ -10,8 +10,7 @@ object SiteHtmlWrite extends StagingBuild
 
     stagingPathDo { path =>
       debvar(path)
-      fileWrite(path, "index.html", IndexPage.out)
-      AppPage.all.foreach(page => fileWrite(path / page.dirStr, page.htmlFileName, page.out))
+      
       stageDocs(path)
     }
   }
