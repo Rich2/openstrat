@@ -271,3 +271,21 @@ object Succ3
     case _ => None
   }
 }
+
+/** A completed effect. */
+trait DoneEff
+{
+  def effStr: String
+  def detailStr: String
+}
+
+trait DoneIO extends DoneEff
+
+trait FileWritten extends DoneIO
+
+trait FileWrittenJust extends FileWritten
+
+case class FileCopied(detailStr: String) extends FileWritten
+{
+  override def effStr: String = "File copied"
+}

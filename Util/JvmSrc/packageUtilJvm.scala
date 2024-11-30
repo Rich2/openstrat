@@ -71,8 +71,8 @@ package object utiljvm
   def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[Exception, String] = fileWrite(path.str, fileName, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(path: String, fileName: String, content: String): ErrBi[Exception, String] =
-  { var eStr: String = ""
+  def fileWrite(path: String, fileName: String, content: String): ErrBi[IOExc, String] =
+  { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
     { new File(path).mkdir()
@@ -80,11 +80,9 @@ package object utiljvm
       opw.get.write(content)
     }
 
-    catch
-    { case e: Throwable => eStr = e.toString
-    }
+    catch { case e: IOExc => oErr = Some(e) }
     finally { opw.foreach(_.close()) }
-    if (eStr == "") Succ("Successfully written file to " + path / fileName) else FailExc(eStr)
+    oErr.fld(Succ("Successfully written file to " + path / fileName), FailIO(_))
   }
   
   def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, String] =
