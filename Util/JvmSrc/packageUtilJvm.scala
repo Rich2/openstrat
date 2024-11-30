@@ -110,4 +110,9 @@ package object utiljvm
     val time: ZonedDateTime = Instant.now().atZone(ZoneId.of("GMT"))
     time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
   }
+
+  implicit class DirPathAbsExtensions(val thisDir: DirPathAbs)
+  {
+    def toJava: File = File(thisDir.str)
+  }
 }

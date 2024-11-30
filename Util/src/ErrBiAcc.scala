@@ -24,6 +24,8 @@ class ErrBiAcc[+E <: Throwable, +A](val errsArray: Array[E] @uncheckedVariance, 
 
   override def errNum: Int = errsArray.length
   override def succNum: Int = succsArray.length
+
+  override def toString: String = s"$succNum successes, $errNum failures."
 }
 
 object ErrBiAcc
