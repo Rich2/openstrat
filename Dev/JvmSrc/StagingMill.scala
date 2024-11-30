@@ -6,18 +6,19 @@ trait StagingBuild
 {
   def stageDocs(path: DirPathAbs): Unit =
   { val docPath = path / "Documentation"
-    fileWrite(docPath, "apps.html", AppsPage.out)
-    fileWrite(docPath, "util.html", UtilPage.out)
-    fileWrite(docPath, "geom.html", geom.GeomPage.out)
-    fileWrite(docPath, "tiling.html", prid.TilingPage.out)
-    fileWrite(docPath, "earth.html", pEarth.EarthPage.out)
-    fileWrite(docPath, "egrid.html", EGridPage.out)
-    fileWrite(docPath, "dev.html", pDev.DevPage.out)
-    fileWrite(docPath, "newdevs.html", pDev.NewDevsPage.out)
-    fileWrite(docPath, "documentation.css", CssDocumentation())
-    fileWrite(path, "only.css", OnlyCss())
-
-    fileWrite(path, "index.html", IndexPage.out)
+    val res1 = ErrBiAcc(
+      fileWrite(docPath, "apps.html", AppsPage.out),
+      fileWrite(docPath, "util.html", UtilPage.out),
+      fileWrite(docPath, "geom.html", geom.GeomPage.out),
+      fileWrite(docPath, "tiling.html", prid.TilingPage.out),
+      fileWrite(docPath, "earth.html", pEarth.EarthPage.out),
+      fileWrite(docPath, "egrid.html", EGridPage.out),
+      fileWrite(docPath, "dev.html", pDev.DevPage.out),
+      fileWrite(docPath, "newdevs.html", pDev.NewDevsPage.out),
+      fileWrite(docPath, "documentation.css", CssDocumentation()),
+      fileWrite(path, "only.css", OnlyCss()),
+      fileWrite(path, "index.html", IndexPage.out)
+    )
     AppPage.all.foreach(page => fileWrite(path / page.dirStr, page.htmlFileName, page.out))
   }
 }

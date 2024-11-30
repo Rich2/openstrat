@@ -266,8 +266,8 @@ object Succ3
   def apply[A1, A2, A3](a1: A1, a2: A2, a3: A3): Succ3[A1, A2, A3] = new Succ[(A1, A2, A3)]((a1, a2, a3))
 
   /** unapply extractor for success on an [[ErrBi]] with a [[Tuple3]] value type. */
-  def unapply[A1, A2, A3](inp: ErrBi3[?, A1, A2, A3]): Option[(A1, A2, A3)] = inp match{
-    case succ: Succ3[A1, A2, A3] => Some(succ.value._1, succ.value._2, succ.value._3)
+  def unapply[A1, A2, A3](inp: ErrBi3[?, A1, A2, A3]): Option[(A1, A2, A3)] = inp match
+  { case succ: Succ3[A1, A2, A3] => Some(succ.value._1, succ.value._2, succ.value._3)
     case _ => None
   }
 }
@@ -282,10 +282,16 @@ trait DoneEff
 trait DoneIO extends DoneEff
 
 trait FileWritten extends DoneIO
+{ override def effStr: String = "File written"
+}
 
-trait FileWrittenJust extends FileWritten
+object FileWritten
+{
+  def apply(detailStr: String): FileWritten = FileWrittenJust(detailStr)
+}
+
+case class FileWrittenJust(detailStr: String) extends FileWritten
 
 case class FileCopied(detailStr: String) extends FileWritten
-{
-  override def effStr: String = "File copied"
+{ override def effStr: String = "File copied"
 }

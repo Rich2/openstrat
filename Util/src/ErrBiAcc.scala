@@ -26,6 +26,12 @@ class ErrBiAcc[+E <: Throwable, +A](val errsArray: Array[E] @uncheckedVariance, 
   override def succNum: Int = succsArray.length
 }
 
+object ErrBiAcc
+{
+  def apply[E <: Throwable, A](input: ErrBi[E, A]*)(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[A] @uncheckedVariance): ErrBiAcc[E, A] =
+    ErrBiAccBuff.fromSeq(input).unbuff
+}
+
 /** immutable class for accumulating [[ErrBi]]s, biased bifunctors for errors. */
 class ErrBiAccBuff[+E <: Throwable, +A](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[A] @uncheckedVariance) extends ErrBiAccBase[E, A]
 {
@@ -39,5 +45,11 @@ class ErrBiAccBuff[+E <: Throwable, +A](val errs: ArrayBuffer[E] @uncheckedVaria
 
 object ErrBiAccBuff
 {
-  def apply[E <: Throwable, A](): ErrBiAccBuff[E, A] = new ErrBiAccBuff[E, A](new ArrayBuffer[E]() , new ArrayBuffer[A]())
+  def apply[E <: Throwable, A](input: ErrBi[E, A]*): ErrBiAccBuff[E, A] = fromSeq(input)
+
+  def fromSeq[E <: Throwable, A](input: Seq[ErrBi[E, A]]) =
+  { val res = new ErrBiAccBuff[E, A](new ArrayBuffer[E]() , new ArrayBuffer[A]())
+    input.foreach(res.append(_))
+    res
+  }
 }

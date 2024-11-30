@@ -68,10 +68,10 @@ package object utiljvm
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[Exception, String] = fileWrite(path.str, fileName, content)
+  def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[IOExc, FileWritten] = fileWrite(path.str, fileName, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(path: String, fileName: String, content: String): ErrBi[IOExc, String] =
+  def fileWrite(path: String, fileName: String, content: String): ErrBi[IOExc, FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
@@ -82,19 +82,19 @@ package object utiljvm
 
     catch { case e: IOExc => oErr = Some(e) }
     finally { opw.foreach(_.close()) }
-    oErr.fld(Succ("Successfully written file to " + path / fileName), FailIO(_))
+    oErr.fld(Succ(FileWritten(path.toString / fileName)), FailIO(_))
   }
   
-  def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, String] =
+  def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, FileCopied] =
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
     catch { case e: IOExc => debvar(e); oErr = Some(e) }
-    oErr.fld(Succ("File copied to" -- toStr), FailIO(_))
+    oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
   }
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
-  def homeWrite(dir: String, fileName: String, str: String): ErrBi[Exception, String] =
+  def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =
   { val h = System.getProperty("user.home")
     fileWrite(h / dir, fileName, str)
   }
