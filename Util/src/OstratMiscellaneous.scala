@@ -25,6 +25,9 @@ class DirPathAbs(val arrayUnsafe: Array[String])
   override def toString: String = "DirPathAbs" + str.enParenth
   
   def / (newDir: String): DirPathAbs = DirPathAbs(arrayUnsafe.appended(newDir))
+  
+  def noExistStr: String = str -- "Doesn't exist"
+  def notDirStr: String = str -- "is not a directory"
 }
 
 object DirPathAbs

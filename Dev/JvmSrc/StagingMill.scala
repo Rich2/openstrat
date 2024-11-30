@@ -27,14 +27,13 @@ trait StagingBuild
 object StagingMill extends StagingBuild
 {
   def main(args: Array[String]): Unit =
+  { stagingPathDo { path => path.doIfDirExists(useStaging) }
+  }
+
+  def useStaging(path: DirPathAbs): Unit =
   {
-    deb("Starting StagingMill")
-    stagingPathDo { path =>
-      debvar(path)
-      debvar(path.toJava.exists)
-      stageDocs(path)
-      val res1 = fileCopy("/openstrat/out/AppJs/Diceless/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/dicelessapp.js")
-      debvar(res1)
-    }
+    stageDocs(path)
+    val res1 = fileCopy("/openstrat/out/AppJs/Diceless/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/dicelessapp.js")
+    debvar(res1)
   }
 }

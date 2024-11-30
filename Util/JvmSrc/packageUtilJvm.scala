@@ -111,8 +111,16 @@ package object utiljvm
     time.format(DateTimeFormatter.RFC_1123_DATE_TIME)
   }
 
-  implicit class DirPathAbsExtensions(val thisDir: DirPathAbs)
+  implicit class DirPathAbsExtensions(val thisPath: DirPathAbs)
   {
-    def toJava: File = File(thisDir.str)
+    def toJava: File = File(thisPath.str)
+    
+    def doIfDirExists(f: DirPathAbs => Unit) =
+    { val jd = thisPath.toJava
+      if (jd.exists)
+        if (jd.isDirectory) f(thisPath)
+        else println(thisPath.notDirStr)
+      else println(thisPath.noExistStr)
+    }
   }
 }
