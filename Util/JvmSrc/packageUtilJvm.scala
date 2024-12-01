@@ -96,6 +96,8 @@ package object utiljvm
     oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
   }
   
+  def mkDirExist(path: DirPathAbs): ExcIOMon[DirExists] = mkDirExist(path.str)
+  
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
     jp.exists match{

@@ -1,6 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.annotation.unchecked.uncheckedVariance, pParse.*
+import scala.annotation.unchecked.uncheckedVariance
+import pParse.*
+
+import scala.reflect.ClassTag
 
 /** Biased bifunctor for errors. */
 sealed trait ErrBi[+E <: Throwable, +A]
@@ -15,6 +18,9 @@ sealed trait ErrBi[+E <: Throwable, +A]
   { case succ: Succ[A] => f(succ.value).fld(FailNotFound, b => Succ(b))
     case fail: Fail[?] => fail
   }
+
+  def flatMapAcc[EE >: E <: Throwable, B](f: A => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
+    ErrBiAcc[EE, B]
 
   def isSucc: Boolean
   def isFail: Boolean
@@ -109,6 +115,9 @@ case class Succ[+A](val value: A) extends ErrBi[Nothing, A]
     case fail: Fail[EE] => fail
   }
 
+  override def flatMapAcc[EE <: Throwable, B](f: A => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance, ctB: ClassTag[B] @uncheckedVariance):
+    ErrBiAcc[EE, B] = f(value)
+  
   override def isSucc: Boolean = true
   override def isFail: Boolean = false
   override def forSucc(f: A => Unit): Unit = f(value)
@@ -137,6 +146,10 @@ object Succ
 class Fail[+E <: Throwable](val error: E) extends ErrBi[E, Nothing]
 { override def map[B](f: Nothing => B): ErrBi[E, B] = this
   override def flatMap[EE >: E <: Throwable, B](f: Nothing => ErrBi[EE, B]): ErrBi[EE, B] = this
+  
+  override def flatMapAcc[EE >: E <: Throwable, B](f: Nothing => ErrBiAcc[EE, B])(implicit ctE: ClassTag[EE] @uncheckedVariance,
+    ctB: ClassTag[B] @uncheckedVariance): ErrBiAcc[EE, B] = new ErrBiAcc[EE, B](Array[EE](error), Array[B]())
+  
   override def isSucc: Boolean = false
   override def isFail: Boolean = true
   override def forSucc(f: Nothing => Unit): Unit = {}

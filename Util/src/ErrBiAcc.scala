@@ -2,9 +2,8 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait ErrBiAccBase[+E <: Throwable, +A]
-{
-  /** The number of accumulated errors. */
+trait ErrBiAccBase[+E <: Throwable, +B]
+{ /** The number of accumulated errors. */
   def errNum: Int
 
   /** The number of accumulated successes. */
@@ -15,12 +14,12 @@ trait ErrBiAccBase[+E <: Throwable, +A]
 }
 
 /** immutable class for accumulated [[ErrBi]], biased bifunctor for errors. */
-class ErrBiAcc[+E <: Throwable, +A](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[A] @uncheckedVariance) extends ErrBiAccBase[E, A]
+class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
   def errs: RArr[E] = new RArr(errsArray)
 
   /** The accumulated successes. */
-  def succs: RArr[A] = new RArr(succsArray)
+  def succs: RArr[B] = new RArr(succsArray)
 
   override def errNum: Int = errsArray.length
   override def succNum: Int = succsArray.length
@@ -30,16 +29,16 @@ class ErrBiAcc[+E <: Throwable, +A](val errsArray: Array[E] @uncheckedVariance, 
 
 object ErrBiAcc
 {
-  def apply[E <: Throwable, A](input: ErrBi[E, A]*)(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[A] @uncheckedVariance): ErrBiAcc[E, A] =
+  def apply[E <: Throwable, B](input: ErrBi[E, B]*)(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
     ErrBiAccBuff.fromSeq(input).unbuff
 }
 
 /** immutable class for accumulating [[ErrBi]]s, biased bifunctors for errors. */
-class ErrBiAccBuff[+E <: Throwable, +A](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[A] @uncheckedVariance) extends ErrBiAccBase[E, A]
+class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 {
-  def append(newElem: ErrBi[E, A] @uncheckedVariance): Unit = newElem.forFld(errs.append(_), succs.append(_))
+  def append(newElem: ErrBi[E, B] @uncheckedVariance): Unit = newElem.forFld(errs.append(_), succs.append(_))
 
-  def unbuff(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[A] @uncheckedVariance): ErrBiAcc[E, A] = new ErrBiAcc(errs.toArray, succs.toArray)
+  def unbuff(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc(errs.toArray, succs.toArray)
 
   override def errNum: Int = errs.length
   override def succNum: Int = succs.length
@@ -47,10 +46,10 @@ class ErrBiAccBuff[+E <: Throwable, +A](val errs: ArrayBuffer[E] @uncheckedVaria
 
 object ErrBiAccBuff
 {
-  def apply[E <: Throwable, A](input: ErrBi[E, A]*): ErrBiAccBuff[E, A] = fromSeq(input)
+  def apply[E <: Throwable, B](input: ErrBi[E, B]*): ErrBiAccBuff[E, B] = fromSeq(input)
 
-  def fromSeq[E <: Throwable, A](input: Seq[ErrBi[E, A]]) =
-  { val res = new ErrBiAccBuff[E, A](new ArrayBuffer[E]() , new ArrayBuffer[A]())
+  def fromSeq[E <: Throwable, B](input: Seq[ErrBi[E, B]]) =
+  { val res = new ErrBiAccBuff[E, B](new ArrayBuffer[E]() , new ArrayBuffer[B]())
     input.foreach(res.append(_))
     res
   }

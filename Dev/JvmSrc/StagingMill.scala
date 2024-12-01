@@ -4,9 +4,18 @@ import utiljvm.*
 
 trait StagingBuild
 {
-  def stageDocs(path: DirPathAbs): Unit =
+  def stageStuff(path: DirPathAbs): Unit =
+  {
+    fileWrite(path, "index.html", IndexPage.out)
+    fileWrite(path, "only.css", OnlyCss())
+    val res1: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
+    debvar(res1)
+    AppPage.all.foreach(page => fileWrite(path / page.dirStr, page.htmlFileName, page.out))
+  }
+
+  def stageDocDir(path: DirPathAbs): ErrBiAcc[IOExc, FileWritten] =
   { val docPath = path / "Documentation"
-    val res1: ErrBiAcc[IOExc, FileWritten] = ErrBiAcc(
+    mkDirExist(docPath).flatMapAcc { res => ErrBiAcc(
       fileWrite(docPath, "apps.html", AppsPage.out),
       fileWrite(docPath, "util.html", UtilPage.out),
       fileWrite(docPath, "geom.html", geom.GeomPage.out),
@@ -15,12 +24,9 @@ trait StagingBuild
       fileWrite(docPath, "egrid.html", EGridPage.out),
       fileWrite(docPath, "dev.html", pDev.DevPage.out),
       fileWrite(docPath, "newdevs.html", pDev.NewDevsPage.out),
-      fileWrite(docPath, "documentation.css", CssDocumentation()),
-      fileWrite(path, "only.css", OnlyCss()),
-      fileWrite(path, "index.html", IndexPage.out)
+      fileWrite(docPath, "documentation.css", CssDocumentation())
     )
-    debvar(res1)
-    AppPage.all.foreach(page => fileWrite(path / page.dirStr, page.htmlFileName, page.out))
+    }
   }
 }
 
@@ -32,7 +38,7 @@ object StagingMill extends StagingBuild
 
   def useStaging(path: DirPathAbs): Unit =
   {
-    stageDocs(path)
+    stageStuff(path)
     val res1 = fileCopy("/openstrat/out/AppJs/Diceless/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/dicelessapp.js")
     debvar(res1)
   }

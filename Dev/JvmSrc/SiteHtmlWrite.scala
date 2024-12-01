@@ -11,7 +11,7 @@ object SiteHtmlWrite extends StagingBuild
     stagingPathDo { path =>
       debvar(path)
       
-      stageDocs(path)
+      stageStuff(path)
     }
   }
 
