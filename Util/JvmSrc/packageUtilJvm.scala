@@ -1,6 +1,9 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse.*, java.io.*
+import pParse.*
+
+import java.io.*
+import java.nio.file.NotDirectoryException
 
 /** This package is for Java byte code targets. */
 package object utiljvm
@@ -93,7 +96,18 @@ package object utiljvm
     oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
   }
   
-  def mkDirExist(path: String): ExcIOMon[DirExists] = ???
+  def mkDirExist(path: String): ExcIOMon[DirExists] =
+  { val jp = new File(path)
+    jp.exists match{
+      case true => if (jp.isDirectory) Succ(DirExisted(path)) else Fail(new NotDirectoryException("path"))
+      case false =>
+      { var oExc: Option[IOExc] = None
+        try{ jp.mkdir }
+        catch{ case e: IOExc => oExc = Some(e) }
+        oExc.fld(Succ(DirCreated(path)), Fail(_))
+      }
+    }
+  }
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =

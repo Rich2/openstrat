@@ -26,13 +26,15 @@ case class FileCopied(detailStr: String) extends FileWritten
 { override def effStr: String = "File copied"
 }
 
-/** Directory now exists. It may have already existed or have just been created */
+/** Directory now exists. It may have already existed or have just been created. */
 trait DirExists extends DoneIO
 
+/** Confirmation that a directory existed. */
 case class DirExisted(detailStr: String) extends DirExists
 { override def effStr: String = "Directory existed"
 }
 
-case class DirCreated(detailStr: String) extends DoneIO
-{ override def effStr: String = "Directory exists ensured"
+/** Confirmation that a directory was created. */
+case class DirCreated(detailStr: String) extends DirExists
+{ override def effStr: String = "Directory created"
 }
