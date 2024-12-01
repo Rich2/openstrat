@@ -92,6 +92,8 @@ package object utiljvm
     catch { case e: IOExc => debvar(e); oErr = Some(e) }
     oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
   }
+  
+  def mkDirExist(path: String): ExcIOMon[DirExists] = ???
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =
