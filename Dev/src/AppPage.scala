@@ -3,13 +3,13 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
+class AppPage(val jsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
   HtmlPage
 { /** The [[String]] for the HTML title element. */
-  val htmlTitleStr: String = htmlTitleIn.emptyMap(JsMainStem)
+  val htmlTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
 
   /** HTML file name stem to which the ".html" extension will be added. */
-  val htmlFileStem: String = htmlFileStemIn.emptyMap(JsMainStem.toLowerCase)
+  val htmlFileStem: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
 
   /** HTML file name including the ".html" extension. */
   def htmlFileName: String = htmlFileStem + ".html"
@@ -18,7 +18,7 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
   def htmlLoc: String = dirStr + htmlFileName
 
   /** JavaScript file name stem to which the ".js" extension will be added. */
-  val jsFileStem: String = jsFileStemIn.emptyMap(JsMainStem.toLowerCase)
+  val jsFileStem: String = jsFileStemIn.emptyMap(jsMainStem.toLowerCase)
 
   /** JavaScript file name including the ".js" extension. */
   def jsFileName: String = jsFileStem + ".js"
@@ -29,13 +29,13 @@ class AppPage(val JsMainStem: String, val dirStr: String = "/", htmlTitleIn: Str
   override def head: HtmlHead = HtmlHead.titleCss(htmlTitleStr, "../only")
 
   def topMenu: HtmlUl =
-  { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.JsMainStem == JsMainStem)
+  { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
     val pairs1: ArrPairStr[String] = pages.mapPair(_.jsFileStem)(_.htmlLoc)
     val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
 
-  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(JsMainStem + "Js"))
+  override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(jsMainStem + "Js"))
 }
 
 /** Companion object for [[AppPage]] class. Contains factory apply methods directory paths and list of app links. Longer term may need reorganisation, */
