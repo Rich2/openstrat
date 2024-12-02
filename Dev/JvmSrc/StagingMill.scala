@@ -39,7 +39,10 @@ object StagingMill extends StagingBuild
   def useStaging(path: DirPathAbs): Unit =
   {
     stageStuff(path)
-    val res1 = fileCopy("/openstrat/out/AppJs/Diceless/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/dicelessapp.js")
+    val res1 = ErrBiAcc(
+      fileCopy("/openstrat/out/AppJs/Diceless/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/dicelessapp.js"),
+      fileCopy("/openstrat/out/AppJs/WW2/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/ww2app.js")
+    )
     debvar(res1)
   }
 }

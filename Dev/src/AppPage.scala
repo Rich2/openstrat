@@ -52,12 +52,17 @@ object AppPage
   val otDir: String = "/otherapps/"
 
   val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
-  val ww2App: AppPage = AppPage("WW2App", egameDir)
-  val uLocApp: AppPage = AppPage("UnitLocApp", otDir, "Unit Locator")
+  val ww2App: AppPage = AppPage("WW2App", egameDir)  
+  val periApp: AppPage = AppPage("PericuloApp", egameDir, "Periculo Fundato")
+  val bcApp: AppPage = AppPage("BC305App", egameDir)
+  val ww1App: AppPage = AppPage("WW1App", egameDir)
+  
+  val eGameApps = RArr(dicelessApp, ww2App, bcApp, ww1App)
 
+  val uLocApp: AppPage = AppPage("UnitLocApp", otDir, "Unit Locator")
+  
   /** list of app links to go in the page headers. */
-  val allTops: RArr[AppPage] = RArr(dicelessApp, ww2App, uLocApp,
-    AppPage("PericuloApp", egameDir, "Periculo Fundato"), AppPage("BC305App", egameDir), AppPage("PlanetsApp", otDir),
+  val allTops: RArr[AppPage] = RArr(dicelessApp, ww2App, uLocApp, periApp, bcApp, AppPage("PlanetsApp", otDir),
     AppPage("ZugApp", otDir, "ZugFuhrer"), AppPage("Flags", otDir), AppPage("DungeonApp", otDir, "Dungeon game"),  AppPage("CivRiseApp", otDir, "Civ Rise"))
 
   val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", mapDir, "1300km Hex Earth"), AppPage("EG1000App", mapDir, "1000km Hex Earth"),
@@ -65,7 +70,7 @@ object AppPage
     AppPage("EG220Europe", mapDir), AppPage("EG220EuropeWide", mapDir), AppPage("EG220NAmerica", mapDir, "220km Hex North America"),
     AppPage("EG160Europe", mapDir), AppPage("EG120Europe", mapDir), AppPage("EG80Europe", mapDir), AppPage("EarthApp", mapDir))
 
-  val others: RArr[AppPage] = RArr(AppPage("WW1App", egameDir), AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
+  val others: RArr[AppPage] = RArr(ww1App, AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
     AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))
 
   def allApps: RArr[AppPage] = allTops ++ others
