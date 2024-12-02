@@ -159,7 +159,7 @@ object AppJs extends Module
   object WW1 extends Base { def name = "WW1" }
   object BC305 extends Base { def name = "BC305" }
   object Sors extends Base { def name = "Sors" }
-  object Peri extends Base { def name = "Peri" }
+  //object Peri extends Base { def name = "Peri" }
   object Discov extends Base { def name = "Discov" }
   object IndRev extends Base { def name = "IndRev" }
   object UnitLoc extends Base { def name = "UnitLoc" }
@@ -167,6 +167,7 @@ object AppJs extends Module
   object Zug extends Base { def name = "Zug" }
   object Dungeon extends Base { def name = "Dungeon" }
   object Planets extends Base { def name = "Planets" }
+  object Chess extends Base { def name = "Chess" }
 }
 
 object Dev extends CommonJvm
@@ -188,8 +189,14 @@ def run() = DevFx.runBackground()
 
 def SiteStage = Task{
   import AppJs._
+  //Peri.fullLinkJS()
   Diceless.fullLinkJS()
   WW2.fullLinkJS()
   WW1.fullLinkJS()
+  BC305.fullLinkJS()
+  Sors.fullLinkJS()
+  IndRev.fullLinkJS()
+  Discov.fullLinkJS()
+  Chess.fullLinkJS()
   Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
 }

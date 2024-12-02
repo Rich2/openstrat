@@ -68,7 +68,8 @@ object AppPage
   val others: RArr[AppPage] = RArr(AppPage("WW1App", egameDir), AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
     AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))
 
-  def all: RArr[AppPage] = allTops ++ eGrids ++ others
+  def allApps: RArr[AppPage] = allTops ++ others
+  def all: RArr[AppPage] = allApps ++ eGrids
 
   object AllHtmlExtractor
   {

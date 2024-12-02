@@ -10,9 +10,7 @@ object SiteHtmlWrite extends StagingBuild
 
     stagingPathDo { path =>
       debvar(path)
-      
       stageStuff(path)
     }
   }
-
 }
