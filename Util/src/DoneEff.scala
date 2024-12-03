@@ -26,6 +26,12 @@ case class FileCopied(detailStr: String) extends FileWritten
 { override def effStr: String = "File copied"
 }
 
+object FileCopied {
+  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileCopied] = new ErrBiSummary[IOExc, FileCopied]{
+    override def summaryStr(eba: ErrBiAccBase[IOExc, FileCopied]): String = s"${eba.succNum} files copied. ${eba.errNum} fails."
+  }
+}
+
 /** Directory now exists. It may have already existed or have just been created. */
 trait DirExists extends DoneIO
 

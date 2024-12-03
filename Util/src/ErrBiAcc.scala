@@ -13,6 +13,14 @@ trait ErrBiAccBase[+E <: Throwable, +B]
   def errorFree: Boolean = errNum == 0
 }
 
+object ErrBiAccBase
+{
+  implicit class errBiAccBaseExtensions[+E <: Throwable, +B](thisEBAB: ErrBiAccBase[E, B])
+  {
+    def summaryStr(implicit ev: ErrBiSummary[E, B] @uncheckedVariance): String = ev.summaryStr(thisEBAB)
+  }
+}
+
 /** immutable class for accumulated [[ErrBi]], biased bifunctor for errors. */
 class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, val succsArray: Array[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
 { /** The accumulated errors. */
@@ -53,4 +61,9 @@ object ErrBiAccBuff
     input.foreach(res.append(_))
     res
   }
+}
+
+trait ErrBiSummary[+E <: Throwable, +B]
+{
+  def summaryStr(eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String
 }
