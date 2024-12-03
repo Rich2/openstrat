@@ -56,8 +56,11 @@ object AppPage
   val periApp: AppPage = AppPage("PericuloApp", egameDir, "Periculo Fundato")
   val bcApp: AppPage = AppPage("BC305App", egameDir)
   val ww1App: AppPage = AppPage("WW1App", egameDir)
+  val sorsApp: AppPage = AppPage("SorsApp", egameDir, "Sors Imperiorum")
+  val indRevApp: AppPage = AppPage("IndRevApp", egameDir)
+  val discovApp: AppPage = AppPage("DiscovApp", egameDir, "Age of Discovery")
   
-  val eGameApps = RArr(dicelessApp, ww2App, bcApp, ww1App)
+  val eGameApps = RArr(dicelessApp, ww2App, bcApp, ww1App, sorsApp, indRevApp, discovApp)
 
   val uLocApp: AppPage = AppPage("UnitLocApp", otDir, "Unit Locator")
   
@@ -70,8 +73,7 @@ object AppPage
     AppPage("EG220Europe", mapDir), AppPage("EG220EuropeWide", mapDir), AppPage("EG220NAmerica", mapDir, "220km Hex North America"),
     AppPage("EG160Europe", mapDir), AppPage("EG120Europe", mapDir), AppPage("EG80Europe", mapDir), AppPage("EarthApp", mapDir))
 
-  val others: RArr[AppPage] = RArr(ww1App, AppPage("SorsApp", egameDir, "Sors Imperiorum"), AppPage("IndRevApp", egameDir),
-    AppPage("DiscovApp", egameDir, "Age of Discovery"), AppPage("ChessApp", otDir))
+  val others: RArr[AppPage] = RArr(ww1App, indRevApp, sorsApp, discovApp, AppPage("ChessApp", otDir))
 
   def allApps: RArr[AppPage] = allTops ++ others
   def all: RArr[AppPage] = allApps ++ eGrids

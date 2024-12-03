@@ -40,7 +40,7 @@ object StagingMill extends StagingBuild
   {
     stageStuff(path)
     val res1 =
-      AppPage.eGameApps.mapErrBiAcc(ga =>  fileCopy("/openstrat/out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", path.str / "earthgames"  / ga.jsFileStem + "app.js"))
+      AppPage.eGameApps.mapErrBiAcc(ga =>  fileCopy("/openstrat/out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", path.str / "earthgames"  / ga.jsFileStem + ".js"))
         //,fileCopy("/openstrat/out/AppJs/WW2/fullLinkJS.dest/main.js", "/CommonSsd/Staging/earthgames/ww2app.js")
 
     debvar(res1)
