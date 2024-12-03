@@ -9,7 +9,7 @@ trait StagingBuild
     fileWrite(path, "index.html", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
-    println("Documents directory:" -- docFiles.summaryStr)
+    println(docFiles.summaryStr("Documents directory"))
     AppPage.all.foreach(page => fileWrite(path / page.dirStr, page.htmlFileName, page.out))
   }
 
@@ -33,16 +33,19 @@ trait StagingBuild
 object StagingMill extends StagingBuild
 {
   def main(args: Array[String]): Unit =
-  { stagingPathDo { path => path.doIfDirExists(useStaging) }
+  { stagingPathDo { stagingPath =>
+      stagingPath.doIfDirExists { _ =>
+        stageBase(stagingPath)
+        useStaging(stagingPath)
+      }
+    }
   }
 
-  def useStaging(path: DirPathAbs): Unit =
-  {
-    stageBase(path)
-    val egPath = path / "earthgames"
+  def useStaging(stagePath: DirPathAbs): Unit = projPathDo{ projPath =>
+    val egPath = stagePath / "earthgames"
     val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy("/openstrat/out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath.str / ga.jsFileStem + ".js"))
+      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.str / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath.str / ga.jsFileStem + ".js"))
     }
-    println("earthgames directory:" -- eGameJsFiles.summaryStr)
+    println(eGameJsFiles.summaryStr("earthgames directory"))
   }
 }

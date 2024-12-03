@@ -11,13 +11,16 @@ trait ErrBiAccBase[+E <: Throwable, +B]
 
   /** Have there been no errors. */
   def errorFree: Boolean = errNum == 0
+
+  /** The first error may throw exception if no errors. */
+  def errHead: E
 }
 
 object ErrBiAccBase
 {
   implicit class errBiAccBaseExtensions[+E <: Throwable, +B](thisEBAB: ErrBiAccBase[E, B])
   {
-    def summaryStr(implicit ev: ErrBiSummary[E, B] @uncheckedVariance): String = ev.summaryStr(thisEBAB)
+    def summaryStr(leadStr: String)(implicit ev: ErrBiSummary[E, B] @uncheckedVariance): String = ev.summaryStr(leadStr, thisEBAB)
   }
 }
 
@@ -33,6 +36,8 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def succNum: Int = succsArray.length
 
   override def toString: String = s"$succNum successes, $errNum failures."
+
+  override def errHead: E = errsArray(0)
 }
 
 object ErrBiAcc
@@ -50,6 +55,7 @@ class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVaria
 
   override def errNum: Int = errs.length
   override def succNum: Int = succs.length
+  override def errHead: E = errs(0)
 }
 
 object ErrBiAccBuff
@@ -65,5 +71,8 @@ object ErrBiAccBuff
 
 trait ErrBiSummary[+E <: Throwable, +B]
 {
-  def summaryStr(eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String
+  def endStr(eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String
+
+  def summaryStr(leadStr: String, eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String =
+    leadStr + ": " + ife(eba.errNum == 1 && eba.succNum == 0, eba.errHead, endStr(eba))
 }
