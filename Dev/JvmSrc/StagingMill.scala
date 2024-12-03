@@ -9,7 +9,7 @@ trait StagingBuild
     fileWrite(path, "index.html", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
-    debvar(docFiles)
+    println("Documents directory:" -- docFiles.summaryStr)
     AppPage.all.foreach(page => fileWrite(path / page.dirStr, page.htmlFileName, page.out))
   }
 
