@@ -3,8 +3,8 @@ package ostrat; package pDev
 import pWeb._, AppPage.{ egameDir, otDir }
 
 /** The top level HTML documentation page for the apps. */
-object AppsPage extends HtmlPage
-{ override def head: HtmlHead = HtmlHead.titleCss("Applications Module", "https://richstrat.com/Documentation/documentation")
+object AppsPage extends OSDocumentationPage
+{ override def titleStr: String = "Applications Module"
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, otherTiled, otherApps)
 

@@ -14,6 +14,7 @@ trait DoneEff
 /** Report of successful side effect. */
 trait DoneIO extends DoneEff
 
+/** Report of successful file write. */
 trait FileWritten extends DoneIO
 { override def effStr: String = "File written"
 }
@@ -26,8 +27,10 @@ object FileWritten
     ebs => ebs.succNum.pluralisation("file") -- "written." -- ebs.errNum.pluralisation("fail") + "."
 }
 
+/** Report of a successful write that is not copied or moved. */
 case class FileWrittenJust(detailStr: String) extends FileWritten
 
+/** Report of a successful file copy. */
 case class FileCopied(detailStr: String) extends FileWritten
 { override def effStr: String = "File copied"
 }

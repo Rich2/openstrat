@@ -64,6 +64,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     res
   }
   
+  /** Gives a singular version if this [[Int]] == 1, otherwise gives the plural version. The first parameter gives the word so we can have "1 hat" or "2 hats"
+   * "-1 hats" etc. If no plural version of the word is given then an 's' is added to the singular version. */
   def pluralisation(singular: String, plural: String = ""): String = thisInt match
   { case 1 => "1" -- singular
     case n if plural == "" => n.toString -- singular + "s"

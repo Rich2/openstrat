@@ -1,12 +1,10 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package pDev
 import ostrat.geom._, prid.phex._, pWeb._, Colour._
 
 /** Html documentation page for Tiling Module. */
-object TilingPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("Tiling Module", "https://richstrat.com/Documentation/documentation")
-
+object TilingPage extends OSDocumentationPage
+{ override def titleStr: String = "Tiling Module"
   override def body: HtmlBody = HtmlBody(HtmlH1("Tiling Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, HtmlH2("Game Terminology"), CoordSystem, terms2, turnRes)
