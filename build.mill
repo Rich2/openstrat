@@ -134,6 +134,9 @@ object EGridJs extends CommonJs
   object EG640 extends Base { def name = "EG640" }
   object EG460 extends Base { def name = "EG460" }
   object EG320 extends Base { def name = "EG320" }
+  object EG220Europe extends Base { def name = "EG220Europe" }
+  object EG220EuropeWide extends Base { def name = "EG220EuropeWide" }
+  object EG220NAmerica extends Base { def name = "EG220NAmerica" }
 }
 
 object Apps extends CommonJvm
@@ -211,6 +214,9 @@ def SiteStage = Task{
   EG640.fullLinkJS()
   EG460.fullLinkJS()
   EG320.fullLinkJS()
+  EG220Europe.fullLinkJS()
+  EG220EuropeWide.fullLinkJS()
+  EG220NAmerica.fullLinkJS()
 
   Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
 }
