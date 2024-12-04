@@ -1,14 +1,18 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pWeb._
 
+trait OSDocumentationPage extends HtmlPage
+{ /** A title [[String]] is all that is needed to be implemented by the final class to complete the [[HtmlHead]]. */
+  def titleStr: String
+
+  override def head: HtmlHead = HtmlHead.titleCss(titleStr, "documentation")
+}
+
 /** Produces an HTML file documentation for the Util module. */
-object UtilPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("Util Module", "https://richstrat.com/Documentation/documentation")
-
+object UtilPage extends OSDocumentationPage
+{ override def titleStr: String = "Util Module"
   override def body: HtmlBody = HtmlBody(HtmlH1("Util Module"), central)
-
   def central: HtmlDiv = HtmlDiv.classAtt("central", list, UtilTokenSection, AstSection, base32, misc)
 
   def list: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("The Util module contains"),
