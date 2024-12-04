@@ -3,10 +3,8 @@ package ostrat; package pDev
 import pWeb._
 
 /** Documentation page for EGrid Module." */
-object EGridPage extends HtmlPage
-{
-  override def head: HtmlHead = HtmlHead.titleCss("EGrid Module", "https://richstrat.com/Documentation/documentation")
-
+object EGridPage extends OSDocumentationPage
+{ override def titleStr: String = "EGrid Module"
   override def body: HtmlBody = HtmlBody(HtmlH1("EGrid Module"), central)
 
   def central: HtmlDiv = HtmlDiv.classAtt("central", egrids, open)
