@@ -65,7 +65,7 @@ object AppPage
   val uLocApp: AppPage = AppPage("UnitLocApp", otDir, "Unit Locator")
   val planetsApp: AppPage = AppPage("PlanetsApp", otDir)
   val zugApp: AppPage = AppPage("ZugApp", otDir, "ZugFuhrer")
-  val flagsApp: AppPage = AppPage("Flags", otDir)
+  val flagsApp: AppPage = AppPage("FlagsApp", otDir)
   val dungeonApp: AppPage = AppPage("DungeonApp", otDir, "Dungeon game")
   val civRiseApp: AppPage = AppPage("CivRiseApp", otDir, "Civ Rise")
   val chessApp: AppPage = AppPage("ChessApp", otDir)

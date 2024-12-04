@@ -2,6 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pFlags._
 
-object FlagsJs
+object FlagsAppJs
 { def main(args: Array[String]): Unit = FlagsGui(CanvasJs)
 } 

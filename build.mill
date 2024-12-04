@@ -174,11 +174,12 @@ object AppJs extends Module
   //object Peri extends Base { def name = "Peri" }
   object DiscovApp extends Base { def name = "Discov" }
   object IndRevApp extends Base { def name = "IndRev" }
-  object UnitLoc extends Base { def name = "UnitLoc" }
-  object CivRise extends Base { def name = "CivRise" }
-  object Zug extends Base { def name = "Zug" }
-  object Dungeon extends Base { def name = "Dungeon" }
-  object Planets extends Base { def name = "Planets" }
+  object UnitLocApp extends Base { def name = "UnitLoc" }
+  object CivRiseApp extends Base { def name = "CivRise" }
+  object ZugApp extends Base { def name = "Zug" }
+  object FlagsApp extends Base { def name = "Flags" }
+  object DungeonApp extends Base { def name = "Dungeon" }
+  object PlanetsApp extends Base { def name = "Planets" }
   object ChessApp extends Base { def name = "Chess" }
 }
 
@@ -209,8 +210,12 @@ def SiteStage = Task{
   SorsApp.fullLinkJS()
   IndRevApp.fullLinkJS()
   DiscovApp.fullLinkJS()
-  UnitLoc.fullLinkJS()
-  CivRise.fullLinkJS()
+  UnitLocApp.fullLinkJS()
+  CivRiseApp.fullLinkJS()
+  ZugApp.fullLinkJS()
+  FlagsApp.fullLinkJS()
+  DungeonApp.fullLinkJS()
+  PlanetsApp.fullLinkJS()
   ChessApp.fullLinkJS()
   EG1300.fullLinkJS()
   EG1000.fullLinkJS()
