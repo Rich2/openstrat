@@ -17,17 +17,24 @@ object IsType
   }
 }
 
-/** Directory path absolute. */
-class DirPathAbs(val arrayUnsafe: Array[String])
+trait DirPathBase
 { /** The path as a string with the slash characters inserted */
-  def str: String = arrayUnsafe.foldLeft("")(_ + "/" + _)
+  def str: String
+
+  def noExistStr: String = str -- "Doesn't exist"
+
+  def notDirStr: String = str -- "is not a directory"
+}
+
+
+/** Directory path absolute. */
+class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPathBase
+{
+  override def str: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
 
   override def toString: String = "DirPathAbs" + str.enParenth
   
   def / (newDir: String): DirPathAbs = DirPathAbs(arrayUnsafe.appended(newDir))
-  
-  def noExistStr: String = str -- "Doesn't exist"
-  def notDirStr: String = str -- "is not a directory"
 }
 
 object DirPathAbs
@@ -52,6 +59,21 @@ object DirPathAbs
     }
   }
 }
+
+/** Directory path absolute. */
+class DirPathRel(val arrayUnsafe: Array[String]) extends DirPathBase
+{
+  override def str: String = arrayUnsafe.length match
+  { case 0 => ""
+    case 1 => arrayUnsafe(0)
+    case _ => arrayUnsafe.mkString("/")
+  }
+
+  override def toString: String = "DirPathRel" + str.enParenth
+
+  def /(newDir: String): DirPathRel = DirPathRel(arrayUnsafe.appended(newDir))
+}
+
 
 sealed trait JustOrName[+T]
 

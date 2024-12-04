@@ -3,7 +3,7 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val jsMainStem: String, val dirStr: String = "/", htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
+class AppPage(val jsMainStem: String, val dirStr: String, htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
   HtmlPage
 { /** The [[String]] for the HTML title element. */
   val htmlTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
@@ -44,12 +44,12 @@ object AppPage
    * [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the lower
    * case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
    * parameter. */
-  def apply(jsMainStem: String, dirStr: String = "/", htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
+  def apply(jsMainStem: String, dirStr: String, htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
     new AppPage(jsMainStem, dirStr, htmlTitleIn, htmlFileNameStem, jsFileStem)
 
-  val egameDir: String = "/earthgames/"
-  val mapDir: String = "/egrids/"
-  val otDir: String = "/otherapps/"
+  val egameDir: String = "earthgames"
+  val mapDir: String = "egrids"
+  val otDir: String = "otherapps"
 
   val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
   val ww2App: AppPage = AppPage("WW2App", egameDir)  
