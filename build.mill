@@ -121,13 +121,17 @@ object EGrid extends CommonJvm
 object EGridJs extends CommonJs
 { def moduleDeps = Seq(TilingJs)
   def sources = EGrid.sources1()
+
   trait Base extends CommonJs
-    { def name: String
-      def sources = T.sources(Seq(PathRef(T.workspace / "EGrid" / "JsAppsSrc" / "EG1300App")))
-      def moduleDeps = Seq(EGridJs)
-      def mainClass = Some("ostrat.pSJs." + name + "AppJs")
-    }
-    object EG1300 extends Base { def name = "EG1300" }
+  { def name: String
+    def sources = T.sources(Seq(PathRef(T.workspace / "EGrid" / "EGridJs" / "src")))
+    def moduleDeps = Seq(EGridJs)
+    def mainClass = Some("ostrat.pSJs." + name + "AppJs")
+  }
+
+  object EG1300 extends Base { def name = "EG1300" }
+  object EG1000 extends Base { def name = "EG1000" }
+  object EG640 extends Base { def name = "EG640" }
 }
 
 object Apps extends CommonJvm
@@ -188,7 +192,7 @@ object DevFx extends CommonJvm
 def run() = DevFx.runBackground()
 
 def SiteStage = Task{
-  import AppJs._
+  import AppJs._, EGridJs._
   //Peri.fullLinkJS()
   DicelessApp.fullLinkJS()
   WW2App.fullLinkJS()
@@ -197,6 +201,12 @@ def SiteStage = Task{
   SorsApp.fullLinkJS()
   IndRevApp.fullLinkJS()
   DiscovApp.fullLinkJS()
+  UnitLoc.fullLinkJS()
+  CivRise.fullLinkJS()
   Chess.fullLinkJS()
+  EG1300.fullLinkJS()
+  EG1000.fullLinkJS()
+  EG640.fullLinkJS()
+
   Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
 }

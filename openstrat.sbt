@@ -131,7 +131,7 @@ lazy val EG1300 = config("EG1300") extend(Compile)
 lazy val EGridJs = jsProj("EGrid").dependsOn(TilingJs).settings(Compile/unmanagedSourceDirectories += bbDir.value / "EGrid/srcPts").settings(
   inConfig(EarthIrr)(Defaults.compileSettings),
   inConfig(EarthIrr)(ScalaJSPlugin.compileConfigSettings),
-  EarthIrr/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ bbDir.value / "EGrid/JsAppsSrc/EarthApp",
+  //EarthIrr/unmanagedSourceDirectories := (Compile/unmanagedSourceDirectories).value :+ bbDir.value / "EGrid/JsAppsSrc/EarthApp",
   EarthIrr/mainClass:= Some("ostrat.pSJs.EarthAppJs"),
 
   inConfig(EG1300)(Defaults.compileSettings),

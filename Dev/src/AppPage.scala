@@ -68,8 +68,9 @@ object AppPage
   val flagsApp: AppPage = AppPage("Flags", otDir)
   val dungeonApp: AppPage = AppPage("DungeonApp", otDir, "Dungeon game")
   val civRiseApp: AppPage = AppPage("CivRiseApp", otDir, "Civ Rise")
+  val chessApp: AppPage = AppPage("ChessApp", otDir)
   
-  val otherApps = RArr(uLocApp, planetsApp, zugApp, flagsApp, dungeonApp, civRiseApp)
+  val otherApps = RArr(uLocApp, planetsApp, zugApp, flagsApp, dungeonApp, civRiseApp, chessApp)
   
   /** list of app links to go in the page headers. */
   val allTops: RArr[AppPage] = RArr(dicelessApp, ww2App, uLocApp, periApp, bcApp, planetsApp, zugApp, flagsApp, dungeonApp, civRiseApp)
@@ -79,7 +80,7 @@ object AppPage
     AppPage("EG220Europe", mapDir), AppPage("EG220EuropeWide", mapDir), AppPage("EG220NAmerica", mapDir, "220km Hex North America"),
     AppPage("EG160Europe", mapDir), AppPage("EG120Europe", mapDir), AppPage("EG80Europe", mapDir), AppPage("EarthApp", mapDir))
 
-  val others: RArr[AppPage] = RArr(ww1App, indRevApp, sorsApp, discovApp, AppPage("ChessApp", otDir))
+  val others: RArr[AppPage] = RArr(ww1App, indRevApp, sorsApp, discovApp, chessApp)
 
   def allApps: RArr[AppPage] = allTops ++ others
   def all: RArr[AppPage] = allApps ++ eGrids
