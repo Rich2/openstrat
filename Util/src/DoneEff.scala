@@ -22,7 +22,8 @@ object FileWritten
 { /** Factory apply method to construct [[FileWritten]] report. */
   def apply(detailStr: String): FileWritten = FileWrittenJust(detailStr)
 
-  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileWritten] = ebs => s"${ebs.succNum} files written. ${ebs.errNum} fails."
+  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileWritten] =
+    ebs => ebs.succNum.pluralisation("file") -- "written." -- ebs.errNum.pluralisation("fail") + "."
 }
 
 case class FileWrittenJust(detailStr: String) extends FileWritten
@@ -33,7 +34,7 @@ case class FileCopied(detailStr: String) extends FileWritten
 
 object FileCopied
 {
-  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileCopied] = eba => s"${eba.succNum} files copied. ${eba.errNum} fails."
+  implicit def errBiSummaryEv: ErrBiSummary[IOExc, FileCopied] = eba => eba.succNum.pluralisation("file") -- "copied." -- eba.errNum.pluralisation("fail") + "."
 }
 
 /** Directory now exists. It may have already existed or have just been created. */

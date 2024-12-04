@@ -47,5 +47,11 @@ object StagingMill extends StagingBuild
       AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.str / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath.str / ga.jsFileStem + ".js"))
     }
     println(eGameJsFiles.summaryStr("earthgames directory"))
+
+    val otherPath = stagePath / "otherapps"
+    val otherJsFiles = mkDirExist(otherPath).flatMapAcc { res =>
+      AppPage.otherApps.mapErrBiAcc(ga => fileCopy(projPath.str / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", otherPath.str / ga.jsFileStem + ".js"))
+    }
+    println(otherJsFiles.summaryStr("otherapps directory"))
   }
 }

@@ -92,7 +92,7 @@ package object utiljvm
   { import java.nio.file.*
     var oErr: Option[IOExc] = None
     try{ Files.copy(Paths.get(fromStr), Paths.get(toStr), StandardCopyOption.REPLACE_EXISTING) }
-    catch { case e: IOExc => debvar(e); oErr = Some(e) }
+    catch { case e: IOExc => oErr = Some(e) }
     oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
   }
   

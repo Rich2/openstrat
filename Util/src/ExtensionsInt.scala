@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import math.Pi
+import math.{Pi, sin}
 
 /** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
@@ -62,6 +62,12 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     val ps: Seq[(Int, String)] = pairs.sortWith(_._1 > _._1)
     while(res == "" & i < ps.length) if (thisInt >= ps(i)._1) res = ps(i)._2 else i += 1
     res
+  }
+  
+  def pluralisation(singular: String, plural: String = ""): String = thisInt match
+  { case 1 => "1" -- singular
+    case n if plural == "" => n.toString -- singular + "s"
+    case n => n.toString -- plural
   }
 
   /** Ordinal abbreviated form. "1st", "2nd", "3rd", "4th", etc. */
@@ -229,6 +235,6 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** Takes this Int as a value in arc seconds and converts it to a value of radians. */
   @inline def secsToRadians = thisInt * Pi / 180.0 / 3600.0
 
-  /** Takes this Int as a value in arc deconds and converts it to a value of arc degrees. */
+  /** Takes this Int as a value in arc seconds and converts it to a value of arc degrees. */
   @inline def secsToDegs = thisInt / 3600.0
 }
