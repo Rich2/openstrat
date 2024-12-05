@@ -169,10 +169,11 @@ object AppJs extends Module
   }
   object DicelessApp extends Base { def name = "Diceless" }
   object WW2App extends Base { def name = "WW2" }
+  object PericuloApp extends Base { def name = "Periculo" }
   object WW1App extends Base { def name = "WW1" }
   object BC305App extends Base { def name = "BC305" }
   object SorsApp extends Base { def name = "Sors" }
-  //object Peri extends Base { def name = "Peri" }
+  object PeriApp extends Base { def name = "Peri" }
   object DiscovApp extends Base { def name = "Discov" }
   object IndRevApp extends Base { def name = "IndRev" }
   object UnitLocApp extends Base { def name = "UnitLoc" }
@@ -203,9 +204,9 @@ def run() = DevFx.runBackground()
 
 def SiteStage = Task{
   import AppJs._, EGridJs._
-  //Peri.fullLinkJS()
   DicelessApp.fullLinkJS()
   WW2App.fullLinkJS()
+  PericuloApp.fullLinkJS()
   WW1App.fullLinkJS()
   BC305App.fullLinkJS()
   SorsApp.fullLinkJS()
