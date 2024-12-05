@@ -22,7 +22,7 @@ trait StagingBuild
     println(otherHtmlFiles.summaryStr("otherapps directory HTML"))
 
     val egridHtmlFiles = mkDirExist(path /> "egrids").flatMapAcc { res =>
-      AppPage.otherApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
+      AppPage.eGrids.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
     println(egridHtmlFiles.summaryStr("egrids directory HTML"))
   }
@@ -71,5 +71,15 @@ object StagingMill extends StagingBuild
       }
     }
     println(otherJsFiles.summaryStr("otherapps directory JavaScript"))
+
+    val egridPath: String = stagePath /> "egrids"
+    val egridJsFiles = mkDirExist(egridPath).flatMapAcc { res =>
+      AppPage.eGrids.mapErrBiAcc { ga =>
+        val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
+        val destStr: String = egridPath / ga.jsFileStem + ".js"
+        fileCopy(fromStr, destStr)
+      }
+    }
+    println(egridJsFiles.summaryStr("egrid directory JavaScript"))
   }
 }

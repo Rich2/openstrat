@@ -9,12 +9,9 @@ trait DirPath
   def noExistStr: String = asStr -- "Doesn't exist"
 
   def notDirStr: String = asStr -- "is not a directory"
-  
-  //def appendStr(operand: String): String
 
   def /> (appendStr: String): String
 }
-
 
 /** Directory path absolute. */
 class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
