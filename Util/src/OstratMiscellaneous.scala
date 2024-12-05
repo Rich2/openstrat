@@ -1,6 +1,5 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
 
 /** Not entirely sure what this type class is for */
 trait IsType[A <: AnyRef]
@@ -16,64 +15,6 @@ object IsType
     override def asType(obj: AnyRef): AnyRef = obj.asInstanceOf[AnyRef]
   }
 }
-
-trait DirPathBase
-{ /** The path as a string with the slash characters inserted */
-  def str: String
-
-  def noExistStr: String = str -- "Doesn't exist"
-
-  def notDirStr: String = str -- "is not a directory"
-}
-
-
-/** Directory path absolute. */
-class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPathBase
-{
-  override def str: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
-
-  override def toString: String = "DirPathAbs" + str.enParenth
-  
-  def / (newDir: String): DirPathAbs = DirPathAbs(arrayUnsafe.appended(newDir))
-}
-
-object DirPathAbs
-{
-  implicit val showEv: Show[DirPathAbs] = new Show[DirPathAbs]
-  { override def typeStr: String = "DirnPathAbs"
-    override def strT(obj: DirPathAbs): String = obj.str
-    override def syntaxDepth(obj: DirPathAbs): Int = 1
-    override def show(obj: DirPathAbs, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
-      case ShowTyped | ShowStdTypedFields => typeStr + obj.str.enParenth
-      case _ => obj.str
-    }
-  }
-
-  implicit val unshowEv:Unshow[DirPathAbs] = new Unshow[DirPathAbs]
-  { override def typeStr: String = "DirnPathAbs"
-
-    override def fromExpr(expr: Expr): ExcMon[DirPathAbs] =  expr match {
-      case SlashToken(_) => Succ(new DirPathAbs(Array[String]()))
-      case PathToken(_, array) => Succ(new DirPathAbs(array))
-      case expr => expr.failExc("Not an absolute path")
-    }
-  }
-}
-
-/** Directory path absolute. */
-class DirPathRel(val arrayUnsafe: Array[String]) extends DirPathBase
-{
-  override def str: String = arrayUnsafe.length match
-  { case 0 => ""
-    case 1 => arrayUnsafe(0)
-    case _ => arrayUnsafe.mkString("/")
-  }
-
-  override def toString: String = "DirPathRel" + str.enParenth
-
-  def /(newDir: String): DirPathRel = DirPathRel(arrayUnsafe.appended(newDir))
-}
-
 
 sealed trait JustOrName[+T]
 
