@@ -2,7 +2,6 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._, pEarth._
 
-@JSExportTopLevel("EarthAppJs")
 object EarthAppJs
-{ @JSExport def main(): Unit = EarthBasicGui(CanvasJs)
+{ @JSExport def main(args: Array[String]): Unit = EarthBasicGui(CanvasJs)
 }

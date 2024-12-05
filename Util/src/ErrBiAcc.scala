@@ -16,6 +16,7 @@ trait ErrBiAccBase[+E <: Throwable, +B]
   def errHead: E
   
   def errsforeach(f: E => Unit): Unit
+  def errsPrint: Unit = errsforeach(println(_))
 }
 
 object ErrBiAccBase

@@ -75,8 +75,8 @@ object AppPage
   /** list of app links to go in the page headers. */
   val allTops: RArr[AppPage] = RArr(dicelessApp, ww2App, uLocApp, periApp, bcApp, planetsApp, zugApp, flagsApp, dungeonApp, civRiseApp)
 
-  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300App", mapDir, "1300km Hex Earth"), AppPage("EG1000App", mapDir, "1000km Hex Earth"),
-    AppPage("EG640App", mapDir, "640km Hex Earth"), AppPage("EG460App", mapDir, "460km Hex Earth"), AppPage("EG320App", mapDir, "320km Hex Earth"),
+  val eGrids: RArr[AppPage] = RArr(AppPage("EG1300", mapDir, "1300km Hex Earth"), AppPage("EG1000", mapDir, "1000km Hex Earth"),
+    AppPage("EG640", mapDir, "640km Hex Earth"), AppPage("EG460", mapDir, "460km Hex Earth"), AppPage("EG320", mapDir, "320km Hex Earth"),
     AppPage("EG220Europe", mapDir), AppPage("EG220EuropeWide", mapDir), AppPage("EG220NAmerica", mapDir, "220km Hex North America"),
     AppPage("EG160Europe", mapDir), AppPage("EG120Europe", mapDir), AppPage("EG80Europe", mapDir), AppPage("EarthApp", mapDir))
 

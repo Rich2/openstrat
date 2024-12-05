@@ -81,5 +81,6 @@ object StagingMill extends StagingBuild
       }
     }
     println(egridJsFiles.summaryStr("egrid directory JavaScript"))
+    egridJsFiles.errsPrint
   }
 }

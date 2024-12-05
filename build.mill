@@ -140,6 +140,7 @@ object EGridJs extends CommonJs
   object EG160Europe extends Base { def name = "EG160Europe" }
   object EG120Europe extends Base { def name = "EG120Europe" }
   object EG80Europe extends Base { def name = "EG80Europe" }
+  object EarthApp extends Base { def name = "Earth"}
 }
 
 object Apps extends CommonJvm
@@ -228,6 +229,7 @@ def SiteStage = Task{
   EG160Europe.fullLinkJS()
   EG120Europe.fullLinkJS()
   EG80Europe.fullLinkJS()
+  EarthApp.fullLinkJS()
 
   Dev.runner().run(mainClass = "ostrat.pDev.StagingMill", args = Array[String]())
 }
