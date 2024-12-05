@@ -14,6 +14,8 @@ trait ErrBiAccBase[+E <: Throwable, +B]
 
   /** The first error may throw exception if no errors. */
   def errHead: E
+  
+  def errsforeach(f: E => Unit): Unit
 }
 
 object ErrBiAccBase
@@ -38,6 +40,8 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
   override def toString: String = s"$succNum successes, $errNum failures."
 
   override def errHead: E = errsArray(0)
+
+  override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 }
 
 object ErrBiAcc
@@ -56,6 +60,7 @@ class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVaria
   override def errNum: Int = errs.length
   override def succNum: Int = succs.length
   override def errHead: E = errs(0)
+  override def errsforeach(f: E => Unit): Unit = errs.foreach(f)
 }
 
 object ErrBiAccBuff

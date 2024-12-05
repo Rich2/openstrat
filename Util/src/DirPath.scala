@@ -4,11 +4,11 @@ import pParse._
 
 trait DirPath
 { /** The path as a string with the slash characters inserted */
-  def str: String
+  def asStr: String
 
-  def noExistStr: String = str -- "Doesn't exist"
+  def noExistStr: String = asStr -- "Doesn't exist"
 
-  def notDirStr: String = str -- "is not a directory"
+  def notDirStr: String = asStr -- "is not a directory"
   
   //def appendStr(operand: String): String
 
@@ -19,13 +19,13 @@ trait DirPath
 /** Directory path absolute. */
 class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
 {
-  override def str: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
+  override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
 
-  override def toString: String = "DirPathAbs" + str.enParenth
+  override def toString: String = "DirPathAbs" + asStr.enParenth
 
   def / (newDir: DirPathRel): DirPathAbs = DirPathAbs(arrayUnsafe ++ newDir.arrayUnsafe)
 
-  def /> (appendStr: String): String = str / appendStr
+  def /> (appendStr: String): String = asStr / appendStr
 
   def /< (appendStr: String): DirPathAbs = {
     val newArray: Array[String] = new Array[String](arrayUnsafe.length + 1)
@@ -39,11 +39,11 @@ object DirPathAbs
 {
   implicit val showEv: Show[DirPathAbs] = new Show[DirPathAbs]
   { override def typeStr: String = "DirnPathAbs"
-    override def strT(obj: DirPathAbs): String = obj.str
+    override def strT(obj: DirPathAbs): String = obj.asStr
     override def syntaxDepth(obj: DirPathAbs): Int = 1
     override def show(obj: DirPathAbs, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
-      case ShowTyped | ShowStdTypedFields => typeStr + obj.str.enParenth
-      case _ => obj.str
+      case ShowTyped | ShowStdTypedFields => typeStr + obj.asStr.enParenth
+      case _ => obj.asStr
     }
   }
 
@@ -61,17 +61,17 @@ object DirPathAbs
 /** Directory path absolute. */
 class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath
 {
-  override def str: String = arrayUnsafe.length match
+  override def asStr: String = arrayUnsafe.length match
   { case 0 => ""
     case 1 => arrayUnsafe(0)
     case _ => arrayUnsafe.mkString("/")
   }
 
-  override def toString: String = "DirPathRel" + str.enParenth
+  override def toString: String = "DirPathRel" + asStr.enParenth
 
   def /(newDir: String): DirPathRel = new DirPathRel(arrayUnsafe.appended(newDir))
 
-  def /> (appendStr: String): String = ife(arrayUnsafe.length == 0, str, str / appendStr)
+  def /> (appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   
   /** Not fully implemented. */
   def </(operand: DirPathRel): DirPathRel = arrayUnsafe.length match

@@ -40,7 +40,7 @@ package object utiljvm
   def stagingPathFind: ThrowMon[DirPathAbs] = findDevSetting[DirPathAbs]("staging")
 
   /** Needs removal. */
-  def sbtDirPath(): ThrowMon[String] = openstratPath().map(_.str / "Dev/SbtDir")
+  def sbtDirPath(): ThrowMon[String] = openstratPath().map(_.asStr / "Dev/SbtDir")
 
   /** Saves text file to specified file at given path directory. */
   def saveTextFile(path: String, fileName: String, output: String): Unit =
@@ -96,7 +96,7 @@ package object utiljvm
     oErr.fld(Succ(FileCopied(toStr)), FailIO(_))
   }
   
-  def mkDirExist(path: DirPathAbs): ExcIOMon[DirExists] = mkDirExist(path.str)
+  def mkDirExist(path: DirPathAbs): ExcIOMon[DirExists] = mkDirExist(path.asStr)
   
   def mkDirExist(path: String): ExcIOMon[DirExists] =
   { val jp = new File(path)
@@ -131,7 +131,7 @@ package object utiljvm
 
   implicit class DirPathAbsExtensions(val thisPath: DirPathAbs)
   {
-    def toJava: File = File(thisPath.str)
+    def toJava: File = File(thisPath.asStr)
     
     def doIfDirExists(f: DirPathAbs => Unit) =
     { val jd = thisPath.toJava

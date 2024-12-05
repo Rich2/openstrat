@@ -6,8 +6,6 @@ trait StagingBuild
 {
   def stageBase(path: DirPathAbs): Unit =
   {
-    debvar(path)
-    debvar(path /> "index.html")
     fileWrite(path, "index.html", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
@@ -47,13 +45,17 @@ object StagingMill extends StagingBuild
     val egPath: String = stagePath /> "earthgames"
     debvar(egPath)
     val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.str / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath.str / ga.jsFileStem + ".js"))
+      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.jsFileStem + ".js"))
     }
     println(eGameJsFiles.summaryStr("earthgames directory"))
 
     val otherPath: String = stagePath /> "otherapps"
     val otherJsFiles = mkDirExist(otherPath).flatMapAcc { res =>
-      AppPage.otherApps.mapErrBiAcc(ga => fileCopy(projPath.str / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", otherPath.str / ga.jsFileStem + ".js"))
+      AppPage.otherApps.mapErrBiAcc { ga =>
+        val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
+        val destStr: String = otherPath / ga.jsFileStem + ".js"
+        fileCopy(fromStr, destStr)
+      }
     }
     println(otherJsFiles.summaryStr("otherapps directory"))
   }
