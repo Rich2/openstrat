@@ -6,7 +6,7 @@ object RsonLessonsApp extends App
 { deb("RsonLessons App")
   
   projPathDo { path =>    
-    val path1: String = path.str / "Dev/target"
-    fileWrite(path1, "lessons.rson", learn.LessonsLaunch.rsonText)
+    val path1: String = path /> "Dev/target"
+    fileWrite(path1 / "lessons.rson", learn.LessonsLaunch.rsonText)
   }
 }

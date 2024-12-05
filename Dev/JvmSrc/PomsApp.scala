@@ -11,7 +11,7 @@ object PomsApp
     println(oDir)
 
     def makePom(dirStr: String, name: String, versionStr: String, depStrs: String*): ErrBi[Exception, FileWritten] =
-      fileWrite(dirStr, name + "-" + versionStr + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
+      fileWrite(dirStr / name + "-" + versionStr + ".pom", new OpenStratPomProject(name, versionStr, depStrs.toArr).out())
 
     oDir.foreach { dirStr =>
       println(dirStr.length)

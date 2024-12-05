@@ -5,7 +5,7 @@ import utiljvm._
 /** A class for creating simple one module git projects, with Sbt Mill and hello world files. */
 case class GitProj(path: String, projName: String)
 {
-  def fullPath = path / projName
+  def fullPathStr: String = path / projName
   def scalaVersionStr: String = "\"3.1.0\""
 
   def ignoreStr =
@@ -18,7 +18,7 @@ case class GitProj(path: String, projName: String)
     |SbtDir/
     |.*/""".stripMargin
 
-  def ignoreWrite: Unit = fileWrite(fullPath,".gitignore", ignoreStr)
+  def ignoreWrite: Unit = fileWrite(fullPathStr / ".gitignore", ignoreStr)
 
   def sbtStr: String =
     s"""
@@ -27,7 +27,7 @@ case class GitProj(path: String, projName: String)
       |Compile/scalaSource := baseDirectory.value / "src"
       |scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8")""".stripMargin
 
-  def sbtWrite: Unit = fileWrite(fullPath,projName + ".sbt", sbtStr)
+  def sbtWrite: Unit = fileWrite(fullPathStr / projName + ".sbt", sbtStr)
 
   def mainStr =
   s"""
@@ -35,7 +35,7 @@ case class GitProj(path: String, projName: String)
       |println("Hello from $projName")
       |}""".stripMargin
 
-  def mainWrite: Unit = fileWrite(fullPath / "src", projName + "App.scala", mainStr)
+  def mainWrite: Unit = fileWrite(fullPathStr / "src" / projName + "App.scala", mainStr)
 
   def millStr: String =
     s"""// build.sc
@@ -46,7 +46,7 @@ case class GitProj(path: String, projName: String)
       |  def sources = T.sources(millSourcePath / os.up / "src")
       |}""".stripMargin
 
-  def millWrite: Unit = fileWrite(fullPath,"build.sc", millStr)
+  def millWrite: Unit = fileWrite(fullPathStr / "build.sc", millStr)
 
   def apply: Unit =
   { ignoreWrite

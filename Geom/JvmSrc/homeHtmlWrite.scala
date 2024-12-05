@@ -8,7 +8,7 @@ object homeHtmlWrite
   def apply(dir: String, title: String, bodyContent: String): ErrBi[Exception, FileWritten] =
   {
     val home: String = System.getProperty("user.home")
-    fileWrite(home / dir, title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
+    fileWrite(home / dir / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
   }
 }
 
@@ -16,7 +16,7 @@ object opensettHtmlWrite
 {
   def apply(title: String, bodyContent: String) =
   { val home: String = System.getProperty("user.home")
-    fileWrite(home + "/opensett", title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
+    fileWrite(home / "opensett" / title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
   }
 }
 

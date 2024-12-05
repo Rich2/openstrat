@@ -7,8 +7,8 @@ object AppsPage extends OSDocumentationPage
 { override def titleStr: String = "Applications Module"
   override def body: HtmlBody = HtmlBody(HtmlH1("Apps Module"), main)
   def main: HtmlDiv = HtmlDiv.classAtt("main", stratList, otherTiled, otherApps)
-  def egameDir = ".." / AppPage.egameDir
-  def otDir = ".." / AppPage.otDir
+  def egameDir = ".." / AppPage.egameDir.str
+  def otDir = ".." / AppPage.otDir.str
 
   def stratList: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("Strategy Games using tiled world maps."),
     HtmlLi.linkAndText(egameDir / "dicelessapp.html", "DiceLess", "A simple simultaneous turn multi player game set in Europe in 1900. As the name suggests"

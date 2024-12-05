@@ -71,21 +71,21 @@ package object utiljvm
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[IOExc, FileWritten] = fileWrite(path.str, fileName, content)
+  def fileWrite(path: DirPathAbs, fileName: String, content: String): ErrBi[IOExc, FileWritten] = fileWrite(path /> fileName, content)
 
   /** Writes the String given in the third parameter to the full path and filename given by the first name. Returns a successful message on success. */
-  def fileWrite(path: String, fileName: String, content: String): ErrBi[IOExc, FileWritten] =
+  def fileWrite(pathName: String, content: String): ErrBi[IOExc, FileWritten] =
   { var oErr: Option[IOExc] = None
     var opw: Option[FileWriter] = None
     try
-    { new File(path).mkdir()
-      opw = Some(new FileWriter(new File(path / fileName)))
+    { //new File(pathName).mkdir()
+      opw = Some(new FileWriter(new File(pathName)))
       opw.get.write(content)
     }
 
     catch { case e: IOExc => oErr = Some(e) }
     finally { opw.foreach(_.close()) }
-    oErr.fld(Succ(FileWritten(path.toString / fileName)), FailIO(_))
+    oErr.fld(Succ(FileWritten(pathName)), FailIO(_))
   }
   
   def fileCopy(fromStr:  String, toStr: String): ErrBi[Exception, FileCopied] =
@@ -113,8 +113,8 @@ package object utiljvm
 
   /** Write a [[String]] to a file in the subdirectory of the home directory. */
   def homeWrite(dir: String, fileName: String, str: String): ErrBi[IOExc, FileWritten] =
-  { val h = System.getProperty("user.home")
-    fileWrite(h / dir, fileName, str)
+  { val h: String = System.getProperty("user.home")
+    fileWrite(h / dir / fileName, str)
   }
 
   /** Function object apply method to get statements from a Java build resource. */

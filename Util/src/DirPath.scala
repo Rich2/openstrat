@@ -10,7 +10,9 @@ trait DirPath
 
   def notDirStr: String = str -- "is not a directory"
   
-  def appendStr(operand: String): String = str / operand
+  //def appendStr(operand: String): String
+
+  def /> (appendStr: String): String
 }
 
 
@@ -21,7 +23,16 @@ class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
 
   override def toString: String = "DirPathAbs" + str.enParenth
 
-  def / (newDir: String): DirPathAbs = DirPathAbs(arrayUnsafe.appended(newDir))
+  def / (newDir: DirPathRel): DirPathAbs = DirPathAbs(arrayUnsafe ++ newDir.arrayUnsafe)
+
+  def /> (appendStr: String): String = str / appendStr
+
+  def /< (appendStr: String): DirPathAbs = {
+    val newArray: Array[String] = new Array[String](arrayUnsafe.length + 1)
+    arrayUnsafe.copyToArray(newArray)
+    newArray(arrayUnsafe.length) = appendStr
+    new DirPathAbs(newArray)
+  }
 }
 
 object DirPathAbs
@@ -39,8 +50,8 @@ object DirPathAbs
   implicit val unshowEv:Unshow[DirPathAbs] = new Unshow[DirPathAbs]
   { override def typeStr: String = "DirnPathAbs"
 
-    override def fromExpr(expr: Expr): ExcMon[DirPathAbs] =  expr match {
-      case SlashToken(_) => Succ(new DirPathAbs(Array[String]()))
+    override def fromExpr(expr: Expr): ExcMon[DirPathAbs] =  expr match
+    { case SlashToken(_) => Succ(new DirPathAbs(Array[String]()))
       case PathToken(_, array) => Succ(new DirPathAbs(array))
       case expr => expr.failExc("Not an absolute path")
     }
@@ -60,6 +71,8 @@ class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath
 
   def /(newDir: String): DirPathRel = new DirPathRel(arrayUnsafe.appended(newDir))
 
+  def /> (appendStr: String): String = ife(arrayUnsafe.length == 0, str, str / appendStr)
+  
   /** Not fully implemented. */
   def </(operand: DirPathRel): DirPathRel = arrayUnsafe.length match
   {
