@@ -9,8 +9,22 @@ trait StagingBuild
     fileWrite(path, "index.html", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
-    println(docFiles.summaryStr("Documents directory"))
-    AppPage.all.foreach(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
+    println(docFiles.summaryStr("Documents directory HTML"))
+
+    val eGameHtmlFiles = mkDirExist(path /> "earthgames").flatMapAcc { res =>
+      AppPage.eGameApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
+    }
+    println(eGameHtmlFiles.summaryStr("earthgames directory HTML"))
+
+    val otherHtmlFiles = mkDirExist(path /> "otherapps").flatMapAcc { res =>
+      AppPage.otherApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
+    }
+    println(otherHtmlFiles.summaryStr("otherapps directory HTML"))
+
+    val egridHtmlFiles = mkDirExist(path /> "egrids").flatMapAcc { res =>
+      AppPage.otherApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
+    }
+    println(egridHtmlFiles.summaryStr("egrids directory HTML"))
   }
 
   def stageDocDir(path: DirPathAbs): ErrBiAcc[IOExc, FileWritten] =
@@ -43,11 +57,10 @@ object StagingMill extends StagingBuild
 
   def useStaging(stagePath: DirPathAbs): Unit = projPathDo{ projPath =>
     val egPath: String = stagePath /> "earthgames"
-    debvar(egPath)
     val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.jsFileStem + ".js"))
     }
-    println(eGameJsFiles.summaryStr("earthgames directory"))
+    println(eGameJsFiles.summaryStr("earthgames directory JavaScript"))
 
     val otherPath: String = stagePath /> "otherapps"
     val otherJsFiles = mkDirExist(otherPath).flatMapAcc { res =>
@@ -57,6 +70,6 @@ object StagingMill extends StagingBuild
         fileCopy(fromStr, destStr)
       }
     }
-    println(otherJsFiles.summaryStr("otherapps directory"))
+    println(otherJsFiles.summaryStr("otherapps directory JavaScript"))
   }
 }
