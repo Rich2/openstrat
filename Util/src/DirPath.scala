@@ -13,6 +13,16 @@ trait DirPath
   def /> (appendStr: String): String
 }
 
+object DirPath
+{
+  def strToStrs(inp: String): Array[String] ={
+    val res0 = inp.dropWhile(_.isWhitespace)
+    val res1 = inp.dropRightWhile(_.isWhitespace)
+
+    ???
+  }
+}
+
 /** Directory path absolute. */
 class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
 {
@@ -66,7 +76,9 @@ class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath
 
   override def toString: String = "DirPathRel" + asStr.enParenth
 
-  def /(newDir: String): DirPathRel = new DirPathRel(arrayUnsafe.appended(newDir))
+  def /(newDir: String): DirPathRel ={
+    new DirPathRel(arrayUnsafe.appended(newDir))
+  }
 
   def /> (appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   

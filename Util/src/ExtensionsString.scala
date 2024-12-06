@@ -82,6 +82,14 @@ class ExtensionsString(val thisString: String) extends AnyVal
   /** Tries to parse this String as a [[Long]] expression. */
   def asLong: ErrBi[Exception, Long] = asType[Long]
 
+  def dropRightWhile(f: Char => Boolean): String =
+  { val arr = thisString.toCharArray
+    var count = 0
+    var i = arr.length - 1
+    while (i >= 0) if(f(arr(i))){ count += 1; i -= 1 } else { i = -1 }
+    thisString.dropRight(count)
+  }
+
   def findIntArray: ErrBi[Exception, Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */

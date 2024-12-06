@@ -5,6 +5,10 @@ import utest._
 object DirPathTest extends TestSuite
 {
   val tests = Tests {
+    test("String ext")
+    { "hello".dropRightWhile(_ == 'o') ==> "hell"
+      "John421".dropRightWhile(_.isDigit) ==> "John"
+    }
     val pa1: DirPathRel = DirPathRel("Documentation")
     test("Relative")
     {
