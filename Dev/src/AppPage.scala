@@ -90,7 +90,7 @@ object AppPage
     def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp)
   }
 
-  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.jsFileStem)(_.htmlPathName)
+  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.jsFileStem)(_.htmlTitleStr)
 
   def topMenu(pairs: ArrPairStr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }

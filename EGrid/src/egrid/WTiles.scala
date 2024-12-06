@@ -96,7 +96,10 @@ object WTiles
 
   /** [[HillyLakes]] [[Continental]] [[Forest]] */
   val hillyLakesContForest: Land = Land(HillyLakes, Continental, Forest)
-
+  
+  /** [[HillyLakes]] [[Boreal]] [[LandFree]] */
+  val hillyLakesBoreal: Land = Land(HillyLakes, Boreal, LandFree)
+  
   /** [[HillyLakes]] [[Boreal]] [[Forest]] */
   val hillyLakesTaiga: Land = Land(HillyLakes, Boreal, Forest)
 
