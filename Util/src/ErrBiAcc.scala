@@ -78,10 +78,12 @@ object ErrBiAccBuff
   }
 }
 
+/** type class to proived summary [[String]]s for [[ErrBiAccBase]] objects. */
 trait ErrBiSummary[+E <: Throwable, +B]
-{
+{ /** Provides the nummerical part pf the summary [[String]]. */
   def endStr(eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String
 
+  /** A single line summary [[String]] for [[ErrBiAccBase]] objects. */
   def summaryStr(leadStr: String, eba: ErrBiAccBase[E @uncheckedVariance, B @uncheckedVariance]): String =
     leadStr + ": " + ife(eba.errNum == 1 && eba.succNum == 0, eba.errHead, endStr(eba))
 }
