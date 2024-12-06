@@ -1,15 +1,18 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._, collection.mutable.ArrayBuffer
+import pParse.*, collection.mutable.ArrayBuffer, annotation.*
 
 trait DirPath
 { /** The path as a string with the slash characters inserted */
   def asStr: String
 
+  /** A notification [[String]] to inform that the path doesn't exist. */
   def noExistStr: String = asStr -- "Doesn't exist"
 
+  /** A notification [[String]] to inform that the path is not a directory. */
   def notDirStr: String = asStr -- "is not a directory"
 
+  /** Appends a [[String]] and converts the path to a [[String]] */
   def /> (appendStr: String): String
 }
 
@@ -33,23 +36,15 @@ object DirPath
 
 /** Directory path absolute. */
 class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
-{
+{ /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
+  @targetName("append") def /(newDir: DirPathRel): DirPathAbs = new DirPathAbs(arrayUnsafe ++ newDir.arrayUnsafe)
+
+  /** Appends a relative directory path. There is a name overload that appends a [[DirPathRel]] */
+  @targetName("append") def /(operand: String): DirPathAbs = new DirPathAbs(arrayUnsafe ++ DirPath.strToStrs(operand))
+
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
-
   override def toString: String = "DirPathAbs" + asStr.enParenth
-
-  def / (newDir: DirPathRel): DirPathAbs = new DirPathAbs(arrayUnsafe ++ newDir.arrayUnsafe)
-
-  def / (operand: String): DirPathAbs = new DirPathAbs(arrayUnsafe ++ DirPath.strToStrs(operand))
-
-  def /> (appendStr: String): String = (this / appendStr).asStr
-
-  def /< (appendStr: String): DirPathAbs = {
-    val newArray: Array[String] = new Array[String](arrayUnsafe.length + 1)
-    arrayUnsafe.copyToArray(newArray)
-    newArray(arrayUnsafe.length) = appendStr
-    new DirPathAbs(newArray)
-  }
+  override def /> (appendStr: String): String = (this / appendStr).asStr
 }
 
 object DirPathAbs
@@ -78,33 +73,32 @@ object DirPathAbs
 }
 
 /** Directory path absolute. */
-class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath
-{
-  override def asStr: String = arrayUnsafe.length match
-  { case 0 => ""
-    case 1 => arrayUnsafe(0)
-    case _ => arrayUnsafe.mkString("/")
-  }
+class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath {
+  /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
+  @targetName("append") def /(extraPath: DirPathRel): DirPathRel = new DirPathRel(arrayUnsafe ++ extraPath.arrayUnsafe)
 
-  override def toString: String = "DirPathRel" + asStr.enParenth
+  /** Appends a relative directory path. There is a name overload that appends a [[DirPathRel]] */
+  @targetName("append") def /(operand: String): DirPathRel = new DirPathRel(arrayUnsafe ++ DirPath.strToStrs(operand))
 
-  def /(newDir: String): DirPathRel ={
-    new DirPathRel(arrayUnsafe.appended(newDir))
-  }
-
-  def /> (appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
-  
   /** Not fully implemented. */
-  def </(operand: DirPathRel): DirPathRel = arrayUnsafe.length match
-  {
+  def </(operand: DirPathRel): DirPathRel = arrayUnsafe.length match {
     case 0 => operand
-    case _ =>
-    { val array = new Array[String](operand.arrayUnsafe.length + 1)
+    case _ => {
+      val array = new Array[String](operand.arrayUnsafe.length + 1)
       array(0) = ".."
       operand.arrayUnsafe.copyToArray(array, 1)
       new DirPathRel(array)
     }
   }
+
+  override def asStr: String = arrayUnsafe.length match {
+    case 0 => ""
+    case 1 => arrayUnsafe(0)
+    case _ => arrayUnsafe.mkString("/")
+  }
+
+  override def />(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
+  override def toString: String = "DirPathRel" + asStr.enParenth
 }
 
 object DirPathRel

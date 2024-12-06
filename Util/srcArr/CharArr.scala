@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._
+import annotation.*
 
 /** Efficient immutable Array based collection for [[Char]]s. When parsing sequences of [[Char]]s, it is recommended to use this class in conjunction
  * with the [[CharsOff]], the Char Arr offset class, which allows the dropping of [[Char]] elements without having to rebuild a new Array. */
