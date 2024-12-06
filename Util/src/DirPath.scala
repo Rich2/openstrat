@@ -1,6 +1,6 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, collection.mutable.ArrayBuffer
 
 trait DirPath
 { /** The path as a string with the slash characters inserted */
@@ -15,11 +15,18 @@ trait DirPath
 
 object DirPath
 {
-  def strToStrs(inp: String): Array[String] ={
-    val res0 = inp.dropWhile(_.isWhitespace)
-    val res1 = inp.dropRightWhile(_.isWhitespace)
-
-    ???
+  def strToStrs(inp: String): Array[String] =
+  { val res0 = inp.dropWhile(_.isWhitespace).dropWhile(!_.isLetter).dropRightWhile(_.isWhitespace).dropRightWhile(_ == '/')
+    val acc: ArrayBuffer[String] = Buffer[String]()
+    def loop(rem: String): Unit = if (rem.length == 0) {}
+    else{
+      val newStr = rem.takeWhile(_ != '/')
+      acc.append(newStr)
+      val rem2 = rem.drop(newStr.length)
+      if(rem2.length == 0){}
+      else loop(rem2.dropWhile(!_.isLetter))
+    }
+    acc.toArray
   }
 }
 
