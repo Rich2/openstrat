@@ -14,15 +14,19 @@ trait ErrBiAccBase[+E <: Throwable, +B]
 
   /** The first error may throw exception if no errors. */
   def errHead: E
-  
+
+  /** Foreachs over each error. */
   def errsforeach(f: E => Unit): Unit
+
+  /** Prints out each error to the console, on its own line */
   def errsPrint: Unit = errsforeach(println(_))
 }
 
 object ErrBiAccBase
 {
+  /** Extension class for [[ErrBiAccBase]]. */
   implicit class errBiAccBaseExtensions[+E <: Throwable, +B](thisEBAB: ErrBiAccBase[E, B])
-  {
+  { /** Extension method to produce a summary line of the successes and failures of this [[ErrBiAccBase]]. */
     def summaryStr(leadStr: String)(implicit ev: ErrBiSummary[E, B] @uncheckedVariance): String = ev.summaryStr(leadStr, thisEBAB)
   }
 }
@@ -37,11 +41,8 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
 
   override def errNum: Int = errsArray.length
   override def succNum: Int = succsArray.length
-
   override def toString: String = s"$succNum successes, $errNum failures."
-
   override def errHead: E = errsArray(0)
-
   override def errsforeach(f: E => Unit): Unit = errsArray.foreach(f)
 }
 
