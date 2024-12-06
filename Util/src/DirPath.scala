@@ -26,6 +26,7 @@ object DirPath
       if(rem2.length == 0){}
       else loop(rem2.dropWhile(!_.isLetter))
     }
+    loop(res0)
     acc.toArray
   }
 }
@@ -37,9 +38,11 @@ class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
 
   override def toString: String = "DirPathAbs" + asStr.enParenth
 
-  def / (newDir: DirPathRel): DirPathAbs = DirPathAbs(arrayUnsafe ++ newDir.arrayUnsafe)
+  def / (newDir: DirPathRel): DirPathAbs = new DirPathAbs(arrayUnsafe ++ newDir.arrayUnsafe)
 
-  def /> (appendStr: String): String = asStr / appendStr
+  def / (operand: String): DirPathAbs = new DirPathAbs(arrayUnsafe ++ DirPath.strToStrs(operand))
+
+  def /> (appendStr: String): String = (this / appendStr).asStr
 
   def /< (appendStr: String): DirPathAbs = {
     val newArray: Array[String] = new Array[String](arrayUnsafe.length + 1)
@@ -51,6 +54,8 @@ class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
 
 object DirPathAbs
 {
+  def apply(str1: String): DirPathAbs = new DirPathAbs(DirPath.strToStrs(str1))
+
   implicit val showEv: Show[DirPathAbs] = new Show[DirPathAbs]
   { override def typeStr: String = "DirnPathAbs"
     override def strT(obj: DirPathAbs): String = obj.asStr
