@@ -47,16 +47,17 @@ class ErrBiAcc[+E <: Throwable, +B](val errsArray: Array[E] @uncheckedVariance, 
 }
 
 object ErrBiAcc
-{
+{ /** Factory apply method to construct an [[ErrBiAcc]]. */
   def apply[E <: Throwable, B](input: ErrBi[E, B]*)(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] =
     ErrBiAccBuff.fromSeq(input).unbuff
 }
 
 /** immutable class for accumulating [[ErrBi]]s, biased bifunctors for errors. */
 class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVariance, val succs: ArrayBuffer[B] @uncheckedVariance) extends ErrBiAccBase[E, B]
-{
-  def append(newElem: ErrBi[E, B] @uncheckedVariance): Unit = newElem.forFld(errs.append(_), succs.append(_))
+{ /** Appends an element to this buffer. */
+  def grow(newElem: ErrBi[E, B] @uncheckedVariance): Unit = newElem.forFld(errs.append(_), succs.append(_))
 
+  /** Converts from a buffer to an immutable [[ErrBiAcc]]. */
   def unbuff(implicit ctE: ClassTag[E] @uncheckedVariance, ctA: ClassTag[B] @uncheckedVariance): ErrBiAcc[E, B] = new ErrBiAcc(errs.toArray, succs.toArray)
 
   override def errNum: Int = errs.length
@@ -66,12 +67,13 @@ class ErrBiAccBuff[+E <: Throwable, +B](val errs: ArrayBuffer[E] @uncheckedVaria
 }
 
 object ErrBiAccBuff
-{
+{ /** Factory apply method to construct an [[ErrBiAccBuff]]. */
   def apply[E <: Throwable, B](input: ErrBi[E, B]*): ErrBiAccBuff[E, B] = fromSeq(input)
 
-  def fromSeq[E <: Throwable, B](input: Seq[ErrBi[E, B]]) =
+  /** Utility method used by the [[ErrBiAcc]] companion object factory apply method. */
+  def fromSeq[E <: Throwable, B](input: Seq[ErrBi[E, B]]): ErrBiAccBuff[E, B] =
   { val res = new ErrBiAccBuff[E, B](new ArrayBuffer[E]() , new ArrayBuffer[B]())
-    input.foreach(res.append(_))
+    input.foreach(res.grow(_))
     res
   }
 }

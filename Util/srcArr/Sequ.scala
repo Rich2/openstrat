@@ -307,7 +307,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** maps each element to an [[ErrBi]] accumulating successes and errors. */
   def mapErrBiAcc[E <: Throwable, B, BB](f: A => ErrBi[E, B])(implicit ctE: ClassTag[E], ctB: ClassTag[B]): ErrBiAcc[E, B] =
   { val acc = ErrBiAccBuff[E, B]()
-    foreach{a => acc.append(f(a)) }
+    foreach{a => acc.grow(f(a)) }
     acc.unbuff
   }
 
