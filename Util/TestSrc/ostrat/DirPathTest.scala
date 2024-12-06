@@ -2,13 +2,13 @@
 package ostrat
 import utest._
 
-object DirnPathTest extends TestSuite
+object DirPathTest extends TestSuite
 {
   val tests = Tests {
     val pa1: DirPathRel = DirPathRel("Documentation")
     test("Relative")
     {
-      pa1.appendStr("hello.html") ==> "Documentation/hello.html"
+      pa1 /> "hello.html" ==> "Documentation/hello.html"
     }
   }
 }

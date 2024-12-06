@@ -30,8 +30,7 @@ object IndexPage extends HtmlPage
 
   def tile: HtmlLi = HtmlLi.linkAndText("Documentation/tiling.html", "Tiling Module", "Depends on Util and Geom modules. Encodes tile Grids, both" +
     " square and hexagonal, as well as systems of grids.")
-
-
+  
   def egrid: HtmlLi = HtmlLi.linkAndText("Documentation/egrid.html", "EGrid Module", "Tiling of the whole world in Hex grids, defining the changes" +
     " over the course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined" +
     " for local maps and higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real" +
