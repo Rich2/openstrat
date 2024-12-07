@@ -24,10 +24,14 @@ object DirPathTest extends TestSuite
     val pr1: DirPathRel = DirPathRel("Documentation")
     val pr2 = DirPathRel("dir1/dir2/dir3")
     val pr3 = DirPathRel("fld1", "fld2")
+    val pr4 = DirPathRel("dir1/dir2/cat")
     test("Relative")
     { pr1 /> "hello.html" ==> "Documentation/hello.html"
       pr2.arrayUnsafe.length ==> 3
-//      pr2 /> pr3 ==> "dir1/dir2/dir3"
+      pr2 /> pr3 ==> "dir1/dir2/dir3/fld1/fld2"
+      pr2 </> pr3 ==> "../../../fld1/fld2"
+      pr2 </> pr4 ==> "../cat"
+      pr4 </> pr2 ==> "../dir3"
     }
   }
 }

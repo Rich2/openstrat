@@ -13,7 +13,10 @@ trait DirPath
   def notDirStr: String = asStr -- "is not a directory"
 
   /** Appends a [[String]] and converts the path to a [[String]] */
-  def /> (appendStr: String): String
+  @targetName("appendToStr")def /> (operand: DirPathRel): String
+
+  /** Appends a [[String]] and converts the path to a [[String]] */
+  @targetName("appendToStr") def />(appendStr: String): String
 }
 
 object DirPath
@@ -44,7 +47,8 @@ class DirPathAbs(val arrayUnsafe: Array[String]) extends DirPath
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
-  override def /> (appendStr: String): String = (this / appendStr).asStr
+  @targetName("appendToStr") override def /> (operand: DirPathRel): String =  (this / operand).asStr
+  @targetName("appendToStr") override def /> (appendStr: String): String = (this / appendStr).asStr
 }
 
 object DirPathAbs
@@ -87,7 +91,7 @@ class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath {
     def loop(i: Int): Int = if(i < thisLen && i < opLen && arrayUnsafe(i) == operand.arrayUnsafe(i)) loop(i + 1) else i
     val co = loop(0)
     val newArray: Array[String] = new Array[String](thisLen + opLen - 2 * co)
-    iUntilForeach(thisLen - co){i => arrayUnsafe(i) = ".."}
+    iUntilForeach(thisLen - co){i => newArray(i) = ".."}
     Array.copy(operand.arrayUnsafe, co, newArray, thisLen - co, opLen - co)
     new DirPathRel(newArray)
   }
@@ -99,7 +103,8 @@ class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath {
     case _ => arrayUnsafe.mkString("/")
   }
 
-  override def />(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
+  @targetName("appendToStr") override def />(operand: DirPathRel): String = (this / operand).asStr
+  @targetName("appendToStr") override def />(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   override def toString: String = "DirPathRel" + asStr.enParenth
 }
 
