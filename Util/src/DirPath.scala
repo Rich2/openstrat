@@ -81,19 +81,21 @@ class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath {
   @targetName("append") def /(operand: String): DirPathRel = new DirPathRel(arrayUnsafe ++ DirPath.strToStrs(operand))
 
   /** Not fully implemented. */
-  def </(operand: DirPathRel): DirPathRel = arrayUnsafe.length match {
-    case 0 => operand
-    case _ => {
-      val array = new Array[String](operand.arrayUnsafe.length + 1)
-      array(0) = ".."
-      operand.arrayUnsafe.copyToArray(array, 1)
-      new DirPathRel(array)
-    }
+  def </(operand: DirPathRel): DirPathRel =
+  { val thisLen: Int = arrayUnsafe.length
+    val opLen:Int = operand.arrayUnsafe.length
+    def loop(i: Int): Int = if(i < thisLen && i < opLen && arrayUnsafe(i) == operand.arrayUnsafe(i)) loop(i + 1) else i
+    val co = loop(0)
+    val newArray: Array[String] = new Array[String](thisLen + opLen - 2 * co)
+    iUntilForeach(thisLen - co){i => arrayUnsafe(i) = ".."}
+    Array.copy(operand.arrayUnsafe, co, newArray, thisLen - co, opLen - co)
+    new DirPathRel(newArray)
   }
 
-  override def asStr: String = arrayUnsafe.length match {
-    case 0 => ""
-    case 1 => arrayUnsafe(0)
+  def </>(operand: DirPathRel): String = (this </ operand).asStr
+
+  override def asStr: String = arrayUnsafe.length match
+  { case 0 => ""
     case _ => arrayUnsafe.mkString("/")
   }
 
@@ -102,6 +104,9 @@ class DirPathRel(val arrayUnsafe: Array[String]) extends DirPath {
 }
 
 object DirPathRel
-{
-  def apply(inp: String*): DirPathRel = new DirPathRel(inp.toArray)
+{ /** Factory apply method for [[DirPathRel]]. */
+  def apply(inp: String*): DirPathRel ={
+    val newArray = inp.foldLeft(Array[String]())((acc, st) => acc ++ DirPath.strToStrs(st))
+    new DirPathRel(newArray)
+  }
 }
