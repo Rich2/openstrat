@@ -108,6 +108,8 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
 
   def </>%(operand: DirsFileRel): String = (this </> operand).asStr
 
+  def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr
+
   override def asStr: String = arrayUnsafe.length match
   { case 0 => ""
     case _ => arrayUnsafe.mkString("/")

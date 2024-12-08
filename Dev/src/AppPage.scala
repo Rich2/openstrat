@@ -31,7 +31,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
     val pairs1: ArrPairStr[String] = pages.mapPair(_.jsFileStem){linkPage => (dirRel </ linkPage.dirRel) /% linkPage.htmlFileName }
-    val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
+    val pairs2: ArrPairStr[String] = PairStrElem("Home", dirRel </>% "index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
 
