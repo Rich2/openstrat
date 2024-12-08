@@ -10,11 +10,11 @@ object EGridPage extends OSDocumentationPage
   def central: HtmlDiv = HtmlDiv.classAtt("central", egrids, open)
   val egrDir: String = "../egrids"
   def egrids: HtmlOlWithLH = HtmlOlWithLH(HtmlH2("World Hex Grids."),
-    HtmlLi.linkAndText(egrDir / "eg1300app.html", "EGrid 1300km", "1300km hex scale world."),
-    HtmlLi.linkAndText(egrDir / "eg1000app.html", "EGrid 1000km", "1000km hex scale world."),
-    HtmlLi.linkAndText(egrDir / "eg640app.html", "EGrid 640km", "640km hex scale world."),
-    HtmlLi.linkAndText(egrDir / "eg460app.html", "EGrid 460km", "460km hex scale world."),
-    HtmlLi.linkAndText(egrDir / "eg320app.html", "EGrid 320km", "320km hex scale world."),
+    HtmlLi.linkAndText(egrDir / "eg1300.html", "EGrid 1300km", "1300km hex scale world."),
+    HtmlLi.linkAndText(egrDir / "eg1000.html", "EGrid 1000km", "1000km hex scale world."),
+    HtmlLi.linkAndText(egrDir / "eg640.html", "EGrid 640km", "640km hex scale world."),
+    HtmlLi.linkAndText(egrDir / "eg460.html", "EGrid 460km", "460km hex scale world."),
+    HtmlLi.linkAndText(egrDir / "eg320.html", "EGrid 320km", "320km hex scale world."),
     HtmlLi.linkAndText(egrDir / "eg220europe.html", "EGrid Europe 220km", "220km hex scale Europe."),
     HtmlLi.linkAndText(egrDir / "eg220europewide.html", "EGrid Europe wide 220km", "220km hex scale Europe wide."),
     HtmlLi.linkAndText(egrDir / "eg220namerica.html", "EGrid North America 220km", "220km hex scale North America."),

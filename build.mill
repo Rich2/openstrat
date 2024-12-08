@@ -126,7 +126,7 @@ object EGridJs extends CommonJs
   { def name: String
     def sources = T.sources(Seq(PathRef(T.workspace / "EGrid" / "EGridJs" / "src")))
     def moduleDeps = Seq(EGridJs)
-    def mainClass = Some("ostrat.pSJs." + name + "AppJs")
+    def mainClass = Some("ostrat.pSJs." + name + "Js")
   }
 
   object EG1300 extends Base { def name = "EG1300" }
@@ -140,7 +140,7 @@ object EGridJs extends CommonJs
   object EG160Europe extends Base { def name = "EG160Europe" }
   object EG120Europe extends Base { def name = "EG120Europe" }
   object EG80Europe extends Base { def name = "EG80Europe" }
-  object EarthApp extends Base { def name = "Earth"}
+  object EarthApp extends Base { def name = "EarthApp"}
 }
 
 object Apps extends CommonJvm
