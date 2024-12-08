@@ -26,6 +26,7 @@ object DirPathTest extends TestSuite
     val pr3 = DirsRel("fld1", "fld2")
     val pr4 = DirsRel("dir1/dir2/cat")
     val pr5 = DirsFileRel("index.html")
+    val pr6 = DirsFileRel("fld1/index.html")
     test("Relative")
     { pr1 /% "hello.html" ==> "Documentation/hello.html"
       pr2.arrayUnsafe.length ==> 3
@@ -35,6 +36,9 @@ object DirPathTest extends TestSuite
       pr4 </% pr2 ==> "../dir3"
       pr5.asStr ==> "index.html"
       (pr3 /> pr5).asStr ==> "fld1/fld2/index.html"
+      pr3 </>% pr5 ==> "../../index.html"
+      pr6.asStr ==> "fld1/index.html"
+      pr4 </>% pr6 ==> "../../index.html"
     }
   }
 }

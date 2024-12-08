@@ -86,23 +86,27 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
   @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ DirPath.strToStrs(operand))
 
-  /** Not fully implemented. */
-  def </(operand: DirsRel): DirsRel =
+  /** Take the operand relative directory path from the top of this directory hierarchy. */
+  @targetName("fromTopDirs") def </(operand: DirsRel): DirsRel = new DirsRel(topFileAppendArray(operand.arrayUnsafe))
+
+  @targetName("fromTopDirsFile")def </>(operand: DirsFileRel): DirsFileRel = new DirsFileRel(topFileAppendArray(operand.arrayUnsafe))
+
+  def topFileAppendArray(operand: Array[String]): Array[String] =
   { val thisLen: Int = arrayUnsafe.length
-    val opLen:Int = operand.arrayUnsafe.length
-    def loop(i: Int): Int = if(i < thisLen && i < opLen && arrayUnsafe(i) == operand.arrayUnsafe(i)) loop(i + 1) else i
+    val opLen: Int = operand.length
+    def loop(i: Int): Int = if (i < thisLen && i < opLen && arrayUnsafe(i) == operand(i)) loop(i + 1) else i
     val co = loop(0)
     val newArray: Array[String] = new Array[String](thisLen + opLen - 2 * co)
-    iUntilForeach(thisLen - co){i => newArray(i) = ".."}
-    Array.copy(operand.arrayUnsafe, co, newArray, thisLen - co, opLen - co)
-    new DirsRel(newArray)
+    iUntilForeach(thisLen - co) { i => newArray(i) = ".." }
+    Array.copy(operand, co, newArray, thisLen - co, opLen - co)
+    newArray
   }
 
   def </%(operand: DirsRel): String = (this </ operand).asStr
 
   def /> (operand: DirsFileRel): DirsFileRel = new DirsFileRel(arrayUnsafe ++ operand.arrayUnsafe)
 
-  //def </>%(operand: DirsFileRel): String = (this </ operand).asStr
+  def </>%(operand: DirsFileRel): String = (this </> operand).asStr
 
   override def asStr: String = arrayUnsafe.length match
   { case 0 => ""
