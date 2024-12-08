@@ -3,7 +3,7 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val jsMainStem: String, val dirRel: DirPathRel, htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
+class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
   HtmlPage
 { /** The [[String]] for the HTML title element. */
   val htmlTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
@@ -15,7 +15,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirPathRel, htmlTitleIn: Strin
   def htmlFileName: String = htmlFileStem + ".html"
 
   /** The directory location with the website as a [[String]]. */
-  def htmlPathName: String = dirRel /> htmlFileName
+  def htmlPathName: String = dirRel /% htmlFileName
 
   /** JavaScript file name stem to which the ".js" extension will be added. */
   val jsFileStem: String = jsFileStemIn.emptyMap(jsMainStem.toLowerCase)
@@ -24,13 +24,13 @@ class AppPage(val jsMainStem: String, val dirRel: DirPathRel, htmlTitleIn: Strin
   def jsFileName: String = jsFileStem + ".js"
 
   /** The HTML path and full file name as a [[String]]. */
-  def htmlPathNameStr: String = dirRel /> htmlFileName
+  def htmlPathNameStr: String = dirRel /% htmlFileName
 
   override def head: HtmlHead = HtmlHead.titleCss(htmlTitleStr, "../only")
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.jsFileStem){linkPage => (dirRel </ linkPage.dirRel) /> linkPage.htmlFileName }
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.jsFileStem){linkPage => (dirRel </ linkPage.dirRel) /% linkPage.htmlFileName }
     val pairs2: ArrPairStr[String] = PairStrElem("Home", "/index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
@@ -44,12 +44,12 @@ object AppPage
    * [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the lower
    * case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
    * parameter. */
-  def apply(jsMainStem: String, dirPath: DirPathRel, htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
+  def apply(jsMainStem: String, dirPath: DirsRel, htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
     new AppPage(jsMainStem, dirPath, htmlTitleIn, htmlFileNameStem, jsFileStem)
 
-  val egameDir: DirPathRel = DirPathRel("earthgames")
-  val mapDir: DirPathRel = DirPathRel("egrids")
-  val otDir: DirPathRel = DirPathRel("otherapps")
+  val egameDir: DirsRel = DirsRel("earthgames")
+  val mapDir: DirsRel = DirsRel("egrids")
+  val otDir: DirsRel = DirsRel("otherapps")
 
   val dicelessApp: AppPage = AppPage("DicelessApp", egameDir, "DiceLess")
   val ww2App: AppPage = AppPage("WW2App", egameDir)  

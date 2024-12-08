@@ -4,31 +4,31 @@ import utiljvm.*
 
 trait StagingBuild
 {
-  def stageBase(path: DirPathAbs): Unit =
+  def stageBase(path: DirsAbs): Unit =
   {
     fileWrite(path, "index.html", IndexPage.out)
     fileWrite(path, "only.css", OnlyCss())
     val docFiles: ErrBiAcc[IOExc, FileWritten] = stageDocDir(path)
     println(docFiles.summaryStr("Documents directory HTML"))
 
-    val eGameHtmlFiles = mkDirExist(path /> "earthgames").flatMapAcc { res =>
+    val eGameHtmlFiles = mkDirExist(path /% "earthgames").flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
     println(eGameHtmlFiles.summaryStr("earthgames directory HTML"))
 
-    val otherHtmlFiles = mkDirExist(path /> "otherapps").flatMapAcc { res =>
+    val otherHtmlFiles = mkDirExist(path /% "otherapps").flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
     println(otherHtmlFiles.summaryStr("otherapps directory HTML"))
 
-    val egridHtmlFiles = mkDirExist(path /> "egrids").flatMapAcc { res =>
+    val egridHtmlFiles = mkDirExist(path /% "egrids").flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc(page => fileWrite(path / page.dirRel, page.htmlFileName, page.out))
     }
     println(egridHtmlFiles.summaryStr("egrids directory HTML"))
   }
 
-  def stageDocDir(path: DirPathAbs): ErrBiAcc[IOExc, FileWritten] =
-  { val docPath = path /> "Documentation"
+  def stageDocDir(path: DirsAbs): ErrBiAcc[IOExc, FileWritten] =
+  { val docPath = path /% "Documentation"
     mkDirExist(docPath).flatMapAcc { res => ErrBiAcc(
       fileWrite(docPath / "apps.html", AppsPage.out),
       fileWrite(docPath / "util.html", UtilPage.out),
@@ -55,14 +55,14 @@ object StagingMill extends StagingBuild
     }
   }
 
-  def useStaging(stagePath: DirPathAbs): Unit = projPathDo{ projPath =>
-    val egPath: String = stagePath /> "earthgames"
+  def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
+    val egPath: String = stagePath /% "earthgames"
     val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
       AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.jsFileStem + ".js"))
     }
     println(eGameJsFiles.summaryStr("earthgames directory JavaScript"))
 
-    val otherPath: String = stagePath /> "otherapps"
+    val otherPath: String = stagePath /% "otherapps"
     val otherJsFiles = mkDirExist(otherPath).flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
@@ -72,7 +72,7 @@ object StagingMill extends StagingBuild
     }
     println(otherJsFiles.summaryStr("otherapps directory JavaScript"))
 
-    val egridPath: String = stagePath /> "egrids"
+    val egridPath: String = stagePath /% "egrids"
     val egridJsFiles = mkDirExist(egridPath).flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"

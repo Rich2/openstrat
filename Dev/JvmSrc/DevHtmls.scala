@@ -3,7 +3,7 @@ package ostrat; package pDev
 import utiljvm.*, pWeb.*
 
 trait DevHtmls
-{ def jsPathStr(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): String
+{ def jsPathStr(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): String
   def scalaVersionStr = "3.5.2"
   def toolStr: String
   def appOuterModuleName: String
@@ -23,14 +23,14 @@ trait DevHtmls
     }
   }
 
-  def writeFastFull(path: DirPathAbs, outerModuleName: String, name: String): Unit =
+  def writeFastFull(path: DirsAbs, outerModuleName: String, name: String): Unit =
   { val fastPage = makeFile(path, outerModuleName, true, name)
     fileWrite(path / "Dev/target/DevPages", s"$name${toolStr}Fast.html", fastPage.out)
     val fullPage = makeFile(path, outerModuleName, false, name)
     fileWrite(path / "Dev/target/DevPages", s"$name${toolStr}Full.html", fullPage.out)
   }
 
-  def makeFile(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =
+  def makeFile(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): HtmlPage =
   {
     def jsPathStr2 = jsPathStr(path, outerModuleName, isFast, name).enquote
 
@@ -56,7 +56,7 @@ object DevSbtHtmls extends DevHtmls
 { override val toolStr: String = "Sbt"
   override val appOuterModuleName: String = "AppsJs"
 
-  override def jsPathStr(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): String =
+  override def jsPathStr(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): String =
   { val jsStr = ife(isFast, "fast", "")
     "../../../Apps/AppsJs/target/scala-$scalaVersionStr/appsjs-${name}-${jsStr}opt/main.js?"
   }
@@ -65,7 +65,7 @@ object DevSbtHtmls extends DevHtmls
 object DevMillHtmls extends DevHtmls
 { override val toolStr: String = "Mill"
   override val appOuterModuleName: String = "AppJs"
-  override def jsPathStr(path: DirPathAbs, outerModuleName: String, isFast: Boolean, name: String): String =
+  override def jsPathStr(path: DirsAbs, outerModuleName: String, isFast: Boolean, name: String): String =
   { val jsStr = ife(isFast, "fast", "full")
     s"../../../out/$outerModuleName/$name/${jsStr}Opt.dest/out.js?"
   }
