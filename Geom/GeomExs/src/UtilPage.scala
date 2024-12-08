@@ -7,6 +7,8 @@ trait OSDocumentationPage extends HtmlPage
   def titleStr: String
 
   override def head: HtmlHead = HtmlHead.titleCss(titleStr, "documentation")
+  
+  def dirsRel: DirsRel = DirsRel("Documentation")
 }
 
 /** Produces an HTML file documentation for the Util module. */

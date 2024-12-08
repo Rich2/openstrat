@@ -13,7 +13,7 @@ trait DirPath
   def notDirStr: String = asStr -- "is not a directory"
 
   /** Appends a [[String]] and converts the path to a [[String]] */
-  @targetName("appendToStr")def /> (operand: DirsRel): String
+  @targetName("appendToStr")def /%(operand: DirsRel): String
 
   /** Appends a [[String]] and converts the path to a [[String]] */
   @targetName("appendToStr") def /%(appendStr: String): String
@@ -47,7 +47,7 @@ class DirsAbs(val arrayUnsafe: Array[String]) extends DirPath
 
   override def asStr: String = ife(arrayUnsafe.length == 0, "/", arrayUnsafe.foldLeft("")(_ + "/" + _))
   override def toString: String = "DirPathAbs" + asStr.enParenth
-  @targetName("appendToStr") override def /> (operand: DirsRel): String =  (this / operand).asStr
+  @targetName("appendToStr") override def /%(operand: DirsRel): String =  (this / operand).asStr
   @targetName("appendToStr") override def /%(appendStr: String): String = (this / appendStr).asStr
 }
 
@@ -78,9 +78,7 @@ object DirsAbs
 
 /** Directory path relative. */
 class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
-{
-
-  /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
+{ /** Appends a relative directory path. There is a name overload that appends a [[String]]. */
   @targetName("append") def /(extraPath: DirsRel): DirsRel = new DirsRel(arrayUnsafe ++ extraPath.arrayUnsafe)
 
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
@@ -115,7 +113,7 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
     case _ => arrayUnsafe.mkString("/")
   }
 
-  @targetName("appendToStr") override def />(operand: DirsRel): String = (this / operand).asStr
+  @targetName("appendToStr") override def /%(operand: DirsRel): String = (this / operand).asStr
   @targetName("appendToStr") override def /%(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   override def toString: String = "DirPathRel" + asStr.enParenth
 }
