@@ -84,11 +84,11 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
   @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ DirPath.strToStrs(operand))
 
-  /** Form the root of this relative directory path, append the operand directories path. */
+  /** From the root of this relative directory path, append the operand directories path. */
   @targetName("fromRootAppendDirs") def </(operand: DirsRel): DirsRel = new DirsRel(topFileAppendArray(operand.arrayUnsafe))
 
   /** From the root of this relative directory path append the operand directories and filename path. */
-  @targetName("fromRootAppendDirsFile")def </>(operand: DirsFileRel): DirsFileRel = new DirsFileRel(topFileAppendArray(operand.arrayUnsafe))
+  @targetName("fromRootAppendDirsFile") def </>(operand: DirsFileRel): DirsFileRel = new DirsFileRel(topFileAppendArray(operand.arrayUnsafe))
 
   /** From the root of this relative directory path append the operand directories and then convert to a [[String]]. */
   @targetName("fromRootAppendDirsStr") def </%(operand: DirsRel): String = (this </ operand).asStr
@@ -105,14 +105,17 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
     newArray
   }
 
-  /** Append a directories and file name path. */
+  /** Append a directories and file name path. There is a name overload that takes the [[String]] representation as the operand. */
   @targetName("appendDirsFile") def /> (operand: DirsFileRel): DirsFileRel = new DirsFileRel(arrayUnsafe ++ operand.arrayUnsafe)
 
-  def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
+  /** Append a directories and file name path. There is a name overload that takes a [[DirsFileRel]] as the operand. */
+  @targetName("appendDirsFile") def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
 
-  def </>%(operand: DirsFileRel): String = (this </> operand).asStr
+  /** Append a directories and file name path, then convert to [[String]]. There is a name overload that takes the [[String]] representation as the operand. */
+  @targetName("appendDirsFileStr") def </>%(operand: DirsFileRel): String = (this </> operand).asStr
 
-  def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr
+  /** Append a directories and file name path, then convert to [[String]]. There is a name overload that takes a [[DirsFileRel]] as the operand. */
+  @targetName("appendDirsFileStr") def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr
 
   override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
   @targetName("appendToStr") override def /%(operand: DirsRel): String = (this / operand).asStr

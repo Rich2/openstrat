@@ -10,7 +10,6 @@ trait DevHtmls
   def appNames = StrArr("Diceless", "Discov", "IndRev", "Sors", "WW1", "WW2", "BC305", "Zug", "Dungeon", "Planets", "Chess")
   def egridNames = StrArr("EG1300", "EG1000", "EG640", "EG460", "EG320")
 
-
   def main(args: Array[String]): Unit =
   {
     projPathDo { path0 =>
@@ -34,15 +33,14 @@ trait DevHtmls
   {
     def jsPathStr2 = jsPathStr(path, outerModuleName, isFast, name).enquote
 
-    val noCacheScript =
-      s"""
-         |  // aid local development in ensuring script not cached during a simple refresh
-         |  var script = document.createElement("script");
-         |  script.setAttribute("type", "text/javascript");
-         |  script.setAttribute("src", ${jsPathStr2}+Date.now().toString());
-         |  document.getElementsByTagName("head")[0].appendChild(script);
-         |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });
-         |""".stripMargin
+    val noCacheScript = s"""
+      |  // aid local development in ensuring script not cached during a simple refresh
+      |  var script = document.createElement("script");
+      |  script.setAttribute("type", "text/javascript");
+      |  script.setAttribute("src", ${jsPathStr2}+Date.now().toString());
+      |  document.getElementsByTagName("head")[0].appendChild(script);
+      |  script.addEventListener('load', function(e) { ${name}AppJs.main(); });
+      |""".stripMargin
 
     val style = HtmlStyle(CssBody(DecMarg(0.px), DecOverflowHidden))
     val head = HtmlHead.title("OpenStrat:" -- name, HtmlNoCache, style)

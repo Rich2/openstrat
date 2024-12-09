@@ -1,9 +1,9 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.*
 
-/** Efficient immutable Array based collection for [[Char]]s. When parsing sequences of [[Char]]s, it is recommended to use this class in conjunction
- * with the [[CharsOff]], the Char Arr offset class, which allows the dropping of [[Char]] elements without having to rebuild a new Array. */
+/** Efficient immutable Array based collection for [[Char]]s. When parsing sequences of [[Char]]s, it is recommended to use this class in conjunction with the
+ * [[CharsOff]], the Char Arr offset class, which allows the dropping of [[Char]] elements without having to rebuild a new Array. */
 final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam[Char]
 { type ThisT = CharArr
 
@@ -59,9 +59,8 @@ object CharArr
   def apply(input: Char*): CharArr = new CharArr(input.toArray)
 }
 
-/** Immutable heapless iterator for Char arrays. At runtime this should just be an integer which indexes into a [[CharArr]]. This it self is just a
- * compile time wrapped [[Array]][Char]. This allows you to decompose the Char Array without having to create a new Array each time you drop a
- * character or characters.  */
+/** Immutable heapless iterator for Char arrays. At runtime this should just be an integer which indexes into a [[CharArr]]. This itself is just a compile time
+ * wrapped [[Array]][Char]. This allows you to decompose the Char Array without having to create a new Array each time you drop a character or characters.  */
 class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, CharArr]
 { /** Index's into the backing Array, which is passed by an implicit parameter. */
   override def apply(index: Int)(implicit chars: CharArr): Char = chars(offset0 + index)
@@ -130,34 +129,28 @@ object CharsOff4
     ife(chars.length - inp.offset0 == 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
 }
 
-/** Extractor object for the first element for immutable heapless iterator for Chars with at length >= 1. Use this when you don't care about the
- *  tail. */
+/** Extractor object for the first element for immutable heapless iterator for Chars with at length >= 1. Use this when you don't care about the tail. */
 object CharsOffHead
 { /** Extractor for the first element, for immutable heapless iterator for Chars with length >= 1. Use this when you don't care about the tail. */
   def unapply(inp: CharsOff)(implicit chars: CharArr): Option[Char] =
   ife(chars.length - inp.offset0 >= 1, Some(chars(inp.offset0)), None)
 }
 
-/** Extractor object for the first 2 elements for immutable heapless iterator for Chars with length >= 2. Use this when you don't care about the
- *  tail. */
+/** Extractor object for the first 2 elements for immutable heapless iterator for Chars with length >= 2. Use this when you don't care about the tail. */
 object CharsOffHead2
-{ /** Extractor for the first 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about
-    * the tail. */
+{ /** Extractor for the first 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about the tail. */
   def unapply(inp: CharsOff)(implicit chars: CharArr): Option[(Char, Char)] =
     ife(chars.length - inp.offset0 >= 2, Some((chars(inp.offset0), chars(inp.offset1))), None)
 }
 
-/** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
- *  tail. */
+/** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the tail. */
 object CharsOffHead3
-{ /** Extractor for the first 3 elements only for immutable heapless iterator for Chars with at least 3 element. Use this when you don't care about
- * the tail. */
+{ /** Extractor for the first 3 elements only for immutable heapless iterator for Chars with at least 3 element. Use this when you don't care about the tail. */
   def unapply(inp: CharsOff)(implicit chars: CharArr): Option[(Char, Char, Char)] =
     ife(chars.length - inp.offset0 >= 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
 }
 
-/** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
- *  tail. */
+/** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the tail. */
 object CharsOffHead4
 { /** Extractor for the first 4 elements for immutable heapless iterator for Chars with length >= 4. Use this when you don't care about the tail */
   def unapply(inp: CharsOff)(implicit chars: CharArr): Option[(Char, Char, Char, Char)] =
