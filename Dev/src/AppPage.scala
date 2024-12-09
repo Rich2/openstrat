@@ -27,9 +27,9 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.filesStem){ linkPage => dirRel </>% linkPage.htmlPathName }
-    val pairs2: ArrPairStr[String] = PairStrElem("Home", dirRel </>% "index.html") %: pairs1
-    AppPage.topMenu(pairs2)
+    val pairs1: ArrPairStr[DirsFileRel] = pages.mapPair(_.filesStem){ linkPage => linkPage.htmlPathName }
+    val pairs2: ArrPairStr[DirsFileRel] = PairStrElem("Home", DirsFileRel("index.html")) %: pairs1
+    AppPage.topMenu(pairs2, dirRel)
   }
 
   override def body: HtmlBody = HtmlBody(topMenu, HtmlCanvas.id("scanv"), HtmlScript.jsSrc(jsFileName), HtmlScript.main(jsMainStem + "Js"))
@@ -87,7 +87,8 @@ object AppPage
     def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp)
   }
 
-  val defaultTopPairs: ArrPairStr[String] = allTops.mapPair(_.filesStem)(_.htmlPathNameStr)
+  val defaultTopPairs: ArrPairStr[DirsFileRel] = allTops.mapPair(_.filesStem)(_.htmlPathName)
 
-  def topMenu(pairs: ArrPairStr[String], origin: DirsRel = DirsRel()): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
+  def topMenu(pairs: ArrPairStr[DirsFileRel], origin: DirsRel = DirsRel()): HtmlUl =
+    HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(origin </>% s2, s1) }, RArr(IdAtt("topmenu")))
 }

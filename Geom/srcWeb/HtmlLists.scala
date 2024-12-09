@@ -56,8 +56,7 @@ class HtmlOlWithLH(val header: XCon, items: RArr[HtmlLi]) extends HtmlSection
 }
 
 object HtmlOlWithLH
-{
-  /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
+{ /** Factory apply method for Html OL ordered list, with an effective LH list header. As the LH never made it into the W3C standard this is implemented as a
    * section. */
   def apply(header: XCon, items: HtmlLi*): HtmlOlWithLH = new HtmlOlWithLH(header, items.toArr)
 
