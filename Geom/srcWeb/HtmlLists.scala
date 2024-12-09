@@ -32,8 +32,9 @@ object HtmlLi
 { /** Factory apply method for HTML LI list element [[HtmlLi]] class. */
   def apply(contents: XCon*): HtmlLi = new HtmlLi(contents.toArr)
   def apply(text: String): HtmlLi = HtmlLi(RArr(text.xCon))
+
   /** An HTML list item element that has a link as its sole content. */
-  def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr( new HtmlA(link, RArr(label.xCon))), attribs.toArr)
+  def a(link: String, label: String, attribs: XmlAtt*): HtmlLi = new HtmlLi(RArr(new HtmlA(link, RArr(label.xCon))), attribs.toArr)
 
   /** An HTML list item element that has a link, followed by some text as its sole contents. */
   def linkAndText(link: String, label: String,otherText: String, attribs: XmlAtt*): HtmlLi =

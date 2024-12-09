@@ -44,15 +44,14 @@ object HtmlPage
   }
 }
 
+/** A 404 HTML page. */
 trait HtmlPageNotFound extends HtmlPage
-{
-  override def httpResp(dateStr: String, server: String): HttpPageNotFound = HttpPageNotFound(dateStr, server, HttpConTypeHtml, out)
+{ override def httpResp(dateStr: String, server: String): HttpPageNotFound = HttpPageNotFound(dateStr, server, HttpConTypeHtml, out)
 }
 
+/** A standard off the shelf 404 HTML page. */
 case class HtmlPageNotFoundstd(NotFoundUrl: String) extends HtmlPageNotFound
-{
-  override def head: HtmlHead = HtmlHead.title("Page not Found")
-
+{ override def head: HtmlHead = HtmlHead.title("Page not Found")
   override def body: HtmlBody = HtmlBody(HtmlH1("404" -- NotFoundUrl -- "not found on this server"))
 }
 
