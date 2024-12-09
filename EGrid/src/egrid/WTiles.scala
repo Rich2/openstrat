@@ -40,6 +40,9 @@ object WTiles
   /** [[Plain]] [[DesertHot]] [[LandFree]] */
   val deshot: Land = Land(Plain, DesertHot, LandFree)
 
+  /** [[Plain]] [[Tropical]] [[CivMix]] */
+  val tropical: Land = Land(Plain, Tropical, CivMix)
+  
   /** [[Plain]] [[Tropical]] [[Forest]] */
   val jungle: Land = Land(Plain, Tropical, Forest)
 
