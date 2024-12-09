@@ -84,11 +84,16 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
   /** Appends a relative directory path. There is a name overload that appends a [[DirsRel]] */
   @targetName("append") def /(operand: String): DirsRel = new DirsRel(arrayUnsafe ++ DirPath.strToStrs(operand))
 
-  /** Take the operand relative directory path from the top of this directory hierarchy. */
-  @targetName("fromTopDirs") def </(operand: DirsRel): DirsRel = new DirsRel(topFileAppendArray(operand.arrayUnsafe))
+  /** Form the root of this relative directory path, append the operand directories path. */
+  @targetName("fromRootAppendDirs") def </(operand: DirsRel): DirsRel = new DirsRel(topFileAppendArray(operand.arrayUnsafe))
 
-  @targetName("fromTopDirsFile")def </>(operand: DirsFileRel): DirsFileRel = new DirsFileRel(topFileAppendArray(operand.arrayUnsafe))
+  /** From the root of this relative directory path append the operand directories and filename path. */
+  @targetName("fromRootAppendDirsFile")def </>(operand: DirsFileRel): DirsFileRel = new DirsFileRel(topFileAppendArray(operand.arrayUnsafe))
 
+  /** From the root of this relative directory path append the operand directories and then convert to a [[String]]. */
+  @targetName("fromRootAppendDirsStr") def </%(operand: DirsRel): String = (this </ operand).asStr
+
+  /** Utility method for fromRootAppendDirs and fromRootAppendDirsFile methods. Creates the backing [[Array]] for the returned classes. */
   def topFileAppendArray(operand: Array[String]): Array[String] =
   { val thisLen: Int = arrayUnsafe.length
     val opLen: Int = operand.length
@@ -100,9 +105,8 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
     newArray
   }
 
-  def </%(operand: DirsRel): String = (this </ operand).asStr
-
-  def /> (operand: DirsFileRel): DirsFileRel = new DirsFileRel(arrayUnsafe ++ operand.arrayUnsafe)
+  /** Append a directories and file name path. */
+  @targetName("appendDirsFile") def /> (operand: DirsFileRel): DirsFileRel = new DirsFileRel(arrayUnsafe ++ operand.arrayUnsafe)
 
   def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
 
@@ -110,11 +114,7 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
 
   def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr
 
-  override def asStr: String = arrayUnsafe.length match
-  { case 0 => ""
-    case _ => arrayUnsafe.mkString("/")
-  }
-
+  override def asStr: String = arrayUnsafe.length match { case 0 => ""; case _ => arrayUnsafe.mkString("/") }
   @targetName("appendToStr") override def /%(operand: DirsRel): String = (this / operand).asStr
   @targetName("appendToStr") override def /%(appendStr: String): String = ife(arrayUnsafe.length == 0, asStr, asStr / appendStr)
   override def toString: String = "DirPathRel" + asStr.enParenth
