@@ -6,7 +6,7 @@ import pWeb._
 class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = ""/*, jsFileStemIn: String = ""*/) extends
   HtmlPage
 { /** The [[String]] for the HTML title element. */
-  val htmlTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
+  val pageTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
 
   /** HTML and javaScript file name stem to which the ".html" or the ".js" extension will be added. */
   val filesStem: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
@@ -15,7 +15,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
   def htmlFileName: String = filesStem + ".html"
 
   /** The directory location with the website as a [[String]]. */
-  def htmlPathName: String = dirRel /% htmlFileName
+  def htmlPathName: DirsFileRel = dirRel /> htmlFileName
 
   /** JavaScript file name including the ".js" extension. */
   def jsFileName: String = filesStem + ".js"
@@ -23,11 +23,11 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
   /** The HTML path and full file name as a [[String]]. */
   def htmlPathNameStr: String = dirRel /% htmlFileName
 
-  override def head: HtmlHead = HtmlHead.titleCss(htmlTitleStr, "../only")
+  override def head: HtmlHead = HtmlHead.titleCss(pageTitleStr, "../only")
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.filesStem){ linkPage => (dirRel </ linkPage.dirRel) /% linkPage.htmlFileName }
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.filesStem){ linkPage => dirRel </>% linkPage.htmlPathName }
     val pairs2: ArrPairStr[String] = PairStrElem("Home", dirRel </>% "index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
@@ -87,7 +87,7 @@ object AppPage
     def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp)
   }
 
-  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.filesStem)(_.htmlTitleStr)
+  val defaultTopPairs: ArrPairStr[String] = allTops.mapPair(_.filesStem)(_.htmlPathNameStr)
 
   def topMenu(pairs: ArrPairStr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }

@@ -104,6 +104,8 @@ class DirsRel(val arrayUnsafe: Array[String]) extends DirPath
 
   def /> (operand: DirsFileRel): DirsFileRel = new DirsFileRel(arrayUnsafe ++ operand.arrayUnsafe)
 
+  def /> (operand: String): DirsFileRel = this /> DirsFileRel(operand)
+
   def </>%(operand: DirsFileRel): String = (this </> operand).asStr
 
   def </>%(operand: String): String = (this </> DirsFileRel(operand)).asStr
