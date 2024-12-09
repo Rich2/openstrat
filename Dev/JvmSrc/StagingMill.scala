@@ -58,7 +58,7 @@ object StagingMill extends StagingBuild
   def useStaging(stagePath: DirsAbs): Unit = projPathDo{ projPath =>
     val egPath: String = stagePath /% "earthgames"
     val eGameJsFiles = mkDirExist(egPath).flatMapAcc { res =>
-      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.jsFileStem + ".js"))
+      AppPage.eGameApps.mapErrBiAcc(ga => fileCopy(projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js", egPath / ga.filesStem + ".js"))
     }
     println(eGameJsFiles.summaryStr("earthgames directory JavaScript"))
 
@@ -66,7 +66,7 @@ object StagingMill extends StagingBuild
     val otherJsFiles = mkDirExist(otherPath).flatMapAcc { res =>
       AppPage.otherApps.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/AppJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
-        val destStr: String = otherPath / ga.jsFileStem + ".js"
+        val destStr: String = otherPath / ga.filesStem + ".js"
         fileCopy(fromStr, destStr)
       }
     }
@@ -76,7 +76,7 @@ object StagingMill extends StagingBuild
     val egridJsFiles = mkDirExist(egridPath).flatMapAcc { res =>
       AppPage.eGrids.mapErrBiAcc { ga =>
         val fromStr: String = projPath.asStr / "out/EGridJs" / ga.jsMainStem / "fullLinkJS.dest/main.js"
-        val destStr: String = egridPath / ga.jsFileStem + ".js"
+        val destStr: String = egridPath / ga.filesStem + ".js"
         fileCopy(fromStr, destStr)
       }
     }

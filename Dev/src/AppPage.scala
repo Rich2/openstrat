@@ -3,25 +3,22 @@ package ostrat; package pDev
 import pWeb._
 
 /** An HTML Page for running an application. We may want a separate page for the documentation */
-class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = "", jsFileStemIn: String = "") extends
+class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String = "", htmlFileStemIn: String = ""/*, jsFileStemIn: String = ""*/) extends
   HtmlPage
 { /** The [[String]] for the HTML title element. */
   val htmlTitleStr: String = htmlTitleIn.emptyMap(jsMainStem)
 
-  /** HTML file name stem to which the ".html" extension will be added. */
-  val htmlFileStem: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
+  /** HTML and javaScript file name stem to which the ".html" or the ".js" extension will be added. */
+  val filesStem: String = htmlFileStemIn.emptyMap(jsMainStem.toLowerCase)
 
   /** HTML file name including the ".html" extension. */
-  def htmlFileName: String = htmlFileStem + ".html"
+  def htmlFileName: String = filesStem + ".html"
 
   /** The directory location with the website as a [[String]]. */
   def htmlPathName: String = dirRel /% htmlFileName
 
-  /** JavaScript file name stem to which the ".js" extension will be added. */
-  val jsFileStem: String = jsFileStemIn.emptyMap(jsMainStem.toLowerCase)
-
   /** JavaScript file name including the ".js" extension. */
-  def jsFileName: String = jsFileStem + ".js"
+  def jsFileName: String = filesStem + ".js"
 
   /** The HTML path and full file name as a [[String]]. */
   def htmlPathNameStr: String = dirRel /% htmlFileName
@@ -30,7 +27,7 @@ class AppPage(val jsMainStem: String, val dirRel: DirsRel, htmlTitleIn: String =
 
   def topMenu: HtmlUl =
   { val pages: RArr[AppPage] = AppPage.allTops.filterNot(_.jsMainStem == jsMainStem)
-    val pairs1: ArrPairStr[String] = pages.mapPair(_.jsFileStem){linkPage => (dirRel </ linkPage.dirRel) /% linkPage.htmlFileName }
+    val pairs1: ArrPairStr[String] = pages.mapPair(_.filesStem){ linkPage => (dirRel </ linkPage.dirRel) /% linkPage.htmlFileName }
     val pairs2: ArrPairStr[String] = PairStrElem("Home", dirRel </>% "index.html") %: pairs1
     AppPage.topMenu(pairs2)
   }
@@ -44,8 +41,8 @@ object AppPage
    * [[String]] is appended. The second parameter is the file name's stems to which the [[String]]s ".html" and ",js" will be added. The default is the lower
    * case of the first parameter. The third parameter is the title, which unlike the first two parameters can contain spaces which defaults to the first
    * parameter. */
-  def apply(jsMainStem: String, dirPath: DirsRel, htmlTitleIn: String = "", htmlFileNameStem: String = "", jsFileStem: String = ""): AppPage =
-    new AppPage(jsMainStem, dirPath, htmlTitleIn, htmlFileNameStem, jsFileStem)
+  def apply(jsMainStem: String, dirPath: DirsRel, htmlTitleIn: String = "", htmlFileNameStem: String = ""/*, jsFileStem: String = ""*/): AppPage =
+    new AppPage(jsMainStem, dirPath, htmlTitleIn, htmlFileNameStem/*, htmlFileStem*/)
 
   val egameDir: DirsRel = DirsRel("earthgames")
   val mapDir: DirsRel = DirsRel("egrids")
@@ -90,7 +87,7 @@ object AppPage
     def unapply(inp: String): Option[AppPage] = all.find(_.htmlPathNameStr == inp)
   }
 
-  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.jsFileStem)(_.htmlTitleStr)
+  val allTopPairs: ArrPairStr[String] = allTops.mapPair(_.filesStem)(_.htmlTitleStr)
 
   def topMenu(pairs: ArrPairStr[String]): HtmlUl = HtmlUl(pairs.pairMap { (s1, s2) => HtmlLi.a(s2, s1) }, RArr(IdAtt("topmenu")))
 }
