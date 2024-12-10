@@ -54,6 +54,8 @@ object Terr460E150 extends Long460Terrs
       TRow(90, sahel, savannah, hillyJungle),
       VRow(89, BendOut(5632, HVUR, 7), BendIn(5634, HVDL, 13)),
       TRow(88, sahel, savannah, hillySubForest, sea * 2, Isle6(mtainJungle)),
+      VRow(87, BendOut(5634, HVUR, 7), BendIn(5636, HVDL, 13)),
+      TRow(86, sahel, savannah * 2, hillySavannah),
     )
   }
   help.run
