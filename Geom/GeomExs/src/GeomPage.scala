@@ -5,7 +5,7 @@ import pWeb._, Colour._
 /** Produces an HTML file documentation for the Geom module. */
 object GeomPage extends HtmlPage
 {
-  override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "/Documentation/documentation")
+  override def head: HtmlHead = HtmlHead.titleCss("Geom Module", "documentation")
 
   override def body: HtmlBody = HtmlBody(HtmlH1("Geom Module"), central)
 
@@ -71,17 +71,17 @@ object GeomPage extends HtmlPage
 
 object LinePathNames extends HtmlSection
 {
-  override def contents: RArr[XCon] = RArr(HtmlH2("Line Paths"))
+  override def contents: RArr[XCon] = RArr(HtmlH2("Line Paths"), p1, list)
 
-  val p1 = HtmlP(
-    """Operator naming conventions for sequences and line paths.
-      |
-      |""".stripMargin)
+  val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   val list = HtmlUl(
-    HtmlLi(
-      """++ append This is a standard scala operator name for appending a sequence to a sequence and is also used for appending a line path to a line
-      | path.""".stripMargin),
-      HtmlLi("++ append This is a standard scala operator name for appending a sequence to a sequence and is also used for appending a line path to a line path.")
+    HtmlLi("++ appendArr This is a standard scala operator name for appending a sequence to a sequence and for appending a line path to a line path."),
+
+    HtmlLi("""+% append This is a non standard scala operator name for appending an element to a sequence and for appending a point to a line path. The '%'
+    | character has been chosen because of left right operator precedence, it makes for btter combination with the prepend element method""".stripMargin),
+
+    HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence and for prepending a point to a line path. The '%'
+    | character has been chosen because of left right operator precedence, it makes for better combination with the append element method""".stripMargin),
   )
 }
