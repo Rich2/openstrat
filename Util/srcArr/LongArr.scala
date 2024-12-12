@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -16,7 +16,7 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
   override def setElemUnsafe(i: Int, newElem: Long): Unit = unsafeArray(i) = newElem
   override def fElemStr: Long => String = _.toString
 
-  @targetName("appendArr") def ++(op: LongArr): LongArr =
+  @targetName("append") def ++(op: LongArr): LongArr =
   { val newArray = new Array[Long](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
@@ -25,7 +25,7 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
 
 
   /** append. Appends operand [[Long]] to this [[LongArr]]. */
-  @targetName("append") override def +%(operand: Long): LongArr =
+  @targetName("appendElem") override def +%(operand: Long): LongArr =
   { val newArray = new Array[Long](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand

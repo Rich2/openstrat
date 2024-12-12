@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._
 
@@ -19,10 +19,10 @@ trait ArrNoParam[A] extends Any with Arr[A]
   def reverse: ThisT
 
   /** append. Appends an [[Arr]] of the same final type of this [[Arr]]. */
-  @targetName("appendArr") def ++(operand: ThisT): ThisT
+  @targetName("append") def ++(operand: ThisT): ThisT
 
   /** append. appends element to this [[Arr]]. */
-  @targetName("append") def +%(operand: A): ThisT
+  @targetName("appendElem") def +%(operand: A): ThisT
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
@@ -42,8 +42,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   { val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length) {
-      val orig = apply(count)
+    while (count < length)
+    { val orig = apply(count)
       val finalVal = ife(orig == oldValue, newValue, orig)
       newArr.setElemUnsafe(count, finalVal)
       count += 1
@@ -56,8 +56,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   { val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length) {
-      val orig = apply(count)
+    while (count < length)
+    { val orig = apply(count)
       val finalVal = ife(pred(orig), newValue, orig)
       newArr.setElemUnsafe(count, finalVal)
       count += 1
@@ -70,8 +70,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   { val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length) {
-      val orig = apply(count)
+    while (count < length)
+    { val orig = apply(count)
       val finalVal = ife(pred(orig), fNewValue(orig), orig)
       newArr.setElemUnsafe(count, finalVal)
       count += 1

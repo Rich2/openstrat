@@ -77,7 +77,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   }
 
   /** Appends the operand [[StrArr]] to this, return a new [[StrArr]]. */
-  @targetName("appendArr") override def ++(operand: StrArr): StrArr =
+  @targetName("append") override def ++(operand: StrArr): StrArr =
   { val newArray: Array[String] = new Array[String](length + operand.length)
     var i = 0
     while (i < length) { newArray(i) = unsafeArray(i); i += 1 }
@@ -87,7 +87,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
   }
 
   /** append. Functionally appends the operand [[String]]. */
-  @targetName("append") @inline def +%(operand: String): StrArr =
+  @targetName("appendElem") @inline def +%(operand: String): StrArr =
   { val newArray = new Array[String](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand

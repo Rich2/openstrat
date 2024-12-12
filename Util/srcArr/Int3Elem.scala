@@ -37,7 +37,7 @@ trait ArrInt3[A <: Int3Elem] extends Any with ArrIntN[A] with SeqLikeInt3[A]
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
   final override def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
-  @targetName("append") final override def +%(operand: A): ThisT =
+  @targetName("appendElem") final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 3)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex3(length, operand.int1, operand.int2, operand.int3)

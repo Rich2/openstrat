@@ -14,14 +14,14 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Flo
   override def fElemStr: Float => String = _.toString
 
   /** append. Appends operand [[Float]] to this [[FloatArr]]. */
-  @targetName("append") override def +%(operand: Float): FloatArr =
+  @targetName("appendElem") override def +%(operand: Float): FloatArr =
   { val newArray = new Array[Float](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand
     new FloatArr(newArray)
   }
 
-  @targetName("appendArr") override def ++(op: FloatArr): FloatArr =
+  @targetName("append") override def ++(op: FloatArr): FloatArr =
   { val newArray = new Array[Float](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

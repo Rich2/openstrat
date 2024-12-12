@@ -61,7 +61,7 @@ trait ArrDbl3[A <: Dbl3Elem] extends Any with ArrDblN[A] with SeqLikeDbl3[A]
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   final override def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
-  @targetName("append") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 3)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex3(length, operand.dbl1, operand.dbl2, operand.dbl3)

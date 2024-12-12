@@ -19,7 +19,7 @@ trait ArrDbl1[A <: Dbl1Elem] extends Any with ArrDblN[A]
   final override def setElemUnsafe(index: Int, newElem: A): Unit = arrayUnsafe(index) = newElem.dbl1
   override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
 
-  @targetName("append") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = operand.dbl1

@@ -93,7 +93,7 @@ trait ArrDbl2[A <: Dbl2Elem] extends Any with ArrDblN[A] with SeqLikeDbl2[A]
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
-  @targetName("append") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](arrayLen + 2)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex2(length, operand.dbl1, operand.dbl2)

@@ -16,10 +16,10 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
   override def reverse: IntArr = ???
 
   /** appendArr. Apends the operand [[IntArr]] to this [[IntArr]]. */
-  @targetName("appendArr") override def ++(op: IntArr): IntArr = appendInts(op)
+  @targetName("append") override def ++(op: IntArr): IntArr = appendInts(op)
 
   /** append. Appends operand [[Int]] to this [[IntArr]]. */
-  @targetName("append") override def +%(operand: Int): IntArr =
+  @targetName("appendElem") override def +%(operand: Int): IntArr =
   { val newArray = new Array[Int](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand

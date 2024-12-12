@@ -62,7 +62,7 @@ trait ArrIntN[A <: IntNElem] extends Any with ArrValueN[A] with SeqLikeIntN[A]
     fromArray(newArray)
   }
 
-  @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
+  @targetName("append") final override def ++(operand: ThisT): ThisT =
   { val newArray: Array[Int] = new Array(arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     operand.arrayUnsafe.copyToArray(newArray, arrayLen)

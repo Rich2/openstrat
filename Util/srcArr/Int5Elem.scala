@@ -51,7 +51,7 @@ trait ArrInt5[A <: Int5Elem] extends Any with SeqLikeInt5[A] with ArrIntN[A]
   def head4: Int = arrayUnsafe(3)
   def head5: Int = arrayUnsafe(4)
 
-  @targetName("append") inline final override def +%(operand: A): ThisT =
+  @targetName("appendElem") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](arrayLen + 5)
     arrayUnsafe.copyToArray(newArray)
     newArray.setIndex5(length, operand.int1, operand.int2, operand.int3, operand.int4, operand.int5)

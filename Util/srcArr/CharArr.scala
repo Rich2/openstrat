@@ -18,14 +18,14 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
   override def fElemStr: Char => String = _.toString
 
   /** append. Appends operand [[Char]] to this [[CharArr]]. */
-  @targetName("append") override def +%(operand: Char): CharArr =
+  @targetName("appendElem") override def +%(operand: Char): CharArr =
   { val newArray = new Array[Char](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand
     new CharArr(newArray)
   }
 
-  @targetName("appendArr") override def ++(op: CharArr): CharArr =
+  @targetName("append") override def ++(op: CharArr): CharArr =
   { val newArray = new Array[Char](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

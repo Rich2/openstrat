@@ -36,7 +36,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   @targetName("appendTail") def ++- (operand: ThisT): ThisT
 
   /** Appends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
-  @targetName("appendVert") def +%[AA >: VT](op: VT): ThisT
+  @targetName("appendPt") def +%[AA >: VT](op: VT): ThisT
 
   /** Prepends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
   @targetName("prependVert") def %:(operand: VT): ThisT

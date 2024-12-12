@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, scala.collection.mutable.ArrayBuffer
 
@@ -30,14 +30,14 @@ final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoPa
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
 
   /** append. Appends operand [[Boolean]] to this [[BoolArr]]. */
-  @targetName("append") override def +%(operand: Boolean): BoolArr =
+  @targetName("appendElem") override def +%(operand: Boolean): BoolArr =
   { val newArray = new Array[Boolean](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand
     new BoolArr(newArray)
   }
 
-  @targetName("appendArr") override def ++(op: BoolArr): BoolArr = {
+  @targetName("append") override def ++(op: BoolArr): BoolArr = {
     val newArray = new Array[Boolean](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

@@ -82,7 +82,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
    * indicates to take the init of the operand. The enclosing '|' characters indicate to close the line path into a polygon. */
   @targetName("initAppendInitToPolygon") final override def |-++-|(operand: ThisT): PolygonT = polygonFromArray(initAppendInitArray(operand.arrayUnsafe))
 
-  @targetName("appendVert") @inline final override def +%[AA >: VT](op: VT): ThisT =
+  @targetName("appendPt") @inline final override def +%[AA >: VT](op: VT): ThisT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)
     arrayUnsafe.copyToArray(newArray)
     var i = arrayLen

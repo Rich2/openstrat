@@ -14,7 +14,7 @@ class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrNoParam[Doub
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
 
-  @targetName("appendArr") def ++ (op: DblArr): DblArr =
+  @targetName("append") def ++ (op: DblArr): DblArr =
   { val newArray = new Array[Double](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
@@ -27,7 +27,7 @@ class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrNoParam[Doub
   override def reverse: DblArr = ???
 
   /** append. appends element to this [[Arr]]. */
-  @targetName("append") override def +%(operand: Double): DblArr = ???
+  @targetName("appendElem") override def +%(operand: Double): DblArr = ???
 }
 
 /** Companion object for the Dbls Array based class for Doubles, contains a repeat parameter factory method. */

@@ -83,7 +83,7 @@ trait ArrDblN[A <: DblNElem] extends Any with SeqLikeDblN[A] with ArrValueN[A]
     fromArray(newArray)
   }
 
-  @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
+  @targetName("append") final override def ++(operand: ThisT): ThisT =
   { val newArray: Array[Double] = new Array(arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     operand.arrayUnsafe.copyToArray(newArray, arrayLen)
