@@ -2,15 +2,36 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
+object AndesNorth extends EarthArea("Andes north", 5.105 ll -75.212, mtainJungle)
+{
+  val nColumbia: LatLong = 12.458 ll -71.664
+  val zapara: LatLong = 10.955 ll -71.530
+  val caboSanRoman: LatLong = 12.196 ll -70.020
 
+  val northEast: LatLong = 10.480 ll -68.106
+  val p20: LatLong = 9.739 ll -68.148
+  val p24: LatLong = 9.533 ll -69.293
+  val p30: LatLong = 6.613 ll -71.833
+  val p36: LatLong = 0.162 ll -77.256
 
+  val seEdge: LinePathLL = LinePathLL(northEast, p20, p24, p30, p36)
 
-/** [[polygonLL]] graphical representation for Columbia dnd Venezuela . Dependant on [[ElSalPanama]]. */
-object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, mtainDepr)
+  val IslaPunaSE: LatLong = -3.012 ll -80.129
+  val peurtoNaranjal: LatLong = -2.666 ll -79.793
+  val salinas: LatLong = -2.188 ll -81.001
+  val puntaTortuga: LatLong = 0.775 ll -80.089
+  val p95: LatLong = 4.258 ll -77.524
+  val bahiaSolano10: LatLong = 6.55 ll -77.32
+
+  override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ seEdge |++| LinePathLL(peurtoNaranjal, IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10,
+    ElSalPanama.sePanama, ElSalPanama.nePanama)
+}
+
+/** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesNorth]]. */
+object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropical)
 { val southDegs: Double = -2.665
 
-  val nColumbia: LatLong = 12.19 ll -71.27
-  val caracas: LatLong = 11 ll -71
   val caicara: LatLong = 10.11 ll -64.74
   val margaritaE: LatLong = 10.98 ll -64.41
   val trinidadNE: LatLong = 10.84 ll -60.93
@@ -19,18 +40,11 @@ object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, mtain
 
   val southWest: LatLong = southDegs ll -79.790
   val punaSouth: LatLong = -3.041 ll -80.197
-  val p20: LatLong = -2.188 ll -81.010
-  val sanLorenzo: LatLong = -1.06 ll -80.91
-  val p90: LatLong = -2.187 ll -81.008
-  val puntaTortuga: LatLong = 0.775 ll -80.089
-  val p95: LatLong = 4.258 ll -77.524
-  val bahiaSolano10: LatLong = 6.55 ll -77.32
 
-  override val polygonLL: PolygonLL = PolygonLL(nColumbia, caracas, caicara, margaritaE, trinidadNE, northEast, manus,
-    southWest, punaSouth, p20, sanLorenzo, p90, puntaTortuga, p95, bahiaSolano10, ElSalPanama.sePanama, ElSalPanama.nePanama)
+  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, northEast, manus, southWest, punaSouth) |++<| AndesNorth.seEdge
 }
 
-/** [[polygonLL]] graphical representation for the north west of South America. Dependant on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
+/** [[polygonLL]] graphical representation for the north west of South America. Dependent on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
 object SouthAmericaWest extends EarthArea("South America\nwest", -20 ll -70.0, jungle)
 { val nChile: LatLong = -18 ll -70
   val p60: LatLong = -13.91 ll -76.39
