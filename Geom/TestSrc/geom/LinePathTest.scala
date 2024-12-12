@@ -10,9 +10,9 @@ object LinePathTest extends TestSuite
     val lp12: LinePath = lp1 ++ lp2
     deb(lp12.str)
     test("LinePath append")
-    {
-      //lp12 ==> LinePath.fromDbls(1,1, 2,2, 3,3, 6,6, 7,7, 8,8)
-      assert(lp12 === LinePath.fromDbls(1,1, 2,2, 3,3, 6,6, 7,7, 8,8)) ==> true
+    { assert(lp1 ++ lp2 === LinePath.fromDbls(1,1, 2,2, 3,3, 6,6, 7,7, 8,8))
+      assert(lp1 ++< lp2 === LinePath.fromDbls(1,1, 2,2, 3,3, 8,8, 7,7, 6,6))
+      assert(lp1 ++- lp2 === LinePath.fromDbls(1,1, 2,2, 3,3, 7,7, 8,8))
     }
 
   }
