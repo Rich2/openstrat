@@ -85,7 +85,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     fromArray(newArray)
   }
 
-  @targetName("prependVert") @inline final override def %:(operand: VT): ThisT = {
+  @targetName("prependPt") @inline final override def %:(operand: VT): ThisT = {
     val newArray = new Array[Int](arrayLen + elemProdSize)
     Array.copy(arrayUnsafe, 0, newArray, elemProdSize, arrayLen)
     var i = 0

@@ -39,7 +39,7 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   @targetName("appendPt") def +%[AA >: VT](op: VT): ThisT
 
   /** Prepends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
-  @targetName("prependVert") def %:(operand: VT): ThisT
+  @targetName("prependPt") def %:(operand: VT): ThisT
 
   /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
   @targetName("appendReverse") def ++<(operand: ThisT): ThisT

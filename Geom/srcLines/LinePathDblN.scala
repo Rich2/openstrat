@@ -123,7 +123,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
     polygonFromArray((this ++< operand).arrayUnsafe)
 
-  @targetName("prependVert") @inline final override def %: (operand: VT): ThisT =
+  @targetName("prependPt") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)
     Array.copy(arrayUnsafe, 0, newArray, elemProdSize, arrayLen)
     var i = 0

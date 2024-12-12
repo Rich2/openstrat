@@ -76,16 +76,19 @@ object LinePathNames extends HtmlSection
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   val list = HtmlUl(
-    HtmlLi("++ append This is a standard scala operator name for appending a sequence to a sequence. Example intArr1 ++ intArr2 returns a new IntArr."),
-    HtmlLi("++ append For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal]."),
-    HtmlLi("++ append Append a line path to a line path returning a new line path."),
+    HtmlLi("""++ append This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example intArr1 ++
+    | intArr2 returns a new IntArr. For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal].""".stripMargin),
+
+    HtmlLi("++ append Add the operand line path to the end of this line path returning a new line path."),
+    HtmlLi("++ append Add the operand line path to this line path returning a new line path."),
 
     HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because of left
     | right operator precedence, it makes for better combination with the append element method""".stripMargin),
 
-    HtmlLi("%: prepend Adds a point to the begining of a line path, returning a new line path"),
+    HtmlLi("%: prependPt Adds a point to the beginning of a line path, returning a new line path"),
     HtmlLi("+% appendElem Adds an element to the end of a sequence."),
     HtmlLi("+% appendPt Adds an point to the end of a line path."),
+    HtmlLi("++- appendTail Add the tail of the operand to this line path returning a new line path."),
     HtmlLi("|++| appendToPolygon Adds a line path to a line path and closes it into a Polygon."),
     HtmlLi("++< appendReverse Append the reverse of a line path to a line path returning a new line path."),
     HtmlLi("|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon."),
