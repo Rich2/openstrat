@@ -50,7 +50,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
   { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
 
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  def unsafeSameSize(length: Int)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = fromArray(new Array[A](length))//.asInstanceOf[Array[A]])
+  def unsafeSameSize(length: Int)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = fromArray(new Array[A](length))
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
@@ -71,8 +71,7 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
   }
 
   /** Functionally appends 2nd [[Arr]] collection to dispatching [[RArr]], allows type widening. */
-  @targetName("append") @inline
-  def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  @targetName("append") @inline def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newLen = length + op.length
     val newArray = new Array[AA](newLen)
     arrayUnsafe.copyToArray(newArray)
@@ -83,37 +82,28 @@ final class RArr[+A](val arrayUnsafe: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
-  /** append. Functionally concatenates element to dispatching [[RArr]], allows type widening. */
-  @targetName("append") @inline
-  def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  /** Functionally appends [[Iterable]] to this [[RArr]] collection, allows type widening. */
+  @targetName("append") def ++[AA >: A](operand: Iterable[AA])(implicit ct: ClassTag[AA]): RArr[AA] =
+  { val newLen = length + operand.size
+    val newArray = new Array[AA](newLen)
+    operand.iForeach { (i, el) => newArray(length + i) = el }
+    new RArr(newArray)
+  }
+
+  /** append. Functionally appends a single element to dispatching [[RArr]], allows type widening. */
+  @targetName("appendElem") @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     arrayUnsafe.copyToArray(newArray)
     newArray(length) = op
     new RArr(newArray)
   }
 
-  /** Functionally prepends element to this [[RArr]]. Allows type widening. There is no precaternate [[RArr]] method, as this would serve no purpose.
-   *  The ::: method on Lists is required for performance reasons. */
-  @inline @targetName("prepend") def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] =
+  /** Functionally prepends element to this [[RArr]]. Allows type widening. There is no prepend [[RArr]] method, as this would serve no purpose. The ::: method
+   * on Lists is required for performance reasons. */
+  @inline @targetName("prependElem") def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     arrayUnsafe.copyToArray(newArray, 1)
-    new RArr(newArray)
-  }
-
-  /** Functionally appends new elements to this [[RArr]] collection, allows type widening. */
-  def appends[AA >: A](newElems: AA*)(implicit ct: ClassTag[AA]): RArr[AA] =
-  { val newLen = length + newElems.length
-    val newArray = new Array[AA](newLen)
-    newElems.iForeach { (i, el) => newArray(length + i) = el }
-    new RArr(newArray)
-  }
-
-  /** Functionally appends [[Iterable]] to this [[RArr]] collection, allows type widening. */
-  def appendIter[AA >: A](operand: Iterable[AA])(implicit ct: ClassTag[AA]): RArr[AA] = {
-    val newLen = length + operand.size
-    val newArray = new Array[AA](newLen)
-    operand.iForeach { (i, el) => newArray(length + i) = el }
     new RArr(newArray)
   }
 

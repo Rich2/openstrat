@@ -76,8 +76,9 @@ object LinePathNames extends HtmlSection
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   val list = HtmlUl(
-    HtmlLi("++ appendArr This is a standard scala operator name for appending a sequence to a sequence and for appending a line path to a line path."),
-
+    HtmlLi("++ append This is a standard scala operator name for appending a sequence to a sequence. Example intArr1 ++ intArr2 returns a new IntArr."),
+    HtmlLi("++ append For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal]."),
+    HtmlLi("++ append A LinePath can be appended to a LinePath returning a new LinePath."),
     HtmlLi("""+% append This is a non standard scala operator name for appending an element to a sequence and for appending a point to a line path. The '%'
     | character has been chosen because of left right operator precedence, it makes for btter combination with the prepend element method""".stripMargin),
 

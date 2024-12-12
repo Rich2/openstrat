@@ -54,7 +54,7 @@ trait UnshowSingletons[+A <: TellSimple] extends Unshow[A]
     UnshowSingletons(typeStr, singletons ++ operand.singletons)
 
   def append[AA >: A <: TellSimple](extras: AA*)(implicit ct: ClassTag[AA]): UnshowSingletons[AA] =
-  { val newArr: RArr[AA] = singletons.appendIter(extras)
+  { val newArr: RArr[AA] = singletons.++(extras)
     UnshowSingletons.apply[AA](typeStr, newArr)
   }
 }
