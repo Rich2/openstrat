@@ -46,6 +46,7 @@ object LinePath extends CompanionSeqLikeDbl2[Pt2, LinePath]
 
   /** Both [[Show]] and [[Unshow]] type class instances / evidence for [[LinePath]]. */
   implicit lazy val persistEv: PersistSeqSpecBoth[Pt2, LinePath] = PersistSeqSpecBoth[Pt2, LinePath]("LinePath")
-  
+
+  /** Implicit [[EqT]] type class instance / evidence for [[LinePath]]. */
   implicit lazy val eqTEv: EqT[LinePath] = (ls1, ls2) => ls1.arrayUnsafe.sameElements(ls2.arrayUnsafe)
 }
