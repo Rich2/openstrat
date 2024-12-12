@@ -1,0 +1,19 @@
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
+import utest._
+
+object LinePathTest extends TestSuite
+{
+  val tests = Tests {
+    val lp1 = LinePath.fromDbls(1,1, 2,2, 3,3)
+    val lp2 = LinePath.fromDbls(6,6, 7,7, 8,8)
+    val lp12: LinePath = lp1 ++ lp2
+    deb(lp12.str)
+    test("LinePath append")
+    {
+      //lp12 ==> LinePath.fromDbls(1,1, 2,2, 3,3, 6,6, 7,7, 8,8)
+      assert(lp12 === LinePath.fromDbls(1,1, 2,2, 3,3, 6,6, 7,7, 8,8)) ==> true
+    }
+
+  }
+}
