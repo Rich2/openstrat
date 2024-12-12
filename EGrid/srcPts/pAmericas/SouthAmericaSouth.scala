@@ -2,28 +2,9 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for middle South America. Depends on [[SouthAmericaFS]]. */
-object SouthAmericaMiddle extends EarthArea("South America\nmiddle", -27.0 ll -56.0, subtrop)
-{ val north: Latitude = 21.south
-  val nwAmericaE: Longitude = 58.west
-
-  val nwSAmericaES: LatLong = north * nwAmericaE
-  val sSAmericaNE: LatLong = north * 40.81.west
-  val grutaAzul: LatLong = -23.01 ll -42.00
-  val taquari: LatLong = -25.03 ll -44.67
-  val barra: LatLong = -28.50 ll -48.75
-  val puntaDelEste: LatLong = -35 ll -54
-  val puntaCarretas = -34.931 ll -56.159
-  val lenguaDeVaca : LatLong= -30.24 ll -71.63
-  val northWest: LatLong = north * 70.16.west
-
-  override val polygonLL: PolygonLL = PolygonLL(nwSAmericaES, sSAmericaNE, grutaAzul, taquari, barra, puntaDelEste, puntaCarretas, SouthAmericaNS.northEast,
-    SouthAmericaNS.northWest, lenguaDeVaca, northWest)
-}
-
 /** [[polygonLL]] graphical representation for the near south of South America. Depends on [[SouthAmericaFS]]. */
 object SouthAmericaNS extends EarthArea("South America\nnear south", -36.495 ll -66.0, savannah)
-{ val northEast: LatLong = -34.165 ll -58.232
+{ val northEast: LatLong = -34.165 ll -58.232  
   val islaSarandi: LatLong = -34.449 ll -58.505
   val puntaPiedras: LatLong = -35.426 ll -57.131
   val p18: LatLong = -36.331 ll -56.747
@@ -32,10 +13,11 @@ object SouthAmericaNS extends EarthArea("South America\nnear south", -36.495 ll 
   val p45: LatLong = -40.584 ll -62.175
   val p48: LatLong = -41.136 ll -63.046
   val puntaLavapie: LatLong = -37.15 ll -73.59
-  val northWest: LatLong = -32.395 ll -71.407
+  val northWest: LatLong = -32.608 ll -71.467
+  val mendoza: LatLong = -32.826 ll -68.868
 
   override val polygonLL: PolygonLL = PolygonLL(northEast, islaSarandi, puntaPiedras, p18, marDelPlata, trinidadIsland, p45, p48, SouthAmericaFS.northEast,
-    SouthAmericaFS.northWest, puntaLavapie, northWest)
+    SouthAmericaFS.northWest, puntaLavapie, northWest, mendoza)
 }
 
 /** [[polygonLL]] graphical representation for south Argentine and south Chile. Depends on nothing. */

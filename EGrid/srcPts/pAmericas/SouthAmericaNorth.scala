@@ -2,10 +2,9 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
-object AndesNorth extends EarthArea("Andes north", 5.105 ll -75.212, mtainJungle)
-{
-  val nColumbia: LatLong = 12.458 ll -71.664
+/** [[polygonLL]] graphical representation for far north of the Andes. Dependent on [[ElSalPanama]]. */
+object AndesFarNorth extends EarthArea("Andes far north", 5.105 ll -75.212, mtainJungle)
+{ val nColumbia: LatLong = 12.458 ll -71.664
   val zapara: LatLong = 10.955 ll -71.530
   val caboSanRoman: LatLong = 12.196 ll -70.020
 
@@ -14,8 +13,9 @@ object AndesNorth extends EarthArea("Andes north", 5.105 ll -75.212, mtainJungle
   val p24: LatLong = 9.533 ll -69.293
   val p30: LatLong = 6.613 ll -71.833
   val p36: LatLong = 0.162 ll -77.256
+  val ecuadorSE: LatLong = -2.961 ll -77.734
 
-  val seEdge: LinePathLL = LinePathLL(northEast, p20, p24, p30, p36)
+  val seEdge: LinePathLL = LinePathLL(northEast, p20, p24, p30, p36, ecuadorSE)
 
   val IslaPunaSE: LatLong = -3.012 ll -80.129
   val peurtoNaranjal: LatLong = -2.666 ll -79.793
@@ -28,37 +28,41 @@ object AndesNorth extends EarthArea("Andes north", 5.105 ll -75.212, mtainJungle
     ElSalPanama.sePanama, ElSalPanama.nePanama)
 }
 
-/** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesNorth]]. */
+/** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]]. */
 object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropical)
-{ val southDegs: Double = -2.665
-
-  val caicara: LatLong = 10.11 ll -64.74
+{ val caicara: LatLong = 10.11 ll -64.74
   val margaritaE: LatLong = 10.98 ll -64.41
   val trinidadNE: LatLong = 10.84 ll -60.93
-  val northEast: LatLong = 6.77 ll -58//SouthAmericaMiddle.nwAmericaE
+  val northEast: LatLong = 6.77 ll -58
   val manus: LatLong = -3.170 ll -59.982
 
-  val southWest: LatLong = southDegs ll -79.790
-  val punaSouth: LatLong = -3.041 ll -80.197
-
-  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, northEast, manus, southWest, punaSouth) |++<| AndesNorth.seEdge
+  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, northEast, manus/*, southWest, punaSouth*/) |++<| AndesFarNorth.seEdge
 }
 
-/** [[polygonLL]] graphical representation for the north west of South America. Dependent on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
-object SouthAmericaWest extends EarthArea("South America\nwest", -20 ll -70.0, jungle)
-{ val nChile: LatLong = -18 ll -70
+/** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
+object AndesNearNorth extends EarthArea("Andes near north", 5.105 ll -75.212, mtainSahel)
+{
+  val southEast: LatLong = -14.776 ll -67.164
+
+  val chileNW: LatLong = -18.328 ll -70.420
   val p60: LatLong = -13.91 ll -76.39
-  val p61 = -13.461 ll -76.187
-  val p68 = -7.711 ll -79.465
-  val p70 = -6.054 ll -81.115
+  val p61: LatLong = -13.461 ll -76.187
+  val p68: LatLong = -7.711 ll -79.465
+  val p70: LatLong = -6.054 ll -81.115
   val nPeru: LatLong = -5 ll -81
   val west: LatLong = -4.68 ll -81.33
 
-  override val polygonLL: PolygonLL = PolygonLL(ColomVenez.manus, SouthAmericaMiddle.nwSAmericaES,
-    SouthAmericaMiddle.northWest, nChile, p60, p61, p68, p70, nPeru, west, ColomVenez.southWest)
+  override val polygonLL: PolygonLL = PolygonLL(AndesFarNorth.ecuadorSE, southEast, chileNW, p60, p61, p68, p70, nPeru, west, AndesFarNorth.peurtoNaranjal)
 }
 
-/** [[polygonLL]] graphical representation for the east of South America. Dependant on [[ElSalPanama]]. */
+/** [[polygonLL]] graphical representation for the west of South America. Dependent on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
+object AmazonWest extends EarthArea("Amazon west", -20 ll -70.0, jungle)
+{
+  override val polygonLL: PolygonLL = PolygonLL(ColomVenez.manus, SouthAmericaMiddle.nwSAmericaES, AndesMiddle.northEast, AndesNearNorth.southEast,
+    AndesFarNorth.ecuadorSE)
+}
+
+/** [[polygonLL]] graphical representation for the east of South America. Dependent on [[ElSalPanama]]. */
 object SouthAmericaEast extends EarthArea("South America\neast", -10.04 ll -45.81, jungle)
 { val nAmapa: LatLong = 4.39 ll -51.51
   val amazonMouthS: LatLong = -0.18 ll -49.3
