@@ -49,8 +49,8 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
 
   /** Appends the tail (without its first point) of the operand [[LinePathLike]] of this type, closing the path to a [[PolygonLike]] of the matching type. ++
-   *  indicates append a sequence. The trailing - indicates to drop the first point of the operand. The enclosing '|' characters indicate to close the line
-   *  path into a polygon. */
+   *  indicates append a sequence. The trailing - indicates to drop the first point of the operand. The enclosing '|' characters indicate to close the line path
+   *  into a polygon. */
   @targetName("appendTailToPolygon") def |++-|(operand: ThisT): PolygonT
 
   /** Appends the init of another [[LinePathLike]] of this type to the init of this [[LinePathLike]], closing the path to return a [[PolygonLike]] of the

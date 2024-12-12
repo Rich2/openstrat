@@ -81,15 +81,16 @@ object LinePathNames extends HtmlSection
 
     HtmlLi("++ append Add the operand line path to the end of this line path returning a new line path."),
     HtmlLi("++ append Add the operand line path to this line path returning a new line path."),
+    HtmlLi("|++| appendToPolygon Adds a line path to the end of this line path and closes it into a Polygon."),
 
     HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because of left
     | right operator precedence, it makes for better combination with the append element method""".stripMargin),
 
     HtmlLi("%: prependPt Adds a point to the beginning of a line path, returning a new line path"),
-    HtmlLi("+% appendElem Adds an element to the end of a sequence."),
-    HtmlLi("+% appendPt Adds an point to the end of a line path."),
-    HtmlLi("++- appendTail Add the tail of the operand to this line path returning a new line path."),
-    HtmlLi("|++| appendToPolygon Adds a line path to a line path and closes it into a Polygon."),
+    HtmlLi("+% appendElem Adds an element to the end of this sequence. returning a new sequence."),
+    HtmlLi("+% appendPt Adds an point to the end of this line path."),
+    HtmlLi("++- appendTail Add the tail of the operand to the end of this line path returning a new line path."),
+    HtmlLi("|++-| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon."),
     HtmlLi("++< appendReverse Append the reverse of a line path to a line path returning a new line path."),
     HtmlLi("|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon."),
   )
