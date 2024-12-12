@@ -85,7 +85,9 @@ object LinePathNames extends HtmlSection
 
     HtmlLi("%: prepend Adds a point to the begining of a line path, returning a new line path"),
     HtmlLi("+% appendElem Adds an element to the end of a sequence."),
-    HtmlLi("+% appendPt  Adds an point to the end of a line path."),
-
+    HtmlLi("+% appendPt Adds an point to the end of a line path."),
+    HtmlLi("|++| appendToPolygon Adds a line path to a line path and closes it into a Polygon."),
+    HtmlLi("++< appendReverse Append the reverse of a line path to a line path returning a new line path."),
+    HtmlLi("|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon."),
   )
 }
