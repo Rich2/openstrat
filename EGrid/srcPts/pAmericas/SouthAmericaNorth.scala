@@ -12,10 +12,12 @@ object AndesFarNorth extends EarthArea("Andes far north", 5.105 ll -75.212, mtai
   val p20: LatLong = 9.739 ll -68.148
   val p24: LatLong = 9.533 ll -69.293
   val p30: LatLong = 6.613 ll -71.833
-  val p36: LatLong = 0.162 ll -77.256
-  val ecuadorSE: LatLong = -2.961 ll -77.734
+  val p35: LatLong = 2.223 ll -73.791
+  val eastEdgeNorth: LinePathLL = LinePathLL(northEast, p20, p24, p30, p35)
 
-  val seEdge: LinePathLL = LinePathLL(northEast, p20, p24, p30, p36, ecuadorSE)
+  val p40: LatLong = 0.162 ll -77.256
+  val ecuadorSE: LatLong = -2.961 ll -77.734
+  val eastEdgeSouth: LinePathLL = LinePathLL(p35, p40, ecuadorSE)
 
   val IslaPunaSE: LatLong = -3.012 ll -80.129
   val peurtoNaranjal: LatLong = -2.666 ll -79.793
@@ -24,19 +26,31 @@ object AndesFarNorth extends EarthArea("Andes far north", 5.105 ll -75.212, mtai
   val p95: LatLong = 4.258 ll -77.524
   val bahiaSolano10: LatLong = 6.55 ll -77.32
 
-  override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ seEdge |++| LinePathLL(peurtoNaranjal, IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10,
-    ElSalPanama.sePanama, ElSalPanama.nePanama)
+  override val polygonLL: PolygonLL = LinePathLL(nColumbia, zapara, caboSanRoman) ++ eastEdgeNorth ++- eastEdgeSouth |++|
+    LinePathLL(/*p40, ecuadorSE,*/ peurtoNaranjal, IslaPunaSE, salinas, puntaTortuga, p95, bahiaSolano10, ElSalPanama.sePanama, ElSalPanama.nePanama)
 }
 
-/** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]]. */
+/** [[polygonLL]] graphical representation for Columbia and Venezuela. Dependent on [[AndesFarNorth]] and [[Guyana]]. */
 object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropical)
 { val caicara: LatLong = 10.11 ll -64.74
   val margaritaE: LatLong = 10.98 ll -64.41
   val trinidadNE: LatLong = 10.84 ll -60.93
-  val northEast: LatLong = 6.77 ll -58
-  val manus: LatLong = -3.170 ll -59.982
+  val p55: LatLong = 0.719 ll -63.146
+  val p60: LatLong = 0.257 ll -65.806
 
-  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, northEast, manus/*, southWest, punaSouth*/) |++<| AndesFarNorth.seEdge
+  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, Guyana.northWest, Guyana.southWest, p55, p60) |++<|
+    AndesFarNorth.eastEdgeNorth
+}
+
+/** [[polygonLL]] graphical representation for Guyana, Suriname and French Guiana. Dependent on nothing. */
+object Guyana extends EarthArea("Guyana", 0 ll -70.0, hillyJungle)
+{
+  val northWest: LatLong = 8.364 ll -59.837
+
+  val oyaopokMouth: LatLong = 4.242 ll -51.627
+  val southEast: LatLong = 2.209 ll -52.885
+  val southWest: LatLong = 1.214 ll -58.818
+  override val polygonLL: PolygonLL = PolygonLL(northWest, oyaopokMouth, southEast, southWest)
 }
 
 /** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
@@ -58,8 +72,8 @@ object AndesNearNorth extends EarthArea("Andes near north", 5.105 ll -75.212, mt
 /** [[polygonLL]] graphical representation for the west of South America. Dependent on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
 object AmazonWest extends EarthArea("Amazon west", -20 ll -70.0, jungle)
 {
-  override val polygonLL: PolygonLL = PolygonLL(ColomVenez.manus, SouthAmericaMiddle.nwSAmericaES, AndesMiddle.northEast, AndesNearNorth.southEast,
-    AndesFarNorth.ecuadorSE)
+  override val polygonLL: PolygonLL = LinePathLL(ColomVenez.p60, ColomVenez.p55, SouthAmericaMiddle.nwSAmericaES, AndesMiddle.northEast,
+    AndesNearNorth.southEast) |++<| AndesFarNorth.eastEdgeSouth
 }
 
 /** [[polygonLL]] graphical representation for the east of South America. Dependent on [[ElSalPanama]]. */
@@ -76,6 +90,6 @@ object SouthAmericaEast extends EarthArea("South America\neast", -10.04 ll -45.8
   val p70: LatLong = -13.23 ll -38.94
   val jequitinhonhaMouth: LatLong = -15.84 ll -38.85
 
-  override val polygonLL: PolygonLL = PolygonLL(ColomVenez.northEast, nAmapa, amazonMouthS, marajoMouth, p10, pedraFurada, p25, caboBranco, paulista, p50, p70,
-    jequitinhonhaMouth, SouthAmericaMiddle.sSAmericaNE, SouthAmericaMiddle.nwSAmericaES, ColomVenez.manus)
+  override val polygonLL: PolygonLL = PolygonLL(Guyana.oyaopokMouth, nAmapa, amazonMouthS, marajoMouth, p10, pedraFurada, p25, caboBranco, paulista, p50, p70,
+    jequitinhonhaMouth, SouthAmericaMiddle.sSAmericaNE, SouthAmericaMiddle.nwSAmericaES, ColomVenez.p55, Guyana.southWest, Guyana.southEast)
 }

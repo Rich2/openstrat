@@ -103,7 +103,7 @@ object AmericasCentral extends EarthRegion("Americas Central", 19.563 ll -89.167
 
 object AmericasSouth extends EarthRegion("SAmericas", -6.52 ll -62.28)
 { import pAmericas._
-  override val a2Arr: RArr[EarthArea] = RArr(AndesFarNorth, ColomVenez, AndesNearNorth, AmazonWest, SouthAmericaEast, AndesMiddle, SouthAmericaMiddle,
+  override val a2Arr: RArr[EarthArea] = RArr(AndesFarNorth, ColomVenez, Guyana, AndesNearNorth, AmazonWest, SouthAmericaEast, AndesMiddle, SouthAmericaMiddle,
     SouthAmericaNS, SouthAmericaFS, DelFuego, Falklands)
 }
 
