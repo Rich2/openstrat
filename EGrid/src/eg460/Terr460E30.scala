@@ -6,7 +6,7 @@ import prid._, phex._, egrid._, WTiles._
  * [[Isle9]] 51718.292km² => 64603.127km². Svalbard 62045km².
  * [[Isle3]] 4473.900km² => 8768.845km². Crete 8450km². */
 object Terr460E30 extends Long460Terrs
-{ override implicit val grid: EGrid460LongFull = EGrid460.e30(86)
+{ override implicit val grid: EGrid460LongFull = EGrid460.e30(80)
   override val terrs: LayerHcRefGrid[WTile] = LayerHcRefGrid[WTile](sea)
   override val sTerrs: LayerHSOptSys[WSep, WSepSome] = LayerHSOptSys[WSep, WSepSome]()
   override val corners: HCornerLayer = HCornerLayer()
@@ -69,10 +69,14 @@ object Terr460E30 extends Long460Terrs
     TRow(96, hillyJungle * 4, hillySavannah * 2),
     VRow(95, OrigLt(1538, HVUp, 6, lake), OrigMin(1540, HVDn, 3, lake), BendOut(1546, HVUR), BendIn(1548, HVDL, 13)),
     TRow(94, hillyJungle * 6),
+    VRow(93, OrigLt(1548, HVUp, 7)),
     TRow(92, savannah * 2, jungle, hillySavannah * 3),
     TRow(90, sahel, savannah, hillySavannah * 2, savannah),
     TRow(88, deshot, sahel, savannah, jungle, sea, hillySavannah),
     TRow(86, hillySahel, sahel, hillySavannah * 2),
+    TRow(84, sahel * 2, mtainSavannah),
+    VRow(83, BendOut(1524, HVDL,7)),
+    TRow(82, hillySavannah, hillySahel, mtainSavannah),
     )
   }
   help.run
