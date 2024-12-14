@@ -45,34 +45,34 @@ object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropi
 /** [[polygonLL]] graphical representation for Guyana, Suriname and French Guiana. Dependent on nothing. */
 object Guyana extends EarthArea("Guyana", 0 ll -70.0, hillyJungle)
 { val northWest: LatLong = 8.364 ll -59.837
-
+  val courantyneMouth: LatLong = 6.01 ll -57.082
+  val p30: LatLong = 4.44 ll -51.520
   val oyaopokMouth: LatLong = 4.242 ll -51.627
   val southEast: LatLong = 2.209 ll -52.885
   val southWest: LatLong = 1.214 ll -58.818
-  override val polygonLL: PolygonLL = PolygonLL(northWest, oyaopokMouth, southEast, southWest)
+  override val polygonLL: PolygonLL = PolygonLL(northWest, courantyneMouth, p30, oyaopokMouth, southEast, southWest)
 }
 
 /** [[polygonLL]] graphical representation for north Andes. Dependent on [[ElSalPanama]]. */
 object AndesNearNorth extends EarthArea("Andes near north", 5.105 ll -75.212, mtainSahel)
-{
+{ val p15: LatLong = -13.550 ll -68.636
   val southEast: LatLong = -14.776 ll -67.164
 
   val chileNW: LatLong = -18.328 ll -70.420
   val p60: LatLong = -13.91 ll -76.39
   val p61: LatLong = -13.461 ll -76.187
+
   val p68: LatLong = -7.711 ll -79.465
   val p70: LatLong = -6.054 ll -81.115
   val nPeru: LatLong = -5 ll -81
   val west: LatLong = -4.68 ll -81.33
 
-  override val polygonLL: PolygonLL = PolygonLL(AndesFarNorth.ecuadorSE, southEast, chileNW, p60, p61, p68, p70, nPeru, west, AndesFarNorth.peurtoNaranjal)
+  override val polygonLL: PolygonLL = PolygonLL(AndesFarNorth.ecuadorSE, p15, southEast, chileNW, p60, p61, p68, p70, nPeru, west, AndesFarNorth.peurtoNaranjal)
 }
 
-/** [[polygonLL]] graphical representation for the west of South America. Dependent on [[SouthAmericaMiddle]] [[ElSalPanama]]. */
+/** [[polygonLL]] graphical representation for the west of Amazon basin. Dependent on [[AndesFarNorth]], [[ColomVenez]] and [[AndesNearNorth]]. */
 object AmazonWest extends EarthArea("Amazon west", -20 ll -70.0, jungle)
-{
-  override val polygonLL: PolygonLL = LinePathLL(ColomVenez.p60, ColomVenez.p55, AmazonEast.southWest, SouthAmericaMiddle.nwSAmericaES, AndesMiddle.northEast,
-    AndesNearNorth.southEast) |++<| AndesFarNorth.eastEdgeSouth
+{ override val polygonLL: PolygonLL = LinePathLL(ColomVenez.p60, ColomVenez.p55, AmazonEast.southWest, AndesNearNorth.p15) |++<| AndesFarNorth.eastEdgeSouth
 }
 
 /** [[polygonLL]] graphical representation for the east of the Amazon basin. Dependent on [[ColomVenez]] [[Guyana]]. */
@@ -91,6 +91,14 @@ object AmazonEast extends EarthArea("Amazon east", -20 ll -70.0, jungle)
     ColomVenez.p55, Guyana.southWest, Guyana.southEast)
 }
 
+/** [[polygonLL]] graphical representation for the centre of South America. Dependent on [[AmazonEast]], [[SouthAmericaEast]], [[SouthAmericaMiddle]],
+ * [[AndesMiddle]], [[AndesNearNorth]] and [[AmazonWest]]. */
+object SouthAmericaCentral extends EarthArea("South America\ncentral", -10.04 ll -45.81, tropical)
+{
+  override val polygonLL: PolygonLL = PolygonLL(AmazonEast.southWest, AmazonEast.ariel, AmazonEast.p50, SouthAmericaMiddle.nwSAmericaES, AndesMiddle.northEast,
+    AndesNearNorth.southEast, AndesNearNorth.p15)
+}
+
 /** [[polygonLL]] graphical representation for the east of South America. Dependent on [[AmazonEast]], [[SouthAmericaMiddle]] and [[AmazonWest]]. */
 object SouthAmericaEast extends EarthArea("South America\neast", -10.04 ll -45.81, tropical)
 { val p10: LatLong = -2.34 ll -43.32
@@ -103,5 +111,5 @@ object SouthAmericaEast extends EarthArea("South America\neast", -10.04 ll -45.8
   val jequitinhonhaMouth: LatLong = -15.84 ll -38.85
 
   override val polygonLL: PolygonLL = PolygonLL(AmazonEast.mearimMouth, p10, pedraFurada, p25, caboBranco, paulista, p50, p70, jequitinhonhaMouth,
-    SouthAmericaMiddle.sSAmericaNE, SouthAmericaMiddle.nwSAmericaES, AmazonEast.southWest, AmazonEast.ariel, AmazonEast.p50, AmazonEast.acailandia)
+    SouthAmericaMiddle.sSAmericaNE, SouthAmericaMiddle.nwSAmericaES, AmazonEast.p50, AmazonEast.acailandia)
 }

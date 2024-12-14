@@ -55,7 +55,7 @@ object Terr460W30 extends Long460Terrs
       TRow(90, hillyJungle),
       VRow(89, BendOut(11768, HVUR), BendIn(11770, HVDL, 13)),
       TRow(88, hillySub),
-      VRow(87, BendIn(11770, HVUL, 13)),
+      VRow(87, OrigLt(11768, HVUR, 7), BendIn(11770, HVUL, 13)),
     )
   }
   terrSet.run

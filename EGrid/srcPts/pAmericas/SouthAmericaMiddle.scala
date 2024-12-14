@@ -18,12 +18,15 @@ object SouthAmericaMiddle extends EarthArea("South America\nmiddle", -27.0 ll -5
 
   val nwSAmericaES: LatLong = north * nwAmericaE
   val sSAmericaNE: LatLong = north * 40.81.west
-  val grutaAzul: LatLong = -23.01 ll -42.00
+  val arraialDeCabo: LatLong = -22.979 ll -42.020
+  val p22: LatLong = -23.352 ll -44.591
   val taquari: LatLong = -25.03 ll -44.67
+  val pontaDosIngleses: LatLong = -27.440 ll -48.360
   val barra: LatLong = -28.50 ll -48.75
-  val puntaDelEste: LatLong = -35 ll -54
-  val puntaCarretas = -34.931 ll -56.159
+  val caboPolonoio: LatLong = -34.400 ll -53.784
+  val puntaDelEste: LatLong = -34.953 ll -54.936
+  val puntaCarretas: LatLong = -34.931 ll -56.159
 
-  override val polygonLL: PolygonLL = PolygonLL(nwSAmericaES, sSAmericaNE, grutaAzul, taquari, barra, puntaDelEste, puntaCarretas, SouthAmericaNS.northEast,
-    SouthAmericaNS.mendoza, AndesMiddle.northEast)
+  override val polygonLL: PolygonLL = PolygonLL(nwSAmericaES, sSAmericaNE, arraialDeCabo, p22, taquari, pontaDosIngleses, barra, caboPolonoio, puntaDelEste,
+    puntaCarretas, SouthAmericaNS.northEast, SouthAmericaNS.mendoza, AndesMiddle.northEast)
 }
