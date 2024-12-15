@@ -30,7 +30,7 @@ object UsaNorthWest extends EarthArea("United States\nnorth west", 45.5 ll -108.
 
 /** [[PolygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
  * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
-object UsaMidWest extends EarthArea("United States\nMid West", 44 ll -97.0, savannah)
+object UsaMidWest extends EarthArea("United States\nMid West", 44 ll -97.0, steppe)
 {
   override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++ LakeMichigan.coastWest |++|
     LinePathLL(UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE,

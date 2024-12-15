@@ -10,21 +10,26 @@ object CanadaCentral extends EarthArea("Canada\n central", 52.37 ll -86.94, taig
   val moosoneeMouth: LatLong = 51.36 ll -80.40
 
   override def polygonLL: PolygonLL = LinePathLL(CanadaSouthWest.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
-    Quebecia.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++| LinePathLL(LakeWinnipeg.redMouth,
-    LakeWinnipeg.winnipegMouth, LakeWinnipeg.bloodveinMouth, LakeWinnipeg.playGreenMouth, LakeWinnipeg.north, LakeWinnipeg.northWest)
+    Quebecia.jamesBayS) ++ LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |+<+| LakeWinnipeg.eastCoast
 }
 
 /** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
 object LakeWinnipeg extends EarthArea("Lake Winnipeg", 52.78 ll -97.83, Lake)
-{ val north: LatLong = 53.86 ll -98.46
-  val playGreenMouth: LatLong = 53.70 ll -97.86
+{ val playGreenMouth: LatLong = 53.70 ll -97.86
   val bloodveinMouth: LatLong = 51.79 ll -96.72
   val winnipegMouth: LatLong = 50.63 ll -96.32
   val redMouth: LatLong = 50.30 ll -96.86
-  val p75: LatLong = 52.16 ll -97.71
 
+  val eastCoast: LinePathLL = LinePathLL(playGreenMouth, bloodveinMouth, winnipegMouth, redMouth)
+
+  val p75: LatLong = 52.16 ll -97.71
+  val grandRapids: LatLong = 53.187 ll -99.256
   val northWest: LatLong = 53.87 ll -98.94
-  override def polygonLL: PolygonLL = PolygonLL(north, playGreenMouth, bloodveinMouth, winnipegMouth, redMouth, p75, northWest)
+  val north: LatLong = 53.86 ll -98.46
+
+  val westCoast: LinePathLL = LinePathLL(redMouth, p75, grandRapids, northWest, north, playGreenMouth)
+
+  override def polygonLL: PolygonLL =  eastCoast |-++-| westCoast
 }
 
 /** Simple graphic for Lake Superior. No dependencies */
@@ -76,9 +81,9 @@ object LakeHuron extends EarthArea("Lake Huron", 44.80 ll -82.4, Lake)
 
   val eastCanadaCoast: LinePathLL = LinePathLL(south, grandBend, pointClarke, saubleBeach, tobermory, owenSound, geogianSouth, east, northEast)
 
-  val pesqueIsle: LatLong = 45.27 ll -83.38
-  val tobicoLagoon: LatLong = 43.67 ll -83.90
   val turnipRock: LatLong = 44.07 ll -82.96
+  val tobicoLagoon: LatLong = 43.67 ll -83.90
+  val pesqueIsle: LatLong = 45.27 ll -83.38
 
   val usCoastSouth: LinePathLL = LinePathLL(south, turnipRock, tobicoLagoon, pesqueIsle)
 

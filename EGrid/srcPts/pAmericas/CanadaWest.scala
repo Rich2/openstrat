@@ -44,7 +44,7 @@ object Nunavut extends EarthArea("Nunavut", 67.00 ll -96.58, tundra)
 
 /** [[polygonLL]] graphical representation for Reindeer Lake. Depends on nothing. */
 object ReindeerLake extends EarthArea("Reindeer\nLake", 66.00 ll -120.25, Lake)
-{  val north: LatLong = 58.136 ll -101.994
+{ val north: LatLong = 58.136 ll -101.994
   val beaver: LatLong = 57.437 ll -102.192
   val southEast: LatLong = 56.359 ll -102.954
   val southWest: LatLong = 56.363 ll -103.056
@@ -108,8 +108,8 @@ object CanadaSouthWest extends EarthArea("Canada\n south west", 55 ll -110, taig
   val manitoba10 = 58.75 ll -93.24
   val nelsonMouth: LatLong = 57.09 ll -92.47
 
-  override def polygonLL: PolygonLL = PolygonLL(CanadaNorthWest.yakut50, GreatSlaveLake.northWest, GreatSlaveLake.p70, GreatSlaveLake.bigIslandEast,
-    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth,
-    LakeWinnipeg.northWest, LakeWinnipeg.p75, LakeWinnipeg.redMouth, montanaNE, w49th, vancouverIslandSouth, vancouverIslandWest, priceIslandSouth,
+  override def polygonLL: PolygonLL = LinePathLL(CanadaNorthWest.yakut50, GreatSlaveLake.northWest, GreatSlaveLake.p70, GreatSlaveLake.bigIslandEast,
+    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth) +<+ LakeWinnipeg.westCoast |++|
+    LinePathLL(montanaNE, w49th, vancouverIslandSouth, vancouverIslandWest, priceIslandSouth,
     kunghitIslandSouth, p50)
 }
