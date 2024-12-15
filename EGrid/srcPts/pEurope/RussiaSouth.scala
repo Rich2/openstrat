@@ -48,7 +48,7 @@ object AzovSea extends EarthArea("AzovSea", 46.13 ll 36.80, sea)
 
 /** [[PolygonLL]] graphic for South Russia, depends on [[AzovSea]] and [[Ukraine]]. */
 object VolgaRegion extends EarthArea("Volga Region", 45.00 ll 42.57, steppe)
-{ override val polygonLL: PolygonLL = LinePathLL(pAsia.RusNorth.p50) +<+ Caspian.volgaCoast |++| LinePathLL(AzovSea.northEast, Baltland.voronezh,
+{ override val polygonLL: PolygonLL = LinePathLL(pAsia.RusNorth.p50) ++< Caspian.volgaCoast |++| LinePathLL(AzovSea.northEast, Baltland.voronezh,
     Baltland.southEast)
 }
 
@@ -63,8 +63,8 @@ object RussiaSouth extends EarthArea("Russia South", 45.00 ll 42.57, steppe)
   val p75: LatLong = 45.11 ll 36.73
   val p77: LatLong = 45.20 ll 36.60
 
-  override val polygonLL: PolygonLL = LinePathLL(AzovSea.northEast) +<+ Caspian.russiaSouthCost ++ LinePathLL(blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72,
-    p75, p77) |+<+| AzovSea.eastCoast.tail
+  override val polygonLL: PolygonLL = LinePathLL(AzovSea.northEast) ++< Caspian.russiaSouthCost ++ LinePathLL(blackSeaE, p60, bzipiMouth, mzymtaMouth, p70, p72,
+    p75, p77) |++<| AzovSea.eastCoast.tail
 }
 
 /** [[PolygonLL]] graphic for Caspian Sea depends on nothing. */

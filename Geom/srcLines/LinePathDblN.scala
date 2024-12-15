@@ -78,7 +78,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
   @targetName("appendTailToPolygon") final override def |+-+|(operand: ThisT): PolygonT = polygonFromArray(appendTailArray(operand.arrayUnsafe))
 
   /** Appends the init (without its first point) of the operand [[LinePathDblN]] of the same type, to the init of this line path closing it off to become a
-   * [[PolygonDblN]] of the matching type. The ++ inidcates to append a sequence. The leading - indicates to take the init of this line path. The trailing -
+   * [[PolygonDblN]] of the matching type. The ++ indicates to append a sequence. The leading - indicates to drop the end point this line path. The trailing -
    * indicates to take the init of the operand. The enclosing '|' characters indicate to close the line path into a polygon. */
   @targetName("initAppendInitToPolygon") final override def |-++-|(operand: ThisT): PolygonT = polygonFromArray(initAppendInitArray(operand.arrayUnsafe))
 
@@ -106,7 +106,7 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     polygonFromArray(newArray)
   }
 
-  @targetName("appendReverse") final override def +<+(operand: ThisT): ThisT =
+  @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT =
   { val newArray = new Array[Double](arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
@@ -120,8 +120,8 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
 
   override def toPolygon: PolygonT = polygonFromArray(arrayUnsafe)
 
-  @targetName("appendReverseToPolygon") final override def |+<+|(operand: ThisT): PolygonT =
-    polygonFromArray((this +<+ operand).arrayUnsafe)
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
+    polygonFromArray((this ++< operand).arrayUnsafe)
 
   @targetName("prependPt") @inline final override def %: (operand: VT): ThisT =
   { val newArray = new Array[Double](arrayLen + elemProdSize)

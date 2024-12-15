@@ -93,7 +93,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     fromArray(newArray)
   }
 
-  @targetName("appendReverse") final override def +<+(operand: ThisT): ThisT = {
+  @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT = {
     val newArray = new Array[Int](arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
@@ -121,8 +121,8 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     polygonFromArray(newArray)
   }
 
-  @targetName("appendReverseToPolygon") final override def |+<+|(operand: ThisT): PolygonT =
-    polygonFromArray((this +<+ operand).arrayUnsafe)
+  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
+    polygonFromArray((this ++< operand).arrayUnsafe)
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with SeqSpecInt2[VT]

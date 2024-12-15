@@ -13,7 +13,7 @@ case object ArticNear extends EarthArea("Artic near", 85 ll 0, ice)
   val north225: LatLong = 89 ll -135
   val north315: LatLong = 89 ll -45
 
-  override val polygonLL: PolygonLL = LinePathLL(north135, north45, south45, south30, south15, south0) +<+ Greenland.northCoast |++| LinePathLL(north315, north225)
+  override val polygonLL: PolygonLL = LinePathLL(north135, north45, south45, south30, south15, south0) ++< Greenland.northCoast |++| LinePathLL(north315, north225)
 }
 
 /** [[polygonLL]] graphical representation of the eastern Artic. Depends on [[ArticNear]]. */
@@ -25,7 +25,7 @@ case object ArticEast extends EarthArea("Artic east", 85 ll 0, ice)
   val south75: LatLong = 81 ll 75
   val south60: LatLong = 81 ll 60
 
-  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north135, south135, south120, south110) +<+ SevernayaZemyla.coast1 +<+ SevernayaZemyla.coast2 |++|
+  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north135, south135, south120, south110) ++< SevernayaZemyla.coast1 ++< SevernayaZemyla.coast2 |++|
     LinePathLL(south90, south75, south60, ArticNear.south45, ArticNear.north45)
 }
 
@@ -46,7 +46,7 @@ case object ArticWest extends EarthArea("Artic west", 85 ll -90, ice)
 { val south255: LatLong = 79 ll 255
 
   import pAmericas.MackenzieIslands
-  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north315, Greenland.naresNorth) +<+ pAmericas.EllesmereIsland.northCoast |++| LinePathLL(south255,
+  override val polygonLL: PolygonLL = LinePathLL(ArticNear.north315, Greenland.naresNorth) ++< pAmericas.EllesmereIsland.northCoast |++| LinePathLL(south255,
     pAmericas.RingnesIslands.ellefNorth, MackenzieIslands.bordenNE, MackenzieIslands.bordenNorth, MackenzieIslands.west, ArticFar.south225, ArticNear.north225)
 }
 

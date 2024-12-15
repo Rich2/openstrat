@@ -18,7 +18,7 @@ object Manchuria extends EarthArea("Manchuria", 58 ll 128, oceanic)
   val hulunbir: LatLong = 49.265 ll 119.752
 
   override val polygonLL = LinePathLL(Yakutia.khabarovsk, udaMouth, khab10, khab15, khab20, p25, p28, khab30, primorsky10, nakhodka, vladivostok,
-    Korea.northEast, Korea.liaoheMouth,jinzhou, Mongolia.southEast, hulunbir) |+<+| LakeBaikal.eastCoast
+    Korea.northEast, Korea.liaoheMouth,jinzhou, Mongolia.southEast, hulunbir) |++<| LakeBaikal.eastCoast
 }
 
 /** [[PolygonLL]] graphic for south east China depends on [[IndoChina]]. */

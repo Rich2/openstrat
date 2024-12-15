@@ -4,7 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] Graphical object for the Lower Penisular of Michigan. Dependant on [[LakeMichigan]], [[LakeHuron]] and [[LakeErie]]. */
 object MicheganLower extends EarthArea("Lower Peninsular", 43.585 ll -84.611, taiga)
-{ override def polygonLL: PolygonLL = LakeMichigan.coastEast +<+ LakeHuron.usCoastSouth |++| LinePathLL(LakeErie.detroitMouth, LakeErie.maumeeMouth)
+{ override def polygonLL: PolygonLL = LakeMichigan.coastEast ++< LakeHuron.usCoastSouth |++| LinePathLL(LakeErie.detroitMouth, LakeErie.maumeeMouth)
 }
 
 /** [[PolygonLL]] Graphical object for the north-east of the United States. Dependent on [[UsaSouth]] [[CanadaSouthEast]], [[LakeMichigan]],
@@ -37,14 +37,14 @@ object UsaNorthEast extends EarthArea("United States\nnorth east", 39.8 ll -85.0
   val covePoint: LatLong = 38.385 ll -76.381
   val littleWicomicaMouth: LatLong = 37.890 ll -76.236
 
-  override def polygonLL: PolygonLL = LakeErie.southCoast ++ LakeOntario.usCoast |++|
+  override def polygonLL: PolygonLL = LakeErie.southCoast.reverse ++ LakeOntario.usCoast |++|
     LinePathLL(NewBrunswick.east, NewBrunswick.maineE, marshallPoint, landsEnd, nahantEast, thacherIsland, deerIsland, scituateNeck, brantRock,
       racePoint, chatham, natucketIsland, sakonnetPoint, quinniapacMouth, pineIsland, plumIsland, montaukPoint, saltaire, stattenS, sandyHookNorth,
       sedgeIslandSouth, barnegat, capeMayPoint, Delmarva.northEast, Delmarva.northWest, fortHoward, covePoint, littleWicomicaMouth,
       UsaSouth.northEast, UsaSouth.northWest, LakeMichigan.south)
 }
 
-/** [[PolygonLL]] Graphical object for the north east of the United States. Dependant on nothing. */
+/** [[PolygonLL]] Graphical object for the north east of the United States. Dependent on nothing. */
 object Delmarva extends EarthArea("Delmarva Peninsula", 38.777 ll -75.233, oceanic)
 { val northEast: LatLong = 39.589 ll -75.599
   val capeHenlopen: LatLong = 38.803 ll -75.092

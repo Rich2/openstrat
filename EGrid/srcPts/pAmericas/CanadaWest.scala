@@ -109,7 +109,7 @@ object CanadaSouthWest extends EarthArea("Canada\n south west", 55 ll -110, taig
   val nelsonMouth: LatLong = 57.09 ll -92.47
 
   override def polygonLL: PolygonLL = LinePathLL(CanadaNorthWest.yakut50, GreatSlaveLake.northWest, GreatSlaveLake.p70, GreatSlaveLake.bigIslandEast,
-    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth) +<+ LakeWinnipeg.westCoast |++|
+    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth) ++< LakeWinnipeg.westCoast |++|
     LinePathLL(montanaNE, w49th, vancouverIslandSouth, vancouverIslandWest, priceIslandSouth,
     kunghitIslandSouth, p50)
 }

@@ -38,7 +38,7 @@ object ColomVenez extends EarthArea("Columbia and\nVenezuela", 0 ll -70.0, tropi
   val p55: LatLong = 0.719 ll -63.146
   val p60: LatLong = 0.257 ll -65.806
 
-  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, Guyana.northWest, Guyana.southWest, p55, p60) |+<+|
+  override val polygonLL: PolygonLL = LinePathLL(caicara, margaritaE, trinidadNE, Guyana.northWest, Guyana.southWest, p55, p60) |++<|
     AndesFarNorth.eastEdgeNorth
 }
 
@@ -72,7 +72,7 @@ object AndesNearNorth extends EarthArea("Andes near north", 5.105 ll -75.212, mt
 
 /** [[polygonLL]] graphical representation for the west of Amazon basin. Dependent on [[AndesFarNorth]], [[ColomVenez]] and [[AndesNearNorth]]. */
 object AmazonWest extends EarthArea("Amazon west", -20 ll -70.0, jungle)
-{ override val polygonLL: PolygonLL = LinePathLL(ColomVenez.p60, ColomVenez.p55, AmazonEast.southWest, AndesNearNorth.p15) |+<+| AndesFarNorth.eastEdgeSouth
+{ override val polygonLL: PolygonLL = LinePathLL(ColomVenez.p60, ColomVenez.p55, AmazonEast.southWest, AndesNearNorth.p15) |++<| AndesFarNorth.eastEdgeSouth
 }
 
 /** [[polygonLL]] graphical representation for the east of the Amazon basin. Dependent on [[ColomVenez]] [[Guyana]]. */

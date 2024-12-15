@@ -41,27 +41,30 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
   /** Prepends a single vertex of type VT. Returns a new extended [[LinePathLike]]. */
   @targetName("prependPt") def %:(operand: VT): ThisT
 
-  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. */
-  @targetName("appendReverse") def +<+(operand: ThisT): ThisT
+  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended [[LinePathLike]]. The < character after the ++ indicates
+   * that is the operand that is being reversed. */
+  @targetName("appendReverse") def ++<(operand: ThisT): ThisT
 
   /** Appends the operand [[LinePathLike]] of this type and closes the path into a [[PolygonLike]] of the matching type. ++ indicates to append a sequence. The
    * enclosing '|' characters indicate to close the line path into a polygon. */
   @targetName("appendToPolygon") def |++|(operand: ThisT): PolygonT
 
   /** Appends the tail (without its first point) of the operand [[LinePathLike]] of this type, closing the path to a [[PolygonLike]] of the matching type. ++
-   *  indicates append a sequence. The trailing - indicates to drop the first point of the operand. The enclosing '|' characters indicate to close the line path
-   *  into a polygon. */
+   *  indicates append a sequence. The - between the + characters indicates to drop the first point of the operand. The enclosing '|' characters indicate to
+   *  close the line path into a polygon. */
   @targetName("appendTailToPolygon") def |+-+|(operand: ThisT): PolygonT
 
   /** Appends the init of another [[LinePathLike]] of this type to the init of this [[LinePathLike]], closing the path to return a [[PolygonLike]] of the
-   * matching type. */
+   * matching type. The - before the ++ indicates to drop the last point of this line path. The - after the ++ indicates to drop the end point of the
+   * operand. */
   @targetName("initAppendInitToPolygon") def |-++-|(operand: ThisT): PolygonT
 
   /** Appends a single vertex of type A. Returns a  [[PolygonLike]]. */
   @targetName("appendVertToPolygon") def |+|[AA >: VT](op: VT): PolygonT
 
-  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended closed [[PolygonLike]]. */
-  @targetName("appendReverseToPolygon") def |+<+|(operand: ThisT): PolygonT
+  /** Appends the reverse vertex order of another [[LinePathLike]] of this type. Returns a new extended closed [[PolygonLike]]. The < after the ++ indicates it
+   * is the operand to be reversed. */
+  @targetName("appendReverseToPolygon") def |++<|(operand: ThisT): PolygonT
 
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
   def toPolygon: PolygonT

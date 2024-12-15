@@ -73,7 +73,7 @@ object BalkansEast extends EarthArea("BalkansEast", 44.0 ll 25.5, hillyCont)
   val p85: LatLong = 40.48 ll 22.82
   val thessalonika: LatLong = 40.65 ll 22.9
 
-  override val polygonLL: PolygonLL = LinePathLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN) +<+
+  override val polygonLL: PolygonLL = LinePathLL(BalkansWest.northEast, odessa, ochakivskeMouth, p10, p12, capekaliakra, p20, burgas, p25, bosphorusN) ++<
     MarmaraSea.northCoast |++| LinePathLL(seddElBahr, p40, p47, p50, p55, p57, p62, p66, p70, p80, p85, thessalonika, Greece.northEast)
 }
 

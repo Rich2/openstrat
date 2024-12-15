@@ -84,11 +84,11 @@ object NewBrunswick extends EarthArea("New/nBrunswick", 47.2 ll -66.93, taiga)
     restigoucheMouth, p60, nepisiguitMouth, miscouNorth, NovaScotia.northWest, NovaScotia.stAndrews, maineE)
 }
 
-/** [[polygonLL]] graphical representation for south east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[Quebecia]]. */
+/** [[polygonLL]] graphical representation for south-east Canada. Depends on [[LakeHuron]], [[LakeOntario]], [[LakeErie]] and [[Quebecia]]. */
 object CanadaSouthEast extends EarthArea("CanadaSouthEast", 46.68 ll -77.21, taiga)
 {
-  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++
-    LinePathLL(Quebecia.jamesBayS, NewBrunswick.east) ++ LakeOntario.canadaCoast |++| LakeErie.eastCanadaCoast
+  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast.reverse ++ LinePathLL(Quebecia.jamesBayS, NewBrunswick.east) ++< LakeOntario.canadaCoast |++<|
+    LakeErie.eastCanadaCoast
 }
 
 /** [[polygonLL]] graphical representation for Newfoundland. Depends on nothing. */

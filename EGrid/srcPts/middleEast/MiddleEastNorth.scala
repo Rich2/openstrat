@@ -59,6 +59,6 @@ object Persia extends EarthArea("Persia", 32.4 ll 60, hillyOce)
   val zeydan: LatLong = 27.88 ll 51.50
 
   import pAsia.Kyrgyyzstan
-  override val polygonLL: PolygonLL = LinePathLL(mahshahr) +<+ pEurope.Caspian.persianCoast |++| LinePathLL(north, Kyrgyyzstan.p65, Kyrgyyzstan.southWest,
+  override val polygonLL: PolygonLL = LinePathLL(mahshahr) ++< pEurope.Caspian.persianCoast |++| LinePathLL(north, Kyrgyyzstan.p65, Kyrgyyzstan.southWest,
     southEast, p40,  kuhmobarak, nwHormuz, hormuzNorth, larak, hengam, queshmSouth, hendorabi, zeydan)
 }
