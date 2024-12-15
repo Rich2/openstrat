@@ -29,7 +29,7 @@ object SwedenNorth extends EarthArea("Sweden North", 67.489 ll 20.872, hillyCont
   val nordskot: LatLong = 67.82 ll 14.70
   val baroya: LatLong = 68.33 ll 16.03
 
-  override val polygonLL: PolygonLL = northSeaCoast ++- barentsCoast |++| LinePathLL(haparanda, balticNW, vegaoyan, p78, bodo, nordskot, baroya,
+  override val polygonLL: PolygonLL = northSeaCoast +-+ barentsCoast |++| LinePathLL(haparanda, balticNW, vegaoyan, p78, bodo, nordskot, baroya,
   )
 }
 
@@ -81,7 +81,7 @@ object KolaPeninsula extends EarthArea("KolaPeninsula", 67.80 ll 36.52, tundra)
   val kandalasaksha: LatLong = 67.13 ll 32.26
   val whiteSeaCaost: LinePathLL = LinePathLL(mayakGorodetsky, ponoyNorth, ponoyEast, sosnovka, mayakNikodimsky, tetrino, olenitsa, umbaWest, luvenga, kandalasaksha)
 
-  override val polygonLL = barentsCoast |++-| whiteSeaCaost
+  override val polygonLL = barentsCoast |+-+| whiteSeaCaost
 }
 
 /** [[polygonLL]] graphical representation of Finland. Depends on [[FinlandNorth]] and [[Baltland]]. */

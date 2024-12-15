@@ -69,7 +69,7 @@ object WeddelSeaIce extends EarthArea("Weddel Sea\nIce", -70 ll -40, SeaIcePerm)
   val ow20: LatLong = -63 ll -20
   val northEast: LatLong = -63 ll AntarticaEast.w12.longDegs
 
-  override val polygonLL: PolygonLL = LinePathLL(northEast, AntarticaEast.w12, AntarticaEast.filchnerNorth, AntarticaEast.filchnerEast) ++<
+  override val polygonLL: PolygonLL = LinePathLL(northEast, AntarticaEast.w12, AntarticaEast.filchnerNorth, AntarticaEast.filchnerEast) +<+
     AntarticaWest.weddelCoast |++| LinePathLL(northWest, ow50, ow40, ow30, ow20)
 }
 

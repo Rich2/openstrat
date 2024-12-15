@@ -65,7 +65,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     newArray
   }
 
-  @targetName("appendTail") override def ++-(operand: ThisT): ThisT =
+  @targetName("appendTail") override def +-+(operand: ThisT): ThisT =
   { val deltaLen: Int = (operand.numVerts - 1).max0
     val newLen = numVerts + deltaLen
     val newArray = new Array[Int](newLen * elemProdSize)
@@ -93,7 +93,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     fromArray(newArray)
   }
 
-  @targetName("appendReverse") final override def ++<(operand: ThisT): ThisT = {
+  @targetName("appendReverse") final override def +<+(operand: ThisT): ThisT = {
     val newArray = new Array[Int](arrayLen + operand.arrayLen)
     arrayUnsafe.copyToArray(newArray)
     val res = fromArray(newArray)
@@ -107,7 +107,7 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
 
   @inline override def toPolygon: PolygonT = polygonFromArray(arrayUnsafe)
   @targetName("appendToPolygon") @inline override def |++|(operand: ThisT): PolygonT = polygonFromArray(arrayUnsafe ++ operand.arrayUnsafe)
-  @targetName("appendTailToPolygon") final override  def |++-|(operand: ThisT): PolygonT = polygonFromArray(appendInitArray(operand.arrayUnsafe))
+  @targetName("appendTailToPolygon") final override  def |+-+|(operand: ThisT): PolygonT = polygonFromArray(appendInitArray(operand.arrayUnsafe))
   @targetName("initAppendInitToPolygon") final override  def |-++-|(operand: ThisT): PolygonT = polygonFromArray(initAppendInitArray(operand.arrayUnsafe))
 
   @targetName("appendVertToPolygon") override def |+|[AA >: VT](op: VT): PolygonT =
@@ -121,8 +121,8 @@ trait LinePathIntN[VT <: IntNElem] extends  Any with LinePathLike[VT] with SeqSp
     polygonFromArray(newArray)
   }
 
-  @targetName("appendReverseToPolygon") final override def |++<|(operand: ThisT): PolygonT =
-    polygonFromArray((this ++< operand).arrayUnsafe)
+  @targetName("appendReverseToPolygon") final override def |+<+|(operand: ThisT): PolygonT =
+    polygonFromArray((this +<+ operand).arrayUnsafe)
 }
 
 trait LinePathInt2[VT <: Int2Elem] extends Any with LinePathIntN[VT] with SeqSpecInt2[VT]

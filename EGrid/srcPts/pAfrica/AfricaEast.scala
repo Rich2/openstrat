@@ -32,7 +32,7 @@ object LakeTanganyika extends EarthArea("Lake\nTanganyika", -6.25 ll 29.57, Lake
 
   val eastCoast: LinePathLL = LinePathLL(south, mahaleSE, muhela, mahaleNE, northEast)
 
-  override def polygonLL: PolygonLL = south %: westCoast.reverse |++<| eastCoast.inner
+  override def polygonLL: PolygonLL = south %: westCoast.reverse |+<+| eastCoast.inner
 }
 
 /** [[PolygonLL]] graphic object for Lake Tanganyika depends on nothing. */

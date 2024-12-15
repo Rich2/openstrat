@@ -40,7 +40,7 @@ object EllesmereIsland extends EarthArea("Ellsesmere Island", 80.24 ll -79.37, m
 
   val northCoast: LinePathLL = LinePathLL(west, p70, p75, p78, p85,north, p5, east)
 
-  override val polygonLL: PolygonLL = LinePathLL(east, p10, p30, southEast, northKentSW, p55, p58, p62, p64) |++-| northCoast
+  override val polygonLL: PolygonLL = LinePathLL(east, p10, p30, southEast, northKentSW, p55, p58, p62, p64) |+-+| northCoast
 }
 
 /** [[polygonLL]] graphical representation for Devon Island. Depends on nothing. */
