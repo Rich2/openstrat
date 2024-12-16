@@ -272,30 +272,32 @@ package object ostrat
   }
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 until the iUntil parameter value in integer steps of 1. Throws on non-termination. Method
-   * name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
+   * name overloaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilFlatMap[AA <: Arr[?]](iUntil: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iUntil){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
   }
 
+  /** Determines if the predicate applies all integers in the range. Returns true if the range integer is negative. */
   def iUntilForall(iUntil: Int)(f: Int => Boolean): Boolean =
-  { if (iUntil < 0) throw excep(s"Loop will not reach $iUntil and terminate with positive step.")
-    var i: Int = 0
-    var res = true
-    while (i < iUntil && res == true) if(f(i)) i += 1 else res = false
-    res
-  }
+    if (iUntil < 0) true
+    else
+    { var i: Int = 0
+      var res = true
+      while (i < iUntil && res == true) if(f(i)) i += 1 else res = false
+      res
+    }
 
-  /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or
-   *  equal to) the end value in integer steps. Default step value is 1. Throws on non termination. */
+  /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or equal to)
+   * the end value in integer steps. Default step value is 1. Throws on non-termination. */
   def iToIntSum(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
   { var acc = accInit
     iToForeach(iFrom, iTo, iStep){ i => acc += f(i) }
     acc
   }
 
-  /** Foreachs over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
+  /** Foreachs over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non-termination. */
   def iLoopToForeach(loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
 
@@ -315,8 +317,9 @@ package object ostrat
     }
   }
 
-  def iLoopToMap[A, AA <: Arr[A]](loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA = {
-    val iLen = (iTo + 1).max(0)
+  /** Maps over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non-termination. */
+  def iLoopToMap[A, AA <: Arr[A]](loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+  { val iLen = (iTo + 1).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
     iLoopToForeach(loopEnd, loopStart)(iFrom, iTo, iStep) { count => ev.indexSet(res, index, f(count)); index += 1 }
@@ -324,36 +327,35 @@ package object ostrat
   }
 
 
-  /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than)
-   *  the end value in integer steps. Default step value is 1. */
+  /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than) the end
+   * value in integer steps. Default step value is 1. */
   def iUntilIntSum(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
   { var acc = accInit
     iUntilForeach(iFrom, iUntil, iStep){ i => acc += f(i) }
     acc
   }
 
-  /** 2 dimensional from-to-step foreach loop. Throws on non termination. */
+  /** 2 dimensional from-to-step foreach loop. Throws on non-termination. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
 
-  /** 2 dimensional from 0-to-step foreach loop. Throws on non termination. */
+  /** 2-dimensional from 0-to-step foreach loop. Throws on non-termination. */
   def ijToForeach(iTo: Int)(jTo: Int)(f: (Int, Int) => Unit): Unit =
     iToForeach(iTo){ i => iToForeach(jTo){ j => f(i, j)}}
 
-  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop.
-   *  The method name is overloaded with a variant that takes single iUntil and jUntil parameters where the loop starts at 0 and has a step of 1. */
+  /** 2-dimensional from-until-step foreach loop. Throws on non-termination. i is the index for the outer loop. j is the index for the inner loop. The method
+   * name is overloaded with a variant that takes single iUntil and jUntil parameters where the loop starts at 0 and has a step of 1. */
   def ijUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iUntilForeach(iFrom, iUntil, iStep){ i => iUntilForeach(jFrom, jUntil, jStep){ j => f(i, j)}}
 
-  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop. The
-   *  method name is overloaded with a variant that takes 3 parameters for the i and j loops.*/
-  def ijUntilForeach(iUntil: Int)(jUntil: Int)(f: (Int, Int) => Unit): Unit =
-    iUntilForeach(iUntil){ i => iUntilForeach(jUntil){ j => f(i, j)}}
+  /** 2-dimensional from-until-step foreach loop. Throws on non-termination. i is the index for the outer loop. j is the index for the inner loop. The method
+   * name is overloaded with a variant that takes 3 parameters for the i and j loops.*/
+  def ijUntilForeach(iUntil: Int)(jUntil: Int)(f: (Int, Int) => Unit): Unit = iUntilForeach(iUntil){ i => iUntilForeach(jUntil){ j => f(i, j)}}
 
-  /** 2 dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
-   * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
-  def ijToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
-                              (implicit ev: BuilderArrMap[A, AA]): AA =
+  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
+   * start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
+  def ijToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit
+    ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
@@ -367,10 +369,9 @@ package object ostrat
     res
   }
 
-  /** 2 dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
-   * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
-  def ijToMap[A, AA <: Arr[A]](iTo: Int)(jTo: Int)(f: (Int, Int) => A)
-                              (implicit ev: BuilderArrMap[A, AA]): AA =
+  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
+   * start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
+  def ijToMap[A, AA <: Arr[A]](iTo: Int)(jTo: Int)(f: (Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
     val jLen = (jTo + 1).max(0)
     val arrLen = iLen * jLen
@@ -384,10 +385,10 @@ package object ostrat
     res
   }
 
-  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
-   * From the start value until (while index is less than) the end value in integer steps. Default step values are 1. */
-  def ijUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
-    implicit ev: BuilderArrMap[A, AA]): AA =
+  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
+   * start value until (while index is less than) the end value in integer steps. Default step values are 1. */
+  def ijUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit
+    ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val jLen = (jUntil - jFrom).max(0) / jStep
     val arrLen = iLen * jLen
@@ -401,10 +402,9 @@ package object ostrat
     res
   }
 
-  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
-   * From the start value until (while index is less than) the end value in integer steps. Default step values are 1. */
-  def ijUntilMap[A, AA <: Arr[A]](iUntil: Int)(jUntil: Int)(f: (Int, Int) => A)(
-    implicit ev: BuilderArrMap[A, AA]): AA =
+  /** 2-dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
+   * start value until (while index is less than) the end value in integer steps. Default step values are 1. */
+  def ijUntilMap[A, AA <: Arr[A]](iUntil: Int)(jUntil: Int)(f: (Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iUntil).max(0)
     val jLen = (jUntil).max(0)
     val arrLen = iLen * jLen
@@ -418,15 +418,15 @@ package object ostrat
     res
   }
 
-  /** 3 dimensional from-to-step foreach loop. Throws on non termination. */
-  def ijkToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
-    (f: (Int, Int, Int) => Unit): Unit =
+  /** 3-dimensional from-to-step foreach loop. Throws on non-termination. */
+  def ijkToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)(
+    f: (Int, Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => iToForeach(kFrom, kTo, kStep){ k => f(i, j, k) } } }
 
-  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
-   * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
+  /** 2-dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A]. From the
+   * start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijkToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
-                               (f: (Int, Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
+    (f: (Int, Int, Int) => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val kLen = (kTo - kFrom + kStep).max(0) / jStep
