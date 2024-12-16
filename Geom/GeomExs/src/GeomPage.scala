@@ -93,7 +93,8 @@ object LinePathNames extends HtmlSection
     HtmlLi("""+-+ appendTail Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters indicates to
     | drop the first point of the operand.""".stripMargin),
 
-    HtmlLi("|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon."),
+    HtmlLi("""|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters indicates
+    | to drop the first point of the operand.""".stripMargin),
 
     HtmlLi("""++< appendReverse Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is the operand
     | that is reversed""".stripMargin),

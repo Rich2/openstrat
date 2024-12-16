@@ -1,8 +1,8 @@
 /* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-/** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
- *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
- *   elements, an Either based errors framework and general utilities. */
+/** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a show and
+ * persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length elements, an Either
+ * based errors framework and general utilities. */
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
   //type EArr[A <: AnyRef] = EMonOld[RArr[A]]  
@@ -129,8 +129,8 @@ package object ostrat
   def readInt: Int = readT[Int]
   def readDouble: Double = readT[Double]
 
-  /** Shortcut method to create [[ArrayBuffer]] with initial values. Buffer or buffer references the standard library's [[ArrayBuffer]] where as buff
-   *  or Buff is used to reference openstrat variable length mutable collection classes. */
+  /** Shortcut method to create [[ArrayBuffer]] with initial values. Buffer or buffer references the standard library's [[ArrayBuffer]] whereas buff or Buff is
+   * used to reference openstrat variable length mutable collection classes. */
   @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp*)
 
   /** Constructs a new [[ArrayBuffer]][A]. */
@@ -172,8 +172,8 @@ package object ostrat
     res
   }
 
-  /** Foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. Method name over loaded
-   * with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
+  /** Foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non-termination. Method name overloaded with a first
+   * parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
     var i: Int = iFrom
@@ -181,34 +181,33 @@ package object ostrat
     else while(i >= iTo) { f(i); i += iStep }
   }
 
-  /** Foreachs over a range of integers from 0 to the given parameter in steps of 1. Throws on non termination. Method name over loaded with a range
-   *  of integers from parameter 1 to parameter 2 in steps of parameter 3. */
+  /** Foreachs over a range of integers from 0 to the given parameter in steps of 1. Throws on non-termination. Method name overloaded with a range of integers
+   * from parameter 1 to parameter 2 in steps of parameter 3. */
   def iToForeach(iTo: Int)(f: Int => Unit): Unit =
   { if (iTo < 0) throw excep("Loop will not terminate with positive step.")
     var i: Int = 0
     while(i <= iTo) { f(i); i += 1 }
   }
 
-  /** Foreachs over a range of integers from parameter 1 until parameter 2 in steps of parameter 3. Throws on non termination. Method name over loaded
-   * with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. Method name over loaded with a first parameter list of a
-   * single iUntil parameter, where iFrom is 0 and iStep is 1. */
+  /** Foreachs over a range of integers from parameter 1 until parameter 2 in steps of parameter 3. Throws on non-termination. Method name overloaded with a
+   * first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. Method name over loaded with a first parameter list of a single iUntil
+   * parameter, where iFrom is 0 and iStep is 1. */
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iStep == 0) throw excep("Loop step can not be 0.")
     var i: Int = iFrom
     while(ife(iStep > 0, i < iUntil, i > iUntil)) { f(i); i += iStep }
   }
 
-  /** Foreachs over a range of integers from 0 until the parameter in steps of 1. Throws on non termination. Method name over loaded with a range
-   *  of integers from parameter 1 until parameter 2 in steps of parameter 3. */
+  /** Foreachs over a range of integers from 0 until the parameter in steps of 1. Throws on non-termination. Method name overloaded with a range of integers
+   * from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilForeach(iUntil: Int)(f: Int => Unit): Unit =
   { if (iUntil < 0) throw excep(s"Loop will not reach $iUntil and terminate with positive step.")
     var i: Int = 0
     while(i < iUntil) { f(i); i += 1 }
   }
 
-  /** Maps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step
-   *  value is 1.Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and
-   *  iStep is 1.  */
+  /** Maps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step value is 1.
+   * Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
@@ -217,8 +216,8 @@ package object ostrat
     res
   }
 
-  /** Maps over a range of Ints returning a [[Arr]][A]. From 0 to to the iTo value in steps of 1. Throws on non termination. Method name over
-   *  loaded with a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
+  /** Maps over a range of Ints returning a [[Arr]][A]. From 0 to to the iTo value in steps of 1. Throws on non-termination. Method name overloaded with a range
+   * of integers from parameter 1 to parameter 2 in steps of parameter 3. */
   def iToMap[A, AA <: Arr[A]](iTo: Int)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
     val res: AA = ev.uninitialised(iLen)
@@ -227,8 +226,8 @@ package object ostrat
     res
   }
 
-  /** Maps a range of Ints returning a [[Arr]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws
-   *  on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
+  /** Maps a range of Ints returning a [[Arr]][A]. From the iFrom value until the iUntil value in steps of iStep. Default step value is 1. Throws on
+   * non-termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
@@ -237,8 +236,8 @@ package object ostrat
     res
   }
 
-  /** Maps a range of Ints to returning a [[Arr]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non termination. Method
-   *  name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
+  /** Maps a range of Ints to returning a [[Arr]][A]. From 0 until the iUntil parameter value in steps of 1. Throws on non-termination. Method name overloaded
+   * with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilMap[A, AA <: Arr[A]](iUntil: Int)(f: Int => A)(implicit ev: BuilderArrMap[A, AA]): AA =
   { val iLen = (iUntil).max(0)
     val res: AA = ev.uninitialised(iLen)
@@ -247,34 +246,33 @@ package object ostrat
     res
   }
 
-  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in steps of iStep parameter.
-   *  Default step value is 1. Throws on non termination. Method name over loaded with a first parameter list of a single iTo parameter, where iFrom
-   *  is 0 and iStep is 1. */
+  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in steps of iStep parameter. Default step
+   * value is 1. Throws on non termination. Method name over loaded with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
   def iToFlatMap[AA <: Arr[?]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
   }
 
-  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 to the iTo parameter value steps of 1. Throws on non termination.Method name
-   *  over loaded with a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
+  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 to the iTo parameter value steps of 1. Throws on non-termination.Method name overloaded with
+   * a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
   def iToFlatMap[AA <: Arr[?]](iTo: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iTo){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
   }
 
-  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value until the iUntil paraemter value in integer steps of
-   * iStep. Default step value is 1. Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter,
-   * where iFrom is 0 and iStep is 1. */
+  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value until the iUntil paraemter value in integer steps of iStep. Default
+   * step value is 1. Throws on non-termination. Method name overloaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is
+   * 1. */
   def iUntilFlatMap[AA <: Arr[?]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iFrom, iUntil, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToSeqLike(buff)
   }
 
-  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 until the iUntil parameter value in integer steps of 1. Throws on non
-   *  termination. Method name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
+  /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 until the iUntil parameter value in integer steps of 1. Throws on non-termination. Method
+   * name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilFlatMap[AA <: Arr[?]](iUntil: Int)(f: Int => AA)(implicit ev: BuilderArrFlat[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iUntil){ i => ev.buffGrowArr(buff, f(i)) }
