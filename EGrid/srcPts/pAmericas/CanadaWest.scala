@@ -2,6 +2,19 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
+/** [[polygonLL]] graphical representation for north west Canada. Depends on [[AlaskaNorth]]. */
+object CanadaNorthWest extends EarthArea("Canada\n north west", 64.051 ll -129.98, taiga) {
+  val yakut50: LatLong = 60 ll -139.60
+  val yakut10: LatLong = 68.90 ll -136.53
+  val inuvik10: LatLong = 70.56 ll -128.00
+  val nunavut10: LatLong = 69.00 ll -115.80
+  val raeMouth: LatLong = 67.92 ll -115.34
+  val hudsonBay60W: LatLong = 60 ll -94.82
+
+  override def polygonLL: PolygonLL = PolygonLL(yakut50, AlaskaSouth.p5, AlaskaNorth.southEast, AlaskaNorth.northEast, yakut10, inuvik10, nunavut10, raeMouth, Nunavut.northWest,
+    Nunavut.rockHouseIsland, hudsonBay60W, GreatSlaveLake.east, GreatSlaveLake.north, GreatSlaveLake.p80, GreatSlaveLake.northWest, CanadaRockies.northEast)
+}
+
 /** [[polygonLL]] graphical representation for nunavut territory Canada. Depends on Nothing. */
 object Nunavut extends EarthArea("Nunavut", 67.00 ll -96.58, tundra)
 { val northWest = 68.27 ll -108.77
@@ -81,35 +94,29 @@ object GreatSlaveLake extends EarthArea("Great Slave\nLake", 61.66 ll -113.83, L
   override def polygonLL: PolygonLL = PolygonLL(north, east, south, bigIslandEast, p70, northWest, p80)
 }
 
-  /** [[polygonLL]] graphical representation for north west Canada. Depends on [[AlaskaNorth]]. */
-object CanadaNorthWest extends EarthArea("Canada\n north west", 64.051 ll -129.98, taiga)
-{ val yakut50: LatLong = 60 ll -139.60
-  val yakut10: LatLong = 68.90 ll -136.53
-  val inuvik10: LatLong = 70.56 ll -128.00
-  val nunavut10: LatLong = 69.00 ll -115.80
-  val raeMouth: LatLong = 67.92 ll -115.34
-  val hudsonBay60W: LatLong = 60 ll -94.82
-
-  override def polygonLL: PolygonLL = PolygonLL(yakut50, AlaskaSouth.p5, AlaskaNorth.southEast, AlaskaNorth.northEast, yakut10, inuvik10, nunavut10, raeMouth, Nunavut.northWest,
-    Nunavut.rockHouseIsland, hudsonBay60W, GreatSlaveLake.east, GreatSlaveLake.north, GreatSlaveLake.p80, GreatSlaveLake.northWest)
-}
-
-object CanadaSouthWest extends EarthArea("Canada\n south west", 55 ll -110, taiga)
-{ val montanaNE: LatLong = 49 ll -104
+object CanadaRockies extends EarthArea("Canada Rockies", 54.479 ll -124.778, mtainOceForest)
+{ val northEast: LatLong = 60 ll -123.802
+  val southEast: LatLong = 49 ll -113.474
   val w49th: LatLong = 49 ll -122.754
   val vancouverIslandSouth: LatLong = 48.310 ll -123.563
   val vancouverIslandWest: LatLong = 50.776 ll -128.428
   val priceIslandSouth: LatLong = 52.290 ll -128.677
   val kunghitIslandSouth: LatLong = 51.944 ll -131.027
   val p50: LatLong = 54.71 ll -132.81
+
+  override def polygonLL: PolygonLL = PolygonLL(northEast, southEast, w49th, vancouverIslandSouth, vancouverIslandWest, priceIslandSouth,  kunghitIslandSouth,
+    p50, CanadaNorthWest.yakut50)
+}
+
+object CanadaSouthWest extends EarthArea("Canada\n south west", 55 ll -110, taiga)
+{ val montanaNE: LatLong = 49 ll -104
   val eggIsland : LatLong= 59.91 ll -94.85
 
   val churchillMouth = 58.79 ll -94.20
   val manitoba10 = 58.75 ll -93.24
   val nelsonMouth: LatLong = 57.09 ll -92.47
 
-  override def polygonLL: PolygonLL = LinePathLL(CanadaNorthWest.yakut50, GreatSlaveLake.northWest, GreatSlaveLake.p70, GreatSlaveLake.bigIslandEast,
-    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth) ++< LakeWinnipeg.westCoast |++|
-    LinePathLL(montanaNE, w49th, vancouverIslandSouth, vancouverIslandWest, priceIslandSouth,
-    kunghitIslandSouth, p50)
+  override def polygonLL: PolygonLL = LinePathLL(GreatSlaveLake.northWest, GreatSlaveLake.p70, GreatSlaveLake.bigIslandEast,
+    GreatSlaveLake.south, GreatSlaveLake.east, CanadaNorthWest.hudsonBay60W,  eggIsland, churchillMouth, manitoba10, nelsonMouth) ++< LakeWinnipeg.westCoast |++|
+    LinePathLL(montanaNE, CanadaRockies.southEast, CanadaRockies.northEast)
 }

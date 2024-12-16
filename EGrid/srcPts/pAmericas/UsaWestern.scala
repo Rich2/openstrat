@@ -24,8 +24,7 @@ object UsaNorthWest extends EarthArea("United States\nnorth west", 45.5 ll -108.
   val capeGeorge: LatLong = 48.104 ll -122.885
 
   override def polygonLL: PolygonLL = PolygonLL(CanadaSouthWest.montanaNE, montanaSE, wyomingNE, wyomingSE, wyomingSW, idahoSE, oregonSW,
-    capeBlanco, columbiiaMouthNorth, neahBay, capeGeorge, CanadaSouthWest.w49th,
-  )
+    capeBlanco, columbiiaMouthNorth, neahBay, capeGeorge, CanadaRockies.w49th, CanadaRockies.southEast)
 }
 
 /** [[PolygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],

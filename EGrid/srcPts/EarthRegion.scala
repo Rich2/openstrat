@@ -87,8 +87,8 @@ object Canada extends EarthRegion("Canada", 61 ll -109)
   val ensenada: LatLong = 31.74 ll -116.73
   val greatLakes: RArr[EarthArea] = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
 
-  override val a2Arr: RArr[EarthArea] = greatLakes ++ RArr(CanadaNorthWest, CanadaNorthWest, GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut, CanadaSouthWest,
-    ReindeerLake, CanadaCentral, CanadaSouthEast, NewBrunswick, NovaScotia,  Quebecia,NewFoundland, Ungava)
+  override val a2Arr: RArr[EarthArea] = greatLakes ++ RArr(CanadaNorthWest, CanadaNorthWest, GreatBearLake, GreatSlaveLake, LakeWinnipeg, Nunavut,
+    CanadaRockies, CanadaSouthWest, ReindeerLake, CanadaCentral, CanadaSouthEast, NewBrunswick, NovaScotia,  Quebecia,NewFoundland, Ungava)
 }
 
 object AmericasNearNorth extends EarthRegion("North America", 49 ll -100)
