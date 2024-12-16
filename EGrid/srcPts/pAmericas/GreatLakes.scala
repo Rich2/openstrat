@@ -9,7 +9,7 @@ object CanadaCentral extends EarthArea("Canada\n central", 52.37 ll -86.94, taig
   val attapiskatMouth: LatLong = 52.97 ll -82.26
   val moosoneeMouth: LatLong = 51.36 ll -80.40
 
-  override def polygonLL: PolygonLL = LinePathLL(CanadaSouthWest.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
+  override def polygonLL: PolygonLL = LinePathLL(Manitoba.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
     Quebecia.jamesBayS) ++< LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++<| LakeWinnipeg.eastCoast
 }
 

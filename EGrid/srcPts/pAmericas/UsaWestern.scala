@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[PolygonLL]] Graphical object for the northwest of the United States. Dependant on [[CanadaSouthWest]]. */
+/** [[PolygonLL]] Graphical object for the northwest of the United States. Dependant on [[AlbertaSask]]. */
 object UsaNorthWest extends EarthArea("United States\nnorth west", 45.5 ll -108.0, hillySahel)
 { val montanaEast: Longitude = 104.04.west
   val wyomingNorth: Latitude = 45.north
@@ -23,17 +23,17 @@ object UsaNorthWest extends EarthArea("United States\nnorth west", 45.5 ll -108.
   val neahBay: LatLong = 48.37 ll -124.67
   val capeGeorge: LatLong = 48.104 ll -122.885
 
-  override def polygonLL: PolygonLL = PolygonLL(CanadaSouthWest.montanaNE, montanaSE, wyomingNE, wyomingSE, wyomingSW, idahoSE, oregonSW,
+  override def polygonLL: PolygonLL = PolygonLL(AlbertaSask.montanaNE, montanaSE, wyomingNE, wyomingSE, wyomingSW, idahoSE, oregonSW,
     capeBlanco, columbiiaMouthNorth, neahBay, capeGeorge, CanadaRockies.w49th, CanadaRockies.southEast)
 }
 
-/** [[PolygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[CanadaSouthWest]], [[LakeWinnipeg]],
+/** [[PolygonLL]] Graphical object for the mid United States. Dependant on [[UsaNorthWest]], [[UsaSouthWest]], [[AlbertaSask]], [[LakeWinnipeg]],
  * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
 object UsaMidWest extends EarthArea("United States\nMid West", 44 ll -97.0, steppe)
 {
   override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++ LakeMichigan.coastWest |++|
     LinePathLL(UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE,
-      CanadaSouthWest.montanaNE, LakeWinnipeg.redMouth)
+      AlbertaSask.montanaNE, LakeWinnipeg.redMouth)
 }
 
 /** [[PolygonLL]] graphical object for the southwest of the United States. Dependant on [[CanadaNorthhWest]] and [[Baja]]. */
