@@ -154,6 +154,21 @@ trait LinePathDblN[VT <: DblNElem] extends  Any with LinePathLike[VT] with SeqSp
     Array.copy(operand.arrayUnsafe, 0, newArray, arrayLen, operand.arrayLen)
     res
   }
+
+  @targetName("reverseAppendReverse") final override def +<+<(operand: ThisT): ThisT =
+  { val newArray = new Array[Double](arrayLen + operand.arrayLen)
+    val res = fromArray(newArray)
+    var i = 0
+    ssReverseForeach { vt =>
+      res.setElemUnsafe(i, vt)
+      i += 1
+    }
+    operand.ssReverseForeach { vt =>
+      res.setElemUnsafe(i, vt)
+      i += 1
+    }
+    res
+  }
 }
 
 trait LinePathDbl2[VT <: Dbl2Elem] extends Any with LinePathDblN[VT] with SeqSpecDbl2[VT]

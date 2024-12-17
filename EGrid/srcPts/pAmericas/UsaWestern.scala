@@ -31,9 +31,9 @@ object UsaNorthWest extends EarthPoly("United States\nnorth west", 45.5 ll -108.
  * [[CanadaCentral]],  [[LakeSuperior]] and [[UsaNorthEast]]. */
 object UsaMidWest extends EarthPoly("United States\nMid West", 44 ll -97.0, steppe)
 {
-  override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++ LakeMichigan.coastWest |++|
-    LinePathLL(UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE,
-      AlbertaSask.montanaNE, LakeWinnipeg.redMouth)
+  override def polygonLL: PolygonLL = LakeSuperior.southCoast.reverse +% LakeHuron.pineMouth ++< LakeMichigan.coastWest |++| LinePathLL(
+    UsaPrariesSouth.northEast, UsaSouthWest.kansasNW, UsaNorthWest.wyomingSE, UsaNorthWest.wyomingNE, UsaNorthWest.montanaSE, AlbertaSask.montanaNE,
+    LakeWinnipeg.redMouth)
 }
 
 /** [[PolygonLL]] graphical object for the southwest of the United States. Dependant on [[CanadaNorthhWest]] and [[Baja]]. */

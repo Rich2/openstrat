@@ -1,4 +1,4 @@
-/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-24 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
@@ -107,21 +107,19 @@ object LakeOntario extends EarthPoly("Lake Ontario", 43.65 ll -77.84, Lake)
 
 /** [[PolygonLL]] graphical representation for Lake Michigan. Depends on nothing. */
 object LakeMichigan extends EarthPoly("Lake Michigan", 43.82 ll -87.1, Lake)
-{ val mouthNorth: LatLong = 45.84 ll -84.75
-  val north: LatLong = 46.10 ll -85.42
-  val northWest: LatLong = 45.91 ll -86.97
-  val west: LatLong = 43.04 ll -87.89
-  val chicagoMouth: LatLong = 41.888 ll -87.612
-  val south: LatLong = 41.62 ll -87.25
-
-  val coastWest: LinePathLL = LinePathLL(mouthNorth, north, northWest, west, chicagoMouth, south)
-
-  val bridgeman: LatLong = 41.946 ll -86.578
-  val macatawaMouth: LatLong = 42.773 ll -86.212
+{ val mouthSouth: LatLong = 45.78 ll -84.75
   val pointBetsie: LatLong = 44.69 ll -86.26
-  val mouthSouth: LatLong = 45.78 ll -84.75
+  val macatawaMouth: LatLong = 42.773 ll -86.212
+  val bridgeman: LatLong = 41.946 ll -86.578
+  val south: LatLong = 41.62 ll -87.25
+  val coastEast: LinePathLL = LinePathLL(mouthSouth, pointBetsie, macatawaMouth, bridgeman, south)
 
-  val coastEast: LinePathLL = LinePathLL(south, bridgeman, macatawaMouth, pointBetsie, mouthSouth)
+  val chicagoMouth: LatLong = 41.888 ll -87.612
+  val west: LatLong = 43.04 ll -87.89
+  val northWest: LatLong = 45.91 ll -86.97
+  val north: LatLong = 46.10 ll -85.42
+  val mouthNorth: LatLong = 45.84 ll -84.75
+  val coastWest: LinePathLL = LinePathLL(south, chicagoMouth, west, northWest, north, mouthNorth)
 
-  override def polygonLL: PolygonLL = coastEast.reverse |++<| coastWest
+  override def polygonLL: PolygonLL = coastEast |++| coastWest
 }

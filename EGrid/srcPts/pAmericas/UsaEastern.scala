@@ -4,7 +4,7 @@ import geom._, pglobe._, egrid._, WTiles._
 
 /** [[PolygonLL]] Graphical object for the Lower Penisular of Michigan. Dependant on [[LakeMichigan]], [[LakeHuron]] and [[LakeErie]]. */
 object MicheganLower extends EarthPoly("Lower Peninsular", 43.585 ll -84.611, taiga)
-{ override def polygonLL: PolygonLL = LakeMichigan.coastEast ++< LakeHuron.usCoastSouth |++| LinePathLL(LakeErie.detroitMouth, LakeErie.maumeeMouth)
+{ override def polygonLL: PolygonLL = LakeMichigan.coastEast +<+< LakeHuron.usCoastSouth |++| LinePathLL(LakeErie.detroitMouth, LakeErie.maumeeMouth)
 }
 
 /** [[PolygonLL]] Graphical object for the north-east of the United States. Dependent on [[UsaSouth]] [[CanadaSouthEast]], [[LakeMichigan]],
