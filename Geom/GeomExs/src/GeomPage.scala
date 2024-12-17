@@ -76,30 +76,36 @@ object LinePathNames extends HtmlSection
   val p1 = HtmlP("Operator naming conventions for sequences and line paths.")
 
   val list = HtmlUl(
-    HtmlLi("""++ append This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example intArr1 ++
-    | intArr2 returns a new IntArr. For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal].""".stripMargin),
+  HtmlLi("""++ append This is a standard scala operator name for appending the adding the operand sequence to the end of this sequence. Example intArr1 ++
+  | intArr2 returns a new IntArr. For the RArr class type widening is allowed. So catsRArr ++ dogsRArr might return a new RArr[Animal].""".stripMargin),
 
-    HtmlLi("++ append Add the operand line path to the end of this line path returning a new line path."),
-    HtmlLi("++ append Add the operand line path to this line path returning a new line path."),
-    HtmlLi("|++| appendToPolygon Adds a line path to the end of this line path and closes it into a Polygon."),
+  HtmlLi("++ append Add the operand line path to the end of this line path returning a new line path."),
+  HtmlLi("++ append Add the operand line path to this line path returning a new line path."),
+  HtmlLi("|++| appendToPolygon Adds a line path to the end of this line path and closes it into a Polygon."),
 
-    HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because of left
-    | right operator precedence, it makes for better combination with the append element method""".stripMargin),
+  HtmlLi("""%: prepend This is a non standard scala operator name for prepending an element to a sequence The '%' character has been chosen because of left
+  | right operator precedence, it makes for better combination with the append element method""".stripMargin),
 
-    HtmlLi("%: prependPt Adds a point to the beginning of a line path, returning a new line path"),
-    HtmlLi("+% appendElem Adds an element to the end of this sequence. returning a new sequence."),
-    HtmlLi("+% appendPt Adds an point to the end of this line path."),
+  HtmlLi("%: prependPt Adds a point to the beginning of a line path, returning a new line path"),
+  HtmlLi("+% appendElem Adds an element to the end of this sequence. returning a new sequence."),
+  HtmlLi("+% appendPt Adds an point to the end of this line path."),
 
-    HtmlLi("""+-+ appendTail Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters indicates to
-    | drop the first point of the operand.""".stripMargin),
+  HtmlLi("""+-+ appendTail Add the tail of the operand to the end of this line path returning a new line path. The - between the + characters indicates to drop
+  | the first point of the operand.""".stripMargin),
 
-    HtmlLi("""|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters indicates
-    | to drop the first point of the operand.""".stripMargin),
+  HtmlLi("""|+-+| appendTailToPolygon Add the tail of the operand to the end of this line path closing to a polygon. The - between the + characters indicates to
+  | drop the first point of the operand.""".stripMargin),
 
-    HtmlLi("""++< appendReverse Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is the operand
-    | that is reversed""".stripMargin),
+  HtmlLi("""++< appendReverse Append the reverse of a line path to a line path returning a new line path. The < after the ++ indicates that it is the operand
+  | that is reversed""".stripMargin),
 
-    HtmlLi("""|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon. The < charcter after the ++ indicates
-    | that it is the operand to be reversed.""".stripMargin),
+  HtmlLi("""|++<| appendReverseToPolygon Append the reverse of a line path to a line path closing it into a polygon. The < charcter after the ++ indicates that
+  | it is the operand to be reversed.""".stripMargin),
+
+  HtmlLi("""+<+ reverseAppend Reverse this line path and append the operand line path, returning a new line path. The < between the + characters indicates that
+  | it is this line segement that is reversed""".stripMargin),
+
+  HtmlLi("""|+<+| reverseAppendToPolygon Reverse this line path and then append the operand line path, closing it into a polygon. The < character between the +
+  | characters indicates that it is this the first line path that is reversed.""".stripMargin),
   )
 }

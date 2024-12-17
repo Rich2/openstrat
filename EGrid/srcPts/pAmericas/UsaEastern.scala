@@ -37,7 +37,7 @@ object UsaNorthEast extends EarthPoly("United States\nnorth east", 39.8 ll -85.0
   val covePoint: LatLong = 38.385 ll -76.381
   val littleWicomicaMouth: LatLong = 37.890 ll -76.236
 
-  override def polygonLL: PolygonLL = LakeErie.southCoast.reverse ++ LakeOntario.usCoast |++|
+  override def polygonLL: PolygonLL = LakeErie.southCoast.reverse ++< LakeOntario.usCoast |++|
     LinePathLL(NewBrunswick.east, NewBrunswick.maineE, marshallPoint, landsEnd, nahantEast, thacherIsland, deerIsland, scituateNeck, brantRock,
       racePoint, chatham, natucketIsland, sakonnetPoint, quinniapacMouth, pineIsland, plumIsland, montaukPoint, saltaire, stattenS, sandyHookNorth,
       sedgeIslandSouth, barnegat, capeMayPoint, Delmarva.northEast, Delmarva.northWest, fortHoward, covePoint, littleWicomicaMouth,

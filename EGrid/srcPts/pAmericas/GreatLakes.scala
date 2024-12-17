@@ -41,7 +41,7 @@ object LakeSuperior extends EarthPoly("Lake Superior", 47.5 ll -88, Lake)
   override def polygonLL: PolygonLL = northCoast |-++-| southCoast
 }
 
-/** Graphical display for Lake Huron. No dependencies. */
+/** [[PolygonLL]] graphical representation for Lake Huron. Depends on nothing. */
 object LakeHuron extends EarthPoly("Lake Huron", 44.80 ll -82.4, Lake)
 { val pineMouth: LatLong = 46.05 ll -84.66
   val borderNorth: LatLong = 45.91 ll -83.50
@@ -68,7 +68,7 @@ object LakeHuron extends EarthPoly("Lake Huron", 44.80 ll -82.4, Lake)
   override def polygonLL: PolygonLL = usCoastSouth ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++ centralCanadaCoast |-++-| eastCanadaCoast
 }
 
-/** Graphical display for Lake Erie. No dependencies. */
+/** [[PolygonLL]] graphical representation for Lake Erie. Depends on nothing. */
 object LakeErie extends EarthPoly("Lake Erie", 42.24 ll -81.03, Lake)
 { val detroitMouth: LatLong = 42.05 ll -83.15
   val theTip: LatLong = 41.90 ll -82.50
@@ -86,27 +86,26 @@ object LakeErie extends EarthPoly("Lake Erie", 42.24 ll -81.03, Lake)
 
   override def polygonLL: PolygonLL = eastCanadaCoast |+-+| southCoast
 }
-/** Graphical display for Lake Ontario. No dependencies. */
+
+/** [[PolygonLL]] graphical representation for Lake Ontario. Depends on nothing. */
 object LakeOntario extends EarthPoly("Lake Ontario", 43.65 ll -77.84, Lake)
 { val wolfeSW: LatLong = 44.10 ll -76.44
-  val northEast: LatLong = 44.20 ll -76.51
+  val tibbettsPoint = 44.10 ll -76.37
+  val southEast: LatLong = 43.53 ll -76.22
   val irondequoitMout = 43.236 ll -77.534
-  val frenchmansBay: LatLong = 43.81 ll -79.09
-  val southWest: LatLong = 43.30 ll -79.82
   val niagraMouth: LatLong = 43.26 ll -79.07
+  val usCoast: LinePathLL = LinePathLL(wolfeSW, tibbettsPoint, southEast, irondequoitMout, niagraMouth)
+
+  val southWest: LatLong = 43.30 ll -79.82
+  val frenchmansBay: LatLong = 43.81 ll -79.09
+  val northEast: LatLong = 44.20 ll -76.51
 
   val canadaCoast: LinePathLL = LinePathLL(niagraMouth, southWest, frenchmansBay, northEast, wolfeSW)
-   // LinePathLL(wolfeSW, northEast, frenchmansBay, southWest, niagraMouth)
 
-  val southEast: LatLong = 43.53 ll -76.22
-  val tibbettsPoint =  44.10 ll -76.37
-
-  val usCoast: LinePathLL = LinePathLL(niagraMouth, irondequoitMout, southEast, tibbettsPoint, wolfeSW)
-
-  override def polygonLL: PolygonLL = canadaCoast |++<| usCoast.inner
+  override def polygonLL: PolygonLL = usCoast |-++-| canadaCoast
 }
 
-/** Graphical display for Lake Michigan. No dependencies. */
+/** [[PolygonLL]] graphical representation for Lake Michigan. Depends on nothing. */
 object LakeMichigan extends EarthPoly("Lake Michigan", 43.82 ll -87.1, Lake)
 { val mouthNorth: LatLong = 45.84 ll -84.75
   val north: LatLong = 46.10 ll -85.42
