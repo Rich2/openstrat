@@ -66,9 +66,12 @@ trait LinePathLike[VT] extends Any with SeqSpec[VT]
    * is the operand to be reversed. */
   @targetName("appendReverseToPolygon") def |++<|(operand: ThisT): PolygonT
 
-  @targetName("reverseAppend") def +<+(operand: ThisT): ThisT = ???
+  /** Reverses this line path and then appends the operand. The < character between the + characters indicates that it this line path that is reversed. */
+  @targetName("reverseAppend") def +<+(operand: ThisT): ThisT
 
-  @targetName("reverseAppendToPolygon") def |+<+|(operand: ThisT): PolygonT = ???
+  /** Reverses this line path, appends the operand line path and then closes to a polygon. The < character between the + characters indicates that it this line
+   * path that is reversed. */
+  @targetName("reverseAppendToPolygon") def |+<+|(operand: ThisT): PolygonT
 
   /** Closes this [[LinePathLike]] into a [[PolygonLike]] by adding a [[LineSegLike]] from the last vertex to the first. */
   def toPolygon: PolygonT

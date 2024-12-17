@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, egrid._, WTiles._
 
-/** [[polygonLL]] graphical representation for central Canada. Depends on [[Quebecia]]. */
+/** [[PolygonLL]] graphical representation for central Canada. Depends on [[Quebec]]. */
 object CanadaCentral extends EarthPoly("Canada\n central", 52.37 ll -86.94, taiga)
 { val manitoba20: LatLong = 57.26 ll -90.89
   val jamesBayNW: LatLong = 55.07 ll -82.31
@@ -13,26 +13,7 @@ object CanadaCentral extends EarthPoly("Canada\n central", 52.37 ll -86.94, taig
     Quebecia.jamesBayS) ++< LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++<| LakeWinnipeg.eastCoast
 }
 
-/** [[polygonLL]] graphical representation for Great Bear Lake. Depends on nothing. */
-object LakeWinnipeg extends EarthPoly("Lake Winnipeg", 52.78 ll -97.83, Lake)
-{ val playGreenMouth: LatLong = 53.70 ll -97.86
-  val bloodveinMouth: LatLong = 51.79 ll -96.72
-  val winnipegMouth: LatLong = 50.63 ll -96.32
-  val redMouth: LatLong = 50.30 ll -96.86
-
-  val eastCoast: LinePathLL = LinePathLL(playGreenMouth, bloodveinMouth, winnipegMouth, redMouth)
-
-  val p75: LatLong = 52.16 ll -97.71
-  val grandRapids: LatLong = 53.187 ll -99.256
-  val northWest: LatLong = 53.87 ll -98.94
-  val north: LatLong = 53.86 ll -98.46
-
-  val westCoast: LinePathLL = LinePathLL(redMouth, p75, grandRapids, northWest, north, playGreenMouth)
-
-  override def polygonLL: PolygonLL =  eastCoast |-++-| westCoast
-}
-
-/** Simple graphic for Lake Superior. No dependencies */
+/** [[PolygonLL]] graphical representation for Lake Superior. Depends on nothing. */
 object LakeSuperior extends EarthPoly("Lake Superior", 47.5 ll -88, Lake)
 { val east: LatLong = 46.52 ll -84.61
   val grandMarais = 47.748 ll -90.347
@@ -77,13 +58,11 @@ object LakeHuron extends EarthPoly("Lake Huron", 44.80 ll -82.4, Lake)
   val pointClarke: LatLong = 44.073 ll -81.758
   val grandBend: LatLong = 43.313 ll -81.766
   val south: LatLong = 43.00 ll -82.42
-
   val eastCanadaCoast: LinePathLL = LinePathLL(northEast, east, geogianSouth, owenSound, tobermory, saubleBeach,pointClarke, grandBend, south)
 
   val turnipRock: LatLong = 44.07 ll -82.96
   val tobicoLagoon: LatLong = 43.67 ll -83.90
   val pesqueIsle: LatLong = 45.27 ll -83.38
-
   val usCoastSouth: LinePathLL = LinePathLL(south, turnipRock, tobicoLagoon, pesqueIsle)
 
   override def polygonLL: PolygonLL = usCoastSouth ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++ centralCanadaCoast |-++-| eastCanadaCoast
