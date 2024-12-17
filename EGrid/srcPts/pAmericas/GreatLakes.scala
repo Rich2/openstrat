@@ -9,8 +9,8 @@ object CanadaCentral extends EarthPoly("Canada\n central", 52.37 ll -86.94, taig
   val attapiskatMouth: LatLong = 52.97 ll -82.26
   val moosoneeMouth: LatLong = 51.36 ll -80.40
 
-  override def polygonLL: PolygonLL = LinePathLL(Manitoba.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth,
-    Quebecia.jamesBayS) ++< LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++<| LakeWinnipeg.eastCoast
+  override def polygonLL: PolygonLL = LinePathLL(Manitoba.nelsonMouth, manitoba20, jamesBayNW, attapiskatMouth, moosoneeMouth, Quebecia.jamesBayS) ++<
+    LakeHuron.centralCanadaCoast ++ LakeSuperior.northCoast.reverse |++<| LakeWinnipeg.eastCoast
 }
 
 /** [[PolygonLL]] graphical representation for Lake Superior. Depends on nothing. */
@@ -99,7 +99,6 @@ object LakeOntario extends EarthPoly("Lake Ontario", 43.65 ll -77.84, Lake)
   val southWest: LatLong = 43.30 ll -79.82
   val frenchmansBay: LatLong = 43.81 ll -79.09
   val northEast: LatLong = 44.20 ll -76.51
-
   val canadaCoast: LinePathLL = LinePathLL(niagraMouth, southWest, frenchmansBay, northEast, wolfeSW)
 
   override def polygonLL: PolygonLL = usCoast |-++-| canadaCoast
